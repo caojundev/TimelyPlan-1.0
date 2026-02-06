@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  TimelyPlan
+
+  Created by caojun on 2025/1/19.
+  
+*/
+
+"CFBundleDisplayName" = "准点计划";
+"NSCalendarsUsageDescription" = "我们需要访问您的日历以同步事件";

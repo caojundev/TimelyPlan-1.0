@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  TimelyPlan
+
+  Created by caojun on 2025/1/19.
+  
+*/
+
+/// 次数
+"Time(count)" = "Time";
+"Times(count)" = "Times";
+"time(count)" = "time";
+"times(count)" = "times";

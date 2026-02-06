@@ -1,0 +1,742 @@
+/* 
+  Localizable.strings
+  TimelyPlan
+
+  Created by caojun on 2025/1/19.
+  
+*/
+
+///**************************侧边栏**************************///
+"My Day" = "我的一天";
+"Todo" = "待办";
+"Four Quadrants" = "四象限";
+"Calendar" = "日历";
+"Focus" = "专注";
+"Settings" = "设置";
+
+///**********************四象限*********************///
+"Urgent & Important" = "重要且紧急";
+"Not Urgent & Important" = "重要不紧急";
+"Urgent & Not Important" = "紧急不重要";
+"Not Urgent & Not Important" = "不重要不紧急";
+
+/// 菜单
+"Show Detail" = "显示详情";
+"View Layout" = "视图布局";
+"Custom Rule" = "自定义规则";
+
+/// 视图布局
+"Title Position" = "标题位置";
+"Top" = "顶部";
+"Bottom" = "底部";
+"Long press and drag to rearrange the quadrant view" = "长按并拖动以重新调整象限视图布局";
+
+/// 过滤器
+"Off" = "关闭";
+"Added" = "已添加";
+"Not Added" = "未添加";
+"No Tag" = "无标签";
+"No tag" = "无标签";
+"Setted" = "已设置";
+"Not Setted" = "未设置";
+"Any" = "任意";
+"Specific" = "指定";
+"Comparison Operator" = "比较符";
+"Percentage Value" = "百分比数值";
+"Greater Than" = "大于";
+"Greater Or Equal" = "大于等于";
+"Less Than" = "小于";
+"Less Or Equal"  = "小于等于";
+"Equal" = "等于";
+
+/// 日期
+"Between %@ and %@" = "%@到%@之间";
+
+"Relative" = "相对";
+"Anchor Date" = "锚点日期";
+"Offset" = "偏移";
+"Before" = "提前";
+"After" = "延后";
+"%@ Early" = "%@前";
+"%@ Later" = "%@后";
+
+"In the Current" = "在当前";
+"In the Next" = "在未来";
+"In the Previous" = "在过去";
+"In the Current %@" = "在当前%@";
+"In the Next %@" = "在未来%@";
+"In the Previous %@" = "在过去%@";
+"%ld %@" = "%ld%@";
+
+"Changes" = "变更";
+"From %ld To %ld • %ld" = "从%ld到%ld • %ld";
+
+///**********************待办*********************///
+/// 进度
+"Progress" = "进度";
+"Initial Value" = "初始值";
+"Target Value" = "目标值";
+"Current Value" = "当前值";
+"Calculation" = "计算方式";
+"Sum" = "累加";
+"Update" = "更新";
+"Auto" = "自动";
+"Manual" = "手动";
+"Record Type" = "记录类型";
+"Auto Record Value" = "自动记录值";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"New Folder" = "新建目录";
+"Edit Folder" = "编辑目录";
+"Enter folder name" = "输入目录名称";
+"Untitled Folder" = "未命名目录";
+"Select Folder" = "选择目录";
+"No Folder" = "无目录";
+"Ungroup" = "解散";
+"Add List" = "添加列表";
+
+"%ld lists" = "%ld个列表";
+"%ld list" = "%ld个列表";
+
+/// 过滤器
+"New Filter" = "新建过滤器";
+"Edit Filter" = "编辑过滤器";
+"Delete Filter" = "删除过滤器";
+"Enter filter name" = "输入过滤器名称";
+
+/// 任务
+"No Tasks" = "无任务";
+
+
+
+/// 智能列表
+"Inbox" = "收件箱";
+"Completed" = "已完成";
+"Scheduled" = "计划";
+"Trash" = "废纸篓";
+"Planned" = "计划内";
+"This Week" = "本周";
+"Tag" = "标签";
+
+"Layout" = "布局";
+"List" = "列表";
+"Board" = "看板";
+
+/// 看板
+"Untitled Section" = "未命名区块";
+
+/// 列表
+"My List" = "我的列表";
+"Add List" = "添加列表";
+"New List" = "新建列表";
+
+"Ungroup List" = "解散列表";
+"Edit List" = "编辑列表";
+"Move List" = "移动列表";
+"Enter list name" = "输入列表名称";
+"Parent List" = "父列表";
+"Select List" = "选择列表";
+"Search List" = "搜索列表";
+"No Parent List" = "无父列表";
+"\"%@\" will be permanently deleted. Sure to delete?" = "\"%@\"将被永久删除。是否确认删除？";
+"\"%@\" and %ld sublists will be permanently deleted. Sure to delete?" = "\"%@\"及其%ld个子列表将被永久删除。是否确认删除？";
+"\"%@\" and its sublist will be permanently deleted. Sure to delete?" = "\"%@\"及其子列表将被永久删除。是否确认删除？";
+"Are you sure to ungroup list \"%@\" ?" = "是否确认解散列表\"%@\"？";
+
+/// 任务编辑
+"Add to My Day" = "添加到我的一天";
+"Added to My Day" = "已添加到我的一天";
+"Bind Timer" = "绑定计时器";
+"Delete Note" = "删除备注";
+"Are you sure you want to permanently delete this note?" = "您确定要永久删除此备注吗?";
+
+/// 底部日期信息
+"Created %@" = "创建于 %@";
+"Completed %@" = "完成于 %@";
+
+/// 日期
+"All Day" = "全天";
+
+/// 提醒
+"Start Reminder" = "开始提醒";
+"End Reminder" = "结束提醒";
+"No Alarm" = "无提醒";
+
+/// 标签
+"Tags" = "标签";
+"Search Tag" = "搜索标签";
+"Edit Tag" = "编辑标签";
+"New Tag" = "新标签";
+"Enter tag name" = "输入标签名称";
+"Add Tag" = "添加标签";
+"%ld tag" = "%ld个标签";
+"%ld tags" = "%ld个标签";
+"%ld tags selected" = "已选择%ld个标签";
+"%ld tag selected" = "已选择%ld个标签";
+"This tag already exists" = "当前标签已存在";
+
+///**********************专注*********************///
+"Focusing" = "专注中";
+"Focus Duration" = "专注时长";
+
+/// 专注设置
+"Focus Settings" = "专注设置";
+"Auto-Focus" = "自动专注";
+"After the break is over, start to focus automatically" = "休息结束后自动开始专注";
+"Auto-Break" = "自动休息";
+"After the focus is over, start to rest automatically" = "专注结束后自动开始休息";
+"Add New Timers On Top" = "添加计时器到顶部";
+"Hide Next Button Of Floating Timer" = "隐藏浮动计时器下一步按钮";
+"Minimum Record Duration" = "最小记录时长";
+"Records with a focus duration of less than %@ will be discarded" = "专注时长小于%@的记录将被丢弃";
+"Adjust Step Duration" = "微调时长";
+"The amount of time the timer increases/decreases each time" = "计时器每次延长/缩短时长";
+"Maximum Duration" = "最大时长";
+"Stepped Timer" = "步骤计时器";
+"Auto Start Next Step" = "自动开始下一步";
+"Flip Clock" = "翻页时钟";
+"Auto Hide Hour" = "自动隐藏小时位";
+"Display only minute and second when the hour is zero" = "当小时位为0时仅显示分和秒";
+
+/// 专注结束
+"Discard" = "丢弃";
+"Discard focus data of this round" = "丢弃本轮专注数据";
+"Discard Focus Data" = "丢弃专注数据";
+"%ld focus records of this round will be discarded" = "本轮%ld条专注记录将被丢弃";
+"The focus record of this round will be discarded" = "本轮专注记录将被丢弃";
+"There is no focused record over %@ in this round." = "本轮无超过%@的专注记录";
+
+
+
+
+
+///**********************通用*********************///
+"You have exceeded the maximum character limit of %ld." = "您已超出最大字符限制%ld";
+
+"Default" = "默认";
+"Unknown" = "未知";
+"Untitled" = "未命名";
+"Select All" = "全选";
+"Deselect All" = "反选";
+"%ld selected" = "选中%ld个";
+
+"Date and Time" = "日期和时间";
+"Custom" = "自定义";
+"None" = "无";
+"Low" = "低";
+"Medium" = "中";
+"High" = "高";
+"End" = "结束";
+"Date" = "日期";
+"No Date" = "无日期";
+"Other Date" = "其它日期";
+"Due Date" = "截止日期";
+"Start Date" = "开始日期";
+"Start Time" = "开始时间";
+"End Time" = "开始时间";
+
+
+"Time(count)" = "次";
+"Times(count)" = "次";
+"time(count)" = "次";
+"times(count)" = "次";
+
+/// 格式化
+"%@ %@" = "%@%@";
+"Start %@" = "%@开始";
+"Start: %@" = "开始: %@";
+"Due %@" = "%@截止";
+"Due: %@" = "截止: %@";
+"End %@" = "%@结束";
+
+/// 图表
+"NO DATA" = "无数据";
+"No Data" = "无数据";
+"Less" = "少";
+"More" = "多";
+
+
+///**********************重复**********************///
+"Repeat" = "重复";
+"Repeat End" = "重复结束";
+"Custom Repeat" = "自定义重复";
+"Regularly" = "定期";
+"After Completion" = "完成后";
+"Specific Dates" = "自选日期";
+"%@ days selected" = "已选择%@天";
+"%@ day selected" = "已选择%@天";
+"Daily" = "每日";
+"Weekly" = "每周";
+"Monthly" = "每月";
+"Yearly" = "每年";
+"Every Weekday" = "每周工作日";
+"Monday-Friday" = "周一至周五";
+"Every Weekend" = "每周周末";
+"Saturday, Sunday" = "周六，周日";
+"Lunar Yearly" = "农历每年";
+"Ebbinghaus Forgetting Curve" = "艾宾浩斯遗忘曲线";
+
+"Official Working Days" = "法定工作日";
+"Skip Public Holidays" = "跳过公共节假日";
+"Frequency" = "频率";
+"Every" = "每";
+"day" = "天";
+"Day" = "天";
+"days" = "天";
+"Days" = "天";
+"week" = "周";
+"Week" = "周";
+"Weeks" = "周";
+"month" = "月";
+"Month" = "月";
+"Months" = "月";
+
+"Year" = "年";
+"year" = "年";
+"Years" = "年";
+"On Days" = "按天";
+"On Week" = "按周";
+"Last Day" = "最后一天";
+"last day" = "最后一天";
+"First" = "第一个";
+"Second" = "第二个";
+"Third" = "第三个";
+"Fourth" = "第四个";
+"Fifth" = "第五个";
+"Last" = "最后一个";
+
+"%ldst" = "第%ld";
+"%ldnd" = "第%ld";
+"%ldrd" = "第%ld";
+"%ldth" = "第%ld";
+
+"%ldst time" = "第%ld次";
+"%ldnd time" = "第%ld次";
+"%ldrd time" = "第%ld次";
+"%ldth time" = "第%ld次";
+
+"the %ldst day" = "第%ld天";
+"the %ldnd day" = "第%ld天";
+"the %ldrd day" = "第%ld天";
+"the %ldth day" = "第%ld天";
+"Never" = "从不";
+"By Date" = "按日期";
+"By Count" = "按次数";
+"After %ld repeats" = "重复%ld次后";
+"After %ld repeat" = "重复%ld次后";
+"Task will keep repeating" = "任务将一直重复";
+"Task will repeat until " = "任务将重复至";
+"Task will repeat " = "任务将重复";
+"%ld time" = "%ld次";
+"%ld times" = "%ld次";
+
+"Times" = "次";
+"every %@" = "每%@";
+"%@ day" = "%@天";
+"%ld day" = "%ld天";
+"%ld days" = "%ld天";
+"%ld week" = "%ld周";
+"%ld weeks" = "%ld周";
+"%ld month" = "%ld月";
+"%ld months" = "%ld月";
+"%ld year" = "%ld年";
+"%ld years" = "%ld年";
+"on the %@" = "于%@";
+"in %@" = "在%@";
+"%@ after completion" = "完成后%@";
+
+
+///**************************Todo**************************///
+"Reschedule" = "重新安排";
+
+/// 列表选项
+"Group" = "分组";
+"None Group" = "无分组";
+"Sort" = "排序";
+"Sort Type" = "排序";
+"Sort Order" = "顺序";
+"Show Completed" = "显示已完成";
+"Delete List" = "删除列表";
+"Empty Trash" = "清空废纸篓";
+"Are you sure to delete all tasks in trash?" = "确认删除废纸篓中的所有任务？";
+"\"%@\" will be permanently deleted." = "\"%@\"将被永久删除。";
+"%ld tasks will be permanently deleted." = "%ld项任务将被永久删除。";
+
+
+"Restore" = "恢复";
+"Restore Task" = "恢复任务";
+"The task will be restored to its original list. Are you sure to restore?" = "任务将恢复至原清单，是否确认恢复？";
+"%ld tasks will be restored to their original list. Are you sure to restore?" = "%ld项任务将恢复至原清单，是否确认恢复？";
+
+/// 分组和排序
+"Overdue" = "已逾期";
+"Started" = "已开始";
+"Upcoming" = "即将到来";
+"Later" = "稍后";
+"Unassigned" = "未分配";
+"Manually" = "手动";
+"Alphabet" = "首字母";
+"Creation Date" = "创建时间";
+"Modification Date" = "修改日期";
+"Ascending" = "升序";
+"Descending" = "降序";
+
+/// 优先级
+"Priority" = "优先级";
+"No Priority" = "无优先级";
+"Low Priority" = "低优先级";
+"Medium Priority" = "中优先级";
+"High Priority" = "高优先级";
+
+/// 快速添加任务
+"Add a Task" = "添加任务";
+"Add Continuously" = "连续添加";
+"Continuous adding enabled"  = "连续添加已开启";
+"Continuous adding disabled" = "连续添加已关闭";
+
+/// 任务步骤
+"%ld of %ld" = "%ld/%ld";
+"Add Step" = "添加步骤";
+"Add Previous Step" = "添加上一步";
+"Add Next Step" = "添加下一步";
+"Add step to top" = "添加步骤到顶部";
+"Add step to bottom" = "添加步骤到底部";
+"The step has been copied to the clipboard." = "步骤已复制到剪贴板";
+"All steps have been copied to the clipboard." = "所有步骤已复制到剪贴板";
+"Undone steps have been copied to the clipboard." = "未完成步骤已复制到剪贴板";
+"Done steps have been copied to the clipboard." = "已完成步骤已复制到剪贴板";
+"Copy Step" = "拷贝步骤";
+"Copy All Steps" = "拷贝所有步骤";
+"Copy Undone Steps" = "拷贝未完成步骤";
+"Copy Done Steps" = "拷贝已完成步骤";
+"Delete Done Steps" = "删除已完成步骤";
+"All done steps will be permanently deleted.Sure to delete?" = "所有已完成步骤将被永久删除。是否确认删除？";
+
+
+///**************************Focus**************************///
+"Timer" = "计时器";
+"Break" = "休息";
+"Pomodoro" = "番茄钟";
+"Short Break" = "短休息";
+"Long Break" = "长休息";
+"Countdown" = "倒计时";
+"Stopwatch" = "正计时";
+"Counting from zero" = "从零累加";
+"Start Focus" = "开始专注";
+
+/// 计时器
+"New Timer" = "新建计时器";
+"Edit Timer" = "编辑计时器";
+"Delete Timer" = "删除计时器";
+"Select Timer" = "选择计时器";
+"Search Timer" = "搜索计时器";
+"Default Timer" = "默认计时器";
+"Custom Timer" = "自定义计时器";
+
+"Enter timer name" = "输入计时器名称";
+"Focus %@" = "专注%@";
+"Short Break %@" = "短休息%@";
+"Long Break %@" = "长休息%@";
+
+"Add Record" = "添加记录";
+"View Record" = "查看记录";
+"Move To Top" = "移到顶部";
+"Move To Bottom" = "移到底部";
+
+"Delete Record" = "删除记录";
+"Sure to delete this focus record?" = "确认删除该条专注记录吗？";
+
+/// 编辑步骤
+"Stepped" = "步骤";
+"New Step" = "新建步骤";
+"Edit Step" = "编辑步骤";
+"Enter step name" = "输入步骤名称";
+"No Step" = "无步骤";
+"%ld step" = "%ld步";
+"%ld steps" = "%ld步";
+"Focus for %@, the focus duration will be added to the record." = "专注%@，专注时长将添加至记录。";
+"Rest for %@, the rest duration will not be added to the record." = "休息%@，休息时长将不添加至记录。";
+
+/// 添加记录
+"Focus Records" = "专注记录";
+"Add Focus Record" = "添加专注记录";
+"Edit Focus Record" = "编辑专注记录";
+"Focus Rating" = "专注评分";
+"Tap or drag the slider to rate" = "轻点或拖动滑块来评分";
+"Start From" = "开始于";
+"Ended At" = "结束于";
+"Write down your thoughts" = "写下你的想法";
+"Add focus record successfully" = "成功添加专注记录";
+
+/// 统计
+"Focus Statistics" = "专注统计";
+"Average Score" = "平均得分";
+"Focus Times" = "专注次数";
+"Pause Times" = "暂停次数";
+"Focus Detail" = "专注详情";
+"By Timer" = "按计时器";
+"By Task" = "按任务";
+"Focus Grids" = "专注时间块";
+"Weekly Focus" = "周专注分布";
+"Monthly Focus" = "月专注分布";
+"Yearly Focus" = "年专注分布";
+"Timeline" = "时间线";
+"Score Trends" = "评分趋势";
+"Most Focused Time" = "最佳专注时间";
+"5 minutes" = "5分钟";
+"History" = "历史记录";
+"No History" = "无历史记录";
+"Score" = "评分";
+"Focus Score" = "专注评分";
+"Focus duration" = "专注时长";
+"Focus days" = "专注天数";
+"Focus times" = "专注次数";
+
+/// 运行计时器
+"Screen always on enabled" = "屏幕常亮已开启";
+"Screen always on disabled" = "屏幕常亮已关闭";
+"Hold To Stop" = "长按结束";
+
+/// 专注完成
+"Focus Completed" = "专注完成";
+"Focus Rate" = "专注率";
+"Pause Count" = "暂停次数";
+"Pause Duration" = "暂停时长";
+"Summary" = "概览";
+"Detail" = "详情";
+"Start from %@" = "开始于%@";
+"Ended at %@" = "结束于%@";
+"Save Focus Data" = "保存专注数据";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/// 通用
+"Confirm" = "确认";
+"Done" = "完成";
+"Undone" = "未完成";
+"Shred" = "删除";
+"Save" = "保存";
+"Cancel" = "取消";
+"Create" = "创建";
+"Start" = "开始";
+"Pause" = "暂停";
+"Continue" = "继续";
+"Next" = "下一步";
+"New" = "新建";
+"Edit" = "编辑";
+"Unarchive" = "取消归档";
+"Archived" = "已归档";
+"Move" = "移动";
+"Delete" = "删除";
+"Clear" = "清除";
+"Archive" = "归档";
+"Others" = "其它";
+"Preview" = "预览";
+"Record" = "记录";
+"Records" = "记录";
+"Complete" = "完成";
+"Reset" = "重置";
+"Select" = "选择";
+"Input" = "输入";
+"Invalid" = "无效";
+"Hot" = "热门";
+"Statistics" = "统计";
+"Note" = "备注";
+"Add Note" = "添加备注";
+"Now" = "现在";
+"Task" = "任务";
+"Select Task" = "选择任务";
+"Search task" = "搜索任务";
+"Not Started" = "未开始";
+"In Progress" = "进行中";
+"Finished" = "已结束";
+"Paused" = "暂停中";
+"No Tags" = "无标签";
+
+///**************************通知**************************///
+"Allow Notifications" = "允许通知";
+"Enable in Settings" = "在设置中启用";
+"Notifications need to be enabled to receive alerts about the task or focus session." = "通知必须被启用才能接收有关任务或专注会话的提醒。";
+
+/// 日历
+"Current Month" = "本月";
+"This Year" = "本年";
+"Sunday" = "周日";
+"Monday" = "周一";
+"Tuesday" = "周二";
+"wednesday" = "周三";
+"Thursday" = "周四";
+"Friday" = "周五";
+"Saturday" = "周六";
+
+"Starting" = "开始于";
+"Until" = "至";
+"Until %@" = "至%@";
+"until" = "至";
+"until %@" = "至%@";
+
+/// 日期Format
+"MMM d, yyyy" = "yyyy年M月d日";
+"MMM d" = "M月d日";
+"MMMM yyyy" = "yyyy年M月";
+"H" = "小时";
+"M" = "分钟";
+"S" = "秒";
+
+/// 时间和提醒
+"Time And Reminder" = "时间和提醒";
+"Remind Me" = "提醒我";
+"Reminder" = "提醒";
+"Morning" = "早晨";
+"Noon" = "中午";
+"Afternoon" = "下午";
+"Dusk" = "傍晚";
+"Evening" = "晚上";
+"Midnight" = "凌晨";
+
+"On the day" = "当日";
+"On time" = "准时";
+"Early" = "提前";
+
+"Edit Time" = "编辑时间";
+"Edit Duration" = "编辑时长";
+"Duration" = "持续时间";
+"Next Day" = "次日";
+"%ldd" = "%ld天";
+"%ldh%ldm" = "%ld小时%ld分钟";
+"%ldh" = "%ld小时";
+"%ldm" = "%ld分钟";
+"%lds" = "%ld秒";
+"Hour" = "小时";
+"Hours" = "小时";
+"Min" = "分钟";
+"Mins" = "分钟";
+"Minute" = "分钟";
+"Minutes" = "分钟";
+
+"%@ early" = "%@前";
+"%@ later" = "%@后";
+"%ld days early" = "提前%ld天";
+"%ld day early" = "提前%ld天";
+"%ld weeks early" = "提前%ld周";
+"%ld week early" = "提前%ld周";
+"%@ early" = "提前%@";
+
+"%ld days before" = "%ld天前";
+"%ld day before" = "%ld天前";
+"%ld days later" = "%ld天后";
+"%ld weeks before" = "%ld周前";
+"%ld week before" = "%ld周前";
+"Invalid interval" = "无效区间";
+
+"Pick a Skip Tag" = "选择跳过标签";
+"Skip Tags" = "跳过标签";
+"New Skip Tag" = "新建跳过标签";
+"Edit Skip Tag" = "编辑跳过标签";
+"Enter Skip Reason" = "输入跳过原因";
+"Pick a Fail Tag" = "选择失败标签";
+"Fail Tags" = "失败标签";
+"New Fail Tag" = "新建失败标签";
+"Edit Fail Tag" = "编辑失败标签";
+"Enter Fail Reason" = "输入失败原因";
+
+/// 设置
+"General" = "常规";
+"Haptic Feedback" = "触感反馈";
+"Week Start On" = "周开始于";
+
+/// 单位
+"Units" = "单位";
+"New Unit" = "新单位";
+"Edit Unit" = "编辑单位";
+"No Unit" = "无单位";
+"Count" = "次";
+"Cup" = "杯";
+"Page" = "页";
+"Line" = "行";
+
+
+
+
+"Delete Habit" = "删除习惯";
+
+/// 图标编辑
+"Icon" = "图标";
+"Select An Icon" = "选择图标";
+"Input Character" = "输入字符";
+
+/// 任务编辑
+"Fill in the name" = "输入名称";
+"Color" = "颜色";
+"Belongs To Group" = "所属分组";
+"Reminders" = "提醒";
+"Date And Frequency" = "日期和频率";
+
+/// 计划
+"Date Range" = "日期范围";
+"Multiple Dates" = "自选日期";
+"Start On" = "开始于";
+"End" = "结束";
+"End On" = "结束于";
+"Ended On" = "已结束于";
+"End After" = "结束在";
+"On Date" = "在日期";
+
+/// 日期范围
+"No End Date" = "无结束日期";
+"Never End" = "永不结束";
+"Never" = "永不";
+"%ld repeat" = "%ld 次重复";
+"%ld repeats" = "%ld 次重复";
+
+
+"End Date" = "结束日期";
+"Lasts:" = "持续:";
+
+"Yesterday" = "昨天";
+"Today" = "今天";
+"Tomorrow" = "明天";
+"Next monday" = "下周一";
+"End of the month" = "本月最后一天";
+"1st of next month" = "下月1号";
+"End Of the month" = "本月最后一天";
+"End Of the year" = "今年最后一天";
+"+1d" = "+1天";
+"+2d" = "+2天";
+"+5d" = "+5天";
+"+7d" = "+7天";
+"+10d" = "+10天";
+"+21d" = "+21天";
+"+30d" = "+30天";
+
+"Time" = "时间";
+"Time Point" = "时间点";
+"All-Day" = "全天";

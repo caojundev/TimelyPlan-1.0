@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>title</key>
+	<string>19225B / C0E3F4</string>
+	<key>tint</key>
+	<string>6899E5</string>
+	<key>sidebar</key>
+	<dict>
+		<key>separator</key>
+		<string>1E1E1E</string>
+		<key>background</key>
+		<string>171717</string>
+		<key>cell</key>
+		<dict>
+			<key>title</key>
+			<string>C0E3F4</string>
+			<key>background</key>
+			<dict>
+				<key>selected</key>
+				<string>212121</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>navigationBar</key>
+	<dict>
+		<key>tint</key>
+		<string>19225B / C0E3F4</string>
+		<key>title</key>
+		<string>19225B / C0E3F4</string>
+	</dict>
+	<key>insetGroupedTable</key>
+	<dict>
+		<key>sectionHeader</key>
+		<dict>
+			<key>title</key>
+			<string>52587F</string>
+		</dict>
+		<key>sectionFooter</key>
+		<dict>
+			<key>title</key>
+			<string>666666, 0.5</string>
+		</dict>
+		<key>cell</key>
+		<dict>
+			<key>title</key>
+			<string>19225B / C0E3F4</string>
+			<key>subtitle</key>
+			<string>888888</string>
+			<key>background</key>
+			<dict>
+				<key>normal</key>
+				<string>FAFAFA / 23252E</string>
+				<key>selected</key>
+				<string>C4C4C4,0.2</string>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G1427" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="FocusPause" representedClassName="FocusPause" syncable="YES" codeGenerationType="class">
+        <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FocusSession" inverseName="pauses" inverseEntity="FocusSession"/>
+    </entity>
+    <entity name="FocusSession" representedClassName="FocusSession" syncable="YES" codeGenerationType="class">
+        <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="isManual" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="score" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="taskID" optional="YES" attributeType="String"/>
+        <attribute name="taskShotName" optional="YES" attributeType="String"/>
+        <attribute name="taskType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timerID" optional="YES" attributeType="String"/>
+        <attribute name="timerShotName" optional="YES" attributeType="String"/>
+        <attribute name="timerTypeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="pauses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FocusPause" inverseName="session" inverseEntity="FocusPause"/>
+    </entity>
+    <entity name="FocusTimer" representedClassName="FocusTimer" syncable="YES" codeGenerationType="class">
+        <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="config" optional="YES" attributeType="Transformable" valueTransformerName="FocusTimerConfigTransformer" customClassName="FocusTimerConfig"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="KeyValueStore" representedClassName="KeyValueEntry" syncable="YES">
+        <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="String" valueTransformerName="FocusTaskContentTransformer" customClassName="FocusTaskContent"/>
+    </entity>
+    <entity name="TodoFilter" representedClassName="TodoFilter" syncable="YES" codeGenerationType="class">
+        <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="rule" optional="YES" attributeType="Transformable" valueTransformerName="TodoFilterRuleTransformer" customClassName="TodoFilterRule"/>
+    </entity>
+    <entity name="TodoFolder" representedClassName="TodoFolder" syncable="YES" codeGenerationType="class">
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="lists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoList" inverseName="folder" inverseEntity="TodoList"/>
+    </entity>
+    <entity name="TodoList" representedClassName="TodoList" syncable="YES" codeGenerationType="class">
+        <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="emoji" optional="YES" attributeType="String"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="layoutRawValue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="folder" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoFolder" inverseName="lists" inverseEntity="TodoFolder"/>
+        <relationship name="sections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoSection" inverseName="list" inverseEntity="TodoSection"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoTask" inverseName="list" inverseEntity="TodoTask"/>
+    </entity>
+    <entity name="TodoProgress" representedClassName="TodoProgress" syncable="YES" codeGenerationType="class">
+        <attribute name="autoRecordValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="calculationRawValue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="completionRate" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="currentValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="initialValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="recordTypeRawValue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="targetValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoTask" inverseName="progress" inverseEntity="TodoTask"/>
+    </entity>
+    <entity name="TodoSection" representedClassName="TodoSection" syncable="YES" codeGenerationType="class">
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoList" inverseName="sections" inverseEntity="TodoList"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoTask" inverseName="section" inverseEntity="TodoTask"/>
+    </entity>
+    <entity name="TodoStep" representedClassName="TodoStep" syncable="YES" codeGenerationType="class">
+        <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoTask" inverseName="steps" inverseEntity="TodoTask"/>
+    </entity>
+    <entity name="TodoTag" representedClassName="TodoTag" syncable="YES" codeGenerationType="class">
+        <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoTask" inverseName="tags" inverseEntity="TodoTask"/>
+    </entity>
+    <entity name="TodoTask" representedClassName="TodoTask" syncable="YES" codeGenerationType="class">
+        <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="isAddedToMyDay" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isAllDay" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isRemoved" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="priorityRawValue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reminder" optional="YES" attributeType="Transformable" valueTransformerName="TaskReminderTransformer" customClassName="TaskReminder"/>
+        <attribute name="repeatRule" optional="YES" attributeType="Transformable" valueTransformerName="RepeatRuleTransformer" customClassName="RepeatRule"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoList" inverseName="tasks" inverseEntity="TodoList"/>
+        <relationship name="progress" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TodoProgress" inverseName="task" inverseEntity="TodoProgress"/>
+        <relationship name="section" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="TodoSection" inverseName="tasks" inverseEntity="TodoSection"/>
+        <relationship name="steps" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TodoStep" inverseName="task" inverseEntity="TodoStep"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoTag" inverseName="tasks" inverseEntity="TodoTag"/>
+    </entity>
+    <elements>
+        <element name="FocusPause" positionX="45" positionY="198" width="128" height="74"/>
+        <element name="FocusSession" positionX="36" positionY="189" width="128" height="239"/>
+        <element name="FocusTimer" positionX="27" positionY="180" width="128" height="164"/>
+        <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="59"/>
+        <element name="TodoFilter" positionX="27" positionY="180" width="128" height="104"/>
+        <element name="TodoFolder" positionX="27" positionY="180" width="128" height="89"/>
+        <element name="TodoList" positionX="54" positionY="99" width="128" height="164"/>
+        <element name="TodoProgress" positionX="18" positionY="180" width="128" height="149"/>
+        <element name="TodoSection" positionX="36" positionY="189" width="128" height="89"/>
+        <element name="TodoStep" positionX="18" positionY="63" width="128" height="134"/>
+        <element name="TodoTag" positionX="18" positionY="63" width="128" height="134"/>
+        <element name="TodoTask" positionX="-27" positionY="18" width="128" height="344"/>
+    </elements>
+</model>

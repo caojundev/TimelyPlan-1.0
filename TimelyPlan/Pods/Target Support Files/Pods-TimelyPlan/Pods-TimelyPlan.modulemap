@@ -1,0 +1,6 @@
+module Pods_TimelyPlan {
+  umbrella header "Pods-TimelyPlan-umbrella.h"
+
+  export *
+  module * { export * }
+}

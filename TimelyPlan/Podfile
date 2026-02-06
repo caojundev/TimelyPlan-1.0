@@ -1,0 +1,5 @@
+platform :ios, '14.0'
+#source 'https://github.com/CocoaPods/Specs.git'
+target 'TimelyPlan' do
+  pod 'FluentDarkModeKit'
+end
