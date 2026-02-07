@@ -10,8 +10,9 @@ import UIKit
 
 extension StatsSummary {
     
+    /// 符号文本颜色
     static var symbolTextColor: UIColor {
-        return resGetColor(.title).withAlphaComponent(0.6)
+        return .primary.withAlphaComponent(0.6)
     }
     
     static func focusSummaries(type: StatsType, dataItem: FocusStatsDataItem) -> [StatsSummary] {

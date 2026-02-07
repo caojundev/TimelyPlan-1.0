@@ -1,5 +1,5 @@
 //
-//  CalendarDayTimelineView.swift
+//  FocusTimelineView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2025/5/1.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CalendarDayTimelineView: UIView {
+class FocusTimelineView: UIView {
     
     var date: Date = .now {
         didSet {
@@ -19,7 +19,7 @@ class CalendarDayTimelineView: UIView {
     
     var dateRange = CalendarTimelineDateRange(date: .now)
     
-    var hourHeight: CGFloat = 40 {
+    var hourHeight: CGFloat = 80 {
         didSet {
             backgroundLayer.hourHeight = hourHeight
             setNeedsLayout()
@@ -40,17 +40,38 @@ class CalendarDayTimelineView: UIView {
         }
     }
     
+    var scrollViewDelegate: UIScrollViewDelegate? {
+        get {
+            return contentView.delegate
+        }
+        
+        set {
+            contentView.delegate = newValue
+        }
+    }
+    
+    var contentOffset: CGPoint {
+        get {
+            return contentView.contentOffset
+        }
+        
+        set {
+            contentView.contentOffset = newValue
+        }
+    }
+    
     private let hoursViewWidth = 60.0
     private let hoursView: CalendarDayTimelineHoursView = {
         let view = CalendarDayTimelineHoursView()
         return view
     }()
     
-    private let eventsView: CalendarDayEventsView = {
-        let view = CalendarDayEventsView()
+    private let eventListView: FocusTimelineEventListView = {
+        let view = FocusTimelineEventListView()
         return view
     }()
     
+    /// 当前小时指示器
     private let indicatorViewHeight = 30.0
     private var indicatorView: CalendarDayTimelineIndicatorView?
 
@@ -78,7 +99,7 @@ class CalendarDayTimelineView: UIView {
         backgroundLayer.bottomPadding = bottomPadding
         contentView.layer.addSublayer(backgroundLayer)
         contentView.addSubview(hoursView)
-        contentView.addSubview(eventsView)
+        contentView.addSubview(eventListView)
         setupIndicatorView()
     }
     
@@ -111,17 +132,17 @@ class CalendarDayTimelineView: UIView {
         hoursView.width = hoursViewWidth
         hoursView.height = contentHeight
         
-        eventsView.padding = UIEdgeInsets(top: topPadding,
+        eventListView.padding = UIEdgeInsets(top: topPadding,
                                           left: 4.0,
                                           bottom: bottomPadding,
                                           right: 4.0)
-        eventsView.width = width - hoursViewWidth
-        eventsView.height = contentHeight
-        eventsView.left = hoursViewWidth
+        eventListView.width = width - hoursViewWidth
+        eventListView.height = contentHeight
+        eventListView.left = hoursViewWidth
 
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        backgroundLayer.frame = eventsView.frame
+        backgroundLayer.frame = eventListView.frame
         backgroundLayer.updateColors()
         CATransaction.commit()
         updateIndicator()
@@ -142,7 +163,7 @@ class CalendarDayTimelineView: UIView {
     }
     
     func reset() {
-//        eventsView.reset()
+//        eventListView.reset()
 //        timerUpdater.stop()
     }
 }

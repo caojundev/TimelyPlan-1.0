@@ -22,17 +22,21 @@ class FocusPresenter {
     
     /// 显示时间线
     static func showTimeline() {
-        let vc = CalendarMainViewController()
+        let vc = FocusTimelineViewController()
         let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
         navController.show()
     }
+    
+    /// 手动添加记录
+    static func addRecordManually() {
+        let timerController = FocusUserTimerController()
+        timerController.addRecordManually()
+    }
 
-    /// 归档视图控制器
+    /// 显示已归档计时器
     static func showArchivedTimers() {
         let vc = FocusArchivedViewController()
         let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
         navController.show()
     }
     

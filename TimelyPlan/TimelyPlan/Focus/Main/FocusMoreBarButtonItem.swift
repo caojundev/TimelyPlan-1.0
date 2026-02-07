@@ -10,18 +10,22 @@ import UIKit
 
 /// 更多菜单
 enum FocusMoreMenuType: Int, TPMenuRepresentable {
-    case addRecord  /// 记录
+    case allRecords /// 所有记录
+    case addRecord  /// 添加记录
     case archived /// 已归档
     case settings /// 设置
     
     static func titles() -> [String] {
-        return ["Add Record",
+        return ["All Records",
+                "Add Record",
                 "Archived",
                 "Settings"]
     }
     
     var iconName: String? {
         switch self {
+        case .allRecords:
+            return "focus_record_24"
         case .addRecord:
             return "focus_record_add_24"
         case .archived:
@@ -61,7 +65,14 @@ private class FocusMoreButton: TPMenuListButton {
     
     override var menuItems: [TPMenuItem]? {
         get {
-            let menuItem = TPMenuItem.item(with: FocusMoreMenuType.allCases) { type, action in
+            let typeLists: [Array<FocusMoreMenuType>] = [
+                [.allRecords,
+                 .addRecord],
+                [.archived,
+                 .settings]
+            ]
+            
+            let items = TPMenuItem.items(with: typeLists) { type, action in
                 if type == .archived {
                     /// 归档计时器数目
                     let archivedTimersCount = Focus.numberOfArchivedTimers()
@@ -71,11 +82,12 @@ private class FocusMoreButton: TPMenuListButton {
                 }
             }
             
-            return [menuItem]
+            return items
         }
         
         set {}
     }
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

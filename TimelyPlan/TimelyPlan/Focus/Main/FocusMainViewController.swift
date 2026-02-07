@@ -50,17 +50,17 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
                                          action: #selector(clickStatistics(_:)))
         return buttonItem
     }()
-  
-    /// 记录按钮
-    lazy var recordsBarButtonItem: UIBarButtonItem = {
-        let image = resGetImage("focus_record_24")
+    
+    /// 时间线按钮
+    lazy var timelineBarButtonItem: UIBarButtonItem = {
+        let image = resGetImage("focus_main_timeline_24")
         let item = UIBarButtonItem(image: image,
                                    style: .plain,
                                    target: self,
                                    action: #selector(clickTimeline(_:)))
         return item
     }()
-
+    
     /// 更多菜单按钮
     lazy var moreBarButtonItem: FocusMoreBarButtonItem = {
         let item = FocusMoreBarButtonItem()
@@ -94,7 +94,7 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
         }
     
         self.navigationItem.rightBarButtonItems = [moreBarButtonItem,
-                                                   recordsBarButtonItem]
+                                                   timelineBarButtonItem]
         self.bounces = false
         self.trackingProgress = false
         self.selectPage(at: FocusMainMenuType.focus.rawValue)
@@ -130,11 +130,6 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
     }
 
     // MARK: - Event Response
-    @objc func clickRecords(_ buttonItem: UIBarButtonItem) {
-        TPImpactFeedback.impactWithLightStyle()
-        FocusPresenter.showRecords()
-    }
-    
     @objc func clickTimeline(_ buttonItem: UIBarButtonItem) {
         TPImpactFeedback.impactWithLightStyle()
         FocusPresenter.showTimeline()
@@ -149,9 +144,10 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
     /// 执行菜单操作
     func performMoreMenuAction(_ type: FocusMoreMenuType) {
         switch type {
+        case .allRecords:
+            FocusPresenter.showRecords()
         case .addRecord:
-            let timerController = FocusUserTimerController()
-            timerController.addRecordManually()
+            FocusPresenter.addRecordManually()
         case .archived:
             FocusPresenter.showArchivedTimers()
         case .settings:

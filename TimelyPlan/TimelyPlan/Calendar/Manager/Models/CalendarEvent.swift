@@ -48,7 +48,6 @@ class CalendarEventColor {
     }
 }
 
-
 class CalendarEvent: NSObject {
     
     /// 名称

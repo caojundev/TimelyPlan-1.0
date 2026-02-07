@@ -20,7 +20,7 @@ class StatsSummaryCell: TPCollectionCell {
             } else {
                 valueLabel.text = summary?.value
             }
-        
+            
             setNeedsLayout()
         }
     }
@@ -31,7 +31,7 @@ class StatsSummaryCell: TPCollectionCell {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.4
         label.font = BOLD_SYSTEM_FONT
-        label.textColor = resGetColor(.title).withAlphaComponent(0.5)
+        label.textColor = resGetColor(.title).withAlphaComponent(0.8)
         return label
     }()
     
@@ -41,7 +41,7 @@ class StatsSummaryCell: TPCollectionCell {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.4
         label.font = UIFont.boldSystemFont(ofSize: 26.0)
-        label.textColor = resGetColor(.title)
+        label.textColor = .primary
         return label
     }()
     

@@ -171,6 +171,17 @@
 		E527619C2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527619B2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift */; };
 		E527619F2D41F63000209019 /* TPImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527619E2D41F63000209019 /* TPImageCollectionCell.swift */; };
 		E52761A12D420D9700209019 /* TodoTaskQuickAddMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52761A02D420D9700209019 /* TodoTaskQuickAddMenuCell.swift */; };
+		E52B62A72F36121000673620 /* focus_main_timeline_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */; };
+		E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */; };
+		E52B62AA2F36DF9E00673620 /* FocusTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B62A92F36DF9E00673620 /* FocusTimelineViewController.swift */; };
+		E52B62AD2F36EDCA00673620 /* FocusTimelineDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B62AC2F36EDCA00673620 /* FocusTimelineDayViewController.swift */; };
+		E52B62AF2F36F3D600673620 /* FocusTimelineDayPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B62AE2F36F3D600673620 /* FocusTimelineDayPageView.swift */; };
+		E52B62B72F37367E00673620 /* FocusTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B62B32F37367E00673620 /* FocusTimelineView.swift */; };
+		E52B62B92F374EA300673620 /* FocusTimelineSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B62B82F374EA300673620 /* FocusTimelineSynchronizer.swift */; };
+		E52B62BC2F376C8200673620 /* FocusTimelineEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B62BB2F376C8200673620 /* FocusTimelineEventListView.swift */; };
+		E52B62BE2F376CC100673620 /* FocusTimelineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B62BD2F376CC100673620 /* FocusTimelineLayout.swift */; };
+		E52B62C02F37721C00673620 /* FocusTimelineEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B62BF2F37721C00673620 /* FocusTimelineEvent.swift */; };
+		E52B62C22F37780500673620 /* FocusTimelineEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B62C12F37780500673620 /* FocusTimelineEventView.swift */; };
 		E52F899A2D5B0903001F18FA /* TPImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F89992D5B0902001F18FA /* TPImageContent.swift */; };
 		E52F899C2D5B11B3001F18FA /* TPImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F899B2D5B11B3001F18FA /* TPImageView.swift */; };
 		E53032962DC0776B0040C75E /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53032952DC0776B0040C75E /* CalendarManager.swift */; };
@@ -1484,6 +1495,17 @@
 		E527619B2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddMenuSectionController.swift; sourceTree = "<group>"; };
 		E527619E2D41F63000209019 /* TPImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageCollectionCell.swift; sourceTree = "<group>"; };
 		E52761A02D420D9700209019 /* TodoTaskQuickAddMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddMenuCell.swift; sourceTree = "<group>"; };
+		E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_main_timeline_24@2x.png"; sourceTree = "<group>"; };
+		E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_main_timeline_24@3x.png"; sourceTree = "<group>"; };
+		E52B62A92F36DF9E00673620 /* FocusTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimelineViewController.swift; sourceTree = "<group>"; };
+		E52B62AC2F36EDCA00673620 /* FocusTimelineDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimelineDayViewController.swift; sourceTree = "<group>"; };
+		E52B62AE2F36F3D600673620 /* FocusTimelineDayPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimelineDayPageView.swift; sourceTree = "<group>"; };
+		E52B62B32F37367E00673620 /* FocusTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineView.swift; sourceTree = "<group>"; };
+		E52B62B82F374EA300673620 /* FocusTimelineSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimelineSynchronizer.swift; sourceTree = "<group>"; };
+		E52B62BB2F376C8200673620 /* FocusTimelineEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimelineEventListView.swift; sourceTree = "<group>"; };
+		E52B62BD2F376CC100673620 /* FocusTimelineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimelineLayout.swift; sourceTree = "<group>"; };
+		E52B62BF2F37721C00673620 /* FocusTimelineEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimelineEvent.swift; sourceTree = "<group>"; };
+		E52B62C12F37780500673620 /* FocusTimelineEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimelineEventView.swift; sourceTree = "<group>"; };
 		E52F89992D5B0902001F18FA /* TPImageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageContent.swift; sourceTree = "<group>"; };
 		E52F899B2D5B11B3001F18FA /* TPImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageView.swift; sourceTree = "<group>"; };
 		E53032952DC0776B0040C75E /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
@@ -2669,11 +2691,11 @@
 		E5007F7C2DCA0682006AD311 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
-				E51A4C422DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift */,
+				E5007F822DCA4A8E006AD311 /* CalendarTimelineDateRange.swift */,
 				E51A4C3E2DC3B95D005A0E3F /* CalendarDayTimelineView.swift */,
 				E5007F7D2DCA0728006AD311 /* CalendarDayTimelineBackLayer.swift */,
+				E51A4C422DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift */,
 				E5007F7A2DC9ADB1006AD311 /* CalendarDayTimelineIndicatorView.swift */,
-				E5007F822DCA4A8E006AD311 /* CalendarTimelineDateRange.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -3194,8 +3216,42 @@
 		E52B62A32F34C99C00673620 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				E52B62A92F36DF9E00673620 /* FocusTimelineViewController.swift */,
+				E52B62AB2F36EDA400673620 /* Day */,
 			);
 			path = Timeline;
+			sourceTree = "<group>";
+		};
+		E52B62A42F3611FC00673620 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */,
+				E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */,
+			);
+			path = main;
+			sourceTree = "<group>";
+		};
+		E52B62AB2F36EDA400673620 /* Day */ = {
+			isa = PBXGroup;
+			children = (
+				E52B62B82F374EA300673620 /* FocusTimelineSynchronizer.swift */,
+				E52B62AC2F36EDCA00673620 /* FocusTimelineDayViewController.swift */,
+				E52B62AE2F36F3D600673620 /* FocusTimelineDayPageView.swift */,
+				E52B62B32F37367E00673620 /* FocusTimelineView.swift */,
+				E52B62BA2F376C0D00673620 /* Events */,
+			);
+			path = Day;
+			sourceTree = "<group>";
+		};
+		E52B62BA2F376C0D00673620 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				E52B62BF2F37721C00673620 /* FocusTimelineEvent.swift */,
+				E52B62BD2F376CC100673620 /* FocusTimelineLayout.swift */,
+				E52B62C12F37780500673620 /* FocusTimelineEventView.swift */,
+				E52B62BB2F376C8200673620 /* FocusTimelineEventListView.swift */,
+			);
+			path = Events;
 			sourceTree = "<group>";
 		};
 		E52F89982D5B08CA001F18FA /* Image */ = {
@@ -6267,14 +6323,14 @@
 			isa = PBXGroup;
 			children = (
 				E5D7D8302D43933300EC877A /* FocusConstants.swift */,
-				E52B62A32F34C99C00673620 /* Timeline */,
-				E5D7D8522D43933400EC877A /* Main */,
+				E5D7D8312D43933300EC877A /* Extensions */,
 				E5D7D7B52D43923800EC877A /* Data */,
+				E5D7D8842D43933500EC877A /* Helpers */,
+				E5D7D8522D43933400EC877A /* Main */,
+				E52B62A32F34C99C00673620 /* Timeline */,
 				E5D7D8552D43933500EC877A /* Start */,
 				E5D7D8872D43933600EC877A /* Home */,
 				E5D7D82D2D43933200EC877A /* Archived */,
-				E5D7D8312D43933300EC877A /* Extensions */,
-				E5D7D8842D43933500EC877A /* Helpers */,
 				E5D7D8362D43933400EC877A /* Record */,
 				E5D7D8332D43933300EC877A /* Settings */,
 				E5D7D8632D43933500EC877A /* Statistic */,
@@ -6779,7 +6835,6 @@
 			isa = PBXGroup;
 			children = (
 				E5D7D88F2D43933600EC877A /* FocusHomeUserTimerViewController.swift */,
-				E5D7D8902D43933600EC877A /* FocusHomeUserTimerSectionController.swift */,
 				E5D7D8932D43933600EC877A /* FocusHomeUserTimerCell.swift */,
 				E5D7D8892D43933600EC877A /* Cells */,
 				E5D7D8912D43933600EC877A /* SectionController */,
@@ -6803,6 +6858,7 @@
 			isa = PBXGroup;
 			children = (
 				E5D7D8922D43933600EC877A /* FocusUserTimerListSectionController.swift */,
+				E5D7D8902D43933600EC877A /* FocusHomeUserTimerSectionController.swift */,
 			);
 			path = SectionController;
 			sourceTree = "<group>";
@@ -6901,6 +6957,7 @@
 		E5D7D9452D43CBA100EC877A /* focus */ = {
 			isa = PBXGroup;
 			children = (
+				E52B62A42F3611FC00673620 /* main */,
 				E50D94AE2D451C1800F57957 /* record */,
 				E5D7D96B2D43E05700EC877A /* running */,
 				E5D7D9462D43D6FA00EC877A /* timer */,
@@ -7185,6 +7242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5BB9A902D3BEF0D0089667A /* todo_smartlist_planned_24@3x.png in Resources */,
+				E52B62A72F36121000673620 /* focus_main_timeline_24@2x.png in Resources */,
 				E500DE532DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png in Resources */,
 				E515AD512D3C0EFB00AA9AF2 /* InfoPlist.strings in Resources */,
 				E5D7D9692D43DCCE00EC877A /* triangle_right_32@2x.png in Resources */,
@@ -7491,6 +7549,7 @@
 				E5BB9A852D3BEF0D0089667A /* schedule_repeatEnd_24@3x.png in Resources */,
 				E515AD6E2D3CC49800AA9AF2 /* fullscreen_enter_24@3x.png in Resources */,
 				E5BBA1092D3BFB3C0089667A /* SideMenuTodo@3x.png in Resources */,
+				E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */,
 				E5BBA1002D3BFB3C0089667A /* SideMenuFocus@2x.png in Resources */,
 				E50D94BB2D451C1800F57957 /* focus_record_80@3x.png in Resources */,
 				E5E2771D2D3E099C004EC522 /* todo_list_option_sort_24@3x.png in Resources */,
@@ -7794,6 +7853,7 @@
 				E5BB9E522D3BF0C70089667A /* TPWeekdaySymbolView.swift in Sources */,
 				E500DE602DB0FA6700EAEAF7 /* TodoFilterTaskChangeViewController.swift in Sources */,
 				E5BB9F472D3BF45F0089667A /* SideMenuViewController.swift in Sources */,
+				E52B62C02F37721C00673620 /* FocusTimelineEvent.swift in Sources */,
 				E5B98CDA2D55009800E78261 /* TPIconInfoTextValueView.swift in Sources */,
 				E51A4C2D2DC26787005A0E3F /* CalendarWeekViewController.swift in Sources */,
 				E5BB9E632D3BF0C70089667A /* TPCollectionCell.swift in Sources */,
@@ -7825,6 +7885,7 @@
 				E5007F832DCA4A8E006AD311 /* CalendarTimelineDateRange.swift in Sources */,
 				E5D7D92E2D43933700EC877A /* FocusDefaultTimerSelectSectionController.swift in Sources */,
 				E5BB9E122D3BF0C70089667A /* ValueTransformer+Register.swift in Sources */,
+				E52B62C22F37780500673620 /* FocusTimelineEventView.swift in Sources */,
 				E53735FF2D9D2E9F00C5A001 /* TodoFilterDateRangeTypeEditSectionController.swift in Sources */,
 				E5F1499F2D745B40009D51D0 /* TodoListEditViewController.swift in Sources */,
 				E5BB9D9D2D3BF0C60089667A /* TPToolbarButton.swift in Sources */,
@@ -7870,6 +7931,7 @@
 				E5BB9E6A2D3BF0C70089667A /* TPGridsCollectionViewFlowLayout.swift in Sources */,
 				E5D7D9202D43933700EC877A /* StatsSummarySectionController.swift in Sources */,
 				E5D7D93F2D43933700EC877A /* FocusSteppedConfigSectionController.swift in Sources */,
+				E52B62BE2F376CC100673620 /* FocusTimelineLayout.swift in Sources */,
 				E5BB9E742D3BF0C70089667A /* TPSlashLayer.swift in Sources */,
 				E5D7D7E82D43923800EC877A /* FocusPomodoroConfig.swift in Sources */,
 				E5BB9B4B2D3BEF920089667A /* Extension.swift in Sources */,
@@ -7907,6 +7969,7 @@
 				E5BB9DC32D3BF0C60089667A /* EditType.swift in Sources */,
 				E5BB9EE32D3BF0C80089667A /* TPBarProgressView.swift in Sources */,
 				E5D7D8FD2D43933600EC877A /* FocusRecordListCell.swift in Sources */,
+				E52B62AD2F36EDCA00673620 /* FocusTimelineDayViewController.swift in Sources */,
 				E5D0C2242D60D11400D29C22 /* TodoTaskListViewController.swift in Sources */,
 				E5D7D93A2D43933700EC877A /* FocusStopwatchConfigCell.swift in Sources */,
 				E5BBA0A72D3BF4A50089667A /* TodoStepProcessorUpdater.swift in Sources */,
@@ -8128,6 +8191,7 @@
 				E5BB9DD92D3BF0C60089667A /* UIView+Idenfifier.swift in Sources */,
 				E5BB9E792D3BF0C70089667A /* StatsBaseChartCell.swift in Sources */,
 				E5BB9DE82D3BF0C60089667A /* UICollectionView+Extension.swift in Sources */,
+				E52B62B72F37367E00673620 /* FocusTimelineView.swift in Sources */,
 				E5FDFAB82D3E47D90042BC3A /* TodoTaskQuickAddView.swift in Sources */,
 				E5BB9F0F2D3BF0C90089667A /* TPMenuRepresentable.swift in Sources */,
 				E5BB9EA62D3BF0C80089667A /* UILabel+LineFrames.swift in Sources */,
@@ -8172,6 +8236,7 @@
 				E5BB9DE02D3BF0C60089667A /* UIColor+Extensions.swift in Sources */,
 				E5BB9E902D3BF0C80089667A /* PieRankListCell.swift in Sources */,
 				E5BB9EF22D3BF0C80089667A /* TPPageController.swift in Sources */,
+				E52B62B92F374EA300673620 /* FocusTimelineSynchronizer.swift in Sources */,
 				E5D7D9132D43933700EC877A /* FocusStatsMonthlyViewController.swift in Sources */,
 				E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */,
 				E51A4C3F2DC3B95E005A0E3F /* CalendarDayTimelineView.swift in Sources */,
@@ -8236,6 +8301,7 @@
 				E5EDD7FA2D6EF6D900141B04 /* QuadrantTitleView.swift in Sources */,
 				E5BB9E0C2D3BF0C70089667A /* CAAnimationGroup+Extensions.swift in Sources */,
 				E5BBA0952D3BF4A50089667A /* TodoTaskEditStepSectionController.swift in Sources */,
+				E52B62BC2F376C8200673620 /* FocusTimelineEventListView.swift in Sources */,
 				E5BB9EC92D3BF0C80089667A /* TPWheatView.swift in Sources */,
 				E500DE622DB0FDBF00EAEAF7 /* QuadrantTaskMoveController.swift in Sources */,
 				E506A71E2DAEA895009DC15A /* TimeOffsetPickerViewCell.swift in Sources */,
@@ -8300,6 +8366,7 @@
 				E5BB9F162D3BF0C90089667A /* CoreGraphicsFunctions.swift in Sources */,
 				E5BB9E012D3BF0C60089667A /* Int+Duration.swift in Sources */,
 				E5BB9E5C2D3BF0C70089667A /* TPCalendarMonthView.swift in Sources */,
+				E52B62AF2F36F3D600673620 /* FocusTimelineDayPageView.swift in Sources */,
 				E5BB9E3E2D3BF0C70089667A /* TPBaseTableHeaderFooterView.swift in Sources */,
 				E53FD6D72D87197800760341 /* Todo+Filter.swift in Sources */,
 				E5D7D8C92D43933600EC877A /* FocusTrackingViewController.swift in Sources */,
@@ -8465,6 +8532,7 @@
 				E50DD7C62D72031600A85E87 /* TodoFolderListSectionController.swift in Sources */,
 				E5BB9E802D3BF0C80089667A /* ChartHighlightEelement.swift in Sources */,
 				E5BB9D832D3BF0C50089667A /* TPHexColorConvertible.swift in Sources */,
+				E52B62AA2F36DF9E00673620 /* FocusTimelineViewController.swift in Sources */,
 				E56E7FF02DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift in Sources */,
 				E5BB9E912D3BF0C80089667A /* PieRankListView.swift in Sources */,
 				E5BBA0602D3BF4A40089667A /* RecurrenceRule+Descriptable.swift in Sources */,
