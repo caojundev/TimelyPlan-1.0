@@ -43,24 +43,12 @@ class FocusTimelineDayPageView: CalendarDatePageView {
         cell.layoutIfNeeded()
         
         let date = adapter.item(at: indexPath) as! Date
-        cell.date = date
+        cell.timelineView.date = date
         synchronizer.addTimelineView(cell.timelineView)
     }
 }
 
 class FocusTimelineDayTimelineCell: TPCollectionCell {
-    
-    /// 时间线所在日的日期
-    var date: Date {
-        get {
-            return timelineView.date
-        }
-        
-        set {
-            
-            timelineView.date = newValue
-        }
-    }
     
     let timelineView = FocusTimelineView(frame: .zero)
 

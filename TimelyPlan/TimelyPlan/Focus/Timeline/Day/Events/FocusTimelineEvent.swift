@@ -21,11 +21,15 @@ class FocusTimelineEvent: NSObject {
     /// 结束日期
     let endDate: Date
     
-    init(name: String?, color: UIColor, startDate: Date, endDate: Date) {
+    /// 专注时长
+    let focusDuration: Duration
+    
+    init(name: String?, color: UIColor, startDate: Date, endDate: Date, focusDuration: Duration) {
         self.name = name
         self.color = color
         self.startDate = startDate
         self.endDate = endDate
+        self.focusDuration = focusDuration
         super.init()
     }
 }

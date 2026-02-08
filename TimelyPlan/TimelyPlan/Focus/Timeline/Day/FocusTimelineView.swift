@@ -111,9 +111,11 @@ class FocusTimelineView: UIView {
             return
         }
         
-        let indicatorView = CalendarDayTimelineIndicatorView()
-        self.indicatorView = indicatorView
-        contentView.addSubview(indicatorView)
+        if self.indicatorView == nil {
+            let view = CalendarDayTimelineIndicatorView()
+            self.indicatorView = view
+            contentView.addSubview(view)
+        }
         
         /// 启动计时器
         timerUpdater.start { [weak self] in

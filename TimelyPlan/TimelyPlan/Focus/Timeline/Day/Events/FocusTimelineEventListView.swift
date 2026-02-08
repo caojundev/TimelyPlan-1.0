@@ -73,21 +73,25 @@ class FocusTimelineEventListView: UIView {
             FocusTimelineEvent(name: "晨会",
                                color: CalendarEventColor.random,
                                startDate: calendar.date(bySettingHour: 9, minute: 0, second: 0, of: now)!,
-                               endDate: calendar.date(bySettingHour: 9, minute: 15, second: 0, of: now)!),
-            FocusTimelineEvent(name: "产品评审",
+                               endDate: calendar.date(bySettingHour: 9, minute: 15, second: 0, of: now)!,
+                               focusDuration: 15*60),
+            FocusTimelineEvent(name: "产品评审产品评审产品评审产品评审",
                           color: CalendarEventColor.random,
                           startDate: calendar.date(bySettingHour: 9, minute: 10, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 40, second: 0, of: now)!),
+                          endDate: calendar.date(bySettingHour: 10, minute: 40, second: 0, of: now)!,
+                               focusDuration: 90*60),
             
             FocusTimelineEvent(name: "开发 Coding",
                           color: CalendarEventColor.random,
                           startDate: calendar.date(bySettingHour: 10, minute: 00, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 30, second: 0, of: now)!),
+                          endDate: calendar.date(bySettingHour: 10, minute: 30, second: 0, of: now)!,
+                               focusDuration: 30*60),
             
             FocusTimelineEvent(name: "阅读",
                           color: CalendarEventColor.random,
                           startDate: calendar.date(bySettingHour: 13, minute: 00, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 15, minute: 40, second: 0, of: now)!),
+                          endDate: calendar.date(bySettingHour: 15, minute: 40, second: 0, of: now)!,
+                               focusDuration: 160*60),
         ]
         
         self.events = events

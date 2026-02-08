@@ -12,14 +12,14 @@ class FocusTimelineEventView: UIView {
     
     let event: FocusTimelineEvent
     
-    /// 线条图层
-    private let lineLayer = CALayer()
+    /// 用于展示暂停视图
+    private let pauseView = FocusTimelinePauseView(frame: .zero)
     
     /// 名称标签
     private let nameLabel = UILabel()
     
-    /// 时间标签
-    private let timeLabel = UILabel()
+    /// 时长标签
+    private let durationLabel = UILabel()
     
     var highlighted: Bool = false {
         didSet {
@@ -38,60 +38,63 @@ class FocusTimelineEventView: UIView {
     }
     
     private func setupSubviews() {
-        self.layer.cornerRadius = 2.0
+        self.layer.cornerRadius = 2.4
         self.clipsToBounds = true
-        self.padding = UIEdgeInsets(top: 4.0, left: 2.0, bottom: 2.0, right: 2.0)
-        layer.addSublayer(lineLayer)
+        self.padding = UIEdgeInsets(top: 2.0, left: 4.0, bottom: 2.0, right: 2.0)
+        
+        let startDate = Calendar.current.date(bySettingHour: 13,
+                                              minute: 00,
+                                              second: 0,
+                                              of: .now)!
+        
+        let timeline = FocusRecordTimeline(startDate: startDate, recordDurations: [FocusRecordDuration(type: .focus, interval: 3600),
+             FocusRecordDuration(type: .pause, interval: 3600),])
+        
+        pauseView.timeline = timeline
+        pauseView.alpha = 0.2
+        addSubview(pauseView)
         
         nameLabel.font = .systemFont(ofSize: 10, weight: .bold)
-        nameLabel.text = event.name
+        nameLabel.numberOfLines = 1
+        nameLabel.lineBreakMode = .byTruncatingMiddle
+        nameLabel.text = "\(event.name)•\(event.focusDuration.localizedTitle)"
         addSubview(nameLabel)
         
-        timeLabel.font = .systemFont(ofSize: 8, weight: .medium)
-        timeLabel.text = event.startDate.timeString
-        addSubview(timeLabel)
+        durationLabel.font = .systemFont(ofSize: 9, weight: .bold)
+        durationLabel.text = event.focusDuration.localizedTitle
+//        addSubview(durationLabel)
     }
     
-    private let timeLabelHeight = 16.0
+    private let durationLabelHeight = 16.0
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        updateStyle()
+        pauseView.frame = bounds
         
+        updateStyle()
         let layoutFrame = layoutFrame()
         nameLabel.width = layoutFrame.width
         nameLabel.sizeToFit()
         nameLabel.left = layoutFrame.minX
-        if nameLabel.height + timeLabelHeight + padding.verticalLength <= height {
+        if nameLabel.height + durationLabelHeight + padding.verticalLength <= height {
             nameLabel.top = layoutFrame.minY
             
-            timeLabel.isHidden = false
-            timeLabel.width = layoutFrame.width
-            timeLabel.height = timeLabelHeight
-            timeLabel.left = layoutFrame.minX
-            timeLabel.top = nameLabel.bottom
+            durationLabel.isHidden = false
+            durationLabel.width = layoutFrame.width
+            durationLabel.height = durationLabelHeight
+            durationLabel.left = layoutFrame.minX
+            durationLabel.top = nameLabel.bottom
         } else {
-            timeLabel.isHidden = true
+            durationLabel.isHidden = true
             nameLabel.centerY = layoutFrame.midY
-        }
-        
-        executeWithoutAnimation {
-            self.lineLayer.frame = CGRect(x: 0.0, y: 0.0, width: self.width, height: 2.4)
         }
     }
     
     private func updateStyle() {
-        if highlighted {
-            backgroundColor = event.color
-            lineLayer.backgroundColor = event.color.darkerColor.cgColor
-            nameLabel.textColor = CalendarEventColor.highlightedForegroundColor(for: event.color)
-        } else {
-            backgroundColor = CalendarEventColor.backgroundColor(for: event.color)
-            lineLayer.backgroundColor = event.color.cgColor
-            nameLabel.textColor = CalendarEventColor.foregroundColor(for: event.color)
-        }
-        
-        timeLabel.textColor = nameLabel.textColor
+        backgroundColor = event.color.withAlphaComponent(0.8)
+        let textColor = CalendarEventColor.highlightedForegroundColor(for: event.color)
+        nameLabel.textColor = textColor
+        durationLabel.textColor = textColor
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
