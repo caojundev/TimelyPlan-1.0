@@ -8,8 +8,18 @@
 import Foundation
 import UIKit
 
+protocol FocusTimelineEventListDelegate: AnyObject {
+    
+    func timelineEvents(for date: Date) -> [FocusTimelineEvent]?
+}
+
 class FocusTimelineEventListView: UIView {
   
+    weak var delegate: FocusTimelineEventListDelegate?
+    
+    /// 当前时间线所在日期
+    var date: Date = .now
+    
     var events: [FocusTimelineEvent]?
     
     var eventViews: [FocusTimelineEventView] = []
@@ -20,8 +30,7 @@ class FocusTimelineEventListView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        loadEvents()
-        setupContentView()
+        addSubview(contentView)
     }
     
     required init?(coder: NSCoder) {
@@ -43,11 +52,6 @@ class FocusTimelineEventListView: UIView {
         }
     }
     
-    private func setupContentView() {
-        addSubview(contentView)
-        setupEventViews()
-    }
-    
     private func setupEventViews() {
         eventViews.forEach { $0.removeFromSuperview() }
         eventViews.removeAll()
@@ -63,57 +67,24 @@ class FocusTimelineEventListView: UIView {
         }
         
         self.eventViews = eventViews
+        self.setNeedsLayout() /// 重新布局
     }
     
-    private func loadEvents() {
-        let calendar = Calendar.current
-        let now = Date()
-    
-        let events = [
-            FocusTimelineEvent(name: "晨会",
-                               color: CalendarEventColor.random,
-                               startDate: calendar.date(bySettingHour: 9, minute: 0, second: 0, of: now)!,
-                               endDate: calendar.date(bySettingHour: 9, minute: 15, second: 0, of: now)!,
-                               focusDuration: 15*60),
-            FocusTimelineEvent(name: "产品评审产品评审产品评审产品评审",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 9, minute: 10, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 40, second: 0, of: now)!,
-                               focusDuration: 90*60),
-            
-            FocusTimelineEvent(name: "开发 Coding",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 10, minute: 00, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 30, second: 0, of: now)!,
-                               focusDuration: 30*60),
-            
-            FocusTimelineEvent(name: "阅读",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 13, minute: 00, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 15, minute: 40, second: 0, of: now)!,
-                               focusDuration: 160*60),
-        ]
-        
-        self.events = events
-        
-        let start = Date().startOfDay()
-        let end = start.dateByAddingHours(HOURS_PER_DAY)!
+    private func loadEventsLayout() {
+        self.events = delegate?.timelineEvents(for: date)
+        let dateRange = CalendarTimelineDateRange(date: date)
         self.layout = FocusTimelineLayout(events: events,
-                                          dateRange: (start, end))
+                                          dateRange: dateRange)
     }
     
     func reset() {
-        
+        events = nil
+        layout = nil
+        setupEventViews()
     }
     
-    func eventView(at point: CGPoint) -> FocusTimelineEventView? {
-        for eventView in eventViews {
-            if eventView.frame.contains(point) {
-                return eventView
-            }
-        }
-        
-        return nil
+    func reloadData() {
+        loadEventsLayout()
+        setupEventViews()
     }
-    
 }

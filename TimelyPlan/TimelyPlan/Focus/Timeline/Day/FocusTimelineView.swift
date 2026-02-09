@@ -9,15 +9,24 @@ import Foundation
 import UIKit
 
 class FocusTimelineView: UIView {
-    
+
     var date: Date = .now {
         didSet {
-            /// 初始化指示器
+            eventListView.date = date
+            dateRange = CalendarTimelineDateRange(date: date)
             setupIndicatorView()
         }
     }
-    
-    var dateRange = CalendarTimelineDateRange(date: .now)
+
+    weak var delegate: FocusTimelineEventListDelegate? {
+        get {
+            return eventListView.delegate
+        }
+        
+        set {
+            eventListView.delegate = newValue
+        }
+    }
     
     var hourHeight: CGFloat = 80 {
         didSet {
@@ -60,6 +69,10 @@ class FocusTimelineView: UIView {
         }
     }
     
+    private lazy var dateRange: CalendarTimelineDateRange = {
+        return CalendarTimelineDateRange(date: date)
+    }()
+
     private let hoursViewWidth = 60.0
     private let hoursView: CalendarDayTimelineHoursView = {
         let view = CalendarDayTimelineHoursView()
@@ -165,7 +178,11 @@ class FocusTimelineView: UIView {
     }
     
     func reset() {
-//        eventListView.reset()
-//        timerUpdater.stop()
+        eventListView.reset()
+        timerUpdater.stop()
+    }
+    
+    func reloadData() {
+        eventListView.reloadData()
     }
 }

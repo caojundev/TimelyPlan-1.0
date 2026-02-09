@@ -55,14 +55,12 @@ class FocusTimelineEventView: UIView {
         addSubview(pauseView)
         
         nameLabel.font = .systemFont(ofSize: 10, weight: .bold)
-        nameLabel.numberOfLines = 1
-        nameLabel.lineBreakMode = .byTruncatingMiddle
-        nameLabel.text = "\(event.name)•\(event.focusDuration.localizedTitle)"
+        nameLabel.text = event.name
         addSubview(nameLabel)
         
         durationLabel.font = .systemFont(ofSize: 9, weight: .bold)
         durationLabel.text = event.focusDuration.localizedTitle
-//        addSubview(durationLabel)
+        addSubview(durationLabel)
     }
     
     private let durationLabelHeight = 16.0
@@ -70,28 +68,29 @@ class FocusTimelineEventView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         pauseView.frame = bounds
-        
         updateStyle()
         let layoutFrame = layoutFrame()
-        nameLabel.width = layoutFrame.width
-        nameLabel.sizeToFit()
-        nameLabel.left = layoutFrame.minX
-        if nameLabel.height + durationLabelHeight + padding.verticalLength <= height {
-            nameLabel.top = layoutFrame.minY
-            
+        durationLabel.width = layoutFrame.width / 2.0
+        durationLabel.sizeToFit()
+        
+        if durationLabelHeight + padding.verticalLength <= height {
+            nameLabel.isHidden = false
             durationLabel.isHidden = false
-            durationLabel.width = layoutFrame.width
-            durationLabel.height = durationLabelHeight
-            durationLabel.left = layoutFrame.minX
-            durationLabel.top = nameLabel.bottom
+            
+            durationLabel.right = layoutFrame.maxX
+            durationLabel.top = layoutFrame.minY
+            
+            nameLabel.width = layoutFrame.width - durationLabel.width
+            nameLabel.height = durationLabel.height
+            nameLabel.origin = layoutFrame.origin
         } else {
+            nameLabel.isHidden = true
             durationLabel.isHidden = true
-            nameLabel.centerY = layoutFrame.midY
         }
     }
     
     private func updateStyle() {
-        backgroundColor = event.color.withAlphaComponent(0.8)
+        backgroundColor = event.color
         let textColor = CalendarEventColor.highlightedForegroundColor(for: event.color)
         nameLabel.textColor = textColor
         durationLabel.textColor = textColor
