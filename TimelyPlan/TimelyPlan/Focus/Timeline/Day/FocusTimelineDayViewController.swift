@@ -9,7 +9,7 @@ import Foundation
 
 class FocusTimelineDayViewController: TPViewController,
                                       FocusTimelineTitleViewProvider,
-
+                                      FocusTimelineEventProvider,
                                       CalendarDatePageViewDelegate,
                                       TPCalendarSingleDateSelectionDelegate {
 
@@ -48,6 +48,7 @@ class FocusTimelineDayViewController: TPViewController,
     private lazy var pageView: FocusTimelineDayPageView = {
         let view = FocusTimelineDayPageView(frame: .zero)
         view.delegate = self
+        view.eventProvider = self
         return view
     }()
     
@@ -115,7 +116,26 @@ class FocusTimelineDayViewController: TPViewController,
         updateWeekView(with: date)
         updatePagingView(with: date)
     }
-    
+                                          
+    // MARK: - FocusTimelineEventProvider
+    func fetchTimelineEvents(for date: Date, completion: @escaping([FocusTimelineEvent]?) -> Void) {
+        focus.fetchSessions(for: date) { sessions in
+            print("✅获取了 \(date.yearMonthDayString)")
+            guard let sessions = sessions else {
+                completion(nil)
+                return
+            }
+
+            var events: [FocusTimelineEvent] = []
+            for session in sessions {
+                let event = FocusTimelineEvent(session: session)
+                events.append(event)
+            }
+            
+            completion(events)
+        }
+    }
+
     // MARK: - TPCalendarSingleDateSelectionDelegate
     func singleDateSelection(_ selection: TPCalendarSingleDateSelection, didSelect date: DateComponents) {
         guard let selectedDate = Date.dateFromComponents(date) else {
@@ -137,5 +157,4 @@ class FocusTimelineDayViewController: TPViewController,
         updateTitle(with: targetDate)
         updateWeekView(with: targetDate)
     }
-
 }

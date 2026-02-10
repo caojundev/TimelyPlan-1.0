@@ -10,26 +10,36 @@ import Foundation
 class FocusTimelineEvent: NSObject {
     
     /// 名称
-    var name: String?
+    var name: String? {
+        return session.timerShotName
+    }
+    
+    /// 开始日期
+    var startDate: Date {
+        return session.startDate ?? .now
+    }
+    
+    /// 结束日期
+    var endDate: Date {
+        return session.endDate ?? .now
+    }
+    
+    /// 专注时长
+    var focusDuration: Duration {
+        return Duration(timeline.focusInterval)
+    }
     
     /// 颜色
     let color: UIColor
     
-    /// 开始日期
-    let startDate: Date
+    let session: FocusSession
     
-    /// 结束日期
-    let endDate: Date
+    let timeline: FocusRecordTimeline
     
-    /// 专注时长
-    let focusDuration: Duration
-    
-    init(name: String?, color: UIColor, startDate: Date, endDate: Date, focusDuration: Duration) {
-        self.name = name
-        self.color = color
-        self.startDate = startDate
-        self.endDate = endDate
-        self.focusDuration = focusDuration
+    init(session: FocusSession) {
+        self.session = session
+        self.timeline = session.recordTimeline
+        self.color = CalendarEventColor.random
         super.init()
     }
 }

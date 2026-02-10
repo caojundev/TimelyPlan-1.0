@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-protocol FocusTimelineEventListDelegate: AnyObject {
+protocol FocusTimelineEventProvider: AnyObject {
     
-    func timelineEvents(for date: Date) -> [FocusTimelineEvent]?
+    func fetchTimelineEvents(for date: Date, completion: @escaping([FocusTimelineEvent]?) -> Void)
 }
 
 class FocusTimelineEventListView: UIView {
   
-    weak var delegate: FocusTimelineEventListDelegate?
+    weak var eventProvider: FocusTimelineEventProvider?
     
     /// 当前时间线所在日期
     var date: Date = .now
@@ -70,13 +70,6 @@ class FocusTimelineEventListView: UIView {
         self.setNeedsLayout() /// 重新布局
     }
     
-    private func loadEventsLayout() {
-        self.events = delegate?.timelineEvents(for: date)
-        let dateRange = CalendarTimelineDateRange(date: date)
-        self.layout = FocusTimelineLayout(events: events,
-                                          dateRange: dateRange)
-    }
-    
     func reset() {
         events = nil
         layout = nil
@@ -84,7 +77,24 @@ class FocusTimelineEventListView: UIView {
     }
     
     func reloadData() {
-        loadEventsLayout()
-        setupEventViews()
+        guard let eventProvider = eventProvider else {
+            self.events = nil
+            self.layout = nil
+            self.setupEventViews()
+            return
+        }
+        
+        let date = self.date
+        eventProvider.fetchTimelineEvents(for: date, completion: { events in
+            guard date == self.date else {
+                return
+            }
+            
+            self.events = events
+            let dateRange = CalendarTimelineDateRange(date: date)
+            self.layout = FocusTimelineLayout(events: events,
+                                              dateRange: dateRange)
+            self.setupEventViews()
+        })
     }
 }

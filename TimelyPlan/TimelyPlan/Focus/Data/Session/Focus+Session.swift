@@ -108,6 +108,12 @@ extension Focus {
         }
     }
     
+    /// 异步获取日期当日所有专注会话
+    func fetchSessions(for date: Date,
+                       completion: @escaping([FocusSession]?) -> Void) {
+        let dateRange = date.rangeOfThisDay()
+        fetchSessions(forTask: nil, timer: nil, dateRange: dateRange, completion: completion)
+    }
     
     /// 获取任务使用计时器在特定日期专注时长
     func getSessionDuration(forTask task: TaskRepresentable? = nil,

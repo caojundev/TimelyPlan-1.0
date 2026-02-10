@@ -30,8 +30,8 @@ extension CalendarDatePageViewDelegate {
 }
 
 class CalendarDatePageView: TPCollectionWrapperView,
-                                    TPCollectionViewAdapterDataSource,
-                                    TPCollectionViewAdapterDelegate {
+                             TPCollectionViewAdapterDataSource,
+                            TPCollectionViewAdapterDelegate {
     
     /// 代理对象
     weak var delegate: CalendarDatePageViewDelegate?
@@ -176,12 +176,35 @@ class CalendarDatePageView: TPCollectionWrapperView,
         collectionView.contentOffset = offset
     }
     
+    func validatedIndex(_ index: Int) -> Int {
+        return min(2 * kNearItemsCount, max(0, index))
+    }
+    
     private func date(at contentOffset: CGPoint) -> Date {
         let width = collectionView.frame.size.width
         var index = Int(contentOffset.x / width)
-        index = min(2 * kNearItemsCount, max(0, index))
+        index = validatedIndex(index)
         let indexPath = IndexPath(item: index, section: 0)
         let date = adapter.item(at: indexPath) as! Date
         return date
+    }
+    
+    /// 判断当前是否显示完整页面
+    /// - Returns: true表示显示完整页面，false表示显示部分页面
+    func isShowingFullPage() -> Bool {
+        let contentOffsetX = collectionView.contentOffset.x
+        let pageWidth = bounds.width
+        
+        // 避免除零错误
+        guard pageWidth > 0 else { return false }
+        
+        // 计算当前偏移量相对于页面宽度的余数
+        let remainder = contentOffsetX.truncatingRemainder(dividingBy: pageWidth)
+        
+        // 设置一个很小的容差值，避免浮点数精度问题
+        let tolerance: CGFloat = 0.0
+        
+        // 如果余数接近0或接近pageWidth，则认为是完整页面
+        return remainder < tolerance || remainder > (pageWidth - tolerance)
     }
 }

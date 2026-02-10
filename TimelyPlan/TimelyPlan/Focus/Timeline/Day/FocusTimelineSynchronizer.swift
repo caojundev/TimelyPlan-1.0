@@ -15,6 +15,18 @@ class FocusTimelineSynchronizer: NSObject, UIScrollViewDelegate {
     /// 时间线视图
     internal var timelineViews = NSHashTable<FocusTimelineView>.weakObjects()
     
+    
+    private func synchronize() {
+        for timelineView in timelineViews.allObjects {
+            timelineView.contentOffset = contentOffset
+        }
+    }
+    
+    func setContentOffset(_ contentOffset: CGPoint) {
+        self.contentOffset = contentOffset
+        synchronize()
+    }
+    
     // MARK: - 添加和移除更新器
     func addTimelineView(_ timelineView: FocusTimelineView) {
         if !timelineViews.contains(timelineView) {
@@ -23,12 +35,7 @@ class FocusTimelineSynchronizer: NSObject, UIScrollViewDelegate {
             timelineView.scrollViewDelegate = self
         }
     }
-    
-    private func synchronize() {
-        for timelineView in timelineViews.allObjects {
-            timelineView.contentOffset = contentOffset
-        }
-    }
+
     
     // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

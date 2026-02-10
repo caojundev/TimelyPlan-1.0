@@ -18,13 +18,13 @@ class FocusTimelineView: UIView {
         }
     }
 
-    weak var delegate: FocusTimelineEventListDelegate? {
+    weak var eventProvider: FocusTimelineEventProvider? {
         get {
-            return eventListView.delegate
+            return eventListView.eventProvider
         }
         
         set {
-            eventListView.delegate = newValue
+            eventListView.eventProvider = newValue
         }
     }
     

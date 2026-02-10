@@ -7,11 +7,16 @@
 
 import Foundation
 
-class FocusTimelineDayPageView: CalendarDatePageView, FocusTimelineEventListDelegate {
+class FocusTimelineDayPageView: CalendarDatePageView,
+                                FocusTimelineEventProvider {
+    
+    weak var eventProvider: FocusTimelineEventProvider?
     
     /// 滚动同步器
     private lazy var synchronizer: FocusTimelineSynchronizer = {
-        return FocusTimelineSynchronizer()
+        let synchronizer = FocusTimelineSynchronizer()
+        synchronizer.setContentOffset(CGPoint(x: 0.0, y: 600.0))
+        return synchronizer
     }()
     
     override func getDates() -> [Date] {
@@ -43,7 +48,7 @@ class FocusTimelineDayPageView: CalendarDatePageView, FocusTimelineEventListDele
         }
         
         let timelineView = cell.timelineView
-        timelineView.delegate = self
+        timelineView.eventProvider = self
         
         let date = adapter.item(at: indexPath) as! Date
         timelineView.date = date
@@ -53,43 +58,52 @@ class FocusTimelineDayPageView: CalendarDatePageView, FocusTimelineEventListDele
         synchronizer.addTimelineView(timelineView)
     }
     
-    // MARK: - FocusTimelineEventListDelegate
-    func timelineEvents(for date: Date) -> [FocusTimelineEvent]? {
-        debugPrint("获取日期事件\(date.yearMonthDayString)")
+    private func isVisibleDate(_ date: Date) -> Bool {
+        if visibleDate.isInSameDayAs(date) {
+            return true
+        }
+
+        if collectionView.isDragging {
+            let dates = adapter.allItems() as! [Date]
+            /// 当 contentOffset 当前位置非整页时，计算当前显示的是哪两页
+            let currentPageIndex = validatedIndex(Int(collectionView.contentOffset.x / bounds.width))
+            if dates[currentPageIndex].isInSameDayAs(date) {
+                return true
+            }
+
+            // 非显示完整页面，检查下一页
+            let nextPageIndex = validatedIndex(currentPageIndex + 1)
+            if dates[nextPageIndex].isInSameDayAs(date) {
+                return true
+            }
+        }
         
-        let calendar = Calendar.current
-        let now = date
-        let events = [
-            FocusTimelineEvent(name: "晨会",
-                               color: CalendarEventColor.random,
-                               startDate: calendar.date(bySettingHour: 9, minute: 0, second: 0, of: now)!,
-                               endDate: calendar.date(bySettingHour: 9, minute: 15, second: 0, of: now)!,
-                               focusDuration: 15*60),
-            FocusTimelineEvent(name: "产品评审产品评审产品评审产品评审",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 9, minute: 10, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 40, second: 0, of: now)!,
-                               focusDuration: 90*60),
-            
-            FocusTimelineEvent(name: "开发 Coding",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 10, minute: 00, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 30, second: 0, of: now)!,
-                               focusDuration: 30*60),
-            
-            FocusTimelineEvent(name: "阅读",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 13, minute: 00, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 15, minute: 40, second: 0, of: now)!,
-                               focusDuration: 160*60),
-        ]
+        if let visibleCells = collectionView.visibleCells as? [FocusTimelineDayTimelineCell] {
+            for visibleCell in visibleCells {
+                if visibleCell.date.isInSameDayAs(date) {
+                    return true
+                }
+            }
+        }
         
+        return false
+    }
+    
+    // MARK: - FocusTimelineEventProvider
+    func fetchTimelineEvents(for date: Date, completion: @escaping ([FocusTimelineEvent]?) -> Void) {
+        guard isVisibleDate(date) else {
+            completion(nil)
+            return
+        }
         
-        return events
+        eventProvider?.fetchTimelineEvents(for: date, completion: completion)
     }
 }
 
 class FocusTimelineDayTimelineCell: TPCollectionCell {
+    var date: Date {
+        return timelineView.date
+    }
     
     let timelineView = FocusTimelineView(frame: .zero)
 

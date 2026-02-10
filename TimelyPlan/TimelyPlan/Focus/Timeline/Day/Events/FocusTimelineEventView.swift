@@ -41,17 +41,9 @@ class FocusTimelineEventView: UIView {
         self.layer.cornerRadius = 2.4
         self.clipsToBounds = true
         self.padding = UIEdgeInsets(top: 2.0, left: 4.0, bottom: 2.0, right: 2.0)
-        
-        let startDate = Calendar.current.date(bySettingHour: 13,
-                                              minute: 00,
-                                              second: 0,
-                                              of: .now)!
-        
-        let timeline = FocusRecordTimeline(startDate: startDate, recordDurations: [FocusRecordDuration(type: .focus, interval: 3600),
-             FocusRecordDuration(type: .pause, interval: 3600),])
-        
-        pauseView.timeline = timeline
-        pauseView.alpha = 0.2
+
+        pauseView.timeline = event.timeline
+        pauseView.alpha = 0.4
         addSubview(pauseView)
         
         nameLabel.font = .systemFont(ofSize: 10, weight: .bold)

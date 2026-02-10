@@ -22,12 +22,13 @@ extension FocusSession {
     /// 获取会话对应的计时器信息
     var timerFeature: TimerFeature? {
         if let timerID = timerID {
-            return TimerFeature(identifier: timerID, timerType: timerType, shotName: timerShotName)
+            return TimerFeature(identifier: timerID,
+                                timerType: timerType,
+                                shotName: timerShotName)
         }
         
         return nil
     }
-    
     
     /// 创建新记录
     static func newSession(with record: FocusRecord, isManual: Bool) -> FocusSession {
