@@ -10,14 +10,21 @@ import Foundation
 class FocusTimelineDayPageView: CalendarDatePageView,
                                 FocusTimelineEventProvider {
     
+    
     weak var eventProvider: FocusTimelineEventProvider?
     
+    /// 小时高度
+    var hourHeight: CGFloat = 80.0 {
+        didSet {
+            updateHourHeight()
+        }
+    }
+    
+    /// 时间线打开时自动定位到的小时
+    var autoScrollHour: Int = 6
+    
     /// 滚动同步器
-    private lazy var synchronizer: FocusTimelineSynchronizer = {
-        let synchronizer = FocusTimelineSynchronizer()
-        synchronizer.setContentOffset(CGPoint(x: 0.0, y: 600.0))
-        return synchronizer
-    }()
+    private var synchronizer: FocusTimelineSynchronizer?
     
     override func getDates() -> [Date] {
         var dates: [Date] = [visibleDate]
@@ -48,6 +55,7 @@ class FocusTimelineDayPageView: CalendarDatePageView,
         }
         
         let timelineView = cell.timelineView
+        timelineView.hourHeight = hourHeight
         timelineView.eventProvider = self
         
         let date = adapter.item(at: indexPath) as! Date
@@ -55,7 +63,32 @@ class FocusTimelineDayPageView: CalendarDatePageView,
         timelineView.reloadData()
 
         /// 将时间线视图添加到同步器
+        let synchronizer = getSynchronizer()
         synchronizer.addTimelineView(timelineView)
+    }
+    
+    private func getSynchronizer() -> FocusTimelineSynchronizer {
+        if let synchronizer = synchronizer {
+            return synchronizer
+        }
+        
+        let synchronizer = FocusTimelineSynchronizer()
+        let maxY = hourHeight * CGFloat(HOURS_PER_DAY) - height
+        let offsetY = CGFloat(autoScrollHour) * hourHeight
+        synchronizer.setContentOffset(CGPoint(x: 0.0, y: min(offsetY, maxY)))
+        self.synchronizer = synchronizer
+        return synchronizer
+    }
+    
+    /// 更新时间线视图小时高度
+    private func updateHourHeight() {
+        guard let cells = collectionView.visibleCells as? [FocusTimelineDayTimelineCell] else {
+            return
+        }
+        
+        for cell in cells {
+            cell.timelineView.hourHeight = hourHeight
+        }
     }
     
     private func isVisibleDate(_ date: Date) -> Bool {

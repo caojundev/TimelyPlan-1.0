@@ -28,7 +28,7 @@ class FocusTimelineView: UIView {
         }
     }
     
-    var hourHeight: CGFloat = 80 {
+    var hourHeight: CGFloat = 80.0 {
         didSet {
             backgroundLayer.hourHeight = hourHeight
             setNeedsLayout()
