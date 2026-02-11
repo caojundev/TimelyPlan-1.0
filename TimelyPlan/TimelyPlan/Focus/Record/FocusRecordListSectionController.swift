@@ -89,7 +89,7 @@ class FocusRecordListSectionController: TPCollectionBaseSectionController,
     override func didDequeHeader(_ headerView: UICollectionReusableView) {
         if let headerView = headerView as? TPCollectionHeaderFooterView {
             headerView.padding = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 0, right: 16.0)
-            headerView.titleConfig.font = .boldSystemFont(ofSize: 16.0)
+            headerView.titleConfig.font = .boldSystemFont(ofSize: 12.0)
             headerView.titleConfig.textColor = resGetColor(.title)
             headerView.title = date.monthDayWeekdaySymbolString
         }

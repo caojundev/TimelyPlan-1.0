@@ -25,6 +25,9 @@ class TPLabelConfig: Equatable, NSCopying {
     /// 自动调整字体大小
     var adjustsFontSizeToFitWidth: Bool = false
     
+    /// 最小缩放因子
+    var minimumScaleFactor: CGFloat = 0.0
+    
     /// 标签透明度
     var alpha: CGFloat = 1.0
     
@@ -63,7 +66,8 @@ class TPLabelConfig: Equatable, NSCopying {
                          textColor: UIColor = .label,
                          textAlignment: NSTextAlignment = .left,
                          lineBreakMode: NSLineBreakMode = .byTruncatingTail,
-                         adjustsFontSizeToFitWidth: Bool = false) -> TPLabelConfig {
+                         adjustsFontSizeToFitWidth: Bool = false,
+                         minimumScaleFactor: CGFloat = 0.0) -> TPLabelConfig {
         let config = TPLabelConfig()
         config.textColor = textColor
         config.font = font
@@ -71,6 +75,7 @@ class TPLabelConfig: Equatable, NSCopying {
         config.textAlignment = textAlignment
         config.lineBreakMode = lineBreakMode
         config.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+        config.minimumScaleFactor = minimumScaleFactor
         return config
     }
 
@@ -138,6 +143,7 @@ class TPLabelConfig: Equatable, NSCopying {
         copy.textAlignment = textAlignment
         copy.lineBreakMode = lineBreakMode
         copy.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+        copy.minimumScaleFactor = minimumScaleFactor
         copy.alpha = alpha
         copy.textColor = textColor
         copy.highlightedTextColor = highlightedTextColor
@@ -152,6 +158,7 @@ class TPLabelConfig: Equatable, NSCopying {
               lhs.textAlignment == rhs.textAlignment &&
               lhs.lineBreakMode == rhs.lineBreakMode &&
               lhs.adjustsFontSizeToFitWidth == rhs.adjustsFontSizeToFitWidth &&
+              lhs.minimumScaleFactor == rhs.minimumScaleFactor &&
               lhs.alpha == rhs.alpha &&
               lhs.textColor == rhs.textColor &&
               lhs.selectedTextColor == rhs.selectedTextColor &&

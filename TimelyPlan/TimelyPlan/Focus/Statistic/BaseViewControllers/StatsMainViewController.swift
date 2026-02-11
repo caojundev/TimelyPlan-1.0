@@ -83,6 +83,14 @@ class StatsMainViewController: TPContainerViewController {
         self.contentViewController = viewController(for: type)
     }
 
+    override var themeBackgroundColor: UIColor? {
+        return .secondarySystemBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .secondarySystemBackground
+    }
+    
     private func viewController(for type: StatsType) -> UIViewController {
         let vc: UIViewController
         switch type {

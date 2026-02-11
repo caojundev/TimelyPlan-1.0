@@ -63,9 +63,9 @@ class StatsContentViewController: TPCollectionSectionsViewController,
     lazy var cellStyle: TPCollectionCellStyle = {
         let cellColor = resGetColor(.title)
         let style = TPCollectionCellStyle()
-        style.cornerRadius = 12.0
-        style.backgroundColor = resGetColor(.insetGroupedTableCellBackgroundNormal)
-        style.selectedBackgroundColor = resGetColor(.insetGroupedTableCellBackgroundSelected)
+        style.cornerRadius = 16.0
+        style.backgroundColor = .secondarySystemGroupedBackground
+        style.selectedBackgroundColor = .tertiarySystemBackground
         return style
     }()
     
@@ -81,6 +81,14 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         reloadData(completion: nil)
     }
 
+    override var themeBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+    
     func reloadData(completion: (() -> Void)?) {
         let date = self.date
         self.fetchSectionControllers { [weak self] sectionControllers in

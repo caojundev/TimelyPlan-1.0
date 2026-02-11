@@ -55,6 +55,7 @@ extension TPLabel {
         self.textAlignment = config.textAlignment
         self.lineBreakMode = config.lineBreakMode
         self.adjustsFontSizeToFitWidth = config.adjustsFontSizeToFitWidth
+        self.minimumScaleFactor = config.minimumScaleFactor
         
         /// 根据状态获取当前文本颜色
         var textColor: UIColor?

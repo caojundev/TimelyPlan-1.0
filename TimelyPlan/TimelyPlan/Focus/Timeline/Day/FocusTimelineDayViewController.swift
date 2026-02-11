@@ -120,7 +120,6 @@ class FocusTimelineDayViewController: TPViewController,
     // MARK: - FocusTimelineEventProvider
     func fetchTimelineEvents(for date: Date, completion: @escaping([FocusTimelineEvent]?) -> Void) {
         focus.fetchSessions(for: date) { sessions in
-            print("✅获取了 \(date.yearMonthDayString)")
             guard let sessions = sessions else {
                 completion(nil)
                 return

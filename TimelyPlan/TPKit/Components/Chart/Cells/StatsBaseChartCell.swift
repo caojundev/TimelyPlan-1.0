@@ -22,7 +22,7 @@ class StatsBaseChartCellItem: TPCollectionCellItem {
 
     /// 头视图高度
     var headerHeight: CGFloat = 50.0
-    var headerPadding: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 10.0, right: 16.0)
+    var headerPadding: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 10.0, bottom: 10.0, right: 16.0)
     
     /// 占位文本
     var placeholder: String?
@@ -57,9 +57,9 @@ class StatsBaseChartCell: TPCollectionCell {
     lazy var headerView: TPInfoView = {
        let view = TPInfoView()
         view.clipsToBounds = true
-        view.titleConfig.font = BOLD_SYSTEM_FONT
+        view.titleConfig.font = .boldSystemFont(ofSize: 16.0)
         view.titleConfig.textColor = resGetColor(.title)
-        view.subtitleConfig.font = UIFont.systemFont(ofSize: 12.0)
+        view.subtitleConfig.font = UIFont.systemFont(ofSize: 10.0)
         view.subtitleConfig.textColor = .secondaryLabel
         return view
     }()

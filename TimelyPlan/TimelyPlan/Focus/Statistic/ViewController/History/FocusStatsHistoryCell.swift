@@ -33,10 +33,13 @@ class FocusStatsHistorySectionController: TPCollectionItemSectionController {
         super.init()
         self.layout.edgeMargins = UIEdgeInsets(horizontal: 16.0, vertical: 8.0)
         self.headerItem.title = resGetString("History")
-        self.headerItem.titleConfig.font = BOLD_SYSTEM_FONT
+        self.headerItem.titleConfig.font = .boldSystemFont(ofSize: 16.0)
         self.headerItem.titleConfig.textColor = resGetColor(.title)
         self.headerItem.size = CGSize(width: .greatestFiniteMagnitude, height: 50.0)
-        self.headerItem.padding = UIEdgeInsets(top: 20.0, left: 16.0, bottom: 0, right: 16.0)
+        self.headerItem.padding = UIEdgeInsets(top: 20.0,
+                                               left: 24.0,
+                                               bottom: 0,
+                                               right: 16.0)
         self.updateCellItems()
     }
 

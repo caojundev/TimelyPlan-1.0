@@ -106,12 +106,13 @@ class PieLabelView: TPInfoView {
         self.titleConfig.lineBreakMode = .byTruncatingMiddle
         self.titleConfig.textColor = .label
         self.titleConfig.alpha = 0.8
-        
-        self.subtitleConfig.font = UIFont.boldSystemFont(ofSize: 10.0)
+        self.subtitleConfig.adjustsFontSizeToFitWidth = true
+        self.subtitleConfig.minimumScaleFactor = 0.6
+        self.subtitleConfig.font = UIFont.systemFont(ofSize: 10.0)
         self.subtitleConfig.lineBreakMode = .byTruncatingMiddle
         self.subtitleConfig.textColor = .secondaryLabel
         self.title = angle.slice.title
-        self.subtitle = angle.slice.detailPercentCombinedString
+        self.subtitle = angle.slice.detail
     }
     
     required init?(coder: NSCoder) {
