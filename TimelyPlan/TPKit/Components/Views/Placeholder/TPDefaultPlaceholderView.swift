@@ -9,10 +9,24 @@ import Foundation
 import UIKit
 
 class TPDefaultPlaceholderView: UIView {
+    
+    // 添加点击回调闭包
+    var didTapHandler: (() -> Void)?
 
-    let kItemMargin: CGFloat = 5.0  // 条目间距
     let kMaxContentWidth: CGFloat = 400.0
-
+    
+    var titleTopMargin: CGFloat = 15.0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    var subtitleTopMargin: CGFloat = 10.0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     var isBorderHidden: Bool = true {
         didSet {
             if isBorderHidden == oldValue {
@@ -91,6 +105,11 @@ class TPDefaultPlaceholderView: UIView {
         }
     }
     
+    var titleFont: UIFont {
+        get { return titleLabel.font }
+        set { titleLabel.font = newValue }
+    }
+    
     var titleColor: UIColor {
         get { return titleLabel.textColor }
         set { titleLabel.textColor = newValue }
@@ -110,6 +129,10 @@ class TPDefaultPlaceholderView: UIView {
         addSubview(titleLabel)
         addSubview(detailLabel)
         setupBorderLayer()
+        
+        // 添加单击手势
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        addGestureRecognizer(tapGesture)
     }
     
     required init?(coder: NSCoder) {
@@ -143,17 +166,21 @@ class TPDefaultPlaceholderView: UIView {
         detailLabel.width = contentWidth
         detailLabel.sizeToFit()
         
-        let contentHeight = imageView.height + titleLabel.height + detailLabel.height + 2 * kItemMargin
+        let contentHeight = imageView.height + titleLabel.height + detailLabel.height + titleTopMargin + subtitleTopMargin
         let top = (layoutFrame.height - contentHeight) / 2.0
         
         imageView.top = layoutFrame.minY + top
         imageView.alignHorizontalCenter()
         
-        titleLabel.top = imageView.bottom + kItemMargin
+        titleLabel.top = imageView.bottom + titleTopMargin
         titleLabel.alignHorizontalCenter()
         
-        detailLabel.top = titleLabel.bottom + kItemMargin
+        detailLabel.top = titleLabel.bottom + subtitleTopMargin
         detailLabel.alignHorizontalCenter()
+    }
+    
+    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+        didTapHandler?()
     }
 }
 

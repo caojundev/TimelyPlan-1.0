@@ -437,6 +437,11 @@
 "Counting from zero" = "从零累加";
 "Start Focus" = "开始专注";
 
+/// 占位文本
+"Tap + to create a new timer" = "点击+创建新计时器";
+"No Focus Record" = "无专注记录";
+"No Archived Timer" = "无归档计时器";
+
 /// 计时器
 "New Timer" = "新建计时器";
 "Edit Timer" = "编辑计时器";

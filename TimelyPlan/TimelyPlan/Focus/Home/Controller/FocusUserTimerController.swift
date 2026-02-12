@@ -17,7 +17,6 @@ class FocusUserTimerController {
         }
 
         let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
         navController.show()
     }
 

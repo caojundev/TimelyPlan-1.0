@@ -21,8 +21,8 @@ class FocusHomeUserTimerViewController: TPCollectionSectionsViewController,
     let addViewMargin = 20.0
     lazy var addView: TodoTaskAddView = {
         let view = TodoTaskAddView()
-        view.didClickAdd = { [weak self] button in
-            self?.clickAdd(button)
+        view.didClickAdd = { [weak self] _ in
+            self?.createNewTimer()
         }
         
         return view
@@ -32,7 +32,14 @@ class FocusHomeUserTimerViewController: TPCollectionSectionsViewController,
     lazy var placeholderView: TPDefaultPlaceholderView = {
         let view = TPDefaultPlaceholderView()
         view.isBorderHidden = true
-        view.image = resGetImage("placeholder_noSearchResult_80")
+        view.image = resGetImage("focus_placeholder_noTimer_80")
+        view.titleColor = .lightGray
+        view.title = resGetString("Tap + to create a new timer")
+        view.didTapHandler = { [weak self] in
+            TPImpactFeedback.impactWithLightStyle()
+            self?.createNewTimer()
+        }
+        
         return view
     }()
     
@@ -102,13 +109,12 @@ class FocusHomeUserTimerViewController: TPCollectionSectionsViewController,
         self.reorder = reorder
     }
     
-    // MARK: - Event Response
-    @objc func clickAdd(_ button: UIButton) {
+    // MARK: -
+    private func createNewTimer() {
         let timers = userTimerSectionController.timers
         let timerController = FocusUserTimerController()
         timerController.createTimer(in: timers)
     }
-    
     
     // MARK: - FocusTrackerDelegate
     func focusTrackerStateDidChange(fromState: FocusTrackerState?, toState: FocusTrackerState) {

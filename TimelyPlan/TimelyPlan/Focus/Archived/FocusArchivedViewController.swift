@@ -15,6 +15,8 @@ class FocusArchivedViewController: TPCollectionSectionsViewController,
         let view = TPDefaultPlaceholderView()
         view.isBorderHidden = true
         view.image = resGetImage("archivedList_80")
+        view.titleColor = .lightGray
+        view.title = resGetString("No Archived Timer")
         return view
     }()
     

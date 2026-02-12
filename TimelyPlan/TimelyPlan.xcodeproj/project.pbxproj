@@ -220,6 +220,8 @@
 		E53FD6DB2D8719A800760341 /* TodoFilterProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53FD6DA2D8719A800760341 /* TodoFilterProcessorUpdater.swift */; };
 		E53FD6DD2D871F2300760341 /* TodoEditFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53FD6DC2D871F2300760341 /* TodoEditFilter.swift */; };
 		E53FD6E02D87237E00760341 /* TodoFilterEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53FD6DF2D87237E00760341 /* TodoFilterEditViewController.swift */; };
+		E547C71E2F3D7ED40095918C /* focus_placeholder_noTimer_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C71C2F3D7ED30095918C /* focus_placeholder_noTimer_80@3x.png */; };
+		E547C71F2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C71D2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png */; };
 		E54A82C72DAA6AC800771016 /* TodoProgressEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A82C62DAA6AC800771016 /* TodoProgressEnum.swift */; };
 		E54A82C92DAA6C6E00771016 /* TodoEditProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A82C82DAA6C6E00771016 /* TodoEditProgress.swift */; };
 		E54A82CB2DAAA0A200771016 /* TodoTask+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A82CA2DAAA0A200771016 /* TodoTask+Progress.swift */; };
@@ -1545,6 +1547,8 @@
 		E53FD6DA2D8719A800760341 /* TodoFilterProcessorUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TodoFilterProcessorUpdater.swift; path = TimelyPlan/Todo/Data/Components/Filter/TodoFilterProcessorUpdater.swift; sourceTree = SOURCE_ROOT; };
 		E53FD6DC2D871F2300760341 /* TodoEditFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditFilter.swift; sourceTree = "<group>"; };
 		E53FD6DF2D87237E00760341 /* TodoFilterEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterEditViewController.swift; sourceTree = "<group>"; };
+		E547C71C2F3D7ED30095918C /* focus_placeholder_noTimer_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_placeholder_noTimer_80@3x.png"; sourceTree = "<group>"; };
+		E547C71D2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_placeholder_noTimer_80@2x.png"; sourceTree = "<group>"; };
 		E54A82C62DAA6AC800771016 /* TodoProgressEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoProgressEnum.swift; sourceTree = "<group>"; };
 		E54A82C82DAA6C6E00771016 /* TodoEditProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditProgress.swift; sourceTree = "<group>"; };
 		E54A82CA2DAAA0A200771016 /* TodoTask+Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoTask+Progress.swift"; sourceTree = "<group>"; };
@@ -3362,6 +3366,15 @@
 				E53FD6DF2D87237E00760341 /* TodoFilterEditViewController.swift */,
 			);
 			path = Edit;
+			sourceTree = "<group>";
+		};
+		E547C7172F3D6D680095918C /* placeholder */ = {
+			isa = PBXGroup;
+			children = (
+				E547C71D2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png */,
+				E547C71C2F3D7ED30095918C /* focus_placeholder_noTimer_80@3x.png */,
+			);
+			path = placeholder;
 			sourceTree = "<group>";
 		};
 		E5526ACA2DD0F46400B96A9D /* WeekDays */ = {
@@ -6960,6 +6973,7 @@
 		E5D7D9452D43CBA100EC877A /* focus */ = {
 			isa = PBXGroup;
 			children = (
+				E547C7172F3D6D680095918C /* placeholder */,
 				E52B62A42F3611FC00673620 /* main */,
 				E50D94AE2D451C1800F57957 /* record */,
 				E5D7D96B2D43E05700EC877A /* running */,
@@ -7418,6 +7432,7 @@
 				E50D94F12D452DD700F57957 /* focus_record_timeline_focus_24@2x.png in Resources */,
 				E5BB9AE62D3BEF0D0089667A /* checkmark_24@2x.png in Resources */,
 				E5BBA1012D3BFB3C0089667A /* SideMenuSettings@3x.png in Resources */,
+				E547C71E2F3D7ED40095918C /* focus_placeholder_noTimer_80@3x.png in Resources */,
 				E5BB9ADB2D3BEF0D0089667A /* xmark_16@2x.png in Resources */,
 				E55A7B9C2D463917000D224C /* bell_fill_16@3x.png in Resources */,
 				E5BB9A9B2D3BEF0D0089667A /* todo_list_layout_list_96@3x.png in Resources */,
@@ -7460,6 +7475,7 @@
 				E5BB9E462D3BF0C70089667A /* StepperPositive@3x.png in Resources */,
 				E5D833902DAB64D60012ABF3 /* todo_task_progress_targetValue_24@3x.png in Resources */,
 				E5D7D8F52D43933600EC877A /* PositiveCircleFill@3x.png in Resources */,
+				E547C71F2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png in Resources */,
 				E55CE3662D8BC4BB0083316E /* quadrant_circle_I@2x.png in Resources */,
 				E5BB9A892D3BEF0D0089667A /* todo_smartlist_today_24@3x.png in Resources */,
 				E5BB9AE52D3BEF0D0089667A /* checkmark_12@2x.png in Resources */,
