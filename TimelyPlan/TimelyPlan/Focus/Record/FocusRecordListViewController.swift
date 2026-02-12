@@ -15,7 +15,10 @@ class FocusRecordListViewController: StatsContentViewController,
     
     /// 计时器
     var timer: FocusTimer?
-
+    
+    /// 排序方式，默认为降序(最新的在前面)
+    var sortOrder: FocusRecordOrderType = .ascending
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         focus.addUpdaterDelegate(self)
@@ -24,8 +27,8 @@ class FocusRecordListViewController: StatsContentViewController,
     override func placeholderView() -> UIView? {
         let view = TPDefaultPlaceholderView()
         view.image = resGetImage("focus_record_80")
-        view.titleColor = .lightGray
         view.title = resGetString("No Focus Record")
+        view.titleColor = .lightGray
         return view
     }
     
@@ -44,9 +47,29 @@ class FocusRecordListViewController: StatsContentViewController,
     
     func sectionControllers(with daySessions: [Int32: [FocusSession]]) -> [FocusRecordListSectionController] {
         var sectionControllers = [FocusRecordListSectionController]()
-        daySessions.sorted(by: {$0.key < $1.key}).forEach { key, value in
+        
+        // 根据排序方式对数据进行排序
+        let sortedDaySessions: [(key: Int32, value: [FocusSession])]
+        switch sortOrder {
+        case .ascending:
+            sortedDaySessions = daySessions.sorted(by: { $0.key < $1.key })
+        case .descending:
+            sortedDaySessions = daySessions.sorted(by: { $0.key > $1.key })
+        }
+        
+        sortedDaySessions.forEach { key, value in
             if let date = Date.dateFromDayIntegerKey(key) {
-                let sectionController = FocusRecordListSectionController(date: date, sessions: value)
+                // 根据排序方式对每日的专注会话进行排序
+                let sortedSessions: [FocusSession]
+                switch sortOrder {
+                case .ascending:
+                    sortedSessions = value.orderedSessions(ascending: true)
+                case .descending:
+                    sortedSessions = value.orderedSessions(ascending: false)
+                }
+                
+                let sectionController = FocusRecordListSectionController(date: date,
+                                                                         sessions: sortedSessions)
                 sectionControllers.append(sectionController)
             }
         }

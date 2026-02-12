@@ -78,4 +78,22 @@ extension Array where Element == FocusSession {
         
         return result
     }
+    
+    /**
+     * 获取按时间排序的专注会话列表
+     *
+     * - Parameter ascending: 排序方向，true表示升序（默认），false表示降序
+     * - Returns: 按指定顺序排列的FocusSession数组
+     */
+    func orderedSessions(ascending: Bool = true) -> [FocusSession] {
+        let sortedSessions = sorted(by: { lSession, rSession in
+            guard let lDate = lSession.startDate, let rDate = rSession.startDate else {
+                return true
+            }
+            
+            return ascending ? lDate < rDate : lDate > rDate
+        })
+        
+        return sortedSessions
+    }
 }

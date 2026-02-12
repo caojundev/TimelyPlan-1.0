@@ -15,10 +15,23 @@ class FocusRecordsViewController: StatsMainViewController {
     /// 计时器
     var timer: FocusTimer?
 
+    /// 记录排列顺序
+    var sortOrder: FocusRecordOrderType = .ascending
+    
+    /// 排序按钮
+    lazy var orderBarButtonItem: FocusRecordOrderBarButtonItem = {
+        let buttonItem = FocusRecordOrderBarButtonItem()
+        buttonItem.didSelectType = {[weak self] orderType in
+            self?.didSelectSortOrder(orderType)
+        }
+        
+        return buttonItem
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        self.navigationItem.rightBarButtonItem = addBarButtonItem
+        self.navigationItem.rightBarButtonItems = [addBarButtonItem, orderBarButtonItem]
     }
     
     init(task: TaskRepresentable? = nil,
@@ -36,23 +49,26 @@ class FocusRecordsViewController: StatsMainViewController {
     
     override func dailyStatsViewController() -> UIViewController! {
         let vc = FocusRecordListViewController(type: .day, date: self.date)
-        vc.timer = self.timer
-        vc.task = self.task
+        vc.sortOrder = sortOrder
+        vc.timer = timer
+        vc.task = task
         return vc
     }
     
     override func weeklyStatsViewController() -> UIViewController! {
         let firstWeekday: Weekday = Weekday.firstWeekday
         let vc = FocusRecordListViewController(type: .week, date: self.date, firstWeekday: firstWeekday)
-        vc.timer = self.timer
-        vc.task = self.task
+        vc.sortOrder = sortOrder
+        vc.timer = timer
+        vc.task = task
         return vc
     }
     
     override func monthlyStatsViewController() -> UIViewController! {
         let vc = FocusRecordListViewController(type: .month, date: self.date)
-        vc.timer = self.timer
-        vc.task = self.task
+        vc.sortOrder = sortOrder
+        vc.timer = timer
+        vc.task = task
         return vc
     }
     
@@ -62,6 +78,17 @@ class FocusRecordsViewController: StatsMainViewController {
         let timerController = FocusUserTimerController()
         timerController.addRecordManually(forTimer: timer)
     }
-
+    
+    private func didSelectSortOrder(_ sortOrder: FocusRecordOrderType) {
+        guard self.sortOrder != sortOrder else {
+            return
+        }
+        
+        self.sortOrder = sortOrder
+        /// 重新加载列表数据
+        let vc = self.contentViewController as? FocusRecordListViewController
+        vc?.sortOrder = sortOrder
+        vc?.reloadData()
+    }
     
 }

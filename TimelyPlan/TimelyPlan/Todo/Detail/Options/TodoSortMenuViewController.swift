@@ -90,5 +90,4 @@ class TodoSortMenuViewController: TPMenuListViewController {
                          animated: true,
                          completion: nil)
     }
-    
 }
