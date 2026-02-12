@@ -16,15 +16,15 @@ class FocusStatsHistorySectionController: TPCollectionItemSectionController {
         cellItem.canHighlight = false
         cellItem.contentPadding = UIEdgeInsets(value: 16.0)
         cellItem.size = CGSize(width: .greatestFiniteMagnitude, height: 100.0)
-        cellItem.titleConfig.font = BOLD_SYSTEM_FONT
+        cellItem.titleConfig.font = .boldSystemFont(ofSize: 16.0)
         cellItem.titleConfig.textAlignment = .center
-        cellItem.titleConfig.alpha = 0.6
+        cellItem.titleConfig.alpha = 0.5
         
         /// 自定义样式
         let style = TPCollectionCellStyle()
         style.cornerRadius = 12.0
-        style.backgroundColor = resGetColor(.insetGroupedTableCellBackgroundNormal)
-        style.selectedBackgroundColor = style.backgroundColor
+        style.backgroundColor = .secondarySystemBackground
+        style.selectedBackgroundColor = .secondarySystemBackground
         cellItem.style = style
         return cellItem
     }()

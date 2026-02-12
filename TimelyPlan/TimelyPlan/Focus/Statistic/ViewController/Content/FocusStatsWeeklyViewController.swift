@@ -88,7 +88,7 @@ class FocusStatsWeeklyViewController: FocusStatsContentViewController {
         chartItem.rectangleMarks = rectangleMarks
         
         let sectionController = RectangleChartSectionController()
-        sectionController.cellItem.headerTitle = resGetString("Timeline")
+        sectionController.cellItem.headerTitle = resGetString("Focus Timeline")
         sectionController.chartItem = chartItem
         return sectionController
     }

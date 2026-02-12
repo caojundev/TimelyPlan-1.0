@@ -47,7 +47,6 @@ class FocusRecordListCellHeaderView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 8.0)
         label.textColor = manualColor
         label.layer.backgroundColor = manualColor.withAlphaComponent(0.2).cgColor
-        label.layer.cornerRadius = 8.0
         label.text = resGetString("Manual")
         label.textAlignment = .center
         label.edgeInsets = UIEdgeInsets(horizontal: 6.0, vertical: 4.0)
@@ -89,6 +88,7 @@ class FocusRecordListCellHeaderView: UIView {
         manualLabel.sizeToFit()
         manualLabel.right = moreButton.left
         manualLabel.centerY = moreButton.centerY
+        manualLabel.layer.cornerRadius = manualLabel.halfHeight
         
         dateRangeLabel.width = layoutFrame.width - moreButtonSize.width - manualLabel.width
         dateRangeLabel.height = topHeight

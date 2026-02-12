@@ -37,11 +37,13 @@ class FocusStatsMonthlyViewController: FocusStatsContentViewController {
         let durationSectionController = durationSectionController(with: dataItem)
         let scoreTrendsSectionController = scoreTrendsSectionController(with: dataItem)
         let mostFocusedTimeSectionController = dataItem.mostFocusedTimeSectionController
+        let timelineSectionController = timelineSectionController(with: dataItem)
         let historyDaySectionController = dataItem.historyDaySectionController
         sectionControllers.append(contentsOf: [durationSectionController,
-                                         scoreTrendsSectionController,
-                                         mostFocusedTimeSectionController,
-                                         historyDaySectionController])
+                                               scoreTrendsSectionController,
+                                               mostFocusedTimeSectionController,
+                                               timelineSectionController,
+                                               historyDaySectionController])
         return sectionControllers
     }
     
@@ -86,4 +88,28 @@ class FocusStatsMonthlyViewController: FocusStatsContentViewController {
         sectionController.chartItem = chartItem
         return sectionController
     }
+    
+    /// 时间线
+    func timelineSectionController(with dataItem: FocusStatsDataItem) -> RectangleChartSectionController {
+        let xAxis = ChartAxis.monthDaysAxis(date: date, startFromZero: false)
+        let rectangleMarks = dataItem.timelineChartMarks { date in
+            let index = CGFloat(date.day)
+            let xStart = index - xAxis.stepValue / 2.0
+            let xEnd = xStart + xAxis.stepValue
+            return (xStart, xEnd)
+        }
+    
+        let chartItem = RectangleChartItem()
+        chartItem.xAxis = xAxis
+        chartItem.xAxis.guideline?.style = .solid
+        
+        chartItem.yAxis = .timelineYAxis()
+        chartItem.rectangleMarks = rectangleMarks
+        
+        let sectionController = RectangleChartSectionController()
+        sectionController.cellItem.headerTitle = resGetString("Focus Timeline")
+        sectionController.chartItem = chartItem
+        return sectionController
+    }
+    
 }

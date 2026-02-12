@@ -142,10 +142,11 @@ extension ChartAxis {
         return axis
     }
     
-    static func monthDaysAxis(date: Date = .now) -> ChartAxis {
+    static func monthDaysAxis(date: Date = .now,
+                              startFromZero: Bool = true) -> ChartAxis {
         let count = date.numberOfDaysInMonth()
         var labelMarks = [ChartAxisLabelMark]()
-        let step: Int = 4
+        let step: Int = 3
         for i in 1...count {
             guard i % step == 1 else {
                 continue
@@ -155,8 +156,9 @@ extension ChartAxis {
             labelMarks.append(mark)
         }
         
-        let maxValue = CGFloat(date.numberOfDaysInMonth() + 1)
-        let range = ChartAxisRange(minValue: 0, maxValue: maxValue)
+        let minValue = startFromZero ? 0 : 0.5
+        let maxValue = CGFloat(date.numberOfDaysInMonth()) + (startFromZero ? 1.0 : 0.5)
+        let range = ChartAxisRange(minValue: minValue, maxValue: maxValue)
         var axis = ChartAxis(range: range, labelMarks: labelMarks)
         axis.labelStyle.numberOfLines = 0
         axis.guideline = ChartGuideline(range: axis.range, step: 1.0)
