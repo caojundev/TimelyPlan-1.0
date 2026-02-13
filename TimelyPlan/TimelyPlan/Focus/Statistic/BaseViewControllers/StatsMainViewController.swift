@@ -84,11 +84,11 @@ class StatsMainViewController: TPContainerViewController {
     }
 
     override var themeBackgroundColor: UIColor? {
-        return .secondarySystemBackground
+        return .systemGroupedBackground
     }
     
     override var themeNavigationBarBackgroundColor: UIColor? {
-        return .secondarySystemBackground
+        return .systemGroupedBackground
     }
     
     private func viewController(for type: StatsType) -> UIViewController {

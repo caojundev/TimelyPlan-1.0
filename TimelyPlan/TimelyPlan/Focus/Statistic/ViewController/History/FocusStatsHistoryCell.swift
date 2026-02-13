@@ -22,9 +22,9 @@ class FocusStatsHistorySectionController: TPCollectionItemSectionController {
         
         /// 自定义样式
         let style = TPCollectionCellStyle()
-        style.cornerRadius = 12.0
-        style.backgroundColor = .secondarySystemBackground
-        style.selectedBackgroundColor = .secondarySystemBackground
+        style.cornerRadius = 16.0
+        style.backgroundColor = .secondarySystemGroupedBackground
+        style.selectedBackgroundColor = .secondarySystemFill
         cellItem.style = style
         return cellItem
     }()

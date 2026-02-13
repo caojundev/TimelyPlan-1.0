@@ -16,13 +16,17 @@ class FocusRecordsViewController: StatsMainViewController {
     var timer: FocusTimer?
 
     /// 记录排列顺序
-    var sortOrder: FocusRecordOrderType = .ascending
+    lazy var sortOrder: FocusRecordSortOrder = {
+        let value: FocusRecordSortOrder? = SettingAgent.shared.value(forKey: kFocusSettingRecordsSortOrder)
+        return value ?? .ascending
+    }()
     
     /// 排序按钮
-    lazy var orderBarButtonItem: FocusRecordOrderBarButtonItem = {
-        let buttonItem = FocusRecordOrderBarButtonItem()
-        buttonItem.didSelectType = {[weak self] orderType in
-            self?.didSelectSortOrder(orderType)
+    lazy var orderBarButtonItem: FocusRecordSortOrderBarButtonItem = {
+        let buttonItem = FocusRecordSortOrderBarButtonItem()
+        buttonItem.sortOrder = self.sortOrder
+        buttonItem.didSelectType = {[weak self] sortOrder in
+            self?.didSelectSortOrder(sortOrder)
         }
         
         return buttonItem
@@ -79,12 +83,16 @@ class FocusRecordsViewController: StatsMainViewController {
         timerController.addRecordManually(forTimer: timer)
     }
     
-    private func didSelectSortOrder(_ sortOrder: FocusRecordOrderType) {
+    private func didSelectSortOrder(_ sortOrder: FocusRecordSortOrder) {
         guard self.sortOrder != sortOrder else {
             return
         }
         
         self.sortOrder = sortOrder
+        /// 保存到本地设置项
+        SettingAgent.shared.setValue(sortOrder,
+                                     forKey: kFocusSettingRecordsSortOrder)
+        
         /// 重新加载列表数据
         let vc = self.contentViewController as? FocusRecordListViewController
         vc?.sortOrder = sortOrder

@@ -17,7 +17,7 @@ class FocusRecordListViewController: StatsContentViewController,
     var timer: FocusTimer?
     
     /// 排序方式，默认为降序(最新的在前面)
-    var sortOrder: FocusRecordOrderType = .ascending
+    var sortOrder: FocusRecordSortOrder = .ascending
     
     override func viewDidLoad() {
         super.viewDidLoad()

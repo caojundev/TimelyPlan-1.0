@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum FocusRecordOrderType: Int, TPMenuRepresentable {
+enum FocusRecordSortOrder: Int, TPMenuRepresentable, Codable {
     case ascending = 0 /// 升序
     case descending    /// 降序
     
@@ -26,18 +26,18 @@ enum FocusRecordOrderType: Int, TPMenuRepresentable {
     }
 }
 
-class FocusRecordOrderBarButtonItem: UIBarButtonItem {
+class FocusRecordSortOrderBarButtonItem: UIBarButtonItem {
     
     /// 选中菜单类型
-    var didSelectType: ((FocusRecordOrderType) -> Void)?
+    var didSelectType: ((FocusRecordSortOrder) -> Void)?
     
-    var orderType: FocusRecordOrderType {
+    var sortOrder: FocusRecordSortOrder {
         get {
-            return orderButton.orderType
+            return orderButton.sortOrder
         }
         
         set {
-            orderButton.orderType = newValue
+            orderButton.sortOrder = newValue
         }
     }
     
@@ -46,12 +46,12 @@ class FocusRecordOrderBarButtonItem: UIBarButtonItem {
     override init() {
         super.init()
         orderButton.didSelectMenuAction = {[weak self] action in
-            guard let selectOrderType: FocusRecordOrderType = action.actionType() else {
+            guard let selectSortOrder: FocusRecordSortOrder = action.actionType() else {
                 return
             }
             
-            self?.orderType = selectOrderType
-            self?.didSelectType?(selectOrderType)
+            self?.sortOrder = selectSortOrder
+            self?.didSelectType?(selectSortOrder)
         }
         
         self.customView = orderButton
@@ -64,17 +64,17 @@ class FocusRecordOrderBarButtonItem: UIBarButtonItem {
 
 private class FocusRecordOrderButton: TPMenuListButton {
     
-    var orderType: FocusRecordOrderType = .ascending {
+    var sortOrder: FocusRecordSortOrder = .ascending {
         didSet {
-            self.image = orderType.iconImage
+            self.image = sortOrder.iconImage
         }
     }
     
     override var menuItems: [TPMenuItem]? {
         get {
-            let item = TPMenuItem.item(with: FocusRecordOrderType.allCases) { type, menuAction in
+            let item = TPMenuItem.item(with: FocusRecordSortOrder.allCases) { type, menuAction in
                 menuAction.handleBeforeDismiss = true
-                menuAction.isChecked = type == self.orderType
+                menuAction.isChecked = type == self.sortOrder
             }
             
             return [item]
@@ -87,7 +87,7 @@ private class FocusRecordOrderButton: TPMenuListButton {
         super.init(frame: frame)
         self.padding = UIEdgeInsets(horizontal: 5.0)
         self.imageConfig.color = resGetColor(.title)
-        self.image = orderType.iconImage
+        self.image = sortOrder.iconImage
     }
     
     required init?(coder: NSCoder) {

@@ -25,3 +25,7 @@ let kFocusCountdownTimerColor = UIColor.primary
 
 /// 正计时计时器颜色
 let kFocusStopwatchTimerColor = UIColor.primary
+
+/// 本地设置项键值
+/// 专注记录排列顺序
+let kFocusSettingRecordsSortOrder = "FocusSettingRecordsSortOrder"

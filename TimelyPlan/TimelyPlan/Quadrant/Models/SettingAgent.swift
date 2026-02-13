@@ -59,11 +59,11 @@ class SettingAgent {
     private init() {}
     
     func jsonString(forKey key: String) -> String? {
-        return nil
+        return UserDefaults.standard.value(forKey: key) as? String
     }
     
     func setJsonString(_ json: String?, forKey key: String) {
-        
+        UserDefaults.standard.setValue(json, forKey: key)
     }
     
     func value<T: Codable>(forKey key: String, defaultValue: () -> T) -> T {
@@ -104,10 +104,14 @@ class SettingAgent {
         return result
     }
     
-    func setValue(_ value: Codable?, forKey key: String) {
+    func setValue(_ value: Codable?, forKey key: String, synchronizeImediately: Bool = false) {
         guard let value = value else {
             valueDic[key] = nil
             setJsonString(nil, forKey: key)
+            if synchronizeImediately {
+                synchronize()
+            }
+            
             return
         }
 
@@ -116,6 +120,10 @@ class SettingAgent {
         let newJsonString = value.jsonString()
         setJsonString(newJsonString, forKey: key)
         observerMananger.valueDidChange(forKey: key)
+        
+        if synchronizeImediately {
+            synchronize()
+        }
     }
     
     // MARK: - Observer
@@ -137,7 +145,7 @@ class SettingAgent {
     
     // MARK: - 同步数据
     func synchronize() {
-        
+        UserDefaults.standard.synchronize()
     }
 }
 
