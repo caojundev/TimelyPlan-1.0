@@ -177,7 +177,7 @@ class TaskScheduleEditDateSectionController: TPTableItemSectionController,
             self.selectDuration(duration)
         }
     
-        pickerVC.popoverShowAsNavigationRoot()
+        pickerVC.popoverShow()
     }
     
     private func selectDuration(_ duration: Duration?) {

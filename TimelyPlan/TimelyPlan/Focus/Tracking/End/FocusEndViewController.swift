@@ -64,7 +64,7 @@ class FocusEndViewController: TPCollectionSectionsViewController {
         view.addSubview(bottomView)
         view.addSubview(confettiView)
         adapter.cellStyle.cornerRadius = cornerRadius
-        adapter.cellStyle.backgroundColor = resGetColor(.insetGroupedTableCellBackgroundNormal)
+        adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         sectionControllers = [summarySectionController, detailSectionController]
         reloadData()
         startConfetti()
@@ -78,6 +78,10 @@ class FocusEndViewController: TPCollectionSectionsViewController {
         bottomView.bottom = layoutFrame.maxY
         
         confettiView.frame = view.bounds
+    }
+    
+    override var themeBackgroundColor: UIColor? {
+        return .systemGroupedBackground
     }
     
     override func collectionViewFrame() -> CGRect {

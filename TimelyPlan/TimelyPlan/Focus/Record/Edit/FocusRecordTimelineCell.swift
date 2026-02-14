@@ -48,6 +48,7 @@ class FocusRecordTimelineCellItem: TPImageInfoTextValueTableCellItem {
     override init() {
         super.init()
         self.registerClass = FocusRecordTimelineCell.self
+        self.contentPadding = UIEdgeInsets(left: 16.0, right: 16.0)
         self.height = 60.0
     }
 }

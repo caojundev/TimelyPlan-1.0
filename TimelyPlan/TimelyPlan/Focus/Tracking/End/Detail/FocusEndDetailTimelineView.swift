@@ -136,6 +136,7 @@ class FocusEndDetailTimeFragmentCellItem: FocusRecordTimelineCellItem {
         self.durationType = durationType
         self.timeFragment = timeFragment
         super.init()
+        self.contentPadding = UIEdgeInsets(left: 16.0, right: 16.0)
         self.accessoryType = .none
         self.selectionStyle = .none
         self.updateInfo()

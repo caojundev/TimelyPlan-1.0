@@ -80,7 +80,8 @@ class TPButtonAction: NSObject {
             highlightedTitleColor = .secondaryLabel.withAlphaComponent(0.8)
             imageColor = titleColor
             highlightedImageColor = highlightedTitleColor
-            style.backgroundColor = .secondarySystemBackground
+            style.backgroundColor = .secondarySystemFill
+            style.selectedBackgroundColor = .secondarySystemFill
         case .destructive:
             style.backgroundColor = .danger6
         }

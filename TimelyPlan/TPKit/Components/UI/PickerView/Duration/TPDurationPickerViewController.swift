@@ -28,7 +28,7 @@ class TPDurationPickerViewController: TPTableSectionsViewController {
     
     lazy var durationSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 0.0
+        sectionController.headerItem.height = 20.0
         sectionController.footerItem.height = 0.0
         var cellItems: [TPBaseTableCellItem] = [durationPickerCellItem]
         if showPresetDuration {
@@ -78,18 +78,24 @@ class TPDurationPickerViewController: TPTableSectionsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = resGetString("Duration")
-        navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         actionsBarHeight = 75.0
         setupActionsBar(actions: [cancelAction, doneAction])
         sectionControllers = [durationSectionController]
-        adapter.cellStyle.backgroundColor = .clear
+        adapter.cellStyle.backgroundColor = .secondarySystemBackground
         adapter.reloadData()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         updatePopoverContentSize()
+    }
+    
+    override var themeBackgroundColor: UIColor? {
+        return .secondarySystemBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .secondarySystemBackground
     }
     
     override var popoverContentSize: CGSize {

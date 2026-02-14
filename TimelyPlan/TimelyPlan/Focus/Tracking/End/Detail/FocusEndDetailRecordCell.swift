@@ -173,8 +173,7 @@ class FocusEndDetailRecordCell: TPCollectionCell {
         } else {
             headerView.title = "--"
         }
-        
-        headerView.subtitle = resGetString("No task")
+//        headerView.subtitle = resGetString("No task")
         
         /// 专注描述信息
         if let focusDuration = record?.timeline.focusInterval, focusDuration > 0 {
@@ -244,7 +243,7 @@ class FocusEndDetailRecordCellHeader: TPInfoView {
         super.init(frame: frame)
         self.padding = UIEdgeInsets(left: 10.0)
         self.addSubview(colorView)
-        self.addSubview(bindButton)
+//        self.addSubview(bindButton)
         
         let textColor = resGetColor(.title)
         self.titleConfig.textColor = textColor
@@ -323,6 +322,7 @@ class FocusEndDetailRecordNoteView: UIView {
     private lazy var placeholderView: TPDefaultPlaceholderView = {
         let view = TPDefaultPlaceholderView()
         view.alpha = 0.6
+        view.isUserInteractionEnabled = false
         view.isBorderHidden = false
         view.titleLabel.font = BOLD_SYSTEM_FONT
         view.titleLabel.textColor = resGetColor(.title)

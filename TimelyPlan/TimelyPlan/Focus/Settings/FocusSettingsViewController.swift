@@ -10,6 +10,8 @@ import UIKit
 
 class FocusSettingsViewController: TPTableSectionsViewController {
      
+    private let defaultCellHeight = 60.0
+    
      /// 设置
      lazy var setting: FocusSetting = {
          return focus.setting
@@ -19,6 +21,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
      lazy var minimumRecordDurationCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
          let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
          cellItem.autoResizable = true
+         cellItem.minimumHeight = defaultCellHeight
          cellItem.title = resGetString("Minimum Record Duration")
          cellItem.updater = {
              guard let self = self else { return }
@@ -41,6 +44,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
      lazy var adjustStepDurationCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
          let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
          cellItem.autoResizable = true
+         cellItem.minimumHeight = defaultCellHeight
          cellItem.title = resGetString("Adjust Step Duration")
          cellItem.subtitle = resGetString("The amount of time the timer increases/decreases each time")
          cellItem.updater = {
@@ -59,6 +63,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
      /// 添加计时器到顶部
      lazy var addTimerOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
          let cellItem = TPSwitchTableCellItem()
+         cellItem.height = defaultCellHeight
          cellItem.title = resGetString("Add New Timers On Top")
          cellItem.updater = {
              guard let self = self else { return }
@@ -78,6 +83,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
      /// 隐藏浮动计时器下一步按钮
      lazy var hideFloatingTimerNextButtonCellItem: TPSwitchTableCellItem = { [weak self] in
          let cellItem = TPSwitchTableCellItem()
+         cellItem.height = defaultCellHeight
          cellItem.title = resGetString("Hide Next Button Of Floating Timer")
          cellItem.updater = {
              guard let self = self else { return }
@@ -110,6 +116,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
      /// 自动专注
      lazy var pomodoroAutoFocusCellItem: TPSwitchTableCellItem = { [weak self] in
          let cellItem = TPSwitchTableCellItem(autoResizable: true)
+         cellItem.minimumHeight = defaultCellHeight
          cellItem.title = resGetString("Auto-Focus")
          cellItem.subtitle = resGetString("After the break is over, start to focus automatically")
          cellItem.updater = {
@@ -130,6 +137,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
      /// 自动休息
      lazy var pomodoroAutoBreakCellItem: TPSwitchTableCellItem = { [weak self] in
          let cellItem = TPSwitchTableCellItem(autoResizable: true)
+         cellItem.minimumHeight = defaultCellHeight
          cellItem.title = resGetString("Auto-Break")
          cellItem.subtitle = resGetString("After the focus is over, start to rest automatically")
          cellItem.updater = {
@@ -157,7 +165,8 @@ class FocusSettingsViewController: TPTableSectionsViewController {
      // MARK: - 步骤计时器
      /// 自动休息
      lazy var steppedAutoStartNextCellItem: TPSwitchTableCellItem = { [weak self] in
-         let cellItem = TPSwitchTableCellItem(autoResizable: true)
+         let cellItem = TPSwitchTableCellItem(autoResizable: false)
+         cellItem.height = defaultCellHeight
          cellItem.title = resGetString("Auto Start Next Step")
          cellItem.updater = {
              guard let self = self else { return }
@@ -183,6 +192,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
      // MARK: - 正计时
      lazy var stopwatchDurationCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
          let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+         cellItem.height = defaultCellHeight
          cellItem.title = resGetString("Maximum Duration")
          cellItem.updater = {
              guard let self = self else { return }
@@ -207,6 +217,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
      /// 自动休息
      lazy var autoHideHourCellItem: TPSwitchTableCellItem = { [weak self] in
          let cellItem = TPSwitchTableCellItem(autoResizable: true)
+         cellItem.minimumHeight = defaultCellHeight
          cellItem.title = resGetString("Auto Hide Hour")
          cellItem.subtitle = resGetString("Display only minute and second when the hour is zero")
          cellItem.updater = {
@@ -254,6 +265,16 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          super.viewWillLayoutSubviews()
      }
      
+    
+    override var themeBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+    
+    
      private func settingDidChange() {
          focus.setting = setting
      }
@@ -315,6 +336,6 @@ class FocusSettingsViewController: TPTableSectionsViewController {
              self.adapter.reloadCell(forItem: self.stopwatchDurationCellItem, with: .none)
          }
          
-         vc.popoverShowAsNavigationRoot()
+         vc.popoverShow()
      }
  }

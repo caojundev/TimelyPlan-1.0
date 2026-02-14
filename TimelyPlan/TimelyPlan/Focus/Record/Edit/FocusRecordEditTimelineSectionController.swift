@@ -146,7 +146,7 @@ class FocusRecordEditTimelineSectionController: TPTableItemSectionController {
             self.didChangeTimeline?(self.timeline)
         }
         
-        vc.popoverShowAsNavigationRoot()
+        vc.popoverShow()
     }
     
 }

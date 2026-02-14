@@ -6526,10 +6526,10 @@
 		E5D7D80E2D43933100EC877A /* End */ = {
 			isa = PBXGroup;
 			children = (
+				E5D7D8152D43933100EC877A /* FocusEndViewController.swift */,
 				E5D7D80F2D43933100EC877A /* FocusEndSectionController.swift */,
 				E5D7D8102D43933100EC877A /* FocusEndBottomView.swift */,
 				E5D7D8112D43933100EC877A /* Detail */,
-				E5D7D8152D43933100EC877A /* FocusEndViewController.swift */,
 				E5D7D8162D43933100EC877A /* Summary */,
 			);
 			path = End;
