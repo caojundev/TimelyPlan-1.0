@@ -30,25 +30,7 @@ class FocusUserTimerSelectSectionController: FocusUserTimerListSectionController
     }
     
     override func sizeForHeader() -> CGSize {
-        return CGSize(width: .greatestFiniteMagnitude, height: headerHeight)
-    }
-    
-    override func classForHeader() -> AnyClass? {
-        guard showHeader, itemsCount > 0 else {
-            return UICollectionReusableView.self
-        }
-        
-        return TPCollectionHeaderFooterView.self
-    }
-    
-    override func didDequeHeader(_ headerView: UICollectionReusableView) {
-        if let headerView = headerView as? TPCollectionHeaderFooterView {
-            headerView.delegate = self
-            headerView.padding = UIEdgeInsets(top: 5.0, left: 0.0, bottom: 0, right: 15.0)
-            headerView.titleConfig.font = .boldSystemFont(ofSize: 16.0)
-            headerView.titleConfig.textColor = resGetColor(.title)
-            headerView.title = resGetString("Custom Timer")
-        }
+        return .zero
     }
     
     override func classForCell(at index: Int) -> AnyClass? {

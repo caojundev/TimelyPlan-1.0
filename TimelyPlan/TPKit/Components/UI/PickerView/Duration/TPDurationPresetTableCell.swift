@@ -58,7 +58,7 @@ class TPDurationPresetTableCell: TPBaseTableCell {
         presetView.itemHeight = 40.0
         presetView.cellStyle.borderWidth = 0.0
         presetView.cellStyle.cornerRadius = 8.0
-        presetView.cellStyle.backgroundColor = .tertiarySystemGroupedBackground
+        presetView.cellStyle.backgroundColor = .secondarySystemFill
         presetView.didSelectItemAtIndex = { [weak self] index in
             self?.didSelectPresetMinutes(at: index)
         }

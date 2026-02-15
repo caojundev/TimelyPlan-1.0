@@ -55,7 +55,7 @@ class FocusStartViewController: TPViewController,
     }()
     
     let defaultPadding = UIEdgeInsets(horizontal: 10.0)
-    var editContainerHeight = 400.0
+    var editContainerHeight = 420.0
     
     let timerTypeMenuPadding = UIEdgeInsets(value: 6.0)
     let timerTypeMenuCornerRadius = 18.0

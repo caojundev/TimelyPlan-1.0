@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension FocusSession {
+extension FocusSession: TPHexColorConvertible {
     
     var timerType: FocusTimerType {
         get {
@@ -41,6 +41,7 @@ extension FocusSession {
     
     var editingRecord: FocusRecord {
         let record = FocusRecord()
+        record.color = self.color
         record.timeline = self.recordTimeline
         record.score = Int(self.score)
         record.note = self.note
@@ -59,7 +60,8 @@ extension FocusSession {
     
     /// 判断当前会话是否与记录内容相同
     func isSameAs(_ record: FocusRecord) -> Bool {
-        if self.recordTimeline == record.timeline &&
+        if  self.color == record.color &&
+            self.recordTimeline == record.timeline &&
             self.score == record.score &&
             self.note == record.note &&
             self.timerFeature == record.timer?.feature &&
@@ -90,6 +92,7 @@ extension FocusSession {
         self.duration = Int64(timeline.focusInterval)
         self.score = Int64(record.score)
         self.note = record.note
+        self.colorHex = record.color?.hexString
     }
     
     /// 是否是今日会话

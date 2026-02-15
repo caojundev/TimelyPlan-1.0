@@ -20,20 +20,31 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
     private var editType: EditType
     
     /// 绑定计时器和任务
-    lazy var bindSectionController: FocusRecordEditBindSectionController = {
+    lazy var bindSectionController: FocusRecordEditBindSectionController = { [weak self] in
         let sectionController = FocusRecordEditBindSectionController()
         sectionController.timer = record.timer
-        sectionController.didSelectTimer = { [weak self] timer in
+        sectionController.didSelectTimer = { timer in
             self?.record.timer = timer
         }
         
-        sectionController.didSelectTask = { [weak self] task in
+        sectionController.didSelectTask = { task in
             self?.record.task = task
         }
         
         return sectionController
     }()
 
+    /// 颜色
+    lazy var colorSectionController: FocusRecordEditColorSectionController = { [weak self] in
+        let sectionController = FocusRecordEditColorSectionController()
+        sectionController.color = record.color
+        sectionController.didSelectColor = { color in
+            self?.record.color = color
+        }
+        
+        return sectionController
+    }()
+    
     /// 时间线
     lazy var timelineSectionController: FocusRecordEditTimelineSectionController = {
         let sectionController = FocusRecordEditTimelineSectionController(timeline: self.record.timeline)
@@ -92,6 +103,7 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
         wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
         tableView.keyboardDismissMode = .interactive
         sectionControllers = [bindSectionController,
+                              colorSectionController,
                               timelineSectionController,
                               scoreSectionController,
                               noteSectionController

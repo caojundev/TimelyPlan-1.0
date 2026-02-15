@@ -69,7 +69,6 @@ class FocusUserTimerController {
     
     // MARK: - 任务记录操作
     func addRecordManually(forTimer timer: FocusTimerRepresentable? = nil, task: TaskRepresentable? = nil) {
-        let timer = timer ?? focus.defaultTimer()
         let record = FocusRecord(timer: timer, task: task)
         let vc = FocusRecordEditViewController(record: record)
         vc.didEndEditing = { record in

@@ -78,7 +78,7 @@ class PomodoroTimerEditView: UIView {
     lazy var phaseMenuView: TPSegmentedMenuView = {
         let menuView = TPSegmentedMenuView()
         menuView.buttonHeight = 40.0
-        menuView.minButtonWidth = 40.0
+        menuView.minButtonWidth = 60.0
         menuView.padding = UIEdgeInsets(value: 4.0)
         menuView.buttonEdgeInsets = UIEdgeInsets(left: 15.0, right: 15.0)
         menuView.menuItems = FocusPomodoroPhase.segmentedMenuItems()

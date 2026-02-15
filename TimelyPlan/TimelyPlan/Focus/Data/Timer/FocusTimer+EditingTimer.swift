@@ -23,7 +23,7 @@ extension FocusTimer {
     var editingTimer: FocusEditingTimer {
         var timer = FocusEditingTimer()
         timer.name = name
-        timer.color = color ?? defaultColor
+        timer.color = color ?? FocusTimer.defaultColor
         timer.config = config?.copy() as? FocusTimerConfig
         return timer
     }

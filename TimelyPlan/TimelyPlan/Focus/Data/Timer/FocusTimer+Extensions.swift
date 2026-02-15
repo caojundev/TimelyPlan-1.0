@@ -41,7 +41,7 @@ extension FocusTimer: Sortable, TPHexColorConvertible {
     }
     
     // MARK: - TPHexColorConvertible
-    var defaultColor: UIColor {
+    static var defaultColor: UIColor  {
         return kFocusTimerDefaultColor
     }
 }

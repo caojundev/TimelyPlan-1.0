@@ -99,7 +99,8 @@ class TPDurationPickerViewController: TPTableSectionsViewController {
     }
     
     override var popoverContentSize: CGSize {
-        var contentHeight = durationPickerCellItem.height + actionsBarHeight
+        var contentHeight = durationSectionController.headerItem.height + 
+        durationPickerCellItem.height + actionsBarHeight
         if showPresetDuration {
             contentHeight += durationPresetCellItem.height
         }

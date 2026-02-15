@@ -18,15 +18,10 @@ class FocusTimerSelectViewController: TPCollectionSectionsViewController,
     lazy var placeholderView: TPDefaultPlaceholderView = {
         let view = TPDefaultPlaceholderView()
         view.isBorderHidden = true
-        view.image = resGetImage("placeholder_noSearchResult_80")
+        view.image = resGetImage("focus_placeholder_noTimer_80")
+        view.titleColor = .placeholderText
+        view.title = resGetString("No Timer")
         return view
-    }()
-    
-    /// 默认计时器选择
-    lazy var defaultTimerSelectSectionController: FocusDefaultTimerSelectSectionController = {
-        let sectionController = FocusDefaultTimerSelectSectionController()
-        sectionController.delegate = self
-        return sectionController
     }()
     
     /// 用户计时器选择
@@ -50,8 +45,7 @@ class FocusTimerSelectViewController: TPCollectionSectionsViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.placeholderView = placeholderView
-        self.sectionControllers = [defaultTimerSelectSectionController,
-                                   userTimerSelectSectionController]
+        self.sectionControllers = [userTimerSelectSectionController]
         self.adapter.reloadData()
     }
     

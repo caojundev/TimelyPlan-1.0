@@ -441,6 +441,7 @@
 "Tap + to create a new timer" = "点击+创建新计时器";
 "No Focus Record" = "无专注记录";
 "No Archived Timer" = "无归档计时器";
+"No Timer" = "无计时器";
 
 /// 计时器
 "New Timer" = "新建计时器";
