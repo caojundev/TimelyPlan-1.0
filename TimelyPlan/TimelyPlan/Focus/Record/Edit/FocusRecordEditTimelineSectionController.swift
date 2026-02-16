@@ -64,7 +64,7 @@ class FocusRecordEditTimelineSectionController: TPTableItemSectionController {
     init(timeline: FocusRecordTimeline) {
         self.startDate = timeline.startDate
         super.init()
-        self.headerItem.height = 20.0
+        self.headerItem.height = 15.0
         
         self.durationCellItems = cellItems(for: timeline.recordDurations)
         var cellItems = [TPBaseTableCellItem]()

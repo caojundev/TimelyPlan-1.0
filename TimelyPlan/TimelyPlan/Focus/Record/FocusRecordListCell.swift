@@ -42,15 +42,18 @@ class FocusRecordListCell: TPCollectionCell {
         view[0].padding = UIEdgeInsets(right: 10.0)
         view[0].titleConfig.textAlignment = .left
         view[0].subtitleConfig.textAlignment = .left
+        view[0].subtitleConfig.font = SMALL_SYSTEM_FONT
         view[0].subtitle = resGetString("Focus duration")
         
         view[1].subtitle = resGetString("Score")
         view[1].titleConfig.textAlignment = .center
         view[1].subtitleConfig.textAlignment = .center
-    
+        view[1].subtitleConfig.font = SMALL_SYSTEM_FONT
+        
         view[2].subtitle = resGetString("Pause")
         view[2].titleConfig.textAlignment = .center
         view[2].subtitleConfig.textAlignment = .center
+        view[2].subtitleConfig.font = SMALL_SYSTEM_FONT
         return view
     }()
     

@@ -51,6 +51,7 @@ class TPNoteTableSectionController: TPTableItemSectionController {
         super.init()
         self.headerItem.title = resGetString("Note")
         self.headerItem.height = 50.0
+        self.headerItem.padding = UIEdgeInsets(top: 15.0, left: 16.0, bottom: 0.0, right: 16.0)
         self.cellItems = [noteCellItem]
     }
 }

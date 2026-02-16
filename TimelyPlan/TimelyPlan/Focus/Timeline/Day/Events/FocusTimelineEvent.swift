@@ -39,7 +39,7 @@ class FocusTimelineEvent: NSObject {
     init(session: FocusSession) {
         self.session = session
         self.timeline = session.recordTimeline
-        self.color = CalendarEventColor.random
+        self.color = session.color ?? kFocusSessionDefaultColor
         super.init()
     }
 }

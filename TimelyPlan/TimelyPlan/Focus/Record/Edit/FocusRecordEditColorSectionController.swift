@@ -32,6 +32,7 @@ class FocusRecordEditColorSectionController: TPTableItemSectionController {
     
     override init() {
         super.init()
+        self.headerItem.height = 15.0
         self.cellItems = [colorCellItem]
     }
     
