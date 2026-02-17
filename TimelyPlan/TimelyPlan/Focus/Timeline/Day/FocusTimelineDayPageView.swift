@@ -21,7 +21,9 @@ class FocusTimelineDayPageView: CalendarDatePageView,
     }
     
     /// 时间线打开时自动定位到的小时
-    var autoScrollHour: Int = 6
+    lazy var autoScrollHour: Int = {
+        return Date().hour
+    }()
     
     /// 滚动同步器
     private var synchronizer: FocusTimelineSynchronizer?

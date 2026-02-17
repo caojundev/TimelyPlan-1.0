@@ -19,6 +19,11 @@ extension FocusSession: TPHexColorConvertible {
         }
     }
     
+    /// 会话计时器
+    var timer: FocusTimerRepresentable? {
+        return timerFeature?.timer
+    }
+    
     /// 获取会话对应的计时器信息
     var timerFeature: TimerFeature? {
         if let timerID = timerID {

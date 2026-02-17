@@ -37,7 +37,7 @@ class FocusRecordListCellHeaderView: UIView {
     private let rangeLabelHeight: CGFloat = 36.0
     
     /// 信息视图高度
-    private let infoViewHeight: CGFloat = 12.0
+    private let infoViewHeight: CGFloat = 15.0
     
     /// 颜色指示器视图
     lazy var colorView: UIView = {
@@ -161,15 +161,13 @@ class FocusRecordListCellHeaderView: UIView {
         setManulLabelHidden(!session.isManual)
         
         /// 计时器信息
-        let timerType = session.timerType
-//        timerInfoView.image = timerType.iconImage
         let timerName: String
         if let shotName = session.timerShotName {
             timerName = shotName
         } else {
-            timerName = timerType.title
+            timerName = resGetString("No timer bound")
         }
-
+        
         timerInfoView.title = timerName
     }
     
@@ -184,7 +182,7 @@ class FocusRecordListCellHeaderView: UIView {
         view.titleConfig.font = SMALL_SYSTEM_FONT
         view.titleConfig.textAlignment = .left
         view.imageConfig.margins = UIEdgeInsets(right: 2.0)
-        view.imageConfig.size = .size(4)
+        view.imageConfig.size = .size(3)
         view.imageConfig.shouldRenderImageWithColor = true
         view.imageConfig.color = color
         view.titleConfig.textColor = color

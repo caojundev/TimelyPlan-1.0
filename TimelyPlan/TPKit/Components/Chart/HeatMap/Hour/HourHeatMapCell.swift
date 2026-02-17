@@ -49,7 +49,7 @@ class HourHeatMapCellItem: StatsBaseChartCellItem {
         super.init()
         self.registerClass = HourHeatMapCell.self
         self.canHighlight = false
-        self.height = 280.0
+        self.height = 240.0
     }
 }
 

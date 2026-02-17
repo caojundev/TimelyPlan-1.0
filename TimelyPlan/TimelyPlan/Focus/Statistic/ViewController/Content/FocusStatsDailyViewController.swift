@@ -30,12 +30,34 @@ class FocusStatsDailyViewController: FocusStatsContentViewController {
         /// 详情
         let detailSectionController = detailSectionController(with: dataItem)
         let heatMapSectionController = heatMapSectionController(with: dataItem)
+        let timelineSectionController = timelineSectionController(with: dataItem)
         let historySessionSectionController = dataItem.historySessionSectionController
         let sectionControllers = [summarySectionController,
                                   detailSectionController,
+                                  timelineSectionController,
                                   heatMapSectionController,
                                   historySessionSectionController]
         return sectionControllers
+    }
+    
+    // MARK: - 时间线
+    func timelineSectionController(with dataItem: FocusStatsDataItem) -> RectangleChartSectionController {
+        let range = ChartAxisRange(minValue: 0, maxValue: 1.0)
+        let xAxis = ChartAxis(range: range, labelMarks: [])
+        let rectangleMarks = dataItem.timelineChartMarks { date in
+            return (range.minValue, range.maxValue)
+        }
+    
+        let chartItem = RectangleChartItem()
+        chartItem.xAxisLabelHeight = 15.0
+        chartItem.xAxis = xAxis
+        chartItem.yAxis = .timelineYAxis()
+        chartItem.rectangleMarks = rectangleMarks
+        
+        let sectionController = RectangleChartSectionController()
+        sectionController.cellItem.headerTitle = resGetString("Focus Timeline")
+        sectionController.chartItem = chartItem
+        return sectionController
     }
     
     /// 热力图
