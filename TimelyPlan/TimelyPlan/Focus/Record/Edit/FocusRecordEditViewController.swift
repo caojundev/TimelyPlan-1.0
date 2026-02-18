@@ -33,17 +33,6 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
         
         return sectionController
     }()
-
-    /// 颜色
-    lazy var colorSectionController: FocusRecordEditColorSectionController = { [weak self] in
-        let sectionController = FocusRecordEditColorSectionController()
-        sectionController.color = record.color
-        sectionController.didSelectColor = { color in
-            self?.record.color = color
-        }
-        
-        return sectionController
-    }()
     
     /// 时间线
     lazy var timelineSectionController: FocusRecordEditTimelineSectionController = {
