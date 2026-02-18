@@ -245,6 +245,7 @@
 		E552FBB22DBD20A40072703F /* CalendarStripMoreTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB12DBD20A40072703F /* CalendarStripMoreTextLayer.swift */; };
 		E552FBB42DBDDCA70072703F /* CalendarMonthWeekBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */; };
 		E552FBB62DBE30630072703F /* CalendarMonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */; };
+		E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */; };
 		E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */; };
 		E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */; };
 		E55A7B762D45F873000D224C /* timer_start_circle_fill_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */; };
@@ -1223,7 +1224,7 @@
 		E5D7D93E2D43933700EC877A /* FocusTimerStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8AD2D43933600EC877A /* FocusTimerStepCell.swift */; };
 		E5D7D93F2D43933700EC877A /* FocusSteppedConfigSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8AE2D43933600EC877A /* FocusSteppedConfigSectionController.swift */; };
 		E5D7D9402D43933700EC877A /* FocusTimerStepMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8AF2D43933600EC877A /* FocusTimerStepMenuController.swift */; };
-		E5D7D9412D43933700EC877A /* FocusTimerStepEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8B12D43933600EC877A /* FocusTimerStepEditViewController.swift */; };
+		E5D7D9412D43933700EC877A /* FocusTimerStepEditContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8B12D43933600EC877A /* FocusTimerStepEditContentViewController.swift */; };
 		E5D7D9422D43933700EC877A /* FocusTimerStepNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8B22D43933600EC877A /* FocusTimerStepNameCell.swift */; };
 		E5D7D9432D43933700EC877A /* FocusHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8B32D43933600EC877A /* FocusHomeViewController.swift */; };
 		E5D7D9442D43933700EC877A /* FocusTimerBindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8B52D43933600EC877A /* FocusTimerBindView.swift */; };
@@ -1577,6 +1578,7 @@
 		E552FBB12DBD20A40072703F /* CalendarStripMoreTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStripMoreTextLayer.swift; sourceTree = "<group>"; };
 		E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthWeekBackgroundLayer.swift; sourceTree = "<group>"; };
 		E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthViewController.swift; sourceTree = "<group>"; };
+		E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditViewController.swift; sourceTree = "<group>"; };
 		E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_pause_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@2x.png"; sourceTree = "<group>"; };
@@ -2572,7 +2574,7 @@
 		E5D7D8AD2D43933600EC877A /* FocusTimerStepCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerStepCell.swift; sourceTree = "<group>"; };
 		E5D7D8AE2D43933600EC877A /* FocusSteppedConfigSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSteppedConfigSectionController.swift; sourceTree = "<group>"; };
 		E5D7D8AF2D43933600EC877A /* FocusTimerStepMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerStepMenuController.swift; sourceTree = "<group>"; };
-		E5D7D8B12D43933600EC877A /* FocusTimerStepEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditViewController.swift; sourceTree = "<group>"; };
+		E5D7D8B12D43933600EC877A /* FocusTimerStepEditContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditContentViewController.swift; sourceTree = "<group>"; };
 		E5D7D8B22D43933600EC877A /* FocusTimerStepNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerStepNameCell.swift; sourceTree = "<group>"; };
 		E5D7D8B32D43933600EC877A /* FocusHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusHomeViewController.swift; sourceTree = "<group>"; };
 		E5D7D8B52D43933600EC877A /* FocusTimerBindView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerBindView.swift; sourceTree = "<group>"; };
@@ -6971,7 +6973,8 @@
 		E5D7D8B02D43933600EC877A /* Edit */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D8B12D43933600EC877A /* FocusTimerStepEditViewController.swift */,
+				E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */,
+				E5D7D8B12D43933600EC877A /* FocusTimerStepEditContentViewController.swift */,
 				E5D7D8B22D43933600EC877A /* FocusTimerStepNameCell.swift */,
 			);
 			path = Edit;
@@ -8049,7 +8052,7 @@
 				E5BB9DFA2D3BF0C60089667A /* Int+Extensions.swift in Sources */,
 				E5D7D9002D43933600EC877A /* FocusMoreBarButtonItem.swift in Sources */,
 				E5BBA0652D3BF4A40089667A /* RepeatEnd.swift in Sources */,
-				E5D7D9412D43933700EC877A /* FocusTimerStepEditViewController.swift in Sources */,
+				E5D7D9412D43933700EC877A /* FocusTimerStepEditContentViewController.swift in Sources */,
 				E5BB9F492D3BF45F0089667A /* SideMenuType.swift in Sources */,
 				E5526AC92DD0E82E00B96A9D /* CalendarWeekSingleDayView.swift in Sources */,
 				E5BBA0EF2D3BF5BB0089667A /* TaskBindView.swift in Sources */,
@@ -8255,6 +8258,7 @@
 				E5D7D8D62D43933600EC877A /* FocusFlipClockActionView.swift in Sources */,
 				E5BB9D8D2D3BF0C60089667A /* TPNumberFieldTableCell.swift in Sources */,
 				E5BB9DEB2D3BF0C60089667A /* Date+Week.swift in Sources */,
+				E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */,
 				E5BBA0522D3BF4A40089667A /* TodoTaskCheckInfoView.swift in Sources */,
 				E5BBA0EE2D3BF5BB0089667A /* TaskPickerViewController.swift in Sources */,
 				E5BBA05A2D3BF4A40089667A /* TodoTaskEditViewController.swift in Sources */,

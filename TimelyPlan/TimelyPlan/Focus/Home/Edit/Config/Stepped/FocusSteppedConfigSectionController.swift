@@ -115,7 +115,6 @@ class FocusSteppedConfigSectionController: TPTableItemSectionController,
         }
         
         let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
         navController.show()
     }
     
@@ -126,15 +125,14 @@ class FocusSteppedConfigSectionController: TPTableItemSectionController,
             guard newStep != step else {
                 return
             }
-            
+
             self.config.replaceStep(step, with: newStep)
             self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .automatic)
             self.commitFocusAnimation(for: newStep)
             self.didChangeConfig?(self.config)
         }
-        
+
         let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
         navController.show()
     }
     
