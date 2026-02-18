@@ -11,6 +11,8 @@ protocol TextRepresentable {
     
     /// 判断文本是否相同
     func isSame(as other: TextRepresentable?) -> Bool
+    
+    func width(with font: UIFont) -> CGFloat
 }
 
 extension String: TextRepresentable {
@@ -25,6 +27,11 @@ extension ASAttributedString: TextRepresentable {
     func isSame(as other: TextRepresentable?) -> Bool {
         return self == other as? ASAttributedString
     }
+    
+    func width(with font: UIFont) -> CGFloat {
+        return value.width(with: font)
+    }
+    
 }
 
 extension UILabel {
@@ -34,9 +41,9 @@ extension UILabel {
             self.attributed.text = attributedText
         } else if let text = text as? String {
             self.text = text
+        } else {
+            self.text = nil
         }
-        
-        self.text = nil
     }
 }
 

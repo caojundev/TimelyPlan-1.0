@@ -13,11 +13,12 @@ class TPImageInfoTextValueView: TPImageInfoView {
     /// 值配置信息
     var valueConfig: TPTextAccessoryConfig? {
         didSet {
-            valueLabel.text = valueConfig?.valueText
-            valueLabel.font = valueConfig?.valueFont
-            valueLabel.textColor = valueConfig?.textColor
             rightAccessorySize = valueConfig?.valueSize ?? .zero
             rightAccessoryMargins = valueConfig?.valueMargins ?? .zero
+            
+            valueLabel.font = valueConfig?.valueFont
+            valueLabel.textColor = valueConfig?.textColor
+            valueLabel.update(with: valueConfig?.valueText)
             setNeedsLayout()
         }
     }
@@ -28,7 +29,6 @@ class TPImageInfoTextValueView: TPImageInfoView {
         label.edgeInsets = .zero
         label.font = BOLD_SMALL_SYSTEM_FONT
         label.numberOfLines = 1
-        label.textColor = .secondaryLabel
         return label
     }()
     

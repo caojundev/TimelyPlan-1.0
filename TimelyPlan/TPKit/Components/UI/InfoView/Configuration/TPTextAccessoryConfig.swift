@@ -11,8 +11,8 @@ import UIKit
 class TPTextAccessoryConfig {
     
     /// 值文本
-    var valueText: String?
-
+    var valueText: TextRepresentable?
+    
     /// 值标签字体
     var valueFont: UIFont = .boldSystemFont(ofSize: 12.0)
 
@@ -35,7 +35,7 @@ class TPTextAccessoryConfig {
         return CGSize(width: valueWidth, height: valueHeight)
     }
     
-    static func valueText(_ text: String?, textColor: UIColor? = nil) -> TPTextAccessoryConfig {
+    static func valueText(_ text: TextRepresentable?, textColor: UIColor? = nil) -> TPTextAccessoryConfig {
         let config = TPTextAccessoryConfig()
         config.valueText = text
         config.textColor = textColor ?? .secondaryLabel

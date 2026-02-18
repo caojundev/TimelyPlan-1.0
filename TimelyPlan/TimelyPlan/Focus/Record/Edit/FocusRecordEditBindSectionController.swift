@@ -22,14 +22,8 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
         cellItem.accessoryType = .disclosureIndicator
         cellItem.title = resGetString("Timer")
         cellItem.updater = {
-            var valueText: String?
-            if let timer = self?.timer {
-                valueText = timer.name ?? resGetString("Untitled")
-            } else {
-                valueText = resGetString("None")
-            }
-            
-            self?.timerCellItem.valueConfig = .valueText(valueText)
+            let info = self?.timerInfo()
+            self?.timerCellItem.valueConfig = .valueText(info)
         }
         
         cellItem.didSelectHandler = {
@@ -42,6 +36,18 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
     override init() {
         super.init()
         self.cellItems = [timerCellItem]
+    }
+    
+    /// 计时器信息
+    private func timerInfo() -> TextRepresentable? {
+        guard let timer = timer as? FocusTimer else {
+            return resGetString("None")
+        }
+
+        let timerName = timer.name ?? resGetString("Untitled")
+        let timerColor = timer.color ?? kFocusTimerDefaultColor
+        let attributedInfo: ASAttributedString = "\("●", .foreground(timerColor)) \(timerName)"
+        return attributedInfo
     }
     
     // MARK: - Handler

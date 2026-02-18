@@ -10,7 +10,7 @@ import Foundation
 protocol FocusTimerRepresentable: AnyObject {
 
     var identifier: String? { get set }
-
+    
     /// 名称
     var name: String? { get set }
     
