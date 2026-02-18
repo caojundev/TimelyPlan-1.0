@@ -49,6 +49,10 @@ class TPMenuListViewController: TPViewController {
         updatePopoverContentSize()
     }
     
+    override var themeBackgroundColor: UIColor? {
+        return .secondarySystemGroupedBackground
+    }
+    
     override var popoverContentSize: CGSize {
         var contentSize = listView.contentSize
         contentSize.width = menuContentWidth

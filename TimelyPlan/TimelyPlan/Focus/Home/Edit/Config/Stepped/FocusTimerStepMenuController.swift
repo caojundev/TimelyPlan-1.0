@@ -52,6 +52,17 @@ enum FocusTimerStepMenuType: String, TPMenuRepresentable {
 
 class FocusTimerStepMenuController: TPBaseMenuController<FocusTimerStepMenuType> {
     
+    let menuTypes: [FocusTimerStepMenuType]
+    
+    init(menuTypes: [FocusTimerStepMenuType]) {
+        self.menuTypes = menuTypes
+        super.init()
+    }
+    
+    override func allowMenuActionTypes() -> [FocusTimerStepMenuType] {
+        return menuTypes
+    }
+    
     override func orderedMenuActionTypeLists() -> [Array<FocusTimerStepMenuType>] {
         var lists: [Array<FocusTimerStepMenuType>]
         lists = [[.addPreviousStep,

@@ -105,13 +105,25 @@ class FocusSteppedConfigSectionController: TPTableItemSectionController,
     
     /// 在索引处新建步骤
     private func createStep(at index: Int) {
+        var currentIndex = index
         let vc = FocusTimerStepEditViewController()
         vc.didEndEditing = { step in
-            self.config.insertStep(step, at: index)
+            self.config.insertStep(step, at: currentIndex)
             self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .fade)
             self.commitFocusAnimation(for: step)
             self.didChangeConfig?(self.config)
             self.updateAddButtonEnabled()
+            currentIndex += 1
+        }
+        
+        vc.canContinuousAddNextStep = { [weak self] in
+            guard let self = self else {
+                return false
+            }
+            
+            let stepsCount = self.config.stepsCount
+            let canAdd = stepsCount + 1 < FocusSteppedConfig.maxStepsCount
+            return canAdd
         }
         
         let navController = UINavigationController(rootViewController: vc)
@@ -149,7 +161,14 @@ class FocusSteppedConfigSectionController: TPTableItemSectionController,
             return
         }
         
-        let menuController = FocusTimerStepMenuController()
+        let menuTypes: [FocusTimerStepMenuType]
+        if self.config.canAddNewStep() {
+            menuTypes = FocusTimerStepMenuType.allCases
+        } else {
+            menuTypes = [.edit, .delete]
+        }
+        
+        let menuController = FocusTimerStepMenuController(menuTypes: menuTypes)
         menuController.didSelectMenuActionType = { actionType in
             self.performMenuAction(actionType, for: step)
         }
@@ -182,15 +201,15 @@ class FocusSteppedConfigSectionController: TPTableItemSectionController,
         }
            
         editAction.backgroundColor = .primary
-        editAction.image = resGetImage("edit_24")
+        editAction.image = resGetImage("edit_24", color: .white)
         
         /// 删除
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] _, _, completion in
             self?.deleteStep(step)
             completion(true)
         }
-                            
-        deleteAction.image = resGetImage("trash_24")
+        
+        deleteAction.image = resGetImage("trash_24", color: .white)
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
     

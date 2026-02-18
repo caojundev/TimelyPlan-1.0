@@ -211,7 +211,7 @@ class TPBaseButton: UIButton, Checkable {
     
     private func updateStatus(animated: Bool) {
         let scale = isTapped ? tappedScale : 1.0
-        let contentAlpha = isTapped ? 0.8 : 1.0
+        let contentAlpha = isTapped ? 0.95 : 1.0
         let animationBlock = {
             self.contentView.transform = CGAffineTransform(scaleX: scale, y: scale)
             self.contentView.alpha = contentAlpha
