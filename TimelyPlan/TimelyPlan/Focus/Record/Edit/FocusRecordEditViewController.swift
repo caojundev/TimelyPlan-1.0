@@ -92,7 +92,6 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
         wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
         tableView.keyboardDismissMode = .interactive
         sectionControllers = [bindSectionController,
-                              colorSectionController,
                               timelineSectionController,
                               scoreSectionController,
                               noteSectionController

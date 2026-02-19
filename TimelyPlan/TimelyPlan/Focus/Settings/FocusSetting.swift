@@ -12,6 +12,7 @@ struct FocusSetting: Codable {
     
     static let keyName = "FocusSetting"
     
+    static let defaultFirstWeekday: Weekday = .monday
     static let defaultAddTimerOnTop = false
     static let defaultMinimumRecordDuration = 5 * SECONDS_PER_MINUTE
     static let minimumRecordMinuteRange = 1...60
@@ -26,6 +27,9 @@ struct FocusSetting: Codable {
     static let flipClockAutoHideHour: Bool = true
     
     static let didChangeFloatingTimerNextButtonHiddenNotification = Notification.Name(rawValue: "isFloatingTimerNextButtonHidden")
+    
+    /// 周开始日
+    var firstWeekday: Weekday? = Self.defaultFirstWeekday
     
     /// 添加计时器到顶部
     var addTimerOnTop: Bool? = Self.defaultAddTimerOnTop
@@ -55,6 +59,10 @@ struct FocusSetting: Codable {
     var flipClockAutoHideHour: Bool? = Self.flipClockAutoHideHour
     
     // MARK: - Getters
+    func getFirstWeekday() -> Weekday {
+        return firstWeekday ?? Self.defaultFirstWeekday
+    }
+    
     func getAddTimerOnTop() -> Bool {
         return addTimerOnTop ?? Self.defaultAddTimerOnTop
     }

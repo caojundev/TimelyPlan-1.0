@@ -85,20 +85,6 @@
 "Record Type" = "记录类型";
 "Auto Record Value" = "自动记录值";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "New Folder" = "新建目录";
 "Edit Folder" = "编辑目录";
 "Enter folder name" = "输入目录名称";
@@ -187,41 +173,6 @@
 "%ld tags selected" = "已选择%ld个标签";
 "%ld tag selected" = "已选择%ld个标签";
 "This tag already exists" = "当前标签已存在";
-
-///**********************专注*********************///
-"Focusing" = "专注中";
-"Focus Duration" = "专注时长";
-
-/// 专注设置
-"Focus Settings" = "专注设置";
-"Auto-Focus" = "自动专注";
-"After the break is over, start to focus automatically" = "休息结束后自动开始专注";
-"Auto-Break" = "自动休息";
-"After the focus is over, start to rest automatically" = "专注结束后自动开始休息";
-"Add New Timers On Top" = "添加计时器到顶部";
-"Hide Next Button Of Floating Timer" = "隐藏浮动计时器下一步按钮";
-"Minimum Record Duration" = "最小记录时长";
-"Records with a focus duration of less than %@ will be discarded" = "专注时长小于%@的记录将被丢弃";
-"Adjust Step Duration" = "微调时长";
-"The amount of time the timer increases/decreases each time" = "计时器每次延长/缩短时长";
-"Maximum Duration" = "最大时长";
-"Stepped Timer" = "步骤计时器";
-"Auto Start Next Step" = "自动开始下一步";
-"Flip Clock" = "翻页时钟";
-"Auto Hide Hour" = "自动隐藏小时位";
-"Display only minute and second when the hour is zero" = "当小时位为0时仅显示分和秒";
-
-/// 专注结束
-"Discard" = "丢弃";
-"Discard focus data of this round" = "丢弃本轮专注数据";
-"Discard Focus Data" = "丢弃专注数据";
-"%ld focus records of this round will be discarded" = "本轮%ld条专注记录将被丢弃";
-"The focus record of this round will be discarded" = "本轮专注记录将被丢弃";
-"There is no focused record over %@ in this round." = "本轮无超过%@的专注记录";
-
-
-
-
 
 ///**********************通用*********************///
 "You have exceeded the maximum character limit of %ld." = "您已超出最大字符限制%ld";
@@ -427,6 +378,7 @@
 
 
 ///**************************Focus**************************///
+"Focusing" = "专注中";
 "Timer" = "计时器";
 "Break" = "休息";
 "Pomodoro" = "番茄钟";
@@ -519,7 +471,7 @@
 "Hold To Stop" = "长按结束";
 
 /// 专注完成
-"Focus Completed" = "专注完成";
+"Focus Duration" = "专注时长";
 "Focus Rate" = "专注率";
 "Pause Count" = "暂停次数";
 "Pause Duration" = "暂停时长";
@@ -529,7 +481,33 @@
 "Ended at %@" = "结束于%@";
 "Save Focus Data" = "保存专注数据";
 
+"Discard" = "丢弃";
+"Discard focus data of this round" = "丢弃本轮专注数据";
+"Discard Focus Data" = "丢弃专注数据";
+"%ld focus records of this round will be discarded" = "本轮%ld条专注记录将被丢弃";
+"The focus record of this round will be discarded" = "本轮专注记录将被丢弃";
+"There is no focused record over %@ in this round." = "本轮无超过%@的专注记录";
 
+/// 专注设置
+"Focus Settings" = "专注设置";
+"Auto-Focus" = "自动专注";
+"After the break is over, start to focus automatically" = "休息结束后自动开始专注";
+"Auto-Break" = "自动休息";
+"After the focus is over, start to rest automatically" = "专注结束后自动开始休息";
+"Add New Timers On Top" = "添加计时器到顶部";
+"Hide Next Button Of Floating Timer" = "隐藏浮动计时器下一步按钮";
+"Minimum Record Duration" = "最小记录时长";
+"Records with a focus duration of less than %@ will be discarded" = "专注时长小于%@的记录将被丢弃";
+"Adjust Step Duration" = "微调时长";
+"The amount of time the timer increases/decreases each time" = "计时器每次延长/缩短时长";
+"Maximum Duration" = "最大时长";
+"Stepped Timer" = "步骤计时器";
+"Auto Start Next Step" = "自动开始下一步";
+"Flip Clock" = "翻页时钟";
+"Auto Hide Hour" = "自动隐藏小时位";
+"Display only minute and second when the hour is zero" = "当小时位为0时仅显示分和秒";
+
+"Week Start on" = "周开始于";
 
 
 

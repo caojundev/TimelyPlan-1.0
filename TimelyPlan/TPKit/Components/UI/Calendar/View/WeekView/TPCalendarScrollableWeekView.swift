@@ -23,12 +23,19 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
     var selection: TPCalendarDateSelection? = TPCalendarSingleDateSelection()
     
     /// 周开始日
-    var firstWeekday: Weekday = .monday
+    var firstWeekday: Weekday = .firstWeekday {
+        didSet {
+            guard firstWeekday != oldValue else {
+                return
+            }
+            
+            visibleDateComponents = Date.now.firstDayOfWeek(firstWeekday: firstWeekday).yearMonthDayComponents
+        }
+    }
     
     /// 当前月份日期组件
     private(set) lazy var visibleDateComponents: DateComponents = {
-        let date = Date.now.firstDayOfWeek(firstWeekday: firstWeekday)
-        return date.yearMonthDayComponents
+        return Date.now.firstDayOfWeek(firstWeekday: firstWeekday).yearMonthDayComponents
     }()
     
     /// 当前月左右月份数目

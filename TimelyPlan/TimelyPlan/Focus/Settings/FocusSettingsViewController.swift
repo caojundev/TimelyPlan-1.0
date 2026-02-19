@@ -17,6 +17,25 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          return focus.setting
      }()
      
+    /// 周开始日
+    lazy var firstWeekdayCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Week Start on")
+        cellItem.updater = {
+            guard let self = self else { return }
+            let firstWeekday = self.setting.getFirstWeekday()
+            self.firstWeekdayCellItem.valueConfig = .valueText(firstWeekday.symbol)
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editFirstWeekday()
+        }
+        
+        return cellItem
+    }()
+    
      /// 最小会话时长
      lazy var minimumRecordDurationCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
          let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
@@ -104,7 +123,8 @@ class FocusSettingsViewController: TPTableSectionsViewController {
      lazy var generalSectionController: TPTableItemSectionController = {
          let sectionController = TPTableItemSectionController()
          sectionController.headerItem.height = 10.0
-         sectionController.cellItems = [addTimerOnTopCellItem,
+         sectionController.cellItems = [firstWeekdayCellItem      ,
+                                        addTimerOnTopCellItem,
                                         hideFloatingTimerNextButtonCellItem,
                                         minimumRecordDurationCellItem,
                                         adjustStepDurationCellItem]
@@ -274,7 +294,6 @@ class FocusSettingsViewController: TPTableSectionsViewController {
         return .systemGroupedBackground
     }
     
-    
      private func settingDidChange() {
          focus.setting = setting
      }
@@ -291,6 +310,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          pickerVC.didPickCount = completion
          pickerVC.popoverShow()
      }
+    
      
      private func editMinimumRecordDuration() {
          let duration = setting.getMinimumRecordDuration()
@@ -338,4 +358,39 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          
          vc.popoverShow()
      }
+    
+    
+    private func editFirstWeekday() {
+        guard let cell = adapter.cellForItem(firstWeekdayCellItem) else {
+            return
+        }
+        
+        let firstWeekday = setting.getFirstWeekday()
+        let menuVC = TPMenuListViewController()
+        let weekdays: [Weekday] = [.sunday, .monday]
+        let menuItem = TPMenuItem.item(with: weekdays, updater: { weekday, menuAction in
+            menuAction.handleBeforeDismiss = true
+            menuAction.isChecked = firstWeekday == weekday
+        })
+        
+        menuVC.menuItems = [menuItem]
+        menuVC.didSelectMenuAction = { menuAction in
+            guard let weekday: Weekday = menuAction.actionType(), weekdays.contains(weekday) else {
+                return
+            }
+            
+            self.setting.firstWeekday = weekday
+            self.settingDidChange()
+            self.adapter.reloadCell(forItem: self.firstWeekdayCellItem, with: .none)
+        }
+        
+        menuVC.popoverShow(from: cell.contentView,
+                           sourceRect: cell.contentView.bounds,
+                           isSourceViewCovered: false,
+                           preferredPosition: .bottomLeft,
+                           permittedPositions: [.bottomLeft, .topLeft],
+                           animated: true,
+                           completion: nil)
+    }
  }
+                                                                            

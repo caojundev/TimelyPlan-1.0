@@ -60,7 +60,7 @@ class FocusRecordsViewController: StatsMainViewController {
     }
     
     override func weeklyStatsViewController() -> UIViewController! {
-        let firstWeekday: Weekday = Weekday.firstWeekday
+        let firstWeekday = focus.setting.getFirstWeekday()
         let vc = FocusRecordListViewController(type: .week, date: self.date, firstWeekday: firstWeekday)
         vc.sortOrder = sortOrder
         vc.timer = timer

@@ -42,7 +42,7 @@ class FocusStatsBaseViewController: StatsMainViewController {
     }
     
     override func weeklyStatsViewController() -> UIViewController! {
-        let firstWeekday: Weekday = Weekday.firstWeekday
+        let firstWeekday = focus.setting.getFirstWeekday()
         let vc = FocusStatsWeeklyViewController(date: date, firstWeekday: firstWeekday)
         self.configureStatsContentViewController(vc)
         return vc
