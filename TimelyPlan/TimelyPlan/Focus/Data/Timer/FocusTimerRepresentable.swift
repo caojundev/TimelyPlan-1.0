@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol FocusTimerRepresentable: AnyObject {
 
@@ -28,6 +29,9 @@ protocol FocusTimerRepresentable: AnyObject {
     
     /// 计时器特征
     var feature: TimerFeature?  { get }
+    
+    /// 颜色
+    var timerColor: UIColor { get }
 }
 
 extension FocusTimerRepresentable {

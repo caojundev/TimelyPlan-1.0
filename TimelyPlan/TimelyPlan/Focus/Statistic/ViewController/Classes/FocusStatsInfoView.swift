@@ -59,7 +59,7 @@ class FocusStatsInfoView: UIView {
     }
     
     func setupSubviews() {
-        self.backgroundColor = resGetColor(.insetGroupedTableCellBackgroundNormal)
+        self.backgroundColor = .secondarySystemGroupedBackground
         self.padding = UIEdgeInsets(horizontal: 16.0, vertical: 10.0)
         addSubview(indicatorView)
         addSubview(infoView)

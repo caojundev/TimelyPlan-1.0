@@ -52,6 +52,10 @@ struct FocusSystemTimerIdentifier {
 
 class FocusSystemTimer: NSObject, FocusTimerRepresentable {
     
+    var timerColor: UIColor {
+        return .primary
+    }
+    
     var timerType: FocusTimerType {
         return .defaultType
     }

@@ -15,6 +15,10 @@ struct FocusTimerKey {
 
 extension FocusTimer: FocusTimerRepresentable {
     
+    var timerColor: UIColor {
+        return color ?? kFocusTimerDefaultColor
+    }
+    
     var timerType: FocusTimerType {
         return config?.timerType ?? .defaultType
     }

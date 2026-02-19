@@ -142,7 +142,7 @@ struct FocusSteppedConfig: Hashable,
         return true
     }
     
-    static let maxStepsCount = 5
+    static let maxStepsCount = 10
     
     /// 是否可以添加新步骤
     func canAddNewStep() -> Bool {

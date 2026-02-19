@@ -278,6 +278,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
                                     steppedSectionController,
                                     stopwatchSectionController,
                                     flipClockSectionController]
+         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
          self.reloadData()
      }
      
