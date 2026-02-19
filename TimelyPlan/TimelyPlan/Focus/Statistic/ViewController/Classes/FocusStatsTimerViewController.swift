@@ -23,7 +23,7 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController {
         self.timer = timer
         self.infoView.statsInfo = FocusStatsInfo(color: timer.color,
                                                  title: timer.name,
-                                                 subtitle: timer.timerInfo)
+                                                 subtitle: timer.timerDescription)
         self.canSelectDetailGroupType = false
         self.allowDetailGroupTypes = [.task]
     }

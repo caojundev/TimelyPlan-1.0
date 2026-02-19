@@ -25,11 +25,6 @@ class FocusRecordListCellHeaderView: UIView {
         }
     }
 
-    /// 颜色指示器视图的尺寸
-    let colorSize = CGSize(width: 6.0, height: 36.0)
-    
-    let colorTopMargin = 12.0
-    
     /// 更多操作按钮尺寸
     let moreButtonSize = CGSize(width: 20.0, height: 20.0)
     
@@ -38,15 +33,7 @@ class FocusRecordListCellHeaderView: UIView {
     
     /// 信息视图高度
     private let infoViewHeight: CGFloat = 15.0
-    
-    /// 颜色指示器视图
-    lazy var colorView: UIView = {
-        let view = UIView()
-        view.size = colorSize
-        view.layer.cornerRadius = colorSize.halfWidth
-        return view
-    }()
-    
+
     /// 日期范围标签
     lazy var dateRangeLabel: TPLabel = {
         let label = TPLabel()
@@ -90,10 +77,9 @@ class FocusRecordListCellHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.padding = UIEdgeInsets(top: 0.0,
-                                    left: 15.0,
+                                    left: 0.0,
                                     bottom: 10.0,
                                     right: 0.0)
-        self.addSubview(colorView)
         self.addSubview(dateRangeLabel)
         self.addSubview(timerInfoView)
         self.addSubview(manualLabel)
@@ -111,11 +97,6 @@ class FocusRecordListCellHeaderView: UIView {
         
         let layoutFrame = layoutFrame()
         
-        // 布局颜色指示器视图
-        colorView.size = colorSize
-        colorView.left = 0.0
-        colorView.top = colorTopMargin
-
         // 布局更多按钮
         moreButton.size = moreButtonSize
         moreButton.right = layoutFrame.maxX
@@ -154,21 +135,21 @@ class FocusRecordListCellHeaderView: UIView {
     /// 根据专注会话数据重新加载界面内容
     /// - Parameter session: 专注会话数据模型
     private func reloadData(with session: FocusSession) {
-        colorView.backgroundColor = session.color
-        
-        /// 时间范围
         dateRangeLabel.attributed.text = session.attributedDateRangeString()
         setManulLabelHidden(!session.isManual)
-        
+    
         /// 计时器信息
-        let timerName: String
-        if let shotName = session.timerShotName {
-            timerName = shotName
+        let timer = session.timer
+        let title: TextRepresentable
+        if let timerInfo = timer?.timerInfo {
+            title = timerInfo
+        } else if let shotName = session.timerShotName {
+            title = shotName
         } else {
-            timerName = resGetString("No timer bound")
+            title = resGetString("No timer bound")
         }
         
-        timerInfoView.title = timerName
+        timerInfoView.title = title
     }
     
     // MARK: - Helpers

@@ -14,9 +14,6 @@ struct TimerFeature: Codable, Hashable, Equatable {
     /// 标识
     var identifier: String
   
-    /// 计时器类型
-    var timerType: FocusTimerType?
-    
     /// 快照名称
     var shotName: String?
 
@@ -46,7 +43,6 @@ struct TimerFeature: Codable, Hashable, Equatable {
     
     /// 提供自定义的哈希值计算
     func hash(into hasher: inout Hasher) {
-        hasher.combine(timerType)
         hasher.combine(identifier)
         hasher.combine(shotName)
     }

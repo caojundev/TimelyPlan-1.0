@@ -48,6 +48,6 @@ class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell {
     func updateInfo() {
         indicatorView.backgroundColor = timer?.color ?? kFocusTimerDefaultColor
         infoView.title = timer?.name ?? resGetString("Untitled")
-        infoView.subtitle = timer?.timerInfo
+        infoView.subtitle = timer?.timerDescription
     }
 }

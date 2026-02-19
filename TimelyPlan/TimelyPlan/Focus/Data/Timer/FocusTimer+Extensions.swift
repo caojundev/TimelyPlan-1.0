@@ -19,13 +19,21 @@ extension FocusTimer: FocusTimerRepresentable {
         return config?.timerType ?? .defaultType
     }
     
-    var timerInfo: String? {
+    var timerDescription: String? {
         let config = self.config ?? FocusTimerConfig()
         return config.summary
     }
     
     var timerConfig: FocusTimerConfig? {
         return self.config
+    }
+    
+    /// 计时器信息
+    var timerInfo: TextRepresentable? {
+        let timerName = self.name ?? resGetString("Untitled")
+        let timerColor = self.color ?? kFocusTimerDefaultColor
+        let attributedInfo: ASAttributedString = "\("●", .foreground(timerColor)) \(timerName)"
+        return attributedInfo
     }
 }
 
@@ -34,7 +42,7 @@ extension FocusTimer: Sortable, TPHexColorConvertible {
     /// 获取计时器特征
     var feature: TimerFeature? {
         if let identifier = self.identifier {
-            return TimerFeature(identifier: identifier, timerType: timerType, shotName: name)
+            return TimerFeature(identifier: identifier, shotName: name)
         }
         
         return nil

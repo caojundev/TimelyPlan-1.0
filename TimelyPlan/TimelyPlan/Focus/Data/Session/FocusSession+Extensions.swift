@@ -8,17 +8,7 @@
 import Foundation
 
 extension FocusSession: TPHexColorConvertible {
-    
-    var timerType: FocusTimerType {
-        get {
-            return FocusTimerType(rawValue: Int(timerTypeRawValue)) ?? .defaultType
-        }
-        
-        set {
-            self.timerTypeRawValue = Int64(newValue.rawValue)
-        }
-    }
-    
+
     /// 会话计时器
     var timer: FocusTimerRepresentable? {
         return timerFeature?.timer
@@ -27,9 +17,7 @@ extension FocusSession: TPHexColorConvertible {
     /// 获取会话对应的计时器信息
     var timerFeature: TimerFeature? {
         if let timerID = timerID {
-            return TimerFeature(identifier: timerID,
-                                timerType: timerType,
-                                shotName: timerShotName)
+            return TimerFeature(identifier: timerID, shotName: timerShotName)
         }
         
         return nil
@@ -80,7 +68,6 @@ extension FocusSession: TPHexColorConvertible {
     /// 根据记录更新会话
     func update(with record: FocusRecord) {
         if let timer = record.timer {
-            self.timerType = timer.timerType
             self.timerID = timer.identifier
             self.timerShotName = timer.name
         }

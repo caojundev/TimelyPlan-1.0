@@ -18,14 +18,16 @@ protocol FocusTimerRepresentable: AnyObject {
     var timerType: FocusTimerType { get }
     
     /// 计时器描述
-    var timerInfo: String? { get }
+    var timerDescription: String? { get }
+    
+    /// 计时器信息
+    var timerInfo: TextRepresentable? { get }
     
     /// 计时器配置
     var timerConfig: FocusTimerConfig? { get }
     
     /// 计时器特征
     var feature: TimerFeature?  { get }
-    
 }
 
 extension FocusTimerRepresentable {

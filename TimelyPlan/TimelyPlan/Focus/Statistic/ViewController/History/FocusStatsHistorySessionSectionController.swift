@@ -63,7 +63,7 @@ class FocusStatsHistorySessionCellItem: TPCollectionCellItem {
         super.init()
         self.registerClass = FocusStatsHistorySessionCell.self
         self.size = CGSize(width: .greatestFiniteMagnitude, height: 130.0)
-        self.contentPadding = UIEdgeInsets(horizontal: 16.0, vertical: 10.0)
+        self.contentPadding = UIEdgeInsets(horizontal: 10.0, vertical: 10.0)
     }
 }
 

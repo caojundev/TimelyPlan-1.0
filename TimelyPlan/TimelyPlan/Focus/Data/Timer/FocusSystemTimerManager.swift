@@ -33,7 +33,7 @@ class FocusSystemTimerManager {
     
     /// 获取特征值对应的默认计时器
     func timer(of feature: TimerFeature) -> FocusSystemTimer? {
-        guard let timerType = feature.timerType else {
+        guard let timerType = FocusSystemTimer.timerType(for: feature) else {
             return nil
         }
         

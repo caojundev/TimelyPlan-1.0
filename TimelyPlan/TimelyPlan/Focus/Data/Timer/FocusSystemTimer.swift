@@ -14,6 +14,13 @@ struct FocusSystemTimerIdentifier {
     static var stopwatch = "stopwatch"
     static var stepped = "stepped"
     
+    private static let typesDic: [String: FocusTimerType] = [
+        pomodoro: .pomodoro,
+        countdown: .countdown,
+        stopwatch: .stopwatch,
+        stepped: .stepped
+    ]
+    
     /// 获取特定计时器类型唯一标识
     static func identifier(for timerType: FocusTimerType) -> String {
         switch timerType {
@@ -28,6 +35,11 @@ struct FocusSystemTimerIdentifier {
         }
     }
     
+    /// 获取系统标识对应的计时器类型
+    static func timerType(for identifier: String) -> FocusTimerType? {
+        return typesDic[identifier]
+    }
+    
     /// 所有标识数组
     static var allIdentifiers = [pomodoro, countdown, stopwatch, stepped]
     
@@ -37,14 +49,21 @@ struct FocusSystemTimerIdentifier {
     }
 }
 
+
 class FocusSystemTimer: NSObject, FocusTimerRepresentable {
     
     var timerType: FocusTimerType {
         return .defaultType
     }
     
-    var timerInfo: String? {
+    var timerDescription: String? {
         return nil
+    }
+    
+    var timerInfo: TextRepresentable? {
+        let color = kFocusTimerDefaultColor
+        let attributedInfo: ASAttributedString = "\("●", .foreground(color)) \(name)"
+        return attributedInfo
     }
     
     var timerConfig: FocusTimerConfig? {
@@ -70,10 +89,15 @@ class FocusSystemTimer: NSObject, FocusTimerRepresentable {
     /// 获取默认计时器特征
     var feature: TimerFeature? {
         if let identifier = identifier {
-            return TimerFeature(identifier: identifier, timerType: timerType, shotName: name)
+            return TimerFeature(identifier: identifier, shotName: name)
         }
     
         return nil
+    }
+
+    /// 获取计时器特征对应的计时器类型
+    static func timerType(for feature: TimerFeature) -> FocusTimerType? {
+        return FocusSystemTimerIdentifier.timerType(for: feature.identifier)
     }
     
     static func timer(with config: FocusPomodoroConfig?) -> FocusSystemTimer {
@@ -98,7 +122,7 @@ class FocusSystemPomodoroTimer: FocusSystemTimer {
         return .pomodoro
     }
     
-    override var timerInfo: String? {
+    override var timerDescription: String? {
         return self.config.info
     }
     
@@ -120,7 +144,7 @@ class FocusSystemCountdownTimer: FocusSystemTimer {
         return .countdown
     }
     
-    override var timerInfo: String? {
+    override var timerDescription: String? {
         return self.config.info
     }
     

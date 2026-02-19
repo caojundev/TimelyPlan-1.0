@@ -72,7 +72,7 @@ class TPInfoGalleryView: TPStackView {
     private func newInfoView(subtitle: String? = nil) -> TPInfoView {
         let textColor = resGetColor(.title)
         let view = TPInfoView()
-        view.padding = UIEdgeInsets(horizontal: 10.0)
+        view.padding = UIEdgeInsets(left: 2.0, right: 5.0)
         view.titleConfig.adjustsFontSizeToFitWidth = true
         view.titleConfig.font = UIFont.boldSystemFont(ofSize: 24.0)
         view.titleConfig.textAlignment = .center
