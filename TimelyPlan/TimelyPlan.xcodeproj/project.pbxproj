@@ -221,13 +221,13 @@
 		E53FD6DD2D871F2300760341 /* TodoEditFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53FD6DC2D871F2300760341 /* TodoEditFilter.swift */; };
 		E53FD6E02D87237E00760341 /* TodoFilterEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53FD6DF2D87237E00760341 /* TodoFilterEditViewController.swift */; };
 		E5409BF62F4068B800C6E72E /* TPDefaultInfoColorValueTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5409BF52F4068B800C6E72E /* TPDefaultInfoColorValueTableCell.swift */; };
+		E54155362F4899E1000B2972 /* FocusRecordMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54155352F4899E1000B2972 /* FocusRecordMoreBarButtonItem.swift */; };
 		E547C71E2F3D7ED40095918C /* focus_placeholder_noTimer_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C71C2F3D7ED30095918C /* focus_placeholder_noTimer_80@3x.png */; };
 		E547C71F2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C71D2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png */; };
 		E547C7242F3DA2F00095918C /* focus_record_order_ascending_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C7202F3DA2EF0095918C /* focus_record_order_ascending_24@3x.png */; };
 		E547C7252F3DA2F00095918C /* focus_record_order_descending_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C7212F3DA2EF0095918C /* focus_record_order_descending_24@3x.png */; };
 		E547C7262F3DA2F00095918C /* focus_record_order_ascending_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C7222F3DA2EF0095918C /* focus_record_order_ascending_24@2x.png */; };
 		E547C7272F3DA2F00095918C /* focus_record_order_descending_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C7232F3DA2F00095918C /* focus_record_order_descending_24@2x.png */; };
-		E547C7292F3DC7330095918C /* FocusRecordSortOrderBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E547C7282F3DC7320095918C /* FocusRecordSortOrderBarButtonItem.swift */; };
 		E54A82C72DAA6AC800771016 /* TodoProgressEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A82C62DAA6AC800771016 /* TodoProgressEnum.swift */; };
 		E54A82C92DAA6C6E00771016 /* TodoEditProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A82C82DAA6C6E00771016 /* TodoEditProgress.swift */; };
 		E54A82CB2DAAA0A200771016 /* TodoTask+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A82CA2DAAA0A200771016 /* TodoTask+Progress.swift */; };
@@ -1553,13 +1553,13 @@
 		E53FD6DC2D871F2300760341 /* TodoEditFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditFilter.swift; sourceTree = "<group>"; };
 		E53FD6DF2D87237E00760341 /* TodoFilterEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterEditViewController.swift; sourceTree = "<group>"; };
 		E5409BF52F4068B800C6E72E /* TPDefaultInfoColorValueTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDefaultInfoColorValueTableCell.swift; sourceTree = "<group>"; };
+		E54155352F4899E1000B2972 /* FocusRecordMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRecordMoreBarButtonItem.swift; sourceTree = "<group>"; };
 		E547C71C2F3D7ED30095918C /* focus_placeholder_noTimer_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_placeholder_noTimer_80@3x.png"; sourceTree = "<group>"; };
 		E547C71D2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_placeholder_noTimer_80@2x.png"; sourceTree = "<group>"; };
 		E547C7202F3DA2EF0095918C /* focus_record_order_ascending_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_order_ascending_24@3x.png"; sourceTree = "<group>"; };
 		E547C7212F3DA2EF0095918C /* focus_record_order_descending_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_order_descending_24@3x.png"; sourceTree = "<group>"; };
 		E547C7222F3DA2EF0095918C /* focus_record_order_ascending_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_order_ascending_24@2x.png"; sourceTree = "<group>"; };
 		E547C7232F3DA2F00095918C /* focus_record_order_descending_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_order_descending_24@2x.png"; sourceTree = "<group>"; };
-		E547C7282F3DC7320095918C /* FocusRecordSortOrderBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRecordSortOrderBarButtonItem.swift; sourceTree = "<group>"; };
 		E54A82C62DAA6AC800771016 /* TodoProgressEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoProgressEnum.swift; sourceTree = "<group>"; };
 		E54A82C82DAA6C6E00771016 /* TodoEditProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditProgress.swift; sourceTree = "<group>"; };
 		E54A82CA2DAAA0A200771016 /* TodoTask+Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoTask+Progress.swift"; sourceTree = "<group>"; };
@@ -6636,9 +6636,9 @@
 		E5D7D8362D43933400EC877A /* Record */ = {
 			isa = PBXGroup;
 			children = (
-				E547C7282F3DC7320095918C /* FocusRecordSortOrderBarButtonItem.swift */,
 				E5D7D83C2D43933400EC877A /* Edit */,
 				E5D7D8392D43933400EC877A /* FocusRecordsViewController.swift */,
+				E54155352F4899E1000B2972 /* FocusRecordMoreBarButtonItem.swift */,
 				E5D7D8512D43933400EC877A /* FocusRecordListViewController.swift */,
 				E5D7D83B2D43933400EC877A /* FocusRecordListSectionController.swift */,
 				E5D7D8372D43933400EC877A /* FocusRecordListCellLayout.swift */,
@@ -7778,7 +7778,6 @@
 				E5D7D8CF2D43933600EC877A /* FocusEndViewController.swift in Sources */,
 				E5B98CEB2D562BCE00E78261 /* TodoSmartListCell.swift in Sources */,
 				E5BB9E172D3BF0C70089667A /* KeyValueStorage.swift in Sources */,
-				E547C7292F3DC7330095918C /* FocusRecordSortOrderBarButtonItem.swift in Sources */,
 				E5BBA0452D3BF4A40089667A /* TodoHomeViewController.swift in Sources */,
 				E5BB9D872D3BF0C60089667A /* UIViewController+Show.swift in Sources */,
 				E5BB9E572D3BF0C70089667A /* TPPreviousNextDayView.swift in Sources */,
@@ -8124,6 +8123,7 @@
 				E5BB9E232D3BF0C70089667A /* NSPersistentStoreCoordinator+HandyRecord.swift in Sources */,
 				E5BB9E892D3BF0C80089667A /* BarElementView.swift in Sources */,
 				E5BB9E9E2D3BF0C80089667A /* HeatMapLevel.swift in Sources */,
+				E54155362F4899E1000B2972 /* FocusRecordMoreBarButtonItem.swift in Sources */,
 				E5BBA0872D3BF4A50089667A /* TaskScheduleEditRepeatSectionController.swift in Sources */,
 				E5D7D7EB2D43923800EC877A /* FocusSystemTimer.swift in Sources */,
 				E5D7D91F2D43933700EC877A /* StatsSummaryCell.swift in Sources */,

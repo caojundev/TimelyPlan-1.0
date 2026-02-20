@@ -16,26 +16,26 @@ class FocusRecordsViewController: StatsMainViewController {
     var timer: FocusTimer?
 
     /// 记录排列顺序
-    lazy var sortOrder: FocusRecordSortOrder = {
+    private lazy var sortOrder: FocusRecordSortOrder = {
         let value: FocusRecordSortOrder? = SettingAgent.shared.value(forKey: kFocusSettingRecordsSortOrder)
         return value ?? .ascending
     }()
     
-    /// 排序按钮
-    lazy var orderBarButtonItem: FocusRecordSortOrderBarButtonItem = {
-        let buttonItem = FocusRecordSortOrderBarButtonItem()
-        buttonItem.sortOrder = self.sortOrder
-        buttonItem.didSelectType = {[weak self] sortOrder in
-            self?.didSelectSortOrder(sortOrder)
+    /// 更多菜单按钮
+    private lazy var moreBarButtonItem: FocusRecordMoreBarButtonItem = {
+        let item = FocusRecordMoreBarButtonItem()
+        item.sortOrder = sortOrder
+        item.didSelectType = { [weak self] type in
+            self?.performMoreMenuAction(with: type)
         }
         
-        return buttonItem
+        return item
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        self.navigationItem.rightBarButtonItems = [addBarButtonItem, orderBarButtonItem]
+        self.navigationItem.rightBarButtonItem = moreBarButtonItem
     }
     
     init(task: TaskRepresentable? = nil,
@@ -76,27 +76,38 @@ class FocusRecordsViewController: StatsMainViewController {
         return vc
     }
     
-    override func clickAdd() {
-        TPImpactFeedback.impactWithSoftStyle()
-         
+    private func performMoreMenuAction(with actionType: FocusRecordMoreMenuType) {
+        switch actionType {
+        case .addRecord:
+            addRecordManually()
+        case .orderAscending:
+            selectSortOrder(.ascending)
+        case .orderDescending:
+            selectSortOrder(.descending)
+        }
+    }
+    
+    private func addRecordManually() {
         let timerController = FocusUserTimerController()
         timerController.addRecordManually(forTimer: timer)
     }
     
-    private func didSelectSortOrder(_ sortOrder: FocusRecordSortOrder) {
+    private func selectSortOrder(_ sortOrder: FocusRecordSortOrder) {
         guard self.sortOrder != sortOrder else {
             return
         }
         
         self.sortOrder = sortOrder
-        /// 保存到本地设置项
-        SettingAgent.shared.setValue(sortOrder,
-                                     forKey: kFocusSettingRecordsSortOrder)
+        self.moreBarButtonItem.sortOrder = sortOrder
         
         /// 重新加载列表数据
-        let vc = self.contentViewController as? FocusRecordListViewController
-        vc?.sortOrder = sortOrder
-        vc?.reloadData()
+        if let vc = self.contentViewController as? FocusRecordListViewController {
+            vc.sortOrder = sortOrder
+            vc.reloadData()
+        }
+        
+        /// 保存到本地设置项
+        SettingAgent.shared.setValue(sortOrder, forKey: kFocusSettingRecordsSortOrder)
     }
     
 }

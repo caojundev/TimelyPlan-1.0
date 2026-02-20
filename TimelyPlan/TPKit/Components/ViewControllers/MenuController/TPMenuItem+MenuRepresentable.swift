@@ -28,7 +28,7 @@ extension TPMenuItem {
     
     /// 菜单条目
     class func item<T: TPMenuRepresentable>(with types: [T],
-                                          updater: ((T, TPMenuAction) -> Void)? = nil) -> TPMenuItem {
+                                            updater: ((T, TPMenuAction) -> Void)? = nil) -> TPMenuItem {
         var actions = [TPMenuAction]()
         for type in types {
             let action = type.menuAction
@@ -43,7 +43,7 @@ extension TPMenuItem {
     
     /// 多区块菜单条目数组
     class func items<T: TPMenuRepresentable>(with typeLists: [Array<T>],
-                                           updater: ((T, TPMenuAction) -> Void)? = nil) -> [TPMenuItem] {
+                                             updater: ((T, TPMenuAction) -> Void)? = nil) -> [TPMenuItem] {
         var menuItems = [TPMenuItem]()
         for list in typeLists {
             let menuItem = TPMenuItem.item(with: list, updater: updater)
@@ -51,7 +51,7 @@ extension TPMenuItem {
                 menuItems.append(menuItem)
             }
         }
-
+        
         return menuItems
     }
 }
