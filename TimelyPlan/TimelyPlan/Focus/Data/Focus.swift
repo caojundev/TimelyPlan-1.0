@@ -37,6 +37,12 @@ class Focus {
         HandyRecord.save()
     }
     
+    func save(with completion: (() -> Void)?) {
+        HandyRecord.save { success, error in
+            completion?()
+        }
+    }
+    
     /// 添加更新器代理对象
     func addUpdaterDelegate(_ delegate: AnyObject) {
         self.updater.addDelegate(delegate)

@@ -7,7 +7,8 @@
 
 import Foundation
 
-class FocusStatsTimerViewController: FocusStatsBaseViewController {
+class FocusStatsTimerViewController: FocusStatsBaseViewController,
+                                        FocusSessionProcessorDelegate {
     
     /// 信息视图间距
     let infoViewMargin: CGFloat = 10.0
@@ -21,11 +22,10 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController {
     init(timer: FocusTimer, type: StatsType = .week, allowTypes: [StatsType] = StatsType.allCases, date: Date = .now) {
         super.init(type: type, allowTypes: allowTypes, date: date)
         self.timer = timer
-        self.infoView.statsInfo = FocusStatsInfo(color: timer.color,
-                                                 title: timer.name,
-                                                 subtitle: timer.timerDescription)
         self.canSelectDetailGroupType = false
         self.allowDetailGroupTypes = [.task]
+        self.reloadData()
+        focus.addUpdaterDelegate(self)
     }
     
     required init?(coder: NSCoder) {
@@ -45,7 +45,7 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController {
     }
     
     /// 布局任务信息视图
-    func layoutInfoView(_ infoView: UIView, isHidden: Bool = false){
+    private func layoutInfoView(_ infoView: UIView, isHidden: Bool = false){
         let layoutFrame = view.safeLayoutFrame().inset(by: UIEdgeInsets(value: infoViewMargin))
         let cornerRadius = 16.0
         infoView.width = min(640.0, layoutFrame.width)
@@ -62,5 +62,32 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController {
                                       offset: CGSize(width: 0.0, height: -2.0),
                                       radius: cornerRadius)
         infoView.layoutIfNeeded()
+    }
+    
+    /// 重新加载数据
+    private func reloadData() {
+        guard let timer = self.timer else {
+            return
+        }
+        
+        let duration = focus.getTotalDuration(for: timer)
+        self.infoView.statsInfo = FocusStatsInfo(color: timer.color,
+                                                 title: timer.name,
+                                                 subtitle: timer.timerDescription,
+                                                 totalDuration: Duration(duration))
+        
+    }
+    
+    // MARK: - FocusSessionProcessorDelegate
+    func didAddFocusSession(_ session: FocusSession, with record: FocusRecord) {
+        self.reloadData()
+    }
+    
+    func didUpdateFocusSession(_ session: FocusSession) {
+        self.reloadData()
+    }
+    
+    func didDeleteFocusSession(_ session: FocusSession) {
+        self.reloadData()
     }
 }

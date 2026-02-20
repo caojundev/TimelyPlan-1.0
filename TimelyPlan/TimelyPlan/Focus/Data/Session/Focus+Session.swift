@@ -12,15 +12,17 @@ extension Focus {
     /// 手动添加会话
     func addSession(with record: FocusRecord, isManual: Bool) {
         let session = FocusSession.newSession(with: record, isManual: isManual)
-        updater.didAddFocusSession(session, with: record)
-        save()
+        save { [weak self] in
+            self?.updater.didAddFocusSession(session, with: record)
+        }
     }
     
     /// 删除会话
     func deleteSession(_ session: FocusSession) {
         context.delete(session)
-        updater.didDeleteFocusSession(session)
-        save()
+        save { [weak self] in
+            self?.updater.didDeleteFocusSession(session)
+        }
     }
     
     /// 更新会话
@@ -30,8 +32,9 @@ extension Focus {
         }
         
         session.update(with: record)
-        updater.didUpdateFocusSession(session)
-        save()
+        save { [weak self] in
+            self?.updater.didUpdateFocusSession(session)
+        }
     }
     
     /// 异步获取任务在特定时间区间所有会话数组
@@ -117,11 +120,24 @@ extension Focus {
     
     /// 获取任务使用计时器在特定日期专注时长
     func getSessionDuration(forTask task: TaskRepresentable? = nil,
-                         timer: FocusTimer? = nil,
-                         on date: Date) -> Int64 {
+                            timer: FocusTimer? = nil,
+                            on date: Date) -> Int64 {
         let fromDate = date.startOfDay()
         let toDate = date.endOfDay()
         let predicate = FocusSession.predicate(forTask: task, timer: timer, fromDate: fromDate, toDate: toDate)
+        let duration = FocusSession.performAggregateOperation(function: .sum,
+                                                              onAttribute: FocusSessionKey.duration,
+                                                              withPredicate: predicate,
+                                                              in: .defaultContext) as? Int64
+        return duration ?? 0
+    }
+    
+    /// 获取计时器总专注时间
+    func getTotalDuration(for timer: FocusTimer? = nil) -> Int64 {
+        let predicate = FocusSession.predicate(forTask: nil,
+                                               timer: timer,
+                                               fromDate: nil,
+                                               toDate: nil)
         let duration = FocusSession.performAggregateOperation(function: .sum,
                                                               onAttribute: FocusSessionKey.duration,
                                                               withPredicate: predicate,

@@ -464,6 +464,7 @@
 "Focus duration" = "专注时长";
 "Focus days" = "专注天数";
 "Focus times" = "专注次数";
+"Total Duration" = "总专注时长";
 
 /// 运行计时器
 "Screen always on enabled" = "屏幕常亮已开启";
@@ -490,6 +491,7 @@
 
 /// 专注设置
 "Focus Settings" = "专注设置";
+"Week Start on" = "周开始于";
 "Auto-Focus" = "自动专注";
 "After the break is over, start to focus automatically" = "休息结束后自动开始专注";
 "Auto-Break" = "自动休息";
@@ -506,15 +508,6 @@
 "Flip Clock" = "翻页时钟";
 "Auto Hide Hour" = "自动隐藏小时位";
 "Display only minute and second when the hour is zero" = "当小时位为0时仅显示分和秒";
-
-"Week Start on" = "周开始于";
-
-
-
-
-
-
-
 
 
 

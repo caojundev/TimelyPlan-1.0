@@ -41,27 +41,36 @@ extension FocusSession {
     }
     
     /// 获取开始日期在特定范围内的条件
-    static func startDateCondition(fromDate: Date, toDate: Date) -> PredicateCondition {
-        return (FocusSessionKey.startDate, .between(fromDate, toDate))
+    static func startDateCondition(fromDate: Date?, toDate: Date?) -> PredicateCondition? {
+        if let fromDate = fromDate, let toDate = toDate {
+            return (FocusSessionKey.startDate, .between(fromDate, toDate))
+        } else if let fromDate = fromDate {
+            return (FocusSessionKey.startDate, .greaterThanOrEqual(fromDate))
+        } else if let toDate = toDate {
+            return (FocusSessionKey.startDate, .lessThanOrEqual(toDate))
+        } else {
+            return nil
+        }
     }
     
     // MARK: - Predicate
     /// 特定任务在日期范围内所有会话
     static func predicate(forTask task: TaskRepresentable? = nil,
                           timer: FocusTimer? = nil,
-                          fromDate: Date,
-                          toDate: Date) -> NSPredicate {
+                          fromDate: Date?,
+                          toDate: Date?) -> NSPredicate {
         var conditions = [PredicateCondition]()
         if let task = task {
-            conditions.append(contentsOf: Self.taskConditions(for: task))
+            conditions.append(contentsOf: taskConditions(for: task))
         }
         
         if let timer = timer, let condition = timerCondition(for: timer) {
             conditions.append(condition)
         }
         
-        let startDateCondition = Self.startDateCondition(fromDate: fromDate, toDate: toDate)
-        conditions.append(startDateCondition)
+        if let startDateCondition = startDateCondition(fromDate: fromDate, toDate: toDate) {
+            conditions.append(startDateCondition)
+        }
         
         let predicate = conditions.andPredicate()
         return predicate
