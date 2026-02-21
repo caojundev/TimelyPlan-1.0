@@ -14,7 +14,8 @@ protocol FocusTimelineTitleViewProvider: AnyObject {
     var titleView: UIView? { get }
 }
 
-class FocusTimelineViewController: TPContainerViewController {
+class FocusTimelineViewController: TPContainerViewController,
+                                   FocusSessionProcessorDelegate {
     
     private lazy var dayViewController: FocusTimelineDayViewController = {
         let vc = FocusTimelineDayViewController()
@@ -27,6 +28,8 @@ class FocusTimelineViewController: TPContainerViewController {
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         navigationItem.rightBarButtonItem = addBarButtonItem
         navigationItem.titleView = dayViewController.titleView
+        
+        focus.addUpdaterDelegate(self)
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -40,5 +43,29 @@ class FocusTimelineViewController: TPContainerViewController {
     override func clickAdd() {
         FocusPresenter.addRecordManually()
     }
+    
+    // MARK: - FocusSessionProcessorDelegate
+    func didAddFocusSession(_ session: FocusSession, with record: FocusRecord) {
+        reloadIfNeeded(with: session)
+    }
+    
+    func didUpdateFocusSession(_ session: FocusSession) {
+        reloadIfNeeded(with: session)
+    }
+    
+    func didDeleteFocusSession(_ session: FocusSession) {
+        reloadIfNeeded(with: session)
+    }
+    
+    private func reloadIfNeeded(with session: FocusSession) {
+        guard let sessionDate = session.startDate else {
+            return
+        }
+
+        if sessionDate.isInSameDayAs(dayViewController.date) {
+            dayViewController.reloadData()
+        }
+    }
+    
 }
 

@@ -10,6 +10,7 @@ import Foundation
 class FocusTimelineDayViewController: TPViewController,
                                       FocusTimelineTitleViewProvider,
                                       FocusTimelineEventProvider,
+                                      FocusTimelineEventListTapDelegate,
                                       CalendarDatePageViewDelegate,
                                       TPCalendarSingleDateSelectionDelegate {
 
@@ -18,7 +19,7 @@ class FocusTimelineDayViewController: TPViewController,
         return dateButton
     }
     
-    private var date: Date = .now
+    private(set) var date: Date = .now
     
     /// 日期按钮
     private lazy var dateButton: CalendarDateButton = {
@@ -50,6 +51,7 @@ class FocusTimelineDayViewController: TPViewController,
         let view = FocusTimelineDayPageView(frame: .zero)
         view.delegate = self
         view.eventProvider = self
+        view.tapDelegate = self
         return view
     }()
     
@@ -139,6 +141,25 @@ class FocusTimelineDayViewController: TPViewController,
             
             completion(events)
         }
+    }
+
+    // MARK: - FocusTimelineEventListTapDelegate
+    func didTapTimelineEvent(_ event: FocusTimelineEvent) {
+        TPImpactFeedback.impactWithSoftStyle()
+        editRecord(for: event.session)
+    }
+    
+    /// 编辑记录
+    /// - Parameter session: 专注会话
+    private func editRecord(for session: FocusSession) {
+        let record = session.editingRecord
+        let vc = FocusRecordEditViewController(record: record, editType: .modify)
+        vc.didEndEditing = { record in
+            focus.updateSession(session, with: record)
+        }
+        
+        let navController = UINavigationController(rootViewController: vc)
+        navController.show()
     }
 
     // MARK: - TPCalendarSingleDateSelectionDelegate

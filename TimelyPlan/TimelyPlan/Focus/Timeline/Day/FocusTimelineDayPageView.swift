@@ -13,12 +13,19 @@ class FocusTimelineDayPageView: CalendarDatePageView,
     
     weak var eventProvider: FocusTimelineEventProvider?
     
+    /// 点击事件代理
+    weak var tapDelegate: FocusTimelineEventListTapDelegate?
+    
     /// 小时高度
     var hourHeight: CGFloat = 80.0 {
         didSet {
             updateHourHeight()
         }
     }
+    
+    private let timelineTopPadding = 20.0
+    
+    private let timelineBottomPadding = 40.0
     
     /// 时间线打开时自动定位到的小时
     lazy var autoScrollHour: Int = {
@@ -58,7 +65,10 @@ class FocusTimelineDayPageView: CalendarDatePageView,
         
         let timelineView = cell.timelineView
         timelineView.hourHeight = hourHeight
+        timelineView.topPadding = timelineTopPadding
+        timelineView.bottomPadding = timelineBottomPadding
         timelineView.eventProvider = self
+        timelineView.tapDelegate = tapDelegate  // 设置点击代理
         
         let date = adapter.item(at: indexPath) as! Date
         timelineView.date = date
@@ -75,7 +85,7 @@ class FocusTimelineDayPageView: CalendarDatePageView,
         }
         
         let synchronizer = FocusTimelineSynchronizer()
-        let maxY = hourHeight * CGFloat(HOURS_PER_DAY) - height
+        let maxY = hourHeight * CGFloat(HOURS_PER_DAY)
         let offsetY = CGFloat(autoScrollHour) * hourHeight
         synchronizer.setContentOffset(CGPoint(x: 0.0, y: min(offsetY, maxY)))
         self.synchronizer = synchronizer

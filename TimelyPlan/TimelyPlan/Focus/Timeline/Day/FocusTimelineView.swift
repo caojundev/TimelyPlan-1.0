@@ -28,6 +28,13 @@ class FocusTimelineView: UIView {
         }
     }
     
+    /// 点击事件代理
+    weak var tapDelegate: FocusTimelineEventListTapDelegate? {
+        didSet {
+            eventListView.tapDelegate = tapDelegate
+        }
+    }
+    
     var hourHeight: CGFloat = 80.0 {
         didSet {
             backgroundLayer.hourHeight = hourHeight
@@ -35,14 +42,14 @@ class FocusTimelineView: UIView {
         }
     }
     
-    var topPadding: CGFloat = 20 {
+    var topPadding: CGFloat = 20.0 {
         didSet {
             backgroundLayer.topPadding = topPadding
             setNeedsLayout()
         }
     }
     
-    var bottomPadding: CGFloat = 40 {
+    var bottomPadding: CGFloat = 40.0 {
         didSet {
             backgroundLayer.bottomPadding = bottomPadding
             setNeedsLayout()

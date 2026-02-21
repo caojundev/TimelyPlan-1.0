@@ -8,9 +8,19 @@
 import Foundation
 import UIKit
 
+/// 时间线事件点击代理协议
+protocol FocusTimelineEventTapDelegate: AnyObject {
+    /// 当用户点击时间线事件时调用
+    /// - Parameter event: 被点击的时间线事件
+    func didTapTimelineEvent(_ event: FocusTimelineEvent)
+}
+
 class FocusTimelineEventView: UIView {
     
     let event: FocusTimelineEvent
+    
+    /// 点击事件代理
+    weak var tapDelegate: FocusTimelineEventTapDelegate?
     
     /// 用于展示暂停视图
     private let pauseView = FocusTimelinePauseView(frame: .zero)
@@ -31,6 +41,7 @@ class FocusTimelineEventView: UIView {
         self.event = event
         super.init(frame: .zero)
         setupSubviews()
+        setupGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -53,6 +64,17 @@ class FocusTimelineEventView: UIView {
         durationLabel.font = .systemFont(ofSize: 9, weight: .bold)
         durationLabel.text = event.focusDuration.localizedTitle
         addSubview(durationLabel)
+    }
+    
+    /// 设置手势识别器
+    private func setupGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        addGestureRecognizer(tapGesture)
+    }
+    
+    /// 处理点击事件
+    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+        tapDelegate?.didTapTimelineEvent(event)
     }
     
     private let durationLabelHeight = 16.0
@@ -82,10 +104,16 @@ class FocusTimelineEventView: UIView {
     }
     
     private func updateStyle() {
-        backgroundColor = event.color
-        let textColor = CalendarEventColor.highlightedForegroundColor(for: event.color)
+        let eventColor = event.color
+        let textColor = CalendarEventColor.highlightedForegroundColor(for: eventColor)
         nameLabel.textColor = textColor
         durationLabel.textColor = textColor
+        
+        if highlighted {
+            self.backgroundColor = eventColor.darkerColor
+        } else {
+            self.backgroundColor = eventColor
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

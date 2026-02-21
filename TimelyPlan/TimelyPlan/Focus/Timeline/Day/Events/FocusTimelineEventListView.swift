@@ -13,9 +13,19 @@ protocol FocusTimelineEventProvider: AnyObject {
     func fetchTimelineEvents(for date: Date, completion: @escaping([FocusTimelineEvent]?) -> Void)
 }
 
+/// 时间线事件列表视图点击代理协议
+protocol FocusTimelineEventListTapDelegate: AnyObject {
+    /// 当用户点击时间线事件时调用
+    /// - Parameter event: 被点击的时间线事件
+    func didTapTimelineEvent(_ event: FocusTimelineEvent)
+}
+
 class FocusTimelineEventListView: UIView {
   
     weak var eventProvider: FocusTimelineEventProvider?
+    
+    /// 点击事件代理
+    weak var tapDelegate: FocusTimelineEventListTapDelegate?
     
     /// 当前时间线所在日期
     var date: Date = .now
@@ -62,6 +72,7 @@ class FocusTimelineEventListView: UIView {
         var eventViews = [FocusTimelineEventView]()
         for event in events {
             let eventView = FocusTimelineEventView(event: event)
+            eventView.tapDelegate = self
             contentView.addSubview(eventView)
             eventViews.append(eventView)
         }
@@ -96,5 +107,12 @@ class FocusTimelineEventListView: UIView {
                                               dateRange: dateRange)
             self.setupEventViews()
         })
+    }
+}
+
+// MARK: - FocusTimelineEventTapDelegate
+extension FocusTimelineEventListView: FocusTimelineEventTapDelegate {
+    func didTapTimelineEvent(_ event: FocusTimelineEvent) {
+        tapDelegate?.didTapTimelineEvent(event)
     }
 }
