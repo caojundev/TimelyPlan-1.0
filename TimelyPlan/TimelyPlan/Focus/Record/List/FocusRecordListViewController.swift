@@ -102,7 +102,7 @@ class FocusRecordListViewController: StatsContentViewController,
         }
     }
     
-    func didDeleteFocusSession(_ session: FocusSession) {
+    func didDeleteFocusSession(with record: FocusRecord) {
         self.reloadData()
     }
     

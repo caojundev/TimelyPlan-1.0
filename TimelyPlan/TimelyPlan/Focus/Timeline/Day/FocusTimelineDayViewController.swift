@@ -146,20 +146,7 @@ class FocusTimelineDayViewController: TPViewController,
     // MARK: - FocusTimelineEventListTapDelegate
     func didTapTimelineEvent(_ event: FocusTimelineEvent) {
         TPImpactFeedback.impactWithSoftStyle()
-        editRecord(for: event.session)
-    }
-    
-    /// 编辑记录
-    /// - Parameter session: 专注会话
-    private func editRecord(for session: FocusSession) {
-        let record = session.editingRecord
-        let vc = FocusRecordEditViewController(record: record, editType: .modify)
-        vc.didEndEditing = { record in
-            focus.updateSession(session, with: record)
-        }
-        
-        let navController = UINavigationController(rootViewController: vc)
-        navController.show()
+        FocusPresenter.editRecord(for: event.session)
     }
 
     // MARK: - TPCalendarSingleDateSelectionDelegate

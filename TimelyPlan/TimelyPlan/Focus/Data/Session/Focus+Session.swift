@@ -19,9 +19,10 @@ extension Focus {
     
     /// 删除会话
     func deleteSession(_ session: FocusSession) {
+        let record = session.editingRecord
         context.delete(session)
         save { [weak self] in
-            self?.updater.didDeleteFocusSession(session)
+            self?.updater.didDeleteFocusSession(with: record)
         }
     }
     

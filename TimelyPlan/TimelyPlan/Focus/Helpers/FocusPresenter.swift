@@ -74,4 +74,52 @@ class FocusPresenter {
 //        navController.modalPresentationStyle = .formSheet
         navController.show()
     }
+    
+    // MARK: - 记录相关操作
+    /// 确认删除记录
+    static func confirmRecordDeletion(completion: @escaping(Bool) -> Void) {
+        let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
+            completion(true)
+        }
+        /// 在 dismiss 后处理回调
+        deleteAction.handleBeforeDismiss = false
+        
+        let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel")) { action in
+            completion(false)
+        }
+        
+        let message = resGetString("Sure to delete this focus record?")
+        let alertController = TPAlertController(title: resGetString("Delete Record"),
+                                                message: message,
+                                                actions: [cancelAction, deleteAction])
+        alertController.show()
+    }
+    
+    /// 编辑记录
+    static func editRecord(for session: FocusSession,
+                           completion: ((FocusRecord) -> Void)? = nil,
+                           deletionHandler: ((FocusSession) -> Void)? = nil) {
+        let record = session.editingRecord
+        let vc = FocusRecordEditViewController(record: record, editType: .modify)
+        vc.didEndEditing = { record in
+            if let completion = completion {
+                completion(record)
+            } else {
+                // 默认更新行为
+                focus.updateSession(session, with: record)
+            }
+        }
+        
+        vc.didConfirmDeletion = {
+            if let deletionHandler = deletionHandler {
+                deletionHandler(session)
+            } else {
+                // 默认删除行为
+                focus.deleteSession(session)
+            }
+        }
+        
+        let navController = UINavigationController(rootViewController: vc)
+        navController.show()
+    }
 }

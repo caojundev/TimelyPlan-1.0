@@ -16,5 +16,5 @@ protocol FocusSessionProcessorDelegate {
     func didUpdateFocusSession(_ session: FocusSession)
     
     /// 删除专注会话
-    func didDeleteFocusSession(_ session: FocusSession)
+    func didDeleteFocusSession(with record: FocusRecord)
 }

@@ -55,9 +55,9 @@ class FocusUpdater: NSObject,
         }
     }
     
-    func didDeleteFocusSession(_ session: FocusSession) {
+    func didDeleteFocusSession(with record: FocusRecord) {
         notifyDelegates { (delegate: FocusSessionProcessorDelegate) in
-            delegate.didDeleteFocusSession(session)
+            delegate.didDeleteFocusSession(with: record)
         }
     }
     

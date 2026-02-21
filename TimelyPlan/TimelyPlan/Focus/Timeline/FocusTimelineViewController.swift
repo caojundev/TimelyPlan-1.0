@@ -53,8 +53,11 @@ class FocusTimelineViewController: TPContainerViewController,
         reloadIfNeeded(with: session)
     }
     
-    func didDeleteFocusSession(_ session: FocusSession) {
-        reloadIfNeeded(with: session)
+    func didDeleteFocusSession(with record: FocusRecord) {
+        let date = record.timeline.startDate
+        if date.isInSameDayAs(dayViewController.date) {
+            dayViewController.reloadData()
+        }
     }
     
     private func reloadIfNeeded(with session: FocusSession) {

@@ -167,7 +167,7 @@ class FocusHomeUserTimerViewController: TPCollectionSectionsViewController,
         
     }
     
-    func didDeleteFocusSession(_ session: FocusSession) {
+    func didDeleteFocusSession(with record: FocusRecord) {
         
     }
     

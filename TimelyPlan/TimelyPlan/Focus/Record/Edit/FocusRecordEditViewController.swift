@@ -16,6 +16,9 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
     /// 结束编辑回调
     var didEndEditing: ((FocusRecord) -> Void)?
     
+    /// 确认删除该条记录
+    var didConfirmDeletion: (() -> Void)?
+    
     /// 编辑类型
     private var editType: EditType
     
@@ -85,6 +88,14 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
             self.title = resGetString("Add Focus Record")
         } else {
             self.title = resGetString("Edit Focus Record")
+            
+            /// 底部删除操作按钮
+            let deleteAction = TPButtonAction.init(type: .destructive,
+                                                   title: resGetString("Delete")) {  [weak self] action in
+                self?.clickDelete()
+            }
+            
+            setupActionsBar(actions: [deleteAction])
         }
         
         navigationItem.leftBarButtonItem = self.chevronDownCancelButtonItem
@@ -101,6 +112,14 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
         reloadData()
     }
     
+    private func clickDelete() {
+        FocusPresenter.confirmRecordDeletion { confirmed in
+            guard confirmed else { return }
+            self.didConfirmDeletion?()
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
@@ -108,8 +127,7 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
-    
-    
+
     override func didClickSave() {
         didEndEditing?(record)
         dismiss(animated: true, completion: nil)

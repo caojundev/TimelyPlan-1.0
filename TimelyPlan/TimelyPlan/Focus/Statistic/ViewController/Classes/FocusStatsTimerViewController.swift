@@ -87,7 +87,7 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController,
         self.reloadData()
     }
     
-    func didDeleteFocusSession(_ session: FocusSession) {
+    func didDeleteFocusSession(with record: FocusRecord) {
         self.reloadData()
     }
 }

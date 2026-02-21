@@ -155,26 +155,14 @@ class FocusRecordListSectionController: TPCollectionBaseSectionController,
     }
     
     func editRecord(for session: FocusSession) {
-        let record = session.editingRecord
-        let vc = FocusRecordEditViewController(record: record, editType: .modify)
-        vc.didEndEditing = { record in
-            focus.updateSession(session, with: record)
-        }
-        
-        let navController = UINavigationController(rootViewController: vc)
-        navController.show()
+        FocusPresenter.editRecord(for: session)
     }
     
     func deleteRecord(for session: FocusSession) {
-        let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
-            focus.deleteSession(session)
+        FocusPresenter.confirmRecordDeletion { confirmed in
+            if confirmed {
+                focus.deleteSession(session)
+            }
         }
-        
-        let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))
-        let message = resGetString("Sure to delete this focus record?")
-        let alertController = TPAlertController(title: resGetString("Delete Record"),
-                                                message: message,
-                                                actions: [cancelAction, deleteAction])
-        alertController.show()
     }
 }
