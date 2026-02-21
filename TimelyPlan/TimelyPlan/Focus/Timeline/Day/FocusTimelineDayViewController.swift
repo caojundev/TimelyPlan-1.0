@@ -57,9 +57,8 @@ class FocusTimelineDayViewController: TPViewController,
         super.viewDidLoad()
         view.addSubview(weekView)
         view.addSubview(pageView)
-        weekView.reloadData()
-        pageView.reloadData()
         updateTitle(with: date)
+        reloadData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -82,6 +81,12 @@ class FocusTimelineDayViewController: TPViewController,
         return .systemBackground
     }
 
+    // MARK: - Public
+    func reloadData() {
+        weekView.reloadData()
+        pageView.reloadData()
+    }
+    
     // MARK: - Update
     private func updateTitle(with date: Date) {
         dateButton.title = date.slashFormattedYearMonthDayString

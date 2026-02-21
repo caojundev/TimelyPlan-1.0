@@ -102,6 +102,7 @@ class FocusRecordListSectionController: TPCollectionBaseSectionController,
             return
         }
         
+        TPImpactFeedback.impactWithSoftStyle()
         self.editRecord(for: session)
     }
     
@@ -154,7 +155,6 @@ class FocusRecordListSectionController: TPCollectionBaseSectionController,
     }
     
     func editRecord(for session: FocusSession) {
-        TPImpactFeedback.impactWithSoftStyle()
         let record = session.editingRecord
         let vc = FocusRecordEditViewController(record: record, editType: .modify)
         vc.didEndEditing = { record in

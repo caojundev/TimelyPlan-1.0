@@ -7,12 +7,6 @@
 
 import Foundation
 
-/// 专注记录列表模式
-enum FocusRecordListMode {
-    case detail
-    case basic
-}
-
 class FocusRecordListViewController: StatsContentViewController,
                                      FocusSessionProcessorDelegate {
     

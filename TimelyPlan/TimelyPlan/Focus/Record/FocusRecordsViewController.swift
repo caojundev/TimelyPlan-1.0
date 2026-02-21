@@ -21,17 +21,17 @@ class FocusRecordsViewController: StatsMainViewController {
         return value ?? .ascending
     }()
     
-    /// 显示详情
-    private lazy var showDetail: Bool = {
-        let value: Bool? = SettingAgent.shared.value(forKey: kFocusSettingRecordShowDetail)
-        return value ?? kFocusSettingRecordDefaultShowDetail
+    /// 列表模式
+    private lazy var  mode: FocusRecordListMode = {
+        let value: FocusRecordListMode? = SettingAgent.shared.value(forKey: kFocusSettingRecordListMode)
+        return value ?? .detail
     }()
     
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: FocusRecordMoreBarButtonItem = {
         let item = FocusRecordMoreBarButtonItem()
         item.sortOrder = sortOrder
-        item.showDetail = showDetail
+        item.mode = mode
         item.didSelectType = { [weak self] type in
             self?.performMoreMenuAction(with: type)
         }
@@ -60,27 +60,28 @@ class FocusRecordsViewController: StatsMainViewController {
     
     override func dailyStatsViewController() -> UIViewController! {
         let vc = FocusRecordListViewController(type: .day, date: self.date)
-        vc.sortOrder = sortOrder
-        vc.timer = timer
-        vc.task = task
+        setupListViewController(vc)
         return vc
     }
     
     override func weeklyStatsViewController() -> UIViewController! {
         let firstWeekday = focus.setting.getFirstWeekday()
         let vc = FocusRecordListViewController(type: .week, date: self.date, firstWeekday: firstWeekday)
-        vc.sortOrder = sortOrder
-        vc.timer = timer
-        vc.task = task
+        setupListViewController(vc)
         return vc
     }
     
     override func monthlyStatsViewController() -> UIViewController! {
         let vc = FocusRecordListViewController(type: .month, date: self.date)
+        setupListViewController(vc)
+        return vc
+    }
+    
+    private func setupListViewController(_ vc: FocusRecordListViewController) {
         vc.sortOrder = sortOrder
+        vc.mode = mode
         vc.timer = timer
         vc.task = task
-        return vc
     }
     
     private func performMoreMenuAction(with actionType: FocusRecordMoreMenuType) {
@@ -102,15 +103,25 @@ class FocusRecordsViewController: StatsMainViewController {
     }
    
     private func toggleShowDetail() {
-        // 切换显示模式
-        if let vc = self.contentViewController as? FocusRecordListViewController {
-            self.showDetail = !showDetail
-            vc.mode = self.showDetail ? .detail : .basic
-            vc.reloadData()
-            
-            /// 保存到本地设置项
-            SettingAgent.shared.setValue(self.showDetail, forKey: kFocusSettingRecordShowDetail)
+        guard let vc = self.contentViewController as? FocusRecordListViewController else {
+            return
         }
+        
+        let newMode: FocusRecordListMode
+        switch mode {
+        case .detail:
+            newMode = .basic
+        case .basic:
+            newMode = .detail
+        }
+        
+        self.mode = newMode
+        self.moreBarButtonItem.mode = newMode
+        vc.mode = newMode
+        vc.reloadData()
+        
+        /// 保存到本地设置项
+        SettingAgent.shared.setValue(newMode, forKey: kFocusSettingRecordListMode)
     }
     
     private func selectSortOrder(_ sortOrder: FocusRecordSortOrder) {

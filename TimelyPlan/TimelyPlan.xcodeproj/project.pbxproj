@@ -338,6 +338,7 @@
 		E584397B2D8E563B00DEB8E9 /* QuadrantMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584397A2D8E563B00DEB8E9 /* QuadrantMatrixView.swift */; };
 		E584397E2D8E5D6400DEB8E9 /* QuadrantDragDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584397D2D8E5D6400DEB8E9 /* QuadrantDragDropController.swift */; };
 		E58439802D8F0BDB00DEB8E9 /* QuadrantCustomRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584397F2D8F0BDB00DEB8E9 /* QuadrantCustomRuleViewController.swift */; };
+		E58C9E032F49E1870096B842 /* FocusRecordEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E022F49E1870096B842 /* FocusRecordEnums.swift */; };
 		E58FC3F12D8BFF3F007905B7 /* QuadrantSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FC3F02D8BFF3F007905B7 /* QuadrantSettings.swift */; };
 		E5926DD12D4C6392007D5A6A /* TPColorSelectTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */; };
 		E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */; };
@@ -1678,6 +1679,7 @@
 		E584397A2D8E563B00DEB8E9 /* QuadrantMatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantMatrixView.swift; sourceTree = "<group>"; };
 		E584397D2D8E5D6400DEB8E9 /* QuadrantDragDropController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantDragDropController.swift; sourceTree = "<group>"; };
 		E584397F2D8F0BDB00DEB8E9 /* QuadrantCustomRuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantCustomRuleViewController.swift; sourceTree = "<group>"; };
+		E58C9E022F49E1870096B842 /* FocusRecordEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRecordEnums.swift; sourceTree = "<group>"; };
 		E58FC3F02D8BFF3F007905B7 /* QuadrantSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantSettings.swift; sourceTree = "<group>"; };
 		E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPColorSelectTableCell.swift; sourceTree = "<group>"; };
 		E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextFieldTableCellItem.swift; sourceTree = "<group>"; };
@@ -3400,6 +3402,8 @@
 		E541553B2F49988B000B2972 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				E54155512F49A413000B2972 /* FocusRecordListViewController.swift */,
+				E54155562F49A414000B2972 /* FocusRecordListSectionController.swift */,
 				E54155592F49A415000B2972 /* FocusRecordListBasicCell.swift */,
 				E541555A2F49A415000B2972 /* FocusRecordListBasicCellLayout.swift */,
 				E54155542F49A413000B2972 /* FocusRecordListCellBaseInfoView.swift */,
@@ -3407,8 +3411,6 @@
 				E54155572F49A414000B2972 /* FocusRecordListCellDetailInfoView.swift */,
 				E54155502F49A412000B2972 /* FocusRecordListDetailCell.swift */,
 				E54155582F49A414000B2972 /* FocusRecordListDetailCellLayout.swift */,
-				E54155562F49A414000B2972 /* FocusRecordListSectionController.swift */,
-				E54155512F49A413000B2972 /* FocusRecordListViewController.swift */,
 				E54155532F49A413000B2972 /* FocusRecordMenuController.swift */,
 			);
 			path = List;
@@ -6667,6 +6669,7 @@
 		E5D7D8362D43933400EC877A /* Record */ = {
 			isa = PBXGroup;
 			children = (
+				E58C9E022F49E1870096B842 /* FocusRecordEnums.swift */,
 				E54155402F499894000B2972 /* FocusRecordsViewController.swift */,
 				E54155412F499895000B2972 /* FocusRecordMoreBarButtonItem.swift */,
 				E541553B2F49988B000B2972 /* List */,
@@ -8651,6 +8654,7 @@
 				E5146EF42DA0C7410038A83A /* TodoFilterSpecificDateRangeSegmentedView.swift in Sources */,
 				E51A4C2F2DC26795005A0E3F /* CalendarDayViewController.swift in Sources */,
 				E5D7D7E72D43923800EC877A /* FocusSteppedConfig.swift in Sources */,
+				E58C9E032F49E1870096B842 /* FocusRecordEnums.swift in Sources */,
 				E5BB9E8E2D3BF0C80089667A /* ChartGuidelineView.swift in Sources */,
 				E5BB9EA82D3BF0C80089667A /* TPTextField.swift in Sources */,
 				E5BB9F062D3BF0C90089667A /* TPCollectionDragInsertReorder.swift in Sources */,

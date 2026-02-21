@@ -23,8 +23,10 @@ class FocusTimelineViewController: TPContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItems = [chevronDownCancelButtonItem]
-        updateContentViewController()
+        setContentViewController(dayViewController)
+        navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
+        navigationItem.rightBarButtonItem = addBarButtonItem
+        navigationItem.titleView = dayViewController.titleView
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -35,18 +37,8 @@ class FocusTimelineViewController: TPContainerViewController {
         return .systemGroupedBackground
     }
     
-    private func updateContentViewController() {
-        let contentViewController: UIViewController
-        contentViewController = dayViewController
-        setContentViewController(contentViewController)
-        
-        /// 设置titleView
-        var titleView: UIView?
-        if let provider = contentViewController as? FocusTimelineTitleViewProvider {
-            titleView = provider.titleView
-        }
-        
-        navigationItem.titleView = titleView
+    override func clickAdd() {
+        FocusPresenter.addRecordManually()
     }
 }
 

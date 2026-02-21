@@ -63,5 +63,7 @@ class FocusRecordListCellBasicInfoView: FocusRecordListCellBaseInfoView {
         // 更新会话时长
         let duration = Duration(session.duration)
         durationLabel.attributed.text = duration.attributedTitle()
+        /// 重新布局
+        self.setNeedsLayout()
     }
 }

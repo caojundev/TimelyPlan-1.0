@@ -8,11 +8,6 @@
 import Foundation
 import UIKit
 
-enum FocusRecordSortOrder: Int, Codable {
-    case ascending = 0 /// 升序
-    case descending    /// 降序
-}
-
 enum FocusRecordMoreMenuType: Int, TPMenuRepresentable {
     case addRecord  /// 添加记录
     case showDetail /// 显示详情
@@ -52,13 +47,13 @@ class FocusRecordMoreBarButtonItem: UIBarButtonItem {
         }
     }
     
-    var showDetail: Bool {
+    var mode: FocusRecordListMode {
         get {
-            return button.showDetail
+            return button.mode
         }
         
         set {
-            button.showDetail = newValue
+            button.mode = newValue
         }
     }
     
@@ -89,7 +84,7 @@ private class FocusRecordMoreButton: TPMenuListButton {
     
     var sortOrder: FocusRecordSortOrder = .ascending
     
-    var showDetail: Bool = kFocusSettingRecordDefaultShowDetail
+    var mode: FocusRecordListMode = .detail
     
     override var menuItems: [TPMenuItem]? {
         get {
@@ -100,9 +95,10 @@ private class FocusRecordMoreButton: TPMenuListButton {
                  .orderDescending]
             ]
             
-            let showDetail = self.showDetail
+            let showDetail = mode == .detail
             let order = self.sortOrder
             let items = TPMenuItem.items(with: typeLists) { type, action in
+                action.handleBeforeDismiss = type != .addRecord
                 switch type {
                 case .showDetail:
                     action.isChecked = showDetail
