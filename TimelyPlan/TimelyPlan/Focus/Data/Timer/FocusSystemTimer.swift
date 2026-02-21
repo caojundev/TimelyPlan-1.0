@@ -66,7 +66,7 @@ class FocusSystemTimer: NSObject, FocusTimerRepresentable {
     
     var timerInfo: TextRepresentable? {
         let color = kFocusTimerDefaultColor
-        let attributedInfo: ASAttributedString = "\("●", .foreground(color)) \(name)"
+        let attributedInfo: ASAttributedString = "\("●", .foreground(color)) \(timerType.title)"
         return attributedInfo
     }
     

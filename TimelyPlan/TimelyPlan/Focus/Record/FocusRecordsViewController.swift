@@ -17,14 +17,21 @@ class FocusRecordsViewController: StatsMainViewController {
 
     /// 记录排列顺序
     private lazy var sortOrder: FocusRecordSortOrder = {
-        let value: FocusRecordSortOrder? = SettingAgent.shared.value(forKey: kFocusSettingRecordsSortOrder)
+        let value: FocusRecordSortOrder? = SettingAgent.shared.value(forKey: kFocusSettingRecordSortOrder)
         return value ?? .ascending
+    }()
+    
+    /// 显示详情
+    private lazy var showDetail: Bool = {
+        let value: Bool? = SettingAgent.shared.value(forKey: kFocusSettingRecordShowDetail)
+        return value ?? kFocusSettingRecordDefaultShowDetail
     }()
     
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: FocusRecordMoreBarButtonItem = {
         let item = FocusRecordMoreBarButtonItem()
         item.sortOrder = sortOrder
+        item.showDetail = showDetail
         item.didSelectType = { [weak self] type in
             self?.performMoreMenuAction(with: type)
         }
@@ -80,6 +87,8 @@ class FocusRecordsViewController: StatsMainViewController {
         switch actionType {
         case .addRecord:
             addRecordManually()
+        case .showDetail:
+            toggleShowDetail()
         case .orderAscending:
             selectSortOrder(.ascending)
         case .orderDescending:
@@ -90,6 +99,18 @@ class FocusRecordsViewController: StatsMainViewController {
     private func addRecordManually() {
         let timerController = FocusUserTimerController()
         timerController.addRecordManually(forTimer: timer)
+    }
+   
+    private func toggleShowDetail() {
+        // 切换显示模式
+        if let vc = self.contentViewController as? FocusRecordListViewController {
+            self.showDetail = !showDetail
+            vc.mode = self.showDetail ? .detail : .basic
+            vc.reloadData()
+            
+            /// 保存到本地设置项
+            SettingAgent.shared.setValue(self.showDetail, forKey: kFocusSettingRecordShowDetail)
+        }
     }
     
     private func selectSortOrder(_ sortOrder: FocusRecordSortOrder) {
@@ -107,7 +128,7 @@ class FocusRecordsViewController: StatsMainViewController {
         }
         
         /// 保存到本地设置项
-        SettingAgent.shared.setValue(sortOrder, forKey: kFocusSettingRecordsSortOrder)
+        SettingAgent.shared.setValue(sortOrder, forKey: kFocusSettingRecordSortOrder)
     }
     
 }

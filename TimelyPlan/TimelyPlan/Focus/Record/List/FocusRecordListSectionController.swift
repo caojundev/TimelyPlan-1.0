@@ -8,18 +8,23 @@
 import Foundation
 
 class FocusRecordListSectionController: TPCollectionBaseSectionController,
-                                            FocusRecordListCellDelegate {
+                                            FocusRecordListDetailCellDelegate,
+                                            FocusRecordListBasicCellDelegate {
     
     let date: Date
     
     let sessions: [FocusSession]
     
+    /// 显示模式
+    let mode: FocusRecordListMode
+    
     /// 区块布局对象
     let sectionLayout = TPCollectionSectionLayout()
     
-    init(date: Date, sessions: [FocusSession]) {
+    init(date: Date, sessions: [FocusSession], mode: FocusRecordListMode) {
         self.date = date
         self.sessions = sessions
+        self.mode = mode
         super.init()
         self.identifier = date.yearMonthDayString
         self.sectionLayout.edgeMargins = UIEdgeInsets(horizontal: 16.0, vertical: 8.0)
@@ -50,23 +55,46 @@ class FocusRecordListSectionController: TPCollectionBaseSectionController,
     
         sectionLayout.collectionViewSize = adapter?.collectionViewSize() ?? .zero
         let constraintCellSize = sectionLayout.constraintCellSize ?? .zero
-        let cellLayout = FocusRecordListCellLayout(session: session)
-        cellLayout.width = constraintCellSize.width
-        return cellLayout.cellSize
+        
+        switch mode {
+        case .detail:
+            let cellLayout = FocusRecordListDetailCellLayout(session: session)
+            cellLayout.width = constraintCellSize.width
+            return cellLayout.cellSize
+        case .basic:
+            let cellLayout = FocusRecordListBasicCellLayout(session: session)
+            cellLayout.width = constraintCellSize.width
+            return cellLayout.cellSize
+        }
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
-        return FocusRecordListCell.self
+        switch mode {
+        case .detail:
+            return FocusRecordListDetailCell.self
+        case .basic:
+            return FocusRecordListBasicCell.self
+        }
     }
     
     override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
-        guard let cell = cell as? FocusRecordListCell else {
-            return
+        switch mode {
+        case .detail:
+            guard let cell = cell as? FocusRecordListDetailCell else {
+                return
+            }
+            
+            cell.delegate = self
+            cell.cellStyle = styleForItem(at: index)
+            cell.session = item(at: index) as? FocusSession
+        case .basic:
+            guard let cell = cell as? FocusRecordListBasicCell else {
+                return
+            }
+            cell.delegate = self
+            cell.cellStyle = styleForItem(at: index)
+            cell.session = item(at: index) as? FocusSession
         }
-        
-        cell.delegate = self
-        cell.cellStyle = styleForItem(at: index)
-        cell.session = item(at: index) as? FocusSession
     }
     
     override func didSelectItem(at index: Int) {
@@ -89,18 +117,26 @@ class FocusRecordListSectionController: TPCollectionBaseSectionController,
     override func didDequeHeader(_ headerView: UICollectionReusableView) {
         if let headerView = headerView as? TPCollectionHeaderFooterView {
             headerView.padding = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 0, right: 16.0)
-            headerView.titleConfig.font = .boldSystemFont(ofSize: 12.0)
+            headerView.titleConfig.font = .boldSystemFont(ofSize: 14.0)
             headerView.titleConfig.textColor = resGetColor(.title)
             headerView.title = date.monthDayWeekdaySymbolString
         }
     }
     
-    // MARK: - FocusRecordListCellDelegate
-    func focusRecordListCell(_ cell: FocusRecordListCell, didClickMore button: UIButton) {
-        guard let session = cell.session else {
-            return
-        }
-        
+    // MARK: - FocusRecordListDetailCellDelegate
+    func focusRecordListDetailCell(_ cell: FocusRecordListDetailCell, didClickMore button: UIButton) {
+        guard let session = cell.session else { return }
+        handleMoreButtonClick(button, session: session)
+    }
+    
+    // MARK: - FocusRecordListBasicCellDelegate
+    func focusRecordListBasicCell(_ cell: FocusRecordListBasicCell, didClickMore button: UIButton) {
+        guard let session = cell.session else { return }
+        handleMoreButtonClick(button, session: session)
+    }
+    
+    // MARK: - Private Methods
+    private func handleMoreButtonClick(_ button: UIButton, session: FocusSession) {
         let menuController = FocusRecordMenuController()
         menuController.didSelectMenuActionType = { type in
             switch type {
@@ -118,6 +154,7 @@ class FocusRecordListSectionController: TPCollectionBaseSectionController,
     }
     
     func editRecord(for session: FocusSession) {
+        TPImpactFeedback.impactWithSoftStyle()
         let record = session.editingRecord
         let vc = FocusRecordEditViewController(record: record, editType: .modify)
         vc.didEndEditing = { record in
@@ -125,7 +162,6 @@ class FocusRecordListSectionController: TPCollectionBaseSectionController,
         }
         
         let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
         navController.show()
     }
     

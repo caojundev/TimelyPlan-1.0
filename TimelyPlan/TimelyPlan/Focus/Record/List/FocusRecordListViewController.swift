@@ -7,6 +7,12 @@
 
 import Foundation
 
+/// 专注记录列表模式
+enum FocusRecordListMode {
+    case detail
+    case basic
+}
+
 class FocusRecordListViewController: StatsContentViewController,
                                      FocusSessionProcessorDelegate {
     
@@ -18,6 +24,9 @@ class FocusRecordListViewController: StatsContentViewController,
     
     /// 排序方式，默认为降序(最新的在前面)
     var sortOrder: FocusRecordSortOrder = .ascending
+    
+    /// 列表显示模式，默认为 detail 模式
+    var mode: FocusRecordListMode = .basic
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +78,8 @@ class FocusRecordListViewController: StatsContentViewController,
                 }
                 
                 let sectionController = FocusRecordListSectionController(date: date,
-                                                                         sessions: sortedSessions)
+                                                                         sessions: sortedSessions,
+                                                                         mode: self.mode)
                 sectionControllers.append(sectionController)
             }
         }

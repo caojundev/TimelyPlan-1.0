@@ -1,15 +1,15 @@
 //
-//  FocusRecordListCellHeaderView.swift
+//  FocusRecordListCellBaseInfoView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2024/10/30.
+//  Created by caojun on 2026/2/21.
 //
 
 import Foundation
 import UIKit
 
-/// 专注记录列表单元格头部视图
-class FocusRecordListCellHeaderView: UIView {
+/// 专注记录列表单元格基础信息视图（两种模式共用的基类）
+class FocusRecordListCellBaseInfoView: UIView {
     
     /// 点击更多按钮回调
     var didClickMore: ((UIButton) -> Void)?
@@ -29,10 +29,10 @@ class FocusRecordListCellHeaderView: UIView {
     let moreButtonSize = CGSize(width: 20.0, height: 20.0)
     
     /// 顶部高度
-    private let rangeLabelHeight: CGFloat = 36.0
+    let rangeLabelHeight: CGFloat = 36.0
     
     /// 信息视图高度
-    private let infoViewHeight: CGFloat = 15.0
+    let infoViewHeight: CGFloat = 15.0
 
     /// 日期范围标签
     lazy var dateRangeLabel: TPLabel = {
@@ -51,21 +51,6 @@ class FocusRecordListCellHeaderView: UIView {
         return view
     }()
     
-    /// 手动创建标识相关颜色
-    private let manualColor: UIColor = .primary
-    
-    /// 手动创建标识标签
-    private lazy var manualLabel: TPLabel = {
-        let label = TPLabel()
-        label.font = UIFont.systemFont(ofSize: 8.0)
-        label.textColor = .white
-        label.layer.backgroundColor = manualColor.cgColor
-        label.text = resGetString("Manual")
-        label.textAlignment = .center
-        label.edgeInsets = UIEdgeInsets(horizontal: 6.0, vertical: 4.0)
-        return label
-    }()
-    
     /// 更多操作按钮
     lazy var moreButton: TPDefaultButton = {
         let button = TPDefaultButton.moreButton()
@@ -76,25 +61,27 @@ class FocusRecordListCellHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.padding = UIEdgeInsets(top: 0.0,
-                                    left: 0.0,
-                                    bottom: 10.0,
-                                    right: 0.0)
-        self.addSubview(dateRangeLabel)
-        self.addSubview(timerInfoView)
-        self.addSubview(manualLabel)
-        self.addSubview(moreButton)
-        self.addSeparator(position: .bottom)
-        setManulLabelHidden(true)
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// 设置UI组件
+    private func setupUI() {
+        self.addSubview(dateRangeLabel)
+        self.addSubview(timerInfoView)
+        self.addSubview(moreButton)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+        layoutComponents()
+    }
+    
+    /// 布局子组件（子类可以重写）
+    func layoutComponents() {
         let layoutFrame = layoutFrame()
         
         // 布局更多按钮
@@ -102,14 +89,8 @@ class FocusRecordListCellHeaderView: UIView {
         moreButton.right = layoutFrame.maxX
         moreButton.centerY = layoutFrame.minY + rangeLabelHeight / 2.0
         
-        // 布局手动标签
-        manualLabel.sizeToFit()
-        manualLabel.right = moreButton.left
-        manualLabel.centerY = moreButton.centerY
-        manualLabel.layer.cornerRadius = manualLabel.halfHeight
-        
         // 布局日期范围标签
-        dateRangeLabel.width = layoutFrame.width - moreButtonSize.width - manualLabel.width
+        dateRangeLabel.width = layoutFrame.width - moreButtonSize.width
         dateRangeLabel.height = rangeLabelHeight
         dateRangeLabel.origin = layoutFrame.origin
 
@@ -126,18 +107,11 @@ class FocusRecordListCellHeaderView: UIView {
         didClickMore?(button)
     }
     
-    /// 设置手动标签隐藏状态
-    /// - Parameter isHidden: 是否隐藏
-    private func setManulLabelHidden(_ isHidden: Bool) {
-        manualLabel.isHidden = isHidden
-    }
-    
     /// 根据专注会话数据重新加载界面内容
     /// - Parameter session: 专注会话数据模型
-    private func reloadData(with session: FocusSession) {
+    func reloadData(with session: FocusSession) {
         dateRangeLabel.attributed.text = session.attributedDateRangeString()
-        setManulLabelHidden(!session.isManual)
-    
+        
         /// 计时器信息
         let timer = session.timer
         let title: TextRepresentable

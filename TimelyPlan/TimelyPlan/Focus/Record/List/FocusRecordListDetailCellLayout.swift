@@ -1,5 +1,5 @@
 //
-//  FocusRecordListCellLayout.swift
+//  FocusRecordListDetailCellLayout.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/10/29.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FocusRecordListCellLayout {
+class FocusRecordListDetailCellLayout {
     
     /// 内容内间距
     static var contentPadding = UIEdgeInsets(horizontal: 16.0, vertical: 10.0)

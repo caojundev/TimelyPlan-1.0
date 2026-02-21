@@ -15,11 +15,13 @@ enum FocusRecordSortOrder: Int, Codable {
 
 enum FocusRecordMoreMenuType: Int, TPMenuRepresentable {
     case addRecord  /// 添加记录
+    case showDetail /// 显示详情
     case orderAscending  /// 升序
     case orderDescending /// 降序
     
     static func titles() -> [String] {
         return ["Add Record",
+                "Show Detail",
                 "Ascending",
                 "Descending"]
     }
@@ -28,6 +30,8 @@ enum FocusRecordMoreMenuType: Int, TPMenuRepresentable {
         switch self {
         case .addRecord:
             return "focus_record_add_24"
+        case .showDetail:
+            return "focus_record_showDetail_24"
         case .orderAscending:
             return "focus_record_order_ascending_24"
         case .orderDescending:
@@ -45,6 +49,16 @@ class FocusRecordMoreBarButtonItem: UIBarButtonItem {
         
         set {
             button.sortOrder = newValue
+        }
+    }
+    
+    var showDetail: Bool {
+        get {
+            return button.showDetail
+        }
+        
+        set {
+            button.showDetail = newValue
         }
     }
     
@@ -75,17 +89,23 @@ private class FocusRecordMoreButton: TPMenuListButton {
     
     var sortOrder: FocusRecordSortOrder = .ascending
     
+    var showDetail: Bool = kFocusSettingRecordDefaultShowDetail
+    
     override var menuItems: [TPMenuItem]? {
         get {
             let typeLists: [Array<FocusRecordMoreMenuType>] = [
                 [.addRecord],
+                [.showDetail],
                 [.orderAscending,
                  .orderDescending]
             ]
             
-            let order = sortOrder
+            let showDetail = self.showDetail
+            let order = self.sortOrder
             let items = TPMenuItem.items(with: typeLists) { type, action in
                 switch type {
+                case .showDetail:
+                    action.isChecked = showDetail
                 case .orderAscending:
                     action.isChecked = order == .ascending
                 case .orderDescending:

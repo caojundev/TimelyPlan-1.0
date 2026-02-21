@@ -1,5 +1,5 @@
 //
-//  FocusRecordCollectionCell.swift
+//  FocusRecordListDetailCell.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/10/7.
@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 
-protocol FocusRecordListCellDelegate: AnyObject {
+protocol FocusRecordListDetailCellDelegate: AnyObject {
     
     /// 点击更多按钮
-    func focusRecordListCell(_ cell: FocusRecordListCell, didClickMore button: UIButton)
+    func focusRecordListDetailCell(_ cell: FocusRecordListDetailCell, didClickMore button: UIButton)
 }
 
-class FocusRecordListCell: TPCollectionCell {
+class FocusRecordListDetailCell: TPCollectionCell {
 
     var session: FocusSession? {
         didSet {
@@ -24,11 +24,12 @@ class FocusRecordListCell: TPCollectionCell {
     
     /// 头视图
     var headerViewHeight = 70.0
-    lazy var headerView: FocusRecordListCellHeaderView = {
-        let view = FocusRecordListCellHeaderView()
+    lazy var headerView: FocusRecordListCellDetailInfoView = {
+        let view = FocusRecordListCellDetailInfoView()
+        view.padding = UIEdgeInsets(bottom: 10.0)
         view.didClickMore = { [weak self] button in
-            if let self = self,  let delegate = self.delegate as? FocusRecordListCellDelegate {
-                delegate.focusRecordListCell(self, didClickMore: button)
+            if let self = self,  let delegate = self.delegate as? FocusRecordListDetailCellDelegate {
+                delegate.focusRecordListDetailCell(self, didClickMore: button)
             }
         }
         
@@ -73,6 +74,7 @@ class FocusRecordListCell: TPCollectionCell {
         contentView.addSubview(headerView)
         contentView.addSubview(infoView)
         contentView.addSubview(noteLabel)
+        headerView.addSeparator(position: .bottom)
     }
     
     override func layoutSubviews() {
