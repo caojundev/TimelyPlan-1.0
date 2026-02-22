@@ -140,7 +140,7 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
         return .systemGroupedBackground
     }
 
-    private func clickSave() {
+    override func didClickSave() {
         didEndEditing?(record)
         dismiss(animated: true, completion: nil)
     }

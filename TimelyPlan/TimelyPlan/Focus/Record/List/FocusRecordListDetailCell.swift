@@ -23,7 +23,6 @@ class FocusRecordListDetailCell: TPCollectionCell {
     }
     
     /// 头视图
-    var headerViewHeight = 70.0
     lazy var headerView: FocusRecordListCellDetailInfoView = {
         let view = FocusRecordListCellDetailInfoView()
         view.padding = UIEdgeInsets(bottom: 10.0)
@@ -81,7 +80,7 @@ class FocusRecordListDetailCell: TPCollectionCell {
         contentView.padding = UIEdgeInsets(horizontal: 16.0, vertical: 10.0)
         let layoutFrame = contentView.layoutFrame()
         headerView.width = layoutFrame.width
-        headerView.height = headerViewHeight
+        headerView.height = FocusRecordListDetailCellLayout.headerViewHeight
         headerView.origin = layoutFrame.origin
         
         infoView.width = layoutFrame.width
