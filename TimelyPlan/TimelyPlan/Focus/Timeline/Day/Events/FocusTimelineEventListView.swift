@@ -34,6 +34,14 @@ class FocusTimelineEventListView: UIView {
     
     var eventViews: [FocusTimelineEventView] = []
     
+    var hourHeight: CGFloat = 40.0 {
+        didSet {
+            if hourHeight != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
+    
     private var layout: FocusTimelineLayout?
     
     private let contentView = UIView()
@@ -50,8 +58,10 @@ class FocusTimelineEventListView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let layoutFrame = layoutFrame()
-        contentView.frame = layoutFrame
-        
+        contentView.frame = CGRect(x: layoutFrame.minX,
+                                   y: layoutFrame.minY,
+                                   width: layoutFrame.width,
+                                   height: layoutFrame.height + hourHeight)
         guard let layout = layout else {
             return
         }

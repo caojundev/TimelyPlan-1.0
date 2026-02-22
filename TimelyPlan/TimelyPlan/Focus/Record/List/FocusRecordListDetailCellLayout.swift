@@ -14,10 +14,10 @@ class FocusRecordListDetailCellLayout {
     static var contentPadding = UIEdgeInsets(horizontal: 16.0, vertical: 10.0)
     
     /// 头视图高度
-    static var headerViewHeight = 70.0
+    static var headerViewHeight = 75.0
     
     /// 信息视图高度
-    static var infoViewHeight = 90.0
+    static var infoViewHeight = 70.0
     
     static var noteLabelPadding = UIEdgeInsets(horizontal: 10.0, vertical: 10.0)
     

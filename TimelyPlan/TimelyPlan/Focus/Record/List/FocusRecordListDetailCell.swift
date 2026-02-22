@@ -36,7 +36,6 @@ class FocusRecordListDetailCell: TPCollectionCell {
         return view
     }()
     
-    var infoViewHeight = 90.0
     lazy var infoView: TPInfoGalleryView = {
         let view = TPInfoGalleryView(frame: .zero, infoViewsCount: 3)
     
@@ -86,7 +85,7 @@ class FocusRecordListDetailCell: TPCollectionCell {
         headerView.origin = layoutFrame.origin
         
         infoView.width = layoutFrame.width
-        infoView.height = infoViewHeight
+        infoView.height = FocusRecordListDetailCellLayout.infoViewHeight
         infoView.top = headerView.bottom
         infoView.left = layoutFrame.minX
     

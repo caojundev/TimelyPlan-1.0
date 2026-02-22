@@ -149,7 +149,7 @@ class FocusTimelineView: UIView {
         let contentHeight = hourHeight * CGFloat(HOURS_PER_DAY) + topPadding + bottomPadding
         contentView.frame = bounds
         contentView.contentSize = CGSize(width: width, height: contentHeight)
-        
+        contentView.contentInset = UIEdgeInsets(bottom: hourHeight / 2.0)
         hoursView.hourHeight = hourHeight
         hoursView.width = hoursViewWidth
         hoursView.height = contentHeight
@@ -158,6 +158,7 @@ class FocusTimelineView: UIView {
                                           left: 4.0,
                                           bottom: bottomPadding,
                                           right: 4.0)
+        eventListView.hourHeight = hourHeight
         eventListView.width = width - hoursViewWidth
         eventListView.height = contentHeight
         eventListView.left = hoursViewWidth

@@ -35,6 +35,7 @@ class CalendarDayTimelineIndicatorView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.padding = UIEdgeInsets(value: 4.0)
+        self.isUserInteractionEnabled = false
         setupViews()
     }
 
