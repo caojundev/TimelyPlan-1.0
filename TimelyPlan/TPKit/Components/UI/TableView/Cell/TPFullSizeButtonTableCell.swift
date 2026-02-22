@@ -110,6 +110,7 @@ class TPFullSizeButtonTableCell: TPBaseTableCell {
         button.normalBackgroundColor = cellItem.buttonNormalBackgroundColor
         button.selectedBackgroundColor = cellItem.buttonSelectedBackgroundColor
         button.cornerRadius = cellItem.buttonCornerRadius
+        button.preferredTappedScale = cellItem.preferredTappedScale
         if let imageName = cellItem.buttonImageName {
             button.image = resGetImage(imageName)
         } else {

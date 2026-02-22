@@ -72,6 +72,31 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
+    /// 删除
+    lazy var deleteButtonCellItem: TPFullSizeButtonTableCellItem = { [weak self] in
+        let cellItem = TPFullSizeButtonTableCellItem()
+        cellItem.height = 50.0
+        cellItem.buttonTitle = resGetString("Delete Record")
+        cellItem.buttonNormalTitleColor = .danger1
+        cellItem.buttonNormalBackgroundColor = .danger6
+        cellItem.buttonSelectedBackgroundColor = .danger7
+        cellItem.contentPadding = .zero
+        cellItem.preferredTappedScale = 1.0
+        cellItem.didClickButton = { _ in
+            self?.clickDelete()
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var deleteSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 20.0
+        sectionController.cellItems = [deleteButtonCellItem]
+        return sectionController
+    }()
+    
+
     init(record: FocusRecord? = nil, editType: EditType = .create) {
         self.record = record ?? FocusRecord()
         self.editType = editType
@@ -88,28 +113,36 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
             self.title = resGetString("Add Focus Record")
         } else {
             self.title = resGetString("Edit Focus Record")
-            
-            /// 底部删除操作按钮
-            let deleteAction = TPButtonAction.init(type: .destructive,
-                                                   title: resGetString("Delete")) {  [weak self] action in
-                self?.clickDelete()
-            }
-            
-            setupActionsBar(actions: [deleteAction])
         }
         
-        navigationItem.leftBarButtonItem = self.chevronDownCancelButtonItem
-        navigationItem.rightBarButtonItem = self.saveButtonItem
+        self.navigationItem.leftBarButtonItem = self.chevronDownCancelButtonItem
+        self.navigationItem.rightBarButtonItem = self.saveButtonItem
         wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
         tableView.keyboardDismissMode = .interactive
-        sectionControllers = [bindSectionController,
-                              timelineSectionController,
-                              scoreSectionController,
-                              noteSectionController
-        ]
+        var sectionControllers = [bindSectionController,
+                                  timelineSectionController,
+                                  scoreSectionController,
+                                  noteSectionController]
+        if editType == .modify {
+            sectionControllers.append(deleteSectionController)
+        }
         
+        self.sectionControllers = sectionControllers
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         reloadData()
+    }
+
+    override var themeBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+
+    private func clickSave() {
+        didEndEditing?(record)
+        dismiss(animated: true, completion: nil)
     }
     
     private func clickDelete() {
@@ -120,16 +153,4 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
         }
     }
     
-    override var themeBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
-    
-    override var themeNavigationBarBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
-
-    override func didClickSave() {
-        didEndEditing?(record)
-        dismiss(animated: true, completion: nil)
-    }
 }
