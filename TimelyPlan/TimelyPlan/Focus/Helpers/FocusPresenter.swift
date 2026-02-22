@@ -122,4 +122,32 @@ class FocusPresenter {
         let navController = UINavigationController(rootViewController: vc)
         navController.show()
     }
+    
+    /// 手动添加记录
+    static func addRecordManually(forTimer timer: FocusTimerRepresentable? = nil,
+                                  task: TaskRepresentable? = nil) {
+        let record = FocusRecord(timer: timer, task: task)
+        let vc = FocusRecordEditViewController(record: record)
+        vc.didEndEditing = { record in
+            focus.addSession(with: record, isManual: true)
+        }
+        
+        vc.showAsNavigationRoot()
+    }
+    
+    /// 根据默认开始和结束时间创建记录
+    static func createRecord(startTime: Date, endTime: Date) {
+        let interval = endTime.timeIntervalSince(startTime)
+        let recordDuration = FocusRecordDuration(type: .focus, interval: interval)
+        let timeline = FocusRecordTimeline(startDate: startTime,
+                                           recordDurations: [recordDuration])
+        let record = FocusRecord(timeline: timeline)
+        let vc = FocusRecordEditViewController(record: record)
+        vc.didEndEditing = { record in
+            focus.addSession(with: record, isManual: true)
+        }
+        
+        vc.showAsNavigationRoot()
+    }
+    
 }

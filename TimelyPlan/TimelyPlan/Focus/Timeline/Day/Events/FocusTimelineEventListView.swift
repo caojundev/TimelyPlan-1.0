@@ -46,9 +46,19 @@ class FocusTimelineEventListView: UIView {
     
     private let contentView = UIView()
     
+    /// 长按手势识别器
+    private var longPressGestureRecognizer: UILongPressGestureRecognizer?
+    
+    /// 时间线日期范围
+    private var dateRange: CalendarTimelineDateRange?
+    
+    /// 顶部内边距
+    var topPadding: CGFloat = 0.0
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(contentView)
+        setupLongPressGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -113,11 +123,79 @@ class FocusTimelineEventListView: UIView {
             
             self.events = events
             let dateRange = CalendarTimelineDateRange(date: date)
+            self.dateRange = dateRange
             self.layout = FocusTimelineLayout(events: events,
                                               dateRange: dateRange)
             self.setupEventViews()
         })
     }
+    
+    /// 设置长按手势识别器
+    private func setupLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        longPressGesture.minimumPressDuration = 0.5 // 0.5秒长按触发
+        longPressGesture.delaysTouchesBegan = true
+        longPressGesture.cancelsTouchesInView = false
+        contentView.addGestureRecognizer(longPressGesture)
+        self.longPressGestureRecognizer = longPressGesture
+    }
+    
+    /// 处理长按手势
+    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else { return }
+        
+        let location = gesture.location(in: contentView)
+        
+        // 检查触摸点是否在已有事件视图上
+        if FocusTimelineTimeUtils.isPointOnEventView(location,
+                                                     eventViews: eventViews,
+                                                     in: contentView) {
+            return // 在已有事件上不执行添加操作
+        }
+        
+        // 执行添加操作
+        performAddOperation(at: location)
+    }
+    
+    /// 执行添加操作
+    private func performAddOperation(at location: CGPoint) {
+        guard let dateRange = self.dateRange else { return }
+        
+        // 将触摸点Y坐标转换为时间
+        let rawTime = FocusTimelineTimeUtils.time(fromY: location.y,
+                                                  dateRange: dateRange,
+                                                  viewHeight: contentView.height)
+        
+        // 对齐到5分钟粒度
+        let alignedStartTime = FocusTimelineTimeUtils.alignTime(rawTime)
+        let endTime = FocusTimelineTimeUtils.endTime(from: alignedStartTime)
+        
+        // 计算指示视图的位置和大小
+        let startY = FocusTimelineTimeUtils.y(fromTime: alignedStartTime,
+                                             dateRange: dateRange,
+                                             viewHeight: contentView.height)
+        let indicatorHeight = FocusTimelineTimeUtils.heightForDuration(FocusTimelineTimeUtils.defaultFocusDuration,
+                                                                       dateRange: dateRange,
+                                                                       viewHeight: contentView.height)
+        
+        let indicatorFrame = CGRect(x: 0.0, y: startY, width: contentView.width, height: indicatorHeight)
+        // 显示指示视图
+        let _ = FocusTimelineAddIndicatorView.showIndicator(in: contentView,
+                                                            frame: indicatorFrame,
+                                                            duration: 2.0)
+        
+        // 创建新的专注记录
+        createFocusRecord(startTime: alignedStartTime, endTime: endTime)
+    }
+    
+    /// 创建新的专注记录
+    private func createFocusRecord(startTime: Date, endTime: Date) {
+        // 这里应该调用实际的创建记录逻辑
+        print("创建专注记录: 开始时间 \(startTime.monthDayTimeString), 结束时间 \(endTime.monthDayTimeString)")
+        TPImpactFeedback.impactWithSoftStyle()
+//        FocusPresenter.createRecord(startTime: startTime, endTime: endTime)
+    }
+    
 }
 
 // MARK: - FocusTimelineEventTapDelegate

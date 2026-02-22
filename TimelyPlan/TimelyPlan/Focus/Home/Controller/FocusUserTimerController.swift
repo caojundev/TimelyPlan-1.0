@@ -69,14 +69,7 @@ class FocusUserTimerController {
     
     // MARK: - 任务记录操作
     func addRecordManually(forTimer timer: FocusTimerRepresentable? = nil, task: TaskRepresentable? = nil) {
-        let record = FocusRecord(timer: timer, task: task)
-        let vc = FocusRecordEditViewController(record: record)
-        vc.didEndEditing = { record in
-            focus.addSession(with: record, isManual: true)
-        }
-        
-        let navController = UINavigationController(rootViewController: vc)
-        navController.show()
+        FocusPresenter.addRecordManually(forTimer: timer, task: task)
     }
     
     /// 显示记录

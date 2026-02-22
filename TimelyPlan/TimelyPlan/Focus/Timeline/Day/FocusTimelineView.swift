@@ -159,6 +159,7 @@ class FocusTimelineView: UIView {
                                           bottom: bottomPadding,
                                           right: 4.0)
         eventListView.hourHeight = hourHeight
+        eventListView.topPadding = topPadding
         eventListView.width = width - hoursViewWidth
         eventListView.height = contentHeight
         eventListView.left = hoursViewWidth
