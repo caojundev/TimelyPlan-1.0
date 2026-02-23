@@ -381,7 +381,7 @@ extension FocusStatsDataItem {
             if let timer = feature.timer {
                 timerName = timer.name
             } else {
-                timerName = feature.shotName ?? resGetString("Unknown Timer")
+                timerName = resGetString("Unknown Timer")
             }
 
             infos.append((timerName, duration))

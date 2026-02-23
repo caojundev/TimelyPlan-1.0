@@ -117,10 +117,8 @@ class FocusRecordListCellBaseInfoView: UIView {
         let title: TextRepresentable
         if let timerInfo = timer?.timerInfo {
             title = timerInfo
-        } else if let shotName = session.timerShotName {
-            title = shotName
         } else {
-            title = resGetString("No timer bound")
+            title = resGetString("Unknown Timer")
         }
         
         timerInfoView.title = title

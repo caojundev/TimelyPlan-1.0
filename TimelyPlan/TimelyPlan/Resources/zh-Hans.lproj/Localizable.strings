@@ -394,9 +394,9 @@
 "No Focus Record" = "无专注记录";
 "No Archived Timer" = "无归档计时器";
 "No Timer" = "无计时器";
-"No timer bound" = "未绑定计时器";
 
 /// 计时器
+"Unknown Timer" = "未知计时器";
 "New Timer" = "新建计时器";
 "Edit Timer" = "编辑计时器";
 "Delete Timer" = "删除计时器";

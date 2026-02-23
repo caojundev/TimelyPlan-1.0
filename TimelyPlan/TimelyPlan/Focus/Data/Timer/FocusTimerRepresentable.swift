@@ -18,6 +18,9 @@ protocol FocusTimerRepresentable: AnyObject {
     /// 计时器类型
     var timerType: FocusTimerType { get }
     
+    /// 计时器特征
+    var feature: TimerFeature?  { get }
+    
     /// 计时器描述
     var timerDescription: String? { get }
     
@@ -26,9 +29,6 @@ protocol FocusTimerRepresentable: AnyObject {
     
     /// 计时器配置
     var timerConfig: FocusTimerConfig? { get }
-    
-    /// 计时器特征
-    var feature: TimerFeature?  { get }
     
     /// 颜色
     var timerColor: UIColor { get }

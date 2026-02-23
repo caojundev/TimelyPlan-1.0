@@ -23,7 +23,7 @@ extension FocusSession {
     /// 获取会话对应的计时器信息
     var timerFeature: TimerFeature? {
         if let timerID = timerID {
-            return TimerFeature(identifier: timerID, shotName: timerShotName)
+            return TimerFeature(identifier: timerID)
         }
         
         return nil
@@ -73,7 +73,6 @@ extension FocusSession {
     func update(with record: FocusRecord) {
         if let timer = record.timer {
             self.timerID = timer.identifier
-            self.timerShotName = timer.name
         }
         
         if let taskInfo = record.task?.info {

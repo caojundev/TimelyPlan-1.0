@@ -14,9 +14,6 @@ struct TimerFeature: Codable, Hashable, Equatable {
     /// 标识
     var identifier: String
   
-    /// 快照名称
-    var shotName: String?
-
     /// 表示未知特征信息
     static var noneIdentifier = "None"
     static var none: TimerFeature {
@@ -44,7 +41,6 @@ struct TimerFeature: Codable, Hashable, Equatable {
     /// 提供自定义的哈希值计算
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
-        hasher.combine(shotName)
     }
     
 }

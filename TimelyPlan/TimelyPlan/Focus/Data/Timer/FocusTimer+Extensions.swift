@@ -46,7 +46,7 @@ extension FocusTimer: Sortable, TPHexColorConvertible {
     /// 获取计时器特征
     var feature: TimerFeature? {
         if let identifier = self.identifier {
-            return TimerFeature(identifier: identifier, shotName: name)
+            return TimerFeature(identifier: identifier)
         }
         
         return nil

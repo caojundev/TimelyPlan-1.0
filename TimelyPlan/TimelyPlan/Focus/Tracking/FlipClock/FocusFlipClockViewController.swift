@@ -49,7 +49,7 @@ class FocusFlipClockViewController: TPViewController,
     init(tracker: FocusTracker) {
         self.tracker = tracker
         super.init(nibName: nil, bundle: nil)
-        self.topbar.title = tracker.eventTimerFeature?.shotName
+        self.topbar.title = tracker.eventTimerFeature?.timer?.name
         self.tracker.addUpdater(self)
     }
     

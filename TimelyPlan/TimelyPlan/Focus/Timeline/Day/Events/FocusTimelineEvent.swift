@@ -11,7 +11,7 @@ class FocusTimelineEvent: NSObject {
     
     /// 名称
     var name: String? {
-        return session.timerShotName
+        return session.timer?.name
     }
     
     /// 开始日期
