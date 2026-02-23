@@ -34,7 +34,7 @@ class FocusTimelineEventListView: UIView {
     
     var eventViews: [FocusTimelineEventView] = []
     
-    var hourHeight: CGFloat = 40.0 {
+    var hourHeight: CGFloat = 80.0 {
         didSet {
             if hourHeight != oldValue {
                 setNeedsLayout()
@@ -45,10 +45,7 @@ class FocusTimelineEventListView: UIView {
     private var layout: FocusTimelineLayout?
     
     private let contentView = UIView()
-    
-    /// 长按手势识别器
-    private var longPressGestureRecognizer: UILongPressGestureRecognizer?
-    
+
     /// 时间线日期范围
     private var dateRange: CalendarTimelineDateRange?
     
@@ -136,20 +133,18 @@ class FocusTimelineEventListView: UIView {
         longPressGesture.minimumPressDuration = 0.5 // 0.5秒长按触发
         longPressGesture.delaysTouchesBegan = true
         longPressGesture.cancelsTouchesInView = false
-        contentView.addGestureRecognizer(longPressGesture)
-        self.longPressGestureRecognizer = longPressGesture
+        self.addGestureRecognizer(longPressGesture)
     }
     
     /// 处理长按手势
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         guard gesture.state == .began else { return }
         
-        let location = gesture.location(in: contentView)
+        var location = gesture.location(in: self)
+        location = self.convert(location, toViewOrWindow: contentView)
         
         // 检查触摸点是否在已有事件视图上
-        if FocusTimelineTimeUtils.isPointOnEventView(location,
-                                                     eventViews: eventViews,
-                                                     in: contentView) {
+        if FocusTimelineTimeUtils.isPointOnEventView(location, eventViews: eventViews) {
             return // 在已有事件上不执行添加操作
         }
         
@@ -162,27 +157,28 @@ class FocusTimelineEventListView: UIView {
         guard let dateRange = self.dateRange else { return }
         
         // 将触摸点Y坐标转换为时间
+        let viewHeight = layoutFrame().height
         let rawTime = FocusTimelineTimeUtils.time(fromY: location.y,
                                                   dateRange: dateRange,
-                                                  viewHeight: contentView.height)
+                                                  viewHeight: viewHeight)
         
-        // 对齐到5分钟粒度
+        // 对齐粒度
         let alignedStartTime = FocusTimelineTimeUtils.alignTime(rawTime)
         let endTime = FocusTimelineTimeUtils.endTime(from: alignedStartTime)
         
         // 计算指示视图的位置和大小
         let startY = FocusTimelineTimeUtils.y(fromTime: alignedStartTime,
-                                             dateRange: dateRange,
-                                             viewHeight: contentView.height)
+                                              dateRange: dateRange,
+                                              viewHeight: viewHeight)
         let indicatorHeight = FocusTimelineTimeUtils.heightForDuration(FocusTimelineTimeUtils.defaultFocusDuration,
                                                                        dateRange: dateRange,
-                                                                       viewHeight: contentView.height)
+                                                                       viewHeight: viewHeight)
         
         let indicatorFrame = CGRect(x: 0.0, y: startY, width: contentView.width, height: indicatorHeight)
         // 显示指示视图
         let _ = FocusTimelineAddIndicatorView.showIndicator(in: contentView,
                                                             frame: indicatorFrame,
-                                                            duration: 2.0)
+                                                            duration: 0.8)
         
         // 创建新的专注记录
         createFocusRecord(startTime: alignedStartTime, endTime: endTime)
@@ -190,10 +186,8 @@ class FocusTimelineEventListView: UIView {
     
     /// 创建新的专注记录
     private func createFocusRecord(startTime: Date, endTime: Date) {
-        // 这里应该调用实际的创建记录逻辑
-        print("创建专注记录: 开始时间 \(startTime.monthDayTimeString), 结束时间 \(endTime.monthDayTimeString)")
         TPImpactFeedback.impactWithSoftStyle()
-//        FocusPresenter.createRecord(startTime: startTime, endTime: endTime)
+        FocusPresenter.createRecord(startTime: startTime, endTime: endTime)
     }
     
 }

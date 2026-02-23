@@ -12,7 +12,7 @@ import UIKit
 class FocusTimelineTimeUtils {
     
     /// 默认时间对齐粒度（分钟）
-    static let defaultAlignmentMinutes = 5
+    static let defaultAlignmentMinutes = 10
     
     /// 默认专注时长（秒）
     static let defaultFocusDuration: TimeInterval = 25 * 60 // 25分钟
@@ -22,7 +22,6 @@ class FocusTimelineTimeUtils {
     ///   - y: 视图中的Y坐标
     ///   - dateRange: 时间线日期范围
     ///   - viewHeight: 视图总高度
-    ///   - topPadding: 顶部内边距
     /// - Returns: 对应的时间
     static func time(fromY y: CGFloat, 
                      dateRange: CalendarTimelineDateRange,
@@ -31,7 +30,12 @@ class FocusTimelineTimeUtils {
         let totalHeight = viewHeight
         let progress = totalHeight > 0 ? adjustedY / totalHeight : 0
         let timeInterval = dateRange.interval * Double(progress)
-        return dateRange.start.addingTimeInterval(timeInterval)
+        var date = dateRange.start.addingTimeInterval(timeInterval)
+        if date > dateRange.end {
+            date = dateRange.end
+        }
+        
+        return date
     }
     
     /// 将时间转换为视图中的Y坐标
@@ -60,13 +64,12 @@ class FocusTimelineTimeUtils {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: time)
         
-        guard let hour = components.hour, let minute = components.minute else {
+        guard let _ = components.hour, let minute = components.minute else {
             return time
         }
         
         // 计算对齐后的分钟
         let alignedMinute = (minute / alignmentMinutes) * alignmentMinutes
-        
         var alignedComponents = components
         alignedComponents.minute = alignedMinute
         alignedComponents.second = 0
@@ -101,14 +104,11 @@ class FocusTimelineTimeUtils {
     /// - Parameters:
     ///   - point: 触摸点坐标
     ///   - eventViews: 已有的事件视图数组
-    ///   - in view: 父视图坐标系
     /// - Returns: 如果在事件视图上返回true
     static func isPointOnEventView(_ point: CGPoint, 
-                                   eventViews: [FocusTimelineEventView],
-                                   in view: UIView) -> Bool {
+                                   eventViews: [FocusTimelineEventView]) -> Bool {
         for eventView in eventViews {
-            let eventFrame = eventView.convert(eventView.bounds, to: view)
-            if eventFrame.contains(point) {
+            if eventView.frame.contains(point) {
                 return true
             }
         }
