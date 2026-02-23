@@ -82,7 +82,8 @@ class FocusRecordListViewController: StatsContentViewController,
     }
     
     // MARK: - FocusSessionProcessorDelegate
-    func didAddFocusSession(_ session: FocusSession, with record: FocusRecord) {
+    func didAddFocusSessions(_ sessions: [FocusSession]) {
+        guard sessions.count == 1, let session = sessions.first else { return }
         guard let date = session.startDate, self.dateRange.contains(date: date) else {
             return
         }

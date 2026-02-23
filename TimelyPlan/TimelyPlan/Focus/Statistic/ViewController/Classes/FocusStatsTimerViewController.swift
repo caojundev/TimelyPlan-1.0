@@ -79,7 +79,7 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController,
     }
     
     // MARK: - FocusSessionProcessorDelegate
-    func didAddFocusSession(_ session: FocusSession, with record: FocusRecord) {
+    func didAddFocusSessions(_ sessions: [FocusSession]) {
         self.reloadData()
     }
     

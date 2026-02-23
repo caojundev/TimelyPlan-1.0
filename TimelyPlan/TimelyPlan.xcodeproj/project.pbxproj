@@ -6491,8 +6491,8 @@
 		E5D7D7D32D43923800EC877A /* Session */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D7D42D43923800EC877A /* FocusSession+Extensions.swift */,
 				E5D7D7D52D43923800EC877A /* Focus+Session.swift */,
+				E5D7D7D42D43923800EC877A /* FocusSession+Extensions.swift */,
 				E5D7D7D62D43923800EC877A /* FocusSession+Fragment.swift */,
 				E5D7D7D72D43923800EC877A /* FocusSession+Predicate.swift */,
 				E5D7D7D82D43923800EC877A /* Array+FocusSession.swift */,

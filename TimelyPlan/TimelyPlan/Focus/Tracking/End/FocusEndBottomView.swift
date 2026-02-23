@@ -37,8 +37,8 @@ class FocusEndBottomView: UIView {
     lazy var discardButton: TPDefaultButton = {
         let button = TPDefaultButton()
         button.titleConfig.font = BOLD_SMALL_SYSTEM_FONT
-        button.title = resGetString("Discard focus data of this round")
-        button.titleConfig.textColor = .secondaryLabel
+        button.title = resGetString("Discard data of this round")
+        button.titleConfig.textColor = .tertiaryLabel
         button.addTarget(self,
                          action: #selector(clickDiscard),
                          for: .touchUpInside)

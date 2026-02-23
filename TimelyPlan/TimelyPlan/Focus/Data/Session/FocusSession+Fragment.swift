@@ -52,7 +52,7 @@ extension FocusSession {
         var fragments: [TimeFragment] = []
         var currentStartDate = startDate
         
-        //检查是否存在专注中断
+        // 检查是否存在专注中断
         if let orderedPauses = orderedPauses {
             for pause in orderedPauses {
                 let pauseStartDate = pause.startDate!

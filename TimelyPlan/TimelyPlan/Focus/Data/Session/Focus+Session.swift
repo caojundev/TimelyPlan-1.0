@@ -8,12 +8,27 @@
 import Foundation
 
 extension Focus {
-
+    // MARK: - 保存记录
+    /// 添加
+    func addSessions(with records: [FocusRecord]) {
+        var sessions = [FocusSession]()
+        for record in records {
+            let session = FocusSession.newSession(with: record, isManual: false)
+            sessions.append(session)
+        }
+        
+        if sessions.count > 0 {
+            save { [weak self] in
+                self?.updater.didAddFocusSessions(sessions)
+            }
+        }
+    }
+    
     /// 手动添加会话
     func addSession(with record: FocusRecord, isManual: Bool) {
         let session = FocusSession.newSession(with: record, isManual: isManual)
         save { [weak self] in
-            self?.updater.didAddFocusSession(session, with: record)
+            self?.updater.didAddFocusSessions([session])
         }
     }
     

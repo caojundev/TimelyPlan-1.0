@@ -483,11 +483,13 @@
 "Save Focus Data" = "保存专注数据";
 
 "Discard" = "丢弃";
-"Discard focus data of this round" = "丢弃本轮专注数据";
+"Discard data of this round" = "丢弃本轮数据";
 "Discard Focus Data" = "丢弃专注数据";
 "%ld focus records of this round will be discarded" = "本轮%ld条专注记录将被丢弃";
 "The focus record of this round will be discarded" = "本轮专注记录将被丢弃";
 "There is no focused record over %@ in this round." = "本轮无超过%@的专注记录";
+"%ld focus records added successfully" = "成功添加%ld条专注记录";
+"%ld focus record added successfully" = "成功添加%ld条专注记录";
 
 /// 专注设置
 "Focus Settings" = "专注设置";

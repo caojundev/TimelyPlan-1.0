@@ -51,12 +51,19 @@ class FocusStatsContentViewController: StatsContentViewController,
     }
 
     // MARK: - FocusSessionProcessorDelegate
-    func didAddFocusSession(_ session: FocusSession, with record: FocusRecord) {
-        guard let date = session.startDate, self.dateRange.contains(date: date) else {
-            return
+    func didAddFocusSessions(_ sessions: [FocusSession]) {
+        
+        var shouldReload = false
+        for session in sessions {
+            if let date = session.startDate, dateRange.contains(date: date) {
+                shouldReload = true
+                break
+            }
         }
         
-        self.reloadData()
+        if shouldReload {
+            self.reloadData()
+        }
     }
     
     func didUpdateFocusSession(_ session: FocusSession) {

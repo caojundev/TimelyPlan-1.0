@@ -45,12 +45,24 @@ class FocusTimelineViewController: TPContainerViewController,
     }
     
     // MARK: - FocusSessionProcessorDelegate
-    func didAddFocusSession(_ session: FocusSession, with record: FocusRecord) {
-        reloadIfNeeded(with: session)
+    func didAddFocusSessions(_ sessions: [FocusSession]) {
+        var shouldReload: Bool = false
+        for session in sessions {
+            if shouldReloadDay(for: session) {
+                shouldReload = true
+                break
+            }
+        }
+        
+        if shouldReload {
+            dayViewController.reloadData()
+        }
     }
     
     func didUpdateFocusSession(_ session: FocusSession) {
-        reloadIfNeeded(with: session)
+        if shouldReloadDay(for: session) {
+            dayViewController.reloadData()
+        }
     }
     
     func didDeleteFocusSession(with record: FocusRecord) {
@@ -60,15 +72,12 @@ class FocusTimelineViewController: TPContainerViewController,
         }
     }
     
-    private func reloadIfNeeded(with session: FocusSession) {
+    private func shouldReloadDay(for session: FocusSession) -> Bool {
         guard let sessionDate = session.startDate else {
-            return
+            return false
         }
 
-        if sessionDate.isInSameDayAs(dayViewController.date) {
-            dayViewController.reloadData()
-        }
+        return sessionDate.isInSameDayAs(dayViewController.date)
     }
-    
 }
 

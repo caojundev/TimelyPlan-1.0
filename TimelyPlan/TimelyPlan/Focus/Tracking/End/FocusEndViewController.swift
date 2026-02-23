@@ -100,8 +100,12 @@ class FocusEndViewController: TPCollectionSectionsViewController {
     
     // MARK: - Event Response
     func clickSave() {
+        if let records = dataItem.validFocusRecords {
+            /// 保存有效记录
+            focus.addSessions(with: records)
+        }
+        
         self.dismiss(animated: true, completion: nil)
-        #warning("保存数据")
         FocusTracker.shared.clearEvent()
     }
     

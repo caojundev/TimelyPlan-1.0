@@ -10,7 +10,7 @@ import Foundation
 protocol FocusSessionProcessorDelegate {
     
     /// 添加专注会话
-    func didAddFocusSession(_ session: FocusSession, with record: FocusRecord)
+    func didAddFocusSessions(_ sessions: [FocusSession])
     
     /// 更新专注会话
     func didUpdateFocusSession(_ session: FocusSession)

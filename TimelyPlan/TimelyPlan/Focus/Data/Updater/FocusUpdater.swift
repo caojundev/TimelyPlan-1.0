@@ -49,9 +49,9 @@ class FocusUpdater: NSObject,
     }
     
     // MARK: - FocusSessionProcessorDelegate
-    func didAddFocusSession(_ session: FocusSession, with record: FocusRecord) {
+    func didAddFocusSessions(_ sessions: [FocusSession]) {
         notifyDelegates { (delegate: FocusSessionProcessorDelegate) in
-            delegate.didAddFocusSession(session, with: record)
+            delegate.didAddFocusSessions(sessions)
         }
     }
     

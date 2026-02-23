@@ -149,18 +149,26 @@ class FocusHomeUserTimerViewController: TPCollectionSectionsViewController,
     }
     
     // MARK: - FocusSessionProcessorDelegate
-    func didAddFocusSession(_ session: FocusSession, with record: FocusRecord) {
-        if session.isManual {
-            /// 手动添加的会话，弹出添加成功消息
-            let message = resGetString("Add focus record successfully")
-            TPFeedbackQueue.common.postFeedback(text: message, position: .top)
-        }
-        
-        guard isDisplaying, let timer = record.timer as? FocusTimer else {
+    func didAddFocusSessions(_ sessions: [FocusSession]) {
+        guard sessions.count > 0 else {
             return
         }
         
-        revealTimer(timer)
+        let format: String
+        if sessions.count > 1 {
+            format = resGetString("%ld focus records added successfully")
+        } else {
+            format = resGetString("%ld focus record added successfully")
+        }
+        
+        let message = String(format: format, sessions.count)
+        TPFeedbackQueue.common.postFeedback(text: message, position: .top)
+        
+        if sessions.count == 1, let session = sessions.first, session.isManual {
+            if isDisplaying, let timer = session.timer as? FocusTimer {
+                revealTimer(timer)
+            }
+        }
     }
     
     func didUpdateFocusSession(_ session: FocusSession) {
