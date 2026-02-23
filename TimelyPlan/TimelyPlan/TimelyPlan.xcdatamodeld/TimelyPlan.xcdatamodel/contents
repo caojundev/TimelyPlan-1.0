@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G1427" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="FocusPause" representedClassName="FocusPause" syncable="YES" codeGenerationType="class">
-        <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="session" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FocusSession" inverseName="pauses" inverseEntity="FocusSession"/>
-    </entity>
     <entity name="FocusSession" representedClassName="FocusSession" syncable="YES" codeGenerationType="class">
         <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="identifier" optional="YES" attributeType="String"/>
         <attribute name="isManual" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="pauseInfo" optional="YES" attributeType="Transformable" valueTransformerName="FocusPauseInfoTransformer" customClassName="FocusPauseInfo"/>
         <attribute name="score" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="taskID" optional="YES" attributeType="String"/>
         <attribute name="taskShotName" optional="YES" attributeType="String"/>
         <attribute name="taskType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timerID" optional="YES" attributeType="String"/>
-        <relationship name="pauses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FocusPause" inverseName="session" inverseEntity="FocusPause"/>
     </entity>
     <entity name="FocusTimer" representedClassName="FocusTimer" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
@@ -116,7 +111,6 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoTag" inverseName="tasks" inverseEntity="TodoTag"/>
     </entity>
     <elements>
-        <element name="FocusPause" positionX="45" positionY="198" width="128" height="74"/>
         <element name="FocusSession" positionX="36" positionY="189" width="128" height="209"/>
         <element name="FocusTimer" positionX="27" positionY="180" width="128" height="164"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="59"/>

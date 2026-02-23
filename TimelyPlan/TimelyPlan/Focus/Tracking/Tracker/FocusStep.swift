@@ -184,34 +184,12 @@ extension FocusStep {
             return nil
         }
         
-        guard let pauses = self.pauses, pauses.count > 0 else {
-            let recordDuration = FocusRecordDuration(type: .focus, interval: self.duration)
-            return FocusRecordTimeline(startDate: startDate, recordDurations: [recordDuration])
-        }
         
-        var recordDurations = [FocusRecordDuration]()
-        var previousDate = startDate
-        for pause in pauses {
-            let focusInterval = pause.startDate.timeIntervalSince(previousDate)
-            if focusInterval > 0 {
-                let focusDuration = FocusRecordDuration(type: .focus, interval: focusInterval)
-                recordDurations.append(focusDuration)
-            }
-
-            let pauseDuration = FocusRecordDuration(type: .pause, interval: pause.interval)
-            recordDurations.append(pauseDuration)
-            
-            previousDate = pause.endDate
-        }
-        
-        /// 最后一段专注
-        let focusInterval = endDate.timeIntervalSince(previousDate)
-        if focusInterval > 0 {
-            let focusDuration = FocusRecordDuration(type: .focus, interval: focusInterval)
-            recordDurations.append(focusDuration)
-        }
-        
-        return FocusRecordTimeline(startDate: startDate, recordDurations: recordDurations)
+        let timeline = FocusRecordTimeline.timeline(startDate: startDate,
+                                                    endDate: endDate,
+                                                    focusDuration: self.duration,
+                                                    pauseFragments: pauses)
+        return timeline
     }
     
     /// 获取步骤对应的专注记录

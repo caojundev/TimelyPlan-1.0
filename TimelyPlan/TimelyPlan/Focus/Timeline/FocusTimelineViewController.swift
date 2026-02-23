@@ -41,6 +41,7 @@ class FocusTimelineViewController: TPContainerViewController,
     }
     
     override func clickAdd() {
+        TPImpactFeedback.impactWithSoftStyle()
         FocusPresenter.addRecordManually()
     }
     

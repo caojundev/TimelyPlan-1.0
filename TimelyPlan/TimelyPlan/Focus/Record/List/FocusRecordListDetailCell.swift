@@ -105,7 +105,7 @@ class FocusRecordListDetailCell: TPCollectionCell {
         infoView[0].title = Duration(session.duration).attributedTitle
         infoView[1].title = "\(session.score)"
         
-        let pauseCount = session.pauses?.count ?? 0
+        let pauseCount = session.pauseInfo?.count ?? 0
         infoView[2].title = pauseCount > 0 ? "\(pauseCount)" : "--"
         
         /// 设置备注

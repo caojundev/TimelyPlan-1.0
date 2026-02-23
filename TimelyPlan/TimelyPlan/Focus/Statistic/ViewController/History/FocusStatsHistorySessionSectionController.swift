@@ -77,7 +77,7 @@ class FocusStatsHistorySessionCell: FocusStatsHistoryCell {
             }
             
             let session = cellItem.session
-            let pauseCount = session.pauses?.count ?? 0
+            let pauseCount = session.pauseInfo?.count ?? 0
             headerLabel.attributed.text = session.attributedDateRangeString()
             infoView[0].title = Duration(session.duration).attributedTitle()
             infoView[1].title = "\(session.score)"

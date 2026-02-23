@@ -8,7 +8,7 @@
 import Foundation
 
 /// 时间切片
-struct TimeFragment: Codable, Equatable {
+struct TimeFragment: Hashable, Codable, Equatable {
     
     /// 开始日期
     var startDate: Date

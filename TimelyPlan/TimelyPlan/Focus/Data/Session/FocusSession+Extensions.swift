@@ -51,8 +51,12 @@ extension FocusSession {
     /// 记录时间线
     var recordTimeline: FocusRecordTimeline {
         let startDate = self.startDate ?? .now
-        let duration = FocusRecordDuration(type: .focus, interval: TimeInterval(self.duration))
-        let timeline = FocusRecordTimeline(startDate: startDate, recordDurations: [duration])
+        let interval = TimeInterval(self.duration)
+        let pauseFragments = pauseInfo?.fragments
+        let timeline = FocusRecordTimeline.timeline(startDate: startDate,
+                                                    endDate: endDate,
+                                                    focusDuration: interval,
+                                                    pauseFragments: pauseFragments)
         return timeline
     }
     
@@ -87,6 +91,14 @@ extension FocusSession {
         self.duration = Int64(timeline.focusInterval)
         self.score = Int64(record.score)
         self.note = record.note
+        
+        // 设置暂停信息
+        if let pauseFragments = timeline.pauseTimeFragments {
+            let pauseInfo = FocusPauseInfo(pauseFragments: pauseFragments)
+            self.pauseInfo = pauseInfo
+        } else {
+            self.pauseInfo = nil
+        }
     }
     
     /// 是否是今日会话

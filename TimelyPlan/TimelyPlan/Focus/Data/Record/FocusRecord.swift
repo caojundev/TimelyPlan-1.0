@@ -144,6 +144,40 @@ struct FocusRecordTimeline: Equatable {
         return fragments.count > 0 ? fragments : nil
     }
     
+    static func timeline(startDate: Date,
+                         endDate: Date?,
+                         focusDuration: TimeInterval,
+                         pauseFragments: [TimeFragment]?) -> FocusRecordTimeline {
+        guard let pauseFragments = pauseFragments, pauseFragments.count > 0 else {
+            let recordDuration = FocusRecordDuration(type: .focus, interval: focusDuration)
+            return FocusRecordTimeline(startDate: startDate, recordDurations: [recordDuration])
+        }
+        
+        /// 有暂停信息
+        var recordDurations = [FocusRecordDuration]()
+        var previousDate = startDate
+        for pauseFragment in pauseFragments {
+            let focusInterval = pauseFragment.startDate.timeIntervalSince(previousDate)
+            if focusInterval > 0 {
+                let focusDuration = FocusRecordDuration(type: .focus, interval: focusInterval)
+                recordDurations.append(focusDuration)
+            }
+
+            let pauseDuration = FocusRecordDuration(type: .pause, interval: pauseFragment.interval)
+            recordDurations.append(pauseDuration)
+            previousDate = pauseFragment.endDate
+        }
+        
+        /// 最后一段专注
+        let focusInterval = endDate?.timeIntervalSince(previousDate) ?? 0
+        if focusInterval > 0 {
+            let focusDuration = FocusRecordDuration(type: .focus, interval: focusInterval)
+            recordDurations.append(focusDuration)
+        }
+        
+        return FocusRecordTimeline(startDate: startDate, recordDurations: recordDurations)
+    }
+    
 }
 
 enum FocusRecordDurationType: Int {

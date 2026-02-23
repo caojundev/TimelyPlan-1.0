@@ -34,7 +34,7 @@ extension Array where Element == FocusSession {
     /// 中断次数
     var pauseCount: Int {
         let sum = self.reduce(0) { (result, session) in
-            let count = session.pauses?.count ?? 0
+            let count = session.pauseInfo?.count ?? 0
             return result + count
         }
         
