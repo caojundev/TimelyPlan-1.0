@@ -22,12 +22,13 @@ class FocusFloatingEndView: UIView {
     private let titleLabelHeight = 30.0
     private lazy var titleLabel: TPLabel = {
         let label = TPLabel()
+        label.text = resGetString("Done")
         label.edgeInsets = UIEdgeInsets(horizontal: 5.0)
         label.backgroundColor = Color(0x343434)
         label.font = BOLD_SMALL_SYSTEM_FONT
         label.textColor = Color(0xFFFFFF, 0.6)
         label.adjustsFontSizeToFitWidth = true
-        label.text = resGetString("Completed")
+        label.textAlignment = .center
         return label
     }()
     

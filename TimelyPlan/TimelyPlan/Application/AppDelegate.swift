@@ -50,13 +50,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 return
             }
             
-            /// 管理视图控制器的生命周期，并设置主视图控制器，
-            self.window?.rootViewController?.beginAppearanceTransition(false, animated: false)
-            let mainViewController = MainViewController()
-            mainViewController.beginAppearanceTransition(true, animated: false)
-            self.window?.rootViewController = mainViewController
-            mainViewController.endAppearanceTransition()
+            self.setupMainViewController()
         }
+    }
+    
+    private func setupMainViewController() {
+        /// 管理视图控制器的生命周期，并设置主视图控制器，
+        self.window?.rootViewController?.beginAppearanceTransition(false,
+                                                                   animated: false)
+        let mainViewController = MainViewController()
+        mainViewController.beginAppearanceTransition(true, animated: false)
+        self.window?.rootViewController = mainViewController
+        mainViewController.endAppearanceTransition()
+        
+        /// 恢复专注
+        FocusTracker.shared.restoreFocus()
     }
     
     // MARK: - UNUserNotificationCenterDelegate

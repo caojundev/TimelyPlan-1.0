@@ -458,8 +458,6 @@ extension FocusEvent {
                                   elapsedDuration: elapsedDuration)
         return info
     }
-    
-    
 }
 
 extension FocusEvent {

@@ -106,6 +106,9 @@ class FocusTracker: NSObject {
     /// 已呈现的追踪视图控制器
     private let presentedTrackingViewControllers = NSHashTable<FocusTrackingViewController>.weakObjects()
     
+    /// 当前专注事件键值
+    private let kFocusingEventKey = "focusingEvent"
+    
     private override init() {
         super.init()
     }
@@ -118,6 +121,15 @@ class FocusTracker: NSObject {
         stopTimerIfNeeded()
         checkStateAndNotifyDelegatesIfNeeded()
         previousState = nil ///
+        
+        /// 删除保存的事件数据
+        SettingAgent.shared.setValue(nil, forKey: kFocusingEventKey)
+    }
+
+    /// 保存事件数据
+    private func saveEvent() {
+        /// 保存到本地
+        SettingAgent.shared.setValue(self.event, forKey: kFocusingEventKey)
     }
     
     // MARK: - 开始专注
@@ -127,7 +139,20 @@ class FocusTracker: NSObject {
             track(timer: timer, task: nil)
         }
     
-        self.showTrackingViewControllerIfNeeded()
+        showTrackingViewControllerIfNeeded()
+    }
+    
+    /// 恢复专注
+    func restoreFocus() {
+        guard self.event == nil else {
+            return
+        }
+        
+        let event: FocusEvent? = SettingAgent.shared.value(forKey: kFocusingEventKey)
+        if let event = event {
+            track(event: event)
+            updateFloatingBubbleTimer() /// 更新浮动计时器
+        }
     }
 
     private func track(timer: FocusTimerRepresentable, task: TaskRepresentable? = nil) {
@@ -143,8 +168,9 @@ class FocusTracker: NSObject {
         self.event = event
         /// 安排专注事件的通知
         FocusEventNotificationService.scheduleNotifications(forEvent: event)
+        saveEvent()
     }
-    
+
     // MARK: - 追踪视图控制器
     /// 显示计时视图控制器
     func showTrackingViewControllerIfNeeded() {
@@ -260,6 +286,7 @@ class FocusTracker: NSObject {
             event.next()
         }
         
+        saveEvent()
         /// 执行操作后手动调用一次
         updateTimer()
         
@@ -274,6 +301,7 @@ class FocusTracker: NSObject {
         }
         
         event.completeAllStep()
+        saveEvent()
         updateTimer()
         FocusEventNotificationService.scheduleNotifications(forEvent: event)
     }
@@ -286,6 +314,7 @@ class FocusTracker: NSObject {
         
         let stepDuration = focus.setting.getAdjustStepDuration()
         event.adjustDuration(by: TimeInterval(stepDuration))
+        saveEvent()
         updateTimer()
         FocusEventNotificationService.scheduleNotifications(forEvent: event)
     }
@@ -297,6 +326,7 @@ class FocusTracker: NSObject {
         
         let stepDuration = focus.setting.getAdjustStepDuration()
         event.adjustDuration(by: -TimeInterval(20))
+        saveEvent()
         updateTimer()
         FocusEventNotificationService.scheduleNotifications(forEvent: event)
     }
