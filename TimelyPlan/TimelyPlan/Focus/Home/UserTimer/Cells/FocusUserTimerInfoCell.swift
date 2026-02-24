@@ -15,6 +15,27 @@ class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell {
         }
     }
     
+    /// 高亮文本
+    var highlightedText: String?
+    
+    /// 获取默认的正常文本属性
+    var normalAttributes: [NSAttributedString.Key: Any] {
+        return [
+            .foregroundColor: titleConfig.textColor ?? .label,
+            .font: titleConfig.font
+        ]
+    }
+    
+    /// 获取默认的高亮文本属性（黄色背景，黑色文字）
+    var highlightAttributes: [NSAttributedString.Key: Any] {
+        return [
+            .backgroundColor: Color(0xFFD60A),
+            .foregroundColor: UIColor.black,
+            .font: titleConfig.font
+        ]
+    }
+    
+    
     let kInfoViewMargin = 10.0
     
     let kIndicatorSize = CGSize(width: 6.0, height: 36.0)
@@ -47,7 +68,25 @@ class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell {
     
     func updateInfo() {
         indicatorView.backgroundColor = timer?.color ?? kFocusTimerDefaultColor
-        infoView.title = timer?.name ?? resGetString("Untitled")
+        if let timerName = timer?.name {
+            if let highlightedText = highlightedText, highlightedText.count > 0 {
+                let value = timerName.attributedStringWithHighlight(highlightedText,
+                                                                    normalAttributes: normalAttributes,
+                                                                    highlightAttributes: highlightAttributes)
+                infoView.title = ASAttributedString(value: value)
+            } else {
+                infoView.title = timerName
+            }
+        } else {
+            infoView.title = resGetString("Untitled")
+        }
+        
         infoView.subtitle = timer?.timerDescription
+    }
+    
+    /// 设置搜索文本并更新高亮显示
+    func setHighlightedText(_ highlightedText: String?) {
+        self.highlightedText = highlightedText
+        self.updateInfo()
     }
 }

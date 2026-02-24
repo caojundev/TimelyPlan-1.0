@@ -61,7 +61,7 @@ class FocusDefaultTimerSelectSectionController: TPCollectionBaseSectionControlle
             headerView.padding = UIEdgeInsets(top: 5.0, left: 0.0, bottom: 0, right: 15.0)
             headerView.titleConfig.font = .boldSystemFont(ofSize: 16.0)
             headerView.titleConfig.textColor = resGetColor(.title)
-            headerView.title = resGetString("Default Timer")
+            headerView.title = resGetString("Default")
         }
     }
 

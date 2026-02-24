@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FocusTimerSearchResultSectionController: FocusUserTimerSelectSectionController,
                                                UISearchResultsUpdating {
@@ -19,7 +20,26 @@ class FocusTimerSearchResultSectionController: FocusUserTimerSelectSectionContro
     override var items: [ListDiffable]? {
         return searchResults
     }
- 
+
+    override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
+        super.didDequeCell(cell, forItemAt: index)
+        if let searchCell = cell as? FocusUserTimerInfoCell {
+            searchCell.setHighlightedText(self.searchText)
+        }
+    }
+     
+    /// 更新可见 cell 搜索文本
+    private func updateSearchTextForVisibleCells() {
+        guard let cells = adapter?.visibleCells as? [FocusUserTimerInfoCell] else {
+            return
+        }
+        
+        for cell in cells {
+            cell.setHighlightedText(self.searchText)
+        }
+    }
+    
+    
     // MARK: - UISearchResultsUpdating
     func updateSearchResults(for searchController: UISearchController) {
         updateSearchResults(with: searchController.searchBar.text)
@@ -35,6 +55,7 @@ class FocusTimerSearchResultSectionController: FocusUserTimerSelectSectionContro
             self.searchText = nil
             self.searchResults = nil
             self.adapter?.performUpdate()
+            self.updateSearchTextForVisibleCells()
             return
         }
 
@@ -46,6 +67,7 @@ class FocusTimerSearchResultSectionController: FocusUserTimerSelectSectionContro
             
             self.searchResults = timers
             self.adapter?.performUpdate()
+            self.updateSearchTextForVisibleCells()
         }
     }
 }

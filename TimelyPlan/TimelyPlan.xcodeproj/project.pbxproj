@@ -343,6 +343,7 @@
 		E58C9E1E2F4AF0DC0096B842 /* FocusTimelineEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E122F4AF0DB0096B842 /* FocusTimelineEventView.swift */; };
 		E58FC3F12D8BFF3F007905B7 /* QuadrantSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FC3F02D8BFF3F007905B7 /* QuadrantSettings.swift */; };
 		E590CA922F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA912F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift */; };
+		E590CA962F4D677D00E66041 /* String+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA952F4D677C00E66041 /* String+Highlight.swift */; };
 		E5926DD12D4C6392007D5A6A /* TPColorSelectTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */; };
 		E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */; };
 		E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD42D4CE4E3007D5A6A /* TPTableWrapperView.swift */; };
@@ -1688,6 +1689,7 @@
 		E58C9E122F4AF0DB0096B842 /* FocusTimelineEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineEventView.swift; sourceTree = "<group>"; };
 		E58FC3F02D8BFF3F007905B7 /* QuadrantSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantSettings.swift; sourceTree = "<group>"; };
 		E590CA912F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDefaultTimerSelectSectionController.swift; sourceTree = "<group>"; };
+		E590CA952F4D677C00E66041 /* String+Highlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Highlight.swift"; sourceTree = "<group>"; };
 		E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPColorSelectTableCell.swift; sourceTree = "<group>"; };
 		E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextFieldTableCellItem.swift; sourceTree = "<group>"; };
 		E5926DD42D4CE4E3007D5A6A /* TPTableWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableWrapperView.swift; sourceTree = "<group>"; };
@@ -4794,6 +4796,7 @@
 			isa = PBXGroup;
 			children = (
 				E5BB9C052D3BF0C40089667A /* String+Extensions.swift */,
+				E590CA952F4D677C00E66041 /* String+Highlight.swift */,
 				E5BB9C062D3BF0C40089667A /* String+Size.swift */,
 				E5BB9C072D3BF0C40089667A /* ASAttributedString+Extensions.swift */,
 				E5BB9C082D3BF0C40089667A /* Character+Emoji.swift */,
@@ -7783,6 +7786,7 @@
 				E5BBA0992D3BF4A50089667A /* TodoTaskMenuController.swift in Sources */,
 				E5BBA08D2D3BF4A50089667A /* TodoStepEditController.swift in Sources */,
 				E5BB9DC22D3BF0C60089667A /* SlideStyle.swift in Sources */,
+				E590CA962F4D677D00E66041 /* String+Highlight.swift in Sources */,
 				E5BB9E052D3BF0C70089667A /* String+Size.swift in Sources */,
 				E52F899A2D5B0903001F18FA /* TPImageContent.swift in Sources */,
 				E5BB9D9F2D3BF0C60089667A /* TPToolbar.swift in Sources */,

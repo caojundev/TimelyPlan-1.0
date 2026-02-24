@@ -44,5 +44,4 @@ class FocusTimerStartCell: FocusUserTimerInfoCell {
             delegate.FocusTimerStartCellDidClickStart(self)
         }
     }
-    
 }
