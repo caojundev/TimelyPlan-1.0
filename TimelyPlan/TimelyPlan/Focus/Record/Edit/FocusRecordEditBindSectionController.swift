@@ -40,13 +40,12 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
     
     /// 计时器信息
     private func timerInfo() -> TextRepresentable? {
-        guard let timer = timer as? FocusTimer else {
+        guard let timer = timer else {
             return resGetString("None")
         }
 
         let timerName = timer.name ?? resGetString("Untitled")
-        let timerColor = timer.color ?? kFocusTimerDefaultColor
-        let attributedInfo: ASAttributedString = "\("●", .foreground(timerColor)) \(timerName)"
+        let attributedInfo: ASAttributedString = "\("●", .foreground(timer.timerColor)) \(timerName)"
         return attributedInfo
     }
     

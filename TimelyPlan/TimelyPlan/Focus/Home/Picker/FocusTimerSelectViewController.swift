@@ -24,6 +24,13 @@ class FocusTimerSelectViewController: TPCollectionSectionsViewController,
         return view
     }()
     
+    /// 默认计时器选择
+    lazy var defaultTimerSelectSectionController: FocusDefaultTimerSelectSectionController = {
+        let sectionController = FocusDefaultTimerSelectSectionController()
+        sectionController.delegate = self
+        return sectionController
+    }()
+    
     /// 用户计时器选择
     lazy var userTimerSelectSectionController: FocusUserTimerSelectSectionController = {
         let sectionController = FocusUserTimerSelectSectionController()
@@ -45,7 +52,8 @@ class FocusTimerSelectViewController: TPCollectionSectionsViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.placeholderView = placeholderView
-        self.sectionControllers = [userTimerSelectSectionController]
+        self.sectionControllers = [defaultTimerSelectSectionController,
+                                   userTimerSelectSectionController]
         self.adapter.reloadData()
     }
     

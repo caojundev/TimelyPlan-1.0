@@ -6,6 +6,8 @@
   
 */
 
+"Default" = "默认";
+
 ///**************************侧边栏**************************///
 "My Day" = "我的一天";
 "Todo" = "待办";
@@ -389,6 +391,10 @@
 "Counting from zero" = "从零累加";
 "Start Focus" = "开始专注";
 
+"Default Pomodoro" = "默认番茄钟";
+"Default Countdown" = "默认倒计时";
+"Default Stopwatch" = "默认正计时";
+
 /// 占位文本
 "Tap + to create a new timer" = "点击+创建新计时器";
 "No Focus Record" = "无专注记录";
@@ -402,8 +408,6 @@
 "Delete Timer" = "删除计时器";
 "Select Timer" = "选择计时器";
 "Search Timer" = "搜索计时器";
-"Default Timer" = "默认计时器";
-"Custom Timer" = "自定义计时器";
 
 "Enter timer name" = "输入计时器名称";
 "Focus %@" = "专注%@";

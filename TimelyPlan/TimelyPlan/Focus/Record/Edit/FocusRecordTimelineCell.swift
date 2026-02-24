@@ -35,7 +35,7 @@ class FocusRecordDurationCellItem: FocusRecordTimelineCellItem {
         
         self.imageName = imageName
         self.title = title
-        self.subtitle = Duration(recordDuration.interval).localizedTitle
+        self.subtitle = recordDuration.localizedDurationTitle
     }
 }
 

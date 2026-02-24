@@ -35,7 +35,8 @@ class FocusRecord {
         self.task = task
     }
     
-    init(timeline: FocusRecordTimeline) {
+    init(timer: FocusTimerRepresentable?, timeline: FocusRecordTimeline) {
+        self.timer = timer
         self.timeline = timeline
     }
 }
@@ -192,6 +193,10 @@ struct FocusRecordDuration: Equatable {
     
     /// 时长
     var interval: TimeInterval = 0.0
+    
+    var localizedDurationTitle: String {
+        return Duration(ceil(interval)).localizedTitle
+    }
     
     init(type: FocusRecordDurationType) {
         self.type = type

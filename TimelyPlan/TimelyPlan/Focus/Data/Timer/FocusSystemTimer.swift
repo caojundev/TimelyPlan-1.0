@@ -122,6 +122,14 @@ class FocusSystemPomodoroTimer: FocusSystemTimer {
     
     var config: FocusPomodoroConfig
 
+    override var name: String? {
+        get {
+            return resGetString("Default Pomodoro")
+        }
+        
+        set { }
+    }
+    
     override var timerType: FocusTimerType {
         return .pomodoro
     }
@@ -144,6 +152,14 @@ class FocusSystemCountdownTimer: FocusSystemTimer {
 
     var config: FocusCountdownConfig
     
+    override var name: String? {
+        get {
+            return resGetString("Default Countdown")
+        }
+        
+        set { }
+    }
+    
     override var timerType: FocusTimerType {
         return .countdown
     }
@@ -165,6 +181,14 @@ class FocusSystemCountdownTimer: FocusSystemTimer {
 class FocusSystemStopwatchTimer: FocusSystemTimer {
 
     var config: FocusStopwatchConfig
+    
+    override var name: String? {
+        get {
+            return resGetString("Default Stopwatch")
+        }
+        
+        set { }
+    }
     
     override var timerType: FocusTimerType {
         return .stopwatch

@@ -342,6 +342,7 @@
 		E58C9E1D2F4AF0DC0096B842 /* FocusTimelineEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E112F4AF0DB0096B842 /* FocusTimelineEventListView.swift */; };
 		E58C9E1E2F4AF0DC0096B842 /* FocusTimelineEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E122F4AF0DB0096B842 /* FocusTimelineEventView.swift */; };
 		E58FC3F12D8BFF3F007905B7 /* QuadrantSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58FC3F02D8BFF3F007905B7 /* QuadrantSettings.swift */; };
+		E590CA922F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA912F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift */; };
 		E5926DD12D4C6392007D5A6A /* TPColorSelectTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */; };
 		E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */; };
 		E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD42D4CE4E3007D5A6A /* TPTableWrapperView.swift */; };
@@ -1686,6 +1687,7 @@
 		E58C9E112F4AF0DB0096B842 /* FocusTimelineEventListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineEventListView.swift; sourceTree = "<group>"; };
 		E58C9E122F4AF0DB0096B842 /* FocusTimelineEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineEventView.swift; sourceTree = "<group>"; };
 		E58FC3F02D8BFF3F007905B7 /* QuadrantSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantSettings.swift; sourceTree = "<group>"; };
+		E590CA912F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDefaultTimerSelectSectionController.swift; sourceTree = "<group>"; };
 		E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPColorSelectTableCell.swift; sourceTree = "<group>"; };
 		E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextFieldTableCellItem.swift; sourceTree = "<group>"; };
 		E5926DD42D4CE4E3007D5A6A /* TPTableWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableWrapperView.swift; sourceTree = "<group>"; };
@@ -6936,10 +6938,11 @@
 		E5D7D8942D43933600EC877A /* Picker */ = {
 			isa = PBXGroup;
 			children = (
+				E5D7D8982D43933600EC877A /* Search */,
 				E5D7D89B2D43933600EC877A /* FocusTimerPickerViewController.swift */,
 				E5D7D89C2D43933600EC877A /* FocusTimerSelectViewController.swift */,
+				E590CA912F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift */,
 				E5D7D8952D43933600EC877A /* FocusUserTimerSelectSectionController.swift */,
-				E5D7D8982D43933600EC877A /* Search */,
 			);
 			path = Picker;
 			sourceTree = "<group>";
@@ -7913,6 +7916,7 @@
 				E5D7D8E32D43933600EC877A /* FocusConstants.swift in Sources */,
 				E541555C2F49A415000B2972 /* FocusRecordListViewController.swift in Sources */,
 				E5D7D8C22D43933600EC877A /* FocusRunningDayFlipView.swift in Sources */,
+				E590CA922F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift in Sources */,
 				E5BB9EBB2D3BF0C80089667A /* TPTimePickerViewController.swift in Sources */,
 				E5D7D8D12D43933600EC877A /* FocusRecordTimelineBar.swift in Sources */,
 				E51A4C2B2DC261E8005A0E3F /* CalendarModeBarButtonItem.swift in Sources */,

@@ -198,8 +198,7 @@ extension FocusStep {
             return nil
         }
         
-        let record = FocusRecord(timeline: timeline)
-        record.timer = timer
+        let record = FocusRecord(timer: timer, timeline: timeline)
         record.color = self.color
         record.note = self.note
         let calculator = FocusScoreCalculator()
