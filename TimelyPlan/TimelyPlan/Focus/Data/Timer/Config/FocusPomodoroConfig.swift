@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum FocusPomodoroPhase: Int, TPMenuRepresentable {
-    case focus      // 专注时间
-    case shortBreak // 短休息时间
-    case longBreak  // 长休息时间
+enum FocusPomodoroPhase: Int, Codable, TPMenuRepresentable {
+    case focus = 0   // 专注时间
+    case shortBreak  // 短休息时间
+    case longBreak   // 长休息时间
 
     static func titles() -> [String] {
         return ["Focus",
@@ -20,30 +20,18 @@ enum FocusPomodoroPhase: Int, TPMenuRepresentable {
 }
 
 struct FocusPomodoroConfig: Hashable, Equatable, Codable {
-//    static let defaultFocusDuration: TimeInterval = 25 * 60
-//    static let minimumFocusDuration: TimeInterval = 5 * 60
-//    static let maximumFocusDuration: TimeInterval = 180 * 60
-//
-//    static let defaultShortBreakDuration: TimeInterval = 5 * 60
-//    static let minimumShortBreakDuration: TimeInterval = 5 * 60
-//    static let maximumShortBreakDuration: TimeInterval = 30 * 60
-//
-//    static let defaultLongBreakDuration: TimeInterval = 15 * 60
-//    static let minimumLongBreakDuration: TimeInterval = 5 * 60
-//    static let maximumLongBreakDuration: TimeInterval = 60 * 60
-
-    static let defaultFocusDuration: TimeInterval = 1 * 60
-    static let minimumFocusDuration: TimeInterval = 1 * 60
+    static let defaultFocusDuration: TimeInterval = 25 * 60
+    static let minimumFocusDuration: TimeInterval = 5 * 60
     static let maximumFocusDuration: TimeInterval = 180 * 60
-    
-    static let defaultShortBreakDuration: TimeInterval = 1 * 60
-    static let minimumShortBreakDuration: TimeInterval = 1 * 60
+
+    static let defaultShortBreakDuration: TimeInterval = 5 * 60
+    static let minimumShortBreakDuration: TimeInterval = 5 * 60
     static let maximumShortBreakDuration: TimeInterval = 30 * 60
-    
-    static let defaultLongBreakDuration: TimeInterval = 1 * 60
-    static let minimumLongBreakDuration: TimeInterval = 1 * 60
+
+    static let defaultLongBreakDuration: TimeInterval = 15 * 60
+    static let minimumLongBreakDuration: TimeInterval = 5 * 60
     static let maximumLongBreakDuration: TimeInterval = 60 * 60
-    
+
     static let defaultPomosCountPerCycle = 4
     static let minimumPomosCountPerCircle = 2
     static let maximumPomosCountPerCircle = 8

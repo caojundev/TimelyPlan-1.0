@@ -39,9 +39,10 @@ class FocusFloatingTimerManager: NSObject {
     private var trackingView: FocusFloatingTrackingView?
     
     /// 计时器位置
-    private var timerPosition = FocusFloatingTimerPosition()
+    private var timerPosition: FocusFloatingTimerPosition
     
     override init() {
+        self.timerPosition = FocusStateStore.shared.floatingTimerPosition
         super.init()
     }
     
@@ -170,6 +171,10 @@ class FocusFloatingTimerManager: NSObject {
         }
         
         self.timerPosition.vertical = vertical(of: trackingView.centerY, layoutFrame: layoutFrame)
+        
+        /// 保存位置改变
+        FocusStateStore.shared.floatingTimerPosition = self.timerPosition
+        
         UIView.animate(withDuration: 0.6,
                        delay: 0,
                        usingSpringWithDamping: 0.8,

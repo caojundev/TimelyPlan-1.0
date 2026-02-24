@@ -11,11 +11,17 @@ class FocusStartViewController: TPViewController,
                                     TPAnimatedContainerViewDelegate,
                                     FocusTrackerDelegate {
     
-    var timerType: FocusTimerType = .defaultType
+    var timerType: FocusTimerType = .pomodoro
     
-    var pomodoroTimer = FocusSystemPomodoroTimer()
+    lazy var pomodoroTimer: FocusSystemPomodoroTimer = {
+        let config = FocusStateStore.shared.pomodoroConfig
+        return FocusSystemPomodoroTimer(config: config)
+    }()
     
-    var countdownTimer = FocusSystemCountdownTimer()
+    var countdownTimer: FocusSystemCountdownTimer = {
+        let config = FocusStateStore.shared.countdownConfig
+        return FocusSystemCountdownTimer(config: config)
+    }()
     
     var stopwatchTimer = FocusSystemStopwatchTimer()
 
@@ -66,11 +72,10 @@ class FocusStartViewController: TPViewController,
     
     var bottomBarHeight: CGFloat = 60.0
     
-    
     let actionViewBottomMargin = 10.0
-    let preferredActionViewSize = CGSize(width:360.0, height: 64.0)
+    let preferredActionViewSize = CGSize(width:320.0, height: 64.0)
     let preferredTaskPickerSize = CGSize(width: 280.0, height: 40.0)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.padding = defaultPadding
@@ -137,6 +142,7 @@ class FocusStartViewController: TPViewController,
             view.setConfig(pomodoroTimer.config, animated: true)
             view.configDidChange = { [weak self] config in
                 self?.pomodoroTimer.config = config
+                self?.didChangePomodoroConfig(config)
             }
             
             editView = view
@@ -145,7 +151,9 @@ class FocusStartViewController: TPViewController,
             let duration = countdownTimer.config.duration ?? FocusCountdownConfig.defaultDuration
             view.setDurationWithAnimationFromZero(duration)
             view.didEndEditing = { [weak self] duration in
-                self?.countdownTimer.config = FocusCountdownConfig(duration: duration)
+                let config = FocusCountdownConfig(duration: duration)
+                self?.countdownTimer.config = config
+                self?.didChangeCountdownConfig(config)
             }
             
             editView = view
@@ -222,6 +230,15 @@ class FocusStartViewController: TPViewController,
     
     private func didClickFocusing() {
         FocusPresenter.showTrackingViewControllerIfNeeded()
+    }
+    
+    // MARK: - 状态改变保存数据
+    private func didChangePomodoroConfig(_ config: FocusPomodoroConfig) {
+        FocusStateStore.shared.pomodoroConfig = config
+    }
+    
+    func didChangeCountdownConfig(_ config: FocusCountdownConfig) {
+        FocusStateStore.shared.countdownConfig = config
     }
     
     // MARK: - ContainerViewDelegate

@@ -37,4 +37,5 @@ let kFocusSessionDefaultColor = UIColor.primary
 /// 本地设置项键值
 /// 专注记录排列顺序
 let kFocusSettingRecordSortOrder = "FocusSettingRecordSortOrder"
+
 let kFocusSettingRecordListMode = "FocusSettingRecordListMode"
