@@ -11,11 +11,6 @@ import UIKit
 class FocusSettingsViewController: TPTableSectionsViewController {
      
     private let defaultCellHeight = 60.0
-    
-     /// 设置
-     lazy var setting: FocusSetting = {
-         return focus.setting
-     }()
      
     /// 周开始日
     lazy var firstWeekdayCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
@@ -25,7 +20,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
         cellItem.title = resGetString("Week Start on")
         cellItem.updater = {
             guard let self = self else { return }
-            let firstWeekday = self.setting.getFirstWeekday()
+            let firstWeekday = FocusSetting.shared.firstWeekday
             self.firstWeekdayCellItem.valueConfig = .valueText(firstWeekday.symbol)
         }
         
@@ -44,7 +39,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          cellItem.title = resGetString("Minimum Record Duration")
          cellItem.updater = {
              guard let self = self else { return }
-             let duration = self.setting.getMinimumRecordDuration()
+             let duration = FocusSetting.shared.validatedMinimumRecordDuration
              let valueText = duration.localizedTitle
              let subtitleFormat = resGetString("Records with a focus duration of less than %@ will be discarded")
              let subtitle = String(format: subtitleFormat, valueText)
@@ -68,7 +63,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          cellItem.subtitle = resGetString("The amount of time the timer increases/decreases each time")
          cellItem.updater = {
              guard let self = self else { return }
-             let duration = self.setting.getAdjustStepDuration()
+             let duration = FocusSetting.shared.validatedAdjustStepDuration
              self.adjustStepDurationCellItem.valueConfig = .valueText(duration.localizedTitle)
          }
          
@@ -86,14 +81,12 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          cellItem.title = resGetString("Add New Timers On Top")
          cellItem.updater = {
              guard let self = self else { return }
-             let isOn = self.setting.getAddTimerOnTop()
+             let isOn = FocusSetting.shared.addTimerOnTop
              self.addTimerOnTopCellItem.isOn = isOn
          }
 
          cellItem.valueChanged = { isOn in
-             guard let self = self else { return }
-             self.setting.addTimerOnTop = isOn
-             self.settingDidChange()
+             FocusSetting.shared.addTimerOnTop = isOn
          }
          
          return cellItem
@@ -106,14 +99,13 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          cellItem.title = resGetString("Hide Next Button Of Floating Timer")
          cellItem.updater = {
              guard let self = self else { return }
-             let isOn = self.setting.getIsFloatingTimerNextButtonHidden()
+             let isOn = FocusSetting.shared.isFloatingTimerNextButtonHidden
              self.hideFloatingTimerNextButtonCellItem.isOn = isOn
          }
 
          cellItem.valueChanged = { isOn in
              guard let self = self else { return }
-             self.setting.isFloatingTimerNextButtonHidden = isOn
-             self.settingDidChange()
+             FocusSetting.shared.isFloatingTimerNextButtonHidden = isOn
              NotificationCenter.default.post(name: FocusSetting.didChangeFloatingTimerNextButtonHiddenNotification, object: nil)
          }
          
@@ -141,14 +133,12 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          cellItem.subtitle = resGetString("After the break is over, start to focus automatically")
          cellItem.updater = {
              guard let self = self else { return }
-             let isOn = self.setting.getPomodoroAutoStartFocus()
+             let isOn = FocusSetting.shared.pomodoroAutoStartFocus
              self.pomodoroAutoFocusCellItem.isOn = isOn
          }
 
          cellItem.valueChanged = { isOn in
-             guard let self = self else { return }
-             self.setting.pomodoroAutoStartFocus = isOn
-             self.settingDidChange()
+             FocusSetting.shared.pomodoroAutoStartFocus = isOn
          }
          
          return cellItem
@@ -161,15 +151,12 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          cellItem.title = resGetString("Auto-Break")
          cellItem.subtitle = resGetString("After the focus is over, start to rest automatically")
          cellItem.updater = {
-             guard let self = self else { return }
-             let isOn = self.setting.getPomodoroAutoStartBreak()
-             self.pomodoroAutoBreakCellItem.isOn = isOn
+             let isOn = FocusSetting.shared.pomodoroAutoStartBreak
+             self?.pomodoroAutoBreakCellItem.isOn = isOn
          }
          
          cellItem.valueChanged = { isOn in
-             guard let self = self else { return }
-             self.setting.pomodoroAutoStartBreak = isOn
-             self.settingDidChange()
+             FocusSetting.shared.pomodoroAutoStartBreak = isOn
          }
          
          return cellItem
@@ -189,15 +176,12 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          cellItem.height = defaultCellHeight
          cellItem.title = resGetString("Auto Start Next Step")
          cellItem.updater = {
-             guard let self = self else { return }
-             let isOn = self.setting.getSteppedAutoStartNext()
-             self.steppedAutoStartNextCellItem.isOn = isOn
+             let isOn = FocusSetting.shared.steppedAutoStartNext
+             self?.steppedAutoStartNextCellItem.isOn = isOn
          }
          
          cellItem.valueChanged = { isOn in
-             guard let self = self else { return }
-             self.setting.steppedAutoStartNext = isOn
-             self.settingDidChange()
+             FocusSetting.shared.steppedAutoStartNext = isOn
          }
          
          return cellItem
@@ -215,13 +199,12 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          cellItem.height = defaultCellHeight
          cellItem.title = resGetString("Maximum Duration")
          cellItem.updater = {
-             guard let self = self else { return }
-             let duration = self.setting.getStopwatchDuration()
-             self.stopwatchDurationCellItem.valueConfig = .valueText(duration.localizedTitle)
+             let duration = FocusSetting.shared.validatedStopwatchMaxDuration
+             self?.stopwatchDurationCellItem.valueConfig = .valueText(duration.localizedTitle)
          }
          
          cellItem.didSelectHandler = {
-             self?.editStopwatchDuration()
+             self?.editStopwatchMaxDuration()
          }
          
          return cellItem
@@ -241,15 +224,12 @@ class FocusSettingsViewController: TPTableSectionsViewController {
          cellItem.title = resGetString("Auto Hide Hour")
          cellItem.subtitle = resGetString("Display only minute and second when the hour is zero")
          cellItem.updater = {
-             guard let self = self else { return }
-             let isOn = self.setting.getFlipClockAutoHideHour()
-             self.autoHideHourCellItem.isOn = isOn
+             let isOn = FocusSetting.shared.flipClockAutoHideHour
+             self?.autoHideHourCellItem.isOn = isOn
          }
          
          cellItem.valueChanged = { isOn in
-             guard let self = self else { return }
-             self.setting.flipClockAutoHideHour = isOn
-             self.settingDidChange()
+             FocusSetting.shared.flipClockAutoHideHour = isOn
          }
          
          return cellItem
@@ -295,10 +275,6 @@ class FocusSettingsViewController: TPTableSectionsViewController {
         return .systemGroupedBackground
     }
     
-     private func settingDidChange() {
-         focus.setting = setting
-     }
-     
      private func selectMinute(within range: ClosedRange<Int>, selectedMinute: Int, completion: ((Int) -> Void)?) {
          let pickerVC = TPCountPickerViewController()
          pickerVC.count = selectedMinute
@@ -314,46 +290,34 @@ class FocusSettingsViewController: TPTableSectionsViewController {
     
      
      private func editMinimumRecordDuration() {
-         let duration = setting.getMinimumRecordDuration()
+         let duration = FocusSetting.shared.validatedMinimumRecordDuration
          let minutes = duration.numberOfMinutes
-         selectMinute(within: FocusSetting.minimumRecordMinuteRange, selectedMinute: minutes) { count in
+         self.selectMinute(within: FocusSetting.minimumRecordMinuteRange, selectedMinute: minutes) {[weak self] count in
+             guard let self = self else { return }
              let duration = count * SECONDS_PER_MINUTE
-             guard self.setting.minimumRecordDuration != duration else {
-                 return
-             }
-             
-             self.setting.minimumRecordDuration = duration
-             self.settingDidChange()
+             FocusSetting.shared.minimumRecordDuration = duration
              self.adapter.reloadCell(forItem: self.minimumRecordDurationCellItem, with: .none)
          }
      }
      
      private func editAdjustStepDuration() {
-         let duration = setting.getAdjustStepDuration()
+         let duration = FocusSetting.shared.validatedAdjustStepDuration
          let minutes = duration.numberOfMinutes
-         selectMinute(within: FocusSetting.adjustStepMinuteRange, selectedMinute: minutes) { count in
+         self.selectMinute(within: FocusSetting.adjustStepMinuteRange, selectedMinute: minutes) { [weak self] count in
+             guard let self = self else { return }
              let duration = count * SECONDS_PER_MINUTE
-             guard self.setting.adjustStepDuration != duration else {
-                 return
-             }
-             
-             self.setting.adjustStepDuration = duration
-             self.settingDidChange()
+             FocusSetting.shared.adjustStepDuration = duration
              self.adapter.reloadCell(forItem: self.adjustStepDurationCellItem, with: .none)
          }
      }
      
-     private func editStopwatchDuration() {
+     private func editStopwatchMaxDuration() {
          let vc = TPDurationPickerViewController(showPresetDuration: false)
-         vc.duration = setting.getStopwatchDuration()
+         vc.duration = FocusSetting.shared.validatedStopwatchMaxDuration
          vc.minimumDuration = FocusSetting.minimumStopwatchDuration
-         vc.didPickDuration = { duration in
-             guard self.setting.stopwatchDuration != duration else {
-                 return
-             }
-                     
-             self.setting.stopwatchDuration = duration
-             self.settingDidChange()
+         vc.didPickDuration = {[weak self] duration in
+             guard let self = self else { return }
+             FocusSetting.shared.stopwatchMaxDuration = duration
              self.adapter.reloadCell(forItem: self.stopwatchDurationCellItem, with: .none)
          }
          
@@ -366,7 +330,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
             return
         }
         
-        let firstWeekday = setting.getFirstWeekday()
+        let firstWeekday = FocusSetting.shared.firstWeekday
         let menuVC = TPMenuListViewController()
         let weekdays: [Weekday] = [.sunday, .monday]
         let menuItem = TPMenuItem.item(with: weekdays, updater: { weekday, menuAction in
@@ -380,8 +344,7 @@ class FocusSettingsViewController: TPTableSectionsViewController {
                 return
             }
             
-            self.setting.firstWeekday = weekday
-            self.settingDidChange()
+            FocusSetting.shared.firstWeekday = weekday
             self.adapter.reloadCell(forItem: self.firstWeekdayCellItem, with: .none)
         }
         

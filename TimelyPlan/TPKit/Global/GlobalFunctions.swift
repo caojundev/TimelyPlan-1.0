@@ -36,6 +36,15 @@ func clampValue<T: Comparable>(_ value: inout T, within range: ClosedRange<T>) {
     value = max(range.lowerBound, min(value, range.upperBound))
 }
 
+/// 返回一个范围内的合法值
+func clampedValue<T: Comparable>(_ value: T, _ minValue: T, _ maxValue: T) -> T {
+    return max(minValue, min(value, maxValue))
+}
+
+func clampedValue<T: Comparable>(_ value: T, within range: ClosedRange<T>) -> T {
+    return max(range.lowerBound, min(value, range.upperBound))
+}
+
 /**
  执行一段代码块，并在执行过程中禁用隐式动画。
 

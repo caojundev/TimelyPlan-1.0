@@ -13,7 +13,7 @@ extension Todo {
     
     /// 获取用户信息
     static func getUserInfo() -> TodoUserInfo {
-        let userInfo: TodoUserInfo? = TPSettingAgent.shared.value(forKey: SetKeyUserInfo)
+        let userInfo: TodoUserInfo? = SettingAgent.shared.value(forKey: SetKeyUserInfo)
         return userInfo ?? TodoUserInfo()
     }
     
@@ -25,8 +25,7 @@ extension Todo {
     /// 设置列表信息
     func setListInfo(_ info: TodoListInfo?, for list: TodoListRepresentable) {
         userInfo.setInfo(info, for: list)
-        TPSettingAgent.shared.set(value: userInfo, forKey: SetKeyUserInfo)
-        TPSettingAgent.shared.synchronize()
+        SettingAgent.shared.setValue(userInfo, forKey: SetKeyUserInfo)
     }
     
 }

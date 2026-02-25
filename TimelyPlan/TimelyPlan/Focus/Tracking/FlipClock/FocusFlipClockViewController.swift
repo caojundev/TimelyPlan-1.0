@@ -24,7 +24,7 @@ class FocusFlipClockViewController: TPViewController,
     /// 时钟视图
     lazy var clockView: FlipClockView = {
         let view = FlipClockView()
-        view.autoHideHour = focus.setting.getFlipClockAutoHideHour()
+        view.autoHideHour = FocusSetting.shared.flipClockAutoHideHour
         return view
     }()
     

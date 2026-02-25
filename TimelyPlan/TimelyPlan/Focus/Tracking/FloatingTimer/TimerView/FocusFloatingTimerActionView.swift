@@ -43,7 +43,7 @@ class FocusFloatingTimerActionView: FocusEventActionView {
         }
 
         var actionTypes = timerInfo.eventActionTypes()
-        let isNextButtonHidden = focus.setting.getIsFloatingTimerNextButtonHidden()
+        let isNextButtonHidden = FocusSetting.shared.isFloatingTimerNextButtonHidden
         if isNextButtonHidden {
             let _ = actionTypes.remove(.next)
         }

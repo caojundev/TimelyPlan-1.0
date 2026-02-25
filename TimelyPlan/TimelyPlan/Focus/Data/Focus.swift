@@ -14,21 +14,8 @@ class Focus {
         return .defaultContext
     }
     
-    var setting: FocusSetting {
-        get {
-            return settingManager.getSetting()
-        }
-        
-        set {
-            settingManager.setSetting(newValue)
-        }
-    }
-    
     /// 系统计时器管理器
     let systemTimerManager = FocusSystemTimerManager()
-    
-    /// 设置管理器
-    let settingManager = FocusSettingManager()
     
     /// 数据变化会通知到更新器
     let updater = FocusUpdater()
@@ -136,7 +123,7 @@ class Focus {
     
     // MARK: - User Timer Processor
     func createTimer(with editingTimer: FocusEditingTimer, in timers: [FocusTimer]?) {
-        let onTop: Bool = focus.setting.getAddTimerOnTop()
+        let onTop = FocusSetting.shared.addTimerOnTop
         let timer = FocusTimer.newTimer(with: editingTimer)
         timer.order = timers?.insertOrder(onTop: onTop) ?? 0
         updater.didCreateFocusTimer(timer)

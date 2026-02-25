@@ -162,7 +162,7 @@ extension FocusStep {
     
     /// 正计时步骤
     static func stopwatchStep(autoStart: Bool) -> FocusStep {
-        let duration = focus.setting.getStopwatchDuration()
+        let duration = FocusSetting.shared.stopwatchMaxDuration
         var step = FocusStep(name: resGetString("Focus"),
                              mode: .focus,
                              timerType: .stopwatch,

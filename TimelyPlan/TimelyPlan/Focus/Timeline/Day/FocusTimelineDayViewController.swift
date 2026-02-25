@@ -32,7 +32,7 @@ class FocusTimelineDayViewController: TPViewController,
     private let weekViewHeight = 90.0
     private lazy var weekView: TPCalendarScrollableWeekView = {
         let view = TPCalendarScrollableWeekView(frame: .zero)
-        view.firstWeekday = focus.setting.getFirstWeekday()
+        view.firstWeekday = FocusSetting.shared.firstWeekday
         view.selection = selection
         view.addSeparator(position: .bottom)
         return view

@@ -90,7 +90,7 @@ class FocusTracker: NSObject {
             return .emptyDataItem
         }
         
-        let minimumRecordDuration = focus.setting.getMinimumRecordDuration()
+        let minimumRecordDuration = FocusSetting.shared.validatedMinimumRecordDuration
         return event?.endDataItem(with: minimumRecordDuration) ?? .emptyDataItem
     }
     
@@ -312,7 +312,7 @@ class FocusTracker: NSObject {
             return
         }
         
-        let stepDuration = focus.setting.getAdjustStepDuration()
+        let stepDuration = FocusSetting.shared.validatedAdjustStepDuration
         event.adjustDuration(by: TimeInterval(stepDuration))
         saveEvent()
         updateTimer()
@@ -324,7 +324,7 @@ class FocusTracker: NSObject {
             return
         }
         
-        let stepDuration = focus.setting.getAdjustStepDuration()
+        let stepDuration = FocusSetting.shared.validatedAdjustStepDuration
         event.adjustDuration(by: -TimeInterval(20))
         saveEvent()
         updateTimer()
@@ -334,7 +334,7 @@ class FocusTracker: NSObject {
     func canIncrease(remainDuration: TimeInterval) -> Bool {
         return true
         
-        let stepDuration = focus.setting.getAdjustStepDuration()
+        let stepDuration = FocusSetting.shared.validatedAdjustStepDuration
         let maximumDuration = 10 * SECONDS_PER_MINUTE
         return remainDuration < TimeInterval(maximumDuration - stepDuration)
     }
@@ -342,7 +342,7 @@ class FocusTracker: NSObject {
     func canDecrease(remainDuration: TimeInterval) -> Bool {
         return true
         
-        let stepDuration = focus.setting.getAdjustStepDuration()
+        let stepDuration = FocusSetting.shared.validatedAdjustStepDuration
         let minimumDuration = SECONDS_PER_MINUTE
         return remainDuration > TimeInterval(minimumDuration + stepDuration)
     }

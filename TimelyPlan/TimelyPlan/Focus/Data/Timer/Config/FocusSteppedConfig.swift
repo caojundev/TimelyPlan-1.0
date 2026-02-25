@@ -151,7 +151,7 @@ struct FocusSteppedConfig: Hashable,
     
     // MARK: - FocusStepsProvider
     func steps() -> [FocusStep] {
-        let autoStart = focus.setting.getSteppedAutoStartNext()
+        let autoStart = FocusSetting.shared.steppedAutoStartNext
         var steps = [FocusStep]()
         let timerSteps = timerSteps ?? []
         for timerStep in timerSteps {

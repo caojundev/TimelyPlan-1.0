@@ -345,7 +345,7 @@
 		E590CA922F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA912F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift */; };
 		E590CA962F4D677D00E66041 /* String+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA952F4D677C00E66041 /* String+Highlight.swift */; };
 		E590CA992F4DD02900E66041 /* FocusStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA982F4DD02900E66041 /* FocusStateStore.swift */; };
-		E590CA9C2F4DF84C00E66041 /* LocalStoragePropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA9B2F4DF84C00E66041 /* LocalStoragePropertyWrapper.swift */; };
+		E590CA9C2F4DF84C00E66041 /* StoragePropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA9B2F4DF84C00E66041 /* StoragePropertyWrapper.swift */; };
 		E5926DD12D4C6392007D5A6A /* TPColorSelectTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */; };
 		E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */; };
 		E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD42D4CE4E3007D5A6A /* TPTableWrapperView.swift */; };
@@ -580,7 +580,6 @@
 		E5BB9DCC2D3BF0C60089667A /* TPFeedbackQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9BBF2D3BF0C40089667A /* TPFeedbackQueue.swift */; };
 		E5BB9DCD2D3BF0C60089667A /* TPMidnightScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9BC02D3BF0C40089667A /* TPMidnightScheduler.swift */; };
 		E5BB9DCE2D3BF0C60089667A /* TPImpactFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9BC12D3BF0C40089667A /* TPImpactFeedback.swift */; };
-		E5BB9DCF2D3BF0C60089667A /* TPSettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9BC22D3BF0C40089667A /* TPSettingAgent.swift */; };
 		E5BB9DD02D3BF0C60089667A /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9BC52D3BF0C40089667A /* CGSize+Extensions.swift */; };
 		E5BB9DD12D3BF0C60089667A /* CGRect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9BC62D3BF0C40089667A /* CGRect+Extensions.swift */; };
 		E5BB9DD22D3BF0C60089667A /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9BC72D3BF0C40089667A /* CGFloat+Extensions.swift */; };
@@ -1084,7 +1083,6 @@
 		E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */; };
 		E5D7D7DC2D43923800EC877A /* FocusRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7BB2D43923800EC877A /* FocusRecord.swift */; };
 		E5D7D7DD2D43923800EC877A /* FocusScoreCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7BC2D43923800EC877A /* FocusScoreCalculator.swift */; };
-		E5D7D7DE2D43923800EC877A /* FocusSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7BE2D43923800EC877A /* FocusSettingManager.swift */; };
 		E5D7D7DF2D43923800EC877A /* FocusTimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7BF2D43923800EC877A /* FocusTimerManager.swift */; };
 		E5D7D7E02D43923800EC877A /* TimerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7C12D43923800EC877A /* TimerFeature.swift */; };
 		E5D7D7E12D43923800EC877A /* FocusTimer+EditingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7C22D43923800EC877A /* FocusTimer+EditingTimer.swift */; };
@@ -1693,7 +1691,7 @@
 		E590CA912F4D46B600E66041 /* FocusDefaultTimerSelectSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDefaultTimerSelectSectionController.swift; sourceTree = "<group>"; };
 		E590CA952F4D677C00E66041 /* String+Highlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Highlight.swift"; sourceTree = "<group>"; };
 		E590CA982F4DD02900E66041 /* FocusStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusStateStore.swift; sourceTree = "<group>"; };
-		E590CA9B2F4DF84C00E66041 /* LocalStoragePropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStoragePropertyWrapper.swift; sourceTree = "<group>"; };
+		E590CA9B2F4DF84C00E66041 /* StoragePropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoragePropertyWrapper.swift; sourceTree = "<group>"; };
 		E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPColorSelectTableCell.swift; sourceTree = "<group>"; };
 		E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextFieldTableCellItem.swift; sourceTree = "<group>"; };
 		E5926DD42D4CE4E3007D5A6A /* TPTableWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableWrapperView.swift; sourceTree = "<group>"; };
@@ -1943,7 +1941,6 @@
 		E5BB9BBF2D3BF0C40089667A /* TPFeedbackQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPFeedbackQueue.swift; sourceTree = "<group>"; };
 		E5BB9BC02D3BF0C40089667A /* TPMidnightScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPMidnightScheduler.swift; sourceTree = "<group>"; };
 		E5BB9BC12D3BF0C40089667A /* TPImpactFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPImpactFeedback.swift; sourceTree = "<group>"; };
-		E5BB9BC22D3BF0C40089667A /* TPSettingAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSettingAgent.swift; sourceTree = "<group>"; };
 		E5BB9BC52D3BF0C40089667A /* CGSize+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		E5BB9BC62D3BF0C40089667A /* CGRect+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extensions.swift"; sourceTree = "<group>"; };
 		E5BB9BC72D3BF0C40089667A /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
@@ -2447,7 +2444,6 @@
 		E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDayInfo.swift; sourceTree = "<group>"; };
 		E5D7D7BB2D43923800EC877A /* FocusRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusRecord.swift; sourceTree = "<group>"; };
 		E5D7D7BC2D43923800EC877A /* FocusScoreCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusScoreCalculator.swift; sourceTree = "<group>"; };
-		E5D7D7BE2D43923800EC877A /* FocusSettingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSettingManager.swift; sourceTree = "<group>"; };
 		E5D7D7BF2D43923800EC877A /* FocusTimerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerManager.swift; sourceTree = "<group>"; };
 		E5D7D7C12D43923800EC877A /* TimerFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerFeature.swift; sourceTree = "<group>"; };
 		E5D7D7C22D43923800EC877A /* FocusTimer+EditingTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FocusTimer+EditingTimer.swift"; sourceTree = "<group>"; };
@@ -3671,7 +3667,6 @@
 		E56CEAFC2DA54FE800FD111B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E5FBD0F02DA9135200924EED /* SettingAgent.swift */,
 				E58FC3F02D8BFF3F007905B7 /* QuadrantSettings.swift */,
 				E5A6D0E12DA95F22008EC660 /* QuadrantLayout.swift */,
 			);
@@ -3805,7 +3800,16 @@
 		E590CA9A2F4DF82600E66041 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				E590CA9B2F4DF84C00E66041 /* LocalStoragePropertyWrapper.swift */,
+				E590CA9B2F4DF84C00E66041 /* StoragePropertyWrapper.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		E590CA9D2F4E9CEF00E66041 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				E590CA982F4DD02900E66041 /* FocusStateStore.swift */,
+				E5D7D8342D43933300EC877A /* FocusSetting.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -4655,10 +4659,10 @@
 		E5BB9BBE2D3BF0C40089667A /* Agents */ = {
 			isa = PBXGroup;
 			children = (
+				E5FBD0F02DA9135200924EED /* SettingAgent.swift */,
 				E5BB9BBF2D3BF0C40089667A /* TPFeedbackQueue.swift */,
 				E5BB9BC02D3BF0C40089667A /* TPMidnightScheduler.swift */,
 				E5BB9BC12D3BF0C40089667A /* TPImpactFeedback.swift */,
-				E5BB9BC22D3BF0C40089667A /* TPSettingAgent.swift */,
 			);
 			path = Agents;
 			sourceTree = "<group>";
@@ -6433,6 +6437,7 @@
 			isa = PBXGroup;
 			children = (
 				E5D7D7D22D43923800EC877A /* Focus.swift */,
+				E590CA9D2F4E9CEF00E66041 /* Storage */,
 				E5D7D7B62D43923800EC877A /* Statistics */,
 				E5D7D7BA2D43923800EC877A /* Record */,
 				E5D7D7BD2D43923800EC877A /* Managers */,
@@ -6465,9 +6470,6 @@
 		E5D7D7BD2D43923800EC877A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				E590CA982F4DD02900E66041 /* FocusStateStore.swift */,
-				E5D7D8342D43933300EC877A /* FocusSetting.swift */,
-				E5D7D7BE2D43923800EC877A /* FocusSettingManager.swift */,
 				E5D7D7BF2D43923800EC877A /* FocusTimerManager.swift */,
 			);
 			path = Managers;
@@ -7918,7 +7920,6 @@
 				E5BB9E5F2D3BF0C70089667A /* TPCalendarSingleWeekView.swift in Sources */,
 				E55CE36C2D8BFA810083316E /* QuadrantLayoutEditCell.swift in Sources */,
 				E5BB9B442D3BEF920089667A /* UIButtonExtension.swift in Sources */,
-				E5D7D7DE2D43923800EC877A /* FocusSettingManager.swift in Sources */,
 				E5BBA0AC2D3BF4A50089667A /* TodoSmartList.swift in Sources */,
 				E5BB9DC12D3BF0C60089667A /* Weekday.swift in Sources */,
 				E5BB9DDE2D3BF0C60089667A /* UIView+Animate.swift in Sources */,
@@ -8209,7 +8210,7 @@
 				E50C0F7B2D8467FF00AFF908 /* TodoListEmojiEditView.swift in Sources */,
 				E5BBA0902D3BF4A50089667A /* TodoTaskEditNameTextView.swift in Sources */,
 				E505AA882D86C2940065BF9C /* TodoHomeExpandableSectionController.swift in Sources */,
-				E590CA9C2F4DF84C00E66041 /* LocalStoragePropertyWrapper.swift in Sources */,
+				E590CA9C2F4DF84C00E66041 /* StoragePropertyWrapper.swift in Sources */,
 				E5BB9F382D3BF4330089667A /* TaskRepresentable.swift in Sources */,
 				E5D7D7E12D43923800EC877A /* FocusTimer+EditingTimer.swift in Sources */,
 				E50C0F832D846CDE00AFF908 /* TodoListSelectUserSectionController.swift in Sources */,
@@ -8264,7 +8265,6 @@
 				E5BBA0AA2D3BF4A50089667A /* TodoListRepresentable.swift in Sources */,
 				E50DD7C32D71FEE100A85E87 /* TodoFolderProcessorUpdater.swift in Sources */,
 				E5D7D7EE2D43923800EC877A /* FocusUpdater.swift in Sources */,
-				E5BB9DCF2D3BF0C60089667A /* TPSettingAgent.swift in Sources */,
 				E5BBA08C2D3BF4A50089667A /* TodoStepAddPositionButton.swift in Sources */,
 				E5BBA0E82D3BF4A50089667A /* Todo+UserInfo.swift in Sources */,
 				E5BB9B422D3BEF920089667A /* CGPointExtension.swift in Sources */,

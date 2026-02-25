@@ -219,8 +219,8 @@ struct FocusPomodoroConfig: Hashable, Equatable, Codable {
 extension FocusPomodoroConfig: FocusStepsProvider {
     
     func steps() -> [FocusStep] {
-        let autoStartFocus = focus.setting.getPomodoroAutoStartFocus()
-        let autoStartBreak = focus.setting.getPomodoroAutoStartBreak()
+        let autoStartFocus = FocusSetting.shared.pomodoroAutoStartFocus
+        let autoStartBreak = FocusSetting.shared.pomodoroAutoStartBreak
         var steps = [FocusStep]()
         for i in 1...pomosCountPerCycle {
             var focusStep = FocusStep.pomodoroFocusStep(duration: focusDuration,
