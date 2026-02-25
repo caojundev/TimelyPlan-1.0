@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// 主菜单类型
-enum FocusMainMenuType: Int, TPMenuRepresentable {
+enum FocusMainMenuType: Int, Codable, TPMenuRepresentable {
     case focus = 0 /// 专注
     case timer     /// 计时器
     
@@ -29,11 +29,8 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
         view.buttonHeight = 30.0
         view.minButtonWidth = 64.0
         view.didSelectMenuItem = { [weak self] menuItem in
-            /// 取消第一响应（计时器搜索栏可能正在输入）
-            UIResponder.resignCurrentFirstResponder()
-            
-            /// 选中页面
-            self?.selectPage(at: menuItem.tag, animated: true)
+            let menuType = FocusMainMenuType(rawValue: menuItem.tag) ?? .focus
+            self?.didSelectMenuType(menuType)
         }
         
         view.menuItems = FocusMainMenuType.segmentedMenuItems()
@@ -97,7 +94,8 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
                                                    timelineBarButtonItem]
         self.bounces = false
         self.trackingProgress = false
-        self.selectPage(at: FocusMainMenuType.focus.rawValue)
+        let pageIndex = FocusStateStore.shared.mainMenuType.rawValue
+        self.selectPage(at: pageIndex)
     }
     
     override func viewWillLayoutSubviews() {
@@ -112,6 +110,12 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
     
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemGroupedBackground
+    }
+    
+    override func pageController(_ pageController: TPPageController, didSelectPageAt index: Int) {
+        if let menuType = FocusMainMenuType(rawValue: index) {
+            FocusStateStore.shared.mainMenuType = menuType
+        }
     }
     
     // MARK: - TFPageContollerDataSource
@@ -130,6 +134,14 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
     }
 
     // MARK: - Event Response
+    
+    private func didSelectMenuType(_ menuType: FocusMainMenuType) {
+        /// 取消第一响应（计时器搜索栏可能正在输入）
+        UIResponder.resignCurrentFirstResponder()
+        selectPage(at: menuType.rawValue, animated: true)
+        FocusStateStore.shared.mainMenuType = menuType
+    }
+    
     @objc func clickTimeline(_ buttonItem: UIBarButtonItem) {
         TPImpactFeedback.impactWithLightStyle()
         FocusPresenter.showTimeline()

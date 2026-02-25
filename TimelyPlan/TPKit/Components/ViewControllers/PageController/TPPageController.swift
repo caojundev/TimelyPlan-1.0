@@ -441,7 +441,6 @@ class TPPageController: UIViewController,
         
     }
     
-    
     // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         for i in 0..<pagesCount {

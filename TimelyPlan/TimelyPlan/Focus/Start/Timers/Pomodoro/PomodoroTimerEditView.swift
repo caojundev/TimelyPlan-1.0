@@ -25,14 +25,11 @@ class PomodoroTimerEditView: UIView {
             reloadData(animated: false)
         }
     }
-    
-    func setConfig(_ config: FocusPomodoroConfig, animated: Bool) {
-        circleView.config = config
-        reloadData(animated: animated)
-    }
-    
+
     /// 计时器发生改变
-    var configDidChange: ((FocusPomodoroConfig) -> Void)?
+    var didChangeConfig: ((FocusPomodoroConfig) -> Void)?
+    
+    var didChangeEditPhase: ((FocusPomodoroPhase) -> Void)?
     
     /// 当前编辑阶段
     var editPhase: FocusPomodoroPhase = .focus
@@ -101,6 +98,11 @@ class PomodoroTimerEditView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setConfig(_ config: FocusPomodoroConfig, animated: Bool) {
+        circleView.config = config
+        reloadData(animated: animated)
     }
     
     func reloadData(animated: Bool) {
@@ -181,7 +183,7 @@ class PomodoroTimerEditView: UIView {
         
         if shouldReload {
             circleView.reloadData(animated: true)
-            configDidChange?(config)
+            didChangeConfig?(config)
         }
     }
     
@@ -193,7 +195,7 @@ class PomodoroTimerEditView: UIView {
         if config.pomosCountPerCycle != count {
             config.pomosCountPerCycle = count
             circleView.reloadData(animated: true)
-            configDidChange?(config)
+            didChangeConfig?(config)
         }
     }
     
@@ -220,8 +222,9 @@ class PomodoroTimerEditView: UIView {
 
     // MARK: - Menu
     private func didSelectMenuItem(_ menuItem: TPSegmentedMenuItem) {
-        editPhase = FocusPomodoroPhase(rawValue: menuItem.tag) ?? .focus
-        circleView.animte(for: editPhase)
+        self.editPhase = FocusPomodoroPhase(rawValue: menuItem.tag) ?? .focus
+        circleView.animte(for: self.editPhase)
         updateDurationPicker()
+        didChangeEditPhase?(self.editPhase)
     }
 }

@@ -39,7 +39,7 @@ class FocusPomodoroConfigCell: TPBaseTableCell {
     
     lazy var timerView: PomodoroTimerEditView = { [weak self] in
         let view = PomodoroTimerEditView()
-        view.configDidChange = { config in
+        view.didChangeConfig = { config in
             self?.configDidChange(config)
         }
         

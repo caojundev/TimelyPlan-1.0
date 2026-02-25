@@ -11,7 +11,7 @@ class FocusStartViewController: TPViewController,
                                     TPAnimatedContainerViewDelegate,
                                     FocusTrackerDelegate {
     
-    var timerType: FocusTimerType = .pomodoro
+    var timerType: FocusTimerType = FocusStateStore.shared.timerType
     
     lazy var pomodoroTimer: FocusSystemPomodoroTimer = {
         let config = FocusStateStore.shared.pomodoroConfig
@@ -139,12 +139,17 @@ class FocusStartViewController: TPViewController,
         switch timerType {
         case .pomodoro:
             let view = PomodoroTimerEditView()
-            view.setConfig(pomodoroTimer.config, animated: true)
-            view.configDidChange = { [weak self] config in
+            view.editPhase = FocusStateStore.shared.pomodoroPhase
+            view.didChangeConfig = { [weak self] config in
                 self?.pomodoroTimer.config = config
                 self?.didChangePomodoroConfig(config)
             }
             
+            view.didChangeEditPhase = { [weak self] phase in
+                self?.didChangePomodoroPhase(phase)
+            }
+            
+            view.setConfig(pomodoroTimer.config, animated: true)
             editView = view
         case .countdown:
             let view = CountdownTimerEditView()
@@ -196,7 +201,7 @@ class FocusStartViewController: TPViewController,
         let fromValue = timerType.index ?? 0
         let toValue = type.index ?? 0
         timerType = type
-        
+        didChangeTimerType(type)
         /// 切换动画样式
         let style = SlideStyle.horizontalStyle(fromValue: fromValue, toValue: toValue)
         updateContent(with: type, animateStyle: style)
@@ -233,8 +238,16 @@ class FocusStartViewController: TPViewController,
     }
     
     // MARK: - 状态改变保存数据
+    private func didChangeTimerType(_ timerType: FocusTimerType) {
+        FocusStateStore.shared.timerType = timerType
+    }
+    
     private func didChangePomodoroConfig(_ config: FocusPomodoroConfig) {
         FocusStateStore.shared.pomodoroConfig = config
+    }
+    
+    private func didChangePomodoroPhase(_ phase: FocusPomodoroPhase) {
+        FocusStateStore.shared.pomodoroPhase = phase
     }
     
     func didChangeCountdownConfig(_ config: FocusCountdownConfig) {
