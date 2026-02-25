@@ -27,6 +27,7 @@
     </entity>
     <entity name="KeyValueStore" representedClassName="KeyValueEntry" syncable="YES">
         <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="value" optional="YES" attributeType="String" valueTransformerName="FocusTaskContentTransformer" customClassName="FocusTaskContent"/>
     </entity>
     <entity name="TodoFilter" representedClassName="TodoFilter" syncable="YES" codeGenerationType="class">
@@ -113,7 +114,7 @@
     <elements>
         <element name="FocusSession" positionX="36" positionY="189" width="128" height="209"/>
         <element name="FocusTimer" positionX="27" positionY="180" width="128" height="164"/>
-        <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="59"/>
+        <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
         <element name="TodoFilter" positionX="27" positionY="180" width="128" height="104"/>
         <element name="TodoFolder" positionX="27" positionY="180" width="128" height="89"/>
         <element name="TodoList" positionX="54" positionY="99" width="128" height="164"/>

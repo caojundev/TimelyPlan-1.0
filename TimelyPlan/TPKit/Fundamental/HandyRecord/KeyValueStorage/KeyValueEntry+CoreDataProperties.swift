@@ -12,6 +12,7 @@ import CoreData
 extension KeyValueEntry {
     @NSManaged public var key: String?
     @NSManaged public var value: String?
+    @NSManaged public var modificationDate: Date?
 }
 
 extension KeyValueEntry : Identifiable {

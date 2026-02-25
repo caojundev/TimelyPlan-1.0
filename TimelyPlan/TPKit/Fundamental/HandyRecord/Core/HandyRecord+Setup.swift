@@ -27,6 +27,7 @@ extension HandyRecord {
             }
 
             /// 初始化上下文
+            container.persistentStoreDescriptions
             let coordinator = container.persistentStoreCoordinator
             NSPersistentStoreCoordinator.defaultStoreCoordinator = coordinator
             NSManagedObjectContext.initialize(withContainer: container)
@@ -51,6 +52,8 @@ extension HandyRecord {
         description.setOption(storeURL as NSURL, forKey: NSPersistentStoreURLKey)
         description.setOption(NSNumber(value: true),
                               forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        description.setOption(NSNumber(value: true),
+                              forKey: NSPersistentHistoryTrackingKey)
         container.loadPersistentStores { _, error in
             guard error == nil else {
                 debugPrint(error.debugDescription)

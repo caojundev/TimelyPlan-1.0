@@ -89,9 +89,9 @@ extension NSManagedObjectContext {
             (shouldSaveSynchronouslyExceptRoot && (self != Self.rootSavingContext))
 
         let saveBlock = {
-            debugPrint("→ Saving \(self.description)")
-            debugPrint("→ Save Parents? \(shouldSaveParentContexts ? "YES" : "NO")")
-            debugPrint("→ Save Synchronously? \(saveSynchronously ? "YES" : "NO")")
+//            debugPrint("→ Saving \(self.description)")
+//            debugPrint("→ Save Parents? \(shouldSaveParentContexts ? "YES" : "NO")")
+//            debugPrint("→ Save Synchronously? \(saveSynchronously ? "YES" : "NO")")
 
             var saveResult = false
             var error: Error?
@@ -116,7 +116,7 @@ extension NSManagedObjectContext {
                 parent.saveWithOptions(modifiedOptions, completion: completion)
             } else {
                 if saveResult {
-                    debugPrint("→ Finished saving \(self.description)")
+//                    debugPrint("→ Finished saving \(self.description)")
                 }
 
                 if let completion = completion {

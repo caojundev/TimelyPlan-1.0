@@ -68,13 +68,26 @@ class KeyValueStorage {
     
     func setValue(_ value: Encodable, forKey key: String) {
         valueDic[key] = value
-        if let entry = entry(forKey: key, createIfNil: true) {
-            entry.value = value.jsonString()
+        
+        var entry: KeyValueEntry
+        if let entries = entries(forKey: key), entries.count > 0 {
+            entry = entries[0]
+            if entries.count > 1 {
+                let deleteEntries = Array(entries.dropFirst(1))
+                context.deleteObjects(deleteEntries)
+            }
+        } else {
+            entry = KeyValueEntry.createEntity(forEntityName: entityName, in: context)
+            entry.key = key
         }
         
+        entry.value = value.jsonString()
+        entry.modificationDate = .now
         if synchronizeImmediately {
             synchronize()
         }
+        
+        printAllEntries()
     }
     
     // MARK: - 
@@ -112,7 +125,7 @@ class KeyValueStorage {
     /// - Returns: 键值条目
     fileprivate func entry(forKey key: String, createIfNil: Bool) -> KeyValueEntry? {
         if let entries = entries(forKey: key), entries.count > 0 {
-            return entries.first!
+            return entries.first
         }
         
         if createIfNil {
@@ -128,7 +141,26 @@ class KeyValueStorage {
     fileprivate func entries(forKey key: String) -> [KeyValueEntry]? {
         let request = NSFetchRequest<KeyValueEntry>(entityName: entityName)
         request.predicate = NSPredicate(format: "key == %@", key)
+        let sortDescriptor = NSSortDescriptor(key: "modificationDate", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
         let results: [KeyValueEntry]? = KeyValueEntry.executeFetchRequest(request, in: context)
         return results
+    }
+    
+    func printAllEntries() {
+        let request = NSFetchRequest<KeyValueEntry>(entityName: entityName)
+        let results: [KeyValueEntry]? = KeyValueEntry.executeFetchRequest(request, in: context)
+        if let results = results {
+            print("==================================")
+            for result in results {
+                if result.key == "FocusSetting" {
+                    context.delete(result)
+                    synchronize()
+                }
+                
+                print("\(result.key ?? "") = \(result.value ?? ""), \(result.modificationDate?.yearMonthDayTimeString(omitYear: true) ?? "无日期")")
+            }
+            print("==================================")
+        }
     }
 }
