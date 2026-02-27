@@ -18,6 +18,12 @@ extension Character {
         return emojiCharacter
     }
     
+    /// 生成一个随机的 emoji 字符串
+    static func randomEmojiString() -> String {
+        let emoji = randomEmoji()
+        return emoji.stringValue ?? ""
+    }
+    
     /// 获取字符对应的字符串
     var stringValue: String? {
         return String(self)

@@ -21,8 +21,11 @@
 "By Day" = "按天";
 "By Week" = "按周";
 
-
-
+/// 习惯编辑
+"New Habit" = "新建习惯";
+"Edit Habit" = "编辑习惯";
+"Fill in the habit name" = "输入习惯名称";
+"Edit Emoji" = "编辑Emoji";
 
 
 ///**********************四象限*********************///

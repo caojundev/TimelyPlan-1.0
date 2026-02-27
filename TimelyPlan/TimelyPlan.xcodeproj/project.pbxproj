@@ -357,6 +357,13 @@
 		E59243F52F514AF400CA2393 /* arrow_up_backward_fill_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E59243F12F514AF200CA2393 /* arrow_up_backward_fill_36@3x.png */; };
 		E59243F62F514AF400CA2393 /* arrow_up_right_fill_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E59243F22F514AF300CA2393 /* arrow_up_right_fill_36@2x.png */; };
 		E59243F72F514AF400CA2393 /* arrow_up_backward_fill_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E59243F32F514AF400CA2393 /* arrow_up_backward_fill_36@2x.png */; };
+		E59243FF2F51572D00CA2393 /* HabitEditingTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59243FE2F51572D00CA2393 /* HabitEditingTask.swift */; };
+		E59244012F51573800CA2393 /* HabitPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59244002F51573800CA2393 /* HabitPhase.swift */; };
+		E59244032F51578F00CA2393 /* HabitConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59244022F51578F00CA2393 /* HabitConstants.swift */; };
+		E59244062F51585800CA2393 /* UIColor+Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59244052F51585800CA2393 /* UIColor+Habit.swift */; };
+		E59244082F515A3700CA2393 /* HabitTaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59244072F515A3700CA2393 /* HabitTaskEditViewController.swift */; };
+		E592440C2F519D7400CA2393 /* HabitIconNameTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592440B2F519D7400CA2393 /* HabitIconNameTableCell.swift */; };
+		E59244122F519F5200CA2393 /* TPIconCharacterEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592440F2F519F5200CA2393 /* TPIconCharacterEditViewController.swift */; };
 		E5926DD12D4C6392007D5A6A /* TPColorSelectTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */; };
 		E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */; };
 		E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD42D4CE4E3007D5A6A /* TPTableWrapperView.swift */; };
@@ -1714,6 +1721,13 @@
 		E59243F12F514AF200CA2393 /* arrow_up_backward_fill_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_up_backward_fill_36@3x.png"; sourceTree = "<group>"; };
 		E59243F22F514AF300CA2393 /* arrow_up_right_fill_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_up_right_fill_36@2x.png"; sourceTree = "<group>"; };
 		E59243F32F514AF400CA2393 /* arrow_up_backward_fill_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_up_backward_fill_36@2x.png"; sourceTree = "<group>"; };
+		E59243FE2F51572D00CA2393 /* HabitEditingTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitEditingTask.swift; sourceTree = "<group>"; };
+		E59244002F51573800CA2393 /* HabitPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitPhase.swift; sourceTree = "<group>"; };
+		E59244022F51578F00CA2393 /* HabitConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitConstants.swift; sourceTree = "<group>"; };
+		E59244052F51585800CA2393 /* UIColor+Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Habit.swift"; sourceTree = "<group>"; };
+		E59244072F515A3700CA2393 /* HabitTaskEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskEditViewController.swift; sourceTree = "<group>"; };
+		E592440B2F519D7400CA2393 /* HabitIconNameTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitIconNameTableCell.swift; sourceTree = "<group>"; };
+		E592440F2F519F5200CA2393 /* TPIconCharacterEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPIconCharacterEditViewController.swift; sourceTree = "<group>"; };
 		E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPColorSelectTableCell.swift; sourceTree = "<group>"; };
 		E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextFieldTableCellItem.swift; sourceTree = "<group>"; };
 		E5926DD42D4CE4E3007D5A6A /* TPTableWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableWrapperView.swift; sourceTree = "<group>"; };
@@ -3841,8 +3855,13 @@
 		E59243C62F4FFC6400CA2393 /* Habit */ = {
 			isa = PBXGroup;
 			children = (
+				E59244022F51578F00CA2393 /* HabitConstants.swift */,
 				E59243C72F4FFD6900CA2393 /* HabitMainViewController.swift */,
+				E59244042F51584500CA2393 /* Extensions */,
 				E59243C92F5004B300CA2393 /* Home */,
+				E59243FA2F514C9800CA2393 /* Setting */,
+				E59243F92F514C8900CA2393 /* Record */,
+				E59243F82F514C8200CA2393 /* Statistic */,
 			);
 			path = Habit;
 			sourceTree = "<group>";
@@ -3850,9 +3869,9 @@
 		E59243C92F5004B300CA2393 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				E59243CA2F50054200CA2393 /* HabitHomeDayViewController.swift */,
-				E59243CC2F50523900CA2393 /* TPFlipAnimateContainerView.swift */,
-				E59243CE2F50529200CA2393 /* HabitHomeDayAddView.swift */,
+				E59243FB2F514DFE00CA2393 /* Day */,
+				E59243FC2F514E0300CA2393 /* Week */,
+				E59243FD2F514E1900CA2393 /* Task */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3862,6 +3881,62 @@
 			children = (
 			);
 			path = habit;
+			sourceTree = "<group>";
+		};
+		E59243F82F514C8200CA2393 /* Statistic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Statistic;
+			sourceTree = "<group>";
+		};
+		E59243F92F514C8900CA2393 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		E59243FA2F514C9800CA2393 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		E59243FB2F514DFE00CA2393 /* Day */ = {
+			isa = PBXGroup;
+			children = (
+				E59243CA2F50054200CA2393 /* HabitHomeDayViewController.swift */,
+				E59243CE2F50529200CA2393 /* HabitHomeDayAddView.swift */,
+			);
+			path = Day;
+			sourceTree = "<group>";
+		};
+		E59243FC2F514E0300CA2393 /* Week */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Week;
+			sourceTree = "<group>";
+		};
+		E59243FD2F514E1900CA2393 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				E59244002F51573800CA2393 /* HabitPhase.swift */,
+				E59243FE2F51572D00CA2393 /* HabitEditingTask.swift */,
+				E59244072F515A3700CA2393 /* HabitTaskEditViewController.swift */,
+				E592440B2F519D7400CA2393 /* HabitIconNameTableCell.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		E59244042F51584500CA2393 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E59244052F51585800CA2393 /* UIColor+Habit.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E594DD422D50936100E77E92 /* Protocols */ = {
@@ -5585,6 +5660,7 @@
 			children = (
 				E5BB9D3D2D3BF0C50089667A /* TPIcon.swift */,
 				E5BB9D3E2D3BF0C50089667A /* TPIconView.swift */,
+				E592440F2F519F5200CA2393 /* TPIconCharacterEditViewController.swift */,
 			);
 			path = IconView;
 			sourceTree = "<group>";
@@ -7289,6 +7365,7 @@
 		E5FF12E82D5DE78800340DCC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E59243CC2F50523900CA2393 /* TPFlipAnimateContainerView.swift */,
 				E5BB9D252D3BF0C50089667A /* TPAutoRemoveView.swift */,
 				E5BB9B972D3BF0C30089667A /* TPInfoGalleryView.swift */,
 				E5BB9B982D3BF0C30089667A /* TPWaveIndicatorView.swift */,
@@ -7836,6 +7913,7 @@
 				E5D7D91A2D43933700EC877A /* FocusStatsHistoryCell.swift in Sources */,
 				E5BB9B4A2D3BEF920089667A /* ArrayExtension.swift in Sources */,
 				E5BBA0772D3BF4A40089667A /* RepeatAfterCompletionSectionController.swift in Sources */,
+				E59244062F51585800CA2393 /* UIColor+Habit.swift in Sources */,
 				E5BB9E192D3BF0C70089667A /* KeyValueEntry+CoreDataClass.swift in Sources */,
 				E5B98CE92D56064400E78261 /* TPImageInfoTextValueView.swift in Sources */,
 				E53735FA2D9CE29B00C5A001 /* TodoFilterRuleDateEditSectionController.swift in Sources */,
@@ -8044,6 +8122,7 @@
 				E5BB9E382D3BF0C70089667A /* TPNoteTableSectionController.swift in Sources */,
 				E5BB9F232D3BF2C20089667A /* AppNotificationName.swift in Sources */,
 				E5F149952D740825009D51D0 /* TodoFolderSelectViewController.swift in Sources */,
+				E592440C2F519D7400CA2393 /* HabitIconNameTableCell.swift in Sources */,
 				E5D7D92F2D43933700EC877A /* FocusTimerSearchResultViewController.swift in Sources */,
 				E5D7D8DE2D43933600EC877A /* FocusFloatingTimerActionView.swift in Sources */,
 				E5BB9E852D3BF0C80089667A /* CurveChartView.swift in Sources */,
@@ -8248,6 +8327,7 @@
 				E59243C82F4FFD6900CA2393 /* HabitMainViewController.swift in Sources */,
 				E5BB9B542D3BEF920089667A /* Action.swift in Sources */,
 				E5BBA0642D3BF4A40089667A /* RepeatRule.swift in Sources */,
+				E59244012F51573800CA2393 /* HabitPhase.swift in Sources */,
 				E5BB9E962D3BF0C80089667A /* PieLineDrawer.swift in Sources */,
 				E5BB9E932D3BF0C80089667A /* PieLabelsView.swift in Sources */,
 				E53FD6D32D87133A00760341 /* TodoFilterMenuActionController.swift in Sources */,
@@ -8510,6 +8590,7 @@
 				E5BBA0E32D3BF4A50089667A /* TodoTaskQuickAddListPicker.swift in Sources */,
 				E5BBA08B2D3BF4A50089667A /* TodoStepEditView.swift in Sources */,
 				E5BBA0832D3BF4A50089667A /* TaskScheduleEditViewController.swift in Sources */,
+				E59244122F519F5200CA2393 /* TPIconCharacterEditViewController.swift in Sources */,
 				E55D77182D4E76C80092F8C1 /* TPTextViewTableCell.swift in Sources */,
 				E5BB9E972D3BF0C80089667A /* PieChartView.swift in Sources */,
 				E5F962C82D90025600D51EE0 /* TodoFilterRule.swift in Sources */,
@@ -8569,6 +8650,7 @@
 				E5BB9DB52D3BF0C60089667A /* TPWeakDelegateCollection.swift in Sources */,
 				E5BBA0B52D3BF4A50089667A /* TaskSchedule.swift in Sources */,
 				E50DD7C82D72063200A85E87 /* TodoFolderHomeCell.swift in Sources */,
+				E59244032F51578F00CA2393 /* HabitConstants.swift in Sources */,
 				E5526AC52DD0AC8E00B96A9D /* CalendarWeekView.swift in Sources */,
 				E5BB9E4B2D3BF0C70089667A /* TPHolidayScheduler.swift in Sources */,
 				E5BB9DA82D3BF0C60089667A /* FlipClockView.swift in Sources */,
@@ -8596,6 +8678,7 @@
 				E5D7D9142D43933700EC877A /* FocusStatsWeeklyViewController.swift in Sources */,
 				E5BB9DF02D3BF0C60089667A /* Date+FormattedString.swift in Sources */,
 				E5BBA07D2D3BF4A50089667A /* AlarmRelativeOffsetEditViewController.swift in Sources */,
+				E59244082F515A3700CA2393 /* HabitTaskEditViewController.swift in Sources */,
 				E5D7D8EC2D43933600EC877A /* FocusRecordEditViewController.swift in Sources */,
 				E5D7D7DC2D43923800EC877A /* FocusRecord.swift in Sources */,
 				E5007F7B2DC9ADB1006AD311 /* CalendarDayTimelineIndicatorView.swift in Sources */,
@@ -8717,6 +8800,7 @@
 				E58C9E1D2F4AF0DC0096B842 /* FocusTimelineEventListView.swift in Sources */,
 				E58439802D8F0BDB00DEB8E9 /* QuadrantCustomRuleViewController.swift in Sources */,
 				E5BBA0BC2D3BF4A50089667A /* TodoTagManager.swift in Sources */,
+				E59243FF2F51572D00CA2393 /* HabitEditingTask.swift in Sources */,
 				E5BB9E7E2D3BF0C70089667A /* StatsBarChartSectionController.swift in Sources */,
 				E53735FD2D9CF43A00C5A001 /* TodoFilterDateEditViewController.swift in Sources */,
 				E57C05E42DD2F9AF009E22F0 /* CalendarWeekAllDayEventsView.swift in Sources */,
