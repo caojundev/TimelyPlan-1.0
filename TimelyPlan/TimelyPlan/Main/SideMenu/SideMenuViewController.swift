@@ -24,7 +24,7 @@ class SideMenuViewController: TPTableViewController,
     weak var delegate: SideMenuViewControllerDelegate?
     
     /// 当前选中菜单类型
-    var selectedMenuType: SideMenuType = .focus
+    var selectedMenuType: SideMenuType = .habit
     
     /// 我的一天
     let myDayMenuItem: TPMenuItem = TPMenuItem.item(with: [SideMenuType.myDay])
@@ -37,13 +37,16 @@ class SideMenuViewController: TPTableViewController,
     }()
     
     /// 专注
-    let focusMenuItem: TPMenuItem = TPMenuItem.item(with: [SideMenuType.focus])
+    let focusMenuItem = TPMenuItem.item(with: [SideMenuType.focus])
+
+    /// 习惯
+    let habitMenuItem = TPMenuItem.item(with: [SideMenuType.habit])
 
     /// 日历
-    let calendarMenuItem: TPMenuItem = TPMenuItem.item(with: [SideMenuType.calendar])
+    let calendarMenuItem = TPMenuItem.item(with: [SideMenuType.calendar])
 
     /// 设置
-    let settingMenuItem: TPMenuItem = TPMenuItem.item(with: [SideMenuType.settings])
+    let settingMenuItem = TPMenuItem.item(with: [SideMenuType.settings])
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +76,7 @@ class SideMenuViewController: TPTableViewController,
                 taskMenuItem,
                 calendarMenuItem,
                 focusMenuItem,
+                habitMenuItem,
                 settingMenuItem]
     }
     

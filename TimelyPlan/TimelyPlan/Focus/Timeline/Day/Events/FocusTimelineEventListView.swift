@@ -20,7 +20,7 @@ protocol FocusTimelineEventListTapDelegate: AnyObject {
     func didTapTimelineEvent(_ event: FocusTimelineEvent)
 }
 
-class FocusTimelineEventListView: UIView {
+class FocusTimelineEventListView: UIView, UIGestureRecognizerDelegate {
   
     weak var eventProvider: FocusTimelineEventProvider?
     
@@ -130,7 +130,7 @@ class FocusTimelineEventListView: UIView {
     /// 设置长按手势识别器
     private func setupLongPressGesture() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-        longPressGesture.minimumPressDuration = 0.5 // 0.5秒长按触发
+        longPressGesture.minimumPressDuration = 0.25 // 0.5秒长按触发
         longPressGesture.delaysTouchesBegan = true
         longPressGesture.cancelsTouchesInView = false
         self.addGestureRecognizer(longPressGesture)

@@ -15,6 +15,7 @@ enum SideMenuType: String, Codable, TPMenuRepresentable {
     case quadrants /// 四象限
     case calendar  /// 日历
     case focus     /// 专注
+    case habit     /// 习惯
     case settings  /// 设置
     static func titles() -> [String] {
         return ["My Day",
@@ -22,6 +23,7 @@ enum SideMenuType: String, Codable, TPMenuRepresentable {
                 "Four Quadrants",
                 "Calendar",
                 "Focus",
+                "Habit",
                 "Settings"]
     }
     

@@ -86,7 +86,6 @@ class FocusTimelineEventView: UIView {
         let layoutFrame = layoutFrame()
         durationLabel.width = layoutFrame.width / 2.0
         durationLabel.sizeToFit()
-        
         if durationLabelHeight + padding.verticalLength <= height {
             nameLabel.isHidden = false
             durationLabel.isHidden = false
@@ -108,23 +107,6 @@ class FocusTimelineEventView: UIView {
         let textColor = CalendarEventColor.highlightedForegroundColor(for: eventColor)
         nameLabel.textColor = textColor
         durationLabel.textColor = textColor
-        
-        if highlighted {
-            self.backgroundColor = eventColor.darkerColor
-        } else {
-            self.backgroundColor = eventColor
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.highlighted = true
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.highlighted = false
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.highlighted = false
+        self.backgroundColor = eventColor
     }
 }

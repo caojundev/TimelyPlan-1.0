@@ -83,11 +83,10 @@ class KeyValueStorage {
         
         entry.value = value.jsonString()
         entry.modificationDate = .now
+        
         if synchronizeImmediately {
             synchronize()
         }
-        
-        printAllEntries()
     }
     
     // MARK: - 

@@ -1,40 +1,29 @@
 //
-//  FocusTimelineDayViewController.swift
+//  HabitHomeDayViewController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/2/7.
+//  Created by caojun on 2026/2/26.
 //
 
 import Foundation
 import UIKit
-import CoreGraphics
 
-class FocusTimelineDayViewController: TPViewController,
-                                      FocusTimelineTitleViewProvider,
+class HabitHomeDayViewController: TPViewController,
                                       FocusTimelineEventProvider,
                                       FocusTimelineEventListTapDelegate,
                                       CalendarDatePageViewDelegate,
                                       TPCalendarSingleDateSelectionDelegate {
-
-    /// 标题视图
-    var titleView: UIView? {
-        return dateButton
-    }
     
+    /// 日期
     private(set) var date: Date = .now
-    
-    /// 日期按钮
-    private lazy var dateButton: CalendarDateButton = {
-        let button = CalendarDateButton()
-        button.addTarget(self, action: #selector(clickDate(_:)), for: .touchUpInside)
-        return button
-    }()
 
     /// 周视图
     private let weekViewHeight = 90.0
     private lazy var weekView: TPCalendarScrollableWeekView = {
         let view = TPCalendarScrollableWeekView(frame: .zero)
-        view.firstWeekday = FocusSetting.shared.firstWeekday
+        view.symbolStyle = .veryShort
+        #warning("修改 firstWeekday")
+        view.firstWeekday = .monday
         view.selection = selection
         view.addSeparator(position: .bottom)
         return view
@@ -47,7 +36,24 @@ class FocusTimelineDayViewController: TPViewController,
         selection.delegate = self
         return selection
     }()
-               
+            
+    /// 返回和添加按钮视图
+    private let addViewSize = CGSize(width: 40.0, height: 40.0)
+    private let addViewMargin = 15.0
+    lazy var addView: HabitHomeDayAddView = {
+        let view = HabitHomeDayAddView()
+        view.showAddButton()
+        view.didClickAdd = { [weak self] button in
+            self?.didClickAdd(button)
+        }
+        
+        view.didClickBack = { [weak self] button in
+            self?.didClickBack(button)
+        }
+        
+        return view
+    }()
+    
     /// 翻页视图
     private lazy var pageView: FocusTimelineDayPageView = {
         let view = FocusTimelineDayPageView(frame: .zero)
@@ -57,25 +63,11 @@ class FocusTimelineDayViewController: TPViewController,
         return view
     }()
     
-    /// 返回和添加按钮视图
-    private let backViewSize = CGSize(width: 40.0, height: 40.0)
-    private let backViewMargin = 15.0
-    lazy var backView: FocusTimelineBackTodayView = {
-        let view = FocusTimelineBackTodayView()
-        view.showTodayButton()
-        view.didClickBack = { [weak self] button in
-            self?.didClickBack(button)
-        }
-        
-        return view
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(weekView)
         view.addSubview(pageView)
-        view.addSubview(backView)
-        updateTitle(with: date)
+        view.addSubview(addView)
         reloadData()
     }
     
@@ -90,9 +82,9 @@ class FocusTimelineDayViewController: TPViewController,
         pageView.height = layoutFrame.height - weekViewHeight
         pageView.top = weekView.bottom
         
-        backView.size = backViewSize
-        backView.right = layoutFrame.maxX - backViewMargin
-        backView.bottom = layoutFrame.maxY - backViewMargin
+        addView.size = addViewSize
+        addView.bottom = layoutFrame.maxY - addViewMargin
+        addView.right = layoutFrame.maxX - addViewMargin
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -107,13 +99,10 @@ class FocusTimelineDayViewController: TPViewController,
     func reloadData() {
         weekView.reloadData()
         pageView.reloadData()
+        updateAddView()
     }
     
     // MARK: - Update
-    private func updateTitle(with date: Date) {
-        dateButton.title = date.slashFormattedYearMonthDayString
-    }
-    
     private func updateWeekView(with date: Date, animated: Bool = true) {
         let dateComponents = date.yearMonthDayComponents
         selection.setSelectedDateComponents(dateComponents)
@@ -123,45 +112,7 @@ class FocusTimelineDayViewController: TPViewController,
     private func updatePagingView(with date: Date, animated: Bool = true) {
         pageView.setVisibleDate(date, animated: animated)
     }
-    
-    // MARK: - Event Response
-    @objc func didClickBack(_ button: UIButton) {
-        pickDate(.now)
-    }
-    
-    @objc func clickDate(_ button: UIButton) {
-        let vc = TPCalendarViewController(date: date)
-        vc.didSelectDate = { date in
-            self.pickDate(date)
-        }
-        
-        vc.popoverShow(from: button, preferredPosition: .bottomCenter)
-    }
-    
-    private func pickDate(_ date: Date) {
-        if self.date.isInSameDayAs(date) {
-            return
-        }
-        
-        self.date = date
-        updateTitle(with: date)
-        updateWeekView(with: date)
-        updatePagingView(with: date)
-        updateAddView()
-    }
-
-    func updateAddView() {
-        if date.isToday {
-            backView.showTodayButton()
-        }else{
-            if date.compare(.now) == .orderedAscending {
-                backView.showLeftBackButton()
-            } else {
-                backView.showRightBackButton()
-            }
-        }
-    }
-    
+                                          
     // MARK: - FocusTimelineEventProvider
     func fetchTimelineEvents(for date: Date, completion: @escaping([FocusTimelineEvent]?) -> Void) {
         focus.fetchSessions(for: date) { sessions in
@@ -193,7 +144,6 @@ class FocusTimelineDayViewController: TPViewController,
         }
         
         self.date = selectedDate
-        updateTitle(with: selectedDate)
         updatePagingView(with: selectedDate)
         updateAddView()
     }
@@ -205,8 +155,33 @@ class FocusTimelineDayViewController: TPViewController,
         }
             
         self.date = targetDate
-        updateTitle(with: targetDate)
         updateWeekView(with: targetDate)
         updateAddView()
     }
+    
+    // MARK: - Event Response
+    @objc func didClickBack(_ button: UIButton) {
+        self.date = .now
+        updateWeekView(with: date)
+        updatePagingView(with: date)
+        updateAddView()
+    }
+    
+    @objc func didClickAdd(_ button: UIButton){
+        
+    }
+
+    // MARK: - UI Update
+    func updateAddView() {
+        if date.isToday {
+            addView.showAddButton()
+        }else{
+            if date.compare(.now) == .orderedAscending {
+                addView.showLeftBackButton()
+            } else {
+                addView.showRightBackButton()
+            }
+        }
+    }
 }
+

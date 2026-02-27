@@ -80,9 +80,6 @@ extension NSManagedObjectContext {
 
     @objc func mergeChanges(fromIClound notification: Notification) {
         perform {
-//            debugPrint("Merging changes From iCloud",
-//                       self == Self.defaultContext ? "*** DEFAULT *** " : "",
-//                       (Thread.isMainThread ? " *** on Main Thread ***" : ""))
             self.mergeChanges(fromContextDidSave: notification)
             NotificationCenter.default.post(name: kHandyRecordDidMergeChangesFromICloudNotification,
                                             object: self,

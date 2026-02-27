@@ -11,3 +11,6 @@
 "Times(count)" = "Times";
 "time(count)" = "time";
 "times(count)" = "times";
+
+"By Day" = "Day";
+"By Week" = "Week";

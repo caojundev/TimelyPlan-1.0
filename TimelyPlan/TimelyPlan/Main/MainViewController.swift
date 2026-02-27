@@ -52,6 +52,13 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         return UINavigationController(rootViewController: vc)
     }()
     
+    /// 习惯
+    lazy var habitViewController: UINavigationController = {
+        let vc = HabitMainViewController()
+        vc.sidebarController = sidebarController
+        return UINavigationController(rootViewController: vc)
+    }()
+    
     /// 当前选中菜单
     var selectedMenuType: SideMenuType {
         get {
@@ -102,6 +109,8 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
             vc = calendarViewController
         case .focus:
             vc = focusViewController
+        case .habit:
+            vc = habitViewController
         default:
             vc = UIViewController()
         }

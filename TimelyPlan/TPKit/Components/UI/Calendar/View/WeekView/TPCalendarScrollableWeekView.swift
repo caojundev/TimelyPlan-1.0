@@ -15,6 +15,9 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
     /// 月份视图代理对象
     weak var delegate: TPCalendarSingleWeekViewDelegate?
     
+    /// 符号样式
+    var symbolStyle: WeekdaySymbolStyle = .short
+    
     /// 日历视图切换到新月份回调
     var didChangeVisibleDateComponents: ((_ currentDateComponents: DateComponents,
                                           _ previousDateComponents: DateComponents) -> Void)?
@@ -93,9 +96,8 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
         
         let dateComponents = adapter.item(at: indexPath) as! DateComponents
         cell.symbolsView.firstWeekday = firstWeekday
-        cell.symbolsView.style = .short
+        cell.symbolsView.style = symbolStyle
         cell.symbolsView.reloadData()
-        
         cell.weekView.delegate = delegate
         cell.weekView.firstWeekday = firstWeekday
         cell.weekView.visibleDateComponents = dateComponents

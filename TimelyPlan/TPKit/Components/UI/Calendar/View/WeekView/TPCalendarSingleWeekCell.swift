@@ -11,7 +11,7 @@ import UIKit
 class TPCalendarSingleWeekCell: TPCollectionCell {
     
     /// 周符号视图
-    var symbolsViewHeight = 30.0
+    var symbolsViewHeight = 20.0
     
     private(set) lazy var symbolsView: TPWeekdaySymbolView = {
         return TPWeekdaySymbolView(frame: .zero)
@@ -23,6 +23,7 @@ class TPCalendarSingleWeekCell: TPCollectionCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.padding = UIEdgeInsets(top: 5.0)
         addSubview(symbolsView)
         contentView.addSubview(weekView)
     }
@@ -33,11 +34,13 @@ class TPCalendarSingleWeekCell: TPCollectionCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        symbolsView.width = bounds.width
+        let layoutFrame = layoutFrame()
+        symbolsView.width = layoutFrame.width
         symbolsView.height = symbolsViewHeight
+        symbolsView.top = layoutFrame.minY
         
-        weekView.width = bounds.width
-        weekView.height = bounds.height - symbolsViewHeight
-        weekView.top = symbolsViewHeight
+        weekView.width = layoutFrame.width
+        weekView.height = layoutFrame.height - symbolsViewHeight
+        weekView.top = symbolsView.bottom
     }
 }
