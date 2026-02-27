@@ -1,6 +1,6 @@
 //
 //  NameIconEditTableViewCell.swift
-//  iTimeFlow
+//  TimelyPlan
 //
 //  Created by caojun on 2023/8/26.
 //
@@ -73,7 +73,7 @@ class HabitIconNameTableCell: TPTextFieldTableCell {
     
     /// 编辑图标
     public func editIcon() {
-        let vc = IconCharacterEditViewController()
+        let vc = TPIconCharacterEditViewController()
         vc.text = iconView.icon?.text
         vc.didEndEditing = { text in
             self.didSelectIcon(TPIcon(text: text))

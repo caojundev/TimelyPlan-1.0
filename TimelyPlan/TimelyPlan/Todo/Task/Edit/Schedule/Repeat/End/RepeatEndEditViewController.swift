@@ -223,7 +223,7 @@ class RepeatEndEditViewController: TPTableSectionsViewController,
     /// 更新计划描述信息
     func updateRepeatEndDescription() {
         infoCellItem.updater?()
-        if let cell = adapter.cellForItem(infoCellItem) as? TFDescriptionTableCell {
+        if let cell = adapter.cellForItem(infoCellItem) as? TPDescriptionTableCell {
             cell.updateDescription()
         }
         

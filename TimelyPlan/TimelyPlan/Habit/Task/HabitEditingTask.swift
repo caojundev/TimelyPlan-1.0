@@ -1,6 +1,6 @@
 //
 //  HabitEditTask.swift
-//  iTimeFlow
+//  TimelyPlan
 //
 //  Created by caojun on 2023/9/17.
 //
@@ -23,6 +23,9 @@ struct HabitEditingTask: Equatable {
     /// 时间范围
     var dateRange: DateRange = DateRange()
     
+    /// 频率
+    var timePlan: HabitTimePlan = HabitTimePlan()
+    
     /// 是否提醒
     var shouldRemind: Bool = false
     
@@ -35,7 +38,7 @@ struct HabitEditingTask: Equatable {
         }
         
         set {
-            self.emoji = icon.text
+            self.emoji = newValue.text
         }
     }
     

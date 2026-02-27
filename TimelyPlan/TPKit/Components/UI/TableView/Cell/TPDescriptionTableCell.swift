@@ -1,5 +1,5 @@
 //
-//  TFDescriptionTableCell.swift
+//  TPDescriptionTableCell.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/9/5.
@@ -82,7 +82,7 @@ class TPDescriptionTableCellItem: TPBaseTableCellItem {
     
     override init() {
         super.init()
-        self.registerClass = TFDescriptionTableCell.self
+        self.registerClass = TPDescriptionTableCell.self
         self.autoResizable = true
         self.contentPadding = UIEdgeInsets(horizontal: 16.0, vertical: 10.0)
         self.setLayout(TPDescriptionTableCellLayout())
@@ -102,7 +102,7 @@ class TPDescriptionTableCellItem: TPBaseTableCellItem {
     }
 }
 
-class TFDescriptionTableCell: TPBaseTableCell {
+class TPDescriptionTableCell: TPBaseTableCell {
     
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()

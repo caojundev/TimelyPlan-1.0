@@ -27,6 +27,27 @@
 "Fill in the habit name" = "输入习惯名称";
 "Edit Emoji" = "编辑Emoji";
 
+/// 时间计划
+"Randomly" = "随机";
+"After %ld day of completion" = "完成%ld天后";
+"After %ld days of completion" = "完成%ld天后";
+"the task will not appear this week" = "任务本周将不会出现";
+"the task will not appear this month" = "任务本月将不会出现";
+"%ld Day/Week" = "%ld天/周";
+"%ld Days/Week" = "%ld天/周";
+"%ld Day/Month" = "%ld天/月";
+"%ld Days/Month" = "%ld天/月";
+"%@ this week" = "本周%@";
+"%@ this month" = "本月%@";
+
+
+
+
+
+
+
+
+
 
 ///**********************四象限*********************///
 "Urgent & Important" = "重要且紧急";

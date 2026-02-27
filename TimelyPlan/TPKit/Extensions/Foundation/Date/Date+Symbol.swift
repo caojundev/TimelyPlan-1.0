@@ -20,6 +20,23 @@ extension Date {
         let symbol = String(format: resGetString(format), day)
         return symbol
     }
+    
+    /// 月份中第几天字符串格式
+    static func ordinalSymbol(dayOfTheMonth: Int) -> String {
+        var format: String
+        switch dayOfTheMonth {
+        case 1, 21, 31:
+            format = "%ldst"
+        case 2, 22:
+            format = "%ldnd"
+        case 3, 23:
+            format = "%ldrd"
+        default:
+            format = "%ldth"
+        }
+        
+        return format
+    }
 }
 
 /// 预设日期

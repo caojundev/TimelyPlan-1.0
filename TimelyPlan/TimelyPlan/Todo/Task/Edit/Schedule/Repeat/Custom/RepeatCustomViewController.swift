@@ -288,7 +288,7 @@ class RepeatCustomViewController: TPTableSectionsViewController {
     
     func ruleEditingChanged() {
         self.updateInfoCellItem()
-        if let cell = adapter.cellForItem(infoCellItem) as? TFDescriptionTableCell {
+        if let cell = adapter.cellForItem(infoCellItem) as? TPDescriptionTableCell {
             cell.updateDescription()
         }
         

@@ -1,6 +1,6 @@
 //
 //  HabitTaskEditViewController.swift
-//  iTimeFlow
+//  TimelyPlan
 //
 //  Created by caojun on 2023/8/29.
 //
@@ -75,9 +75,44 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
+    let sectionHeaderPadding = UIEdgeInsets(top: 15.0, left: 0.0, bottom: 0.0, right: 16.0)
+    // MARK: - 日期和频率
+    /// 日期范围
+    lazy var dateFrequencySectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.title = resGetString("Date And Frequency")
+        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.padding = sectionHeaderPadding
+        sectionController.cellItems = [frequencyCellItem]
+        return sectionController
+    }()
+    
+    /// 频率
+    lazy var frequencyCellItem: TPDefaultInfoTableCellItem = {  [weak self] in
+        let cellItem = TPDefaultInfoTableCellItem(autoResizable: true)
+        cellItem.minimumHeight = 55.0
+        cellItem.titleConfig.font = .boldSystemFont(ofSize: 16.0)
+        cellItem.subtitleConfig.numberOfLines = 0
+        cellItem.accessoryType = .disclosureIndicator
+        cellItem.title = resGetString("Frequency")
+        cellItem.updater = {
+            guard let self = self else { return }
+            let timePlan = self.editingTask.timePlan
+            self.frequencyCellItem.title = timePlan.title
+            self.frequencyCellItem.subtitle = timePlan.subtitle
+        }
+    
+        cellItem.didSelectHandler = {
+            self?.editFrequency()
+        }
+        
+        return cellItem
+    }()
+    
     /// 备注
     lazy var noteSectionController: TPNoteTableSectionController = { [weak self] in
         let sectionController = TPNoteTableSectionController()
+        sectionController.headerItem.padding = sectionHeaderPadding
         sectionController.noteCellItem.updater = {
             self?.noteSectionController.note = self?.editingTask.note
         }
@@ -114,6 +149,7 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         tableView.keyboardDismissMode = .onDrag
         let sectionControllers = [iconNameSectionController,
                                   colorSectionController,
+                                  dateFrequencySectionController,
                                   noteSectionController]
         self.sectionControllers = sectionControllers
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
@@ -212,84 +248,44 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
     func didEndEditingName(_ name: String?) {
         
     }
-
-    
-    
-    /*
-
-    // MARK: - 日期和频率
-    /// 日期范围
-    lazy var dateFrequencySectionItem: TableSectionItem = {
-        let sectionItem = TableSectionItem()
-        sectionItem.headerItem.title = resGetString("Date And Frequency")
-        sectionItem.cellItems = [dateRangeCellItem,
-                                 frequencyCellItem]
-        return sectionItem
-    }()
-    
-    /// 日期范围
-    lazy var dateRangeCellItem: DateRangeEditCellItem = { [weak self] in
-        let cellItem = DateRangeEditCellItem()
-        cellItem.updater = {
-            guard let self = self else {
-                return
-            }
-            
-            self.dateRangeCellItem.dateRange = self.dateRange
-        }
-        
-        cellItem.didEndEditing = { dateRange in
-            self?.didEndEditingDateRange(dateRange)
-        }
-        
-        return cellItem
-    }()
-
-    func didEndEditingDateRange(_ dateRange: DateRange) {
-        self.dateRange = dateRange
-    }
-    
-    /// 频率
-    lazy var frequencyCellItem: SubtitleTableCellItem = {  [weak self] in
-        let cellItem = SubtitleTableCellItem()
-        cellItem.minimumHeight = 60.0
-        cellItem.accessoryType = .disclosureIndicator
-        cellItem.title = resGetString("Frequency")
-        cellItem.updater = {
-            self?.updateFrequencyCellItem()
-        }
-    
-        cellItem.didSelectHandler = {
-            self?.editFrequency()
-        }
-        
-        return cellItem
-    }()
-    
-    func updateFrequencyCellItem() {
-        self.frequencyCellItem.title = timePlan.title
-        self.frequencyCellItem.subtitle = timePlan.subtitle
-    }
     
     func editFrequency() {
-        let vc = TimePlanEditViewController(timePlan: timePlan)
+        let vc = HabitTimePlanEditViewController(timePlan: editingTask.timePlan)
         vc.didEndEditing = { timePlan in
-            self.timePlan = timePlan
-            self.adapter.reloadCell(forItem: self.frequencyCellItem,
-                                    with: .none)
+            self.editingTask.timePlan = timePlan
+            self.adapter.reloadCell(forItem: self.frequencyCellItem, with: .none)
         }
         
         let navController = UINavigationController(rootViewController: vc)
-        navController.showWithAlertStyle()
+        navController.show()
     }
-
-    */
 }
 
 /*
 class HabitTaskEditViewController: BaseTaskEditViewController {
 
-
+ /// 日期范围
+//    lazy var dateRangeCellItem: DateRangeEditCellItem = { [weak self] in
+//        let cellItem = DateRangeEditCellItem()
+//        cellItem.updater = {
+//            guard let self = self else {
+//                return
+//            }
+//
+//            self.dateRangeCellItem.dateRange = self.dateRange
+//        }
+//
+//        cellItem.didEndEditing = { dateRange in
+//            self?.didEndEditingDateRange(dateRange)
+//        }
+//
+//        return cellItem
+//    }()
+//
+//    func didEndEditingDateRange(_ dateRange: DateRange) {
+//        self.dateRange = dateRange
+//    }
+//
     /// 目标
     lazy var goalSectionItem: HabitGoalSectionItem = {
         let sectionItem = HabitGoalSectionItem()
@@ -316,49 +312,5 @@ class HabitTaskEditViewController: BaseTaskEditViewController {
         
         return sectionItem
     }()
-    
-    init(task: HabitTask?) {
-        self.editingTask = task?.editingTask ?? HabitEditingTask()
-        super.init(style: .insetGrouped)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.nameIconCellItem.placeholder = resGetString("Fill in the habit name")
-        self.sectionItems = [nameIconSectionItem,
-                            colorSectionItem,
-                            groupSectionItem,
-                            goalSectionItem,
-                            dateFrequencySectionItem,
-                            reminderSectionItem,
-                            noteSectionItem]
-        self.adapter.reloadData()
-    }
-    
-    override func updateTitle() {
-        let title: String
-        if editType == .create {
-            title = resGetString("New Habit")
-        } else {
-            title = resGetString("Edit Habit")
-        }
-        
-        self.title = title
-    }
-    
-    override func didClickDone() {
-        super.didClickDone()
-        self.didEndEditing?(editingTask)
-    }
-    
-    // MARK: - 分组处理器
-    override func groupManager() -> (GroupProcessor & GroupProvider)! {
-        return habit.groupManager
-    }
-    
 }
-*/
+ */
