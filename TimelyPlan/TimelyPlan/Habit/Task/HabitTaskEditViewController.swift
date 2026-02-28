@@ -9,7 +9,12 @@ import Foundation
 import UIKit
 
 class HabitTaskEditViewController: TPTableSectionsViewController {
-
+    
+    private let sectionHeaderPadding = UIEdgeInsets(top: 15.0,
+                                                    left: 0.0,
+                                                    bottom: 0.0,
+                                                    right: 16.0)
+    
     /// 编辑任务
     var editingTask: HabitEditingTask
 
@@ -74,8 +79,20 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         
         return cellItem
     }()
+   
+    /// 目标
+    lazy var goalSectionController: HabitGoalSectionController = {
+        let sectionController = HabitGoalSectionController()
+        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.padding = sectionHeaderPadding
+        sectionController.goal = self.editingTask.goal
+        sectionController.goalDidChange = {[weak self] goal in
+            self?.editingTask.goal = goal
+        }
+        
+        return sectionController
+    }()
     
-    let sectionHeaderPadding = UIEdgeInsets(top: 15.0, left: 0.0, bottom: 0.0, right: 16.0)
     // MARK: - 日期和频率
     /// 日期范围
     lazy var dateFrequencySectionController: TPTableItemSectionController = {
@@ -149,6 +166,7 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         tableView.keyboardDismissMode = .onDrag
         let sectionControllers = [iconNameSectionController,
                                   colorSectionController,
+                                  goalSectionController,
                                   dateFrequencySectionController,
                                   noteSectionController]
         self.sectionControllers = sectionControllers
@@ -286,17 +304,7 @@ class HabitTaskEditViewController: BaseTaskEditViewController {
 //        self.dateRange = dateRange
 //    }
 //
-    /// 目标
-    lazy var goalSectionItem: HabitGoalSectionItem = {
-        let sectionItem = HabitGoalSectionItem()
-        sectionItem.goal = self.goal
-        sectionItem.goalDidChange = {[weak self] goal in
-            self?.goal = goal
-        }
-        
-        return sectionItem
-    }()
-    
+
     /// 提醒
     lazy var reminderSectionItem: HabitReminderSectionItem = {
         let sectionItem = HabitReminderSectionItem()

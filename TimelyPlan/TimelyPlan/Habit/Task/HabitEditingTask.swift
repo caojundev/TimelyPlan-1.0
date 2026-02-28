@@ -23,6 +23,9 @@ struct HabitEditingTask: Equatable {
     /// 时间范围
     var dateRange: DateRange = DateRange()
     
+    /// 目标
+    var goal: HabitGoal = HabitGoal()
+    
     /// 频率
     var timePlan: HabitTimePlan = HabitTimePlan()
     
