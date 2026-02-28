@@ -69,7 +69,7 @@ class FocusPresenter {
     
     /// 显示设置视图控制器
     static func showSettings() {
-        let vc = FocusSettingsViewController(style: .insetGrouped)
+        let vc = FocusSettingViewController(style: .insetGrouped)
         let navController = UINavigationController(rootViewController: vc)
 //        navController.modalPresentationStyle = .formSheet
         navController.show()

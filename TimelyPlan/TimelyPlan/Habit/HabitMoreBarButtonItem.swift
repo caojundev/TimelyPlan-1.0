@@ -21,7 +21,7 @@ enum HabitMoreMenuType: Int, TPMenuRepresentable {
     var iconName: String? {
         switch self {
         case .manageHabits:
-            return "focus_record_24"
+            return "habit_manage_24"
         case .settings:
             return "gear_24"
         }

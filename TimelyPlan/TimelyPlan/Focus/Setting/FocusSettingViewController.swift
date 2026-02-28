@@ -1,5 +1,5 @@
 //
-//  FocusSettingsViewController.swift
+//  FocusSettingViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/10/22.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FocusSettingsViewController: TPTableSectionsViewController {
+class FocusSettingViewController: TPTableSectionsViewController {
      
     private let defaultCellHeight = 60.0
      
@@ -331,30 +331,16 @@ class FocusSettingsViewController: TPTableSectionsViewController {
         }
         
         let firstWeekday = FocusSetting.shared.firstWeekday
-        let menuVC = TPMenuListViewController()
-        let weekdays: [Weekday] = [.sunday, .monday]
-        let menuItem = TPMenuItem.item(with: weekdays, updater: { weekday, menuAction in
-            menuAction.handleBeforeDismiss = true
-            menuAction.isChecked = firstWeekday == weekday
-        })
-        
-        menuVC.menuItems = [menuItem]
-        menuVC.didSelectMenuAction = { menuAction in
-            guard let weekday: Weekday = menuAction.actionType(), weekdays.contains(weekday) else {
-                return
-            }
-            
+        WeekdayPickerController.show(currentWeekday: firstWeekday,
+                                     allowWeekdays: [.sunday, .monday],
+                                     from: cell.contentView,
+                                     popoverPosition: .bottomLeft,
+                                     permittedPositions: [.bottomLeft, .topLeft],
+                                     isSourceViewCovered: false,
+                                     animated: true) { weekday in
             FocusSetting.shared.firstWeekday = weekday
             self.adapter.reloadCell(forItem: self.firstWeekdayCellItem, with: .none)
         }
-        
-        menuVC.popoverShow(from: cell.contentView,
-                           sourceRect: cell.contentView.bounds,
-                           isSourceViewCovered: false,
-                           preferredPosition: .bottomLeft,
-                           permittedPositions: [.bottomLeft, .topLeft],
-                           animated: true,
-                           completion: nil)
     }
  }
                                                                             

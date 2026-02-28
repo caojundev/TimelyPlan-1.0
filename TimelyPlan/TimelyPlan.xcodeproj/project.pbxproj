@@ -40,6 +40,12 @@
 		E506A71E2DAEA895009DC15A /* TimeOffsetPickerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E506A71D2DAEA895009DC15A /* TimeOffsetPickerViewCell.swift */; };
 		E507E7922F528121003004C4 /* HabitMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7912F528121003004C4 /* HabitMoreBarButtonItem.swift */; };
 		E507E7942F528ED8003004C4 /* TPBaseMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7932F528ED8003004C4 /* TPBaseMoreBarButtonItem.swift */; };
+		E507E7972F529303003004C4 /* HabitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7962F529303003004C4 /* HabitPresenter.swift */; };
+		E507E7992F529369003004C4 /* HabitSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7982F529369003004C4 /* HabitSettingViewController.swift */; };
+		E507E79B2F52C847003004C4 /* HabitSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E79A2F52C847003004C4 /* HabitSetting.swift */; };
+		E507E79D2F52CCF8003004C4 /* WeekdayPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E79C2F52CCF8003004C4 /* WeekdayPickerViewController.swift */; };
+		E507E7A02F52CFB0003004C4 /* habit_manage_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E507E79E2F52CFAF003004C4 /* habit_manage_24@2x.png */; };
+		E507E7A12F52CFB0003004C4 /* habit_manage_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E507E79F2F52CFAF003004C4 /* habit_manage_24@3x.png */; };
 		E50BB6762D57043000D316FD /* TPSeparatorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB6752D57043000D316FD /* TPSeparatorTableCell.swift */; };
 		E50BB6782D5706FE00D316FD /* TPSeparatorSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB6772D5706FE00D316FD /* TPSeparatorSectionController.swift */; };
 		E50BB67C2D5751B600D316FD /* TPImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */; };
@@ -1180,7 +1186,7 @@
 		E5D7D8E32D43933600EC877A /* FocusConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8302D43933300EC877A /* FocusConstants.swift */; };
 		E5D7D8E42D43933600EC877A /* UIColor+Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8322D43933300EC877A /* UIColor+Focus.swift */; };
 		E5D7D8E52D43933600EC877A /* FocusSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8342D43933300EC877A /* FocusSetting.swift */; };
-		E5D7D8E62D43933600EC877A /* FocusSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8352D43933300EC877A /* FocusSettingsViewController.swift */; };
+		E5D7D8E62D43933600EC877A /* FocusSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8352D43933300EC877A /* FocusSettingViewController.swift */; };
 		E5D7D8EC2D43933600EC877A /* FocusRecordEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D83D2D43933400EC877A /* FocusRecordEditViewController.swift */; };
 		E5D7D8ED2D43933600EC877A /* FocusRecordEditScoreSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D83E2D43933400EC877A /* FocusRecordEditScoreSectionController.swift */; };
 		E5D7D8EE2D43933600EC877A /* FocusRecordTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D83F2D43933400EC877A /* FocusRecordTimelineCell.swift */; };
@@ -1408,6 +1414,12 @@
 		E506A71D2DAEA895009DC15A /* TimeOffsetPickerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOffsetPickerViewCell.swift; sourceTree = "<group>"; };
 		E507E7912F528121003004C4 /* HabitMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMoreBarButtonItem.swift; sourceTree = "<group>"; };
 		E507E7932F528ED8003004C4 /* TPBaseMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPBaseMoreBarButtonItem.swift; sourceTree = "<group>"; };
+		E507E7962F529303003004C4 /* HabitPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPresenter.swift; sourceTree = "<group>"; };
+		E507E7982F529369003004C4 /* HabitSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSettingViewController.swift; sourceTree = "<group>"; };
+		E507E79A2F52C847003004C4 /* HabitSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSetting.swift; sourceTree = "<group>"; };
+		E507E79C2F52CCF8003004C4 /* WeekdayPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayPickerViewController.swift; sourceTree = "<group>"; };
+		E507E79E2F52CFAF003004C4 /* habit_manage_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_manage_24@2x.png"; sourceTree = "<group>"; };
+		E507E79F2F52CFAF003004C4 /* habit_manage_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_manage_24@3x.png"; sourceTree = "<group>"; };
 		E50BB6752D57043000D316FD /* TPSeparatorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSeparatorTableCell.swift; sourceTree = "<group>"; };
 		E50BB6772D5706FE00D316FD /* TPSeparatorSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSeparatorSectionController.swift; sourceTree = "<group>"; };
 		E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoView.swift; sourceTree = "<group>"; };
@@ -2568,7 +2580,7 @@
 		E5D7D8302D43933300EC877A /* FocusConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusConstants.swift; sourceTree = "<group>"; };
 		E5D7D8322D43933300EC877A /* UIColor+Focus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Focus.swift"; sourceTree = "<group>"; };
 		E5D7D8342D43933300EC877A /* FocusSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSetting.swift; sourceTree = "<group>"; };
-		E5D7D8352D43933300EC877A /* FocusSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSettingsViewController.swift; sourceTree = "<group>"; };
+		E5D7D8352D43933300EC877A /* FocusSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSettingViewController.swift; sourceTree = "<group>"; };
 		E5D7D83D2D43933400EC877A /* FocusRecordEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusRecordEditViewController.swift; sourceTree = "<group>"; };
 		E5D7D83E2D43933400EC877A /* FocusRecordEditScoreSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusRecordEditScoreSectionController.swift; sourceTree = "<group>"; };
 		E5D7D83F2D43933400EC877A /* FocusRecordTimelineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusRecordTimelineCell.swift; sourceTree = "<group>"; };
@@ -3882,6 +3894,7 @@
 			isa = PBXGroup;
 			children = (
 				E59244022F51578F00CA2393 /* HabitConstants.swift */,
+				E507E7962F529303003004C4 /* HabitPresenter.swift */,
 				E59243C72F4FFD6900CA2393 /* HabitMainViewController.swift */,
 				E507E7912F528121003004C4 /* HabitMoreBarButtonItem.swift */,
 				E59244042F51584500CA2393 /* Extensions */,
@@ -3906,6 +3919,8 @@
 		E59243D02F505A4F00CA2393 /* habit */ = {
 			isa = PBXGroup;
 			children = (
+				E507E79E2F52CFAF003004C4 /* habit_manage_24@2x.png */,
+				E507E79F2F52CFAF003004C4 /* habit_manage_24@3x.png */,
 			);
 			path = habit;
 			sourceTree = "<group>";
@@ -3927,6 +3942,9 @@
 		E59243FA2F514C9800CA2393 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				E507E79A2F52C847003004C4 /* HabitSetting.swift */,
+				E507E7982F529369003004C4 /* HabitSettingViewController.swift */,
+				E507E79C2F52CCF8003004C4 /* WeekdayPickerViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -6618,7 +6636,7 @@
 				E58C9E042F4AF0DB0096B842 /* Timeline */,
 				E5D7D82D2D43933200EC877A /* Archived */,
 				E5D7D8362D43933400EC877A /* Record */,
-				E5D7D8332D43933300EC877A /* Settings */,
+				E5D7D8332D43933300EC877A /* Setting */,
 				E5D7D8632D43933500EC877A /* Statistic */,
 				E5D7D7F52D43933100EC877A /* Tracking */,
 			);
@@ -6880,12 +6898,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		E5D7D8332D43933300EC877A /* Settings */ = {
+		E5D7D8332D43933300EC877A /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D8352D43933300EC877A /* FocusSettingsViewController.swift */,
+				E5D7D8352D43933300EC877A /* FocusSettingViewController.swift */,
 			);
-			path = Settings;
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		E5D7D8362D43933400EC877A /* Record */ = {
@@ -7583,6 +7601,7 @@
 				E5D833932DAB64D60012ABF3 /* todo_task_progress_currentValue_24@2x.png in Resources */,
 				E5BB9A9F2D3BEF0D0089667A /* todo_task_priority_fill_24@2x.png in Resources */,
 				E5BB9AAD2D3BEF0D0089667A /* todo_task_checkbox_minus_20@3x.png in Resources */,
+				E507E7A12F52CFB0003004C4 /* habit_manage_24@3x.png in Resources */,
 				E50D94DD2D4528E500F57957 /* ellipsis_circle_24@3x.png in Resources */,
 				E515AD7E2D3CF87F00AA9AF2 /* triangle_right_12@2x.png in Resources */,
 				E5B926D92D3FF04A0065FA79 /* arrow_up_24@3x.png in Resources */,
@@ -7894,6 +7913,7 @@
 				E5BB9A832D3BEF0D0089667A /* schedule_duration_24@3x.png in Resources */,
 				E5E4B8CF2DBF875200EED889 /* triangle_down_12@2x.png in Resources */,
 				E5D833952DAB64D60012ABF3 /* todo_task_progress_calculation_24@2x.png in Resources */,
+				E507E7A02F52CFB0003004C4 /* habit_manage_24@2x.png in Resources */,
 				E5BB9AA62D3BEF0D0089667A /* todo_task_tag_24@2x.png in Resources */,
 				E515AD6F2D3CC49800AA9AF2 /* fullscreen_enter_24@2x.png in Resources */,
 				E5B926CD2D3F97F30065FA79 /* plus_32@3x.png in Resources */,
@@ -8095,6 +8115,7 @@
 				E5BB9E822D3BF0C80089667A /* BaseChartView.swift in Sources */,
 				E5BB9DEE2D3BF0C60089667A /* DateComponents+Comparable.swift in Sources */,
 				E5FDFABA2D3E7C170042BC3A /* TodoTaskQuickAddController.swift in Sources */,
+				E507E79B2F52C847003004C4 /* HabitSetting.swift in Sources */,
 				E5BB9EE52D3BF0C80089667A /* TPIconView.swift in Sources */,
 				E5EDD7F82D6EF58900141B04 /* QuadrantView.swift in Sources */,
 				E54A82C92DAA6C6E00771016 /* TodoEditProgress.swift in Sources */,
@@ -8174,8 +8195,10 @@
 				E5BBA0E12D3BF4A50089667A /* TodoTaskQuickAddEditView.swift in Sources */,
 				E53E96B12D53B1B800EC4872 /* TPColorInfoTextValueTableCell.swift in Sources */,
 				E51501A92D47DA78008B2333 /* TPTableBaseSectionController.swift in Sources */,
+				E507E79D2F52CCF8003004C4 /* WeekdayPickerViewController.swift in Sources */,
 				E5F149932D73EAA0009D51D0 /* TodoFolderMenuActionController.swift in Sources */,
 				E5BB9E542D3BF0C70089667A /* TPPreviousNextDateView.swift in Sources */,
+				E507E7972F529303003004C4 /* HabitPresenter.swift in Sources */,
 				E5BBA0B72D3BF4A50089667A /* TodoTaskTypes.swift in Sources */,
 				E51501942D477962008B2333 /* TPTableViewAdapter.swift in Sources */,
 				E50BB67F2D5751FC00D316FD /* TPImageAccessoryConfig.swift in Sources */,
@@ -8675,6 +8698,7 @@
 				E5BBA09E2D3BF4A50089667A /* TodoMainViewController.swift in Sources */,
 				E570FC062D631C6B0017F930 /* TodoTaskPageTopView.swift in Sources */,
 				E5BB9EB82D3BF0C80089667A /* TPCountPickerTableCell.swift in Sources */,
+				E507E7992F529369003004C4 /* HabitSettingViewController.swift in Sources */,
 				E5BB9EB72D3BF0C80089667A /* TPDatePickerTableCell.swift in Sources */,
 				E5BB9E6D2D3BF0C70089667A /* TPCollectionBaseSectionController.swift in Sources */,
 				E5F9C8A62D6F17E10051A8F8 /* TodoTaskQuickAddManager.swift in Sources */,
@@ -8755,7 +8779,7 @@
 				E5BBA0B42D3BF4A50089667A /* TaskAlarm.swift in Sources */,
 				E5926DD82D4D0166007D5A6A /* TPCheckmarkTableCell.swift in Sources */,
 				E5BBA0792D3BF4A40089667A /* ReminderEditViewController.swift in Sources */,
-				E5D7D8E62D43933600EC877A /* FocusSettingsViewController.swift in Sources */,
+				E5D7D8E62D43933600EC877A /* FocusSettingViewController.swift in Sources */,
 				E5BB9E772D3BF0C70089667A /* StatsDotChartSectionController.swift in Sources */,
 				E5D7D9042D43933600EC877A /* WatchTickView.swift in Sources */,
 				E50DD7D32D72F00200A85E87 /* TodoListBaseCell.swift in Sources */,

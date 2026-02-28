@@ -44,7 +44,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
     private lazy var moreBarButtonItem: HabitMoreBarButtonItem = {
         let item = HabitMoreBarButtonItem()
         item.didSelectType = {[weak self] type in
-            self?.selectMoreMenuType(type)
+            self?.performMoreMenuAction(type)
         }
         
         return item
@@ -101,7 +101,13 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
         self.contentViewController = vc
     }
     
-    func selectMoreMenuType(_ menuType: HabitMoreMenuType) {
-        
+    /// 执行菜单操作
+    func performMoreMenuAction(_ type: HabitMoreMenuType) {
+        switch type {
+        case .manageHabits:
+            break
+        case .settings:
+            HabitPresenter.showSettings()
+        }
     }
 }

@@ -42,12 +42,8 @@
 "%@ this month" = "本月%@";
 
 
-
-
-
-
-
-
+"Habit Settings" = "习惯设置";
+"Add New Habits On Top" = "添加新习惯到顶部";
 
 
 ///**********************四象限*********************///
@@ -536,7 +532,7 @@
 "After the break is over, start to focus automatically" = "休息结束后自动开始专注";
 "Auto-Break" = "自动休息";
 "After the focus is over, start to rest automatically" = "专注结束后自动开始休息";
-"Add New Timers On Top" = "添加计时器到顶部";
+"Add New Timers On Top" = "添加新计时器到顶部";
 "Hide Next Button Of Floating Timer" = "隐藏浮动计时器下一步按钮";
 "Minimum Record Duration" = "最小记录时长";
 "Records with a focus duration of less than %@ will be discarded" = "专注时长小于%@的记录将被丢弃";
