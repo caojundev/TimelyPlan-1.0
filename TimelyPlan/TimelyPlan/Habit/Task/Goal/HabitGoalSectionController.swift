@@ -39,8 +39,8 @@ class HabitGoalSectionController: TPTableItemSectionController {
     }()
     
     /// 目标数值
-    lazy var targetAmountCellItem: HabitGoalTargetAmountCellItem = { [weak self] in
-        let cellItem = HabitGoalTargetAmountCellItem()
+    lazy var targetAmountCellItem: HabitGoalTargetEditCellItem = { [weak self] in
+        let cellItem = HabitGoalTargetEditCellItem()
         cellItem.title = resGetString("Daily Target")
         cellItem.updater = {
             guard let self = self else {

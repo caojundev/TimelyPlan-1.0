@@ -35,7 +35,7 @@ class HabitRecordTypeEditCell: TPDefaultInfoTableCell {
             let cellItem = cellItem as! HabitRecordTypeEditCellItem
             self.recordType = cellItem.recordType
             self.didSelectRecordType = cellItem.didSelectRecordType
-            self.updateButtonTitle(animated: false)
+            self.updateButtonTitle()
         }
     }
     
@@ -103,7 +103,7 @@ class HabitRecordTypeEditCell: TPDefaultInfoTableCell {
 
             self.recordType = recordType
             self.didSelectRecordType?(recordType)
-            self.updateButtonTitle(animated: true)
+            self.updateButtonTitle()
         }
         
         vc.popoverShow(from: button,
@@ -115,13 +115,9 @@ class HabitRecordTypeEditCell: TPDefaultInfoTableCell {
                        completion: nil)
     }
     
-    private func updateButtonTitle(animated: Bool) {
+    private func updateButtonTitle() {
         button.title = recordType.title
-        if animated {
-            animateLayout(withDuration: 0.2)
-        } else {
-            setNeedsLayout()
-        }
+        setNeedsLayout()
     }
     
 }

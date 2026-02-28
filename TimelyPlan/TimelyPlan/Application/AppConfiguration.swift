@@ -8,8 +8,8 @@
 import Foundation
 
 /// 弹窗尺寸
-let kPopoverPreferredContentWidth = 420.0
-let kPopoverPreferredContentSize = CGSize(width: kPopoverPreferredContentWidth, height: 360.0)
+let kPopoverPreferredContentWidth = 240.0
+let kPopoverPreferredContentSize = CGSize(width: kPopoverPreferredContentWidth, height: 320.0)
 
 /// 单元格中选项卡菜单圆角半径
 let kInsetGroupedSegmentedMenuCornerRadius = 14.0

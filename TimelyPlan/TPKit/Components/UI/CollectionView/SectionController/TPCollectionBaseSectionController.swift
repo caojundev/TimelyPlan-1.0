@@ -98,15 +98,15 @@ class TPCollectionBaseSectionController: NSObject, TPCollectionHeaderFooterViewD
     
     // MARK: - Other Providers
     func sectionInset() -> UIEdgeInsets {
-        return .zero
+        return adapter?.sectionInset ?? .zero
     }
     
     func interitemSpacing() -> CGFloat {
-        return 0.0
+        return adapter?.interitemSpacing ?? 0.0
     }
     
     func lineSpacing() -> CGFloat {
-        return 0.0
+        return adapter?.lineSpacing ?? 0.0
     }
     
     func shouldHighlightItem(at index: Int) -> Bool {

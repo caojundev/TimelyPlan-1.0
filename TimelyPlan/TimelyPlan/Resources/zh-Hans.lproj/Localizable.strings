@@ -27,6 +27,17 @@
 "Edit Habit" = "编辑习惯";
 "Fill in the habit name" = "输入习惯名称";
 "Edit Emoji" = "编辑Emoji";
+"Goal And Record" = "目标和记录";
+"Check-in" = "打卡";
+"Reach amount" = "定量";
+"Daily Target" = "每日目标";
+"Record Type" = "记录方式";
+"Complete All" = "完成所有";
+"Automatically" = "自动";
+"Record Value" = "记录值";
+"Add Alarm" = "添加提醒";
+"No Alarm" = "无提醒";
+
 
 /// 时间计划
 "Randomly" = "随机";
@@ -44,6 +55,7 @@
 
 "Habit Settings" = "习惯设置";
 "Add New Habits On Top" = "添加新习惯到顶部";
+"Auto show log" = "自动显示日志弹窗";
 
 
 ///**********************四象限*********************///

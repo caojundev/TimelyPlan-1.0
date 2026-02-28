@@ -28,8 +28,9 @@ class TPCollectionViewController: TPViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(wrapperView)
-        reloadData()
+        self.wrapperView.setCollectionViewLayout(collectionViewLayout)
+        self.view.addSubview(self.wrapperView)
+        self.reloadData()
     }
     
     override func viewWillLayoutSubviews() {

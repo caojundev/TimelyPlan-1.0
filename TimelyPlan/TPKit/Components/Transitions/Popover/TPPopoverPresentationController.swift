@@ -18,7 +18,7 @@ class TPPopoverPresentationController: UIPresentationController {
     var keyboardOffsetY: CGFloat = 10.0
 
     /// 默认内容尺寸
-    let defaultContentSize = CGSize(width: 460.0, height: 240.0)
+    let defaultContentSize = CGSize(width: 240.0, height: 320.0)
 
     /// 弹窗边界间距
     private var popoverLayoutMargins: UIEdgeInsets = .zero
@@ -294,7 +294,13 @@ class TPPopoverPresentationController: UIPresentationController {
     
     // MARK: - 布局相关
     var contentSize: CGSize {
-        var size = self.presentedViewController.preferredContentSize
+        var vc = self.presentedViewController
+        if let navController = vc as? UINavigationController,
+            let topVC = navController.topViewController {
+           vc = topVC
+        }
+        
+        var size = vc.preferredContentSize
         if size == .zero {
             size = defaultContentSize
         }

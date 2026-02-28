@@ -46,10 +46,15 @@
 		E507E79D2F52CCF8003004C4 /* WeekdayPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E79C2F52CCF8003004C4 /* WeekdayPickerViewController.swift */; };
 		E507E7A02F52CFB0003004C4 /* habit_manage_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E507E79E2F52CFAF003004C4 /* habit_manage_24@2x.png */; };
 		E507E7A12F52CFB0003004C4 /* habit_manage_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E507E79F2F52CFAF003004C4 /* habit_manage_24@3x.png */; };
-		E507E7A72F52D25C003004C4 /* HabitGoalTargetAmountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7A52F52D25B003004C4 /* HabitGoalTargetAmountCell.swift */; };
+		E507E7A72F52D25C003004C4 /* HabitGoalTargetEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7A52F52D25B003004C4 /* HabitGoalTargetEditCell.swift */; };
 		E507E7A82F52D25C003004C4 /* HabitGoalSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7A62F52D25C003004C4 /* HabitGoalSectionController.swift */; };
 		E507E7AA2F52D2D7003004C4 /* HabitGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7A92F52D2D7003004C4 /* HabitGoal.swift */; };
 		E507E7AC2F52DEFA003004C4 /* HabitRecordTypeEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7AB2F52DEFA003004C4 /* HabitRecordTypeEditCell.swift */; };
+		E507E7AF2F530CF0003004C4 /* HabitUnitButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7AE2F530CF0003004C4 /* HabitUnitButtonView.swift */; };
+		E507E7B52F531A28003004C4 /* HabitUnitManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7B32F531A28003004C4 /* HabitUnitManageViewController.swift */; };
+		E507E7B92F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E507E7B82F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m */; };
+		E507E7BB2F532DB2003004C4 /* HabitSystemUnitSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7BA2F532DB2003004C4 /* HabitSystemUnitSectionController.swift */; };
+		E507E7BD2F532E21003004C4 /* HabitUserUnitSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */; };
 		E50BB6762D57043000D316FD /* TPSeparatorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB6752D57043000D316FD /* TPSeparatorTableCell.swift */; };
 		E50BB6782D5706FE00D316FD /* TPSeparatorSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB6772D5706FE00D316FD /* TPSeparatorSectionController.swift */; };
 		E50BB67C2D5751B600D316FD /* TPImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */; };
@@ -1424,10 +1429,16 @@
 		E507E79C2F52CCF8003004C4 /* WeekdayPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdayPickerViewController.swift; sourceTree = "<group>"; };
 		E507E79E2F52CFAF003004C4 /* habit_manage_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_manage_24@2x.png"; sourceTree = "<group>"; };
 		E507E79F2F52CFAF003004C4 /* habit_manage_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_manage_24@3x.png"; sourceTree = "<group>"; };
-		E507E7A52F52D25B003004C4 /* HabitGoalTargetAmountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitGoalTargetAmountCell.swift; sourceTree = "<group>"; };
+		E507E7A52F52D25B003004C4 /* HabitGoalTargetEditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitGoalTargetEditCell.swift; sourceTree = "<group>"; };
 		E507E7A62F52D25C003004C4 /* HabitGoalSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitGoalSectionController.swift; sourceTree = "<group>"; };
 		E507E7A92F52D2D7003004C4 /* HabitGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitGoal.swift; sourceTree = "<group>"; };
 		E507E7AB2F52DEFA003004C4 /* HabitRecordTypeEditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitRecordTypeEditCell.swift; sourceTree = "<group>"; };
+		E507E7AE2F530CF0003004C4 /* HabitUnitButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitUnitButtonView.swift; sourceTree = "<group>"; };
+		E507E7B32F531A28003004C4 /* HabitUnitManageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitUnitManageViewController.swift; sourceTree = "<group>"; };
+		E507E7B72F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICollectionViewLeftAlignedLayout.h; sourceTree = "<group>"; };
+		E507E7B82F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewLeftAlignedLayout.m; sourceTree = "<group>"; };
+		E507E7BA2F532DB2003004C4 /* HabitSystemUnitSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSystemUnitSectionController.swift; sourceTree = "<group>"; };
+		E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitUserUnitSectionController.swift; sourceTree = "<group>"; };
 		E50BB6752D57043000D316FD /* TPSeparatorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSeparatorTableCell.swift; sourceTree = "<group>"; };
 		E50BB6772D5706FE00D316FD /* TPSeparatorSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSeparatorSectionController.swift; sourceTree = "<group>"; };
 		E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoView.swift; sourceTree = "<group>"; };
@@ -2919,10 +2930,31 @@
 			children = (
 				E507E7A92F52D2D7003004C4 /* HabitGoal.swift */,
 				E507E7A62F52D25C003004C4 /* HabitGoalSectionController.swift */,
+				E507E7A52F52D25B003004C4 /* HabitGoalTargetEditCell.swift */,
 				E507E7AB2F52DEFA003004C4 /* HabitRecordTypeEditCell.swift */,
-				E507E7A52F52D25B003004C4 /* HabitGoalTargetAmountCell.swift */,
+				E507E7AD2F530CDC003004C4 /* Unit */,
 			);
 			path = Goal;
+			sourceTree = "<group>";
+		};
+		E507E7AD2F530CDC003004C4 /* Unit */ = {
+			isa = PBXGroup;
+			children = (
+				E507E7AE2F530CF0003004C4 /* HabitUnitButtonView.swift */,
+				E507E7B32F531A28003004C4 /* HabitUnitManageViewController.swift */,
+				E507E7BA2F532DB2003004C4 /* HabitSystemUnitSectionController.swift */,
+				E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */,
+			);
+			path = Unit;
+			sourceTree = "<group>";
+		};
+		E507E7B62F5321B2003004C4 /* UICollectionViewLeftAlignedLayout */ = {
+			isa = PBXGroup;
+			children = (
+				E507E7B72F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.h */,
+				E507E7B82F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m */,
+			);
+			path = UICollectionViewLeftAlignedLayout;
 			sourceTree = "<group>";
 		};
 		E50BB6792D57178F00D316FD /* Layout */ = {
@@ -4446,6 +4478,7 @@
 		E5BB9AF32D3BEF920089667A /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				E507E7B62F5321B2003004C4 /* UICollectionViewLeftAlignedLayout */,
 				E5BB9AFB2D3BEF920089667A /* IGListDiff */,
 				E5BB9AF42D3BEF920089667A /* SAConfettiView */,
 				E5BB9B0D2D3BEF920089667A /* Chameleon */,
@@ -8047,6 +8080,7 @@
 				E5BB9F122D3BF0C90089667A /* TPKeyboardAwareController.swift in Sources */,
 				E50C0F7E2D846A3200AFF908 /* TodoListSelectPopoverView.swift in Sources */,
 				E5D7D9172D43933700EC877A /* FocusStatsContentViewController.swift in Sources */,
+				E507E7BD2F532E21003004C4 /* HabitUserUnitSectionController.swift in Sources */,
 				E5BBA05E2D3BF4A40089667A /* RepeatEndView.swift in Sources */,
 				E5BBA0992D3BF4A50089667A /* TodoTaskMenuController.swift in Sources */,
 				E5BBA08D2D3BF4A50089667A /* TodoStepEditController.swift in Sources */,
@@ -8119,6 +8153,7 @@
 				E5BB9B492D3BEF920089667A /* UITextFieldExtension.swift in Sources */,
 				E5D7D7E42D43923800EC877A /* FocusTimerConfig.swift in Sources */,
 				E5BB9F002D3BF0C80089667A /* UIViewController+PopoverPresent.swift in Sources */,
+				E507E7B52F531A28003004C4 /* HabitUnitManageViewController.swift in Sources */,
 				E5BBA0882D3BF4A50089667A /* TodoTaskEditFooterView.swift in Sources */,
 				E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */,
 				E54155612F49A415000B2972 /* FocusRecordListSectionController.swift in Sources */,
@@ -8211,6 +8246,7 @@
 				E5D7D7E22D43923800EC877A /* FocusEditingTimer.swift in Sources */,
 				E5BB9E522D3BF0C70089667A /* TPWeekdaySymbolView.swift in Sources */,
 				E500DE602DB0FA6700EAEAF7 /* TodoFilterTaskChangeViewController.swift in Sources */,
+				E507E7B92F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m in Sources */,
 				E5BB9F472D3BF45F0089667A /* SideMenuViewController.swift in Sources */,
 				E5B98CDA2D55009800E78261 /* TPIconInfoTextValueView.swift in Sources */,
 				E51A4C2D2DC26787005A0E3F /* CalendarWeekViewController.swift in Sources */,
@@ -8443,6 +8479,7 @@
 				E59244012F51573800CA2393 /* HabitPhase.swift in Sources */,
 				E5BB9E962D3BF0C80089667A /* PieLineDrawer.swift in Sources */,
 				E5BB9E932D3BF0C80089667A /* PieLabelsView.swift in Sources */,
+				E507E7AF2F530CF0003004C4 /* HabitUnitButtonView.swift in Sources */,
 				E53FD6D32D87133A00760341 /* TodoFilterMenuActionController.swift in Sources */,
 				E5BB9DFB2D3BF0C60089667A /* CaseIterable+Extensions.swift in Sources */,
 				E5BB9F112D3BF0C90089667A /* TPKeyboardAdjuster.swift in Sources */,
@@ -8532,7 +8569,7 @@
 				E5BBA0A32D3BF4A50089667A /* Todo+Step.swift in Sources */,
 				E5BB9EC22D3BF0C80089667A /* TPDurationPickerView.swift in Sources */,
 				E5BB9E162D3BF0C70089667A /* HandyRecord+iCloud.swift in Sources */,
-				E507E7A72F52D25C003004C4 /* HabitGoalTargetAmountCell.swift in Sources */,
+				E507E7A72F52D25C003004C4 /* HabitGoalTargetEditCell.swift in Sources */,
 				E5BBA0552D3BF4A40089667A /* TodoGroupSelectingHeaderView.swift in Sources */,
 				E5BB9E992D3BF0C80089667A /* ChartAxis.swift in Sources */,
 				E5D7D7DF2D43923800EC877A /* FocusTimerManager.swift in Sources */,
@@ -8728,6 +8765,7 @@
 				E5BBA09E2D3BF4A50089667A /* TodoMainViewController.swift in Sources */,
 				E570FC062D631C6B0017F930 /* TodoTaskPageTopView.swift in Sources */,
 				E5BB9EB82D3BF0C80089667A /* TPCountPickerTableCell.swift in Sources */,
+				E507E7BB2F532DB2003004C4 /* HabitSystemUnitSectionController.swift in Sources */,
 				E507E7992F529369003004C4 /* HabitSettingViewController.swift in Sources */,
 				E5BB9EB72D3BF0C80089667A /* TPDatePickerTableCell.swift in Sources */,
 				E5BB9E6D2D3BF0C70089667A /* TPCollectionBaseSectionController.swift in Sources */,
