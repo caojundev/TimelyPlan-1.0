@@ -41,8 +41,12 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
     }()
     
     /// 更多菜单按钮
-    private lazy var moreBarButtonItem: QuadrantMoreBarButtonItem = {
-        let item = QuadrantMoreBarButtonItem()
+    private lazy var moreBarButtonItem: HabitMoreBarButtonItem = {
+        let item = HabitMoreBarButtonItem()
+        item.didSelectType = {[weak self] type in
+            self?.selectMoreMenuType(type)
+        }
+        
         return item
     }()
     
@@ -97,4 +101,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
         self.contentViewController = vc
     }
     
+    func selectMoreMenuType(_ menuType: HabitMoreMenuType) {
+        
+    }
 }

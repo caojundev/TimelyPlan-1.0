@@ -36,67 +36,37 @@ enum FocusMoreMenuType: Int, TPMenuRepresentable {
     }
 }
 
-class FocusMoreBarButtonItem: UIBarButtonItem {
+class FocusMoreBarButtonItem: TPBaseMoreBarButtonItem<FocusMoreMenuType> {
     
-    /// 选中菜单类型
-    var didSelectType: ((FocusMoreMenuType) -> Void)?
-    
-    override init() {
-        super.init()
-        
-        let button = FocusMoreButton()
-        button.didSelectMenuAction = {[weak self] action in
-            guard let type: FocusMoreMenuType = action.actionType() else {
-                return
-            }
-            
-            self?.didSelectType?(type)
-        }
-        
-        self.customView = button
+    override func configButton(_ button: TPMenuListButton) {
+        button.image = resGetImage("ellipsis_circle_24")
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-private class FocusMoreButton: TPMenuListButton {
-    
-    override var menuItems: [TPMenuItem]? {
-        get {
-            let typeLists: [Array<FocusMoreMenuType>] = [
-                [.allRecords,
-                 .addRecord],
-                [.archived,
-                 .settings]
-            ]
-            
-            let items = TPMenuItem.items(with: typeLists) { type, action in
-                if type == .archived {
-                    /// 归档计时器数目
-                    let archivedTimersCount = Focus.numberOfArchivedTimers()
-                    if archivedTimersCount > 0 {
-                        action.valueText = "\(archivedTimersCount)"
-                    }
+    override func menuItems() -> [TPMenuItem] {
+        let typeLists: [Array<FocusMoreMenuType>] = [
+            [.allRecords,
+             .addRecord],
+            [.archived,
+             .settings]
+        ]
+        
+        let items = TPMenuItem.items(with: typeLists) { type, action in
+            if type == .archived {
+                /// 归档计时器数目
+                let archivedTimersCount = Focus.numberOfArchivedTimers()
+                if archivedTimersCount > 0 {
+                    action.valueText = "\(archivedTimersCount)"
                 }
             }
-            
-            return items
         }
         
-        set {}
+        return items
     }
     
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.padding = UIEdgeInsets(horizontal: 5.0)
-        self.image = resGetImage("ellipsis_circle_24")
-        self.imageConfig.color = resGetColor(.title)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func selectMenuAction(_ action: TPMenuAction) {
+        let type: FocusMoreMenuType? = action.actionType()
+        if let type = type {
+            didSelectType?(type)
+        }
     }
 }

@@ -13,6 +13,8 @@ class TPMenuListButton: TPDefaultButton {
     
     var menuItems: [TPMenuItem]?
     
+    var menuItemsProvider: (() -> [TPMenuItem]?)?
+    
     var preferredPosition: TPPopoverPosition = .bottomLeft
     
     var permittedPositions: [TPPopoverPosition] = TPPopoverPosition.allCases
@@ -26,13 +28,20 @@ class TPMenuListButton: TPDefaultButton {
     override func didTouchUpInside() {
         super.didTouchUpInside()
         
-        guard let menuItems = menuItems else {
+        var displayMenuItems: [TPMenuItem]?
+        if let menuItemsProvider = menuItemsProvider {
+            displayMenuItems = menuItemsProvider()
+        } else {
+            displayMenuItems = self.menuItems
+        }
+        
+        guard let displayMenuItems = displayMenuItems else {
             return
         }
 
         let menuList = TPMenuListViewController()
         menuList.menuContentWidth = menuContentWidth
-        menuList.menuItems = menuItems
+        menuList.menuItems = displayMenuItems
         menuList.didSelectMenuAction = { action in
             self.didSelectMenuAction?(action)
         }

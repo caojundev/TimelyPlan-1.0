@@ -42,57 +42,28 @@ enum QuadrantMoreMenuType: Int, TPMenuRepresentable {
     }
 }
 
-class QuadrantMoreBarButtonItem: UIBarButtonItem {
+class QuadrantMoreBarButtonItem: TPBaseMoreBarButtonItem<QuadrantMoreMenuType> {
     
-    /// 选中菜单类型
-    var didSelectType: ((QuadrantMoreMenuType) -> Void)?
+    override func configButton(_ button: TPMenuListButton) {
+        super.configButton(button)
+        button.menuContentWidth = 240.0
+    }
     
-    override init() {
-        super.init()
-        let button = QuadrantMoreButton()
-        button.didSelectMenuAction = {[weak self] action in
-            guard let type: QuadrantMoreMenuType = action.actionType() else {
-                return
-            }
-            
-            self?.didSelectType?(type)
+    override func selectMenuAction(_ action: TPMenuAction) {
+        if let type = QuadrantMoreMenuType(rawValue: action.tag) {
+            didSelectType?(type)
+        }
+    }
+    
+    override func menuItems() -> [TPMenuItem] {
+        let menuItem = TPMenuItem.item(with: QuadrantMoreMenuType.allCases) {[weak self] type, action in
+            self?.updateMenuAction(action, for: type)
         }
         
-        self.customView = button
+        return [menuItem]
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-private class QuadrantMoreButton: TPMenuListButton {
-    
-    override var menuItems: [TPMenuItem]? {
-        get {
-            let menuItem = TPMenuItem.item(with: QuadrantMoreMenuType.allCases) {[weak self] type, action in
-                self?.updateMenuAction(action, for: type)
-            }
-            
-            return [menuItem]
-        }
-        
-        set {}
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.menuContentWidth = 240.0
-        self.padding = UIEdgeInsets(horizontal: 5.0)
-        self.image = resGetImage("ellipsis_24")
-        self.imageConfig.color = resGetColor(.title)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func updateMenuAction(_ action: TPMenuAction, for type: QuadrantMoreMenuType) {
+    private func updateMenuAction(_ action: TPMenuAction, for type: QuadrantMoreMenuType) {
         switch type {
         case .showCompleted:
             action.isChecked = QuadrantSettingAgent.shared.showCompleted

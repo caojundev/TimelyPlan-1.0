@@ -1,0 +1,38 @@
+//
+//  HabitMoreBarButtonItem.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/2/28.
+//
+
+import Foundation
+import UIKit
+
+/// 更多菜单
+enum HabitMoreMenuType: Int, TPMenuRepresentable {
+    case manageHabits /// 管理习惯
+    case settings      /// 设置
+    
+    static func titles() -> [String] {
+        return ["Manage Habits",
+                "Settings"]
+    }
+    
+    var iconName: String? {
+        switch self {
+        case .manageHabits:
+            return "focus_record_24"
+        case .settings:
+            return "gear_24"
+        }
+    }
+}
+
+class HabitMoreBarButtonItem: TPBaseMoreBarButtonItem<HabitMoreMenuType> {
+    
+    override func selectMenuAction(_ action: TPMenuAction) {
+        if let type = HabitMoreMenuType(rawValue: action.tag) {
+            didSelectType?(type)
+        }
+    }
+}
