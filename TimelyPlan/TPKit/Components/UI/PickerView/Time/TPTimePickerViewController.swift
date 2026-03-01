@@ -74,11 +74,19 @@ class TPTimePickerViewController: TPTableSectionsViewController {
         self.title = resGetString("Time")
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         self.preferredContentSize = popoverContentSize
-        self.actionsBarHeight = 75.0
+        self.actionsBarHeight = 65.0
         self.setupActionsBar(actions: [cancelAction, doneAction])
         self.sectionControllers = [timePointSectionController]
         self.adapter.cellStyle.backgroundColor = .clear
         self.adapter.reloadData()
+    }
+    
+    override var themeBackgroundColor: UIColor? {
+        return .secondarySystemGroupedBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .secondarySystemGroupedBackground
     }
     
     override var popoverContentSize: CGSize {

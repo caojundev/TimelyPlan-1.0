@@ -14,6 +14,7 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
                                                     left: 0.0,
                                                     bottom: 0.0,
                                                     right: 16.0)
+    private let sectionHeaderHeight = 50.0
     
     /// 编辑任务
     var editingTask: HabitEditingTask
@@ -85,7 +86,7 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
     /// 目标
     lazy var goalSectionController: HabitGoalSectionController = {
         let sectionController = HabitGoalSectionController()
-        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.height = sectionHeaderHeight
         sectionController.headerItem.padding = sectionHeaderPadding
         sectionController.goal = self.editingTask.goal
         sectionController.goalDidChange = {[weak self] goal in
@@ -100,7 +101,7 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
     lazy var dateFrequencySectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.title = resGetString("Date And Frequency")
-        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.height = sectionHeaderHeight
         sectionController.headerItem.padding = sectionHeaderPadding
         sectionController.cellItems = [dateRangeCellItem, frequencyCellItem]
         return sectionController
@@ -144,6 +145,27 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         }
         
         return cellItem
+    }()
+    
+    /// 提醒
+    lazy var reminderSectionController: HabitReminderEditSectionController = {
+        let sectionController = HabitReminderEditSectionController()
+        sectionController.headerItem.height = sectionHeaderHeight
+        sectionController.headerItem.padding = sectionHeaderPadding
+        sectionController.shouldRemind = editingTask.shouldRemind
+        if let reminder = editingTask.reminder {
+            sectionController.reminder = reminder
+        }
+
+        sectionController.shouldRemindDidChange = { [weak self] shouldRemind in
+            self?.editingTask.shouldRemind = shouldRemind
+        }
+        
+        sectionController.reminderDidChange = { [weak self] reminder in
+            self?.editingTask.reminder = reminder
+        }
+        
+        return sectionController
     }()
     
     /// 自动显示日志弹窗
@@ -213,6 +235,7 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
                                   colorSectionController,
                                   goalSectionController,
                                   dateFrequencySectionController,
+                                  reminderSectionController,
                                   logSectionController,
                                   noteSectionController]
         self.sectionControllers = sectionControllers
@@ -324,47 +347,3 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         navController.show()
     }
 }
-
-/*
-class HabitTaskEditViewController: BaseTaskEditViewController {
-
- /// 日期范围
-//    lazy var dateRangeCellItem: DateRangeEditCellItem = { [weak self] in
-//        let cellItem = DateRangeEditCellItem()
-//        cellItem.updater = {
-//            guard let self = self else {
-//                return
-//            }
-//
-//            self.dateRangeCellItem.dateRange = self.dateRange
-//        }
-//
-//        cellItem.didEndEditing = { dateRange in
-//            self?.didEndEditingDateRange(dateRange)
-//        }
-//
-//        return cellItem
-//    }()
-//
-//    func didEndEditingDateRange(_ dateRange: DateRange) {
-//        self.dateRange = dateRange
-//    }
-//
-
-    /// 提醒
-    lazy var reminderSectionItem: HabitReminderSectionItem = {
-        let sectionItem = HabitReminderSectionItem()
-        sectionItem.shouldRemind = shouldRemind
-        sectionItem.reminder = reminder ?? Reminder()
-        sectionItem.shouldRemindDidChange = { [weak self] shouldRemind in
-            self?.shouldRemind = shouldRemind
-        }
-        
-        sectionItem.reminderDidChange = { [weak self] reminder in
-            self?.reminder = reminder
-        }
-        
-        return sectionItem
-    }()
-}
- */

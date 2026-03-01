@@ -144,12 +144,16 @@ class AlarmListView: TPCollectionWrapperView,
     func multipleItemSelectionDidChange<T>(inserts: Set<T>?, deletes: Set<T>?) where T : Hashable {
         adapter.performUpdate()
         
-        guard let selection = selection, let alarms = inserts as? [TaskAlarm] else {
+        guard let selection = selection, let alarms = inserts as? Set<TaskAlarm> else {
             return
         }
-
-        if let alarm = alarms.first, selection.isSelectedItem(alarm) {
-            scrollToAndCommitFocusAnimation(for: alarm)
+        
+        let alarmsArray = Array(alarms)
+        if alarmsArray.count == 1 {
+            let alarm = alarmsArray[0]
+            if selection.isSelectedItem(alarm) {
+                scrollToAndCommitFocusAnimation(for: alarm)
+            }
         }
     }
     

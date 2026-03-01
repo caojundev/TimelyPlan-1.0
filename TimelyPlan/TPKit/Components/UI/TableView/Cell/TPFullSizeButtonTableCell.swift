@@ -48,6 +48,8 @@ class TPFullSizeButtonTableCellItem: TPBaseTableCellItem {
     override init() {
         super.init()
         self.registerClass = TPFullSizeButtonTableCell.self
+        self.contentPadding = .zero
+        self.preferredTappedScale = 1.0
     }
 }
 

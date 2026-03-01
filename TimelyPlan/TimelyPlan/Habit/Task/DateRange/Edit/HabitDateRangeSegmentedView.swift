@@ -58,7 +58,7 @@ class HabitDateRangeSegmentedView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .systemFill
+        self.backgroundColor = .primary.withAlphaComponent(0.1)
         addSubview(startDateButton)
         addSubview(endDateButton)
         updateSelectedButton()
