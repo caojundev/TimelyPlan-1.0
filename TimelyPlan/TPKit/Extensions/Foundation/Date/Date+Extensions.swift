@@ -289,4 +289,13 @@ extension Date {
         dateComponents.second = timeOffset.second
         return calendar.date(from: dateComponents) ?? self
     }
+    
+    /// 将日期的时间部分截断到分钟级别，移除秒和纳秒部分
+    /// - Returns: 截断后的日期对象，如果转换失败则返回原日期
+    func truncatedToMinute() -> Date {
+        return Calendar.current.date(bySettingHour: self.hour,
+                                     minute: self.minute,
+                                     second: 0,
+                                     of: self) ?? self
+    }
 }
