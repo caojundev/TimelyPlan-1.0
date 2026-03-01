@@ -8,7 +8,8 @@
 import Foundation
 
 class HabitDateRangeEditSectionController: TPTableItemSectionController,
-                                           TPCalendarSingleDateSelectionDelegate {
+                                           TPCalendarSingleDateSelectionDelegate,
+                                           TPCalendarMonthViewDelegate {
 
     /// 编辑类型
     var editType: DateRangeEditType = .end {
@@ -48,6 +49,7 @@ class HabitDateRangeEditSectionController: TPTableItemSectionController,
     lazy var calendarCellItem: TPCalendarTableCellItem = {
         let cellItem = TPCalendarTableCellItem()
         cellItem.selection = dateSelection
+        cellItem.monthViewDelegate = self
         cellItem.updater = { [weak self] in
             self?.updateCalendarCellItem()
         }
@@ -97,6 +99,17 @@ class HabitDateRangeEditSectionController: TPTableItemSectionController,
     /// 更新日期选中
     func updateCalendarSelectDate() {
         dateSelection.setSelectedDateComponents(currentDate?.yearMonthDayComponents)
+    }
+    
+    // MARK: - TPCalendarMonthViewDelegate
+    func spanDateRangesForCalendarMonthView(_ view: TPCalendarMonthView) -> [DateRange]? {
+        if dateRange.endDate == nil {
+            var spanDateRange = dateRange
+            spanDateRange.endDate = Date.distantFuture
+            return [spanDateRange]
+        }
+        
+        return [dateRange]
     }
     
     // MARK: - TPCalendarSingleDateSelectionDelegate

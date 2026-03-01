@@ -192,7 +192,7 @@ class HabitDateRangeInfoView: UIView {
     
     lazy var infoLabel: TPLabel = {
         let label = TPLabel()
-        label.font = .boldSystemFont(ofSize: 10.0)
+        label.font = .boldSystemFont(ofSize: 12.0)
         label.textAlignment = .center
         label.numberOfLines = 1
         label.textColor = .secondaryLabel
