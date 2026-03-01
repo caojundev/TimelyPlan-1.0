@@ -102,8 +102,26 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         sectionController.headerItem.title = resGetString("Date And Frequency")
         sectionController.headerItem.height = 50.0
         sectionController.headerItem.padding = sectionHeaderPadding
-        sectionController.cellItems = [frequencyCellItem]
+        sectionController.cellItems = [dateRangeCellItem, frequencyCellItem]
         return sectionController
+    }()
+    
+    /// 日期范围
+    lazy var dateRangeCellItem: HabitDateRangeEditCellItem = { [weak self] in
+        let cellItem = HabitDateRangeEditCellItem()
+        cellItem.updater = {
+            guard let self = self else {
+                return
+            }
+        
+            self.dateRangeCellItem.dateRange = self.editingTask.dateRange
+        }
+        
+        cellItem.didEndEditing = { dateRange in
+            self?.editingTask.dateRange = dateRange
+        }
+        
+        return cellItem
     }()
     
     /// 频率

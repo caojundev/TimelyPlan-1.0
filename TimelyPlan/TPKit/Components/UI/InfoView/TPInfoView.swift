@@ -145,13 +145,13 @@ class TPInfoView: UIView {
     }
     
     /// 标题标签
-    private lazy var titleLabel: TPLabel = {
+    private(set) lazy var titleLabel: TPLabel = {
         let label = TPLabel()
         return label
     }()
     
     /// 副标题标签
-    private lazy var subtitleLabel: TPLabel = {
+    private(set) lazy var subtitleLabel: TPLabel = {
         let label = TPLabel()
         return label
     }()

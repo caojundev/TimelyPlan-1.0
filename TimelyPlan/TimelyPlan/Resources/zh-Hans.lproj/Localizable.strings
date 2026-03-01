@@ -39,6 +39,7 @@
 "No Alarm" = "无提醒";
 
 // 习惯打卡单位
+"count" = "次";
 "times" = "次";
 "minutes" = "分钟";
 "hours" = "小时";

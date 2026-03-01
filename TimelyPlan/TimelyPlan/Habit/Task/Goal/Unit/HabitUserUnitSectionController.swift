@@ -23,6 +23,10 @@ class HabitUserUnitSectionController: HabitSystemUnitSectionController, HabitUse
         self.maxItemWidth = 128.0
     }
     
+    override func sectionInset() -> UIEdgeInsets {
+        return UIEdgeInsets(horizontal: 8.0, vertical: 4.0)
+    }
+    
     override func classForCell(at index: Int) -> AnyClass? {
         return HabitUserUnitCell.self
     }

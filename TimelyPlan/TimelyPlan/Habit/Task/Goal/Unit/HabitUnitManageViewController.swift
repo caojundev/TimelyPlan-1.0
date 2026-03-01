@@ -1,6 +1,6 @@
 //
 //  UnitViewController.swift
-//  iTimeFlow
+//  TimelyPlan
 //
 //  Created by caojun on 2024/4/1.
 //
@@ -42,7 +42,6 @@ class HabitUnitManageViewController: TPCollectionSectionsViewController,
         self.userSectionController.delegate = self
         self.systemSectionController.delegate = self
         self.sectionControllers = [userSectionController, systemSectionController]
-        self.adapter.sectionInset = UIEdgeInsets(horizontal: 8.0, vertical: 4.0)
         self.adapter.interitemSpacing = 8.0
         self.adapter.lineSpacing = 8.0
         self.adapter.cellStyle.cornerRadius = 8.0

@@ -63,6 +63,10 @@ class HabitSystemUnitSectionController: TPCollectionBaseSectionController {
         return units as [NSString]
     }
     
+    override func sectionInset() -> UIEdgeInsets {
+        return UIEdgeInsets(horizontal: 8.0, vertical: 8.0)
+    }
+    
     override func classForCell(at index: Int) -> AnyClass? {
         return HabitUnitCell.self
     }

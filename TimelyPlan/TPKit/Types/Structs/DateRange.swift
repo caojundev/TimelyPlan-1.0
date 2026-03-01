@@ -81,6 +81,11 @@ struct DateRange: DateRangeProtocol, Hashable, Codable {
         let date = Date.now.endOfYear()
         return startDate.isFutureDay(of: date)
     }
+    
+    /// 当前编辑类型对应的日期
+    func date(for editType: DateRangeEditType) -> Date? {
+        return editType == .start ? self.startDate : self.endDate
+    }
 }
 
 protocol DateRangeProtocol: AttributedDescriptable {
