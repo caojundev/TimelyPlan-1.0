@@ -13,6 +13,7 @@ class HabitSetting {
     enum Key: String, SettingKeyRepresentable {
         case firstWeekday
         case addHabitOnTop
+        case customUnits /// 自定义单位
         
         static func keyPrefix() -> String? {
             return "HabitSetting"
@@ -26,6 +27,9 @@ class HabitSetting {
     /// 添加习惯到顶部
     @CloudStored(key: Key.addHabitOnTop.name, defaultValue: false)
     var addHabitOnTop: Bool
+    
+    @CloudStored(key: Key.customUnits.name, defaultValue: [])
+    var customUnits: [String]
     
     static let shared = HabitSetting()
     

@@ -11,11 +11,11 @@ class HabitSystemUnitSectionController: TPCollectionBaseSectionController {
     
     var cellPadding = UIEdgeInsets(horizontal: 12.0)
     
-    /// 单元格配件尺寸
-    var cellAccessorySize: CGSize = .zero
-    
     /// 条目最小宽度
-    var minItemMinWidth = 55.0
+    var minItemWidth = 60.0
+    
+    /// 条目最大宽度
+    var maxItemWidth = 60.0
     
     /// 条目高度
     var itemHeight = 36.0
@@ -27,7 +27,29 @@ class HabitSystemUnitSectionController: TPCollectionBaseSectionController {
     }()
     
     private lazy var units: [String] = {
-        let units = ["Count", "Cup", "Page", "m", "km", "ml", "L", "Line"]
+        let units: [String] = [
+            "times",           // 次
+            "minutes",         // 分钟
+            "hours",           // 小时
+            "kilometers",      // 公里
+            "meters",          // 米
+            "pages",           // 页
+            "books",           // 本
+            "chapters",        // 章
+            "glasses",         // 杯
+            "pieces",          // 个
+            "sets",            // 组
+            "steps",           // 步
+            "calories",        // 千卡
+            "kilograms",       // 公斤
+            "grams",           // 克
+            "items",           // 件
+            "tasks",           // 项
+            "days",            // 天
+            "words",           // 词
+            "percent"          // %
+        ]
+        
         var localizedUnits = [String]()
         for unit in units {
             let localizedUnit: String = resGetString(unit)
@@ -57,22 +79,13 @@ class HabitSystemUnitSectionController: TPCollectionBaseSectionController {
     }
  
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let adapter = adapter else {
-            return .zero
-        }
-        
-        let collectionSize = adapter.collectionViewSize()
-        let sectionInset = sectionInset()
-        let contentWidth = collectionSize.width - sectionInset.horizontalLength
-        let maxItemWidth = contentWidth - 2 * interitemSpacing()
-    
         let unit = unit(at: index)
         var width = unit.width(with: titleConfig.font)
-        width += cellPadding.horizontalLength + cellAccessorySize.width
-        width = clampedValue(width, minItemMinWidth, maxItemWidth)
+        width += cellPadding.horizontalLength
+        width = clampedValue(width, minItemWidth, maxItemWidth)
         return CGSize(width: width, height: itemHeight)
     }
-    
+
     func unit(at index: Int) -> String {
         return units[index]
     }

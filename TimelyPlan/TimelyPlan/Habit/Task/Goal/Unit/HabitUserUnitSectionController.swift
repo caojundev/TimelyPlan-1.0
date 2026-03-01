@@ -10,20 +10,29 @@ import UIKit
 
 class HabitUserUnitSectionController: HabitSystemUnitSectionController, HabitUserUnitCellDelegate {
     
-    var userUnits = ["Count", "Cup", "Page", "m", "km", "ml", "L", "Line"]
+    var userUnits: [String]
     
     override var items: [ListDiffable]? {
         return userUnits as [NSString]
     }
     
     override init() {
+        self.userUnits = HabitSetting.shared.customUnits
         super.init()
-        self.cellAccessorySize = HabitUserUnitCell.deleteButtonSize
         self.cellPadding = UIEdgeInsets(left: 12.0)
+        self.maxItemWidth = 128.0
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
         return HabitUserUnitCell.self
+    }
+    
+    override func sizeForItem(at index: Int) -> CGSize {
+        let unit = unit(at: index)
+        var width = unit.width(with: titleConfig.font)
+        width += cellPadding.horizontalLength + HabitUserUnitCell.deleteButtonSize.width
+        width = clampedValue(width, minItemWidth, maxItemWidth)
+        return CGSize(width: width, height: itemHeight)
     }
     
     override func unit(at index: Int) -> String {
@@ -59,6 +68,12 @@ class HabitUserUnitSectionController: HabitSystemUnitSectionController, HabitUse
         }
         
         userUnits.insert(unit, at: 0)
+        saveUserUnits()
+    }
+    
+    /// 保存自定义单位
+    func saveUserUnits() {
+        HabitSetting.shared.customUnits = userUnits
     }
     
     // MARK: - HabitUserUnitCellDelegate
@@ -69,54 +84,31 @@ class HabitUserUnitSectionController: HabitSystemUnitSectionController, HabitUse
         
         userUnits.remove(at: indexPath.item)
         adapter?.performUpdate()
+        saveUserUnits()
     }
 }
 
-protocol HabitUserUnitCellDelegate: AnyObject {
+extension HabitUserUnitSectionController: TPCollectionDragExchangeReorderDelegate {
     
-    /// 点击删除
-    func userUnitCellDidClickDelete(_ cell: HabitUserUnitCell)
-}
+    func collectionDragReorder(_ reorder: TPCollectionDragReorder, canMoveItemAt indexPath: IndexPath) -> Bool {
+        return indexPath.section == 0
+    }
+    
+    func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder, canMoveItemFrom fromIndexPath: IndexPath, to toIndexPath: IndexPath) -> Bool {
+        return fromIndexPath.section == toIndexPath.section
+    }
+    
+    func collectionDragReorder(_ reorder: TPCollectionDragReorder, willBeginAt indexPath: IndexPath) {
+        TPImpactFeedback.impactWithSoftStyle()
+    }
+    
+    func collectionDragReorderDidEnd(_ reorder: TPCollectionDragReorder) {
+        saveUserUnits()
+    }
 
-class HabitUserUnitCell: HabitUnitCell {
-    
-    static let deleteButtonSize = CGSize.size(5)
-    
-    /// 删除按钮
-    private lazy var deleteButton: TPImageButton = {
-        let button = TPImageButton()
-        button.normalImage = resGetImage("xmark_12")
-        button.imageSize = .size(3)
-        button.padding = .zero
-        button.addTarget(self, action: #selector(clickDelete(_:)), for: .touchUpInside)
-        return button
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentView.addSubview(deleteButton)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let layoutFrame = self.layoutFrame()
-        deleteButton.size = Self.deleteButtonSize
-        deleteButton.right = layoutFrame.maxX
-        deleteButton.centerY = layoutFrame.midY
-        titleLabel.width = deleteButton.left - layoutFrame.minX
-        
-        deleteButton.normalBackgroundColor = .random
-        titleLabel.backgroundColor = .random
-    }
-    
-    @objc func clickDelete(_ button: UIButton){
-        if let delegate = self.delegate as? HabitUserUnitCellDelegate {
-            delegate.userUnitCellDidClickDelete(self)
-        }
+    func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder, moveItemFrom fromIndexPath: IndexPath, to toIndexPath: IndexPath) -> Bool {
+        TPImpactFeedback.impactWithSoftStyle()
+        userUnits.moveObject(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item)
+        return true
     }
 }
-

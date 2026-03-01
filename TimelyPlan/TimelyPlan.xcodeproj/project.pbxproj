@@ -156,6 +156,7 @@
 		E515AD752D3CC70D00AA9AF2 /* todo_smartlist_trash_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E515AD742D3CC70C00AA9AF2 /* todo_smartlist_trash_24@3x.png */; };
 		E515AD7D2D3CF87F00AA9AF2 /* triangle_right_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E515AD7B2D3CF87F00AA9AF2 /* triangle_right_12@3x.png */; };
 		E515AD7E2D3CF87F00AA9AF2 /* triangle_right_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E515AD7C2D3CF87F00AA9AF2 /* triangle_right_12@2x.png */; };
+		E5168BBA2F53EA430000A760 /* HabitUserUnitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5168BB92F53EA430000A760 /* HabitUserUnitCell.swift */; };
 		E51822FF2D66C96600F7F2B0 /* TodoListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51822FE2D66C96600F7F2B0 /* TodoListConfiguration.swift */; };
 		E5186E432D93B141007AA074 /* todo_filter_myDay_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E3F2D93B140007AA074 /* todo_filter_myDay_36@2x.png */; };
 		E5186E442D93B141007AA074 /* todo_filter_myDay_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E402D93B140007AA074 /* todo_filter_myDay_36@3x.png */; };
@@ -1543,6 +1544,7 @@
 		E515AD742D3CC70C00AA9AF2 /* todo_smartlist_trash_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_trash_24@3x.png"; sourceTree = "<group>"; };
 		E515AD7B2D3CF87F00AA9AF2 /* triangle_right_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle_right_12@3x.png"; sourceTree = "<group>"; };
 		E515AD7C2D3CF87F00AA9AF2 /* triangle_right_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle_right_12@2x.png"; sourceTree = "<group>"; };
+		E5168BB92F53EA430000A760 /* HabitUserUnitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitUserUnitCell.swift; sourceTree = "<group>"; };
 		E51822FE2D66C96600F7F2B0 /* TodoListConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListConfiguration.swift; sourceTree = "<group>"; };
 		E5186E3F2D93B140007AA074 /* todo_filter_myDay_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_myDay_36@2x.png"; sourceTree = "<group>"; };
 		E5186E402D93B140007AA074 /* todo_filter_myDay_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_myDay_36@3x.png"; sourceTree = "<group>"; };
@@ -2944,6 +2946,7 @@
 				E507E7B32F531A28003004C4 /* HabitUnitManageViewController.swift */,
 				E507E7BA2F532DB2003004C4 /* HabitSystemUnitSectionController.swift */,
 				E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */,
+				E5168BB92F53EA430000A760 /* HabitUserUnitCell.swift */,
 			);
 			path = Unit;
 			sourceTree = "<group>";
@@ -8786,6 +8789,7 @@
 				E5D7D8B82D43933600EC877A /* FocusRunningTopbar.swift in Sources */,
 				E5BB9E942D3BF0C80089667A /* PieVisual.swift in Sources */,
 				E5D0C2262D61DA8300D29C22 /* TodoTaskPageAddView.swift in Sources */,
+				E5168BBA2F53EA430000A760 /* HabitUserUnitCell.swift in Sources */,
 				E58C9E172F4AF0DC0096B842 /* FocusTimelineView.swift in Sources */,
 				E5BB9E812D3BF0C80089667A /* ChartHighlightView.swift in Sources */,
 				E5D7D9372D43933700EC877A /* FocusPomodoroConfigCell.swift in Sources */,

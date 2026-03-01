@@ -38,6 +38,27 @@
 "Add Alarm" = "添加提醒";
 "No Alarm" = "无提醒";
 
+// 习惯打卡单位
+"times" = "次";
+"minutes" = "分钟";
+"hours" = "小时";
+"days" = "天";
+"kilometers" = "公里";
+"meters" = "米";
+"pages" = "页";
+"books" = "本";
+"chapters" = "章";
+"glasses" = "杯";
+"pieces" = "个";
+"sets" = "组";
+"steps" = "步";
+"calories" = "千卡";
+"kilograms" = "公斤";
+"grams" = "克";
+"items" = "件";
+"tasks" = "项";
+"words" = "词";
+"percent" = "%";
 
 /// 时间计划
 "Randomly" = "随机";

@@ -56,8 +56,8 @@ class TPCollectionDragExchangeReorder: TPCollectionDragReorder {
         
         let success = moveItem(from: fromIndexPath, to: toIndexPath)
         if success {
+            collectionView.moveItem(at: fromIndexPath, to: toIndexPath)
             previousIndexPath = fromIndexPath
-            
             /// 设置新的拖动索引路径为当前触摸索引路径
             changeDraggingIndexPath(toIndexPath)
         }
