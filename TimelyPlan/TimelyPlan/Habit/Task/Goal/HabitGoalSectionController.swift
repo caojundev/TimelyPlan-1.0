@@ -17,18 +17,18 @@ class HabitGoalSectionController: TPTableItemSectionController {
     lazy var targetModeCellItem: TPFullSizeSegmentedMenuTableCellItem = { [weak self] in
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
         cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
-        cellItem.menuItems = HabitGoal.Target.Mode.segmentedMenuItems()
+        cellItem.menuItems = HabitGoal.TargetMode.segmentedMenuItems()
         cellItem.updater = {
             guard let self = self else {
                 return
             }
             
-            let mode = self.goal.target.mode ?? .checkin
+            let mode = self.goal.mode ?? .checkin
             self.targetModeCellItem.selectedMenuTag = mode.rawValue
         }
         
         cellItem.didSelectMenuItem = { menuItem in
-            guard let mode = HabitGoal.Target.Mode(rawValue: menuItem.tag) else {
+            guard let mode = HabitGoal.TargetMode(rawValue: menuItem.tag) else {
                 return
             }
             
@@ -47,8 +47,8 @@ class HabitGoalSectionController: TPTableItemSectionController {
                 return
             }
             
-            self.targetAmountCellItem.number = NSNumber(value: self.goal.targetAmount)
-            self.targetAmountCellItem.unit = self.goal.targetUnit
+            self.targetAmountCellItem.number = NSNumber(value: self.goal.validatedTargetAmount)
+            self.targetAmountCellItem.unit = self.goal.validatedUnit
         }
         
         cellItem.didEndEditing = { number in
@@ -69,7 +69,7 @@ class HabitGoalSectionController: TPTableItemSectionController {
         cellItem.title = resGetString("Record Type")
         cellItem.updater = {
             guard let self = self else { return }
-            self.recordTypeCellItem.recordType = self.goal.record.type ?? .completeAll
+            self.recordTypeCellItem.recordType = self.goal.recordType ?? .completeAll
         }
         
         cellItem.didSelectRecordType = { recordType in
@@ -85,7 +85,7 @@ class HabitGoalSectionController: TPTableItemSectionController {
         cellItem.title = resGetString("Record Value")
         cellItem.updater = {
             guard let self = self else { return }
-            let amount = self.goal.autoRecordAmount
+            let amount = self.goal.validatedRecordAmount
             self.autoRecordNumberCellItem.number = NSNumber(value: amount)
         }
         
@@ -100,10 +100,10 @@ class HabitGoalSectionController: TPTableItemSectionController {
         get {
             var cellItems: [TPBaseTableCellItem] = [targetModeCellItem]
             /// 定量模式
-            if goal.target.mode == .amount {
+            if goal.mode == .amount {
                 cellItems.append(targetAmountCellItem)
                 cellItems.append(recordTypeCellItem)
-                let recordType = goal.record.type ?? .completeAll
+                let recordType = goal.recordType ?? .completeAll
                 if recordType == .automatically {
                     cellItems.append(autoRecordNumberCellItem)
                 }
@@ -123,34 +123,34 @@ class HabitGoalSectionController: TPTableItemSectionController {
     
     // MARK: - Processor
     /// 选中目标模式
-    func didSelectTargetMode(_ mode: HabitGoal.Target.Mode) {
-        goal.target.mode = mode
+    func didSelectTargetMode(_ mode: HabitGoal.TargetMode) {
+        goal.mode = mode
         goalDidChange?(goal)
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
     /// 目标数值改变
     func targetAmountDidChange(_ number: NSNumber) {
-        goal.target.amount = number.intValue
+        goal.targetAmount = number.intValue
         targetAmountCellItem.updater?()
         goalDidChange?(goal)
     }
     
     /// 目标单位改变
     func targetUnitDidChange(_ unit: String) {
-        goal.target.unit = unit
+        goal.unit = unit
         targetAmountCellItem.updater?()
         goalDidChange?(goal)
     }
     
     func didEndEditingAutoRecord(number: NSNumber) {
-        goal.record.amount = number.intValue
+        goal.recordAmount = number.intValue
         autoRecordNumberCellItem.updater?()
         goalDidChange?(goal)
     }
     
     private func didSelectRecordType(_ type: HabitGoal.RecordType) {
-        goal.record.type = type
+        goal.recordType = type
         recordTypeCellItem.updater?()
         goalDidChange?(goal)
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
