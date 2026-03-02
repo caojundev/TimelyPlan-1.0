@@ -101,13 +101,14 @@ class HabitReminderEditSectionController: TPTableItemSectionController,
     /// 自定义提醒
     lazy var alarmAddCellItem: TPFullSizeButtonTableCellItem = { [weak self] in
         let cellItem = TPFullSizeButtonTableCellItem()
+        cellItem.height = 50.0
         cellItem.buttonNormalBackgroundColor = .primary
         cellItem.buttonSelectedBackgroundColor = .primary.darkerColor
         cellItem.buttonNormalTitleColor = .white
         cellItem.buttonTitle = resGetString("Add Alarm")
         cellItem.buttonImageName = "bell_add_20"
         cellItem.buttonImageColor = .white
-        cellItem.buttonFixedImageSize = CGSize(width: 20.0, height: 20.0)
+        cellItem.buttonFixedImageSize = .size(5)
         cellItem.updater = {
             guard let self = self else {
                 return

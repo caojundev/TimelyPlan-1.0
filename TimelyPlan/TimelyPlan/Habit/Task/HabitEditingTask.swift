@@ -29,6 +29,9 @@ struct HabitEditingTask: Equatable {
     /// 频率
     var timePlan: HabitTimePlan = HabitTimePlan()
     
+    /// 时间选项
+    var timeOption: HabitTimeOption = .morning
+    
     /// 是否提醒
     var shouldRemind: Bool = false
     

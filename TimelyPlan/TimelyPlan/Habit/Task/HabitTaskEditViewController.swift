@@ -25,7 +25,7 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
     /// 编辑类型
     private var editType: EditType = .create
     
-    let defaultCellHeight = 50.0
+    let defaultCellHeight = 55.0
     
     // MARK: - 图标和名称
     lazy var iconNameSectionController: TPTableItemSectionController = {
@@ -96,55 +96,46 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    // MARK: - 日期和频率
-    /// 日期范围
-    lazy var dateFrequencySectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.title = resGetString("Date And Frequency")
+    /// 日期频率
+    lazy var dateFrequencySectionController: HabitDateFrequencySectionController = {
+        let sectionController = HabitDateFrequencySectionController()
         sectionController.headerItem.height = sectionHeaderHeight
         sectionController.headerItem.padding = sectionHeaderPadding
-        sectionController.cellItems = [dateRangeCellItem, frequencyCellItem]
-        return sectionController
-    }()
-    
-    /// 日期范围
-    lazy var dateRangeCellItem: HabitDateRangeEditCellItem = { [weak self] in
-        let cellItem = HabitDateRangeEditCellItem()
-        cellItem.updater = {
-            guard let self = self else {
-                return
-            }
-        
-            self.dateRangeCellItem.dateRange = self.editingTask.dateRange
-        }
-        
-        cellItem.didEndEditing = { dateRange in
+        sectionController.dateRange = self.editingTask.dateRange
+        sectionController.timePlan = self.editingTask.timePlan
+        sectionController.dateRangeDidChange = { [weak self] dateRange in
             self?.editingTask.dateRange = dateRange
         }
         
-        return cellItem
+        sectionController.timePlanDidChange = { [weak self] timePlan in
+            self?.editingTask.timePlan = timePlan
+        }
+        
+        return sectionController
     }()
     
-    /// 频率
-    lazy var frequencyCellItem: TPDefaultInfoTableCellItem = {  [weak self] in
-        let cellItem = TPDefaultInfoTableCellItem(autoResizable: true)
-        cellItem.minimumHeight = 55.0
-        cellItem.titleConfig.font = .boldSystemFont(ofSize: 16.0)
-        cellItem.subtitleConfig.numberOfLines = 0
-        cellItem.accessoryType = .disclosureIndicator
-        cellItem.title = resGetString("Frequency")
+    /// 时间选择
+    lazy var timeEditCellItem: HabitTimeEditTableCellItem = { [weak self] in
+        let cellItem = HabitTimeEditTableCellItem()
         cellItem.updater = {
             guard let self = self else { return }
-            let timePlan = self.editingTask.timePlan
-            self.frequencyCellItem.title = timePlan.title
-            self.frequencyCellItem.subtitle = timePlan.subtitle
+            cellItem.selectedOption = self.editingTask.timeOption
         }
-    
-        cellItem.didSelectHandler = {
-            self?.editFrequency()
+        
+        cellItem.didSelectTimeOption = { timeOption in
+            self?.editingTask.timeOption = timeOption
         }
         
         return cellItem
+    }()
+    
+    lazy var timeSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+//        sectionController.headerItem.title = resGetString("Time")
+        sectionController.headerItem.height = 15.0
+        sectionController.headerItem.padding = sectionHeaderPadding
+        sectionController.cellItems = [timeEditCellItem]
+        return sectionController
     }()
     
     /// 提醒
@@ -235,6 +226,7 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
                                   colorSectionController,
                                   goalSectionController,
                                   dateFrequencySectionController,
+                                  timeSectionController,
                                   reminderSectionController,
                                   logSectionController,
                                   noteSectionController]
@@ -335,15 +327,5 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
     func didEndEditingName(_ name: String?) {
         
     }
-    
-    func editFrequency() {
-        let vc = HabitTimePlanEditViewController(timePlan: editingTask.timePlan)
-        vc.didEndEditing = { timePlan in
-            self.editingTask.timePlan = timePlan
-            self.adapter.reloadCell(forItem: self.frequencyCellItem, with: .none)
-        }
-        
-        let navController = UINavigationController(rootViewController: vc)
-        navController.show()
-    }
+
 }

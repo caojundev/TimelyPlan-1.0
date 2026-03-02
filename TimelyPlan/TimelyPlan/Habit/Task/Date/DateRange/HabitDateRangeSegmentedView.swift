@@ -175,8 +175,9 @@ class HabitDateRangeSegmentedButton: UIButton {
     /// 信息视图
     private var infoView: TPInfoView = {
         let view = TPInfoView()
-        view.padding = UIEdgeInsets(left: 15.0, right: 10.0)
+        view.padding = UIEdgeInsets(left: 15.0, right: 5.0)
         view.isUserInteractionEnabled = false
+        view.titleConfig.adjustsFontSizeToFitWidth = true
         view.titleConfig.font = .boldSystemFont(ofSize: 15.0)
         view.subtitleTopMargin = 8.0
         view.subtitleConfig.font = .boldSystemFont(ofSize: 12.0)
