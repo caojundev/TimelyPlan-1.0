@@ -20,38 +20,16 @@ class HabitDateFrequencySectionController: TPTableItemSectionController {
     private let defaultCellHeight = 55.0
     
     /// 开始日期
-    lazy var startDateCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.autoResizable = true
-        cellItem.minimumHeight = defaultCellHeight
-        cellItem.title = resGetString("Start Date")
+    lazy var dateRangeCellItem: HabitDateRangeEditTableCellItem = { [weak self] in
+        let cellItem = HabitDateRangeEditTableCellItem()
         cellItem.updater = {
-            guard let self = self else { return }
-            self.startDateCellItem.subtitle = self.dateRange.startDateText()
-            self.startDateCellItem.valueConfig = .valueText(self.dateRange.startDateDescription())
+            guard let self = self else { return}
+            self.dateRangeCellItem.dateRange = self.dateRange
         }
         
-        cellItem.didSelectHandler = {
-            self?.editDateRangeWithType(.start)
-        }
-        
-        return cellItem
-    }()
-    
-    /// 结束日期
-    lazy var endDateCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.autoResizable = true
-        cellItem.minimumHeight = defaultCellHeight
-        cellItem.title = resGetString("End Date")
-        cellItem.updater = {
-            guard let self = self else { return }
-            self.endDateCellItem.subtitle = self.dateRange.endDateText()
-            self.endDateCellItem.valueConfig = .valueText(self.dateRange.lastsCountDescription())
-        }
-        
-        cellItem.didSelectHandler = {
-            self?.editDateRangeWithType(.end)
+        cellItem.didEndEditing = { dateRange in
+            self?.dateRange = dateRange
+            self?.dateRangeDidChange?(dateRange)
         }
         
         return cellItem
@@ -78,42 +56,13 @@ class HabitDateFrequencySectionController: TPTableItemSectionController {
         return cellItem
     }()
     
-    override var cellItems: [TPBaseTableCellItem]? {
-        get {
-            var cellItems: [TPBaseTableCellItem] = []
-            cellItems.append(startDateCellItem)
-            if dateRange.endDate != nil {
-                cellItems.append(endDateCellItem)
-            }
-            
-            cellItems.append(frequencyCellItem)
-            return cellItems
-        }
-        
-        set {}
-    }
-    
     override init() {
         super.init()
         self.headerItem.title = resGetString("Date And Frequency")
+        self.cellItems = [dateRangeCellItem, frequencyCellItem]
     }
 
     // MARK: - Edit
-    func editDateRangeWithType(_ type: DateRangeEditType) {
-        let vc = HabitDateRangeEditViewController(dateRange: dateRange,
-                                                  editType: type)
-        vc.didEndEditing = { dateRange in
-            self.dateRange = dateRange
-            self.dateRangeDidChange?(dateRange)
-            self.adapter?.performUpdate(completion: nil)
-            self.adapter?.reloadCell(forItems: [self.startDateCellItem,
-                                                self.endDateCellItem], with: .none)
-        }
-        
-        let navController = UINavigationController(rootViewController: vc)
-        navController.show()
-    }
-    
     func editFrequency() {
         let vc = HabitTimePlanEditViewController(timePlan: timePlan)
         vc.didEndEditing = { timePlan in

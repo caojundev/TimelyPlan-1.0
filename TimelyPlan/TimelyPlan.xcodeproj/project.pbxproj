@@ -87,6 +87,8 @@
 		E50D025A2F55860B00E93977 /* habit_time_evening_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D02522F55860B00E93977 /* habit_time_evening_24@3x.png */; };
 		E50D025B2F55860B00E93977 /* habit_time_anytime_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D02532F55860B00E93977 /* habit_time_anytime_24@3x.png */; };
 		E50D025C2F55860B00E93977 /* habit_time_anytime_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D02542F55860B00E93977 /* habit_time_anytime_24@2x.png */; };
+		E50D025F2F55A8C100E93977 /* HabitDateRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D025D2F55A8C000E93977 /* HabitDateRangeView.swift */; };
+		E50D02602F55A8C100E93977 /* HabitDateRangeEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D025E2F55A8C100E93977 /* HabitDateRangeEditCell.swift */; };
 		E50D94B72D451C1800F57957 /* focus_record_add_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D94AF2D451C1800F57957 /* focus_record_add_24@2x.png */; };
 		E50D94B82D451C1800F57957 /* focus_record_add_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D94B02D451C1800F57957 /* focus_record_add_24@3x.png */; };
 		E50D94B92D451C1800F57957 /* focus_record_view_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D94B12D451C1800F57957 /* focus_record_view_24@2x.png */; };
@@ -1498,6 +1500,8 @@
 		E50D02522F55860B00E93977 /* habit_time_evening_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_time_evening_24@3x.png"; sourceTree = "<group>"; };
 		E50D02532F55860B00E93977 /* habit_time_anytime_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_time_anytime_24@3x.png"; sourceTree = "<group>"; };
 		E50D02542F55860B00E93977 /* habit_time_anytime_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_time_anytime_24@2x.png"; sourceTree = "<group>"; };
+		E50D025D2F55A8C000E93977 /* HabitDateRangeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitDateRangeView.swift; sourceTree = "<group>"; };
+		E50D025E2F55A8C100E93977 /* HabitDateRangeEditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitDateRangeEditCell.swift; sourceTree = "<group>"; };
 		E50D94AF2D451C1800F57957 /* focus_record_add_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_add_24@2x.png"; sourceTree = "<group>"; };
 		E50D94B02D451C1800F57957 /* focus_record_add_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_add_24@3x.png"; sourceTree = "<group>"; };
 		E50D94B12D451C1800F57957 /* focus_record_view_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_view_24@2x.png"; sourceTree = "<group>"; };
@@ -3123,6 +3127,16 @@
 			path = time;
 			sourceTree = "<group>";
 		};
+		E50D02612F55A8D400E93977 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				E5168BC62F5452B00000A760 /* HabitDateRangeEditViewController.swift */,
+				E5168BC52F5452B00000A760 /* HabitDateRangeEditSectionController.swift */,
+				E5168BC72F5452B10000A760 /* HabitDateRangeSegmentedView.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
 		E50D94AE2D451C1800F57957 /* record */ = {
 			isa = PBXGroup;
 			children = (
@@ -3408,9 +3422,9 @@
 		E5168BC42F54529B0000A760 /* DateRange */ = {
 			isa = PBXGroup;
 			children = (
-				E5168BC62F5452B00000A760 /* HabitDateRangeEditViewController.swift */,
-				E5168BC52F5452B00000A760 /* HabitDateRangeEditSectionController.swift */,
-				E5168BC72F5452B10000A760 /* HabitDateRangeSegmentedView.swift */,
+				E50D025E2F55A8C100E93977 /* HabitDateRangeEditCell.swift */,
+				E50D025D2F55A8C000E93977 /* HabitDateRangeView.swift */,
+				E50D02612F55A8D400E93977 /* Edit */,
 			);
 			path = DateRange;
 			sourceTree = "<group>";
@@ -8412,6 +8426,7 @@
 				E507E7972F529303003004C4 /* HabitPresenter.swift in Sources */,
 				E5BBA0B72D3BF4A50089667A /* TodoTaskTypes.swift in Sources */,
 				E51501942D477962008B2333 /* TPTableViewAdapter.swift in Sources */,
+				E50D025F2F55A8C100E93977 /* HabitDateRangeView.swift in Sources */,
 				E50BB67F2D5751FC00D316FD /* TPImageAccessoryConfig.swift in Sources */,
 				E5BB9E382D3BF0C70089667A /* TPNoteTableSectionController.swift in Sources */,
 				E5BB9F232D3BF2C20089667A /* AppNotificationName.swift in Sources */,
@@ -8967,6 +8982,7 @@
 				E50DD7C82D72063200A85E87 /* TodoFolderHomeCell.swift in Sources */,
 				E59244032F51578F00CA2393 /* HabitConstants.swift in Sources */,
 				E5526AC52DD0AC8E00B96A9D /* CalendarWeekView.swift in Sources */,
+				E50D02602F55A8C100E93977 /* HabitDateRangeEditCell.swift in Sources */,
 				E5BB9E4B2D3BF0C70089667A /* TPHolidayScheduler.swift in Sources */,
 				E5BB9DA82D3BF0C60089667A /* FlipClockView.swift in Sources */,
 				E58C9E1A2F4AF0DC0096B842 /* FocusTimelineEvent.swift in Sources */,

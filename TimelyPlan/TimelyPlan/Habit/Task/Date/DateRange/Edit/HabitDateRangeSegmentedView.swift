@@ -31,6 +31,9 @@ class HabitDateRangeSegmentedView: UIView {
     /// 选中编辑类型回调
     var didSelectEditType: ((DateRangeEditType) -> Void)?
     
+    
+    let segmentedHeight = 100.0
+    
     /// 箭头宽度
     private let arrowWidth = 20.0
 
@@ -76,9 +79,9 @@ class HabitDateRangeSegmentedView: UIView {
         endDateButton.size = startDateButton.size
         endDateButton.right = width
     }
-    
+
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: size.width, height: 80.0)
+        return CGSize(width: size.width, height: segmentedHeight)
     }
     
     /// 更新选中按钮
@@ -132,30 +135,30 @@ class HabitDateRangeSegmentedButton: UIButton {
     
     var showDelete: Bool = false
     
-    var dateText: String? {
+    var dateText: TextRepresentable? {
         get {
-            return infoView.title as? String
+            return infoView.detailTitle
         }
         
         set {
-            infoView.title = newValue
+            infoView.detailTitle = newValue
             setNeedsLayout()
         }
     }
     
-    var dateDescription: String? {
+    var dateDescription: TextRepresentable? {
         get {
-            return infoView.subtitle as? String
+            return infoView.detailSubtitle
         }
         
         set {
-            infoView.subtitle = newValue
+            infoView.detailSubtitle = newValue
             setNeedsLayout()
         }
     }
     
     /// 正常背景色
-    var normalBackgroundColor = Color(0xaaaaaa, 0.1)
+    var normalBackgroundColor = UIColor.primary.withAlphaComponent(0.2)
     
     /// 选中背景颜色
     var selectedBackgroundColor = UIColor.primary
@@ -173,15 +176,12 @@ class HabitDateRangeSegmentedButton: UIButton {
     }()
     
     /// 信息视图
-    private var infoView: TPInfoView = {
-        let view = TPInfoView()
-        view.padding = UIEdgeInsets(left: 15.0, right: 5.0)
+    private var infoView: HabitDateRangeInfoView = {
+        let view = HabitDateRangeInfoView()
+        view.headerLabel.alpha = 0.6
+        view.detailView.subtitleLabel.alpha = 0.8
+        view.padding = UIEdgeInsets(top:5.0, left: 15.0, bottom: 5.0, right: 5.0)
         view.isUserInteractionEnabled = false
-        view.titleConfig.adjustsFontSizeToFitWidth = true
-        view.titleConfig.font = .boldSystemFont(ofSize: 15.0)
-        view.subtitleTopMargin = 8.0
-        view.subtitleConfig.font = .boldSystemFont(ofSize: 12.0)
-        view.subtitleLabel.alpha = 0.6
         return view
     }()
     
@@ -198,14 +198,14 @@ class HabitDateRangeSegmentedButton: UIButton {
         var backgroundImage: UIImage?
         if style == .start {
             let image = resGetImage("habit_dateRange_background_start")
-            backgroundImage = image?.stretchableImage(withLeftCapWidth: 10, topCapHeight: 40)
+            backgroundImage = image?.stretchableImage(withLeftCapWidth: 20, topCapHeight: 50)
             self.padding = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 25.0)
-            self.infoView.title = resGetString("Start Date")
+            self.infoView.headerLabel.text = resGetString("Start Date")
         } else {
             let image = resGetImage("habit_dateRange_background_end")
-            backgroundImage = image?.stretchableImage(withLeftCapWidth: 30, topCapHeight: 40)
+            backgroundImage = image?.stretchableImage(withLeftCapWidth: 30, topCapHeight: 50)
             self.padding = UIEdgeInsets(top: 5.0, left: 25.0, bottom: 5.0, right: 10.0)
-            self.infoView.title = resGetString("End Date")
+            self.infoView.headerLabel.text = resGetString("End Date")
         }
     
         self.backgroundImageView.image = backgroundImage
@@ -247,9 +247,11 @@ class HabitDateRangeSegmentedButton: UIButton {
         
         let color: UIColor = isSelected ? .white : resGetColor(.title)
         self.deleteButton.normalImageColor = color
-        self.infoView.titleConfig.textColor = color
-        self.infoView.subtitleConfig.textColor = color
-        self.infoView.setNeedsLayout()
+        infoView.headerLabel.textColor = color
+        let detailView = self.infoView.detailView
+        detailView.titleConfig.textColor = color
+        detailView.subtitleConfig.textColor = color
+        detailView.setNeedsLayout()
     }
     
     @objc func clickDelete(_ button: UIButton){

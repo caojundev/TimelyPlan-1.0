@@ -31,6 +31,8 @@ class HabitDateRangeEditViewController: TPTableSectionsViewController,
         return view
     }()
     
+    private let segmentedMargin = 10.0
+    
     private let separatorView = UIView()
     
     lazy var sectionController: HabitDateRangeEditSectionController = {
@@ -77,12 +79,12 @@ class HabitDateRangeEditViewController: TPTableSectionsViewController,
         
         separatorView.width = view.width
         separatorView.height = 0.8
-        separatorView.top = dateRangeSegmentedView.bottom + 10.0
+        separatorView.top = dateRangeSegmentedView.bottom + segmentedMargin
     }
     
     override func tableViewFrame() -> CGRect {
         return CGRect(x: 0.0,
-                      y: 90.0,
+                      y: dateRangeSegmentedView.segmentedHeight + segmentedMargin,
                       width: view.bounds.width,
                       height: view.bounds.height - 90.0)
     }
