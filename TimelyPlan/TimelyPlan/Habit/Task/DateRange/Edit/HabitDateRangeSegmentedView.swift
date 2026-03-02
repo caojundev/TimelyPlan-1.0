@@ -134,22 +134,22 @@ class HabitDateRangeSegmentedButton: UIButton {
     
     var dateText: String? {
         get {
-            return infoView.dateLabel.text
+            return infoView.title as? String
         }
         
         set {
-            infoView.dateLabel.text = newValue
+            infoView.title = newValue
             setNeedsLayout()
         }
     }
     
     var dateDescription: String? {
         get {
-            return infoView.infoLabel.text
+            return infoView.subtitle as? String
         }
         
         set {
-            infoView.infoLabel.text = newValue
+            infoView.subtitle = newValue
             setNeedsLayout()
         }
     }
@@ -173,11 +173,14 @@ class HabitDateRangeSegmentedButton: UIButton {
     }()
     
     /// 信息视图
-    private var infoView: HabitDateRangeInfoView = {
-        let view = HabitDateRangeInfoView()
+    private var infoView: TPInfoView = {
+        let view = TPInfoView()
+        view.padding = UIEdgeInsets(left: 15.0, right: 10.0)
         view.isUserInteractionEnabled = false
-        view.headerLabel.alpha = 0.8
-        view.infoLabel.alpha = 0.6
+        view.titleConfig.font = .boldSystemFont(ofSize: 15.0)
+        view.subtitleTopMargin = 8.0
+        view.subtitleConfig.font = .boldSystemFont(ofSize: 12.0)
+        view.subtitleLabel.alpha = 0.6
         return view
     }()
     
@@ -196,12 +199,12 @@ class HabitDateRangeSegmentedButton: UIButton {
             let image = resGetImage("habit_dateRange_background_start")
             backgroundImage = image?.stretchableImage(withLeftCapWidth: 10, topCapHeight: 40)
             self.padding = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 25.0)
-            self.infoView.headerLabel.text = resGetString("Start Date")
+            self.infoView.title = resGetString("Start Date")
         } else {
             let image = resGetImage("habit_dateRange_background_end")
             backgroundImage = image?.stretchableImage(withLeftCapWidth: 30, topCapHeight: 40)
             self.padding = UIEdgeInsets(top: 5.0, left: 25.0, bottom: 5.0, right: 10.0)
-            self.infoView.headerLabel.text = resGetString("End Date")
+            self.infoView.title = resGetString("End Date")
         }
     
         self.backgroundImageView.image = backgroundImage
@@ -243,9 +246,9 @@ class HabitDateRangeSegmentedButton: UIButton {
         
         let color: UIColor = isSelected ? .white : resGetColor(.title)
         self.deleteButton.normalImageColor = color
-        self.infoView.headerLabel.textColor = color
-        self.infoView.dateLabel.textColor = color
-        self.infoView.infoLabel.textColor = color
+        self.infoView.titleConfig.textColor = color
+        self.infoView.subtitleConfig.textColor = color
+        self.infoView.setNeedsLayout()
     }
     
     @objc func clickDelete(_ button: UIButton){

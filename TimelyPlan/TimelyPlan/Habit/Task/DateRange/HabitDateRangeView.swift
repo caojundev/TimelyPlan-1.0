@@ -25,10 +25,6 @@ class HabitDateRangeView: UIView {
     /// 开始日期按钮
     lazy var startDateButton: HabitDateRangeInfoButton = {
         let button = HabitDateRangeInfoButton()
-        button.headerLabel.text = resGetString("Start Date")
-        button.headerLabel.textAlignment = .left
-        button.dateLabel.textAlignment = .left
-        button.infoLabel.textAlignment = .left
         button.addTarget(self,
                          action: #selector(clickStartDate),
                          for: .touchUpInside)
@@ -38,7 +34,6 @@ class HabitDateRangeView: UIView {
     /// 结束日期按钮
     lazy var endDateButton: HabitDateRangeInfoButton = {
         let button = HabitDateRangeInfoButton()
-        button.headerLabel.text = resGetString("End Date")
         button.addTarget(self,
                          action: #selector(clickEndDate),
                          for: .touchUpInside)
@@ -58,9 +53,9 @@ class HabitDateRangeView: UIView {
         self.addSubview(self.arrowImageView)
         self.addSubview(self.startDateButton)
         self.addSubview(self.endDateButton)
-        self.padding = UIEdgeInsets(horizontal: 16.0, vertical: 20.0)
+        self.padding = UIEdgeInsets(horizontal: 5.0, vertical: 10.0)
         self.updateInfo()
-        self.separatorEdgeInset = UIEdgeInsets(horizontal: 20.0)
+        self.separatorEdgeInset = UIEdgeInsets(horizontal: 10.0)
         self.addSeparator(position: .bottom, color: Color(0x888888, 0.1))
     }
     
@@ -88,10 +83,10 @@ class HabitDateRangeView: UIView {
     
     // MARK: - Update
     func updateInfo() {
-        startDateButton.dateText = dateRange.startDateText()
-        startDateButton.infoLabel.text = dateRange.startDateDescription()
-        endDateButton.dateText = dateRange.endDateText()
-        endDateButton.infoLabel.text = dateRange.lastsCountDescription()
+        startDateButton.title = dateRange.startDateText()
+        startDateButton.subtitle = dateRange.startDateDescription()
+        endDateButton.title = dateRange.endDateText()
+        endDateButton.subtitle = dateRange.lastsCountDescription()
     }
     
     // MARK: - Event Response
@@ -120,27 +115,38 @@ class HabitDateRangeView: UIView {
 }
 
 class HabitDateRangeInfoButton: TPBaseButton {
-
-    var dateText: String? {
-        didSet {
-            dateLabel.text = dateText
-            setNeedsLayout()
+    
+    var title: TextRepresentable? {
+        get {
+            return infoView.title
+        }
+        
+        set {
+            infoView.title = newValue
         }
     }
-
-    var dateLabel: TPLabel {
-        return infoView.dateLabel
+    
+    var subtitle: TextRepresentable? {
+        get {
+            return infoView.subtitle
+        }
+        
+        set {
+            infoView.subtitle = newValue
+        }
     }
     
-    var headerLabel: TPLabel {
-        return infoView.headerLabel
-    }
-    
-    var infoLabel: TPLabel {
-        return infoView.infoLabel
-    }
-    
-    private let infoView = HabitDateRangeInfoView()
+    /// 信息视图
+    private var infoView: TPInfoView = {
+        let view = TPInfoView()
+        view.padding = UIEdgeInsets(left: 15.0, right: 10.0)
+        view.isUserInteractionEnabled = false
+        view.titleConfig.font = .boldSystemFont(ofSize: 15.0)
+        view.subtitleTopMargin = 8.0
+        view.subtitleConfig.font = .boldSystemFont(ofSize: 12.0)
+        view.subtitleLabel.alpha = 0.6
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -157,76 +163,5 @@ class HabitDateRangeInfoButton: TPBaseButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         infoView.frame = layoutFrame()
-    }
-}
-
-class HabitDateRangeInfoView: UIView {
-
-    var dateText: String? {
-        didSet {
-            dateLabel.text = dateText
-            setNeedsLayout()
-        }
-    }
-    
-    /// 日期标签
-    lazy var dateLabel: TPLabel = {
-        let label = TPLabel()
-        label.font = BOLD_SYSTEM_FONT
-        label.adjustsFontSizeToFitWidth = true
-        label.textAlignment = .center
-        label.numberOfLines = 1
-        label.textColor = resGetColor(.title)
-        return label
-    }()
-    
-    lazy var headerLabel: TPLabel = {
-        let label = TPLabel()
-        label.font = BOLD_SMALL_SYSTEM_FONT
-        label.textAlignment = .center
-        label.numberOfLines = 1
-        label.textColor = resGetColor(.title)
-        label.alpha = 0.8
-        return label
-    }()
-    
-    lazy var infoLabel: TPLabel = {
-        let label = TPLabel()
-        label.font = .boldSystemFont(ofSize: 12.0)
-        label.textAlignment = .center
-        label.numberOfLines = 1
-        label.textColor = .secondaryLabel
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.addSubview(self.headerLabel)
-        self.addSubview(self.dateLabel)
-        self.addSubview(self.infoLabel)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let layoutFrame = layoutFrame()
-        headerLabel.width = layoutFrame.width
-        headerLabel.height = layoutFrame.height * 0.25
-        headerLabel.top = layoutFrame.minY
-        headerLabel.left = layoutFrame.minX
-        
-        dateLabel.width = layoutFrame.width
-        dateLabel.height = layoutFrame.height * 0.5
-        dateLabel.left = layoutFrame.minX
-        dateLabel.top = headerLabel.bottom
-    
-        infoLabel.width = layoutFrame.width
-        infoLabel.height = layoutFrame.height * 0.25
-        infoLabel.left = layoutFrame.minX
-        infoLabel.top = dateLabel.bottom
     }
 }

@@ -27,11 +27,12 @@ class TPTimePickerViewController: TPTableSectionsViewController {
     /// 时间点
     lazy var timePointSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 20.0
         sectionController.headerItem.height = 0.0
         sectionController.footerItem.height = 0.0
-        sectionController.cellItems = [absoluteTimePresetCellItem,
+        sectionController.cellItems = [relativeTimePresetCellItem,
                                        timePickerCellItem,
-                                       relativeTimePresetCellItem]
+                                       absoluteTimePresetCellItem]
         return sectionController
     }()
     
@@ -90,18 +91,20 @@ class TPTimePickerViewController: TPTableSectionsViewController {
     }
     
     override var popoverContentSize: CGSize {
-        let contentHeight = timePickerCellItem.height + absoluteTimePresetCellItem.height + relativeTimePresetCellItem.height + actionsBarHeight
+        var contentHeight = timePickerCellItem.height + absoluteTimePresetCellItem.height + relativeTimePresetCellItem.height + actionsBarHeight
+        contentHeight += timePointSectionController.headerItem.height
         return CGSize(width: kPopoverPreferredContentWidth, height: contentHeight)
     }
     
     override func clickDone() {
+        let date = date.truncatedToMinute()
         didPickDate?(date)
         dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Select
     private func didSelectPresetAbsoluteTimeOffset(_ offset: Duration) {
-        self.date = date.dateWithTimeOffset(offset).truncatedToMinute()
+        self.date = date.dateWithTimeOffset(offset)
         reloadTimerPicker()
     }
     

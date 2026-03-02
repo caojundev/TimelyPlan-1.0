@@ -19,7 +19,7 @@ class HabitDateRangeEditCellItem: TPBaseTableCellItem {
         super.init()
         self.selectionStyle = .none
         self.registerClass = HabitDateRangeEditCell.self
-        self.height = 120.0
+        self.height = 90.0
     }
 }
 
