@@ -23,7 +23,7 @@ class HabitGoalSectionController: TPTableItemSectionController {
                 return
             }
             
-            let mode = self.goal.mode ?? .checkin
+            let mode = self.goal.mode
             self.targetModeCellItem.selectedMenuTag = mode.rawValue
         }
         

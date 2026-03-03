@@ -21,7 +21,9 @@
 "By Day" = "按天";
 "By Week" = "按周";
 "Manage Habits" = "管理习惯";
-        
+
+"No Habit Today" = "今日无习惯";
+
 /// 习惯编辑
 "New Habit" = "新建习惯";
 "Edit Habit" = "编辑习惯";

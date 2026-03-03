@@ -154,13 +154,53 @@ class CalendarDatePageView: TPCollectionWrapperView,
         reloadData(animateStyle: animateStyle)
     }
     
+    /// 判断日期是否可见
+    func isVisibleDate(_ date: Date) -> Bool {
+        if visibleDate.isInSameDayAs(date) {
+            return true
+        }
+
+        if collectionView.isDragging {
+            let dates = adapter.allItems() as! [Date]
+            /// 当 contentOffset 当前位置非整页时，计算当前显示的是哪两页
+            let currentPageIndex = validatedIndex(Int(collectionView.contentOffset.x / bounds.width))
+            if dates[currentPageIndex].isInSameDayAs(date) {
+                return true
+            }
+
+            // 非显示完整页面，检查下一页
+            let nextPageIndex = validatedIndex(currentPageIndex + 1)
+            if dates[nextPageIndex].isInSameDayAs(date) {
+                return true
+            }
+        }
+        
+        if let visibleCells = collectionView.visibleCells as? [CalendarDatePageCell] {
+            for visibleCell in visibleCells {
+                if visibleCell.date.isInSameDayAs(date) {
+                    return true
+                }
+            }
+        }
+        
+        return false
+    }
+    
     // MARK: - 子类重写
     func getDates() -> [Date]? {
-        return nil
+        var dates: [Date] = [visibleDate]
+        for i in 1...5 {
+            let leftDate = visibleDate.dateByAddingDays(-i)!
+            dates.insert(leftDate, at: 0)
+            let rightDate = visibleDate.dateByAddingDays(i)!
+            dates.append(rightDate)
+        }
+
+        return dates
     }
     
     func validatedDate(_ date: Date) -> Date {
-        return date
+        return date.startOfDay()
     }
     
     // MARK: - Private Metehods
@@ -207,4 +247,9 @@ class CalendarDatePageView: TPCollectionWrapperView,
         // 如果余数接近0或接近pageWidth，则认为是完整页面
         return remainder < tolerance || remainder > (pageWidth - tolerance)
     }
+}
+
+class CalendarDatePageCell: TPCollectionCell {
+    
+    var date: Date = .now
 }

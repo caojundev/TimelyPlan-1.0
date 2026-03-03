@@ -35,22 +35,6 @@ class FocusTimelineDayPageView: CalendarDatePageView,
     /// 滚动同步器
     private var synchronizer: FocusTimelineSynchronizer?
     
-    override func getDates() -> [Date] {
-        var dates: [Date] = [visibleDate]
-        for i in 1...kNearItemsCount {
-            let leftDate = visibleDate.dateByAddingDays(-i)!
-            dates.insert(leftDate, at: 0)
-            let rightDate = visibleDate.dateByAddingDays(i)!
-            dates.append(rightDate)
-        }
-
-        return dates
-    }
-    
-    override func validatedDate(_ date: Date) -> Date {
-        return date.startOfDay()
-    }
-    
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return FocusTimelineDayTimelineCell.self
     }
@@ -103,37 +87,6 @@ class FocusTimelineDayPageView: CalendarDatePageView,
         }
     }
     
-    private func isVisibleDate(_ date: Date) -> Bool {
-        if visibleDate.isInSameDayAs(date) {
-            return true
-        }
-
-        if collectionView.isDragging {
-            let dates = adapter.allItems() as! [Date]
-            /// 当 contentOffset 当前位置非整页时，计算当前显示的是哪两页
-            let currentPageIndex = validatedIndex(Int(collectionView.contentOffset.x / bounds.width))
-            if dates[currentPageIndex].isInSameDayAs(date) {
-                return true
-            }
-
-            // 非显示完整页面，检查下一页
-            let nextPageIndex = validatedIndex(currentPageIndex + 1)
-            if dates[nextPageIndex].isInSameDayAs(date) {
-                return true
-            }
-        }
-        
-        if let visibleCells = collectionView.visibleCells as? [FocusTimelineDayTimelineCell] {
-            for visibleCell in visibleCells {
-                if visibleCell.date.isInSameDayAs(date) {
-                    return true
-                }
-            }
-        }
-        
-        return false
-    }
-    
     // MARK: - FocusTimelineEventProvider
     func fetchTimelineEvents(for date: Date, completion: @escaping ([FocusTimelineEvent]?) -> Void) {
         guard isVisibleDate(date) else {
@@ -145,9 +98,16 @@ class FocusTimelineDayPageView: CalendarDatePageView,
     }
 }
 
-class FocusTimelineDayTimelineCell: TPCollectionCell {
-    var date: Date {
-        return timelineView.date
+class FocusTimelineDayTimelineCell: CalendarDatePageCell {
+    
+    override var date: Date {
+        get {
+            return timelineView.date
+        }
+        
+        set {
+            timelineView.date = newValue
+        }
     }
     
     let timelineView = FocusTimelineView(frame: .zero)

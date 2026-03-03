@@ -44,6 +44,7 @@ struct HabitEditingTask: Equatable {
     /// 备注
     var note: String?
     
+    /// 图标
     var icon: TPIcon {
         get {
             return TPIcon(text: emoji ?? "C")

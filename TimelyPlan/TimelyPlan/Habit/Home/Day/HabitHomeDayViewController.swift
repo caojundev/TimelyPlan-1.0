@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 
 class HabitHomeDayViewController: TPViewController,
-                                      FocusTimelineEventProvider,
-                                      FocusTimelineEventListTapDelegate,
                                       CalendarDatePageViewDelegate,
                                       TPCalendarSingleDateSelectionDelegate {
     
@@ -55,11 +53,9 @@ class HabitHomeDayViewController: TPViewController,
     }()
     
     /// 翻页视图
-    private lazy var pageView: FocusTimelineDayPageView = {
-        let view = FocusTimelineDayPageView(frame: .zero)
+    private lazy var pageView: HabitHomeDayPageView = {
+        let view = HabitHomeDayPageView(frame: .zero)
         view.delegate = self
-        view.eventProvider = self
-        view.tapDelegate = self
         return view
     }()
     
@@ -112,31 +108,7 @@ class HabitHomeDayViewController: TPViewController,
     private func updatePagingView(with date: Date, animated: Bool = true) {
         pageView.setVisibleDate(date, animated: animated)
     }
-                                          
-    // MARK: - FocusTimelineEventProvider
-    func fetchTimelineEvents(for date: Date, completion: @escaping([FocusTimelineEvent]?) -> Void) {
-        focus.fetchSessions(for: date) { sessions in
-            guard let sessions = sessions else {
-                completion(nil)
-                return
-            }
-
-            var events: [FocusTimelineEvent] = []
-            for session in sessions {
-                let event = FocusTimelineEvent(session: session)
-                events.append(event)
-            }
-            
-            completion(events)
-        }
-    }
-
-    // MARK: - FocusTimelineEventListTapDelegate
-    func didTapTimelineEvent(_ event: FocusTimelineEvent) {
-        TPImpactFeedback.impactWithSoftStyle()
-        FocusPresenter.editRecord(for: event.session)
-    }
-
+    
     // MARK: - TPCalendarSingleDateSelectionDelegate
     func singleDateSelection(_ selection: TPCalendarSingleDateSelection, didSelect date: DateComponents) {
         guard let selectedDate = Date.dateFromComponents(date) else {

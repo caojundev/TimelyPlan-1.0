@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HabitGoal {
+struct HabitGoal: Equatable {
     
     /// 目标模式
     enum TargetMode: Int, Hashable, Codable, Equatable, TPMenuRepresentable {
@@ -34,10 +34,10 @@ struct HabitGoal {
     }
     
     /// 模式（打卡、定量）
-    var mode: TargetMode? = .checkin
+    var mode: TargetMode = .checkin
     
     /// 完成数量
-    var targetAmount: Int? = 1
+    var targetAmount: Int = 1
     
     /// 单位
     var unit: String?
@@ -49,8 +49,8 @@ struct HabitGoal {
     var recordAmount: Int?
     
     var validatedTargetAmount: Int {
-        if let amount = targetAmount, amount > 0 {
-            return amount
+        if targetAmount > 0 {
+            return targetAmount
         }
         
         /// 返回默认值
@@ -76,5 +76,18 @@ struct HabitGoal {
     /// 默认单位
     static var defaultUnit: String {
         return resGetString("count")
+    }
+}
+
+extension HabitGoal {
+    
+    /// 目标描述
+    var targetDescription: String {
+        if mode == .checkin {
+            return resGetString("Check-in one time per day")
+        }
+        
+        let format: String = resGetString("%ld %@ per day")
+        return String(format: format, validatedTargetAmount, validatedUnit)
     }
 }
