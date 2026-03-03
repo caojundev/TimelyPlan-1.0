@@ -43,7 +43,7 @@ class HabitHomeDayListView: TPCollectionWrapperView,
         self.setupData()
         self.collectionView.placeholderView = self.placeholderView
         self.adapter.footerSize = .zero
-        self.adapter.cellStyle.cornerRadius = 16.0
+        self.adapter.cellStyle.cornerRadius = 20.0
         self.adapter.dataSource = self
         self.adapter.delegate = self
         self.adapter.reloadData()

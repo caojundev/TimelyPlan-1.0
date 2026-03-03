@@ -160,7 +160,7 @@ class TPCollectionCell: UICollectionViewCell,
                         width = UIScreen.main.bounds.size.width
                     }
                     
-                    let scale = (width - 4.0) / width
+                    let scale = (width - 8.0) / width
                     transform = .init(scaleX: scale, y: scale)
                 }
                 

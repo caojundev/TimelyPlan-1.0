@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+/// 角度转换为弧度
+func degreesToRadians(_ degrees: CGFloat) -> CGFloat {
+    return degrees * M_PI / 180.0
+}
+
 /// 返回一个合法的进度值
 func validatedProgress(_ value: CGFloat) -> CGFloat {
     return max(0.0, min(value, 1.0))
