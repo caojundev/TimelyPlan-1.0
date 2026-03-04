@@ -84,8 +84,6 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
         
         /// 取消第一响应（计时器搜索栏可能正在输入）
         UIResponder.resignCurrentFirstResponder()
-        
-//        FocusStateStore.shared.mainMenuType = menuType
         updateContentViewController()
     }
     
@@ -94,8 +92,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
         if menuType == .day {
             vc = HabitHomeDayViewController()
         } else {
-            vc = UIViewController()
-            vc.view.backgroundColor = .random
+            vc = HabitHomeWeekViewController()
         }
         
         self.contentViewController = vc

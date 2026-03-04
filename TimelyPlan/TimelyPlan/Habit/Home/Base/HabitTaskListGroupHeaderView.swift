@@ -1,14 +1,14 @@
 //
-//  HabitHomeDayListHeaderView.swift
+//  HabitTaskListGroupHeaderView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/3/3.
+//  Created by caojun on 2026/3/4.
 //
 
 import Foundation
 import UIKit
 
-class HabitHomeDayListHeaderView: TPCollectionHeaderFooterView {
+class HabitTaskListGroupHeaderView: TPCollectionHeaderFooterView {
     
     var group: HabitTaskGroup? {
         didSet {
@@ -23,7 +23,7 @@ class HabitHomeDayListHeaderView: TPCollectionHeaderFooterView {
         label.textAlignment = .center
         label.font = BOLD_SMALL_SYSTEM_FONT
         label.lineBreakMode = .byTruncatingTail
-        label.textColor = .white
+        label.textColor = .systemBackground
         return label
     }()
 
@@ -43,7 +43,7 @@ class HabitHomeDayListHeaderView: TPCollectionHeaderFooterView {
         valueLabel.right = contentLayoutFrame.maxX
         valueLabel.centerY = contentLayoutFrame.midY
         valueLabel.layer.cornerRadius = valueLabel.halfHeight
-        valueLabel.layer.backgroundColor = UIColor.darkGray.cgColor
+        valueLabel.layer.backgroundColor = infoView.titleConfig.textColor?.cgColor
         infoView.width = valueLabel.left - infoView.left
     }
     

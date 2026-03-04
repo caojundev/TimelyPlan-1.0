@@ -1,5 +1,5 @@
 //
-//  HabitHomeDayTaskCell.swift
+//  HabitHomeDayListCell.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/3.
@@ -8,20 +8,7 @@
 import Foundation
 import UIKit
 
-class HabitHomeDayTaskCell: TPCollectionCell {
-    
-    /// 遮罩视图
-    private let coverView = UIView()
-    
-    /// 阴影视图
-    private lazy var shadowView: UIView = {
-        let view = UIView()
-        view.layer.shadowColor = Color(0x666666, 0.6).cgColor
-        view.layer.shadowOffset = CGSize(width:0, height: 4.0)
-        view.layer.shadowRadius = 4.0
-        view.layer.shadowOpacity = 0.6
-        return view
-    }()
+class HabitHomeDayListCell: HabitTaskBaseListCell {
     
     private lazy var infoView: HabitTaskProgressInfoView = {
         let view = HabitTaskProgressInfoView()
@@ -40,16 +27,12 @@ class HabitHomeDayTaskCell: TPCollectionCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        clipsToBounds = false
-        insertSubview(shadowView, belowSubview: contentView)
-        contentView.padding = UIEdgeInsets(left: 16.0, right: 16.0)
-        contentView.addSubview(coverView)
         contentView.addSubview(infoView)
         contentView.addSubview(moreButton)
         
-        let color = UIColor.randomHabitTaskColor
+        
         updateStyleWithColor(UIColor.randomHabitTaskColor)
-
+        
         infoView.iconView.icon = TPIcon(text: Character.randomEmojiString())
         infoView.titleView.title = "阅读文档"
         infoView.titleView.subtitle = "每天阅读100页"
@@ -64,16 +47,6 @@ class HabitHomeDayTaskCell: TPCollectionCell {
     // MARK: - Layout
     override func layoutSubviews() {
         super.layoutSubviews()
-    
-        let radius = contentView.layer.cornerRadius
-        shadowView.frame = bounds
-        shadowView.layer.shadowPath = UIBezierPath(roundedRect: bounds,
-                                                   cornerRadius: radius).cgPath
-        
-        coverView.frame = bounds
-        coverView.layer.cornerRadius = radius
-        coverView.layer.backgroundColor = Color(0x000000, 0.1).cgColor
-        
         let layoutFrame = contentView.layoutFrame()
         moreButton.sizeToFit()
         moreButton.right = layoutFrame.maxX
@@ -84,8 +57,8 @@ class HabitHomeDayTaskCell: TPCollectionCell {
         infoView.origin = layoutFrame.origin
     }
     
-    func updateStyleWithColor(_ color: UIColor) {
-        contentView.backgroundColor = color.withBrightness(0.5)
+    override func updateStyleWithColor(_ color: UIColor) {
+        super.updateStyleWithColor(color)
         
         let iconView = infoView.iconView
         iconView.foreColor = Color(0xffffff, 0.8)

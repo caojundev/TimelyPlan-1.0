@@ -39,7 +39,7 @@ class CalendarDatePageView: TPCollectionWrapperView,
     private(set) var visibleDate: Date!
     
     /// 当前月左右条数目
-    let kNearItemsCount = 3
+    let kNearItemsCount = 5
 
     init(frame: CGRect, visibleDate: Date = .now) {
         super.init(frame: frame)
@@ -72,6 +72,7 @@ class CalendarDatePageView: TPCollectionWrapperView,
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.bounces = false
         collectionView.isPagingEnabled = true
+        collectionView.decelerationRate = .fast
     }
     
     func sectionObjects(for adapter: TPCollectionViewAdapter) -> [ListDiffable]? {

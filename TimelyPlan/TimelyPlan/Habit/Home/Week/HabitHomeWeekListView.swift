@@ -1,14 +1,14 @@
 //
-//  HabitHomeDayListView.swift
+//  HabitHomeWeekListView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/3/3.
+//  Created by caojun on 2026/3/4.
 //
 
 import Foundation
 import UIKit
 
-class HabitHomeDayListView: HabitTaskBaseListView {
+class HabitHomeWeekListView: HabitTaskBaseListView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,12 +19,12 @@ class HabitHomeDayListView: HabitTaskBaseListView {
     }
     
     override func setupData() {
-        self.sectionLayout.preferredItemHeight = 80.0
+        self.sectionLayout.preferredItemHeight = 210.0
     }
     
     // MARK: - TPCollectionViewAdapterDelegate
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        return HabitHomeDayListCell.self
+        return HabitHomeWeekListCell.self
     }
 
     override func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {

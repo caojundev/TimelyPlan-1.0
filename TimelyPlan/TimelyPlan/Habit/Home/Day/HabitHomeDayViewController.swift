@@ -140,8 +140,7 @@ class HabitHomeDayViewController: TPViewController,
     }
     
     @objc func didClickAdd(_ button: UIButton){
-        let vc = HabitTaskEditViewController(task: nil)
-        vc.showAsNavigationRoot()
+        HabitPresenter.createNewHabit()
     }
 
     // MARK: - UI Update
