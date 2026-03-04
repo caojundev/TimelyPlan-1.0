@@ -37,7 +37,7 @@ class HabitHomeWeekListCell: HabitTaskBaseListCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.padding = UIEdgeInsets(top: 5.0,
-                                           left: 16.0,
+                                           left: 8.0,
                                            bottom: 5.0,
                                            right: 8.0)
         contentView.addSubview(headerView)
