@@ -18,6 +18,16 @@ class TPCollectionWrapperView: UIView,
         return collectionView.contentSize
     }
     
+    var contentInset: UIEdgeInsets {
+        get {
+            return collectionView.contentInset
+        }
+        
+        set {
+            collectionView.contentInset = newValue
+        }
+    }
+    
     /// CollectionView 视图配置
     var collectionConfiguration: ((UICollectionView) -> Void)? {
         didSet {

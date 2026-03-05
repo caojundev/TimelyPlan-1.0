@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G1427" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="CDHabitTask" representedClassName="CDHabitTask" syncable="YES" codeGenerationType="class">
+        <attribute name="autoShowLog" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="colorHex" optional="YES" attributeType="String"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -20,7 +21,9 @@
         <attribute name="reminderJSON" optional="YES" attributeType="String"/>
         <attribute name="shouldRemind" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="timePlanJSON" optional="YES" attributeType="String"/>
+        <attribute name="timeOption" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timePlanRuleJSON" optional="YES" attributeType="String"/>
+        <attribute name="timePlanType" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="FocusSession" representedClassName="FocusSession" syncable="YES" codeGenerationType="class">
         <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -134,6 +137,7 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoTag" inverseName="tasks" inverseEntity="TodoTag"/>
     </entity>
     <elements>
+        <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="374"/>
         <element name="FocusSession" positionX="36" positionY="189" width="128" height="209"/>
         <element name="FocusTimer" positionX="27" positionY="180" width="128" height="164"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
@@ -145,6 +149,5 @@
         <element name="TodoStep" positionX="18" positionY="63" width="128" height="134"/>
         <element name="TodoTag" positionX="18" positionY="63" width="128" height="134"/>
         <element name="TodoTask" positionX="-27" positionY="18" width="128" height="344"/>
-        <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="343"/>
     </elements>
 </model>

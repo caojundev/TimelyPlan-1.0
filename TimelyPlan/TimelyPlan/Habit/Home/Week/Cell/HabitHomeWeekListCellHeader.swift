@@ -14,22 +14,14 @@ class HabitHomeWeekListCellHeader: TPImageInfoView {
     lazy var moreButton: TPDefaultButton = {
         let button = TPDefaultButton.moreButton()
         button.imageConfig.color = Color(0xffffff, 0.8)
-        button.addTarget(self,
-                         action: #selector(clickMore(_:)),
-                         for: .touchUpInside)
         return button
     }()
     
     override func setupSubviews() {
         super.setupSubviews()
-        self.titleConfig.font = BOLD_SMALL_SYSTEM_FONT
+        self.titleConfig.font = .boldSystemFont(ofSize: 12.0)
         self.rightAccessoryView = moreButton
         self.rightAccessorySize = .mini
-        self.rightAccessoryMargins = UIEdgeInsets(horizontal: 5.0)
-    }
-    
-    /// 点击更多
-    @objc func clickMore(_ button: UIButton) {
-
+        self.rightAccessoryMargins = UIEdgeInsets(left: 5.0)
     }
 }

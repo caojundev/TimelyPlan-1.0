@@ -10,8 +10,22 @@ import Foundation
 class HabitPresenter {
     
     /// 创建新习惯
-    static func createNewHabit() {
+    static func createNewHabitTask() {
         let vc = HabitTaskEditViewController(task: nil)
+        vc.didEndEditing = { editingTask in
+            habit.createTask(with: editingTask)
+        }
+        
+        vc.showAsNavigationRoot()
+    }
+    
+    /// 编辑习惯
+    static func editHabitTask(_ task: HabitTask) {
+        let vc = HabitTaskEditViewController(task: task.editingTask)
+        vc.didEndEditing = { editingTask in
+            habit.updateTask(task, with: editingTask)
+        }
+        
         vc.showAsNavigationRoot()
     }
     

@@ -11,8 +11,8 @@ struct HabitGoal: Equatable {
     
     /// 目标模式
     enum TargetMode: Int, Hashable, Codable, Equatable, TPMenuRepresentable {
-        case checkin /// 打卡模式
-        case amount  /// 定量模式
+        case checkin  = 0 /// 打卡模式
+        case amount       /// 定量模式
         
         static func titles() -> [String] {
             return ["Check-in",
@@ -37,7 +37,7 @@ struct HabitGoal: Equatable {
     var mode: TargetMode = .checkin
     
     /// 完成数量
-    var targetAmount: Int = 1
+    var targetAmount: Int64 = 1
     
     /// 单位
     var unit: String?
@@ -46,9 +46,9 @@ struct HabitGoal: Equatable {
     var recordType: RecordType? = .completeAll
     
     /// 记录方式为automatically时的自动输入值
-    var recordAmount: Int?
+    var recordAmount: Int64?
     
-    var validatedTargetAmount: Int {
+    var validatedTargetAmount: Int64 {
         if targetAmount > 0 {
             return targetAmount
         }
@@ -65,7 +65,7 @@ struct HabitGoal: Equatable {
         return Self.defaultUnit
     }
     
-    var validatedRecordAmount: Int {
+    var validatedRecordAmount: Int64 {
         if let amount = recordAmount, amount > 0 {
             return amount
         }

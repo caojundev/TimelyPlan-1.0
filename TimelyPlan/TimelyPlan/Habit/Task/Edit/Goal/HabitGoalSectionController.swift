@@ -24,7 +24,7 @@ class HabitGoalSectionController: TPTableItemSectionController {
             }
             
             let mode = self.goal.mode
-            self.targetModeCellItem.selectedMenuTag = mode.rawValue
+            self.targetModeCellItem.selectedMenuTag = Int(mode.rawValue)
         }
         
         cellItem.didSelectMenuItem = { menuItem in
@@ -131,7 +131,7 @@ class HabitGoalSectionController: TPTableItemSectionController {
     
     /// 目标数值改变
     func targetAmountDidChange(_ number: NSNumber) {
-        goal.targetAmount = number.intValue
+        goal.targetAmount = number.int64Value
         targetAmountCellItem.updater?()
         goalDidChange?(goal)
     }
@@ -144,7 +144,7 @@ class HabitGoalSectionController: TPTableItemSectionController {
     }
     
     func didEndEditingAutoRecord(number: NSNumber) {
-        goal.recordAmount = number.intValue
+        goal.recordAmount = number.int64Value
         autoRecordNumberCellItem.updater?()
         goalDidChange?(goal)
     }

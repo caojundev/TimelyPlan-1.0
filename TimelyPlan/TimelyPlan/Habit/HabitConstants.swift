@@ -21,7 +21,7 @@ let kHabitTaskColorHexValues: [UInt64] = [
     0x0096A7, 0x0087D3, 0x2E3BA3, 0x301A94, 0x7E22A3]
 
 /// 默认目标数值
-let kHabitGoalDefaultTargetAmount = 1
+let kHabitGoalDefaultTargetAmount: Int64 = 1
 
 /// 默认记录数值
-let kHabitRecordDefaultAmount = 1
+let kHabitRecordDefaultAmount: Int64 = 1

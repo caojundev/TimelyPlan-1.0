@@ -59,6 +59,8 @@ class HabitHomeDayViewController: TPViewController,
         return view
     }()
     
+    private let taskController = HabitTaskController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(weekView)
@@ -140,7 +142,7 @@ class HabitHomeDayViewController: TPViewController,
     }
     
     @objc func didClickAdd(_ button: UIButton){
-        HabitPresenter.createNewHabit()
+        taskController.createNewTask()
     }
 
     // MARK: - UI Update

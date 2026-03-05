@@ -36,7 +36,6 @@ class HabitTaskBaseListView: TPCollectionWrapperView,
         layout.maximumItemsCountPerRow = 1
         layout.lineSpacing = 10.0
         layout.interitemSpacing = 10.0
-        layout.preferredItemHeight = 80.0
         layout.preferredItemWidth = kHabitTaskListContentMaxWidth
         return layout
     }()
@@ -44,7 +43,6 @@ class HabitTaskBaseListView: TPCollectionWrapperView,
     override init(frame: CGRect) {
         super.init(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
         self.setupData()
-        self.setupGroups()
         self.collectionView.placeholderView = self.placeholderView
         self.collectionView.showsVerticalScrollIndicator = false
         self.adapter.footerSize = .zero
@@ -59,27 +57,7 @@ class HabitTaskBaseListView: TPCollectionWrapperView,
     }
     
     func setupData() {
-        
-    }
-    
-    func setupGroups() {
-        var groups = [HabitTaskGroup]()
-        for i in 0...3 {
-            let group = HabitTaskGroup()
-            group.iconName = "habit_time_morning_24"
-            group.name = "测试分组\(i)"
-            var tasks: [HabitTask] = []
-            for j in 0...4 {
-                let task = HabitTask()
-                task.name = "任务\(j)"
-                tasks.append(task)
-            }
-            
-            group.tasks = tasks
-            groups.append(group)
-        }
-        
-        self.groups = groups
+        self.sectionLayout.preferredItemHeight = 80.0
     }
     
     // MARK: - TPCollectionViewAdapterDataSource

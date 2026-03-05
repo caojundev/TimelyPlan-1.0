@@ -8,47 +8,77 @@
 import Foundation
 import UIKit
 
-class HabitTask: NSObject {
+class HabitTask: NSObject, Sortable {
     
     /// 任务唯一标识
-    var identifier: String = UUID().uuidString
+    var identifier: String
     
-    /// 图标
-    var emoji: String? = Character.randomEmoji().stringValue
+    /// 表情符号
+    var emoji: String!
     
     /// 名称
     var name: String?
 
     /// 颜色
-    var color: UIColor = .randomHabitTaskColor
+    var color: UIColor!
     
     /// 时间范围
-    var dateRange: DateRange = DateRange()
+    var dateRange: DateRange!
     
     /// 目标
-    var goal: HabitGoal = HabitGoal()
-    
-    /// 频率
-    var timePlan: HabitTimePlan = HabitTimePlan()
+    var goal: HabitGoal!
     
     /// 时间选项
-    var timeOption: HabitTimeOption = .morning
+    var timeOption: HabitTimeOption = .anytime
     
     /// 是否提醒
     var shouldRemind: Bool = false
-    
-    /// 习惯提醒
-    var reminder: HabitReminder?
-    
+
     /// 自动显示日志弹窗
     var autoShowLog: Bool = false
     
     /// 备注
     var note: String?
+
+    /// 时间计划
+    private(set) lazy var timePlan: HabitTimePlan = {
+        let type = HabitTimePlanType(rawValue: Int(content.timePlanType)) ?? .regularly
+        if let jsonString = content.timePlanRuleJSON {
+            if type == .randomly {
+                let randomRule = HabitTimePlanRandomRule.model(with: jsonString)
+                return HabitTimePlan(type: type, regularRule: nil, randomRule: randomRule)
+            } else {
+                let regularRule = HabitTimePlanRegularRule.model(with: jsonString)
+                return HabitTimePlan(type: type, regularRule: regularRule, randomRule: nil)
+            }
+        }
+        
+        return HabitTimePlan()
+    }()
+    
+    /// 习惯提醒
+    private(set) lazy var reminder: HabitReminder? = {
+        if let jsonString = content.reminderJSON {
+            return HabitReminder.model(with: jsonString)
+        }
+        
+        return nil
+    }()
+    
+    var isArchived: Bool {
+        get { return content.isArchived }
+        set { content.isArchived = newValue }
+    }
+    
+    /// 排序因子
+    var order: Int64 {
+        get { return content.order }
+        set { content.order = newValue }
+    }
     
     /// 图标
     var icon: TPIcon {
-        return TPIcon(text: emoji ?? "C")
+        return TPIcon(text: emoji)
     }
     
     /// 是否有提醒
@@ -79,6 +109,49 @@ class HabitTask: NSObject {
         return .inProgress
     }
 
+    private(set) var content: CDHabitTask
+    
+    /// 修改日期
+    var modificationDate: Date?
+    
+    init(content: CDHabitTask) {
+        self.content = content
+        self.identifier = content.identifier ?? UUID().uuidString
+        super.init()
+        self.updateNormalProperties()
+    }
+    
+    /// 更新属性
+    private func updateNormalProperties() {
+        self.emoji = content.emoji
+        self.name = content.name
+        self.color = content.color ?? kHabitTaskDefaultColor
+        self.dateRange = DateRange(startDate: content.startDate ?? .now, endDate: content.endDate)
+        self.timeOption = HabitTimeOption(rawValue: Int(content.timeOption)) ?? .anytime
+        self.shouldRemind = content.shouldRemind
+        self.autoShowLog = content.autoShowLog
+        self.note = content.note
+        self.modificationDate = content.modificationDate
+        
+        let targetMode = HabitGoal.TargetMode(rawValue: Int(content.goalMode)) ?? .checkin
+        let recordType = HabitGoal.RecordType(rawValue: Int(content.goalRecordType)) ?? .completeAll
+        self.goal = HabitGoal(mode: targetMode,
+                              targetAmount: content.goalTargetAmount,
+                              unit: content.goalUnit,
+                              recordType: recordType,
+                              recordAmount: content.goalRecordAmount)
+    }
+    
+    // MARK: - Update
+    func update(with editingTask: HabitEditingTask) {
+        self.content.update(with: editingTask)
+        self.updateNormalProperties()
+        
+        /// 更新懒加载属性
+        self.timePlan = editingTask.timePlan
+        self.reminder = editingTask.reminder
+    }
+    
     // MARK: - IGListDiffable
     override func diffIdentifier() -> NSObjectProtocol {
         return identifier as NSString
@@ -86,8 +159,8 @@ class HabitTask: NSObject {
 
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if let object = object as? HabitTask {
-            #warning("比较修改日期")
-            return self.identifier == object.identifier
+            return self.identifier == object.identifier &&
+                    self.modificationDate == object.modificationDate
         }
         
         return false

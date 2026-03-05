@@ -8,8 +8,16 @@
 import Foundation
 import UIKit
 
+protocol HabitHomeWeekListCellDelegate: AnyObject {
+    
+    /// 点击更多
+    func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickMore button: UIButton)
+}
+
 class HabitHomeWeekListCell: HabitTaskBaseListCell {
 
+    var task: HabitTask?
+    
     /// 头视图高度
     let headerViewHeight = 30.0
     
@@ -18,6 +26,10 @@ class HabitHomeWeekListCell: HabitTaskBaseListCell {
     
     private lazy var headerView: HabitHomeWeekListCellHeader = {
         let view = HabitHomeWeekListCellHeader()
+        view.padding = UIEdgeInsets(left: 8.0, right: 0.0)
+        view.moreButton.addTarget(self,
+                                  action: #selector(clickMore(_:)),
+                                  for: .touchUpInside)
         return view
     }()
     
@@ -75,10 +87,6 @@ class HabitHomeWeekListCell: HabitTaskBaseListCell {
         weekView.height = weekViewHeight
         weekView.top = infoView.bottom
         weekView.left = layoutFrame.minX
-        
-//        headerView.backgroundColor = .random
-//        infoView.backgroundColor = .random
-//        weekView.backgroundColor = .random
     }
     
     override func updateStyleWithColor(_ color: UIColor) {
@@ -93,6 +101,13 @@ class HabitHomeWeekListCell: HabitTaskBaseListCell {
         titleView.subtitleConfig.textColor = Color(0xffffff, 0.7)
         
         headerView.titleConfig.textColor = Color(0xffffff, 0.8)
+    }
+    
+    /// 点击更多
+    @objc func clickMore(_ button: UIButton) {
+        if let delegate = self.delegate as? HabitHomeWeekListCellDelegate {
+            delegate.habitHomeWeekListCell(self, didClickMore: button)
+        }
     }
 }
 

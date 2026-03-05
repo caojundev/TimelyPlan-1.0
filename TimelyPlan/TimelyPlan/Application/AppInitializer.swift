@@ -9,6 +9,7 @@ import Foundation
 
 var todo: Todo! /// 待办
 var focus: Focus! /// 专注
+var habit: Habit!
 
 class AppInitializer {
     
@@ -35,6 +36,7 @@ class AppInitializer {
     static func setup() {
         todo = Todo()
         focus = Focus()
+        habit = Habit()
         TPImpactFeedback.feedback.enabled = true
     }
 }

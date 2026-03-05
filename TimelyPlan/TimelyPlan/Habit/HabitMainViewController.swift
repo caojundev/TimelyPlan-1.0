@@ -22,7 +22,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
     var sidebarController: SidebarController?
     
     /// 菜单类型
-    private var menuType: HabitMainMenuType = .day
+    private var menuType: HabitMainMenuType = .week
     
     /// 选项菜单
     lazy var typeMenuView: TPSegmentedMenuView = {
@@ -56,6 +56,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
             navigationItem.leftBarButtonItems = [sidebarButtonItem]
         }
     
+        typeMenuView.selectMenu(withTag: menuType.rawValue)
         navigationItem.titleView = typeMenuView
         navigationItem.rightBarButtonItems = [moreBarButtonItem]
         updateContentViewController()
