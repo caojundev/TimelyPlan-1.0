@@ -55,6 +55,10 @@ class HabitHomeDayViewController: TPContainerViewController,
     private(set) lazy var listView: HabitTaskListView = {
         let view = HabitTaskListView(frame: view.bounds)
         view.delegate = self
+        view.collectionConfiguration = { collectionView in
+            collectionView.contentInset = UIEdgeInsets(bottom: 60.0)
+        }
+        
         return view
     }()
     
@@ -83,9 +87,6 @@ class HabitHomeDayViewController: TPContainerViewController,
         listView.width = layoutFrame.width
         listView.height = layoutFrame.height - weekViewHeight
         listView.top = weekView.bottom
-        
-        let insetBottom = view.height - addView.top - addViewMargin
-        listView.contentInset = UIEdgeInsets(bottom: insetBottom)
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -201,7 +202,8 @@ class HabitHomeDayViewController: TPContainerViewController,
             return
         }
         
-        let menuController = HabitHomeTaskMenuController()
+        
+        let menuController = HabitHomeDayMenuController(task: task, date: self.date)
         menuController.didSelectMenuActionType = { type in
             self.performMenuAction(type, forTask: task)
         }

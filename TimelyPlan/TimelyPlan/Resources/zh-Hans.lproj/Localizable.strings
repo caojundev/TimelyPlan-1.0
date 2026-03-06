@@ -81,14 +81,23 @@
 "Afternoon" = "下午";
 "Evening" = "晚上";
 
+/// 任务菜单
+"Reset Today"= "重置今日";
+"Add Record" = "添加记录";
+"Mark As Fail" = "标记为失败";
+"Cancel Fail" = "取消失败";
+"Skip Today" = "跳过今天";
+"Cancel Skip" = "取消跳过";
+"Edit Log" = "编辑日志";
+
 "Check-in one time per day" = "每日打卡一次";
+
 /// 习惯进度
 "%ld %@" = "%ld%@";
 "%ld/%ld %@" = "%ld/%ld%@";
 "%ld/%ld time" = "%ld/%ld次";
 "%ld/%ld times" = "%ld/%ld次";
 "%ld %@ per day" = "每日%ld%@";
-
 
 /// 习惯管理
 "Active" = "活动";

@@ -59,24 +59,22 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
     
     var iconName: String? {
         switch self {
-//        case .resetToday:
-//            <#code#>
-//        case .cancelSkip:
-//            <#code#>
-//        case .completeAll:
-//            <#code#>
-//        case .checkin:
-//            <#code#>
-//        case .addRecord:
-//            <#code#>
-//        case .markAsFail:
-//            <#code#>
-//        case .cancelFail:
-//            <#code#>
-//        case .skipToday:
-//            <#code#>
-//        case .editLog:
-//            <#code#>
+        case .resetToday:
+            return "habit_menu_reset_24"
+        case .completeAll:
+            return "habit_menu_completeAll_24"
+        case .checkin:
+            return "checkmark_24"
+        case .addRecord:
+            return "plus_24"
+        case .markAsFail:
+            return "xmark_24"
+        case .cancelFail, .cancelSkip:
+            return "habit_menu_cancel_24"
+        case .skipToday:
+            return "habit_menu_skip_24"
+        case .editLog:
+            return "habit_menu_log_24"
         case .edit:
             return "edit_24"
         case .archive:
@@ -85,8 +83,6 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
             return "unarchive_24"
         case .delete:
             return "shred_24"
-        default:
-            return nil
         }
     }
     

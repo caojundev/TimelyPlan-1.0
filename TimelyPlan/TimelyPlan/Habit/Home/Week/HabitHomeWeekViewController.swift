@@ -95,7 +95,7 @@ class HabitHomeWeekViewController: TPViewController,
             return
         }
         
-        let menuController = HabitHomeTaskMenuController()
+        let menuController = HabitHomeWeekMenuController()
         menuController.didSelectMenuActionType = { type in
             self.performMenuAction(type, forTask: task)
         }

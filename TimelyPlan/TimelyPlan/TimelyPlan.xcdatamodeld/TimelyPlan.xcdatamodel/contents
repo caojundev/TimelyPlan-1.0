@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G1427" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CDHabitRecord" representedClassName="CDHabitRecord" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="day" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="failReason" optional="YES" attributeType="String"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="isFailed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isSkipped" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="log" optional="YES" attributeType="String"/>
+        <attribute name="skipReason" optional="YES" attributeType="String"/>
+        <relationship name="samples" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDHabitSample" inverseName="record" inverseEntity="CDHabitSample"/>
+        <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDHabitTask" inverseName="records" inverseEntity="CDHabitTask"/>
+    </entity>
+    <entity name="CDHabitSample" representedClassName="CDHabitSample" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="record" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDHabitRecord" inverseName="samples" inverseEntity="CDHabitRecord"/>
+    </entity>
     <entity name="CDHabitTask" representedClassName="CDHabitTask" syncable="YES" codeGenerationType="class">
         <attribute name="autoShowLog" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="colorHex" optional="YES" attributeType="String"/>
@@ -24,6 +41,7 @@
         <attribute name="timeOption" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timePlanRuleJSON" optional="YES" attributeType="String"/>
         <attribute name="timePlanType" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="records" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDHabitRecord" inverseName="task" inverseEntity="CDHabitRecord"/>
     </entity>
     <entity name="FocusSession" representedClassName="FocusSession" syncable="YES" codeGenerationType="class">
         <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -137,7 +155,7 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoTag" inverseName="tasks" inverseEntity="TodoTag"/>
     </entity>
     <elements>
-        <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="374"/>
+        <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="389"/>
         <element name="FocusSession" positionX="36" positionY="189" width="128" height="209"/>
         <element name="FocusTimer" positionX="27" positionY="180" width="128" height="164"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
@@ -149,5 +167,7 @@
         <element name="TodoStep" positionX="18" positionY="63" width="128" height="134"/>
         <element name="TodoTag" positionX="18" positionY="63" width="128" height="134"/>
         <element name="TodoTask" positionX="-27" positionY="18" width="128" height="344"/>
+        <element name="CDHabitRecord" positionX="18" positionY="180" width="128" height="179"/>
+        <element name="CDHabitSample" positionX="27" positionY="189" width="128" height="74"/>
     </elements>
 </model>
