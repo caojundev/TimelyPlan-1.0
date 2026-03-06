@@ -10,6 +10,12 @@ import UIKit
 
 class HabitTaskBaseListCell: TPCollectionCell {
     
+    var task: HabitTask? {
+        didSet {
+            updateTaskInfo()
+        }
+    }
+    
     /// 遮罩视图
     private let coverView = UIView()
     
@@ -51,6 +57,15 @@ class HabitTaskBaseListCell: TPCollectionCell {
     
     func updateStyleWithColor(_ color: UIColor) {
         contentView.backgroundColor = color.withBrightness(0.5)
+    }
+    
+    /// 更新任务信息
+    func updateTaskInfo() {
+        guard let task = task else {
+            return
+        }
+        
+        updateStyleWithColor(task.color)
     }
 }
 

@@ -103,7 +103,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
     func performMoreMenuAction(_ type: HabitMoreMenuType) {
         switch type {
         case .manageHabits:
-            break
+            HabitPresenter.manageHabits()
         case .settings:
             HabitPresenter.showSettings()
         }

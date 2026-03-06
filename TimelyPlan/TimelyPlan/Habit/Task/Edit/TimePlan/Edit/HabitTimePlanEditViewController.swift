@@ -162,7 +162,6 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
     override func clickDone() {
         dismiss(animated: true, completion: nil)
         didEndEditing?(timePlan)
-        print(timePlan)
     }
     
     // MARK: - Updater

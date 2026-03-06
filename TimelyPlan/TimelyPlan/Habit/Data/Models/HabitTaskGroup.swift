@@ -23,7 +23,7 @@ class HabitTaskGroup: NSObject, Sortable {
     
     /// 序列号
     var order: Int64 = 0
-
+    
     convenience override init() {
         self.init(identifier: UUID().uuidString)
     }

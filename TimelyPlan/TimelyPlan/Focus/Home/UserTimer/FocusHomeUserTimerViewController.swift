@@ -196,14 +196,9 @@ class FocusHomeUserTimerViewController: TPCollectionSectionsViewController,
                                 from sourceIndexPath: IndexPath,
                                      depth: Int) -> IndexPath? {
         let timers = userTimerSectionController.timers
-        let movedTimer = timers[sourceIndexPath.item]
         focus.reorderTimer(in: timers, fromIndex: sourceIndexPath.item, toIndex: targetIndexPath.item)
-        adapter.performUpdate() /// 更新列表
-        if let index = userTimerSectionController.index(of: movedTimer) {
-            return IndexPath(item: index, section: userTimerSectionController.section)
-        }
-        
-        return nil
+        adapter.moveItem(at: sourceIndexPath, to: targetIndexPath)
+        return targetIndexPath
     }
     
     // MARK: - Helpers

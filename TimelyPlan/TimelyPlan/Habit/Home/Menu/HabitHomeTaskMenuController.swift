@@ -1,5 +1,5 @@
 //
-//  HabitHomeTaskMenuViewController.swift
+//  HabitHomeTaskMenuController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/5.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HabitHomeTaskMenuViewController: TPBaseMenuController<HabitTaskMenuActionType> {
+class HabitHomeTaskMenuController: TPBaseMenuController<HabitTaskMenuActionType> {
     
     override func orderedMenuActionTypeLists() -> [Array<HabitTaskMenuActionType>] {
         var lists: [Array<HabitTaskMenuActionType>]

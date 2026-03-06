@@ -1,30 +1,44 @@
 //
-//  HabitTaskBaseListView.swift
+//  HabitTaskListView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/3/4.
+//  Created by caojun on 2026/3/5.
 //
 
 import Foundation
 import UIKit
 
-/// 习惯列表内容最大宽度
-let kHabitTaskListContentMaxWidth = 560.0
+protocol HabitTaskListViewDelegate: AnyObject {
+    
+    func groupsInHabitTaskListView(_ listView: HabitTaskListView) -> [HabitTaskGroup]?
+    
+    func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass?
+    
+    func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath)
+}
 
-class HabitTaskBaseListView: TPCollectionWrapperView,
+class HabitTaskListView: TPCollectionWrapperView,
                                 TPCollectionViewAdapterDataSource,
                                 TPCollectionViewAdapterDelegate,
                                 TPCollectionHeaderFooterViewDelegate {
     
-    var groups: [HabitTaskGroup]?
+    weak var delegate: HabitTaskListViewDelegate?
+    
+    var preferredItemHeight: CGFloat {
+        get {
+            return sectionLayout.preferredItemHeight
+        }
+        
+        set {
+            sectionLayout.preferredItemHeight = newValue
+        }
+    }
     
     /// 占位视图
     lazy var placeholderView: TPDefaultPlaceholderView = {
         let view = TPDefaultPlaceholderView()
         view.isBorderHidden = true
-        view.image = resGetImage("focus_placeholder_noTimer_80")
         view.titleColor = .lightGray
-        view.title = resGetString("No Habit Today")
         return view
     }()
     
@@ -36,13 +50,15 @@ class HabitTaskBaseListView: TPCollectionWrapperView,
         layout.maximumItemsCountPerRow = 1
         layout.lineSpacing = 10.0
         layout.interitemSpacing = 10.0
+        layout.preferredItemHeight = 80.0
         layout.preferredItemWidth = kHabitTaskListContentMaxWidth
         return layout
     }()
     
+    var footerView: UIView = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
-        self.setupData()
         self.collectionView.placeholderView = self.placeholderView
         self.collectionView.showsVerticalScrollIndicator = false
         self.adapter.footerSize = .zero
@@ -56,8 +72,13 @@ class HabitTaskBaseListView: TPCollectionWrapperView,
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupData() {
-        self.sectionLayout.preferredItemHeight = 80.0
+    func task(at indexPath: IndexPath) -> HabitTask {
+        return adapter.item(at: indexPath) as! HabitTask
+    }
+    
+    func items(for seciton: Int) -> [ListDiffable] {
+        let sectionObject = adapter.object(at: seciton)
+        return adapter.items(for: sectionObject)
     }
     
     /// 聚焦显示任务
@@ -75,9 +96,13 @@ class HabitTaskBaseListView: TPCollectionWrapperView,
         self.adapter.reloadCell(forItem: task, focusAnimated: focusAnimated)
     }
     
+    func moveItem(at fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
+        self.adapter.moveItem(at: fromIndexPath, to: toIndexPath)
+    }
+    
     // MARK: - TPCollectionViewAdapterDataSource
     func sectionObjects(for adapter: TPCollectionViewAdapter) -> [ListDiffable]? {
-        return groups
+        return delegate?.groupsInHabitTaskListView(self)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
@@ -87,7 +112,15 @@ class HabitTaskBaseListView: TPCollectionWrapperView,
     
     // MARK: - TPCollectionViewAdapterDelegate
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
+        if let delegate = delegate {
+            return delegate.habitTaskListView(self, classForCellAt: indexPath)
+        }
+        
         return HabitTaskBaseListCell.self
+    }
+    
+    func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
+        delegate?.habitTaskListView(self, didDequeCell: cell, at: indexPath)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -105,10 +138,6 @@ class HabitTaskBaseListView: TPCollectionWrapperView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, lineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionLayout.lineSpacing
-    }
-    
-    func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didSelectItemAt indexPath: IndexPath) {
@@ -135,6 +164,30 @@ class HabitTaskBaseListView: TPCollectionWrapperView,
                                                  right: 8.0)
         headerView.delegate = self
     }
+    
+    // MARK: - Footer
+    /*
+    func adapter(_ adapter: TPCollectionViewAdapter, classForFooterInSection section: Int) -> AnyClass? {
+        return TPCollectionHeaderFooterView.self
+    }
+    
+    func adapter(_ adapter: TPCollectionViewAdapter, sizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: .greatestFiniteMagnitude, height: 30.0)
+    }
+    
+    func adapter(_ adapter: TPCollectionViewAdapter, didDequeFooter footerView: UICollectionReusableView, inSection section: Int) {
+        guard let footerView = footerView as? TPCollectionHeaderFooterView else {
+            return
+        }
+        
+        footerView.contentPadding = UIEdgeInsets(horizontal: 8.0)
+        footerView.titleConfig.font = .boldSystemFont(ofSize: 12.0)
+        footerView.titleConfig.numberOfLines = 0
+        footerView.titleConfig.textColor = .systemGray4
+        footerView.titleConfig.textAlignment = .center
+        footerView.title = resGetString("Long press and drag to rearrange the habits")
+    }
+     */
     
     // MARK: - TPCollectionHeaderFooterViewDelegate
     func layoutMarginsForHeaderFooterView(_ view: TPCollectionHeaderFooterView) -> UIEdgeInsets {

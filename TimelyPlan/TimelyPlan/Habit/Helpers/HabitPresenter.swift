@@ -9,6 +9,12 @@ import Foundation
 
 class HabitPresenter {
     
+    /// 显示习惯管理视图控制器
+    static func manageHabits() {
+        let vc = HabitManageMainViewController()
+        vc.showAsNavigationRoot()
+    }
+    
     /// 创建新习惯
     static func createNewHabitTask() {
         let vc = HabitTaskEditViewController(task: nil)

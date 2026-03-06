@@ -21,7 +21,6 @@
 "By Day" = "按天";
 "By Week" = "按周";
 "Manage Habits" = "管理习惯";
-
 "No Habit Today" = "今日无习惯";
 
 /// 习惯编辑
@@ -82,7 +81,20 @@
 "Afternoon" = "下午";
 "Evening" = "晚上";
 
+"Check-in one time per day" = "每日打卡一次";
+/// 习惯进度
+"%ld %@" = "%ld%@";
+"%ld/%ld %@" = "%ld/%ld%@";
+"%ld/%ld time" = "%ld/%ld次";
+"%ld/%ld times" = "%ld/%ld次";
+"%ld %@ per day" = "每日%ld%@";
 
+
+/// 习惯管理
+"Active" = "活动";
+"No Archiving Habit" = "无归档习惯";
+
+/// 设置
 "Habit Settings" = "习惯设置";
 "Add New Habits On Top" = "添加新习惯到顶部";
 "Auto Show Log Dialog" = "自动显示日志弹窗";

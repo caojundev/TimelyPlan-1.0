@@ -8,8 +8,18 @@
 import Foundation
 import UIKit
 
+protocol HabitHomeWeekListViewDelegate: AnyObject {
+    
+    /// 点击更多
+    func habitHomeWeekListView(_ listView: HabitHomeWeekListView,
+                               didClickMore button: UIButton,
+                               forTask task: HabitTask)
+}
+
 class HabitHomeWeekListView: HabitTaskBaseListView,
                                 HabitHomeWeekListCellDelegate {
+    
+    weak var delegate: HabitHomeWeekListViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,21 +31,6 @@ class HabitHomeWeekListView: HabitTaskBaseListView,
     
     override func setupData() {
         self.sectionLayout.preferredItemHeight = 210.0
-    }
-    
-    /// 聚焦显示任务
-    func revealTask(_ task: HabitTask) {
-        self.adapter.scrollToItem(task, at: .centeredVertically, animated: true) { _ in
-            self.adapter.commitFocusAnimation(for: task)
-        }
-    }
-    
-    func performUpdate(with completion: ((Bool) -> Void)? = nil) {
-        self.adapter.performUpdate(with: completion)
-    }
-    
-    func reloadCell(forTask task: HabitTask, focusAnimated: Bool = false) {
-        self.adapter.reloadCell(forItem: task, focusAnimated: focusAnimated)
     }
     
     override func sectionObjects(for adapter: TPCollectionViewAdapter) -> [ListDiffable]? {
@@ -52,26 +47,9 @@ class HabitHomeWeekListView: HabitTaskBaseListView,
             return
         }
         
-        let menuController = HabitHomeTaskMenuViewController()
-        menuController.didSelectMenuActionType = { type in
-            self.performMenuAction(type, forTask: task)
-        }
-        
-        menuController.showMenu(from: button)
-    }
-    
-    func performMenuAction(_ type: HabitTaskMenuActionType, forTask task: HabitTask) {
-        let taskController = HabitTaskController()
-        switch type {
-        case .edit:
-            taskController.editTask(task)
-        case .archive:
-            taskController.archiveTask(task)
-        case .delete:
-            taskController.deleteTask(task)
-        default:
-            break
-        }
+        self.delegate?.habitHomeWeekListView(self,
+                                             didClickMore: button,
+                                             forTask: task)
     }
     
     // MARK: - TPCollectionViewAdapterDelegate

@@ -10,7 +10,7 @@ import UIKit
 
 /// 角度转换为弧度
 func degreesToRadians(_ degrees: CGFloat) -> CGFloat {
-    return degrees * M_PI / 180.0
+    return degrees * Double.pi / 180.0
 }
 
 /// 返回一个合法的进度值

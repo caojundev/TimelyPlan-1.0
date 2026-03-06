@@ -20,6 +20,7 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
     case editLog /// 添加日志
     case edit    /// 编辑
     case archive /// 归档
+    case unarchive /// 解除归档
     case delete  /// 删除
     
     var title: String {
@@ -47,6 +48,8 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
             title = "Edit"
         case .archive:
             title = "Archive"
+        case .unarchive:
+            title = "Unarchive"
         case .delete:
             title = "Delete"
         }
@@ -78,6 +81,8 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
             return "edit_24"
         case .archive:
             return "archive_24"
+        case .unarchive:
+            return "unarchive_24"
         case .delete:
             return "shred_24"
         default:

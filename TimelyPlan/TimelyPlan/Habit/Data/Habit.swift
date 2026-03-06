@@ -36,6 +36,10 @@ class Habit {
         return self.taskManager.activeTasks
     }
     
+    func archivedTasks() -> [HabitTask] {
+        return self.taskManager.getArchivedTasks()
+    }
+    
     func createTask(with editingTask: HabitEditingTask) {
         self.taskManager.createTask(with: editingTask)
     }

@@ -8,10 +8,12 @@
 import Foundation
 import UIKit
 
-class HabitHomeWeekViewController: TPViewController {
+class HabitHomeWeekViewController: TPViewController,
+                                    HabitHomeWeekListViewDelegate {
 
     private lazy var listView: HabitHomeWeekListView = {
         let view = HabitHomeWeekListView(frame: view.bounds)
+        view.delegate = self
         return view
     }()
     
@@ -65,6 +67,29 @@ class HabitHomeWeekViewController: TPViewController {
     // MARK: - Event Response
     @objc func didClickAdd(_ button: UIButton){
         taskController.createNewTask()
+    }
+    
+    // MARK: - HabitHomeWeekListViewDelegate
+    func habitHomeWeekListView(_ listView: HabitHomeWeekListView, didClickMore button: UIButton, forTask task: HabitTask) {
+        let menuController = HabitHomeTaskMenuController()
+        menuController.didSelectMenuActionType = { type in
+            self.performMenuAction(type, forTask: task)
+        }
+        
+        menuController.showMenu(from: button)
+    }
+    
+    func performMenuAction(_ type: HabitTaskMenuActionType, forTask task: HabitTask) {
+        switch type {
+        case .edit:
+            taskController.editTask(task)
+        case .archive:
+            taskController.archiveTask(task)
+        case .delete:
+            taskController.deleteTask(task)
+        default:
+            break
+        }
     }
 }
 

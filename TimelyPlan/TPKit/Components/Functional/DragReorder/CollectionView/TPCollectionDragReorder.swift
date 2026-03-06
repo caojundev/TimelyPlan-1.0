@@ -53,9 +53,6 @@ class TPCollectionDragReorder: NSObject, UIGestureRecognizerDelegate {
         set { longPressGesture.isEnabled = newValue }
     }
 
-    /// 圆角半径
-    var draggingViewCornerRadius: CGFloat = 12.0
-    
     /// 上下自动滚动感应区域的高度
     private let autoScrollDetectionHeight: CGFloat = 60.0
     
@@ -124,7 +121,8 @@ class TPCollectionDragReorder: NSObject, UIGestureRecognizerDelegate {
             }
             
             draggingCell.isHighlighted = false
-            draggingView = draggingCell.tp_snapshotView(cornerRadius: draggingViewCornerRadius)
+            let radius = draggingCell.contentView.layer.cornerRadius
+            draggingView = draggingCell.tp_snapshotView(cornerRadius: radius)
             draggingView?.center = draggingCellSuperView.convert(draggingCell.center,
                                                                 toViewOrWindow: rootView)
             if let draggingView = draggingView {

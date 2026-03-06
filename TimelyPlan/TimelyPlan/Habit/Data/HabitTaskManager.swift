@@ -91,14 +91,21 @@ class HabitTaskManager {
         HandyRecord.save()
     }
     
-    
-    
+
     // MARK: - 获取任务
     /// 同步获取所有习惯任务
     private func getAllTasks() -> [HabitTask] {
         return getTasks(with: nil)
     }
     
+    /// 同步获取归档任务
+    func getArchivedTasks() -> [HabitTask] {
+        let condition: PredicateCondition = (HabitTaskKey.isArchived, .equal(true))
+        let predicate = NSPredicate.predicate(with: condition)
+        return getTasks(with: predicate)
+    }
+    
+    /// 同步获取活动任务
     private func getActiveTasks() -> [HabitTask] {
         let condition: PredicateCondition = (HabitTaskKey.isArchived, .notEqual(true))
         let predicate = NSPredicate.predicate(with: condition)

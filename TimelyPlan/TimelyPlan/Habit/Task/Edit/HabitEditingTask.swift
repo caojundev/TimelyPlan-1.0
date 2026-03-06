@@ -54,14 +54,4 @@ struct HabitEditingTask: Equatable {
             self.emoji = newValue.text
         }
     }
-    
-    // MARK: - Equatable
-    static func == (lhs: HabitEditingTask, rhs: HabitEditingTask) -> Bool {
-        return lhs.emoji == rhs.emoji &&
-        lhs.name == rhs.name &&
-        lhs.color == rhs.color &&
-        lhs.dateRange == rhs.dateRange &&
-        lhs.shouldRemind == rhs.shouldRemind &&
-        lhs.note == rhs.note
-    }
 }

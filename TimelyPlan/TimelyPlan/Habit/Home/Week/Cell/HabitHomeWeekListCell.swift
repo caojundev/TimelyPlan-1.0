@@ -16,8 +16,6 @@ protocol HabitHomeWeekListCellDelegate: AnyObject {
 
 class HabitHomeWeekListCell: HabitTaskBaseListCell {
 
-    var task: HabitTask?
-    
     /// 头视图高度
     let headerViewHeight = 30.0
     
@@ -56,14 +54,6 @@ class HabitHomeWeekListCell: HabitTaskBaseListCell {
         contentView.addSubview(infoView)
         contentView.addSubview(weekView)
         weekView.reloadData()
-        
-        
-        
-        updateStyleWithColor(UIColor.randomHabitTaskColor)
-        headerView.title = "进行中 每周于周一、周三和周五"
-        infoView.iconView.icon = TPIcon(text: Character.randomEmojiString())
-        infoView.titleView.title = "阅读文档"
-        infoView.titleView.subtitle = "每天阅读100页"
     }
     
     required init?(coder: NSCoder) {
@@ -99,8 +89,16 @@ class HabitHomeWeekListCell: HabitTaskBaseListCell {
         let titleView = infoView.titleView
         titleView.titleConfig.textColor = Color(0xffffff, 0.9)
         titleView.subtitleConfig.textColor = Color(0xffffff, 0.7)
-        
         headerView.titleConfig.textColor = Color(0xffffff, 0.8)
+    }
+    
+    override func updateTaskInfo() {
+        super.updateTaskInfo()
+        
+        headerView.title = task?.attributedInfo
+        infoView.iconView.icon = task?.icon
+        infoView.titleView.title = task?.name
+        infoView.titleView.subtitle = task?.goal.targetDescription
     }
     
     /// 点击更多

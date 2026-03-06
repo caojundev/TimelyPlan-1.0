@@ -81,7 +81,6 @@ class QuadrantLayoutEditView: TPCollectionWrapperView,
         let reorder = TPCollectionDragExchangeReorder(collectionView: collectionView)
         reorder.delegate = self
         reorder.isEnabled = true
-        reorder.draggingViewCornerRadius = 12.0
         self.reorder = reorder
     }
     

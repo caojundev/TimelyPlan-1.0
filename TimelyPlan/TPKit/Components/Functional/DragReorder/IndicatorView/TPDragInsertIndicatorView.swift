@@ -25,7 +25,7 @@ class TPDragInsertIndicatorView: UIView {
     }
     
     /// 线条粗细
-    var lineWidth: CGFloat = 2.0 {
+    var lineWidth: CGFloat = 2.4 {
         didSet {
             setNeedsLayout()
         }
