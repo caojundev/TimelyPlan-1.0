@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 
-class HabitHomeDayViewController: TPViewController,
-                                      CalendarDatePageViewDelegate,
-                                      TPCalendarSingleDateSelectionDelegate {
+class HabitHomeDayViewController: TPContainerViewController,
+                                  HabitTaskListViewDelegate,
+                                  HabitTaskListInfoCellDelegate,
+                                  TPCalendarSingleDateSelectionDelegate {
     
     /// 日期
     private(set) var date: Date = .now
@@ -20,8 +21,7 @@ class HabitHomeDayViewController: TPViewController,
     private lazy var weekView: TPCalendarScrollableWeekView = {
         let view = TPCalendarScrollableWeekView(frame: .zero)
         view.symbolStyle = .veryShort
-        #warning("修改 firstWeekday")
-        view.firstWeekday = .monday
+        view.firstWeekday = HabitSetting.shared.firstWeekday
         view.selection = selection
         view.addSeparator(position: .bottom)
         return view
@@ -52,9 +52,8 @@ class HabitHomeDayViewController: TPViewController,
         return view
     }()
     
-    /// 翻页视图
-    private lazy var pageView: HabitHomeDayPageView = {
-        let view = HabitHomeDayPageView(frame: .zero)
+    private(set) lazy var listView: HabitTaskListView = {
+        let view = HabitTaskListView(frame: view.bounds)
         view.delegate = self
         return view
     }()
@@ -64,9 +63,10 @@ class HabitHomeDayViewController: TPViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(weekView)
-        view.addSubview(pageView)
+        view.addSubview(listView)
         view.addSubview(addView)
         reloadData()
+        habit.addUpdater(self, for: .all)
     }
     
     override func viewWillLayoutSubviews() {
@@ -76,13 +76,16 @@ class HabitHomeDayViewController: TPViewController,
         weekView.height = weekViewHeight
         weekView.top = layoutFrame.minY
         
-        pageView.width = layoutFrame.width
-        pageView.height = layoutFrame.height - weekViewHeight
-        pageView.top = weekView.bottom
-        
         addView.size = addViewSize
         addView.bottom = layoutFrame.maxY - addViewMargin
         addView.right = layoutFrame.maxX - addViewMargin
+        
+        listView.width = layoutFrame.width
+        listView.height = layoutFrame.height - weekViewHeight
+        listView.top = weekView.bottom
+        
+        let insetBottom = view.height - addView.top - addViewMargin
+        listView.contentInset = UIEdgeInsets(bottom: insetBottom)
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -96,7 +99,7 @@ class HabitHomeDayViewController: TPViewController,
     // MARK: - Public
     func reloadData() {
         weekView.reloadData()
-        pageView.reloadData()
+        listView.reloadData()
         updateAddView()
     }
     
@@ -107,45 +110,16 @@ class HabitHomeDayViewController: TPViewController,
         weekView.setVisibleDateComponents(dateComponents, animated: animated)
     }
     
-    private func updatePagingView(with date: Date, animated: Bool = true) {
-        pageView.setVisibleDate(date, animated: animated)
-    }
-    
-    // MARK: - TPCalendarSingleDateSelectionDelegate
-    func singleDateSelection(_ selection: TPCalendarSingleDateSelection, didSelect date: DateComponents) {
-        guard let selectedDate = Date.dateFromComponents(date) else {
-            return
+    private func updateListView(fromDate: Date, toDate: Date) {
+        if fromDate.isInSameDayAs(toDate) {
+            listView.reloadData()
         }
         
-        self.date = selectedDate
-        updatePagingView(with: selectedDate)
-        updateAddView()
+        let slideStyle = SlideStyle.horizontalStyle(fromValue: fromDate,
+                                                    toValue: toDate)
+        listView.reloadData(animateStyle: slideStyle)
     }
     
-    // MARK: - CalendarDayPagingViewDelegate
-    func calendarDayPagingViewWillEndDragging(_ pageView: CalendarDatePageView, withTargetDate targetDate: Date) {
-        if self.date.isInSameDayAs(targetDate) {
-            return
-        }
-            
-        self.date = targetDate
-        updateWeekView(with: targetDate)
-        updateAddView()
-    }
-    
-    // MARK: - Event Response
-    @objc func didClickBack(_ button: UIButton) {
-        self.date = .now
-        updateWeekView(with: date)
-        updatePagingView(with: date)
-        updateAddView()
-    }
-    
-    @objc func didClickAdd(_ button: UIButton){
-        taskController.createNewTask()
-    }
-
-    // MARK: - UI Update
     func updateAddView() {
         if date.isToday {
             addView.showAddButton()
@@ -156,6 +130,122 @@ class HabitHomeDayViewController: TPViewController,
                 addView.showRightBackButton()
             }
         }
+    }
+    
+    // MARK: - Event Response
+    @objc func didClickBack(_ button: UIButton) {
+        let fromDate = self.date
+        self.date = .now
+        updateWeekView(with: date)
+        updateListView(fromDate: fromDate, toDate: self.date)
+        updateAddView()
+    }
+    
+    @objc func didClickAdd(_ button: UIButton){
+        taskController.createNewTask()
+    }
+    
+    // MARK: - TPCalendarSingleDateSelectionDelegate
+    func singleDateSelection(_ selection: TPCalendarSingleDateSelection, didSelect date: DateComponents) {
+        guard let selectedDate = Date.dateFromComponents(date) else {
+            return
+        }
+        
+        let fromDate = self.date
+        self.date = selectedDate
+        updateListView(fromDate: fromDate, toDate: self.date)
+        updateAddView()
+    }
+    
+    
+     // MARK: - HabitTaskListViewDelegate
+    func groupsInHabitTaskListView(_ listView: HabitTaskListView) -> [HabitTaskGroup]? {
+        let group = HabitTaskGroup(identifier: "active")
+        group.iconName = HabitTimeOption.evening.iconName
+        group.name = HabitTimeOption.evening.title
+        group.tasks = habit.activeTasks()
+        return [group]
+    }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
+        return HabitHomeDayListCell.self
+    }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
+        let cell = cell as! HabitHomeDayListCell
+        cell.delegate = self
+        cell.task = listView.item(at: indexPath) as? HabitTask
+    }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {
+        return HabitTaskListGroupHeaderView.self
+    }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, sizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: .greatestFiniteMagnitude, height: 40.0)
+    }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
+        if let headerView = headerView as? HabitTaskListGroupHeaderView {
+            headerView.contentPadding = UIEdgeInsets(top: 10.0,
+                                                     left: 16.0,
+                                                     bottom: 0.0,
+                                                     right: 16.0)
+            headerView.group = listView.sectionObject(at: section) as? HabitTaskGroup
+        }
+    }
+    
+    // MARK: - HabitTaskListInfoCellDelegate
+    func habitTaskListInfoCell(_ cell: HabitTaskListDefaultInfoCell, didClickMore button: UIButton) {
+        guard let task = cell.task else {
+            return
+        }
+        
+        let menuController = HabitHomeTaskMenuController()
+        menuController.didSelectMenuActionType = { type in
+            self.performMenuAction(type, forTask: task)
+        }
+        
+        menuController.showMenu(from: button)
+    }
+    
+    func performMenuAction(_ type: HabitTaskMenuActionType, forTask task: HabitTask) {
+        switch type {
+        case .edit:
+            taskController.editTask(task)
+        case .archive:
+            taskController.archiveTask(task)
+        case .delete:
+            taskController.deleteTask(task)
+        default:
+            break
+        }
+    }
+}
+
+extension HabitHomeDayViewController: HabitTaskProcessorDelegate {
+    
+    func didCreateHabitTask(_ task: HabitTask) {
+        self.listView.performUpdate {[weak self] _ in
+            guard let self = self else { return }
+            self.listView.revealTask(task)
+        }
+    }
+
+    func didUpdateHabitTask(_ task: HabitTask) {
+        self.listView.reloadCell(forTask: task, focusAnimated: true)
+    }
+    
+    func didDeleteHabitTask(_ task: HabitTask) {
+        self.listView.performUpdate()
+    }
+    
+    func didChangeArchivedState(for task: HabitTask) {
+        self.listView.performUpdate()
+    }
+    
+    func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
+        self.listView.performUpdate()
     }
 }
 

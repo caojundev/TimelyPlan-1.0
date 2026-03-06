@@ -63,7 +63,7 @@ class HabitManageBaseListViewController: TPViewController,
     func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         let cell = cell as! HabitTaskListDefaultInfoCell
         cell.delegate = self
-        cell.task = listView.task(at: indexPath)
+        cell.task = listView.item(at: indexPath) as? HabitTask
     }
     
     // MARK: - HabitTaskListInfoCellDelegate

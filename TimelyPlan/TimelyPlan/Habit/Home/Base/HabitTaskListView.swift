@@ -15,7 +15,29 @@ protocol HabitTaskListViewDelegate: AnyObject {
     func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass?
     
     func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath)
+    
+    func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass?
+    
+    func habitTaskListView(_ listView: HabitTaskListView, sizeForHeaderInSection section: Int) -> CGSize
+
+    func habitTaskListView(_ listView: HabitTaskListView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int)
 }
+
+extension HabitTaskListViewDelegate {
+    
+    func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {
+        return TPCollectionHeaderFooterView.self
+    }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, sizeForHeaderInSection section: Int) -> CGSize {
+        return .zero
+    }
+
+    func habitTaskListView(_ listView: HabitTaskListView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
+        
+    }
+}
+
 
 class HabitTaskListView: TPCollectionWrapperView,
                                 TPCollectionViewAdapterDataSource,
@@ -72,8 +94,13 @@ class HabitTaskListView: TPCollectionWrapperView,
         fatalError("init(coder:) has not been implemented")
     }
     
-    func task(at indexPath: IndexPath) -> HabitTask {
-        return adapter.item(at: indexPath) as! HabitTask
+    // MARK: - Public Methods
+    func sectionObject(at seciton: Int) -> ListDiffable {
+        return adapter.object(at: seciton)
+    }
+    
+    func item(at indexPath: IndexPath) -> ListDiffable {
+        return adapter.item(at: indexPath)
     }
     
     func items(for seciton: Int) -> [ListDiffable] {
@@ -116,7 +143,7 @@ class HabitTaskListView: TPCollectionWrapperView,
             return delegate.habitTaskListView(self, classForCellAt: indexPath)
         }
         
-        return HabitTaskBaseListCell.self
+        return HabitTaskListBaseCell.self
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
@@ -146,26 +173,29 @@ class HabitTaskListView: TPCollectionWrapperView,
     
     // MARK: - Header
     func adapter(_ adapter: TPCollectionViewAdapter, classForHeaderInSection section: Int) -> AnyClass? {
-        return TPCollectionHeaderFooterView.self
+        if let delegate = delegate {
+            return delegate.habitTaskListView(self, classForHeaderInSection: section)
+        }
+        
+        return UICollectionReusableView.self
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForHeaderInSection section: Int) -> CGSize {
+        if let delegate = delegate {
+            return delegate.habitTaskListView(self, sizeForHeaderInSection: section)
+        }
+        
         return .zero
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
-        guard let headerView = headerView as? TPCollectionHeaderFooterView else {
-            return
+        if let delegate = delegate {
+            delegate.habitTaskListView(self, didDequeHeader: headerView, inSection: section)
         }
-        
-        headerView.contentPadding = UIEdgeInsets(top: 10.0,
-                                                 left: 8.0,
-                                                 bottom: 0.0,
-                                                 right: 8.0)
-        headerView.delegate = self
     }
     
     // MARK: - Footer
+    
     /*
     func adapter(_ adapter: TPCollectionViewAdapter, classForFooterInSection section: Int) -> AnyClass? {
         return TPCollectionHeaderFooterView.self
@@ -176,16 +206,6 @@ class HabitTaskListView: TPCollectionWrapperView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeFooter footerView: UICollectionReusableView, inSection section: Int) {
-        guard let footerView = footerView as? TPCollectionHeaderFooterView else {
-            return
-        }
-        
-        footerView.contentPadding = UIEdgeInsets(horizontal: 8.0)
-        footerView.titleConfig.font = .boldSystemFont(ofSize: 12.0)
-        footerView.titleConfig.numberOfLines = 0
-        footerView.titleConfig.textColor = .systemGray4
-        footerView.titleConfig.textAlignment = .center
-        footerView.title = resGetString("Long press and drag to rearrange the habits")
     }
      */
     

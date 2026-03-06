@@ -1,5 +1,5 @@
 //
-//  HabitTaskBaseListCell.swift
+//  HabitTaskListBaseCell.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/4.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HabitTaskBaseListCell: TPCollectionCell {
+class HabitTaskListBaseCell: TPCollectionCell {
     
     var task: HabitTask? {
         didSet {

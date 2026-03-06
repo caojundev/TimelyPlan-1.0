@@ -1,19 +1,22 @@
 //
-//  HabitHomeDayListCell.swift
+//  HabitTaskListInfoCell.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/3/3.
+//  Created by caojun on 2026/3/5.
 //
 
 import Foundation
 import UIKit
 
-class HabitHomeDayListCell: HabitTaskBaseListCell {
+protocol HabitTaskListInfoCellDelegate: AnyObject {
     
-    private lazy var infoView: HabitTaskProgressInfoView = {
-        let view = HabitTaskProgressInfoView()
-        return view
-    }()
+    /// 点击更多
+    func habitTaskListInfoCell(_ cell: HabitTaskListDefaultInfoCell, didClickMore button: UIButton)
+}
+
+class HabitTaskListDefaultInfoCell: HabitTaskListBaseCell {
+    
+    var infoView: HabitTaskDefaultInfoView!
     
     /// 更多按钮
     lazy var moreButton: TPDefaultButton = {
@@ -27,21 +30,17 @@ class HabitHomeDayListCell: HabitTaskBaseListCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(infoView)
-        contentView.addSubview(moreButton)
-        
-        
-        updateStyleWithColor(UIColor.randomHabitTaskColor)
-        
-        infoView.iconView.icon = TPIcon(text: Character.randomEmojiString())
-        infoView.titleView.title = "阅读文档"
-        infoView.titleView.subtitle = "每天阅读100页"
-        let progress = CGFloat(arc4random() % 100) / 100.0
-        infoView.setProgress(progress, animated: true)
+        self.setupInfoView()
+        contentView.addSubview(self.infoView)
+        contentView.addSubview(self.moreButton)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupInfoView() {
+        self.infoView = HabitTaskDefaultInfoView()
     }
 
     // MARK: - Layout
@@ -67,15 +66,19 @@ class HabitHomeDayListCell: HabitTaskBaseListCell {
         let titleView = infoView.titleView
         titleView.titleConfig.textColor = Color(0xffffff, 0.9)
         titleView.subtitleConfig.textColor = Color(0xffffff, 0.7)
-        
-        let progressView = infoView.progressView
-        let progressLineColor = color.lighterColor
-        progressView.progressLineColor = progressLineColor
-        progressView.backLineColor = Color(0x000000, 0.4)
+    }
+    
+    override func updateTaskInfo() {
+        super.updateTaskInfo()
+        infoView.iconView.icon = task?.icon
+        infoView.titleView.title = task?.name
+        infoView.titleView.subtitle = task?.goal.targetDescription
     }
     
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
-
+        if let delegate = self.delegate as? HabitTaskListInfoCellDelegate {
+            delegate.habitTaskListInfoCell(self, didClickMore: button)
+        }
     }
 }

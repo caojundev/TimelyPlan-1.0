@@ -25,3 +25,6 @@ let kHabitGoalDefaultTargetAmount: Int64 = 1
 
 /// 默认记录数值
 let kHabitRecordDefaultAmount: Int64 = 1
+
+/// 习惯内容最大宽度
+let kHabitTaskListContentMaxWidth = 560.0

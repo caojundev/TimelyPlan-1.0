@@ -14,7 +14,7 @@ protocol HabitHomeWeekListCellDelegate: AnyObject {
     func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickMore button: UIButton)
 }
 
-class HabitHomeWeekListCell: HabitTaskBaseListCell {
+class HabitHomeWeekListCell: HabitTaskListBaseCell {
 
     /// 头视图高度
     let headerViewHeight = 30.0

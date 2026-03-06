@@ -9,10 +9,12 @@ import Foundation
 import UIKit
 
 class HabitHomeWeekViewController: TPViewController,
-                                    HabitHomeWeekListViewDelegate {
+                                    HabitTaskListViewDelegate,
+                                    HabitHomeWeekListCellDelegate {
 
-    private lazy var listView: HabitHomeWeekListView = {
-        let view = HabitHomeWeekListView(frame: view.bounds)
+    private lazy var listView: HabitTaskListView = {
+        let view = HabitTaskListView(frame: view.bounds)
+        view.preferredItemHeight = 210.0
         view.delegate = self
         return view
     }()
@@ -69,8 +71,30 @@ class HabitHomeWeekViewController: TPViewController,
         taskController.createNewTask()
     }
     
-    // MARK: - HabitHomeWeekListViewDelegate
-    func habitHomeWeekListView(_ listView: HabitHomeWeekListView, didClickMore button: UIButton, forTask task: HabitTask) {
+    
+    // MARK: - HabitTaskListViewDelegate
+    
+    func groupsInHabitTaskListView(_ listView: HabitTaskListView) -> [HabitTaskGroup]? {
+        let group = HabitTaskGroup(identifier: "week")
+        group.tasks = habit.activeTasks()
+        return [group]
+    }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
+        return HabitHomeWeekListCell.self
+    }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
+        let cell = cell as! HabitHomeWeekListCell
+        cell.delegate = self
+        cell.task = listView.item(at: indexPath) as? HabitTask
+    }
+    
+    func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickMore button: UIButton) {
+        guard let task = cell.task else {
+            return
+        }
+        
         let menuController = HabitHomeTaskMenuController()
         menuController.didSelectMenuActionType = { type in
             self.performMenuAction(type, forTask: task)
@@ -111,6 +135,10 @@ extension HabitHomeWeekViewController: HabitTaskProcessorDelegate {
     }
     
     func didChangeArchivedState(for task: HabitTask) {
+        self.listView.performUpdate()
+    }
+    
+    func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
         self.listView.performUpdate()
     }
 }

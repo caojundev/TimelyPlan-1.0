@@ -198,12 +198,13 @@ extension HabitTask {
     
     // MARK: -  任务富文本信息
     var attributedInfo: ASAttributedString {
-        var indicators = [ASAttributedString]()
+        var indicators = [timeOptionIndicator]
+
         /// 提醒
         if hasAlarm {
             indicators.append(bellIndicator)
         }
-        
+
         /// 所处阶段
         indicators.append("\(phase.title)")
         
@@ -215,9 +216,21 @@ extension HabitTask {
         return indicators.joined(separator: " • ")
     }
     
+    var timeOptionIndicator: ASAttributedString {
+        guard let image = self.timeOption.iconImage else {
+            return self.timeOption.title.attributedString
+        }
+        
+        return .string(image: image,
+                       imageSize: .size(4),
+                       imageColor: .white,
+                       trailingText: self.timeOption.title,
+                       separator: " ")
+    }
+    
     /// 提醒闹铃图标
     var bellIndicator: ASAttributedString {
-        let image = UIImage(named: "BellFill_16pt")!
+        let image = resGetImage("bell_fill_16")!
         return .string(with: image)
     }
     

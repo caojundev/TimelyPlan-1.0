@@ -22,6 +22,7 @@ enum SlideStyle: Int {
         } else if fromValue > toValue {
             return .leftToRight
         }
+        
         return .none
     }
 

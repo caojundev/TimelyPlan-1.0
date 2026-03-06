@@ -26,7 +26,7 @@ class HabitManageTaskMenuController: TPBaseMenuController<HabitTaskMenuActionTyp
  
     override func menuActionTypes() -> [HabitTaskMenuActionType] {
         if task.isArchived {
-            return [.edit, .unarchive, .delete]
+            return [.unarchive, .delete]
         } else {
             return [.edit, .archive, .delete]
         }
