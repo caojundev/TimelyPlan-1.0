@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 class HabitHomeWeekViewController: TPViewController,
-                                    HabitTaskListViewDelegate,
-                                    HabitHomeWeekListCellDelegate {
+                                   HabitPeriodTaskListViewDelegate,
+                                   HabitHomeWeekListCellDelegate {
 
-    private lazy var listView: HabitTaskListView = {
-        let view = HabitTaskListView(frame: view.bounds)
+    private lazy var listView: HabitPeriodTaskListView = {
+        let view = HabitPeriodTaskListView(frame: view.bounds)
         view.preferredItemHeight = 210.0
         view.delegate = self
         return view
@@ -37,8 +37,8 @@ class HabitHomeWeekViewController: TPViewController,
         super.viewDidLoad()
         view.addSubview(listView)
         view.addSubview(addView)
+        listView.asyncReloadData()
         habit.addUpdater(self, for: .all)
-        reloadData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -60,25 +60,29 @@ class HabitHomeWeekViewController: TPViewController,
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemBackground
     }
-
-    // MARK: - Public
-    func reloadData() {
-        listView.reloadData()
-    }
     
     // MARK: - Event Response
     @objc func didClickAdd(_ button: UIButton){
         taskController.createNewTask()
     }
     
-    
-    // MARK: - HabitTaskListViewDelegate
-    
-    func groupsInHabitTaskListView(_ listView: HabitTaskListView) -> [HabitTaskGroup]? {
-        let group = HabitTaskGroup(identifier: "week")
-        group.tasks = habit.activeTasks()
-        return [group]
-    }
+    // MARK: - HabitPeriodTaskListViewDelegate
+   func habitPeriodTaskListView(_ listView: HabitPeriodTaskListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+       
+       let firstWeekday = HabitSetting.shared.firstWeekday
+       let period = HabitDatePeriod(date: .now, mode: .week, firstWeekday: firstWeekday)
+       
+       var periodTasks = [HabitPeriodTask]()
+       let habitTasks = habit.activeTasks()
+       for habitTask in habitTasks {
+           let periodTask = HabitPeriodTask(habitTask: habitTask, period: period)
+           periodTasks.append(periodTask)
+       }
+       
+       let group = HabitTaskGroup(identifier: "week")
+       group.tasks = periodTasks
+       completion([group])
+   }
     
     func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return HabitHomeWeekListCell.self
@@ -87,17 +91,18 @@ class HabitHomeWeekViewController: TPViewController,
     func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         let cell = cell as! HabitHomeWeekListCell
         cell.delegate = self
-        cell.task = listView.item(at: indexPath) as? HabitTask
+        cell.task = listView.item(at: indexPath) as? HabitPeriodTask
     }
     
     func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickMore button: UIButton) {
         guard let task = cell.task else {
             return
         }
-        
+
+        let habitTask = task.habitTask
         let menuController = HabitHomeWeekMenuController()
         menuController.didSelectMenuActionType = { type in
-            self.performMenuAction(type, forTask: task)
+            self.performMenuAction(type, forTask: habitTask)
         }
         
         menuController.showMenu(from: button)
@@ -120,25 +125,28 @@ class HabitHomeWeekViewController: TPViewController,
 extension HabitHomeWeekViewController: HabitTaskProcessorDelegate {
     
     func didCreateHabitTask(_ task: HabitTask) {
-        self.listView.performUpdate {[weak self] _ in
-            guard let self = self else { return }
-            self.listView.revealTask(task)
+        self.listView.asyncPerformUpdate { [weak self] success in
+            guard success else { return }
+            self?.listView.revealTask(task)
         }
     }
 
     func didUpdateHabitTask(_ task: HabitTask) {
-        self.listView.reloadCell(forTask: task, focusAnimated: true)
+        self.listView.asyncPerformUpdate { [weak self] success in
+            guard success else { return }
+            self?.listView.reloadCell(forTask: task, focusAnimated: true)
+        }
     }
     
     func didDeleteHabitTask(_ task: HabitTask) {
-        self.listView.performUpdate()
+        self.listView.asyncPerformUpdate()
     }
     
     func didChangeArchivedState(for task: HabitTask) {
-        self.listView.performUpdate()
+        self.listView.asyncPerformUpdate()
     }
     
     func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
-        self.listView.performUpdate()
+        self.listView.asyncPerformUpdate()
     }
 }

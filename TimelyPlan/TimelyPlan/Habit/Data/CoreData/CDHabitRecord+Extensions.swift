@@ -18,18 +18,9 @@ extension CDHabitRecord {
         return .now
     }
     
-    /// 跳过原因emoji字符
-    var skipEmoji: Character? {
-        if let skipReason = skipReason, let emoji = skipReason.first {
-            return emoji
-        }
-        
-        return nil
-    }
-    
-    /// 失败原因emoji字符
-    var failEmoji: Character? {
-        if let failReason = failReason, let emoji = failReason.first {
+    /// 原因emoji字符
+    var reasonEmoji: Character? {
+        if let reason = reason, let emoji = reason.first {
             return emoji
         }
         
@@ -39,7 +30,6 @@ extension CDHabitRecord {
     /// 创建新记录
     static func newRecord(forTask task: CDHabitTask, onDate date: Date) -> CDHabitRecord {
         let record = CDHabitRecord.createEntity(in: .defaultContext)
-        record.identifier = UUID().uuidString
         record.day = date.dayIntegerKey
         record.task = task
         return record
@@ -84,6 +74,18 @@ extension CDHabitRecord {
                            onDate date: Date) -> [PredicateCondition] {
         let conditions: [PredicateCondition] = [
             condition(forTask: task),
+            condition(onDate: date)
+        ]
+        
+        return conditions
+    }
+    
+    
+    static func conditions(forTasks tasks: [HabitTask],
+                           onDate date: Date) -> [PredicateCondition] {
+        let tasks = tasks.map { return $0.content }
+        let conditions: [PredicateCondition] = [
+            condition(forTasks: tasks),
             condition(onDate: date)
         ]
         

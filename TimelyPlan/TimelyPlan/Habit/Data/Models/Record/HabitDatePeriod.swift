@@ -1,0 +1,92 @@
+//
+//  HabitDatePeriod.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/3/7.
+//
+
+import Foundation
+
+class HabitDatePeriod: NSObject {
+    
+    enum Mode: Int {
+        case day
+        case week
+        case month
+    }
+    
+    /// 时段模式
+    let mode: Mode
+    
+    /// 基准日期 (例如：周模式下的某一天，月模式下的某一天)
+    let date: Date
+    
+    /// 日期对应模式表示的时间范围
+    let dateRange: DateRange
+    
+    // MARK: - 初始化
+    
+    /// 通用初始化
+    init(date: Date, mode: Mode, firstWeekday: Weekday = .firstWeekday) {
+        self.date = date
+        self.mode = mode
+        
+        switch mode {
+        case .day:
+            self.dateRange = date.rangeOfThisDay()
+        case .week:
+            self.dateRange = date.rangeOfThisWeek(firstWeekday: firstWeekday)
+        case .month:
+            self.dateRange = date.rangeOfThisMonth()
+        }
+    }
+    
+    /// 周模式周期快捷初始化
+    static func weekPeriod(date: Date, firstWeekday: Weekday = .firstWeekday) -> HabitDatePeriod {
+        return HabitDatePeriod(date: date, mode: .week, firstWeekday: firstWeekday)
+    }
+    
+    // MARK: - 等同性判断
+    override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(mode)
+        hasher.combine(dateRange)
+        return hasher.finalize()
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? HabitDatePeriod else { return false }
+        if self === other { return true }
+        return mode == other.mode && dateRange == other.dateRange
+    }
+    
+    
+    // MARK: - 功能方法
+    
+    /// 判断指定日期是否在当前时段内
+    func contains(_ date: Date) -> Bool {
+        return dateRange.contains(date: date)
+    }
+    
+    /// 判断两个时段是否有交集
+    func intersects(with otherPeriod: HabitDatePeriod) -> Bool {
+        return dateRange.intersects(with: otherPeriod.dateRange)
+    }
+    
+    /// 是否是未来时段
+    var isFuture: Bool {
+        guard let startDate = dateRange.startDate else { return false }
+        return startDate.isFutureDay
+    }
+    
+    // MARK: - 静态工厂方法 
+    
+    /// 获取日期所在周的日时段数组
+    static func weekDaysPeriods(containing date: Date = .now,
+                                firstWeekday: Weekday = .firstWeekday) -> [HabitDatePeriod] {
+        let dates = date.thisWeekDays(firstWeekday: firstWeekday.rawValue)
+        return dates.map { dayDate in
+            HabitDatePeriod(date: dayDate, mode: .day)
+        }
+    }
+}

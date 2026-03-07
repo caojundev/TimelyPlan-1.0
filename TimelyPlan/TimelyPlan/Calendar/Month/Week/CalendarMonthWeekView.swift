@@ -47,7 +47,7 @@ class CalendarMonthWeekView: UIView {
     private let headerHeight = 30.0
     
     /// 数据请求管理器
-    private let requestManager = RequestManager()
+    private let requestManager = TPRequestManager()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

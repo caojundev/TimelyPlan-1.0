@@ -551,10 +551,10 @@ extension TPCollectionViewAdapter {
             itemsMapTable.setObject(newItems as NSArray, forKey: updateObject)
             
             let result = ListDiffPaths(fromSection: fromSection,
-                                            toSection: toSection,
-                                            oldArray: oldItems,
-                                            newArray: newItems,
-                                            option: .equality)
+                                        toSection: toSection,
+                                       oldArray: oldItems,
+                                       newArray: newItems,
+                                       option: .equality)
             if result.hasChanges {
                 indexPathResults.append(result)
             }

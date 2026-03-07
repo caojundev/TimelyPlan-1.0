@@ -19,7 +19,7 @@ class HabitTaskGroup: NSObject, Sortable {
     var name: String?
     
     /// 分组内任务
-    var tasks: [HabitTask]?
+    var tasks: [ListDiffable]?
     
     /// 序列号
     var order: Int64 = 0

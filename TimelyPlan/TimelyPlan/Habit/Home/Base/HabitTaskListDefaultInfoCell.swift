@@ -68,11 +68,11 @@ class HabitTaskListDefaultInfoCell: HabitTaskListBaseCell {
         titleView.subtitleConfig.textColor = Color(0xffffff, 0.7)
     }
     
-    override func updateTaskInfo() {
-        super.updateTaskInfo()
-        infoView.iconView.icon = task?.icon
-        infoView.titleView.title = task?.name
-        infoView.titleView.subtitle = task?.goal.targetDescription
+    func updateInfo(with task: HabitTask?) {
+        self.updateStyleWithColor(task?.color ?? .primary)
+        self.infoView.iconView.icon = task?.icon
+        self.infoView.titleView.title = task?.name
+        self.infoView.titleView.subtitle = task?.goal.targetDescription
     }
     
     /// 点击更多

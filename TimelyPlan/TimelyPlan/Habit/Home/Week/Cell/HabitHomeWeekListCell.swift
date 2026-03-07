@@ -16,6 +16,12 @@ protocol HabitHomeWeekListCellDelegate: AnyObject {
 
 class HabitHomeWeekListCell: HabitTaskListBaseCell {
 
+    var task: HabitPeriodTask? {
+        didSet {
+            updateTaskInfo()
+        }
+    }
+    
     /// 头视图高度
     let headerViewHeight = 30.0
     
@@ -38,8 +44,8 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
     
     /// 周期列表视图
     let weekViewHeight = 100.0
-    lazy var weekView: DatePeriodsView = {
-        let view = DatePeriodsView(frame: bounds)
+    lazy var weekView: HabitDatePeriodsView = {
+        let view = HabitDatePeriodsView(frame: bounds)
         view.delegate = self
         return view
     }()
@@ -92,13 +98,13 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
         headerView.titleConfig.textColor = Color(0xffffff, 0.8)
     }
     
-    override func updateTaskInfo() {
-        super.updateTaskInfo()
-        
-        headerView.title = task?.attributedInfo
-        infoView.iconView.icon = task?.icon
-        infoView.titleView.title = task?.name
-        infoView.titleView.subtitle = task?.goal.targetDescription
+    func updateTaskInfo() {
+        let habitTask = task?.habitTask
+        updateStyleWithColor(habitTask?.color ?? .primary)
+        headerView.title = habitTask?.attributedInfo
+        infoView.iconView.icon = habitTask?.icon
+        infoView.titleView.title = habitTask?.name
+        infoView.titleView.subtitle = habitTask?.goal.targetDescription
     }
     
     /// 点击更多
@@ -109,29 +115,29 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
     }
 }
 
-extension HabitHomeWeekListCell: DatePeriodsViewDelegate {
+extension HabitHomeWeekListCell: HabitDatePeriodsViewDelegate {
     
     // MARK: - PeriodsViewDelegate
-    func periodsInDatePeriodsView(_ view: DatePeriodsView) -> [DatePeriod]? {
+    func periodsInDatePeriodsView(_ view: HabitDatePeriodsView) -> [HabitDatePeriod]? {
         let firstWeekday = HabitSetting.shared.firstWeekday
-        return DatePeriodsProvider.weekPeriods(firstWeekday: firstWeekday)
+        return HabitDatePeriod.weekDaysPeriods(containing: .now, firstWeekday: firstWeekday)
     }
     
-    func datePeriodsView(_ view: DatePeriodsView, cellClassForPeriod period: DatePeriod) -> AnyClass {
+    func datePeriodsView(_ view: HabitDatePeriodsView, cellClassForPeriod period: HabitDatePeriod) -> AnyClass {
         return HabitHomeWeekDayCell.self
     }
     
-    func datePeriodsView(_ view: DatePeriodsView, didDequeCell cell: UICollectionViewCell, forPeriod period: DatePeriod) {
+    func datePeriodsView(_ view: HabitDatePeriodsView, didDequeCell cell: UICollectionViewCell, forPeriod period: HabitDatePeriod) {
         let cell = cell as! HabitHomeWeekDayCell
         cell.date = period.date
         cell.reloadData() /// 加载内容数据
     }
     
-    func datePeriodsView(_ view: DatePeriodsView, didSelectPeriod period: DatePeriod) {
+    func datePeriodsView(_ view: HabitDatePeriodsView, didSelectPeriod period: HabitDatePeriod) {
         
     }
     
-    func datePeriodsView(_ view: DatePeriodsView, shouldHighlightPeriod period: DatePeriod) -> Bool {
+    func datePeriodsView(_ view: HabitDatePeriodsView, shouldHighlightPeriod period: HabitDatePeriod) -> Bool {
         return !period.isFuture /// 未来时段禁止高亮
     }
 }

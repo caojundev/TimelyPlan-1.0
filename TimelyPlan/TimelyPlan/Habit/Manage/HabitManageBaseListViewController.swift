@@ -57,18 +57,18 @@ class HabitManageBaseListViewController: TPViewController,
     }
     
     func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        return HabitTaskListDefaultInfoCell.self
+        return HabitManageListTaskCell.self
     }
     
     func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        let cell = cell as! HabitTaskListDefaultInfoCell
+        let cell = cell as! HabitManageListTaskCell
         cell.delegate = self
         cell.task = listView.item(at: indexPath) as? HabitTask
     }
     
     // MARK: - HabitTaskListInfoCellDelegate
     func habitTaskListInfoCell(_ cell: HabitTaskListDefaultInfoCell, didClickMore button: UIButton) {
-        guard let task = cell.task else {
+        guard let cell = cell as? HabitManageListTaskCell, let task = cell.task else {
             return
         }
         

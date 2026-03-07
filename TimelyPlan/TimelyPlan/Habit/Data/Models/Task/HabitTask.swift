@@ -158,9 +158,8 @@ class HabitTask: NSObject, Sortable {
     }
 
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        if let object = object as? HabitTask {
-            return self.identifier == object.identifier &&
-                    self.modificationDate == object.modificationDate
+        if let other = object as? HabitTask {
+            return self.identifier == other.identifier
         }
         
         return false

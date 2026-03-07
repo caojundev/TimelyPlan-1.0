@@ -94,7 +94,7 @@ class QuadrantView: UIView,
         return view
     }()
     
-    private let requestManager = RequestManager()
+    private let requestManager = TPRequestManager()
     
     private var groups: [TodoGroup]?
     
@@ -273,22 +273,5 @@ class QuadrantView: UIView,
     
     func todoTaskListView(_ listView: TodoTaskListView, willBeginEditingTask task: TodoTask) {
         delegate?.quadrantView(self, willBeginEditingTask: task)
-    }
-}
-
-
-class RequestManager {
-    
-    private(set) var currentRequestID: UUID?
-    
-    @discardableResult
-    func executeRequest() -> UUID {
-        let requestID = UUID()
-        currentRequestID = requestID
-        return requestID
-    }
-    
-    func shouldProceed(with requestID: UUID) -> Bool {
-        return requestID == currentRequestID
     }
 }

@@ -126,16 +126,19 @@ class TPCollectionWrapperView: UIView,
         config(collectionView)
     }
     
+    func changeCollectionView(with animateStyle: SlideStyle) {
+        if animateStyle != .none {
+            setupCollectionView()
+            containerView.setContentView(collectionView, animateStyle: animateStyle)
+        }
+    }
+    
     func reloadData() {
         adapter.reloadData()
     }
     
     func reloadData(animateStyle: SlideStyle) {
-        if animateStyle != .none {
-            setupCollectionView()
-            containerView.setContentView(collectionView, animateStyle: animateStyle)
-        }
-        
+        changeCollectionView(with: animateStyle)
         adapter.reloadData()
     }
     

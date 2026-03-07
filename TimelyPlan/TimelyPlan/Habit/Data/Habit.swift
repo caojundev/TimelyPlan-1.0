@@ -24,11 +24,22 @@ class Habit {
     /// 任务管理器
     private let taskManager = HabitTaskManager()
     
+    private let periodTaskFetcher = HabitPeriodTaskFetcher()
+    
     // MARK: - 添加处理更新器
     func addUpdater(_ updater: AnyObject, for option: HabitUpdaterOption = .all) {
         if option.contains(.task) {
             taskManager.updater.addDelegate(updater)
         }
+    }
+    
+    // MARK: - Period Task
+    
+    func fetchScheduledPeriodTasks(on date: Date = .now, completion: @escaping([HabitPeriodTask]?)->Void) {
+        let activeTasks = taskManager.activeTasks
+        periodTaskFetcher.fetchScheduledPeriodTasks(on: date,
+                                                    activeTasks: activeTasks,
+                                                    completion: completion)
     }
     
     // MARK: - 任务处理
@@ -62,5 +73,4 @@ class Habit {
     func setArchived(_ isArchived: Bool, for task: HabitTask) {
         self.taskManager.setArchived(isArchived, for: task)
     }
-    
 }

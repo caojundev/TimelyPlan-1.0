@@ -27,8 +27,6 @@ class HabitTaskBaseMenuController: TPBaseMenuController<HabitTaskMenuActionType>
     }
  
     override func menuActionTypes() -> [HabitTaskMenuActionType] {
-        return HabitTaskMenuActionType.allCases
-        
         var types: [HabitTaskMenuActionType] = [.edit, .archive, .delete]
         let status = taskStatus()
         if status == .notStarted || status == .inProgress {
