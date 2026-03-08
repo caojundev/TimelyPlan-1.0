@@ -16,6 +16,12 @@ protocol HabitTaskListInfoCellDelegate: AnyObject {
 
 class HabitTaskListDefaultInfoCell: HabitTaskListBaseCell {
     
+    var habitTask: HabitTask? {
+        didSet {
+            updateTaskInfo()
+        }
+    }
+    
     var infoView: HabitTaskDefaultInfoView!
     
     /// 更多按钮
@@ -27,6 +33,10 @@ class HabitTaskListDefaultInfoCell: HabitTaskListBaseCell {
                          for: .touchUpInside)
         return button
     }()
+    
+    override var focusLineColor: UIColor {
+        return habitTask?.color.lighterColor ?? .primary
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,11 +78,15 @@ class HabitTaskListDefaultInfoCell: HabitTaskListBaseCell {
         titleView.subtitleConfig.textColor = Color(0xffffff, 0.7)
     }
     
-    func updateInfo(with task: HabitTask?) {
-        self.updateStyleWithColor(task?.color ?? .primary)
-        self.infoView.iconView.icon = task?.icon
-        self.infoView.titleView.title = task?.name
-        self.infoView.titleView.subtitle = task?.goal.targetDescription
+    func updateTaskInfo() {
+        self.updateStyleWithColor(habitTask?.color ?? .primary)
+        self.infoView.iconView.icon = habitTask?.icon
+        self.infoView.titleView.title = habitTask?.name
+        self.updateSubtitle()
+    }
+    
+    func updateSubtitle() {
+        self.infoView.titleView.subtitle = habitTask?.goal.targetDescription
     }
     
     /// 点击更多

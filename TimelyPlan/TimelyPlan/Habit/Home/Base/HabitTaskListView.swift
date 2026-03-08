@@ -99,7 +99,6 @@ class HabitTaskListView: TPCollectionWrapperView,
         self.adapter.cellStyle.cornerRadius = 20.0
         self.adapter.dataSource = self
         self.adapter.delegate = self
-        self.adapter.reloadData()
     }
     
     required init?(coder: NSCoder) {

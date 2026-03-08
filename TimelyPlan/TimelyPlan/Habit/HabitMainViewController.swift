@@ -81,14 +81,15 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
             return
         }
         
+        let slideStyle = SlideStyle.horizontalStyle(fromValue: self.menuType.rawValue,
+                                                    toValue: menuType.rawValue)
         self.menuType = menuType
-        
-        /// 取消第一响应（计时器搜索栏可能正在输入）
+    
         UIResponder.resignCurrentFirstResponder()
-        updateContentViewController()
+        updateContentViewController(withAnimationStyle: slideStyle)
     }
     
-    private func updateContentViewController() {
+    private func updateContentViewController(withAnimationStyle style: SlideStyle = .none) {
         let vc: UIViewController
         if menuType == .day {
             vc = HabitHomeDayViewController()
@@ -96,7 +97,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
             vc = HabitHomeWeekViewController()
         }
         
-        self.contentViewController = vc
+        self.setContentViewController(vc, withAnimationStyle: style)
     }
     
     /// 执行菜单操作

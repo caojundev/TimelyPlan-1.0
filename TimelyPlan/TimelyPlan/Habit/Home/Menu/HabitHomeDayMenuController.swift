@@ -30,6 +30,10 @@ class HabitHomeDayMenuController: HabitTaskBaseMenuController {
         return HabitTaskMenuActionType.allCases
     }
     
+    override func taskGoalMode() -> HabitGoal.TargetMode {
+        return task.goal.mode
+    }
+    
     override func taskStatus() -> HabitTaskStatus {
         return .inProgress
     }

@@ -30,6 +30,7 @@ class HabitPeriodTaskListView: HabitTaskListView {
     
     // MARK: - Public Methods
     func asyncReloadData(animateStyle: SlideStyle) {
+        self.groups = nil /// 分组置为空
         changeCollectionView(with: animateStyle)
         asyncReloadData()
     }

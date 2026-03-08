@@ -50,6 +50,10 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
         return view
     }()
     
+    override var focusLineColor: UIColor {
+        return task?.habitTask.color.lighterColor ?? .primary
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.padding = UIEdgeInsets(top: 5.0,

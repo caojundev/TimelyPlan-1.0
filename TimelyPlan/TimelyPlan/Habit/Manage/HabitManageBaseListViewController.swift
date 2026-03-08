@@ -24,8 +24,8 @@ class HabitManageBaseListViewController: TPViewController,
         super.viewDidLoad()
         self.view.addSubview(self.listView)
         self.setupSubviews()
-        habit.addUpdater(self, for: .all)
         self.reloadData()
+        habit.addUpdater(self, for: .all)
     }
     
     func setupSubviews() {
@@ -57,18 +57,18 @@ class HabitManageBaseListViewController: TPViewController,
     }
     
     func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        return HabitManageListTaskCell.self
+        return HabitTaskListDefaultInfoCell.self
     }
     
     func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        let cell = cell as! HabitManageListTaskCell
+        let cell = cell as! HabitTaskListDefaultInfoCell
         cell.delegate = self
-        cell.task = listView.item(at: indexPath) as? HabitTask
+        cell.habitTask = listView.item(at: indexPath) as? HabitTask
     }
     
     // MARK: - HabitTaskListInfoCellDelegate
     func habitTaskListInfoCell(_ cell: HabitTaskListDefaultInfoCell, didClickMore button: UIButton) {
-        guard let cell = cell as? HabitManageListTaskCell, let task = cell.task else {
+        guard let task = cell.habitTask else {
             return
         }
         

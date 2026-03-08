@@ -20,9 +20,12 @@ class TPCollectionViewAdapter: NSObject,
     /// 适配器列表视图
     var collectionView: UICollectionView! {
         didSet {
+            self.objects = []
+            self.itemsMapTable.removeAllObjects()
+            
             /// 不同的集合视图，移除原有的注册标识
-            registeredCellIdentifiers.removeAll()
-            registeredSupplementaryViewIdentifiers.removeAll()
+            self.registeredCellIdentifiers.removeAll()
+            self.registeredSupplementaryViewIdentifiers.removeAll()
             
             collectionView.dataSource = self
             collectionView.delegate = self
