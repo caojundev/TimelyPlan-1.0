@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension ASAttributedString {
     
@@ -15,8 +16,7 @@ extension ASAttributedString {
     }
     
     static func logIndicator(color: UIColor?) -> ASAttributedString {
-        var image = resGetImage("bell_fill_16")!
-//        var image = UIImage(named: "IndicatorLogSmall")!
+        var image = resGetImage("habit_indicator_log_16")!
         if let color = color {
             image = image.withTintColor(color)
         }
@@ -30,8 +30,7 @@ extension ASAttributedString {
     }
     
     static func checkedInIndicator(color: UIColor?) -> ASAttributedString {
-        var image = resGetImage("bell_fill_16")!
-//        var image = UIImage(named: "IndicatorCheckedInSmall")!
+        var image = resGetImage("habit_indicator_status_checked_16")!
         if let color = color {
             image = image.withTintColor(color)
         }
@@ -55,8 +54,7 @@ extension ASAttributedString {
     
     static func skipIndicator(reason: String?,
                               color: UIColor?) -> ASAttributedString {
-        var image = resGetImage("bell_fill_16")!
-//        var image = UIImage(named: "IndicatorSkippedSmall")!
+        var image = resGetImage("habit_indicator_status_skipped_16")!
         if let color = color {
             image = image.withTintColor(color)
         }
@@ -69,7 +67,7 @@ extension ASAttributedString {
         return failIndicator(reason: nil, color: nil)
     }
     
-    static func failIndicator(reason: String?) -> ASAttributedString {
+    static func failIndicator(reason: String?, color: UIColor) -> ASAttributedString {
         return failIndicator(reason: reason, color: nil)
     }
     
@@ -79,8 +77,7 @@ extension ASAttributedString {
     
     static func failIndicator(reason: String?,
                               color: UIColor?) -> ASAttributedString {
-        var image = resGetImage("bell_fill_16")!
-//        UIImage(named: "IndicatorFailedSmall")!
+        var image = resGetImage("habit_indicator_status_failed_16")!
         if let color = color {
             image = image.withTintColor(color)
         }

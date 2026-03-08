@@ -152,6 +152,39 @@ class HabitTask: NSObject, Sortable {
         self.reminder = editingTask.reminder
     }
     
+    /// 获取特定记录对应的任务状态
+    func status(with record: HabitRecord) -> HabitTaskStatus {
+        var status: HabitTaskStatus = .notStarted
+        let amount = record.amount
+        if amount >= self.goal.validatedTargetAmount {
+            status = .completed /// 已完成
+        } else {
+            if amount > 0 {
+                status = .inProgress /// 进行中
+            }
+            
+            if record.status == .failed {
+                status = .failed(record.reason) /// 失败
+            } else if record.status == .skipped {
+                status = .skipped(record.reason)  /// 跳过
+            }
+        }
+        
+        return status
+    }
+    
+    /// 获取特定记录对应的任务进度
+    func progress(with record: HabitRecord?) -> CGFloat {
+        guard let record = record else {
+            return 0.0
+        }
+
+        let amount = record.amount
+        let progress = CGFloat(amount) / CGFloat(goal.validatedTargetAmount)
+        return validatedProgress(progress)
+    }
+    
+    
     // MARK: - IGListDiffable
     override func diffIdentifier() -> NSObjectProtocol {
         return identifier as NSString
@@ -244,17 +277,17 @@ extension HabitTask {
     }
     
     /// 备注图标信息
-    var logIndicator: ASAttributedString {
-        return .logIndicator
+    func logIndicator(color: UIColor? = nil) -> ASAttributedString {
+        return .logIndicator(color: color)
     }
     
     /// 跳过指示信息
-    func skipIndicator(reason: String?) -> ASAttributedString {
-        return .skipIndicator(reason: reason)
+    func skipIndicator(reason: String? = nil, color: UIColor? = nil) -> ASAttributedString {
+        return .skipIndicator(reason: reason, color: color)
     }
     
     /// 失败指示信息
-    func failIndicator(reason: String?) -> ASAttributedString {
-        return .failIndicator(reason: reason)
+    func failIndicator(reason: String? = nil, color: UIColor? = nil) -> ASAttributedString {
+        return .failIndicator(reason: reason, color: color)
     }
 }

@@ -26,6 +26,17 @@ class HabitPeriodTask: NSObject {
         super.init()
     }
     
+    /// 特定日期对应的进度
+    func progress(on date: Date) -> CGFloat {
+        var progress: CGFloat = 0.0
+        if let record = records?[date.dayIntegerKey] {
+            progress = habitTask.progress(with: record)
+        }
+        
+        return progress
+    }
+      
+    
     // MARK: - 等同性判断
     /*
     override var hash: Int {

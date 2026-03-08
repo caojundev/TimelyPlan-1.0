@@ -93,6 +93,7 @@
 "Check-in one time per day" = "每日打卡一次";
 
 /// 习惯进度
+"1 time" = "1次";
 "%ld %@" = "%ld%@";
 "%ld/%ld %@" = "%ld/%ld%@";
 "%ld/%ld time" = "%ld/%ld次";

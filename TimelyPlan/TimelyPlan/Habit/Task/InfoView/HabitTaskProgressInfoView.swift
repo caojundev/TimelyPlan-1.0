@@ -9,9 +9,6 @@ import Foundation
 
 class HabitTaskProgressInfoView: HabitTaskDefaultInfoView {
     
-//    /// 任务状态视图
-//    var statusView: TaskStatusView!
-
     var progress: CGFloat {
         get {
             return progressView.progress
@@ -30,10 +27,17 @@ class HabitTaskProgressInfoView: HabitTaskDefaultInfoView {
         view.progressLineWidth = progressLineWidth
         return view
     }()
+    
+    /// 任务状态视图
+    lazy var statusView: HabitTaskStatusView = {
+        let view = HabitTaskStatusView(frame: bounds)
+        return view
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(self.progressView)
+        self.addSubview(self.statusView)
     }
     
     required init?(coder: NSCoder) {
@@ -42,11 +46,16 @@ class HabitTaskProgressInfoView: HabitTaskDefaultInfoView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        progressView.frame = iconView.frame
-        progressView.radius = iconView.cornerRadius
+        self.progressView.frame = iconView.frame
+        self.progressView.radius = iconView.cornerRadius
+        self.statusView.frame = iconView.frame
     }
     
     func setProgress(_ progress: CGFloat, animated: Bool = false) {
-        progressView.setProgress(progress, animated: animated)
+        self.progressView.setProgress(progress, animated: animated)
+    }
+    
+    func setStatus(_ status: HabitTaskStatus, animated: Bool = false) {
+        self.statusView.setStatus(status, animated: animated)
     }
 }
