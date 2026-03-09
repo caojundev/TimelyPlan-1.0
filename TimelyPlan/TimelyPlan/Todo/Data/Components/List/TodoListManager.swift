@@ -144,7 +144,7 @@ class TodoListManager {
     static func fetchLists(containText text: String, completion:(@escaping([TodoList]?) -> Void)) {
         let condition: PredicateCondition = (TodoListKey.name, .contains(text))
         let predicate = NSPredicate.predicate(with: condition)
-        TodoList.fetchAll(withPredicate: predicate, sortedBy: TodoListKey.order, ascending: true) { results in
+        TodoList.fetchAll(matching: predicate, sortBy: TodoListKey.order, ascending: true) { results in
             completion(results as? [TodoList])
         }
     }

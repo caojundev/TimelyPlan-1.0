@@ -136,8 +136,8 @@ class TodoFolderManager {
     static func fetchFolders(containText text: String,
                              completion:(@escaping([TodoFolder]?) -> Void)) {
         let predicate = NSPredicate.predicate(with: (TodoFolderKey.name, .contains(text)))
-        TodoFolder.fetchAll(withPredicate: predicate,
-                            sortedBy: ElementOrderKey,
+        TodoFolder.fetchAll(matching: predicate,
+                            sortBy: ElementOrderKey,
                             ascending: true) { results in
             completion(results as? [TodoFolder])
         }

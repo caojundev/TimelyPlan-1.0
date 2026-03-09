@@ -106,8 +106,8 @@ class TodoTagManager {
     static func fetchTags(containText text: String, completion:(@escaping([TodoTag]?) -> Void)) {
         let condition: PredicateCondition = (TodoTagKey.name, .contains(text))
         let predicate = NSPredicate.predicate(with: condition)
-        TodoTag.fetchAll(withPredicate: predicate,
-                         sortedBy: TodoTagKey.order,
+        TodoTag.fetchAll(matching: predicate,
+                         sortBy: TodoTagKey.order,
                          ascending: true) { results in
             if let tags = results as? [TodoTag], tags.count > 0 {
                 completion(tags)

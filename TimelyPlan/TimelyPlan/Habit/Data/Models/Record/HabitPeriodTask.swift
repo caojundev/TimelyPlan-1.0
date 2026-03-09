@@ -77,7 +77,11 @@ class HabitPeriodTask: NSObject {
     // MARK: - Public Methods
     
     /// 获取特定记录对应的任务状态
-    func taskStatus(with record: HabitRecord) -> HabitTaskStatus {
+    func taskStatus(with record: HabitRecord?) -> HabitTaskStatus {
+        guard let record = record else {
+            return .notStarted
+        }
+
         var status: HabitTaskStatus = .notStarted
         let amount = record.amount
         

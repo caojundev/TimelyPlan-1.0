@@ -86,8 +86,8 @@ class TodoFilterManager {
     static func fetchFilters(containText text: String, completion:(@escaping([TodoFilter]?) -> Void)) {
         let condition: PredicateCondition = (TodoFilterKey.name, .contains(text))
         let predicate = NSPredicate.predicate(with: condition)
-        TodoFilter.fetchAll(withPredicate: predicate,
-                            sortedBy: TodoFilterKey.order,
+        TodoFilter.fetchAll(matching: predicate,
+                            sortBy: TodoFilterKey.order,
                             ascending: true) { results in
             if let filters = results as? [TodoFilter], filters.count > 0 {
                 completion(filters)

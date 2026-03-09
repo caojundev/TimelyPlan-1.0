@@ -15,8 +15,11 @@ struct HabitUpdaterOption: OptionSet {
     /// 任务
     static let task = HabitUpdaterOption(rawValue: 1 << 1)
     
+    /// 记录
+    static let record = HabitUpdaterOption(rawValue: 2 << 1)
+    
     /// 所有
-    static let all: HabitUpdaterOption = [.task]
+    static let all: HabitUpdaterOption = [.task, .record]
 }
 
 class Habit {
@@ -26,10 +29,16 @@ class Habit {
     
     private let periodTaskFetcher = HabitPeriodTaskFetcher()
     
+    let recordProcessor = HabitRecordProcessor()
+    
     // MARK: - 添加处理更新器
     func addUpdater(_ updater: AnyObject, for option: HabitUpdaterOption = .all) {
         if option.contains(.task) {
             taskManager.updater.addDelegate(updater)
+        }
+        
+        if option.contains(.record) {
+            recordProcessor.updater.addDelegate(updater)
         }
     }
     

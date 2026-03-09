@@ -7,8 +7,33 @@
 
 import Foundation
 
-/// 习惯记录模型
-/// 用于存储和管理单个日期的习惯执行情况
+enum HabitRecordChange {
+    
+    /// 数目变化
+    case amountChanged(oldValue: Int64, newValue: Int64)
+    
+    /// 失败
+    case failChanged(oldValue: Bool, newValue: Bool)
+    
+    /// 跳过
+    case skipChanged(oldValue: Bool, newValue:Bool)
+    
+    /// 日志编辑
+    case logEdited(oldValue: String?, newValue: String?)
+    
+    /// 时间段内所有记录被重置
+    case reseted(period: HabitDatePeriod)
+}
+
+/// 记录输入类型
+enum HabitRecordInputType: Int, TPMenuRepresentable {
+    case byIncrement /// 按增量
+    case byTotal     /// 按总量
+    static func titles() -> [String] {
+        return ["By Increment", "By Total"]
+    }
+}
+
 class HabitRecord: NSObject {
 
     /// 记录状态枚举

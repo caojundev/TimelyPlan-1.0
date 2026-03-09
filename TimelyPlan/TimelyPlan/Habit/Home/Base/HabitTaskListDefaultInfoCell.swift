@@ -57,7 +57,7 @@ class HabitTaskListDefaultInfoCell: HabitTaskListBaseCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         let layoutFrame = contentView.layoutFrame()
-        moreButton.sizeToFit()
+        moreButton.size = .size(9)
         moreButton.right = layoutFrame.maxX
         moreButton.alignVerticalCenter()
         

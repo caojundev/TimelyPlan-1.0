@@ -48,6 +48,10 @@ struct HabitGoal: Equatable {
     /// 记录方式为automatically时的自动输入值
     var recordAmount: Int64?
     
+    var validatedRecordType: RecordType {
+        return recordType ?? .manually
+    }
+    
     var validatedTargetAmount: Int64 {
         if targetAmount > 0 {
             return targetAmount

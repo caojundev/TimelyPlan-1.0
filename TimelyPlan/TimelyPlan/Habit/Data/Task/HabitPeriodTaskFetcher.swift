@@ -65,7 +65,9 @@ class HabitPeriodTaskFetcher {
                                          on date: Date,
                                          completion: @escaping([HabitPeriodTask]) -> Void) {
         let period = HabitDatePeriod(date: date, mode: .day)
-        let conditions = CDHabitRecord.conditions(forTasks: regularHabitTasks, onDate: date)
+        
+        let tasks = regularHabitTasks.map { return $0.content }
+        let conditions = CDHabitRecord.conditions(forTasks: tasks, onDate: date)
         let predicate = conditions.andPredicate()
         CDHabitRecord.findAll(with: predicate) { results in
             let groupedRecords = self.recordsGroupedByTask(with: results as? [CDHabitRecord])

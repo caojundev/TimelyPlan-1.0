@@ -70,32 +70,20 @@ extension CDHabitRecord {
     }
     
     // MARK: - Conditions
-    static func conditions(forTask task: CDHabitTask,
-                           onDate date: Date) -> [PredicateCondition] {
-        let conditions: [PredicateCondition] = [
-            condition(forTask: task),
-            condition(onDate: date)
-        ]
-        
-        return conditions
-    }
-    
-    
-    static func conditions(forTasks tasks: [HabitTask],
-                           onDate date: Date) -> [PredicateCondition] {
-        let tasks = tasks.map { return $0.content }
-        let conditions: [PredicateCondition] = [
-            condition(forTasks: tasks),
-            condition(onDate: date)
-        ]
-        
-        return conditions
-    }
-    
     static func conditions(forTasks tasks: [CDHabitTask],
                            onDate date: Date) -> [PredicateCondition] {
         let conditions: [PredicateCondition] = [
             condition(forTasks: tasks),
+            condition(onDate: date)
+        ]
+        
+        return conditions
+    }
+    
+    static func conditions(forTask task: CDHabitTask,
+                           onDate date: Date) -> [PredicateCondition] {
+        let conditions: [PredicateCondition] = [
+            condition(forTask: task),
             condition(onDate: date)
         ]
         

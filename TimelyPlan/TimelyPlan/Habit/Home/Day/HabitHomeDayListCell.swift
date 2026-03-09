@@ -9,28 +9,37 @@ import Foundation
 import UIKit
 
 class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
-    
+
     var task: HabitPeriodTask? {
         didSet {
             self.habitTask = task?.habitTask
         }
     }
     
-    let progressInfoView = HabitTaskProgressInfoView()
+    let progressActionInfoView = HabitHomeDayActionInfoView()
     
     let detailProvider = HabitHomeDayTaskDetailProvider()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.contentView.padding = UIEdgeInsets(left: 16.0, right: 8.0)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override var focusLineColor: UIColor {
         return task?.habitTask.color.lighterColor ?? .primary
     }
     
     override func setupInfoView() {
-        self.infoView = progressInfoView
+        self.infoView = progressActionInfoView
     }
     
     override func updateStyleWithColor(_ color: UIColor) {
         super.updateStyleWithColor(color)
-        let progressView = progressInfoView.progressView
+        let progressView = progressActionInfoView.progressView
         progressView.progressLineColor = color.lighterColor
         progressView.backLineColor = Color(0x000000, 0.4)
     }
@@ -39,6 +48,7 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     override func updateTaskInfo() {
         super.updateTaskInfo()
         self.updateProgress(animated: true)
+        self.progressActionInfoView.updateRecordButton(with: task)
     }
     
     /// 更新详细文本
@@ -63,8 +73,8 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
             }
         }
         
-        progressInfoView.setProgress(progress, animated: animated)
-        progressInfoView.setStatus(.completed, animated: animated)
+        progressActionInfoView.setProgress(progress, animated: animated)
+        progressActionInfoView.setStatus(status, animated: animated)
     }
 }
 

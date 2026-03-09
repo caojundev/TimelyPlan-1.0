@@ -94,7 +94,7 @@ class Focus {
         let conditions: [PredicateCondition] = [(FocusTimerKey.isArchived, .isFalse),
                                                 (FocusTimerKey.name, .contains(text))]
         let predicate = conditions.andPredicate()
-        FocusTimer.fetchAll(withPredicate: predicate, sortedBy: ElementOrderKey, ascending: true) { results in
+        FocusTimer.fetchAll(matching: predicate, sortBy: ElementOrderKey, ascending: true) { results in
             let timers = results as? [FocusTimer]
             completion(timers)
         }

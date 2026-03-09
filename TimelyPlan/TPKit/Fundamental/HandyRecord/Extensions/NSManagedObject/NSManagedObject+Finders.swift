@@ -145,6 +145,12 @@ extension NSManagedObject {
         request.propertiesToFetch = properties(names: retrieveAttributes, in: context)
         return executeFetchRequestAndReturnFirstObject(request: request, inContext: context) as? Self
     }
+    
+    static func findFirst(withPredicate predicate: NSPredicate?,
+                          completion: @escaping(NSFetchRequestResult?) -> Void) {
+        let request = fetchAllRequest(with: predicate, in: .defaultContext)
+        executeFetchRequestAndReturnFirstObject(request: request, completion: completion)
+    }
 }
 
 
@@ -179,12 +185,7 @@ extension NSManagedObject {
                                       in: .defaultContext)
         executeFetchRequest(request, completion: completion)
     }
-    
-    static func findFirst(withPredicate predicate: NSPredicate?,
-                          completion: @escaping(NSFetchRequestResult?) -> Void) {
-        let request = fetchAllRequest(with: predicate, in: .defaultContext)
-        executeFetchRequestAndReturnFirstObject(request: request, completion: completion)
-    }
+
     
     
     /*
