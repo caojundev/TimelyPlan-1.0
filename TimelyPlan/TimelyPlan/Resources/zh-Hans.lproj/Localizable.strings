@@ -100,6 +100,8 @@
 "%ld/%ld times" = "%ld/%ld次";
 "%ld %@ per day" = "每日%ld%@";
 
+"All records will be removed for today. Are you sure to reset the habit?" = "今日的所有记录将会被删除。确定重置该习惯吗？";
+
 /// 习惯管理
 "Active" = "活动";
 "No Archiving Habit" = "无归档习惯";

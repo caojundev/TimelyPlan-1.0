@@ -36,26 +36,19 @@ class HabitPeriodTask: NSObject {
         return progress
     }
       
-    
-    // MARK: - 等同性判断
-    /*
-    override var hash: Int {
-        var hasher = Hasher()
-        hasher.combine(habitTask.identifier)
-        return hasher.finalize()
+    func record(on date: Date) -> HabitRecord? {
+        return records?[date.dayIntegerKey]
     }
-    
-    override func isEqual(_ object: Any?) -> Bool {
-        if let other = object as? HabitTask {
-            return self.habitTask.identifier == other.identifier
-        }
-        
-        guard let other = object as? HabitPeriodTask else { return false }
-        if self === other { return true }
-        return self.habitTask.identifier == other.habitTask.identifier
+
+    /// 获取特定记录对应的任务状态
+    func status(on date: Date) -> HabitTaskStatus {
+        let record = record(on: date)
+        return habitTask.status(with: record)
     }
-    */
-    
+
+    func status(with record: HabitRecord?) -> HabitTaskStatus {
+        return habitTask.status(with: record)
+    }
     
     // MARK: - IGListDiffable
     override func diffIdentifier() -> NSObjectProtocol {
@@ -74,34 +67,4 @@ class HabitPeriodTask: NSObject {
         return false
     }
     
-    // MARK: - Public Methods
-    
-    /// 获取特定记录对应的任务状态
-    func taskStatus(with record: HabitRecord?) -> HabitTaskStatus {
-        guard let record = record else {
-            return .notStarted
-        }
-
-        var status: HabitTaskStatus = .notStarted
-        let amount = record.amount
-        
-        // 检查是否已完成目标
-        if amount >= habitTask.goal.targetAmount {
-            status = .completed /// 已完成
-        } else {
-            // 检查是否有进度
-            if amount > 0 {
-                status = .inProgress /// 进行中
-            }
-            
-            // 检查是否有特殊状态（跳过或失败）
-            if record.status == .skipped {
-                status = .skipped(record.reason) /// 跳过
-            } else if record.status == .failed {
-                status = .failed(record.reason) /// 失败
-            }
-        }
-        
-        return status
-    }
 }

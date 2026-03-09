@@ -11,10 +11,15 @@ class HabitHomeDayMenuController: HabitTaskBaseMenuController {
     
     let task: HabitTask
     
+    let status: HabitTaskStatus
+    
     let date: Date
     
-    init(task: HabitTask, date: Date) {
+    init(task: HabitTask,
+         status: HabitTaskStatus,
+         date: Date) {
         self.task = task
+        self.status = status
         self.date = date
         super.init()
     }
@@ -35,6 +40,6 @@ class HabitHomeDayMenuController: HabitTaskBaseMenuController {
     }
     
     override func taskStatus() -> HabitTaskStatus {
-        return .inProgress
+        return status
     }
 }

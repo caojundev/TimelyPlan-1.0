@@ -64,6 +64,8 @@ class HabitHomeDayViewController: TPContainerViewController,
     
     private let taskController = HabitTaskController()
     
+    private let processor = HabitTaskMenuActionProcessor()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(weekView)
@@ -209,29 +211,24 @@ class HabitHomeDayViewController: TPContainerViewController,
         }
         
         let habitTask = task.habitTask
-        let menuController = HabitHomeDayMenuController(task: habitTask, date: self.date)
-        menuController.didSelectMenuActionType = { type in
-            self.performMenuAction(type, forTask: habitTask)
+        let date = task.period.date
+        let status = task.status(on: date)
+        let menuController = HabitHomeDayMenuController(task: habitTask,
+                                                        status: status,
+                                                        date: date)
+        menuController.didSelectMenuActionType = {[weak self] type in
+            self?.processor.performMenuAction(type,
+                                              for: habitTask,
+                                              on: date,
+                                              from: button)
         }
         
         menuController.showMenu(from: button)
     }
-    
-    func performMenuAction(_ type: HabitTaskMenuActionType, forTask task: HabitTask) {
-        switch type {
-        case .edit:
-            taskController.editTask(task)
-        case .archive:
-            taskController.archiveTask(task)
-        case .delete:
-            taskController.deleteTask(task)
-        default:
-            break
-        }
-    }
 }
 
-extension HabitHomeDayViewController: HabitTaskProcessorDelegate {
+extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
+                                        HabitRecordProcessorDelegate {
     
     func didCreateHabitTask(_ task: HabitTask) {
         self.listView.asyncPerformUpdate { [weak self] success in
@@ -257,6 +254,15 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate {
     
     func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
         self.listView.asyncPerformUpdate()
+    }
+    
+    // MARK: - HabitRecordProcessorDelegate
+    func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
+        self.listView.asyncReloadData()
+    }
+    
+    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
+        self.listView.asyncReloadData()
     }
 }
 

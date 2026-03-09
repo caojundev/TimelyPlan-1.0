@@ -67,10 +67,7 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
         var status: HabitTaskStatus = .notStarted
         if let date = task?.period.date {
             progress = task?.progress(on: date) ?? 0.0
-            
-            if let record = task?.records?[date.dayIntegerKey] {
-                status = task?.taskStatus(with: record) ?? .notStarted
-            }
+            status = task?.status(on: date) ?? .notStarted
         }
         
         progressActionInfoView.setProgress(progress, animated: animated)

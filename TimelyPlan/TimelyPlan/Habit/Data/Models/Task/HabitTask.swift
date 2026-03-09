@@ -153,7 +153,11 @@ class HabitTask: NSObject, Sortable {
     }
     
     /// 获取特定记录对应的任务状态
-    func status(with record: HabitRecord) -> HabitTaskStatus {
+    func status(with record: HabitRecord?) -> HabitTaskStatus {
+        guard let record = record else {
+            return .notStarted
+        }
+
         var status: HabitTaskStatus = .notStarted
         let amount = record.amount
         if amount >= self.goal.validatedTargetAmount {
