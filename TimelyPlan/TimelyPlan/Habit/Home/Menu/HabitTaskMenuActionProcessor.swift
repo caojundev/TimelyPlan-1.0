@@ -15,10 +15,21 @@ class HabitTaskMenuActionProcessor {
     /// 记录操作控制器
     private let recordController = HabitRecordController()
 
-    // MARK: - 执行菜单操作
+    /// 创建新任务
+    func createNewTask() {
+        taskController.createNewTask()
+    }
+    
+    /// 点击记录按钮
+    func clickRecrod(for task: HabitTask, on date: Date) {
+        recordController.clickRecrod(for: task, on: date)
+    }
+    
+    /// 执行菜单操作
     func performMenuAction(_ type: HabitTaskMenuActionType,
                            for task: HabitTask,
                            on date: Date,
+                           with record: HabitRecord?,
                            from sourceView: UIView? = nil) {
         switch type {
         case .resetToday:
@@ -38,7 +49,7 @@ class HabitTaskMenuActionProcessor {
         case .skipToday:
             recordController.skipToday(for: task, on: date, from: sourceView)
         case .editLog:
-            recordController.addLog(for: task, on: date)
+            recordController.editLog(record?.log, for: task, on: date)
         case .edit:
             taskController.editTask(task)
         case .delete:

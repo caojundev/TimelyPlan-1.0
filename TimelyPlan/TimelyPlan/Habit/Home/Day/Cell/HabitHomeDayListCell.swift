@@ -8,6 +8,12 @@
 import Foundation
 import UIKit
 
+protocol HabitHomeDayListCellDelegate: HabitTaskListInfoCellDelegate {
+    
+    /// 点击记录按钮
+    func habitHomeDayListCell(_ cell: HabitHomeDayListCell, didClickRecord button: UIButton)
+}
+
 class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
 
     var task: HabitPeriodTask? {
@@ -34,6 +40,9 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     }
     
     override func setupInfoView() {
+        self.progressActionInfoView.recordButton.addTarget(self,
+                                                           action: #selector(clickRecord(_:)),
+                                                           for: .touchUpInside)
         self.infoView = progressActionInfoView
     }
     
@@ -47,8 +56,8 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     /// 更新任务信息
     override func updateTaskInfo() {
         super.updateTaskInfo()
-        self.updateProgress(animated: true)
-        self.progressActionInfoView.updateRecordButton(with: task)
+        self.updateProgress(animated: false)
+        self.progressActionInfoView.updateRecordButton(with: self.task)
     }
     
     /// 更新详细文本
@@ -73,6 +82,13 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
         progressActionInfoView.setProgress(progress, animated: animated)
         progressActionInfoView.setStatus(status, animated: animated)
     }
+    
+    @objc func clickRecord(_ button: UIButton) {
+        if let delegate = delegate as? HabitHomeDayListCellDelegate {
+            delegate.habitHomeDayListCell(self, didClickRecord: button)
+        }
+    }
+    
 }
 
 class HabitHomeDayTaskDetailProvider {

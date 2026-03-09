@@ -10,7 +10,7 @@ import UIKit
 
 class HabitHomeDayViewController: TPContainerViewController,
                                   HabitPeriodTaskListViewDelegate,
-                                  HabitTaskListInfoCellDelegate,
+                                  HabitHomeDayListCellDelegate,
                                   TPCalendarSingleDateSelectionDelegate {
     
     /// 日期
@@ -61,8 +61,6 @@ class HabitHomeDayViewController: TPContainerViewController,
         
         return view
     }()
-    
-    private let taskController = HabitTaskController()
     
     private let processor = HabitTaskMenuActionProcessor()
     
@@ -145,7 +143,7 @@ class HabitHomeDayViewController: TPContainerViewController,
     }
     
     @objc func didClickAdd(_ button: UIButton){
-        taskController.createNewTask()
+        processor.createNewTask()
     }
     
     // MARK: - TPCalendarSingleDateSelectionDelegate
@@ -213,6 +211,7 @@ class HabitHomeDayViewController: TPContainerViewController,
         let habitTask = task.habitTask
         let date = task.period.date
         let status = task.status(on: date)
+        let record = task.record(on: date)
         let menuController = HabitHomeDayMenuController(task: habitTask,
                                                         status: status,
                                                         date: date)
@@ -220,10 +219,21 @@ class HabitHomeDayViewController: TPContainerViewController,
             self?.processor.performMenuAction(type,
                                               for: habitTask,
                                               on: date,
+                                              with: record,
                                               from: button)
         }
         
         menuController.showMenu(from: button)
+    }
+    
+    func habitHomeDayListCell(_ cell: HabitHomeDayListCell, didClickRecord button: UIButton) {
+        guard let task = cell.task else {
+            return
+        }
+        
+        let habitTask = task.habitTask
+        let date = task.period.date
+        processor.clickRecrod(for: habitTask, on: date)
     }
 }
 

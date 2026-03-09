@@ -114,15 +114,13 @@ class HabitRecordController: NSObject {
     }
     
     // MARK: - 添加日志
-    func addLog(for task: HabitTask, on date: Date) {
-        var currentLog: String? = nil
-        let logVC = HabitLogEditViewController(log: currentLog, date: date)
-        logVC.completion = { log in
+    func editLog(_ log: String?, for task: HabitTask, on date: Date) {
+        let vc = HabitLogEditViewController(log: log, date: date)
+        vc.completion = { log in
             habit.addLog(log, for: task, on: date)
         }
-
-        let navController = UINavigationController(rootViewController: logVC)
-        navController.popoverShow()
+        
+        vc.popoverShowAsNavigationRoot()
     }
     
     func deleteLog(for task: HabitTask, on date: Date) {

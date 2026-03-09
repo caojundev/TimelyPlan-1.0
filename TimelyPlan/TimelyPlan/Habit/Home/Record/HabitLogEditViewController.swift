@@ -18,19 +18,18 @@ class HabitLogEditViewController: TPViewController, UITextViewDelegate {
     private(set) var log: String?
     
     /// 文本视图
+    private let textContainerView = UIView()
+    
+    private let textContainerMargins = UIEdgeInsets(horizontal: 10.0, vertical: 5.0)
+    
     private var textView: TPTextView = {
         let textView = TPTextView()
         textView.font = BOLD_BODY_FONT
-        textView.layer.maskedCorners = [.layerMaxXMaxYCorner,
-                                        .layerMaxXMinYCorner,
-                                        .layerMinXMaxYCorner,
-                                        .layerMinXMinYCorner]
-        textView.layer.cornerRadius = 18.0
-        textView.textContainerInset = UIEdgeInsets(value: 16.0)
+        textView.textContainerInset = UIEdgeInsets(horizontal: 8.0)
         textView.placeholderPosition = .topLeft
         textView.placeholder = resGetString("Record your feelings or thoughts today...")
-        textView.backgroundColor = UIColor(hex: 0x888888, alpha: 0.1)
-        textView.textColor = .label
+        textView.backgroundColor = .clear
+        textView.textColor = resGetColor(.title)
         return textView
     }()
 
@@ -40,7 +39,7 @@ class HabitLogEditViewController: TPViewController, UITextViewDelegate {
                                    style: .done,
                                    target: self,
                                    action: #selector(clickClear(_:)))
-        item.tintColor = .danger1
+        item.tintColor = .danger6
         return item
     }()
 
@@ -63,12 +62,14 @@ class HabitLogEditViewController: TPViewController, UITextViewDelegate {
             self.navigationItem.rightBarButtonItem = clearButtonItem
         }
     
-        self.preferredContentSize = CGSize(width: 420.0, height: 360.0)
+        self.preferredContentSize = CGSize(width: 420.0, height: 420.0)
+        self.textContainerView.padding = UIEdgeInsets(vertical: 16.0)
+        self.view.addSubview(self.textContainerView)
+        self.textContainerView.addSubview(self.textView)
+        self.setupActionsBar(actions: [doneAction])
         
         self.textView.text = log?.whitespacesAndNewlinesTrimmedString
         self.textView.delegate = self
-        self.view.addSubview(self.textView)
-        self.setupActionsBar(actions: [doneAction])
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -78,11 +79,13 @@ class HabitLogEditViewController: TPViewController, UITextViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let layoutFrame = view.layoutFrame()
-        textView.width = layoutFrame.width - 20.0
-        textView.height = actionsBar!.top - 20.0
-        textView.left = layoutFrame.minX
-        textView.top = 10.0
+        let layoutFrame = view.bounds.inset(by: textContainerMargins)
+        textContainerView.layer.backgroundColor = UIColor(hex: 0x888888, alpha: 0.1).cgColor
+        textContainerView.layer.cornerRadius = 16.0
+        textContainerView.width = layoutFrame.width
+        textContainerView.height = actionsBar!.top - 10.0
+        textContainerView.origin = layoutFrame.origin
+        textView.frame = textContainerView.layoutFrame()
         textView.placeholderColor = .label.withAlphaComponent(0.4)
     }
     
