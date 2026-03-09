@@ -26,6 +26,8 @@ class TPAlertController : TPViewController {
     var alertMessage: String?
     var actions: [TPAlertAction] = []
     
+    var actionsCountPerRow: Int?
+    
     /// 附加视图
     var additionalView: UIView?
     
@@ -110,7 +112,13 @@ class TPAlertController : TPViewController {
         }
         
         actionsView = TPButtonActionsView(actions: actions)
-        actionsView.actionsCountPerRow = style == .actionSheet ? 1 : 2
+        
+        if let actionsCountPerRow = actionsCountPerRow {
+            actionsView.actionsCountPerRow = actionsCountPerRow
+        } else {
+            actionsView.actionsCountPerRow = style == .actionSheet ? 1 : 2
+        }
+        
         actionsView.didSelectAction = { [weak self] action in
             self?.didSelectAction(action as! TPAlertAction)
         }
@@ -118,7 +126,7 @@ class TPAlertController : TPViewController {
         actionsView.itemHeight = 50.0
         view.addSubview(actionsView)
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let layoutFrame = view.bounds.inset(by: padding)

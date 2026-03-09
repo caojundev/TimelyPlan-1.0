@@ -55,16 +55,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "75E2F982-748B-49D4-8BD7-570FEC198DB5"
+            uuid = "44E2387F-96B0-46E9-86F0-609E4AA9A75B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TPKit/Components/UI/CollectionView/TPCollectionViewAdapter.swift"
+            filePath = "TimelyPlan/Habit/Home/Controllers/HabitRecordController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "538"
-            endingLineNumber = "538"
-            landmarkName = "performUpdate(with:)"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "addLog(for:on:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

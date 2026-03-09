@@ -25,7 +25,7 @@ class TPButtonActionsBar: UIView {
         
         super.init(frame: frame)
         self.isUserInteractionEnabled = true
-        self.padding = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 16.0)
+        self.padding = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         addSubview(self.actionsView)
     }
     

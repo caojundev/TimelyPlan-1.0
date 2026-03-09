@@ -72,9 +72,6 @@ class TPTextFieldAlertController: TPAlertController,
         let wrapperView = TPTextFieldWrapperView()
         wrapperView.padding = UIEdgeInsets(left: 12.0, right: 12.0)
         wrapperView.textField.delegate = self
-        wrapperView.textField.addTarget(self,
-                                        action: #selector(textFieldEditingChanged(_:)),
-                                        for: .editingChanged)
         return wrapperView
     }()
     
@@ -96,6 +93,9 @@ class TPTextFieldAlertController: TPAlertController,
         super.init(title: title, message: message, style: style, actions: actions)
         self.additionalView = wrapperView
         self.additionalSize = CGSize(width: .greatestFiniteMagnitude, height: 55.0)
+        self.textField.addTarget(self,
+                                 action: #selector(textFieldEditingChanged(_:)),
+                                 for: .editingChanged)
     }
     
     required init?(coder: NSCoder) {

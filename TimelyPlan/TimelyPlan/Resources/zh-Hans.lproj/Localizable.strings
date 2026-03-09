@@ -100,6 +100,14 @@
 "%ld/%ld times" = "%ld/%ld次";
 "%ld %@ per day" = "每日%ld%@";
 
+
+/// 添加记录
+"By Total" = "按总量";
+"By Increment" = "按增量";
+"Total Amount" = "总量";
+"Add Amount" = "增量";
+
+"Record your feelings or thoughts today..." = "记录一下今天的完成感受或心得…";
 "All records will be removed for today. Are you sure to reset the habit?" = "今日的所有记录将会被删除。确定重置该习惯吗？";
 
 /// 习惯管理

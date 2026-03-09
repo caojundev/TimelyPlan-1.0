@@ -35,23 +35,13 @@ class HabitRecordController: NSObject {
 
     // 手动输入记录
     func recordManually(for task: HabitTask, on date: Date) {
-        /*
         let vc = HabitRecordInputAlertController()
         vc.alertTitle = resGetString("Record")
         vc.completion = { number, type in
-            let amount = number.intValue
-            if amount == 0 {
-                return
-            }
-
-            habit.updateRecord(amount: amount,
-                               inputType: type,
-                               for: task,
-                               on: date)
+            habit.updateRecord(amount: number.int64Value, inputType: type, for: task, on: date)
         }
 
-        vc.showWithAlertStyle()
-         */
+        vc.popoverShow()
     }
 
     // 自动输入
@@ -123,42 +113,16 @@ class HabitRecordController: NSObject {
         vc.show()
     }
     
-    /*
-    func resetThisWeek(containsDate date: Date, for task: HabitTask) {
-        let resetAction = TFAlertAction(type: .destructive, title: resGetString("Reset")) { action in
-            habit.resetThisWeek(containsDate: date, for: task)
-        }
-        
-        let title = resGetString("Reset This Week")
-        let message = resGetString("All records will be removed for this week. Are you sure to reset the habit?")
-        let vc = TFAlertController(title: title, message: message)
-        vc.actions = [vc.cancelAlertAction, resetAction]
-        vc.show()
-    }
-    
-    func resetThisMonth(containsDate date: Date, for task: HabitTask) {
-        let resetAction = TFAlertAction(type: .destructive, title: resGetString("Reset")) { action in
-            habit.resetThisMonth(containsDate: date, for: task)
-        }
-    
-        let title = resGetString("Reset This Month")
-        let message = resGetString("All records will be removed for this month. Are you sure to reset the habit?")
-        let vc = TFAlertController(title: title, message: message)
-        vc.actions = [vc.cancelAlertAction, resetAction]
-        vc.show()
-    }
-    */
-    
     // MARK: - 添加日志
     func addLog(for task: HabitTask, on date: Date) {
-//        let currentLog = habit.fetchRecord(for: task, on: date)?.log
-//        let logVC = HabitLogEditViewController(log: currentLog, date: date)
-//        logVC.completion = { log in
-//            habit.addLog(log, for: task, on: date)
-//        }
-//
-//        let navController = UINavigationController(rootViewController: logVC)
-//        navController.showWithAlertStyle()
+        var currentLog: String? = nil
+        let logVC = HabitLogEditViewController(log: currentLog, date: date)
+        logVC.completion = { log in
+            habit.addLog(log, for: task, on: date)
+        }
+
+        let navController = UINavigationController(rootViewController: logVC)
+        navController.popoverShow()
     }
     
     func deleteLog(for task: HabitTask, on date: Date) {
