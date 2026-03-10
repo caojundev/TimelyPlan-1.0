@@ -48,12 +48,26 @@ class HabitSettingViewController: TPTableSectionsViewController {
          
          return cellItem
      }()
+    
+    /// 原因标签
+    lazy var reasonTagCellItem: TPImageInfoTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Reason Tag")
+        cellItem.didSelectHandler = {
+            self?.editReasonTag()
+        }
+        
+        return cellItem
+    }()
      
      lazy var generalSectionController: TPTableItemSectionController = {
          let sectionController = TPTableItemSectionController()
          sectionController.headerItem.height = 10.0
          sectionController.cellItems = [firstWeekdayCellItem,
-                                        addHabitOnTopCellItem]
+                                        addHabitOnTopCellItem,
+                                        reasonTagCellItem]
          return sectionController
      }()
      
@@ -94,5 +108,10 @@ class HabitSettingViewController: TPTableSectionsViewController {
             HabitSetting.shared.firstWeekday = weekday
             self.adapter.reloadCell(forItem: self.firstWeekdayCellItem, with: .none)
         }
+    }
+    
+    private func editReasonTag() {
+        let vc = ReasonTagEditViewController(style: .insetGrouped)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
  }

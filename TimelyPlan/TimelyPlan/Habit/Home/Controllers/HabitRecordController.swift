@@ -36,7 +36,6 @@ class HabitRecordController: NSObject {
     // 手动输入记录
     func recordManually(for task: HabitTask, on date: Date) {
         let vc = HabitRecordInputAlertController()
-        vc.alertTitle = resGetString("Record")
         vc.completion = { number, type in
             habit.updateRecord(amount: number.int64Value, inputType: type, for: task, on: date)
         }
@@ -55,20 +54,13 @@ class HabitRecordController: NSObject {
 
     // MARK: - 跳过今日
     func skipToday(for task: HabitTask, on date: Date, from sourceView: UIView?) {
-        /*
-        let vc = ReasonTagSelectViewController(style: .grouped, type: .habitSkip)
-        vc.title = resGetString("Pick a Skip Tag")
+        let vc = ReasonTagSelectViewController(style: .grouped)
         vc.didSelectTag = { tag in
-            TFImpactFeedback.feedbackWithWarningStyle()
-            habit.skip(withTag: tag, for: task, on: date)
+            TPImpactFeedback.feedbackWithWarningStyle()
+            habit.skip(with: tag, for: task, on: date)
         }
         
-        let navController = UINavigationController(rootViewController: vc)
-        navController.show(fromSourceView: sourceView,
-                            preferredPosition: .bottomLeft,
-                            animated: true,
-                            completion: nil)
-        */
+        vc.popoverShowAsNavigationRoot()
     }
     
     // MARK: - 取消跳过
@@ -82,21 +74,13 @@ class HabitRecordController: NSObject {
     
     // MARK: - 标记未失败
     func markAsFail(for task: HabitTask, on date: Date, from sourceView: UIView?) {
-//        let vc =  ReasonTagSelectViewController(style: .grouped, type: .habitFail)
-//        vc.didSelectTag = { tag in
-//            TFImpactFeedback.feedbackWithErrorStyle()
-//            habit.markAsFail(withTag: tag, for: task, on: date)
-//        }
-//
-//        let navController = UINavigationController(rootViewController: vc)
-//        if sourceView == nil {
-//            navController.showWithAlertStyle()
-//        } else {
-//            navController.show(fromSourceView: sourceView,
-//                                preferredPosition: .bottomLeft,
-//                                animated: true,
-//                                completion: nil)
-//        }
+        let vc = ReasonTagSelectViewController(style: .grouped)
+        vc.didSelectTag = { tag in
+            TPImpactFeedback.feedbackWithErrorStyle()
+            habit.markAsFail(with: tag, for: task, on: date)
+        }
+        
+        vc.popoverShowAsNavigationRoot()
     }
 
     // MARK: - 重置数据

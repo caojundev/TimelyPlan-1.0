@@ -68,7 +68,7 @@ class HabitRecord: NSObject {
     var log: String?
     
     /// 评分
-    var score: Int16 = 100
+    var score: Int16 = 0
     
     /// 日志评分封装信息
     var logInfo: HabitRecordLogInfo {
@@ -108,7 +108,8 @@ class HabitRecord: NSObject {
     private func updateProperties() {
         self.amount = content.amount
         self.status = Status(rawValue: Int(content.status)) ?? .normal
-        self.log = content.log
         self.reason = content.reason
+        self.log = content.log
+        self.score = content.score
     }
 }

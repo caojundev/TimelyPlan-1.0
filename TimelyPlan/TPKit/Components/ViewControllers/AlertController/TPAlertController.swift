@@ -10,9 +10,9 @@ import UIKit
 
 class TPAlertController : TPViewController {
     
-    let padding: UIEdgeInsets = UIEdgeInsets(top: 20.0, left: 10.0, bottom: 10.0, right: 10.0)
+    var padding: UIEdgeInsets = UIEdgeInsets(top: 20.0, left: 10.0, bottom: 10.0, right: 10.0)
     
-    let itemMargin = 15.0
+    var itemMargin = 15.0
     
     enum Style {
         case alert
@@ -38,9 +38,9 @@ class TPAlertController : TPViewController {
     private var titleLabel: UILabel!
     
     /// 描述标签
-    private var messageLabel: UILabel!
+    private(set) var messageLabel: UILabel!
     
-    private var actionsView: TPButtonActionsView!
+    private(set) var actionsView: TPButtonActionsView!
     
     lazy var cancelAlertAction: TPAlertAction = {
         let action = TPAlertAction(type: .cancel, title: resGetString("Cancel"))

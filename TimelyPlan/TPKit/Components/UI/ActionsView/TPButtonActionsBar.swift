@@ -10,6 +10,16 @@ import UIKit
 
 class TPButtonActionsBar: UIView {
     
+    var actionsCountPerRow: Int {
+        get {
+            return actionsView.actionsCountPerRow
+        }
+        
+        set {
+            actionsView.actionsCountPerRow = newValue
+        }
+    }
+    
     /// 动作按钮视图
     private(set) var actionsView: TPButtonActionsView
     

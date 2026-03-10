@@ -14,6 +14,7 @@ class HabitSetting {
         case firstWeekday
         case addHabitOnTop
         case customUnits /// 自定义单位
+        case reasonTags  /// 原因标签
         
         static func keyPrefix() -> String? {
             return "HabitSetting"
@@ -30,6 +31,9 @@ class HabitSetting {
     
     @CloudStored(key: Key.customUnits.name, defaultValue: [])
     var customUnits: [String]
+    
+    @CloudStored(key: Key.reasonTags.name, defaultValue: [])
+    var reasonTags: [String]
     
     static let shared = HabitSetting()
     

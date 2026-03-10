@@ -236,6 +236,10 @@
 		E53032962DC0776B0040C75E /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53032952DC0776B0040C75E /* CalendarManager.swift */; };
 		E53174C62D910649009C9AA5 /* TodoFilterListEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53174C52D910648009C9AA5 /* TodoFilterListEditViewController.swift */; };
 		E5347FF52F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */; };
+		E5347FF92F5FC31600CFBF26 /* ReasonTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF72F5FC31600CFBF26 /* ReasonTagEditViewController.swift */; };
+		E5347FFC2F5FC6C200CFBF26 /* ReasonTagTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFB2F5FC6C200CFBF26 /* ReasonTagTableCell.swift */; };
+		E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */; };
+		E53480002F60030F00CFBF26 /* ReasonTagSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFF2F60030F00CFBF26 /* ReasonTagSelectViewController.swift */; };
 		E534DAC02D5861190079AB08 /* TPLabelConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E534DABF2D5861190079AB08 /* TPLabelConfig.swift */; };
 		E534DAC22D5876450079AB08 /* TPInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E534DAC12D5876450079AB08 /* TPInfoView.swift */; };
 		E534DAC42D58FCE30079AB08 /* TPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E534DAC32D58FCE30079AB08 /* TPLabel.swift */; };
@@ -1729,6 +1733,10 @@
 		E53032952DC0776B0040C75E /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		E53174C52D910648009C9AA5 /* TodoFilterListEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterListEditViewController.swift; sourceTree = "<group>"; };
 		E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordLogEditViewController.swift; sourceTree = "<group>"; };
+		E5347FF72F5FC31600CFBF26 /* ReasonTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReasonTagEditViewController.swift; sourceTree = "<group>"; };
+		E5347FFB2F5FC6C200CFBF26 /* ReasonTagTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReasonTagTableCell.swift; sourceTree = "<group>"; };
+		E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPEmojiTitleEditAlertController.swift; sourceTree = "<group>"; };
+		E5347FFF2F60030F00CFBF26 /* ReasonTagSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReasonTagSelectViewController.swift; sourceTree = "<group>"; };
 		E534DABF2D5861190079AB08 /* TPLabelConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLabelConfig.swift; sourceTree = "<group>"; };
 		E534DAC12D5876450079AB08 /* TPInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPInfoView.swift; sourceTree = "<group>"; };
 		E534DAC32D58FCE30079AB08 /* TPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLabel.swift; sourceTree = "<group>"; };
@@ -3791,6 +3799,17 @@
 			path = Edit;
 			sourceTree = "<group>";
 		};
+		E5347FF62F5FC31600CFBF26 /* ReasonTag */ = {
+			isa = PBXGroup;
+			children = (
+				E5347FFB2F5FC6C200CFBF26 /* ReasonTagTableCell.swift */,
+				E5347FF72F5FC31600CFBF26 /* ReasonTagEditViewController.swift */,
+				E5347FFF2F60030F00CFBF26 /* ReasonTagSelectViewController.swift */,
+				E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */,
+			);
+			path = ReasonTag;
+			sourceTree = "<group>";
+		};
 		E53735EF2D9BC64C00C5A001 /* Progress */ = {
 			isa = PBXGroup;
 			children = (
@@ -4474,6 +4493,7 @@
 			children = (
 				E507E79A2F52C847003004C4 /* HabitSetting.swift */,
 				E507E7982F529369003004C4 /* HabitSettingViewController.swift */,
+				E5347FF62F5FC31600CFBF26 /* ReasonTag */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -8716,6 +8736,7 @@
 				E5BB9E202D3BF0C70089667A /* NSManagedObjectContext+Setup.swift in Sources */,
 				E5D7D9402D43933700EC877A /* FocusTimerStepMenuController.swift in Sources */,
 				E53E96AD2D53A3E200EC4872 /* TPInfoTextValueView.swift in Sources */,
+				E5347FF92F5FC31600CFBF26 /* ReasonTagEditViewController.swift in Sources */,
 				E5D7D9332D43933700EC877A /* FocusUserTimerMenuController.swift in Sources */,
 				E541554A2F499896000B2972 /* FocusRecordsViewController.swift in Sources */,
 				E5BBA0DB2D3BF4A50089667A /* TodoTaskAddView.swift in Sources */,
@@ -9169,6 +9190,7 @@
 				E552FBAD2DBB24730072703F /* CalendarStripLayoutProvider.swift in Sources */,
 				E5BB9E862D3BF0C80089667A /* RectangleElementView.swift in Sources */,
 				E5BB9F262D3BF2C20089667A /* SceneDelegate.swift in Sources */,
+				E53480002F60030F00CFBF26 /* ReasonTagSelectViewController.swift in Sources */,
 				E50DD7BF2D71EE2300A85E87 /* TodoFolderManager.swift in Sources */,
 				E505AA862D8693550065BF9C /* TodoFilterListSectionController.swift in Sources */,
 				E5D7D7DD2D43923800EC877A /* FocusScoreCalculator.swift in Sources */,
@@ -9296,6 +9318,7 @@
 				E5BB9D8C2D3BF0C60089667A /* UIViewController+Swizzler.swift in Sources */,
 				E5BBA0622D3BF4A40089667A /* RepeatDayOfWeek+Extensions.swift in Sources */,
 				E5BB9DD42D3BF0C60089667A /* UIImage+Color.swift in Sources */,
+				E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */,
 				E5BB9EB92D3BF0C80089667A /* TPCountPickerView.swift in Sources */,
 				E5BB9F252D3BF2C20089667A /* AppDelegate.swift in Sources */,
 				E5BB9F3B2D3BF4330089667A /* TaskInfo.swift in Sources */,
@@ -9598,6 +9621,7 @@
 				E5D7D9362D43933700EC877A /* FocusTimerEditViewController.swift in Sources */,
 				E534DAC82D59E76E0079AB08 /* TPLabelContent.swift in Sources */,
 				E5BB9DFE2D3BF0C60089667A /* Array+Sortable.swift in Sources */,
+				E5347FFC2F5FC6C200CFBF26 /* ReasonTagTableCell.swift in Sources */,
 				E5F149A32D745D57009D51D0 /* TodoList+Extensions.swift in Sources */,
 				E5BB9DE52D3BF0C60089667A /* UIWindow+Extensions.swift in Sources */,
 				E5BBA0592D3BF4A40089667A /* TodoTaskCheckbox.swift in Sources */,
