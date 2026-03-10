@@ -19,7 +19,7 @@ enum HabitRecordChange {
     case skipChanged(oldValue: Bool, newValue:Bool)
     
     /// 日志编辑
-    case logEdited(oldValue: String?, newValue: String?)
+    case logEdited(oldValue: HabitRecordLogInfo?, newValue: HabitRecordLogInfo?)
     
     /// 时间段内所有记录被重置
     case reseted(period: HabitDatePeriod)
@@ -32,6 +32,15 @@ enum HabitRecordInputType: Int, TPMenuRepresentable {
     static func titles() -> [String] {
         return ["By Increment", "By Total"]
     }
+}
+
+struct HabitRecordLogInfo {
+    
+    /// 日志文本
+    var log: String?
+    
+    /// 评分
+    var score: Int = 100
 }
 
 class HabitRecord: NSObject {
@@ -57,6 +66,14 @@ class HabitRecord: NSObject {
     
     /// 日志内容
     var log: String?
+    
+    /// 评分
+    var score: Int16 = 100
+    
+    /// 日志评分封装信息
+    var logInfo: HabitRecordLogInfo {
+        return HabitRecordLogInfo(log: log, score: Int(score))
+    }
     
     /// 是否包含日志
     var hasLog: Bool {

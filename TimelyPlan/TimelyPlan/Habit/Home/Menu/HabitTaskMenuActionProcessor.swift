@@ -49,7 +49,7 @@ class HabitTaskMenuActionProcessor {
         case .skipToday:
             recordController.skipToday(for: task, on: date, from: sourceView)
         case .editLog:
-            recordController.editLog(record?.log, for: task, on: date)
+            recordController.editLog(record?.logInfo, for: task, on: date)
         case .edit:
             taskController.editTask(task)
         case .delete:

@@ -106,16 +106,18 @@ class HabitRecordProcessor {
     }
     
     /// 添加或更改备注
-    func addLog(_ log: String?, for task: HabitTask, on date: Date) {
+    func addLog(_ logInfo: HabitRecordLogInfo?, for task: HabitTask, on date: Date) {
         guard let record = provider.getRecord(for: task, on: date, createIfNil: true) else {
             return
         }
         
-        let oldLog = record.log
-        record.log = log
+        let oldLogInfo = HabitRecordLogInfo(log: record.log, score: Int(record.score))
+        record.log = logInfo?.log
+        record.score = Int16(logInfo?.score ?? 0)
         HandyRecord.save()
         
-        let change: HabitRecordChange = .logEdited(oldValue: oldLog, newValue: log)
+        let change: HabitRecordChange = .logEdited(oldValue: oldLogInfo,
+                                                   newValue: logInfo)
         didUpdateCoreDataRecord(record, for: task, on: date, with: change)
     }
     

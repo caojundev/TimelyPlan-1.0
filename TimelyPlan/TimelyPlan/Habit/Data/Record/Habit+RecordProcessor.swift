@@ -22,8 +22,8 @@ extension Habit {
     }
         
     /// 添加或更改备注
-    func addLog(_ log: String?, for task: HabitTask, on date: Date) {
-        self.recordProcessor.addLog(log, for: task, on: date)
+    func addLog(_ logInfo: HabitRecordLogInfo?, for task: HabitTask, on date: Date) {
+        self.recordProcessor.addLog(logInfo, for: task, on: date)
     }
     
     /// 跳过今天
