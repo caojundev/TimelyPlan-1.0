@@ -53,7 +53,6 @@ class HabitTaskListGroupProvider {
     private func loadTasksIfNeeded(on date: Date,
                                    completion: @escaping ([HabitPeriodTask]?) -> Void) {
         guard self.shouldRefresh else {
-            print("⛱️ 无需重新加载")
             completion(self.tasks)
             return
         }
@@ -63,14 +62,12 @@ class HabitTaskListGroupProvider {
         TimelyPlan.habit.fetchScheduledPeriodTasks(on: date) { tasks in
             guard self.requestManager.shouldProceed(with: requestID) else {
                 completion(nil)
-                print("❌ 加载失败.....")
                 return
             }
             
             self.tasks = tasks ?? []
             self.shouldRefresh = false
             completion(self.tasks)
-            print("✅ 加载成功.....")
         }
     }
     

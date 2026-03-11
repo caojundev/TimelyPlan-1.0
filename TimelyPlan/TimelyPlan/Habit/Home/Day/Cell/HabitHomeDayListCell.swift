@@ -110,7 +110,7 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
         updateRecordButton()
         updateProgress(animated: animated)
         
-        if case let .amountChanged(oldValue, newValue) = change {
+        if animated, case let .amountChanged(oldValue, newValue) = change {
             self.didChangeRecord(withIncreament: Int(newValue - oldValue))
         }
     }

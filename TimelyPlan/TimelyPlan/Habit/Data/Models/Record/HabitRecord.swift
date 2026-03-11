@@ -20,9 +20,6 @@ enum HabitRecordChange {
     
     /// 日志编辑
     case logEdited(oldValue: HabitRecordLogInfo?, newValue: HabitRecordLogInfo?)
-    
-    /// 时间段内所有记录被重置
-    case reseted(period: HabitDatePeriod)
 }
 
 /// 记录输入类型

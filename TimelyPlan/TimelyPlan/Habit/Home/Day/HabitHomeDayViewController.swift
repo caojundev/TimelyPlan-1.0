@@ -302,12 +302,13 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
     // MARK: - HabitRecordProcessorDelegate
     func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
         self.groupProvider.updateHabitRecord(record, for: task, on: date)
-        guard let cell = listView.cell(for: task) as? HabitHomeDayListCell else {
-            return
+        self.updateCell(for: task, with: change)
+        let status = task.status(with: record)
+        if status != .inProgress {
+            callback(after: 0.4) {
+                self.listView.asyncPerformUpdate()
+            }
         }
-        
-        cell.updateRecord(with: change, animated: true)
-        self.listView.asyncPerformUpdate()
     }
     
     func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
@@ -316,12 +317,18 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
         }
         
         self.groupProvider.deleteHabitRecords(for: task, in: period)
+        self.updateCell(for: task, with: nil)
+        callback(after: 0.4) {
+            self.listView.asyncPerformUpdate()
+        }
+    }
+    
+    private func updateCell(for task: HabitTask, with change: HabitRecordChange?) {
         guard let cell = listView.cell(for: task) as? HabitHomeDayListCell else {
             return
         }
         
-        cell.updateRecord(with: nil, animated: true)
-        self.listView.asyncPerformUpdate()
+        cell.updateRecord(with: change, animated: true)
     }
 }
 
