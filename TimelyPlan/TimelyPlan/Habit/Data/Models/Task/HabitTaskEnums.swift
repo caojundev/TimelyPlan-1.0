@@ -9,7 +9,7 @@ import Foundation
 
 /// 代表习惯发生的时间段
 enum HabitTimeOption: Int, TPMenuRepresentable {
-    case anytime
+    case anytime = 0
     case morning
     case afternoon
     case evening
@@ -17,7 +17,12 @@ enum HabitTimeOption: Int, TPMenuRepresentable {
     static func titles() -> [String] {
         return ["Anytime", "Morning", "Afternoon", "Evening"]
     }
-
+    
+    var identifier: String {
+        let titles = Self.titles()
+        return titles[rawValue]
+    }
+    
     var iconName: String? {
         switch self {
         case .anytime: return "habit_time_anytime_24"

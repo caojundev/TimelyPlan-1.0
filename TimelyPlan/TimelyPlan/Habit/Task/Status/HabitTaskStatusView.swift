@@ -38,7 +38,7 @@ class HabitTaskStatusView: UIView {
         contentView.frame = bounds
         
         imageView.transform = CGAffineTransform.identity
-        imageView.frame.size = .size(3)
+        imageView.frame.size = .size(6)
         imageView.center = CGPoint(x: bounds.midX, y: 0)
         
         let rotation = degreesToRadians(-45.0)
@@ -56,11 +56,11 @@ class HabitTaskStatusView: UIView {
         var imageName: String?
         switch status {
         case .completed:
-            imageName = "habit_indicator_status_checked_16"
+            imageName = "habit_status_completed_24"
         case .failed:
-            imageName = "habit_indicator_status_failed_16"
+            imageName = "habit_status_failed_24"
         case .skipped:
-            imageName = "habit_indicator_status_skipped_16"
+            imageName = "habit_status_skipped_24"
         default:
             break
         }

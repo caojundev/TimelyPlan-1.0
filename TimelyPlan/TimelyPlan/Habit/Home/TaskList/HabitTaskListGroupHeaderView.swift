@@ -19,7 +19,7 @@ class HabitTaskListGroupHeaderView: TPCollectionHeaderFooterView {
     /// 值标签
     private(set) lazy var valueLabel: TPLabel = {
         let label = TPLabel()
-        label.edgeInsets = UIEdgeInsets(horizontal: 16.0, vertical: 4.0)
+        label.edgeInsets = UIEdgeInsets(horizontal: 16.0, vertical: 5.0)
         label.textAlignment = .center
         label.font = BOLD_SMALL_SYSTEM_FONT
         label.lineBreakMode = .byTruncatingTail
@@ -29,6 +29,7 @@ class HabitTaskListGroupHeaderView: TPCollectionHeaderFooterView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.infoView.imageConfig.margins = UIEdgeInsets(right: 5.0)
         self.contentView.addSubview(self.valueLabel)
     }
     

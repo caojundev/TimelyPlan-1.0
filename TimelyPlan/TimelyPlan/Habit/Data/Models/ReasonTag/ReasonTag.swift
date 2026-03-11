@@ -32,6 +32,25 @@ class ReasonTag: NSObject, Codable {
         if self === other { return true }
         return emoji == other.emoji && reason == other.reason
     }
+    
+    static func defaultTags() -> [ReasonTag] {
+        let tagStrings = ["😴Ill",
+                          "✈️Vacation",
+                          "🚗Business trip",
+                          "🌧️Rain",
+                          "😓Exhausted",
+                          "🎉Event",
+                          "👥Social",
+                          "🎮Game"]
+        let tags = tagStrings.toReasonTags()
+        for tag in tags {
+            if let reason = tag.reason {
+                tag.reason = resGetString(reason)
+            }
+        }
+        
+        return tags
+    }
 }
 
 // MARK: - String Extension for ReasonTag

@@ -325,6 +325,30 @@ class TPTableViewAdapter: NSObject,
         
         return false
     }
+    
+    /// 移动单元格条目
+    func moveRow(at fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
+        if fromIndexPath.section == toIndexPath.section {
+            /// 相同区块
+            let sectionObject = object(at: fromIndexPath.section)
+            var sectionItems = items(for: sectionObject)
+            sectionItems.moveObject(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item)
+            itemsMapTable.setObject(sectionItems as NSArray, forKey: sectionObject)
+        } else {
+            /// 不同区块
+            let fromSectionObject = object(at: fromIndexPath.section)
+            var fromSectionItems = items(for: fromSectionObject)
+            let item = fromSectionItems.remove(at: fromIndexPath.item)
+            itemsMapTable.setObject(fromSectionItems as NSArray, forKey: fromSectionObject)
+            
+            let toSectionObject = object(at: toIndexPath.section)
+            var toSectionItems = items(for: toSectionObject)
+            toSectionItems.insert(item, at: toIndexPath.item)
+            itemsMapTable.setObject(toSectionItems as NSArray, forKey: toSectionObject)
+        }
+        
+        tableView.moveRow(at: fromIndexPath, to: toIndexPath)
+    }
 }
 
 // MARK: - Update

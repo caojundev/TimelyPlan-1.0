@@ -1,5 +1,5 @@
 //
-//  ReasonTagTableCell.swift
+//  HabitReasonTagTableCell.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/7/18.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ReasonTagTableCell: TPDefaultInfoTableCell {
+class HabitReasonTagTableCell: TPDefaultInfoTableCell {
     
     var reasonTag: ReasonTag? {
         didSet {

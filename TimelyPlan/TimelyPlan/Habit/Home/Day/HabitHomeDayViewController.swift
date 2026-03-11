@@ -35,9 +35,10 @@ class HabitHomeDayViewController: TPContainerViewController,
         return selection
     }()
             
+    private let edgeMargins = UIEdgeInsets(value: 15.0)
+    
     /// 返回和添加按钮视图
     private let addViewSize = CGSize(width: 40.0, height: 40.0)
-    private let addViewMargin = 15.0
     lazy var addView: HabitHomeDayAddView = {
         let view = HabitHomeDayAddView()
         view.showAddButton()
@@ -51,6 +52,19 @@ class HabitHomeDayViewController: TPContainerViewController,
         
         return view
     }()
+    
+    /// 过滤按钮
+    private lazy var filterButton: HabitTaskFilterButton = {
+        let button = HabitTaskFilterButton()
+        button.didSelectFilterType = {[weak self] type in
+            self?.selectFilterType(type)
+        }
+        
+        return button
+    }()
+    
+    /// 过滤类型
+    var filterType: HabitTaskFilterType = .todo
     
     private(set) lazy var listView: HabitPeriodTaskListView = {
         let view = HabitPeriodTaskListView(frame: view.bounds)
@@ -66,8 +80,11 @@ class HabitHomeDayViewController: TPContainerViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        filterButton.filterType = filterType
+        
         view.addSubview(weekView)
         view.addSubview(listView)
+        view.addSubview(filterButton)
         view.addSubview(addView)
         reloadData()
         habit.addUpdater(self, for: .all)
@@ -80,9 +97,16 @@ class HabitHomeDayViewController: TPContainerViewController,
         weekView.height = weekViewHeight
         weekView.top = layoutFrame.minY
         
+        filterButton.sizeToFit()
+        filterButton.layer.setLayerShadow(color: Color(0x000000, 0.25),
+                                          offset: .zero,
+                                          radius: 8.0)
+        filterButton.left = edgeMargins.left
+        filterButton.bottom = layoutFrame.maxY - edgeMargins.bottom
+        
         addView.size = addViewSize
-        addView.bottom = layoutFrame.maxY - addViewMargin
-        addView.right = layoutFrame.maxX - addViewMargin
+        addView.right = layoutFrame.maxX - edgeMargins.right
+        addView.bottom = layoutFrame.maxY - edgeMargins.bottom
         
         listView.width = layoutFrame.width
         listView.height = layoutFrame.height - weekViewHeight
@@ -134,6 +158,12 @@ class HabitHomeDayViewController: TPContainerViewController,
     }
     
     // MARK: - Event Response
+    private func selectFilterType(_ filterType: HabitTaskFilterType) {
+        self.filterType = filterType
+        /// 更新列表
+        self.listView.asyncPerformUpdate()
+    }
+    
     @objc func didClickBack(_ button: UIButton) {
         let fromDate = self.date
         self.date = .now
@@ -160,17 +190,15 @@ class HabitHomeDayViewController: TPContainerViewController,
     
      // MARK: - HabitPeriodTaskListViewDelegate
     func habitPeriodTaskListView(_ listView: HabitPeriodTaskListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+        let filterType = self.filterType
         habit.fetchScheduledPeriodTasks(on: self.date) { tasks in
             guard let tasks = tasks, tasks.count > 0 else {
                 completion(nil)
                 return
             }
             
-            let group = HabitTaskGroup(identifier: "active")
-            group.iconName = HabitTimeOption.evening.iconName
-            group.name = HabitTimeOption.evening.title
-            group.tasks = tasks
-            completion([group])
+            let groups = HabitPeriodTaskOrganizer.groupAll(from: tasks, with: filterType)
+            completion(groups)
         }
     }
     

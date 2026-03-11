@@ -83,18 +83,34 @@
 
 /// 任务菜单
 "Reset Today"= "重置今日";
-"Mark As Fail" = "标记为失败";
+"Mark As Fail" = "标为失败";
 "Cancel Fail" = "取消失败";
 "Skip Today" = "跳过今天";
 "Cancel Skip" = "取消跳过";
 "Edit Log" = "编辑日志";
 "Check-in one time per day" = "每日打卡一次";
 
+/// 原因标签
 "Reason Tag" = "原因标签";
 "New Tag" = "新建标签";
 "Select Tag" = "选择标签";
 "Enter Reason" = "输入原因";
 
+/// 预设标签
+"Ill" = "生病";
+"Vacation" = "休假";
+"Business trip" = "出差";
+"Rain" = "下雨";
+"Exhausted" = "疲惫";
+"Event" = "活动";
+"Social" = "社交";
+"Game" = "游戏";
+
+/// 任务过滤
+"All" = "所有";
+"To-dos" = "待完成";
+"Skipped" = "已跳过";
+"Failed" = "已失败";
 
 /// 习惯进度
 "1 time" = "1次";

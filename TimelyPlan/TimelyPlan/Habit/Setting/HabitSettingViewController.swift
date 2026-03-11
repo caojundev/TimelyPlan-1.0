@@ -111,7 +111,7 @@ class HabitSettingViewController: TPTableSectionsViewController {
     }
     
     private func editReasonTag() {
-        let vc = ReasonTagEditViewController(style: .insetGrouped)
+        let vc = HabitReasonTagEditViewController(style: .insetGrouped)
         self.navigationController?.pushViewController(vc, animated: true)
     }
  }

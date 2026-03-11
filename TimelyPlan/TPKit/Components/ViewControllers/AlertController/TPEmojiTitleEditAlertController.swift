@@ -18,6 +18,7 @@ class TPEmojiTitleEditAlertController: TPTextFieldAlertController {
     
     lazy var emojiView: TPEmojiEditView = {
         let view = TPEmojiEditView()
+        view.font = .boldSystemFont(ofSize: 42.0)
         view.emojiDidChange = { [weak self] emoji in
             self?.textField.becomeFirstResponder()
         }

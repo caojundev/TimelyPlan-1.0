@@ -1,13 +1,14 @@
 //
-//  ReasonTagEditViewController.swift
+//  HabitReasonTagEditViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/7/20.
 //
 
 import Foundation
+import UIKit
 
-class ReasonTagEditViewController: TPTableViewController,
+class HabitReasonTagEditViewController: TPTableViewController,
                                    TPTableViewAdapterDataSource,
                                    TPTableViewAdapterDelegate,
                                     TPTableDragInsertReorderDelegate {
@@ -29,14 +30,20 @@ class ReasonTagEditViewController: TPTableViewController,
     
     lazy var placeholderView: TPDefaultPlaceholderView = {
         let view = TPDefaultPlaceholderView()
-        view.title = resGetString("No Reason Tag")
+        view.title = resGetString("No Tag")
+        view.titleLabel.alpha = 0.2
+        view.imageView.alpha = 0.6
         return view
     }()
     
     override init(style: UITableView.Style) {
-        let tag1 = ReasonTag(emoji: "😷", reason: "生病")
-        let tag2 = ReasonTag(emoji: "⛱️", reason: "度假")
-        self.reasonTags = [tag1, tag2]
+        let reasonTags = HabitSetting.shared.reasonTags.toReasonTags()
+        if reasonTags.count > 0 {
+            self.reasonTags = reasonTags
+        } else {
+            self.reasonTags = ReasonTag.defaultTags()
+        }
+        
         super.init(style: style)
     }
     
@@ -62,6 +69,15 @@ class ReasonTagEditViewController: TPTableViewController,
         self.adapter.delegate = self
         self.adapter.reloadData()
         self.setupReorder()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.actionsBar?.backgroundColor = .systemGroupedBackground
+    }
+    
+    override func tableViewFrame() -> CGRect {
+        return CGRect(x: 0.0, y: 0.0, width: view.width, height: view.height - actionsBarHeight)
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -105,11 +121,11 @@ class ReasonTagEditViewController: TPTableViewController,
     }
     
     func adapter(_ adapter: TPTableViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        return ReasonTagTableCell.self
+        return HabitReasonTagTableCell.self
     }
 
     func adapter(_ adapter: TPTableViewAdapter, didDequeCell cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! ReasonTagTableCell
+        let cell = cell as! HabitReasonTagTableCell
         cell.reasonTag = adapter.item(at: indexPath) as? ReasonTag
     }
     
@@ -178,7 +194,8 @@ class ReasonTagEditViewController: TPTableViewController,
     }
 
     func saveReasonTags() {
-//        userSettings.saveReasonTags(reasonTags, forType: type)
+        /// 保存数据到设置
+        HabitSetting.shared.reasonTags = reasonTags.toStrings()
     }
     
     /// 点击新标签按钮
@@ -249,6 +266,7 @@ class ReasonTagEditViewController: TPTableViewController,
                                 depth: Int) -> IndexPath? {
         reasonTags.moveObject(fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row)
         saveReasonTags()
+        adapter.moveRow(at: sourceIndexPath, to: targetIndexPath)
         return targetIndexPath
     }
 }

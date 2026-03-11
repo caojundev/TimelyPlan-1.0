@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ReasonTagSelectViewController: ReasonTagEditViewController {
+class ReasonTagSelectViewController: HabitReasonTagEditViewController {
     
     /// 选中标签回调
     var didSelectTag: ((ReasonTag) -> Void)?
