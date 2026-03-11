@@ -270,7 +270,9 @@
 		E53A15E42D45DF0300474F94 /* archivedList_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53A15E02D45DF0300474F94 /* archivedList_24@3x.png */; };
 		E53AC84C2D8C6DBC00814618 /* quadrant_option_detail_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53AC84A2D8C6DBB00814618 /* quadrant_option_detail_24@3x.png */; };
 		E53AC84D2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53AC84B2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png */; };
-		E53DCEE42F6107D100ADA526 /* HabitTaskListGroupProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DCEE32F6107D100ADA526 /* HabitTaskListGroupProvider.swift */; };
+		E53DCEE42F6107D100ADA526 /* HabitTaskBaseListGroupProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DCEE32F6107D100ADA526 /* HabitTaskBaseListGroupProvider.swift */; };
+		E53DCEE62F618CD100ADA526 /* HabitHomeWeekListGroupProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DCEE52F618CD000ADA526 /* HabitHomeWeekListGroupProvider.swift */; };
+		E53DCEE92F618F8600ADA526 /* HabitHomeDayListGroupProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DCEE82F618F8600ADA526 /* HabitHomeDayListGroupProvider.swift */; };
 		E53E96AB2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53E96AA2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift */; };
 		E53E96AD2D53A3E200EC4872 /* TPInfoTextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53E96AC2D53A3E200EC4872 /* TPInfoTextValueView.swift */; };
 		E53E96AF2D53ADC300EC4872 /* TPColorInfoTextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53E96AE2D53ADC300EC4872 /* TPColorInfoTextValueView.swift */; };
@@ -1775,7 +1777,9 @@
 		E53A15E02D45DF0300474F94 /* archivedList_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archivedList_24@3x.png"; sourceTree = "<group>"; };
 		E53AC84A2D8C6DBB00814618 /* quadrant_option_detail_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_detail_24@3x.png"; sourceTree = "<group>"; };
 		E53AC84B2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_detail_24@2x.png"; sourceTree = "<group>"; };
-		E53DCEE32F6107D100ADA526 /* HabitTaskListGroupProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskListGroupProvider.swift; sourceTree = "<group>"; };
+		E53DCEE32F6107D100ADA526 /* HabitTaskBaseListGroupProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskBaseListGroupProvider.swift; sourceTree = "<group>"; };
+		E53DCEE52F618CD000ADA526 /* HabitHomeWeekListGroupProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHomeWeekListGroupProvider.swift; sourceTree = "<group>"; };
+		E53DCEE82F618F8600ADA526 /* HabitHomeDayListGroupProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHomeDayListGroupProvider.swift; sourceTree = "<group>"; };
 		E53E96AA2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDefaultInfoTextValueTableCell.swift; sourceTree = "<group>"; };
 		E53E96AC2D53A3E200EC4872 /* TPInfoTextValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPInfoTextValueView.swift; sourceTree = "<group>"; };
 		E53E96AE2D53ADC300EC4872 /* TPColorInfoTextValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPColorInfoTextValueView.swift; sourceTree = "<group>"; };
@@ -3156,6 +3160,7 @@
 			isa = PBXGroup;
 			children = (
 				E507E7962F529303003004C4 /* HabitPresenter.swift */,
+				E534800E2F60526E00CFBF26 /* HabitPeriodTaskOrganizer.swift */,
 				E507E79C2F52CCF8003004C4 /* WeekdayPickerViewController.swift */,
 			);
 			path = Helpers;
@@ -3744,15 +3749,16 @@
 			path = Edit;
 			sourceTree = "<group>";
 		};
-		E51FF6642F58369E003CA953 /* TaskList */ = {
+		E51FF6642F58369E003CA953 /* TaskListView */ = {
 			isa = PBXGroup;
 			children = (
+				E54C7C842F5C4F5D00263B82 /* HabitPeriodTaskListView.swift */,
 				E5EFB1762F59D472000FFDF4 /* HabitTaskListView.swift */,
 				E51FF6602F583312003CA953 /* HabitTaskListBaseCell.swift */,
 				E5EFB1782F59D703000FFDF4 /* HabitTaskListDefaultInfoCell.swift */,
 				E5CFD2582F5838E300A898CB /* HabitTaskListGroupHeaderView.swift */,
 			);
-			path = TaskList;
+			path = TaskListView;
 			sourceTree = "<group>";
 		};
 		E52B62A42F3611FC00673620 /* main */ = {
@@ -3873,6 +3879,16 @@
 				E56E7FEE2DB36EF200AC3DC4 /* Change */,
 			);
 			path = Task;
+			sourceTree = "<group>";
+		};
+		E53DCEE72F618F5E00ADA526 /* GroupProvider */ = {
+			isa = PBXGroup;
+			children = (
+				E53DCEE32F6107D100ADA526 /* HabitTaskBaseListGroupProvider.swift */,
+				E53DCEE82F618F8600ADA526 /* HabitHomeDayListGroupProvider.swift */,
+				E53DCEE52F618CD000ADA526 /* HabitHomeWeekListGroupProvider.swift */,
+			);
+			path = GroupProvider;
 			sourceTree = "<group>";
 		};
 		E53E96A92D53620700EC4872 /* Value */ = {
@@ -4047,7 +4063,6 @@
 		E556BCDC2F5D9EA600CA20D9 /* Group */ = {
 			isa = PBXGroup;
 			children = (
-				E534800E2F60526E00CFBF26 /* HabitPeriodTaskOrganizer.swift */,
 				E53480102F6059F600CFBF26 /* HabitTaskFilterType.swift */,
 				E50D026D2F56D44500E93977 /* HabitTaskGroup.swift */,
 			);
@@ -4100,13 +4115,13 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		E556BCEE2F5E7B1100CA20D9 /* Record */ = {
+		E556BCEE2F5E7B1100CA20D9 /* RecordEdit */ = {
 			isa = PBXGroup;
 			children = (
 				E556BCF72F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift */,
 				E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */,
 			);
-			path = Record;
+			path = RecordEdit;
 			sourceTree = "<group>";
 		};
 		E55A7B672D45F873000D224C /* timer */ = {
@@ -4478,9 +4493,10 @@
 		E59243C92F5004B300CA2393 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E53DCEE72F618F5E00ADA526 /* GroupProvider */,
 				E556BCE82F5E5E8900CA20D9 /* Controllers */,
-				E556BCEE2F5E7B1100CA20D9 /* Record */,
-				E51FF6642F58369E003CA953 /* TaskList */,
+				E556BCEE2F5E7B1100CA20D9 /* RecordEdit */,
+				E51FF6642F58369E003CA953 /* TaskListView */,
 				E5EFB16A2F5971F9000FFDF4 /* Menu */,
 				E59243FB2F514DFE00CA2393 /* Day */,
 				E59243FC2F514E0300CA2393 /* Week */,
@@ -4530,8 +4546,6 @@
 		E59243FB2F514DFE00CA2393 /* Day */ = {
 			isa = PBXGroup;
 			children = (
-				E53DCEE32F6107D100ADA526 /* HabitTaskListGroupProvider.swift */,
-				E54C7C842F5C4F5D00263B82 /* HabitPeriodTaskListView.swift */,
 				E59243CA2F50054200CA2393 /* HabitHomeDayViewController.swift */,
 				E59243CE2F50529200CA2393 /* HabitHomeDayAddView.swift */,
 				E53480122F605B6300CFBF26 /* HabitTaskFilterButton.swift */,
@@ -9082,7 +9096,7 @@
 				E5186E5D2D954A3A007AA074 /* TodoFilterRuleTagEditSectionController.swift in Sources */,
 				E54E632B2F5AFE0200FCBCAE /* CDHabitRecord+Extensions.swift in Sources */,
 				E5D7D8F22D43933600EC877A /* OpenCircleAdjustButtonView.swift in Sources */,
-				E53DCEE42F6107D100ADA526 /* HabitTaskListGroupProvider.swift in Sources */,
+				E53DCEE42F6107D100ADA526 /* HabitTaskBaseListGroupProvider.swift in Sources */,
 				E5BB9EFC2D3BF0C80089667A /* TPPopoverPresentationConfigure.swift in Sources */,
 				E5D7D8C12D43933600EC877A /* FocusPomodoroProgressView.swift in Sources */,
 				E5DCC4062DC49BA2004DE7A5 /* CalendarTimelineLayout.swift in Sources */,
@@ -9107,6 +9121,7 @@
 				E5BB9D852D3BF0C50089667A /* LayoutConstants.swift in Sources */,
 				E541555B2F49A415000B2972 /* FocusRecordListDetailCell.swift in Sources */,
 				E5BB9E9D2D3BF0C80089667A /* ChartIntermediateValue.swift in Sources */,
+				E53DCEE62F618CD100ADA526 /* HabitHomeWeekListGroupProvider.swift in Sources */,
 				E5D7D9152D43933700EC877A /* FocusStatsDailyViewController.swift in Sources */,
 				E50C0F802D846A4800AFF908 /* TodoListSelectView.swift in Sources */,
 				E53736012D9D2EE400C5A001 /* TodoDateFilterValue.swift in Sources */,
@@ -9376,6 +9391,7 @@
 				E5BB9E7A2D3BF0C70089667A /* StatsCurveChartCell.swift in Sources */,
 				E515019E2D47B8FA008B2333 /* TPTableCellStyle.swift in Sources */,
 				E5BB9E692D3BF0C70089667A /* TPSectionTitleFlowLayout.swift in Sources */,
+				E53DCEE92F618F8600ADA526 /* HabitHomeDayListGroupProvider.swift in Sources */,
 				E527619A2D41E01300209019 /* TodoTaskQuickAddMenuView.swift in Sources */,
 				E5BB9EB32D3BF0C80089667A /* TPDefaultPlaceholderView.swift in Sources */,
 				E5BB9F022D3BF0C80089667A /* TPTableDragReorder.swift in Sources */,

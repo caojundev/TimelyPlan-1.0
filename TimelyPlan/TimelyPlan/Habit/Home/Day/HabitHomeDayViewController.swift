@@ -21,7 +21,7 @@ class HabitHomeDayViewController: TPContainerViewController,
     }
 
     /// 周视图
-    private let weekViewHeight = 90.0
+    private let weekViewHeight = 80.0
     private lazy var weekView: TPCalendarScrollableWeekView = {
         let view = TPCalendarScrollableWeekView(frame: .zero)
         view.symbolStyle = .veryShort
@@ -68,9 +68,9 @@ class HabitHomeDayViewController: TPContainerViewController,
     }()
     
     /// 过滤类型
-    var filterType: HabitTaskFilterType = .all
+    private var filterType: HabitTaskFilterType = .all
     
-    var groupProvider = HabitTaskListGroupProvider()
+    private var groupProvider = HabitHomeDayListGroupProvider()
     
     private(set) lazy var listView: HabitPeriodTaskListView = {
         let view = HabitPeriodTaskListView(frame: view.bounds)

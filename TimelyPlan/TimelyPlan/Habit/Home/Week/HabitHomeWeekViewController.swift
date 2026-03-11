@@ -33,6 +33,8 @@ class HabitHomeWeekViewController: TPViewController,
     
     private let taskController = HabitTaskController()
     
+    private var groupProvider = HabitHomeWeekListGroupProvider()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(listView)
@@ -68,20 +70,11 @@ class HabitHomeWeekViewController: TPViewController,
     
     // MARK: - HabitPeriodTaskListViewDelegate
    func habitPeriodTaskListView(_ listView: HabitPeriodTaskListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
-       
        let firstWeekday = HabitSetting.shared.firstWeekday
        let period = HabitDatePeriod(date: .now, mode: .week, firstWeekday: firstWeekday)
-       
-       var periodTasks = [HabitPeriodTask]()
-       let habitTasks = habit.activeTasks()
-       for habitTask in habitTasks {
-           let periodTask = HabitPeriodTask(habitTask: habitTask, period: period)
-           periodTasks.append(periodTask)
+       self.groupProvider.fetchGroups(in: period) { groups in
+           completion(groups)
        }
-       
-       let group = HabitTaskGroup(identifier: "week")
-       group.tasks = periodTasks
-       completion([group])
    }
     
     func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
@@ -108,6 +101,25 @@ class HabitHomeWeekViewController: TPViewController,
         menuController.showMenu(from: button)
     }
     
+    func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {
+        return HabitTaskListGroupHeaderView.self
+    }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, sizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: .greatestFiniteMagnitude, height: 40.0)
+    }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
+        if let headerView = headerView as? HabitTaskListGroupHeaderView {
+            headerView.contentPadding = UIEdgeInsets(top: 10.0,
+                                                     left: 16.0,
+                                                     bottom: 0.0,
+                                                     right: 16.0)
+            headerView.group = listView.sectionObject(at: section) as? HabitTaskGroup
+        }
+    }
+    
+    // MARK: - MenuAction
     func performMenuAction(_ type: HabitTaskMenuActionType, forTask task: HabitTask) {
         switch type {
         case .edit:
@@ -125,28 +137,34 @@ class HabitHomeWeekViewController: TPViewController,
 extension HabitHomeWeekViewController: HabitTaskProcessorDelegate {
     
     func didCreateHabitTask(_ task: HabitTask) {
+        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate { [weak self] success in
-            guard success else { return }
-            self?.listView.revealTask(task)
+            guard success, let self = self else { return }
+            self.listView.revealTask(task)
         }
     }
 
     func didUpdateHabitTask(_ task: HabitTask) {
+        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate { [weak self] success in
-            guard success else { return }
-            self?.listView.reloadCell(forTask: task, focusAnimated: true)
+            guard success, let self = self else { return }
+            self.listView.reloadCell(forTask: task, focusAnimated: true)
         }
     }
     
     func didDeleteHabitTask(_ task: HabitTask) {
+        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     
     func didChangeArchivedState(for task: HabitTask) {
+        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     
     func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
+        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
+    
 }

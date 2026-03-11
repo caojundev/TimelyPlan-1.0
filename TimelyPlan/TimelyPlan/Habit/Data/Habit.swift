@@ -51,6 +51,15 @@ class Habit {
                                                     completion: completion)
     }
     
+    func fetchPeriodTasks(in period: HabitDatePeriod,
+                          completion: @escaping([HabitPeriodTask])->Void) {
+        let activeTasks = taskManager.activeTasks
+        periodTaskFetcher.fetchPeriodTasks(for: activeTasks,
+                                            in: period,
+                                            completion: completion)
+    }
+    
+    
     // MARK: - 任务处理
     func activeTasks() -> [HabitTask] {
         return self.taskManager.activeTasks

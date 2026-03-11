@@ -11,6 +11,30 @@ class HabitPeriodTaskFetcher {
     
     private let regularScheduler = HabitTimePlanRegularScheduler()
     
+    func fetchPeriodTasks(for habitTasks: [HabitTask],
+                          in period: HabitDatePeriod,
+                          completion: @escaping([HabitPeriodTask])->Void) {
+        let conditions: [PredicateCondition]
+        if period.mode == .day {
+            conditions = CDHabitRecord.conditions(forTasks: habitTasks, onDate: period.date)
+        } else {
+            conditions = CDHabitRecord.conditions(forTasks: habitTasks, inPeriod: period)
+        }
+        
+        let predicate = conditions.andPredicate()
+        CDHabitRecord.findAll(with: predicate) { results in
+            let groupedRecords = self.recordsGroupedByTask(with: results as? [CDHabitRecord])
+            var periodTasks: [HabitPeriodTask] = []
+            for habitTask in habitTasks {
+                let periodTask = HabitPeriodTask(habitTask: habitTask, period: period)
+                periodTask.records = groupedRecords?[habitTask.identifier]
+                periodTasks.append(periodTask)
+            }
+            
+            completion(periodTasks)
+        }
+    }
+    
     func fetchScheduledPeriodTasks(on date: Date,
                                    activeTasks: [HabitTask],
                                    completion: @escaping([HabitPeriodTask]?)->Void) {
@@ -43,7 +67,8 @@ class HabitPeriodTaskFetcher {
         group.enter()
         /// 定期
         var regularPeriodTasks: [HabitPeriodTask] = []
-        fetchRegularPeriodTasks(for: regularTasks, on: date) { results in
+        let period = HabitDatePeriod(date: date, mode: .day)
+        fetchPeriodTasks(for: regularTasks, in: period) { results in
             regularPeriodTasks = results
             group.leave()
         }
@@ -61,27 +86,7 @@ class HabitPeriodTaskFetcher {
         }
     }
     
-    private func fetchRegularPeriodTasks(for regularHabitTasks: [HabitTask],
-                                         on date: Date,
-                                         completion: @escaping([HabitPeriodTask]) -> Void) {
-        let period = HabitDatePeriod(date: date, mode: .day)
-        
-        let tasks = regularHabitTasks.map { return $0.content }
-        let conditions = CDHabitRecord.conditions(forTasks: tasks, onDate: date)
-        let predicate = conditions.andPredicate()
-        CDHabitRecord.findAll(with: predicate) { results in
-            let groupedRecords = self.recordsGroupedByTask(with: results as? [CDHabitRecord])
-            var periodTasks: [HabitPeriodTask] = []
-            for regularHabitTask in regularHabitTasks {
-                let records = groupedRecords?[regularHabitTask.identifier]
-                let periodTask = HabitPeriodTask(habitTask: regularHabitTask, period: period)
-                periodTask.records = records
-                periodTasks.append(periodTask)
-            }
-            
-            completion(periodTasks)
-        }
-    }
+    // MARK: - Helpers
     
     // 定义类型别名
     private typealias HabitRecordsByTask = [String: [Int32: HabitRecord]]
