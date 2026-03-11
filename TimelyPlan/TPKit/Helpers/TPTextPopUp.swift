@@ -10,24 +10,32 @@ import UIKit
 
 class TPTextPopUp {
     
-    static func showText(_ text: String, fromView: UIView?) {
+    static func showText(_ text: String,
+                         fromView: UIView?,
+                         sourceRect: CGRect? = nil) {
         showText(text,
                  color: .label,
                  font: BOLD_SYSTEM_FONT,
-                 fromView: fromView)
+                 fromView: fromView,
+                 sourceRect: sourceRect)
     }
     
-    static func showText(_ text: String, color: UIColor, fromView: UIView?) {
+    static func showText(_ text: String,
+                         color: UIColor,
+                         fromView: UIView?,
+                         sourceRect: CGRect? = nil) {
         showText(text,
                  color: color,
                  font: BOLD_SYSTEM_FONT,
-                 fromView: fromView)
+                 fromView: fromView,
+                 sourceRect: sourceRect)
     }
 
     static func showText(_ text: String,
                          color: UIColor,
                          font: UIFont,
-                         fromView: UIView?) {
+                         fromView: UIView?,
+                         sourceRect: CGRect? = nil) {
         guard let rootView = UIWindow.keyWindow else {
             return
         }
@@ -41,7 +49,8 @@ class TPTextPopUp {
         
         var rect: CGRect
         if let fromView = fromView {
-            rect = fromView.convert(fromView.bounds, toViewOrWindow: nil)
+            let sourceRect = sourceRect ?? fromView.bounds
+            rect = fromView.convert(sourceRect, toViewOrWindow: nil)
         } else {
             rect = rootView.frame
         }

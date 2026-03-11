@@ -14,7 +14,11 @@ class HabitHomeDayViewController: TPContainerViewController,
                                   TPCalendarSingleDateSelectionDelegate {
     
     /// 日期
-    private(set) var date: Date = .now
+    private(set) var date: Date = .now {
+        didSet {
+            self.groupProvider.setNeedsRefresh()
+        }
+    }
 
     /// 周视图
     private let weekViewHeight = 90.0
@@ -64,7 +68,9 @@ class HabitHomeDayViewController: TPContainerViewController,
     }()
     
     /// 过滤类型
-    var filterType: HabitTaskFilterType = .todo
+    var filterType: HabitTaskFilterType = .all
+    
+    var groupProvider = HabitTaskListGroupProvider()
     
     private(set) lazy var listView: HabitPeriodTaskListView = {
         let view = HabitPeriodTaskListView(frame: view.bounds)
@@ -184,20 +190,14 @@ class HabitHomeDayViewController: TPContainerViewController,
         
         let fromDate = self.date
         self.date = selectedDate
-        updateListView(fromDate: fromDate, toDate: self.date)
-        updateAddView()
+        self.updateListView(fromDate: fromDate, toDate: self.date)
+        self.updateAddView()
     }
     
      // MARK: - HabitPeriodTaskListViewDelegate
     func habitPeriodTaskListView(_ listView: HabitPeriodTaskListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
-        let filterType = self.filterType
-        habit.fetchScheduledPeriodTasks(on: self.date) { tasks in
-            guard let tasks = tasks, tasks.count > 0 else {
-                completion(nil)
-                return
-            }
-            
-            let groups = HabitPeriodTaskOrganizer.groupAll(from: tasks, with: filterType)
+        self.groupProvider.fetchGroups(on: self.date,
+                                       with: self.filterType) { groups in
             completion(groups)
         }
     }
@@ -269,6 +269,7 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
                                         HabitRecordProcessorDelegate {
     
     func didCreateHabitTask(_ task: HabitTask) {
+        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate { [weak self] success in
             guard success, let self = self else { return }
             self.listView.revealTask(task)
@@ -276,6 +277,7 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
     }
 
     func didUpdateHabitTask(_ task: HabitTask) {
+        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate { [weak self] success in
             guard success, let self = self else { return }
             self.listView.reloadCell(forTask: task, focusAnimated: true)
@@ -283,24 +285,43 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
     }
     
     func didDeleteHabitTask(_ task: HabitTask) {
+        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     
     func didChangeArchivedState(for task: HabitTask) {
+        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     
     func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
+        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     
     // MARK: - HabitRecordProcessorDelegate
     func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
-        self.listView.asyncReloadData()
+        self.groupProvider.updateHabitRecord(record, for: task, on: date)
+        guard let cell = listView.cell(for: task) as? HabitHomeDayListCell else {
+            return
+        }
+        
+        cell.updateRecord(with: change, animated: true)
+        self.listView.asyncPerformUpdate()
     }
     
     func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
-        self.listView.asyncReloadData()
+        guard period.contains(self.date) else {
+            return
+        }
+        
+        self.groupProvider.deleteHabitRecords(for: task, in: period)
+        guard let cell = listView.cell(for: task) as? HabitHomeDayListCell else {
+            return
+        }
+        
+        cell.updateRecord(with: nil, animated: true)
+        self.listView.asyncPerformUpdate()
     }
 }
 

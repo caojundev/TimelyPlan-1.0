@@ -122,6 +122,10 @@ class HabitTaskListView: TPCollectionWrapperView,
         return adapter.items(for: sectionObject)
     }
     
+    func cell(for item: ListDiffable) -> UICollectionViewCell? {
+        return adapter.cellForItem(item)
+    }
+    
     /// 聚焦显示任务
     /// - Parameter task: 要显示的习惯任务
     func revealTask(_ task: HabitTask, autoScroll: Bool = true) {

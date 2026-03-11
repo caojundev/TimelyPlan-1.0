@@ -57,7 +57,7 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     override func updateTaskInfo() {
         super.updateTaskInfo()
         self.updateProgress(animated: false)
-        self.progressActionInfoView.updateRecordButton(with: self.task)
+        self.updateRecordButton()
     }
     
     /// 更新详细文本
@@ -71,7 +71,7 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     }
 
     /// 更新进度
-    func updateProgress(animated: Bool) {
+    private func updateProgress(animated: Bool) {
         var progress: CGFloat = 0.0
         var status: HabitTaskStatus = .notStarted
         if let date = task?.period.date {
@@ -83,12 +83,37 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
         progressActionInfoView.setStatus(status, animated: animated)
     }
     
-    @objc func clickRecord(_ button: UIButton) {
+    private func updateRecordButton() {
+        self.progressActionInfoView.updateRecordButton(with: self.task)
+    }
+
+    @objc private func clickRecord(_ button: UIButton) {
         if let delegate = delegate as? HabitHomeDayListCellDelegate {
             delegate.habitHomeDayListCell(self, didClickRecord: button)
         }
     }
+
+    private func didChangeRecord(withIncreament amount: Int) {
+        guard amount != 0 else { return }
+        let text = (amount >= 0 ? "+" : "") + "\(amount)"
+        let color = task?.habitTask.color.lighterColor ?? .label
+        let font = BOLD_SYSTEM_FONT
+        let fromView = infoView.titleView.titleLabel
+        let sourceWidth = text.width(with: font)
+        let sourceRect = CGRect(x: 0.0, y: 0.0, width: sourceWidth, height: fromView.height)
+        TPTextPopUp.showText(text, color: color, font: font, fromView: fromView,  sourceRect: sourceRect)
+    }
     
+    /// 记录更新
+    func updateRecord(with change: HabitRecordChange?, animated: Bool = true) {
+        updateSubtitle()
+        updateRecordButton()
+        updateProgress(animated: animated)
+        
+        if case let .amountChanged(oldValue, newValue) = change {
+            self.didChangeRecord(withIncreament: Int(newValue - oldValue))
+        }
+    }
 }
 
 class HabitHomeDayTaskDetailProvider {
