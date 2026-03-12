@@ -81,16 +81,6 @@ class HabitReminderEditSectionController: TPTableItemSectionController,
         return cellItem
     }()
     
-    /// 提醒列表
-    lazy var alarmListCellItem: AlarmListTableCellItem = { [weak self] in
-        let cellItem = AlarmListTableCellItem()
-        cellItem.height = 60.0
-        cellItem.selection = selection
-        cellItem.editingEnabled = true /// 可编辑
-        cellItem.isSubtitleHidden = true /// 隐藏副标题
-        return cellItem
-    }()
-    
     /// 闹铃选择器
     lazy var selection: TPMultipleItemSelection<TaskAlarm> = {
         let selection = TPMultipleItemSelection<TaskAlarm>(items: [])
@@ -98,17 +88,28 @@ class HabitReminderEditSectionController: TPTableItemSectionController,
         return selection
     }()
     
+    /// 提醒列表
+    lazy var alarmListCellItem: AlarmListTableCellItem = { [weak self] in
+        let cellItem = AlarmListTableCellItem()
+        cellItem.height = 60.0
+        cellItem.selection = selection
+        cellItem.editingEnabled = true /// 可编辑
+        cellItem.isSubtitleHidden = true /// 隐藏副标题
+        cellItem.cellStyle.backgroundColor = .primary
+        return cellItem
+    }()
+    
     /// 自定义提醒
     lazy var alarmAddCellItem: TPFullSizeButtonTableCellItem = { [weak self] in
         let cellItem = TPFullSizeButtonTableCellItem()
         cellItem.height = 50.0
-        cellItem.buttonNormalBackgroundColor = .primary
-        cellItem.buttonSelectedBackgroundColor = .primary.darkerColor
-        cellItem.buttonNormalTitleColor = .white
         cellItem.buttonTitle = resGetString("Add Alarm")
         cellItem.buttonImageName = "bell_add_20"
-        cellItem.buttonImageColor = .white
         cellItem.buttonFixedImageSize = .size(5)
+        cellItem.buttonImageColor = .secondaryLabel
+        cellItem.buttonNormalTitleColor = .secondaryLabel
+        cellItem.buttonNormalBackgroundColor = Color(0xcccccc, 0.1)
+        cellItem.buttonSelectedBackgroundColor = Color(0xcccccc, 0.2)
         cellItem.updater = {
             guard let self = self else {
                 return

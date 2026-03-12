@@ -20,13 +20,25 @@ class AlarmListTableCellItem: TPBaseTableCellItem {
     /// 副标题是否隐藏
     var isSubtitleHidden: Bool = false
     
+    var titleConfig = TPLabelConfig.titleConfig
+    
+    var subtitleConfig = TPLabelConfig.subtitleConfig
+
     /// 点击提醒回调
     var didClickAlarm: ((TaskAlarm) -> Void)?
     
+    var cellStyle = TPCollectionCellStyle()
+
     override init() {
         super.init()
         selectionStyle = .none
         registerClass = AlarmListTableViewCell.self
+        titleConfig.textAlignment = .center
+        titleConfig.font = .boldSystemFont(ofSize: 14.0)
+        titleConfig.textColor = Color(0xFFFFFF, 0.8)
+        subtitleConfig.textAlignment = .center
+        cellStyle.cornerRadius = 8.0
+        cellStyle.backgroundColor = .tertiarySystemGroupedBackground
     }
 }
 
@@ -43,6 +55,9 @@ class AlarmListTableViewCell: TPBaseTableCell {
             listView.selection = cellItem.selection
             listView.editingEnabled = cellItem.editingEnabled
             listView.didClickAlarm = cellItem.didClickAlarm
+            listView.titleConfig = cellItem.titleConfig
+            listView.subtitleConfig = cellItem.subtitleConfig
+            listView.cellStyle = cellItem.cellStyle
             listView.reloadData()
         }
     }

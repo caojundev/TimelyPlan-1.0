@@ -41,9 +41,17 @@ class AlarmListView: TPCollectionWrapperView,
     /// 是否可以编辑
     var editingEnabled: Bool = false
     
-    var titleFont = BOLD_SMALL_SYSTEM_FONT
+    lazy var titleConfig: TPLabelConfig = {
+        let config = TPLabelConfig.titleConfig
+        config.textAlignment = .center
+        return config
+    }()
     
-    var subtitleFont = UIFont.systemFont(ofSize: 9.0)
+    var subtitleConfig: TPLabelConfig = {
+        let config = TPLabelConfig.subtitleConfig
+        config.textAlignment = .center
+        return config
+    }()
     
     private lazy var placeholderView: UIView = {
         let view = TPDefaultPlaceholderView()
@@ -92,8 +100,8 @@ class AlarmListView: TPCollectionWrapperView,
         let alarm = adapter.item(at: indexPath) as! TaskAlarm
         let title = alarm.attributedTitle(for: eventDate)?.value
         let subtitle = alarm.attributedSubtitle(for: eventDate)?.value
-        let titleWidth = title?.width(with: titleFont) ?? 0.0
-        let subtitleWidth = subtitle?.width(with: subtitleFont) ?? 0.0
+        let titleWidth = title?.width(with: titleConfig.font) ?? 0.0
+        let subtitleWidth = subtitle?.width(with: subtitleConfig.font) ?? 0.0
         let width = max(titleWidth, subtitleWidth) + itemPadding.horizontalLength
         let height = itemHeight
         return CGSize(width: max(width, minimumItemWidth), height: height)
@@ -102,13 +110,10 @@ class AlarmListView: TPCollectionWrapperView,
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         let cell = cell as! AlarmCollectionViewCell
         cell.delegate = self
-        cell.infoView.titleConfig.font = titleFont
-        cell.infoView.titleConfig.textAlignment = .center
-        cell.infoView.subtitleConfig.font = subtitleFont
-        cell.infoView.subtitleConfig.textAlignment = .center
-        
+        cell.infoView.titleConfig = titleConfig
+        cell.infoView.subtitleConfig = subtitleConfig
         cell.isSubtitleHidden = isSubtitleHidden
-        cell.padding = itemPadding
+        cell.contentView.padding = itemPadding
         cell.cellStyle = cellStyle
         cell.alarm = adapter.item(at: indexPath) as? TaskAlarm
         cell.eventDate = eventDate
@@ -203,6 +208,10 @@ class AlarmCollectionViewCell: TPDefaultInfoCollectionCell {
         didSet {
             setNeedsLayout()
         }
+    }
+    
+    override var focusLineColor: UIColor {
+        return .primary.darkerColor
     }
     
     override var cellItem: TPCollectionCellItem? {
