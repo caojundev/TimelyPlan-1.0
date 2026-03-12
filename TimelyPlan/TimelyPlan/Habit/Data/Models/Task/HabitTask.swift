@@ -234,7 +234,7 @@ extension HabitTask {
     
     // MARK: -  任务富文本信息
     var attributedInfo: ASAttributedString {
-        var indicators = [timeOptionIndicator]
+        var indicators = [ASAttributedString]()
 
         /// 提醒
         if hasAlarm {
@@ -251,7 +251,8 @@ extension HabitTask {
         
         return indicators.joined(separator: " • ")
     }
-    
+
+    /*
     var timeOptionIndicator: ASAttributedString {
         guard let image = self.timeOption.iconImage else {
             return self.timeOption.title.attributedString
@@ -263,6 +264,7 @@ extension HabitTask {
                        trailingText: self.timeOption.title,
                        separator: " ")
     }
+    */
     
     /// 提醒闹铃图标
     var bellIndicator: ASAttributedString {

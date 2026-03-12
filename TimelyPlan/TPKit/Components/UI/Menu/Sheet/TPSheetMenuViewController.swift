@@ -12,7 +12,13 @@ class TPSheetMenuViewController: TPTableViewController,
                                  TPTableViewAdapterDataSource,
                                  TPTableViewAdapterDelegate {
     /// 元素间距
-    var margin = 20.0
+    var titleMargins = UIEdgeInsets(top: 20.0, bottom: 10.0)
+    
+    /// 头高度
+    let sectionHeaderHeight = 10.0
+    
+    /// 行高度
+    let rowHeight = 60.0
     
     /// 选中菜单动作回调
     var didSelectMenuAction: ((TPMenuAction) -> Void)?
@@ -65,23 +71,27 @@ class TPSheetMenuViewController: TPTableViewController,
         let layoutFrame = view.layoutFrame()
         let titleSize = titleLabel.sizeThatFits(layoutFrame.size)
         self.titleLabel.size = titleSize
-        self.titleLabel.top = margin
+        self.titleLabel.top = titleMargins.top
         self.titleLabel.centerX = layoutFrame.midX
-        
-        self.wrapperView.top = tableViewTop()
         self.updatePopoverContentSize()
     }
     
-    func tableViewTop() -> CGFloat {
-        let layoutFrame = view.layoutFrame()
-        var top = margin * 2
-        top += titleLabel.sizeThatFits(layoutFrame.size).height
-        return top
+    override var themeBackgroundColor: UIColor? {
+        return .systemGroupedBackground
     }
     
+    override func tableViewFrame() -> CGRect {
+        let layoutFrame = view.layoutFrame()
+        var y = layoutFrame.minY + titleMargins.verticalLength
+        y += titleLabel.sizeThatFits(layoutFrame.size).height
+        let h = layoutFrame.height - y - actionsBarHeight
+        return CGRect(x: layoutFrame.minX, y: y, width: layoutFrame.width, height: h)
+    }
+
     override var popoverContentSize: CGSize {
-        var contentHeight = tableViewTop()
-        contentHeight += wrapperView.contentSize.height + margin + actionsBarHeight
+        let tableViewFrame = tableViewFrame()
+        var contentHeight = tableViewFrame.minY
+        contentHeight += wrapperView.contentSize.height + actionsBarHeight
         return CGSize(width: kPopoverPreferredContentWidth, height: contentHeight)
     }
 
@@ -110,15 +120,11 @@ class TPSheetMenuViewController: TPTableViewController,
     }
     
     func adapter(_ adapter: TPTableViewAdapter, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return rowHeight
     }
 
     func adapter(_ adapter: TPTableViewAdapter, heightForHeaderInSection section: Int) -> CGFloat {
-        if section > 0 {
-            return 1.0
-        }
-        
-        return 0.0
+        return sectionHeaderHeight
     }
 
     func adapter(_ adapter: TPTableViewAdapter, didSelectRowAt indexPath: IndexPath) {
@@ -144,8 +150,8 @@ class TPSheetMenuViewController: TPTableViewController,
     // MARK: - Style
     private func cellStyle(for menuAction: TPMenuAction) -> TPTableCellStyle {
         let style = TPTableCellStyle()
-        style.backgroundColor = Color(0x888888, 0.1)
-        style.selectedBackgroundColor = Color(0x888888, 0.2)
+        style.backgroundColor = .secondarySystemGroupedBackground
+        style.selectedBackgroundColor = .secondarySystemFill
         return style
     }
 }

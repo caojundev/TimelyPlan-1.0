@@ -29,8 +29,7 @@ class HabitTaskMenuActionProcessor {
     func performMenuAction(_ type: HabitTaskMenuActionType,
                            for task: HabitTask,
                            on date: Date,
-                           with record: HabitRecord?,
-                           from sourceView: UIView? = nil) {
+                           with record: HabitRecord? = nil) {
         switch type {
         case .resetToday:
             recordController.resetToday(of: date, for: task)
@@ -43,11 +42,11 @@ class HabitTaskMenuActionProcessor {
         case .addRecord:
             recordController.recordManually(for: task, on: date)
         case .markAsFail:
-            recordController.markAsFail(for: task, on: date, from: sourceView)
+            recordController.markAsFail(for: task, on: date)
         case .cancelFail:
             recordController.cancelFail(for: task, on: date)
         case .skipToday:
-            recordController.skipToday(for: task, on: date, from: sourceView)
+            recordController.skipToday(for: task, on: date)
         case .editLog:
             recordController.editLog(record?.logInfo, for: task, on: date)
         case .edit:

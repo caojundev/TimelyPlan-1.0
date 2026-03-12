@@ -13,7 +13,7 @@ class HabitHomeDayMenuController: HabitTaskBaseMenuController {
     
     let status: HabitTaskStatus
     
-    let date: Date
+    var date: Date
     
     init(task: HabitTask,
          status: HabitTaskStatus,

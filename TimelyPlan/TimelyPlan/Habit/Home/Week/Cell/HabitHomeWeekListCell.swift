@@ -12,19 +12,22 @@ protocol HabitHomeWeekListCellDelegate: AnyObject {
     
     /// 点击更多
     func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickMore button: UIButton)
+    
+    /// 点击日期
+    func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickDate date: Date)
 }
 
 class HabitHomeWeekListCell: HabitTaskListBaseCell {
 
     var task: HabitPeriodTask? {
         didSet {
-            updateTaskInfo()
+            reloadData()
         }
     }
     
     /// 头视图高度
-    let headerViewHeight = 30.0
-    
+    private let headerViewHeight = 30.0
+
     /// 信息视图高度
     let infoViewHeight = 70.0
     
@@ -43,8 +46,8 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
     }()
     
     /// 周期列表视图
-    let weekViewHeight = 100.0
-    lazy var weekView: HabitDatePeriodsView = {
+    private let weekViewHeight = 100.0
+    private lazy var weekView: HabitDatePeriodsView = {
         let view = HabitDatePeriodsView(frame: bounds)
         view.delegate = self
         return view
@@ -63,7 +66,6 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
         contentView.addSubview(headerView)
         contentView.addSubview(infoView)
         contentView.addSubview(weekView)
-        weekView.reloadData()
     }
     
     required init?(coder: NSCoder) {
@@ -89,6 +91,13 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
         weekView.left = layoutFrame.minX
     }
     
+    /// 点击更多
+    @objc func clickMore(_ button: UIButton) {
+        if let delegate = self.delegate as? HabitHomeWeekListCellDelegate {
+            delegate.habitHomeWeekListCell(self, didClickMore: button)
+        }
+    }
+    
     override func updateStyleWithColor(_ color: UIColor) {
         super.updateStyleWithColor(color)
         
@@ -102,7 +111,7 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
         headerView.titleConfig.textColor = Color(0xffffff, 0.8)
     }
     
-    func updateTaskInfo() {
+    private func updateTaskInfo() {
         let habitTask = task?.habitTask
         updateStyleWithColor(habitTask?.color ?? .primary)
         headerView.title = habitTask?.attributedInfo
@@ -111,11 +120,9 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
         infoView.titleView.subtitle = habitTask?.goal.targetDescription
     }
     
-    /// 点击更多
-    @objc func clickMore(_ button: UIButton) {
-        if let delegate = self.delegate as? HabitHomeWeekListCellDelegate {
-            delegate.habitHomeWeekListCell(self, didClickMore: button)
-        }
+    func reloadData() {
+        updateTaskInfo()
+        weekView.reloadData()
     }
 }
 
@@ -134,11 +141,15 @@ extension HabitHomeWeekListCell: HabitDatePeriodsViewDelegate {
     func datePeriodsView(_ view: HabitDatePeriodsView, didDequeCell cell: UICollectionViewCell, forPeriod period: HabitDatePeriod) {
         let cell = cell as! HabitHomeWeekDayCell
         cell.date = period.date
+        cell.task = self.task
         cell.reloadData() /// 加载内容数据
     }
     
     func datePeriodsView(_ view: HabitDatePeriodsView, didSelectPeriod period: HabitDatePeriod) {
-        
+        TPImpactFeedback.impactWithSoftStyle()
+        if let delegate = self.delegate as? HabitHomeWeekListCellDelegate {
+            delegate.habitHomeWeekListCell(self, didClickDate: period.date)
+        }
     }
     
     func datePeriodsView(_ view: HabitDatePeriodsView, shouldHighlightPeriod period: HabitDatePeriod) -> Bool {

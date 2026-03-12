@@ -19,6 +19,10 @@ class HabitTaskStatusProgressCell: UICollectionViewCell {
     /// 状态进度视图
     let statusProgressView = HabitTaskStatusProgressView()
     
+    var progressView: TPCircleOutlineProgressView {
+        return statusProgressView.progressView
+    }
+    
     // MARK: - Initialization
     
     override init(frame: CGRect) {

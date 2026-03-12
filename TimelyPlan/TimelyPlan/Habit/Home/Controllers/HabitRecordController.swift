@@ -53,7 +53,7 @@ class HabitRecordController: NSObject {
     }
 
     // MARK: - 跳过今日
-    func skipToday(for task: HabitTask, on date: Date, from sourceView: UIView?) {
+    func skipToday(for task: HabitTask, on date: Date) {
         let vc = ReasonTagSelectViewController(style: .grouped)
         vc.didSelectTag = { tag in
             TPImpactFeedback.feedbackWithWarningStyle()
@@ -73,7 +73,7 @@ class HabitRecordController: NSObject {
     }
     
     // MARK: - 标记未失败
-    func markAsFail(for task: HabitTask, on date: Date, from sourceView: UIView?) {
+    func markAsFail(for task: HabitTask, on date: Date) {
         let vc = ReasonTagSelectViewController(style: .grouped)
         vc.didSelectTag = { tag in
             TPImpactFeedback.feedbackWithErrorStyle()

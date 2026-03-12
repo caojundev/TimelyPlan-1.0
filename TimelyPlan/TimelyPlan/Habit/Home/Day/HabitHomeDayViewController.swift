@@ -244,11 +244,7 @@ class HabitHomeDayViewController: TPContainerViewController,
                                                         status: status,
                                                         date: date)
         menuController.didSelectMenuActionType = {[weak self] type in
-            self?.processor.performMenuAction(type,
-                                              for: habitTask,
-                                              on: date,
-                                              with: record,
-                                              from: button)
+            self?.processor.performMenuAction(type, for: habitTask, on: date, with: record)
         }
         
         menuController.showMenu(from: button)

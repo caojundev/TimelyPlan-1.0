@@ -62,7 +62,7 @@ extension UIViewController {
         configure.compactEdgeInsets = UIEdgeInsets(value: 5.0)
         self.slidePresent(viewControllerToPresent,
                           configure: configure,
-                          isInteractive: false,
+                          isInteractive: true,
                           animated: true,
                           completion: nil)
     }

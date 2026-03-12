@@ -31,9 +31,9 @@ class HabitHomeWeekViewController: TPViewController,
         return view
     }()
     
-    private let taskController = HabitTaskController()
-    
     private var groupProvider = HabitHomeWeekListGroupProvider()
+    
+    private let processor = HabitTaskMenuActionProcessor()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +65,46 @@ class HabitHomeWeekViewController: TPViewController,
     
     // MARK: - Event Response
     @objc func didClickAdd(_ button: UIButton){
-        taskController.createNewTask()
+        processor.createNewTask()
     }
+    
+    // MARK: - HabitHomeWeekListCellDelegate
+    func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickMore button: UIButton) {
+        guard let task = cell.task else {
+            return
+        }
+
+        let habitTask = task.habitTask
+        let menuController = HabitHomeWeekMenuController()
+        menuController.didSelectMenuActionType = {[weak self] type in
+            self?.processor.performMenuAction(type, for: habitTask, on: .now)
+        }
+        
+        menuController.showMenu(from: button)
+    }
+    
+    func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickDate date: Date) {
+        guard let task = cell.task else {
+            return
+        }
+        
+        let habitTask = task.habitTask
+        let status = task.status(on: date)
+        let record = task.record(on: date)
+        let menuController = HabitHomeWeekDayMenuController(task: habitTask,
+                                                            status: status,
+                                                            date: date)
+        menuController.didSelectMenuActionType = {[weak self] type in
+            self?.processor.performMenuAction(type, for: habitTask, on: date, with: record)
+        }
+        
+        menuController.didClickRecord = { [weak self] in
+            self?.processor.clickRecrod(for: habitTask, on: date)
+        }
+        
+        menuController.showMenu()
+    }
+    
     
     // MARK: - HabitPeriodTaskListViewDelegate
    func habitPeriodTaskListView(_ listView: HabitPeriodTaskListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
@@ -87,20 +125,6 @@ class HabitHomeWeekViewController: TPViewController,
         cell.task = listView.item(at: indexPath) as? HabitPeriodTask
     }
     
-    func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickMore button: UIButton) {
-        guard let task = cell.task else {
-            return
-        }
-
-        let habitTask = task.habitTask
-        let menuController = HabitHomeWeekMenuController()
-        menuController.didSelectMenuActionType = { type in
-            self.performMenuAction(type, forTask: habitTask)
-        }
-        
-        menuController.showMenu(from: button)
-    }
-    
     func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {
         return HabitTaskListGroupHeaderView.self
     }
@@ -116,20 +140,6 @@ class HabitHomeWeekViewController: TPViewController,
                                                      bottom: 0.0,
                                                      right: 16.0)
             headerView.group = listView.sectionObject(at: section) as? HabitTaskGroup
-        }
-    }
-    
-    // MARK: - MenuAction
-    func performMenuAction(_ type: HabitTaskMenuActionType, forTask task: HabitTask) {
-        switch type {
-        case .edit:
-            taskController.editTask(task)
-        case .archive:
-            taskController.archiveTask(task)
-        case .delete:
-            taskController.deleteTask(task)
-        default:
-            break
         }
     }
 }
