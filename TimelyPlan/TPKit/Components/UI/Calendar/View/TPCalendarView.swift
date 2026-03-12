@@ -134,4 +134,9 @@ class TPCalendarView: UIView, TPPreviousNextDateViewDelegate {
             previousNextView.setDate(date, animated: animated)
         }
     }
+    
+    func updateSpaningIndicator() {
+        monthView.updateSpaningIndicator()
+    }
+
 }

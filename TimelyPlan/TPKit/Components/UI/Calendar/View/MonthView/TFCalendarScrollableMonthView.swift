@@ -147,4 +147,13 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
         offset.x = bounds.width * CGFloat(index)
         collectionView.contentOffset = offset
     }
+    
+    // MARK: - Update
+    func updateSpaningIndicator() {
+        if let visibleCells = adapter.visibleCells as? [TPCalendarSingleMonthCell] {
+            for cell in visibleCells {
+                cell.updateSpaningIndicator()
+            }
+        }
+    }
 }

@@ -25,4 +25,8 @@ class TPCalendarSingleMonthCell: TPCollectionCell {
         super.layoutSubviews()
         monthView.frame = bounds
     }
+    
+    func updateSpaningIndicator() {
+        monthView.updateSpaningIndicator()
+    }
 }

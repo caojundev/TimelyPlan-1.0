@@ -86,8 +86,14 @@ class HabitDateRangeEditSectionController: TPTableItemSectionController,
         dateRangeChanged?(dateRange)
         updateCalendarSelectDate()
         updateEditList()
+        updateSpaningIndicator()
     }
 
+    /// 更新跨天高亮
+    func updateSpaningIndicator() {
+        let cell = adapter?.cellForItem(calendarCellItem) as? TPCalendarTableCell
+        cell?.updateSpaningIndicator()
+    }
     
     // MARK: - 更新日历
     func reloadCalendar(animated: Bool) {

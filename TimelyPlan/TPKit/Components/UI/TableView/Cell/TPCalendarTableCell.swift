@@ -94,4 +94,8 @@ class TPCalendarTableCell: TPBaseTableCell {
         calendarView.selection = selection
         calendarView.setVisibleDateComponents(visibleDateComponents, animated: animated)
     }
+    
+    func updateSpaningIndicator() {
+        calendarView.updateSpaningIndicator()
+    }
 }
