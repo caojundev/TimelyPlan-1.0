@@ -15,6 +15,12 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
     /// 日期
     var date: Date?
     
+    var isScheduledDate: Bool = false {
+        didSet {
+            updateScheduleStatus()
+        }
+    }
+    
     private var taskColor: UIColor {
         return task?.habitTask.color ?? .primary
     }
@@ -22,8 +28,8 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
     /// 非计划日状态图片
     private lazy var notScheduledImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = resGetImage("HabitDayNotScheduled_40pt")
-        imageView.alpha = 0.2
+        imageView.image = resGetImage("habit_week_day_notscheduled_42")
+        imageView.alpha = 0.5
         return imageView
     }()
 
@@ -47,9 +53,16 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        notScheduledImageView.frame = statusProgressView.frame
+        notScheduledImageView.size = CGSize(width: 42.0, height: 42.0)
+        notScheduledImageView.center = statusProgressView.center
     }
-
+    
+    private func updateScheduleStatus() {
+        let isScheduledDate = arc4random() % 2 == 1
+        self.notScheduledImageView.isHidden = isScheduledDate
+        self.statusProgressView.isHidden = !isScheduledDate
+    }
+    
     /// 更新日期信息
     private func updateDateInfo() {
         guard let date = date else {
@@ -61,10 +74,33 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
         self.statusProgressView.infoLabel.text = "\(date.day)"
     }
     
-    /// 更新任务信息
-    private func updateStyleWithColor(_ color: UIColor) {
-        self.valueLabel.textColor = color
+    /// 更新样式
+    private func updateStyle() {
+        guard let task = task, let date = date else {
+            return
+        }
+
+        let status = task.status(on: date)
+        let color = taskColor.lighterColor
+        
+        
+        /// 背景色
+        if !isScheduledDate {
+            backgroundView?.backgroundColor = .clear
+            selectedBackgroundView?.backgroundColor = .clear
+        } else if status == .completed {
+            backgroundView?.backgroundColor = color
+            selectedBackgroundView?.backgroundColor = color
+        } else {
+            backgroundView?.backgroundColor = UIColor(white: 0.6, alpha: 0.2)
+            selectedBackgroundView?.backgroundColor = UIColor(white: 0.6, alpha: 0.3)
+        }
+        
+        self.statusProgressView.statusImageColor = .white
         self.statusProgressView.progressColor = color
+        self.statusProgressView.infoLabel.textColor = Color(0xffffff, 0.8)
+        self.statusProgressView.progressColor = color
+        self.valueLabel.textColor = color
     }
     
     /// 更新进度
@@ -77,12 +113,22 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
         self.progressView.setProgress(progress, animated: animated)
     }
     
-    private func updateValue() {
+    private func updateValueStatus() {
         guard let task = task, let date = date else {
             return
         }
 
         let status = task.status(on: date)
+        /// 更新 status
+        self.statusProgressView.status = status
+        
+        /// 更新 valueLabel
+        guard isScheduledDate else {
+            valueLabel.text = nil
+            setNeedsLayout()
+            return
+        }
+        
         var details: [ASAttributedString] = []
         let color = taskColor.lighterColor
         if status == .failed(nil) {
@@ -123,28 +169,28 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
         guard amount != 0 else { return }
         let text = (amount >= 0 ? "+" : "") + "\(amount)"
         let color = task?.habitTask.color.lighterColor ?? .label
-        TPTextPopUp.showText(text,
-                             color: color,
-                             font: SMALL_SYSTEM_FONT,
-                             fromView: valueLabel)
-    }
-    
-    /// 加载数据
-    func reloadData() {
-        self.updateStyleWithColor(taskColor.lighterColor)
-        self.updateDateInfo()
-        self.updateValue()
-        self.updateProgress(animated: false)
+        TPTextPopUp.showText(text, color: color, font: SMALL_SYSTEM_FONT, fromView: valueLabel)
     }
     
     /// 记录更新
     func updateRecord(with change: HabitRecordChange?, animated: Bool = true) {
+        self.updateScheduleStatus()
+        self.updateStyle()
         self.updateDateInfo()
-        self.updateValue()
+        self.updateValueStatus()
         self.updateProgress(animated: animated)
         if animated, case let .amountChanged(oldValue, newValue) = change {
             self.didChangeRecord(withIncreament: Int(newValue - oldValue))
         }
+    }
+    
+    /// 加载数据
+    func reloadData() {
+        self.updateScheduleStatus()
+        self.updateStyle()
+        self.updateDateInfo()
+        self.updateValueStatus()
+        self.updateProgress(animated: false)
     }
     
 }

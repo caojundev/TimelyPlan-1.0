@@ -16,7 +16,12 @@ class HabitTaskStatusProgressView: UIView {
     var progressColor: UIColor? {
         didSet {
             progressView.progressLineColor = progressColor
-            statusImageView.updateImage(withColor: progressColor)
+        }
+    }
+    
+    var statusImageColor: UIColor? = .white {
+        didSet {
+            statusImageView.updateImage(withColor: statusImageColor)
         }
     }
     
@@ -63,6 +68,7 @@ class HabitTaskStatusProgressView: UIView {
         setupEmojiLabel()
         setupInfoLabel()
         setupStatusImageView()
+        updateStatus()
     }
     
     /// 设置进度视图
@@ -87,14 +93,13 @@ class HabitTaskStatusProgressView: UIView {
         infoLabel.textAlignment = .center
         infoLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         infoLabel.adjustsFontSizeToFitWidth = true
-        infoLabel.textColor = Color(0xF1F1F1)
+        infoLabel.textColor = Color(0xE1E1E1)
         addSubview(infoLabel)
     }
     
     /// 设置状态图片视图
     private func setupStatusImageView() {
         statusImageView = UIImageView()
-        statusImageView.image = UIImage(named: "HabitDayCompleted_40pt")
         addSubview(statusImageView)
     }
     
@@ -152,11 +157,11 @@ class HabitTaskStatusProgressView: UIView {
     private func updateStatusImage() {
         var image: UIImage? = nil
         if status == .completed {
-            image = resGetImage("HabitDayCompleted_40pt")
+            image = resGetImage("habit_week_day_checkmark_40")
         }
         
         statusImageView.image = image
-        statusImageView.updateImage(withColor: progressColor)
+        statusImageView.updateImage(withColor: statusImageColor)
     }
     
     /// 更新 Emoji 标签内容

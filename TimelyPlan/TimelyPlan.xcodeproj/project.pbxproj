@@ -227,6 +227,10 @@
 		E527619C2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527619B2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift */; };
 		E527619F2D41F63000209019 /* TPImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527619E2D41F63000209019 /* TPImageCollectionCell.swift */; };
 		E52761A12D420D9700209019 /* TodoTaskQuickAddMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52761A02D420D9700209019 /* TodoTaskQuickAddMenuCell.swift */; };
+		E52A4FDF2F62B9BF009EC01B /* habit_week_day_checkmark_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52A4FDD2F62B9BE009EC01B /* habit_week_day_checkmark_40@3x.png */; };
+		E52A4FE02F62B9BF009EC01B /* habit_week_day_checkmark_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52A4FDE2F62B9BF009EC01B /* habit_week_day_checkmark_40@2x.png */; };
+		E52A4FE72F62C5D7009EC01B /* habit_week_day_notscheduled_42@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52A4FE52F62C5D6009EC01B /* habit_week_day_notscheduled_42@2x.png */; };
+		E52A4FE82F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52A4FE62F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png */; };
 		E52B62A72F36121000673620 /* focus_main_timeline_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */; };
 		E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */; };
 		E52F899A2D5B0903001F18FA /* TPImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F89992D5B0902001F18FA /* TPImageContent.swift */; };
@@ -1736,6 +1740,10 @@
 		E527619B2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddMenuSectionController.swift; sourceTree = "<group>"; };
 		E527619E2D41F63000209019 /* TPImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageCollectionCell.swift; sourceTree = "<group>"; };
 		E52761A02D420D9700209019 /* TodoTaskQuickAddMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddMenuCell.swift; sourceTree = "<group>"; };
+		E52A4FDD2F62B9BE009EC01B /* habit_week_day_checkmark_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_week_day_checkmark_40@3x.png"; sourceTree = "<group>"; };
+		E52A4FDE2F62B9BF009EC01B /* habit_week_day_checkmark_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_week_day_checkmark_40@2x.png"; sourceTree = "<group>"; };
+		E52A4FE52F62C5D6009EC01B /* habit_week_day_notscheduled_42@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_week_day_notscheduled_42@2x.png"; sourceTree = "<group>"; };
+		E52A4FE62F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_week_day_notscheduled_42@3x.png"; sourceTree = "<group>"; };
 		E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_main_timeline_24@2x.png"; sourceTree = "<group>"; };
 		E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_main_timeline_24@3x.png"; sourceTree = "<group>"; };
 		E52F89992D5B0902001F18FA /* TPImageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageContent.swift; sourceTree = "<group>"; };
@@ -3765,6 +3773,17 @@
 			path = TaskListView;
 			sourceTree = "<group>";
 		};
+		E52A4FD42F62AC45009EC01B /* week */ = {
+			isa = PBXGroup;
+			children = (
+				E52A4FDE2F62B9BF009EC01B /* habit_week_day_checkmark_40@2x.png */,
+				E52A4FDD2F62B9BE009EC01B /* habit_week_day_checkmark_40@3x.png */,
+				E52A4FE52F62C5D6009EC01B /* habit_week_day_notscheduled_42@2x.png */,
+				E52A4FE62F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png */,
+			);
+			path = week;
+			sourceTree = "<group>";
+		};
 		E52B62A42F3611FC00673620 /* main */ = {
 			isa = PBXGroup;
 			children = (
@@ -4513,6 +4532,7 @@
 			children = (
 				E507E79E2F52CFAF003004C4 /* habit_manage_24@2x.png */,
 				E507E79F2F52CFAF003004C4 /* habit_manage_24@3x.png */,
+				E52A4FD42F62AC45009EC01B /* week */,
 				E53480012F604AC400CFBF26 /* status */,
 				E556BCC52F5D746400CA20D9 /* recordType */,
 				E5DC930E2F5D2CC5005180C3 /* indicator */,
@@ -8263,6 +8283,7 @@
 				E5168BD02F545B400000A760 /* habit_dateRange_background_end@3x.png in Resources */,
 				E5BB9A8B2D3BEF0D0089667A /* todo_smartlist_completed_24@2x.png in Resources */,
 				E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */,
+				E52A4FE72F62C5D7009EC01B /* habit_week_day_notscheduled_42@2x.png in Resources */,
 				E5E277022D3DF6EA004EC522 /* shred_24@3x.png in Resources */,
 				E5CAA9672D700ABD00A0539C /* todo_task_quadrant_24@2x.png in Resources */,
 				E50D94DF2D4528E500F57957 /* ellipsis_circle_fill_24@3x.png in Resources */,
@@ -8284,6 +8305,7 @@
 				E5BBA1062D3BFB3C0089667A /* SideMenuQuadrants@3x.png in Resources */,
 				E5CAA96A2D700ABD00A0539C /* todo_task_quadrant_24@3x.png in Resources */,
 				E5BB9AE42D3BEF0D0089667A /* checkmark_12@3x.png in Resources */,
+				E52A4FE82F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png in Resources */,
 				E534800A2F604ACF00CFBF26 /* habit_status_skipped_24@3x.png in Resources */,
 				E5D7D9732D43E05700EC877A /* focus_running_minimal_24@2x.png in Resources */,
 				E54E633C2F5B1BFD00FCBCAE /* habit_menu_reset_24@2x.png in Resources */,
@@ -8382,6 +8404,7 @@
 				E5BB9A792D3BEF0D0089667A /* todo_home_setting_24@2x.png in Resources */,
 				E5BB9AEE2D3BEF0D0089667A /* keyboard_dismiss_24@2x.png in Resources */,
 				E5D7D9652D43DBE000EC877A /* focus_timer_stopwatch_32@3x.png in Resources */,
+				E52A4FDF2F62B9BF009EC01B /* habit_week_day_checkmark_40@3x.png in Resources */,
 				E547C7242F3DA2F00095918C /* focus_record_order_ascending_24@3x.png in Resources */,
 				E54E63442F5B1BFD00FCBCAE /* habit_menu_log_24@2x.png in Resources */,
 				E5BB9AC72D3BEF0D0089667A /* todo_task_date_24@3x.png in Resources */,
@@ -8482,6 +8505,7 @@
 				E5BB9A962D3BEF0D0089667A /* todo_list_layout_board_96@3x.png in Resources */,
 				E5BB9A982D3BEF0D0089667A /* todo_list_24@3x.png in Resources */,
 				E55CE3532D8BC2A60083316E /* quadrant_IV_32@2x.png in Resources */,
+				E52A4FE02F62B9BF009EC01B /* habit_week_day_checkmark_40@2x.png in Resources */,
 				E55CE3632D8BC4BB0083316E /* quadrant_circle_IV@2x.png in Resources */,
 				E5BB9AEB2D3BEF0D0089667A /* ellipsis_vertical_24@3x.png in Resources */,
 				E5BB9AA12D3BEF0D0089667A /* todo_task_record_negative_24@3x.png in Resources */,

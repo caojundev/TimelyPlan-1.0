@@ -67,10 +67,6 @@ extension ASAttributedString {
         return failIndicator(reason: nil, color: nil)
     }
     
-    static func failIndicator(reason: String?, color: UIColor) -> ASAttributedString {
-        return failIndicator(reason: reason, color: nil)
-    }
-    
     static func failIndicator(color: UIColor) -> ASAttributedString {
         return failIndicator(reason: nil, color: color)
     }
