@@ -491,9 +491,7 @@
 		E592441E2F51CB7500CA2393 /* HabitTimePlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59244152F51CB7500CA2393 /* HabitTimePlan.swift */; };
 		E592441F2F51CB7500CA2393 /* HabitTimePlanRegularScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59244172F51CB7500CA2393 /* HabitTimePlanRegularScheduler.swift */; };
 		E59244202F51CB7500CA2393 /* HabitTimePlanScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59244182F51CB7500CA2393 /* HabitTimePlanScheduler.swift */; };
-		E59244212F51CB7600CA2393 /* HabitTimePlanRandomScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59244192F51CB7500CA2393 /* HabitTimePlanRandomScheduler.swift */; };
 		E59244222F51CB7600CA2393 /* HabitTimePlanEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592441B2F51CB7500CA2393 /* HabitTimePlanEditViewController.swift */; };
-		E59244232F51CB7600CA2393 /* HabitTimePlanRandomSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592441C2F51CB7500CA2393 /* HabitTimePlanRandomSectionController.swift */; };
 		E59244242F51CB7600CA2393 /* HabitTimePlanRegularSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592441D2F51CB7500CA2393 /* HabitTimePlanRegularSectionController.swift */; };
 		E5926DD12D4C6392007D5A6A /* TPColorSelectTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */; };
 		E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */; };
@@ -2006,9 +2004,7 @@
 		E59244152F51CB7500CA2393 /* HabitTimePlan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTimePlan.swift; sourceTree = "<group>"; };
 		E59244172F51CB7500CA2393 /* HabitTimePlanRegularScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTimePlanRegularScheduler.swift; sourceTree = "<group>"; };
 		E59244182F51CB7500CA2393 /* HabitTimePlanScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTimePlanScheduler.swift; sourceTree = "<group>"; };
-		E59244192F51CB7500CA2393 /* HabitTimePlanRandomScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTimePlanRandomScheduler.swift; sourceTree = "<group>"; };
 		E592441B2F51CB7500CA2393 /* HabitTimePlanEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTimePlanEditViewController.swift; sourceTree = "<group>"; };
-		E592441C2F51CB7500CA2393 /* HabitTimePlanRandomSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTimePlanRandomSectionController.swift; sourceTree = "<group>"; };
 		E592441D2F51CB7500CA2393 /* HabitTimePlanRegularSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTimePlanRegularSectionController.swift; sourceTree = "<group>"; };
 		E5926DD02D4C6392007D5A6A /* TPColorSelectTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPColorSelectTableCell.swift; sourceTree = "<group>"; };
 		E5926DD22D4C645D007D5A6A /* TPTextFieldTableCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTextFieldTableCellItem.swift; sourceTree = "<group>"; };
@@ -4623,7 +4619,6 @@
 			children = (
 				E59244182F51CB7500CA2393 /* HabitTimePlanScheduler.swift */,
 				E59244172F51CB7500CA2393 /* HabitTimePlanRegularScheduler.swift */,
-				E59244192F51CB7500CA2393 /* HabitTimePlanRandomScheduler.swift */,
 			);
 			path = Scheduler;
 			sourceTree = "<group>";
@@ -4632,7 +4627,6 @@
 			isa = PBXGroup;
 			children = (
 				E592441B2F51CB7500CA2393 /* HabitTimePlanEditViewController.swift */,
-				E592441C2F51CB7500CA2393 /* HabitTimePlanRandomSectionController.swift */,
 				E592441D2F51CB7500CA2393 /* HabitTimePlanRegularSectionController.swift */,
 			);
 			path = Edit;
@@ -9216,7 +9210,6 @@
 				E5D7D8E22D43933600EC877A /* FocusArchivedTimerSectionController.swift in Sources */,
 				E556BCD92F5D9D3700CA20D9 /* CDHabitSample+Extensions.swift in Sources */,
 				E5F962D02D904BA400D51EE0 /* QuadrantFilterRuleEditViewController.swift in Sources */,
-				E59244212F51CB7600CA2393 /* HabitTimePlanRandomScheduler.swift in Sources */,
 				E59243C82F4FFD6900CA2393 /* HabitMainViewController.swift in Sources */,
 				E5BB9B542D3BEF920089667A /* Action.swift in Sources */,
 				E5BBA0642D3BF4A40089667A /* RepeatRule.swift in Sources */,
@@ -9390,7 +9383,6 @@
 				E55A7BA02D468699000D224C /* QuadrantMainViewController.swift in Sources */,
 				E5BB9DE02D3BF0C60089667A /* UIColor+Extensions.swift in Sources */,
 				E5BB9E902D3BF0C80089667A /* PieRankListCell.swift in Sources */,
-				E59244232F51CB7600CA2393 /* HabitTimePlanRandomSectionController.swift in Sources */,
 				E5BB9EF22D3BF0C80089667A /* TPPageController.swift in Sources */,
 				E5D7D9132D43933700EC877A /* FocusStatsMonthlyViewController.swift in Sources */,
 				E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */,

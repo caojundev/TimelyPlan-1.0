@@ -16,17 +16,13 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
     /// 时间计划
     private(set) var timePlan: HabitTimePlan {
         get {
-            return HabitTimePlan(type: planType, regularRule: regularRule, randomRule: randomRule)
+            return HabitTimePlan(regularRule: regularRule)
         }
         
         set {
-            self.planType = newValue.type
             self.regularRule = newValue.regularRule ?? HabitTimePlanRegularRule()
-            self.randomRule = newValue.randomRule ?? HabitTimePlanRandomRule()
         }
     }
-    
-    var planType: HabitTimePlanType = .regularly
     
     var regularRule: HabitTimePlanRegularRule {
         get {
@@ -37,47 +33,6 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
             self.regularSectionController.rule = newValue
         }
     }
-    
-    var randomRule: HabitTimePlanRandomRule {
-        get {
-            return self.randomSectionController.rule
-        }
-        
-        set {
-            self.randomSectionController.rule = newValue
-        }
-    }
-    
-    /// 类型
-    lazy var typeSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 10.0
-        sectionController.footerItem.height = 0.0
-        sectionController.cellItems = [typeCellItem]
-        return sectionController
-    }()
-    
-    lazy var typeCellItem: TPFullSizeSegmentedMenuTableCellItem = { [weak self] in
-        let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
-        cellItem.menuItems = HabitTimePlanType.segmentedMenuItems()
-        cellItem.updater = {
-            guard let self = self else {
-                return
-            }
-            
-            self.typeCellItem.selectedMenuTag = self.planType.rawValue
-        }
-        
-        cellItem.didSelectMenuItem = { menuItem in
-            let type: HabitTimePlanType? = menuItem.actionType()
-            if let type = type {
-                self?.didSelectType(type)
-            }
-        }
-
-        return cellItem
-    }()
     
     /// 描述区块
     lazy var infoSectionController: TPTableItemSectionController = {
@@ -90,6 +45,7 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
     
     lazy var infoCellItem: TPDescriptionTableCellItem = {
         let cellItem = TPDescriptionTableCellItem()
+        cellItem.minimumHeight = 70.0
         cellItem.contentPadding = UIEdgeInsets(horizontal: 10.0, vertical: 10.0)
         cellItem.selectionStyle = .none
         cellItem.updater = { [weak self] in
@@ -110,17 +66,6 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    /// 随机区块
-    lazy var randomSectionController: HabitTimePlanRandomSectionController = {
-        let sectionController = HabitTimePlanRandomSectionController()
-        sectionController.headerItem.height = 10.0
-        sectionController.ruleDidChange = { [weak self] rule in
-            self?.randomRuleDidChange(rule)
-        }
-        
-        return sectionController
-    }()
-    
     init(timePlan: HabitTimePlan?) {
         super.init(style: .insetGrouped)
         self.timePlan = timePlan ?? HabitTimePlan()
@@ -134,10 +79,10 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
         super.viewDidLoad()
         self.title = resGetString("Frequency")
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        setupActionsBar(actions: [doneAction])
-        adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        updateSectionControllers()
-        adapter.reloadData()
+        self.setupActionsBar(actions: [doneAction])
+        self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
+        self.sectionControllers = [infoSectionController, regularSectionController]
+        self.adapter.reloadData()
     }
     
     override var popoverContentSize: CGSize {
@@ -164,27 +109,9 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
         didEndEditing?(timePlan)
     }
     
-    // MARK: - Updater
-    func updateSectionControllers() {
-        var sectionControllers = [infoSectionController, typeSectionController]
-        if planType == .regularly {
-            sectionControllers.append(regularSectionController)
-        } else {
-            sectionControllers.append(randomSectionController)
-        }
-        
-        self.sectionControllers = sectionControllers
-    }
-    
     /// 更新计划描述信息
     func updateInfoCellItem() {
-        var info: ASAttributedString?
-        if planType == .regularly {
-            info = regularRule.localizedAttributedDescription()
-        } else {
-            info = randomRule.localizedAttributedDescription()
-        }
-        
+        let info = regularRule.localizedAttributedDescription()
         infoCellItem.attributedText = info
     }
     
@@ -195,21 +122,8 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
             cell.updateDescription()
         }
     }
-   
-    /// 选中计划类型
-    private func didSelectType(_ type: HabitTimePlanType) {
-        self.planType = type
-        updateSectionControllers()
-        updatePlanInfo() /// 更新计划描述信息
-        adapter.performUpdate(with: .fade, completion: nil)
-    }
     
     private func regularRuleDidChange(_ regularRule: HabitTimePlanRegularRule) {
-        updatePlanInfo()
-        adapter.performNilUpdate()
-    }
-    
-    private func randomRuleDidChange(_ randomRule: HabitTimePlanRandomRule) {
         updatePlanInfo()
         adapter.performNilUpdate()
     }

@@ -10,11 +10,9 @@ import UIKit
 /// 计划类型
 enum HabitTimePlanType: Int, Hashable, Codable, Equatable, TPMenuRepresentable {
     case regularly /// 定期
-    case randomly  /// 随机
     
     static func titles() -> [String] {
-        return ["Regularly",
-                "Randomly"]
+        return ["Regularly"]
     }
 }
 /// 定期规则结构体
@@ -51,49 +49,6 @@ struct HabitTimePlanRegularRule: Hashable, Codable, Equatable {
     }
 }
 
-/// 随机规则结构体
-struct HabitTimePlanRandomRule: Hashable, Codable, Equatable {
-    
-    /// 频率
-    var frequency: RepeatFrequency = .weekly
-    
-    /// 目标天数
-    var days: Int = 1
-
-    public init() {}
-    
-    public init(frequency: RepeatFrequency, days: Int) {
-        self.frequency = frequency
-        self.days = days
-    }
-    
-    // MARK - Decodable
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        if let frequency = try? container.decodeIfPresent(RepeatFrequency.self,
-                                                          forKey: .frequency) {
-            self.frequency = frequency
-        }
-
-        if let days = try? container.decodeIfPresent(Int.self,
-                                                     forKey: .days) {
-            self.days = validatedDays(days)
-        }
-    }
-    
-    /// 根据当前的频率返回一个合法的天数
-    func validatedDays(_ days: Int) -> Int {
-        var days = days
-        if frequency == .weekly {
-            days = min(max(days, 1), 6)
-        } else {
-            days = min(max(days, 1), 30)
-        }
-        
-        return days
-    }
-}
-
 /// 时间计划
 public class HabitTimePlan: NSObject, Codable, NSCopying {
     
@@ -103,21 +58,13 @@ public class HabitTimePlan: NSObject, Codable, NSCopying {
     /// 定期规则，当 type 为 regularly 时有效
     var regularRule: HabitTimePlanRegularRule?
     
-    /// 随机规则，当 type 为 randomly 时有效
-    var randomRule: HabitTimePlanRandomRule?
-    
     override init() {
         super.init()
     }
     
-    init(type: HabitTimePlanType, regularRule: HabitTimePlanRegularRule?, randomRule: HabitTimePlanRandomRule?) {
+    init(regularRule: HabitTimePlanRegularRule?) {
         super.init()
-        self.type = type
-        if type == .regularly {
-            self.regularRule = regularRule
-        } else {
-            self.randomRule = randomRule
-        }
+        self.regularRule = regularRule
     }
     
     required public init(from decoder: Decoder) throws {
@@ -128,47 +75,30 @@ public class HabitTimePlan: NSObject, Codable, NSCopying {
 
         self.regularRule = try? container.decodeIfPresent(HabitTimePlanRegularRule.self,
                                                           forKey: .regularRule)
-        self.randomRule = try? container.decodeIfPresent(HabitTimePlanRandomRule.self,
-                                                         forKey: .randomRule)
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type, forKey: .type)
-        if type == .regularly {
-            try container.encode(regularRule, forKey: .regularRule)
-        } else {
-            try container.encode(randomRule, forKey: .randomRule)
-        }
+        try container.encode(regularRule, forKey: .regularRule)
     }
     
     /// 描述标题
     var title: String? {
-        if type == .regularly {
-            let rule = regularRule ?? HabitTimePlanRegularRule()
-            return rule.title
-        } else {
-            let rule = randomRule ?? HabitTimePlanRandomRule()
-            return rule.title
-        }
+        let rule = regularRule ?? HabitTimePlanRegularRule()
+        return rule.title
     }
     
     /// 副标题
     var subtitle: String? {
-        if type == .regularly {
-            let rule = regularRule ?? HabitTimePlanRegularRule()
-            return rule.subtitle
-        } else {
-            let rule = randomRule ?? HabitTimePlanRandomRule()
-            return rule.subtitle
-        }
+        let rule = regularRule ?? HabitTimePlanRegularRule()
+        return rule.subtitle
     }
     
     // MARK: - CodingKeys
     enum CodingKeys: String, CodingKey {
         case type
         case regularRule
-        case randomRule
     }
     
     // MARK: - 等同性判断
@@ -176,16 +106,13 @@ public class HabitTimePlan: NSObject, Codable, NSCopying {
         var hasher = Hasher()
         hasher.combine(type)
         hasher.combine(regularRule)
-        hasher.combine(randomRule)
         return hasher.finalize()
     }
     
     public override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? HabitTimePlan else { return false }
         if self === other { return true }
-        return type == other.type &&
-                regularRule == other.regularRule &&
-                randomRule == other.randomRule
+        return type == other.type && regularRule == other.regularRule
     }
     
     // MARK: - NSCopying
@@ -193,7 +120,6 @@ public class HabitTimePlan: NSObject, Codable, NSCopying {
         let copy = HabitTimePlan()
         copy.type = type
         copy.regularRule = regularRule
-        copy.randomRule = randomRule
         return copy
     }
 }
@@ -302,59 +228,3 @@ extension HabitTimePlanRegularRule: AttributedDescriptable {
         return .string(format: format, attributedParameters: [symbolAttributedString])
     }
 }
-
-extension HabitTimePlanRandomRule: AttributedDescriptable {
-    
-    /// 描述标题
-    var title: String {
-        let dayText = days > 1 ? "Days" : "Day"
-        let periodText = frequency == .weekly ? "Week" : "Month"
-        let format = resGetString("%ld \(dayText)/\(periodText)")
-        return String(format: format, days)
-    }
-    
-    /// 副标题
-    var subtitle: String? {
-        return nil
-    }
-    
-    func cnAttributedDescription() -> ASAttributedString? {
-        let daysText = "\(days)天"
-        var frequencyText: String
-        if frequency == .weekly {
-            frequencyText = "本周"
-        } else {
-            frequencyText = "本月"
-        }
-        
-        let color = highlightedTextColor
-        let attributedString: ASAttributedString = """
-        完成\(daysText, color)后，\(frequencyText, color)将不会出现
-        """
-        return attributedString
-    }
-    
-    /// 英文描述
-    func enAttributedDescription() -> ASAttributedString? {
-        var daysText: String
-        if days > 1 {
-            daysText = "\(days) days"
-        } else {
-            daysText = "\(days) day"
-        }
-        
-        var frequencyText: String
-        if frequency == .weekly {
-            frequencyText = "week"
-        } else {
-            frequencyText = "month"
-        }
-        
-        let color = highlightedTextColor
-        let attributedString: ASAttributedString = """
-        After \(daysText, color) of completion, the task will not appear this \(frequencyText, color).
-        """
-        return attributedString
-    }
-}
-

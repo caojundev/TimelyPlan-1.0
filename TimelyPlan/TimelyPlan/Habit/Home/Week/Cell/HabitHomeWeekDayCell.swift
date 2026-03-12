@@ -15,11 +15,8 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
     /// 日期
     var date: Date?
     
-    var isScheduledDate: Bool = false {
-        didSet {
-            updateScheduleStatus()
-        }
-    }
+    /// 是否是计划日
+    var isScheduledDay: Bool = true
     
     private var taskColor: UIColor {
         return task?.habitTask.color ?? .primary
@@ -57,10 +54,10 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
         notScheduledImageView.center = statusProgressView.center
     }
     
+    /// 更新是否是计划日
     private func updateScheduleStatus() {
-        let isScheduledDate = arc4random() % 2 == 1
-        self.notScheduledImageView.isHidden = isScheduledDate
-        self.statusProgressView.isHidden = !isScheduledDate
+        self.notScheduledImageView.isHidden = isScheduledDay
+        self.statusProgressView.isHidden = !isScheduledDay
     }
     
     /// 更新日期信息
@@ -85,7 +82,7 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
         
         
         /// 背景色
-        if !isScheduledDate {
+        if !isScheduledDay {
             backgroundView?.backgroundColor = .clear
             selectedBackgroundView?.backgroundColor = .clear
         } else if status == .completed {
@@ -123,7 +120,7 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
         self.statusProgressView.status = status
         
         /// 更新 valueLabel
-        guard isScheduledDate else {
+        guard isScheduledDay else {
             valueLabel.text = nil
             setNeedsLayout()
             return

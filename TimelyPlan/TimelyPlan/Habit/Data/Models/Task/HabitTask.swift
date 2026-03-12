@@ -44,13 +44,8 @@ class HabitTask: NSObject, Sortable {
     private(set) lazy var timePlan: HabitTimePlan = {
         let type = HabitTimePlanType(rawValue: Int(content.timePlanType)) ?? .regularly
         if let jsonString = content.timePlanRuleJSON {
-            if type == .randomly {
-                let randomRule = HabitTimePlanRandomRule.model(with: jsonString)
-                return HabitTimePlan(type: type, regularRule: nil, randomRule: randomRule)
-            } else {
-                let regularRule = HabitTimePlanRegularRule.model(with: jsonString)
-                return HabitTimePlan(type: type, regularRule: regularRule, randomRule: nil)
-            }
+            let regularRule = HabitTimePlanRegularRule.model(with: jsonString)
+            return HabitTimePlan(regularRule: regularRule)
         }
         
         return HabitTimePlan()

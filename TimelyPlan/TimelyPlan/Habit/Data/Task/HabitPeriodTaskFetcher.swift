@@ -9,7 +9,7 @@ import Foundation
 
 class HabitPeriodTaskFetcher {
     
-    private let regularScheduler = HabitTimePlanRegularScheduler()
+    private let scheduler = HabitTimePlanScheduler()
     
     func fetchPeriodTasks(for habitTasks: [HabitTask],
                           in period: HabitDatePeriod,
@@ -39,49 +39,18 @@ class HabitPeriodTaskFetcher {
                                    activeTasks: [HabitTask],
                                    completion: @escaping([HabitPeriodTask]?)->Void) {
         /// 将任务归类
-        var regularTasks: [HabitTask] = [] /// 定期任务
-        var weekRandomTasks: [HabitTask] = []  /// 周随机任务
-        var monthRandomTasks: [HabitTask] = []  /// 月随机任务
+        var scheduledTasks: [HabitTask] = [] /// 定期任务
         for task in activeTasks {
-            /// 判断指定日期是否在习惯的日期范围内
-            guard task.dateRange.contains(date: date) else {
-                continue
-            }
-            
-            let timePlan = task.timePlan
-            if timePlan.type == .regularly {
-                /// 确定是否是计划日
-                if regularScheduler.isScheduledDate(date,
-                                                    withRule: timePlan.regularRule,
-                                                    startDate: task.dateRange.startDate ?? .now) {
-                    regularTasks.append(task)
-                }
-            } else if let rule = timePlan.randomRule, rule.frequency == .monthly {
-                monthRandomTasks.append(task)
-            } else {
-                weekRandomTasks.append(task)
+            let isScheduled = scheduler.isScheduledDate(date,
+                                                        timePlan: task.timePlan,
+                                                        dateRange: task.dateRange)
+            if isScheduled {
+                scheduledTasks.append(task)
             }
         }
-        
-        let group = DispatchGroup()
-        group.enter()
-        /// 定期
-        var regularPeriodTasks: [HabitPeriodTask] = []
+
         let period = HabitDatePeriod(date: date, mode: .day)
-        fetchPeriodTasks(for: regularTasks, in: period) { results in
-            regularPeriodTasks = results
-            group.leave()
-        }
-        
-        /// 周随机
-        var weekRandomPeriodTasks: [HabitPeriodTask] = []
-        
-        /// 月随机
-        var monthRandomPeriodTasks: [HabitPeriodTask] = []
-        
-        group.notify(queue: .main) {
-            /// 合并任务
-            let results = regularPeriodTasks + weekRandomPeriodTasks + monthRandomPeriodTasks
+        fetchPeriodTasks(for: scheduledTasks, in: period) { results in
             completion(results)
         }
     }

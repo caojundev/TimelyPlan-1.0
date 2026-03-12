@@ -53,12 +53,7 @@ extension CDHabitTask: TPHexColorConvertible {
         /// 频率
         let timePlan = editingTask.timePlan
         self.timePlanType = Int16(timePlan.type.rawValue)
-        if timePlan.type == .regularly {
-            self.timePlanRuleJSON = timePlan.regularRule?.jsonString()
-        } else {
-            self.timePlanRuleJSON = timePlan.randomRule?.jsonString()
-        }
-        
+        self.timePlanRuleJSON = timePlan.regularRule?.jsonString()
         /// 时间选项
         self.timeOption = Int16(editingTask.timeOption.rawValue)
         
