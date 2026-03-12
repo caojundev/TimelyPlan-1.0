@@ -84,5 +84,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FE981EF0-1C93-4271-8570-2B060BEBD2AF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TimelyPlan/Habit/Home/Week/HabitDaySheetMenuViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "clickRecord()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FE981EF0-1C93-4271-8570-2B060BEBD2AF - 1a95c46d7d01a799"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TimelyPlan.HabitDaySheetMenuViewController.clickRecord() -&gt; ()"
+                  moduleName = "TimelyPlan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/caojun/Working/TimelyPlan-1.0/TimelyPlan/TimelyPlan/Habit/Home/Week/HabitDaySheetMenuViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  uuid = "FE981EF0-1C93-4271-8570-2B060BEBD2AF - e816c910da40d8ad"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in TimelyPlan.HabitDaySheetMenuViewController.clickRecord() -&gt; ()"
+                  moduleName = "TimelyPlan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/caojun/Working/TimelyPlan-1.0/TimelyPlan/TimelyPlan/Habit/Home/Week/HabitDaySheetMenuViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

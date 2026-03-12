@@ -144,7 +144,8 @@ class HabitHomeWeekViewController: TPViewController,
     }
 }
 
-extension HabitHomeWeekViewController: HabitTaskProcessorDelegate {
+extension HabitHomeWeekViewController: HabitTaskProcessorDelegate,
+                                       HabitRecordProcessorDelegate {
     
     func didCreateHabitTask(_ task: HabitTask) {
         self.groupProvider.setNeedsRefresh()
@@ -177,4 +178,18 @@ extension HabitHomeWeekViewController: HabitTaskProcessorDelegate {
         self.listView.asyncPerformUpdate()
     }
     
+    // MARK: - HabitRecordProcessorDelegate
+    func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
+        self.groupProvider.updateHabitRecord(record, for: task, on: date)
+        if let cell = listView.cell(for: task) as? HabitHomeWeekListCell {
+            cell.updateRecord(on: date, with: change, animated: true)
+        }
+    }
+    
+    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
+        self.groupProvider.deleteHabitRecords(for: task, in: period)
+        if let cell = listView.cell(for: task) as? HabitHomeWeekListCell {
+            cell.updateRecords(in: period, animated: true)
+        }
+    }
 }

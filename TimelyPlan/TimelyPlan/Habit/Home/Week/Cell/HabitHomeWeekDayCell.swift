@@ -119,12 +119,32 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
         setNeedsLayout()
     }
     
+    private func didChangeRecord(withIncreament amount: Int) {
+        guard amount != 0 else { return }
+        let text = (amount >= 0 ? "+" : "") + "\(amount)"
+        let color = task?.habitTask.color.lighterColor ?? .label
+        TPTextPopUp.showText(text,
+                             color: color,
+                             font: SMALL_SYSTEM_FONT,
+                             fromView: valueLabel)
+    }
+    
     /// 加载数据
     func reloadData() {
         self.updateStyleWithColor(taskColor.lighterColor)
         self.updateDateInfo()
         self.updateValue()
         self.updateProgress(animated: false)
+    }
+    
+    /// 记录更新
+    func updateRecord(with change: HabitRecordChange?, animated: Bool = true) {
+        self.updateDateInfo()
+        self.updateValue()
+        self.updateProgress(animated: animated)
+        if animated, case let .amountChanged(oldValue, newValue) = change {
+            self.didChangeRecord(withIncreament: Int(newValue - oldValue))
+        }
     }
     
 }

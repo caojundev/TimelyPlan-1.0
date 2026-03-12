@@ -43,10 +43,7 @@ class HabitHomeWeekDayMenuController: HabitHomeDayMenuController {
             self.didSelectMenuActionType?(type)
         }
         
-        menuVC.didClickRecord = {
-            
-        }
-        
+        menuVC.didClickRecord = didClickRecord
         menuVC.slideShow(from: .bottom, animated: true, completion: nil)
     }
 }

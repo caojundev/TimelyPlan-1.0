@@ -36,7 +36,7 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
         let title = "+\(recordAmount)"
         let action = TPButtonAction(type: .normal,
                                     title: title) { [weak self] action in
-            self?.didClickRecord?()
+            self?.clickRecord()
         }
         
         action.titleColor = resGetColor(.title)
@@ -51,6 +51,12 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
             setupActionsBar(actions: [recordAction, doneAction])
         } else {
             setupActionsBar(actions: [doneAction])
+        }
+    }
+    
+    private func clickRecord() {
+        self.dismiss(animated: true) { [weak self] in
+            self?.didClickRecord?()
         }
     }
 }
