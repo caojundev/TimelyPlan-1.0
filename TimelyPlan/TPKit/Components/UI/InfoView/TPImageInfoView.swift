@@ -45,12 +45,40 @@ class TPImageInfoView: TPInfoView {
     }
 
     override func layoutAccessoryView() {
-        leftAccessorySize = imageContent?.fitSize(with: imageConfig) ?? .zero
-        leftAccessoryMargins = imageContent?.fitMargins(with: imageConfig) ?? .zero
+        let accessorySize = imageContent?.fitSize(with: imageConfig) ?? .zero
+        let accessoryMargins = imageContent?.fitMargins(with: imageConfig) ?? .zero
+        /// 图片为左视图
+        if leftAccessoryView != nil {
+            leftAccessorySize = accessorySize
+            leftAccessoryMargins = accessoryMargins
+        }
+        
+        /// 图片为右视图
+        if rightAccessoryView != nil {
+            rightAccessorySize = accessorySize
+            rightAccessoryMargins = accessoryMargins
+        }
+        
         super.layoutAccessoryView()
         
         imageView.isSelected = isSelected
         imageView.update(content: imageContent, config: imageConfig)
         imageView.updateContentMode()
+    }
+}
+
+
+class TPRightImageInfoView: TPImageInfoView {
+    
+    override func setupSubviews() {
+        super.setupSubviews()
+        
+        self.leftAccessoryView = nil
+        self.leftAccessorySize = .zero
+        self.leftAccessoryMargins = .zero
+        
+        self.rightAccessoryView = imageView
+        self.rightAccessorySize = .mini
+        self.rightAccessoryMargins = .zero
     }
 }

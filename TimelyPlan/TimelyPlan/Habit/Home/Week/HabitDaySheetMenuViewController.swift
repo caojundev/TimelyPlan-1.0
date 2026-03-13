@@ -40,7 +40,8 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
     
     lazy var recordAction: TPButtonAction = {
         let recordAmount = self.task.goal.validatedRecordAmount
-        let title = "+\(recordAmount)"
+        let unit = self.task.goal.validatedUnit
+        let title = "+\(recordAmount) (\(unit))"
         let action = TPButtonAction(type: .normal,
                                     title: title) { [weak self] action in
             self?.clickRecord()

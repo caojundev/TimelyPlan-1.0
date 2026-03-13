@@ -19,4 +19,7 @@ class TPSheetMenuTableCell: TPImageInfoTableCell {
         }
     }
     
+    override func setupInfoView() {
+        self.infoView = TPRightImageInfoView()
+    }
 }
