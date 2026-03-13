@@ -21,6 +21,11 @@ protocol HabitRecordProcessorDelegate: AnyObject{
     func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod)
 }
 
+extension HabitRecordProcessorDelegate {
+    
+    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {}
+}
+
 class HabitRecordProcessorUpdater: NSObject, HabitRecordProcessorDelegate {
 
     func didUpdateHabitRecord(_ record: HabitRecord,
@@ -243,27 +248,6 @@ class HabitRecordProcessor {
                                      for: task,
                                      on: date,
                                      with: change)
-        
-        /// 自动显示 log 弹窗
-        guard task.autoShowLog else {
-            return
-        }
-        
-        var shouldShow: Bool = false
-        switch change {
-        case .amountChanged(_, let newValue):
-            shouldShow = newValue >= task.goal.validatedTargetAmount
-        case .failChanged(_, let newValue):
-            shouldShow = newValue
-        case .skipChanged(_, let newValue):
-            shouldShow = newValue
-        default:
-            break
-        }
-        
-        if shouldShow {
-            print("post通知")
-        }
     }
 }
 
