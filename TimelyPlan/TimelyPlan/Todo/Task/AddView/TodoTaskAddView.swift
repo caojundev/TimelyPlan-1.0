@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TodoTaskAddView: TPFlipContainerView {
+class TodoTaskAddView: TPFlipAnimateContainerView {
     
     /// 添加按钮
     private lazy var addButton: TPDefaultButton = {

@@ -44,7 +44,7 @@ class HabitTaskFilterButton: TPMenuListButton {
         self.isCovered = true
         self.preferredPosition = .topRight
         self.cornerRadius = .greatestFiniteMagnitude
-        self.normalBackgroundColor = .primary
+        self.normalBackgroundColor = Color(0x232323)
         self.titleConfig.font = BOLD_SMALL_SYSTEM_FONT
         self.titleConfig.textColor = Color(0xffffff, 0.8)
         self.imageConfig.margins = .zero

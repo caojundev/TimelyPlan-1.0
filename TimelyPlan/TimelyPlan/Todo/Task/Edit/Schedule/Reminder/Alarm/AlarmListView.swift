@@ -23,7 +23,7 @@ class AlarmListView: TPCollectionWrapperView,
     let itemHeight = 40.0
     
     /// 单元格最小宽度
-    let minimumItemWidth = 60.0
+    let minimumItemWidth = 66.0
     
     /// 点击提醒回调
     var didClickAlarm: ((TaskAlarm) -> Void)?
@@ -211,7 +211,7 @@ class AlarmCollectionViewCell: TPDefaultInfoCollectionCell {
     }
     
     override var focusLineColor: UIColor {
-        return .primary.darkerColor
+        return cellStyle?.focusLineColor ?? .primary
     }
     
     override var cellItem: TPCollectionCellItem? {

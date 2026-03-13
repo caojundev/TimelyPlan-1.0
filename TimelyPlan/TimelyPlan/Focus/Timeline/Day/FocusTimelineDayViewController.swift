@@ -60,8 +60,8 @@ class FocusTimelineDayViewController: TPViewController,
     /// 返回和添加按钮视图
     private let backViewSize = CGSize(width: 40.0, height: 40.0)
     private let backViewMargin = 15.0
-    lazy var backView: FocusTimelineBackTodayView = {
-        let view = FocusTimelineBackTodayView()
+    lazy var backView: TPFlipBackTodayView = {
+        let view = TPFlipBackTodayView()
         view.showTodayButton()
         view.didClickBack = { [weak self] button in
             self?.didClickBack(button)

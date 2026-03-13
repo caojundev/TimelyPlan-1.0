@@ -32,6 +32,8 @@ class TPCollectionCellStyle {
     /// 选中背景色
     var selectedBackgroundColor: UIColor?
     
+    var focusLineColor: UIColor?
+    
     init() {
         backgroundColor = Color(light: 0xFAFBFC, dark: 0x232324)
     }

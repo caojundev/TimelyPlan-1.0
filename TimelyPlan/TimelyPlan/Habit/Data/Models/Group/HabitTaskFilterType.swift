@@ -28,4 +28,19 @@ enum HabitTaskFilterType: Int, TPMenuRepresentable {
             return resGetString("Failed")
         }
     }
+    
+    var iconName: String? {
+        switch self {
+        case .all:
+            return "habit_task_filter_all_24"
+        case .todo:
+            return "habit_task_filter_todo_24"
+        case .completed:
+            return "checkmark_24"
+        case .skipped:
+            return "habit_menu_skip_24"
+        case .failed:
+            return "xmark_24"
+        }
+    }
 }

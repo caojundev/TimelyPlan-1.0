@@ -1,5 +1,5 @@
 //
-//  FocusTimelineBackTodayView.swift
+//  TPFlipBackTodayView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/2/26.
@@ -8,12 +8,13 @@
 import Foundation
 import UIKit
 
-class FocusTimelineBackTodayView: TPFlipAnimateContainerView {
+class TPFlipBackTodayView: TPFlipAnimateContainerView {
     
     private let shadowRadius: CGFloat = 8.0
 
     lazy var todayButton: TPDefaultButton = {
         let button = TPDefaultButton()
+        button.isUserInteractionEnabled = false
         button.cornerRadius = .greatestFiniteMagnitude
         return button
     }()
@@ -75,6 +76,7 @@ class FocusTimelineBackTodayView: TPFlipAnimateContainerView {
     }
     
     func showTodayButton() {
+        self.isUserInteractionEnabled = false
         setActiveView(todayButton, animated: true)
     }
 
@@ -92,10 +94,12 @@ class FocusTimelineBackTodayView: TPFlipAnimateContainerView {
     }
     
     func showRightBackButton() {
+        self.isUserInteractionEnabled = true
         setActiveView(rightBackButton, animated: true)
     }
     
     func showLeftBackButton() {
+        self.isUserInteractionEnabled = true
         setActiveView(leftBackButton, animated: true)
     }
 }

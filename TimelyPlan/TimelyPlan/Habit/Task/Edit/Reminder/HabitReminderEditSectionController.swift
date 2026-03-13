@@ -95,7 +95,9 @@ class HabitReminderEditSectionController: TPTableItemSectionController,
         cellItem.selection = selection
         cellItem.editingEnabled = true /// 可编辑
         cellItem.isSubtitleHidden = true /// 隐藏副标题
+        cellItem.titleConfig.textColor = Color(0xFFFFFF, 0.8)
         cellItem.cellStyle.backgroundColor = .primary
+        cellItem.cellStyle.focusLineColor = .primary.withBrightness(0.2)
         return cellItem
     }()
     
@@ -108,8 +110,8 @@ class HabitReminderEditSectionController: TPTableItemSectionController,
         cellItem.buttonFixedImageSize = .size(5)
         cellItem.buttonImageColor = .secondaryLabel
         cellItem.buttonNormalTitleColor = .secondaryLabel
-        cellItem.buttonNormalBackgroundColor = Color(0xcccccc, 0.1)
-        cellItem.buttonSelectedBackgroundColor = Color(0xcccccc, 0.2)
+        cellItem.buttonNormalBackgroundColor = Color(0xdddddd, 0.1)
+        cellItem.buttonSelectedBackgroundColor = Color(0xdddddd, 0.2)
         cellItem.updater = {
             guard let self = self else {
                 return

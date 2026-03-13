@@ -13,8 +13,8 @@ class HabitManageActiveListViewController: HabitManageBaseListViewController {
     /// 添加按钮
     private let addViewSize = CGSize(width: 40.0, height: 40.0)
     private let addViewMargin = 15.0
-    private lazy var addView: HabitTaskAddView = {
-        let view = HabitTaskAddView()
+    private lazy var addView: TPAddView = {
+        let view = TPAddView()
         view.didClickAdd = { [weak self] button in
             self?.didClickAdd(button)
         }

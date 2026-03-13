@@ -35,7 +35,6 @@ class AlarmListTableCellItem: TPBaseTableCellItem {
         registerClass = AlarmListTableViewCell.self
         titleConfig.textAlignment = .center
         titleConfig.font = .boldSystemFont(ofSize: 14.0)
-        titleConfig.textColor = Color(0xFFFFFF, 0.8)
         subtitleConfig.textAlignment = .center
         cellStyle.cornerRadius = 8.0
         cellStyle.backgroundColor = .tertiarySystemGroupedBackground

@@ -40,18 +40,26 @@ class HabitHomeDayViewController: TPContainerViewController,
     }()
             
     private let edgeMargins = UIEdgeInsets(value: 15.0)
+    private let backViewSize = CGSize(width: 40.0, height: 40.0)
+    private let backViewMargin = 15.0
     
-    /// 返回和添加按钮视图
-    private let addViewSize = CGSize(width: 40.0, height: 40.0)
-    lazy var addView: HabitHomeDayAddView = {
-        let view = HabitHomeDayAddView()
-        view.showAddButton()
-        view.didClickAdd = { [weak self] button in
-            self?.didClickAdd(button)
-        }
-        
+    /// 返回按钮
+    lazy var backView: TPFlipBackTodayView = {
+        let view = TPFlipBackTodayView()
+        view.showTodayButton()
         view.didClickBack = { [weak self] button in
             self?.didClickBack(button)
+        }
+        
+        return view
+    }()
+    
+    /// 添加按钮
+    private let addViewSize = CGSize(width: 40.0, height: 40.0)
+    lazy var addView: TPAddView = {
+        let view = TPAddView()
+        view.didClickAdd = { [weak self] button in
+            self?.didClickAdd(button)
         }
         
         return view
@@ -91,6 +99,7 @@ class HabitHomeDayViewController: TPContainerViewController,
         view.addSubview(weekView)
         view.addSubview(listView)
         view.addSubview(filterButton)
+        view.addSubview(backView)
         view.addSubview(addView)
         reloadData()
         habit.addUpdater(self, for: .all)
@@ -109,10 +118,14 @@ class HabitHomeDayViewController: TPContainerViewController,
                                           radius: 8.0)
         filterButton.left = edgeMargins.left
         filterButton.bottom = layoutFrame.maxY - edgeMargins.bottom
-        
+    
         addView.size = addViewSize
         addView.right = layoutFrame.maxX - edgeMargins.right
-        addView.bottom = layoutFrame.maxY - edgeMargins.bottom
+        addView.bottom =  layoutFrame.maxY - edgeMargins.bottom
+    
+        backView.size = backViewSize
+        backView.bottom = addView.bottom
+        backView.right = addView.left - backViewMargin
         
         listView.width = layoutFrame.width
         listView.height = layoutFrame.height - weekViewHeight
@@ -153,12 +166,12 @@ class HabitHomeDayViewController: TPContainerViewController,
     
     func updateAddView() {
         if date.isToday {
-            addView.showAddButton()
+            backView.showTodayButton()
         }else{
             if date.compare(.now) == .orderedAscending {
-                addView.showLeftBackButton()
+                backView.showLeftBackButton()
             } else {
-                addView.showRightBackButton()
+                backView.showRightBackButton()
             }
         }
     }
