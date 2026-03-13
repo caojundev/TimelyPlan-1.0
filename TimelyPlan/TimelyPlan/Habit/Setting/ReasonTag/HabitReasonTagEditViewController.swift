@@ -37,13 +37,7 @@ class HabitReasonTagEditViewController: TPTableViewController,
     }()
     
     override init(style: UITableView.Style) {
-        let reasonTags = HabitSetting.shared.reasonTags.toReasonTags()
-        if reasonTags.count > 0 {
-            self.reasonTags = reasonTags
-        } else {
-            self.reasonTags = ReasonTag.defaultTags()
-        }
-        
+        self.reasonTags = HabitReasonTagManager.getReasonTags()
         super.init(style: style)
     }
     
@@ -169,13 +163,13 @@ class HabitReasonTagEditViewController: TPTableViewController,
     
     // MARK: - 标签操作
     func addReasonTag() {
-        editReasonTag(type: .create, emoji: nil, reason: nil) { newEmoji, newReason in
+        HabitReasonTagManager.editTag(type: .create, emoji: nil, reason: nil) { newEmoji, newReason in
             self.didCreateNewTag(emoji: String(newEmoji), reason: newReason)
         }
     }
     
     func editTag(_ tag: ReasonTag) {
-        editReasonTag(type: .modify, emoji: tag.emoji, reason: tag.reason) { newEmoji, newReason in
+        HabitReasonTagManager.editTag(type: .modify, emoji: tag.emoji, reason: tag.reason) { newEmoji, newReason in
             if tag.emoji == newEmoji, tag.reason == newReason {
                 return
             }
@@ -194,8 +188,7 @@ class HabitReasonTagEditViewController: TPTableViewController,
     }
 
     func saveReasonTags() {
-        /// 保存数据到设置
-        HabitSetting.shared.reasonTags = reasonTags.toStrings()
+        HabitReasonTagManager.saveReasonTags(reasonTags)
     }
     
     /// 点击新标签按钮
@@ -220,30 +213,7 @@ class HabitReasonTagEditViewController: TPTableViewController,
         
         saveReasonTags()
     }
-    
-    private func editReasonTag(type: EditType,
-                               emoji: String?,
-                               reason: String?,
-                               completion: @escaping(String, String) -> Void) {
-        let alertController = TPEmojiTitleEditAlertController()
-        alertController.selectAllAtBeginning = false
-        alertController.completeAfterReturn = false
-        alertController.editEmoji = emoji
-        alertController.editTitle = reason
-        if type == .create {
-            alertController.alertTitle = resGetString("New Tag")
-        } else {
-            alertController.alertTitle = resGetString("Edit Tag")
-        }
 
-        alertController.placeholder = resGetString("Enter Reason")
-        alertController.didEndEditingEmojiTitle = { emoji, title in
-            completion(String(emoji), title)
-        }
-
-        alertController.show()
-    }
-    
     // MARK: - TPTableDragInsertReorderDelegate
     func tableDragReorder(_ reorder: TPTableDragReorder, canMoveRowAt indexPath: IndexPath) -> Bool {
         return isEditingEnabled
@@ -268,5 +238,35 @@ class HabitReasonTagEditViewController: TPTableViewController,
         saveReasonTags()
         adapter.moveRow(at: sourceIndexPath, to: targetIndexPath)
         return targetIndexPath
+    }
+}
+
+class HabitReasonTagTableCell: TPDefaultInfoTableCell {
+    
+    var reasonTag: ReasonTag? {
+        didSet {
+            emojiLabel.text = reasonTag?.emoji
+            title = reasonTag?.reason
+        }
+    }
+    
+    private lazy var emojiLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 30.0)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    override func setupContentSubviews() {
+        super.setupContentSubviews()
+        self.leftView = emojiLabel
+        self.leftViewSize = .size(12)
+        self.leftViewMargins = UIEdgeInsets(right: 12.0)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.emojiLabel.layer.backgroundColor = UIColor.tertiarySystemGroupedBackground.cgColor
+        self.emojiLabel.layer.cornerRadius = self.leftViewSize.halfHeight
     }
 }

@@ -14,11 +14,11 @@ class TPEmojiTitleEditAlertController: TPTextFieldAlertController {
     
     var editTitle: String?
     
-    let emojiSize = CGSize.size(12)
+    let emojiSize = CGSize.size(10)
     
     lazy var emojiView: TPEmojiEditView = {
         let view = TPEmojiEditView()
-        view.font = .boldSystemFont(ofSize: 42.0)
+        view.font = .boldSystemFont(ofSize: 24.0)
         view.emojiDidChange = { [weak self] emoji in
             self?.textField.becomeFirstResponder()
         }
@@ -36,15 +36,12 @@ class TPEmojiTitleEditAlertController: TPTextFieldAlertController {
         self.wrapperView.padding = UIEdgeInsets(left: 65.0, right: 16.0)
         self.wrapperView.addSubview(emojiView)
         self.reloadData()
-        self.actionsView.itemHeight = 52.0
-        self.cancelAlertAction.style.cornerRadius = .greatestFiniteMagnitude
-        self.doneAlertAction.style.cornerRadius = .greatestFiniteMagnitude
+        self.actionsView.itemHeight = 50.0
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        wrapperView.layer.cornerRadius = self.additionalSize.halfHeight
-        
+        wrapperView.layer.cornerRadius = 8.0
         let emojiMargin = (wrapperView.height - emojiSize.height) / 2.0
         emojiView.size = emojiSize
         emojiView.left = emojiMargin
