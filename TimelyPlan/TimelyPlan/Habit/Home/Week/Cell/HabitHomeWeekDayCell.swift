@@ -26,7 +26,7 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
     private lazy var notScheduledImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = resGetImage("habit_week_day_notscheduled_42")
-        imageView.alpha = 0.5
+        imageView.alpha = 0.0
         return imageView
     }()
 
@@ -42,7 +42,6 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
     
     private func setupSubviews() {
         insertSubview(notScheduledImageView, belowSubview: statusProgressView)
-        notScheduledImageView.isHidden = true
         symbolLabel.textColor = Color(0xf1f1f1)
         symbolLabel.alpha = 0.6
         valueLabel.alpha = 0.8
@@ -55,9 +54,18 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
     }
     
     /// 更新是否是计划日
-    private func updateScheduleStatus() {
-        self.notScheduledImageView.isHidden = isScheduledDay
-        self.statusProgressView.isHidden = !isScheduledDay
+    private func updateScheduleStatus(animated: Bool = false) {
+        let isScheduled = self.isScheduledDay
+        let executeBlock = {
+            self.notScheduledImageView.alpha = isScheduled ? 0.0 : 0.6
+            self.statusProgressView.alpha = isScheduled ? 1.0 : 0.0
+        }
+        
+        if animated {
+            UIView.animate(withDuration: 0.25, animations: executeBlock)
+        } else {
+            executeBlock()
+        }
     }
     
     /// 更新日期信息
@@ -79,7 +87,6 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
 
         let status = task.status(on: date)
         let color = taskColor.lighterColor
-        
         
         /// 背景色
         if !isScheduledDay {
@@ -110,14 +117,14 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
         self.progressView.setProgress(progress, animated: animated)
     }
     
-    private func updateValueStatus() {
+    private func updateValueStatus(animated: Bool = false) {
         guard let task = task, let date = date else {
             return
         }
 
         let status = task.status(on: date)
         /// 更新 status
-        self.statusProgressView.status = status
+        self.statusProgressView.setStatus(status, animated: true)
         
         /// 更新 valueLabel
         guard isScheduledDay else {
@@ -171,10 +178,10 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
     
     /// 记录更新
     func updateRecord(with change: HabitRecordChange?, animated: Bool = true) {
-        self.updateScheduleStatus()
+        self.updateScheduleStatus(animated: animated)
         self.updateStyle()
         self.updateDateInfo()
-        self.updateValueStatus()
+        self.updateValueStatus(animated: animated)
         self.updateProgress(animated: animated)
         if animated, case let .amountChanged(oldValue, newValue) = change {
             self.didChangeRecord(withIncreament: Int(newValue - oldValue))

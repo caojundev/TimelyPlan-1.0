@@ -31,11 +31,7 @@ class HabitTaskStatusProgressView: UIView {
         }
     }
     
-    var status: HabitTaskStatus = .notStarted {
-        didSet {
-            updateStatus()
-        }
-    }
+    private(set) var status: HabitTaskStatus = .notStarted
     
     /// emoji 标签
     var emojiLabel: UILabel!
@@ -117,8 +113,23 @@ class HabitTaskStatusProgressView: UIView {
     
     // MARK: - Status Updates
     
+    func setStatus(_ status: HabitTaskStatus, animated: Bool = false) {
+        guard self.status != status else {
+            return
+        }
+        
+        self.status = status
+        if animated {
+            UIView.animate(withDuration: 0.4) {
+                self.updateStatus()
+            }
+        } else {
+            self.updateStatus()
+        }
+    }
+    
     /// 更新状态显示
-    func updateStatus() {
+    private func updateStatus() {
         updateEmojiLabelVisibility()
         updateStatusImageViewVisibility()
         updateProgressViewVisibility()
@@ -128,15 +139,21 @@ class HabitTaskStatusProgressView: UIView {
     }
     
     /// 更新 Emoji 标签可见性
+    private var shouldShowEmoji: Bool {
+        return status == .skipped(nil) || status == .failed(nil)
+    }
+    
     private func updateEmojiLabelVisibility() {
-        let shouldShowEmojiLabel = (status == .skipped(nil) || status == .failed(nil))
-        emojiLabel.isHidden = !shouldShowEmojiLabel
+        emojiLabel.alpha = shouldShowEmoji ? 1.0 : 0.0
     }
     
     /// 更新状态图片视图可见性
+    var showStatusImage: Bool {
+        return status == .completed
+    }
+    
     private func updateStatusImageViewVisibility() {
-        let shouldShowStatusImage = (status == .completed)
-        statusImageView.isHidden = !shouldShowStatusImage
+        statusImageView.alpha = showStatusImage ? 1.0 : 0.0
     }
     
     /// 更新进度视图可见性
@@ -144,13 +161,13 @@ class HabitTaskStatusProgressView: UIView {
         let shouldHideProgress = (status == .notStarted || 
                                   status == .failed(nil) || 
                                   status == .skipped(nil))
-        progressView.isHidden = shouldHideProgress
+        progressView.alpha = shouldHideProgress ? 0.0 : 1.0
     }
     
     /// 更新信息标签可见性
     private func updateInfoLabelVisibility() {
-        let shouldShowInfoLabel = statusImageView.isHidden && emojiLabel.isHidden
-        infoLabel.isHidden = !shouldShowInfoLabel
+        let shouldShowInfoLabel =  !showStatusImage && !shouldShowEmoji
+        infoLabel.alpha = shouldShowInfoLabel ? 1.0 : 0.0
     }
     
     /// 更新状态图片

@@ -34,6 +34,7 @@ class HabitHomeWeekDayMenuController: HabitHomeDayMenuController {
         
         let menuVC = HabitDaySheetMenuViewController(task: self.task,
                                                      date: self.date,
+                                                     status: self.status,
                                                      menuItems: menuItems)
         menuVC.didSelectMenuAction = { action in
             guard let type = HabitTaskMenuActionType(rawValue: action.identifier) else {

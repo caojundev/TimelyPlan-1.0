@@ -16,12 +16,19 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
     /// 日期
     let date: Date
     
+    /// 任务状态
+    let status: HabitTaskStatus
+        
     /// 点击记录
     var didClickRecord: (() -> Void)?
     
-    init(task: HabitTask, date: Date, menuItems: [TPMenuItem]) {
+    init(task: HabitTask,
+         date: Date,
+         status: HabitTaskStatus,
+         menuItems: [TPMenuItem]) {
         self.task = task
         self.date = date
+        self.status = status
         super.init(menuItems: menuItems)
         self.title = date.yearMonthDayWeekdaySymbolString()
         actionsBar?.padding = UIEdgeInsets(horizontal: 20.0, vertical: 10.0)
@@ -47,11 +54,19 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if task.goal.mode == .amount, task.goal.recordType == .automatically {
-            setupActionsBar(actions: [recordAction, doneAction])
+    
+        let actions: [TPButtonAction]
+        if status == .notStarted || status == .inProgress {
+            if task.goal.mode == .amount, task.goal.recordType == .automatically {
+                actions = [recordAction, doneAction]
+            } else {
+                actions = [doneAction]
+            }
         } else {
-            setupActionsBar(actions: [doneAction])
+            actions = [doneAction]
         }
+        
+        setupActionsBar(actions: actions)
     }
     
     private func clickRecord() {
