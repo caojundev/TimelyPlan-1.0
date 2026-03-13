@@ -52,7 +52,7 @@ class HabitRecordTypeEditCell: TPDefaultInfoTableCell {
         button.titleConfig.textAlignment = .center
         button.titleConfig.font = BOLD_SYSTEM_FONT
         button.image = resGetImage("chevron_down_24")
-        button.normalBackgroundColor = .secondarySystemFill
+        button.normalBackgroundColor = .tertiarySystemGroupedBackground
         button.selectedBackgroundColor = .tertiarySystemFill
         button.addTarget(self,
                          action: #selector(clickButton(_:)),

@@ -27,18 +27,24 @@ class HabitRecordResultPopupController: HabitRecordProcessorDelegate {
             return
         }
         
-        let infoView = HabitRecordResultInfoView()
+        let infoView = HabitRecordResultInfoView(task: task, record: record, date: date)
+        infoView.didClickLog = { [weak self] in
+            guard let self = self else { return }
+            self.showLog(for: task, with: record, on: date)
+        }
+        
         TPCustomPopupQueue.common.showCustomView(infoView,
                                                  onView: nil,
                                                  position: .bottom,
-                                                 duration: 2.0)
+                                                 duration: 4.0)
+    }
+    
+    private func showLog(for task: HabitTask, with record: HabitRecord, on date: Date) {
+        let vc = HabitRecordLogEditViewController(logInfo: record.logInfo, date: date)
+        vc.didEndEditing = { logInfo in
+            habit.addLog(logInfo, for: task, on: date)
+        }
         
-//        let vc = HabitRecordLogEditViewController(logInfo: record.logInfo, date: date)
-//        vc.didEndEditing = { logInfo in
-//            habit.addLog(logInfo, for: task, on: date)
-//        }
-//
-//        self.logViewController = vc
-//        vc.showAsNavigationRoot()
+        vc.showAsNavigationRoot()
     }
 }

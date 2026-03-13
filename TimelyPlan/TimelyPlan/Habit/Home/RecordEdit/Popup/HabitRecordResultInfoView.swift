@@ -11,6 +11,12 @@ class HabitRecordResultInfoView: UIView, TPCustomPopupContent {
     
     var didClickLog: (() -> Void)?
     
+    let task: HabitTask
+    
+    let record: HabitRecord
+    
+    let date: Date
+    
     private var infoView = TPImageInfoView()
     
     private lazy var logButton: TPDefaultButton = {
@@ -22,27 +28,28 @@ class HabitRecordResultInfoView: UIView, TPCustomPopupContent {
         button.addTarget(self, action: #selector(clickLog(_:)), for: .touchUpInside)
         return button
     }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+
+    init(task: HabitTask, record: HabitRecord, date: Date) {
+        self.task = task
+        self.record = record
+        self.date = date
+        super.init(frame: .zero)
         setupSubviews()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupSubviews() {
         self.backgroundColor = .secondarySystemBackground
         self.padding = UIEdgeInsets(left: 16.0, right: 16.0)
         infoView.imageConfig.shouldRenderImageWithColor = false
+        infoView.titleConfig.font = .boldSystemFont(ofSize: 16.0)
+        infoView.subtitleConfig.font = .systemFont(ofSize: 13.0)
         addSubview(infoView)
         addSubview(logButton)
-        
-        infoView.imageContent = .withName("habit_status_completed_24")
-        infoView.title = "习惯标题"
-        infoView.subtitle = "已完成 已跳过 已失败"
+        updateInfoView()
     }
     
     override func layoutSubviews() {
@@ -55,6 +62,32 @@ class HabitRecordResultInfoView: UIView, TPCustomPopupContent {
         infoView.width = logButton.left - layoutFrame.minX
         infoView.height = layoutFrame.height
         infoView.origin = layoutFrame.origin
+    }
+    
+    private func updateInfoView() {
+        /// 更新信息视图
+        infoView.title = task.name
+        
+        var imageName: String?
+        var subtitle: String?
+        let status = task.status(with: record)
+        switch status {
+        case .notStarted, .inProgress:
+            imageName = nil
+            subtitle = nil
+        case .completed:
+            imageName = "habit_status_completed_24"
+            subtitle = resGetString("Completed")
+        case .skipped(_):
+            imageName = "habit_status_skipped_24"
+            subtitle = resGetString("Skipped")
+        case .failed(_):
+            imageName = "habit_status_failed_24"
+            subtitle = resGetString("Failed")
+        }
+        
+        infoView.imageContent = .withName(imageName)
+        infoView.subtitle = subtitle
     }
     
     @objc func clickLog(_ button: UIButton) {

@@ -91,7 +91,6 @@ class TPCustomPopupQueue: NSObject {
             popupView.bottom = parentView.safeAreaFrame().maxY - edgeMargins.bottom
         }
         
-        popupView.backgroundColor = .random
         popupView.alignHorizontalCenter()
         
         popupView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
@@ -158,6 +157,7 @@ class TPCustomPopupContainerView: UIView {
         self.popup = popup
         super.init(frame: .zero)
         self.addSubview(customView)
+        self.backgroundColor = .clear
         self.isUserInteractionEnabled = true
         customView.clipsToBounds = true
         customView.layer.cornerRadius = customView.cornerRadius
@@ -196,7 +196,7 @@ protocol TPCustomPopupContent {
 extension TPCustomPopupContent {
     
     var cornerRadius: CGFloat {
-        return 12.0
+        return 16.0
     }
     
     var preferredHeight: CGFloat {
