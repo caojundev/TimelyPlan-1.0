@@ -44,7 +44,7 @@
 		E506B5C72F638B2E008B3321 /* habit_task_filter_all_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E506B5C32F638B2D008B3321 /* habit_task_filter_all_24@2x.png */; };
 		E506B5CA2F639FA2008B3321 /* HabitReasonTagSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E506B5C92F639FA2008B3321 /* HabitReasonTagSelectViewController.swift */; };
 		E506B5CC2F63B15E008B3321 /* HabitReasonTagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E506B5CB2F63B15D008B3321 /* HabitReasonTagManager.swift */; };
-		E506B5CF2F63C16D008B3321 /* HabitLogPopupAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E506B5CE2F63C16D008B3321 /* HabitLogPopupAgent.swift */; };
+		E506B5CF2F63C16D008B3321 /* HabitRecordResultPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E506B5CE2F63C16D008B3321 /* HabitRecordResultPopupController.swift */; };
 		E507E7922F528121003004C4 /* HabitMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7912F528121003004C4 /* HabitMoreBarButtonItem.swift */; };
 		E507E7942F528ED8003004C4 /* TPBaseMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7932F528ED8003004C4 /* TPBaseMoreBarButtonItem.swift */; };
 		E507E7972F529303003004C4 /* HabitPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7962F529303003004C4 /* HabitPresenter.swift */; };
@@ -62,6 +62,8 @@
 		E507E7B92F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E507E7B82F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m */; };
 		E507E7BB2F532DB2003004C4 /* HabitSystemUnitSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7BA2F532DB2003004C4 /* HabitSystemUnitSectionController.swift */; };
 		E507E7BD2F532E21003004C4 /* HabitUserUnitSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */; };
+		E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */; };
+		E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */; };
 		E50BB6762D57043000D316FD /* TPSeparatorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB6752D57043000D316FD /* TPSeparatorTableCell.swift */; };
 		E50BB6782D5706FE00D316FD /* TPSeparatorSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB6772D5706FE00D316FD /* TPSeparatorSectionController.swift */; };
 		E50BB67C2D5751B600D316FD /* TPImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */; };
@@ -1555,7 +1557,7 @@
 		E506B5C32F638B2D008B3321 /* habit_task_filter_all_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_task_filter_all_24@2x.png"; sourceTree = "<group>"; };
 		E506B5C92F639FA2008B3321 /* HabitReasonTagSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReasonTagSelectViewController.swift; sourceTree = "<group>"; };
 		E506B5CB2F63B15D008B3321 /* HabitReasonTagManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitReasonTagManager.swift; sourceTree = "<group>"; };
-		E506B5CE2F63C16D008B3321 /* HabitLogPopupAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitLogPopupAgent.swift; sourceTree = "<group>"; };
+		E506B5CE2F63C16D008B3321 /* HabitRecordResultPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultPopupController.swift; sourceTree = "<group>"; };
 		E507E7912F528121003004C4 /* HabitMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitMoreBarButtonItem.swift; sourceTree = "<group>"; };
 		E507E7932F528ED8003004C4 /* TPBaseMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPBaseMoreBarButtonItem.swift; sourceTree = "<group>"; };
 		E507E7962F529303003004C4 /* HabitPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPresenter.swift; sourceTree = "<group>"; };
@@ -1574,6 +1576,8 @@
 		E507E7B82F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewLeftAlignedLayout.m; sourceTree = "<group>"; };
 		E507E7BA2F532DB2003004C4 /* HabitSystemUnitSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSystemUnitSectionController.swift; sourceTree = "<group>"; };
 		E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitUserUnitSectionController.swift; sourceTree = "<group>"; };
+		E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCustomPopup.swift; sourceTree = "<group>"; };
+		E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultInfoView.swift; sourceTree = "<group>"; };
 		E50BB6752D57043000D316FD /* TPSeparatorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSeparatorTableCell.swift; sourceTree = "<group>"; };
 		E50BB6772D5706FE00D316FD /* TPSeparatorSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSeparatorSectionController.swift; sourceTree = "<group>"; };
 		E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoView.swift; sourceTree = "<group>"; };
@@ -3243,6 +3247,15 @@
 			path = UICollectionViewLeftAlignedLayout;
 			sourceTree = "<group>";
 		};
+		E509B50F2F6431D90045F11E /* Popup */ = {
+			isa = PBXGroup;
+			children = (
+				E506B5CE2F63C16D008B3321 /* HabitRecordResultPopupController.swift */,
+				E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */,
+			);
+			path = Popup;
+			sourceTree = "<group>";
+		};
 		E50BB6792D57178F00D316FD /* Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -4176,7 +4189,7 @@
 			children = (
 				E556BCF72F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift */,
 				E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */,
-				E506B5CE2F63C16D008B3321 /* HabitLogPopupAgent.swift */,
+				E509B50F2F6431D90045F11E /* Popup */,
 			);
 			path = RecordEdit;
 			sourceTree = "<group>";
@@ -5524,6 +5537,7 @@
 			isa = PBXGroup;
 			children = (
 				E5FBD0F02DA9135200924EED /* SettingAgent.swift */,
+				E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */,
 				E5BB9BBF2D3BF0C40089667A /* TPFeedbackQueue.swift */,
 				E5BB9BC02D3BF0C40089667A /* TPMidnightScheduler.swift */,
 				E5BB9BC12D3BF0C40089667A /* TPImpactFeedback.swift */,
@@ -9065,7 +9079,8 @@
 				E5BB9DB92D3BF0C60089667A /* UIColor+Theme.swift in Sources */,
 				E5D0C2152D5F96DA00D29C22 /* TodoTaskPageSelectCell.swift in Sources */,
 				E54D69B22D9D6F5E009B38B8 /* TodoFilterSpecificDateRangeSectionController.swift in Sources */,
-				E506B5CF2F63C16D008B3321 /* HabitLogPopupAgent.swift in Sources */,
+				E506B5CF2F63C16D008B3321 /* HabitRecordResultPopupController.swift in Sources */,
+				E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */,
 				E5D7D8C82D43933600EC877A /* FocusEndDataItem.swift in Sources */,
 				E5D7D90B2D43933600EC877A /* FocusStatsDataItem+SectionController.swift in Sources */,
 				E5BB9DB82D3BF0C60089667A /* ThemeKey+Config.swift in Sources */,
@@ -9394,6 +9409,7 @@
 				E552FBB22DBD20A40072703F /* CalendarStripMoreTextLayer.swift in Sources */,
 				E5BB9DD22D3BF0C60089667A /* CGFloat+Extensions.swift in Sources */,
 				E5BB9DD82D3BF0C60089667A /* UIBezierPath+Extensions.swift in Sources */,
+				E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */,
 				E53735F82D9CE16200C5A001 /* TodoFilterProgressTypeSectionController.swift in Sources */,
 				E5BB9E7D2D3BF0C70089667A /* StatsBarChartCell.swift in Sources */,
 				E54155652F49A415000B2972 /* FocusRecordListBasicCellLayout.swift in Sources */,

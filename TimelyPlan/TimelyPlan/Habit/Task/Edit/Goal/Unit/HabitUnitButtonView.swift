@@ -26,7 +26,7 @@ class HabitUnitButtonView: UIView {
     private lazy var button: TPDefaultButton = {
         let button = TPDefaultButton()
         button.padding = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 5)
-        button.cornerRadius = .greatestFiniteMagnitude
+        button.cornerRadius = kTaskEditInputFieldCornerRadius
         button.preferredTappedScale = 0.9
         button.imagePosition = .right
         button.imageConfig.shouldRenderImageWithColor = true
@@ -83,7 +83,7 @@ class HabitUnitButtonView: UIView {
 
         let navController = UINavigationController(rootViewController: vc)
         navController.popoverShow(from: button,
-                                  sourceRect: button.bounds,
+                                  sourceRect: button.bounds.insetBy(dx: -4.0, dy: -4.0),
                                   isSourceViewCovered: true,
                                   preferredPosition: .bottomLeft,
                                   permittedPositions: [.bottomLeft, .topLeft],

@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import UIKit
 
 class HabitGoalSectionController: TPTableItemSectionController {
     
     var goal: HabitGoal = HabitGoal()
     
     var goalDidChange: ((HabitGoal) -> Void)?
+    
+    private let contentPadding = UIEdgeInsets(left: 16.0, right: 8.0)
     
     /// 目标模式
     lazy var targetModeCellItem: TPFullSizeSegmentedMenuTableCellItem = { [weak self] in
@@ -41,6 +44,8 @@ class HabitGoalSectionController: TPTableItemSectionController {
     /// 目标数值
     lazy var targetAmountCellItem: HabitGoalTargetEditCellItem = { [weak self] in
         let cellItem = HabitGoalTargetEditCellItem()
+        cellItem.contentPadding = contentPadding
+        cellItem.fieldCornerRadius = kTaskEditInputFieldCornerRadius
         cellItem.title = resGetString("Daily Target")
         cellItem.updater = {
             guard let self = self else {
@@ -65,6 +70,7 @@ class HabitGoalSectionController: TPTableItemSectionController {
     /// 记录方式
     lazy var recordTypeCellItem: HabitRecordTypeEditCellItem = { [weak self] in
         let cellItem = HabitRecordTypeEditCellItem()
+        cellItem.contentPadding = contentPadding
         cellItem.height = 66.0
         cellItem.title = resGetString("Record Type")
         cellItem.updater = {
@@ -82,6 +88,8 @@ class HabitGoalSectionController: TPTableItemSectionController {
     /// 自动记录
     lazy var autoRecordNumberCellItem: TPNumberFieldTableCellItem = { [weak self] in
         let cellItem = TPNumberFieldTableCellItem()
+        cellItem.contentPadding = contentPadding
+        cellItem.fieldCornerRadius = kTaskEditInputFieldCornerRadius
         cellItem.title = resGetString("Record Value")
         cellItem.updater = {
             guard let self = self else { return }

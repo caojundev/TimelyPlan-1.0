@@ -58,7 +58,7 @@ class HabitReasonTagSelectViewController: TPCollectionViewController,
         self.adapter.delegate = self
         self.adapter.cellStyle.cornerRadius = 8.0
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        self.adapter.cellStyle.selectedBackgroundColor = Color(0xccccc, 0.1)
+        self.adapter.cellStyle.selectedBackgroundColor = Color(0xcccccc, 0.1)
         self.adapter.reloadData()
     }
     

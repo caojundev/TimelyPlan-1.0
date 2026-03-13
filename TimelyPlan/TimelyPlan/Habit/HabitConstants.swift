@@ -28,3 +28,6 @@ let kHabitRecordDefaultAmount: Int64 = 1
 
 /// 习惯内容最大宽度
 let kHabitTaskListContentMaxWidth = 560.0
+
+/// 任务编辑输入框圆角
+let kTaskEditInputFieldCornerRadius = 8.0

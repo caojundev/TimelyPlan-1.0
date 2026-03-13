@@ -38,9 +38,6 @@ struct HabitEditingTask: Equatable {
     /// 习惯提醒
     var reminder: HabitReminder?
     
-    /// 自动显示日志弹窗
-    var autoShowLog: Bool = false
-    
     /// 备注
     var note: String?
     

@@ -50,7 +50,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
         return item
     }()
     
-    private let logPopupController = HabitLogPopupController()
+    private let recordResultPopupController = HabitRecordResultPopupController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +62,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
         navigationItem.titleView = typeMenuView
         navigationItem.rightBarButtonItems = [moreBarButtonItem]
         updateContentViewController()
-        habit.addUpdater(logPopupController, for: [.record])
+        habit.addUpdater(recordResultPopupController, for: [.record])
     }
     
     override func viewWillLayoutSubviews() {

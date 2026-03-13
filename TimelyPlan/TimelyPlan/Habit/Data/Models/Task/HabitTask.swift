@@ -34,9 +34,6 @@ class HabitTask: NSObject, Sortable {
     /// 是否提醒
     var shouldRemind: Bool = false
 
-    /// 自动显示日志弹窗
-    var autoShowLog: Bool = false
-    
     /// 备注
     var note: String?
 
@@ -124,7 +121,6 @@ class HabitTask: NSObject, Sortable {
         self.dateRange = DateRange(startDate: content.startDate ?? .now, endDate: content.endDate)
         self.timeOption = HabitTimeOption(rawValue: Int(content.timeOption)) ?? .anytime
         self.shouldRemind = content.shouldRemind
-        self.autoShowLog = content.autoShowLog
         self.note = content.note
         self.modificationDate = content.modificationDate
         
@@ -213,7 +209,6 @@ extension HabitTask {
         task.timeOption = timeOption
         task.shouldRemind = shouldRemind
         task.reminder = reminder?.copy() as? HabitReminder
-        task.autoShowLog = autoShowLog
         task.note = note
         return task
     }

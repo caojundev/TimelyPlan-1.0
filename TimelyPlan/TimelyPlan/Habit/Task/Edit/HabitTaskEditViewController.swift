@@ -159,31 +159,6 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    /// 自动显示日志弹窗
-    lazy var autoShowLogCellItem: TPSwitchTableCellItem = { [weak self] in
-        let cellItem = TPSwitchTableCellItem()
-        cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Auto Show Log Dialog")
-        cellItem.updater = {
-            guard let self = self else { return }
-            let isOn = self.editingTask.autoShowLog
-            self.autoShowLogCellItem.isOn = isOn
-        }
-
-        cellItem.valueChanged = { isOn in
-            self?.editingTask.autoShowLog = isOn     
-        }
-        
-        return cellItem
-    }()
-    
-    lazy var logSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 20.0
-        sectionController.cellItems = [autoShowLogCellItem]
-        return sectionController
-    }()
-    
     /// 备注
     lazy var noteSectionController: TPNoteTableSectionController = { [weak self] in
         let sectionController = TPNoteTableSectionController()
@@ -228,7 +203,6 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
                                   dateFrequencySectionController,
                                   timeSectionController,
                                   reminderSectionController,
-                                  logSectionController,
                                   noteSectionController]
         self.sectionControllers = sectionControllers
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground

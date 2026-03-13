@@ -16,7 +16,6 @@
         <relationship name="record" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDHabitRecord" inverseName="samples" inverseEntity="CDHabitRecord"/>
     </entity>
     <entity name="CDHabitTask" representedClassName="CDHabitTask" syncable="YES" codeGenerationType="class">
-        <attribute name="autoShowLog" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="colorHex" optional="YES" attributeType="String"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -155,7 +154,7 @@
     <elements>
         <element name="CDHabitRecord" positionX="18" positionY="180" width="128" height="149"/>
         <element name="CDHabitSample" positionX="27" positionY="189" width="128" height="74"/>
-        <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="389"/>
+        <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="374"/>
         <element name="FocusSession" positionX="36" positionY="189" width="128" height="209"/>
         <element name="FocusTimer" positionX="27" positionY="180" width="128" height="164"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>

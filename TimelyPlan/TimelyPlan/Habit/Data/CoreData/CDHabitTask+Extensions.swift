@@ -61,8 +61,6 @@ extension CDHabitTask: TPHexColorConvertible {
         self.shouldRemind = editingTask.shouldRemind
         self.reminderJSON = editingTask.reminder?.jsonString()
         
-        /// 自动显示日志弹窗
-        self.autoShowLog = editingTask.autoShowLog
         self.note = editingTask.note
         self.modificationDate = .now
     }

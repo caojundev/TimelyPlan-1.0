@@ -64,9 +64,9 @@ class HabitGoalTargetEditCell: TPNumberFieldTableCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let rect = bounds.inset(by: layoutMargins)
-        let titleSize = textLabel?.sizeThatFits(rect.size) ?? .zero
-        let maxWidth = rect.width - titleSize.width - 2 * itemMargin
+        let layoutFrame = contentView.layoutFrame()
+        let titleSize = textLabel?.sizeThatFits(layoutFrame.size) ?? .zero
+        let maxWidth = layoutFrame.width - titleSize.width - 2 * itemMargin
         unitView.sizeToFit()
         
         if unitView.width + Self.numberFieldSize.width > maxWidth {
@@ -78,7 +78,7 @@ class HabitGoalTargetEditCell: TPNumberFieldTableCell {
         }
         
         unitView.height = itemHeight
-        unitView.right = rect.maxX
+        unitView.right = layoutFrame.maxX
         unitView.alignVerticalCenter()
         unitView.backgroundColor = numberField.backgroundColor
         numberField.right = unitView.left - itemMargin
