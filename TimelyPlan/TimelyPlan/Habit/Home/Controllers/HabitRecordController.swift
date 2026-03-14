@@ -98,15 +98,20 @@ class HabitRecordController: NSObject {
     }
     
     // MARK: - 添加日志
-    func editLog(_ logInfo: HabitRecordLogInfo?, for task: HabitTask, on date: Date) {
-        let logInfo = logInfo ?? HabitRecordLogInfo()
-        let vc = HabitRecordLogEditViewController(logInfo: logInfo, date: date)
+    func editLog(for task: HabitTask, with record: HabitRecord?, on date: Date) {
+        let status = task.status(with: record)
+        let logInfo = record?.logInfo ?? HabitRecordLogInfo()
+        let vc = HabitRecordLogEditViewController(task: task,
+                                                  status: status,
+                                                  logInfo: logInfo,
+                                                  date: date)
         vc.didEndEditing = { logInfo in
             habit.addLog(logInfo, for: task, on: date)
         }
         
         vc.showAsNavigationRoot()
     }
+    
     
     func deleteLog(for task: HabitTask, on date: Date) {
         habit.addLog(nil, for: task, on: date)

@@ -1512,6 +1512,13 @@
 		E5F9C8A62D6F17E10051A8F8 /* TodoTaskQuickAddManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9C8A52D6F17E10051A8F8 /* TodoTaskQuickAddManager.swift */; };
 		E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */; };
 		E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBD0F02DA9135200924EED /* SettingAgent.swift */; };
+		E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */; };
+		E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */; };
+		E5FC6BA42F64EFBC00D5A5EA /* habit_status_failed_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9E2F64EFBB00D5A5EA /* habit_status_failed_36@2x.png */; };
+		E5FC6BA52F64EFBC00D5A5EA /* habit_status_completed_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9F2F64EFBB00D5A5EA /* habit_status_completed_36@3x.png */; };
+		E5FC6BA62F64EFBC00D5A5EA /* habit_status_failed_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6BA02F64EFBC00D5A5EA /* habit_status_failed_36@3x.png */; };
+		E5FC6BA72F64EFBC00D5A5EA /* habit_status_skipped_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6BA12F64EFBC00D5A5EA /* habit_status_skipped_36@2x.png */; };
+		E5FC6BAA2F64F19500D5A5EA /* HabitLogTaskInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC6BA92F64F19500D5A5EA /* HabitLogTaskInfoTableCell.swift */; };
 		E5FDFAB82D3E47D90042BC3A /* TodoTaskQuickAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDFAB72D3E47D90042BC3A /* TodoTaskQuickAddView.swift */; };
 		E5FDFABA2D3E7C170042BC3A /* TodoTaskQuickAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDFAB92D3E7C170042BC3A /* TodoTaskQuickAddController.swift */; };
 		E5FF12EB2D5DF6D600340DCC /* TPEmojiEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF12EA2D5DF6D600340DCC /* TPEmojiEditView.swift */; };
@@ -3046,6 +3053,13 @@
 		E5F9C8A52D6F17E10051A8F8 /* TodoTaskQuickAddManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddManager.swift; sourceTree = "<group>"; };
 		E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventView.swift; sourceTree = "<group>"; };
 		E5FBD0F02DA9135200924EED /* SettingAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAgent.swift; sourceTree = "<group>"; };
+		E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@3x.png"; sourceTree = "<group>"; };
+		E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_completed_36@2x.png"; sourceTree = "<group>"; };
+		E5FC6B9E2F64EFBB00D5A5EA /* habit_status_failed_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_failed_36@2x.png"; sourceTree = "<group>"; };
+		E5FC6B9F2F64EFBB00D5A5EA /* habit_status_completed_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_completed_36@3x.png"; sourceTree = "<group>"; };
+		E5FC6BA02F64EFBC00D5A5EA /* habit_status_failed_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_failed_36@3x.png"; sourceTree = "<group>"; };
+		E5FC6BA12F64EFBC00D5A5EA /* habit_status_skipped_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@2x.png"; sourceTree = "<group>"; };
+		E5FC6BA92F64F19500D5A5EA /* HabitLogTaskInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitLogTaskInfoTableCell.swift; sourceTree = "<group>"; };
 		E5FDFAB72D3E47D90042BC3A /* TodoTaskQuickAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddView.swift; sourceTree = "<group>"; };
 		E5FDFAB92D3E7C170042BC3A /* TodoTaskQuickAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddController.swift; sourceTree = "<group>"; };
 		E5FF12EA2D5DF6D600340DCC /* TPEmojiEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPEmojiEditView.swift; sourceTree = "<group>"; };
@@ -3907,6 +3921,12 @@
 				E53480062F604ACF00CFBF26 /* habit_status_failed_24@3x.png */,
 				E53480022F604ACE00CFBF26 /* habit_status_skipped_24@2x.png */,
 				E53480042F604ACE00CFBF26 /* habit_status_skipped_24@3x.png */,
+				E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */,
+				E5FC6B9F2F64EFBB00D5A5EA /* habit_status_completed_36@3x.png */,
+				E5FC6B9E2F64EFBB00D5A5EA /* habit_status_failed_36@2x.png */,
+				E5FC6BA02F64EFBC00D5A5EA /* habit_status_failed_36@3x.png */,
+				E5FC6BA12F64EFBC00D5A5EA /* habit_status_skipped_36@2x.png */,
+				E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */,
 			);
 			path = status;
 			sourceTree = "<group>";
@@ -4188,7 +4208,7 @@
 			isa = PBXGroup;
 			children = (
 				E556BCF72F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift */,
-				E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */,
+				E5FC6BA82F64F16A00D5A5EA /* Log */,
 				E509B50F2F6431D90045F11E /* Popup */,
 			);
 			path = RecordEdit;
@@ -8203,6 +8223,15 @@
 			path = Filter;
 			sourceTree = "<group>";
 		};
+		E5FC6BA82F64F16A00D5A5EA /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */,
+				E5FC6BA92F64F19500D5A5EA /* HabitLogTaskInfoTableCell.swift */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
 		E5FF12E82D5DE78800340DCC /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -8317,6 +8346,7 @@
 				E55CE3582D8BC2A60083316E /* quadrant_III_32@3x.png in Resources */,
 				E506B5C42F638B2E008B3321 /* habit_task_filter_todo_24@2x.png in Resources */,
 				E5BB9ABB2D3BEF0D0089667A /* todo_task_action_move_24@3x.png in Resources */,
+				E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */,
 				E5D7D8F62D43933600EC877A /* PositiveCircleFill@2x.png in Resources */,
 				E5D7D95F2D43DBE000EC877A /* focus_timer_countdown_32@2x.png in Resources */,
 				E50D94B82D451C1800F57957 /* focus_record_add_24@3x.png in Resources */,
@@ -8406,6 +8436,7 @@
 				E50D94F22D452DD700F57957 /* focus_record_timeline_paused_24@2x.png in Resources */,
 				E5BB9AB52D3BEF0D0089667A /* todo_task_progress_24@3x.png in Resources */,
 				E5BB9AF02D3BEF0D0089667A /* plus_24@2x.png in Resources */,
+				E5FC6BA62F64EFBC00D5A5EA /* habit_status_failed_36@3x.png in Resources */,
 				E5BB9E472D3BF0C70089667A /* StepperPositive@2x.png in Resources */,
 				E5E276FC2D3DF58B004EC522 /* todo_folder_ungroup_24@3x.png in Resources */,
 				E5BBA1162D3BFC6A0089667A /* LaunchScreen.storyboard in Resources */,
@@ -8418,6 +8449,7 @@
 				E5BB9ECA2D3BF0C80089667A /* Wheat01@3x.png in Resources */,
 				E5D833922DAB64D60012ABF3 /* todo_task_progress_targetValue_24@2x.png in Resources */,
 				E500DE562DB09D4500EAEAF7 /* todo_filter_indicator_tag_12@3x.png in Resources */,
+				E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */,
 				E54E63432F5B1BFD00FCBCAE /* habit_menu_log_24@3x.png in Resources */,
 				E54E633F2F5B1BFD00FCBCAE /* habit_menu_cancel_24@3x.png in Resources */,
 				E5B926DC2D3FFBA00065FA79 /* clear_24@2x.png in Resources */,
@@ -8504,6 +8536,7 @@
 				E556BCD32F5D746400CA20D9 /* HabitRecordTypeCompleteAll@2x.png in Resources */,
 				E506B5C72F638B2E008B3321 /* habit_task_filter_all_24@2x.png in Resources */,
 				E5BB9A972D3BEF0D0089667A /* todo_list_24@2x.png in Resources */,
+				E5FC6BA52F64EFBC00D5A5EA /* habit_status_completed_36@3x.png in Resources */,
 				E515AD7D2D3CF87F00AA9AF2 /* triangle_right_12@3x.png in Resources */,
 				E5D7D8F72D43933600EC877A /* OpenCircleAngleGradient@3x.png in Resources */,
 				E5BB9ABA2D3BEF0D0089667A /* todo_task_action_date_24@3x.png in Resources */,
@@ -8583,6 +8616,7 @@
 				E5E2771C2D3E099C004EC522 /* todo_list_option_select_24@3x.png in Resources */,
 				E5168BD22F545B400000A760 /* habit_dateRange_background_start@2x.png in Resources */,
 				E50D025B2F55860B00E93977 /* habit_time_anytime_24@3x.png in Resources */,
+				E5FC6BA72F64EFBC00D5A5EA /* habit_status_skipped_36@2x.png in Resources */,
 				E55CE3682D8BC4BB0083316E /* quadrant_circle_II@3x.png in Resources */,
 				E5BB9ECE2D3BF0C80089667A /* Wheat02@2x.png in Resources */,
 				E50D94D82D45268B00F57957 /* chart_bar_24@2x.png in Resources */,
@@ -8674,6 +8708,7 @@
 				E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */,
 				E5168BDE2F5481660000A760 /* bell_add_20@2x.png in Resources */,
 				E5BBA1002D3BFB3C0089667A /* SideMenuFocus@2x.png in Resources */,
+				E5FC6BA42F64EFBC00D5A5EA /* habit_status_failed_36@2x.png in Resources */,
 				E556BCCF2F5D746400CA20D9 /* HabitRecordTypeAutoAdd@2x.png in Resources */,
 				E50D94BB2D451C1800F57957 /* focus_record_80@3x.png in Resources */,
 				E5E2771D2D3E099C004EC522 /* todo_list_option_sort_24@3x.png in Resources */,
@@ -9072,6 +9107,7 @@
 				E5BB9F0E2D3BF0C90089667A /* TPMenuItem.swift in Sources */,
 				E5BB9EE22D3BF0C80089667A /* TPCircleOutlineProgressView.swift in Sources */,
 				E5BB9E5E2D3BF0C70089667A /* TFCalendarScrollableMonthView.swift in Sources */,
+				E5FC6BAA2F64F19500D5A5EA /* HabitLogTaskInfoTableCell.swift in Sources */,
 				E5BB9DC62D3BF0C60089667A /* DateRange.swift in Sources */,
 				E5BB9B4C2D3BEF920089667A /* NSTextFieldExtension.swift in Sources */,
 				E5D7D9392D43933700EC877A /* FocusStopwatchConfigSectionController.swift in Sources */,

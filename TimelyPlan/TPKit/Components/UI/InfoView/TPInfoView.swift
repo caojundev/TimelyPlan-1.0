@@ -223,6 +223,7 @@ class TPInfoView: UIView {
     }
 
     func layoutAccessoryView() {
+        updateAccessorySizeAndMargins()
         let layoutFrame = layoutFrame()
         if let leftAccessoryView = leftAccessoryView {
             leftAccessoryView.size = leftAccessorySize
@@ -236,6 +237,11 @@ class TPInfoView: UIView {
             rightAccessoryView.centerY = layoutFrame.midY
         }
     }
+    
+    func updateAccessorySizeAndMargins() {
+        
+    }
+    
 
     /// 标签布局
     func labelLayoutFrame() -> CGRect {

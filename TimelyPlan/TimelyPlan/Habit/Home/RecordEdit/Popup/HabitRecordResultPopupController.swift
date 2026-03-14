@@ -10,6 +10,8 @@ import UIKit
 
 class HabitRecordResultPopupController: HabitRecordProcessorDelegate {
     
+    private let recordController = HabitRecordController()
+    
     func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
         var shouldShow: Bool = false
         switch change {
@@ -30,21 +32,12 @@ class HabitRecordResultPopupController: HabitRecordProcessorDelegate {
         let infoView = HabitRecordResultInfoView(task: task, record: record, date: date)
         infoView.didClickLog = { [weak self] in
             guard let self = self else { return }
-            self.showLog(for: task, with: record, on: date)
+            self.recordController.editLog(for: task, with: record, on: date)
         }
         
         TPCustomPopupQueue.common.showCustomView(infoView,
                                                  onView: nil,
                                                  position: .bottom,
                                                  duration: 4.0)
-    }
-    
-    private func showLog(for task: HabitTask, with record: HabitRecord, on date: Date) {
-        let vc = HabitRecordLogEditViewController(logInfo: record.logInfo, date: date)
-        vc.didEndEditing = { logInfo in
-            habit.addLog(logInfo, for: task, on: date)
-        }
-        
-        vc.showAsNavigationRoot()
     }
 }

@@ -44,6 +44,7 @@ class HabitRecordResultInfoView: UIView, TPCustomPopupContent {
     private func setupSubviews() {
         self.backgroundColor = .secondarySystemBackground
         self.padding = UIEdgeInsets(left: 16.0, right: 16.0)
+        infoView.imageConfig.size = .size(8)
         infoView.imageConfig.shouldRenderImageWithColor = false
         infoView.titleConfig.font = .boldSystemFont(ofSize: 16.0)
         infoView.subtitleConfig.font = .systemFont(ofSize: 13.0)
@@ -76,13 +77,13 @@ class HabitRecordResultInfoView: UIView, TPCustomPopupContent {
             imageName = nil
             subtitle = nil
         case .completed:
-            imageName = "habit_status_completed_24"
+            imageName = "habit_status_completed_36"
             subtitle = resGetString("Completed")
         case .skipped(_):
-            imageName = "habit_status_skipped_24"
+            imageName = "habit_status_skipped_36"
             subtitle = resGetString("Skipped")
         case .failed(_):
-            imageName = "habit_status_failed_24"
+            imageName = "habit_status_failed_36"
             subtitle = resGetString("Failed")
         }
         

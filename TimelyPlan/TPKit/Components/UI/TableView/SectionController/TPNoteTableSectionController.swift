@@ -54,5 +54,11 @@ class TPNoteTableSectionController: TPTableItemSectionController {
         self.headerItem.padding = UIEdgeInsets(top: 15.0, left: 16.0, bottom: 0.0, right: 16.0)
         self.cellItems = [noteCellItem]
     }
+    
+    func beginEditing() {
+        if let cell = adapter?.cellForItem(noteCellItem) as? TPTextViewTableCell {
+            cell.textView.becomeFirstResponder()
+        }
+    }
 }
  

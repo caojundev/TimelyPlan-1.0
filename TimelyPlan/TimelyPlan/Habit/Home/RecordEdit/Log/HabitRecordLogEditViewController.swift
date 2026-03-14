@@ -16,14 +16,36 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
     /// 编辑类型
     private var editType: EditType
 
+    private let task: HabitTask
+    
+    private let status: HabitTaskStatus
+    
+    private let date: Date
+    
     private var logInfo: HabitRecordLogInfo
     
-    private var date: Date
+    lazy var infoCellItem: HabitLogTaskInfoTableCellItem = {
+        let cellItem = HabitLogTaskInfoTableCellItem()
+        cellItem.updater = { [weak self] in
+            guard let self = self else { return }
+            self.infoCellItem.task = self.task
+            self.infoCellItem.status = self.status
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var infoSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 5.0
+        sectionController.cellItems = [self.infoCellItem]
+        return sectionController
+    }()
     
     /// 备注
     lazy var noteSectionController: TPNoteTableSectionController = { [weak self] in
         let sectionController = TPNoteTableSectionController()
-        sectionController.headerItem.height = 5.0
+        sectionController.headerItem.height = 15.0
         sectionController.headerItem.title = nil
         sectionController.headerItem.padding = .zero
         sectionController.placeholder = resGetString("Record your feelings or thoughts today...")
@@ -62,7 +84,9 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
         return item
     }()
     
-    init(logInfo: HabitRecordLogInfo, date: Date) {
+    init(task: HabitTask, status: HabitTaskStatus, logInfo: HabitRecordLogInfo, date: Date) {
+        self.task = task
+        self.status = status
         self.logInfo = logInfo
         self.date = date
         if let log = logInfo.log, log.count > 0 {
@@ -90,7 +114,8 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
         self.wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
         self.tableView.keyboardDismissMode = .interactive
         self.setupActionsBar(actions: [doneAction])
-        self.sectionControllers = [noteSectionController,
+        self.sectionControllers = [infoSectionController,
+                                   noteSectionController,
                                    scoreSectionController]
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.reloadData()
@@ -102,6 +127,10 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
     
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemGroupedBackground
+    }
+    
+    override func handleFirstAppearance() {
+        noteSectionController.beginEditing()
     }
     
     override func clickDone() {
