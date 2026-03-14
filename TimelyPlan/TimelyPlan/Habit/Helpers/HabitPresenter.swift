@@ -9,6 +9,12 @@ import Foundation
 
 class HabitPresenter {
     
+    /// 显示统计试图
+    static func showStats(for task: HabitTask, date: Date = .now) {
+        let vc = HabitStatsMainViewController(task: task, type: .month, date: date)
+        vc.showAsNavigationRoot()
+    }
+    
     /// 显示习惯管理视图控制器
     static func manageHabits() {
         let vc = HabitManageMainViewController()

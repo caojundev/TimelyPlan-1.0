@@ -19,6 +19,8 @@ protocol HabitTaskListViewDelegate: AnyObject {
     /// 配置出队的单元格
     func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath)
     
+    func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath)
+    
     /// 获取头部视图类
     func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass?
     
@@ -47,6 +49,8 @@ extension HabitTaskListViewDelegate {
     func habitTaskListView(_ listView: HabitTaskListView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
         
     }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) { }
 }
 
 
@@ -203,7 +207,7 @@ class HabitTaskListView: TPCollectionWrapperView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didSelectItemAt indexPath: IndexPath) {
-        // 默认不处理，子类可重写
+        delegate?.habitTaskListView(self, didSelectItemAt: indexPath)
     }
     
     // MARK: - Header Methods

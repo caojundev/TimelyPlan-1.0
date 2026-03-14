@@ -76,7 +76,7 @@ class HabitRecordProcessor {
         record.amount = newAmount
         
         /// 添加sample
-        CDHabitSample.addNewSample(amount: incrementAmount, date: date, toRecord: record)
+        CDHabitSample.addNewSample(amount: incrementAmount, date: .now, toRecord: record)
         HandyRecord.save()
         
         let change: HabitRecordChange = .amountChanged(oldValue: oldAmount,
@@ -100,7 +100,7 @@ class HabitRecordProcessor {
         
         /// 添加sample
         CDHabitSample.addNewSample(amount: increment,
-                                   date: date,
+                                   date: .now,
                                    toRecord: record)
         HandyRecord.save()
         

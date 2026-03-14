@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 class HabitPeriodTaskFetcher {
     
@@ -54,6 +55,33 @@ class HabitPeriodTaskFetcher {
             completion(results)
         }
     }
+    
+    func fetchPeriodTask(for task: HabitTask,
+                         in period: HabitDatePeriod,
+                         completion: @escaping(HabitPeriodTask)->Void) {
+        let conditions = CDHabitRecord.conditions(forTask: task, inPeriod: period)
+        let predicate = conditions.andPredicate()
+        CDHabitRecord.findAll(with: predicate) { results in
+            let periodTask = HabitPeriodTask(habitTask: task, period: period)
+            periodTask.records = self.records(with: results)
+            completion(periodTask)
+        }
+    }
+    
+    /// 将获取的结果转换为 [DayIntegerKey: HabitRecord] 字典
+    private func records(with results: [NSFetchRequestResult]?) -> [DayIntegerKey: HabitRecord]? {
+        guard let results = results as? [CDHabitRecord] else {
+            return nil
+        }
+        
+        var records = [DayIntegerKey: HabitRecord]()
+        for result in results {
+            records[result.day] = HabitRecord(content: result)
+        }
+        
+        return records
+    }
+    
     
     // MARK: - Helpers
     

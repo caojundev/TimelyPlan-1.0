@@ -50,7 +50,7 @@ class HabitRecord: NSObject {
     }
     
     /// 日期（整型数值表示）
-    var day: Int32
+    var day: DayIntegerKey
     
     /// 完成数量
     var amount: Int64 = 0
@@ -79,10 +79,11 @@ class HabitRecord: NSObject {
         }
         return false
     }
-    
-    /// 当任务频率为随机时，表示在 date 所在周期内已完成天数
-    /// - Optional: 已完成的天数
-    var randomlyCompletedDays: Int?
+
+    /// 获取样本的时间偏移集合
+    var sampleTimeOffsets: Set<Duration>? {
+        return content.sampleTimeOffsets
+    }
     
     /// 核心数据对象
     let content: CDHabitRecord

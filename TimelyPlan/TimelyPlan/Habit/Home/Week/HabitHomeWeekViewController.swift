@@ -142,6 +142,15 @@ class HabitHomeWeekViewController: TPViewController,
             headerView.group = listView.sectionObject(at: section) as? HabitTaskGroup
         }
     }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) {
+        guard let task = listView.item(at: indexPath) as? HabitPeriodTask else {
+            return
+        }
+        
+        TPImpactFeedback.impactWithSoftStyle()
+        HabitPresenter.showStats(for: task.habitTask, date: .now)
+    }
 }
 
 extension HabitHomeWeekViewController: HabitTaskProcessorDelegate,

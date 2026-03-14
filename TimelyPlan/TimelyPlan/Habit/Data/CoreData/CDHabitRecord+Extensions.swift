@@ -34,6 +34,29 @@ extension CDHabitRecord {
         record.task = task
         return record
     }
+    
+    /// 获取样本的时间偏移
+    var sampleTimeOffsets: Set<Duration>? {
+        guard let samples = samples?.allObjects as? [CDHabitSample] else {
+            return nil
+        }
+        
+        var offsets = Set<Duration>()
+        for sample in samples {
+            guard let date = sample.date else {
+                continue
+            }
+            
+            offsets.insert(date.offset())
+        }
+     
+        if offsets.count > 0 {
+            return offsets
+        }
+        
+        return nil
+    }
+
 }
 
 // MARK: - Predicate
@@ -65,12 +88,14 @@ extension CDHabitRecord {
         return (HabitRecordKey.day, .between(fromDay, toDay))
     }
     
-    static func condition(forPeriod period: HabitDatePeriod) -> PredicateCondition {
-        let fromDate = period.dateRange.startDate
-        let fromDay = fromDate?.dayIntegerKey ?? 0
-        let toDate = period.dateRange.endDate
-        let toDay = toDate?.dayIntegerKey ?? Int32.max
+    static func condition(in dateRange: DateRange) -> PredicateCondition {
+        let fromDay = dateRange.startDate?.dayIntegerKey ?? 0
+        let toDay = dateRange.endDate?.dayIntegerKey ?? Int32.max
         return (HabitRecordKey.day, .between(fromDay, toDay))
+    }
+    
+    static func condition(forPeriod period: HabitDatePeriod) -> PredicateCondition {
+        return condition(in: period.dateRange)
     }
     
     static func condition(amountGreaterThanOrEqual amount: Int) -> PredicateCondition {
@@ -94,7 +119,6 @@ extension CDHabitRecord {
         return conditions
     }
     
-    
     static func conditions(forTasks tasks: [HabitTask],
                            inPeriod period: HabitDatePeriod) -> [PredicateCondition] {
         let tasks = tasks.map { return $0.content }
@@ -105,6 +129,21 @@ extension CDHabitRecord {
                            inPeriod period: HabitDatePeriod) -> [PredicateCondition] {
         let conditions: [PredicateCondition] = [
             condition(forTasks: tasks),
+            condition(forPeriod: period)
+        ]
+        
+        return conditions
+    }
+    
+    static func conditions(forTask task: HabitTask,
+                           inPeriod period: HabitDatePeriod) -> [PredicateCondition] {
+        return conditions(forTask: task.content, inPeriod: period)
+    }
+    
+    static func conditions(forTask task: CDHabitTask,
+                           inPeriod period: HabitDatePeriod) -> [PredicateCondition] {
+        let conditions: [PredicateCondition] = [
+            condition(forTask: task),
             condition(forPeriod: period)
         ]
         

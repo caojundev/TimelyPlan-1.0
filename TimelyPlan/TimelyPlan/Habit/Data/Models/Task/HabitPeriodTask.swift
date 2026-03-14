@@ -16,7 +16,7 @@ class HabitPeriodTask: NSObject {
     let period: HabitDatePeriod
     
     /// 记录字典
-    var records: [Int32: HabitRecord]?
+    var records: [DayIntegerKey: HabitRecord]?
     
     // MARK: - Initialization
 

@@ -78,8 +78,7 @@ class StatsMainViewController: TPContainerViewController {
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         
         /// 选中菜单
-        let tag = allowTypes.firstIndex(of: type) ?? 0
-        self.menuView.selectMenu(withTag: tag)
+        self.menuView.selectMenu(withTag: type.tag)
         self.contentViewController = viewController(for: type)
     }
 

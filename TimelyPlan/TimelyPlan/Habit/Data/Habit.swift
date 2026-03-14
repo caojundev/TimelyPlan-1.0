@@ -60,6 +60,16 @@ class Habit {
     }
     
     
+    /// 统计
+    func fetchPeriodTask(for task: HabitTask,
+                         in period: HabitDatePeriod,
+                         completion: @escaping(HabitPeriodTask)->Void) {
+        periodTaskFetcher.fetchPeriodTask(for: task, in: period, completion: completion)
+    }
+    
+    
+    
+    
     // MARK: - 任务处理
     func activeTasks() -> [HabitTask] {
         return self.taskManager.activeTasks

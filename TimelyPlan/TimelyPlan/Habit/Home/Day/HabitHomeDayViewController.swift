@@ -225,6 +225,15 @@ class HabitHomeDayViewController: TPContainerViewController,
         cell.task = listView.item(at: indexPath) as? HabitPeriodTask
     }
     
+    func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) {
+        guard let task = listView.item(at: indexPath) as? HabitPeriodTask else {
+            return
+        }
+        
+        TPImpactFeedback.impactWithSoftStyle()
+        HabitPresenter.showStats(for: task.habitTask, date: self.date)
+    }
+    
     func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {
         return HabitTaskListGroupHeaderView.self
     }
@@ -242,6 +251,7 @@ class HabitHomeDayViewController: TPContainerViewController,
             headerView.group = listView.sectionObject(at: section) as? HabitTaskGroup
         }
     }
+    
     
     // MARK: - HabitTaskListInfoCellDelegate
     func habitTaskListInfoCell(_ cell: HabitTaskListDefaultInfoCell, didClickMore button: UIButton) {
