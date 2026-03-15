@@ -33,8 +33,8 @@ class HabitTaskStatusProgressValueCell: HabitTaskStatusProgressCell {
         let label = TPLabel()
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-        label.font = UIFont.boldSystemFont(ofSize: 13.0)
+        label.minimumScaleFactor = 0.8
+        label.font = UIFont.boldSystemFont(ofSize: 12.0)
         return label
     }()
     

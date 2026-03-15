@@ -37,8 +37,8 @@ extension TPCalendarMonthViewDelegate {
     func calendarMonthView(_ view: TPCalendarMonthView, shouldHighlightDate components: DateComponents) -> Bool? {
         return nil
     }
-    
-    func spanDateRangeForCalendarMonthView(_ view: TPCalendarMonthView) -> DateRange? {
+
+    func spanDateRangesForCalendarMonthView(_ view: TPCalendarMonthView) -> [DateRange]? {
         return nil
     }
 }

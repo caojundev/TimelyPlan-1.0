@@ -8,193 +8,65 @@
 import Foundation
 import UIKit
 
-class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
+class HabitHomeWeekDayCell: HabitTaskStatusDayCell {
+    // MARK: - Constants
     
-    var task: HabitPeriodTask?
+    private let symbolLabelTopMargin = 0.0
+    private let symbolLabelHeight = 30.0
     
-    /// 日期
-    var date: Date?
+    // MARK: - Properties
     
-    /// 是否是计划日
-    var isScheduledDay: Bool = true
-    
-    private var taskColor: UIColor {
-        return task?.habitTask.color ?? .primary
-    }
-    
-    /// 非计划日状态图片
-    private lazy var notScheduledImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = resGetImage("habit_week_day_notscheduled_42")
-        imageView.alpha = 0.0
-        return imageView
+    /// 顶部符号标签
+    lazy var symbolLabel: TPLabel = {
+        let label = TPLabel()
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.8
+        label.font = UIFont.boldSystemFont(ofSize: 10.0)
+        return label
     }()
-
+    
+    // MARK: - Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupSubviews()
+        symbolLabel.textColor = Color(0xf1f1f1)
+        symbolLabel.alpha = 0.6
+        contentView.addSubview(symbolLabel)
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupSubviews() {
-        insertSubview(notScheduledImageView, belowSubview: statusProgressView)
-        symbolLabel.textColor = Color(0xf1f1f1)
-        symbolLabel.alpha = 0.6
-        valueLabel.alpha = 0.8
-    }
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        notScheduledImageView.size = CGSize(width: 42.0, height: 42.0)
-        notScheduledImageView.center = statusProgressView.center
+        layoutSymbolLabel()
     }
     
-    /// 更新是否是计划日
-    private func updateScheduleStatus(animated: Bool = false) {
-        let isScheduled = self.isScheduledDay
-        let executeBlock = {
-            self.notScheduledImageView.alpha = isScheduled ? 0.0 : 0.6
-            self.statusProgressView.alpha = isScheduled ? 1.0 : 0.0
-        }
+    /// 布局符号标签
+    private func layoutSymbolLabel() {
+        let layoutFrame = layoutFrame()
         
-        if animated {
-            UIView.animate(withDuration: 0.25, animations: executeBlock)
-        } else {
-            executeBlock()
-        }
+        symbolLabel.width = layoutFrame.width
+        symbolLabel.height = symbolLabelHeight
+        symbolLabel.left = layoutFrame.minX
+        symbolLabel.top = symbolLabelTopMargin
     }
     
-    /// 更新日期信息
-    private func updateDateInfo() {
-        guard let date = date else {
-            return
-        }
-
-        self.contentView.alpha = date.isFutureDay ? 0.4 : 1.0
-        self.symbolLabel.text = date.shortWeekdaySymbol()
-        self.statusProgressView.infoLabel.text = "\(date.day)"
+    // MARK: - Frame Calculation
+    
+    override func statusProgressFrame() -> CGRect {
+        let frame = contentView.layoutFrame()
+        let x = frame.minX + (frame.width - statusProgressSize.width) / 2.0
+        let y = frame.minY + symbolLabelTopMargin + symbolLabelHeight
+        return CGRect(x: x, y: y, size: statusProgressSize)
     }
     
-    /// 更新样式
-    private func updateStyle() {
-        guard let task = task, let date = date else {
-            return
-        }
-
-        let status = task.status(on: date)
-        let color = taskColor.lighterColor
-        
-        /// 背景色
-        if !isScheduledDay {
-            backgroundView?.backgroundColor = .clear
-            selectedBackgroundView?.backgroundColor = .clear
-        } else if status == .completed {
-            backgroundView?.backgroundColor = color
-            selectedBackgroundView?.backgroundColor = color
-        } else {
-            backgroundView?.backgroundColor = UIColor(white: 0.6, alpha: 0.2)
-            selectedBackgroundView?.backgroundColor = UIColor(white: 0.6, alpha: 0.3)
-        }
-        
-        self.statusProgressView.statusImageColor = .white
-        self.statusProgressView.progressColor = color
-        self.statusProgressView.infoLabel.textColor = Color(0xffffff, 0.8)
-        self.statusProgressView.progressColor = color
-        self.valueLabel.textColor = color
+    override func updateDateInfo() {
+        super.updateDateInfo()
+        self.symbolLabel.text = date?.shortWeekdaySymbol()
     }
-    
-    /// 更新进度
-    private func updateProgress(animated: Bool) {
-        var progress: CGFloat = 0.0
-        if let date = self.date {
-            progress = task?.progress(on: date) ?? 0.0
-        }
-        
-        self.progressView.setProgress(progress, animated: animated)
-    }
-    
-    private func updateValueStatus(animated: Bool = false) {
-        guard let task = task, let date = date else {
-            return
-        }
-
-        let status = task.status(on: date)
-        /// 更新 status
-        self.statusProgressView.setStatus(status, animated: true)
-        
-        /// 更新 valueLabel
-        guard isScheduledDay else {
-            valueLabel.text = nil
-            setNeedsLayout()
-            return
-        }
-        
-        var details: [ASAttributedString] = []
-        let color = taskColor.lighterColor
-        if status.isFailed {
-            details.append(.failIndicator(color: color))
-        } else if status.isSkipped {
-            details.append(.skipIndicator(color: color))
-        }
-        
-        let record = task.record(on: date)
-        if let record = record, record.hasLog {
-            details.append(.logIndicator(color: color))
-        }
-        
-        /// 数量
-        let amount = record?.amount ?? 0
-        if amount > 0 {
-            if task.habitTask.goal.mode == .checkin {
-                /// 打卡
-                let checkedInIndicator = ASAttributedString.checkedInIndicator(color: color)
-                details.insert(checkedInIndicator, at: 0)
-            } else {
-                /// 定量
-                let amountNumber = NSNumber(value: amount)
-                details.append("\(amountNumber.decimalStyleString)")
-            }
-        }
-        
-        if details.count > 0 {
-            valueLabel.attributed.text = details.joined(separator: "•")
-        } else {
-            valueLabel.text = nil
-        }
-
-        setNeedsLayout()
-    }
-    
-    private func didChangeRecord(withIncreament amount: Int) {
-        guard amount != 0 else { return }
-        let text = (amount >= 0 ? "+" : "") + "\(amount)"
-        let color = task?.habitTask.color.lighterColor ?? .label
-        TPTextPopUp.showText(text, color: color, font: SMALL_SYSTEM_FONT, fromView: valueLabel)
-    }
-    
-    /// 记录更新
-    func updateRecord(with change: HabitRecordChange?, animated: Bool = true) {
-        self.updateScheduleStatus(animated: animated)
-        self.updateStyle()
-        self.updateDateInfo()
-        self.updateValueStatus(animated: animated)
-        self.updateProgress(animated: animated)
-        if animated, case let .amountChanged(oldValue, newValue) = change {
-            self.didChangeRecord(withIncreament: Int(newValue - oldValue))
-        }
-    }
-    
-    /// 加载数据
-    func reloadData() {
-        self.updateScheduleStatus()
-        self.updateStyle()
-        self.updateDateInfo()
-        self.updateValueStatus()
-        self.updateProgress(animated: false)
-    }
-    
 }

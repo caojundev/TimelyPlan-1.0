@@ -1,5 +1,5 @@
 //
-//  HabitStatsMonthlyViewController.swift
+//  HabitStatsWeeklyViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/14.
@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-class HabitStatsMonthlyViewController: HabitStatsContentViewController {
+class HabitStatsWeeklyViewController: HabitStatsContentViewController {
   
-    init(task: HabitTask, date: Date = .now) {
-        super.init(task: task, type: .month, date: date)
+    init(task: HabitTask, date: Date = .now, firstWeekday: Weekday = .firstWeekday) {
+        super.init(task: task, type: .week, date: date, firstWeekday: firstWeekday)
     }
     
     required init?(coder: NSCoder) {
@@ -19,7 +19,7 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     }
     
     override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
-        let period = HabitDatePeriod(date: self.date, mode: .month)
+        let period = HabitDatePeriod(date: self.date, mode: .week, firstWeekday: self.firstWeekday)
         habit.fetchPeriodTask(for: task, in: period) { periodTask in
             let sectionControllers = self.sectionControllers(for: periodTask)
             completion(sectionControllers)
@@ -27,35 +27,37 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     }
     
     func sectionControllers(for periodTask: HabitPeriodTask) -> [TPCollectionItemSectionController] {
-        let statusPieSectionController = statusPieSectionController(for: periodTask)
-        let monthlyBarChartSectionController = monthlyBarChartSectionController(for: periodTask)
+        let calendarWeekSectionController = calendarWeekSectionController(for: periodTask)
+        let weeklyBarChartSectionController = weeklyBarChartSectionController(for: periodTask)
         let checkinTimeSectionController = checkinTimeSectionController(for: periodTask)
         let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
         let scoreTrendsSectionController = scoreTrendsSectionController(for: periodTask)
         
-        return [statusPieSectionController,
-                monthlyBarChartSectionController,
+        return [calendarWeekSectionController,
+                weeklyBarChartSectionController,
                 checkinTimeSectionController,
                 hourlyCheckinCountSectionContorller,
                 scoreTrendsSectionController]
     }
  
-    /// 任务状态饼状图统计
-    func statusPieSectionController(for periodTask: HabitPeriodTask) -> PieChartSectionController {
-        let sectionController = PieChartSectionController()
-        sectionController.visual = periodTask.statusDayCountPieVisual()
+    /// 周日历
+    func calendarWeekSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        let sectionController = HabitStatsCalendarWeekSectionController(task: periodTask,
+                                                                        date: self.date,
+                                                                        firstWeekday: self.firstWeekday)
         return sectionController
     }
-
-    func monthlyBarChartSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+    
+    /// 周柱状图
+    func weeklyBarChartSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
         let barMarks = periodTask.recordAmountChartMarks(in: self.dateRange) { date in
-            return CGFloat(date.day)
+            /// 日期对应的数值为周索引
+            return CGFloat(date.weekIndex(firstWeekday: self.firstWeekday))
         }
         
         let chartItem = BarChartItem()
         chartItem.barMarks = barMarks
-        chartItem.xAxis = .monthDaysAxis(date: date)
-        chartItem.xAxis.guideline?.style = .solid
+        chartItem.xAxis = .weekDaysAxis(date: date, firstWeekday: firstWeekday)
         if barMarks.count > 0 {
             chartItem.yAxis = .yAxisWithGuideline(chartMarks: barMarks)
         } else {
@@ -63,25 +65,26 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
         }
         
         let sectionController = StatsBarChartSectionController()
-        sectionController.cellItem.headerTitle = resGetString("Monthly Check-in")
+        sectionController.cellItem.headerTitle = resGetString("Weekly Check-in")
         sectionController.chartItem = chartItem
         return sectionController
     }
     
     /// 日打卡时间
     func checkinTimeSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        
         let chartItem = PointChartItem()
         chartItem.pointMarks = periodTask.checkinTimePointMarksForWeek(in: self.dateRange,
                                                                        xValueForDate: { date in
-            return CGFloat(date.day)
+            let weekIndex = date.weekIndex(firstWeekday: self.firstWeekday)
+            return CGFloat(weekIndex)
         })
         
-        chartItem.xAxis.guideline?.style = .solid
-        chartItem.xAxis = .monthDaysAxis(date: date)
+        chartItem.xAxis = .weekDaysAxis(date: date, firstWeekday: firstWeekday)
         chartItem.yAxis = .timelineYAxis()
 
         let sectionItem = StatsDotChartSectionController()
-        sectionItem.cellItem.headerTitle = resGetString("Monthly Time of Day")
+        sectionItem.cellItem.headerTitle = resGetString("Weekly Time of Day")
         sectionItem.chartItem = chartItem
         return sectionItem
     }
@@ -103,13 +106,14 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     
     // MARK: - 得分趋势
     func scoreTrendsSectionController(for periodTask: HabitPeriodTask) -> StatsCurveChartSectionController {
-        let pointMarks = periodTask.scoreChartMarks(in: self.dateRange) { date in
-            return CGFloat(date.day)
+        let dateRange = date.rangeOfThisWeek(firstWeekday: firstWeekday)
+        let pointMarks = periodTask.scoreChartMarks(in: dateRange) { date in
+            return CGFloat(date.weekIndex(firstWeekday: firstWeekday))
         }
     
         let chartItem = CurveChartItem()
         chartItem.pointMarks = pointMarks
-        chartItem.xAxis = .monthDaysAxis(date: date)
+        chartItem.xAxis = .weekDaysAxis(date: date, firstWeekday: firstWeekday)
         chartItem.yAxis = .scoreAxis()
         
         let sectionController = StatsCurveChartSectionController()

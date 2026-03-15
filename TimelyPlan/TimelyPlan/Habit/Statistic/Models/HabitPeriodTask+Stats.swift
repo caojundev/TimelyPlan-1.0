@@ -192,7 +192,6 @@ extension HabitPeriodTask {
         }
         
         let totalDays = period.pastDaysCount
-        print(totalDays)
         if totalDays <= 0 {
             return []
         }
