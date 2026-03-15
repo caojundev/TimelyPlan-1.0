@@ -135,9 +135,9 @@ class HabitHomeWeekDayCell: HabitTaskStatusSymbolProgressValueCell {
         
         var details: [ASAttributedString] = []
         let color = taskColor.lighterColor
-        if status == .failed(nil) {
+        if status.isFailed {
             details.append(.failIndicator(color: color))
-        } else if status == .skipped(nil) {
+        } else if status.isSkipped {
             details.append(.skipIndicator(color: color))
         }
         

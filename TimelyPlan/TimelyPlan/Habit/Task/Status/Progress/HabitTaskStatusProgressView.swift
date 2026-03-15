@@ -140,7 +140,7 @@ class HabitTaskStatusProgressView: UIView {
     
     /// 更新 Emoji 标签可见性
     private var shouldShowEmoji: Bool {
-        return status == .skipped(nil) || status == .failed(nil)
+        return status.isSkipped || status.isFailed
     }
     
     private func updateEmojiLabelVisibility() {
@@ -158,9 +158,7 @@ class HabitTaskStatusProgressView: UIView {
     
     /// 更新进度视图可见性
     private func updateProgressViewVisibility() {
-        let shouldHideProgress = (status == .notStarted || 
-                                  status == .failed(nil) || 
-                                  status == .skipped(nil))
+        let shouldHideProgress = (status == .notStarted ||  status.isFailed || status.isSkipped)
         progressView.alpha = shouldHideProgress ? 0.0 : 1.0
     }
     

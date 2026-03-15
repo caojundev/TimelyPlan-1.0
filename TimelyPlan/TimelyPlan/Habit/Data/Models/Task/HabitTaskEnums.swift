@@ -34,24 +34,74 @@ enum HabitTimeOption: Int, TPMenuRepresentable {
 }
 
 /// 习惯任务状态
-enum HabitTaskStatus: Equatable {
+enum HabitTaskStatus: Hashable, Equatable {
     case notStarted /// 未开始
     case completed /// 完成
     case inProgress /// 进行中
     case skipped(_ reason: String?) /// 跳过
     case failed(_ reason: String?)  /// 失败
     
+    func hash(into hasher: inout Hasher) {
+        switch self {
+        case .notStarted:
+            hasher.combine(0)
+        case .completed:
+            hasher.combine(1)
+        case .inProgress:
+            hasher.combine(2)
+        case .skipped(let reason):
+            hasher.combine(3)
+            hasher.combine(reason)
+        case .failed(let reason):
+            hasher.combine(4)
+            hasher.combine(reason)
+        }
+    }
+    
     static func ==(lhs: HabitTaskStatus, rhs: HabitTaskStatus) -> Bool {
        switch (lhs, rhs) {
        case (.notStarted, .notStarted),
            (.completed, .completed),
-           (.inProgress, .inProgress),
-           (.skipped(_), .skipped(_)),
-           (.failed(_), .failed(_)):
+           (.inProgress, .inProgress):
            return true
+       case (.skipped(let lhsReason), .skipped(let rhsReason)):
+           return lhsReason == rhsReason
+       case (.failed(let lhsReason), .failed(let rhsReason)):
+           return lhsReason == rhsReason
        default:
            return false
        }
+    }
+    
+    var title: String {
+        switch self {
+        case .notStarted:
+            return resGetString("Not Started")
+        case .completed:
+            return resGetString("Completed")
+        case .inProgress:
+            return resGetString("In Progress")
+        case .skipped(let reason):
+            return reason ?? resGetString("Skipped")
+        case .failed(let reason):
+            return reason ?? resGetString("Failed")
+        }
+    }
+    
+    var isSkipped: Bool {
+        if case .skipped(_) = self {
+            return true
+        }
+        
+        return false
+    }
+    
+    var isFailed: Bool {
+        if case .failed(_) = self {
+            return true
+        }
+        
+        return false
     }
 }
 

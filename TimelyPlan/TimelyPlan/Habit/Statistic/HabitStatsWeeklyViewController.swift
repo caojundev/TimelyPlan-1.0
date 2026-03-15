@@ -29,8 +29,13 @@ class HabitStatsWeeklyViewController: HabitStatsContentViewController {
     func sectionControllers(for periodTask: HabitPeriodTask) -> [TPCollectionItemSectionController] {
         let weeklyBarChartSectionController = weeklyBarChartSectionController(for: periodTask)
         let checkinTimeSectionController = checkinTimeSectionController(for: periodTask)
+        let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
+        let scoreTrendsSectionController = scoreTrendsSectionController(for: periodTask)
+        
         return [weeklyBarChartSectionController,
-                checkinTimeSectionController]
+                checkinTimeSectionController,
+                hourlyCheckinCountSectionContorller,
+                scoreTrendsSectionController]
     }
  
     /// 周柱状图
@@ -72,5 +77,38 @@ class HabitStatsWeeklyViewController: HabitStatsContentViewController {
         sectionItem.cellItem.headerTitle = resGetString("Weekly Time of Day")
         sectionItem.chartItem = chartItem
         return sectionItem
+    }
+    
+    /// 按小时打卡次数
+    func hourlyCheckinCountSectionContorller(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        let barMarks = periodTask.hourlyCheckInCountChartMarks()
+        let chartItem = BarChartItem()
+        chartItem.barMarks = barMarks
+        chartItem.xAxis = .timelineXAxis()
+        chartItem.xAxis.guideline?.style = .solid
+        chartItem.yAxis = .yAxisWithGuideline(chartMarks: barMarks, titleOfValue: nil)
+
+        let sectionItem = StatsBarChartSectionController()
+        sectionItem.cellItem.headerTitle = resGetString("Check-in Times Distribution")
+        sectionItem.chartItem = chartItem
+        return sectionItem
+    }
+    
+    // MARK: - 得分趋势
+    func scoreTrendsSectionController(for periodTask: HabitPeriodTask) -> StatsCurveChartSectionController {
+        let dateRange = date.rangeOfThisWeek(firstWeekday: firstWeekday)
+        let pointMarks = periodTask.scoreChartMarks(in: dateRange) { date in
+            return CGFloat(date.weekIndex(firstWeekday: firstWeekday))
+        }
+    
+        let chartItem = CurveChartItem()
+        chartItem.pointMarks = pointMarks
+        chartItem.xAxis = .weekDaysAxis(date: date, firstWeekday: firstWeekday)
+        chartItem.yAxis = .scoreAxis()
+        
+        let sectionController = StatsCurveChartSectionController()
+        sectionController.cellItem.headerTitle = resGetString("Score Trends")
+        sectionController.chartItem = chartItem
+        return sectionController
     }
 }

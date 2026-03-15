@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias HabitHourlyCheckinResults = [Int: Int]
+
 extension CDHabitRecord {
     
     /// 记录所对应的日期
@@ -52,6 +54,31 @@ extension CDHabitRecord {
      
         if offsets.count > 0 {
             return offsets
+        }
+        
+        return nil
+    }
+    
+    /// 按小时
+    var hourlyCheckinResults: HabitHourlyCheckinResults? {
+        guard let samples = samples?.allObjects as? [CDHabitSample] else {
+            return nil
+        }
+        
+        var results = HabitHourlyCheckinResults()
+        for sample in samples {
+            guard let date = sample.date else {
+                continue
+            }
+            
+            /// 时间段使用次数
+            let hour = date.hour
+            let count = results[hour] ?? 0
+            results[hour] = count + 1
+        }
+    
+        if results.count > 0 {
+            return results
         }
         
         return nil

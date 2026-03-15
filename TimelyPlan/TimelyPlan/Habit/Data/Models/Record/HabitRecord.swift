@@ -52,6 +52,10 @@ class HabitRecord: NSObject {
     /// 日期（整型数值表示）
     var day: DayIntegerKey
     
+    var date: Date? {
+        return .dateFromDayIntegerKey(day)
+    }
+    
     /// 完成数量
     var amount: Int64 = 0
     
@@ -83,6 +87,10 @@ class HabitRecord: NSObject {
     /// 获取样本的时间偏移集合
     var sampleTimeOffsets: Set<Duration>? {
         return content.sampleTimeOffsets
+    }
+    
+    var hourlyCheckinResults: HabitHourlyCheckinResults? {
+        return content.hourlyCheckinResults
     }
     
     /// 核心数据对象

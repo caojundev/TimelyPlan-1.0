@@ -46,17 +46,17 @@ class HabitTaskBaseMenuController: TPBaseMenuController<HabitTaskMenuActionType>
             types.append(.skipToday)
         }
         
-        if status == .completed || status == .failed(nil) || status == .skipped(nil) {
+        if status == .completed || status.isFailed || status.isSkipped {
             /// 添加日志
             types.append(.editLog)
             
             /// 取消跳过
-            if status == .skipped(nil) {
+            if status.isSkipped {
                 types.append(.cancelSkip)
             }
         }
         
-        if status == .failed(nil) {
+        if status.isFailed {
             types.append(.cancelFail)
         }
         

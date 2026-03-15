@@ -17,7 +17,7 @@ extension HabitHomeDayActionInfoView.ActionButtonType {
         
         let record = task.records?[date.dayIntegerKey]
         let status = task.status(with: record)
-        if status == .skipped(nil) || status == .failed(nil) {
+        if status.isSkipped || status.isFailed {
             return .resetToday
         }
         
@@ -160,7 +160,7 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
         
         let record = task.records?[date.dayIntegerKey]
         let status = task.status(with: record)
-        if status == .skipped(nil) || status == .failed(nil) {
+        if status.isSkipped || status.isFailed {
             return .resetToday
         }
         

@@ -13,6 +13,7 @@ class HabitDatePeriod: NSObject {
         case day
         case week
         case month
+        case year
     }
     
     /// 时段模式
@@ -38,6 +39,8 @@ class HabitDatePeriod: NSObject {
             self.dateRange = date.rangeOfThisWeek(firstWeekday: firstWeekday)
         case .month:
             self.dateRange = date.rangeOfThisMonth()
+        case .year:
+            self.dateRange = date.rangeOfThisYear()
         }
     }
     
@@ -77,6 +80,21 @@ class HabitDatePeriod: NSObject {
     var isFuture: Bool {
         guard let startDate = dateRange.startDate else { return false }
         return startDate.isFutureDay
+    }
+    
+    /// 当前时间范围已过去
+    var pastDaysCount: Int {
+        if isFuture {
+            return 0
+        }
+        
+        var dateRange = self.dateRange
+        let isFutureEndDate = dateRange.endDate?.isFutureDay ?? true
+        if isFutureEndDate {
+            dateRange.endDate = .now
+        }
+        
+        return dateRange.lastsCount()
     }
     
     // MARK: - 静态工厂方法 

@@ -18,7 +18,103 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func fetchSectionControllers(completion: @escaping ([TPCollectionBaseSectionController]) -> Void) {
-        completion([])
+    override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
+        let period = HabitDatePeriod(date: self.date, mode: .month)
+        habit.fetchPeriodTask(for: task, in: period) { periodTask in
+            let sectionControllers = self.sectionControllers(for: periodTask)
+            completion(sectionControllers)
+        }
+    }
+    
+    func sectionControllers(for periodTask: HabitPeriodTask) -> [TPCollectionItemSectionController] {
+        let statusPieSectionController = statusPieSectionController(for: periodTask)
+        let monthlyBarChartSectionController = monthlyBarChartSectionController(for: periodTask)
+        let checkinTimeSectionController = checkinTimeSectionController(for: periodTask)
+        let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
+        let scoreTrendsSectionController = scoreTrendsSectionController(for: periodTask)
+        
+        return [statusPieSectionController,
+                monthlyBarChartSectionController,
+                checkinTimeSectionController,
+                hourlyCheckinCountSectionContorller,
+                scoreTrendsSectionController]
+    }
+ 
+    /// 任务状态饼状图统计
+    func statusPieSectionController(for periodTask: HabitPeriodTask) -> PieChartSectionController {
+        let sectionController = PieChartSectionController()
+        sectionController.visual = periodTask.statusDayCountPieVisual()
+        return sectionController
+    }
+
+    func monthlyBarChartSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        let barMarks = periodTask.recordAmountChartMarks(in: self.dateRange) { date in
+            return CGFloat(date.day)
+        }
+        
+        let chartItem = BarChartItem()
+        chartItem.barMarks = barMarks
+        chartItem.xAxis = .monthDaysAxis(date: date)
+        chartItem.xAxis.guideline?.style = .solid
+        if barMarks.count > 0 {
+            chartItem.yAxis = .yAxisWithGuideline(chartMarks: barMarks)
+        } else {
+            chartItem.yAxis = .scoreAxis()
+        }
+        
+        let sectionController = StatsBarChartSectionController()
+        sectionController.cellItem.headerTitle = resGetString("Monthly Check-in")
+        sectionController.chartItem = chartItem
+        return sectionController
+    }
+    
+    /// 日打卡时间
+    func checkinTimeSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        let chartItem = PointChartItem()
+        chartItem.pointMarks = periodTask.checkinTimePointMarksForWeek(in: self.dateRange,
+                                                                       xValueForDate: { date in
+            return CGFloat(date.day)
+        })
+        
+        chartItem.xAxis.guideline?.style = .solid
+        chartItem.xAxis = .monthDaysAxis(date: date)
+        chartItem.yAxis = .timelineYAxis()
+
+        let sectionItem = StatsDotChartSectionController()
+        sectionItem.cellItem.headerTitle = resGetString("Monthly Time of Day")
+        sectionItem.chartItem = chartItem
+        return sectionItem
+    }
+    
+    /// 按小时打卡次数
+    func hourlyCheckinCountSectionContorller(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        let barMarks = periodTask.hourlyCheckInCountChartMarks()
+        let chartItem = BarChartItem()
+        chartItem.barMarks = barMarks
+        chartItem.xAxis = .timelineXAxis()
+        chartItem.xAxis.guideline?.style = .solid
+        chartItem.yAxis = .yAxisWithGuideline(chartMarks: barMarks, titleOfValue: nil)
+
+        let sectionItem = StatsBarChartSectionController()
+        sectionItem.cellItem.headerTitle = resGetString("Check-in Times Distribution")
+        sectionItem.chartItem = chartItem
+        return sectionItem
+    }
+    
+    // MARK: - 得分趋势
+    func scoreTrendsSectionController(for periodTask: HabitPeriodTask) -> StatsCurveChartSectionController {
+        let pointMarks = periodTask.scoreChartMarks(in: self.dateRange) { date in
+            return CGFloat(date.day)
+        }
+    
+        let chartItem = CurveChartItem()
+        chartItem.pointMarks = pointMarks
+        chartItem.xAxis = .monthDaysAxis(date: date)
+        chartItem.yAxis = .scoreAxis()
+        
+        let sectionController = StatsCurveChartSectionController()
+        sectionController.cellItem.headerTitle = resGetString("Score Trends")
+        sectionController.chartItem = chartItem
+        return sectionController
     }
 }

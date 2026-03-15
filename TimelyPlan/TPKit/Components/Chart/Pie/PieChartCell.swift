@@ -10,6 +10,16 @@ import UIKit
 
 class PieChartSectionController: TPCollectionItemSectionController {
     
+    var visual: PieVisual {
+        get {
+            return cellItem.visual
+        }
+        
+        set {
+            cellItem.visual = newValue
+        }
+    }
+
     var cellItem = PieChartCellItem()
     
     override init() {
