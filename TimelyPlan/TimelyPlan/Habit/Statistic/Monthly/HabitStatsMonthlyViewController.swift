@@ -132,8 +132,7 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     }
     
     func logSectionController(for periodTask: HabitPeriodTask) -> HabitStatsLogSectionController {
-        let logs = periodTask.statsLogs()
-        let sectionController = HabitStatsLogSectionController(logs: logs)
+        let sectionController = HabitStatsLogSectionController(periodTask: periodTask)
         return sectionController
     }
 }

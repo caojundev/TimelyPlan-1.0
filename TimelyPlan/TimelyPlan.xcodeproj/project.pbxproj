@@ -1536,6 +1536,7 @@
 		E5FC6BD32F67BBDB00D5A5EA /* HabitStatsYearlyHistorySectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC6BD22F67BBDB00D5A5EA /* HabitStatsYearlyHistorySectionController.swift */; };
 		E5FC6BD52F67BE8C00D5A5EA /* HabitStatsHistoryMonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC6BD42F67BE8C00D5A5EA /* HabitStatsHistoryMonthCell.swift */; };
 		E5FC6BD72F67E3BC00D5A5EA /* HabitRecord+Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC6BD62F67E3BC00D5A5EA /* HabitRecord+Stats.swift */; };
+		E5FC6BD92F67EFF800D5A5EA /* HabitDayMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC6BD82F67EFF800D5A5EA /* HabitDayMenuController.swift */; };
 		E5FDFAB82D3E47D90042BC3A /* TodoTaskQuickAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDFAB72D3E47D90042BC3A /* TodoTaskQuickAddView.swift */; };
 		E5FDFABA2D3E7C170042BC3A /* TodoTaskQuickAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDFAB92D3E7C170042BC3A /* TodoTaskQuickAddController.swift */; };
 		E5FF12EB2D5DF6D600340DCC /* TPEmojiEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF12EA2D5DF6D600340DCC /* TPEmojiEditView.swift */; };
@@ -3094,6 +3095,7 @@
 		E5FC6BD22F67BBDB00D5A5EA /* HabitStatsYearlyHistorySectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatsYearlyHistorySectionController.swift; sourceTree = "<group>"; };
 		E5FC6BD42F67BE8C00D5A5EA /* HabitStatsHistoryMonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatsHistoryMonthCell.swift; sourceTree = "<group>"; };
 		E5FC6BD62F67E3BC00D5A5EA /* HabitRecord+Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitRecord+Stats.swift"; sourceTree = "<group>"; };
+		E5FC6BD82F67EFF800D5A5EA /* HabitDayMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDayMenuController.swift; sourceTree = "<group>"; };
 		E5FDFAB72D3E47D90042BC3A /* TodoTaskQuickAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddView.swift; sourceTree = "<group>"; };
 		E5FDFAB92D3E7C170042BC3A /* TodoTaskQuickAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddController.swift; sourceTree = "<group>"; };
 		E5FF12EA2D5DF6D600340DCC /* TPEmojiEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPEmojiEditView.swift; sourceTree = "<group>"; };
@@ -4226,6 +4228,7 @@
 			children = (
 				E5EFB16F2F59B491000FFDF4 /* HabitTaskController.swift */,
 				E556BCE92F5E5EB400CA20D9 /* HabitRecordController.swift */,
+				E5FC6BD82F67EFF800D5A5EA /* HabitDayMenuController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -9324,6 +9327,7 @@
 				E5186E5D2D954A3A007AA074 /* TodoFilterRuleTagEditSectionController.swift in Sources */,
 				E54E632B2F5AFE0200FCBCAE /* CDHabitRecord+Extensions.swift in Sources */,
 				E5D7D8F22D43933600EC877A /* OpenCircleAdjustButtonView.swift in Sources */,
+				E5FC6BD92F67EFF800D5A5EA /* HabitDayMenuController.swift in Sources */,
 				E53DCEE42F6107D100ADA526 /* HabitTaskBaseListGroupProvider.swift in Sources */,
 				E5BB9EFC2D3BF0C80089667A /* TPPopoverPresentationConfigure.swift in Sources */,
 				E5D7D8C12D43933600EC877A /* FocusPomodoroProgressView.swift in Sources */,

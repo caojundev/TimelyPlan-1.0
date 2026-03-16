@@ -18,6 +18,8 @@ class HabitStatsCalendarWeekSectionController: TPCollectionItemSectionController
     /// 周单元格条目
     private let weekCellItem = HabitStatsCalendarWeekCellItem()
     
+    private let dayMenuController = HabitDayMenuController()
+    
     init(task: HabitPeriodTask, date: Date, firstWeekday: Weekday = .firstWeekday) {
         self.task = task
         self.date = date
@@ -56,6 +58,7 @@ extension HabitStatsCalendarWeekSectionController: HabitDatePeriodsViewDelegate 
     
     func datePeriodsView(_ view: HabitDatePeriodsView, didSelectPeriod period: HabitDatePeriod) {
         TPImpactFeedback.impactWithSoftStyle()
+        dayMenuController.showMenu(for: task, on: period.date)
     }
 }
 

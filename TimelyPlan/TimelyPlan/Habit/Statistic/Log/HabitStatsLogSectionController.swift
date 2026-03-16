@@ -10,7 +10,11 @@ import UIKit
 
 class HabitStatsLogSectionController: TPCollectionItemSectionController {
     
+    let periodTask: HabitPeriodTask
+    
     private(set) var logs: [HabitStatsLog]?
+    
+    private let recordController = HabitRecordController()
     
     lazy var emptyCellItem: TPCollectionCellItem = {
         let cellItem = TPDefaultInfoCollectionCellItem()
@@ -21,9 +25,10 @@ class HabitStatsLogSectionController: TPCollectionItemSectionController {
         return cellItem
     }()
     
-    init(logs: [HabitStatsLog]?) {
-        self.logs = logs
+    init(periodTask: HabitPeriodTask) {
+        self.periodTask = periodTask
         super.init()
+        self.logs = periodTask.statsLogs()
         self.layout.edgeMargins = UIEdgeInsets(horizontal: 16.0, vertical: 8.0)
         self.headerItem.title = resGetString("Logs")
         self.headerItem.titleConfig.font = BOLD_BODY_FONT
@@ -49,6 +54,13 @@ class HabitStatsLogSectionController: TPCollectionItemSectionController {
     }
     
     override func didSelectItem(at index: Int) {
+        guard let cellItem = item(at: index) as? HabitStatsLogCellItem else {
+            return
+        }
         
+        TPImpactFeedback.impactWithSoftStyle()
+        let date = cellItem.log.date
+        let record = periodTask.record(on: date)
+        recordController.editLog(for: periodTask.habitTask, with: record, on: date)
     }
 }

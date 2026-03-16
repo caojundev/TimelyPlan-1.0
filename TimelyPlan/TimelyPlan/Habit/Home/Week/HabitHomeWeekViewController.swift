@@ -33,6 +33,8 @@ class HabitHomeWeekViewController: TPViewController,
     
     private var groupProvider = HabitHomeWeekListGroupProvider()
     
+    private let dayMenuController = HabitDayMenuController()
+    
     private let processor = HabitTaskMenuActionProcessor()
     
     override func viewDidLoad() {
@@ -88,23 +90,8 @@ class HabitHomeWeekViewController: TPViewController,
             return
         }
         
-        let habitTask = task.habitTask
-        let status = task.status(on: date)
-        let record = task.record(on: date)
-        let menuController = HabitHomeWeekDayMenuController(task: habitTask,
-                                                            status: status,
-                                                            date: date)
-        menuController.didSelectMenuActionType = {[weak self] type in
-            self?.processor.performMenuAction(type, for: habitTask, on: date, with: record)
-        }
-        
-        menuController.didClickRecord = { [weak self] in
-            self?.processor.clickRecrod(for: habitTask, on: date)
-        }
-        
-        menuController.showMenu()
+        dayMenuController.showMenu(for: task, on: date)
     }
-    
     
     // MARK: - HabitPeriodTaskListViewDelegate
    func habitPeriodTaskListView(_ listView: HabitPeriodTaskListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {

@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class HabitStatsMainViewController: StatsMainViewController {
+class HabitStatsMainViewController: StatsMainViewController,
+                                        HabitRecordProcessorDelegate {
 
     /// 信息视图间距
     let infoViewMargins = UIEdgeInsets(value: 10.0)
@@ -30,6 +31,7 @@ class HabitStatsMainViewController: StatsMainViewController {
         let allowTypes: [StatsType] = [.week, .month, .year]
         super.init(type: type, allowTypes: allowTypes, date: date)
         self.updateInfoView()
+        habit.addUpdater(self, for: [.record])
     }
     
     required init?(coder: NSCoder) {
@@ -64,7 +66,6 @@ class HabitStatsMainViewController: StatsMainViewController {
         return vc
     }
 
-
     /// 布局任务信息视图
     private func layoutInfoView(_ infoView: UIView, isHidden: Bool = false){
         let layoutFrame = view.safeLayoutFrame().inset(by: infoViewMargins)
@@ -90,4 +91,25 @@ class HabitStatsMainViewController: StatsMainViewController {
         self.infoView.titleView.subtitle = task.goal.targetDescription
     }
     
+    private func reloadContentViewController() {
+        if let viewController = contentViewController as? StatsContentViewController {
+            viewController.reloadData()
+        }
+    }
+    
+    // MARK: - HabitRecordProcessorDelegate
+    
+    /// 通知习惯记录已更新
+    func didUpdateHabitRecord(_ record: HabitRecord,
+                              for task: HabitTask,
+                              on date: Date,
+                              with change: HabitRecordChange) {
+        reloadContentViewController()
+    }
+    
+    /// 通知习惯记录删除
+    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
+        reloadContentViewController()
+    }
+
 }

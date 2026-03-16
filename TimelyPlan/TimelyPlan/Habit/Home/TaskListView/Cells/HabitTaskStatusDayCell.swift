@@ -120,7 +120,7 @@ class HabitTaskStatusDayCell: HabitTaskStatusProgressValueCell {
 
         let status = task.status(on: date)
         /// 更新 status
-        self.statusProgressView.setStatus(status, animated: true)
+        self.statusProgressView.setStatus(status, animated: animated)
         
         /// 更新 valueLabel
         guard isScheduledDay else {

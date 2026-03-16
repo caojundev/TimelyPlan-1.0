@@ -19,6 +19,8 @@ class HabitStatsCalendarMonthSectionController: TPCollectionItemSectionControlle
     /// 月单元格条目
     private let monthCellItem = HabitStatsCalendarMonthCellItem()
 
+    private let dayMenuController = HabitDayMenuController()
+    
     init(task: HabitPeriodTask, date: Date, firstWeekday: Weekday = .firstWeekday) {
         self.task = task
         self.date = date
@@ -66,6 +68,7 @@ class HabitStatsCalendarMonthSectionController: TPCollectionItemSectionControlle
         }
         
         TPImpactFeedback.impactWithSoftStyle()
+        dayMenuController.showMenu(for: task, on: date)
     }
 }
 
