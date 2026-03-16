@@ -33,13 +33,14 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
         let checkinTimeSectionController = checkinTimeSectionController(for: periodTask)
         let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
         let scoreTrendsSectionController = scoreTrendsSectionController(for: periodTask)
-        
+        let logSectionController = logSectionController(for: periodTask)
         return [calendarMonthSectionController,
                 statusPieSectionController,
                 monthlyBarChartSectionController,
                 checkinTimeSectionController,
                 hourlyCheckinCountSectionContorller,
-                scoreTrendsSectionController]
+                scoreTrendsSectionController,
+                logSectionController]
     }
  
     
@@ -127,6 +128,12 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
         let sectionController = StatsCurveChartSectionController()
         sectionController.cellItem.headerTitle = resGetString("Score Trends")
         sectionController.chartItem = chartItem
+        return sectionController
+    }
+    
+    func logSectionController(for periodTask: HabitPeriodTask) -> HabitStatsLogSectionController {
+        let logs = periodTask.statsLogs()
+        let sectionController = HabitStatsLogSectionController(logs: logs)
         return sectionController
     }
 }

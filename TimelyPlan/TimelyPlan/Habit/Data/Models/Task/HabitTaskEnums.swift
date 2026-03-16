@@ -88,6 +88,26 @@ enum HabitTaskStatus: Hashable, Equatable {
         }
     }
     
+    func iconName(with size: Int) -> String? {
+        var name: String?
+        switch self {
+        case .notStarted, .inProgress:
+            name = nil
+        case .completed:
+            name = "habit_status_completed"
+        case .skipped(_):
+            name = "habit_status_skipped"
+        case .failed(_):
+            name = "habit_status_failed"
+        }
+        
+        if let name = name {
+            return "\(name)_\(size)"
+        }
+        
+        return nil
+    }
+    
     var isSkipped: Bool {
         if case .skipped(_) = self {
             return true

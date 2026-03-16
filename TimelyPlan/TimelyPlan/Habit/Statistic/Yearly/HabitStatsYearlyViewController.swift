@@ -31,10 +31,12 @@ class HabitStatsYearlyViewController: HabitStatsContentViewController {
           let yearlyBarChartSectionController = yearlyBarChartSectionController(for: periodTask)
           let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
           let heatMapSectionController = heatMapSectionController(for: periodTask)
+          let historySectionController = historySectionController(for: periodTask)
           return [statusPieSectionController,
                   yearlyBarChartSectionController,
                   hourlyCheckinCountSectionContorller,
-                  heatMapSectionController]
+                  heatMapSectionController,
+                  historySectionController]
       }
     
     func statusPieSectionController(for periodTask: HabitPeriodTask) -> PieChartSectionController {
@@ -91,6 +93,14 @@ class HabitStatsYearlyViewController: HabitStatsContentViewController {
             return min(Int(levelIndex), levelsCount)
         }
         
+        return sectionController
+    }
+    
+    func historySectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        let groupedRecords = periodTask.monthGroupedRecords()
+        let sectionController = HabitStatsYearlyHistorySectionController(task: periodTask.habitTask,
+                                                                         date: self.date,
+                                                                         monthGroupedRecords: groupedRecords)
         return sectionController
     }
 }

@@ -124,7 +124,7 @@ class HabitStatsWeeklyViewController: HabitStatsContentViewController {
     }
     
     func logSectionController(for periodTask: HabitPeriodTask) -> HabitStatsLogSectionController {
-        var logs: [HabitStatsLog]? = periodTask.statsLogs()
+        let logs = periodTask.statsLogs()
         let sectionController = HabitStatsLogSectionController(logs: logs)
         return sectionController
     }

@@ -69,24 +69,20 @@ class HabitRecordResultInfoView: UIView, TPCustomPopupContent {
         /// 更新信息视图
         infoView.title = task.name
         
-        var imageName: String?
         var subtitle: String?
         let status = task.status(with: record)
         switch status {
         case .notStarted, .inProgress:
-            imageName = nil
             subtitle = nil
         case .completed:
-            imageName = "habit_status_completed_36"
             subtitle = resGetString("Completed")
         case .skipped(_):
-            imageName = "habit_status_skipped_36"
             subtitle = resGetString("Skipped")
         case .failed(_):
-            imageName = "habit_status_failed_36"
             subtitle = resGetString("Failed")
         }
         
+        let imageName = status.iconName(with: 36)
         infoView.imageContent = .withName(imageName)
         infoView.subtitle = subtitle
     }

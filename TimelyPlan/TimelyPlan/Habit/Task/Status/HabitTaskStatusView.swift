@@ -52,21 +52,8 @@ class HabitTaskStatusView: UIView {
         }
         
         self.status = status
-        
-        var imageName: String?
-        switch status {
-        case .completed:
-            imageName = "habit_status_completed_24"
-        case .failed:
-            imageName = "habit_status_failed_24"
-        case .skipped:
-            imageName = "habit_status_skipped_24"
-        default:
-            break
-        }
-        
         var image: UIImage?
-        if let imageName = imageName {
+        if let imageName = status.iconName(with: 24) {
             image = resGetImage(imageName)
         }
         

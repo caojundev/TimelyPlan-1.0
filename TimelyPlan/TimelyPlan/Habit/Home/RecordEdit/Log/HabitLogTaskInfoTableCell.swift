@@ -66,23 +66,19 @@ class HabitLogTaskInfoTableCell: TPBaseTableCell {
         infoView.iconView.icon = task?.icon
         infoView.titleView.title = task?.name
         
-        var imageName: String?
         var subtitle: String?
         switch status {
         case .notStarted, .inProgress:
-            imageName = nil
             subtitle = nil
         case .completed:
-            imageName = "habit_status_completed_24"
             subtitle = resGetString("Completed")
         case .skipped(_):
-            imageName = "habit_status_skipped_24"
             subtitle = resGetString("Skipped")
         case .failed(_):
-            imageName = "habit_status_failed_24"
             subtitle = resGetString("Failed")
         }
         
+        let imageName = status.iconName(with: 24)
         if let imageName = imageName {
             statusImageView.image = resGetImage(imageName)
         }

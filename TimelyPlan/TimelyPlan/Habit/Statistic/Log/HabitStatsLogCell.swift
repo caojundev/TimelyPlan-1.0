@@ -13,6 +13,9 @@ struct HabitStatsLog {
     /// 日期
     var date: Date
     
+    /// 状态
+    var status: HabitTaskStatus
+    
     /// 内容
     var content: String?
     
@@ -28,7 +31,11 @@ class HabitStatsLogCellItem: TPCollectionCellItem {
         self.log = log
         super.init()
         self.registerClass = HabitStatsLogCell.self
-        self.size = CGSize(width: .greatestFiniteMagnitude, height: 80.0)
+        self.size = CGSize(width: .greatestFiniteMagnitude, height: 90.0)
+        self.contentPadding = UIEdgeInsets(top: 10.0,
+                                           left: 16.0,
+                                           bottom: 10.0,
+                                           right: 10.0)
     }
 }
 
@@ -51,113 +58,70 @@ class HabitStatsLogCell: TPCollectionCell {
         }
     }
     
-    /// 单元格内间距
-    let statsNoteCellPadding = UIEdgeInsets(horizontal: 16.0, vertical: 10.0)
-
-    /// 日期区域尺寸
-    let statsNoteDateAreaSize = CGSize(width: 50.0, height: 50.0)
-
-    let statsNoteSeparatorSize = CGSize(width: 2.0, height: 40.0)
-
-    let statsNoteLabelLeftMargin = 10.0
-
     /// 日期标签
-    private var dateLabel: UILabel!
+    private let dateLabel = TPLabel()
     
-    /// 星期符号标签
-    private var weekdayLabel: UILabel!
+    private let infoView = TPImageInfoView()
     
-    /// 分割线
-    private var separator: CALayer!
-    
-    private var noteLabel: UILabel!
-    
-    private var scoreInfoView = TPInfoView()
+    private let scoreView = TPInfoView()
     
     override func setupContentSubviews() {
         super.setupContentSubviews()
         
-        /// 分割线
-        separator = CALayer()
-        contentView.layer.addSublayer(separator)
-        
         let textColor = resGetColor(.title)
-        
-        /// 日期标签
-        dateLabel = UILabel()
-        dateLabel.font = UIFont.boldSystemFont(ofSize: 24.0)
-        dateLabel.textAlignment = .center
+        dateLabel.font = UIFont.boldSystemFont(ofSize: 13.0)
+        dateLabel.textAlignment = .left
         dateLabel.textColor = textColor
+        dateLabel.alpha = 0.8
         contentView.addSubview(dateLabel)
         
-        /// 星期符号标签
-        weekdayLabel = UILabel()
-        weekdayLabel.font = UIFont.boldSystemFont(ofSize: 12.0)
-        weekdayLabel.textAlignment = .center
-        weekdayLabel.textColor = textColor
-        contentView.addSubview(weekdayLabel)
-    
-        noteLabel = UILabel()
-        noteLabel.numberOfLines = 0
-        noteLabel.textAlignment = .left
-        noteLabel.font = UIFont.boldSystemFont(ofSize: 14.0)
-        noteLabel.textColor = textColor
-        contentView.addSubview(noteLabel)
+        infoView.imageConfig.size = .size(6)
+        infoView.imageConfig.shouldRenderImageWithColor = false
+        infoView.titleConfig.font = .boldSystemFont(ofSize: 14.0)
+        infoView.subtitleConfig.font = .systemFont(ofSize: 12.0)
+        contentView.addSubview(infoView)
         
-        scoreInfoView.titleConfig.font = .boldSystemFont(ofSize: 24.0)
-        scoreInfoView.subtitleConfig.font = .boldSystemFont(ofSize: 12.0)
-        scoreInfoView.titleConfig.textAlignment = .center
-        scoreInfoView.subtitleConfig.textAlignment = .center
-        scoreInfoView.subtitle = resGetString("Score")
-        scoreInfoView.addSeparator(position: .left, color: Color(0xcccccc, 0.2))
-        scoreInfoView.separatorEdgeInset = UIEdgeInsets(vertical: 8.0)
-        scoreInfoView.padding = UIEdgeInsets(value: 8.0)
-        contentView.addSubview(scoreInfoView)
+        scoreView.titleConfig.font = .boldSystemFont(ofSize: 20.0)
+        scoreView.subtitleConfig.font = .boldSystemFont(ofSize: 10.0)
+        scoreView.titleConfig.textAlignment = .center
+        scoreView.subtitleConfig.textAlignment = .center
+        scoreView.subtitle = resGetString("Score")
+        scoreView.addSeparator(position: .left, color: Color(0xaaaaaa, 0.1))
+        scoreView.separatorEdgeInset = UIEdgeInsets(vertical: 8.0)
+        contentView.addSubview(scoreView)
     }
-    
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let layoutFrame = bounds.inset(by: statsNoteCellPadding)
-        let topMargin = (layoutFrame.height - statsNoteDateAreaSize.height) / 2.0
-        dateLabel.width = statsNoteDateAreaSize.width
-        dateLabel.height = statsNoteDateAreaSize.width * 0.6
-        dateLabel.left = layoutFrame.minX
-        dateLabel.top = layoutFrame.minY + topMargin
+        let layoutFrame = contentView.layoutFrame()
+        dateLabel.width = layoutFrame.width
+        dateLabel.height = 20.0
+        dateLabel.origin = layoutFrame.origin
+   
+        scoreView.width = 60.0
+        scoreView.height = layoutFrame.height - dateLabel.height
+        scoreView.top = dateLabel.bottom
+        scoreView.right = layoutFrame.maxX
         
-        weekdayLabel.width = statsNoteDateAreaSize.width
-        weekdayLabel.height = statsNoteDateAreaSize.width * 0.4
-        weekdayLabel.left = layoutFrame.minX
-        weekdayLabel.top = dateLabel.bottom
-
-        separator.backgroundColor = Color(0x888888, 0.1).cgColor
-        let separatorY = (bounds.height - statsNoteSeparatorSize.height) / 2.0
-        let separatorRect = CGRect(x: dateLabel.right,
-                                   y: separatorY,
-                                   width: statsNoteSeparatorSize.width,
-                                   height: statsNoteSeparatorSize.height)
-        separator.frame = separatorRect
-        separator.cornerRadius = 2.0
+        infoView.width = layoutFrame.width - scoreView.width
+        infoView.height = scoreView.height
+        infoView.top = dateLabel.bottom
+        infoView.left = layoutFrame.minX
         
-        let noteLabelX = dateLabel.right + statsNoteLabelLeftMargin
-        let noteLabelW = layoutFrame.maxX - noteLabelX
-        let noteLabelFrame = CGRect(x: noteLabelX,
-                                    y: layoutFrame.minY,
-                                    width: noteLabelW,
-                                    height: layoutFrame.height)
-        noteLabel.frame = noteLabelFrame
-        
-        scoreInfoView.width = 80.0
-        scoreInfoView.height = layoutFrame.height
-        scoreInfoView.top = layoutFrame.minY
-        scoreInfoView.right = layoutFrame.maxX
+//        dateLabel.backgroundColor = .random
+//        scoreView.backgroundColor = .random
+//        infoView.backgroundColor = .random
+//        scoreView.subtitleLabel.backgroundColor = .random
     }
     
-    func updateContent() { 
-        dateLabel.text = "\(log.date.day)"
-        weekdayLabel.text = log.date.shortWeekdaySymbol()
-        noteLabel.text = log.content
-        scoreInfoView.title = "\(log.score)"
+    func updateContent() {
+        dateLabel.text = log.date.yearMonthDayWeekdaySymbolString()
+        scoreView.title = "\(log.score)"
+
+        let imageName = log.status.iconName(with: 24)
+        infoView.imageContent = .withName(imageName)
+        infoView.title = log.status.title
+        infoView.subtitle = log.content
     }
 }

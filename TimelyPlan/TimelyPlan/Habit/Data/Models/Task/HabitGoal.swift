@@ -53,6 +53,11 @@ struct HabitGoal: Equatable {
     }
     
     var validatedTargetAmount: Int64 {
+        guard mode == .amount else {
+            /// 打卡模式，目标量为1
+            return 1
+        }
+        
         if targetAmount > 0 {
             return targetAmount
         }

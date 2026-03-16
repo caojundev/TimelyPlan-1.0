@@ -121,10 +121,23 @@
 "Active" = "活动";
 "No Archiving Habit" = "无归档习惯";
 
+/// 统计
+"Logs" = "日志";
+"No Log" = "无日志";
+"Record Amount" = "记录量";
+"Finished Days" = "完成天数";
+"Avg Score" = "平均分";
+
+
 /// 设置
 "Habit Settings" = "习惯设置";
 "Add New Habits On Top" = "添加新习惯到顶部";
 "Auto Show Log Dialog" = "自动显示日志弹窗";
+
+
+
+
+
 
 
 ///**********************四象限*********************///

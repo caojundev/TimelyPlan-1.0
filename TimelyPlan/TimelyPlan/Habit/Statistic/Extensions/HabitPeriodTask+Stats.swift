@@ -8,6 +8,7 @@
 import Foundation
 
 typealias HabitDailyCheckinTimeResults = [DayIntegerKey: Set<Duration>]
+typealias HabitMonthGroupedRecords = [Int: [HabitRecord]]
 
 extension HabitPeriodTask {
     
@@ -198,11 +199,6 @@ extension HabitPeriodTask {
             return []
         }
         
-        let totalDays = period.pastDaysCount
-        if totalDays <= 0 {
-            return []
-        }
-        
         var infos = [HabitTaskStatus: Int]()
         var recordDays = 0
         for (_, record) in records {
@@ -214,12 +210,11 @@ extension HabitPeriodTask {
             }
         }
         
-        infos[.notStarted] = max((totalDays - recordDays), 0)
-        return statusDayCountPieSlices(for: infos, totalDays: totalDays)
+        return statusDayCountPieSlices(for: infos, recordDays: recordDays)
     }
     
     private func statusDayCountPieSlices(for infos: [HabitTaskStatus: Int],
-                                         totalDays: Int) -> [PieSlice] {
+                                         recordDays: Int) -> [PieSlice] {
         let infos = infos.sorted { $0.value > $1.value }
         var slices = [PieSlice]()
         for (status, count) in infos {
@@ -242,7 +237,7 @@ extension HabitPeriodTask {
             details.append(daysDetail)
             let detail = details.joined(separator: " • ")
             
-            let percent = Double(count) / Double(totalDays)
+            let percent = Double(count) / Double(recordDays)
             let slice = PieSlice(title: title, detail: detail, percent: percent)
             slices.append(slice)
         }
@@ -261,10 +256,39 @@ extension HabitPeriodTask {
                 continue
             }
             
-            let log = HabitStatsLog(date: date, content: record.log, score: Int(record.score))
-            logs.append(log)
+            let status = status(with: record)
+            if status != .notStarted, status != .inProgress {
+                let log = HabitStatsLog(date: date,
+                                        status: status,
+                                        content: record.log,
+                                        score: Int(record.score))
+                logs.append(log)
+            }
         }
         
         return logs.sorted { $0.date < $1.date }
     }
+    
+    
+    /// 将记录以月份归类
+    func monthGroupedRecords() -> HabitMonthGroupedRecords? {
+        guard let records = self.records else {
+            return nil
+        }
+        
+        var result = HabitMonthGroupedRecords()
+        for record in records.values {
+            guard let date = record.date else {
+                continue
+            }
+            
+            let month = date.month
+            var array = result[month] ?? []
+            array.append(record)
+            result[month] = array
+        }
+        
+        return result
+    }
 }
+

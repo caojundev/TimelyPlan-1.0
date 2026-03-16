@@ -82,7 +82,7 @@ class HabitDatePeriod: NSObject {
         return startDate.isFutureDay
     }
     
-    /// 当前时间范围已过去
+    /// 当前时间范围已过去的天数
     var pastDaysCount: Int {
         if isFuture {
             return 0

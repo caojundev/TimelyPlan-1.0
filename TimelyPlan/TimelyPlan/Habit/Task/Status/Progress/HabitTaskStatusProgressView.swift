@@ -124,7 +124,10 @@ class HabitTaskStatusProgressView: UIView {
                 self.updateStatus()
             }
         } else {
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
             self.updateStatus()
+            CATransaction.commit()
         }
     }
     
