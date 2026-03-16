@@ -27,6 +27,7 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     }
     
     func sectionControllers(for periodTask: HabitPeriodTask) -> [TPCollectionItemSectionController] {
+        let summarySectionController = summarySectionController(for: periodTask)
         let calendarMonthSectionController = calendarMonthSectionController(for: periodTask)
         let statusPieSectionController = HabitStatusPieChartSectionController(periodTask: periodTask)
         let monthlyBarChartSectionController = monthlyBarChartSectionController(for: periodTask)
@@ -34,7 +35,8 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
         let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
         let scoreTrendsSectionController = scoreTrendsSectionController(for: periodTask)
         let logSectionController = logSectionController(for: periodTask)
-        return [calendarMonthSectionController,
+        return [summarySectionController,
+                calendarMonthSectionController,
                 statusPieSectionController,
                 monthlyBarChartSectionController,
                 checkinTimeSectionController,
@@ -43,6 +45,12 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
                 logSectionController]
     }
  
+    // MARK: - 概览
+    func summarySectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        let sectionController = StatsSummarySectionController()
+        sectionController.summaries = periodTask.summaries()
+        return sectionController
+    }
     
     /// 月日历
     func calendarMonthSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {

@@ -10,34 +10,44 @@ import UIKit
 
 class HabitStatsYearlyViewController: HabitStatsContentViewController {
   
-      init(task: HabitTask, date: Date = .now) {
-          super.init(task: task, type: .year, date: date)
-      }
+    init(task: HabitTask, date: Date = .now) {
+        super.init(task: task, type: .year, date: date)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
       
-      required init?(coder: NSCoder) {
-          fatalError("init(coder:) has not been implemented")
-      }
-      
-      override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
-          let period = HabitDatePeriod(date: self.date, mode: .year)
-          habit.fetchPeriodTask(for: task, in: period) { periodTask in
-              let sectionControllers = self.sectionControllers(for: periodTask)
-              completion(sectionControllers)
-          }
-      }
-      
-      func sectionControllers(for periodTask: HabitPeriodTask) -> [TPCollectionItemSectionController] {
-          let statusPieSectionController = HabitStatusPieChartSectionController(periodTask: periodTask)
-          let yearlyBarChartSectionController = yearlyBarChartSectionController(for: periodTask)
-          let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
-          let heatMapSectionController = heatMapSectionController(for: periodTask)
-          let historySectionController = historySectionController(for: periodTask)
-          return [statusPieSectionController,
-                  yearlyBarChartSectionController,
-                  hourlyCheckinCountSectionContorller,
-                  heatMapSectionController,
-                  historySectionController]
-      }
+    override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
+        let period = HabitDatePeriod(date: self.date, mode: .year)
+        habit.fetchPeriodTask(for: task, in: period) { periodTask in
+          let sectionControllers = self.sectionControllers(for: periodTask)
+          completion(sectionControllers)
+        }
+    }
+
+    func sectionControllers(for periodTask: HabitPeriodTask) -> [TPCollectionItemSectionController] {
+        let summarySectionController = summarySectionController(for: periodTask)
+        let statusPieSectionController = HabitStatusPieChartSectionController(periodTask: periodTask)
+        let yearlyBarChartSectionController = yearlyBarChartSectionController(for: periodTask)
+        let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
+        let heatMapSectionController = heatMapSectionController(for: periodTask)
+        let historySectionController = historySectionController(for: periodTask)
+        return [summarySectionController,
+                statusPieSectionController,
+                yearlyBarChartSectionController,
+                hourlyCheckinCountSectionContorller,
+                heatMapSectionController,
+                historySectionController]
+    }
+    
+    // MARK: - 概览
+    func summarySectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        let sectionController = StatsSummarySectionController()
+        sectionController.summaries = periodTask.summaries()
+        return sectionController
+    }
+    
 
     func yearlyBarChartSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
         let marks = periodTask.monthlyCheckinAmountChartMarks()

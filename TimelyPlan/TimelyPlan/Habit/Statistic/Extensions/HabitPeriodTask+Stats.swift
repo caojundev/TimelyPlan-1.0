@@ -294,3 +294,101 @@ extension HabitPeriodTask {
     }
 }
 
+// MARK: - 概览
+extension HabitPeriodTask {
+    
+    func summaries() -> [StatsSummary] {
+        var results: [StatsSummary] = []
+        if habitTask.goal.mode == .amount {
+            results.append(contentsOf: amountSummaries())
+        }
+        
+        let finishedDaysSummary = finishedDaysSummary()
+        results.append(finishedDaysSummary)
+        
+        let averageScoreSummary = averageScoreSummary()
+        results.append(averageScoreSummary)
+        
+        return results
+    }
+    
+    func amountSummaries() -> [StatsSummary] {
+        var completedAmount: Int64 = 0
+        var averageAmount: Int64 = 0
+        if let records = self.records?.values, records.count > 0 {
+            completedAmount = Array(records).recordAmount
+            averageAmount = completedAmount / Int64(records.count)
+        }
+        
+        let completedAmountSummary = completedAmountSummary(amount: completedAmount)
+        let dailyAverageAmountSummary = dailyAverageAmountSummary(amount: averageAmount)
+        return [completedAmountSummary, dailyAverageAmountSummary]
+    }
+    
+    func completedAmountSummary(amount: Int64) -> StatsSummary {
+        var summary = StatsSummary()
+        summary.title = resGetString("Completed Amount")
+        if amount > 0 {
+            summary.attributedValue = "\(amount)"
+        }
+        
+        return summary
+    }
+    
+    /// 日平均记录数目
+    func dailyAverageAmountSummary(amount: Int64) -> StatsSummary {
+        var summary = StatsSummary()
+        summary.title = resGetString("Daily Avg")
+        if amount > 0 {
+            summary.attributedValue = "\(amount)"
+        }
+        
+        return summary
+    }
+    
+    /// 完成天数
+    func finishedDaysSummary() -> StatsSummary {
+        var summary = StatsSummary()
+        summary.title = resGetString("Finished Days")
+        
+        if let records = self.records?.values, records.count > 0 {
+            let finishedDays = Array(records).finishedDays(for: habitTask)
+            summary.attributedValue = daysAttributedTitle(with: finishedDays)
+        } else {
+            summary.value = "---"
+        }
+        
+        return summary
+    }
+    
+    /// 平均得分
+    func averageScoreSummary() -> StatsSummary {
+        var summary = StatsSummary()
+        summary.title = resGetString("Avg Score")
+        if let records = self.records?.values, records.count > 0 {
+            let score = Array(records).averageScore
+            summary.value = "\(score)"
+        } else {
+            summary.value = "---"
+        }
+        
+        return summary
+    }
+    
+    // MARK: - Helpers
+    /// 获取天数富文本
+    func daysAttributedTitle(with count: Int?) -> ASAttributedString? {
+        guard let count = count, count > 0 else {
+            return nil
+        }
+        
+        let badge: String = count > 1 ? resGetString("days") : resGetString("day")
+        return StatsSummary.attributedValue(text: "\(count)", badge: badge, badgeColor: summaryTextColor)
+    }
+
+    /// 符号文本颜色
+    var summaryTextColor: UIColor {
+        return .primary.withAlphaComponent(0.8)
+    }
+    
+}

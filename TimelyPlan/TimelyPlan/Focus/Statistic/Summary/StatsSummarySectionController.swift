@@ -23,8 +23,8 @@ class StatsSummarySectionController: TPCollectionItemSectionController {
     
     override init() {
         super.init()
-        self.layout.interitemSpacing = 10.0
-        self.layout.lineSpacing = 10.0
+        self.layout.interitemSpacing = 16.0
+        self.layout.lineSpacing = 16.0
         self.layout.minimumItemsCountPerRow = 2
         self.layout.maximumItemsCountPerRow = 2
         self.layout.preferredItemHeight = 110.0

@@ -27,13 +27,15 @@ class HabitStatsWeeklyViewController: HabitStatsContentViewController {
     }
     
     func sectionControllers(for periodTask: HabitPeriodTask) -> [TPCollectionItemSectionController] {
+        let summarySectionController = summarySectionController(for: periodTask)
         let calendarWeekSectionController = calendarWeekSectionController(for: periodTask)
         let weeklyBarChartSectionController = weeklyBarChartSectionController(for: periodTask)
         let checkinTimeSectionController = checkinTimeSectionController(for: periodTask)
         let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
         let scoreTrendsSectionController = scoreTrendsSectionController(for: periodTask)
         let logSectionController = logSectionController(for: periodTask)
-        return [calendarWeekSectionController,
+        return [summarySectionController,
+                calendarWeekSectionController,
                 weeklyBarChartSectionController,
                 checkinTimeSectionController,
                 hourlyCheckinCountSectionContorller,
@@ -41,6 +43,13 @@ class HabitStatsWeeklyViewController: HabitStatsContentViewController {
                 logSectionController]
     }
  
+    // MARK: - 概览
+    func summarySectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        let sectionController = StatsSummarySectionController()
+        sectionController.summaries = periodTask.summaries()
+        return sectionController
+    }
+    
     /// 周日历
     func calendarWeekSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
         let sectionController = HabitStatsCalendarWeekSectionController(task: periodTask,
