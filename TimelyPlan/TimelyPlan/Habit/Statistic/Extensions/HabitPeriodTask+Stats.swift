@@ -188,15 +188,16 @@ extension HabitPeriodTask {
     
     // MARK: - 饼状图
     /// 任务状态天数饼状图信息
-    func statusDayCountPieVisual() -> PieVisual {
-        let slices = statusDayCountPieSlices()
-        return PieVisual(slices: slices, colors: nil)
+    func statusDayCountPieVisual(_ recordDays: inout Int) -> PieVisual {
+        let info = statusDayCountPieSlicesInfo()
+        recordDays = info.recordDays
+        return PieVisual(slices: info.slices, colors: nil)
     }
-    
+
     /// 任务状态天数对应的饼状图切片
-    private func statusDayCountPieSlices() -> [PieSlice] {
+    private func statusDayCountPieSlicesInfo() -> (slices: [PieSlice], recordDays: Int) {
         guard let records = self.records else {
-            return []
+            return ([], 0)
         }
         
         var infos = [HabitTaskStatus: Int]()
@@ -210,7 +211,8 @@ extension HabitPeriodTask {
             }
         }
         
-        return statusDayCountPieSlices(for: infos, recordDays: recordDays)
+        let slices = statusDayCountPieSlices(for: infos, recordDays: recordDays)
+        return (slices, recordDays)
     }
     
     private func statusDayCountPieSlices(for infos: [HabitTaskStatus: Int],

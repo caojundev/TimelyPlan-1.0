@@ -41,20 +41,49 @@ class PieChartView: UIView {
     }
     
     /// 内环标题
-    var innerTitle: String? {
+    var innerTitle: TextRepresentable? {
         didSet {
-            titleLabel.text = innerTitle
+            infoView.title = innerTitle
         }
     }
     
+    var innerTitleConfig: TPLabelConfig {
+        get {
+            return infoView.titleConfig
+        }
+        
+        set {
+            infoView.titleConfig = newValue
+        }
+    }
+    
+    var innerSubtitle: TextRepresentable? {
+        didSet {
+            infoView.subtitle = innerSubtitle
+        }
+    }
+    
+    var innerSubtitleConfig: TPLabelConfig {
+        get {
+            return infoView.subtitleConfig
+        }
+        
+        set {
+            infoView.subtitleConfig = newValue
+        }
+    }
+
     /// 标题标签
-    lazy var titleLabel: TPLabel = {
-        let label = TPLabel()
-        label.textColor = resGetColor(.title)
-        label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.boldSystemFont(ofSize: 20.0)
-        return label
+    lazy var infoView: TPInfoView = {
+        let infoView = TPInfoView()
+        infoView.titleConfig.textColor = resGetColor(.title)
+        infoView.titleConfig.textAlignment = .center
+        infoView.titleConfig.adjustsFontSizeToFitWidth = true
+        infoView.titleConfig.font = UIFont.boldSystemFont(ofSize: 24.0)
+        infoView.subtitleConfig.textAlignment = .center
+        infoView.subtitleConfig.adjustsFontSizeToFitWidth = true
+        infoView.subtitleConfig.font = UIFont.boldSystemFont(ofSize: 12.0)
+        return infoView
     }()
     
     /// 饼状图
@@ -72,7 +101,7 @@ class PieChartView: UIView {
         addSubview(lineView)
         addSubview(labelsView)
         addSubview(circleView)
-        addSubview(titleLabel)
+        addSubview(infoView)
     }
     
     required init?(coder: NSCoder) {
@@ -91,8 +120,8 @@ class PieChartView: UIView {
         labelsView.radius = outerRadius
         labelsView.frame = layoutFrame
     
-        titleLabel.size = .circleInnerLabelSize(radius: innerRadius - 10.0)
-        titleLabel.center = circleView.center
+        infoView.size = .circleInnerLabelSize(radius: innerRadius - 10.0)
+        infoView.center = circleView.center
         backgroundColor = .clear
     }
     

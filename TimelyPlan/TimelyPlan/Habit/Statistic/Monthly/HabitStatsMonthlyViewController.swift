@@ -28,7 +28,7 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     
     func sectionControllers(for periodTask: HabitPeriodTask) -> [TPCollectionItemSectionController] {
         let calendarMonthSectionController = calendarMonthSectionController(for: periodTask)
-        let statusPieSectionController = statusPieSectionController(for: periodTask)
+        let statusPieSectionController = HabitStatusPieChartSectionController(periodTask: periodTask)
         let monthlyBarChartSectionController = monthlyBarChartSectionController(for: periodTask)
         let checkinTimeSectionController = checkinTimeSectionController(for: periodTask)
         let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
@@ -50,14 +50,6 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
                                                                         date: self.date,
                                                                         firstWeekday: self.firstWeekday)
        return sectionController
-    }
-       
-    
-    /// 任务状态饼状图统计
-    func statusPieSectionController(for periodTask: HabitPeriodTask) -> PieChartSectionController {
-        let sectionController = PieChartSectionController()
-        sectionController.visual = periodTask.statusDayCountPieVisual()
-        return sectionController
     }
 
     func monthlyBarChartSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {

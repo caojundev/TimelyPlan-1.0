@@ -122,6 +122,8 @@
 "No Archiving Habit" = "无归档习惯";
 
 /// 统计
+"Status Days" = "状态天数";
+"Record Days" = "记录天数";
 "Logs" = "日志";
 "No Log" = "无日志";
 "Record Amount" = "记录量";

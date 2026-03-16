@@ -57,10 +57,11 @@ class StatsBaseChartCell: TPCollectionCell {
     lazy var headerView: TPInfoView = {
        let view = TPInfoView()
         view.clipsToBounds = true
-        view.titleConfig.font = .boldSystemFont(ofSize: 16.0)
+        view.titleConfig.font = .boldSystemFont(ofSize: 14.0)
         view.titleConfig.textColor = resGetColor(.title)
         view.subtitleConfig.font = UIFont.systemFont(ofSize: 10.0)
         view.subtitleConfig.textColor = .secondaryLabel
+        view.titleLabel.alpha = 0.8
         return view
     }()
     

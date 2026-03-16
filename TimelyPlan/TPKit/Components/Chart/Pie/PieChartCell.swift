@@ -32,7 +32,11 @@ class PieChartSectionController: TPCollectionItemSectionController {
 class PieChartCellItem: StatsBaseChartCellItem {
     
     /// 圆环内部标题
-    var innerTitle: String?
+    var innerTitle: TextRepresentable?
+    var innerTitleConfig: TPLabelConfig = TPLabelConfig.titleConfig
+    
+    var innerSubtitle: TextRepresentable?
+    var innerSubtitleConfig = TPLabelConfig.subtitleConfig
     
     /// 可视对象
     var visual: PieVisual = PieVisual(slices: [])
@@ -59,6 +63,15 @@ class PieChartCellItem: StatsBaseChartCellItem {
         self.contentPadding = UIEdgeInsets(horizontal: 5.0, vertical: 10.0)
         self.registerClass = PieChartCell.self
         self.canHighlight = false
+        
+        self.innerTitleConfig.textColor = resGetColor(.title)
+        self.innerTitleConfig.textAlignment = .center
+        self.innerTitleConfig.adjustsFontSizeToFitWidth = true
+        self.innerTitleConfig.font = UIFont.boldSystemFont(ofSize: 24.0)
+        
+        self.innerSubtitleConfig.textAlignment = .center
+        self.innerSubtitleConfig.adjustsFontSizeToFitWidth = true
+        self.innerSubtitleConfig.font = UIFont.boldSystemFont(ofSize: 12.0)
     }
     
     override var size: CGSize? {
@@ -83,6 +96,11 @@ class PieChartCell: StatsBaseChartCell {
         didSet {
             let cellItem = cellItem as! PieChartCellItem
             chartView.innerTitle = cellItem.innerTitle
+            chartView.innerTitleConfig = cellItem.innerTitleConfig
+            
+            chartView.innerSubtitle = cellItem.innerSubtitle
+            chartView.innerSubtitleConfig = cellItem.innerSubtitleConfig
+            
             chartHeight = cellItem.chartHeight
             chartView.visual = cellItem.visual
             
