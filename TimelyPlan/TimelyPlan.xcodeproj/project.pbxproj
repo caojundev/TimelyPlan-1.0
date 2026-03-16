@@ -1531,6 +1531,8 @@
 		E5FC6BC62F66A44D00D5A5EA /* HabitStatsCalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC6BC32F66A44D00D5A5EA /* HabitStatsCalendarMonthView.swift */; };
 		E5FC6BC72F66A44D00D5A5EA /* HabitStatsCalendarMonthSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC6BC42F66A44D00D5A5EA /* HabitStatsCalendarMonthSectionController.swift */; };
 		E5FC6BC92F66CD9F00D5A5EA /* HabitTaskStatusDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC6BC82F66CD9F00D5A5EA /* HabitTaskStatusDayCell.swift */; };
+		E5FC6BCF2F66E25500D5A5EA /* HabitStatsLogSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC6BCE2F66E25500D5A5EA /* HabitStatsLogSectionController.swift */; };
+		E5FC6BD12F66E35C00D5A5EA /* HabitStatsLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC6BD02F66E35B00D5A5EA /* HabitStatsLogCell.swift */; };
 		E5FDFAB82D3E47D90042BC3A /* TodoTaskQuickAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDFAB72D3E47D90042BC3A /* TodoTaskQuickAddView.swift */; };
 		E5FDFABA2D3E7C170042BC3A /* TodoTaskQuickAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDFAB92D3E7C170042BC3A /* TodoTaskQuickAddController.swift */; };
 		E5FF12EB2D5DF6D600340DCC /* TPEmojiEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF12EA2D5DF6D600340DCC /* TPEmojiEditView.swift */; };
@@ -3084,6 +3086,8 @@
 		E5FC6BC32F66A44D00D5A5EA /* HabitStatsCalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitStatsCalendarMonthView.swift; sourceTree = "<group>"; };
 		E5FC6BC42F66A44D00D5A5EA /* HabitStatsCalendarMonthSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitStatsCalendarMonthSectionController.swift; sourceTree = "<group>"; };
 		E5FC6BC82F66CD9F00D5A5EA /* HabitTaskStatusDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusDayCell.swift; sourceTree = "<group>"; };
+		E5FC6BCE2F66E25500D5A5EA /* HabitStatsLogSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatsLogSectionController.swift; sourceTree = "<group>"; };
+		E5FC6BD02F66E35B00D5A5EA /* HabitStatsLogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitStatsLogCell.swift; sourceTree = "<group>"; };
 		E5FDFAB72D3E47D90042BC3A /* TodoTaskQuickAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddView.swift; sourceTree = "<group>"; };
 		E5FDFAB92D3E7C170042BC3A /* TodoTaskQuickAddController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddController.swift; sourceTree = "<group>"; };
 		E5FF12EA2D5DF6D600340DCC /* TPEmojiEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPEmojiEditView.swift; sourceTree = "<group>"; };
@@ -4638,12 +4642,13 @@
 		E59243F82F514C8200CA2393 /* Statistic */ = {
 			isa = PBXGroup;
 			children = (
+				E5FC6BAB2F651CC800D5A5EA /* HabitStatsMainViewController.swift */,
+				E5FC6BCC2F66E1BF00D5A5EA /* Base */,
+				E5FC6BB52F657D3800D5A5EA /* Extensions */,
 				E5FC6BBA2F666EDC00D5A5EA /* Weekly */,
 				E5FC6BC12F66A44D00D5A5EA /* Monthly */,
-				E5FC6BB52F657D3800D5A5EA /* Models */,
-				E5FC6BAB2F651CC800D5A5EA /* HabitStatsMainViewController.swift */,
-				E5FC6BAF2F65520D00D5A5EA /* HabitStatsContentViewController.swift */,
-				E5FC6BB32F6553CC00D5A5EA /* HabitStatsYearlyViewController.swift */,
+				E5FC6BCB2F66E1B100D5A5EA /* Yearly */,
+				E5FC6BCD2F66E1D600D5A5EA /* Log */,
 			);
 			path = Statistic;
 			sourceTree = "<group>";
@@ -8263,12 +8268,12 @@
 			path = Log;
 			sourceTree = "<group>";
 		};
-		E5FC6BB52F657D3800D5A5EA /* Models */ = {
+		E5FC6BB52F657D3800D5A5EA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				E5FC6BB82F657F3700D5A5EA /* HabitPeriodTask+Stats.swift */,
 			);
-			path = Models;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E5FC6BBA2F666EDC00D5A5EA /* Weekly */ = {
@@ -8298,6 +8303,31 @@
 				E5FC6BC82F66CD9F00D5A5EA /* HabitTaskStatusDayCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		E5FC6BCB2F66E1B100D5A5EA /* Yearly */ = {
+			isa = PBXGroup;
+			children = (
+				E5FC6BB32F6553CC00D5A5EA /* HabitStatsYearlyViewController.swift */,
+			);
+			path = Yearly;
+			sourceTree = "<group>";
+		};
+		E5FC6BCC2F66E1BF00D5A5EA /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E5FC6BAF2F65520D00D5A5EA /* HabitStatsContentViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		E5FC6BCD2F66E1D600D5A5EA /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				E5FC6BCE2F66E25500D5A5EA /* HabitStatsLogSectionController.swift */,
+				E5FC6BD02F66E35B00D5A5EA /* HabitStatsLogCell.swift */,
+			);
+			path = Log;
 			sourceTree = "<group>";
 		};
 		E5FF12E82D5DE78800340DCC /* Common */ = {
@@ -9027,6 +9057,7 @@
 				E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */,
 				E54155612F49A415000B2972 /* FocusRecordListSectionController.swift in Sources */,
 				E5BB9E3D2D3BF0C70089667A /* TPDefaultInfoTableHeaderFooterView.swift in Sources */,
+				E5FC6BCF2F66E25500D5A5EA /* HabitStatsLogSectionController.swift in Sources */,
 				E5BB9EE72D3BF0C80089667A /* TPMenuListPopoverView.swift in Sources */,
 				E5BBA0BE2D3BF4A50089667A /* TodoTag+Extensions.swift in Sources */,
 				E50BB6782D5706FE00D316FD /* TPSeparatorSectionController.swift in Sources */,
@@ -9296,6 +9327,7 @@
 				E5BBA0652D3BF4A40089667A /* RepeatEnd.swift in Sources */,
 				E5D7D9412D43933700EC877A /* FocusTimerStepEditContentViewController.swift in Sources */,
 				E5BB9F492D3BF45F0089667A /* SideMenuType.swift in Sources */,
+				E5FC6BD12F66E35C00D5A5EA /* HabitStatsLogCell.swift in Sources */,
 				E5526AC92DD0E82E00B96A9D /* CalendarWeekSingleDayView.swift in Sources */,
 				E5BBA0EF2D3BF5BB0089667A /* TaskBindView.swift in Sources */,
 				E5BB9DF22D3BF0C60089667A /* Date+Extensions.swift in Sources */,

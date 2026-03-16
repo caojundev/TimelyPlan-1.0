@@ -135,9 +135,16 @@ extension HabitPeriodTask {
             }
             
             let x = xValueForDate(date)
-            let score = records[date.dayIntegerKey]?.score ?? 0
-            var mark = ChartMark(x: x, y: CGFloat(score))
-            mark.highlightText = "\(date.monthDayShortWeekdaySymbolString), \(score)"
+            
+            var score = records[date.dayIntegerKey]?.score
+            if score == nil, !isScheduledDate(date) {
+                /// 非计划日，评分设置为100
+                score = 100
+            }
+            
+            let markScore = score ?? 0
+            var mark = ChartMark(x: x, y: CGFloat(markScore))
+            mark.highlightText = "\(date.monthDayShortWeekdaySymbolString), \(markScore)"
             marks.append(mark)
         }
         
@@ -241,5 +248,23 @@ extension HabitPeriodTask {
         }
     
         return slices
+    }
+    
+    func statsLogs() -> [HabitStatsLog]? {
+        guard let records = self.records else {
+            return nil
+        }
+        
+        var logs = [HabitStatsLog]()
+        for (_, record) in records {
+            guard let date = record.date else {
+                continue
+            }
+            
+            let log = HabitStatsLog(date: date, content: record.log, score: Int(record.score))
+            logs.append(log)
+        }
+        
+        return logs.sorted { $0.date < $1.date }
     }
 }

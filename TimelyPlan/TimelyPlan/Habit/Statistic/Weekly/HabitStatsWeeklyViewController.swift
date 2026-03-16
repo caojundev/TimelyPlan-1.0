@@ -32,12 +32,13 @@ class HabitStatsWeeklyViewController: HabitStatsContentViewController {
         let checkinTimeSectionController = checkinTimeSectionController(for: periodTask)
         let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
         let scoreTrendsSectionController = scoreTrendsSectionController(for: periodTask)
-        
+        let logSectionController = logSectionController(for: periodTask)
         return [calendarWeekSectionController,
                 weeklyBarChartSectionController,
                 checkinTimeSectionController,
                 hourlyCheckinCountSectionContorller,
-                scoreTrendsSectionController]
+                scoreTrendsSectionController,
+                logSectionController]
     }
  
     /// 周日历
@@ -121,4 +122,11 @@ class HabitStatsWeeklyViewController: HabitStatsContentViewController {
         sectionController.chartItem = chartItem
         return sectionController
     }
+    
+    func logSectionController(for periodTask: HabitPeriodTask) -> HabitStatsLogSectionController {
+        var logs: [HabitStatsLog]? = periodTask.statsLogs()
+        let sectionController = HabitStatsLogSectionController(logs: logs)
+        return sectionController
+    }
+    
 }

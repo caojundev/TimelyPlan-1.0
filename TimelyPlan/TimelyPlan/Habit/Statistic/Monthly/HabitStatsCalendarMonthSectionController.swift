@@ -18,9 +18,7 @@ class HabitStatsCalendarMonthSectionController: TPCollectionItemSectionControlle
     
     /// 月单元格条目
     private let monthCellItem = HabitStatsCalendarMonthCellItem()
-    
-    private let scheduler = HabitTimePlanScheduler()
-    
+
     init(task: HabitPeriodTask, date: Date, firstWeekday: Weekday = .firstWeekday) {
         self.task = task
         self.date = date
@@ -33,13 +31,6 @@ class HabitStatsCalendarMonthSectionController: TPCollectionItemSectionControlle
         self.cellItems = [self.monthCellItem]
     }
 
-    private func isScheduledDate(_ date: Date) -> Bool {
-        let habitTask = task.habitTask
-        return scheduler.isScheduledDate(date,
-                                         timePlan: habitTask.timePlan,
-                                         dateRange: habitTask.dateRange)
-    }
-    
     // MARK: - TPCalendarMonthViewDelegate
     func calendarMonthView(_ view: TPCalendarMonthView, cellClassForDateComponents components: DateComponents) -> AnyClass? {
         guard let date = Date.dateFromComponents(components), date.isInSameMonthAs(self.date) else {
@@ -57,7 +48,7 @@ class HabitStatsCalendarMonthSectionController: TPCollectionItemSectionControlle
         
         cell.date = date
         cell.task = self.task
-        cell.isScheduledDay = isScheduledDate(date)
+        cell.isScheduledDay = self.task.isScheduledDate(date)
         cell.reloadData() /// 加载内容数据
     }
     

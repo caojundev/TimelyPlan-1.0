@@ -18,8 +18,6 @@ class HabitStatsCalendarWeekSectionController: TPCollectionItemSectionController
     /// 周单元格条目
     private let weekCellItem = HabitStatsCalendarWeekCellItem()
     
-    private let scheduler = HabitTimePlanScheduler()
-    
     init(task: HabitPeriodTask, date: Date, firstWeekday: Weekday = .firstWeekday) {
         self.task = task
         self.date = date
@@ -29,14 +27,6 @@ class HabitStatsCalendarWeekSectionController: TPCollectionItemSectionController
         self.weekCellItem.weekViewDelegate = self
         self.cellItems = [self.weekCellItem]
     }
-
-    private func isScheduledDate(_ date: Date) -> Bool {
-        let habitTask = task.habitTask
-        return scheduler.isScheduledDate(date,
-                                         timePlan: habitTask.timePlan,
-                                         dateRange: habitTask.dateRange)
-    }
-    
 }
 
 extension HabitStatsCalendarWeekSectionController: HabitDatePeriodsViewDelegate {
@@ -56,7 +46,7 @@ extension HabitStatsCalendarWeekSectionController: HabitDatePeriodsViewDelegate 
         let date = period.date
         cell.date = date
         cell.task = self.task
-        cell.isScheduledDay = isScheduledDate(date)
+        cell.isScheduledDay = self.task.isScheduledDate(date)
         cell.reloadData() /// 加载内容数据
     }
     

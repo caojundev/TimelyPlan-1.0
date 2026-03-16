@@ -18,6 +18,10 @@ class HabitPeriodTask: NSObject {
     /// 记录字典
     var records: [DayIntegerKey: HabitRecord]?
     
+    private lazy var scheduler: HabitTimePlanScheduler = {
+        return HabitTimePlanScheduler()
+    }()
+    
     // MARK: - Initialization
 
     init(habitTask: HabitTask, period: HabitDatePeriod) {
@@ -71,6 +75,12 @@ class HabitPeriodTask: NSObject {
 
     func status(with record: HabitRecord?) -> HabitTaskStatus {
         return habitTask.status(with: record)
+    }
+
+    func isScheduledDate(_ date: Date) -> Bool {
+        return scheduler.isScheduledDate(date,
+                                         timePlan: habitTask.timePlan,
+                                         dateRange: habitTask.dateRange)
     }
     
     // MARK: - IGListDiffable

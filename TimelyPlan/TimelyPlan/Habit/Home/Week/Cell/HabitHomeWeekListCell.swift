@@ -144,19 +144,6 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
             cell.updateRecord(with: nil, animated: true)
         }
     }
-    
-    private let scheduler = HabitTimePlanScheduler()
-    
-    private func isScheduledDate(_ date: Date) -> Bool {
-        guard let habitTask = self.task?.habitTask else {
-            return true
-        }
-
-        return scheduler.isScheduledDate(date,
-                                         timePlan: habitTask.timePlan,
-                                         dateRange: habitTask.dateRange)
-    }
-    
 }
 
 extension HabitHomeWeekListCell: HabitDatePeriodsViewDelegate {
@@ -176,7 +163,7 @@ extension HabitHomeWeekListCell: HabitDatePeriodsViewDelegate {
         let date = period.date
         cell.date = date
         cell.task = self.task
-        cell.isScheduledDay = isScheduledDate(date)
+        cell.isScheduledDay = self.task?.isScheduledDate(date) ?? true
         cell.reloadData() /// 加载内容数据
     }
     
