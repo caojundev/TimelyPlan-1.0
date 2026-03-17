@@ -18,7 +18,12 @@ class HabitReportMonthlyViewController: HabitReportContentViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func fetchSectionControllers(completion: @escaping ([TPCollectionBaseSectionController]) -> Void) {
-        completion([])
+    override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
+        let period = HabitDatePeriod(date: self.date, mode: .month)
+        habit.fetchPeriodTasks(in: period) { periodTasks in
+            let sectionController = HabitReportMonthlySectionController(periodTasks: periodTasks,
+                                                                       firstWeekday: self.firstWeekday)
+            completion([sectionController])
+        }
     }
 }

@@ -25,7 +25,7 @@ class HabitReportMainViewController: StatsMainViewController {
         self.navigationItem.rightBarButtonItem = moreBarButtonItem
     }
     
-    init(type: StatsType = .week, date: Date = .now) {
+    init(type: StatsType = .month, date: Date = .now) {
         let allowTypes: [StatsType] = [.week, .month, .year]
         super.init(type: type, allowTypes: allowTypes, date: date)
     }

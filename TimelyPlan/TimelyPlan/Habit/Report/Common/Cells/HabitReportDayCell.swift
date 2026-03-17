@@ -54,7 +54,7 @@ class HabitReportDayCell: UICollectionViewCell {
 
 class HabitReportDayImageCell: HabitReportDayCell {
     
-    var imageSize: CGSize = .size(6)
+    var imageSize: CGSize = .size(5)
     
     let imageView = UIImageView()
     
@@ -82,7 +82,7 @@ class HabitReportDayImageCell: HabitReportDayCell {
 class HabitReportNotScheduledCell: HabitReportDayImageCell {
     
     override func setupImage() {
-        imageView.image = resGetImage("habit_report_notScheduled_24")
+        imageView.image = resGetImage("habit_report_notScheduled_20")
         imageView.alpha = 0.6
     }
 }
@@ -90,7 +90,7 @@ class HabitReportNotScheduledCell: HabitReportDayImageCell {
 class HabitReportSkippedCell: HabitReportDayImageCell {
     
     override func setupImage() {
-        imageView.image = resGetImage("habit_report_skipped_24")
+        imageView.image = resGetImage("habit_report_skipped_20")
     }
     
     override func reloadData() {
@@ -102,7 +102,7 @@ class HabitReportSkippedCell: HabitReportDayImageCell {
 class HabitReportFailedCell: HabitReportDayImageCell {
     
     override func setupImage() {
-        imageView.image = resGetImage("habit_report_failed_24")
+        imageView.image = resGetImage("habit_report_failed_20")
         imageView.alpha = 0.6
     }
 }

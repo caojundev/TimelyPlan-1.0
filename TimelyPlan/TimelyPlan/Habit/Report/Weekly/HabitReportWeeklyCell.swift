@@ -22,7 +22,7 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
         return view
     }()
 
-    /// 月视图
+    /// 周视图
     private lazy var weekView: TPCalendarSingleWeekView = {
         let view = TPCalendarSingleWeekView(frame: bounds)
         view.delegate = self
@@ -73,12 +73,13 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
     }
     
     func calendarSingleWeekView(_ view: TPCalendarSingleWeekView, didDequeCell cell: UICollectionViewCell, forDateComponents components: DateComponents) {
-        guard let cell = cell as? HabitReportDayCell else {
+        guard let cell = cell as? HabitReportDayCell, let date = Date.dateFromComponents(components) else {
             return
         }
         
+        cell.contentView.alpha = date.isFutureDay ? 0.6 : 1.0
         cell.periodTask = periodTask
-        cell.date = .dateFromComponents(components)
+        cell.date = date
         cell.reloadData()
     }
     
