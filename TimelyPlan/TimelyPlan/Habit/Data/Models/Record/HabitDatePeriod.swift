@@ -26,12 +26,13 @@ class HabitDatePeriod: NSObject {
     let dateRange: DateRange
     
     // MARK: - 初始化
+    let firstWeekday: Weekday
     
     /// 通用初始化
     init(date: Date, mode: Mode, firstWeekday: Weekday = .firstWeekday) {
         self.date = date
         self.mode = mode
-        
+        self.firstWeekday = firstWeekday
         switch mode {
         case .day:
             self.dateRange = date.rangeOfThisDay()

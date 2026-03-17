@@ -40,6 +40,26 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
         return view
     }()
     
+    /// 报告按钮
+    lazy var reportBarButtonItem: UIBarButtonItem = {
+        let image = resGetImage("chart_pie_24")
+        let buttonItem = UIBarButtonItem(image: image,
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(clickReport(_:)))
+        return buttonItem
+    }()
+    
+    /// 记录按钮
+    lazy var recordBarButtonItem: UIBarButtonItem = {
+        let image = resGetImage("focus_record_24")
+        let item = UIBarButtonItem(image: image,
+                                   style: .plain,
+                                   target: self,
+                                   action: #selector(clickRecord(_:)))
+        return item
+    }()
+    
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: HabitMoreBarButtonItem = {
         let item = HabitMoreBarButtonItem()
@@ -55,12 +75,14 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let sidebarButtonItem = sidebarController?.newMenuButtonItem() {
-            navigationItem.leftBarButtonItems = [sidebarButtonItem]
+            navigationItem.leftBarButtonItems = [sidebarButtonItem,
+                                                 self.reportBarButtonItem]
         }
     
         typeMenuView.selectMenu(withTag: menuType.rawValue)
         navigationItem.titleView = typeMenuView
-        navigationItem.rightBarButtonItems = [moreBarButtonItem]
+        navigationItem.rightBarButtonItems = [moreBarButtonItem,
+                                              recordBarButtonItem]
         updateContentViewController()
         habit.addUpdater(recordResultPopupController, for: [.record])
     }
@@ -78,6 +100,15 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
     }
     
     // MARK: - Event Response
+    @objc func clickReport(_ buttonItem: UIBarButtonItem) {
+        TPImpactFeedback.impactWithSoftStyle()
+        HabitPresenter.showReport()
+    }
+    
+    @objc func clickRecord(_ buttonItem: UIBarButtonItem) {
+        TPImpactFeedback.impactWithSoftStyle()
+        
+    }
     
     private func didSelectMenuType(_ menuType: HabitMainMenuType) {
         if self.menuType == menuType {

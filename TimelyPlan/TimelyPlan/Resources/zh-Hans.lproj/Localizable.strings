@@ -127,9 +127,20 @@
 "Logs" = "日志";
 "No Log" = "无日志";
 "Record Amount" = "记录量";
+
+"Completed Amount" = "总完成量";
+"Daily Avg" = "日平均";
 "Finished Days" = "完成天数";
 "Avg Score" = "平均分";
+"Weekly Check-in" = "周打卡分布";
+"Monthly Check-in" = "月打卡分布";
+"Yearly Check-in" = "年打卡分布";
+"Weekly Time of Day" = "周打卡时间";
+"Monthly Time of Day" = "月打卡时间";
+"Check-in Times Distribution" = "打卡时间段分布";
 
+/// 报告
+"Show Archived" = "显示已归档";
 
 /// 设置
 "Habit Settings" = "习惯设置";

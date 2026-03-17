@@ -15,6 +15,7 @@ class HabitSetting {
         case addHabitOnTop
         case customUnits /// 自定义单位
         case reasonTags  /// 原因标签
+        case isReportShowArchived /// 报告是否显示已归档
         
         static func keyPrefix() -> String? {
             return "HabitSetting"
@@ -34,6 +35,9 @@ class HabitSetting {
     
     @CloudStored(key: Key.reasonTags.name, defaultValue: [])
     var reasonTags: [String]
+    
+    @CloudStored(key: Key.isReportShowArchived.name, defaultValue: false)
+    var isReportShowArchived: Bool
     
     static let shared = HabitSetting()
     
