@@ -10,6 +10,18 @@ import UIKit
 
 extension UIView {
     
+    /// 用于获取当前 view 对应的 UIViewController
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self.next
+        while parentResponder != nil {
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+            parentResponder = parentResponder?.next
+        }
+        return nil
+    }
+    
     /// 查找类型为 UIScrollView 的父视图
     func scrollViewSuperview() -> UIScrollView? {
            if let scrollView = self as? UIScrollView {

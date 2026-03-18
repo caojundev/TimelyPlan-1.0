@@ -101,7 +101,14 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
         let fromView = infoView.titleView.titleLabel
         let sourceWidth = text.width(with: font)
         let sourceRect = CGRect(x: 0.0, y: 0.0, width: sourceWidth, height: fromView.height)
-        TPTextPopUp.showText(text, color: color, font: font, fromView: fromView,  sourceRect: sourceRect)
+        
+        let containerView = self.parentViewController?.view
+        TPTextPopUp.showText(text,
+                             color: color,
+                             font: font,
+                             fromView: fromView,
+                             sourceRect: sourceRect,
+                             containerView: containerView)
     }
     
     /// 记录更新

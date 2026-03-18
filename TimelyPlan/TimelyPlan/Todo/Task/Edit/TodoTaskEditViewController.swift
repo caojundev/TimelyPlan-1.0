@@ -233,7 +233,8 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         TPTextPopUp.showText(message,
                              color: task.priority.titleColor,
                              font: BOLD_SMALL_SYSTEM_FONT,
-                             fromView: infoView.checkbox)
+                             fromView: infoView.checkbox,
+                             containerView: self.view)
     }
     
     override func reloadData() {

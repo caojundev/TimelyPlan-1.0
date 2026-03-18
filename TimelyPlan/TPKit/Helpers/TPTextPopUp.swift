@@ -12,31 +12,43 @@ class TPTextPopUp {
     
     static func showText(_ text: String,
                          fromView: UIView?,
-                         sourceRect: CGRect? = nil) {
+                         sourceRect: CGRect? = nil,
+                         containerView: UIView? = nil) {
         showText(text,
                  color: .label,
                  font: BOLD_SYSTEM_FONT,
                  fromView: fromView,
-                 sourceRect: sourceRect)
+                 sourceRect: sourceRect,
+                 containerView: containerView)
     }
     
     static func showText(_ text: String,
                          color: UIColor,
                          fromView: UIView?,
-                         sourceRect: CGRect? = nil) {
+                         sourceRect: CGRect? = nil,
+                         containerView: UIView? = nil) {
         showText(text,
                  color: color,
                  font: BOLD_SYSTEM_FONT,
                  fromView: fromView,
-                 sourceRect: sourceRect)
+                 sourceRect: sourceRect,
+                 containerView: containerView)
     }
 
     static func showText(_ text: String,
                          color: UIColor,
                          font: UIFont,
                          fromView: UIView?,
-                         sourceRect: CGRect? = nil) {
-        guard let rootView = UIWindow.keyWindow else {
+                         sourceRect: CGRect? = nil,
+                         containerView: UIView? = nil) {
+        var targetView: UIView?
+        if let containerView = containerView {
+            targetView = containerView
+        } else {
+            targetView = UIWindow.keyWindow
+        }
+
+        guard let rootView = targetView else {
             return
         }
         
@@ -50,7 +62,7 @@ class TPTextPopUp {
         var rect: CGRect
         if let fromView = fromView {
             let sourceRect = sourceRect ?? fromView.bounds
-            rect = fromView.convert(sourceRect, toViewOrWindow: nil)
+            rect = fromView.convert(sourceRect, toViewOrWindow: rootView)
         } else {
             rect = rootView.frame
         }

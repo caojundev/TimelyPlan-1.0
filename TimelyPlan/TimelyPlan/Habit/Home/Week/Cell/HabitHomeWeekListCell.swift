@@ -114,7 +114,7 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
     private func updateTaskInfo() {
         let habitTask = task?.habitTask
         updateStyleWithColor(habitTask?.color ?? .primary)
-        headerView.title = habitTask?.attributedInfo
+        headerView.title = habitTask?.attributedInfo(color: headerView.titleConfig.textColor)
         infoView.iconView.icon = habitTask?.icon
         infoView.titleView.title = habitTask?.name
         infoView.titleView.subtitle = habitTask?.goal.targetDescription

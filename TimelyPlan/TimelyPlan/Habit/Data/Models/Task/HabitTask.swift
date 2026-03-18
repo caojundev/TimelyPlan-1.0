@@ -223,11 +223,12 @@ extension HabitTask {
 extension HabitTask {
     
     // MARK: -  任务富文本信息
-    var attributedInfo: ASAttributedString {
+    func attributedInfo(color: UIColor? = nil) -> ASAttributedString {
         var indicators = [ASAttributedString]()
 
         /// 提醒
         if hasAlarm {
+            let bellIndicator = bellIndicator(color: color)
             indicators.append(bellIndicator)
         }
 
@@ -242,24 +243,10 @@ extension HabitTask {
         return indicators.joined(separator: " • ")
     }
 
-    /*
-    var timeOptionIndicator: ASAttributedString {
-        guard let image = self.timeOption.iconImage else {
-            return self.timeOption.title.attributedString
-        }
-        
-        return .string(image: image,
-                       imageSize: .size(4),
-                       imageColor: .white,
-                       trailingText: self.timeOption.title,
-                       separator: " ")
-    }
-    */
-    
-    /// 提醒闹铃图标
-    var bellIndicator: ASAttributedString {
+    /// 备注图标信息
+    func bellIndicator(color: UIColor? = nil) -> ASAttributedString {
         let image = resGetImage("bell_fill_16")!
-        return .string(with: image)
+        return .string(image: image, imageColor: color)
     }
     
     /// 时间计划富文本信息

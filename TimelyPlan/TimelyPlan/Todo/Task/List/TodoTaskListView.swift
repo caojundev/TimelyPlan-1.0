@@ -681,10 +681,12 @@ class TodoTaskListView: UIView,
         
         let difference = to.currentValue - from.currentValue
         let message = (difference >= 0 ? "+" : "") + "\(difference)"
+        let containerView = self.parentViewController?.view
         TPTextPopUp.showText(message,
                              color: task.priority.titleColor,
                              font: BOLD_SMALL_SYSTEM_FONT,
-                             fromView: cell.checkbox)
+                             fromView: cell.checkbox,
+                             containerView: containerView)
     }
 }
 

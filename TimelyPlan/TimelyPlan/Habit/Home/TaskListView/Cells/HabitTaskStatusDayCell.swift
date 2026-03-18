@@ -164,7 +164,12 @@ class HabitTaskStatusDayCell: HabitTaskStatusProgressValueCell {
         guard amount != 0 else { return }
         let text = (amount >= 0 ? "+" : "") + "\(amount)"
         let color = task?.habitTask.color.lighterColor ?? .label
-        TPTextPopUp.showText(text, color: color, font: SMALL_SYSTEM_FONT, fromView: valueLabel)
+        let containerView = self.parentViewController?.view
+        TPTextPopUp.showText(text,
+                             color: color,
+                             font: SMALL_SYSTEM_FONT,
+                             fromView: valueLabel,
+                             containerView: containerView)
     }
     
     /// 记录更新
