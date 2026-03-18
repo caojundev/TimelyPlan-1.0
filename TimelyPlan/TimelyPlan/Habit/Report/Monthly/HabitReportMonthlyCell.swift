@@ -18,7 +18,6 @@ class HabitReportMonthlyCell: TPCollectionCell {
     /// 任务信息视图
     private(set) lazy var infoView: HabitReportIconInfoView = {
         let view = HabitReportIconInfoView()
-        view.padding = UIEdgeInsets(horizontal: 5.0)
         view.titleView.titleConfig.numberOfLines = 1
         return view
     }()

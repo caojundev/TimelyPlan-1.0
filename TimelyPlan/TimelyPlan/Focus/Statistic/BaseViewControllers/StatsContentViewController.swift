@@ -25,7 +25,31 @@ class StatsContentViewController: TPCollectionSectionsViewController,
     
     /// 前后日期视图
     var dateViewHeight = 60.0
+    
     private(set) var dateView: TPPreviousNextDateView
+    
+    private let backViewSize: CGSize = .size(10)
+    
+    var backViewMargins = UIEdgeInsets(value: 15.0)
+    
+    /// 返回按钮
+    private(set) var backView: TPFlipBackTodayView?
+    
+    /// 内容间距
+    var contentInset: UIEdgeInsets = .zero {
+        didSet {
+            updateCollectionConfiguration()
+        }
+    }
+    
+    lazy var cellStyle: TPCollectionCellStyle = {
+        let cellColor = resGetColor(.title)
+        let style = TPCollectionCellStyle()
+        style.cornerRadius = 16.0
+        style.backgroundColor = .secondarySystemGroupedBackground
+        style.selectedBackgroundColor = .tertiarySystemBackground
+        return style
+    }()
     
     init(type: StatsType, date: Date = .now, firstWeekday: Weekday = .firstWeekday) {
         self.type = type
@@ -52,22 +76,6 @@ class StatsContentViewController: TPCollectionSectionsViewController,
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    /// 内容间距
-    var contentInset: UIEdgeInsets = .zero {
-        didSet {
-            updateCollectionConfiguration()
-        }
-    }
-    
-    lazy var cellStyle: TPCollectionCellStyle = {
-        let cellColor = resGetColor(.title)
-        let style = TPCollectionCellStyle()
-        style.cornerRadius = 16.0
-        style.backgroundColor = .secondarySystemGroupedBackground
-        style.selectedBackgroundColor = .tertiarySystemBackground
-        return style
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,12 +83,24 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         self.updateCollectionConfiguration()
         self.adapter.cellStyle = self.cellStyle
         self.reloadData()
+        self.updateBackView()
+        self.setupBackView()
     }
 
-    override func reloadData() {
-        reloadData(completion: nil)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        dateView.width = view.width
+        dateView.height = dateViewHeight
+        
+        if let backView = backView {
+            let backLayoutFrame = view.safeLayoutFrame().inset(by: backViewMargins)
+            backView.size = backViewSize
+            backView.bottom = backLayoutFrame.maxY
+            backView.right = backLayoutFrame.maxX
+        }
     }
-
+    
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
@@ -89,6 +109,25 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         return .systemGroupedBackground
     }
     
+    func setupBackView() {
+        guard self.backView == nil else {
+            return
+        }
+        
+        let backView = TPFlipBackTodayView()
+        backView.showTodayButton()
+        backView.didClickBack = { [weak self] button in
+            self?.didClickBack(button)
+        }
+        
+        self.view.addSubview(backView)
+        self.backView = backView
+    }
+    
+    override func reloadData() {
+        reloadData(completion: nil)
+    }
+
     func reloadData(completion: (() -> Void)?) {
         let date = self.date
         self.fetchSectionControllers { [weak self] sectionControllers in
@@ -100,12 +139,8 @@ class StatsContentViewController: TPCollectionSectionsViewController,
             self.adapter.reloadData()
             completion?()
         }
-    }
-    
-    override func viewWillLayoutSubviews() {
-         super.viewWillLayoutSubviews()
-         dateView.width = view.width
-         dateView.height = dateViewHeight
+        
+        updateBackView()
     }
 
     override func collectionViewFrame() -> CGRect {
@@ -128,16 +163,51 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         }
     }
     
+    private func updateBackView() {
+        guard let backView = backView else {
+            return
+        }
+
+        if self.dateRange.contains(date: .now) {
+            backView.showTodayButton()
+        }else{
+            if self.date < .now {
+                backView.showLeftBackButton()
+            } else {
+                backView.showRightBackButton()
+            }
+        }
+    }
+    
+    @objc private func didClickBack(_ button: UIButton) {
+        let date = Date()
+        self.selectDate(date, from: self.date)
+        self.dateView.setDate(date, animated: true)
+        self.updateBackView()
+    }
+    
     // MARK: - TPPreviousNextDateViewDelegate
     func prviousNextDateView(_ view: TPPreviousNextDateView, didSelectDate date: Date) {
-        let oldDate = self.date
+        self.selectDate(date, from: self.date)
+        self.updateBackView()
+    }
+    
+    // MARK: - 子类重写
+    func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
+        
+    }
+    
+    private func selectDate(_ date: Date, from oldDate: Date) {
         self.date = date
-        guard view.dateRange != self.dateRange else {
+        let newDateRange = Self.dateRange(of: self.type,
+                                          date: date,
+                                          firstWeekday: self.firstWeekday)
+        guard newDateRange != self.dateRange else {
             /// 范围相同不更新数据
             return
         }
         
-        self.dateRange = view.dateRange
+        self.dateRange = newDateRange
         let animateStyle: SlideStyle = .horizontalStyle(fromValue: oldDate, toValue: date)
         self.fetchSectionControllers { [weak self] sectionControllers in
             guard let self = self, date == self.date else {
@@ -147,11 +217,6 @@ class StatsContentViewController: TPCollectionSectionsViewController,
             self.sectionControllers = sectionControllers
             self.wrapperView.reloadData(animateStyle: animateStyle)
         }
-    }
-    
-    // MARK: - 子类重写
-    func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
-        
     }
     
     // MARK: - helpers

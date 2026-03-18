@@ -24,7 +24,7 @@ class HabitReportYearChartView: TPCollectionWrapperView,
     var periodTask: HabitPeriodTask?
 
     /// 区块内间距
-    let sectionInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 0.0, right: 0.0)
+    let sectionInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 10.0, right: 0.0)
 
     override init(frame: CGRect) {
         super.init(frame: frame)

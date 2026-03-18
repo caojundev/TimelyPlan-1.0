@@ -9,6 +9,12 @@ import Foundation
 
 class HabitReportMonthRender {
    
+    static let itemMargin: CGFloat = 5.0
+    
+    static let lineSpacing: CGFloat = 5.0
+    
+    static let itemSize: CGSize = .size(5)
+    
     typealias ItemPosition = (row: Int, col: Int)
     
     let date: Date
