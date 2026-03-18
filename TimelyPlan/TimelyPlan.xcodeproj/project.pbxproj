@@ -235,6 +235,7 @@
 		E521E3572F6A4F2F0071DA12 /* HabitReportYearlyMonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521E3562F6A4F2F0071DA12 /* HabitReportYearlyMonthCell.swift */; };
 		E521E3592F6A50110071DA12 /* HabitReportYearlyMonthRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521E3582F6A50110071DA12 /* HabitReportYearlyMonthRender.swift */; };
 		E521E35B2F6AB2800071DA12 /* HabitReportWeekRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521E35A2F6AB2800071DA12 /* HabitReportWeekRender.swift */; };
+		E521E35D2F6AC38E0071DA12 /* HabitReportChartRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521E35C2F6AC38E0071DA12 /* HabitReportChartRender.swift */; };
 		E52678542D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */; };
 		E52678562D4BD14300428500 /* TPSegmentedMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */; };
 		E527619A2D41E01300209019 /* TodoTaskQuickAddMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52761992D41E01200209019 /* TodoTaskQuickAddMenuView.swift */; };
@@ -1805,6 +1806,7 @@
 		E521E3562F6A4F2F0071DA12 /* HabitReportYearlyMonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportYearlyMonthCell.swift; sourceTree = "<group>"; };
 		E521E3582F6A50110071DA12 /* HabitReportYearlyMonthRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportYearlyMonthRender.swift; sourceTree = "<group>"; };
 		E521E35A2F6AB2800071DA12 /* HabitReportWeekRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportWeekRender.swift; sourceTree = "<group>"; };
+		E521E35C2F6AC38E0071DA12 /* HabitReportChartRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportChartRender.swift; sourceTree = "<group>"; };
 		E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPFullSizeSegmentedTableCell.swift; sourceTree = "<group>"; };
 		E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSegmentedMenuTableCell.swift; sourceTree = "<group>"; };
 		E52761992D41E01200209019 /* TodoTaskQuickAddMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddMenuView.swift; sourceTree = "<group>"; };
@@ -4092,7 +4094,7 @@
 				E53F32872F68D6D200B85B65 /* HabitReportContentViewController.swift */,
 				E53F32B92F69557500B85B65 /* HabitReportContentSectionController.swift */,
 				E53F32922F68DB2400B85B65 /* HabitReportMoreBarButtonItem.swift */,
-				E53F329C2F68EC7000B85B65 /* IconInfoView */,
+				E53F329C2F68EC7000B85B65 /* Common */,
 				E53F32912F68DA7200B85B65 /* Weekly */,
 				E53F32992F68E8F700B85B65 /* Monthly */,
 				E53F32962F68E86F00B85B65 /* Yearly */,
@@ -4137,12 +4139,13 @@
 			path = Monthly;
 			sourceTree = "<group>";
 		};
-		E53F329C2F68EC7000B85B65 /* IconInfoView */ = {
+		E53F329C2F68EC7000B85B65 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				E53F329D2F68EC8600B85B65 /* HabitReportIconInfoView.swift */,
+				E521E35C2F6AC38E0071DA12 /* HabitReportChartRender.swift */,
 			);
-			path = IconInfoView;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		E53F32A22F68F98800B85B65 /* Report */ = {
@@ -9829,6 +9832,7 @@
 				E5BBA0952D3BF4A50089667A /* TodoTaskEditStepSectionController.swift in Sources */,
 				E5EFB1752F59D36D000FFDF4 /* HabitManageBaseListViewController.swift in Sources */,
 				E5BB9EC92D3BF0C80089667A /* TPWheatView.swift in Sources */,
+				E521E35D2F6AC38E0071DA12 /* HabitReportChartRender.swift in Sources */,
 				E500DE622DB0FDBF00EAEAF7 /* QuadrantTaskMoveController.swift in Sources */,
 				E506A71E2DAEA895009DC15A /* TimeOffsetPickerViewCell.swift in Sources */,
 				E5BBA04B2D3BF4A40089667A /* TodoTaskDetailProvider.swift in Sources */,
