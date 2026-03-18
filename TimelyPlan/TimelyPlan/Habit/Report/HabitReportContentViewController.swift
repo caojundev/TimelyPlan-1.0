@@ -8,11 +8,21 @@
 import Foundation
 
 class HabitReportContentViewController: StatsContentViewController,
-                                       HabitRecordProcessorDelegate {
+                                        HabitRecordProcessorDelegate,
+                                        SettingAgentObserver {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         habit.addUpdater(self, for: [.record])
+        HabitSetting.shared.addObserver(self, forKey: .isReportShowArchived)
+    }
+
+    // MARK: - SettingAgentObserver
+    func settingAgentDidChangeValue(for key: String) {
+        if key == HabitSetting.Key.isReportShowArchived.name, habit.hasArchivedTask {
+            /// 有已归档任务，重新加载数据
+            reloadData()
+        }
     }
     
     // MARK: - HabitRecordProcessorDelegate

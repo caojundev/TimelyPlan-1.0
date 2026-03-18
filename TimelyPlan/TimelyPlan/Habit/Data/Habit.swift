@@ -59,7 +59,6 @@ class Habit {
                                             completion: completion)
     }
     
-    
     /// 统计
     func fetchPeriodTask(for task: HabitTask,
                          in period: HabitDatePeriod,
@@ -67,12 +66,33 @@ class Habit {
         periodTaskFetcher.fetchPeriodTask(for: task, in: period, completion: completion)
     }
     
-    
-    
+    /// 报告模块获取任务
+    func fetchReportPeriodTasks(in period: HabitDatePeriod,
+                                includeArchived: Bool,
+                                completion: @escaping([HabitPeriodTask])->Void) {
+        let tasks: [HabitTask]
+        if includeArchived {
+            tasks = taskManager.getAllTasks()
+        } else {
+            tasks = taskManager.getActiveTasks()
+        }
+        
+        periodTaskFetcher.fetchPeriodTasks(for: tasks, in: period, completion: completion)
+    }
     
     // MARK: - 任务处理
     func activeTasks() -> [HabitTask] {
         return self.taskManager.activeTasks
+    }
+    
+    /// 是否有归档任务
+    var hasArchivedTask: Bool {
+        return archivedTasksCount() != 0
+    }
+    
+    /// 获取归档任务数目
+    func archivedTasksCount() -> Int {
+        return self.taskManager.getArchivedTasksCount()
     }
     
     func archivedTasks() -> [HabitTask] {

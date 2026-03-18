@@ -43,4 +43,8 @@ class HabitSetting {
     
     private init() {}
     
+    // MARK: - Observer
+    func addObserver(_ observer: SettingAgentObserver, forKey key: Key) {
+        KeyValueStorage.shared.addObserver(observer, forKey: key.name)
+    }
 }

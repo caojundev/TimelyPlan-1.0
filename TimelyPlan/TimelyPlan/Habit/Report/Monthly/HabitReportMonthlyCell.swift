@@ -52,6 +52,8 @@ class HabitReportMonthlyCell: TPCollectionCell {
     private let requestManager = TPRequestManager()
     
     func reloadData() {
+        self.monthImageView.image = nil
+        
         guard let periodTask = periodTask else {
             return
         }

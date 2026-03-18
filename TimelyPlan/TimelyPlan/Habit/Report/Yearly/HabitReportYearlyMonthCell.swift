@@ -33,6 +33,7 @@ class HabitReportYearlyMonthCell: TPCollectionCell {
     }
     
     func reloadData() {
+        self.monthImageView.image = nil
         guard let periodTask = periodTask, let date = date else {
             return
         }

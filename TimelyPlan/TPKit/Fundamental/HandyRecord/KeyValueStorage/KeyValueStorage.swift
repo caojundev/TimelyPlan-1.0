@@ -24,6 +24,8 @@ class KeyValueStorage {
     /// 存储已获取数值字典
     private var valueDic: [String: Any] = [:]
     
+    private var observerMananger = SettingObserverManager()
+    
     /// 根据上下文和实体名称初始化键值存储对象
     init() {
         self.context = .defaultContext
@@ -87,6 +89,11 @@ class KeyValueStorage {
         if synchronizeImmediately {
             synchronize()
         }
+        
+        // 推送到下一个RunLoop循环执行
+        DispatchQueue.main.async {
+            self.observerMananger.valueDidChange(forKey: key)
+        }
     }
     
     // MARK: - 
@@ -109,7 +116,25 @@ class KeyValueStorage {
         valueDic.removeValue(forKey: key)
         if let store = store(forKey: key) {
             context.delete(store)
+            observerMananger.valueDidChange(forKey: key)
         }
+    }
+    
+    // MARK: - Observer
+    func addObserver(_ observer: SettingAgentObserver, forKey key: String?) {
+        observerMananger.addObserver(observer, forKey: key)
+    }
+    
+    func addObserver(_ observer: SettingAgentObserver, forKeys keys: [String]) {
+        observerMananger.addObserver(observer, forKeys: keys)
+    }
+    
+    func removeObserver(_ observer: SettingAgentObserver, forKey key: String?) {
+        observerMananger.removeObserver(observer, forKey: key)
+    }
+    
+    func removeObserver(_ observer: SettingAgentObserver, forKeys keys: [String]) {
+        observerMananger.removeObserver(observer, forKeys: keys)
     }
     
     // MARK: - Helper

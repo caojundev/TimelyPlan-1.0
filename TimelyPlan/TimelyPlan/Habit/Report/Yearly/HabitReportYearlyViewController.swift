@@ -22,7 +22,9 @@ class HabitReportYearlyViewController: HabitReportContentViewController {
         let period = HabitDatePeriod(date: self.date,
                                      mode: .year,
                                      firstWeekday: self.firstWeekday)
-        habit.fetchPeriodTasks(in: period) { periodTasks in
+        let includeArchived = HabitSetting.shared.isReportShowArchived
+        habit.fetchReportPeriodTasks(in: period,
+                                     includeArchived: includeArchived) { periodTasks in
             let sectionController = HabitReportYearlySectionController(periodTasks: periodTasks, firstWeekday: self.firstWeekday)
             completion([sectionController])
         }

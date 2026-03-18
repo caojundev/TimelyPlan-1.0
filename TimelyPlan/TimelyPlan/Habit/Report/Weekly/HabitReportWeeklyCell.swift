@@ -55,6 +55,7 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
     }
     
     func reloadData() {
+        self.weekImageView.image = nil
         self.layoutIfNeeded()
         guard let periodTask = periodTask else {
             return

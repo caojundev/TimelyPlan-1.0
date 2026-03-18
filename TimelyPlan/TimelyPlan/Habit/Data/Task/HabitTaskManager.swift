@@ -94,19 +94,25 @@ class HabitTaskManager {
 
     // MARK: - 获取任务
     /// 同步获取所有习惯任务
-    private func getAllTasks() -> [HabitTask] {
+    func getAllTasks() -> [HabitTask] {
         return getTasks(with: nil)
     }
     
     /// 同步获取归档任务
     func getArchivedTasks() -> [HabitTask] {
-        let condition: PredicateCondition = (HabitTaskKey.isArchived, .equal(true))
-        let predicate = NSPredicate.predicate(with: condition)
+        let predicate = archivedTaskPredicate()
         return getTasks(with: predicate)
     }
     
+    /// 获取归档任务数目
+    func getArchivedTasksCount() -> Int {
+        let predicate = archivedTaskPredicate()
+        let count = CDHabitTask.countOfEntries(with: predicate, in: .defaultContext)
+        return count
+    }
+    
     /// 同步获取活动任务
-    private func getActiveTasks() -> [HabitTask] {
+    func getActiveTasks() -> [HabitTask] {
         let condition: PredicateCondition = (HabitTaskKey.isArchived, .notEqual(true))
         let predicate = NSPredicate.predicate(with: condition)
         return getTasks(with: predicate)
@@ -129,4 +135,12 @@ class HabitTaskManager {
         
         return tasks
     }
+
+    // MARK: - Helpers
+    /// 已归档任务谓词
+    private func archivedTaskPredicate() -> NSPredicate {
+        let condition: PredicateCondition = (HabitTaskKey.isArchived, .isTrue)
+        return NSPredicate.predicate(with: condition)
+    }
+    
 }

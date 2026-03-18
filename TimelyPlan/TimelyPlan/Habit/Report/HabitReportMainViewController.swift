@@ -46,20 +46,17 @@ class HabitReportMainViewController: StatsMainViewController {
     }
     
     override func weeklyStatsViewController() -> UIViewController! {
-        let vc = HabitReportWeeklyViewController(date: self.date,
-                                                 firstWeekday: self.firstWeekday)
-        return vc
+        return HabitReportWeeklyViewController(date: self.date,
+                                                firstWeekday: self.firstWeekday)
     }
     
     override func monthlyStatsViewController() -> UIViewController! {
-        let vc = HabitReportMonthlyViewController(date: self.date,
-                                                  firstWeekday: self.firstWeekday)
-        return vc
+        return HabitReportMonthlyViewController(date: self.date,
+                                                firstWeekday: self.firstWeekday)
     }
     
     override func yearlyStatsViewController() -> UIViewController! {
-        let vc = HabitReportYearlyViewController(date: self.date,
-                                                 firstWeekday: self.firstWeekday)
-        return vc
+       return HabitReportYearlyViewController(date: self.date,
+                                              firstWeekday: self.firstWeekday)
     }
 }
