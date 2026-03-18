@@ -137,10 +137,17 @@ extension Date {
     
     /// 获取日期所在月的周数目
     func numberOfWeeksInMonth(firstWeekday: Weekday = .sunday) -> Int {
-        let dates = self.calendarMonthDays(firstWeekday: firstWeekday)
-        return dates.count / DAYS_PER_WEEK
+        var calendar = Calendar.current
+        calendar.firstWeekday = firstWeekday.rawValue
+        let component = calendar.dateComponents([.year, .month], from: self)
+        guard let monthStart = calendar.date(from: component),
+              let monthRange = calendar.range(of: .weekOfMonth, in: .month, for: monthStart) else {
+            return 0
+        }
+        
+        return monthRange.count
     }
-    
+
     /// 获取日期所在月所有日期数组
     func datesInMonth() -> [Date] {
         let startDate = firstDayOfMonth()
@@ -154,6 +161,19 @@ extension Date {
         return dates
     }
 
+    
+    // MARK: - 获取特定日期所在年的月日期
+    static func monthDatesOfYear(contain date: Date = .now) -> [Date] {
+        var dates: [Date] = []
+        let yearStartDate = date.startOfYear()
+        for i in 0..<12 {
+            let date = yearStartDate.dateByAddingMonths(i)!
+            dates.append(date)
+        }
+        
+        return dates
+    }
+    
     // MARK: - Symbols
     static var monthSymbols: [String] {
         let dateFormatter = DateFormatter()

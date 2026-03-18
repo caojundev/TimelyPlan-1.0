@@ -10,8 +10,8 @@ import UIKit
 
 class HabitReportMonthlyViewController: HabitReportContentViewController {
   
-    init(date: Date = .now) {
-        super.init(type: .month, date: date)
+    init(date: Date = .now, firstWeekday: Weekday = .firstWeekday) {
+        super.init(type: .month, date: date, firstWeekday: firstWeekday)
     }
     
     required init?(coder: NSCoder) {
@@ -19,7 +19,9 @@ class HabitReportMonthlyViewController: HabitReportContentViewController {
     }
     
     override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
-        let period = HabitDatePeriod(date: self.date, mode: .month)
+        let period = HabitDatePeriod(date: self.date,
+                                     mode: .month,
+                                     firstWeekday: self.firstWeekday)
         habit.fetchPeriodTasks(in: period) { periodTasks in
             let sectionController = HabitReportMonthlySectionController(periodTasks: periodTasks,
                                                                        firstWeekday: self.firstWeekday)

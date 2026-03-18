@@ -20,18 +20,21 @@ class HabitReportMainViewController: StatsMainViewController {
         return item
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = moreBarButtonItem
-    }
+    let firstWeekday: Weekday
     
     init(type: StatsType = .month, date: Date = .now) {
+        self.firstWeekday = HabitSetting.shared.firstWeekday
         let allowTypes: [StatsType] = [.week, .month, .year]
         super.init(type: type, allowTypes: allowTypes, date: date)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = moreBarButtonItem
     }
     
     private func didSelectMoreMenuType(_ type: HabitReportMoreMenuType) {
@@ -43,18 +46,20 @@ class HabitReportMainViewController: StatsMainViewController {
     }
     
     override func weeklyStatsViewController() -> UIViewController! {
-        let firstWeekday = HabitSetting.shared.firstWeekday
-        let vc = HabitReportWeeklyViewController(date: date, firstWeekday: firstWeekday)
+        let vc = HabitReportWeeklyViewController(date: self.date,
+                                                 firstWeekday: self.firstWeekday)
         return vc
     }
     
     override func monthlyStatsViewController() -> UIViewController! {
-        let vc = HabitReportMonthlyViewController(date: date)
+        let vc = HabitReportMonthlyViewController(date: self.date,
+                                                  firstWeekday: self.firstWeekday)
         return vc
     }
     
     override func yearlyStatsViewController() -> UIViewController! {
-        let vc = HabitReportYearlyViewController(date: date)
+        let vc = HabitReportYearlyViewController(date: self.date,
+                                                 firstWeekday: self.firstWeekday)
         return vc
     }
 }

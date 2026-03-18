@@ -15,6 +15,8 @@ class HabitReportMonthRender {
     
     let firstWeekday: Weekday
     
+    let periodTask: HabitPeriodTask
+    
     let monthDates: [Date]
     
     var itemMargin: CGFloat = 5.0
@@ -26,34 +28,33 @@ class HabitReportMonthRender {
     var weeksCount: Int {
         return monthDates.count / DAYS_PER_WEEK
     }
-    
-    let periodTask: HabitPeriodTask
-    
-    init(periodTask: HabitPeriodTask) {
+
+    init(date: Date, firstWeekday: Weekday, periodTask: HabitPeriodTask) {
         self.periodTask = periodTask
-        self.date = periodTask.period.date
-        self.firstWeekday = periodTask.period.firstWeekday
-        self.monthDates = self.date.calendarMonthDays(firstWeekday: self.firstWeekday)
+        self.date = date
+        self.firstWeekday = firstWeekday
+        self.monthDates = self.date.calendarMonthDays(firstWeekday: firstWeekday)
+    }
+
+    func position(at index: Int) -> ItemPosition {
+        let row = index / DAYS_PER_WEEK
+        let col = index % DAYS_PER_WEEK
+        return (row, col)
     }
     
-    private func canvasSize() -> CGSize {
+    func canvasSize() -> CGSize {
         let width = CGFloat(DAYS_PER_WEEK) * (itemSize.width + itemMargin) + itemMargin
         let weeksCount = monthDates.count / DAYS_PER_WEEK
         let height = CGFloat(weeksCount) * (itemSize.height + lineSpacing) + lineSpacing
         return CGSize(width: width, height: height)
     }
 
+    
     private func dayFrame(at index: Int) -> CGRect {
         let positon = position(at: index)
         return dayFrame(of: positon)
     }
 
-    private func position(at index: Int) -> ItemPosition {
-        let row = index / DAYS_PER_WEEK
-        let col = index % DAYS_PER_WEEK
-        return (row, col)
-    }
-    
     private func dayFrame(of position: ItemPosition) -> CGRect {
         let x = CGFloat(position.col) * (itemMargin + itemSize.width) + itemMargin
         let y = CGFloat(position.row) * (lineSpacing + itemSize.height) + lineSpacing

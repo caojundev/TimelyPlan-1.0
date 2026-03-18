@@ -7,17 +7,12 @@
 
 import Foundation
 
-class HabitReportYearlySectionController: TPCollectionBaseSectionController {
-
-    var periodTasks: [HabitPeriodTask]?
+class HabitReportYearlySectionController: HabitReportContentSectionController {
     
-    /// 区块布局对象
-    private let layout = TPCollectionSectionLayout()
-    
-    init(periodTasks: [HabitPeriodTask]?) {
-        self.periodTasks = periodTasks
-        super.init()
-        self.layout.preferredItemHeight = 100.0
+    override init(periodTasks: [HabitPeriodTask]?, firstWeekday: Weekday) {
+        super.init(periodTasks: periodTasks, firstWeekday: firstWeekday)
+        self.cellStyle.cornerRadius = 12.0
+        self.layout.preferredItemHeight = 200.0
         self.layout.minimumItemsCountPerRow = 1
         self.layout.maximumItemsCountPerRow = 1
         self.layout.edgeMargins = UIEdgeInsets(value: 16.0)
@@ -25,48 +20,24 @@ class HabitReportYearlySectionController: TPCollectionBaseSectionController {
         self.layout.lineSpacing = 10.0
         self.layout.interitemSpacing = 10.0
     }
-    
-    override var items: [ListDiffable]? {
-        return periodTasks
-    }
-    
-    override func sectionInset() -> UIEdgeInsets {
-        return layout.sectionInset
-    }
-    
-    override func interitemSpacing() -> CGFloat {
-        return layout.interitemSpacing
-    }
-    
-    override func lineSpacing() -> CGFloat {
-        return layout.lineSpacing
-    }
-    
+  
     override func sizeForItem(at index: Int) -> CGSize {
-        guard let adapter = self.adapter else {
-            return .zero
-        }
-        
-        self.layout.collectionViewSize = adapter.collectionViewSize()
-        let constraintCellSize = self.layout.constraintCellSize ?? adapter.cellSize
-        return constraintCellSize
+        let size = super.sizeForItem(at: index)
+        return size
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
-        return TPCollectionCell.self
+        return HabitReportYearlyCell.self
     }
     
     override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
-        guard let cell = cell as? TPCollectionCell else {
+        super.didDequeCell(cell, forItemAt: index)
+        guard let cell = cell as? HabitReportYearlyCell else {
             return
         }
         
-        cell.cellStyle = adapter?.cellStyle
-    }
-
-    // MARK: -
-    override func shouldHighlightItem(at index: Int) -> Bool {
-        return true
+        cell.periodTask = item(at: index) as? HabitPeriodTask
+        cell.reloadData()
     }
 }
 

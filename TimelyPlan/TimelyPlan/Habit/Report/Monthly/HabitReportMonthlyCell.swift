@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 
-class HabitReportMonthlyCell: TPCollectionCell, TPCalendarMonthViewDelegate {
+class HabitReportMonthlyCell: TPCollectionCell {
+    
+    static let infoViewHeight: CGFloat = 30.0
     
     /// 任务
     var periodTask: HabitPeriodTask?
@@ -16,7 +18,7 @@ class HabitReportMonthlyCell: TPCollectionCell, TPCalendarMonthViewDelegate {
     /// 任务信息视图
     private(set) lazy var infoView: HabitReportIconInfoView = {
         let view = HabitReportIconInfoView()
-        view.padding = UIEdgeInsets(left: 5.0)
+        view.padding = UIEdgeInsets(horizontal: 5.0)
         view.titleView.titleConfig.numberOfLines = 1
         return view
     }()
@@ -31,8 +33,6 @@ class HabitReportMonthlyCell: TPCollectionCell, TPCalendarMonthViewDelegate {
         monthImageView.contentMode = .scaleAspectFit
         contentView.addSubview(monthImageView)
     }
-    
-    static let infoViewHeight: CGFloat = 30.0
     
     // MARK: - Layout
     override func layoutSubviews() {
@@ -62,7 +62,9 @@ class HabitReportMonthlyCell: TPCollectionCell, TPCalendarMonthViewDelegate {
         infoView.title = habitTask.name
     
         let requestID = requestManager.executeRequest()
-        let render = HabitReportMonthRender(periodTask: periodTask)
+        let render = HabitReportMonthRender(date: periodTask.period.date,
+                                            firstWeekday: periodTask.period.firstWeekday,
+                                            periodTask: periodTask)
         render.renderImage { image in
             guard self.requestManager.shouldProceed(with: requestID) else {
                 return
