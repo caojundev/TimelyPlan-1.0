@@ -25,7 +25,7 @@ class HabitReportYearlyCell: TPCollectionCell {
     }()
 
     /// 月视图
-    private lazy var yearView: HabitReportYearChartView = {
+    private(set) lazy var chartView: HabitReportYearChartView = {
         let view = HabitReportYearChartView(frame: bounds)
         return view
     }()
@@ -33,7 +33,7 @@ class HabitReportYearlyCell: TPCollectionCell {
     override func setupContentSubviews() {
         super.setupContentSubviews()
         contentView.addSubview(infoView)
-        contentView.addSubview(yearView)
+        contentView.addSubview(chartView)
     }
 
     // MARK: - Layout
@@ -45,11 +45,11 @@ class HabitReportYearlyCell: TPCollectionCell {
         infoView.height = Self.infoViewHeight
         infoView.origin = layoutFrame.origin
       
-        let yearViewMargin = 5.0
-        yearView.width = layoutFrame.width - 2 * yearViewMargin
-        yearView.height = layoutFrame.height - infoView.height
-        yearView.left = layoutFrame.minX + yearViewMargin
-        yearView.top = infoView.bottom
+        let chartViewMargin = 5.0
+        chartView.width = layoutFrame.width - 2 * chartViewMargin
+        chartView.height = layoutFrame.height - infoView.height
+        chartView.left = layoutFrame.minX + chartViewMargin
+        chartView.top = infoView.bottom
     }
 
     func reloadData() {
@@ -61,7 +61,7 @@ class HabitReportYearlyCell: TPCollectionCell {
         infoView.icon = habitTask.icon
         infoView.title = habitTask.name
     
-        yearView.periodTask = periodTask
-        yearView.reloadData()
+        chartView.periodTask = periodTask
+        chartView.reloadData()
     }
 }

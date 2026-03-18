@@ -8,21 +8,27 @@
 import Foundation
 import UIKit
 
+protocol HabitReportYearChartViewScrollDelegate: AnyObject {
+    
+    func habitReportYearChartViewDidScroll(_ chartView: HabitReportYearChartView)
+}
+
 class HabitReportYearChartView: TPCollectionWrapperView,
                                 TPCollectionViewAdapterDataSource,
                                 TPCollectionViewAdapterDelegate,
                                 TFSectionTitleFlowLayoutTitleProvider {
     
+    var scrollDelegate: HabitReportYearChartViewScrollDelegate?
+    
     /// 任务
     var periodTask: HabitPeriodTask?
 
     /// 区块内间距
-    let sectionInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 5, right: 0.0)
+    let sectionInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 0.0, right: 0.0)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.hideScrollIndicator()
-        
         let flowLayout = TPSectionTitleFlowLayout()
         flowLayout.titleConfig.font = .boldSystemFont(ofSize: 12.0)
         flowLayout.scrollDirection = .horizontal
@@ -91,6 +97,53 @@ class HabitReportYearChartView: TPCollectionWrapperView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return false
+    }
+    
+    var contentOffset: CGPoint {
+        get {
+            return collectionView.contentOffset
+        }
+        
+        set {
+            collectionView.contentOffset = newValue
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        scrollDelegate?.habitReportYearChartViewDidScroll(self)
+    }
+}
+
+class HabitReportYearChartSynchronizer: NSObject, HabitReportYearChartViewScrollDelegate {
+
+    private var contentOffset: CGPoint = .zero
+    
+    internal var chartViews = NSHashTable<HabitReportYearChartView>.weakObjects()
+    
+    private func synchronize() {
+        for chartView in chartViews.allObjects {
+            chartView.contentOffset = contentOffset
+        }
+    }
+    
+    func setContentOffset(_ contentOffset: CGPoint) {
+        self.contentOffset = contentOffset
+        synchronize()
+    }
+    
+    // MARK: - 添加和移除更新器
+    func addChartView(_ chartView: HabitReportYearChartView) {
+        if !chartViews.contains(chartView) {
+            chartView.contentOffset = contentOffset
+            chartViews.add(chartView)
+            chartView.scrollDelegate = self
+        }
+    }
+
+    // MARK: - HabitReportYearChartViewScrollDelegate
+    func habitReportYearChartViewDidScroll(_ chartView: HabitReportYearChartView) {
+        self.contentOffset = chartView.contentOffset
+        self.synchronize()
     }
 }
 

@@ -9,6 +9,8 @@ import Foundation
 
 class HabitReportYearlySectionController: HabitReportContentSectionController {
     
+    private let synchronizer = HabitReportYearChartSynchronizer()
+    
     override init(periodTasks: [HabitPeriodTask]?, firstWeekday: Weekday) {
         super.init(periodTasks: periodTasks, firstWeekday: firstWeekday)
         self.cellStyle.cornerRadius = 12.0
@@ -38,6 +40,8 @@ class HabitReportYearlySectionController: HabitReportContentSectionController {
         
         cell.periodTask = item(at: index) as? HabitPeriodTask
         cell.reloadData()
+        
+        synchronizer.addChartView(cell.chartView)
     }
 }
 
