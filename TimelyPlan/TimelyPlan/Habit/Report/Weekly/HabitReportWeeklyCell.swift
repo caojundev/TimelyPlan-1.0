@@ -23,17 +23,16 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
     }()
 
     /// 周视图
-    private lazy var weekView: TPCalendarSingleWeekView = {
-        let view = TPCalendarSingleWeekView(frame: bounds)
-        view.delegate = self
-        view.isUserInteractionEnabled = false
-        return view
-    }()
+    private let weekImageView = UIImageView()
+    
+    /// 数据请求管理器
+    private let requestManager = TPRequestManager()
     
     override func setupContentSubviews() {
         super.setupContentSubviews()
         contentView.addSubview(infoView)
-        contentView.addSubview(weekView)
+        weekImageView.contentMode = .scaleAspectFit
+        contentView.addSubview(weekImageView)
     }
     
     // MARK: - Layout
@@ -47,13 +46,16 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
         infoView.height = layoutFrame.height
         infoView.origin = layoutFrame.origin
         
-        weekView.width = weekLayoutFrame.width
-        weekView.height = weekLayoutFrame.height
-        weekView.top = weekLayoutFrame.minY
-        weekView.left = weekLayoutFrame.minX
+        weekImageView.width = weekLayoutFrame.width
+        weekImageView.height = weekLayoutFrame.height
+        weekImageView.top = weekLayoutFrame.minY
+        weekImageView.left = weekLayoutFrame.minX
+        
+        reloadWeekImageIfNeeded()
     }
     
     func reloadData() {
+        self.layoutIfNeeded()
         guard let periodTask = periodTask else {
             return
         }
@@ -61,29 +63,34 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
         let habitTask = periodTask.habitTask
         infoView.icon = habitTask.icon
         infoView.title = habitTask.name
-        weekView.firstWeekday = periodTask.period.firstWeekday
-        weekView.visibleDateComponents = periodTask.period.date.yearMonthDayComponents
-        weekView.reloadData()
-    }
-
-    // MARK: - TPCalendarSingleWeekViewDelegate
-    func calendarSingleWeekView(_ view: TPCalendarSingleWeekView, cellClassForDateComponents components: DateComponents) -> AnyClass? {
-        let date = Date.dateFromComponents(components)
-        return HabitReportDayCell.cellClass(for: periodTask, on: date)
+        reloadWeekImage()
     }
     
-    func calendarSingleWeekView(_ view: TPCalendarSingleWeekView, didDequeCell cell: UICollectionViewCell, forDateComponents components: DateComponents) {
-        guard let cell = cell as? HabitReportDayCell, let date = Date.dateFromComponents(components) else {
+    private func reloadWeekImageIfNeeded() {
+        if weekImageView.size != weekImageView.image?.size {
+            reloadWeekImage()
+        }
+    }
+    
+    /// 加载周视图
+    private func reloadWeekImage() {
+        guard let periodTask = periodTask else {
             return
         }
         
-        cell.contentView.alpha = date.isFutureDay ? 0.6 : 1.0
-        cell.periodTask = periodTask
-        cell.date = date
-        cell.reloadData()
-    }
-    
-    func calendarSingleWeekView(_ view: TPCalendarSingleWeekView, shouldHighlightDate components: DateComponents) -> Bool {
-       return false
+        let requestID = requestManager.executeRequest()
+        let date = periodTask.period.date
+        let firstWeekday = periodTask.period.firstWeekday
+        let render = HabitReportWeekRender(date: date,
+                                           firstWeekday: firstWeekday,
+                                           periodTask: periodTask)
+        render.contentSize = self.weekImageView.size
+        render.renderImage { image in
+            guard self.requestManager.shouldProceed(with: requestID) else {
+                return
+            }
+            
+            self.weekImageView.image = image
+        }
     }
 }
