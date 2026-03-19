@@ -107,7 +107,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
     
     @objc func clickRecord(_ buttonItem: UIBarButtonItem) {
         TPImpactFeedback.impactWithSoftStyle()
-        
+        HabitPresenter.showRecords()
     }
     
     private func didSelectMenuType(_ menuType: HabitMainMenuType) {

@@ -241,6 +241,7 @@
 		E526D3F62F6B8EDF005C1DED /* HabitReportImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */; };
 		E526D3F92F6BA2C3005C1DED /* HabitSettingScoreEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3F82F6BA2C3005C1DED /* HabitSettingScoreEditSectionController.swift */; };
 		E526D3FB2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3FA2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift */; };
+		E526D3FD2F6C2C8E005C1DED /* HabitRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3FC2F6C2C8E005C1DED /* HabitRecordsViewController.swift */; };
 		E527619A2D41E01300209019 /* TodoTaskQuickAddMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52761992D41E01200209019 /* TodoTaskQuickAddMenuView.swift */; };
 		E527619C2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527619B2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift */; };
 		E527619F2D41F63000209019 /* TPImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527619E2D41F63000209019 /* TPImageCollectionCell.swift */; };
@@ -1815,6 +1816,7 @@
 		E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportImageCacher.swift; sourceTree = "<group>"; };
 		E526D3F82F6BA2C3005C1DED /* HabitSettingScoreEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSettingScoreEditSectionController.swift; sourceTree = "<group>"; };
 		E526D3FA2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSettingScoreEditViewController.swift; sourceTree = "<group>"; };
+		E526D3FC2F6C2C8E005C1DED /* HabitRecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitRecordsViewController.swift; sourceTree = "<group>"; };
 		E52761992D41E01200209019 /* TodoTaskQuickAddMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddMenuView.swift; sourceTree = "<group>"; };
 		E527619B2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddMenuSectionController.swift; sourceTree = "<group>"; };
 		E527619E2D41F63000209019 /* TPImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageCollectionCell.swift; sourceTree = "<group>"; };
@@ -4815,6 +4817,7 @@
 		E59243F92F514C8900CA2393 /* Record */ = {
 			isa = PBXGroup;
 			children = (
+				E526D3FC2F6C2C8E005C1DED /* HabitRecordsViewController.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -9817,6 +9820,7 @@
 				E59244222F51CB7600CA2393 /* HabitTimePlanEditViewController.swift in Sources */,
 				E5BBA0B62D3BF4A50089667A /* TodoTaskPriority.swift in Sources */,
 				E5D7D8DC2D43933600EC877A /* FocusFloatingTimerInfoView.swift in Sources */,
+				E526D3FD2F6C2C8E005C1DED /* HabitRecordsViewController.swift in Sources */,
 				E50D02452F552FAF00E93977 /* HabitTimeSelectView.swift in Sources */,
 				E5BB9DC82D3BF0C60089667A /* FocusAnimatable.swift in Sources */,
 				E521E35B2F6AB2800071DA12 /* HabitReportWeekRender.swift in Sources */,

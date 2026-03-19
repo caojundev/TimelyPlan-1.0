@@ -50,6 +50,8 @@ class HabitPeriodTaskListView: HabitTaskListView {
         asyncLoadGroups { [weak self] isSuccess in
             if isSuccess {
                 self?.performUpdate()
+                /// 更新可见的头脚视图
+                self?.adapter.updateVisibleHeaderFooterViews()
             }
             
             completion?(isSuccess)

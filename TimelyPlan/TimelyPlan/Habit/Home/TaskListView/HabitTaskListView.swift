@@ -233,6 +233,16 @@ class HabitTaskListView: TPCollectionWrapperView,
         }
     }
     
+    func adapter(_ adapter: TPCollectionViewAdapter, updateHeaderInSection section: Int) {
+        guard let headerView = adapter.headerView(in: section) else {
+            return
+        }
+        
+        if let delegate = delegate {
+            delegate.habitTaskListView(self, didDequeHeader: headerView, inSection: section)
+        }
+    }
+    
     // MARK: - TPCollectionHeaderFooterViewDelegate
     func layoutMarginsForHeaderFooterView(_ view: TPCollectionHeaderFooterView) -> UIEdgeInsets {
         return UIEdgeInsets(left: sectionLayout.sectionInset.left,

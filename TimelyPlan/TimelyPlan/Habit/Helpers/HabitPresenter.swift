@@ -8,6 +8,11 @@
 import Foundation
 
 class HabitPresenter {
+    /// 显示记录
+    static func showRecords() {
+        let vc = HabitRecordsViewController()
+        vc.showAsNavigationRoot()
+    }
     
     /// 显示报告
     static func showReport() {
