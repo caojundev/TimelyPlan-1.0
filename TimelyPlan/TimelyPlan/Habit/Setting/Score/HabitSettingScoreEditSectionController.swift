@@ -10,7 +10,7 @@ import Foundation
 
 class HabitSettingScoreEditSectionController: TPTableItemSectionController {
     
-    enum ScoreType {
+    enum ScoreType: CaseIterable {
         case completed
         case skipped
         case failed
@@ -22,10 +22,15 @@ class HabitSettingScoreEditSectionController: TPTableItemSectionController {
     
     var failedScore: Int = 0
     
+    private let cellHeight = 60.0
+    
+    private let valueFont = UIFont.boldSystemFont(ofSize: 20.0)
+    
     lazy var completedScoreCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.height = 50.0
+        cellItem.height = cellHeight
         cellItem.title = resGetString("Completed Score")
+        cellItem.valueConfig.valueFont = valueFont
         cellItem.updater = {
             guard let self = self else { return }
             self.completedScoreCellItem.valueConfig = .valueText("\(self.completedScore)", textColor: .primary)
@@ -40,8 +45,9 @@ class HabitSettingScoreEditSectionController: TPTableItemSectionController {
     
     lazy var skippedScoreCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.height = 50.0
+        cellItem.height = cellHeight
         cellItem.title = resGetString("Skipped Score")
+        cellItem.valueConfig.valueFont = valueFont
         cellItem.updater = {
             guard let self = self else { return }
             self.skippedScoreCellItem.valueConfig = .valueText("\(self.skippedScore)", textColor: .primary)
@@ -56,8 +62,9 @@ class HabitSettingScoreEditSectionController: TPTableItemSectionController {
     
     lazy var failedScoreCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.height = 50.0
+        cellItem.height = cellHeight
         cellItem.title = resGetString("Failed Score")
+        cellItem.valueConfig.valueFont = valueFont
         cellItem.updater = {
             guard let self = self else { return }
             self.failedScoreCellItem.valueConfig = .valueText("\(self.failedScore)", textColor: .primary)
@@ -78,6 +85,12 @@ class HabitSettingScoreEditSectionController: TPTableItemSectionController {
                           failedScoreCellItem]
     }
 
+    /// 更新所有数值
+    func updateAllValues() {
+        for scoreType in ScoreType.allCases {
+            updateValue(for: scoreType)
+        }
+    }
 
     private func editScore(type: ScoreType) {
         guard let cell = cell(for: type) else {

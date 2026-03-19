@@ -31,3 +31,9 @@ let kHabitTaskListContentMaxWidth = 560.0
 
 /// 任务编辑输入框圆角
 let kTaskEditInputFieldCornerRadius = 8.0
+
+
+/// 默认评分
+let kHabitDefaultCompletedScore = 100
+let kHabitDefaultSkippedScore = 50
+let kHabitDefaultFailedScore = 0

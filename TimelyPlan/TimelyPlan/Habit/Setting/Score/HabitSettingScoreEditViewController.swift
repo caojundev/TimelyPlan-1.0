@@ -19,13 +19,38 @@ class HabitSettingScoreEditViewController: TPTableSectionsViewController {
          return sectionController
      }()
      
+    /// 重置
+    lazy var resetButtonCellItem: TPFullSizeButtonTableCellItem = { [weak self] in
+        let cellItem = TPFullSizeButtonTableCellItem()
+        cellItem.height = 50.0
+        cellItem.buttonTitle = resGetString("Reset to Default")
+        cellItem.buttonNormalTitleColor = resGetColor(.title)
+        cellItem.buttonNormalBackgroundColor = .secondarySystemGroupedBackground
+        cellItem.buttonSelectedBackgroundColor = .secondarySystemFill
+        cellItem.contentPadding = .zero
+        cellItem.preferredTappedScale = 1.0
+        cellItem.didClickButton = { _ in
+            self?.clickReset()
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var resetSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 15
+        sectionController.cellItems = [self.resetButtonCellItem]
+        return sectionController
+    }()
+    
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("Default Score")
          self.actionsBar?.actionsCountPerRow = 1
          self.setupActionsBar(actions: [saveAction])
          self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-         self.sectionControllers = [self.editSectionController]
+         self.sectionControllers = [self.editSectionController,
+                                    self.resetSectionController]
          self.reloadData()
      }
      
@@ -55,4 +80,12 @@ class HabitSettingScoreEditViewController: TPTableSectionsViewController {
         HabitSetting.shared.defaultFailedScore = editSectionController.failedScore
         self.navigationController?.popViewController(animated: true)
     }
+    
+    private func clickReset() {
+        editSectionController.completedScore = kHabitDefaultCompletedScore
+        editSectionController.skippedScore = kHabitDefaultSkippedScore
+        editSectionController.failedScore = kHabitDefaultFailedScore
+        editSectionController.updateAllValues()
+    }
+    
  }

@@ -42,13 +42,13 @@ class HabitSetting {
     @CloudStored(key: Key.isReportShowArchived.name, defaultValue: false)
     var isReportShowArchived: Bool
     
-    @CloudStored(key: Key.defaultCompletedScore.name, defaultValue: 100)
+    @CloudStored(key: Key.defaultCompletedScore.name, defaultValue: kHabitDefaultCompletedScore)
     var defaultCompletedScore: Int
     
-    @CloudStored(key: Key.defaultSkippedScore.name, defaultValue: 60)
+    @CloudStored(key: Key.defaultSkippedScore.name, defaultValue: kHabitDefaultSkippedScore)
     var defaultSkippedScore: Int
     
-    @CloudStored(key: Key.defaultFailedScore.name, defaultValue: 20)
+    @CloudStored(key: Key.defaultFailedScore.name, defaultValue: kHabitDefaultFailedScore)
     var defaultFailedScore: Int
     
     static let shared = HabitSetting()
