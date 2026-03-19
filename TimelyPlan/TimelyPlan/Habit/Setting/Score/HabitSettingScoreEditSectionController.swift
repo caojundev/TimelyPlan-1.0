@@ -24,16 +24,20 @@ class HabitSettingScoreEditSectionController: TPTableItemSectionController {
     
     private let cellHeight = 60.0
     
-    private let valueFont = UIFont.boldSystemFont(ofSize: 20.0)
+    private let valueFont = UIFont.boldSystemFont(ofSize: 14.0)
     
-    lazy var completedScoreCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+    lazy var completedScoreCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
         cellItem.height = cellHeight
         cellItem.title = resGetString("Completed Score")
-        cellItem.valueConfig.valueFont = valueFont
+        cellItem.imageContent = .withName("habit_status_completed_24")
+        cellItem.imageConfig.size = .mini
+        cellItem.imageConfig.shouldRenderImageWithColor = false
         cellItem.updater = {
             guard let self = self else { return }
-            self.completedScoreCellItem.valueConfig = .valueText("\(self.completedScore)", textColor: .primary)
+            self.completedScoreCellItem.valueConfig = .valueText("\(self.completedScore)",
+                                                                 font: self.valueFont,
+                                                                 textColor: .primary)
         }
         
         cellItem.didSelectHandler = {
@@ -43,14 +47,19 @@ class HabitSettingScoreEditSectionController: TPTableItemSectionController {
         return cellItem
     }()
     
-    lazy var skippedScoreCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+    lazy var skippedScoreCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
         cellItem.height = cellHeight
         cellItem.title = resGetString("Skipped Score")
+        cellItem.imageContent = .withName("habit_status_skipped_24")
+        cellItem.imageConfig.size = .mini
+        cellItem.imageConfig.shouldRenderImageWithColor = false
         cellItem.valueConfig.valueFont = valueFont
         cellItem.updater = {
             guard let self = self else { return }
-            self.skippedScoreCellItem.valueConfig = .valueText("\(self.skippedScore)", textColor: .primary)
+            self.skippedScoreCellItem.valueConfig = .valueText("\(self.skippedScore)",
+                                                               font: self.valueFont,
+                                                               textColor: .primary)
         }
         
         cellItem.didSelectHandler = {
@@ -60,14 +69,19 @@ class HabitSettingScoreEditSectionController: TPTableItemSectionController {
         return cellItem
     }()
     
-    lazy var failedScoreCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+    lazy var failedScoreCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
         cellItem.height = cellHeight
         cellItem.title = resGetString("Failed Score")
+        cellItem.imageContent = .withName("habit_status_failed_24")
+        cellItem.imageConfig.size = .mini
+        cellItem.imageConfig.shouldRenderImageWithColor = false
         cellItem.valueConfig.valueFont = valueFont
         cellItem.updater = {
             guard let self = self else { return }
-            self.failedScoreCellItem.valueConfig = .valueText("\(self.failedScore)", textColor: .primary)
+            self.failedScoreCellItem.valueConfig = .valueText("\(self.failedScore)",
+                                                              font: self.valueFont,
+                                                              textColor: .primary)
         }
         
         cellItem.didSelectHandler = {
@@ -152,7 +166,7 @@ class HabitSettingScoreEditSectionController: TPTableItemSectionController {
         let cellItem = cellItem(for: scoreType)
         cellItem.updater?()
         
-        let cell = adapter?.cellForItem(cellItem) as? TPDefaultInfoTextValueTableCell
+        let cell = adapter?.cellForItem(cellItem) as?  TPImageInfoTextValueTableCell
         cell?.updateValueConfig()
     }
 
@@ -167,9 +181,9 @@ class HabitSettingScoreEditSectionController: TPTableItemSectionController {
         }
     }
 
-    private func cell(for scoreType: ScoreType) -> TPDefaultInfoTextValueTableCell? {
+    private func cell(for scoreType: ScoreType) ->  TPImageInfoTextValueTableCell? {
         let cellItem = cellItem(for: scoreType)
-        let cell = adapter?.cellForItem(cellItem) as? TPDefaultInfoTextValueTableCell
+        let cell = adapter?.cellForItem(cellItem) as?  TPImageInfoTextValueTableCell
         return cell
     }
     

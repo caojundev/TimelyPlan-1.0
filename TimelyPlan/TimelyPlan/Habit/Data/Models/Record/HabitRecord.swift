@@ -35,9 +35,25 @@ struct HabitRecordLogInfo {
     
     /// 日志文本
     var log: String?
-    
+     
     /// 评分
-    var score: Int = 100
+    var score: Int
+    
+    static func logInfo(with status: HabitTaskStatus) -> HabitRecordLogInfo {
+        let score: Int
+        switch status {
+        case .notStarted, .inProgress:
+            score = 0
+        case .completed:
+            score = HabitSetting.shared.defaultCompletedScore
+        case .skipped(_):
+            score = HabitSetting.shared.defaultSkippedScore
+        case .failed(_):
+            score = HabitSetting.shared.defaultFailedScore
+        }
+        
+        return HabitRecordLogInfo(log: nil, score: score)
+    }
 }
 
 class HabitRecord: NSObject {

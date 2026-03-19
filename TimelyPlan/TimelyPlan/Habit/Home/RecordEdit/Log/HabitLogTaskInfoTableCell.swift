@@ -66,24 +66,29 @@ class HabitLogTaskInfoTableCell: TPBaseTableCell {
         infoView.iconView.icon = task?.icon
         infoView.titleView.title = task?.name
         
-        var subtitle: String?
-        switch status {
-        case .notStarted, .inProgress:
-            subtitle = nil
-        case .completed:
-            subtitle = resGetString("Completed")
-        case .skipped(_):
-            subtitle = resGetString("Skipped")
-        case .failed(_):
-            subtitle = resGetString("Failed")
-        }
-        
         let imageName = status.iconName(with: 24)
         if let imageName = imageName {
             statusImageView.image = resGetImage(imageName)
         }
         
-        infoView.titleView.subtitle = subtitle
+        var subtitles: [String] = []
+        switch status {
+        case .notStarted, .inProgress:
+            break
+        case .completed:
+            subtitles.append(resGetString("Completed"))
+        case .skipped(let reason):
+            subtitles.append(resGetString("Skipped"))
+            if let reason = reason {
+                subtitles.append(reason)
+            }
+        case .failed(let reason):
+            subtitles.append(resGetString("Failed"))
+            if let reason = reason {
+                subtitles.append(reason)
+            }
+        }
+        
+        infoView.titleView.subtitle = subtitles.joined(separator: " • ")
     }
-    
 }

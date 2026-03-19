@@ -35,9 +35,12 @@ class TPTextAccessoryConfig {
         return CGSize(width: valueWidth, height: valueHeight)
     }
     
-    static func valueText(_ text: TextRepresentable?, textColor: UIColor? = nil) -> TPTextAccessoryConfig {
+    static func valueText(_ text: TextRepresentable?,
+                          font: UIFont = BOLD_SMALL_SYSTEM_FONT,
+                          textColor: UIColor? = nil) -> TPTextAccessoryConfig {
         let config = TPTextAccessoryConfig()
         config.valueText = text
+        config.valueFont = font
         config.textColor = textColor ?? .secondaryLabel
         return config
     }

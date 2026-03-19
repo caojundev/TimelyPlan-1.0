@@ -100,7 +100,7 @@ class HabitRecordController: NSObject {
     // MARK: - 添加日志
     func editLog(for task: HabitTask, with record: HabitRecord?, on date: Date) {
         let status = task.status(with: record)
-        let logInfo = record?.logInfo ?? HabitRecordLogInfo()
+        let logInfo = record?.logInfo ?? .logInfo(with: status)
         let vc = HabitRecordLogEditViewController(task: task,
                                                   status: status,
                                                   logInfo: logInfo,

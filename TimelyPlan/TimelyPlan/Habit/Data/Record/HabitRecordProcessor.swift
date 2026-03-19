@@ -75,6 +75,11 @@ class HabitRecordProcessor {
         let newAmount = oldAmount + Int64(incrementAmount)
         record.amount = newAmount
         
+        /// 已完成设置评分
+        if record.amount >= task.goal.targetAmount {
+            record.score = Int16(HabitSetting.shared.defaultCompletedScore)
+        }
+        
         /// 添加sample
         CDHabitSample.addNewSample(amount: incrementAmount, date: .now, toRecord: record)
         HandyRecord.save()
@@ -97,6 +102,11 @@ class HabitRecordProcessor {
         
         let increment = newAmount - oldAmount
         record.amount = newAmount
+        
+        /// 已完成设置评分
+        if record.amount >= task.goal.targetAmount {
+            record.score = Int16(HabitSetting.shared.defaultCompletedScore)
+        }
         
         /// 添加sample
         CDHabitSample.addNewSample(amount: increment,
@@ -134,6 +144,7 @@ class HabitRecordProcessor {
         
         record.status = Int16(HabitRecord.Status.skipped.rawValue)
         record.reason = tag.combinedString
+        record.score = Int16(HabitSetting.shared.defaultSkippedScore)
         HandyRecord.save()
         
         let change = HabitRecordChange.skipChanged(oldValue: false,
@@ -149,6 +160,7 @@ class HabitRecordProcessor {
         
         record.status = Int16(HabitRecord.Status.normal.rawValue)
         record.reason = nil
+        record.score = 0
         HandyRecord.save()
         
         let change = HabitRecordChange.skipChanged(oldValue: true, newValue: false)
@@ -163,6 +175,7 @@ class HabitRecordProcessor {
         
         record.status = Int16(HabitRecord.Status.failed.rawValue)
         record.reason = tag.combinedString
+        record.score = Int16(HabitSetting.shared.defaultFailedScore)
         HandyRecord.save()
         
         let change: HabitRecordChange = .failChanged(oldValue: false,
@@ -178,6 +191,7 @@ class HabitRecordProcessor {
         
         record.status = Int16(HabitRecord.Status.normal.rawValue)
         record.reason = nil
+        record.score = 0
         HandyRecord.save()
         
         let change = HabitRecordChange.failChanged(oldValue: true, newValue: false)

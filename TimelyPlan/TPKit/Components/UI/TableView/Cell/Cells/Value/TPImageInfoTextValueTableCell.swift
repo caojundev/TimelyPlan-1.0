@@ -55,4 +55,13 @@ class TPImageInfoTextValueTableCell: TPImageInfoTableCell {
     override func setupInfoView() {
         self.infoView = TPImageInfoTextValueView()
     }
+    
+    func updateValueConfig() {
+        guard let cellItem = cellItem as? TPImageInfoTextValueTableCellItem else {
+            return
+        }
+
+        valueConfig = cellItem.valueConfig
+        setNeedsLayout()
+    }
 }
