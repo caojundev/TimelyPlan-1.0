@@ -11,6 +11,8 @@ class HabitReportContentViewController: StatsContentViewController,
                                         HabitRecordProcessorDelegate,
                                         SettingAgentObserver {
     
+    let imageCacher = HabitReportImageCacher()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         habit.addUpdater(self, for: [.record])

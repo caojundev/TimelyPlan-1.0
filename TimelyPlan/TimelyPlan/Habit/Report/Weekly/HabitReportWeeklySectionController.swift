@@ -10,6 +10,8 @@ import UIKit
 
 class HabitReportWeeklySectionController: HabitReportContentSectionController {
 
+    var imageCacher: HabitReportImageCacher?
+    
     override init(periodTasks: [HabitPeriodTask]?, firstWeekday: Weekday) {
         super.init(periodTasks: periodTasks, firstWeekday: firstWeekday)
         self.cellStyle.cornerRadius = 0.0
@@ -32,6 +34,7 @@ class HabitReportWeeklySectionController: HabitReportContentSectionController {
             return
         }
         
+        cell.imageCacher = self.imageCacher
         cell.periodTask = item(at: index) as? HabitPeriodTask
         cell.reloadData()
     }

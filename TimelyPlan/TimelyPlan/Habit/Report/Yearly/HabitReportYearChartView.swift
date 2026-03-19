@@ -26,6 +26,8 @@ class HabitReportYearChartView: TPCollectionWrapperView,
     /// 区块内间距
     let sectionInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 10.0, right: 0.0)
 
+    var imageCacher: HabitReportImageCacher?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.hideScrollIndicator()
@@ -76,8 +78,9 @@ class HabitReportYearChartView: TPCollectionWrapperView,
             return
         }
         
+        cell.imageCacher = self.imageCacher
         cell.date = adapter.item(at: indexPath) as? Date
-        cell.periodTask = periodTask
+        cell.periodTask = self.periodTask
         cell.reloadData()
     }
     

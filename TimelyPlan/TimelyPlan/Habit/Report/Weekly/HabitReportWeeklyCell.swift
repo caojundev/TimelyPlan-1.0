@@ -15,6 +15,8 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
     /// 任务
     var periodTask: HabitPeriodTask?
     
+    var imageCacher: HabitReportImageCacher?
+    
     /// 任务信息视图
     private(set) lazy var infoView: HabitReportIconInfoView = {
         let view = HabitReportIconInfoView()
@@ -79,19 +81,31 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
             return
         }
         
-        let requestID = requestManager.executeRequest()
         let date = periodTask.period.date
         let firstWeekday = periodTask.period.firstWeekday
         let render = HabitReportWeekRender(date: date,
                                            firstWeekday: firstWeekday,
                                            periodTask: periodTask)
         render.contentSize = self.weekImageView.size
+        
+        let taskID = periodTask.habitTask.identifier
+        let imageSize = render.canvasSize()
+        let image = imageCacher?.getImage(identifier: taskID, date: date, size: imageSize)
+        if image != nil {
+            self.weekImageView.image = image
+            return
+        }
+
+        self.weekImageView.image = nil
+
+        let requestID = requestManager.executeRequest()
         render.renderImage { image in
             guard self.requestManager.shouldProceed(with: requestID) else {
                 return
             }
             
             self.weekImageView.image = image
+            self.imageCacher?.setImage(image, identifier: taskID, date: date, size: imageSize)
         }
     }
 }

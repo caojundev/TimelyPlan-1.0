@@ -19,12 +19,14 @@ class HabitReportWeeklyViewController: HabitReportContentViewController {
     }
     
     override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
-        let period = HabitDatePeriod(date: self.date, mode: .week, firstWeekday: self.firstWeekday)
+        let periodDate = self.date.startOfWeek(firstWeekday: self.firstWeekday)
+        let period = HabitDatePeriod(date: periodDate, mode: .week, firstWeekday: self.firstWeekday)
         let includeArchived = HabitSetting.shared.isReportShowArchived
         habit.fetchReportPeriodTasks(in: period,
                                      includeArchived: includeArchived) { periodTasks in
             let sectionController = HabitReportWeeklySectionController(periodTasks: periodTasks,
                                                                        firstWeekday: self.firstWeekday)
+            sectionController.imageCacher = self.imageCacher
             completion([sectionController])
         }
     }

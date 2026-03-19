@@ -12,6 +12,8 @@ class HabitReportMonthlySectionController: HabitReportContentSectionController {
     
     let cellContentPadding = UIEdgeInsets(top: 0.0, left: 5.0, bottom: 10.0, right: 5.0)
     
+    var imageCacher: HabitReportImageCacher?
+    
     override init(periodTasks: [HabitPeriodTask]?, firstWeekday: Weekday) {
         super.init(periodTasks: periodTasks, firstWeekday: firstWeekday)
         self.cellStyle.cornerRadius = 12.0
@@ -48,6 +50,7 @@ class HabitReportMonthlySectionController: HabitReportContentSectionController {
             return
         }
         
+        cell.imageCacher = self.imageCacher
         cell.contentView.padding = cellContentPadding
         cell.periodTask = item(at: index) as? HabitPeriodTask
         cell.reloadData()

@@ -9,11 +9,21 @@ import Foundation
 import UIKit
 
 class HabitReportYearlyCell: TPCollectionCell {
+ 
+    static let infoViewHeight: CGFloat = 30.0
     
     /// 任务
     var periodTask: HabitPeriodTask?
-    
-    static let infoViewHeight: CGFloat = 30.0
+ 
+    var imageCacher: HabitReportImageCacher? {
+        get {
+            return chartView.imageCacher
+        }
+        
+        set {
+            chartView.imageCacher = newValue
+        }
+    }
     
     /// 任务信息视图
     private(set) lazy var infoView: HabitReportIconInfoView = {

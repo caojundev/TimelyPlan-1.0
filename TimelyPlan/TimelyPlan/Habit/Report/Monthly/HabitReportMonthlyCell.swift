@@ -15,6 +15,11 @@ class HabitReportMonthlyCell: TPCollectionCell {
     /// 任务
     var periodTask: HabitPeriodTask?
     
+    var imageCacher: HabitReportImageCacher?
+    
+    /// 数据请求管理器
+    private let requestManager = TPRequestManager()
+    
     /// 任务信息视图
     private(set) lazy var infoView: HabitReportIconInfoView = {
         let view = HabitReportIconInfoView()
@@ -48,12 +53,7 @@ class HabitReportMonthlyCell: TPCollectionCell {
         monthImageView.top = infoView.bottom
     }
     
-    /// 数据请求管理器
-    private let requestManager = TPRequestManager()
-    
     func reloadData() {
-        self.monthImageView.image = nil
-        
         guard let periodTask = periodTask else {
             return
         }
@@ -61,17 +61,29 @@ class HabitReportMonthlyCell: TPCollectionCell {
         let habitTask = periodTask.habitTask
         infoView.icon = habitTask.icon
         infoView.title = habitTask.name
-    
-        let requestID = requestManager.executeRequest()
-        let render = HabitReportMonthRender(date: periodTask.period.date,
-                                            firstWeekday: periodTask.period.firstWeekday,
+        
+        let date = periodTask.period.date
+        let firstWeekday = periodTask.period.firstWeekday
+        let render = HabitReportMonthRender(date: date,
+                                            firstWeekday: firstWeekday,
                                             periodTask: periodTask)
+        let taskID = periodTask.habitTask.identifier
+        let imageSize = render.canvasSize()
+        let image = imageCacher?.getImage(identifier: taskID, date: date, size: imageSize)
+        if image != nil {
+            self.monthImageView.image = image
+            return
+        }
+        
+        self.monthImageView.image = nil
+        let requestID = requestManager.executeRequest()
         render.renderImage { image in
             guard self.requestManager.shouldProceed(with: requestID) else {
                 return
             }
             
             self.monthImageView.image = image
+            self.imageCacher?.setImage(image, identifier: taskID, date: date, size: imageSize)
         }
     }
 }

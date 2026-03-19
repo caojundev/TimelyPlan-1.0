@@ -15,6 +15,8 @@ class HabitReportYearlyMonthCell: TPCollectionCell {
     /// 任务
     var periodTask: HabitPeriodTask?
     
+    var imageCacher: HabitReportImageCacher?
+    
     /// 月视图
     private let monthImageView = UIImageView()
     
@@ -33,22 +35,33 @@ class HabitReportYearlyMonthCell: TPCollectionCell {
     }
     
     func reloadData() {
-        self.monthImageView.image = nil
         guard let periodTask = periodTask, let date = date else {
             return
         }
 
-        let requestID = requestManager.executeRequest()
         let firstWeekday = periodTask.period.firstWeekday
         let render = HabitReportYearlyMonthRender(date: date,
                                                   firstWeekday: firstWeekday,
                                                   periodTask: periodTask)
+        let taskID = periodTask.habitTask.identifier
+        let imageSize = render.canvasSize()
+        let image = imageCacher?.getImage(identifier: taskID, date: date, size: imageSize)
+        if image != nil {
+            self.monthImageView.image = image
+            return
+        }
+        
+        self.monthImageView.image = nil
+        
+        /// 开始渲染图片
+        let requestID = requestManager.executeRequest()
         render.renderImage { image in
             guard self.requestManager.shouldProceed(with: requestID) else {
                 return
             }
             
             self.monthImageView.image = image
+            self.imageCacher?.setImage(image, identifier: taskID, date: date, size: imageSize)
         }
     }
 }
