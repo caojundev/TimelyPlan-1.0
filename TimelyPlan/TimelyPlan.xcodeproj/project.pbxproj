@@ -239,6 +239,8 @@
 		E52678542D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */; };
 		E52678562D4BD14300428500 /* TPSegmentedMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */; };
 		E526D3F62F6B8EDF005C1DED /* HabitReportImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */; };
+		E526D3F92F6BA2C3005C1DED /* HabitSettingScoreEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3F82F6BA2C3005C1DED /* HabitSettingScoreEditSectionController.swift */; };
+		E526D3FB2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3FA2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift */; };
 		E527619A2D41E01300209019 /* TodoTaskQuickAddMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52761992D41E01200209019 /* TodoTaskQuickAddMenuView.swift */; };
 		E527619C2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527619B2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift */; };
 		E527619F2D41F63000209019 /* TPImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527619E2D41F63000209019 /* TPImageCollectionCell.swift */; };
@@ -1811,6 +1813,8 @@
 		E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPFullSizeSegmentedTableCell.swift; sourceTree = "<group>"; };
 		E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSegmentedMenuTableCell.swift; sourceTree = "<group>"; };
 		E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportImageCacher.swift; sourceTree = "<group>"; };
+		E526D3F82F6BA2C3005C1DED /* HabitSettingScoreEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSettingScoreEditSectionController.swift; sourceTree = "<group>"; };
+		E526D3FA2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSettingScoreEditViewController.swift; sourceTree = "<group>"; };
 		E52761992D41E01200209019 /* TodoTaskQuickAddMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddMenuView.swift; sourceTree = "<group>"; };
 		E527619B2D41EB7E00209019 /* TodoTaskQuickAddMenuSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddMenuSectionController.swift; sourceTree = "<group>"; };
 		E527619E2D41F63000209019 /* TPImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageCollectionCell.swift; sourceTree = "<group>"; };
@@ -3930,6 +3934,15 @@
 			path = TaskListView;
 			sourceTree = "<group>";
 		};
+		E526D3F72F6BA29D005C1DED /* Score */ = {
+			isa = PBXGroup;
+			children = (
+				E526D3FA2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift */,
+				E526D3F82F6BA2C3005C1DED /* HabitSettingScoreEditSectionController.swift */,
+			);
+			path = Score;
+			sourceTree = "<group>";
+		};
 		E52A4FD42F62AC45009EC01B /* week */ = {
 			isa = PBXGroup;
 			children = (
@@ -4745,10 +4758,10 @@
 				E59243FD2F514E1900CA2393 /* Task */,
 				E59243C92F5004B300CA2393 /* Home */,
 				E5EFB1712F59C930000FFDF4 /* Manage */,
-				E59243FA2F514C9800CA2393 /* Setting */,
 				E59243F92F514C8900CA2393 /* Record */,
 				E53F32862F68D6D200B85B65 /* Report */,
 				E59243F82F514C8200CA2393 /* Statistic */,
+				E59243FA2F514C9800CA2393 /* Setting */,
 			);
 			path = Habit;
 			sourceTree = "<group>";
@@ -4811,6 +4824,7 @@
 			children = (
 				E507E79A2F52C847003004C4 /* HabitSetting.swift */,
 				E507E7982F529369003004C4 /* HabitSettingViewController.swift */,
+				E526D3F72F6BA29D005C1DED /* Score */,
 				E5347FF62F5FC31600CFBF26 /* ReasonTag */,
 			);
 			path = Setting;
@@ -9598,6 +9612,7 @@
 				E5BBA0672D3BF4A40089667A /* RepeatCustomViewController.swift in Sources */,
 				E5BBA0A22D3BF4A50089667A /* TodoStep+Extensions.swift in Sources */,
 				E5BB9E5B2D3BF0C70089667A /* TPCalendarSingleMonthCell.swift in Sources */,
+				E526D3F92F6BA2C3005C1DED /* HabitSettingScoreEditSectionController.swift in Sources */,
 				E5BBA0B12D3BF4A50089667A /* Todo+Task.swift in Sources */,
 				E5BB9E432D3BF0C70089667A /* UITextView+LineFrames.swift in Sources */,
 				E5BB9DBA2D3BF0C60089667A /* ThemeAgent.swift in Sources */,
@@ -9760,6 +9775,7 @@
 				E51A4C3F2DC3B95E005A0E3F /* CalendarDayTimelineView.swift in Sources */,
 				E5BB9EA52D3BF0C80089667A /* TPStrikethroughLabel.swift in Sources */,
 				E58C9E142F4AF0DC0096B842 /* FocusTimelineDayPageView.swift in Sources */,
+				E526D3FB2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift in Sources */,
 				E59244202F51CB7500CA2393 /* HabitTimePlanScheduler.swift in Sources */,
 				E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */,
 				E5BBA0D92D3BF4A50089667A /* TodoListOptionMenuController.swift in Sources */,

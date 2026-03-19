@@ -14,7 +14,7 @@ class FocusEndViewController: TPCollectionSectionsViewController {
     lazy var bottomView: FocusEndBottomView =  { [weak self] in
         let view = FocusEndBottomView()
         view.didClickSave = {
-            self?.clickSave()
+            self?.clickSaveRecords()
         }
         
         view.didClickDiscard = {
@@ -99,7 +99,7 @@ class FocusEndViewController: TPCollectionSectionsViewController {
     }
     
     // MARK: - Event Response
-    func clickSave() {
+    func clickSaveRecords() {
         if let records = dataItem.validFocusRecords {
             /// 保存有效记录
             focus.addSessions(with: records)

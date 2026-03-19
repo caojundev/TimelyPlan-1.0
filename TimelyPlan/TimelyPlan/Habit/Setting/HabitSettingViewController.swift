@@ -62,12 +62,25 @@ class HabitSettingViewController: TPTableSectionsViewController {
         return cellItem
     }()
      
+    lazy var defaultScoreCellItem: TPImageInfoTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Default Score")
+        cellItem.didSelectHandler = {
+            self?.editDefaultScore()
+        }
+        
+        return cellItem
+    }()
+     
      lazy var generalSectionController: TPTableItemSectionController = {
          let sectionController = TPTableItemSectionController()
          sectionController.headerItem.height = 10.0
          sectionController.cellItems = [firstWeekdayCellItem,
                                         addHabitOnTopCellItem,
-                                        reasonTagCellItem]
+                                        reasonTagCellItem,
+                                        defaultScoreCellItem]
          return sectionController
      }()
      
@@ -112,6 +125,11 @@ class HabitSettingViewController: TPTableSectionsViewController {
     
     private func editReasonTag() {
         let vc = HabitReasonTagEditViewController(style: .insetGrouped)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func editDefaultScore() {
+        let vc = HabitSettingScoreEditViewController(style: .insetGrouped)
         self.navigationController?.pushViewController(vc, animated: true)
     }
  }

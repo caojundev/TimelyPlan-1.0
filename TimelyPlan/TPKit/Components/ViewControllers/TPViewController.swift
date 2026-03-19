@@ -97,6 +97,14 @@ class TPViewController: UIViewController {
         return action
     }()
 
+    lazy var saveAction: TPButtonAction = {
+        let action = TPButtonAction(title:  resGetString("Save")) {  [weak self] action in
+            self?.clickSave()
+        }
+        
+        return action
+    }()
+    
     var actionsBarHeight: CGFloat = 72.0
     
     /// 内容区域frame
@@ -183,6 +191,10 @@ class TPViewController: UIViewController {
         /// 取消第一响应者
         UIResponder.resignCurrentFirstResponder()
         dismiss(animated: true, completion: nil)
+    }
+    
+    func clickSave() {
+        
     }
     
     @objc func didClickCancel() {

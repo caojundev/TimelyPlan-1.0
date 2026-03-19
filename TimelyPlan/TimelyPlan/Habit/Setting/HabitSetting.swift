@@ -16,6 +16,9 @@ class HabitSetting {
         case customUnits /// 自定义单位
         case reasonTags  /// 原因标签
         case isReportShowArchived /// 报告是否显示已归档
+        case defaultCompletedScore
+        case defaultSkippedScore
+        case defaultFailedScore
         
         static func keyPrefix() -> String? {
             return "HabitSetting"
@@ -38,6 +41,15 @@ class HabitSetting {
     
     @CloudStored(key: Key.isReportShowArchived.name, defaultValue: false)
     var isReportShowArchived: Bool
+    
+    @CloudStored(key: Key.defaultCompletedScore.name, defaultValue: 100)
+    var defaultCompletedScore: Int
+    
+    @CloudStored(key: Key.defaultSkippedScore.name, defaultValue: 60)
+    var defaultSkippedScore: Int
+    
+    @CloudStored(key: Key.defaultFailedScore.name, defaultValue: 20)
+    var defaultFailedScore: Int
     
     static let shared = HabitSetting()
     

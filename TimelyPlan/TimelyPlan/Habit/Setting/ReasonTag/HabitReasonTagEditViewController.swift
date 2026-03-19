@@ -71,7 +71,9 @@ class HabitReasonTagEditViewController: TPTableViewController,
     }
     
     override func tableViewFrame() -> CGRect {
-        return CGRect(x: 0.0, y: 0.0, width: view.width, height: view.height - actionsBarHeight)
+        let layoutFrame = view.safeLayoutFrame()
+        let height = layoutFrame.height - actionsBarHeight
+        return CGRect(x: 0.0, y: 0.0, width: view.width, height: height)
     }
     
     override var themeBackgroundColor: UIColor? {
