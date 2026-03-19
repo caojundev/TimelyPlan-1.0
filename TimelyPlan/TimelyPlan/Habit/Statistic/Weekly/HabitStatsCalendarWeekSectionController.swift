@@ -94,6 +94,8 @@ class HabitStatsCalendarWeekDayCell: HabitHomeWeekDayCell {
         }
         
         self.statusProgressView.statusImageColor = .white
+        self.statusProgressView.progressView.backLineColor = Color(light: 0x121212, dark: 0xf1f1f1, alpha: 0.1)
+        
         self.statusProgressView.progressColor = color
         let textColor = resGetColor(.title)
         self.statusProgressView.infoLabel.textColor = textColor

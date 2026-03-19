@@ -31,12 +31,14 @@ class HabitStatsYearlyViewController: HabitStatsContentViewController {
         let statusPieSectionController = HabitStatusPieChartSectionController(periodTask: periodTask)
         let yearlyBarChartSectionController = yearlyBarChartSectionController(for: periodTask)
         let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
+        let averageScoreSectionController = averageScoreSectionController(for: periodTask)
         let heatMapSectionController = heatMapSectionController(for: periodTask)
         let historySectionController = historySectionController(for: periodTask)
         return [summarySectionController,
                 statusPieSectionController,
                 yearlyBarChartSectionController,
                 hourlyCheckinCountSectionContorller,
+                averageScoreSectionController,
                 heatMapSectionController,
                 historySectionController]
     }
@@ -100,6 +102,20 @@ class HabitStatsYearlyViewController: HabitStatsContentViewController {
         return sectionController
     }
     
+    func averageScoreSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+        let marks = periodTask.monthlyAverageScoreChartMarks()
+        let chartItem = BarChartItem()
+        chartItem.minimumBarMargin = 8.0
+        chartItem.barMarks = marks
+        chartItem.xAxis = .monthsAxis()
+        chartItem.yAxis = .scoreAxis()
+        
+        let sectionController = StatsBarChartSectionController()
+        sectionController.cellItem.headerTitle = resGetString("Monthly Average Score")
+        sectionController.chartItem = chartItem
+        return sectionController
+    }
+    
     func historySectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
         let groupedRecords = periodTask.monthGroupedRecords()
         let sectionController = HabitStatsYearlyHistorySectionController(task: periodTask.habitTask,
@@ -107,4 +123,5 @@ class HabitStatsYearlyViewController: HabitStatsContentViewController {
                                                                          monthGroupedRecords: groupedRecords)
         return sectionController
     }
+    
 }

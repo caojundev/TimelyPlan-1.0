@@ -151,41 +151,7 @@ extension HabitPeriodTask {
         
         return marks
     }
-    
-    // MARK: - 按月份完成数目统计
-    
-    /// 年度按月打卡数目字典
-    private var monthlyCheckinAmountForYear: [Int: Int64] {
-        var monthlyAmount = [Int: Int64]()
-        guard let records = self.records else {
-            return monthlyAmount
-        }
 
-        for record in records.values {
-            guard record.amount > 0, let date = record.date else {
-                continue
-            }
-            
-            let month = date.month
-            let monthAmount = monthlyAmount[month] ?? 0
-            monthlyAmount[month] = monthAmount + record.amount
-        }
-        
-        return monthlyAmount
-    }
-    
-    func monthlyCheckinAmountChartMarks() -> [ChartMark] {
-        var marks = [ChartMark]()
-        for (month, amount) in monthlyCheckinAmountForYear {
-            var barMark = ChartMark(x: CGFloat(month), y: CGFloat(amount))
-            let symbol = Date.monthSymbol(ofMonth: month)
-            barMark.highlightText = "\(symbol) • \(amount)"
-            marks.append(barMark)
-        }
-        
-        return marks
-    }
-    
     // MARK: - 饼状图
     /// 任务状态天数饼状图信息
     func statusDayCountPieVisual(_ recordDays: inout Int) -> PieVisual {
@@ -294,6 +260,84 @@ extension HabitPeriodTask {
     }
 }
 
+// MARK: -  按月份
+extension HabitPeriodTask {
+    
+    /// 年度按月打卡数目字典
+    private var monthlyCheckinAmountForYear: [Int: Int64] {
+        var monthlyAmount = [Int: Int64]()
+        guard let records = self.records else {
+            return monthlyAmount
+        }
+
+        for record in records.values {
+            guard record.amount > 0, let date = record.date else {
+                continue
+            }
+            
+            let month = date.month
+            let monthAmount = monthlyAmount[month] ?? 0
+            monthlyAmount[month] = monthAmount + record.amount
+        }
+        
+        return monthlyAmount
+    }
+    
+    func monthlyCheckinAmountChartMarks() -> [ChartMark] {
+        var marks = [ChartMark]()
+        for (month, amount) in monthlyCheckinAmountForYear {
+            var barMark = ChartMark(x: CGFloat(month), y: CGFloat(amount))
+            let symbol = Date.monthSymbol(ofMonth: month)
+            barMark.highlightText = "\(symbol) • \(amount)"
+            marks.append(barMark)
+        }
+        
+        return marks
+    }
+    
+    /// 月均分数字典
+    private var monthlyAverageScoreForYear: [Int: Int] {
+        guard let records = self.records else {
+            return [:]
+        }
+
+        var monthScoreInfoDic = [Int: (days: Int, sumScore: Int)]()
+        for record in records.values {
+            guard let date = record.date else {
+                continue
+            }
+            
+            let month = date.month
+            let monthScoreInfo = monthScoreInfoDic[month] ?? (0, 0)
+            let days = monthScoreInfo.days + 1
+            let sumScore = monthScoreInfo.sumScore + Int(record.score)
+            monthScoreInfoDic[month] = (days, sumScore)
+        }
+        
+        var monthlyAverageScoreDic = [Int: Int]()
+        for (month, scoreInfo) in monthScoreInfoDic {
+            monthlyAverageScoreDic[month] = scoreInfo.sumScore / scoreInfo.days
+        }
+        
+        return monthlyAverageScoreDic
+    }
+    
+    func monthlyAverageScoreChartMarks() -> [ChartMark] {
+        let monthlyAverageScoreDic = monthlyAverageScoreForYear
+        var marks = [ChartMark]()
+        for (month, score) in monthlyAverageScoreDic {
+            var barMark = ChartMark(x: CGFloat(month), y: CGFloat(score))
+            let symbol = Date.monthSymbol(ofMonth: month)
+            barMark.highlightText = "\(symbol) • \(score)"
+            marks.append(barMark)
+        }
+        
+        return marks
+    }
+    
+}
+
+
 // MARK: - 概览
 extension HabitPeriodTask {
     
@@ -338,9 +382,23 @@ extension HabitPeriodTask {
     /// 日平均记录数目
     func dailyAverageAmountSummary(amount: Int64) -> StatsSummary {
         var summary = StatsSummary()
-        summary.title = resGetString("Daily Avg")
+        summary.title = resGetString("Daily Avg Amount")
         if amount > 0 {
             summary.attributedValue = "\(amount)"
+        }
+        
+        return summary
+    }
+    
+    /// 日平均得分
+    func averageScoreSummary() -> StatsSummary {
+        var summary = StatsSummary()
+        summary.title = resGetString("Daily Avg Score")
+        if let records = self.records?.values, records.count > 0 {
+            let score = Array(records).averageScore
+            summary.value = "\(score)"
+        } else {
+            summary.value = "---"
         }
         
         return summary
@@ -354,20 +412,6 @@ extension HabitPeriodTask {
         if let records = self.records?.values, records.count > 0 {
             let finishedDays = Array(records).finishedDays(for: habitTask)
             summary.attributedValue = daysAttributedTitle(with: finishedDays)
-        } else {
-            summary.value = "---"
-        }
-        
-        return summary
-    }
-    
-    /// 平均得分
-    func averageScoreSummary() -> StatsSummary {
-        var summary = StatsSummary()
-        summary.title = resGetString("Avg Score")
-        if let records = self.records?.values, records.count > 0 {
-            let score = Array(records).averageScore
-            summary.value = "\(score)"
         } else {
             summary.value = "---"
         }
