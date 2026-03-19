@@ -22,8 +22,8 @@ class HabitPresenter {
     }
     
     /// 显示习惯管理视图控制器
-    static func manageHabits() {
-        let vc = HabitManageMainViewController()
+    static func manageHabits(menuType: HabitManageListType = .active) {
+        let vc = HabitManageMainViewController(menuType: menuType)
         vc.showAsNavigationRoot()
     }
     

@@ -139,6 +139,8 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
         switch type {
         case .manageHabits:
             HabitPresenter.manageHabits()
+        case .archived:
+            HabitPresenter.manageHabits(menuType: .archived)
         case .settings:
             HabitPresenter.showSettings()
         }
