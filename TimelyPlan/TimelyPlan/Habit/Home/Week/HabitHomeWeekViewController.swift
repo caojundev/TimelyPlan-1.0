@@ -10,8 +10,9 @@ import UIKit
 
 class HabitHomeWeekViewController: TPViewController,
                                    HabitPeriodTaskListViewDelegate,
-                                   HabitHomeWeekListCellDelegate {
-
+                                   HabitHomeWeekListCellDelegate,
+                                   SettingAgentObserver {
+    
     private lazy var listView: HabitPeriodTaskListView = {
         let view = HabitPeriodTaskListView(frame: view.bounds)
         view.preferredItemHeight = 210.0
@@ -43,6 +44,7 @@ class HabitHomeWeekViewController: TPViewController,
         view.addSubview(addView)
         listView.asyncReloadData()
         habit.addUpdater(self, for: .all)
+        HabitSetting.shared.addObserver(self, forKey: .firstWeekday)
     }
     
     override func viewWillLayoutSubviews() {
@@ -68,6 +70,14 @@ class HabitHomeWeekViewController: TPViewController,
     // MARK: - Event Response
     @objc func didClickAdd(_ button: UIButton){
         processor.createNewTask()
+    }
+    
+    // MARK: - SettingAgentObserver
+    func settingAgentDidChangeValue(for key: String) {
+        if key == HabitSetting.Key.firstWeekday.name {
+            self.groupProvider.setNeedsRefresh()
+            self.listView.asyncReloadData()
+        }
     }
     
     // MARK: - HabitHomeWeekListCellDelegate

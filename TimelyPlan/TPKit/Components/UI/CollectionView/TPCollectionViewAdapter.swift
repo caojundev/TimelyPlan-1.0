@@ -100,6 +100,12 @@ class TPCollectionViewAdapter: NSObject,
         collectionView.reloadData()
     }
     
+    /// 重新加载可见项目
+    func reloadVisibleItems() {
+        let indexPaths = self.collectionView.indexPathsForVisibleItems
+        self.collectionView.reloadItems(at: indexPaths)
+    }
+    
     // MARK: - UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return objects.count

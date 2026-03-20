@@ -8,25 +8,10 @@
 import Foundation
 
 class HabitRecordsViewController: StatsMainViewController {
-
-    /// 记录排列顺序
-    private var sortOrder = FocusStateStore.shared.recordListOrder
-    
-    /// 更多菜单按钮
-    private lazy var moreBarButtonItem: FocusRecordMoreBarButtonItem = {
-        let item = FocusRecordMoreBarButtonItem()
-        item.sortOrder = sortOrder
-        item.didSelectType = { [weak self] type in
-            self?.performMoreMenuAction(with: type)
-        }
-        
-        return item
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        self.navigationItem.rightBarButtonItem = moreBarButtonItem
     }
     
     init(type: StatsType = .week,
@@ -55,24 +40,6 @@ class HabitRecordsViewController: StatsMainViewController {
     }
     
     private func performMoreMenuAction(with actionType: FocusRecordMoreMenuType) {
+        
     }
-    
-    private func selectSortOrder(_ sortOrder: FocusRecordSortOrder) {
-//        guard self.sortOrder != sortOrder else {
-//            return
-//        }
-//        
-//        self.sortOrder = sortOrder
-//        self.moreBarButtonItem.sortOrder = sortOrder
-//        
-//        /// 重新加载列表数据
-//        if let vc = self.contentViewController as? FocusRecordListViewController {
-//            vc.sortOrder = sortOrder
-//            vc.reloadData()
-//        }
-//        
-//        /// 保存到本地设置项
-//        FocusStateStore.shared.recordListOrder = sortOrder
-    }
-    
 }

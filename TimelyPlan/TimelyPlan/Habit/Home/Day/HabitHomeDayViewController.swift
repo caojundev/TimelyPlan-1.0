@@ -11,7 +11,8 @@ import UIKit
 class HabitHomeDayViewController: TPContainerViewController,
                                   HabitPeriodTaskListViewDelegate,
                                   HabitHomeDayListCellDelegate,
-                                  TPCalendarSingleDateSelectionDelegate {
+                                  TPCalendarSingleDateSelectionDelegate,
+                                  SettingAgentObserver {
     
     /// 日期
     private(set) var date: Date = .now {
@@ -25,7 +26,6 @@ class HabitHomeDayViewController: TPContainerViewController,
     private lazy var weekView: TPCalendarScrollableWeekView = {
         let view = TPCalendarScrollableWeekView(frame: .zero)
         view.symbolStyle = .veryShort
-        view.firstWeekday = HabitSetting.shared.firstWeekday
         view.selection = selection
         view.addSeparator(position: .bottom)
         return view
@@ -102,6 +102,7 @@ class HabitHomeDayViewController: TPContainerViewController,
         view.addSubview(backView)
         view.addSubview(addView)
         reloadData()
+        HabitSetting.shared.addObserver(self, forKey: .firstWeekday)
         habit.addUpdater(self, for: .all)
     }
     
@@ -143,8 +144,13 @@ class HabitHomeDayViewController: TPContainerViewController,
     // MARK: - Public
     func reloadData() {
         updateAddView()
-        weekView.reloadData()
+        reloadWeekView()
         listView.asyncReloadData()
+    }
+    
+    private func reloadWeekView() {
+        weekView.firstWeekday = HabitSetting.shared.firstWeekday
+        weekView.reloadData()
     }
     
     // MARK: - Update
@@ -193,6 +199,13 @@ class HabitHomeDayViewController: TPContainerViewController,
     
     @objc func didClickAdd(_ button: UIButton){
         processor.createNewTask()
+    }
+    
+    // MARK: - SettingAgentObserver
+    func settingAgentDidChangeValue(for key: String) {
+        if key == HabitSetting.Key.firstWeekday.name {
+            reloadWeekView()
+        }
     }
     
     // MARK: - TPCalendarSingleDateSelectionDelegate

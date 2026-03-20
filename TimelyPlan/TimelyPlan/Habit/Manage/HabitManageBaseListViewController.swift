@@ -95,6 +95,14 @@ class HabitManageBaseListViewController: TPViewController,
             break
         }
     }
+    
+    func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) {
+        guard let task = listView.item(at: indexPath) as? HabitTask else {
+            return
+        }
+        
+        HabitPresenter.showStats(for: task)
+    }
 }
 
 extension HabitManageBaseListViewController: HabitTaskProcessorDelegate {

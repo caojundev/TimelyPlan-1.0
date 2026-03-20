@@ -45,7 +45,7 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
     
     lazy var infoCellItem: TPDescriptionTableCellItem = {
         let cellItem = TPDescriptionTableCellItem()
-        cellItem.minimumHeight = 70.0
+        cellItem.minimumHeight = 40.0
         cellItem.contentPadding = UIEdgeInsets(horizontal: 10.0, vertical: 10.0)
         cellItem.selectionStyle = .none
         cellItem.updater = { [weak self] in

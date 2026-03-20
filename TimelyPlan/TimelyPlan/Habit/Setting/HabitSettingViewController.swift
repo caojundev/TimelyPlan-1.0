@@ -118,8 +118,10 @@ class HabitSettingViewController: TPTableSectionsViewController {
                                      permittedPositions: [.bottomLeft, .topLeft],
                                      isSourceViewCovered: false,
                                      animated: true) { weekday in
-            HabitSetting.shared.firstWeekday = weekday
-            self.adapter.reloadCell(forItem: self.firstWeekdayCellItem, with: .none)
+            if firstWeekday != weekday {
+                HabitSetting.shared.firstWeekday = weekday
+                self.adapter.reloadCell(forItem: self.firstWeekdayCellItem, with: .none)
+            }
         }
     }
     

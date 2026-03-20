@@ -11,6 +11,7 @@ class PieCircleView: UIView {
     
     var visual: PieVisual! {
         didSet {
+            setNeedsDisplay()
             setNeedsLayout()
         }
     }
@@ -144,7 +145,7 @@ class PieCircleView: UIView {
     
     private func addAnimationIfNeeded() {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.duration  = 1.2
+        animation.duration  = 1.0
         animation.fromValue = 0.0
         animation.toValue   = 1.0
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
