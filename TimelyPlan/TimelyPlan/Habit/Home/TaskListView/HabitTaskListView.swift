@@ -72,15 +72,20 @@ class HabitTaskListView: TPCollectionWrapperView,
             sectionLayout.preferredItemHeight = newValue
         }
     }
+
+    var placeholderView: TPDefaultPlaceholderView? {
+        return collectionView.placeholderView as? TPDefaultPlaceholderView
+    }
     
-    /// 占位视图
-    private(set) lazy var placeholderView: TPDefaultPlaceholderView = {
-        let view = TPDefaultPlaceholderView()
-        view.isBorderHidden = true
-        view.titleColor = .lightGray
-        return view
-    }()
-    
+    /// 提供占位视图
+    var placeholderConfiguration: ((TPDefaultPlaceholderView) -> Void)? {
+        didSet {
+            if let placeholderView = placeholderView {
+                placeholderConfiguration?(placeholderView)
+            }
+        }
+    }
+
     /// 区块布局
     private(set) lazy var sectionLayout: TPCollectionSectionLayout = {
         let layout = TPCollectionSectionLayout()
@@ -97,8 +102,16 @@ class HabitTaskListView: TPCollectionWrapperView,
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
-        self.collectionView.placeholderView = self.placeholderView
         self.collectionView.showsVerticalScrollIndicator = false
+        
+        /// 新建并配置占位视图
+        self.placeholderViewProvider = { [weak self] in
+            guard let self = self else { return nil }
+            let placeholderView = self.createPlaceholderView()
+            self.placeholderConfiguration?(placeholderView)
+            return placeholderView
+        }
+        
         self.adapter.footerSize = .zero
         self.adapter.cellStyle.cornerRadius = 20.0
         self.adapter.dataSource = self
@@ -109,7 +122,17 @@ class HabitTaskListView: TPCollectionWrapperView,
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func createPlaceholderView() -> TPDefaultPlaceholderView {
+        let view = TPDefaultPlaceholderView()
+        view.isBorderHidden = true
+        view.titleColor = .lightGray
+        view.image = resGetImage("habit_plceholder_task_80")
+        view.title = resGetString("Tap + to create a new habit")
+        return view
+    }
+    
     // MARK: - Public Methods
+    
     /// 获取指定区块的对象
     func sectionObject(at section: Int) -> ListDiffable {
         return adapter.object(at: section)

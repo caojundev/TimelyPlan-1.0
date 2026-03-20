@@ -42,7 +42,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
     
     /// 报告按钮
     lazy var reportBarButtonItem: UIBarButtonItem = {
-        let image = resGetImage("chart_pie_24")
+        let image = resGetImage("habit_report_24")
         let buttonItem = UIBarButtonItem(image: image,
                                          style: .plain,
                                          target: self,
@@ -52,7 +52,7 @@ class HabitMainViewController: TPContainerViewController, TFSidebarContent {
     
     /// 记录按钮
     lazy var recordBarButtonItem: UIBarButtonItem = {
-        let image = resGetImage("focus_record_24")
+        let image = resGetImage("habit_record_24")
         let item = UIBarButtonItem(image: image,
                                    style: .plain,
                                    target: self,

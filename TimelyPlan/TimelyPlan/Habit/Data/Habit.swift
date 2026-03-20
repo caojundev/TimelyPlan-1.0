@@ -90,14 +90,15 @@ class Habit {
         return archivedTasksCount() != 0
     }
     
+    func archivedTasks() -> [HabitTask] {
+        return self.taskManager.getArchivedTasks()
+    }
+    
     /// 获取归档任务数目
     func archivedTasksCount() -> Int {
         return self.taskManager.getArchivedTasksCount()
     }
     
-    func archivedTasks() -> [HabitTask] {
-        return self.taskManager.getArchivedTasks()
-    }
     
     func createTask(with editingTask: HabitEditingTask) {
         self.taskManager.createTask(with: editingTask)

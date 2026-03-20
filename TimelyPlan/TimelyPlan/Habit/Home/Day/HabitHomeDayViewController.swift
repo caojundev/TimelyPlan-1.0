@@ -95,7 +95,7 @@ class HabitHomeDayViewController: TPContainerViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         filterButton.filterType = filterType
-        
+        updatePlaceholderView()
         view.addSubview(weekView)
         view.addSubview(listView)
         view.addSubview(filterButton)
@@ -141,6 +141,25 @@ class HabitHomeDayViewController: TPContainerViewController,
         return .systemBackground
     }
 
+    /// 更新占位视图
+    private func updatePlaceholderView() {
+        var title: String?
+        switch filterType {
+        case .all:
+            title = resGetString("No Habit Today")
+        case .todo:
+            title = resGetString("No To-do Habit Today")
+        case .completed:
+            title = resGetString("No Completed Habit Today")
+        case .skipped:
+            title = resGetString("No Skipped Habit Today")
+        case .failed:
+            title = resGetString("No Failed Habit Today")
+        }
+        
+        self.listView.placeholderView?.title = title
+    }
+    
     // MARK: - Public
     func reloadData() {
         updateAddView()
@@ -167,7 +186,8 @@ class HabitHomeDayViewController: TPContainerViewController,
         
         let style = SlideStyle.horizontalStyle(fromValue: fromDate,
                                                toValue: toDate)
-        listView.asyncReloadData(animateStyle: style)
+        self.listView.asyncReloadData(animateStyle: style)
+        self.updatePlaceholderView()
     }
     
     func updateAddView() {
@@ -185,6 +205,7 @@ class HabitHomeDayViewController: TPContainerViewController,
     // MARK: - Event Response
     private func selectFilterType(_ filterType: HabitTaskFilterType) {
         self.filterType = filterType
+        self.updatePlaceholderView()
         /// 更新列表
         self.listView.asyncPerformUpdate()
     }

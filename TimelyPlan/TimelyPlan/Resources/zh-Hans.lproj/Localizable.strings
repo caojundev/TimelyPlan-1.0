@@ -21,7 +21,12 @@
 "By Day" = "按天";
 "By Week" = "按周";
 "Manage Habits" = "管理习惯";
+"Tap + to create a new habit" = "点击+创建新习惯";
 "No Habit Today" = "今日无习惯";
+"No To-do Habit Today" = "今日无待办习惯";
+"No Completed Habit Today" = "今日无已完成习惯";
+"No Skipped Habit Today" = "今日无已跳过习惯";
+"No Failed Habit Today" = "今日无已失败习惯";
 
 /// 习惯编辑
 "New Habit" = "新建习惯";
@@ -119,7 +124,7 @@
 
 /// 习惯管理
 "Active" = "活动";
-"No Archiving Habit" = "无归档习惯";
+"No Archived Habit" = "无归档习惯";
 
 /// 统计
 "Status Days" = "状态天数";

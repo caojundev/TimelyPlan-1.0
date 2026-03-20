@@ -35,6 +35,15 @@ class TPCollectionWrapperView: UIView,
         }
     }
 
+    /// 提供占位视图
+    var placeholderViewProvider: (() -> UIView?)? {
+        didSet {
+            if let placeholderViewProvider = placeholderViewProvider {
+                collectionView.placeholderView = placeholderViewProvider()
+            }
+        }
+    }
+    
     /// 滚动方向
     var scrollDirection: UICollectionView.ScrollDirection {
         get {
@@ -90,6 +99,12 @@ class TPCollectionWrapperView: UIView,
         collectionView = UICollectionView(frame: bounds, collectionViewLayout: collectionViewLayout)
         collectionView.isPrefetchingEnabled = false
         collectionView.backgroundColor = .clear
+        
+        /// 设置占位视图
+        if let placeholderViewProvider = placeholderViewProvider {
+            collectionView.placeholderView = placeholderViewProvider()
+        }
+        
         collectionConfiguration?(collectionView)
         
         /// 设置适配器

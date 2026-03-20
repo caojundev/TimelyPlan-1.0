@@ -74,7 +74,7 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
         case .skipToday:
             return "habit_menu_skip_24"
         case .editLog:
-            return "habit_menu_log_24"
+            return "habit_menu_editLog_24"
         case .edit:
             return "edit_24"
         case .archive:

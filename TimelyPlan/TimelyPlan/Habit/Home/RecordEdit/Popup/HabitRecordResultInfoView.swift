@@ -21,7 +21,7 @@ class HabitRecordResultInfoView: UIView, TPCustomPopupContent {
     
     private lazy var logButton: TPDefaultButton = {
         let button = TPDefaultButton()
-        button.image = resGetImage("habit_menu_log_24")
+        button.image = resGetImage("habit_menu_editLog_24")
         button.imageConfig.color = .white
         button.normalBackgroundColor = Color(0x456FEF)
         button.cornerRadius = .greatestFiniteMagnitude

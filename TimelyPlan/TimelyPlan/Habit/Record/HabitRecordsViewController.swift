@@ -24,18 +24,18 @@ class HabitRecordsViewController: StatsMainViewController {
     }
     
     override func dailyStatsViewController() -> UIViewController! {
-        let vc = FocusRecordListViewController(type: .day, date: self.date)
+        let vc = HabitRecordListViewController(type: .day, date: self.date)
         return vc
     }
     
     override func weeklyStatsViewController() -> UIViewController! {
-        let firstWeekday = FocusSetting.shared.firstWeekday
-        let vc = FocusRecordListViewController(type: .week, date: self.date, firstWeekday: firstWeekday)
+        let firstWeekday = HabitSetting.shared.firstWeekday
+        let vc = HabitRecordListViewController(type: .week, date: self.date, firstWeekday: firstWeekday)
         return vc
     }
     
     override func monthlyStatsViewController() -> UIViewController! {
-        let vc = FocusRecordListViewController(type: .month, date: self.date)
+        let vc = HabitRecordListViewController(type: .month, date: self.date)
         return vc
     }
     

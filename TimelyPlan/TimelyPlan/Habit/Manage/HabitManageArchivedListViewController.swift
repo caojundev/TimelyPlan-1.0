@@ -12,8 +12,10 @@ class HabitManageArchivedListViewController: HabitManageBaseListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.listView.placeholderView.image = resGetImage("archivedList_80")
-        self.listView.placeholderView.title = resGetString("No Archiving Habit")
+        self.listView.placeholderConfiguration = { view in
+            view.image = resGetImage("archivedList_80")
+            view.title = resGetString("No Archived Habit")
+        }
     }
     
     override func groupsInHabitTaskListView(_ listView: HabitTaskListView) -> [HabitTaskGroup]? {
