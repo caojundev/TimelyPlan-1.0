@@ -98,9 +98,11 @@ class HabitDatePeriod: NSObject {
         return dateRange.lastsCount()
     }
     
-    // MARK: - 静态工厂方法 
+    // MARK: - 获取日期所在周的日时段数组
+    func weekDaysPeriods() -> [HabitDatePeriod] {
+        return HabitDatePeriod.weekDaysPeriods(containing: self.date, firstWeekday: self.firstWeekday)
+    }
     
-    /// 获取日期所在周的日时段数组
     static func weekDaysPeriods(containing date: Date = .now,
                                 firstWeekday: Weekday = .firstWeekday) -> [HabitDatePeriod] {
         let dates = date.thisWeekDays(firstWeekday: firstWeekday.rawValue)

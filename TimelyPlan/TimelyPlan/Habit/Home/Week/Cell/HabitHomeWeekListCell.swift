@@ -150,8 +150,11 @@ extension HabitHomeWeekListCell: HabitDatePeriodsViewDelegate {
     
     // MARK: - PeriodsViewDelegate
     func periodsInDatePeriodsView(_ view: HabitDatePeriodsView) -> [HabitDatePeriod]? {
-        let firstWeekday = HabitSetting.shared.firstWeekday
-        return HabitDatePeriod.weekDaysPeriods(containing: .now, firstWeekday: firstWeekday)
+        guard let period = self.task?.period else {
+            return nil
+        }
+        
+        return period.weekDaysPeriods()
     }
     
     func datePeriodsView(_ view: HabitDatePeriodsView, cellClassForPeriod period: HabitDatePeriod) -> AnyClass {

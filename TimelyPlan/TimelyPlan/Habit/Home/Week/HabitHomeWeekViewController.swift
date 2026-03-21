@@ -11,7 +11,23 @@ import UIKit
 class HabitHomeWeekViewController: TPViewController,
                                    HabitPeriodTaskListViewDelegate,
                                    HabitHomeWeekListCellDelegate,
+                                   TPPreviousNextDateViewDelegate,
                                    SettingAgentObserver {
+    
+    /// 当前周日期
+    var date: Date = .now
+    
+    /// 日期视图
+    private let dateViewHeight = 60.0
+    
+    private lazy var dateView: TPPreviousNextWeekView = {
+        let firstWeekday = HabitSetting.shared.firstWeekday
+        let view = TPPreviousNextWeekView(firstWeekday: firstWeekday)
+        view.date = self.date
+        view.delegate = self
+        view.addSeparator(position: .bottom) /// 添加分割线
+        return view
+    }()
     
     private lazy var listView: HabitPeriodTaskListView = {
         let view = HabitPeriodTaskListView(frame: view.bounds)
@@ -20,9 +36,23 @@ class HabitHomeWeekViewController: TPViewController,
         return view
     }()
     
+    private let edgeMargins = UIEdgeInsets(value: 15.0)
+    private let backViewSize = CGSize(width: 40.0, height: 40.0)
+    private let backViewMargin = 15.0
+    
+    /// 返回按钮
+    lazy var backView: TPFlipBackTodayView = {
+        let view = TPFlipBackTodayView()
+        view.showTodayButton()
+        view.didClickBack = { [weak self] button in
+            self?.didClickBack(button)
+        }
+        
+        return view
+    }()
+    
     /// 添加按钮
     private let addViewSize = CGSize(width: 40.0, height: 40.0)
-    private let addViewMargin = 15.0
     private lazy var addView: TPAddView = {
         let view = TPAddView()
         view.didClickAdd = { [weak self] button in
@@ -40,9 +70,13 @@ class HabitHomeWeekViewController: TPViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(dateView)
         view.addSubview(listView)
+        view.addSubview(backView)
         view.addSubview(addView)
+        
         listView.asyncReloadData()
+        updateBackView()
         habit.addUpdater(self, for: .all)
         HabitSetting.shared.addObserver(self, forKey: .firstWeekday)
     }
@@ -50,13 +84,23 @@ class HabitHomeWeekViewController: TPViewController,
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let layoutFrame = view.safeLayoutFrame()
-        addView.size = addViewSize
-        addView.bottom = layoutFrame.maxY - addViewMargin
-        addView.right = layoutFrame.maxX - addViewMargin
+        dateView.width = view.width
+        dateView.height = dateViewHeight
+        dateView.origin = .zero
         
-        listView.frame = view.bounds
-        let insetBottom = view.height - addView.top - addViewMargin
-        listView.contentInset = UIEdgeInsets(bottom: insetBottom)
+        addView.size = addViewSize
+        addView.right = layoutFrame.maxX - edgeMargins.right
+        addView.bottom =  layoutFrame.maxY - edgeMargins.bottom
+    
+        backView.size = backViewSize
+        backView.bottom = addView.bottom
+        backView.right = addView.left - backViewMargin
+        
+        listView.frame = CGRect(x: 0,
+                                y: dateViewHeight,
+                                width: view.width,
+                                height: view.height - dateViewHeight)
+        listView.contentInset = UIEdgeInsets(bottom: view.height - addView.top - edgeMargins.top)
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -68,16 +112,56 @@ class HabitHomeWeekViewController: TPViewController,
     }
     
     // MARK: - Event Response
+    
+    @objc func didClickBack(_ button: UIButton) {
+        let oldDate = self.date
+        let date = Date().startOfDay()
+        self.date = date
+        dateView.setDate(date, animated: true)
+        selectDate(date, from: oldDate)
+        updateBackView()
+    }
+    
     @objc func didClickAdd(_ button: UIButton){
         processor.createNewTask()
+    }
+    
+    // MARK: - Update
+    func updateBackView() {
+        if self.dateView.dateRange.contains(date: .now) {
+            backView.showTodayButton()
+        } else if date < .now {
+            backView.showLeftBackButton()
+        } else {
+            backView.showRightBackButton()
+        }
     }
     
     // MARK: - SettingAgentObserver
     func settingAgentDidChangeValue(for key: String) {
         if key == HabitSetting.Key.firstWeekday.name {
+            self.dateView.firstWeekday = HabitSetting.shared.firstWeekday
             self.groupProvider.setNeedsRefresh()
             self.listView.asyncReloadData()
         }
+    }
+    
+    // MARK: - TPPreviousNextDateViewDelegate
+    func prviousNextDateView(_ view: TPPreviousNextDateView, didSelectDate date: Date) {
+        self.selectDate(date, from: self.date)
+        self.updateBackView()
+    }
+    
+    private func selectDate(_ date: Date, from oldDate: Date) {
+        self.date = date
+        let newDateRange = date.rangeOfThisWeek(firstWeekday: self.dateView.firstWeekday)
+        if newDateRange.contains(date: oldDate) {
+            /// 范围相同不更新数据
+            return
+        }
+        
+        let animateStyle: SlideStyle = .horizontalStyle(fromValue: oldDate, toValue: date)
+        self.listView.asyncReloadData(animateStyle: animateStyle)
     }
     
     // MARK: - HabitHomeWeekListCellDelegate
@@ -105,8 +189,8 @@ class HabitHomeWeekViewController: TPViewController,
     
     // MARK: - HabitPeriodTaskListViewDelegate
    func habitPeriodTaskListView(_ listView: HabitPeriodTaskListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
-       let firstWeekday = HabitSetting.shared.firstWeekday
-       let period = HabitDatePeriod(date: .now, mode: .week, firstWeekday: firstWeekday)
+       let firstWeekday = self.dateView.firstWeekday
+       let period = HabitDatePeriod(date: self.date, mode: .week, firstWeekday: firstWeekday)
        self.groupProvider.fetchGroups(in: period) { groups in
            completion(groups)
        }
@@ -132,10 +216,7 @@ class HabitHomeWeekViewController: TPViewController,
     
     func habitTaskListView(_ listView: HabitTaskListView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
         if let headerView = headerView as? HabitTaskListGroupHeaderView {
-            headerView.contentPadding = UIEdgeInsets(top: 10.0,
-                                                     left: 16.0,
-                                                     bottom: 0.0,
-                                                     right: 16.0)
+            headerView.contentPadding = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 0.0, right: 16.0)
             headerView.group = listView.sectionObject(at: section) as? HabitTaskGroup
         }
     }

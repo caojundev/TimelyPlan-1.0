@@ -184,8 +184,9 @@ class TPPreviousNextDateView: UIView, TPAnimatedContainerViewDelegate {
     
     /// 更新当前日期标题
     func updateCurrentDateTitle() {
-        currentButton.title = title(for: date)
-        setNeedsLayout()
+        self.currentButton.title = title(for: date)
+        self.containerView.setNeedsLayout()
+        self.setNeedsLayout()
     }
     
     func didSelectDate(_ date: Date) {

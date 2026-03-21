@@ -9,6 +9,8 @@ import Foundation
 
 class HabitHomeDayListGroupProvider: HabitTaskBaseListGroupProvider {
     
+    var date: Date?
+    
     func fetchGroups(on date: Date,
                      with filterType: HabitTaskFilterType,
                      completion: @escaping ([HabitTaskGroup]?) -> Void) {
@@ -25,7 +27,16 @@ class HabitHomeDayListGroupProvider: HabitTaskBaseListGroupProvider {
     
     private func loadTasksIfNeeded(on date: Date,
                                    completion: @escaping ([HabitPeriodTask]?) -> Void) {
-        guard self.shouldRefresh else {
+        var bRefresh: Bool = self.shouldRefresh
+        if !bRefresh {
+            if let lastDate = self.date {
+                bRefresh = !date.isInSameDayAs(lastDate)
+            } else {
+                bRefresh = true
+            }
+        }
+        
+        guard bRefresh else {
             completion(self.tasks)
             return
         }
@@ -39,6 +50,7 @@ class HabitHomeDayListGroupProvider: HabitTaskBaseListGroupProvider {
             }
             
             self.tasks = tasks ?? []
+            self.date = date
             self.setNeedsRefresh(false)
             completion(self.tasks)
         }

@@ -137,7 +137,7 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
     }
     
     private func updateClearButton() {
-        if let log = record?.log, log.count > 0 {
+        if let log = self.logInfo.log, log.count > 0 {
             self.navigationItem.rightBarButtonItem = clearButtonItem
         } else {
             self.navigationItem.rightBarButtonItem = nil

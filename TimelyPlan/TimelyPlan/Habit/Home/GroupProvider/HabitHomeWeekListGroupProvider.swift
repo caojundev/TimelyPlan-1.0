@@ -9,6 +9,8 @@ import Foundation
 
 class HabitHomeWeekListGroupProvider: HabitTaskBaseListGroupProvider {
     
+    var period: HabitDatePeriod?
+    
     func fetchGroups(in period: HabitDatePeriod, completion: @escaping ([HabitTaskGroup]?) -> Void) {
         loadTasksIfNeeded(in: period) { tasks in
             guard let tasks = tasks else {
@@ -23,7 +25,13 @@ class HabitHomeWeekListGroupProvider: HabitTaskBaseListGroupProvider {
     
     private func loadTasksIfNeeded(in period: HabitDatePeriod,
                                    completion: @escaping ([HabitPeriodTask]?) -> Void) {
-        guard self.shouldRefresh else {
+        var bRefresh: Bool = self.shouldRefresh
+        if !bRefresh {
+            /// 当period 不同时会强制更新
+            bRefresh = (period != self.period)
+        }
+        
+        guard bRefresh else {
             completion(self.tasks)
             return
         }
@@ -36,6 +44,7 @@ class HabitHomeWeekListGroupProvider: HabitTaskBaseListGroupProvider {
                 return
             }
             
+            self.period = period
             self.tasks = tasks
             self.setNeedsRefresh(false)
             completion(self.tasks)

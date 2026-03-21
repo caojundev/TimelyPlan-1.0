@@ -162,7 +162,7 @@ class HabitHomeDayViewController: TPContainerViewController,
     
     // MARK: - Public
     func reloadData() {
-        updateAddView()
+        updateBackView()
         reloadWeekView()
         listView.asyncReloadData()
     }
@@ -190,15 +190,13 @@ class HabitHomeDayViewController: TPContainerViewController,
         self.updatePlaceholderView()
     }
     
-    func updateAddView() {
+    func updateBackView() {
         if date.isToday {
             backView.showTodayButton()
-        }else{
-            if date.compare(.now) == .orderedAscending {
-                backView.showLeftBackButton()
-            } else {
-                backView.showRightBackButton()
-            }
+        } else if date < .now {
+            backView.showLeftBackButton()
+        } else {
+            backView.showRightBackButton()
         }
     }
     
@@ -215,7 +213,7 @@ class HabitHomeDayViewController: TPContainerViewController,
         self.date = .now
         updateWeekView(with: date)
         updateListView(fromDate: fromDate, toDate: self.date)
-        updateAddView()
+        updateBackView()
     }
     
     @objc func didClickAdd(_ button: UIButton){
@@ -238,7 +236,7 @@ class HabitHomeDayViewController: TPContainerViewController,
         let fromDate = self.date
         self.date = selectedDate
         self.updateListView(fromDate: fromDate, toDate: self.date)
-        self.updateAddView()
+        self.updateBackView()
     }
     
      // MARK: - HabitPeriodTaskListViewDelegate
