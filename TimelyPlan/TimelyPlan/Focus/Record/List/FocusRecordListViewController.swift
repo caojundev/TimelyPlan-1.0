@@ -30,7 +30,7 @@ class FocusRecordListViewController: StatsContentViewController,
     
     override func placeholderView() -> UIView? {
         let view = TPDefaultPlaceholderView()
-        view.image = resGetImage("focus_record_80")
+        view.image = resGetImage("placeholder_record_80")
         view.title = resGetString("No Focus Record")
         view.titleColor = .lightGray
         return view

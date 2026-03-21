@@ -11,7 +11,7 @@ class HabitLogTaskInfoTableCellItem: TPBaseTableCellItem {
     
     var task: HabitTask?
     
-    var status: HabitTaskStatus = .notStarted
+    var record: HabitRecord?
     
     override init() {
         super.init()
@@ -29,14 +29,18 @@ class HabitLogTaskInfoTableCell: TPBaseTableCell {
         didSet {
             let cellItem = cellItem as! HabitLogTaskInfoTableCellItem
             self.task = cellItem.task
-            self.status = cellItem.status
-            reloadData()
+            self.record = cellItem.record
+            self.reloadData()
         }
     }
     
     var task: HabitTask?
     
-    var status: HabitTaskStatus = .notStarted
+    var record: HabitRecord?
+    
+    var status: HabitTaskStatus {
+        return task?.status(with: record) ?? .notStarted
+    }
     
     private let infoView = HabitTaskDefaultInfoView()
     
@@ -73,8 +77,15 @@ class HabitLogTaskInfoTableCell: TPBaseTableCell {
         
         var subtitles: [String] = []
         switch status {
-        case .notStarted, .inProgress:
-            break
+        case .notStarted:
+            subtitles.append(resGetString("Not Started"))
+        case .inProgress:
+            subtitles.append(resGetString("In Progress"))
+            if let task = task {
+                /// 完成数目信息
+                let amountDetail = HabitTaskDetailProvider.completedAmountDetail(for: task, with: record)
+                subtitles.append(amountDetail.value.string)
+            }
         case .completed:
             subtitles.append(resGetString("Completed"))
         case .skipped(let reason):

@@ -31,7 +31,7 @@ enum HabitRecordInputType: Int, TPMenuRepresentable {
     }
 }
 
-struct HabitRecordLogInfo {
+struct HabitRecordLogInfo: Equatable {
     
     /// 日志文本
     var log: String?

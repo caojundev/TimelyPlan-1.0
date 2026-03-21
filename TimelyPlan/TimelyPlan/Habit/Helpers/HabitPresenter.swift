@@ -57,5 +57,26 @@ class HabitPresenter {
         let vc = HabitSettingViewController(style: .insetGrouped)
         vc.showAsNavigationRoot()
     }
+    
+    // MARK: - 记录相关操作
+    /// 确认删除记录
+    static func confirmRecordDeletion(completion: @escaping(Bool) -> Void) {
+        let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
+            completion(true)
+        }
+        
+        /// 在 dismiss 后处理回调
+        deleteAction.handleBeforeDismiss = false
+        
+        let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel")) { action in
+            completion(false)
+        }
+        
+        let message = resGetString("Sure to delete this habit record?")
+        let alertController = TPAlertController(title: resGetString("Delete Record"),
+                                                message: message,
+                                                actions: [cancelAction, deleteAction])
+        alertController.show()
+    }
 
 }

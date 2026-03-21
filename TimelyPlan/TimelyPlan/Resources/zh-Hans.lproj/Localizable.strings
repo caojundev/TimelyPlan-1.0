@@ -28,6 +28,10 @@
 "No Skipped Habit Today" = "今日无已跳过习惯";
 "No Failed Habit Today" = "今日无已失败习惯";
 
+/// 习惯记录
+"No habit Record" = "无习惯记录";
+"Sure to delete this habit record?" = "确认删除该条习惯记录吗？";
+
 /// 习惯编辑
 "New Habit" = "新建习惯";
 "Edit Habit" = "编辑习惯";

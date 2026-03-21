@@ -8,12 +8,6 @@
 import Foundation
 import UIKit
 
-protocol HabitRecordListCellDelegate: HabitTaskListInfoCellDelegate {
-    
-    /// 点击更多按钮
-    func habitRecordListCell(_ cell: HabitRecordListCell, didClickMore button: UIButton)
-}
-
 class HabitRecordListCell: HabitTaskListDefaultInfoCell {
     
     var dailyItem: HabitDailyItem? {
@@ -50,7 +44,7 @@ class HabitRecordListCell: HabitTaskListDefaultInfoCell {
         scoreView.title = "--"
         scoreView.subtitle = resGetString("Score")
         scoreView.addSeparator(position: .left, color: Color(0xaaaaaa, 0.1))
-        scoreView.separatorEdgeInset = UIEdgeInsets(vertical: 8.0)
+        scoreView.separatorEdgeInset = UIEdgeInsets(vertical: 16.0)
         contentView.addSubview(scoreView)
     }
     
@@ -124,8 +118,11 @@ class HabitRecordListCell: HabitTaskListDefaultInfoCell {
         let amountDetail = HabitTaskDetailProvider.completedAmountDetail(for: task, with: record)
         details.append(amountDetail)
         
-        let progressPercentDetail = Float(task.progress(with: record)).attributedPercentageString(decimalPlaces: 0)
-        details.append(progressPercentDetail)
+        let progress = task.progress(with: record)
+        if progress != 0.0, progress != 1.0 {
+            let progressPercentDetail = Float(progress).attributedPercentageString(decimalPlaces: 0)
+            details.append(progressPercentDetail)
+        }
         
         let status = task.status(with: record)
         switch status {

@@ -81,6 +81,10 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         super.viewDidLoad()
         self.view.addSubview(self.dateView)
         self.updateCollectionConfiguration()
+        self.wrapperView.placeholderViewProvider = { [weak self] in
+            return self?.placeholderView()
+        }
+        
         self.adapter.cellStyle = self.cellStyle
         self.reloadData()
         self.updateBackView()
@@ -158,7 +162,6 @@ class StatsContentViewController: TPCollectionSectionsViewController,
     func updateCollectionConfiguration() {
         self.wrapperView.collectionConfiguration = { [weak self] collectionView in
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.placeholderView = self?.placeholderView()
             collectionView.contentInset = self?.contentInset ?? .zero
         }
     }

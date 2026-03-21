@@ -18,7 +18,7 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
 
     private let task: HabitTask
     
-    private let status: HabitTaskStatus
+    private var record: HabitRecord?
     
     private let date: Date
     
@@ -29,7 +29,7 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
         cellItem.updater = { [weak self] in
             guard let self = self else { return }
             self.infoCellItem.task = self.task
-            self.infoCellItem.status = self.status
+            self.infoCellItem.record = self.record
         }
         
         return cellItem
@@ -84,14 +84,17 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
         return item
     }()
     
-    init(task: HabitTask, status: HabitTaskStatus, logInfo: HabitRecordLogInfo, date: Date) {
+    init(task: HabitTask, record: HabitRecord?, date: Date) {
         self.task = task
-        self.status = status
-        self.logInfo = logInfo
+        self.record = record
         self.date = date
-        if let log = logInfo.log, log.count > 0 {
+        
+        if let logInfo = record?.logInfo {
+            self.logInfo = logInfo
             self.editType = .modify
         } else {
+            let status = task.status(with: record)
+            self.logInfo = .logInfo(with: status)
             self.editType = .create
         }
         
@@ -134,7 +137,10 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
     }
     
     override func clickDone() {
-        didEndEditing?(logInfo)
+        if self.record?.logInfo != self.logInfo {
+            self.didEndEditing?(logInfo)
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
