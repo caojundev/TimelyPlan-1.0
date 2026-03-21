@@ -200,6 +200,8 @@ class TPCollectionCell: UICollectionViewCell,
         cornerRadius = min(cornerRadius, contentView.size.shortSideLength / 2.0)
         backgroundView?.layer.cornerRadius = cornerRadius
         selectedBackgroundView?.layer.cornerRadius = cornerRadius
+        backgroundView?.layer.zPosition = -1
+        selectedBackgroundView?.layer.zPosition = -1
         contentView.layer.cornerRadius = cornerRadius
         contentView.clipsToBounds = true
     }

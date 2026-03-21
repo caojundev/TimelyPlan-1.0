@@ -8,6 +8,7 @@
 import Foundation
 
 extension NSObject: ListDiffable {
+    
     public func diffIdentifier() -> NSObjectProtocol {
         return self
     }

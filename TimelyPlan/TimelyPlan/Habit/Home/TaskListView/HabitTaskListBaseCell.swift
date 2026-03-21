@@ -11,11 +11,12 @@ import UIKit
 class HabitTaskListBaseCell: TPCollectionCell {
     
     /// 遮罩视图
-    private let coverView = UIView()
+    let coverView = UIView()
     
     /// 阴影视图
     private lazy var shadowView: UIView = {
         let view = UIView()
+        view.layer.zPosition = -999
         view.layer.shadowColor = Color(0x000000, 0.2).cgColor
         view.layer.shadowOffset = CGSize(width:0, height: 4.0)
         view.layer.shadowRadius = 4.0
@@ -38,7 +39,7 @@ class HabitTaskListBaseCell: TPCollectionCell {
     // MARK: - Layout
     override func layoutSubviews() {
         super.layoutSubviews()
-    
+        
         let radius = contentView.layer.cornerRadius
         shadowView.frame = bounds
         shadowView.layer.shadowPath = UIBezierPath(roundedRect: bounds,

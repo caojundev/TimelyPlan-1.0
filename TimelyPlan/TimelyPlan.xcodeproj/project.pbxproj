@@ -553,6 +553,7 @@
 		E59E716A2DB921E600744C68 /* CalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59E71692DB921E600744C68 /* CalendarEvent.swift */; };
 		E5A6D0E22DA95F23008EC660 /* QuadrantLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6D0E12DA95F22008EC660 /* QuadrantLayout.swift */; };
 		E5B2AB0C2F4C7E6D003F024E /* FocusPauseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B2AB0B2F4C7E6D003F024E /* FocusPauseInfo.swift */; };
+		E5B2BC852F6E356A00DC1721 /* HabitRecordListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B2BC842F6E356A00DC1721 /* HabitRecordListCell.swift */; };
 		E5B6B27F2D6C680500DBBCB0 /* TodoTaskBoardDragInsertReorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6B27E2D6C680500DBBCB0 /* TodoTaskBoardDragInsertReorder.swift */; };
 		E5B6B2812D6C9AB700DBBCB0 /* TPAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */; };
 		E5B926CD2D3F97F30065FA79 /* plus_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B926CB2D3F97F30065FA79 /* plus_32@3x.png */; };
@@ -2139,6 +2140,7 @@
 		E59E71692DB921E600744C68 /* CalendarEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEvent.swift; sourceTree = "<group>"; };
 		E5A6D0E12DA95F22008EC660 /* QuadrantLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantLayout.swift; sourceTree = "<group>"; };
 		E5B2AB0B2F4C7E6D003F024E /* FocusPauseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusPauseInfo.swift; sourceTree = "<group>"; };
+		E5B2BC842F6E356A00DC1721 /* HabitRecordListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordListCell.swift; sourceTree = "<group>"; };
 		E5B6B27E2D6C680500DBBCB0 /* TodoTaskBoardDragInsertReorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskBoardDragInsertReorder.swift; sourceTree = "<group>"; };
 		E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAutoScroller.swift; sourceTree = "<group>"; };
 		E5B926CB2D3F97F30065FA79 /* plus_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_32@3x.png"; sourceTree = "<group>"; };
@@ -4845,12 +4847,11 @@
 			isa = PBXGroup;
 			children = (
 				E5FC6BAB2F651CC800D5A5EA /* HabitStatsMainViewController.swift */,
-				E5FC6BCC2F66E1BF00D5A5EA /* Base */,
+				E5FC6BCC2F66E1BF00D5A5EA /* Common */,
 				E5FC6BB52F657D3800D5A5EA /* Extensions */,
 				E5FC6BBA2F666EDC00D5A5EA /* Weekly */,
 				E5FC6BC12F66A44D00D5A5EA /* Monthly */,
 				E5FC6BCB2F66E1B100D5A5EA /* Yearly */,
-				E5FC6BCD2F66E1D600D5A5EA /* Log */,
 			);
 			path = Statistic;
 			sourceTree = "<group>";
@@ -4861,6 +4862,7 @@
 				E526D4002F6D36BC005C1DED /* HabitDailyItem.swift */,
 				E526D3FC2F6C2C8E005C1DED /* HabitRecordsViewController.swift */,
 				E526D3FE2F6CFCA3005C1DED /* HabitRecordListViewController.swift */,
+				E5B2BC842F6E356A00DC1721 /* HabitRecordListCell.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -8523,12 +8525,13 @@
 			path = Yearly;
 			sourceTree = "<group>";
 		};
-		E5FC6BCC2F66E1BF00D5A5EA /* Base */ = {
+		E5FC6BCC2F66E1BF00D5A5EA /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				E5FC6BAF2F65520D00D5A5EA /* HabitStatsContentViewController.swift */,
+				E5FC6BCD2F66E1D600D5A5EA /* Log */,
 			);
-			path = Base;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		E5FC6BCD2F66E1D600D5A5EA /* Log */ = {
@@ -10147,6 +10150,7 @@
 				E5BB9E1F2D3BF0C70089667A /* NSPersistentStore+HandyRecord.swift in Sources */,
 				E5BB9B3B2D3BEF920089667A /* IGListIndexPathResult.m in Sources */,
 				E5BB9F0D2D3BF0C90089667A /* TPBaseMenuController.swift in Sources */,
+				E5B2BC852F6E356A00DC1721 /* HabitRecordListCell.swift in Sources */,
 				E5D7D9382D43933700EC877A /* FocusCountdownConfigSectionController.swift in Sources */,
 				E50DD7B22D714F3300A85E87 /* TPCalendarScrollableWeekView.swift in Sources */,
 				E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */,

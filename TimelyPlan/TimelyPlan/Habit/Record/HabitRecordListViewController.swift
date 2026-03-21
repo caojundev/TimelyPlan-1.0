@@ -25,7 +25,7 @@ class HabitRecordListViewController: StatsContentViewController,
     }
     
     override func fetchSectionControllers(completion: @escaping ([TPCollectionBaseSectionController]) -> Void) {
-        Habit.fetchRecordsGroupedByDay(in: self.dateRange) { results in
+        Habit.fetchDailyItemsGroupedByDay(in: self.dateRange) { results in
             let sectionControllers: [HabitRecordListSectionController]
             if let results = results, results.count > 0 {
                 sectionControllers = self.sectionControllers(with: results)
@@ -37,17 +37,15 @@ class HabitRecordListViewController: StatsContentViewController,
         }
     }
     
-    private func sectionControllers(with dayRecords: HabitGroupedByDayRecords) -> [HabitRecordListSectionController] {
+    private func sectionControllers(with dayRecords: HabitGroupedDailyItems) -> [HabitRecordListSectionController] {
         var sectionControllers = [HabitRecordListSectionController]()
-        let sortedDayRecords = dayRecords.sorted(by: { $0.key < $1.key })
-        for (day, records) in sortedDayRecords {
+        let sortedDailyItems = dayRecords.sorted(by: { $0.key < $1.key })
+        for (day, items) in sortedDailyItems {
             guard let date = Date.dateFromDayIntegerKey(day) else {
                 continue
             }
             
-            let sectionController = HabitRecordListSectionController(date: date,
-                                                                     records: records)
-
+            let sectionController = HabitRecordListSectionController(date: date, dailyItems: items)
             sectionControllers.append(sectionController)
         }
 
@@ -92,14 +90,14 @@ class HabitRecordListSectionController: TPCollectionBaseSectionController {
     
     let date: Date
     
-    let records: [HabitRecord]
+    let dailyItems: [HabitDailyItem]
     
     /// 区块布局对象
     let sectionLayout = TPCollectionSectionLayout()
     
-    init(date: Date, records: [HabitRecord]) {
+    init(date: Date, dailyItems: [HabitDailyItem]) {
         self.date = date
-        self.records = records
+        self.dailyItems = dailyItems
         super.init()
         self.identifier = date.yearMonthDayString
         self.sectionLayout.edgeMargins = UIEdgeInsets(horizontal: 16.0, vertical: 8.0)
@@ -108,7 +106,7 @@ class HabitRecordListSectionController: TPCollectionBaseSectionController {
     }
     
     override var items: [ListDiffable]? {
-        return self.records
+        return self.dailyItems
     }
     
     override func sectionInset() -> UIEdgeInsets {
@@ -130,24 +128,18 @@ class HabitRecordListSectionController: TPCollectionBaseSectionController {
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
-        return TPCollectionCell.self
+        return HabitRecordListCell.self
     }
     
     override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
-//        guard let cell = cell as? FocusRecordListDetailCell else {
-//            return
-//        }
-//
-//        cell.delegate = self
-//        cell.cellStyle = styleForItem(at: index)
-//        cell.session = item(at: index) as? FocusSession
-    }
-    
-    override func didSelectItem(at index: Int) {
-        guard let record = item(at: index) as? HabitRecord else {
+        guard let cell = cell as? HabitRecordListCell else {
             return
         }
         
+        cell.dailyItem = item(at: index) as? HabitDailyItem
+    }
+    
+    override func didSelectItem(at index: Int) {
         TPImpactFeedback.impactWithSoftStyle()
     }
     

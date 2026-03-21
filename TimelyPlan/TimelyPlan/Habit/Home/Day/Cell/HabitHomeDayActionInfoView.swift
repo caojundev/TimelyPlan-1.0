@@ -63,9 +63,6 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
         button.scaleMaxLength = 5.0
         button.cornerRadius = .greatestFiniteMagnitude
         button.normalBackgroundColor = UIColor(white: 1.0, alpha: 0.85)
-        button.addTarget(self,
-                         action: #selector(clickRecord(_:)),
-                         for: .touchUpInside)
        return button
     }()
 
@@ -92,17 +89,10 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
             }
             
             recordButton.right = layoutFrame.maxX
-            
-//            resetTodayButton.alpha = 0.0
-//            resetTodayButton.right = layoutFrame.maxX
             infoViewWidth = recordButton.left - layoutFrame.minX
         } else if actionType == .resetToday {
             recordButton.alpha = 0.0
             recordButton.right = layoutFrame.maxX
-            
-//            resetTodayButton.alpha = 1.0
-//            resetTodayButton.right = layoutFrame.maxX
-//            infoViewWidth = resetTodayButton.left - layoutFrame.minX
         } else {
             recordButton.alpha = 0.0
             recordButton.right = layoutFrame.maxX
@@ -175,12 +165,4 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
         
         return .record
     }
-    
-    // MARK: - Event Response
-    @objc private func clickRecord(_ button: UIButton) {
-//        if let delegate = delegate as? HabitTodayCellDelegate {
-//            delegate.habitTodayCellClickRecord(self)
-//        }
-    }
-    
 }

@@ -24,7 +24,7 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     
     let progressActionInfoView = HabitHomeDayActionInfoView()
     
-    let detailProvider = HabitHomeDayTaskDetailProvider()
+    let detailProvider = HabitTaskDetailProvider()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -123,7 +123,22 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     }
 }
 
-class HabitHomeDayTaskDetailProvider {
+class HabitTaskDetailProvider {
+    
+    /// 完成数目详情文本
+    static func completedAmountDetail(for task: HabitTask, with record: HabitRecord?) -> ASAttributedString {
+        var targetAmountString: ASAttributedString
+        if task.goal.mode == .checkin {
+            targetAmountString = "\(resGetString("1 time"))"
+        } else {
+            let progressFormat = resGetString("%ld %@")
+            targetAmountString = "\(String(format: progressFormat, task.goal.validatedTargetAmount, task.goal.validatedUnit))"
+        }
+    
+        let currentAmount = record?.amount ?? 0
+        let completedAmountDetail = "\(currentAmount)/" + targetAmountString
+        return completedAmountDetail
+    }
     
     /// 更新详细文本
     func detail(for task: HabitPeriodTask) -> TextRepresentable {
@@ -135,16 +150,7 @@ class HabitHomeDayTaskDetailProvider {
         
         /// 进度详情
         let record = task.records?[date.dayIntegerKey]
-        var targetAmountString: ASAttributedString
-        if habitTask.goal.mode == .checkin {
-            targetAmountString = "\(resGetString("1 time"))"
-        } else {
-            let progressFormat = resGetString("%ld %@")
-            targetAmountString = "\(String(format: progressFormat, habitTask.goal.validatedTargetAmount, habitTask.goal.validatedUnit))"
-        }
-    
-        let currentAmount = record?.amount ?? 0
-        let progressDetail = "\(currentAmount)/" + targetAmountString
+        let progressDetail = Self.completedAmountDetail(for: habitTask, with: record)
         guard let record = record else {
             return progressDetail
         }
