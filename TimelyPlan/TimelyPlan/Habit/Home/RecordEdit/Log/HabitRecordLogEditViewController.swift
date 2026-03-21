@@ -13,9 +13,6 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
     /// 结束编辑回调
     var didEndEditing: ((HabitRecordLogInfo?) -> Void)?
 
-    /// 编辑类型
-    private var editType: EditType
-
     private let task: HabitTask
     
     private var record: HabitRecord?
@@ -55,6 +52,7 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
 
         sectionController.noteEditingChanged = { note in
             self?.logInfo.log = note
+            self?.updateClearButton()
         }
 
         return sectionController
@@ -91,11 +89,9 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
         
         if let logInfo = record?.logInfo {
             self.logInfo = logInfo
-            self.editType = .modify
         } else {
             let status = task.status(with: record)
             self.logInfo = .logInfo(with: status)
-            self.editType = .create
         }
         
         super.init(style: .insetGrouped)
@@ -109,11 +105,7 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
         super.viewDidLoad()
         self.title = self.date.monthDayShortWeekdaySymbolString
         self.navigationItem.leftBarButtonItem = self.chevronDownCancelButtonItem
-        if editType == .modify {
-            /// 显示清除按钮
-            self.navigationItem.rightBarButtonItem = clearButtonItem
-        }
-        
+        self.updateClearButton()
         self.wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
         self.tableView.keyboardDismissMode = .interactive
         self.setupActionsBar(actions: [doneAction])
@@ -144,10 +136,18 @@ class HabitRecordLogEditViewController: TPTableSectionsViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    private func updateClearButton() {
+        if let log = record?.log, log.count > 0 {
+            self.navigationItem.rightBarButtonItem = clearButtonItem
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+    }
+    
     // MARK: - Event Response
     @objc private func clickClear(_ buttonItem: UIBarButtonItem) {
-        TPImpactFeedback.impactWithMediumStyle()
-        didEndEditing?(nil)
-        dismiss(animated: true, completion: nil)
+        TPImpactFeedback.impactWithSoftStyle()
+        self.logInfo.log = nil
+        self.noteSectionController.updateNote()
     }
 }

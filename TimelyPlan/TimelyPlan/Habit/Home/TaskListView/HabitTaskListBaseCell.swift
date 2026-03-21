@@ -14,7 +14,7 @@ class HabitTaskListBaseCell: TPCollectionCell {
     let coverView = UIView()
     
     /// 阴影视图
-    private lazy var shadowView: UIView = {
+    private(set) lazy var shadowView: UIView = {
         let view = UIView()
         view.layer.zPosition = -999
         view.layer.shadowColor = Color(0x000000, 0.2).cgColor

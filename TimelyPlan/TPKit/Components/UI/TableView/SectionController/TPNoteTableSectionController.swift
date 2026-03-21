@@ -60,5 +60,11 @@ class TPNoteTableSectionController: TPTableItemSectionController {
             cell.textView.becomeFirstResponder()
         }
     }
+    
+    /// 更新备注
+    func updateNote() {
+        noteCellItem.updater?()
+        adapter?.reloadCell(forItem: noteCellItem, with: .none)
+    }
 }
  
