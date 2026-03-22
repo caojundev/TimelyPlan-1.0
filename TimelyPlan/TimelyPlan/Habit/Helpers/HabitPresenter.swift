@@ -79,4 +79,14 @@ class HabitPresenter {
         alertController.show()
     }
 
+    
+    static func showNotScheduledDayMessage(for date: Date) {
+        let dateString = date.yearMonthDayString(omitYear: true)
+        let format = resGetString("%@ is not a scheduled day")
+        let message = String(format: format, dateString)
+        TPFeedbackQueue.common.postFeedback(text: message,
+                                            onView: nil,
+                                            position: .top,
+                                            isOmission: false)
+    }
 }

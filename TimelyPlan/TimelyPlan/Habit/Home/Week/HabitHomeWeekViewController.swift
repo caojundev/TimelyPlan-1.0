@@ -183,8 +183,12 @@ class HabitHomeWeekViewController: TPViewController,
         guard let task = cell.task else {
             return
         }
-        
-        dayMenuController.showMenu(for: task, on: date)
+        let isScheduled = task.isScheduledDate(date)
+        if isScheduled {
+            dayMenuController.showMenu(for: task, on: date)
+        } else {
+            HabitPresenter.showNotScheduledDayMessage(for: date)
+        }
     }
     
     // MARK: - HabitPeriodTaskListViewDelegate

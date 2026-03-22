@@ -58,7 +58,13 @@ extension HabitStatsCalendarWeekSectionController: HabitDatePeriodsViewDelegate 
     
     func datePeriodsView(_ view: HabitDatePeriodsView, didSelectPeriod period: HabitDatePeriod) {
         TPImpactFeedback.impactWithSoftStyle()
-        dayMenuController.showMenu(for: task, on: period.date)
+        
+        let isScheduled = task.isScheduledDate(period.date)
+        if isScheduled {
+            dayMenuController.showMenu(for: task, on: period.date)
+        } else {
+            HabitPresenter.showNotScheduledDayMessage(for: period.date)
+        }
     }
 }
 
