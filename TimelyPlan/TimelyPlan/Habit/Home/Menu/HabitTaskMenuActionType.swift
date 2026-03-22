@@ -18,6 +18,8 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
     case cancelFail /// 取消失败
     case skipToday /// 跳过今日
     case editLog /// 添加日志
+    
+    case focus   /// 专注
     case edit    /// 编辑
     case archive /// 归档
     case unarchive /// 解除归档
@@ -44,6 +46,8 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
             title = "Skip Today"
         case .editLog:
             title = "Edit Log"
+        case .focus:
+            title = "Focus"
         case .edit:
             title = "Edit"
         case .archive:
@@ -75,6 +79,8 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
             return "habit_menu_skip_24"
         case .editLog:
             return "habit_menu_editLog_24"
+        case .focus:
+            return "habit_menu_focus_24"
         case .edit:
             return "edit_24"
         case .archive:

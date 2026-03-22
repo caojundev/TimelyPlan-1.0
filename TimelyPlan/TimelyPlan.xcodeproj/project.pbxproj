@@ -64,6 +64,8 @@
 		E507E7BD2F532E21003004C4 /* HabitUserUnitSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */; };
 		E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */; };
 		E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */; };
+		E509CA032F6F92DA00F53FDD /* habit_menu_focus_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E509CA012F6F92D900F53FDD /* habit_menu_focus_24@2x.png */; };
+		E509CA042F6F92DA00F53FDD /* habit_menu_focus_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E509CA022F6F92DA00F53FDD /* habit_menu_focus_24@3x.png */; };
 		E50BB6762D57043000D316FD /* TPSeparatorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB6752D57043000D316FD /* TPSeparatorTableCell.swift */; };
 		E50BB6782D5706FE00D316FD /* TPSeparatorSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB6772D5706FE00D316FD /* TPSeparatorSectionController.swift */; };
 		E50BB67C2D5751B600D316FD /* TPImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */; };
@@ -1648,6 +1650,8 @@
 		E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitUserUnitSectionController.swift; sourceTree = "<group>"; };
 		E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCustomPopup.swift; sourceTree = "<group>"; };
 		E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultInfoView.swift; sourceTree = "<group>"; };
+		E509CA012F6F92D900F53FDD /* habit_menu_focus_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_menu_focus_24@2x.png"; sourceTree = "<group>"; };
+		E509CA022F6F92DA00F53FDD /* habit_menu_focus_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_menu_focus_24@3x.png"; sourceTree = "<group>"; };
 		E50BB6752D57043000D316FD /* TPSeparatorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSeparatorTableCell.swift; sourceTree = "<group>"; };
 		E50BB6772D5706FE00D316FD /* TPSeparatorSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSeparatorSectionController.swift; sourceTree = "<group>"; };
 		E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoView.swift; sourceTree = "<group>"; };
@@ -4282,6 +4286,8 @@
 		E54E63302F5B1BFC00FCBCAE /* menu */ = {
 			isa = PBXGroup;
 			children = (
+				E509CA012F6F92D900F53FDD /* habit_menu_focus_24@2x.png */,
+				E509CA022F6F92DA00F53FDD /* habit_menu_focus_24@3x.png */,
 				E526D4052F6D7479005C1DED /* habit_menu_editLog_24@2x.png */,
 				E526D4042F6D7478005C1DED /* habit_menu_editLog_24@3x.png */,
 				E54E63312F5B1BFC00FCBCAE /* habit_menu_skip_24@2x.png */,
@@ -8976,6 +8982,7 @@
 				E51A4C3B2DC31C7A005A0E3F /* calendar_mode_day_24@3x.png in Resources */,
 				E50D02582F55860B00E93977 /* habit_time_afternoon_24@2x.png in Resources */,
 				E55A7B862D45FAA0000D224C /* bind_24@2x.png in Resources */,
+				E509CA042F6F92DA00F53FDD /* habit_menu_focus_24@3x.png in Resources */,
 				E5B926DD2D3FFBA00065FA79 /* clear_24@3x.png in Resources */,
 				E5E4D1482D92AF2C00813B6C /* todo_filter_priority_36@3x.png in Resources */,
 				E54E63422F5B1BFD00FCBCAE /* habit_menu_cancel_24@2x.png in Resources */,
@@ -9036,6 +9043,7 @@
 				E5BBA1002D3BFB3C0089667A /* SideMenuFocus@2x.png in Resources */,
 				E5FC6BA42F64EFBC00D5A5EA /* habit_status_failed_36@2x.png in Resources */,
 				E556BCCF2F5D746400CA20D9 /* HabitRecordTypeAutoAdd@2x.png in Resources */,
+				E509CA032F6F92DA00F53FDD /* habit_menu_focus_24@2x.png in Resources */,
 				E50D94BB2D451C1800F57957 /* placeholder_record_80@3x.png in Resources */,
 				E5E2771D2D3E099C004EC522 /* todo_list_option_sort_24@3x.png in Resources */,
 				E5BB9AB22D3BEF0D0089667A /* todo_task_addToMyDay_24@2x.png in Resources */,

@@ -35,6 +35,12 @@ class HabitHomeDayMenuController: HabitTaskBaseMenuController {
         return HabitTaskMenuActionType.allCases
     }
     
+    override func menuActionTypes() -> [HabitTaskMenuActionType] {
+        var actionTypes = super.menuActionTypes()
+        actionTypes.append(.focus)
+        return actionTypes
+    }
+    
     override func taskGoalMode() -> HabitGoal.TargetMode {
         return task.goal.mode
     }

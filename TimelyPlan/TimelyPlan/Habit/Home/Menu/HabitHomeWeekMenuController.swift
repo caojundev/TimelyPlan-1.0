@@ -11,13 +11,14 @@ class HabitHomeWeekMenuController: TPBaseMenuController<HabitTaskMenuActionType>
     
     override func orderedMenuActionTypeLists() -> [Array<HabitTaskMenuActionType>] {
         var lists: [Array<HabitTaskMenuActionType>]
-        lists = [[.edit,
+        lists = [[.focus],
+                 [.edit,
                   .archive],
                  [.delete]]
         return lists
     }
  
     override func menuActionTypes() -> [HabitTaskMenuActionType] {
-        return [.edit, .archive, .delete]
+        return [.focus, .edit, .archive, .delete]
     }
 }

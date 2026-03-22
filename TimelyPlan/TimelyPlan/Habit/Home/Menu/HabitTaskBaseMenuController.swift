@@ -20,6 +20,7 @@ class HabitTaskBaseMenuController: TPBaseMenuController<HabitTaskMenuActionType>
                   .markAsFail,
                   .cancelFail,
                   .resetToday],
+                 [.focus],
                  [.edit,
                   .archive],
                  [.delete]]
