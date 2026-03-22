@@ -82,14 +82,6 @@ struct HabitGoal: Equatable {
         return kHabitRecordDefaultAmount
     }
     
-    /// 默认单位
-    static var defaultUnit: String {
-        return resGetString("count")
-    }
-}
-
-extension HabitGoal {
-    
     /// 目标描述
     var targetDescription: String {
         if mode == .checkin {
@@ -98,5 +90,10 @@ extension HabitGoal {
         
         let format: String = resGetString("%ld %@ per day")
         return String(format: format, validatedTargetAmount, validatedUnit)
+    }
+    
+    /// 默认单位
+    static var defaultUnit: String {
+        return resGetString("count")
     }
 }

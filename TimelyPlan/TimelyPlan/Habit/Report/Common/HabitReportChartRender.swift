@@ -131,8 +131,8 @@ class HabitReportChartRender {
 
     // 绘制跳过日
     func drawSkippedDay(in rect: CGRect, context: CGContext) {
-        if let image = resGetImage("habit_report_skipped_20"),
-           let color = periodTask.habitTask.color {
+        if let image = resGetImage("habit_report_skipped_20") {
+            let color = periodTask.habitTask.color
             self.drawImage(image, withColor: color, in: rect, context: context)
         }
     }

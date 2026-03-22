@@ -10,17 +10,34 @@ import UIKit
 
 extension CDHabitTask: TPHexColorConvertible {
     
+    /// 默认颜色
     static var defaultColor: UIColor {
         return kHabitTaskDefaultColor
     }
     
+    /// 表情符号
     var emoji: String {
         if let iconName = iconName {
             return iconName
         }
         
-        /// 任务名称首字符
         return name?.first?.stringValue ?? "C"
+    }
+    
+    /// 日期范围
+    var dateRange: DateRange {
+        return DateRange(startDate: self.startDate ?? .now, endDate: self.endDate)
+    }
+    
+    /// 目标
+    var goal: HabitGoal {
+        let targetMode = HabitGoal.TargetMode(rawValue: Int(self.goalMode)) ?? .checkin
+        let recordType = HabitGoal.RecordType(rawValue: Int(self.goalRecordType)) ?? .completeAll
+        return HabitGoal(mode: targetMode,
+                         targetAmount: goalTargetAmount,
+                         unit: goalUnit,
+                         recordType: recordType,
+                         recordAmount: goalRecordAmount)
     }
     
     /// 根据编辑任务创建新任务
@@ -41,7 +58,7 @@ extension CDHabitTask: TPHexColorConvertible {
         /// 时间范围
         self.startDate = editingTask.dateRange.startDate
         self.endDate = editingTask.dateRange.endDate
- 
+        
         /// 目标
         let goal = editingTask.goal
         self.goalMode = Int16(goal.mode.rawValue)
@@ -49,19 +66,109 @@ extension CDHabitTask: TPHexColorConvertible {
         self.goalUnit = goal.unit
         self.goalRecordType = Int16(goal.recordType?.rawValue ?? 0)
         self.goalRecordAmount = goal.recordAmount ?? 0
-    
-        /// 频率
-        let timePlan = editingTask.timePlan
-        self.timePlanType = Int16(timePlan.type.rawValue)
-        self.timePlanRuleJSON = timePlan.regularRule?.jsonString()
-        /// 时间选项
-        self.timeOption = Int16(editingTask.timeOption.rawValue)
         
-        /// 提醒
+        self.timePlanRuleJSON = editingTask.timePlan.regularRule?.jsonString()
+        self.timeOption = Int16(editingTask.timeOption.rawValue)
         self.shouldRemind = editingTask.shouldRemind
         self.reminderJSON = editingTask.reminder?.jsonString()
-        
         self.note = editingTask.note
         self.modificationDate = .now
+    }
+}
+
+// MARK: - 同步排序
+extension CDHabitTask {
+
+    static func syncOrders(for tasks: [HabitTask]) {
+        tasks.updateOrders()
+        if let cdTasks = CDHabitTask.getTasks(with: tasks.identifiers) {
+            syncOrders(from: tasks, to: cdTasks)
+        }
+    }
+    
+    private static func syncOrders(from habitTasks: [HabitTask], to cdTasks: [CDHabitTask]) {
+        // 使用字典快速查找
+        let orderLookup = habitTasks.reduce(into: [String: Int64]()) { result, task in
+            result[task.identifier] = task.order
+        }
+        
+        // 批量更新
+        cdTasks.forEach { task in
+            if let identifier = task.identifier, let order = orderLookup[identifier] {
+                task.order = order
+            }
+        }
+    }
+}
+
+// MARK: - 获取任务
+extension CDHabitTask {
+    
+    // MARK: - 同步获取
+    /// 获取特定标识的任务
+    static func getTask(with identifier: String) -> CDHabitTask? {
+        let condition: PredicateCondition = (HabitTaskKey.identifier, .equal(identifier))
+        let predicate = NSPredicate.predicate(with: condition)
+        let result = CDHabitTask.findFirst(withPredicate: predicate, in: .defaultContext)
+        return result
+    }
+    
+    /// 获取特定标识数组中的所有任务
+    static func getTasks(with identifiers: [String]) -> [CDHabitTask]? {
+        let condition: PredicateCondition = (HabitTaskKey.identifier, .belongsTo(identifiers))
+        let predicate = NSPredicate.predicate(with: condition)
+        let results: [CDHabitTask]? = CDHabitTask.findAll(with: predicate, in: .defaultContext)
+        return results
+    }
+    
+    /// 获取所有习惯任务
+    static func getAllTasks() -> [CDHabitTask] {
+        return getTasks(with: nil)
+    }
+    
+    /// 获取归档任务
+    static func getArchivedTasks() -> [CDHabitTask] {
+        let predicate = archivedTaskPredicate()
+        return getTasks(with: predicate)
+    }
+    
+    /// 归档任务数目
+    static func getArchivedTasksCount() -> Int {
+        let predicate = archivedTaskPredicate()
+        let count = CDHabitTask.countOfEntries(with: predicate, in: .defaultContext)
+        return count
+    }
+    
+    /// 获取活动任务
+    static func getActiveTasks() -> [CDHabitTask] {
+        let condition: PredicateCondition = (HabitTaskKey.isArchived, .notEqual(true))
+        let predicate = NSPredicate.predicate(with: condition)
+        return getTasks(with: predicate)
+    }
+    
+    static func getTasks(with predicate: NSPredicate? = nil) -> [CDHabitTask] {
+        let results: [CDHabitTask]? = CDHabitTask.findAll(with: predicate,
+                                                          sortedBy: HabitTaskKey.order,
+                                                          ascending: true,
+                                                          in: .defaultContext)
+        guard let results = results else {
+            return []
+        }
+        
+        return results
+    }
+
+    // MARK: - Predicate
+    /// 已归档任务谓词
+    private static func archivedTaskPredicate() -> NSPredicate {
+        let condition: PredicateCondition = (HabitTaskKey.isArchived, .isTrue)
+        return NSPredicate.predicate(with: condition)
+    }
+}
+
+extension Array where Element == CDHabitTask {
+    /// 转换成 HabitTask 数组
+    var tasks: [HabitTask] {
+        return self.map { HabitTask(content: $0) }
     }
 }

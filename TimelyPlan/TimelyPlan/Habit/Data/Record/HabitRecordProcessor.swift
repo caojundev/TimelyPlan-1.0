@@ -49,9 +49,6 @@ class HabitRecordProcessor {
     /// 记录处理更新器
     let updater = HabitRecordProcessorUpdater()
     
-    /// 记录获取器
-    private let provider = HabitRecordProvider()
-    
     /// 完成所有
     func completeAll(for task: HabitTask, on date: Date) {
         let totalAmount = task.goal.validatedTargetAmount
@@ -67,7 +64,7 @@ class HabitRecordProcessor {
     }
     
     func updateRecord(incrementAmount: Int64, for task: HabitTask, on date: Date) {
-        guard let record = provider.getRecord(for: task, on: date, createIfNil: true) else {
+        guard let record = CDHabitRecord.getRecord(for: task, on: date, createIfNil: true) else {
             return
         }
         
@@ -90,7 +87,7 @@ class HabitRecordProcessor {
     }
     
     func updateRecord(totalAmount amount: Int64, for task: HabitTask, on date: Date) {
-        guard let record = provider.getRecord(for: task, on: date, createIfNil: true) else {
+        guard let record = CDHabitRecord.getRecord(for: task, on: date, createIfNil: true) else {
             return
         }
         
@@ -122,7 +119,7 @@ class HabitRecordProcessor {
     
     /// 添加或更改备注
     func addLog(_ logInfo: HabitRecordLogInfo?, for task: HabitTask, on date: Date) {
-        guard let record = provider.getRecord(for: task, on: date, createIfNil: true) else {
+        guard let record = CDHabitRecord.getRecord(for: task, on: date, createIfNil: true) else {
             return
         }
         
@@ -138,7 +135,7 @@ class HabitRecordProcessor {
     
     /// 跳过今天
     func skip(with tag: ReasonTag, for task: HabitTask, on date: Date) {
-        guard let record = provider.getRecord(for: task, on: date, createIfNil: true) else {
+        guard let record = CDHabitRecord.getRecord(for: task, on: date, createIfNil: true) else {
             return
         }
         
@@ -154,7 +151,7 @@ class HabitRecordProcessor {
     
     /// 取消跳过
     func cancelSkip(for task: HabitTask, on date: Date) {
-        guard let record = provider.getRecord(for: task, on: date, createIfNil: false) else {
+        guard let record = CDHabitRecord.getRecord(for: task, on: date, createIfNil: false) else {
             return
         }
         
@@ -169,7 +166,7 @@ class HabitRecordProcessor {
     
     /// 标记为失败
     func markAsFail(with tag: ReasonTag, for task: HabitTask, on date: Date) {
-        guard let record = provider.getRecord(for: task, on: date, createIfNil: true) else {
+        guard let record = CDHabitRecord.getRecord(for: task, on: date, createIfNil: true) else {
             return
         }
         
@@ -185,7 +182,7 @@ class HabitRecordProcessor {
     
     /// 取消失败
     func cancelFail(for task: HabitTask, on date: Date) {
-        guard let record = provider.getRecord(for: task, on: date, createIfNil: false) else {
+        guard let record = CDHabitRecord.getRecord(for: task, on: date, createIfNil: false) else {
             return
         }
         
@@ -244,7 +241,7 @@ class HabitRecordProcessor {
     
     /// 删除对应任务从fromDate到toDate之间所有记录
     private func deleteRecords(for task: HabitTask, fromDate: Date, toDate: Date)  -> Bool {
-        guard let records = provider.getRecords(for: task, fromDate: fromDate, toDate: toDate), records.count > 0 else {
+        guard let records = CDHabitRecord.getRecords(for: task, fromDate: fromDate, toDate: toDate), records.count > 0 else {
             return false
         }
         

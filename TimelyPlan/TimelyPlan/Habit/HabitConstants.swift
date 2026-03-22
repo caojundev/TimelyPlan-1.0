@@ -35,5 +35,7 @@ let kTaskEditInputFieldCornerRadius = 8.0
 
 /// 默认评分
 let kHabitDefaultCompletedScore = 100
-let kHabitDefaultSkippedScore = 50
-let kHabitDefaultFailedScore = 0
+
+let kHabitDefaultSkippedScore = 60
+
+let kHabitDefaultFailedScore = 10

@@ -115,7 +115,10 @@ extension HabitManageBaseListViewController: HabitTaskProcessorDelegate {
     }
 
     func didUpdateHabitTask(_ task: HabitTask) {
-        self.listView.reloadCell(forTask: task, focusAnimated: true)
+        self.listView.performUpdate {[weak self] _ in
+            guard let self = self else { return }
+            self.listView.revealTask(task)
+        }
     }
     
     func didDeleteHabitTask(_ task: HabitTask) {

@@ -15,6 +15,7 @@ enum HabitTimePlanType: Int, Hashable, Codable, Equatable, TPMenuRepresentable {
         return ["Regularly"]
     }
 }
+
 /// 定期规则结构体
 struct HabitTimePlanRegularRule: Hashable, Codable, Equatable {
     

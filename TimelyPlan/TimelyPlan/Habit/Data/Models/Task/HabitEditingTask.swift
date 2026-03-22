@@ -30,7 +30,7 @@ struct HabitEditingTask: Equatable {
     var timePlan: HabitTimePlan = HabitTimePlan()
     
     /// 时间选项
-    var timeOption: HabitTimeOption = .morning
+    var timeOption: HabitTimeOption = .anytime
     
     /// 是否提醒
     var shouldRemind: Bool = false
@@ -43,12 +43,7 @@ struct HabitEditingTask: Equatable {
     
     /// 图标
     var icon: TPIcon {
-        get {
-            return TPIcon(text: emoji ?? "C")
-        }
-        
-        set {
-            self.emoji = newValue.text
-        }
+        get { return TPIcon(text: emoji ?? "C") }
+        set { self.emoji = newValue.text }
     }
 }

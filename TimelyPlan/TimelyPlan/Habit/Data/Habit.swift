@@ -99,7 +99,6 @@ class Habit {
         return self.taskManager.getArchivedTasksCount()
     }
     
-    
     func createTask(with editingTask: HabitEditingTask) {
         self.taskManager.createTask(with: editingTask)
     }

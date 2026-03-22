@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 struct HabitTaskKey {
+    static let identifier = "identifier"
     static let name = "name"
     static let order = "order"
     static let isArchived = "isArchived"
@@ -27,15 +28,22 @@ class HabitTaskManager {
     }
     
     init() {
-        self.activeTasks = self.getActiveTasks()
+        self.activeTasks = getActiveTasks()
     }
     
     // MARK: - 任务操作
     func createTask(with editingTask: HabitEditingTask) {
         let content = CDHabitTask.newTask(with: editingTask)
         let task = HabitTask(content: content)
-        self.activeTasks.append(task)
-        self.activeTasks.updateOrders()
+        let addTop = HabitSetting.shared.addHabitOnTop
+        if addTop {
+            self.activeTasks.insert(task, at: 0)
+        } else {
+            self.activeTasks.append(task)
+        }
+        
+        CDHabitTask.syncOrders(for: self.activeTasks)
+        
         self.updater.didCreateHabitTask(task)
         HandyRecord.save()
     }
@@ -45,7 +53,18 @@ class HabitTaskManager {
             return
         }
         
-        task.update(with: editingTask)
+        guard let content = CDHabitTask.getTask(with: task.identifier) else {
+            return
+        }
+        
+        content.update(with: editingTask)
+        
+        /// 替换活动任务数组中的旧任务
+        if let index = self.activeTasks.indexOf(task) {
+            let newTask = HabitTask(content: content)
+            self.activeTasks.replaceElement(at: index, with: newTask)
+        }
+        
         self.updater.didUpdateHabitTask(task)
         HandyRecord.save()
     }
@@ -53,7 +72,11 @@ class HabitTaskManager {
     /// 删除任务
     func deleteTask(_ task: HabitTask) {
         self.activeTasks.remove(task)
-        self.context.delete(task.content)
+
+        if let cdTask = CDHabitTask.getTask(with: task.identifier) {
+            self.context.delete(cdTask)
+        }
+        
         self.updater.didDeleteHabitTask(task)
         HandyRecord.save()
     }
@@ -62,8 +85,8 @@ class HabitTaskManager {
     func reorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
         var reorderedTasks = tasks
         reorderedTasks.moveObject(fromIndex: fromIndex, toIndex: toIndex)
-        reorderedTasks.updateOrders()
-        
+        CDHabitTask.syncOrders(for: reorderedTasks)
+
         /// 重新排序任务数组
         self.activeTasks = self.activeTasks.orderedElements()
         self.updater.didReorderTask(in: tasks, fromIndex: fromIndex, toIndex: toIndex)
@@ -75,7 +98,10 @@ class HabitTaskManager {
             return
         }
         
-        task.isArchived = isArchived
+        if let cdTask = CDHabitTask.getTask(with: task.identifier) {
+            cdTask.isArchived = isArchived
+        }
+        
         if isArchived {
             /// 归档任务
             self.activeTasks.remove(task)
@@ -91,56 +117,24 @@ class HabitTaskManager {
         HandyRecord.save()
     }
     
-
-    // MARK: - 获取任务
-    /// 同步获取所有习惯任务
+    
+    /// 获取所有习惯任务
     func getAllTasks() -> [HabitTask] {
-        return getTasks(with: nil)
+        return CDHabitTask.getAllTasks().tasks
     }
     
-    /// 同步获取归档任务
+    /// 获取归档任务
     func getArchivedTasks() -> [HabitTask] {
-        let predicate = archivedTaskPredicate()
-        return getTasks(with: predicate)
+        return CDHabitTask.getArchivedTasks().tasks
     }
     
     /// 获取归档任务数目
     func getArchivedTasksCount() -> Int {
-        let predicate = archivedTaskPredicate()
-        let count = CDHabitTask.countOfEntries(with: predicate, in: .defaultContext)
-        return count
+        return CDHabitTask.getArchivedTasksCount()
     }
     
-    /// 同步获取活动任务
+    /// 获取活动任务
     func getActiveTasks() -> [HabitTask] {
-        let condition: PredicateCondition = (HabitTaskKey.isArchived, .notEqual(true))
-        let predicate = NSPredicate.predicate(with: condition)
-        return getTasks(with: predicate)
+        return CDHabitTask.getActiveTasks().tasks
     }
-    
-    private func getTasks(with predicate: NSPredicate? = nil) -> [HabitTask] {
-        let results: [CDHabitTask]? = CDHabitTask.findAll(with: predicate,
-                                                          sortedBy: HabitTaskKey.order,
-                                                          ascending: true,
-                                                          in: .defaultContext)
-        guard let results = results else {
-            return []
-        }
-        
-        var tasks = [HabitTask]()
-        for result in results {
-            let task = HabitTask(content: result)
-            tasks.append(task)
-        }
-        
-        return tasks
-    }
-
-    // MARK: - Helpers
-    /// 已归档任务谓词
-    private func archivedTaskPredicate() -> NSPredicate {
-        let condition: PredicateCondition = (HabitTaskKey.isArchived, .isTrue)
-        return NSPredicate.predicate(with: condition)
-    }
-    
 }

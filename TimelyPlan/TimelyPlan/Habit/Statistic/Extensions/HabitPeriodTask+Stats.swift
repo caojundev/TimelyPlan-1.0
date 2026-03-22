@@ -47,7 +47,7 @@ extension HabitPeriodTask {
         return result
     }
     
-    
+
     /// 周按日打卡时间点标记数组
     func checkinTimePointMarksForWeek(in dateRange: DateRange,
                                       xValueForDate: (Date) -> CGFloat) -> [ChartMark] {

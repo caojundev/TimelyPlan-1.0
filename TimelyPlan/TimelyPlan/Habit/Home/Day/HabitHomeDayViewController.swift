@@ -331,7 +331,7 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
         self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate { [weak self] success in
             guard success, let self = self else { return }
-            self.listView.reloadCell(forTask: task, focusAnimated: true)
+            self.listView.revealTask(task)
         }
     }
     

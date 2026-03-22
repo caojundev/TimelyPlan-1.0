@@ -110,7 +110,7 @@ class HabitRecord: NSObject {
     }
     
     /// 核心数据对象
-    let content: CDHabitRecord
+    private let content: CDHabitRecord
     
     // MARK: - Initialization
     
@@ -119,19 +119,11 @@ class HabitRecord: NSObject {
     init(content: CDHabitRecord) {
         self.content = content
         self.day = content.day
-        super.init()
-        self.updateProperties()
-    }
-    
-    // MARK: - Private Methods
-    
-    /// 更新属性
-    /// 从核心数据对象同步最新的状态信息
-    private func updateProperties() {
         self.amount = content.amount
         self.status = Status(rawValue: Int(content.status)) ?? .normal
         self.reason = content.reason
         self.log = content.log
         self.score = content.score
+        super.init()
     }
 }
