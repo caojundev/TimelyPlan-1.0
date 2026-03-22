@@ -4,6 +4,7 @@
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="day" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="log" optional="YES" attributeType="String"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="reason" optional="YES" attributeType="String"/>
         <attribute name="score" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -151,7 +152,7 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoTag" inverseName="tasks" inverseEntity="TodoTag"/>
     </entity>
     <elements>
-        <element name="CDHabitRecord" positionX="18" positionY="180" width="128" height="149"/>
+        <element name="CDHabitRecord" positionX="18" positionY="180" width="128" height="164"/>
         <element name="CDHabitSample" positionX="27" positionY="189" width="128" height="74"/>
         <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="359"/>
         <element name="FocusSession" positionX="36" positionY="189" width="128" height="209"/>

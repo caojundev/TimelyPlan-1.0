@@ -87,6 +87,9 @@ class HabitRecord: NSObject {
     /// 评分
     var score: Int16 = 0
     
+    /// 修改日期
+    var modificationDate: Date?
+    
     /// 日志评分封装信息
     var logInfo: HabitRecordLogInfo {
         return HabitRecordLogInfo(log: log, score: Int(score))
@@ -102,10 +105,18 @@ class HabitRecord: NSObject {
 
     /// 获取样本的时间偏移集合
     var sampleTimeOffsets: Set<Duration>? {
+        if content.isFault {
+            return nil
+        }
+        
         return content.sampleTimeOffsets
     }
     
     var hourlyCheckinResults: HabitHourlyCheckinResults? {
+        if content.isFault {
+            return nil
+        }
+        
         return content.hourlyCheckinResults
     }
     
@@ -124,6 +135,7 @@ class HabitRecord: NSObject {
         self.reason = content.reason
         self.log = content.log
         self.score = content.score
+        self.modificationDate = content.modificationDate
         super.init()
     }
 }

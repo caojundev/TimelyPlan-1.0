@@ -77,6 +77,9 @@ class HabitRecordProcessor {
             record.score = Int16(HabitSetting.shared.defaultCompletedScore)
         }
         
+        /// 更新修改日期
+        record.modificationDate = .now
+        
         /// 添加sample
         CDHabitSample.addNewSample(amount: incrementAmount, date: .now, toRecord: record)
         HandyRecord.save()
@@ -105,10 +108,11 @@ class HabitRecordProcessor {
             record.score = Int16(HabitSetting.shared.defaultCompletedScore)
         }
         
+        /// 更新修改日期
+        record.modificationDate = .now
+        
         /// 添加sample
-        CDHabitSample.addNewSample(amount: increment,
-                                   date: .now,
-                                   toRecord: record)
+        CDHabitSample.addNewSample(amount: increment, date: .now, toRecord: record)
         HandyRecord.save()
         
         /// 记录变化通知
@@ -126,6 +130,7 @@ class HabitRecordProcessor {
         let oldLogInfo = HabitRecordLogInfo(log: record.log, score: Int(record.score))
         record.log = logInfo?.log
         record.score = Int16(logInfo?.score ?? 0)
+        record.modificationDate = .now
         HandyRecord.save()
         
         let change: HabitRecordChange = .logEdited(oldValue: oldLogInfo,
@@ -142,6 +147,7 @@ class HabitRecordProcessor {
         record.status = Int16(HabitRecord.Status.skipped.rawValue)
         record.reason = tag.combinedString
         record.score = Int16(HabitSetting.shared.defaultSkippedScore)
+        record.modificationDate = .now
         HandyRecord.save()
         
         let change = HabitRecordChange.skipChanged(oldValue: false,
@@ -158,6 +164,7 @@ class HabitRecordProcessor {
         record.status = Int16(HabitRecord.Status.normal.rawValue)
         record.reason = nil
         record.score = 0
+        record.modificationDate = .now
         HandyRecord.save()
         
         let change = HabitRecordChange.skipChanged(oldValue: true, newValue: false)
@@ -173,6 +180,7 @@ class HabitRecordProcessor {
         record.status = Int16(HabitRecord.Status.failed.rawValue)
         record.reason = tag.combinedString
         record.score = Int16(HabitSetting.shared.defaultFailedScore)
+        record.modificationDate = .now
         HandyRecord.save()
         
         let change: HabitRecordChange = .failChanged(oldValue: false,
@@ -189,6 +197,7 @@ class HabitRecordProcessor {
         record.status = Int16(HabitRecord.Status.normal.rawValue)
         record.reason = nil
         record.score = 0
+        record.modificationDate = .now
         HandyRecord.save()
         
         let change = HabitRecordChange.failChanged(oldValue: true, newValue: false)

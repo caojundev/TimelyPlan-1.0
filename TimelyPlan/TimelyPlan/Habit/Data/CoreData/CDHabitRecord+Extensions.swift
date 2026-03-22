@@ -43,13 +43,19 @@ extension CDHabitRecord {
             return nil
         }
         
+        var timeValues = Set<Int>()
         var offsets = Set<Duration>()
         for sample in samples {
-            guard let date = sample.date else {
-                continue
+            if let date = sample.date {
+                let timeValue = date.hour * 100 + date.minute
+                guard !timeValues.contains(timeValue) else {
+                    continue
+                }
+                
+                /// 相同小时和分钟的日期仅添加一次
+                timeValues.insert(timeValue)
+                offsets.insert(date.offset())
             }
-            
-            offsets.insert(date.offset())
         }
      
         if offsets.count > 0 {

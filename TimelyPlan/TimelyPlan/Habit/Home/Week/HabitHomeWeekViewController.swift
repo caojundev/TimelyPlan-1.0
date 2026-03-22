@@ -33,6 +33,10 @@ class HabitHomeWeekViewController: TPViewController,
         let view = HabitPeriodTaskListView(frame: view.bounds)
         view.preferredItemHeight = 210.0
         view.delegate = self
+        view.collectionConfiguration = { collectionView in
+            collectionView.contentInset = UIEdgeInsets(bottom: 60.0)
+        }
+        
         return view
     }()
     
@@ -100,7 +104,6 @@ class HabitHomeWeekViewController: TPViewController,
                                 y: dateViewHeight,
                                 width: view.width,
                                 height: view.height - dateViewHeight)
-        listView.contentInset = UIEdgeInsets(bottom: view.height - addView.top - edgeMargins.top)
     }
     
     override var themeBackgroundColor: UIColor? {
