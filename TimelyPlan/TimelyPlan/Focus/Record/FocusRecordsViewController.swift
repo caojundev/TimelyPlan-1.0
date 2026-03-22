@@ -16,10 +16,10 @@ class FocusRecordsViewController: StatsMainViewController {
     var timer: FocusTimer?
 
     /// 记录排列顺序
-    private var sortOrder = FocusStateStore.shared.recordListOrder
+    private var sortOrder = FocusState.shared.recordListOrder
     
     /// 列表模式
-    private var mode = FocusStateStore.shared.recordListMode
+    private var mode = FocusState.shared.recordListMode
     
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: FocusRecordMoreBarButtonItem = {
@@ -115,7 +115,7 @@ class FocusRecordsViewController: StatsMainViewController {
         vc.reloadData()
         
         /// 保存到本地
-        FocusStateStore.shared.recordListMode = newMode
+        FocusState.shared.recordListMode = newMode
     }
     
     private func selectSortOrder(_ sortOrder: FocusRecordSortOrder) {
@@ -133,7 +133,7 @@ class FocusRecordsViewController: StatsMainViewController {
         }
         
         /// 保存到本地设置项
-        FocusStateStore.shared.recordListOrder = sortOrder
+        FocusState.shared.recordListOrder = sortOrder
     }
     
 }

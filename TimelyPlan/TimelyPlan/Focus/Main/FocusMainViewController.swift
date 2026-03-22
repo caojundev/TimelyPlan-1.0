@@ -94,7 +94,7 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
                                                    timelineBarButtonItem]
         self.bounces = false
         self.trackingProgress = false
-        let pageIndex = FocusStateStore.shared.mainMenuType.rawValue
+        let pageIndex = FocusState.shared.mainMenuType.rawValue
         self.selectPage(at: pageIndex)
     }
     
@@ -114,7 +114,7 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
     
     override func pageController(_ pageController: TPPageController, didSelectPageAt index: Int) {
         if let menuType = FocusMainMenuType(rawValue: index) {
-            FocusStateStore.shared.mainMenuType = menuType
+            FocusState.shared.mainMenuType = menuType
         }
     }
     
@@ -139,7 +139,7 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
         /// 取消第一响应（计时器搜索栏可能正在输入）
         UIResponder.resignCurrentFirstResponder()
         selectPage(at: menuType.rawValue, animated: true)
-        FocusStateStore.shared.mainMenuType = menuType
+        FocusState.shared.mainMenuType = menuType
     }
     
     @objc func clickTimeline(_ buttonItem: UIBarButtonItem) {

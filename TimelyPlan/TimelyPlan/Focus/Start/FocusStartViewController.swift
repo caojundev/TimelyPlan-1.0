@@ -11,15 +11,15 @@ class FocusStartViewController: TPViewController,
                                     TPAnimatedContainerViewDelegate,
                                     FocusTrackerDelegate {
     
-    var timerType: FocusTimerType = FocusStateStore.shared.timerType
+    var timerType: FocusTimerType = FocusState.shared.timerType
     
     lazy var pomodoroTimer: FocusSystemPomodoroTimer = {
-        let config = FocusStateStore.shared.pomodoroConfig
+        let config = FocusState.shared.pomodoroConfig
         return FocusSystemPomodoroTimer(config: config)
     }()
     
     var countdownTimer: FocusSystemCountdownTimer = {
-        let config = FocusStateStore.shared.countdownConfig
+        let config = FocusState.shared.countdownConfig
         return FocusSystemCountdownTimer(config: config)
     }()
     
@@ -139,7 +139,7 @@ class FocusStartViewController: TPViewController,
         switch timerType {
         case .pomodoro:
             let view = PomodoroTimerEditView()
-            view.editPhase = FocusStateStore.shared.pomodoroPhase
+            view.editPhase = FocusState.shared.pomodoroPhase
             view.didChangeConfig = { [weak self] config in
                 self?.pomodoroTimer.config = config
                 self?.didChangePomodoroConfig(config)
@@ -239,19 +239,19 @@ class FocusStartViewController: TPViewController,
     
     // MARK: - 状态改变保存数据
     private func didChangeTimerType(_ timerType: FocusTimerType) {
-        FocusStateStore.shared.timerType = timerType
+        FocusState.shared.timerType = timerType
     }
     
     private func didChangePomodoroConfig(_ config: FocusPomodoroConfig) {
-        FocusStateStore.shared.pomodoroConfig = config
+        FocusState.shared.pomodoroConfig = config
     }
     
     private func didChangePomodoroPhase(_ phase: FocusPomodoroPhase) {
-        FocusStateStore.shared.pomodoroPhase = phase
+        FocusState.shared.pomodoroPhase = phase
     }
     
     func didChangeCountdownConfig(_ config: FocusCountdownConfig) {
-        FocusStateStore.shared.countdownConfig = config
+        FocusState.shared.countdownConfig = config
     }
     
     // MARK: - ContainerViewDelegate

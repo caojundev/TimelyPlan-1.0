@@ -1,11 +1,12 @@
 //
-//  FocusStateStore.swift
+//  FocusState.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/2/24.
 //
 
-class FocusStateStore {
+class FocusState {
+    
     enum SettingKey: String, SettingKeyRepresentable {
         case floatingTimerPosition
         case mainMenuType /// 专注主菜单类型
@@ -45,7 +46,7 @@ class FocusStateStore {
     @LocalStored(key: SettingKey.recordListMode.name, defaultValue: .detail)
     var recordListMode: FocusRecordListMode
     
-    static let shared = FocusStateStore()
+    static let shared = FocusState()
     
     private init() {}
 }
