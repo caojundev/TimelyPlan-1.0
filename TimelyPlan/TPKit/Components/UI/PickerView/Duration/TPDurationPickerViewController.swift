@@ -90,14 +90,6 @@ class TPDurationPickerViewController: TPTableSectionsViewController {
         updatePopoverContentSize()
     }
     
-    override var themeBackgroundColor: UIColor? {
-        return .secondarySystemBackground
-    }
-    
-    override var themeNavigationBarBackgroundColor: UIColor? {
-        return .secondarySystemBackground
-    }
-    
     override var popoverContentSize: CGSize {
         var contentHeight = durationSectionController.headerItem.height + 
         durationPickerCellItem.height + actionsBarHeight
@@ -106,6 +98,14 @@ class TPDurationPickerViewController: TPTableSectionsViewController {
         }
         
         return CGSize(width: kPopoverPreferredContentWidth, height: contentHeight)
+    }
+    
+    override var themeBackgroundColor: UIColor? {
+        return .secondarySystemBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .secondarySystemBackground
     }
     
     override func clickDone() {

@@ -68,12 +68,6 @@ class TPDatePickerViewController: TPTableSectionsViewController {
         self.sectionControllers = [sectionController]
         self.adapter.cellStyle.backgroundColor = .clear
         self.adapter.reloadData()
-        self.updatePopoverContentSize()
-    }
-    
-    override var popoverContentSize: CGSize {
-        let contentHeight = wrapperView.contentSize.height + actionsBarHeight
-        return CGSize(width: kPopoverPreferredContentWidth, height: contentHeight)
     }
     
     override func viewWillLayoutSubviews() {
@@ -81,6 +75,19 @@ class TPDatePickerViewController: TPTableSectionsViewController {
         self.updatePopoverContentSize()
     }
 
+    override var popoverContentSize: CGSize {
+        let contentHeight = wrapperView.contentSize.height + actionsBarHeight
+        return CGSize(width: kPopoverPreferredContentWidth, height: contentHeight)
+    }
+    
+    override var themeBackgroundColor: UIColor? {
+        return .secondarySystemBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .secondarySystemBackground
+    }
+    
     lazy var todayBarButtonItem: UIBarButtonItem = {
         let item = UIBarButtonItem(title: resGetString("Today"),
                                    style: .done,

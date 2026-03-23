@@ -65,8 +65,7 @@ class FocusSystemTimer: NSObject, FocusTimerRepresentable {
     }
     
     var timerInfo: TextRepresentable? {
-        let color = kFocusTimerDefaultColor
-        let attributedInfo: ASAttributedString = "\("●", .foreground(color)) \(timerType.title)"
+        let attributedInfo: ASAttributedString = "\("●", .foreground(timerColor)) \(timerType.title)"
         return attributedInfo
     }
     
@@ -146,6 +145,10 @@ class FocusSystemPomodoroTimer: FocusSystemTimer {
 /// 默认倒计时
 class FocusSystemCountdownTimer: FocusSystemTimer {
 
+    override var timerColor: UIColor {
+        return .orangePrimary
+    }
+    
     var config: FocusCountdownConfig
     
     override var name: String? {
@@ -176,6 +179,10 @@ class FocusSystemCountdownTimer: FocusSystemTimer {
 /// 默认正计时
 class FocusSystemStopwatchTimer: FocusSystemTimer {
 
+    override var timerColor: UIColor {
+        return .greenPrimary
+    }
+    
     var config: FocusStopwatchConfig
     
     override var name: String? {

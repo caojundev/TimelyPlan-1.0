@@ -73,6 +73,16 @@ class Focus {
     }
     
     func getTimer(withFeature feature: TimerFeature) -> FocusTimerRepresentable? {
+        if feature.isNone {
+            return nil
+        }
+        
+        if feature.isDefaultTimer {
+            /// 默认计时器
+            return systemTimerManager.timer(of: feature)
+        }
+        
+        /// 用户计时器
         return userTimerManager.getTimer(withFeature: feature)
     }
     
@@ -82,6 +92,10 @@ class Focus {
     }
     
     // MARK: - 处理用户计时器
+    func createTimer(with editingTimer: FocusEditingTimer) {
+        userTimerManager.createTimer(with: editingTimer)
+    }
+
     func createTimer(with editingTimer: FocusEditingTimer, in timers: [FocusTimer]?) {
         userTimerManager.createTimer(with: editingTimer, in: timers)
     }

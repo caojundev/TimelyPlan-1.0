@@ -7668,11 +7668,11 @@
 		E5D7D7B52D43923800EC877A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				E5D7D7D22D43923800EC877A /* Focus.swift */,
 				E5D7D7BD2D43923800EC877A /* Managers */,
 				E5E8C9E92F701EBB006728C5 /* Model */,
 				E5D7D7CE2D43923800EC877A /* Updater */,
 				E590CA9D2F4E9CEF00E66041 /* Setting */,
-				E5D7D7D22D43923800EC877A /* Focus.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";

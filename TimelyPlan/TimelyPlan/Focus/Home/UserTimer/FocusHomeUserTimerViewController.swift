@@ -123,8 +123,8 @@ class FocusHomeUserTimerViewController: TPCollectionSectionsViewController,
     
     // MARK: - FocusTimerProcessorDelegate
     func didCreateFocusTimer(_ timer: FocusTimer) {
-        self.adapter.performUpdate { _ in
-            self.revealTimer(timer)
+        self.adapter.performUpdate {[weak self] _ in
+            self?.revealTimer(timer)
         }
     }
     
@@ -133,7 +133,9 @@ class FocusHomeUserTimerViewController: TPCollectionSectionsViewController,
     }
     
     func didUpdateFocusTimer(_ timer: FocusTimer) {
-        self.adapter.reloadCell(forItem: timer, focusAnimated: true)
+        self.adapter.performUpdate {[weak self] _ in
+            self?.revealTimer(timer)
+        }
     }
     
     func didDeleteFocusTimer(_ timer: FocusTimer) {

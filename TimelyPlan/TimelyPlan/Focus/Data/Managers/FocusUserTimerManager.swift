@@ -55,6 +55,14 @@ class FocusUserTimerManager {
     }
     
     // MARK: - 处理计时器
+    func createTimer(with editingTimer: FocusEditingTimer) {
+        let onTop = FocusSetting.shared.addTimerOnTop
+        let content = CDFocusTimer.newTimer(with: editingTimer, onTop: onTop)
+        let timer = FocusTimer(content: content)
+        updater.didCreateFocusTimer(timer)
+        HandyRecord.save()
+    }
+    
     func createTimer(with editingTimer: FocusEditingTimer, in timers: [FocusTimer]?) {
         let onTop = FocusSetting.shared.addTimerOnTop
         let content = CDFocusTimer.newTimer(with: editingTimer)
@@ -78,7 +86,9 @@ class FocusUserTimerManager {
         
         if let content = CDFocusTimer.getTimer(withIdentifier: timer.identifier) {
             content.update(with: editingTimer)
-            updater.didUpdateFocusTimer(timer)
+            
+            let updatedTimer = FocusTimer(content: content)
+            updater.didUpdateFocusTimer(updatedTimer)
             HandyRecord.save()
         }
     }
@@ -98,7 +108,9 @@ class FocusUserTimerManager {
         
         if let content = CDFocusTimer.getTimer(withIdentifier: timer.identifier) {
             content.isArchived = isArchived
-            updater.didChangeArchivedState(isArchived, for: timer)
+            
+            let updatedTimer = FocusTimer(content: content)
+            updater.didChangeArchivedState(isArchived, for: updatedTimer)
             HandyRecord.save()
         }
     }

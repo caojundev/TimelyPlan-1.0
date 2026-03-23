@@ -9,6 +9,7 @@ import Foundation
 
 class FocusUserTimerController {
     
+    
     /// 创建新计时器
     func createTimer(in timers: [FocusTimer]?) {
         let vc = FocusTimerEditViewController(timer: nil)
@@ -16,8 +17,16 @@ class FocusUserTimerController {
             focus.createTimer(with: editingTimer, in: timers)
         }
 
-        let navController = UINavigationController(rootViewController: vc)
-        navController.show()
+        vc.showAsNavigationRoot()
+    }
+    
+    func createTimer() {
+        let vc = FocusTimerEditViewController(timer: nil)
+        vc.didEndEditing = { editingTimer in
+            focus.createTimer(with: editingTimer)
+        }
+
+        vc.showAsNavigationRoot()
     }
 
     /// 编辑计时器

@@ -68,7 +68,7 @@ class TPTimePresetTableCell: TPBaseTableCell {
         let style = presetView.cellStyle
         style.borderWidth = 0.0
         style.cornerRadius = 8.0
-        style.backgroundColor = .secondarySystemBackground
+        style.backgroundColor = .secondarySystemFill
         return presetView
     }()
     
