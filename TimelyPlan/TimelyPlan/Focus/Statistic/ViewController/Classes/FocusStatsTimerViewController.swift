@@ -25,7 +25,7 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController,
         self.canSelectDetailGroupType = false
         self.allowDetailGroupTypes = [.task]
         self.reloadData()
-        focus.addUpdaterDelegate(self)
+        focus.addUpdater(self, for: [.session])
     }
     
     required init?(coder: NSCoder) {
@@ -87,7 +87,7 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController,
         self.reloadData()
     }
     
-    func didDeleteFocusSession(with record: FocusRecord) {
+    func didDeleteFocusSession(_ session: FocusSession) {
         self.reloadData()
     }
 }

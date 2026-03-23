@@ -29,15 +29,6 @@ extension FocusSession {
         return nil
     }
     
-    /// 创建新记录
-    static func newSession(with record: FocusRecord, isManual: Bool) -> FocusSession {
-        let session = FocusSession.createEntity(in: .defaultContext)
-        session.identifier = UUID().uuidString
-        session.isManual = isManual
-        session.update(with: record)
-        return session
-    }
-    
     var editingRecord: FocusRecord {
         let record = FocusRecord()
         record.timeline = self.recordTimeline
@@ -71,34 +62,6 @@ extension FocusSession {
         }
             
         return false
-    }
-    
-    /// 根据记录更新会话
-    func update(with record: FocusRecord) {
-        if let timer = record.timer {
-            self.timerID = timer.identifier
-        }
-        
-        if let taskInfo = record.task?.info {
-            self.taskType = Int64(taskInfo.type.rawValue)
-            self.taskID = taskInfo.identifier
-            self.taskShotName = record.task?.name
-        }
-        
-        let timeline = record.timeline
-        self.startDate = timeline.startDate
-        self.endDate = timeline.endDate
-        self.duration = Int64(timeline.focusInterval)
-        self.score = Int64(record.score)
-        self.note = record.note
-        
-        // 设置暂停信息
-        if let pauseFragments = timeline.pauseTimeFragments {
-            let pauseInfo = FocusPauseInfo(pauseFragments: pauseFragments)
-            self.pauseInfo = pauseInfo
-        } else {
-            self.pauseInfo = nil
-        }
     }
     
     /// 是否是今日会话

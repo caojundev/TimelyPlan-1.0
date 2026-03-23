@@ -10,17 +10,14 @@ import UIKit
 
 protocol FocusTimerRepresentable: AnyObject {
 
-    var identifier: String? { get set }
+    var identifier: String { get set }
     
     /// 名称
     var name: String? { get set }
     
     /// 计时器类型
     var timerType: FocusTimerType { get }
-    
-    /// 计时器特征
-    var feature: TimerFeature?  { get }
-    
+
     /// 计时器描述
     var timerDescription: String? { get }
     
@@ -32,6 +29,10 @@ protocol FocusTimerRepresentable: AnyObject {
     
     /// 颜色
     var timerColor: UIColor { get }
+    
+    /// 计时器特征
+    var feature: TimerFeature?  { get }
+    
 }
 
 extension FocusTimerRepresentable {

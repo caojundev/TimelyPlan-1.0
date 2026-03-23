@@ -33,7 +33,7 @@ class FocusArchivedViewController: TPCollectionSectionsViewController,
         self.sectionControllers = [sectionController]
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.adapter.reloadData()
-        focus.addUpdaterDelegate(self)
+        focus.addUpdater(self, for: [.timer])
     }
     
     override var themeBackgroundColor: UIColor? {

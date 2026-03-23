@@ -1,19 +1,35 @@
 //
-//  Focus+Session.swift
+//  FocusSessionManager.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2024/4/22.
+//  Created by caojun on 2026/3/23.
 //
 
 import Foundation
+import CoreData
 
-extension Focus {
-    // MARK: - 保存记录
-    /// 添加
+class FocusSessionManager {
+    
+    /// 数据更新器
+    let updater = FocusSessionProcessorUpdater()
+    
+    private func createSession(with record: FocusRecord, isManual: Bool) -> FocusSession {
+        let content = CDFocusSession.newSession(with: record, isManual: false)
+        let session = FocusSession(content: content)
+        return session
+    }
+    
+    private func save(with completion: (() -> Void)?) {
+        HandyRecord.save { success, error in
+            completion?()
+        }
+    }
+    
+    // MARK: - 处理会话
     func addSessions(with records: [FocusRecord]) {
         var sessions = [FocusSession]()
         for record in records {
-            let session = FocusSession.newSession(with: record, isManual: false)
+            let session = createSession(with: record, isManual: false)
             sessions.append(session)
         }
         
@@ -26,7 +42,7 @@ extension Focus {
     
     /// 手动添加会话
     func addSession(with record: FocusRecord, isManual: Bool) {
-        let session = FocusSession.newSession(with: record, isManual: isManual)
+        let session = createSession(with: record, isManual: isManual)
         save { [weak self] in
             self?.updater.didAddFocusSessions([session])
         }
@@ -34,10 +50,11 @@ extension Focus {
     
     /// 删除会话
     func deleteSession(_ session: FocusSession) {
-        let record = session.editingRecord
-        context.delete(session)
-        save { [weak self] in
-            self?.updater.didDeleteFocusSession(with: record)
+        if let content = CDFocusSession.getSession(withIdentifier: session.identifier) {
+            NSManagedObjectContext.defaultContext.delete(content)
+            save { [weak self] in
+                self?.updater.didDeleteFocusSession(session)
+            }
         }
     }
     
@@ -47,52 +64,37 @@ extension Focus {
             return
         }
         
-        session.update(with: record)
-        save { [weak self] in
-            self?.updater.didUpdateFocusSession(session)
+        if let content = CDFocusSession.getSession(withIdentifier: session.identifier) {
+            content.update(with: record)
+            save { [weak self] in
+                self?.updater.didUpdateFocusSession(session)
+            }
         }
     }
     
+    // MARK: - 获取会话
     /// 异步获取任务在特定时间区间所有会话数组
     func fetchSessions(forTask task: TaskRepresentable? = nil,
                        timer: FocusTimer? = nil,
                        fromDate: Date,
                        toDate: Date,
                        completion: @escaping([FocusSession]?) -> Void) {
-        let predicate = FocusSession.predicate(forTask: task,
-                                               timer: timer,
-                                               fromDate: fromDate,
-                                               toDate: toDate)
-        FocusSession.findAll(with: predicate) { results in
-            completion(results as? [FocusSession])
+        CDFocusSession.fetchSessions(forTask: task,
+                                     timer: timer,
+                                     fromDate: fromDate,
+                                     toDate: toDate) { results in
+            completion(results?.sessions)
         }
     }
     
-
     func fetchSessions(forTask task: TaskRepresentable? = nil,
                        timer: FocusTimer? = nil,
                        dateRange: DateRange,
                        completion: @escaping([FocusSession]?) -> Void) {
-        guard let fromDate = dateRange.startDate, let toDate = dateRange.endDate else {
-            completion(nil)
-            return
-        }
-        
-        fetchSessions(forTask: task, timer: timer, fromDate: fromDate, toDate: toDate, completion: completion)
-    }
-    
-    /// 获取按开始日期排序的专注会话
-    func fetchSessionsSortedByStartDate(forTask task: TaskRepresentable? = nil,
-                                        timer: FocusTimer? = nil,
-                                        fromDate: Date,
-                                        toDate: Date,
-                                        completion: @escaping([FocusSession]?) -> Void) {
-        let predicate = FocusSession.predicate(forTask: task,
-                                               timer: timer,
-                                               fromDate: fromDate,
-                                               toDate: toDate)
-        FocusSession.findAll(with: predicate, sortedBy: FocusSessionKey.startDate, ascending: true) { results in
-            completion(results as? [FocusSession])
+        CDFocusSession.fetchSessions(forTask: task,
+                                     timer: timer,
+                                     dateRange: dateRange) { results in
+            completion(results?.sessions)
         }
     }
     
@@ -105,7 +107,7 @@ extension Focus {
             completion(nil)
             return
         }
-        
+    
         fetchSessionsSortedByStartDate(forTask: task, timer: timer, fromDate: fromDate, toDate: toDate) { sessions in
             guard let sessions = sessions, sessions.count > 0 else {
                 completion(nil)
@@ -127,6 +129,20 @@ extension Focus {
         }
     }
     
+    /// 获取按开始日期排序的专注会话
+    private func fetchSessionsSortedByStartDate(forTask task: TaskRepresentable? = nil,
+                                        timer: FocusTimer? = nil,
+                                        fromDate: Date,
+                                        toDate: Date,
+                                        completion: @escaping([FocusSession]?) -> Void) {
+        CDFocusSession.fetchSessionsSortedByStartDate(forTask: task,
+                                                      timer: timer,
+                                                      fromDate: fromDate,
+                                                      toDate: toDate) { results in
+            completion(results?.sessions)
+        }
+    }
+
     /// 异步获取日期当日所有专注会话
     func fetchSessions(for date: Date,
                        completion: @escaping([FocusSession]?) -> Void) {
@@ -138,28 +154,11 @@ extension Focus {
     func getSessionDuration(forTask task: TaskRepresentable? = nil,
                             timer: FocusTimer? = nil,
                             on date: Date) -> Int64 {
-        let fromDate = date.startOfDay()
-        let toDate = date.endOfDay()
-        let predicate = FocusSession.predicate(forTask: task, timer: timer, fromDate: fromDate, toDate: toDate)
-        let duration = FocusSession.performAggregateOperation(function: .sum,
-                                                              onAttribute: FocusSessionKey.duration,
-                                                              withPredicate: predicate,
-                                                              in: .defaultContext) as? Int64
-        return duration ?? 0
+        return CDFocusSession.getSessionDuration(forTask: task, timer: timer, on: date)
     }
     
     /// 获取计时器总专注时间
     func getTotalDuration(for timer: FocusTimer? = nil) -> Int64 {
-        let predicate = FocusSession.predicate(forTask: nil,
-                                               timer: timer,
-                                               fromDate: nil,
-                                               toDate: nil)
-        let duration = FocusSession.performAggregateOperation(function: .sum,
-                                                              onAttribute: FocusSessionKey.duration,
-                                                              withPredicate: predicate,
-                                                              in: .defaultContext) as? Int64
-        return duration ?? 0
+        return CDFocusSession.getTotalDuration(for: timer)
     }
 }
-
-

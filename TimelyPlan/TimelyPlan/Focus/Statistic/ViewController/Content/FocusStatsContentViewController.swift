@@ -35,7 +35,7 @@ class FocusStatsContentViewController: StatsContentViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        focus.addUpdaterDelegate(self)
+        focus.addUpdater(self, for: [.session])
     }
     
     /// 详情统计
@@ -70,7 +70,7 @@ class FocusStatsContentViewController: StatsContentViewController,
         self.reloadData()
     }
     
-    func didDeleteFocusSession(with record: FocusRecord) {
+    func didDeleteFocusSession(_ session: FocusSession) {
         self.reloadData()
     }
     

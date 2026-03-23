@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G1427" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="CDFocusSession" representedClassName="FocusSession" syncable="YES" codeGenerationType="class">
+    <entity name="CDFocusSession" representedClassName="CDFocusSession" syncable="YES" codeGenerationType="class">
         <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="identifier" optional="YES" attributeType="String"/>
@@ -14,7 +14,7 @@
         <attribute name="taskType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timerID" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="CDFocusTimer" representedClassName="FocusTimer" syncable="YES" codeGenerationType="class">
+    <entity name="CDFocusTimer" representedClassName="CDFocusTimer" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
         <attribute name="configJSON" optional="YES" attributeType="String"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -64,31 +64,6 @@
         <attribute name="timeOption" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timePlanRuleJSON" optional="YES" attributeType="String"/>
         <relationship name="records" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDHabitRecord" inverseName="task" inverseEntity="CDHabitRecord"/>
-    </entity>
-    <entity name="FocusSession" representedClassName="FocusSession" syncable="YES" codeGenerationType="class">
-        <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="identifier" optional="YES" attributeType="String"/>
-        <attribute name="isManual" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
-        <attribute name="note" optional="YES" attributeType="String"/>
-        <attribute name="pauseInfo" optional="YES" attributeType="Transformable" valueTransformerName="FocusPauseInfoTransformer" customClassName="FocusPauseInfo"/>
-        <attribute name="score" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="taskID" optional="YES" attributeType="String"/>
-        <attribute name="taskShotName" optional="YES" attributeType="String"/>
-        <attribute name="taskType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="timerID" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="FocusTimer" representedClassName="FocusTimer" syncable="YES" codeGenerationType="class">
-        <attribute name="colorHex" optional="YES" attributeType="String"/>
-        <attribute name="config" optional="YES" attributeType="Transformable" valueTransformerName="FocusTimerConfigTransformer" customClassName="FocusTimerConfig"/>
-        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="identifier" optional="YES" attributeType="String"/>
-        <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="note" optional="YES" attributeType="String"/>
-        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="KeyValueStore" representedClassName="KeyValueEntry" syncable="YES">
         <attribute name="key" optional="YES" attributeType="String"/>
@@ -177,11 +152,11 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoTag" inverseName="tasks" inverseEntity="TodoTag"/>
     </entity>
     <elements>
+        <element name="CDFocusSession" positionX="27" positionY="189" width="128" height="209"/>
+        <element name="CDFocusTimer" positionX="18" positionY="180" width="128" height="164"/>
         <element name="CDHabitRecord" positionX="18" positionY="180" width="128" height="164"/>
         <element name="CDHabitSample" positionX="27" positionY="189" width="128" height="74"/>
         <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="359"/>
-        <element name="FocusSession" positionX="36" positionY="189" width="128" height="209"/>
-        <element name="FocusTimer" positionX="27" positionY="180" width="128" height="164"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
         <element name="TodoFilter" positionX="27" positionY="180" width="128" height="104"/>
         <element name="TodoFolder" positionX="27" positionY="180" width="128" height="89"/>
@@ -191,7 +166,5 @@
         <element name="TodoStep" positionX="18" positionY="63" width="128" height="134"/>
         <element name="TodoTag" positionX="18" positionY="63" width="128" height="134"/>
         <element name="TodoTask" positionX="-27" positionY="18" width="128" height="344"/>
-        <element name="CDFocusTimer" positionX="18" positionY="180" width="128" height="164"/>
-        <element name="CDFocusSession" positionX="27" positionY="189" width="128" height="209"/>
     </elements>
 </model>

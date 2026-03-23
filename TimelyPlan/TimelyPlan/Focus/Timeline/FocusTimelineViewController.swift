@@ -29,7 +29,7 @@ class FocusTimelineViewController: TPContainerViewController,
         navigationItem.rightBarButtonItem = addBarButtonItem
         navigationItem.titleView = dayViewController.titleView
         
-        focus.addUpdaterDelegate(self)
+        focus.addUpdater(self, for: [.session])
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -66,8 +66,8 @@ class FocusTimelineViewController: TPContainerViewController,
         }
     }
     
-    func didDeleteFocusSession(with record: FocusRecord) {
-        let date = record.timeline.startDate
+    func didDeleteFocusSession(_ session: FocusSession) {
+        let date = session.recordTimeline.startDate
         if date.isInSameDayAs(dayViewController.date) {
             dayViewController.reloadData()
         }

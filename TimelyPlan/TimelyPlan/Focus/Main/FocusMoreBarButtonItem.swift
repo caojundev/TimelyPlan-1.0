@@ -43,20 +43,17 @@ class FocusMoreBarButtonItem: TPBaseMoreBarButtonItem<FocusMoreMenuType> {
     }
     
     override func menuItems() -> [TPMenuItem] {
-        let typeLists: [Array<FocusMoreMenuType>] = [
-            [.allRecords,
-             .addRecord],
-            [.archived,
-             .settings]
-        ]
+        let archivedCount = focus.numberOfArchivedTimers()
+        let typeLists: [Array<FocusMoreMenuType>]
+        if archivedCount > 0 {
+            typeLists = [[.allRecords, .addRecord], [.archived, .settings]]
+        } else {
+            typeLists = [[.allRecords, .addRecord], [.settings]]
+        }
         
         let items = TPMenuItem.items(with: typeLists) { type, action in
             if type == .archived {
-                /// 归档计时器数目
-                let archivedTimersCount = Focus.numberOfArchivedTimers()
-                if archivedTimersCount > 0 {
-                    action.valueText = "\(archivedTimersCount)"
-                }
+                action.valueText = "\(archivedCount)"
             }
         }
         

@@ -25,7 +25,7 @@ class FocusRecordListViewController: StatsContentViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        focus.addUpdaterDelegate(self)
+        focus.addUpdater(self, for: [.session])
     }
     
     override func placeholderView() -> UIView? {
@@ -104,7 +104,7 @@ class FocusRecordListViewController: StatsContentViewController,
         }
     }
     
-    func didDeleteFocusSession(with record: FocusRecord) {
+    func didDeleteFocusSession(_ session: FocusSession) {
         self.reloadData()
     }
     

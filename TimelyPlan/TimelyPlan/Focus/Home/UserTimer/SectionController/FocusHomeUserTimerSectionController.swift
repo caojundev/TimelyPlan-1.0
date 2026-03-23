@@ -64,7 +64,7 @@ class FocusHomeUserTimerSectionController: FocusUserTimerListSectionController {
         }
         
         var isFocusing = false
-        if let timerId = timer.identifier, timerId == focusingTimerId {
+        if timer.identifier == focusingTimerId {
             isFocusing = true
         }
         

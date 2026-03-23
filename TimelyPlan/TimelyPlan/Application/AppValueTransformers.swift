@@ -16,18 +16,10 @@ class RepeatRuleTransformer: JSONValueTransformer<RepeatRule> {}
 /// 待办过滤规则
 class TodoFilterRuleTransformer: JSONValueTransformer<TodoFilterRule> {}
 
-/// 专注计时器
-class FocusTimerConfigTransformer: JSONValueTransformer<FocusTimerConfig> {}
-
-/// 专注计时器
-class FocusPauseInfoTransformer: JSONValueTransformer<FocusPauseInfo> {}
-
 /// 所有内容转换器
 let valueTransformers = [RepeatRuleTransformer.self,
                          TaskReminderTransformer.self,
-                         TodoFilterRuleTransformer.self,
-                         FocusTimerConfigTransformer.self,
-                         FocusPauseInfoTransformer.self]
+                         TodoFilterRuleTransformer.self]
 
 /// 注册转换器
 func registerValueTransformers() {

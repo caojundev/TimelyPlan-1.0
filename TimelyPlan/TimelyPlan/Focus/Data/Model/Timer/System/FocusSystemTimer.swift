@@ -82,7 +82,7 @@ class FocusSystemTimer: NSObject, FocusTimerRepresentable {
         set { }
     }
     
-    var identifier: String? {
+    var identifier: String {
         get {
             return FocusSystemTimerIdentifier.identifier(for: timerType)
         }
@@ -92,11 +92,7 @@ class FocusSystemTimer: NSObject, FocusTimerRepresentable {
     
     /// 获取默认计时器特征
     var feature: TimerFeature? {
-        if let identifier = identifier {
-            return TimerFeature(identifier: identifier)
-        }
-    
-        return nil
+        return TimerFeature(identifier: identifier)
     }
 
     /// 获取计时器特征对应的计时器类型

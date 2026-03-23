@@ -58,7 +58,7 @@ class FocusHomeUserTimerViewController: TPCollectionSectionsViewController,
         self.collectionView.placeholderView = placeholderView
         self.sectionControllers = [userTimerSectionController]
         self.adapter.reloadData()
-        focus.addUpdaterDelegate(self)
+        focus.addUpdater(self)
         FocusTracker.shared.addDelegate(self)
     }
     
@@ -175,7 +175,7 @@ class FocusHomeUserTimerViewController: TPCollectionSectionsViewController,
         
     }
     
-    func didDeleteFocusSession(with record: FocusRecord) {
+    func didDeleteFocusSession(_ session: FocusSession) {
         
     }
     
