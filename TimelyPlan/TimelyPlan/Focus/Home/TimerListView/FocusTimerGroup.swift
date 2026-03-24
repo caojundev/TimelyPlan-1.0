@@ -1,16 +1,24 @@
 //
-//  HabitTaskGroup.swift
+//  FocusTimerGroup.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2023/10/21.
+//  Created by caojun on 2026/3/23.
 //
 
 import Foundation
 
-class HabitTaskGroup: NSObject, Sortable {
-    
+class FocusTimerGroup: NSObject {
+
+    enum GroupType: String {
+        case user
+        case system
+    }
+
     /// 分组唯一标识
     let identifier: String
+    
+    /// 分组类型
+    var type: GroupType = .user
     
     /// 图标名称
     var iconName: String?
@@ -19,10 +27,7 @@ class HabitTaskGroup: NSObject, Sortable {
     var name: String?
     
     /// 分组内任务
-    var tasks: [ListDiffable]?
-    
-    /// 序列号
-    var order: Int64 = 0
+    var timers: [ListDiffable]?
     
     convenience override init() {
         self.init(identifier: UUID().uuidString)
@@ -40,7 +45,7 @@ class HabitTaskGroup: NSObject, Sortable {
     }
     
     override func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? HabitTaskGroup else { return false }
+        guard let other = object as? FocusTimerGroup else { return false }
         if self === other { return true }
         return identifier == other.identifier
     }

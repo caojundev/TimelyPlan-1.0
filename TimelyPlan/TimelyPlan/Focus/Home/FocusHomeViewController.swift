@@ -19,7 +19,7 @@ class FocusHomeViewController: TPContainerViewController,
     
     let searchBarHeight = 60.0
     let searchBarEdgeMargin = 10.0
-    let searchBarMaxWidth = kFocusHomeContentMaxWidth
+    let searchBarMaxWidth = kFocusTimerListContentMaxWidth
     
     lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()

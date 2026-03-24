@@ -57,6 +57,15 @@ class Focus {
     }
     
     // MARK: - 获取用户计时器
+    func fetchActiveTimers(completion: @escaping([FocusTimer]?) -> Void) {
+        userTimerManager.fetchActiveTimers(completion: completion)
+    }
+    
+    func fetchArchivedTimers(completion: @escaping([FocusTimer]?) -> Void) {
+        userTimerManager.fetchArchivedTimers(completion: completion)
+    }
+    
+    
     /// 获取所有活动计时器
     func getActiveTimers() -> [FocusTimer]? {
         return userTimerManager.getActiveTimers()

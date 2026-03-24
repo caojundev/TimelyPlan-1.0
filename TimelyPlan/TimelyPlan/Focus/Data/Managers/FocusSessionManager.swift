@@ -14,7 +14,7 @@ class FocusSessionManager {
     let updater = FocusSessionProcessorUpdater()
     
     private func createSession(with record: FocusRecord, isManual: Bool) -> FocusSession {
-        let content = CDFocusSession.newSession(with: record, isManual: false)
+        let content = CDFocusSession.newSession(with: record, isManual: isManual)
         let session = FocusSession(content: content)
         return session
     }

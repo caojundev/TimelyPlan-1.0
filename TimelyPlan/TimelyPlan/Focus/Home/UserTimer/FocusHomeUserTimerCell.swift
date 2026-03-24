@@ -11,12 +11,11 @@ class FocusHomeUserTimerCell: FocusUserTimerListCell {
     
     var isFocusing: Bool = false {
         didSet {
+            focusingView.isHidden = !isFocusing
             if isFocusing {
                 focusingView.startAnimation()
-                focusingView.isHidden = false
             } else {
                 focusingView.stopAnimation()
-                focusingView.isHidden = !isFocusing
             }
         }
     }

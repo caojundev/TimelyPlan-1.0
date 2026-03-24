@@ -55,11 +55,13 @@ class FocusTimerSelectViewController: TPCollectionSectionsViewController,
         self.sectionControllers = [defaultTimerSelectSectionController,
                                    userTimerSelectSectionController]
         self.adapter.reloadData()
+        self.userTimerSelectSectionController.reloadData()
     }
     
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
+    
     
     // MARK: - TPCollectionSectionControllerDelegate
     func collectionSectionController(_ sectionController: TPCollectionBaseSectionController, didSelectItemAt index: Int) {

@@ -86,6 +86,34 @@ extension CDFocusTimer {
 /// 获取计时器
 extension CDFocusTimer {
     
+    // MARK: - Predicate
+    static var activeTimersPredcateCondition: PredicateCondition {
+        return (FocusTimerKey.isArchived, .isFalse)
+    }
+    
+    static var archivedTimersPredcateCondition: PredicateCondition {
+        return (FocusTimerKey.isArchived, .isTrue)
+    }
+    
+    // MARK: - 异步获取
+    static func fetchActiveTimers(completion: @escaping([CDFocusTimer]?) -> Void) {
+        let predicate = NSPredicate.predicate(with: activeTimersPredcateCondition)
+        CDFocusTimer.findAll(with: predicate,
+                             sortedBy: ElementOrderKey,
+                             ascending: true) { results in
+            completion(results as? [CDFocusTimer])
+        }
+    }
+    
+    static func fetchArchivedTimers(completion: @escaping([CDFocusTimer]?) -> Void) {
+        let predicate = NSPredicate.predicate(with: archivedTimersPredcateCondition)
+        CDFocusTimer.findAll(with: predicate,
+                             sortedBy: ElementOrderKey,
+                             ascending: true) { results in
+            completion(results as? [CDFocusTimer])
+        }
+    }
+    
     // MARK: - 同步获取计时器
     /// 获取特定标识数组中的所有任务
     static func getTasks(with identifiers: [String]) -> [CDFocusTimer]? {
@@ -113,8 +141,7 @@ extension CDFocusTimer {
     
     /// 获取所有活动计时器
     static func getActiveTimers() -> [CDFocusTimer]? {
-        let condition: PredicateCondition = (FocusTimerKey.isArchived, .isFalse)
-        return getTimers(withCondition: condition)
+        return getTimers(withCondition: activeTimersPredcateCondition)
     }
 
     private static func getTimers(withCondition condition: PredicateCondition) -> [CDFocusTimer]? {
@@ -128,8 +155,7 @@ extension CDFocusTimer {
     
     /// 获取所有已归档计时器
     static func getArchivedTimers() -> [CDFocusTimer]? {
-        let condition: PredicateCondition = (FocusTimerKey.isArchived, .isTrue)
-        return getTimers(withCondition: condition)
+        return getTimers(withCondition: archivedTimersPredcateCondition)
     }
     
     /// 获取归档计时器数目

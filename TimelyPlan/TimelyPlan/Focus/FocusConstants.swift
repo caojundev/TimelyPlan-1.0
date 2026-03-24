@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// 专注主页内容最大宽度
-let kFocusHomeContentMaxWidth = 560.0
+let kFocusTimerListContentMaxWidth = 560.0
 
 /// 默认专注计时器颜色
 let kFocusTimerDefaultColor = Color(0xE84F01)

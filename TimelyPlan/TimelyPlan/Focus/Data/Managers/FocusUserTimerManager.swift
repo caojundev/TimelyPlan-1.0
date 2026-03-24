@@ -18,7 +18,20 @@ class FocusUserTimerManager {
         return .defaultContext
     }
     
-    // MARK: - 获取计时器
+    // MARK: - 异步获取计时器
+    func fetchActiveTimers(completion: @escaping([FocusTimer]?) -> Void) {
+        CDFocusTimer.fetchActiveTimers { results in
+            completion(results?.timers)
+        }
+    }
+    
+    func fetchArchivedTimers(completion: @escaping([FocusTimer]?) -> Void) {
+        CDFocusTimer.fetchArchivedTimers { results in
+            completion(results?.timers)
+        }
+    }
+    
+    // MARK: - 同步获取计时器
     /// 获取所有计时器
     func getAllTimers() -> [FocusTimer]? {
         return CDFocusTimer.getAllTimers()?.timers

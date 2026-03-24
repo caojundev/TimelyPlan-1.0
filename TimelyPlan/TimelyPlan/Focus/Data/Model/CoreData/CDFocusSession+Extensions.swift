@@ -79,10 +79,10 @@ extension CDFocusSession {
     // MARK: - 获取会话
     /// 异步获取任务在特定时间区间所有会话数组
     static func fetchSessions(forTask task: TaskRepresentable? = nil,
-                       timer: FocusTimer? = nil,
-                       fromDate: Date,
-                       toDate: Date,
-                       completion: @escaping([CDFocusSession]?) -> Void) {
+                              timer: FocusTimer? = nil,
+                              fromDate: Date,
+                              toDate: Date,
+                              completion: @escaping([CDFocusSession]?) -> Void) {
         let predicate = predicate(forTask: task,
                                   timer: timer,
                                   fromDate: fromDate,

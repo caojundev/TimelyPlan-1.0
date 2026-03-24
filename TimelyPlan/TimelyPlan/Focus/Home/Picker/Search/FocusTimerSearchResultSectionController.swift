@@ -14,13 +14,6 @@ class FocusTimerSearchResultSectionController: FocusUserTimerSelectSectionContro
     /// 当前结果对应的搜索文本
     private var searchText: String?
     
-    /// 当前搜索结果列表
-    private var searchResults: [FocusTimer]?
-    
-    override var items: [ListDiffable]? {
-        return searchResults
-    }
-
     override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
         super.didDequeCell(cell, forItemAt: index)
         if let searchCell = cell as? FocusUserTimerInfoCell {
@@ -53,7 +46,7 @@ class FocusTimerSearchResultSectionController: FocusUserTimerSelectSectionContro
         
         guard let searchText = searchText, searchText.count > 0 else {
             self.searchText = nil
-            self.searchResults = nil
+            self.timers = nil
             self.adapter?.performUpdate()
             self.updateSearchTextForVisibleCells()
             return
@@ -65,7 +58,7 @@ class FocusTimerSearchResultSectionController: FocusUserTimerSelectSectionContro
                 return
             }
             
-            self.searchResults = timers
+            self.timers = timers
             self.adapter?.performUpdate()
             self.updateSearchTextForVisibleCells()
         }

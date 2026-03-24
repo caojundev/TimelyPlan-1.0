@@ -84,5 +84,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC735160-9916-4E01-85B6-25235AB2F2CA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TPKit/Components/UI/CollectionView/TPCollectionViewAdapter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
+            landmarkName = "performUpdate(with:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DC735160-9916-4E01-85B6-25235AB2F2CA - 430a15fabb058250"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TimelyPlan.TPCollectionViewAdapter.performUpdate(with: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "TimelyPlan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/caojun/Working/TimelyPlan-1.0/TimelyPlan/TPKit/Components/UI/CollectionView/TPCollectionViewAdapter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "547"
+                  endingLineNumber = "547"
+                  offsetFromSymbolStart = "1268">
+               </Location>
+               <Location
+                  uuid = "DC735160-9916-4E01-85B6-25235AB2F2CA - 430a15fabb058250"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TimelyPlan.TPCollectionViewAdapter.performUpdate(with: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "TimelyPlan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/caojun/Working/TimelyPlan-1.0/TimelyPlan/TPKit/Components/UI/CollectionView/TPCollectionViewAdapter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "547"
+                  endingLineNumber = "547"
+                  offsetFromSymbolStart = "1284">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

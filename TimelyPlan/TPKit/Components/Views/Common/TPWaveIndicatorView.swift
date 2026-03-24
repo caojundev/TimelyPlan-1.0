@@ -40,6 +40,14 @@ class TPWaveIndicatorView: UIView {
     
     private let replicatorLayer = CAReplicatorLayer()
     
+    var isAnimating: Bool {
+        if let animationKeys = lineLayer.animationKeys(), !animationKeys.isEmpty {
+            return true
+        }
+        
+        return false
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         lineLayer.masksToBounds = true
@@ -57,7 +65,6 @@ class TPWaveIndicatorView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         let lineX = (bounds.width - CGFloat(lineCount) * lineWidth - CGFloat(lineCount - 1) * lineMargin) / 2.0
         let lineY = (bounds.height - lineHeight) / 2.0
         lineLayer.frame = CGRect.init(x: lineX, y: lineY, width: lineWidth, height: lineHeight)
@@ -78,6 +85,7 @@ class TPWaveIndicatorView: UIView {
     }
     
     func startAnimation() {
+        guard !isAnimating else { return }
         lineLayer.removeAllAnimations()
         lineLayer.add(scaleYAnimation(), forKey: "scaleAnimation")
     }
