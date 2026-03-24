@@ -46,6 +46,9 @@ class FocusStartViewController: TPViewController,
     /// 计时器视图
     var editContainerView: TPAnimatedContainerView = TPAnimatedContainerView()
 
+    /// 任务选择器
+    let taskPickerView = TaskBindView()
+    
     /// 动作视图
     private lazy var actionView: FocusStartActionView = { [weak self] in
         let view = FocusStartActionView()
@@ -82,6 +85,7 @@ class FocusStartViewController: TPViewController,
         editContainerView.delegate = self
         view.addSubview(editContainerView)
         view.addSubview(timerTypeMenuView)
+        view.addSubview(taskPickerView)
         view.addSubview(actionView)
         timerTypeMenuView.selectMenu(withTag: timerType.tag)
         updateContent(with: timerType, animateStyle: .none)
@@ -128,6 +132,11 @@ class FocusStartViewController: TPViewController,
         editContainerView.width = view.width
         editContainerView.height = editContainerHeight
         editContainerView.top = timerTypeMenuView.bottom + margin
+        
+        /// 任务选择器
+        taskPickerView.size = preferredTaskPickerSize.fitSize(with: layoutFrame)
+        taskPickerView.top = editContainerView.bottom + margin
+        taskPickerView.alignHorizontalCenter()
     }
     
     override var themeBackgroundColor: UIColor? {

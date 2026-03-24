@@ -1466,6 +1466,10 @@
 		E5D7D9862D43E35000EC877A /* focus_timer_stepMode_break_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D7D9822D43E34F00EC877A /* focus_timer_stepMode_break_24@2x.png */; };
 		E5D7D9872D43E35000EC877A /* focus_timer_stepMode_focus_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D7D9832D43E34F00EC877A /* focus_timer_stepMode_focus_24@2x.png */; };
 		E5D7D9882D43E35000EC877A /* focus_timer_stepMode_focus_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D7D9842D43E34F00EC877A /* focus_timer_stepMode_focus_24@3x.png */; };
+		E5D815C52F729C3700A4822D /* focus_record_bind_task_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D815C12F729C3700A4822D /* focus_record_bind_task_24@3x.png */; };
+		E5D815C62F729C3700A4822D /* focus_record_bind_timer_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D815C22F729C3700A4822D /* focus_record_bind_timer_24@2x.png */; };
+		E5D815C72F729C3700A4822D /* focus_record_bind_timer_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D815C32F729C3700A4822D /* focus_record_bind_timer_24@3x.png */; };
+		E5D815C82F729C3700A4822D /* focus_record_bind_task_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D815C42F729C3700A4822D /* focus_record_bind_task_24@2x.png */; };
 		E5D833902DAB64D60012ABF3 /* todo_task_progress_targetValue_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D833822DAB64D60012ABF3 /* todo_task_progress_targetValue_24@3x.png */; };
 		E5D833912DAB64D60012ABF3 /* todo_task_progress_currentValue_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D833832DAB64D60012ABF3 /* todo_task_progress_currentValue_24@3x.png */; };
 		E5D833922DAB64D60012ABF3 /* todo_task_progress_targetValue_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D833842DAB64D60012ABF3 /* todo_task_progress_targetValue_24@2x.png */; };
@@ -3071,6 +3075,10 @@
 		E5D7D9822D43E34F00EC877A /* focus_timer_stepMode_break_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_stepMode_break_24@2x.png"; sourceTree = "<group>"; };
 		E5D7D9832D43E34F00EC877A /* focus_timer_stepMode_focus_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_stepMode_focus_24@2x.png"; sourceTree = "<group>"; };
 		E5D7D9842D43E34F00EC877A /* focus_timer_stepMode_focus_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_stepMode_focus_24@3x.png"; sourceTree = "<group>"; };
+		E5D815C12F729C3700A4822D /* focus_record_bind_task_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_bind_task_24@3x.png"; sourceTree = "<group>"; };
+		E5D815C22F729C3700A4822D /* focus_record_bind_timer_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_bind_timer_24@2x.png"; sourceTree = "<group>"; };
+		E5D815C32F729C3700A4822D /* focus_record_bind_timer_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_bind_timer_24@3x.png"; sourceTree = "<group>"; };
+		E5D815C42F729C3700A4822D /* focus_record_bind_task_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_bind_task_24@2x.png"; sourceTree = "<group>"; };
 		E5D833822DAB64D60012ABF3 /* todo_task_progress_targetValue_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_progress_targetValue_24@3x.png"; sourceTree = "<group>"; };
 		E5D833832DAB64D60012ABF3 /* todo_task_progress_currentValue_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_progress_currentValue_24@3x.png"; sourceTree = "<group>"; };
 		E5D833842DAB64D60012ABF3 /* todo_task_progress_targetValue_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_progress_targetValue_24@2x.png"; sourceTree = "<group>"; };
@@ -3534,6 +3542,7 @@
 		E50D94AE2D451C1800F57957 /* record */ = {
 			isa = PBXGroup;
 			children = (
+				E5D815C02F729C3700A4822D /* bind */,
 				E50D94E52D452DD700F57957 /* timeline */,
 				E50D94AF2D451C1800F57957 /* focus_record_add_24@2x.png */,
 				E50D94B02D451C1800F57957 /* focus_record_add_24@3x.png */,
@@ -3868,12 +3877,12 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
-		E51A4C302DC31C68005A0E3F /* Calendar */ = {
+		E51A4C302DC31C68005A0E3F /* calendar */ = {
 			isa = PBXGroup;
 			children = (
 				E51A4C312DC31C7A005A0E3F /* Mode */,
 			);
-			path = Calendar;
+			path = calendar;
 			sourceTree = "<group>";
 		};
 		E51A4C312DC31C7A005A0E3F /* Mode */ = {
@@ -5083,7 +5092,7 @@
 			isa = PBXGroup;
 			children = (
 				E59243D02F505A4F00CA2393 /* habit */,
-				E51A4C302DC31C68005A0E3F /* Calendar */,
+				E51A4C302DC31C68005A0E3F /* calendar */,
 				E55E77DF2D8A7151005E3DED /* quadrant */,
 				E5BBA10D2D3BFB4D0089667A /* launch */,
 				E5BB9A4D2D3BEF0D0089667A /* common */,
@@ -8307,6 +8316,17 @@
 			path = step;
 			sourceTree = "<group>";
 		};
+		E5D815C02F729C3700A4822D /* bind */ = {
+			isa = PBXGroup;
+			children = (
+				E5D815C12F729C3700A4822D /* focus_record_bind_task_24@3x.png */,
+				E5D815C22F729C3700A4822D /* focus_record_bind_timer_24@2x.png */,
+				E5D815C32F729C3700A4822D /* focus_record_bind_timer_24@3x.png */,
+				E5D815C42F729C3700A4822D /* focus_record_bind_task_24@2x.png */,
+			);
+			path = bind;
+			sourceTree = "<group>";
+		};
 		E5D833812DAB64D60012ABF3 /* progress */ = {
 			isa = PBXGroup;
 			children = (
@@ -8832,6 +8852,7 @@
 				E5D8339D2DAB64D60012ABF3 /* todo_task_progress_reset_24@3x.png in Resources */,
 				E55A7B7F2D45F873000D224C /* timer_next_circle_fill_32@3x.png in Resources */,
 				E5D7D9622D43DBE000EC877A /* focus_timer_countdown_32@3x.png in Resources */,
+				E5D815C62F729C3700A4822D /* focus_record_bind_timer_24@2x.png in Resources */,
 				E53F32CA2F699AC900B85B65 /* habit_report_notScheduled_20@3x.png in Resources */,
 				E5C18FBA2DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png in Resources */,
 				E5D7D9752D43E05700EC877A /* focus_running_screenAlwaysOnDisabled_24@2x.png in Resources */,
@@ -8847,6 +8868,7 @@
 				E52A4FDF2F62B9BF009EC01B /* habit_week_day_checkmark_40@3x.png in Resources */,
 				E547C7242F3DA2F00095918C /* focus_record_order_ascending_24@3x.png in Resources */,
 				E5BB9AC72D3BEF0D0089667A /* todo_task_date_24@3x.png in Resources */,
+				E5D815C82F729C3700A4822D /* focus_record_bind_task_24@2x.png in Resources */,
 				E5D7D9872D43E35000EC877A /* focus_timer_stepMode_focus_24@2x.png in Resources */,
 				E53F32C62F699AC900B85B65 /* habit_report_notScheduled_20@2x.png in Resources */,
 				E526D4102F6D76EA005C1DED /* habit_report_24@3x.png in Resources */,
@@ -8932,6 +8954,7 @@
 				E5BB9AA02D3BEF0D0089667A /* todo_task_record_negative_24@2x.png in Resources */,
 				E5BB9B362D3BEF920089667A /* star.png in Resources */,
 				E5CAA9692D700ABD00A0539C /* todo_task_quadrant_fill_24@3x.png in Resources */,
+				E5D815C52F729C3700A4822D /* focus_record_bind_task_24@3x.png in Resources */,
 				E55CE34C2D8BBFE50083316E /* quadrant_I_32@3x.png in Resources */,
 				E534800D2F604ACF00CFBF26 /* habit_status_completed_24@2x.png in Resources */,
 				E5BB9AC62D3BEF0D0089667A /* todo_task_progress_24@2x.png in Resources */,
@@ -9068,6 +9091,7 @@
 				E5BB9AB32D3BEF0D0089667A /* todo_task_note_24@2x.png in Resources */,
 				E5D833972DAB64D60012ABF3 /* todo_task_progress_recordType_24@2x.png in Resources */,
 				E556BCC12F5D6C7000CA20D9 /* habit_indicator_status_failed_16@3x.png in Resources */,
+				E5D815C72F729C3700A4822D /* focus_record_bind_timer_24@3x.png in Resources */,
 				E515AD622D3CC04A00AA9AF2 /* chevron_down_24@3x.png in Resources */,
 				E5D7D9662D43DBE000EC877A /* focus_timer_stopwatch_32@2x.png in Resources */,
 				E50D94BE2D451C1800F57957 /* placeholder_record_80@2x.png in Resources */,

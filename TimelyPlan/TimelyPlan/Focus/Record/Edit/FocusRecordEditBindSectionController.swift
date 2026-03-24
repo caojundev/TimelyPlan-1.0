@@ -12,6 +12,8 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
      
     var timer: FocusTimerRepresentable?
     
+    var task: TaskRepresentable?
+    
     var didSelectTimer: ((FocusTimerRepresentable?) -> Void)?
     
     var didSelectTask: ((TaskRepresentable?) -> Void)?
@@ -19,8 +21,10 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
     /// 计时器
     private lazy var timerCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPImageInfoTextValueTableCellItem()
-        cellItem.accessoryType = .disclosureIndicator
+        cellItem.imageContent = .withName("focus_record_bind_timer_24")
+        cellItem.imageConfig.size = .mini
         cellItem.title = resGetString("Timer")
+        cellItem.accessoryType = .disclosureIndicator
         cellItem.updater = {
             let info = self?.timerInfo()
             self?.timerCellItem.valueConfig = .valueText(info)
@@ -33,9 +37,35 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
         return cellItem
     }()
     
+    /// 任务
+    private lazy var taskCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem()
+        cellItem.imageContent = .withName("focus_record_bind_task_24")
+        cellItem.imageConfig.size = .mini
+        cellItem.title = resGetString("Task")
+        cellItem.accessoryType = .disclosureIndicator
+        cellItem.updater = {
+            var valueText: String?
+            if let task = self?.task {
+                valueText = task.name ?? resGetString("Untitled")
+            } else {
+                valueText = resGetString("None")
+            }
+            
+            self?.taskCellItem.valueConfig = .valueText(valueText)
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.selectTask()
+        }
+        
+        return cellItem
+    }()
+    
     override init() {
         super.init()
-        self.cellItems = [timerCellItem]
+        self.cellItems = [timerCellItem,
+                          taskCellItem]
     }
     
     /// 计时器信息
@@ -60,5 +90,13 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
         
         let navController = UINavigationController(rootViewController: timerPicker)
         navController.show()
+    }
+    
+    func selectTask() {
+        TaskPickerViewController.show(with: task, animated: true) { task in
+            self.task = task
+            self.adapter?.reloadCell(forItem: self.taskCellItem, with: .none)
+            self.didSelectTask?(task)
+        }
     }
 }

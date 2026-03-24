@@ -26,6 +26,7 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
     lazy var bindSectionController: FocusRecordEditBindSectionController = { [weak self] in
         let sectionController = FocusRecordEditBindSectionController()
         sectionController.timer = record.timer
+        sectionController.task = record.task
         sectionController.didSelectTimer = { timer in
             self?.record.timer = timer
         }

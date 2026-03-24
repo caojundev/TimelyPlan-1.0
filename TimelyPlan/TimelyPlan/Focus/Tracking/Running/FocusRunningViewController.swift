@@ -32,6 +32,9 @@ class FocusRunningViewController: TPViewController,
     /// 计时器绑定视图
     let timerNameView = FocusRunningTimerNameView()
 
+    /// 任务绑定视图
+    let taskBindView = TaskBindView()
+    
     /// 计时器操作视图
     lazy var actionView: FocusRunningActionView = {
         let view = FocusRunningActionView()
@@ -86,6 +89,7 @@ class FocusRunningViewController: TPViewController,
         view.addSubview(timerNameView)
         view.addSubview(topbar)
         view.addSubview(progressInfoView)
+        view.addSubview(taskBindView)
         view.addSubview(actionView)
         view.addSubview(holdToStopView)
         updateTimerName()
@@ -124,6 +128,11 @@ class FocusRunningViewController: TPViewController,
         progressInfoView.size = CGSize(width: 320.0, height: 320.0)
         progressInfoView.centerY = topbar.bottom + (actionView.top - topbar.bottom) / 2.0
         progressInfoView.alignHorizontalCenter()
+        
+        let bindViewSize = CGSize(width: 260.0, height: 40.0)
+        taskBindView.size = bindViewSize
+        taskBindView.centerY = progressInfoView.bottom + (actionView.top - progressInfoView.bottom) / 2.0
+        taskBindView.alignHorizontalCenter()
         
         let timerNameViewSize = CGSize(width: 260.0, height: 40.0)
         timerNameView.size = timerNameViewSize

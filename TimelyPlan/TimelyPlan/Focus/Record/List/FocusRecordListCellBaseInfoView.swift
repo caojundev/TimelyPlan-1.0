@@ -51,6 +51,13 @@ class FocusRecordListCellBaseInfoView: UIView {
         return view
     }()
     
+    /// 任务信息视图
+    lazy var taskInfoView: TPImageTitleView = {
+        let view = newInfoVIew()
+        view.image = resGetImage("bind_16")
+        return view
+    }()
+    
     /// 更多操作按钮
     lazy var moreButton: TPDefaultButton = {
         let button = TPDefaultButton.moreButton()
@@ -72,6 +79,7 @@ class FocusRecordListCellBaseInfoView: UIView {
     private func setupUI() {
         self.addSubview(dateRangeLabel)
         self.addSubview(timerInfoView)
+        self.addSubview(taskInfoView)
         self.addSubview(moreButton)
     }
     
@@ -99,6 +107,10 @@ class FocusRecordListCellBaseInfoView: UIView {
         timerInfoView.height = infoViewHeight
         timerInfoView.top = dateRangeLabel.bottom
         timerInfoView.left = layoutFrame.minX
+        
+        taskInfoView.size = timerInfoView.size
+        taskInfoView.top = timerInfoView.top
+        taskInfoView.left = timerInfoView.right
     }
     
     /// 点击更多按钮事件处理
@@ -122,6 +134,24 @@ class FocusRecordListCellBaseInfoView: UIView {
         }
         
         timerInfoView.title = title
+        
+        /// 任务信息
+        var taskName: String
+        if session.taskInfo != nil {
+            /// 绑定了任务
+            if let shotName = session.taskShotName {
+                taskName = shotName
+            } else {
+                taskName = resGetString("Untitled task")
+            }
+            
+            taskInfoView.title = taskName
+            taskInfoView.isHidden = false
+        } else {
+            /// 未绑定任务
+            taskInfoView.title = resGetString("No task linked")
+            taskInfoView.isHidden = true
+        }
     }
     
     // MARK: - Helpers

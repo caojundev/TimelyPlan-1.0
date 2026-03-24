@@ -17,6 +17,144 @@
 "Habit" = "习惯";
 "Settings" = "设置";
 
+///**************************Focus**************************///
+"Focusing" = "专注中";
+"Timer" = "计时器";
+"Break" = "休息";
+"Pomodoro" = "番茄钟";
+"Short Break" = "短休息";
+"Long Break" = "长休息";
+"Countdown" = "倒计时";
+"Stopwatch" = "正计时";
+"Counting from zero" = "从零累加";
+"Start Focus" = "开始专注";
+
+"Default Pomodoro" = "默认番茄钟";
+"Default Countdown" = "默认倒计时";
+"Default Stopwatch" = "默认正计时";
+
+/// 占位文本
+"Tap + to create a new timer" = "点击+创建新计时器";
+"No Focus Record" = "无专注记录";
+"No Archived Timer" = "无归档计时器";
+"No Timer" = "无计时器";
+
+/// 计时器
+"Unknown Timer" = "未知计时器";
+"New Timer" = "新建计时器";
+"Edit Timer" = "编辑计时器";
+"Delete Timer" = "删除计时器";
+"Select Timer" = "选择计时器";
+"Search Timer" = "搜索计时器";
+
+"Enter timer name" = "输入计时器名称";
+"Focus %@" = "专注%@";
+"Short Break %@" = "短休息%@";
+"Long Break %@" = "长休息%@";
+
+"Add Record" = "添加记录";
+"View Record" = "查看记录";
+"All Records" = "所有记录";
+"Move To Top" = "移到顶部";
+"Move To Bottom" = "移到底部";
+
+"Delete Record" = "删除记录";
+"Sure to delete this focus record?" = "确认删除该条专注记录吗？";
+
+/// 编辑步骤
+"Stepped" = "步骤";
+"New Step" = "新建步骤";
+"Edit Step" = "编辑步骤";
+"Enter step name" = "输入步骤名称";
+"No Step" = "无步骤";
+"%ld step" = "%ld步";
+"%ld steps" = "%ld步";
+"Focus for %@, the focus duration will be added to the record." = "专注%@，专注时长将添加至记录。";
+"Rest for %@, the rest duration will not be added to the record." = "休息%@，休息时长将不添加至记录。";
+
+/// 添加记录
+"Focus Records" = "专注记录";
+"Add Focus Record" = "添加专注记录";
+"Edit Focus Record" = "编辑专注记录";
+"Focus Rating" = "专注评分";
+"Tap or drag the slider to rate" = "轻点或拖动滑块来评分";
+"Start From" = "开始于";
+"Ended At" = "结束于";
+"Write down your thoughts" = "写下你的想法";
+"Add focus record successfully" = "成功添加专注记录";
+"Untitled task" = "未命名任务";
+"No task linked" = "未绑定任务";
+
+/// 统计
+"Focus Statistics" = "专注统计";
+"Average Score" = "平均得分";
+"Focus Times" = "专注次数";
+"Pause Times" = "暂停次数";
+"Focus Detail" = "专注详情";
+"By Timer" = "按计时器";
+"By Task" = "按任务";
+"Focus Grids" = "专注时间块";
+"Weekly Focus" = "周专注分布";
+"Monthly Focus" = "月专注分布";
+"Yearly Focus" = "年专注分布";
+"Focus Timeline" = "专注时间线";
+"Score Trends" = "评分趋势";
+"Most Focused Time" = "最佳专注时间";
+"5 minutes" = "5分钟";
+"History" = "历史记录";
+"No History" = "无历史记录";
+"Score" = "评分";
+"Focus Score" = "专注评分";
+"Focus duration" = "专注时长";
+"Focus days" = "专注天数";
+"Focus times" = "专注次数";
+"Total Duration" = "总专注时长";
+
+/// 运行计时器
+"Screen always on enabled" = "屏幕常亮已开启";
+"Screen always on disabled" = "屏幕常亮已关闭";
+"Hold To Stop" = "长按结束";
+
+/// 专注完成
+"Focus Duration" = "专注时长";
+"Focus Rate" = "专注率";
+"Pause Count" = "暂停次数";
+"Pause Duration" = "暂停时长";
+"Summary" = "概览";
+"Detail" = "详情";
+"Start from %@" = "开始于%@";
+"Ended at %@" = "结束于%@";
+"Save Focus Data" = "保存专注数据";
+
+"Discard" = "丢弃";
+"Discard data of this round" = "丢弃本轮数据";
+"Discard Focus Data" = "丢弃专注数据";
+"%ld focus records of this round will be discarded" = "本轮%ld条专注记录将被丢弃";
+"The focus record of this round will be discarded" = "本轮专注记录将被丢弃";
+"There is no focused record over %@ in this round." = "本轮无超过%@的专注记录";
+"%ld focus records added successfully" = "成功添加%ld条专注记录";
+"%ld focus record added successfully" = "成功添加%ld条专注记录";
+
+/// 专注设置
+"Focus Settings" = "专注设置";
+"Week Start on" = "周开始于";
+"Auto-Focus" = "自动专注";
+"After the break is over, start to focus automatically" = "休息结束后自动开始专注";
+"Auto-Break" = "自动休息";
+"After the focus is over, start to rest automatically" = "专注结束后自动开始休息";
+"Add New Timers On Top" = "添加新计时器到顶部";
+"Hide Next Button Of Floating Timer" = "隐藏浮动计时器下一步按钮";
+"Minimum Record Duration" = "最小记录时长";
+"Records with a focus duration of less than %@ will be discarded" = "专注时长小于%@的记录将被丢弃";
+"Adjust Step Duration" = "微调时长";
+"The amount of time the timer increases/decreases each time" = "计时器每次延长/缩短时长";
+"Maximum Duration" = "最大时长";
+"Stepped Timer" = "步骤计时器";
+"Auto Start Next Step" = "自动开始下一步";
+"Flip Clock" = "翻页时钟";
+"Auto Hide Hour" = "自动隐藏小时位";
+"Display only minute and second when the hour is zero" = "当小时位为0时仅显示分和秒";
+
 ///**************************习惯**************************///
 "By Day" = "按天";
 "By Week" = "按周";
@@ -164,12 +302,6 @@
 "Failed Score" = "失败评分";
 "Reset to Default" = "恢复默认";
 
-
-
-
-
-
-
 ///**********************四象限*********************///
 "Urgent & Important" = "重要且紧急";
 "Not Urgent & Important" = "重要不紧急";
@@ -207,7 +339,6 @@
 
 /// 日期
 "Between %@ and %@" = "%@到%@之间";
-
 "Relative" = "相对";
 "Anchor Date" = "锚点日期";
 "Offset" = "偏移";
@@ -226,6 +357,24 @@
 
 "Changes" = "变更";
 "From %ld To %ld • %ld" = "从%ld到%ld • %ld";
+
+
+///**********************设置*********************///
+"General" = "常规";
+"Haptic Feedback" = "触感反馈";
+"Week Start On" = "周开始于";
+
+
+
+
+
+
+
+
+
+
+
+
 
 ///**********************待办*********************///
 /// 进度
@@ -532,146 +681,6 @@
 "All done steps will be permanently deleted.Sure to delete?" = "所有已完成步骤将被永久删除。是否确认删除？";
 
 
-///**************************Focus**************************///
-"Focusing" = "专注中";
-"Timer" = "计时器";
-"Break" = "休息";
-"Pomodoro" = "番茄钟";
-"Short Break" = "短休息";
-"Long Break" = "长休息";
-"Countdown" = "倒计时";
-"Stopwatch" = "正计时";
-"Counting from zero" = "从零累加";
-"Start Focus" = "开始专注";
-
-"Default Pomodoro" = "默认番茄钟";
-"Default Countdown" = "默认倒计时";
-"Default Stopwatch" = "默认正计时";
-
-/// 占位文本
-"Tap + to create a new timer" = "点击+创建新计时器";
-"No Focus Record" = "无专注记录";
-"No Archived Timer" = "无归档计时器";
-"No Timer" = "无计时器";
-
-/// 计时器
-"Unknown Timer" = "未知计时器";
-"New Timer" = "新建计时器";
-"Edit Timer" = "编辑计时器";
-"Delete Timer" = "删除计时器";
-"Select Timer" = "选择计时器";
-"Search Timer" = "搜索计时器";
-
-"Enter timer name" = "输入计时器名称";
-"Focus %@" = "专注%@";
-"Short Break %@" = "短休息%@";
-"Long Break %@" = "长休息%@";
-
-"Add Record" = "添加记录";
-"View Record" = "查看记录";
-"All Records" = "所有记录";
-"Move To Top" = "移到顶部";
-"Move To Bottom" = "移到底部";
-
-"Delete Record" = "删除记录";
-"Sure to delete this focus record?" = "确认删除该条专注记录吗？";
-
-/// 编辑步骤
-"Stepped" = "步骤";
-"New Step" = "新建步骤";
-"Edit Step" = "编辑步骤";
-"Enter step name" = "输入步骤名称";
-"No Step" = "无步骤";
-"%ld step" = "%ld步";
-"%ld steps" = "%ld步";
-"Focus for %@, the focus duration will be added to the record." = "专注%@，专注时长将添加至记录。";
-"Rest for %@, the rest duration will not be added to the record." = "休息%@，休息时长将不添加至记录。";
-
-/// 添加记录
-"Focus Records" = "专注记录";
-"Add Focus Record" = "添加专注记录";
-"Edit Focus Record" = "编辑专注记录";
-"Focus Rating" = "专注评分";
-"Tap or drag the slider to rate" = "轻点或拖动滑块来评分";
-"Start From" = "开始于";
-"Ended At" = "结束于";
-"Write down your thoughts" = "写下你的想法";
-"Add focus record successfully" = "成功添加专注记录";
-
-/// 统计
-"Focus Statistics" = "专注统计";
-"Average Score" = "平均得分";
-"Focus Times" = "专注次数";
-"Pause Times" = "暂停次数";
-"Focus Detail" = "专注详情";
-"By Timer" = "按计时器";
-"By Task" = "按任务";
-"Focus Grids" = "专注时间块";
-"Weekly Focus" = "周专注分布";
-"Monthly Focus" = "月专注分布";
-"Yearly Focus" = "年专注分布";
-"Focus Timeline" = "专注时间线";
-"Score Trends" = "评分趋势";
-"Most Focused Time" = "最佳专注时间";
-"5 minutes" = "5分钟";
-"History" = "历史记录";
-"No History" = "无历史记录";
-"Score" = "评分";
-"Focus Score" = "专注评分";
-"Focus duration" = "专注时长";
-"Focus days" = "专注天数";
-"Focus times" = "专注次数";
-"Total Duration" = "总专注时长";
-
-/// 运行计时器
-"Screen always on enabled" = "屏幕常亮已开启";
-"Screen always on disabled" = "屏幕常亮已关闭";
-"Hold To Stop" = "长按结束";
-
-/// 专注完成
-"Focus Duration" = "专注时长";
-"Focus Rate" = "专注率";
-"Pause Count" = "暂停次数";
-"Pause Duration" = "暂停时长";
-"Summary" = "概览";
-"Detail" = "详情";
-"Start from %@" = "开始于%@";
-"Ended at %@" = "结束于%@";
-"Save Focus Data" = "保存专注数据";
-
-"Discard" = "丢弃";
-"Discard data of this round" = "丢弃本轮数据";
-"Discard Focus Data" = "丢弃专注数据";
-"%ld focus records of this round will be discarded" = "本轮%ld条专注记录将被丢弃";
-"The focus record of this round will be discarded" = "本轮专注记录将被丢弃";
-"There is no focused record over %@ in this round." = "本轮无超过%@的专注记录";
-"%ld focus records added successfully" = "成功添加%ld条专注记录";
-"%ld focus record added successfully" = "成功添加%ld条专注记录";
-
-/// 专注设置
-"Focus Settings" = "专注设置";
-"Week Start on" = "周开始于";
-"Auto-Focus" = "自动专注";
-"After the break is over, start to focus automatically" = "休息结束后自动开始专注";
-"Auto-Break" = "自动休息";
-"After the focus is over, start to rest automatically" = "专注结束后自动开始休息";
-"Add New Timers On Top" = "添加新计时器到顶部";
-"Hide Next Button Of Floating Timer" = "隐藏浮动计时器下一步按钮";
-"Minimum Record Duration" = "最小记录时长";
-"Records with a focus duration of less than %@ will be discarded" = "专注时长小于%@的记录将被丢弃";
-"Adjust Step Duration" = "微调时长";
-"The amount of time the timer increases/decreases each time" = "计时器每次延长/缩短时长";
-"Maximum Duration" = "最大时长";
-"Stepped Timer" = "步骤计时器";
-"Auto Start Next Step" = "自动开始下一步";
-"Flip Clock" = "翻页时钟";
-"Auto Hide Hour" = "自动隐藏小时位";
-"Display only minute and second when the hour is zero" = "当小时位为0时仅显示分和秒";
-
-
-
-
-
 
 
 
@@ -806,30 +815,6 @@
 "Edit Fail Tag" = "编辑失败标签";
 "Enter Fail Reason" = "输入失败原因";
 
-/// 设置
-"General" = "常规";
-"Haptic Feedback" = "触感反馈";
-"Week Start On" = "周开始于";
-
-/// 单位
-"Units" = "单位";
-"New Unit" = "新单位";
-"Edit Unit" = "编辑单位";
-"No Unit" = "无单位";
-"Count" = "次";
-"Cup" = "杯";
-"Page" = "页";
-"Line" = "行";
-
-
-
-
-"Delete Habit" = "删除习惯";
-
-/// 图标编辑
-"Icon" = "图标";
-"Select An Icon" = "选择图标";
-"Input Character" = "输入字符";
 
 /// 任务编辑
 "Fill in the name" = "输入名称";
