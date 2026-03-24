@@ -1090,7 +1090,7 @@
 		E5BB9F252D3BF2C20089667A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9F1E2D3BF2C10089667A /* AppDelegate.swift */; };
 		E5BB9F262D3BF2C20089667A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9F1F2D3BF2C10089667A /* SceneDelegate.swift */; };
 		E5BB9F382D3BF4330089667A /* TaskRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9F292D3BF4330089667A /* TaskRepresentable.swift */; };
-		E5BB9F3B2D3BF4330089667A /* TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9F2F2D3BF4330089667A /* TaskInfo.swift */; };
+		E5BB9F3B2D3BF4330089667A /* TaskFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9F2F2D3BF4330089667A /* TaskFeature.swift */; };
 		E5BB9F462D3BF45F0089667A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9F402D3BF45F0089667A /* MainViewController.swift */; };
 		E5BB9F472D3BF45F0089667A /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9F422D3BF45F0089667A /* SideMenuViewController.swift */; };
 		E5BB9F482D3BF45F0089667A /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9F432D3BF45F0089667A /* SideMenuCell.swift */; };
@@ -2699,7 +2699,7 @@
 		E5BB9F1E2D3BF2C10089667A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5BB9F1F2D3BF2C10089667A /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E5BB9F292D3BF4330089667A /* TaskRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskRepresentable.swift; sourceTree = "<group>"; };
-		E5BB9F2F2D3BF4330089667A /* TaskInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskInfo.swift; sourceTree = "<group>"; };
+		E5BB9F2F2D3BF4330089667A /* TaskFeature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskFeature.swift; sourceTree = "<group>"; };
 		E5BB9F402D3BF45F0089667A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E5BB9F422D3BF45F0089667A /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		E5BB9F432D3BF45F0089667A /* SideMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
@@ -6934,7 +6934,7 @@
 			isa = PBXGroup;
 			children = (
 				E5BB9F292D3BF4330089667A /* TaskRepresentable.swift */,
-				E5BB9F2F2D3BF4330089667A /* TaskInfo.swift */,
+				E5BB9F2F2D3BF4330089667A /* TaskFeature.swift */,
 				E5BBA0EB2D3BF5BB0089667A /* Bind */,
 			);
 			path = Task;
@@ -9920,7 +9920,7 @@
 				E5BB9EB92D3BF0C80089667A /* TPCountPickerView.swift in Sources */,
 				E5FC6BDB2F6828AA00D5A5EA /* HabitStatusPieChartSectionController.swift in Sources */,
 				E5BB9F252D3BF2C20089667A /* AppDelegate.swift in Sources */,
-				E5BB9F3B2D3BF4330089667A /* TaskInfo.swift in Sources */,
+				E5BB9F3B2D3BF4330089667A /* TaskFeature.swift in Sources */,
 				E5BB9DF92D3BF0C60089667A /* NSString+Diffable.swift in Sources */,
 				E5BBA0DA2D3BF4A50089667A /* TodoGroupTypeMenuController.swift in Sources */,
 				E53480132F605B6300CFBF26 /* HabitTaskFilterButton.swift in Sources */,

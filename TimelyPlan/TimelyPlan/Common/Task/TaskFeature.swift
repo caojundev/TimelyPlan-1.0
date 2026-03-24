@@ -1,5 +1,5 @@
 //
-//  TaskInfo.swift
+//  TaskFeature.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/11/1.
@@ -23,7 +23,7 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
 }
 
 /// 任务信息
-struct TaskInfo: Codable, Hashable, Equatable {
+struct TaskFeature: Codable, Hashable, Equatable {
     
     /// 类型
     var type: TaskType
@@ -41,8 +41,8 @@ struct TaskInfo: Codable, Hashable, Equatable {
         hasher.combine(snapshotName)
     }
     
-    static var none: TaskInfo {
-        return TaskInfo(type: .none,
+    static var none: TaskFeature {
+        return TaskFeature(type: .none,
                         identifier: TaskType.none.title,
                         snapshotName: nil)
     }

@@ -11,10 +11,10 @@ import UIKit
 class TaskBindView: UIView {
     
     /// 当前任务改变
-    var didPickTask: ((TaskInfo?) -> Void)?
+    var didPickTask: ((TaskFeature?) -> Void)?
     
     /// 当前任务
-    var taskFeature: TaskInfo? {
+    var taskFeature: TaskFeature? {
         didSet {
             updateTaskName(animated: true)
         }

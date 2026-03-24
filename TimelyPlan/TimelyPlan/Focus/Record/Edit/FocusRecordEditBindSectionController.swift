@@ -12,11 +12,11 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
      
     var timerFeature: TimerFeature?
     
-    var taskFeature: TaskInfo?
+    var taskFeature: TaskFeature?
     
     var didSelectTimer: ((TimerFeature?) -> Void)?
     
-    var didSelectTask: ((TaskInfo?) -> Void)?
+    var didSelectTask: ((TaskFeature?) -> Void)?
    
     /// 计时器
     private lazy var timerCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in

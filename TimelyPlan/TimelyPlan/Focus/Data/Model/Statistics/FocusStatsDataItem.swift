@@ -341,7 +341,7 @@ extension FocusStatsDataItem {
     func taskDurationPieSlices() -> [PieSlice] {
         guard let sessions = sessions else { return [] }
         
-        var dic = [TaskInfo: [FocusSession]]()
+        var dic = [TaskFeature: [FocusSession]]()
         for session in sessions {
             let taskInfo = session.taskFeature ?? .none
             var sessions = dic[taskInfo] ?? []

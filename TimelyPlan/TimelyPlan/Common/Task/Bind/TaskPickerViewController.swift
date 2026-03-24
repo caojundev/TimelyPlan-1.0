@@ -52,7 +52,7 @@ class TaskPickerViewController: TPViewController {
     }
     
     // MARK: - Class Methods
-    class func show(with taskFeature: TaskInfo?, animated: Bool, completion: ((TaskInfo?) -> Void)?) {
+    class func show(with taskFeature: TaskFeature?, animated: Bool, completion: ((TaskFeature?) -> Void)?) {
         let vc = TaskPickerViewController(task: nil)
 //        vc.didSelectTask = { selectedTask in
 //            if selectedTask === task {

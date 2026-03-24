@@ -19,7 +19,7 @@ protocol TaskRepresentable: NSObjectProtocol, ListDiffable {
     var summary: String? { get }
     
     /// 获取任务信息
-    var info: TaskInfo { get }
+    var info: TaskFeature { get }
 }
 
 extension TaskRepresentable {

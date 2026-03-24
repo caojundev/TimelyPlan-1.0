@@ -36,7 +36,7 @@ class FocusEvent: Codable {
     var steps: [FocusStep]?
     
     /// 专注任务信息
-    var taskInfo: TaskInfo?
+    var taskInfo: TaskFeature?
     
     /// 计时器特征属性
     var timerFeature: TimerFeature?

@@ -27,10 +27,10 @@ extension FocusSession {
     }
     
     /// 获取会话对应的任务信息
-    var taskFeature: TaskInfo? {
+    var taskFeature: TaskFeature? {
         if let taskID = taskID,
             let type = TaskType(rawValue: Int(taskType)) {
-            return TaskInfo(type: type,
+            return TaskFeature(type: type,
                             identifier: taskID,
                             snapshotName: self.taskSnapshotName)
         }

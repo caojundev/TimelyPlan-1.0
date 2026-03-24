@@ -26,11 +26,11 @@ class FocusRecord {
     var timerFeature: TimerFeature?
     
     /// 绑定的任务
-    var taskFeature: TaskInfo?
+    var taskFeature: TaskFeature?
     
     init() {}
     
-    init(timerFeature: TimerFeature?, taskFeature: TaskInfo?) {
+    init(timerFeature: TimerFeature?, taskFeature: TaskFeature?) {
         self.timerFeature = timerFeature
         self.taskFeature = taskFeature
     }
