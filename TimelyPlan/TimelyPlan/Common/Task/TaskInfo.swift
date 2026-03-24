@@ -31,14 +31,20 @@ struct TaskInfo: Codable, Hashable, Equatable {
     /// 标识
     var identifier: String
   
+    /// 快照名称
+    var snapshotName: String?
+    
     /// 提供自定义的哈希值计算
     func hash(into hasher: inout Hasher) {
         hasher.combine(type)
         hasher.combine(identifier)
+        hasher.combine(snapshotName)
     }
     
     static var none: TaskInfo {
-        return TaskInfo(type: .none, identifier: TaskType.none.title)
+        return TaskInfo(type: .none,
+                        identifier: TaskType.none.title,
+                        snapshotName: nil)
     }
     
     var task: TaskRepresentable? {

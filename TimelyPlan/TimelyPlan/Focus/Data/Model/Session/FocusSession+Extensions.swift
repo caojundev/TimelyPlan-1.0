@@ -12,18 +12,27 @@ extension FocusSession {
 
     /// 会话显示颜色
     var color: UIColor {
-        return timer?.timerColor ?? kFocusSessionDefaultColor
-    }
-    
-    /// 会话计时器
-    var timer: FocusTimerRepresentable? {
-        return timerFeature?.timer
+        return timerFeature?.color ?? kFocusSessionDefaultColor
     }
     
     /// 获取会话对应的计时器信息
     var timerFeature: TimerFeature? {
-        if let timerID = timerID {
-            return TimerFeature(identifier: timerID)
+        if let timerID = self.timerID {
+            return TimerFeature(identifier: timerID,
+                                snapshotName: self.timerSnapshotName,
+                                snapshotColorHex: self.timerSnapshotColorHex)
+        }
+        
+        return nil
+    }
+    
+    /// 获取会话对应的任务信息
+    var taskFeature: TaskInfo? {
+        if let taskID = taskID,
+            let type = TaskType(rawValue: Int(taskType)) {
+            return TaskInfo(type: type,
+                            identifier: taskID,
+                            snapshotName: self.taskSnapshotName)
         }
         
         return nil
@@ -34,8 +43,8 @@ extension FocusSession {
         record.timeline = self.recordTimeline
         record.score = Int(self.score)
         record.note = self.note
-        record.timer = self.timerFeature?.timer
-        record.task = self.taskInfo?.task
+        record.timerFeature = self.timerFeature
+        record.taskFeature = self.taskFeature
         return record
     }
     
@@ -56,8 +65,8 @@ extension FocusSession {
         if self.recordTimeline == record.timeline &&
             self.score == record.score &&
             self.note == record.note &&
-            self.timerFeature == record.timer?.feature &&
-            self.taskInfo == record.task?.info {
+            self.timerFeature == record.timerFeature &&
+            self.taskFeature == record.taskFeature {
             return true
         }
             
@@ -77,14 +86,5 @@ extension FocusSession {
     func attributedDateRangeString() -> ASAttributedString? {
         let dateRange = DateRange(startDate: startDate, endDate: endDate)
         return dateRange.attributedTimeRange()
-    }
-    
-    /// 获取会话对应的任务信息
-    var taskInfo: TaskInfo? {
-        if let taskID = taskID, let type = TaskType(rawValue: Int(taskType)) {
-            return TaskInfo(type: type, identifier: taskID)
-        }
-        
-        return nil
     }
 }

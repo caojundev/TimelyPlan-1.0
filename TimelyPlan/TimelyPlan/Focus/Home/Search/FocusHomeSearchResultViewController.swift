@@ -16,8 +16,8 @@ class FocusHomeSearchResultViewController: FocusTimerSearchResultViewController 
         }
     }
     
-    override init(timer: FocusTimer? = nil) {
-        super.init(timer: timer)
+    override init(selectedTimerID: String? = nil) {
+        super.init(selectedTimerID: selectedTimerID)
         self.resultSectionController = FocusHomeSearchResultSectionController()
         self.resultSectionController.delegate = self
         self.resultSectionController.layout.preferredItemWidth = kFocusTimerListContentMaxWidth

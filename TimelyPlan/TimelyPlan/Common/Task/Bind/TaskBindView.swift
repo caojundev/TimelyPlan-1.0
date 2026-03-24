@@ -11,10 +11,10 @@ import UIKit
 class TaskBindView: UIView {
     
     /// 当前任务改变
-    var didPickTask: ((TaskRepresentable?) -> Void)?
+    var didPickTask: ((TaskInfo?) -> Void)?
     
     /// 当前任务
-    var task: TaskRepresentable? {
+    var taskFeature: TaskInfo? {
         didSet {
             updateTaskName(animated: true)
         }
@@ -56,8 +56,8 @@ class TaskBindView: UIView {
     
     /// 更新任务名称
     private func updateTaskName(animated: Bool) {
-        if let task = task {
-            let name = task.name ?? resGetString("Untitled")
+        if let taskFeature = taskFeature {
+            let name = taskFeature.snapshotName ?? resGetString("Untitled")
             taskButton.title = name
         } else {
             taskButton.title = resGetString("Select Task")
@@ -73,9 +73,9 @@ class TaskBindView: UIView {
     /// 点击任务
     @objc func didClickTask(_ button: UIButton) {
         TPImpactFeedback.impactWithLightStyle()
-        TaskPickerViewController.show(with: task, animated: true) { task in
-            self.task = task
-            self.didPickTask?(task)
+        TaskPickerViewController.show(with: taskFeature, animated: true) { feature in
+            self.taskFeature = feature
+            self.didPickTask?(feature)
         }
     }
     

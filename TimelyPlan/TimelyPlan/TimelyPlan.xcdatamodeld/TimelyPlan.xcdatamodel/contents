@@ -10,9 +10,11 @@
         <attribute name="score" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="taskID" optional="YES" attributeType="String"/>
-        <attribute name="taskShotName" optional="YES" attributeType="String"/>
+        <attribute name="taskSnapshotName" optional="YES" attributeType="String"/>
         <attribute name="taskType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timerID" optional="YES" attributeType="String"/>
+        <attribute name="timerSnapshotColorHex" optional="YES" attributeType="String"/>
+        <attribute name="timerSnapshotName" optional="YES" attributeType="String"/>
     </entity>
     <entity name="CDFocusTimer" representedClassName="CDFocusTimer" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
@@ -152,7 +154,7 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoTag" inverseName="tasks" inverseEntity="TodoTag"/>
     </entity>
     <elements>
-        <element name="CDFocusSession" positionX="27" positionY="189" width="128" height="209"/>
+        <element name="CDFocusSession" positionX="27" positionY="189" width="128" height="239"/>
         <element name="CDFocusTimer" positionX="18" positionY="180" width="128" height="164"/>
         <element name="CDHabitRecord" positionX="18" positionY="180" width="128" height="164"/>
         <element name="CDHabitSample" positionX="27" positionY="189" width="128" height="74"/>

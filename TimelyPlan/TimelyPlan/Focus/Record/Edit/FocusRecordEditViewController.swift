@@ -25,14 +25,14 @@ class FocusRecordEditViewController: TPTableSectionsViewController {
     /// 绑定计时器和任务
     lazy var bindSectionController: FocusRecordEditBindSectionController = { [weak self] in
         let sectionController = FocusRecordEditBindSectionController()
-        sectionController.timer = record.timer
-        sectionController.task = record.task
-        sectionController.didSelectTimer = { timer in
-            self?.record.timer = timer
+        sectionController.timerFeature = record.timerFeature
+        sectionController.taskFeature = record.taskFeature
+        sectionController.didSelectTimer = { feature in
+            self?.record.timerFeature = feature
         }
         
-        sectionController.didSelectTask = { task in
-            self?.record.task = task
+        sectionController.didSelectTask = { feature in
+            self?.record.taskFeature = feature
         }
         
         return sectionController

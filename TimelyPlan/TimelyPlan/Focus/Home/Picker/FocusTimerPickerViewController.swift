@@ -13,8 +13,8 @@ class FocusTimerPickerViewController: TPContainerViewController,
     /// 选中列表回调
     var didPickTimer: ((FocusTimerRepresentable?) -> Void)?
 
-    /// 当前列表
-    var selectedTimer: FocusTimerRepresentable?
+    /// 当前选中计时器标识
+    var selectedTimerID: String?
 
     /// 列表搜索控制器
     lazy var searchController: UISearchController = {
@@ -30,10 +30,10 @@ class FocusTimerPickerViewController: TPContainerViewController,
 
     var selectViewController: FocusTimerSelectViewController!
     
-    init(timer: FocusTimerRepresentable? = nil) {
-        self.selectedTimer = timer
+    init(selectedTimerID: String? = nil) {
+        self.selectedTimerID = selectedTimerID
         super.init(nibName: nil, bundle: nil)
-        self.selectViewController = FocusTimerSelectViewController(timer: timer)
+        self.selectViewController = FocusTimerSelectViewController(selectedTimerID: selectedTimerID)
         self.selectViewController.didSelectTimer = { [weak self] timer in
             self?.selectTimer(timer)
         }
@@ -63,7 +63,7 @@ class FocusTimerPickerViewController: TPContainerViewController,
     /// 选中列表
     private func selectTimer(_ timer: FocusTimerRepresentable?) {
         TPImpactFeedback.impactWithSoftStyle()
-        self.selectedTimer = timer
+        self.selectedTimerID = timer?.identifier
         self.didPickTimer?(timer)
         if let presentingVC = self.presentingViewController {
             presentingVC.dismiss(animated: true, completion: nil)
@@ -74,8 +74,7 @@ class FocusTimerPickerViewController: TPContainerViewController,
     
     // MARK: - UISearchControllerDelegate
     func willPresentSearchController(_ searchController: UISearchController) {
-        let selectedTimer = self.selectedTimer as? FocusTimer
-        let resultVC = FocusTimerSearchResultViewController(timer: selectedTimer)
+        let resultVC = FocusTimerSearchResultViewController(selectedTimerID: self.selectedTimerID)
         /// 不限制单元格宽度
         resultVC.preferredItemWidth = .greatestFiniteMagnitude
         resultVC.didSelectTimer = { timer in
@@ -93,7 +92,9 @@ class FocusTimerPickerViewController: TPContainerViewController,
     
     // MARK: - Class Methods
     class func show(with timer: FocusTimerRepresentable?, completion: ((FocusTimerRepresentable?) -> Void)?) {
-        let vc = FocusTimerPickerViewController(timer: timer)
+        
+        let selectedTimerID = timer?.identifier
+        let vc = FocusTimerPickerViewController(selectedTimerID: selectedTimerID)
         vc.didPickTimer = { selectedTimer in
             if selectedTimer === timer {
                 return

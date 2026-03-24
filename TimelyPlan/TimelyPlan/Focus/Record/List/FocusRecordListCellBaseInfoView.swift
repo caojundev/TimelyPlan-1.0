@@ -125,27 +125,15 @@ class FocusRecordListCellBaseInfoView: UIView {
         dateRangeLabel.attributed.text = session.attributedDateRangeString()
         
         /// 计时器信息
-        let timer = session.timer
-        let title: TextRepresentable
-        if let timerInfo = timer?.timerInfo {
-            title = timerInfo
+        if let feature = session.timerFeature {
+            timerInfoView.title = feature.timerInfo
         } else {
-            title = resGetString("Unknown Timer")
+            timerInfoView.title = resGetString("Unknown Timer")
         }
         
-        timerInfoView.title = title
-        
         /// 任务信息
-        var taskName: String
-        if session.taskInfo != nil {
-            /// 绑定了任务
-            if let shotName = session.taskShotName {
-                taskName = shotName
-            } else {
-                taskName = resGetString("Untitled task")
-            }
-            
-            taskInfoView.title = taskName
+        if let feature = session.taskFeature{
+            taskInfoView.title = feature.snapshotName ?? resGetString("Untitled task")
             taskInfoView.isHidden = false
         } else {
             /// 未绑定任务

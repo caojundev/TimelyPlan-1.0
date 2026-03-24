@@ -343,7 +343,7 @@ extension FocusStatsDataItem {
         
         var dic = [TaskInfo: [FocusSession]]()
         for session in sessions {
-            let taskInfo = session.taskInfo ?? .none
+            let taskInfo = session.taskFeature ?? .none
             var sessions = dic[taskInfo] ?? []
             sessions.append(session)
             dic[taskInfo] = sessions
@@ -377,13 +377,7 @@ extension FocusStatsDataItem {
         var infos = [(name: String?, duration: Duration)]()
         for (feature, value) in dic {
             let duration = value.duration
-            var timerName: String?
-            if let timer = feature.timer {
-                timerName = timer.name
-            } else {
-                timerName = resGetString("Unknown Timer")
-            }
-
+            let timerName = feature.snapshotName ?? resGetString("Unknown Timer")
             infos.append((timerName, duration))
             totalDuration += duration
         }

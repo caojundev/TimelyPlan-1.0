@@ -65,8 +65,7 @@ class FocusSystemTimer: NSObject, FocusTimerRepresentable {
     }
     
     var timerInfo: TextRepresentable? {
-        let attributedInfo: ASAttributedString = "\("●", .foreground(timerColor)) \(timerType.title)"
-        return attributedInfo
+        return feature?.timerInfo
     }
     
     var timerConfig: FocusTimerConfig? {
@@ -91,7 +90,9 @@ class FocusSystemTimer: NSObject, FocusTimerRepresentable {
     
     /// 获取默认计时器特征
     var feature: TimerFeature? {
-        return TimerFeature(identifier: identifier)
+        return TimerFeature(identifier: self.identifier,
+                            snapshotName: self.name,
+                            snapshotColorHex: self.timerColor.hexString)
     }
 
     /// 获取计时器特征对应的计时器类型

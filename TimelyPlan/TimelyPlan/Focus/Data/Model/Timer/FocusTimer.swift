@@ -94,7 +94,9 @@ extension FocusTimer: FocusTimerRepresentable {
     
     /// 获取计时器特征
     var feature: TimerFeature? {
-        return TimerFeature(identifier: identifier)
+        return TimerFeature(identifier: self.identifier,
+                            snapshotName: self.name,
+                            snapshotColorHex: self.color.hexString)
     }
     
     var timerColor: UIColor {

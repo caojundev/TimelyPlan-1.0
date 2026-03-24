@@ -10,7 +10,7 @@ import Foundation
 class FocusTimerSelectViewController: TPCollectionSectionsViewController,
                                       TPCollectionSectionControllerDelegate {
     
-    var selectedTimer: FocusTimerRepresentable?
+    var selectedTimerID: String?
     
     var didSelectTimer: ((FocusTimerRepresentable) -> Void)?
     
@@ -40,9 +40,9 @@ class FocusTimerSelectViewController: TPCollectionSectionsViewController,
         return sectionController
     }()
     
-    init(timer: FocusTimerRepresentable? = nil) {
+    init(selectedTimerID: String? = nil) {
         super.init(nibName: nil, bundle: nil)
-        self.selectedTimer = timer
+        self.selectedTimerID = selectedTimerID
     }
     
     required init?(coder: NSCoder) {
@@ -69,17 +69,17 @@ class FocusTimerSelectViewController: TPCollectionSectionsViewController,
             return
         }
         
-        selectedTimer = timer
+        self.selectedTimerID = timer.identifier
         adapter.updateCheckmarks()
         didSelectTimer?(timer)
     }
     
     func collectionSectionController(_ sectionController: TPCollectionBaseSectionController, shouldShowCheckmarkForItemAt index: Int) -> Bool {
-        guard let selectedTimer = selectedTimer,
+        guard let selectedTimerID = self.selectedTimerID,
               let timer = sectionController.item(at: index) as? FocusTimerRepresentable else {
             return false
         }
         
-        return timer.isSame(as: selectedTimer)
+        return timer.identifier == selectedTimerID
     }
 }

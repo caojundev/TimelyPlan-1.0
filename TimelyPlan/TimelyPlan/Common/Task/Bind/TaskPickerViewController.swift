@@ -52,16 +52,16 @@ class TaskPickerViewController: TPViewController {
     }
     
     // MARK: - Class Methods
-    class func show(with task: TaskRepresentable?, animated: Bool, completion: ((TaskRepresentable?) -> Void)?) {
-        let vc = TaskPickerViewController(task: task)
-        vc.didSelectTask = { selectedTask in
-            if selectedTask === task {
-                return
-            }
-            
-            completion?(selectedTask)
-        }
-        
+    class func show(with taskFeature: TaskInfo?, animated: Bool, completion: ((TaskInfo?) -> Void)?) {
+        let vc = TaskPickerViewController(task: nil)
+//        vc.didSelectTask = { selectedTask in
+//            if selectedTask === task {
+//                return
+//            }
+//            
+//            completion?(selectedTask)
+//        }
+//        
         let navController = UINavigationController(rootViewController: vc)
         navController.modalPresentationStyle = .formSheet
         navController.show(animated: animated)

@@ -14,8 +14,24 @@ struct TimerFeature: Codable, Hashable, Equatable {
     /// 标识
     var identifier: String
   
+    /// 快照名称
+    var snapshotName: String?
+    
+    /// 快照颜色十六进制字符串
+    var snapshotColorHex: String?
+    
+    /// 颜色
+    var color: UIColor? {
+        if let colorHex = snapshotColorHex {
+            return UIColor(RGBString: colorHex)
+        }
+        
+        return nil
+    }
+    
     /// 表示未知特征信息
     static var noneIdentifier = "None"
+    
     static var none: TimerFeature {
         return TimerFeature(identifier: noneIdentifier)
     }
@@ -33,11 +49,13 @@ struct TimerFeature: Codable, Hashable, Equatable {
         return !isDefaultTimer
     }
     
-    /// 获取特征信息对应计时器
-    var timer: FocusTimerRepresentable? {
-        return focus.getTimer(withFeature: self)
+    var timerInfo: TextRepresentable? {
+        let color = color ?? .lightGray
+        let name = snapshotName ?? resGetString("Unknown Timer")
+        let attributedInfo: ASAttributedString = "\("●", .foreground(color)) \(name)"
+        return attributedInfo
     }
-    
+
     /// 提供自定义的哈希值计算
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)

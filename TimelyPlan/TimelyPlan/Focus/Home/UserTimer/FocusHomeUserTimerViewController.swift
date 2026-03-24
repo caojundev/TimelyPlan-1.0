@@ -169,14 +169,6 @@ class FocusHomeUserTimerViewController: TPViewController,
         
         let message = String(format: format, sessions.count)
         TPFeedbackQueue.common.postFeedback(text: message, position: .top)
-        
-        if sessions.count == 1,
-            let session = sessions.first,
-            session.isManual {
-            if isDisplaying, let timer = session.timer as? FocusTimer {
-                revealTimer(timer)
-            }
-        }
     }
     
     func didUpdateFocusSession(_ session: FocusSession) {

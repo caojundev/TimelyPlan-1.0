@@ -1,5 +1,5 @@
 //
-//  FocusRunningTimerFeatureView.swift
+//  FocusRunningTimerNameView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/11/9.

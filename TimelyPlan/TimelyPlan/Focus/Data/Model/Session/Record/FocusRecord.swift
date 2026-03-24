@@ -23,20 +23,20 @@ class FocusRecord {
     var note: String?
     
     /// 绑定的计时器
-    var timer: FocusTimerRepresentable?
+    var timerFeature: TimerFeature?
     
     /// 绑定的任务
-    var task: TaskRepresentable?
+    var taskFeature: TaskInfo?
     
     init() {}
     
-    init(timer: FocusTimerRepresentable?, task: TaskRepresentable?) {
-        self.timer = timer
-        self.task = task
+    init(timerFeature: TimerFeature?, taskFeature: TaskInfo?) {
+        self.timerFeature = timerFeature
+        self.taskFeature = taskFeature
     }
     
-    init(timer: FocusTimerRepresentable?, timeline: FocusRecordTimeline) {
-        self.timer = timer
+    init(timerFeature: TimerFeature?, timeline: FocusRecordTimeline) {
+        self.timerFeature = timerFeature
         self.timeline = timeline
     }
 }

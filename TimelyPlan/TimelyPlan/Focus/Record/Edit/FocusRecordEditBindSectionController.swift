@@ -10,13 +10,13 @@ import UIKit
 
 class FocusRecordEditBindSectionController: TPTableItemSectionController {
      
-    var timer: FocusTimerRepresentable?
+    var timerFeature: TimerFeature?
     
-    var task: TaskRepresentable?
+    var taskFeature: TaskInfo?
     
-    var didSelectTimer: ((FocusTimerRepresentable?) -> Void)?
+    var didSelectTimer: ((TimerFeature?) -> Void)?
     
-    var didSelectTask: ((TaskRepresentable?) -> Void)?
+    var didSelectTask: ((TaskInfo?) -> Void)?
    
     /// 计时器
     private lazy var timerCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
@@ -46,12 +46,12 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
         cellItem.accessoryType = .disclosureIndicator
         cellItem.updater = {
             var valueText: String?
-            if let task = self?.task {
-                valueText = task.name ?? resGetString("Untitled")
+            if let taskFeature = self?.taskFeature {
+                valueText = taskFeature.snapshotName ?? resGetString("Untitled")
             } else {
                 valueText = resGetString("None")
             }
-            
+
             self?.taskCellItem.valueConfig = .valueText(valueText)
         }
         
@@ -70,22 +70,22 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
     
     /// 计时器信息
     private func timerInfo() -> TextRepresentable? {
-        guard let timer = timer else {
+        guard let timerFeature = timerFeature else {
             return resGetString("None")
         }
 
-        let timerName = timer.name ?? resGetString("Untitled")
-        let attributedInfo: ASAttributedString = "\("●", .foreground(timer.timerColor)) \(timerName)"
-        return attributedInfo
+        return timerFeature.timerInfo
     }
     
     // MARK: - Handler
     func selectTimer() {
-         let timerPicker = FocusTimerPickerViewController(timer: self.timer)
+        let selectedTimerID = self.timerFeature?.identifier
+        let timerPicker = FocusTimerPickerViewController(selectedTimerID: selectedTimerID)
         timerPicker.didPickTimer = { timer in
-            self.timer = timer
+            let feature = timer?.feature
+            self.timerFeature = feature
             self.adapter?.reloadCell(forItem: self.timerCellItem, with: .none)
-            self.didSelectTimer?(timer)
+            self.didSelectTimer?(feature)
         }
         
         let navController = UINavigationController(rootViewController: timerPicker)
@@ -93,10 +93,10 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
     }
     
     func selectTask() {
-        TaskPickerViewController.show(with: task, animated: true) { task in
-            self.task = task
+        TaskPickerViewController.show(with: taskFeature, animated: true) { taskFeature in
+            self.taskFeature = taskFeature
             self.adapter?.reloadCell(forItem: self.taskCellItem, with: .none)
-            self.didSelectTask?(task)
+            self.didSelectTask?(taskFeature)
         }
     }
 }

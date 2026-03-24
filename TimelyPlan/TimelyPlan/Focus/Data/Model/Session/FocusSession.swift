@@ -10,9 +10,7 @@ import Foundation
 class FocusSession: NSObject {
 
     var identifier: String
-    
-    var timerID: String?
-    
+
     var duration: Int64
     
     var startDate: Date?
@@ -25,11 +23,17 @@ class FocusSession: NSObject {
     
     var score: Int64
     
+    var timerID: String?
+
+    var timerSnapshotName: String?
+    
+    var timerSnapshotColorHex: String?
+    
     var taskID: String?
     
-    var taskShotName: String?
-    
     var taskType: Int64
+    
+    var taskSnapshotName: String?
     
     /// 计时器配置
     private(set) lazy var pauseInfo: FocusPauseInfo? = {
@@ -44,16 +48,21 @@ class FocusSession: NSObject {
     
     init(content: CDFocusSession) {
         self.identifier = content.identifier ?? UUID().uuidString
-        self.timerID = content.timerID
         self.duration = content.duration
         self.startDate = content.startDate
         self.endDate = content.endDate
         self.isManual = content.isManual
         self.note = content.note
         self.score = content.score
+        
+        self.timerID = content.timerID
+        self.timerSnapshotName = content.timerSnapshotName
+        self.timerSnapshotColorHex = content.timerSnapshotColorHex
+
         self.taskType = content.taskType
         self.taskID = content.taskID
-        self.taskShotName = content.taskShotName
+        self.taskSnapshotName = content.taskSnapshotName
+        
         self.pauseInfoJSON = content.pauseInfoJSON
         super.init()
     }
@@ -62,15 +71,17 @@ class FocusSession: NSObject {
     override var hash: Int {
         var hasher = Hasher()
         hasher.combine(identifier)
-        hasher.combine(timerID)
         hasher.combine(duration)
         hasher.combine(startDate)
         hasher.combine(endDate)
         hasher.combine(isManual)
         hasher.combine(note)
         hasher.combine(score)
+        hasher.combine(timerID)
+        hasher.combine(timerSnapshotName)
+        hasher.combine(timerSnapshotColorHex)
         hasher.combine(taskID)
-        hasher.combine(taskShotName)
+        hasher.combine(taskSnapshotName)
         hasher.combine(taskType)
         hasher.combine(pauseInfoJSON)
         return hasher.finalize()
@@ -81,6 +92,8 @@ class FocusSession: NSObject {
         if self === other { return true }
         return identifier == other.identifier &&
             timerID == other.timerID &&
+            timerSnapshotName == other.timerSnapshotName &&
+            timerSnapshotColorHex == other.timerSnapshotColorHex &&
             duration == other.duration &&
             startDate == other.startDate &&
             endDate == other.endDate &&
@@ -88,7 +101,7 @@ class FocusSession: NSObject {
             note == other.note &&
             score == other.score &&
             taskID == other.taskID &&
-            taskShotName == other.taskShotName &&
+            taskSnapshotName == other.taskSnapshotName &&
             taskType == other.taskType &&
             pauseInfoJSON == other.pauseInfoJSON
     }

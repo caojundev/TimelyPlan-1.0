@@ -128,7 +128,7 @@ class FocusPresenter {
                                   task: TaskRepresentable? = nil) {
         /// 绑定默认番茄钟
         let timer = timer ?? FocusSystemPomodoroTimer()
-        let record = FocusRecord(timer: timer, task: task)
+        let record = FocusRecord(timerFeature: timer.feature, taskFeature: task?.info)
         let vc = FocusRecordEditViewController(record: record)
         vc.didEndEditing = { record in
             focus.addSession(with: record, isManual: true)
@@ -144,7 +144,7 @@ class FocusPresenter {
         let timeline = FocusRecordTimeline(startDate: startTime,
                                            recordDurations: [recordDuration])
         let timer = FocusSystemPomodoroTimer()
-        let record = FocusRecord(timer: timer, timeline: timeline)
+        let record = FocusRecord(timerFeature: timer.feature, timeline: timeline)
         let vc = FocusRecordEditViewController(record: record)
         vc.didEndEditing = { record in
             focus.addSession(with: record, isManual: true)

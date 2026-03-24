@@ -244,7 +244,7 @@ class FocusRunningViewController: TPViewController,
     
     // MARK: - 更新界面
     private func updateTimerName() {
-        timerNameView.name = tracker.eventTimerFeature?.timer?.name
+        timerNameView.name = tracker.eventTimerFeature?.snapshotName
     }
     
     /// 更新进度信息

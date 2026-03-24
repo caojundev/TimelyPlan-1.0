@@ -173,14 +173,16 @@ extension CDFocusSession {
 
     /// 根据记录更新会话
     func update(with record: FocusRecord) {
-        if let timer = record.timer {
-            self.timerID = timer.identifier
+        if let feature = record.timerFeature {
+            self.timerID = feature.identifier
+            self.timerSnapshotName = feature.snapshotName
+            self.timerSnapshotColorHex = feature.snapshotColorHex
         }
         
-        if let taskInfo = record.task?.info {
-            self.taskType = Int64(taskInfo.type.rawValue)
-            self.taskID = taskInfo.identifier
-            self.taskShotName = record.task?.name
+        if let feature = record.taskFeature {
+            self.taskType = Int64(feature.type.rawValue)
+            self.taskID = feature.identifier
+            self.taskSnapshotName = feature.snapshotName
         }
         
         let timeline = record.timeline

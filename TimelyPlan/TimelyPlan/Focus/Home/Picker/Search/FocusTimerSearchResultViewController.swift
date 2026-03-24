@@ -13,7 +13,7 @@ class FocusTimerSearchResultViewController: TPCollectionSectionsViewController,
     
     var didSelectTimer: ((FocusTimer) -> Void)?
     
-    var selectedTimer: FocusTimer?
+    var selectedTimerID: String?
 
     /// 条目宽度
     var preferredItemWidth: CGFloat {
@@ -44,9 +44,9 @@ class FocusTimerSearchResultViewController: TPCollectionSectionsViewController,
         self.collectionView.removeKeyboardNotification()
     }
     
-    init(timer: FocusTimer? = nil) {
+    init(selectedTimerID: String? = nil) {
         super.init(nibName: nil, bundle: nil)
-        self.selectedTimer = timer
+        self.selectedTimerID = selectedTimerID
         self.collectionView.keyboardAutoAdjustContentInset = true
         self.collectionView.addKeyboardNotification()
     }
@@ -88,6 +88,6 @@ class FocusTimerSearchResultViewController: TPCollectionSectionsViewController,
             return false
         }
         
-        return selectedTimer === timer
+        return timer.identifier == self.selectedTimerID
     }
 }
