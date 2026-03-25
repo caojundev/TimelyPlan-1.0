@@ -26,11 +26,14 @@ class PieLineView: UIView {
     
     var visual: PieVisual? {
         didSet {
+            setupDrawAngles()
             setNeedsDisplay()
         }
     }
     
-    private let drawer = PieLineDrawer()
+    let drawer = PieLineDrawer()
+    
+    var drawAngles: [PieSliceAngle] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,14 +44,17 @@ class PieLineView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupDrawAngles() {
+        self.drawAngles = visual?.drawAngles() ?? []
+    }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         guard let visual = visual, let context = UIGraphicsGetCurrentContext() else {
             return
         }
 
-        let angles = visual.drawAngles()
-        for angle in angles {
+        for angle in self.drawAngles {
             let color = visual.color(of: angle.index)
             let curve = drawer.lineQuadCurve(rect: bounds, angle: angle)
             context.move(to: curve.start)

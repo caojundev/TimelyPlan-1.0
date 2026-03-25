@@ -10,9 +10,12 @@ import Foundation
 class PieRankListView: TPCollectionWrapperView,
                        TPCollectionSectionControllersList {
     
+    /// 选中切片
+    var didSelectSlice: ((PieSlice) -> Void)?
+    
     var visual: PieVisual? {
         didSet {
-            pieSlices = visual?.slices
+            pieSlices = visual?.displaySlices
         }
     }
     
@@ -71,5 +74,14 @@ class PieRankListView: TPCollectionWrapperView,
         
         self.sectionController.cellItems = cellItems
         self.adapter.reloadData()
+    }
+    
+    func adapter(_ adapter: TPCollectionViewAdapter, didSelectItemAt indexPath: IndexPath) {
+        guard let cellItem = adapter.item(at: indexPath) as? PieRankListCellItem else {
+            return
+        }
+        
+        TPImpactFeedback.impactWithSoftStyle()
+        self.didSelectSlice?(cellItem.pieSlice)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  StatisticChartCell.swift
+//  PieChartCell.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/11/27.
@@ -49,7 +49,7 @@ class PieChartCellItem: StatsBaseChartCellItem {
     
     /// 排行列表高度
     var rankListHeight: CGFloat {
-        let slicesCount = visual.slices?.count ?? 0
+        let slicesCount = visual.displaySlices.count
         var linesCount = slicesCount / 2
         if slicesCount % 2 != 0 {
             linesCount += 1
@@ -125,12 +125,15 @@ class PieChartCell: StatsBaseChartCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        chartView = PieChartView()
-
-        contentView.addSubview(chartView)
+        self.chartView = PieChartView()
+        contentView.addSubview(self.chartView)
         
-        rankListView = PieRankListView(frame: .zero)
-        contentView.addSubview(rankListView)
+        self.rankListView = PieRankListView(frame: .zero)
+        self.rankListView.didSelectSlice = {[weak self] slice in
+            self?.selectPieSlice(slice)
+        }
+        
+        contentView.addSubview(self.rankListView)
     }
     
     required init?(coder: NSCoder) {
@@ -151,4 +154,19 @@ class PieChartCell: StatsBaseChartCell {
         rankListView.left = layoutFrame.minX
         rankListView.top = chartView.bottom
     }
+    
+    func selectPieSlice(_ slice: PieSlice) {
+        guard let visual = chartView.visual, let index = visual.slices?.firstIndex(of: slice) else {
+            return
+        }
+        
+        
+        if let highlightedIndex = chartView.highlightedSliceIndex,
+           highlightedIndex == index {
+            chartView.clearHighlight()
+        } else {
+            chartView.highlightSlice(at: index)
+        }
+    }
+    
 }

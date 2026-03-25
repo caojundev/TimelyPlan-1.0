@@ -1,9 +1,8 @@
 //
-//  LYCirclePieView.swift
-//  LYAdmin
+//  PieChartView.swift
+//  TimelyPlan
 //
-//  Created by c.c on 2020/11/10.
-//  Copyright © 2020 c.c. All rights reserved.
+//  Created by caojun on 2024/5/11.
 //
 
 import UIKit
@@ -72,6 +71,15 @@ class PieChartView: UIView {
             infoView.subtitleConfig = newValue
         }
     }
+    
+    /// 亮中索引
+    var highlightedSliceIndex: Int? {
+        if highlightView.isHighlighted {
+            return highlightView.highlightedIndex
+        }
+        
+        return nil
+    }
 
     /// 标题标签
     lazy var infoView: TPInfoView = {
@@ -95,6 +103,9 @@ class PieChartView: UIView {
     /// 标签视图
     private let labelsView = PieLabelsView()
     
+    /// 高亮视图
+    private let highlightView = PieHighlightView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.clipsToBounds = true
@@ -102,6 +113,7 @@ class PieChartView: UIView {
         addSubview(labelsView)
         addSubview(circleView)
         addSubview(infoView)
+        addSubview(highlightView)
     }
     
     required init?(coder: NSCoder) {
@@ -122,11 +134,55 @@ class PieChartView: UIView {
     
         infoView.size = .circleInnerLabelSize(radius: innerRadius - 10.0)
         infoView.center = circleView.center
+        
+        // 配置高亮视图
+        highlightView.outerRadius = outerRadius + 1.0
+        highlightView.innerRadius = innerRadius - 1.0
+        highlightView.frame = bounds
+        
         backgroundColor = .clear
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         return CGSize(width: 330, height: 280)
+    }
+    
+    // MARK: - Highlight Methods
+    
+    /// 设置高亮数据
+    /// - Parameter index: 要高亮的切片索引
+    func setupHighlight(at index: Int) {
+        guard let visual = visual else { return }
+        highlightView.setup(with: visual, highlightIndex: index)
+    }
+    
+    /// 设置或取消高亮
+    /// - Parameter highlighted: true 为高亮，false 为取消高亮
+    func setHighlight(_ highlighted: Bool) {
+        labelsView.isHidden = highlighted
+        lineView.isHidden = highlighted
+        highlightView.setHighlighted(highlighted)
+    }
+    
+    /// 高亮指定索引的切片
+    /// - Parameters:
+    ///   - index: 切片索引
+    ///   - animated: 是否显示高亮
+    func highlightSlice(at index: Int, animated: Bool = true) {
+        setupHighlight(at: index)
+        setHighlight(true)
+    }
+    
+    /// 取消高亮
+    func clearHighlight() {
+        setHighlight(false)
+    }
+    
+    /// 点击后清除高亮
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if highlightView.isHighlighted {
+            clearHighlight()
+        }
     }
 }
 

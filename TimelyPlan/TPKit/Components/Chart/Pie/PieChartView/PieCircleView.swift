@@ -51,6 +51,8 @@ class PieCircleView: UIView {
         }
     }
     
+    var shouldAddAnimation: Bool = false
+    
     /// 其它部分颜色
     let othersColor = Color(0x121212)
     
@@ -62,9 +64,17 @@ class PieCircleView: UIView {
         return layer
     }()
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = resGetColor(.title)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.backgroundColor = resGetColor(.title)
         self.layer.mask = maskLayer
         self.updateMaskLayer()
         self.addAnimationIfNeeded()
@@ -144,10 +154,14 @@ class PieCircleView: UIView {
     }
     
     private func addAnimationIfNeeded() {
+        guard shouldAddAnimation else {
+            return
+        }
+        
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.duration  = 1.0
         animation.fromValue = 0.0
-        animation.toValue   = 1.0
+        animation.toValue = 1.0
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         animation.isRemovedOnCompletion = true
         maskLayer.add(animation, forKey: "Animation")

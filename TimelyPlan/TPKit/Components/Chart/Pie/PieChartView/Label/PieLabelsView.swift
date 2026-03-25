@@ -33,7 +33,7 @@ class PieLabelsView: UIView {
     
     private let drawer = PieLineDrawer()
     
-    private var labelViews: [PieLabelView] = []
+    var labelViews: [PieLabelView] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,7 +49,7 @@ class PieLabelsView: UIView {
         self.layoutLabelViews()
     }
     
-    private func setupLabelViews() {
+    func setupLabelViews() {
         self.removeViews(labelViews)
         guard let visual = visual else {
             return
