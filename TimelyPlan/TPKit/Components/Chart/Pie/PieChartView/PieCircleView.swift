@@ -51,7 +51,7 @@ class PieCircleView: UIView {
         }
     }
     
-    var shouldAddAnimation: Bool = false
+    var shouldAddAnimation: Bool = true
     
     /// 其它部分颜色
     let othersColor = Color(0x121212)

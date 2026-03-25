@@ -29,6 +29,7 @@ class FocusSetting {
         case steppedAutoStartNext
         case isFloatingTimerNextButtonHidden
         case flipClockAutoHideHour
+        case isOverallStatsShowArchived /// 总体统计是否显示已归档
         
         static func keyPrefix() -> String? {
             return "FocusSetting"
@@ -75,6 +76,10 @@ class FocusSetting {
     @CloudStored(key: Key.flipClockAutoHideHour.name, defaultValue: true)
     var flipClockAutoHideHour: Bool
     
+    /// 总体统计是否显示已归档
+    @CloudStored(key: Key.isOverallStatsShowArchived.name, defaultValue: true)
+    var isOverallStatsShowArchived: Bool
+    
     static let shared = FocusSetting()
     
     private init() {}
@@ -97,5 +102,10 @@ class FocusSetting {
         }
         
         return stopwatchMaxDuration
+    }
+    
+    // MARK: - Observer
+    func addObserver(_ observer: SettingAgentObserver, forKey key: Key) {
+        KeyValueStorage.shared.addObserver(observer, forKey: key.name)
     }
 }

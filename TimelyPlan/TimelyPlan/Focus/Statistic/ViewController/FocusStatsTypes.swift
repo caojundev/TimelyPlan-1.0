@@ -7,6 +7,13 @@
 
 import Foundation
 
+enum FocusStatsMode: Int {
+    case overall
+    case specificTimer
+    case specificTask
+    case specificTimerAndTask
+}
+
 /// 专注详情分组类型
 enum FocusStatsDetailGroupType: String, TPMenuRepresentable {
     case task  /// 按任务

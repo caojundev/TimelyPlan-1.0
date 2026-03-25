@@ -14,9 +14,14 @@ extension Focus {
     func fetchDailyStats(forTask task: TaskRepresentable? = nil,
                          timer: FocusTimer? = nil,
                          on date: Date,
+                         includeArchivedTimer: Bool,
                          completion: @escaping(FocusStatsDataItem) -> Void) {
         let dateRange = date.rangeOfThisDay()
-        fetchStats(forTask: task, timer: timer, dateRange: dateRange, completion: completion)
+        fetchStats(forTask: task,
+                   timer: timer,
+                   dateRange: dateRange,
+                   includeArchivedTimer: includeArchivedTimer,
+                   completion: completion)
     }
     
     /// 获取周统计数据
@@ -24,34 +29,53 @@ extension Focus {
                           timer: FocusTimer? = nil,
                           inWeekContaining date: Date,
                           firstWeekday: Weekday = .firstWeekday,
+                          includeArchivedTimer: Bool,
                           completion: @escaping(FocusStatsDataItem) -> Void) {
         let dateRange = date.rangeOfThisWeek(firstWeekday: firstWeekday)
-        fetchStats(forTask: task, timer: timer, dateRange: dateRange, completion: completion)
+        fetchStats(forTask: task,
+                   timer: timer,
+                   dateRange: dateRange,
+                   includeArchivedTimer: includeArchivedTimer,
+                   completion: completion)
     }
     
     /// 获取月统计数据
     func fetchMonthlyStats(forTask task: TaskRepresentable? = nil,
                            timer: FocusTimer? = nil,
                            inMonthContaining date: Date,
+                           includeArchivedTimer: Bool,
                            completion: @escaping(FocusStatsDataItem) -> Void) {
         let dateRange = date.rangeOfThisMonth()
-        fetchStats(forTask: task, timer: timer, dateRange: dateRange, completion: completion)
+        fetchStats(forTask: task,
+                   timer: timer,
+                   dateRange: dateRange,
+                   includeArchivedTimer: includeArchivedTimer,
+                   completion: completion)
     }
     
     /// 获取年数据
     func fetchYearlyStats(forTask task: TaskRepresentable? = nil,
                           timer: FocusTimer? = nil,
                           inYearContaining date: Date,
+                          includeArchivedTimer: Bool,
                           completion: @escaping(FocusStatsDataItem) -> Void) {
         let dateRange = date.rangeOfThisYear()
-        fetchStats(forTask: task, timer: timer, dateRange: dateRange, completion: completion)
+        fetchStats(forTask: task,
+                   timer: timer,
+                   dateRange: dateRange,
+                   includeArchivedTimer: includeArchivedTimer,
+                   completion: completion)
     }
     
     private func fetchStats(forTask task: TaskRepresentable? = nil,
                             timer: FocusTimer? = nil,
                             dateRange: DateRange,
+                            includeArchivedTimer: Bool,
                             completion: @escaping(FocusStatsDataItem) -> Void) {
-        fetchSessions(forTask: task, timer: timer, dateRange: dateRange) { sessions in
+        fetchSessions(forTask: task,
+                      timer: timer,
+                      dateRange: dateRange,
+                      includeArchivedTimer: includeArchivedTimer) { sessions in
             let item = FocusStatsDataItem(task: task, timer: timer, dateRange: dateRange, sessions: sessions)
             completion(item)
         }

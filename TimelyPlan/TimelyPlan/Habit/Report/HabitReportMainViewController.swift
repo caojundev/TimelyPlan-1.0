@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class HabitReportMainViewController: StatsMainViewController {
+class HabitReportMainViewController: StatsMainViewController,
+                                     SettingAgentObserver {
 
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: HabitReportMoreBarButtonItem = {
@@ -35,6 +36,7 @@ class HabitReportMainViewController: StatsMainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = moreBarButtonItem
+        HabitSetting.shared.addObserver(self, forKey: .isReportShowArchived)
     }
     
     private func didSelectMoreMenuType(_ type: HabitReportMoreMenuType) {
@@ -59,4 +61,14 @@ class HabitReportMainViewController: StatsMainViewController {
        return HabitReportYearlyViewController(date: self.date,
                                               firstWeekday: self.firstWeekday)
     }
+    
+    // MARK: - SettingAgentObserver
+    func settingAgentDidChangeValue(for key: String) {
+        if key == HabitSetting.Key.isReportShowArchived.name, habit.hasArchivedTask {
+            /// 有已归档任务，重新加载数据
+            let vc = contentViewController as? HabitReportContentViewController
+            vc?.reloadData()
+        }
+    }
+    
 }

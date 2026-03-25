@@ -271,6 +271,9 @@
 		E53032962DC0776B0040C75E /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53032952DC0776B0040C75E /* CalendarManager.swift */; };
 		E53174C62D910649009C9AA5 /* TodoFilterListEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53174C52D910648009C9AA5 /* TodoFilterListEditViewController.swift */; };
 		E531FDF12F7371B400067A0F /* PieHighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531FDF02F7371B300067A0F /* PieHighlightView.swift */; };
+		E531FDF52F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531FDF42F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift */; };
+		E531FDF82F73EB1900067A0F /* archived_show_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E531FDF62F73EB1800067A0F /* archived_show_24@3x.png */; };
+		E531FDF92F73EB1900067A0F /* archived_show_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E531FDF72F73EB1800067A0F /* archived_show_24@2x.png */; };
 		E5347FF52F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */; };
 		E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */; };
 		E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */; };
@@ -1864,6 +1867,9 @@
 		E53032952DC0776B0040C75E /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
 		E53174C52D910648009C9AA5 /* TodoFilterListEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterListEditViewController.swift; sourceTree = "<group>"; };
 		E531FDF02F7371B300067A0F /* PieHighlightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieHighlightView.swift; sourceTree = "<group>"; };
+		E531FDF42F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusStatsOverallMoreBarButtonItem.swift; sourceTree = "<group>"; };
+		E531FDF62F73EB1800067A0F /* archived_show_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archived_show_24@3x.png"; sourceTree = "<group>"; };
+		E531FDF72F73EB1800067A0F /* archived_show_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archived_show_24@2x.png"; sourceTree = "<group>"; };
 		E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordLogEditViewController.swift; sourceTree = "<group>"; };
 		E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitReasonTagEditViewController.swift; sourceTree = "<group>"; };
 		E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPEmojiTitleEditAlertController.swift; sourceTree = "<group>"; };
@@ -3573,6 +3579,8 @@
 				E53A15E02D45DF0300474F94 /* archivedList_24@3x.png */,
 				E53A15DD2D45DF0200474F94 /* archivedList_80@2x.png */,
 				E53A15DF2D45DF0300474F94 /* archivedList_80@3x.png */,
+				E531FDF72F73EB1800067A0F /* archived_show_24@2x.png */,
+				E531FDF62F73EB1800067A0F /* archived_show_24@3x.png */,
 			);
 			path = archive;
 			sourceTree = "<group>";
@@ -4070,6 +4078,24 @@
 				E53735FB2D9CF38B00C5A001 /* Date */,
 			);
 			path = Edit;
+			sourceTree = "<group>";
+		};
+		E531FDF22F73E08000067A0F /* Specific */ = {
+			isa = PBXGroup;
+			children = (
+				E5D7D86E2D43933500EC877A /* FocusStatsTimerViewController.swift */,
+				E5D7D86F2D43933500EC877A /* FocusStatsInfoView.swift */,
+			);
+			path = Specific;
+			sourceTree = "<group>";
+		};
+		E531FDF32F73E08C00067A0F /* Overall */ = {
+			isa = PBXGroup;
+			children = (
+				E5D7D8702D43933500EC877A /* FocusStatsOverallViewController.swift */,
+				E531FDF42F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift */,
+			);
+			path = Overall;
 			sourceTree = "<group>";
 		};
 		E5347FF62F5FC31600CFBF26 /* ReasonTag */ = {
@@ -8068,6 +8094,7 @@
 		E5D7D86B2D43933500EC877A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E5D7D8782D43933500EC877A /* FocusStatsTypes.swift */,
 				E5D7D86C2D43933500EC877A /* Classes */,
 				E5D7D8712D43933500EC877A /* Content */,
 				E5D7D8772D43933500EC877A /* Detail */,
@@ -8080,9 +8107,8 @@
 			isa = PBXGroup;
 			children = (
 				E5D7D86D2D43933500EC877A /* FocusStatsBaseViewController.swift */,
-				E5D7D86E2D43933500EC877A /* FocusStatsTimerViewController.swift */,
-				E5D7D86F2D43933500EC877A /* FocusStatsInfoView.swift */,
-				E5D7D8702D43933500EC877A /* FocusStatsOverallViewController.swift */,
+				E531FDF32F73E08C00067A0F /* Overall */,
+				E531FDF22F73E08000067A0F /* Specific */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -8090,11 +8116,11 @@
 		E5D7D8712D43933500EC877A /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D8722D43933500EC877A /* FocusStatsMonthlyViewController.swift */,
-				E5D7D8732D43933500EC877A /* FocusStatsWeeklyViewController.swift */,
-				E5D7D8742D43933500EC877A /* FocusStatsDailyViewController.swift */,
-				E5D7D8752D43933500EC877A /* FocusStatsYearlyViewController.swift */,
 				E5D7D8762D43933500EC877A /* FocusStatsContentViewController.swift */,
+				E5D7D8742D43933500EC877A /* FocusStatsDailyViewController.swift */,
+				E5D7D8732D43933500EC877A /* FocusStatsWeeklyViewController.swift */,
+				E5D7D8722D43933500EC877A /* FocusStatsMonthlyViewController.swift */,
+				E5D7D8752D43933500EC877A /* FocusStatsYearlyViewController.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -8102,7 +8128,6 @@
 		E5D7D8772D43933500EC877A /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D8782D43933500EC877A /* FocusStatsTypes.swift */,
 				E5D7D8792D43933500EC877A /* FocusPieChartSectionController.swift */,
 			);
 			path = Detail;
@@ -8903,6 +8928,7 @@
 				E54E633E2F5B1BFD00FCBCAE /* habit_menu_skip_24@3x.png in Resources */,
 				E5D833912DAB64D60012ABF3 /* todo_task_progress_currentValue_24@3x.png in Resources */,
 				E5D7D8F42D43933600EC877A /* NegativeCircleFill@3x.png in Resources */,
+				E531FDF82F73EB1900067A0F /* archived_show_24@3x.png in Resources */,
 				E50D94D72D45268B00F57957 /* chart_pie_24@3x.png in Resources */,
 				E556BCD12F5D746400CA20D9 /* HabitRecordTypeManually@2x.png in Resources */,
 				E5D7D97F2D43E19700EC877A /* focus_timer_step_addPrevious_24@2x.png in Resources */,
@@ -9193,6 +9219,7 @@
 				E5BB9A772D3BEF0D0089667A /* todo_home_filter_24@2x.png in Resources */,
 				E55A7B9D2D463917000D224C /* bell_fill_16@2x.png in Resources */,
 				E500DE5C2DB09D4500EAEAF7 /* todo_filter_indicator_list_12@3x.png in Resources */,
+				E531FDF92F73EB1900067A0F /* archived_show_24@2x.png in Resources */,
 				E5BB9E482D3BF0C70089667A /* StepperNegative@2x.png in Resources */,
 				E500DE5D2DB09D4500EAEAF7 /* todo_filter_indicator_list_12@2x.png in Resources */,
 				E53480092F604ACF00CFBF26 /* habit_status_completed_24@3x.png in Resources */,
@@ -9657,6 +9684,7 @@
 				E5BB9B4F2D3BEF920089667A /* WKInterfaceButtonExtension.swift in Sources */,
 				E5BB9D852D3BF0C50089667A /* LayoutConstants.swift in Sources */,
 				E541555B2F49A415000B2972 /* FocusRecordListDetailCell.swift in Sources */,
+				E531FDF52F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift in Sources */,
 				E5BB9E9D2D3BF0C80089667A /* ChartIntermediateValue.swift in Sources */,
 				E53DCEE62F618CD100ADA526 /* HabitHomeWeekListGroupProvider.swift in Sources */,
 				E5D7D9152D43933700EC877A /* FocusStatsDailyViewController.swift in Sources */,

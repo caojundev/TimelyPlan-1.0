@@ -78,11 +78,13 @@ class FocusSessionManager {
                        timer: FocusTimer? = nil,
                        fromDate: Date,
                        toDate: Date,
+                       includeArchivedTimer: Bool,
                        completion: @escaping([FocusSession]?) -> Void) {
         CDFocusSession.fetchSessions(forTask: task,
                                      timer: timer,
                                      fromDate: fromDate,
-                                     toDate: toDate) { results in
+                                     toDate: toDate,
+                                     includeArchivedTimer: includeArchivedTimer) { results in
             completion(results?.sessions)
         }
     }
@@ -90,10 +92,12 @@ class FocusSessionManager {
     func fetchSessions(forTask task: TaskRepresentable? = nil,
                        timer: FocusTimer? = nil,
                        dateRange: DateRange,
+                       includeArchivedTimer: Bool,
                        completion: @escaping([FocusSession]?) -> Void) {
         CDFocusSession.fetchSessions(forTask: task,
                                      timer: timer,
-                                     dateRange: dateRange) { results in
+                                     dateRange: dateRange,
+                                     includeArchivedTimer: includeArchivedTimer) { results in
             completion(results?.sessions)
         }
     }
@@ -102,13 +106,18 @@ class FocusSessionManager {
     func fetchSessionsGroupedByDay(forTask task: TaskRepresentable? = nil,
                                     timer: FocusTimer? = nil,
                                     within dateRange: DateRange,
+                                   includeArchivedTimer: Bool,
                                     completion: @escaping ([Int32: [FocusSession]]?) -> Void) {
         guard let fromDate = dateRange.startDate, let toDate = dateRange.endDate else {
             completion(nil)
             return
         }
     
-        fetchSessionsSortedByStartDate(forTask: task, timer: timer, fromDate: fromDate, toDate: toDate) { sessions in
+        fetchSessionsSortedByStartDate(forTask: task,
+                                       timer: timer,
+                                       fromDate: fromDate,
+                                       toDate: toDate,
+                                       includeArchivedTimer: includeArchivedTimer) { sessions in
             guard let sessions = sessions, sessions.count > 0 else {
                 completion(nil)
                 return
@@ -131,23 +140,30 @@ class FocusSessionManager {
     
     /// 获取按开始日期排序的专注会话
     private func fetchSessionsSortedByStartDate(forTask task: TaskRepresentable? = nil,
-                                        timer: FocusTimer? = nil,
-                                        fromDate: Date,
-                                        toDate: Date,
-                                        completion: @escaping([FocusSession]?) -> Void) {
+                                                timer: FocusTimer? = nil,
+                                                fromDate: Date,
+                                                toDate: Date,
+                                                includeArchivedTimer: Bool,
+                                                completion: @escaping([FocusSession]?) -> Void) {
         CDFocusSession.fetchSessionsSortedByStartDate(forTask: task,
                                                       timer: timer,
                                                       fromDate: fromDate,
-                                                      toDate: toDate) { results in
+                                                      toDate: toDate,
+                                                      includeArchivedTimer: includeArchivedTimer) { results in
             completion(results?.sessions)
         }
     }
 
     /// 异步获取日期当日所有专注会话
     func fetchSessions(for date: Date,
+                       includeArchivedTimer: Bool,
                        completion: @escaping([FocusSession]?) -> Void) {
         let dateRange = date.rangeOfThisDay()
-        fetchSessions(forTask: nil, timer: nil, dateRange: dateRange, completion: completion)
+        fetchSessions(forTask: nil,
+                      timer: nil,
+                      dateRange: dateRange,
+                      includeArchivedTimer: includeArchivedTimer,
+                      completion: completion)
     }
     
     /// 获取任务使用计时器在特定日期专注时长

@@ -181,6 +181,18 @@ extension CDFocusTimer {
 
 extension Array where Element == CDFocusTimer {
     
+    /// 所有标识
+    var identifiers: [String] {
+        var results = [String]()
+        for timer in self {
+            if let identifier = timer.identifier {
+                results.append(identifier)
+            }
+        }
+        
+        return results
+    }
+    
     var timers: [FocusTimer] {
         return self.map { FocusTimer(content: $0) }
     }

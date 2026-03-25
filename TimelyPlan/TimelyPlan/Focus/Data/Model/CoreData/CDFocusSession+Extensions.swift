@@ -38,6 +38,14 @@ extension CDFocusSession {
         return (FocusSessionKey.timerID, .equal(timer.identifier))
     }
     
+    static func excludeArchivedTimersCondition() -> PredicateCondition? {
+        guard let identifiers = CDFocusTimer.getArchivedTimers()?.identifiers else {
+            return nil
+        }
+        
+        return (FocusSessionKey.timerID, .notBelongsTo(identifiers))
+    }
+    
     /// 获取开始日期在特定范围内的条件
     static func startDateCondition(fromDate: Date?, toDate: Date?) -> PredicateCondition? {
         if let fromDate = fromDate, let toDate = toDate {
@@ -56,7 +64,8 @@ extension CDFocusSession {
     static func predicate(forTask task: TaskRepresentable? = nil,
                           timer: FocusTimer? = nil,
                           fromDate: Date?,
-                          toDate: Date?) -> NSPredicate {
+                          toDate: Date?,
+                          includeArchivedTimer: Bool) -> NSPredicate {
         var conditions = [PredicateCondition]()
         if let task = task {
             conditions.append(contentsOf: taskConditions(for: task))
@@ -70,9 +79,17 @@ extension CDFocusSession {
             conditions.append(startDateCondition)
         }
         
+        if !includeArchivedTimer {
+            if let condition = excludeArchivedTimersCondition() {
+                conditions.append(condition)
+            }
+        }
+        
         let predicate = conditions.andPredicate()
         return predicate
     }
+    
+    
 }
 
 extension CDFocusSession {
@@ -82,47 +99,61 @@ extension CDFocusSession {
                               timer: FocusTimer? = nil,
                               fromDate: Date,
                               toDate: Date,
+                              includeArchivedTimer: Bool,
                               completion: @escaping([CDFocusSession]?) -> Void) {
         let predicate = predicate(forTask: task,
                                   timer: timer,
                                   fromDate: fromDate,
-                                  toDate: toDate)
+                                  toDate: toDate,
+                                  includeArchivedTimer: includeArchivedTimer)
         findAll(with: predicate) { results in
             completion(results as? [CDFocusSession])
         }
     }
     
     static func fetchSessions(forTask task: TaskRepresentable? = nil,
-                       timer: FocusTimer? = nil,
-                       dateRange: DateRange,
-                       completion: @escaping([CDFocusSession]?) -> Void) {
+                              timer: FocusTimer? = nil,
+                              dateRange: DateRange,
+                              includeArchivedTimer: Bool,
+                              completion: @escaping([CDFocusSession]?) -> Void) {
         guard let fromDate = dateRange.startDate, let toDate = dateRange.endDate else {
             completion(nil)
             return
         }
         
-        fetchSessions(forTask: task, timer: timer, fromDate: fromDate, toDate: toDate, completion: completion)
+        fetchSessions(forTask: task,
+                      timer: timer,
+                      fromDate: fromDate,
+                      toDate: toDate,
+                      includeArchivedTimer: includeArchivedTimer,
+                      completion: completion)
     }
     
     /// 获取按开始日期排序的专注会话
     static func fetchSessionsSortedByStartDate(forTask task: TaskRepresentable? = nil,
-                                        timer: FocusTimer? = nil,
-                                        fromDate: Date,
-                                        toDate: Date,
-                                        completion: @escaping([CDFocusSession]?) -> Void) {
+                                               timer: FocusTimer? = nil,
+                                               fromDate: Date,
+                                               toDate: Date,
+                                               includeArchivedTimer: Bool,
+                                               completion: @escaping([CDFocusSession]?) -> Void) {
         let predicate = predicate(forTask: task,
                                   timer: timer,
                                   fromDate: fromDate,
-                                  toDate: toDate)
+                                  toDate: toDate,
+                                  includeArchivedTimer: includeArchivedTimer)
         findAll(with: predicate, sortedBy: FocusSessionKey.startDate, ascending: true) { results in
             completion(results as? [CDFocusSession])
         }
     }
     
     /// 异步获取日期当日所有专注会话
-    static func fetchSessions(for date: Date, completion: @escaping([CDFocusSession]?) -> Void) {
+    static func fetchSessions(for date: Date, includeArchivedTimer: Bool, completion: @escaping([CDFocusSession]?) -> Void) {
         let dateRange = date.rangeOfThisDay()
-        fetchSessions(forTask: nil, timer: nil, dateRange: dateRange, completion: completion)
+        fetchSessions(forTask: nil,
+                      timer: nil,
+                      dateRange: dateRange,
+                      includeArchivedTimer: includeArchivedTimer,
+                      completion: completion)
     }
     
     /// 获取特定标识对应的专注会话
@@ -138,13 +169,21 @@ extension CDFocusSession {
                                    on date: Date) -> Int64 {
         let fromDate = date.startOfDay()
         let toDate = date.endOfDay()
-        let predicate = predicate(forTask: task, timer: timer, fromDate: fromDate, toDate: toDate)
+        let predicate = predicate(forTask: task,
+                                  timer: timer,
+                                  fromDate: fromDate,
+                                  toDate: toDate,
+                                  includeArchivedTimer: true)
         return totalDuration(with: predicate)
     }
     
     /// 获取计时器总专注时间
     static func getTotalDuration(for timer: FocusTimer? = nil) -> Int64 {
-        let predicate = predicate(forTask: nil, timer: timer, fromDate: nil, toDate: nil)
+        let predicate = predicate(forTask: nil,
+                                  timer: timer,
+                                  fromDate: nil,
+                                  toDate: nil,
+                                  includeArchivedTimer: true)
         return totalDuration(with: predicate)
     }
     

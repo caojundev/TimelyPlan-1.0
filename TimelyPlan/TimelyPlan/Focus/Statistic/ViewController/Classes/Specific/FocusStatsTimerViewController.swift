@@ -19,7 +19,10 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController,
         return view
     }()
 
-    init(timer: FocusTimer, type: StatsType = .week, allowTypes: [StatsType] = StatsType.allCases, date: Date = .now) {
+    init(timer: FocusTimer,
+         type: StatsType = .week,
+         allowTypes: [StatsType] = StatsType.allCases,
+         date: Date = .now) {
         super.init(type: type, allowTypes: allowTypes, date: date)
         self.timer = timer
         self.canSelectDetailGroupType = false

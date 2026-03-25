@@ -1,14 +1,14 @@
 //
-//  HabitReportMoreBarButtonItem.swift
+//  FocusStatsOverallMoreBarButtonItem.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/3/17.
+//  Created by caojun on 2026/3/25.
 //
 
 import Foundation
 
 /// 更多菜单
-enum HabitReportMoreMenuType: Int, TPMenuRepresentable {
+enum FocusStatsOverallMoreMenuType: Int, TPMenuRepresentable {
     
     case showArchived   /// 显示已归档
     
@@ -27,7 +27,7 @@ enum HabitReportMoreMenuType: Int, TPMenuRepresentable {
     }
 }
 
-class HabitReportMoreBarButtonItem: TPBaseMoreBarButtonItem<HabitReportMoreMenuType> {
+class FocusStatsOverallMoreBarButtonItem: TPBaseMoreBarButtonItem<FocusStatsOverallMoreMenuType> {
     
     override func configButton(_ button: TPMenuListButton) {
         super.configButton(button)
@@ -35,23 +35,23 @@ class HabitReportMoreBarButtonItem: TPBaseMoreBarButtonItem<HabitReportMoreMenuT
     }
     
     override func selectMenuAction(_ action: TPMenuAction) {
-        if let type = HabitReportMoreMenuType(rawValue: action.tag) {
+        if let type = FocusStatsOverallMoreMenuType(rawValue: action.tag) {
             didSelectType?(type)
         }
     }
     
     override func menuItems() -> [TPMenuItem] {
-        let menuItem = TPMenuItem.item(with: HabitReportMoreMenuType.allCases) {[weak self] type, action in
+        let menuItem = TPMenuItem.item(with: FocusStatsOverallMoreMenuType.allCases) {[weak self] type, action in
             self?.updateMenuAction(action, for: type)
         }
         
         return [menuItem]
     }
     
-    private func updateMenuAction(_ action: TPMenuAction, for type: HabitReportMoreMenuType) {
+    private func updateMenuAction(_ action: TPMenuAction, for type: FocusStatsOverallMoreMenuType) {
         switch type {
         case .showArchived:
-            action.isChecked = HabitSetting.shared.isReportShowArchived
+            action.isChecked = FocusSetting.shared.isOverallStatsShowArchived
         }
     }
 }

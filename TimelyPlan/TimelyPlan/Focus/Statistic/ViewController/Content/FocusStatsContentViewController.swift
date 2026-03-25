@@ -25,6 +25,29 @@ class FocusStatsContentViewController: StatsContentViewController,
     /// 选中分组类型回调
     var didSelectGroupType: ((FocusStatsDetailGroupType) -> Void)?
     
+    var mode: FocusStatsMode {
+        if timer == nil && task == nil {
+            return .overall
+        } else if task == nil {
+            return .specificTimer
+        } else if timer == nil {
+            return .specificTask
+        } else {
+            return .specificTimerAndTask
+        }
+    }
+    
+    /// 是否显示已归档计时器
+    var showArchivedTimer: Bool {
+        var result = true
+        let mode = self.mode
+        if mode == .overall || mode == .specificTask {
+            result = FocusSetting.shared.isOverallStatsShowArchived
+        }
+        
+        return result
+    }
+    
     override init(type: StatsType, date: Date = .now, firstWeekday: Weekday = .firstWeekday) {
         super.init(type: type, date: date, firstWeekday: firstWeekday)
     }

@@ -54,25 +54,19 @@ class FocusPresenter {
     /// 总览视图控制器
     static func showOverallStatistics() {
         let vc = FocusStatsOverallViewController()
-        let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
-        navController.show()
+        vc.showAsNavigationRoot()
     }
     
     /// 特定计时器统计视图控制器
     static func showStatistics(for timer: FocusTimer) {
         let vc = FocusStatsTimerViewController(timer: timer)
-        let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
-        navController.show()
+        vc.showAsNavigationRoot()
     }
     
     /// 显示设置视图控制器
     static func showSettings() {
         let vc = FocusSettingViewController(style: .insetGrouped)
-        let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
-        navController.show()
+        vc.showAsNavigationRoot()
     }
     
     // MARK: - 记录相关操作

@@ -8,25 +8,15 @@
 import Foundation
 
 class HabitReportContentViewController: StatsContentViewController,
-                                        HabitRecordProcessorDelegate,
-                                        SettingAgentObserver {
+                                        HabitRecordProcessorDelegate {
     
     let imageCacher = HabitReportImageCacher()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         habit.addUpdater(self, for: [.record])
-        HabitSetting.shared.addObserver(self, forKey: .isReportShowArchived)
     }
 
-    // MARK: - SettingAgentObserver
-    func settingAgentDidChangeValue(for key: String) {
-        if key == HabitSetting.Key.isReportShowArchived.name, habit.hasArchivedTask {
-            /// 有已归档任务，重新加载数据
-            reloadData()
-        }
-    }
-    
     // MARK: - HabitRecordProcessorDelegate
     /// 通知习惯记录已更新
     func didUpdateHabitRecord(_ record: HabitRecord,

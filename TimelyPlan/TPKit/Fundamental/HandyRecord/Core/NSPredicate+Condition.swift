@@ -20,6 +20,7 @@ enum PredicateComparison {
     
     case belongsTo(_ values: [Any])  /// IN
     case anyBelongsTo(_ values: [Any])
+    case notBelongsTo(_ values: [Any])
     
     case contains(_ string: String)
     
@@ -108,6 +109,9 @@ extension NSPredicate {
             arguments = [lower, upper]
         case .belongsTo(let values):
             format = "\(attribute) IN %@"
+            arguments = [values]
+        case .notBelongsTo(let values):
+            format = "NOT (\(attribute) IN %@)"
             arguments = [values]
         case .anyBelongsTo(let values):
             format = "ANY \(attribute) IN %@"

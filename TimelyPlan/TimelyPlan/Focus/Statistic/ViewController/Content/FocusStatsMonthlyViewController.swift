@@ -19,7 +19,10 @@ class FocusStatsMonthlyViewController: FocusStatsContentViewController {
     }
     
     override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
-        focus.fetchMonthlyStats(forTask: task, timer: timer, inMonthContaining: date) { dataItem in
+        focus.fetchMonthlyStats(forTask: task,
+                                timer: timer,
+                                inMonthContaining: date,
+                                includeArchivedTimer: showArchivedTimer) { dataItem in
             let sectionControllers = self.sectionControllers(with: dataItem)
             completion(sectionControllers)
         }

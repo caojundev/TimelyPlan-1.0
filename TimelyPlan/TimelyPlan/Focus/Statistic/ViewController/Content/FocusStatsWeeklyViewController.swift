@@ -19,7 +19,11 @@ class FocusStatsWeeklyViewController: FocusStatsContentViewController {
     }
     
     override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
-        focus.fetchWeeklyStats(forTask: task, timer: timer, inWeekContaining: date, firstWeekday: firstWeekday) { dataItem in
+        focus.fetchWeeklyStats(forTask: task,
+                               timer: timer,
+                               inWeekContaining: date,
+                               firstWeekday: firstWeekday,
+                               includeArchivedTimer: showArchivedTimer) { dataItem in
             let sectionControllers = self.sectionControllers(with: dataItem)
             completion(sectionControllers)
         }

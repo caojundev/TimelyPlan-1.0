@@ -164,7 +164,7 @@ class FocusTimelineDayViewController: TPViewController,
     
     // MARK: - FocusTimelineEventProvider
     func fetchTimelineEvents(for date: Date, completion: @escaping([FocusTimelineEvent]?) -> Void) {
-        focus.fetchSessions(for: date) { sessions in
+        focus.fetchSessions(for: date, includeArchivedTimer: true) { sessions in
             guard let sessions = sessions else {
                 completion(nil)
                 return

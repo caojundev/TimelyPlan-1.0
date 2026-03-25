@@ -135,29 +135,35 @@ class Focus {
     }
     
     /// 异步获取日期当日所有专注会话
-    func fetchSessions(for date: Date, completion: @escaping([FocusSession]?) -> Void) {
-        sessionManager.fetchSessions(for: date, completion: completion)
+    func fetchSessions(for date: Date, includeArchivedTimer: Bool, completion: @escaping([FocusSession]?) -> Void) {
+        sessionManager.fetchSessions(for: date,
+                                        includeArchivedTimer: includeArchivedTimer,
+                                        completion: completion)
     }
     
     func fetchSessions(forTask task: TaskRepresentable? = nil,
                        timer: FocusTimer? = nil,
                        dateRange: DateRange,
+                       includeArchivedTimer: Bool,
                        completion: @escaping([FocusSession]?) -> Void) {
         sessionManager.fetchSessions(forTask: task,
                                      timer: timer,
                                      dateRange: dateRange,
+                                     includeArchivedTimer: includeArchivedTimer,
                                      completion: completion)
     }
         
     
     /// 获取按日分组的专注会话字典
     func fetchSessionsGroupedByDay(forTask task: TaskRepresentable? = nil,
-                                    timer: FocusTimer? = nil,
-                                    within dateRange: DateRange,
-                                    completion: @escaping ([Int32: [FocusSession]]?) -> Void) {
+                                   timer: FocusTimer? = nil,
+                                   within dateRange: DateRange,
+                                   includeArchivedTimer: Bool = true,
+                                   completion: @escaping ([Int32: [FocusSession]]?) -> Void) {
         sessionManager.fetchSessionsGroupedByDay(forTask: task,
                                                  timer: timer,
                                                  within: dateRange,
+                                                 includeArchivedTimer: includeArchivedTimer,
                                                  completion: completion)
     }
     
