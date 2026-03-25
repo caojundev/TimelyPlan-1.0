@@ -19,6 +19,16 @@ struct PieSlice: Equatable {
     /// 百分比,取值0...1
     var percent: Double
     
+    /// 额外绑定数据
+    var addtional: Any?
+    
+    init(title: String?, detail: String?, percent: Double, addtional: Any? = nil) {
+        self.title = title
+        self.detail = detail
+        self.percent = percent
+        self.addtional = addtional
+    }
+    
     /// 详细描述和百分比组合文本
     var detailPercentCombinedString: String {
         var strings = [String]()
@@ -29,6 +39,12 @@ struct PieSlice: Equatable {
         let percentageString = Float(percent).percentageString(decimalPlaces: 1)
         strings.append(percentageString)
         return strings.joined(separator: " • ")
+    }
+    
+    static func == (lhs: PieSlice, rhs: PieSlice) -> Bool {
+        return lhs.title == rhs.title &&
+                lhs.detail == rhs.detail &&
+                lhs.percent == rhs.percent
     }
 }
 
@@ -72,12 +88,7 @@ struct PieSliceAngle: Equatable {
 class PieVisual {
     
     private(set) var slices: [PieSlice]?
-    
-    /// 显示的切片
-    var displaySlices: [PieSlice] {
-        return self.angles.map { $0.slice }
-    }
-    
+
     var colors = [#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.7960784314, green: 0.8705882353, blue: 0.2980392157, alpha: 1), #colorLiteral(red: 0.9450980392, green: 0.6705882353, blue: 0.06666666667, alpha: 1), #colorLiteral(red: 0.2392156863, green: 0.8431372549, blue: 1, alpha: 1), #colorLiteral(red: 0.9490196078, green: 0.831372549, blue: 0.05490196078, alpha: 1), #colorLiteral(red: 1, green: 0.4392156863, blue: 0.2392156863, alpha: 1)]
     
     var angles: [PieSliceAngle] = []
@@ -88,7 +99,10 @@ class PieVisual {
     /// 实际显示的切片数量（包含 Others）
     private(set) var displayCount: Int = 0
     
-    init(slices: [PieSlice], colors: [UIColor]? = nil, maxDisplayCount: Int? = 4) {
+    init(slices: [PieSlice],
+         colors: [UIColor]? = nil,
+         maxDisplayCount: Int? = 4,
+         othersSliceProvider:(([PieSlice]) -> PieSlice)? = nil) {
         self.slices = slices
         
         if let colors = colors, colors.count > 0 {
@@ -96,7 +110,8 @@ class PieVisual {
         }
         
         // 如果没有设置最大显示数量或切片数量不超过限制，直接使用所有切片
-        guard let maxCount = maxDisplayCount, maxCount > 0 && slices.count > maxCount else {
+        guard let maxCount = maxDisplayCount, maxCount > 0 &&
+                slices.count > maxCount else {
             // 不需要合并，直接使用所有数据
             self.setupAngles(with: slices)
             self.displayCount = slices.count
@@ -107,18 +122,23 @@ class PieVisual {
         var displaySlices = Array(slices.prefix(maxCount))
         let othersSlices = Array(slices.suffix(from: maxCount))
         
-        // 计算 Others 的总百分比
-        let othersTotalPercent = othersSlices.reduce(0.0) { $0 + $1.percent }
+        var othersSlice: PieSlice
+        if let othersSliceProvider = othersSliceProvider {
+            othersSlice = othersSliceProvider(othersSlices)
+        } else {
+            // 计算 Others 的总百分比
+            let othersTotalPercent = othersSlices.reduce(0.0) { $0 + $1.percent }
+            othersSlice = PieSlice(title: resGetString("Others"),
+                                   detail: nil,
+                                   percent: othersTotalPercent)
+        }
         
-        // 创建 Others 切片
-        let othersSlice = PieSlice(
-            title: resGetString("Others"),
-            detail: String(format: "%.1f%%", othersTotalPercent * 100),
-            percent: othersTotalPercent
-        )
         displaySlices.append(othersSlice)
         
+        
+    
         // 使用合并后的数据设置角度
+        self.slices = displaySlices
         self.setupAngles(with: displaySlices)
         self.displayCount = displaySlices.count
     }
@@ -166,23 +186,22 @@ class PieVisual {
         
         return results
     }
+}
+
+extension Array where Element == PieSlice {
     
-    static let demo: PieVisual = {
-        let colors = [#colorLiteral(red: 0.7960784314, green: 0.8705882353, blue: 0.2980392157, alpha: 1), #colorLiteral(red: 0.9450980392, green: 0.6705882353, blue: 0.06666666667, alpha: 1), #colorLiteral(red: 0.2392156863, green: 0.8431372549, blue: 1, alpha: 1), #colorLiteral(red: 0.9490196078, green: 0.831372549, blue: 0.05490196078, alpha: 1), #colorLiteral(red: 1, green: 0.4392156863, blue: 0.2392156863, alpha: 1),
-                      #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1), #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1), #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)]
-        let slices = [
-            PieSlice(title: "A级", detail: "5%", percent: 0.05),
-            PieSlice(title: "B级", detail: "15%", percent: 0.05),
-            PieSlice(title: "C级", detail: "20%", percent: 0.1),
-            PieSlice(title: "J级", detail: "20%", percent: 0.2),
-            PieSlice(title: "K级", detail: "20%", percent: 0.2),
-            PieSlice(title: "L级", detail: "20%", percent: 0.1),
-            PieSlice(title: "D级", detail: "20%", percent: 0.1),
-            PieSlice(title: "E级", detail: "10%", percent: 0.1),
-            PieSlice(title: "S级", detail: "30%", percent: 0.1)
-        ]
+    /// 数组中切片总占比
+    var totalPercent: Double {
+        return self.reduce(0.0) { $0 + $1.percent }
+    }
+    
+    func totalAddtionalCount<T: Numeric>() -> T {
+        var totalCount: T = 0
+        for slice in self {
+            let count = slice.addtional as? T ?? 0
+            totalCount += count
+        }
         
-        return PieVisual.init(slices: slices, colors: colors)
-    }()
-    
+        return totalCount
+    }
 }

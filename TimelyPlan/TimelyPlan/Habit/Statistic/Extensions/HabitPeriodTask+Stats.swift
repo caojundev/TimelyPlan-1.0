@@ -157,7 +157,13 @@ extension HabitPeriodTask {
     func statusDayCountPieVisual(_ recordDays: inout Int) -> PieVisual {
         let info = statusDayCountPieSlicesInfo()
         recordDays = info.recordDays
-        return PieVisual(slices: info.slices, colors: nil)
+        return PieVisual(slices: info.slices) { othersSlices in
+            let days: Int = othersSlices.totalAddtionalCount()
+            let percent = othersSlices.totalPercent
+            return PieSlice(title: resGetString("Others"),
+                            detail: days.dayCountStirng,
+                            percent: percent)
+        }
     }
 
     /// 任务状态天数对应的饼状图切片
@@ -181,19 +187,12 @@ extension HabitPeriodTask {
         return (slices, recordDays)
     }
     
+
     private func statusDayCountPieSlices(for infos: [HabitTaskStatus: Int],
                                          recordDays: Int) -> [PieSlice] {
         let infos = infos.sorted { $0.value > $1.value }
         var slices = [PieSlice]()
         for (status, count) in infos {
-            let title = status.title
-            let format: String
-            if count > 1 {
-                format = resGetString("%ld days")
-            } else {
-                format = resGetString("%ld day")
-            }
-            
             var details: [String] = []
             if status.isSkipped {
                 details.append(resGetString("Skipped"))
@@ -201,12 +200,15 @@ extension HabitPeriodTask {
                 details.append(resGetString("Failed"))
             }
             
-            let daysDetail = String(format: format, count)
+            let daysDetail = count.dayCountStirng
             details.append(daysDetail)
             let detail = details.joined(separator: " • ")
             
             let percent = Double(count) / Double(recordDays)
-            let slice = PieSlice(title: title, detail: detail, percent: percent)
+            let slice = PieSlice(title: status.title,
+                                 detail: detail,
+                                 percent: percent,
+                                 addtional: count)
             slices.append(slice)
         }
     

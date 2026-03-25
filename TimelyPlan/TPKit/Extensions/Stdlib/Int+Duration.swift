@@ -103,4 +103,16 @@ extension Duration {
     var timeString: String {
         String(format: "%02ld:%02ld", self.hour, self.minute)
     }
+    
+    /// 获取天数字符串
+    var dayCountStirng: String {
+        let format: String
+        if self > 1 {
+            format = resGetString("%ld days")
+        } else {
+            format = resGetString("%ld day")
+        }
+        
+        return String(format: format, self)
+    }
 }

@@ -31,7 +31,13 @@ extension FocusStatsDataItem {
             slices = self.taskDurationPieSlices()
         }
         
-        return PieVisual(slices: slices, colors: nil)
+        return PieVisual(slices: slices, colors: nil) { othersSlices in
+            let duration: Duration = othersSlices.totalAddtionalCount()
+            let percent = othersSlices.totalPercent
+            return PieSlice(title: resGetString("Others"),
+                            detail: duration.localizedTitle,
+                            percent: percent)
+        }
     }
     
     

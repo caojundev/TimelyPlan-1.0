@@ -15,7 +15,7 @@ class PieRankListView: TPCollectionWrapperView,
     
     var visual: PieVisual? {
         didSet {
-            pieSlices = visual?.displaySlices
+            self.pieSlices = visual?.slices
         }
     }
     

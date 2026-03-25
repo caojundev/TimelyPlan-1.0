@@ -6517,20 +6517,20 @@
 				E5BB9CD22D3BF0C50089667A /* PieChartView.swift */,
 				E531FDF02F7371B300067A0F /* PieHighlightView.swift */,
 				E5BB9CCB2D3BF0C40089667A /* PieCircleView.swift */,
-				E5BB9CC82D3BF0C40089667A /* RankList */,
+				E5BB9CC82D3BF0C40089667A /* RankListView */,
 				E5BB9CCC2D3BF0C40089667A /* Label */,
 				E5BB9CCF2D3BF0C50089667A /* Line */,
 			);
 			path = PieChartView;
 			sourceTree = "<group>";
 		};
-		E5BB9CC82D3BF0C40089667A /* RankList */ = {
+		E5BB9CC82D3BF0C40089667A /* RankListView */ = {
 			isa = PBXGroup;
 			children = (
-				E5BB9CC92D3BF0C40089667A /* PieRankListCell.swift */,
 				E5BB9CCA2D3BF0C40089667A /* PieRankListView.swift */,
+				E5BB9CC92D3BF0C40089667A /* PieRankListCell.swift */,
 			);
-			path = RankList;
+			path = RankListView;
 			sourceTree = "<group>";
 		};
 		E5BB9CCC2D3BF0C40089667A /* Label */ = {

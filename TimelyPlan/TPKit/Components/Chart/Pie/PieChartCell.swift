@@ -49,7 +49,7 @@ class PieChartCellItem: StatsBaseChartCellItem {
     
     /// 排行列表高度
     var rankListHeight: CGFloat {
-        let slicesCount = visual.displaySlices.count
+        let slicesCount = visual.slices?.count ?? 0
         var linesCount = slicesCount / 2
         if slicesCount % 2 != 0 {
             linesCount += 1

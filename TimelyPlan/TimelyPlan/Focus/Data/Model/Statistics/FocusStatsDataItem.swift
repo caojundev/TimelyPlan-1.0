@@ -392,7 +392,10 @@ extension FocusStatsDataItem {
             let title = info.name
             let detail = info.duration.localizedTitle
             let percent = Double(info.duration) / Double(totalDuration)
-            let slice = PieSlice(title: title, detail: detail, percent: percent)
+            let slice = PieSlice(title: title,
+                                 detail: detail,
+                                 percent: percent,
+                                 addtional: info.duration)
             slices.append(slice)
         }
     
