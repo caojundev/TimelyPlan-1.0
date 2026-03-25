@@ -39,7 +39,7 @@ class FocusHomeSearchResultSectionController: FocusTimerSearchResultSectionContr
         return FocusTimerStartCell.self
     }
     
-    func FocusTimerStartCellDidClickStart(_ cell: FocusTimerStartCell) {
+    func focusTimerStartCellDidClickStart(_ cell: FocusTimerStartCell) {
         if let timer = cell.timer {
             didClickStart?(timer)
         }

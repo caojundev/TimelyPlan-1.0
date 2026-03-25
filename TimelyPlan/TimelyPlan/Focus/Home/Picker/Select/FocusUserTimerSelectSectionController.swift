@@ -67,12 +67,12 @@ class FocusUserTimerListSectionController: TPCollectionBaseSectionController {
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
-        return FocusUserTimerSelectCell.self
+        return FocusUserTimerInfoCell.self
     }
 
     override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
         super.didDequeCell(cell, forItemAt: index)
-        if let cell = cell as? FocusUserTimerSelectCell {
+        if let cell = cell as? FocusUserTimerInfoCell {
             cell.timer = timer(at: index)
         }
     }
@@ -113,7 +113,10 @@ class FocusUserTimerSelectSectionController: FocusUserTimerListSectionController
     
     private let requestManager = TPRequestManager()
 
-    // MARK: - Header
+    override func classForCell(at index: Int) -> AnyClass? {
+        return FocusUserTimerSelectCell.self
+    }
+
     override func layoutMarginsForHeaderFooterView(_ view: TPCollectionHeaderFooterView) -> UIEdgeInsets {
         var layoutMargins = layout.sectionInset
         layoutMargins.top = 0.0

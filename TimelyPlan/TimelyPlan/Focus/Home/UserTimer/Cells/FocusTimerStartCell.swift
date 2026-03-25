@@ -10,7 +10,7 @@ import Foundation
 protocol FocusTimerStartCellDelegate: AnyObject {
     
     /// 点击开始
-    func FocusTimerStartCellDidClickStart(_ cell: FocusTimerStartCell)
+    func focusTimerStartCellDidClickStart(_ cell: FocusTimerStartCell)
 }
 
 class FocusTimerStartCell: FocusUserTimerInfoCell {
@@ -41,7 +41,7 @@ class FocusTimerStartCell: FocusUserTimerInfoCell {
     
     @objc func clickStart(_ button: UIButton) {
         if let delegate = delegate as? FocusTimerStartCellDelegate {
-            delegate.FocusTimerStartCellDidClickStart(self)
+            delegate.focusTimerStartCellDidClickStart(self)
         }
     }
 }
