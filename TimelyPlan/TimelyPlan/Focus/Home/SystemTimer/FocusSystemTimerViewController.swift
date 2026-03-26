@@ -18,12 +18,12 @@ class FocusSystemTimerViewController: TPViewController,
         return FocusSystemPomodoroTimer(config: config)
     }()
     
-    var countdownTimer: FocusSystemCountdownTimer = {
+    lazy var countdownTimer: FocusSystemCountdownTimer = {
         let config = FocusState.shared.countdownConfig
         return FocusSystemCountdownTimer(config: config)
     }()
     
-    var stopwatchTimer = FocusSystemStopwatchTimer()
+    let stopwatchTimer = FocusSystemStopwatchTimer()
 
     lazy var timerTypeMenuView: TPSegmentedMenuView = {
         let view = TPSegmentedMenuView()
@@ -73,8 +73,6 @@ class FocusSystemTimerViewController: TPViewController,
     let timerTypeMenuHeight = 90.0
     let timerTypeMenuTop = 10.0
     
-    var bottomBarHeight: CGFloat = 60.0
-    
     let actionViewBottomMargin = 10.0
     let preferredActionViewSize = CGSize(width:320.0, height: 64.0)
     let preferredTaskPickerSize = CGSize(width: 280.0, height: 40.0)
@@ -88,7 +86,7 @@ class FocusSystemTimerViewController: TPViewController,
         view.addSubview(taskPickerView)
         view.addSubview(actionView)
         timerTypeMenuView.selectMenu(withTag: timerType.tag)
-        updateContent(with: timerType, animateStyle: .none)
+        updateContent(with: timerType)
         updateActionView()
         FocusTracker.shared.addDelegate(self)
     }
@@ -143,7 +141,7 @@ class FocusSystemTimerViewController: TPViewController,
         return .systemGroupedBackground
     }
     
-    private func updateContent(with timerType: FocusTimerType, animateStyle: SlideStyle) {
+    private func updateContent(with timerType: FocusTimerType) {
         let editView: UIView
         switch timerType {
         case .pomodoro:
@@ -211,11 +209,7 @@ class FocusSystemTimerViewController: TPViewController,
         let toValue = type.index ?? 0
         timerType = type
         didChangeTimerType(type)
-        /// 切换动画样式
-        let style = SlideStyle.horizontalStyle(fromValue: fromValue, toValue: toValue)
-        updateContent(with: type, animateStyle: style)
-        
-        /// 更新操作视图
+        updateContent(with: type)
         updateActionView()
     }
     

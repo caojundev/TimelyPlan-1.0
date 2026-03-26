@@ -32,6 +32,7 @@
 "Default Pomodoro" = "默认番茄钟";
 "Default Countdown" = "默认倒计时";
 "Default Stopwatch" = "默认正计时";
+"Custom Timer" = "自定义计时器";
 
 /// 占位文本
 "Tap + to create a new timer" = "点击+创建新计时器";

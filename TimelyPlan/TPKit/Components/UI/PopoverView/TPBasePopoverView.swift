@@ -131,6 +131,14 @@ class TPBasePopoverView: UIView, TFPopoverContent {
     }
     
     // MARK: - 显示，隐藏
+    func show(animated: Bool = true) {
+        self.show(from: nil,
+                  sourceRect: nil,
+                  isCovered: false,
+                  preferredPosition: .center,
+                  animated: animated)
+    }
+    
     func show(from sourceView: UIView?,
               sourceRect: CGRect?,
               isCovered: Bool,

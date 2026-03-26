@@ -11,14 +11,46 @@ import UIKit
 
 class FocusPresenter {
 
-    static func showTrackingViewControllerIfNeeded() {
-        FocusTracker.shared.showTrackingViewControllerIfNeeded()
+    static func quickStartFocus(for task: TaskFeature? = nil) {
+        let startVC = FocusQuickStartViewController(editType: .pomodoro)
+        startVC.didPickTimer = { timer in
+            FocusPresenter.startFocus(with: timer)
+        }
+        
+        startVC.didClickStatistics = {
+            FocusPresenter.showStatistics(for: task)
+        }
+        
+        startVC.popoverShowAsNavigationRoot()
     }
-
+    
+    /// 总览统计
+    static func showOverallStatistics() {
+        let vc = FocusStatsOverallViewController()
+        vc.showAsNavigationRoot()
+    }
+    
+    /// 特定计时器统计
+    static func showStatistics(for timer: FocusTimer) {
+        let vc = FocusStatsTimerViewController(timer: timer)
+        vc.showAsNavigationRoot()
+    }
+    
+    /// 特定任务统计
+    static func showStatistics(for task: TaskFeature?) {
+        let vc = FocusStatsOverallViewController()
+        vc.showAsNavigationRoot()
+    }
+    
+    /// 开始专注
     static func startFocus(with timer: FocusTimerRepresentable) {
         FocusTracker.shared.startFocus(with: timer)
     }
     
+    /// 显示计时运行页面
+    static func showTrackingViewControllerIfNeeded() {
+        FocusTracker.shared.showTrackingViewControllerIfNeeded()
+    }
     
     /// 显示时间线
     static func showTimeline() {
@@ -47,22 +79,9 @@ class FocusPresenter {
                             date: Date = .now) {
         let vc = FocusRecordsViewController(task: task, timer: timer, type: type, date: date)
         let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
         navController.show()
     }
-    
-    /// 总览视图控制器
-    static func showOverallStatistics() {
-        let vc = FocusStatsOverallViewController()
-        vc.showAsNavigationRoot()
-    }
-    
-    /// 特定计时器统计视图控制器
-    static func showStatistics(for timer: FocusTimer) {
-        let vc = FocusStatsTimerViewController(timer: timer)
-        vc.showAsNavigationRoot()
-    }
-    
+
     /// 显示设置视图控制器
     static func showSettings() {
         let vc = FocusSettingViewController(style: .insetGrouped)

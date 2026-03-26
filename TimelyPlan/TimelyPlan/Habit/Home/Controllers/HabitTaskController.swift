@@ -59,5 +59,4 @@ class HabitTaskController {
     func reorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
         habit.reorderTask(in: tasks, fromIndex: fromIndex, toIndex: toIndex)
     }
-
 }

@@ -50,7 +50,7 @@ class HabitTaskMenuActionProcessor {
         case .editLog:
             recordController.editLog(for: task, with: record, on: date)
         case .focus:
-            break
+            FocusPresenter.quickStartFocus()
         case .edit:
             taskController.editTask(task)
         case .delete:

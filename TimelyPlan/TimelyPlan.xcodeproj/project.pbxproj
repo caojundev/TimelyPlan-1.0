@@ -403,6 +403,18 @@
 		E552FBB22DBD20A40072703F /* CalendarStripMoreTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB12DBD20A40072703F /* CalendarStripMoreTextLayer.swift */; };
 		E552FBB42DBDDCA70072703F /* CalendarMonthWeekBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */; };
 		E552FBB62DBE30630072703F /* CalendarMonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */; };
+		E555492B2F74D24C00C9460D /* FocusQuickStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492A2F74D24C00C9460D /* FocusQuickStartViewController.swift */; };
+		E555492D2F74D2AC00C9460D /* FocusQuickStartTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492C2F74D2AC00C9460D /* FocusQuickStartTypeView.swift */; };
+		E555492F2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492E2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift */; };
+		E55549312F7505F900C9460D /* FocusQuickStartUserTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549302F7505F900C9460D /* FocusQuickStartUserTimerViewController.swift */; };
+		E555493A2F75590100C9460D /* focus_timer_countdown_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549322F7558FE00C9460D /* focus_timer_countdown_24@3x.png */; };
+		E555493B2F75590100C9460D /* focus_timer_countdown_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549332F7558FF00C9460D /* focus_timer_countdown_24@2x.png */; };
+		E555493C2F75590100C9460D /* focus_timer_pomodoro_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549342F7558FF00C9460D /* focus_timer_pomodoro_24@3x.png */; };
+		E555493D2F75590100C9460D /* focus_timer_custom_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549352F7558FF00C9460D /* focus_timer_custom_24@3x.png */; };
+		E555493E2F75590100C9460D /* focus_timer_stopwatch_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549362F75590000C9460D /* focus_timer_stopwatch_24@3x.png */; };
+		E555493F2F75590100C9460D /* focus_timer_pomodoro_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549372F75590000C9460D /* focus_timer_pomodoro_24@2x.png */; };
+		E55549402F75590100C9460D /* focus_timer_custom_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549382F75590000C9460D /* focus_timer_custom_24@2x.png */; };
+		E55549412F75590100C9460D /* focus_timer_stopwatch_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549392F75590000C9460D /* focus_timer_stopwatch_24@2x.png */; };
 		E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */; };
 		E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */; };
 		E556BCBE2F5D6C7000CA20D9 /* habit_indicator_status_skipped_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */; };
@@ -2003,6 +2015,18 @@
 		E552FBB12DBD20A40072703F /* CalendarStripMoreTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStripMoreTextLayer.swift; sourceTree = "<group>"; };
 		E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthWeekBackgroundLayer.swift; sourceTree = "<group>"; };
 		E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthViewController.swift; sourceTree = "<group>"; };
+		E555492A2F74D24C00C9460D /* FocusQuickStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusQuickStartViewController.swift; sourceTree = "<group>"; };
+		E555492C2F74D2AC00C9460D /* FocusQuickStartTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusQuickStartTypeView.swift; sourceTree = "<group>"; };
+		E555492E2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusQuickStartSystemTimerViewController.swift; sourceTree = "<group>"; };
+		E55549302F7505F900C9460D /* FocusQuickStartUserTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusQuickStartUserTimerViewController.swift; sourceTree = "<group>"; };
+		E55549322F7558FE00C9460D /* focus_timer_countdown_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_countdown_24@3x.png"; sourceTree = "<group>"; };
+		E55549332F7558FF00C9460D /* focus_timer_countdown_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_countdown_24@2x.png"; sourceTree = "<group>"; };
+		E55549342F7558FF00C9460D /* focus_timer_pomodoro_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_pomodoro_24@3x.png"; sourceTree = "<group>"; };
+		E55549352F7558FF00C9460D /* focus_timer_custom_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_custom_24@3x.png"; sourceTree = "<group>"; };
+		E55549362F75590000C9460D /* focus_timer_stopwatch_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_stopwatch_24@3x.png"; sourceTree = "<group>"; };
+		E55549372F75590000C9460D /* focus_timer_pomodoro_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_pomodoro_24@2x.png"; sourceTree = "<group>"; };
+		E55549382F75590000C9460D /* focus_timer_custom_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_custom_24@2x.png"; sourceTree = "<group>"; };
+		E55549392F75590000C9460D /* focus_timer_stopwatch_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_stopwatch_24@2x.png"; sourceTree = "<group>"; };
 		E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditViewController.swift; sourceTree = "<group>"; };
 		E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_checked_16@2x.png"; sourceTree = "<group>"; };
 		E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_skipped_16@2x.png"; sourceTree = "<group>"; };
@@ -4414,6 +4438,17 @@
 				E5526ACB2DD19CA300B96A9D /* Events */,
 			);
 			path = Week;
+			sourceTree = "<group>";
+		};
+		E55549272F74CA6800C9460D /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				E555492C2F74D2AC00C9460D /* FocusQuickStartTypeView.swift */,
+				E555492A2F74D24C00C9460D /* FocusQuickStartViewController.swift */,
+				E555492E2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift */,
+				E55549302F7505F900C9460D /* FocusQuickStartUserTimerViewController.swift */,
+			);
+			path = Start;
 			sourceTree = "<group>";
 		};
 		E556BCC52F5D746400CA20D9 /* recordType */ = {
@@ -7744,6 +7779,7 @@
 				E5D7D8362D43933400EC877A /* Record */,
 				E5D7D8332D43933300EC877A /* Setting */,
 				E5D7D8632D43933500EC877A /* Statistic */,
+				E55549272F74CA6800C9460D /* Start */,
 				E5D7D7F52D43933100EC877A /* Tracking */,
 			);
 			path = Focus;
@@ -8340,6 +8376,14 @@
 				E5D7D95B2D43DBDE00EC877A /* focus_timer_stepped_32@3x.png */,
 				E5D7D95E2D43DBDF00EC877A /* focus_timer_stopwatch_32@2x.png */,
 				E5D7D95D2D43DBDF00EC877A /* focus_timer_stopwatch_32@3x.png */,
+				E55549332F7558FF00C9460D /* focus_timer_countdown_24@2x.png */,
+				E55549322F7558FE00C9460D /* focus_timer_countdown_24@3x.png */,
+				E55549382F75590000C9460D /* focus_timer_custom_24@2x.png */,
+				E55549352F7558FF00C9460D /* focus_timer_custom_24@3x.png */,
+				E55549372F75590000C9460D /* focus_timer_pomodoro_24@2x.png */,
+				E55549342F7558FF00C9460D /* focus_timer_pomodoro_24@3x.png */,
+				E55549392F75590000C9460D /* focus_timer_stopwatch_24@2x.png */,
+				E55549362F75590000C9460D /* focus_timer_stopwatch_24@3x.png */,
 			);
 			path = timer;
 			sourceTree = "<group>";
@@ -8802,6 +8846,7 @@
 				E50D02552F55860B00E93977 /* habit_time_morning_24@3x.png in Resources */,
 				E5E276EF2D3DF0B4004EC522 /* todo_list_inbox_24@3x.png in Resources */,
 				E5BB9AA82D3BEF0D0089667A /* todo_task_note_24@3x.png in Resources */,
+				E555493E2F75590100C9460D /* focus_timer_stopwatch_24@3x.png in Resources */,
 				E5BB9ADC2D3BEF0D0089667A /* xmark_16@3x.png in Resources */,
 				E50D94C62D45224500F57957 /* unarchive_24@3x.png in Resources */,
 				E500DE5A2DB09D4500EAEAF7 /* todo_filter_indicator_myDay_12@3x.png in Resources */,
@@ -8869,6 +8914,7 @@
 				E526D4072F6D7479005C1DED /* habit_menu_editLog_24@2x.png in Resources */,
 				E5E276F12D3DF0B4004EC522 /* todo_list_inbox_24@2x.png in Resources */,
 				E55A7B792D45F873000D224C /* timer_next_24@3x.png in Resources */,
+				E555493C2F75590100C9460D /* focus_timer_pomodoro_24@3x.png in Resources */,
 				E5D7D9852D43E35000EC877A /* focus_timer_stepMode_break_24@3x.png in Resources */,
 				E5E2771A2D3E099C004EC522 /* todo_list_option_group_24@2x.png in Resources */,
 				E50D94F22D452DD700F57957 /* focus_record_timeline_paused_24@2x.png in Resources */,
@@ -8896,6 +8942,7 @@
 				E5BBA0FF2D3BFB3C0089667A /* SideMenuMyDay@2x.png in Resources */,
 				E54155392F48B541000B2972 /* focus_record_showDetail_24@3x.png in Resources */,
 				E556BCC42F5D6C7000CA20D9 /* habit_indicator_status_failed_16@2x.png in Resources */,
+				E555493D2F75590100C9460D /* focus_timer_custom_24@3x.png in Resources */,
 				E5BB9A812D3BEF0D0089667A /* schedule_reminder_24@2x.png in Resources */,
 				E59243F72F514AF400CA2393 /* arrow_up_backward_fill_36@2x.png in Resources */,
 				E5BB9ABF2D3BEF0D0089667A /* todo_task_action_undone_24@3x.png in Resources */,
@@ -8981,6 +9028,7 @@
 				E506B5C72F638B2E008B3321 /* habit_task_filter_all_24@2x.png in Resources */,
 				E5BB9A972D3BEF0D0089667A /* todo_list_24@2x.png in Resources */,
 				E5FC6BA52F64EFBC00D5A5EA /* habit_status_completed_36@3x.png in Resources */,
+				E55549402F75590100C9460D /* focus_timer_custom_24@2x.png in Resources */,
 				E515AD7D2D3CF87F00AA9AF2 /* triangle_right_12@3x.png in Resources */,
 				E526D4152F6D7AE0005C1DED /* habit_plceholder_task_80@2x.png in Resources */,
 				E5D7D8F72D43933600EC877A /* OpenCircleAngleGradient@3x.png in Resources */,
@@ -8994,6 +9042,7 @@
 				E5BB9AE62D3BEF0D0089667A /* checkmark_24@2x.png in Resources */,
 				E5BBA1012D3BFB3C0089667A /* SideMenuSettings@3x.png in Resources */,
 				E547C71E2F3D7ED40095918C /* focus_placeholder_noTimer_80@3x.png in Resources */,
+				E555493A2F75590100C9460D /* focus_timer_countdown_24@3x.png in Resources */,
 				E5BB9ADB2D3BEF0D0089667A /* xmark_16@2x.png in Resources */,
 				E55A7B9C2D463917000D224C /* bell_fill_16@3x.png in Resources */,
 				E5BB9A9B2D3BEF0D0089667A /* todo_list_layout_list_96@3x.png in Resources */,
@@ -9009,6 +9058,8 @@
 				E5D833962DAB64D60012ABF3 /* todo_task_progress_recordType_24@3x.png in Resources */,
 				E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */,
 				E5BB9AA02D3BEF0D0089667A /* todo_task_record_negative_24@2x.png in Resources */,
+				E55549412F75590100C9460D /* focus_timer_stopwatch_24@2x.png in Resources */,
+				E555493B2F75590100C9460D /* focus_timer_countdown_24@2x.png in Resources */,
 				E5BB9B362D3BEF920089667A /* star.png in Resources */,
 				E5CAA9692D700ABD00A0539C /* todo_task_quadrant_fill_24@3x.png in Resources */,
 				E5D815C52F729C3700A4822D /* focus_record_bind_task_24@3x.png in Resources */,
@@ -9231,6 +9282,7 @@
 				E5BB9AC02D3BEF0D0089667A /* todo_task_action_trash_24@3x.png in Resources */,
 				E5BB9ABC2D3BEF0D0089667A /* todo_task_action_move_24@2x.png in Resources */,
 				E50D94E42D452DBF00F57957 /* checkmark_circle_fill_24@2x.png in Resources */,
+				E555493F2F75590100C9460D /* focus_timer_pomodoro_24@2x.png in Resources */,
 				E547C7252F3DA2F00095918C /* focus_record_order_descending_24@3x.png in Resources */,
 				E53AC84C2D8C6DBC00814618 /* quadrant_option_detail_24@3x.png in Resources */,
 				E541553A2F48B541000B2972 /* focus_record_showDetail_24@2x.png in Resources */,
@@ -9326,6 +9378,7 @@
 				E5BB9DFD2D3BF0C60089667A /* Array+Elements.swift in Sources */,
 				E51FF6532F571A11003CA953 /* HabitTaskEnums.swift in Sources */,
 				E50BB6832D57557600D316FD /* TPIconAccessoryConfig.swift in Sources */,
+				E555492B2F74D24C00C9460D /* FocusQuickStartViewController.swift in Sources */,
 				E5BB9E8F2D3BF0C80089667A /* PieChartCell.swift in Sources */,
 				E5BB9EAC2D3BF0C80089667A /* TPMenuListViewController.swift in Sources */,
 				E5BBA09A2D3BF4A50089667A /* TodoRecordInputViewController.swift in Sources */,
@@ -9479,6 +9532,7 @@
 				E55CE36C2D8BFA810083316E /* QuadrantLayoutEditCell.swift in Sources */,
 				E5BB9B442D3BEF920089667A /* UIButtonExtension.swift in Sources */,
 				E5BBA0AC2D3BF4A50089667A /* TodoSmartList.swift in Sources */,
+				E555492F2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift in Sources */,
 				E5BB9DC12D3BF0C60089667A /* Weekday.swift in Sources */,
 				E5BB9DDE2D3BF0C60089667A /* UIView+Animate.swift in Sources */,
 				E5D7D8C72D43933600EC877A /* FocusTracker.swift in Sources */,
@@ -10117,6 +10171,7 @@
 				E507E7BB2F532DB2003004C4 /* HabitSystemUnitSectionController.swift in Sources */,
 				E507E7992F529369003004C4 /* HabitSettingViewController.swift in Sources */,
 				E5BB9EB72D3BF0C80089667A /* TPDatePickerTableCell.swift in Sources */,
+				E55549312F7505F900C9460D /* FocusQuickStartUserTimerViewController.swift in Sources */,
 				E5BB9E6D2D3BF0C70089667A /* TPCollectionBaseSectionController.swift in Sources */,
 				E5F9C8A62D6F17E10051A8F8 /* TodoTaskQuickAddManager.swift in Sources */,
 				E5BB9B482D3BEF920089667A /* ActionQueue.swift in Sources */,
@@ -10291,6 +10346,7 @@
 				E5BB9B3B2D3BEF920089667A /* IGListIndexPathResult.m in Sources */,
 				E5BB9F0D2D3BF0C90089667A /* TPBaseMenuController.swift in Sources */,
 				E5B2BC852F6E356A00DC1721 /* HabitRecordListCell.swift in Sources */,
+				E555492D2F74D2AC00C9460D /* FocusQuickStartTypeView.swift in Sources */,
 				E5D7D9382D43933700EC877A /* FocusCountdownConfigSectionController.swift in Sources */,
 				E50DD7B22D714F3300A85E87 /* TPCalendarScrollableWeekView.swift in Sources */,
 				E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */,
