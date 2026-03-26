@@ -11,6 +11,7 @@ class PieChartView: UIView {
     
     var visual:PieVisual! {
         didSet {
+            setHighlight(false)
             circleView.visual = visual
             lineView.visual = visual
             labelsView.visual = visual
@@ -181,6 +182,7 @@ class PieChartView: UIView {
     /// 点击后清除高亮
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if highlightView.isHighlighted {
+            TPImpactFeedback.impactWithSoftStyle()
             clearHighlight()
         }
     }
