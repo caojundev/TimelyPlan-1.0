@@ -117,10 +117,10 @@ class FocusTracker: NSObject {
     func clearEvent() {
         /// 移除所有待处理通知
         FocusEventNotificationService.removeAllFocusPendingNotifications(completion: nil)
-        event = nil
-        stopTimerIfNeeded()
-        checkStateAndNotifyDelegatesIfNeeded()
-        previousState = nil ///
+        self.event = nil
+        self.stopTimerIfNeeded()
+        self.checkStateAndNotifyDelegatesIfNeeded()
+        self.previousState = nil ///
         
         /// 删除保存的事件数据
         SettingAgent.shared.setValue(nil, forKey: kFocusingEventKey)
@@ -133,10 +133,10 @@ class FocusTracker: NSObject {
     }
     
     // MARK: - 开始专注
-    func startFocus(with timer: FocusTimerRepresentable) {
+    func startFocus(with timer: FocusTimerRepresentable, forceAutoStart: Bool = false) {
         if self.event == nil || self.event?.state == .notStarted {
             /// 当前无绑定事件，或绑定事件未开始，则可以绑定新的计时器事件
-            track(timer: timer, task: nil)
+            track(timer: timer, task: nil, forceAutoStart: forceAutoStart)
         }
     
         showTrackingViewControllerIfNeeded()
@@ -155,12 +155,20 @@ class FocusTracker: NSObject {
         }
     }
 
-    private func track(timer: FocusTimerRepresentable, task: TaskRepresentable? = nil) {
+    private func track(timer: FocusTimerRepresentable,
+                       task: TaskRepresentable? = nil,
+                       forceAutoStart: Bool) {
         let timerConfig = timer.timerConfig ?? FocusTimerConfig.defaultConfig
         let event = timerConfig.event()
         event.timerFeature = timer.feature
         event.taskInfo = task?.info
-        event.startIfAutoStart() /// 自动开始事件
+        if forceAutoStart {
+            event.start()
+        } else {
+            /// 根据配置确定是否自动开始
+            event.startIfAutoStart()
+        }
+        
         track(event: event)
     }
     
@@ -175,7 +183,7 @@ class FocusTracker: NSObject {
     /// 显示计时视图控制器
     func showTrackingViewControllerIfNeeded() {
         if event == nil || isTrackingViewControllerPresented() {
-            debugPrint("❌计时器追踪视图控制器已弹出")
+            /// 计时器追踪视图控制器已弹出
             return
         }
 

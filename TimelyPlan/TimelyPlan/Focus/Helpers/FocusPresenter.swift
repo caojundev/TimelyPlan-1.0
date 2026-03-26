@@ -14,7 +14,7 @@ class FocusPresenter {
     static func quickStartFocus(for task: TaskFeature? = nil) {
         let startVC = FocusQuickStartViewController(editType: .pomodoro)
         startVC.didPickTimer = { timer in
-            FocusPresenter.startFocus(with: timer)
+            FocusPresenter.startFocus(with: timer, forceAutoStart: true)
         }
         
         startVC.didClickStatistics = {
@@ -43,8 +43,10 @@ class FocusPresenter {
     }
     
     /// 开始专注
-    static func startFocus(with timer: FocusTimerRepresentable) {
-        FocusTracker.shared.startFocus(with: timer)
+    static func startFocus(with timer: FocusTimerRepresentable,
+                           forceAutoStart: Bool = false) {
+        FocusTracker.shared.startFocus(with: timer,
+                                       forceAutoStart: forceAutoStart)
     }
     
     /// 显示计时运行页面
