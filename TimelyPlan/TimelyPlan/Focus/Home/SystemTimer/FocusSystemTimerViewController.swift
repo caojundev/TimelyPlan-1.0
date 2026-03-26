@@ -1,5 +1,5 @@
 //
-//  FocusStartViewController.swift
+//  FocusSystemTimerViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/6/19.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FocusStartViewController: TPViewController,
+class FocusSystemTimerViewController: TPViewController,
                                     TPAnimatedContainerViewDelegate,
                                     FocusTrackerDelegate {
     

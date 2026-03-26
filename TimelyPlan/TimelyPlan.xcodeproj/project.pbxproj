@@ -1395,7 +1395,7 @@
 		E5D7D9062D43933600EC877A /* PomodoroFragmentLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D85F2D43933500EC877A /* PomodoroFragmentLayer.swift */; };
 		E5D7D9072D43933600EC877A /* PomodoroCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8602D43933500EC877A /* PomodoroCircleView.swift */; };
 		E5D7D9082D43933600EC877A /* PomodoroTimerEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8612D43933500EC877A /* PomodoroTimerEditView.swift */; };
-		E5D7D9092D43933600EC877A /* FocusStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8622D43933500EC877A /* FocusStartViewController.swift */; };
+		E5D7D9092D43933600EC877A /* FocusSystemTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8622D43933500EC877A /* FocusSystemTimerViewController.swift */; };
 		E5D7D90A2D43933600EC877A /* ChartAxis+Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8652D43933500EC877A /* ChartAxis+Focus.swift */; };
 		E5D7D90B2D43933600EC877A /* FocusStatsDataItem+SectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8662D43933500EC877A /* FocusStatsDataItem+SectionController.swift */; };
 		E5D7D90C2D43933600EC877A /* StatsSummary+Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8672D43933500EC877A /* StatsSummary+Focus.swift */; };
@@ -1425,7 +1425,7 @@
 		E5D7D9252D43933700EC877A /* FocusUserTimerInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D88C2D43933600EC877A /* FocusUserTimerInfoCell.swift */; };
 		E5D7D9262D43933700EC877A /* FocusUserTimerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D88D2D43933600EC877A /* FocusUserTimerListCell.swift */; };
 		E5D7D9272D43933700EC877A /* FocusUserTimerSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D88E2D43933600EC877A /* FocusUserTimerSelectCell.swift */; };
-		E5D7D9282D43933700EC877A /* FocusHomeUserTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D88F2D43933600EC877A /* FocusHomeUserTimerViewController.swift */; };
+		E5D7D9282D43933700EC877A /* FocusHomeUserTimerContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D88F2D43933600EC877A /* FocusHomeUserTimerContentViewController.swift */; };
 		E5D7D92B2D43933700EC877A /* FocusHomeUserTimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8932D43933600EC877A /* FocusHomeUserTimerCell.swift */; };
 		E5D7D92C2D43933700EC877A /* FocusUserTimerSelectSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8952D43933600EC877A /* FocusUserTimerSelectSectionController.swift */; };
 		E5D7D92F2D43933700EC877A /* FocusTimerSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8992D43933600EC877A /* FocusTimerSearchResultViewController.swift */; };
@@ -1448,7 +1448,7 @@
 		E5D7D9402D43933700EC877A /* FocusTimerStepMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8AF2D43933600EC877A /* FocusTimerStepMenuController.swift */; };
 		E5D7D9412D43933700EC877A /* FocusTimerStepEditContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8B12D43933600EC877A /* FocusTimerStepEditContentViewController.swift */; };
 		E5D7D9422D43933700EC877A /* FocusTimerStepNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8B22D43933600EC877A /* FocusTimerStepNameCell.swift */; };
-		E5D7D9432D43933700EC877A /* FocusHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8B32D43933600EC877A /* FocusHomeViewController.swift */; };
+		E5D7D9432D43933700EC877A /* FocusHomeUserTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8B32D43933600EC877A /* FocusHomeUserTimerViewController.swift */; };
 		E5D7D9442D43933700EC877A /* FocusTimerBindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8B52D43933600EC877A /* FocusTimerBindView.swift */; };
 		E5D7D95F2D43DBE000EC877A /* focus_timer_countdown_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D7D9572D43DBDC00EC877A /* focus_timer_countdown_32@2x.png */; };
 		E5D7D9602D43DBE000EC877A /* focus_timer_pomodoro_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D7D9582D43DBDC00EC877A /* focus_timer_pomodoro_32@3x.png */; };
@@ -3012,7 +3012,7 @@
 		E5D7D85F2D43933500EC877A /* PomodoroFragmentLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PomodoroFragmentLayer.swift; sourceTree = "<group>"; };
 		E5D7D8602D43933500EC877A /* PomodoroCircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PomodoroCircleView.swift; sourceTree = "<group>"; };
 		E5D7D8612D43933500EC877A /* PomodoroTimerEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PomodoroTimerEditView.swift; sourceTree = "<group>"; };
-		E5D7D8622D43933500EC877A /* FocusStartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStartViewController.swift; sourceTree = "<group>"; };
+		E5D7D8622D43933500EC877A /* FocusSystemTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusSystemTimerViewController.swift; sourceTree = "<group>"; };
 		E5D7D8652D43933500EC877A /* ChartAxis+Focus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChartAxis+Focus.swift"; sourceTree = "<group>"; };
 		E5D7D8662D43933500EC877A /* FocusStatsDataItem+SectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FocusStatsDataItem+SectionController.swift"; sourceTree = "<group>"; };
 		E5D7D8672D43933500EC877A /* StatsSummary+Focus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StatsSummary+Focus.swift"; sourceTree = "<group>"; };
@@ -3042,7 +3042,7 @@
 		E5D7D88C2D43933600EC877A /* FocusUserTimerInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusUserTimerInfoCell.swift; sourceTree = "<group>"; };
 		E5D7D88D2D43933600EC877A /* FocusUserTimerListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusUserTimerListCell.swift; sourceTree = "<group>"; };
 		E5D7D88E2D43933600EC877A /* FocusUserTimerSelectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusUserTimerSelectCell.swift; sourceTree = "<group>"; };
-		E5D7D88F2D43933600EC877A /* FocusHomeUserTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusHomeUserTimerViewController.swift; sourceTree = "<group>"; };
+		E5D7D88F2D43933600EC877A /* FocusHomeUserTimerContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusHomeUserTimerContentViewController.swift; sourceTree = "<group>"; };
 		E5D7D8932D43933600EC877A /* FocusHomeUserTimerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusHomeUserTimerCell.swift; sourceTree = "<group>"; };
 		E5D7D8952D43933600EC877A /* FocusUserTimerSelectSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusUserTimerSelectSectionController.swift; sourceTree = "<group>"; };
 		E5D7D8992D43933600EC877A /* FocusTimerSearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerSearchResultViewController.swift; sourceTree = "<group>"; };
@@ -3065,7 +3065,7 @@
 		E5D7D8AF2D43933600EC877A /* FocusTimerStepMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerStepMenuController.swift; sourceTree = "<group>"; };
 		E5D7D8B12D43933600EC877A /* FocusTimerStepEditContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditContentViewController.swift; sourceTree = "<group>"; };
 		E5D7D8B22D43933600EC877A /* FocusTimerStepNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerStepNameCell.swift; sourceTree = "<group>"; };
-		E5D7D8B32D43933600EC877A /* FocusHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusHomeViewController.swift; sourceTree = "<group>"; };
+		E5D7D8B32D43933600EC877A /* FocusHomeUserTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusHomeUserTimerViewController.swift; sourceTree = "<group>"; };
 		E5D7D8B52D43933600EC877A /* FocusTimerBindView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerBindView.swift; sourceTree = "<group>"; };
 		E5D7D9572D43DBDC00EC877A /* focus_timer_countdown_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_countdown_32@2x.png"; sourceTree = "<group>"; };
 		E5D7D9582D43DBDC00EC877A /* focus_timer_pomodoro_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_pomodoro_32@3x.png"; sourceTree = "<group>"; };
@@ -4733,6 +4733,7 @@
 			children = (
 				E568B7DE2F717195007B7EFE /* FocusTimerGroup.swift */,
 				E568B7DC2F716FA1007B7EFE /* FocusTimerListView.swift */,
+				E568B7E02F71802A007B7EFE /* FocusUserTimerListView.swift */,
 			);
 			path = TimerListView;
 			sourceTree = "<group>";
@@ -7593,6 +7594,15 @@
 			path = stats;
 			sourceTree = "<group>";
 		};
+		E5C76BAB2F74C521003FCCE3 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E5D7D8552D43933500EC877A /* SystemTimer */,
+				E5D7D8872D43933600EC877A /* UserTimer */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		E5CAA96B2D709E3500A0539C /* MyDay */ = {
 			isa = PBXGroup;
 			children = (
@@ -7724,12 +7734,11 @@
 			isa = PBXGroup;
 			children = (
 				E5D7D8302D43933300EC877A /* FocusConstants.swift */,
-				E5D7D8522D43933400EC877A /* Main */,
-				E5D7D8312D43933300EC877A /* Extensions */,
 				E5D7D7B52D43923800EC877A /* Data */,
+				E5D7D8312D43933300EC877A /* Extensions */,
 				E5D7D8842D43933500EC877A /* Helpers */,
-				E5D7D8552D43933500EC877A /* Start */,
-				E5D7D8872D43933600EC877A /* Home */,
+				E5D7D8522D43933400EC877A /* Main */,
+				E5C76BAB2F74C521003FCCE3 /* Home */,
 				E58C9E042F4AF0DB0096B842 /* Timeline */,
 				E5D7D82D2D43933200EC877A /* Archived */,
 				E5D7D8362D43933400EC877A /* Record */,
@@ -8032,14 +8041,14 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		E5D7D8552D43933500EC877A /* Start */ = {
+		E5D7D8552D43933500EC877A /* SystemTimer */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D8622D43933500EC877A /* FocusStartViewController.swift */,
+				E5D7D8622D43933500EC877A /* FocusSystemTimerViewController.swift */,
 				E5D7D8562D43933500EC877A /* FocusStartActionView.swift */,
 				E5D7D8572D43933500EC877A /* Timers */,
 			);
-			path = Start;
+			path = SystemTimer;
 			sourceTree = "<group>";
 		};
 		E5D7D8572D43933500EC877A /* Timers */ = {
@@ -8182,30 +8191,28 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		E5D7D8872D43933600EC877A /* Home */ = {
+		E5D7D8872D43933600EC877A /* UserTimer */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D8B32D43933600EC877A /* FocusHomeViewController.swift */,
-				E568B7DB2F716F84007B7EFE /* TimerListView */,
-				E5D7D8882D43933600EC877A /* UserTimer */,
+				E5D7D8B32D43933600EC877A /* FocusHomeUserTimerViewController.swift */,
+				E5D7D8882D43933600EC877A /* Content */,
 				E5D7D8A02D43933600EC877A /* Search */,
 				E5D7D8942D43933600EC877A /* Picker */,
 				E5D7D89D2D43933600EC877A /* Controller */,
 				E5D7D8A22D43933600EC877A /* Edit */,
 				E5D7D8B42D43933600EC877A /* Bind */,
 			);
-			path = Home;
+			path = UserTimer;
 			sourceTree = "<group>";
 		};
-		E5D7D8882D43933600EC877A /* UserTimer */ = {
+		E5D7D8882D43933600EC877A /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D88F2D43933600EC877A /* FocusHomeUserTimerViewController.swift */,
-				E568B7E02F71802A007B7EFE /* FocusUserTimerListView.swift */,
-				E5D7D8932D43933600EC877A /* FocusHomeUserTimerCell.swift */,
+				E5D7D88F2D43933600EC877A /* FocusHomeUserTimerContentViewController.swift */,
+				E568B7DB2F716F84007B7EFE /* TimerListView */,
 				E5D7D8892D43933600EC877A /* Cells */,
 			);
-			path = UserTimer;
+			path = Content;
 			sourceTree = "<group>";
 		};
 		E5D7D8892D43933600EC877A /* Cells */ = {
@@ -8214,6 +8221,7 @@
 				E5D7D88C2D43933600EC877A /* FocusUserTimerInfoCell.swift */,
 				E5D7D88D2D43933600EC877A /* FocusUserTimerListCell.swift */,
 				E5D7D88A2D43933600EC877A /* FocusTimerStartCell.swift */,
+				E5D7D8932D43933600EC877A /* FocusHomeUserTimerCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -8240,8 +8248,8 @@
 		E5D7D89D2D43933600EC877A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D89E2D43933600EC877A /* FocusUserTimerMenuController.swift */,
 				E5D7D89F2D43933600EC877A /* FocusUserTimerController.swift */,
+				E5D7D89E2D43933600EC877A /* FocusUserTimerMenuController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -9368,7 +9376,7 @@
 				E5BBA0E22D3BF4A50089667A /* TodoTaskQuickAddSendView.swift in Sources */,
 				E5BBA0752D3BF4A40089667A /* RepeatSpecificDateSectionController.swift in Sources */,
 				E5D7D9342D43933700EC877A /* FocusUserTimerController.swift in Sources */,
-				E5D7D9092D43933600EC877A /* FocusStartViewController.swift in Sources */,
+				E5D7D9092D43933600EC877A /* FocusSystemTimerViewController.swift in Sources */,
 				E5BB9D9C2D3BF0C60089667A /* TPColorSelectPopoverView.swift in Sources */,
 				E5BBA0E52D3BF4A50089667A /* Array+TodoGroup.swift in Sources */,
 				E5BB9DD52D3BF0C60089667A /* UIDevice+Extension.swift in Sources */,
@@ -9638,7 +9646,7 @@
 				E58C9E1B2F4AF0DC0096B842 /* FocusTimelineAddIndicatorView.swift in Sources */,
 				E5D7D8C02D43933600EC877A /* StopwatchProgressInfoView.swift in Sources */,
 				E5CFD25F2F585A4300A898CB /* HabitDatePeriodsView.swift in Sources */,
-				E5D7D9282D43933700EC877A /* FocusHomeUserTimerViewController.swift in Sources */,
+				E5D7D9282D43933700EC877A /* FocusHomeUserTimerContentViewController.swift in Sources */,
 				E5BB9E0A2D3BF0C70089667A /* String+Emoji.swift in Sources */,
 				E54A82CB2DAAA0A200771016 /* TodoTask+Progress.swift in Sources */,
 				E5BB9E102D3BF0C70089667A /* TPNotificationAllowAccessViewController.swift in Sources */,
@@ -9771,7 +9779,7 @@
 				E5BB9E8B2D3BF0C80089667A /* ChartItem.swift in Sources */,
 				E5BB9DBB2D3BF0C60089667A /* ThemeKey.swift in Sources */,
 				E5BB9EEB2D3BF0C80089667A /* TPAlertController.swift in Sources */,
-				E5D7D9432D43933700EC877A /* FocusHomeViewController.swift in Sources */,
+				E5D7D9432D43933700EC877A /* FocusHomeUserTimerViewController.swift in Sources */,
 				E5CFD2752F58619300A898CB /* HabitTaskStatusSymbolProgressValueCell.swift in Sources */,
 				E5BB9F212D3BF2C20089667A /* AppLaunchViewContrtoller.swift in Sources */,
 				E556BCD92F5D9D3700CA20D9 /* CDHabitSample+Extensions.swift in Sources */,

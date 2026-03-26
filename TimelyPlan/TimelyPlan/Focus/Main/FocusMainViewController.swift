@@ -69,14 +69,14 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
     }()
     
     /// 开始专注视图控制器
-    lazy var startViewController: FocusStartViewController = {
-        let vc = FocusStartViewController()
+    lazy var systemTimerViewController: FocusSystemTimerViewController = {
+        let vc = FocusSystemTimerViewController()
         return vc
     }()
     
     /// 用户计时器视图控制器
-    lazy var timersViewController: FocusHomeViewController = {
-        let vc = FocusHomeViewController()
+    lazy var userTimerViewController: FocusHomeUserTimerViewController = {
+        let vc = FocusHomeUserTimerViewController()
         vc.pageController = self
         return vc
     }()
@@ -127,9 +127,9 @@ class FocusMainViewController: TPPageController, TFSidebarContent {
         let menuType = FocusMainMenuType(rawValue: index) ?? .timer
         switch menuType {
         case .focus:
-            return startViewController
+            return systemTimerViewController
         case .timer:
-            return timersViewController
+            return userTimerViewController
         }
     }
 

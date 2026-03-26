@@ -1,197 +1,120 @@
 //
-//  FocusHomeUserTimerViewController.swift
+//  FocusHomeUserTimerContentViewController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2024/9/27.
+//  Created by caojun on 2024/10/5.
 //
 
 import Foundation
 import UIKit
 
-class FocusHomeUserTimerViewController: TPViewController,
-                                        FocusTimerProcessorDelegate,
-                                        FocusSessionProcessorDelegate,
-                                        FocusTrackerDelegate,
-                                        FocusUserTimerListViewDelegate {
-
-    /// 分页控制器
-    weak var pageController: TPPageController?
+class FocusHomeUserTimerViewController: TPContainerViewController,
+                                UISearchBarDelegate {
     
-    /// 添加按钮
-    let addViewSize = CGSize(width: 50.0, height: 50.0)
-    let addViewMargin = 20.0
-    lazy var addView: TodoTaskAddView = {
-        let view = TodoTaskAddView()
-        view.didClickAdd = { [weak self] _ in
-            self?.createNewTimer()
+    weak var pageController: TPPageController? {
+        didSet {
+            self.timersViewController.pageController = pageController
         }
-        
-        return view
+    }
+    
+    let searchBarHeight = 60.0
+    let searchBarEdgeMargin = 10.0
+    let searchBarMaxWidth = kFocusTimerListContentMaxWidth
+    
+    lazy var searchBar: UISearchBar = {
+        let bar = UISearchBar()
+        bar.delegate = self
+        bar.placeholder = resGetString("Search Timer")
+        bar.barTintColor = .clear
+        bar.tintColor = resGetColor(.title)
+        bar.backgroundImage = UIImage()
+        return bar
     }()
     
-    lazy var listView: FocusUserTimerListView = {
-        let listView = FocusUserTimerListView(frame: .zero)
-        listView.delegate = self
-        listView.isReorderEnabled = true
-        return listView
+    /// 用户计时器视图控制器
+    lazy var timersViewController: FocusHomeUserTimerContentViewController = {
+        let vc = FocusHomeUserTimerContentViewController()
+        vc.pageController = self.pageController
+        return vc
     }()
-
+    
+    var searchResultsViewController: FocusHomeSearchResultViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(self.listView)
-        self.view.addSubview(self.addView)
-        self.listView.asyncReloadData()
-        
-        focus.addUpdater(self)
-        FocusTracker.shared.addDelegate(self)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.addAppLifeCycleNotification()
-        self.listView.isDisplaying = true
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.removeAppLifeCycleNotification()
-        self.listView.isDisplaying = false
-    }
-    
-    override func appDidBecomeActive() {
-        self.listView.isDisplaying = true
-    }
-    
-    override func appDidEnterBackground() {
-        self.listView.isDisplaying = false
+        self.view.addSubview(searchBar)
+        self.setContentViewController(timersViewController)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let layoutFrame = view.safeAreaFrame()
-        self.addView.size = addViewSize
-        self.addView.bottom = layoutFrame.maxY - addViewMargin
-        self.addView.right = layoutFrame.maxX - addViewMargin
-    
-        self.listView.frame = view.bounds
-        let insetBottom = layoutFrame.maxY - addView.top
-        self.listView.contentInset = UIEdgeInsets(top: 0.0,
-                                                   left: 0.0,
-                                                   bottom: insetBottom,
-                                                   right: 0.0)
+        let searchBarWidth = view.width - 2 * searchBarEdgeMargin
+        self.searchBar.width = min(searchBarMaxWidth, searchBarWidth)
+        self.searchBar.height = searchBarHeight
+        self.searchBar.alignHorizontalCenter()
+    }
+
+    override func contentViewFrame() -> CGRect {
+        let inset = UIEdgeInsets(top: searchBarHeight)
+        return self.view.bounds.inset(by: inset)
     }
     
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
     
-    private func createNewTimer() {
-        let timers = listView.allItems() as? [FocusTimer]
-        let timerController = FocusUserTimerController()
-        timerController.createTimer(in: timers)
+    private func revealTimer(_ timer: FocusTimer) {
+        searchBarCancelButtonClicked(searchBar)
+        timersViewController.revealTimer(timer)
     }
     
-    // MARK: - FocusUserTimerListViewDelegate
-    func focusTimerListView(_ listView: FocusTimerListView, fetchTimerGroups completion: @escaping ([FocusTimerGroup]?) -> Void) {
-        focus.fetchActiveTimers { timers in
-            guard let timers = timers, timers.count > 0 else {
-                completion(nil)
-                return
-            }
+    private func startFocus(with timer: FocusTimer) {
+        searchBarCancelButtonClicked(searchBar)
+        FocusPresenter.startFocus(with: timer)
+    }
+    
+    // MARK: - UISearchBarDelegate
 
-            let group = FocusTimerGroup(identifier: "HomeUserTimerGroup")
-            group.timers = timers
-            completion([group])
-        }
-    }
-  
-    func focusTimerListView(_ listView: FocusTimerListView, didSelectItemAt indexPath: IndexPath) {
-        TPImpactFeedback.impactWithSoftStyle()
-        if let timer = listView.item(at: indexPath) as? FocusTimer {
-            FocusPresenter.startFocus(with: timer)
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    
+        if self.searchResultsViewController == nil {
+            let resultsViewController = FocusHomeSearchResultViewController()
+            resultsViewController.didClickStart = { [weak self] timer in
+                self?.startFocus(with: timer)
+            }
+            
+            resultsViewController.didSelectTimer = { [weak self] timer in
+                self?.revealTimer(timer)
+            }
+            
+            self.searchResultsViewController = resultsViewController
+            self.setContentViewController(resultsViewController)
         }
     }
     
-    func focusUserTimerListView(_ listView: FocusUserTimerListView, moveItemAt sourceIndexPath: IndexPath, to targetIndexPath: IndexPath) {
-        guard let timers = listView.items(for: targetIndexPath.section) as? [FocusTimer] else {
-            return
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        let searchTextCount = searchBar.text?.count ?? 0
+        if searchTextCount == 0 {
+            searchBarCancelButtonClicked(searchBar)
         }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchBar.text = nil
+        searchBar.setShowsCancelButton(false, animated: true)
         
-        focus.reorderTimer(in: timers, fromIndex: sourceIndexPath.item, toIndex: targetIndexPath.item)
+        self.searchResultsViewController = nil
+        self.setContentViewController(timersViewController)
     }
     
-    // MARK: - FocusTrackerDelegate
-    func focusTrackerStateDidChange(fromState: FocusTrackerState?, toState: FocusTrackerState) {
-        self.listView.updateFocusingIndicator()
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
     
-    // MARK: - FocusTimerProcessorDelegate
-    func didCreateFocusTimer(_ timer: FocusTimer) {
-        self.listView.asyncPerformUpdate { [weak self] _ in
-            self?.revealTimer(timer)
-        }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchResultsViewController?.updateSearchResults(with: searchText)
     }
     
-    func didChangeArchivedState(_ isArchived: Bool, for timer: FocusTimer) {
-        self.listView.asyncPerformUpdate()
-    }
-    
-    func didUpdateFocusTimer(_ timer: FocusTimer) {
-        self.listView.asyncPerformUpdate { [weak self] _ in
-            self?.revealTimer(timer)
-        }
-    }
-    
-    func didDeleteFocusTimer(_ timer: FocusTimer) {
-        self.listView.asyncPerformUpdate()
-    }
-    
-    func didMoveFocusTimerToTop(_ timer: FocusTimer) {
-        self.listView.asyncPerformUpdate()
-    }
-    
-    func didReorderFocusTimer(in timers: [FocusTimer], fromIndex: Int, toIndex: Int) {
-        /// 无需操作
-    }
-    
-    // MARK: - FocusSessionProcessorDelegate
-    func didAddFocusSessions(_ sessions: [FocusSession]) {
-        guard sessions.count > 0 else {
-            return
-        }
-        
-        let format: String
-        if sessions.count > 1 {
-            format = resGetString("%ld focus records added successfully")
-        } else {
-            format = resGetString("%ld focus record added successfully")
-        }
-        
-        let message = String(format: format, sessions.count)
-        TPFeedbackQueue.common.postFeedback(text: message, position: .top)
-    }
-    
-    func didUpdateFocusSession(_ session: FocusSession) {
-        
-    }
-    
-    func didDeleteFocusSession(_ session: FocusSession) {
-        
-    }
-    
-    // MARK: - Helpers
-    /// 判断当前是否为正在显示的视图控制器
-    var isDisplaying: Bool {
-        var isCurrent = false
-        if let pageController = pageController {
-            isCurrent = pageController.selectedPageIndex == FocusMainMenuType.timer.rawValue
-        }
-        
-        return isCurrent
-    }
-    
-    // MARK: - Public Methods
-    public func revealTimer(_ timer: FocusTimer) {
-        self.listView.revealTimer(timer)
-    }
 }
