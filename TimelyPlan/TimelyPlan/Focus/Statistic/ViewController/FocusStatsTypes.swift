@@ -22,4 +22,13 @@ enum FocusStatsDetailGroupType: String, TPMenuRepresentable {
     static func titles() -> [String] {
         return ["By Task", "By Timer"]
     }
+    
+    var iconName: String? {
+        switch self {
+        case .task:
+            return "focus_stats_group_task_24"
+        case .timer:
+            return "focus_stats_group_timer_24"
+        }
+    }
 }

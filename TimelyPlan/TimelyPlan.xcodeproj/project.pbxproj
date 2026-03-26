@@ -1269,6 +1269,10 @@
 		E5C18FBC2DB4FE1F008FAA13 /* todo_task_change_new_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB62DB4FE1F008FAA13 /* todo_task_change_new_16@3x.png */; };
 		E5C18FBD2DB4FE1F008FAA13 /* todo_task_change_modified_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB72DB4FE1F008FAA13 /* todo_task_change_modified_16@3x.png */; };
 		E5C18FBE2DB4FE1F008FAA13 /* todo_task_change_modified_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB82DB4FE1F008FAA13 /* todo_task_change_modified_16@2x.png */; };
+		E5C76BA62F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C76BA22F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png */; };
+		E5C76BA72F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C76BA32F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png */; };
+		E5C76BA82F74C0DD003FCCE3 /* focus_stats_group_timer_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C76BA42F74C0DD003FCCE3 /* focus_stats_group_timer_24@2x.png */; };
+		E5C76BA92F74C0DD003FCCE3 /* focus_stats_group_timer_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C76BA52F74C0DD003FCCE3 /* focus_stats_group_timer_24@3x.png */; };
 		E5C9651B2DA15D47009417B7 /* TodoFilterSpecificDateRangeSegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C9651A2DA15D46009417B7 /* TodoFilterSpecificDateRangeSegmentedCell.swift */; };
 		E5CAA9672D700ABD00A0539C /* todo_task_quadrant_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAA9632D700ABC00A0539C /* todo_task_quadrant_24@2x.png */; };
 		E5CAA9682D700ABD00A0539C /* todo_task_quadrant_fill_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAA9642D700ABC00A0539C /* todo_task_quadrant_fill_24@2x.png */; };
@@ -2882,6 +2886,10 @@
 		E5C18FB62DB4FE1F008FAA13 /* todo_task_change_new_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_new_16@3x.png"; sourceTree = "<group>"; };
 		E5C18FB72DB4FE1F008FAA13 /* todo_task_change_modified_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_modified_16@3x.png"; sourceTree = "<group>"; };
 		E5C18FB82DB4FE1F008FAA13 /* todo_task_change_modified_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_modified_16@2x.png"; sourceTree = "<group>"; };
+		E5C76BA22F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_stats_group_task_24@2x.png"; sourceTree = "<group>"; };
+		E5C76BA32F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_stats_group_task_24@3x.png"; sourceTree = "<group>"; };
+		E5C76BA42F74C0DD003FCCE3 /* focus_stats_group_timer_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_stats_group_timer_24@2x.png"; sourceTree = "<group>"; };
+		E5C76BA52F74C0DD003FCCE3 /* focus_stats_group_timer_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_stats_group_timer_24@3x.png"; sourceTree = "<group>"; };
 		E5C9651A2DA15D46009417B7 /* TodoFilterSpecificDateRangeSegmentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterSpecificDateRangeSegmentedCell.swift; sourceTree = "<group>"; };
 		E5CAA9632D700ABC00A0539C /* todo_task_quadrant_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quadrant_24@2x.png"; sourceTree = "<group>"; };
 		E5CAA9642D700ABC00A0539C /* todo_task_quadrant_fill_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quadrant_fill_24@2x.png"; sourceTree = "<group>"; };
@@ -7574,6 +7582,17 @@
 			path = change;
 			sourceTree = "<group>";
 		};
+		E5C76BA12F74C0DC003FCCE3 /* stats */ = {
+			isa = PBXGroup;
+			children = (
+				E5C76BA22F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png */,
+				E5C76BA32F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png */,
+				E5C76BA42F74C0DD003FCCE3 /* focus_stats_group_timer_24@2x.png */,
+				E5C76BA52F74C0DD003FCCE3 /* focus_stats_group_timer_24@3x.png */,
+			);
+			path = stats;
+			sourceTree = "<group>";
+		};
 		E5CAA96B2D709E3500A0539C /* MyDay */ = {
 			isa = PBXGroup;
 			children = (
@@ -8295,6 +8314,7 @@
 				E52B62A42F3611FC00673620 /* main */,
 				E50D94AE2D451C1800F57957 /* record */,
 				E5D7D96B2D43E05700EC877A /* running */,
+				E5C76BA12F74C0DC003FCCE3 /* stats */,
 				E5D7D9462D43D6FA00EC877A /* timer */,
 			);
 			path = focus;
@@ -9000,6 +9020,7 @@
 				E5BB9AEA2D3BEF0D0089667A /* copy_24@3x.png in Resources */,
 				E55CE3642D8BC4BB0083316E /* quadrant_circle_II@2x.png in Resources */,
 				E53A15E22D45DF0300474F94 /* archivedList_24@2x.png in Resources */,
+				E5C76BA92F74C0DD003FCCE3 /* focus_stats_group_timer_24@3x.png in Resources */,
 				E5BB9A962D3BEF0D0089667A /* todo_list_layout_board_96@3x.png in Resources */,
 				E5BB9A982D3BEF0D0089667A /* todo_list_24@3x.png in Resources */,
 				E55CE3532D8BC2A60083316E /* quadrant_IV_32@2x.png in Resources */,
@@ -9124,6 +9145,7 @@
 				E515AD622D3CC04A00AA9AF2 /* chevron_down_24@3x.png in Resources */,
 				E5D7D9662D43DBE000EC877A /* focus_timer_stopwatch_32@2x.png in Resources */,
 				E50D94BE2D451C1800F57957 /* placeholder_record_80@2x.png in Resources */,
+				E5C76BA62F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png in Resources */,
 				E5BB9A852D3BEF0D0089667A /* schedule_repeatEnd_24@3x.png in Resources */,
 				E515AD6E2D3CC49800AA9AF2 /* fullscreen_enter_24@3x.png in Resources */,
 				E5BBA1092D3BFB3C0089667A /* SideMenuTodo@3x.png in Resources */,
@@ -9178,6 +9200,7 @@
 				E5E2771E2D3E099C004EC522 /* todo_list_option_sort_24@2x.png in Resources */,
 				E556BCCE2F5D746400CA20D9 /* HabitRecordTypeCompleteAll@3x.png in Resources */,
 				E53A15E42D45DF0300474F94 /* archivedList_24@3x.png in Resources */,
+				E5C76BA82F74C0DD003FCCE3 /* focus_stats_group_timer_24@2x.png in Resources */,
 				E5BB9AB72D3BEF0D0089667A /* todo_task_action_shred_24@3x.png in Resources */,
 				E5BB9AE22D3BEF0D0089667A /* moveToBottom_24@2x.png in Resources */,
 				E5D7D9612D43DBE000EC877A /* focus_timer_pomodoro_32@2x.png in Resources */,
@@ -9206,6 +9229,7 @@
 				E50D94CF2D45248D00F57957 /* gear_24@3x.png in Resources */,
 				E5BB9AE72D3BEF0D0089667A /* trash_24@3x.png in Resources */,
 				E500DE592DB09D4500EAEAF7 /* todo_filter_indicator_myDay_12@2x.png in Resources */,
+				E5C76BA72F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png in Resources */,
 				E5BBA1082D3BFB3C0089667A /* SideMenu@2x.png in Resources */,
 				E5BBA1042D3BFB3C0089667A /* SideMenuFocus@3x.png in Resources */,
 				E515AD652D3CC36800AA9AF2 /* chevron_left_24@3x.png in Resources */,

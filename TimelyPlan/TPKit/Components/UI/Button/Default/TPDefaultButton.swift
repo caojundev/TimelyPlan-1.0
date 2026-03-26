@@ -86,7 +86,7 @@ class TPDefaultButton: TPBaseButton {
     }
     
     /// 图片标题视图
-    private(set) var imageTitleView = TPImageTitleView()
+    let imageTitleView = TPImageTitleView()
     
     override func setupContentSubviews() {
         super.setupContentSubviews()

@@ -111,38 +111,25 @@ class FocusPieChartCell: PieChartCell {
     /// 分组类型
     var groupType: FocusStatsDetailGroupType = .task {
         didSet {
-            if groupType != oldValue {
-                self.updateGroupButton()
-            }
+            self.updateGroupButton()
         }
     }
 
     /// 是否显示分组类型按钮
     var canSelectGroupType: Bool = false {
         didSet {
+            if canSelectGroupType {
+                addGroupButton()
+            } else {
+                removeGroupButton()
+            }
+            
             self.setNeedsLayout()
         }
     }
-
-    private lazy var groupButton: TPMenuListButton = {
-        let color = resGetColor(.title)
-        let button = TPMenuListButton()
-        button.titleConfig.font = BOLD_SMALL_SYSTEM_FONT
-        button.titleConfig.textColor = color
-        button.imagePosition = .right
-        button.imageConfig.margins = UIEdgeInsets(horizontal: 4.0)
-        button.imageConfig.color = color
-        button.image = resGetImage("chevron_upDown_16")
-        button.didSelectMenuAction = {[weak self] action in
-            let groupType: FocusStatsDetailGroupType? = action.actionType()
-            if let groupType = groupType {
-                self?.selectGroupType(groupType)
-            }
-        }
-        
-        return button
-    }()
-
+    
+    private var groupButton: TPMenuListButton?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -153,33 +140,69 @@ class FocusPieChartCell: PieChartCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-     
         let layoutFrame = contentView.layoutFrame()
-        self.groupButton.isHidden = !canSelectGroupType
-        if canSelectGroupType {
-            self.groupButton.sizeToFit()
-            self.groupButton.right = layoutFrame.maxX
-            self.groupButton.centerY = layoutFrame.minY + self.headerView.layoutFrame().midY
-            self.headerView.width = self.headerView.width - self.groupButton.width
+        if let groupButton = groupButton {
+            groupButton.sizeToFit()
+            groupButton.right = layoutFrame.maxX
+            groupButton.centerY = layoutFrame.minY + self.headerView.layoutFrame().midY
+            self.headerView.width = layoutFrame.width - groupButton.width
         } else {
             self.headerView.width = layoutFrame.width
         }
     }
     
-    func updateGroupButton() {
-        self.groupButton.title = groupType.title
-        let lists = [FocusStatsDetailGroupType.allCases]
-        self.groupButton.menuItems = TPMenuItem.items(with: lists, updater: { type, action in
+    private func updateGroupButton() {
+        guard let groupButton = groupButton else {
+            return
+        }
+
+        let currentGroupType = self.groupType
+        groupButton.title = currentGroupType.title
+        groupButton.menuItems = TPMenuItem.items(with: [FocusStatsDetailGroupType.allCases],
+                                                 updater: { type, action in
             action.handleBeforeDismiss = true
-            action.isChecked = type == self.groupType
+            action.isChecked = type == currentGroupType
         })
         
         self.setNeedsLayout()
     }
     
+    private func addGroupButton() {
+        guard self.groupButton == nil else {
+            return
+        }
+        
+        let color = resGetColor(.title)
+        let button = TPMenuListButton()
+        button.padding = UIEdgeInsets(horizontal: 8.0, vertical: 4.0)
+        button.titleConfig.font = BOLD_SMALL_SYSTEM_FONT
+        button.titleConfig.textColor = color
+        button.imagePosition = .right
+        button.imageConfig.size = .size(4)
+        button.imageConfig.margins = .zero
+        button.imageConfig.color = color
+        button.image = resGetImage("chevron_upDown_16")
+        button.didSelectMenuAction = { [weak self] action in
+            let groupType: FocusStatsDetailGroupType? = action.actionType()
+            if let groupType = groupType {
+                self?.selectGroupType(groupType)
+            }
+        }
+        
+        addSubview(button)
+        self.groupButton = button
+        self.updateGroupButton()
+    }
+    
+    private func removeGroupButton() {
+        if let groupButton = groupButton {
+            groupButton.removeFromSuperview()
+            self.groupButton = nil
+        }
+    }
+    
     func selectGroupType(_ type: FocusStatsDetailGroupType) {
         self.groupType = type
-        self.updateGroupButton()
         self.didSelectGroupType?(type)
     }
        
