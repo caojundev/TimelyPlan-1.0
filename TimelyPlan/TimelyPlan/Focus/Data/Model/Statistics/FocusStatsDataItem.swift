@@ -351,9 +351,9 @@ extension FocusStatsDataItem {
         
         var totalDuration: Duration = 0
         var infos = [(name: String?, duration: Duration)]()
-        for (info, value) in dic {
+        for (feature, value) in dic {
             let duration = value.duration
-            let taskName = info.task?.name ?? resGetString("Unknown Task")
+            let taskName = feature.snapshotName ?? resGetString("Unknown Task")
             infos.append((taskName, duration))
             totalDuration += duration
         }

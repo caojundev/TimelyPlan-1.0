@@ -189,6 +189,8 @@
 "No Alarm" = "无提醒";
 
 // 习惯打卡单位
+"Units" = "单位";
+"New Unit" = "新建单位";
 "count" = "次";
 "times" = "次";
 "minutes" = "分钟";

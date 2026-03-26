@@ -8,55 +8,9 @@
 import Foundation
 import UIKit
 
-struct FocusStatsInfo {
-    
-    /// 颜色
-    var color: UIColor?
-    
-    /// 标题
-    var title: String?
-    
-    /// 副标题
-    var subtitle: String?
-    
-    /// 总专注时长
-    var totalDuration: Duration?
-}
-
 class FocusStatsInfoView: UIView {
     
-    var statsInfo: FocusStatsInfo? {
-        didSet {
-            indicatorView.backgroundColor = statsInfo?.color ?? .clear
-            timerInfoView.title = statsInfo?.title
-            timerInfoView.subtitle = statsInfo?.subtitle
-            let totalDuration = statsInfo?.totalDuration ?? 0
-            durationInfoView.title = totalDuration.attributedTitle()
-            setNeedsLayout()
-        }
-    }
-    
-    private let indicatorMargin = 10.0
-    
-    private let indicatorSize = CGSize(width: 6.0, height: 36.0)
-    
-    private let durationInfoWidth = 120.0
-    
-    private lazy var indicatorView: UIView = {
-        let view = UIView()
-        view.size = indicatorSize
-        view.layer.cornerRadius = indicatorSize.width / 2.0
-        view.backgroundColor = .clear
-        return view
-    }()
-    
-    /// 计时器信息视图
-    private lazy var timerInfoView: TPInfoView = {
-        let view = TPInfoView()
-        view.titleConfig.font = UIFont.boldSystemFont(ofSize: 16.0)
-        view.titleConfig.numberOfLines = 1
-        return view
-    }()
+    let durationInfoWidth = 120.0
     
     /// 专注总时长信息视图
     lazy var durationInfoView: TPInfoView = {
@@ -81,23 +35,74 @@ class FocusStatsInfoView: UIView {
         return view
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupSubviews()
+        self.setupSubviews()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let layoutFrame = self.layoutFrame()
+        durationInfoView.width = durationInfoWidth
+        durationInfoView.height = layoutFrame.height
+        durationInfoView.right = layoutFrame.maxX
+        durationInfoView.top = layoutFrame.minY
     }
     
     func setupSubviews() {
         self.backgroundColor = .secondarySystemGroupedBackground
         self.padding = UIEdgeInsets(top: 10.0, left: 30.0, bottom: 10.0, right: 10.0)
+        addSubview(durationInfoView)
+    }
+    
+    func reloadData() {
+        
+    }
+}
+
+class FocusStatsSpecificTimerInfoView: FocusStatsInfoView {
+    
+    private let indicatorMargin = 10.0
+    
+    private let indicatorSize = CGSize(width: 6.0, height: 36.0)
+    
+    private lazy var indicatorView: UIView = {
+        let view = UIView()
+        view.size = indicatorSize
+        view.layer.cornerRadius = indicatorSize.width / 2.0
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    /// 计时器信息视图
+    private lazy var timerInfoView: TPInfoView = {
+        let view = TPInfoView()
+        view.titleConfig.font = UIFont.boldSystemFont(ofSize: 16.0)
+        view.titleConfig.numberOfLines = 1
+        return view
+    }()
+    
+    let timer: FocusTimer
+    
+    init(timer: FocusTimer) {
+        self.timer = timer
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func setupSubviews() {
         addSubview(indicatorView)
         addSubview(timerInfoView)
-        addSubview(durationInfoView)
+        indicatorView.backgroundColor = timer.color
+        timerInfoView.title = timer.name
+        timerInfoView.subtitle = timer.timerDescription
     }
     
     override func layoutSubviews() {
@@ -106,14 +111,57 @@ class FocusStatsInfoView: UIView {
         indicatorView.right = layoutFrame.minX - indicatorMargin
         indicatorView.alignVerticalCenter()
 
-        durationInfoView.width = durationInfoWidth
-        durationInfoView.height = layoutFrame.height
-        durationInfoView.right = layoutFrame.maxX
-        durationInfoView.top = layoutFrame.minY
-        
         timerInfoView.width = layoutFrame.width - durationInfoView.width
         timerInfoView.height = layoutFrame.height
         timerInfoView.left = layoutFrame.minX
         timerInfoView.top = layoutFrame.minY
+    }
+    
+    override func reloadData() {
+        let totalDuration = focus.getTotalDuration(for: timer)
+        durationInfoView.title = Duration(totalDuration).attributedTitle()
+    }
+}
+
+class FocusStatsSpecificTaskInfoView: FocusStatsInfoView {
+    
+    /// 任务信息视图
+    private lazy var taskInfoView: TPInfoView = {
+        let view = TPInfoView()
+        view.titleConfig.font = UIFont.boldSystemFont(ofSize: 16.0)
+        view.titleConfig.numberOfLines = 1
+        return view
+    }()
+    
+    let task: TaskRepresentable
+    
+    init(task: TaskRepresentable) {
+        self.task = task
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func setupSubviews() {
+        addSubview(taskInfoView)
+        let feature = self.task.feature
+        taskInfoView.title = feature.snapshotName ?? resGetString("Untitled Task")
+        taskInfoView.subtitle = "类型"
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let layoutFrame = self.layoutFrame()
+        taskInfoView.width = layoutFrame.width - durationInfoView.width
+        taskInfoView.height = layoutFrame.height
+        taskInfoView.left = layoutFrame.minX
+        taskInfoView.top = layoutFrame.minY
+    }
+    
+    override func reloadData() {
+        let totalDuration = 0
+        durationInfoView.title = Duration(totalDuration).attributedTitle()
     }
 }

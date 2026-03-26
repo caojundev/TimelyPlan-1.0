@@ -128,6 +128,15 @@ extension HabitTask {
     }
 }
 
+extension HabitTask: TaskRepresentable {
+    
+    var feature: TaskFeature {
+        return TaskFeature(type: .habit,
+                           identifier: self.identifier,
+                           snapshotName: self.name)
+    }
+}
+
 extension Array where Element == HabitTask {
     /// 所有标识
     var identifiers: [String] {

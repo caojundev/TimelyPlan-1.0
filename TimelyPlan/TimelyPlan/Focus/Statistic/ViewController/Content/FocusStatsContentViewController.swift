@@ -25,6 +25,7 @@ class FocusStatsContentViewController: StatsContentViewController,
     /// 选中分组类型回调
     var didSelectGroupType: ((FocusStatsDetailGroupType) -> Void)?
     
+    /// 统计模式
     var mode: FocusStatsMode {
         if timer == nil && task == nil {
             return .overall
@@ -41,7 +42,7 @@ class FocusStatsContentViewController: StatsContentViewController,
     var showArchivedTimer: Bool {
         var result = true
         let mode = self.mode
-        if mode == .overall || mode == .specificTask {
+        if mode == .overall {
             result = FocusSetting.shared.isOverallStatsShowArchived
         }
         
@@ -75,7 +76,6 @@ class FocusStatsContentViewController: StatsContentViewController,
 
     // MARK: - FocusSessionProcessorDelegate
     func didAddFocusSessions(_ sessions: [FocusSession]) {
-        
         var shouldReload = false
         for session in sessions {
             if let date = session.startDate, dateRange.contains(date: date) {

@@ -161,7 +161,7 @@ class FocusTracker: NSObject {
         let timerConfig = timer.timerConfig ?? FocusTimerConfig.defaultConfig
         let event = timerConfig.event()
         event.timerFeature = timer.feature
-        event.taskInfo = task?.info
+        event.taskFeature = task?.feature
         if forceAutoStart {
             event.start()
         } else {

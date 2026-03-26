@@ -10,7 +10,8 @@ import Foundation
 /// 任务类型
 enum TaskType: Int, Codable, TPMenuRepresentable {
     case none = 0
-    case todo = 1 /// 待办
+    case todo /// 待办
+    case habit /// 习惯
     
     var title: String {
         switch self {
@@ -18,6 +19,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return "None"
         case .todo:
             return "Todo"
+        case .habit:
+            return "Habit"
         }
     }
 }
@@ -45,15 +48,5 @@ struct TaskFeature: Codable, Hashable, Equatable {
         return TaskFeature(type: .none,
                         identifier: TaskType.none.title,
                         snapshotName: nil)
-    }
-    
-    var task: TaskRepresentable? {
-        switch type {
-        case .none:
-            return nil
-        case .todo:
-            #warning("返回todo任务")
-            return nil
-        }
     }
 }

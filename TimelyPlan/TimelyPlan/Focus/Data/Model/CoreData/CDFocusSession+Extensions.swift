@@ -24,11 +24,10 @@ extension CDFocusSession {
     // MARK: - Conditions
     /// 获取任务对应的条件数组
     static func taskConditions(for task: TaskRepresentable) -> [PredicateCondition] {
-        let taskType = task.info.type.rawValue
-        let taskID = task.info.identifier
+        let feature = task.feature
         let conditions: [PredicateCondition] = [
-            (FocusSessionKey.taskType, .equal(taskType)),
-            (FocusSessionKey.taskID, .equal(taskID))
+            (FocusSessionKey.taskType, .equal(feature.type.rawValue)),
+            (FocusSessionKey.taskID, .equal(feature.identifier))
         ]
         
         return conditions

@@ -1,34 +1,48 @@
 //
-//  FocusStatsTimerViewController.swift
+//  FocusStatsSpecificViewController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2024/10/4.
+//  Created by caojun on 2026/3/26.
 //
 
 import Foundation
+import UIKit
 
-class FocusStatsTimerViewController: FocusStatsBaseViewController,
+class FocusStatsSpecificViewController: FocusStatsBaseViewController,
                                         FocusSessionProcessorDelegate {
     
     /// 信息视图间距
-    let infoViewMargin: CGFloat = 10.0
+    let infoViewEdgeMargins = UIEdgeInsets(value: 10.0)
     
-    /// 专注任务信息视图
-    lazy var infoView: FocusStatsInfoView = {
-        let view = FocusStatsInfoView()
-        return view
-    }()
+    /// 信息视图
+    var infoView: FocusStatsInfoView!
 
-    init(timer: FocusTimer,
-         type: StatsType = .week,
-         allowTypes: [StatsType] = StatsType.allCases,
-         date: Date = .now) {
-        super.init(type: type, allowTypes: allowTypes, date: date)
+    init(timer: FocusTimer) {
+        super.init(type: .week, allowTypes: StatsType.allCases, date: .now)
         self.timer = timer
+        self.setupInfoView(timer: timer)
         self.canSelectDetailGroupType = false
         self.allowDetailGroupTypes = [.task]
-        self.reloadData()
         focus.addUpdater(self, for: [.session])
+    }
+    
+    init(task: TaskRepresentable) {
+        super.init(type: .week, allowTypes: StatsType.allCases, date: .now)
+        self.task = task
+        self.setupInfoView(task: task)
+        self.canSelectDetailGroupType = false
+        self.allowDetailGroupTypes = [.timer]
+        focus.addUpdater(self, for: [.session])
+    }
+    
+    func setupInfoView(timer: FocusTimer) {
+        let infoView = FocusStatsSpecificTimerInfoView(timer: timer)
+        self.infoView = infoView
+    }
+    
+    func setupInfoView(task: TaskRepresentable) {
+        let infoView = FocusStatsSpecificTaskInfoView(task: task)
+        self.infoView = infoView
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +52,7 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController,
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.layoutInfoView(infoView)
-        self.contentInset = UIEdgeInsets(bottom: infoView.height + 2 * infoViewMargin)
+        self.contentInset = UIEdgeInsets(bottom: infoView.height + infoViewEdgeMargins.verticalLength)
     }
     
     override func handleFirstAppearance() {
@@ -49,7 +63,7 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController,
     
     /// 布局任务信息视图
     private func layoutInfoView(_ infoView: UIView, isHidden: Bool = false){
-        let layoutFrame = view.safeLayoutFrame().inset(by: UIEdgeInsets(value: infoViewMargin))
+        let layoutFrame = view.safeLayoutFrame().inset(by: infoViewEdgeMargins)
         let cornerRadius = 16.0
         infoView.width = min(640.0, layoutFrame.width)
         infoView.height = 80.0
@@ -67,30 +81,16 @@ class FocusStatsTimerViewController: FocusStatsBaseViewController,
         infoView.layoutIfNeeded()
     }
     
-    /// 重新加载数据
-    private func reloadData() {
-        guard let timer = self.timer else {
-            return
-        }
-        
-        let duration = focus.getTotalDuration(for: timer)
-        self.infoView.statsInfo = FocusStatsInfo(color: timer.color,
-                                                 title: timer.name,
-                                                 subtitle: timer.timerDescription,
-                                                 totalDuration: Duration(duration))
-        
-    }
-    
     // MARK: - FocusSessionProcessorDelegate
     func didAddFocusSessions(_ sessions: [FocusSession]) {
-        self.reloadData()
+        self.infoView.reloadData()
     }
     
     func didUpdateFocusSession(_ session: FocusSession) {
-        self.reloadData()
+        self.infoView.reloadData()
     }
     
     func didDeleteFocusSession(_ session: FocusSession) {
-        self.reloadData()
+        self.infoView.reloadData()
     }
 }

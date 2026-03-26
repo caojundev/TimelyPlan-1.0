@@ -415,6 +415,7 @@
 		E555493F2F75590100C9460D /* focus_timer_pomodoro_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549372F75590000C9460D /* focus_timer_pomodoro_24@2x.png */; };
 		E55549402F75590100C9460D /* focus_timer_custom_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549382F75590000C9460D /* focus_timer_custom_24@2x.png */; };
 		E55549412F75590100C9460D /* focus_timer_stopwatch_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549392F75590000C9460D /* focus_timer_stopwatch_24@2x.png */; };
+		E55549432F755FDD00C9460D /* FocusStatsSpecificViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549422F755FDD00C9460D /* FocusStatsSpecificViewController.swift */; };
 		E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */; };
 		E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */; };
 		E556BCBE2F5D6C7000CA20D9 /* habit_indicator_status_skipped_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */; };
@@ -1414,7 +1415,6 @@
 		E5D7D90D2D43933600EC877A /* StatsMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8692D43933500EC877A /* StatsMainViewController.swift */; };
 		E5D7D90E2D43933700EC877A /* StatsContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D86A2D43933500EC877A /* StatsContentViewController.swift */; };
 		E5D7D90F2D43933700EC877A /* FocusStatsBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D86D2D43933500EC877A /* FocusStatsBaseViewController.swift */; };
-		E5D7D9102D43933700EC877A /* FocusStatsTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D86E2D43933500EC877A /* FocusStatsTimerViewController.swift */; };
 		E5D7D9112D43933700EC877A /* FocusStatsInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D86F2D43933500EC877A /* FocusStatsInfoView.swift */; };
 		E5D7D9122D43933700EC877A /* FocusStatsOverallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8702D43933500EC877A /* FocusStatsOverallViewController.swift */; };
 		E5D7D9132D43933700EC877A /* FocusStatsMonthlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8722D43933500EC877A /* FocusStatsMonthlyViewController.swift */; };
@@ -2027,6 +2027,7 @@
 		E55549372F75590000C9460D /* focus_timer_pomodoro_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_pomodoro_24@2x.png"; sourceTree = "<group>"; };
 		E55549382F75590000C9460D /* focus_timer_custom_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_custom_24@2x.png"; sourceTree = "<group>"; };
 		E55549392F75590000C9460D /* focus_timer_stopwatch_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_stopwatch_24@2x.png"; sourceTree = "<group>"; };
+		E55549422F755FDD00C9460D /* FocusStatsSpecificViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusStatsSpecificViewController.swift; sourceTree = "<group>"; };
 		E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditViewController.swift; sourceTree = "<group>"; };
 		E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_checked_16@2x.png"; sourceTree = "<group>"; };
 		E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_skipped_16@2x.png"; sourceTree = "<group>"; };
@@ -3043,7 +3044,6 @@
 		E5D7D8692D43933500EC877A /* StatsMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsMainViewController.swift; sourceTree = "<group>"; };
 		E5D7D86A2D43933500EC877A /* StatsContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsContentViewController.swift; sourceTree = "<group>"; };
 		E5D7D86D2D43933500EC877A /* FocusStatsBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsBaseViewController.swift; sourceTree = "<group>"; };
-		E5D7D86E2D43933500EC877A /* FocusStatsTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsTimerViewController.swift; sourceTree = "<group>"; };
 		E5D7D86F2D43933500EC877A /* FocusStatsInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsInfoView.swift; sourceTree = "<group>"; };
 		E5D7D8702D43933500EC877A /* FocusStatsOverallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsOverallViewController.swift; sourceTree = "<group>"; };
 		E5D7D8722D43933500EC877A /* FocusStatsMonthlyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsMonthlyViewController.swift; sourceTree = "<group>"; };
@@ -4115,7 +4115,7 @@
 		E531FDF22F73E08000067A0F /* Specific */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D86E2D43933500EC877A /* FocusStatsTimerViewController.swift */,
+				E55549422F755FDD00C9460D /* FocusStatsSpecificViewController.swift */,
 				E5D7D86F2D43933500EC877A /* FocusStatsInfoView.swift */,
 			);
 			path = Specific;
@@ -9525,6 +9525,7 @@
 				E5BBA0482D3BF4A40089667A /* TodoTagListSectionController.swift in Sources */,
 				E5D7D7F02D43923800EC877A /* FocusSession+Extensions.swift in Sources */,
 				E54155642F49A415000B2972 /* FocusRecordListBasicCell.swift in Sources */,
+				E55549432F755FDD00C9460D /* FocusStatsSpecificViewController.swift in Sources */,
 				E5D7D91E2D43933700EC877A /* FocusStatsHistorySessionSectionController.swift in Sources */,
 				E590CA992F4DD02900E66041 /* FocusState.swift in Sources */,
 				E5BBA0942D3BF4A50089667A /* TodoTaskEditScheduleSectionController.swift in Sources */,
@@ -9583,7 +9584,6 @@
 				E5BB9DA92D3BF0C60089667A /* FlipClockCardElementView.swift in Sources */,
 				E5D7D8B62D43933600EC877A /* FocusRunningTimerNameView.swift in Sources */,
 				E5D7D9422D43933700EC877A /* FocusTimerStepNameCell.swift in Sources */,
-				E5D7D9102D43933700EC877A /* FocusStatsTimerViewController.swift in Sources */,
 				E5BBA0E12D3BF4A50089667A /* TodoTaskQuickAddEditView.swift in Sources */,
 				E53E96B12D53B1B800EC4872 /* TPColorInfoTextValueTableCell.swift in Sources */,
 				E51501A92D47DA78008B2333 /* TPTableBaseSectionController.swift in Sources */,

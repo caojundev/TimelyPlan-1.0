@@ -11,7 +11,7 @@ import UIKit
 
 class FocusPresenter {
 
-    static func quickStartFocus(for task: TaskFeature? = nil) {
+    static func quickStartFocus(for task: TaskRepresentable) {
         let startVC = FocusQuickStartViewController(editType: .pomodoro)
         startVC.didPickTimer = { timer in
             FocusPresenter.startFocus(with: timer, forceAutoStart: true)
@@ -32,13 +32,13 @@ class FocusPresenter {
     
     /// 特定计时器统计
     static func showStatistics(for timer: FocusTimer) {
-        let vc = FocusStatsTimerViewController(timer: timer)
+        let vc = FocusStatsSpecificViewController(timer: timer)
         vc.showAsNavigationRoot()
     }
     
     /// 特定任务统计
-    static func showStatistics(for task: TaskFeature?) {
-        let vc = FocusStatsOverallViewController()
+    static func showStatistics(for task: TaskRepresentable) {
+        let vc = FocusStatsSpecificViewController(task: task)
         vc.showAsNavigationRoot()
     }
     
@@ -143,7 +143,7 @@ class FocusPresenter {
                                   task: TaskRepresentable? = nil) {
         /// 绑定默认番茄钟
         let timer = timer ?? FocusSystemPomodoroTimer()
-        let record = FocusRecord(timerFeature: timer.feature, taskFeature: task?.info)
+        let record = FocusRecord(timerFeature: timer.feature, taskFeature: task?.feature)
         let vc = FocusRecordEditViewController(record: record)
         vc.didEndEditing = { record in
             focus.addSession(with: record, isManual: true)
