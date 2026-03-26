@@ -9,11 +9,17 @@ import Foundation
 
 class FocusSystemTimerManager {
 
-    private var pomodoroTimer: FocusSystemPomodoroTimer
+    private lazy var pomodoroTimer: FocusSystemPomodoroTimer = {
+        let config = FocusState.shared.pomodoroConfig
+        return FocusSystemPomodoroTimer(config: config)
+    }()
     
-    private var countdownTimer: FocusSystemCountdownTimer
+    private var countdownTimer: FocusSystemCountdownTimer = {
+        let config = FocusState.shared.countdownConfig
+        return FocusSystemCountdownTimer(config: config)
+    }()
     
-    private var stopwatchTimer: FocusSystemStopwatchTimer
+    private var stopwatchTimer = FocusSystemStopwatchTimer()
     
     /// 所有默认计时器
     var allTimers: [FocusSystemTimer] {
@@ -23,12 +29,6 @@ class FocusSystemTimerManager {
     /// 默认的计时器
     var defaultTimer: FocusSystemTimer {
         return pomodoroTimer
-    }
-    
-    init() {
-        self.pomodoroTimer = FocusSystemPomodoroTimer()
-        self.countdownTimer = FocusSystemCountdownTimer()
-        self.stopwatchTimer = FocusSystemStopwatchTimer()
     }
     
     /// 获取特征值对应的默认计时器
