@@ -416,6 +416,12 @@
 		E55549402F75590100C9460D /* focus_timer_custom_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549382F75590000C9460D /* focus_timer_custom_24@2x.png */; };
 		E55549412F75590100C9460D /* focus_timer_stopwatch_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549392F75590000C9460D /* focus_timer_stopwatch_24@2x.png */; };
 		E55549432F755FDD00C9460D /* FocusStatsSpecificViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549422F755FDD00C9460D /* FocusStatsSpecificViewController.swift */; };
+		E555494B2F7629CA00C9460D /* focus_timer_bind_pomodoro_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549452F7629C800C9460D /* focus_timer_bind_pomodoro_32@3x.png */; };
+		E555494C2F7629CA00C9460D /* focus_timer_bind_countdown_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549462F7629C800C9460D /* focus_timer_bind_countdown_32@2x.png */; };
+		E555494D2F7629CA00C9460D /* focus_timer_bind_countdown_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549472F7629C900C9460D /* focus_timer_bind_countdown_32@3x.png */; };
+		E555494E2F7629CA00C9460D /* focus_timer_bind_pomodoro_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549482F7629C900C9460D /* focus_timer_bind_pomodoro_32@2x.png */; };
+		E555494F2F7629CA00C9460D /* focus_timer_bind_stopwatch_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549492F7629C900C9460D /* focus_timer_bind_stopwatch_32@2x.png */; };
+		E55549502F7629CA00C9460D /* focus_timer_bind_stopwatch_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555494A2F7629C900C9460D /* focus_timer_bind_stopwatch_32@3x.png */; };
 		E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */; };
 		E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */; };
 		E556BCBE2F5D6C7000CA20D9 /* habit_indicator_status_skipped_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */; };
@@ -2028,6 +2034,12 @@
 		E55549382F75590000C9460D /* focus_timer_custom_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_custom_24@2x.png"; sourceTree = "<group>"; };
 		E55549392F75590000C9460D /* focus_timer_stopwatch_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_stopwatch_24@2x.png"; sourceTree = "<group>"; };
 		E55549422F755FDD00C9460D /* FocusStatsSpecificViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusStatsSpecificViewController.swift; sourceTree = "<group>"; };
+		E55549452F7629C800C9460D /* focus_timer_bind_pomodoro_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_bind_pomodoro_32@3x.png"; sourceTree = "<group>"; };
+		E55549462F7629C800C9460D /* focus_timer_bind_countdown_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_bind_countdown_32@2x.png"; sourceTree = "<group>"; };
+		E55549472F7629C900C9460D /* focus_timer_bind_countdown_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_bind_countdown_32@3x.png"; sourceTree = "<group>"; };
+		E55549482F7629C900C9460D /* focus_timer_bind_pomodoro_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_bind_pomodoro_32@2x.png"; sourceTree = "<group>"; };
+		E55549492F7629C900C9460D /* focus_timer_bind_stopwatch_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_bind_stopwatch_32@2x.png"; sourceTree = "<group>"; };
+		E555494A2F7629C900C9460D /* focus_timer_bind_stopwatch_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_bind_stopwatch_32@3x.png"; sourceTree = "<group>"; };
 		E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditViewController.swift; sourceTree = "<group>"; };
 		E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_checked_16@2x.png"; sourceTree = "<group>"; };
 		E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_skipped_16@2x.png"; sourceTree = "<group>"; };
@@ -4449,6 +4461,19 @@
 				E55549302F7505F900C9460D /* FocusQuickStartUserTimerViewController.swift */,
 			);
 			path = QuickStart;
+			sourceTree = "<group>";
+		};
+		E55549442F7629C000C9460D /* bind */ = {
+			isa = PBXGroup;
+			children = (
+				E55549462F7629C800C9460D /* focus_timer_bind_countdown_32@2x.png */,
+				E55549472F7629C900C9460D /* focus_timer_bind_countdown_32@3x.png */,
+				E55549482F7629C900C9460D /* focus_timer_bind_pomodoro_32@2x.png */,
+				E55549452F7629C800C9460D /* focus_timer_bind_pomodoro_32@3x.png */,
+				E55549492F7629C900C9460D /* focus_timer_bind_stopwatch_32@2x.png */,
+				E555494A2F7629C900C9460D /* focus_timer_bind_stopwatch_32@3x.png */,
+			);
+			path = bind;
 			sourceTree = "<group>";
 		};
 		E556BCC52F5D746400CA20D9 /* recordType */ = {
@@ -8367,6 +8392,7 @@
 		E5D7D9462D43D6FA00EC877A /* timer */ = {
 			isa = PBXGroup;
 			children = (
+				E55549442F7629C000C9460D /* bind */,
 				E5D7D9782D43E18400EC877A /* step */,
 				E5D7D9572D43DBDC00EC877A /* focus_timer_countdown_32@2x.png */,
 				E5D7D95A2D43DBDE00EC877A /* focus_timer_countdown_32@3x.png */,
@@ -8983,6 +9009,7 @@
 				E515AD5C2D3CBC3500AA9AF2 /* todo_task_step_addPosition_24@2x.png in Resources */,
 				E5D7D9862D43E35000EC877A /* focus_timer_stepMode_break_24@2x.png in Resources */,
 				E55CE3462D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png in Resources */,
+				E555494E2F7629CA00C9460D /* focus_timer_bind_pomodoro_32@2x.png in Resources */,
 				E5E277202D3E099C004EC522 /* todo_list_option_showCompleted_24@2x.png in Resources */,
 				E5BB9A992D3BEF0D0089667A /* todo_list_board_24@3x.png in Resources */,
 				E50D94E02D4528E500F57957 /* ellipsis_circle_fill_24@2x.png in Resources */,
@@ -9163,11 +9190,13 @@
 				E5BB9AC42D3BEF0D0089667A /* todo_task_action_restore_24@2x.png in Resources */,
 				E506B5C52F638B2E008B3321 /* habit_task_filter_all_24@3x.png in Resources */,
 				E50D94DE2D4528E500F57957 /* ellipsis_circle_24@2x.png in Resources */,
+				E555494B2F7629CA00C9460D /* focus_timer_bind_pomodoro_32@3x.png in Resources */,
 				E5BB9B352D3BEF920089667A /* diamond.png in Resources */,
 				E50D94BD2D451C1800F57957 /* focus_record_24@3x.png in Resources */,
 				E51A4C3A2DC31C7A005A0E3F /* calendar_mode_day_24@2x.png in Resources */,
 				E53F32C82F699AC900B85B65 /* habit_report_skipped_20@2x.png in Resources */,
 				E50DD7B92D71A6D100A85E87 /* todo_folder_add_24@3x.png in Resources */,
+				E555494C2F7629CA00C9460D /* focus_timer_bind_countdown_32@2x.png in Resources */,
 				E5B926D82D3FF04A0065FA79 /* arrow_up_24@2x.png in Resources */,
 				E55A7B7D2D45F873000D224C /* timer_pause_24@3x.png in Resources */,
 				E515AD752D3CC70D00AA9AF2 /* todo_smartlist_trash_24@3x.png in Resources */,
@@ -9212,6 +9241,7 @@
 				E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */,
 				E5168BDE2F5481660000A760 /* bell_add_20@2x.png in Resources */,
 				E5BBA1002D3BFB3C0089667A /* SideMenuFocus@2x.png in Resources */,
+				E555494D2F7629CA00C9460D /* focus_timer_bind_countdown_32@3x.png in Resources */,
 				E5FC6BA42F64EFBC00D5A5EA /* habit_status_failed_36@2x.png in Resources */,
 				E556BCCF2F5D746400CA20D9 /* HabitRecordTypeAutoAdd@2x.png in Resources */,
 				E509CA032F6F92DA00F53FDD /* habit_menu_focus_24@2x.png in Resources */,
@@ -9273,6 +9303,7 @@
 				E5E4B8CF2DBF875200EED889 /* triangle_down_12@2x.png in Resources */,
 				E5D833952DAB64D60012ABF3 /* todo_task_progress_calculation_24@2x.png in Resources */,
 				E507E7A02F52CFB0003004C4 /* habit_manage_24@2x.png in Resources */,
+				E555494F2F7629CA00C9460D /* focus_timer_bind_stopwatch_32@2x.png in Resources */,
 				E5BB9AA62D3BEF0D0089667A /* todo_task_tag_24@2x.png in Resources */,
 				E515AD6F2D3CC49800AA9AF2 /* fullscreen_enter_24@2x.png in Resources */,
 				E5B926CD2D3F97F30065FA79 /* plus_32@3x.png in Resources */,
@@ -9289,6 +9320,7 @@
 				E50D94CF2D45248D00F57957 /* gear_24@3x.png in Resources */,
 				E5BB9AE72D3BEF0D0089667A /* trash_24@3x.png in Resources */,
 				E500DE592DB09D4500EAEAF7 /* todo_filter_indicator_myDay_12@2x.png in Resources */,
+				E55549502F7629CA00C9460D /* focus_timer_bind_stopwatch_32@3x.png in Resources */,
 				E5C76BA72F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png in Resources */,
 				E5BBA1082D3BFB3C0089667A /* SideMenu@2x.png in Resources */,
 				E5BBA1042D3BFB3C0089667A /* SideMenuFocus@3x.png in Resources */,

@@ -33,6 +33,7 @@ class FocusQuickStartUserTimerViewController: TPCollectionSectionsViewController
         super.viewDidLoad()
         self.collectionView.placeholderView = placeholderView
         self.sectionControllers = [userTimerSelectSectionController]
+        self.reloadData()
         self.userTimerSelectSectionController.reloadData()
     }
     
@@ -48,5 +49,4 @@ class FocusQuickStartUserTimerViewController: TPCollectionSectionsViewController
         
         didSelectTimer?(timer)
     }
-
 }

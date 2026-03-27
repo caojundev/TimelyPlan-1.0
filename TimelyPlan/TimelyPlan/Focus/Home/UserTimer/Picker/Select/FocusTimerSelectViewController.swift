@@ -54,6 +54,7 @@ class FocusTimerSelectViewController: TPCollectionSectionsViewController,
         self.collectionView.placeholderView = placeholderView
         self.sectionControllers = [defaultTimerSelectSectionController,
                                    userTimerSelectSectionController]
+        self.reloadData()
         self.userTimerSelectSectionController.reloadData()
     }
     

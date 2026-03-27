@@ -147,7 +147,7 @@ class FocusSystemPomodoroTimer: FocusSystemTimer {
 class FocusSystemCountdownTimer: FocusSystemTimer {
 
     override var timerColor: UIColor {
-        return .orangePrimary
+        return .greenPrimary
     }
     
     var config: FocusCountdownConfig
@@ -181,7 +181,7 @@ class FocusSystemCountdownTimer: FocusSystemTimer {
 class FocusSystemStopwatchTimer: FocusSystemTimer {
 
     override var timerColor: UIColor {
-        return .greenPrimary
+        return .orangePrimary
     }
     
     var config: FocusStopwatchConfig
