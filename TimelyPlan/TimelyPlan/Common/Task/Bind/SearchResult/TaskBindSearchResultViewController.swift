@@ -63,7 +63,7 @@ class TaskBindSearchResultViewController: TPCollectionSectionsViewController,
         if let searchText = searchText, searchText.count > 0 {
             self.placeholderView.title = resGetString("No Search Result")
         } else {
-            self.placeholderView.title = nil
+            self.placeholderView.title = " "
         }
     }
     

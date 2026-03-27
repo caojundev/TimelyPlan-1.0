@@ -40,10 +40,11 @@ class TaskBindViewController: TPContainerViewController,
  
     /// 清除按钮
     private lazy var clearButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(title: resGetString("Clear"),
+        let item = UIBarButtonItem(image: resGetImage("clear_24"),
                                    style: .done,
                                    target: self,
                                    action: #selector(clickClear(_:)))
+        item.tintColor = .danger6
         return item
     }()
     

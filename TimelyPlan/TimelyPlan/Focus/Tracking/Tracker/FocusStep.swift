@@ -193,12 +193,14 @@ extension FocusStep {
     }
     
     /// 获取步骤对应的专注记录
-    func record(with timerFeature: TimerFeature?) -> FocusRecord? {
+    func record(with timerFeature: TimerFeature?, taskFeature: TaskFeature?) -> FocusRecord? {
         guard let timeline = self.recordTimeline() else {
             return nil
         }
         
-        let record = FocusRecord(timerFeature: timerFeature, timeline: timeline)
+        let record = FocusRecord(timerFeature: timerFeature,
+                                 taskFeature: taskFeature,
+                                 timeline: timeline)
         record.color = self.color
         record.note = self.note
         let calculator = FocusScoreCalculator()

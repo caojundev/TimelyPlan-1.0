@@ -11,7 +11,7 @@ import UIKit
 class TaskBindView: UIView {
     
     /// 当前任务改变
-    var didPickTask: ((TaskFeature?) -> Void)?
+    var didPickTask: ((TaskRepresentable?) -> Void)?
     
     /// 当前任务
     var taskFeature: TaskFeature? {
@@ -74,9 +74,8 @@ class TaskBindView: UIView {
     @objc func didClickTask(_ button: UIButton) {
         TPImpactFeedback.impactWithLightStyle()
         TaskBindViewController.show(with: taskFeature) { task in
-            let feature = task?.feature
-            self.taskFeature = feature
-            self.didPickTask?(feature)
+            self.taskFeature = task?.feature
+            self.didPickTask?(task)
         }
     }
     

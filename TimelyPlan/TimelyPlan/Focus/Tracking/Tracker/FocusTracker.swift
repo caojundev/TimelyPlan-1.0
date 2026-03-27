@@ -74,6 +74,10 @@ class FocusTracker: NSObject {
         return event?.timerFeature
     }
     
+    var eventTaskFeature: TaskFeature? {
+        return event?.taskFeature
+    }
+    
     /// 当前步骤开始结束日期范围
     var currentStepDateRange: DateRange? {
         return event?.currentStepDateRange
@@ -133,10 +137,12 @@ class FocusTracker: NSObject {
     }
     
     // MARK: - 开始专注
-    func startFocus(with timer: FocusTimerRepresentable, forceAutoStart: Bool = false) {
+    func startFocus(with timer: FocusTimerRepresentable,
+                    for task: TaskFeature?,
+                    forceAutoStart: Bool = false) {
         if self.event == nil || self.event?.state == .notStarted {
             /// 当前无绑定事件，或绑定事件未开始，则可以绑定新的计时器事件
-            track(timer: timer, task: nil, forceAutoStart: forceAutoStart)
+            track(timer: timer, task: task, forceAutoStart: forceAutoStart)
         }
     
         showTrackingViewControllerIfNeeded()
@@ -156,12 +162,12 @@ class FocusTracker: NSObject {
     }
 
     private func track(timer: FocusTimerRepresentable,
-                       task: TaskRepresentable? = nil,
+                       task: TaskFeature? = nil,
                        forceAutoStart: Bool) {
         let timerConfig = timer.timerConfig ?? FocusTimerConfig.defaultConfig
         let event = timerConfig.event()
         event.timerFeature = timer.feature
-        event.taskFeature = task?.feature
+        event.taskFeature = task
         if forceAutoStart {
             event.start()
         } else {
@@ -353,6 +359,16 @@ class FocusTracker: NSObject {
         let stepDuration = FocusSetting.shared.validatedAdjustStepDuration
         let minimumDuration = SECONDS_PER_MINUTE
         return remainDuration > TimeInterval(minimumDuration + stepDuration)
+    }
+    
+    /// 绑定任务
+    func bindTask(_ task: TaskRepresentable?) {
+        guard let event = event else {
+            return
+        }
+        
+        event.taskFeature = task?.feature
+        saveEvent()
     }
     
     // MARK: - 添加/删除更新对象

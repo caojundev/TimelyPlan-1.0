@@ -472,7 +472,8 @@ extension FocusEvent {
         var breakRecords = [FocusRecord]()
         var endDate: Date = startDate
         for step in steps {
-            guard let record = step.record(with: self.timerFeature) else {
+            guard let record = step.record(with: self.timerFeature,
+                                           taskFeature: self.taskFeature) else {
                 continue
             }
             

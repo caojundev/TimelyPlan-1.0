@@ -39,6 +39,12 @@ class FocusRecord {
         self.timerFeature = timerFeature
         self.timeline = timeline
     }
+    
+    init(timerFeature: TimerFeature?, taskFeature: TaskFeature?, timeline: FocusRecordTimeline) {
+        self.timerFeature = timerFeature
+        self.taskFeature = taskFeature
+        self.timeline = timeline
+    }
 }
 
 /// 专注记录时间线对象

@@ -47,7 +47,7 @@ class FocusSystemTimerViewController: TPViewController,
     var editContainerView: TPAnimatedContainerView = TPAnimatedContainerView()
 
     /// 任务选择器
-    let taskPickerView = TaskBindView()
+    let taskBindView = TaskBindView()
     
     /// 动作视图
     private lazy var actionView: FocusStartActionView = { [weak self] in
@@ -83,7 +83,7 @@ class FocusSystemTimerViewController: TPViewController,
         editContainerView.delegate = self
         view.addSubview(editContainerView)
         view.addSubview(timerTypeMenuView)
-        view.addSubview(taskPickerView)
+        view.addSubview(taskBindView)
         view.addSubview(actionView)
         timerTypeMenuView.selectMenu(withTag: timerType.tag)
         updateContent(with: timerType)
@@ -132,9 +132,9 @@ class FocusSystemTimerViewController: TPViewController,
         editContainerView.top = timerTypeMenuView.bottom + margin
         
         /// 任务选择器
-        taskPickerView.size = preferredTaskPickerSize.fitSize(with: layoutFrame)
-        taskPickerView.top = editContainerView.bottom + margin
-        taskPickerView.alignHorizontalCenter()
+        taskBindView.size = preferredTaskPickerSize.fitSize(with: layoutFrame)
+        taskBindView.top = editContainerView.bottom + margin
+        taskBindView.alignHorizontalCenter()
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -205,8 +205,6 @@ class FocusSystemTimerViewController: TPViewController,
             return
         }
     
-        let fromValue = timerType.index ?? 0
-        let toValue = type.index ?? 0
         timerType = type
         didChangeTimerType(type)
         updateContent(with: type)
@@ -232,7 +230,8 @@ class FocusSystemTimerViewController: TPViewController,
     
     private func didClickStart() {
         if let timer = currentSytemTimer() {
-            FocusPresenter.startFocus(with: timer)
+            let task = taskBindView.taskFeature
+            FocusPresenter.startFocus(with: timer, for: task, forceAutoStart: true)
         }
     }
     

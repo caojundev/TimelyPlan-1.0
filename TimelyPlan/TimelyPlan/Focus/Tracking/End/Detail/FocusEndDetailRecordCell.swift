@@ -174,7 +174,12 @@ class FocusEndDetailRecordCell: TPCollectionCell {
             headerView.title = "--"
         }
         
-        headerView.subtitle = resGetString("No task linked")
+        if let feature = record?.taskFeature {
+            headerView.subtitle = feature.snapshotName ?? resGetString("Untitled Task")
+        } else {
+            /// 未绑定任务
+            headerView.subtitle = resGetString("No task linked")
+        }
         
         /// 专注描述信息
         if let focusDuration = record?.timeline.focusInterval, focusDuration > 0 {

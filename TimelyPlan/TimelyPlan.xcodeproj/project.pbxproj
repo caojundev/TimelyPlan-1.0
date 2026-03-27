@@ -4491,7 +4491,6 @@
 		E55549572F7666F200C9460D /* Habit */ = {
 			isa = PBXGroup;
 			children = (
-				E55549602F76899B00C9460D /* SearchHighlightable.swift */,
 				E55549552F76401100C9460D /* HabitTaskBindViewController.swift */,
 				E55549582F76672300C9460D /* HabitTaskBindSectionController.swift */,
 				E555495E2F76870D00C9460D /* HabitTaskBindSearchResultSectionController.swift */,
@@ -4513,6 +4512,14 @@
 				E55549532F76316500C9460D /* TaskBindSearchResultViewController.swift */,
 			);
 			path = SearchResult;
+			sourceTree = "<group>";
+		};
+		E55549622F76A71D00C9460D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E55549602F76899B00C9460D /* SearchHighlightable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		E556BCC52F5D746400CA20D9 /* recordType */ = {
@@ -6196,6 +6203,7 @@
 		E5BB9C112D3BF0C40089667A /* Fundamental */ = {
 			isa = PBXGroup;
 			children = (
+				E55549622F76A71D00C9460D /* Protocols */,
 				E590CA9A2F4DF82600E66041 /* Storage */,
 				E5BB9C122D3BF0C40089667A /* Notification */,
 				E5BB9C152D3BF0C40089667A /* HandyRecord */,
@@ -7931,10 +7939,10 @@
 		E5D7D7F62D43933100EC877A /* Running */ = {
 			isa = PBXGroup;
 			children = (
+				E5D7D7FA2D43933100EC877A /* FocusRunningViewController.swift */,
 				E5D7D7F72D43933100EC877A /* FocusRunningTimerNameView.swift */,
 				E5D7D7F82D43933100EC877A /* FocusRunningActionView.swift */,
 				E5D7D7F92D43933100EC877A /* FocusRunningTopbar.swift */,
-				E5D7D7FA2D43933100EC877A /* FocusRunningViewController.swift */,
 				E5D7D7FB2D43933100EC877A /* ProgressView */,
 				E5D7D8042D43933100EC877A /* FocusRunningDayFlipView.swift */,
 			);

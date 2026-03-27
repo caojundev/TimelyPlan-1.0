@@ -77,7 +77,10 @@ class FocusRunningViewController: TPViewController,
         }
         
         super.init(nibName: nil, bundle: nil)
-        progressInfoView.delegate = self
+        self.progressInfoView.delegate = self
+        self.taskBindView.didPickTask = { [weak self] task in
+            self?.bindTask(task)
+        }
     }
      
     required init?(coder: NSCoder) {
@@ -93,6 +96,7 @@ class FocusRunningViewController: TPViewController,
         view.addSubview(actionView)
         view.addSubview(holdToStopView)
         updateTimerName()
+        updateBindTask()
         setupSwipeDownGesture()
         tracker.addDelegate(self)
     }
@@ -230,7 +234,6 @@ class FocusRunningViewController: TPViewController,
         }
     }
     
-    
     // MARK: - 操作
     /// 选中操作类型
     func didSelectActionType(_ actionType: FocusEventActionType) {
@@ -242,9 +245,18 @@ class FocusRunningViewController: TPViewController,
         tracker.stop()
     }
     
+    /// 绑定任务
+    private func bindTask(_ task: TaskRepresentable?) {
+        tracker.bindTask(task)
+    }
+    
     // MARK: - 更新界面
     private func updateTimerName() {
         timerNameView.name = tracker.eventTimerFeature?.snapshotName
+    }
+    
+    private func updateBindTask() {
+        taskBindView.taskFeature = tracker.eventTaskFeature
     }
     
     /// 更新进度信息
