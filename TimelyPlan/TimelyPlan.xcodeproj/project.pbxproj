@@ -427,6 +427,8 @@
 		E55549562F76401100C9460D /* HabitTaskBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549552F76401100C9460D /* HabitTaskBindViewController.swift */; };
 		E55549592F76672300C9460D /* HabitTaskBindSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549582F76672300C9460D /* HabitTaskBindSectionController.swift */; };
 		E555495C2F76690300C9460D /* BaseTaskBindSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555495B2F76690300C9460D /* BaseTaskBindSectionController.swift */; };
+		E555495F2F76870D00C9460D /* HabitTaskBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555495E2F76870D00C9460D /* HabitTaskBindSearchResultSectionController.swift */; };
+		E55549612F76899B00C9460D /* SearchHighlightable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549602F76899B00C9460D /* SearchHighlightable.swift */; };
 		E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */; };
 		E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */; };
 		E556BCBE2F5D6C7000CA20D9 /* habit_indicator_status_skipped_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */; };
@@ -2049,6 +2051,8 @@
 		E55549552F76401100C9460D /* HabitTaskBindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskBindViewController.swift; sourceTree = "<group>"; };
 		E55549582F76672300C9460D /* HabitTaskBindSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskBindSectionController.swift; sourceTree = "<group>"; };
 		E555495B2F76690300C9460D /* BaseTaskBindSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTaskBindSectionController.swift; sourceTree = "<group>"; };
+		E555495E2F76870D00C9460D /* HabitTaskBindSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskBindSearchResultSectionController.swift; sourceTree = "<group>"; };
+		E55549602F76899B00C9460D /* SearchHighlightable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHighlightable.swift; sourceTree = "<group>"; };
 		E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditViewController.swift; sourceTree = "<group>"; };
 		E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_checked_16@2x.png"; sourceTree = "<group>"; };
 		E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_skipped_16@2x.png"; sourceTree = "<group>"; };
@@ -4487,8 +4491,10 @@
 		E55549572F7666F200C9460D /* Habit */ = {
 			isa = PBXGroup;
 			children = (
+				E55549602F76899B00C9460D /* SearchHighlightable.swift */,
 				E55549552F76401100C9460D /* HabitTaskBindViewController.swift */,
 				E55549582F76672300C9460D /* HabitTaskBindSectionController.swift */,
+				E555495E2F76870D00C9460D /* HabitTaskBindSearchResultSectionController.swift */,
 			);
 			path = Habit;
 			sourceTree = "<group>";
@@ -4499,6 +4505,14 @@
 				E555495B2F76690300C9460D /* BaseTaskBindSectionController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		E555495D2F76867800C9460D /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				E55549532F76316500C9460D /* TaskBindSearchResultViewController.swift */,
+			);
+			path = SearchResult;
 			sourceTree = "<group>";
 		};
 		E556BCC52F5D746400CA20D9 /* recordType */ = {
@@ -7578,7 +7592,7 @@
 			children = (
 				E5BBA0ED2D3BF5BB0089667A /* TaskBindView.swift */,
 				E55549512F762E9700C9460D /* TaskBindViewController.swift */,
-				E55549532F76316500C9460D /* TaskBindSearchResultViewController.swift */,
+				E555495D2F76867800C9460D /* SearchResult */,
 				E555495A2F7668EF00C9460D /* Base */,
 				E55549572F7666F200C9460D /* Habit */,
 			);
@@ -9968,6 +9982,7 @@
 				E5D7D8F12D43933600EC877A /* OpenCircleTitleView.swift in Sources */,
 				E56BAC752DCC56BB0013C6F6 /* CalendarDatePageView.swift in Sources */,
 				E5BBA04C2D3BF4A40089667A /* TodoTaskLayoutManager.swift in Sources */,
+				E55549612F76899B00C9460D /* SearchHighlightable.swift in Sources */,
 				E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */,
 				E5D7D7D92D43923800EC877A /* Focus+Statistics.swift in Sources */,
 				E5BBA0C12D3BF4A50089667A /* TodoTagSearchResultsViewController.swift in Sources */,
@@ -10404,6 +10419,7 @@
 				E5BBA0C42D3BF4A50089667A /* TodoTagEditViewController.swift in Sources */,
 				E5BB9E302D3BF0C70089667A /* TPPlaceholderTableCell.swift in Sources */,
 				E5926DD12D4C6392007D5A6A /* TPColorSelectTableCell.swift in Sources */,
+				E555495F2F76870D00C9460D /* HabitTaskBindSearchResultSectionController.swift in Sources */,
 				E5BB9DF82D3BF0C60089667A /* NSObject+Diffable.swift in Sources */,
 				E5BB9E1F2D3BF0C70089667A /* NSPersistentStore+HandyRecord.swift in Sources */,
 				E5BB9B3B2D3BEF920089667A /* IGListIndexPathResult.m in Sources */,

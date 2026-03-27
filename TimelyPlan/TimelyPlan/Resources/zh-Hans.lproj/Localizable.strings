@@ -141,6 +141,7 @@
 
 /// 绑定任务
 "Search Task" = "搜索任务";
+"No Search Result" = "无搜索结果";
 
 /// 专注设置
 "Focus Settings" = "专注设置";
@@ -172,6 +173,7 @@
 "No Completed Habit Today" = "今日无已完成习惯";
 "No Skipped Habit Today" = "今日无已跳过习惯";
 "No Failed Habit Today" = "今日无已失败习惯";
+"Untitled Habit" = "未命名习惯";
 
 /// 习惯记录
 "No Habit Record" = "无习惯记录";

@@ -7,7 +7,8 @@
 
 import Foundation
 
-class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell {
+class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell,
+                                SearchHighlightable {
     
     var timer: FocusTimer? {
         didSet {
@@ -34,7 +35,6 @@ class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell {
             .font: titleConfig.font
         ]
     }
-    
     
     let kInfoViewMargin = 10.0
     

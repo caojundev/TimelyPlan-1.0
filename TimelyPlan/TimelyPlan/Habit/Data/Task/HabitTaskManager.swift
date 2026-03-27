@@ -143,4 +143,10 @@ class HabitTaskManager {
             completion(results?.tasks)
         }
     }
+    
+    func searchActiveTasks(containText text: String, completion:(@escaping([HabitTask]?) -> Void)) {
+        CDHabitTask.searchActiveTasks(containText: text) { results in
+            completion(results?.tasks)
+        }
+    }
 }

@@ -770,6 +770,23 @@ extension TPCollectionViewAdapter {
     }
     
     /// 区块对象对应的区块的可见单元格索引
+    func visibleCells(forSectionObject object: ListDiffable) -> [UICollectionViewCell]? {
+        guard let section = objects.indexOf(object) else {
+            return nil
+        }
+    
+        var cells = [UICollectionViewCell]()
+        let visibleIndexPaths = collectionView.indexPathsForVisibleItems
+        for indexPath in visibleIndexPaths {
+            if indexPath.section == section,
+                let cell = collectionView.cellForItem(at: indexPath) {
+                cells.append(cell)
+            }
+        }
+        
+        return cells
+    }
+    
     func visibleIndexPaths(forSectionObject object: ListDiffable) -> [IndexPath]? {
         guard let section = objects.indexOf(object) else {
             return nil

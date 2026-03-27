@@ -104,6 +104,18 @@ extension CDHabitTask {
 // MARK: - 获取任务
 extension CDHabitTask {
     
+    // MARK: - 异步搜索
+    /// 搜索计时器
+    static func searchActiveTasks(containText text: String, completion:(@escaping([CDHabitTask]?) -> Void)) {
+        let conditions: [PredicateCondition] = [(HabitTaskKey.isArchived, .isFalse),
+                                                (HabitTaskKey.name, .contains(text))]
+        let predicate = conditions.andPredicate()
+        CDHabitTask.fetchAll(matching: predicate, sortBy: ElementOrderKey, ascending: true) { results in
+            let tasks = results as? [CDHabitTask]
+            completion(tasks)
+        }
+    }
+    
     // MARK: - 异步获取
     static func fetchActiveTasks(completion: @escaping([CDHabitTask]?) -> Void) {
         let predicate = activeTaskPredicate

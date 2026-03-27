@@ -80,7 +80,11 @@ class Habit {
         periodTaskFetcher.fetchPeriodTasks(for: tasks, in: period, completion: completion)
     }
     
-    // MARK: - 任务处理
+    // MARK: - 任务获取
+    func searchActiveTasks(containText text: String, completion:(@escaping([HabitTask]?) -> Void)) {
+        self.taskManager.searchActiveTasks(containText: text, completion: completion)
+    }
+    
     func fetchActiveTasks(completion: @escaping([HabitTask]?) -> Void) {
         self.taskManager.fetchActiveTasks(completion: completion)
     }

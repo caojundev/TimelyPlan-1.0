@@ -36,7 +36,7 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
     }
     
     static var allTypes: [TaskType] {
-        return [.todo, .habit]
+        return [.habit]
     }
 }
 

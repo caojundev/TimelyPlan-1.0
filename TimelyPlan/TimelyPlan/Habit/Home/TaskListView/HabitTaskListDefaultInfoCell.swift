@@ -96,7 +96,9 @@ class HabitTaskListDefaultInfoCell: HabitTaskListBaseCell {
     func updateTaskInfo() {
         self.updateStyleWithColor(habitTask?.color ?? .primary)
         self.infoView.iconView.icon = habitTask?.icon
-        self.infoView.titleView.title = habitTask?.name
+        
+        let name = habitTask?.name ?? resGetString("Untitled Habit")
+        self.infoView.titleView.title = name
         self.updateSubtitle()
     }
     

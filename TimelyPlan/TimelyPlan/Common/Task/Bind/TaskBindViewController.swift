@@ -131,8 +131,6 @@ class TaskBindViewController: TPContainerViewController,
 
     private func updateContentViewController(with style: SlideStyle) {
         self.listViewController = listViewController(for: self.taskType)
-//        self.listViewController.selectedTask = task
-//        self.listViewController.delegate = self
         self.setContentViewController(self.listViewController, withAnimationStyle: style)
     }
     
@@ -141,9 +139,7 @@ class TaskBindViewController: TPContainerViewController,
         case .habit:
             return createHabitTaskBindViewController()
         default:
-            let vc = UIViewController()
-            vc.view.backgroundColor = .random
-            return vc
+            return UIViewController()
         }
     }
     
@@ -164,7 +160,12 @@ class TaskBindViewController: TPContainerViewController,
     
     // MARK: - UISearchControllerDelegate
     func willPresentSearchController(_ searchController: UISearchController) {
-        let resultVC = TaskBindSearchResultViewController()
+        let selectedTaskID = self.task?.identifier
+        let resultVC = TaskBindSearchResultViewController(selectedTaskID: selectedTaskID)
+        resultVC.didSelectTask = { [weak self] task in
+            self?.selectTask(task)
+        }
+        
         searchController.searchResultsUpdater = resultVC
         self.setContentViewController(resultVC, withAnimationStyle: .none)
     }

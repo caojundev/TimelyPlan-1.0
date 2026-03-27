@@ -25,7 +25,30 @@ class HabitTaskBindSectionController: BaseTaskBindSectionController {
     }
 }
 
-class HabitTaskBindCell: HabitTaskListDefaultInfoCell {
+class HabitTaskBindCell: HabitTaskListDefaultInfoCell,
+                            SearchHighlightable {
+    
+    /// 高亮文本
+    var highlightedText: String?
+    
+    var normalAttributes: [NSAttributedString.Key: Any] {
+        return [
+            .foregroundColor: titleView.titleConfig.textColor ?? .label,
+            .font: titleView.titleConfig.font
+        ]
+    }
+
+    var highlightAttributes: [NSAttributedString.Key: Any] {
+        return [
+            .backgroundColor: Color(0xFFD60A),
+            .foregroundColor: UIColor.black,
+            .font: titleView.titleConfig.font
+        ]
+    }
+    
+    var titleView: TPInfoView {
+        return self.infoView.titleView
+    }
     
     lazy var checkmarkImageView: UIImageView = {
        let imageView = UIImageView()
@@ -75,5 +98,23 @@ class HabitTaskBindCell: HabitTaskListDefaultInfoCell {
     override func setChecked(_ checked: Bool, animated: Bool) {
         super.setChecked(checked, animated: animated)
         self.checkmarkImageView.isHidden = !checked
+    }
+    
+    override func updateTaskInfo() {
+        super.updateTaskInfo()
+        if let taskName = self.habitTask?.name,
+           let highlightedText = highlightedText,
+            highlightedText.count > 0 {
+            let value = taskName.attributedStringWithHighlight(highlightedText,
+                                                                normalAttributes: normalAttributes,
+                                                                highlightAttributes: highlightAttributes)
+            self.titleView.title = ASAttributedString(value: value)
+        }
+    }
+
+    /// 设置搜索文本并更新高亮显示
+    func setHighlightedText(_ highlightedText: String?) {
+        self.highlightedText = highlightedText
+        self.updateTaskInfo()
     }
 }
