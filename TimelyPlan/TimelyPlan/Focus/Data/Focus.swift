@@ -130,6 +130,12 @@ class Focus {
     }
     
     // MARK: - 获取会话
+    func fetchDuration(forTask task: TaskRepresentable? = nil,
+                       timer: FocusTimer? = nil,
+                       completion: @escaping(Int64) -> Void) {
+        sessionManager.fetchDuration(forTask: task, timer: timer, completion: completion)
+    }
+    
     func getTotalDuration(for timer: FocusTimer? = nil) -> Int64 {
         return sessionManager.getTotalDuration(for: timer)
     }

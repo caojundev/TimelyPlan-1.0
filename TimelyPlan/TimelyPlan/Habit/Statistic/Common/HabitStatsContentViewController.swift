@@ -27,7 +27,7 @@ class HabitStatsContentViewController: StatsContentViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.backViewMargins = UIEdgeInsets(top: 10.0, left: 15.0, bottom: 90.0, right: 15.0)
+        self.backViewMargins = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 90.0, right: 16.0)
         habit.addUpdater(self, for: [.record])
     }
     

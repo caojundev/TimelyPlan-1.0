@@ -4440,7 +4440,7 @@
 			path = Week;
 			sourceTree = "<group>";
 		};
-		E55549272F74CA6800C9460D /* Start */ = {
+		E55549272F74CA6800C9460D /* QuickStart */ = {
 			isa = PBXGroup;
 			children = (
 				E555492C2F74D2AC00C9460D /* FocusQuickStartTypeView.swift */,
@@ -4448,7 +4448,7 @@
 				E555492E2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift */,
 				E55549302F7505F900C9460D /* FocusQuickStartUserTimerViewController.swift */,
 			);
-			path = Start;
+			path = QuickStart;
 			sourceTree = "<group>";
 		};
 		E556BCC52F5D746400CA20D9 /* recordType */ = {
@@ -7779,7 +7779,7 @@
 				E5D7D8362D43933400EC877A /* Record */,
 				E5D7D8332D43933300EC877A /* Setting */,
 				E5D7D8632D43933500EC877A /* Statistic */,
-				E55549272F74CA6800C9460D /* Start */,
+				E55549272F74CA6800C9460D /* QuickStart */,
 				E5D7D7F52D43933100EC877A /* Tracking */,
 			);
 			path = Focus;

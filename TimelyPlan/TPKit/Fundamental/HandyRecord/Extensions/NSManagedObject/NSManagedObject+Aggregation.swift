@@ -80,18 +80,51 @@ extension NSManagedObject {
                                           onAttribute attribute: String,
                                           withPredicate predicate: NSPredicate?,
                                           in context: NSManagedObjectContext) -> Any? {
-        let expressionDescription = expressionDescription(function: function,
-                                                          onAttribute: attribute,
-                                                          in: context)
-        let request = fetchAllRequest(with: predicate, in: context)
-        request.propertiesToFetch = [expressionDescription]
-        request.resultType = .dictionaryResultType
+        let request = aggregateOperationFetchRequest(function: function,
+                                                     onAttribute: attribute,
+                                                     withPredicate: predicate,
+                                                     in: context)
         if let result = executeFetchRequestAndReturnFirstObject(request: request, inContext: context) as? [String: Any] {
             return result[AggregateResultName]
         }
     
         return nil
     }
+    
+    /// 异步执行计算
+    static func performAggregateOperation(function: AggregationFunction,
+                                          onAttribute attribute: String,
+                                          withPredicate predicate: NSPredicate?,
+                                          completion: @escaping(Any?) -> Void) {
+        let request = aggregateOperationFetchRequest(function: function,
+                                                     onAttribute: attribute,
+                                                     withPredicate: predicate,
+                                                     in: .defaultContext)
+        self.executeFetchRequestAndReturnFirstObject(request: request) { result in
+            var value: Any?
+            if let result = result as? [String: Any] {
+                value = result[AggregateResultName]
+            }
+            
+            DispatchQueue.main.async {
+                completion(value)
+            }
+        }
+    }
+    
+    static func aggregateOperationFetchRequest(function: AggregationFunction,
+                                               onAttribute attribute: String,
+                                               withPredicate predicate: NSPredicate?,
+                                               in context: NSManagedObjectContext) -> NSFetchRequest<NSFetchRequestResult> {
+        let expressionDescription = expressionDescription(function: function,
+                                                          onAttribute: attribute,
+                                                          in: context)
+        let request = fetchAllRequest(with: predicate, in: context)
+        request.propertiesToFetch = [expressionDescription]
+        request.resultType = .dictionaryResultType
+        return request
+    }
+    
 
     /**
      *  支持使用键值集合操作符对实体属性进行聚合计算，并可以按指定属性进行分组。

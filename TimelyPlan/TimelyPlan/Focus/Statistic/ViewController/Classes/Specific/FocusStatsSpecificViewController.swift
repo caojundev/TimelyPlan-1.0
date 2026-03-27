@@ -10,9 +10,10 @@ import UIKit
 
 class FocusStatsSpecificViewController: FocusStatsBaseViewController,
                                         FocusSessionProcessorDelegate {
-    
     /// 信息视图间距
     let infoViewEdgeMargins = UIEdgeInsets(value: 10.0)
+    
+    let infoViewHeight = 80.0
     
     /// 信息视图
     var infoView: FocusStatsInfoView!
@@ -66,7 +67,7 @@ class FocusStatsSpecificViewController: FocusStatsBaseViewController,
         let layoutFrame = view.safeLayoutFrame().inset(by: infoViewEdgeMargins)
         let cornerRadius = 16.0
         infoView.width = min(640.0, layoutFrame.width)
-        infoView.height = 80.0
+        infoView.height = infoViewHeight
         if isHidden {
             infoView.top = view.height
         } else {

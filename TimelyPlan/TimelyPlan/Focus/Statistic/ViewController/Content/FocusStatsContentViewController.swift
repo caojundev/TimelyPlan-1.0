@@ -45,7 +45,7 @@ class FocusStatsContentViewController: StatsContentViewController,
         if mode == .overall {
             result = FocusSetting.shared.isOverallStatsShowArchived
         }
-        
+
         return result
     }
     
@@ -59,6 +59,10 @@ class FocusStatsContentViewController: StatsContentViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if self.mode != .overall {
+            self.backViewMargins = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 100.0, right: 16.0)
+        }
+        
         focus.addUpdater(self, for: [.session])
     }
     

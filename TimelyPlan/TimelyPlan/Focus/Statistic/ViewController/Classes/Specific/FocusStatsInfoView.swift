@@ -38,6 +38,7 @@ class FocusStatsInfoView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupSubviews()
+        self.reloadData()
     }
     
     required init?(coder: NSCoder) {
@@ -55,7 +56,6 @@ class FocusStatsInfoView: UIView {
     
     func setupSubviews() {
         self.backgroundColor = .secondarySystemGroupedBackground
-        self.padding = UIEdgeInsets(top: 10.0, left: 30.0, bottom: 10.0, right: 10.0)
         addSubview(durationInfoView)
     }
     
@@ -98,6 +98,8 @@ class FocusStatsSpecificTimerInfoView: FocusStatsInfoView {
     }
     
     override func setupSubviews() {
+        super.setupSubviews()
+        self.padding = UIEdgeInsets(top: 10.0, left: 30.0, bottom: 10.0, right: 10.0)
         addSubview(indicatorView)
         addSubview(timerInfoView)
         indicatorView.backgroundColor = timer.color
@@ -118,8 +120,9 @@ class FocusStatsSpecificTimerInfoView: FocusStatsInfoView {
     }
     
     override func reloadData() {
-        let totalDuration = focus.getTotalDuration(for: timer)
-        durationInfoView.title = Duration(totalDuration).attributedTitle()
+        focus.fetchDuration(forTask: nil, timer: self.timer) {[weak self] result in
+            self?.durationInfoView.title = Duration(result).attributedTitle()
+        }
     }
 }
 
@@ -145,10 +148,12 @@ class FocusStatsSpecificTaskInfoView: FocusStatsInfoView {
     }
     
     override func setupSubviews() {
-        addSubview(taskInfoView)
+        super.setupSubviews()
+        self.padding = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 10.0)
+        self.addSubview(taskInfoView)
         let feature = self.task.feature
         taskInfoView.title = feature.snapshotName ?? resGetString("Untitled Task")
-        taskInfoView.subtitle = "类型"
+        taskInfoView.subtitle = feature.type.title
     }
     
     override func layoutSubviews() {
@@ -161,7 +166,8 @@ class FocusStatsSpecificTaskInfoView: FocusStatsInfoView {
     }
     
     override func reloadData() {
-        let totalDuration = 0
-        durationInfoView.title = Duration(totalDuration).attributedTitle()
+        focus.fetchDuration(forTask: self.task, timer: nil) {[weak self] result in
+            self?.durationInfoView.title = Duration(result).attributedTitle()
+        }
     }
 }

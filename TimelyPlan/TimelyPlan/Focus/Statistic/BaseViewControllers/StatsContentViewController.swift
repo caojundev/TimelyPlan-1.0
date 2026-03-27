@@ -30,7 +30,7 @@ class StatsContentViewController: TPCollectionSectionsViewController,
     
     private let backViewSize: CGSize = .size(10)
     
-    var backViewMargins = UIEdgeInsets(value: 15.0)
+    var backViewMargins = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 8.0, right: 16.0)
     
     /// 返回按钮
     private(set) var backView: TPFlipBackTodayView?

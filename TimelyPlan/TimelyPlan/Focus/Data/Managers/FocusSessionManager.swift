@@ -177,4 +177,10 @@ class FocusSessionManager {
     func getTotalDuration(for timer: FocusTimer? = nil) -> Int64 {
         return CDFocusSession.getTotalDuration(for: timer)
     }
+    
+    func fetchDuration(forTask task: TaskRepresentable? = nil,
+                       timer: FocusTimer? = nil,
+                       completion: @escaping(Int64) -> Void) {
+        CDFocusSession.fetchDuration(forTask: task, timer: timer, completion: completion)
+    }
 }

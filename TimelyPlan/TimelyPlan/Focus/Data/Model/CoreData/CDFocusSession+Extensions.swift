@@ -162,6 +162,7 @@ extension CDFocusSession {
         return findFirst(withPredicate: predicate, in: .defaultContext)
     }
     
+    
     /// 获取任务使用计时器在特定日期专注时长
     static func getSessionDuration(forTask task: TaskRepresentable? = nil,
                                    timer: FocusTimer? = nil,
@@ -186,12 +187,30 @@ extension CDFocusSession {
         return totalDuration(with: predicate)
     }
     
+    
     private static func totalDuration(with predicate: NSPredicate) -> Int64 {
         let duration = performAggregateOperation(function: .sum,
                                                  onAttribute: FocusSessionKey.duration,
                                                  withPredicate: predicate,
                                                  in: .defaultContext) as? Int64
         return duration ?? 0
+    }
+    
+    /// 异步获取总专注时长
+    static func fetchDuration(forTask task: TaskRepresentable? = nil,
+                              timer: FocusTimer? = nil,
+                              completion: @escaping(Int64) -> Void) {
+        let predicate = predicate(forTask: task,
+                                  timer: timer,
+                                  fromDate: nil,
+                                  toDate: nil,
+                                  includeArchivedTimer: true)
+        performAggregateOperation(function: .sum,
+                                  onAttribute: FocusSessionKey.duration,
+                                  withPredicate: predicate) { result in
+            let duration = result as? Int64 ?? 0
+            completion(duration)
+        }
     }
     
 }

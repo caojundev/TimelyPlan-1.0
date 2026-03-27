@@ -13,7 +13,7 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
     case todo /// 待办
     case habit /// 习惯
     
-    var title: String {
+    var identifier: String {
         switch self {
         case .none:
             return "None"
@@ -21,6 +21,17 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return "Todo"
         case .habit:
             return "Habit"
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .none:
+            return resGetString("None")
+        case .todo:
+            return resGetString("Todo")
+        case .habit:
+            return resGetString("Habit")
         }
     }
 }
@@ -46,7 +57,7 @@ struct TaskFeature: Codable, Hashable, Equatable {
     
     static var none: TaskFeature {
         return TaskFeature(type: .none,
-                        identifier: TaskType.none.title,
-                        snapshotName: nil)
+                           identifier: TaskType.none.identifier,
+                           snapshotName: TaskType.none.title)
     }
 }

@@ -154,12 +154,12 @@ class FocusUserTimerSelectSectionController: FocusUserTimerListSectionController
         focus.fetchActiveTimers { timers in
             guard self.requestManager.shouldProceed(with: requestID) else {
                 self.timers = nil
-                self.adapter?.performUpdate()
+                self.adapter?.reloadData()
                 return
             }
             
             self.timers = timers
-            self.adapter?.performSectionUpdate(forSectionObject: self)
+            self.adapter?.reloadData()
         }
     }
 }
