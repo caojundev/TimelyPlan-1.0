@@ -73,7 +73,8 @@ class TaskBindView: UIView {
     /// 点击任务
     @objc func didClickTask(_ button: UIButton) {
         TPImpactFeedback.impactWithLightStyle()
-        TaskPickerViewController.show(with: taskFeature, animated: true) { feature in
+        TaskBindViewController.show(with: taskFeature) { task in
+            let feature = task?.feature
             self.taskFeature = feature
             self.didPickTask?(feature)
         }

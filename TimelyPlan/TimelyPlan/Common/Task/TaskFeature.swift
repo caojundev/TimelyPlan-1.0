@@ -34,6 +34,10 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return resGetString("Habit")
         }
     }
+    
+    static var allTypes: [TaskType] {
+        return [.todo, .habit]
+    }
 }
 
 /// 任务信息
@@ -56,8 +60,9 @@ struct TaskFeature: Codable, Hashable, Equatable {
     }
     
     static var none: TaskFeature {
+        let snapshotName = resGetString("Unlinked Task")
         return TaskFeature(type: .none,
                            identifier: TaskType.none.identifier,
-                           snapshotName: TaskType.none.title)
+                           snapshotName: snapshotName)
     }
 }

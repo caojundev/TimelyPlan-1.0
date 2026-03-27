@@ -81,6 +81,10 @@ class Habit {
     }
     
     // MARK: - 任务处理
+    func fetchActiveTasks(completion: @escaping([HabitTask]?) -> Void) {
+        self.taskManager.fetchActiveTasks(completion: completion)
+    }
+    
     func activeTasks() -> [HabitTask] {
         return self.taskManager.activeTasks
     }

@@ -422,6 +422,11 @@
 		E555494E2F7629CA00C9460D /* focus_timer_bind_pomodoro_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549482F7629C900C9460D /* focus_timer_bind_pomodoro_32@2x.png */; };
 		E555494F2F7629CA00C9460D /* focus_timer_bind_stopwatch_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55549492F7629C900C9460D /* focus_timer_bind_stopwatch_32@2x.png */; };
 		E55549502F7629CA00C9460D /* focus_timer_bind_stopwatch_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555494A2F7629C900C9460D /* focus_timer_bind_stopwatch_32@3x.png */; };
+		E55549522F762E9800C9460D /* TaskBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549512F762E9700C9460D /* TaskBindViewController.swift */; };
+		E55549542F76316500C9460D /* TaskBindSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549532F76316500C9460D /* TaskBindSearchResultViewController.swift */; };
+		E55549562F76401100C9460D /* HabitTaskBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549552F76401100C9460D /* HabitTaskBindViewController.swift */; };
+		E55549592F76672300C9460D /* HabitTaskBindSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55549582F76672300C9460D /* HabitTaskBindSectionController.swift */; };
+		E555495C2F76690300C9460D /* BaseTaskBindSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555495B2F76690300C9460D /* BaseTaskBindSectionController.swift */; };
 		E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */; };
 		E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */; };
 		E556BCBE2F5D6C7000CA20D9 /* habit_indicator_status_skipped_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */; };
@@ -1259,7 +1264,6 @@
 		E5BBA0E82D3BF4A50089667A /* Todo+UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BBA03C2D3BF4A40089667A /* Todo+UserInfo.swift */; };
 		E5BBA0E92D3BF4A50089667A /* TodoUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BBA03D2D3BF4A40089667A /* TodoUserInfo.swift */; };
 		E5BBA0EA2D3BF4A50089667A /* TodoSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BBA03E2D3BF4A40089667A /* TodoSort.swift */; };
-		E5BBA0EE2D3BF5BB0089667A /* TaskPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BBA0EC2D3BF5BB0089667A /* TaskPickerViewController.swift */; };
 		E5BBA0EF2D3BF5BB0089667A /* TaskBindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BBA0ED2D3BF5BB0089667A /* TaskBindView.swift */; };
 		E5BBA0FF2D3BFB3C0089667A /* SideMenuMyDay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA0F12D3BFB3C0089667A /* SideMenuMyDay@2x.png */; };
 		E5BBA1002D3BFB3C0089667A /* SideMenuFocus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA0F22D3BFB3C0089667A /* SideMenuFocus@2x.png */; };
@@ -2040,6 +2044,11 @@
 		E55549482F7629C900C9460D /* focus_timer_bind_pomodoro_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_bind_pomodoro_32@2x.png"; sourceTree = "<group>"; };
 		E55549492F7629C900C9460D /* focus_timer_bind_stopwatch_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_bind_stopwatch_32@2x.png"; sourceTree = "<group>"; };
 		E555494A2F7629C900C9460D /* focus_timer_bind_stopwatch_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_timer_bind_stopwatch_32@3x.png"; sourceTree = "<group>"; };
+		E55549512F762E9700C9460D /* TaskBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBindViewController.swift; sourceTree = "<group>"; };
+		E55549532F76316500C9460D /* TaskBindSearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBindSearchResultViewController.swift; sourceTree = "<group>"; };
+		E55549552F76401100C9460D /* HabitTaskBindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskBindViewController.swift; sourceTree = "<group>"; };
+		E55549582F76672300C9460D /* HabitTaskBindSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskBindSectionController.swift; sourceTree = "<group>"; };
+		E555495B2F76690300C9460D /* BaseTaskBindSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTaskBindSectionController.swift; sourceTree = "<group>"; };
 		E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditViewController.swift; sourceTree = "<group>"; };
 		E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_checked_16@2x.png"; sourceTree = "<group>"; };
 		E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_skipped_16@2x.png"; sourceTree = "<group>"; };
@@ -2894,7 +2903,6 @@
 		E5BBA03C2D3BF4A40089667A /* Todo+UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Todo+UserInfo.swift"; sourceTree = "<group>"; };
 		E5BBA03D2D3BF4A40089667A /* TodoUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUserInfo.swift; sourceTree = "<group>"; };
 		E5BBA03E2D3BF4A40089667A /* TodoSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoSort.swift; sourceTree = "<group>"; };
-		E5BBA0EC2D3BF5BB0089667A /* TaskPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskPickerViewController.swift; sourceTree = "<group>"; };
 		E5BBA0ED2D3BF5BB0089667A /* TaskBindView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBindView.swift; sourceTree = "<group>"; };
 		E5BBA0F12D3BFB3C0089667A /* SideMenuMyDay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SideMenuMyDay@2x.png"; sourceTree = "<group>"; };
 		E5BBA0F22D3BFB3C0089667A /* SideMenuFocus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SideMenuFocus@2x.png"; sourceTree = "<group>"; };
@@ -4474,6 +4482,23 @@
 				E555494A2F7629C900C9460D /* focus_timer_bind_stopwatch_32@3x.png */,
 			);
 			path = bind;
+			sourceTree = "<group>";
+		};
+		E55549572F7666F200C9460D /* Habit */ = {
+			isa = PBXGroup;
+			children = (
+				E55549552F76401100C9460D /* HabitTaskBindViewController.swift */,
+				E55549582F76672300C9460D /* HabitTaskBindSectionController.swift */,
+			);
+			path = Habit;
+			sourceTree = "<group>";
+		};
+		E555495A2F7668EF00C9460D /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E555495B2F76690300C9460D /* BaseTaskBindSectionController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		E556BCC52F5D746400CA20D9 /* recordType */ = {
@@ -7551,8 +7576,11 @@
 		E5BBA0EB2D3BF5BB0089667A /* Bind */ = {
 			isa = PBXGroup;
 			children = (
-				E5BBA0EC2D3BF5BB0089667A /* TaskPickerViewController.swift */,
 				E5BBA0ED2D3BF5BB0089667A /* TaskBindView.swift */,
+				E55549512F762E9700C9460D /* TaskBindViewController.swift */,
+				E55549532F76316500C9460D /* TaskBindSearchResultViewController.swift */,
+				E555495A2F7668EF00C9460D /* Base */,
+				E55549572F7666F200C9460D /* Habit */,
 			);
 			path = Bind;
 			sourceTree = "<group>";
@@ -9572,6 +9600,7 @@
 				E5BBA04F2D3BF4A40089667A /* TodoTaskSelectTableCell.swift in Sources */,
 				E5BBA0612D3BF4A40089667A /* RecurrenceRule.swift in Sources */,
 				E5BB9EF92D3BF0C80089667A /* TPSlidePresentationController.swift in Sources */,
+				E55549542F76316500C9460D /* TaskBindSearchResultViewController.swift in Sources */,
 				E5D7D8CD2D43933600EC877A /* FocusEndDetailRecordCell.swift in Sources */,
 				E5BB9F482D3BF45F0089667A /* SideMenuCell.swift in Sources */,
 				E51A43822DB73A7400DC84C9 /* CalendarMainViewController.swift in Sources */,
@@ -9734,6 +9763,7 @@
 				E5CFD25F2F585A4300A898CB /* HabitDatePeriodsView.swift in Sources */,
 				E5D7D9282D43933700EC877A /* FocusHomeUserTimerContentViewController.swift in Sources */,
 				E5BB9E0A2D3BF0C70089667A /* String+Emoji.swift in Sources */,
+				E55549562F76401100C9460D /* HabitTaskBindViewController.swift in Sources */,
 				E54A82CB2DAAA0A200771016 /* TodoTask+Progress.swift in Sources */,
 				E5BB9E102D3BF0C70089667A /* TPNotificationAllowAccessViewController.swift in Sources */,
 				E53FD6D92D87199700760341 /* TodoFilterManager.swift in Sources */,
@@ -10035,7 +10065,6 @@
 				E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */,
 				E568B7E12F71802A007B7EFE /* FocusUserTimerListView.swift in Sources */,
 				E5BBA0522D3BF4A40089667A /* TodoTaskCheckInfoView.swift in Sources */,
-				E5BBA0EE2D3BF5BB0089667A /* TaskPickerViewController.swift in Sources */,
 				E5BBA05A2D3BF4A40089667A /* TodoTaskEditViewController.swift in Sources */,
 				E5D7D9212D43933700EC877A /* StatsSummary.swift in Sources */,
 				E5BB9F0C2D3BF0C90089667A /* TPMenuItem+MenuRepresentable.swift in Sources */,
@@ -10135,6 +10164,7 @@
 				E5BB9E0C2D3BF0C70089667A /* CAAnimationGroup+Extensions.swift in Sources */,
 				E5BBA0952D3BF4A50089667A /* TodoTaskEditStepSectionController.swift in Sources */,
 				E5EFB1752F59D36D000FFDF4 /* HabitManageBaseListViewController.swift in Sources */,
+				E555495C2F76690300C9460D /* BaseTaskBindSectionController.swift in Sources */,
 				E5BB9EC92D3BF0C80089667A /* TPWheatView.swift in Sources */,
 				E521E35D2F6AC38E0071DA12 /* HabitReportChartRender.swift in Sources */,
 				E500DE622DB0FDBF00EAEAF7 /* QuadrantTaskMoveController.swift in Sources */,
@@ -10337,6 +10367,7 @@
 				E55E78072D8B0658005E3DED /* QuadrantLayoutEditView.swift in Sources */,
 				E5DF36B82D9AD6B9003969A4 /* TodoFilterProgressEditViewController.swift in Sources */,
 				E53F32BE2F6998F600B85B65 /* HabitReportMonthRender.swift in Sources */,
+				E55549522F762E9800C9460D /* TaskBindViewController.swift in Sources */,
 				E5BB9DF52D3BF0C60089667A /* Date+Symbol.swift in Sources */,
 				E5CFD2732F58619300A898CB /* HabitTaskStatusProgressCell.swift in Sources */,
 				E5BBA0842D3BF4A50089667A /* TaskDateInfo.swift in Sources */,
@@ -10395,6 +10426,7 @@
 				E5BB9DFE2D3BF0C60089667A /* Array+Sortable.swift in Sources */,
 				E5F149A32D745D57009D51D0 /* TodoList+Extensions.swift in Sources */,
 				E5BB9DE52D3BF0C60089667A /* UIWindow+Extensions.swift in Sources */,
+				E55549592F76672300C9460D /* HabitTaskBindSectionController.swift in Sources */,
 				E5BBA0592D3BF4A40089667A /* TodoTaskCheckbox.swift in Sources */,
 				E5D7D7F42D43923800EC877A /* FocusSession+Array.swift in Sources */,
 				E5BBA0532D3BF4A40089667A /* TodoTaskSelectInfoView.swift in Sources */,

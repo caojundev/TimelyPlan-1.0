@@ -31,7 +31,8 @@ class FocusEndDetailSectionController: FocusEndSectionController,
             return
         }
         
-        TaskPickerViewController.show(with: record.taskFeature, animated: true) { feature in
+        TaskBindViewController.show(with: record.taskFeature) { task in
+            let feature = task?.feature
             record.taskFeature = feature
             self.adapter?.reloadCell(at: indexPath)
         }

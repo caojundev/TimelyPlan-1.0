@@ -33,8 +33,14 @@ class FocusQuickStartUserTimerViewController: TPCollectionSectionsViewController
         super.viewDidLoad()
         self.collectionView.placeholderView = placeholderView
         self.sectionControllers = [userTimerSelectSectionController]
-        self.reloadData()
-        self.userTimerSelectSectionController.reloadData()
+        self.loadData()
+    }
+    
+    func loadData() {
+        focus.fetchActiveTimers { timers in
+            self.userTimerSelectSectionController.timers = timers
+            self.adapter.reloadData()
+        }
     }
     
     override var themeBackgroundColor: UIColor? {

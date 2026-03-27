@@ -104,6 +104,16 @@ extension CDHabitTask {
 // MARK: - 获取任务
 extension CDHabitTask {
     
+    // MARK: - 异步获取
+    static func fetchActiveTasks(completion: @escaping([CDHabitTask]?) -> Void) {
+        let predicate = activeTaskPredicate
+        CDHabitTask.findAll(with: predicate,
+                            sortedBy: ElementOrderKey,
+                            ascending: true) { results in
+            completion(results as? [CDHabitTask])
+        }
+    }
+    
     // MARK: - 同步获取
     /// 获取特定标识的任务
     static func getTask(with identifier: String) -> CDHabitTask? {
@@ -128,22 +138,20 @@ extension CDHabitTask {
     
     /// 获取归档任务
     static func getArchivedTasks() -> [CDHabitTask] {
-        let predicate = archivedTaskPredicate()
+        let predicate = archivedTaskPredicate
         return getTasks(with: predicate)
     }
     
     /// 归档任务数目
     static func getArchivedTasksCount() -> Int {
-        let predicate = archivedTaskPredicate()
+        let predicate = archivedTaskPredicate
         let count = CDHabitTask.countOfEntries(with: predicate, in: .defaultContext)
         return count
     }
     
     /// 获取活动任务
     static func getActiveTasks() -> [CDHabitTask] {
-        let condition: PredicateCondition = (HabitTaskKey.isArchived, .notEqual(true))
-        let predicate = NSPredicate.predicate(with: condition)
-        return getTasks(with: predicate)
+        return getTasks(with: activeTaskPredicate)
     }
     
     static func getTasks(with predicate: NSPredicate? = nil) -> [CDHabitTask] {
@@ -160,8 +168,13 @@ extension CDHabitTask {
 
     // MARK: - Predicate
     /// 已归档任务谓词
-    private static func archivedTaskPredicate() -> NSPredicate {
+    private static var archivedTaskPredicate: NSPredicate {
         let condition: PredicateCondition = (HabitTaskKey.isArchived, .isTrue)
+        return NSPredicate.predicate(with: condition)
+    }
+    
+    private static var activeTaskPredicate: NSPredicate {
+        let condition: PredicateCondition = (HabitTaskKey.isArchived, .notEqual(true))
         return NSPredicate.predicate(with: condition)
     }
 }

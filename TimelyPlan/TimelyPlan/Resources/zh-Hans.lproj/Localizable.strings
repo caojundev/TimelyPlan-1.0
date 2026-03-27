@@ -85,6 +85,8 @@
 "Add focus record successfully" = "成功添加专注记录";
 "Untitled task" = "未命名任务";
 "No task linked" = "未绑定任务";
+"Unlinked Task" = "未关联任务";
+
 
 /// 统计
 "Focus Statistics" = "专注统计";
@@ -136,6 +138,9 @@
 "There is no focused record over %@ in this round." = "本轮无超过%@的专注记录";
 "%ld focus records added successfully" = "成功添加%ld条专注记录";
 "%ld focus record added successfully" = "成功添加%ld条专注记录";
+
+/// 绑定任务
+"Search Task" = "搜索任务";
 
 /// 专注设置
 "Focus Settings" = "专注设置";

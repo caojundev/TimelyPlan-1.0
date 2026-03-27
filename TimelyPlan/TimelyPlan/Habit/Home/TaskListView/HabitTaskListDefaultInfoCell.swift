@@ -23,16 +23,9 @@ class HabitTaskListDefaultInfoCell: HabitTaskListBaseCell {
     }
     
     var infoView: HabitTaskDefaultInfoView!
-    
+
     /// 更多按钮
-    lazy var moreButton: TPDefaultButton = {
-        let button = TPDefaultButton.moreButton()
-        button.imageConfig.color = Color(0xffffff, 0.8)
-        button.addTarget(self,
-                         action: #selector(clickMore(_:)),
-                         for: .touchUpInside)
-        return button
-    }()
+    var moreButton: TPDefaultButton?
     
     override var focusLineColor: UIColor {
         return habitTask?.color.lighterColor ?? .primary
@@ -40,9 +33,13 @@ class HabitTaskListDefaultInfoCell: HabitTaskListBaseCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        /// 信息视图
         self.setupInfoView()
         contentView.addSubview(self.infoView)
-        contentView.addSubview(self.moreButton)
+        
+        /// 更多按钮
+        self.addMoreButton()
     }
     
     required init?(coder: NSCoder) {
@@ -53,17 +50,35 @@ class HabitTaskListDefaultInfoCell: HabitTaskListBaseCell {
         self.infoView = HabitTaskDefaultInfoView()
     }
 
+    func shouldAddMoreButton() -> Bool {
+        return true
+    }
+    
+    private func addMoreButton() {
+        guard shouldAddMoreButton() else {
+            return
+        }
+        
+        let button = TPDefaultButton.moreButton()
+        button.imageConfig.color = Color(0xffffff, 0.8)
+        button.addTarget(self,
+                         action: #selector(clickMore(_:)),
+                         for: .touchUpInside)
+        contentView.addSubview(button)
+        self.moreButton = button
+    }
+    
     // MARK: - Layout
     override func layoutSubviews() {
         super.layoutSubviews()
         let layoutFrame = contentView.layoutFrame()
-        moreButton.size = .size(9)
-        moreButton.right = layoutFrame.maxX
-        moreButton.alignVerticalCenter()
-        
-        infoView.width = layoutFrame.width - moreButton.width
-        infoView.height = layoutFrame.height
-        infoView.origin = layoutFrame.origin
+        infoView.frame = layoutFrame
+        if let moreButton = moreButton {
+            moreButton.size = .size(9)
+            moreButton.right = layoutFrame.maxX
+            moreButton.alignVerticalCenter()
+            infoView.width = layoutFrame.width - moreButton.width
+        }
     }
     
     override func updateStyleWithColor(_ color: UIColor) {

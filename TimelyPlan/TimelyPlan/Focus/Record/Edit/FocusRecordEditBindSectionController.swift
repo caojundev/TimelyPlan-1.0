@@ -93,10 +93,11 @@ class FocusRecordEditBindSectionController: TPTableItemSectionController {
     }
     
     func selectTask() {
-        TaskPickerViewController.show(with: taskFeature, animated: true) { taskFeature in
-            self.taskFeature = taskFeature
+        TaskBindViewController.show(with: taskFeature) { task in
+            let feature = task?.feature
+            self.taskFeature = feature
             self.adapter?.reloadCell(forItem: self.taskCellItem, with: .none)
-            self.didSelectTask?(taskFeature)
+            self.didSelectTask?(feature)
         }
     }
 }

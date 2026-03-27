@@ -24,7 +24,7 @@ class HabitRecordListCell: HabitTaskListDefaultInfoCell {
         super.init(frame: frame)
         self.coverView.isHidden = true
         self.contentView.padding = UIEdgeInsets(top: 4.0, left: 12.0, bottom: 4.0, right: 8.0)
-        self.moreButton.imageConfig.color = resGetColor(.title)
+        self.moreButton?.imageConfig.color = resGetColor(.title)
         self.shadowView.layer.shadowColor = Color(0x343434, 0.1).cgColor
         self.shadowView.layer.shadowOffset = CGSize(width:0, height: 2.0)
     }
@@ -56,7 +56,12 @@ class HabitRecordListCell: HabitTaskListDefaultInfoCell {
         scoreView.width = 60.0
         scoreView.height = layoutFrame.height
         scoreView.top = layoutFrame.minY
-        scoreView.right = self.moreButton.left
+        if let moreButton = self.moreButton {
+            scoreView.right = moreButton.left
+        } else {
+            scoreView.right = layoutFrame.maxX
+        }
+        
         self.infoView.width = self.scoreView.left - self.infoView.left
     }
     
