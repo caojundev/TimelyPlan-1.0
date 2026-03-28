@@ -258,12 +258,12 @@ class HabitHomeDayViewController: TPContainerViewController,
     }
     
     func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) {
-        guard let task = listView.item(at: indexPath) as? HabitPeriodItem else {
+        guard let periodItem = listView.item(at: indexPath) as? HabitPeriodItem else {
             return
         }
         
         TPImpactFeedback.impactWithSoftStyle()
-        HabitPresenter.showStats(for: task.habitTask, date: self.date)
+        HabitPresenter.showStats(for: periodItem.habitTask, date: self.date)
     }
     
     func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {

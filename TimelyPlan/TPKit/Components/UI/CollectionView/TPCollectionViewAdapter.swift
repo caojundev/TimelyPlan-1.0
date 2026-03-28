@@ -100,10 +100,38 @@ class TPCollectionViewAdapter: NSObject,
         collectionView.reloadData()
     }
     
-    /// 重新加载可见项目
-    func reloadVisibleItems() {
+    // MARK: - 更新可见单元格
+    
+    func updateVisibleCells() {
+        let visibleCells = self.collectionView.visibleCells
+        for cell in visibleCells {
+            if let indexPath = self.collectionView.indexPath(for: cell) {
+                delegate?.adapter(self, didDequeCell: cell, at: indexPath)
+            }
+        }
+    }
+    
+    func updateVisibleCells(forSectionObjects objects: [ListDiffable]) {
+        for object in objects {
+            updateVisibleCells(forSectionObject: object)
+        }
+    }
+    
+    func updateVisibleCells(forSectionObject object: ListDiffable) {
+        guard let section = objects.indexOf(object) else {
+            return
+        }
+        
         let indexPaths = self.collectionView.indexPathsForVisibleItems
-        self.collectionView.reloadItems(at: indexPaths)
+        for indexPath in indexPaths {
+            guard indexPath.section == section else {
+                continue
+            }
+            
+            if let cell = self.collectionView.cellForItem(at: indexPath) {
+                delegate?.adapter(self, didDequeCell: cell, at: indexPath)
+            }
+        }
     }
     
     // MARK: - UICollectionViewDataSource
@@ -355,6 +383,19 @@ class TPCollectionViewAdapter: NSObject,
     
         return nil
     }
+    
+    func findIndexPath(matches: (ListDiffable) -> Bool) -> IndexPath? {
+        for (section, object) in objects.enumerated() {
+            let items = items(for: object)
+            for (index, item) in items.enumerated() {
+                if matches(item) {
+                    return IndexPath(item: index, section: section)
+                }
+            }
+        }
+    
+        return nil
+    }
 }
 
 // MARK: - Reload
@@ -594,6 +635,7 @@ extension TPCollectionViewAdapter {
             completion?(finished)
         }
         
+        updateVisibleCells()
         updateVisibleHeaderFooterViews()
     }
     
@@ -643,6 +685,7 @@ extension TPCollectionViewAdapter {
                 completion?(finished)
             }
             
+            updateVisibleCells(forSectionObjects: sectionObjects)
             updateHeaderFooterView(forSectionObjects: sectionObjects)
         }
     }

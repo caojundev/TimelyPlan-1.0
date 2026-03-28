@@ -29,6 +29,23 @@ class HabitPeriodItemListView: HabitTaskListView {
     }
     
     // MARK: - Public Methods
+    /// 聚焦显示任务
+    /// - Parameter task: 要显示的习惯任务
+    func revealTask(_ task: HabitTask, autoScroll: Bool = true) {
+        let indexPath = adapter.findIndexPath { item in
+            guard let item = item as? HabitPeriodItem else {
+                return false
+            }
+            
+            return task.identifier == item.habitTask.identifier
+        }
+        
+        if let indexPath = indexPath {
+            let periodItem = adapter.item(at: indexPath)
+            revealItem(periodItem, autoScroll: autoScroll)
+        }
+    }
+    
     func asyncReloadData(animateStyle: SlideStyle) {
         self.groups = nil /// 分组置为空
         changeCollectionView(with: animateStyle)
@@ -50,10 +67,6 @@ class HabitPeriodItemListView: HabitTaskListView {
         asyncLoadGroups { [weak self] isSuccess in
             if isSuccess {
                 self?.performUpdate()
-                /// 更新可见的单元格（数据模型更新为最新）
-                self?.adapter.reloadVisibleItems()
-                /// 更新可见的头脚视图
-                self?.adapter.updateVisibleHeaderFooterViews()
             }
             
             completion?(isSuccess)

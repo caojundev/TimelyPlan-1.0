@@ -137,21 +137,41 @@ class HabitTaskListView: TPCollectionWrapperView,
     func sectionObject(at section: Int) -> ListDiffable {
         return adapter.object(at: section)
     }
-    
-    /// 获取指定索引路径的项
-    func item(at indexPath: IndexPath) -> ListDiffable {
-        return adapter.item(at: indexPath)
-    }
-    
+
     /// 获取指定区块的所有项
     func items(for section: Int) -> [ListDiffable] {
         let sectionObject = adapter.object(at: section)
         return adapter.items(for: sectionObject)
     }
     
+    /// 获取指定索引路径的项
+    func item(at indexPath: IndexPath) -> ListDiffable {
+        return adapter.item(at: indexPath)
+    }
+    
     func cell(for item: ListDiffable) -> UICollectionViewCell? {
         return adapter.cellForItem(item)
     }
+
+    /// 执行更新操作
+    func performUpdate(with completion: ((Bool) -> Void)? = nil) {
+        self.adapter.performUpdate(with: completion)
+    }
+    
+    /// 聚焦显示
+    func revealItem(_ item: ListDiffable, autoScroll: Bool = true) {
+        guard autoScroll else {
+            self.adapter.commitFocusAnimation(for: item)
+            return
+        }
+        
+        self.adapter.scrollToItem(item, at: .centeredVertically, animated: true) { _ in
+            self.adapter.commitFocusAnimation(for: item)
+        }
+    }
+    
+    
+    /*
     
     /// 聚焦显示任务
     /// - Parameter task: 要显示的习惯任务
@@ -166,11 +186,6 @@ class HabitTaskListView: TPCollectionWrapperView,
         }
     }
     
-    /// 执行更新操作
-    func performUpdate(with completion: ((Bool) -> Void)? = nil) {
-        self.adapter.performUpdate(with: completion)
-    }
-    
     /// 重新加载指定任务的单元格
     /// - Parameters:
     ///   - task: 习惯任务
@@ -178,7 +193,8 @@ class HabitTaskListView: TPCollectionWrapperView,
     func reloadCell(forTask task: HabitTask, focusAnimated: Bool = false) {
         self.adapter.reloadCell(forItem: task, focusAnimated: focusAnimated)
     }
-    
+    */
+     
     /// 移动项的位置
     /// - Parameters:
     ///   - fromIndexPath: 源索引路径

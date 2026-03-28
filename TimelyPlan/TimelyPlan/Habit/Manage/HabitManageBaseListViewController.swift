@@ -110,14 +110,14 @@ extension HabitManageBaseListViewController: HabitTaskProcessorDelegate {
     func didCreateHabitTask(_ task: HabitTask) {
         self.listView.performUpdate {[weak self] _ in
             guard let self = self else { return }
-            self.listView.revealTask(task)
+            self.listView.revealItem(task)
         }
     }
 
     func didUpdateHabitTask(_ task: HabitTask) {
         self.listView.performUpdate {[weak self] _ in
             guard let self = self else { return }
-            self.listView.revealTask(task)
+            self.listView.revealItem(task)
         }
     }
     
