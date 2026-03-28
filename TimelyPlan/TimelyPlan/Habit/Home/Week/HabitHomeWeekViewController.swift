@@ -144,7 +144,6 @@ class HabitHomeWeekViewController: TPViewController,
     func settingAgentDidChangeValue(for key: String) {
         if key == HabitSetting.Key.firstWeekday.name {
             self.dateView.firstWeekday = HabitSetting.shared.firstWeekday
-            self.groupProvider.setNeedsRefresh()
             self.listView.asyncReloadData()
         }
     }
@@ -195,13 +194,21 @@ class HabitHomeWeekViewController: TPViewController,
     }
     
     // MARK: - HabitPeriodItemListViewDelegate
-   func habitPeriodItemListView(_ listView: HabitPeriodItemListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
-       let firstWeekday = self.dateView.firstWeekday
-       let period = HabitDatePeriod(date: self.date, mode: .week, firstWeekday: firstWeekday)
-       self.groupProvider.fetchGroups(in: period) { groups in
-           completion(groups)
-       }
-   }
+    func habitPeriodItemListView(_ listView: HabitPeriodItemListView,
+                                 forceRefresh: Bool,
+                                 fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+        if forceRefresh {
+            self.groupProvider.setNeedsRefresh()
+        }
+        
+        let firstWeekday = self.dateView.firstWeekday
+        let period = HabitDatePeriod(date: self.date, mode: .week, firstWeekday: firstWeekday)
+        self.groupProvider.fetchGroups(in: period) { groups in
+            completion(groups)
+        }
+    }
+    
+    
     
     func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return HabitHomeWeekListCell.self
@@ -242,7 +249,6 @@ extension HabitHomeWeekViewController: HabitTaskProcessorDelegate,
                                        HabitRecordProcessorDelegate {
     
     func didCreateHabitTask(_ task: HabitTask) {
-        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate { [weak self] success in
             guard success, let self = self else { return }
             self.listView.revealTask(task)
@@ -250,7 +256,6 @@ extension HabitHomeWeekViewController: HabitTaskProcessorDelegate,
     }
 
     func didUpdateHabitTask(_ task: HabitTask) {
-        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate { [weak self] success in
             guard success, let self = self else { return }
             self.listView.revealTask(task)
@@ -258,17 +263,14 @@ extension HabitHomeWeekViewController: HabitTaskProcessorDelegate,
     }
     
     func didDeleteHabitTask(_ task: HabitTask) {
-        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     
     func didChangeArchivedState(for task: HabitTask) {
-        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     
     func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
-        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     

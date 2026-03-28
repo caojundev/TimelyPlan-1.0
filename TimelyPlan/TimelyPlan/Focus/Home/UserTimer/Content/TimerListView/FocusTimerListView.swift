@@ -178,8 +178,6 @@ class FocusTimerListView: TPCollectionWrapperView,
         self.asyncLoadGroups { [weak self] isSuccess in
             if isSuccess {
                 self?.adapter.performUpdate()
-                /// 更新可见的头脚视图
-                self?.adapter.updateVisibleHeaderFooterViews()
             }
             
             completion?(isSuccess)

@@ -62,6 +62,9 @@ class HabitTaskListView: TPCollectionWrapperView,
     // MARK: - Properties
     weak var delegate: HabitTaskListViewDelegate?
     
+    /// 处理下拉刷新
+    var refreshHandler: (() -> Void)?
+    
     /// 首选 item 高度
     var preferredItemHeight: CGFloat {
         get {
@@ -72,7 +75,7 @@ class HabitTaskListView: TPCollectionWrapperView,
             sectionLayout.preferredItemHeight = newValue
         }
     }
-
+    
     var placeholderView: TPDefaultPlaceholderView? {
         return collectionView.placeholderView as? TPDefaultPlaceholderView
     }
@@ -99,6 +102,10 @@ class HabitTaskListView: TPCollectionWrapperView,
         return layout
     }()
     
+    private(set) lazy var refreshControl: UIRefreshControl = {
+        return UIRefreshControl()
+    }()
+
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
@@ -120,6 +127,18 @@ class HabitTaskListView: TPCollectionWrapperView,
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupRefreshControl() {
+        self.refreshControl.addTarget(self,
+                                      action: #selector(handleRefresh),
+                                      for: .valueChanged)
+        self.collectionView.refreshControl = self.refreshControl
+    }
+
+    // MARK: - 下拉刷新
+    @objc func handleRefresh() {
+        self.refreshHandler?()
     }
     
     private func createPlaceholderView() -> TPDefaultPlaceholderView {
@@ -169,32 +188,7 @@ class HabitTaskListView: TPCollectionWrapperView,
             self.adapter.commitFocusAnimation(for: item)
         }
     }
-    
-    
-    /*
-    
-    /// 聚焦显示任务
-    /// - Parameter task: 要显示的习惯任务
-    func revealTask(_ task: HabitTask, autoScroll: Bool = true) {
-        guard autoScroll else {
-            self.adapter.commitFocusAnimation(for: task)
-            return
-        }
-        
-        self.adapter.scrollToItem(task, at: .centeredVertically, animated: true) { _ in
-            self.adapter.commitFocusAnimation(for: task)
-        }
-    }
-    
-    /// 重新加载指定任务的单元格
-    /// - Parameters:
-    ///   - task: 习惯任务
-    ///   - focusAnimated: 是否使用聚焦动画
-    func reloadCell(forTask task: HabitTask, focusAnimated: Bool = false) {
-        self.adapter.reloadCell(forItem: task, focusAnimated: focusAnimated)
-    }
-    */
-     
+
     /// 移动项的位置
     /// - Parameters:
     ///   - fromIndexPath: 源索引路径

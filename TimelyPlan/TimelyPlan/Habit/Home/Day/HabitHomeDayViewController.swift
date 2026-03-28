@@ -15,12 +15,8 @@ class HabitHomeDayViewController: TPContainerViewController,
                                   SettingAgentObserver {
     
     /// 日期
-    private(set) var date: Date = .now {
-        didSet {
-            self.groupProvider.setNeedsRefresh()
-        }
-    }
-
+    private(set) var date: Date = .now
+    
     /// 周视图
     private let weekViewHeight = 80.0
     private lazy var weekView: TPCalendarScrollableWeekView = {
@@ -205,7 +201,7 @@ class HabitHomeDayViewController: TPContainerViewController,
         self.filterType = filterType
         self.updatePlaceholderView()
         /// 更新列表
-        self.listView.asyncPerformUpdate()
+        self.listView.asyncPerformUpdate(forceRefresh: false)
     }
     
     @objc func didClickBack(_ button: UIButton) {
@@ -240,7 +236,13 @@ class HabitHomeDayViewController: TPContainerViewController,
     }
     
      // MARK: - HabitPeriodItemListViewDelegate
-    func habitPeriodItemListView(_ listView: HabitPeriodItemListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+    func habitPeriodItemListView(_ listView: HabitPeriodItemListView,
+                                 forceRefresh: Bool,
+                                 fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+        if forceRefresh {
+            self.groupProvider.setNeedsRefresh()
+        }
+        
         self.groupProvider.fetchGroups(on: self.date,
                                        with: self.filterType) { groups in
             completion(groups)
@@ -320,7 +322,6 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
                                         HabitRecordProcessorDelegate {
     
     func didCreateHabitTask(_ task: HabitTask) {
-        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate { [weak self] success in
             guard success, let self = self else { return }
             self.listView.revealTask(task)
@@ -328,7 +329,6 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
     }
 
     func didUpdateHabitTask(_ task: HabitTask) {
-        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate { [weak self] success in
             guard success, let self = self else { return }
             self.listView.revealTask(task)
@@ -336,17 +336,14 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
     }
     
     func didDeleteHabitTask(_ task: HabitTask) {
-        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     
     func didChangeArchivedState(for task: HabitTask) {
-        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     
     func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
-        self.groupProvider.setNeedsRefresh()
         self.listView.asyncPerformUpdate()
     }
     
@@ -357,7 +354,7 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
         let status = task.status(with: record)
         if status != .inProgress {
             callback(after: 0.4) {
-                self.listView.asyncPerformUpdate()
+                self.listView.asyncPerformUpdate(forceRefresh: false)
             }
         }
     }
@@ -370,7 +367,7 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
         self.groupProvider.deleteHabitRecords(for: task, in: period)
         self.updateCell(for: task, with: nil)
         callback(after: 0.4) {
-            self.listView.asyncPerformUpdate()
+            self.listView.asyncPerformUpdate(forceRefresh: false)
         }
     }
     
