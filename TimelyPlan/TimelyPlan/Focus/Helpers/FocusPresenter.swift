@@ -12,15 +12,23 @@ import UIKit
 class FocusPresenter {
 
     static func quickStartFocus(for task: TaskRepresentable) {
-        let startVC = FocusQuickStartViewController(editType: .pomodoro)
+        let taskFeature = task.feature
+        let startVC = FocusQuickStartViewController(editType: .pomodoro, taskFeature: taskFeature)
         startVC.didPickTimer = { timer in
             FocusPresenter.startFocus(with: timer,
-                                      for: task.feature,
+                                      for: taskFeature,
                                       forceAutoStart: true)
         }
         
         startVC.didClickStatistics = {
             FocusPresenter.showStatistics(for: task)
+        }
+        
+        startVC.didClickViewRecord = {
+            FocusPresenter.showRecords(forTask: task,
+                                       timer: nil,
+                                       type: .week,
+                                       date: .now)
         }
         
         startVC.popoverShowAsNavigationRoot()

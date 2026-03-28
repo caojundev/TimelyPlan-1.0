@@ -50,6 +50,7 @@ class FocusQuickStartSystemTimerViewController: TPViewController,
     }()
 
     private let editContainerHeight = 400.0
+    private let editContainerTopMargin = 10.0
     private let startButtonSize = CGSize(width:160.0, height: 52.0)
 
     init(timerType: FocusTimerType) {
@@ -75,7 +76,7 @@ class FocusQuickStartSystemTimerViewController: TPViewController,
         let layoutFrame = view.layoutFrame()
         editContainerView.width = view.width
         editContainerView.height = editContainerHeight
-        editContainerView.top = 0.0
+        editContainerView.top = editContainerTopMargin
   
         startButton.size = startButtonSize
         startButton.top = editContainerView.bottom + (layoutFrame.maxY - editContainerView.bottom - startButtonSize.height) / 2.0

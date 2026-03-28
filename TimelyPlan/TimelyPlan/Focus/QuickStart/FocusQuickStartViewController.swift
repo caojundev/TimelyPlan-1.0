@@ -47,6 +47,12 @@ class FocusQuickStartViewController: TPContainerViewController {
     
     /// 点击统计
     var didClickStatistics: (() -> Void)?
+
+    /// 点击查看记录
+    var didClickViewRecord: (() -> Void)?
+    
+    /// 绑定任务特征信息
+    var taskFeature: TaskFeature?
     
     /// 编辑类型
     private(set) var editType: FocusQuickStartEditType
@@ -74,8 +80,31 @@ class FocusQuickStartViewController: TPContainerViewController {
         return buttonItem
     }()
     
-    init(editType: FocusQuickStartEditType = .pomodoro) {
+    /// 查看专注记录
+    lazy var viewRecordBarButtonItem: UIBarButtonItem = {
+        let image = resGetImage("focus_record_view_24")
+        let buttonItem = UIBarButtonItem(image: image,
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(clickViewRecord(_:)))
+        return buttonItem
+    }()
+    
+    /// 任务信息视图
+    private var taskInfoViewHeight = 40.0
+    private lazy var taskInfoView: TPInfoView = {
+        let view = TPInfoView()
+        view.padding = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 5.0, right: 16.0)
+        view.titleConfig.font = UIFont.boldSystemFont(ofSize: 13.0)
+        view.titleConfig.numberOfLines = 1
+        view.titleConfig.textAlignment = .center
+        view.addSeparator(position: .bottom)
+        return view
+    }()
+    
+    init(editType: FocusQuickStartEditType = .pomodoro, taskFeature: TaskFeature?) {
         self.editType = editType
+        self.taskFeature = taskFeature
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -85,20 +114,37 @@ class FocusQuickStartViewController: TPContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addSubview(self.taskInfoView)
         self.view.addSubview(self.editTypeView)
         self.navigationItem.leftBarButtonItem = self.chevronDownCancelButtonItem
-        self.navigationItem.rightBarButtonItem = self.statisticsBarButtonItem
+        self.navigationItem.rightBarButtonItems = [self.statisticsBarButtonItem,
+                                                   self.viewRecordBarButtonItem]
         self.editTypeView.selectedEditType = self.editType
         self.updateContentViewController(with: .none)
+        self.updateTaskInfoView()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let layoutFrame = view.safeLayoutFrame()
+        taskInfoView.width = layoutFrame.width
+        taskInfoView.height = taskInfoViewHeight
+        taskInfoView.origin = layoutFrame.origin
+        
         editTypeView.width = layoutFrame.width
         editTypeView.height = editTypeViewHeight
         editTypeView.bottom = layoutFrame.maxY
         updatePopoverContentSize()
+    }
+
+    override func contentViewFrame() -> CGRect {
+        let layoutFrame = view.safeLayoutFrame()
+        let y = layoutFrame.minY + taskInfoViewHeight
+        let h = layoutFrame.height - editTypeViewHeight - taskInfoViewHeight
+        return CGRect(x: layoutFrame.minX,
+                      y: y,
+                      width: layoutFrame.width,
+                      height: h)
     }
     
     override var themeNavigationBarBackgroundColor: UIColor? {
@@ -110,19 +156,37 @@ class FocusQuickStartViewController: TPContainerViewController {
     }
     
     override var popoverContentSize: CGSize {
-        return CGSize(kPopoverPreferredContentWidth, 600.0)
+        return CGSize(kPopoverPreferredContentWidth, 640.0)
     }
     
-    override func contentViewFrame() -> CGRect {
-        var layoutFrame = view.safeLayoutFrame()
-        layoutFrame.size.height = layoutFrame.height - editTypeViewHeight
-        return layoutFrame
+    private func updateTaskInfoView() {
+        guard let taskFeature = taskFeature else {
+            taskInfoViewHeight = 0.0
+            taskInfoView.isHidden = true
+            return
+        }
+
+        let taskName = taskFeature.snapshotName ?? resGetString("Untitled Task")
+        if let taskImage = taskFeature.type.iconImage(with: .mini) {
+            let taskInfo: ASAttributedString = .string(image: taskImage,
+                                                       imageSize: .size(3),
+                                                       imageColor: resGetColor(.title),
+                                                       trailingText: taskName,
+                                                       separator: " ")
+            taskInfoView.title = taskInfo
+        } else {
+            taskInfoView.title = taskName
+        }
     }
     
-    /// 点击统计
     @objc func clickStatistics(_ buttonItem: UIBarButtonItem) {
         TPImpactFeedback.impactWithLightStyle()
         self.didClickStatistics?()
+    }
+    
+    @objc func clickViewRecord(_ buttonItem: UIBarButtonItem) {
+        TPImpactFeedback.impactWithLightStyle()
+        self.didClickViewRecord?()
     }
 
     // MARK: - 选中编辑类型
