@@ -86,10 +86,6 @@ class HabitStatsYearlyHistorySectionController: TPCollectionItemSectionControlle
     }
     
     override func didSelectItem(at index: Int) {
-        super.didSelectItem(at: index)
-        guard let cellItem = item(at: index) as? HabitStatsHistoryMonthCellItem else {
-            return
-        }
         
     }
 }

@@ -386,18 +386,6 @@ extension FocusEvent {
             
             previousEndDate = step.endDate
         }
-        
-        #warning("删除打印数据")
-        var strings = [String]()
-        for step in nextSteps {
-            if let startDate = step.startDate, let endDate = step.endDate {
-                strings.append("[\(startDate.timeString) -> \(endDate.timeString)]")
-            } else {
-                strings.append("[🈳️]")
-            }
-        }
-        
-        debugPrint(strings.joined(separator: " "))
     }
     
     /// 获取特定步骤的后续步骤数组

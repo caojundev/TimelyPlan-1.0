@@ -80,8 +80,7 @@ class QuadrantDragDropController: NSObject, UIGestureRecognizerDelegate {
         self.currentPoint = recognizer.location(in: matrixView)
         switch recognizer.state {
         case .began:
-            matrixView.endEditing(true)
-            
+            let _ = matrixView.endEditing(true)
             guard let indexPath = matrixView.indexPathForItem(at: self.currentPoint), canMoveItem(at: indexPath) else {
                         return
             }
