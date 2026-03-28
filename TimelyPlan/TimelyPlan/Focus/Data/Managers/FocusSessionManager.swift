@@ -72,6 +72,22 @@ class FocusSessionManager {
         }
     }
     
+    func updateSession(with feature: TimerFeature) {
+        CDFocusSession.updateTimerFeature(feature) { success in
+            if success {
+                self.save(with: nil)
+            }
+        }
+    }
+    
+    func updateSession(with feature: TaskFeature) {
+        CDFocusSession.updateTaskFeature(feature) { success in
+            if success {
+                self.save(with: nil)
+            }
+        }
+    }
+    
     // MARK: - 获取会话
     /// 异步获取任务在特定时间区间所有会话数组
     func fetchSessions(forTask task: TaskRepresentable? = nil,

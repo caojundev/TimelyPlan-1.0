@@ -92,9 +92,10 @@ class FocusUserTimerManager {
         HandyRecord.save()
     }
     
-    func updateTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) {
+    @discardableResult
+    func updateTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) -> FocusTimer? {
         if timer.isSameTimer(as: editingTimer) {
-            return
+            return nil
         }
         
         if let content = CDFocusTimer.getTimer(withIdentifier: timer.identifier) {
@@ -103,7 +104,10 @@ class FocusUserTimerManager {
             let updatedTimer = FocusTimer(content: content)
             updater.didUpdateFocusTimer(updatedTimer)
             HandyRecord.save()
+            return updatedTimer
         }
+        
+        return nil
     }
     
     func deleteTimer(_ timer: FocusTimer) {

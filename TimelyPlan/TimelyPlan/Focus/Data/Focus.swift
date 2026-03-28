@@ -65,7 +65,6 @@ class Focus {
         userTimerManager.fetchArchivedTimers(completion: completion)
     }
     
-    
     /// 获取所有活动计时器
     func getActiveTimers() -> [FocusTimer]? {
         return userTimerManager.getActiveTimers()
@@ -110,7 +109,15 @@ class Focus {
     }
     
     func updateTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) {
-        userTimerManager.updateTimer(timer, with: editingTimer)
+        let oldFeature = timer.feature
+        let newTimer = userTimerManager.updateTimer(timer, with: editingTimer)
+        guard let newTimer = newTimer else {
+            return
+        }
+        
+        if let newFeature = newTimer.feature, oldFeature != newFeature {
+           updateSession(with: newFeature)
+        }
     }
     
     func setArchived(_ isArchived: Bool, for timer: FocusTimer) {
@@ -192,5 +199,13 @@ class Focus {
     /// 更新会话
     func updateSession(_ session: FocusSession, with record: FocusRecord) {
         sessionManager.updateSession(session, with: record)
+    }
+    
+    func updateSession(with feature: TimerFeature) {
+        sessionManager.updateSession(with: feature)
+    }
+    
+    func updateSession(with feature: TaskFeature) {
+        sessionManager.updateSession(with: feature)
     }
 }

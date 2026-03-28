@@ -162,7 +162,6 @@ extension CDFocusSession {
         return findFirst(withPredicate: predicate, in: .defaultContext)
     }
     
-    
     /// 获取任务使用计时器在特定日期专注时长
     static func getSessionDuration(forTask task: TaskRepresentable? = nil,
                                    timer: FocusTimer? = nil,
@@ -212,7 +211,63 @@ extension CDFocusSession {
             completion(duration)
         }
     }
+}
+
+// MARK: - 更新绑定的计时器和任务快照信息
+extension CDFocusSession {
     
+    static func updateTimerFeature(_ feature: TimerFeature,
+                                   completion: @escaping(Bool) -> Void) {
+        fecthSessions(timerID: feature.identifier) { sessions in
+            guard let sessions = sessions, sessions.count > 0 else {
+                completion(false)
+                return
+            }
+
+            for session in sessions {
+                session.timerSnapshotColorHex = feature.snapshotColorHex
+                session.timerSnapshotName = feature.snapshotName
+            }
+            
+            completion(true)
+        }
+    }
+    
+    static func updateTaskFeature(_ feature: TaskFeature,
+                                  completion: @escaping(Bool) -> Void) {
+        fecthSessions(taskType: feature.type, taskID: feature.identifier) { sessions in
+            guard let sessions = sessions, sessions.count > 0 else {
+                completion(false)
+                return
+            }
+
+            for session in sessions {
+                session.taskSnapshotName = feature.snapshotName
+            }
+            
+            completion(true)
+        }
+    }
+    
+    private static func fecthSessions(timerID: String,
+                                      completion: @escaping([CDFocusSession]?) -> Void) {
+        let condition: PredicateCondition = (FocusSessionKey.timerID, .equal(timerID))
+        let predicate = NSPredicate.predicate(with: condition)
+        findAll(with: predicate) { results in
+            completion(results as? [CDFocusSession])
+        }
+    }
+    
+    private static func fecthSessions(taskType: TaskType,
+                                      taskID: String,
+                                      completion: @escaping([CDFocusSession]?) -> Void) {
+        let conditions: [PredicateCondition] = [(FocusSessionKey.taskType, .equal(taskType.rawValue)),
+                                                (FocusSessionKey.taskID, .equal(taskID))]
+        let predicate = conditions.andPredicate()
+        findAll(with: predicate) { results in
+            completion(results as? [CDFocusSession])
+        }
+    }
 }
 
 
