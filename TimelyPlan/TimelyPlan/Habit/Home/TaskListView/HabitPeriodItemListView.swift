@@ -1,5 +1,5 @@
 //
-//  HabitPeriodTaskListView.swift
+//  HabitPeriodItemListView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/7.
@@ -8,15 +8,15 @@
 import Foundation
 import UIKit
 
-protocol HabitPeriodTaskListViewDelegate: HabitTaskListViewDelegate {
+protocol HabitPeriodItemListViewDelegate: HabitTaskListViewDelegate {
     /// 异步获取习惯任务分组数据
     /// - Parameters:
     ///   - listView: 发起请求的习惯周期任务列表视图
     ///   - completion: 完成回调，参数为可选的习惯任务分组数组
-    func habitPeriodTaskListView(_ listView: HabitPeriodTaskListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void)
+    func habitPeriodItemListView(_ listView: HabitPeriodItemListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void)
 }
 
-class HabitPeriodTaskListView: HabitTaskListView {
+class HabitPeriodItemListView: HabitTaskListView {
     
     // MARK: - Properties
     private var groups: [HabitTaskGroup]?
@@ -65,13 +65,13 @@ class HabitPeriodTaskListView: HabitTaskListView {
     /// - Parameter completion: 完成回调，参数为是否成功
     private func asyncLoadGroups(completion: @escaping (Bool) -> Void) {
         let requestID = requestManager.executeRequest()
-        guard let delegate = delegate as? HabitPeriodTaskListViewDelegate else {
+        guard let delegate = delegate as? HabitPeriodItemListViewDelegate else {
             groups = nil
             completion(true)
             return
         }
             
-        delegate.habitPeriodTaskListView(self) { [weak self] groups in
+        delegate.habitPeriodItemListView(self) { [weak self] groups in
             guard let self = self else {
                 completion(false)
                 return

@@ -13,7 +13,7 @@ class HabitReportChartRender {
     
     let firstWeekday: Weekday
     
-    let periodTask: HabitPeriodTask
+    let periodItem: HabitPeriodItem
     
     var itemMargin: CGFloat = 5.0
     
@@ -23,8 +23,8 @@ class HabitReportChartRender {
     
     private(set) var dates: [Date] = []
     
-    init(date: Date, firstWeekday: Weekday, periodTask: HabitPeriodTask) {
-        self.periodTask = periodTask
+    init(date: Date, firstWeekday: Weekday, periodItem: HabitPeriodItem) {
+        self.periodItem = periodItem
         self.date = date
         self.firstWeekday = firstWeekday
         self.dates = self.datesOfThisRange()
@@ -54,12 +54,12 @@ class HabitReportChartRender {
             }
         
             let dayFrame = self.dayFrame(at: index)
-            guard periodTask.isScheduledDate(displayDate) else {
+            guard periodItem.isScheduledDate(displayDate) else {
                 drawNotScheduledDay(in: dayFrame, context: context)
                 continue
             }
             
-            let status = periodTask.status(on: displayDate)
+            let status = periodItem.status(on: displayDate)
             switch status {
             case .notStarted, .inProgress, .completed:
                 self.drawProgressDay(on: displayDate, in: dayFrame, context: context)
@@ -106,14 +106,14 @@ class HabitReportChartRender {
     
     // 绘制进度日
     func drawProgressDay(on date: Date, in rect: CGRect, context: CGContext) {
-        let progress = periodTask.progress(on: date)
+        let progress = periodItem.progress(on: date)
         let backgroundColor: UIColor
         if progress == 0.0 {
             /// 未开始
             backgroundColor = .secondarySystemFill
         } else {
             let alpha = CGFloat(clampedValue(progress, 0.2, 1.0))
-            backgroundColor = periodTask.habitTask.color.withAlphaComponent(alpha)
+            backgroundColor = periodItem.habitTask.color.withAlphaComponent(alpha)
         }
         
         self.drawRoundedRect(in: rect,
@@ -132,7 +132,7 @@ class HabitReportChartRender {
     // 绘制跳过日
     func drawSkippedDay(in rect: CGRect, context: CGContext) {
         if let image = resGetImage("habit_report_skipped_20") {
-            let color = periodTask.habitTask.color
+            let color = periodItem.habitTask.color
             self.drawImage(image, withColor: color, in: rect, context: context)
         }
     }

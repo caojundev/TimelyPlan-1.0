@@ -14,8 +14,8 @@ class HabitReportMonthlySectionController: HabitReportContentSectionController {
     
     var imageCacher: HabitReportImageCacher?
     
-    override init(periodTasks: [HabitPeriodTask]?, firstWeekday: Weekday) {
-        super.init(periodTasks: periodTasks, firstWeekday: firstWeekday)
+    override init(periodItems: [HabitPeriodItem]?, firstWeekday: Weekday) {
+        super.init(periodItems: periodItems, firstWeekday: firstWeekday)
         self.cellStyle.cornerRadius = 12.0
         self.layout.edgeMargins = UIEdgeInsets(value: 16.0)
         self.layout.lineSpacing = 16.0
@@ -28,8 +28,8 @@ class HabitReportMonthlySectionController: HabitReportContentSectionController {
   
     override func sizeForItem(at index: Int) -> CGSize {
         let size = super.sizeForItem(at: index)
-        let periodTask = item(at: index) as! HabitPeriodTask
-        let weeksCount = periodTask.period.date.numberOfWeeksInMonth(firstWeekday: self.firstWeekday)
+        let periodItem = item(at: index) as! HabitPeriodItem
+        let weeksCount = periodItem.period.date.numberOfWeeksInMonth(firstWeekday: self.firstWeekday)
         
         let chartWidth = size.width - cellContentPadding.horizontalLength
         let itemMargin = 5.0
@@ -52,7 +52,7 @@ class HabitReportMonthlySectionController: HabitReportContentSectionController {
         
         cell.imageCacher = self.imageCacher
         cell.contentView.padding = cellContentPadding
-        cell.periodTask = item(at: index) as? HabitPeriodTask
+        cell.periodItem = item(at: index) as? HabitPeriodItem
         cell.reloadData()
     }
 }

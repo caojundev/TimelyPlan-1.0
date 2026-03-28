@@ -13,7 +13,7 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
     static let weekMargins = UIEdgeInsets(left: 120.0, right: 0.0)
     
     /// 任务
-    var periodTask: HabitPeriodTask?
+    var periodItem: HabitPeriodItem?
     
     var imageCacher: HabitReportImageCacher?
     
@@ -59,11 +59,11 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
     func reloadData() {
         self.weekImageView.image = nil
         self.layoutIfNeeded()
-        guard let periodTask = periodTask else {
+        guard let periodItem = periodItem else {
             return
         }
 
-        let habitTask = periodTask.habitTask
+        let habitTask = periodItem.habitTask
         infoView.icon = habitTask.icon
         infoView.title = habitTask.name
         reloadWeekImage()
@@ -77,18 +77,18 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
     
     /// 加载周视图
     private func reloadWeekImage() {
-        guard let periodTask = periodTask else {
+        guard let periodItem = periodItem else {
             return
         }
         
-        let date = periodTask.period.date
-        let firstWeekday = periodTask.period.firstWeekday
+        let date = periodItem.period.date
+        let firstWeekday = periodItem.period.firstWeekday
         let render = HabitReportWeekRender(date: date,
                                            firstWeekday: firstWeekday,
-                                           periodTask: periodTask)
+                                           periodItem: periodItem)
         render.contentSize = self.weekImageView.size
         
-        let taskID = periodTask.habitTask.identifier
+        let taskID = periodItem.habitTask.identifier
         let imageSize = render.canvasSize()
         let image = imageCacher?.getImage(identifier: taskID, date: date, size: imageSize)
         if image != nil {

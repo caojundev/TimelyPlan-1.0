@@ -18,13 +18,13 @@ class HabitHomeWeekListGroupProvider: HabitTaskBaseListGroupProvider {
                 return
             }
             
-            let groups = HabitPeriodTaskOrganizer.groupAll(from: tasks, with: .all)
+            let groups = HabitPeriodItemOrganizer.groupAll(from: tasks, with: .all)
             completion(groups)
         }
     }
     
     private func loadTasksIfNeeded(in period: HabitDatePeriod,
-                                   completion: @escaping ([HabitPeriodTask]?) -> Void) {
+                                   completion: @escaping ([HabitPeriodItem]?) -> Void) {
         var bRefresh: Bool = self.shouldRefresh
         if !bRefresh {
             /// 当period 不同时会强制更新
@@ -32,22 +32,22 @@ class HabitHomeWeekListGroupProvider: HabitTaskBaseListGroupProvider {
         }
         
         guard bRefresh else {
-            completion(self.tasks)
+            completion(self.periodItems)
             return
         }
 
         /// 刷新任务列表
         let requestID = requestManager.executeRequest()
-        TimelyPlan.habit.fetchPeriodTasks(in: period) { tasks in
+        TimelyPlan.habit.fetchPeriodItems(in: period) { tasks in
             guard self.requestManager.shouldProceed(with: requestID) else {
                 completion(nil)
                 return
             }
             
             self.period = period
-            self.tasks = tasks
+            self.periodItems = tasks
             self.setNeedsRefresh(false)
-            completion(self.tasks)
+            completion(self.periodItems)
         }
     }
     

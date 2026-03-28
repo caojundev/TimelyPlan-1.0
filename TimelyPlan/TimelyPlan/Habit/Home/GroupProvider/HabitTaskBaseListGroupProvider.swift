@@ -10,7 +10,7 @@ import Foundation
 class HabitTaskBaseListGroupProvider {
     
     /// 当前列表任务
-    var tasks: [HabitPeriodTask] = []
+    var periodItems: [HabitPeriodItem] = []
     
     let requestManager = TPRequestManager()
     
@@ -22,25 +22,25 @@ class HabitTaskBaseListGroupProvider {
     }
     
     func updateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date) {
-        let periodTask = periodTask(for: task)
-        periodTask?.updateRecord(record, on: date)
+        let periodItem = periodItem(for: task)
+        periodItem?.updateRecord(record, on: date)
     }
     
     func deleteHabitRecord(for task: HabitTask, on date: Date) {
-        let periodTask = periodTask(for: task)
-        periodTask?.updateRecord(nil, on: date)
+        let periodItem = periodItem(for: task)
+        periodItem?.updateRecord(nil, on: date)
     }
     
     func deleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
-        let periodTask = periodTask(for: task)
-        periodTask?.deleteRecords(in: period)
+        let periodItem = periodItem(for: task)
+        periodItem?.deleteRecords(in: period)
     }
     
     // MARK: - Helpers
-    func periodTask(for habitTask: HabitTask) -> HabitPeriodTask? {
-        for task in tasks {
-            if task.habitTask.identifier == habitTask.identifier {
-                return task
+    func periodItem(for habitTask: HabitTask) -> HabitPeriodItem? {
+        for periodItem in periodItems {
+            if periodItem.habitTask.identifier == habitTask.identifier {
+                return periodItem
             }
         }
         

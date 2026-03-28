@@ -9,7 +9,7 @@ import Foundation
 
 class HabitTaskStatusDayCell: HabitTaskStatusProgressValueCell {
     
-    var task: HabitPeriodTask?
+    var periodItem: HabitPeriodItem?
     
     /// 日期
     var date: Date?
@@ -18,7 +18,7 @@ class HabitTaskStatusDayCell: HabitTaskStatusProgressValueCell {
     var isScheduledDay: Bool = true
     
     var taskColor: UIColor {
-        return task?.habitTask.color ?? .primary
+        return periodItem?.habitTask.color ?? .primary
     }
     
     /// 非计划日状态图片
@@ -77,11 +77,11 @@ class HabitTaskStatusDayCell: HabitTaskStatusProgressValueCell {
     
     /// 更新样式
     func updateStyle() {
-        guard let task = task, let date = date else {
+        guard let periodItem = periodItem, let date = date else {
             return
         }
 
-        let status = task.status(on: date)
+        let status = periodItem.status(on: date)
         let color = taskColor.lighterColor
         
         /// 背景色
@@ -107,18 +107,18 @@ class HabitTaskStatusDayCell: HabitTaskStatusProgressValueCell {
     private func updateProgress(animated: Bool) {
         var progress: CGFloat = 0.0
         if let date = self.date {
-            progress = task?.progress(on: date) ?? 0.0
+            progress = periodItem?.progress(on: date) ?? 0.0
         }
         
         self.progressView.setProgress(progress, animated: animated)
     }
     
     private func updateValueStatus(animated: Bool = false) {
-        guard let task = task, let date = date else {
+        guard let periodItem = periodItem, let date = date else {
             return
         }
 
-        let status = task.status(on: date)
+        let status = periodItem.status(on: date)
         /// 更新 status
         self.statusProgressView.setStatus(status, animated: animated)
         
@@ -136,10 +136,10 @@ class HabitTaskStatusDayCell: HabitTaskStatusProgressValueCell {
         } else if status.isSkipped {
             details.append(.skipIndicator(color: color))
         } else {
-            let record = task.record(on: date)
+            let record = periodItem.record(on: date)
             let amount = record?.amount ?? 0
             if amount > 0 {
-                if task.habitTask.goal.mode == .checkin {
+                if periodItem.habitTask.goal.mode == .checkin {
                     /// 打卡
                     let checkedInIndicator = ASAttributedString.checkedInIndicator(color: color)
                     details.insert(checkedInIndicator, at: 0)
@@ -163,7 +163,7 @@ class HabitTaskStatusDayCell: HabitTaskStatusProgressValueCell {
     private func didChangeRecord(withIncreament amount: Int) {
         guard amount != 0 else { return }
         let text = (amount >= 0 ? "+" : "") + "\(amount)"
-        let color = task?.habitTask.color.lighterColor ?? .label
+        let color = periodItem?.habitTask.color.lighterColor ?? .label
         let containerView = self.parentViewController?.view
         TPTextPopUp.showText(text,
                              color: color,

@@ -10,7 +10,7 @@ import UIKit
 
 class HabitReportContentSectionController: TPCollectionBaseSectionController {
 
-    var periodTasks: [HabitPeriodTask]?
+    var periodItems: [HabitPeriodItem]?
     
     let firstWeekday: Weekday
     
@@ -25,15 +25,15 @@ class HabitReportContentSectionController: TPCollectionBaseSectionController {
         return style
     }()
 
-    init(periodTasks: [HabitPeriodTask]?, firstWeekday: Weekday) {
+    init(periodItems: [HabitPeriodItem]?, firstWeekday: Weekday) {
         self.firstWeekday = firstWeekday
-        self.periodTasks = periodTasks
+        self.periodItems = periodItems
         super.init()
         self.layout.edgeMargins = UIEdgeInsets(horizontal: 16.0)
     }
     
     override var items: [ListDiffable]? {
-        return periodTasks
+        return periodItems
     }
     
     override func sectionInset() -> UIEdgeInsets {

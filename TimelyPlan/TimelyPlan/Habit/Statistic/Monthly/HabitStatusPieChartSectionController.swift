@@ -9,13 +9,13 @@ import Foundation
 
 class HabitStatusPieChartSectionController: PieChartSectionController {
     
-    let periodTask: HabitPeriodTask
+    let periodItem: HabitPeriodItem
     
-    init(periodTask: HabitPeriodTask) {
-        self.periodTask = periodTask
+    init(periodItem: HabitPeriodItem) {
+        self.periodItem = periodItem
         super.init()
         var recordDays: Int = 0
-        let pieVisual = periodTask.statusDayCountPieVisual(&recordDays)
+        let pieVisual = periodItem.statusDayCountPieVisual(&recordDays)
         self.visual = pieVisual
 
         self.cellItem.headerTitle = resGetString("Status Days")

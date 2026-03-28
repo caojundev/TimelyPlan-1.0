@@ -13,8 +13,8 @@ class HabitReportYearlySectionController: HabitReportContentSectionController {
     
     var imageCacher: HabitReportImageCacher?
     
-    override init(periodTasks: [HabitPeriodTask]?, firstWeekday: Weekday) {
-        super.init(periodTasks: periodTasks, firstWeekday: firstWeekday)
+    override init(periodItems: [HabitPeriodItem]?, firstWeekday: Weekday) {
+        super.init(periodItems: periodItems, firstWeekday: firstWeekday)
         self.cellStyle.cornerRadius = 12.0
         self.layout.preferredItemHeight = 200.0
         self.layout.minimumItemsCountPerRow = 1
@@ -41,7 +41,7 @@ class HabitReportYearlySectionController: HabitReportContentSectionController {
         }
         
         cell.imageCacher = imageCacher
-        cell.periodTask = item(at: index) as? HabitPeriodTask
+        cell.periodItem = item(at: index) as? HabitPeriodItem
         cell.reloadData()
         synchronizer.addChartView(cell.chartView)
     }

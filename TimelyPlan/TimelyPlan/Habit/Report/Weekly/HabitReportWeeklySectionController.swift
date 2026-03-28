@@ -12,8 +12,8 @@ class HabitReportWeeklySectionController: HabitReportContentSectionController {
 
     var imageCacher: HabitReportImageCacher?
     
-    override init(periodTasks: [HabitPeriodTask]?, firstWeekday: Weekday) {
-        super.init(periodTasks: periodTasks, firstWeekday: firstWeekday)
+    override init(periodItems: [HabitPeriodItem]?, firstWeekday: Weekday) {
+        super.init(periodItems: periodItems, firstWeekday: firstWeekday)
         self.cellStyle.cornerRadius = 0.0
         self.layout.edgeMargins = UIEdgeInsets(horizontal: 16.0)
         self.layout.preferredItemHeight = 60.0
@@ -35,7 +35,7 @@ class HabitReportWeeklySectionController: HabitReportContentSectionController {
         }
         
         cell.imageCacher = self.imageCacher
-        cell.periodTask = item(at: index) as? HabitPeriodTask
+        cell.periodItem = item(at: index) as? HabitPeriodItem
         cell.reloadData()
     }
     

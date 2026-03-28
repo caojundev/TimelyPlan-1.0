@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HabitPeriodTask: NSObject {
+class HabitPeriodItem: NSObject {
     
     /// 习惯任务对象
     let habitTask: HabitTask
@@ -93,7 +93,7 @@ class HabitPeriodTask: NSObject {
             return self.habitTask.isEqual(toDiffableObject: other)
         }
         
-        if let other = object as? HabitPeriodTask {
+        if let other = object as? HabitPeriodItem {
             return self.habitTask.isEqual(toDiffableObject: other.habitTask)
         }
         

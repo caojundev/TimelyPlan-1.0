@@ -27,7 +27,7 @@ class Habit {
     /// 任务管理器
     private let taskManager = HabitTaskManager()
     
-    private let periodTaskFetcher = HabitPeriodTaskFetcher()
+    private let periodItemFetcher = HabitPeriodItemFetcher()
     
     let recordProcessor = HabitRecordProcessor()
     
@@ -44,32 +44,32 @@ class Habit {
     
     // MARK: - Period Task
     
-    func fetchScheduledPeriodTasks(on date: Date = .now, completion: @escaping([HabitPeriodTask]?)->Void) {
+    func fetchScheduledPeriodItems(on date: Date = .now, completion: @escaping([HabitPeriodItem]?)->Void) {
         let activeTasks = taskManager.activeTasks
-        periodTaskFetcher.fetchScheduledPeriodTasks(on: date,
+        periodItemFetcher.fetchScheduledPeriodItems(on: date,
                                                     activeTasks: activeTasks,
                                                     completion: completion)
     }
     
-    func fetchPeriodTasks(in period: HabitDatePeriod,
-                          completion: @escaping([HabitPeriodTask])->Void) {
+    func fetchPeriodItems(in period: HabitDatePeriod,
+                          completion: @escaping([HabitPeriodItem])->Void) {
         let activeTasks = taskManager.activeTasks
-        periodTaskFetcher.fetchPeriodTasks(for: activeTasks,
+        periodItemFetcher.fetchPeriodItems(for: activeTasks,
                                             in: period,
                                             completion: completion)
     }
     
     /// 统计
-    func fetchPeriodTask(for task: HabitTask,
+    func fetchPeriodItem(for task: HabitTask,
                          in period: HabitDatePeriod,
-                         completion: @escaping(HabitPeriodTask)->Void) {
-        periodTaskFetcher.fetchPeriodTask(for: task, in: period, completion: completion)
+                         completion: @escaping(HabitPeriodItem)->Void) {
+        periodItemFetcher.fetchPeriodItem(for: task, in: period, completion: completion)
     }
     
     /// 报告模块获取任务
-    func fetchReportPeriodTasks(in period: HabitDatePeriod,
+    func fetchReportPeriodItems(in period: HabitDatePeriod,
                                 includeArchived: Bool,
-                                completion: @escaping([HabitPeriodTask])->Void) {
+                                completion: @escaping([HabitPeriodItem])->Void) {
         let tasks: [HabitTask]
         if includeArchived {
             tasks = taskManager.getAllTasks()
@@ -77,7 +77,7 @@ class Habit {
             tasks = taskManager.getActiveTasks()
         }
         
-        periodTaskFetcher.fetchPeriodTasks(for: tasks, in: period, completion: completion)
+        periodItemFetcher.fetchPeriodItems(for: tasks, in: period, completion: completion)
     }
     
     // MARK: - 任务获取

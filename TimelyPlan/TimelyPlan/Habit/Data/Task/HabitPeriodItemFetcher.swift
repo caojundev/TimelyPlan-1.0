@@ -1,5 +1,5 @@
 //
-//  HabitPeriodTaskFetcher.swift
+//  HabitPeriodItemFetcher.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/7.
@@ -8,37 +8,37 @@
 import Foundation
 import CoreData
 
-class HabitPeriodTaskFetcher {
+class HabitPeriodItemFetcher {
     
     private let scheduler = HabitTimePlanScheduler()
     
-    func fetchPeriodTasks(for habitTasks: [HabitTask],
+    func fetchPeriodItems(for tasks: [HabitTask],
                           in period: HabitDatePeriod,
-                          completion: @escaping([HabitPeriodTask])->Void) {
+                          completion: @escaping([HabitPeriodItem])->Void) {
         let conditions: [PredicateCondition]
         if period.mode == .day {
-            conditions = CDHabitRecord.conditions(forTasks: habitTasks, onDate: period.date)
+            conditions = CDHabitRecord.conditions(forTasks: tasks, onDate: period.date)
         } else {
-            conditions = CDHabitRecord.conditions(forTasks: habitTasks, inPeriod: period)
+            conditions = CDHabitRecord.conditions(forTasks: tasks, inPeriod: period)
         }
         
         let predicate = conditions.andPredicate()
         CDHabitRecord.findAll(with: predicate) { results in
             let groupedRecords = self.recordsGroupedByTask(with: results as? [CDHabitRecord])
-            var periodTasks: [HabitPeriodTask] = []
-            for habitTask in habitTasks {
-                let periodTask = HabitPeriodTask(habitTask: habitTask, period: period)
-                periodTask.records = groupedRecords?[habitTask.identifier]
-                periodTasks.append(periodTask)
+            var periodItems: [HabitPeriodItem] = []
+            for task in tasks {
+                let item = HabitPeriodItem(habitTask: task, period: period)
+                item.records = groupedRecords?[task.identifier]
+                periodItems.append(item)
             }
             
-            completion(periodTasks)
+            completion(periodItems)
         }
     }
     
-    func fetchScheduledPeriodTasks(on date: Date,
+    func fetchScheduledPeriodItems(on date: Date,
                                    activeTasks: [HabitTask],
-                                   completion: @escaping([HabitPeriodTask]?)->Void) {
+                                   completion: @escaping([HabitPeriodItem]?)->Void) {
         /// 将任务归类
         var scheduledTasks: [HabitTask] = [] /// 定期任务
         for task in activeTasks {
@@ -51,20 +51,20 @@ class HabitPeriodTaskFetcher {
         }
 
         let period = HabitDatePeriod(date: date, mode: .day)
-        fetchPeriodTasks(for: scheduledTasks, in: period) { results in
+        fetchPeriodItems(for: scheduledTasks, in: period) { results in
             completion(results)
         }
     }
     
-    func fetchPeriodTask(for task: HabitTask,
+    func fetchPeriodItem(for task: HabitTask,
                          in period: HabitDatePeriod,
-                         completion: @escaping(HabitPeriodTask)->Void) {
+                         completion: @escaping(HabitPeriodItem)->Void) {
         let conditions = CDHabitRecord.conditions(forTask: task, inPeriod: period)
         let predicate = conditions.andPredicate()
         CDHabitRecord.findAll(with: predicate) { results in
-            let periodTask = HabitPeriodTask(habitTask: task, period: period)
-            periodTask.records = self.records(with: results)
-            completion(periodTask)
+            let periodItem = HabitPeriodItem(habitTask: task, period: period)
+            periodItem.records = self.records(with: results)
+            completion(periodItem)
         }
     }
     

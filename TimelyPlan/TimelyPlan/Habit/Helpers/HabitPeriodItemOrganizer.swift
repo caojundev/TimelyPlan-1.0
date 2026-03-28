@@ -1,5 +1,5 @@
 //
-//  HabitPeriodTaskOrganizer.swift
+//  HabitPeriodItemOrganizer.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/10.
@@ -7,26 +7,26 @@
 
 import Foundation
 
-class HabitPeriodTaskOrganizer {
+class HabitPeriodItemOrganizer {
     
     /// 根据 timeOption 对任务数组进行分组
     /// - Parameter tasks: 习惯任务数组
     /// - Returns: 按 timeOption 分组的 HabitTaskGroup 数组
     static func group(by timeOptions: [HabitTimeOption],
-                      from tasks: [HabitPeriodTask],
+                      from periodItems: [HabitPeriodItem],
                       with filterType: HabitTaskFilterType = .all) -> [HabitTaskGroup] {
         var groups: [HabitTaskGroup] = []
         
         // 第一步：遍历一次 tasks，按 timeOption 归类到字典中
-        var tasksByOption: [HabitTimeOption: [HabitPeriodTask]] = [:]
-        for task in tasks {
-            let option = task.habitTask.timeOption
+        var tasksByOption: [HabitTimeOption: [HabitPeriodItem]] = [:]
+        for periodItem in periodItems {
+            let option = periodItem.habitTask.timeOption
             if tasksByOption[option] == nil {
                 tasksByOption[option] = []
             }
             
-            if isTask(task, matching: filterType) {
-                tasksByOption[option]?.append(task)
+            if isPeriodItem(periodItem, matching: filterType) {
+                tasksByOption[option]?.append(periodItem)
             }
         }
         
@@ -44,13 +44,13 @@ class HabitPeriodTaskOrganizer {
         return groups
     }
     
-    static func isTask(_ task: HabitPeriodTask, matching filterType: HabitTaskFilterType) -> Bool {
+    static func isPeriodItem(_ periodItem: HabitPeriodItem, matching filterType: HabitTaskFilterType) -> Bool {
         if filterType == .all {
             return true
         }
         
-        let date = task.period.date
-        let status = task.status(on: date)
+        let date = periodItem.period.date
+        let status = periodItem.status(on: date)
         switch status {
         case .notStarted, .inProgress:
             return filterType == .todo
@@ -66,8 +66,8 @@ class HabitPeriodTaskOrganizer {
     /// 根据所有可能的 timeOption 对任务数组进行分组
     /// - Parameter tasks: 习惯任务数组
     /// - Returns: 按 timeOption 分组的 HabitTaskGroup 数组
-    static func groupAll(from tasks: [HabitPeriodTask],
+    static func groupAll(from periodItems: [HabitPeriodItem],
                          with filterType: HabitTaskFilterType) -> [HabitTaskGroup] {
-        return group(by: HabitTimeOption.allCases, from: tasks, with: filterType)
+        return group(by: HabitTimeOption.allCases, from: periodItems, with: filterType)
     }
 }

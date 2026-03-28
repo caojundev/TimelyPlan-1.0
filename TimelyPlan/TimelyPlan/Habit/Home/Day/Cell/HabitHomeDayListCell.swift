@@ -16,9 +16,9 @@ protocol HabitHomeDayListCellDelegate: HabitTaskListInfoCellDelegate {
 
 class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
 
-    var task: HabitPeriodTask? {
+    var periodItem: HabitPeriodItem? {
         didSet {
-            self.habitTask = task?.habitTask
+            self.habitTask = periodItem?.habitTask
         }
     }
     
@@ -36,7 +36,7 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     }
     
     override var focusLineColor: UIColor {
-        return task?.habitTask.color.lighterColor ?? .primary
+        return periodItem?.habitTask.color.lighterColor ?? .primary
     }
     
     override func setupInfoView() {
@@ -63,8 +63,8 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     /// 更新详细文本
     override func updateSubtitle() {
         let titleView = self.infoView.titleView
-        if let task = task {
-            titleView.subtitle = detailProvider.detail(for: task)
+        if let periodItem = periodItem {
+            titleView.subtitle = detailProvider.detail(for: periodItem)
         } else {
             titleView.subtitle = nil
         }
@@ -74,9 +74,9 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     private func updateProgress(animated: Bool) {
         var progress: CGFloat = 0.0
         var status: HabitTaskStatus = .notStarted
-        if let date = task?.period.date {
-            progress = task?.progress(on: date) ?? 0.0
-            status = task?.status(on: date) ?? .notStarted
+        if let date = periodItem?.period.date {
+            progress = periodItem?.progress(on: date) ?? 0.0
+            status = periodItem?.status(on: date) ?? .notStarted
         }
         
         progressActionInfoView.setProgress(progress, animated: animated)
@@ -84,7 +84,7 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     }
     
     private func updateRecordButton() {
-        self.progressActionInfoView.updateRecordButton(with: self.task)
+        self.progressActionInfoView.updateRecordButton(with: self.periodItem)
     }
 
     @objc private func clickRecord(_ button: UIButton) {
@@ -96,7 +96,7 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     private func didChangeRecord(withIncreament amount: Int) {
         guard amount != 0 else { return }
         let text = (amount >= 0 ? "+" : "") + "\(amount)"
-        let color = task?.habitTask.color.lighterColor ?? .label
+        let color = periodItem?.habitTask.color.lighterColor ?? .label
         let font = BOLD_SYSTEM_FONT
         let fromView = infoView.titleView.titleLabel
         let sourceWidth = text.width(with: font)
@@ -141,15 +141,15 @@ class HabitTaskDetailProvider {
     }
     
     /// 更新详细文本
-    func detail(for task: HabitPeriodTask) -> TextRepresentable {
-        let habitTask = task.habitTask
-        let date = task.period.date
+    func detail(for periodItem: HabitPeriodItem) -> TextRepresentable {
+        let habitTask = periodItem.habitTask
+        let date = periodItem.period.date
         if date.isFutureDay {
             return habitTask.goal.targetDescription
         }
         
         /// 进度详情
-        let record = task.records?[date.dayIntegerKey]
+        let record = periodItem.records?[date.dayIntegerKey]
         let progressDetail = Self.completedAmountDetail(for: habitTask, with: record)
         guard let record = record else {
             return progressDetail

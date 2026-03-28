@@ -64,7 +64,7 @@ extension CDFocusTimer {
 
     static func syncOrders(for timers: [FocusTimer]) {
         timers.updateOrders()
-        if let cdTimers = getTasks(with: timers.identifiers) {
+        if let cdTimers = getTimers(with: timers.identifiers) {
             syncOrders(from: timers, to: cdTimers)
         }
     }
@@ -116,7 +116,7 @@ extension CDFocusTimer {
     
     // MARK: - 同步获取计时器
     /// 获取特定标识数组中的所有任务
-    static func getTasks(with identifiers: [String]) -> [CDFocusTimer]? {
+    static func getTimers(with identifiers: [String]) -> [CDFocusTimer]? {
         let condition: PredicateCondition = (FocusTimerKey.identifier, .belongsTo(identifiers))
         let predicate = NSPredicate.predicate(with: condition)
         let results: [CDFocusTimer]? = CDFocusTimer.findAll(with: predicate, in: .defaultContext)

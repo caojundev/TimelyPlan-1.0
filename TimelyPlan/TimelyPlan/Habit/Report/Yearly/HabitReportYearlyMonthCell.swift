@@ -13,7 +13,7 @@ class HabitReportYearlyMonthCell: TPCollectionCell {
     var date: Date?
     
     /// 任务
-    var periodTask: HabitPeriodTask?
+    var periodItem: HabitPeriodItem?
     
     var imageCacher: HabitReportImageCacher?
     
@@ -35,15 +35,15 @@ class HabitReportYearlyMonthCell: TPCollectionCell {
     }
     
     func reloadData() {
-        guard let periodTask = periodTask, let date = date else {
+        guard let periodItem = periodItem, let date = date else {
             return
         }
 
-        let firstWeekday = periodTask.period.firstWeekday
+        let firstWeekday = periodItem.period.firstWeekday
         let render = HabitReportYearlyMonthRender(date: date,
                                                   firstWeekday: firstWeekday,
-                                                  periodTask: periodTask)
-        let taskID = periodTask.habitTask.identifier
+                                                  periodItem: periodItem)
+        let taskID = periodItem.habitTask.identifier
         let imageSize = render.canvasSize()
         let image = imageCacher?.getImage(identifier: taskID, date: date, size: imageSize)
         if image != nil {

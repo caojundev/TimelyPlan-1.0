@@ -9,14 +9,14 @@ import Foundation
 
 extension HabitHomeDayActionInfoView.ActionButtonType {
     
-    static func actionButtonType(for task: HabitPeriodTask) -> HabitHomeDayActionInfoView.ActionButtonType {
-        let date = task.period.date
+    static func actionButtonType(for periodItem: HabitPeriodItem) -> HabitHomeDayActionInfoView.ActionButtonType {
+        let date = periodItem.period.date
         if date.isFutureDay {
             return .none
         }
         
-        let record = task.records?[date.dayIntegerKey]
-        let status = task.status(with: record)
+        let record = periodItem.records?[date.dayIntegerKey]
+        let status = periodItem.status(with: record)
         if status.isSkipped || status.isFailed {
             return .resetToday
         }
@@ -102,8 +102,8 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
         recordButton.centerYEqualToView(titleView)
     }
     
-    func updateRecordButton(with task: HabitPeriodTask?) {
-        guard let task = task else {
+    func updateRecordButton(with periodItem: HabitPeriodItem?) {
+        guard let periodItem = periodItem else {
             self.actionType = .none
             self.recordButton.image = nil
             self.recordButton.title = nil
@@ -111,8 +111,8 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
             return
         }
 
-        self.actionType = ActionButtonType.actionButtonType(for: task)
-        let habitTask = task.habitTask
+        self.actionType = ActionButtonType.actionButtonType(for: periodItem)
+        let habitTask = periodItem.habitTask
         let color = habitTask.color.darkerColor
         recordButton.titleConfig.textColor = color
         recordButton.imageConfig.color = color
@@ -142,14 +142,14 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
         setNeedsLayout()
     }
     
-    func actionButtonType(for task: HabitPeriodTask) -> ActionButtonType {
-        let date = task.period.date
+    func actionButtonType(for periodItem: HabitPeriodItem) -> ActionButtonType {
+        let date = periodItem.period.date
         if date.isFutureDay {
             return .none
         }
         
-        let record = task.records?[date.dayIntegerKey]
-        let status = task.status(with: record)
+        let record = periodItem.records?[date.dayIntegerKey]
+        let status = periodItem.status(with: record)
         if status.isSkipped || status.isFailed {
             return .resetToday
         }

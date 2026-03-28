@@ -22,9 +22,9 @@ class HabitReportMonthlyViewController: HabitReportContentViewController {
         let periodDate = self.date.startOfMonth()
         let period = HabitDatePeriod(date: periodDate, mode: .month, firstWeekday: self.firstWeekday)
         let includeArchived = HabitSetting.shared.isReportShowArchived
-        habit.fetchReportPeriodTasks(in: period,
-                                     includeArchived: includeArchived) { periodTasks in
-            let sectionController = HabitReportMonthlySectionController(periodTasks: periodTasks,
+        habit.fetchReportPeriodItems(in: period,
+                                     includeArchived: includeArchived) { periodItems in
+            let sectionController = HabitReportMonthlySectionController(periodItems: periodItems,
                                                                        firstWeekday: self.firstWeekday)
             sectionController.imageCacher = self.imageCacher
             completion([sectionController])

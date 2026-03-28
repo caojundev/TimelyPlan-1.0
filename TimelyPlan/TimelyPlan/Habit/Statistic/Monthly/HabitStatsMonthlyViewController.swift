@@ -20,21 +20,21 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     
     override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
         let period = HabitDatePeriod(date: self.date, mode: .month)
-        habit.fetchPeriodTask(for: task, in: period) { periodTask in
-            let sectionControllers = self.sectionControllers(for: periodTask)
+        habit.fetchPeriodItem(for: task, in: period) { periodItem in
+            let sectionControllers = self.sectionControllers(for: periodItem)
             completion(sectionControllers)
         }
     }
     
-    func sectionControllers(for periodTask: HabitPeriodTask) -> [TPCollectionItemSectionController] {
-        let summarySectionController = summarySectionController(for: periodTask)
-        let calendarMonthSectionController = calendarMonthSectionController(for: periodTask)
-        let statusPieSectionController = HabitStatusPieChartSectionController(periodTask: periodTask)
-        let monthlyBarChartSectionController = monthlyBarChartSectionController(for: periodTask)
-        let checkinTimeSectionController = checkinTimeSectionController(for: periodTask)
-        let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodTask)
-        let scoreTrendsSectionController = scoreTrendsSectionController(for: periodTask)
-        let logSectionController = logSectionController(for: periodTask)
+    func sectionControllers(for periodItem: HabitPeriodItem) -> [TPCollectionItemSectionController] {
+        let summarySectionController = summarySectionController(for: periodItem)
+        let calendarMonthSectionController = calendarMonthSectionController(for: periodItem)
+        let statusPieSectionController = HabitStatusPieChartSectionController(periodItem: periodItem)
+        let monthlyBarChartSectionController = monthlyBarChartSectionController(for: periodItem)
+        let checkinTimeSectionController = checkinTimeSectionController(for: periodItem)
+        let hourlyCheckinCountSectionContorller = hourlyCheckinCountSectionContorller(for: periodItem)
+        let scoreTrendsSectionController = scoreTrendsSectionController(for: periodItem)
+        let logSectionController = logSectionController(for: periodItem)
         return [summarySectionController,
                 calendarMonthSectionController,
                 statusPieSectionController,
@@ -46,22 +46,22 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     }
  
     // MARK: - 概览
-    func summarySectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+    func summarySectionController(for periodItem: HabitPeriodItem) -> TPCollectionItemSectionController {
         let sectionController = StatsSummarySectionController()
-        sectionController.summaries = periodTask.summaries()
+        sectionController.summaries = periodItem.summaries()
         return sectionController
     }
     
     /// 月日历
-    func calendarMonthSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
-       let sectionController = HabitStatsCalendarMonthSectionController(task: periodTask,
+    func calendarMonthSectionController(for periodItem: HabitPeriodItem) -> TPCollectionItemSectionController {
+       let sectionController = HabitStatsCalendarMonthSectionController(periodItem: periodItem,
                                                                         date: self.date,
                                                                         firstWeekday: self.firstWeekday)
        return sectionController
     }
 
-    func monthlyBarChartSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
-        let barMarks = periodTask.recordAmountChartMarks(in: self.dateRange) { date in
+    func monthlyBarChartSectionController(for periodItem: HabitPeriodItem) -> TPCollectionItemSectionController {
+        let barMarks = periodItem.recordAmountChartMarks(in: self.dateRange) { date in
             return CGFloat(date.day)
         }
         
@@ -82,9 +82,9 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     }
     
     /// 日打卡时间
-    func checkinTimeSectionController(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
+    func checkinTimeSectionController(for periodItem: HabitPeriodItem) -> TPCollectionItemSectionController {
         let chartItem = PointChartItem()
-        chartItem.pointMarks = periodTask.checkinTimePointMarksForWeek(in: self.dateRange,
+        chartItem.pointMarks = periodItem.checkinTimePointMarksForWeek(in: self.dateRange,
                                                                        xValueForDate: { date in
             return CGFloat(date.day)
         })
@@ -100,8 +100,8 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     }
     
     /// 按小时打卡次数
-    func hourlyCheckinCountSectionContorller(for periodTask: HabitPeriodTask) -> TPCollectionItemSectionController {
-        let barMarks = periodTask.hourlyCheckInCountChartMarks()
+    func hourlyCheckinCountSectionContorller(for periodItem: HabitPeriodItem) -> TPCollectionItemSectionController {
+        let barMarks = periodItem.hourlyCheckInCountChartMarks()
         let chartItem = BarChartItem()
         chartItem.barMarks = barMarks
         chartItem.xAxis = .timelineXAxis()
@@ -115,8 +115,8 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     }
     
     // MARK: - 得分趋势
-    func scoreTrendsSectionController(for periodTask: HabitPeriodTask) -> StatsCurveChartSectionController {
-        let pointMarks = periodTask.scoreChartMarks(in: self.dateRange) { date in
+    func scoreTrendsSectionController(for periodItem: HabitPeriodItem) -> StatsCurveChartSectionController {
+        let pointMarks = periodItem.scoreChartMarks(in: self.dateRange) { date in
             return CGFloat(date.day)
         }
     
@@ -131,8 +131,8 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
         return sectionController
     }
     
-    func logSectionController(for periodTask: HabitPeriodTask) -> HabitStatsLogSectionController {
-        let sectionController = HabitStatsLogSectionController(periodTask: periodTask)
+    func logSectionController(for periodItem: HabitPeriodItem) -> HabitStatsLogSectionController {
+        let sectionController = HabitStatsLogSectionController(periodItem: periodItem)
         return sectionController
     }
 }

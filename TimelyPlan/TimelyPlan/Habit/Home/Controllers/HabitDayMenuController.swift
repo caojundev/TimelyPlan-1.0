@@ -11,10 +11,10 @@ class HabitDayMenuController {
     
     private let processor = HabitTaskMenuActionProcessor()
     
-    func showMenu(for periodTask: HabitPeriodTask, on date: Date) {
-        let habitTask = periodTask.habitTask
-        let status = periodTask.status(on: date)
-        let record = periodTask.record(on: date)
+    func showMenu(for periodItem: HabitPeriodItem, on date: Date) {
+        let habitTask = periodItem.habitTask
+        let status = periodItem.status(on: date)
+        let record = periodItem.record(on: date)
         let menuController = HabitHomeWeekDayMenuController(task: habitTask, status: status, date: date)
         menuController.didSelectMenuActionType = {[weak self] type in
             self?.processor.performMenuAction(type, for: habitTask, on: date, with: record)

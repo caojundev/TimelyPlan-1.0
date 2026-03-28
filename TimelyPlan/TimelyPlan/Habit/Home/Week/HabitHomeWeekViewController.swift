@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class HabitHomeWeekViewController: TPViewController,
-                                   HabitPeriodTaskListViewDelegate,
+                                   HabitPeriodItemListViewDelegate,
                                    HabitHomeWeekListCellDelegate,
                                    TPPreviousNextDateViewDelegate,
                                    SettingAgentObserver {
@@ -29,8 +29,8 @@ class HabitHomeWeekViewController: TPViewController,
         return view
     }()
     
-    private lazy var listView: HabitPeriodTaskListView = {
-        let view = HabitPeriodTaskListView(frame: view.bounds)
+    private lazy var listView: HabitPeriodItemListView = {
+        let view = HabitPeriodItemListView(frame: view.bounds)
         view.preferredItemHeight = 210.0
         view.delegate = self
         view.collectionConfiguration = { collectionView in
@@ -169,11 +169,11 @@ class HabitHomeWeekViewController: TPViewController,
     
     // MARK: - HabitHomeWeekListCellDelegate
     func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickMore button: UIButton) {
-        guard let task = cell.task else {
+        guard let periodItem = cell.periodItem else {
             return
         }
 
-        let habitTask = task.habitTask
+        let habitTask = periodItem.habitTask
         let menuController = HabitHomeWeekMenuController()
         menuController.didSelectMenuActionType = {[weak self] type in
             self?.processor.performMenuAction(type, for: habitTask, on: .now)
@@ -183,19 +183,19 @@ class HabitHomeWeekViewController: TPViewController,
     }
     
     func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickDate date: Date) {
-        guard let task = cell.task else {
+        guard let periodItem = cell.periodItem else {
             return
         }
-        let isScheduled = task.isScheduledDate(date)
+        let isScheduled = periodItem.isScheduledDate(date)
         if isScheduled {
-            dayMenuController.showMenu(for: task, on: date)
+            dayMenuController.showMenu(for: periodItem, on: date)
         } else {
             HabitPresenter.showNotScheduledDayMessage(for: date)
         }
     }
     
-    // MARK: - HabitPeriodTaskListViewDelegate
-   func habitPeriodTaskListView(_ listView: HabitPeriodTaskListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+    // MARK: - HabitPeriodItemListViewDelegate
+   func habitPeriodItemListView(_ listView: HabitPeriodItemListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
        let firstWeekday = self.dateView.firstWeekday
        let period = HabitDatePeriod(date: self.date, mode: .week, firstWeekday: firstWeekday)
        self.groupProvider.fetchGroups(in: period) { groups in
@@ -210,7 +210,7 @@ class HabitHomeWeekViewController: TPViewController,
     func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         let cell = cell as! HabitHomeWeekListCell
         cell.delegate = self
-        cell.task = listView.item(at: indexPath) as? HabitPeriodTask
+        cell.periodItem = listView.item(at: indexPath) as? HabitPeriodItem
     }
     
     func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {
@@ -229,7 +229,7 @@ class HabitHomeWeekViewController: TPViewController,
     }
     
     func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) {
-        guard let task = listView.item(at: indexPath) as? HabitPeriodTask else {
+        guard let task = listView.item(at: indexPath) as? HabitPeriodItem else {
             return
         }
         

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class HabitHomeDayViewController: TPContainerViewController,
-                                  HabitPeriodTaskListViewDelegate,
+                                  HabitPeriodItemListViewDelegate,
                                   HabitHomeDayListCellDelegate,
                                   TPCalendarSingleDateSelectionDelegate,
                                   SettingAgentObserver {
@@ -80,8 +80,8 @@ class HabitHomeDayViewController: TPContainerViewController,
     
     private var groupProvider = HabitHomeDayListGroupProvider()
     
-    private(set) lazy var listView: HabitPeriodTaskListView = {
-        let view = HabitPeriodTaskListView(frame: view.bounds)
+    private(set) lazy var listView: HabitPeriodItemListView = {
+        let view = HabitPeriodItemListView(frame: view.bounds)
         view.delegate = self
         view.collectionConfiguration = { collectionView in
             collectionView.contentInset = UIEdgeInsets(bottom: 60.0)
@@ -239,8 +239,8 @@ class HabitHomeDayViewController: TPContainerViewController,
         self.updateBackView()
     }
     
-     // MARK: - HabitPeriodTaskListViewDelegate
-    func habitPeriodTaskListView(_ listView: HabitPeriodTaskListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+     // MARK: - HabitPeriodItemListViewDelegate
+    func habitPeriodItemListView(_ listView: HabitPeriodItemListView, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
         self.groupProvider.fetchGroups(on: self.date,
                                        with: self.filterType) { groups in
             completion(groups)
@@ -254,11 +254,11 @@ class HabitHomeDayViewController: TPContainerViewController,
     func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         let cell = cell as! HabitHomeDayListCell
         cell.delegate = self
-        cell.task = listView.item(at: indexPath) as? HabitPeriodTask
+        cell.periodItem = listView.item(at: indexPath) as? HabitPeriodItem
     }
     
     func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) {
-        guard let task = listView.item(at: indexPath) as? HabitPeriodTask else {
+        guard let task = listView.item(at: indexPath) as? HabitPeriodItem else {
             return
         }
         
@@ -287,14 +287,14 @@ class HabitHomeDayViewController: TPContainerViewController,
     
     // MARK: - HabitTaskListInfoCellDelegate
     func habitTaskListInfoCell(_ cell: HabitTaskListDefaultInfoCell, didClickMore button: UIButton) {
-        guard let cell = cell as? HabitHomeDayListCell, let task = cell.task else {
+        guard let cell = cell as? HabitHomeDayListCell, let periodItem = cell.periodItem else {
             return
         }
         
-        let habitTask = task.habitTask
-        let date = task.period.date
-        let status = task.status(on: date)
-        let record = task.record(on: date)
+        let habitTask = periodItem.habitTask
+        let date = periodItem.period.date
+        let status = periodItem.status(on: date)
+        let record = periodItem.record(on: date)
         let menuController = HabitHomeDayMenuController(task: habitTask,
                                                         status: status,
                                                         date: date)
@@ -306,12 +306,12 @@ class HabitHomeDayViewController: TPContainerViewController,
     }
     
     func habitHomeDayListCell(_ cell: HabitHomeDayListCell, didClickRecord button: UIButton) {
-        guard let task = cell.task else {
+        guard let periodItem = cell.periodItem else {
             return
         }
         
-        let habitTask = task.habitTask
-        let date = task.period.date
+        let habitTask = periodItem.habitTask
+        let date = periodItem.period.date
         processor.clickRecrod(for: habitTask, on: date)
     }
 }

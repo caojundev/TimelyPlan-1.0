@@ -13,7 +13,7 @@ class HabitReportYearlyCell: TPCollectionCell {
     static let infoViewHeight: CGFloat = 30.0
     
     /// 任务
-    var periodTask: HabitPeriodTask?
+    var periodItem: HabitPeriodItem?
  
     var imageCacher: HabitReportImageCacher? {
         get {
@@ -63,15 +63,15 @@ class HabitReportYearlyCell: TPCollectionCell {
     }
 
     func reloadData() {
-        guard let periodTask = periodTask else {
+        guard let periodItem = periodItem else {
             return
         }
 
-        let habitTask = periodTask.habitTask
+        let habitTask = periodItem.habitTask
         infoView.icon = habitTask.icon
         infoView.title = habitTask.name
     
-        chartView.periodTask = periodTask
+        chartView.periodItem = periodItem
         chartView.reloadData()
     }
 }

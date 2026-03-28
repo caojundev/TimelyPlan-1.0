@@ -19,7 +19,7 @@ protocol HabitHomeWeekListCellDelegate: AnyObject {
 
 class HabitHomeWeekListCell: HabitTaskListBaseCell {
 
-    var task: HabitPeriodTask? {
+    var periodItem: HabitPeriodItem? {
         didSet {
             reloadData()
         }
@@ -54,7 +54,7 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
     }()
     
     override var focusLineColor: UIColor {
-        return task?.habitTask.color.lighterColor ?? .primary
+        return periodItem?.habitTask.color.lighterColor ?? .primary
     }
     
     override init(frame: CGRect) {
@@ -112,7 +112,7 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
     }
     
     private func updateTaskInfo() {
-        let habitTask = task?.habitTask
+        let habitTask = periodItem?.habitTask
         updateStyleWithColor(habitTask?.color ?? .primary)
         headerView.title = habitTask?.attributedInfo(color: headerView.titleConfig.textColor)
         infoView.iconView.icon = habitTask?.icon
@@ -150,7 +150,7 @@ extension HabitHomeWeekListCell: HabitDatePeriodsViewDelegate {
     
     // MARK: - PeriodsViewDelegate
     func periodsInDatePeriodsView(_ view: HabitDatePeriodsView) -> [HabitDatePeriod]? {
-        guard let period = self.task?.period else {
+        guard let period = self.periodItem?.period else {
             return nil
         }
         
@@ -165,8 +165,8 @@ extension HabitHomeWeekListCell: HabitDatePeriodsViewDelegate {
         let cell = cell as! HabitHomeWeekDayCell
         let date = period.date
         cell.date = date
-        cell.task = self.task
-        cell.isScheduledDay = self.task?.isScheduledDate(date) ?? true
+        cell.periodItem = self.periodItem
+        cell.isScheduledDay = self.periodItem?.isScheduledDate(date) ?? true
         cell.reloadData() /// 加载内容数据
     }
     

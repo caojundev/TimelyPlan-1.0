@@ -1,5 +1,5 @@
 //
-//  HabitPeriodTask+Stats.swift
+//  HabitPeriodItem+Stats.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/14.
@@ -10,7 +10,7 @@ import Foundation
 typealias HabitDailyCheckinTimeResults = [DayIntegerKey: Set<Duration>]
 typealias HabitMonthGroupedRecords = [Int: [HabitRecord]]
 
-extension HabitPeriodTask {
+extension HabitPeriodItem {
     
     /// 完成数目
     func recordAmountChartMarks(in dateRange: DateRange, xValueForDate: (Date) -> CGFloat) -> [ChartMark] {
@@ -263,7 +263,7 @@ extension HabitPeriodTask {
 }
 
 // MARK: -  按月份
-extension HabitPeriodTask {
+extension HabitPeriodItem {
     
     /// 年度按月打卡数目字典
     private var monthlyCheckinAmountForYear: [Int: Int64] {
@@ -341,7 +341,7 @@ extension HabitPeriodTask {
 
 
 // MARK: - 概览
-extension HabitPeriodTask {
+extension HabitPeriodItem {
     
     func summaries() -> [StatsSummary] {
         var results: [StatsSummary] = []

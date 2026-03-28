@@ -21,7 +21,7 @@ class HabitReportYearChartView: TPCollectionWrapperView,
     var scrollDelegate: HabitReportYearChartViewScrollDelegate?
     
     /// 任务
-    var periodTask: HabitPeriodTask?
+    var periodItem: HabitPeriodItem?
 
     /// 区块内间距
     let sectionInset = UIEdgeInsets(top: 20.0, left: 0.0, bottom: 10.0, right: 0.0)
@@ -60,7 +60,7 @@ class HabitReportYearChartView: TPCollectionWrapperView,
     
     // MARK: - CollectionListDataSource
     func sectionObjects(for adapter: TPCollectionViewAdapter) -> [ListDiffable]? {
-        let date = periodTask?.period.date ?? .now
+        let date = periodItem?.period.date ?? .now
         return Date.monthDatesOfYear(contain: date) as [NSDate]
     }
     
@@ -80,12 +80,12 @@ class HabitReportYearChartView: TPCollectionWrapperView,
         
         cell.imageCacher = self.imageCacher
         cell.date = adapter.item(at: indexPath) as? Date
-        cell.periodTask = self.periodTask
+        cell.periodItem = self.periodItem
         cell.reloadData()
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let periodTask = periodTask, let date = adapter.item(at: indexPath) as? Date else {
+        guard let periodItem = periodItem, let date = adapter.item(at: indexPath) as? Date else {
             return .zero
         }
         
@@ -93,7 +93,7 @@ class HabitReportYearChartView: TPCollectionWrapperView,
         let itemMargin = 5.0
         let lineSpacing = 5.0
         let itemWidth = (cellHeight - CGFloat(DAYS_PER_WEEK + 1) * itemMargin) / CGFloat(DAYS_PER_WEEK)
-        let weeksCount = date.numberOfWeeksInMonth(firstWeekday: periodTask.period.firstWeekday)
+        let weeksCount = date.numberOfWeeksInMonth(firstWeekday: periodItem.period.firstWeekday)
         let cellWidth = CGFloat(weeksCount) * (itemWidth + lineSpacing) + lineSpacing
         return CGSize(width: cellWidth, height: cellHeight)
     }

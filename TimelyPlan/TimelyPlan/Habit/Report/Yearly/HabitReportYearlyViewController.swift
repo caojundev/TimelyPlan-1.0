@@ -24,9 +24,9 @@ class HabitReportYearlyViewController: HabitReportContentViewController {
                                      mode: .year,
                                      firstWeekday: self.firstWeekday)
         let includeArchived = HabitSetting.shared.isReportShowArchived
-        habit.fetchReportPeriodTasks(in: period,
-                                     includeArchived: includeArchived) { periodTasks in
-            let sectionController = HabitReportYearlySectionController(periodTasks: periodTasks, firstWeekday: self.firstWeekday)
+        habit.fetchReportPeriodItems(in: period,
+                                     includeArchived: includeArchived) { periodItems in
+            let sectionController = HabitReportYearlySectionController(periodItems: periodItems, firstWeekday: self.firstWeekday)
             sectionController.imageCacher = self.imageCacher
             completion([sectionController])
         }

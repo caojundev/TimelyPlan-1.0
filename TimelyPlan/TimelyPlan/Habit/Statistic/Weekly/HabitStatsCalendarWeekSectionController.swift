@@ -9,7 +9,7 @@ import Foundation
 
 class HabitStatsCalendarWeekSectionController: TPCollectionItemSectionController {
 
-    let task: HabitPeriodTask
+    let periodItem: HabitPeriodItem
     
     let date: Date
     
@@ -20,8 +20,8 @@ class HabitStatsCalendarWeekSectionController: TPCollectionItemSectionController
     
     private let dayMenuController = HabitDayMenuController()
     
-    init(task: HabitPeriodTask, date: Date, firstWeekday: Weekday = .firstWeekday) {
-        self.task = task
+    init(periodItem: HabitPeriodItem, date: Date, firstWeekday: Weekday = .firstWeekday) {
+        self.periodItem = periodItem
         self.date = date
         self.firstWeekday = firstWeekday
         super.init()
@@ -47,8 +47,8 @@ extension HabitStatsCalendarWeekSectionController: HabitDatePeriodsViewDelegate 
         let cell = cell as! HabitStatsCalendarWeekDayCell
         let date = period.date
         cell.date = date
-        cell.task = self.task
-        cell.isScheduledDay = self.task.isScheduledDate(date)
+        cell.periodItem = self.periodItem
+        cell.isScheduledDay = self.periodItem.isScheduledDate(date)
         cell.reloadData() /// 加载内容数据
     }
     
@@ -59,9 +59,9 @@ extension HabitStatsCalendarWeekSectionController: HabitDatePeriodsViewDelegate 
     func datePeriodsView(_ view: HabitDatePeriodsView, didSelectPeriod period: HabitDatePeriod) {
         TPImpactFeedback.impactWithSoftStyle()
         
-        let isScheduled = task.isScheduledDate(period.date)
+        let isScheduled = periodItem.isScheduledDate(period.date)
         if isScheduled {
-            dayMenuController.showMenu(for: task, on: period.date)
+            dayMenuController.showMenu(for: self.periodItem, on: period.date)
         } else {
             HabitPresenter.showNotScheduledDayMessage(for: period.date)
         }
@@ -80,11 +80,11 @@ class HabitStatsCalendarWeekDayCell: HabitHomeWeekDayCell {
     }
     
     override func updateStyle() {
-        guard let task = task, let date = date else {
+        guard let periodItem = self.periodItem, let date = date else {
             return
         }
 
-        let status = task.status(on: date)
+        let status = periodItem.status(on: date)
         let color = Color(0x5856D6)
         
         /// 背景色

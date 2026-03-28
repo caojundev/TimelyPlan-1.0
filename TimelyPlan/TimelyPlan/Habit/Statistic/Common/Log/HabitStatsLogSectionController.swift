@@ -10,7 +10,7 @@ import UIKit
 
 class HabitStatsLogSectionController: TPCollectionItemSectionController {
     
-    let periodTask: HabitPeriodTask
+    let periodItem: HabitPeriodItem
     
     private(set) var logs: [HabitStatsLog]?
     
@@ -25,10 +25,10 @@ class HabitStatsLogSectionController: TPCollectionItemSectionController {
         return cellItem
     }()
     
-    init(periodTask: HabitPeriodTask) {
-        self.periodTask = periodTask
+    init(periodItem: HabitPeriodItem) {
+        self.periodItem = periodItem
         super.init()
-        self.logs = periodTask.statsLogs()
+        self.logs = periodItem.statsLogs()
         self.layout.edgeMargins = UIEdgeInsets(horizontal: 16.0, vertical: 8.0)
         self.headerItem.title = resGetString("Logs")
         self.headerItem.titleConfig.font = BOLD_BODY_FONT
@@ -60,7 +60,7 @@ class HabitStatsLogSectionController: TPCollectionItemSectionController {
         
         TPImpactFeedback.impactWithSoftStyle()
         let date = cellItem.log.date
-        let record = periodTask.record(on: date)
-        recordController.editLog(for: periodTask.habitTask, with: record, on: date)
+        let record = periodItem.record(on: date)
+        recordController.editLog(for: periodItem.habitTask, with: record, on: date)
     }
 }
