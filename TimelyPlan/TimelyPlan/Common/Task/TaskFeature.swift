@@ -13,6 +13,10 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
     case todo /// 待办
     case habit /// 习惯
     
+    static var allTypes: [TaskType] {
+        return [.habit]
+    }
+    
     var identifier: String {
         switch self {
         case .none:
@@ -35,9 +39,16 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
         }
     }
     
-    static var allTypes: [TaskType] {
-        return [.habit]
+    var iconName: String? {
+        switch self {
+        case .habit:
+            return "task_type_habit"
+        default:
+            return nil
+        }
     }
+    
+    
 }
 
 /// 任务信息

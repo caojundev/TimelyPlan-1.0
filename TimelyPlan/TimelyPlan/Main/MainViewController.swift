@@ -59,6 +59,12 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         return UINavigationController(rootViewController: vc)
     }()
     
+    var settingsViewController: UIViewController {
+        let vc = AppSettingsViewController(style: .insetGrouped)
+        vc.sidebarController = sidebarController
+        return UINavigationController(rootViewController: vc)
+    }
+    
     /// 当前选中菜单
     var selectedMenuType: SideMenuType {
         get {
@@ -111,8 +117,8 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
             vc = focusViewController
         case .habit:
             vc = habitViewController
-        default:
-            vc = UIViewController()
+        case .settings:
+            vc = settingsViewController
         }
    
         replaceDetailViewController(vc)

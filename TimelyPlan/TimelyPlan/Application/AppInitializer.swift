@@ -34,9 +34,10 @@ class AppInitializer {
     
     /// 初始化管理器
     static func setup() {
+        TPImpactFeedback.feedback.enabled = AppSetting.shared.isHapiticFeedbackOn
+        
         todo = Todo()
         focus = Focus()
         habit = Habit()
-        TPImpactFeedback.feedback.enabled = true
     }
 }

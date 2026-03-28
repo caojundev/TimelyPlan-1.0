@@ -129,8 +129,8 @@ class FocusStatsSpecificTimerInfoView: FocusStatsInfoView {
 class FocusStatsSpecificTaskInfoView: FocusStatsInfoView {
     
     /// 任务信息视图
-    private lazy var taskInfoView: TPInfoView = {
-        let view = TPInfoView()
+    private lazy var taskInfoView: TPImageInfoView = {
+        let view = TPImageInfoView()
         view.titleConfig.font = UIFont.boldSystemFont(ofSize: 16.0)
         view.titleConfig.numberOfLines = 1
         return view
@@ -150,8 +150,12 @@ class FocusStatsSpecificTaskInfoView: FocusStatsInfoView {
     override func setupSubviews() {
         super.setupSubviews()
         self.padding = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 10.0, right: 10.0)
-        self.addSubview(taskInfoView)
+        self.taskInfoView.imageConfig.margins = UIEdgeInsets(right: 8.0)
+        self.addSubview(self.taskInfoView)
+        
         let feature = self.task.feature
+        let iconImage = feature.type.iconImage(with: .mini)
+        taskInfoView.imageContent = .withImage(iconImage)
         taskInfoView.title = feature.snapshotName ?? resGetString("Untitled Task")
         taskInfoView.subtitle = feature.type.title
     }

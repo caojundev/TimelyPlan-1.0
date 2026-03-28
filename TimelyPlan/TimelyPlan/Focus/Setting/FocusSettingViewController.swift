@@ -262,11 +262,6 @@ class FocusSettingViewController: TPTableSectionsViewController {
          self.reloadData()
      }
      
-     override func viewWillLayoutSubviews() {
-         super.viewWillLayoutSubviews()
-     }
-     
-    
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
