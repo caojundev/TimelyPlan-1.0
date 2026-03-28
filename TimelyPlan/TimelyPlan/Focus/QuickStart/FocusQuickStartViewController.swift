@@ -49,7 +49,7 @@ class FocusQuickStartViewController: TPContainerViewController {
     var didClickStatistics: (() -> Void)?
 
     /// 点击查看记录
-    var didClickViewRecord: (() -> Void)?
+    var didClickRecord: (() -> Void)?
     
     /// 绑定任务特征信息
     var taskFeature: TaskFeature?
@@ -58,7 +58,7 @@ class FocusQuickStartViewController: TPContainerViewController {
     private(set) var editType: FocusQuickStartEditType
 
     /// 工具栏高度
-    private let editTypeViewHeight = 64.0
+    private let editTypeViewHeight = 58.0
     
     /// 编辑类型视图
     private lazy var editTypeView: FocusQuickStartTypeView = { [weak self] in
@@ -81,8 +81,8 @@ class FocusQuickStartViewController: TPContainerViewController {
     }()
     
     /// 查看专注记录
-    lazy var viewRecordBarButtonItem: UIBarButtonItem = {
-        let image = resGetImage("focus_record_view_24")
+    lazy var recordBarButtonItem: UIBarButtonItem = {
+        let image = resGetImage("focus_quickStart_record_24")
         let buttonItem = UIBarButtonItem(image: image,
                                          style: .plain,
                                          target: self,
@@ -118,7 +118,7 @@ class FocusQuickStartViewController: TPContainerViewController {
         self.view.addSubview(self.editTypeView)
         self.navigationItem.leftBarButtonItem = self.chevronDownCancelButtonItem
         self.navigationItem.rightBarButtonItems = [self.statisticsBarButtonItem,
-                                                   self.viewRecordBarButtonItem]
+                                                   self.recordBarButtonItem]
         self.editTypeView.selectedEditType = self.editType
         self.updateContentViewController(with: .none)
         self.updateTaskInfoView()
@@ -186,7 +186,7 @@ class FocusQuickStartViewController: TPContainerViewController {
     
     @objc func clickViewRecord(_ buttonItem: UIBarButtonItem) {
         TPImpactFeedback.impactWithLightStyle()
-        self.didClickViewRecord?()
+        self.didClickRecord?()
     }
 
     // MARK: - 选中编辑类型

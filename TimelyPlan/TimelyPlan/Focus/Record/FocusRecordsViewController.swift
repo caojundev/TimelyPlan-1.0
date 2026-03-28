@@ -20,6 +20,11 @@ class FocusRecordsViewController: StatsMainViewController {
     
     /// 列表模式
     private var mode = FocusState.shared.recordListMode
+
+    /// 信息视图
+    private let infoViewEdgeMargins = UIEdgeInsets(value: 10.0)
+    private let infoViewHeight = 64.0
+    private var infoView: FocusStatsInfoView?
     
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: FocusRecordMoreBarButtonItem = {
@@ -32,13 +37,7 @@ class FocusRecordsViewController: StatsMainViewController {
         
         return item
     }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        self.navigationItem.rightBarButtonItem = moreBarButtonItem
-    }
-    
+
     init(task: TaskRepresentable? = nil,
          timer: FocusTimer? = nil,
          type: StatsType = .week,
@@ -46,12 +45,70 @@ class FocusRecordsViewController: StatsMainViewController {
         self.task = task
         self.timer = timer
         super.init(type: type, allowTypes: [.day, .week, .month], date: date)
+        self.setupInfoView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
+        self.navigationItem.rightBarButtonItem = moreBarButtonItem
+    }
+    
+    private func setupInfoView() {
+        var infoView: FocusStatsInfoView?
+        let mode: FocusStatsMode = .mode(timer: timer, task: task)
+        if mode == .specificTimer, let timer = self.timer {
+            infoView = FocusStatsSpecificTimerInfoView(timer: timer, showDuration: false)
+        } else if mode == .specificTask, let task = self.task {
+            infoView = FocusStatsSpecificTaskInfoView(task: task, showDuration: false)
+        }
+        
+        self.infoView = infoView
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if let infoView = infoView {
+            self.layoutInfoView(infoView)
+            self.contentInset = UIEdgeInsets(bottom: infoView.height + infoViewEdgeMargins.verticalLength)
+        }
+    }
+
+    override func handleFirstAppearance() {
+        guard let infoView = infoView else {
+            return
+        }
+
+        self.view.addSubview(infoView)
+        self.layoutInfoView(infoView, isHidden: true) /// 隐藏infoView
+        self.view.animateLayout(withDuration: 0.6, usingSpring: true)
+    }
+
+    /// 布局任务信息视图
+    private func layoutInfoView(_ infoView: UIView, isHidden: Bool = false){
+        let layoutFrame = view.safeLayoutFrame().inset(by: infoViewEdgeMargins)
+        let cornerRadius = 16.0
+        infoView.width = min(640.0, layoutFrame.width)
+        infoView.height = infoViewHeight
+        if isHidden {
+            infoView.top = view.height
+        } else {
+            infoView.bottom = layoutFrame.maxY
+        }
+        
+        infoView.centerX = layoutFrame.midX
+        infoView.layer.cornerRadius = cornerRadius
+        infoView.layer.setLayerShadow(color: Color(0x000000, 0.1),
+                                      offset: CGSize(width: 0.0, height: -2.0),
+                                      radius: cornerRadius)
+        infoView.layoutIfNeeded()
+    }
+
+    // MARK: - ContentViewController
     override func dailyStatsViewController() -> UIViewController! {
         let vc = FocusRecordListViewController(type: .day, date: self.date)
         setupListViewController(vc)
@@ -76,6 +133,14 @@ class FocusRecordsViewController: StatsMainViewController {
         vc.mode = mode
         vc.timer = timer
         vc.task = task
+        
+        if self.infoView != nil {
+            /// 调整返回视图的间距不被信息视图遮挡
+            vc.backViewMargins = UIEdgeInsets(top: 10.0,
+                                              left: 16.0,
+                                              bottom: 90.0,
+                                              right: 16.0)
+        }
     }
     
     private func performMoreMenuAction(with actionType: FocusRecordMoreMenuType) {
@@ -135,5 +200,4 @@ class FocusRecordsViewController: StatsMainViewController {
         /// 保存到本地设置项
         FocusState.shared.recordListOrder = sortOrder
     }
-    
 }

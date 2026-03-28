@@ -24,7 +24,7 @@ class FocusPresenter {
             FocusPresenter.showStatistics(for: task)
         }
         
-        startVC.didClickViewRecord = {
+        startVC.didClickRecord = {
             FocusPresenter.showRecords(forTask: task,
                                        timer: nil,
                                        type: .week,

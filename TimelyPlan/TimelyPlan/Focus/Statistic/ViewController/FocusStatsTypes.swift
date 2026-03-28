@@ -12,6 +12,18 @@ enum FocusStatsMode: Int {
     case specificTimer
     case specificTask
     case specificTimerAndTask
+    
+    static func mode(timer: Any?, task: Any?) -> FocusStatsMode {
+        if timer == nil && task == nil {
+            return .overall
+        } else if task == nil {
+            return .specificTimer
+        } else if timer == nil {
+            return .specificTask
+        } else {
+            return .specificTimerAndTask
+        }
+    }
 }
 
 /// 专注详情分组类型

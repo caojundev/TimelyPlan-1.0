@@ -541,6 +541,8 @@
 		E583896B2F7749DF003C30A4 /* AppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E583896A2F7749DF003C30A4 /* AppSetting.swift */; };
 		E583896F2F774E5F003C30A4 /* task_type_habit_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E583896D2F774E5F003C30A4 /* task_type_habit_24@3x.png */; };
 		E58389702F774E5F003C30A4 /* task_type_habit_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E583896E2F774E5F003C30A4 /* task_type_habit_24@2x.png */; };
+		E58389732F776404003C30A4 /* focus_quickStart_record_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58389712F776403003C30A4 /* focus_quickStart_record_24@2x.png */; };
+		E58389742F776404003C30A4 /* focus_quickStart_record_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58389722F776404003C30A4 /* focus_quickStart_record_24@3x.png */; };
 		E583C8AC2DAD4FD3000A6B13 /* QuadrantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E583C8AB2DAD4FD3000A6B13 /* QuadrantDetailViewController.swift */; };
 		E584397B2D8E563B00DEB8E9 /* QuadrantMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584397A2D8E563B00DEB8E9 /* QuadrantMatrixView.swift */; };
 		E584397E2D8E5D6400DEB8E9 /* QuadrantDragDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584397D2D8E5D6400DEB8E9 /* QuadrantDragDropController.swift */; };
@@ -2171,6 +2173,8 @@
 		E583896A2F7749DF003C30A4 /* AppSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetting.swift; sourceTree = "<group>"; };
 		E583896D2F774E5F003C30A4 /* task_type_habit_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_habit_24@3x.png"; sourceTree = "<group>"; };
 		E583896E2F774E5F003C30A4 /* task_type_habit_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_habit_24@2x.png"; sourceTree = "<group>"; };
+		E58389712F776403003C30A4 /* focus_quickStart_record_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_quickStart_record_24@2x.png"; sourceTree = "<group>"; };
+		E58389722F776404003C30A4 /* focus_quickStart_record_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_quickStart_record_24@3x.png"; sourceTree = "<group>"; };
 		E583C8AB2DAD4FD3000A6B13 /* QuadrantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantDetailViewController.swift; sourceTree = "<group>"; };
 		E584397A2D8E563B00DEB8E9 /* QuadrantMatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantMatrixView.swift; sourceTree = "<group>"; };
 		E584397D2D8E5D6400DEB8E9 /* QuadrantDragDropController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantDragDropController.swift; sourceTree = "<group>"; };
@@ -4966,6 +4970,15 @@
 				E583896D2F774E5F003C30A4 /* task_type_habit_24@3x.png */,
 			);
 			path = task;
+			sourceTree = "<group>";
+		};
+		E58389752F776454003C30A4 /* quickStart */ = {
+			isa = PBXGroup;
+			children = (
+				E58389712F776403003C30A4 /* focus_quickStart_record_24@2x.png */,
+				E58389722F776404003C30A4 /* focus_quickStart_record_24@3x.png */,
+			);
+			path = quickStart;
 			sourceTree = "<group>";
 		};
 		E583C8AA2DAD4FA7000A6B13 /* Detail */ = {
@@ -8457,6 +8470,7 @@
 		E5D7D9452D43CBA100EC877A /* focus */ = {
 			isa = PBXGroup;
 			children = (
+				E58389752F776454003C30A4 /* quickStart */,
 				E547C7172F3D6D680095918C /* placeholder */,
 				E52B62A42F3611FC00673620 /* main */,
 				E50D94AE2D451C1800F57957 /* record */,
@@ -9038,6 +9052,7 @@
 				E50DD7CE2D72BE5A00A85E87 /* todo_folder_24@2x.png in Resources */,
 				E5BB9ECA2D3BF0C80089667A /* Wheat01@3x.png in Resources */,
 				E5D833922DAB64D60012ABF3 /* todo_task_progress_targetValue_24@2x.png in Resources */,
+				E58389742F776404003C30A4 /* focus_quickStart_record_24@3x.png in Resources */,
 				E500DE562DB09D4500EAEAF7 /* todo_filter_indicator_tag_12@3x.png in Resources */,
 				E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */,
 				E54E633F2F5B1BFD00FCBCAE /* habit_menu_cancel_24@3x.png in Resources */,
@@ -9159,6 +9174,7 @@
 				E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */,
 				E5BB9A872D3BEF0D0089667A /* todo_smartlist_inbox_24@2x.png in Resources */,
 				E515AD5D2D3CBC3500AA9AF2 /* todo_task_step_addPosition_24@3x.png in Resources */,
+				E58389732F776404003C30A4 /* focus_quickStart_record_24@2x.png in Resources */,
 				E5D7D9802D43E19700EC877A /* focus_timer_step_addPrevious_24@3x.png in Resources */,
 				E5D7D9602D43DBE000EC877A /* focus_timer_pomodoro_32@3x.png in Resources */,
 				E5D7D9762D43E05700EC877A /* focus_running_screenAlwaysOnEnabled_24@2x.png in Resources */,

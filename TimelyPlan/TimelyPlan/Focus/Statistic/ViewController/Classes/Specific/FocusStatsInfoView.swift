@@ -12,8 +12,41 @@ class FocusStatsInfoView: UIView {
     
     let durationInfoWidth = 120.0
     
-    /// 专注总时长信息视图
-    lazy var durationInfoView: TPInfoView = {
+    /// 总时长信息视图
+    var durationInfoView: TPInfoView?
+    
+    let showDuration: Bool
+    
+    init(showDuration: Bool = true) {
+        self.showDuration = showDuration
+        super.init(frame: .zero)
+        self.setupSubviews()
+        self.reloadData()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let layoutFrame = self.layoutFrame()
+        if let durationInfoView = durationInfoView {
+            durationInfoView.width = durationInfoWidth
+            durationInfoView.height = layoutFrame.height
+            durationInfoView.right = layoutFrame.maxX
+            durationInfoView.top = layoutFrame.minY
+        }
+    }
+    
+    func setupSubviews() {
+        self.backgroundColor = .secondarySystemGroupedBackground
+        if showDuration {
+            setupDurationInfoView()
+        }
+    }
+    
+    private func setupDurationInfoView() {
         let textColor = resGetColor(.title)
         let view = TPInfoView()
         view.padding = UIEdgeInsets(horizontal: 2.0)
@@ -32,31 +65,8 @@ class FocusStatsInfoView: UIView {
         
         view.title = "---"
         view.subtitle = resGetString("Total Duration")
-        return view
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupSubviews()
-        self.reloadData()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let layoutFrame = self.layoutFrame()
-        durationInfoView.width = durationInfoWidth
-        durationInfoView.height = layoutFrame.height
-        durationInfoView.right = layoutFrame.maxX
-        durationInfoView.top = layoutFrame.minY
-    }
-    
-    func setupSubviews() {
-        self.backgroundColor = .secondarySystemGroupedBackground
-        addSubview(durationInfoView)
+        self.addSubview(view)
+        self.durationInfoView = view
     }
     
     func reloadData() {
@@ -88,9 +98,9 @@ class FocusStatsSpecificTimerInfoView: FocusStatsInfoView {
     
     let timer: FocusTimer
     
-    init(timer: FocusTimer) {
+    init(timer: FocusTimer, showDuration: Bool = true) {
         self.timer = timer
-        super.init(frame: .zero)
+        super.init(showDuration: showDuration)
     }
     
     required init?(coder: NSCoder) {
@@ -113,15 +123,19 @@ class FocusStatsSpecificTimerInfoView: FocusStatsInfoView {
         indicatorView.right = layoutFrame.minX - indicatorMargin
         indicatorView.alignVerticalCenter()
 
-        timerInfoView.width = layoutFrame.width - durationInfoView.width
+        timerInfoView.width = layoutFrame.width - (durationInfoView?.width ?? 0.0)
         timerInfoView.height = layoutFrame.height
         timerInfoView.left = layoutFrame.minX
         timerInfoView.top = layoutFrame.minY
     }
     
     override func reloadData() {
-        focus.fetchDuration(forTask: nil, timer: self.timer) {[weak self] result in
-            self?.durationInfoView.title = Duration(result).attributedTitle()
+        guard let durationInfoView = self.durationInfoView else {
+            return
+        }
+        
+        focus.fetchDuration(forTask: nil, timer: self.timer) { result in
+            durationInfoView.title = Duration(result).attributedTitle()
         }
     }
 }
@@ -138,9 +152,9 @@ class FocusStatsSpecificTaskInfoView: FocusStatsInfoView {
     
     let task: TaskRepresentable
     
-    init(task: TaskRepresentable) {
+    init(task: TaskRepresentable, showDuration: Bool = true) {
         self.task = task
-        super.init(frame: .zero)
+        super.init(showDuration: showDuration)
     }
     
     required init?(coder: NSCoder) {
@@ -163,15 +177,19 @@ class FocusStatsSpecificTaskInfoView: FocusStatsInfoView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let layoutFrame = self.layoutFrame()
-        taskInfoView.width = layoutFrame.width - durationInfoView.width
+        taskInfoView.width = layoutFrame.width - (durationInfoView?.width ?? 0.0)
         taskInfoView.height = layoutFrame.height
         taskInfoView.left = layoutFrame.minX
         taskInfoView.top = layoutFrame.minY
     }
     
     override func reloadData() {
-        focus.fetchDuration(forTask: self.task, timer: nil) {[weak self] result in
-            self?.durationInfoView.title = Duration(result).attributedTitle()
+        guard let durationInfoView = self.durationInfoView else {
+            return
+        }
+        
+        focus.fetchDuration(forTask: self.task, timer: nil) { result in
+            durationInfoView.title = Duration(result).attributedTitle()
         }
     }
 }

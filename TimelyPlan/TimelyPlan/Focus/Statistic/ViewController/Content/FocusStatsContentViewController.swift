@@ -27,15 +27,7 @@ class FocusStatsContentViewController: StatsContentViewController,
     
     /// 统计模式
     var mode: FocusStatsMode {
-        if timer == nil && task == nil {
-            return .overall
-        } else if task == nil {
-            return .specificTimer
-        } else if timer == nil {
-            return .specificTask
-        } else {
-            return .specificTimerAndTask
-        }
+        return .mode(timer: timer, task: task)
     }
     
     /// 是否显示已归档计时器
@@ -60,7 +52,10 @@ class FocusStatsContentViewController: StatsContentViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         if self.mode != .overall {
-            self.backViewMargins = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 100.0, right: 16.0)
+            self.backViewMargins = UIEdgeInsets(top: 10.0,
+                                                left: 16.0,
+                                                bottom: 100.0,
+                                                right: 16.0)
         }
         
         focus.addUpdater(self, for: [.session])
