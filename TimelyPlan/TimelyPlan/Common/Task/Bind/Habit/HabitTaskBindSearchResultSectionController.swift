@@ -8,59 +8,28 @@
 import Foundation
 import UIKit
 
-class HabitTaskBindSearchResultSectionController: HabitTaskBindSectionController,
-                                                  UISearchResultsUpdating {
+class HabitTaskBindSearchResultSectionController: TPCollectionSearchResultSectionController {
     
-    /// 当前结果对应的搜索文本
-    private(set) var searchText: String?
-    
-    override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
-        super.didDequeCell(cell, forItemAt: index)
-        if let searchCell = cell as? HabitTaskBindCell {
-            searchCell.setHighlightedText(self.searchText)
-        }
+    override init() {
+        super.init()
+        self.layout.preferredItemWidth = .greatestFiniteMagnitude
     }
     
-    /// 更新可见 cell 搜索文本
-    private func updateSearchTextForVisibleCells() {
-        guard let cells = adapter?.visibleCells(forSectionObject: self) as? [HabitTaskBindCell] else {
-            return
-        }
-        
-        for cell in cells {
-            cell.setHighlightedText(self.searchText)
-        }
+    override func classForCell(at index: Int) -> AnyClass? {
+        return HabitTaskBindCell.self
     }
-    
-    // MARK: - UISearchResultsUpdating
-    func updateSearchResults(for searchController: UISearchController) {
-        updateSearchResults(with: searchController.searchBar.text)
-    }
-    
-    func updateSearchResults(with searchText: String?) {
-        let searchText = searchText?.whitespacesAndNewlinesTrimmedString
-        if self.searchText == searchText {
-            return
-        }
-        
-        guard let searchText = searchText, searchText.count > 0 else {
-            self.searchText = nil
-            self.tasks = nil
-            self.adapter?.performUpdate()
-            self.updateSearchTextForVisibleCells()
-            return
-        }
 
-        self.searchText = searchText
-        habit.searchActiveTasks(containText: searchText) { tasks in
-            guard searchText == self.searchText else {
-                return
-            }
-            
-            self.tasks = tasks
-            self.adapter?.performUpdate()
-            self.updateSearchTextForVisibleCells()
+    override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
+        let cell = cell as! HabitTaskBindCell
+        cell.habitTask = item(at: index) as? HabitTask
+        
+        /// 需要显示高亮数据
+        super.didDequeCell(cell, forItemAt: index)
+    }
+    
+    override func fetchResults(containText text: String, completion: @escaping ([ListDiffable]?) -> Void) {
+        habit.searchActiveTasks(containText: text) { tasks in
+            completion(tasks)
         }
     }
 }
-

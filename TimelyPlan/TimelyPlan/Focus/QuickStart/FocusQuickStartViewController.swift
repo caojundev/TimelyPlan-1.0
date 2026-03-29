@@ -63,6 +63,7 @@ class FocusQuickStartViewController: TPContainerViewController {
     /// 编辑类型视图
     private lazy var editTypeView: FocusQuickStartTypeView = { [weak self] in
         let view = FocusQuickStartTypeView(frame: .zero)
+        view.backgroundColor = .systemGroupedBackground
         view.didSelectEditType = { editType in
             self?.selectEditType(editType)
         }

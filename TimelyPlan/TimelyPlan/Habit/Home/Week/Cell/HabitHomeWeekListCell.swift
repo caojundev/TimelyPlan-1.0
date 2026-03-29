@@ -125,6 +125,11 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
         weekView.reloadData()
     }
     
+    func reloadWeekday(of date: Date) {
+        let period = HabitDatePeriod(date: date, mode: .day)
+        weekView.reloadPeriods(intersects: period)
+    }
+    
     /// 记录更新
     func updateRecord(on date: Date, with change: HabitRecordChange?, animated: Bool = true) {
         let period = HabitDatePeriod(date: date, mode: .day)

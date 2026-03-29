@@ -1,29 +1,12 @@
 //
-//  HabitTaskBindSectionController.swift
+//  HabitTaskBindCell.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/3/27.
+//  Created by caojun on 2026/3/29.
 //
 
 import Foundation
-
-class HabitTaskBindSectionController: BaseTaskBindSectionController {
-    
-    override init() {
-        super.init()
-    }
-
-    override func classForCell(at index: Int) -> AnyClass? {
-        return HabitTaskBindCell.self
-    }
-    
-    override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
-        super.didDequeCell(cell, forItemAt: index)
-        let cell = cell as! HabitTaskBindCell
-        cell.habitTask = item(at: index) as? HabitTask
-        cell.delegate = self
-    }
-}
+import UIKit
 
 class HabitTaskBindCell: HabitTaskListDefaultInfoCell,
                             SearchHighlightable {

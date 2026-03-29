@@ -8,59 +8,28 @@
 import Foundation
 import UIKit
 
-class FocusTimerSearchResultSectionController: FocusUserTimerSelectSectionController,
-                                               UISearchResultsUpdating {
+class FocusTimerSearchResultSectionController: TPCollectionSearchResultSectionController {
     
-    /// 当前结果对应的搜索文本
-    private var searchText: String?
-    
-    override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
-        super.didDequeCell(cell, forItemAt: index)
-        if let searchCell = cell as? FocusUserTimerInfoCell {
-            searchCell.setHighlightedText(self.searchText)
-        }
-    }
-     
-    /// 更新可见 cell 搜索文本
-    private func updateSearchTextForVisibleCells() {
-        guard let cells = adapter?.visibleCells as? [FocusUserTimerInfoCell] else {
-            return
-        }
-        
-        for cell in cells {
-            cell.setHighlightedText(self.searchText)
-        }
+    override init() {
+        super.init()
+        self.layout.preferredItemWidth = .greatestFiniteMagnitude
     }
     
-    
-    // MARK: - UISearchResultsUpdating
-    func updateSearchResults(for searchController: UISearchController) {
-        updateSearchResults(with: searchController.searchBar.text)
+    override func classForCell(at index: Int) -> AnyClass? {
+        return FocusUserTimerSelectCell.self
     }
-    
-    func updateSearchResults(with searchText: String?) {
-        let searchText = searchText?.whitespacesAndNewlinesTrimmedString
-        if self.searchText == searchText {
-            return
-        }
-        
-        guard let searchText = searchText, searchText.count > 0 else {
-            self.searchText = nil
-            self.timers = nil
-            self.adapter?.performUpdate()
-            self.updateSearchTextForVisibleCells()
-            return
-        }
 
-        self.searchText = searchText
-        focus.searchActiveTimers(containText: searchText) { timers in
-            guard searchText == self.searchText else {
-                return
-            }
-            
-            self.timers = timers
-            self.adapter?.performUpdate()
-            self.updateSearchTextForVisibleCells()
+    override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
+        if let cell = cell as? FocusUserTimerInfoCell {
+            cell.timer = item(at: index) as? FocusTimer
+        }
+        
+        super.didDequeCell(cell, forItemAt: index)
+    }
+    
+    override func fetchResults(containText text: String, completion: @escaping ([ListDiffable]?) -> Void) {
+        focus.searchActiveTimers(containText: text) { timers in
+            completion(timers)
         }
     }
 }

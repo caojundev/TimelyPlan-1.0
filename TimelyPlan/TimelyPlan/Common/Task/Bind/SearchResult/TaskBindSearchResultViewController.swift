@@ -52,27 +52,15 @@ class TaskBindSearchResultViewController: TPCollectionSectionsViewController,
         self.collectionView.keyboardDismissMode = .interactive
         self.sectionControllers = [self.habitSearchResultSectionController]
         self.reloadData()
-        self.updatePlaceholderTitle(with: nil)
     }
     
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
     
-    private func updatePlaceholderTitle(with searchText: String?) {
-        if let searchText = searchText, searchText.count > 0 {
-            self.placeholderView.title = resGetString("No Search Result")
-        } else {
-            self.placeholderView.title = " "
-        }
-    }
-    
     // MARK: - UISearchResultsUpdating
     
     func updateSearchResults(for searchController: UISearchController) {
-        let searchText = searchController.searchBar.text
-        updatePlaceholderTitle(with: searchText)
-        
         guard let sectionControllers = self.sectionControllers as? [UISearchResultsUpdating] else {
             return
         }

@@ -12,7 +12,8 @@ class HabitHomeDayViewController: TPContainerViewController,
                                   TPLoadableGroupCollectionViewDelegate,
                                   TPCalendarSingleDateSelectionDelegate,
                                   HabitHomeDayListCellDelegate,
-                                  SettingAgentObserver {
+                                  SettingAgentObserver,
+                                  TPMidnightUpdatable {
     
     /// 日期
     private(set) var date: Date = .now
@@ -99,8 +100,10 @@ class HabitHomeDayViewController: TPContainerViewController,
         view.addSubview(backView)
         view.addSubview(addView)
         reloadData()
-        HabitSetting.shared.addObserver(self, forKey: .firstWeekday)
         habit.addUpdater(self, for: .all)
+        HabitSetting.shared.addObserver(self, forKey: .firstWeekday)
+        /// 添加至凌晨更新对象
+        TPMidnightScheduler.shared.addUpdater(self)
     }
     
     override func viewWillLayoutSubviews() {
@@ -377,6 +380,12 @@ extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
         }
         
         cell.updateRecord(with: change, animated: true)
+    }
+    
+    // MARK: - TPMidnightUpdatable
+    
+    func updateAtMidnight() {
+        self.weekView.reloadData()
     }
 }
 

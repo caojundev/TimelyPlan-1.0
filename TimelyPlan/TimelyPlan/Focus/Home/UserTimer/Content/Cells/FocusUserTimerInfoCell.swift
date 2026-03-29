@@ -6,6 +6,17 @@
 //
 
 import Foundation
+import UIKit
+
+class FocusUserTimerCellStyle: TPCollectionCellStyle {
+    
+    override init() {
+        super.init()
+        self.backgroundColor = .secondarySystemGroupedBackground
+        self.selectedBackgroundColor = .tertiarySystemGroupedBackground
+        self.cornerRadius = 12.0
+    }
+}
 
 class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell,
                                 SearchHighlightable {

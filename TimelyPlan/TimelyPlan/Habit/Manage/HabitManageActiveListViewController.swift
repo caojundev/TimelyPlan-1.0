@@ -27,6 +27,7 @@ class HabitManageActiveListViewController: HabitManageBaseListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupReorder()
+        self.listView.listPlaceholderProvider.emptyImage = resGetImage("habit_plceholder_task_80")
         self.listView.listPlaceholderProvider.emptyTitle = resGetString("Tap + to create a new habit")
     }
     

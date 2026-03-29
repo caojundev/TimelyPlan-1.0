@@ -12,7 +12,8 @@ class HabitHomeWeekViewController: TPViewController,
                                    TPLoadableGroupCollectionViewDelegate,
                                    TPPreviousNextDateViewDelegate,
                                    HabitHomeWeekListCellDelegate,
-                                   SettingAgentObserver {
+                                   SettingAgentObserver,
+                                    TPMidnightUpdatable {
     
     /// 当前周日期
     var date: Date = .now
@@ -33,6 +34,7 @@ class HabitHomeWeekViewController: TPViewController,
         let view = HabitPeriodItemListView(frame: view.bounds)
         view.preferredItemHeight = 210.0
         view.delegate = self
+        view.listPlaceholderProvider.emptyImage = resGetImage("habit_plceholder_task_80")
         view.listPlaceholderProvider.emptyTitle = resGetString("No Habit This Week")
         view.collectionConfiguration = { collectionView in
             collectionView.contentInset = UIEdgeInsets(bottom: 60.0)
@@ -83,6 +85,8 @@ class HabitHomeWeekViewController: TPViewController,
         updateBackView()
         habit.addUpdater(self, for: .all)
         HabitSetting.shared.addObserver(self, forKey: .firstWeekday)
+        /// 添加至凌晨更新对象
+        TPMidnightScheduler.shared.addUpdater(self)
     }
     
     override func viewWillLayoutSubviews() {
@@ -129,6 +133,7 @@ class HabitHomeWeekViewController: TPViewController,
         processor.createNewTask()
     }
     
+    
     // MARK: - Update
     func updateBackView() {
         if self.dateView.dateRange.contains(date: .now) {
@@ -145,6 +150,22 @@ class HabitHomeWeekViewController: TPViewController,
         if key == HabitSetting.Key.firstWeekday.name {
             self.dateView.firstWeekday = HabitSetting.shared.firstWeekday
             self.listView.asyncReloadData()
+        }
+    }
+    
+    // MARK: - TPMidnightUpdatable
+    func updateAtMidnight() {
+        guard self.dateView.dateRange.contains(date: .now) else {
+            return
+        }
+        
+        /// 更新单元格的可用状态
+        guard let visibleCells = listView.visibleCells as? [HabitHomeWeekListCell] else {
+            return
+        }
+        
+        for cell in visibleCells {
+            cell.reloadWeekday(of: .now)
         }
     }
     

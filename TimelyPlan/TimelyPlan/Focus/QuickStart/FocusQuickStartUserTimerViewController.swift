@@ -8,51 +8,54 @@
 import Foundation
 import UIKit
 
-class FocusQuickStartUserTimerViewController: TPCollectionSectionsViewController,
-                                              TPCollectionSectionControllerDelegate {
+class FocusQuickStartUserTimerViewController: TPViewController,
+                                              TPLoadableGroupCollectionViewDelegate {
 
     var didSelectTimer: ((FocusTimerRepresentable) -> Void)?
     
-    private lazy var placeholderView: TPDefaultPlaceholderView = {
-        let view = TPDefaultPlaceholderView()
-        view.isBorderHidden = true
-        view.image = resGetImage("focus_placeholder_noTimer_80")
-        view.titleColor = .placeholderText
-        view.title = resGetString("No Timer")
+    private lazy var selectView: FocusTimerSelectView = {
+        let view = FocusTimerSelectView(frame: view.bounds)
+        view.delegate = self
+        view.listPlaceholderProvider.emptyImage = resGetImage("focus_placeholder_noTimer_80")
+        view.listPlaceholderProvider.emptyTitle = resGetString("No Timer")
         return view
     }()
     
-    /// 用户计时器选择
-    lazy var userTimerSelectSectionController: FocusUserTimerSelectSectionController = {
-        let sectionController = FocusUserTimerSelectSectionController()
-        sectionController.delegate = self
-        return sectionController
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.placeholderView = placeholderView
-        self.sectionControllers = [userTimerSelectSectionController]
-        self.loadData()
+        self.view.addSubview(self.selectView)
+        self.selectView.asyncReloadData()
     }
     
-    func loadData() {
-        focus.fetchActiveTimers { timers in
-            self.userTimerSelectSectionController.timers = timers
-            self.adapter.reloadData()
-        }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.selectView.frame = view.bounds
     }
     
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
     
-    // MARK: - TPCollectionSectionControllerDelegate
-    func collectionSectionController(_ sectionController: TPCollectionBaseSectionController, didSelectItemAt index: Int) {
-        guard let timer = sectionController.item(at: index) as? FocusTimerRepresentable else {
+    // MARK: - TPLoadableGroupCollectionViewDelegate
+    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
+        focus.fetchActiveTimers { timers in
+            guard let timers = timers, timers.count > 0 else {
+                completion(nil)
+                return
+            }
+
+            let group = FocusTimerGroup(identifier: "UserTimerGroup")
+            group.timers = timers
+            completion([group])
+        }
+    }
+    
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let timer = collectionView.item(at: indexPath) as? FocusTimer else {
             return
         }
         
+        TPImpactFeedback.impactWithSoftStyle()
         didSelectTimer?(timer)
     }
 }

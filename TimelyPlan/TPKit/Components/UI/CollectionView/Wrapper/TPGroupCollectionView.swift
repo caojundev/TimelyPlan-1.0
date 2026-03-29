@@ -23,6 +23,8 @@ protocol TPGroupCollectionViewDelegate: AnyObject {
     
     func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath)
     
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, shouldShowCheckmarkForItemAt indexPath: IndexPath) -> Bool
+    
     /// 获取头部视图类
     func groupCollectionView(_ collectionView: TPGroupCollectionView, classForHeaderInSection section: Int) -> AnyClass?
     
@@ -42,6 +44,10 @@ extension TPGroupCollectionViewDelegate {
     
     func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         
+    }
+    
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, shouldShowCheckmarkForItemAt indexPath: IndexPath) -> Bool {
+        return false
     }
     
     func groupCollectionView(_ collectionView: TPGroupCollectionView, classForHeaderInSection section: Int) -> AnyClass? {
@@ -142,6 +148,10 @@ class TPGroupCollectionView: TPCollectionWrapperView,
         return adapter.cellForItem(item)
     }
 
+    var visibleCells: [UICollectionViewCell] {
+        return adapter.visibleCells
+    }
+    
     /// 执行更新操作
     func performUpdate(with completion: ((Bool) -> Void)? = nil) {
         self.adapter.performUpdate(with: completion)
@@ -165,6 +175,10 @@ class TPGroupCollectionView: TPCollectionWrapperView,
     ///   - toIndexPath: 目标索引路径
     func moveItem(at fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
         self.adapter.moveItem(at: fromIndexPath, to: toIndexPath)
+    }
+    
+    func updateCheckmarks() {
+        self.adapter.updateCheckmarks()
     }
     
     // MARK: - TPCollectionViewAdapterDataSource
@@ -212,6 +226,10 @@ class TPGroupCollectionView: TPCollectionWrapperView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, didSelectItemAt indexPath: IndexPath) {
         delegate?.groupCollectionView(self, didSelectItemAt: indexPath)
+    }
+    
+    func adapter(_ adapter: TPCollectionViewAdapter, shouldShowCheckmarkForItemAt indexPath: IndexPath) -> Bool {
+        return delegate?.groupCollectionView(self, shouldShowCheckmarkForItemAt: indexPath) ?? false
     }
     
     // MARK: - Header Methods
