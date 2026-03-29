@@ -13,16 +13,10 @@ class HabitRecordListViewController: StatsContentViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.placeholderProvider.emptyImage = resGetImage("placeholder_record_80")
+        self.placeholderProvider.emptyTitle = resGetString("No Habit Record")
         self.contentInset = UIEdgeInsets(bottom: 80.0)
         habit.addUpdater(self, for: [.record])
-    }
-    
-    override func placeholderView() -> UIView? {
-        let view = TPDefaultPlaceholderView()
-        view.image = resGetImage("placeholder_record_80")
-        view.title = resGetString("No Habit Record")
-        view.titleColor = .lightGray
-        return view
     }
     
     override func fetchSectionControllers(completion: @escaping ([TPCollectionBaseSectionController]) -> Void) {

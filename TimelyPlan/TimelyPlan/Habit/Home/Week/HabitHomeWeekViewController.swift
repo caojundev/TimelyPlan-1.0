@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class HabitHomeWeekViewController: TPViewController,
-                                   HabitPeriodItemListViewDelegate,
+                                   HabitLoadableTaskListViewDelegate,
                                    HabitHomeWeekListCellDelegate,
                                    TPPreviousNextDateViewDelegate,
                                    SettingAgentObserver {
@@ -33,6 +33,7 @@ class HabitHomeWeekViewController: TPViewController,
         let view = HabitPeriodItemListView(frame: view.bounds)
         view.preferredItemHeight = 210.0
         view.delegate = self
+        view.listPlaceholderProvider.emptyTitle = resGetString("No Habit This Week")
         view.collectionConfiguration = { collectionView in
             collectionView.contentInset = UIEdgeInsets(bottom: 60.0)
         }
@@ -78,7 +79,6 @@ class HabitHomeWeekViewController: TPViewController,
         view.addSubview(listView)
         view.addSubview(backView)
         view.addSubview(addView)
-        
         listView.asyncReloadData()
         updateBackView()
         habit.addUpdater(self, for: .all)
@@ -193,10 +193,8 @@ class HabitHomeWeekViewController: TPViewController,
         }
     }
     
-    // MARK: - HabitPeriodItemListViewDelegate
-    func habitPeriodItemListView(_ listView: HabitPeriodItemListView,
-                                 forceRefresh: Bool,
-                                 fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+    // MARK: - HabitLoadableTaskListViewDelegate
+    func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
         if forceRefresh {
             self.groupProvider.setNeedsRefresh()
         }
@@ -207,8 +205,6 @@ class HabitHomeWeekViewController: TPViewController,
             completion(groups)
         }
     }
-    
-    
     
     func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return HabitHomeWeekListCell.self

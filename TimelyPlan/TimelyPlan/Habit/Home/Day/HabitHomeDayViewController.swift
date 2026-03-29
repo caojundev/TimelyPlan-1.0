@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class HabitHomeDayViewController: TPContainerViewController,
-                                  HabitPeriodItemListViewDelegate,
+                                  HabitLoadableTaskListViewDelegate,
                                   HabitHomeDayListCellDelegate,
                                   TPCalendarSingleDateSelectionDelegate,
                                   SettingAgentObserver {
@@ -153,7 +153,8 @@ class HabitHomeDayViewController: TPContainerViewController,
             title = resGetString("No Failed Habit Today")
         }
         
-        self.listView.placeholderView?.title = title
+        let provider = self.listView.listPlaceholderProvider
+        provider.emptyTitle = title
     }
     
     // MARK: - Public
@@ -235,10 +236,8 @@ class HabitHomeDayViewController: TPContainerViewController,
         self.updateBackView()
     }
     
-     // MARK: - HabitPeriodItemListViewDelegate
-    func habitPeriodItemListView(_ listView: HabitPeriodItemListView,
-                                 forceRefresh: Bool,
-                                 fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+    // MARK: - HabitLoadableTaskListViewDelegate
+    func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
         if forceRefresh {
             self.groupProvider.setNeedsRefresh()
         }

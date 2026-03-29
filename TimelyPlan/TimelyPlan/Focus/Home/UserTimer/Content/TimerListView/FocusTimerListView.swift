@@ -121,7 +121,6 @@ class FocusTimerListView: TPCollectionWrapperView,
         super.init(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
         self.setupRefreshControl()
         self.collectionView.showsVerticalScrollIndicator = false
-        self.setupPlaceholderViewProvider()
         self.adapter.footerSize = .zero
         self.adapter.cellStyle.cornerRadius = 20.0
         self.adapter.dataSource = self
@@ -139,6 +138,7 @@ class FocusTimerListView: TPCollectionWrapperView,
         self.collectionView.refreshControl = self.refreshControl
     }
     
+    /*
     private func setupPlaceholderViewProvider() {
         self.placeholderViewProvider = { [weak self] in
             guard let self = self else { return nil }
@@ -157,6 +157,7 @@ class FocusTimerListView: TPCollectionWrapperView,
         view.titleColor = .lightGray
         return view
     }
+    */
     
     // MARK: - 下拉刷新
     @objc private func handleRefresh() {

@@ -9,9 +9,6 @@ import Foundation
 import UIKit
 
 protocol HabitTaskListViewDelegate: AnyObject {
-
-    /// 获取习惯任务分组数据
-    func groupsInHabitTaskListView(_ listView: HabitTaskListView) -> [HabitTaskGroup]?
     
     /// 获取单元格类
     func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass?
@@ -34,10 +31,6 @@ protocol HabitTaskListViewDelegate: AnyObject {
 // MARK: - Default Implementation
 extension HabitTaskListViewDelegate {
 
-    func groupsInHabitTaskListView(_ listView: HabitTaskListView) -> [HabitTaskGroup]? {
-        return nil
-    }
-    
     func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {
         return TPCollectionHeaderFooterView.self
     }
@@ -59,11 +52,9 @@ class HabitTaskListView: TPCollectionWrapperView,
                                 TPCollectionViewAdapterDelegate,
                                 TPCollectionHeaderFooterViewDelegate {
     
-    // MARK: - Properties
-    weak var delegate: HabitTaskListViewDelegate?
+    var groups: [HabitTaskGroup]?
     
-    /// 处理下拉刷新
-    var refreshHandler: (() -> Void)?
+    weak var delegate: HabitTaskListViewDelegate?
     
     /// 首选 item 高度
     var preferredItemHeight: CGFloat {
@@ -76,18 +67,6 @@ class HabitTaskListView: TPCollectionWrapperView,
         }
     }
     
-    var placeholderView: TPDefaultPlaceholderView? {
-        return collectionView.placeholderView as? TPDefaultPlaceholderView
-    }
-    
-    /// 提供占位视图
-    var placeholderConfiguration: ((TPDefaultPlaceholderView) -> Void)? {
-        didSet {
-            if let placeholderView = placeholderView {
-                placeholderConfiguration?(placeholderView)
-            }
-        }
-    }
 
     /// 区块布局
     private(set) lazy var sectionLayout: TPCollectionSectionLayout = {
@@ -102,23 +81,9 @@ class HabitTaskListView: TPCollectionWrapperView,
         return layout
     }()
     
-    private(set) lazy var refreshControl: UIRefreshControl = {
-        return UIRefreshControl()
-    }()
-
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
-        self.collectionView.showsVerticalScrollIndicator = false
-        
-        /// 新建并配置占位视图
-        self.placeholderViewProvider = { [weak self] in
-            guard let self = self else { return nil }
-            let placeholderView = self.createPlaceholderView()
-            self.placeholderConfiguration?(placeholderView)
-            return placeholderView
-        }
-        
         self.adapter.footerSize = .zero
         self.adapter.cellStyle.cornerRadius = 20.0
         self.adapter.dataSource = self
@@ -127,27 +92,6 @@ class HabitTaskListView: TPCollectionWrapperView,
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupRefreshControl() {
-        self.refreshControl.addTarget(self,
-                                      action: #selector(handleRefresh),
-                                      for: .valueChanged)
-        self.collectionView.refreshControl = self.refreshControl
-    }
-
-    // MARK: - 下拉刷新
-    @objc func handleRefresh() {
-        self.refreshHandler?()
-    }
-    
-    private func createPlaceholderView() -> TPDefaultPlaceholderView {
-        let view = TPDefaultPlaceholderView()
-        view.isBorderHidden = true
-        view.titleColor = .lightGray
-        view.image = resGetImage("habit_plceholder_task_80")
-        view.title = resGetString("Tap + to create a new habit")
-        return view
     }
     
     // MARK: - Public Methods
@@ -199,7 +143,7 @@ class HabitTaskListView: TPCollectionWrapperView,
     
     // MARK: - TPCollectionViewAdapterDataSource
     func sectionObjects(for adapter: TPCollectionViewAdapter) -> [ListDiffable]? {
-        return delegate?.groupsInHabitTaskListView(self)
+        return groups
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {

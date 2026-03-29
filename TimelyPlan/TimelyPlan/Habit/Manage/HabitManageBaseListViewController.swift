@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 class HabitManageBaseListViewController: TPViewController,
-                                         HabitTaskListViewDelegate,
+                                         HabitLoadableTaskListViewDelegate,
                                          HabitTaskListInfoCellDelegate {
 
-    private(set) lazy var listView: HabitTaskListView = {
-        let view = HabitTaskListView(frame: view.bounds)
+    private(set) lazy var listView: HabitLoadableTaskListView = {
+        let view = HabitLoadableTaskListView(frame: view.bounds)
         view.delegate = self
         return view
     }()
@@ -24,8 +24,8 @@ class HabitManageBaseListViewController: TPViewController,
         super.viewDidLoad()
         self.view.addSubview(self.listView)
         self.setupSubviews()
-        self.reloadData()
         habit.addUpdater(self, for: .all)
+        self.listView.asyncReloadData()
     }
     
     func setupSubviews() {
@@ -45,15 +45,9 @@ class HabitManageBaseListViewController: TPViewController,
         return .systemBackground
     }
     
-
-    // MARK: - Public
-    func reloadData() {
-        self.listView.reloadData()
-    }
-    
-    // MARK: - HabitTaskListViewDelegate
-    func groupsInHabitTaskListView(_ listView: HabitTaskListView) -> [HabitTaskGroup]? {
-        return nil
+    // MARK: - HabitLoadableTaskListViewDelegate
+    func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+        completion(nil)
     }
     
     func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
@@ -108,24 +102,24 @@ class HabitManageBaseListViewController: TPViewController,
 extension HabitManageBaseListViewController: HabitTaskProcessorDelegate {
     
     func didCreateHabitTask(_ task: HabitTask) {
-        self.listView.performUpdate {[weak self] _ in
+        self.listView.asyncPerformUpdate {[weak self] _ in
             guard let self = self else { return }
             self.listView.revealItem(task)
         }
     }
 
     func didUpdateHabitTask(_ task: HabitTask) {
-        self.listView.performUpdate {[weak self] _ in
+        self.listView.asyncPerformUpdate {[weak self] _ in
             guard let self = self else { return }
             self.listView.revealItem(task)
         }
     }
     
     func didDeleteHabitTask(_ task: HabitTask) {
-        self.listView.performUpdate()
+        self.listView.asyncPerformUpdate()
     }
     
     func didChangeArchivedState(for task: HabitTask) {
-        self.listView.performUpdate()
+        self.listView.asyncPerformUpdate()
     }
 }

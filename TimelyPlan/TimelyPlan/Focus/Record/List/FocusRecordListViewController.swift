@@ -25,17 +25,11 @@ class FocusRecordListViewController: StatsContentViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.placeholderProvider.emptyImage = resGetImage("placeholder_record_80")
+        self.placeholderProvider.emptyTitle = resGetString("No Focus Record")
         focus.addUpdater(self, for: [.session])
     }
-    
-    override func placeholderView() -> UIView? {
-        let view = TPDefaultPlaceholderView()
-        view.image = resGetImage("placeholder_record_80")
-        view.title = resGetString("No Focus Record")
-        view.titleColor = .lightGray
-        return view
-    }
-    
+
     override func fetchSectionControllers(completion: @escaping ([TPCollectionBaseSectionController]) -> Void) {
         focus.fetchSessionsGroupedByDay(forTask: task, timer: timer, within: dateRange) { results in
             let sectionControllers: [FocusRecordListSectionController]

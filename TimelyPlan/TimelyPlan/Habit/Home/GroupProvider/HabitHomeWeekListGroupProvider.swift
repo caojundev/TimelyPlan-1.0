@@ -38,7 +38,7 @@ class HabitHomeWeekListGroupProvider: HabitTaskBaseListGroupProvider {
 
         /// 刷新任务列表
         let requestID = requestManager.executeRequest()
-        TimelyPlan.habit.fetchPeriodItems(in: period) { tasks in
+        habit.fetchScheduledPeriodItems(in: period) { tasks in
             guard self.requestManager.shouldProceed(with: requestID) else {
                 completion(nil)
                 return

@@ -53,7 +53,6 @@ class TPPreviousNextDateView: UIView, TPAnimatedContainerViewDelegate {
         let button = TPDefaultButton()
         button.padding = .zero
         button.hitTestEdgeInsets = UIEdgeInsets(value: -10.0)
-        button.titleConfig.font = UIFont.boldSystemFont(ofSize: 12.0)
         button.imageConfig.margins = .zero
         button.image = resGetImage("chevron_left_24")
         button.imageConfig.color = .label
@@ -66,7 +65,6 @@ class TPPreviousNextDateView: UIView, TPAnimatedContainerViewDelegate {
         let button = TPDefaultButton()
         button.padding = .zero
         button.hitTestEdgeInsets = UIEdgeInsets(value: -10.0)
-        button.titleConfig.font = BOLD_SYSTEM_FONT
         button.imageConfig.margins = .zero
         button.image = resGetImage("chevron_right_24")
         button.imageConfig.color = .label
@@ -173,7 +171,7 @@ class TPPreviousNextDateView: UIView, TPAnimatedContainerViewDelegate {
     private func newCurrentButton(title: String? = nil) -> TPDefaultButton {
         let button = TPDefaultButton()
         button.title = title
-        button.titleConfig.font = .boldSystemFont(ofSize: 14.0)
+        button.titleConfig.font = .boldSystemFont(ofSize: 13.0)
         button.padding = .zero
         button.imagePosition = .right
         button.addTarget(self,

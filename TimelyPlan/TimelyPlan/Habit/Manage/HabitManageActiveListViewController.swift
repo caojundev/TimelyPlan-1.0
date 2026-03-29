@@ -27,6 +27,7 @@ class HabitManageActiveListViewController: HabitManageBaseListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupReorder()
+        self.listView.listPlaceholderProvider.emptyTitle = resGetString("Tap + to create a new habit")
     }
     
     func setupReorder() {
@@ -51,10 +52,12 @@ class HabitManageActiveListViewController: HabitManageBaseListViewController {
         listView.contentInset = UIEdgeInsets(bottom: insetBottom)
     }
     
-    override func groupsInHabitTaskListView(_ listView: HabitTaskListView) -> [HabitTaskGroup]? {
-        let group = HabitTaskGroup(identifier: "active")
-        group.tasks = habit.activeTasks()
-        return [group]
+    override func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+        habit.fetchActiveTasks { tasks in
+            let group = HabitTaskGroup(identifier: "Active")
+            group.tasks = tasks
+            completion([group])
+        }
     }
     
     // MARK: - Event Response

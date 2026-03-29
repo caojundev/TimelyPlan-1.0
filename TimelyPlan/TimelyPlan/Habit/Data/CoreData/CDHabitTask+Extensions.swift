@@ -118,8 +118,15 @@ extension CDHabitTask {
     
     // MARK: - 异步获取
     static func fetchActiveTasks(completion: @escaping([CDHabitTask]?) -> Void) {
-        let predicate = activeTaskPredicate
-        CDHabitTask.findAll(with: predicate,
+        CDHabitTask.findAll(with: activeTaskPredicate,
+                            sortedBy: ElementOrderKey,
+                            ascending: true) { results in
+            completion(results as? [CDHabitTask])
+        }
+    }
+    
+    static func fetchArchivedTasks(completion: @escaping([CDHabitTask]?) -> Void) {
+        CDHabitTask.findAll(with: archivedTaskPredicate,
                             sortedBy: ElementOrderKey,
                             ascending: true) { results in
             completion(results as? [CDHabitTask])

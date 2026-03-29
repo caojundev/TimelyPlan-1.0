@@ -36,11 +36,9 @@ class TPCollectionWrapperView: UIView,
     }
 
     /// 提供占位视图
-    var placeholderViewProvider: (() -> UIView?)? {
+    var placeholderProvider: TPPlaceholderProviding? {
         didSet {
-            if let placeholderViewProvider = placeholderViewProvider {
-                collectionView.placeholderView = placeholderViewProvider()
-            }
+            updatePlaceholderView()
         }
     }
     
@@ -96,19 +94,14 @@ class TPCollectionWrapperView: UIView,
             collectionView.delegate = nil
         }
         
-        collectionView = UICollectionView(frame: bounds, collectionViewLayout: collectionViewLayout)
+        collectionView = UICollectionView(frame: bounds,
+                                          collectionViewLayout: collectionViewLayout)
         collectionView.isPrefetchingEnabled = false
         collectionView.backgroundColor = .clear
-        
-        /// 设置占位视图
-        if let placeholderViewProvider = placeholderViewProvider {
-            collectionView.placeholderView = placeholderViewProvider()
-        }
-        
         collectionConfiguration?(collectionView)
-        
         /// 设置适配器
         adapter.collectionView = collectionView
+        updatePlaceholderView()
     }
     
     required init?(coder: NSCoder) {
@@ -124,6 +117,10 @@ class TPCollectionWrapperView: UIView,
     func hideScrollIndicator() {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    func updatePlaceholderView() {
+        collectionView.placeholderView = placeholderProvider?.placeholderView()
     }
     
     // MARK: - 设置布局对象

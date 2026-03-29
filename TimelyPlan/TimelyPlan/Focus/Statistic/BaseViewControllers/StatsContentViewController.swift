@@ -55,6 +55,20 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         return style
     }()
     
+    private(set) var state: TPListLoadingState = .initialLoading {
+        didSet {
+            self.placeholderProvider.state = state
+            self.wrapperView.updatePlaceholderView()
+        }
+    }
+    
+    lazy var placeholderProvider: TPLoadableListPlaceholderProvider = {
+        let provider = TPLoadableListPlaceholderProvider()
+        provider.emptyImage = resGetImage("habit_plceholder_task_80")
+        provider.emptyTitle = resGetString("No Habit")
+        return provider
+    }()
+    
     init(type: StatsType, date: Date = .now, firstWeekday: Weekday = .firstWeekday) {
         self.type = type
         self.date = date
@@ -85,14 +99,11 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         super.viewDidLoad()
         self.view.addSubview(self.dateView)
         self.updateCollectionConfiguration()
-        self.wrapperView.placeholderViewProvider = { [weak self] in
-            return self?.placeholderView()
-        }
-        
         self.adapter.cellStyle = self.cellStyle
         self.reloadData()
         self.updateBackView()
         self.setupBackView()
+        self.wrapperView.placeholderProvider = self.placeholderProvider
     }
 
     override func viewWillLayoutSubviews() {
@@ -117,6 +128,21 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         return .systemGroupedBackground
     }
     
+    override func collectionViewFrame() -> CGRect {
+        return CGRect(x: 0,
+                      y: dateViewHeight,
+                      width: view.width,
+                      height: view.height - dateViewHeight)
+    }
+
+    /// 更新列表配置
+    func updateCollectionConfiguration() {
+        self.wrapperView.collectionConfiguration = { [weak self] collectionView in
+            collectionView.showsVerticalScrollIndicator = false
+            collectionView.contentInset = self?.contentInset ?? .zero
+        }
+    }
+    
     func setupBackView() {
         guard self.backView == nil else {
             return
@@ -130,44 +156,6 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         
         self.view.addSubview(backView)
         self.backView = backView
-    }
-    
-    override func reloadData() {
-        reloadData(completion: nil)
-    }
-
-    func reloadData(completion: (() -> Void)?) {
-        let date = self.date
-        self.fetchSectionControllers { [weak self] sectionControllers in
-            guard let self = self, date == self.date else {
-                return
-            }
-            
-            self.sectionControllers = sectionControllers
-            self.adapter.reloadData()
-            completion?()
-        }
-        
-        updateBackView()
-    }
-
-    override func collectionViewFrame() -> CGRect {
-        return CGRect(x: 0,
-                      y: dateViewHeight,
-                      width: view.width,
-                      height: view.height - dateViewHeight)
-    }
-
-    func placeholderView() -> UIView? {
-        return nil
-    }
-    
-    /// 更新列表配置
-    func updateCollectionConfiguration() {
-        self.wrapperView.collectionConfiguration = { [weak self] collectionView in
-            collectionView.showsVerticalScrollIndicator = false
-            collectionView.contentInset = self?.contentInset ?? .zero
-        }
     }
     
     private func updateBackView() {
@@ -193,15 +181,24 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         self.updateBackView()
     }
     
-    // MARK: - TPPreviousNextDateViewDelegate
-    func prviousNextDateView(_ view: TPPreviousNextDateView, didSelectDate date: Date) {
-        self.selectDate(date, from: self.date)
-        self.updateBackView()
+    override func reloadData() {
+        reloadData(completion: nil)
     }
-    
-    // MARK: - 子类重写
-    func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
+
+    func reloadData(completion: (() -> Void)?) {
+        let date = self.date
+        self.fetchSectionControllers { [weak self] sectionControllers in
+            guard let self = self, date == self.date else {
+                return
+            }
+            
+            self.state = .loaded
+            self.sectionControllers = sectionControllers
+            self.adapter.reloadData()
+            completion?()
+        }
         
+        updateBackView()
     }
     
     private func selectDate(_ date: Date, from oldDate: Date) {
@@ -216,14 +213,22 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         
         self.dateRange = newDateRange
         let animateStyle: SlideStyle = .horizontalStyle(fromValue: oldDate, toValue: date)
-        self.fetchSectionControllers { [weak self] sectionControllers in
-            guard let self = self, date == self.date else {
-                return
-            }
-            
-            self.sectionControllers = sectionControllers
-            self.wrapperView.reloadData(animateStyle: animateStyle)
-        }
+        
+        self.sectionControllers = nil
+        self.wrapperView.changeCollectionView(with: animateStyle)
+        self.state = .initialLoading /// 初始化切换状态
+        self.reloadData()
+    }
+
+    // MARK: - TPPreviousNextDateViewDelegate
+    func prviousNextDateView(_ view: TPPreviousNextDateView, didSelectDate date: Date) {
+        self.selectDate(date, from: self.date)
+        self.updateBackView()
+    }
+    
+    // MARK: - 子类重写
+    func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
+        
     }
     
     // MARK: - helpers

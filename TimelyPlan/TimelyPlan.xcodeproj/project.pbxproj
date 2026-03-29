@@ -154,6 +154,8 @@
 		E50DD7D92D72FD7600A85E87 /* todo_folder_opened_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50DD7D72D72FD7600A85E87 /* todo_folder_opened_24@3x.png */; };
 		E50DD7DB2D73065500A85E87 /* TodoIndentationGuideLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50DD7DA2D73065500A85E87 /* TodoIndentationGuideLayer.swift */; };
 		E50DD7DE2D7340CD00A85E87 /* TodoListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50DD7DD2D7340CD00A85E87 /* TodoListManager.swift */; };
+		E50FF8A42F78116600B8F5BE /* HabitLoadableTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FF8A32F78116600B8F5BE /* HabitLoadableTaskListView.swift */; };
+		E50FF8A72F789E1F00B8F5BE /* TPPlaceholderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FF8A62F789E1F00B8F5BE /* TPPlaceholderProvider.swift */; };
 		E5146EF42DA0C7410038A83A /* TodoFilterSpecificDateRangeSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146EEC2DA0C7410038A83A /* TodoFilterSpecificDateRangeSegmentedView.swift */; };
 		E51501942D477962008B2333 /* TPTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501932D477962008B2333 /* TPTableViewAdapter.swift */; };
 		E51501962D477A26008B2333 /* TPTableViewAdapterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */; };
@@ -1781,6 +1783,8 @@
 		E50DD7D72D72FD7600A85E87 /* todo_folder_opened_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_folder_opened_24@3x.png"; sourceTree = "<group>"; };
 		E50DD7DA2D73065500A85E87 /* TodoIndentationGuideLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoIndentationGuideLayer.swift; sourceTree = "<group>"; };
 		E50DD7DD2D7340CD00A85E87 /* TodoListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListManager.swift; sourceTree = "<group>"; };
+		E50FF8A32F78116600B8F5BE /* HabitLoadableTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitLoadableTaskListView.swift; sourceTree = "<group>"; };
+		E50FF8A62F789E1F00B8F5BE /* TPPlaceholderProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPlaceholderProvider.swift; sourceTree = "<group>"; };
 		E5146EEC2DA0C7410038A83A /* TodoFilterSpecificDateRangeSegmentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterSpecificDateRangeSegmentedView.swift; sourceTree = "<group>"; };
 		E51501932D477962008B2333 /* TPTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapter.swift; sourceTree = "<group>"; };
 		E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapterDataSource.swift; sourceTree = "<group>"; };
@@ -3786,6 +3790,14 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		E50FF8A52F789DF500B8F5BE /* PlaceholderProvider */ = {
+			isa = PBXGroup;
+			children = (
+				E50FF8A62F789E1F00B8F5BE /* TPPlaceholderProvider.swift */,
+			);
+			path = PlaceholderProvider;
+			sourceTree = "<group>";
+		};
 		E5146EE52D9FCFC00038A83A /* Specific */ = {
 			isa = PBXGroup;
 			children = (
@@ -4038,8 +4050,9 @@
 		E51FF6642F58369E003CA953 /* TaskListView */ = {
 			isa = PBXGroup;
 			children = (
-				E54C7C842F5C4F5D00263B82 /* HabitPeriodItemListView.swift */,
 				E5EFB1762F59D472000FFDF4 /* HabitTaskListView.swift */,
+				E50FF8A32F78116600B8F5BE /* HabitLoadableTaskListView.swift */,
+				E54C7C842F5C4F5D00263B82 /* HabitPeriodItemListView.swift */,
 				E51FF6602F583312003CA953 /* HabitTaskListBaseCell.swift */,
 				E5EFB1782F59D703000FFDF4 /* HabitTaskListDefaultInfoCell.swift */,
 				E5CFD2582F5838E300A898CB /* HabitTaskListGroupHeaderView.swift */,
@@ -5076,6 +5089,7 @@
 		E59243C92F5004B300CA2393 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E50FF8A52F789DF500B8F5BE /* PlaceholderProvider */,
 				E53DCEE72F618F5E00ADA526 /* GroupProvider */,
 				E556BCE82F5E5E8900CA20D9 /* Controllers */,
 				E556BCEE2F5E7B1100CA20D9 /* RecordEdit */,
@@ -9702,6 +9716,7 @@
 				E5D7D8D92D43933600EC877A /* FocusEventActionView.swift in Sources */,
 				E5BB9EBC2D3BF0C80089667A /* TPTimePickerTableCell.swift in Sources */,
 				E5BB9E522D3BF0C70089667A /* TPWeekdaySymbolView.swift in Sources */,
+				E50FF8A72F789E1F00B8F5BE /* TPPlaceholderProvider.swift in Sources */,
 				E500DE602DB0FA6700EAEAF7 /* TodoFilterTaskChangeViewController.swift in Sources */,
 				E507E7B92F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m in Sources */,
 				E5BB9F472D3BF45F0089667A /* SideMenuViewController.swift in Sources */,
@@ -10008,6 +10023,7 @@
 				E590CA9C2F4DF84C00E66041 /* StoragePropertyWrapper.swift in Sources */,
 				E5BB9F382D3BF4330089667A /* TaskRepresentable.swift in Sources */,
 				E50C0F832D846CDE00AFF908 /* TodoListSelectUserSectionController.swift in Sources */,
+				E50FF8A42F78116600B8F5BE /* HabitLoadableTaskListView.swift in Sources */,
 				E5D7D9182D43933700EC877A /* FocusStatsTypes.swift in Sources */,
 				E53F32BC2F696DA700B85B65 /* HabitReportMonthlyCell.swift in Sources */,
 				E53FD6DD2D871F2300760341 /* TodoEditFilter.swift in Sources */,

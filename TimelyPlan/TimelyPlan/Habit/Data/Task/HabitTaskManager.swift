@@ -138,6 +138,12 @@ class HabitTaskManager {
         return CDHabitTask.getActiveTasks().tasks
     }
     
+    func fetchArchivedTasks(completion: @escaping([HabitTask]?) -> Void) {
+        CDHabitTask.fetchArchivedTasks { results in
+            completion(results?.tasks)
+        }
+    }
+    
     func fetchActiveTasks(completion: @escaping([HabitTask]?) -> Void) {
         CDHabitTask.fetchActiveTasks { results in
             completion(results?.tasks)

@@ -36,12 +36,41 @@ class HabitPeriodItemFetcher {
         }
     }
     
-    func fetchScheduledPeriodItems(on date: Date,
-                                   activeTasks: [HabitTask],
+    func fetchScheduledPeriodItems(for tasks: [HabitTask],
+                                   in period: HabitDatePeriod,
+                                   completion: @escaping([HabitPeriodItem])->Void) {
+        var scheduledTasks: [HabitTask] = []
+        for task in tasks {
+            /// 任务时间范围与时间段有重叠
+            guard task.dateRange.intersects(with: period.dateRange) else {
+                continue
+            }
+            
+            let hasScheduledDate = !period.enumerateDates { date in
+                let isScheduled = scheduler.isScheduledDate(date,
+                                                            timePlan: task.timePlan,
+                                                            dateRange: task.dateRange)
+                if isScheduled {
+                    /// 中断循环
+                    return false
+                }
+                
+                return true
+            }
+
+            if hasScheduledDate {
+                scheduledTasks.append(task)
+            }
+        }
+            
+        fetchPeriodItems(for: scheduledTasks, in: period, completion: completion)
+    }
+    
+    func fetchScheduledPeriodItems(for tasks: [HabitTask],
+                                   on date: Date,
                                    completion: @escaping([HabitPeriodItem]?)->Void) {
-        /// 将任务归类
-        var scheduledTasks: [HabitTask] = [] /// 定期任务
-        for task in activeTasks {
+        var scheduledTasks: [HabitTask] = []
+        for task in tasks {
             let isScheduled = scheduler.isScheduledDate(date,
                                                         timePlan: task.timePlan,
                                                         dateRange: task.dateRange)

@@ -65,6 +65,34 @@ class HabitDatePeriod: NSObject {
     }
     
     
+    /// 遍历时段内的所有日期
+    /// - Parameter body: 对每个日期执行的闭包
+    /// - Returns: 如果遍历完成返回 true，如果被中断返回 false
+    @discardableResult
+    func enumerateDates(using body: (Date) -> Bool) -> Bool {
+        guard let startDate = dateRange.startDate,
+              let endDate = dateRange.endDate else {
+            return true
+        }
+        
+        var currentDate = startDate
+        let calendar = Calendar.current
+        while currentDate <= endDate {
+            let shouldContinue = body(currentDate)
+            if !shouldContinue {
+                return false
+            }
+            
+            // 增加一天
+            guard let nextDate = calendar.date(byAdding: .day, value: 1, to: currentDate) else {
+                break
+            }
+            currentDate = nextDate
+        }
+        
+        return true
+    }
+
     // MARK: - 功能方法
     
     /// 判断指定日期是否在当前时段内

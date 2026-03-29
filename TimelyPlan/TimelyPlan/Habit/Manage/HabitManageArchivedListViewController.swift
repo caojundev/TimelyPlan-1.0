@@ -12,15 +12,15 @@ class HabitManageArchivedListViewController: HabitManageBaseListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.listView.placeholderConfiguration = { view in
-            view.image = resGetImage("archivedList_80")
-            view.title = resGetString("No Archived Habit")
-        }
+        self.listView.listPlaceholderProvider.emptyImage = resGetImage("archivedList_80")
+        self.listView.listPlaceholderProvider.emptyTitle = resGetString("No Archived Habit")
     }
     
-    override func groupsInHabitTaskListView(_ listView: HabitTaskListView) -> [HabitTaskGroup]? {
-        let group = HabitTaskGroup(identifier: "Archived")
-        group.tasks = habit.archivedTasks()
-        return [group]
+    override func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+        habit.fetchArchivedTasks { tasks in
+            let group = HabitTaskGroup(identifier: "Archived")
+            group.tasks = tasks
+            completion([group])
+        }
     }
 }

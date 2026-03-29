@@ -7,6 +7,7 @@
 */
 
 "Default" = "默认";
+"Loading......" = "加载中......";
 
 ///**************************侧边栏**************************///
 "My Day" = "我的一天";
@@ -168,7 +169,10 @@
 "By Week" = "按周";
 "Manage Habits" = "管理习惯";
 "Tap + to create a new habit" = "点击+创建新习惯";
+
+"No Habit" = "无习惯";
 "No Habit Today" = "今日无习惯";
+"No Habit This Week" = "当前周无习惯";
 "No To-do Habit Today" = "今日无待办习惯";
 "No Completed Habit Today" = "今日无已完成习惯";
 "No Skipped Habit Today" = "今日无已跳过习惯";
