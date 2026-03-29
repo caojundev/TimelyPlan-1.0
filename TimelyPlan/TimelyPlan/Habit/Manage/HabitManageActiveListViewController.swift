@@ -52,7 +52,7 @@ class HabitManageActiveListViewController: HabitManageBaseListViewController {
         listView.contentInset = UIEdgeInsets(bottom: insetBottom)
     }
     
-    override func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+    override func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
         habit.fetchActiveTasks { tasks in
             let group = HabitTaskGroup(identifier: "Active")
             group.tasks = tasks

@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 class HabitHomeDayViewController: TPContainerViewController,
-                                  HabitLoadableTaskListViewDelegate,
-                                  HabitHomeDayListCellDelegate,
+                                  TPLoadableGroupCollectionViewDelegate,
                                   TPCalendarSingleDateSelectionDelegate,
+                                  HabitHomeDayListCellDelegate,
                                   SettingAgentObserver {
     
     /// 日期
@@ -79,6 +79,7 @@ class HabitHomeDayViewController: TPContainerViewController,
     private(set) lazy var listView: HabitPeriodItemListView = {
         let view = HabitPeriodItemListView(frame: view.bounds)
         view.delegate = self
+        view.listPlaceholderProvider.emptyImage = resGetImage("habit_plceholder_task_80")
         view.collectionConfiguration = { collectionView in
             collectionView.contentInset = UIEdgeInsets(bottom: 60.0)
         }
@@ -236,8 +237,8 @@ class HabitHomeDayViewController: TPContainerViewController,
         self.updateBackView()
     }
     
-    // MARK: - HabitLoadableTaskListViewDelegate
-    func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+    // MARK: - TPLoadableGroupCollectionViewDelegate
+    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
         if forceRefresh {
             self.groupProvider.setNeedsRefresh()
         }
@@ -248,17 +249,17 @@ class HabitHomeDayViewController: TPContainerViewController,
         }
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return HabitHomeDayListCell.self
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         let cell = cell as! HabitHomeDayListCell
         cell.delegate = self
         cell.periodItem = listView.item(at: indexPath) as? HabitPeriodItem
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let periodItem = listView.item(at: indexPath) as? HabitPeriodItem else {
             return
         }
@@ -267,15 +268,15 @@ class HabitHomeDayViewController: TPContainerViewController,
         HabitPresenter.showStats(for: periodItem.habitTask, date: self.date)
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, classForHeaderInSection section: Int) -> AnyClass? {
         return HabitTaskListGroupHeaderView.self
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, sizeForHeaderInSection section: Int) -> CGSize {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, sizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: .greatestFiniteMagnitude, height: 40.0)
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
         if let headerView = headerView as? HabitTaskListGroupHeaderView {
             headerView.contentPadding = UIEdgeInsets(top: 10.0,
                                                      left: 16.0,

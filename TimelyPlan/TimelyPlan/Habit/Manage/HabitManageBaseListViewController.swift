@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 class HabitManageBaseListViewController: TPViewController,
-                                         HabitLoadableTaskListViewDelegate,
+                                         TPLoadableGroupCollectionViewDelegate,
                                          HabitTaskListInfoCellDelegate {
 
-    private(set) lazy var listView: HabitLoadableTaskListView = {
-        let view = HabitLoadableTaskListView(frame: view.bounds)
+    private(set) lazy var listView: TPLoadableGroupCollectionView = {
+        let view = TPLoadableGroupCollectionView(frame: view.bounds)
         view.delegate = self
         return view
     }()
@@ -45,16 +45,16 @@ class HabitManageBaseListViewController: TPViewController,
         return .systemBackground
     }
     
-    // MARK: - HabitLoadableTaskListViewDelegate
-    func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+    // MARK: - TPLoadableGroupCollectionViewDelegate
+    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
         completion(nil)
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return HabitTaskListDefaultInfoCell.self
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         let cell = cell as! HabitTaskListDefaultInfoCell
         cell.delegate = self
         cell.habitTask = listView.item(at: indexPath) as? HabitTask
@@ -90,7 +90,7 @@ class HabitManageBaseListViewController: TPViewController,
         }
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let task = listView.item(at: indexPath) as? HabitTask else {
             return
         }

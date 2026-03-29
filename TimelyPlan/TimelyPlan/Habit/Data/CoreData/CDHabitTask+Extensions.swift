@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 extension CDHabitTask: TPHexColorConvertible {
     
@@ -195,6 +196,22 @@ extension CDHabitTask {
     private static var activeTaskPredicate: NSPredicate {
         let condition: PredicateCondition = (HabitTaskKey.isArchived, .notEqual(true))
         return NSPredicate.predicate(with: condition)
+    }
+}
+
+extension NSManagedObject {
+    
+    /// 最小排序因子
+    static var minimumOrder: Int64 {
+        
+        let order = minimumValue(for: ElementOrderKey, in: .defaultContext) as? Int64
+        return order ?? 0
+    }
+    
+    /// 最大排序因子
+    static var maximumOrder: Int64 {
+        let order = maximumValue(for: ElementOrderKey, in: .defaultContext) as? Int64
+        return order ?? 0
     }
 }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HabitTaskGroup: NSObject, Sortable {
+class HabitTaskGroup: NSObject, Sortable, GroupRepresentable {
     
     /// 分组唯一标识
     let identifier: String
@@ -30,6 +30,11 @@ class HabitTaskGroup: NSObject, Sortable {
     
     init(identifier: String) {
         self.identifier = identifier
+    }
+    
+    // MARK: - GroupRepresentable
+    var items: [ListDiffable]? {
+        return tasks
     }
     
     // MARK: - 等同性判断

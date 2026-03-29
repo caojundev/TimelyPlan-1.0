@@ -16,7 +16,7 @@ class HabitManageArchivedListViewController: HabitManageBaseListViewController {
         self.listView.listPlaceholderProvider.emptyTitle = resGetString("No Archived Habit")
     }
     
-    override func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+    override func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
         habit.fetchArchivedTasks { tasks in
             let group = HabitTaskGroup(identifier: "Archived")
             group.tasks = tasks

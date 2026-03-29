@@ -36,19 +36,6 @@ extension CDFocusTimer: TPHexColorConvertible {
         return timer
     }
     
-    /// 最小排序因子
-    static var minimumOrder: Int64 {
-        let order = minimumValue(for: FocusTimerKey.order, in: .defaultContext) as? Int64
-        return order ?? 0
-    }
-    
-    /// 最大排序因子
-    static var maximumOrder: Int64 {
-        let order = maximumValue(for: FocusTimerKey.order, in: .defaultContext) as? Int64
-        return order ?? 0
-    }
-    
-    
     func update(with editingTimer: FocusEditingTimer) {
         self.name = editingTimer.name
         self.colorHex = editingTimer.color.hexString

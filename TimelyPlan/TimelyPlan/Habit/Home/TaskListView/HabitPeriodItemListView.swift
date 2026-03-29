@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HabitPeriodItemListView: HabitLoadableTaskListView {
+class HabitPeriodItemListView: TPLoadableGroupCollectionView {
     
     // MARK: - Public Methods
     /// 聚焦显示任务

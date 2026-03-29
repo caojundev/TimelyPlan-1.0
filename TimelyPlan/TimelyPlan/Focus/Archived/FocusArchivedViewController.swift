@@ -7,19 +7,16 @@
 
 import Foundation
 
-class FocusArchivedViewController: TPCollectionSectionsViewController,
+class FocusArchivedViewController: TPViewController,
                                    FocusUserTimerListViewDelegate,
                                    FocusTimerProcessorDelegate,
                                    FocusTrackerDelegate {
-
+    
     lazy var listView: FocusUserTimerListView = {
         let listView = FocusUserTimerListView(frame: .zero)
         listView.delegate = self
-        listView.placeholderConfiguration = { placeholderView in
-            placeholderView.image = resGetImage("archivedList_80")
-            placeholderView.title = resGetString("No Archived Timer")
-        }
-        
+        listView.listPlaceholderProvider.emptyImage = resGetImage("archivedList_80")
+        listView.listPlaceholderProvider.emptyTitle = resGetString("No Archived Timer")
         return listView
     }()
     
@@ -72,7 +69,7 @@ class FocusArchivedViewController: TPCollectionSectionsViewController,
     }
     
     // MARK: - FocusUserTimerListViewDelegate
-    func focusTimerListView(_ listView: FocusTimerListView, fetchTimerGroups completion: @escaping ([FocusTimerGroup]?) -> Void) {
+    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
         focus.fetchArchivedTimers { timers in
             guard let timers = timers, timers.count > 0 else {
                 completion(nil)
@@ -85,9 +82,9 @@ class FocusArchivedViewController: TPCollectionSectionsViewController,
         }
     }
   
-    func focusTimerListView(_ listView: FocusTimerListView, didSelectItemAt indexPath: IndexPath) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
         TPImpactFeedback.impactWithSoftStyle()
-        if let timer = listView.item(at: indexPath) as? FocusTimer {
+        if let timer = collectionView.item(at: indexPath) as? FocusTimer {
             FocusPresenter.showStatistics(for: timer)
         }
     }

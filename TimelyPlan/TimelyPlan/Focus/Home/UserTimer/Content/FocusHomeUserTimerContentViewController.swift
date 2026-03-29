@@ -13,7 +13,7 @@ class FocusHomeUserTimerContentViewController: TPViewController,
                                                FocusSessionProcessorDelegate,
                                                FocusTrackerDelegate,
                                                FocusUserTimerListViewDelegate {
-
+    
     /// 分页控制器
     weak var pageController: TPPageController?
     
@@ -33,6 +33,8 @@ class FocusHomeUserTimerContentViewController: TPViewController,
         let listView = FocusUserTimerListView(frame: .zero)
         listView.delegate = self
         listView.isReorderEnabled = true
+        listView.listPlaceholderProvider.emptyImage = resGetImage("focus_placeholder_noTimer_80")
+        listView.listPlaceholderProvider.emptyTitle = resGetString("No Timer")
         return listView
     }()
 
@@ -86,13 +88,14 @@ class FocusHomeUserTimerContentViewController: TPViewController,
     }
     
     private func createNewTimer() {
-        let timers = listView.allItems() as? [FocusTimer]
+        let timers = listView.userTimers
         let timerController = FocusUserTimerController()
         timerController.createTimer(in: timers)
     }
     
-    // MARK: - FocusUserTimerListViewDelegate
-    func focusTimerListView(_ listView: FocusTimerListView, fetchTimerGroups completion: @escaping ([FocusTimerGroup]?) -> Void) {
+    // MARK: -
+    
+    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
         focus.fetchActiveTimers { timers in
             guard let timers = timers, timers.count > 0 else {
                 completion(nil)
@@ -105,9 +108,9 @@ class FocusHomeUserTimerContentViewController: TPViewController,
         }
     }
   
-    func focusTimerListView(_ listView: FocusTimerListView, didSelectItemAt indexPath: IndexPath) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
         TPImpactFeedback.impactWithSoftStyle()
-        if let timer = listView.item(at: indexPath) as? FocusTimer {
+        if let timer = collectionView.item(at: indexPath) as? FocusTimer {
             FocusPresenter.startFocus(with: timer)
         }
     }
@@ -192,6 +195,6 @@ class FocusHomeUserTimerContentViewController: TPViewController,
     
     // MARK: - Public Methods
     public func revealTimer(_ timer: FocusTimer) {
-        self.listView.revealTimer(timer)
+        self.listView.revealItem(timer)
     }
 }

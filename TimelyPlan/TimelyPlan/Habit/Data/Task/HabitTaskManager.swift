@@ -19,31 +19,23 @@ class HabitTaskManager {
     
     /// 任务处理更新器
     let updater = HabitTaskProcessorUpdater()
-    
-    /// 活动任务数组
-    private(set) var activeTasks: [HabitTask] = []
-    
+
     private var context: NSManagedObjectContext {
         return .defaultContext
-    }
-    
-    init() {
-        self.activeTasks = getActiveTasks()
     }
     
     // MARK: - 任务操作
     func createTask(with editingTask: HabitEditingTask) {
         let content = CDHabitTask.newTask(with: editingTask)
-        let task = HabitTask(content: content)
-        let addTop = HabitSetting.shared.addHabitOnTop
-        if addTop {
-            self.activeTasks.insert(task, at: 0)
+        let onTop = HabitSetting.shared.addHabitOnTop
+        if onTop {
+            content.order = CDHabitTask.minimumOrder - kOrderedStep
         } else {
-            self.activeTasks.append(task)
+            
+            content.order = CDHabitTask.maximumOrder + kOrderedStep
         }
         
-        CDHabitTask.syncOrders(for: self.activeTasks)
-        
+        let task = HabitTask(content: content)
         self.updater.didCreateHabitTask(task)
         HandyRecord.save()
     }
@@ -58,21 +50,12 @@ class HabitTaskManager {
         }
         
         content.update(with: editingTask)
-        
-        /// 替换活动任务数组中的旧任务
-        if let index = self.activeTasks.indexOf(task) {
-            let newTask = HabitTask(content: content)
-            self.activeTasks.replaceElement(at: index, with: newTask)
-        }
-        
         self.updater.didUpdateHabitTask(task)
         HandyRecord.save()
     }
     
     /// 删除任务
     func deleteTask(_ task: HabitTask) {
-        self.activeTasks.remove(task)
-
         if let cdTask = CDHabitTask.getTask(with: task.identifier) {
             self.context.delete(cdTask)
         }
@@ -86,9 +69,6 @@ class HabitTaskManager {
         var reorderedTasks = tasks
         reorderedTasks.moveObject(fromIndex: fromIndex, toIndex: toIndex)
         CDHabitTask.syncOrders(for: reorderedTasks)
-
-        /// 重新排序任务数组
-        self.activeTasks = self.activeTasks.orderedElements()
         self.updater.didReorderTask(in: tasks, fromIndex: fromIndex, toIndex: toIndex)
         HandyRecord.save()
     }
@@ -100,17 +80,6 @@ class HabitTaskManager {
         
         if let cdTask = CDHabitTask.getTask(with: task.identifier) {
             cdTask.isArchived = isArchived
-        }
-        
-        if isArchived {
-            /// 归档任务
-            self.activeTasks.remove(task)
-        } else {
-            /// 解除归档
-            if !self.activeTasks.contains(task) {
-                self.activeTasks.append(task)
-                self.activeTasks.updateOrders()
-            }
         }
         
         self.updater.didChangeArchivedState(for: task)

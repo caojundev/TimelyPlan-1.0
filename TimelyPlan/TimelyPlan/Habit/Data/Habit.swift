@@ -45,7 +45,7 @@ class Habit {
     // MARK: - Period Task
     
     func fetchScheduledPeriodItems(on date: Date = .now, completion: @escaping([HabitPeriodItem]?)->Void) {
-        let activeTasks = taskManager.activeTasks
+        let activeTasks = taskManager.getActiveTasks()
         periodItemFetcher.fetchScheduledPeriodItems(for: activeTasks,
                                                        on: date,
                                                        completion: completion)
@@ -53,7 +53,7 @@ class Habit {
     
     func fetchScheduledPeriodItems(in period: HabitDatePeriod,
                                    completion: @escaping([HabitPeriodItem])->Void) {
-        let activeTasks = taskManager.activeTasks
+        let activeTasks = taskManager.getActiveTasks()
         periodItemFetcher.fetchScheduledPeriodItems(for: activeTasks,
                                                        in: period,
                                                        completion: completion)
@@ -62,8 +62,7 @@ class Habit {
     
     func fetchPeriodItems(in period: HabitDatePeriod,
                           completion: @escaping([HabitPeriodItem])->Void) {
-        let activeTasks = taskManager.activeTasks
-        
+        let activeTasks = taskManager.getActiveTasks()
         periodItemFetcher.fetchPeriodItems(for: activeTasks,
                                             in: period,
                                             completion: completion)
@@ -104,7 +103,7 @@ class Habit {
     }
     
     func activeTasks() -> [HabitTask] {
-        return self.taskManager.activeTasks
+        return self.taskManager.getActiveTasks()
     }
     
     /// 是否有归档任务

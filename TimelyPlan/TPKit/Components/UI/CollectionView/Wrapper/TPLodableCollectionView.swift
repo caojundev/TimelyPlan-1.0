@@ -1,21 +1,22 @@
 //
-//  HabitTaskAsyncListView.swift
+//  TPLodableCollectionView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/3/28.
+//  Created by caojun on 2026/3/29.
 //
 
 import Foundation
+import UIKit
 
-protocol HabitLoadableTaskListViewDelegate: HabitTaskListViewDelegate {
+protocol TPLoadableGroupCollectionViewDelegate: TPGroupCollectionViewDelegate {
     
-    /// 异步获取习惯任务分组数据
-    func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView,
+    /// 异步获取分组数据
+    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView,
                                    forceRefresh: Bool,
-                                   fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void)
+                                   fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void)
 }
 
-class HabitLoadableTaskListView: HabitTaskListView {
+class TPLoadableGroupCollectionView: TPGroupCollectionView {
 
     private let requestManager = TPRequestManager()
     
@@ -30,8 +31,6 @@ class HabitLoadableTaskListView: HabitTaskListView {
     
     lazy var listPlaceholderProvider: TPLoadableListPlaceholderProvider = {
         let provider = TPLoadableListPlaceholderProvider()
-        provider.emptyImage = resGetImage("habit_plceholder_task_80")
-        provider.emptyTitle = resGetString("No Habit")
         return provider
     }()
     
@@ -93,14 +92,14 @@ class HabitLoadableTaskListView: HabitTaskListView {
     /// - Parameter completion: 完成回调，参数为是否成功
     private func asyncLoadGroups(forceRefresh: Bool = true, completion: @escaping (Bool) -> Void) {
         let requestID = requestManager.executeRequest()
-        guard let delegate = delegate as? HabitLoadableTaskListViewDelegate else {
+        guard let delegate = delegate as? TPLoadableGroupCollectionViewDelegate else {
             self.refreshControl?.endRefreshing()
             self.state = .loaded
             completion(true)
             return
         }
             
-        delegate.habitLoadableTaskListView(self, forceRefresh: forceRefresh) { [weak self] groups in
+        delegate.loadableGroupCollectionView(self, forceRefresh: forceRefresh) { [weak self] groups in
             self?.refreshControl?.endRefreshing()
             guard let self = self else {
                 completion(false)

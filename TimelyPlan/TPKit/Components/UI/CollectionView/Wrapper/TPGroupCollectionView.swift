@@ -1,62 +1,85 @@
 //
-//  HabitTaskListView.swift
+//  TPGroupCollectionView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/3/5.
+//  Created by caojun on 2026/3/29.
 //
 
 import Foundation
 import UIKit
 
-protocol HabitTaskListViewDelegate: AnyObject {
-    
-    /// 获取单元格类
-    func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass?
-    
-    /// 配置出队的单元格
-    func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath)
-    
-    func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath)
-    
-    /// 获取头部视图类
-    func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass?
-    
-    /// 获取头部视图尺寸
-    func habitTaskListView(_ listView: HabitTaskListView, sizeForHeaderInSection section: Int) -> CGSize
-
-    /// 配置出队的头部视图
-    func habitTaskListView(_ listView: HabitTaskListView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int)
+protocol GroupRepresentable: ListDiffable {
+    /// 分组内的条目
+    var items: [ListDiffable]? { get }
 }
 
-// MARK: - Default Implementation
-extension HabitTaskListViewDelegate {
+protocol TPGroupCollectionViewDelegate: AnyObject {
+    
+    /// 获取单元格类
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, classForCellAt indexPath: IndexPath) -> AnyClass?
+    
+    /// 配置出队的单元格
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath)
+    
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath)
+    
+    /// 获取头部视图类
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, classForHeaderInSection section: Int) -> AnyClass?
+    
+    /// 获取头部视图尺寸
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, sizeForHeaderInSection section: Int) -> CGSize
 
-    func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {
-        return TPCollectionHeaderFooterView.self
+    /// 配置出队的头部视图
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int)
+}
+
+
+extension TPGroupCollectionViewDelegate {
+    
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, classForCellAt indexPath: IndexPath) -> AnyClass? {
+        return TPCollectionCell.self
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, sizeForHeaderInSection section: Int) -> CGSize {
-        return .zero
-    }
-
-    func habitTaskListView(_ listView: HabitTaskListView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) { }
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, classForHeaderInSection section: Int) -> AnyClass? {
+        return TPCollectionHeaderFooterView.self
+    }
+    
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, sizeForHeaderInSection section: Int) -> CGSize {
+        return .zero
+    }
+
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
+        
+    }
+    
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) { }
 }
 
 
-class HabitTaskListView: TPCollectionWrapperView,
-                                TPCollectionViewAdapterDataSource,
-                                TPCollectionViewAdapterDelegate,
-                                TPCollectionHeaderFooterViewDelegate {
+class TPGroupCollectionView: TPCollectionWrapperView,
+                             TPCollectionViewAdapterDataSource,
+                             TPCollectionViewAdapterDelegate,
+                                    TPCollectionHeaderFooterViewDelegate {
     
-    var groups: [HabitTaskGroup]?
+    var groups: [GroupRepresentable]?
     
-    weak var delegate: HabitTaskListViewDelegate?
+    weak var delegate: TPGroupCollectionViewDelegate?
     
-    /// 首选 item 高度
+    /// 首选条目宽度和高度
+    var preferredItemWidth: CGFloat {
+        get {
+            return sectionLayout.preferredItemWidth
+        }
+        
+        set {
+            sectionLayout.preferredItemWidth = newValue
+        }
+    }
+    
     var preferredItemHeight: CGFloat {
         get {
             return sectionLayout.preferredItemHeight
@@ -67,7 +90,6 @@ class HabitTaskListView: TPCollectionWrapperView,
         }
     }
     
-
     /// 区块布局
     private(set) lazy var sectionLayout: TPCollectionSectionLayout = {
         let layout = TPCollectionSectionLayout()
@@ -77,7 +99,7 @@ class HabitTaskListView: TPCollectionWrapperView,
         layout.lineSpacing = 10.0
         layout.interitemSpacing = 10.0
         layout.preferredItemHeight = 80.0
-        layout.preferredItemWidth = kHabitTaskListContentMaxWidth
+        layout.preferredItemWidth = 560.0
         return layout
     }()
     
@@ -95,6 +117,10 @@ class HabitTaskListView: TPCollectionWrapperView,
     }
     
     // MARK: - Public Methods
+    
+    func allItems() -> [ListDiffable] {
+        return adapter.allItems()
+    }
     
     /// 获取指定区块的对象
     func sectionObject(at section: Int) -> ListDiffable {
@@ -147,23 +173,24 @@ class HabitTaskListView: TPCollectionWrapperView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
-        guard let group = sectionObject as? HabitTaskGroup else {
+        guard let group = sectionObject as? GroupRepresentable else {
             return nil
         }
-        return group.tasks
+        
+        return group.items
     }
     
     // MARK: - TPCollectionViewAdapterDelegate
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         if let delegate = delegate {
-            return delegate.habitTaskListView(self, classForCellAt: indexPath)
+            return delegate.groupCollectionView(self, classForCellAt: indexPath)
         }
         
-        return HabitTaskListBaseCell.self
+        return TPCollectionCell.self
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        delegate?.habitTaskListView(self, didDequeCell: cell, at: indexPath)
+        delegate?.groupCollectionView(self, didDequeCell: cell, at: indexPath)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -184,13 +211,13 @@ class HabitTaskListView: TPCollectionWrapperView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didSelectItemAt indexPath: IndexPath) {
-        delegate?.habitTaskListView(self, didSelectItemAt: indexPath)
+        delegate?.groupCollectionView(self, didSelectItemAt: indexPath)
     }
     
     // MARK: - Header Methods
     func adapter(_ adapter: TPCollectionViewAdapter, classForHeaderInSection section: Int) -> AnyClass? {
         if let delegate = delegate {
-            return delegate.habitTaskListView(self, classForHeaderInSection: section)
+            return delegate.groupCollectionView(self, classForHeaderInSection: section)
         }
         
         return UICollectionReusableView.self
@@ -198,7 +225,7 @@ class HabitTaskListView: TPCollectionWrapperView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForHeaderInSection section: Int) -> CGSize {
         if let delegate = delegate {
-            return delegate.habitTaskListView(self, sizeForHeaderInSection: section)
+            return delegate.groupCollectionView(self, sizeForHeaderInSection: section)
         }
         
         return .zero
@@ -206,7 +233,7 @@ class HabitTaskListView: TPCollectionWrapperView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
         if let delegate = delegate {
-            delegate.habitTaskListView(self, didDequeHeader: headerView, inSection: section)
+            delegate.groupCollectionView(self, didDequeHeader: headerView, inSection: section)
         }
     }
     
@@ -216,7 +243,7 @@ class HabitTaskListView: TPCollectionWrapperView,
         }
         
         if let delegate = delegate {
-            delegate.habitTaskListView(self, didDequeHeader: headerView, inSection: section)
+            delegate.groupCollectionView(self, didDequeHeader: headerView, inSection: section)
         }
     }
     

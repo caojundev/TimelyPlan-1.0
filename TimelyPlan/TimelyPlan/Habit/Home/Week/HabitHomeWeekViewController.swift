@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 class HabitHomeWeekViewController: TPViewController,
-                                   HabitLoadableTaskListViewDelegate,
-                                   HabitHomeWeekListCellDelegate,
+                                   TPLoadableGroupCollectionViewDelegate,
                                    TPPreviousNextDateViewDelegate,
+                                   HabitHomeWeekListCellDelegate,
                                    SettingAgentObserver {
     
     /// 当前周日期
@@ -193,8 +193,8 @@ class HabitHomeWeekViewController: TPViewController,
         }
     }
     
-    // MARK: - HabitLoadableTaskListViewDelegate
-    func habitLoadableTaskListView(_ listView: HabitLoadableTaskListView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([HabitTaskGroup]?) -> Void) {
+    // MARK: - TPLoadableGroupCollectionViewDelegate,
+    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
         if forceRefresh {
             self.groupProvider.setNeedsRefresh()
         }
@@ -206,32 +206,32 @@ class HabitHomeWeekViewController: TPViewController,
         }
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, classForCellAt indexPath: IndexPath) -> AnyClass? {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return HabitHomeWeekListCell.self
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         let cell = cell as! HabitHomeWeekListCell
         cell.delegate = self
         cell.periodItem = listView.item(at: indexPath) as? HabitPeriodItem
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, classForHeaderInSection section: Int) -> AnyClass? {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, classForHeaderInSection section: Int) -> AnyClass? {
         return HabitTaskListGroupHeaderView.self
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, sizeForHeaderInSection section: Int) -> CGSize {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, sizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: .greatestFiniteMagnitude, height: 40.0)
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
         if let headerView = headerView as? HabitTaskListGroupHeaderView {
             headerView.contentPadding = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 0.0, right: 16.0)
             headerView.group = listView.sectionObject(at: section) as? HabitTaskGroup
         }
     }
     
-    func habitTaskListView(_ listView: HabitTaskListView, didSelectItemAt indexPath: IndexPath) {
+    func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let task = listView.item(at: indexPath) as? HabitPeriodItem else {
             return
         }

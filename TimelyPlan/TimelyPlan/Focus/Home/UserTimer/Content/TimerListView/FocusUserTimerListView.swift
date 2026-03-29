@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol FocusUserTimerListViewDelegate: FocusTimerListViewDelegate {
+protocol FocusUserTimerListViewDelegate: TPLoadableGroupCollectionViewDelegate {
         
     /// 通知外部数据源移动数据条目
     func focusUserTimerListView(_ listView: FocusUserTimerListView,
@@ -18,19 +18,19 @@ protocol FocusUserTimerListViewDelegate: FocusTimerListViewDelegate {
 extension FocusUserTimerListViewDelegate {
     
     func focusUserTimerListView(_ listView: FocusUserTimerListView,
-                                    moveItemAt sourceIndexPath: IndexPath,
+                                moveItemAt sourceIndexPath: IndexPath,
                                 to targetIndexPath: IndexPath) {
         
     }
 }
 
-class FocusUserTimerListView: FocusTimerListView,
-                                  FocusUserTimerListCellDelegate,
-                                  TPCollectionDragInsertReorderDelegate {
+class FocusUserTimerListView: TPLoadableGroupCollectionView,
+                              FocusUserTimerListCellDelegate,
+                              TPCollectionDragInsertReorderDelegate {
     
     /// 当前列表所有的用户计时器
     var userTimers: [FocusTimer] {
-        return allItems() as? [FocusTimer] ?? []
+        return adapter.allItems() as? [FocusTimer] ?? []
     }
     
     var isDisplaying: Bool = true {
@@ -51,8 +51,12 @@ class FocusUserTimerListView: FocusTimerListView,
     
     private var reorder: TPCollectionDragInsertReorder?
     
+    private let cellStyle = FocusUserTimerCellStyle()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.preferredItemWidth = kFocusTimerListContentMaxWidth
+        self.preferredItemHeight = 70.0
         self.setupReorder()
     }
     
@@ -201,6 +205,4 @@ class FocusUserTimerListView: FocusTimerListView,
             timerController.deleteTimer(timer)
         }
     }
-    
-    
 }

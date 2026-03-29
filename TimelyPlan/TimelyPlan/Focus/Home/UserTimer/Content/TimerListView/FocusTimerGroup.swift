@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FocusTimerGroup: NSObject {
+class FocusTimerGroup: NSObject, GroupRepresentable {
 
     enum GroupType: String {
         case user
@@ -35,6 +35,12 @@ class FocusTimerGroup: NSObject {
     
     init(identifier: String) {
         self.identifier = identifier
+    }
+    
+    // MARK: - GroupRepresentable
+    
+    var items: [ListDiffable]? {
+        return self.timers
     }
     
     // MARK: - 等同性判断
