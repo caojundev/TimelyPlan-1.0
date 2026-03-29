@@ -45,8 +45,8 @@ class FocusStatsOverallViewController: FocusStatsBaseViewController,
     }
     
     // MARK: - SettingAgentObserver
-    func settingAgentDidChangeValue(for key: String) {
-        if key == FocusSetting.Key.isOverallStatsShowArchived.name {
+    func settingAgentDidChangeValue(for keyName: String) {
+        if keyName == FocusSetting.Key.isOverallStatsShowArchived.name {
             /// 重新加载数据
             let vc = self.contentViewController as? FocusStatsContentViewController
             vc?.reloadData()

@@ -11,7 +11,7 @@ class QuadrantTaskMoveController {
     
     /// 移动任务到特定象限
     func moveTask(_ task: TodoTask, to quadrant: Quadrant) {
-        let filterRule = QuadrantSettingAgent.shared.filterRule(for: quadrant)
+        let filterRule = QuadrantSetting.shared.filterRule(for: quadrant)
         let updater = TodoFilterTaskUpdater()
         guard let changes = updater.changes(for: task, with: filterRule), !changes.isEmpty else {
             return

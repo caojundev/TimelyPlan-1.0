@@ -19,8 +19,8 @@ class QuadrantFetcher {
     }
     
     func fetchGroups(completion: @escaping([TodoGroup]?) -> Void) {
-        let showCompleted = QuadrantSettingAgent.shared.showCompleted
-        let filterRule = QuadrantSettingAgent.shared.filterRule(for: quadrant)
+        let showCompleted = QuadrantSetting.shared.showCompleted
+        let filterRule = QuadrantSetting.shared.filterRule(for: quadrant)
         let sort = TodoSort(type: .startDate, order: .descending)
         todo.fetchTasks(filterRule: filterRule,
                         showCompleted: showCompleted,

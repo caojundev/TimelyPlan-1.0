@@ -222,8 +222,8 @@ class HabitHomeDayViewController: TPContainerViewController,
     }
     
     // MARK: - SettingAgentObserver
-    func settingAgentDidChangeValue(for key: String) {
-        if key == HabitSetting.Key.firstWeekday.name {
+    func settingAgentDidChangeValue(for keyName: String) {
+        if keyName == HabitSetting.Key.firstWeekday.name {
             reloadWeekView()
         }
     }

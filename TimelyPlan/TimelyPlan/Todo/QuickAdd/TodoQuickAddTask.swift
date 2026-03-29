@@ -84,7 +84,7 @@ extension TodoQuickAddTask {
     
     /// 获取象限默认的快速添加任务
     static func defaultTask(for quadrant: Quadrant) -> TodoQuickAddTask {
-        let rule = QuadrantSettingAgent.shared.filterRule(for: quadrant)
+        let rule = QuadrantSetting.shared.filterRule(for: quadrant)
         let task = TodoQuickAddTask()
         task.schedule = rule.defaultSchedule
         task.list = rule.defaultList

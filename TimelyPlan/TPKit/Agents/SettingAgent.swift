@@ -44,7 +44,7 @@ extension SettingKeyRepresentable where RawValue == String {
 
 // Define the protocol for observers
 protocol SettingAgentObserver: AnyObject {
-    func settingAgentDidChangeValue(for key: String)
+    func settingAgentDidChangeValue(for keyName: String)
 }
 
 class SettingAgent {

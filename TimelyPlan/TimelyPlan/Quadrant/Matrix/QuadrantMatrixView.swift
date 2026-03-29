@@ -56,8 +56,8 @@ class QuadrantMatrixView: UIView {
     /// 初始化象限视图
     private func setupQuadrantViews() {
         var views = [QuadrantView]()
-        let showDetail = QuadrantSettingAgent.shared.showDetail
-        let layout = QuadrantSettingAgent.shared.layout
+        let showDetail = QuadrantSetting.shared.showDetail
+        let layout = QuadrantSetting.shared.layout
         let quadrants = layout.getQuadrants()
         let titlePosition = layout.getTitlePosition()
         for quadrant in quadrants {
@@ -123,7 +123,7 @@ class QuadrantMatrixView: UIView {
     }
     
     func updateQuadrantShowDetail() {
-        let showDetail = QuadrantSettingAgent.shared.showDetail
+        let showDetail = QuadrantSetting.shared.showDetail
         for quadrantView in quadrantViews {
             quadrantView.setShowDetail(showDetail)
         }
@@ -135,7 +135,7 @@ class QuadrantMatrixView: UIView {
     }
     
     private func updateQuadrantViewOrders(animated: Bool = false) {
-        let layout = QuadrantSettingAgent.shared.layout
+        let layout = QuadrantSetting.shared.layout
         let quadrants = layout.getQuadrants()
         self.quadrantViews = quadrantViews.sorted(by: { lView, rView in
             let lIndex = quadrants.firstIndex(of: lView.quadrant) ?? 0
@@ -151,7 +151,7 @@ class QuadrantMatrixView: UIView {
     }
 
     private func updateQuadrantTitlePosition() {
-        let layout = QuadrantSettingAgent.shared.layout
+        let layout = QuadrantSetting.shared.layout
         let titlePosition = layout.getTitlePosition()
         for quadrantView in quadrantViews {
             quadrantView.titlePosition = titlePosition

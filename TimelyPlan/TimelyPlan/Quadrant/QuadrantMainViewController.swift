@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 class QuadrantMainViewController: TPViewController,
-                                  TFSidebarContent {
+                                  TFSidebarContent,
+                                    SettingAgentObserver {
 
     var sidebarController: SidebarController?
     
@@ -56,10 +57,7 @@ class QuadrantMainViewController: TPViewController,
         setupDragDropController()
         matrixView.asyncReloadData()
         todo.addUpdater(self)
-        
-        QuadrantSettingAgent.shared.didChangeSettingValue = { [weak self] key in
-            self?.changeSettingValue(forKey: key)
-        }
+        QuadrantSetting.shared.addObserver(self)
     }
     
     override func viewWillLayoutSubviews() {
@@ -97,38 +95,42 @@ class QuadrantMainViewController: TPViewController,
     }
     
     private func toggleShowCompleted() {
-        let showCompleted = !QuadrantSettingAgent.shared.showCompleted
-        QuadrantSettingAgent.shared.showCompleted = showCompleted
+        let showCompleted = !QuadrantSetting.shared.showCompleted
+        QuadrantSetting.shared.showCompleted = showCompleted
     }
     
     private func toggleShowDetail() {
-        let showDetail = !QuadrantSettingAgent.shared.showDetail
-        QuadrantSettingAgent.shared.showDetail = showDetail
+        let showDetail = !QuadrantSetting.shared.showDetail
+        QuadrantSetting.shared.showDetail = showDetail
     }
     
     private func editViewLayout() {
-        let layout = QuadrantSettingAgent.shared.layout
+        let layout = QuadrantSetting.shared.layout
         let vc = QuadrantLayoutEditViewController(layout: layout)
         vc.didEndEditing = { newLayout in
-            QuadrantSettingAgent.shared.layout = newLayout
+            QuadrantSetting.shared.layout = newLayout
         }
         
         vc.showAsNavigationRoot()
     }
     
     private func customQuadrantRule() {
-        let rules = QuadrantSettingAgent.shared.customRules
+        let rules = QuadrantSetting.shared.customRules
         let vc = QuadrantCustomRuleViewController(filterRules: rules)
         vc.didEndEditing = { newRules in
-            QuadrantSettingAgent.shared.customRules = newRules
+            QuadrantSetting.shared.customRules = newRules
         }
         
         vc.showAsNavigationRoot()
     }
     
     // MARK: - SettingAgentObserver
-    private func changeSettingValue(forKey key: QuadrantSettingKey) {
-        switch key {
+    func settingAgentDidChangeValue(for keyName: String) {
+        guard let settingKey = QuadrantSetting.Key(name: keyName) else {
+            return
+        }
+        
+        switch settingKey {
         case .showCompleted:
             matrixView.asyncPerformUpdate()
         case .showDetail:
