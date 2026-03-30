@@ -8,9 +8,7 @@
 import Foundation
 
 class TodoMainViewController: TPMultiColumnViewController,
-                                TFSidebarContent,
-                                TodoHomeViewControllerDelegate,
-                                TodoListProcessorDelegate {
+                                TPSidebarContent {
     
     /// 侧边栏管理器
     var sidebarController: SidebarController? {
@@ -22,24 +20,23 @@ class TodoMainViewController: TPMultiColumnViewController,
     /// 主页视图控制器
     lazy var homeViewController: TodoHomeViewController = {
         let viewController = TodoHomeViewController(style: .grouped)
-        viewController.delegate = self
         return viewController
     }()
     
     /// 当前视图控制器
-    private var currentViewController: TodoDetailViewController?
+//    private var currentViewController: TodoDetailViewController?
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         let homeNavigationController = UINavigationController(rootViewController: homeViewController)
         self.columnViewControllers = [homeNavigationController]
-        todo.addUpdater(self)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /*
     // MARK: - TodoHomeViewControllerDelegate
     func homeViewController(_ viewController: TodoHomeViewController, didSelectSmartList list: TodoSmartList) {
         self.showList(list)
@@ -75,4 +72,5 @@ class TodoMainViewController: TPMultiColumnViewController,
             showList(TodoSmartList.inbox)
         }
     }
+    */
 }

@@ -10,22 +10,8 @@ import UIKit
 
 class TodoHomeToolView: TPToolbar {
     
-    /// 点击添加目录
-    var didClickAddFolder: (() -> Void)?
-    
     /// 点击添加列表
     var didClickAddList: (() -> Void)?
-    
-    /// 添加目录
-    lazy var addFolderButtonItem: TPBarButtonItem = {
-        let image = resGetImage("todo_folder_add_24@2x")
-        let item = TPBarButtonItem(image: image) {[weak self] _ in
-            TPImpactFeedback.impactWithSoftStyle()
-            self?.didClickAddFolder?()
-        }
-        
-        return item
-    }()
 
     /// 添加列表
     lazy var addListButtonItem: TPBarButtonItem = {
@@ -40,8 +26,7 @@ class TodoHomeToolView: TPToolbar {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.buttonItems = [addFolderButtonItem,
-                            .flexibleSpaceButtonItem,
+        self.buttonItems = [.flexibleSpaceButtonItem,
                             addListButtonItem]
         self.addSeparator(position: .top)
     }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol TFSidebarContent: AnyObject {
+protocol TPSidebarContent: AnyObject {
     
     /// 侧边栏管理器
     var sidebarController: SidebarController? {get set}

@@ -17,7 +17,7 @@ enum HabitMainMenuType: Int, TPMenuRepresentable {
     }
 }
 
-class HabitMainViewController: TPContainerViewController, TFSidebarContent {
+class HabitMainViewController: TPContainerViewController, TPSidebarContent {
 
     var sidebarController: SidebarController?
     

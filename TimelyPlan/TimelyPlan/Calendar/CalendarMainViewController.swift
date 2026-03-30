@@ -14,7 +14,7 @@ protocol CalendarTitleViewProvider: AnyObject {
 }
 
 class CalendarMainViewController: TPContainerViewController,
-                                  TFSidebarContent {
+                                  TPSidebarContent {
  
     var sidebarController: SidebarController?
     

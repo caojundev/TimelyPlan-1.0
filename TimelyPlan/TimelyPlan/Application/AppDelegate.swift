@@ -18,8 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         super.init()
         /// 扩展方法交换初始化
         ExtensionSwizzler.setup()
-        /// 注册转换器
-        registerValueTransformers()
         
         /// 初始化暗黑模式
         DarkModeManager.setup(with: DMEnvironmentConfiguration())

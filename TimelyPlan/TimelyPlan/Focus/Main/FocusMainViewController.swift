@@ -18,7 +18,7 @@ enum FocusMainMenuType: Int, Codable, TPMenuRepresentable {
     }
 }
 
-class FocusMainViewController: TPPageController, TFSidebarContent {
+class FocusMainViewController: TPPageController, TPSidebarContent {
  
     var sidebarController: SidebarController?
     

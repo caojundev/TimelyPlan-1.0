@@ -20,8 +20,8 @@ class FocusHomeUserTimerContentViewController: TPViewController,
     /// 添加按钮
     let addViewSize = CGSize(width: 50.0, height: 50.0)
     let addViewMargin = 20.0
-    lazy var addView: TodoTaskAddView = {
-        let view = TodoTaskAddView()
+    lazy var addView: TPAddView = {
+        let view = TPAddView()
         view.didClickAdd = { [weak self] _ in
             self?.createNewTimer()
         }

@@ -18,6 +18,20 @@
 "Habit" = "习惯";
 "Settings" = "设置";
 
+
+///**********************待办*********************///
+
+/// 列表编辑
+"New List" = "新建列表";
+"Edit List" = "编辑列表";
+"Enter list name" = "输入列表名称";
+"Parent List" = "上层列表";
+"Untitled List" = "未命名列表";
+"Layout" = "布局";
+"List" = "列表";
+"Board" = "看板";
+
+
 ///**************************Focus**************************///
 "Focusing" = "专注中";
 "Timer" = "计时器";
@@ -29,7 +43,6 @@
 "Stopwatch" = "正计时";
 "Counting from zero" = "从零累加";
 "Start Focus" = "开始专注";
-
 "Default Pomodoro" = "默认番茄钟";
 "Default Countdown" = "默认倒计时";
 "Default Stopwatch" = "默认正计时";
@@ -48,18 +61,15 @@
 "Delete Timer" = "删除计时器";
 "Select Timer" = "选择计时器";
 "Search Timer" = "搜索计时器";
-
 "Enter timer name" = "输入计时器名称";
 "Focus %@" = "专注%@";
 "Short Break %@" = "短休息%@";
 "Long Break %@" = "长休息%@";
-
 "Add Record" = "添加记录";
 "View Record" = "查看记录";
 "All Records" = "所有记录";
 "Move To Top" = "移到顶部";
 "Move To Bottom" = "移到底部";
-
 "Delete Record" = "删除记录";
 "Sure to delete this focus record?" = "确认删除该条专注记录吗？";
 
@@ -87,7 +97,6 @@
 "Untitled task" = "未命名任务";
 "No task linked" = "未绑定任务";
 "Unlinked Task" = "未关联任务";
-
 
 /// 统计
 "Focus Statistics" = "专注统计";
@@ -130,7 +139,6 @@
 "Start from %@" = "开始于%@";
 "Ended at %@" = "结束于%@";
 "Save Focus Data" = "保存专注数据";
-
 "Discard" = "丢弃";
 "Discard data of this round" = "丢弃本轮数据";
 "Discard Focus Data" = "丢弃专注数据";
@@ -163,12 +171,12 @@
 "Auto Hide Hour" = "自动隐藏小时位";
 "Display only minute and second when the hour is zero" = "当小时位为0时仅显示分和秒";
 
+
 ///**************************习惯**************************///
 "By Day" = "按天";
 "By Week" = "按周";
 "Manage Habits" = "管理习惯";
 "Tap + to create a new habit" = "点击+创建新习惯";
-
 "No Habit" = "无习惯";
 "No Habit Today" = "今日无习惯";
 "No Habit This Week" = "当前周无习惯";
@@ -288,14 +296,12 @@
 "Logs" = "日志";
 "No Log" = "无日志";
 "Record Amount" = "记录量";
-
 "Completed Amount" = "总完成量";
 "Daily Avg Amount" = "日平均量";
 "Daily Avg Score" = "日平均分";
 "Finished Days" = "完成天数";
 "Avg Score" = "平均分";
 "Monthly Average Score" = "月平均分";
-
 "Weekly Check-in" = "周打卡分布";
 "Monthly Check-in" = "月打卡分布";
 "Yearly Check-in" = "年打卡分布";
@@ -315,6 +321,7 @@
 "Skipped Score" = "跳过评分";
 "Failed Score" = "失败评分";
 "Reset to Default" = "恢复默认";
+
 
 ///**********************四象限*********************///
 "Urgent & Important" = "重要且紧急";
@@ -391,6 +398,7 @@
 
 
 ///**********************待办*********************///
+
 /// 进度
 "Progress" = "进度";
 "Initial Value" = "初始值";
@@ -436,23 +444,16 @@
 "This Week" = "本周";
 "Tag" = "标签";
 
-"Layout" = "布局";
-"List" = "列表";
-"Board" = "看板";
-
 /// 看板
 "Untitled Section" = "未命名区块";
 
 /// 列表
 "My List" = "我的列表";
 "Add List" = "添加列表";
-"New List" = "新建列表";
 
 "Ungroup List" = "解散列表";
-"Edit List" = "编辑列表";
+
 "Move List" = "移动列表";
-"Enter list name" = "输入列表名称";
-"Parent List" = "父列表";
 "Select List" = "选择列表";
 "Search List" = "搜索列表";
 "No Parent List" = "无父列表";

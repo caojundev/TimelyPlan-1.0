@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class AppSettingsViewController: TPTableSectionsViewController,
-                                 TFSidebarContent {
+                                 TPSidebarContent {
     
     /// 侧边栏管理器
     var sidebarController: SidebarController?

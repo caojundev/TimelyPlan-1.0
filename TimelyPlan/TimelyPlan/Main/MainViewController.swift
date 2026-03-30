@@ -17,25 +17,11 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         return controller
     }()
     
-    /// 我的一天
-    lazy var myDayViewController: UINavigationController = {
-        let vc = MyDayMainViewController()
-        vc.sidebarController = sidebarController
-        return UINavigationController(rootViewController: vc)
-    }()
-    
     /// 待办
     lazy var todoViewController: TodoMainViewController = {
         let vc = TodoMainViewController()
         vc.sidebarController = sidebarController
         return vc
-    }()
-    
-    /// 四象限
-    lazy var quadrantViewController: UINavigationController = {
-        let vc = QuadrantMainViewController()
-        vc.sidebarController = sidebarController
-        return UINavigationController(rootViewController: vc)
     }()
     
     /// 日历
@@ -106,11 +92,11 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         var vc: UIViewController
         switch menuType {
         case .myDay:
-            vc = myDayViewController
+            vc = UIViewController()
         case .todo:
             vc = todoViewController
         case .quadrants:
-            vc = quadrantViewController
+            vc = UIViewController()
         case .calendar:
             vc = calendarViewController
         case .focus:

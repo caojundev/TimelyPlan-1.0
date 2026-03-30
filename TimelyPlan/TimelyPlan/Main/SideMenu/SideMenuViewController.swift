@@ -24,14 +24,11 @@ class SideMenuViewController: TPTableViewController,
     weak var delegate: SideMenuViewControllerDelegate?
     
     /// 当前选中菜单类型
-    var selectedMenuType: SideMenuType = .focus
+    var selectedMenuType: SideMenuType = .todo
     
-    /// 我的一天
-    let myDayMenuItem: TPMenuItem = TPMenuItem.item(with: [SideMenuType.myDay])
-
     /// 任务模块
     lazy var taskMenuItem: TPMenuItem = {
-        let types: [SideMenuType] = [.todo, .quadrants]
+        let types: [SideMenuType] = [.todo]
         let menuItem = TPMenuItem.item(with: types)
         return menuItem
     }()
@@ -72,8 +69,7 @@ class SideMenuViewController: TPTableViewController,
 
     // MARK: - dataSource
     func sectionObjects(for adapter: TPTableViewAdapter) -> [ListDiffable]? {
-        return [myDayMenuItem,
-                taskMenuItem,
+        return [taskMenuItem,
                 calendarMenuItem,
                 focusMenuItem,
                 habitMenuItem,
