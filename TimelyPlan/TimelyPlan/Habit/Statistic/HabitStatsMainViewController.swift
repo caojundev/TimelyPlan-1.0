@@ -46,8 +46,15 @@ class HabitStatsMainViewController: StatsMainViewController,
     
     override func handleFirstAppearance() {
         self.view.addSubview(self.infoView)
-        self.layoutInfoView(infoView, isHidden: true) /// 隐藏 infoView
-        self.view.animateLayout(withDuration: 0.6, usingSpring: true)
+        self.layoutInfoView(infoView, isHidden: true) /// 隐藏
+        UIView.animate(withDuration: 0.6,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0.5,
+                       options: .curveEaseInOut,
+                       animations: {
+            self.layoutInfoView(self.infoView)
+        }, completion: nil)
     }
     
     override func weeklyStatsViewController() -> UIViewController! {

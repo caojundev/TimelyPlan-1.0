@@ -85,7 +85,14 @@ class FocusRecordsViewController: StatsMainViewController {
 
         self.view.addSubview(infoView)
         self.layoutInfoView(infoView, isHidden: true) /// 隐藏infoView
-        self.view.animateLayout(withDuration: 0.6, usingSpring: true)
+        UIView.animate(withDuration: 0.6,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0.5,
+                       options: .curveEaseInOut,
+                       animations: {
+            self.layoutInfoView(infoView)
+        }, completion: nil)
     }
 
     /// 布局任务信息视图

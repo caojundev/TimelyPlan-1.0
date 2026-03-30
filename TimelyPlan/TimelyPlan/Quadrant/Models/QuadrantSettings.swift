@@ -29,7 +29,7 @@ class QuadrantSetting {
     @CloudStored(key: Key.layout.name, defaultValue: QuadrantLayout())
     var layout: QuadrantLayout
 
-    @CloudStored(key: Key.showDetail.name, defaultValue: TodoFilterRule.defaultQuadrantFilterRules)
+    @CloudStored(key: Key.customRules.name, defaultValue: TodoFilterRule.defaultQuadrantFilterRules)
     var customRules: [Quadrant: TodoFilterRule]
     
     static let shared = QuadrantSetting()

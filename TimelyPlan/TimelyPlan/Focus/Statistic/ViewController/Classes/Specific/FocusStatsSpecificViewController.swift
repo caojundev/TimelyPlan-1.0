@@ -52,14 +52,21 @@ class FocusStatsSpecificViewController: FocusStatsBaseViewController,
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        self.contentInset = UIEdgeInsets(bottom: infoViewHeight + infoViewEdgeMargins.verticalLength)
         self.layoutInfoView(infoView)
-        self.contentInset = UIEdgeInsets(bottom: infoView.height + infoViewEdgeMargins.verticalLength)
     }
     
     override func handleFirstAppearance() {
         self.view.addSubview(self.infoView)
         self.layoutInfoView(infoView, isHidden: true) /// 隐藏infoView
-        self.view.animateLayout(withDuration: 0.6, usingSpring: true)
+        UIView.animate(withDuration: 0.6,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0.5,
+                       options: .curveEaseInOut,
+                       animations: {
+            self.layoutInfoView(self.infoView)
+        }, completion: nil)
     }
     
     /// 布局任务信息视图
