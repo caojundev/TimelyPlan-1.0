@@ -29,6 +29,15 @@ extension CDHabitRecord {
         return nil
     }
     
+    /// 样本值数组
+    var sampleValues: [HabitSample]? {
+        guard let samples = samples?.allObjects as? [CDHabitSample] else {
+            return nil
+        }
+        
+        return samples.map { HabitSample(content: $0) }
+    }
+    
     /// 创建新记录
     static func newRecord(forTask task: HabitTask, onDate date: Date) -> CDHabitRecord {
         let record = CDHabitRecord.createEntity(in: .defaultContext)
@@ -36,60 +45,6 @@ extension CDHabitRecord {
         record.task = CDHabitTask.getTask(with: task.identifier)
         return record
     }
-    
-    /// 获取样本的时间偏移
-    var sampleTimeOffsets: Set<Duration>? {
-        guard let samples = samples?.allObjects as? [CDHabitSample] else {
-            return nil
-        }
-        
-        var timeValues = Set<Int>()
-        var offsets = Set<Duration>()
-        for sample in samples {
-            if let date = sample.date {
-                let timeValue = date.hour * 100 + date.minute
-                guard !timeValues.contains(timeValue) else {
-                    continue
-                }
-                
-                /// 相同小时和分钟的日期仅添加一次
-                timeValues.insert(timeValue)
-                offsets.insert(date.offset())
-            }
-        }
-     
-        if offsets.count > 0 {
-            return offsets
-        }
-        
-        return nil
-    }
-    
-    /// 按小时
-    var hourlyCheckinResults: HabitHourlyCheckinResults? {
-        guard let samples = samples?.allObjects as? [CDHabitSample] else {
-            return nil
-        }
-        
-        var results = HabitHourlyCheckinResults()
-        for sample in samples {
-            guard let date = sample.date else {
-                continue
-            }
-            
-            /// 时间段使用次数
-            let hour = date.hour
-            let count = results[hour] ?? 0
-            results[hour] = count + 1
-        }
-    
-        if results.count > 0 {
-            return results
-        }
-        
-        return nil
-    }
-
 }
 
 // MARK: - Predicate

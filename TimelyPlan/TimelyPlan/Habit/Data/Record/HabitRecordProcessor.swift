@@ -263,7 +263,7 @@ class HabitRecordProcessor {
                                          for task: HabitTask,
                                          on date: Date,
                                          with change: HabitRecordChange) {
-        let record = HabitRecord(content: record)
+        let record = HabitRecord(content: record, includeSamples: false)
         updater.didUpdateHabitRecord(record,
                                      for: task,
                                      on: date,

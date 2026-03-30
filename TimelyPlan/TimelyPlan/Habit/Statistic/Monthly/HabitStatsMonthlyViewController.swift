@@ -20,7 +20,7 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     
     override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
         let period = HabitDatePeriod(date: self.date, mode: .month)
-        habit.fetchPeriodItem(for: task, in: period) { periodItem in
+        habit.fetchPeriodItem(for: task, in: period, includeSamples: true) { periodItem in
             let sectionControllers = self.sectionControllers(for: periodItem)
             completion(sectionControllers)
         }

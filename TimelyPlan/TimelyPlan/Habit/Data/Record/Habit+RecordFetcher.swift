@@ -12,9 +12,10 @@ typealias HabitGroupedDailyItems = [Int32: [HabitDailyItem]]
 extension Habit {
     
     static func fetchDailyItemsGroupedByDay(in dateRange: DateRange,
-                                              completion: @escaping (HabitGroupedDailyItems?) -> Void) {
+                                            includeSamples: Bool = false,
+                                            completion: @escaping (HabitGroupedDailyItems?) -> Void) {
         Habit.fetchRecords(in: dateRange) { results in
-            let items = groupedDailyItems(with: results)
+            let items = groupedDailyItems(with: results, includeSamples: includeSamples)
             completion(items)
         }
     }
@@ -59,7 +60,8 @@ extension Habit {
         }
     }
     
-    private static func groupedDailyItems(with results: [CDHabitRecord]?) -> HabitGroupedDailyItems? {
+    private static func groupedDailyItems(with results: [CDHabitRecord]?,
+                                          includeSamples: Bool) -> HabitGroupedDailyItems? {
         guard let results = results else {
             return nil
         }
@@ -70,7 +72,7 @@ extension Habit {
                 continue
             }
             
-            let record = HabitRecord(content: result)
+            let record = HabitRecord(content: result, includeSamples: includeSamples)
             let task = HabitTask(content: taskContent)
             let item = HabitDailyItem(record: record, task: task)
             

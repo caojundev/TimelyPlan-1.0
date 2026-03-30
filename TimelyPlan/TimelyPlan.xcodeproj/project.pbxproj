@@ -138,6 +138,7 @@
 		E50D60872F7A4F6300D5E0A4 /* TodoUserListHomeSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D60852F7A4F6200D5E0A4 /* TodoUserListHomeSectionController.swift */; };
 		E50D60882F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D60862F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift */; };
 		E50D608A2F7A5A3900D5E0A4 /* TodoUserListOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D60892F7A5A3900D5E0A4 /* TodoUserListOrganizer.swift */; };
+		E50D608C2F7A7B1500D5E0A4 /* HabitSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D608B2F7A7B1500D5E0A4 /* HabitSample.swift */; };
 		E50D94B72D451C1800F57957 /* focus_record_add_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D94AF2D451C1800F57957 /* focus_record_add_24@2x.png */; };
 		E50D94B82D451C1800F57957 /* focus_record_add_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D94B02D451C1800F57957 /* focus_record_add_24@3x.png */; };
 		E50D94B92D451C1800F57957 /* focus_record_view_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D94B12D451C1800F57957 /* focus_record_view_24@2x.png */; };
@@ -1563,6 +1564,7 @@
 		E50D60852F7A4F6200D5E0A4 /* TodoUserListHomeSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUserListHomeSectionController.swift; sourceTree = "<group>"; };
 		E50D60862F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUserListBaseSectionController.swift; sourceTree = "<group>"; };
 		E50D60892F7A5A3900D5E0A4 /* TodoUserListOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoUserListOrganizer.swift; sourceTree = "<group>"; };
+		E50D608B2F7A7B1500D5E0A4 /* HabitSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSample.swift; sourceTree = "<group>"; };
 		E50D94AF2D451C1800F57957 /* focus_record_add_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_add_24@2x.png"; sourceTree = "<group>"; };
 		E50D94B02D451C1800F57957 /* focus_record_add_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_add_24@3x.png"; sourceTree = "<group>"; };
 		E50D94B12D451C1800F57957 /* focus_record_view_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_view_24@2x.png"; sourceTree = "<group>"; };
@@ -3450,9 +3452,9 @@
 		E50DD7D12D72EFBE00A85E87 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				E50D605C2F7A184700D5E0A4 /* UserList */,
 				E5BB9F572D3BF4A30089667A /* TodoHomeViewController.swift */,
 				E5BB9F5C2D3BF4A30089667A /* TodoHomeToolView.swift */,
+				E50D605C2F7A184700D5E0A4 /* UserList */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3979,6 +3981,7 @@
 			children = (
 				E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */,
 				E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */,
+				E50D608B2F7A7B1500D5E0A4 /* HabitSample.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -8696,6 +8699,7 @@
 				E50D60402F7A12B500D5E0A4 /* RepeatMonthOfYearTableViewCell.swift in Sources */,
 				E5BB9ED42D3BF0C80089667A /* TPCircularCheckbox.swift in Sources */,
 				E51FF6612F583312003CA953 /* HabitTaskListBaseCell.swift in Sources */,
+				E50D608C2F7A7B1500D5E0A4 /* HabitSample.swift in Sources */,
 				E5BB9DE12D3BF0C60089667A /* UIControl+Extension.swift in Sources */,
 				E5FC6BD52F67BE8C00D5A5EA /* HabitStatsHistoryMonthCell.swift in Sources */,
 				E58C9E182F4AF0DC0096B842 /* FocusTimelineTimeUtils.swift in Sources */,

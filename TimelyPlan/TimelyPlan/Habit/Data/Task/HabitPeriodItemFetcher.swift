@@ -14,6 +14,7 @@ class HabitPeriodItemFetcher {
     
     func fetchPeriodItems(for tasks: [HabitTask],
                           in period: HabitDatePeriod,
+                          includeSamples: Bool,
                           completion: @escaping([HabitPeriodItem])->Void) {
         let conditions: [PredicateCondition]
         if period.mode == .day {
@@ -24,7 +25,8 @@ class HabitPeriodItemFetcher {
         
         let predicate = conditions.andPredicate()
         CDHabitRecord.findAll(with: predicate) { results in
-            let groupedRecords = self.recordsGroupedByTask(with: results as? [CDHabitRecord])
+            let groupedRecords = self.recordsGroupedByTask(with: results as? [CDHabitRecord],
+                                                           includeSamples: includeSamples)
             var periodItems: [HabitPeriodItem] = []
             for task in tasks {
                 let item = HabitPeriodItem(habitTask: task, period: period)
@@ -38,6 +40,7 @@ class HabitPeriodItemFetcher {
     
     func fetchScheduledPeriodItems(for tasks: [HabitTask],
                                    in period: HabitDatePeriod,
+                                   includeSamples: Bool,
                                    completion: @escaping([HabitPeriodItem])->Void) {
         var scheduledTasks: [HabitTask] = []
         for task in tasks {
@@ -63,11 +66,15 @@ class HabitPeriodItemFetcher {
             }
         }
             
-        fetchPeriodItems(for: scheduledTasks, in: period, completion: completion)
+        fetchPeriodItems(for: scheduledTasks,
+                            in: period,
+                            includeSamples: includeSamples,
+                            completion: completion)
     }
     
     func fetchScheduledPeriodItems(for tasks: [HabitTask],
                                    on date: Date,
+                                   includeSamples: Bool,
                                    completion: @escaping([HabitPeriodItem]?)->Void) {
         var scheduledTasks: [HabitTask] = []
         for task in tasks {
@@ -80,32 +87,33 @@ class HabitPeriodItemFetcher {
         }
 
         let period = HabitDatePeriod(date: date, mode: .day)
-        fetchPeriodItems(for: scheduledTasks, in: period) { results in
+        fetchPeriodItems(for: scheduledTasks, in: period, includeSamples: includeSamples) { results in
             completion(results)
         }
     }
     
     func fetchPeriodItem(for task: HabitTask,
                          in period: HabitDatePeriod,
+                         includeSamples: Bool,
                          completion: @escaping(HabitPeriodItem)->Void) {
         let conditions = CDHabitRecord.conditions(forTask: task, inPeriod: period)
         let predicate = conditions.andPredicate()
         CDHabitRecord.findAll(with: predicate) { results in
             let periodItem = HabitPeriodItem(habitTask: task, period: period)
-            periodItem.records = self.records(with: results)
+            periodItem.records = self.records(with: results, includeSamples: includeSamples)
             completion(periodItem)
         }
     }
     
     /// 将获取的结果转换为 [DayIntegerKey: HabitRecord] 字典
-    private func records(with results: [NSFetchRequestResult]?) -> [DayIntegerKey: HabitRecord]? {
+    private func records(with results: [NSFetchRequestResult]?, includeSamples: Bool) -> [DayIntegerKey: HabitRecord]? {
         guard let results = results as? [CDHabitRecord] else {
             return nil
         }
         
         var records = [DayIntegerKey: HabitRecord]()
         for result in results {
-            records[result.day] = HabitRecord(content: result)
+            records[result.day] = HabitRecord(content: result, includeSamples: includeSamples)
         }
         
         return records
@@ -117,7 +125,7 @@ class HabitPeriodItemFetcher {
     // 定义类型别名
     private typealias HabitRecordsByTask = [String: [Int32: HabitRecord]]
     
-    private func recordsGroupedByTask(with results: [CDHabitRecord]?) -> HabitRecordsByTask? {
+    private func recordsGroupedByTask(with results: [CDHabitRecord]?, includeSamples: Bool) -> HabitRecordsByTask? {
         guard let results = results else {
             return nil
         }
@@ -129,7 +137,7 @@ class HabitPeriodItemFetcher {
             }
             
             var records = recordsGroupedByTask[taskID] ?? [:]
-            let record = HabitRecord(content: result)
+            let record = HabitRecord(content: result, includeSamples: includeSamples)
             records[result.day] = record
             recordsGroupedByTask[taskID] = records
         }

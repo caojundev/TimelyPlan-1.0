@@ -44,40 +44,52 @@ class Habit {
     
     // MARK: - Period Task
     
-    func fetchScheduledPeriodItems(on date: Date = .now, completion: @escaping([HabitPeriodItem]?)->Void) {
+    func fetchScheduledPeriodItems(on date: Date = .now,
+                                   includeSamples: Bool = false,
+                                   completion: @escaping([HabitPeriodItem]?)->Void) {
         let activeTasks = taskManager.getActiveTasks()
         periodItemFetcher.fetchScheduledPeriodItems(for: activeTasks,
                                                        on: date,
+                                                       includeSamples: includeSamples,
                                                        completion: completion)
     }
     
     func fetchScheduledPeriodItems(in period: HabitDatePeriod,
+                                   includeSamples: Bool = false,
                                    completion: @escaping([HabitPeriodItem])->Void) {
         let activeTasks = taskManager.getActiveTasks()
         periodItemFetcher.fetchScheduledPeriodItems(for: activeTasks,
                                                        in: period,
+                                                       includeSamples: includeSamples,
                                                        completion: completion)
     }
     
     
     func fetchPeriodItems(in period: HabitDatePeriod,
+                          includeSamples: Bool = false,
                           completion: @escaping([HabitPeriodItem])->Void) {
         let activeTasks = taskManager.getActiveTasks()
         periodItemFetcher.fetchPeriodItems(for: activeTasks,
                                             in: period,
+                                            includeSamples: includeSamples,
                                             completion: completion)
     }
     
     /// 统计
     func fetchPeriodItem(for task: HabitTask,
                          in period: HabitDatePeriod,
+                         includeSamples: Bool = false,
                          completion: @escaping(HabitPeriodItem)->Void) {
-        periodItemFetcher.fetchPeriodItem(for: task, in: period, completion: completion)
+        periodItemFetcher.fetchPeriodItem(for: task,
+                                             in: period,
+                                             includeSamples: includeSamples,
+                                             completion: completion)
     }
     
     /// 报告模块获取任务
     func fetchReportPeriodItems(in period: HabitDatePeriod,
                                 includeArchived: Bool,
+                                includeSamples: Bool = false,
                                 completion: @escaping([HabitPeriodItem])->Void) {
         let tasks: [HabitTask]
         if includeArchived {
@@ -86,7 +98,10 @@ class Habit {
             tasks = taskManager.getActiveTasks()
         }
         
-        periodItemFetcher.fetchPeriodItems(for: tasks, in: period, completion: completion)
+        periodItemFetcher.fetchPeriodItems(for: tasks,
+                                              in: period,
+                                              includeSamples: includeSamples,
+                                              completion: completion)
     }
     
     // MARK: - 任务获取

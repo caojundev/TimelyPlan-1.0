@@ -103,32 +103,71 @@ class HabitRecord: NSObject {
         return false
     }
 
-    /// 获取样本的时间偏移集合
+    /// 获取样本的时间偏移
     var sampleTimeOffsets: Set<Duration>? {
-        if content.isFault {
+        guard let samples = samples, samples.count > 0 else {
             return nil
         }
         
-        return content.sampleTimeOffsets
+        var timeValues = Set<Int>()
+        var offsets = Set<Duration>()
+        for sample in samples {
+            if let date = sample.date {
+                let timeValue = date.hour * 100 + date.minute
+                guard !timeValues.contains(timeValue) else {
+                    continue
+                }
+                
+                /// 相同小时和分钟的日期仅添加一次
+                timeValues.insert(timeValue)
+                offsets.insert(date.offset())
+            }
+        }
+     
+        if offsets.count > 0 {
+            return offsets
+        }
+        
+        return nil
     }
     
+    /// 按小时
     var hourlyCheckinResults: HabitHourlyCheckinResults? {
-        if content.isFault {
+        guard let samples = samples, samples.count > 0 else {
             return nil
         }
         
-        return content.hourlyCheckinResults
+        var results = HabitHourlyCheckinResults()
+        for sample in samples {
+            guard let date = sample.date else {
+                continue
+            }
+            
+            /// 时间段使用次数
+            let hour = date.hour
+            let count = results[hour] ?? 0
+            results[hour] = count + 1
+        }
+    
+        if results.count > 0 {
+            return results
+        }
+        
+        return nil
     }
+
+    private var samples: [HabitSample]?
     
-    /// 核心数据对象
-    private let content: CDHabitRecord
-    
-    // MARK: - Initialization
+    private let includeSamples: Bool
     
     /// 初始化习惯记录
     /// - Parameter content: 核心数据记录对象
-    init(content: CDHabitRecord) {
-        self.content = content
+    init(content: CDHabitRecord, includeSamples: Bool) {
+        self.includeSamples = includeSamples
+        if includeSamples {
+            self.samples = content.sampleValues
+        }
+        
         self.day = content.day
         self.amount = content.amount
         self.status = Status(rawValue: Int(content.status)) ?? .normal
