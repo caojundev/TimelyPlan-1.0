@@ -6,8 +6,10 @@
   
 */
 
-"Default" = "默认";
 "Loading......" = "加载中......";
+"Default" = "默认";
+"Unknown" = "未知";
+"Untitled" = "未命名";
 
 ///**************************侧边栏**************************///
 "My Day" = "我的一天";
@@ -23,6 +25,16 @@
 
 "%ld sublists" = "%ld个子列表";
 "%ld sublist" = "%ld个子列表";
+
+"Ungroup" = "解散";
+"Ungroup List" = "解散列表";
+"Move List" = "移动列表";
+"Add Sublist" = "添加子列表";
+
+"Are you sure to ungroup list \"%@\" ?" = "是否确认解散列表\"%@\"？";
+"\"%@\" will be permanently deleted. Sure to delete?" = "\"%@\"将被永久删除。是否确认删除？";
+
+
 
 /// 列表编辑
 "New List" = "新建列表";
@@ -421,8 +433,6 @@
 "Untitled Folder" = "未命名目录";
 "Select Folder" = "选择目录";
 "No Folder" = "无目录";
-"Ungroup" = "解散";
-"Add List" = "添加列表";
 
 "%ld lists" = "%ld个列表";
 "%ld list" = "%ld个列表";
@@ -452,18 +462,11 @@
 
 /// 列表
 "My List" = "我的列表";
-"Add List" = "添加列表";
-
-"Ungroup List" = "解散列表";
 
 "Move List" = "移动列表";
 "Select List" = "选择列表";
 "Search List" = "搜索列表";
 "No Parent List" = "无父列表";
-"\"%@\" will be permanently deleted. Sure to delete?" = "\"%@\"将被永久删除。是否确认删除？";
-"\"%@\" and %ld sublists will be permanently deleted. Sure to delete?" = "\"%@\"及其%ld个子列表将被永久删除。是否确认删除？";
-"\"%@\" and its sublist will be permanently deleted. Sure to delete?" = "\"%@\"及其子列表将被永久删除。是否确认删除？";
-"Are you sure to ungroup list \"%@\" ?" = "是否确认解散列表\"%@\"？";
 
 /// 任务编辑
 "Add to My Day" = "添加到我的一天";
@@ -499,9 +502,6 @@
 ///**********************通用*********************///
 "You have exceeded the maximum character limit of %ld." = "您已超出最大字符限制%ld";
 
-"Default" = "默认";
-"Unknown" = "未知";
-"Untitled" = "未命名";
 "Select All" = "全选";
 "Deselect All" = "反选";
 "%ld selected" = "选中%ld个";

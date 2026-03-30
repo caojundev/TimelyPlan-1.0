@@ -38,12 +38,6 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
  
     func TodoUserListHomeCellDidClickMore(_ cell: TodoUserListHomeCell) {
         guard let list = cell.list else { return }
-    }
-    
-    
-    /*
-    func TodoUserListHomeCellDidClickMore(_ cell: TodoUserListHomeCell) {
-        guard let list = cell.list else { return }
         let actionController = TodoListMenuActionController(list: list)
         actionController.didSelectMenuActionType = { type in
             self.performMenuActionType(type, for: list)
@@ -57,7 +51,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     func performMenuActionType(_ type: TodoListMenuActionType, for list: TodoList) {
         switch type {
         case .addSublist:
-            listController.createNewList(parent: list)
+            listController.createList(parent: list)
         case .ungroup:
             listController.ungroupList(list)
         case .move:
@@ -68,7 +62,6 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
             listController.deleteList(list)
         }
     }
-    */
 }
 
 // MARK: - 列表排序
