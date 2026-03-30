@@ -27,18 +27,34 @@ class TodoList: NSObject, Sortable, TPHexColorConvertible {
     /// 布局
     var layoutType: TodoListLayoutType = .list
     
+    /// 子列表
+    var sublists: [TodoList]?
+    
     /// 父清单
     weak var parent: TodoList?
     
-    init(content: CDTodoList) {
-        self.identifier = content.identifier ?? UUID().uuidString
-        self.order = content.order
-        self.emoji = content.emoji
-        self.name = content.name
-        self.colorHex =  content.colorHex
-        self.layoutType = TodoListLayoutType(rawValue: Int(content.layoutRawValue)) ?? .list
+    /// 是否收起
+    var isCollapsed: Bool = false
+  
+    override init() {
+        self.identifier = UUID().uuidString
+        self.order = 0
+        self.emoji = .randomEmoji()
+        self.colorHex = UIColor.random.hexString
+        self.name = "清单 \(arc4random() % 1000)"
         super.init()
     }
+    
+    
+//    init(content: CDTodoList) {
+//        self.identifier = content.identifier ?? UUID().uuidString
+//        self.order = content.order
+//        self.emoji = content.emoji
+//        self.name = content.name
+//        self.colorHex =  content.colorHex
+//        self.layoutType = TodoListLayoutType(rawValue: Int(content.layoutRawValue)) ?? .list
+//        super.init()
+//    }
     
     // MARK: - 等同性判断
     override var hash: Int {
@@ -64,22 +80,5 @@ class TodoList: NSObject, Sortable, TPHexColorConvertible {
     // MARK: - IGListDiffable
     override func diffIdentifier() -> NSObjectProtocol {
         return identifier as NSString
-    }
-}
-
-// MARK: - 编辑列表 EdtingList
-extension TodoList {
-    
-    /// 获取编辑任务
-    var editingList: TodoEditingList {
-        let list = TodoEditingList(emoji: emoji,
-                                   name: name,
-                                   color: color,
-                                   layoutType: layoutType)
-        return list
-    }
-    
-    func isSameEditingList(as other: TodoEditingList) -> Bool {
-        return editingList == other
     }
 }
