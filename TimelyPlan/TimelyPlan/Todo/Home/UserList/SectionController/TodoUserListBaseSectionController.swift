@@ -121,7 +121,15 @@ class TodoUserListBaseSectionController: TPTableBaseSectionController,
     }
     
     // MARK: - TPExpandDefaultInfoTableCellDelegate
-    func expandDefaultInfoTableCell(_ cell: TPExpandDefaultInfoTableCell, didToggleExpand isExpanded: Bool) {
+    func isExpandedTableCell(_ cell: TPExpandDefaultInfoTableCell) -> Bool {
+        return false
+    }
+    
+    func expandTableCell(_ cell: TPExpandDefaultInfoTableCell, canToggleExpandStateTo isExpanded: Bool) -> Bool {
+        return true
+    }
+    
+    func expandTableCell(_ cell: TPExpandDefaultInfoTableCell, didToggleExpand isExpanded: Bool) {
         
     }
     

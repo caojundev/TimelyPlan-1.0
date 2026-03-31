@@ -33,6 +33,7 @@ class TodoUserListHomeCell: TodoUserListBaseCell {
     }
     
     override func didChangeExpandedStatus() {
+        super.didChangeExpandedStatus()
         updateSubtitle()
     }
     
@@ -41,16 +42,7 @@ class TodoUserListHomeCell: TodoUserListBaseCell {
         super.updateListInfo()
         updateSubtitle()
         updateTaskCount()
-        updateExpanded()
         setNeedsLayout()
-    }
-    
-    func updateExpanded(animated: Bool = false) {
-        guard let list = self.list else {
-            return
-        }
-        
-        self.setExpanded(list.isExpanded, animated: animated)
     }
     
     /// 更新任务数目

@@ -91,6 +91,8 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
         iconConfig.icon = list.icon
         iconConfig.foreColor = list.color
         self.iconInfoTextValueView.iconConfig = iconConfig
+        
+        self.updateExpanded(animated: false)
         setNeedsLayout()
     }
 }

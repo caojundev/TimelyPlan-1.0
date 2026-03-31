@@ -250,22 +250,19 @@ class TodoListEditViewController: TPTableSectionsViewController {
     
     ///  选择列表
     func selectParentList() {
-//        let allowMaxDepth = TodoList.parentMaxDepth(for: self.list)
-//        let vc = TodoListMoveViewController(mode: .parent,
-//                                            list: parentList,
-//                                            allowMaxDepth: allowMaxDepth)
-//        if let list = list {
-//            vc.disabledLists = [list]
-//        }
-//
-//        vc.didSelectList = { selectedList in
-//            self.parentList = selectedList as? TodoList
-//            self.adapter.reloadCell(forItem: self.parentCellItem)
-//        }
-//
-//        let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
-//        navController.show()
+        let allowMaxDepth = TodoList.parentMaxDepth(for: self.list)
+        let vc = TodoParentListPickerViewController(list: parentList,
+                                                    allowMaxDepth: allowMaxDepth)
+        if let list = list {
+            vc.disabledLists = [list]
+        }
+
+        vc.didSelectList = { selectedList in
+            self.parentList = selectedList
+            self.adapter.reloadCell(forItem: self.parentCellItem)
+        }
+
+        vc.showAsNavigationRoot()
     }
     
     

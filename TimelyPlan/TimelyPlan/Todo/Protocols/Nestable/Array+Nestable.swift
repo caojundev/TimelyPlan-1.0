@@ -15,14 +15,14 @@ extension Array where Element: Nestable & Equatable {
     /// - Parameters:
     ///     - shouldExpand: 是否展开清单
     /// - Returns: 清单顺序数组
-    func flattenItems(shouldExpand: ((Nestable) -> Bool)? = nil) -> [Nestable] {
+    func flattenItems(with stateProvier: ExpansionStateProviding) -> [Nestable] {
         var results: [Nestable] = []
         let rootItems = self
         for rootItem in rootItems {
             results.append(rootItem)
-            let isExpanded = shouldExpand?(rootItem) ?? rootItem.isExpanded
+            let isExpanded = stateProvier.isExpanded(rootItem)
             if isExpanded {
-                let subItems = rootItem.flattenOrderedSubItems(shouldExpand: shouldExpand)
+                let subItems = rootItem.flattenOrderedSubItems(with: stateProvier)
                 results.append(contentsOf: subItems)
             }
         }

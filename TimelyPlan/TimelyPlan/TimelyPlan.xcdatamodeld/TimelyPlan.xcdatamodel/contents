@@ -69,13 +69,14 @@
     </entity>
     <entity name="CDTodoList" representedClassName="CDTodoList" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="emoji" optional="YES" attributeType="String"/>
         <attribute name="identifier" optional="YES" attributeType="String"/>
         <attribute name="layoutRawValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTodoList" inverseName="sublists" inverseEntity="CDTodoList"/>
-        <relationship name="sublists" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTodoList" inverseName="parent" inverseEntity="CDTodoList"/>
+        <relationship name="sublists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTodoList" inverseName="parent" inverseEntity="CDTodoList"/>
     </entity>
     <entity name="KeyValueStore" representedClassName="KeyValueEntry" syncable="YES">
         <attribute name="key" optional="YES" attributeType="String"/>
@@ -88,7 +89,7 @@
         <element name="CDHabitRecord" positionX="18" positionY="180" width="128" height="164"/>
         <element name="CDHabitSample" positionX="27" positionY="189" width="128" height="74"/>
         <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="359"/>
+        <element name="CDTodoList" positionX="54" positionY="99" width="128" height="164"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
-        <element name="CDTodoList" positionX="54" positionY="99" width="128" height="149"/>
     </elements>
 </model>

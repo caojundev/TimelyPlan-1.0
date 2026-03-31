@@ -12,15 +12,15 @@ class TodoUserListController {
     // MARK: - 编辑
     /// 新建列表
     public func createList(parent: TodoList? = nil) {
-        editList(nil, parent: parent) { editList, parent in
-//            todo.createList(with: editList, parent: parent)
+        editList(nil, parent: parent) { editingList, parent in
+            todo.createList(with: editingList, parent: parent)
         }
     }
     
     /// 编辑列表
     public func editList(_ list: TodoList){
-        editList(list, parent: list.parent) { editList, parent in
-//            todo.updateList(list, with: editList, parent: parent)
+        editList(list, parent: list.parent) { editingList, parent in
+            todo.updateList(list, with: editingList, parent: parent)
         }
     }
     

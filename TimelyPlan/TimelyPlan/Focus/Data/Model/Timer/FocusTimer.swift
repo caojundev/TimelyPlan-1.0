@@ -8,10 +8,10 @@
 import Foundation
 
 struct FocusTimerKey {
-    static var identifier: String = "identifier"
-    static var order: String = "order"
-    static var name: String = "name"
-    static var isArchived: String = "isArchived"
+    static var identifier = "identifier"
+    static var order = "order"
+    static var name = "name"
+    static var isArchived = "isArchived"
 }
 
 class FocusTimer: NSObject, Sortable {

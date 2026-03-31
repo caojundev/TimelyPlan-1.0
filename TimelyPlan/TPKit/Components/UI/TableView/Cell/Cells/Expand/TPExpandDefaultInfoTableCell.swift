@@ -31,8 +31,11 @@ class TPExpandDefaultInfoTableCellItem: TPDefaultInfoTableCellItem {
 
 protocol TPExpandDefaultInfoTableCellDelegate: AnyObject {
     
-    /// 点击展开 / 收起按钮
-    func expandDefaultInfoTableCell(_ cell: TPExpandDefaultInfoTableCell, didToggleExpand isExpanded: Bool)
+    func isExpandedTableCell(_ cell: TPExpandDefaultInfoTableCell) -> Bool
+    
+    func expandTableCell(_ cell: TPExpandDefaultInfoTableCell, canToggleExpandStateTo isExpanded: Bool) -> Bool
+    
+    func expandTableCell(_ cell: TPExpandDefaultInfoTableCell, didToggleExpand isExpanded: Bool)
 }
 
 class TPExpandDefaultInfoTableCell: TPDefaultInfoTableCell {
@@ -48,13 +51,7 @@ class TPExpandDefaultInfoTableCell: TPDefaultInfoTableCell {
     
     /// 是否已展开
     var isExpanded: Bool {
-        get {
-            return _isExpanded
-        }
-        
-        set {
-            setExpanded(newValue, animated: false)
-        }
+        return _isExpanded
     }
 
     /// 切换展开状态回调
@@ -66,8 +63,8 @@ class TPExpandDefaultInfoTableCell: TPDefaultInfoTableCell {
                 return
             }
             
-            isExpanded = cellItem.isExpanded
             didToggleExpand = cellItem.didToggleExpand
+            setExpanded(cellItem.isExpanded, animated: false)
         }
     }
     
@@ -95,17 +92,18 @@ class TPExpandDefaultInfoTableCell: TPDefaultInfoTableCell {
     // MARK: - Event Response
     /// 点击展开或收起按钮
     @objc private func clickExpand(_ button: UIButton) {
-        setExpanded(!isExpanded, animated: true)
-        
-        if let cellItem = cellItem as? TPExpandDefaultInfoTableCellItem {
-            cellItem.isExpanded = isExpanded
+        guard let delegate = delegate as? TPExpandDefaultInfoTableCellDelegate else {
+            return
         }
         
-        /// 通知代理对象
-        if let delegate = delegate as? TPExpandDefaultInfoTableCellDelegate {
-            delegate.expandDefaultInfoTableCell(self, didToggleExpand: isExpanded)
+        let isExpanded = !self.isExpanded
+        guard delegate.expandTableCell(self, canToggleExpandStateTo: isExpanded) else {
+            return
         }
         
+        setExpanded(isExpanded, animated: true)
+        updateExpandedButton()
+        delegate.expandTableCell(self, didToggleExpand: isExpanded)
         didToggleExpand?(isExpanded)
     }
     
@@ -127,8 +125,40 @@ class TPExpandDefaultInfoTableCell: TPDefaultInfoTableCell {
         }
     }
     
+    func updateExpandedButton() {
+        guard let delegate = delegate as? TPExpandDefaultInfoTableCellDelegate else {
+            return
+        }
+        
+        let isExpanded = !self.isExpanded
+        if delegate.expandTableCell(self, canToggleExpandStateTo: isExpanded) {
+            self.expandButton.isEnabled = true
+            self.expandButton.alpha = 1.0
+        } else {
+            self.expandButton.isEnabled = false
+            self.expandButton.alpha = 0.4
+        }
+    }
+    
+    func updateExpanded(animated: Bool) {
+        guard let delegate = delegate as? TPExpandDefaultInfoTableCellDelegate else {
+            return
+        }
+        
+        let isExpanded = delegate.isExpandedTableCell(self)
+        setExpanded(isExpanded, animated: animated)
+        updateExpandedButton()
+    }
+    
     /// 改变展开状态通知方法，子类重写该方法进行内容更新操作
     func didChangeExpandedStatus() {
-        
+        updateCellItemExpandState()
     }
+    
+    private func updateCellItemExpandState() {
+        if let cellItem = cellItem as? TPExpandDefaultInfoTableCellItem {
+            cellItem.isExpanded = isExpanded
+        }
+    }
+    
 }

@@ -7,6 +7,35 @@
 
 import Foundation
 
+/// 列表布局类型
+enum TodoListLayoutType: Int, Codable, TPMenuRepresentable {
+    
+    case list
+    case board
+    
+    static func titles() -> [String] {
+        return ["List", "Board"]
+    }
+
+    var iconName: String? {
+        switch self {
+        case .list:
+            return "todo_list_layout_list_96"
+        case .board:
+            return "todo_list_layout_board_96"
+        }
+    }
+    
+    var miniIconName: String {
+        switch self {
+        case .list:
+            return "todo_list_24"
+        case .board:
+            return "todo_list_board_24"
+        }
+    }
+}
+
 class TodoList: NSObject, Sortable, TPHexColorConvertible {
 
     /// 排序因子
@@ -33,9 +62,6 @@ class TodoList: NSObject, Sortable, TPHexColorConvertible {
     /// 父清单
     weak var parent: TodoList?
     
-    /// 是否收起
-    var isCollapsed: Bool = false
-  
     override init() {
         self.identifier = UUID().uuidString
         self.order = 0
@@ -45,16 +71,16 @@ class TodoList: NSObject, Sortable, TPHexColorConvertible {
         super.init()
     }
     
-    
-//    init(content: CDTodoList) {
-//        self.identifier = content.identifier ?? UUID().uuidString
-//        self.order = content.order
-//        self.emoji = content.emoji
-//        self.name = content.name
-//        self.colorHex =  content.colorHex
-//        self.layoutType = TodoListLayoutType(rawValue: Int(content.layoutRawValue)) ?? .list
-//        super.init()
-//    }
+    init(content: CDTodoList) {
+        self.identifier = content.identifier ?? UUID().uuidString
+        self.order = content.order
+        self.emoji = content.emoji
+        self.name = content.name
+        self.colorHex =  content.colorHex
+        self.layoutType = TodoListLayoutType(rawValue: Int(content.layoutRawValue)) ?? .list
+        super.init()
+        self.sublists = content.sublists(parent: self)
+    }
     
     // MARK: - 等同性判断
     override var hash: Int {
@@ -75,6 +101,30 @@ class TodoList: NSObject, Sortable, TPHexColorConvertible {
                 name == other.name &&
                 colorHex == other.colorHex &&
                 layoutType == other.layoutType
+    }
+    
+    
+    func addSublist(_ list: TodoList) {
+        if self.identifier == list.identifier {
+            /// 列表不能作为自己的子列表
+            return
+        }
+        
+        if let parent = list.parent {
+            /// 从原父清单移出
+            parent.removeSublist(list)
+        }
+        
+        var sublists = self.sublists ?? []
+        sublists.append(list)
+        self.sublists = sublists
+        list.parent = self
+    }
+    
+    func removeSublist(_ list: TodoList) {
+        if let _ = sublists?.remove(list) {
+            list.parent = nil
+        }
     }
     
     // MARK: - IGListDiffable

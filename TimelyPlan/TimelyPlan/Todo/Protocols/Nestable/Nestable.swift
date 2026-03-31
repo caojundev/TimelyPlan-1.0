@@ -18,10 +18,6 @@ protocol Nestable: NSObjectProtocol, Sortable {
     /// 允许的最大深度
     static var allowMaxDepth: Int { get }
     
-    /// 是否展开
-    var isExpanded: Bool { get set }
-    
-    
     // MARK: - 可选
     
     /// 列表深度，根列表为 0
@@ -110,7 +106,7 @@ extension Nestable {
     }
     
     /// 所有嵌套子条目顺序数组
-    func flattenOrderedSubItems(shouldExpand: ((Nestable) -> Bool)? = nil) -> [Nestable] {
+    func flattenOrderedSubItems(with stateProvier: ExpansionStateProviding) -> [Nestable] {
         guard self.depth < Self.allowMaxDepth, let subItems = orderedSubItems, subItems.count > 0 else {
             return []
         }
@@ -118,10 +114,10 @@ extension Nestable {
         var result: [Nestable] = []
         for item in subItems {
             result.append(item)
-            let isExpanded = shouldExpand?(item) ?? item.isExpanded
+            let isExpanded = stateProvier.isExpanded(item)
             if isExpanded {
                 /// 列表展开
-                result += item.flattenOrderedSubItems(shouldExpand: shouldExpand)
+                result += item.flattenOrderedSubItems(with: stateProvier)
             }
         }
         
@@ -129,7 +125,7 @@ extension Nestable {
     }
     
     /// 返回子清单集合
-    func allSubItems(shouldExpand: ((Nestable) -> Bool)? = nil) -> [Nestable] {
+    func allSubItems(with stateProvier: ExpansionStateProviding) -> [Nestable] {
         guard self.depth < Self.allowMaxDepth, let subItems = subItems, subItems.count > 0 else {
             return []
         }
@@ -137,15 +133,30 @@ extension Nestable {
         var result: [Nestable] = []
         for item in subItems {
             result.append(item)
-            let isExpanded = shouldExpand?(item) ?? item.isExpanded
+            let isExpanded = stateProvier.isExpanded(item)
             if isExpanded {
-                result += item.allSubItems(shouldExpand: shouldExpand)
+                result += item.allSubItems(with: stateProvier)
             }
         }
         
         return result
     }
 
+    /// 强制沾卡获取所有子条目
+    func allSubItems() -> [Nestable] {
+        guard self.depth < Self.allowMaxDepth, let subItems = subItems, subItems.count > 0 else {
+            return []
+        }
+
+        var result: [Nestable] = []
+        for item in subItems {
+            result.append(item)
+            result += item.allSubItems()
+        }
+        
+        return result
+    }
+    
     /// 所有子条目数目
     var allSubItemsCount: Int {
         guard let subItems = self.subItems, subItems.count > 0 else {
@@ -188,7 +199,7 @@ extension Nestable {
 
         // If the depths are different, add all sublists of the moved list
         if fromDepth != toDepth {
-            let items = movedItem.allSubItems { _ in return true } as! [T]
+            let items = movedItem.allSubItems() as! [T]
             results.append(contentsOf: items)
         }
 
