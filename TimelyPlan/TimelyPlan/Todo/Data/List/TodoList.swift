@@ -79,7 +79,7 @@ class TodoList: NSObject, Sortable, TPHexColorConvertible {
         self.colorHex =  content.colorHex
         self.layoutType = TodoListLayoutType(rawValue: Int(content.layoutRawValue)) ?? .list
         super.init()
-        self.sublists = content.sublists(parent: self)
+        self.sublists = content.sortedSublists(parent: self)
     }
     
     // MARK: - 等同性判断

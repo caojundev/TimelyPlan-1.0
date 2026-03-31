@@ -9,19 +9,28 @@ import Foundation
 
 class TodoHomeUserListExpansionState: ExpansionStateProviding {
     
-    private var collapsedLists = Set<TodoList>()
+    private var collapsedLists = Set<String>()
     
     func isExpanded(_ item: Nestable) -> Bool {
         let list = item as! TodoList
-        return !collapsedLists.contains(list)
+        return !collapsedLists.contains(list.identifier)
     }
     
     func setExpended(_ isExpended: Bool, for item: Nestable) {
         let list = item as! TodoList
         if isExpended {
-            collapsedLists.remove(list)
+            collapsedLists.remove(list.identifier)
         } else {
-            collapsedLists.insert(list)
+            collapsedLists.insert(list.identifier)
+        }
+    }
+    
+    /// 展开清单所有父清单
+    func expandAllParentList(of list: TodoList) {
+        var parent = list.parent
+        while parent != nil {
+            setExpended(true, for: parent!)
+            parent = parent?.parent
         }
     }
     

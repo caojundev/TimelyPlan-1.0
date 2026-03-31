@@ -41,4 +41,9 @@ class Todo {
     func updateList(_ list: TodoList, with editingList: TodoEditingList, parent: TodoList?) {
         userListManager.updateList(list, with: editingList, parent: parent)
     }
+    
+    /// 移动列表
+    func moveList(_ list: TodoList, to parent: TodoList?) {
+        userListManager.moveList(list, to: parent)
+    }
 }

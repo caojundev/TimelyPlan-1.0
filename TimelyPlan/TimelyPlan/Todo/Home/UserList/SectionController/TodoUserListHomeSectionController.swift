@@ -79,6 +79,7 @@ extension TodoUserListHomeSectionController: TodoListProcessorDelegate {
     
     /// 添加新组时通知
     func didCreateTodoList(_ list: TodoList) {
+        expansionState.expandAllParentList(of: list)
         adapter?.reloadData()
     }
     
@@ -94,6 +95,10 @@ extension TodoUserListHomeSectionController: TodoListProcessorDelegate {
     
     /// 列表移动通知， parent为nil时表示移动到根目录
     func didMoveTodoLists(_ lists: [TodoList], from sourceParent: TodoList?) {
+        for list in lists {
+            expansionState.expandAllParentList(of: list)
+        }
+        
         adapter?.reloadData()
     }
     

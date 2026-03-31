@@ -12,16 +12,26 @@ struct TodoListKey {
     static var order = "order"
     static var name = "name"
     static var parent = "parent"
+    static var creationDate = "creationDate"
 }
 
-extension CDTodoList {
+extension CDTodoList: Sortable {
     
-    func sublists(parent: TodoList) -> [TodoList]? {
-        guard let subContents = sublists?.orderedElements() as? [CDTodoList] else {
+    /// 排序
+    static var sortTerms: [SortTerm] {
+        return [(TodoListKey.order, true),
+                (TodoListKey.creationDate, true)]
+    }
+    
+    
+    func sortedSublists(parent: TodoList) -> [TodoList]? {
+        let sortDescriptors = NSSortDescriptor.descriptors(with: Self.sortTerms)
+        let sortedSublists = sublists?.sortedArray(using: sortDescriptors) as? [CDTodoList]
+        guard let sortedSublists = sortedSublists else {
             return nil
         }
         
-        return subContents.map { content in
+        return sortedSublists.map { content in
             let list = TodoList(content: content)
             list.parent = parent
             return list
@@ -36,7 +46,7 @@ extension CDTodoList {
     }
     
     func addSublist(_ list: CDTodoList) {
-        let sublists = self.sublists?.allObjects as? [TodoList]
+        let sublists = self.sublists?.allObjects as? [CDTodoList]
         let maxOrder = sublists?.maxOrder ?? 0
         list.order = maxOrder + kOrderedStep
         self.addToSublists(list)
@@ -61,6 +71,10 @@ extension CDTodoList {
         if let parent = parent {
             let cdParent = coreDataList(for: parent)
             cdParent?.addSublist(list)
+        } else {
+            /// 设置排序因子
+            list.order = CDTodoList.maximumOrder + kOrderedStep
+            print("添加到根列表： \(list.name): order = \(list.order)")
         }
     
         return list
@@ -77,9 +91,7 @@ extension CDTodoList {
     
     /// 移动列表
     static func moveList(_ list: TodoList, to parent: TodoList?) -> Bool {
-        if list.identifier == parent?.identifier ||
-            parent?.identifier == list.parent?.identifier {
-            /// 相同父列表，不执行操作
+        if list.identifier == parent?.identifier || parent?.identifier == list.parent?.identifier {
             return false
         }
         
@@ -90,10 +102,6 @@ extension CDTodoList {
         var cdParent: CDTodoList?
         if let parent = parent {
             cdParent = coreDataList(for: parent)
-            if cdParent == nil {
-                /// 不能查找到父列表
-                return false
-            }
         }
         
         if let cdParent = cdParent {
@@ -101,6 +109,9 @@ extension CDTodoList {
         } else {
             /// 移动到顶层
             cdList.parent = nil
+            cdList.order = CDTodoList.maximumOrder + kOrderedStep
+            
+            print("move 移动到根列表： \(list.name): order = \(list.order)")
         }
         
         return true
@@ -108,7 +119,7 @@ extension CDTodoList {
 }
 
 extension CDTodoList {
-    
+
     /// 获取特定标识的列表
     static func getList(withIdentifier identifier: String) -> CDTodoList? {
         let condition: PredicateCondition = (TodoListKey.identifier, .equal(identifier))
@@ -116,31 +127,27 @@ extension CDTodoList {
         return CDTodoList.findFirst(withPredicate: predicate, in: .defaultContext)
     }
     
+    
     /// 搜索清单
     static func fetchLists(containText text: String, completion:(@escaping([CDTodoList]?) -> Void)) {
         let condition: PredicateCondition = (TodoListKey.name, .contains(text))
         let predicate = NSPredicate.predicate(with: condition)
-        CDTodoList.fetchAll(matching: predicate,
-                            sortBy: TodoListKey.order,
-                            ascending: true) { results in
+        fetchAll(matching: predicate, sortTerms: sortTerms) { results in
             completion(results as? [CDTodoList])
         }
     }
     
     /// 获取根列表
     static func fetchTopLists(completion: @escaping([CDTodoList]?) -> Void) {
-        CDTodoList.fetchAll(matching: topListPredicate,
-                            sortBy: TodoListKey.order,
-                            ascending: true) { results in
+        fetchAll(matching: topListPredicate, sortTerms: sortTerms) { results in
             completion(results as? [CDTodoList])
         }
     }
     
     static func getTopLists() -> [CDTodoList]? {
-        let results: [CDTodoList]? = CDTodoList.findAll(with: topListPredicate,
-                                                        sortedBy: TodoListKey.order,
-                                                        ascending: true,
-                                                        in: .defaultContext)
+        let results: [CDTodoList]? = findAll(with: topListPredicate,
+                                             sortTerms: sortTerms,
+                                             in: .defaultContext)
         return results
     }
 

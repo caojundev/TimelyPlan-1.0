@@ -103,96 +103,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4625A65E-B03C-4F93-86DC-E92B493A66C6"
+            uuid = "CEBFB0A1-7013-4C62-A8B2-0DD481BFA716"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TimelyPlan/Todo/Home/UserList/SectionController/TodoUserListHomeSectionController.swift"
+            filePath = "TPKit/Fundamental/HandyRecord/Extensions/NSManagedObject/NSManagedObject+Request.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "didCreateTodoList(_:)"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "fetchAllRequest(where:isEqualTo:in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "98F5A550-E1C3-42BF-9324-E8220DB9EBFE"
+            uuid = "26C49186-30CE-4B65-9BF5-B927AE925734"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TimelyPlan/Todo/Home/UserList/SectionController/TodoUserListHomeSectionController.swift"
+            filePath = "TPKit/Fundamental/HandyRecord/Extensions/NSManagedObject/NSManagedObject+Aggregation.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "didUpdateTodoList(_:)"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "aggregateOperationFetchRequest(function:onAttribute:withPredicate:in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D4699173-1AAE-4DB4-9D6B-05F935FC8F75"
+            uuid = "293E38A7-3E43-4213-A261-5BB6AF025161"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TimelyPlan/Todo/Home/UserList/SectionController/TodoUserListHomeSectionController.swift"
+            filePath = "TPKit/Fundamental/HandyRecord/Extensions/NSManagedObject/NSManagedObject+Aggregation.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "didDeleteTodoLists(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "86E09AA3-A27F-4CA9-9E76-59A6987FA978"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TimelyPlan/Todo/Data/Mananger/TodoUserListProcessorUpdater.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "didCreateTodoList(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C1B79F0C-AFE3-47D2-962E-C7867258C92B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TimelyPlan/Todo/Data/Mananger/TodoUserListProcessorUpdater.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "didCreateTodoList(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "781D1570-CC37-4766-8BA3-E83CF746A6F2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TimelyPlan/Todo/Home/UserList/Edit/TodoListEditViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
-            landmarkName = "clickDone()"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "performAggregateOperation(function:onAttribute:withPredicate:in:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

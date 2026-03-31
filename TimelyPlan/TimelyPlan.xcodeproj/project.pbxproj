@@ -560,6 +560,7 @@
 		E58F46C32F7B9D7B0046FA96 /* TodoUserListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F46C22F7B9D7B0046FA96 /* TodoUserListManager.swift */; };
 		E58F46C62F7B9DCC0046FA96 /* TodoUserListProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F46C42F7B9DCB0046FA96 /* TodoUserListProcessorUpdater.swift */; };
 		E58F46C72F7B9DCC0046FA96 /* TodoUpdaterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F46C52F7B9DCC0046FA96 /* TodoUpdaterOption.swift */; };
+		E58F46C92F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F46C82F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift */; };
 		E590CA962F4D677D00E66041 /* String+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA952F4D677C00E66041 /* String+Highlight.swift */; };
 		E590CA992F4DD02900E66041 /* FocusState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA982F4DD02900E66041 /* FocusState.swift */; };
 		E590CA9C2F4DF84C00E66041 /* StoragePropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA9B2F4DF84C00E66041 /* StoragePropertyWrapper.swift */; };
@@ -2008,6 +2009,7 @@
 		E58F46C22F7B9D7B0046FA96 /* TodoUserListManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUserListManager.swift; sourceTree = "<group>"; };
 		E58F46C42F7B9DCB0046FA96 /* TodoUserListProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUserListProcessorUpdater.swift; sourceTree = "<group>"; };
 		E58F46C52F7B9DCC0046FA96 /* TodoUpdaterOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUpdaterOption.swift; sourceTree = "<group>"; };
+		E58F46C82F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSortDescriptor+HandyRecord.swift"; sourceTree = "<group>"; };
 		E590CA952F4D677C00E66041 /* String+Highlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Highlight.swift"; sourceTree = "<group>"; };
 		E590CA982F4DD02900E66041 /* FocusState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusState.swift; sourceTree = "<group>"; };
 		E590CA9B2F4DF84C00E66041 /* StoragePropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoragePropertyWrapper.swift; sourceTree = "<group>"; };
@@ -5870,6 +5872,7 @@
 				E5BB9C292D3BF0C40089667A /* NSPersistentStore+HandyRecord.swift */,
 				E5BB9C2A2D3BF0C40089667A /* NSManagedObjectContext */,
 				E5BB9C2E2D3BF0C40089667A /* NSPersistentStoreCoordinator+HandyRecord.swift */,
+				E58F46C82F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -9206,6 +9209,7 @@
 				E5BB9EC32D3BF0C80089667A /* TPDurationPickerTableCell.swift in Sources */,
 				E5D7D7E92D43923800EC877A /* FocusSystemTimerManager.swift in Sources */,
 				E53F32BE2F6998F600B85B65 /* HabitReportMonthRender.swift in Sources */,
+				E58F46C92F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift in Sources */,
 				E55549522F762E9800C9460D /* TaskBindViewController.swift in Sources */,
 				E5BB9DF52D3BF0C60089667A /* Date+Symbol.swift in Sources */,
 				E58F46B12F7AAD4B0046FA96 /* TodoParentListPickerViewController.swift in Sources */,

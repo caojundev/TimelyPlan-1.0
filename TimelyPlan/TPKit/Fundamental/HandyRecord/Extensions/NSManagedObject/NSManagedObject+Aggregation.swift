@@ -11,6 +11,8 @@ import CoreData
 /// 聚合表达式函数
 enum AggregationFunction: String {
     case sum = "sum:" /// 求和
+    case max = "max:"
+    case min = "min:"
 }
 
 extension NSManagedObject {
@@ -42,30 +44,20 @@ extension NSManagedObject {
 
     // 返回指定属性的最小值
     static func minimumValue(for attribute: String, in context: NSManagedObjectContext) -> Any? {
-        let object = objectWithMinimumValue(for: attribute, in: context)
-        return object?.value(forKey: attribute)
+        return performAggregateOperation(function: .min,
+                                         onAttribute: attribute,
+                                         withPredicate: nil,
+                                         in: .defaultContext)
     }
 
     // 返回指定属性的最大值
     static func maximumValue(for attribute: String, in context: NSManagedObjectContext) -> Any? {
-        let object = findFirst(where: attribute, isEqualTo: "max(\(attribute)", in: context)
-        return object?.value(forKey: attribute)
+        return performAggregateOperation(function: .max,
+                                         onAttribute: attribute,
+                                         withPredicate: nil,
+                                         in: .defaultContext)
     }
 
-    // 返回具有最小属性值的托管对象
-    static func objectWithMinimumValue(for attribute: String,
-                                       in context: NSManagedObjectContext) -> Self? {
-        let object = findFirst(where: attribute, isEqualTo: "min(\(attribute)", in: context)
-        return object
-    }
-
-    // 返回具有最大属性值的托管对象
-    static func objectWithMaximumValue(for attribute: String,
-                                       in context: NSManagedObjectContext) -> Self? {
-        let object = findFirst(where: attribute, isEqualTo: "max(\(attribute)", in: context)
-        return object
-    }
-    
     /**
      *  支持使用键值集合操作符对实体属性进行聚合计算，并可以按指定属性进行分组。
      *  @param function             集合操作符字符串

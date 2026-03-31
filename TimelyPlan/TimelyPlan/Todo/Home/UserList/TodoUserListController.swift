@@ -56,24 +56,19 @@ class TodoUserListController {
     
     // MARK: - 移动
     func moveList(_ list: TodoList) {
-        /*
         let allowMaxDepth = TodoList.parentMaxDepth(for: list)
-        let vc = TodoListMoveViewController(mode: .parent, list: list.parent, allowMaxDepth: allowMaxDepth)
+        let vc = TodoParentListPickerViewController(list: list.parent,
+                                                    allowMaxDepth: allowMaxDepth)
         vc.disabledLists = [list]
-        vc.didSelectList = { parent in
-            let toList = parent as? TodoList
-            todo.moveList(list, to: toList)
+        vc.didSelectList = { moveToList in
+            todo.moveList(list, to: moveToList)
         }
 
-        let navController = UINavigationController(rootViewController: vc)
-        navController.modalPresentationStyle = .formSheet
-        navController.show()
-         */
+        vc.showAsNavigationRoot()
     }
     
     // MARK: - 解散列表
     func ungroupList(_ list: TodoList) {
-        
         let ungroupAction = TPAlertAction(type: .destructive, title: resGetString("Ungroup")) { action in
 //            todo.ungroupList(list)
         }

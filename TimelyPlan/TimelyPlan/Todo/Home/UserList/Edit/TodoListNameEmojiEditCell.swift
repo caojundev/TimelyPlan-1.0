@@ -56,6 +56,7 @@ class TodoListNameEmojiEditCell: TPTextFieldTableCell {
     
     override func setupContentSubviews() {
         super.setupContentSubviews()
+        self.emojiView.normalBackgroundColor = Color(0x888888, 0.1)
         self.leftView = self.emojiView
         self.leftViewSize = .size(9)
         self.leftViewMargins = UIEdgeInsets(right: 5.0)
