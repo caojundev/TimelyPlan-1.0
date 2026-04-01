@@ -188,9 +188,14 @@ class TPTableDragInsertReorder: TPTableDragReorder {
     /// 拖动视图恢复到原位
     func resetDraggingView(at indexPath: IndexPath?) {
         if let indexPath = indexPath,
-           let cell = tableView.cellForRow(at: indexPath),
-           let cellSuperView = cell.superview {
-            let center = cellSuperView.convert(cell.center, toViewOrWindow: self.draggingView?.superview)
+           let cell = tableView.cellForRow(at: indexPath) {
+            
+            var toCenter: CGPoint = cell.bounds.center
+            if let cell = cell as? TPDragPreviewViewProviding {
+                toCenter = cell.endPosition()
+            }
+            
+            let center = cell.convert(toCenter, toViewOrWindow: self.draggingView?.superview)
             UIView.animate(withDuration: 0.4) {
                 self.draggingView?.center = center
                 self.draggingView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)

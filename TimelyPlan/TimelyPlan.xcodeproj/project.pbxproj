@@ -188,6 +188,7 @@
 		E5141F0C2F7CCD6E007A864B /* TodoParentListSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F0B2F7CCD6E007A864B /* TodoParentListSearchResultsViewController.swift */; };
 		E5141F0E2F7CCD83007A864B /* TodoParentListSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F0D2F7CCD83007A864B /* TodoParentListSearchResultSectionController.swift */; };
 		E5141F102F7D3E5B007A864B /* NSManagedObject+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F0F2F7D3E5B007A864B /* NSManagedObject+Sort.swift */; };
+		E5141F122F7D49C7007A864B /* TPDragPreviewViewProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F112F7D49C7007A864B /* TPDragPreviewViewProviding.swift */; };
 		E51501942D477962008B2333 /* TPTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501932D477962008B2333 /* TPTableViewAdapter.swift */; };
 		E51501962D477A26008B2333 /* TPTableViewAdapterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */; };
 		E51501982D477A89008B2333 /* TPTableViewAdapterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501972D477A89008B2333 /* TPTableViewAdapterDelegate.swift */; };
@@ -1637,6 +1638,7 @@
 		E5141F0B2F7CCD6E007A864B /* TodoParentListSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoParentListSearchResultsViewController.swift; sourceTree = "<group>"; };
 		E5141F0D2F7CCD83007A864B /* TodoParentListSearchResultSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoParentListSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E5141F0F2F7D3E5B007A864B /* NSManagedObject+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Sort.swift"; sourceTree = "<group>"; };
+		E5141F112F7D49C7007A864B /* TPDragPreviewViewProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDragPreviewViewProviding.swift; sourceTree = "<group>"; };
 		E51501932D477962008B2333 /* TPTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapter.swift; sourceTree = "<group>"; };
 		E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapterDataSource.swift; sourceTree = "<group>"; };
 		E51501972D477A89008B2333 /* TPTableViewAdapterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapterDelegate.swift; sourceTree = "<group>"; };
@@ -6614,6 +6616,7 @@
 			isa = PBXGroup;
 			children = (
 				E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */,
+				E5141F112F7D49C7007A864B /* TPDragPreviewViewProviding.swift */,
 				E5BB9D6E2D3BF0C50089667A /* IndicatorView */,
 				E5BB9D662D3BF0C50089667A /* TableView */,
 				E5BB9D6B2D3BF0C50089667A /* CollectionView */,
@@ -8599,6 +8602,7 @@
 				E55549542F76316500C9460D /* TaskBindSearchResultViewController.swift in Sources */,
 				E5D7D8CD2D43933600EC877A /* FocusEndDetailRecordCell.swift in Sources */,
 				E5BB9F482D3BF45F0089667A /* SideMenuCell.swift in Sources */,
+				E5141F122F7D49C7007A864B /* TPDragPreviewViewProviding.swift in Sources */,
 				E51A43822DB73A7400DC84C9 /* CalendarMainViewController.swift in Sources */,
 				E5D7D8E32D43933600EC877A /* FocusConstants.swift in Sources */,
 				E541555C2F49A415000B2972 /* FocusRecordListViewController.swift in Sources */,

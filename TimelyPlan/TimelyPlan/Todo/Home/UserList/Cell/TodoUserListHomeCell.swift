@@ -84,3 +84,45 @@ class TodoUserListHomeCell: TodoUserListBaseCell {
         }
     }
 }
+
+extension TodoUserListHomeCell: TPDragPreviewViewProviding {
+    
+    func dragPreviewView() -> UIView? {
+        let padding = UIEdgeInsets(left: 10.0, right: 5.0)
+        let previewWidth = infoView.width + padding.horizontalLength
+        let previewHeight = infoView.height + padding.verticalLength
+        let previewFrame = CGRect(x: 0.0, y: 0.0, width: previewWidth, height: previewHeight)
+        let view = TodoUserListHomeCellPreviewView(frame: previewFrame)
+        view.padding = padding
+        view.infoView.titleConfig = iconInfoTextValueView.titleConfig
+        view.infoView.subtitleConfig = iconInfoTextValueView.subtitleConfig
+        view.infoView.iconConfig = iconInfoTextValueView.iconConfig
+        view.infoView.title = iconInfoTextValueView.title
+        view.infoView.subtitle = iconInfoTextValueView.subtitle
+        return view
+    }
+    
+    func beginPosition() -> CGPoint {
+        return contentView.convert(infoView.center, toViewOrWindow: self)
+    }
+}
+
+class TodoUserListHomeCellPreviewView: UIView {
+
+    let infoView = TPIconInfoTextValueView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = .systemBackground
+        self.addSubview(infoView)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.infoView.frame = layoutFrame()
+    }
+}

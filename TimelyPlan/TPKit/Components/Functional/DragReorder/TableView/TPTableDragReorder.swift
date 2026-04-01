@@ -127,15 +127,26 @@ class TPTableDragReorder: NSObject, UIGestureRecognizerDelegate {
             
             let draggingCell = tableView.cellForRow(at: indexPath)
             guard let draggingCell = draggingCell,
-                    let draggingCellSuperView = draggingCell.superview,
-                    let rootView = UIWindow.keyWindow else {
+                  let draggingCellSuperView = draggingCell.superview,
+                  let rootView = UIWindow.keyWindow else {
                         return
             }
             
             draggingCell.setHighlighted(false, animated: false)
-            draggingView = draggingCell.tp_snapshotView(cornerRadius: draggingViewCornerRadius)
-            draggingView?.center = draggingCellSuperView.convert(draggingCell.center,
-                                                                toViewOrWindow: rootView)
+           
+            var beginCenter: CGPoint = draggingCell.bounds.center
+            if let draggingCell = draggingCell as? TPDragPreviewViewProviding {
+                draggingView = draggingCell.dragPreviewView()
+                beginCenter = draggingCell.beginPosition()
+            }
+            
+            if draggingView == nil {
+                /// 使用单元格快照
+                draggingView = draggingCell.tp_snapshotView(cornerRadius: draggingViewCornerRadius)
+                beginCenter = draggingCell.bounds.center
+            }
+            
+            draggingView?.center = draggingCell.convert(beginCenter, toViewOrWindow: rootView)
             if let draggingView = draggingView {
                 rootView.addSubview(draggingView)
             }
