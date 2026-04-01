@@ -42,12 +42,7 @@ class TodoUserListManager {
             moveList(list, to: parent) /// 移动列表
         }
 
-        if list.isSameEditingList(as: editingList) {
-            return
-        }
-
-        if CDTodoList.update(list: list, with: editingList) {
-            list.update(with: editingList)
+        if CDTodoList.updateList(list, with: editingList) {
             HandyRecord.save()
             updater.didUpdateTodoList(list)
         }
@@ -59,43 +54,28 @@ class TodoUserListManager {
             return
         }
         
-        let fromParent = list.parent
-        if let parent = parent {
-            parent.addSublist(list)
-        } else {
-            /// 从原父清单移出
-            list.parent?.removeSublist(list)
+        HandyRecord.save()
+        updater.didMoveTodoList(list, to: parent)
+    }
+    
+    /// 解散列表
+    func ungroupList(_ list: TodoList) {
+        guard CDTodoList.ungroupList(list) else {
+            return
         }
         
         HandyRecord.save()
-        updater.didMoveTodoLists([list], from: fromParent)
+        updater.didUngroupList(list)
     }
     
     /// 删除列表
     func deleteList(_ list: TodoList) {
-        /*
-        let isTopList = list.parent == nil
-        let sublists = list.flattenOrderedSubItems { _ in
-            return true
-        } as! [TodoList]
-        
-        let deleteLists = [list] + sublists
-        for deleteList in deleteLists {
-            moveAllTasksToTrash(in: deleteList)
-            NSManagedObjectContext.defaultContext.delete(deleteList)
+        if CDTodoList.deleteList(list) {
+            HandyRecord.save()
+            updater.didDeleteTodoLists([list])
         }
-        
-        if isTopList {
-            updateTopLists()
-        }
-        
-        updater.didDeleteTodoLists(deleteLists)
-        todo.save()
-        */
     }
     
-    
-
     /// 执行插入操作
     func reorderList(in lists: [TodoList], fromIndex: Int, toIndex: Int, depth: Int) {
         /*
@@ -124,39 +104,5 @@ class TodoUserListManager {
 //            task.isRemoved = true
 //        }
 //    }
-    
-    /// 解散列表
-    func ungroupList(_ list: TodoList) {
-        /*
-        let parentList = list.parent
-        var parentSublists: [TodoList]
-        if let parentList = parentList {
-            parentSublists = parentList.orderedSubLists
-        } else {
-            parentSublists = topLists ?? []
-        }
-        
-        guard let index = parentSublists.firstIndex(of: list) else {
-            return
-        }
-        
-        let sublists = list.orderedSubLists
-        /// 移除当前列表所有子列表
-        list.removeAllSublists()
-        
-        /// 添加到当前列表父列表
-        if let parentList = parentList {
-            parentList.addToSubLists(Set(sublists) as NSSet)
-        }
-        
-        parentSublists.insert(contentsOf: sublists, at: index + 1)
-        parentSublists.updateOrders() /// 更新顺序因子
-        if parentList == nil {
-            updateTopLists()
-        }
-        
-        updater.didMoveTodoLists(sublists, from: list)
-        todo.save()
-        */
-    }
+
 }

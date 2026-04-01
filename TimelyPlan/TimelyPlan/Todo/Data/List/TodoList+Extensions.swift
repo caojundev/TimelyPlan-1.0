@@ -33,13 +33,6 @@ extension TodoList {
     func isSameEditingList(as other: TodoEditingList) -> Bool {
         return editingList == other
     }
-    
-    func update(with editingList: TodoEditingList) {
-        self.emoji = editingList.emoji
-        self.name = editingList.name
-        self.colorHex = editingList.color?.hexString
-        self.layoutType = editingList.layoutType
-    }
 }
 
 // MARK: - Nestable

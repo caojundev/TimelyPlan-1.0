@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 struct TodoListKey {
     static var identifier = "identifier"
@@ -23,11 +24,24 @@ extension CDTodoList: Sortable {
                 (TodoListKey.creationDate, true)]
     }
     
+    var hasSublist: Bool {
+        guard let lists = self.sublists else {
+            return false
+        }
+        
+        return lists.count > 0
+    }
     
-    func sortedSublists(parent: TodoList) -> [TodoList]? {
+    /// 排序的 CoreData 子列表
+    func orderedCoreDataSublists() -> [CDTodoList]? {
         let sortDescriptors = NSSortDescriptor.descriptors(with: Self.sortTerms)
         let sortedSublists = sublists?.sortedArray(using: sortDescriptors) as? [CDTodoList]
-        guard let sortedSublists = sortedSublists else {
+        return sortedSublists
+    }
+    
+    /// 排序的子列表
+    func sortedSublists(parent: TodoList) -> [TodoList]? {
+        guard let sortedSublists = orderedCoreDataSublists() else {
             return nil
         }
         
@@ -37,6 +51,9 @@ extension CDTodoList: Sortable {
             return list
         }
     }
+}
+
+extension CDTodoList {
     
     func update(with editingList: TodoEditingList) {
         self.emoji = editingList.emoji
@@ -55,12 +72,23 @@ extension CDTodoList: Sortable {
     func removeSublist(_ list: CDTodoList) {
         self.removeFromSublists(list)
     }
+    
+    func removeAllSublists() {
+        guard let lists = self.sublists else {
+            return
+        }
+        
+        self.removeFromSublists(lists)
+    }
 }
 
 extension CDTodoList {
     
-    static func coreDataList(for list: TodoList) -> CDTodoList? {
-        return getList(withIdentifier: list.identifier)
+    /// 创建默认用户列表
+    static func createDefaultTopLists() -> [CDTodoList] {
+        let editingList = TodoEditingList(name: resGetString("My List"))
+        let defaultList = CDTodoList.newList(with: editingList, parent: nil)
+        return [defaultList]
     }
     
     static func newList(with editingList: TodoEditingList, parent: TodoList?) -> CDTodoList {
@@ -74,15 +102,18 @@ extension CDTodoList {
         } else {
             /// 设置排序因子
             list.order = CDTodoList.maximumOrder + kOrderedStep
-            print("添加到根列表： \(list.name): order = \(list.order)")
         }
     
         return list
     }
     
-    static func update(list: TodoList, with editingList: TodoEditingList) -> Bool {
-        if let cdList = coreDataList(for: list) {
-            cdList.update(with: editingList)
+    static func updateList(_ aList: TodoList, with editingList: TodoEditingList) -> Bool {
+        if aList.isSameEditingList(as: editingList) {
+            return false
+        }
+
+        if let list = coreDataList(for: aList) {
+            list.update(with: editingList)
             return true
         }
         
@@ -110,23 +141,83 @@ extension CDTodoList {
             /// 移动到顶层
             cdList.parent = nil
             cdList.order = CDTodoList.maximumOrder + kOrderedStep
-            
-            print("move 移动到根列表： \(list.name): order = \(list.order)")
         }
         
         return true
     }
+    
+    /// 解散列表
+    static func ungroupList(_ aList: TodoList) -> Bool {
+        guard let list = coreDataList(for: aList), list.hasSublist else {
+            return false
+        }
+        
+        let parentList = list.parent
+        var parentSublists: [CDTodoList]
+        if let parentList = parentList {
+            /// 但前清单同层级的列表数组
+            parentSublists = parentList.orderedCoreDataSublists() ?? []
+        } else {
+            /// 顶层清单数组
+            parentSublists = getTopLists() ?? []
+        }
+        
+        guard let index = parentSublists.firstIndex(of: list) else {
+            return false
+        }
+        
+        let orderedSublists = list.orderedCoreDataSublists() ?? []
+        
+        /// 移除当前列表所有子列表
+        list.removeAllSublists()
+        
+        /// 添加到当前列表父列表
+        if let parentList = parentList {
+            parentList.addToSublists(Set(orderedSublists) as NSSet)
+        }
+        
+        parentSublists.insert(contentsOf: orderedSublists, at: index + 1)
+        parentSublists.updateOrders() /// 更新顺序因子
+        return true
+    }
+    
+    /// 删除列表
+    static func deleteList(_ aList: TodoList) -> Bool {
+        guard let list = coreDataList(for: aList), !list.hasSublist else {
+            return false
+        }
+    
+        moveAllTasksToTrash(in: list)
+        let context = NSManagedObjectContext.defaultContext
+        context.delete(list)
+        return true
+    }
+    
+    /// 将所有任务移到废纸篓
+    static func moveAllTasksToTrash(in list: CDTodoList) {
+        #warning("Todo")
+//        guard let tasks = list.tasks as? Set<TodoTask>, tasks.count > 0 else {
+//            return
+//        }
+//
+//        for task in tasks {
+//            task.isRemoved = true
+//        }
+    }
 }
 
 extension CDTodoList {
-
+    
+    static func coreDataList(for list: TodoList) -> CDTodoList? {
+        return getList(withIdentifier: list.identifier)
+    }
+    
     /// 获取特定标识的列表
     static func getList(withIdentifier identifier: String) -> CDTodoList? {
         let condition: PredicateCondition = (TodoListKey.identifier, .equal(identifier))
         let predicate = NSPredicate.predicate(with: condition)
         return CDTodoList.findFirst(withPredicate: predicate, in: .defaultContext)
     }
-    
     
     /// 搜索清单
     static func fetchLists(containText text: String, completion:(@escaping([CDTodoList]?) -> Void)) {
@@ -154,13 +245,6 @@ extension CDTodoList {
     static var topListPredicate: NSPredicate {
         let condition: PredicateCondition = (TodoListKey.parent, .isEmpty)
         return NSPredicate.predicate(with: condition)
-    }
-    
-    /// 创建默认用户列表
-    static func createDefaultTopLists() -> [CDTodoList] {
-        let editingList = TodoEditingList(name: resGetString("My List"))
-        let defaultList = CDTodoList.newList(with: editingList, parent: nil)
-        return [defaultList]
     }
 }
 

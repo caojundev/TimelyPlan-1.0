@@ -3322,6 +3322,7 @@
 			isa = PBXGroup;
 			children = (
 				E50D605A2F7A173300D5E0A4 /* TodoUserListController.swift */,
+				E58F46BA2F7B51200046FA96 /* TodoHomeUserListExpansionState.swift */,
 				E50D60842F7A4F1100D5E0A4 /* SectionController */,
 				E58F46982F7A9C120046FA96 /* Menu */,
 				E50D60712F7A2E2D00D5E0A4 /* Cell */,
@@ -3383,7 +3384,6 @@
 		E50D60842F7A4F1100D5E0A4 /* SectionController */ = {
 			isa = PBXGroup;
 			children = (
-				E58F46BA2F7B51200046FA96 /* TodoHomeUserListExpansionState.swift */,
 				E50D60892F7A5A3900D5E0A4 /* TodoUserListOrganizer.swift */,
 				E50D60862F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift */,
 				E50D60852F7A4F6200D5E0A4 /* TodoUserListHomeSectionController.swift */,

@@ -88,20 +88,24 @@ extension TodoUserListHomeSectionController: TodoListProcessorDelegate {
         adapter?.reloadData()
     }
     
+    func didUngroupList(_ list: TodoList) {
+        adapter?.reloadData()
+    }
+    
     /// 删除列表时通知
     func didDeleteTodoLists(_ lists: [TodoList]) {
         adapter?.reloadData()
     }
     
     /// 列表移动通知， parent为nil时表示移动到根目录
-    func didMoveTodoLists(_ lists: [TodoList], from sourceParent: TodoList?) {
-        for list in lists {
-            expansionState.expandAllParentList(of: list)
+    func didMoveTodoList(_ list: TodoList, to parent: TodoList?) {
+        if let parent = parent {
+            expansionState.expandAllParentList(of: parent, includeCurrent: true)
         }
         
         adapter?.reloadData()
     }
-    
+
     /// 重新列表排序
     func didReorderTodoList(_ list: TodoList) {
         adapter?.reloadData()

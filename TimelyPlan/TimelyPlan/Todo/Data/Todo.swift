@@ -46,4 +46,14 @@ class Todo {
     func moveList(_ list: TodoList, to parent: TodoList?) {
         userListManager.moveList(list, to: parent)
     }
+    
+    /// 解散列表
+    func ungroupList(_ list: TodoList) {
+        userListManager.ungroupList(list)
+    }
+    
+    /// 删除列表
+    func deleteList(_ list: TodoList) {
+        userListManager.deleteList(list)
+    }
 }

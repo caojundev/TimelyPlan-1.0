@@ -39,7 +39,7 @@ class TodoUserListController {
     func deleteList(_ list: TodoList) {
         let deleteAction = TPAlertAction(type: .destructive,
                                          title: resGetString("Delete")) { action in
-            
+            todo.deleteList(list)
         }
         
         let cancelAction = TPAlertAction(type: .cancel,
@@ -70,7 +70,7 @@ class TodoUserListController {
     // MARK: - 解散列表
     func ungroupList(_ list: TodoList) {
         let ungroupAction = TPAlertAction(type: .destructive, title: resGetString("Ungroup")) { action in
-//            todo.ungroupList(list)
+            todo.ungroupList(list)
         }
         
         let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))

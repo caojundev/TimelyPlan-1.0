@@ -19,8 +19,11 @@ protocol TodoListProcessorDelegate: AnyObject{
     /// 删除列表时通知
     func didDeleteTodoLists(_ lists: [TodoList])
     
+    /// 解散清单
+    func didUngroupList(_ list: TodoList)
+    
     /// 列表移动通知， parent为nil时表示移动到根目录
-    func didMoveTodoLists(_ lists: [TodoList], from sourceParent: TodoList?)
+    func didMoveTodoList(_ list: TodoList, to parent: TodoList?)
     
     /// 重新列表排序
     func didReorderTodoList(_ list: TodoList)
@@ -32,7 +35,9 @@ extension TodoListProcessorDelegate {
     
     func didCreateTodoList(_ list: TodoList) {}
     
-    func didMoveTodoLists(_ lists: [TodoList], from sourceParent: TodoList?) {}
+    func didUngroupList(_ list: TodoList) {}
+    
+    func didMoveTodoList(_ list: TodoList, to parent: TodoList?) {}
     
     func didDeleteTodoLists(_ lists: [TodoList]) {}
 
@@ -54,12 +59,19 @@ class TodoListProcessorUpdater: NSObject,
         }
     }
     
-    func didMoveTodoLists(_ lists: [TodoList], from sourceParent: TodoList?) {
+    func didMoveTodoList(_ list: TodoList, to parent: TodoList?) {
         notifyDelegates { (delegate: TodoListProcessorDelegate) in
-            delegate.didMoveTodoLists(lists, from: sourceParent)
+            delegate.didMoveTodoList(list, to: parent)
         }
     }
 
+    /// 解散清单
+    func didUngroupList(_ list: TodoList) {
+        notifyDelegates { (delegate: TodoListProcessorDelegate) in
+            delegate.didUngroupList(list)
+        }
+    }
+    
     func didDeleteTodoLists(_ lists: [TodoList]) {
         notifyDelegates { (delegate: TodoListProcessorDelegate) in
             delegate.didDeleteTodoLists(lists)
