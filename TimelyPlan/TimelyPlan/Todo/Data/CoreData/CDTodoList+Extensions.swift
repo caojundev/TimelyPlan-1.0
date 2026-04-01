@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 struct TodoListKey {
     static var identifier = "identifier"
@@ -16,7 +17,12 @@ struct TodoListKey {
     static var creationDate = "creationDate"
 }
 
-extension CDTodoList: Sortable {
+extension CDTodoList: SortableIdentifiable {
+    
+    // MARK: - SortableIdentifiable
+    var identifiableKey: String {
+        return self.identifier ?? ""
+    }
     
     /// 排序
     static var sortTerms: [SortTerm] {
@@ -179,6 +185,62 @@ extension CDTodoList {
         parentSublists.insert(contentsOf: orderedSublists, at: index + 1)
         parentSublists.updateOrders() /// 更新顺序因子
         return true
+    }
+    
+    /// 执行插入操作
+    static func reorderList(in lists: [TodoList], fromIndex: Int, toIndex: Int, depth: Int) -> Bool {
+        var items = lists
+        items.moveObject(fromIndex: fromIndex, toIndex: toIndex)
+        guard items.count > 1 else {
+            return false
+        }
+        
+        let currentList = items[toIndex]
+        var sameDepthLists = [currentList]
+        var parentList: TodoList?
+        let aboveItems = items.elementsAbove(at: toIndex)
+        for aboveItem in aboveItems {
+            let itemDepth = aboveItem.depth
+            if itemDepth == depth {
+                sameDepthLists.insert(aboveItem, at: 0)
+            } else if itemDepth < depth {
+                parentList = aboveItem
+                break
+            }
+        }
+        
+        /// 下方条目
+        let belowItems = items.elementsBelow(at: toIndex)
+        for belowItem in belowItems {
+            let itemDepth = belowItem.depth
+            if itemDepth == depth {
+                sameDepthLists.append(belowItem)
+            } else if itemDepth < depth {
+                break
+            }
+        }
+        
+        var bChanged = false
+        let currentParent = currentList.parent
+        if let parentList = parentList {
+            if parentList.identifiableKey != currentParent?.identifiableKey {
+                /// 非相同父列表，移动到当前父条目
+                let bMoved = moveList(currentList, to: parentList)
+                bChanged = bChanged || bMoved
+            }
+        } else {
+            /// 移动到根列表
+            let bMoved = moveList(currentList, to: nil)
+            bChanged = bChanged || bMoved
+        }
+   
+        /// 更新排序因子
+        if sameDepthLists.count > 1 {
+            let bSynced = CDTodoList.syncOrders(for: sameDepthLists)
+            bChanged = bChanged || bSynced
+        }
+        
+        return bChanged
     }
     
     /// 删除列表

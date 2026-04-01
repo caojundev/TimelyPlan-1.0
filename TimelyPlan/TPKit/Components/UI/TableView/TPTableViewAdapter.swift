@@ -63,6 +63,45 @@ class TPTableViewAdapter: NSObject,
         self.tableView.reloadData()
     }
     
+    // MARK: - 更新可见单元格
+    
+    func updateVisibleCells() {
+        let visibleCells = self.tableView.visibleCells
+        for cell in visibleCells {
+            if let indexPath = self.tableView.indexPath(for: cell) {
+                delegate?.adapter(self, didDequeCell: cell, forRowAt: indexPath)
+            }
+        }
+    }
+    
+    func updateVisibleCells(forSectionObjects objects: [ListDiffable]) {
+        for object in objects {
+            updateVisibleCells(forSectionObject: object)
+        }
+    }
+    
+    func updateVisibleCells(forSectionObject object: ListDiffable) {
+        guard let section = objects.indexOf(object) else {
+            return
+        }
+        
+        guard let indexPaths = self.tableView.indexPathsForVisibleRows else {
+            return
+        }
+        
+        for indexPath in indexPaths {
+            guard indexPath.section == section else {
+                continue
+            }
+            
+            
+            if let cell = self.tableView.cellForRow(at: indexPath) {
+                delegate?.adapter(self, didDequeCell: cell, forRowAt: indexPath)
+            }
+        }
+    }
+    
+    
     // MARK: - UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return objects.count
@@ -435,6 +474,7 @@ extension TPTableViewAdapter {
             completion?(finished)
         }
         
+        updateVisibleCells()
         updateHeaderFooterViews()
     }
 
@@ -500,6 +540,7 @@ extension TPTableViewAdapter {
                 completion?(finished)
             }
             
+            updateVisibleCells(forSectionObjects: sectionObjects)
             updateHeaderFooterView(forSectionObjects: sectionObjects)
         }
     }

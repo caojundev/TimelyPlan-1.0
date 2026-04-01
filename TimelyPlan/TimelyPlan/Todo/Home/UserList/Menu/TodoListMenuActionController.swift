@@ -27,22 +27,25 @@ class TodoListMenuActionController: TPBaseMenuController<TodoListMenuActionType>
     }
     
     override func menuActionTypes() -> [TodoListMenuActionType] {
-        var types: [TodoListMenuActionType] = [.edit,
-                                               .move]
-        
-        if !list.hasSubItem {
-            types.append(.delete)
-        }
+        var types: [TodoListMenuActionType] = [.edit]
         
         if list.depth < kTodoListMaxDepth {
             types.append(.addSublist)
+        }
+        
+        let parentMaxDepth = TodoList.parentMaxDepth(for: list)
+        if parentMaxDepth >= 0 {
+            types.append(.move)
         }
         
         if list.allSubItemsCount > 0 {
             types.append(.ungroup)
         }
         
+        if !list.hasSubItem {
+            types.append(.delete)
+        }
+        
         return types
     }
 }
-

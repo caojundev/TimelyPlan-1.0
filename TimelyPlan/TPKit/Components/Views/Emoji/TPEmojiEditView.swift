@@ -63,10 +63,15 @@ class TPEmojiEditView: TPEmojiView, UITextFieldDelegate {
     
     // MARK: - UITextFieldDelegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let character = string.first {
-            if emoji != character {
-                emoji = character
-                emojiDidChange?(emoji)
+        if let result = string.first {
+            var emojiChar: Character? = result
+            if let firstStr = result.stringValue, !firstStr.isEmojiCharacter() {
+                emojiChar = nil
+            }
+
+            if self.emoji != emojiChar {
+                emoji = emojiChar
+                emojiDidChange?(emojiChar)
             }
         }
         

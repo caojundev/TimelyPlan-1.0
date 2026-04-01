@@ -175,9 +175,11 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
         /// 旧父清单
         let fromParentList = list.parent
         
-        #warning("执行排序操作")
         /// 执行排序操作
-//        todo.reorderList(in: lists, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row, depth: depth)
+        todo.reorderList(in: lists,
+                         fromIndex: sourceIndexPath.row,
+                         toIndex: targetIndexPath.row,
+                         depth: depth)
         
         /// 更新列表
         adapter?.performSectionUpdate(forSectionObject: self)

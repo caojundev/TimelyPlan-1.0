@@ -53,7 +53,6 @@ class TodoUserListController {
         alertController.show()
     }
 
-    
     // MARK: - 移动
     func moveList(_ list: TodoList) {
         let allowMaxDepth = TodoList.parentMaxDepth(for: list)

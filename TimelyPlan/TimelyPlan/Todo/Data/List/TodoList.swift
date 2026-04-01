@@ -36,13 +36,10 @@ enum TodoListLayoutType: Int, Codable, TPMenuRepresentable {
     }
 }
 
-class TodoList: NSObject, Sortable, TPHexColorConvertible {
-
-    /// 排序因子
-    var order: Int64
+class TodoList: NSObject, SortableIdentifiable, TPHexColorConvertible {
     
     /// 任务唯一标识
-    var identifier: String
+    let identifier: String
 
     /// 颜色
     var colorHex: String?
@@ -61,6 +58,14 @@ class TodoList: NSObject, Sortable, TPHexColorConvertible {
     
     /// 父清单
     weak var parent: TodoList?
+    
+    // MARK: - SortableIdentifiable
+    /// 排序因子
+    var order: Int64
+    
+    var identifiableKey: String {
+        return identifier
+    }
     
     override init() {
         self.identifier = UUID().uuidString

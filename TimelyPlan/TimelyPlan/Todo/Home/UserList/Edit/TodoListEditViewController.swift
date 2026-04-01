@@ -170,8 +170,18 @@ class TodoListEditViewController: TPTableSectionsViewController {
         self.sectionControllers = [nameColorSectionController,
                                    parentSectionController,
                                    layoutSectionController]
+        self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
+        self.adapter.cellStyle.selectedBackgroundColor = .secondarySystemFill
         self.adapter.reloadData()
         self.updateDoneButtonEnabled()
+    }
+    
+    override var themeBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .systemGroupedBackground
     }
     
     override func handleFirstAppearance() {

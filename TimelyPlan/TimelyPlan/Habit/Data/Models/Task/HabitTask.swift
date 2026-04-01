@@ -8,11 +8,8 @@
 import Foundation
 import UIKit
 
-class HabitTask: NSObject, Sortable {
+class HabitTask: NSObject, SortableIdentifiable {
 
-    /// 排序因子
-    var order: Int64
-    
     // MARK: - 内容属性
     
     /// 任务唯一标识
@@ -73,6 +70,14 @@ class HabitTask: NSObject, Sortable {
         return nil
     }()
 
+    // MARK: - SortableIdentifiable
+    /// 排序因子
+    var order: Int64
+    
+    var identifiableKey: String {
+        return identifier
+    }
+    
     // MARK: - 只读属性
     /// 图标
     var icon: TPIcon {

@@ -9,7 +9,12 @@ import Foundation
 import UIKit
 import CoreData
 
-extension CDHabitTask: TPHexColorConvertible {
+extension CDHabitTask: TPHexColorConvertible, SortableIdentifiable {
+    
+    // MARK: - SortableIdentifiable
+    var identifiableKey: String {
+        return self.identifier ?? ""
+    }
     
     /// 默认颜色
     static var defaultColor: UIColor {
@@ -74,31 +79,6 @@ extension CDHabitTask: TPHexColorConvertible {
         self.reminderJSON = editingTask.reminder?.jsonString()
         self.note = editingTask.note
         self.modificationDate = .now
-    }
-}
-
-// MARK: - 同步排序
-extension CDHabitTask {
-
-    static func syncOrders(for tasks: [HabitTask]) {
-        tasks.updateOrders()
-        if let cdTasks = CDHabitTask.getTasks(with: tasks.identifiers) {
-            syncOrders(from: tasks, to: cdTasks)
-        }
-    }
-    
-    private static func syncOrders(from habitTasks: [HabitTask], to cdTasks: [CDHabitTask]) {
-        // 使用字典快速查找
-        let orderLookup = habitTasks.reduce(into: [String: Int64]()) { result, task in
-            result[task.identifier] = task.order
-        }
-        
-        // 批量更新
-        cdTasks.forEach { task in
-            if let identifier = task.identifier, let order = orderLookup[identifier] {
-                task.order = order
-            }
-        }
     }
 }
 

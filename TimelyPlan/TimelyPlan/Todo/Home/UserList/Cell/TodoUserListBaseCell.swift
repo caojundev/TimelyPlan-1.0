@@ -50,7 +50,7 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
         let layer = TodoListBranchLayer()
         layer.indentationWidth = depthWidth
         layer.lineWidth = 2.0
-        layer.strokeColor = UIColor.systemGray4.cgColor
+        layer.strokeColor = UIColor.lightGray.cgColor
         return layer
     }()
     

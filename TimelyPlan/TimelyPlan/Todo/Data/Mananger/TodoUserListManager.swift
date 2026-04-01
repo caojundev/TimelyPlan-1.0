@@ -78,31 +78,16 @@ class TodoUserListManager {
     
     /// 执行插入操作
     func reorderList(in lists: [TodoList], fromIndex: Int, toIndex: Int, depth: Int) {
-        /*
-        let list = lists[fromIndex]
-        let fromDepth = list.depth
-        lists.reorderItem(fromIndex: fromIndex, toIndex: toIndex, depth: depth)
-        let toDepth = list.depth
-        if fromDepth == 0 || toDepth == 0 {
-            /// 顶层列表改变，更新顶层列表
-            updateTopLists()
+        guard CDTodoList.reorderList(in: lists,
+                                     fromIndex: fromIndex,
+                                     toIndex: toIndex,
+                                     depth: depth) else {
+            return
         }
         
+        HandyRecord.save()
+        let list = lists[fromIndex]
         updater.didReorderTodoList(list)
-        todo.save()
-        */
     }
-    
-    
-    /// 将所有任务移到废纸篓
-//    func moveAllTasksToTrash(in list: TodoList) {
-//        guard let tasks = list.tasks as? Set<TodoTask>, tasks.count > 0 else {
-//            return
-//        }
-//
-//        for task in tasks {
-//            task.isRemoved = true
-//        }
-//    }
 
 }

@@ -30,13 +30,23 @@ class TodoParentListSearchResultSectionController: TPTableSearchResultSectionCon
         }
         
         DispatchQueue.global(qos: .userInitiated).async {
-            var results = lists.filter {
+            let results = lists.filter {
                 $0.name?.localizedCaseInsensitiveContains(text) ?? false
             }
             
             DispatchQueue.main.async {
-                let _ = results.partition { self.isDisabledList($0) }
-                completion(results)
+                var enabledResults: [TodoList] = []
+                var disabledResults: [TodoList] = []
+                for result in results {
+                    if self.isDisabledList(result) {
+                        disabledResults.append(result)
+                    } else {
+                        enabledResults.append(result)
+                    }
+                }
+                
+                let orderedResults = enabledResults + disabledResults
+                completion(orderedResults)
             }
         }
     }

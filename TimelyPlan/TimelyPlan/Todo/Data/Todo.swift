@@ -47,6 +47,10 @@ class Todo {
         userListManager.moveList(list, to: parent)
     }
     
+    func reorderList(in lists: [TodoList], fromIndex: Int, toIndex: Int, depth: Int) {
+        userListManager.reorderList(in: lists, fromIndex: fromIndex, toIndex: toIndex, depth: depth)
+    }
+    
     /// 解散列表
     func ungroupList(_ list: TodoList) {
         userListManager.ungroupList(list)

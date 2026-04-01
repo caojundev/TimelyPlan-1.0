@@ -14,11 +14,8 @@ struct FocusTimerKey {
     static var isArchived = "isArchived"
 }
 
-class FocusTimer: NSObject, Sortable {
+class FocusTimer: NSObject, SortableIdentifiable {
 
-    /// 排序因子
-    var order: Int64
-    
     /// 任务唯一标识
     var identifier: String
 
@@ -48,6 +45,14 @@ class FocusTimer: NSObject, Sortable {
     
     /// 计时器配置 JSON 字符串
     private var configJSON: String?
+    
+    // MARK: - SortableIdentifiable
+    /// 排序因子
+    var order: Int64
+    
+    var identifiableKey: String {
+        return identifier
+    }
     
     init(content: CDFocusTimer) {
         self.identifier = content.identifier ?? UUID().uuidString

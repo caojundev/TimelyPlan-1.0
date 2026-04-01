@@ -47,7 +47,16 @@ class TodoParentListSearchResultsViewController: TPTableSectionsViewController,
         self.tableView.keyboardDismissMode = .onDrag
         self.tableView.placeholderView = self.placeholderView
         self.sectionControllers = [resultsSectionController]
+        self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.adapter.reloadData()
+    }
+    
+    override var themeBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .systemGroupedBackground
     }
     
     // MARK: - UISearchResultsUpdating

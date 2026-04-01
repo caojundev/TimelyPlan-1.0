@@ -7,7 +7,12 @@
 
 import Foundation
 
-extension CDFocusTimer: TPHexColorConvertible {
+extension CDFocusTimer: TPHexColorConvertible, SortableIdentifiable {
+    
+    // MARK: - SortableIdentifiable
+    var identifiableKey: String {
+        return self.identifier ?? ""
+    }
     
     // MARK: - TPHexColorConvertible
     static var defaultColor: UIColor  {
@@ -44,30 +49,6 @@ extension CDFocusTimer: TPHexColorConvertible {
         self.modificationDate = .now
     }
 
-}
-
-// MARK: - 排序
-extension CDFocusTimer {
-
-    static func syncOrders(for timers: [FocusTimer]) {
-        timers.updateOrders()
-        if let cdTimers = getTimers(with: timers.identifiers) {
-            syncOrders(from: timers, to: cdTimers)
-        }
-    }
-    
-    private static func syncOrders(from timers: [FocusTimer],
-                                   to cdTimers: [CDFocusTimer]) {
-        let orderLookup = timers.reduce(into: [String: Int64]()) { result, timer in
-            result[timer.identifier] = timer.order
-        }
-        
-        cdTimers.forEach { timer in
-            if let identifier = timer.identifier, let order = orderLookup[identifier] {
-                timer.order = order
-            }
-        }
-    }
 }
 
 /// 获取计时器

@@ -187,6 +187,7 @@
 		E5141F0A2F7CCD61007A864B /* TodoParentListSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F092F7CCD61007A864B /* TodoParentListSearchResultCell.swift */; };
 		E5141F0C2F7CCD6E007A864B /* TodoParentListSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F0B2F7CCD6E007A864B /* TodoParentListSearchResultsViewController.swift */; };
 		E5141F0E2F7CCD83007A864B /* TodoParentListSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F0D2F7CCD83007A864B /* TodoParentListSearchResultSectionController.swift */; };
+		E5141F102F7D3E5B007A864B /* NSManagedObject+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F0F2F7D3E5B007A864B /* NSManagedObject+Sort.swift */; };
 		E51501942D477962008B2333 /* TPTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501932D477962008B2333 /* TPTableViewAdapter.swift */; };
 		E51501962D477A26008B2333 /* TPTableViewAdapterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */; };
 		E51501982D477A89008B2333 /* TPTableViewAdapterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501972D477A89008B2333 /* TPTableViewAdapterDelegate.swift */; };
@@ -1635,6 +1636,7 @@
 		E5141F092F7CCD61007A864B /* TodoParentListSearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoParentListSearchResultCell.swift; sourceTree = "<group>"; };
 		E5141F0B2F7CCD6E007A864B /* TodoParentListSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoParentListSearchResultsViewController.swift; sourceTree = "<group>"; };
 		E5141F0D2F7CCD83007A864B /* TodoParentListSearchResultSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoParentListSearchResultSectionController.swift; sourceTree = "<group>"; };
+		E5141F0F2F7D3E5B007A864B /* NSManagedObject+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Sort.swift"; sourceTree = "<group>"; };
 		E51501932D477962008B2333 /* TPTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapter.swift; sourceTree = "<group>"; };
 		E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapterDataSource.swift; sourceTree = "<group>"; };
 		E51501972D477A89008B2333 /* TPTableViewAdapterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapterDelegate.swift; sourceTree = "<group>"; };
@@ -5887,11 +5889,12 @@
 		E5BB9C222D3BF0C40089667A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E5BB9C232D3BF0C40089667A /* NSManagedObject */,
 				E5BB9C292D3BF0C40089667A /* NSPersistentStore+HandyRecord.swift */,
+				E5BB9C232D3BF0C40089667A /* NSManagedObject */,
 				E5BB9C2A2D3BF0C40089667A /* NSManagedObjectContext */,
 				E5BB9C2E2D3BF0C40089667A /* NSPersistentStoreCoordinator+HandyRecord.swift */,
 				E58F46C82F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift */,
+				E5141F0F2F7D3E5B007A864B /* NSManagedObject+Sort.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -8862,6 +8865,7 @@
 				E5D7D7EB2D43923800EC877A /* FocusSystemTimer.swift in Sources */,
 				E5D7D91F2D43933700EC877A /* StatsSummaryCell.swift in Sources */,
 				E5BB9F462D3BF45F0089667A /* MainViewController.swift in Sources */,
+				E5141F102F7D3E5B007A864B /* NSManagedObject+Sort.swift in Sources */,
 				E5BB9E612D3BF0C70089667A /* TPImageTitleCollectionCell.swift in Sources */,
 				E5BB9E582D3BF0C70089667A /* TPCalendarDayCell.swift in Sources */,
 				E5D7D8E12D43933600EC877A /* FocusArchivedViewController.swift in Sources */,
