@@ -12,15 +12,17 @@ extension Array where Element: Nestable & Equatable {
     
     // MARK: - 获取列表
     /// 获取嵌套子清单顺序数组
-    /// - Parameters:
-    ///     - shouldExpand: 是否展开清单
-    /// - Returns: 清单顺序数组
-    func flattenItems(with stateProvier: ExpansionStateProviding) -> [Nestable] {
+    func flattenItems(with stateProvier: ExpansionStateProviding? = nil) -> [Nestable] {
         var results: [Nestable] = []
         let rootItems = self
         for rootItem in rootItems {
             results.append(rootItem)
-            let isExpanded = stateProvier.isExpanded(rootItem)
+            
+            var isExpanded: Bool = true /// 默认展开
+            if let stateProvier = stateProvier {
+                isExpanded = stateProvier.isExpanded(rootItem)
+            }
+            
             if isExpanded {
                 let subItems = rootItem.flattenOrderedSubItems(with: stateProvier)
                 results.append(contentsOf: subItems)

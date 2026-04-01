@@ -16,8 +16,9 @@ class TodoParentListPickerViewController: TPContainerViewController,
     /// 当前列表
     let list: TodoList?
     
+    /// 允许的最大深度
     let allowMaxDepth: Int
-    
+
     /// 父列表
     var disabledLists: [TodoList]? {
         get {
@@ -88,16 +89,17 @@ class TodoParentListPickerViewController: TPContainerViewController,
     
     // MARK: - UISearchControllerDelegate
     func willPresentSearchController(_ searchController: UISearchController) {
-//        let selectedList = self.list as? TodoList
-//        let resultVC = TodoListSearchResultsViewController(selectedList: selectedList,
-//                                                           disabledLists: self.disabledLists,
-//                                                           allowMaxDepth: self.allowMaxDepth)
-//        resultVC.didSelectList = { list in
-//            self.selectList(list)
-//        }
-//
-//        searchController.searchResultsUpdater = resultVC
-//        setContentViewController(resultVC, withAnimationStyle: .none)
+        let topLists = self.selectViewController.topLists
+        let resultVC = TodoParentListSearchResultsViewController(selectedList: self.list,
+                                                                 disabledLists: self.disabledLists,
+                                                                 topLists: topLists,
+                                                                 allowMaxDepth: self.allowMaxDepth)
+        resultVC.didSelectList = { list in
+            self.pickList(list)
+        }
+
+        searchController.searchResultsUpdater = resultVC
+        setContentViewController(resultVC, withAnimationStyle: .none)
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {

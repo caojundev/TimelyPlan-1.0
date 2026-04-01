@@ -30,6 +30,11 @@ class TodoParentListSelectViewController: TPTableSectionsViewController,
         }
     }
     
+    /// 当前显示的顶层列表
+    var topLists: [TodoList] {
+        return userSectionController.lists.topLists
+    }
+    
     /// 无父清单区块控制器
     private lazy var noParentSectionController: TodoParentListNoneSectionController = {
         let sectionController = TodoParentListNoneSectionController()

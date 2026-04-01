@@ -106,7 +106,7 @@ extension Nestable {
     }
     
     /// 所有嵌套子条目顺序数组
-    func flattenOrderedSubItems(with stateProvier: ExpansionStateProviding) -> [Nestable] {
+    func flattenOrderedSubItems(with stateProvier: ExpansionStateProviding?) -> [Nestable] {
         guard self.depth < Self.allowMaxDepth, let subItems = orderedSubItems, subItems.count > 0 else {
             return []
         }
@@ -114,7 +114,12 @@ extension Nestable {
         var result: [Nestable] = []
         for item in subItems {
             result.append(item)
-            let isExpanded = stateProvier.isExpanded(item)
+            
+            var isExpanded: Bool = true
+            if let stateProvier = stateProvier {
+                isExpanded = stateProvier.isExpanded(item)
+            }
+            
             if isExpanded {
                 /// 列表展开
                 result += item.flattenOrderedSubItems(with: stateProvier)
@@ -125,7 +130,7 @@ extension Nestable {
     }
     
     /// 返回子清单集合
-    func allSubItems(with stateProvier: ExpansionStateProviding) -> [Nestable] {
+    func allSubItems(with stateProvier: ExpansionStateProviding? = nil) -> [Nestable] {
         guard self.depth < Self.allowMaxDepth, let subItems = subItems, subItems.count > 0 else {
             return []
         }
@@ -133,25 +138,15 @@ extension Nestable {
         var result: [Nestable] = []
         for item in subItems {
             result.append(item)
-            let isExpanded = stateProvier.isExpanded(item)
+            
+            var isExpanded: Bool = true
+            if let stateProvier = stateProvier {
+                isExpanded = stateProvier.isExpanded(item)
+            }
+            
             if isExpanded {
                 result += item.allSubItems(with: stateProvier)
             }
-        }
-        
-        return result
-    }
-
-    /// 强制沾卡获取所有子条目
-    func allSubItems() -> [Nestable] {
-        guard self.depth < Self.allowMaxDepth, let subItems = subItems, subItems.count > 0 else {
-            return []
-        }
-
-        var result: [Nestable] = []
-        for item in subItems {
-            result.append(item)
-            result += item.allSubItems()
         }
         
         return result

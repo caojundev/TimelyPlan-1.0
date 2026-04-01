@@ -51,12 +51,17 @@ extension TodoList: Nestable {
     }
 }
 
-extension  Array where Element == TodoList {
+extension Array where Element == TodoList {
     
     /// 获取顶层列表
     var topLists: [TodoList] {
-        return self.filtered { list in
-            return list.parent == nil
+        var lists = [TodoList]()
+        for list in self {
+            if list.parent == nil {
+                lists.append(list)
+            }
         }
+        
+        return lists
     }
 }

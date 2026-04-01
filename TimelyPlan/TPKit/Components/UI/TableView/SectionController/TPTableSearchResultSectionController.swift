@@ -1,15 +1,15 @@
 //
-//  TPCollectionSearchResultSectionController.swift
+//  TPTableSearchResultSectionController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/3/29.
+//  Created by caojun on 2026/4/1.
 //
 
 import Foundation
 import UIKit
 
-class TPCollectionSearchResultSectionController: TPCollectionBaseSectionController,
-                                                    UISearchResultsUpdating {
+class TPTableSearchResultSectionController: TPTableBaseSectionController,
+                                                UISearchResultsUpdating {
     
     /// 当前结果对应的搜索文本
     private(set) var searchText: String?
@@ -17,24 +17,11 @@ class TPCollectionSearchResultSectionController: TPCollectionBaseSectionControll
     /// 当前搜索结果
     private(set) var searchResults: [ListDiffable]?
     
-    /// 区块布局
-    lazy var layout: TPCollectionSectionLayout = {
-        let layout = TPCollectionSectionLayout()
-        layout.edgeMargins = UIEdgeInsets(horizontal: 16.0, vertical: 10.0)
-        layout.minimumItemsCountPerRow = 1
-        layout.maximumItemsCountPerRow = 1
-        layout.lineSpacing = 10.0
-        layout.interitemSpacing = 10.0
-        layout.preferredItemHeight = 70.0
-        layout.preferredItemWidth = 560.0
-        return layout
-    }()
     
-    lazy var cellStyle: TPCollectionCellStyle = {
-        let style = TPCollectionCellStyle()
+    lazy var cellStyle: TPTableCellStyle = {
+        let style = TPTableCellStyle()
         style.backgroundColor = .secondarySystemGroupedBackground
         style.selectedBackgroundColor = .secondarySystemFill
-        style.cornerRadius = 12.0
         return style
     }()
 
@@ -46,44 +33,30 @@ class TPCollectionSearchResultSectionController: TPCollectionBaseSectionControll
         return searchResults
     }
     
-    override func interitemSpacing() -> CGFloat {
-        return layout.interitemSpacing
-    }
-    
-    override func lineSpacing() -> CGFloat {
-        return layout.lineSpacing
-    }
-    
-    override func sectionInset() -> UIEdgeInsets {
-        return layout.sectionInset
-    }
-    
-    override func sizeForItem(at index: Int) -> CGSize {
-        layout.collectionViewSize = adapter?.collectionViewSize()
-        return layout.constraintCellSize ?? .zero
+    override func heightForRow(at index: Int) -> CGFloat {
+        return 55.0
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
-        return TPCollectionCell.self
+        return TPBaseTableCell.self
     }
-
-    override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
-        super.didDequeCell(cell, forItemAt: index)
+    
+    override func didDequeCell(_ cell: UITableViewCell, forRowAt index: Int) {
+        super.didDequeCell(cell, forRowAt: index)
         highlightSearchText(for: cell)
     }
     
-    override func didSelectItem(at index: Int) {
+    override func didSelectRow(at index: Int) {
         TPImpactFeedback.impactWithSoftStyle()
-        /// 通知delegate
-        delegate?.collectionSectionController(self, didSelectItemAt: index)
+        delegate?.tableSectionController(self, didSelectRowAt: index)
     }
     
-    override func styleForItem(at index: Int) -> TPCollectionCellStyle? {
+    override func styleForRow(at index: Int) -> TPTableCellStyle? {
         return cellStyle
     }
     
     // MARK: -
-    func highlightSearchText(for cell: UICollectionViewCell) {
+    func highlightSearchText(for cell: UITableViewCell) {
         if let cell = cell as? SearchHighlightable {
             cell.setHighlightedText(self.searchText)
         }
