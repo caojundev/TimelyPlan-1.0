@@ -39,7 +39,7 @@ class TPImageTextFieldTableCell: TPTextFieldTableCell {
                 leftImageView.image = nil
             }
             
-            imageColor = cellItem.imageColor
+            updateImageColor()
         }
     }
     
@@ -60,5 +60,13 @@ class TPImageTextFieldTableCell: TPTextFieldTableCell {
     override func layoutLeftView() {
         super.layoutLeftView()
         leftImageView.updateImage(withColor: imageColor)
+    }
+    
+    func updateImageColor() {
+        guard let cellItem = cellItem as? TPImageTextFieldTableCellItem else {
+            return
+        }
+        
+        self.imageColor = cellItem.imageColor
     }
 }

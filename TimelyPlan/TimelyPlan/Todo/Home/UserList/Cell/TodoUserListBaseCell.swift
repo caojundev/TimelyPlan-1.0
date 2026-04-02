@@ -60,7 +60,7 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
     
     override func setupContentSubviews() {
         super.setupContentSubviews()
-        contentView.padding = UIEdgeInsets(left: 5.0, right: 10.0)
+        contentView.padding = UIEdgeInsets(left: 12.0, right: 12.0)
         infoView.titleConfig.lineBreakMode = .byTruncatingMiddle
         infoView.subtitleConfig.font = UIFont.boldSystemFont(ofSize: 8.0)
         infoView.subtitleConfig.alpha = 0.6

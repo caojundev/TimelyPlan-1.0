@@ -18,6 +18,13 @@ protocol SortableIdentifiable: Sortable {
 }
 
 extension NSManagedObject {
+
+    /// 获取特定标识的列表
+    static func getItem(withIdentifier identifier: String) -> Self? {
+        let condition: PredicateCondition = (kIdentifierKeyName, .equal(identifier))
+        let predicate = NSPredicate.predicate(with: condition)
+        return findFirst(withPredicate: predicate, in: .defaultContext)
+    }
     
     static func getIdentifiableItems(with items: [SortableIdentifiable]) -> [NSManagedObject]? {
         let identifiers = items.map{ $0.identifiableKey }

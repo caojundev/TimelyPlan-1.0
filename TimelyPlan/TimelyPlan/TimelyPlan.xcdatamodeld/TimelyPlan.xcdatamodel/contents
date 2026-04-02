@@ -78,6 +78,13 @@
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTodoList" inverseName="sublists" inverseEntity="CDTodoList"/>
         <relationship name="sublists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTodoList" inverseName="parent" inverseEntity="CDTodoList"/>
     </entity>
+    <entity name="CDTodoTag" representedClassName="CDTodoTag" syncable="YES" codeGenerationType="class">
+        <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="KeyValueStore" representedClassName="KeyValueEntry" syncable="YES">
         <attribute name="key" optional="YES" attributeType="String"/>
         <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -91,5 +98,6 @@
         <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="359"/>
         <element name="CDTodoList" positionX="54" positionY="99" width="128" height="164"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
+        <element name="CDTodoTag" positionX="45" positionY="261" width="128" height="104"/>
     </elements>
 </model>

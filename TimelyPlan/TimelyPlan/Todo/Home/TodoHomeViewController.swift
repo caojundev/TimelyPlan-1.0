@@ -8,15 +8,6 @@
 import Foundation
 import UIKit
 
-protocol TodoHomeViewControllerDelegate: AnyObject {
-
-//    /// 选中智能清单
-//    func homeViewController(_ viewController: TodoHomeViewController, didSelectSmartList list: TodoSmartList)
-//
-//    /// 选中用户清单
-//    func homeViewController(_ viewController: TodoHomeViewController, didSelectUserList list: TodoList)
-}
-
 enum TodoHomeSection: String {
     case smartList
     case userList
@@ -27,13 +18,9 @@ enum TodoHomeSection: String {
 
 class TodoHomeViewController: TPTableViewController,
                               TPTableSectionControllersList,
-                              TPSidebarContent,
-                              TPTableDragReorderDataSource {
+                              TPSidebarContent {
     /// 侧边栏控制器
     var sidebarController: SidebarController?
-    
-    /// 代理对象
-    weak var delegate: TodoHomeViewControllerDelegate?
     
     /// 设置
     lazy var settingBarButtonItem: UIBarButtonItem = {
@@ -56,14 +43,45 @@ class TodoHomeViewController: TPTableViewController,
         return view
     }()
     
+    
+    /// 智能清单区块
+    lazy var smartListSectionController: TodoSmartListSectionController = {
+        let types = TodoSmartListType.typesExceptTrash
+        let sectionController = TodoSmartListSectionController(types: types)
+        sectionController.identifier = TodoHomeSection.smartList.rawValue
+        sectionController.didSelectList = { [weak self] list in
+            self?.selectSmartList(list)
+        }
+
+        return sectionController
+    }()
+    
+    /// 回收站区块
+    lazy var trashSectionController: TodoSmartListSectionController = {
+        let sectionController = TodoSmartListSectionController(types: [.trash])
+        sectionController.identifier = TodoHomeSection.trash.rawValue
+        sectionController.didSelectList = { [weak self] list in
+            self?.selectSmartList(list)
+        }
+
+        return sectionController
+    }()
+    
     /// 用户列表区块
     lazy var userListSectionController: TodoUserListHomeSectionController = {
         let sectionController = TodoUserListHomeSectionController()
         sectionController.identifier = TodoHomeSection.userList.rawValue
-//        sectionController.didSelectList = { [weak self] list in
-//            self?.selectUserList(list)
-//        }
-//
+        sectionController.didSelectList = { [weak self] list in
+            self?.selectUserList(list)
+        }
+
+        return sectionController
+    }()
+    
+    /// 标签区块
+    lazy var tagSectionController: TodoUserTagSectionController = {
+        let sectionController = TodoUserTagSectionController()
+        sectionController.identifier = TodoHomeSection.tag.rawValue
         return sectionController
     }()
     
@@ -113,7 +131,19 @@ class TodoHomeViewController: TPTableViewController,
     
     // MARK: - 初始化
     private func setupSectionControllers() {
-        self.sectionControllers = [userListSectionController]
+        let sectionControllers = [smartListSectionController,
+                                  userListSectionController,
+                                  tagSectionController,
+                                  trashSectionController]
+        var displaySectionControllers = [TPTableBaseSectionController]()
+        for (section, sectionController) in sectionControllers.enumerated() {
+            displaySectionControllers.append(sectionController)
+            if section < sectionControllers.count - 1 {
+                displaySectionControllers.append(TPSeparatorSectionController())
+            }
+        }
+        
+        self.sectionControllers = displaySectionControllers
     }
     
     private func setupReorder() {
@@ -132,7 +162,18 @@ class TodoHomeViewController: TPTableViewController,
         userListController.createList()
     }
     
-    // MARK: - TPTableDragReorderDataSource
+    func selectUserList(_ list: TodoList) {
+        
+    }
+    
+    func selectSmartList(_ list: TodoSmartList) {
+        
+    }
+}
+
+
+extension TodoHomeViewController: TPTableDragReorderDataSource {
+    
     func tableDragReorder(_ reorder: TPTableDragReorder, delegateForRowAt indexPath: IndexPath) -> TPTableDragReorderDelegate? {
         guard let sectionControllers = self.sectionControllers,
                 indexPath.section < sectionControllers.count else {
@@ -147,6 +188,8 @@ class TodoHomeViewController: TPTableViewController,
         switch section {
         case .userList:
             return userListSectionController
+        case .tag:
+            return tagSectionController
         default:
             return nil
         }

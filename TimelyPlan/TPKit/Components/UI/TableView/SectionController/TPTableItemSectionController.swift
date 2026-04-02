@@ -104,17 +104,6 @@ class TPTableItemSectionController: TPTableBaseSectionController,
     }
     
     // MARK: - Footer
-    func setupSeparatorFooterItem(lineHeight: CGFloat = 1.0,
-                                  lineColor: UIColor = Color(0x888888, 0.1),
-                                  backgroundColor: UIColor = .clear) {
-        let footerItem = TPSeparatorTableHeaderFooterItem()
-        footerItem.height = 1.0
-        footerItem.lineHeight = lineHeight
-        footerItem.lineColor = lineColor
-        footerItem.backgroundColor = backgroundColor
-        self.footerItem = footerItem
-    }
-    
     override func heightForFooter() -> CGFloat {
         return footerItem.height
     }
@@ -130,6 +119,17 @@ class TPTableItemSectionController: TPTableBaseSectionController,
         }
     }
 
+    func setupSeparatorFooterItem(lineHeight: CGFloat = 1.0,
+                                  lineColor: UIColor = Color(0x888888, 0.1),
+                                  backgroundColor: UIColor = .clear) {
+        let footerItem = TPSeparatorTableHeaderFooterItem()
+        footerItem.height = 1.0
+        footerItem.lineHeight = lineHeight
+        footerItem.lineColor = lineColor
+        footerItem.backgroundColor = backgroundColor
+        self.footerItem = footerItem
+    }
+    
     // MARK: - TPTextViewTableCellDelegate
     /// 文本编辑改变，更新单元格高度
     func textViewTableCell(_ cell: TPTextViewTableCell, editingChanged textView: UITextView) {

@@ -45,7 +45,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         }
         
         expansionState.setExpended(isExpanded, for: list)
-        adapter?.performUpdate()
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
  
     func TodoUserListHomeCellDidClickMore(_ cell: TodoUserListHomeCell) {
@@ -80,21 +80,21 @@ extension TodoUserListHomeSectionController: TodoListProcessorDelegate {
     /// 添加新组时通知
     func didCreateTodoList(_ list: TodoList) {
         expansionState.expandAllParentList(of: list)
-        adapter?.reloadData()
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
     /// 更新列表信息通知
     func didUpdateTodoList(_ list: TodoList) {
-        adapter?.reloadData()
+        adapter?.performSectionUpdate(forSectionObject: self)
     }
     
     func didUngroupList(_ list: TodoList) {
-        adapter?.reloadData()
+        adapter?.performSectionUpdate(forSectionObject: self)
     }
     
     /// 删除列表时通知
     func didDeleteTodoLists(_ lists: [TodoList]) {
-        adapter?.reloadData()
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
     /// 列表移动通知， parent为nil时表示移动到根目录
@@ -103,12 +103,13 @@ extension TodoUserListHomeSectionController: TodoListProcessorDelegate {
             expansionState.expandAllParentList(of: parent, includeCurrent: true)
         }
         
-        adapter?.reloadData()
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
 
     /// 重新列表排序
     func didReorderTodoList(_ list: TodoList) {
         expansionState.expandAllParentList(of: list, includeCurrent: false)
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
 }
 
@@ -173,8 +174,6 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
         }
         
         todo.reorderList(in: lists, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row, depth: depth)
-        adapter?.performSectionUpdate(forSectionObject: self)
-        
         /// 重新排序完成返回新索引
         var newIndexPath: IndexPath? = nil
         if let newIndex = lists.indexOf(list) {
@@ -205,7 +204,7 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
         updateExpandedForCell(at: indexPath, animated: true)
 
         /// 更新列表
-        adapter?.performSectionUpdate(forSectionObject: self)
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
         
         /// 更新当前拖动索引
         var indexPath: IndexPath? = nil

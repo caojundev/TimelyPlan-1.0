@@ -32,12 +32,8 @@
 "Add Sublist" = "添加子列表";
 "No Parent List" = "无父列表";
 "Select Parent List" = "选择上层列表";
-
-
 "Are you sure to ungroup list \"%@\" ?" = "是否确认解散列表\"%@\"？";
 "\"%@\" will be permanently deleted. Sure to delete?" = "\"%@\"将被永久删除。是否确认删除？";
-
-
 
 /// 列表编辑
 "New List" = "新建列表";
@@ -49,6 +45,16 @@
 "List" = "列表";
 "Board" = "看板";
 
+/// 标签
+"Search Tag" = "搜索标签";
+"Delete Tag" = "删除标签";
+"Enter tag name" = "输入标签名称";
+"Add Tag" = "添加标签";
+"%ld tag" = "%ld个标签";
+"%ld tags" = "%ld个标签";
+"%ld tags selected" = "已选择%ld个标签";
+"%ld tag selected" = "已选择%ld个标签";
+"This tag already exists" = "当前标签已存在";
 
 ///**************************Focus**************************///
 "Focusing" = "专注中";
@@ -488,18 +494,6 @@
 "Start Reminder" = "开始提醒";
 "End Reminder" = "结束提醒";
 "No Alarm" = "无提醒";
-
-/// 标签
-"Tags" = "标签";
-"Search Tag" = "搜索标签";
-"Edit Tag" = "编辑标签";
-"Enter tag name" = "输入标签名称";
-"Add Tag" = "添加标签";
-"%ld tag" = "%ld个标签";
-"%ld tags" = "%ld个标签";
-"%ld tags selected" = "已选择%ld个标签";
-"%ld tag selected" = "已选择%ld个标签";
-"This tag already exists" = "当前标签已存在";
 
 ///**********************通用*********************///
 "You have exceeded the maximum character limit of %ld." = "您已超出最大字符限制%ld";

@@ -272,14 +272,7 @@ extension CDTodoList {
 extension CDTodoList {
     
     static func coreDataList(for list: TodoList) -> CDTodoList? {
-        return getList(withIdentifier: list.identifier)
-    }
-    
-    /// 获取特定标识的列表
-    static func getList(withIdentifier identifier: String) -> CDTodoList? {
-        let condition: PredicateCondition = (TodoListKey.identifier, .equal(identifier))
-        let predicate = NSPredicate.predicate(with: condition)
-        return CDTodoList.findFirst(withPredicate: predicate, in: .defaultContext)
+        return getItem(withIdentifier: list.identifier)
     }
     
     /// 搜索清单
