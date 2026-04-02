@@ -666,28 +666,30 @@ extension TPCollectionViewAdapter {
             if result.hasChanges {
                 indexPathResults.append(result)
             }
-            
-            if indexPathResults.count == 0 {
-                completion?(true)
-                return
-            }
-            
-            collectionView.performBatchUpdates {
-                for result in indexPathResults {
-                    self.collectionView.deleteItems(at: result.deletes)
-                    self.collectionView.insertItems(at: result.inserts)
-                    self.collectionView.reloadItems(at: result.updates)
-                    for move in result.moves {
-                        self.collectionView.moveItem(at: move.from, to: move.to)
-                    }
-                }
-            } completion: { finished in
-                completion?(finished)
-            }
-            
+        }
+        
+        if indexPathResults.count == 0 {
             updateVisibleCells(forSectionObjects: sectionObjects)
             updateHeaderFooterView(forSectionObjects: sectionObjects)
+            completion?(true)
+            return
         }
+        
+        collectionView.performBatchUpdates {
+            for result in indexPathResults {
+                self.collectionView.deleteItems(at: result.deletes)
+                self.collectionView.insertItems(at: result.inserts)
+                self.collectionView.reloadItems(at: result.updates)
+                for move in result.moves {
+                    self.collectionView.moveItem(at: move.from, to: move.to)
+                }
+            }
+        } completion: { finished in
+            completion?(finished)
+        }
+        
+        updateVisibleCells(forSectionObjects: sectionObjects)
+        updateHeaderFooterView(forSectionObjects: sectionObjects)
     }
 }
 

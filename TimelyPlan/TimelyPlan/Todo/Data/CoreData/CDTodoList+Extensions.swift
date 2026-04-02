@@ -226,6 +226,7 @@ extension CDTodoList {
             if parentList.identifiableKey != currentParent?.identifiableKey {
                 /// 非相同父列表，移动到当前父条目
                 let bMoved = moveList(currentList, to: parentList)
+                parentList.addSublist(currentList) 
                 bChanged = bChanged || bMoved
             }
         } else {

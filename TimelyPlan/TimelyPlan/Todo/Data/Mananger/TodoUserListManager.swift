@@ -86,8 +86,7 @@ class TodoUserListManager {
         }
         
         HandyRecord.save()
-        let list = lists[fromIndex]
-        updater.didReorderTodoList(list)
+        updater.didReorderTodoList(lists[fromIndex])
     }
 
 }

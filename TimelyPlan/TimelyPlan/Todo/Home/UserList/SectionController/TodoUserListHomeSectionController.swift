@@ -108,7 +108,7 @@ extension TodoUserListHomeSectionController: TodoListProcessorDelegate {
 
     /// 重新列表排序
     func didReorderTodoList(_ list: TodoList) {
-        adapter?.reloadData()
+        expansionState.expandAllParentList(of: list, includeCurrent: false)
     }
 }
 
@@ -172,24 +172,8 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
             return sourceIndexPath
         }
         
-        /// 旧父清单
-        let fromParentList = list.parent
-        
-        /// 执行排序操作
-        todo.reorderList(in: lists,
-                         fromIndex: sourceIndexPath.row,
-                         toIndex: targetIndexPath.row,
-                         depth: depth)
-        
-        /// 更新列表
+        todo.reorderList(in: lists, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row, depth: depth)
         adapter?.performSectionUpdate(forSectionObject: self)
-        
-        /// 更新影响列表的单元格
-        let affectedLists = TodoList.affectedItems(for: list, fromParent: fromParentList)
-        adapter?.reloadCell(forItems: affectedLists, with: .none)
-        
-        /// 更新深度线条层级
-        updateVisibleDepthLineLevels()
         
         /// 重新排序完成返回新索引
         var newIndexPath: IndexPath? = nil

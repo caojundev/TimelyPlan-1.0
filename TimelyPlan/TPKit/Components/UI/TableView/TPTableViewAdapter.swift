@@ -521,28 +521,30 @@ extension TPTableViewAdapter {
             if result.hasChanges {
                 indexPathResults.append(result)
             }
-            
-            if indexPathResults.count == 0 {
-                completion?(true)
-                return
-            }
-            
-            tableView.performBatchUpdates {
-                for result in indexPathResults {
-                    self.tableView.deleteRows(at: result.deletes, with: rowAnimation)
-                    self.tableView.insertRows(at: result.inserts, with: rowAnimation)
-                    self.tableView.reloadRows(at: result.updates, with: rowAnimation)
-                    for move in result.moves {
-                        self.tableView.moveRow(at: move.from, to: move.to)
-                    }
-                }
-            } completion: { finished in
-                completion?(finished)
-            }
-            
+        }
+        
+        if indexPathResults.count == 0 {
             updateVisibleCells(forSectionObjects: sectionObjects)
             updateHeaderFooterView(forSectionObjects: sectionObjects)
+            completion?(true)
+            return
         }
+        
+        tableView.performBatchUpdates {
+            for result in indexPathResults {
+                self.tableView.deleteRows(at: result.deletes, with: rowAnimation)
+                self.tableView.insertRows(at: result.inserts, with: rowAnimation)
+                self.tableView.reloadRows(at: result.updates, with: rowAnimation)
+                for move in result.moves {
+                    self.tableView.moveRow(at: move.from, to: move.to)
+                }
+            }
+        } completion: { finished in
+            completion?(finished)
+        }
+        
+        updateVisibleCells(forSectionObjects: sectionObjects)
+        updateHeaderFooterView(forSectionObjects: sectionObjects)
     }
 }
 
