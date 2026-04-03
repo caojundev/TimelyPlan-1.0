@@ -11,6 +11,7 @@ class TPMenuListActionCell: TPImageInfoTextValueTableCell {
     
     var menuAction: TPMenuAction? {
         didSet {
+            
             imageConfig.color = menuAction?.iconColor
             imageContent = .withImage(menuAction?.image)
             valueConfig = .valueText(menuAction?.valueText)

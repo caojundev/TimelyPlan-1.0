@@ -63,6 +63,11 @@ class TPMenuListView: TPTableWrapperView,
         let cell = cell as! TPMenuListActionCell
         let menuAction = adapter.item(at: indexPath) as! TPMenuAction
         cell.menuAction = menuAction
+        if menuAction.hasSubMenu {
+            cell.accessoryType = .disclosureIndicator
+        } else {
+            cell.accessoryType = .none
+        }
     }
     
     func adapter(_ adapter: TPTableViewAdapter, heightForRowAt indexPath: IndexPath) -> CGFloat {

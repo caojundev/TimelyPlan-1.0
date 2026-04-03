@@ -13,19 +13,15 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     /// 列表选项
     var options: [TodoListOption]
     
-    /// 配置
-    var configuration: TodoListConfiguration
-    
-    init(options: [TodoListOption], configuration: TodoListConfiguration) {
+    init(options: [TodoListOption]) {
         self.options = options
-        self.configuration = configuration
         super.init()
-        self.menuContentWidth = 240.0
     }
-    
+
     override func orderedMenuActionTypeLists() -> [Array<TodoListOption>] {
         var lists: [Array<TodoListOption>]
-        lists = [[.select, .showCompleted],
+        lists = [[.select,
+                  .showCompleted],
                  [.layout],
                  [.group, .sort],
                  [.edit, .delete],
@@ -40,16 +36,54 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     override func updateMenuAction(_ action: TPMenuAction, for type: TodoListOption) {
         switch type {
         case .showCompleted:
-            action.isChecked = configuration.showCompleted
+            action.isChecked = true
         case .layout:
-            action.subtitle = configuration.layoutType.title
+            action.subtitle = ""
         case .group:
-            action.subtitle = configuration.groupType.title
+            updateGroupAction(action)
         case .sort:
-            action.subtitle = "\(configuration.sortType.title)•\(configuration.sortOrder.title)"
+            updateSortAction(action)
         default:
             break
         }
+    }
+    
+    private func updateGroupAction(_ action: TPMenuAction) {
+        let groupType = TodoGroupType.priority
+        let controller = TodoGroupTypeMenuController(types: TodoGroupType.allCases)
+        action.subMenuItems = controller.menuItems()
+        action.subtitle = groupType.title
+    }
+    
+    private func updateSortAction(_ action: TPMenuAction) {
+        let sort = TodoSort()
+        let sortTypeMenuItem = sortTypeMenuItem(sortType: sort.type)
+        let sortOrderMenuItem = sortOrderMenuItem(sortOrder: sort.order)
+        action.subMenuItems = [sortTypeMenuItem, sortOrderMenuItem]
+        action.subtitle = "\(sort.type.title)•\(sort.order.title)"
+    }
+    
+    private func sortTypeMenuItem(sortType: TodoSortType) -> TPMenuItem {
+        let allowSortTypes = TodoSortType.allCases
+        let menuItem = TPMenuItem.item(with: allowSortTypes) { [weak self] type, action in
+            action.isChecked = type == sortType
+            action.handler = { [weak self] _ in
+                
+            }
+        }
+        
+        return menuItem
+    }
+    
+    private func sortOrderMenuItem(sortOrder: TodoSortOrder) -> TPMenuItem {
+        let menuItem = TPMenuItem.item(with: TodoSortOrder.allCases) { [weak self]  order, action in
+            action.isChecked = order == sortOrder
+            action.handler = { [weak self] _ in
+                
+            }
+        }
+        
+        return menuItem
     }
 }
 

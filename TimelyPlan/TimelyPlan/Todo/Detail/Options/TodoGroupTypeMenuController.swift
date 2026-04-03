@@ -14,7 +14,6 @@ class TodoGroupTypeMenuController: TPBaseMenuController<TodoGroupType> {
     init(types: [TodoGroupType]) {
         self.types = types
         super.init()
-        self.menuContentWidth = 220.0
     }
 
     override func orderedMenuActionTypeLists() -> [Array<TodoGroupType>] {

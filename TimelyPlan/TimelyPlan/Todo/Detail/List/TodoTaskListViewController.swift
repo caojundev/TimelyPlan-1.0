@@ -24,12 +24,6 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
         return button
     }()
     
-    private var moreButtonSourceRect: CGRect {
-        return CGRect(x: moreButton.bounds.maxX,
-                      y: moreButton.bounds.maxY,
-                      size: .zero)
-    }
-    
     /// 添加视图按钮
     private let addViewSize = CGSize(width: 50.0, height: 50.0)
     
@@ -82,17 +76,14 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
 //        itemsViewController.endEditing(animated: true)
-//        let options = organizer.listOptions()
-        guard options.count > 0 else {
-            return
-        }
         
-        let menuController = TodoListOptionMenuController(options: options, configuration: listConfiguration)
-        menuController.didSelectMenuActionType = { option in
-            self.performListMenuAction(with: option)
-        }
-        
-        menuController.showMenu(from: moreButton, sourceRect: moreButtonSourceRect, isCovered: false)
+        let listOptionMenuController = TodoListOptionMenuController(options: TodoListOption.allCases)
+        let menuItems = listOptionMenuController.menuItems()
+        let menuController = TPLevelMenuViewController(menuItems: menuItems)
+        let sourceRect = CGRect(x: moreButton.bounds.maxX,
+                                y: moreButton.bounds.maxY,
+                                size: .zero)
+        menuController.show(from: moreButton, sourceRect: sourceRect, isCovered: false)
     }
     
     /// 点击添加
@@ -120,6 +111,6 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
     }
     
     var navigationRightBarButtonItems: [UIBarButtonItem]? {
-            return nil
+        return [moreBarButtonItem]
     }
 }

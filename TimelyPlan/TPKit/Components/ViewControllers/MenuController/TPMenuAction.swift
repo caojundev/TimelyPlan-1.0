@@ -37,6 +37,9 @@ class TPMenuAction: NSObject {
     /// 是否选中
     var isChecked: Bool = false
     
+    /// 子菜单条目
+    var subMenuItems: [TPMenuItem]?
+    
     /// 在视图控制器dismiss前调用菜单回调
     var handleBeforeDismiss: Bool = false
     
@@ -46,6 +49,15 @@ class TPMenuAction: NSObject {
     /// 样式
     var style: TPMenuActionStyle = .normal
 
+    /// 是否有子菜单
+    var hasSubMenu: Bool {
+        if let subMenuItems = self.subMenuItems, subMenuItems.count > 0 {
+            return true
+        }
+        
+        return false
+    }
+    
     /// 标题颜色
     var titleColor: UIColor? {
         get {
