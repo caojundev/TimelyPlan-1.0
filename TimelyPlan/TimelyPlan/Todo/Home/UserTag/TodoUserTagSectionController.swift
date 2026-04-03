@@ -13,6 +13,8 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
                                     TodoHomeExpandHeaderViewDelegate {
     var isExpanded: Bool = true
     
+    var didSelectTag: ((TodoTag) -> Void)?
+    
     override var items: [ListDiffable]? {
         guard isExpanded else {
             return nil
@@ -70,12 +72,14 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         }
         
         cell.depth = 1
-        cell.contentPadding = UIEdgeInsets(left: 1.0, right: 10.0)
         cell.userTag = item(at: index) as? TodoTag
     }
     
     override func didSelectRow(at index: Int) {
         TPImpactFeedback.impactWithSoftStyle()
+        if let tag = item(at: index) as? TodoTag {
+            self.didSelectTag?(tag)
+        }
     }
     
     // MARK: - 展开 / 收起

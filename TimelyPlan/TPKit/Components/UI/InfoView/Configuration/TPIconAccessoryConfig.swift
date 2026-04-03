@@ -25,4 +25,10 @@ class TPIconAccessoryConfig {
     var backColor: UIColor? = .clear
     
     var placeholderImage: UIImage?
+    
+    static var none: TPIconAccessoryConfig {
+        let config = TPIconAccessoryConfig()
+        config.size = .zero
+        return config
+    }
 }

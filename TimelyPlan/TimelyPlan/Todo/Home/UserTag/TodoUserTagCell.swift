@@ -20,6 +20,7 @@ class TodoUserTagCell: TPColorInfoTextValueTableCell {
             infoView.title = userTag?.name ?? resGetString("Untitled")
 
             let colorConfig = TPColorAccessoryConfig()
+            colorConfig.size = CGSize(width: 10.0, height: 10.0)
             colorConfig.color = userTag?.color ?? TodoTag.defaultColor
             self.colorConfig = colorConfig
             self.valueConfig = .valueText("3")
@@ -38,8 +39,9 @@ class TodoUserTagCell: TPColorInfoTextValueTableCell {
 
     override func setupContentSubviews() {
         super.setupContentSubviews()
-        rightView = moreButton
-        rightViewSize = .mini
+        self.contentPadding = UIEdgeInsets(left: 6.0, right: 12.0)
+        self.rightView = moreButton
+        self.rightViewSize = .mini
     }
     
     // MARK: - Event Response

@@ -17,18 +17,19 @@ class TodoMainViewController: TPMultiColumnViewController,
         }
     }
 
+    private lazy var detailCoordinator: TodoDetailCoordinator = {
+        return TodoDetailCoordinator(multiColumnViewController: self)
+    }()
+    
     /// 主页视图控制器
     lazy var homeViewController: TodoHomeViewController = {
-        let viewController = TodoHomeViewController(style: .grouped)
+        let viewController = TodoHomeViewController(detailCoordinator: self.detailCoordinator)
         return viewController
     }()
     
-    /// 当前视图控制器
-//    private var currentViewController: TodoDetailViewController?
-
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        let homeNavigationController = UINavigationController(rootViewController: homeViewController)
+        let homeNavigationController = UINavigationController(rootViewController: self.homeViewController)
         self.columnViewControllers = [homeNavigationController]
     }
     

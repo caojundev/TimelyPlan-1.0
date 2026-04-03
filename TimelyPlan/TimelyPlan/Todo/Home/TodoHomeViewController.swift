@@ -49,8 +49,8 @@ class TodoHomeViewController: TPTableViewController,
         let types = TodoSmartListType.typesExceptTrash
         let sectionController = TodoSmartListSectionController(types: types)
         sectionController.identifier = TodoHomeSection.smartList.rawValue
-        sectionController.didSelectList = { [weak self] list in
-            self?.selectSmartList(list)
+        sectionController.didSelectList = { [weak self] smartList in
+            self?.detailCoordinator.showDetail(for: smartList)
         }
 
         return sectionController
@@ -60,8 +60,8 @@ class TodoHomeViewController: TPTableViewController,
     lazy var trashSectionController: TodoSmartListSectionController = {
         let sectionController = TodoSmartListSectionController(types: [.trash])
         sectionController.identifier = TodoHomeSection.trash.rawValue
-        sectionController.didSelectList = { [weak self] list in
-            self?.selectSmartList(list)
+        sectionController.didSelectList = { [weak self] trashList in
+            self?.detailCoordinator.showDetail(for: trashList)
         }
 
         return sectionController
@@ -72,7 +72,7 @@ class TodoHomeViewController: TPTableViewController,
         let sectionController = TodoUserListHomeSectionController()
         sectionController.identifier = TodoHomeSection.userList.rawValue
         sectionController.didSelectList = { [weak self] list in
-            self?.selectUserList(list)
+            self?.detailCoordinator.showDetail(for: list)
         }
 
         return sectionController
@@ -82,6 +82,10 @@ class TodoHomeViewController: TPTableViewController,
     lazy var tagSectionController: TodoUserTagSectionController = {
         let sectionController = TodoUserTagSectionController()
         sectionController.identifier = TodoHomeSection.tag.rawValue
+        sectionController.didSelectTag = { [weak self] tag in
+            self?.detailCoordinator.showDetail(for: tag)
+        }
+        
         return sectionController
     }()
     
@@ -89,8 +93,19 @@ class TodoHomeViewController: TPTableViewController,
     
     private var reorder: TPTableDragInsertReorder?
     
+    let detailCoordinator: TodoDetailCoordinator
+    
     /// 列表区块控制器数组
     var sectionControllers: [TPTableBaseSectionController]?
+    
+    init(detailCoordinator: TodoDetailCoordinator) {
+        self.detailCoordinator = detailCoordinator
+        super.init(style: .grouped)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,13 +177,6 @@ class TodoHomeViewController: TPTableViewController,
         userListController.createList()
     }
     
-    func selectUserList(_ list: TodoList) {
-        
-    }
-    
-    func selectSmartList(_ list: TodoSmartList) {
-        
-    }
 }
 
 
