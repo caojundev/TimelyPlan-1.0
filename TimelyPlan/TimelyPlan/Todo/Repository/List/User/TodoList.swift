@@ -36,7 +36,7 @@ enum TodoListLayoutType: Int, Codable, TPMenuRepresentable {
     }
 }
 
-class TodoList: NSObject, SortableIdentifiable, TPHexColorConvertible {
+class TodoList: NSObject,TodoListRepresentable, SortableIdentifiable, TPHexColorConvertible {
     
     /// 任务唯一标识
     let identifier: String
@@ -65,15 +65,6 @@ class TodoList: NSObject, SortableIdentifiable, TPHexColorConvertible {
     
     var identifiableKey: String {
         return identifier
-    }
-    
-    override init() {
-        self.identifier = UUID().uuidString
-        self.order = 0
-        self.emoji = .randomEmoji()
-        self.colorHex = UIColor.random.hexString
-        self.name = "清单 \(arc4random() % 1000)"
-        super.init()
     }
     
     init(content: CDTodoList) {

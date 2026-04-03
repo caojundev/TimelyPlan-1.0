@@ -99,3 +99,30 @@ class TodoTag: NSObject, SortableIdentifiable, TPHexColorConvertible {
         return identifier == other.identifier
     }
 }
+
+extension Array where Element == TodoTag {
+    
+    /// 获取组合的标签富文本字符串
+    func attributedInfo(separator: String = ", ") -> ASAttributedString? {
+        var strings = [ASAttributedString]()
+        for tag in self {
+            if let name = tag.name, name.count > 0, let color = tag.color {
+                let string: ASAttributedString = "\("●", .foreground(color)) \(name)"
+                strings.append(string)
+            }
+        }
+
+        return strings.joined(separator: ", ")
+    }
+}
+
+extension Set where Element == TodoTag {
+    
+    func attributedOrderedTagsInfo(separator: String = ", ") -> ASAttributedString? {
+        guard self.count > 0 else {
+            return nil
+        }
+
+        return orderedElements().attributedInfo(separator: separator)
+    }
+}

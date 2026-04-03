@@ -41,10 +41,9 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
     }()
     
     /// 任务快速添加控制器
-//    lazy var quickAddManager: TodoTaskQuickAddManager = {
-//        let manager = TodoTaskQuickAddManager(containerViewController: self)
-//        return manager
-//    }()
+    lazy var quickAddManager: TodoTaskQuickAddManager = {
+        return TodoTaskQuickAddManager(containerViewController: self)
+    }()
     
     let interactor: TodoListInteractor
     
@@ -89,12 +88,8 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
     /// 点击添加
     private func clickAdd() {
         TPImpactFeedback.impactWithLightStyle()
-//        let task = TodoQuickAddTask()
-//        if let list = list as? TodoList {
-//            task.list = list
-//        }
-
-//        quickAddManager.show(with: task)
+        let task = TodoQuickAddTask()
+        quickAddManager.show(with: task)
     }
     
     // MARK: - TodoDetailContent
