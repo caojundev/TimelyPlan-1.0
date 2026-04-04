@@ -100,7 +100,7 @@ class TPTextView: UITextView {
             placeHolderLabel.frame = layoutFrame
             placeHolderLabel.textAlignment = .center
         } else if placeholderPosition == .topLeft {
-            let labelMargin: CGFloat = 5.0
+            let labelMargin: CGFloat = 2.0
             let placeHolderLabelWidth = bounds.size.width - insets.horizontalLength - labelMargin
             let size = placeHolderLabel.sizeThatFits(CGSize(width: placeHolderLabelWidth, height: .greatestFiniteMagnitude))
             let placeHolderLabelRect = CGRect(x: insets.left + labelMargin,

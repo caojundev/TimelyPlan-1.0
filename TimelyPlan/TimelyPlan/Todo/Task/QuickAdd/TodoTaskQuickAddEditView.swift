@@ -72,7 +72,7 @@ class TodoTaskQuickAddEditView: UIScrollView,
     lazy var noteView: TPTextWrapperView = {
         let view = TPTextWrapperView(frame: .zero)
         view.delegate = self
-        view.padding = UIEdgeInsets(horizontal: 10.0, vertical: 5.0)
+        view.padding = UIEdgeInsets(horizontal: 12.0, vertical: 5.0)
         view.isNewlineEnabled = true
         view.placeholder = resGetString("Note")
         view.font = BOLD_SMALL_SYSTEM_FONT

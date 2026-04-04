@@ -136,7 +136,7 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
         let isActive = task.isAddedToMyDay
         addToMyDayCellItem.isActive = isActive
         addToMyDayCellItem.imageName = "todo_task_addToMyDay_24"
-        addToMyDayCellItem.title = isActive ? resGetString("Added to My Day") : nil
+        addToMyDayCellItem.title = isActive ? resGetString("My Day") : nil
         updateImageConfig(for: addToMyDayCellItem, isActive: isActive)
     }
     
@@ -248,10 +248,9 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
     }
 
     private func editSchedule() {
-        #warning("editSchedule")
-//        TodoTaskController.editSchedule(task.schedule) {[weak self] newSchedule in
-//            self?.setSchedule(newSchedule)
-//        }
+        TodoTaskController.editSchedule(task.schedule) {[weak self] newSchedule in
+            self?.setSchedule(newSchedule)
+        }
     }
 
     private func editPriority() {

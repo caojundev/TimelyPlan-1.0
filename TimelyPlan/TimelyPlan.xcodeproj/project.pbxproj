@@ -662,6 +662,15 @@
 		E5B33D402F80B30700939C3E /* TodoBaseListPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D3F2F80B30700939C3E /* TodoBaseListPickerViewController.swift */; };
 		E5B33D422F80B93000939C3E /* TodoTaskListPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D412F80B93000939C3E /* TodoTaskListPickerViewController.swift */; };
 		E5B33D442F80B96000939C3E /* TodoTaskListSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D432F80B96000939C3E /* TodoTaskListSelectViewController.swift */; };
+		E5B33D582F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D462F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift */; };
+		E5B33D592F80E66E00939C3E /* ReminderEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D482F80E66E00939C3E /* ReminderEditViewController.swift */; };
+		E5B33D5A2F80E66E00939C3E /* ReminderEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D492F80E66E00939C3E /* ReminderEditSectionController.swift */; };
+		E5B33D632F80E66E00939C3E /* TaskScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D542F80E66E00939C3E /* TaskScheduleEditViewController.swift */; };
+		E5B33D642F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D552F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift */; };
+		E5B33D652F80E66E00939C3E /* TaskScheduleEditInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D562F80E66E00939C3E /* TaskScheduleEditInfoView.swift */; };
+		E5B33D662F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D572F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift */; };
+		E5B33D692F80E6CA00939C3E /* TodoTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D682F80E6C900939C3E /* TodoTaskController.swift */; };
+		E5B33D6C2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D6B2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift */; };
 		E5B6B2812D6C9AB700DBBCB0 /* TPAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */; };
 		E5B926CD2D3F97F30065FA79 /* plus_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B926CB2D3F97F30065FA79 /* plus_32@3x.png */; };
 		E5B926CE2D3F97F30065FA79 /* plus_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B926CC2D3F97F30065FA79 /* plus_32@2x.png */; };
@@ -2173,6 +2182,15 @@
 		E5B33D3F2F80B30700939C3E /* TodoBaseListPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBaseListPickerViewController.swift; sourceTree = "<group>"; };
 		E5B33D412F80B93000939C3E /* TodoTaskListPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskListPickerViewController.swift; sourceTree = "<group>"; };
 		E5B33D432F80B96000939C3E /* TodoTaskListSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskListSelectViewController.swift; sourceTree = "<group>"; };
+		E5B33D462F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditDateSectionController.swift; sourceTree = "<group>"; };
+		E5B33D482F80E66E00939C3E /* ReminderEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderEditViewController.swift; sourceTree = "<group>"; };
+		E5B33D492F80E66E00939C3E /* ReminderEditSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderEditSectionController.swift; sourceTree = "<group>"; };
+		E5B33D542F80E66E00939C3E /* TaskScheduleEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditViewController.swift; sourceTree = "<group>"; };
+		E5B33D552F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditReminderSectionController.swift; sourceTree = "<group>"; };
+		E5B33D562F80E66E00939C3E /* TaskScheduleEditInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditInfoView.swift; sourceTree = "<group>"; };
+		E5B33D572F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditRepeatSectionController.swift; sourceTree = "<group>"; };
+		E5B33D682F80E6C900939C3E /* TodoTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskController.swift; sourceTree = "<group>"; };
+		E5B33D6B2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskEditTableCellItem.swift; sourceTree = "<group>"; };
 		E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAutoScroller.swift; sourceTree = "<group>"; };
 		E5B926CB2D3F97F30065FA79 /* plus_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_32@3x.png"; sourceTree = "<group>"; };
 		E5B926CC2D3F97F30065FA79 /* plus_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_32@2x.png"; sourceTree = "<group>"; };
@@ -3997,8 +4015,9 @@
 		E529ACFF2F7EB23F000EA2F1 /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				E57CC5F02F7FF11B00ADDBA4 /* Edit */,
 				E57CC5C22F7FA04C00ADDBA4 /* TodoTaskKey.swift */,
+				E57CC5F02F7FF11B00ADDBA4 /* Edit */,
+				E5B33D672F80E6BB00939C3E /* Controllers */,
 				E50D5FFE2F7A12B400D5E0A4 /* Repeat */,
 				E57CC5CA2F7FCED200ADDBA4 /* QuickAdd */,
 			);
@@ -4832,6 +4851,8 @@
 		E57CC5F02F7FF11B00ADDBA4 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				E5B33D6A2F80E7D600939C3E /* SectionControllers */,
+				E5B33D452F80E66E00939C3E /* Schedule */,
 				E57CC5F12F7FF12900ADDBA4 /* InfoView */,
 			);
 			path = Edit;
@@ -5217,6 +5238,44 @@
 				E5B33D3B2F80B15E00939C3E /* TodoBaseListSelectViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		E5B33D452F80E66E00939C3E /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				E5B33D472F80E66E00939C3E /* Reminder */,
+				E5B33D542F80E66E00939C3E /* TaskScheduleEditViewController.swift */,
+				E5B33D562F80E66E00939C3E /* TaskScheduleEditInfoView.swift */,
+				E5B33D462F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift */,
+				E5B33D552F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift */,
+				E5B33D572F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		E5B33D472F80E66E00939C3E /* Reminder */ = {
+			isa = PBXGroup;
+			children = (
+				E5B33D482F80E66E00939C3E /* ReminderEditViewController.swift */,
+				E5B33D492F80E66E00939C3E /* ReminderEditSectionController.swift */,
+			);
+			path = Reminder;
+			sourceTree = "<group>";
+		};
+		E5B33D672F80E6BB00939C3E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E5B33D682F80E6C900939C3E /* TodoTaskController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E5B33D6A2F80E7D600939C3E /* SectionControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E5B33D6B2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift */,
+			);
+			path = SectionControllers;
 			sourceTree = "<group>";
 		};
 		E5B926D52D3FF04A0065FA79 /* arrow */ = {
@@ -8817,6 +8876,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5B33D592F80E66E00939C3E /* ReminderEditViewController.swift in Sources */,
 				E5D7D8E42D43933600EC877A /* UIColor+Focus.swift in Sources */,
 				E5BB9DCC2D3BF0C60089667A /* TPFeedbackQueue.swift in Sources */,
 				E58F46C62F7B9DCC0046FA96 /* TodoUserListProcessorUpdater.swift in Sources */,
@@ -8828,6 +8888,7 @@
 				E5D7D9192D43933700EC877A /* FocusPieChartSectionController.swift in Sources */,
 				E5141F0A2F7CCD61007A864B /* TodoListSearchResultCell.swift in Sources */,
 				E5BB9DC92D3BF0C60089667A /* Sortable.swift in Sources */,
+				E5B33D692F80E6CA00939C3E /* TodoTaskController.swift in Sources */,
 				E526D3FF2F6CFCA3005C1DED /* HabitRecordListViewController.swift in Sources */,
 				E5D7D91A2D43933700EC877A /* FocusStatsHistoryCell.swift in Sources */,
 				E5BB9B4A2D3BEF920089667A /* ArrayExtension.swift in Sources */,
@@ -8866,6 +8927,7 @@
 				E5BB9D9F2D3BF0C60089667A /* TPToolbar.swift in Sources */,
 				E53E96AB2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift in Sources */,
 				E57CC5AC2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift in Sources */,
+				E5B33D652F80E66E00939C3E /* TaskScheduleEditInfoView.swift in Sources */,
 				E57CC5BA2F7F9E0000ADDBA4 /* TodoListOption.swift in Sources */,
 				E5BB9E9A2D3BF0C80089667A /* ChartAxisView.swift in Sources */,
 				E50D607B2F7A2EE500D5E0A4 /* TodoConstants.swift in Sources */,
@@ -9236,6 +9298,7 @@
 				E5DAF27F2D4913F2006CC85A /* TPImageInfoTableCell.swift in Sources */,
 				E5BB9E6F2D3BF0C70089667A /* TPCollectionSectionControllersList.swift in Sources */,
 				E50D60402F7A12B500D5E0A4 /* RepeatMonthOfYearTableViewCell.swift in Sources */,
+				E5B33D582F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift in Sources */,
 				E5BB9ED42D3BF0C80089667A /* TPCircularCheckbox.swift in Sources */,
 				E51FF6612F583312003CA953 /* HabitTaskListBaseCell.swift in Sources */,
 				E50D608C2F7A7B1500D5E0A4 /* HabitSample.swift in Sources */,
@@ -9245,6 +9308,7 @@
 				E58C9E182F4AF0DC0096B842 /* FocusTimelineTimeUtils.swift in Sources */,
 				E57CC5C32F7FA04C00ADDBA4 /* TodoTaskKey.swift in Sources */,
 				E556BCF82F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift in Sources */,
+				E5B33D6C2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift in Sources */,
 				E5168BD52F5474F50000A760 /* DateRange+Habit.swift in Sources */,
 				E5BB9EAD2D3BF0C80089667A /* TPMenuListActionCell.swift in Sources */,
 				E53F32902F68D6D200B85B65 /* HabitReportMonthlyViewController.swift in Sources */,
@@ -9263,6 +9327,7 @@
 				E51FF64D2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift in Sources */,
 				E5D7D8DA2D43933600EC877A /* FocusFloatingTrackingView.swift in Sources */,
 				E5D7D8DF2D43933600EC877A /* FocusFloatingStopwatchProgressView.swift in Sources */,
+				E5B33D632F80E66E00939C3E /* TaskScheduleEditViewController.swift in Sources */,
 				E5BB9E4C2D3BF0C70089667A /* Date+Holiday.swift in Sources */,
 				E5BB9E8B2D3BF0C80089667A /* ChartItem.swift in Sources */,
 				E5BB9DBB2D3BF0C60089667A /* ThemeKey.swift in Sources */,
@@ -9394,6 +9459,7 @@
 				E5BB9E562D3BF0C70089667A /* TPPreviousNextWeekView.swift in Sources */,
 				E50D02662F568F7600E93977 /* ASAttributedString+Habit.swift in Sources */,
 				E5D7D8D62D43933600EC877A /* FocusFlipClockActionView.swift in Sources */,
+				E5B33D5A2F80E66E00939C3E /* ReminderEditSectionController.swift in Sources */,
 				E53F32BA2F69557500B85B65 /* HabitReportContentSectionController.swift in Sources */,
 				E5BB9D8D2D3BF0C60089667A /* TPNumberFieldTableCell.swift in Sources */,
 				E58C9E132F4AF0DC0096B842 /* FocusTimelineViewController.swift in Sources */,
@@ -9751,6 +9817,7 @@
 				E50D02642F56803800E93977 /* HabitTask.swift in Sources */,
 				E5BB9D832D3BF0C50089667A /* TPHexColorConvertible.swift in Sources */,
 				E56E7FF02DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift in Sources */,
+				E5B33D662F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift in Sources */,
 				E5BB9E912D3BF0C80089667A /* PieRankListView.swift in Sources */,
 				E58C9E1D2F4AF0DC0096B842 /* FocusTimelineEventListView.swift in Sources */,
 				E59243FF2F51572D00CA2393 /* HabitEditingTask.swift in Sources */,
@@ -9789,6 +9856,7 @@
 				E5BB9F132D3BF0C90089667A /* Language.swift in Sources */,
 				E58F46AD2F7AAD4B0046FA96 /* TodoUserListSelectSectionController.swift in Sources */,
 				E57CC5F32F7FF13300ADDBA4 /* TodoTaskEditDetailView.swift in Sources */,
+				E5B33D642F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift in Sources */,
 				E5D7D8BC2D43933600EC877A /* StepProgressInfoView.swift in Sources */,
 				E5BB9EE82D3BF0C80089667A /* TFPopoverPosition.swift in Sources */,
 				E57CC5C12F7F9FE700ADDBA4 /* TodoSort.swift in Sources */,
