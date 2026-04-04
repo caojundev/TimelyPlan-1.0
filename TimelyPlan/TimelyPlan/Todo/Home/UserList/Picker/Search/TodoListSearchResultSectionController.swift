@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TodoParentListSearchResultSectionController: TPTableSearchResultSectionController{
+class TodoListSearchResultSectionController: TPTableSearchResultSectionController{
     
     var didSelectList: ((TodoList?) -> Void)?
     
@@ -56,12 +56,12 @@ class TodoParentListSearchResultSectionController: TPTableSearchResultSectionCon
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
-        return TodoParentListSearchResultCell.self
+        return TodoListSearchResultCell.self
     }
 
     override func didDequeCell(_ cell: UITableViewCell, forRowAt index: Int) {
         super.didDequeCell(cell, forRowAt: index)
-        guard let cell = cell as? TodoParentListSearchResultCell,
+        guard let cell = cell as? TodoListSearchResultCell,
               let list = item(at: index) as? TodoList else {
                   return
         }

@@ -1,5 +1,5 @@
 //
-//  TodoParentListSearchResultCell.swift
+//  TodoListSearchResultCell.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/12/8.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TodoParentListSearchResultCell: TodoUserListSelectCell, SearchHighlightable {
+class TodoListSearchResultCell: TodoUserListSelectCell, SearchHighlightable {
     
     /// 高亮文本
     var highlightedText: String?

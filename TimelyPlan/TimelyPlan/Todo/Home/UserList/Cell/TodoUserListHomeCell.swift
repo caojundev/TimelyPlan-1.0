@@ -98,19 +98,21 @@ extension TodoUserListHomeCell: TPDragPreviewViewProviding {
         view.infoView.iconConfig = iconInfoTextValueView.iconConfig
         view.infoView.title = iconInfoTextValueView.title
         view.infoView.subtitle = iconInfoTextValueView.subtitle
-        view.backgroundColor = .random
-        view.infoView.backgroundColor = .random
         return view
     }
     
     func beginFrame() -> CGRect {
-        let x = CGFloat(self.depth) * depthWidth
-        let w = self.width - x
-        return CGRect(x: x, y: 0.0, width: w, height: self.height)
+        currentFrame()
     }
     
     func endFrame() -> CGRect {
-        beginFrame()
+        currentFrame()
+    }
+    
+    private func currentFrame() -> CGRect {
+        let x = CGFloat(self.depth) * depthWidth
+        let w = self.width - x
+        return CGRect(x: x, y: 0.0, width: w, height: self.height)
     }
     
 }

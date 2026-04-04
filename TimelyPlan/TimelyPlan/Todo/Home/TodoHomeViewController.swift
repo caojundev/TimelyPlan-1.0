@@ -170,7 +170,8 @@ class TodoHomeViewController: TPTableViewController,
     
     // MARK: - 事件相应
     @objc private func clickSetting() {
-        
+        let vc = TodoTaskListPickerViewController(list: nil)
+        vc.showAsNavigationRoot()
     }
         
     private func createList() {

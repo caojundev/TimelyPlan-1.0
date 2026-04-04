@@ -1,5 +1,5 @@
 //
-//  TodoParentListSearchResultsViewController.swift
+//  TodoListSearchResultsViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/6/9.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TodoParentListSearchResultsViewController: TPTableSectionsViewController,
+class TodoListSearchResultsViewController: TPTableSectionsViewController,
                                                  UISearchResultsUpdating {
 
     /// 选中列表回调
@@ -17,7 +17,7 @@ class TodoParentListSearchResultsViewController: TPTableSectionsViewController,
         }
     }
     
-    private var resultsSectionController = TodoParentListSearchResultSectionController()
+    private var resultsSectionController = TodoListSearchResultSectionController()
     
     /// 占位视图
     lazy var placeholderView: TPDefaultPlaceholderView = {

@@ -66,9 +66,7 @@ class TodoTaskQuickAddListPicker: TPBaseButton {
 
     override func didTouchUpInside() {
         super.didTouchUpInside()
-        #warning("选择列表")
-        /*
-        let selectView = TodoTaskListMoveView()
+        let selectView = TodoListSelectPopoverView()
         selectView.selectedList = self.list
         selectView.didSelectList = {[weak self] list in
             self?.selectList(list)
@@ -76,12 +74,11 @@ class TodoTaskQuickAddListPicker: TPBaseButton {
         
         let sourceRect = self.bounds.insetBy(dx: -5.0, dy: -10.0)
         selectView.show(from: self,
-                         sourceRect: sourceRect,
-                         isCovered: false,
-                         preferredPosition: .topRight,
+                        sourceRect: sourceRect,
+                        isCovered: false,
+                        preferredPosition: .topRight,
                         permittedPositions: TPPopoverPosition.topPopoverPositions,
-                         animated: true)
-         */
+                        animated: true)
     }
     
     func selectList(_ list: TodoListRepresentable?) {

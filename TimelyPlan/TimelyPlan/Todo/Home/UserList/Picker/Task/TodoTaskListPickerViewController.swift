@@ -1,18 +1,18 @@
 //
-//  TodoParentListPickerViewController.swift
+//  TodoTaskListPickerViewController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2024/8/15.
+//  Created by caojun on 2026/4/4.
 //
 
 import Foundation
 import UIKit
 
-class TodoParentListPickerViewController: TodoBaseListPickerViewController {
+class TodoTaskListPickerViewController: TodoBaseListPickerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = resGetString("Select Parent List")
+        self.title = resGetString("Move To")
     }
     
     override func setupSelectViewController() {
