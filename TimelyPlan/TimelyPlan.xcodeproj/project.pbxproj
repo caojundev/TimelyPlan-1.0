@@ -576,8 +576,9 @@
 		E57CC5E82F7FEF7000ADDBA4 /* TaskSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5E72F7FEF7000ADDBA4 /* TaskSchedule.swift */; };
 		E57CC5EB2F7FEFAD00ADDBA4 /* TaskReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5EA2F7FEFAD00ADDBA4 /* TaskReminder.swift */; };
 		E57CC5ED2F7FEFD900ADDBA4 /* TaskDateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5EC2F7FEFD900ADDBA4 /* TaskDateInfo.swift */; };
-		E57CC5EF2F7FF05200ADDBA4 /* TaskGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5EE2F7FF05200ADDBA4 /* TaskGoal.swift */; };
 		E57CC5F32F7FF13300ADDBA4 /* TodoTaskEditDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5F22F7FF13300ADDBA4 /* TodoTaskEditDetailView.swift */; };
+		E57CC5FB2F7FF79F00ADDBA4 /* TodoProgressEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5F72F7FF79E00ADDBA4 /* TodoProgressEnum.swift */; };
+		E57CC5FD2F7FF79F00ADDBA4 /* TodoEditProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5F92F7FF79E00ADDBA4 /* TodoEditProgress.swift */; };
 		E583896B2F7749DF003C30A4 /* AppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E583896A2F7749DF003C30A4 /* AppSetting.swift */; };
 		E583896F2F774E5F003C30A4 /* task_type_habit_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E583896D2F774E5F003C30A4 /* task_type_habit_24@3x.png */; };
 		E58389702F774E5F003C30A4 /* task_type_habit_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E583896E2F774E5F003C30A4 /* task_type_habit_24@2x.png */; };
@@ -2079,8 +2080,9 @@
 		E57CC5E72F7FEF7000ADDBA4 /* TaskSchedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSchedule.swift; sourceTree = "<group>"; };
 		E57CC5EA2F7FEFAD00ADDBA4 /* TaskReminder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskReminder.swift; sourceTree = "<group>"; };
 		E57CC5EC2F7FEFD900ADDBA4 /* TaskDateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDateInfo.swift; sourceTree = "<group>"; };
-		E57CC5EE2F7FF05200ADDBA4 /* TaskGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskGoal.swift; sourceTree = "<group>"; };
 		E57CC5F22F7FF13300ADDBA4 /* TodoTaskEditDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskEditDetailView.swift; sourceTree = "<group>"; };
+		E57CC5F72F7FF79E00ADDBA4 /* TodoProgressEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoProgressEnum.swift; sourceTree = "<group>"; };
+		E57CC5F92F7FF79E00ADDBA4 /* TodoEditProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoEditProgress.swift; sourceTree = "<group>"; };
 		E583896A2F7749DF003C30A4 /* AppSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSetting.swift; sourceTree = "<group>"; };
 		E583896D2F774E5F003C30A4 /* task_type_habit_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_habit_24@3x.png"; sourceTree = "<group>"; };
 		E583896E2F774E5F003C30A4 /* task_type_habit_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_habit_24@2x.png"; sourceTree = "<group>"; };
@@ -4755,7 +4757,7 @@
 				E57CC5B62F7F9E0000ADDBA4 /* TodoListOption.swift */,
 				E57CC5BE2F7F9FA600ADDBA4 /* TodoGroupType.swift */,
 				E57CC5E52F7FEF3E00ADDBA4 /* TodoTaskPriority.swift */,
-				E57CC5EE2F7FF05200ADDBA4 /* TaskGoal.swift */,
+				E57CC5F62F7FF79E00ADDBA4 /* Progress */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4827,6 +4829,15 @@
 				E57CC5F22F7FF13300ADDBA4 /* TodoTaskEditDetailView.swift */,
 			);
 			path = InfoView;
+			sourceTree = "<group>";
+		};
+		E57CC5F62F7FF79E00ADDBA4 /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				E57CC5F72F7FF79E00ADDBA4 /* TodoProgressEnum.swift */,
+				E57CC5F92F7FF79E00ADDBA4 /* TodoEditProgress.swift */,
+			);
+			path = Progress;
 			sourceTree = "<group>";
 		};
 		E5802C022D4F693A00BFFE05 /* PickerView */ = {
@@ -8851,6 +8862,7 @@
 				E5BB9E142D3BF0C70089667A /* HandyRecord+Setup.swift in Sources */,
 				E5D7D8CF2D43933600EC877A /* FocusEndViewController.swift in Sources */,
 				E5BB9E172D3BF0C70089667A /* KeyValueStorage.swift in Sources */,
+				E57CC5FB2F7FF79F00ADDBA4 /* TodoProgressEnum.swift in Sources */,
 				E5B2AB0C2F4C7E6D003F024E /* FocusPauseInfo.swift in Sources */,
 				E5BBA0452D3BF4A40089667A /* TodoHomeViewController.swift in Sources */,
 				E5BB9D872D3BF0C60089667A /* UIViewController+Show.swift in Sources */,
@@ -9118,7 +9130,6 @@
 				E50BB67C2D5751B600D316FD /* TPImageInfoView.swift in Sources */,
 				E5D7D9072D43933600EC877A /* PomodoroCircleView.swift in Sources */,
 				E57CC5E62F7FEF3E00ADDBA4 /* TodoTaskPriority.swift in Sources */,
-				E57CC5EF2F7FF05200ADDBA4 /* TaskGoal.swift in Sources */,
 				E52678562D4BD14300428500 /* TPSegmentedMenuTableCell.swift in Sources */,
 				E54E632B2F5AFE0200FCBCAE /* CDHabitRecord+Extensions.swift in Sources */,
 				E5D7D8F22D43933600EC877A /* OpenCircleAdjustButtonView.swift in Sources */,
@@ -9475,6 +9486,7 @@
 				E53F32932F68DB2400B85B65 /* HabitReportMoreBarButtonItem.swift in Sources */,
 				E556BCEC2F5E610900CA20D9 /* HabitTaskMenuActionProcessor.swift in Sources */,
 				E5BB9DA42D3BF0C60089667A /* TPLongPressPeriodicButton.swift in Sources */,
+				E57CC5FD2F7FF79F00ADDBA4 /* TodoEditProgress.swift in Sources */,
 				E5D7D8FA2D43933600EC877A /* OpenCircleAdjustSlider.swift in Sources */,
 				E592441F2F51CB7500CA2393 /* HabitTimePlanRegularScheduler.swift in Sources */,
 				E5D7D8D82D43933600EC877A /* FocusFlipClockViewController.swift in Sources */,

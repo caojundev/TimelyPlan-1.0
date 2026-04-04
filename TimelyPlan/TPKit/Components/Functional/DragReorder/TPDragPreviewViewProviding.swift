@@ -14,10 +14,10 @@ protocol TPDragPreviewViewProviding {
     func dragPreviewView() -> UIView?
     
     /// 开始时所处的位置，相对于单元格
-    func beginPosition() -> CGPoint
+    func beginFrame() -> CGRect
     
     /// 结束时所处的位置，相对于单元格
-    func endPosition() -> CGPoint
+    func endFrame() -> CGRect
 }
 
 extension TPDragPreviewViewProviding {
@@ -26,11 +26,11 @@ extension TPDragPreviewViewProviding {
         return nil
     }
     
-    func beginPosition() -> CGPoint {
+    func beginFrame() -> CGRect {
         return .zero
     }
     
-    func endPosition() -> CGPoint {
-        return beginPosition()
+    func endFrame() -> CGRect {
+        return beginFrame()
     }
 }

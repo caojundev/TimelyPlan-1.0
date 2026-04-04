@@ -12,7 +12,7 @@ enum TodoTaskQuickAddMenuActionType: Int {
     case addToMyDay
     case schedule
     case priority
-    case goal
+    case progress
     case tag
     case note
 }
@@ -57,10 +57,10 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
     }()
     
     /// 目标
-    lazy var goalCellItem: TodoTaskQuickAddMenuCellItem = { [weak self] in
-        let cellItem = TodoTaskQuickAddMenuCellItem(actionType: .goal)
+    lazy var progressCellItem: TodoTaskQuickAddMenuCellItem = { [weak self] in
+        let cellItem = TodoTaskQuickAddMenuCellItem(actionType: .progress)
         cellItem.updater = {
-            self?.updateGoalCellItem()
+            self?.updateProgressCellItem()
         }
         
         return cellItem
@@ -97,7 +97,7 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
         self.cellItems = [scheduleCellItem,
                           addToMyDayCellItem,
                           priorityCellItem,
-                          goalCellItem,
+                          progressCellItem,
                           tagCellItem,
                           noteCellItem]
     }
@@ -116,8 +116,8 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
             editSchedule()
         case .priority:
             editPriority()
-        case .goal:
-            editGoal()
+        case .progress:
+            editProgress()
         case .tag:
             editTags()
         case .note:
@@ -175,18 +175,18 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
         updateImageConfig(for: priorityCellItem, isActive: isActive)
     }
     
-    private func updateGoalCellItem() {
+    private func updateProgressCellItem() {
         var isActive = false
         var title: String? = nil
-        if let goal = task.goal, goal.isValid {
+        if let progress = task.progress {
             isActive = true
-            title = goal.info
+            title = progress.detailInfo
         }
         
-        goalCellItem.isActive = isActive
-        goalCellItem.title = title
-        goalCellItem.imageName = "todo_task_goal_24"
-        updateImageConfig(for: goalCellItem, isActive: isActive)
+        progressCellItem.isActive = isActive
+        progressCellItem.title = title
+        progressCellItem.imageName = "todo_task_progress_24"
+        updateImageConfig(for: progressCellItem, isActive: isActive)
     }
     
     private func updateTagCellItem() {
@@ -227,8 +227,8 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
             cellItem = scheduleCellItem
         case .priority:
             cellItem = priorityCellItem
-        case .goal:
-            cellItem = goalCellItem
+        case .progress:
+            cellItem = progressCellItem
         case .tag:
             cellItem = tagCellItem
         case .note:
@@ -282,10 +282,9 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
     }
     
     /// 编辑目标
-    private func editGoal() {
-        #warning("editGoal")
-//        TodoTaskController.editGoal(task.goal) {[weak self] newGoal in
-//            self?.setGoal(newGoal)
+    private func editProgress() {
+//        TodoTaskController.editProgress(task.progress) {[weak self] newProgress in
+//            self?.setProgress(newProgress)
 //        }
     }
     
@@ -332,14 +331,14 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
         didChangeTask?(task, .schedule)
     }
     
-    private func setGoal(_ goal: TaskGoal?) {
-        guard task.goal != goal else {
+    private func setProgress(_ progress: TodoEditProgress?) {
+        guard task.progress != progress else {
             return
         }
         
-        task.goal = goal
-        reload(for: .goal)
-        didChangeTask?(task, .goal)
+        task.progress = progress
+        reload(for: .progress)
+        didChangeTask?(task, .progress)
     }
     
     private func setTags(_ tags: Set<TodoTag>?) {
@@ -376,8 +375,8 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
             setSchedule(nil)
         case .priority:
             setPriority(.none)
-        case .goal:
-            setGoal(nil)
+        case .progress:
+            setProgress(nil)
         case .tag:
             setTags(nil)
         case .note:

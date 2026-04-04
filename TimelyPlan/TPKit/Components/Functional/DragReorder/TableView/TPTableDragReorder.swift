@@ -126,10 +126,8 @@ class TPTableDragReorder: NSObject, UIGestureRecognizerDelegate {
             self.draggingDidBegin(at: currentPoint)
             
             let draggingCell = tableView.cellForRow(at: indexPath)
-            guard let draggingCell = draggingCell,
-                  let draggingCellSuperView = draggingCell.superview,
-                  let rootView = UIWindow.keyWindow else {
-                        return
+            guard let draggingCell = draggingCell, let rootView = UIWindow.keyWindow else {
+                return
             }
             
             draggingCell.setHighlighted(false, animated: false)
@@ -137,7 +135,10 @@ class TPTableDragReorder: NSObject, UIGestureRecognizerDelegate {
             var beginCenter: CGPoint = draggingCell.bounds.center
             if let draggingCell = draggingCell as? TPDragPreviewViewProviding {
                 draggingView = draggingCell.dragPreviewView()
-                beginCenter = draggingCell.beginPosition()
+                
+                let draggingFrame = draggingCell.beginFrame()
+                draggingView?.frame = draggingFrame
+                beginCenter = draggingFrame.center
             }
             
             if draggingView == nil {

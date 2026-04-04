@@ -18,6 +18,7 @@ class TodoQuickAddTask: NSCopying {
     /// 备注
     var note: String?
     
+    /// 是否允许备注
     var isNoteEnabled: Bool = false
     
     /// 添加到我的一天
@@ -29,8 +30,8 @@ class TodoQuickAddTask: NSCopying {
     /// 计划
     var schedule: TaskSchedule?
     
-    /// 目标
-    var goal: TaskGoal?
+    /// 进度
+    var progress: TodoEditProgress?
     
     /// 标签
     var tags: Set<TodoTag>?
@@ -72,7 +73,7 @@ class TodoQuickAddTask: NSCopying {
         copy.isAddedToMyDay = isAddedToMyDay
         copy.priority = priority
         copy.schedule = schedule
-        copy.goal = goal?.copy() as? TaskGoal
+        copy.progress = progress
         copy.tags = tags
         return copy
     }

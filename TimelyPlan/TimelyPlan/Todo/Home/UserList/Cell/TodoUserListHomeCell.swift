@@ -88,23 +88,31 @@ class TodoUserListHomeCell: TodoUserListBaseCell {
 extension TodoUserListHomeCell: TPDragPreviewViewProviding {
     
     func dragPreviewView() -> UIView? {
-        let padding = UIEdgeInsets(left: 10.0, right: 5.0)
-        let previewWidth = infoView.width + padding.horizontalLength
-        let previewHeight = infoView.height + padding.verticalLength
-        let previewFrame = CGRect(x: 0.0, y: 0.0, width: previewWidth, height: previewHeight)
-        let view = TodoUserListHomeCellPreviewView(frame: previewFrame)
+        var padding = self.contentPadding
+        padding.left = padding.left + self.leftViewSize.width + self.leftViewMargins.left
+        
+        let view = TodoUserListHomeCellPreviewView(frame: contentView.frame)
         view.padding = padding
         view.infoView.titleConfig = iconInfoTextValueView.titleConfig
         view.infoView.subtitleConfig = iconInfoTextValueView.subtitleConfig
         view.infoView.iconConfig = iconInfoTextValueView.iconConfig
         view.infoView.title = iconInfoTextValueView.title
         view.infoView.subtitle = iconInfoTextValueView.subtitle
+        view.backgroundColor = .random
+        view.infoView.backgroundColor = .random
         return view
     }
     
-    func beginPosition() -> CGPoint {
-        return contentView.convert(infoView.center, toViewOrWindow: self)
+    func beginFrame() -> CGRect {
+        let x = CGFloat(self.depth) * depthWidth
+        let w = self.width - x
+        return CGRect(x: x, y: 0.0, width: w, height: self.height)
     }
+    
+    func endFrame() -> CGRect {
+        beginFrame()
+    }
+    
 }
 
 class TodoUserListHomeCellPreviewView: UIView {

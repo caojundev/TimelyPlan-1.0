@@ -16,6 +16,23 @@ class TodoUserListInteractor: TodoListInteractor {
     }
     
     override func title() -> TextRepresentable? {
-        return configuration.list.name ?? resGetString("Untitled")
+        let list = configuration.list
+        let listName = list.name ?? resGetString("Untitled")
+        if let emoji = list.emoji {
+            return emoji + " " + listName
+        }
+        
+        if let image = resGetImage(list.layoutType.miniIconName) {
+            let color = list.color ?? resGetColor(.title)
+            let title: ASAttributedString
+            title = .string(image: image,
+                            imageSize: .size(4),
+                            imageColor: color,
+                            trailingText: listName,
+                            separator: " ")
+            return title
+        }
+        
+        return listName
     }
 }
