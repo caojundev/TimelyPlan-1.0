@@ -65,6 +65,16 @@ class TPTextWrapperView: UIView, UITextViewDelegate  {
         }
     }
     
+    var textColor: UIColor? {
+        get {
+            return textView.textColor
+        }
+        
+        set {
+            textView.textColor = newValue
+        }
+    }
+    
     /// 内容尺寸
     var contentSize: CGSize {
         let size = textView.contentSize

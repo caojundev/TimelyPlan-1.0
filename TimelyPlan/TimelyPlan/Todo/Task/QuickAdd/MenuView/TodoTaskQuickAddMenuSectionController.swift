@@ -282,9 +282,17 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
     
     /// 编辑目标
     private func editProgress() {
-//        TodoTaskController.editProgress(task.progress) {[weak self] newProgress in
-//            self?.setProgress(newProgress)
-//        }
+        guard let cell = adapter?.cellForItem(progressCellItem) else {
+            return
+        }
+        
+        let popoverView = TodoQuickAddProgressEditPopoverView()
+        popoverView.show(from: cell,
+                         sourceRect: cell.bounds,
+                         isCovered: false,
+                         preferredPosition: .topRight,
+                         permittedPositions: TPPopoverPosition.topPopoverPositions,
+                         animated: true)
     }
     
     private func editTags() {

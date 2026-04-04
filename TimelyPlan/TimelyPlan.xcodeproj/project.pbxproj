@@ -671,6 +671,11 @@
 		E5B33D662F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D572F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift */; };
 		E5B33D692F80E6CA00939C3E /* TodoTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D682F80E6C900939C3E /* TodoTaskController.swift */; };
 		E5B33D6C2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D6B2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift */; };
+		E5B33D6F2F80EE0100939C3E /* TodoQuickAddProgressEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D6E2F80EE0100939C3E /* TodoQuickAddProgressEditView.swift */; };
+		E5B33D712F80F3B700939C3E /* TodoProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D702F80F3B700939C3E /* TodoProgressBarView.swift */; };
+		E5B33D732F81148500939C3E /* TodoQuickAddProgressValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D722F81148500939C3E /* TodoQuickAddProgressValueCell.swift */; };
+		E5B33D752F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D742F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift */; };
+		E5B33D772F81472A00939C3E /* TodoQuickAddProgressSegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D762F81472A00939C3E /* TodoQuickAddProgressSegmentedCell.swift */; };
 		E5B6B2812D6C9AB700DBBCB0 /* TPAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */; };
 		E5B926CD2D3F97F30065FA79 /* plus_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B926CB2D3F97F30065FA79 /* plus_32@3x.png */; };
 		E5B926CE2D3F97F30065FA79 /* plus_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B926CC2D3F97F30065FA79 /* plus_32@2x.png */; };
@@ -2191,6 +2196,11 @@
 		E5B33D572F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditRepeatSectionController.swift; sourceTree = "<group>"; };
 		E5B33D682F80E6C900939C3E /* TodoTaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskController.swift; sourceTree = "<group>"; };
 		E5B33D6B2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskEditTableCellItem.swift; sourceTree = "<group>"; };
+		E5B33D6E2F80EE0100939C3E /* TodoQuickAddProgressEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoQuickAddProgressEditView.swift; sourceTree = "<group>"; };
+		E5B33D702F80F3B700939C3E /* TodoProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoProgressBarView.swift; sourceTree = "<group>"; };
+		E5B33D722F81148500939C3E /* TodoQuickAddProgressValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoQuickAddProgressValueCell.swift; sourceTree = "<group>"; };
+		E5B33D742F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoQuickAddProgressEditContentView.swift; sourceTree = "<group>"; };
+		E5B33D762F81472A00939C3E /* TodoQuickAddProgressSegmentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoQuickAddProgressSegmentedCell.swift; sourceTree = "<group>"; };
 		E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAutoScroller.swift; sourceTree = "<group>"; };
 		E5B926CB2D3F97F30065FA79 /* plus_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_32@3x.png"; sourceTree = "<group>"; };
 		E5B926CC2D3F97F30065FA79 /* plus_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_32@2x.png"; sourceTree = "<group>"; };
@@ -4853,6 +4863,7 @@
 			children = (
 				E5B33D6A2F80E7D600939C3E /* SectionControllers */,
 				E5B33D452F80E66E00939C3E /* Schedule */,
+				E5B33D6D2F80ED8F00939C3E /* Progress */,
 				E57CC5F12F7FF12900ADDBA4 /* InfoView */,
 			);
 			path = Edit;
@@ -5276,6 +5287,18 @@
 				E5B33D6B2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift */,
 			);
 			path = SectionControllers;
+			sourceTree = "<group>";
+		};
+		E5B33D6D2F80ED8F00939C3E /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				E5B33D6E2F80EE0100939C3E /* TodoQuickAddProgressEditView.swift */,
+				E5B33D742F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift */,
+				E5B33D722F81148500939C3E /* TodoQuickAddProgressValueCell.swift */,
+				E5B33D762F81472A00939C3E /* TodoQuickAddProgressSegmentedCell.swift */,
+				E5B33D702F80F3B700939C3E /* TodoProgressBarView.swift */,
+			);
+			path = Progress;
 			sourceTree = "<group>";
 		};
 		E5B926D52D3FF04A0065FA79 /* arrow */ = {
@@ -9229,6 +9252,7 @@
 				E568B7D22F70C474007B7EFE /* CDFocusSession+Extensions.swift in Sources */,
 				E5BB9D8A2D3BF0C60089667A /* ExtensionSwizzler.swift in Sources */,
 				E5BB9DA62D3BF0C60089667A /* TPImageButton.swift in Sources */,
+				E5B33D6F2F80EE0100939C3E /* TodoQuickAddProgressEditView.swift in Sources */,
 				E50FF8B42F79291100B8F5BE /* FocusDefaultTimerSelectCell.swift in Sources */,
 				E5BB9D842D3BF0C50089667A /* LayoutTokens.swift in Sources */,
 				E5EFB1732F59C986000FFDF4 /* HabitManageMainViewController.swift in Sources */,
@@ -9427,6 +9451,7 @@
 				E5BB9E832D3BF0C80089667A /* PointElementView.swift in Sources */,
 				E5BB9E952D3BF0C80089667A /* PieLineView.swift in Sources */,
 				E5BB9B462D3BEF920089667A /* UILabelLayoutManagerDelegate.swift in Sources */,
+				E5B33D732F81148500939C3E /* TodoQuickAddProgressValueCell.swift in Sources */,
 				E50D60282F7A12B400D5E0A4 /* RepeatEditViewController.swift in Sources */,
 				E5BB9DAA2D3BF0C60089667A /* FlipClockCardView.swift in Sources */,
 				E5BB9F152D3BF0C90089667A /* GlobalFunctions.swift in Sources */,
@@ -9501,6 +9526,7 @@
 				E5BB9F252D3BF2C20089667A /* AppDelegate.swift in Sources */,
 				E5BB9F3B2D3BF4330089667A /* TaskFeature.swift in Sources */,
 				E5BB9DF92D3BF0C60089667A /* NSString+Diffable.swift in Sources */,
+				E5B33D752F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift in Sources */,
 				E53480132F605B6300CFBF26 /* HabitTaskFilterButton.swift in Sources */,
 				E52F899C2D5B11B3001F18FA /* TPImageView.swift in Sources */,
 				E5BB9DF32D3BF0C60089667A /* DateComponents+Extensions.swift in Sources */,
@@ -9594,6 +9620,7 @@
 				E5E8C9EB2F701ED1006728C5 /* FocusTimer.swift in Sources */,
 				E53F32B82F69533A00B85B65 /* HabitReportMonthlySectionController.swift in Sources */,
 				E5BB9EAE2D3BF0C80089667A /* TPMenuListView.swift in Sources */,
+				E5B33D712F80F3B700939C3E /* TodoProgressBarView.swift in Sources */,
 				E5BB9EFF2D3BF0C80089667A /* TPPopoverPresentAnimator.swift in Sources */,
 				E59244122F519F5200CA2393 /* TPIconCharacterEditViewController.swift in Sources */,
 				E55D77182D4E76C80092F8C1 /* TPTextViewTableCell.swift in Sources */,
@@ -9689,6 +9716,7 @@
 				E5409BF62F4068B800C6E72E /* TPDefaultInfoColorValueTableCell.swift in Sources */,
 				E5D7D9142D43933700EC877A /* FocusStatsWeeklyViewController.swift in Sources */,
 				E5BB9DF02D3BF0C60089667A /* Date+FormattedString.swift in Sources */,
+				E5B33D772F81472A00939C3E /* TodoQuickAddProgressSegmentedCell.swift in Sources */,
 				E59244082F515A3700CA2393 /* HabitTaskEditViewController.swift in Sources */,
 				E5D7D8EC2D43933600EC877A /* FocusRecordEditViewController.swift in Sources */,
 				E5D7D7DC2D43923800EC877A /* FocusRecord.swift in Sources */,
