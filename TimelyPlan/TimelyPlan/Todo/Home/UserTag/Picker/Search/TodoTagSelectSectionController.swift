@@ -6,22 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 class TodoTagSelectSectionController: TPTableBaseSectionController,
                                       TPMultipleItemSelectionUpdater {
     
-    override var items: [ListDiffable]? {
-        return todo.getTags()
-    }
-    
-    /// 当前标签列表
-    var tags: [TodoTag] {
-        if let items = adapter?.items(for: self) as? [TodoTag] {
-           return items
-        }
-        
-        return []
-    }
+    var tags: [TodoTag]?
     
     let selection: TPMultipleItemSelection<TodoTag>
     
@@ -31,6 +21,10 @@ class TodoTagSelectSectionController: TPTableBaseSectionController,
         self.selection.addUpdater(self)
     }
 
+    override var items: [ListDiffable]? {
+        return tags
+    }
+    
     // MARK: - Delegate
     override func heightForHeader() -> CGFloat {
         return 0.0
@@ -45,12 +39,12 @@ class TodoTagSelectSectionController: TPTableBaseSectionController,
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
-        return TodoTagSelectCell.self
+        return TodoTagSelectTableCell.self
     }
     
     override func didDequeCell(_ cell: UITableViewCell, forRowAt index: Int) {
         super.didDequeCell(cell, forRowAt: index)
-        guard let cell = cell as? TodoTagSelectCell else {
+        guard let cell = cell as? TodoTagSelectTableCell else {
             return
         }
         
@@ -89,7 +83,7 @@ class TodoTagSelectSectionController: TPTableBaseSectionController,
     }
 }
 
-class TodoTagSelectCell: TPColorInfoTextValueTableCell {
+class TodoTagSelectTableCell: TPColorInfoTextValueTableCell {
     
     var userTag: TodoTag? {
         didSet {

@@ -138,6 +138,7 @@ class TodoTagSelectViewController: TPViewController,
     }
     
     func didCreateTodoTag(_ tag: TodoTag) {
+        self.selectView.userTags = viewModel.tags
         self.selectView.performUpdate {[weak self] _ in
             self?.selectView.revealItem(tag, autoScroll: true)
         }

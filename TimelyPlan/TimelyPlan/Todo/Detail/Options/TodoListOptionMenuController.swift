@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreText
 
 class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
 
