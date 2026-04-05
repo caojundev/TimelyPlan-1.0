@@ -19,10 +19,28 @@ class TodoQuickAddProgressEditPopoverView: TPBasePopoverView {
     private let maximumContentHeight = 300.0
     
     private var editView: TodoQuickAddProgressEditContentView!
+
+    var progressValueChanged: ((TodoEditProgress) -> Void)? {
+        get {
+            return self.editView.progressValueChanged
+        }
+        
+        set {
+            self.editView.progressValueChanged = newValue
+        }
+    }
+    
+    init(progress: TodoEditProgress? = nil) {
+        self.editView = TodoQuickAddProgressEditContentView(progress: progress)
+        super.init(frame: .zero)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func setupSubviews() {
         super.setupSubviews()
-        self.editView = TodoQuickAddProgressEditContentView()
         self.editView.backgroundColor = .secondarySystemBackground
         self.popoverView = self.editView
     }
@@ -31,10 +49,6 @@ class TodoQuickAddProgressEditPopoverView: TPBasePopoverView {
         var contentHeight = 240.0
         clampValue(&contentHeight, minimumContentHeight, maximumContentHeight)
         return CGSize(width: contentWidth, height: contentHeight)
-    }
-    
-    func reloadData() {
-        
     }
     
     // MARK: - 选中菜单项

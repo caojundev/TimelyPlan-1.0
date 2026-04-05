@@ -12,6 +12,8 @@ class TodoQuickAddProgressEditContentView: TPTableWrapperView,
                                            TPTableSectionControllersList,
                                            TPTableSectionControllerDelegate {
 
+    var progressValueChanged: ((TodoEditProgress) -> Void)?
+    
     /// 初始值
     lazy var initialValueCellItem: TodoQuickAddProgressValueCellItem = { [weak self] in
         let cellItem = TodoQuickAddProgressValueCellItem()

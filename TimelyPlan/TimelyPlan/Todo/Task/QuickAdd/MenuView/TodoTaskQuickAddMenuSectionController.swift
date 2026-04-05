@@ -286,7 +286,18 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
             return
         }
         
-        let popoverView = TodoQuickAddProgressEditPopoverView()
+        var editProgress = task.progress
+        if editProgress == nil {
+            /// 创建一个默认的进度
+            editProgress = TodoEditProgress()
+            setProgress(editProgress)
+        }
+        
+        let popoverView = TodoQuickAddProgressEditPopoverView(progress: editProgress)
+        popoverView.progressValueChanged = { [weak self] progress in
+            self?.setProgress(progress)
+        }
+        
         popoverView.show(from: cell,
                          sourceRect: cell.bounds,
                          isCovered: false,
