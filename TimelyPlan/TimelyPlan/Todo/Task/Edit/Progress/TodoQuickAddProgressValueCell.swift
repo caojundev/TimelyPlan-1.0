@@ -20,13 +20,7 @@ class TodoQuickAddProgressValueCellItem: TPBaseTableCellItem {
     var minValue: Int64 = 0
     
     var maxValue: Int64 = 100
-    
-    /// 数值是否为负数
-    var isNegativeValue: Bool = false
-    
-    /// 是否显示正负符号
-    var shouldShowSign: Bool = false
-    
+
     /// 数值变化回调
     var valueChanged: ((Int64) -> Void)?
     
@@ -63,21 +57,24 @@ class TodoQuickAddProgressValueCell: TPBaseTableCell {
     let infoView = TPImageInfoTextValueView()
     
     override func setupContentSubviews() {
-        infoView.padding = UIEdgeInsets(right: 8.0)
+        infoView.padding = UIEdgeInsets(left: 8.0, right: 8.0)
         infoView.imageConfig.margins = UIEdgeInsets(left: 4.0, right: 4.0)
-        infoView.titleConfig.font = BOLD_SMALL_SYSTEM_FONT
+        infoView.titleConfig.font = SMALL_SYSTEM_FONT
         contentView.addSubview(infoView)
         contentView.addSubview(slider)
         slider.valueChanged = { [weak self] value in
-            self?.didChangeValue(Int64(value))
+            self?.changeValue(Int64(value))
         }
     }
     
-    func didChangeValue(_ value: Int64) {
+    private func changeValue(_ value: Int64) {
         let cellItem = cellItem as! TodoQuickAddProgressValueCellItem
         cellItem.value = clampedValue(value, cellItem.minValue, cellItem.maxValue)
         self.updateValueText()
-        self.valueChanged?(value)
+        
+        if !slider.processPan {
+            self.valueChanged?(value)
+        }
     }
     
     override func layoutSubviews() {
@@ -98,12 +95,6 @@ class TodoQuickAddProgressValueCell: TPBaseTableCell {
     func updateValueText() {
         let cellItem = cellItem as! TodoQuickAddProgressValueCellItem
         let value = clampedValue(cellItem.value, cellItem.minValue, cellItem.maxValue)
-        var valueText = "\(value)"
-        if cellItem.shouldShowSign {
-            let signText = cellItem.isNegativeValue ? "-" : "+"
-            valueText = signText + valueText
-        }
-        
-        self.infoView.valueConfig = .valueText(valueText)
+        self.infoView.valueConfig = .valueText("\(value)")
     }
 }

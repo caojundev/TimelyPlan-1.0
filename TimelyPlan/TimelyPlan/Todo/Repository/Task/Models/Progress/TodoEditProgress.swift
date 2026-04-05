@@ -58,19 +58,11 @@ struct TodoEditProgress: Hashable, Equatable {
     }
     
     var info: String? {
-        guard isValid else {
-            return nil
-        }
-        
         return "\(initialValue)→\(targetValue)"
     }
     
     /// 详情信息，包含当前数值
     var detailInfo: String? {
-        guard isValid else {
-            return nil
-        }
-        
         return "\(initialValue)→\(targetValue)•\(currentValue)"
     }
     

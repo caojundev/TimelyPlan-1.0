@@ -10,12 +10,24 @@ import UIKit
 
 class TodoProgressSlider: UIView, UIGestureRecognizerDelegate {
 
+    var valueChanged: ((Int) -> Void)?
+
     var fromValue: CGFloat = 0
     
     var toValue: CGFloat = 100
  
     private(set) var lineWidth: CGFloat = 36
     
+    private(set) var barRect: CGRect = .zero
+    private(set) var barCenterY: CGFloat = 0
+    private(set) var processPan: Bool = false
+    private(set) var progress: CGFloat = 0.0
+    
+    /// 动画定时器
+    private var displayLink: CADisplayLink?
+    
+    private var previousValue: Int?
+
     lazy var progressMaskLayer: CAShapeLayer = {
         var layer = CAShapeLayer()
         layer.fillColor = UIColor.clear.cgColor
@@ -67,18 +79,6 @@ class TodoProgressSlider: UIView, UIGestureRecognizerDelegate {
         view.alpha = 0.85
         return view
     }()
-    
-    var barRect: CGRect = .zero
-    var barCenterY: CGFloat = 0
-    var processPan: Bool = false
-    var progress: CGFloat = 0.0
-    
-    /// 动画定时器
-    private var displayLink: CADisplayLink?
-    
-    private var previousValue: Int?
-    
-    var valueChanged: ((Int) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -153,6 +153,7 @@ class TodoProgressSlider: UIView, UIGestureRecognizerDelegate {
             
         default:
             processPan = false
+            valueChanged?(Int(currentValue))
         }
     }
 

@@ -16,7 +16,7 @@ class TodoQuickAddProgressEditPopoverView: TPBasePopoverView {
     
     private let minimumContentHeight = 100.0
     
-    private let maximumContentHeight = 300.0
+    private let maximumContentHeight = 360.0
     
     private var editView: TodoQuickAddProgressEditContentView!
 
@@ -46,7 +46,7 @@ class TodoQuickAddProgressEditPopoverView: TPBasePopoverView {
     }
 
     override var popoverContentSize: CGSize {
-        var contentHeight = 240.0
+        var contentHeight = 330.0
         clampValue(&contentHeight, minimumContentHeight, maximumContentHeight)
         return CGSize(width: contentWidth, height: contentHeight)
     }
