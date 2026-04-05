@@ -19,6 +19,12 @@ class TodoTagManager {
         return CDTodoTag.getTags()?.tags ?? []
     }
     
+    func fetchTags(completion: @escaping([TodoTag]?) -> Void) {
+        CDTodoTag.fetchTags { results in
+            completion(results?.tags)
+        }
+    }
+    
     /// 包含特定名称的标签是否已存在
     func isTagExist(with name: String) -> Bool {
         let name = name.whitespacesAndNewlinesTrimmedString

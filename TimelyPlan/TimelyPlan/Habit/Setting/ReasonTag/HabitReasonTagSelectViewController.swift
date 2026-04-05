@@ -125,7 +125,7 @@ class HabitReasonTagSelectViewController: TPCollectionViewController,
     // MARK: - 标签操作
     func addReasonTag() {
         HabitReasonTagManager.editTag(type: .create, emoji: nil, reason: nil) { newEmoji, newReason in
-            self.didCreateNewTag(emoji: String(newEmoji), reason: newReason)
+            self.didcreateTag(emoji: String(newEmoji), reason: newReason)
         }
     }
     
@@ -134,7 +134,7 @@ class HabitReasonTagSelectViewController: TPCollectionViewController,
     }
     
     /// 点击新标签按钮
-    func didCreateNewTag(emoji: String, reason: String) {
+    func didcreateTag(emoji: String, reason: String) {
         let tag = ReasonTag(emoji: emoji, reason: reason)
         let scrollAndCommitFocusAnimation = {
             self.adapter.scrollToItem(tag, at: .centeredVertically, animated: true) { _ in

@@ -175,7 +175,7 @@ extension NSManagedObject {
         executeFetchRequest(request, completion: completion)
     }
     
-    static func findAll(with predicate: NSPredicate,
+    static func findAll(with predicate: NSPredicate?,
                         sortedBy key: String,
                         ascending: Bool,
                         completion: @escaping([NSFetchRequestResult]?) -> Void) {

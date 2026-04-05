@@ -152,23 +152,6 @@ class TPGroupCollectionView: TPCollectionWrapperView,
         return adapter.visibleCells
     }
     
-    /// 执行更新操作
-    func performUpdate(with completion: ((Bool) -> Void)? = nil) {
-        self.adapter.performUpdate(with: completion)
-    }
-    
-    /// 聚焦显示
-    func revealItem(_ item: ListDiffable, autoScroll: Bool = true) {
-        guard autoScroll else {
-            self.adapter.commitFocusAnimation(for: item)
-            return
-        }
-        
-        self.adapter.scrollToItem(item, at: .centeredVertically, animated: true) { _ in
-            self.adapter.commitFocusAnimation(for: item)
-        }
-    }
-
     /// 移动项的位置
     /// - Parameters:
     ///   - fromIndexPath: 源索引路径

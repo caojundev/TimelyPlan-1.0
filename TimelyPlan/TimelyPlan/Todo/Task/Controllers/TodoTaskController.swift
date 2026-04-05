@@ -300,16 +300,7 @@ class TodoTaskController {
          
          vc.popoverShowAsNavigationRoot()
      }
-     
-     static func editTags(_ tags: Set<TodoTag>?, completion: ((Set<TodoTag>?)->Void)?) {
-         let pickerVC = TodoTagPickerViewController(selectedTags: tags)
-         pickerVC.didPickTags = { tags in
-             completion?(tags)
-         }
-         
-         pickerVC.popoverShowAsNavigationRoot()
-     }
-     
+
     */
     
     
@@ -323,4 +314,14 @@ class TodoTaskController {
         
         vc.popoverShowAsNavigationRoot()
     }
+    
+    static func editTags(_ tags: Set<TodoTag>?, completion: ((Set<TodoTag>?)->Void)?) {
+        let pickerVC = TodoTagPickerViewController(selectedTags: tags)
+        pickerVC.didPickTags = { tags in
+            completion?(tags)
+        }
+        
+        pickerVC.popoverShowAsNavigationRoot()
+    }
+    
 }

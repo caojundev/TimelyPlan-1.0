@@ -16,7 +16,7 @@ class TodoTaskListPickerViewController: TodoBaseListPickerViewController {
     }
     
     override func setupSelectViewController() {
-        self.selectViewController = TodoParentListSelectViewController(list: self.list,
-                                                                       allowMaxDepth: self.allowMaxDepth)
+        self.selectViewController = TodoTaskListSelectViewController(list: self.list,
+                                                                     allowMaxDepth: self.allowMaxDepth)
     }
 }

@@ -308,9 +308,9 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
     }
     
     private func editTags() {
-//        TodoTaskController.editTags(task.tags) {[weak self] newTags in
-//            self?.setTags(newTags)
-//        }
+        TodoTaskController.editTags(task.tags) {[weak self] newTags in
+            self?.setTags(newTags)
+        }
     }
     
     private func selectNote() {

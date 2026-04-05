@@ -105,6 +105,12 @@ extension CDTodoTag {
         return results
     }
     
+    static func fetchTags(completion: @escaping([CDTodoTag]?) -> Void) {
+        findAll(with: nil, sortedBy: ElementOrderKey, ascending: true) { results in
+            completion(results as? [CDTodoTag])
+        }
+    }
+    
     static func isTagExist(with name: String) -> Bool {
         let condition: PredicateCondition = (TodoTagKey.name, .equal(name))
         let predicate = NSPredicate.predicate(with: condition)

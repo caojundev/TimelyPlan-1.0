@@ -384,6 +384,21 @@ class TPCollectionViewAdapter: NSObject,
         return nil
     }
     
+    func indexPaths(of items: [ListDiffable]) -> Set<IndexPath>? {
+        var indexPaths = Set<IndexPath>()
+        for item in items {
+            if let indexPath = indexPath(of: item) {
+                indexPaths.insert(indexPath)
+            }
+        }
+            
+        if indexPaths.count > 0 {
+            return indexPaths
+        }
+        
+        return nil
+    }
+    
     func findIndexPath(matches: (ListDiffable) -> Bool) -> IndexPath? {
         for (section, object) in objects.enumerated() {
             let items = items(for: object)
@@ -550,6 +565,17 @@ extension TPCollectionViewAdapter {
         let isChecked = delegate?.adapter(self, shouldShowCheckmarkForItemAt: indexPath) ?? false
         cell.setChecked(isChecked, animated: animated)
     }
+    
+    func updateCheckmarks(for items: [ListDiffable], animated: Bool) {
+        guard let indexPaths = indexPaths(of: items) else {
+            return
+        }
+        
+        for indexPath in indexPaths {
+            updateCheckmark(at: indexPath, animated: animated)
+        }
+    }
+    
 }
 
 // MARK: - PerformUpdate

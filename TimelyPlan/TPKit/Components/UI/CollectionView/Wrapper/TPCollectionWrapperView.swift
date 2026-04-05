@@ -123,6 +123,23 @@ class TPCollectionWrapperView: UIView,
         collectionView.placeholderView = placeholderProvider?.placeholderView()
     }
     
+    /// 聚焦显示
+    func revealItem(_ item: ListDiffable, autoScroll: Bool = true) {
+        guard autoScroll else {
+            self.adapter.commitFocusAnimation(for: item)
+            return
+        }
+        
+        self.adapter.scrollToItem(item, at: .centeredVertically, animated: true) { _ in
+            self.adapter.commitFocusAnimation(for: item)
+        }
+    }
+    
+    /// 执行更新操作
+    func performUpdate(with completion: ((Bool) -> Void)? = nil) {
+        self.adapter.performUpdate(with: completion)
+    }
+
     // MARK: - 设置布局对象
     func setCollectionViewLayout(_ layout: UICollectionViewLayout) {
         setCollectionViewLayout(layout, animated: false)

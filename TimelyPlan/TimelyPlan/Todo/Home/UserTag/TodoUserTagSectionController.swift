@@ -118,7 +118,7 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
     
     // MARK: - TodoHomeExpandHeaderViewDelegate
     func todoHomeExpandHeaderViewDidClickAdd(_ headerView: TodoHomeExpandHeaderView) {
-        tagController.createNewTag()
+        tagController.createTag()
     }
     
     func todoHomeExpandHeaderView(_ headerView: TodoHomeExpandHeaderView, didToggleExpand isExpanded: Bool) {

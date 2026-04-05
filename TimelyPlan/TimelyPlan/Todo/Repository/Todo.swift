@@ -68,6 +68,10 @@ class Todo {
     
     
     // MARK: - 获取标签
+    func fetchTags(completion: @escaping([TodoTag]?) -> Void) {
+        tagManager.fetchTags(completion: completion)
+    }
+    
     func getTags() -> [TodoTag] {
         return tagManager.getTags()
     }

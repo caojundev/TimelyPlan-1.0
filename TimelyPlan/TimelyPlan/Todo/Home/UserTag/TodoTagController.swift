@@ -24,7 +24,7 @@ class TodoTagController {
     // MARK: - 新建 / 编辑标签
     
     /// 新建标签
-    func createNewTag() {
+    func createTag() {
         TodoPresenter.showTagEditViewController(with: nil) { editingTag in
             guard let name = editingTag.name, name.count > 0 else {
                 return false
@@ -40,7 +40,7 @@ class TodoTagController {
         }
     }
     
-    func createNewTag(withName name: String, color: UIColor) {
+    func createTag(withName name: String, color: UIColor) {
         if todo.isTagExist(with: name) {
             showTagExistMessage()
         } else {

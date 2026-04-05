@@ -23,6 +23,17 @@ protocol TodoTagProcessorDelegate: AnyObject{
     func didRecorderTodoTag(in tags: [TodoTag], fromIndex: Int, toIndex: Int)
 }
 
+extension TodoTagProcessorDelegate {
+    
+    func didCreateTodoTag(_ tag: TodoTag) {}
+
+    func didDeleteTodoTag(_ tag: TodoTag) {}
+    
+    func didUpdateTodoTag(_ tag: TodoTag) {}
+
+    func didRecorderTodoTag(in tags: [TodoTag], fromIndex: Int, toIndex: Int) {}
+}
+
 class TodoTagProcessorUpdater: NSObject, TodoTagProcessorDelegate {
     
     func didCreateTodoTag(_ tag: TodoTag) {
