@@ -8,8 +8,9 @@
 import Foundation
 
 class TodoTagPickerViewController: TPContainerViewController,
+                                   TPMultipleItemSelectionDelegate,
                                     UISearchControllerDelegate,
-                                    TodoTagSearchResultsViewControllerDelegate {
+                                   TodoTagSearchResultsViewControllerDelegate {
     
     /// 选中标签回调
     var didPickTags: ((Set<TodoTag>?) -> Void)?
@@ -41,6 +42,7 @@ class TodoTagPickerViewController: TPContainerViewController,
     init(selectedTags: Set<TodoTag>? = nil) {
         self.selection = TPMultipleItemSelection<TodoTag>(items: Array(selectedTags ?? []))
         super.init(nibName: nil, bundle: nil)
+        self.selection.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -65,7 +67,7 @@ class TodoTagPickerViewController: TPContainerViewController,
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemBackground
     }
-    
+
     override func clickDone() {
         dismiss(animated: true, completion: nil)
         

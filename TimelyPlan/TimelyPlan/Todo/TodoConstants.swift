@@ -12,3 +12,6 @@ let kTodoListMaxDepth: Int = 3
 
 /// 列表单位深度宽度
 let kTodoListDepthWidth: CGFloat = 20.0
+
+/// 任务可选最多标签数目
+let kTodoTaskMaxTagsCount = 10

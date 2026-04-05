@@ -21,4 +21,11 @@ class TodoPresenter {
 //        let vc = TodoSettingViewController(style: .insetGrouped)
 //        vc.showAsNavigationRoot()
 //    }
+    
+    
+    static func showMaxTagsLimitMessage() {
+        let format = resGetString("You can select up to %ld tags.")
+        let message = String(format: format, kTodoTaskMaxTagsCount)
+        TPFeedbackQueue.common.postFeedback(text: message, position: .middle)
+    }
 }

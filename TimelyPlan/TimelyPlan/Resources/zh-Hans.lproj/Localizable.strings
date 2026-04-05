@@ -57,7 +57,7 @@
 "%ld tag selected" = "已选择%ld个标签";
 "This tag already exists" = "当前标签已存在";
 "Create Tag" = "创建标签";
-
+"You can select up to %ld tags." = "您最多可选择%ld个标签";
 
 ///**************************Focus**************************///
 "Focusing" = "专注中";
