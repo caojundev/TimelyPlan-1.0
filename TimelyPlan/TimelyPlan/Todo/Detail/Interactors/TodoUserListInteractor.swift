@@ -10,14 +10,12 @@ import CoreGraphics
 
 class TodoUserListInteractor: TodoListInteractor {
     
-    let configuration: TodoUserListConfiguration
-    
-    init(configuration: TodoUserListConfiguration) {
-        self.configuration = configuration
+    var listConfiguration: TodoUserListConfiguration {
+       return configuration as! TodoUserListConfiguration
     }
     
     override func title() -> TextRepresentable? {
-        let list = configuration.list
+        let list = listConfiguration.list
         let listName = list.name ?? resGetString("Untitled")
         if let emoji = list.emoji {
             return emoji + " " + listName

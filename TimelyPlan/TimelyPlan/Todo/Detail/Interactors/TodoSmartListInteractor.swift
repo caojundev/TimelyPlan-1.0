@@ -9,15 +9,13 @@ import Foundation
 
 class TodoSmartListInteractor: TodoListInteractor {
     
-    let configuration: TodoSmartListConfiguration
-    
-    init(configuration: TodoSmartListConfiguration) {
-        self.configuration = configuration
+    var listConfiguration: TodoSmartListConfiguration {
+       return configuration as! TodoSmartListConfiguration
     }
     
     override func title() -> TextRepresentable? {
-        let listName = configuration.list.title
-        if let image = configuration.list.icon {
+        let listName = listConfiguration.list.title
+        if let image = listConfiguration.list.icon {
             let title: ASAttributedString
             title = .string(image: image,
                             imageSize: .size(4),

@@ -8,6 +8,16 @@ import Foundation
 import UIKit
 
 class TPAddView: TPFlipAnimateContainerView {
+
+    var normalBackgroundColor: UIColor? {
+        get {
+            return addButton.normalBackgroundColor
+        }
+        
+        set {
+            addButton.normalBackgroundColor = newValue
+        }
+    }
     
     private let shadowRadius: CGFloat = 8.0
 

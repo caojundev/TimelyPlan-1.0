@@ -18,11 +18,29 @@ class TodoListInteractor {
         case let tagListConfig as TodoTagListConfiguration:
             return TodoTagListInteractor(configuration: tagListConfig)
         default:
-            return TodoListInteractor()
+            return TodoListInteractor(configuration: TodoListConfiguration())
         }
     }
+
+    /// 列表配置
+    let configuration: TodoListConfiguration
     
+    init(configuration: TodoListConfiguration) {
+        self.configuration = configuration
+    }
+    
+    /// 标题
     func title() -> TextRepresentable? {
         return nil
+    }
+    
+    /// 列表选项菜单管理器
+    func listOptionMenuItems() -> [TPMenuItem]? {
+        guard let options = configuration.allowListOptions() else {
+            return nil
+        }
+        
+        let menuController = TodoListOptionMenuController(options: options)
+        return menuController.menuItems()
     }
 }

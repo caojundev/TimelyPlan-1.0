@@ -8,7 +8,6 @@
 import Foundation
 
 class TodoTagPickerViewController: TPContainerViewController,
-                                   TPMultipleItemSelectionDelegate,
                                     UISearchControllerDelegate,
                                    TodoTagSearchResultsViewControllerDelegate {
     
@@ -42,7 +41,6 @@ class TodoTagPickerViewController: TPContainerViewController,
     init(selectedTags: Set<TodoTag>? = nil) {
         self.selection = TPMultipleItemSelection<TodoTag>(items: Array(selectedTags ?? []))
         super.init(nibName: nil, bundle: nil)
-        self.selection.delegate = self
     }
     
     required init?(coder: NSCoder) {

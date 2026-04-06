@@ -9,19 +9,17 @@ import Foundation
 
 class TodoTagListInteractor: TodoListInteractor {
     
-    let configuration: TodoTagListConfiguration
-    
-    init(configuration: TodoTagListConfiguration) {
-        self.configuration = configuration
+    var listConfiguration: TodoTagListConfiguration {
+       return configuration as! TodoTagListConfiguration
     }
     
     override func title() -> TextRepresentable? {
-        let tagName = configuration.tag.name ?? resGetString("Untitled")
+        let tagName = listConfiguration.tag.name ?? resGetString("Untitled")
         if let image = resGetImage("todo_home_tag_24") {
             let title: ASAttributedString
             title = .string(image: image,
                             imageSize: .size(4),
-                            imageColor: configuration.tag.color,
+                            imageColor: listConfiguration.tag.color,
                             trailingText: tagName,
                             separator: " ")
             return title

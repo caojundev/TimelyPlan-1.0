@@ -22,8 +22,8 @@ class TodoTagEditViewController: TPTableSectionsViewController {
     /// 名称和颜色编辑区块
     lazy var nameColorSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 20.0
-        sectionController.footerItem.height = 10.0
+        sectionController.headerItem.height = 0.0
+        sectionController.footerItem.height = 0.0
         sectionController.cellItems = [nameCellItem, colorCellItem]
         return sectionController
     }()
@@ -68,10 +68,18 @@ class TodoTagEditViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
+    private let titleViewHeight = 40.0
+    
+    private var titleView: TPInfoView = {
+        let view = TPInfoView()
+        view.titleConfig.textAlignment = .center
+        return view
+    }()
+    
     init(tag: TodoEditingTag? = nil) {
         self.editType = tag == nil ? .create : .modify
         self.editingTag = tag ?? TodoEditingTag()
-        super.init(style: .insetGrouped)
+        super.init(style: .grouped)
     }
     
     required init?(coder: NSCoder) {
@@ -80,6 +88,14 @@ class TodoTagEditViewController: TPTableSectionsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.padding = UIEdgeInsets(horizontal: 8.0)
+        if self.editType == .create {
+            self.titleView.title = resGetString("New Tag")
+        } else {
+            self.titleView.title = resGetString("Edit Tag")
+        }
+        
+        self.view.addSubview(self.titleView)
         self.tableView.showsVerticalScrollIndicator = false
         self.tableView.isScrollEnabled = false
         self.setupActionsBar(actions: [cancelAction, doneAction])
@@ -97,7 +113,10 @@ class TodoTagEditViewController: TPTableSectionsViewController {
     
     override var popoverContentSize: CGSize {
         let width = CGSize.Popover.contentWidth
-        var height = nameColorSectionController.headerItem.height + nameColorSectionController.footerItem.height
+        var height = self.view.padding.verticalLength
+        height += titleViewHeight
+        height += nameColorSectionController.headerItem.height
+        height += nameColorSectionController.footerItem.height
         height += nameCellItem.height + colorCellItem.height
         height += actionsBarHeight
         return CGSize(width: width, height: height)
@@ -105,7 +124,20 @@ class TodoTagEditViewController: TPTableSectionsViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        tableView.contentInset = .zero
+        let layoutFrame = view.layoutFrame()
+        titleView.width = layoutFrame.width
+        titleView.height = titleViewHeight
+        titleView.origin = layoutFrame.origin
+        
+        wrapperView.width = layoutFrame.width
+        if let actionsBar = actionsBar {
+            wrapperView.height = actionsBar.top - titleView.bottom
+        } else {
+            wrapperView.height = layoutFrame.maxY - titleView.bottom
+        }
+        
+        wrapperView.left = layoutFrame.minX
+        wrapperView.top = titleView.bottom
         updatePopoverContentSize()
     }
     

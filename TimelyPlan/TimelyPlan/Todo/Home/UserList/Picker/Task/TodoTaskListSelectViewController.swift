@@ -13,6 +13,7 @@ class TodoTaskListSelectViewController: TodoBaseListSelectViewController {
     /// 收件箱区块控制器
     private lazy var inboxSectionController: TodoListSelectInboxSectionController = {
         let sectionController = TodoListSelectInboxSectionController()
+        sectionController.footerItem.height = 15.0
         sectionController.delegate = self
         return sectionController
     }()

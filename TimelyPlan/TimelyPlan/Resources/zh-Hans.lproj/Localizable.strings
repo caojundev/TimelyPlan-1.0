@@ -49,6 +49,8 @@
 /// 标签
 "Search Tag" = "搜索标签";
 "Delete Tag" = "删除标签";
+"New Tag" = "新建标签";
+"Edit Tag" = "编辑标签";
 "Enter tag name" = "输入标签名称";
 "Add Tag" = "添加标签";
 "%ld tag" = "%ld个标签";
@@ -275,7 +277,6 @@
 
 /// 原因标签
 "Reason Tag" = "原因标签";
-"New Tag" = "新建标签";
 "Select Tag" = "选择标签";
 "Enter Reason" = "输入原因";
 

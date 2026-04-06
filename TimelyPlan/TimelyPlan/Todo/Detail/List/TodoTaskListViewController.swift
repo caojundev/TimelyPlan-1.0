@@ -31,14 +31,7 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
     private let addViewMargins = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 10.0, right: 20.0)
     
     /// 添加视图
-    private lazy var addView: TPAddView = {
-        let view = TPAddView()
-        view.didClickAdd = { [weak self] _ in
-            self?.clickAdd()
-        }
-       
-        return view
-    }()
+    private var addView: TPAddView?
     
     /// 任务快速添加控制器
     lazy var quickAddManager: TodoTaskQuickAddManager = {
@@ -58,26 +51,42 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(self.addView)
+        self.setupAddView()
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        /// 布局添加视图
         let layoutFrame = view.safeAreaFrame()
-        addView.size = addViewSize
-        addView.bottom = layoutFrame.maxY - addViewMargins.bottom
-        addView.right = layoutFrame.maxX - addViewMargins.right
+        if let addView = addView {
+            addView.size = addViewSize
+            addView.bottom = layoutFrame.maxY - addViewMargins.bottom
+            addView.right = layoutFrame.maxX - addViewMargins.right
+        }
+    }
+    
+    // MARK: - Setup
+    func setupAddView() {
+        let configuration = self.interactor.configuration
+        if configuration.canAddTask() {
+            let addView = TPAddView()
+            addView.normalBackgroundColor = configuration.addButtonBackColor()
+            addView.didClickAdd = { [weak self] _ in
+                self?.clickAdd()
+            }
+           
+            self.addView = addView
+            self.view.addSubview(addView)
+        }
     }
     
     // MARK: - Event Response
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
 //        itemsViewController.endEditing(animated: true)
+        guard let menuItems = self.interactor.listOptionMenuItems(), menuItems.count > 0 else {
+            return
+        }
         
-        let listOptionMenuController = TodoListOptionMenuController(options: TodoListOption.allCases)
-        let menuItems = listOptionMenuController.menuItems()
         let menuController = TPLevelMenuViewController(menuItems: menuItems)
         let sourceRect = CGRect(x: moreButton.bounds.maxX,
                                 y: moreButton.bounds.maxY,
@@ -88,7 +97,8 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
     /// 点击添加
     private func clickAdd() {
         TPImpactFeedback.impactWithLightStyle()
-        let task = TodoQuickAddTask()
+        
+        let task = self.interactor.configuration.quickAddTask()
         quickAddManager.show(with: task)
     }
     

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 protocol TodoDetailContent {
+    
     /// 导航栏标题
     var navigationTitle: TextRepresentable? { get }
     
