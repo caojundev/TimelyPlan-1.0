@@ -27,4 +27,13 @@ class TodoSmartListInteractor: TodoListInteractor {
         
         return listName
     }
+    
+    override func taskActionTypes(for selectedTasks: Set<TodoTask>) -> [TodoTaskActionType] {
+        let listType = listConfiguration.list.listType
+        if listType == .trash {
+            return [.restore, .shred]
+        }
+        
+        return super.taskActionTypes(for: selectedTasks)
+    }
 }

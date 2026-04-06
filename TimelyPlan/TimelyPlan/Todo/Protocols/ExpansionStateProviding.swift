@@ -10,16 +10,16 @@ import Foundation
 protocol ExpansionStateProviding: AnyObject {
     
     /// 是否是展开的清单
-    func isExpanded(_ item: Nestable) -> Bool
+    func isExpanded(_ item: Any) -> Bool
     
-    func canSetExpended(_ isExpended: Bool, for item: Nestable) -> Bool
+    func canSetExpended(_ isExpended: Bool, for item: Any) -> Bool
     
-    func setExpended(_ isExpended: Bool, for item: Nestable)
+    func setExpended(_ isExpended: Bool, for item: Any)
 }
 
 extension ExpansionStateProviding {
     
-    func canSetExpended(_ isExpended: Bool, for item: Nestable) -> Bool {
+    func canSetExpended(_ isExpended: Bool, for item: Any) -> Bool {
         return true
     }
 }

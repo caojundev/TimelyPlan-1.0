@@ -23,7 +23,8 @@ protocol TodoDetailContent {
     var navigationRightBarButtonItems: [UIBarButtonItem]? { get }
 }
 
-class TodoDetailViewController: TPMultiColumnDetailViewController {
+class TodoDetailViewController: TPMultiColumnDetailViewController,
+                                TodoTaskListViewControllerDelegate {
 
     /// 标题视图
     private lazy var titleView: TPInfoView = {
@@ -56,12 +57,26 @@ class TodoDetailViewController: TPMultiColumnDetailViewController {
     
     func setupContentViewController() {
         let contentVC = self.configuration.makeContent()
+        if let contentVC = contentVC as? TodoTaskListViewController {
+            contentVC.delegate = self
+        }
+        
         self.setContentViewController(contentVC)
     }
     
     var detailContent: TodoDetailContent? {
         return self.contentViewController as? TodoDetailContent
     }
+    
+    /// 左侧导航栏按钮
+    override func leftBarButtonItems() -> [UIBarButtonItem]? {
+        if let items = self.detailContent?.navigationLeftBarButtonItems, items.count > 0 {
+            return items
+        }
+        
+        return super.leftBarButtonItems()
+    }
+    
     
     // MARK: - Update
     /// 更新标题
@@ -82,13 +97,20 @@ class TodoDetailViewController: TPMultiColumnDetailViewController {
         navigationItem.rightBarButtonItems = self.detailContent?.navigationRightBarButtonItems
     }
     
-    /// 左侧导航栏按钮
-    override func leftBarButtonItems() -> [UIBarButtonItem]? {
-        if let items = self.detailContent?.navigationLeftBarButtonItems, items.count > 0 {
-            return items
-        }
+    // MARK: - TodoTaskListViewControllerDelegate
+    func taskListViewController(_ vc: TodoTaskListViewController, didChangeSelectionMode isSelecting: Bool) {
+        self.updateBarButtonItems()
+        self.updateSubtitle()
         
-        return super.leftBarButtonItems()
+        if isSelecting {
+            multiColumnViewController?.setUserInteractionEnabled(false, except: self)
+        } else {
+            multiColumnViewController?.setUserInteractionEnabled(true)
+        }
     }
     
+    func taskListViewController(_ vc: TodoTaskListViewController, didChangeSelectedTasks selectedTasks: Set<TodoTask>) {
+        self.updateSubtitle()
+        self.updateBarButtonItems()
+    }
 }

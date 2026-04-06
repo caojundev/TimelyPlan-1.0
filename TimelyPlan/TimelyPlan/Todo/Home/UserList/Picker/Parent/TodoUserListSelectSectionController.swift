@@ -105,12 +105,12 @@ class TodoParentListSelectExpansionState: ExpansionStateProviding {
         self.allowMaxDepth = allowMaxDepth
     }
     
-    func canSetExpended(_ isExpended: Bool, for item: Nestable) -> Bool {
+    func canSetExpended(_ isExpended: Bool, for item: Any) -> Bool {
         let list = item as! TodoList
         return list.depth < allowMaxDepth
     }
 
-    func isExpanded(_ item: Nestable) -> Bool {
+    func isExpanded(_ item: Any) -> Bool {
         let list = item as! TodoList
         if list.depth >= allowMaxDepth || collapsedLists.contains(list) {
             return false
@@ -123,7 +123,7 @@ class TodoParentListSelectExpansionState: ExpansionStateProviding {
         return !disabledLists.contains(list)
     }
     
-    func setExpended(_ isExpended: Bool, for item: Nestable) {
+    func setExpended(_ isExpended: Bool, for item: Any) {
         let list = item as! TodoList
         if isExpended {
             collapsedLists.remove(list)
