@@ -17,7 +17,7 @@ protocol TodoTaskListViewControllerDelegate: AnyObject {
     func taskListViewController(_ vc: TodoTaskListViewController, didChangeSelectedTasks selectedTasks: Set<TodoTask>)
 }
 
-class TodoTaskListViewController: UIViewController,
+class TodoTaskListViewController: TPViewController,
                                     TodoDetailContent,
                                   TodoTaskListViewDelegate {
  
@@ -94,7 +94,7 @@ class TodoTaskListViewController: UIViewController,
     
     /// 列表视图
     private lazy var listView: TodoTaskListView = {
-        let view = TodoTaskListView(frame: .zero, style: .insetGrouped)
+        let view = TodoTaskListView(frame: view.bounds, style: .insetGrouped)
         view.expansionState = self.expansionState
         view.delegate = self
         return view
@@ -129,11 +129,18 @@ class TodoTaskListViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(self.listView)
         self.setupAddView()
+        self.view.addSubview(self.listView)
         self.listView.reloadData()
+        self.interactor.didChangeGroups = { [weak self] in
+            self?.listView.performUpdate()
+        }
     }
 
+    override func handleFirstAppearance() {
+        self.interactor.loadGroups()
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.updateListViewFrame()
@@ -235,49 +242,46 @@ class TodoTaskListViewController: UIViewController,
         print(option)
         switch option {
         case .select:
-            setSelecting(true)
+            self.setSelecting(true)
+        case .showCompleted:
+            self.interactor.toggleShowCompleted()
+        case .edit:
+            self.editList()
         default:
             break
-//        case .showCompleted:
-//            <#code#>
-//        case .layout:
-//            <#code#>
-//        case .group:
-//            <#code#>
-//        case .sort:
-//            <#code#>
-//        case .edit:
-//            <#code#>
-//        case .delete:
-//            <#code#>
-//        case .emptyTrash:
-//            <#code#>
         }
     }
-    
+
     private func selectGroupType(_ groupType: TodoGroupType) {
-        print(groupType)
+        self.interactor.setGroupType(groupType)
     }
     
     private func selectSortType(_ sortType: TodoSortType) {
-        print(sortType)
+        self.interactor.setSortType(sortType)
     }
     
     private func selectSortOrder(_ sortOrder: TodoSortOrder) {
-        print(sortOrder)
+        self.interactor.setSortOrder(sortOrder)
     }
     
+    private func editList() {
+        guard let configuration = self.interactor.configuration as? TodoUserListConfiguration else {
+            return
+        }
+        
+        let listController = TodoUserListController()
+        listController.editList(configuration.list)
+    }
     
     // MARK: - Event Response
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
         self.endEditing(animated: true)
-        let listOptions = self.interactor.listOptions()
-        guard let listOptions = listOptions, listOptions.count > 0 else {
+        guard let config = self.interactor.listOptionConfig() else {
             return
         }
 
-        let optionMenuController = TodoListOptionMenuController(options: listOptions)
+        let optionMenuController = TodoListOptionMenuController(config: config)
         optionMenuController.didSelectListOption = { option in
             self.selectListOption(option)
         }
@@ -303,7 +307,7 @@ class TodoTaskListViewController: UIViewController,
     }
     
     /// 点击添加
-    private func clickAdd() {
+    override func clickAdd() {
         TPImpactFeedback.impactWithLightStyle()
         let task = self.interactor.configuration.quickAddTask()
         quickAddManager.show(with: task)
@@ -436,24 +440,7 @@ class TodoTaskListViewController: UIViewController,
     // MARK: - TodoTaskListViewDelegate
     
     func todoGroupsForTaskListView(_ listView: TodoTaskListView) -> [TodoGroup]? {
-        var groups = [TodoGroup]()
-        for i in 0...3 {
-            let group = TodoGroup(identifier: "\(i)")
-            group.title = "分组\(i)"
-            
-            var tasks: [TodoTask] = []
-            for j in 0...8 {
-                let task = TodoTask()
-                task.name = "任务 \(j)"
-                task.priority = TodoTaskPriority(rawValue: i % 4) ?? .none
-                tasks.append(task)
-            }
-            
-            group.tasks = tasks
-            groups.append(group)
-        }
-        
-        return groups
+        return self.interactor.groups
     }
     
     func todoTaskListView(_ listView: TodoTaskListView, didSelectTask task: TodoTask) {

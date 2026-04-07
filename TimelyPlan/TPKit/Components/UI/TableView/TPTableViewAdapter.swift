@@ -403,6 +403,11 @@ extension TPTableViewAdapter {
     }
         
     func performUpdate(with rowAnimation: UITableView.RowAnimation, completion: ((Bool) -> Void)? = nil) {
+        guard self.tableView.window != nil else {
+            self.reloadData()
+            return
+        }
+        
         let oldObjects = self.objects
         let newObjects = getSectionObjects()
         self.objects = newObjects

@@ -66,7 +66,7 @@ class TPLevelMenuViewController: TPViewController {
         var contentSize = listView.contentSize
         contentSize.width = menuContentWidth
         contentSize.height = clampedValue(contentSize.height,
-                                          100.0,
+                                          50.0,
                                           maxMenuContentHeight)
         return contentSize
     }

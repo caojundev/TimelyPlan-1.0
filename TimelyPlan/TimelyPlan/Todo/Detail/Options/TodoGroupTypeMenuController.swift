@@ -9,6 +9,8 @@ import Foundation
 
 class TodoGroupTypeMenuController: TPBaseMenuController<TodoGroupType> {
     
+    var selectedGroupType: TodoGroupType?
+    
     var didSelectGroupType: ((TodoGroupType) -> Void)?
     
     var types: [TodoGroupType]
@@ -30,6 +32,7 @@ class TodoGroupTypeMenuController: TPBaseMenuController<TodoGroupType> {
     }
     
     override func updateMenuAction(_ action: TPMenuAction, for type: TodoGroupType) {
+        action.isChecked = type == selectedGroupType
         action.handler = { _ in
             self.didSelectGroupType?(type)
         }

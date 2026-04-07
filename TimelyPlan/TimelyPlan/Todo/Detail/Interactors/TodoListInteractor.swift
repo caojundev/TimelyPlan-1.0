@@ -8,25 +8,36 @@
 import Foundation
 
 class TodoListInteractor {
-    
-    static func interactor(for configuration: TodoListConfiguration) -> TodoListInteractor {
-        switch configuration {
-        case let userListConfig as TodoUserListConfiguration:
-            return TodoUserListInteractor(configuration: userListConfig)
-        case let smartListConfig as TodoSmartListConfiguration:
-            return TodoSmartListInteractor(configuration: smartListConfig)
-        case let tagListConfig as TodoTagListConfiguration:
-            return TodoTagListInteractor(configuration: tagListConfig)
-        default:
-            return TodoListInteractor(configuration: TodoListConfiguration())
-        }
-    }
 
+    /// 分组改变
+    var didChangeGroups: (() -> Void)?
+
+    var groups: [TodoGroup]?
+    
     /// 列表配置
     let configuration: TodoListConfiguration
     
+    private(set) var tasks: [TodoTask]?
+    
+    private(set) var showCompleted: Bool = true
+    
+    private(set) var layoutType: TodoListLayoutType = .list
+    
+    private(set) var groupType: TodoGroupType = .priority
+    
+    private(set) var sort: TodoSort = TodoSort(type: .creationDate, order: .ascending)
+    
+    private let requestManager = TPRequestManager()
+    
+    /// 是否需要刷新任务
+    private(set) var needsRefresh = true
+    
     init(configuration: TodoListConfiguration) {
         self.configuration = configuration
+    }
+    
+    func setNeedsRefresh() {
+        self.needsRefresh = true
     }
     
     /// 标题
@@ -35,14 +46,21 @@ class TodoListInteractor {
     }
     
     /// 列表选项菜单管理器
-    func listOptions() -> [TodoListOption]? {
-        guard let options = configuration.allowListOptions() else {
+    func listOptionConfig() -> TodoListOptionConfig? {
+        guard let options = configuration.allowListOptions(), options.count > 0 else {
             return nil
         }
         
-        return options
+        var config = TodoListOptionConfig(options: options)
+        config.showCompleted = self.showCompleted
+        config.layoutType = self.layoutType
+        config.groupType = self.groupType
+        config.sort = self.sort
+        config.allowGroupTypes = self.configuration.allowGroupTypes()
+        config.allowSortTypes = self.configuration.allowSortTypes()
+        config.allowSortOrders = self.configuration.allowSortOrders(for: self.sort.type)
+        return config
     }
-    
     
     /// 当前选中任务可用的任务操作类型数组
     func taskActionTypes(for selectedTasks: Set<TodoTask>) -> [TodoTaskActionType] {
@@ -63,4 +81,110 @@ class TodoListInteractor {
         actionTypes.append(contentsOf: [.move, .date, .priority, .trash])
         return actionTypes
     }
+    
+    // MARK: -
+    func loadGroups() {
+        let requestID = requestManager.executeRequest()
+        loadTasksIfNeeded { tasks in
+            guard self.requestManager.shouldProceed(with: requestID) else {
+                return
+            }
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                var groups = [TodoGroup]()
+                for i in 0...3 {
+                    let group = TodoGroup(identifier: "\(i)")
+                    group.title = "分组\(i)"
+
+                    var tasks: [TodoTask] = []
+                    for j in 0...6 {
+                        let task = TodoTask()
+                        task.name = "任务 \(j)"
+                        task.priority = TodoTaskPriority(rawValue: i % 4) ?? .none
+                        tasks.append(task)
+                    }
+
+                    group.tasks = tasks
+                    groups.append(group)
+                }
+
+                DispatchQueue.main.async {
+                    guard self.requestManager.shouldProceed(with: requestID) else {
+                        return
+                    }
+                    
+                    self.tasks = tasks
+                    self.groups = groups
+                    self.needsRefresh = false
+                    self.didChangeGroups?()
+                }
+            }
+        }
+    }
+    
+    private func loadTasksIfNeeded(completion: @escaping ([TodoTask]?) -> Void) {
+        guard self.needsRefresh else {
+            print("❌无需重新获取任务")
+            completion(self.tasks)
+            return
+        }
+        
+        print("✅获取任务")
+        fetchTasks(completion: completion)
+    }
+    
+    /// 获取任务方法
+    func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
+        completion(nil)
+    }
+    
+    func toggleShowCompleted() {
+        self.showCompleted = !self.showCompleted
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
+    func setGroupType(_ groupType: TodoGroupType) {
+        guard self.groupType != groupType else {
+            return
+        }
+        
+        self.groupType = groupType
+        self.loadGroups()
+    }
+    
+    func setSortType(_ sortType: TodoSortType) {
+        guard self.sort.type != sortType else {
+            return
+        }
+        
+        self.sort.type = sortType
+        self.loadGroups()
+    }
+    
+    func setSortOrder(_ sortOrder: TodoSortOrder) {
+        guard self.sort.order != sortOrder else {
+            return
+        }
+        
+        self.sort.order = sortOrder
+        self.loadGroups()
+    }
+}
+
+extension TodoListInteractor {
+    
+    static func interactor(for configuration: TodoListConfiguration) -> TodoListInteractor {
+        switch configuration {
+        case let userListConfig as TodoUserListConfiguration:
+            return TodoUserListInteractor(configuration: userListConfig)
+        case let smartListConfig as TodoSmartListConfiguration:
+            return TodoSmartListInteractor(configuration: smartListConfig)
+        case let tagListConfig as TodoTagListConfiguration:
+            return TodoTagListInteractor(configuration: tagListConfig)
+        default:
+            return TodoListInteractor(configuration: TodoListConfiguration())
+        }
+    }
+
 }
