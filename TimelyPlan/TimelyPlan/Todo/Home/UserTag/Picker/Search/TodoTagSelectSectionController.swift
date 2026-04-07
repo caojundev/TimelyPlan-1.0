@@ -13,6 +13,8 @@ class TodoTagSelectSectionController: TPTableBaseSectionController,
     
     var tags: [TodoTag]?
     
+    var searchText: String?
+    
     let selection: TPMultipleItemSelection<TodoTag>
     
     init(selection: TPMultipleItemSelection<TodoTag>) {
@@ -49,6 +51,7 @@ class TodoTagSelectSectionController: TPTableBaseSectionController,
         }
         
         cell.userTag = item(at: index) as? TodoTag
+        cell.setHighlightedText(self.searchText)
     }
     
     override func didSelectRow(at index: Int) {
@@ -74,6 +77,16 @@ class TodoTagSelectSectionController: TPTableBaseSectionController,
         return selection.isSelectedItem(tag)
     }
     
+    func updateSearchTextForVisibleCells() {
+        guard let cells = adapter?.visibleCells as? [SearchHighlightable] else {
+            return
+        }
+        
+        for cell in cells {
+            cell.setHighlightedText(self.searchText)
+        }
+    }
+    
     // MARK: - TPMultipleItemSelectionUpdater
     func multipleItemSelectionDidChange<T>(inserts: Set<T>?, deletes: Set<T>?) where T : Hashable {
         var updateTags = Set<TodoTag>()
@@ -89,15 +102,16 @@ class TodoTagSelectSectionController: TPTableBaseSectionController,
     }
 }
 
-class TodoTagSelectTableCell: TPColorInfoTextValueTableCell {
+class TodoTagSelectTableCell: TPColorInfoTextValueTableCell,
+                                SearchHighlightable {
     
     var userTag: TodoTag? {
         didSet {
-            infoView.title = userTag?.name ?? resGetString("Untitled")
             let colorConfig = TPColorAccessoryConfig()
             colorConfig.color = userTag?.color ?? TodoTag.defaultColor
             colorConfig.margins = UIEdgeInsets(left: 5.0, right: 10.0)
             self.colorConfig = colorConfig
+            self.updateTitle()
         }
     }
     
@@ -108,6 +122,19 @@ class TodoTagSelectTableCell: TPColorInfoTextValueTableCell {
          return checkbox
      }()
      
+    // MARK: - SearchHighlightable
+    
+    /// 高亮文本
+    var highlightedText: String?
+    
+    var searchNormalFont: UIFont {
+        return self.titleConfig.font
+    }
+    
+    var searchNormalTextColor: UIColor {
+        return self.titleConfig.textColor ?? .label
+    }
+    
     override func setupContentSubviews() {
         super.setupContentSubviews()
         contentView.padding = UIEdgeInsets(left: 10.0, right: 10.0)
@@ -136,5 +163,27 @@ class TodoTagSelectTableCell: TPColorInfoTextValueTableCell {
         }
         
         checkbox.outerColor = checkbox.innerColor
+    }
+    
+    private func updateTitle() {
+        guard let tagName = userTag?.name, tagName.count > 0 else {
+            self.title = resGetString("Untitled")
+            return
+        }
+
+        if let highlightedText = highlightedText, highlightedText.count > 0 {
+            let value = tagName.attributedStringWithHighlight(highlightedText,
+                                                              normalAttributes: normalAttributes,
+                                                              highlightAttributes: highlightAttributes)
+            self.title = ASAttributedString(value: value)
+        } else {
+            self.title = tagName
+        }
+    }
+
+    /// 设置搜索文本并更新高亮显示
+    func setHighlightedText(_ highlightedText: String?) {
+        self.highlightedText = highlightedText
+        self.updateTitle()
     }
 }

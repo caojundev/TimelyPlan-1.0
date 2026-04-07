@@ -843,7 +843,7 @@ extension TPTableViewAdapter {
         return tableView.cellForRow(at: indexPath)
     }
 
-    func visibleCells() -> [UITableViewCell] {
+    var visibleCells: [UITableViewCell] {
         return tableView.visibleCells
     }
     

@@ -77,8 +77,12 @@ class TodoTagSearchResultsViewController: TPTableSectionsViewController,
     }
     
     private func didChangeTags() {
+        self.resultsSectionController.searchText = self.viewModel.searchText
         self.resultsSectionController.tags = self.viewModel.tags
         self.adapter.performUpdate(completion: nil)
+        
+        /// 更新搜索文本
+        self.resultsSectionController.updateSearchTextForVisibleCells()
         self.updatePlaceholder()
     }
     

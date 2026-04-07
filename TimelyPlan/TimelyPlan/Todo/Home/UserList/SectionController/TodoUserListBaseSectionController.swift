@@ -57,7 +57,7 @@ class TodoUserListBaseSectionController: TPTableBaseSectionController,
     
     /// 更新可见单元格深度线条层级
     func updateVisibleDepthLineLevels() {
-        guard let visibleCells = adapter?.visibleCells(), visibleCells.count > 0 else {
+        guard let visibleCells = adapter?.visibleCells, visibleCells.count > 0 else {
             return
         }
         

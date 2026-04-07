@@ -285,7 +285,7 @@ class TodoTaskListView: UIView,
     
     /// 更新所有可见单元格
     func updateVisibleCellsIfNeeded(animated: Bool = true) {
-        guard let cells = adapter.visibleCells() as? [TodoTaskBaseTableCell] else {
+        guard let cells = adapter.visibleCells as? [TodoTaskBaseTableCell] else {
             return
         }
         
@@ -633,11 +633,14 @@ class TodoTaskListView: UIView,
 
     /// 获取当前列表的所有任务
     private func allTasks() -> Set<TodoTask> {
-        guard let allTasks = adapter.allItems() as? [TodoTask], allTasks.count > 0 else {
-            return []
+        var results = [TodoTask]()
+        for group in adapter.objects {
+            if let group = group as? TodoGroup, let tasks = group.tasks {
+                results.append(contentsOf: tasks)
+            }
         }
         
-        return Set(allTasks)
+        return Set(results)
     }
     
     private func didChangeSelectedTasks() {

@@ -17,7 +17,6 @@ class TPTableSearchResultSectionController: TPTableBaseSectionController,
     /// 当前搜索结果
     private(set) var searchResults: [ListDiffable]?
     
-    
     lazy var cellStyle: TPTableCellStyle = {
         let style = TPTableCellStyle()
         style.backgroundColor = .secondarySystemGroupedBackground
