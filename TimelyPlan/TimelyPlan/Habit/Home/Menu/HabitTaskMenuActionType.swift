@@ -80,7 +80,7 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
         case .editLog:
             return "habit_menu_editLog_24"
         case .focus:
-            return "habit_menu_focus_24"
+            return "focus_24"
         case .edit:
             return "edit_24"
         case .archive:

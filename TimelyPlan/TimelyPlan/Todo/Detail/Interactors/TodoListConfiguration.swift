@@ -193,6 +193,10 @@ class TodoSmartListConfiguration: TodoListConfiguration {
     
     override func makeContent() -> UIViewController {
         let interactor = TodoListInteractor.interactor(for: self)
+        if list.listType == .trash {
+            return TodoTrashTaskListViewController(interactor: interactor)
+        }
+        
         return TodoTaskListViewController(interactor: interactor)
     }
 }

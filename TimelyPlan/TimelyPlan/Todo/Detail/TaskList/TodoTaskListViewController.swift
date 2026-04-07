@@ -17,9 +17,13 @@ protocol TodoTaskListViewControllerDelegate: AnyObject {
     func taskListViewController(_ vc: TodoTaskListViewController, didChangeSelectedTasks selectedTasks: Set<TodoTask>)
 }
 
-class TodoTaskListViewController: UIViewController, TodoDetailContent {
+class TodoTaskListViewController: UIViewController,
+                                    TodoDetailContent,
+                                  TodoTaskListViewDelegate {
  
     weak var delegate: TodoTaskListViewControllerDelegate?
+    
+    let taskController = TodoTaskController()
     
     /// 更多按钮
     private lazy var moreBarButtonItem: UIBarButtonItem = {
@@ -80,10 +84,7 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
     
     /// 选择模式底部任务工具栏
     private var toolView: TPMenuToolView<TodoTaskActionType>?
-    
-    /// 工具栏是否正在执行动画中
-    private var isToolViewAnimating: Bool = false
-    
+
     /// 工具栏高度
     private var toolViewHeight: CGFloat {
         return 60.0 + view.layoutMargins.bottom
@@ -146,7 +147,7 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
         
         self.updateAddView()
         
-        if let toolView = toolView, isSelecting && !isToolViewAnimating {
+        if let toolView = toolView {
             /// 更新工具视图
             toolView.width = view.width
             toolView.height = toolViewHeight
@@ -159,11 +160,11 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
     }
     
     func listViewFrame() -> CGRect {
-        if isSelecting {
+        if let toolView = toolView {
             return CGRect(x: 0.0,
                           y: 0.0,
                           width: view.width,
-                          height: view.height - toolViewHeight)
+                          height: view.height - toolView.height)
         }
 
         return view.bounds
@@ -229,25 +230,76 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
         addView.isHidden = listView.isSelecting
     }
     
+    // MARK: - 列表选项
+    func selectListOption(_ option: TodoListOption) {
+        print(option)
+        switch option {
+        case .select:
+            setSelecting(true)
+        default:
+            break
+//        case .showCompleted:
+//            <#code#>
+//        case .layout:
+//            <#code#>
+//        case .group:
+//            <#code#>
+//        case .sort:
+//            <#code#>
+//        case .edit:
+//            <#code#>
+//        case .delete:
+//            <#code#>
+//        case .emptyTrash:
+//            <#code#>
+        }
+    }
+    
+    private func selectGroupType(_ groupType: TodoGroupType) {
+        print(groupType)
+    }
+    
+    private func selectSortType(_ sortType: TodoSortType) {
+        print(sortType)
+    }
+    
+    private func selectSortOrder(_ sortOrder: TodoSortOrder) {
+        print(sortOrder)
+    }
+    
+    
     // MARK: - Event Response
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
         self.endEditing(animated: true)
-        guard let menuItems = self.interactor.listOptionMenuItems(), menuItems.count > 0 else {
+        let listOptions = self.interactor.listOptions()
+        guard let listOptions = listOptions, listOptions.count > 0 else {
             return
         }
 
+        let optionMenuController = TodoListOptionMenuController(options: listOptions)
+        optionMenuController.didSelectListOption = { option in
+            self.selectListOption(option)
+        }
+        
+        optionMenuController.didSelectGroupType = { groupType in
+            self.selectGroupType(groupType)
+        }
+        
+        optionMenuController.didSelectSortType = { sortType in
+            self.selectSortType(sortType)
+        }
+        
+        optionMenuController.didSelectSortOrder = { sortOrder in
+            self.selectSortOrder(sortOrder)
+        }
+        
+        let menuItems = optionMenuController.menuItems()
         let menuController = TPLevelMenuViewController(menuItems: menuItems)
         let sourceRect = CGRect(x: moreButton.bounds.maxX,
                                 y: moreButton.bounds.maxY,
                                 size: .zero)
         menuController.show(from: moreButton, sourceRect: sourceRect, isCovered: false)
-        
-        if self.isSelecting {
-            setSelecting(false)
-        } else {
-            setSelecting(true)
-        }
     }
     
     /// 点击添加
@@ -274,7 +326,6 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
         listView.deselectAllTasks()
     }
     
-    
     // MARK: - Editing & Selecting
     func endEditing(animated: Bool) {
         listView.endEditing(animated: animated)
@@ -284,7 +335,11 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
         return listView.isSelecting
     }
     
-    func setSelecting(_ isSelecting: Bool) {
+    func endSelecting() {
+        setSelecting(false)
+    }
+    
+    private func setSelecting(_ isSelecting: Bool) {
         guard listView.isSelecting != isSelecting else {
             return
         }
@@ -301,6 +356,39 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
     }
     
     // MARK: - ToolView
+    
+    /// 显示工具视图
+    private func showToolView() {
+        if let toolView = self.toolView, toolView.isDescendant(of: self.view) {
+            return
+        }
+        
+        let toolView = createToolView()
+        toolView.frame = CGRect(x: 0.0, y: view.height, width: view.width, height: toolViewHeight)
+        self.view.addSubview(toolView)
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut) {
+            toolView.bottom = self.view.height
+        } completion: { _ in
+            self.toolView = toolView
+            self.updateListViewFrame()
+        }
+    }
+    
+    /// 隐藏工具视图
+    private func hideToolView() {
+        guard let toolView = self.toolView else {
+            return
+        }
+        
+        self.toolView = nil
+        updateListViewFrame()
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut) {
+            toolView.top = self.view.height
+        } completion: { _ in
+            toolView.removeFromSuperview()
+        }
+    }
+    
     /// 更新工具视图
     private func updateToolView() {
         guard let toolView = toolView else {
@@ -316,58 +404,37 @@ class TodoTaskListViewController: UIViewController, TodoDetailContent {
         }
     }
     
-    /// 显示工具视图
-    private func showToolView() {
-        if let toolView = self.toolView, toolView.isDescendant(of: self.view) {
-            return
-        }
-        
-        self.isToolViewAnimating = true
-        
+    private func createToolView() -> TPMenuToolView<TodoTaskActionType> {
         let selectedTasks = self.listView.selectedTasks
         let actionTypes = self.interactor.taskActionTypes(for: selectedTasks)
-        let toolViewFrame = CGRect(x: 0.0, y: view.height, width: view.width, height: toolViewHeight)
         let toolView = TPMenuToolView(actionTypes: actionTypes)
-        toolView.didSelectActionType = {[weak self] actionType, sourceView in
-//            self?.performTaskMenuAction(with: actionType, sourceView: sourceView)
-        }
-        
+        toolView.backgroundColor = .secondarySystemGroupedBackground
         toolView.preferredItemsCount = 5
         toolView.disabledTypes = TodoTaskActionType.allCases
-        toolView.backgroundColor = .secondarySystemGroupedBackground
         toolView.addSeparator(position: .top)
-        toolView.frame = toolViewFrame
-        self.view.addSubview(toolView)
-        self.toolView = toolView
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut) {
-            self.toolView?.bottom = self.view.height
-            self.updateListViewFrame()
-        } completion: { _ in
-            self.isToolViewAnimating = false
+        toolView.didSelectActionType = {[weak self] actionType, sourceView in
+            self?.performTaskMenuAction(with: actionType, sourceView: sourceView)
         }
+        
+        return toolView
     }
     
-    /// 隐藏工具视图
-    private func hideToolView() {
-        guard let toolView = toolView else {
+    // MARK: - 任务菜单操作
+    private func performTaskMenuAction(with type: TodoTaskActionType, sourceView: UIView) {
+        let tasks = self.listView.selectedTasks
+        guard tasks.count > 0 else {
             return
         }
-
-        self.isToolViewAnimating = true
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut) {
-            toolView.top = self.view.height
-            self.updateListViewFrame()
-        } completion: { _ in
-            toolView.removeFromSuperview()
-            self.isToolViewAnimating = false
-            self.toolView = nil
+    
+        self.taskController.performMenuAction(with: type,
+                                              for: Array(tasks),
+                                              sourceView: sourceView) { [weak self] in
+            self?.endSelecting()
         }
     }
-}
-
-extension TodoTaskListViewController: TodoTaskListViewDelegate {
     
     // MARK: - TodoTaskListViewDelegate
+    
     func todoGroupsForTaskListView(_ listView: TodoTaskListView) -> [TodoGroup]? {
         var groups = [TodoGroup]()
         for i in 0...3 {
@@ -390,15 +457,11 @@ extension TodoTaskListViewController: TodoTaskListViewDelegate {
     }
     
     func todoTaskListView(_ listView: TodoTaskListView, didSelectTask task: TodoTask) {
-//        if task.isRemoved {
-//            taskController.confirmRestoration(for: task)
-//        } else {
-//            taskController.editTask(task)
-//        }
+        taskController.editTask(task)
     }
     
     func todoTaskListView(_ listView: TodoTaskListView, didClickCheckboxForTask task: TodoTask) {
-//        taskController.clickCheckbox(for: task)
+        taskController.clickCheckbox(for: task)
     }
     
     func todoTaskListViewDidChangeSelectedTasks(_ listView: TodoTaskListView) {
@@ -408,21 +471,20 @@ extension TodoTaskListViewController: TodoTaskListViewDelegate {
     
     func todoTaskListView(_ listView: TodoTaskListView, leadingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration? {
         var actions = [UIContextualAction]()
-        if task.isRemoved {
-            ///< 恢复
-            let restoreAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
-//                self.taskController.restoreTrashTask(task)
-                completion(true)
-            }
-            
-            restoreAction.backgroundColor = Color(0x34C759)
-            restoreAction.image = resGetImage("todo_task_action_restore_24")?.withTintColor(.white)
-            actions.append(restoreAction)
+        
+        ///< 专注
+        let focusAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
+            self.taskController.quickStartFocus(for: task)
+            completion(true)
         }
+        
+        focusAction.backgroundColor = Color(0x5856D6)
+        focusAction.image = resGetImage("focus_24")?.withTintColor(.white)
+        actions.append(focusAction)
         
         ///< 移动
         let moveAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
-//            self.taskController.moveTask(task)
+            self.taskController.moveTask(task)
             completion(true)
         }
         
@@ -434,26 +496,15 @@ extension TodoTaskListViewController: TodoTaskListViewDelegate {
     
     func todoTaskListView(_ listView: TodoTaskListView, trailingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration? {
         var actions = [UIContextualAction]()
-        if task.isRemoved {
-            /// 从废纸篓彻底粉碎
-            let shredAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in
-//                self.taskController.confirmDeletion(for: task)
-                completion(true)
-            }
-            
-            shredAction.image = resGetImage("todo_task_action_shred_24")?.withTintColor(.white)
-            actions = [shredAction]
-        } else {
-            /// 废纸篓
-            let trashAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in
-//                self.taskController.moveToTrash(with: task)
-                completion(true)
-            }
-                                
-            trashAction.image = resGetImage("todo_task_action_trash_24")?.withTintColor(.white)
-            actions = [trashAction]
+        /// 废纸篓
+        let trashAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in
+            self.taskController.moveTaskToTrash(task)
+            completion(true)
         }
-        
+                            
+        trashAction.image = resGetImage("todo_task_action_trash_24")?.withTintColor(.white)
+        actions = [trashAction]
         return UISwipeActionsConfiguration(actions: actions)
     }
+    
 }

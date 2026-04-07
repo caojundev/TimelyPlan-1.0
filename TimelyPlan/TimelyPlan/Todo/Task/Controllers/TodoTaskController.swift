@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class TodoTaskController {
-    /*
+    
     func performMenuAction(with type: TodoTaskActionType,
                            for tasks: [TodoTask],
                            sourceView: UIView,
@@ -26,7 +26,7 @@ class TodoTaskController {
         case .priority:
             editPriority(for: tasks, sourceView: sourceView, completion: completion)
         case .trash:
-            moveToTrash(with: tasks, completion: completion)
+            moveTasksToTrash(tasks, completion: completion)
         case .restore:
             confirmRestoration(for: tasks, completion: completion)
         case .shred:
@@ -34,8 +34,29 @@ class TodoTaskController {
         }
     }
     
+    // MARK: - 编辑计划
+    static func editSchedule(_ schedule: TaskSchedule?,
+                             completion: ((TaskSchedule?)->Void)?) {
+        let vc = TaskScheduleEditViewController(schedule: schedule)
+        vc.didEndEditing = { schedule in
+            completion?(schedule)
+        }
+        
+        vc.popoverShowAsNavigationRoot()
+    }
+    
+    static func editTags(_ tags: Set<TodoTag>?, completion: ((Set<TodoTag>?)->Void)?) {
+        let pickerVC = TodoTagPickerViewController(selectedTags: tags)
+        pickerVC.didPickTags = { tags in
+            completion?(tags)
+        }
+        
+        pickerVC.popoverShowAsNavigationRoot()
+    }
+    
     // MARK: - 编辑
     func editTask(_ task: TodoTask) {
+        /*
         let editVC = TodoTaskEditViewController(task: task)
         let navigationController = UINavigationController(rootViewController: editVC)
         
@@ -59,162 +80,17 @@ class TodoTaskController {
                             isInteractive: true,
                             animated: true,
                             completion: nil)
+         */
     }
     
     // MARK: - 完成任务
     func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask], completion: (()->Void)? = nil) {
+        /*
         todo.setCompleted(isCompleted, for: tasks)
         completion?()
-    }
-    
-    // MARK: - 删除
-    
-    /// 弹窗确认删除列表
-    func confirmDeletion(for task: TodoTask, completion: (()->Void)? = nil) {
-        let deleteAction = TPAlertAction(type: .destructive,
-                                         title: resGetString("Delete")) { action in
-            todo.deleteTask(task)
-            completion?()
-        }
-        
-        let cancelAction = TPAlertAction(type: .cancel,
-                                         title: resGetString("Cancel"))
-        let format = resGetString("\"%@\" will be permanently deleted.")
-        let taskName = task.name ?? resGetString("Untitled")
-        let message = String(format: format, taskName)
-        let alertController = TPAlertController(title: resGetString("Delete Task"),
-                                                message: message,
-                                                actions: [cancelAction, deleteAction])
-        alertController.show()
-    }
-    
-    func confirmDeletion(for tasks: [TodoTask], completion: (()->Void)? = nil) {
-        guard tasks.count > 0 else {
-            return
-        }
-        
-        /// 确认删除单个任务
-        if tasks.count == 1 {
-            confirmDeletion(for: tasks[0], completion: completion)
-            return
-        }
-        
-        /// 确认删除多个任务
-        let deleteAction = TPAlertAction(type: .destructive,
-                                         title: resGetString("Delete")) { action in
-            todo.deleteTasks(tasks)
-            completion?()
-        }
-        
-        let cancelAction = TPAlertAction(type: .cancel,
-                                         title: resGetString("Cancel"))
-        let format = resGetString("%ld tasks will be permanently deleted.")
-        let message = String(format: format, tasks.count)
-        let alertController = TPAlertController(title: resGetString("Delete Task"),
-                                                message: message,
-                                                actions: [cancelAction, deleteAction])
-        alertController.show()
-    }
-    
-    
-    // MARK: - 从废纸篓恢复
-    func confirmRestoration(for task: TodoTask, completion: (()->Void)? = nil) {
-        let restoreAction = TPAlertAction(type: .normal,
-                                         title: resGetString("Restore")) { action in
-            todo.restoreTrashTask(task)
-            completion?()
-        }
-        
-        let cancelAction = TPAlertAction(type: .cancel,
-                                         title: resGetString("Cancel"))
-        let message = resGetString("The task will be restored to its original list. Are you sure to restore?")
-        let alertController = TPAlertController(title: resGetString("Restore Task"),
-                                                message: message,
-                                                actions: [cancelAction, restoreAction])
-        alertController.show()
-    }
-    
-    func confirmRestoration(for tasks: [TodoTask], completion: (()->Void)? = nil) {
-        guard tasks.count > 0 else {
-            return
-        }
-        
-        if tasks.count == 1 {
-            confirmRestoration(for: tasks[0], completion: completion)
-            return
-        }
-        
-        let restoreAction = TPAlertAction(type: .normal,
-                                         title: resGetString("Restore")) { action in
-            todo.restoreTrashTasks(tasks)
-            completion?()
-        }
-        
-        let cancelAction = TPAlertAction(type: .cancel,
-                                         title: resGetString("Cancel"))
-        let format = resGetString("%ld tasks will be restored to their original list. Are you sure to restore?")
-        let message = String(format: format, tasks.count)
-        let alertController = TPAlertController(title: resGetString("Restore Task"),
-                                                message: message,
-                                                actions: [cancelAction, restoreAction])
-        alertController.show()
-    }
-    
-    func restoreTrashTask(_ task: TodoTask) {
-        todo.restoreTrashTask(task)
+        */
     }
 
-    
-    // MARK: - 移动
-    
-    /// 移动任务
-    func moveTask(_ task: TodoTask, completion: (()->Void)? = nil) {
-        moveTasks([task], completion: completion)
-    }
-    
-    func moveTasks(_ tasks: [TodoTask], completion: (()->Void)? = nil) {
-        var lists = Set<TodoList?>()
-        for task in tasks {
-            lists.insert(task.list)
-        }
-    
-        var currentList: TodoListRepresentable? = nil
-        if lists.count == 1 {
-            /// 属于同一列表
-            let list = Array(lists)[0]
-            if list == nil {
-                /// 收件箱
-                currentList = TodoSmartList.inbox
-            } else {
-                currentList = list
-            }
-        }
-
-        let vc = TodoListMoveViewController(list: currentList)
-        vc.didSelectList = { list in
-            let toList = list as? TodoList
-            todo.moveTodoTasks(tasks, toList: toList)
-            completion?()
-        }
-
-        let navController = UINavigationController(rootViewController: vc)
-        navController.modalPresentationStyle = .formSheet
-        navController.show()
-    }
-    
-    
-    // MARK: -  移动任务到废纸篓
-    
-    func moveToTrash(with task: TodoTask, completion: (()->Void)? = nil) {
-        todo.moveToTrash(with: [task])
-        completion?()
-    }
-    
-    func moveToTrash(with tasks: [TodoTask], completion: (()->Void)? = nil) {
-        todo.moveToTrash(with: tasks)
-        completion?()
-    }
-    
     // MARK: - 优先级
     func editPriority(for tasks: [TodoTask], sourceView: UIView, completion: (()->Void)? = nil) {
         let popoverView = TPMenuListPopoverView()
@@ -225,7 +101,7 @@ class TodoTaskController {
         popoverView.menuItems = [menuItem]
         popoverView.didSelectMenuAction = { action in
             if let priority = TodoTaskPriority(rawValue: action.tag) {
-                todo.updateTasks(tasks, priority: priority)
+//                todo.updateTasks(tasks, priority: priority)
             }
             
             completion?()
@@ -241,6 +117,7 @@ class TodoTaskController {
 
     // MARK: - 检查
     func clickCheckbox(for task: TodoTask){
+        /*
         let isCompleted = task.isCompleted
         if isCompleted {
             /// 取消完成
@@ -290,38 +167,172 @@ class TodoTaskController {
         }
         
         inputVC.popoverShow()
+         */
     }
     
      static func editProgress(_ progress: TodoEditProgress?, completion: ((TodoEditProgress?)->Void)?) {
+         /*
          let vc = TodoProgressEditViewController(progress: progress)
          vc.didEndEditing = { newProgress in
              completion?(newProgress)
          }
          
          vc.popoverShowAsNavigationRoot()
+          */
      }
 
-    */
     
-    
-    // MARK: - 编辑计划
-    static func editSchedule(_ schedule: TaskSchedule?,
-                             completion: ((TaskSchedule?)->Void)?) {
-        let vc = TaskScheduleEditViewController(schedule: schedule)
-        vc.didEndEditing = { schedule in
-            completion?(schedule)
-        }
-        
-        vc.popoverShowAsNavigationRoot()
+    // MARK: - 快速开始专注
+    func quickStartFocus(for task: TodoTask) {
+        FocusPresenter.quickStartFocus(for: task)
     }
     
-    static func editTags(_ tags: Set<TodoTag>?, completion: ((Set<TodoTag>?)->Void)?) {
-        let pickerVC = TodoTagPickerViewController(selectedTags: tags)
-        pickerVC.didPickTags = { tags in
-            completion?(tags)
-        }
-        
-        pickerVC.popoverShowAsNavigationRoot()
+    // MARK: - 移动
+    
+    /// 移动任务
+    func moveTask(_ task: TodoTask, completion: (()->Void)? = nil) {
+        moveTasks([task], completion: completion)
     }
     
+    func moveTasks(_ tasks: [TodoTask], completion: (()->Void)? = nil) {
+        var lists = Set<TodoList?>()
+        for task in tasks {
+            lists.insert(task.list)
+        }
+    
+        var currentList: TodoList? = nil
+        if lists.count == 1 {
+            currentList = Array(lists)[0]
+        }
+
+        let vc = TodoTaskListPickerViewController(list: currentList)
+        vc.didSelectList = { list in
+//            let toList = list as? TodoList
+//            todo.moveTodoTasks(tasks, toList: toList)
+            completion?()
+        }
+
+        let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .formSheet
+        navController.show()
+    }
+    
+    
+    // MARK: -  移动任务到废纸篓
+    
+    func moveTaskToTrash(_ task: TodoTask, completion: (()->Void)? = nil) {
+//        todo.moveToTrash(with: [task])
+        completion?()
+    }
+    
+    func moveTasksToTrash(_ tasks: [TodoTask], completion: (()->Void)? = nil) {
+//        todo.moveToTrash(with: tasks)
+        completion?()
+    }
+    
+    // MARK: - 删除
+    
+    /// 弹窗确认删除列表
+    func confirmDeletion(for task: TodoTask, completion: (()->Void)? = nil) {
+        let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
+//            todo.deleteTask(task)
+            completion?()
+        }
+        
+        let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))
+        let format = resGetString("\"%@\" will be permanently deleted.")
+        let taskName = task.name ?? resGetString("Untitled")
+        let message = String(format: format, taskName)
+        let alertController = TPAlertController(title: resGetString("Delete Task"),
+                                                message: message,
+                                                actions: [cancelAction, deleteAction])
+        alertController.show()
+    }
+    
+    func confirmDeletion(for tasks: [TodoTask], completion: (()->Void)? = nil) {
+        guard tasks.count > 0 else {
+            return
+        }
+        
+        /// 确认删除单个任务
+        if tasks.count == 1 {
+            confirmDeletion(for: tasks[0], completion: completion)
+            return
+        }
+        
+        /// 确认删除多个任务
+        let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
+//            todo.deleteTasks(tasks)
+            completion?()
+        }
+        
+        let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))
+        let format = resGetString("%ld tasks will be permanently deleted.")
+        let message = String(format: format, tasks.count)
+        let alertController = TPAlertController(title: resGetString("Delete Task"),
+                                                message: message,
+                                                actions: [cancelAction, deleteAction])
+        alertController.show()
+    }
+    
+    
+    // MARK: - 从废纸篓恢复
+    func confirmRestoration(for task: TodoTask, completion: (()->Void)? = nil) {
+        let restoreAction = TPAlertAction(type: .normal, title: resGetString("Restore")) { action in
+//            todo.restoreTrashTask(task)
+            completion?()
+        }
+        
+        let cancelAction = TPAlertAction(type: .cancel,
+                                         title: resGetString("Cancel"))
+        let message = resGetString("The task will be restored to its original list. Are you sure to restore?")
+        let alertController = TPAlertController(title: resGetString("Restore Task"),
+                                                message: message,
+                                                actions: [cancelAction, restoreAction])
+        alertController.show()
+    }
+    
+    func confirmRestoration(for tasks: [TodoTask], completion: (()->Void)? = nil) {
+        guard tasks.count > 0 else {
+            return
+        }
+        
+        if tasks.count == 1 {
+            confirmRestoration(for: tasks[0], completion: completion)
+            return
+        }
+        
+        let restoreAction = TPAlertAction(type: .normal,
+                                         title: resGetString("Restore")) { action in
+//            todo.restoreTrashTasks(tasks)
+            completion?()
+        }
+        
+        let cancelAction = TPAlertAction(type: .cancel,
+                                         title: resGetString("Cancel"))
+        let format = resGetString("%ld tasks will be restored to their original list. Are you sure to restore?")
+        let message = String(format: format, tasks.count)
+        let alertController = TPAlertController(title: resGetString("Restore Task"),
+                                                message: message,
+                                                actions: [cancelAction, restoreAction])
+        alertController.show()
+    }
+    
+    /// 清空废纸篓
+    func emptyTrash() {
+        let confirmAction = TPAlertAction(type: .destructive, title: resGetString("Confirm")) { action in
+//            todo.emptyTrash()
+        }
+        
+        let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))
+        let message = resGetString("Are you sure to delete all tasks in trash?")
+        let alertController = TPAlertController(title: resGetString("Empty Trash"),
+                                                message: message,
+                                                actions: [cancelAction, confirmAction])
+        alertController.show()
+    }
+    
+    func restoreTrashTask(_ task: TodoTask) {
+//        todo.restoreTrashTask(task)
+    }
 }

@@ -61,6 +61,32 @@
 "Create Tag" = "创建标签";
 "You can select up to %ld tags." = "您最多可选择%ld个标签";
 
+/// 优先级
+"Priority" = "优先级";
+"No Priority" = "无优先级";
+"Low Priority" = "低优先级";
+"Medium Priority" = "中优先级";
+"High Priority" = "高优先级";
+
+/// 列表选项
+"Group" = "分组";
+"None Group" = "无分组";
+"Sort" = "排序";
+"Sort Type" = "排序";
+"Sort Order" = "顺序";
+"Show Completed" = "显示已完成";
+
+"Delete Task" = "删除任务";
+"Empty Trash" = "清空废纸篓";
+"Are you sure to delete all tasks in trash?" = "确认删除废纸篓中的所有任务？";
+"\"%@\" will be permanently deleted." = "\"%@\"将被永久删除。";
+"%ld tasks will be permanently deleted." = "%ld项任务将被永久删除。";
+"Restore" = "恢复";
+"Restore Task" = "恢复任务";
+"The task will be restored to its original list. Are you sure to restore?" = "任务将恢复至原清单，是否确认恢复？";
+"%ld tasks will be restored to their original list. Are you sure to restore?" = "%ld项任务将恢复至原清单，是否确认恢复？";
+
+
 ///**************************Focus**************************///
 "Focusing" = "专注中";
 "Timer" = "计时器";
@@ -425,6 +451,12 @@
 
 
 
+
+
+
+
+
+
 ///**********************待办*********************///
 
 /// 进度
@@ -634,24 +666,6 @@
 ///**************************Todo**************************///
 "Reschedule" = "重新安排";
 
-/// 列表选项
-"Group" = "分组";
-"None Group" = "无分组";
-"Sort" = "排序";
-"Sort Type" = "排序";
-"Sort Order" = "顺序";
-"Show Completed" = "显示已完成";
-"Delete List" = "删除列表";
-"Empty Trash" = "清空废纸篓";
-"Are you sure to delete all tasks in trash?" = "确认删除废纸篓中的所有任务？";
-"\"%@\" will be permanently deleted." = "\"%@\"将被永久删除。";
-"%ld tasks will be permanently deleted." = "%ld项任务将被永久删除。";
-
-
-"Restore" = "恢复";
-"Restore Task" = "恢复任务";
-"The task will be restored to its original list. Are you sure to restore?" = "任务将恢复至原清单，是否确认恢复？";
-"%ld tasks will be restored to their original list. Are you sure to restore?" = "%ld项任务将恢复至原清单，是否确认恢复？";
 
 /// 分组和排序
 "Overdue" = "已逾期";
@@ -666,12 +680,6 @@
 "Ascending" = "升序";
 "Descending" = "降序";
 
-/// 优先级
-"Priority" = "优先级";
-"No Priority" = "无优先级";
-"Low Priority" = "低优先级";
-"Medium Priority" = "中优先级";
-"High Priority" = "高优先级";
 
 /// 快速添加任务
 "Add a Task" = "添加任务";

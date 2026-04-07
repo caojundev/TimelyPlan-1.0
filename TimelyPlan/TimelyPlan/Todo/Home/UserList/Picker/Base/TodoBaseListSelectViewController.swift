@@ -18,7 +18,7 @@ class TodoBaseListSelectViewController: TPTableSectionsViewController,
     let allowMaxDepth: Int
     
     /// 选中列表
-    var list: TodoList?
+    var list: TodoListRepresentable?
     
     /// 禁止选择的列表
     var disabledLists: [TodoList]? {
@@ -43,7 +43,7 @@ class TodoBaseListSelectViewController: TPTableSectionsViewController,
         return sectionController
     }()
     
-    init(list: TodoList?, allowMaxDepth: Int) {
+    init(list: TodoListRepresentable?, allowMaxDepth: Int) {
         self.list = list
         self.allowMaxDepth = allowMaxDepth
         super.init(style: .insetGrouped)
@@ -90,7 +90,7 @@ class TodoBaseListSelectViewController: TPTableSectionsViewController,
     func tableSectionController(_ sectionController: TPTableBaseSectionController, shouldShowCheckmarkForRowAt index: Int) -> Bool {
         if sectionController == userSectionController {
             let list = userSectionController.item(at: index) as! TodoList
-            return self.list?.isEqual(list) ?? false
+            return list.identifier == self.list?.identifier
         } else {
             return self.list == nil
         }

@@ -39,7 +39,7 @@ enum TodoListLayoutType: Int, Codable, TPMenuRepresentable {
 class TodoList: NSObject,TodoListRepresentable, SortableIdentifiable, TPHexColorConvertible {
     
     /// 任务唯一标识
-    let identifier: String
+    var identifier: String
 
     /// 颜色
     var colorHex: String?

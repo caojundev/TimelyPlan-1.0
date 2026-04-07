@@ -7,6 +7,15 @@
 
 import Foundation
 
+extension TodoTask: TaskRepresentable {
+    
+    var feature: TaskFeature {
+        return TaskFeature(type: .todo,
+                           identifier: self.identifier,
+                           snapshotName: self.name)
+    }
+}
+
 // MARK: - 进度
 extension TodoTask {
     

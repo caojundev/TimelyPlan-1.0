@@ -15,7 +15,7 @@ class TodoBaseListPickerViewController: TPContainerViewController,
     var didSelectList: ((TodoList?) -> Void)?
 
     /// 当前列表
-    let list: TodoList?
+    let list: TodoListRepresentable?
     
     /// 允许的最大深度
     let allowMaxDepth: Int
@@ -45,7 +45,7 @@ class TodoBaseListPickerViewController: TPContainerViewController,
 
     var selectViewController: TodoBaseListSelectViewController!
     
-    init(list: TodoList?, allowMaxDepth: Int = .max) {
+    init(list: TodoListRepresentable?, allowMaxDepth: Int = .max) {
         self.list = list
         self.allowMaxDepth = allowMaxDepth
         super.init(nibName: nil, bundle: nil)
@@ -95,9 +95,9 @@ class TodoBaseListPickerViewController: TPContainerViewController,
     func willPresentSearchController(_ searchController: UISearchController) {
         let topLists = self.selectViewController.topLists
         let resultVC = TodoListSearchResultsViewController(selectedList: self.list,
-                                                                 disabledLists: self.disabledLists,
-                                                                 topLists: topLists,
-                                                                 allowMaxDepth: self.allowMaxDepth)
+                                                           disabledLists: self.disabledLists,
+                                                           topLists: topLists,
+                                                           allowMaxDepth: self.allowMaxDepth)
         resultVC.didSelectList = { list in
             self.pickList(list)
         }

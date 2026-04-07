@@ -9,6 +9,14 @@ import Foundation
 
 class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
 
+    var didSelectListOption: ((TodoListOption) -> Void)?
+    
+    var didSelectGroupType: ((TodoGroupType) -> Void)?
+    
+    var didSelectSortType: ((TodoSortType) -> Void)?
+    
+    var didSelectSortOrder: ((TodoSortOrder) -> Void)?
+    
     /// 列表选项
     var options: [TodoListOption]
     
@@ -23,7 +31,7 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
                   .showCompleted],
                  [.layout],
                  [.group, .sort],
-                 [.edit, .delete],
+                 [.edit],
                  [.emptyTrash]]
         return lists
     }
@@ -33,6 +41,10 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     }
     
     override func updateMenuAction(_ action: TPMenuAction, for type: TodoListOption) {
+        action.handler = { _ in
+            self.didSelectListOption?(type)
+        }
+        
         switch type {
         case .showCompleted:
             action.isChecked = true
@@ -50,6 +62,7 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     private func updateGroupAction(_ action: TPMenuAction) {
         let groupType = TodoGroupType.priority
         let controller = TodoGroupTypeMenuController(types: TodoGroupType.allCases)
+        controller.didSelectGroupType = self.didSelectGroupType
         action.subMenuItems = controller.menuItems()
         action.subtitle = groupType.title
     }
@@ -64,10 +77,11 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     
     private func sortTypeMenuItem(sortType: TodoSortType) -> TPMenuItem {
         let allowSortTypes = TodoSortType.allCases
-        let menuItem = TPMenuItem.item(with: allowSortTypes) { [weak self] type, action in
+        let menuItem = TPMenuItem.item(with: allowSortTypes) { type, action in
+            action.handleBeforeDismiss = true
             action.isChecked = type == sortType
-            action.handler = { [weak self] _ in
-                
+            action.handler = { _ in
+                self.didSelectSortType?(type)
             }
         }
         
@@ -75,10 +89,11 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     }
     
     private func sortOrderMenuItem(sortOrder: TodoSortOrder) -> TPMenuItem {
-        let menuItem = TPMenuItem.item(with: TodoSortOrder.allCases) { [weak self]  order, action in
+        let menuItem = TPMenuItem.item(with: TodoSortOrder.allCases) { order, action in
+            action.handleBeforeDismiss = true
             action.isChecked = order == sortOrder
-            action.handler = { [weak self] _ in
-                
+            action.handler = { _ in
+                self.didSelectSortOrder?(order)
             }
         }
         

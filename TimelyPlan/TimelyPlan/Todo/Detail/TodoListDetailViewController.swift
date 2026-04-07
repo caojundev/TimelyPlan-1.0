@@ -55,6 +55,21 @@ class TodoDetailViewController: TPMultiColumnDetailViewController,
         self.updateBarButtonItems()
     }
     
+    /// 左侧导航栏按钮
+    override func leftBarButtonItems() -> [UIBarButtonItem]? {
+        if let items = self.detailContent?.navigationLeftBarButtonItems, items.count > 0 {
+            return items
+        }
+        
+        return super.leftBarButtonItems()
+    }
+    
+    override func didClickMask(for containerView: TPColumnContainerView) {
+        if let contentVC = self.contentViewController as? TodoTaskListViewController {
+            contentVC.endSelecting()
+        }
+    }
+    
     func setupContentViewController() {
         let contentVC = self.configuration.makeContent()
         if let contentVC = contentVC as? TodoTaskListViewController {
@@ -67,16 +82,6 @@ class TodoDetailViewController: TPMultiColumnDetailViewController,
     var detailContent: TodoDetailContent? {
         return self.contentViewController as? TodoDetailContent
     }
-    
-    /// 左侧导航栏按钮
-    override func leftBarButtonItems() -> [UIBarButtonItem]? {
-        if let items = self.detailContent?.navigationLeftBarButtonItems, items.count > 0 {
-            return items
-        }
-        
-        return super.leftBarButtonItems()
-    }
-    
     
     // MARK: - Update
     /// 更新标题

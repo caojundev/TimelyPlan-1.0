@@ -12,7 +12,7 @@ class TodoListSearchResultSectionController: TPTableSearchResultSectionControlle
     var didSelectList: ((TodoList?) -> Void)?
     
     /// 当前选中列表
-    var selectedList: TodoList?
+    var selectedList: TodoListRepresentable?
 
     /// 允许的最大列表深度
     var allowMaxDepth: Int = .max
@@ -83,7 +83,7 @@ class TodoListSearchResultSectionController: TPTableSearchResultSectionControlle
     
     override func shouldShowCheckmarkForRow(at index: Int) -> Bool {
         let list = item(at: index) as! TodoList
-        return self.selectedList == list
+        return list.identifier == self.selectedList?.identifier
     }
     
     // MARK: -

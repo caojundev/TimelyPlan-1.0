@@ -35,14 +35,14 @@ class TodoListInteractor {
     }
     
     /// 列表选项菜单管理器
-    func listOptionMenuItems() -> [TPMenuItem]? {
+    func listOptions() -> [TodoListOption]? {
         guard let options = configuration.allowListOptions() else {
             return nil
         }
         
-        let menuController = TodoListOptionMenuController(options: options)
-        return menuController.menuItems()
+        return options
     }
+    
     
     /// 当前选中任务可用的任务操作类型数组
     func taskActionTypes(for selectedTasks: Set<TodoTask>) -> [TodoTaskActionType] {

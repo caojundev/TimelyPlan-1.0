@@ -27,7 +27,7 @@ class TodoListSearchResultsViewController: TPTableSectionsViewController,
         return view
     }()
     
-    init(selectedList: TodoList?,
+    init(selectedList: TodoListRepresentable?,
          disabledLists: [TodoList]?,
          topLists: [TodoList]?,
          allowMaxDepth: Int) {

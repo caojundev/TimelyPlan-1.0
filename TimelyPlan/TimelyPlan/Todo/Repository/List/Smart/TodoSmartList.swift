@@ -30,7 +30,7 @@ enum TodoSmartListType: String, TPMenuRepresentable {
 
 class TodoSmartList: NSObject, TodoListRepresentable {
     
-    var identifier: String?
+    var identifier: String
     
     var iconName: String? {
         return listType.iconName
