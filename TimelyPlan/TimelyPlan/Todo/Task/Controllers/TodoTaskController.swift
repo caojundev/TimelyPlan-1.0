@@ -214,8 +214,7 @@ class TodoTaskController {
 
         let vc = TodoTaskListPickerViewController(list: currentList)
         vc.didSelectList = { list in
-//            let toList = list as? TodoList
-//            todo.moveTodoTasks(tasks, toList: toList)
+            todo.moveTasks(tasks, to: list)
             completion?()
         }
 
@@ -228,12 +227,12 @@ class TodoTaskController {
     // MARK: -  移动任务到废纸篓
     
     func moveTaskToTrash(_ task: TodoTask, completion: (()->Void)? = nil) {
-//        todo.moveToTrash(with: [task])
+        todo.moveTasksToTrash([task])
         completion?()
     }
     
     func moveTasksToTrash(_ tasks: [TodoTask], completion: (()->Void)? = nil) {
-//        todo.moveToTrash(with: tasks)
+        todo.moveTasksToTrash(tasks)
         completion?()
     }
     
@@ -242,7 +241,7 @@ class TodoTaskController {
     /// 弹窗确认删除列表
     func confirmDeletion(for task: TodoTask, completion: (()->Void)? = nil) {
         let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
-//            todo.deleteTask(task)
+            todo.deleteTasks([task])
             completion?()
         }
         
@@ -269,7 +268,7 @@ class TodoTaskController {
         
         /// 确认删除多个任务
         let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
-//            todo.deleteTasks(tasks)
+            todo.deleteTasks(tasks)
             completion?()
         }
         
@@ -286,7 +285,7 @@ class TodoTaskController {
     // MARK: - 从废纸篓恢复
     func confirmRestoration(for task: TodoTask, completion: (()->Void)? = nil) {
         let restoreAction = TPAlertAction(type: .normal, title: resGetString("Restore")) { action in
-//            todo.restoreTrashTask(task)
+            todo.restoreTrashTask(task)
             completion?()
         }
         
@@ -311,7 +310,7 @@ class TodoTaskController {
         
         let restoreAction = TPAlertAction(type: .normal,
                                          title: resGetString("Restore")) { action in
-//            todo.restoreTrashTasks(tasks)
+            todo.restoreTrashTasks(tasks)
             completion?()
         }
         
@@ -328,7 +327,7 @@ class TodoTaskController {
     /// 清空废纸篓
     func emptyTrash() {
         let confirmAction = TPAlertAction(type: .destructive, title: resGetString("Confirm")) { action in
-//            todo.emptyTrash()
+            todo.emptyTrash()
         }
         
         let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))
@@ -340,6 +339,6 @@ class TodoTaskController {
     }
     
     func restoreTrashTask(_ task: TodoTask) {
-//        todo.restoreTrashTask(task)
+        todo.restoreTrashTask(task)
     }
 }

@@ -7,12 +7,16 @@
 
 import Foundation
 
-extension TodoTask: TaskRepresentable {
+extension TodoTask: SortableIdentifiable, TaskRepresentable {
     
     var feature: TaskFeature {
         return TaskFeature(type: .todo,
                            identifier: self.identifier,
                            snapshotName: self.name)
+    }
+    
+    var identifiableKey: String {
+        return self.identifier
     }
 }
 

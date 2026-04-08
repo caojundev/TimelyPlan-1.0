@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TodoListInteractor {
+class TodoListInteractor: TodoTaskProcessorDelegate {
 
     /// 分组改变
     var didChangeGroups: (() -> Void)?
@@ -167,14 +167,39 @@ class TodoListInteractor {
         self.sort.order = sortOrder
         self.loadGroups()
     }
-}
-
-extension TodoListInteractor: TodoTaskProcessorDelegate {
+    
+    // MARK: - TodoTaskProcessorDelegate
     
     func didCreateTodoTask(_ task: TodoTask) {
         self.setNeedsRefresh()
         self.loadGroups()
     }
+    
+    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
+    func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
+    func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
+        
+    }
+    
+    func didEmptyTrash() {
+        
+    }
+    
+    func didDeleteTodoTasks(_ tasks: [TodoTask]) {
+        
+    }
+    
+    
+    
+    
     
     func didUpdateActiveRepeatTodoTasks(_ tasks: [TodoTask]) {
         
@@ -185,22 +210,6 @@ extension TodoListInteractor: TodoTaskProcessorDelegate {
     }
     
     func didUpdateTodoTask(with infos: [TodoTaskChangeInfo]) {
-        
-    }
-    
-    func didMoveTodoTasks(with infos: [TodoTaskChangeInfo]) {
-        
-    }
-    
-    func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
-        
-    }
-    
-    func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
-        
-    }
-    
-    func didDeleteTodoTasks(_ tasks: [TodoTask]) {
         
     }
     

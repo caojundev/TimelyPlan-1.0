@@ -113,10 +113,21 @@ extension Todo {
     
     /// 获取任务
     func fetchTasks(completion: @escaping([TodoTask]?) -> Void) {
-        CDTodoTask.findAll(with: nil,
+        var conditions: [PredicateCondition] = [
+            (TodoTaskKey.isRemoved, .isFalse)
+        ]
+        
+        CDTodoTask.findAll(with: conditions.andPredicate(),
                            sortedBy: ElementOrderKey,
                            ascending: true) { results in
             let results = results as? [CDTodoTask]
+            completion(results?.tasks)
+        }
+    }
+    
+    /// 获取废纸篓任务
+    func fetchTrashTasks(completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchTrashTasks { results in
             completion(results?.tasks)
         }
     }
@@ -125,5 +136,31 @@ extension Todo {
     func createTask(with quickAddTask: TodoQuickAddTask) {
         taskManager.createTask(with: quickAddTask)
     }
-
+    
+    func moveTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        taskManager.moveTasks(tasks, to: list)
+    }
+    
+    /// 将任务移动到废纸篓
+    func moveTasksToTrash(_ tasks: [TodoTask]) {
+        taskManager.moveTasksToTrash(tasks)
+    }
+        
+    /// 恢复废纸篓中的任务
+    func restoreTrashTask(_ task: TodoTask) {
+        taskManager.restoreTrashTask(task)
+    }
+    
+    func restoreTrashTasks(_ tasks: [TodoTask]) {
+        taskManager.restoreTrashTasks(tasks)
+    }
+    
+    /// 清空废纸篓
+    func emptyTrash() {
+        taskManager.emptyTrash()
+    }
+    
+    func deleteTasks(_ tasks: [TodoTask]) {
+        taskManager.deleteTasks(tasks)
+    }
 }

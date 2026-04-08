@@ -23,7 +23,7 @@ protocol TodoTaskProcessorDelegate: AnyObject {
     func didUpdateTodoTask(with infos: [TodoTaskChangeInfo])
     
     /// 任务移动
-    func didMoveTodoTasks(with infos: [TodoTaskChangeInfo])
+    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?)
     
     /// 恢复任务
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask])
@@ -31,11 +31,19 @@ protocol TodoTaskProcessorDelegate: AnyObject {
     /// 移动任务到废纸篓
     func didMoveTodoTasksToTrash(_ tasks: [TodoTask])
     
+    /// 清空废纸篓
+    func didEmptyTrash()
+    
     /// 任务彻底删除
     func didDeleteTodoTasks(_ tasks: [TodoTask])
     
     /// 任务在列表中的顺序发生改变
     func didReorderTodoTask(_ task: TodoTask, fromIndex: Int, toIndex: Int)
+}
+
+extension TodoTaskProcessorDelegate {
+    
+    func didEmptyTrash() { }
 }
 
 class TodoTaskProcessorUpdater: NSObject, TodoTaskProcessorDelegate {
@@ -71,9 +79,9 @@ class TodoTaskProcessorUpdater: NSObject, TodoTaskProcessorDelegate {
         }
     }
     
-    func didMoveTodoTasks(with infos: [TodoTaskChangeInfo]) {
+    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
         notifyDelegates { (delegate: TodoTaskProcessorDelegate) in
-            delegate.didMoveTodoTasks(with: infos)
+            delegate.didMoveTodoTasks(tasks, to: list)
         }
     }
     
@@ -92,6 +100,12 @@ class TodoTaskProcessorUpdater: NSObject, TodoTaskProcessorDelegate {
     func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
         notifyDelegates { (delegate: TodoTaskProcessorDelegate) in
             delegate.didMoveTodoTasksToTrash(tasks)
+        }
+    }
+    
+    func didEmptyTrash() {
+        notifyDelegates { (delegate: TodoTaskProcessorDelegate) in
+            delegate.didEmptyTrash()
         }
     }
 }

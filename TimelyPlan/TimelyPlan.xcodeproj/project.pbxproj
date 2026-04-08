@@ -4867,8 +4867,8 @@
 			isa = PBXGroup;
 			children = (
 				E5F1552A2F8368FB00116091 /* TodoTask.swift */,
-				E5F1552D2F839C2B00116091 /* TodoTaskEnums.swift */,
 				E5F1552F2F839F7C00116091 /* TodoTask+Extensions.swift */,
+				E5F1552D2F839C2B00116091 /* TodoTaskEnums.swift */,
 				E51DF2102F853FC700D6BCE3 /* TodoTask+Organizer.swift */,
 				E5F155362F83E1C600116091 /* TodoTaskActionType.swift */,
 				E57CC5C02F7F9FE600ADDBA4 /* TodoSort.swift */,

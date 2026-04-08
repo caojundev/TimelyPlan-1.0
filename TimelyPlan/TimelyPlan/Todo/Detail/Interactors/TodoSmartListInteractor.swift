@@ -36,4 +36,44 @@ class TodoSmartListInteractor: TodoListInteractor {
         
         return super.taskActionTypes(for: selectedTasks)
     }
+    
+    /// 获取任务方法
+    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
+        if listConfiguration.list.listType == .trash {
+            /// 废纸篓任务
+            todo.fetchTrashTasks { results in
+                completion(results)
+            }
+        } else {
+            super.fetchTasks(completion: completion)
+        }
+    }
+    
+    override func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
+        guard listConfiguration.list.listType == .trash else {
+            return
+        }
+        
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
+    override func didDeleteTodoTasks(_ tasks: [TodoTask]) {
+        guard listConfiguration.list.listType == .trash else {
+            return
+        }
+        
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
+    override func didEmptyTrash() {
+        guard listConfiguration.list.listType == .trash else {
+            return
+        }
+        
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
 }
