@@ -9,24 +9,24 @@ import Foundation
 
 struct TodoListOptionConfig {
     
-    var options: [TodoListOption]
+    let options: [TodoListOption]
+    
+    let groupType: TodoGroupType
+    
+    let sort: TodoSort
     
     var showCompleted: Bool = true
     
     var layoutType: TodoListLayoutType = .list
-
-    var groupType: TodoGroupType = .priority
-    
-    var sort: TodoSort = TodoSort()
     
     /// 允许的分组类型
-    var allowGroupTypes: [TodoGroupType]?
+    var allowGroupTypes: [TodoGroupType] = []
     
     /// 允许的排序类型
-    var allowSortTypes: [TodoSortType]?
+    var allowSortTypes: [TodoSortType] = []
     
     /// 允许的排列顺序
-    var allowSortOrders: [TodoSortOrder]?
+    var allowSortOrders: [TodoSortOrder] = []
 }
 
 class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
@@ -56,9 +56,25 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
                  [.emptyTrash]]
         return lists
     }
-    
+     
+    /// 是否显示排序选项
+    private var shouldShowSortOption: Bool {
+        return config.allowSortTypes.count > 1 || config.allowSortOrders.count > 1
+    }
+
     override func menuActionTypes() -> [TodoListOption] {
-        return self.config.options
+        var options = [TodoListOption]()
+        for option in self.config.options {
+            if option == .group, config.allowGroupTypes.count > 1 {
+                options.append(.group)
+            } else if option == .sort, shouldShowSortOption {
+                options.append(.sort)
+            } else {
+                options.append(option)
+            }
+        }
+        
+        return options
     }
     
     override func updateMenuAction(_ action: TPMenuAction, for type: TodoListOption) {
@@ -82,11 +98,8 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     
     private func updateGroupAction(_ action: TPMenuAction) {
         action.subtitle = self.config.groupType.title
-        guard let groupTypes = self.config.allowGroupTypes else {
-            return
-        }
-        
-        let controller = TodoGroupTypeMenuController(types: groupTypes)
+        let allowGroupTypes = self.config.allowGroupTypes
+        let controller = TodoGroupTypeMenuController(types: allowGroupTypes)
         controller.selectedGroupType = self.config.groupType
         controller.didSelectGroupType = self.didSelectGroupType
         action.subMenuItems = controller.menuItems()
@@ -95,13 +108,16 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     private func updateSortAction(_ action: TPMenuAction) {
         let sort = config.sort
         var subMenuItems = [TPMenuItem]()
-        if let allowSortTypes = self.config.allowSortTypes, allowSortTypes.count > 0 {
+        
+        let allowSortTypes = self.config.allowSortTypes
+        if allowSortTypes.count > 1 {
             let sortTypeMenuItem = sortTypeMenuItem(allowSortTypes: allowSortTypes,
                                                     sortType: sort.type)
             subMenuItems.append(sortTypeMenuItem)
         }
         
-        if let allowSortOrders = self.config.allowSortOrders, allowSortOrders.count > 0 {
+        let allowSortOrders = self.config.allowSortOrders
+        if allowSortOrders.count > 1 {
             let sortOrderMenuItem = sortOrderMenuItem(allowSortOrders: allowSortOrders,
                                                       sortOrder: sort.order)
             subMenuItems.append(sortOrderMenuItem)

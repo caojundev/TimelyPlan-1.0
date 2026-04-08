@@ -19,13 +19,13 @@ class TodoListInteractor {
     
     private(set) var tasks: [TodoTask]?
     
-    private(set) var showCompleted: Bool = true
+    private var showCompleted: Bool = true
     
-    private(set) var layoutType: TodoListLayoutType = .list
+    private var layoutType: TodoListLayoutType = .list
     
-    private(set) var groupType: TodoGroupType = .priority
+    private var groupType: TodoGroupType
     
-    private(set) var sort: TodoSort = TodoSort(type: .creationDate, order: .ascending)
+    private var sort: TodoSort
     
     private let requestManager = TPRequestManager()
     
@@ -34,6 +34,8 @@ class TodoListInteractor {
     
     init(configuration: TodoListConfiguration) {
         self.configuration = configuration
+        self.groupType = configuration.validatedGroupType(nil)
+        self.sort = configuration.validatedSort(TodoSort())
     }
     
     func setNeedsRefresh() {
@@ -51,11 +53,11 @@ class TodoListInteractor {
             return nil
         }
         
-        var config = TodoListOptionConfig(options: options)
+        var config = TodoListOptionConfig(options: options,
+                                          groupType: self.groupType,
+                                          sort: self.sort)
         config.showCompleted = self.showCompleted
         config.layoutType = self.layoutType
-        config.groupType = self.groupType
-        config.sort = self.sort
         config.allowGroupTypes = self.configuration.allowGroupTypes()
         config.allowSortTypes = self.configuration.allowSortTypes()
         config.allowSortOrders = self.configuration.allowSortOrders(for: self.sort.type)
@@ -145,6 +147,7 @@ class TodoListInteractor {
     }
     
     func setGroupType(_ groupType: TodoGroupType) {
+        let groupType = self.configuration.validatedGroupType(groupType)
         guard self.groupType != groupType else {
             return
         }
@@ -154,6 +157,7 @@ class TodoListInteractor {
     }
     
     func setSortType(_ sortType: TodoSortType) {
+        let sortType = self.configuration.validatedSortType(sortType)
         guard self.sort.type != sortType else {
             return
         }
@@ -163,6 +167,7 @@ class TodoListInteractor {
     }
     
     func setSortOrder(_ sortOrder: TodoSortOrder) {
+        let sortOrder = self.configuration.validatedSortOrder(sortOrder, for: self.sort.type)
         guard self.sort.order != sortOrder else {
             return
         }
@@ -171,6 +176,8 @@ class TodoListInteractor {
         self.loadGroups()
     }
 }
+
+// MARK: - 验证
 
 extension TodoListInteractor {
     
@@ -186,5 +193,4 @@ extension TodoListInteractor {
             return TodoListInteractor(configuration: TodoListConfiguration())
         }
     }
-
 }

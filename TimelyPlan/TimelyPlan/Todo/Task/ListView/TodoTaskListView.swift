@@ -38,7 +38,7 @@ extension TodoTaskListViewDelegate {
     
     func todoTaskListViewWillBeginDragging(_ listView: TodoTaskListView) {}
     
-    func  todoTaskListView(_ listView: TodoTaskListView, willBeginEditingTask task: TodoTask) {}
+    func todoTaskListView(_ listView: TodoTaskListView, willBeginEditingTask task: TodoTask) {}
 }
 
 class TodoTaskListView: UIView,
@@ -86,18 +86,14 @@ class TodoTaskListView: UIView,
     /// 集合视图
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: bounds, style: style)
-        if #available(iOS 15.0, *) {
-            tableView.isPrefetchingEnabled = false
-        }
-
+        tableView.isPrefetchingEnabled = false
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.allowsSelectionDuringEditing = true
-        tableView.placeholderView = placeholderView
-        tableView.shouldShowPlaceholder = { [weak self] in
-            return self?.shouldShowPlaceholder() ?? false
-        }
+        tableView.contentInsetAdjustmentBehavior = .never
+        let headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.1))
+        tableView.tableHeaderView = headerView
         
         return tableView
     }()

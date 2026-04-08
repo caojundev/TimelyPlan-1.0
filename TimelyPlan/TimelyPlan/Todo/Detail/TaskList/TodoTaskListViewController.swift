@@ -17,7 +17,7 @@ protocol TodoTaskListViewControllerDelegate: AnyObject {
     func taskListViewController(_ vc: TodoTaskListViewController, didChangeSelectedTasks selectedTasks: Set<TodoTask>)
 }
 
-class TodoTaskListViewController: TPViewController,
+class TodoTaskListViewController: UIViewController,
                                     TodoDetailContent,
                                   TodoTaskListViewDelegate {
  
@@ -129,16 +129,21 @@ class TodoTaskListViewController: TPViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupAddView()
         self.view.addSubview(self.listView)
+        self.setupAddView()
         self.listView.reloadData()
         self.interactor.didChangeGroups = { [weak self] in
-            self?.listView.performUpdate()
+            self?.listView.reloadData()
         }
     }
 
-    override func handleFirstAppearance() {
-        self.interactor.loadGroups()
+    private(set) var isFirstAppearance = true
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if isFirstAppearance {
+            isFirstAppearance = false
+            self.interactor.loadGroups()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -307,7 +312,7 @@ class TodoTaskListViewController: TPViewController,
     }
     
     /// 点击添加
-    override func clickAdd() {
+    func clickAdd() {
         TPImpactFeedback.impactWithLightStyle()
         let task = self.interactor.configuration.quickAddTask()
         quickAddManager.show(with: task)

@@ -23,6 +23,15 @@ class TodoListConfiguration {
         }
     }
     
+    /// 创建内容视图控制器
+    func makeContent() -> UIViewController {
+        return UIViewController()
+    }
+    
+    func quickAddTask() -> TodoQuickAddTask? {
+        return nil
+    }
+    
     /// 是否可以添加任务
     func canAddTask() -> Bool {
         return false
@@ -39,27 +48,52 @@ class TodoListConfiguration {
     }
     
     /// 允许的分组类型
-    func allowGroupTypes() -> [TodoGroupType]? {
-        return nil
+    func allowGroupTypes() -> [TodoGroupType] {
+        return TodoGroupType.allCases
     }
     
     /// 允许的排序类型
-    func allowSortTypes() -> [TodoSortType]? {
-        return nil
+    func allowSortTypes() -> [TodoSortType] {
+        return TodoSortType.allCases
     }
     
     /// 根据排序类型返回允许的排列顺序
-    func allowSortOrders(for sortType: TodoSortType) -> [TodoSortOrder]? {
-        return nil
+    func allowSortOrders(for sortType: TodoSortType) -> [TodoSortOrder] {
+        return TodoSortOrder.allCases
     }
     
-    func quickAddTask() -> TodoQuickAddTask? {
-        return nil
+    func validatedGroupType(_ groupType: TodoGroupType?) -> TodoGroupType {
+        let allowTypes = allowGroupTypes()
+        guard let groupType = groupType, allowTypes.contains(groupType) else {
+            return allowTypes.first!
+        }
+
+        return groupType
     }
     
-    /// 创建内容视图控制器
-    func makeContent() -> UIViewController {
-        return UIViewController()
+    func validatedSortType(_ sortType: TodoSortType?) -> TodoSortType {
+        let allowTypes = allowSortTypes()
+        guard let sortType = sortType, allowTypes.contains(sortType) else {
+            return allowTypes.first!
+        }
+
+        return sortType
+    }
+    
+    func validatedSortOrder(_ sortOrder: TodoSortOrder?, for sortType: TodoSortType) -> TodoSortOrder {
+        let allowOrders = allowSortOrders(for: sortType)
+        guard let sortOrder = sortOrder, allowOrders.contains(sortOrder) else {
+            return allowOrders.first!
+        }
+
+        return sortOrder
+    }
+    
+    /// 返回一个验证合法的排序对象
+    func validatedSort(_ sort: TodoSort) -> TodoSort {
+        let sortType = validatedSortType(sort.type)
+        let sortOrder = validatedSortOrder(sort.order, for: sortType)
+        return TodoSort(type: sortType, order: sortOrder)
     }
 }
 
@@ -87,15 +121,15 @@ class TodoUserListConfiguration: TodoListConfiguration {
         return [.select, .showCompleted, .layout, .group, .sort, .edit]
     }
     
-    override func allowGroupTypes() -> [TodoGroupType]? {
+    override func allowGroupTypes() -> [TodoGroupType] {
         return [.default, .startDate, .dueDate, .priority, .none]
     }
     
-    override func allowSortTypes() -> [TodoSortType]? {
+    override func allowSortTypes() -> [TodoSortType] {
         return TodoSortType.allCases
     }
     
-    override func allowSortOrders(for sortType: TodoSortType) -> [TodoSortOrder]? {
+    override func allowSortOrders(for sortType: TodoSortType) -> [TodoSortOrder] {
         if sortType == .manually {
             return [.ascending] /// 手动排序仅支持升序
         }
@@ -148,7 +182,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         return .greenPrimary
     }
     
-    override func allowGroupTypes() -> [TodoGroupType]? {
+    override func allowGroupTypes() -> [TodoGroupType] {
         switch list.listType {
         case .inbox:
             return [.default, .startDate, .dueDate, .priority, .none]
@@ -161,7 +195,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         }
     }
     
-    override func allowSortTypes() -> [TodoSortType]? {
+    override func allowSortTypes() -> [TodoSortType] {
         switch list.listType {
         case .inbox:
             return TodoSortType.allCases
@@ -174,7 +208,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         }
     }
     
-    override func allowSortOrders(for sortType: TodoSortType) -> [TodoSortOrder]? {
+    override func allowSortOrders(for sortType: TodoSortType) -> [TodoSortOrder] {
         switch list.listType {
         case .inbox:
             if sortType == .manually {
