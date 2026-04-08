@@ -12,3 +12,4 @@ protocol TodoListRepresentable: NSObjectProtocol {
     /// 标识
     var identifier: String { get set }
 }
+

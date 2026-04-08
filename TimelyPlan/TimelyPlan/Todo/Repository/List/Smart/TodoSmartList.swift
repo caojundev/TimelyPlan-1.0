@@ -48,6 +48,10 @@ class TodoSmartList: NSObject, TodoListRepresentable {
         return nil
     }
     
+    var feature: TodoListFeature {
+        return TodoListFeature(identifier: self.identifier, name: self.listType.title)
+    }
+    
     /// 列表类型
     let listType: TodoSmartListType
     

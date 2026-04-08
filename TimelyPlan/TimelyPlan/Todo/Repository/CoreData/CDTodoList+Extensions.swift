@@ -17,6 +17,32 @@ struct TodoListKey {
     static var creationDate = "creationDate"
 }
 
+// MARK: - 任务操作
+extension CDTodoList {
+    
+    /// 列表特征
+    var feature: TodoListFeature {
+        return TodoListFeature(identifier: self.identifiableKey,
+                               name: self.name)
+    }
+    
+    /// 添加任务到列表，自动设置排序因子
+    func addTask(_ task: CDTodoTask, onTop: Bool = false) {
+        let tasks = tasks?.allObjects as? [CDTodoTask]
+        let order: Int64
+        if onTop {
+            let minOrder = tasks?.minOrder ?? 0
+            order = minOrder - kOrderedStep
+        } else {
+            let maxOrder = tasks?.maxOrder ?? 0
+            order = maxOrder + kOrderedStep
+        }
+        
+        task.order = order
+        self.addToTasks(task)
+    }
+}
+
 extension CDTodoList: SortableIdentifiable {
     
     // MARK: - SortableIdentifiable

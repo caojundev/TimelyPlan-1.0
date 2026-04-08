@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// 任务日期信息
-struct TaskDateInfo: Equatable {
+struct TaskDateInfo: Hashable, Equatable {
     
     /// 开始日期
     private(set) var startDate: Date

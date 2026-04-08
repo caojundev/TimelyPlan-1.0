@@ -133,7 +133,7 @@ class TodoTaskListViewController: UIViewController,
         self.setupAddView()
         self.listView.reloadData()
         self.interactor.didChangeGroups = { [weak self] in
-            self?.listView.reloadData()
+            self?.listView.performUpdate()
         }
     }
 
@@ -244,7 +244,6 @@ class TodoTaskListViewController: UIViewController,
     
     // MARK: - 列表选项
     func selectListOption(_ option: TodoListOption) {
-        print(option)
         switch option {
         case .select:
             self.setSelecting(true)

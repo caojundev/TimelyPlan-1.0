@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
          
-struct TaskSchedule: Equatable {
+struct TaskSchedule: Hashable, Equatable {
 
     /// 计划日期信息
     var dateInfo: TaskDateInfo?

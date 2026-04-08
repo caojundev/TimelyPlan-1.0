@@ -15,6 +15,9 @@ class Todo {
     /// 标签管理器
     private let tagManager = TodoTagManager()
     
+    /// 任务管理器
+    private let taskManager = TodoTaskManager()
+    
     /// 添加处理更新器
     func addUpdater(_ updater: AnyObject, for option: TodoUpdaterOption = .all) {
         if option.contains(.list) {
@@ -25,14 +28,9 @@ class Todo {
             tagManager.updater.addDelegate(updater)
         }
         
-//        if option.contains(.task) {
-//            taskManager.updater.addDelegate(updater)
-//        }
-//
-//        if option.contains(.step) {
-//            stepManager.updater.addDelegate(updater)
-//        }
-   
+        if option.contains(.task) {
+            taskManager.updater.addDelegate(updater)
+        }
     }
     
     // MARK: - 列表处理
@@ -108,4 +106,24 @@ class Todo {
         return tagManager.reorderTag(in: tags, fromIndex: fromIndex, toIndex: toIndex)
     }
  
+}
+
+/// 任务相关
+extension Todo {
+    
+    /// 获取任务
+    func fetchTasks(completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.findAll(with: nil,
+                           sortedBy: ElementOrderKey,
+                           ascending: true) { results in
+            let results = results as? [CDTodoTask]
+            completion(results?.tasks)
+        }
+    }
+    
+    /// 创建任务
+    func createTask(with quickAddTask: TodoQuickAddTask) {
+        taskManager.createTask(with: quickAddTask)
+    }
+
 }

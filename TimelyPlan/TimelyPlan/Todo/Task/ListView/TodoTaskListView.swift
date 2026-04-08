@@ -242,6 +242,11 @@ class TodoTaskListView: UIView,
     
     /// 更新列表
     func performUpdate() {
+        guard adapter.hasItem else {
+            adapter.reloadData()
+            return
+        }
+        
         adapter.performUpdate(with: .fade, completion: nil)
         updateVisibleCellsIfNeeded()
     }

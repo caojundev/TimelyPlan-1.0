@@ -82,7 +82,7 @@ class TodoTaskQuickAddListPicker: TPBaseButton {
     }
     
     func selectList(_ list: TodoListRepresentable?) {
-        let isEqual = self.list?.isEqual(list) ?? false
+        let isEqual = self.list?.identifier == list?.identifier
         if isEqual {
             return
         }

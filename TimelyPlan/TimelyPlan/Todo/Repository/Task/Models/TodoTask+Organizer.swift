@@ -133,11 +133,11 @@ extension Array where Element == TodoTask {
     
     // 将任务按列表归类并存储在字典中
     typealias TodoListClassifiedTasksResult = (inboxTasks: [TodoTask]?,
-                                               listTasksDic: [TodoList: Array<Element>])
+                                               listTasksDic: [TodoListFeature: Array<Element>])
     func listClassifiedTasks(showCompleted: Bool = true) -> TodoListClassifiedTasksResult {
         /// 收件箱任务
         var inboxTasks: [TodoTask] = []
-        var listTasksDic: [TodoList: Array<Element>] = [:]
+        var listTasksDic: [TodoListFeature: Array<Element>] = [:]
         for task in self {
             if task.isRemoved || (!showCompleted && task.isCompleted) {
                 continue

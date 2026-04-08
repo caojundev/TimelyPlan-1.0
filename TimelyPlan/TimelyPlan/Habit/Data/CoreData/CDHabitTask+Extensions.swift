@@ -183,18 +183,26 @@ extension NSManagedObject {
     
     /// 最小排序因子
     static var minimumOrder: Int64 {
+        return minimumOrder(with: nil)
+    }
+    
+    static func minimumOrder(with predicate: NSPredicate? = nil) -> Int64 {
         let order = performAggregateOperation(function: .min,
                                               onAttribute: ElementOrderKey,
-                                              withPredicate: nil,
+                                              withPredicate: predicate,
                                               in: .defaultContext) as? Int64
         return order ?? 0
     }
     
     /// 最大排序因子
     static var maximumOrder: Int64 {
+        return maximumOrder(with: nil)
+    }
+    
+    static func maximumOrder(with predicate: NSPredicate? = nil) -> Int64 {
         let order = performAggregateOperation(function: .max,
                                               onAttribute: ElementOrderKey,
-                                              withPredicate: nil,
+                                              withPredicate: predicate,
                                               in: .defaultContext) as? Int64
         return order ?? 0
     }

@@ -8,6 +8,13 @@
 import Foundation
 import CoreData
 
+struct TodoTagKey {
+    static var identifier = "identifier"
+    static var order = "order"
+    static var name = "name"
+    static var creationDate = "creationDate"
+}
+
 extension CDTodoTag: SortableIdentifiable {
     
     // MARK: - SortableIdentifiable
@@ -73,14 +80,6 @@ extension CDTodoTag: SortableIdentifiable {
     
 }
 
-
-struct TodoTagKey {
-    static var identifier = "identifier"
-    static var order = "order"
-    static var name = "name"
-    static var creationDate = "creationDate"
-}
-
 extension CDTodoTag {
     
     static var sortTerms: [SortTerm] {
@@ -88,12 +87,9 @@ extension CDTodoTag {
                 (TodoTagKey.creationDate, true)]
     }
     
-    static func fetchTags(containText text: String, completion:(@escaping([CDTodoTag]?) -> Void)) {
-        let condition: PredicateCondition = (TodoTagKey.name, .contains(text))
-        let predicate = NSPredicate.predicate(with: condition)
-        fetchAll(matching: predicate, sortTerms: sortTerms) { results in
-            completion(results as? [CDTodoTag])
-        }
+    static func getTags(for tags: Set<TodoTag> ) -> [CDTodoTag]? {
+        let result = getIdentifiableItems(with: Array(tags))
+        return result as? [CDTodoTag]
     }
     
     /// 同步获取所有标签
@@ -105,6 +101,14 @@ extension CDTodoTag {
         return results
     }
     
+    static func fetchTags(containText text: String, completion:(@escaping([CDTodoTag]?) -> Void)) {
+        let condition: PredicateCondition = (TodoTagKey.name, .contains(text))
+        let predicate = NSPredicate.predicate(with: condition)
+        fetchAll(matching: predicate, sortTerms: sortTerms) { results in
+            completion(results as? [CDTodoTag])
+        }
+    }
+
     static func fetchTags(completion: @escaping([CDTodoTag]?) -> Void) {
         findAll(with: nil, sortedBy: ElementOrderKey, ascending: true) { results in
             completion(results as? [CDTodoTag])

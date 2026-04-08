@@ -39,12 +39,12 @@ class TodoTaskQuickAddController: TPKeyboardAwareController,
     
     // MARK: - TodoTaskQuickAddViewDelegate
     func todoTaskQuickAddViewDidClickSend(_ quickAddView: TodoTaskQuickAddView) {
-        let editTask = quickAddView.editTask
-        guard editTask.isValid else {
+        let quickAddTask = quickAddView.editTask
+        guard quickAddTask.isValid else {
             return
         }
         
-        #warning("todo.createTodoTask(with: editTask)")
+        todo.createTask(with: quickAddTask)
         
         /// 重置任务
         quickAddView.reset(with: task)

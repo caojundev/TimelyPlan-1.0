@@ -31,6 +31,6 @@ class TodoTaskListSelectViewController: TodoBaseListSelectViewController {
             list = TodoSmartList.inbox
         }
 
-        return self.list?.isEqual(list) ?? false
+        return self.list?.identifier == list?.identifier
     }
 }

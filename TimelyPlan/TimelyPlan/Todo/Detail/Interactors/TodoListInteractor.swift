@@ -36,6 +36,7 @@ class TodoListInteractor {
         self.configuration = configuration
         self.groupType = configuration.validatedGroupType(nil)
         self.sort = configuration.validatedSort(TodoSort())
+        todo.addUpdater(self, for: [.task])
     }
     
     func setNeedsRefresh() {
@@ -93,27 +94,16 @@ class TodoListInteractor {
             }
             
             DispatchQueue.global(qos: .userInitiated).async {
-                var groups = [TodoGroup]()
-                for i in 0...3 {
-                    let group = TodoGroup(identifier: "\(i)")
-                    group.title = "分组\(i)"
-
-                    var tasks: [TodoTask] = []
-                    for j in 0...6 {
-                        let task = TodoTask()
-                        task.name = "任务 \(j)"
-                        task.priority = TodoTaskPriority(rawValue: i % 4) ?? .none
-                        tasks.append(task)
-                    }
-
-                    group.tasks = tasks
-                    groups.append(group)
-                }
-
                 DispatchQueue.main.async {
                     guard self.requestManager.shouldProceed(with: requestID) else {
                         return
                     }
+                    
+                    var groups = [TodoGroup]()
+                    let group = TodoGroup(identifier: "MyGroup")
+                    group.title = "所有任务分组"
+                    group.tasks = tasks
+                    groups.append(group)
                     
                     self.tasks = tasks
                     self.groups = groups
@@ -137,7 +127,9 @@ class TodoListInteractor {
     
     /// 获取任务方法
     func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        completion(nil)
+        todo.fetchTasks { results in
+            completion(results)
+        }
     }
     
     func toggleShowCompleted() {
@@ -177,7 +169,45 @@ class TodoListInteractor {
     }
 }
 
-// MARK: - 验证
+extension TodoListInteractor: TodoTaskProcessorDelegate {
+    
+    func didCreateTodoTask(_ task: TodoTask) {
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
+    func didUpdateActiveRepeatTodoTasks(_ tasks: [TodoTask]) {
+        
+    }
+    
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask]) {
+        
+    }
+    
+    func didUpdateTodoTask(with infos: [TodoTaskChangeInfo]) {
+        
+    }
+    
+    func didMoveTodoTasks(with infos: [TodoTaskChangeInfo]) {
+        
+    }
+    
+    func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
+        
+    }
+    
+    func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
+        
+    }
+    
+    func didDeleteTodoTasks(_ tasks: [TodoTask]) {
+        
+    }
+    
+    func didReorderTodoTask(_ task: TodoTask, fromIndex: Int, toIndex: Int) {
+        
+    }
+}
 
 extension TodoListInteractor {
     

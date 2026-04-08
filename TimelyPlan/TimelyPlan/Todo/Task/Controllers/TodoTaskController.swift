@@ -195,14 +195,21 @@ class TodoTaskController {
     }
     
     func moveTasks(_ tasks: [TodoTask], completion: (()->Void)? = nil) {
-        var lists = Set<TodoList?>()
+        var lists = Set<TodoListFeature?>()
         for task in tasks {
             lists.insert(task.list)
         }
-    
-        var currentList: TodoList? = nil
+        
+        var currentList: TodoListFeature? = nil
         if lists.count == 1 {
-            currentList = Array(lists)[0]
+            /// 属于同一列表
+            let list = Array(lists)[0]
+            if list == nil {
+                /// 收件箱
+                currentList = TodoSmartList.inbox.feature
+            } else {
+                currentList = list
+            }
         }
 
         let vc = TodoTaskListPickerViewController(list: currentList)
