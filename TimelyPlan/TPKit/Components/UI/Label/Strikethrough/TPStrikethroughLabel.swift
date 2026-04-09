@@ -61,7 +61,9 @@ class TPStrikethroughLabel: UILabel {
         }
     }
     
-    func setStrikethrough(_ isStrikethrough: Bool, animated: Bool) {
+    func setStrikethrough(_ isStrikethrough: Bool,
+                          animated: Bool,
+                          completion: (() -> Void)? = nil) {
         _isStrikethrough = isStrikethrough
         
         /// 更新文本颜色
@@ -75,6 +77,7 @@ class TPStrikethroughLabel: UILabel {
         if animated {
             CATransaction.begin()
             CATransaction.setAnimationDuration(duration)
+            CATransaction.setCompletionBlock(completion)
             strikethroughLayer.strokeEnd = strokeEnd
             CATransaction.commit()
         } else {
@@ -83,6 +86,7 @@ class TPStrikethroughLabel: UILabel {
             CATransaction.setDisableActions(true)
             strikethroughLayer.strokeEnd = strokeEnd
             CATransaction.commit()
+            completion?()
         }
     }
     

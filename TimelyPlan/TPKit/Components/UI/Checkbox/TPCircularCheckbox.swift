@@ -57,6 +57,9 @@ class TPCircularCheckbox: TPBaseButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
         innerLayer.setAffineTransform(.identity)
         innerLayer.frame = bounds
         innerLayer.fillColor = innerColor.cgColor
@@ -66,6 +69,7 @@ class TPCircularCheckbox: TPBaseButton {
         
         updateLayerPath()
         updateInnerLayerAnimated(false)
+        CATransaction.commit()
     }
     
     private func updateLayerPath() {

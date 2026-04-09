@@ -73,10 +73,16 @@ class TodoTaskBaseTableCell: UITableViewCell, Checkable {
     }
     
     // MARK: - Completed
-    func updateCompleted(animated: Bool = false) {
-        if let task = task {
-            infoView.setCompleted(task.isCompleted, animated: animated)
-        }
+    var isCompleted: Bool {
+        return infoView.isCompleted
+    }
+    
+    func setCompleted(_ isCompleted: Bool,
+                      animated: Bool = false,
+                      completion: (() -> Void)? = nil) {
+        infoView.setCompleted(isCompleted,
+                              animated: animated,
+                              completion: completion)
     }
     
     // MARK: - Checkable

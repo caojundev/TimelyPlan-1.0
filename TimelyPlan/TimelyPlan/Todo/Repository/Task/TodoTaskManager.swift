@@ -83,4 +83,39 @@ class TodoTaskManager {
         self.updater.didDeleteTodoTasks(tasks)
         HandyRecord.save()
     }
+    
+    // MARK: - 更新任务
+    /// 更新优先级
+    func updateTasks(_ tasks: [TodoTask], priority: TodoTaskPriority) {
+        var tasksToUpdate = [TodoTask]()
+        for task in tasks {
+            if task.priority != priority {
+                tasksToUpdate.append(task)
+            }
+        }
+
+        guard tasksToUpdate.count > 0, CDTodoTask.updateTasks(tasksToUpdate, priority: priority) else {
+            return
+        }
+        
+        updater.didUpdateTodoTask(with: [])
+        HandyRecord.save()
+    }
+    
+    // MARK: - 完成任务
+    func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask]) {
+        var tasksToUpdate = [TodoTask]()
+        for task in tasks {
+            if task.isCompleted != isCompleted {
+                tasksToUpdate.append(task)
+            }
+        }
+        
+        guard tasksToUpdate.count > 0, CDTodoTask.setCompleted(isCompleted, for: tasksToUpdate) else {
+            return
+        }
+        
+        updater.didUpdateTodoTask(with: [])
+        HandyRecord.save()
+    }
 }

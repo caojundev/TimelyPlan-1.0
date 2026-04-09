@@ -56,8 +56,8 @@ class TodoTaskCheckInfoView: TodoTaskBaseInfoView {
         checkbox.checkedColor = color
     }
 
-    override func setCompleted(_ isCompleted: Bool, animated: Bool = false) {
-        super.setCompleted(isCompleted, animated: animated)
+    override func setCompleted(_ isCompleted: Bool, animated: Bool = false, completion: (() -> Void)? = nil) {
+        super.setCompleted(isCompleted, animated: animated, completion: completion)
         checkbox.setChecked(isCompleted, animated: animated)
     }
 

@@ -31,11 +31,13 @@ class TodoTaskBaseInfoView: UIView {
     }
     
     /// 是否已完成
-    var isCompleted: Bool = false {
-        didSet {
-            if isCompleted != oldValue {
-                setCompleted(isCompleted, animated: false)
-            }
+    var isCompleted: Bool {
+        get {
+            return nameLabel.isStrikethrough
+        }
+        
+        set {
+            setCompleted(newValue, animated: false)
         }
     }
     
@@ -276,12 +278,15 @@ class TodoTaskBaseInfoView: UIView {
     }
     
     // MARK: - Public Methods
-    func setCompleted(_ isCompleted: Bool, animated: Bool = false) {
+    func setCompleted(_ isCompleted: Bool,
+                      animated: Bool = false,
+                      completion: (() -> Void)? = nil) {
         guard nameLabel.isStrikethrough != isCompleted else {
+            completion?()
             return
         }
         
-        nameLabel.setStrikethrough(isCompleted, animated: animated)
+        nameLabel.setStrikethrough(isCompleted, animated: animated, completion: completion)
         self.setNeedsLayout()
     }
     

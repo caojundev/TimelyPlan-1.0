@@ -87,7 +87,7 @@ class TodoTaskLayoutManager {
     func layout(for task: TodoTask) -> TodoTaskInfoLayout {
         let identifier = task.identifier
         var layout = layouts[identifier]
-        if layout == nil {
+        if layout == nil || !task.isEqual(layout?.task) {
             layout = TodoTaskInfoLayout(task: task)
             layouts[identifier] = layout
         }

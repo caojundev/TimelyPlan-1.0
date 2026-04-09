@@ -248,7 +248,20 @@ class TodoTaskListView: UIView,
         }
         
         adapter.performUpdate(with: .fade, completion: nil)
-        updateVisibleCellsIfNeeded()
+    }
+    
+    func setCompleted(_ isCompleted: Bool,
+                      for task: TodoTask,
+                      animated: Bool = true,
+                      completion: ((Bool) -> Void)? = nil) {
+        guard let cell = adapter.cellForItem(task) as? TodoTaskCheckTableCell else {
+            completion?(false)
+            return
+        }
+        
+        cell.setCompleted(isCompleted, animated: animated) {
+            completion?(true)
+        }
     }
     
     /*
@@ -283,18 +296,7 @@ class TodoTaskListView: UIView,
         }
     }
      */
-    
-    /// 更新所有可见单元格
-    func updateVisibleCellsIfNeeded(animated: Bool = true) {
-        guard let cells = adapter.visibleCells as? [TodoTaskBaseTableCell] else {
-            return
-        }
-        
-        for cell in cells {
-            cell.reloadDataIfNeeded(animated: animated)
-        }
-    }
-    
+
     /// 更新所有可见区块的头和脚视图
     func updateHeaderFooterViews() {
         adapter.updateHeaderFooterViews()
@@ -591,7 +593,7 @@ class TodoTaskListView: UIView,
         guard let indexPath = adapter.indexPath(for: cell), let task = task(at: indexPath) else {
             return
         }
-    
+
         delegate?.todoTaskListView(self, didClickCheckboxForTask: task)
     }
     

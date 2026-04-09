@@ -16,12 +16,12 @@ extension TodoTask {
     
     /// 开始日期类型
     var startDateType: TodoTaskStartDateType {
-        return TodoTaskStartDateType.type(of: self.startDate)
+        return TodoTaskStartDateType.type(of: self.schedule?.dateInfo?.startDate)
     }
 
     /// 截止日期类型
     var dueDateType: TodoTaskDueDateType {
-        return TodoTaskDueDateType.type(of: self.dueDate)
+        return TodoTaskDueDateType.type(of: self.schedule?.dateInfo?.endDate)
     }
 }
 

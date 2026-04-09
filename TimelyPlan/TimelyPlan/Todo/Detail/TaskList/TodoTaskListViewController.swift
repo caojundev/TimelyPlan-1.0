@@ -452,7 +452,13 @@ class TodoTaskListViewController: UIViewController,
     }
     
     func todoTaskListView(_ listView: TodoTaskListView, didClickCheckboxForTask task: TodoTask) {
-        taskController.clickCheckbox(for: task)
+        let isCompleted = !task.isCompleted
+        listView.setCompleted(isCompleted,
+                              for: task,
+                              animated: true) { [weak self] success in
+            guard success else { return }
+            self?.taskController.setCompleted(isCompleted, for: [task])
+        }
     }
     
     func todoTaskListViewDidChangeSelectedTasks(_ listView: TodoTaskListView) {

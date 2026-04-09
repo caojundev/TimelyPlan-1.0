@@ -56,39 +56,23 @@ class TodoTaskController {
     
     // MARK: - 编辑
     func editTask(_ task: TodoTask) {
-        /*
-        let editVC = TodoTaskEditViewController(task: task)
-        let navigationController = UINavigationController(rootViewController: editVC)
+        guard let topVC = UIViewController.topPresented else {
+            return
+        }
         
-        let configure = TPSlidePresentationConfigure()
-        configure.automaticallyAdjustsForKeyboard = false
-        configure.maskColor = Color(0x000000, 0.4)
-        configure.direction = .right
-        configure.regularCornerRadius = 16.0
-        configure.compactCornerRadius = 0.0
-        configure.presentPosition = .right
-        configure.compactContentSize = CGSize(width: CGFloat.greatestFiniteMagnitude,
-                                              height: CGFloat.greatestFiniteMagnitude)
-        configure.regularContentSize = CGSize(width: 320.0, height: .greatestFiniteMagnitude)
-        configure.compactRoundingCorners = []
-        configure.regularRoundingCorners = .allCorners
-        configure.compactEdgeInsets = .zero
-        configure.regularEdgeInsets = UIEdgeInsets(value: 10.0)
-        let topVC = UIViewController.topPresented
-        topVC?.slidePresent(navigationController,
-                            configure: configure,
-                            isInteractive: true,
-                            animated: true,
-                            completion: nil)
-         */
+        let editVC = TodoTaskEditViewController(task: task)
+        let navController = UINavigationController(rootViewController: editVC)
+        topVC.slidePresent(navController,
+                           configure: .rightSlideConfigure,
+                           isInteractive: true,
+                           animated: true,
+                           completion: nil)
     }
     
     // MARK: - 完成任务
     func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask], completion: (()->Void)? = nil) {
-        /*
         todo.setCompleted(isCompleted, for: tasks)
         completion?()
-        */
     }
 
     // MARK: - 优先级
@@ -101,7 +85,7 @@ class TodoTaskController {
         popoverView.menuItems = [menuItem]
         popoverView.didSelectMenuAction = { action in
             if let priority = TodoTaskPriority(rawValue: action.tag) {
-//                todo.updateTasks(tasks, priority: priority)
+                todo.updateTasks(tasks, priority: priority)
             }
             
             completion?()

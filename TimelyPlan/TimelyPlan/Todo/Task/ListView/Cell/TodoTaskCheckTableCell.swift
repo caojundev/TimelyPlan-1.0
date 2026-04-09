@@ -54,8 +54,5 @@ class TodoTaskCheckTableCell: TodoTaskBaseTableCell {
         if let delegate = delegate as? TodoTaskCheckTableCellDelegate {
             delegate.todoTaskCheckTableCellDidClickCheckbox(self)
         }
-        
-        /// 更新完成状态
-        updateCompleted(animated: true)
     }
 }

@@ -181,4 +181,21 @@ class TPSlidePresentationConfigure {
         passthroughViews = []
         automaticallyAdjustsForKeyboard = true
     }
+    
+    static var rightSlideConfigure: TPSlidePresentationConfigure {
+        let configure = TPSlidePresentationConfigure()
+        configure.automaticallyAdjustsForKeyboard = false
+        configure.maskColor = Color(0x000000, 0.4)
+        configure.direction = .right
+        configure.regularCornerRadius = 16.0
+        configure.compactCornerRadius = 0.0
+        configure.presentPosition = .right
+        configure.compactContentSize = .unlimited
+        configure.regularContentSize = CGSize(width: 320.0, height: .greatestFiniteMagnitude)
+        configure.compactRoundingCorners = []
+        configure.regularRoundingCorners = .allCorners
+        configure.compactEdgeInsets = .zero
+        configure.regularEdgeInsets = UIEdgeInsets(value: 10.0)
+        return configure
+    }
 }

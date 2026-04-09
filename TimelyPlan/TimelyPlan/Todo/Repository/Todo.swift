@@ -163,4 +163,17 @@ extension Todo {
     func deleteTasks(_ tasks: [TodoTask]) {
         taskManager.deleteTasks(tasks)
     }
+    
+    /// 更新优先级
+    func updateTasks(_ tasks: [TodoTask], priority: TodoTaskPriority) {
+        taskManager.updateTasks(tasks, priority: priority)
+    }
+    
+    func setCompleted(_ isCompleted: Bool, for task: TodoTask) {
+        taskManager.setCompleted(isCompleted, for: [task])
+    }
+    
+    func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask]) {
+        taskManager.setCompleted(isCompleted, for: tasks)
+    }
 }

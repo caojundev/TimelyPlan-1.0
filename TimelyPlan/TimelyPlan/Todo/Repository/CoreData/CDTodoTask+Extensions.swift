@@ -34,11 +34,27 @@ extension CDTodoTask: SortableIdentifiable {
     }
     
     var priority: TodoTaskPriority {
-        return TodoTaskPriority(rawValue: Int(priorityRawValue)) ?? .none
+        get {
+            return TodoTaskPriority(rawValue: Int(self.priorityRawValue)) ?? .none
+        }
+        
+        set {
+            self.priorityRawValue = Int16(newValue.rawValue)
+        }
     }
     
     var listFeature: TodoListFeature? {
         return self.list?.feature
+    }
+    
+    /// 收件箱最小排序因子
+    static var inboxMinOrder: Int64 {
+        return minimumOrder(with: allInboxTaskPredicate)
+    }
+    
+    /// 收件箱最大排序因子
+    static var inboxMaxOrder: Int64 {
+        return maximumOrder(with: allInboxTaskPredicate)
     }
     
     static func createTodoTask(with quickAddTask: TodoQuickAddTask, onTop: Bool = true) -> CDTodoTask {
@@ -82,14 +98,36 @@ extension CDTodoTask: SortableIdentifiable {
         return task
     }
     
-    /// 收件箱最小排序因子
-    static var inboxMinOrder: Int64 {
-        return minimumOrder(with: allInboxTaskPredicate)
+    /// 更新优先级
+    static func updateTasks(_ tasks: [TodoTask], priority: TodoTaskPriority) -> Bool {
+        guard let cdTasks = getIdentifiableItems(with: tasks) as? [CDTodoTask],
+              cdTasks.count > 0 else {
+            return false
+        }
+        
+        let modificationDate = Date()
+        for cdTask in cdTasks {
+            cdTask.priority = priority
+            cdTask.modificationDate = modificationDate
+        }
+        
+        return true
     }
     
-    /// 收件箱最大排序因子
-    static var inboxMaxOrder: Int64 {
-        return maximumOrder(with: allInboxTaskPredicate)
+    static func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask]) -> Bool {
+        guard let cdTasks = getIdentifiableItems(with: tasks) as? [CDTodoTask],
+              cdTasks.count > 0 else {
+            return false
+        }
+        
+        let modificationDate = Date()
+        for cdTask in cdTasks {
+            cdTask.isCompleted = isCompleted
+            cdTask.completionDate = isCompleted ? modificationDate: nil
+            cdTask.modificationDate = modificationDate
+        }
+        
+        return true
     }
 }
 
