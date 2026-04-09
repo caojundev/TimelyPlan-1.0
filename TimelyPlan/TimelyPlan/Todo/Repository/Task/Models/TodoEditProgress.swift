@@ -58,7 +58,7 @@ enum TodoProgressRecordType: Int, Codable, TPMenuRepresentable {
     }
 }
 
-struct TodoEditProgress: Hashable, Equatable {
+struct TodoEditProgress: Codable, Hashable, Equatable {
     
     /// 开始数值
     var initialValue: Int64 = 0
@@ -85,7 +85,7 @@ struct TodoEditProgress: Hashable, Equatable {
     var autoRecordValue: Int64 = 1
     
     /// 进度
-    var completionRate: CGFloat {
+    var completionFraction: CGFloat {
         let total = targetValue - initialValue
         if total == 0 {
             return 0.0
@@ -105,7 +105,7 @@ struct TodoEditProgress: Hashable, Equatable {
     }
     
     var isCompleted: Bool {
-        return completionRate == 1.0
+        return completionFraction == 1.0
     }
     
     var info: String? {
@@ -164,20 +164,20 @@ struct TodoEditProgress: Hashable, Equatable {
     
     /// 检查当前进度是否满足过滤条件
     func isMatchFilterSpecificValue(_ specificValue: TodoProgressFilterSpecificValue) -> Bool {
-        let completionRate = Float(completionRate)
+        let completionFraction = Float(completionFraction)
         let comparisonOperator = specificValue.getComparisonOperator()
         let floatPercentage = Float(specificValue.getPercentage()) / 100.0
         switch comparisonOperator {
         case .greaterThan:
-            return completionRate > floatPercentage
+            return completionFraction > floatPercentage
         case .greaterOrEqual:
-            return completionRate >= floatPercentage
+            return completionFraction >= floatPercentage
         case .lessThan:
-            return completionRate < floatPercentage
+            return completionFraction < floatPercentage
         case .lessOrEqual:
-            return completionRate <= floatPercentage
+            return completionFraction <= floatPercentage
         case .equal:
-            return completionRate == floatPercentage
+            return completionFraction == floatPercentage
         }
     }
     

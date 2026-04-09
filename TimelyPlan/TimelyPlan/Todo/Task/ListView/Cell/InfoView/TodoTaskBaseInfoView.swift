@@ -306,7 +306,7 @@ class TodoTaskBaseInfoView: UIView {
         checkType = task.checkType
         priority = task.priority
         name = task.name
-        setProgress(task.completionRate, animated: animated)
+        setProgress(task.completionFraction, animated: animated)
         setCompleted(task.isCompleted, animated: animated)
         setNeedsLayout()
     }

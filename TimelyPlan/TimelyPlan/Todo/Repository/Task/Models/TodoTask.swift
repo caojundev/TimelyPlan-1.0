@@ -15,6 +15,9 @@ class TodoTask: NSObject {
     /// 排序因子
     var order: Int64 = 0
     
+    /// 列表
+    var list: TodoListFeature?
+    
     /// 我的一天
     var isAddedToMyDay: Bool = false
     
@@ -26,15 +29,6 @@ class TodoTask: NSObject {
     
     /// 优先级
     var priority: TodoTaskPriority = .none
-    
-    /// 列表
-    var list: TodoListFeature?
-    
-    /// 计划
-    var schedule: TaskSchedule?
-
-    /// 进度
-    var progress: TodoEditProgress?
     
     /// 标签
     var tags: Set<TodoTag>?
@@ -54,6 +48,56 @@ class TodoTask: NSObject {
     /// 是否已移动到废纸篓
     var isRemoved: Bool = false
     
+    /// 进度
+    private(set) lazy var progress: TodoEditProgress? = {
+        if let json = progressJSON {
+            return TodoEditProgress.model(with: json)
+        }
+        
+        return nil
+    }()
+    
+    /// 任务计划
+    var schedule: TaskSchedule? {
+        guard let dateInfo = dateInfo else {
+            return nil
+        }
+        
+        let schedule = TaskSchedule(dateInfo: dateInfo, reminder: reminder, repeatRule: repeatRule)
+        return schedule
+    }
+    
+    /// 日期信息
+    private var dateInfo: TaskDateInfo?
+    
+    /// 任务提醒
+    private lazy var reminder: TaskReminder? = {
+        if let json = reminderJSON {
+            return TaskReminder.model(with: json)
+        }
+        
+        return nil
+    }()
+
+    /// 重复规则
+    private lazy var repeatRule: RepeatRule? = {
+        if let json = repeatRuleJSON {
+            return RepeatRule.model(with: json)
+        }
+        
+        return nil
+    }()
+    
+    /// 提醒 JSON 字符串
+    private let reminderJSON: String?
+    
+    /// 重复规则 JSON 字符串
+    private let repeatRuleJSON: String?
+    
+    /// 进度 JSON 字符串
+    private let progressJSON: String?
+    
+    
     init(content: CDTodoTask) {
         self.identifier = content.identifiableKey
         self.order = content.order
@@ -68,12 +112,11 @@ class TodoTask: NSObject {
         self.completionDate = content.completionDate
         self.modificationDate = content.modificationDate
         
-//        /// 计划
-//        var schedule: TaskSchedule?
-//
-//        /// 进度
-//        var progress: TodoEditProgress?
-//
+        self.dateInfo = content.dateInfo
+        self.reminderJSON = content.reminderJSON
+        self.repeatRuleJSON = content.repeatRuleJSON
+        self.progressJSON = content.progressJSON
+        
 //        /// 标签
 //        var tags: Set<TodoTag>?
         super.init()

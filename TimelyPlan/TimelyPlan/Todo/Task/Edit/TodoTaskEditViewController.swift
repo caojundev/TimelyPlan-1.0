@@ -230,7 +230,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     }
     
     private func updateProgress(animated: Bool = false) {
-        infoView.setProgress(task.completionRate, animated: animated)
+        infoView.setProgress(task.completionFraction, animated: animated)
         infoView.isProgressHidden = !task.isProgressSet
         view.setNeedsLayout()
     }

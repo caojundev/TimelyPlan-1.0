@@ -28,9 +28,23 @@ struct TodoTaskKey {
 
 extension CDTodoTask: SortableIdentifiable {
     
+    /// 收件箱最小排序因子
+    static var inboxMinOrder: Int64 {
+        return minimumOrder(with: allInboxTaskPredicate)
+    }
+    
+    /// 收件箱最大排序因子
+    static var inboxMaxOrder: Int64 {
+        return maximumOrder(with: allInboxTaskPredicate)
+    }
+    
     // MARK: - SortableIdentifiable
     var identifiableKey: String {
         return self.identifier ?? ""
+    }
+    
+    var listFeature: TodoListFeature? {
+        return self.list?.feature
     }
     
     var priority: TodoTaskPriority {
@@ -43,34 +57,50 @@ extension CDTodoTask: SortableIdentifiable {
         }
     }
     
-    var listFeature: TodoListFeature? {
-        return self.list?.feature
+    var dateInfo: TaskDateInfo? {
+        get {
+            guard let startDate = startDate, let endDate = dueDate else {
+                return nil
+            }
+        
+            return TaskDateInfo(startDate: startDate, endDate: endDate, isAllDay: isAllDay)
+        }
+        
+        set {
+            self.startDate = newValue?.startDate
+            self.dueDate = newValue?.endDate
+            self.isAllDay = newValue?.isAllDay ?? true
+        }
     }
     
-    /// 收件箱最小排序因子
-    static var inboxMinOrder: Int64 {
-        return minimumOrder(with: allInboxTaskPredicate)
+    /// 更新计划
+    func updateSchedule(_ schedule: TaskSchedule?) {
+        self.dateInfo = schedule?.dateInfo
+        self.reminderJSON = schedule?.reminder?.jsonString()
+        self.repeatRuleJSON = schedule?.repeatRule?.jsonString()
     }
     
-    /// 收件箱最大排序因子
-    static var inboxMaxOrder: Int64 {
-        return maximumOrder(with: allInboxTaskPredicate)
+    /// 更新进度
+    func updateProgress(_ progress: TodoEditProgress?) {
+        guard let progress = progress, progress.isValid else {
+            self.progressFraction = 0
+            self.progressJSON = nil
+            return
+        }
+
+        self.progressPercent = progress.completionFraction
+        self.progressJSON = progress.jsonString()
     }
     
     static func createTodoTask(with quickAddTask: TodoQuickAddTask, onTop: Bool = true) -> CDTodoTask {
         let task = CDTodoTask.createEntity(in: .defaultContext)
         task.identifier = UUID().uuidString
         task.name = quickAddTask.name
-        if quickAddTask.isNoteEnabled {
-            task.note = quickAddTask.note
-        }
-    
+        task.note = quickAddTask.isNoteEnabled ? quickAddTask.note : nil
         task.isAddedToMyDay = quickAddTask.isAddedToMyDay
-        task.priorityRawValue = Int16(quickAddTask.priority.rawValue)
-        task.creationDate = .now
-        task.modificationDate = .now
+        task.priority = quickAddTask.priority
         
-        /// 处理标签
+        /// 标签
         if let tags = quickAddTask.tags, let cdTags = CDTodoTag.getTags(for: tags) {
             task.addToTags(Set(cdTags) as NSSet)
         }
@@ -86,15 +116,19 @@ extension CDTodoTask: SortableIdentifiable {
                 task.order = inboxMaxOrder + kOrderedStep
             }
         }
- 
-        #warning("处理计划和进度")
-        /*
-        // task.schedule = quickAddTask.schedule
-        if let progress = quickAddTask.progress {
-//            task.progress = .newProgress(with: editProgress)
+
+        /// 更新计划
+        if let schedule = quickAddTask.schedule {
+            task.updateSchedule(schedule)
         }
-        */
         
+        if let progress = quickAddTask.progress {
+            task.updateProgress(progress)
+        }
+        
+        let currentDate: Date = .now
+        task.creationDate = currentDate
+        task.modificationDate = currentDate
         return task
     }
     
