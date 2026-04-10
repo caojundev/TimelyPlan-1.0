@@ -43,8 +43,18 @@ extension CDTodoTask: SortableIdentifiable {
         return self.identifier ?? ""
     }
     
+    /// 列表特征
     var listFeature: TodoListFeature? {
         return self.list?.feature
+    }
+    
+    /// 用户标签
+    var userTags: [TodoTag]? {
+        guard let cdTags = self.tags as? Set<CDTodoTag> else {
+            return nil
+        }
+        
+        return cdTags.map { TodoTag(content: $0) }
     }
     
     var priority: TodoTaskPriority {
@@ -154,7 +164,7 @@ extension CDTodoTask: SortableIdentifiable {
         return true
     }
     
-    static func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask]) -> Bool {
+    static func updateTasks(_ tasks: [TodoTask], isCompleted: Bool) -> Bool {
         guard let cdTasks = getIdentifiableItems(with: tasks) as? [CDTodoTask],
               cdTasks.count > 0 else {
             return false
@@ -177,6 +187,76 @@ extension CDTodoTask: SortableIdentifiable {
         }
         
         cdTask.updateProgress(progress)
+        cdTask.modificationDate = .now
+        return true
+    }
+    
+    static func updateTask(_ task: TodoTask, name: String?) -> Bool {
+        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+            return false
+        }
+        
+        cdTask.name = name
+        cdTask.modificationDate = .now
+        return true
+    }
+
+    static func updateTask(_ task: TodoTask, isAddedToMyDay: Bool) -> Bool {
+        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+            return false
+        }
+        
+        cdTask.isAddedToMyDay = isAddedToMyDay
+        cdTask.modificationDate = .now
+        return true
+    }
+    
+    static func updateTask(_ task: TodoTask, schedule: TaskSchedule?) -> Bool {
+        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+            return false
+        }
+        
+        cdTask.updateSchedule(schedule)
+        cdTask.modificationDate = .now
+        return true
+    }
+    
+    static func updateTask(_ task: TodoTask, tags: Set<TodoTag>?) -> Bool {
+        let oldTags = Set(task.tags ?? [])
+        if oldTags == tags {
+            return false
+        }
+        
+        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+            return false
+        }
+        
+        /// 删除标签
+        var removeTags = oldTags
+        if let tags = tags {
+           removeTags = oldTags.subtracting(tags)
+        }
+        
+        if removeTags.count > 0, let cdRemoveTags = CDTodoTag.getTags(for: removeTags) {
+            cdTask.removeFromTags(Set(cdRemoveTags) as NSSet)
+        }
+
+        /// 添加标签
+        let addTags = tags?.subtracting(oldTags)
+        if let addTags = addTags, let cdAddTags = CDTodoTag.getTags(for: addTags) {
+            cdTask.addToTags(Set(cdAddTags) as NSSet)
+        }
+        
+        cdTask.modificationDate = .now
+        return true
+    }
+    
+    static func updateTask(_ task: TodoTask, note: String?) -> Bool {
+        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+            return false
+        }
+        
+        cdTask.note = note
         cdTask.modificationDate = .now
         return true
     }

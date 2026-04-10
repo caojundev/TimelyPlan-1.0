@@ -185,7 +185,12 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
         self.loadGroups()
     }
     
-    func didUpdateTodoTask(with infos: [TodoTaskChangeInfo]) {
+    func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
+    func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
         self.setNeedsRefresh()
         self.loadGroups()
     }

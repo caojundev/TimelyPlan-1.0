@@ -31,7 +31,7 @@ class TodoTask: NSObject {
     var priority: TodoTaskPriority = .none
     
     /// 标签
-    var tags: Set<TodoTag>?
+    var tags: [TodoTag]?
     
     /// 创建日期
     var creationDate: Date?
@@ -49,7 +49,7 @@ class TodoTask: NSObject {
     var isRemoved: Bool = false
     
     /// 进度
-    private(set) lazy var progress: TodoEditProgress? = {
+    lazy var progress: TodoEditProgress? = {
         if let json = progressJSON {
             return TodoEditProgress.model(with: json)
         }
@@ -59,12 +59,20 @@ class TodoTask: NSObject {
     
     /// 任务计划
     var schedule: TaskSchedule? {
-        guard let dateInfo = dateInfo else {
-            return nil
+        get {
+            guard let dateInfo = dateInfo else {
+                return nil
+            }
+            
+            let schedule = TaskSchedule(dateInfo: dateInfo, reminder: reminder, repeatRule: repeatRule)
+            return schedule
         }
         
-        let schedule = TaskSchedule(dateInfo: dateInfo, reminder: reminder, repeatRule: repeatRule)
-        return schedule
+        set {
+            self.dateInfo = newValue?.dateInfo
+            self.reminder = newValue?.reminder
+            self.repeatRule = newValue?.repeatRule
+        }
     }
     
     /// 日期信息
@@ -96,8 +104,7 @@ class TodoTask: NSObject {
     
     /// 进度 JSON 字符串
     private let progressJSON: String?
-    
-    
+
     init(content: CDTodoTask) {
         self.identifier = content.identifiableKey
         self.order = content.order
@@ -116,9 +123,7 @@ class TodoTask: NSObject {
         self.reminderJSON = content.reminderJSON
         self.repeatRuleJSON = content.repeatRuleJSON
         self.progressJSON = content.progressJSON
-        
-//        /// 标签
-//        var tags: Set<TodoTag>?
+        self.tags = content.userTags
         super.init()
     }
     
@@ -145,5 +150,15 @@ class TodoTask: NSObject {
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         return self.isEqual(object)
     }
+    
+    // MARK: - 只读
+    var tagsSet: Set<TodoTag>? {
+        if let tags = tags, tags.count > 0 {
+            return Set(tags)
+        }
+        
+        return nil
+    }
+    
 }
 

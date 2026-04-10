@@ -169,15 +169,31 @@ extension Todo {
         taskManager.updateTasks(tasks, priority: priority)
     }
     
-    func setCompleted(_ isCompleted: Bool, for task: TodoTask) {
-        taskManager.setCompleted(isCompleted, for: [task])
-    }
-    
-    func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask]) {
-        taskManager.setCompleted(isCompleted, for: tasks)
+    func updateTasks(_ tasks: [TodoTask], isCompleted: Bool) {
+        taskManager.updateTasks(tasks, isCompleted: isCompleted)
     }
     
     func updateTask(_ task: TodoTask, progress: TodoEditProgress?) {
-        taskManager.updateTask(task, progress: progress)
+        return taskManager.updateTask(task, progress: progress)
+    }
+    
+    func updateTask(_ task: TodoTask, name: String?) {
+        taskManager.updateTask(task, name: name)
+    }
+
+    func updateTask(_ task: TodoTask, isAddedToMyDay: Bool) {
+        taskManager.updateTask(task, isAddedToMyDay: isAddedToMyDay)
+    }
+    
+    func updateTask(_ task: TodoTask, schedule: TaskSchedule?) {
+        taskManager.updateTask(task, schedule: schedule)
+    }
+    
+    func updateTask(_ task: TodoTask, tags: Set<TodoTag>?) {
+        taskManager.updateTask(task, tags: tags)
+    }
+    
+    func updateTask(_ task: TodoTask, note: String?) {
+        taskManager.updateTask(task, note: note)
     }
 }

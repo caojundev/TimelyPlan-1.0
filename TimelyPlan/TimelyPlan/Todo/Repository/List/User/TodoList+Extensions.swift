@@ -18,6 +18,10 @@ extension TodoList {
         return TPIcon(name: layoutType.miniIconName)
     }
     
+    var feature: TodoListFeature {
+        return TodoListFeature(identifier: self.identifier,
+                               name: self.name)
+    }
     
     // MARK: - 编辑列表
     

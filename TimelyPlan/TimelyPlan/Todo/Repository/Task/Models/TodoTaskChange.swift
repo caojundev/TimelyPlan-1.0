@@ -31,14 +31,12 @@ enum TodoTaskChange: Hashable {
     /// 添加到我的一天
     case myDay(oldValue: Bool, newValue: Bool)
     
-    
     /// 列表
     case list(oldValue: TodoList?, newValue: TodoList?)
     
     /// 优先级
     case priority(oldValue: TodoTaskPriority, newValue: TodoTaskPriority)
     
-
     /// 计划
     case schedule(oldValue: TaskSchedule?, newValue: TaskSchedule?)
     

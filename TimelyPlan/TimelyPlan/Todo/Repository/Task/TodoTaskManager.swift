@@ -98,12 +98,29 @@ class TodoTaskManager {
             return
         }
         
-        updater.didUpdateTodoTask(with: [])
+        if tasksToUpdate.count == 1 {
+            let task = tasksToUpdate[0]
+            let change: TodoTaskChange = .priority(oldValue: task.priority, newValue: priority)
+            updater.didUpdateTodoTask(task, with: change)
+        } else {
+            var changeInfos: [TodoTaskChangeInfo] = []
+            for task in tasksToUpdate {
+                let change: TodoTaskChange = .priority(oldValue: task.priority, newValue: priority)
+                let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+                changeInfos.append(changeInfo)
+            }
+            
+            updater.didUpdateTodoTasks(with: changeInfos)
+        }
+        
         HandyRecord.save()
     }
     
-    // MARK: - 完成任务
-    func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask]) {
+    func updateTask(_ task: TodoTask, isCompleted: Bool) {
+        updateTasks([task], isCompleted: isCompleted)
+    }
+    
+    func updateTasks(_ tasks: [TodoTask], isCompleted: Bool) {
         var tasksToUpdate = [TodoTask]()
         for task in tasks {
             if task.isCompleted != isCompleted {
@@ -111,21 +128,112 @@ class TodoTaskManager {
             }
         }
         
-        guard tasksToUpdate.count > 0, CDTodoTask.setCompleted(isCompleted, for: tasksToUpdate) else {
+        guard tasksToUpdate.count > 0, CDTodoTask.updateTasks(tasksToUpdate, isCompleted: isCompleted) else {
             return
         }
         
-        updater.didUpdateTodoTask(with: [])
+        if tasksToUpdate.count == 1 {
+            let task = tasksToUpdate[0]
+            let change: TodoTaskChange = .completed(oldValue: task.isCompleted, newValue: isCompleted)
+            updater.didUpdateTodoTask(task, with: change)
+        } else {
+            var changeInfos: [TodoTaskChangeInfo] = []
+            for task in tasksToUpdate {
+                let change: TodoTaskChange = .completed(oldValue: task.isCompleted, newValue: isCompleted)
+                let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+                changeInfos.append(changeInfo)
+            }
+            
+            updater.didUpdateTodoTasks(with: changeInfos)
+        }
+        
         HandyRecord.save()
     }
     
+
     /// 更新任务进度
     func updateTask(_ task: TodoTask, progress: TodoEditProgress?) {
+        guard task.progress != progress else {
+            /// 进度相同，判断进度是否已完成
+            if let progress = progress, progress.isCompleted{
+                updateTask(task, isCompleted: true)
+            }
+            
+            return
+        }
+        
         guard CDTodoTask.updateTask(task, progress: progress) else {
             return
         }
         
-        updater.didUpdateTodoTask(with: [])
+        var changes = [TodoTaskChange]()
+        let change: TodoTaskChange = .progress(oldValue: task.progress, newValue: progress)
+        changes.append(change)
+        
+        /// 检查完成状态是否改变
+        if !task.isCompleted, let progress = progress, progress.isCompleted {
+            let change: TodoTaskChange = .completed(oldValue: false, newValue: true)
+            changes.append(change)
+        }
+        
+        if changes.count == 1 {
+            updater.didUpdateTodoTask(task, with: changes[0])
+        } else {
+            let infos = changes.map { TodoTaskChangeInfo(task: task, change: $0)}
+            updater.didUpdateTodoTasks(with: infos)
+        }
+        
         HandyRecord.save()
     }
+    
+    func updateTask(_ task: TodoTask, name: String?) {
+        guard task.name != name, CDTodoTask.updateTask(task, name: name) else {
+            return
+        }
+        
+        let change: TodoTaskChange = .name(oldValue: task.name, newValue: name)
+        updater.didUpdateTodoTask(task, with: change)
+        HandyRecord.save()
+    }
+
+    func updateTask(_ task: TodoTask, isAddedToMyDay: Bool) {
+        guard task.isAddedToMyDay != isAddedToMyDay, CDTodoTask.updateTask(task, isAddedToMyDay: isAddedToMyDay) else {
+            return
+        }
+        
+        let change: TodoTaskChange = .myDay(oldValue: task.isAddedToMyDay, newValue: isAddedToMyDay)
+        updater.didUpdateTodoTask(task, with: change)
+        HandyRecord.save()
+    }
+    
+    func updateTask(_ task: TodoTask, schedule: TaskSchedule?) {
+        guard task.schedule != schedule, CDTodoTask.updateTask(task, schedule: schedule) else {
+            return
+        }
+        
+        let change: TodoTaskChange = .schedule(oldValue: task.schedule, newValue: schedule)
+        updater.didUpdateTodoTask(task, with: change)
+        HandyRecord.save()
+    }
+    
+    func updateTask(_ task: TodoTask, tags: Set<TodoTag>?) {
+        guard CDTodoTask.updateTask(task, tags: tags) else {
+            return
+        }
+    
+        let change: TodoTaskChange = .tag(oldValue: task.tagsSet, newValue: tags)
+        updater.didUpdateTodoTask(task, with: change)
+        HandyRecord.save()
+    }
+    
+    func updateTask(_ task: TodoTask, note: String?) {
+        guard task.note != note, CDTodoTask.updateTask(task, note: note) else {
+            return
+        }
+        
+        let change: TodoTaskChange = .note(oldValue: task.note, newValue: note)
+        updater.didUpdateTodoTask(task, with: change)
+        HandyRecord.save()
+    }
+    
 }

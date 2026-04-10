@@ -87,49 +87,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "839BCF7B-AF03-4908-B450-74A0E5A30CC2"
+            uuid = "68C1C724-DEEE-4AFC-B3DC-57CA067BCAA7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TimelyPlan/Todo/Task/ListView/TodoTaskListView.swift"
+            filePath = "TimelyPlan/Todo/Task/Controllers/TodoTaskController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
-            landmarkName = "setProgress(_:for:completion:)"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "clickCheckbox(for:completedHandler:progressHandler:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "839BCF7B-AF03-4908-B450-74A0E5A30CC2 - 2a1b196b8b76c5f4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TimelyPlan.TodoTaskListView.setProgress(_: TimelyPlan.TodoEditProgress, for: TimelyPlan.TodoTask, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
-                  moduleName = "TimelyPlan"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/caojun/Working/TimelyPlan-1.0/TimelyPlan/TimelyPlan/Todo/Task/ListView/TodoTaskListView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "269"
-                  endingLineNumber = "269"
-                  offsetFromSymbolStart = "148">
-               </Location>
-               <Location
-                  uuid = "839BCF7B-AF03-4908-B450-74A0E5A30CC2 - 2a1b196b8b76c5f4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TimelyPlan.TodoTaskListView.setProgress(_: TimelyPlan.TodoEditProgress, for: TimelyPlan.TodoTask, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
-                  moduleName = "TimelyPlan"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/caojun/Working/TimelyPlan-1.0/TimelyPlan/TimelyPlan/Todo/Task/ListView/TodoTaskListView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "269"
-                  endingLineNumber = "269"
-                  offsetFromSymbolStart = "204">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

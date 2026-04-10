@@ -119,9 +119,12 @@ struct TodoEditProgress: Codable, Hashable, Equatable {
         return completionFraction >= 1.0
     }
     
-    
     var info: String? {
         return "\(initialValue)→\(targetValue)"
+    }
+    
+    var progressInfo: String? {
+        return "\(currentValue)→\(targetValue)"
     }
     
     /// 详情信息，包含当前数值

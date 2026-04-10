@@ -118,15 +118,11 @@ extension TodoTask {
     
     /// 进度信息
     var attributedProgressInfo: ASAttributedString? {
-        guard let progress = self.progress else {
+        guard let progress = self.progress, progress.isValid else {
             return nil
         }
         
-        if progress.isValid {
-            return progress.info?.attributedString
-        }
-        
-        return nil
+        return progress.progressInfo?.attributedString
     }
     
     /// 标签信息

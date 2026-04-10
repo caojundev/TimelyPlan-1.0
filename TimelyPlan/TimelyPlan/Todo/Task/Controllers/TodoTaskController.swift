@@ -71,7 +71,7 @@ class TodoTaskController {
     
     // MARK: - 完成任务
     func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask], completion: (()->Void)? = nil) {
-        todo.setCompleted(isCompleted, for: tasks)
+        todo.updateTasks(tasks, isCompleted: isCompleted)
         completion?()
     }
 
@@ -129,7 +129,7 @@ class TodoTaskController {
         if isCompleted {
             let isCompleted = false
             executeCompletedHandler(completedHandler, isCompleted: isCompleted) {
-                todo.setCompleted(isCompleted, for: task)
+                todo.updateTasks([task], isCompleted: isCompleted)
             }
             
             return
@@ -140,7 +140,7 @@ class TodoTaskController {
             /// 完成任务
             let isCompleted = true
             executeCompletedHandler(completedHandler, isCompleted: isCompleted) {
-                todo.setCompleted(isCompleted, for: task)
+                todo.updateTasks([task], isCompleted: isCompleted)
             }
             
             return
@@ -155,6 +155,8 @@ class TodoTaskController {
             executeProgressHandler(progressHandler, progress: autoRecordedProgress) {
                 todo.updateTask(task, progress: autoRecordedProgress)
             }
+            
+            return
         }
         
         let inputVC = TodoRecordInputViewController()
