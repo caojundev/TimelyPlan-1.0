@@ -8,15 +8,13 @@
 import Foundation
 
 /// 记录输入类型
-enum TodoRecordInputType: String {
-    case positive
-    case negative
+enum TodoRecordInputType: Int, TPMenuRepresentable {
+    case increase = 0
+    case decrease
     case update
     
-    /// 类型图标
-    var image: UIImage? {
-        let imageName = "todo_task_record_\(self.rawValue)_24"
-        return resGetImage(imageName)
+    static func titles() -> [String] {
+        return ["Increase", "Decrease", "Update"]
     }
 }
 
@@ -84,6 +82,28 @@ struct TodoEditProgress: Codable, Hashable, Equatable {
     /// 自动记录数值
     var autoRecordValue: Int64 = 1
     
+    /// 是否有效
+    var isValid: Bool {
+        if initialValue == targetValue {
+            return false
+        }
+        
+        return true
+    }
+    
+    /// 检查类型
+    var checkType: TodoTaskCheckType {
+        guard isValid else {
+            return .normal
+        }
+        
+        if initialValue < targetValue {
+            return .increase
+        }
+        
+        return .decrease
+    }
+    
     /// 进度
     var completionFraction: CGFloat {
         let total = targetValue - initialValue
@@ -94,19 +114,11 @@ struct TodoEditProgress: Codable, Hashable, Equatable {
         let progress = CGFloat(currentValue - initialValue) / CGFloat(total)
         return validatedProgress(progress)
     }
-    
-    /// 是否有效
-    var isValid: Bool {
-        if initialValue == targetValue {
-            return false
-        }
-        
-        return true
-    }
-    
+
     var isCompleted: Bool {
-        return completionFraction == 1.0
+        return completionFraction >= 1.0
     }
+    
     
     var info: String? {
         return "\(initialValue)→\(targetValue)"
@@ -136,6 +148,59 @@ struct TodoEditProgress: Codable, Hashable, Equatable {
     mutating func resetCurrentValue() {
         self.currentValue = self.initialValue
     }
+
+    // MARK: - 根据数值获取新的进度
+    /// 根据当前数值获取一个新进度
+    func progressWithCurrentValue(_ currentValue: Int64) -> TodoEditProgress {
+        let checkType = self.checkType
+        var newValue = currentValue
+        if checkType == .decrease {
+            newValue = clampedValue(newValue, targetValue, initialValue)
+        } else {
+            newValue = clampedValue(newValue, initialValue, targetValue)
+        }
+        
+        var progress = self
+        progress.currentValue = newValue
+        return progress
+    }
+    
+    func progressByIncrementValue(_ incrementValue: Int64) -> TodoEditProgress {
+        let value = self.currentValue + incrementValue
+        return progressWithCurrentValue(value)
+    }
+    
+    /// 自动记录后的进度
+    func autoRecordedProgress() -> TodoEditProgress? {
+        guard isValid, recordType == .auto else {
+            return nil
+        }
+        
+        var recordValue = autoRecordValue
+        if recordValue == 0 {
+            recordValue = 1
+        }
+        
+        if checkType == .decrease {
+            recordValue = -recordValue
+        }
+        
+        return progressByIncrementValue(recordValue)
+    }
+    
+    func progressWithInputValue(_ inputValue: Int64, inputType: TodoRecordInputType) -> TodoEditProgress {
+        if inputType == .update {
+            return progressWithCurrentValue(inputValue)
+        } else {
+            var incrementValue = inputValue
+            if inputType == .decrease {
+                incrementValue = -inputValue
+            }
+            
+            return progressByIncrementValue(incrementValue)
+        }
+    }
+    
     
     /*
     /// 根据过滤条件调整当前值

@@ -46,7 +46,7 @@ class TodoQuickAddProgressEditPopoverView: TPBasePopoverView {
     }
 
     override var popoverContentSize: CGSize {
-        var contentHeight = 330.0
+        var contentHeight = 250.0
         clampValue(&contentHeight, minimumContentHeight, maximumContentHeight)
         return CGSize(width: contentWidth, height: contentHeight)
     }

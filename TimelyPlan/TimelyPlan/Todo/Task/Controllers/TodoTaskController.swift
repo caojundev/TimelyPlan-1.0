@@ -100,19 +100,49 @@ class TodoTaskController {
     }
 
     // MARK: - 检查
-    func clickCheckbox(for task: TodoTask){
-        /*
+    typealias TaskCompletedHandler = (_ isCompleted: Bool, _ execution: (() -> Void)?) -> Void
+    typealias TaskProgressHandler = (_ progress: TodoEditProgress, _ execution: (() -> Void)?) -> Void
+    private func executeCompletedHandler(_ handler: TaskCompletedHandler?,
+                                         isCompleted: Bool,
+                                         execution: @escaping () -> Void) {
+           if let handler = handler {
+               handler(isCompleted, execution)
+           } else {
+               execution()
+           }
+    }
+
+    private func executeProgressHandler(_ handler: TaskProgressHandler?,
+                                         progress: TodoEditProgress,
+                                         execution: @escaping () -> Void) {
+           if let handler = handler {
+               handler(progress, execution)
+           } else {
+               execution()
+           }
+    }
+
+    func clickCheckbox(for task: TodoTask,
+                       completedHandler: TaskCompletedHandler?,
+                       progressHandler: TaskProgressHandler?) {
         let isCompleted = task.isCompleted
         if isCompleted {
-            /// 取消完成
-            todo.setCompleted(false, for: task)
+            let isCompleted = false
+            executeCompletedHandler(completedHandler, isCompleted: isCompleted) {
+                todo.setCompleted(isCompleted, for: task)
+            }
+            
             return
         }
         
         let checkType = task.checkType
         if checkType == .normal {
             /// 完成任务
-            todo.setCompleted(true, for: task)
+            let isCompleted = true
+            executeCompletedHandler(completedHandler, isCompleted: isCompleted) {
+                todo.setCompleted(isCompleted, for: task)
+            }
+            
             return
         }
         
@@ -121,51 +151,32 @@ class TodoTaskController {
             return
         }
     
-        if progress.isCompleted {
-            /// 此时目标进度已完成
-            todo.setCompleted(true, for: task)
-            return
-        }
-
-        if progress.recordType == .auto {
-            /// 自动
-            var recordValue = progress.autoRecordValue
-            if checkType == .decrease {
-                recordValue = -recordValue
+        if let autoRecordedProgress = progress.autoRecordedProgress() {
+            executeProgressHandler(progressHandler, progress: autoRecordedProgress) {
+                todo.updateTask(task, progress: autoRecordedProgress)
             }
-            
-            todo.updateTask(task, incrementValue: recordValue)
-            return
         }
         
-        var inputType: TodoRecordInputType = .positive
-        if progress.calculation == .update {
-            inputType = .update
-        } else if checkType == .decrease {
-            inputType = .negative
-        }
-        
-        let inputVC = TodoRecordInputViewController(inputType: inputType)
-        inputVC.completion = { inputValue in
-            todo.updateTask(task, inputValue: inputValue, inputType: inputType)
+        let inputVC = TodoRecordInputViewController()
+        inputVC.completion = { inputValue, inputType in
+            let newProgress = progress.progressWithInputValue(inputValue, inputType: inputType)
+            self.executeProgressHandler(progressHandler, progress: newProgress) {
+                todo.updateTask(task, progress: newProgress)
+            }
         }
         
         inputVC.popoverShow()
-         */
     }
     
      static func editProgress(_ progress: TodoEditProgress?, completion: ((TodoEditProgress?)->Void)?) {
-         /*
          let vc = TodoProgressEditViewController(progress: progress)
          vc.didEndEditing = { newProgress in
              completion?(newProgress)
          }
          
          vc.popoverShowAsNavigationRoot()
-          */
      }
 
-    
     // MARK: - 快速开始专注
     func quickStartFocus(for task: TodoTask) {
         FocusPresenter.quickStartFocus(for: task)

@@ -25,15 +25,11 @@ extension TodoTask {
     
     /// 检查类型
     var checkType: TodoTaskCheckType {
-        guard let progress = progress, progress.isValid else {
+        guard let progress = progress else {
             return .normal
         }
         
-        if progress.initialValue < progress.targetValue {
-            return .increase
-        }
-        
-        return .decrease
+        return progress.checkType
     }
     
     /// 是否设置进度

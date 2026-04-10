@@ -176,4 +176,8 @@ extension Todo {
     func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask]) {
         taskManager.setCompleted(isCompleted, for: tasks)
     }
+    
+    func updateTask(_ task: TodoTask, progress: TodoEditProgress?) {
+        taskManager.updateTask(task, progress: progress)
+    }
 }

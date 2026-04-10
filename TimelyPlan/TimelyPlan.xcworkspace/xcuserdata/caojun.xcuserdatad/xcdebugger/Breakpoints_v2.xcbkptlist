@@ -39,54 +39,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1D804F1B-5A01-481F-9F8D-F399E70C4C6B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPKit/Components/ViewControllers/AlertController/TPTextFieldAlertController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "clickDone()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "199574EB-D8B1-4B94-8453-6C02EC0DB851"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPKit/Components/ViewControllers/AlertController/TPTextFieldAlertController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
-            landmarkName = "clickDone()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4E1592D2-4E2F-420E-90E2-2C25C8196774"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TPKit/Components/ViewControllers/AlertController/TPTextFieldAlertController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "clickDone()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B2C931E8-22E2-407E-9F43-1D49BA3C7075"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -130,6 +82,54 @@
             endingLineNumber = "34"
             landmarkName = "didDequeCell(_:forRowAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "839BCF7B-AF03-4908-B450-74A0E5A30CC2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TimelyPlan/Todo/Task/ListView/TodoTaskListView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
+            landmarkName = "setProgress(_:for:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "839BCF7B-AF03-4908-B450-74A0E5A30CC2 - 2a1b196b8b76c5f4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TimelyPlan.TodoTaskListView.setProgress(_: TimelyPlan.TodoEditProgress, for: TimelyPlan.TodoTask, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "TimelyPlan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/caojun/Working/TimelyPlan-1.0/TimelyPlan/TimelyPlan/Todo/Task/ListView/TodoTaskListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "269"
+                  endingLineNumber = "269"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "839BCF7B-AF03-4908-B450-74A0E5A30CC2 - 2a1b196b8b76c5f4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TimelyPlan.TodoTaskListView.setProgress(_: TimelyPlan.TodoEditProgress, for: TimelyPlan.TodoTask, completion: Swift.Optional&lt;(Swift.Bool) -&gt; ()&gt;) -&gt; ()"
+                  moduleName = "TimelyPlan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/caojun/Working/TimelyPlan-1.0/TimelyPlan/TimelyPlan/Todo/Task/ListView/TodoTaskListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "269"
+                  endingLineNumber = "269"
+                  offsetFromSymbolStart = "204">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

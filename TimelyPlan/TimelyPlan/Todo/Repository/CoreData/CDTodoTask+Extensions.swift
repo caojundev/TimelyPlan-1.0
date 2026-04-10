@@ -83,13 +83,19 @@ extension CDTodoTask: SortableIdentifiable {
     /// 更新进度
     func updateProgress(_ progress: TodoEditProgress?) {
         guard let progress = progress, progress.isValid else {
-            self.progressFraction = 0
+            self.progressFraction = 0.0
             self.progressJSON = nil
             return
         }
 
-        self.progressPercent = progress.completionFraction
+        self.progressFraction = progress.completionFraction
         self.progressJSON = progress.jsonString()
+        
+        if progress.isCompleted {
+            /// 已完成
+            self.isCompleted = true
+            self.completionDate = .now
+        }
     }
     
     static func createTodoTask(with quickAddTask: TodoQuickAddTask, onTop: Bool = true) -> CDTodoTask {
@@ -161,6 +167,17 @@ extension CDTodoTask: SortableIdentifiable {
             cdTask.modificationDate = modificationDate
         }
         
+        return true
+    }
+    
+    /// 更新任务进度
+    static func updateTask(_ task: TodoTask, progress: TodoEditProgress?) -> Bool {
+        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+            return false
+        }
+        
+        cdTask.updateProgress(progress)
+        cdTask.modificationDate = .now
         return true
     }
 }

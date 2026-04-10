@@ -290,8 +290,10 @@ class TodoTaskBaseInfoView: UIView {
         self.setNeedsLayout()
     }
     
-    func setProgress(_ progress: CGFloat, animated: Bool) {
-        progressView.setProgress(progress, animated: animated)
+    func setProgress(_ progress: CGFloat,
+                     animated: Bool = false,
+                     completion: (() -> Void)? = nil) {
+        progressView.setProgress(progress, animated: animated, completion: completion)
     }
     
     func updateContent(with layout: TodoTaskInfoLayout, animated: Bool) {

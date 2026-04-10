@@ -43,7 +43,7 @@ class TPBarProgressView: UIView {
     }
    
     /// 动画时长
-    var animateDuration: CGFloat = 0.2
+    var animateDuration: CGFloat = 0.25
    
     /// 进度
     var progress: CGFloat {
@@ -89,13 +89,13 @@ class TPBarProgressView: UIView {
         progressLayer.cornerRadius = cornerRadius
     }
     
-    private func updateProgress(animated: Bool = false) {
+    private func updateProgress(animated: Bool = false, completion: (() -> Void)? = nil) {
         let progress = isReversed ? (1.0 - progress) : progress
         CATransaction.begin()
         CATransaction.setDisableActions(!animated)
         CATransaction.setAnimationDuration(animateDuration)
+        CATransaction.setCompletionBlock(completion)
         if style == .horizontal {
-            
             progressLayer.frame = CGRect(x: 0, y: 0, width: width * progress, height: height)
         } else {
             let h = height * progress
@@ -107,8 +107,8 @@ class TPBarProgressView: UIView {
     }
     
     // MARK: - Public Methods
-    func setProgress(_ progress: CGFloat, animated: Bool) {
+    func setProgress(_ progress: CGFloat, animated: Bool = false, completion: (() -> Void)? = nil) {
         _progress = min(max(0.0, progress), 1.0)
-        updateProgress(animated: animated)
+        updateProgress(animated: animated, completion: completion)
     }
 }

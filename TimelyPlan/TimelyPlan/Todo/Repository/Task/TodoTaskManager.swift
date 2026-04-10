@@ -118,4 +118,14 @@ class TodoTaskManager {
         updater.didUpdateTodoTask(with: [])
         HandyRecord.save()
     }
+    
+    /// 更新任务进度
+    func updateTask(_ task: TodoTask, progress: TodoEditProgress?) {
+        guard CDTodoTask.updateTask(task, progress: progress) else {
+            return
+        }
+        
+        updater.didUpdateTodoTask(with: [])
+        HandyRecord.save()
+    }
 }

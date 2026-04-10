@@ -452,12 +452,14 @@ class TodoTaskListViewController: UIViewController,
     }
     
     func todoTaskListView(_ listView: TodoTaskListView, didClickCheckboxForTask task: TodoTask) {
-        let isCompleted = !task.isCompleted
-        listView.setCompleted(isCompleted,
-                              for: task,
-                              animated: true) { [weak self] success in
-            guard success else { return }
-            self?.taskController.setCompleted(isCompleted, for: [task])
+        taskController.clickCheckbox(for: task) {isCompleted, execution in
+            listView.setCompleted(isCompleted, for: task) { _ in
+                execution?()
+            }
+        } progressHandler: { progress, execution in
+            listView.setProgress(progress, for: task) {  _ in
+                execution?()
+            }
         }
     }
     

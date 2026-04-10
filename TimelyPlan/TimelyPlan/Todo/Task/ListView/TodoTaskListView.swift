@@ -252,17 +252,43 @@ class TodoTaskListView: UIView,
     
     func setCompleted(_ isCompleted: Bool,
                       for task: TodoTask,
-                      animated: Bool = true,
                       completion: ((Bool) -> Void)? = nil) {
         guard let cell = adapter.cellForItem(task) as? TodoTaskCheckTableCell else {
             completion?(false)
             return
         }
         
-        cell.setCompleted(isCompleted, animated: animated) {
+        cell.setCompleted(isCompleted, animated: true) {
             completion?(true)
         }
     }
+    
+    func setProgress(_ progress: TodoEditProgress,
+                     for task: TodoTask,
+                     completion: ((Bool) -> Void)? = nil) {
+        guard let from = task.progress,
+              progress.currentValue != from.currentValue,
+              let cell = adapter.cellForItem(task) as? TodoTaskCheckTableCell else {
+                  completion?(false)
+            return
+        }
+    
+        let difference = progress.currentValue - from.currentValue
+        let message = (difference >= 0 ? "+" : "") + "\(difference)"
+        TPTextPopUp.showText(message,
+                             color: task.priority.titleColor,
+                             font: BOLD_SMALL_SYSTEM_FONT,
+                             fromView: cell.checkbox,
+                             containerView: self)
+        if progress.isCompleted {
+            cell.setCompleted(true, animated: true, completion: nil)
+        }
+        
+        cell.setProgress(progress.completionFraction, animated: true) {
+            completion?(true)
+        }
+    }
+    
     
     /*
     func updateCell(for tasks: [TodoTask]) {
@@ -657,24 +683,5 @@ class TodoTaskListView: UIView,
         adapter.updateCheckmark(at: indexPath, animated: true)
         adapter.updateHeaderFooterView(forSectionObject: group)
         delegate?.todoTaskListViewDidChangeSelectedTasks(self)
-    }
-    
-    private func didChangeProgress(from: TodoEditProgress?, to: TodoEditProgress?, for task: TodoTask) {
-        guard let from = from, let to = to, to.currentValue != from.currentValue else {
-            return
-        }
-        
-        guard let cell = adapter.cellForItem(task) as? TodoTaskCheckTableCell else {
-            return
-        }
-        
-        let difference = to.currentValue - from.currentValue
-        let message = (difference >= 0 ? "+" : "") + "\(difference)"
-        let containerView = self.parentViewController?.view
-        TPTextPopUp.showText(message,
-                             color: task.priority.titleColor,
-                             font: BOLD_SMALL_SYSTEM_FONT,
-                             fromView: cell.checkbox,
-                             containerView: containerView)
     }
 }

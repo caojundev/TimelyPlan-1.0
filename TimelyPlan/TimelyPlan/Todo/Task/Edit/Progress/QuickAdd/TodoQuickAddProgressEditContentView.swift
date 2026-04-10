@@ -74,36 +74,6 @@ class TodoQuickAddProgressEditContentView: TPTableWrapperView,
         return sectionController
     }()
     
-    // MARK: - 计算
-    lazy var calculationCellItem: TodoQuickAddProgressSegmentedCellItem = { [weak self] in
-        let cellItem = TodoQuickAddProgressSegmentedCellItem()
-        cellItem.title = resGetString("Calculation")
-        cellItem.menuItems = TodoProgressCalculation.segmentedMenuItems()
-        cellItem.updater = {
-            guard let self = self else { return }
-            let calculation = self.progress.calculation
-            self.calculationCellItem.selectedMenuTag = calculation.tag
-        }
-        
-        cellItem.didSelectMenuItem = { menuItem in
-            guard let calculation = TodoProgressCalculation(rawValue: menuItem.tag) else {
-                return
-            }
-
-            self?.didSelectCalculation(calculation)
-        }
-        
-        return cellItem
-    }()
-    
-    /// 计算区块
-    lazy var calculationSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 0.0
-        sectionController.cellItems = [calculationCellItem]
-        return sectionController
-    }()
-
     var sectionControllers: [TPTableBaseSectionController]?
 
     var progress: TodoEditProgress
@@ -115,8 +85,7 @@ class TodoQuickAddProgressEditContentView: TPTableWrapperView,
         self.tableView.separatorInset = UIEdgeInsets(horizontal: 16.0)
         self.tableView.separatorColor = .systemGray6
         self.tableView.showsVerticalScrollIndicator = false
-        self.sectionControllers = [valueSectionController,
-                                   calculationSectionController]
+        self.sectionControllers = [valueSectionController]
         self.adapter.cellStyle.backgroundColor = .secondarySystemBackground
         self.adapter.delegate = self
         self.adapter.dataSource = self
@@ -145,20 +114,6 @@ class TodoQuickAddProgressEditContentView: TPTableWrapperView,
     func didEndEditingCurrentValue(_ value: Int64) {
         if progress.currentValue != value {
             progress.currentValue = value
-            progressValueChanged?(progress)
-        }
-    }
-    
-    func didEndEditingAutoRecordValue(_ value: Int64) {
-        if progress.autoRecordValue != value {
-            progress.autoRecordValue = value
-            progressValueChanged?(progress)
-        }
-    }
-
-    func didSelectCalculation(_ calculation: TodoProgressCalculation) {
-        if progress.calculation != calculation {
-            progress.calculation = calculation
             progressValueChanged?(progress)
         }
     }
