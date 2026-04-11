@@ -7,13 +7,16 @@
 
 import Foundation
 
-protocol Nestable: NSObjectProtocol, Sortable {
+protocol Nestable: NSObjectProtocol {
     
     /// 父条目
     var parentItem: Nestable? { get }
     
     /// 子条目数组
     var subItems: [Nestable]? { get }
+    
+    /// 有序的子条目数组
+    var orderedSubItems: [Nestable]? { get }
     
     /// 允许的最大深度
     static var allowMaxDepth: Int { get }
@@ -94,15 +97,6 @@ extension Nestable {
         }
         
         return true
-    }
-    
-    /// 顺序的子条目数组
-    var orderedSubItems: [Nestable]? {
-        if let orderedItems = subItems?.orderedElements() {
-            return orderedItems
-        }
-        
-        return []
     }
     
     /// 所有嵌套子条目顺序数组
@@ -199,6 +193,51 @@ extension Nestable {
         }
 
         return results
+    }
+    
+    static func depthLineLevels<T: Nestable&Equatable>(for item: T, in items: [T]) -> [Int]? {
+        guard let index = items.firstIndex(of: item) else {
+            /// 当前列表为根列表
+            return nil
+        }
+        
+        let currentDepth = item.depth
+        guard currentDepth > 0 else {
+            /// 当前列表为根列表
+            return nil
+        }
+        
+        /// 最后
+        let fromIndex = index + 1
+        guard fromIndex < items.count else {
+            return nil
+        }
+        
+        var depths = [Int]()
+        var minDepth = Int.max
+        for i in fromIndex..<items.count {
+            let depth = items[i].depth
+            if depth == 0 {
+                /// 检查到下一个根列表，跳出循环
+                break
+            }
+            
+            if depth > currentDepth {
+                /// 深度大于当前深度，检查下一个列表
+                continue
+            }
+            
+            if depth <= minDepth {
+                depths.append(depth)
+            }
+            
+            /// 设置当前最小深度
+            if depth < minDepth {
+                minDepth = depth
+            }
+        }
+        
+        return depths
     }
     
 }

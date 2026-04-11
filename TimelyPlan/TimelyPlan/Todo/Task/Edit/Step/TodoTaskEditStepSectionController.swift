@@ -20,9 +20,9 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         - [ ] 子任务A2.2
     - [ ] 项目B
       - [ ] 任务B1
-    - [ ] 项目B
     - [ ] 项目C
     - [ ] 项目D
+    - [ ] 项目E
     """
         
         let parser = IndentBasedTodoParser()
@@ -31,8 +31,9 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
     }()
     
     override var items: [ListDiffable]? {
+        let flattenSteps = steps.flattenItems(with: nil) as! [TodoStep]
         var cellItems = [TodoTaskStepEditCellItem]()
-        for step in steps {
+        for step in flattenSteps {
             let cellItem = TodoTaskStepEditCellItem(step: step)
             cellItems.append(cellItem)
         }
@@ -211,6 +212,19 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         print("======================================\n\n")
     }
     
+    override func didDequeCell(_ cell: UITableViewCell, forRowAt index: Int) {
+        super.didDequeCell(cell, forRowAt: index)
+        guard let cell = cell as? TodoTaskStepEditCell, let step = cell.step else {
+            return
+        }
+
+        if let displaySteps = self.displaySteps {
+            cell.depthLineLevels = TodoStep.depthLineLevels(for: step, in: displaySteps)
+        } else {
+            cell.depthLineLevels = nil
+        }
+    }
+
     // MARK: - Helpers
     /// 获取 step 对应的单元格
     private func cellItem(for step: TodoStep) -> TodoTaskStepEditCellItem? {
@@ -236,94 +250,12 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         return nil
     }
     
+    private var displaySteps: [TodoStep]? {
+        guard let cellItems = adapter?.items(for: self) as? [TodoTaskStepEditCellItem] else {
+            return nil
+        }
+        
+        return cellItems.map { $0.step }
+    }
+    
 }
-
-
-/*
-extension TodoTaskEditStepSectionController: TodoStepProcessorDelegate {
-    
-    func didAddTodoStep(_ step: TodoStep) {
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top, completion: { [weak self] _ in
-            guard let self = self else { return }
-            if let name = step.name, name.count > 0 {
-                guard let cellItem = self.cellItem(for: step) else {
-                    return
-                }
-                
-                /// 滚动到可视位置
-                self.adapter?.scrollToItem(cellItem, at: .middle, animated: true, completion: { _ in
-                    self.adapter?.commitFocusAnimation(for: cellItem)
-                })
-            } else {
-                self.setTextEditing(true, for: step)
-            }
-        })
-        
-        stepsInfoDidChange?()
-    }
-
-    func didUpdateTodoStep(_ step: TodoStep, with change: TodoStepChange){
-        guard let cell = stepEditCell(for: step) else {
-            return
-        }
-        
-        switch change {
-        case .name(_, let newValue):
-            updateText(newValue, forTextViewTableViewCell: cell)
-        case .completed(_):
-            cell.updateCompleted(animated: true)
-            stepsInfoDidChange?()
-        }
-    }
-
-    func didDeleteTodoStep(_ step: TodoStep, of task: TodoTask){
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-        stepsInfoDidChange?()
-    }
-    
-    func didReorderTodoStep(in steps: [TodoStep], fromIndex: Int, toIndex: Int) {
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-    }
-}
-
-extension TodoTaskEditStepSectionController: TPTableDragInsertReorderDelegate {
-    
-    func tableDragReorder(_ reorder: TPTableDragReorder, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == self.section, isStep(at: indexPath.row) {
-            return true
-        }
-        
-        return false
-    }
-    
-    func tableDragReorder(_ reorder: TPTableDragReorder, willBeginAt indexPath: IndexPath) {
-        UIResponder.resignCurrentFirstResponder()
-        reorder.tableView.setEditing(false, animated: false)
-    }
-    
-    func tableDragInsertReorder(_ reorder: TPTableDragInsertReorder,
-                                canInsertRowTo targetIndexPath: IndexPath,
-                                from sourceIndexPath: IndexPath) -> Bool {
-        guard sourceIndexPath.section == targetIndexPath.section,
-              sourceIndexPath.row != targetIndexPath.row,
-              isStep(at: targetIndexPath.row)  else {
-            return false
-        }
-        
-        return true
-    }
-    
-    func tableDragInsertReorder(_ reorder: TPTableDragInsertReorder,
-                                inserRowTo targetIndexPath: IndexPath,
-                                from sourceIndexPath: IndexPath,
-                                depth: Int) -> IndexPath? {
-        guard let steps = steps, sourceIndexPath != targetIndexPath else {
-            return sourceIndexPath
-        }
-        
-        todo.reorderStep(in: steps, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row)
-        adapter?.performUpdate()
-        return targetIndexPath
-    }
-}
-*/

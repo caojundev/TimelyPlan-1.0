@@ -10,6 +10,9 @@ import Foundation
 /// 列表最大深度（表示子列表层数）
 let kTodoListMaxDepth: Int = 3
 
+/// 任务步骤最大深度
+let kTodoStepMaxDepth: Int = 2
+
 /// 列表单位深度宽度
 let kTodoListDepthWidth: CGFloat = 20.0
 

@@ -48,3 +48,23 @@ class TodoStep: NSObject {
         return self.isEqual(object)
     }
 }
+
+// MARK: - Nestable
+extension TodoStep: Nestable {
+    
+    static var allowMaxDepth: Int {
+        return kTodoStepMaxDepth
+    }
+    
+    var parentItem: Nestable? {
+        return self.parent
+    }
+    
+    var subItems: [Nestable]? {
+        return self.subSteps
+    }
+    
+    var orderedSubItems: [Nestable]? {
+        return self.subSteps
+    }
+}

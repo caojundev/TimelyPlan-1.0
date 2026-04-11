@@ -14,6 +14,7 @@ class TodoTaskStepEditCellItem: TPAutoResizeTextViewTableCellItem {
     init(step: TodoStep) {
         self.step = step
         super.init()
+        self.depth = step.depth
         self.identifier = step.id
         self.text = step.content
         self.registerClass = TodoTaskStepEditCell.self
@@ -54,12 +55,33 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
             let cellItem = cellItem as! TodoTaskStepEditCellItem
             self.step = cellItem.step
             self.updateCompleted(animated: false)
+            self.depthLineLayer.indentationLevel = cellItem.depth
             self.setNeedsLayout()
         }
     }
     
     var step: TodoStep?
-
+    
+    /// 深度绘制层级
+    var depthLineLevels: [Int]? {
+        get {
+            return depthLineLayer.depthLineLevels
+        }
+        
+        set {
+            depthLineLayer.depthLineLevels = newValue
+        }
+    }
+    
+    /// 缩进分割线图层
+    private(set) lazy var depthLineLayer: TodoListBranchLayer = {
+        let layer = TodoListBranchLayer()
+        layer.indentationWidth = depthWidth
+        layer.lineWidth = 2.0
+        layer.strokeColor = UIColor.lightGray.cgColor
+        return layer
+    }()
+    
     /// 检查框
     lazy var checkbox: TPSquareCheckbox = {
         let checkbox = TPSquareCheckbox()
@@ -103,14 +125,27 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
         return 8.0
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        depthLineLayer.frame = CGRect(x: 0.0, y: 0.0, width: contentView.left, height: bounds.height)
+        depthLineLayer.dx = checkbox.centerX - depthWidth
+        depthLineLayer.indentationWidth = depthWidth
+        CATransaction.commit()
+    }
+    
     override func setupContentSubviews() {
         self.textView = self.strikethroughTextView
         super.setupContentSubviews()
+        self.depthWidth = 32.0
         self.leftView = checkbox
         self.leftViewMargins = UIEdgeInsets(left: 10.0, right: 10.0)
         self.leftViewSize = .mini
         self.rightView = moreButton
         self.rightViewSize = .mini
+        self.layer.addSublayer(depthLineLayer)
     }
     
     override func textViewDidBeginEditing(_ textView: UITextView) {

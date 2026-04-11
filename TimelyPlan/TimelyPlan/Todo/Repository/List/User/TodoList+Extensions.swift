@@ -53,6 +53,10 @@ extension TodoList: Nestable {
     var subItems: [Nestable]? {
         return self.sublists
     }
+    
+    var orderedSubItems: [Nestable]? {
+        return self.sublists?.orderedElements()
+    }
 }
 
 extension Array where Element == TodoList {
