@@ -195,6 +195,20 @@ class TodoTaskEditInfoView: UIView, TodoTaskEditNameViewDelegate {
         nameView.setCompleted(isCompleted, animated: animated)
     }
     
+    func didChangeProgress(from: TodoEditProgress?, to: TodoEditProgress?) {
+        guard let from = from, let to = to, to.currentValue != from.currentValue else {
+            return
+        }
+
+        let difference = to.currentValue - from.currentValue
+        let message = (difference >= 0 ? "+" : "") + "\(difference)"
+        TPTextPopUp.showText(message,
+                             color: priority.titleColor,
+                             font: BOLD_SMALL_SYSTEM_FONT,
+                             fromView: checkbox,
+                             containerView: self.superview)
+    }
+    
     // MARK: - TodoTaskEditNameViewDelegate
     func todoTaskEditNameViewDidClickCheckbox(_ nameView: TodoTaskEditNameView) {
         delegate?.todoTaskEditInfoView(self, didClickCheckbox: nameView.checkbox)

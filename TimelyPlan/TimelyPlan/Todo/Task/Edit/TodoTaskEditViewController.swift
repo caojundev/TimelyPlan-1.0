@@ -10,7 +10,8 @@ import UIKit
 
 class TodoTaskEditViewController: TPTableSectionsViewController,
                                   TodoTaskEditInfoViewDelegate,
-                                  TodoTaskEditFooterViewDelegate {
+                                  TodoTaskEditFooterViewDelegate,
+                                  TodoStepEditControllerDelegate {
     
     /// 优先级按钮
     lazy var priorityBarButtonItem: TodoTaskPriorityBarButtonItem = {
@@ -68,6 +69,29 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         return view
     }()
     
+    /// 步骤添加视图
+    let addStepViewHeight = 60.0
+    lazy var addStepView: TodoStepAddView = {
+        let view = TodoStepAddView()
+        view.didClickAdd = { [weak self] in
+            self?.clickAddStep()
+        }
+        
+        return view
+    }()
+    
+    /// 步骤编辑控制器
+    private lazy var stepEditController: TodoStepEditController = {
+        var viewController: UIViewController = self
+        if let navigationController = self.navigationController {
+            viewController = navigationController
+        }
+        
+        let stepEditController = TodoStepEditController(containerViewController : viewController)
+        stepEditController.delegate = self
+        return stepEditController
+    }()
+    
     private let detailProvider: TodoTaskDetailProvider
 
     private let interactor: TodoTaskEditInteractor
@@ -96,6 +120,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         self.navigationItem.rightBarButtonItem = self.priorityBarButtonItem
         self.view.addSubview(self.infoView)
         self.view.addSubview(self.footerView)
+        self.view.addSubview(self.addStepView)
         self.tableView.keyboardDismissMode = .onDrag
         self.wrapperView.isKeyboardAdjusterEnabled = true
         self.adapter.cellStyle.backgroundColor = .systemBackground
@@ -118,6 +143,11 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         footerView.width = layoutFrame.width
         footerView.height = footerViewHeight
         footerView.bottom = layoutFrame.maxY
+        
+        addStepView.width = layoutFrame.width
+        addStepView.height = addStepViewHeight
+        addStepView.left = layoutFrame.minX
+        addStepView.bottom = footerView.top
         
         wrapperView.width = layoutFrame.width
         wrapperView.height = layoutFrame.height - infoView.bottom - footerViewHeight
@@ -181,17 +211,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         }
         
         updateProgress(animated: true)
-        guard let from = from, let to = to, to.currentValue != from.currentValue else {
-            return
-        }
-
-        let difference = to.currentValue - from.currentValue
-        let message = (difference >= 0 ? "+" : "") + "\(difference)"
-        TPTextPopUp.showText(message,
-                             color: task.priority.titleColor,
-                             font: BOLD_SMALL_SYSTEM_FONT,
-                             fromView: infoView.checkbox,
-                             containerView: self.view)
+        infoView.didChangeProgress(from: from, to: to)
     }
     
     // MARK: - 更新信息
@@ -250,6 +270,10 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         interactor.setPriority(priority)
     }
     
+    func clickAddStep() {
+        self.stepEditController.beginEditing()
+    }
+    
     // MARK: - TodoTaskEditInfoViewDelegate
     func todoTaskEditInfoView(_ infoView: TodoTaskEditInfoView, didClickCheckbox checkbox: TodoTaskCheckbox) {
         let taskController = TodoTaskController()
@@ -266,6 +290,52 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     func todoTaskEditInfoViewContentHeightDidChange(_ infoView: TodoTaskEditInfoView) {
         /// 重新布局
         view.setNeedsLayout()
+    }
+    
+    // MARK: - TodoStepEditControllerDelegate
+    func stepEditControllerDidEnterReturn(_ controller: TodoStepEditController) {
+        guard let name = controller.text?.whitespacesAndNewlinesTrimmedString, name.count > 0 else {
+            controller.clearText()
+            controller.endEditing()
+            return
+        }
+        
+        controller.clearText()
+        
+        let onTop = controller.position == .top
+        print(name)
+    }
+    
+    func keyboardAwareControllerWillShowInputView(controller: TPKeyboardAwareController) {
+        setAddStepViewHidden(true)
+    }
+    
+    func keyboardAwareControllerDidHideInputView(controller: TPKeyboardAwareController) {
+        setAddStepViewHidden(false)
+    }
+    
+    func keyboardAwareController(controller: TPKeyboardAwareController, inputViewFrameDidChange fromFrame: CGRect) {
+        guard let inputView = controller.inputView else {
+            tableView.contentInset = .zero
+            return
+        }
+        
+        var insetBottom = self.view.bounds.height - inputView.top
+        if insetBottom < 0.0 {
+            insetBottom = 0.0
+        }
+        
+        tableView.contentInset = UIEdgeInsets(bottom: insetBottom)
+    }
+
+    private func setAddStepViewHidden(_ isHidden: Bool) {
+        let alpha = isHidden ? 0.0 : 1.0
+        UIView.animate(withDuration: 0.25,
+                       delay: 0.0,
+                       options: .beginFromCurrentState,
+                       animations: {
+            self.addStepView.alpha = alpha
+        }, completion: nil)
     }
     
     // MARK: - TodoTaskEditFooterViewDelegate
@@ -330,42 +400,5 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         reorder.delegate = self.stepSectionController
         self.reorder = reorder
     }
-    
-    // MARK: - TodoTaskProcessorDelegate
-    func didUpdateActiveRepeatTodoTasks(_ tasks: [TodoTask]) {
-        if tasks.contains(self.task) {
-            reloadData()
-        }
-    }
-    
-
-    // MARK: - TodoStepEditControllerDelegate
-    func stepEditControllerDidEnterReturn(_ controller: TodoStepEditController) {
-        guard let name = controller.text?.whitespacesAndNewlinesTrimmedString, name.count > 0 else {
-            controller.clearText()
-            controller.endEditing()
-            return
-        }
-        
-        controller.clearText()
-        
-        let onTop = controller.position == .top
-        todo.addStep(named: name, onTop: onTop, for: task)
-    }
-    
-    func keyboardAwareController(controller: TPKeyboardAwareController, inputViewFrameDidChange fromFrame: CGRect) {
-        guard let inputView = controller.inputView else {
-            tableView.contentInset = .zero
-            return
-        }
-        
-        var insetBottom = self.view.bounds.height - inputView.top
-        if insetBottom < 0.0 {
-            insetBottom = 0.0
-        }
-        
-        tableView.contentInset = UIEdgeInsets(bottom: insetBottom)
-    }
-
 }
 */

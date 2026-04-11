@@ -51,8 +51,11 @@ class TodoHomeExpandHeaderView: TPDefaultInfoTableHeaderFooterView {
     private(set) lazy var expandButton: TPChevronExpandButton = {
         let button = TPChevronExpandButton()
         button.padding = .zero
-        button.hitTestEdgeInsets = UIEdgeInsets(value: -20.0)
-        button.addTarget(self, action: #selector(clickExpand(_:)), for: .touchUpInside)
+        button.image = resGetImage("todo_home_expand_18")
+        button.imageConfig.color = .systemGray3
+        button.addTarget(self,
+                         action: #selector(clickExpand(_:)),
+                         for: .touchUpInside)
         return button
     }()
 
@@ -78,17 +81,16 @@ class TodoHomeExpandHeaderView: TPDefaultInfoTableHeaderFooterView {
         infoView = TPImageInfoTextValueView()
         infoView.addGestureRecognizer(tapGesture)
         imageConfig.shouldRenderImageWithColor = false
-        imageConfig.margins = UIEdgeInsets(horizontal: 4.0)
+        imageConfig.margins = UIEdgeInsets(right: 6.0)
+        infoView.rightAccessoryView = addButton
+        infoView.rightAccessorySize = .size(8)
     }
     
     override func setupContentSubviews() {
         super.setupContentSubviews()
-        contentPadding = UIEdgeInsets(left: 12.0, right: 12.0)
-        leftView = expandButton
-        leftViewSize = .size(4)
-        leftViewMargins = UIEdgeInsets(left: 5.0)
-        rightView = addButton
-        rightViewSize = .mini
+        contentPadding = UIEdgeInsets(left: 16.0, right: 16.0)
+        rightView = expandButton
+        rightViewSize = CGSize(width: 18.0, height: 18.0)
         setExpanded(isExpanded, animated: false)
     }
     

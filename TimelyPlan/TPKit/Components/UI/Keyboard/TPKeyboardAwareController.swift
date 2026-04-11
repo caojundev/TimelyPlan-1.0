@@ -28,6 +28,11 @@ protocol TPKeyboardAwareControllerDelegate: AnyObject {
     func keyboardAwareController(controller: TPKeyboardAwareController,
                                  inputViewFrameDidChange fromFrame: CGRect)
     
+    func keyboardAwareControllerWillShowInputView(controller: TPKeyboardAwareController)
+    func keyboardAwareControllerDidShowInputView(controller: TPKeyboardAwareController)
+
+    func keyboardAwareControllerWillHideInputView(controller: TPKeyboardAwareController)
+    
     func keyboardAwareControllerDidHideInputView(controller: TPKeyboardAwareController)
 }
 
@@ -35,6 +40,10 @@ extension TPKeyboardAwareControllerDelegate {
     func keyboardAwareController(controller: TPKeyboardAwareController,
                                  inputViewFrameDidChange fromFrame: CGRect) {}
     
+    func keyboardAwareControllerWillShowInputView(controller: TPKeyboardAwareController) {}
+    func keyboardAwareControllerDidShowInputView(controller: TPKeyboardAwareController) {}
+
+    func keyboardAwareControllerWillHideInputView(controller: TPKeyboardAwareController) {}
     func keyboardAwareControllerDidHideInputView(controller: TPKeyboardAwareController) {}
 }
 
@@ -175,6 +184,7 @@ class TPKeyboardAwareController: NSObject {
             return
         }
 
+        self.delegate?.keyboardAwareControllerWillShowInputView(controller: self)
         if inputView == nil {
             inputView = newInputView()
             inputView?.contentSizeDidChange = { [weak self] in
@@ -191,10 +201,12 @@ class TPKeyboardAwareController: NSObject {
         containerView.addSubview(inputView)
         adjustInputViewForKeyboard()
         containerView.layoutIfNeeded()
-        UIView.animate(withDuration: 0.2,
+        UIView.animate(withDuration: 0.25,
                        delay: 0.0,
                        options: .curveEaseInOut) {
             self.adjustInputViewForKeyboard()
+        } completion: { _ in
+            self.delegate?.keyboardAwareControllerDidShowInputView(controller: self)
         }
     }
     
@@ -203,6 +215,8 @@ class TPKeyboardAwareController: NSObject {
             return
         }
         
+        self.delegate?.keyboardAwareControllerWillHideInputView(controller: self)
+        
         /// inputView 置为 nil
         self.inputView = nil
         
@@ -210,7 +224,7 @@ class TPKeyboardAwareController: NSObject {
             UIResponder.resignCurrentFirstResponder()
         }
     
-        UIView.animate(withDuration: 0.2,
+        UIView.animate(withDuration: 0.25,
                        delay: 0.0,
                        options: .curveEaseInOut) {
             self.maskView.alpha = 0.0
