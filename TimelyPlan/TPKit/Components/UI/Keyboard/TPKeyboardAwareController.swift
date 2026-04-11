@@ -54,13 +54,23 @@ class TPKeyboardAwareController: NSObject {
     
     /// 内容视图
     private(set) var inputView: TPKeyboardAwareView?
-
+    
+    var maskBackgroundColor: UIColor? {
+        get {
+            return maskView.backgroundColor
+        }
+        
+        set {
+            maskView.backgroundColor = newValue
+        }
+    }
+    
     /// 遮罩视图
     private lazy var maskView: UIView = {
         let view = UIView()
         view.backgroundColor = Color(0x000000, 0.4)
         view.alpha = 1.0
-        
+
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapMaskView))
         gesture.numberOfTapsRequired = 1
         gesture.numberOfTouchesRequired = 1
@@ -139,6 +149,7 @@ class TPKeyboardAwareController: NSObject {
     private func adjustInputViewForKeyboard() {
         guard let inputView = inputView, inputView.superview != nil,
               let containerView = containerViewController?.view else {
+                  inputViewFrameDidChange(fromFrame: .zero)
             return
         }
         

@@ -9,11 +9,22 @@ import Foundation
 
 class TodoStepEditView: TPKeyboardAwareView, UITextFieldDelegate {
     
+    
     /// 点击Return
     var didEnterReturn: ((UITextField) -> Void)?
     
     /// 开始编辑时是否选择全部文本
     var selectAllAtBeginning: Bool = false
+    
+    var isCompleted: Bool {
+        get {
+            return checkbox.isChecked
+        }
+        
+        set {
+            checkbox.isChecked = newValue
+        }
+    }
     
     /// 检查框尺寸
     let checkboxSize = CGSize(width: 20.0, height: 20.0)
@@ -73,8 +84,8 @@ class TodoStepEditView: TPKeyboardAwareView, UITextFieldDelegate {
 
     private func setupSubviews() {
         self.padding = UIEdgeInsets(top: 5.0, left: 35.0, bottom: 5.0, right: 16.0)
-        self.contentSize = CGSize(width: .greatestFiniteMagnitude, height: 60.0)
-        self.backgroundColor = resGetColor(.insetGroupedTableCellBackgroundNormal)
+        self.contentSize = CGSize(width: .greatestFiniteMagnitude, height: 66.0)
+        self.backgroundColor = .secondarySystemBackground
         self.addSubview(checkbox)
         self.addSubview(textField)
         self.addSubview(positionButton)

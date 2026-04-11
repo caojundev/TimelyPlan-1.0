@@ -27,6 +27,17 @@ class TodoStepEditController: TPKeyboardAwareController {
         }
     }
     
+    var isCompleted: Bool {
+        get {
+            return editView.isCompleted
+        }
+        
+        set {
+            editView.isCompleted = newValue
+        }
+    }
+    
+    
     var text: String? {
         get {
             return editView.textField.text

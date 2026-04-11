@@ -518,6 +518,19 @@ extension TPCollectionViewAdapter {
 
 // MARK: - 聚焦动画
 extension TPCollectionViewAdapter {
+    
+    /// 聚焦显示
+    func revealItem(_ item: ListDiffable, autoScroll: Bool = true) {
+        guard autoScroll else {
+            self.commitFocusAnimation(for: item)
+            return
+        }
+        
+        self.scrollToItem(item, at: .centeredVertically, animated: true) {[weak self] _ in
+            self?.commitFocusAnimation(for: item)
+        }
+    }
+    
     func commitFocusAnimation(for item: ListDiffable) {
         if let indexPath = indexPath(of: item) {
             commitFocusAnimation(at: indexPath)

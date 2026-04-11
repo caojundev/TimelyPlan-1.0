@@ -14,8 +14,8 @@ class TodoTaskStepEditCellItem: TPAutoResizeTextViewTableCellItem {
     init(step: TodoStep) {
         self.step = step
         super.init()
-        self.identifier = step.identifier ?? UUID().uuidString
-        self.text = step.name
+        self.identifier = step.id
+        self.text = step.content
         self.registerClass = TodoTaskStepEditCell.self
         self.leftViewMargins = UIEdgeInsets(left: 14.0, right: 10.0)
         self.leftViewSize = .size(5)

@@ -53,6 +53,8 @@
 		E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */; };
 		E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */; };
 		E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */; };
+		E50A7CED2F8A36C70074F1A3 /* TodoStepParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A7CEC2F8A36C70074F1A3 /* TodoStepParser.swift */; };
+		E50A7CEF2F8A401D0074F1A3 /* TodoTaskEditStepSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A7CEE2F8A401D0074F1A3 /* TodoTaskEditStepSectionController.swift */; };
 		E50BB6762D57043000D316FD /* TPSeparatorTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB6752D57043000D316FD /* TPSeparatorTableCell.swift */; };
 		E50BB6782D5706FE00D316FD /* TPSeparatorSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB6772D5706FE00D316FD /* TPSeparatorSectionController.swift */; };
 		E50BB67C2D5751B600D316FD /* TPImageInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */; };
@@ -1627,6 +1629,8 @@
 		E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCustomPopup.swift; sourceTree = "<group>"; };
 		E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultInfoView.swift; sourceTree = "<group>"; };
 		E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Extensions.swift"; sourceTree = "<group>"; };
+		E50A7CEC2F8A36C70074F1A3 /* TodoStepParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepParser.swift; sourceTree = "<group>"; };
+		E50A7CEE2F8A401D0074F1A3 /* TodoTaskEditStepSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskEditStepSectionController.swift; sourceTree = "<group>"; };
 		E50BB6752D57043000D316FD /* TPSeparatorTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSeparatorTableCell.swift; sourceTree = "<group>"; };
 		E50BB6772D5706FE00D316FD /* TPSeparatorSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSeparatorSectionController.swift; sourceTree = "<group>"; };
 		E50BB67B2D5751B600D316FD /* TPImageInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoView.swift; sourceTree = "<group>"; };
@@ -3321,6 +3325,14 @@
 			path = Popup;
 			sourceTree = "<group>";
 		};
+		E50A7CEB2F8A36B30074F1A3 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				E50A7CEC2F8A36C70074F1A3 /* TodoStepParser.swift */,
+			);
+			path = Parser;
+			sourceTree = "<group>";
+		};
 		E50BB6792D57178F00D316FD /* Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -4414,10 +4426,12 @@
 		E549B1902F89F6A70014BE85 /* Step */ = {
 			isa = PBXGroup;
 			children = (
-				E549B19C2F89F7C20014BE85 /* TodoStep.swift */,
 				E549B19E2F8A01AD0014BE85 /* TodoStepAddView.swift */,
+				E549B19C2F89F7C20014BE85 /* TodoStep.swift */,
+				E50A7CEE2F8A401D0074F1A3 /* TodoTaskEditStepSectionController.swift */,
 				E549B1912F89F6A70014BE85 /* TodoTaskStepMenuController.swift */,
 				E549B1922F89F6A70014BE85 /* TodoTaskStepEditCell.swift */,
+				E50A7CEB2F8A36B30074F1A3 /* Parser */,
 				E549B1932F89F6A70014BE85 /* Edit */,
 			);
 			path = Step;
@@ -9563,6 +9577,7 @@
 				E556BCDB2F5D9D8500CA20D9 /* HabitRecordProcessor.swift in Sources */,
 				E5BB9F202D3BF2C20089667A /* AppConfiguration.swift in Sources */,
 				E53DCEEB2F61AC4800ADA526 /* HabitHomeWeekDayMenuController.swift in Sources */,
+				E50A7CEF2F8A401D0074F1A3 /* TodoTaskEditStepSectionController.swift in Sources */,
 				E5B33D3A2F809D4300939C3E /* TodoListSelectInboxSectionController.swift in Sources */,
 				E5BB9B4F2D3BEF920089667A /* WKInterfaceButtonExtension.swift in Sources */,
 				E5BB9D852D3BF0C50089667A /* LayoutConstants.swift in Sources */,
@@ -9951,6 +9966,7 @@
 				E5BB9E6D2D3BF0C70089667A /* TPCollectionBaseSectionController.swift in Sources */,
 				E5BB9B482D3BEF920089667A /* ActionQueue.swift in Sources */,
 				E5EFB16E2F597215000FFDF4 /* HabitTaskMenuActionType.swift in Sources */,
+				E50A7CED2F8A36C70074F1A3 /* TodoStepParser.swift in Sources */,
 				E52678542D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift in Sources */,
 				E5BB9EFE2D3BF0C80089667A /* TPPopoverPresentationController.swift in Sources */,
 				E515019C2D4787D5008B2333 /* TPBaseTableCell.swift in Sources */,

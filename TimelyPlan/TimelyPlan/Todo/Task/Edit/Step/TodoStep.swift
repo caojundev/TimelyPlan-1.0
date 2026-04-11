@@ -7,11 +7,44 @@
 
 import Foundation
 
-class TodoStep {
+class TodoStep: NSObject {
+    var id: String
+    var content: String
+    var isCompleted: Bool
+    var isExpanded: Bool = true  // 默认展开，后续根据子步骤缩进推断
+    var subSteps: [TodoStep] = []
+    weak var parent: TodoStep?
     
-    var identifier: String?
+    init(content: String,
+         isCompleted: Bool) {
+        self.id = UUID().uuidString
+        self.content = content
+        self.isCompleted = isCompleted
+    }
     
-    var name: String?
+    // MARK: - 等同性判断
+    override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(id)
+        hasher.combine(content)
+        hasher.combine(isCompleted)
+        return hasher.finalize()
+    }
     
-    var isCompleted: Bool = false
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? TodoStep else { return false }
+        if self === other { return true }
+        return id == other.id &&
+            content == other.content &&
+            isCompleted == other.isCompleted
+    }
+    
+    // MARK: - ListDiffable
+    override func diffIdentifier() -> NSObjectProtocol {
+        return self.id as NSString
+    }
+    
+    override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        return self.isEqual(object)
+    }
 }

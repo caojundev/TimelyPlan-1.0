@@ -34,6 +34,7 @@ class TodoStepAddView: UIView {
     }
     
     private func setupSubviews() {
+        self.backgroundColor = .systemBackground
         let infoView = addButton.imageInfoView
         infoView.titleConfig.font = BOLD_SYSTEM_FONT
         infoView.titleConfig.textAlignment = .left

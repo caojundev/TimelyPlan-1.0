@@ -118,6 +118,9 @@
 "Add Next Step" = "添加下一步";
 "Add step to top" = "添加步骤到顶部";
 "Add step to bottom" = "添加步骤到底部";
+"Copy Step" = "拷贝步骤";
+"The step has been copied to the clipboard." = "步骤已复制到剪贴板";
+
 
 /// 进度
 "Progress" = "进度";

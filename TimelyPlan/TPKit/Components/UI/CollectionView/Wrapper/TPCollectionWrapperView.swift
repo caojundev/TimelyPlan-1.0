@@ -125,14 +125,7 @@ class TPCollectionWrapperView: UIView,
     
     /// 聚焦显示
     func revealItem(_ item: ListDiffable, autoScroll: Bool = true) {
-        guard autoScroll else {
-            self.adapter.commitFocusAnimation(for: item)
-            return
-        }
-        
-        self.adapter.scrollToItem(item, at: .centeredVertically, animated: true) { _ in
-            self.adapter.commitFocusAnimation(for: item)
-        }
+        self.adapter.revealItem(item, autoScroll: autoScroll)
     }
     
     /// 执行更新操作

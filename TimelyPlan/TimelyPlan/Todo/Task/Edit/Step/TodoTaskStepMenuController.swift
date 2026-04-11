@@ -12,7 +12,6 @@ enum TodoTaskStepMenuActionType: String, TPMenuRepresentable {
     
     case addPreviousStep /// 添加上一步
     case addNextStep     /// 添加下一步
-    case moveToTop       /// 移动到顶部
     case copyStep        /// 拷贝步骤文本
     case delete          /// 删除
     
@@ -22,8 +21,6 @@ enum TodoTaskStepMenuActionType: String, TPMenuRepresentable {
             return resGetString("Add Previous Step")
         case .addNextStep:
             return resGetString("Add Next Step")
-        case .moveToTop:
-            return resGetString("Move To Top")
         case .copyStep:
             return resGetString("Copy Step")
         default:
@@ -37,8 +34,6 @@ enum TodoTaskStepMenuActionType: String, TPMenuRepresentable {
             return "todo_task_step_addPrevious_24"
         case .addNextStep:
             return "todo_task_step_addNext_24"
-        case .moveToTop:
-            return "moveToTop_24"
         case .copyStep:
             return "copy_24"
         case .delete:
@@ -73,7 +68,6 @@ class TodoTaskStepMenuController: TPBaseMenuController<TodoTaskStepMenuActionTyp
         var types: [Array<TodoTaskStepMenuActionType>]
         types = [[.addPreviousStep,
                     .addNextStep],
-                 [.moveToTop],
                  [.copyStep],
                  [.delete]]
         return types
@@ -84,10 +78,6 @@ class TodoTaskStepMenuController: TPBaseMenuController<TodoTaskStepMenuActionTyp
                                                    .addNextStep,
                                                    .copyStep,
                                                    .delete]
-        if showMoveToTop {
-            types.append(.moveToTop)
-        }
-        
         return types
     }
 }

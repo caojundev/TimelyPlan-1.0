@@ -1,0 +1,346 @@
+//
+//  TodoStepParser.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/4/11.
+//
+
+import Foundation
+
+// MARK: - 基于子步骤缩进推断父步骤展开状态的解析器
+class IndentBasedTodoParser {
+    
+    struct IndentConfig {
+        let baseIndent: Int = 0
+        let indentStep: Int = 2  // 每一级缩进的空格数
+    }
+    
+    private let config = IndentConfig()
+    
+    /// 解析 Markdown
+    func parse(_ markdown: String) -> [TodoStep] {
+        let lines = markdown.components(separatedBy: .newlines)
+        let parsedLines = parseLinesWithIndent(lines)
+        return buildTree(from: parsedLines)
+    }
+    
+    /// 第一步：解析每一行，记录内容和缩进
+    private func parseLinesWithIndent(_ lines: [String]) -> [ParsedLine] {
+        var parsedLines: [ParsedLine] = []
+        var lineNumber = 0
+        
+        for line in lines {
+            let indent = countLeadingSpaces(line)
+            let trimmedLine = line.trimmingCharacters(in: .whitespaces)
+            
+            if let (isCompleted, content) = parseTodoLine(trimmedLine) {
+                let parsedLine = ParsedLine(
+                    lineNumber: lineNumber,
+                    indent: indent,
+                    content: content,
+                    isCompleted: isCompleted
+                )
+                parsedLines.append(parsedLine)
+            }
+            lineNumber += 1
+        }
+        
+        return parsedLines
+    }
+    
+    /// 第二步：构建树形结构
+    private func buildTree(from lines: [ParsedLine]) -> [TodoStep] {
+        var rootSteps: [TodoStep] = []
+        var stack: [(step: TodoStep, indent: Int)] = []
+        
+        for line in lines {
+            // 找到父节点：栈中最后一个缩进小于当前行的节点
+            while let last = stack.last, last.indent >= line.indent {
+                stack.removeLast()
+            }
+            
+            let newStep = TodoStep(
+                content: line.content,
+                isCompleted: line.isCompleted
+            )
+            
+            if let parent = stack.last {
+                // 有父节点
+                parent.step.subSteps.append(newStep)
+                newStep.parent = parent.step
+                
+                // 关键：根据当前行的缩进来判断父步骤的展开状态
+                // 规则：如果当前行（子步骤）的缩进 == 父步骤缩进 + 2，说明父步骤是折叠的
+                //      如果当前行（子步骤）的缩进 == 父步骤缩进 + 4，说明父步骤是折叠的，等等
+                let indentDiff = line.indent - parent.indent
+                
+                // 正常的子步骤应该缩进 indentStep (比如2个空格)
+                // 如果缩进大于 indentStep，说明中间有折叠的层级
+                if indentDiff > config.indentStep {
+                    // 标记父步骤为折叠状态
+                    parent.step.isExpanded = false
+                    
+                    // 如果缩进差异更大，说明有多个折叠层级
+                    // 需要向上查找所有应该折叠的祖先节点
+                    markAncestorsAsCollapsed(stack: stack,
+                                           currentIndent: line.indent,
+                                           targetIndent: parent.indent)
+                } else {
+                    // 正常缩进，父步骤是展开的
+                    parent.step.isExpanded = true
+                }
+            } else {
+                // 没有父节点，是根步骤
+                rootSteps.append(newStep)
+            }
+            
+            stack.append((newStep, line.indent))
+        }
+        
+        // 后处理：没有子步骤的节点，展开状态设为 false
+        postProcessExpandStates(rootSteps)
+        
+        return rootSteps
+    }
+    
+    /// 标记应该折叠的祖先节点
+    private func markAncestorsAsCollapsed(stack: [(step: TodoStep, indent: Int)],
+                                          currentIndent: Int,
+                                          targetIndent: Int) {
+        // 从栈顶向下，标记所有缩进在 targetIndent 和 currentIndent 之间的节点为折叠
+        for item in stack.reversed() {
+            if item.indent > targetIndent && item.indent < currentIndent {
+                item.step.isExpanded = false
+            }
+            if item.indent <= targetIndent {
+                break
+            }
+        }
+    }
+    
+    /// 后处理展开状态：没有子步骤的节点不应该是展开状态
+    private func postProcessExpandStates(_ steps: [TodoStep]) {
+        for step in steps {
+            if step.subSteps.isEmpty {
+                step.isExpanded = false
+            } else {
+                // 确保有子步骤的节点，如果没有明确设置，默认为 true
+                // （已经在初始化时设为 true）
+            }
+            postProcessExpandStates(step.subSteps)
+        }
+    }
+    
+    /// 计算行首空格数
+    private func countLeadingSpaces(_ str: String) -> Int {
+        var count = 0
+        for char in str {
+            if char == " " {
+                count += 1
+            } else if char == "\t" {
+                count += config.indentStep
+            } else {
+                break
+            }
+        }
+        return count
+    }
+    
+    /// 解析待办事项行
+    private func parseTodoLine(_ line: String) -> (Bool, String)? {
+        let patterns = ["- [ ] ", "- [x] ", "- [X] "]
+        
+        for pattern in patterns {
+            if line.hasPrefix(pattern) {
+                let content = String(line.dropFirst(pattern.count))
+                let isCompleted = pattern.contains("x") || pattern.contains("X")
+                return (isCompleted, content)
+            }
+        }
+        return nil
+    }
+    
+    // MARK: - 转换为 Markdown
+    
+    /// 将 TodoStep 转换回 Markdown
+    /// 根据父步骤的展开状态决定子步骤的缩进
+    func toMarkdown(_ steps: [TodoStep], parentIndent: Int = 0, parentIsExpanded: Bool = true) -> String {
+        var result: [String] = []
+        
+        for step in steps {
+            // 当前步骤的缩进等于父步骤的缩进
+            let currentIndent = parentIndent
+            let indent = String(repeating: " ", count: currentIndent)
+            let status = step.isCompleted ? "[x]" : "[ ]"
+            
+            result.append("\(indent)- \(status) \(step.content)")
+            
+            if !step.subSteps.isEmpty {
+                // 关键：根据当前步骤的展开状态决定子步骤的缩进
+                // 如果展开，子步骤缩进 = 当前缩进 + 2
+                // 如果折叠，子步骤缩进 = 当前缩进 + 4（表示跳过了一级）
+                let childIndent = step.isExpanded ? currentIndent + 2 : currentIndent + 4
+                let childMarkdown = toMarkdown(step.subSteps,
+                                              parentIndent: childIndent,
+                                              parentIsExpanded: step.isExpanded)
+                result.append(childMarkdown)
+            }
+        }
+        
+        return result.joined(separator: "\n")
+    }
+}
+
+// MARK: - 辅助数据结构
+private struct ParsedLine {
+    let lineNumber: Int
+    let indent: Int
+    let content: String
+    let isCompleted: Bool
+}
+
+extension IndentBasedTodoParser {
+    // 辅助打印函数
+    static func printParseResult(_ steps: [TodoStep], title: String) {
+        print("📋 \(title):")
+        printStepTree(steps)
+    }
+
+    static func printStepTree(_ steps: [TodoStep], indent: String = "", isLast: Bool = true) {
+        for (index, step) in steps.enumerated() {
+            let isLastStep = index == steps.count - 1
+            let prefix = indent + (isLastStep ? "└── " : "├── ")
+            let status = step.isCompleted ? "✅" : "⬜"
+            let expandIcon = step.isExpanded ? "开" : "关"
+            let subStepsCount = step.subSteps.isEmpty ? "" : " (\(step.subSteps.count)个子项)"
+            
+            print("\(prefix)\(status) \(expandIcon) \(step.content)\(subStepsCount)")
+            
+            if !step.subSteps.isEmpty {
+                let childIndent = indent + (isLastStep ? "    " : "│   ")
+                printStepTree(step.subSteps, indent: childIndent, isLast: isLastStep)
+            }
+        }
+    }
+
+}
+
+extension IndentBasedTodoParser {
+    // MARK: - 测试和示例
+    static func testIndentBasedParser() {
+        let parser = IndentBasedTodoParser()
+        
+        print("=== 示例1：正常展开的文档 ===")
+        let normalMarkdown = """
+    - [ ] 项目A
+      - [ ] 任务A1
+      - [ ] 任务A2
+        - [ ] 子任务A2.1
+        - [ ] 子任务A2.2
+    - [ ] 项目B
+      - [ ] 任务B1
+    """
+        
+        let normalSteps = parser.parse(normalMarkdown)
+        printParseResult(normalSteps, title: "解析结果（所有父步骤都应该展开）")
+        
+        print("\n--- 转换回 Markdown ---")
+        print(parser.toMarkdown(normalSteps))
+        
+        print("\n=== 示例2：包含折叠状态的文档 ===")
+        print("说明：子步骤缩进4空格表示父步骤折叠")
+        let collapsedMarkdown = """
+    - [ ] 项目A
+      - [ ] 任务A1（正常展开）
+        - [ ] 子任务A1.1（任务A1展开）
+        - [ ] 子任务A1.2（任务A1展开）
+      - [ ] 任务A2（正常展开）
+    - [ ] 项目B（这个项目是折叠的）
+        - [ ] 任务B1（因为项目B折叠，所以缩进4空格）
+        - [ ] 任务B2（因为项目B折叠，所以缩进4空格）
+    - [ ] 项目C
+      - [ ] 任务C1（展开）
+          - [ ] 子任务C1.1（任务C1折叠，所以缩进6空格）
+          - [ ] 子任务C1.2（任务C1折叠，所以缩进6空格）
+    """
+        
+        let collapsedSteps = parser.parse(collapsedMarkdown)
+        printParseResult(collapsedSteps, title: "解析结果")
+        
+        print("\n--- 转换回 Markdown ---")
+        print(parser.toMarkdown(collapsedSteps))
+        
+        print("\n=== 示例3：验证展开状态推断逻辑 ===")
+        let testMarkdown = """
+    - [ ] 根步骤1
+      - [ ] 子步骤1.1
+      - [ ] 子步骤1.2
+    - [ ] 根步骤2（这个应该被标记为折叠）
+        - [ ] 子步骤2.1
+        - [ ] 子步骤2.2
+    - [ ] 根步骤3
+      - [ ] 子步骤3.1（展开）
+      - [ ] 子步骤3.2（展开）
+        - [ ] 孙步骤3.2.1
+    """
+        
+        let testSteps = parser.parse(testMarkdown)
+        printParseResult(testSteps, title: "解析结果")
+        
+        // 验证展开状态
+        print("\n--- 验证展开状态 ---")
+        func verifyExpandStates(_ steps: [TodoStep], path: String = "") {
+            for step in steps {
+                let currentPath = path.isEmpty ? step.content : "\(path) > \(step.content)"
+                let expectedExpanded = step.subSteps.isEmpty ? false :
+                    (step.content.contains("根步骤2") ? false : true)
+                let status = step.isExpanded == expectedExpanded ? "✅" : "❌"
+                print("\(status) \(currentPath): isExpanded = \(step.isExpanded)")
+                verifyExpandStates(step.subSteps, path: currentPath)
+            }
+        }
+        verifyExpandStates(testSteps)
+    }
+    
+    static func test() {
+        // 运行测试
+        testIndentBasedParser()
+
+        // MARK: - 实际应用示例
+        print("\n=== 实际应用示例 ===")
+
+        let sampleMarkdown = """
+        - [ ] 完成项目报告
+          - [x] 收集数据
+          - [ ] 分析数据
+            - [x] 数据清洗
+            - [ ] 统计分析
+          - [ ] 撰写结论
+        - [ ] 准备周会
+            - [ ] 制作PPT
+            - [ ] 准备演讲稿
+        """
+
+        let parser = IndentBasedTodoParser()
+        let steps = parser.parse(sampleMarkdown)
+
+        print("原始解析结果：")
+        printStepTree(steps)
+
+        // 模拟用户操作：切换"完成项目报告"的展开状态
+        if let projectStep = steps.first(where: { $0.content == "完成项目报告" }) {
+            print("\n用户点击切换'完成项目报告'的展开状态...")
+            projectStep.isExpanded.toggle()
+            
+            let updatedMarkdown = parser.toMarkdown(steps)
+            print("\n更新后的 Markdown：")
+            print(updatedMarkdown)
+            
+            // 重新解析验证
+            let reparsedSteps = parser.parse(updatedMarkdown)
+            print("\n重新解析后的展开状态：")
+            printStepTree(reparsedSteps)
+        }
+
+    }
+}

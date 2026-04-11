@@ -24,6 +24,16 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         return buttonItem
     }()
     
+    /// 步骤区块
+    lazy var stepSectionController: TodoTaskEditStepSectionController = {
+        let sectionController = TodoTaskEditStepSectionController(interactor: self.interactor)
+//        sectionController.stepsInfoDidChange = { [weak self] in
+//            self?.updateDetail()
+//        }
+//
+        return sectionController
+    }()
+
     /// 进度
     lazy var progressSectionController: TodoTaskEditProgressSectionController = {
         let sectionController = TodoTaskEditProgressSectionController(interactor: self.interactor)
@@ -88,6 +98,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         }
         
         let stepEditController = TodoStepEditController(containerViewController : viewController)
+        stepEditController.maskBackgroundColor = Color(0x000000, 0.1)
         stepEditController.delegate = self
         return stepEditController
     }()
@@ -125,11 +136,12 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         self.wrapperView.isKeyboardAdjusterEnabled = true
         self.adapter.cellStyle.backgroundColor = .systemBackground
 //        setupReorder()
-        self.sectionControllers = [addToMyDaySectionController,
-                                  scheduleSectionController,
-                                  progressSectionController,
-                                  tagSectionController,
-                                  noteSectionController]
+        self.sectionControllers = [stepSectionController,
+                                   addToMyDaySectionController,
+                                   scheduleSectionController,
+                                   progressSectionController,
+                                   tagSectionController,
+                                   noteSectionController]
         self.reloadData()
     }
 
@@ -303,14 +315,16 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         controller.clearText()
         
         let onTop = controller.position == .top
-        print(name)
+        let isCompleted = controller.isCompleted
+        let step = TodoStep(content: name, isCompleted: isCompleted)
+        stepSectionController.addStep(step, onTop: onTop)
     }
     
     func keyboardAwareControllerWillShowInputView(controller: TPKeyboardAwareController) {
         setAddStepViewHidden(true)
     }
     
-    func keyboardAwareControllerDidHideInputView(controller: TPKeyboardAwareController) {
+    func keyboardAwareControllerWillHideInputView(controller: TPKeyboardAwareController) {
         setAddStepViewHidden(false)
     }
     
@@ -330,7 +344,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
 
     private func setAddStepViewHidden(_ isHidden: Bool) {
         let alpha = isHidden ? 0.0 : 1.0
-        UIView.animate(withDuration: 0.25,
+        UIView.animate(withDuration: 0.4,
                        delay: 0.0,
                        options: .beginFromCurrentState,
                        animations: {
@@ -364,31 +378,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
 class TodoTaskEditViewController: TPTableSectionsViewController,
                                   TodoTaskProcessorDelegate,
                                   TodoStepEditControllerDelegate {
-
-
-    /// 步骤编辑控制器
-    lazy var stepEditController: TodoStepEditController = {
-        var viewController: UIViewController = self
-        if let navigationController = self.navigationController {
-            viewController = navigationController
-        }
-        
-        let stepEditController = TodoStepEditController(containerViewController : viewController)
-        stepEditController.delegate = self
-        return stepEditController
-    }()
-    
-    /// 步骤区块
-    lazy var stepSectionController: TodoTaskEditStepSectionController = {
-        let sectionController = TodoTaskEditStepSectionController(task: self.task)
-        sectionController.stepEditControler = stepEditController
-        sectionController.stepsInfoDidChange = { [weak self] in
-            self?.updateDetail()
-        }
-    
-        return sectionController
-    }()
-
+ 
     /// 排序管理器
     private var reorder: TPTableDragInsertReorder?
     
