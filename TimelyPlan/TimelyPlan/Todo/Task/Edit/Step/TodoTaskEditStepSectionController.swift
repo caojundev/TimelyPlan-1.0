@@ -18,6 +18,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
       - [ ] 任务A2
         - [ ] 子任务A2.1
         - [ ] 子任务A2.2
+      - [ ] 任务A3
     - [ ] 项目B
       - [ ] 任务B1
     - [ ] 项目C
@@ -31,7 +32,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
     }()
     
     override var items: [ListDiffable]? {
-        let flattenSteps = steps.flattenItems(with: nil) as! [TodoStep]
+        let flattenSteps = steps.flattenItems(with: expansionState) as! [TodoStep]
         var cellItems = [TodoTaskStepEditCellItem]()
         for step in flattenSteps {
             let cellItem = TodoTaskStepEditCellItem(step: step)
@@ -40,6 +41,8 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         
         return cellItems
     }
+    
+    let expansionState = TodoStepExpansionState()
     
     override init(interactor: TodoTaskEditInteractor) {
         super.init(interactor: interactor)
@@ -59,22 +62,6 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         }
     }
     
-    override func trailingSwipeActionsConfigurationForRow(at index: Int) -> UISwipeActionsConfiguration? {
-        UIResponder.resignCurrentFirstResponder()
-        guard let cellItem = item(at: index) as? TodoTaskStepEditCellItem else {
-            return nil
-        }
-        
-        /// 删除
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in
-            self.deleteStep(cellItem.step)
-            completion(true)
-        }
-                            
-        deleteAction.image = resGetImage("trash_24", color: .white)
-        return UISwipeActionsConfiguration(actions: [deleteAction])
-    }
-
     // MARK: - TodoTaskStepEditCellDelegate
     func stepEditCellDidClickCheckbox(_ cell: TodoTaskStepEditCell) {
         guard let step = cell.step else {
@@ -82,8 +69,27 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         }
         
         let isCompleted = !step.isCompleted
-        updateStep(step, isCompleted: isCompleted)
+        if isCompleted {
+            step.isCompleted = true /// 当前操作步骤先设置
+            var stepsToUpdate = [step]
+            
+            /// 检查父步骤
+            if let parent = step.parent, !parent.isCompleted, parent.isAllSubStepsCompleted() {
+                stepsToUpdate.append(parent)
+            }
+            
+            /// 完成子步骤
+            if let notCompletedSteps = step.notCompletedSubSteps() {
+                stepsToUpdate.append(contentsOf: notCompletedSteps)
+            }
+            
+            completeSteps(stepsToUpdate)
+        } else {
+            /// 更新当前步骤
+            updateStep(step, isCompleted: isCompleted)
+        }
     }
+    
     
     func stepEditCellDidClickMore(_ cell: TodoTaskStepEditCell) {
         UIResponder.resignCurrentFirstResponder()
@@ -96,10 +102,20 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
             self.performTaskStepMenuAction(with: type, for: step)
         }
 
-        let sourceRect = cell.moreButton.bounds.insetBy(dx: -5.0, dy: -10.0)
+        let sourceRect = cell.moreButton.bounds.insetBy(dx: -5.0, dy: -5.0)
         menuController.showMenu(from: cell.moreButton,
                                 sourceRect: sourceRect,
                                 isCovered: true)
+    }
+    
+    func stepEditCell(_ cell: TodoTaskStepEditCell, didToggleExpand isExpanded: Bool) {
+        UIResponder.resignCurrentFirstResponder()
+        guard let step = cell.step else {
+            return
+        }
+        
+        step.isExpanded = isExpanded
+        self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
     func textViewTableCell(_ cell: TPTextViewTableCell, didEndEditing textView: UITextView) {
@@ -110,9 +126,18 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         let name = textView.text.whitespacesAndNewlinesTrimmedString
         if name.count > 0 {
             updateStep(step, name: name)
-        } else {
+        } else if step.subSteps.count == 0{
+            /// 无子步骤，删除该步骤
             deleteStep(step)
         }
+    }
+    
+    func textViewTableCell(_ cell: TPTextViewTableCell, didEnterReturn textView: UITextView) {
+        guard let cell = cell as? TodoTaskStepEditCell, let step = cell.step else {
+            return
+        }
+
+        insertStep(isNext: true, relativeTo: step)
     }
     
     // MARK: - 任务步骤菜单操作
@@ -147,6 +172,20 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         if let cellItem = cellItem(for: step) {
             self.adapter?.revealItem(cellItem, autoScroll: true)
         }
+    }
+    
+    func completeSteps(_ steps: [TodoStep]) {
+        for step in steps {
+            step.isCompleted = true
+        }
+        
+        if let cells = visibleCellsForSteps(steps) {
+            cells.forEach { cell in
+                cell.updateCompleted(animated: true)
+            }
+        }
+        
+        self.stepsDidChange()
     }
     
     func updateStep(_ step: TodoStep, isCompleted: Bool) {
@@ -189,20 +228,24 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         
         let newStep = TodoStep(content: "", isCompleted: false)
         let insertIndex = isNext ? (index + 1) : index
-        steps.insert(newStep, at: insertIndex)
-        
         if let parent = step.parent {
-            parent.subSteps = steps
+            parent.insertSubStep(newStep, at: insertIndex)
+            parent.isExpanded = true
         } else {
-            self.steps = steps
+            self.steps.insert(newStep, at: insertIndex)
         }
-        
+
         self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
         self.setTextEditing(true, for: newStep)
     }
     
     func deleteStep(_ step: TodoStep) {
-        self.steps.remove(step)
+        if let parent = step.parent {
+            parent.removeSubStep(step)
+        } else {
+            self.steps.remove(step)
+        }
+        
         self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
         self.stepsDidChange()
     }
@@ -250,6 +293,23 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         return nil
     }
     
+    private func visibleCellsForSteps(_ steps: [TodoStep]) -> [TodoTaskStepEditCell]? {
+        guard let visibleCells = adapter?.visibleCells else {
+            return nil
+        }
+        
+        var visibleStepCells = [TodoTaskStepEditCell]()
+        for visibleCell in visibleCells {
+            if let stepCell = visibleCell as? TodoTaskStepEditCell,
+               let step = stepCell.step,
+                steps.contains(step) {
+                visibleStepCells.append(stepCell)
+            }
+        }
+        
+        return visibleStepCells
+    }
+    
     private var displaySteps: [TodoStep]? {
         guard let cellItems = adapter?.items(for: self) as? [TodoTaskStepEditCellItem] else {
             return nil
@@ -258,4 +318,17 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         return cellItems.map { $0.step }
     }
     
+}
+
+class TodoStepExpansionState: ExpansionStateProviding {
+    
+    func isExpanded(_ item: Any) -> Bool {
+        let step = item as! TodoStep
+        return step.isExpanded
+    }
+    
+    func setExpended(_ isExpended: Bool, for item: Any) {
+        let step = item as! TodoStep
+        step.isExpanded = isExpended
+    }
 }

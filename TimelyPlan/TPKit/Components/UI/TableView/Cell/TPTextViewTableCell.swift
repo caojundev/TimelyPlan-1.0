@@ -115,8 +115,8 @@ class TPAutoResizeTextViewTableCellItem: TPTextViewTableCellItem {
         self.minimumHeight = font.lineHeight + contentPadding.verticalLength + textContainerInset.verticalLength
     }
 
-    /// 计算适配高度
-    private func fitHeight() -> CGFloat {
+    /// 文本内容宽度
+    func textContentWidth() -> CGFloat? {
         guard let width = self.cellWidth else {
             return validatedHeight(super.height)
         }
@@ -124,7 +124,16 @@ class TPAutoResizeTextViewTableCellItem: TPTextViewTableCellItem {
         var layoutWidth = width - textContainerInset.horizontalLength - contentPadding.horizontalLength
         layoutWidth = layoutWidth - leftViewSize.width - leftViewMargins.horizontalLength
         layoutWidth = layoutWidth - rightViewSize.width - rightViewMargins.horizontalLength
-        let maxSize = CGSize(width: layoutWidth, height: .greatestFiniteMagnitude)
+        return layoutWidth
+    }
+
+    /// 计算适配高度
+    private func fitHeight() -> CGFloat {
+        guard let contentWidth = textContentWidth() else {
+            return validatedHeight(super.height)
+        }
+
+        let maxSize = CGSize(width: contentWidth, height: .greatestFiniteMagnitude)
         let textSize = text?.size(with: font, maxSize: maxSize) ?? .zero
         let contentHeight = textSize.height + textContainerInset.verticalLength + contentPadding.verticalLength
         return contentHeight

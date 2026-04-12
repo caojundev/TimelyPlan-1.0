@@ -36,7 +36,7 @@ class TodoTaskEditNoteSectionController: TodoTaskEditBaseSectionController {
         cellItem.returnKeyType = .default
         cellItem.shouldShowDismissToolbar = true
         cellItem.minimumHeight = 80.0
-        cellItem.maxCount = 120
+        cellItem.maxCount = 960
         cellItem.didEndEditing = { textView in
             self?.noteTextViewDidEndEditing(textView)
         }

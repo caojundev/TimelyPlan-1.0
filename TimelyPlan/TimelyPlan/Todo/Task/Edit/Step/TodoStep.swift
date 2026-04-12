@@ -22,6 +22,74 @@ class TodoStep: NSObject {
         self.isCompleted = isCompleted
     }
     
+    func insertSubStep(_ step: TodoStep, at index: Int) {
+        if let oldParent = step.parent {
+            oldParent.removeSubStep(step)
+        }
+            
+        
+        self.subSteps.insert(step, at: index)
+        step.parent = self
+    }
+    
+    func removeSubStep(_ step: TodoStep) {
+        guard self.subSteps.contains(step) else {
+            return
+        }
+        
+        self.subSteps.remove(step)
+        step.parent = nil
+    }
+    
+    func isAllSubStepsCompleted() -> Bool {
+        guard subSteps.count > 0 else {
+            return false
+        }
+        
+        var isAllCompleted = true
+        for subStep in subSteps {
+            if !subStep.isCompleted {
+                isAllCompleted = false
+                break
+            }
+        }
+        
+        return isAllCompleted
+    }
+    
+    func notCompletedSubSteps() -> [TodoStep]? {
+        var results = [TodoStep]()
+        for step in subSteps {
+            if !step.isCompleted {
+                results.append(step)
+            }
+        }
+        
+        if results.count > 0 {
+            return results
+        }
+        
+        return nil
+    }
+    
+    /*
+    func completeAllSubSteps() -> [TodoStep]? {
+        var updatedSteps = [TodoStep]()
+        for step in subSteps {
+            if !step.isCompleted {
+                step.isCompleted = true
+                updatedSteps.append(step)
+            }
+        }
+        
+        if updatedSteps.count > 0 {
+            return updatedSteps
+        }
+        
+        return nil
+    }
+     */
+    
     // MARK: - 等同性判断
     override var hash: Int {
         var hasher = Hasher()

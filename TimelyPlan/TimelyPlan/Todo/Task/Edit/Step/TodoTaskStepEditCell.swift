@@ -8,7 +8,6 @@
 import Foundation
 
 class TodoTaskStepEditCellItem: TPAutoResizeTextViewTableCellItem {
-
     let step: TodoStep
     
     init(step: TodoStep) {
@@ -18,14 +17,42 @@ class TodoTaskStepEditCellItem: TPAutoResizeTextViewTableCellItem {
         self.identifier = step.id
         self.text = step.content
         self.registerClass = TodoTaskStepEditCell.self
-        self.leftViewMargins = UIEdgeInsets(left: 14.0, right: 10.0)
-        self.leftViewSize = .size(5)
-        self.rightViewSize = .mini
         self.placeholder = resGetString("")
         self.isNewlineEnabled = false
         self.font = SYSTEM_FONT
+        self.returnKeyType = .next
+        self.maxCount = 120
+        
+        self.leftViewMargins = UIEdgeInsets(left: 14.0, right: 10.0)
+        self.leftViewSize = .size(5)
+        self.rightViewSize = .mini
+        self.rightViewMargins = UIEdgeInsets(right: 5.0)
+        self.depthWidth = 32.0
     }
     
+    
+    /// 展开按钮尺寸
+    var expandButtonSize: CGSize = .mini
+    
+    var depthWidth: CGFloat = 32.0
+    
+    override func textContentWidth() -> CGFloat? {
+        guard var width = super.textContentWidth() else {
+            return nil
+        }
+        
+        /// 减去缩进宽度
+        width -= CGFloat(step.depth) * depthWidth
+        
+        /// 减去展开按钮宽度
+        if step.hasSubItem {
+            width -= expandButtonSize.width
+        }
+        
+        return width
+    }
+    
+    // MARK: - ListDiffable
     override func diffIdentifier() -> NSObjectProtocol {
         return identifier as NSString
     }
@@ -46,6 +73,9 @@ protocol TodoTaskStepEditCellDelegate: TPTextViewTableCellDelegate {
     
     /// 点击更多
     func stepEditCellDidClickMore(_ cell: TodoTaskStepEditCell)
+    
+    /// 切换展开状态
+    func stepEditCell(_ cell: TodoTaskStepEditCell, didToggleExpand isExpanded: Bool)
 }
 
 class TodoTaskStepEditCell: TPTextViewTableCell {
@@ -54,8 +84,11 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
         didSet {
             let cellItem = cellItem as! TodoTaskStepEditCellItem
             self.step = cellItem.step
-            self.updateCompleted(animated: false)
+            self.depthWidth = cellItem.depthWidth
             self.depthLineLayer.indentationLevel = cellItem.depth
+            self.updateCompleted(animated: false)
+            self.expandButtonSize = cellItem.expandButtonSize
+            self.updateExpandedButton()
             self.setNeedsLayout()
         }
     }
@@ -108,7 +141,7 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
         textView.backgroundColor = .clear
         textView.textContainer.lineFragmentPadding = 0
         textView.layoutManager.allowsNonContiguousLayout = false
-        textView.returnKeyType = .done
+        textView.returnKeyType = .next
         return textView
     }()
     
@@ -117,6 +150,21 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
         let button = TPDefaultButton.moreButton()
         button.imageConfig.color = .secondaryLabel
         button.addTarget(self, action: #selector(clickMore(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    /// 展开按钮
+    var expandButtonSize: CGSize = .mini
+    
+    private(set) lazy var expandButton: TPChevronExpandButton = {
+        let button = TPChevronExpandButton()
+        button.padding = .zero
+        button.image = resGetImage("todo_home_expand_18")
+        button.imageConfig.color = .systemGray3
+        button.hitTestEdgeInsets = UIEdgeInsets(value: -10.0)
+        button.addTarget(self,
+                         action: #selector(clickExpand(_:)),
+                         for: .touchUpInside)
         return button
     }()
     
@@ -134,32 +182,46 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
         depthLineLayer.dx = checkbox.centerX - depthWidth
         depthLineLayer.indentationWidth = depthWidth
         CATransaction.commit()
+        
+        expandButton.size = expandButtonSize
+        expandButton.left = textView.right
+        expandButton.alignVerticalCenter()
+        
+        expandButton.normalBackgroundColor = .random
+        moreButton.normalBackgroundColor = .random
+        textView.backgroundColor = .random
+        contentView.backgroundColor = .random
+    }
+
+    override func availableLayoutFrame() -> CGRect {
+        var layoutFrame = super.availableLayoutFrame()
+        guard let step = step, step.hasSubItem else {
+            return layoutFrame
+        }
+
+        layoutFrame.size.width = layoutFrame.size.width - expandButtonSize.width
+        return layoutFrame
     }
     
     override func setupContentSubviews() {
         self.textView = self.strikethroughTextView
         super.setupContentSubviews()
-        self.depthWidth = 32.0
         self.leftView = checkbox
-        self.leftViewMargins = UIEdgeInsets(left: 10.0, right: 10.0)
-        self.leftViewSize = .mini
         self.rightView = moreButton
-        self.rightViewSize = .mini
+        self.contentView.addSubview(expandButton)
         self.layer.addSublayer(depthLineLayer)
     }
     
     override func textViewDidBeginEditing(_ textView: UITextView) {
         super.textViewDidBeginEditing(textView)
         textView.isUserInteractionEnabled = true
-        moreButton.isUserInteractionEnabled = false
-        moreButton.alpha = 0.2
+        updateButtonStatus(isEditing: true)
     }
     
     override func textViewDidEndEditing(_ textView: UITextView) {
         super.textViewDidEndEditing(textView)
         textView.isUserInteractionEnabled = false
-        moreButton.isUserInteractionEnabled = true
-        moreButton.alpha = 1.0
+        updateButtonStatus(isEditing: false)
     }
     
     override func textViewDidChange(_ textView: UITextView) {
@@ -189,6 +251,26 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
         self.setNeedsLayout()
     }
     
+    private func updateExpandedButton() {
+        guard let step = step else {
+            expandButton.isHidden = true
+            expandButton.setExpanded(true, animated: false)
+            return
+        }
+
+        let isHidden = step.subSteps.count == 0
+        expandButton.isHidden = isHidden
+        expandButton.setExpanded(step.isExpanded, animated: false)
+    }
+    
+    private func updateButtonStatus(isEditing: Bool) {
+        let isUserInteractionEnabled = !isEditing
+        let alpha = isEditing ? 0.2 : 1.0
+        moreButton.isUserInteractionEnabled = isUserInteractionEnabled
+        moreButton.alpha = alpha
+        expandButton.isUserInteractionEnabled = isUserInteractionEnabled
+        expandButton.alpha = alpha
+    }
     
     // MARK: - Event Response
     /// 点击checkbox
@@ -204,4 +286,52 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
             delegate.stepEditCellDidClickMore(self)
         }
     }
+    
+    /// 点击展开或收起按钮
+    @objc private func clickExpand(_ button: UIButton) {
+        let isExpanded = !expandButton.isExpanded
+        setExpanded(isExpanded, animated: true)
+        if let delegate = self.delegate as? TodoTaskStepEditCellDelegate {
+            delegate.stepEditCell(self, didToggleExpand: isExpanded)
+        }
+    }
+
+    // MARK: - Public Methods
+    /// 动画更新展开状态
+    func setExpanded(_ isExpanded: Bool, animated: Bool) {
+        guard expandButton.isExpanded != isExpanded else {
+            return
+        }
+        
+        expandButton.setExpanded(isExpanded, animated: animated)
+    }
+
+    
+    /*
+    func updateExpandedButton() {
+        guard let delegate = delegate as? TPExpandDefaultInfoTableCellDelegate else {
+            return
+        }
+        
+        let isExpanded = !self.isExpanded
+        if delegate.expandTableCell(self, canToggleExpandStateTo: isExpanded) {
+            self.expandButton.isEnabled = true
+            self.expandButton.alpha = 1.0
+        } else {
+            self.expandButton.isEnabled = false
+            self.expandButton.alpha = 0.4
+        }
+    }
+    
+    func updateExpanded(animated: Bool) {
+        guard let delegate = delegate as? TPExpandDefaultInfoTableCellDelegate else {
+            return
+        }
+        
+        let isExpanded = delegate.isExpandedTableCell(self)
+        setExpanded(isExpanded, animated: animated)
+        updateExpandedButton()
+    }
+     */
+    
 }

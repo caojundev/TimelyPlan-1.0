@@ -491,3 +491,6 @@
 "General" = "常规";
 "Haptic Feedback" = "触感反馈";
 "Week Start On" = "周开始于";
+
+///**********************通用*********************///
+"Exceeds maximum character limit: %ld" = "已超出最大字符限制: %ld";

@@ -138,7 +138,7 @@ class TPTextView: UITextView {
             
             /// 提示用户输入超过限制
             if isPromptWhenExceedLimit, self.isFirstResponder, !TPFeedbackQueue.common.isShowing {
-                let format = resGetString("You have exceeded the maximum character limit of %ld.")
+                let format = resGetString("Exceeds maximum character limit: %ld")
                 let message = String(format: format, maxCount)
                 TPFeedbackQueue.common.postFeedback(text: message, position: .middle)
             }
