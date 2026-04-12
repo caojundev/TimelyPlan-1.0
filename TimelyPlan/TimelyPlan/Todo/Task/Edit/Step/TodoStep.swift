@@ -31,6 +31,14 @@ class TodoStep: NSObject {
         step.parent = self
     }
     
+    func moveSubStep(_ step: TodoStep, to index: Int) {
+        guard let fromIndex = subSteps.indexOf(step) else {
+            return
+        }
+        
+        subSteps.moveObject(fromIndex: fromIndex, toIndex: index)
+    }
+    
     func addSubStep(_ step: TodoStep) {
         self.insertSubStep(step, at: subSteps.count)
     }

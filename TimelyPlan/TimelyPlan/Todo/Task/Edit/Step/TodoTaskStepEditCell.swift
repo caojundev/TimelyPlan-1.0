@@ -8,6 +8,12 @@
 import Foundation
 
 class TodoTaskStepEditCellItem: TPAutoResizeTextViewTableCellItem {
+    
+    /// 展开按钮尺寸
+    var expandButtonSize: CGSize = .mini
+    
+    var depthWidth: CGFloat = 32.0
+    
     let step: TodoStep
     
     init(step: TodoStep) {
@@ -29,12 +35,6 @@ class TodoTaskStepEditCellItem: TPAutoResizeTextViewTableCellItem {
         self.rightViewMargins = UIEdgeInsets(right: 5.0)
         self.depthWidth = 32.0
     }
-    
-    
-    /// 展开按钮尺寸
-    var expandButtonSize: CGSize = .mini
-    
-    var depthWidth: CGFloat = 32.0
     
     override func textContentWidth() -> CGFloat? {
         guard var width = super.textContentWidth() else {
@@ -300,33 +300,65 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
         
         expandButton.setExpanded(isExpanded, animated: animated)
     }
+}
 
+
+extension TodoTaskStepEditCell: TPDragPreviewViewProviding {
     
-    /*
-    func updateExpandedButton() {
-        guard let delegate = delegate as? TPExpandDefaultInfoTableCellDelegate else {
-            return
-        }
-        
-        let isExpanded = !self.isExpanded
-        if delegate.expandTableCell(self, canToggleExpandStateTo: isExpanded) {
-            self.expandButton.isEnabled = true
-            self.expandButton.alpha = 1.0
-        } else {
-            self.expandButton.isEnabled = false
-            self.expandButton.alpha = 0.4
-        }
+    func dragPreviewView() -> UIView? {
+        let view = TodoTaskStepEditCellPreviewView(frame: contentView.frame)
+        view.padding = self.contentPadding
+        view.infoView.titleConfig.font = self.textView.font ?? SYSTEM_FONT
+        view.infoView.leftAccessoryMargins = self.leftViewMargins
+        view.infoView.leftAccessorySize = self.leftViewSize
+        view.infoView.title = self.textView.text
+        view.checkbox.isChecked = self.checkbox.isChecked
+        return view
     }
     
-    func updateExpanded(animated: Bool) {
-        guard let delegate = delegate as? TPExpandDefaultInfoTableCellDelegate else {
-            return
-        }
-        
-        let isExpanded = delegate.isExpandedTableCell(self)
-        setExpanded(isExpanded, animated: animated)
-        updateExpandedButton()
+    func beginFrame() -> CGRect {
+        currentFrame()
     }
-     */
     
+    func endFrame() -> CGRect {
+        currentFrame()
+    }
+    
+    private func currentFrame() -> CGRect {
+        let x = CGFloat(self.depth) * depthWidth
+        let w = self.width - x
+        return CGRect(x: x, y: 0.0, width: w, height: self.height)
+    }
+}
+
+class TodoTaskStepEditCellPreviewView: UIView {
+
+    /// 检查框
+    lazy var checkbox: TPSquareCheckbox = {
+        let checkbox = TPSquareCheckbox()
+        checkbox.cornerRadius = .greatestFiniteMagnitude
+        checkbox.checkmarkLineWidth = 2.0
+        checkbox.normalColor = .secondaryLabel
+        checkbox.checkedColor = .primary
+        checkbox.padding = .zero
+        return checkbox
+    }()
+    
+    let infoView = TPInfoView()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = .orange
+        self.infoView.leftAccessoryView = self.checkbox
+        self.addSubview(infoView)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.infoView.frame = layoutFrame()
+    }
 }

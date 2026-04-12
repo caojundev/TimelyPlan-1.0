@@ -379,9 +379,11 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         
         let currentParent = currentStep.parent
         if let parentStep = parentStep {
+            let toIndex = sameDepthSteps.indexOf(currentStep) ?? 0
             if parentStep.id != currentParent?.id {
-                /// 非相同父步骤，移动到当前父步骤
-                parentStep.addSubStep(currentStep)
+                parentStep.insertSubStep(currentStep, at: toIndex)
+            } else {
+                parentStep.moveSubStep(currentStep, to: toIndex)
             }
         } else {
             /// 移动到根列表
@@ -391,6 +393,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         /// 更新顶层步骤
         let topSteps = items.filter { $0.parent == nil }
         self.steps = topSteps
+        self.stepsDidChange()
     }
 }
 
