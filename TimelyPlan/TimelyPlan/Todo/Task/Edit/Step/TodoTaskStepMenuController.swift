@@ -9,7 +9,7 @@ import Foundation
 
 /// 待办列表操作菜单
 enum TodoTaskStepMenuActionType: String, TPMenuRepresentable {
-    
+    case addSubStep
     case addPreviousStep /// 添加上一步
     case addNextStep     /// 添加下一步
     case copyStep        /// 拷贝步骤文本
@@ -17,6 +17,8 @@ enum TodoTaskStepMenuActionType: String, TPMenuRepresentable {
     
     var title: String {
         switch self {
+        case .addSubStep:
+            return resGetString("Add Substep")
         case .addPreviousStep:
             return resGetString("Add Previous Step")
         case .addNextStep:
@@ -30,6 +32,8 @@ enum TodoTaskStepMenuActionType: String, TPMenuRepresentable {
     
     var iconName: String? {
         switch self {
+        case .addSubStep:
+            return "plus_24"
         case .addPreviousStep:
             return "todo_task_step_addPrevious_24"
         case .addNextStep:
@@ -66,7 +70,8 @@ class TodoTaskStepMenuController: TPBaseMenuController<TodoTaskStepMenuActionTyp
     
     override func orderedMenuActionTypeLists() -> [Array<TodoTaskStepMenuActionType>] {
         var types: [Array<TodoTaskStepMenuActionType>]
-        types = [[.addPreviousStep,
+        types = [[.addSubStep],
+                 [.addPreviousStep,
                     .addNextStep],
                  [.copyStep],
                  [.delete]]
@@ -78,6 +83,11 @@ class TodoTaskStepMenuController: TPBaseMenuController<TodoTaskStepMenuActionTyp
                                                    .addNextStep,
                                                    .copyStep,
                                                    .delete]
+        if step.depth < kTodoStepMaxDepth {
+            types.append(.addSubStep)
+        }
+        
         return types
     }
 }
+

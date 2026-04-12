@@ -103,6 +103,9 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         return stepEditController
     }()
     
+    /// 排序管理器
+    private var reorder: TPTableDragInsertReorder?
+    
     private let detailProvider: TodoTaskDetailProvider
 
     private let interactor: TodoTaskEditInteractor
@@ -132,10 +135,10 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         self.view.addSubview(self.infoView)
         self.view.addSubview(self.footerView)
         self.view.addSubview(self.addStepView)
+        self.setupReorder()
         self.tableView.keyboardDismissMode = .onDrag
         self.wrapperView.isKeyboardAdjusterEnabled = true
         self.adapter.cellStyle.backgroundColor = .systemBackground
-//        setupReorder()
         self.sectionControllers = [stepSectionController,
                                    addToMyDaySectionController,
                                    scheduleSectionController,
@@ -173,6 +176,15 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemBackground
+    }
+    
+    /// 初始化排序管理器
+    private func setupReorder() {
+        let reorder = TPTableDragInsertReorder(tableView: adapter.tableView)
+        reorder.indicatorBackColor = Color(0xFFFFFF, 0.1)
+        reorder.isEnabled = true
+        reorder.delegate = self.stepSectionController
+        self.reorder = reorder
     }
     
     override func reloadData() {
@@ -371,24 +383,3 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     }
 
 }
-
-
-
-/*
-class TodoTaskEditViewController: TPTableSectionsViewController,
-                                  TodoTaskProcessorDelegate,
-                                  TodoStepEditControllerDelegate {
- 
-    /// 排序管理器
-    private var reorder: TPTableDragInsertReorder?
-    
-    /// 初始化排序管理器
-    private func setupReorder() {
-        let reorder = TPTableDragInsertReorder(tableView: adapter.tableView)
-        reorder.indicatorBackColor = Color(0xFFFFFF, 0.1)
-        reorder.isEnabled = true
-        reorder.delegate = self.stepSectionController
-        self.reorder = reorder
-    }
-}
-*/

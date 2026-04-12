@@ -27,9 +27,12 @@ class TodoStep: NSObject {
             oldParent.removeSubStep(step)
         }
             
-        
         self.subSteps.insert(step, at: index)
         step.parent = self
+    }
+    
+    func addSubStep(_ step: TodoStep) {
+        self.insertSubStep(step, at: subSteps.count)
     }
     
     func removeSubStep(_ step: TodoStep) {

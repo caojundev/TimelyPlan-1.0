@@ -125,7 +125,7 @@ extension TodoUserListHomeSectionController: TodoListProcessorDelegate {
     
     /// 添加新组时通知
     func didCreateTodoList(_ list: TodoList) {
-        expansionState.expandAllParentList(of: list)
+        expansionState.expandAllParent(of: list)
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
@@ -146,7 +146,7 @@ extension TodoUserListHomeSectionController: TodoListProcessorDelegate {
     /// 列表移动通知， parent为nil时表示移动到根目录
     func didMoveTodoList(_ list: TodoList, to parent: TodoList?) {
         if let parent = parent {
-            expansionState.expandAllParentList(of: parent, includeCurrent: true)
+            expansionState.expandAllParent(of: parent, includeCurrent: true)
         }
         
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
@@ -154,7 +154,7 @@ extension TodoUserListHomeSectionController: TodoListProcessorDelegate {
 
     /// 重新列表排序
     func didReorderTodoList(_ list: TodoList) {
-        expansionState.expandAllParentList(of: list, includeCurrent: false)
+        expansionState.expandAllParent(of: list, includeCurrent: false)
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
 }
@@ -175,7 +175,6 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
         }
         
         self.expansionState.setExpended(false, for: list)
-        updateExpandedForCell(at: indexPath, animated: false)
         
         /// 更新列表
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .fade)
@@ -247,8 +246,7 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
         }
         
         expansionState.setExpended(true, for: touchList)
-        updateExpandedForCell(at: indexPath, animated: true)
-
+        
         /// 更新列表
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
         
@@ -259,12 +257,5 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
         }
         
         reorder.changeDraggingIndexPath(indexPath)
-    }
-    
-    /// 更新单元格展开状态
-    private func updateExpandedForCell(at indexPath: IndexPath, animated: Bool) {
-        if let cell = adapter?.cellForRow(at: indexPath) as? TodoUserListHomeCell {
-            cell.updateExpanded(animated: animated)
-        }
     }
 }

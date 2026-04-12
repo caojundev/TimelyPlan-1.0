@@ -24,17 +24,4 @@ class TodoHomeUserListExpansionState: ExpansionStateProviding {
             collapsedLists.insert(list.identifier)
         }
     }
-    
-    /// 展开清单所有父清单
-    func expandAllParentList(of list: TodoList, includeCurrent: Bool = true) {
-        if includeCurrent {
-            setExpended(true, for: list)
-        }
-        
-        var parent = list.parent
-        while parent != nil {
-            setExpended(true, for: parent!)
-            parent = parent?.parent
-        }
-    }
 }

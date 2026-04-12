@@ -186,11 +186,6 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
         expandButton.size = expandButtonSize
         expandButton.left = textView.right
         expandButton.alignVerticalCenter()
-        
-        expandButton.normalBackgroundColor = .random
-        moreButton.normalBackgroundColor = .random
-        textView.backgroundColor = .random
-        contentView.backgroundColor = .random
     }
 
     override func availableLayoutFrame() -> CGRect {
