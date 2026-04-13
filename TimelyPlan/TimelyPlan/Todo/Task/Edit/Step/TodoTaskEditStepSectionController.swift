@@ -74,12 +74,17 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
             var stepsToUpdate = [step]
             
             /// 检查父步骤
-            if let parent = step.parent, !parent.isCompleted, parent.isAllSubStepsCompleted() {
+            let autoCompleteParentTask = TodoSetting.shared.autoCompleteParentTask
+            if autoCompleteParentTask,
+               let parent = step.parent,
+               !parent.isCompleted,
+               parent.isAllSubStepsCompleted() {
                 stepsToUpdate.append(parent)
             }
             
             /// 完成子步骤
-            if let notCompletedSteps = step.notCompletedSubSteps() {
+            let autoCompleteSubtasks = TodoSetting.shared.autoCompleteSubtasks
+            if autoCompleteSubtasks, let notCompletedSteps = step.notCompletedSubSteps() {
                 stepsToUpdate.append(contentsOf: notCompletedSteps)
             }
             

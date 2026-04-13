@@ -9,6 +9,12 @@ import Foundation
 
 class TodoPresenter {
     
+    /// 显示设置
+    static func showSettings() {
+        let vc = TodoSettingViewController(style: .insetGrouped)
+        vc.showAsNavigationRoot()
+    }
+    
     /// 标签编辑视图控制器
     static func showTagEditViewController(with tag: TodoEditingTag?, completion: ((TodoEditingTag) -> Bool)?){
         let vc = TodoTagEditViewController(tag: tag)

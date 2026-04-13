@@ -152,6 +152,12 @@
 "Created %@" = "创建于 %@";
 "Completed %@" = "完成于 %@";
 
+/// 设置
+"Step" = "步骤";
+"Auto-complete subtasks" = "自动完成子任务";
+"When parent is done" = "当完成主任务时";
+"Auto-complete parent" = "自动完成主任务";
+"When all subtasks are done" = "当所有子任务全完成后";
 
 ///**************************Focus**************************///
 "Focusing" = "专注中";

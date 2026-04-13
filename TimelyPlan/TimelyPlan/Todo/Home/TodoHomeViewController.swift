@@ -168,16 +168,15 @@ class TodoHomeViewController: TPTableViewController,
         self.reorder = reorder
     }
     
-    // MARK: - 事件相应
+    // MARK: - 事件响应
     @objc private func clickSetting() {
-        let vc = TodoTaskListPickerViewController(list: nil)
-        vc.showAsNavigationRoot()
+        TPImpactFeedback.impactWithSoftStyle()
+        TodoPresenter.showSettings()
     }
         
     private func createList() {
         userListController.createList()
     }
-    
 }
 
 
