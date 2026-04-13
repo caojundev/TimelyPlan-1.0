@@ -57,49 +57,14 @@ class TodoStep: NSObject {
             return false
         }
         
-        var isAllCompleted = true
-        for subStep in subSteps {
-            if !subStep.isCompleted {
-                isAllCompleted = false
-                break
-            }
-        }
-        
-        return isAllCompleted
+        return subSteps.allSatisfy { $0.isCompleted }
     }
     
     func notCompletedSubSteps() -> [TodoStep]? {
-        var results = [TodoStep]()
-        for step in subSteps {
-            if !step.isCompleted {
-                results.append(step)
-            }
-        }
-        
-        if results.count > 0 {
-            return results
-        }
-        
-        return nil
+        let allSubSteps = subSteps.flatten()
+        let results = allSubSteps.filter { !($0.isCompleted) }
+        return results.isEmpty ? nil : results
     }
-    
-    /*
-    func completeAllSubSteps() -> [TodoStep]? {
-        var updatedSteps = [TodoStep]()
-        for step in subSteps {
-            if !step.isCompleted {
-                step.isCompleted = true
-                updatedSteps.append(step)
-            }
-        }
-        
-        if updatedSteps.count > 0 {
-            return updatedSteps
-        }
-        
-        return nil
-    }
-     */
     
     // MARK: - 等同性判断
     override var hash: Int {
@@ -145,5 +110,49 @@ extension TodoStep: Nestable {
     
     var orderedSubItems: [Nestable]? {
         return self.subSteps
+    }
+}
+
+extension TodoStep {
+    
+    /// 扁平化遍历所有步骤（包括自己和所有子步骤）
+    func flatten() -> [TodoStep] {
+        var result: [TodoStep] = [self]
+        for subStep in subSteps {
+            result.append(contentsOf: subStep.flatten())
+        }
+        return result
+    }
+    
+    /// 获取所有步骤的总数
+    func totalCount() -> Int {
+        return flatten().count
+    }
+    
+    /// 获取已完成的步骤数
+    func completedCount() -> Int {
+        return flatten().filter { $0.isCompleted }.count
+    }
+}
+
+extension Array where Element == TodoStep {
+    /// 扁平化数组中所有步骤
+    func flatten() -> [TodoStep] {
+        return self.flatMap { $0.flatten() }
+    }
+    
+    /// 获取所有步骤的总数
+    func totalCount() -> Int {
+        return flatten().count
+    }
+    
+    /// 获取已完成的步骤数
+    func completedCount() -> Int {
+        return flatten().filter { $0.isCompleted }.count
+    }
+    
+    func markdown() -> String? {
+        let parser = TodoStepParser()
+        return parser.toMarkdown(self)
     }
 }

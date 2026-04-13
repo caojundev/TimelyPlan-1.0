@@ -25,12 +25,17 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     }()
     
     /// 步骤区块
-    lazy var stepSectionController: TodoTaskEditStepSectionController = {
+    lazy var stepAddSectionController: TodoTaskAddStepSectionController = {
+        let sectionController = TodoTaskAddStepSectionController()
+        sectionController.didClickAdd = { [weak self] in
+            self?.clickAddStep()
+        }
+
+        return sectionController
+    }()
+    
+    lazy var stepEditSectionController: TodoTaskEditStepSectionController = {
         let sectionController = TodoTaskEditStepSectionController(interactor: self.interactor)
-//        sectionController.stepsInfoDidChange = { [weak self] in
-//            self?.updateDetail()
-//        }
-//
         return sectionController
     }()
 
@@ -79,17 +84,6 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         return view
     }()
     
-    /// 步骤添加视图
-    let addStepViewHeight = 60.0
-    lazy var addStepView: TodoStepAddView = {
-        let view = TodoStepAddView()
-        view.didClickAdd = { [weak self] in
-            self?.clickAddStep()
-        }
-        
-        return view
-    }()
-    
     /// 步骤编辑控制器
     private lazy var stepEditController: TodoStepEditController = {
         var viewController: UIViewController = self
@@ -134,12 +128,12 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         self.navigationItem.rightBarButtonItem = self.priorityBarButtonItem
         self.view.addSubview(self.infoView)
         self.view.addSubview(self.footerView)
-        self.view.addSubview(self.addStepView)
         self.setupReorder()
         self.tableView.keyboardDismissMode = .onDrag
         self.wrapperView.isKeyboardAdjusterEnabled = true
         self.adapter.cellStyle.backgroundColor = .systemBackground
-        self.sectionControllers = [stepSectionController,
+        self.sectionControllers = [stepEditSectionController,
+                                   stepAddSectionController,
                                    addToMyDaySectionController,
                                    scheduleSectionController,
                                    progressSectionController,
@@ -158,12 +152,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         footerView.width = layoutFrame.width
         footerView.height = footerViewHeight
         footerView.bottom = layoutFrame.maxY
-        
-        addStepView.width = layoutFrame.width
-        addStepView.height = addStepViewHeight
-        addStepView.left = layoutFrame.minX
-        addStepView.bottom = footerView.top
-        
+
         wrapperView.width = layoutFrame.width
         wrapperView.height = layoutFrame.height - infoView.bottom - footerViewHeight
         wrapperView.top = infoView.bottom
@@ -183,7 +172,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         let reorder = TPTableDragInsertReorder(tableView: adapter.tableView)
         reorder.indicatorBackColor = Color(0xFFFFFF, 0.1)
         reorder.isEnabled = true
-        reorder.delegate = self.stepSectionController
+        reorder.delegate = self.stepEditSectionController
         self.reorder = reorder
     }
     
@@ -224,6 +213,10 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
             }
         case .list(_, _):
             if detailProvider.option.contains(.list) {
+                updateDetail()
+            }
+        case .step(_, _):
+            if self.detailProvider.option.contains(.step) {
                 updateDetail()
             }
         }
@@ -329,15 +322,15 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         let onTop = controller.position == .top
         let isCompleted = controller.isCompleted
         let step = TodoStep(content: name, isCompleted: isCompleted)
-        stepSectionController.addStep(step, onTop: onTop)
+        stepEditSectionController.addStep(step, onTop: onTop)
     }
     
     func keyboardAwareControllerWillShowInputView(controller: TPKeyboardAwareController) {
-        setAddStepViewHidden(true)
+        stepAddSectionController.setEditing(true)
     }
     
     func keyboardAwareControllerWillHideInputView(controller: TPKeyboardAwareController) {
-        setAddStepViewHidden(false)
+        stepAddSectionController.setEditing(false)
     }
     
     func keyboardAwareController(controller: TPKeyboardAwareController, inputViewFrameDidChange fromFrame: CGRect) {
@@ -354,16 +347,6 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         tableView.contentInset = UIEdgeInsets(bottom: insetBottom)
     }
 
-    private func setAddStepViewHidden(_ isHidden: Bool) {
-        let alpha = isHidden ? 0.0 : 1.0
-        UIView.animate(withDuration: 0.4,
-                       delay: 0.0,
-                       options: .beginFromCurrentState,
-                       animations: {
-            self.addStepView.alpha = alpha
-        }, completion: nil)
-    }
-    
     // MARK: - TodoTaskEditFooterViewDelegate
     func todoTaskEditFooterViewDidClickMore(_ view: TodoTaskEditFooterView) {
         UIResponder.resignCurrentFirstResponder()

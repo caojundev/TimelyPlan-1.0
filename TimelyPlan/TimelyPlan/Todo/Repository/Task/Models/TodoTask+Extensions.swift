@@ -93,15 +93,12 @@ extension TodoTask {
     
     /// 步骤信息
     var attributedStepInfo: ASAttributedString? {
-        return nil
-        /*
-        guard let steps = steps as? Set<TodoStep>, steps.count > 0 else {
+        guard self.stepCount > 0 else {
             return nil
         }
-    
-        let completedCount = steps.completedCount
+
         let format = resGetString("%ld of %ld")
-        let trailingText = String(format: format, completedCount, steps.count)
+        let trailingText = String(format: format, stepCompletedCount, self.stepCount)
         
         guard let checkmarkImage = resGetImage("checkmark_12") else {
             return trailingText.attributedString
@@ -113,7 +110,6 @@ extension TodoTask {
                                                trailingText: trailingText,
                                                separator: nil)
         return info
-         */
     }
     
     /// 进度信息

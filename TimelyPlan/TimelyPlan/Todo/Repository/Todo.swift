@@ -196,4 +196,8 @@ extension Todo {
     func updateTask(_ task: TodoTask, note: String?) {
         taskManager.updateTask(task, note: note)
     }
+    
+    func updateTask(_ task: TodoTask, steps: [TodoStep]?) {
+        taskManager.updateTask(task, steps: steps)
+    }
 }

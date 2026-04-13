@@ -236,4 +236,13 @@ class TodoTaskManager {
         HandyRecord.save()
     }
     
+    func updateTask(_ task: TodoTask, steps: [TodoStep]?) {
+        guard CDTodoTask.updateTask(task, steps: steps) else {
+            return
+        }
+
+        let change: TodoTaskChange = .step(oldValue: task.steps, newValue: steps)
+        updater.didUpdateTodoTask(task, with: change)
+        HandyRecord.save()
+    }
 }

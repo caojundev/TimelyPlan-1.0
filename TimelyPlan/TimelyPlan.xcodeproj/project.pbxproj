@@ -573,6 +573,7 @@
 		E568B7D72F70C8F4007B7EFE /* FocusSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E568B7D62F70C8F4007B7EFE /* FocusSessionManager.swift */; };
 		E568B7DF2F717196007B7EFE /* FocusTimerGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E568B7DE2F717195007B7EFE /* FocusTimerGroup.swift */; };
 		E568B7E12F71802A007B7EFE /* FocusUserTimerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E568B7E02F71802A007B7EFE /* FocusUserTimerListView.swift */; };
+		E56B94502F8CC8A9001E488B /* TodoTaskAddStepSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B944F2F8CC8A9001E488B /* TodoTaskAddStepSectionController.swift */; };
 		E56BAC752DCC56BB0013C6F6 /* CalendarDatePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC742DCC56BB0013C6F6 /* CalendarDatePageView.swift */; };
 		E56BAC772DCC56E60013C6F6 /* CalendarWeekPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */; };
 		E56BAC7C2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift */; };
@@ -2154,6 +2155,7 @@
 		E568B7D62F70C8F4007B7EFE /* FocusSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSessionManager.swift; sourceTree = "<group>"; };
 		E568B7DE2F717195007B7EFE /* FocusTimerGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerGroup.swift; sourceTree = "<group>"; };
 		E568B7E02F71802A007B7EFE /* FocusUserTimerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusUserTimerListView.swift; sourceTree = "<group>"; };
+		E56B944F2F8CC8A9001E488B /* TodoTaskAddStepSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskAddStepSectionController.swift; sourceTree = "<group>"; };
 		E56BAC742DCC56BB0013C6F6 /* CalendarDatePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePageView.swift; sourceTree = "<group>"; };
 		E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekPageView.swift; sourceTree = "<group>"; };
 		E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekPageCell.swift; sourceTree = "<group>"; };
@@ -3325,14 +3327,6 @@
 			path = Popup;
 			sourceTree = "<group>";
 		};
-		E50A7CEB2F8A36B30074F1A3 /* Parser */ = {
-			isa = PBXGroup;
-			children = (
-				E50A7CEC2F8A36C70074F1A3 /* TodoStepParser.swift */,
-			);
-			path = Parser;
-			sourceTree = "<group>";
-		};
 		E50BB6792D57178F00D316FD /* Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -4427,11 +4421,10 @@
 			isa = PBXGroup;
 			children = (
 				E549B19E2F8A01AD0014BE85 /* TodoStepAddView.swift */,
-				E549B19C2F89F7C20014BE85 /* TodoStep.swift */,
+				E56B944F2F8CC8A9001E488B /* TodoTaskAddStepSectionController.swift */,
 				E50A7CEE2F8A401D0074F1A3 /* TodoTaskEditStepSectionController.swift */,
 				E549B1912F89F6A70014BE85 /* TodoTaskStepMenuController.swift */,
 				E549B1922F89F6A70014BE85 /* TodoTaskStepEditCell.swift */,
-				E50A7CEB2F8A36B30074F1A3 /* Parser */,
 				E549B1932F89F6A70014BE85 /* Edit */,
 			);
 			path = Step;
@@ -4931,6 +4924,15 @@
 			path = Select;
 			sourceTree = "<group>";
 		};
+		E56B94512F8CCDE4001E488B /* Step */ = {
+			isa = PBXGroup;
+			children = (
+				E549B19C2F89F7C20014BE85 /* TodoStep.swift */,
+				E50A7CEC2F8A36C70074F1A3 /* TodoStepParser.swift */,
+			);
+			path = Step;
+			sourceTree = "<group>";
+		};
 		E56BAC7A2DCCDABE0013C6F6 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -4984,6 +4986,7 @@
 				E549B14E2F85F5D70014BE85 /* TodoTaskManager.swift */,
 				E549B1502F85F6030014BE85 /* TodoTaskProcessorUpdater.swift */,
 				E57CC5C42F7FA42700ADDBA4 /* Models */,
+				E56B94512F8CCDE4001E488B /* Step */,
 				E57CC5E92F7FEF8E00ADDBA4 /* Schedule */,
 			);
 			path = Task;
@@ -9445,6 +9448,7 @@
 				E5BB9EB62D3BF0C80089667A /* TPDatePickerViewController.swift in Sources */,
 				E5BB9EE92D3BF0C80089667A /* TFSidebarViewController.swift in Sources */,
 				E5BB9D8B2D3BF0C60089667A /* UIView+Swizzler.swift in Sources */,
+				E56B94502F8CC8A9001E488B /* TodoTaskAddStepSectionController.swift in Sources */,
 				E5D7D8E52D43933600EC877A /* FocusSetting.swift in Sources */,
 				E51A4C412DC3B98C005A0E3F /* CalendarDayEventsView.swift in Sources */,
 				E5F1551B2F83681E00116091 /* TodoTaskDetailProvider.swift in Sources */,

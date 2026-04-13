@@ -50,6 +50,10 @@ class TodoTaskEditInteractor: TodoTaskProcessorDelegate {
         todo.updateTask(task, note: note)
     }
     
+    func setSteps(_ steps: [TodoStep]?) {
+        todo.updateTask(task, steps: steps)
+    }
+    
     // MARK: - TodoTaskProcessorDelegate
     
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
@@ -80,6 +84,8 @@ class TodoTaskEditInteractor: TodoTaskProcessorDelegate {
             self.task.isAddedToMyDay = isAddedToMyDay
         case .list(_, let list):
             self.task.list = list?.feature
+        case .step(_, let steps):
+            self.task.updateSteps(steps)
         }
         
         onTaskChange?(change)

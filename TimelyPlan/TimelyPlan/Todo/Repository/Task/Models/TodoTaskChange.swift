@@ -45,6 +45,9 @@ enum TodoTaskChange: Hashable {
     
     /// 进度
     case progress(oldValue: TodoEditProgress?, newValue: TodoEditProgress?)
+    
+    /// 步骤
+    case step(oldValue: [TodoStep]?, newValue: [TodoStep]?)
 }
 
 extension TodoTaskChange {
@@ -85,6 +88,8 @@ extension TodoTaskChange {
         case .tag(let oldValue, let newValue):
             return changeType(oldValue: oldValue, newValue: newValue)
         case .progress(let oldValue, let newValue):
+            return changeType(oldValue: oldValue, newValue: newValue)
+        case .step(let oldValue, let newValue):
             return changeType(oldValue: oldValue, newValue: newValue)
         }
     }

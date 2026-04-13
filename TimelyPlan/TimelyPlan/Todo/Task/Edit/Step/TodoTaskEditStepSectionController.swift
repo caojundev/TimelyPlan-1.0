@@ -24,25 +24,7 @@ class TodoStepExpansionState: ExpansionStateProviding {
 class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
                                          TodoTaskStepEditCellDelegate {
     
-    lazy var steps: [TodoStep] = {
-        let normalMarkdown = """
-    - [ ] 项目A
-      - [ ] 任务A1
-      - [ ] 任务A2
-        - [ ] 子任务A2.1
-        - [ ] 子任务A2.2
-      - [ ] 任务A3
-    - [ ] 项目B
-      - [ ] 任务B1
-    - [ ] 项目C
-    - [ ] 项目D
-    - [ ] 项目E
-    """
-        
-        let parser = IndentBasedTodoParser()
-        let steps = parser.parse(normalMarkdown)
-        return steps
-    }()
+    var steps: [TodoStep] = []
     
     override var items: [ListDiffable]? {
         let flattenSteps = steps.flattenItems(with: expansionState) as! [TodoStep]
@@ -55,11 +37,17 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         return cellItems
     }
     
-    let expansionState = TodoStepExpansionState()
+    private let expansionState = TodoStepExpansionState()
     
     override init(interactor: TodoTaskEditInteractor) {
         super.init(interactor: interactor)
-        self.setupSeparatorFooterItem()
+        self.steps = interactor.task.steps ?? []
+    }
+
+    override func didSelectRow(at index: Int) {
+        if let cell = cellForRow(at: index) as? TodoTaskStepEditCell {
+            cell.setTextEditing(true)
+        }
     }
     
     /// 开始或结束特定步骤的文本编辑
@@ -69,10 +57,8 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         }
     }
     
-    override func didSelectRow(at index: Int) {
-        if let cell = cellForRow(at: index) as? TodoTaskStepEditCell {
-            cell.setTextEditing(true)
-        }
+    private func stepsDidChange() {
+        self.interactor.setSteps(self.steps)
     }
     
     // MARK: - TodoTaskStepEditCellDelegate
@@ -104,7 +90,6 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         }
     }
     
-    
     func stepEditCellDidClickMore(_ cell: TodoTaskStepEditCell) {
         UIResponder.resignCurrentFirstResponder()
         guard let step = cell.step else {
@@ -129,6 +114,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         }
         
         step.isExpanded = isExpanded
+        self.stepsDidChange()
         self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
@@ -192,6 +178,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
             self.steps.append(step)
         }
         
+        self.stepsDidChange()
         self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
         if let cellItem = cellItem(for: step) {
             self.adapter?.revealItem(cellItem, autoScroll: true)
@@ -272,11 +259,6 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         
         self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
         self.stepsDidChange()
-    }
-    
-    private func stepsDidChange() {
-        IndentBasedTodoParser.printStepTree(self.steps)
-        print("======================================\n\n")
     }
     
     override func didDequeCell(_ cell: UITableViewCell, forRowAt index: Int) {
@@ -379,8 +361,13 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         
         let currentParent = currentStep.parent
         if let parentStep = parentStep {
-            let toIndex = sameDepthSteps.indexOf(currentStep) ?? 0
+            var toIndex = sameDepthSteps.indexOf(currentStep) ?? 0
             if parentStep.id != currentParent?.id {
+                if !parentStep.isExpanded {
+                    /// 当主步骤未展开时插入到末尾
+                    toIndex = parentStep.subSteps.count
+                }
+                
                 parentStep.insertSubStep(currentStep, at: toIndex)
             } else {
                 parentStep.moveSubStep(currentStep, to: toIndex)

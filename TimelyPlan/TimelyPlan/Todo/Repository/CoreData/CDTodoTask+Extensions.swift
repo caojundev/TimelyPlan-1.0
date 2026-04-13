@@ -260,6 +260,23 @@ extension CDTodoTask: SortableIdentifiable {
         cdTask.modificationDate = .now
         return true
     }
+    
+    static func updateTask(_ task: TodoTask, steps: [TodoStep]?) -> Bool {
+        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+            return false
+        }
+        
+        let markdown = steps?.markdown()
+        if cdTask.stepMarkdown == markdown {
+            return false
+        }
+        
+        cdTask.stepMarkdown = markdown
+        cdTask.stepCount = Int64(steps?.totalCount() ?? 0)
+        cdTask.stepCompletedCount = Int64(steps?.completedCount() ?? 0)
+        cdTask.modificationDate = .now
+        return true
+    }
 }
 
 // MARK: - 处理任务
@@ -345,7 +362,6 @@ extension CDTodoTask {
         NSManagedObjectContext.defaultContext.deleteObjects(cdTasks)
         return true
     }
-    
 }
 
 

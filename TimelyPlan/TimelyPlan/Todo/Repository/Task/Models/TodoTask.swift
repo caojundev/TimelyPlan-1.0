@@ -48,6 +48,8 @@ class TodoTask: NSObject {
     /// 是否已移动到废纸篓
     var isRemoved: Bool = false
     
+    
+    
     /// 进度
     lazy var progress: TodoEditProgress? = {
         if let json = progressJSON {
@@ -105,6 +107,22 @@ class TodoTask: NSObject {
     /// 进度 JSON 字符串
     private let progressJSON: String?
 
+    private(set) var stepCount: Int = 0
+    
+    private(set) var stepCompletedCount: Int = 0
+    
+    private var stepMarkdown: String?
+    
+    /// 步骤
+    private(set) lazy var steps: [TodoStep]? = {
+        if let markdown = stepMarkdown {
+            let parser = TodoStepParser()
+            return parser.parse(markdown)
+        }
+        
+        return nil
+    }()
+    
     init(content: CDTodoTask) {
         self.identifier = content.identifiableKey
         self.order = content.order
@@ -124,7 +142,36 @@ class TodoTask: NSObject {
         self.repeatRuleJSON = content.repeatRuleJSON
         self.progressJSON = content.progressJSON
         self.tags = content.userTags
+        self.stepMarkdown = content.stepMarkdown
+        self.stepCount = Int(content.stepCount)
+        self.stepCompletedCount = Int(content.stepCompletedCount)
         super.init()
+        
+        
+//        let normalMarkdown = """
+//    - [ ] 项目A
+//      - [ ] 任务A1
+//      - [ ] 任务A2
+//        - [ ] 子任务A2.1
+//        - [ ] 子任务A2.2
+//      - [ ] 任务A3
+//    - [ ] 项目B
+//      - [ ] 任务B1
+//    - [ ] 项目C
+//    - [ ] 项目D
+//    - [ ] 项目E
+//    """
+//        let parser = TodoStepParser()
+//        self.steps = parser.parse(normalMarkdown)
+//        self.stepCount = self.steps?.totalCount() ?? 0
+//        self.stepCompletedCount = self.steps?.completedCount() ?? 0
+    }
+    
+    /// 更新步骤
+    func updateSteps(_ steps: [TodoStep]?) {
+        self.steps = steps
+        self.stepCount = steps?.totalCount() ?? 0
+        self.stepCompletedCount = steps?.completedCount() ?? 0
     }
     
     // MARK: - 等同性判断

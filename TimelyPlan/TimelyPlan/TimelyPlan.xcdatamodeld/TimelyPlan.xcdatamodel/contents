@@ -107,8 +107,8 @@
         <attribute name="repeatRuleJSON" optional="YES" attributeType="String"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="stepCompletedCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="stepCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="stepMarkdown" optional="YES" attributeType="String"/>
-        <attribute name="stepTotalCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTodoList" inverseName="tasks" inverseEntity="CDTodoList"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTodoTag" inverseName="tasks" inverseEntity="CDTodoTag"/>
     </entity>

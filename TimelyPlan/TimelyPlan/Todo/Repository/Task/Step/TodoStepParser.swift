@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - 基于子步骤缩进推断父步骤展开状态的解析器
-class IndentBasedTodoParser {
+class TodoStepParser {
     
     struct IndentConfig {
         let baseIndent: Int = 0
@@ -17,6 +17,14 @@ class IndentBasedTodoParser {
     
     private let config = IndentConfig()
     
+    // MARK: - 辅助数据结构
+    private struct ParsedLine {
+        let lineNumber: Int
+        let indent: Int
+        let content: String
+        let isCompleted: Bool
+    }
+
     /// 解析 Markdown
     func parse(_ markdown: String) -> [TodoStep] {
         let lines = markdown.components(separatedBy: .newlines)
@@ -191,15 +199,8 @@ class IndentBasedTodoParser {
     }
 }
 
-// MARK: - 辅助数据结构
-private struct ParsedLine {
-    let lineNumber: Int
-    let indent: Int
-    let content: String
-    let isCompleted: Bool
-}
 
-extension IndentBasedTodoParser {
+extension TodoStepParser {
     // 辅助打印函数
     static func printParseResult(_ steps: [TodoStep], title: String) {
         print("📋 \(title):")
@@ -225,10 +226,10 @@ extension IndentBasedTodoParser {
 
 }
 
-extension IndentBasedTodoParser {
+extension TodoStepParser {
     // MARK: - 测试和示例
     static func testIndentBasedParser() {
-        let parser = IndentBasedTodoParser()
+        let parser = TodoStepParser()
         
         print("=== 示例1：正常展开的文档 ===")
         let normalMarkdown = """
@@ -321,7 +322,7 @@ extension IndentBasedTodoParser {
             - [ ] 准备演讲稿
         """
 
-        let parser = IndentBasedTodoParser()
+        let parser = TodoStepParser()
         let steps = parser.parse(sampleMarkdown)
 
         print("原始解析结果：")

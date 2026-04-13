@@ -302,7 +302,6 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
     }
 }
 
-
 extension TodoTaskStepEditCell: TPDragPreviewViewProviding {
     
     func dragPreviewView() -> UIView? {
@@ -348,7 +347,7 @@ class TodoTaskStepEditCellPreviewView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .orange
+        self.backgroundColor = .secondarySystemBackground
         self.infoView.leftAccessoryView = self.checkbox
         self.addSubview(infoView)
     }
