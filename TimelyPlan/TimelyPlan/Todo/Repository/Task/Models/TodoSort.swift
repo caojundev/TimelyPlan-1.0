@@ -16,7 +16,7 @@ enum TodoSortType: String, Codable, TPMenuRepresentable {
     case dueDate   /// 截止日期
     
     var iconName: String? {
-        return "SortType" + defaultIconName()
+        return "todo_sort_type_" + self.rawValue + "_24"
     }
     
     var title: String {
@@ -43,9 +43,9 @@ enum TodoSortOrder: Int, Codable, TPMenuRepresentable {
     var iconName: String? {
         switch self {
         case .ascending:
-            return "SortOrderAscending"
+            return "todo_sort_order_ascending_24"
         case .descending:
-            return "SortOrderDescending"
+            return "todo_sort_order_descending_24"
         }
     }
     

@@ -24,6 +24,14 @@
 
 ///**********************待办*********************///
 
+/// 智能列表
+"Inbox" = "收件箱";
+"Completed" = "已完成";
+"Scheduled" = "计划";
+"Trash" = "废纸篓";
+"Planned" = "计划内";
+"Tag" = "标签";
+
 "%ld sublists" = "%ld个子列表";
 "%ld sublist" = "%ld个子列表";
 
@@ -69,6 +77,11 @@
 "High Priority" = "高优先级";
 
 /// 列表选项
+"Select" = "选择";
+"Select All" = "全选";
+"Deselect All" = "反选";
+"%ld selected" = "选中%ld个";
+
 "Group" = "分组";
 "None Group" = "无分组";
 "Sort" = "排序";
@@ -94,10 +107,9 @@
 "Unassigned" = "未分配";
 "Manually" = "手动";
 "Alphabet" = "首字母";
-"Creation Date" = "创建时间";
-"Modification Date" = "修改日期";
 "Ascending" = "升序";
 "Descending" = "降序";
+
 
 /// 快速添加任务
 "Add a Task" = "添加任务";
@@ -494,4 +506,27 @@
 "Week Start On" = "周开始于";
 
 ///**********************通用*********************///
+"Done" = "完成";
+"Undone" = "未完成";
+"New" = "新建";
+"Edit" = "编辑";
+"Move" = "移动";
+"Delete" = "删除";
+"Archive" = "归档";
+"Archived" = "已归档";
+"Unarchive" = "取消归档";
+"Shred" = "删除";
+"Save" = "保存";
+"Cancel" = "取消";
+
+"Note" = "备注";
+"Add Note" = "添加备注";
+
+/// 日期
+"Date" = "日期";
+"Start Date" = "开始日期";
+"Due Date" = "截止日期";
+"Creation Date" = "创建时间";
+"Modification Date" = "修改日期";
+
 "Exceeds maximum character limit: %ld" = "已超出最大字符限制: %ld";

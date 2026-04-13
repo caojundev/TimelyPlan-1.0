@@ -27,7 +27,7 @@ enum TodoGroupType: String, Codable, TPMenuRepresentable {
     }
     
     var iconName: String? {
-        return "TodoGroupType" + defaultIconName()
+        return "todo_group_type_" + self.rawValue + "_24"
     }
     
     var handleBeforeDismiss: Bool {
