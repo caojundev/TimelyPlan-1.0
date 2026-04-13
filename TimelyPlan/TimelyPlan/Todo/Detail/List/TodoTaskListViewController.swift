@@ -8,20 +8,11 @@
 import Foundation
 import UIKit
 
-protocol TodoTaskListViewControllerDelegate: AnyObject {
-    
-    /// 当任务列表的选择模式
-    func taskListViewController(_ vc: TodoTaskListViewController, didChangeSelectionMode isSelecting: Bool)
-    
-    /// 选中的任务项集合发生变化时调用
-    func taskListViewController(_ vc: TodoTaskListViewController, didChangeSelectedTasks selectedTasks: Set<TodoTask>)
-}
-
 class TodoTaskListViewController: UIViewController,
-                                    TodoDetailContent,
+                                  TodoDetailContent,
                                   TodoTaskListViewDelegate {
  
-    weak var delegate: TodoTaskListViewControllerDelegate?
+    weak var selectionDelegate: TodoTaskListSelectionDelegate?
     
     let taskController = TodoTaskController()
     
@@ -360,7 +351,7 @@ class TodoTaskListViewController: UIViewController,
             hideToolView()
         }
         
-        delegate?.taskListViewController(self, didChangeSelectionMode: isSelecting)
+        selectionDelegate?.todoTaskListDidUpdateSelectionMode(to: isSelecting)
     }
     
     // MARK: - ToolView
@@ -464,7 +455,7 @@ class TodoTaskListViewController: UIViewController,
     }
     
     func todoTaskListViewDidChangeSelectedTasks(_ listView: TodoTaskListView) {
-        self.delegate?.taskListViewController(self, didChangeSelectedTasks: listView.selectedTasks)
+        self.selectionDelegate?.todoTaskListDidUpdateSelectedTasks(to: listView.selectedTasks)
         self.updateToolView()
     }
     

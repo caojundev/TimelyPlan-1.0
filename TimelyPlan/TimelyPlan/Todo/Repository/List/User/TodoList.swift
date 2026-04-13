@@ -99,7 +99,6 @@ class TodoList: NSObject,TodoListRepresentable, SortableIdentifiable, TPHexColor
                 layoutType == other.layoutType
     }
     
-    
     func addSublist(_ list: TodoList) {
         if self.identifier == list.identifier {
             /// 列表不能作为自己的子列表

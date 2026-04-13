@@ -33,38 +33,7 @@ class Todo {
         }
     }
     
-    // MARK: - 列表处理
-    
-    /// 新建列表
-    func createList(with editingList: TodoEditingList, parent: TodoList?) {
-        userListManager.createList(with: editingList, parent: parent)
-    }
-    
-    /// 更新列表信息
-    func updateList(_ list: TodoList, with editingList: TodoEditingList, parent: TodoList?) {
-        userListManager.updateList(list, with: editingList, parent: parent)
-    }
-    
-    /// 移动列表
-    func moveList(_ list: TodoList, to parent: TodoList?) {
-        userListManager.moveList(list, to: parent)
-    }
-    
-    func reorderList(in lists: [TodoList], fromIndex: Int, toIndex: Int, depth: Int) {
-        userListManager.reorderList(in: lists, fromIndex: fromIndex, toIndex: toIndex, depth: depth)
-    }
-    
-    /// 解散列表
-    func ungroupList(_ list: TodoList) {
-        userListManager.ungroupList(list)
-    }
-    
-    /// 删除列表
-    func deleteList(_ list: TodoList) {
-        userListManager.deleteList(list)
-    }
-    
-    
+
     // MARK: - 获取标签
     func fetchTags(completion: @escaping([TodoTag]?) -> Void) {
         tagManager.fetchTags(completion: completion)
@@ -106,6 +75,45 @@ class Todo {
         return tagManager.reorderTag(in: tags, fromIndex: fromIndex, toIndex: toIndex)
     }
  
+}
+
+extension Todo {
+   
+    // MARK: - 获取列表
+    func getUserList(of identifier: String) -> TodoList? {
+        return userListManager.getUserList(of: identifier)
+    }
+    
+    // MARK: - 列表处理
+    
+    /// 新建列表
+    func createList(with editingList: TodoEditingList, parent: TodoList?) {
+        userListManager.createList(with: editingList, parent: parent)
+    }
+    
+    /// 更新列表信息
+    func updateList(_ list: TodoList, with editingList: TodoEditingList, parent: TodoList?) {
+        userListManager.updateList(list, with: editingList, parent: parent)
+    }
+    
+    /// 移动列表
+    func moveList(_ list: TodoList, to parent: TodoList?) {
+        userListManager.moveList(list, to: parent)
+    }
+    
+    func reorderList(in lists: [TodoList], fromIndex: Int, toIndex: Int, depth: Int) {
+        userListManager.reorderList(in: lists, fromIndex: fromIndex, toIndex: toIndex, depth: depth)
+    }
+    
+    /// 解散列表
+    func ungroupList(_ list: TodoList) {
+        userListManager.ungroupList(list)
+    }
+    
+    /// 删除列表
+    func deleteList(_ list: TodoList) {
+        userListManager.deleteList(list)
+    }
 }
 
 /// 任务相关

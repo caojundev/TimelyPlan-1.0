@@ -10,6 +10,8 @@ import UIKit
 
 protocol TodoDetailContent {
     
+    var selectionDelegate: TodoTaskListSelectionDelegate? { get set}
+    
     /// 导航栏标题
     var navigationTitle: TextRepresentable? { get }
     
@@ -24,7 +26,7 @@ protocol TodoDetailContent {
 }
 
 class TodoDetailViewController: TPMultiColumnDetailViewController,
-                                TodoTaskListViewControllerDelegate {
+                                TodoTaskListSelectionDelegate {
 
     /// 标题视图
     private lazy var titleView: TPInfoView = {
@@ -36,11 +38,23 @@ class TodoDetailViewController: TPMultiColumnDetailViewController,
         return view
     }()
     
-    let configuration: TodoListConfiguration
+    var configuration: TodoListConfiguration {
+        return interactor.configuration
+    }
+    
+    let interactor: TodoListInteractor
     
     init(configuration: TodoListConfiguration) {
-        self.configuration = configuration
+        self.interactor = TodoListInteractor.interactor(for: configuration)
         super.init(nibName: nil, bundle: nil)
+        self.interactor.didChangeLayoutType = { [weak self] in
+            self?.setupContentViewController()
+        }
+        
+        self.interactor.didChangeListInfo = { [weak self] in
+            self?.updateTitle()
+        }
+        
         self.setupContentViewController()
     }
     
@@ -71,12 +85,14 @@ class TodoDetailViewController: TPMultiColumnDetailViewController,
     }
     
     func setupContentViewController() {
-        let contentVC = self.configuration.makeContent()
-        if let contentVC = contentVC as? TodoTaskListViewController {
-            contentVC.delegate = self
+        let contentVC = configuration.makeContent(with: self.interactor)
+        if var contentVC = contentVC as? TodoDetailContent {
+            contentVC.selectionDelegate = self
         }
         
         self.setContentViewController(contentVC)
+        self.updateTitle()
+        self.updateBarButtonItems()
     }
     
     var detailContent: TodoDetailContent? {
@@ -102,8 +118,8 @@ class TodoDetailViewController: TPMultiColumnDetailViewController,
         navigationItem.rightBarButtonItems = self.detailContent?.navigationRightBarButtonItems
     }
     
-    // MARK: - TodoTaskListViewControllerDelegate
-    func taskListViewController(_ vc: TodoTaskListViewController, didChangeSelectionMode isSelecting: Bool) {
+    // MARK: - TodoTaskListSelectionDelegate
+    func todoTaskListDidUpdateSelectionMode(to isSelecting: Bool) {
         self.updateBarButtonItems()
         self.updateSubtitle()
         
@@ -114,8 +130,9 @@ class TodoDetailViewController: TPMultiColumnDetailViewController,
         }
     }
     
-    func taskListViewController(_ vc: TodoTaskListViewController, didChangeSelectedTasks selectedTasks: Set<TodoTask>) {
+    func todoTaskListDidUpdateSelectedTasks(to selectedTasks: Set<TodoTask>) {
         self.updateSubtitle()
         self.updateBarButtonItems()
     }
+    
 }

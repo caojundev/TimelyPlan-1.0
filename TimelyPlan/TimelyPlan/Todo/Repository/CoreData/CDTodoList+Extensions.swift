@@ -144,8 +144,8 @@ extension CDTodoList {
             return false
         }
 
-        if let list = coreDataList(for: aList) {
-            list.update(with: editingList)
+        if let cdList = coreDataList(for: aList) {
+            cdList.update(with: editingList)
             return true
         }
         

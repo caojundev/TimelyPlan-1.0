@@ -9,9 +9,16 @@ import Foundation
 
 class TodoListInteractor: TodoTaskProcessorDelegate {
 
+    /// 布局改变
+    var didChangeLayoutType: (() -> Void)?
+    
+    /// 列表的信息改变
+    var didChangeListInfo: (() -> Void)?
+    
     /// 分组改变
     var didChangeGroups: (() -> Void)?
 
+    /// 当前分组数组
     var groups: [TodoGroup]?
     
     /// 列表配置
@@ -21,7 +28,9 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     
     private var showCompleted: Bool = true
     
-    private var layoutType: TodoListLayoutType = .list
+    var layoutType: TodoListLayoutType {
+        return .list
+    }
     
     private var groupType: TodoGroupType
     

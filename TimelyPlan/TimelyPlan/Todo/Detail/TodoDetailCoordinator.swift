@@ -8,13 +8,16 @@
 import Foundation
 import UIKit
 
-class TodoDetailCoordinator {
+class TodoDetailCoordinator: TodoListProcessorDelegate {
     
     /// 多边栏视图管理器
     private(set) weak var multiColumnVC: TPMultiColumnViewController?
     
+    private var configuration: TodoListConfiguration?
+    
     init(multiColumnViewController: TPMultiColumnViewController) {
         self.multiColumnVC = multiColumnViewController
+        todo.addUpdater(self)
     }
     
     /// 显示用户列表详情
@@ -23,10 +26,25 @@ class TodoDetailCoordinator {
             return
         }
         
-        let configuration = TodoListConfiguration.configuration(for: item)!
-        let vc = TodoDetailViewController(configuration: configuration)
-        let navController = UINavigationController(rootViewController: vc)
-        multiColumnVC.replaceDetail(with: navController)
-        multiColumnVC.showDetailView()
+        self.configuration = TodoListConfiguration.configuration(for: item)
+        if let configuration = self.configuration {
+            let vc = TodoDetailViewController(configuration: configuration)
+            let navController = UINavigationController(rootViewController: vc)
+            multiColumnVC.replaceDetail(with: navController)
+            multiColumnVC.showDetailView()
+        }
     }
+    
+    // MARK: - TodoListProcessorDelegate
+    func didDeleteTodoLists(_ lists: [TodoList]) {
+        guard let configuration = self.configuration as? TodoUserListConfiguration else {
+            return
+        }
+        
+        if lists.contains(configuration.list) {
+            /// 显示默认的收件箱列表
+            showDetail(for: TodoSmartList.inbox)
+        }
+    }
+    
 }

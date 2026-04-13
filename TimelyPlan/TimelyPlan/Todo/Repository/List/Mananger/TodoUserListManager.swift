@@ -27,6 +27,16 @@ class TodoUserListManager {
         }
     }
     
+    // MARK: - 获取列表
+    func getUserList(of identifier: String) -> TodoList? {
+        guard let cdList = CDTodoList.getItem(withIdentifier: identifier) else {
+            return nil
+        }
+        
+        #warning("父列表未设置")
+        return TodoList(content: cdList)
+    }
+    
     // MARK: - 列表操作
     /// 新建列表
     func createList(with editList: TodoEditingList, parent: TodoList?) {

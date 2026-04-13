@@ -24,7 +24,7 @@ class TodoListConfiguration {
     }
     
     /// 创建内容视图控制器
-    func makeContent() -> UIViewController {
+    func makeContent(with interactor: TodoListInteractor) -> UIViewController {
         return UIViewController()
     }
     
@@ -100,11 +100,16 @@ class TodoListConfiguration {
 
 class TodoUserListConfiguration: TodoListConfiguration {
     
-    let list: TodoList
+    private(set) var list: TodoList
     
     init(list: TodoList) {
         self.list = list
         super.init()
+    }
+    
+    /// 更新列表
+    func updateList(_ list: TodoList) {
+        self.list = list
     }
     
     override func quickAddTask() -> TodoQuickAddTask? {
@@ -137,11 +142,17 @@ class TodoUserListConfiguration: TodoListConfiguration {
         return TodoSortOrder.allCases
     }
     
-    override func makeContent() -> UIViewController {
-        let interactor = TodoListInteractor.interactor(for: self)
-        return TodoTaskListViewController(interactor: interactor)
+    override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
+        if list.layoutType == .list {
+            return TodoTaskListViewController(interactor: interactor)
+        } else {
+            let vc = UIViewController()
+            vc.view.backgroundColor = .random
+            return vc
+        }
     }
 }
+
 
 class TodoSmartListConfiguration: TodoListConfiguration {
     
@@ -225,8 +236,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         }
     }
     
-    override func makeContent() -> UIViewController {
-        let interactor = TodoListInteractor.interactor(for: self)
+    override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
         if list.listType == .trash {
             return TodoTrashTaskListViewController(interactor: interactor)
         }
@@ -262,8 +272,7 @@ class TodoTagListConfiguration: TodoListConfiguration {
         return .orangePrimary
     }
 
-    override func makeContent() -> UIViewController {
-        let interactor = TodoListInteractor.interactor(for: self)
+    override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
         return TodoTaskListViewController(interactor: interactor)
     }
 }
