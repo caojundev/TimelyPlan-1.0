@@ -100,6 +100,11 @@ extension Todo {
         userListManager.updateList(list, with: editingList, parent: parent)
     }
     
+    /// 更新列表布局
+    func updateList(_ list: TodoList, layoutType: TodoListLayoutType) {
+        userListManager.updateList(list, layoutType: layoutType)
+    }
+    
     /// 移动列表
     func moveList(_ list: TodoList, to parent: TodoList?) {
         userListManager.moveList(list, to: parent)

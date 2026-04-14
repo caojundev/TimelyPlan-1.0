@@ -6,17 +6,22 @@
 //
 
 import Foundation
-import CoreGraphics
 
 class TodoUserListInteractor: TodoListInteractor,
                                 TodoListProcessorDelegate {
     
-    override var layoutType: TodoListLayoutType {
-        return listConfiguration.list.layoutType
-    }
-    
     var listConfiguration: TodoUserListConfiguration {
        return configuration as! TodoUserListConfiguration
+    }
+    
+    override var layoutType: TodoListLayoutType {
+        get {
+            return listConfiguration.list.layoutType
+        }
+        
+        set {
+            todo.updateList(listConfiguration.list, layoutType: newValue)
+        }
     }
     
     override init(configuration: TodoListConfiguration) {
@@ -45,7 +50,10 @@ class TodoUserListInteractor: TodoListInteractor,
         return listName
     }
     
-    
+//    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
+//
+//    }
+
     // MARK: - TodoListProcessorDelegate
     func didUpdateTodoList(_ list: TodoList) {
         let oldList = listConfiguration.list

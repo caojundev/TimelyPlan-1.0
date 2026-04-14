@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import QuartzCore
 import UIKit
 
 class TodoTaskQuickAddEditView: UIScrollView,

@@ -25,12 +25,10 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     let configuration: TodoListConfiguration
     
     private(set) var tasks: [TodoTask]?
+
+    var layoutType: TodoListLayoutType = .list
     
     private var showCompleted: Bool = true
-    
-    var layoutType: TodoListLayoutType {
-        return .list
-    }
     
     private var groupType: TodoGroupType
     
@@ -97,22 +95,19 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     // MARK: -
     func loadGroups() {
         let requestID = requestManager.executeRequest()
+        let groupType = self.configuration.validatedGroupType(self.groupType)
+        let sort = self.configuration.validatedSort(self.sort)
         loadTasksIfNeeded { tasks in
             guard self.requestManager.shouldProceed(with: requestID) else {
                 return
             }
-            
+
             DispatchQueue.global(qos: .userInitiated).async {
+                let groups = TodoListInteractor.groups(for: tasks, groupType: groupType, sort: sort)
                 DispatchQueue.main.async {
                     guard self.requestManager.shouldProceed(with: requestID) else {
                         return
                     }
-                    
-                    var groups = [TodoGroup]()
-                    let group = TodoGroup(identifier: "MyGroup")
-                    group.title = "所有任务分组"
-                    group.tasks = tasks
-                    groups.append(group)
                     
                     self.tasks = tasks
                     self.groups = groups
@@ -125,12 +120,10 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     
     private func loadTasksIfNeeded(completion: @escaping ([TodoTask]?) -> Void) {
         guard self.needsRefresh else {
-            print("❌无需重新获取任务")
             completion(self.tasks)
             return
         }
         
-        print("✅获取任务")
         fetchTasks(completion: completion)
     }
     
@@ -141,6 +134,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
         }
     }
     
+    // MARK: - 菜单操作
     func toggleShowCompleted() {
         self.showCompleted = !self.showCompleted
         self.setNeedsRefresh()
@@ -158,22 +152,24 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     }
     
     func setSortType(_ sortType: TodoSortType) {
-        let sortType = self.configuration.validatedSortType(sortType)
-        guard self.sort.type != sortType else {
-            return
-        }
-        
-        self.sort.type = sortType
-        self.loadGroups()
+        var sort = self.sort
+        sort.type = sortType
+        setSort(sort)
     }
     
     func setSortOrder(_ sortOrder: TodoSortOrder) {
-        let sortOrder = self.configuration.validatedSortOrder(sortOrder, for: self.sort.type)
-        guard self.sort.order != sortOrder else {
+        var sort = self.sort
+        sort.order = sortOrder
+        setSort(sort)
+    }
+    
+    private func setSort(_ sort: TodoSort) {
+        let sort = self.configuration.validatedSort(sort)
+        guard self.sort != sort else {
             return
         }
         
-        self.sort.order = sortOrder
+        self.sort = sort
         self.loadGroups()
     }
     
@@ -230,6 +226,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     }
 }
 
+
 extension TodoListInteractor {
     
     static func interactor(for configuration: TodoListConfiguration) -> TodoListInteractor {
@@ -242,6 +239,59 @@ extension TodoListInteractor {
             return TodoTagListInteractor(configuration: tagListConfig)
         default:
             return TodoListInteractor(configuration: TodoListConfiguration(identifier: ""))
+        }
+    }
+
+    static func groups(for tasks: [TodoTask]?, groupType: TodoGroupType, sort: TodoSort) -> [TodoGroup]? {
+        guard let tasks = tasks, tasks.count > 0 else {
+            return nil
+        }
+
+        let orderedTasks = sortedTasks(tasks, sort: sort)
+        let groups = groupTasks(orderedTasks, groupType: groupType)
+        return groups
+    }
+    
+    /// 任务排序
+    static func sortedTasks(_ tasks: [TodoTask], sort: TodoSort) -> [TodoTask] {
+        let sortDescriptors = sortDescriptors(for: sort)
+        return tasks.sorted(using: sortDescriptors)
+    }
+    
+    static func sortDescriptors(for sort: TodoSort) -> [SortDescriptor<TodoTask>] {
+        var results = [sort.sortDescriptor]
+        
+        /// 辅助排序
+        let types: [TodoSortType] = [.manually, .startDate, .dueDate]
+        guard types.contains(sort.type) else {
+            return results
+        }
+        
+        /// 以创建日期辅助排序
+        let secondarySort = TodoSort(type: .creationDate, order: sort.order)
+        results.append(secondarySort.sortDescriptor)
+        return results
+    }
+    
+    /// 任务分组
+    static func groupTasks(_ tasks: [TodoTask]?, groupType: TodoGroupType) -> [TodoGroup]? {
+        guard let tasks = tasks, tasks.count > 0 else {
+            return nil
+        }
+
+        switch groupType {
+        case .none:
+            return tasks.noneClassifiedTaskGroups()
+        case .list:
+            return tasks.listClassifiedTaskGroups()
+        case .default:
+            return tasks.statusClassifiedTaskGroups()
+        case .startDate:
+            return tasks.startDateClassifiedTaskGroups()
+        case .dueDate:
+            return tasks.dueDateClassifiedTaskGroups()
+        case .priority:
+            return tasks.priorityClassifiedTaskGroups()
         }
     }
 }

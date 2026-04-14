@@ -88,6 +88,7 @@ class TodoTaskEditInteractor: TodoTaskProcessorDelegate {
             self.task.updateSteps(steps)
         }
         
+        #warning("重新获取任务，可能更新了多个属性了，修改日期等属性可能也改变了")
         onTaskChange?(change)
     }
     

@@ -75,7 +75,7 @@ class TPBaseTableCellLayout {
     }
 
     /// 最小高度
-    var minimumHeight: CGFloat = 0.0 {
+    var minimumHeight: CGFloat = 55.0 {
         didSet {
             if minimumHeight != oldValue {
                 setNeedsLayout()

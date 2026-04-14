@@ -239,11 +239,23 @@ class TodoBaseTaskListViewController: UIViewController,
         switch option {
         case .select:
             self.setSelecting(true)
+        case .layout:
+            self.toggleLayout()
         case .showCompleted:
             self.interactor.toggleShowCompleted()
         default:
             break
         }
+    }
+    
+    /// 切换布局
+    private func toggleLayout() {
+        var layoutType = self.interactor.layoutType
+        if layoutType == .list {
+            layoutType = .board
+        }
+        
+        self.interactor.layoutType = layoutType
     }
 
     private func selectGroupType(_ groupType: TodoGroupType) {

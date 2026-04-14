@@ -152,6 +152,20 @@ extension CDTodoList {
         return false
     }
     
+    /// 更新列表布局
+    static func updateList(_ aList: TodoList, layoutType: TodoListLayoutType) -> Bool {
+        guard aList.layoutType != layoutType else {
+            return false
+        }
+        
+        if let cdList = coreDataList(for: aList) {
+            cdList.layoutRawValue = Int16(layoutType.rawValue)
+            return true
+        }
+        
+        return false
+    }
+
     /// 移动列表
     static func moveList(_ list: TodoList, to parent: TodoList?) -> Bool {
         if list.identifier == parent?.identifier || parent?.identifier == list.parent?.identifier {

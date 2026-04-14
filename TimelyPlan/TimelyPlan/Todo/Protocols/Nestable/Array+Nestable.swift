@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreGraphics
 
 extension Array where Element: Nestable & Equatable {
     

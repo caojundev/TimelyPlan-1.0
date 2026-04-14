@@ -7,12 +7,6 @@
 
 import Foundation
 
-/// 任务排序时插入位置
-enum TodoTaskInsertPosition {
-    case before
-    case after
-}
-
 /// 检查类型
 enum TodoTaskCheckType {
     case normal

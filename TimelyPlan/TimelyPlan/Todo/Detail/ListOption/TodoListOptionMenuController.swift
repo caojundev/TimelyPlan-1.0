@@ -99,10 +99,14 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     private func updateGroupAction(_ action: TPMenuAction) {
         action.subtitle = self.config.groupType.title
         let allowGroupTypes = self.config.allowGroupTypes
+        
         let controller = TodoGroupTypeMenuController(types: allowGroupTypes)
         controller.selectedGroupType = self.config.groupType
         controller.didSelectGroupType = self.didSelectGroupType
-        action.subMenuItems = controller.menuItems()
+        let subMenuItems = controller.menuItems()
+        if subMenuItems.count > 1 {
+            action.subMenuItems = subMenuItems
+        }
     }
     
     private func updateSortAction(_ action: TPMenuAction) {

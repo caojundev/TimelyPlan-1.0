@@ -183,22 +183,9 @@ class TodoProgressEditViewController: TPTableSectionsViewController {
         return item
     }()
     
-    /// 清除按钮
-    private lazy var clearBarButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: resGetImage("clear_24"),
-                                   style: .done,
-                                   target: self,
-                                   action: #selector(clickClear))
-        item.tintColor = .redPrimary
-        return item
-    }()
-    
     var progress: TodoEditProgress
    
-    var showClearButton: Bool
-    
     init(progress: TodoEditProgress? = nil) {
-        self.showClearButton = progress != nil
         self.progress = progress ?? TodoEditProgress()
         super.init(style: .grouped)
     }
@@ -211,12 +198,7 @@ class TodoProgressEditViewController: TPTableSectionsViewController {
         super.viewDidLoad()
         self.title = resGetString("Progress")
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        var rightBarButtonItems = [resetBarButtonItem]
-        if showClearButton {
-            rightBarButtonItems.insert(clearBarButtonItem, at: 0)
-        }
-        
-        self.navigationItem.rightBarButtonItems = rightBarButtonItems
+        self.navigationItem.rightBarButtonItem = resetBarButtonItem
         self.preferredContentSize = .Popover.extraLarge
         setupActionsBar(actions: [doneAction])
         tableView.keyboardDismissMode = .onDrag
@@ -289,12 +271,6 @@ class TodoProgressEditViewController: TPTableSectionsViewController {
     override func clickDone() {
         super.clickDone()
         didEndEditing?(progress)
-    }
-    
-    @objc private func clickClear() {
-        TPImpactFeedback.impactWithSoftStyle()
-        dismiss(animated: true, completion: nil)
-        didEndEditing?(nil)
     }
     
     @objc private func clickReset() {

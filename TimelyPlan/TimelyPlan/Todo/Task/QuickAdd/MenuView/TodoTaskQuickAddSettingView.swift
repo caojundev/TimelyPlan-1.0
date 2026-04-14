@@ -26,7 +26,7 @@ class TodoTaskQuickAddSettingView: TPBasePopoverView,
         let cellItem = TPSwitchTableCellItem(autoResizable: false)
         cellItem.title = resGetString("Add Continuously")
         cellItem.titleConfig.font = BOLD_SYSTEM_FONT
-        cellItem.height = 60.0
+        cellItem.height = 55.0
         cellItem.updater = {
             let isOn = TodoSetting.shared.quickAddContinuously
             self?.addContinuouslyCellItem.isOn = isOn

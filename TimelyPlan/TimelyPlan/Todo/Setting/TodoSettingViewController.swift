@@ -12,7 +12,7 @@ class TodoSettingViewController: TPTableSectionsViewController {
     
     /// 快速连续添加
     lazy var quickAddContinuouslyCellItem: TPSwitchTableCellItem = { [weak self] in
-        let cellItem = TPSwitchTableCellItem(autoResizable: true)
+        let cellItem = TPSwitchTableCellItem()
         cellItem.title = resGetString("Add Continuously")
         cellItem.updater = {
             let isOn = TodoSetting.shared.quickAddContinuously

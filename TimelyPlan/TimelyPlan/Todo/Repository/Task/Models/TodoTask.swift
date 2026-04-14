@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TodoTask: NSObject {
+@objcMembers class TodoTask: NSObject {
 
     /// 标识
     var identifier: String
@@ -48,8 +48,6 @@ class TodoTask: NSObject {
     /// 是否已移动到废纸篓
     var isRemoved: Bool = false
     
-    
-    
     /// 进度
     lazy var progress: TodoEditProgress? = {
         if let json = progressJSON {
@@ -59,26 +57,32 @@ class TodoTask: NSObject {
         return nil
     }()
     
+    
     /// 任务计划
     var schedule: TaskSchedule? {
         get {
-            guard let dateInfo = dateInfo else {
+            guard let startDate = startDate, let endDate = dueDate else {
                 return nil
             }
-            
+
+            let dateInfo = TaskDateInfo(startDate: startDate, endDate: endDate, isAllDay: isAllDay)
             let schedule = TaskSchedule(dateInfo: dateInfo, reminder: reminder, repeatRule: repeatRule)
             return schedule
         }
         
         set {
-            self.dateInfo = newValue?.dateInfo
+            let dateInfo = newValue?.dateInfo
+            self.startDate = dateInfo?.startDate
+            self.dueDate = dateInfo?.endDate
+            self.isAllDay = dateInfo?.isAllDay ?? true
             self.reminder = newValue?.reminder
             self.repeatRule = newValue?.repeatRule
         }
     }
-    
-    /// 日期信息
-    private var dateInfo: TaskDateInfo?
+
+    private(set) var startDate: Date?
+    private(set) var dueDate: Date?
+    private(set) var isAllDay: Bool = true
     
     /// 任务提醒
     private lazy var reminder: TaskReminder? = {
@@ -137,7 +141,9 @@ class TodoTask: NSObject {
         self.completionDate = content.completionDate
         self.modificationDate = content.modificationDate
         
-        self.dateInfo = content.dateInfo
+        self.startDate = content.startDate
+        self.dueDate = content.dueDate
+        self.isAllDay = content.isAllDay
         self.reminderJSON = content.reminderJSON
         self.repeatRuleJSON = content.repeatRuleJSON
         self.progressJSON = content.progressJSON

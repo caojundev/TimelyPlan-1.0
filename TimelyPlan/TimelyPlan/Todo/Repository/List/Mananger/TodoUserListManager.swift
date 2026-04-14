@@ -57,6 +57,14 @@ class TodoUserListManager {
             updater.didUpdateTodoList(list)
         }
     }
+    
+    /// 更新列表布局
+    func updateList(_ list: TodoList, layoutType: TodoListLayoutType) {
+        if CDTodoList.updateList(list, layoutType: layoutType) {
+            HandyRecord.save()
+            updater.didUpdateTodoList(list)
+        }
+    }
 
     /// 移动列表
     func moveList(_ list: TodoList, to parent: TodoList?) {

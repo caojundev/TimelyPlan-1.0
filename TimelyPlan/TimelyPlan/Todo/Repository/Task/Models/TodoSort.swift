@@ -62,27 +62,22 @@ struct TodoSort: Equatable {
     /// 排列顺序
     var order: TodoSortOrder = .ascending
     
-    var sortTerm: SortTerm {
-        let key: String = Self.key(for: type)
-        let ascending = order == .ascending
-        return (key, ascending)
-    }
-    
-    static func key(for type: TodoSortType) -> String {
-        let key: String
+    var sortDescriptor: SortDescriptor<TodoTask> {
+        let order: SortOrder = self.order == .ascending ? .forward : .reverse
+        let descriptor: SortDescriptor<TodoTask>
         switch type {
         case .manually:
-            key = TodoTaskKey.order
+            descriptor = SortDescriptor(\TodoTask.order, order: order)
         case .creationDate:
-            key = TodoTaskKey.creationDate
+            descriptor = SortDescriptor(\TodoTask.creationDate, order: order)
         case .modificationDate:
-            key = TodoTaskKey.modificationDate
+            descriptor = SortDescriptor(\TodoTask.modificationDate, order: order)
         case .startDate:
-            key = TodoTaskKey.startDate
+            descriptor = SortDescriptor(\TodoTask.startDate, order: order)
         case .dueDate:
-            key = TodoTaskKey.dueDate
+            descriptor = SortDescriptor(\TodoTask.dueDate, order: order)
         }
         
-        return key
+        return descriptor
     }
 }
