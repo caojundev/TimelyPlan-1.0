@@ -7,12 +7,18 @@
 
 import Foundation
 
-class TodoTagListInteractor: TodoListInteractor {
+class TodoTagListInteractor: TodoListInteractor,
+                                TodoTagProcessorDelegate {
     
     var listConfiguration: TodoTagListConfiguration {
        return configuration as! TodoTagListConfiguration
     }
     
+    override init(configuration: TodoListConfiguration) {
+        super.init(configuration: configuration)
+        todo.addUpdater(self, for: [.tag])
+    }
+
     override func title() -> TextRepresentable? {
         let tagName = listConfiguration.tag.name ?? resGetString("Untitled")
         if let image = resGetImage("todo_home_tag_24") {
@@ -27,4 +33,22 @@ class TodoTagListInteractor: TodoListInteractor {
         
         return tagName
     }
+    
+    // MARK: - TodoTagProcessorDelegate
+    func didUpdateTodoTag(_ tag: TodoTag) {
+        let oldTag = listConfiguration.tag
+        guard tag.identifier == oldTag.identifier else {
+            return
+        }
+        
+        /// 获取更新后的标签
+        guard let newTag = todo.getTag(of: tag.identifier), !newTag.isEqual(oldTag) else {
+            return
+        }
+        
+        /// 更新列表
+        self.listConfiguration.updateTag(newTag)
+        self.didChangeListInfo?()
+    }
+    
 }

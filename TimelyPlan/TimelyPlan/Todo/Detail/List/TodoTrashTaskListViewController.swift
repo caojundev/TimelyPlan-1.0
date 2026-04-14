@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TodoTrashTaskListViewController: TodoTaskListViewController {
+class TodoTrashTaskListViewController: TodoBaseTaskListViewController {
     
     override func selectListOption(_ option: TodoListOption) {
         if option == .emptyTrash {

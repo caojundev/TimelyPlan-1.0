@@ -43,6 +43,10 @@ class Todo {
         return tagManager.getTags()
     }
     
+    func getTag(of identifier: String) -> TodoTag? {
+        return tagManager.getTag(of: identifier)
+    }
+    
     /// 判断标签名称是否已存在
     func isTagExist(with name: String) -> Bool {
         return tagManager.isTagExist(with: name)

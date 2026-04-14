@@ -1,5 +1,5 @@
 //
-//  TodoTaskListViewController.swift
+//  TodoBaseTaskListViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/4/2.
@@ -8,14 +8,12 @@
 import Foundation
 import UIKit
 
-class TodoTaskListViewController: UIViewController,
-                                  TodoDetailContent,
-                                  TodoTaskListViewDelegate {
+class TodoBaseTaskListViewController: UIViewController,
+                                      TodoDetailContent,
+                                      TodoTaskListViewDelegate {
  
     weak var selectionDelegate: TodoTaskListSelectionDelegate?
-    
-    let taskController = TodoTaskController()
-    
+
     /// 更多按钮
     private lazy var moreBarButtonItem: UIBarButtonItem = {
         return UIBarButtonItem(customView: self.moreButton)
@@ -107,7 +105,10 @@ class TodoTaskListViewController: UIViewController,
         return TodoTaskQuickAddManager(containerViewController: self)
     }()
     
-    private let interactor: TodoListInteractor
+    
+    let taskController = TodoTaskController()
+    
+    let interactor: TodoListInteractor
     
     init(interactor: TodoListInteractor) {
         self.interactor = interactor
@@ -211,7 +212,7 @@ class TodoTaskListViewController: UIViewController,
     
     
     // MARK: - AddView
-    func setupAddView() {
+    private func setupAddView() {
         let configuration = self.interactor.configuration
         if configuration.canAddTask() {
             let addView = TPAddView()
@@ -240,8 +241,6 @@ class TodoTaskListViewController: UIViewController,
             self.setSelecting(true)
         case .showCompleted:
             self.interactor.toggleShowCompleted()
-        case .edit:
-            self.editList()
         default:
             break
         }
@@ -257,15 +256,6 @@ class TodoTaskListViewController: UIViewController,
     
     private func selectSortOrder(_ sortOrder: TodoSortOrder) {
         self.interactor.setSortOrder(sortOrder)
-    }
-    
-    private func editList() {
-        guard let configuration = self.interactor.configuration as? TodoUserListConfiguration else {
-            return
-        }
-        
-        let listController = TodoUserListController()
-        listController.editList(configuration.list)
     }
     
     // MARK: - Event Response

@@ -8,19 +8,17 @@
 import Foundation
 import UIKit
 
-class TodoListConfiguration {
+class TodoListConfiguration: Equatable {
     
-    static func configuration(for object: Any) -> TodoListConfiguration! {
-        switch object {
-        case let list as TodoList:
-            return TodoUserListConfiguration(list: list)
-        case let smartList as TodoSmartList:
-            return TodoSmartListConfiguration(list: smartList)
-        case let tag as TodoTag:
-            return TodoTagListConfiguration(tag: tag)
-        default:
-            return nil
-        }
+    let identifier: String
+    
+    init(identifier: String) {
+        self.identifier = identifier
+    }
+    
+    // MARK: - Equatable
+    static func == (lhs: TodoListConfiguration, rhs: TodoListConfiguration) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
     
     /// 创建内容视图控制器
@@ -97,6 +95,23 @@ class TodoListConfiguration {
     }
 }
 
+extension TodoListConfiguration {
+    
+    static func configuration(for object: Any) -> TodoListConfiguration! {
+        switch object {
+        case let list as TodoList:
+            return TodoUserListConfiguration(list: list)
+        case let tag as TodoTag:
+            return TodoTagListConfiguration(tag: tag)
+        case let filter as TodoFilter:
+            return TodoFilterListConfiguration(filter: filter)
+        case let smartList as TodoSmartList:
+            return TodoSmartListConfiguration.smartListConfiguration(for: smartList)
+        default:
+            return nil
+        }
+    }
+}
 
 class TodoUserListConfiguration: TodoListConfiguration {
     
@@ -104,11 +119,15 @@ class TodoUserListConfiguration: TodoListConfiguration {
     
     init(list: TodoList) {
         self.list = list
-        super.init()
+        super.init(identifier: list.identifier)
     }
     
     /// 更新列表
     func updateList(_ list: TodoList) {
+        guard self.identifier == list.identifier else {
+            return
+        }
+        
         self.list = list
     }
     
@@ -143,8 +162,8 @@ class TodoUserListConfiguration: TodoListConfiguration {
     }
     
     override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
-        if list.layoutType == .list {
-            return TodoTaskListViewController(interactor: interactor)
+        if interactor.layoutType == .list {
+            return TodoUserTaskListViewController(interactor: interactor)
         } else {
             let vc = UIViewController()
             vc.view.backgroundColor = .random
@@ -156,11 +175,20 @@ class TodoUserListConfiguration: TodoListConfiguration {
 
 class TodoSmartListConfiguration: TodoListConfiguration {
     
+    static func smartListConfiguration(for smartList: TodoSmartList) -> TodoSmartListConfiguration {
+        switch smartList.listType {
+        case .trash:
+            return TodoTrashListConfiguration(list: smartList)
+        default:
+            return TodoSmartListConfiguration(list: smartList)
+        }
+    }
+    
     let list: TodoSmartList
     
     init(list: TodoSmartList) {
         self.list = list
-        super.init()
+        super.init(identifier: list.identifier)
     }
     
     override func quickAddTask() -> TodoQuickAddTask? {
@@ -237,21 +265,33 @@ class TodoSmartListConfiguration: TodoListConfiguration {
     }
     
     override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
-        if list.listType == .trash {
-            return TodoTrashTaskListViewController(interactor: interactor)
-        }
-        
-        return TodoTaskListViewController(interactor: interactor)
+        return TodoSmartTaskListViewController(interactor: interactor)
+    }
+}
+
+class TodoTrashListConfiguration: TodoSmartListConfiguration {
+    
+    override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
+        return TodoTrashTaskListViewController(interactor: interactor)
     }
 }
 
 class TodoTagListConfiguration: TodoListConfiguration {
     
-    let tag: TodoTag
+    private(set) var tag: TodoTag
     
     init(tag: TodoTag) {
         self.tag = tag
-        super.init()
+        super.init(identifier: tag.identifier)
+    }
+    
+    /// 更新标签
+    func updateTag(_ tag: TodoTag) {
+        guard self.identifier == tag.identifier else {
+            return
+        }
+        
+        self.tag = tag
     }
     
     override func quickAddTask() -> TodoQuickAddTask? {
@@ -273,6 +313,30 @@ class TodoTagListConfiguration: TodoListConfiguration {
     }
 
     override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
-        return TodoTaskListViewController(interactor: interactor)
+        return TodoTagTaskListViewController(interactor: interactor)
+    }
+}
+
+
+class TodoFilterListConfiguration: TodoListConfiguration {
+    
+    private(set) var filter: TodoFilter
+    
+    init(filter: TodoFilter) {
+        self.filter = filter
+        super.init(identifier: filter.identifier)
+    }
+    
+    /// 更新标签
+    func updateFilter(_ filter: TodoFilter) {
+        guard self.identifier == filter.identifier else {
+            return
+        }
+        
+        self.filter = filter
+    }
+    
+    override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
+        return TodoFilterTaskListViewController(interactor: interactor)
     }
 }

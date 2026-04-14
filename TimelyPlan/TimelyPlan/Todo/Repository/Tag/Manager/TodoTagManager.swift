@@ -19,6 +19,14 @@ class TodoTagManager {
         return CDTodoTag.getTags()?.tags ?? []
     }
     
+    func getTag(of identifier: String) -> TodoTag? {
+        guard let cdTag = CDTodoTag.getItem(withIdentifier: identifier) else {
+            return nil
+        }
+    
+        return TodoTag(content: cdTag)
+    }
+    
     func fetchTags(completion: @escaping([TodoTag]?) -> Void) {
         CDTodoTag.fetchTags { results in
             completion(results?.tags)

@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class TodoDetailCoordinator: TodoListProcessorDelegate {
+class TodoDetailCoordinator: TodoListProcessorDelegate,
+                                TodoTagProcessorDelegate {
     
     /// 多边栏视图管理器
     private(set) weak var multiColumnVC: TPMultiColumnViewController?
@@ -22,17 +23,24 @@ class TodoDetailCoordinator: TodoListProcessorDelegate {
     
     /// 显示用户列表详情
     func showDetail(for item: Any) {
+        self.replaceDetail(for: item)
+        self.multiColumnVC?.showDetailView()
+    }
+    
+    private func replaceDetail(for item: Any) {
         guard let multiColumnVC = multiColumnVC else {
             return
         }
         
-        self.configuration = TodoListConfiguration.configuration(for: item)
-        if let configuration = self.configuration {
-            let vc = TodoDetailViewController(configuration: configuration)
-            let navController = UINavigationController(rootViewController: vc)
-            multiColumnVC.replaceDetail(with: navController)
-            multiColumnVC.showDetailView()
+        let newConfiguration = TodoListConfiguration.configuration(for: item)!
+        guard newConfiguration != self.configuration else {
+            return
         }
+        
+        self.configuration = newConfiguration
+        let vc = TodoDetailViewController(configuration: newConfiguration)
+        let navController = UINavigationController(rootViewController: vc)
+        multiColumnVC.replaceDetail(with: navController)
     }
     
     // MARK: - TodoListProcessorDelegate
@@ -43,8 +51,18 @@ class TodoDetailCoordinator: TodoListProcessorDelegate {
         
         if lists.contains(configuration.list) {
             /// 显示默认的收件箱列表
-            showDetail(for: TodoSmartList.inbox)
+            replaceDetail(for: TodoSmartList.inbox)
         }
     }
     
+    // MARK: - TodoTagProcessorDelegate
+    func didDeleteTodoTag(_ tag: TodoTag) {
+        guard let configuration = self.configuration as? TodoTagListConfiguration else {
+            return
+        }
+        
+        if tag.identifier == configuration.identifier {
+            replaceDetail(for: TodoSmartList.inbox)
+        }
+    }
 }

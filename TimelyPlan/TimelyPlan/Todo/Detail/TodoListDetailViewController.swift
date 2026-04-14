@@ -23,6 +23,9 @@ protocol TodoDetailContent {
     
     /// 右侧导航栏按钮项（通常用于操作、保存、更多等）
     var navigationRightBarButtonItems: [UIBarButtonItem]? { get }
+    
+    /// 结束编辑模式
+    func endSelecting()
 }
 
 class TodoDetailViewController: TPMultiColumnDetailViewController,
@@ -79,7 +82,7 @@ class TodoDetailViewController: TPMultiColumnDetailViewController,
     }
     
     override func didClickMask(for containerView: TPColumnContainerView) {
-        if let contentVC = self.contentViewController as? TodoTaskListViewController {
+        if let contentVC = self.contentViewController as? TodoDetailContent {
             contentVC.endSelecting()
         }
     }

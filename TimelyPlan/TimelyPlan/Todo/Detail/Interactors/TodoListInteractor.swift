@@ -241,7 +241,7 @@ extension TodoListInteractor {
         case let tagListConfig as TodoTagListConfiguration:
             return TodoTagListInteractor(configuration: tagListConfig)
         default:
-            return TodoListInteractor(configuration: TodoListConfiguration())
+            return TodoListInteractor(configuration: TodoListConfiguration(identifier: ""))
         }
     }
 }
