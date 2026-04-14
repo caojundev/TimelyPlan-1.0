@@ -12,6 +12,7 @@ class TodoSetting {
     enum Key: String, SettingKeyRepresentable {
         case autoCompleteSubtasks
         case autoCompleteParentTask
+        case quickAddContinuously /// 快速连续添加
         
         static func keyPrefix() -> String? {
             return "TodoSetting"
@@ -23,6 +24,9 @@ class TodoSetting {
     
     @CloudStored(key: Key.autoCompleteParentTask.name, defaultValue: true)
     var autoCompleteParentTask: Bool
+    
+    @CloudStored(key: Key.quickAddContinuously.name, defaultValue: true)
+    var quickAddContinuously: Bool
     
     static let shared = TodoSetting()
     

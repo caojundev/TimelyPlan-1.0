@@ -10,6 +10,30 @@ import UIKit
 
 class TodoSettingViewController: TPTableSectionsViewController {
     
+    /// 快速连续添加
+    lazy var quickAddContinuouslyCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem(autoResizable: true)
+        cellItem.title = resGetString("Add Continuously")
+        cellItem.updater = {
+            let isOn = TodoSetting.shared.quickAddContinuously
+            self?.quickAddContinuouslyCellItem.isOn = isOn
+        }
+
+        cellItem.valueChanged = { isOn in
+            TodoSetting.shared.quickAddContinuously = isOn
+        }
+        
+        return cellItem
+    }()
+    
+     lazy var quickAddSectionController: TPTableItemSectionController = {
+         let sectionController = TPTableItemSectionController()
+         sectionController.headerItem.title = resGetString("Quick Add")
+         sectionController.headerItem.height = 50.0
+         sectionController.cellItems = [quickAddContinuouslyCellItem]
+         return sectionController
+     }()
+    
     /// 自动完成子步骤
     lazy var autoCompleteSubtasksCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem(autoResizable: true)
@@ -57,7 +81,8 @@ class TodoSettingViewController: TPTableSectionsViewController {
         super.viewDidLoad()
         self.title = resGetString("Settings")
         self.navigationItem.leftBarButtonItems = [chevronDownCancelButtonItem]
-        self.sectionControllers = [stepSectionController]
+        self.sectionControllers = [quickAddSectionController,
+                                   stepSectionController]
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.reloadData()
     }

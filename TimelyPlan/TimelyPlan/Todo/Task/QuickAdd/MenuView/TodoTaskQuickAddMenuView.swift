@@ -22,11 +22,11 @@ class TodoTaskQuickAddMenuView: UIView,
 
     var task: TodoQuickAddTask {
         get {
-            return sectionController.task
+            return menuSectionController.task
         }
         
         set {
-            sectionController.task = newValue
+            menuSectionController.task = newValue
         }
     }
     
@@ -48,7 +48,7 @@ class TodoTaskQuickAddMenuView: UIView,
         return collectionView
     }()
 
-    private lazy var sectionController: TodoTaskQuickAddMenuSectionController = {
+    private lazy var menuSectionController: TodoTaskQuickAddMenuSectionController = {
         let sectionController = TodoTaskQuickAddMenuSectionController()
         sectionController.didChangeTask = { [weak self] task, actionType in
             self?.didChangeTask(task, with: actionType)
@@ -57,10 +57,16 @@ class TodoTaskQuickAddMenuView: UIView,
         return sectionController
     }()
     
+    private lazy var moreSectionController: TodoTaskQuickAddMoreSectionController = {
+        let sectionController = TodoTaskQuickAddMoreSectionController()
+        return sectionController
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(collectionView)
-        self.sectionControllers = [sectionController]
+        self.sectionControllers = [menuSectionController,
+                                   moreSectionController]
         self.adapter.collectionView = collectionView
         self.adapter.sectionInset = .zero
         self.adapter.dataSource = self
@@ -86,8 +92,6 @@ class TodoTaskQuickAddMenuView: UIView,
     }
     
     private func didChangeTask(_ newTask: TodoQuickAddTask, with actionType: TodoTaskQuickAddMenuActionType) {
-        delegate?.quickAddMenuView(self,
-                                   didChangeTask: newTask,
-                                   with: actionType)
+        delegate?.quickAddMenuView(self, didChangeTask: newTask, with: actionType)
     }
 }

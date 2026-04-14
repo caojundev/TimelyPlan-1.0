@@ -48,6 +48,9 @@ class TodoTaskQuickAddController: TPKeyboardAwareController,
         
         /// 重置任务
         quickAddView.reset(with: task)
-        endEditing()
+        
+        if !TodoSetting.shared.quickAddContinuously {
+            endEditing()
+        }
     }
 }
