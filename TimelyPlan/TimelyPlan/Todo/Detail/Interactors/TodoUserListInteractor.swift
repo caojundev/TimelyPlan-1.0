@@ -13,15 +13,17 @@ class TodoUserListInteractor: TodoListInteractor,
     var listConfiguration: TodoUserListConfiguration {
        return configuration as! TodoUserListConfiguration
     }
+
+    var list: TodoList {
+        return listConfiguration.list
+    }
     
-    override var layoutType: TodoListLayoutType {
-        get {
-            return listConfiguration.list.layoutType
-        }
-        
-        set {
-            todo.updateList(listConfiguration.list, layoutType: newValue)
-        }
+    override func layoutType() -> TodoListLayoutType {
+        return self.list.layoutType
+    }
+    
+    override func setLayoutType(_ layoutType: TodoListLayoutType) {
+        todo.updateList(list, layoutType: layoutType)
     }
     
     override init(configuration: TodoListConfiguration) {
@@ -30,7 +32,7 @@ class TodoUserListInteractor: TodoListInteractor,
     }
     
     override func title() -> TextRepresentable? {
-        let list = listConfiguration.list
+        let list = self.list
         let listName = list.name ?? resGetString("Untitled")
         if let emoji = list.emoji {
             return emoji + " " + listName
@@ -51,15 +53,15 @@ class TodoUserListInteractor: TodoListInteractor,
     }
     
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        let list = self.listConfiguration.list
-        todo.fetchUserListTasks(in: list,
-                                showCompleted: self.showCompleted,
+        
+        todo.fetchUserListTasks(in: self.list,
+                                showCompleted: self.state.showCompleted,
                                 completion: completion)
     }
 
     // MARK: - TodoListProcessorDelegate
     func didUpdateTodoList(_ list: TodoList) {
-        let oldList = listConfiguration.list
+        let oldList = self.list
         guard list.identifier == oldList.identifier else {
             return
         }

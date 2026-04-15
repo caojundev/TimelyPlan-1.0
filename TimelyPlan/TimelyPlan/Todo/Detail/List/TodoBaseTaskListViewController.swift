@@ -250,12 +250,12 @@ class TodoBaseTaskListViewController: UIViewController,
     
     /// 切换布局
     private func toggleLayout() {
-        var layoutType = self.interactor.layoutType
+        var layoutType = self.interactor.layoutType()
         if layoutType == .list {
             layoutType = .board
         }
         
-        self.interactor.layoutType = layoutType
+        self.interactor.setLayoutType(layoutType)
     }
 
     private func selectGroupType(_ groupType: TodoGroupType) {

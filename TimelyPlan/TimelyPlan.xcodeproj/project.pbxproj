@@ -610,6 +610,9 @@
 		E56B949B2F8DD61A001E488B /* TodoSmartTaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B949A2F8DD61A001E488B /* TodoSmartTaskListViewController.swift */; };
 		E56B949D2F8DF183001E488B /* TodoTaskQuickAddMoreSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B949C2F8DF183001E488B /* TodoTaskQuickAddMoreSectionController.swift */; };
 		E56B949F2F8DF582001E488B /* TodoTaskQuickAddSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B949E2F8DF582001E488B /* TodoTaskQuickAddSettingView.swift */; };
+		E56B94A22F8F75E3001E488B /* TodoListOptionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94A12F8F75E3001E488B /* TodoListOptionState.swift */; };
+		E56B94A42F8F7C1A001E488B /* IdentifiableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94A32F8F7C1A001E488B /* IdentifiableItem.swift */; };
+		E56B94A62F8F93F5001E488B /* TodoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94A52F8F93F5001E488B /* TodoState.swift */; };
 		E56BAC752DCC56BB0013C6F6 /* CalendarDatePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC742DCC56BB0013C6F6 /* CalendarDatePageView.swift */; };
 		E56BAC772DCC56E60013C6F6 /* CalendarWeekPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */; };
 		E56BAC7C2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift */; };
@@ -2228,6 +2231,9 @@
 		E56B949A2F8DD61A001E488B /* TodoSmartTaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSmartTaskListViewController.swift; sourceTree = "<group>"; };
 		E56B949C2F8DF183001E488B /* TodoTaskQuickAddMoreSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddMoreSectionController.swift; sourceTree = "<group>"; };
 		E56B949E2F8DF582001E488B /* TodoTaskQuickAddSettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskQuickAddSettingView.swift; sourceTree = "<group>"; };
+		E56B94A12F8F75E3001E488B /* TodoListOptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListOptionState.swift; sourceTree = "<group>"; };
+		E56B94A32F8F7C1A001E488B /* IdentifiableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableItem.swift; sourceTree = "<group>"; };
+		E56B94A52F8F93F5001E488B /* TodoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoState.swift; sourceTree = "<group>"; };
 		E56BAC742DCC56BB0013C6F6 /* CalendarDatePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePageView.swift; sourceTree = "<group>"; };
 		E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekPageView.swift; sourceTree = "<group>"; };
 		E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekPageCell.swift; sourceTree = "<group>"; };
@@ -3486,6 +3492,7 @@
 			children = (
 				E50D5FE92F7A0F5100D5E0A4 /* Todo.swift */,
 				E58F46C52F7B9DCC0046FA96 /* TodoUpdaterOption.swift */,
+				E56B94A02F8F75B8001E488B /* State */,
 				E58F46BE2F7B9B480046FA96 /* CoreData */,
 				E57CC5C92F7FCE7200ADDBA4 /* Task */,
 				E529ACED2F7E1D62000EA2F1 /* Tag */,
@@ -3687,6 +3694,7 @@
 			children = (
 				E57CC5E32F7FEDC700ADDBA4 /* TodoListRepresentable.swift */,
 				E549B1542F863E230014BE85 /* TodoListFeature.swift */,
+				E56B94A72F8F9416001E488B /* Option */,
 				E529ACC82F7E017A000EA2F1 /* Smart */,
 				E529ACC72F7E0171000EA2F1 /* User */,
 				E58F46C12F7B9D4D0046FA96 /* Mananger */,
@@ -5084,6 +5092,24 @@
 			path = Filter;
 			sourceTree = "<group>";
 		};
+		E56B94A02F8F75B8001E488B /* State */ = {
+			isa = PBXGroup;
+			children = (
+				E56B94A52F8F93F5001E488B /* TodoState.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		E56B94A72F8F9416001E488B /* Option */ = {
+			isa = PBXGroup;
+			children = (
+				E57CC5B62F7F9E0000ADDBA4 /* TodoListOption.swift */,
+				E56B94A12F8F75E3001E488B /* TodoListOptionState.swift */,
+				E56B94A32F8F7C1A001E488B /* IdentifiableItem.swift */,
+			);
+			path = Option;
+			sourceTree = "<group>";
+		};
 		E56BAC7A2DCCDABE0013C6F6 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -5122,7 +5148,6 @@
 				E51DF2102F853FC700D6BCE3 /* TodoTask+Organizer.swift */,
 				E5F155362F83E1C600116091 /* TodoTaskActionType.swift */,
 				E57CC5C02F7F9FE600ADDBA4 /* TodoSort.swift */,
-				E57CC5B62F7F9E0000ADDBA4 /* TodoListOption.swift */,
 				E57CC5E52F7FEF3E00ADDBA4 /* TodoTaskPriority.swift */,
 				E57CC5BE2F7F9FA600ADDBA4 /* TodoTaskGroup.swift */,
 				E57CC5F92F7FF79E00ADDBA4 /* TodoEditProgress.swift */,
@@ -9412,6 +9437,7 @@
 				E5F155302F839F7C00116091 /* TodoTask+Extensions.swift in Sources */,
 				E54E63252F5A705300FCBCAE /* HabitManageActiveListViewController.swift in Sources */,
 				E57CC5E12F7FCED300ADDBA4 /* TodoTaskQuickAddTagView.swift in Sources */,
+				E56B94A22F8F75E3001E488B /* TodoListOptionState.swift in Sources */,
 				E549B1982F89F6A70014BE85 /* TodoTaskStepEditCell.swift in Sources */,
 				E5D7D8FF2D43933600EC877A /* FocusMainViewController.swift in Sources */,
 				E5D7D8C42D43933600EC877A /* FocusEvent.swift in Sources */,
@@ -9437,6 +9463,7 @@
 				E50D60512F7A13F100D5E0A4 /* AlarmPresetListTableCell.swift in Sources */,
 				E5BB9DD52D3BF0C60089667A /* UIDevice+Extension.swift in Sources */,
 				E5B33D872F8250DB00939C3E /* TodoTagSelectViewModel.swift in Sources */,
+				E56B94A62F8F93F5001E488B /* TodoState.swift in Sources */,
 				E5D7D9122D43933700EC877A /* FocusStatsOverallViewController.swift in Sources */,
 				E53F328E2F68D6D200B85B65 /* HabitReportWeeklyViewController.swift in Sources */,
 				E5BB9E142D3BF0C70089667A /* HandyRecord+Setup.swift in Sources */,
@@ -9747,6 +9774,7 @@
 				E53DCEE42F6107D100ADA526 /* HabitTaskBaseListGroupProvider.swift in Sources */,
 				E5BB9EFC2D3BF0C80089667A /* TPPopoverPresentationConfigure.swift in Sources */,
 				E56B948F2F8D246B001E488B /* TodoTaskListSelectionDelegate.swift in Sources */,
+				E56B94A42F8F7C1A001E488B /* IdentifiableItem.swift in Sources */,
 				E5D7D8C12D43933600EC877A /* FocusPomodoroProgressView.swift in Sources */,
 				E5DCC4062DC49BA2004DE7A5 /* CalendarTimelineLayout.swift in Sources */,
 				E5BB9E002D3BF0C60089667A /* Array+ListDiffable.swift in Sources */,

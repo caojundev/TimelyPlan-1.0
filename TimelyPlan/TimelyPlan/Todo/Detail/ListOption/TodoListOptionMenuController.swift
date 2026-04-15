@@ -27,6 +27,23 @@ struct TodoListOptionConfig {
     
     /// 允许的排列顺序
     var allowSortOrders: [TodoSortOrder] = []
+    
+    static func config(with state: TodoListOptionState,
+                       configuration: TodoListConfiguration) -> TodoListOptionConfig? {
+        guard let options = configuration.allowListOptions(), options.count > 0 else {
+            return nil
+        }
+        
+        let groupType = state.validatedGroupType(for: configuration)
+        let sort = state.validatedSort(for: configuration)
+        var config = TodoListOptionConfig(options: options, groupType: groupType, sort: sort)
+        config.showCompleted = state.showCompleted
+        config.layoutType = state.layoutType ?? .list
+        config.allowGroupTypes = configuration.allowGroupTypes()
+        config.allowSortTypes = configuration.allowSortTypes()
+        config.allowSortOrders = configuration.allowSortOrders(for: sort.type)
+        return config
+    }
 }
 
 class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {

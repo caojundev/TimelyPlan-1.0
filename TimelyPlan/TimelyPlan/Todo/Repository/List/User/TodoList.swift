@@ -36,7 +36,11 @@ enum TodoListLayoutType: Int, Codable, TPMenuRepresentable {
     }
 }
 
-class TodoList: NSObject,TodoListRepresentable, SortableIdentifiable, TPHexColorConvertible {
+class TodoList: NSObject,
+                TodoListRepresentable,
+                TPHexColorConvertible,
+                IdentifiableItem,
+                SortableIdentifiable {
     
     /// 任务唯一标识
     var identifier: String

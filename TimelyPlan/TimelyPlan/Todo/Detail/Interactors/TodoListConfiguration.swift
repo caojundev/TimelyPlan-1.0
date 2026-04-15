@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class TodoListConfiguration: Equatable {
+class TodoListConfiguration: Equatable, IdentifiableItem {
     
-    let identifier: String
+    var identifier: String
     
     init(identifier: String) {
         self.identifier = identifier
@@ -162,7 +162,8 @@ class TodoUserListConfiguration: TodoListConfiguration {
     }
     
     override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
-        if interactor.layoutType == .list {
+        let layoutType = interactor.layoutType()
+        if layoutType == .list {
             return TodoUserTaskListViewController(interactor: interactor)
         } else {
             let vc = UIViewController()

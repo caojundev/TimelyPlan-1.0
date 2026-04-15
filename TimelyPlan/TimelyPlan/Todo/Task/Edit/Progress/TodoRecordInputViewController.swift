@@ -11,11 +11,13 @@ import UIKit
 class TodoRecordInputViewController: TPTextFieldAlertController {
     
     static func inputViewController(for progress: TodoEditProgress) -> TodoRecordInputViewController {
-        let inputTypes: [TodoRecordInputType] = TodoRecordInputType.allCases
+        let inputTypes: [TodoRecordInputType]
         let inputType: TodoRecordInputType
         if progress.checkType == .decrease {
+            inputTypes = [.decrease, .update]
             inputType = progress.calculation == .update ? .update : .decrease
         } else {
+            inputTypes = [.increase, .update]
             inputType = progress.calculation == .update ? .update : .increase
         }
         

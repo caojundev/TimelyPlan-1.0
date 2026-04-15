@@ -28,7 +28,7 @@ enum TodoSmartListType: String, TPMenuRepresentable {
     }
 }
 
-class TodoSmartList: NSObject, TodoListRepresentable {
+class TodoSmartList: NSObject, TodoListRepresentable, IdentifiableItem {
     
     var identifier: String
     

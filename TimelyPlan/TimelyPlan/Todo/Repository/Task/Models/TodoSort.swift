@@ -54,7 +54,7 @@ enum TodoSortOrder: Int, Codable, TPMenuRepresentable {
     }
 }
 
-struct TodoSort: Equatable {
+struct TodoSort: Codable, Equatable {
     
     /// 排列类型
     var type: TodoSortType = .manually

@@ -8,7 +8,10 @@
 import Foundation
 import UIKit
 
-class TodoTag: NSObject, SortableIdentifiable, TPHexColorConvertible {
+class TodoTag: NSObject,
+               TPHexColorConvertible,
+               IdentifiableItem,
+               SortableIdentifiable {
     
     var identifier: String
     
