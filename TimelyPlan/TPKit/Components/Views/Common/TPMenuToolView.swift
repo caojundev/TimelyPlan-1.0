@@ -56,7 +56,7 @@ class TPMenuToolView<T: Hashable & TPMenuRepresentable>: UIView {
         let button = TPDefaultButton()
         button.imagePosition = .top
         button.image = resGetImage("ellipsis_24")
-        button.title = resGetString("Others")
+        button.title = resGetString("More")
         button.addTarget(self, action: #selector(clickMore(_:)), for: .touchUpInside)
         return button
     }()

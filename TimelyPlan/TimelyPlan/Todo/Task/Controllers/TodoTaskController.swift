@@ -55,6 +55,12 @@ class TodoTaskController {
     }
     
     // MARK: - 编辑
+    func editSchedule(for task: TodoTask) {
+        TodoTaskController.editSchedule(task.schedule) { schedule in
+            todo.updateTask(task, schedule: schedule)
+        }
+    }
+    
     func editTask(_ task: TodoTask) {
         guard let topVC = UIViewController.topPresented else {
             return
@@ -72,6 +78,16 @@ class TodoTaskController {
     // MARK: - 完成任务
     func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask], completion: (()->Void)? = nil) {
         todo.updateTasks(tasks, isCompleted: isCompleted)
+        completion?()
+    }
+
+    // MARK: - 我的一天
+    func setAddToMyDay(_ isAddedToMyDay: Bool, for task: TodoTask) {
+        setAddToMyDay(isAddedToMyDay, for: [task], completion: nil)
+    }
+    
+    func setAddToMyDay(_ isAddedToMyDay: Bool, for tasks: [TodoTask], completion: (()->Void)? = nil) {
+        todo.updateTasks(tasks, isAddedToMyDay: isAddedToMyDay)
         completion?()
     }
 

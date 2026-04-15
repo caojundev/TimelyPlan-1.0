@@ -77,8 +77,9 @@ class SettingAgent {
     }
     
     func value<T: Codable>(forKey key: String) -> T? {
-        if let value = valueDic[key] as? T {
-            return value
+        let value = valueDic[key]
+        if value != nil, let result = value as? T {
+            return result
         }
         
         guard let stringValue = jsonString(forKey: key) else {

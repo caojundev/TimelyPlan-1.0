@@ -200,14 +200,19 @@ extension CDTodoTask: SortableIdentifiable {
         cdTask.modificationDate = .now
         return true
     }
-
-    static func updateTask(_ task: TodoTask, isAddedToMyDay: Bool) -> Bool {
-        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+    
+    static func updateTasks(_ tasks: [TodoTask], isAddedToMyDay: Bool) -> Bool {
+        guard let cdTasks = getIdentifiableItems(with: tasks) as? [CDTodoTask],
+              cdTasks.count > 0 else {
             return false
         }
         
-        cdTask.isAddedToMyDay = isAddedToMyDay
-        cdTask.modificationDate = .now
+        let modificationDate = Date()
+        for cdTask in cdTasks {
+            cdTask.isAddedToMyDay = isAddedToMyDay
+            cdTask.modificationDate = modificationDate
+        }
+        
         return true
     }
     
@@ -368,6 +373,27 @@ extension CDTodoTask {
 // MARK: - 获取任务
 extension CDTodoTask {
     
+    /// 获取收件箱任务
+    static func fetchInboxTasks(showCompleted: Bool = true, completion: @escaping([CDTodoTask]?) -> Void) {
+        let predicate = activeInboxTaskPredicate(showCompleted: showCompleted)
+        findAll(with: predicate, sortedBy: TodoTaskKey.creationDate, ascending: true) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
+    
+    /// 获取已完成任务
+    static func fetchCompletedTasks(completion: @escaping([CDTodoTask]?) -> Void) {
+        let conditions: [PredicateCondition] = [
+            completedCondition,
+            notRemovedCondition
+        ]
+        
+        let predicate = conditions.andPredicate()
+        findAll(with: predicate, sortedBy: TodoTaskKey.creationDate, ascending: true) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
+
     /// 获取用户列表任务
     static func fetchUserListTasks(in list: TodoList,
                                    showCompleted: Bool = true,
@@ -439,6 +465,10 @@ extension CDTodoTask {
     // MARK: - Conditions
     static var notRemovedCondition: PredicateCondition {
         return (TodoTaskKey.isRemoved, .isFalse)
+    }
+    
+    static var completedCondition: PredicateCondition {
+        return (TodoTaskKey.isCompleted, .isTrue)
     }
     
     static var notCompletedCondition: PredicateCondition {

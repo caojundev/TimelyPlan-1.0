@@ -232,7 +232,7 @@ extension TodoListInteractor {
         case let userListConfig as TodoUserListConfiguration:
             return TodoUserListInteractor(configuration: userListConfig)
         case let smartListConfig as TodoSmartListConfiguration:
-            return TodoSmartListInteractor(configuration: smartListConfig)
+            return TodoSmartListInteractor.smartInteractor(with: smartListConfig)
         case let tagListConfig as TodoTagListConfiguration:
             return TodoTagListInteractor(configuration: tagListConfig)
         default:

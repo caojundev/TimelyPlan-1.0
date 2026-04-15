@@ -613,6 +613,12 @@
 		E56B94A22F8F75E3001E488B /* TodoListOptionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94A12F8F75E3001E488B /* TodoListOptionState.swift */; };
 		E56B94A42F8F7C1A001E488B /* IdentifiableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94A32F8F7C1A001E488B /* IdentifiableItem.swift */; };
 		E56B94A62F8F93F5001E488B /* TodoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94A52F8F93F5001E488B /* TodoState.swift */; };
+		E56B94AC2F8FB56A001E488B /* todo_task_action_removeMyDay_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E56B94A82F8FB569001E488B /* todo_task_action_removeMyDay_24@3x.png */; };
+		E56B94AD2F8FB56A001E488B /* todo_task_action_addToMyDay_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E56B94A92F8FB56A001E488B /* todo_task_action_addToMyDay_24@3x.png */; };
+		E56B94AE2F8FB56A001E488B /* todo_task_action_addToMyDay_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E56B94AA2F8FB56A001E488B /* todo_task_action_addToMyDay_24@2x.png */; };
+		E56B94AF2F8FB56A001E488B /* todo_task_action_removeMyDay_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E56B94AB2F8FB56A001E488B /* todo_task_action_removeMyDay_24@2x.png */; };
+		E56B94B12F8FCF27001E488B /* TodoCompletedTaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94B02F8FCF27001E488B /* TodoCompletedTaskListViewController.swift */; };
+		E56B94B42F8FD17E001E488B /* TodoSmartListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94B32F8FD17E001E488B /* TodoSmartListConfiguration.swift */; };
 		E56BAC752DCC56BB0013C6F6 /* CalendarDatePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC742DCC56BB0013C6F6 /* CalendarDatePageView.swift */; };
 		E56BAC772DCC56E60013C6F6 /* CalendarWeekPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */; };
 		E56BAC7C2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift */; };
@@ -2234,6 +2240,12 @@
 		E56B94A12F8F75E3001E488B /* TodoListOptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListOptionState.swift; sourceTree = "<group>"; };
 		E56B94A32F8F7C1A001E488B /* IdentifiableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableItem.swift; sourceTree = "<group>"; };
 		E56B94A52F8F93F5001E488B /* TodoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoState.swift; sourceTree = "<group>"; };
+		E56B94A82F8FB569001E488B /* todo_task_action_removeMyDay_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_action_removeMyDay_24@3x.png"; sourceTree = "<group>"; };
+		E56B94A92F8FB56A001E488B /* todo_task_action_addToMyDay_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_action_addToMyDay_24@3x.png"; sourceTree = "<group>"; };
+		E56B94AA2F8FB56A001E488B /* todo_task_action_addToMyDay_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_action_addToMyDay_24@2x.png"; sourceTree = "<group>"; };
+		E56B94AB2F8FB56A001E488B /* todo_task_action_removeMyDay_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_action_removeMyDay_24@2x.png"; sourceTree = "<group>"; };
+		E56B94B02F8FCF27001E488B /* TodoCompletedTaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCompletedTaskListViewController.swift; sourceTree = "<group>"; };
+		E56B94B32F8FD17E001E488B /* TodoSmartListConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSmartListConfiguration.swift; sourceTree = "<group>"; };
 		E56BAC742DCC56BB0013C6F6 /* CalendarDatePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePageView.swift; sourceTree = "<group>"; };
 		E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekPageView.swift; sourceTree = "<group>"; };
 		E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekPageCell.swift; sourceTree = "<group>"; };
@@ -4241,6 +4253,7 @@
 				E529AD012F7EB255000EA2F1 /* TodoBaseTaskListViewController.swift */,
 				E56B94942F8DCA32001E488B /* TodoUserTaskListViewController.swift */,
 				E56B949A2F8DD61A001E488B /* TodoSmartTaskListViewController.swift */,
+				E56B94B02F8FCF27001E488B /* TodoCompletedTaskListViewController.swift */,
 				E51DF20A2F84965100D6BCE3 /* TodoTrashTaskListViewController.swift */,
 				E56B94962F8DCB72001E488B /* TodoTagTaskListViewController.swift */,
 				E56B94982F8DCBB3001E488B /* TodoFilterTaskListViewController.swift */,
@@ -5110,6 +5123,15 @@
 			path = Option;
 			sourceTree = "<group>";
 		};
+		E56B94B22F8FD127001E488B /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				E57CC5AB2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift */,
+				E56B94B32F8FD17E001E488B /* TodoSmartListConfiguration.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 		E56BAC7A2DCCDABE0013C6F6 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -5121,7 +5143,7 @@
 		E57CC5AD2F7F618800ADDBA4 /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
-				E57CC5AB2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift */,
+				E56B94B22F8FD127001E488B /* Configuration */,
 				E57CC5A92F7F5A5300ADDBA4 /* TodoListInteractor.swift */,
 				E57CC5AE2F7F61E400ADDBA4 /* TodoUserListInteractor.swift */,
 				E57CC5B02F7F61F000ADDBA4 /* TodoSmartListInteractor.swift */,
@@ -5886,6 +5908,10 @@
 		E5BB9A292D3BEF0D0089667A /* action */ = {
 			isa = PBXGroup;
 			children = (
+				E56B94AA2F8FB56A001E488B /* todo_task_action_addToMyDay_24@2x.png */,
+				E56B94A92F8FB56A001E488B /* todo_task_action_addToMyDay_24@3x.png */,
+				E56B94AB2F8FB56A001E488B /* todo_task_action_removeMyDay_24@2x.png */,
+				E56B94A82F8FB569001E488B /* todo_task_action_removeMyDay_24@3x.png */,
 				E5BB9A2A2D3BEF0D0089667A /* todo_task_action_done_24@2x.png */,
 				E5BB9A2B2D3BEF0D0089667A /* todo_task_action_shred_24@3x.png */,
 				E5BB9A2C2D3BEF0D0089667A /* todo_task_action_shred_24@2x.png */,
@@ -8832,6 +8858,7 @@
 				E56B945F2F8CD6D0001E488B /* todo_group_type_priority_24@2x.png in Resources */,
 				E5168BD02F545B400000A760 /* habit_dateRange_background_end@3x.png in Resources */,
 				E5BB9A8B2D3BEF0D0089667A /* todo_smartlist_completed_24@2x.png in Resources */,
+				E56B94AE2F8FB56A001E488B /* todo_task_action_addToMyDay_24@2x.png in Resources */,
 				E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */,
 				E52A4FE72F62C5D7009EC01B /* habit_week_day_notscheduled_42@2x.png in Resources */,
 				E5E277022D3DF6EA004EC522 /* shred_24@3x.png in Resources */,
@@ -9002,6 +9029,7 @@
 				E556BCC32F5D6C7000CA20D9 /* habit_indicator_status_checked_16@3x.png in Resources */,
 				E5BB9ECB2D3BF0C80089667A /* Wheat03@2x.png in Resources */,
 				E55A7B8B2D45FDC7000D224C /* bind_16@2x.png in Resources */,
+				E56B94AC2F8FB56A001E488B /* todo_task_action_removeMyDay_24@3x.png in Resources */,
 				E5186E432D93B141007AA074 /* todo_filter_myDay_36@2x.png in Resources */,
 				E5BB9A7D2D3BEF0D0089667A /* schedule_alarm_24@2x.png in Resources */,
 				E55A7B782D45F873000D224C /* timer_start_24@3x.png in Resources */,
@@ -9062,6 +9090,7 @@
 				E5BB9ADB2D3BEF0D0089667A /* xmark_16@2x.png in Resources */,
 				E55A7B9C2D463917000D224C /* bell_fill_16@3x.png in Resources */,
 				E5BB9A9B2D3BEF0D0089667A /* todo_list_layout_list_96@3x.png in Resources */,
+				E56B94AD2F8FB56A001E488B /* todo_task_action_addToMyDay_24@3x.png in Resources */,
 				E5D833942DAB64D60012ABF3 /* todo_task_progress_autoRecordValue_24@2x.png in Resources */,
 				E556BCC02F5D6C7000CA20D9 /* habit_indicator_log_16@3x.png in Resources */,
 				E53966E52D671D66008CC13B /* todo_list_option_layout_24@3x.png in Resources */,
@@ -9139,6 +9168,7 @@
 				E5BB9ECE2D3BF0C80089667A /* Wheat02@2x.png in Resources */,
 				E50D94D82D45268B00F57957 /* chart_bar_24@2x.png in Resources */,
 				E55E78042D8ABB09005E3DED /* quadrant_option_edit_24@3x.png in Resources */,
+				E56B94AF2F8FB56A001E488B /* todo_task_action_removeMyDay_24@2x.png in Resources */,
 				E5BBA1212D3BFD150089667A /* RobotoMono-Bold.ttf in Resources */,
 				E55A7B872D45FAA0000D224C /* bind_24@3x.png in Resources */,
 				E55CE3612D8BC4BB0083316E /* quadrant_circle_III@2x.png in Resources */,
@@ -10078,6 +10108,7 @@
 				E5D7D8E02D43933600EC877A /* FocusFloatingTimerManager.swift in Sources */,
 				E534DAC42D58FCE30079AB08 /* TPLabel.swift in Sources */,
 				E59244222F51CB7600CA2393 /* HabitTimePlanEditViewController.swift in Sources */,
+				E56B94B12F8FCF27001E488B /* TodoCompletedTaskListViewController.swift in Sources */,
 				E58F469C2F7A9C120046FA96 /* TodoListMenuActionController.swift in Sources */,
 				E50D60782F7A2E2D00D5E0A4 /* TodoUserListBaseCell.swift in Sources */,
 				E5D7D8DC2D43933600EC877A /* FocusFloatingTimerInfoView.swift in Sources */,
@@ -10399,6 +10430,7 @@
 				E51A4C462DC3C3B9005A0E3F /* CalendarDateButton.swift in Sources */,
 				E556BCD72F5D777F00CA20D9 /* HabitHomeDayActionInfoView.swift in Sources */,
 				E50D026C2F56D06B00E93977 /* HabitHomeDayListCell.swift in Sources */,
+				E56B94B42F8FD17E001E488B /* TodoSmartListConfiguration.swift in Sources */,
 				E5BB9DAE2D3BF0C60089667A /* TPInfoGalleryView.swift in Sources */,
 				E529ACD92F7E183D000EA2F1 /* TodoTagController.swift in Sources */,
 				E56B94952F8DCA32001E488B /* TodoUserTaskListViewController.swift in Sources */,

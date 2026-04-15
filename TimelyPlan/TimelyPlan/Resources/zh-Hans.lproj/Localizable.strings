@@ -38,6 +38,7 @@
 "Ungroup" = "解散";
 "Ungroup List" = "解散列表";
 "Move List" = "移动列表";
+"Search List" = "搜索列表";
 "Add Sublist" = "添加子列表";
 "No Parent List" = "无父列表";
 "Select Parent List" = "选择上层列表";
@@ -530,6 +531,7 @@
 "Week Start On" = "周开始于";
 
 ///**********************通用*********************///
+"More" = "更多";
 "Confirm" = "确认";
 "Done" = "完成";
 "Undone" = "未完成";

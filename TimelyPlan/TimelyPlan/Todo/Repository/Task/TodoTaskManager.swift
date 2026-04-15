@@ -150,6 +150,35 @@ class TodoTaskManager {
         HandyRecord.save()
     }
     
+    func updateTasks(_ tasks: [TodoTask], isAddedToMyDay: Bool) {
+        var tasksToUpdate = [TodoTask]()
+        for task in tasks {
+            if task.isAddedToMyDay != isAddedToMyDay {
+                tasksToUpdate.append(task)
+            }
+        }
+        
+        guard tasksToUpdate.count > 0, CDTodoTask.updateTasks(tasksToUpdate, isAddedToMyDay: isAddedToMyDay) else {
+            return
+        }
+        
+        if tasksToUpdate.count == 1 {
+            let task = tasksToUpdate[0]
+            let change: TodoTaskChange = .myDay(oldValue: task.isAddedToMyDay, newValue: isAddedToMyDay)
+            updater.didUpdateTodoTask(task, with: change)
+        } else {
+            var changeInfos: [TodoTaskChangeInfo] = []
+            for task in tasksToUpdate {
+                let change: TodoTaskChange = .myDay(oldValue: task.isAddedToMyDay, newValue: isAddedToMyDay)
+                let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+                changeInfos.append(changeInfo)
+            }
+            
+            updater.didUpdateTodoTasks(with: changeInfos)
+        }
+        
+        HandyRecord.save()
+    }
 
     /// 更新任务进度
     func updateTask(_ task: TodoTask, progress: TodoEditProgress?) {
@@ -192,16 +221,6 @@ class TodoTaskManager {
         }
         
         let change: TodoTaskChange = .name(oldValue: task.name, newValue: name)
-        updater.didUpdateTodoTask(task, with: change)
-        HandyRecord.save()
-    }
-
-    func updateTask(_ task: TodoTask, isAddedToMyDay: Bool) {
-        guard task.isAddedToMyDay != isAddedToMyDay, CDTodoTask.updateTask(task, isAddedToMyDay: isAddedToMyDay) else {
-            return
-        }
-        
-        let change: TodoTaskChange = .myDay(oldValue: task.isAddedToMyDay, newValue: isAddedToMyDay)
         updater.didUpdateTodoTask(task, with: change)
         HandyRecord.save()
     }
@@ -248,6 +267,20 @@ class TodoTaskManager {
 }
 
 extension TodoTaskManager {
+    
+    /// 获取收件箱任务
+    func fetchInboxTasks(showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchInboxTasks(showCompleted: showCompleted) { results in
+            completion(results?.tasks)
+        }
+    }
+    
+    /// 获取已完成任务
+    func fetchCompletedTasks(completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchCompletedTasks { results in
+            completion(results?.tasks)
+        }
+    }
     
     /// 获取用户列表任务
     func fetchUserListTasks(in list: TodoList,

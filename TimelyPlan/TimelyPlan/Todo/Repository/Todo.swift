@@ -142,6 +142,16 @@ extension Todo {
         }
     }
     
+    /// 获取收件箱任务
+    func fetchInboxTasks(showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchInboxTasks(showCompleted: showCompleted, completion: completion)
+    }
+    
+    /// 获取已完成任务
+    func fetchCompletedTasks(completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchCompletedTasks(completion: completion)
+    }
+    
     /// 获取用户列表任务
     func fetchUserListTasks(in list: TodoList,
                             showCompleted: Bool = true,
@@ -204,7 +214,11 @@ extension Todo {
     }
 
     func updateTask(_ task: TodoTask, isAddedToMyDay: Bool) {
-        taskManager.updateTask(task, isAddedToMyDay: isAddedToMyDay)
+        taskManager.updateTasks([task], isAddedToMyDay: isAddedToMyDay)
+    }
+    
+    func updateTasks(_ tasks: [TodoTask], isAddedToMyDay: Bool) {
+        taskManager.updateTasks(tasks, isAddedToMyDay: isAddedToMyDay)
     }
     
     func updateTask(_ task: TodoTask, schedule: TaskSchedule?) {

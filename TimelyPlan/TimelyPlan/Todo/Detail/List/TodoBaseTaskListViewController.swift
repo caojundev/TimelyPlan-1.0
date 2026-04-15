@@ -410,7 +410,7 @@ class TodoBaseTaskListViewController: UIViewController,
         let actionTypes = self.interactor.taskActionTypes(for: selectedTasks)
         let toolView = TPMenuToolView(actionTypes: actionTypes)
         toolView.backgroundColor = .secondarySystemGroupedBackground
-        toolView.preferredItemsCount = 5
+        toolView.preferredItemsCount = 4
         toolView.disabledTypes = TodoTaskActionType.allCases
         toolView.addSeparator(position: .top)
         toolView.didSelectActionType = {[weak self] actionType, sourceView in
@@ -463,8 +463,25 @@ class TodoBaseTaskListViewController: UIViewController,
     
     func todoTaskListView(_ listView: TodoTaskListView, leadingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration? {
         var actions = [UIContextualAction]()
+        /// 我的一天
+        let myDayAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
+            self.taskController.setAddToMyDay(!task.isAddedToMyDay, for: task)
+            completion(true)
+        }
         
-        ///< 专注
+        var myDayImage: UIImage?
+        if task.isAddedToMyDay {
+            myDayImage = resGetImage("todo_task_action_removeMyDay_24@2x")
+            myDayAction.backgroundColor = Color(0x757575)
+        } else {
+            myDayImage = resGetImage("todo_task_action_addToMyDay_24@2x")
+            myDayAction.backgroundColor = .greenPrimary
+        }
+        
+        myDayAction.image = myDayImage?.withTintColor(.white)
+        actions.append(myDayAction)
+        
+        /// 专注
         let focusAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
             self.taskController.quickStartFocus(for: task)
             completion(true)
@@ -474,7 +491,7 @@ class TodoBaseTaskListViewController: UIViewController,
         focusAction.image = resGetImage("focus_24")?.withTintColor(.white)
         actions.append(focusAction)
         
-        ///< 移动
+        /// 移动
         let moveAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
             self.taskController.moveTask(task)
             completion(true)
@@ -488,6 +505,16 @@ class TodoBaseTaskListViewController: UIViewController,
     
     func todoTaskListView(_ listView: TodoTaskListView, trailingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration? {
         var actions = [UIContextualAction]()
+        
+        /// 计划
+        let scheduleAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
+            self.taskController.editSchedule(for: task)
+            completion(true)
+        }
+
+        scheduleAction.backgroundColor = .primary
+        scheduleAction.image = resGetImage("todo_task_action_date_24")?.withTintColor(.white)
+        
         /// 废纸篓
         let trashAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in
             self.taskController.moveTaskToTrash(task)
@@ -495,7 +522,7 @@ class TodoBaseTaskListViewController: UIViewController,
         }
                             
         trashAction.image = resGetImage("todo_task_action_trash_24")?.withTintColor(.white)
-        actions = [trashAction]
+        actions = [trashAction, scheduleAction]
         return UISwipeActionsConfiguration(actions: actions)
     }
     

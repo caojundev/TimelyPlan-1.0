@@ -9,13 +9,31 @@ import Foundation
 
 class TodoSmartListInteractor: TodoListInteractor {
     
+    static func smartListInteractor(with configuration: TodoSmartListConfiguration) -> TodoSmartListInteractor {
+        let listType = configuration.list.listType
+        switch listType {
+        case .inbox:
+            return TodoInboxListInteractor(configuration: configuration)
+        case .completed:
+            return TodoCompletedListInteractor(configuration: configuration)
+        case .trash:
+            return TodoTrashListInteractor(configuration: configuration)
+        default:
+            return TodoSmartListInteractor(configuration: configuration)
+        }
+    }
+    
+    var list: TodoSmartList {
+        return listConfiguration.list
+    }
+    
     var listConfiguration: TodoSmartListConfiguration {
        return configuration as! TodoSmartListConfiguration
     }
     
     override func title() -> TextRepresentable? {
-        let listName = listConfiguration.list.title
-        if let image = listConfiguration.list.icon {
+        let listName = self.list.title
+        if let image = self.list.icon {
             let title: ASAttributedString
             title = .string(image: image,
                             imageSize: .size(4),
@@ -27,25 +45,36 @@ class TodoSmartListInteractor: TodoListInteractor {
         
         return listName
     }
+}
+
+class TodoInboxListInteractor: TodoSmartListInteractor {
+    
+    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
+        let showCompleted = self.state.showCompleted
+        todo.fetchInboxTasks(showCompleted: showCompleted) { results in
+            completion(results)
+        }
+    }
+}
+
+class TodoCompletedListInteractor: TodoSmartListInteractor {
+    
+    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
+        todo.fetchCompletedTasks { results in
+            completion(results)
+        }
+    }
+}
+
+class TodoTrashListInteractor: TodoSmartListInteractor {
     
     override func taskActionTypes(for selectedTasks: Set<TodoTask>) -> [TodoTaskActionType] {
-        let listType = listConfiguration.list.listType
-        if listType == .trash {
-            return [.restore, .shred]
-        }
-        
-        return super.taskActionTypes(for: selectedTasks)
+        return [.restore, .shred]
     }
     
-    /// 获取任务方法
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        if listConfiguration.list.listType == .trash {
-            /// 废纸篓任务
-            todo.fetchTrashTasks { results in
-                completion(results)
-            }
-        } else {
-            super.fetchTasks(completion: completion)
+        todo.fetchTrashTasks { results in
+            completion(results)
         }
     }
     
@@ -75,5 +104,4 @@ class TodoSmartListInteractor: TodoListInteractor {
         self.setNeedsRefresh()
         self.loadGroups()
     }
-    
 }
