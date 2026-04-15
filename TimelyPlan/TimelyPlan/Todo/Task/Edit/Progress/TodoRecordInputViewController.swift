@@ -10,6 +10,20 @@ import UIKit
 
 class TodoRecordInputViewController: TPTextFieldAlertController {
     
+    static func inputViewController(for progress: TodoEditProgress) -> TodoRecordInputViewController {
+        let inputTypes: [TodoRecordInputType] = TodoRecordInputType.allCases
+        let inputType: TodoRecordInputType
+        if progress.checkType == .decrease {
+            inputType = progress.calculation == .update ? .update : .decrease
+        } else {
+            inputType = progress.calculation == .update ? .update : .increase
+        }
+        
+        let vc = TodoRecordInputViewController(inputTypes: inputTypes)
+        vc.inputType = inputType
+        return vc
+    }
+    
     /// 完成回调
     var completion: ((Int64, TodoRecordInputType) -> Void)?
     
@@ -25,8 +39,8 @@ class TodoRecordInputViewController: TPTextFieldAlertController {
     }
     
     /// 记录输入视图
-    lazy var recordInputView: TodoRecordInputView = {
-        let view = TodoRecordInputView()
+    private lazy var recordInputView: TodoRecordInputView = {
+        let view = TodoRecordInputView(inputTypes: self.inputTypes)
         view.inputTypeDidChange = { [weak self] in
             self?.updateDoneActionEnabled()
         }
@@ -34,7 +48,10 @@ class TodoRecordInputViewController: TPTextFieldAlertController {
         return view
     }()
     
-    init() {
+    let inputTypes: [TodoRecordInputType]
+    
+    init(inputTypes: [TodoRecordInputType]) {
+        self.inputTypes = inputTypes
         let title = resGetString("Record")
         super.init(title: title, message: nil, style: .alert, actions: nil)
         self.actionsCountPerRow = 1
@@ -87,14 +104,18 @@ class TodoRecordInputView: UIView {
     var inputType: TodoRecordInputType {
         get {
             let tag = typeMenuView.selectedMenuTag ?? 0
-            return TodoRecordInputType(rawValue: tag) ?? .increase
+            return TodoRecordInputType(rawValue: tag) ?? inputTypes[0]
         }
         
         set {
-            typeMenuView.selectMenu(withTag: newValue.rawValue)
+            if inputTypes.contains(newValue) {
+                typeMenuView.selectMenu(withTag: newValue.rawValue)
+            }
+            
+            updateTextField()
         }
     }
-    
+
     /// 开始/结束菜单视图
     private lazy var typeMenuView: TPSegmentedMenuView = {
         let view = TPSegmentedMenuView()
@@ -107,7 +128,6 @@ class TodoRecordInputView: UIView {
             }
         }
         
-        view.menuItems = TodoRecordInputType.segmentedMenuItems()
         return view
     }()
     
@@ -118,20 +138,23 @@ class TodoRecordInputView: UIView {
         return numberField
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    let inputTypes: [TodoRecordInputType]
+    
+    init(inputTypes: [TodoRecordInputType]) {
+        self.inputTypes = inputTypes
+        super.init(frame: .zero)
         setupSubviews()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupSubviews() {
-        addSubview(typeMenuView)
-        addSubview(numberField)
-        updateTextField()
+        self.typeMenuView.menuItems = inputTypes.segmentedMenuItems()
+        self.addSubview(self.typeMenuView)
+        self.addSubview(self.numberField)
+        self.updateTextField()
     }
     
     override func layoutSubviews() {

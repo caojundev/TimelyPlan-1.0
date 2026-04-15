@@ -50,9 +50,12 @@ class TodoUserListInteractor: TodoListInteractor,
         return listName
     }
     
-//    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-//
-//    }
+    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
+        let list = self.listConfiguration.list
+        todo.fetchUserListTasks(in: list,
+                                showCompleted: self.showCompleted,
+                                completion: completion)
+    }
 
     // MARK: - TodoListProcessorDelegate
     func didUpdateTodoList(_ list: TodoList) {

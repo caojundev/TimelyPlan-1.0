@@ -13,6 +13,10 @@ class TodoSetting {
         case autoCompleteSubtasks
         case autoCompleteParentTask
         case quickAddContinuously /// 快速连续添加
+        case addListOnTop /// 添加列表到顶部
+        case addTaskOnTop /// 添加任务到顶部
+        case addTagOnTop /// 添加标签到顶部
+        case addFilterOnTop /// 添加过滤器到顶部
         
         static func keyPrefix() -> String? {
             return "TodoSetting"
@@ -28,6 +32,18 @@ class TodoSetting {
     @CloudStored(key: Key.quickAddContinuously.name, defaultValue: true)
     var quickAddContinuously: Bool
     
+    @CloudStored(key: Key.addListOnTop.name, defaultValue: false)
+    var addListOnTop:Bool
+    
+    @CloudStored(key: Key.addTaskOnTop.name, defaultValue: false)
+    var addTaskOnTop:Bool
+    
+    @CloudStored(key: Key.addTagOnTop.name, defaultValue: false)
+    var addTagOnTop:Bool
+    
+    @CloudStored(key: Key.addFilterOnTop.name, defaultValue: false)
+    var addFilterOnTop:Bool
+
     static let shared = TodoSetting()
     
     private init() {}

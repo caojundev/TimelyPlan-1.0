@@ -148,6 +148,13 @@
 "Record Type" = "记录类型";
 "Auto Record Value" = "自动记录值";
 
+"Record" = "记录";
+"Increase" = "增加";
+"Decrease" = "减少";
+"Update the number of records" = "更新记录量";
+"Increase the number of records" = "增加记录量";
+"Decrease the number of records" = "减少记录量";
+
 /// 底部日期信息
 "Created %@" = "创建于 %@";
 "Completed %@" = "完成于 %@";
@@ -158,11 +165,17 @@
 "Continuous adding enabled"  = "连续添加已开启";
 "Continuous adding disabled" = "连续添加已关闭";
 
+"New Item Location" = "新增位置";
+"Add New List On Top" = "添加新列表到顶部";
+"Add New Task On Top" = "添加新任务到顶部";
+"Add New Tag On Top" = "添加新标签到顶部";
+"Add New Filter On Top" = "添加新过滤器到顶部";
+
 "Step" = "步骤";
-"Auto-complete subtasks" = "自动完成子任务";
-"When parent is done" = "当完成主任务时";
-"Auto-complete parent" = "自动完成主任务";
-"When all subtasks are done" = "当所有子任务全完成后";
+"Auto-complete Substeps" = "自动完成子步骤";
+"When parent is done" = "当完成主步骤时";
+"Auto-complete Parent" = "自动完成主步骤";
+"When all substeps are done" = "当所有子步骤全完成后";
 
 ///**************************Focus**************************///
 "Focusing" = "专注中";
@@ -517,6 +530,7 @@
 "Week Start On" = "周开始于";
 
 ///**********************通用*********************///
+"Confirm" = "确认";
 "Done" = "完成";
 "Undone" = "未完成";
 "New" = "新建";

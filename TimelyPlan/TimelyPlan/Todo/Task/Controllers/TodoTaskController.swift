@@ -159,9 +159,9 @@ class TodoTaskController {
             return
         }
         
-        let inputVC = TodoRecordInputViewController()
-        inputVC.completion = { inputValue, inputType in
-            let newProgress = progress.progressWithInputValue(inputValue, inputType: inputType)
+        let inputVC = TodoRecordInputViewController.inputViewController(for: progress)
+        inputVC.completion = { value, type in
+            let newProgress = progress.progressWithInputValue(value, inputType: type)
             self.executeProgressHandler(progressHandler, progress: newProgress) {
                 todo.updateTask(task, progress: newProgress)
             }

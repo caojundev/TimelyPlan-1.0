@@ -142,11 +142,16 @@ extension Todo {
         }
     }
     
+    /// 获取用户列表任务
+    func fetchUserListTasks(in list: TodoList,
+                            showCompleted: Bool = true,
+                            completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchUserListTasks(in: list, showCompleted: showCompleted, completion: completion)
+    }
+    
     /// 获取废纸篓任务
     func fetchTrashTasks(completion: @escaping([TodoTask]?) -> Void) {
-        CDTodoTask.fetchTrashTasks { results in
-            completion(results?.tasks)
-        }
+        taskManager.fetchTrashTasks(completion: completion)
     }
     
     /// 创建任务

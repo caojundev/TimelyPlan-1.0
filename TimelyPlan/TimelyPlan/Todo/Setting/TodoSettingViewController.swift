@@ -10,7 +10,93 @@ import UIKit
 
 class TodoSettingViewController: TPTableSectionsViewController {
     
-    /// 快速连续添加
+    let defaultCellHeight = 55.0
+    
+    
+    /// 添加列表到顶部
+    lazy var addListOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Add New List On Top")
+        cellItem.updater = {
+            guard let self = self else { return }
+            let isOn = TodoSetting.shared.addListOnTop
+            self.addListOnTopCellItem.isOn = isOn
+        }
+
+        cellItem.valueChanged = { isOn in
+            TodoSetting.shared.addListOnTop = isOn
+        }
+        
+        return cellItem
+    }()
+    
+    /// 添加任务到顶部
+    lazy var addTaskOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Add New Task On Top")
+        cellItem.updater = {
+            guard let self = self else { return }
+            let isOn = TodoSetting.shared.addTaskOnTop
+            self.addTaskOnTopCellItem.isOn = isOn
+        }
+
+        cellItem.valueChanged = { isOn in
+            TodoSetting.shared.addTaskOnTop = isOn
+        }
+        
+        return cellItem
+    }()
+    
+    /// 添加标签到顶部
+    lazy var addTagOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Add New Tag On Top")
+        cellItem.updater = {
+            guard let self = self else { return }
+            let isOn = TodoSetting.shared.addTagOnTop
+            self.addTagOnTopCellItem.isOn = isOn
+        }
+
+        cellItem.valueChanged = { isOn in
+            TodoSetting.shared.addTagOnTop = isOn
+        }
+        
+        return cellItem
+    }()
+    
+    /// 添加过滤器到顶部
+    lazy var addFilterOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Add New Filter On Top")
+        cellItem.updater = {
+            guard let self = self else { return }
+            let isOn = TodoSetting.shared.addFilterOnTop
+            self.addFilterOnTopCellItem.isOn = isOn
+        }
+
+        cellItem.valueChanged = { isOn in
+            TodoSetting.shared.addFilterOnTop = isOn
+        }
+        
+        return cellItem
+    }()
+
+    lazy var insertLocationSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.title = resGetString("New Item Location")
+        sectionController.headerItem.height = 50.0
+        sectionController.cellItems = [addListOnTopCellItem,
+                                       addTaskOnTopCellItem,
+                                       addTagOnTopCellItem,
+                                       addFilterOnTopCellItem]
+        return sectionController
+    }()
+    
+    // MARK: - 快速连续添加
     lazy var quickAddContinuouslyCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
         cellItem.title = resGetString("Add Continuously")
@@ -37,7 +123,7 @@ class TodoSettingViewController: TPTableSectionsViewController {
     /// 自动完成子步骤
     lazy var autoCompleteSubtasksCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem(autoResizable: true)
-        cellItem.title = resGetString("Auto-complete subtasks")
+        cellItem.title = resGetString("Auto-complete Substeps")
         cellItem.subtitle = resGetString("When parent is done")
         cellItem.updater = {
             let isOn = TodoSetting.shared.autoCompleteSubtasks
@@ -54,8 +140,8 @@ class TodoSettingViewController: TPTableSectionsViewController {
     /// 自动完成父步骤
     lazy var autoCompleteParentTaskCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem(autoResizable: true)
-        cellItem.title = resGetString("Auto-complete parent")
-        cellItem.subtitle = resGetString("When all subtasks are done")
+        cellItem.title = resGetString("Auto-complete Parent")
+        cellItem.subtitle = resGetString("When all substeps are done")
         cellItem.updater = {
             let isOn = TodoSetting.shared.autoCompleteParentTask
             self?.autoCompleteParentTaskCellItem.isOn = isOn
@@ -81,7 +167,8 @@ class TodoSettingViewController: TPTableSectionsViewController {
         super.viewDidLoad()
         self.title = resGetString("Settings")
         self.navigationItem.leftBarButtonItems = [chevronDownCancelButtonItem]
-        self.sectionControllers = [quickAddSectionController,
+        self.sectionControllers = [insertLocationSectionController,
+                                   quickAddSectionController,
                                    stepSectionController]
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.reloadData()

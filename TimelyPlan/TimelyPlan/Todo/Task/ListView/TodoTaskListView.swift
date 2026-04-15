@@ -129,7 +129,7 @@ class TodoTaskListView: UIView,
     }
     
     /// 隐藏头视图高度
-    private let hiddenHeaderHeight = 0.0
+    private let hiddenHeaderHeight = 15.0
     
     /// 显示头视图高度
     private let showHeaderHeight = 50.0

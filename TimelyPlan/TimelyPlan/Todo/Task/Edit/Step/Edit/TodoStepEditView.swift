@@ -84,7 +84,7 @@ class TodoStepEditView: TPKeyboardAwareView, UITextFieldDelegate {
 
     private func setupSubviews() {
         self.padding = UIEdgeInsets(top: 5.0, left: 35.0, bottom: 5.0, right: 16.0)
-        self.contentSize = CGSize(width: .greatestFiniteMagnitude, height: 66.0)
+        self.contentSize = CGSize(width: .greatestFiniteMagnitude, height: 60.0)
         self.backgroundColor = .secondarySystemBackground
         self.addSubview(checkbox)
         self.addSubview(textField)

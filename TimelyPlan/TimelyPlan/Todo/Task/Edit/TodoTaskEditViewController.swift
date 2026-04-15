@@ -348,6 +348,11 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     }
 
     // MARK: - TodoTaskEditFooterViewDelegate
+    func todoTaskEditFooterViewDidClickFocus(_ view: TodoTaskEditFooterView) {
+        UIResponder.resignCurrentFirstResponder()
+        FocusPresenter.quickStartFocus(for: self.task)
+    }
+    
     func todoTaskEditFooterViewDidClickMore(_ view: TodoTaskEditFooterView) {
         UIResponder.resignCurrentFirstResponder()
 //        let moreButton = view.moreButton

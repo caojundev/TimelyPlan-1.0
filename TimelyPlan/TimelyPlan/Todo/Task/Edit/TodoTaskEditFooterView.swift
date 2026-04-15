@@ -9,6 +9,9 @@ import Foundation
 
 protocol TodoTaskEditFooterViewDelegate: AnyObject {
     
+    /// 点击专注
+    func todoTaskEditFooterViewDidClickFocus(_ view: TodoTaskEditFooterView)
+    
     /// 点击更多按钮
     func todoTaskEditFooterViewDidClickMore(_ view: TodoTaskEditFooterView)
 }
@@ -36,7 +39,19 @@ class TodoTaskEditFooterView: UIView {
         return label
     }()
 
-    /// 返回按钮
+    /// 专注按钮
+    private(set) lazy var focusButton: TPDefaultButton = {
+        let button = TPDefaultButton()
+        button.padding = .zero
+        button.image = resGetImage("focus_24")
+        button.imageConfig.color = resGetColor(.title)
+        button.addTarget(self,
+                         action: #selector(clickFocus(_:)),
+                         for: .touchUpInside)
+        return button
+    }()
+
+    /// 更多按钮
     private(set) lazy var moreButton: TPDefaultButton = {
         let button = TPDefaultButton()
         button.padding = .zero
@@ -67,9 +82,11 @@ class TodoTaskEditFooterView: UIView {
         super.init(frame: frame)
         self.backgroundColor = .systemBackground
         self.padding = UIEdgeInsets(horizontal: 16.0)
-        addSubview(moreButton)
         addSubview(dateLabel)
+        addSubview(focusButton)
+        addSubview(moreButton)
         addSeparator(position: .top)
+        moreButton.isHidden = true
     }
     
     required init?(coder: NSCoder) {
@@ -80,14 +97,17 @@ class TodoTaskEditFooterView: UIView {
         super.layoutSubviews()
         
         let layoutFrame = self.layoutFrame()
-        moreButton.sizeToFit()
-        moreButton.right = layoutFrame.maxX
-        moreButton.alignVerticalCenter()
+        focusButton.size = .size(8)
+        focusButton.left = layoutFrame.minX
+        focusButton.centerY = layoutFrame.midY
         
-        let margin = moreButton.width
-        dateLabel.width = layoutFrame.width - 2 * margin
+        moreButton.size = .size(8)
+        moreButton.right = layoutFrame.maxX
+        moreButton.centerY = layoutFrame.midY
+        
+        dateLabel.width = layoutFrame.width - focusButton.width - moreButton.width
         dateLabel.height = layoutFrame.height
-        dateLabel.left = margin
+        dateLabel.left = focusButton.right
         dateLabel.top = layoutFrame.minY
     }
     
@@ -113,6 +133,10 @@ class TodoTaskEditFooterView: UIView {
     }
     
     // MARK: - Event Response
+    @objc func clickFocus(_ button: UIButton) {
+        delegate?.todoTaskEditFooterViewDidClickFocus(self)
+    }
+    
     @objc func clickMore(_ button: UIButton) {
         delegate?.todoTaskEditFooterViewDidClickMore(self)
     }

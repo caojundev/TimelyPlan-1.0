@@ -246,3 +246,22 @@ class TodoTaskManager {
         HandyRecord.save()
     }
 }
+
+extension TodoTaskManager {
+    
+    /// 获取用户列表任务
+    func fetchUserListTasks(in list: TodoList,
+                            showCompleted: Bool = true,
+                            completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchUserListTasks(in: list, showCompleted: showCompleted) { results in
+            completion(results?.tasks)
+        }
+    }
+    
+    /// 获取废纸篓任务
+    func fetchTrashTasks(completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchTrashTasks { results in
+            completion(results?.tasks)
+        }
+    }
+}

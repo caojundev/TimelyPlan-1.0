@@ -368,6 +368,16 @@ extension CDTodoTask {
 // MARK: - 获取任务
 extension CDTodoTask {
     
+    /// 获取用户列表任务
+    static func fetchUserListTasks(in list: TodoList,
+                                   showCompleted: Bool = true,
+                                   completion: @escaping([CDTodoTask]?) -> Void) {
+        let predicate = userListActiveTaskPredicate(for: list, showCompleted: showCompleted)
+        findAll(with: predicate, sortedBy: TodoTaskKey.creationDate, ascending: true) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
+
     /// 获取废纸篓任务
     static func fetchTrashTasks(completion: @escaping([CDTodoTask]?) -> Void) {
         findAll(with: trashTaskPredicate) { results in
@@ -379,6 +389,7 @@ extension CDTodoTask {
 
 // MARK: - 谓词
 extension CDTodoTask {
+
     // MARK: - 用户清单任务
     /// 用户清单活动任务
     static func userListActiveTaskPredicate(for list: TodoList,
@@ -389,7 +400,7 @@ extension CDTodoTask {
         ]
         
         if !showCompleted {
-            conditions.append(notShowCompletedCondition)
+            conditions.append(notCompletedCondition)
         }
         
         return conditions.andPredicate()
@@ -410,7 +421,7 @@ extension CDTodoTask {
         ]
         
         if !showCompleted {
-            conditions.append(notShowCompletedCondition)
+            conditions.append(notCompletedCondition)
         }
         
         return conditions.andPredicate()
@@ -430,7 +441,7 @@ extension CDTodoTask {
         return (TodoTaskKey.isRemoved, .isFalse)
     }
     
-    static var notShowCompletedCondition: PredicateCondition {
+    static var notCompletedCondition: PredicateCondition {
         return (TodoTaskKey.isCompleted, .isFalse)
     }
 }

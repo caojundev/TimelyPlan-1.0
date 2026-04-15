@@ -28,7 +28,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
 
     var layoutType: TodoListLayoutType = .list
     
-    private var showCompleted: Bool = true
+    private(set) var showCompleted: Bool = true
     
     private var groupType: TodoGroupType
     
