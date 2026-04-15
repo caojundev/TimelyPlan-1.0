@@ -31,6 +31,10 @@ class TodoTaskController {
             confirmRestoration(for: tasks, completion: completion)
         case .shred:
             confirmDeletion(for: tasks, completion: completion)
+        case .addToMyDay:
+            setAddToMyDay(true, for: tasks, completion: completion)
+        case .removeFromMyDay:
+            setAddToMyDay(false, for: tasks, completion: completion)
         }
     }
     

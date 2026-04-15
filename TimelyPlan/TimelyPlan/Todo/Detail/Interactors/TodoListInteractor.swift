@@ -66,20 +66,22 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     /// 当前选中任务可用的任务操作类型数组
     func taskActionTypes(for selectedTasks: Set<TodoTask>) -> [TodoTaskActionType] {
         var actionTypes = [TodoTaskActionType]()
-        var isAllDone = selectedTasks.count > 0 ? true : false
-        for task in selectedTasks {
-            if !task.isCompleted {
-                isAllDone = false
-            }
-        }
-        
+        let isAllDone = selectedTasks.allSatisfy { $0.isCompleted }
         if isAllDone {
             actionTypes.append(.undone)
         } else {
             actionTypes.append(.done)
         }
         
-        actionTypes.append(contentsOf: [.move, .date, .priority, .trash])
+        actionTypes.append(contentsOf: [.move, .date, .priority])
+        let isAllAddedToMyDay = selectedTasks.allSatisfy { $0.isAddedToMyDay }
+        if isAllAddedToMyDay {
+            actionTypes.append(.removeFromMyDay)
+        } else {
+            actionTypes.append(.addToMyDay)
+        }
+        
+        actionTypes.append(.trash)
         return actionTypes
     }
     
@@ -232,7 +234,7 @@ extension TodoListInteractor {
         case let userListConfig as TodoUserListConfiguration:
             return TodoUserListInteractor(configuration: userListConfig)
         case let smartListConfig as TodoSmartListConfiguration:
-            return TodoSmartListInteractor.smartInteractor(with: smartListConfig)
+            return TodoSmartListInteractor.smartListInteractor(with: smartListConfig)
         case let tagListConfig as TodoTagListConfiguration:
             return TodoTagListInteractor(configuration: tagListConfig)
         default:

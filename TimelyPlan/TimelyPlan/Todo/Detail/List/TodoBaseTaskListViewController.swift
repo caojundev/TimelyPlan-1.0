@@ -471,7 +471,7 @@ class TodoBaseTaskListViewController: UIViewController,
         
         var myDayImage: UIImage?
         if task.isAddedToMyDay {
-            myDayImage = resGetImage("todo_task_action_removeMyDay_24@2x")
+            myDayImage = resGetImage("todo_task_action_removeFromMyDay_24@2x")
             myDayAction.backgroundColor = Color(0x757575)
         } else {
             myDayImage = resGetImage("todo_task_action_addToMyDay_24@2x")
