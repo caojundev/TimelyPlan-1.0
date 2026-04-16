@@ -236,4 +236,11 @@ extension Todo {
     func updateTask(_ task: TodoTask, steps: [TodoStep]?) {
         taskManager.updateTask(task, steps: steps)
     }
+    
+    func reorderTask(_ sourceTask: TodoTask,
+                     postion: TodoTaskInsertPosition,
+                     targetTask: TodoTask,
+                     in list: TodoList?) {
+        taskManager.reorderTask(sourceTask, postion: postion, targetTask: targetTask, in: list)
+    }
 }

@@ -24,6 +24,10 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     /// 列表配置
     let configuration: TodoListConfiguration
     
+    var sort: TodoSort {
+        return self.state.validatedSort(for: self.configuration)
+    }
+    
     private(set) var tasks: [TodoTask]?
     
     private(set) var state: TodoListOptionState
@@ -200,6 +204,10 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
         self.loadGroups()
     }
     
+    func didReorderTodoTask(_ task: TodoTask) {
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
     
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
         
@@ -218,10 +226,6 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     }
     
     func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask]) {
-        
-    }
-
-    func didReorderTodoTask(_ task: TodoTask, fromIndex: Int, toIndex: Int) {
         
     }
 }
@@ -259,7 +263,9 @@ extension TodoListInteractor {
     }
     
     static func sortDescriptors(for sort: TodoSort) -> [SortDescriptor<TodoTask>] {
-        var results = [sort.sortDescriptor]
+        let completedSortDescriptor = SortDescriptor(\TodoTask.isCompleted, order: .forward)
+        var results = [completedSortDescriptor,
+                       sort.sortDescriptor]
         
         /// 辅助排序
         let types: [TodoSortType] = [.manually, .startDate, .dueDate]

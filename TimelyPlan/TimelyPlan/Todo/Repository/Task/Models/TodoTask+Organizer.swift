@@ -39,36 +39,36 @@ extension Array where Element == TodoTask {
     
     /// 按列表归类分组
     func listClassifiedTaskGroups() -> [TodoGroup] {
-        let result = self.listClassifiedTasks()
+        var result = self.listClassifiedTasks()
         var groups = [TodoGroup]()
         
         /// 收件箱
-        if let inboxTasks = result.inboxTasks, inboxTasks.count > 0 {
-            let smartList = TodoSmartList.inbox
-            let group = TodoGroup(identifier: smartList.identifier)
-            group.title = smartList.title
+        let inboxList = TodoSmartList.inbox.feature
+        if let inboxTasks = result[inboxList], inboxTasks.count > 0 {
+            let group = TodoGroup(identifier: inboxList.identifier)
+            group.title = inboxList.name
             group.tasks = inboxTasks
             groups.append(group)
         }
         
-//        let dic = result.listTasksDic
-//        let orderedUserLists = todo.orderedLists()
-//        let sortedLists = result.listTasksDic.keys.sorted { lList, rList in
-//            guard let lIndex = orderedUserLists.firstIndex(of: lList),
-//                  let rIndex = orderedUserLists.firstIndex(of: rList) else {
-//                return true
-//            }
-//
-//            return lIndex < rIndex
-//        }
-//
-//        for list in sortedLists {
-//            let group = TodoListGroup(list: list)
-//            group.tasks = dic[list]
-//            groups.append(group)
-//        }
-//
+        result[inboxList] = nil
         
+        /// 用户列表
+        let sortedLists = result.keys.sorted { lList, rList in
+            let lName = lList.name ?? ""
+            let rName = rList.name ?? ""
+            return lName.localizedStandardCompare(rName) == .orderedAscending
+        }
+
+        for list in sortedLists {
+            if let tasks = result[list], tasks .count > 0 {
+                let group = TodoGroup(identifier: list.identifier)
+                group.title = list.name ?? resGetString("Untitled")
+                group.tasks = tasks
+                groups.append(group)
+            }
+        }
+
         return groups
     }
     
@@ -140,19 +140,11 @@ extension Array where Element == TodoTask {
     // MARK: - 归类任务字典
     
     // 将任务按列表归类并存储在字典中
-    typealias TodoListClassifiedTasksResult = (inboxTasks: [TodoTask]?,
-                                               listTasksDic: [TodoListFeature: Array<Element>])
-    func listClassifiedTasks() -> TodoListClassifiedTasksResult {
-        /// 收件箱任务
-        var inboxTasks: [TodoTask] = []
+    func listClassifiedTasks() -> [TodoListFeature: Array<Element>] {
+        let inboxList = TodoSmartList.inbox.feature
         var listTasksDic: [TodoListFeature: Array<Element>] = [:]
         for task in self {
-            guard let list = task.list else {
-                /// 任务无列表，添加到收件箱
-                inboxTasks.append(task)
-                continue
-            }
-            
+            let list = task.list ?? inboxList
             if listTasksDic[list] == nil {
                 listTasksDic[list] = []
             }
@@ -160,7 +152,7 @@ extension Array where Element == TodoTask {
             listTasksDic[list]?.append(task)
         }
         
-        return (inboxTasks.count > 0 ? inboxTasks : nil, listTasksDic)
+        return listTasksDic
     }
 
     // 将待办任务按完成状态归类并存储在字典中

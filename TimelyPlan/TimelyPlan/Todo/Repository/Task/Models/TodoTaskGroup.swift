@@ -90,21 +90,3 @@ class TodoGroup: ListDiffable {
         return identifier == object.identifier
     }
 }
-
-class TodoListGroup: TodoGroup {
-    
-    var list: TodoList
-    
-    override var title: String? {
-        get {
-            return list.name
-        }
-        
-        set {}
-    }
-    
-    init(list: TodoList) {
-        self.list = list
-        super.init(identifier: list.identifier)
-    }
-}

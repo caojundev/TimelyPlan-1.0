@@ -106,6 +106,8 @@ class TodoBaseTaskListViewController: UIViewController,
     }()
     
     
+    private var reorder: TPTableDragInsertReorder?
+    
     let taskController = TodoTaskController()
     
     let interactor: TodoListInteractor
@@ -123,6 +125,7 @@ class TodoBaseTaskListViewController: UIViewController,
         super.viewDidLoad()
         self.view.addSubview(self.listView)
         self.setupAddView()
+        self.setupReorder()
         self.listView.reloadData()
         self.interactor.didChangeGroups = { [weak self] in
             self?.listView.performUpdate()
@@ -157,6 +160,13 @@ class TodoBaseTaskListViewController: UIViewController,
             toolView.height = toolViewHeight
             toolView.bottom = view.height
         }
+    }
+    
+    private func setupReorder() {
+        let reorder = TPTableDragInsertReorder(tableView: self.listView.tableView)
+        reorder.delegate = self
+        reorder.isEnabled = true
+        self.reorder = reorder
     }
     
     func updateListViewFrame() {
@@ -525,5 +535,51 @@ class TodoBaseTaskListViewController: UIViewController,
         actions = [trashAction, scheduleAction]
         return UISwipeActionsConfiguration(actions: actions)
     }
-    
 }
+
+// MARK: - 任务排序
+extension TodoBaseTaskListViewController: TPTableDragInsertReorderDelegate {
+    
+    func tableDragReorder(_ reorder: TPTableDragReorder, canMoveRowAt indexPath: IndexPath) -> Bool {
+        guard interactor is TodoUserListInteractor || interactor is TodoInboxListInteractor else {
+            return false
+        }
+        
+        return self.interactor.sort.type == .manually
+    }
+
+    func tableDragInsertReorder(_ reorder: TPTableDragInsertReorder, canInsertRowTo targetIndexPath: IndexPath, from sourceIndexPath: IndexPath) -> Bool {
+        guard sourceIndexPath.section == targetIndexPath.section else {
+            return false
+        }
+        
+        return true
+    }
+    
+    func tableDragInsertReorder(_ reorder: TPTableDragInsertReorder,
+                                inserRowTo targetIndexPath: IndexPath,
+                                from sourceIndexPath: IndexPath,
+                                depth: Int) -> IndexPath? {
+        guard targetIndexPath.row != sourceIndexPath.row,
+                let sourceTask = listView.task(at: sourceIndexPath),
+                let targetTask = listView.task(at: targetIndexPath) else {
+            return nil
+        }
+    
+        var insertPosition: TodoTaskInsertPosition = .after
+        if sourceIndexPath.row > targetIndexPath.row {
+            insertPosition = .before
+        }
+        
+        var list: TodoList?
+        if let userListInteractor = self.interactor as? TodoUserListInteractor {
+            list = userListInteractor.list
+        }
+        
+        listView.moveRow(at: sourceIndexPath, to: targetIndexPath)
+        todo.reorderTask(sourceTask, postion: insertPosition, targetTask: targetTask, in: list)
+        return targetIndexPath
+    }
+}
+
+

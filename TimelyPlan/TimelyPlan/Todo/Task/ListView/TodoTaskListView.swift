@@ -84,7 +84,7 @@ class TodoTaskListView: UIView,
     private var selection = TPMultipleItemSelection<TodoTask>()
     
     /// 集合视图
-    private lazy var tableView: UITableView = {
+    private(set) lazy var tableView: UITableView = {
         let tableView = UITableView(frame: bounds, style: style)
         tableView.isPrefetchingEnabled = false
         tableView.backgroundColor = .clear
@@ -210,20 +210,6 @@ class TodoTaskListView: UIView,
         layoutManager.removeLayout(for: tasks)
     }
     
-    /*
-    func didUpdate(with infos: [TodoTaskChangeInfo]) {
-        guard infos.count == 1 else {
-            return
-        }
-        
-        /// 处理进度改变
-        let info = infos[0]
-        if case .progress(let oldValue, let newValue) = info.change {
-            didChangeProgress(from: oldValue, to: newValue, for: info.task)
-        }
-    }
-     */
-    
     /// 重新加载数据
     func reloadData() {
         layoutManager.removeAllLayouts()
@@ -248,6 +234,10 @@ class TodoTaskListView: UIView,
         }
         
         adapter.performUpdate(with: .fade, completion: nil)
+    }
+    
+    func moveRow(at fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
+        adapter.moveRow(at: fromIndexPath, to: toIndexPath)
     }
     
     func setCompleted(_ isCompleted: Bool,

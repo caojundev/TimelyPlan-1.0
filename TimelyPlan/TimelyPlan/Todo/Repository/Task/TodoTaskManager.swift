@@ -7,6 +7,12 @@
 
 import Foundation
 
+/// 任务排序时插入位置
+enum TodoTaskInsertPosition {
+    case before
+    case after
+}
+
 class TodoTaskManager {
     
     /// 任务处理更新器
@@ -262,6 +268,20 @@ class TodoTaskManager {
 
         let change: TodoTaskChange = .step(oldValue: task.steps, newValue: steps)
         updater.didUpdateTodoTask(task, with: change)
+        HandyRecord.save()
+    }
+    
+    // MARK: - 排序
+    func reorderTask(_ sourceTask: TodoTask,
+                     postion: TodoTaskInsertPosition,
+                     targetTask: TodoTask,
+                     in list: TodoList?) {
+        
+        guard CDTodoTask.reorderTask(sourceTask, postion: postion, targetTask: targetTask, in: list) else {
+            return
+        }
+        
+        updater.didReorderTodoTask(sourceTask)
         HandyRecord.save()
     }
 }

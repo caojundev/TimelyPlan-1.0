@@ -44,7 +44,7 @@ protocol TodoTaskProcessorDelegate: AnyObject {
     func didDeleteTodoTasks(_ tasks: [TodoTask])
     
     /// 任务在列表中的顺序发生改变
-    func didReorderTodoTask(_ task: TodoTask, fromIndex: Int, toIndex: Int)
+    func didReorderTodoTask(_ task: TodoTask)
 }
 
 extension TodoTaskProcessorDelegate {
@@ -69,7 +69,7 @@ extension TodoTaskProcessorDelegate {
     
     func didDeleteTodoTasks(_ tasks: [TodoTask]) {}
     
-    func didReorderTodoTask(_ task: TodoTask, fromIndex: Int, toIndex: Int) {}
+    func didReorderTodoTask(_ task: TodoTask) {}
     
 }
 
@@ -120,9 +120,9 @@ class TodoTaskProcessorUpdater: NSObject, TodoTaskProcessorDelegate {
         }
     }
     
-    func didReorderTodoTask(_ task: TodoTask, fromIndex: Int, toIndex: Int) {
+    func didReorderTodoTask(_ task: TodoTask) {
         notifyDelegates { (delegate: TodoTaskProcessorDelegate) in
-            delegate.didReorderTodoTask(task, fromIndex: fromIndex, toIndex: toIndex)
+            delegate.didReorderTodoTask(task)
         }
     }
     

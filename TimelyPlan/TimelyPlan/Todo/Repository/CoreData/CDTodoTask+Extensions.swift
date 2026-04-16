@@ -282,6 +282,45 @@ extension CDTodoTask: SortableIdentifiable {
         cdTask.modificationDate = .now
         return true
     }
+    
+    static func reorderTask(_ sourceTask: TodoTask,
+                            postion: TodoTaskInsertPosition,
+                            targetTask: TodoTask,
+                            in list: TodoList?) -> Bool {
+        var tasks: [CDTodoTask]?
+        if let list = list {
+            /// 用户列表任务
+            tasks = getUserListTasks(in: list)
+        } else {
+            /// 收件箱列表任务
+            tasks = getInboxTasks()
+        }
+        
+        guard var tasks = tasks, tasks.count > 0 else {
+            return false
+        }
+
+        let sourceIndex = tasks.firstIndex { $0.identifier == sourceTask.identifier }
+        guard let sourceIndex = sourceIndex else {
+            return false
+        }
+        
+        let moveTask = tasks.remove(at: sourceIndex)
+
+        let targetIndex = tasks.firstIndex { $0.identifier == targetTask.identifier }
+        guard let targetIndex = targetIndex else {
+            return false
+        }
+        
+        var insertIndex = targetIndex
+        if postion == .after {
+            insertIndex = targetIndex < tasks.count ? targetIndex + 1 : tasks.count
+        }
+        
+        tasks.insert(moveTask, at: insertIndex)
+        tasks.updateOrders()
+        return true
+    }
 }
 
 // MARK: - 处理任务
@@ -381,6 +420,12 @@ extension CDTodoTask {
         }
     }
     
+    static func getInboxTasks(showCompleted: Bool = true) -> [CDTodoTask]? {
+        let predicate = activeInboxTaskPredicate(showCompleted: showCompleted)
+        let results: [CDTodoTask]? = findAll(with: predicate, sortedBy: TodoTaskKey.order, ascending: true, in: .defaultContext)
+        return results
+    }
+    
     /// 获取已完成任务
     static func fetchCompletedTasks(completion: @escaping([CDTodoTask]?) -> Void) {
         let conditions: [PredicateCondition] = [
@@ -402,6 +447,12 @@ extension CDTodoTask {
         findAll(with: predicate, sortedBy: TodoTaskKey.creationDate, ascending: true) { results in
             completion(results as? [CDTodoTask])
         }
+    }
+    
+    static func getUserListTasks(in list: TodoList, showCompleted: Bool = true) -> [CDTodoTask]? {
+        let predicate = userListActiveTaskPredicate(for: list, showCompleted: showCompleted)
+        let results: [CDTodoTask]? = findAll(with: predicate, sortedBy: TodoTaskKey.order, ascending: true, in: .defaultContext)
+        return results
     }
 
     /// 获取废纸篓任务
