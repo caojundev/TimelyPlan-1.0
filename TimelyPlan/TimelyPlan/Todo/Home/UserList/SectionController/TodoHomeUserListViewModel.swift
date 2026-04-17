@@ -1,0 +1,130 @@
+//
+//  TodoHomeUserListViewModel.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/3/30.
+//
+
+import Foundation
+
+class TodoHomeUserListViewModel: ExpansionStateProviding {
+    
+    /// 用户列表改变
+    var userListDidChange: (() -> Void)?
+    
+    /// 顶层清单
+    private var topLists: [TodoList]?
+
+    /// 是否需要刷新任务
+    private var needsRefresh = true
+
+    private let requestManager = TPRequestManager()
+    
+    let expansionState: ExpansionStateProviding
+    
+    init(expansionState: ExpansionStateProviding) {
+        self.expansionState = expansionState
+        self.loadTopLists()
+        todo.addUpdater(self)
+    }
+
+    func setNeedsRefresh() {
+        self.needsRefresh = true
+    }
+    
+    // MARK: -
+    func loadTopLists() {
+        let requestID = requestManager.executeRequest()
+        loadTopListsIfNeeded {[weak self] lists in
+            guard let self = self, self.requestManager.shouldProceed(with: requestID) else {
+                return
+            }
+
+            self.topLists = lists
+            self.needsRefresh = false
+            self.userListDidChange?()
+        }
+    }
+    
+    private func loadTopListsIfNeeded(completion: @escaping ([TodoList]?) -> Void) {
+        guard self.needsRefresh else {
+            completion(self.topLists)
+            return
+        }
+        
+        todo.fetchTopLists(completion: completion)
+    }
+    
+    private func lists(with stateProvier: ExpansionStateProviding) -> [TodoList] {
+        guard let topLists = topLists else {
+            return []
+        }
+        
+        let lists = topLists.flattenItems(with: stateProvier) as? [TodoList]
+        return lists ?? []
+    }
+    
+    /// 获取用户列表数组
+    func lists() -> [TodoList] {
+        return lists(with: expansionState)
+    }
+    
+    // MARK: - ExpansionStateProviding
+    func isExpanded(_ item: Any) -> Bool {
+        return expansionState.isExpanded(item)
+    }
+    
+    func setExpended(_ isExpended: Bool, for item: Any) {
+        expansionState.setExpended(isExpended, for: item)
+    }
+
+}
+
+
+extension TodoHomeUserListViewModel: TodoListProcessorDelegate {
+    
+    /// 添加新组时通知
+    func didCreateTodoList(_ list: TodoList) {
+        expandAllParent(of: list)
+        setNeedsRefresh()
+        loadTopLists()
+    }
+    
+    /// 更新列表信息通知
+    func didUpdateTodoList(_ list: TodoList) {
+        setNeedsRefresh()
+        loadTopLists()
+    }
+    
+    func didUngroupList(_ list: TodoList) {
+        setNeedsRefresh()
+        loadTopLists()
+    }
+    
+    /// 删除列表时通知
+    func didDeleteTodoLists(_ lists: [TodoList]) {
+        setNeedsRefresh()
+        loadTopLists()
+    }
+    
+    /// 列表移动通知， parent为nil时表示移动到根目录
+    func didMoveTodoList(_ list: TodoList, to parent: TodoList?) {
+        if let parent = parent {
+            expandAllParent(of: parent, includeCurrent: true)
+        }
+        
+        setNeedsRefresh()
+        loadTopLists()
+    }
+
+    /// 重新列表排序
+    func didReorderTodoList(_ list: TodoList) {
+        expandAllParent(of: list, includeCurrent: false)
+        
+        /// 同步更新列表
+        self.topLists = todo.getTopLists()
+        self.needsRefresh = false
+        self.userListDidChange?()
+    }
+}
+

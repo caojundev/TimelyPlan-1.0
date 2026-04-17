@@ -84,6 +84,14 @@ class Todo {
 extension Todo {
    
     // MARK: - 获取列表
+    func fetchTopLists(completion: @escaping([TodoList]?) -> Void) {
+        return userListManager.fetchTopLists(completion: completion)
+    }
+    
+    func getTopLists() -> [TodoList]? {
+        return userListManager.getTopLists()
+    }
+    
     func getUserList(of identifier: String) -> TodoList? {
         return userListManager.getUserList(of: identifier)
     }
@@ -164,6 +172,12 @@ extension Todo {
         taskManager.fetchTrashTasks(completion: completion)
     }
     
+    
+    func fetchTasks(for tag: TodoTag, completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchTasks(for: tag, completion: completion)
+    }
+    
+    // MARK: - 任务处理
     /// 创建任务
     func createTask(with quickAddTask: TodoQuickAddTask) {
         taskManager.createTask(with: quickAddTask)

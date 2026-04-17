@@ -16,6 +16,8 @@ struct TodoTaskKey {
     static var priority = "priorityRawValue"
     static var isAddedToMyDay = "isAddedToMyDay"
     static var tags = "tags"
+    static var tagsIdentifier = "tags.identifier"
+    
     static var order = "order"
     static var isCompleted = "isCompleted"
     static var isRemoved = "isRemoved"
@@ -462,11 +464,29 @@ extension CDTodoTask {
         }
     }
     
+    static func fetchTasks(for tag: TodoTag, completion: @escaping([CDTodoTask]?) -> Void) {
+        let predicate = tagActiveTaskPredicate(with: tag)
+        findAll(with: predicate) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
+    
 }
 
 // MARK: - 谓词
 extension CDTodoTask {
 
+    // MARK: - 标签
+    /// 标签活动任务
+    static func tagActiveTaskPredicate(with tag: TodoTag) -> NSPredicate {
+        let conditions: [PredicateCondition] = [
+            notRemovedCondition,
+            (TodoTaskKey.tagsIdentifier, .anyEqual(tag.identifier))
+        ]
+        
+        return conditions.andPredicate()
+    }
+    
     // MARK: - 用户清单任务
     /// 用户清单活动任务
     static func userListActiveTaskPredicate(for list: TodoList,

@@ -10,6 +10,10 @@ import Foundation
 class TodoTagListInteractor: TodoListInteractor,
                                 TodoTagProcessorDelegate {
     
+    var tag: TodoTag {
+        return listConfiguration.tag
+    }
+    
     var listConfiguration: TodoTagListConfiguration {
        return configuration as! TodoTagListConfiguration
     }
@@ -18,14 +22,20 @@ class TodoTagListInteractor: TodoListInteractor,
         super.init(configuration: configuration)
         todo.addUpdater(self, for: [.tag])
     }
+    
+    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
+        todo.fetchTasks(for: self.tag) { results in
+            completion(results)
+        }
+    }
 
     override func title() -> TextRepresentable? {
-        let tagName = listConfiguration.tag.name ?? resGetString("Untitled")
+        let tagName = self.tag.name ?? resGetString("Untitled")
         if let image = resGetImage("todo_home_tag_24") {
             let title: ASAttributedString
             title = .string(image: image,
                             imageSize: .size(4),
-                            imageColor: listConfiguration.tag.color,
+                            imageColor: self.tag.color,
                             trailingText: tagName,
                             separator: " ")
             return title

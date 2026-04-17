@@ -263,9 +263,13 @@ extension TodoListInteractor {
     }
     
     static func sortDescriptors(for sort: TodoSort) -> [SortDescriptor<TodoTask>] {
-        let completedSortDescriptor = SortDescriptor(\TodoTask.isCompleted, order: .forward)
-        var results = [completedSortDescriptor,
-                       sort.sortDescriptor]
+        var results = [SortDescriptor<TodoTask>]()
+        if sort.type != .manually {
+            let completedSortDescriptor = SortDescriptor(\TodoTask.isCompleted, order: .forward)
+            results.append(completedSortDescriptor)
+        }
+        
+        results.append(sort.sortDescriptor)
         
         /// 辅助排序
         let types: [TodoSortType] = [.manually, .startDate, .dueDate]
@@ -274,8 +278,8 @@ extension TodoListInteractor {
         }
         
         /// 以创建日期辅助排序
-        let secondarySort = TodoSort(type: .creationDate, order: sort.order)
-        results.append(secondarySort.sortDescriptor)
+        let creationDateSort = TodoSort(type: .creationDate, order: .ascending)
+        results.append(creationDateSort.sortDescriptor)
         return results
     }
     

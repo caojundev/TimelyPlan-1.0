@@ -603,6 +603,12 @@ extension TPCollectionViewAdapter {
     }
     
     func performUpdate(with completion: ((Bool) -> Void)?) {
+        guard collectionView.window != nil else {
+            reloadData()
+            completion?(true)
+            return
+        }
+        
         let oldObjects = self.objects
         let newObjects = fetchSectionObjects()
         self.objects = newObjects
@@ -665,7 +671,6 @@ extension TPCollectionViewAdapter {
             for result in indexPathResults {
                 self.collectionView.deleteItems(at: result.deletes)
                 self.collectionView.insertItems(at: result.inserts)
-                self.collectionView.reloadItems(at: result.updates)
                 for move in result.moves {
                     self.collectionView.moveItem(at: move.from, to: move.to)
                 }
@@ -687,6 +692,12 @@ extension TPCollectionViewAdapter {
     }
     
     func performSectionUpdate(forSectionObjects sectionObjects: [ListDiffable], completion: ((Bool) -> Void)?) {
+        guard collectionView.window != nil else {
+            reloadData()
+            completion?(true)
+            return
+        }
+        
         var indexPathResults = [ListIndexPathResult]()
         for sectionObject in sectionObjects {
             guard let section = objects.indexOf(sectionObject) else {
@@ -718,7 +729,6 @@ extension TPCollectionViewAdapter {
             for result in indexPathResults {
                 self.collectionView.deleteItems(at: result.deletes)
                 self.collectionView.insertItems(at: result.inserts)
-                self.collectionView.reloadItems(at: result.updates)
                 for move in result.moves {
                     self.collectionView.moveItem(at: move.from, to: move.to)
                 }

@@ -8,10 +8,23 @@
 import Foundation
 import UIKit
 
+// MARK: - Constants
+private enum TPTableViewAdapterConstants {
+    static let defaultRowHeight: CGFloat = 55.0
+    static let scrollAnimationDelay: TimeInterval = 0.4
+    static let cellKind = "Cell"
+    static let headerKind = "Header"
+    static let footerKind = "Footer"
+}
+
+// MARK: - TPTableViewAdapter
+
 class TPTableViewAdapter: NSObject,
                           UITableViewDataSource,
                           UITableViewDelegate {
 
+    // MARK: - Properties
+    
     /// 数据源
     weak var dataSource: TPTableViewAdapterDataSource?
 
@@ -34,6 +47,9 @@ class TPTableViewAdapter: NSObject,
 
     /// 区块对象数组
     private(set) var objects: [ListDiffable] = []
+    
+    /// Section 对象的索引映射（用于快速查找）
+    private var sectionIndexMap: [ObjectIdentifier: Int] = [:]
 
     /// 保存区块对象对应的条目数组
     private var itemsMapTable: NSMapTable<AnyObject, NSArray>
@@ -44,6 +60,8 @@ class TPTableViewAdapter: NSObject,
     /// 已注册的头脚视图标识
     private var registeredHeaderFooterIdentifiers: Set<String> = []
     
+    // MARK: - Initialization
+    
     override init() {
         let keyOptions: NSPointerFunctions.Options = [.objectPointerPersonality, .strongMemory]
         self.itemsMapTable = NSMapTable(keyOptions: keyOptions, valueOptions: .strongMemory)
@@ -51,24 +69,34 @@ class TPTableViewAdapter: NSObject,
     }
 
     // MARK: - Reload
+    
     /// 重新加载数据
     func reloadData() {
-        self.itemsMapTable.removeAllObjects()
-        self.objects = getSectionObjects()
-        for sectionObject in self.objects {
-            let items = self.getItems(for: sectionObject)
-            self.itemsMapTable.setObject(items as NSArray, forKey: sectionObject)
+        rebuildSectionIndexMap()
+        itemsMapTable.removeAllObjects()
+        objects = getSectionObjects()
+        
+        for sectionObject in objects {
+            let items = getItems(for: sectionObject)
+            itemsMapTable.setObject(items as NSArray, forKey: sectionObject)
         }
         
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
-    // MARK: - 更新可见单元格
+    /// 重建 Section 索引映射
+    private func rebuildSectionIndexMap() {
+        sectionIndexMap.removeAll()
+        for (index, object) in objects.enumerated() {
+            sectionIndexMap[ObjectIdentifier(object)] = index
+        }
+    }
+    
+    // MARK: - Update Visible Cells
     
     func updateVisibleCells() {
-        let visibleCells = self.tableView.visibleCells
-        for cell in visibleCells {
-            if let indexPath = self.tableView.indexPath(for: cell) {
+        for cell in tableView.visibleCells {
+            if let indexPath = tableView.indexPath(for: cell) {
                 delegate?.adapter(self, didDequeCell: cell, forRowAt: indexPath)
             }
         }
@@ -81,21 +109,13 @@ class TPTableViewAdapter: NSObject,
     }
     
     func updateVisibleCells(forSectionObject object: ListDiffable) {
-        guard let section = objects.indexOf(object) else {
+        guard let section = section(of: object),
+              let indexPaths = tableView.indexPathsForVisibleRows else {
             return
         }
         
-        guard let indexPaths = self.tableView.indexPathsForVisibleRows else {
-            return
-        }
-        
-        for indexPath in indexPaths {
-            guard indexPath.section == section else {
-                continue
-            }
-            
-            
-            if let cell = self.tableView.cellForRow(at: indexPath) {
+        for indexPath in indexPaths where indexPath.section == section {
+            if let cell = tableView.cellForRow(at: indexPath) {
                 delegate?.adapter(self, didDequeCell: cell, forRowAt: indexPath)
             }
         }
@@ -103,31 +123,28 @@ class TPTableViewAdapter: NSObject,
     
     
     // MARK: - UITableViewDataSource
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return objects.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let object = objects[section]
-        let items = items(for: object)
-        return items.count
+        return items(for: object).count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cls: AnyClass = delegate?.adapter(self, classForCellAt: indexPath) ?? UITableViewCell.self
-        let cell = dequeueReusableCell(cellClass: cls, identifier: nil, at: indexPath)
-        cell.isHidden = false  /// 拖拽排序时Cell可能被隐藏
+        let cellClass: AnyClass = delegate?.adapter(self, classForCellAt: indexPath) ?? UITableViewCell.self
+        let cell = dequeueReusableCell(cellClass: cellClass, identifier: nil, at: indexPath)
+        cell.isHidden = false  // 拖拽排序时 Cell 可能被隐藏
 
+        // 设置样式
         if let cell = cell as? TPBaseTableCell {
-            /// 设置样式
-            var style = delegate?.adapter(self, styleForRowAt: indexPath)
-            if style == nil {
-                style = cellStyle
-            }
-            
+            let style = delegate?.adapter(self, styleForRowAt: indexPath) ?? cellStyle
             cell.style = style
         }
         
+        // 配置选中状态
         if let cell = cell as? Checkable {
             let isChecked = delegate?.adapter(self, shouldShowCheckmarkForRowAt: indexPath) ?? false
             cell.isChecked = isChecked
@@ -138,8 +155,9 @@ class TPTableViewAdapter: NSObject,
     }
     
     // MARK: - UITableViewDelegate
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerClass: AnyClass = delegate?.adapter(self, classForHeaderInSection: section) else {
+        guard let headerClass = delegate?.adapter(self, classForHeaderInSection: section) else {
             return nil
         }
         
@@ -149,7 +167,7 @@ class TPTableViewAdapter: NSObject,
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard let footerClass: AnyClass = delegate?.adapter(self, classForFooterInSection: section) else {
+        guard let footerClass = delegate?.adapter(self, classForFooterInSection: section) else {
             return nil
         }
         
@@ -159,7 +177,7 @@ class TPTableViewAdapter: NSObject,
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return delegate?.adapter(self, heightForRowAt: indexPath) ?? 55.0
+        return delegate?.adapter(self, heightForRowAt: indexPath) ?? TPTableViewAdapterConstants.defaultRowHeight
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -176,8 +194,7 @@ class TPTableViewAdapter: NSObject,
     }
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        let bHighlight = delegate?.adapter(self, shouldHighlightRowAt: indexPath) ?? true
-        return bHighlight
+        return delegate?.adapter(self, shouldHighlightRowAt: indexPath) ?? true
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -210,8 +227,9 @@ class TPTableViewAdapter: NSObject,
     }
     
     // MARK: - UIScrollViewDelegate
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        /// 手指拖动开始隐藏菜单
+        // 手指拖动开始隐藏菜单
         let menuController = UIMenuController.shared
         if menuController.isMenuVisible {
             menuController.hideMenu()
@@ -227,10 +245,9 @@ class TPTableViewAdapter: NSObject,
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         delegate?.scrollViewDidEndDecelerating?(scrollView)
     }
-    
- 
     // MARK: - Dequeue Reusable Views
-    /// 获取单元格条目对应的复用标识
+    
+    /// 获取复用视图标识符
     @inline(__always)
     private func reusableViewIdentifier(viewClass: AnyClass, kind: String?, identifier: String?) -> String {
         let className = String(describing: viewClass.self)
@@ -242,57 +259,75 @@ class TPTableViewAdapter: NSObject,
     func dequeueReusableCell(cellClass: AnyClass,
                              identifier: String?,
                              at indexPath: IndexPath) -> UITableViewCell {
+        let reuseIdentifier = reusableViewIdentifier(
+            viewClass: cellClass,
+            kind: TPTableViewAdapterConstants.cellKind,
+            identifier: identifier
+        )
         
-        let reuseIdentifier = reusableViewIdentifier(viewClass: cellClass, kind: "Cell", identifier: identifier)
         if !registeredCellIdentifiers.contains(reuseIdentifier) {
             tableView.register(cellClass, forCellReuseIdentifier: reuseIdentifier)
             registeredCellIdentifiers.insert(reuseIdentifier)
         }
         
-        return tableView.dequeueReusableCell(withIdentifier: reuseIdentifier,
-                                             for: indexPath)
+        return tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
     }
 
     func dequeueReusableHeaderFooterView(viewClass: AnyClass,
                                          kind: String?) -> UITableViewHeaderFooterView {
-        let reuseIdentifier = reusableViewIdentifier(viewClass: viewClass,
-                                                     kind: kind,
-                                                     identifier: nil)
+        let reuseIdentifier = reusableViewIdentifier(
+            viewClass: viewClass,
+            kind: kind,
+            identifier: nil
+        )
+        
         if !registeredHeaderFooterIdentifiers.contains(reuseIdentifier) {
             tableView.register(viewClass, forHeaderFooterViewReuseIdentifier: reuseIdentifier)
             registeredHeaderFooterIdentifiers.insert(reuseIdentifier)
         }
         
-        return tableView.dequeueReusableHeaderFooterView(withIdentifier: reuseIdentifier)!
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: reuseIdentifier) else {
+            fatalError("Failed to dequeue header/footer view with identifier: \(reuseIdentifier)")
+        }
+        return view
     }
-        
     
-    /// 头视图
+    /// 获取头视图
     func dequeueHeaderView(viewClass: AnyClass) -> UITableViewHeaderFooterView {
-        return dequeueReusableHeaderFooterView(viewClass: viewClass, kind: "Header")
+        return dequeueReusableHeaderFooterView(viewClass: viewClass, kind: TPTableViewAdapterConstants.headerKind)
     }
     
-    /// 脚视图
+    /// 获取脚视图
     func dequeueFooterView(viewClass: AnyClass) -> UITableViewHeaderFooterView {
-        return dequeueReusableHeaderFooterView(viewClass: viewClass, kind: "Footer")
+        return dequeueReusableHeaderFooterView(viewClass: viewClass, kind: TPTableViewAdapterConstants.footerKind)
     }
     
     // MARK: - DataSource Helpers
+    
     private func getSectionObjects() -> [ListDiffable] {
-        let objects = dataSource?.sectionObjects(for: self) ?? []
-        return objects
+        return dataSource?.sectionObjects(for: self) ?? []
     }
     
     private func getItems(for sectionObject: ListDiffable) -> [ListDiffable] {
-        let items = dataSource?.adapter(self, itemsForSectionObject: sectionObject) ?? []
-        return items
+        return dataSource?.adapter(self, itemsForSectionObject: sectionObject) ?? []
     }
     
-    // MARK: - Section objects and items
+    // MARK: - Section Objects and Items
     
-    /// 区块对象对应的索引
+    /// 获取区块对象对应的索引
     func section(of sectionObject: ListDiffable) -> Int? {
-        return objects.indexOf(sectionObject)
+        // 先尝试从缓存的索引映射中获取
+        if let index = sectionIndexMap[ObjectIdentifier(sectionObject)] {
+            return index
+        }
+        
+        // 回退到线性搜索并更新缓存
+        if let index = objects.indexOf(sectionObject) {
+            rebuildSectionIndexMap()
+            return index
+        }
+        
+        return nil
     }
     
     func object(at index: Int) -> ListDiffable {
@@ -300,23 +335,17 @@ class TPTableViewAdapter: NSObject,
     }
     
     func items(for sectionObject: ListDiffable) -> [ListDiffable] {
-        if let items = itemsMapTable.object(forKey: sectionObject) as? [ListDiffable] {
-            return items
-        }
-        
-        return []
+        return itemsMapTable.object(forKey: sectionObject) as? [ListDiffable] ?? []
     }
     
     func itemsCount(at section: Int) -> Int {
         let sectionObject = objects[section]
-        let items = items(for: sectionObject)
-        return items.count
+        return items(for: sectionObject).count
     }
     
     func item(at indexPath: IndexPath) -> ListDiffable {
         let sectionObject = objects[indexPath.section]
-        let items = items(for: sectionObject)
-        return items[indexPath.item]
+        return items(for: sectionObject)[indexPath.item]
     }
     
     func indexPath(of item: ListDiffable) -> IndexPath? {
@@ -326,11 +355,10 @@ class TPTableViewAdapter: NSObject,
                 return IndexPath(item: index, section: section)
             }
         }
-        
         return nil
     }
     
-    /// 获取item的最新对象，因为两个不同的对象可能被判定为相等
+    /// 获取 item 的最新对象（因为两个不同的对象可能被判定为相等）
     func item(of item: ListDiffable) -> ListDiffable? {
         for object in objects {
             let items = items(for: object)
@@ -338,43 +366,29 @@ class TPTableViewAdapter: NSObject,
                 return items[index]
             }
         }
-        
         return nil
     }
     
     /// 获取所有条目
     func allItems() -> [ListDiffable] {
-        var results = [ListDiffable]()
-        for object in objects {
-            let items = items(for: object)
-            results.append(contentsOf: items)
-        }
-        
-        return results
+        return objects.flatMap { items(for: $0) }
     }
     
     /// 是否有条目
     var hasItem: Bool {
-        for object in objects {
-            let items = items(for: object)
-            if items.count > 0 {
-                return true
-            }
-        }
-        
-        return false
+        return objects.contains { !items(for: $0).isEmpty }
     }
     
     /// 移动单元格条目
     func moveRow(at fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
         if fromIndexPath.section == toIndexPath.section {
-            /// 相同区块
+            // 相同区块内移动
             let sectionObject = object(at: fromIndexPath.section)
             var sectionItems = items(for: sectionObject)
             sectionItems.moveObject(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item)
             itemsMapTable.setObject(sectionItems as NSArray, forKey: sectionObject)
         } else {
-            /// 不同区块
+            // 跨区块移动
             let fromSectionObject = object(at: fromIndexPath.section)
             var fromSectionItems = items(for: fromSectionObject)
             let item = fromSectionItems.remove(at: fromIndexPath.item)
@@ -391,6 +405,7 @@ class TPTableViewAdapter: NSObject,
 }
 
 // MARK: - Update
+
 extension TPTableViewAdapter {
     
     func performNilUpdate() {
@@ -398,34 +413,35 @@ extension TPTableViewAdapter {
     }
     
     func performUpdate(completion: ((Bool) -> Void)? = nil) {
-        let rowAnimation = UITableView.RowAnimation.automatic
-        performUpdate(with: rowAnimation, completion: completion)
+        performUpdate(with: .automatic, completion: completion)
     }
         
     func performUpdate(with rowAnimation: UITableView.RowAnimation, completion: ((Bool) -> Void)? = nil) {
-        guard self.tableView.window != nil else {
-            self.reloadData()
+        guard tableView.window != nil else {
+            reloadData()
+            completion?(true)
             return
         }
         
-        let oldObjects = self.objects
+        let oldObjects = objects
         let newObjects = getSectionObjects()
-        self.objects = newObjects
+        objects = newObjects
+        rebuildSectionIndexMap()
   
         let sectionResult = ListDiff(oldArray: oldObjects, newArray: newObjects, option: .equality)
     
-        /// 插入区块所对应的对象
+        // 插入区块所对应的对象
         let insertObjects = newObjects.elementsAtIndexes(indexes: sectionResult.inserts)
         for insertObject in insertObjects {
-            /// 更新条目数据
             let items = getItems(for: insertObject)
             itemsMapTable.setObject(items as NSArray, forKey: insertObject)
         }
         
-        /// 更新区块所对应的对象
+        // 更新区块所对应的对象
         var indexPathResults = [ListIndexPathResult]()
         var updateObjects = oldObjects
         updateObjects.removeElementsAtIndexes(indexes: sectionResult.deletes)
+        
         for updateObject in updateObjects {
             let fromSection = oldObjects.indexOf(updateObject)
             let toSection = newObjects.indexOf(updateObject)
@@ -434,27 +450,29 @@ extension TPTableViewAdapter {
                 return
             }
 
-            /// 获取旧区块条目数组
+            // 获取旧区块条目数组
             let oldItems = items(for: updateObject)
             itemsMapTable.removeObject(forKey: updateObject)
             
-            /// 获取新区块数据条目数组
-            /// oldObjects 和 newObjects中的"object"可能不是同一对象，所以需要更新sectionController
+            // 获取新区块数据条目数组
+            // oldObjects 和 newObjects 中的 "object" 可能不是同一对象，所以需要更新 sectionController
             let updateObject = newObjects[toSection]
             let newItems = getItems(for: updateObject)
             itemsMapTable.setObject(newItems as NSArray, forKey: updateObject)
             
-            let result = ListDiffPaths(fromSection: fromSection,
-                                            toSection: toSection,
-                                            oldArray: oldItems,
-                                            newArray: newItems,
-                                            option: .equality)
+            let result = ListDiffPaths(
+                fromSection: fromSection,
+                toSection: toSection,
+                oldArray: oldItems,
+                newArray: newItems,
+                option: .equality
+            )
             if result.hasChanges {
                 indexPathResults.append(result)
             }
         }
         
-        /// 删除区块
+        // 删除区块
         let deleteObjects = oldObjects.elementsAtIndexes(indexes: sectionResult.deletes)
         for deleteObject in deleteObjects {
             itemsMapTable.removeObject(forKey: deleteObject)
@@ -470,7 +488,6 @@ extension TPTableViewAdapter {
             for result in indexPathResults {
                 self.tableView.deleteRows(at: result.deletes, with: rowAnimation)
                 self.tableView.insertRows(at: result.inserts, with: rowAnimation)
-                self.tableView.reloadRows(at: result.updates, with: rowAnimation)
                 for move in result.moves {
                     self.tableView.moveRow(at: move.from, to: move.to)
                 }
@@ -482,35 +499,30 @@ extension TPTableViewAdapter {
         updateVisibleCells()
         updateHeaderFooterViews()
     }
-
     
-    func performSectionUpdate(forSectionObject sectionObject: ListDiffable,
-                              rowAnimation: UITableView.RowAnimation = .automatic) {
-        performSectionUpdate(forSectionObjects: [sectionObject], rowAnimation: rowAnimation, completion: nil)
-    }
+    // MARK: - Section Update
     
     func performSectionUpdate(forSectionObject sectionObject: ListDiffable,
                               rowAnimation: UITableView.RowAnimation = .automatic,
-                              completion: ((Bool) -> Void)?) {
+                              completion: ((Bool) -> Void)? = nil) {
         performSectionUpdate(forSectionObjects: [sectionObject],
-                             rowAnimation: rowAnimation,
-                             completion: completion)
+                            rowAnimation: rowAnimation,
+                            completion: completion)
     }
     
-    func performSectionUpdate(forSectionObject sectionObject: ListDiffable, completion: ((Bool) -> Void)?) {
-        performSectionUpdate(forSectionObjects: [sectionObject], completion: completion)
-    }
-    
-    func performSectionUpdate(forSectionObjects sectionObjects: [ListDiffable], completion: ((Bool) -> Void)?) {
-        performSectionUpdate(forSectionObjects: sectionObjects,
-                             rowAnimation: .automatic,
-                             completion: completion)
-    }
-    
-    func performSectionUpdate(forSectionObjects sectionObjects: [ListDiffable], rowAnimation: UITableView.RowAnimation, completion: ((Bool) -> Void)?) {
+    func performSectionUpdate(forSectionObjects sectionObjects: [ListDiffable],
+                              rowAnimation: UITableView.RowAnimation = .automatic,
+                              completion: ((Bool) -> Void)? = nil) {
+        guard tableView.window != nil else {
+            reloadData()
+            completion?(true)
+            return
+        }
+        
         var indexPathResults = [ListIndexPathResult]()
+        
         for sectionObject in sectionObjects {
-            guard let section = objects.indexOf(sectionObject) else {
+            guard let section = section(of: sectionObject) else {
                 continue
             }
             
@@ -518,17 +530,19 @@ extension TPTableViewAdapter {
             let newItems = getItems(for: sectionObject)
             itemsMapTable.setObject(newItems as NSArray, forKey: sectionObject)
             
-            let result = ListDiffPaths(fromSection: section,
-                                            toSection: section,
-                                            oldArray: oldItems,
-                                            newArray: newItems,
-                                            option: .equality)
+            let result = ListDiffPaths(
+                fromSection: section,
+                toSection: section,
+                oldArray: oldItems,
+                newArray: newItems,
+                option: .equality
+            )
             if result.hasChanges {
                 indexPathResults.append(result)
             }
         }
         
-        if indexPathResults.count == 0 {
+        if indexPathResults.isEmpty {
             updateVisibleCells(forSectionObjects: sectionObjects)
             updateHeaderFooterView(forSectionObjects: sectionObjects)
             completion?(true)
@@ -539,7 +553,6 @@ extension TPTableViewAdapter {
             for result in indexPathResults {
                 self.tableView.deleteRows(at: result.deletes, with: rowAnimation)
                 self.tableView.insertRows(at: result.inserts, with: rowAnimation)
-                self.tableView.reloadRows(at: result.updates, with: rowAnimation)
                 for move in result.moves {
                     self.tableView.moveRow(at: move.from, to: move.to)
                 }
@@ -555,7 +568,8 @@ extension TPTableViewAdapter {
 
 extension TPTableViewAdapter {
     
-    // MARK: - header footer views
+    // MARK: - Header Footer Views
+    
     func updateHeaderFooterViews() {
         for section in 0..<objects.count {
             delegate?.adapter(self, updateHeaderInSection: section)
@@ -571,16 +585,15 @@ extension TPTableViewAdapter {
     }
     
     func updateHeaderFooterView(forSectionObject object: ListDiffable) {
-        guard let section = objects.indexOf(object) else {
+        guard let section = section(of: object) else {
             return
         }
-        
-        self.updateHeaderFooterView(of: section)
+        updateHeaderFooterView(of: section)
     }
     
     func updateHeaderFooterView(of section: Int) {
-        self.updateHeaderView(of: section)
-        self.updateFooterView(of: section)
+        updateHeaderView(of: section)
+        updateFooterView(of: section)
     }
     
     func updateHeaderView(of section: Int) {
@@ -592,13 +605,13 @@ extension TPTableViewAdapter {
     }
     
     // MARK: - Checkmarks
+    
     func updateCheckmarks() {
         updateCheckmarks(animated: false)
     }
 
     func updateCheckmarks(animated: Bool) {
-        let indexPaths = visibleIndexPaths()
-        for indexPath in indexPaths {
+        for indexPath in visibleIndexPaths() {
             updateCheckmark(at: indexPath, animated: animated)
         }
     }
@@ -625,10 +638,10 @@ extension TPTableViewAdapter {
             updateCheckmark(at: indexPath, animated: animated)
         }
     }
-    
 }
 
 // MARK: - Reload
+
 extension TPTableViewAdapter {
     
     /// 重新加载特定区块对应的单元格条目
@@ -637,7 +650,7 @@ extension TPTableViewAdapter {
                     rowAnimation: UITableView.RowAnimation,
                     animateFocus: Bool) {
         let sectionItems = self.items(for: sectionObject)
-        guard sectionItems.count > 0, let section = section(of: sectionObject) else {
+        guard !sectionItems.isEmpty, let section = section(of: sectionObject) else {
             return
         }
         
@@ -658,10 +671,8 @@ extension TPTableViewAdapter {
     }
     
     func reloadSection(forObject object: ListDiffable, with rowAnimation: UITableView.RowAnimation) {
-        if let index = objects.indexOf(object) {
-            let sections = IndexSet(integer: index)
-            tableView.reloadSections(sections, with: rowAnimation)
-        }
+        guard let index = section(of: object) else { return }
+        tableView.reloadSections(IndexSet(integer: index), with: rowAnimation)
     }
     
     func reloadSections(forObjects objects: [ListDiffable]) {
@@ -671,12 +682,12 @@ extension TPTableViewAdapter {
     func reloadSections(forObjects objects: [ListDiffable], with rowAnimation: UITableView.RowAnimation) {
         var sections = IndexSet()
         for object in objects {
-            if let index = objects.indexOf(object) {
+            if let index = section(of: object) {
                 sections.insert(index)
             }
         }
         
-        if sections.count > 0 {
+        if !sections.isEmpty {
             tableView.reloadSections(sections, with: rowAnimation)
         }
     }
@@ -690,11 +701,10 @@ extension TPTableViewAdapter {
         reloadCell(forItem: item, with: rowAnimation, focusAnimated: false)
     }
     
-    func reloadCell(forItem item: ListDiffable, with rowAnimation: UITableView.RowAnimation, focusAnimated: Bool) {
-        guard let indexPath = indexPath(of: item) else {
-            return
-        }
-    
+    func reloadCell(forItem item: ListDiffable,
+                    with rowAnimation: UITableView.RowAnimation,
+                    focusAnimated: Bool) {
+        guard let indexPath = indexPath(of: item) else { return }
         reloadCell(at: indexPath, with: rowAnimation, focusAnimated: focusAnimated)
     }
 
@@ -709,10 +719,9 @@ extension TPTableViewAdapter {
     func reloadCell(forItems items: [ListDiffable],
                     with rowAnimation: UITableView.RowAnimation,
                     focusAnimated: Bool) {
-        guard let indexPaths = indexPaths(of: items), indexPaths.count > 0 else {
+        guard let indexPaths = indexPaths(of: items), !indexPaths.isEmpty else {
             return
         }
-    
         reloadRows(at: indexPaths, with: rowAnimation, animateFocus: focusAnimated)
     }
     
@@ -728,7 +737,7 @@ extension TPTableViewAdapter {
     func reloadRows(at indexPaths: Set<IndexPath>,
                     with rowAnimation: UITableView.RowAnimation,
                     animateFocus: Bool) {
-        if indexPaths.count > 0 {
+        if !indexPaths.isEmpty {
             tableView.reloadRows(at: Array(indexPaths), with: rowAnimation)
         }
         
@@ -741,10 +750,14 @@ extension TPTableViewAdapter {
 }
 
 
-// MARK: - 滚动
+// MARK: - Scroll
+
 extension TPTableViewAdapter {
 
-    func scrollToItem(_ item: ListDiffable, at scrollPosition: UITableView.ScrollPosition, animated: Bool, completion: ((Bool) -> Void)? = nil) {
+    func scrollToItem(_ item: ListDiffable,
+                      at scrollPosition: UITableView.ScrollPosition,
+                      animated: Bool,
+                      completion: ((Bool) -> Void)? = nil) {
         guard let indexPath = indexPath(of: item) else {
             completion?(false)
             return
@@ -774,25 +787,25 @@ extension TPTableViewAdapter {
         if !animated {
             completion?(true)
         } else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + TPTableViewAdapterConstants.scrollAnimationDelay) {
                 completion?(true)
             }
         }
     }
 }
 
-// MARK: - 聚焦动画
+// MARK: - Focus Animation
+
 extension TPTableViewAdapter {
     
     /// 聚焦显示
     func revealItem(_ item: ListDiffable, autoScroll: Bool = true) {
-        guard autoScroll else {
-            self.commitFocusAnimation(for: item)
-            return
-        }
-        
-        self.scrollToItem(item, at: .middle, animated: true) {[weak self] _ in
-            self?.commitFocusAnimation(for: item)
+        if autoScroll {
+            scrollToItem(item, at: .middle, animated: true) { [weak self] _ in
+                self?.commitFocusAnimation(for: item)
+            }
+        } else {
+            commitFocusAnimation(for: item)
         }
     }
     
@@ -806,21 +819,16 @@ extension TPTableViewAdapter {
         guard let cell = tableView.cellForRow(at: indexPath) as? FocusAnimatable else {
             return
         }
-        
-        /// 移除其它可见单元格的聚焦动画
-//        if let cells = tableView.visibleCells as? [FocusAnimatable] {
-//            for cell in cells {
-//                cell.removeFocusAnimation()
-//            }
-//        }
         cell.commitFocusAnimation()
     }
 }
 
-// MARK: - 视图上下文信息
+// MARK: - View Context Information
+
 extension TPTableViewAdapter {
     
     // MARK: - Size
+    
     func tableViewSize() -> CGSize {
         return tableView.frame.size
     }
@@ -829,7 +837,7 @@ extension TPTableViewAdapter {
     func tableViewCellWidth() -> CGFloat {
         let size = tableViewSize()
         
-        /// 内间距
+        // 内间距
         var margins: UIEdgeInsets = .zero
         if tableView.style == .insetGrouped {
             margins = tableView.layoutMargins
@@ -838,7 +846,8 @@ extension TPTableViewAdapter {
         return max(size.width - margins.horizontalLength, 0.0)
     }
     
-    // MARK: - header footer views
+    // MARK: - Header Footer Views
+    
     func headerView(in section: Int) -> UITableViewHeaderFooterView? {
         return tableView.headerView(forSection: section)
     }
@@ -848,11 +857,9 @@ extension TPTableViewAdapter {
     }
     
     // MARK: - Cells
+    
     func cellForItem(_ item: ListDiffable) -> UITableViewCell? {
-        guard let indexPath = indexPath(of: item) else {
-            return nil
-        }
-        
+        guard let indexPath = indexPath(of: item) else { return nil }
         return tableView.cellForRow(at: indexPath)
     }
     
@@ -868,22 +875,12 @@ extension TPTableViewAdapter {
     
     /// 区块对象对应的区块的可见单元格索引
     func visibleIndexPaths(forSectionObject object: ListDiffable) -> [IndexPath]? {
-        guard let section = objects.indexOf(object) else {
+        guard let section = section(of: object),
+              let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
             return nil
         }
     
-        var indexPaths = [IndexPath]()
-        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
-            return nil
-        }
-        
-        for indexPath in visibleIndexPaths {
-            if indexPath.section == section {
-                indexPaths.append(indexPath)
-            }
-        }
-        
-        return indexPaths
+        return visibleIndexPaths.filter { $0.section == section }
     }
 
     func visibleIndexPaths() -> [IndexPath] {
@@ -894,10 +891,9 @@ extension TPTableViewAdapter {
         return tableView.indexPath(for: cell)
     }
     
-    
     func indexPath(of item: ListDiffable, inSection sectionObject: ListDiffable) -> IndexPath? {
-        let sectionItems = self.items(for: sectionObject)
-        guard sectionItems.count > 0, let section = section(of: sectionObject) else {
+        let sectionItems = items(for: sectionObject)
+        guard !sectionItems.isEmpty, let section = section(of: sectionObject) else {
             return nil
         }
         
@@ -915,11 +911,7 @@ extension TPTableViewAdapter {
                 indexPaths.insert(indexPath)
             }
         }
-            
-        if indexPaths.count > 0 {
-            return indexPaths
-        }
         
-        return nil
+        return indexPaths.isEmpty ? nil : indexPaths
     }
 }

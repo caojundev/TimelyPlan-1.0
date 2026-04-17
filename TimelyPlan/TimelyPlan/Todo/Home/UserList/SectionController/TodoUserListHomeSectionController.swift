@@ -15,11 +15,22 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     /// 列表管理器
     private var listController = TodoUserListController()
     
-    private let expansionState = TodoHomeUserListExpansionState()
+    private let expansionState: TodoHomeUserListExpansionState
+    
+    private let viewModel: TodoHomeUserListViewModel
     
     override init() {
+        let expansionState = TodoHomeUserListExpansionState()
+        self.expansionState = expansionState
+        self.viewModel = TodoHomeUserListViewModel(expansionState: expansionState)
         super.init()
-        todo.addUpdater(self)
+        self.viewModel.userListDidChange = { [weak self] in
+            self?.userListDidChange()
+        }
+    }
+    
+    private func userListDidChange() {
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
     // MARK: - Delegate
@@ -28,9 +39,8 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
             return nil
         }
 
-        return TodoUserListOrganizer.shared.userLists(with: expansionState)
+        return viewModel.lists()
     }
-    
     
     // MARK: - Delegate
     override func heightForHeader() -> CGFloat {
@@ -68,7 +78,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
 
     // MARK: - TodoHomeExpandHeaderViewDelegate
     func todoHomeExpandHeaderViewDidClickAdd(_ headerView: TodoHomeExpandHeaderView) {
-        
+        listController.createList(parent: nil)
     }
     
     func todoHomeExpandHeaderView(_ headerView: TodoHomeExpandHeaderView, didToggleExpand isExpanded: Bool) {
@@ -82,7 +92,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
             return false
         }
         
-        return expansionState.isExpanded(list)
+        return viewModel.isExpanded(list)
     }
     
     override func expandTableCell(_ cell: TPExpandDefaultInfoTableCell, didToggleExpand isExpanded: Bool) {
@@ -90,7 +100,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
             return
         }
         
-        expansionState.setExpended(isExpanded, for: list)
+        viewModel.setExpended(isExpanded, for: list)
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
  
@@ -121,44 +131,6 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     }
 }
 
-extension TodoUserListHomeSectionController: TodoListProcessorDelegate {
-    
-    /// 添加新组时通知
-    func didCreateTodoList(_ list: TodoList) {
-        expansionState.expandAllParent(of: list)
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-    }
-    
-    /// 更新列表信息通知
-    func didUpdateTodoList(_ list: TodoList) {
-        adapter?.performSectionUpdate(forSectionObject: self)
-    }
-    
-    func didUngroupList(_ list: TodoList) {
-        adapter?.performSectionUpdate(forSectionObject: self)
-    }
-    
-    /// 删除列表时通知
-    func didDeleteTodoLists(_ lists: [TodoList]) {
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-    }
-    
-    /// 列表移动通知， parent为nil时表示移动到根目录
-    func didMoveTodoList(_ list: TodoList, to parent: TodoList?) {
-        if let parent = parent {
-            expansionState.expandAllParent(of: parent, includeCurrent: true)
-        }
-        
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-    }
-
-    /// 重新列表排序
-    func didReorderTodoList(_ list: TodoList) {
-        expansionState.expandAllParent(of: list, includeCurrent: false)
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-    }
-}
-
 // MARK: - 列表排序
 extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
     
@@ -170,11 +142,11 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
     func tableDragReorder(_ reorder: TPTableDragReorder, willBeginAt indexPath: IndexPath) {
         /// 收起已展开的列表
         let list = list(at: indexPath.row)
-        guard list.hasSubItem, self.expansionState.isExpanded(list) else {
+        guard list.hasSubItem, expansionState.isExpanded(list) else {
             return
         }
         
-        self.expansionState.setExpended(false, for: list)
+        expansionState.setExpended(false, for: list)
         
         /// 更新列表
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .fade)

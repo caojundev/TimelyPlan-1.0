@@ -37,23 +37,12 @@ class TodoTagSelectViewController: TPViewController,
     
     private let selection: TPMultipleItemSelection<TodoTag>
     
-    private lazy var viewModel: TodoTagSelectViewModel = {
-        let viewModel = TodoTagSelectViewModel()
-        viewModel.onLoadTags = {[weak self] in
-            self?.reloadData()
-        }
-        
-        viewModel.onCreateTag = {[weak self] tag in
-            self?.didCreateTodoTag(tag)
-        }
-        
-        return viewModel
-    }()
+    private let viewModel = TodoUserTagViewModel()
     
     init(selection: TPMultipleItemSelection<TodoTag>) {
         self.selection = selection
         super.init(nibName: nil, bundle: nil)
-        selection.addUpdater(self)
+        self.selection.addUpdater(self)
     }
     
     required init?(coder: NSCoder) {
@@ -64,11 +53,21 @@ class TodoTagSelectViewController: TPViewController,
         super.viewDidLoad()
         view.addSubview(selectView)
         view.addSubview(infoView)
-        setupActionsBar(actions: [doneAction])
-        updateInfoView()
-        viewModel.loadData()
+        self.setupActionsBar(actions: [doneAction])
+        self.updateInfoView()
+        self.viewModel.tagsDidChange = { [weak self] change in
+            self?.tagsDidChange(with: change)
+        }
     }
-
+    
+    private func tagsDidChange(with change: TodoUserTagChange?) {
+        if case let .create(tag) = change {
+            didCreateTodoTag(tag)
+        } else {
+            reloadData()
+        }
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -136,7 +135,7 @@ class TodoTagSelectViewController: TPViewController,
         return selection.isSelectedItem(tag)
     }
     
-    // MARK: - TodoTagSelectViewModelDelegate
+    // MARK: - 
     func reloadData() {
         self.selectView.userTags = viewModel.tags
         self.selectView.reloadData()

@@ -25,15 +25,26 @@ class TodoUserListSelectSectionController: TodoUserListBaseSectionController {
     
     private let expansionState: TodoParentListSelectExpansionState
     
+    private let viewModel: TodoHomeUserListViewModel
+    
     init(allowMaxDepth: Int = kTodoListMaxDepth) {
         self.allowMaxDepth = allowMaxDepth
-        self.expansionState = TodoParentListSelectExpansionState(allowMaxDepth: allowMaxDepth)
+        let expansionState = TodoParentListSelectExpansionState(allowMaxDepth: allowMaxDepth)
+        self.expansionState = expansionState
+        self.viewModel = TodoHomeUserListViewModel(expansionState: expansionState)
         super.init()
+        self.viewModel.userListDidChange = { [weak self] in
+            self?.userListDidChange()
+        }
+    }
+    
+    private func userListDidChange() {
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
 
     // MARK: - Delegate
     override var items: [ListDiffable]? {
-        return TodoUserListOrganizer.shared.userLists(with: expansionState)
+        return self.viewModel.lists()
     }
 
     override func heightForHeader() -> CGFloat {

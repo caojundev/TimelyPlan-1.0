@@ -67,7 +67,7 @@ struct TodoSort: Codable, Equatable {
         let descriptor: SortDescriptor<TodoTask>
         switch type {
         case .manually:
-            descriptor = SortDescriptor(\TodoTask.order, order: order)
+            descriptor = SortDescriptor(\TodoTask.order, order: .forward)
         case .creationDate:
             descriptor = SortDescriptor(\TodoTask.creationDate, order: order)
         case .modificationDate:

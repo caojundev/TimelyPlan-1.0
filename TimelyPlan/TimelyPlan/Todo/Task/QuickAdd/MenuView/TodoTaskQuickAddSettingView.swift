@@ -22,19 +22,19 @@ class TodoTaskQuickAddSettingView: TPBasePopoverView,
     }()
     
     /// 连续添加
-    lazy var addContinuouslyCellItem: TPSwitchTableCellItem = { [weak self] in
-        let cellItem = TPSwitchTableCellItem(autoResizable: false)
+    lazy var addContinuouslyCellItem: TPCheckmarkTableCellItem = { [weak self] in
+        let cellItem = TPCheckmarkTableCellItem(autoResizable: false)
         cellItem.title = resGetString("Add Continuously")
+        cellItem.imageContent = .withName("todo_task_quickAdd_continuously_24")
         cellItem.titleConfig.font = BOLD_SYSTEM_FONT
         cellItem.height = 55.0
         cellItem.updater = {
             let isOn = TodoSetting.shared.quickAddContinuously
-            self?.addContinuouslyCellItem.isOn = isOn
+            self?.addContinuouslyCellItem.isChecked = isOn
         }
 
-        cellItem.valueChanged = { isOn in
-            TodoSetting.shared.quickAddContinuously = isOn
-            self?.addContinuouslyValueChanged(isOn: isOn)
+        cellItem.didSelectHandler = { [weak self] in
+            self?.toggleAddContinuously()
         }
         
         return cellItem
@@ -50,6 +50,11 @@ class TodoTaskQuickAddSettingView: TPBasePopoverView,
         return tableView
     }()
     
+    var adapter: TPTableViewAdapter {
+        return settingsView.adapter
+    }
+    
+    
     override func setupSubviews() {
         super.setupSubviews()
         self.popoverView = self.settingsView
@@ -62,9 +67,14 @@ class TodoTaskQuickAddSettingView: TPBasePopoverView,
         contentSize.width = 240.0
         return contentSize
     }
-    
+
     // MARK: -
-    func addContinuouslyValueChanged(isOn: Bool) {
+    func toggleAddContinuously() {
+        let isOn = !addContinuouslyCellItem.isChecked
+        TodoSetting.shared.quickAddContinuously = isOn
+        self.addContinuouslyCellItem.isChecked = isOn
+        self.adapter.reloadCell(forItem: addContinuouslyCellItem, with: .none)
+        
         var message: String
         if isOn {
             message = resGetString("Continuous adding enabled")
@@ -73,6 +83,6 @@ class TodoTaskQuickAddSettingView: TPBasePopoverView,
         }
 
         TPFeedbackQueue.common.postFeedback(text: message, position: .top)
-        self.hide(after: 0.6)
+        self.hide(animated: true)
     }
 }

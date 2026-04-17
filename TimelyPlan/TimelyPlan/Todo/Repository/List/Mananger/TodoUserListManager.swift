@@ -28,6 +28,16 @@ class TodoUserListManager {
     }
     
     // MARK: - 获取列表
+    func fetchTopLists(completion: @escaping([TodoList]?) -> Void) {
+        return CDTodoList.fetchTopLists { results in
+            completion(results?.userLists)
+        }
+    }
+    
+    func getTopLists() -> [TodoList]? {
+        return CDTodoList.getTopLists()?.userLists
+    }
+    
     func getUserList(of identifier: String) -> TodoList? {
         guard let cdList = CDTodoList.getItem(withIdentifier: identifier) else {
             return nil

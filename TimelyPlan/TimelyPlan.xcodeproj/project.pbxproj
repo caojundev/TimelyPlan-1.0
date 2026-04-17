@@ -136,7 +136,7 @@
 		E50D60832F7A360700D5E0A4 /* TodoList+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D60822F7A360700D5E0A4 /* TodoList+Extensions.swift */; };
 		E50D60872F7A4F6300D5E0A4 /* TodoUserListHomeSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D60852F7A4F6200D5E0A4 /* TodoUserListHomeSectionController.swift */; };
 		E50D60882F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D60862F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift */; };
-		E50D608A2F7A5A3900D5E0A4 /* TodoUserListOrganizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D60892F7A5A3900D5E0A4 /* TodoUserListOrganizer.swift */; };
+		E50D608A2F7A5A3900D5E0A4 /* TodoHomeUserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D60892F7A5A3900D5E0A4 /* TodoHomeUserListViewModel.swift */; };
 		E50D608C2F7A7B1500D5E0A4 /* HabitSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D608B2F7A7B1500D5E0A4 /* HabitSample.swift */; };
 		E50D94B72D451C1800F57957 /* focus_record_add_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D94AF2D451C1800F57957 /* focus_record_add_24@2x.png */; };
 		E50D94B82D451C1800F57957 /* focus_record_add_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D94B02D451C1800F57957 /* focus_record_add_24@3x.png */; };
@@ -625,6 +625,7 @@
 		E56E7FF02DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56E7FEF2DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift */; };
 		E570FC012D62C14A0017F930 /* chevron_right_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E570FBFF2D62C1490017F930 /* chevron_right_16@3x.png */; };
 		E570FC022D62C14A0017F930 /* chevron_right_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E570FC002D62C14A0017F930 /* chevron_right_16@2x.png */; };
+		E57AA1182F92105200C4D346 /* TodoUserTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */; };
 		E57C05E22DD2E6BA009E22F0 /* CalendarWeekEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C05E12DD2E6BA009E22F0 /* CalendarWeekEventsView.swift */; };
 		E57C05E42DD2F9AF009E22F0 /* CalendarWeekAllDayEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C05E32DD2F9AF009E22F0 /* CalendarWeekAllDayEventsView.swift */; };
 		E57C05E62DD34421009E22F0 /* CalendarWeekTimelineHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C05E52DD34421009E22F0 /* CalendarWeekTimelineHoursView.swift */; };
@@ -676,6 +677,10 @@
 		E58C9E1C2F4AF0DC0096B842 /* FocusTimelinePauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E102F4AF0DB0096B842 /* FocusTimelinePauseView.swift */; };
 		E58C9E1D2F4AF0DC0096B842 /* FocusTimelineEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E112F4AF0DB0096B842 /* FocusTimelineEventListView.swift */; };
 		E58C9E1E2F4AF0DC0096B842 /* FocusTimelineEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E122F4AF0DB0096B842 /* FocusTimelineEventView.swift */; };
+		E58D47942F911F0A00CF8C9E /* task_type_todo_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58D47922F911F0900CF8C9E /* task_type_todo_24@3x.png */; };
+		E58D47952F911F0A00CF8C9E /* task_type_todo_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58D47932F911F0A00CF8C9E /* task_type_todo_24@2x.png */; };
+		E58D47982F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58D47962F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@2x.png */; };
+		E58D47992F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58D47972F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@3x.png */; };
 		E58F469B2F7A9C120046FA96 /* TodoListMenuActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F46992F7A9C120046FA96 /* TodoListMenuActionType.swift */; };
 		E58F469C2F7A9C120046FA96 /* TodoListMenuActionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F469A2F7A9C120046FA96 /* TodoListMenuActionController.swift */; };
 		E58F46A12F7AA0B50046FA96 /* todo_list_ungroup_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58F469D2F7AA0B40046FA96 /* todo_list_ungroup_24@3x.png */; };
@@ -760,7 +765,6 @@
 		E5B33D822F81FD0200939C3E /* TodoTagSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D7D2F81FD0200939C3E /* TodoTagSelectViewController.swift */; };
 		E5B33D832F81FD0200939C3E /* TodoTagPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D7E2F81FD0200939C3E /* TodoTagPickerViewController.swift */; };
 		E5B33D852F8201A000939C3E /* TodoTagSelectCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D842F82019F00939C3E /* TodoTagSelectCollectionView.swift */; };
-		E5B33D872F8250DB00939C3E /* TodoTagSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D862F8250DB00939C3E /* TodoTagSelectViewModel.swift */; };
 		E5B33D892F82584D00939C3E /* TodoTagSelectInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D882F82584D00939C3E /* TodoTagSelectInfoView.swift */; };
 		E5B33D8B2F828DDF00939C3E /* TodoTagSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D8A2F828DDE00939C3E /* TodoTagSearchResultViewModel.swift */; };
 		E5B33D8D2F829E1800939C3E /* TodoTagSearchResultsPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D8C2F829E1800939C3E /* TodoTagSearchResultsPlaceholderView.swift */; };
@@ -1758,7 +1762,7 @@
 		E50D60822F7A360700D5E0A4 /* TodoList+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoList+Extensions.swift"; sourceTree = "<group>"; };
 		E50D60852F7A4F6200D5E0A4 /* TodoUserListHomeSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUserListHomeSectionController.swift; sourceTree = "<group>"; };
 		E50D60862F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUserListBaseSectionController.swift; sourceTree = "<group>"; };
-		E50D60892F7A5A3900D5E0A4 /* TodoUserListOrganizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoUserListOrganizer.swift; sourceTree = "<group>"; };
+		E50D60892F7A5A3900D5E0A4 /* TodoHomeUserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeUserListViewModel.swift; sourceTree = "<group>"; };
 		E50D608B2F7A7B1500D5E0A4 /* HabitSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSample.swift; sourceTree = "<group>"; };
 		E50D94AF2D451C1800F57957 /* focus_record_add_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_add_24@2x.png"; sourceTree = "<group>"; };
 		E50D94B02D451C1800F57957 /* focus_record_add_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_record_add_24@3x.png"; sourceTree = "<group>"; };
@@ -2252,6 +2256,7 @@
 		E56E7FEF2DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoCircularCheckboxTableCell.swift; sourceTree = "<group>"; };
 		E570FBFF2D62C1490017F930 /* chevron_right_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron_right_16@3x.png"; sourceTree = "<group>"; };
 		E570FC002D62C14A0017F930 /* chevron_right_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron_right_16@2x.png"; sourceTree = "<group>"; };
+		E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoUserTagViewModel.swift; sourceTree = "<group>"; };
 		E57C05E12DD2E6BA009E22F0 /* CalendarWeekEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekEventsView.swift; sourceTree = "<group>"; };
 		E57C05E32DD2F9AF009E22F0 /* CalendarWeekAllDayEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekAllDayEventsView.swift; sourceTree = "<group>"; };
 		E57C05E52DD34421009E22F0 /* CalendarWeekTimelineHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekTimelineHoursView.swift; sourceTree = "<group>"; };
@@ -2303,6 +2308,10 @@
 		E58C9E102F4AF0DB0096B842 /* FocusTimelinePauseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelinePauseView.swift; sourceTree = "<group>"; };
 		E58C9E112F4AF0DB0096B842 /* FocusTimelineEventListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineEventListView.swift; sourceTree = "<group>"; };
 		E58C9E122F4AF0DB0096B842 /* FocusTimelineEventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineEventView.swift; sourceTree = "<group>"; };
+		E58D47922F911F0900CF8C9E /* task_type_todo_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_todo_24@3x.png"; sourceTree = "<group>"; };
+		E58D47932F911F0A00CF8C9E /* task_type_todo_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_todo_24@2x.png"; sourceTree = "<group>"; };
+		E58D47962F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quickAdd_continuously_24@2x.png"; sourceTree = "<group>"; };
+		E58D47972F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quickAdd_continuously_24@3x.png"; sourceTree = "<group>"; };
 		E58F46992F7A9C120046FA96 /* TodoListMenuActionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListMenuActionType.swift; sourceTree = "<group>"; };
 		E58F469A2F7A9C120046FA96 /* TodoListMenuActionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListMenuActionController.swift; sourceTree = "<group>"; };
 		E58F469D2F7AA0B40046FA96 /* todo_list_ungroup_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_ungroup_24@3x.png"; sourceTree = "<group>"; };
@@ -2387,7 +2396,6 @@
 		E5B33D7D2F81FD0200939C3E /* TodoTagSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTagSelectViewController.swift; sourceTree = "<group>"; };
 		E5B33D7E2F81FD0200939C3E /* TodoTagPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTagPickerViewController.swift; sourceTree = "<group>"; };
 		E5B33D842F82019F00939C3E /* TodoTagSelectCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTagSelectCollectionView.swift; sourceTree = "<group>"; };
-		E5B33D862F8250DB00939C3E /* TodoTagSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTagSelectViewModel.swift; sourceTree = "<group>"; };
 		E5B33D882F82584D00939C3E /* TodoTagSelectInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTagSelectInfoView.swift; sourceTree = "<group>"; };
 		E5B33D8A2F828DDE00939C3E /* TodoTagSearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTagSearchResultViewModel.swift; sourceTree = "<group>"; };
 		E5B33D8C2F829E1800939C3E /* TodoTagSearchResultsPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTagSearchResultsPlaceholderView.swift; sourceTree = "<group>"; };
@@ -3681,7 +3689,6 @@
 			isa = PBXGroup;
 			children = (
 				E50D605A2F7A173300D5E0A4 /* TodoUserListController.swift */,
-				E58F46BA2F7B51200046FA96 /* TodoHomeUserListExpansionState.swift */,
 				E50D60842F7A4F1100D5E0A4 /* SectionController */,
 				E58F46982F7A9C120046FA96 /* Menu */,
 				E50D60712F7A2E2D00D5E0A4 /* Cell */,
@@ -3746,7 +3753,8 @@
 		E50D60842F7A4F1100D5E0A4 /* SectionController */ = {
 			isa = PBXGroup;
 			children = (
-				E50D60892F7A5A3900D5E0A4 /* TodoUserListOrganizer.swift */,
+				E50D60892F7A5A3900D5E0A4 /* TodoHomeUserListViewModel.swift */,
+				E58F46BA2F7B51200046FA96 /* TodoHomeUserListExpansionState.swift */,
 				E50D60862F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift */,
 				E50D60852F7A4F6200D5E0A4 /* TodoUserListHomeSectionController.swift */,
 			);
@@ -4159,6 +4167,7 @@
 			isa = PBXGroup;
 			children = (
 				E529ACD82F7E183D000EA2F1 /* TodoTagController.swift */,
+				E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */,
 				E529ACCF2F7E11E3000EA2F1 /* TodoUserTagSectionController.swift */,
 				E529ACCE2F7E11E3000EA2F1 /* TodoUserTagCell.swift */,
 				E529ACE52F7E1D17000EA2F1 /* Edit */,
@@ -5289,6 +5298,8 @@
 		E583896C2F774E56003C30A4 /* task */ = {
 			isa = PBXGroup;
 			children = (
+				E58D47932F911F0A00CF8C9E /* task_type_todo_24@2x.png */,
+				E58D47922F911F0900CF8C9E /* task_type_todo_24@3x.png */,
 				E583896E2F774E5F003C30A4 /* task_type_habit_24@2x.png */,
 				E583896D2F774E5F003C30A4 /* task_type_habit_24@3x.png */,
 			);
@@ -5337,6 +5348,15 @@
 				E58C9E122F4AF0DB0096B842 /* FocusTimelineEventView.swift */,
 			);
 			path = Events;
+			sourceTree = "<group>";
+		};
+		E58D479A2F91C4C900CF8C9E /* quickAdd */ = {
+			isa = PBXGroup;
+			children = (
+				E58D47962F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@2x.png */,
+				E58D47972F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@3x.png */,
+			);
+			path = quickAdd;
 			sourceTree = "<group>";
 		};
 		E58F46982F7A9C120046FA96 /* Menu */ = {
@@ -5689,7 +5709,6 @@
 			children = (
 				E5B33D7E2F81FD0200939C3E /* TodoTagPickerViewController.swift */,
 				E5B33D7D2F81FD0200939C3E /* TodoTagSelectViewController.swift */,
-				E5B33D862F8250DB00939C3E /* TodoTagSelectViewModel.swift */,
 				E5B33D882F82584D00939C3E /* TodoTagSelectInfoView.swift */,
 				E5B33D842F82019F00939C3E /* TodoTagSelectCollectionView.swift */,
 				E5B33D7A2F81FD0200939C3E /* Search */,
@@ -5846,6 +5865,7 @@
 		E5BB9A0C2D3BEF0D0089667A /* task */ = {
 			isa = PBXGroup;
 			children = (
+				E58D479A2F91C4C900CF8C9E /* quickAdd */,
 				E5C18FB22DB4FE1F008FAA13 /* change */,
 				E5D833812DAB64D60012ABF3 /* progress */,
 				E5BB9A292D3BEF0D0089667A /* action */,
@@ -9047,6 +9067,7 @@
 				E556BCD12F5D746400CA20D9 /* HabitRecordTypeManually@2x.png in Resources */,
 				E5D7D97F2D43E19700EC877A /* focus_timer_step_addPrevious_24@2x.png in Resources */,
 				E5D833992DAB64D60012ABF3 /* todo_task_progress_autoRecordValue_24@3x.png in Resources */,
+				E58D47992F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@3x.png in Resources */,
 				E526D40B2F6D748C005C1DED /* habit_record_24@2x.png in Resources */,
 				E5BB9ECC2D3BF0C80089667A /* Wheat03@3x.png in Resources */,
 				E53A15E32D45DF0300474F94 /* archivedList_80@3x.png in Resources */,
@@ -9255,6 +9276,7 @@
 				E5D815C72F729C3700A4822D /* focus_record_bind_timer_24@3x.png in Resources */,
 				E515AD622D3CC04A00AA9AF2 /* chevron_down_24@3x.png in Resources */,
 				E56B94802F8CDB42001E488B /* todo_sort_type_creationDate_24@2x.png in Resources */,
+				E58D47942F911F0A00CF8C9E /* task_type_todo_24@3x.png in Resources */,
 				E5D7D9662D43DBE000EC877A /* focus_timer_stopwatch_32@2x.png in Resources */,
 				E56B945D2F8CD6D0001E488B /* todo_group_type_default_24@2x.png in Resources */,
 				E50D94BE2D451C1800F57957 /* placeholder_record_80@2x.png in Resources */,
@@ -9335,6 +9357,7 @@
 				E55CE3672D8BC4BB0083316E /* quadrant_circle_III@3x.png in Resources */,
 				E547C7262F3DA2F00095918C /* focus_record_order_ascending_24@2x.png in Resources */,
 				E5BB9AC02D3BEF0D0089667A /* todo_task_action_trash_24@3x.png in Resources */,
+				E58D47952F911F0A00CF8C9E /* task_type_todo_24@2x.png in Resources */,
 				E5BB9ABC2D3BEF0D0089667A /* todo_task_action_move_24@2x.png in Resources */,
 				E50D94E42D452DBF00F57957 /* checkmark_circle_fill_24@2x.png in Resources */,
 				E555493F2F75590100C9460D /* focus_timer_pomodoro_24@2x.png in Resources */,
@@ -9345,6 +9368,7 @@
 				E5BB9AE72D3BEF0D0089667A /* trash_24@3x.png in Resources */,
 				E500DE592DB09D4500EAEAF7 /* todo_filter_indicator_myDay_12@2x.png in Resources */,
 				E55549502F7629CA00C9460D /* focus_timer_bind_stopwatch_32@3x.png in Resources */,
+				E58D47982F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@2x.png in Resources */,
 				E5C76BA72F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png in Resources */,
 				E5BBA1082D3BFB3C0089667A /* SideMenu@2x.png in Resources */,
 				E5BBA1042D3BFB3C0089667A /* SideMenuFocus@3x.png in Resources */,
@@ -9492,7 +9516,6 @@
 				E5BB9D9C2D3BF0C60089667A /* TPColorSelectPopoverView.swift in Sources */,
 				E50D60512F7A13F100D5E0A4 /* AlarmPresetListTableCell.swift in Sources */,
 				E5BB9DD52D3BF0C60089667A /* UIDevice+Extension.swift in Sources */,
-				E5B33D872F8250DB00939C3E /* TodoTagSelectViewModel.swift in Sources */,
 				E56B94A62F8F93F5001E488B /* TodoState.swift in Sources */,
 				E5D7D9122D43933700EC877A /* FocusStatsOverallViewController.swift in Sources */,
 				E53F328E2F68D6D200B85B65 /* HabitReportWeeklyViewController.swift in Sources */,
@@ -10263,7 +10286,7 @@
 				E5BB9E4B2D3BF0C70089667A /* TPHolidayScheduler.swift in Sources */,
 				E5BB9DA82D3BF0C60089667A /* FlipClockView.swift in Sources */,
 				E5F155262F83681E00116091 /* TodoGroupOverdueHeaderView.swift in Sources */,
-				E50D608A2F7A5A3900D5E0A4 /* TodoUserListOrganizer.swift in Sources */,
+				E50D608A2F7A5A3900D5E0A4 /* TodoHomeUserListViewModel.swift in Sources */,
 				E58C9E1A2F4AF0DC0096B842 /* FocusTimelineEvent.swift in Sources */,
 				E5BB9B4D2D3BEF920089667A /* WKInterfaceTextFieldExtension.swift in Sources */,
 				E5BB9EEE2D3BF0C80089667A /* TPMultiColumnProtocol.swift in Sources */,
@@ -10445,6 +10468,7 @@
 				E51FF6632F5833F3003CA953 /* HabitHomeWeekListCellHeader.swift in Sources */,
 				E5BB9DD32D3BF0C60089667A /* UIImage+Extensions.swift in Sources */,
 				E505A14E2DA7717F00595B5D /* Date+Year.swift in Sources */,
+				E57AA1182F92105200C4D346 /* TodoUserTagViewModel.swift in Sources */,
 				E51A4C292DC25B24005A0E3F /* CalendarMode.swift in Sources */,
 				E5D7D93E2D43933700EC877A /* FocusTimerStepCell.swift in Sources */,
 				E5BB9E672D3BF0C70089667A /* TPCollectionWrapperView.swift in Sources */,

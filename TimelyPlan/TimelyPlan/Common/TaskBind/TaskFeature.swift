@@ -41,6 +41,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
     
     var iconName: String? {
         switch self {
+        case .todo:
+            return "task_type_todo"
         case .habit:
             return "task_type_habit"
         default:

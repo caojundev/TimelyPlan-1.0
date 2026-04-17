@@ -15,12 +15,14 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
     
     var didSelectTag: ((TodoTag) -> Void)?
     
+    private let viewModel = TodoUserTagViewModel()
+    
     override var items: [ListDiffable]? {
         guard isExpanded else {
             return nil
         }
 
-        return todo.getTags()
+        return viewModel.tags
     }
     
     /// 标签管理器
@@ -28,7 +30,31 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
     
     override init() {
         super.init()
-        todo.addUpdater(self, for: .tag)
+        self.viewModel.tagsDidChange = { [weak self] change in
+            self?.tagsDidChange(with: change)
+        }
+    }
+    
+    private func tagsDidChange(with change: TodoUserTagChange?) {
+        guard let change = change else {
+            adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+            return
+        }
+
+        var animateTag: TodoTag?
+        switch change {
+        case .create(let tag):
+            /// 展开标签
+            setExpanded(true, animated: true)
+            animateTag = tag
+        case .update(let tag):
+            animateTag = tag
+        }
+
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+        if let animateTag = animateTag {
+            adapter?.commitFocusAnimation(for: animateTag)
+        }
     }
     
     // MARK: - Delegate
@@ -134,32 +160,6 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         }
 
         return []
-    }
-}
-
-// MARK: - 标签处理代理
-extension TodoUserTagSectionController: TodoTagProcessorDelegate {
-    
-    func didCreateTodoTag(_ tag: TodoTag) {
-        /// 展开标签
-        setExpanded(true, animated: true)
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top) { _ in
-            self.adapter?.commitFocusAnimation(for: tag)
-        }
-    }
-    
-    func didDeleteTodoTag(_ tag: TodoTag) {
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-    }
-    
-    func didUpdateTodoTag(_ tag: TodoTag) {
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top) { _ in
-            self.adapter?.commitFocusAnimation(for: tag)
-        }
-    }
-    
-    func didRecorderTodoTag(in tags: [TodoTag], fromIndex: Int, toIndex: Int) {
-        adapter?.performSectionUpdate(forSectionObject: self)
     }
 }
 
