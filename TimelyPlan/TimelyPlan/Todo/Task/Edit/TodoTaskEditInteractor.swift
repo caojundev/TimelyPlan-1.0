@@ -55,7 +55,6 @@ class TodoTaskEditInteractor: TodoTaskProcessorDelegate {
     }
     
     // MARK: - TodoTaskProcessorDelegate
-    
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
         guard self.task.identifier == task.identifier else {
             return

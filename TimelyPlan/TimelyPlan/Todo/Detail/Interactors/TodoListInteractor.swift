@@ -126,9 +126,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     
     /// 获取任务方法
     func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        todo.fetchTasks { results in
-            completion(results)
-        }
+        completion(nil)
     }
     
     func stateDidChange() {

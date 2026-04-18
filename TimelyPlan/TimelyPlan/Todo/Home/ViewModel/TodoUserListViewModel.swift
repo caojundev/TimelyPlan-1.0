@@ -9,6 +9,9 @@ import Foundation
 
 class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     
+    /// 数目改变
+    var countDidChange: (([TodoListFeature]) -> Void)?
+    
     /// 用户列表改变
     var userListDidChange: (() -> Void)?
     
@@ -80,7 +83,6 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     }
 }
 
-
 extension TodoUserListViewModel: TodoListProcessorDelegate {
     
     /// 添加新组时通知
@@ -128,3 +130,74 @@ extension TodoUserListViewModel: TodoListProcessorDelegate {
     }
 }
 
+extension TodoUserListViewModel: TodoTaskProcessorDelegate {
+    
+    func didCreateTodoTask(_ task: TodoTask) {
+        if let list = task.list {
+            counter.invalidateCount(for: list)
+            countDidChange?([list])
+        }
+    }
+    
+    func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
+        if let lists = tasks.userListFeatures {
+            counter.invalidateCount(for: lists)
+            countDidChange?(lists)
+        }
+    }
+    
+    func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
+        if let lists = tasks.userListFeatures {
+            counter.invalidateCount(for: lists)
+            countDidChange?(lists)
+        }
+    }
+    
+    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        var lists = tasks.userListFeatures ?? []
+        if let toList = list?.feature {
+            lists.append(toList)
+        }
+        
+        if lists.count > 0 {
+            counter.invalidateCount(for: lists)
+            countDidChange?(lists)
+        }
+    }
+    
+    func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
+        let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+        self.didUpdateTodoTasks(with: [changeInfo])
+    }
+    
+    func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
+        var lists = [TodoListFeature]()
+        for changeInfo in changeInfos {
+            guard let list = changeInfo.task.list else {
+                continue
+            }
+            
+            let change = changeInfo.change
+            switch change {
+            case .completed(_, _):
+                lists.append(list)
+            case .list(let oldValue, let newValue):
+                if let oldList = oldValue?.feature {
+                    lists.append(oldList)
+                }
+                
+                if let newList = newValue?.feature {
+                    lists.append(newList)
+                }
+                
+            default:
+                break
+            }
+        }
+        
+        if lists.count > 0 {
+            counter.invalidateCount(for: lists)
+            countDidChange?(lists)
+        }
+    }
+}

@@ -8,7 +8,7 @@
 import Foundation
 
 class TodoBaseListViewModel {
-    
+
     let counter = TodoListCounter()
     
     func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int?) -> Void) {
@@ -22,5 +22,4 @@ class TodoBaseListViewModel {
             completion(count)
         }
     }
-    
 }

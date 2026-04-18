@@ -45,37 +45,28 @@ class TodoSmartListInteractor: TodoListInteractor {
         
         return listName
     }
+    
+    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
+        let showCompleted = self.state.showCompleted
+        todo.fetchSmartListTasks(in: list,
+                                 showCompleted: showCompleted,
+                                 completion: completion)
+    }
 }
 
 class TodoInboxListInteractor: TodoSmartListInteractor {
     
-    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        let showCompleted = self.state.showCompleted
-        todo.fetchInboxTasks(showCompleted: showCompleted) { results in
-            completion(results)
-        }
-    }
+  
 }
 
 class TodoCompletedListInteractor: TodoSmartListInteractor {
-    
-    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        todo.fetchCompletedTasks { results in
-            completion(results)
-        }
-    }
+  
 }
 
 class TodoTrashListInteractor: TodoSmartListInteractor {
     
     override func taskActionTypes(for selectedTasks: Set<TodoTask>) -> [TodoTaskActionType] {
         return [.restore, .shred]
-    }
-    
-    override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        todo.fetchTrashTasks { results in
-            completion(results)
-        }
     }
     
     override func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {

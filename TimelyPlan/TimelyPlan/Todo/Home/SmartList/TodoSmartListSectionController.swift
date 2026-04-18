@@ -26,6 +26,24 @@ class TodoSmartListSectionController: TPTableBaseSectionController,
     init(types: [TodoSmartListType]) {
         self.types = types
         super.init()
+        self.viewModel.countDidChange = { [weak self] lists in
+            self?.updateTaskCount(for: lists)
+        }
+    }
+    
+    /// 更新列表任务数目
+    func updateTaskCount(for lists: [TodoSmartList]) {
+        for list in lists {
+            guard self.types.contains(list.listType) else {
+                continue
+            }
+            
+            let diffIdentifier = list.identifier as NSString
+            let cell = adapter?.cellForItem(with: diffIdentifier, inSection: self)
+            if let cell = cell as? TodoSmartListCell {
+                cell.updateTaskCount()
+            }
+        }
     }
     
     // MARK: - Delegate

@@ -14,6 +14,9 @@ enum TodoUserTagChange {
 
 class TodoUserTagViewModel: TodoBaseListViewModel {
     
+    /// 数目改变
+    var countDidChange: (([TodoTag]) -> Void)?
+    
     /// 用户标签改变
     var tagsDidChange: ((TodoUserTagChange?) -> Void)?
     
@@ -32,7 +35,7 @@ class TodoUserTagViewModel: TodoBaseListViewModel {
     override init() {
         super.init()
         self.loadTags()
-        todo.addUpdater(self, for: .tag)
+        todo.addUpdater(self)
     }
 
     func setNeedsRefresh() {
@@ -90,5 +93,62 @@ extension TodoUserTagViewModel: TodoTagProcessorDelegate {
         self.tags = todo.getTags()
         self.needsRefresh = false
         self.tagsDidChange?(nil)
+    }
+}
+
+extension TodoUserTagViewModel: TodoTaskProcessorDelegate {
+
+    private func didChangeTagForTasks(_ tasks: [TodoTask]) {
+        if let tags = tasks.userTags {
+            let tagsArray = Array(tags)
+            counter.invalidateCount(for: tagsArray)
+            countDidChange?(tagsArray)
+        }
+    }
+    
+    func didCreateTodoTask(_ task: TodoTask) {
+        didChangeTagForTasks([task])
+    }
+    
+    func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
+        didChangeTagForTasks(tasks)
+    }
+    
+    func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
+        didChangeTagForTasks(tasks)
+    }
+    
+    func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
+        let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+        self.didUpdateTodoTasks(with: [changeInfo])
+    }
+    
+    func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
+        var results = Set<TodoTag>()
+        for changeInfo in changeInfos {
+            let change = changeInfo.change
+            switch change {
+            case .completed(_, _):
+                if let tags = changeInfo.task.tags, tags.count > 0 {
+                    results.formUnion(Set(tags))
+                }
+            case .tag(let oldValue, let newValue):
+                if let oldTags = oldValue, !oldTags.isEmpty {
+                    results.formUnion(oldTags)
+                }
+                
+                if let newTags = newValue, !newTags.isEmpty {
+                    results.formUnion(newTags)
+                }
+            default:
+                break
+            }
+        }
+        
+        if results.count > 0 {
+            let tagsArray = Array(results)
+            counter.invalidateCount(for: tagsArray)
+            countDidChange?(tagsArray)
+        }
     }
 }

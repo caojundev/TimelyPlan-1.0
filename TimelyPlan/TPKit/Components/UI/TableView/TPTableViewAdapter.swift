@@ -355,6 +355,7 @@ class TPTableViewAdapter: NSObject,
                 return IndexPath(item: index, section: section)
             }
         }
+        
         return nil
     }
     
@@ -857,7 +858,6 @@ extension TPTableViewAdapter {
     }
     
     // MARK: - Cells
-    
     func cellForItem(_ item: ListDiffable) -> UITableViewCell? {
         guard let indexPath = indexPath(of: item) else { return nil }
         return tableView.cellForRow(at: indexPath)
@@ -913,5 +913,32 @@ extension TPTableViewAdapter {
         }
         
         return indexPaths.isEmpty ? nil : indexPaths
+    }
+    
+    
+    func cellForItem(with diffIdentifier: NSObjectProtocol,
+                     inSection sectionObject: ListDiffable) -> UITableViewCell? {
+        guard let indexPath = indexPathForItem(with: diffIdentifier, inSection: sectionObject) else {
+            return nil
+        }
+        
+        return tableView.cellForRow(at: indexPath)
+    }
+    
+    func indexPathForItem(with diffIdentifier: NSObjectProtocol,
+                          inSection sectionObject: ListDiffable) -> IndexPath? {
+        let sectionItems = items(for: sectionObject)
+        guard !sectionItems.isEmpty, let section = section(of: sectionObject) else {
+            return nil
+        }
+        
+        for (index, item) in sectionItems.enumerated() {
+            let identifier = item.diffIdentifier()
+            if diffIdentifier.isEqual(identifier) {
+                return IndexPath(item: index, section: section)
+            }
+        }
+        
+        return nil
     }
 }

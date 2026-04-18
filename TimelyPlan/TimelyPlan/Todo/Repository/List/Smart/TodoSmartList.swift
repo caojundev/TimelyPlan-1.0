@@ -46,6 +46,23 @@ class TodoSmartList: NSObject, TodoListRepresentable, IdentifiableItem {
         return listType.title
     }
     
+    var color: UIColor {
+        switch listType {
+        case .inbox:
+            return Color(0x237DFF)
+        case .completed:
+            return Color(0x3DC862)
+        case .planned:
+            return Color(0x7E68FF)
+        case .today:
+            return Color(0x2D96FF)
+        case .overdue:
+            return Color(0xFF773E)
+        case .trash:
+            return Color(0xE64433)
+        }
+    }
+    
     var icon: UIImage? {
         if let iconName = listType.iconName {
             return resGetImage(iconName)
@@ -73,6 +90,18 @@ class TodoSmartList: NSObject, TodoListRepresentable, IdentifiableItem {
     
     static var completed: TodoSmartList {
         return TodoSmartList(type: .completed)
+    }
+    
+    static var today: TodoSmartList {
+        return TodoSmartList(type: .today)
+    }
+    
+    static var planned: TodoSmartList {
+        return TodoSmartList(type: .planned)
+    }
+    
+    static var overdue: TodoSmartList {
+        return TodoSmartList(type: .overdue)
     }
     
     static var trash: TodoSmartList {

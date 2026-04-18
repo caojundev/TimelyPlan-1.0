@@ -385,7 +385,7 @@ extension CDTodoTask {
     
     /// 清空废纸篓
     static func emptyTrash(completion: @escaping(Bool) -> Void) {
-        fetchTrashTasks { tasks in
+        fetchSmartListTasks(in: .trash, showCompleted: true) { tasks in
             guard let tasks = tasks, tasks.count > 0 else {
                 completion(false)
                 return
@@ -414,28 +414,38 @@ extension CDTodoTask {
 // MARK: - 获取任务
 extension CDTodoTask {
     
-    /// 获取收件箱任务
-    static func fetchInboxTasks(showCompleted: Bool = true, completion: @escaping([CDTodoTask]?) -> Void) {
-        let predicate = activeInboxTaskPredicate(showCompleted: showCompleted)
-        findAll(with: predicate, sortedBy: TodoTaskKey.creationDate, ascending: true) { results in
-            completion(results as? [CDTodoTask])
-        }
-    }
-    
+    /// 同步获取收件箱任务
     static func getInboxTasks(showCompleted: Bool = true) -> [CDTodoTask]? {
         let predicate = activeInboxTaskPredicate(showCompleted: showCompleted)
         let results: [CDTodoTask]? = findAll(with: predicate, sortedBy: TodoTaskKey.order, ascending: true, in: .defaultContext)
         return results
     }
     
-    /// 获取已完成任务
-    static func fetchCompletedTasks(completion: @escaping([CDTodoTask]?) -> Void) {
-        let predicate = activeCompletedTaskPredicate
+    /// 获取智能清单任务
+    static func fetchSmartListTasks(in list: TodoSmartList,
+                                    showCompleted: Bool = true,
+                                    completion: @escaping([CDTodoTask]?) -> Void) {
+        var predicate: NSPredicate
+        switch list.listType {
+        case .inbox:
+            predicate = activeInboxTaskPredicate(showCompleted: showCompleted)
+        case .completed:
+            predicate = activeCompletedTaskPredicate()
+        case .today:
+            predicate = todayTaskPredicate(showCompleted: showCompleted)
+        case .planned:
+            predicate = plannedTaskPredicate()
+        case .overdue:
+            predicate = overdueTaskPredicate()
+        case .trash:
+            predicate = trashTaskPredicate()
+        }
+        
         findAll(with: predicate, sortedBy: TodoTaskKey.creationDate, ascending: true) { results in
             completion(results as? [CDTodoTask])
         }
     }
-
+    
     /// 获取用户列表任务
     static func fetchUserListTasks(in list: TodoList,
                                    showCompleted: Bool = true,
@@ -450,13 +460,6 @@ extension CDTodoTask {
         let predicate = userListActiveTaskPredicate(for: list, showCompleted: showCompleted)
         let results: [CDTodoTask]? = findAll(with: predicate, sortedBy: TodoTaskKey.order, ascending: true, in: .defaultContext)
         return results
-    }
-
-    /// 获取废纸篓任务
-    static func fetchTrashTasks(completion: @escaping([CDTodoTask]?) -> Void) {
-        findAll(with: trashTaskPredicate) { results in
-            completion(results as? [CDTodoTask])
-        }
     }
     
     static func fetchTasks(for tag: TodoTag, completion: @escaping([CDTodoTask]?) -> Void) {
@@ -497,11 +500,15 @@ extension CDTodoTask {
         case .inbox:
             predicate = activeInboxTaskPredicate(showCompleted: false)
         case .completed:
-            predicate = activeCompletedTaskPredicate
+            predicate = activeCompletedTaskPredicate()
         case .trash:
-            predicate = trashTaskPredicate
-        default:
-            break
+            predicate = trashTaskPredicate()
+        case .today:
+            predicate = todayTaskPredicate(showCompleted: false)
+        case .planned:
+            predicate = plannedTaskPredicate()
+        case .overdue:
+            predicate = overdueTaskPredicate()
         }
         
         return predicate
@@ -565,7 +572,7 @@ extension CDTodoTask {
     }
     
     /// 已完成
-    static var activeCompletedTaskPredicate: NSPredicate {
+    static func activeCompletedTaskPredicate() -> NSPredicate {
         let conditions: [PredicateCondition] = [
             completedCondition,
             notRemovedCondition
@@ -574,8 +581,8 @@ extension CDTodoTask {
         return conditions.andPredicate()
     }
     
-    // MARK: - 废纸篓
-    static var trashTaskPredicate: NSPredicate {
+    // 废纸篓
+    static func trashTaskPredicate() -> NSPredicate {
         let conditions: [PredicateCondition] = [
             (TodoTaskKey.isRemoved, .isTrue)
         ]
@@ -583,7 +590,51 @@ extension CDTodoTask {
         return conditions.andPredicate()
     }
     
+
+    /// 计划中
+    static func plannedTaskPredicate() -> NSPredicate {
+        var conditions = scheduledConditions(showCompleted: false)
+        let date = Date()
+        let upcomingCondition: PredicateCondition = (TodoTaskKey.startDate, .greaterThan(date.endOfDay()))
+        conditions.append(upcomingCondition)
+        return conditions.andPredicate()
+    }
+    
+    /// 今日
+    static func todayTaskPredicate(showCompleted: Bool = true) -> NSPredicate {
+        let conditions = scheduledConditions(showCompleted: showCompleted)
+        let now = Date()
+        let comparison = PredicateComparison.between(now.startOfDay(), now.endOfDay())
+        let dateConditions: [PredicateCondition] = [
+            (TodoTaskKey.startDate, comparison),
+            (TodoTaskKey.dueDate, comparison),
+        ]
+        
+        return .andPredicate(andConditions: conditions, orConditions: dateConditions)
+    }
+    
+    /// 过期
+    static func overdueTaskPredicate() -> NSPredicate {
+        var conditions = scheduledConditions(showCompleted: false)
+        let overdueCondition: PredicateCondition = (TodoTaskKey.dueDate, .lessThan(Date()))
+        conditions.append(overdueCondition)
+        return conditions.andPredicate()
+    }
+
     // MARK: - Conditions
+    static func scheduledConditions(showCompleted: Bool = true) -> [PredicateCondition] {
+        var conditions: [PredicateCondition] = [
+            notRemovedCondition,
+            (TodoTaskKey.dueDate, .isNotEmpty)
+        ]
+        
+        if !showCompleted {
+            conditions.append(notCompletedCondition)
+        }
+        
+        return conditions
+    }
+    
     static var notRemovedCondition: PredicateCondition {
         return (TodoTaskKey.isRemoved, .isFalse)
     }
@@ -595,6 +646,8 @@ extension CDTodoTask {
     static var notCompletedCondition: PredicateCondition {
         return (TodoTaskKey.isCompleted, .isFalse)
     }
+    
+    
 }
 
 extension Array where Element == CDTodoTask {

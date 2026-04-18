@@ -19,11 +19,17 @@ class TodoListCounter {
         return nil
     }
     
+    func setCount(_ count: Int, for item: IdentifiableItem) {
+        self.counts[item.identifier] = count
+    }
+    
     func invalidateCount(for item: IdentifiableItem) {
         self.counts[item.identifier] = nil
     }
     
-    func setCount(_ count: Int, for item: IdentifiableItem) {
-        self.counts[item.identifier] = count
+    func invalidateCount(for items: [IdentifiableItem]) {
+        for item in items {
+            invalidateCount(for: item)
+        }
     }
 }

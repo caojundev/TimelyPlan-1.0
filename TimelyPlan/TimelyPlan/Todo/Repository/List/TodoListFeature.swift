@@ -9,7 +9,9 @@ import Foundation
 import UIKit
 
 /// 列表特征信息
-class TodoListFeature: NSObject, TodoListRepresentable {
+class TodoListFeature: NSObject,
+                        TodoListRepresentable,
+                        IdentifiableItem {
 
     /// 标识
     var identifier: String

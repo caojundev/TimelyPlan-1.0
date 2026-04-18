@@ -33,6 +33,21 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         self.viewModel.tagsDidChange = { [weak self] change in
             self?.tagsDidChange(with: change)
         }
+        
+        self.viewModel.countDidChange = { [weak self] tags in
+            self?.updateTaskCount(for: tags)
+        }
+    }
+    
+    /// 更新标签任务数目
+    private func updateTaskCount(for tags: [TodoTag]) {
+        for tag in tags {
+            let diffIdentifier = tag.identifier as NSString
+            let cell = adapter?.cellForItem(with: diffIdentifier, inSection: self)
+            if let cell = cell as? TodoUserTagCell {
+                cell.updateTaskCount()
+            }
+        }
     }
     
     private func tagsDidChange(with change: TodoUserTagChange?) {

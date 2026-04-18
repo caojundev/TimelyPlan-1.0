@@ -27,10 +27,25 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         self.viewModel.userListDidChange = { [weak self] in
             self?.userListDidChange()
         }
+        
+        self.viewModel.countDidChange = { [weak self] lists in
+            self?.updateTaskCount(for: lists)
+        }
     }
     
     private func userListDidChange() {
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+    }
+    
+    /// 更新列表任务数目
+    func updateTaskCount(for lists: [TodoListFeature]) {
+        for list in lists {
+            let diffIdentifier = list.identifier as NSString
+            let cell = adapter?.cellForItem(with: diffIdentifier, inSection: self)
+            if let cell = cell as? TodoUserListHomeCell {
+                cell.updateTaskCount()
+            }
+        }
     }
     
     // MARK: - Delegate
@@ -122,7 +137,6 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         
         viewModel.fetchUncompletedTaskCount(for: list, completion: completion)
     }
-    
     
     // MARK: - Menu Action
     func performMenuActionType(_ type: TodoListMenuActionType, for list: TodoList) {

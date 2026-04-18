@@ -28,13 +28,17 @@ class TodoSmartListCell: TPImageInfoTextValueTableCell {
         self.padding = UIEdgeInsets(right: 32.0)
         self.contentPadding = UIEdgeInsets(left: 16.0, right: 0.0)
         self.imageConfig.margins = UIEdgeInsets(right: 8.0)
-        self.imageConfig.shouldRenderImageWithColor = false
+        self.imageConfig.shouldRenderImageWithColor = true
     }
     
     func updateListInfo() {
-        self.infoView.title = list?.title
-        self.imageContent = .withName(list?.iconName)
-        self.updateTaskCount()
+        if let list = list {
+            self.infoView.title = list.title
+            self.imageConfig.color = list.color
+            self.imageContent = .withName(list.iconName)
+            self.updateTaskCount()
+        }
+        
         setNeedsLayout()
     }
     

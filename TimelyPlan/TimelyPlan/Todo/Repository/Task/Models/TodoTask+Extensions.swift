@@ -131,3 +131,36 @@ extension TodoTask {
         return orderedTags.attributedInfo()
     }
 }
+
+extension Array where Element == TodoTask {
+    
+    var userListFeatures: [TodoListFeature]? {
+        var lists = [TodoListFeature]()
+        for task in self {
+            if let list = task.list {
+                lists.append(list)
+            }
+        }
+        
+        if lists.count > 0 {
+            return lists
+        }
+        
+        return nil
+    }
+    
+    var userTags: Set<TodoTag>? {
+        var results = Set<TodoTag>()
+        for task in self {
+            if let tags = task.tags {
+                results = results.union(Set(tags))
+            }
+        }
+        
+        if results.count > 0 {
+            return results
+        }
+        
+        return nil
+    }
+}

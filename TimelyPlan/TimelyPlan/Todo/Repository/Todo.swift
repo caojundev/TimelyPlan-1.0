@@ -136,28 +136,11 @@ extension Todo {
 /// 任务相关
 extension Todo {
     
-    /// 获取任务
-    func fetchTasks(completion: @escaping([TodoTask]?) -> Void) {
-        var conditions: [PredicateCondition] = [
-            (TodoTaskKey.isRemoved, .isFalse)
-        ]
-        
-        CDTodoTask.findAll(with: conditions.andPredicate(),
-                           sortedBy: ElementOrderKey,
-                           ascending: true) { results in
-            let results = results as? [CDTodoTask]
-            completion(results?.tasks)
-        }
-    }
-    
-    /// 获取收件箱任务
-    func fetchInboxTasks(showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
-        taskManager.fetchInboxTasks(showCompleted: showCompleted, completion: completion)
-    }
-    
-    /// 获取已完成任务
-    func fetchCompletedTasks(completion: @escaping([TodoTask]?) -> Void) {
-        taskManager.fetchCompletedTasks(completion: completion)
+    /// 获取用户列表任务
+    func fetchSmartListTasks(in list: TodoSmartList,
+                            showCompleted: Bool = true,
+                            completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchSmartListTasks(in: list, showCompleted: showCompleted, completion: completion)
     }
     
     /// 获取用户列表任务
@@ -165,11 +148,6 @@ extension Todo {
                             showCompleted: Bool = true,
                             completion: @escaping([TodoTask]?) -> Void) {
         taskManager.fetchUserListTasks(in: list, showCompleted: showCompleted, completion: completion)
-    }
-    
-    /// 获取废纸篓任务
-    func fetchTrashTasks(completion: @escaping([TodoTask]?) -> Void) {
-        taskManager.fetchTrashTasks(completion: completion)
     }
     
     func fetchTasks(for tag: TodoTag, completion: @escaping([TodoTask]?) -> Void) {

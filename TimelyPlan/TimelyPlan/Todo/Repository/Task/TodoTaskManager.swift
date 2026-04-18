@@ -287,17 +287,12 @@ class TodoTaskManager {
 }
 
 extension TodoTaskManager {
-    
-    /// 获取收件箱任务
-    func fetchInboxTasks(showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
-        CDTodoTask.fetchInboxTasks(showCompleted: showCompleted) { results in
-            completion(results?.tasks)
-        }
-    }
-    
-    /// 获取已完成任务
-    func fetchCompletedTasks(completion: @escaping([TodoTask]?) -> Void) {
-        CDTodoTask.fetchCompletedTasks { results in
+
+    /// 获取用户列表任务
+    func fetchSmartListTasks(in list: TodoSmartList,
+                             showCompleted: Bool = true,
+                             completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchSmartListTasks(in: list, showCompleted: showCompleted) { results in
             completion(results?.tasks)
         }
     }
@@ -310,14 +305,7 @@ extension TodoTaskManager {
             completion(results?.tasks)
         }
     }
-    
-    /// 获取废纸篓任务
-    func fetchTrashTasks(completion: @escaping([TodoTask]?) -> Void) {
-        CDTodoTask.fetchTrashTasks { results in
-            completion(results?.tasks)
-        }
-    }
-    
+
     func fetchTasks(for tag: TodoTag, completion: @escaping([TodoTask]?) -> Void) {
         CDTodoTask.fetchTasks(for: tag) { results in
             completion(results?.tasks)
