@@ -172,9 +172,12 @@ extension Todo {
         taskManager.fetchTrashTasks(completion: completion)
     }
     
-    
     func fetchTasks(for tag: TodoTag, completion: @escaping([TodoTask]?) -> Void) {
         taskManager.fetchTasks(for: tag, completion: completion)
+    }
+    
+    func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
+        taskManager.fetchUncompletedTaskCount(for: item, completion: completion)
     }
     
     // MARK: - 任务处理

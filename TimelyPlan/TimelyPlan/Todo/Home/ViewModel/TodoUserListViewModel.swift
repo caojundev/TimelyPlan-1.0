@@ -1,5 +1,5 @@
 //
-//  TodoHomeUserListViewModel.swift
+//  TodoUserListViewModel.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/30.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TodoHomeUserListViewModel: ExpansionStateProviding {
+class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     
     /// 用户列表改变
     var userListDidChange: (() -> Void)?
@@ -24,6 +24,7 @@ class TodoHomeUserListViewModel: ExpansionStateProviding {
     
     init(expansionState: ExpansionStateProviding) {
         self.expansionState = expansionState
+        super.init()
         self.loadTopLists()
         todo.addUpdater(self)
     }
@@ -77,11 +78,10 @@ class TodoHomeUserListViewModel: ExpansionStateProviding {
     func setExpended(_ isExpended: Bool, for item: Any) {
         expansionState.setExpended(isExpended, for: item)
     }
-
 }
 
 
-extension TodoHomeUserListViewModel: TodoListProcessorDelegate {
+extension TodoUserListViewModel: TodoListProcessorDelegate {
     
     /// 添加新组时通知
     func didCreateTodoList(_ list: TodoList) {

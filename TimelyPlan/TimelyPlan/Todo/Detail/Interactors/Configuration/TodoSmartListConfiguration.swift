@@ -40,7 +40,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
             return [.select, .showCompleted, .layout, .group, .sort]
         case .completed:
             return [.select, .group, .sort]
-        case .planned:
+        case .today, .planned, .overdue:
             return [.select, .showCompleted, .layout, .group, .sort]
         case .trash:
             return [.select, .emptyTrash]
@@ -65,7 +65,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
             return [.default, .startDate, .dueDate, .priority, .none]
         case .completed:
             return [.list]
-        case .planned:
+        case .today, .planned, .overdue:
             return [.dueDate]
         case .trash:
             return [.none]
@@ -78,7 +78,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
             return TodoSortType.allCases
         case .completed:
             return [.manually]
-        case .planned:
+        case .today, .planned, .overdue:
             return [.dueDate]
         case .trash:
             return [.creationDate]
@@ -95,7 +95,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
             return TodoSortOrder.allCases
         case .completed:
             return [.ascending]
-        case .planned:
+        case .today, .planned, .overdue:
             return TodoSortOrder.allCases
         case .trash:
             return [.descending]

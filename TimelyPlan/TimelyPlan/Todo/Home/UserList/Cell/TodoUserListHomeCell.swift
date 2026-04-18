@@ -10,8 +10,11 @@ import UIKit
 
 protocol TodoUserListHomeCellDelegate: TPExpandDefaultInfoTableCellDelegate {
     
-    /// 点击更多
-    func TodoUserListHomeCellDidClickMore(_ cell: TodoUserListHomeCell)
+    /// 点击更多按钮
+    func todoUserListHomeCellDidClickMore(_ cell: TodoUserListHomeCell)
+    
+    /// 获取单元格待办数量
+    func todoUserListHomeCell(_ cell: TodoUserListHomeCell, requestCount completion: @escaping (Int?) -> Void)
 }
 
 class TodoUserListHomeCell: TodoUserListBaseCell {
@@ -47,7 +50,23 @@ class TodoUserListHomeCell: TodoUserListBaseCell {
     
     /// 更新任务数目
     func updateTaskCount() {
-        iconInfoTextValueView.valueConfig = .valueText("0")
+        guard let list = self.list, let delegate = delegate as? TodoUserListHomeCellDelegate else {
+            iconInfoTextValueView.valueConfig = nil
+            return
+        }
+        
+        let identifier = list.identifier
+        delegate.todoUserListHomeCell(self) { [weak self] count in
+            guard let self = self, identifier == self.list?.identifier else {
+                return
+            }
+            
+            if let count = count, count > 0 {
+                self.iconInfoTextValueView.valueConfig = .valueText("\(count)")
+            } else {
+                self.iconInfoTextValueView.valueConfig = nil
+            }
+        }
     }
     
     func updateSubtitle() {
@@ -80,7 +99,7 @@ class TodoUserListHomeCell: TodoUserListBaseCell {
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
         if let delegate = delegate as? TodoUserListHomeCellDelegate {
-            delegate.TodoUserListHomeCellDidClickMore(self)
+            delegate.todoUserListHomeCellDidClickMore(self)
         }
     }
 }

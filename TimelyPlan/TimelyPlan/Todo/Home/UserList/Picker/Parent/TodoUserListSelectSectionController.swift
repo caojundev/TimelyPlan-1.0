@@ -25,13 +25,13 @@ class TodoUserListSelectSectionController: TodoUserListBaseSectionController {
     
     private let expansionState: TodoParentListSelectExpansionState
     
-    private let viewModel: TodoHomeUserListViewModel
+    private let viewModel: TodoUserListViewModel
     
     init(allowMaxDepth: Int = kTodoListMaxDepth) {
         self.allowMaxDepth = allowMaxDepth
         let expansionState = TodoParentListSelectExpansionState(allowMaxDepth: allowMaxDepth)
         self.expansionState = expansionState
-        self.viewModel = TodoHomeUserListViewModel(expansionState: expansionState)
+        self.viewModel = TodoUserListViewModel(expansionState: expansionState)
         super.init()
         self.viewModel.userListDidChange = { [weak self] in
             self?.userListDidChange()

@@ -323,4 +323,8 @@ extension TodoTaskManager {
             completion(results?.tasks)
         }
     }
+    
+    func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
+        CDTodoTask.fetchUncompletedTaskCount(for: item, completion: completion)
+    }
 }

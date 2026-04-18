@@ -12,7 +12,7 @@ enum TodoUserTagChange {
     case update(TodoTag)
 }
 
-class TodoUserTagViewModel {
+class TodoUserTagViewModel: TodoBaseListViewModel {
     
     /// 用户标签改变
     var tagsDidChange: ((TodoUserTagChange?) -> Void)?
@@ -29,7 +29,8 @@ class TodoUserTagViewModel {
 
     private let requestManager = TPRequestManager()
     
-    init() {
+    override init() {
+        super.init()
         self.loadTags()
         todo.addUpdater(self, for: .tag)
     }

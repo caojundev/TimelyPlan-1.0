@@ -17,12 +17,12 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     
     private let expansionState: TodoHomeUserListExpansionState
     
-    private let viewModel: TodoHomeUserListViewModel
+    private let viewModel: TodoUserListViewModel
     
     override init() {
         let expansionState = TodoHomeUserListExpansionState()
         self.expansionState = expansionState
-        self.viewModel = TodoHomeUserListViewModel(expansionState: expansionState)
+        self.viewModel = TodoUserListViewModel(expansionState: expansionState)
         super.init()
         self.viewModel.userListDidChange = { [weak self] in
             self?.userListDidChange()
@@ -104,7 +104,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
  
-    func TodoUserListHomeCellDidClickMore(_ cell: TodoUserListHomeCell) {
+    func todoUserListHomeCellDidClickMore(_ cell: TodoUserListHomeCell) {
         guard let list = cell.list else { return }
         let actionController = TodoListMenuActionController(list: list)
         actionController.didSelectMenuActionType = { type in
@@ -113,6 +113,16 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         
         actionController.showMenu(from: cell.moreButton)
     }
+    
+    func todoUserListHomeCell(_ cell: TodoUserListHomeCell, requestCount completion: @escaping (Int?) -> Void) {
+        guard let list = cell.list else {
+            completion(nil)
+            return
+        }
+        
+        viewModel.fetchUncompletedTaskCount(for: list, completion: completion)
+    }
+    
     
     // MARK: - Menu Action
     func performMenuActionType(_ type: TodoListMenuActionType, for list: TodoList) {

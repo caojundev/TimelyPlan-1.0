@@ -8,11 +8,14 @@
 import Foundation
 import UIKit
 
-class TodoSmartListSectionController: TPTableBaseSectionController {
+class TodoSmartListSectionController: TPTableBaseSectionController,
+                                      TodoSmartListCellDelegate {
     
     var didSelectList: ((TodoSmartList) -> Void)?
     
     private(set) var types: [TodoSmartListType]
+    
+    private let viewModel = TodoSmartListViewModel()
     
     override var items: [ListDiffable]? {
         return types.map { type in
@@ -47,6 +50,7 @@ class TodoSmartListSectionController: TPTableBaseSectionController {
             return
         }
 
+        cell.delegate = self
         cell.list = item(at: index) as? TodoSmartList
     }
 
@@ -57,6 +61,16 @@ class TodoSmartListSectionController: TPTableBaseSectionController {
         if let list = item(at: index) as? TodoSmartList {
             didSelectList?(list)
         }
+    }
+    
+    // MARK: - TodoSmartListCellDelegate
+    func todoSmartListCell(_ cell: TodoSmartListCell, requestCount completion: @escaping (Int?) -> Void) {
+        guard let list = cell.list else {
+            completion(nil)
+            return
+        }
+        
+        viewModel.fetchUncompletedTaskCount(for: list, completion: completion)
     }
 }
 

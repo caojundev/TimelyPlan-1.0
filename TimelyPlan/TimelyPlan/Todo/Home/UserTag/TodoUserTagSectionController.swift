@@ -127,7 +127,7 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
     }
     
     // MARK: - TodoUserTagCellDelegate
-    func todoTagEditCellDidClickMore(_ cell: TodoUserTagCell) {
+    func todoTagCellDidClickMore(_ cell: TodoUserTagCell) {
         guard let userTag = cell.userTag else {
             return
         }
@@ -142,6 +142,15 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         menuController.showMenu(from: cell.moreButton, sourceRect: sourceRect)
     }
     
+    func todoTagCell(_ cell: TodoUserTagCell, requestCount completion: @escaping (Int?) -> Void) {
+        guard let userTag = cell.userTag else {
+            completion(nil)
+            return
+        }
+        
+        viewModel.fetchUncompletedTaskCount(for: userTag, completion: completion)
+    }
+
     // MARK: - TodoHomeExpandHeaderViewDelegate
     func todoHomeExpandHeaderViewDidClickAdd(_ headerView: TodoHomeExpandHeaderView) {
         tagController.createTag()

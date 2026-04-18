@@ -430,12 +430,7 @@ extension CDTodoTask {
     
     /// 获取已完成任务
     static func fetchCompletedTasks(completion: @escaping([CDTodoTask]?) -> Void) {
-        let conditions: [PredicateCondition] = [
-            completedCondition,
-            notRemovedCondition
-        ]
-        
-        let predicate = conditions.andPredicate()
+        let predicate = activeCompletedTaskPredicate
         findAll(with: predicate, sortedBy: TodoTaskKey.creationDate, ascending: true) { results in
             completion(results as? [CDTodoTask])
         }
@@ -465,10 +460,51 @@ extension CDTodoTask {
     }
     
     static func fetchTasks(for tag: TodoTag, completion: @escaping([CDTodoTask]?) -> Void) {
-        let predicate = tagActiveTaskPredicate(with: tag)
+        let predicate = tagActiveTaskPredicate(for: tag)
         findAll(with: predicate) { results in
             completion(results as? [CDTodoTask])
         }
+    }
+    
+    static func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
+        var predicate: NSPredicate?
+        switch item {
+        case let list as TodoList:
+            predicate = userListActiveTaskPredicate(for: list, showCompleted: false)
+        case let tag as TodoTag:
+            predicate = tagActiveTaskPredicate(for: tag, showCompleted: false)
+        case let smartList as TodoSmartList:
+            predicate = uncompletedTaskPredicate(for: smartList)
+//        case let filter as TodoFilter:
+        default:
+            break
+        }
+        
+        if let predicate = predicate {
+            fetchCount(withPredicate: predicate) { count in
+                DispatchQueue.main.async {
+                    completion(count)
+                }
+            }
+        } else {
+            completion(0)
+        }
+    }
+    
+    static func uncompletedTaskPredicate(for smartList: TodoSmartList) -> NSPredicate? {
+        var predicate: NSPredicate?
+        switch smartList.listType {
+        case .inbox:
+            predicate = activeInboxTaskPredicate(showCompleted: false)
+        case .completed:
+            predicate = activeCompletedTaskPredicate
+        case .trash:
+            predicate = trashTaskPredicate
+        default:
+            break
+        }
+        
+        return predicate
     }
     
 }
@@ -478,11 +514,15 @@ extension CDTodoTask {
 
     // MARK: - 标签
     /// 标签活动任务
-    static func tagActiveTaskPredicate(with tag: TodoTag) -> NSPredicate {
-        let conditions: [PredicateCondition] = [
+    static func tagActiveTaskPredicate(for tag: TodoTag, showCompleted: Bool = true) -> NSPredicate {
+        var conditions: [PredicateCondition] = [
             notRemovedCondition,
             (TodoTaskKey.tagsIdentifier, .anyEqual(tag.identifier))
         ]
+        
+        if !showCompleted {
+            conditions.append(notCompletedCondition)
+        }
         
         return conditions.andPredicate()
     }
@@ -520,6 +560,16 @@ extension CDTodoTask {
         if !showCompleted {
             conditions.append(notCompletedCondition)
         }
+        
+        return conditions.andPredicate()
+    }
+    
+    /// 已完成
+    static var activeCompletedTaskPredicate: NSPredicate {
+        let conditions: [PredicateCondition] = [
+            completedCondition,
+            notRemovedCondition
+        ]
         
         return conditions.andPredicate()
     }

@@ -12,7 +12,9 @@ import UIKit
 enum TodoSmartListType: String, TPMenuRepresentable {
     case inbox     /// 收件箱
     case completed /// 已完成
+    case today     /// 今天
     case planned   /// 计划
+    case overdue   /// 已过期
     case trash     /// 废纸篓
     
     /// 除废纸篓之外所有类型数组
@@ -24,6 +26,10 @@ enum TodoSmartListType: String, TPMenuRepresentable {
     
     /// 图标名称
     var iconName: String? {
+        if self == .today {
+            return "calendar_\(Date().day)_24"
+        }
+        
         return "todo_smartlist_" + self.rawValue + "_24"
     }
 }

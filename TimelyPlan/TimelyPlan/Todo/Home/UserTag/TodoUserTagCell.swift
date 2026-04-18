@@ -10,20 +10,17 @@ import Foundation
 protocol TodoUserTagCellDelegate: AnyObject {
     
     /// 点击更多
-    func todoTagEditCellDidClickMore(_ cell: TodoUserTagCell)
+    func todoTagCellDidClickMore(_ cell: TodoUserTagCell)
+    
+    /// 获取单元格待办数量
+    func todoTagCell(_ cell: TodoUserTagCell, requestCount completion: @escaping (Int?) -> Void)
 }
 
 class TodoUserTagCell: TPColorInfoTextValueTableCell {
     
     var userTag: TodoTag? {
         didSet {
-            infoView.title = userTag?.name ?? resGetString("Untitled")
-
-            let colorConfig = TPColorAccessoryConfig()
-            colorConfig.size = CGSize(width: 10.0, height: 10.0)
-            colorConfig.color = userTag?.color ?? TodoTag.defaultColor
-            self.colorConfig = colorConfig
-            self.valueConfig = .valueText("3")
+            updateTagInfo()
         }
     }
     
@@ -44,11 +41,48 @@ class TodoUserTagCell: TPColorInfoTextValueTableCell {
         self.rightViewSize = .mini
     }
     
+    // MARK: - Update
+    let colorSize = CGSize(width: 10.0, height: 10.0)
+    
+    func updateTagInfo() {
+        let colorConfig = TPColorAccessoryConfig()
+        colorConfig.size = colorSize
+        colorConfig.color = userTag?.color ?? TodoTag.defaultColor
+        self.colorConfig = colorConfig
+        self.infoView.title = userTag?.name ?? resGetString("Untitled")
+        self.updateTaskCount()
+        setNeedsLayout()
+    }
+    
+    /// 更新任务数目
+    func updateTaskCount() {
+        guard let userTag = self.userTag, let delegate = delegate as? TodoUserTagCellDelegate else {
+            self.valueConfig = nil
+            setNeedsLayout()
+            return
+        }
+        
+        let identifier = userTag.identifier
+        delegate.todoTagCell(self) { [weak self] count in
+            guard let self = self, identifier == self.userTag?.identifier else {
+                return
+            }
+            
+            if let count = count, count > 0 {
+                self.valueConfig = .valueText("\(count)")
+            } else {
+                self.valueConfig = nil
+            }
+        }
+        
+        setNeedsLayout()
+    }
+    
     // MARK: - Event Response
     /// 点击更多
     func clickMore() {
         if let delegate = delegate as? TodoUserTagCellDelegate {
-            delegate.todoTagEditCellDidClickMore(self)
+            delegate.todoTagCellDidClickMore(self)
         }
     }
     
