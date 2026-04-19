@@ -34,7 +34,9 @@ enum TodoSmartListType: String, TPMenuRepresentable {
     }
 }
 
-class TodoSmartList: NSObject, TodoListRepresentable, IdentifiableItem {
+class TodoSmartList: NSObject,
+                     TodoListRepresentable,
+                     IdentifiableItem {
     
     var identifier: String
     
@@ -131,5 +133,9 @@ class TodoSmartList: NSObject, TodoListRepresentable, IdentifiableItem {
     // MARK: - Equatable
     static func == (lhs: TodoSmartList, rhs: TodoSmartList) -> Bool {
         return lhs.listType == rhs.listType
+    }
+        
+    override func diffIdentifier() -> NSObjectProtocol {
+        return self.identifier as NSString
     }
 }

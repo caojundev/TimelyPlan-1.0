@@ -290,22 +290,24 @@ extension CDTodoList {
             return false
         }
     
-        moveAllTasksToTrash(in: list)
         let context = NSManagedObjectContext.defaultContext
         context.delete(list)
         return true
     }
     
     /// 将所有任务移到废纸篓
-    static func moveAllTasksToTrash(in list: CDTodoList) {
-        #warning("Todo")
-//        guard let tasks = list.tasks as? Set<TodoTask>, tasks.count > 0 else {
-//            return
-//        }
-//
-//        for task in tasks {
-//            task.isRemoved = true
-//        }
+    static func moveAllTasksToTrash(in aList: TodoList) -> Set<CDTodoTask>? {
+        guard let list = coreDataList(for: aList),
+                let tasks = list.tasks as? Set<CDTodoTask>,
+                tasks.count > 0 else {
+            return nil
+        }
+    
+        for task in tasks {
+            task.isRemoved = true
+        }
+        
+        return tasks
     }
 }
 

@@ -42,8 +42,7 @@ class TodoTaskManager {
         updater.didMoveTodoTasks(tasksToMove, to: list)
         HandyRecord.save()
     }
-        
-        
+    
     /// 将任务移动到废纸篓
     func moveTasksToTrash(_ tasks: [TodoTask]) {
         guard CDTodoTask.moveTasksToTrash(tasks) else {
@@ -54,6 +53,17 @@ class TodoTaskManager {
         HandyRecord.save()
     }
         
+    /// 将特定列表中所有任务移到废纸篓
+    func moveAllTasksToTrash(in list: TodoList) {
+        guard let cdTasks = CDTodoList.moveAllTasksToTrash(in: list) else {
+            return
+        }
+        
+        let tasks = Array(cdTasks).tasks
+        updater.didMoveTodoTasksToTrash(tasks)
+        HandyRecord.save()
+    }
+    
     /// 恢复废纸篓中的任务
     func restoreTrashTask(_ task: TodoTask) {
         restoreTrashTasks([task])

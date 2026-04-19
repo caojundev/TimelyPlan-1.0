@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol TodoHomeExpandHeaderViewDelegate: AnyObject {
     
@@ -80,6 +81,7 @@ class TodoHomeExpandHeaderView: TPDefaultInfoTableHeaderFooterView {
     override func setupInfoView() {
         infoView = TPImageInfoTextValueView()
         infoView.addGestureRecognizer(tapGesture)
+        infoView.titleConfig.font = .boldSystemFont(ofSize: 15.0)
         imageConfig.shouldRenderImageWithColor = false
         imageConfig.margins = UIEdgeInsets(right: 6.0)
         infoView.rightAccessoryView = addButton

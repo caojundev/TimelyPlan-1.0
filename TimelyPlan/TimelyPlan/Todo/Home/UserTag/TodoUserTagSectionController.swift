@@ -89,7 +89,6 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         headerView.contentView.backgroundColor = adapter?.cellStyle.backgroundColor
         headerView.delegate = self
         headerView.isExpanded = isExpanded
-        headerView.titleConfig.font = BOLD_SYSTEM_FONT
         headerView.title = resGetString("Tag")
         headerView.imageContent = .withName("todo_home_tag_24")
     }

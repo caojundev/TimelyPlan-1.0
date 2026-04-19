@@ -74,7 +74,6 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         headerView.contentView.backgroundColor = adapter?.cellStyle.backgroundColor
         headerView.delegate = self
         headerView.isExpanded = isExpanded
-        headerView.titleConfig.font = BOLD_SYSTEM_FONT
         headerView.title = resGetString("Lists")
         headerView.imageContent = .withName("todo_list_24")
         headerView.imageConfig.color = .primary

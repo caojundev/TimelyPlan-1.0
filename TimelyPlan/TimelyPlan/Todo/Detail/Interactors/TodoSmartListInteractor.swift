@@ -37,7 +37,7 @@ class TodoSmartListInteractor: TodoListInteractor {
             let title: ASAttributedString
             title = .string(image: image,
                             imageSize: .size(4),
-                            imageColor: nil,
+                            imageColor: self.list.color,
                             trailingText: listName,
                             separator: " ")
             return title

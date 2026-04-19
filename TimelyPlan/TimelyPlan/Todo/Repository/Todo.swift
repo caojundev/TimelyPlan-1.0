@@ -129,8 +129,14 @@ extension Todo {
     
     /// 删除列表
     func deleteList(_ list: TodoList) {
+        if list.hasSubItem {
+            return
+        }
+        
+        taskManager.moveAllTasksToTrash(in: list)
         userListManager.deleteList(list)
     }
+    
 }
 
 /// 任务相关

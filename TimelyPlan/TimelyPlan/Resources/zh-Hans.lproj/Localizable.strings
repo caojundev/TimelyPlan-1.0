@@ -32,6 +32,7 @@
 "Planned" = "计划内";
 "Tag" = "标签";
 
+"Lists" = "列表";
 "%ld sublists" = "%ld个子列表";
 "%ld sublist" = "%ld个子列表";
 
@@ -551,11 +552,12 @@
 "Note" = "备注";
 "Add Note" = "添加备注";
 
+"Exceeds maximum character limit: %ld" = "已超出最大字符限制: %ld";
+
 /// 日期
 "Date" = "日期";
 "Start Date" = "开始日期";
 "Due Date" = "截止日期";
 "Creation Date" = "创建时间";
 "Modification Date" = "修改日期";
-
-"Exceeds maximum character limit: %ld" = "已超出最大字符限制: %ld";
+"Today" = "今天";

@@ -25,8 +25,9 @@ class TodoSmartListCell: TPImageInfoTextValueTableCell {
     override func setupContentSubviews() {
         super.setupContentSubviews()
         self.accessoryType = .disclosureIndicator
+        self.titleConfig.font = .boldSystemFont(ofSize: 15.0)
         self.padding = UIEdgeInsets(right: 32.0)
-        self.contentPadding = UIEdgeInsets(left: 16.0, right: 0.0)
+        self.contentPadding = UIEdgeInsets(left: 16.0, right: 4.0)
         self.imageConfig.margins = UIEdgeInsets(right: 8.0)
         self.imageConfig.shouldRenderImageWithColor = true
     }
@@ -57,7 +58,7 @@ class TodoSmartListCell: TPImageInfoTextValueTableCell {
             }
             
             if let count = count, count > 0 {
-                self.valueConfig = .valueText("\(count)")
+                self.valueConfig = .valueText("\(count)", font: SYSTEM_FONT)
             } else {
                 self.valueConfig = nil
             }
