@@ -26,6 +26,7 @@ struct TodoTaskKey {
     static var startDate = "startDate"
     static var dueDate = "dueDate"
     static var progress = "progress"
+    static var progressFraction = "progressFraction"
 }
 
 extension CDTodoTask: SortableIdentifiable {

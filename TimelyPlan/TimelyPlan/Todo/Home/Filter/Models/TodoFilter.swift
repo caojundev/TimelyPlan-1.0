@@ -1,17 +1,17 @@
 //
-//  TodoTag.swift
+//  TodoFilter.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/4/2.
+//  Created by caojun on 2026/4/14.
 //
 
 import Foundation
 import UIKit
 
-class TodoTag: NSObject,
-               TPHexColorConvertible,
-               IdentifiableItem,
-               SortableIdentifiable {
+class TodoFilter: NSObject,
+                  TPHexColorConvertible,
+                  IdentifiableItem,
+                  SortableIdentifiable {
     
     var identifier: String
     
@@ -21,6 +21,18 @@ class TodoTag: NSObject,
     /// 颜色十六进制字符串
     var colorHex: String?
     
+    /// 过滤规则
+    private lazy var rule: TodoFilterRule? = {
+        if let json = ruleJSON {
+            return TodoFilterRule.model(with: json)
+        }
+        
+        return nil
+    }()
+    
+    /// 规则 JSON 字符串
+    private var ruleJSON: String?
+    
     /// 颜色
     private(set) lazy var color: UIColor = {
         if let colorHex = colorHex {
@@ -29,10 +41,11 @@ class TodoTag: NSObject,
         
         return Self.defaultColor
     }()
-    
-    /// 编辑标签
-    var editingTag: TodoEditingTag {
-        return TodoEditingTag(name: self.name, color: self.color)
+
+    /// 编辑过滤器
+    var editingFilter: TodoEditFilter {
+        let color = self.color ?? TodoFilter.defaultColor
+        return TodoEditFilter(name: self.name, color: color, rule: self.rule)
     }
     
     // MARK: - SortableIdentifiable
@@ -59,11 +72,12 @@ class TodoTag: NSObject,
         return colors[0]
     }
     
-    init(content: CDTodoTag) {
+    init(content: CDTodoFilter) {
         self.identifier = content.identifier ?? ""
         self.name = content.name
         self.colorHex = content.colorHex
         self.order = content.order
+        self.ruleJSON = content.ruleJSON
         super.init()
     }
 
@@ -75,11 +89,12 @@ class TodoTag: NSObject,
     }
     
     override func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? TodoTag else { return false }
+        guard let other = object as? TodoFilter else { return false }
         if self === other { return true }
         return identifier == other.identifier &&
                 name == other.name &&
-                colorHex == other.colorHex
+                colorHex == other.colorHex &&
+                ruleJSON == other.ruleJSON
     }
 
     
@@ -88,35 +103,8 @@ class TodoTag: NSObject,
     }
     
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let other = object as? TodoTag else { return false }
+        guard let other = object as? TodoFilter else { return false }
         if self === other { return true }
         return identifier == other.identifier
-    }
-}
-
-extension Array where Element == TodoTag {
-    
-    /// 获取组合的标签富文本字符串
-    func attributedInfo(separator: String = ", ") -> ASAttributedString? {
-        var strings = [ASAttributedString]()
-        for tag in self {
-            if let name = tag.name, name.count > 0, let color = tag.color {
-                let string: ASAttributedString = "\("●", .foreground(color)) \(name)"
-                strings.append(string)
-            }
-        }
-
-        return strings.joined(separator: ", ")
-    }
-}
-
-extension Set where Element == TodoTag {
-    
-    func attributedOrderedTagsInfo(separator: String = ", ") -> ASAttributedString? {
-        guard self.count > 0 else {
-            return nil
-        }
-
-        return orderedElements().attributedInfo(separator: separator)
     }
 }

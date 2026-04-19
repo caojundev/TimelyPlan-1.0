@@ -151,3 +151,13 @@ struct TaskDateInfo: Hashable, Equatable {
         return attributedEndString
     }
 }
+
+extension TaskDateInfo {
+    
+    static func allDayDateInfo(startDate: Date) -> TaskDateInfo {
+        let dateInfo = TaskDateInfo(startDate: startDate.startOfDay(),
+                                    isAllDay: true,
+                                    duration: SECONDS_PER_DAY)
+        return dateInfo
+    }
+}

@@ -87,6 +87,4 @@ class TodoTagManager {
         HandyRecord.save()
         updater.didRecorderTodoTag(in: tags, fromIndex: fromIndex, toIndex: toIndex)
     }
-    
-
 }

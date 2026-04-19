@@ -31,6 +31,7 @@
 "Trash" = "废纸篓";
 "Planned" = "计划内";
 "Tag" = "标签";
+"Filter" = "过滤器";
 
 "Lists" = "列表";
 "%ld sublists" = "%ld个子列表";
@@ -70,6 +71,12 @@
 "This tag already exists" = "当前标签已存在";
 "Create Tag" = "创建标签";
 "You can select up to %ld tags." = "您最多可选择%ld个标签";
+
+/// 过滤器
+"New Filter" = "新建过滤器";
+"Edit Filter" = "编辑过滤器";
+"Delete Filter" = "删除过滤器";
+"Enter filter name" = "输入过滤器名称";
 
 /// 优先级
 "Priority" = "优先级";

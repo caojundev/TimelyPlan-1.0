@@ -67,6 +67,14 @@
         <attribute name="timePlanRuleJSON" optional="YES" attributeType="String"/>
         <relationship name="records" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDHabitRecord" inverseName="task" inverseEntity="CDHabitRecord"/>
     </entity>
+    <entity name="CDTodoFilter" representedClassName="CDTodoFilter" syncable="YES" codeGenerationType="class">
+        <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="ruleJSON" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="CDTodoList" representedClassName="CDTodoList" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -127,5 +135,6 @@
         <element name="CDTodoTag" positionX="45" positionY="261" width="128" height="119"/>
         <element name="CDTodoTask" positionX="54" positionY="270" width="128" height="374"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
+        <element name="CDTodoFilter" positionX="45" positionY="261" width="128" height="119"/>
     </elements>
 </model>

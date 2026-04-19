@@ -203,9 +203,10 @@ struct TodoEditProgress: Codable, Hashable, Equatable {
             return progressByIncrementValue(incrementValue)
         }
     }
+}
+ 
+extension TodoEditProgress {
     
-    
-    /*
     /// 根据过滤条件调整当前值
     mutating func adjustCurrentValue(toMatch specificValue: TodoProgressFilterSpecificValue?) {
         guard let specificValue = specificValue, !isMatchFilterSpecificValue(specificValue) else {
@@ -248,6 +249,4 @@ struct TodoEditProgress: Codable, Hashable, Equatable {
             return completionFraction == floatPercentage
         }
     }
-    
-    */
 }

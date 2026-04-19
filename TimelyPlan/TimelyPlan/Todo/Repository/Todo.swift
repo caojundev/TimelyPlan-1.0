@@ -18,6 +18,9 @@ class Todo {
     /// 任务管理器
     private let taskManager = TodoTaskManager()
     
+    /// 过滤器管理器
+    private let filterManager = TodoFilterManager()
+    
     /// 添加处理更新器
     func addUpdater(_ updater: AnyObject, for option: TodoUpdaterOption = .all) {
         if option.contains(.list) {
@@ -31,54 +34,11 @@ class Todo {
         if option.contains(.task) {
             taskManager.updater.addDelegate(updater)
         }
+        
+        if option.contains(.filter) {
+            filterManager.updater.addDelegate(updater)
+        }
     }
-    
-
-    // MARK: - 获取标签
-    func fetchTags(completion: @escaping([TodoTag]?) -> Void) {
-        tagManager.fetchTags(completion: completion)
-    }
-    
-    func getTags() -> [TodoTag] {
-        return tagManager.getTags()
-    }
-    
-    func getTag(of identifier: String) -> TodoTag? {
-        return tagManager.getTag(of: identifier)
-    }
-    
-    /// 判断标签名称是否已存在
-    func isTagExist(with name: String) -> Bool {
-        return tagManager.isTagExist(with: name)
-    }
-    
-    /// 搜索标签
-    func searchTags(containText text: String,
-                     completion:(@escaping([TodoTag]?) -> Void)) {
-        tagManager.fetchTags(containText: text, completion: completion)
-    }
-    
-    // MARK: - 标签处理
-    /// 新建标签
-    func createTag(with editingTag: TodoEditingTag) {
-        tagManager.createTag(with: editingTag)
-    }
-    
-    /// 删除标签
-    func deleteTag(_ tag: TodoTag) {
-        tagManager.deleteTag(tag)
-    }
-    
-    /// 更新标签信息
-    func updateTag(_ tag: TodoTag, with editingTag: TodoEditingTag) {
-        tagManager.updateTag(tag, with: editingTag)
-    }
-
-    /// 重新排序标签
-    func reorderTag(in tags: [TodoTag], fromIndex: Int, toIndex: Int) {
-        return tagManager.reorderTag(in: tags, fromIndex: fromIndex, toIndex: toIndex)
-    }
- 
 }
 
 extension Todo {
@@ -243,5 +203,85 @@ extension Todo {
                      targetTask: TodoTask,
                      in list: TodoList?) {
         taskManager.reorderTask(sourceTask, postion: postion, targetTask: targetTask, in: list)
+    }
+}
+
+extension Todo {
+    
+    // MARK: - 获取标签
+    func fetchTags(completion: @escaping([TodoTag]?) -> Void) {
+        tagManager.fetchTags(completion: completion)
+    }
+    
+    func getTags() -> [TodoTag] {
+        return tagManager.getTags()
+    }
+    
+    func getTag(of identifier: String) -> TodoTag? {
+        return tagManager.getTag(of: identifier)
+    }
+    
+    /// 判断标签名称是否已存在
+    func isTagExist(with name: String) -> Bool {
+        return tagManager.isTagExist(with: name)
+    }
+    
+    /// 搜索标签
+    func searchTags(containText text: String,
+                     completion:(@escaping([TodoTag]?) -> Void)) {
+        tagManager.fetchTags(containText: text, completion: completion)
+    }
+    
+    // MARK: - 标签处理
+    /// 新建标签
+    func createTag(with editingTag: TodoEditingTag) {
+        tagManager.createTag(with: editingTag)
+    }
+    
+    /// 删除标签
+    func deleteTag(_ tag: TodoTag) {
+        tagManager.deleteTag(tag)
+    }
+    
+    /// 更新标签信息
+    func updateTag(_ tag: TodoTag, with editingTag: TodoEditingTag) {
+        tagManager.updateTag(tag, with: editingTag)
+    }
+
+    /// 重新排序标签
+    func reorderTag(in tags: [TodoTag], fromIndex: Int, toIndex: Int) {
+        return tagManager.reorderTag(in: tags, fromIndex: fromIndex, toIndex: toIndex)
+    }
+}
+
+extension Todo {
+    
+    func fetchFilters(completion: @escaping([TodoFilter]?) -> Void) {
+        filterManager.fetchFilters(completion: completion)
+    }
+    
+    func getFilters() -> [TodoFilter]? {
+        return filterManager.getFilters()
+    }
+    
+    // MARK: - Processors
+    /// 新建过滤器
+    func createFilter(with editingFilter: TodoEditFilter, onTop: Bool = false) {
+        filterManager.createFilter(with: editingFilter, onTop: onTop)
+    }
+    
+    /// 更新过滤器
+    func updateFilter(_ filter: TodoFilter, with editingFilter: TodoEditFilter) {
+        filterManager.updateFilter(filter, with: editingFilter)
+    }
+    
+    /// 删除过滤器
+    func deleteFilter(_ filter: TodoFilter) {
+        filterManager.deleteFilter(filter)
+    }
+
+    /// 重新排序过滤器
+    func reorderFilter(in filters: [TodoFilter], fromIndex: Int, toIndex: Int) {
+        filterManager.reorderFilter(in: filters, fromIndex: fromIndex, toIndex: toIndex)
     }
 }

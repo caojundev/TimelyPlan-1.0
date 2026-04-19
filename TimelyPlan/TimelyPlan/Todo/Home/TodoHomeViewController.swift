@@ -89,6 +89,17 @@ class TodoHomeViewController: TPTableViewController,
         return sectionController
     }()
     
+    /// 过滤器区块
+    lazy var filterSectionController: TodoFilterSectionController = {
+        let sectionController = TodoFilterSectionController()
+        sectionController.identifier = TodoHomeSection.filter.rawValue
+        sectionController.didSelectFilter = { [weak self] filter in
+//            self?.detailCoordinator.showDetail(for: filter)
+        }
+        
+        return sectionController
+    }()
+    
     private let userListController = TodoUserListController()
     
     private var reorder: TPTableDragInsertReorder?
@@ -149,6 +160,7 @@ class TodoHomeViewController: TPTableViewController,
         let sectionControllers = [smartListSectionController,
                                   userListSectionController,
                                   tagSectionController,
+                                  filterSectionController,
                                   trashSectionController]
         var displaySectionControllers = [TPTableBaseSectionController]()
         for (section, sectionController) in sectionControllers.enumerated() {
@@ -198,6 +210,8 @@ extension TodoHomeViewController: TPTableDragReorderDataSource {
             return userListSectionController
         case .tag:
             return tagSectionController
+        case .filter:
+            return filterSectionController
         default:
             return nil
         }

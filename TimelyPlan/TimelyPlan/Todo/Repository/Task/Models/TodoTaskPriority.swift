@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum TodoTaskPriority: Int, TPMenuRepresentable {
+enum TodoTaskPriority: Int, Codable, TPMenuRepresentable {
     
     case none   = 0 /// 无
     case low    = 1 /// 低

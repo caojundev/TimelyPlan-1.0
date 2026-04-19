@@ -152,25 +152,6 @@ import Foundation
         self.stepCount = Int(content.stepCount)
         self.stepCompletedCount = Int(content.stepCompletedCount)
         super.init()
-        
-        
-//        let normalMarkdown = """
-//    - [ ] 项目A
-//      - [ ] 任务A1
-//      - [ ] 任务A2
-//        - [ ] 子任务A2.1
-//        - [ ] 子任务A2.2
-//      - [ ] 任务A3
-//    - [ ] 项目B
-//      - [ ] 任务B1
-//    - [ ] 项目C
-//    - [ ] 项目D
-//    - [ ] 项目E
-//    """
-//        let parser = TodoStepParser()
-//        self.steps = parser.parse(normalMarkdown)
-//        self.stepCount = self.steps?.totalCount() ?? 0
-//        self.stepCompletedCount = self.steps?.completedCount() ?? 0
     }
     
     /// 更新步骤
