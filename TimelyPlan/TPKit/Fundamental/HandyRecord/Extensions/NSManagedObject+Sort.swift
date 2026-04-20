@@ -20,18 +20,22 @@ protocol SortableIdentifiable: Sortable {
 extension NSManagedObject {
 
     /// 获取特定标识的列表
-    static func getItem(withIdentifier identifier: String) -> Self? {
+    static func getItem(with identifier: String) -> Self? {
         let condition: PredicateCondition = (kIdentifierKeyName, .equal(identifier))
         let predicate = NSPredicate.predicate(with: condition)
         return findFirst(withPredicate: predicate, in: .defaultContext)
     }
     
-    static func getIdentifiableItems(with items: [SortableIdentifiable]) -> [NSManagedObject]? {
-        let identifiers = items.map{ $0.identifiableKey }
+    static func getItems(with identifiers: [String]) -> [NSManagedObject]? {
         let condition: PredicateCondition = (kIdentifierKeyName, .belongsTo(identifiers))
         let predicate = NSPredicate.predicate(with: condition)
         let results: [NSManagedObject]? = findAll(with: predicate, in: .defaultContext)
         return results
+    }
+    
+    static func getIdentifiableItems(with items: [SortableIdentifiable]) -> [NSManagedObject]? {
+        let identifiers = items.map{ $0.identifiableKey }
+        return getItems(with: identifiers)
     }
     
     @discardableResult

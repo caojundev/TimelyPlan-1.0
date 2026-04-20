@@ -13,8 +13,9 @@ protocol PredicateProvider {
 }
 
 // MARK: - 列表过滤值
+
 struct TodoListFilterValue: Hashable, Codable, PredicateProvider {
-    
+
     /// 是否包含收件箱
     var includeInbox: Bool?
     
@@ -23,16 +24,27 @@ struct TodoListFilterValue: Hashable, Codable, PredicateProvider {
     
     var lists: [TodoList]? {
         if let identifiers = identifiers {
-            return nil
-//            return todo.getLists(with: identifiers)
+            return todo.getUserLists(of: identifiers)
         }
-        
+
         return nil
     }
     
     /// 列表信息
     var listsInfo: (includeInbox: Bool?, lists: [TodoList]?)? {
         return (includeInbox, lists)
+    }
+    
+    var isEmpty: Bool {
+        if let includeInbox = includeInbox, includeInbox {
+            return false
+        }
+        
+        if let identifiers = identifiers, !identifiers.isEmpty {
+            return false
+        }
+        
+        return true
     }
     
     /// 描述
@@ -166,12 +178,24 @@ struct TodoTagFilterValue: Hashable, Codable, PredicateProvider {
     /// 标识对应的标签数组
     var tags: [TodoTag]? {
         if let identifiers = identifiers {
-            return nil
-//            return todo.getTags(with: identifiers)
+            return todo.getTags(of: identifiers)
         }
         
         return nil
     }
+    
+    var isEmpty: Bool {
+        if let includeNoTag = includeNoTag, includeNoTag {
+            return false
+        }
+        
+        if let identifiers = identifiers, !identifiers.isEmpty {
+            return false
+        }
+        
+        return true
+    }
+    
     
     /// 标签信息
     var tagsInfo: (includeNoTag: Bool?, tags: [TodoTag]?)? {

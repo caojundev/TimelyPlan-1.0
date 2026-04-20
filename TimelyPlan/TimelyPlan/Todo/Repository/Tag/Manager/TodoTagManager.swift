@@ -20,11 +20,19 @@ class TodoTagManager {
     }
     
     func getTag(of identifier: String) -> TodoTag? {
-        guard let cdTag = CDTodoTag.getItem(withIdentifier: identifier) else {
+        guard let cdTag = CDTodoTag.getItem(with: identifier) else {
             return nil
         }
     
         return TodoTag(content: cdTag)
+    }
+    
+    func getTags(of identifiers: [String]) -> [TodoTag]? {
+        guard let cdTags = CDTodoTag.getItems(with: identifiers) as? [CDTodoTag] else {
+            return nil
+        }
+        
+        return cdTags.tags
     }
     
     func fetchTags(completion: @escaping([TodoTag]?) -> Void) {

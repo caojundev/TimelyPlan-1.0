@@ -56,6 +56,10 @@ extension Todo {
         return userListManager.getUserList(of: identifier)
     }
     
+    func getUserLists(of identifiers: [String]) -> [TodoList]? {
+        return userListManager.getUserLists(of: identifiers)
+    }
+    
     // MARK: - 列表处理
     
     /// 新建列表
@@ -223,6 +227,10 @@ extension Todo {
     
     func getTag(of identifier: String) -> TodoTag? {
         return tagManager.getTag(of: identifier)
+    }
+    
+    func getTags(of identifiers: [String]) -> [TodoTag]? {
+        return tagManager.getTags(of: identifiers)
     }
     
     /// 判断标签名称是否已存在

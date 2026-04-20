@@ -11,9 +11,7 @@ import UIKit
 class TodoFilterTagEditViewController: TPTableSectionsViewController,
                                         TPTableSectionControllerDelegate {
     
-    var didEndEditing: ((TodoTagFilterValue) -> Void)?
-    
-    var didChangeFilterValue: ((TodoTagFilterValue) -> Void)?
+    var didEndEditing: ((TodoTagFilterValue?) -> Void)?
     
     private lazy var noTagSectionController: TodoFilterNoTagSectionController = {
         let sectionController = TodoFilterNoTagSectionController()
@@ -36,11 +34,19 @@ class TodoFilterTagEditViewController: TPTableSectionsViewController,
         return sectionController
     }()
 
+    private var selectedTags: [TodoTag]
+    
     private(set) var filterValue: TodoTagFilterValue
     
     init(filterValue: TodoTagFilterValue?) {
         self.filterValue = filterValue ?? TodoTagFilterValue()
+        self.selectedTags = filterValue?.tags ?? []
         super.init(style: .insetGrouped)
+        
+        /// 更新选中标签标识
+        if self.selectedTags.count != self.filterValue.identifiers?.count {
+            self.updateTagIdentifiers()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -73,46 +79,64 @@ class TodoFilterTagEditViewController: TPTableSectionsViewController,
     
     override func clickDone() {
         super.clickDone()
-        didEndEditing?(filterValue)
+        if self.filterValue.isEmpty {
+            self.didEndEditing?(nil)
+        } else {
+            self.didEndEditing?(self.filterValue)
+        }
     }
     
     private func selectNoTag() {
         if let includeNoTag = filterValue.includeNoTag, includeNoTag {
-            filterValue.includeNoTag = false
+            filterValue.includeNoTag = nil
         } else {
             filterValue.includeNoTag = true
         }
-        
-        didChangeFilterValue?(filterValue)
-        adapter.updateCheckmarks()
     }
     
     private func selectUserTag(_ tag: TodoTag) {
-        let tagId = tag.identifier
-        var selectedTagIds = filterValue.identifiers ?? []
-        if selectedTagIds.contains(tagId) {
-            selectedTagIds.remove(tagId)
+        if selectedTags.contains(tag) {
+            selectedTags.remove(tag)
         } else {
-            selectedTagIds.append(tagId)
+            selectedTags.append(tag)
         }
         
-        filterValue.identifiers = selectedTagIds
-        didChangeFilterValue?(filterValue)
-        adapter.updateCheckmarks()
+        updateTagIdentifiers()
+    }
+    
+    private func updateTagIdentifiers() {
+        let identifiers = selectedTags.map { $0.identifier }
+        if identifiers.count > 0 {
+            filterValue.identifiers = identifiers
+        } else {
+            filterValue.identifiers = nil
+        }
     }
     
     // MARK: - TPTableSectionControllerDelegate
+    func tableSectionController(_ sectionController: TPTableBaseSectionController, didSelectRowAt index: Int) {
+        if sectionController == userTagSectionController {
+            if let tag = userTagSectionController.item(at: index) as? TodoTag {
+                return self.selectUserTag(tag)
+            }
+        } else {
+            self.selectNoTag()
+        }
+
+        self.adapter.updateCheckmarks()
+    }
+    
     func tableSectionController(_ sectionController: TPTableBaseSectionController, shouldShowCheckmarkForRowAt index: Int) -> Bool {
         if sectionController == userTagSectionController {
             if let tag = userTagSectionController.item(at: index) as? TodoTag {
-                return filterValue.identifiers?.contains(tag.identifier) ?? false
+                return self.selectedTags.contains(tag)
             }
-            
-            return false
-        } else if sectionController == noTagSectionController {
-            return filterValue.includeNoTag ?? false
+        } else if sectionController == noTagSectionController{
+            if let includeNoTag = self.filterValue.includeNoTag, includeNoTag {
+                return true
+            }
         }
-        
+
         return false
     }
 }
@@ -164,12 +188,16 @@ private class TodoFilterUserTagSectionController: TPTableBaseSectionController {
 
 class TodoFilterTagSelectCell: TPColorInfoTextValueTableCell {
     
+    let colorSize = CGSize(width: 10.0, height: 10.0)
+    let colorMargins = UIEdgeInsets(left: 0.0, right: 10.0)
+    
     var userTag: TodoTag? {
         didSet {
             infoView.title = userTag?.name ?? resGetString("Untitled")
             let config = TPColorAccessoryConfig()
             config.color = userTag?.color ?? TodoTag.defaultColor
-            config.margins = UIEdgeInsets(left: 15.0, right: 10.0)
+            config.size = colorSize
+            config.margins = colorMargins
             self.colorConfig = config
         }
     }
@@ -182,7 +210,7 @@ class TodoFilterTagSelectCell: TPColorInfoTextValueTableCell {
     
     override func setupContentSubviews() {
         super.setupContentSubviews()
-        contentView.padding = UIEdgeInsets(left: 10.0, right: 10.0)
+        contentView.padding = UIEdgeInsets(left: 16.0, right: 16.0)
         self.rightView = checkmarkView
         self.rightViewSize = .mini
     }
@@ -209,6 +237,11 @@ class TodoFilterNoTagSectionController: TPTableItemSectionController {
     lazy var noTagCellItem: TPCheckmarkTableCellItem = {
         let cellItem = TPCheckmarkTableCellItem()
         cellItem.height = 50.0
+        cellItem.contentPadding = UIEdgeInsets(left: 8.0, right: 16.0)
+        cellItem.imageConfig.margins = UIEdgeInsets(left: 0.0, right: 4.0)
+        cellItem.imageConfig.size = .mini
+        cellItem.imageConfig.color = .gray(5)
+        cellItem.imageContent = .withName("todo_filter_tag_none_24")
         cellItem.title = resGetString("No Tag")
         return cellItem
     }()

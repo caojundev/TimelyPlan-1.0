@@ -186,7 +186,7 @@ extension CDTodoTask: SortableIdentifiable {
     
     /// 更新任务进度
     static func updateTask(_ task: TodoTask, progress: TodoEditProgress?) -> Bool {
-        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+        guard let cdTask = getItem(with: task.identifier) else {
             return false
         }
         
@@ -196,7 +196,7 @@ extension CDTodoTask: SortableIdentifiable {
     }
     
     static func updateTask(_ task: TodoTask, name: String?) -> Bool {
-        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+        guard let cdTask = getItem(with: task.identifier) else {
             return false
         }
         
@@ -221,7 +221,7 @@ extension CDTodoTask: SortableIdentifiable {
     }
     
     static func updateTask(_ task: TodoTask, schedule: TaskSchedule?) -> Bool {
-        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+        guard let cdTask = getItem(with: task.identifier) else {
             return false
         }
         
@@ -236,7 +236,7 @@ extension CDTodoTask: SortableIdentifiable {
             return false
         }
         
-        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+        guard let cdTask = getItem(with: task.identifier) else {
             return false
         }
         
@@ -261,7 +261,7 @@ extension CDTodoTask: SortableIdentifiable {
     }
     
     static func updateTask(_ task: TodoTask, note: String?) -> Bool {
-        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+        guard let cdTask = getItem(with: task.identifier) else {
             return false
         }
         
@@ -271,7 +271,7 @@ extension CDTodoTask: SortableIdentifiable {
     }
     
     static func updateTask(_ task: TodoTask, steps: [TodoStep]?) -> Bool {
-        guard let cdTask = getItem(withIdentifier: task.identifier) else {
+        guard let cdTask = getItem(with: task.identifier) else {
             return false
         }
         
@@ -339,7 +339,7 @@ extension CDTodoTask {
         
         var cdToList: CDTodoList? = nil
         if let toList = list {
-            cdToList = CDTodoList.getItem(withIdentifier: toList.identifier)
+            cdToList = CDTodoList.getItem(with: toList.identifier)
         }
         
         for cdTask in cdTasks {

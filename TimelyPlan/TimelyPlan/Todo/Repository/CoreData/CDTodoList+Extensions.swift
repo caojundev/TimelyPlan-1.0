@@ -314,7 +314,7 @@ extension CDTodoList {
 extension CDTodoList {
     
     static func coreDataList(for list: TodoList) -> CDTodoList? {
-        return getItem(withIdentifier: list.identifier)
+        return getItem(with: list.identifier)
     }
     
     /// 搜索清单

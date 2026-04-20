@@ -6,31 +6,33 @@
 //
 
 import Foundation
+import UIKit
 
-class TodoFilterListEditViewController: TPViewController {
+class TodoFilterListEditViewController: TodoBaseListSelectViewController {
+
+    var didEndEditing: ((TodoListFilterValue?) -> Void)?
+
+    private var selectedUserLists: [TodoList]
     
-    var didEndEditing: ((TodoListFilterValue) -> Void)?
+    private(set) var filterValue: TodoListFilterValue
     
-    var didChangeFilterValue: ((TodoListFilterValue) -> Void)? {
-        get {
-            return selectView.didChangeFilterValue
-        }
-        
-        set {
-            selectView.didChangeFilterValue = newValue
-        }
-    }
-    
-    var filterValue: TodoListFilterValue {
-        return selectView.filterValue
-    }
-    
-    private let selectView: TodoFilterListSelectView
+    /// 收件箱区块控制器
+    private lazy var inboxSectionController: TodoListSelectInboxSectionController = {
+        let sectionController = TodoListSelectInboxSectionController()
+        sectionController.footerItem.height = 15.0
+        sectionController.delegate = self
+        return sectionController
+    }()
     
     init(filterValue: TodoListFilterValue?) {
-        let filterValue = filterValue ?? TodoListFilterValue()
-        self.selectView = TodoFilterListSelectView(filterValue: filterValue)
-        super.init(nibName: nil, bundle: nil)
+        self.filterValue = filterValue ?? TodoListFilterValue()
+        self.selectedUserLists = filterValue?.lists ?? []
+        super.init(list: nil, allowMaxDepth: Int.max)
+        
+        /// 更新选中列表标识
+        if self.selectedUserLists.count != self.filterValue.identifiers?.count {
+            self.updateListIdentifiers()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -39,124 +41,77 @@ class TodoFilterListEditViewController: TPViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = resGetString("List")
-        navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        view.addSubview(self.selectView)
-        setupActionsBar(actions: [doneAction])
-        actionsBar?.backgroundColor = .systemBackground
+        self.title = resGetString("List")
+        self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
+        self.setupActionsBar(actions: [self.doneAction])
+        self.actionsBar?.backgroundColor = .secondarySystemGroupedBackground
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        let layoutFrame = view.safeLayoutFrame()
-        selectView.width = layoutFrame.width
-        selectView.height = layoutFrame.height - actionsBarHeight
+    override func setupSectionControllers() {
+        self.sectionControllers = [self.inboxSectionController,
+                                   self.userSectionController]
     }
     
-    override var themeBackgroundColor: UIColor? {
-        return .systemBackground
+    override func tableSectionController(_ sectionController: TPTableBaseSectionController, didSelectRowAt index: Int) {
+        if sectionController == userSectionController {
+            if let list = userSectionController.item(at: index) as? TodoList {
+                self.selectUserList(list)
+            }
+        } else {
+            self.selectInbox()
+        }
+
+        self.adapter.updateCheckmarks()
     }
     
-    override var themeNavigationBarBackgroundColor: UIColor? {
-        return .systemBackground
+    override func tableSectionController(_ sectionController: TPTableBaseSectionController, shouldShowCheckmarkForRowAt index: Int) -> Bool {
+        if sectionController == userSectionController {
+            if let list = userSectionController.item(at: index) as? TodoList {
+                return self.selectedUserLists.contains(list)
+            }
+        } else if sectionController is TodoListSelectInboxSectionController {
+            if let includeInbox = self.filterValue.includeInbox, includeInbox {
+                return true
+            }
+        }
+
+        return false
     }
     
+    // MARK: -
     override func clickDone() {
         super.clickDone()
-        didEndEditing?(filterValue)
-    }
-}
-
-class TodoFilterListSelectView: TPTableWrapperView,
-                                TPTableSectionControllersList,
-                                TPTableSectionControllerDelegate {
-    
-    var didChangeFilterValue: ((TodoListFilterValue) -> Void)?
-    
-    var sectionControllers: [TPTableBaseSectionController]?
-    
-    private(set) var filterValue: TodoListFilterValue
-    
-    /// 收件箱区块控制器
-    private lazy var inboxSectionController: TodoListSelectInboxSectionController = {
-        let sectionController = TodoListSelectInboxSectionController()
-        sectionController.delegate = self
-        sectionController.didSelectInbox = { [weak self] in
-            self?.selectInbox()
+        if self.filterValue.isEmpty {
+            self.didEndEditing?(nil)
+        } else {
+            self.didEndEditing?(self.filterValue)
         }
-        
-        return sectionController
-    }()
-    
-    /// 用户列表区块控制器
-//    private lazy var userSectionController: TodoListSelectUserSectionController = {
-//        let sectionController = TodoListSelectUserSectionController()
-//        sectionController.delegate = self
-//        sectionController.didSelectList = { [weak self] list in
-//            self?.selectList(list)
-//        }
-//
-//        return sectionController
-//    }()
-    
-    init(filterValue: TodoListFilterValue) {
-        self.filterValue = filterValue
-        super.init(frame: .zero, style: .grouped)
-        self.backgroundColor = .systemBackground
-        self.tableView.backgroundColor = .systemBackground
-        self.tableView.separatorStyle = .none
-        self.tableView.showsVerticalScrollIndicator = false
-        self.adapter.cellStyle.backgroundColor = .systemBackground
-        self.adapter.delegate = self
-        self.adapter.dataSource = self
-        
-//        self.sectionControllers = [inboxSectionController,
-//                                   userSectionController]
-        self.adapter.reloadData()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     func selectInbox() {
-        if let includeInbox = filterValue.includeInbox, includeInbox {
-            filterValue.includeInbox = false
+        if let includeInbox = self.filterValue.includeInbox, includeInbox {
+            self.filterValue.includeInbox = nil
         } else {
-            filterValue.includeInbox = true
+            self.filterValue.includeInbox = true
         }
-        
-        didChangeFilterValue?(filterValue)
-        adapter.updateCheckmarks()
     }
     
-    func selectList(_ list: TodoList?) {
-        guard let listId = list?.identifier else {
-            return
-        }
-
-        var selectedListIds = filterValue.identifiers ?? []
-        if selectedListIds.contains(listId) {
-            selectedListIds.remove(listId)
+    func selectUserList(_ list: TodoList) {
+        if selectedUserLists.contains(list) {
+            selectedUserLists.remove(list)
         } else {
-            selectedListIds.append(listId)
+            selectedUserLists.append(list)
         }
         
-        filterValue.identifiers = selectedListIds
-        didChangeFilterValue?(filterValue)
-        adapter.updateCheckmarks()
+        self.updateListIdentifiers()
     }
     
-    // MARK: - TPTableSectionControllerDelegate
-    func tableSectionController(_ sectionController: TPTableBaseSectionController, shouldShowCheckmarkForRowAt index: Int) -> Bool {
-//        if sectionController == userSectionController {
-//            if let list = userSectionController.item(at: index) as? TodoList, let listID = list.identifier {
-//                return filterValue.identifiers?.contains(listID) ?? false
-//            }
-//        } else if sectionController is TodoListSelectInboxSectionController {
-//            return filterValue.includeInbox ?? false
-//        }
-        
-        return false
+    func updateListIdentifiers() {
+        let identifiers = selectedUserLists.map { $0.identifier }
+        if identifiers.count > 0 {
+            filterValue.identifiers = identifiers
+        } else {
+            filterValue.identifiers = nil
+        }
     }
 }

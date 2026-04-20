@@ -369,7 +369,6 @@
 "times" = "次";
 "minutes" = "分钟";
 "hours" = "小时";
-"days" = "天";
 "kilometers" = "公里";
 "meters" = "米";
 "pages" = "页";
@@ -568,3 +567,29 @@
 "Creation Date" = "创建时间";
 "Modification Date" = "修改日期";
 "Today" = "今天";
+
+"day" = "天";
+"days" = "天";
+"Day" = "天";
+"Days" = "天";
+
+"week" = "周";
+"Week" = "周";
+"Weeks" = "周";
+
+"month" = "月";
+"Month" = "月";
+"Months" = "月";
+
+"year" = "年";
+"Year" = "年";
+"Years" = "年";
+
+
+/// 日期格式
+"MMM d, yyyy" = "yyyy年M月d日";
+"MMM d" = "M月d日";
+"MMMM yyyy" = "yyyy年M月";
+"H" = "小时";
+"M" = "分钟";
+"S" = "秒";

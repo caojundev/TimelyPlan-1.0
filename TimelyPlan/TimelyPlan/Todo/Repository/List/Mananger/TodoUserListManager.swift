@@ -39,12 +39,20 @@ class TodoUserListManager {
     }
     
     func getUserList(of identifier: String) -> TodoList? {
-        guard let cdList = CDTodoList.getItem(withIdentifier: identifier) else {
+        guard let cdList = CDTodoList.getItem(with: identifier) else {
             return nil
         }
         
-        #warning("父列表未设置")
         return TodoList(content: cdList)
+    }
+    
+    func getUserLists(of identifiers: [String]) -> [TodoList]? {
+        guard let cdLists = CDTodoList.getItems(with: identifiers) as? [CDTodoList] else {
+            return nil
+        }
+        
+        
+        return cdLists.userLists
     }
     
     // MARK: - 列表操作

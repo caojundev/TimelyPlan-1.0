@@ -17,7 +17,7 @@ class TodoFilterManager {
     }
     
     func getFilter(of identifier: String) -> TodoFilter? {
-        guard let cdFilter = CDTodoFilter.getItem(withIdentifier: identifier) else {
+        guard let cdFilter = CDTodoFilter.getItem(with: identifier) else {
             return nil
         }
     

@@ -72,7 +72,7 @@ extension CDTodoFilter: SortableIdentifiable {
             return false
         }
         
-        if let cdFilter = getItem(withIdentifier: filter.identifier) {
+        if let cdFilter = getItem(with: filter.identifier) {
             cdFilter.update(with: editingFilter)
             return true
         }
@@ -81,7 +81,7 @@ extension CDTodoFilter: SortableIdentifiable {
     }
     
     static func deleteFilter(_ filter: TodoFilter) -> Bool {
-        guard let cdFilter = getItem(withIdentifier: filter.identifier) else {
+        guard let cdFilter = getItem(with: filter.identifier) else {
             return false
         }
         

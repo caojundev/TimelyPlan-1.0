@@ -16,7 +16,7 @@ class TPDefaultInfoTextValueTableCellItem: TPDefaultInfoTableCellItem {
     override init() {
         super.init()
         self.registerClass = TPDefaultInfoTextValueTableCell.self
-        self.contentPadding = UIEdgeInsets(left: 15.0, right: 5.0)
+        self.contentPadding = UIEdgeInsets(left: 16.0, right: 5.0)
     }
     
     override func getLayout() -> TPBaseTableCellLayout {

@@ -1681,6 +1681,8 @@
 		E5EFB1752F59D36D000FFDF4 /* HabitManageBaseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB1742F59D36D000FFDF4 /* HabitManageBaseListViewController.swift */; };
 		E5EFB1792F59D703000FFDF4 /* HabitTaskListDefaultInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB1782F59D703000FFDF4 /* HabitTaskListDefaultInfoCell.swift */; };
 		E5F078C62F95B22200F94BDF /* TodoFilterListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078C52F95B22200F94BDF /* TodoFilterListInteractor.swift */; };
+		E5F078C92F95DEB300F94BDF /* todo_filter_tag_none_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F078C72F95DEB200F94BDF /* todo_filter_tag_none_24@2x.png */; };
+		E5F078CA2F95DEB300F94BDF /* todo_filter_tag_none_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F078C82F95DEB200F94BDF /* todo_filter_tag_none_24@3x.png */; };
 		E5F1551B2F83681E00116091 /* TodoTaskDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */; };
 		E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */; };
 		E5F1551D2F83681E00116091 /* TodoTaskCheckTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */; };
@@ -3432,6 +3434,8 @@
 		E5EFB1742F59D36D000FFDF4 /* HabitManageBaseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitManageBaseListViewController.swift; sourceTree = "<group>"; };
 		E5EFB1782F59D703000FFDF4 /* HabitTaskListDefaultInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskListDefaultInfoCell.swift; sourceTree = "<group>"; };
 		E5F078C52F95B22200F94BDF /* TodoFilterListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterListInteractor.swift; sourceTree = "<group>"; };
+		E5F078C72F95DEB200F94BDF /* todo_filter_tag_none_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_tag_none_24@2x.png"; sourceTree = "<group>"; };
+		E5F078C82F95DEB200F94BDF /* todo_filter_tag_none_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_tag_none_24@3x.png"; sourceTree = "<group>"; };
 		E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskDetailProvider.swift; sourceTree = "<group>"; };
 		E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskLayoutManager.swift; sourceTree = "<group>"; };
 		E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskCheckTableCell.swift; sourceTree = "<group>"; };
@@ -9093,6 +9097,8 @@
 				E5E4D1422D92AF2700813B6C /* todo_filter_priority_36@3x.png */,
 				E5E4D1452D92AF2A00813B6C /* todo_filter_tag_36@2x.png */,
 				E5E4D1442D92AF2900813B6C /* todo_filter_tag_36@3x.png */,
+				E5F078C72F95DEB200F94BDF /* todo_filter_tag_none_24@2x.png */,
+				E5F078C82F95DEB200F94BDF /* todo_filter_tag_none_24@3x.png */,
 				E500DE452DB09D4500EAEAF7 /* Indicator */,
 			);
 			path = filter;
@@ -9386,6 +9392,7 @@
 				E5BB9ECD2D3BF0C80089667A /* Wheat01@2x.png in Resources */,
 				E50D606E2F7A29D100D5E0A4 /* todo_list_parent_24@2x.png in Resources */,
 				E55CE3552D8BC2A60083316E /* quadrant_IV_32@3x.png in Resources */,
+				E5F078CA2F95DEB300F94BDF /* todo_filter_tag_none_24@3x.png in Resources */,
 				E5E2771B2D3E099C004EC522 /* todo_list_option_showCompleted_24@3x.png in Resources */,
 				E55E4BEB2F9336170068E032 /* calendar_3_24@3x.png in Resources */,
 				E58F46B62F7AAE370046FA96 /* todo_list_noParent_24@2x.png in Resources */,
@@ -9436,6 +9443,7 @@
 				E56B947F2F8CDB42001E488B /* todo_sort_type_creationDate_24@3x.png in Resources */,
 				E50DD7CE2D72BE5A00A85E87 /* todo_folder_24@2x.png in Resources */,
 				E5BB9ECA2D3BF0C80089667A /* Wheat01@3x.png in Resources */,
+				E5F078C92F95DEB300F94BDF /* todo_filter_tag_none_24@2x.png in Resources */,
 				E5D833922DAB64D60012ABF3 /* todo_task_progress_targetValue_24@2x.png in Resources */,
 				E58389742F776404003C30A4 /* focus_quickStart_record_24@3x.png in Resources */,
 				E500DE562DB09D4500EAEAF7 /* todo_filter_indicator_tag_12@3x.png in Resources */,

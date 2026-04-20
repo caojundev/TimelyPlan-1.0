@@ -126,13 +126,13 @@ private class TodoFilterPrioritySectionController: TPTableItemSectionController 
     
     private func cellItem(with priority: TodoTaskPriority) -> TPCheckmarkTableCellItem {
         let cellItem = TPCheckmarkTableCellItem()
-        cellItem.contentPadding = UIEdgeInsets(left: 20.0, right: 10.0)
+        cellItem.contentPadding = UIEdgeInsets(left: 16.0, right: 16.0)
         cellItem.height = 50.0
         cellItem.tag = priority.rawValue
         cellItem.title = priority.title
         cellItem.imageName = priority.iconName
         cellItem.imageConfig.color = priority.iconColor
-        cellItem.imageConfig.margins = UIEdgeInsets(value: 5.0)
+        cellItem.imageConfig.margins = UIEdgeInsets(right: 8.0)
         return cellItem
     }
 }

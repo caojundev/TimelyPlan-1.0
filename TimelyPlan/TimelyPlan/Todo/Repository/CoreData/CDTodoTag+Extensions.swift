@@ -53,7 +53,7 @@ extension CDTodoTag: SortableIdentifiable {
             return false
         }
         
-        if let cdTag = getItem(withIdentifier: tag.identifier) {
+        if let cdTag = getItem(with: tag.identifier) {
             cdTag.update(with: editingTag)
             return true
         }
@@ -62,7 +62,7 @@ extension CDTodoTag: SortableIdentifiable {
     }
     
     static func deleteTag(_ tag: TodoTag) -> Bool {
-        guard let cdTag = getItem(withIdentifier: tag.identifier) else {
+        guard let cdTag = getItem(with: tag.identifier) else {
             return false
         }
         

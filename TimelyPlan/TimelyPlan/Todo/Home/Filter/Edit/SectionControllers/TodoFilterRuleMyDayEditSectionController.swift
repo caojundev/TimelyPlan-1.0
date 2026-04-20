@@ -45,7 +45,7 @@ class TodoFilterRuleMyDayEditSectionController: TodoFilterRuleEditBaseSectionCon
             self.selectMenuAction(action)
         }
 
-        popoverShow(menuList, from: cell, position: .left)
+        popoverShow(menuList, from: cell, position: .right)
     }
     
     func selectMenuAction(_ action: TPMenuAction) {

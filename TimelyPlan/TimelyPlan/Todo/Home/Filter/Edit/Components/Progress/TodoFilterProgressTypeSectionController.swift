@@ -17,6 +17,7 @@ class TodoFilterProgressOffSectionController: TPTableItemSectionController {
     
     lazy var offCellItem: TPCheckmarkTableCellItem = {
         let cellItem = TPCheckmarkTableCellItem()
+        cellItem.contentPadding = UIEdgeInsets(left: 16.0, right: 16.0)
         cellItem.height = 50.0
         cellItem.title = resGetString("Off")
         return cellItem
@@ -72,7 +73,7 @@ class TodoFilterProgressTypeSectionController: TPTableItemSectionController {
     
     private func cellItem(with valueType: TodoProgressFilterType) -> TPCheckmarkTableCellItem {
         let cellItem = TPCheckmarkTableCellItem()
-        cellItem.contentPadding = UIEdgeInsets(left: 20.0, right: 10.0)
+        cellItem.contentPadding = UIEdgeInsets(left: 16.0, right: 16.0)
         cellItem.height = 50.0
         cellItem.tag = valueType.rawValue
         cellItem.title = valueType.title
