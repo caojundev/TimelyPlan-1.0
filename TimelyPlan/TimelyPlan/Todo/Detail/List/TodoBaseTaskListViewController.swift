@@ -102,9 +102,37 @@ class TodoBaseTaskListViewController: UIViewController,
     
     /// 任务快速添加控制器
     private lazy var quickAddManager: TodoTaskQuickAddManager = {
-        return TodoTaskQuickAddManager(containerViewController: self)
+        let manager = TodoTaskQuickAddManager(containerViewController: self)
+        manager.inputViewFrameDidChange = {[weak self] inputView in
+            self?.didChangeQuickAddInputViewFrame(inputView)
+        }
+        
+        return manager
     }()
     
+    /// 正常内容边距
+    var normalContentInset: UIEdgeInsets {
+        return UIEdgeInsets(bottom: 100.0)
+    }
+    
+    private func didChangeQuickAddInputViewFrame(_ inputView: UIView?) {
+        guard let inputView = inputView else {
+            listView.contentInset = normalContentInset
+            return
+        }
+
+        /// 相交的尺寸
+        let inputRect = inputView.convert(inputView.bounds, toViewOrWindow: self.view)
+        guard inputRect.intersects(listView.frame) else {
+            listView.contentInset = normalContentInset
+            return
+        }
+        
+        let intersectRect = inputRect.intersection(listView.frame)
+        var insetBottom = listView.frame.maxY - intersectRect.minY
+        clampValue(&insetBottom, 0.0, listView.frame.height)
+        listView.contentInset = UIEdgeInsets(bottom: insetBottom)
+    }
     
     private var reorder: TPTableDragInsertReorder?
     

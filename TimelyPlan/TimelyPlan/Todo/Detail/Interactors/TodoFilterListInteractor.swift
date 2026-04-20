@@ -50,13 +50,13 @@ class TodoFilterListInteractor: TodoListInteractor,
         }
         
         /// 获取更新后的过滤器
-        guard let newFilter = todo.getFilter(of: filter.identifier), !newFilter.isEqual(oldFilter) else {
-            return
+        if let newFilter = todo.getFilter(of: filter.identifier), !newFilter.isEqual(oldFilter) {
+            self.listConfiguration.updateFilter(newFilter)
+            self.didChangeListInfo?()
         }
-        
-        /// 更新列表
-        self.listConfiguration.updateFilter(newFilter)
-        self.didChangeListInfo?()
+    
+        self.setNeedsRefresh()
+        self.loadGroups()
     }
     
 }

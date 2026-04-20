@@ -10,6 +10,9 @@ import UIKit
 
 class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
     
+    /// 输入视图 frame 改变
+    var inputViewFrameDidChange: ((UIView?) -> Void)?
+    
     /// 容器视图控制器
     weak var containerViewController: UIViewController?
     
@@ -51,6 +54,15 @@ class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
             /// 将控制器设置为空
             addController = nil
         }
+        
+        inputViewFrameDidChange?(controller.inputView)
     }
     
+    func keyboardAwareControllerDidShowInputView(controller: TPKeyboardAwareController) {
+        inputViewFrameDidChange?(controller.inputView)
+    }
+    
+    func keyboardAwareController(controller: TPKeyboardAwareController, inputViewFrameDidChange fromFrame: CGRect) {
+        inputViewFrameDidChange?(controller.inputView)
+    }
 }

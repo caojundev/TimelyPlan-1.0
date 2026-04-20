@@ -92,6 +92,8 @@ class TodoFilterTagEditViewController: TPTableSectionsViewController,
         } else {
             filterValue.includeNoTag = true
         }
+        
+        adapter.updateCheckmarks()
     }
     
     private func selectUserTag(_ tag: TodoTag) {
@@ -102,9 +104,10 @@ class TodoFilterTagEditViewController: TPTableSectionsViewController,
         }
         
         updateTagIdentifiers()
+        adapter.updateCheckmarks()
     }
     
-    private func updateTagIdentifiers() {
+    func updateTagIdentifiers() {
         let identifiers = selectedTags.map { $0.identifier }
         if identifiers.count > 0 {
             filterValue.identifiers = identifiers
@@ -114,18 +117,6 @@ class TodoFilterTagEditViewController: TPTableSectionsViewController,
     }
     
     // MARK: - TPTableSectionControllerDelegate
-    func tableSectionController(_ sectionController: TPTableBaseSectionController, didSelectRowAt index: Int) {
-        if sectionController == userTagSectionController {
-            if let tag = userTagSectionController.item(at: index) as? TodoTag {
-                return self.selectUserTag(tag)
-            }
-        } else {
-            self.selectNoTag()
-        }
-
-        self.adapter.updateCheckmarks()
-    }
-    
     func tableSectionController(_ sectionController: TPTableBaseSectionController, shouldShowCheckmarkForRowAt index: Int) -> Bool {
         if sectionController == userTagSectionController {
             if let tag = userTagSectionController.item(at: index) as? TodoTag {

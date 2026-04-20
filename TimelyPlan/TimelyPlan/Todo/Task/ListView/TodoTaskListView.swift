@@ -53,6 +53,17 @@ class TodoTaskListView: UIView,
     /// 分组展开状态
     var expansionState: ExpansionStateProviding?
     
+    /// 内容边距
+    var contentInset: UIEdgeInsets {
+        get {
+            return tableView.contentInset
+        }
+        
+        set {
+            tableView.contentInset = newValue
+        }
+    }
+    
     /// 滚动到顶部
     var scrollsToTop: Bool {
         get {

@@ -95,7 +95,7 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
         self.addSubview(menuView)
         self.addSubview(sendView)
         self.addSeparator(position: .top)
-        reloadData()
+        self.reloadData()
         todo.addUpdater(self, for: [.list, .tag])
     }
     
@@ -125,6 +125,10 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
         sendView.height = sendViewHeight
         sendView.top = menuView.bottom
         sendView.left = layoutFrame.minX
+        
+        self.layer.setLayerShadow(color: Color(0x000000, 0.1),
+                                  offset: CGSize(width: 0.0, height: -4.0),
+                                  radius: 8.0)
     }
     
     private func editViewHeight() -> CGFloat {

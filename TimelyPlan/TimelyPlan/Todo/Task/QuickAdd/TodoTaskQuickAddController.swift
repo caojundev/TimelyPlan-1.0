@@ -21,6 +21,7 @@ class TodoTaskQuickAddController: TPKeyboardAwareController,
         self.task = task
         self.addView = TodoTaskQuickAddView(task: task)
         super.init(containerViewController: containerViewController)
+        self.maskBackgroundColor = .clear
         self.addView.delegate = self
     }
     

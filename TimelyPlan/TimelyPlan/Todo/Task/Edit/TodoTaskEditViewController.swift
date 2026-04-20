@@ -92,7 +92,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         }
         
         let stepEditController = TodoStepEditController(containerViewController : viewController)
-        stepEditController.maskBackgroundColor = Color(0x000000, 0.1)
+        stepEditController.maskBackgroundColor = .clear
         stepEditController.delegate = self
         return stepEditController
     }()

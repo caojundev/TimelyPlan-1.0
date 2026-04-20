@@ -71,6 +71,10 @@ extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
         changeCount(of: [.trash])
     }
     
+    func didEmptyTrash() {
+        changeCount(of: [.trash])
+    }
+    
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
         let changeInfo = TodoTaskChangeInfo(task: task, change: change)
         self.didUpdateTodoTasks(with: [changeInfo])

@@ -48,11 +48,12 @@ class TodoSmartListConfiguration: TodoListConfiguration {
     }
     
     override func canAddTask() -> Bool {
-        if list.listType == .trash || list.listType == .completed {
+        switch list.listType {
+        case .overdue, .completed, .trash:
             return false
+        default:
+            return true
         }
-        
-        return true
     }
     
     override func addButtonBackColor() -> UIColor {
