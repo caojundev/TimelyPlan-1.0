@@ -237,4 +237,22 @@ class TodoFilterListConfiguration: TodoListConfiguration {
     override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
         return TodoFilterTaskListViewController(interactor: interactor)
     }
+    
+    override func quickAddTask() -> TodoQuickAddTask? {
+        let task = TodoQuickAddTask()
+        task.priority = .high
+        return task
+    }
+    
+    override func allowListOptions() -> [TodoListOption]? {
+        return [.select, .showCompleted, .layout, .group, .sort, .edit]
+    }
+    
+    override func canAddTask() -> Bool {
+        return true
+    }
+    
+    override func addButtonBackColor() -> UIColor {
+        return .purplePrimary
+    }
 }

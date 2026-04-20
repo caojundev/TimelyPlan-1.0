@@ -116,8 +116,12 @@ extension Todo {
         taskManager.fetchUserListTasks(in: list, showCompleted: showCompleted, completion: completion)
     }
     
-    func fetchTasks(for tag: TodoTag, completion: @escaping([TodoTask]?) -> Void) {
-        taskManager.fetchTasks(for: tag, completion: completion)
+    func fetchTasks(tag: TodoTag, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchTasks(tag: tag, showCompleted: showCompleted, completion: completion)
+    }
+
+    func fetchTasks(filter: TodoFilter, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchTasks(filter: filter, showCompleted: showCompleted, completion: completion)
     }
     
     func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
@@ -258,6 +262,10 @@ extension Todo {
     
     func fetchFilters(completion: @escaping([TodoFilter]?) -> Void) {
         filterManager.fetchFilters(completion: completion)
+    }
+    
+    func getFilter(of identifier: String) -> TodoFilter? {
+        return filterManager.getFilter(of: identifier)
     }
     
     func getFilters() -> [TodoFilter]? {

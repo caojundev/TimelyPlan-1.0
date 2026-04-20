@@ -372,12 +372,12 @@ struct TodoProgressFilterValue: Hashable, Codable, PredicateProvider {
 
         /// 未设置
         if filterType == .notSetted {
-            let emptyCondition: PredicateCondition = (TodoTaskKey.progress, .isEmpty)
+            let emptyCondition: PredicateCondition = (TodoTaskKey.progressJSON, .isEmpty)
             return NSPredicate.predicate(with: emptyCondition)
         }
         
         /// 已设置
-        let notEmptyCondition: PredicateCondition = (TodoTaskKey.progress, .isNotEmpty)
+        let notEmptyCondition: PredicateCondition = (TodoTaskKey.progressJSON, .isNotEmpty)
         guard let specificValue = specificValue else {
             return NSPredicate.predicate(with: notEmptyCondition)
         }

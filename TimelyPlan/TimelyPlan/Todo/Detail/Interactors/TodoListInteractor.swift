@@ -231,7 +231,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
 
 extension TodoListInteractor {
     
-    static func interactor(for configuration: TodoListConfiguration) -> TodoListInteractor {
+    static func interactor(for configuration: TodoListConfiguration) -> TodoListInteractor! {
         switch configuration {
         case let userListConfig as TodoUserListConfiguration:
             return TodoUserListInteractor(configuration: userListConfig)
@@ -239,8 +239,10 @@ extension TodoListInteractor {
             return TodoSmartListInteractor.smartListInteractor(with: smartListConfig)
         case let tagListConfig as TodoTagListConfiguration:
             return TodoTagListInteractor(configuration: tagListConfig)
+        case let filterListConfig as TodoFilterListConfiguration:
+            return TodoFilterListInteractor(configuration: filterListConfig)
         default:
-            return TodoListInteractor(configuration: TodoListConfiguration(identifier: ""))
+            return nil
         }
     }
 

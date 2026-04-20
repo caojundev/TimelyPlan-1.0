@@ -316,8 +316,14 @@ extension TodoTaskManager {
         }
     }
 
-    func fetchTasks(for tag: TodoTag, completion: @escaping([TodoTask]?) -> Void) {
-        CDTodoTask.fetchTasks(for: tag) { results in
+    func fetchTasks(tag: TodoTag, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchTasks(tag: tag, showCompleted: showCompleted) { results in
+            completion(results?.tasks)
+        }
+    }
+    
+    func fetchTasks(filter: TodoFilter, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchTasks(filter: filter, showCompleted: showCompleted) { results in
             completion(results?.tasks)
         }
     }

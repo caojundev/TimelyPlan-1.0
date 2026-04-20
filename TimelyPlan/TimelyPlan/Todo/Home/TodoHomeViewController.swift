@@ -94,7 +94,7 @@ class TodoHomeViewController: TPTableViewController,
         let sectionController = TodoFilterSectionController()
         sectionController.identifier = TodoHomeSection.filter.rawValue
         sectionController.didSelectFilter = { [weak self] filter in
-//            self?.detailCoordinator.showDetail(for: filter)
+            self?.detailCoordinator.showDetail(for: filter)
         }
         
         return sectionController

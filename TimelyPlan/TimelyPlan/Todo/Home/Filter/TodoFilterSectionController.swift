@@ -52,7 +52,7 @@ class TodoFilterSectionController: TPTableBaseSectionController,
     
     private func filtersDidChange(with change: TodoFilterChange?) {
         guard let change = change else {
-            adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+            adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .none)
             return
         }
 

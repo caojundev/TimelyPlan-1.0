@@ -25,7 +25,8 @@ struct TodoTaskKey {
     static var modificationDate = "modificationDate"
     static var startDate = "startDate"
     static var dueDate = "dueDate"
-    static var progress = "progress"
+    
+    static var progressJSON = "progressJSON"
     static var progressFraction = "progressFraction"
 }
 
@@ -463,13 +464,26 @@ extension CDTodoTask {
         return results
     }
     
-    static func fetchTasks(for tag: TodoTag, completion: @escaping([CDTodoTask]?) -> Void) {
-        let predicate = tagActiveTaskPredicate(for: tag)
+    static func fetchTasks(tag: TodoTag, showCompleted: Bool, completion: @escaping([CDTodoTask]?) -> Void) {
+        let predicate = tagActiveTaskPredicate(for: tag, showCompleted: showCompleted)
         findAll(with: predicate) { results in
             completion(results as? [CDTodoTask])
         }
     }
     
+    static func fetchTasks(filter: TodoFilter,
+                           showCompleted: Bool,
+                           completion: @escaping([CDTodoTask]?) -> Void) {
+        guard let predicate = filterActiveTaskPredicate(for: filter, showCompleted: showCompleted) else {
+            completion(nil)
+            return
+        }
+        
+        findAll(with: predicate) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
+   
     static func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
         var predicate: NSPredicate?
         switch item {
@@ -479,7 +493,8 @@ extension CDTodoTask {
             predicate = tagActiveTaskPredicate(for: tag, showCompleted: false)
         case let smartList as TodoSmartList:
             predicate = uncompletedTaskPredicate(for: smartList)
-//        case let filter as TodoFilter:
+        case let filter as TodoFilter:
+            predicate = filterActiveTaskPredicate(for: filter, showCompleted: false)
         default:
             break
         }
@@ -520,6 +535,26 @@ extension CDTodoTask {
 // MARK: - 谓词
 extension CDTodoTask {
 
+    // MARK: - 过滤器
+    static func filterActiveTaskPredicate(for filter: TodoFilter,
+                                          showCompleted: Bool = true) -> NSPredicate? {
+        guard let rulePredicate = filter.rule?.predicate else {
+            return nil
+        }
+        
+        var conditions: [PredicateCondition] = [
+            notRemovedCondition
+        ]
+        
+        if !showCompleted {
+            conditions.append(notCompletedCondition)
+        }
+        
+        let statusPredicate = conditions.andPredicate()
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [statusPredicate, rulePredicate])
+        return predicate
+    }
+    
     // MARK: - 标签
     /// 标签活动任务
     static func tagActiveTaskPredicate(for tag: TodoTag, showCompleted: Bool = true) -> NSPredicate {

@@ -16,6 +16,14 @@ class TodoFilterManager {
         return CDTodoFilter.getFilters()?.filters
     }
     
+    func getFilter(of identifier: String) -> TodoFilter? {
+        guard let cdFilter = CDTodoFilter.getItem(withIdentifier: identifier) else {
+            return nil
+        }
+    
+        return TodoFilter(content: cdFilter)
+    }
+    
     func fetchFilters(completion: @escaping([TodoFilter]?) -> Void) {
         CDTodoFilter.fetchFilters { results in
             completion(results?.filters)

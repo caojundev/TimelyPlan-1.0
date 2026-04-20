@@ -22,7 +22,7 @@ class TodoFilterTaskListViewController: TodoBaseTaskListViewController {
             return
         }
         
-//        let filterController = TodoFilterController()
-//        filterController.editFilter(configuration.filter)
+        let filterController = TodoFilterController()
+        filterController.editFilter(configuration.filter)
     }
 }

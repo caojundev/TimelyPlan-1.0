@@ -73,19 +73,20 @@ class TodoFilterViewModel: TodoBaseListViewModel {
 
 extension TodoFilterViewModel: TodoFilterProcessorDelegate {
 
-    func didCreateTodoFilter(_ tag: TodoFilter) {
+    func didCreateTodoFilter(_ filter: TodoFilter) {
         setNeedsRefresh()
-        loadFilters(with: .create(tag))
+        loadFilters(with: .create(filter))
     }
     
-    func didDeleteTodoFilter(_ tag: TodoFilter) {
+    func didDeleteTodoFilter(_ filter: TodoFilter) {
         setNeedsRefresh()
         loadFilters()
     }
     
-    func didUpdateTodoFilter(_ tag: TodoFilter) {
+    func didUpdateTodoFilter(_ filter: TodoFilter) {
         setNeedsRefresh()
-        loadFilters(with: .update(tag))
+        loadFilters(with: .update(filter))
+        didChangeCount(for: [filter])
     }
     
     func didReorderTodoFilter(in filters: [TodoFilter], fromIndex: Int, toIndex: Int) {
@@ -98,27 +99,31 @@ extension TodoFilterViewModel: TodoFilterProcessorDelegate {
     }
 }
 
-/*
+
 extension TodoFilterViewModel: TodoTaskProcessorDelegate {
 
-    private func didChangeTagForTasks(_ tasks: [TodoTask]) {
-        if let filters = tasks.userFilters {
-            let filtersArray = Array(filters)
-            counter.invalidateCount(for: filtersArray)
-            countDidChange?(filtersArray)
+    private func didChangeCountForAllFilters() {
+        if let filters = self.filters {
+            counter.invalidateCount(for: filters)
+            countDidChange?(filters)
         }
     }
     
+    private func didChangeCount(for filters: [TodoFilter]) {
+        counter.invalidateCount(for: filters)
+        countDidChange?(filters)
+    }
+    
     func didCreateTodoTask(_ task: TodoTask) {
-        didChangeTagForTasks([task])
+        didChangeCountForAllFilters()
     }
     
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
-        didChangeTagForTasks(tasks)
+        didChangeCountForAllFilters()
     }
     
     func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
-        didChangeTagForTasks(tasks)
+        didChangeCountForAllFilters()
     }
     
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
@@ -127,33 +132,7 @@ extension TodoFilterViewModel: TodoTaskProcessorDelegate {
     }
     
     func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
-        var results = Set<TodoFilter>()
-        for changeInfo in changeInfos {
-            let change = changeInfo.change
-            switch change {
-            case .completed(_, _):
-                if let filters = changeInfo.task.filters, filters.count > 0 {
-                    results.formUnion(Set(filters))
-                }
-            case .tag(let oldValue, let newValue):
-                if let oldTags = oldValue, !oldTags.isEmpty {
-                    results.formUnion(oldTags)
-                }
-                
-                if let newTags = newValue, !newTags.isEmpty {
-                    results.formUnion(newTags)
-                }
-            default:
-                break
-            }
-        }
-        
-        if results.count > 0 {
-            let filtersArray = Array(results)
-            counter.invalidateCount(for: filtersArray)
-            countDidChange?(filtersArray)
-        }
+        didChangeCountForAllFilters()
     }
 }
-*/
 

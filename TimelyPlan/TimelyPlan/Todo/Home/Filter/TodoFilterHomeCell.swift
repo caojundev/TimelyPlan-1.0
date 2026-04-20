@@ -19,7 +19,8 @@ protocol TodoFilterCellDelegate: AnyObject {
 
 class TodoFilterCell: TPColorInfoTextValueTableCell {
 
-    let colorSize = CGSize(width: 4.0, height: 16.0)
+    let colorSize = CGSize(width: 6.0, height: 16.0)
+    let colorMargins = UIEdgeInsets(left: 12.0, right: 12.0)
     
     var filter: TodoFilter? {
         didSet {
@@ -48,6 +49,7 @@ class TodoFilterCell: TPColorInfoTextValueTableCell {
     func updateFilterInfo() {
         let colorConfig = TPColorAccessoryConfig()
         colorConfig.size = colorSize
+        colorConfig.margins = colorMargins
         colorConfig.color = filter?.color ?? TodoFilter.defaultColor
         self.colorConfig = colorConfig
         self.infoView.title = filter?.name ?? resGetString("Untitled")

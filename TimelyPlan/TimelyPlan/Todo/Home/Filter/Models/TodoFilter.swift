@@ -22,7 +22,7 @@ class TodoFilter: NSObject,
     var colorHex: String?
     
     /// 过滤规则
-    private lazy var rule: TodoFilterRule? = {
+    private(set) lazy var rule: TodoFilterRule? = {
         if let json = ruleJSON {
             return TodoFilterRule.model(with: json)
         }
