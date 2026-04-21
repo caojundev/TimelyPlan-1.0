@@ -75,8 +75,9 @@ class TodoBaseTaskListViewController: UIViewController,
     private var toolView: TPMenuToolView<TodoTaskActionType>?
 
     /// 工具栏高度
-    private var toolViewHeight: CGFloat {
-        return 60.0 + view.layoutMargins.bottom
+    private let toolViewContentHeight = 60.0
+    private var toolViewFitHeight: CGFloat {
+        return toolViewContentHeight + view.layoutMargins.bottom
     }
     
     private var expansionState = TodoTaskGroupExpansionState()
@@ -93,10 +94,7 @@ class TodoBaseTaskListViewController: UIViewController,
     private let addViewSize = CGSize(width: 50.0, height: 50.0)
     
     /// 添加视图边界间距
-    private let addViewMargins = UIEdgeInsets(top: 0.0,
-                                              left: 0.0,
-                                              bottom: 10.0,
-                                              right: 20.0)
+    private let addViewMargins = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 20.0)
     /// 添加视图
     private var addView: TPAddView?
     
@@ -109,31 +107,7 @@ class TodoBaseTaskListViewController: UIViewController,
         
         return manager
     }()
-    
-    /// 正常内容边距
-    var normalContentInset: UIEdgeInsets {
-        return UIEdgeInsets(bottom: 100.0)
-    }
-    
-    private func didChangeQuickAddInputViewFrame(_ inputView: UIView?) {
-        guard let inputView = inputView else {
-            listView.contentInset = normalContentInset
-            return
-        }
 
-        /// 相交的尺寸
-        let inputRect = inputView.convert(inputView.bounds, toViewOrWindow: self.view)
-        guard inputRect.intersects(listView.frame) else {
-            listView.contentInset = normalContentInset
-            return
-        }
-        
-        let intersectRect = inputRect.intersection(listView.frame)
-        var insetBottom = listView.frame.maxY - intersectRect.minY
-        clampValue(&insetBottom, 0.0, listView.frame.height)
-        listView.contentInset = UIEdgeInsets(bottom: insetBottom)
-    }
-    
     private var reorder: TPTableDragInsertReorder?
     
     let taskController = TodoTaskController()
@@ -155,6 +129,7 @@ class TodoBaseTaskListViewController: UIViewController,
         self.setupAddView()
         self.setupReorder()
         self.listView.reloadData()
+        self.updateNormalContentInset()
         self.interactor.didChangeGroups = { [weak self] in
             self?.listView.performUpdate()
         }
@@ -172,6 +147,7 @@ class TodoBaseTaskListViewController: UIViewController,
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.updateListViewFrame()
+        self.updateContentInset()
         
         let layoutFrame = view.safeAreaFrame()
         if let addView = addView {
@@ -185,9 +161,10 @@ class TodoBaseTaskListViewController: UIViewController,
         if let toolView = toolView {
             /// 更新工具视图
             toolView.width = view.width
-            toolView.height = toolViewHeight
+            toolView.height = toolViewFitHeight
             toolView.bottom = view.height
         }
+
     }
     
     private func setupReorder() {
@@ -203,15 +180,50 @@ class TodoBaseTaskListViewController: UIViewController,
     
     func listViewFrame() -> CGRect {
         if let toolView = toolView {
-            return CGRect(x: 0.0,
-                          y: 0.0,
-                          width: view.width,
-                          height: view.height - toolView.height)
+            return CGRect(x: 0.0, y: 0.0, width: view.width, height: view.height - toolView.height)
         }
 
         return view.bounds
     }
+    
+    var inputRect: CGRect?
+    
+    private func updateNormalContentInset() {
+        var insetBottom = self.view.layoutMargins.bottom
+        let canAddTask = self.interactor.configuration.canAddTask()
+        if canAddTask {
+            insetBottom += addViewMargins.verticalLength + addViewSize.height
+        }
+        
+        listView.contentInset = UIEdgeInsets(bottom: insetBottom)
+    }
+    
+    private func updateContentInset() {
+        guard let inputRect = inputRect else {
+            updateNormalContentInset()
+            return
+        }
 
+        guard inputRect.intersects(listView.frame) else {
+            updateNormalContentInset()
+            return
+        }
+        
+        let intersectRect = inputRect.intersection(listView.frame)
+        var insetBottom = listView.frame.maxY - intersectRect.minY
+        insetBottom = clampedValue(insetBottom, 0.0, listView.frame.height)
+        listView.contentInset = UIEdgeInsets(bottom: insetBottom)
+    }
+    
+    private func didChangeQuickAddInputViewFrame(_ inputView: UIView?) {
+        var inputRect: CGRect?
+        if let inputView = inputView {
+            inputRect = inputView.convert(inputView.bounds, toViewOrWindow: self.view)
+        }
+
+        self.inputRect = inputRect
+        self.updateContentInset()
+    }
 
     // MARK: - TodoDetailContent
     var navigationTitle: TextRepresentable? {
@@ -403,7 +415,7 @@ class TodoBaseTaskListViewController: UIViewController,
         }
         
         let toolView = createToolView()
-        toolView.frame = CGRect(x: 0.0, y: view.height, width: view.width, height: toolViewHeight)
+        toolView.frame = CGRect(x: 0.0, y: view.height, width: view.width, height: toolViewFitHeight)
         self.view.addSubview(toolView)
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut) {
             toolView.bottom = self.view.height
@@ -503,6 +515,7 @@ class TodoBaseTaskListViewController: UIViewController,
         var actions = [UIContextualAction]()
         /// 我的一天
         let myDayAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
+            TPImpactFeedback.impactWithSoftStyle()
             self.taskController.setAddToMyDay(!task.isAddedToMyDay, for: task)
             completion(true)
         }
@@ -510,7 +523,7 @@ class TodoBaseTaskListViewController: UIViewController,
         var myDayImage: UIImage?
         if task.isAddedToMyDay {
             myDayImage = resGetImage("todo_task_action_removeFromMyDay_24@2x")
-            myDayAction.backgroundColor = Color(0x757575)
+            myDayAction.backgroundColor = .gray(5)
         } else {
             myDayImage = resGetImage("todo_task_action_addToMyDay_24@2x")
             myDayAction.backgroundColor = .greenPrimary
@@ -521,6 +534,7 @@ class TodoBaseTaskListViewController: UIViewController,
         
         /// 专注
         let focusAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
+            TPImpactFeedback.impactWithSoftStyle()
             self.taskController.quickStartFocus(for: task)
             completion(true)
         }
@@ -531,6 +545,7 @@ class TodoBaseTaskListViewController: UIViewController,
         
         /// 移动
         let moveAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
+            TPImpactFeedback.impactWithSoftStyle()
             self.taskController.moveTask(task)
             completion(true)
         }
@@ -546,6 +561,7 @@ class TodoBaseTaskListViewController: UIViewController,
         
         /// 计划
         let scheduleAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
+            TPImpactFeedback.impactWithSoftStyle()
             self.taskController.editSchedule(for: task)
             completion(true)
         }
@@ -555,6 +571,7 @@ class TodoBaseTaskListViewController: UIViewController,
         
         /// 废纸篓
         let trashAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in
+            TPImpactFeedback.impactWithMediumStyle()
             self.taskController.moveTaskToTrash(task)
             completion(true)
         }

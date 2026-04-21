@@ -126,7 +126,7 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
         sendView.top = menuView.bottom
         sendView.left = layoutFrame.minX
         
-        self.layer.setLayerShadow(color: Color(0x000000, 0.1),
+        self.layer.setLayerShadow(color: Color(0x000000, 0.2),
                                   offset: CGSize(width: 0.0, height: -4.0),
                                   radius: 8.0)
     }

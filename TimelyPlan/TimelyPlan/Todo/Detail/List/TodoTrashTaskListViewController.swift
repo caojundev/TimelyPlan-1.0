@@ -29,6 +29,7 @@ class TodoTrashTaskListViewController: TodoBaseTaskListViewController {
     override func todoTaskListView(_ listView: TodoTaskListView, leadingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration? {
         ///< 恢复
         let restoreAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
+            TPImpactFeedback.impactWithSoftStyle()
             self.taskController.restoreTrashTask(task)
             completion(true)
         }
@@ -40,7 +41,8 @@ class TodoTrashTaskListViewController: TodoBaseTaskListViewController {
     
     override func todoTaskListView(_ listView: TodoTaskListView, trailingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration? {
         /// 从废纸篓彻底粉碎
-        let shredAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in    
+        let shredAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in
+            TPImpactFeedback.impactWithHeavyStyle()
             self.taskController.confirmDeletion(for: task)
             completion(true)
         }
