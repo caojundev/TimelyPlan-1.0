@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		930B47C98BEE5C4915C191FA /* libPods-TimelyPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */; };
+		E50027652F97BFB700EF052D /* TodoMultiDateInfoCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027642F97BFB700EF052D /* TodoMultiDateInfoCalculator.swift */; };
+		E50027672F97C84E00EF052D /* TodoSingleDateInfoCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027662F97C84E00EF052D /* TodoSingleDateInfoCalculator.swift */; };
 		E5007F7B2DC9ADB1006AD311 /* CalendarDayTimelineIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7A2DC9ADB1006AD311 /* CalendarDayTimelineIndicatorView.swift */; };
 		E5007F7E2DCA0728006AD311 /* CalendarDayTimelineBackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7D2DCA0728006AD311 /* CalendarDayTimelineBackLayer.swift */; };
 		E5007F802DCA0981006AD311 /* TPMinuteUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */; };
@@ -856,7 +858,6 @@
 		E5B33D582F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D462F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift */; };
 		E5B33D592F80E66E00939C3E /* ReminderEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D482F80E66E00939C3E /* ReminderEditViewController.swift */; };
 		E5B33D5A2F80E66E00939C3E /* ReminderEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D492F80E66E00939C3E /* ReminderEditSectionController.swift */; };
-		E5B33D632F80E66E00939C3E /* TaskScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D542F80E66E00939C3E /* TaskScheduleEditViewController.swift */; };
 		E5B33D642F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D552F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift */; };
 		E5B33D652F80E66E00939C3E /* TaskScheduleEditInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D562F80E66E00939C3E /* TaskScheduleEditInfoView.swift */; };
 		E5B33D662F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D572F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift */; };
@@ -1683,6 +1684,11 @@
 		E5F078C62F95B22200F94BDF /* TodoFilterListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078C52F95B22200F94BDF /* TodoFilterListInteractor.swift */; };
 		E5F078C92F95DEB300F94BDF /* todo_filter_tag_none_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F078C72F95DEB200F94BDF /* todo_filter_tag_none_24@2x.png */; };
 		E5F078CA2F95DEB300F94BDF /* todo_filter_tag_none_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F078C82F95DEB200F94BDF /* todo_filter_tag_none_24@3x.png */; };
+		E5F078CC2F9711C500F94BDF /* TodoScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078CB2F9711C500F94BDF /* TodoScheduleEditViewController.swift */; };
+		E5F078CF2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078CE2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift */; };
+		E5F078D12F972E8B00F94BDF /* TodoMultipleScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078D02F972E8B00F94BDF /* TodoMultipleScheduleEditViewController.swift */; };
+		E5F078D32F975D2300F94BDF /* TodoMultiDayScheduleDateRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078D22F975D2300F94BDF /* TodoMultiDayScheduleDateRangeView.swift */; };
+		E5F078D52F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078D42F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift */; };
 		E5F1551B2F83681E00116091 /* TodoTaskDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */; };
 		E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */; };
 		E5F1551D2F83681E00116091 /* TodoTaskCheckTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */; };
@@ -1740,6 +1746,8 @@
 		1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.release.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.release.xcconfig"; sourceTree = "<group>"; };
 		2197CCF3E13F7B7E5DA987DD /* Pods-TimelyPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.debug.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimelyPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E50027642F97BFB700EF052D /* TodoMultiDateInfoCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMultiDateInfoCalculator.swift; sourceTree = "<group>"; };
+		E50027662F97C84E00EF052D /* TodoSingleDateInfoCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSingleDateInfoCalculator.swift; sourceTree = "<group>"; };
 		E5007F7A2DC9ADB1006AD311 /* CalendarDayTimelineIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayTimelineIndicatorView.swift; sourceTree = "<group>"; };
 		E5007F7D2DCA0728006AD311 /* CalendarDayTimelineBackLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayTimelineBackLayer.swift; sourceTree = "<group>"; };
 		E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMinuteUpdater.swift; sourceTree = "<group>"; };
@@ -2594,7 +2602,6 @@
 		E5B33D462F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditDateSectionController.swift; sourceTree = "<group>"; };
 		E5B33D482F80E66E00939C3E /* ReminderEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderEditViewController.swift; sourceTree = "<group>"; };
 		E5B33D492F80E66E00939C3E /* ReminderEditSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderEditSectionController.swift; sourceTree = "<group>"; };
-		E5B33D542F80E66E00939C3E /* TaskScheduleEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditViewController.swift; sourceTree = "<group>"; };
 		E5B33D552F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditReminderSectionController.swift; sourceTree = "<group>"; };
 		E5B33D562F80E66E00939C3E /* TaskScheduleEditInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditInfoView.swift; sourceTree = "<group>"; };
 		E5B33D572F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleEditRepeatSectionController.swift; sourceTree = "<group>"; };
@@ -3436,6 +3443,11 @@
 		E5F078C52F95B22200F94BDF /* TodoFilterListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterListInteractor.swift; sourceTree = "<group>"; };
 		E5F078C72F95DEB200F94BDF /* todo_filter_tag_none_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_tag_none_24@2x.png"; sourceTree = "<group>"; };
 		E5F078C82F95DEB200F94BDF /* todo_filter_tag_none_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_tag_none_24@3x.png"; sourceTree = "<group>"; };
+		E5F078CB2F9711C500F94BDF /* TodoScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoScheduleEditViewController.swift; sourceTree = "<group>"; };
+		E5F078CE2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSingleScheduleEditViewController.swift; sourceTree = "<group>"; };
+		E5F078D02F972E8B00F94BDF /* TodoMultipleScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMultipleScheduleEditViewController.swift; sourceTree = "<group>"; };
+		E5F078D22F975D2300F94BDF /* TodoMultiDayScheduleDateRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMultiDayScheduleDateRangeView.swift; sourceTree = "<group>"; };
+		E5F078D42F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMultiDayScheduleEditSectionController.swift; sourceTree = "<group>"; };
 		E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskDetailProvider.swift; sourceTree = "<group>"; };
 		E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskLayoutManager.swift; sourceTree = "<group>"; };
 		E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskCheckTableCell.swift; sourceTree = "<group>"; };
@@ -3509,6 +3521,19 @@
 				1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E50027682F97CF0E00EF052D /* Single-Day */ = {
+			isa = PBXGroup;
+			children = (
+				E5F078CE2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift */,
+				E50027662F97C84E00EF052D /* TodoSingleDateInfoCalculator.swift */,
+				E5B33D562F80E66E00939C3E /* TaskScheduleEditInfoView.swift */,
+				E5B33D462F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift */,
+				E5B33D552F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift */,
+				E5B33D572F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift */,
+			);
+			path = "Single-Day";
 			sourceTree = "<group>";
 		};
 		E5007F7C2DCA0682006AD311 /* Timeline */ = {
@@ -6082,12 +6107,10 @@
 		E5B33D452F80E66E00939C3E /* Schedule */ = {
 			isa = PBXGroup;
 			children = (
+				E5F078CB2F9711C500F94BDF /* TodoScheduleEditViewController.swift */,
+				E50027682F97CF0E00EF052D /* Single-Day */,
+				E5F078D82F97790400F94BDF /* Multi-Day */,
 				E5B33D472F80E66E00939C3E /* Reminder */,
-				E5B33D542F80E66E00939C3E /* TaskScheduleEditViewController.swift */,
-				E5B33D562F80E66E00939C3E /* TaskScheduleEditInfoView.swift */,
-				E5B33D462F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift */,
-				E5B33D552F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift */,
-				E5B33D572F80E66E00939C3E /* TaskScheduleEditRepeatSectionController.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -9021,6 +9044,17 @@
 			path = Manage;
 			sourceTree = "<group>";
 		};
+		E5F078D82F97790400F94BDF /* Multi-Day */ = {
+			isa = PBXGroup;
+			children = (
+				E50027642F97BFB700EF052D /* TodoMultiDateInfoCalculator.swift */,
+				E5F078D02F972E8B00F94BDF /* TodoMultipleScheduleEditViewController.swift */,
+				E5F078D42F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift */,
+				E5F078D22F975D2300F94BDF /* TodoMultiDayScheduleDateRangeView.swift */,
+			);
+			path = "Multi-Day";
+			sourceTree = "<group>";
+		};
 		E5F155092F83681D00116091 /* ListView */ = {
 			isa = PBXGroup;
 			children = (
@@ -9922,12 +9956,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5B33D592F80E66E00939C3E /* ReminderEditViewController.swift in Sources */,
+				E5F078D52F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift in Sources */,
 				E5D7D8E42D43933600EC877A /* UIColor+Focus.swift in Sources */,
 				E5BB9DCC2D3BF0C60089667A /* TPFeedbackQueue.swift in Sources */,
 				E58F46C62F7B9DCC0046FA96 /* TodoUserListProcessorUpdater.swift in Sources */,
 				E5BB9EDE2D3BF0C80089667A /* TPGradientView.swift in Sources */,
 				E53F32B62F6948F900B85B65 /* HabitReportRoundCornerHeaderFooterView.swift in Sources */,
 				E50D60292F7A12B400D5E0A4 /* RepeatScheduler.swift in Sources */,
+				E5F078CC2F9711C500F94BDF /* TodoScheduleEditViewController.swift in Sources */,
 				E53B114A2F94D23100701410 /* TodoFilterRuleEditViewController.swift in Sources */,
 				E5BB9E9F2D3BF0C80089667A /* HourHeatMapView.swift in Sources */,
 				E5D7D7EF2D43923800EC877A /* Focus.swift in Sources */,
@@ -10363,6 +10399,7 @@
 				E5BB9DF22D3BF0C60089667A /* Date+Extensions.swift in Sources */,
 				E5BB9E072D3BF0C70089667A /* Character+Emoji.swift in Sources */,
 				E5BB9DF42D3BF0C60089667A /* Date+DayKey.swift in Sources */,
+				E5F078D32F975D2300F94BDF /* TodoMultiDayScheduleDateRangeView.swift in Sources */,
 				E556BCDB2F5D9D8500CA20D9 /* HabitRecordProcessor.swift in Sources */,
 				E5BB9F202D3BF2C20089667A /* AppConfiguration.swift in Sources */,
 				E53DCEEB2F61AC4800ADA526 /* HabitHomeWeekDayMenuController.swift in Sources */,
@@ -10436,7 +10473,6 @@
 				E51FF64D2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift in Sources */,
 				E5D7D8DA2D43933600EC877A /* FocusFloatingTrackingView.swift in Sources */,
 				E5D7D8DF2D43933600EC877A /* FocusFloatingStopwatchProgressView.swift in Sources */,
-				E5B33D632F80E66E00939C3E /* TaskScheduleEditViewController.swift in Sources */,
 				E5BB9E4C2D3BF0C70089667A /* Date+Holiday.swift in Sources */,
 				E5BB9E8B2D3BF0C80089667A /* ChartItem.swift in Sources */,
 				E5BB9DBB2D3BF0C60089667A /* ThemeKey.swift in Sources */,
@@ -10592,6 +10628,7 @@
 				E53B115A2F94D26C00701410 /* TodoFilterRuleDateEditSectionController.swift in Sources */,
 				E5B33D5A2F80E66E00939C3E /* ReminderEditSectionController.swift in Sources */,
 				E53F32BA2F69557500B85B65 /* HabitReportContentSectionController.swift in Sources */,
+				E5F078CF2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift in Sources */,
 				E5BB9D8D2D3BF0C60089667A /* TPNumberFieldTableCell.swift in Sources */,
 				E58C9E132F4AF0DC0096B842 /* FocusTimelineViewController.swift in Sources */,
 				E5BB9DEB2D3BF0C60089667A /* Date+Week.swift in Sources */,
@@ -10618,6 +10655,7 @@
 				E5D7D9132D43933700EC877A /* FocusStatsMonthlyViewController.swift in Sources */,
 				E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */,
 				E549B18F2F89ED3A0014BE85 /* TodoHomeExpandHeaderView.swift in Sources */,
+				E5F078D12F972E8B00F94BDF /* TodoMultipleScheduleEditViewController.swift in Sources */,
 				E51A4C3F2DC3B95E005A0E3F /* CalendarDayTimelineView.swift in Sources */,
 				E5BB9EA52D3BF0C80089667A /* TPStrikethroughLabel.swift in Sources */,
 				E583896B2F7749DF003C30A4 /* AppSetting.swift in Sources */,
@@ -10917,6 +10955,7 @@
 				E5BB9EBD2D3BF0C80089667A /* TPTimePickerView.swift in Sources */,
 				E5BB9F042D3BF0C90089667A /* TPDragInsertFlashMonitor.swift in Sources */,
 				E541555D2F49A415000B2972 /* FocusRecordListCellBasicInfoView.swift in Sources */,
+				E50027672F97C84E00EF052D /* TodoSingleDateInfoCalculator.swift in Sources */,
 				E5B33D3C2F80B15E00939C3E /* TodoBaseListSelectViewController.swift in Sources */,
 				E5BB9EF32D3BF0C80089667A /* TPPageMenuRepresentable.swift in Sources */,
 				E5BB9EFA2D3BF0C80089667A /* TPSlideTransitioningDelegate.swift in Sources */,
@@ -11027,6 +11066,7 @@
 				E57CC5C12F7F9FE700ADDBA4 /* TodoSort.swift in Sources */,
 				E5D7D91B2D43933700EC877A /* FocusStatsHistoryDaySectionController.swift in Sources */,
 				E5D7D7E52D43923800EC877A /* FocusCountdownConfig.swift in Sources */,
+				E50027652F97BFB700EF052D /* TodoMultiDateInfoCalculator.swift in Sources */,
 				E53B11432F94D1B300701410 /* TodoFilterRelativeDateOffsetSectionController.swift in Sources */,
 				E5BB9DF62D3BF0C60089667A /* NSNumber+String.swift in Sources */,
 				E549B1972F89F6A70014BE85 /* TodoTaskStepMenuController.swift in Sources */,

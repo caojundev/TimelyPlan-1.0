@@ -188,7 +188,7 @@ class HabitDateRangeInfoView: UIView {
     
     private(set) lazy var headerLabel: TPLabel = {
         let label = TPLabel()
-        label.font = BOLD_SMALL_SYSTEM_FONT
+        label.font = .systemFont(ofSize: 12.0)
         label.textAlignment = .left
         label.numberOfLines = 1
         label.textColor = resGetColor(.title)
@@ -200,10 +200,10 @@ class HabitDateRangeInfoView: UIView {
     private(set) var detailView: TPInfoView = {
         let view = TPInfoView()
         view.isUserInteractionEnabled = false
-        view.titleConfig.font = .boldSystemFont(ofSize: 15.0)
+        view.titleConfig.font = .systemFont(ofSize: 14.0)
         view.titleConfig.adjustsFontSizeToFitWidth = true
         view.subtitleTopMargin = 8.0
-        view.subtitleConfig.font = .boldSystemFont(ofSize: 12.0)
+        view.subtitleConfig.font = .systemFont(ofSize: 10.0)
         view.subtitleLabel.alpha = 0.6
         return view
     }()

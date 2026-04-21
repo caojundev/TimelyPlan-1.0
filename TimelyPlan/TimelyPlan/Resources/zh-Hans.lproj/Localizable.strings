@@ -585,6 +585,16 @@
 "Year" = "年";
 "Years" = "年";
 
+/// 日历
+"Current Month" = "本月";
+"This Year" = "本年";
+"Sunday" = "周日";
+"Monday" = "周一";
+"Tuesday" = "周二";
+"wednesday" = "周三";
+"Thursday" = "周四";
+"Friday" = "周五";
+"Saturday" = "周六";
 
 /// 日期格式
 "MMM d, yyyy" = "yyyy年M月d日";
@@ -593,3 +603,94 @@
 "H" = "小时";
 "M" = "分钟";
 "S" = "秒";
+
+///**********************计划**********************///
+"End Date" = "结束日期";
+"Lasts:" = "持续:";
+"All Day" = "全天";
+"Reminder" = "提醒";
+
+"Start %@" = "%@开始";
+"Due %@" = "%@截止";
+
+
+/// 重复
+"Repeat" = "重复";
+"Repeat End" = "重复结束";
+"Custom Repeat" = "自定义重复";
+"Regularly" = "定期";
+"After Completion" = "完成后";
+"Specific Dates" = "自选日期";
+"%@ days selected" = "已选择%@天";
+"%@ day selected" = "已选择%@天";
+"Daily" = "每日";
+"Weekly" = "每周";
+"Monthly" = "每月";
+"Yearly" = "每年";
+"Every Weekday" = "每周工作日";
+"Monday-Friday" = "周一至周五";
+"Every Weekend" = "每周周末";
+"Saturday, Sunday" = "周六，周日";
+"Lunar Yearly" = "农历每年";
+"Ebbinghaus Forgetting Curve" = "艾宾浩斯遗忘曲线";
+
+"Official Working Days" = "法定工作日";
+"Skip Public Holidays" = "跳过公共节假日";
+"Frequency" = "频率";
+"Every" = "每";
+
+"On Days" = "按天";
+"On Week" = "按周";
+"Last Day" = "最后一天";
+"last day" = "最后一天";
+"First" = "第一个";
+"Second" = "第二个";
+"Third" = "第三个";
+"Fourth" = "第四个";
+"Fifth" = "第五个";
+"Last" = "最后一个";
+
+"%ldst" = "第%ld";
+"%ldnd" = "第%ld";
+"%ldrd" = "第%ld";
+"%ldth" = "第%ld";
+
+"%ldst time" = "第%ld次";
+"%ldnd time" = "第%ld次";
+"%ldrd time" = "第%ld次";
+"%ldth time" = "第%ld次";
+
+"the %ldst day" = "第%ld天";
+"the %ldnd day" = "第%ld天";
+"the %ldrd day" = "第%ld天";
+"the %ldth day" = "第%ld天";
+"Never" = "从不";
+"By Date" = "按日期";
+"By Count" = "按次数";
+"After %ld repeats" = "重复%ld次后";
+"After %ld repeat" = "重复%ld次后";
+"Task will keep repeating" = "任务将一直重复";
+"Task will repeat until " = "任务将重复至";
+"Task will repeat " = "任务将重复";
+"%ld time" = "%ld次";
+"%ld times" = "%ld次";
+
+"Times" = "次";
+"every %@" = "每%@";
+"%@ day" = "%@天";
+"%ld day" = "%ld天";
+"%ld days" = "%ld天";
+"%ld week" = "%ld周";
+"%ld weeks" = "%ld周";
+"%ld month" = "%ld月";
+"%ld months" = "%ld月";
+"%ld year" = "%ld年";
+"%ld years" = "%ld年";
+"on the %@" = "于%@";
+"in %@" = "在%@";
+"%@ after completion" = "完成后%@";
+
+"Never End" = "永不结束";
+"Never" = "永不";
+"%ld repeat" = "%ld 次重复";
+"%ld repeats" = "%ld 次重复";

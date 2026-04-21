@@ -158,13 +158,17 @@ class TaskScheduleEditDateSectionController: TPTableItemSectionController,
     
     /// 选中时间
     private func didPickTime(_ date: Date) {
-        dateInfo.setSpecificTime(with: date)
+        let calculator = TodoSingleDateInfoCalculator(dateInfo: self.dateInfo)
+        calculator.setSpecificTime(date: date, editType: .start)
+        self.dateInfo = calculator.dateInfo
         dateInfoChanged()
     }
     
     /// 删除具体时间
     private func clearSpecificTime() {
-        dateInfo.clearSpecificTime()
+        let calculator = TodoSingleDateInfoCalculator(dateInfo: self.dateInfo)
+        calculator.clearSpecificTime()
+        self.dateInfo = calculator.dateInfo
         dateInfoChanged()
     }
     
@@ -181,14 +185,17 @@ class TaskScheduleEditDateSectionController: TPTableItemSectionController,
     }
     
     private func selectDuration(_ duration: Duration?) {
+        let calculator = TodoSingleDateInfoCalculator(dateInfo: self.dateInfo)
         guard let duration = duration else {
-            dateInfo.clearDuration()
+            calculator.clearDuration()
+            self.dateInfo = calculator.dateInfo
             dateInfoChanged()
             return
         }
 
         if dateInfo.duration != duration {
-            dateInfo.setDuration(duration)
+            calculator.setDuration(duration)
+            self.dateInfo = calculator.dateInfo
             dateInfoChanged()
         }
     }
@@ -199,7 +206,10 @@ class TaskScheduleEditDateSectionController: TPTableItemSectionController,
             return
         }
         
-        dateInfo.setStartDate(selectedDate)
+        let calculator = TodoSingleDateInfoCalculator(dateInfo: self.dateInfo)
+        calculator.setDate(selectedDate, editType: .start)
+        self.dateInfo = calculator.dateInfo
+        
         updateCalendarSpanningIndicator()
         dateInfoChanged()
     }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import QuartzCore
 import UIKit
 
 class HabitDateRangeSegmentedView: UIView {
@@ -84,6 +83,15 @@ class HabitDateRangeSegmentedView: UIView {
         return CGSize(width: size.width, height: segmentedHeight)
     }
     
+    func canDeleteStartDate() -> Bool {
+        return false
+    }
+    
+    func canDeleteEndDate() -> Bool {
+        return dateRange.endDate != nil
+    }
+    
+    
     /// 更新选中按钮
     private func updateSelectedButton() {
         startDateButton.isSelected = editType == .start
@@ -94,11 +102,11 @@ class HabitDateRangeSegmentedView: UIView {
     private func updateDate() {
         startDateButton.dateText = dateRange.startDateText()
         startDateButton.dateDescription = dateRange.startDateDescription()
-        startDateButton.showDelete = false
+        startDateButton.showDelete = canDeleteStartDate()
         
         endDateButton.dateText = dateRange.endDateText()
         endDateButton.dateDescription = dateRange.lastsCountDescription()
-        endDateButton.showDelete = dateRange.endDate != nil
+        endDateButton.showDelete = canDeleteEndDate()
         setNeedsLayout()
     }
     

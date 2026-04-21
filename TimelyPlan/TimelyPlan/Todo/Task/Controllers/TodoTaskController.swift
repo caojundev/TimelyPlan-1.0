@@ -41,7 +41,7 @@ class TodoTaskController {
     // MARK: - 编辑计划
     static func editSchedule(_ schedule: TaskSchedule?,
                              completion: ((TaskSchedule?)->Void)?) {
-        let vc = TaskScheduleEditViewController(schedule: schedule)
+        let vc = TodoScheduleEditViewController(schedule: schedule)
         vc.didEndEditing = { schedule in
             completion?(schedule)
         }

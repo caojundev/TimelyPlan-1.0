@@ -1,14 +1,15 @@
 //
-//  TaskScheduleEditViewController.swift
+//  TodoSingleScheduleEditViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/2/2.
 //
 
 import Foundation
+import UIKit
 
-class TaskScheduleEditViewController: TPTableSectionsViewController,
-                                      TPCalendarSingleDateSelectionDelegate {
+class TodoSingleScheduleEditViewController: TPTableSectionsViewController,
+                                               TPCalendarSingleDateSelectionDelegate {
     
     /// 结束计划编辑
     var didEndEditing: ((TaskSchedule?) -> Void)?
@@ -55,23 +56,6 @@ class TaskScheduleEditViewController: TPTableSectionsViewController,
         return sectionController
     }()
     
-    /// 显示清除按钮
-    var showClearButton: Bool {
-        didSet {
-            updateRightNavigationItem()
-        }
-    }
-    
-    /// 清除按钮
-    private lazy var clearBarButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(title: resGetString("Clear"),
-                                   style: .done,
-                                   target: self,
-                                   action: #selector(clickClear))
-        item.tintColor = .redPrimary
-        return item
-    }()
-    
     var schedule: TaskSchedule {
         return TaskSchedule(dateInfo: dateSectionController.dateInfo,
                             reminder: reminderSectionController.reminder,
@@ -79,9 +63,15 @@ class TaskScheduleEditViewController: TPTableSectionsViewController,
     }
     
     init(schedule: TaskSchedule?) {
-        self.showClearButton = schedule != nil
         super.init(style: .grouped)
-        let dateInfo = schedule?.dateInfo ?? TaskDateInfo()
+        
+        var dateInfo: TaskDateInfo
+        if let info = schedule?.dateInfo, info.style == .singleDay {
+            dateInfo = info
+        } else {
+            dateInfo = TaskDateInfo(style: .singleDay)
+        }
+        
         dateSectionController.dateInfo = dateInfo
         dateSectionController.repeatRule = schedule?.repeatRule
         
@@ -98,12 +88,7 @@ class TaskScheduleEditViewController: TPTableSectionsViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = resGetString("Date")
-        navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        preferredContentSize = .Popover.extraLarge
-        view.addSubview(dateInfoView)
-        updateRightNavigationItem()
-        setupActionsBar(actions: [doneAction])
+        self.view.addSubview(dateInfoView)
         tableView.showsVerticalScrollIndicator = false
         adapter.cellStyle.backgroundColor = .systemBackground
         sectionControllers = [dateSectionController,
@@ -123,11 +108,7 @@ class TaskScheduleEditViewController: TPTableSectionsViewController,
         return CGRect(x: 0.0,
                       y: dateInfoViewHeight,
                       width: view.width,
-                      height: view.height - dateInfoViewHeight - actionsBarHeight)
-    }
-
-    func updateRightNavigationItem() {
-        self.navigationItem.rightBarButtonItem = showClearButton ? clearBarButtonItem : nil
+                      height: view.height - dateInfoViewHeight)
     }
     
     override var themeNavigationBarBackgroundColor: UIColor? {
@@ -136,17 +117,6 @@ class TaskScheduleEditViewController: TPTableSectionsViewController,
 
     override var themeBackgroundColor: UIColor? {
         return .systemBackground
-    }
-    
-    override func clickDone() {
-        super.clickDone()
-        didEndEditing?(schedule)
-    }
-    
-    @objc private func clickClear() {
-        TPImpactFeedback.impactWithSoftStyle()
-        dismiss(animated: true, completion: nil)
-        didEndEditing?(nil)
     }
     
     private func updateDateInfoView() {
@@ -174,3 +144,4 @@ class TaskScheduleEditViewController: TPTableSectionsViewController,
         updateDateInfoView()
     }
 }
+

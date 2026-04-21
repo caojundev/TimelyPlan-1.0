@@ -11,83 +11,59 @@ import UIKit
 /// 任务日期信息
 struct TaskDateInfo: Hashable, Equatable {
     
+    enum Style {
+        case singleDay /// 单日
+        case multiDay  /// 多日
+    }
+        
     /// 开始日期
-    private(set) var startDate: Date
+    let startDate: Date
+    
+    /// 结束日期
+    let endDate: Date
     
     /// 是否全天
-    private(set)var isAllDay: Bool
+    let isAllDay: Bool
     
-    /// 持续时长
-    private(set)var duration: Duration
-
-    /// 结束日期
-    var endDate: Date {
-        if isAllDay {
-            return startDate.endOfDay()
+    var style: Style {
+        let count = Date.days(fromDate: startDate, toDate: endDate)
+        if count == 0 {
+            return .singleDay
         }
         
-        return startDate.dateByAddingSeconds(duration) ?? startDate
+        return .multiDay
     }
-    
+  
+    /// 持续时长
+    var duration: Duration {
+        let duration = Duration(endDate.timeIntervalSince(startDate))
+        return max(duration, 0)
+    }
+
     /// 是否已经逾期
     var isOverdue: Bool {
         return Date.now > endDate
     }
     
-    init() {
-        self.init(startDate: .now.startOfDay(), isAllDay: true, duration: 0)
+    var dateRange: DateRange {
+        return DateRange(startDate: startDate, endDate: endDate)
+    }
+    
+    init(style: Style = .singleDay) {
+        let date = Date()
+        let startDate: Date = date.startOfDay()
+        var endDate: Date = date.endOfDay()
+        if style == .multiDay {
+            endDate = endDate.dateByAddingDays(1)!
+        }
+        
+        self.init(startDate: startDate, endDate: endDate, isAllDay: true)
     }
     
     init(startDate: Date, endDate: Date, isAllDay: Bool) {
-        if isAllDay {
-            self.init(startDate: startDate, isAllDay: true, duration: SECONDS_PER_DAY)
-        } else {
-            var duration = Duration(endDate.timeIntervalSince(startDate))
-            if duration < SECONDS_PER_MINUTE {
-                duration = SECONDS_PER_MINUTE
-            }
-
-            self.init(startDate: startDate, isAllDay: false, duration: duration)
-        }
-    }
-    
-    init(startDate: Date, duration: Duration) {
-        self.init(startDate: startDate, isAllDay: false, duration: duration)
-    }
-    
-    init(startDate: Date, isAllDay: Bool, duration: Duration) {
         self.startDate = startDate
-        self.duration = duration
+        self.endDate = endDate
         self.isAllDay = isAllDay
-    }
-    
-    mutating func setStartDate(_ date: Date) {
-        /// 将时间替换成当前开始日期时间部分
-        startDate = date.dateByReplacingTime(with: startDate)
-    }
-
-    mutating func setSpecificTime(with date: Date) {
-        isAllDay = false
-        startDate = startDate.dateByReplacingTime(with: date)
-        if duration < SECONDS_PER_MINUTE || duration >= SECONDS_PER_DAY {
-            duration = SECONDS_PER_MINUTE
-        }
-    }
-    
-    mutating func clearSpecificTime() {
-        isAllDay = true
-        startDate = startDate.startOfDay()
-    }
-    
-    mutating func setDuration(_ duration: Duration) {
-        self.duration = duration
-    }
-
-    /// 清除持续时长
-    mutating func clearDuration() {
-        self.duration = 0
-        /// 切换为全天任务
-        self.isAllDay = true
     }
     
     // MARK: - Getters
@@ -150,14 +126,12 @@ struct TaskDateInfo: Hashable, Equatable {
         
         return attributedEndString
     }
-}
-
-extension TaskDateInfo {
     
+    // MARK: - Helpers
     static func allDayDateInfo(startDate: Date) -> TaskDateInfo {
         let dateInfo = TaskDateInfo(startDate: startDate.startOfDay(),
-                                    isAllDay: true,
-                                    duration: SECONDS_PER_DAY)
+                                    endDate: startDate.endOfDay(),
+                                    isAllDay: true)
         return dateInfo
     }
 }
