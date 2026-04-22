@@ -115,6 +115,6 @@ class TodoTaskBaseTableCell: UITableViewCell, FocusAnimatable, Checkable {
     }
     
     var focusLineWidth: CGFloat {
-        return 1.2
+        return 1.6
     }
 }

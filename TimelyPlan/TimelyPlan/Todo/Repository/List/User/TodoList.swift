@@ -86,10 +86,6 @@ class TodoList: NSObject,
     override var hash: Int {
         var hasher = Hasher()
         hasher.combine(identifier)
-        hasher.combine(emoji)
-        hasher.combine(name)
-        hasher.combine(colorHex)
-        hasher.combine(layoutType)
         return hasher.finalize()
     }
     
@@ -102,6 +98,18 @@ class TodoList: NSObject,
                 colorHex == other.colorHex &&
                 layoutType == other.layoutType
     }
+    
+    // MARK: - IGListDiffable
+    override func diffIdentifier() -> NSObjectProtocol {
+        return identifier as NSString
+    }
+    
+    override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        guard let other = object as? TodoList else { return false }
+        return identifier == other.identifier
+    }
+    
+    
     
     func addSublist(_ list: TodoList) {
         if self.identifier == list.identifier {
@@ -124,10 +132,5 @@ class TodoList: NSObject,
         if let _ = sublists?.remove(list) {
             list.parent = nil
         }
-    }
-    
-    // MARK: - IGListDiffable
-    override func diffIdentifier() -> NSObjectProtocol {
-        return identifier as NSString
     }
 }

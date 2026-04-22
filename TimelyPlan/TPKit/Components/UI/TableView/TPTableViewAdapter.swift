@@ -812,6 +812,22 @@ extension TPTableViewAdapter {
         }
     }
     
+    func revealItemAutoScrollIfNeeded(_ item: ListDiffable,
+                                      at scrollPosition: UITableView.ScrollPosition = .middle) {
+        if let cell = cellForItem(item) {
+            if let cell = cell as? FocusAnimatable {
+                cell.commitFocusAnimation()
+            }
+            
+            return
+        }
+        
+        scrollToItem(item, at: scrollPosition, animated: true) { [weak self] _ in
+            self?.commitFocusAnimation(for: item)
+        }
+    }
+    
+    
     func commitFocusAnimation(for item: ListDiffable) {
         if let indexPath = indexPath(of: item) {
             commitFocusAnimation(at: indexPath)

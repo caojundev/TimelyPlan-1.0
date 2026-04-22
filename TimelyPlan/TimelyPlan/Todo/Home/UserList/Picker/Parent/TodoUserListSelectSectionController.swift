@@ -35,10 +35,19 @@ class TodoUserListSelectSectionController: TodoUserListBaseSectionController {
         self.expansionState = expansionState
         self.viewModel = TodoUserListViewModel(expansionState: expansionState)
         super.init()
-        self.viewModel.userListDidChange = { [weak self] in
-            self?.updateUserList()
+        self.viewModel.userListDidChange = { [weak self] change in
+            self?.userListChanged(change)
             self?.userListDidChange?()
         }
+    }
+    
+    private func userListChanged(_ change: TodoUserListChange? = nil) {
+        var rowAnimation: UITableView.RowAnimation = .none
+        if change != nil {
+            rowAnimation = .top
+        }
+        
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: rowAnimation)
     }
     
     private func updateUserList() {

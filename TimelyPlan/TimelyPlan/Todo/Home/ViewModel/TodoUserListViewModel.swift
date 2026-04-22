@@ -7,13 +7,18 @@
 
 import Foundation
 
+enum TodoUserListChange {
+case create(TodoList) /// 创建新列表
+case update(TodoList) /// 更新列表
+}
+
 class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     
     /// 数目改变
     var countDidChange: (([TodoListFeature]) -> Void)?
     
     /// 用户列表改变
-    var userListDidChange: (() -> Void)?
+    var userListDidChange: ((TodoUserListChange?) -> Void)?
     
     /// 顶层清单
     private var topLists: [TodoList]?
@@ -37,7 +42,7 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     }
     
     // MARK: -
-    func loadTopLists() {
+    func loadTopLists(with change: TodoUserListChange? = nil) {
         let requestID = requestManager.executeRequest()
         loadTopListsIfNeeded {[weak self] lists in
             guard let self = self, self.requestManager.shouldProceed(with: requestID) else {
@@ -46,7 +51,7 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
 
             self.topLists = lists
             self.needsRefresh = false
-            self.userListDidChange?()
+            self.userListDidChange?(change)
         }
     }
     
@@ -89,13 +94,13 @@ extension TodoUserListViewModel: TodoListProcessorDelegate {
     func didCreateTodoList(_ list: TodoList) {
         expandAllParent(of: list)
         setNeedsRefresh()
-        loadTopLists()
+        loadTopLists(with: .create(list))
     }
     
     /// 更新列表信息通知
     func didUpdateTodoList(_ list: TodoList) {
         setNeedsRefresh()
-        loadTopLists()
+        loadTopLists(with: .update(list))
     }
     
     func didUngroupList(_ list: TodoList) {
@@ -126,7 +131,7 @@ extension TodoUserListViewModel: TodoListProcessorDelegate {
         /// 同步更新列表
         self.topLists = todo.getTopLists()
         self.needsRefresh = false
-        self.userListDidChange?()
+        self.userListDidChange?(nil)
     }
 }
 

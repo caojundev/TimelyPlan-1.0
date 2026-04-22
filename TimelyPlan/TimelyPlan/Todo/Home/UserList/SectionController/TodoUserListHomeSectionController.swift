@@ -24,8 +24,8 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         self.expansionState = expansionState
         self.viewModel = TodoUserListViewModel(expansionState: expansionState)
         super.init()
-        self.viewModel.userListDidChange = { [weak self] in
-            self?.userListDidChange()
+        self.viewModel.userListDidChange = { [weak self] change in
+            self?.userListChanged(change)
         }
         
         self.viewModel.countDidChange = { [weak self] lists in
@@ -33,10 +33,30 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         }
     }
     
-    private func userListDidChange() {
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+    private func userListChanged(_ change: TodoUserListChange? = nil) {
+        var rowAnimation: UITableView.RowAnimation = .none
+        if change != nil {
+            rowAnimation = .top
+        }
+        
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: rowAnimation)
+        guard let change = change else {
+            return
+        }
+        
+        var list: TodoList?
+        switch change {
+        case .create(let todoList):
+            list = todoList
+        case .update(let todoList):
+            list = todoList
+        }
+        
+        if let list = list {
+            adapter?.revealItemAutoScrollIfNeeded(list, at: .middle)
+        }
     }
-    
+
     /// 更新列表任务数目
     func updateTaskCount(for lists: [TodoListFeature]) {
         for list in lists {
