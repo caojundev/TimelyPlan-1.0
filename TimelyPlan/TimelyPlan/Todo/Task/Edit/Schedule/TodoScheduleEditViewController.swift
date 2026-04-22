@@ -94,12 +94,13 @@ class TodoScheduleEditViewController: TPContainerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.titleView = self.segmentedMenuView
+        navigationItem.titleView = segmentedMenuView
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         preferredContentSize = .Popover.extraLarge
         setupActionsBar(actions: [doneAction])
         updateRightNavigationItem()
         updateContentViewController(with: .none)
+        segmentedMenuView.selectMenu(withTag: self.scheduleType.rawValue)
     }
     
     override func contentViewFrame() -> CGRect {

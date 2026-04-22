@@ -152,8 +152,6 @@ class TodoTaskQuickAddMenuSectionController: TPCollectionItemSectionController,
                                                                     normalColor: .white,
                                                                      highlightedColor: .white,
                                                                      overdueColor: .white,
-                                                                     badgeBaselineOffset: 6.0,
-                                                                     badgeFont: UIFont.boldSystemFont(ofSize: 8.0),
                                                                      imageSize: .size(4),
                                                                      showRepeatCount: false,
                                                                      separator: "•")

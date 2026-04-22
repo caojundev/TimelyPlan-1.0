@@ -23,15 +23,19 @@ class TodoListSelectPopoverView: TPBasePopoverView {
     
     private let contentWidth = 260.0
     
-    private let minimumContentHeight = 100.0
+    private let minimumContentHeight = 180.0
     
-    private let maximumContentHeight = 300.0
+    private let maximumContentHeight = 360.0
     
     private var selectView: TodoListSelectView!
     
     override func setupSubviews() {
         super.setupSubviews()
         self.selectView = TodoListSelectView()
+        self.selectView.userListDidChange = { [weak self] in
+            self?.userListChanged()
+        }
+        
         self.selectView.didSelectList = { [weak self] list in
             self?.selectList(list)
         }
@@ -45,8 +49,8 @@ class TodoListSelectPopoverView: TPBasePopoverView {
         return CGSize(width: contentWidth, height: contentHeight)
     }
     
-    func reloadData() {
-        selectView.reloadData()
+    private func userListChanged() {
+        self.updateContentSizeIfNeeded(animated: true)
     }
     
     // MARK: - 选中菜单项

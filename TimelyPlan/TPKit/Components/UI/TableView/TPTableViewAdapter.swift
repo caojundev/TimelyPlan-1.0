@@ -800,9 +800,11 @@ extension TPTableViewAdapter {
 extension TPTableViewAdapter {
     
     /// 聚焦显示
-    func revealItem(_ item: ListDiffable, autoScroll: Bool = true) {
+    func revealItem(_ item: ListDiffable,
+                    at scrollPosition: UITableView.ScrollPosition = .middle,
+                    autoScroll: Bool = true) {
         if autoScroll {
-            scrollToItem(item, at: .middle, animated: true) { [weak self] _ in
+            scrollToItem(item, at: scrollPosition, animated: true) { [weak self] _ in
                 self?.commitFocusAnimation(for: item)
             }
         } else {
@@ -820,6 +822,7 @@ extension TPTableViewAdapter {
         guard let cell = tableView.cellForRow(at: indexPath) as? FocusAnimatable else {
             return
         }
+        
         cell.commitFocusAnimation()
     }
 }

@@ -238,14 +238,22 @@ class TodoTaskListView: UIView,
     }
     
     /// 更新列表
-    func performUpdate() {
+    func performUpdate(with rowAnimation: UITableView.RowAnimation = .fade) {
         guard adapter.hasItem else {
             adapter.reloadData()
             return
         }
-        
-        adapter.performUpdate(with: .fade, completion: nil)
+
+        adapter.performUpdate(with: rowAnimation, completion: nil)
     }
+    
+    /// 聚焦显示任务
+    func revealTask(_ task: TodoTask,
+                    at scrollPosition: UITableView.ScrollPosition = .top,
+                    autoScroll: Bool = true) {
+        adapter.revealItem(task, at: scrollPosition, autoScroll: autoScroll)
+    }
+    
     
     func moveRow(at fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
         adapter.moveRow(at: fromIndexPath, to: toIndexPath)

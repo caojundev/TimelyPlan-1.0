@@ -130,8 +130,8 @@ class TodoBaseTaskListViewController: UIViewController,
         self.setupReorder()
         self.listView.reloadData()
         self.updateNormalContentInset()
-        self.interactor.didChangeGroups = { [weak self] in
-            self?.listView.performUpdate()
+        self.interactor.didChangeGroups = { [weak self] change in
+            self?.groupsChanged(change)
         }
     }
 
@@ -224,6 +224,20 @@ class TodoBaseTaskListViewController: UIViewController,
         self.inputRect = inputRect
         self.updateContentInset()
     }
+    
+    // MARK: - 分组改变
+    private func groupsChanged(_ change: TodoTaskListChange? = nil) {
+        var rowAnimation: UITableView.RowAnimation = .fade
+        if change != nil {
+            rowAnimation = .top
+        }
+        
+        listView.performUpdate(with: rowAnimation)
+        if case let .create(task) = change {
+            listView.revealTask(task)
+        }
+    }
+
 
     // MARK: - TodoDetailContent
     var navigationTitle: TextRepresentable? {

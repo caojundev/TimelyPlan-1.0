@@ -9,6 +9,8 @@ import Foundation
 
 class TodoUserListSelectSectionController: TodoUserListBaseSectionController {
     
+    var userListDidChange: (() -> Void)?
+    
     /// 允许的最大列表深度
     let allowMaxDepth: Int
     
@@ -34,11 +36,12 @@ class TodoUserListSelectSectionController: TodoUserListBaseSectionController {
         self.viewModel = TodoUserListViewModel(expansionState: expansionState)
         super.init()
         self.viewModel.userListDidChange = { [weak self] in
-            self?.userListDidChange()
+            self?.updateUserList()
+            self?.userListDidChange?()
         }
     }
     
-    private func userListDidChange() {
+    private func updateUserList() {
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
 

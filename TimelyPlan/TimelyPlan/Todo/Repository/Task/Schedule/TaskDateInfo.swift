@@ -66,65 +66,82 @@ struct TaskDateInfo: Hashable, Equatable {
         self.isAllDay = isAllDay
     }
     
-    // MARK: - Getters
-    func title(slashFormatted: Bool = true) -> String {
+    func attributedTitle(slashFormatted: Bool = true, textColor: UIColor = .primary) -> ASAttributedString {
+        var strings = [String]()
+        let startDateString = startDateString(slashFormatted: slashFormatted)
+        strings.append(startDateString)
+        if let endDateString = endDateString(slashFormatted: slashFormatted) {
+            strings.append(endDateString)
+        }
+        
+        var title = strings.joined(separator: "-")
         if isAllDay {
-            let dateString = startDate.yearMonthDayString(omitYear: true,
+            title = title + " • \(resGetString("All-Day"))"
+        }
+        
+        return title.attributedString(textColor: textColor)
+    }
+    
+    private func startDateString(slashFormatted: Bool = true) -> String {
+        let dateString: String
+        if isAllDay {
+            dateString = startDate.yearMonthDayString(omitYear: true,
+                                                      showRelativeDate: true,
+                                                      slashFormatted: slashFormatted)
+        } else {
+            dateString = startDate.yearMonthDayTimeString(omitYear: true,
                                                           showRelativeDate: true,
                                                           slashFormatted: slashFormatted)
-            return "\(dateString) • \(resGetString("All-Day"))"
         }
         
-        let startDateString = startDate.yearMonthDayTimeString(omitYear: true, showRelativeDate: true)
-        let endTimeString = endDate.timeString
-        return "\(startDateString) - \(endTimeString)"
+        return dateString
     }
     
-    func attributedTitle(slashFormatted: Bool = true,
-                         textColor: UIColor = .primary,
-                         badgeBaselineOffset: CGFloat = 6.0,
-                         badgeFont: UIFont = UIFont.boldSystemFont(ofSize: 6.0)) -> ASAttributedString {
-        if isAllDay {
-            let dateString = startDate.yearMonthDayString(omitYear: true, showRelativeDate: true, slashFormatted: slashFormatted)
-            return "\(dateString) • \(resGetString("All-Day"))".attributedString(textColor: textColor)
+    private func endDateString(slashFormatted: Bool = true) -> String? {
+        let endDate = endDate
+        let daysCount = self.startDate.daysBetween(endDate)
+        var result: String?
+        if daysCount < 1 {
+            /// 单日
+            result = isAllDay ? nil : endDate.timeString
+        } else {
+            /// 跨天
+            if isAllDay {
+                result = endDate.yearMonthDayString(omitYear: true,
+                                                    showRelativeDate: true,
+                                                    slashFormatted: slashFormatted)
+            } else {
+                result = endDate.yearMonthDayTimeString(omitYear: true,
+                                                          showRelativeDate: true,
+                                                          slashFormatted: slashFormatted)
+            }
         }
         
-        let startDateString = startDate.yearMonthDayTimeString(omitYear: true,
-                                                               showRelativeDate: true,
-                                                               slashFormatted: slashFormatted)
-        let attributedStartDate = startDateString.attributedString(textColor: textColor)
-        let attributedSeparator = "-".attributedString(textColor: textColor)
-        let attributedEndDate = attributedEndDateString(textColor: textColor,
-                                                        badgeBaselineOffset: badgeBaselineOffset,
-                                                        badgeFont: badgeFont)
-        return attributedStartDate + attributedSeparator + attributedEndDate
+        return result
     }
     
-    func attributedDurationEndDateString(textColor: UIColor = .primary,
-                                         badgeBaselineOffset: CGFloat = 6.0,
-                                         badgeFont: UIFont = UIFont.boldSystemFont(ofSize: 6.0)) -> ASAttributedString {
+    
+    func attributedDurationEndDateString(textColor: UIColor = .primary) -> ASAttributedString {
         let attributedDuration = duration.localizedTitle.attributedString(textColor: textColor)
         let attributedSeparator = " → ".attributedString(textColor: textColor)
-        let attributedEndDate = attributedEndDateString(textColor: textColor,
-                                                        badgeBaselineOffset: badgeBaselineOffset,
-                                                        badgeFont: badgeFont)
+        let attributedEndDate = attributedEndString(textColor: textColor)
         return attributedDuration + attributedSeparator + attributedEndDate
     }
     
-    func attributedEndDateString(textColor: UIColor = .primary,
-                                 badgeBaselineOffset: CGFloat = 6.0,
-                                 badgeFont: UIFont = UIFont.boldSystemFont(ofSize: 6.0)) -> ASAttributedString {
+    private func attributedEndString(slashFormatted: Bool = true,
+                                     textColor: UIColor = .primary) -> ASAttributedString {
         let endDate = endDate
-        var attributedEndString = endDate.timeString.attributedString(textColor: textColor)
         let daysCount = startDate.daysBetween(endDate)
-        if daysCount > 0 {
-            attributedEndString = attributedEndString.byAppend(badge: "+\(daysCount)",
-                                                               baselineOffset: badgeBaselineOffset,
-                                                               font: badgeFont,
-                                                               color: textColor)
+        var endDateString: String
+        if daysCount < 1 {
+            endDateString = endDate.timeString
+        } else {
+            endDateString = endDate.yearMonthDayTimeString(omitYear: true,
+                                                           showRelativeDate: true,
+                                                           slashFormatted: slashFormatted)
         }
         
-        return attributedEndString
+        return endDateString.attributedString(textColor: textColor)
     }
     
     // MARK: - Helpers

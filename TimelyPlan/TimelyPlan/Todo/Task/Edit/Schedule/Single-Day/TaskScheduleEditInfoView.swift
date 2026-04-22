@@ -20,8 +20,6 @@ class TaskScheduleEditInfoView: UIView {
                                                         normalColor: normalColor,
                                                         highlightedColor: normalColor,
                                                         overdueColor: overdueColor,
-                                                        badgeBaselineOffset: 6.0,
-                                                        badgeFont: UIFont.boldSystemFont(ofSize: 8.0),
                                                         imageSize: .size(4),
                                                         showRepeatCount: true,
                                                         separator: " • ")

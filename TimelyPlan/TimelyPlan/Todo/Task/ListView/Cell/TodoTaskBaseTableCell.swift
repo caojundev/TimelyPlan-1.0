@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TodoTaskBaseTableCell: UITableViewCell, Checkable {
+class TodoTaskBaseTableCell: UITableViewCell, FocusAnimatable, Checkable {
     
     weak var delegate: AnyObject?
 
@@ -102,5 +102,19 @@ class TodoTaskBaseTableCell: UITableViewCell, Checkable {
     
     func setChecked(_ checked: Bool, animated: Bool) {
         _isChecked = checked
+    }
+    
+    // MARK: - FocusAnimatable
+    
+    var focusCornerRadius: CGFloat {
+        return 12.0
+    }
+    
+    var focusPadding: UIEdgeInsets {
+        return UIEdgeInsets(value: 2.0)
+    }
+    
+    var focusLineWidth: CGFloat {
+        return 1.2
     }
 }

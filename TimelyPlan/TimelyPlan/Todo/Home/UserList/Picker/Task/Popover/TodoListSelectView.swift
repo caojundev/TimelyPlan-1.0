@@ -19,6 +19,13 @@ class TodoListSelectView: TPTableWrapperView,
     /// 选中列表回调
     var didSelectList: ((TodoListRepresentable?) -> Void)?
     
+    /// 用户列表改变
+    var userListDidChange: (() -> Void)? {
+        didSet {
+            userSectionController.userListDidChange = userListDidChange
+        }
+    }
+    
     /// 收件箱区块控制器
     private lazy var inboxSectionController: TodoListSelectInboxSectionController = {
         let sectionController = TodoListSelectInboxSectionController()

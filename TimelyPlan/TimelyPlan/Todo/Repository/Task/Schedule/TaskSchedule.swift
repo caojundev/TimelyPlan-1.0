@@ -65,8 +65,6 @@ struct TaskSchedule: Hashable, Equatable {
                         normalColor: UIColor = .secondaryLabel,
                         highlightedColor: UIColor = .primary,
                         overdueColor: UIColor = .redPrimary,
-                        badgeBaselineOffset: CGFloat = 4.0,
-                        badgeFont: UIFont = UIFont.boldSystemFont(ofSize: 6.0),
                         imageSize: CGSize = .size(3),
                         showRepeatCount: Bool = false,
                         separator: String = "") -> ASAttributedString? {
@@ -86,11 +84,8 @@ struct TaskSchedule: Hashable, Equatable {
         
         var attributedInfos = [ASAttributedString]()
         /// 日期
-        if let dateInfo = attributedDateInfo(isSlashFormattedDate: isSlashFormattedDate,
-                                             color: color,
-                                             badgeBaselineOffset: badgeBaselineOffset,
-                                             badgeFont: badgeFont) {
-            attributedInfos.append(dateInfo)
+        if let dateRangeInfo = attributedDateInfo(isSlashFormattedDate: isSlashFormattedDate, color: color) {
+            attributedInfos.append(dateRangeInfo)
         }
         
         /// 提醒
@@ -111,13 +106,9 @@ struct TaskSchedule: Hashable, Equatable {
     }
     
     func attributedDateInfo(isSlashFormattedDate: Bool = true,
-                            color: UIColor = .secondaryLabel,
-                            badgeBaselineOffset: CGFloat = 6.0,
-                            badgeFont: UIFont = UIFont.boldSystemFont(ofSize: 6.0)) -> ASAttributedString? {
+                            color: UIColor = .secondaryLabel) -> ASAttributedString? {
         return dateInfo?.attributedTitle(slashFormatted: isSlashFormattedDate,
-                                         textColor: color,
-                                         badgeBaselineOffset: badgeBaselineOffset,
-                                         badgeFont: badgeFont)
+                                         textColor: color)
     }
     
     /// 提醒富文本信息

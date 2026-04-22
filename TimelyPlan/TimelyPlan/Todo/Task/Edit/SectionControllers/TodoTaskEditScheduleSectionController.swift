@@ -122,9 +122,7 @@ class TodoTaskEditScheduleSectionController: TodoTaskEditBaseSectionController,
             dateCellItem.isActive = true
             
             let textColor: UIColor = dateCellItem.isOverdue ? .redPrimary : .primary
-            dateCellItem.title = dateInfo.attributedTitle(textColor: textColor,
-                                                                    badgeBaselineOffset: 8.0,
-                                                                    badgeFont: .boldSystemFont(ofSize: 8.0))
+            dateCellItem.title = dateInfo.attributedTitle(textColor: textColor)
         } else {
             dateCellItem.title = resGetString("Date")
             dateCellItem.isOverdue = false

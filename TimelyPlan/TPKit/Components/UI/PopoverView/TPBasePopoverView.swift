@@ -103,13 +103,15 @@ class TPBasePopoverView: UIView, TFPopoverContent {
     }
     
     /// 更新内容大小
-    func updateContentSizeIfNeeded() {
+    func updateContentSizeIfNeeded(animated: Bool = false) {
         DispatchQueue.main.async {
             let contentSize = self.popoverContentSize
-            if self.contentSize != contentSize {
-                self.contentSize = contentSize
-                self.setNeedsLayout()
+            guard self.contentSize != contentSize else {
+                return
             }
+            
+            self.contentSize = contentSize
+            self.updateFrame(animated: animated)
         }
     }
     

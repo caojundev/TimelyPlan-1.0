@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum TodoTaskListChange {
+    case create(TodoTask)
+}
+
 class TodoListInteractor: TodoTaskProcessorDelegate {
 
     /// 布局改变
@@ -16,7 +20,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     var didChangeListInfo: (() -> Void)?
     
     /// 分组改变
-    var didChangeGroups: (() -> Void)?
+    var didChangeGroups: ((TodoTaskListChange?) -> Void)?
 
     /// 当前分组数组
     var groups: [TodoGroup]?
@@ -90,10 +94,11 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     }
     
     // MARK: -
-    func loadGroups() {
+    func loadGroups(with change: TodoTaskListChange? = nil) {
         let requestID = requestManager.executeRequest()
         let groupType = self.state.validatedGroupType(for: self.configuration)
         let sort = self.state.validatedSort(for: self.configuration)
+        let change = change
         loadTasksIfNeeded { tasks in
             guard self.requestManager.shouldProceed(with: requestID) else {
                 return
@@ -109,7 +114,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
                     self.tasks = tasks
                     self.groups = groups
                     self.needsRefresh = false
-                    self.didChangeGroups?()
+                    self.didChangeGroups?(change)
                 }
             }
         }
@@ -179,7 +184,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     
     func didCreateTodoTask(_ task: TodoTask) {
         self.setNeedsRefresh()
-        self.loadGroups()
+        self.loadGroups(with: .create(task))
     }
     
     func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {

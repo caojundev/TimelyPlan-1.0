@@ -41,6 +41,10 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
             self?.updateContentSize()
         }
         
+        view.didEnterNameReturn = {
+            self?.enterNameReturn()
+        }
+        
         return view
     }()
     
@@ -158,6 +162,13 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
         if self.contentSize != contentSize {
             self.contentSize = contentSize
             self.setNeedsLayout()
+        }
+    }
+    
+    /// 点击名称回车键
+    private func enterNameReturn() {
+        if editTask.isValid {
+            delegate?.todoTaskQuickAddViewDidClickSend(self)
         }
     }
     

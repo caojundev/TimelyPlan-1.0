@@ -129,9 +129,7 @@ class TaskScheduleEditDateSectionController: TPTableItemSectionController,
     private func updateDurationCellItem() {
         if dateInfo.duration > 0 {
             let textColor = durationCellItem.activeColor
-            durationCellItem.title = dateInfo.attributedDurationEndDateString(textColor: textColor,
-                                                                                        badgeBaselineOffset: 8.0,
-                                                                                        badgeFont: .boldSystemFont(ofSize: 8.0))
+            durationCellItem.title = dateInfo.attributedDurationEndDateString(textColor: textColor)
             durationCellItem.isActive = true
         } else {
             durationCellItem.title = resGetString("Duration")

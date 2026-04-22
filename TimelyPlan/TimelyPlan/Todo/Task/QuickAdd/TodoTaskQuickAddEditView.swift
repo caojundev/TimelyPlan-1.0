@@ -55,6 +55,9 @@ class TodoTaskQuickAddEditView: UIScrollView,
     /// 内容尺寸改变回调
     var contentSizeDidChange: (() -> Void)?
     
+    /// 点击名称 return
+    var didEnterNameReturn: (() -> Void)?
+    
     /// 名称文本视图
     lazy var nameView: TPTextWrapperView = {
         let view = TPTextWrapperView(frame: .zero)
@@ -63,7 +66,7 @@ class TodoTaskQuickAddEditView: UIScrollView,
         view.isNewlineEnabled = false
         view.placeholder = resGetString("Add a Task")
         view.font = UIFont.preferredFont(forTextStyle: .title3).withBold()
-        view.textView.returnKeyType = .next
+        view.textView.returnKeyType = .done
         return view
     }()
     
@@ -152,6 +155,8 @@ class TodoTaskQuickAddEditView: UIScrollView,
     }
     
     func textWrapperViewDidEnterReturn(_ wrapperView: TPTextWrapperView) {
-        
+        if wrapperView == nameView {
+            didEnterNameReturn?()
+        }
     }
 }
