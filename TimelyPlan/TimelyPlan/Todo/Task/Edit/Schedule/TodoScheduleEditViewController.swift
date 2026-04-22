@@ -9,15 +9,15 @@ import Foundation
 import UIKit
 
 enum TodoScheduleType: Int, TPMenuRepresentable {
-    case singleDay   /// 单日
-    case multipleDays /// 多日
+    case singleDay /// 单日
+    case multiDay  /// 多日
     
     var title: String {
         switch self {
         case .singleDay:
-            return resGetString("Single Day")
-        case .multipleDays:
-            return resGetString("Multiple Days")
+            return resGetString("Single-Day")
+        case .multiDay:
+            return resGetString("Multi-Day")
         }
     }
 }
@@ -72,11 +72,19 @@ class TodoScheduleEditViewController: TPContainerViewController {
         return viewController
     }()
     
+    private var scheduleType: TodoScheduleType
+    
     private var schedule: TaskSchedule?
     
     init(schedule: TaskSchedule?) {
         self.showClearButton = schedule != nil
         self.schedule = schedule
+        if let dateInfo = schedule?.dateInfo, dateInfo.style == .multiDay {
+            self.scheduleType = .multiDay
+        } else {
+            self.scheduleType = .singleDay
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -115,7 +123,14 @@ class TodoScheduleEditViewController: TPContainerViewController {
     
     override func clickDone() {
         super.clickDone()
+        var schedule: TaskSchedule?
+        if scheduleType == .singleDay {
+            schedule = singleScheduleEditViewController.schedule
+        } else {
+            schedule = multipleScheduleEditViewController.schedule
+        }
         
+        didEndEditing?(schedule)
     }
     
     @objc private func clickClear() {
@@ -123,9 +138,7 @@ class TodoScheduleEditViewController: TPContainerViewController {
         dismiss(animated: true, completion: nil)
         didEndEditing?(nil)
     }
-    
-    private var scheduleType: TodoScheduleType = .singleDay
-    
+
     private func didSelectScheduleType(_ scheduleType: TodoScheduleType) {
         if self.scheduleType == scheduleType {
             return

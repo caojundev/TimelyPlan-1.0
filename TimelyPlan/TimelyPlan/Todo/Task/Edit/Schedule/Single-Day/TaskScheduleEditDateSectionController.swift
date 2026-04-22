@@ -158,17 +158,17 @@ class TaskScheduleEditDateSectionController: TPTableItemSectionController,
     
     /// 选中时间
     private func didPickTime(_ date: Date) {
-        let calculator = TodoSingleDateInfoCalculator(dateInfo: self.dateInfo)
-        calculator.setSpecificTime(date: date, editType: .start)
-        self.dateInfo = calculator.dateInfo
+        let editor = TodoSingleDateInfoEditor(dateInfo: self.dateInfo)
+        editor.setSpecificTime(date: date, editType: .start)
+        self.dateInfo = editor.dateInfo
         dateInfoChanged()
     }
     
     /// 删除具体时间
     private func clearSpecificTime() {
-        let calculator = TodoSingleDateInfoCalculator(dateInfo: self.dateInfo)
-        calculator.clearSpecificTime()
-        self.dateInfo = calculator.dateInfo
+        let editor = TodoSingleDateInfoEditor(dateInfo: self.dateInfo)
+        editor.clearSpecificTime()
+        self.dateInfo = editor.dateInfo
         dateInfoChanged()
     }
     
@@ -185,17 +185,17 @@ class TaskScheduleEditDateSectionController: TPTableItemSectionController,
     }
     
     private func selectDuration(_ duration: Duration?) {
-        let calculator = TodoSingleDateInfoCalculator(dateInfo: self.dateInfo)
+        let editor = TodoSingleDateInfoEditor(dateInfo: self.dateInfo)
         guard let duration = duration else {
-            calculator.clearDuration()
-            self.dateInfo = calculator.dateInfo
+            editor.clearDuration()
+            self.dateInfo = editor.dateInfo
             dateInfoChanged()
             return
         }
 
         if dateInfo.duration != duration {
-            calculator.setDuration(duration)
-            self.dateInfo = calculator.dateInfo
+            editor.setDuration(duration)
+            self.dateInfo = editor.dateInfo
             dateInfoChanged()
         }
     }
@@ -206,9 +206,9 @@ class TaskScheduleEditDateSectionController: TPTableItemSectionController,
             return
         }
         
-        let calculator = TodoSingleDateInfoCalculator(dateInfo: self.dateInfo)
-        calculator.setDate(selectedDate, editType: .start)
-        self.dateInfo = calculator.dateInfo
+        let editor = TodoSingleDateInfoEditor(dateInfo: self.dateInfo)
+        editor.setDate(selectedDate, editType: .start)
+        self.dateInfo = editor.dateInfo
         
         updateCalendarSpanningIndicator()
         dateInfoChanged()

@@ -35,9 +35,9 @@ class TodoMultiDayScheduleEditSectionController: TPTableItemSectionController,
         }
         
         set {
-            let calculator = TodoMultiDateInfoCalculator(dateInfo: self.dateInfo)
-            calculator.setDate(newValue, editType: editType)
-            self.dateInfo = calculator.dateInfo
+            let editor = TodoMultiDateInfoEditor(dateInfo: self.dateInfo)
+            editor.setDate(newValue, editType: editType)
+            self.dateInfo = editor.dateInfo
         }
     }
     
@@ -120,7 +120,7 @@ class TodoMultiDayScheduleEditSectionController: TPTableItemSectionController,
     /// 编辑时间
     private func editTime() {
         let timePicker = TPTimePickerViewController()
-        var editDate = dateInfo.startDate
+        var editDate = currentDate
         if dateInfo.isAllDay {
             editDate = .now
         }
@@ -135,17 +135,17 @@ class TodoMultiDayScheduleEditSectionController: TPTableItemSectionController,
     
     /// 选中时间
     private func didPickTime(_ date: Date) {
-        let calculator = TodoMultiDateInfoCalculator(dateInfo: self.dateInfo)
-        calculator.setSpecificTime(date: date, editType: editType)
-        self.dateInfo = calculator.dateInfo
+        let editor = TodoMultiDateInfoEditor(dateInfo: self.dateInfo)
+        editor.setSpecificTime(date: date, editType: editType)
+        self.dateInfo = editor.dateInfo
         dateInfoChanged()
     }
 
     /// 删除具体时间
     private func clearSpecificTime() {
-        let calculator = TodoMultiDateInfoCalculator(dateInfo: self.dateInfo)
-        calculator.clearSpecificTime()
-        self.dateInfo = calculator.dateInfo
+        let editor = TodoMultiDateInfoEditor(dateInfo: self.dateInfo)
+        editor.clearSpecificTime()
+        self.dateInfo = editor.dateInfo
         dateInfoChanged()
     }
     

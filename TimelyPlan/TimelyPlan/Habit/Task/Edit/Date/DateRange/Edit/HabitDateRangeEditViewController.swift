@@ -17,8 +17,8 @@ class HabitDateRangeEditViewController: TPTableSectionsViewController,
     /// 结束编辑
     var didEndEditing: ((DateRange) -> Void)?
     
-    lazy var dateRangeSegmentedView: HabitDateRangeSegmentedView = {
-        let view = HabitDateRangeSegmentedView()
+    lazy var dateRangeSegmentedView: TPDateRangeSegmentedView = {
+        let view = TPDateRangeSegmentedView()
         view.clipsToBounds = true
         view.didClickDelete = { [weak self] editType in
             self?.sectionController.deleteDate(editType: editType)

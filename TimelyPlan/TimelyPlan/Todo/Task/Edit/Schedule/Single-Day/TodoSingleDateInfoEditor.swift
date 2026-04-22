@@ -1,5 +1,5 @@
 //
-//  TodoSingleDateInfoCalculator.swift
+//  TodoSingleDateInfoEditor.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/4/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TodoSingleDateInfoCalculator {
+class TodoSingleDateInfoEditor {
     
     private(set) var dateInfo: TaskDateInfo
     

@@ -1,14 +1,14 @@
 //
-//  HabitDateRangeSegmentedView.swift
+//  TPDateRangeSegmentedView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2024/1/13.
+//  Created by caojun on 2026/4/22.
 //
 
 import Foundation
 import UIKit
 
-class HabitDateRangeSegmentedView: UIView {
+class TPDateRangeSegmentedView: UIView {
     
     /// 编辑类型
     var editType: DateRangeEditType = .end {
@@ -37,8 +37,8 @@ class HabitDateRangeSegmentedView: UIView {
     private let arrowWidth = 20.0
 
     /// 开始日期
-    lazy var startDateButton: HabitDateRangeSegmentedButton = {
-        let button = HabitDateRangeSegmentedButton(style: .start)
+    lazy var startDateButton: TPDateRangeSegmentedButton = {
+        let button = TPDateRangeSegmentedButton(style: .start)
         button.addTarget(self, action: #selector(clickStart(_:)), for: .touchUpInside)
         button.didClickDelete = { [weak self] in
             self?.didClickDelete?(.start)
@@ -48,8 +48,8 @@ class HabitDateRangeSegmentedView: UIView {
     }()
     
     /// 截止日期
-    lazy var endDateButton: HabitDateRangeSegmentedButton = {
-        let button = HabitDateRangeSegmentedButton(style: .end)
+    lazy var endDateButton: TPDateRangeSegmentedButton = {
+        let button = TPDateRangeSegmentedButton(style: .end)
         button.didClickDelete = { [weak self] in
             self?.didClickDelete?(.end)
         }
@@ -87,10 +87,25 @@ class HabitDateRangeSegmentedView: UIView {
         return false
     }
     
+    func startDateTitle() -> String? {
+        return dateRange.startDateText()
+    }
+    
+    func startDateSubitle() -> String? {
+        return dateRange.startDateDescription()
+    }
+    
     func canDeleteEndDate() -> Bool {
         return dateRange.endDate != nil
     }
     
+    func endDateTitle() -> String? {
+        return dateRange.endDateText()
+    }
+    
+    func endDateSubitle() -> String? {
+        return dateRange.lastsCountDescription()
+    }
     
     /// 更新选中按钮
     private func updateSelectedButton() {
@@ -99,13 +114,13 @@ class HabitDateRangeSegmentedView: UIView {
     }
     
     /// 更新日期
-    private func updateDate() {
-        startDateButton.dateText = dateRange.startDateText()
-        startDateButton.dateDescription = dateRange.startDateDescription()
+    func updateDate() {
+        startDateButton.dateText = startDateTitle()
+        startDateButton.dateDescription = startDateSubitle()
         startDateButton.showDelete = canDeleteStartDate()
         
-        endDateButton.dateText = dateRange.endDateText()
-        endDateButton.dateDescription = dateRange.lastsCountDescription()
+        endDateButton.dateText = endDateTitle()
+        endDateButton.dateDescription = endDateSubitle()
         endDateButton.showDelete = canDeleteEndDate()
         setNeedsLayout()
     }
@@ -128,7 +143,7 @@ class HabitDateRangeSegmentedView: UIView {
     }
 }
 
-class HabitDateRangeSegmentedButton: UIButton {
+class TPDateRangeSegmentedButton: UIButton {
     
     enum Style {
         case start
@@ -184,8 +199,8 @@ class HabitDateRangeSegmentedButton: UIButton {
     }()
     
     /// 信息视图
-    private var infoView: HabitDateRangeInfoView = {
-        let view = HabitDateRangeInfoView()
+    private var infoView: TPDateRangeInfoView = {
+        let view = TPDateRangeInfoView()
         view.headerLabel.alpha = 0.6
         view.detailView.subtitleLabel.alpha = 0.8
         view.padding = UIEdgeInsets(top:5.0, left: 15.0, bottom: 5.0, right: 5.0)
@@ -205,12 +220,12 @@ class HabitDateRangeSegmentedButton: UIButton {
         self.addSubview(deleteButton)
         var backgroundImage: UIImage?
         if style == .start {
-            let image = resGetImage("habit_dateRange_background_start")
+            let image = resGetImage("dateRange_background_start")
             backgroundImage = image?.stretchableImage(withLeftCapWidth: 20, topCapHeight: 50)
             self.padding = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 25.0)
             self.infoView.headerLabel.text = resGetString("Start Date")
         } else {
-            let image = resGetImage("habit_dateRange_background_end")
+            let image = resGetImage("dateRange_background_end")
             backgroundImage = image?.stretchableImage(withLeftCapWidth: 30, topCapHeight: 50)
             self.padding = UIEdgeInsets(top: 5.0, left: 25.0, bottom: 5.0, right: 10.0)
             self.infoView.headerLabel.text = resGetString("End Date")

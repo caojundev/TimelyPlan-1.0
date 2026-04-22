@@ -10,9 +10,41 @@ import UIKit
 
 class TodoMultiDayScheduleDateRangeView: UIView {
     
-    let segmentedViewHeight = 80.0
+    /// 编辑类型
+    var editType: DateRangeEditType {
+        get {
+            return segmentedView.editType
+        }
+        
+        set {
+            segmentedView.editType = newValue
+        }
+    }
     
-    private(set) lazy var segmentedView: TodoScheduleDateSegmentedView = {
+    var dateInfo: TaskDateInfo? {
+        get {
+            return segmentedView.dateInfo
+        }
+        
+        set {
+            segmentedView.dateInfo = newValue
+        }
+    }
+    
+    /// 选中编辑类型回调
+    var didSelectEditType: ((DateRangeEditType) -> Void)? {
+        get {
+            return segmentedView.didSelectEditType
+        }
+        
+        set {
+            segmentedView.didSelectEditType = newValue
+        }
+    }
+    
+    private let segmentedViewHeight = 80.0
+    
+    private lazy var segmentedView: TodoScheduleDateSegmentedView = {
         let view = TodoScheduleDateSegmentedView()
         view.clipsToBounds = true
         return view
@@ -42,7 +74,15 @@ class TodoMultiDayScheduleDateRangeView: UIView {
     
 }
 
-class TodoScheduleDateSegmentedView: HabitDateRangeSegmentedView {
+class TodoScheduleDateSegmentedView: TPDateRangeSegmentedView {
+    
+    var dateInfo: TaskDateInfo? {
+        didSet {
+            if let dateRange = dateInfo?.dateRange {
+                self.dateRange = dateRange
+            }
+        }
+    }
     
     override func canDeleteStartDate() -> Bool {
         return false
@@ -52,4 +92,35 @@ class TodoScheduleDateSegmentedView: HabitDateRangeSegmentedView {
         return false
     }
     
+    override func startDateSubitle() -> String? {
+        guard let dateInfo = dateInfo else {
+            return nil
+        }
+
+        var subtitles = [String]()
+        if dateInfo.isAllDay {
+            subtitles.append(resGetString("All-Day"))
+        } else {
+            subtitles.append(dateInfo.startDate.timeString)
+        }
+        
+        subtitles.append(dateInfo.dateRange.startDateDescription())
+        return subtitles.joined(separator: " • ")
+    }
+    
+    override func endDateSubitle() -> String? {
+        guard let dateInfo = dateInfo else {
+            return nil
+        }
+
+        var subtitles = [String]()
+        if dateInfo.isAllDay {
+            subtitles.append(resGetString("All-Day"))
+        } else {
+            subtitles.append(dateInfo.endDate.timeString)
+        }
+        
+        subtitles.append(dateInfo.dateRange.lastsCountDescription())
+        return subtitles.joined(separator: " • ")
+    }
 }

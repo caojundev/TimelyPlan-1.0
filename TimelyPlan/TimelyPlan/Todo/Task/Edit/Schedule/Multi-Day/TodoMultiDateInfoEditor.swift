@@ -1,5 +1,5 @@
 //
-//  TodoMultiDateInfoCalculator.swift
+//  TodoMultiDateInfoEditor.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/4/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TodoMultiDateInfoCalculator {
+class TodoMultiDateInfoEditor {
     
     private(set) var dateInfo: TaskDateInfo
     
@@ -75,13 +75,19 @@ class TodoMultiDateInfoCalculator {
     func setSpecificTime(date: Date, editType: DateRangeEditType) {
         var startDate = dateInfo.startDate
         var endDate = dateInfo.endDate
+        var isAllDay = dateInfo.isAllDay
+        if isAllDay {
+            isAllDay = false
+            startDate = startDate.date(withHour: 9, minute: 0)!
+            endDate = endDate.date(withHour: 18, minute: 0)!
+        }
+        
         if editType == .start {
             startDate = startDate.dateByReplacingTime(with: date)
         } else {
             endDate = endDate.dateByReplacingTime(with: date)
         }
         
-        let isAllDay = dateInfo.isAllDay
         self.dateInfo = TaskDateInfo(startDate: startDate, endDate: endDate, isAllDay: isAllDay)
     }
     

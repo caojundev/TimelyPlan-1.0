@@ -18,16 +18,12 @@ class TodoMultipleScheduleEditViewController: TPTableSectionsViewController,
     private let dateRangeViewHeight = 110.0
     lazy var dateRangeView: TodoMultiDayScheduleDateRangeView = {
         let view = TodoMultiDayScheduleDateRangeView()
-        view.segmentedView.didSelectEditType = { [weak self] editType in
+        view.didSelectEditType = { [weak self] editType in
             self?.selectDateEditType(editType)
         }
 
         return view
     }()
-    
-    var dateRangeSegmentedView: HabitDateRangeSegmentedView {
-        return dateRangeView.segmentedView
-    }
     
     /// 日期区块
     lazy var dateSectionController: TodoMultiDayScheduleEditSectionController = {
@@ -118,8 +114,8 @@ class TodoMultipleScheduleEditViewController: TPTableSectionsViewController,
     
     /// 更新日期范围视图
     private func reloadDateRangeView() {
-        dateRangeSegmentedView.editType = dateSectionController.editType
-        dateRangeSegmentedView.dateRange = dateSectionController.dateInfo.dateRange
+        dateRangeView.editType = dateSectionController.editType
+        dateRangeView.dateInfo = dateSectionController.dateInfo
     }
     
     

@@ -170,6 +170,9 @@
 "Created %@" = "创建于 %@";
 "Completed %@" = "完成于 %@";
 
+"Single-Day" = "单日";
+"Multi-Day" = "多日";
+
 /// 设置
 "Quick Add" = "快速添加";
 "Add Continuously" = "连续添加";
@@ -203,6 +206,7 @@
 "Default Countdown" = "默认倒计时";
 "Default Stopwatch" = "默认正计时";
 "Custom Timer" = "自定义计时器";
+"Select Task" = "选择任务";
 
 /// 占位文本
 "Tap + to create a new timer" = "点击+创建新计时器";
@@ -386,12 +390,6 @@
 "words" = "词";
 "percent" = "%";
 
-/// 时间
-"Anytime" = "随时";
-"Morning" = "早晨";
-"Afternoon" = "下午";
-"Evening" = "晚上";
-
 /// 任务菜单
 "Reset Today"= "重置今日";
 "Mark As Fail" = "标为失败";
@@ -540,6 +538,9 @@
 "Week Start On" = "周开始于";
 
 ///**********************通用*********************///
+"Statistics" = "统计";
+"Custom" = "自定义";
+"None" = "无";
 "More" = "更多";
 "Confirm" = "确认";
 "Done" = "完成";
@@ -604,15 +605,63 @@
 "M" = "分钟";
 "S" = "秒";
 
+/// 时间
+"Anytime" = "随时";
+"Morning" = "早晨";
+"Afternoon" = "下午";
+"Evening" = "晚上";
+"Noon" = "中午";
+"Dusk" = "傍晚";
+"Midnight" = "凌晨";
+"Now" = "现在";
+
 ///**********************计划**********************///
 "End Date" = "结束日期";
 "Lasts:" = "持续:";
 "All Day" = "全天";
-"Reminder" = "提醒";
+"All-Day" = "全天";
 
+"Reminder" = "提醒";
+"Start Reminder" = "开始提醒";
+"End Reminder" = "结束提醒";
+"Start: %@" = "开始: %@";
+"Due: %@" = "截止: %@";
 "Start %@" = "%@开始";
 "Due %@" = "%@截止";
 
+"On the day" = "当日";
+"On time" = "准时";
+"Early" = "提前";
+
+"%@ early" = "%@前";
+"%@ later" = "%@后";
+"%ld days early" = "提前%ld天";
+"%ld day early" = "提前%ld天";
+"%ld weeks early" = "提前%ld周";
+"%ld week early" = "提前%ld周";
+"%@ early" = "提前%@";
+
+/// 时间
+"Time" = "时间";
+"Duration" = "持续时间";
+"%ldd" = "%ld天";
+"%ldh%ldm" = "%ld小时%ld分钟";
+"%ldh" = "%ld小时";
+"%ldm" = "%ld分钟";
+"%lds" = "%ld秒";
+"Hour" = "小时";
+"Hours" = "小时";
+"Min" = "分钟";
+"Mins" = "分钟";
+"Minute" = "分钟";
+"Minutes" = "分钟";
+
+/// 日期范围
+"%ld days before" = "%ld天前";
+"%ld day before" = "%ld天前";
+"%ld days later" = "%ld天后";
+"%ld weeks before" = "%ld周前";
+"%ld week before" = "%ld周前";
 
 /// 重复
 "Repeat" = "重复";
@@ -690,7 +739,13 @@
 "in %@" = "在%@";
 "%@ after completion" = "完成后%@";
 
+"End" = "结束";
 "Never End" = "永不结束";
 "Never" = "永不";
 "%ld repeat" = "%ld 次重复";
 "%ld repeats" = "%ld 次重复";
+
+"Time(count)" = "次";
+"Times(count)" = "次";
+"time(count)" = "次";
+"times(count)" = "次";
