@@ -68,6 +68,9 @@ class TodoHomeHeaderSectionController: TPTableItemSectionController,
         self.cellItem.imageName = sectionType.iconName
         self.cellItem.imageConfig.color = sectionType.iconColor
         self.cellItems = [cellItem]
+        self.headerItem = separatorHeaderFooterItem(lineHeight: 0.8,
+                                                    lineColor: Color(0x888888, 0.1),
+                                                    backgroundColor: .systemBackground)
     }
     
     func setExpanded(_ isExpanded: Bool) {

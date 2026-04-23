@@ -25,25 +25,24 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         return sectionController
     }()
     
-    private(set) var isExpanded: Bool = true
-    
     var didSelectTag: ((TodoTag) -> Void)?
     
-    private let viewModel = TodoUserTagViewModel()
-    
+    private let viewModel = TodoHomeUserTagViewModel()
+
+    /// 标签管理器
+    private let tagController = TodoTagController()
+
     override var items: [ListDiffable]? {
-        guard isExpanded else {
+        guard viewModel.isExpanded else {
             return nil
         }
 
         return viewModel.tags
     }
     
-    /// 标签管理器
-    private let tagController = TodoTagController()
-    
     override init() {
         super.init()
+        self.headerSectionController.setExpanded(self.viewModel.isExpanded)
         self.viewModel.tagsDidChange = { [weak self] change in
             self?.tagsDidChange(with: change)
         }
@@ -74,7 +73,7 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         switch change {
         case .create(let tag):
             /// 展开标签
-            if !isExpanded {
+            if !viewModel.isExpanded {
                 headerSectionController.setExpanded(true)
                 setExpanded(true)
             }
@@ -96,11 +95,11 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
     
     // MARK: - 展开 / 收起
     func setExpanded(_ isExpanded: Bool) {
-        guard self.isExpanded != isExpanded else {
+        guard viewModel.isExpanded != isExpanded else {
             return
         }
         
-        self.isExpanded = isExpanded
+        viewModel.isExpanded = isExpanded
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     

@@ -12,6 +12,20 @@ enum TodoFilterChange {
     case update(TodoFilter)
 }
 
+class TodoHomeFilterViewModel: TodoFilterViewModel {
+    
+    /// 区块是否展开
+    var isExpanded: Bool {
+        get {
+            return TodoState.shared.isHomeFilterExpanded
+        }
+        
+        set {
+            TodoState.shared.isHomeFilterExpanded = newValue
+        }
+    }
+}
+
 class TodoFilterViewModel: TodoBaseListViewModel {
     
     /// 数目改变

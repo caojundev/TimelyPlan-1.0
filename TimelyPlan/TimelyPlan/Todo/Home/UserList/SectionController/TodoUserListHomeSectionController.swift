@@ -23,21 +23,20 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         
         return sectionController
     }()
-    
-    private(set) var isExpanded: Bool = true
-    
+
     /// 列表管理器
     private var listController = TodoUserListController()
     
     private let expansionState: TodoHomeUserListExpansionState
     
-    private let viewModel: TodoUserListViewModel
-    
+    private let viewModel: TodoHomeUserListViewModel
+
     override init() {
         let expansionState = TodoHomeUserListExpansionState()
         self.expansionState = expansionState
-        self.viewModel = TodoUserListViewModel(expansionState: expansionState)
+        self.viewModel = TodoHomeUserListViewModel(expansionState: expansionState)
         super.init()
+        self.headerSectionController.setExpanded(self.viewModel.isExpanded)
         self.viewModel.userListDidChange = { [weak self] change in
             self?.userListChanged(change)
         }
@@ -61,7 +60,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         var list: TodoList?
         switch change {
         case .create(let todoList):
-            if !isExpanded {
+            if !viewModel.isExpanded {
                 setExpanded(true)
                 headerSectionController.setExpanded(true)
             }
@@ -88,11 +87,11 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     }
     
     func setExpanded(_ isExpanded: Bool) {
-        guard self.isExpanded != isExpanded else {
+        guard viewModel.isExpanded != isExpanded else {
             return
         }
         
-        self.isExpanded = isExpanded
+        viewModel.isExpanded = isExpanded
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
@@ -102,7 +101,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     
     // MARK: - Delegate
     override var items: [ListDiffable]? {
-        guard isExpanded else {
+        guard self.viewModel.isExpanded else {
             return nil
         }
 

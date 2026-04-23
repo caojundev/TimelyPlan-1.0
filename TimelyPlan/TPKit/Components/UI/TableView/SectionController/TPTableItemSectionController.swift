@@ -122,12 +122,21 @@ class TPTableItemSectionController: TPTableBaseSectionController,
     func setupSeparatorFooterItem(lineHeight: CGFloat = 1.0,
                                   lineColor: UIColor = Color(0x888888, 0.1),
                                   backgroundColor: UIColor = .clear) {
-        let footerItem = TPSeparatorTableHeaderFooterItem()
-        footerItem.height = 1.0
-        footerItem.lineHeight = lineHeight
-        footerItem.lineColor = lineColor
-        footerItem.backgroundColor = backgroundColor
+        let footerItem = separatorHeaderFooterItem(lineHeight: lineHeight,
+                                                   lineColor: lineColor,
+                                                   backgroundColor: backgroundColor)
         self.footerItem = footerItem
+    }
+    
+    func separatorHeaderFooterItem(lineHeight: CGFloat = 1.0,
+                                        lineColor: UIColor = Color(0x888888, 0.1),
+                                        backgroundColor: UIColor = .clear) -> TPDefaultInfoTableHeaderFooterItem {
+        let item = TPSeparatorTableHeaderFooterItem()
+        item.height = 1.0
+        item.lineHeight = lineHeight
+        item.lineColor = lineColor
+        item.backgroundColor = backgroundColor
+        return item
     }
     
     // MARK: - TPTextViewTableCellDelegate

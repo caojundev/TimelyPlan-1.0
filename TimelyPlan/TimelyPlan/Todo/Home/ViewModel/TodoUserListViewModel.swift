@@ -12,6 +12,21 @@ case create(TodoList) /// 创建新列表
 case update(TodoList) /// 更新列表
 }
 
+class TodoHomeUserListViewModel: TodoUserListViewModel {
+    
+    /// 区块是否展开
+    var isExpanded: Bool {
+        get {
+            return TodoState.shared.isHomeListExpanded
+        }
+        
+        set {
+            TodoState.shared.isHomeListExpanded = newValue
+        }
+    }
+    
+}
+
 class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     
     /// 数目改变
@@ -36,7 +51,7 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
         self.loadTopLists()
         todo.addUpdater(self)
     }
-
+    
     func setNeedsRefresh() {
         self.needsRefresh = true
     }

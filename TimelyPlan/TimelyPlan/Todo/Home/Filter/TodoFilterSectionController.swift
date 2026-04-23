@@ -24,15 +24,13 @@ class TodoFilterSectionController: TPTableBaseSectionController,
         
         return sectionController
     }()
-    
-    private(set) var isExpanded: Bool = true
-    
+
     var didSelectFilter: ((TodoFilter) -> Void)?
     
-    private let viewModel = TodoFilterViewModel()
+    private let viewModel = TodoHomeFilterViewModel()
     
     override var items: [ListDiffable]? {
-        guard isExpanded else {
+        guard viewModel.isExpanded else {
             return nil
         }
 
@@ -44,6 +42,7 @@ class TodoFilterSectionController: TPTableBaseSectionController,
     
     override init() {
         super.init()
+        self.headerSectionController.setExpanded(self.viewModel.isExpanded)
         self.viewModel.filtersDidChange = { [weak self] change in
             self?.filtersDidChange(with: change)
         }
@@ -73,7 +72,7 @@ class TodoFilterSectionController: TPTableBaseSectionController,
         var animateFilter: TodoFilter?
         switch change {
         case .create(let filter):
-            if !isExpanded {
+            if !viewModel.isExpanded {
                 /// 展开过滤器
                 headerSectionController.setExpanded(true)
                 setExpanded(true)
@@ -96,11 +95,11 @@ class TodoFilterSectionController: TPTableBaseSectionController,
     
     // MARK: - 展开 / 收起
     func setExpanded(_ isExpanded: Bool) {
-        guard self.isExpanded != isExpanded else {
+        guard viewModel.isExpanded != isExpanded else {
             return
         }
         
-        self.isExpanded = isExpanded
+        viewModel.isExpanded = isExpanded
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     

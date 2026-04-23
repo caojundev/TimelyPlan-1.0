@@ -12,6 +12,20 @@ enum TodoUserTagChange {
     case update(TodoTag)
 }
 
+class TodoHomeUserTagViewModel: TodoUserTagViewModel {
+    
+    /// 区块是否展开
+    var isExpanded: Bool {
+        get {
+            return TodoState.shared.isHomeTagExpanded
+        }
+        
+        set {
+            TodoState.shared.isHomeTagExpanded = newValue
+        }
+    }
+}
+
 class TodoUserTagViewModel: TodoBaseListViewModel {
     
     /// 数目改变
