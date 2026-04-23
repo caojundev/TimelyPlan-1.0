@@ -43,8 +43,9 @@ class KeyValueStorage {
     }
     
     func value<T: Decodable>(forKey key: String) -> T? {
-        if let value = valueDic[key] as? T {
-            return value
+        let value = valueDic[key]
+        if value != nil, let result = value as? T {
+            return result
         }
         
         let store = store(forKey: key)

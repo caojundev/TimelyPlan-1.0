@@ -178,6 +178,10 @@
 "Multi-Day" = "多日";
 
 /// 设置
+"Display" = "显示";
+"Home" = "主页";
+"Home Display" = "主页显示";
+
 "Quick Add" = "快速添加";
 "Add Continuously" = "连续添加";
 "Continuous adding enabled"  = "连续添加已开启";

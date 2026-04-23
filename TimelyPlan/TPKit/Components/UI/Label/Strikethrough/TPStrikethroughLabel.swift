@@ -18,22 +18,38 @@ class TPStrikethroughLabel: UILabel {
         }
     }
     
-    var normalTextColor: UIColor = Color(light: 0x232323,
-                                         dark: 0xFEFEFF,
-                                         alpha: 1.0) {
+    var normalTextColor: UIColor = Color(light: 0x232323, dark: 0xFEFEFF, alpha: 1.0) {
         didSet {
             setNeedsLayout()
         }
     }
     
-    var strikethroughColor: UIColor = Color(light: 0x121212,
-                                            dark: 0xFEFEFE,
-                                            alpha: 0.8) {
+    var strikethroughTextColor: UIColor? {
         didSet {
             setNeedsLayout()
         }
     }
     
+    var strikethroughColor: UIColor = Color(light: 0x121212, dark: 0xFEFEFE, alpha: 0.8) {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    /// 线条宽度
+    var strikethroughLineWidth: CGFloat {
+        get {
+            return strikethroughLayer.lineWidth
+        }
+        
+        set {
+            strikethroughLayer.lineWidth = newValue
+        }
+    }
+    
+    var normalAlpha: CGFloat = 1.0
+    
+    var strikethroughAlpha: CGFloat = 0.8
     
     private var duration: TimeInterval {
         let count = self.text?.count ?? 0
@@ -45,7 +61,7 @@ class TPStrikethroughLabel: UILabel {
     private lazy var strikethroughLayer: CAShapeLayer = {
         let strikethroughLayer = CAShapeLayer()
         strikethroughLayer.fillColor = UIColor.clear.cgColor
-        strikethroughLayer.lineWidth = 1.2
+        strikethroughLayer.lineWidth = 1.4
         strikethroughLayer.strokeEnd = 0.0
         return strikethroughLayer
     }()
@@ -79,12 +95,14 @@ class TPStrikethroughLabel: UILabel {
             CATransaction.setAnimationDuration(duration)
             CATransaction.setCompletionBlock(completion)
             strikethroughLayer.strokeEnd = strokeEnd
+            updateAlpha()
             CATransaction.commit()
         } else {
             strikethroughLayer.removeAllAnimations()
             CATransaction.begin()
             CATransaction.setDisableActions(true)
             strikethroughLayer.strokeEnd = strokeEnd
+            updateAlpha()
             CATransaction.commit()
             completion?()
         }
@@ -102,17 +120,26 @@ class TPStrikethroughLabel: UILabel {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
         strikethroughLayer.strokeColor = strikethroughColor.cgColor
         strikethroughLayer.frame = bounds
         updateStrikethroughLayerPath()
         updateTextColor()
+        updateAlpha()
     }
 
     private func updateTextColor() {
-        self.textColor = isStrikethrough ? strikethroughColor : normalTextColor
+        var textColor = isStrikethrough ? strikethroughTextColor : normalTextColor
+        if textColor == nil {
+            textColor = normalTextColor
+        }
+        
+        self.textColor = textColor
     }
-     
+    
+    private func updateAlpha() {
+        self.alpha = isStrikethrough ? strikethroughAlpha : normalAlpha
+    }
+    
     private func updateStrikethroughLayerPath() {
         guard isStrikethrough else {
             strikethroughLayer.path = nil

@@ -18,7 +18,8 @@ enum TodoHomeSection: String {
 
 class TodoHomeViewController: TPTableViewController,
                               TPTableSectionControllersList,
-                              TPSidebarContent {
+                              TPSidebarContent,
+                              SettingAgentObserver {
     /// 侧边栏控制器
     var sidebarController: SidebarController?
     
@@ -144,8 +145,18 @@ class TodoHomeViewController: TPTableViewController,
         self.adapter.dataSource = self
         self.adapter.delegate = self
         self.adapter.reloadData()
+        
+        TodoSetting.shared.addObserver(self, forKey: .homeSectionTypes)
     }
 
+    // MARK: - SettingAgentObserver
+    func settingAgentDidChangeValue(for keyName: String) {
+        if keyName == TodoSetting.Key.homeSectionTypes.name {
+            self.setupSectionControllers()
+            self.adapter.performUpdate()
+        }
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let layoutFrame = view.safeAreaFrame()
@@ -170,18 +181,23 @@ class TodoHomeViewController: TPTableViewController,
     
     // MARK: - 初始化
     private func setupSectionControllers() {
-        let sectionControllers = [smartListSectionController,
-                                  
-                                  userListHeaderSectionController,
-                                  userListSectionController,
-                                  
-                                  tagHeaderSectionController,
-                                  tagSectionController,
-                                  
-                                  filterHeaderSectionController,
-                                  filterSectionController,
-                                  
-                                  trashSectionController]
+        var sectionControllers: [TPTableBaseSectionController] = [smartListSectionController]
+        let sectionTypes = TodoSetting.shared.orderedHomeSectionTypes
+        for sectionType in sectionTypes {
+            switch sectionType {
+            case .list:
+                sectionControllers.append(userListHeaderSectionController)
+                sectionControllers.append(userListSectionController)
+            case .tag:
+                sectionControllers.append(tagHeaderSectionController)
+                sectionControllers.append(tagSectionController)
+            case .filter:
+                sectionControllers.append(filterHeaderSectionController)
+                sectionControllers.append(filterSectionController)
+            }
+        }
+        
+        sectionControllers.append(trashSectionController)
         self.sectionControllers = sectionControllers
     }
     

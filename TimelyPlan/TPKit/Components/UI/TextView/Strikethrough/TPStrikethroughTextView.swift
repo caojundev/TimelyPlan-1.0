@@ -8,23 +8,23 @@
 import Foundation
 
 class TPStrikethroughTextView: TPTextView {
+        
+    var normalAlpha: CGFloat = 1.0
     
-    var normalTextColor: UIColor = Color(light: 0x232323,
-                                         dark: 0xFEFEFF,
-                                         alpha: 1.0) {
+    var strikethroughAlpha: CGFloat = 0.8
+
+    var normalTextColor: UIColor = Color(light: 0x232323, dark: 0xFEFEFF, alpha: 1.0) {
         didSet {
             setNeedsLayout()
         }
     }
     
-    var strikethroughColor: UIColor = Color(light: 0x121212,
-                                            dark: 0xFEFEFE,
-                                            alpha: 0.8) {
+    var strikethroughTextColor: UIColor? {
         didSet {
             setNeedsLayout()
         }
     }
-    
+
     var strikethroughLineColor: UIColor = Color(light: 0x121212,
                                                 dark: 0xFEFEFE,
                                                 alpha: 0.8) {
@@ -53,7 +53,7 @@ class TPStrikethroughTextView: TPTextView {
     private lazy var strikethroughLayer: CAShapeLayer = {
         let strikethroughLayer = CAShapeLayer()
         strikethroughLayer.fillColor = UIColor.clear.cgColor
-        strikethroughLayer.lineWidth = 1.5
+        strikethroughLayer.lineWidth = 1.4
         strikethroughLayer.strokeEnd = 0.0
         return strikethroughLayer
     }()
@@ -69,7 +69,9 @@ class TPStrikethroughTextView: TPTextView {
         }
     }
     
-    func setStrikethrough(_ isStrikethrough: Bool, animated: Bool) {
+    func setStrikethrough(_ isStrikethrough: Bool,
+                          animated: Bool,
+                          completion: (() -> Void)? = nil) {
         _isStrikethrough = isStrikethrough
         /// 更新文本颜色
         self.updateTextColor()
@@ -81,14 +83,18 @@ class TPStrikethroughTextView: TPTextView {
         if animated {
             CATransaction.begin()
             CATransaction.setAnimationDuration(duration)
+            CATransaction.setCompletionBlock(completion)
             strikethroughLayer.strokeEnd = strokeEnd
+            updateAlpha()
             CATransaction.commit()
         } else {
             strikethroughLayer.removeAllAnimations()
             CATransaction.begin()
             CATransaction.setDisableActions(true)
             strikethroughLayer.strokeEnd = strokeEnd
+            updateAlpha()
             CATransaction.commit()
+            completion?()
         }
     }
     
@@ -108,10 +114,20 @@ class TPStrikethroughTextView: TPTextView {
         strikethroughLayer.frame = CGRect(x: 0.0, y: 0.0, size: self.contentSize)
         updateStrikethroughLayerPath()
         updateTextColor()
+        updateAlpha()
     }
      
     private func updateTextColor() {
-        self.textColor = isStrikethrough ? strikethroughColor : normalTextColor
+        var textColor = isStrikethrough ? strikethroughTextColor : normalTextColor
+        if textColor == nil {
+            textColor = normalTextColor
+        }
+        
+        self.textColor = textColor
+    }
+    
+    private func updateAlpha() {
+        self.alpha = isStrikethrough ? strikethroughAlpha : normalAlpha
     }
      
     private func updateStrikethroughLayerPath() {

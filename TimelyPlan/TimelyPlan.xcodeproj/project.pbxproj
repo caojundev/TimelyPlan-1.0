@@ -33,6 +33,9 @@
 		E505D9312F990B60004469DC /* TodoHomeAddMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */; };
 		E505D9332F99AD5F004469DC /* TodoHomeHeaderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D9322F99AD5F004469DC /* TodoHomeHeaderTableCell.swift */; };
 		E505D9352F99B012004469DC /* TodoHomeHeaderSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D9342F99B012004469DC /* TodoHomeHeaderSectionController.swift */; };
+		E505D9392F9A1DC8004469DC /* TodoHomeSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D9382F9A1DC7004469DC /* TodoHomeSectionType.swift */; };
+		E505D93D2F9A4EBA004469DC /* reorderControl_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E505D93B2F9A4EB9004469DC /* reorderControl_24@3x.png */; };
+		E505D93E2F9A4EBA004469DC /* reorderControl_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E505D93C2F9A4EBA004469DC /* reorderControl_24@2x.png */; };
 		E506B5C42F638B2E008B3321 /* habit_task_filter_todo_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E506B5C02F638B2D008B3321 /* habit_task_filter_todo_24@2x.png */; };
 		E506B5C52F638B2E008B3321 /* habit_task_filter_all_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E506B5C12F638B2D008B3321 /* habit_task_filter_all_24@3x.png */; };
 		E506B5C62F638B2E008B3321 /* habit_task_filter_todo_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E506B5C22F638B2D008B3321 /* habit_task_filter_todo_24@3x.png */; };
@@ -1774,6 +1777,9 @@
 		E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeAddMenuController.swift; sourceTree = "<group>"; };
 		E505D9322F99AD5F004469DC /* TodoHomeHeaderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeHeaderTableCell.swift; sourceTree = "<group>"; };
 		E505D9342F99B012004469DC /* TodoHomeHeaderSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeHeaderSectionController.swift; sourceTree = "<group>"; };
+		E505D9382F9A1DC7004469DC /* TodoHomeSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeSectionType.swift; sourceTree = "<group>"; };
+		E505D93B2F9A4EB9004469DC /* reorderControl_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reorderControl_24@3x.png"; sourceTree = "<group>"; };
+		E505D93C2F9A4EBA004469DC /* reorderControl_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reorderControl_24@2x.png"; sourceTree = "<group>"; };
 		E506B5C02F638B2D008B3321 /* habit_task_filter_todo_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_task_filter_todo_24@2x.png"; sourceTree = "<group>"; };
 		E506B5C12F638B2D008B3321 /* habit_task_filter_all_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_task_filter_all_24@3x.png"; sourceTree = "<group>"; };
 		E506B5C22F638B2D008B3321 /* habit_task_filter_todo_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_task_filter_todo_24@3x.png"; sourceTree = "<group>"; };
@@ -3599,6 +3605,13 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		E505D93A2F9A1E05004469DC /* Display */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Display;
+			sourceTree = "<group>";
+		};
 		E506B5BE2F638B15008B3321 /* filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -4445,6 +4458,7 @@
 			children = (
 				E505D9322F99AD5F004469DC /* TodoHomeHeaderTableCell.swift */,
 				E505D9342F99B012004469DC /* TodoHomeHeaderSectionController.swift */,
+				E505D9382F9A1DC7004469DC /* TodoHomeSectionType.swift */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -5577,8 +5591,9 @@
 		E56B94892F8CDDCC001E488B /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				E56B948A2F8CDDDF001E488B /* TodoSettingViewController.swift */,
 				E56B948C2F8CDDF7001E488B /* TodoSetting.swift */,
+				E56B948A2F8CDDDF001E488B /* TodoSettingViewController.swift */,
+				E505D93A2F9A1E05004469DC /* Display */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -6438,6 +6453,8 @@
 		E5BB9A4D2D3BEF0D0089667A /* common */ = {
 			isa = PBXGroup;
 			children = (
+				E505D93C2F9A4EBA004469DC /* reorderControl_24@2x.png */,
+				E505D93B2F9A4EB9004469DC /* reorderControl_24@3x.png */,
 				E50D94CC2D45248D00F57957 /* gear_24@2x.png */,
 				E50D94CD2D45248D00F57957 /* gear_24@3x.png */,
 				E5E277042D3DF8E3004EC522 /* edit_24@2x.png */,
@@ -9711,6 +9728,7 @@
 				E5B926CE2D3F97F30065FA79 /* plus_32@2x.png in Resources */,
 				E5BB9A842D3BEF0D0089667A /* schedule_duration_24@2x.png in Resources */,
 				E5BB9AE92D3BEF0D0089667A /* copy_24@2x.png in Resources */,
+				E505D93D2F9A4EBA004469DC /* reorderControl_24@3x.png in Resources */,
 				E55E78012D8ABB09005E3DED /* quadrant_option_edit_24@2x.png in Resources */,
 				E515AD582D3CB2F900AA9AF2 /* LaunchLogo@2x.png in Resources */,
 				E500DE522DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png in Resources */,
@@ -9836,6 +9854,7 @@
 				E515AD6E2D3CC49800AA9AF2 /* fullscreen_enter_24@3x.png in Resources */,
 				E5BBA1092D3BFB3C0089667A /* SideMenuTodo@3x.png in Resources */,
 				E50D025C2F55860B00E93977 /* habit_time_anytime_24@2x.png in Resources */,
+				E505D93E2F9A4EBA004469DC /* reorderControl_24@2x.png in Resources */,
 				E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */,
 				E5168BDE2F5481660000A760 /* bell_add_20@2x.png in Resources */,
 				E55E4BDE2F9336170068E032 /* calendar_8_24@3x.png in Resources */,
@@ -10937,6 +10956,7 @@
 				E529ACD12F7E11E4000EA2F1 /* TodoUserTagCell.swift in Sources */,
 				E5BB9E782D3BF0C70089667A /* StatsDotChartCell.swift in Sources */,
 				E50D602F2F7A12B400D5E0A4 /* RepeatDayOfWeek+Extensions.swift in Sources */,
+				E505D9392F9A1DC8004469DC /* TodoHomeSectionType.swift in Sources */,
 				E5BB9DA52D3BF0C60089667A /* TPBaseButton.swift in Sources */,
 				E5BB9B432D3BEF920089667A /* CGRectExtension.swift in Sources */,
 				E5BB9DFC2D3BF0C60089667A /* Array+Extensions.swift in Sources */,
