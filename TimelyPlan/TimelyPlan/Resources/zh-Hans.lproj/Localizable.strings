@@ -34,6 +34,10 @@
 "Tag" = "标签";
 "Filter" = "过滤器";
 
+"Add List" = "添加列表";
+"Add Tag" = "添加标签";
+"Add Filter" = "添加过滤器";
+
 "Lists" = "列表";
 "%ld sublists" = "%ld个子列表";
 "%ld sublist" = "%ld个子列表";
@@ -64,7 +68,6 @@
 "New Tag" = "新建标签";
 "Edit Tag" = "编辑标签";
 "Enter tag name" = "输入标签名称";
-"Add Tag" = "添加标签";
 "%ld tag" = "%ld个标签";
 "%ld tags" = "%ld个标签";
 "%ld tags selected" = "已选择%ld个标签";

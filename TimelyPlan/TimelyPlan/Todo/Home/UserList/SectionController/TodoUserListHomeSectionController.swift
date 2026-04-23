@@ -8,9 +8,23 @@
 import Foundation
 
 class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
-                                         TodoUserListHomeCellDelegate,
-                                         TodoHomeExpandHeaderViewDelegate {
-    var isExpanded: Bool = true
+                                         TodoUserListHomeCellDelegate {
+    
+    /// 头区块控制器
+    lazy var headerSectionController: TodoHomeHeaderSectionController = { [weak self] in
+        let sectionController = TodoHomeHeaderSectionController(sectionType: .list)
+        sectionController.didClickAdd = {
+            self?.createList()
+        }
+        
+        sectionController.didToggleExpanded = { isExpanded in
+            self?.setExpanded(isExpanded)
+        }
+        
+        return sectionController
+    }()
+    
+    private(set) var isExpanded: Bool = true
     
     /// 列表管理器
     private var listController = TodoUserListController()
@@ -47,6 +61,11 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         var list: TodoList?
         switch change {
         case .create(let todoList):
+            if !isExpanded {
+                setExpanded(true)
+                headerSectionController.setExpanded(true)
+            }
+            
             list = todoList
         case .update(let todoList):
             list = todoList
@@ -68,6 +87,19 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         }
     }
     
+    func setExpanded(_ isExpanded: Bool) {
+        guard self.isExpanded != isExpanded else {
+            return
+        }
+        
+        self.isExpanded = isExpanded
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+    }
+    
+    func createList() {
+        listController.createList(parent: nil)
+    }
+    
     // MARK: - Delegate
     override var items: [ListDiffable]? {
         guard isExpanded else {
@@ -79,24 +111,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     
     // MARK: - Delegate
     override func heightForHeader() -> CGFloat {
-        return 50.0
-    }
-    
-    override func classForHeader() -> AnyClass? {
-        return TodoHomeExpandHeaderView.self
-    }
-    
-    override func didDequeHeader(_ headerView: UITableViewHeaderFooterView) {
-        guard let headerView = headerView as? TodoHomeExpandHeaderView else {
-            return
-        }
-        
-        headerView.contentView.backgroundColor = adapter?.cellStyle.backgroundColor
-        headerView.delegate = self
-        headerView.isExpanded = isExpanded
-        headerView.title = resGetString("Lists")
-        headerView.imageContent = .withName("todo_list_24")
-        headerView.imageConfig.color = .primary
+        return 0.0
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
@@ -108,16 +123,6 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
         if let cell = cell as? TodoUserListBaseCell {
             cell.contentPadding = UIEdgeInsets(left: 16.0, right: 12.0)
         }
-    }
-
-    // MARK: - TodoHomeExpandHeaderViewDelegate
-    func todoHomeExpandHeaderViewDidClickAdd(_ headerView: TodoHomeExpandHeaderView) {
-        listController.createList(parent: nil)
-    }
-    
-    func todoHomeExpandHeaderView(_ headerView: TodoHomeExpandHeaderView, didToggleExpand isExpanded: Bool) {
-        self.isExpanded = isExpanded
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
     // MARK: - TodoUserListHomeCellDelegate

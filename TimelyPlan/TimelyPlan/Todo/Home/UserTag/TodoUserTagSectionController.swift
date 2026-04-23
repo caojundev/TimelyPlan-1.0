@@ -9,9 +9,23 @@ import Foundation
 import UIKit
 
 class TodoUserTagSectionController: TPTableBaseSectionController,
-                                    TodoUserTagCellDelegate,
-                                    TodoHomeExpandHeaderViewDelegate {
-    var isExpanded: Bool = true
+                                    TodoUserTagCellDelegate {
+    
+    /// 头区块控制器
+    lazy var headerSectionController: TodoHomeHeaderSectionController = { [weak self] in
+        let sectionController = TodoHomeHeaderSectionController(sectionType: .tag)
+        sectionController.didClickAdd = {
+            self?.createTag()
+        }
+        
+        sectionController.didToggleExpanded = { isExpanded in
+            self?.setExpanded(isExpanded)
+        }
+        
+        return sectionController
+    }()
+    
+    private(set) var isExpanded: Bool = true
     
     var didSelectTag: ((TodoTag) -> Void)?
     
@@ -60,7 +74,11 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         switch change {
         case .create(let tag):
             /// 展开标签
-            setExpanded(true, animated: true)
+            if !isExpanded {
+                headerSectionController.setExpanded(true)
+                setExpanded(true)
+            }
+            
             animateTag = tag
         case .update(let tag):
             animateTag = tag
@@ -72,31 +90,21 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         }
     }
     
-    // MARK: - Delegate
-    override func heightForHeader() -> CGFloat {
-        return 50.0
+    func createTag() {
+        tagController.createTag()
     }
     
-    override func classForHeader() -> AnyClass? {
-        return TodoHomeExpandHeaderView.self
-    }
-    
-    override func didDequeHeader(_ headerView: UITableViewHeaderFooterView) {
-        guard let headerView = headerView as? TodoHomeExpandHeaderView else {
+    // MARK: - 展开 / 收起
+    func setExpanded(_ isExpanded: Bool) {
+        guard self.isExpanded != isExpanded else {
             return
         }
         
-        headerView.contentView.backgroundColor = adapter?.cellStyle.backgroundColor
-        headerView.delegate = self
-        headerView.isExpanded = isExpanded
-        headerView.title = resGetString("Tag")
-        headerView.imageContent = .withName("todo_home_tag_24")
+        self.isExpanded = isExpanded
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
-    override func heightForFooter() -> CGFloat {
-        return 0.0
-    }
-    
+    // MARK: - Delegate
     override func heightForRow(at index: Int) -> CGFloat {
         return 55.0
     }
@@ -120,24 +128,6 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         if let tag = item(at: index) as? TodoTag {
             self.didSelectTag?(tag)
         }
-    }
-    
-    // MARK: - 展开 / 收起
-    private func setExpanded(_ isExpanded: Bool, animated: Bool) {
-        guard self.isExpanded != isExpanded else {
-            return
-        }
-        
-        self.isExpanded = isExpanded
-        guard let headerView = adapter?.headerView(in: section) as? TodoHomeExpandHeaderView else {
-            return
-        }
-        
-        headerView.setExpanded(isExpanded, animated: animated)
-    }
-    
-    private func didToggleExpand() {
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
     // MARK: - TodoUserTagCellDelegate
@@ -165,16 +155,6 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         viewModel.fetchUncompletedTaskCount(for: userTag, completion: completion)
     }
 
-    // MARK: - TodoHomeExpandHeaderViewDelegate
-    func todoHomeExpandHeaderViewDidClickAdd(_ headerView: TodoHomeExpandHeaderView) {
-        tagController.createTag()
-    }
-    
-    func todoHomeExpandHeaderView(_ headerView: TodoHomeExpandHeaderView, didToggleExpand isExpanded: Bool) {
-        self.isExpanded = isExpanded
-        didToggleExpand()
-    }
-    
     // MARK: - Helpers
     /// 当前标签列表
     var tags: [TodoTag] {

@@ -36,13 +36,16 @@ class TodoHomeViewController: TPTableViewController,
     private let toolViewHeight = 60.0
     lazy var toolView: TodoHomeToolView = { [weak self] in
         let view = TodoHomeToolView()
-        view.didClickAddList = {
-            self?.createList()
+        view.didClickStatistic = {
+            self?.clickToolbarStatistic()
+        }
+        
+        view.didClickAdd = {
+            self?.clickToolbarAdd()
         }
 
         return view
     }()
-    
     
     /// 智能清单区块
     lazy var smartListSectionController: TodoSmartListSectionController = {
@@ -68,6 +71,10 @@ class TodoHomeViewController: TPTableViewController,
     }()
     
     /// 用户列表区块
+    var userListHeaderSectionController: TodoHomeHeaderSectionController {
+        return userListSectionController.headerSectionController
+    }
+    
     lazy var userListSectionController: TodoUserListHomeSectionController = {
         let sectionController = TodoUserListHomeSectionController()
         sectionController.identifier = TodoHomeSection.userList.rawValue
@@ -79,6 +86,10 @@ class TodoHomeViewController: TPTableViewController,
     }()
     
     /// 标签区块
+    var tagHeaderSectionController: TodoHomeHeaderSectionController {
+        return tagSectionController.headerSectionController
+    }
+    
     lazy var tagSectionController: TodoUserTagSectionController = {
         let sectionController = TodoUserTagSectionController()
         sectionController.identifier = TodoHomeSection.tag.rawValue
@@ -90,6 +101,10 @@ class TodoHomeViewController: TPTableViewController,
     }()
     
     /// 过滤器区块
+    var filterHeaderSectionController: TodoHomeHeaderSectionController {
+        return filterSectionController.headerSectionController
+    }
+    
     lazy var filterSectionController: TodoFilterSectionController = {
         let sectionController = TodoFilterSectionController()
         sectionController.identifier = TodoHomeSection.filter.rawValue
@@ -99,8 +114,6 @@ class TodoHomeViewController: TPTableViewController,
         
         return sectionController
     }()
-    
-    private let userListController = TodoUserListController()
     
     private var reorder: TPTableDragInsertReorder?
     
@@ -158,19 +171,18 @@ class TodoHomeViewController: TPTableViewController,
     // MARK: - 初始化
     private func setupSectionControllers() {
         let sectionControllers = [smartListSectionController,
+                                  
+                                  userListHeaderSectionController,
                                   userListSectionController,
+                                  
+                                  tagHeaderSectionController,
                                   tagSectionController,
+                                  
+                                  filterHeaderSectionController,
                                   filterSectionController,
+                                  
                                   trashSectionController]
-        var displaySectionControllers = [TPTableBaseSectionController]()
-        for (section, sectionController) in sectionControllers.enumerated() {
-            displaySectionControllers.append(sectionController)
-            if section < sectionControllers.count - 1 {
-                displaySectionControllers.append(TPSeparatorSectionController())
-            }
-        }
-        
-        self.sectionControllers = displaySectionControllers
+        self.sectionControllers = sectionControllers
     }
     
     private func setupReorder() {
@@ -186,9 +198,36 @@ class TodoHomeViewController: TPTableViewController,
         TodoPresenter.showSettings()
     }
         
-    private func createList() {
-        userListController.createList()
+    private func clickToolbarStatistic() {
+        
     }
+    
+    private func clickToolbarAdd() {
+        let menuController = TodoHomeAddMenuController()
+        menuController.didSelectMenuActionType = { type in
+            self.performAddMenuAction(with: type)
+        }
+
+        let sourceRect = CGRect(x: toolView.frame.maxX - 10.0, y: -10.0, size: .zero)
+        menuController.showMenu(from: toolView,
+                                sourceRect: sourceRect,
+                                isCovered: false)
+    }
+    
+    private func performAddMenuAction(with type: TodoHomeAddType) {
+        switch type {
+        case .list:
+            let controller = TodoUserListController()
+            controller.createList()
+        case .tag:
+            let controller = TodoTagController()
+            controller.createTag()
+        case .filter:
+            let controller = TodoFilterController()
+            controller.createFilter()
+        }
+    }
+    
 }
 
 

@@ -113,4 +113,13 @@ class TPToolbar: UIView {
         }
     }
     
+    func toolbarButton(for item: TPBarButtonItem) -> TPToolbarButton? {
+        for button in buttons {
+            if button.buttonItem == item {
+                return button
+            }
+        }
+        
+        return nil
+    }
 }

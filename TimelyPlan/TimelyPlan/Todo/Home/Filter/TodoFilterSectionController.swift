@@ -9,9 +9,23 @@ import Foundation
 import UIKit
 
 class TodoFilterSectionController: TPTableBaseSectionController,
-                                    TodoFilterCellDelegate,
-                                   TodoHomeExpandHeaderViewDelegate {
-    var isExpanded: Bool = true
+                                    TodoFilterCellDelegate {
+    
+    /// 头区块控制器
+    lazy var headerSectionController: TodoHomeHeaderSectionController = { [weak self] in
+        let sectionController = TodoHomeHeaderSectionController(sectionType: .filter)
+        sectionController.didClickAdd = {
+            self?.createFilter()
+        }
+        
+        sectionController.didToggleExpanded = { isExpanded in
+            self?.setExpanded(isExpanded)
+        }
+        
+        return sectionController
+    }()
+    
+    private(set) var isExpanded: Bool = true
     
     var didSelectFilter: ((TodoFilter) -> Void)?
     
@@ -59,8 +73,12 @@ class TodoFilterSectionController: TPTableBaseSectionController,
         var animateFilter: TodoFilter?
         switch change {
         case .create(let filter):
-            /// 展开过滤器
-            setExpanded(true, animated: true)
+            if !isExpanded {
+                /// 展开过滤器
+                headerSectionController.setExpanded(true)
+                setExpanded(true)
+            }
+            
             animateFilter = filter
         case .update(let filter):
             animateFilter = filter
@@ -72,31 +90,21 @@ class TodoFilterSectionController: TPTableBaseSectionController,
         }
     }
     
-    // MARK: - Delegate
-    override func heightForHeader() -> CGFloat {
-        return 50.0
+    func createFilter() {
+        filterController.createFilter()
     }
     
-    override func classForHeader() -> AnyClass? {
-        return TodoHomeExpandHeaderView.self
-    }
-    
-    override func didDequeHeader(_ headerView: UITableViewHeaderFooterView) {
-        guard let headerView = headerView as? TodoHomeExpandHeaderView else {
+    // MARK: - 展开 / 收起
+    func setExpanded(_ isExpanded: Bool) {
+        guard self.isExpanded != isExpanded else {
             return
         }
         
-        headerView.contentView.backgroundColor = adapter?.cellStyle.backgroundColor
-        headerView.delegate = self
-        headerView.isExpanded = isExpanded
-        headerView.title = resGetString("Filter")
-        headerView.imageContent = .withName("todo_home_filter_24")
+        self.isExpanded = isExpanded
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
     }
     
-    override func heightForFooter() -> CGFloat {
-        return 0.0
-    }
-    
+    // MARK: - Delegate
     override func heightForRow(at index: Int) -> CGFloat {
         return 55.0
     }
@@ -122,24 +130,6 @@ class TodoFilterSectionController: TPTableBaseSectionController,
         }
     }
     
-    // MARK: - 展开 / 收起
-    private func setExpanded(_ isExpanded: Bool, animated: Bool) {
-        guard self.isExpanded != isExpanded else {
-            return
-        }
-        
-        self.isExpanded = isExpanded
-        guard let headerView = adapter?.headerView(in: section) as? TodoHomeExpandHeaderView else {
-            return
-        }
-        
-        headerView.setExpanded(isExpanded, animated: animated)
-    }
-    
-    private func didToggleExpand() {
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-    }
-    
     // MARK: - TodoFilterCellDelegate
     func todoFilterCellDidClickMore(_ cell: TodoFilterCell) {
         guard let filter = cell.filter else {
@@ -163,16 +153,6 @@ class TodoFilterSectionController: TPTableBaseSectionController,
         }
         
         viewModel.fetchUncompletedTaskCount(for: filter, completion: completion)
-    }
-
-    // MARK: - TodoHomeExpandHeaderViewDelegate
-    func todoHomeExpandHeaderViewDidClickAdd(_ headerView: TodoHomeExpandHeaderView) {
-        filterController.createFilter()
-    }
-    
-    func todoHomeExpandHeaderView(_ headerView: TodoHomeExpandHeaderView, didToggleExpand isExpanded: Bool) {
-        self.isExpanded = isExpanded
-        didToggleExpand()
     }
     
     // MARK: - Helpers
