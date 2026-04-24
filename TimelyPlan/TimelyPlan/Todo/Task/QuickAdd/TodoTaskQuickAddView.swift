@@ -169,6 +169,8 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
     private func enterNameReturn() {
         if editTask.isValid {
             delegate?.todoTaskQuickAddViewDidClickSend(self)
+        } else {
+            NotificationCenter.default.post(name: .hidePopoverView, object: nil)
         }
     }
     

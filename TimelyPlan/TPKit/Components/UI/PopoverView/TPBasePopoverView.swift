@@ -8,8 +8,12 @@
 import Foundation
 import UIKit
 
+extension Notification.Name {
+    static let hidePopoverView = Notification.Name("HidePopoverViewNotification")
+}
+
 class TPBasePopoverView: UIView, TFPopoverContent {
-    
+
     var cornerRadius: CGFloat = 16.0 {
         didSet {
             setNeedsLayout()
@@ -59,13 +63,32 @@ class TPBasePopoverView: UIView, TFPopoverContent {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
+        setupNotification()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupSubviews()
+        setupNotification()
     }
     
+    deinit {
+        // 移除观察者
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .hidePopoverView,
+                                                  object: nil)
+    }
+    
+    private func setupNotification() {
+        // 监听通知
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleHideNotification(_:)),
+            name: .hidePopoverView,
+            object: nil
+        )
+    }
+
     func setupSubviews() {
         self.backgroundColor = .clear
         
@@ -95,6 +118,11 @@ class TPBasePopoverView: UIView, TFPopoverContent {
         self.contentView.layer.cornerRadius = cornerRadius
         self.popoverView.frame = contentView.layoutFrame()
         self.updateContentSizeIfNeeded()
+    }
+    
+    @objc private func handleHideNotification(_ notification: Notification) {
+        let animated = notification.userInfo?["animated"] as? Bool ?? true
+        self.hide(animated: animated, completion: nil)
     }
     
     // MARK: - TFPopoverContent

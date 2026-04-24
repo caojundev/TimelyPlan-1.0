@@ -44,16 +44,14 @@ class TodoTaskQuickAddController: TPKeyboardAwareController,
     
     // MARK: - TodoTaskQuickAddViewDelegate
     func todoTaskQuickAddViewDidClickSend(_ quickAddView: TodoTaskQuickAddView) {
+        NotificationCenter.default.post(name: .hidePopoverView, object: nil)
         let quickAddTask = editingTask
         guard quickAddTask.isValid else {
             return
         }
         
         todo.createTask(with: quickAddTask)
-        
-        /// 重置任务
         quickAddView.reset(with: task)
-        
         if !TodoSetting.shared.quickAddContinuously {
             endEditing()
         }
