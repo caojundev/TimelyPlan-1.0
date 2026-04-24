@@ -317,6 +317,8 @@ class TodoBaseTaskListViewController: UIViewController,
         var layoutType = self.interactor.layoutType()
         if layoutType == .list {
             layoutType = .board
+        } else {
+            layoutType = .list
         }
         
         self.interactor.setLayoutType(layoutType)

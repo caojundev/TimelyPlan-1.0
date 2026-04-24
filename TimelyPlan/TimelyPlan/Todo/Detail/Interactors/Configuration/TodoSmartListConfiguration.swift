@@ -43,7 +43,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         case .completed:
             return [.select, .group, .sort]
         case .overdue, .today, .tomorrow, .upcoming:
-            return [.select, .showCompleted, .layout, .group, .sort]
+            return [.select, .showCompleted, .group, .sort]
         case .trash:
             return [.select, .emptyTrash]
         }
@@ -119,7 +119,14 @@ class TodoSmartListConfiguration: TodoListConfiguration {
 class TodoInboxListConfiguration: TodoSmartListConfiguration {
     
     override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
-        return TodoInboxTaskListViewController(interactor: interactor)
+        let layoutType = interactor.layoutType()
+        if layoutType == .list {
+            return TodoInboxTaskListViewController(interactor: interactor)
+        } else {
+            let vc = UIViewController()
+            vc.view.backgroundColor = .random
+            return vc
+        }
     }
 }
 

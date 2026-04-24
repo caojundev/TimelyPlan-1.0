@@ -31,6 +31,18 @@ class TodoSmartListInteractor: TodoListInteractor {
        return configuration as! TodoSmartListConfiguration
     }
     
+    override func layoutType() -> TodoListLayoutType {
+        let layoutType = TodoSetting.shared.listLayoutType(for: self.list.identifier)
+        return layoutType ?? .list
+    }
+    
+    override func setLayoutType(_ layoutType: TodoListLayoutType) {
+        TodoSetting.shared.setListLayoutType(layoutType, for: self.list.identifier)
+        
+        /// 通知布局类型改变
+        self.didChangeLayoutType?()
+    }
+    
     override func title() -> TextRepresentable? {
         let listName = self.list.title
         if let image = self.list.icon {

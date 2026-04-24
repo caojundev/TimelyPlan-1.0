@@ -287,6 +287,7 @@
 		E524C7872F9B6855005CCEBD /* todo_smartlist_tomorrow_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C7832F9B6854005CCEBD /* todo_smartlist_tomorrow_24@2x.png */; };
 		E524C7882F9B6855005CCEBD /* todo_smartlist_myDay_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C7842F9B6855005CCEBD /* todo_smartlist_myDay_24@2x.png */; };
 		E524C7892F9B6855005CCEBD /* todo_smartlist_myDay_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C7852F9B6855005CCEBD /* todo_smartlist_myDay_24@3x.png */; };
+		E524C78B2F9BA209005CCEBD /* TodoHomeDisplaySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524C78A2F9BA209005CCEBD /* TodoHomeDisplaySettingViewController.swift */; };
 		E52678542D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */; };
 		E52678562D4BD14300428500 /* TPSegmentedMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */; };
 		E526D3F62F6B8EDF005C1DED /* HabitReportImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */; };
@@ -2041,6 +2042,7 @@
 		E524C7832F9B6854005CCEBD /* todo_smartlist_tomorrow_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_tomorrow_24@2x.png"; sourceTree = "<group>"; };
 		E524C7842F9B6855005CCEBD /* todo_smartlist_myDay_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_myDay_24@2x.png"; sourceTree = "<group>"; };
 		E524C7852F9B6855005CCEBD /* todo_smartlist_myDay_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_myDay_24@3x.png"; sourceTree = "<group>"; };
+		E524C78A2F9BA209005CCEBD /* TodoHomeDisplaySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeDisplaySettingViewController.swift; sourceTree = "<group>"; };
 		E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPFullSizeSegmentedTableCell.swift; sourceTree = "<group>"; };
 		E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSegmentedMenuTableCell.swift; sourceTree = "<group>"; };
 		E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportImageCacher.swift; sourceTree = "<group>"; };
@@ -3620,6 +3622,7 @@
 		E505D93A2F9A1E05004469DC /* Display */ = {
 			isa = PBXGroup;
 			children = (
+				E524C78A2F9BA209005CCEBD /* TodoHomeDisplaySettingViewController.swift */,
 			);
 			path = Display;
 			sourceTree = "<group>";
@@ -10382,6 +10385,7 @@
 				E51501982D477A89008B2333 /* TPTableViewAdapterDelegate.swift in Sources */,
 				E5BB9EAF2D3BF0C80089667A /* TPSheetMenuTableCell.swift in Sources */,
 				E5BB9E082D3BF0C70089667A /* String+ASAttributed.swift in Sources */,
+				E524C78B2F9BA209005CCEBD /* TodoHomeDisplaySettingViewController.swift in Sources */,
 				E5BB9B472D3BEF920089667A /* UITextViewExtension.swift in Sources */,
 				E56342172F94C2E300E120BF /* TodoFilterRule.swift in Sources */,
 				E5BB9E152D3BF0C70089667A /* HandyRecord.swift in Sources */,

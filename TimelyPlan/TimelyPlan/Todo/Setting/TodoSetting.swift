@@ -22,6 +22,8 @@ class TodoSetting {
         case addTagOnTop /// 添加标签到顶部
         case addFilterOnTop /// 添加过滤器到顶部
         
+        case listLayoutTypes /// 列表布局
+        
         static func keyPrefix() -> String? {
             return "TodoSetting"
         }
@@ -54,6 +56,9 @@ class TodoSetting {
     @CloudStored(key: Key.addFilterOnTop.name, defaultValue: false)
     var addFilterOnTop:Bool
 
+    @CloudStored(key: Key.listLayoutTypes.name, defaultValue: nil)
+    private var listLayoutTypes: [String: TodoListLayoutType]?
+    
     static let shared = TodoSetting()
     
     private init() {}
@@ -64,6 +69,23 @@ class TodoSetting {
         }
         
         return TodoHomeSectionType.allCases
+    }
+    
+    
+    // MARK: - 列表布局
+    
+    func setListLayoutType(_ layoutType: TodoListLayoutType?, for key: String) {
+        var layoutTypes = self.listLayoutTypes ?? [:]
+        layoutTypes[key] = layoutType
+        self.listLayoutTypes = layoutTypes
+    }
+    
+    func listLayoutType(for key: String) -> TodoListLayoutType? {
+        guard let layoutTypes = self.listLayoutTypes else {
+            return nil
+        }
+        
+        return layoutTypes[key]
     }
     
     // MARK: - Observer
