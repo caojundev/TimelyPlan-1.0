@@ -427,22 +427,7 @@ extension CDTodoTask {
     static func fetchSmartListTasks(in list: TodoSmartList,
                                     showCompleted: Bool = true,
                                     completion: @escaping([CDTodoTask]?) -> Void) {
-        var predicate: NSPredicate
-        switch list.listType {
-        case .inbox:
-            predicate = activeInboxTaskPredicate(showCompleted: showCompleted)
-        case .completed:
-            predicate = activeCompletedTaskPredicate()
-        case .today:
-            predicate = todayTaskPredicate(showCompleted: showCompleted)
-        case .planned:
-            predicate = plannedTaskPredicate()
-        case .overdue:
-            predicate = overdueTaskPredicate()
-        case .trash:
-            predicate = trashTaskPredicate()
-        }
-        
+        let predicate = smartListTaskPredicate(in: list, showCompleted: showCompleted)
         findAll(with: predicate, sortedBy: TodoTaskKey.creationDate, ascending: true) { results in
             completion(results as? [CDTodoTask])
         }
@@ -492,7 +477,7 @@ extension CDTodoTask {
         case let tag as TodoTag:
             predicate = tagActiveTaskPredicate(for: tag, showCompleted: false)
         case let smartList as TodoSmartList:
-            predicate = uncompletedTaskPredicate(for: smartList)
+            predicate = smartListTaskPredicate(in: smartList, showCompleted: false)
         case let filter as TodoFilter:
             predicate = filterActiveTaskPredicate(for: filter, showCompleted: false)
         default:
@@ -509,27 +494,6 @@ extension CDTodoTask {
             completion(0)
         }
     }
-    
-    static func uncompletedTaskPredicate(for smartList: TodoSmartList) -> NSPredicate? {
-        var predicate: NSPredicate?
-        switch smartList.listType {
-        case .inbox:
-            predicate = activeInboxTaskPredicate(showCompleted: false)
-        case .completed:
-            predicate = activeCompletedTaskPredicate()
-        case .trash:
-            predicate = trashTaskPredicate()
-        case .today:
-            predicate = todayTaskPredicate(showCompleted: false)
-        case .planned:
-            predicate = plannedTaskPredicate()
-        case .overdue:
-            predicate = overdueTaskPredicate()
-        }
-        
-        return predicate
-    }
-    
 }
 
 // MARK: - 谓词
@@ -586,11 +550,50 @@ extension CDTodoTask {
         return conditions.andPredicate()
     }
     
-    // MARK: - 收件箱
+    // MARK: - 谓词
+    static func smartListTaskPredicate(in list: TodoSmartList,
+                                       showCompleted: Bool = false) -> NSPredicate {
+        var predicate: NSPredicate
+        switch list.listType {
+        case .myDay:
+            predicate = activeMyDayTaskPredicate(showCompleted: showCompleted)
+        case .inbox:
+            predicate = activeInboxTaskPredicate(showCompleted: showCompleted)
+        case .completed:
+            predicate = activeCompletedTaskPredicate()
+        case .overdue:
+            predicate = activeOverdueTaskPredicate()
+        case .today:
+            predicate = activeTodayTaskPredicate(showCompleted: showCompleted)
+        case .tomorrow:
+            predicate = activeTomorrowTaskPredicate(showCompleted: showCompleted)
+        case .upcoming:
+            predicate = activeUpcomingTaskPredicate(showCompleted: showCompleted)
+        case .trash:
+            predicate = trashTaskPredicate()
+        }
+        
+        return predicate
+    }
+    
     /// 所有收件箱任务
     static var allInboxTaskPredicate: NSPredicate {
         let condition: PredicateCondition = (TodoTaskKey.list, .isEmpty)
         return NSPredicate.predicate(with: condition)
+    }
+    
+    /// 我的一天活动任务
+    static func activeMyDayTaskPredicate(showCompleted: Bool = true) -> NSPredicate {
+        var conditions: [PredicateCondition] = [
+            (TodoTaskKey.isAddedToMyDay, .isTrue),
+            notRemovedCondition
+        ]
+        
+        if !showCompleted {
+            conditions.append(notCompletedCondition)
+        }
+        
+        return conditions.andPredicate()
     }
     
     /// 收件箱活动任务
@@ -626,21 +629,39 @@ extension CDTodoTask {
         return conditions.andPredicate()
     }
     
-
-    /// 计划中
-    static func plannedTaskPredicate() -> NSPredicate {
+    /// 过期
+    static func activeOverdueTaskPredicate() -> NSPredicate {
         var conditions = scheduledConditions(showCompleted: false)
+        let overdueCondition: PredicateCondition = (TodoTaskKey.dueDate, .lessThan(Date()))
+        conditions.append(overdueCondition)
+        return conditions.andPredicate()
+    }
+
+    /// 今日
+    static func activeTodayTaskPredicate(showCompleted: Bool = true) -> NSPredicate {
         let date = Date()
-        let upcomingCondition: PredicateCondition = (TodoTaskKey.startDate, .greaterThan(date.endOfDay()))
+        return activeScheduledTaskPredicate(on: date, showCompleted: showCompleted)
+    }
+    
+    /// 明日
+    static func activeTomorrowTaskPredicate(showCompleted: Bool = true) -> NSPredicate {
+        let date = Date().dateByAddingDays(1)!
+        return activeScheduledTaskPredicate(on: date, showCompleted: showCompleted)
+    }
+    
+    /// 接下来（从后天开始）
+    static func activeUpcomingTaskPredicate(showCompleted: Bool = false) -> NSPredicate {
+        var conditions = scheduledConditions(showCompleted: showCompleted)
+        let date = Date().dateByAddingDays(1)!.endOfDay() /// 明天结束
+        let upcomingCondition: PredicateCondition = (TodoTaskKey.startDate, .greaterThan(date))
         conditions.append(upcomingCondition)
         return conditions.andPredicate()
     }
     
-    /// 今日
-    static func todayTaskPredicate(showCompleted: Bool = true) -> NSPredicate {
+    static func activeScheduledTaskPredicate(on date: Date,
+                                             showCompleted: Bool = true) -> NSPredicate {
         let conditions = scheduledConditions(showCompleted: showCompleted)
-        let now = Date()
-        let comparison = PredicateComparison.between(now.startOfDay(), now.endOfDay())
+        let comparison = PredicateComparison.between(date.startOfDay(), date.endOfDay())
         let dateConditions: [PredicateCondition] = [
             (TodoTaskKey.startDate, comparison),
             (TodoTaskKey.dueDate, comparison),
@@ -649,14 +670,6 @@ extension CDTodoTask {
         return .andPredicate(andConditions: conditions, orConditions: dateConditions)
     }
     
-    /// 过期
-    static func overdueTaskPredicate() -> NSPredicate {
-        var conditions = scheduledConditions(showCompleted: false)
-        let overdueCondition: PredicateCondition = (TodoTaskKey.dueDate, .lessThan(Date()))
-        conditions.append(overdueCondition)
-        return conditions.andPredicate()
-    }
-
     // MARK: - Conditions
     static func scheduledConditions(showCompleted: Bool = true) -> [PredicateCondition] {
         var conditions: [PredicateCondition] = [

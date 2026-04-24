@@ -10,11 +10,13 @@ import UIKit
 
 /// 智能清单类型
 enum TodoSmartListType: String, TPMenuRepresentable {
+    case myDay     /// 我的一天
     case inbox     /// 收件箱
     case completed /// 已完成
-    case today     /// 今天
-    case planned   /// 计划
     case overdue   /// 已过期
+    case today     /// 今天
+    case tomorrow  /// 明天
+    case upcoming  /// 接下来
     case trash     /// 废纸篓
     
     /// 除废纸篓之外所有类型数组
@@ -22,6 +24,14 @@ enum TodoSmartListType: String, TPMenuRepresentable {
         var types = TodoSmartListType.allCases
         let _ = types.remove(.trash)
         return types
+    }
+    
+    var title: String {
+        if self == .myDay {
+            return resGetString("My Day")
+        } else {
+            return defaultTitle
+        }
     }
     
     /// 图标名称
@@ -50,16 +60,20 @@ class TodoSmartList: NSObject,
     
     var color: UIColor {
         switch listType {
+        case .myDay:
+            return .primary4
         case .inbox:
             return Color(0x237DFF)
         case .completed:
             return Color(0x3DC862)
-        case .planned:
-            return Color(0x7E68FF)
+        case .overdue:
+            return .red(5)
         case .today:
             return Color(0x2D96FF)
-        case .overdue:
-            return Color(0xFF773E)
+        case .tomorrow:
+            return .orange(5)
+        case .upcoming:
+            return Color(0x7E68FF)
         case .trash:
             return Color(0xE64433)
         }
@@ -90,20 +104,28 @@ class TodoSmartList: NSObject,
         return TodoSmartList(type: .inbox)
     }
     
+    static var myDay: TodoSmartList {
+        return TodoSmartList(type: .myDay)
+    }
+    
     static var completed: TodoSmartList {
         return TodoSmartList(type: .completed)
+    }
+    
+    static var overdue: TodoSmartList {
+        return TodoSmartList(type: .overdue)
     }
     
     static var today: TodoSmartList {
         return TodoSmartList(type: .today)
     }
     
-    static var planned: TodoSmartList {
-        return TodoSmartList(type: .planned)
+    static var tomorrow: TodoSmartList {
+        return TodoSmartList(type: .tomorrow)
     }
     
-    static var overdue: TodoSmartList {
-        return TodoSmartList(type: .overdue)
+    static var upcoming: TodoSmartList {
+        return TodoSmartList(type: .upcoming)
     }
     
     static var trash: TodoSmartList {

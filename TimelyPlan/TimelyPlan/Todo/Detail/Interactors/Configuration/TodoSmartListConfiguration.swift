@@ -36,11 +36,13 @@ class TodoSmartListConfiguration: TodoListConfiguration {
     
     override func allowListOptions() -> [TodoListOption]? {
         switch list.listType {
+        case .myDay:
+            return [.select, .showCompleted, .group, .sort]
         case .inbox:
             return [.select, .showCompleted, .layout, .group, .sort]
         case .completed:
             return [.select, .group, .sort]
-        case .today, .planned, .overdue:
+        case .overdue, .today, .tomorrow, .upcoming:
             return [.select, .showCompleted, .layout, .group, .sort]
         case .trash:
             return [.select, .emptyTrash]
@@ -62,11 +64,13 @@ class TodoSmartListConfiguration: TodoListConfiguration {
     
     override func allowGroupTypes() -> [TodoGroupType] {
         switch list.listType {
+        case .myDay:
+            return [.default, .startDate, .dueDate, .priority]
         case .inbox:
             return [.default, .startDate, .dueDate, .priority, .none]
         case .completed:
             return [.list]
-        case .today, .planned, .overdue:
+        case .overdue, .today, .tomorrow, .upcoming:
             return [.dueDate]
         case .trash:
             return [.none]
@@ -75,11 +79,13 @@ class TodoSmartListConfiguration: TodoListConfiguration {
     
     override func allowSortTypes() -> [TodoSortType] {
         switch list.listType {
+        case .myDay:
+            return [.creationDate, .modificationDate, .startDate, .dueDate]
         case .inbox:
             return TodoSortType.allCases
         case .completed:
             return [.manually]
-        case .today, .planned, .overdue:
+        case .overdue, .today, .tomorrow, .upcoming:
             return [.dueDate]
         case .trash:
             return [.creationDate]
@@ -88,6 +94,8 @@ class TodoSmartListConfiguration: TodoListConfiguration {
     
     override func allowSortOrders(for sortType: TodoSortType) -> [TodoSortOrder] {
         switch list.listType {
+        case .myDay:
+            return TodoSortOrder.allCases
         case .inbox:
             if sortType == .manually {
                 return [.ascending] /// 手动排序仅支持升序
@@ -96,7 +104,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
             return TodoSortOrder.allCases
         case .completed:
             return [.ascending]
-        case .today, .planned, .overdue:
+        case .overdue, .today, .tomorrow, .upcoming:
             return TodoSortOrder.allCases
         case .trash:
             return [.descending]
