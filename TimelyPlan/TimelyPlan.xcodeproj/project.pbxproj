@@ -281,6 +281,8 @@
 		E521E3592F6A50110071DA12 /* HabitReportYearlyMonthRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521E3582F6A50110071DA12 /* HabitReportYearlyMonthRender.swift */; };
 		E521E35B2F6AB2800071DA12 /* HabitReportWeekRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521E35A2F6AB2800071DA12 /* HabitReportWeekRender.swift */; };
 		E521E35D2F6AC38E0071DA12 /* HabitReportChartRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521E35C2F6AC38E0071DA12 /* HabitReportChartRender.swift */; };
+		E524C7802F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C77E2F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@2x.png */; };
+		E524C7812F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C77F2F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png */; };
 		E52678542D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */; };
 		E52678562D4BD14300428500 /* TPSegmentedMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */; };
 		E526D3F62F6B8EDF005C1DED /* HabitReportImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */; };
@@ -2029,6 +2031,8 @@
 		E521E3582F6A50110071DA12 /* HabitReportYearlyMonthRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportYearlyMonthRender.swift; sourceTree = "<group>"; };
 		E521E35A2F6AB2800071DA12 /* HabitReportWeekRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportWeekRender.swift; sourceTree = "<group>"; };
 		E521E35C2F6AC38E0071DA12 /* HabitReportChartRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportChartRender.swift; sourceTree = "<group>"; };
+		E524C77E2F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quickadd_keepContent_24@2x.png"; sourceTree = "<group>"; };
+		E524C77F2F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quickadd_keepContent_24@3x.png"; sourceTree = "<group>"; };
 		E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPFullSizeSegmentedTableCell.swift; sourceTree = "<group>"; };
 		E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSegmentedMenuTableCell.swift; sourceTree = "<group>"; };
 		E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportImageCacher.swift; sourceTree = "<group>"; };
@@ -5845,6 +5849,8 @@
 		E58D479A2F91C4C900CF8C9E /* quickAdd */ = {
 			isa = PBXGroup;
 			children = (
+				E524C77E2F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@2x.png */,
+				E524C77F2F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png */,
 				E58D47962F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@2x.png */,
 				E58D47972F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@3x.png */,
 			);
@@ -9376,6 +9382,7 @@
 				E5BB9ABB2D3BEF0D0089667A /* todo_task_action_move_24@3x.png in Resources */,
 				E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */,
 				E55E4BF82F9336170068E032 /* calendar_12_24@2x.png in Resources */,
+				E524C7802F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@2x.png in Resources */,
 				E55E4BCF2F9336170068E032 /* calendar_28_24@3x.png in Resources */,
 				E5D7D8F62D43933600EC877A /* PositiveCircleFill@2x.png in Resources */,
 				E5D7D95F2D43DBE000EC877A /* focus_timer_countdown_32@2x.png in Resources */,
@@ -9550,6 +9557,7 @@
 				E5D815C62F729C3700A4822D /* focus_record_bind_timer_24@2x.png in Resources */,
 				E53F32CA2F699AC900B85B65 /* habit_report_notScheduled_20@3x.png in Resources */,
 				E5C18FBA2DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png in Resources */,
+				E524C7812F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png in Resources */,
 				E5D7D9752D43E05700EC877A /* focus_running_screenAlwaysOnDisabled_24@2x.png in Resources */,
 				E5186E462D93B141007AA074 /* todo_filter_progress_36@3x.png in Resources */,
 				E5D7D97E2D43E19700EC877A /* focus_timer_step_addNext_24@2x.png in Resources */,

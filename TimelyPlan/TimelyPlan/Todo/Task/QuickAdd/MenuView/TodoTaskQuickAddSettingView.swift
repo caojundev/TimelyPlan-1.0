@@ -17,26 +17,45 @@ class TodoTaskQuickAddSettingView: TPBasePopoverView,
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = 0.0
         sectionController.footerItem.height = 0.0
-        sectionController.cellItems = [addContinuouslyCellItem]
+        sectionController.cellItems = [keepContentCellItem,
+                                       addContinuouslyCellItem]
         return sectionController
     }()
     
+    lazy var keepContentCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.title = resGetString("Keep Input Content When Hidden")
+        cellItem.imageContent = .withName("todo_task_quickadd_keepContent_24")
+        cellItem.titleConfig.font = BOLD_SYSTEM_FONT
+        cellItem.height = 55.0
+        cellItem.updater = {
+            let isOn = TodoSetting.shared.quickAddKeepContentWhenHidden
+            self?.keepContentCellItem.isOn = isOn
+        }
+
+        cellItem.valueChanged = { isOn in
+            TodoSetting.shared.quickAddKeepContentWhenHidden = isOn
+        }
+        
+        return cellItem
+    }()
+    
     /// 连续添加
-    lazy var addContinuouslyCellItem: TPCheckmarkTableCellItem = { [weak self] in
-        let cellItem = TPCheckmarkTableCellItem(autoResizable: false)
+    lazy var addContinuouslyCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
         cellItem.title = resGetString("Add Continuously")
         cellItem.imageContent = .withName("todo_task_quickAdd_continuously_24")
         cellItem.titleConfig.font = BOLD_SYSTEM_FONT
         cellItem.height = 55.0
         cellItem.updater = {
             let isOn = TodoSetting.shared.quickAddContinuously
-            self?.addContinuouslyCellItem.isChecked = isOn
-        }
-
-        cellItem.didSelectHandler = { [weak self] in
-            self?.toggleAddContinuously()
+            self?.addContinuouslyCellItem.isOn = isOn
         }
         
+        cellItem.valueChanged = { isOn in
+            self?.setAddContinuously(isOn)
+        }
+    
         return cellItem
     }()
     
@@ -54,7 +73,6 @@ class TodoTaskQuickAddSettingView: TPBasePopoverView,
         return settingsView.adapter
     }
     
-    
     override func setupSubviews() {
         super.setupSubviews()
         self.popoverView = self.settingsView
@@ -64,13 +82,12 @@ class TodoTaskQuickAddSettingView: TPBasePopoverView,
     
     override var popoverContentSize: CGSize {
         var contentSize = self.settingsView.contentSize
-        contentSize.width = 240.0
+        contentSize.width = 280.0
         return contentSize
     }
 
     // MARK: -
-    func toggleAddContinuously() {
-        let isOn = !addContinuouslyCellItem.isChecked
+    func setAddContinuously(_ isOn: Bool) {
         TodoSetting.shared.quickAddContinuously = isOn
         self.addContinuouslyCellItem.isChecked = isOn
         self.adapter.reloadCell(forItem: addContinuouslyCellItem, with: .none)
@@ -83,6 +100,5 @@ class TodoTaskQuickAddSettingView: TPBasePopoverView,
         }
 
         TPFeedbackQueue.common.postFeedback(text: message, position: .top)
-        self.hide(animated: true)
     }
 }

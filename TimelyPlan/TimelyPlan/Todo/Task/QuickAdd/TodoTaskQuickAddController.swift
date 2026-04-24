@@ -14,8 +14,12 @@ class TodoTaskQuickAddController: TPKeyboardAwareController,
     /// 添加视图
     let addView: TodoTaskQuickAddView
     
+    var editingTask: TodoQuickAddTask {
+        return addView.editTask
+    }
+    
     /// 源任务
-    let task: TodoQuickAddTask
+    private let task: TodoQuickAddTask
     
     init(containerViewController: UIViewController, task: TodoQuickAddTask) {
         self.task = task
@@ -40,7 +44,7 @@ class TodoTaskQuickAddController: TPKeyboardAwareController,
     
     // MARK: - TodoTaskQuickAddViewDelegate
     func todoTaskQuickAddViewDidClickSend(_ quickAddView: TodoTaskQuickAddView) {
-        let quickAddTask = quickAddView.editTask
+        let quickAddTask = editingTask
         guard quickAddTask.isValid else {
             return
         }

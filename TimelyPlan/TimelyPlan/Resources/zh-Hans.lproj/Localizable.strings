@@ -186,6 +186,7 @@
 "Add Continuously" = "连续添加";
 "Continuous adding enabled"  = "连续添加已开启";
 "Continuous adding disabled" = "连续添加已关闭";
+"Keep Input Content When Hidden" = "隐藏时保留输入内容";
 
 "New Item Location" = "新增位置";
 "Add New List On Top" = "添加新列表到顶部";

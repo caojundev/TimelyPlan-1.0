@@ -13,7 +13,10 @@ class TodoSetting {
         case homeSectionTypes
         case autoCompleteSubtasks
         case autoCompleteParentTask
+        
         case quickAddContinuously /// 快速连续添加
+        case quickAddKeepContentWhenHidden /// 隐藏时保留输入内容
+        
         case addListOnTop /// 添加列表到顶部
         case addTaskOnTop /// 添加任务到顶部
         case addTagOnTop /// 添加标签到顶部
@@ -35,6 +38,9 @@ class TodoSetting {
     
     @CloudStored(key: Key.quickAddContinuously.name, defaultValue: true)
     var quickAddContinuously: Bool
+    
+    @CloudStored(key: Key.quickAddKeepContentWhenHidden.name, defaultValue: true)
+    var quickAddKeepContentWhenHidden: Bool
     
     @CloudStored(key: Key.addListOnTop.name, defaultValue: false)
     var addListOnTop:Bool

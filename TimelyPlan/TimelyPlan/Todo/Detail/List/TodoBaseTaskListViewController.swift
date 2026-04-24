@@ -370,7 +370,14 @@ class TodoBaseTaskListViewController: UIViewController,
     /// 点击添加
     func clickAdd() {
         TPImpactFeedback.impactWithLightStyle()
-        let task = self.interactor.configuration.quickAddTask()
+        
+        var task: TodoQuickAddTask?
+        if let draftTask = self.quickAddManager.draftTask {
+            task = draftTask
+        } else {
+            task = self.interactor.configuration.quickAddTask()
+        }
+        
         quickAddManager.show(with: task)
     }
     

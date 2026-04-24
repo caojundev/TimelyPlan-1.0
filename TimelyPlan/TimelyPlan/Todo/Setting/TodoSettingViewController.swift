@@ -115,7 +115,23 @@ class TodoSettingViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    // MARK: - 快速连续添加
+    // MARK: - 快速添加
+    
+    lazy var quickAddKeepContentCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.title = resGetString("Keep Input Content When Hidden")
+        cellItem.updater = {
+            let isOn = TodoSetting.shared.quickAddKeepContentWhenHidden
+            self?.quickAddKeepContentCellItem.isOn = isOn
+        }
+
+        cellItem.valueChanged = { isOn in
+            TodoSetting.shared.quickAddKeepContentWhenHidden = isOn
+        }
+        
+        return cellItem
+    }()
+
     lazy var quickAddContinuouslyCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
         cellItem.title = resGetString("Add Continuously")
@@ -135,7 +151,8 @@ class TodoSettingViewController: TPTableSectionsViewController {
          let sectionController = TPTableItemSectionController()
          sectionController.headerItem.title = resGetString("Quick Add")
          sectionController.headerItem.height = 50.0
-         sectionController.cellItems = [quickAddContinuouslyCellItem]
+         sectionController.cellItems = [quickAddKeepContentCellItem,
+                                        quickAddContinuouslyCellItem]
          return sectionController
      }()
     

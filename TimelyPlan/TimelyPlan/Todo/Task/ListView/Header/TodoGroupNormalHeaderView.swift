@@ -14,6 +14,7 @@ class TodoGroupNormalHeaderView: TodoGroupBaseHeaderView {
         didSet {
             if count != oldValue {
                 countLabel.text = "\(count)"
+                setNeedsLayout()
             }
         }
     }

@@ -10,6 +10,9 @@ import UIKit
 
 class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
     
+    /// 草稿任务
+    var draftTask: TodoQuickAddTask?
+    
     /// 输入视图 frame 改变
     var inputViewFrameDidChange: ((UIView?) -> Void)?
     
@@ -47,12 +50,21 @@ class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
         addController?.endEditing()
         addController = nil
     }
-    
+
     // MARK: - TPKeyboardAwareControllerDelegate
     func keyboardAwareControllerDidHideInputView(controller: TPKeyboardAwareController) {
-        if addController == controller {
+        if controller == self.addController {
+            var task: TodoQuickAddTask?
+            if TodoSetting.shared.quickAddKeepContentWhenHidden {
+                if let editingTask = self.addController?.editingTask, editingTask.isValid {
+                    task = editingTask
+                }
+            }
+            
+            self.draftTask = task
+            
             /// 将控制器设置为空
-            addController = nil
+            self.addController = nil
         }
         
         inputViewFrameDidChange?(controller.inputView)
