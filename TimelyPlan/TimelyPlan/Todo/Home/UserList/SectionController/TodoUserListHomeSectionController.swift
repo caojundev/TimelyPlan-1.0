@@ -47,11 +47,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     }
     
     private func userListChanged(_ change: TodoUserListChange? = nil) {
-        var rowAnimation: UITableView.RowAnimation = .none
-        if change != nil {
-            rowAnimation = .top
-        }
-        
+        let rowAnimation: UITableView.RowAnimation = .top
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: rowAnimation)
         guard let change = change else {
             return

@@ -31,7 +31,6 @@ class TodoListCounter {
         self.counts[identifier] = count
     }
     
-    
     func setCount(_ count: Int, for item: IdentifiableItem) {
         self.counts[item.identifier] = count
     }

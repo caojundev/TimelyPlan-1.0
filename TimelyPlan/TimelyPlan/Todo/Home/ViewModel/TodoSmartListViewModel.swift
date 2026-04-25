@@ -28,10 +28,8 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
     init(types: [TodoSmartListType]) {
         self.types = types
         super.init()
-        let displayTypes = self.displayTypes()
-        self.lists = displayTypes.map { TodoSmartList(type: $0) }
+        self.lists = autoHideEmptyWhiteListTypes.map { TodoSmartList(type: $0) }
         self.loadLists()
-   
         /// 添加智能清单显示设置项监听
         TodoSetting.shared.addObserver(self, forKey: .smartListDisplay)
         todo.addUpdater(self)
@@ -56,17 +54,16 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
         
         group.notify(queue: .main) {
             guard self.requestManager.shouldProceed(with: requestID) else {
-               return
+                completion?()
+                return
             }
             
-            if self.updateLists() {
-                self.listsDidChange?()
-            }
+            self.updateLists()
+            completion?()
         }
     }
 
-    @discardableResult
-    private func updateLists() -> Bool {
+    private func updateLists(){
         let displayTypes = displayTypes()
         var visibleTypes: [TodoSmartListType] = []
         let display = TodoSetting.shared.smartListDisplay
@@ -88,13 +85,8 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
             visibleTypes = displayTypes
         }
     
-        let visibleLists = visibleTypes.map { TodoSmartList(type: $0) }
-        if self.lists != visibleLists {
-            self.lists = visibleLists
-            return true
-        }
-
-        return false
+        self.lists = visibleTypes.map { TodoSmartList(type: $0) }
+        self.listsDidChange?()
     }
     
     /// 显示的清单类型
@@ -113,12 +105,9 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
         return displayTypes
     }
     
-    
     // MARK: - SettingAgentObserver
     func settingAgentDidChangeValue(for keyName: String) {
-        if self.updateLists() {
-            self.listsDidChange?()
-        }
+        self.updateLists()
     }
 }
 
@@ -134,16 +123,16 @@ extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
         }
         
         counter.invalidateCount(for: lists)
-        self.loadLists { [weak self] in
+        loadLists { [weak self] in
             guard let visibleLists = self?.lists else {
                 return
             }
-            
+
             let updateLists = Set(visibleLists).intersection(Set(lists))
             self?.countDidChange?(Array(updateLists))
         }
     }
-    
+
     func didCreateTodoTask(_ task: TodoTask) {
         changeCount()
     }

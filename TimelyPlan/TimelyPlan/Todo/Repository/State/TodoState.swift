@@ -10,6 +10,7 @@ import Foundation
 class TodoState {
     
     enum SettingKey: String, SettingKeyRepresentable {
+        case collapsedListStates
         case isHomeListExpanded /// 列表是否展开
         case isHomeTagExpanded  /// 标签是否展开
         case isHomeFilterExpanded /// 过滤器是否展开
@@ -20,7 +21,10 @@ class TodoState {
             return "TodoState"
         }
     }
-
+    
+    @LocalStored(key: SettingKey.collapsedListStates.name, defaultValue: nil)
+    var collapsedListStates: [String: Bool]?
+    
     @LocalStored(key: SettingKey.listOption.name, defaultValue: nil)
     private var listOptionStates: [String: TodoListOptionState]?
     

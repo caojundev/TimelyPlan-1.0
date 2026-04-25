@@ -45,13 +45,14 @@ class TodoSmartListCell: TPImageInfoTextValueTableCell {
     
     /// 更新任务数目
     func updateTaskCount() {
-        guard let list = self.list, let delegate = delegate as? TodoSmartListCellDelegate else {
+        guard let delegate = delegate as? TodoSmartListCellDelegate else {
             self.valueConfig = nil
             setNeedsLayout()
             return
         }
         
-        if let count = delegate.countForTodoSmartListCell(self), count > 0 {
+        let count = delegate.countForTodoSmartListCell(self)
+        if count > 0 {
             self.valueConfig = .valueText("\(count)", font: SYSTEM_FONT)
         } else {
             self.valueConfig = nil

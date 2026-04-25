@@ -9,19 +9,27 @@ import Foundation
 
 class TodoHomeUserListExpansionState: ExpansionStateProviding {
     
-    private var collapsedLists = Set<String>()
+    private var collapsedStates: [String: Bool]
+    
+    init() {
+        self.collapsedStates = TodoState.shared.collapsedListStates ?? [:]
+    }
     
     func isExpanded(_ item: Any) -> Bool {
         let list = item as! TodoList
-        return !collapsedLists.contains(list.identifier)
+        let isCollapsed = collapsedStates[list.identifier] ?? false
+        return !isCollapsed
     }
     
     func setExpended(_ isExpended: Bool, for item: Any) {
         let list = item as! TodoList
         if isExpended {
-            collapsedLists.remove(list.identifier)
+            collapsedStates[list.identifier] = nil
         } else {
-            collapsedLists.insert(list.identifier)
+            /// 收起
+            collapsedStates[list.identifier] = true
         }
+        
+        TodoState.shared.collapsedListStates = collapsedStates
     }
 }

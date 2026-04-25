@@ -550,7 +550,7 @@ extension TPTableViewAdapter {
             return
         }
         
-        tableView.performBatchUpdates {
+        let updates = {
             for result in indexPathResults {
                 self.tableView.deleteRows(at: result.deletes, with: rowAnimation)
                 self.tableView.insertRows(at: result.inserts, with: rowAnimation)
@@ -558,12 +558,21 @@ extension TPTableViewAdapter {
                     self.tableView.moveRow(at: move.from, to: move.to)
                 }
             }
-        } completion: { finished in
-            completion?(finished)
         }
         
-        updateVisibleCells(forSectionObjects: sectionObjects)
-        updateHeaderFooterView(forSectionObjects: sectionObjects)
+        if rowAnimation == .none {
+            UIView.performWithoutAnimation {
+                self.tableView.performBatchUpdates(updates, completion: nil)
+            }
+            
+            updateVisibleCells(forSectionObjects: sectionObjects)
+            updateHeaderFooterView(forSectionObjects: sectionObjects)
+            completion?(true)
+        } else {
+            self.tableView.performBatchUpdates(updates, completion: completion)
+            updateVisibleCells(forSectionObjects: sectionObjects)
+            updateHeaderFooterView(forSectionObjects: sectionObjects)
+        }
     }
 }
 
