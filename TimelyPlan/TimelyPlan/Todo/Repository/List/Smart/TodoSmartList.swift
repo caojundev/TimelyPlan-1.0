@@ -26,6 +26,14 @@ enum TodoSmartListType: String, Codable, TPMenuRepresentable {
         return types
     }
     
+    static var scheduleTypes: [TodoSmartListType] {
+        return [.overdue, .today, .tomorrow, .upcoming]
+    }
+    
+    var isScheduleType: Bool {
+        return Self.scheduleTypes.contains(self)
+    }
+    
     var title: String {
         if self == .myDay {
             return resGetString("My Day")

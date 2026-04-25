@@ -8,7 +8,8 @@
 import Foundation
 
 class TodoFilterListInteractor: TodoListInteractor,
-                                TodoFilterProcessorDelegate {
+                                TodoFilterProcessorDelegate,
+                                TPMidnightUpdatable {
     
     var filter: TodoFilter {
         return listConfiguration.filter
@@ -20,6 +21,7 @@ class TodoFilterListInteractor: TodoListInteractor,
     
     override init(configuration: TodoListConfiguration) {
         super.init(configuration: configuration)
+        TPMidnightScheduler.shared.addUpdater(self)
         todo.addUpdater(self, for: [.filter])
     }
     
@@ -40,6 +42,16 @@ class TodoFilterListInteractor: TodoListInteractor,
         }
         
         return tagName
+    }
+    
+    // MARK: - TPMidnightUpdatable
+    func updateAtMidnight() {
+        guard filter.rule?.dateFilterValue != nil else {
+            return
+        }
+        
+        self.setNeedsRefresh()
+        self.loadGroups()
     }
     
     // MARK: - TodoFilterProcessorDelegate

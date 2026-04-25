@@ -7,7 +7,8 @@
 
 import Foundation
 
-class TodoSmartListInteractor: TodoListInteractor {
+class TodoSmartListInteractor: TodoListInteractor,
+                                TPMidnightUpdatable {
     
     static func smartListInteractor(with configuration: TodoSmartListConfiguration) -> TodoSmartListInteractor {
         let listType = configuration.list.listType
@@ -29,6 +30,13 @@ class TodoSmartListInteractor: TodoListInteractor {
     
     var listConfiguration: TodoSmartListConfiguration {
        return configuration as! TodoSmartListConfiguration
+    }
+    
+    override init(configuration: TodoListConfiguration) {
+        super.init(configuration: configuration)
+        
+        /// 添加至凌晨更新对象
+        TPMidnightScheduler.shared.addUpdater(self)
     }
     
     override func layoutType() -> TodoListLayoutType {
@@ -63,6 +71,16 @@ class TodoSmartListInteractor: TodoListInteractor {
         todo.fetchSmartListTasks(in: list,
                                  showCompleted: showCompleted,
                                  completion: completion)
+    }
+    
+    // MARK: - TPMidnightUpdatable
+    func updateAtMidnight() {
+        guard list.listType.isScheduleType else {
+            return
+        }
+        
+        self.setNeedsRefresh()
+        self.loadGroups()
     }
 }
 

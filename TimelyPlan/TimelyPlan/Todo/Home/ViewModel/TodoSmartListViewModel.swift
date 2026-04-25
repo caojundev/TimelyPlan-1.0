@@ -8,7 +8,8 @@
 import Foundation
 
 class TodoSmartListViewModel: TodoBaseListViewModel,
-                              SettingAgentObserver {
+                              SettingAgentObserver,
+                              TPMidnightUpdatable {
     
     /// 列表改变
     var listsDidChange: (() -> Void)?
@@ -30,8 +31,13 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
         super.init()
         self.lists = autoHideEmptyWhiteListTypes.map { TodoSmartList(type: $0) }
         self.loadLists()
+        
         /// 添加智能清单显示设置项监听
         TodoSetting.shared.addObserver(self, forKey: .smartListDisplay)
+        
+        /// 添加至凌晨更新对象
+        TPMidnightScheduler.shared.addUpdater(self)
+        
         todo.addUpdater(self)
     }
 
@@ -89,31 +95,7 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
         self.listsDidChange?()
     }
     
-    /// 显示的清单类型
-    private func displayTypes() -> [TodoSmartListType] {
-        var displayTypes = [TodoSmartListType]()
-        let display = TodoSetting.shared.smartListDisplay
-        let hiddenTypes = display?.hiddenListTypes ?? []
-        for type in self.types {
-            if hiddenTypes.contains(type) {
-               continue
-            }
-            
-            displayTypes.append(type)
-        }
-        
-        return displayTypes
-    }
-    
-    // MARK: - SettingAgentObserver
-    func settingAgentDidChangeValue(for keyName: String) {
-        self.updateLists()
-    }
-}
-
-extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
-
-    private func changeCount(of listTypes: [TodoSmartListType] = TodoSmartListType.allCases) {
+    private func countChanged(of listTypes: [TodoSmartListType] = TodoSmartListType.allCases) {
         var lists = [TodoSmartList]()
         for listType in listTypes {
             if types.contains(listType) {
@@ -133,8 +115,38 @@ extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
         }
     }
 
+    /// 显示的清单类型
+    private func displayTypes() -> [TodoSmartListType] {
+        var displayTypes = [TodoSmartListType]()
+        let display = TodoSetting.shared.smartListDisplay
+        let hiddenTypes = display?.hiddenListTypes ?? []
+        for type in self.types {
+            if hiddenTypes.contains(type) {
+               continue
+            }
+            
+            displayTypes.append(type)
+        }
+        
+        return displayTypes
+    }
+    
+    // MARK: - TPMidnightUpdatable
+    func updateAtMidnight() {
+        /// 计划智能清单改变
+        self.countChanged(of: TodoSmartListType.scheduleTypes)
+    }
+    
+    // MARK: - SettingAgentObserver
+    func settingAgentDidChangeValue(for keyName: String) {
+        self.updateLists()
+    }
+}
+
+extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
+
     func didCreateTodoTask(_ task: TodoTask) {
-        changeCount()
+        self.countChanged()
     }
     
     func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
@@ -151,24 +163,24 @@ extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
         }
         
         if bInboxChanged {
-            changeCount(of: [.inbox])
+            countChanged(of: [.inbox])
         }
     }
     
     func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
-        changeCount()
+        countChanged()
     }
     
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
-        changeCount()
+        countChanged()
     }
     
     func didDeleteTodoTasks(_ tasks: [TodoTask]) {
-        changeCount(of: [.trash])
+        countChanged(of: [.trash])
     }
     
     func didEmptyTrash() {
-        changeCount(of: [.trash])
+        countChanged(of: [.trash])
     }
     
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
@@ -177,6 +189,6 @@ extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
     }
     
     func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
-        changeCount()
+        countChanged()
     }
 }

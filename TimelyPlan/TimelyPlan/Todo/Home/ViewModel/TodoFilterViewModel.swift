@@ -12,7 +12,8 @@ enum TodoFilterChange {
     case update(TodoFilter)
 }
 
-class TodoHomeFilterViewModel: TodoFilterViewModel {
+class TodoHomeFilterViewModel: TodoFilterViewModel,
+                                TPMidnightUpdatable {
     
     /// 区块是否展开
     var isExpanded: Bool {
@@ -24,6 +25,20 @@ class TodoHomeFilterViewModel: TodoFilterViewModel {
             TodoState.shared.isHomeFilterExpanded = newValue
         }
     }
+    
+    override init() {
+        super.init()
+        
+        /// 添加至凌晨更新对象
+        TPMidnightScheduler.shared.addUpdater(self)
+    }
+
+    
+    // MARK: - TPMidnightUpdatable
+    func updateAtMidnight() {
+        self.changeCountForAllFilters()
+    }
+    
 }
 
 class TodoFilterViewModel: TodoBaseListViewModel {
@@ -104,7 +119,7 @@ extension TodoFilterViewModel: TodoFilterProcessorDelegate {
         setNeedsRefresh()
         loadFilters(with: .update(filter)) { [weak self] _ in
             /// 加载最新的 filters 后根据新规则获取任务数目
-            self?.didChangeCount(for: [filter])
+            self?.changeCount(for: [filter])
         }
     }
     
@@ -121,28 +136,28 @@ extension TodoFilterViewModel: TodoFilterProcessorDelegate {
 
 extension TodoFilterViewModel: TodoTaskProcessorDelegate {
 
-    private func didChangeCountForAllFilters() {
+    func changeCountForAllFilters() {
         if let filters = self.filters {
             counter.invalidateCount(for: filters)
             countDidChange?(filters)
         }
     }
     
-    private func didChangeCount(for filters: [TodoFilter]) {
+    private func changeCount(for filters: [TodoFilter]) {
         counter.invalidateCount(for: filters)
         countDidChange?(filters)
     }
     
     func didCreateTodoTask(_ task: TodoTask) {
-        didChangeCountForAllFilters()
+        changeCountForAllFilters()
     }
     
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
-        didChangeCountForAllFilters()
+        changeCountForAllFilters()
     }
     
     func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
-        didChangeCountForAllFilters()
+        changeCountForAllFilters()
     }
     
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
@@ -151,7 +166,7 @@ extension TodoFilterViewModel: TodoTaskProcessorDelegate {
     }
     
     func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
-        didChangeCountForAllFilters()
+        changeCountForAllFilters()
     }
 }
 
