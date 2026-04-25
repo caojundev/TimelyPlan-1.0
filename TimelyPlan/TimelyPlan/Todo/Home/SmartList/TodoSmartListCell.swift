@@ -11,7 +11,7 @@ import UIKit
 protocol TodoSmartListCellDelegate: AnyObject {
 
     /// 获取单元格待办数量
-    func todoSmartListCell(_ cell: TodoSmartListCell, requestCount completion: @escaping (Int?) -> Void)
+    func countForTodoSmartListCell(_ cell: TodoSmartListCell) -> Int
 }
 
 class TodoSmartListCell: TPImageInfoTextValueTableCell {
@@ -51,17 +51,10 @@ class TodoSmartListCell: TPImageInfoTextValueTableCell {
             return
         }
         
-        let identifier = list.identifier
-        delegate.todoSmartListCell(self) { [weak self] count in
-            guard let self = self, identifier == self.list?.identifier else {
-                return
-            }
-            
-            if let count = count, count > 0 {
-                self.valueConfig = .valueText("\(count)", font: SYSTEM_FONT)
-            } else {
-                self.valueConfig = nil
-            }
+        if let count = delegate.countForTodoSmartListCell(self), count > 0 {
+            self.valueConfig = .valueText("\(count)", font: SYSTEM_FONT)
+        } else {
+            self.valueConfig = nil
         }
         
         setNeedsLayout()

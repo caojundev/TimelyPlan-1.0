@@ -43,7 +43,6 @@ class TodoHomeDisplaySettingViewController: TPTableSectionsViewController {
     
     override func clickSave() {
         TodoSetting.shared.homeSectionTypes = sectionController.types
-        print(sectionController.types)
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -56,7 +55,7 @@ class TodoHomeDisplaySectionController: TPTableItemSectionController,
     override init() {
         self.types = TodoSetting.shared.orderedHomeSectionTypes
         super.init()
-     
+        self.headerItem.height = 10.0
         var cellItems: [TodoHomeDisplayEditCellItem] = []
         for type in types {
             let cellItem = TodoHomeDisplayEditCellItem(sectionType: type)

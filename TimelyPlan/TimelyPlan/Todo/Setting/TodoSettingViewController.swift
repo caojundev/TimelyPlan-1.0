@@ -25,7 +25,7 @@ class TodoSettingViewController: TPTableSectionsViewController {
 
     lazy var smartListDisplayCellItem: TPDefaultInfoTableCellItem = {
         let cellItem = TPDefaultInfoTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.title = resGetString("Smart Lists")
+        cellItem.title = resGetString("Smart List")
         cellItem.didSelectHandler = { [weak self] in
             self?.showSmartListDisplaySettings()
         }
@@ -236,6 +236,7 @@ class TodoSettingViewController: TPTableSectionsViewController {
     }
     
     private func showSmartListDisplaySettings() {
-        
+        let vc = TodoSmartListDisplaySettingViewController(style: .insetGrouped)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

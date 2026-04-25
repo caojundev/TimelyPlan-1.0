@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 /// 智能清单类型
-enum TodoSmartListType: String, TPMenuRepresentable {
-    case myDay     /// 我的一天
+enum TodoSmartListType: String, Codable, TPMenuRepresentable {
     case inbox     /// 收件箱
+    case myDay     /// 我的一天
     case completed /// 已完成
     case overdue   /// 已过期
     case today     /// 今天

@@ -7,10 +7,19 @@
 
 import Foundation
 
+struct TodoSmartListDisplay: Codable, Equatable {
+    
+    var autoHideEmpty: Bool?
+    
+    var hiddenListTypes: Set<TodoSmartListType>?
+}
+
 class TodoSetting {
     
     enum Key: String, SettingKeyRepresentable {
         case homeSectionTypes
+        case smartListDisplay   /// 智能清单显示
+        
         case autoCompleteSubtasks
         case autoCompleteParentTask
         
@@ -28,6 +37,9 @@ class TodoSetting {
             return "TodoSetting"
         }
     }
+    
+    @CloudStored(key: Key.smartListDisplay.name, defaultValue: nil)
+    var smartListDisplay: TodoSmartListDisplay?
     
     @CloudStored(key: Key.homeSectionTypes.name, defaultValue: nil)
     var homeSectionTypes: [TodoHomeSectionType]?
@@ -92,5 +104,4 @@ class TodoSetting {
     func addObserver(_ observer: SettingAgentObserver, forKey key: Key) {
         KeyValueStorage.shared.addObserver(observer, forKey: key.name)
     }
-    
 }

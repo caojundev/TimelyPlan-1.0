@@ -13,27 +13,30 @@ class TodoSmartListSectionController: TPTableBaseSectionController,
     
     var didSelectList: ((TodoSmartList) -> Void)?
     
-    private(set) var types: [TodoSmartListType]
-    
     private let viewModel: TodoSmartListViewModel
     
     override var items: [ListDiffable]? {
-        return types.map { type in
-            return TodoSmartList(type: type)
-        }
+        return viewModel.lists
     }
     
     init(types: [TodoSmartListType]) {
-        self.types = types
         self.viewModel = TodoSmartListViewModel(types: types)
         super.init()
+        self.viewModel.listsDidChange = { [weak self] in
+            self?.listsChanged()
+        }
+        
         self.viewModel.countDidChange = { [weak self] lists in
             self?.updateTaskCount(for: lists)
         }
     }
     
+    private func listsChanged() {
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+    }
+    
     /// 更新列表任务数目
-    func updateTaskCount(for lists: [TodoSmartList]) {
+    private func updateTaskCount(for lists: [TodoSmartList]) {
         for list in lists {
             let diffIdentifier = list.identifier as NSString
             let cell = adapter?.cellForItem(with: diffIdentifier, inSection: self)
@@ -79,13 +82,12 @@ class TodoSmartListSectionController: TPTableBaseSectionController,
     }
     
     // MARK: - TodoSmartListCellDelegate
-    func todoSmartListCell(_ cell: TodoSmartListCell, requestCount completion: @escaping (Int?) -> Void) {
+    func countForTodoSmartListCell(_ cell: TodoSmartListCell) -> Int {
         guard let list = cell.list else {
-            completion(nil)
-            return
+            return 0
         }
         
-        viewModel.fetchUncompletedTaskCount(for: list, completion: completion)
+        return viewModel.uncompletedTaskCount(for: list)
     }
 }
 
