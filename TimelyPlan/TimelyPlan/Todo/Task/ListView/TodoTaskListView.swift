@@ -19,14 +19,21 @@ protocol TodoTaskListViewDelegate: AnyObject {
     /// 通知列表选中任务
     func todoTaskListView(_ listView: TodoTaskListView, didClickCheckboxForTask task: TodoTask)
 
+    /// 重新安排任务
+    func todoTaskListView(_ listView: TodoTaskListView, rescheduleTasks tasks: [TodoTask])
+    
     /// 通知列表在选择模式下选中任务发生改变
     func todoTaskListViewDidChangeSelectedTasks(_ listView: TodoTaskListView)
     
     /// 任务对应头部滑动菜单配置
-    func todoTaskListView(_ listView: TodoTaskListView, leadingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration?
+    func todoTaskListView(_ listView: TodoTaskListView,
+                          leadingSwipeActionsConfigurationForTask task: TodoTask,
+                          at indexPath: IndexPath) -> UISwipeActionsConfiguration?
     
     /// 任务对应尾部滑动菜单配置
-    func todoTaskListView(_ listView: TodoTaskListView, trailingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration?
+    func todoTaskListView(_ listView: TodoTaskListView,
+                          trailingSwipeActionsConfigurationForTask task: TodoTask,
+                          at indexPath: IndexPath) -> UISwipeActionsConfiguration?
     
     /// 将开始拖动
     func todoTaskListViewWillBeginDragging(_ listView: TodoTaskListView)
@@ -45,6 +52,7 @@ class TodoTaskListView: UIView,
                         TPTableViewAdapterDataSource,
                         TPTableViewAdapterDelegate,
                         TodoTaskCheckTableCellDelegate,
+                        TodoGroupOverdueHeaderViewDelegate,
                         TodoGroupSelectingHeaderViewDelegate {
     
     /// 代理对象
@@ -491,7 +499,9 @@ class TodoTaskListView: UIView,
             return nil
         }
         
-        return delegate?.todoTaskListView(self, leadingSwipeActionsConfigurationForTask: task)
+        return delegate?.todoTaskListView(self,
+                                          leadingSwipeActionsConfigurationForTask: task,
+                                          at: indexPath)
     }
     
     func adapter(_ adapter: TPTableViewAdapter, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -503,7 +513,9 @@ class TodoTaskListView: UIView,
             return nil
         }
         
-        return delegate?.todoTaskListView(self, trailingSwipeActionsConfigurationForTask: task)
+        return delegate?.todoTaskListView(self,
+                                          trailingSwipeActionsConfigurationForTask: task,
+                                          at: indexPath)
     }
     
     func adapter(_ adapter: TPTableViewAdapter, willBeginEditingRowAt indexPath: IndexPath) {
@@ -532,6 +544,10 @@ class TodoTaskListView: UIView,
             return TodoGroupSelectingHeaderView.self
         }
    
+        if group.isOverdue {
+            return TodoGroupOverdueHeaderView.self
+        }
+        
         return TodoGroupNormalHeaderView.self
     }
     
@@ -621,6 +637,17 @@ class TodoTaskListView: UIView,
         adapter.performSectionUpdate(forSectionObject: group, rowAnimation: .fade)
     }
     
+    // MARK: - TodoGroupOverdueHeaderViewDelegate
+    func overdueHeaderViewDidClickReschedule(_ headerView: TodoGroupOverdueHeaderView) {
+        guard let group = adapter.object(at: headerView.section) as? TodoGroup,
+              group.isOverdue else {
+            return
+        }
+        
+        if let tasks = group.tasks {
+            delegate?.todoTaskListView(self, rescheduleTasks: tasks)
+        }
+    }
     
     // MARK: - TodoTaskCheckTableCellDelegate
     

@@ -82,6 +82,9 @@
 "Delete Filter" = "删除过滤器";
 "Enter filter name" = "输入过滤器名称";
 
+/// 任务列表
+"Reschedule" = "重新安排";
+
 /// 优先级
 "Priority" = "优先级";
 "No Priority" = "无优先级";

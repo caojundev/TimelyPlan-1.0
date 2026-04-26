@@ -53,6 +53,7 @@ extension ASAttributedString {
                        imageSize: CGSize? = nil,
                        imageColor: UIColor? = nil,
                        trailingText: String? = nil,
+                       textColor: UIColor? = nil,
                        separator: String? = nil) -> ASAttributedString {
         var image = image
         if let imageColor = imageColor {
@@ -63,7 +64,11 @@ extension ASAttributedString {
         let imageString: ASAttributedString = "\(.image(image, .custom(.center, size: imageSize)))"
         var strings = [imageString]
         if let trailingText = trailingText {
-            strings.append("\(trailingText)")
+            if let textColor = textColor {
+                strings.append(string(with: trailingText, textColor: textColor))
+            } else {
+                strings.append("\(trailingText)")
+            }
         }
         
         let separator = separator ?? ""

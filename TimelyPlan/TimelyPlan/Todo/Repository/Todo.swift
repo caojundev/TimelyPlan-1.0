@@ -165,15 +165,6 @@ extension Todo {
         taskManager.deleteTasks(tasks)
     }
     
-    /// 更新优先级
-    func updateTasks(_ tasks: [TodoTask], priority: TodoTaskPriority) {
-        taskManager.updateTasks(tasks, priority: priority)
-    }
-    
-    func updateTasks(_ tasks: [TodoTask], isCompleted: Bool) {
-        taskManager.updateTasks(tasks, isCompleted: isCompleted)
-    }
-    
     func updateTask(_ task: TodoTask, progress: TodoEditProgress?) {
         return taskManager.updateTask(task, progress: progress)
     }
@@ -206,6 +197,23 @@ extension Todo {
         taskManager.updateTask(task, steps: steps)
     }
     
+    // MARK: - 批量更新
+    /// 更新优先级
+    func updateTasks(_ tasks: [TodoTask], priority: TodoTaskPriority) {
+        taskManager.updateTasks(tasks, priority: priority)
+    }
+    
+    /// 更新完成状态
+    func updateTasks(_ tasks: [TodoTask], isCompleted: Bool) {
+        taskManager.updateTasks(tasks, isCompleted: isCompleted)
+    }
+    
+    /// 更新计划
+    func updateTasks(_ tasks: [TodoTask], schedule: TaskSchedule?) {
+        taskManager.updateTasks(tasks, schedule: schedule)
+    }
+
+    // MARK: - 排序任务
     func reorderTask(_ sourceTask: TodoTask,
                      postion: TodoTaskInsertPosition,
                      targetTask: TodoTask,

@@ -174,7 +174,7 @@ class TPBasePopoverView: UIView, TFPopoverContent {
               isCovered: Bool,
               preferredPosition: TPPopoverPosition,
               permittedPositions: [TPPopoverPosition] = TPPopoverPosition.allCases,
-              animated: Bool) {
+              animated: Bool = true) {
         guard let keyWindow = UIWindow.keyWindow else {
             return
         }

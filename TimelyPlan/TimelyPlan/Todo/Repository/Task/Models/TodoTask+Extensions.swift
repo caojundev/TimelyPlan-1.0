@@ -68,6 +68,7 @@ extension TodoTask {
                                                    imageSize: .size(3),
                                                    imageColor: .secondaryLabel,
                                                    trailingText: trailingText,
+                                                   textColor: .primary,
                                                    separator: "")
             return info
         }

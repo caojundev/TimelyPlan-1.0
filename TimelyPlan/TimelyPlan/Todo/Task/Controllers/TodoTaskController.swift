@@ -22,7 +22,7 @@ class TodoTaskController {
         case .move:
             moveTasks(tasks, completion: completion)
         case .date:
-            break
+            editSchedule(for: tasks, completion: completion)
         case .priority:
             editPriority(for: tasks, sourceView: sourceView, completion: completion)
         case .trash:
@@ -58,13 +58,7 @@ class TodoTaskController {
         pickerVC.popoverShowAsNavigationRoot()
     }
     
-    // MARK: - 编辑
-    func editSchedule(for task: TodoTask) {
-        TodoTaskController.editSchedule(task.schedule) { schedule in
-            todo.updateTask(task, schedule: schedule)
-        }
-    }
-    
+    // MARK: - 编辑任务
     func editTask(_ task: TodoTask) {
         guard let topVC = UIViewController.topPresented else {
             return
@@ -77,6 +71,23 @@ class TodoTaskController {
                            isInteractive: true,
                            animated: true,
                            completion: nil)
+    }
+    
+    // MARK: - 编辑计划
+    func editSchedule(for task: TodoTask) {
+        editSchedule(for: [task], completion: nil)
+    }
+    
+    func editSchedule(for tasks: [TodoTask], completion: (()->Void)? = nil) {
+        var schedule: TaskSchedule?
+        if tasks.count == 1 {
+            schedule = tasks[0].schedule
+        }
+        
+        TodoTaskController.editSchedule(schedule) { newSchedule in
+            todo.updateTasks(tasks, schedule: newSchedule)
+            completion?()
+        }
     }
     
     // MARK: - 完成任务
@@ -96,7 +107,10 @@ class TodoTaskController {
     }
 
     // MARK: - 优先级
-    func editPriority(for tasks: [TodoTask], sourceView: UIView, completion: (()->Void)? = nil) {
+    func editPriority(for tasks: [TodoTask],
+                      sourceView: UIView?,
+                      preferredPosition: TPPopoverPosition = .topLeft,
+                      completion: (()->Void)? = nil) {
         let popoverView = TPMenuListPopoverView()
         let menuItem = TPMenuItem.item(with: TodoTaskPriority.priorities) { _, action in
             action.handleBeforeDismiss = true
@@ -111,11 +125,12 @@ class TodoTaskController {
             completion?()
         }
         
+        let permittedPositions = TPPopoverPosition.topPopoverPositions + TPPopoverPosition.bottomPopoverPositions
         popoverView.show(from: sourceView,
-                         sourceRect: sourceView.bounds,
+                         sourceRect: sourceView?.bounds,
                          isCovered: false,
-                         preferredPosition: .topLeft,
-                         permittedPositions: TPPopoverPosition.topPopoverPositions,
+                         preferredPosition: preferredPosition,
+                         permittedPositions: permittedPositions,
                          animated: true)
     }
 

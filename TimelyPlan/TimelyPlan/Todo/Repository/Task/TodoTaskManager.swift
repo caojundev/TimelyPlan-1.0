@@ -241,14 +241,40 @@ class TodoTaskManager {
         HandyRecord.save()
     }
     
-    func updateTask(_ task: TodoTask, schedule: TaskSchedule?) {
-        guard task.schedule != schedule, CDTodoTask.updateTask(task, schedule: schedule) else {
+    // MARK: - 更新计划
+    func updateTasks(_ tasks: [TodoTask], schedule: TaskSchedule?) {
+        var tasksToUpdate = [TodoTask]()
+        for task in tasks {
+            if task.schedule != schedule {
+                tasksToUpdate.append(task)
+            }
+        }
+        
+        guard tasksToUpdate.count > 0,
+              CDTodoTask.updateTasks(tasksToUpdate, schedule: schedule) else {
             return
         }
         
-        let change: TodoTaskChange = .schedule(oldValue: task.schedule, newValue: schedule)
-        updater.didUpdateTodoTask(task, with: change)
+        if tasksToUpdate.count == 1 {
+            let task = tasksToUpdate[0]
+            let change: TodoTaskChange = .schedule(oldValue: task.schedule, newValue: schedule)
+            updater.didUpdateTodoTask(task, with: change)
+        } else {
+            var changeInfos: [TodoTaskChangeInfo] = []
+            for task in tasksToUpdate {
+                let change: TodoTaskChange = .schedule(oldValue: task.schedule, newValue: schedule)
+                let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+                changeInfos.append(changeInfo)
+            }
+            
+            updater.didUpdateTodoTasks(with: changeInfos)
+        }
+        
         HandyRecord.save()
+    }
+    
+    func updateTask(_ task: TodoTask, schedule: TaskSchedule?) {
+        updateTasks([task], schedule: schedule)
     }
     
     func updateTask(_ task: TodoTask, tags: Set<TodoTag>?) {

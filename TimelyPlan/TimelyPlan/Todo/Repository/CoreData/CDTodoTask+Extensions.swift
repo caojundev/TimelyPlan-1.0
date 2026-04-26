@@ -220,13 +220,18 @@ extension CDTodoTask: SortableIdentifiable {
         return true
     }
     
-    static func updateTask(_ task: TodoTask, schedule: TaskSchedule?) -> Bool {
-        guard let cdTask = getItem(with: task.identifier) else {
+    static func updateTasks(_ tasks: [TodoTask], schedule: TaskSchedule?) -> Bool {
+        guard let cdTasks = getIdentifiableItems(with: tasks) as? [CDTodoTask],
+              cdTasks.count > 0 else {
             return false
         }
         
-        cdTask.updateSchedule(schedule)
-        cdTask.modificationDate = .now
+        let modificationDate = Date()
+        for cdTask in cdTasks {
+            cdTask.updateSchedule(schedule)
+            cdTask.modificationDate = modificationDate
+        }
+        
         return true
     }
     
