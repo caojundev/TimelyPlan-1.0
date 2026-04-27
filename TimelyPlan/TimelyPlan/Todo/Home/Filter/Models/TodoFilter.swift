@@ -48,6 +48,10 @@ class TodoFilter: NSObject,
         return TodoEditFilter(name: self.name, color: color, rule: self.rule)
     }
     
+    var matchingQuickAddTask: TodoQuickAddTask? {
+        return rule?.matchingQuickAddTask
+    }
+    
     // MARK: - SortableIdentifiable
     /// 排序因子
     var order: Int64
@@ -71,6 +75,7 @@ class TodoFilter: NSObject,
     static var defaultColor: UIColor {
         return colors[0]
     }
+    
     
     init(content: CDTodoFilter) {
         self.identifier = content.identifier ?? ""

@@ -82,10 +82,15 @@ class TodoBaseTaskListViewController: UIViewController,
     
     /// 列表视图
     private lazy var listView: TodoTaskListView = {
-        let view = TodoTaskListView(frame: view.bounds, style: .insetGrouped)
-        view.expansionState = self.expansionState
-        view.delegate = self
-        return view
+        let showDetail = self.interactor.showDetail
+        let detailOption = self.interactor.configuration.detailOption()
+        let listView = TodoTaskListView(frame: view.bounds,
+                                        style: .insetGrouped,
+                                        showDetail: showDetail)
+        listView.detailOption = detailOption
+        listView.expansionState = self.expansionState
+        listView.delegate = self
+        return listView
     }()
 
     /// 添加视图按钮
@@ -310,9 +315,17 @@ class TodoBaseTaskListViewController: UIViewController,
             self.toggleLayout()
         case .showCompleted:
             self.interactor.toggleShowCompleted()
+        case .showDetail:
+            self.toggleShowDetail()
         default:
             break
         }
+    }
+    
+    private func toggleShowDetail() {
+        self.interactor.toggleShowDetail()
+        let showDetail = self.interactor.showDetail
+        self.listView.setShowDetail(showDetail)
     }
     
     /// 切换布局

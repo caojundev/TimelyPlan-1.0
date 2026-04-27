@@ -17,6 +17,8 @@ struct TodoListOptionConfig {
     
     var showCompleted: Bool = true
     
+    var showDetail: Bool = true
+    
     var layoutType: TodoListLayoutType = .list
     
     /// 允许的分组类型
@@ -38,6 +40,7 @@ struct TodoListOptionConfig {
         let sort = state.validatedSort(for: configuration)
         var config = TodoListOptionConfig(options: options, groupType: groupType, sort: sort)
         config.showCompleted = state.showCompleted
+        config.showDetail = state.showDetail
         config.layoutType = state.layoutType ?? .list
         config.allowGroupTypes = configuration.allowGroupTypes()
         config.allowSortTypes = configuration.allowSortTypes()
@@ -66,7 +69,8 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     override func orderedMenuActionTypeLists() -> [Array<TodoListOption>] {
         var lists: [Array<TodoListOption>]
         lists = [[.select,
-                  .showCompleted],
+                  .showCompleted,
+                  .showDetail],
                  [.layout],
                  [.group, .sort],
                  [.edit],
@@ -102,6 +106,8 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
         switch type {
         case .showCompleted:
             action.isChecked = config.showCompleted
+        case .showDetail:
+            action.isChecked = config.showDetail
         case .layout:
             action.subtitle = config.layoutType.title
         case .group:

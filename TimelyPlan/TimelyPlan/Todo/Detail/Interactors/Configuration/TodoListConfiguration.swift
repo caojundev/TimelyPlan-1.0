@@ -26,6 +26,11 @@ class TodoListConfiguration: Equatable, IdentifiableItem {
         return UIViewController()
     }
     
+    /// 详情选项
+    func detailOption() -> TodoTaskDetailOption {
+        return .all
+    }
+    
     func quickAddTask() -> TodoQuickAddTask? {
         return nil
     }
@@ -142,7 +147,7 @@ class TodoUserListConfiguration: TodoListConfiguration {
     }
     
     override func allowListOptions() -> [TodoListOption]? {
-        return [.select, .showCompleted, .layout, .group, .sort, .edit]
+        return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .edit]
     }
     
     override func allowGroupTypes() -> [TodoGroupType] {
@@ -199,7 +204,7 @@ class TodoTagListConfiguration: TodoListConfiguration {
     }
     
     override func allowListOptions() -> [TodoListOption]? {
-        return [.select, .showCompleted, .layout, .group, .sort, .edit]
+        return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .edit]
     }
     
     override func canAddTask() -> Bool {
@@ -207,7 +212,7 @@ class TodoTagListConfiguration: TodoListConfiguration {
     }
     
     override func addButtonBackColor() -> UIColor {
-        return .orangePrimary
+        return .orange(5)
     }
 
     override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
@@ -224,6 +229,22 @@ class TodoFilterListConfiguration: TodoListConfiguration {
         self.filter = filter
         super.init(identifier: filter.identifier)
     }
+
+    override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
+        return TodoFilterTaskListViewController(interactor: interactor)
+    }
+    
+    override func quickAddTask() -> TodoQuickAddTask? {
+        return filter.matchingQuickAddTask ?? TodoQuickAddTask()
+    }
+    
+    override func allowListOptions() -> [TodoListOption]? {
+        return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .edit]
+    }
+    
+    override func canAddTask() -> Bool {
+        return true
+    }
     
     /// 更新标签
     func updateFilter(_ filter: TodoFilter) {
@@ -234,25 +255,4 @@ class TodoFilterListConfiguration: TodoListConfiguration {
         self.filter = filter
     }
     
-    override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
-        return TodoFilterTaskListViewController(interactor: interactor)
-    }
-    
-    override func quickAddTask() -> TodoQuickAddTask? {
-        let task = TodoQuickAddTask()
-        task.priority = .high
-        return task
-    }
-    
-    override func allowListOptions() -> [TodoListOption]? {
-        return [.select, .showCompleted, .layout, .group, .sort, .edit]
-    }
-    
-    override func canAddTask() -> Bool {
-        return true
-    }
-    
-    override func addButtonBackColor() -> UIColor {
-        return .purplePrimary
-    }
 }

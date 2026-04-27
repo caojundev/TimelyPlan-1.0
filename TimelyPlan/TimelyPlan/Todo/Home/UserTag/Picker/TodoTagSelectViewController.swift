@@ -58,6 +58,10 @@ class TodoTagSelectViewController: TPViewController,
         self.viewModel.tagsDidChange = { [weak self] change in
             self?.tagsDidChange(with: change)
         }
+        
+        self.viewModel.loadTags { [weak self] in
+            self?.reloadData()
+        }
     }
     
     private func tagsDidChange(with change: TodoUserTagChange?) {

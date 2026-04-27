@@ -43,10 +43,9 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
         
         /// 更新当前所有显示类型任务数目
         let group = DispatchGroup()
-        let displayTypes = displayTypes()
-        for displayType in displayTypes {
+        for type in self.types {
             group.enter()
-            self.fetchUncompletedTaskCount(for: TodoSmartList(type: displayType)) { _ in
+            self.fetchUncompletedTaskCount(for: TodoSmartList(type: type)) { _ in
                 group.leave()
             }
         }

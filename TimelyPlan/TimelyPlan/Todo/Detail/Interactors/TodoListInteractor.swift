@@ -160,6 +160,15 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
         self.loadGroups()
     }
     
+    var showDetail: Bool {
+        return self.listOptionState.showDetail
+    }
+    
+    func toggleShowDetail() {
+        self.listOptionState.showDetail = !self.listOptionState.showDetail
+        self.listOptionStateDidChange()
+    }
+    
     func setGroupType(_ groupType: TodoGroupType) {
         let groupType = self.configuration.validatedGroupType(groupType)
         guard self.listOptionState.groupType != groupType else {

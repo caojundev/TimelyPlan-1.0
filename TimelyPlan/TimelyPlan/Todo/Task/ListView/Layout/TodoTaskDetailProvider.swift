@@ -32,6 +32,9 @@ struct TodoTaskDetailOption: OptionSet {
     /// 列表
     static let list = TodoTaskDetailOption(rawValue: 1 << 6)
 
+    /// 完成日期
+    static let completionDate = TodoTaskDetailOption(rawValue: 1 << 7)
+    
     /// 所有选项
     static let all: TodoTaskDetailOption = [myDay,
                                             .schedule,
@@ -39,7 +42,8 @@ struct TodoTaskDetailOption: OptionSet {
                                             .progress,
                                             .tag,
                                             .note,
-                                            .list]
+                                            .list,
+                                            .completionDate]
     
     /// 除去列表的所有选项
     static var allExceptList: TodoTaskDetailOption {
@@ -91,6 +95,10 @@ class TodoTaskDetailProvider {
         }
         
         if option.contains(.tag), let info = task.attributedTagInfo {
+            infos.append(info)
+        }
+        
+        if option.contains(.completionDate), let info = task.attributedCompletionInfo {
             infos.append(info)
         }
         

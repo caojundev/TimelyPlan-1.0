@@ -295,6 +295,8 @@
 		E524C7982F9F13FB005CCEBD /* TodoTaskEditMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524C7972F9F13FB005CCEBD /* TodoTaskEditMenuAction.swift */; };
 		E524C79B2F9F499F005CCEBD /* todo_home_list_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C7992F9F499E005CCEBD /* todo_home_list_24@2x.png */; };
 		E524C79C2F9F499F005CCEBD /* todo_home_list_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C79A2F9F499F005CCEBD /* todo_home_list_24@3x.png */; };
+		E524C79F2F9FA04E005CCEBD /* todo_list_option_showDetail_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C79D2F9FA04D005CCEBD /* todo_list_option_showDetail_24@3x.png */; };
+		E524C7A02F9FA04E005CCEBD /* todo_list_option_showDetail_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C79E2F9FA04D005CCEBD /* todo_list_option_showDetail_24@2x.png */; };
 		E52678542D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */; };
 		E52678562D4BD14300428500 /* TPSegmentedMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */; };
 		E526D3F62F6B8EDF005C1DED /* HabitReportImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */; };
@@ -2057,6 +2059,8 @@
 		E524C7972F9F13FB005CCEBD /* TodoTaskEditMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskEditMenuAction.swift; sourceTree = "<group>"; };
 		E524C7992F9F499E005CCEBD /* todo_home_list_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_list_24@2x.png"; sourceTree = "<group>"; };
 		E524C79A2F9F499F005CCEBD /* todo_home_list_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_list_24@3x.png"; sourceTree = "<group>"; };
+		E524C79D2F9FA04D005CCEBD /* todo_list_option_showDetail_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_showDetail_24@3x.png"; sourceTree = "<group>"; };
+		E524C79E2F9FA04D005CCEBD /* todo_list_option_showDetail_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_showDetail_24@2x.png"; sourceTree = "<group>"; };
 		E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPFullSizeSegmentedTableCell.swift; sourceTree = "<group>"; };
 		E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSegmentedMenuTableCell.swift; sourceTree = "<group>"; };
 		E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportImageCacher.swift; sourceTree = "<group>"; };
@@ -9056,6 +9060,8 @@
 				E5E277172D3E099C004EC522 /* todo_list_option_select_24@2x.png */,
 				E5E277182D3E099C004EC522 /* todo_list_option_showCompleted_24@2x.png */,
 				E5E277132D3E099C004EC522 /* todo_list_option_showCompleted_24@3x.png */,
+				E524C79E2F9FA04D005CCEBD /* todo_list_option_showDetail_24@2x.png */,
+				E524C79D2F9FA04D005CCEBD /* todo_list_option_showDetail_24@3x.png */,
 			);
 			path = option;
 			sourceTree = "<group>";
@@ -9605,8 +9611,10 @@
 				E53F32CA2F699AC900B85B65 /* habit_report_notScheduled_20@3x.png in Resources */,
 				E5C18FBA2DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png in Resources */,
 				E524C7812F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png in Resources */,
+				E524C7A02F9FA04E005CCEBD /* todo_list_option_showDetail_24@2x.png in Resources */,
 				E5D7D9752D43E05700EC877A /* focus_running_screenAlwaysOnDisabled_24@2x.png in Resources */,
 				E5186E462D93B141007AA074 /* todo_filter_progress_36@3x.png in Resources */,
+				E524C79F2F9FA04E005CCEBD /* todo_list_option_showDetail_24@3x.png in Resources */,
 				E5D7D97E2D43E19700EC877A /* focus_timer_step_addNext_24@2x.png in Resources */,
 				E55CE3562D8BC2A60083316E /* quadrant_II_32@2x.png in Resources */,
 				E590CAA02F4F461600E66041 /* SideMenuHabit@3x.png in Resources */,

@@ -63,11 +63,11 @@ extension TodoTask {
         }
         
         if let image = resGetImage("todo_task_addToMyDay_24") {
-            let trailingText = resGetString("My Day")
+//            let trailingText = resGetString("My Day")
             let info: ASAttributedString = .string(image: image,
                                                    imageSize: .size(3),
                                                    imageColor: .primary,
-                                                   trailingText: trailingText,
+                                                   trailingText: nil,
                                                    textColor: .primary,
                                                    separator: "")
             return info
@@ -130,6 +130,27 @@ extension TodoTask {
 
         let orderedTags = tags.orderedElements()
         return orderedTags.attributedInfo()
+    }
+    
+    /// 完成信息
+    var attributedCompletionInfo: ASAttributedString? {
+        guard isCompleted, let completionDate = completionDate else {
+            return nil
+        }
+        
+        let dateString = completionDate.yearMonthDayTimeString(omitYear: true,
+                                                               showRelativeDate: true,
+                                                               slashFormatted: true)
+        guard let checkmarkImage = resGetImage("checkmark_12") else {
+            return dateString.attributedString
+        }
+        
+        let info: ASAttributedString = .string(image: checkmarkImage,
+                                               imageSize: .size(3),
+                                               imageColor: .secondaryLabel,
+                                               trailingText: dateString,
+                                               separator: nil)
+        return info
     }
 }
 

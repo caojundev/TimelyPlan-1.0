@@ -31,19 +31,51 @@ class TodoSmartListConfiguration: TodoListConfiguration {
     
     override func quickAddTask() -> TodoQuickAddTask? {
         let task = TodoQuickAddTask()
+        switch list.listType {
+        case .myDay:
+            task.isAddedToMyDay = true
+        default:
+            task.schedule = defaultSchedule(for: list.listType)
+        }
+        
         return task
+    }
+    
+    private func defaultSchedule(for listType: TodoSmartListType) -> TaskSchedule? {
+        var dateInfo: TaskDateInfo?
+        switch listType {
+        case .today:
+            dateInfo = TaskDateInfo()
+        case .tomorrow:
+            let date = Date().dateByAddingDays(1)!
+            dateInfo = TaskDateInfo(date: date)
+        case .upcoming:
+            let date = Date().dateByAddingDays(2)!
+            dateInfo = TaskDateInfo(date: date)
+        default:
+            break
+        }
+        
+        guard let dateInfo = dateInfo else {
+            return nil
+        }
+
+        let schedule = TaskSchedule(dateInfo: dateInfo,
+                                    reminder: nil,
+                                    repeatRule: nil)
+        return schedule
     }
     
     override func allowListOptions() -> [TodoListOption]? {
         switch list.listType {
         case .myDay:
-            return [.select, .showCompleted, .group, .sort]
+            return [.select, .showCompleted, .showDetail, .group, .sort]
         case .inbox:
-            return [.select, .showCompleted, .layout, .group, .sort]
+            return [.select, .showCompleted, .showDetail, .layout, .group, .sort]
         case .completed:
             return [.select, .group, .sort]
         case .overdue, .today, .tomorrow, .upcoming:
-            return [.select, .showCompleted, .group, .sort]
+            return [.select, .showCompleted, .showDetail, .group, .sort]
         case .trash:
             return [.select, .emptyTrash]
         }
@@ -56,10 +88,6 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         default:
             return true
         }
-    }
-    
-    override func addButtonBackColor() -> UIColor {
-        return .greenPrimary
     }
     
     override func allowGroupTypes() -> [TodoGroupType] {

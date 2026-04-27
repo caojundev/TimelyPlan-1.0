@@ -49,8 +49,7 @@ struct TaskDateInfo: Hashable, Equatable {
         return DateRange(startDate: startDate, endDate: endDate)
     }
     
-    init(style: Style = .singleDay) {
-        let date = Date()
+    init(date: Date = .now, style: Style = .singleDay) {
         let startDate: Date = date.startOfDay()
         var endDate: Date = date.endOfDay()
         if style == .multiDay {

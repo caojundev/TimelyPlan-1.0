@@ -201,6 +201,18 @@ extension TodoFilterRule {
 
 extension TodoFilterRule {
     
+    /// 符合过滤规则的快速添加任务
+    var matchingQuickAddTask: TodoQuickAddTask {
+        let task = TodoQuickAddTask()
+        task.list = defaultList
+        task.isAddedToMyDay = defaultAddedToMyDay
+        task.priority = defaultPriority ?? .none
+        task.progress = defaultProgress
+        task.tags = defaultTags
+        task.schedule = defaultSchedule
+        return task
+    }
+    
     /// 默认所属列表
     var defaultList: TodoList? {
         guard let listsInfo = listFilterValue?.listsInfo else {

@@ -39,6 +39,8 @@ class TodoUserListSelectSectionController: TodoUserListBaseSectionController {
             self?.userListChanged(change)
             self?.userListDidChange?()
         }
+
+        self.viewModel.loadTopLists()
     }
     
     private func userListChanged(_ change: TodoUserListChange? = nil) {

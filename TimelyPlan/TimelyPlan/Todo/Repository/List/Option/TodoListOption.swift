@@ -10,6 +10,7 @@ import Foundation
 enum TodoListOption: String, TPMenuRepresentable {
     case select    /// 选择
     case showCompleted /// 显示已完成
+    case showDetail    /// 显示详情
     case layout    /// 视图布局
     case group     /// 分组
     case sort      /// 排序
@@ -38,6 +39,8 @@ enum TodoListOption: String, TPMenuRepresentable {
             return resGetString("Select")
         case .showCompleted:
             return resGetString("Show Completed")
+        case .showDetail:
+            return resGetString("Show Detail")
         case .layout:
             return resGetString("Layout")
         case .group:
@@ -65,7 +68,7 @@ enum TodoListOption: String, TPMenuRepresentable {
     
     var handleBeforeDismiss: Bool {
         switch self {
-        case .select, .showCompleted:
+        case .select, .showCompleted, .showDetail:
             return true
         default:
             return false
