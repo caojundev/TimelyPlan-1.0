@@ -620,7 +620,7 @@ class TodoBaseTaskListViewController: UIViewController,
         }
                             
         trashAction.image = resGetImage("todo_task_action_trash_24")?.withTintColor(.white)
-        actions = [trashAction, scheduleAction, moveAction]
+        actions = [scheduleAction, trashAction, moveAction]
         return UISwipeActionsConfiguration(actions: actions)
     }
 }

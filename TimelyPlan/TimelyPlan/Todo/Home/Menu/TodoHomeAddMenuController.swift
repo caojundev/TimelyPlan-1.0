@@ -7,19 +7,19 @@
 
 import Foundation
 
-enum TodoHomeAddType: Int, TPMenuRepresentable {
+enum TodoHomeAddType: String, TPMenuRepresentable {
     case list
     case tag
     case filter
     
-    var title: String {
+    var iconName: String? {
         switch self {
         case .list:
-            return resGetString("Add List")
+            return "todo_home_list_24"
         case .tag:
-            return resGetString("Add Tag")
+            return "todo_home_tag_24"
         case .filter:
-            return resGetString("Add Filter")
+            return "todo_home_filter_24"
         }
     }
 }

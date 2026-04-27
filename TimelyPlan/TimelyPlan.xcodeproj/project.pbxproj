@@ -293,6 +293,8 @@
 		E524C7912F9C5A02005CCEBD /* eye_slash_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C78F2F9C5A02005CCEBD /* eye_slash_24@3x.png */; };
 		E524C7942F9E1619005CCEBD /* TodoTaskEditMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524C7932F9E1618005CCEBD /* TodoTaskEditMenuView.swift */; };
 		E524C7982F9F13FB005CCEBD /* TodoTaskEditMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524C7972F9F13FB005CCEBD /* TodoTaskEditMenuAction.swift */; };
+		E524C79B2F9F499F005CCEBD /* todo_home_list_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C7992F9F499E005CCEBD /* todo_home_list_24@2x.png */; };
+		E524C79C2F9F499F005CCEBD /* todo_home_list_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C79A2F9F499F005CCEBD /* todo_home_list_24@3x.png */; };
 		E52678542D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */; };
 		E52678562D4BD14300428500 /* TPSegmentedMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */; };
 		E526D3F62F6B8EDF005C1DED /* HabitReportImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */; };
@@ -2053,6 +2055,8 @@
 		E524C78F2F9C5A02005CCEBD /* eye_slash_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eye_slash_24@3x.png"; sourceTree = "<group>"; };
 		E524C7932F9E1618005CCEBD /* TodoTaskEditMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskEditMenuView.swift; sourceTree = "<group>"; };
 		E524C7972F9F13FB005CCEBD /* TodoTaskEditMenuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskEditMenuAction.swift; sourceTree = "<group>"; };
+		E524C7992F9F499E005CCEBD /* todo_home_list_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_list_24@2x.png"; sourceTree = "<group>"; };
+		E524C79A2F9F499F005CCEBD /* todo_home_list_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_list_24@3x.png"; sourceTree = "<group>"; };
 		E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPFullSizeSegmentedTableCell.swift; sourceTree = "<group>"; };
 		E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSegmentedMenuTableCell.swift; sourceTree = "<group>"; };
 		E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportImageCacher.swift; sourceTree = "<group>"; };
@@ -6313,6 +6317,8 @@
 		E5BB99DE2D3BEF0D0089667A /* home */ = {
 			isa = PBXGroup;
 			children = (
+				E524C7992F9F499E005CCEBD /* todo_home_list_24@2x.png */,
+				E524C79A2F9F499F005CCEBD /* todo_home_list_24@3x.png */,
 				E56342092F948BCB00E120BF /* todo_home_filter_24@2x.png */,
 				E563420A2F948BCB00E120BF /* todo_home_filter_24@3x.png */,
 				E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */,
@@ -9528,6 +9534,7 @@
 				E53F32C92F699AC900B85B65 /* habit_report_failed_20@2x.png in Resources */,
 				E570FC012D62C14A0017F930 /* chevron_right_16@3x.png in Resources */,
 				E5168BD32F545B400000A760 /* dateRange_background_start@3x.png in Resources */,
+				E524C79B2F9F499F005CCEBD /* todo_home_list_24@2x.png in Resources */,
 				E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */,
 				E55E4BD22F9336170068E032 /* calendar_16_24@3x.png in Resources */,
 				E56B94852F8CDB42001E488B /* todo_sort_type_modificationDate_24@2x.png in Resources */,
@@ -9571,6 +9578,7 @@
 				E500DE562DB09D4500EAEAF7 /* todo_filter_indicator_tag_12@3x.png in Resources */,
 				E55E4BCE2F9336170068E032 /* calendar_4_24@3x.png in Resources */,
 				E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */,
+				E524C79C2F9F499F005CCEBD /* todo_home_list_24@3x.png in Resources */,
 				E54E633F2F5B1BFD00FCBCAE /* habit_menu_cancel_24@3x.png in Resources */,
 				E5B926DC2D3FFBA00065FA79 /* clear_24@2x.png in Resources */,
 				E5BB9AAE2D3BEF0D0089667A /* todo_task_step_addPrevious_24@3x.png in Resources */,

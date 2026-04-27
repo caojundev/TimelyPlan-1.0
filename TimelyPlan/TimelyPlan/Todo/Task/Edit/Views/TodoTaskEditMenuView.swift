@@ -35,9 +35,9 @@ class TodoTaskEditMenuView: TPCollectionWrapperView,
     
     private lazy var cellStyle: TPCollectionCellStyle = {
         let style = TPCollectionCellStyle()
-        style.cornerRadius = 12.0
-        style.borderWidth = 2.0
-        style.borderColor = resGetColor(.title)
+        style.cornerRadius = 8.0
+        style.borderWidth = 1.6
+        style.borderColor = .secondaryLabel
         style.backgroundColor = .systemBackground
         style.selectedBackgroundColor = .systemBackground
         return style
@@ -171,7 +171,7 @@ class TodoTaskEditMenuCell: TPImageTitleCollectionCell {
         titleConfig.font = font
         titleConfig.textAlignment = .left
          
-        let color = resGetColor(.title)
+        let color: UIColor = .secondaryLabel
         titleConfig.textColor = color
         titleConfig.highlightedTextColor = color
         

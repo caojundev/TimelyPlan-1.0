@@ -111,7 +111,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     /// 排序管理器
     private var reorder: TPTableDragInsertReorder?
     
-    private let detailProvider: TodoTaskDetailProvider
+    private let detailOptions: TodoTaskDetailOption = [.step, .progress, .tag]
 
     private let interactor: TodoTaskEditInteractor
     
@@ -121,8 +121,6 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     
     init(task: TodoTask) {
         self.interactor = TodoTaskEditInteractor(task: task)
-        let option: TodoTaskDetailOption = [.step, .progress, .tag]
-        self.detailProvider = TodoTaskDetailProvider(task: task, option: option)
         super.init(style: .grouped)
         self.interactor.onTaskChange = { [weak self] change in
             self?.taskDidChange(change)
@@ -213,27 +211,27 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
             updateCheckType()
             didChangeProgress(from: oldProgress, to: newProgress)
         case .tag(_, _):
-            if detailProvider.option.contains(.tag) {
+            if detailOptions.contains(.tag) {
                 updateDetail()
             }
         case .schedule(_, _):
-            if detailProvider.option.contains(.schedule) {
+            if detailOptions.contains(.schedule) {
                 updateDetail()
             }
         case .note(_, _):
-            if detailProvider.option.contains(.note) {
+            if detailOptions.contains(.note) {
                 updateDetail()
             }
         case .myDay(_, _):
-            if detailProvider.option.contains(.myDay) {
+            if detailOptions.contains(.myDay) {
                 updateDetail()
             }
         case .list(_, _):
-            if detailProvider.option.contains(.list) {
+            if detailOptions.contains(.list) {
                 updateDetail()
             }
         case .step(_, _):
-            if self.detailProvider.option.contains(.step) {
+            if detailOptions.contains(.step) {
                 updateDetail()
             }
         }
@@ -279,7 +277,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     }
     
     private func didChangeProgress(from: TodoEditProgress?, to: TodoEditProgress?) {
-        if detailProvider.option.contains(.progress) {
+        if detailOptions.contains(.progress) {
             updateDetail()
         }
         
@@ -328,6 +326,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     
     /// 更新详情信息
     private func updateDetail() {
+        let detailProvider = TodoTaskDetailProvider(task: task, option: detailOptions)
         infoView.attributedDetailInfo = detailProvider.attributedInfo()
         view.setNeedsLayout()
     }
