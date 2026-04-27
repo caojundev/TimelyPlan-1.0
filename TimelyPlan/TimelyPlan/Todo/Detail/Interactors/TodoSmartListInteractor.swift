@@ -67,9 +67,8 @@ class TodoSmartListInteractor: TodoListInteractor,
     }
     
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        let showCompleted = self.state.showCompleted
         todo.fetchSmartListTasks(in: list,
-                                 showCompleted: showCompleted,
+                                 showCompleted: self.listOptionState.showCompleted,
                                  completion: completion)
     }
     

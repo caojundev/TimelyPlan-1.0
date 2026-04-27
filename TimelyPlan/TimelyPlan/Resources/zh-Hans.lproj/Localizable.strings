@@ -134,6 +134,8 @@
 "Continuous adding disabled" = "连续添加已关闭";
 
 /// 任务编辑
+"Schedule" = "计划";
+
 "Add to My Day" = "添加到我的一天";
 "Added to My Day" = "已添加到我的一天";
 "Remove from My Day" = "从我的一天移除";
@@ -761,6 +763,9 @@
 "Never" = "永不";
 "%ld repeat" = "%ld 次重复";
 "%ld repeats" = "%ld 次重复";
+
+"No Date" = "无日期";
+
 
 "Time(count)" = "次";
 "Times(count)" = "次";

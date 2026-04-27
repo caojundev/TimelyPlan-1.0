@@ -18,5 +18,11 @@ class TodoTaskEditBaseSectionController: TPTableItemSectionController {
     init(interactor: TodoTaskEditInteractor) {
         self.interactor = interactor
         super.init()
+        self.setupSeparatorFooterItem()
+        self.setSeparatorHidden(true)
+    }
+    
+    func setSeparatorHidden(_ isHidden: Bool) {
+        self.footerItem.height = isHidden ? 0.0 : 1.0
     }
 }

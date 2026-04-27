@@ -56,44 +56,15 @@ class TodoTaskEditInteractor: TodoTaskProcessorDelegate {
     
     // MARK: - TodoTaskProcessorDelegate
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
-        guard self.task.identifier == task.identifier else {
+        guard task.identifier == self.task.identifier else {
             return
         }
         
-        switch change {
-        case .name(_, let name):
-            self.task.name = name
-        case .priority(_, let priority):
-            self.task.priority = priority
-        case .completed(_, let isCompleted):
-            self.task.isCompleted = isCompleted
-        case .progress(_, let progress):
-            self.task.progress = progress
-        case .tag(_, let tags):
-            if let tags = tags {
-                self.task.tags = Array(tags)
-            } else {
-                self.task.tags = nil
-            }
-        case .schedule(_, let schedule):
-            self.task.schedule = schedule
-        case .note(_, let note):
-            self.task.note = note
-        case .myDay(_, let isAddedToMyDay):
-            self.task.isAddedToMyDay = isAddedToMyDay
-        case .list(_, let list):
-            self.task.list = list?.feature
-        case .step(_, let steps):
-            self.task.updateSteps(steps)
+        /// 更新任务
+        if let task = todo.getTask(with: task.identifier) {
+            self.task = task
         }
         
-        #warning("重新获取任务，可能更新了多个属性了，修改日期等属性可能也改变了")
         onTaskChange?(change)
-    }
-    
-    func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
-        for changeInfo in changeInfos {
-            didUpdateTodoTask(changeInfo.task, with: changeInfo.change)
-        }
     }
 }

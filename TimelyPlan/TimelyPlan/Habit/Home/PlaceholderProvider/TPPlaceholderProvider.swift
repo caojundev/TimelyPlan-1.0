@@ -64,6 +64,5 @@ class TPLoadableListPlaceholderProvider: TPPlaceholderProviding {
         } else {
             return emptyPlaceholderView
         }
-        
     }
 }

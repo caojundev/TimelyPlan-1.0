@@ -24,7 +24,9 @@ class TodoTagListInteractor: TodoListInteractor,
     }
     
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        todo.fetchTasks(tag: self.tag, showCompleted: self.state.showCompleted, completion: completion)
+        todo.fetchTasks(tag: self.tag,
+                        showCompleted: self.listOptionState.showCompleted,
+                        completion: completion)
     }
 
     override func title() -> TextRepresentable? {
@@ -50,7 +52,7 @@ class TodoTagListInteractor: TodoListInteractor,
         }
         
         /// 获取更新后的标签
-        guard let newTag = todo.getTag(of: tag.identifier), !newTag.isEqual(oldTag) else {
+        guard let newTag = todo.getTag(with: tag.identifier), !newTag.isEqual(oldTag) else {
             return
         }
         

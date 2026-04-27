@@ -105,7 +105,6 @@ class TPButtonActionsView: TPCollectionWrapperView,
         let action = adapter.item(at: indexPath) as! TPButtonAction
         cell.action = action
         cell.cellStyle = action.style
-        
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {

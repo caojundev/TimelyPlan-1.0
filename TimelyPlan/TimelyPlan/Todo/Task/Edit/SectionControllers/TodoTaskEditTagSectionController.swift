@@ -23,11 +23,21 @@ class TodoTaskEditTagSectionController: TodoTaskEditBaseSectionController {
         
         return cellItem
     }()
+    
+    override var cellItems: [TPBaseTableCellItem]? {
+        get {
+            if let tags = task.tags, tags.count > 0 {
+                return [tagCellItem]
+            }
+            
+            return nil
+        }
+        
+        set {}
+    }
 
     override init(interactor: TodoTaskEditInteractor) {
         super.init(interactor: interactor)
-        self.cellItems = [tagCellItem]
-        self.setupSeparatorFooterItem()
     }
     
     private func updateTagCellItem() {
@@ -41,18 +51,26 @@ class TodoTaskEditTagSectionController: TodoTaskEditBaseSectionController {
             
             tagCellItem.title = String(format: format, tags.count)
             tagCellItem.isActive = true
+            setSeparatorHidden(false)
         } else {
             tagCellItem.title = resGetString("Tag")
             tagCellItem.isActive = false
+            setSeparatorHidden(true)
         }
     }
     
     override func didSelectRow(at index: Int) {
         super.didSelectRow(at: index)
-        editTags()
+        editTag()
     }
 
-    private func editTags() {
+    private func selectTags(_ tags: Set<TodoTag>?) {
+        interactor.setTags(tags)
+        adapter?.reloadCell(forItem: tagCellItem, with: .none)
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .automatic)
+    }
+    
+    func editTag() {
         var currentTags: Set<TodoTag>?
         if let tags = task.tags {
             currentTags = Set(tags)
@@ -63,12 +81,4 @@ class TodoTaskEditTagSectionController: TodoTaskEditBaseSectionController {
         }
     }
     
-    private func selectTags(_ tags: Set<TodoTag>?) {
-        interactor.setTags(tags)
-        reloadData()
-    }
-    
-    func reloadData() {
-        adapter?.reloadCell(forItem: tagCellItem, with: .none)
-    }
 }

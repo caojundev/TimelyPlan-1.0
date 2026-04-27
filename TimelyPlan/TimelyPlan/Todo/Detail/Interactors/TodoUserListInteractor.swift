@@ -55,7 +55,7 @@ class TodoUserListInteractor: TodoListInteractor,
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
         
         todo.fetchUserListTasks(in: self.list,
-                                showCompleted: self.state.showCompleted,
+                                showCompleted: self.listOptionState.showCompleted,
                                 completion: completion)
     }
 

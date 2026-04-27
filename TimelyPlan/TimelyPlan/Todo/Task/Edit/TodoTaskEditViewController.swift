@@ -58,8 +58,8 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     }()
     
     /// 添加到我的一天
-    lazy var addToMyDaySectionController: TodoTaskEditAddToMyDaySectionController = {
-        let sectionController = TodoTaskEditAddToMyDaySectionController(interactor: self.interactor)
+    lazy var myDaySectionController: TodoTaskEditMyDaySectionController = {
+        let sectionController = TodoTaskEditMyDaySectionController(interactor: self.interactor)
         return sectionController
     }()
     
@@ -76,6 +76,17 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         return view
     }()
 
+    /// 菜单视图
+    let menuViewHeight = 60.0
+    lazy var menuView: TodoTaskEditMenuView = {
+        let view = TodoTaskEditMenuView(frame: .zero)
+        view.didSelectEditType = {[weak self] editType in
+            self?.selectEditType(editType)
+        }
+        
+        return view
+    }()
+    
     /// 底部视图
     let footerViewHeight = 60.0
     lazy var footerView: TodoTaskEditFooterView = {
@@ -127,6 +138,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         self.navigationItem.leftBarButtonItem = self.backButtonItem
         self.navigationItem.rightBarButtonItem = self.priorityBarButtonItem
         self.view.addSubview(self.infoView)
+        self.view.addSubview(self.menuView)
         self.view.addSubview(self.footerView)
         self.setupReorder()
         self.tableView.keyboardDismissMode = .onDrag
@@ -134,7 +146,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         self.adapter.cellStyle.backgroundColor = .systemBackground
         self.sectionControllers = [stepEditSectionController,
                                    stepAddSectionController,
-                                   addToMyDaySectionController,
+                                   myDaySectionController,
                                    scheduleSectionController,
                                    progressSectionController,
                                    tagSectionController,
@@ -153,6 +165,10 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         footerView.height = footerViewHeight
         footerView.bottom = layoutFrame.maxY
 
+        menuView.width = layoutFrame.width
+        menuView.height = menuViewHeight
+        menuView.bottom = footerView.top
+        
         wrapperView.width = layoutFrame.width
         wrapperView.height = layoutFrame.height - infoView.bottom - footerViewHeight
         wrapperView.top = infoView.bottom
@@ -179,6 +195,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     override func reloadData() {
         super.reloadData()
         updateInfo()
+        updateMenuEditTypes()
         updateFooterView()
     }
     
@@ -220,6 +237,45 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
                 updateDetail()
             }
         }
+        
+        updateMenuEditTypes(animated: true)
+    }
+    
+    private func updateMenuEditTypes(animated: Bool = false) {
+        var editTypes: [TodoTaskEditType] = []
+        
+        if !task.isAddedToMyDay {
+            editTypes.append(.myDay)
+        }
+        
+        if let schedule = task.schedule, let dateInfo = schedule.dateInfo {
+            // 提醒条件：无提醒 或 有提醒但未设置闹钟
+            let hasAlarm = schedule.reminder?.hasAlarm ?? false
+            if !hasAlarm {
+                editTypes.append(.reminder)
+            }
+            
+            // 重复规则条件：非跨天且无重复规则
+            if dateInfo.style != .multiDay && schedule.repeatRule == nil {
+                editTypes.append(.repeatRule)
+            }
+        } else {
+            editTypes.append(.date)
+        }
+        
+        let hasProgress = task.progress?.isValid ?? false
+        if !hasProgress {
+            editTypes.append(.progress)
+        }
+        
+        let tagsCount = task.tags?.count ?? 0
+        if tagsCount == 0 {
+            editTypes.append(.tag)
+        }
+        
+        menuView.setEditTypes(editTypes, animated: animated)
+        let isHidden = editTypes.count == 0
+        menuView.isHidden = isHidden
     }
     
     private func didChangeProgress(from: TodoEditProgress?, to: TodoEditProgress?) {
@@ -283,6 +339,23 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     }
     
     // MARK: - Event Response
+    private func selectEditType(_ editType: TodoTaskEditType) {
+        switch editType {
+        case .myDay:
+            myDaySectionController.editMyDay()
+        case .date:
+            scheduleSectionController.editDate()
+        case .reminder:
+            scheduleSectionController.editReminder()
+        case .repeatRule:
+            scheduleSectionController.editRepeat()
+        case .progress:
+            progressSectionController.editProgress()
+        case .tag:
+            tagSectionController.editTag()
+        }
+    }
+    
     func selectPriority(_ priority: TodoTaskPriority) {
         interactor.setPriority(priority)
     }

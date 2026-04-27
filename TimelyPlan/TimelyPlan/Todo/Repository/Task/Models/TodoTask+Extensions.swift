@@ -66,7 +66,7 @@ extension TodoTask {
             let trailingText = resGetString("My Day")
             let info: ASAttributedString = .string(image: image,
                                                    imageSize: .size(3),
-                                                   imageColor: .secondaryLabel,
+                                                   imageColor: .primary,
                                                    trailingText: trailingText,
                                                    textColor: .primary,
                                                    separator: "")

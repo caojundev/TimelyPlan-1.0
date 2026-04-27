@@ -29,22 +29,35 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     let configuration: TodoListConfiguration
     
     var sort: TodoSort {
-        return self.state.validatedSort(for: self.configuration)
+        return self.listOptionState.validatedSort(for: self.configuration)
     }
     
     private(set) var tasks: [TodoTask]?
     
-    private(set) var state: TodoListOptionState
+    private(set) var listOptionState: TodoListOptionState
     
     /// 是否需要刷新任务
     private var needsRefresh = true
 
     private let requestManager = TPRequestManager()
     
+    /// 占位视图
+    private(set) var placeholderProvider = TPLoadableListPlaceholderProvider()
+        
+    /// 加载状态
+    private(set) var loadingState: TPListLoadingState = .initialLoading {
+        didSet {
+            placeholderProvider.state = loadingState
+        }
+    }
+    
     init(configuration: TodoListConfiguration) {
         self.configuration = configuration
-        self.state = TodoState.shared.listOptionState(for: configuration) ?? TodoListOptionState()
+        self.listOptionState = TodoState.shared.listOptionState(for: configuration) ?? TodoListOptionState()
         todo.addUpdater(self, for: [.task])
+        
+        self.placeholderProvider.emptyImage = resGetImage("placeholder_hashTag_80")
+        self.placeholderProvider.state = self.loadingState
     }
     
     func layoutType() -> TodoListLayoutType {
@@ -66,7 +79,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     
     /// 列表选项菜单管理器
     func listOptionConfig() -> TodoListOptionConfig? {
-        var state = self.state
+        var state = listOptionState
         state.layoutType = layoutType() /// 设置布局类型
         return TodoListOptionConfig.config(with: state, configuration: self.configuration)
     }
@@ -96,8 +109,8 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     // MARK: -
     func loadGroups(with change: TodoTaskListChange? = nil) {
         let requestID = requestManager.executeRequest()
-        let groupType = self.state.validatedGroupType(for: self.configuration)
-        let sort = self.state.validatedSort(for: self.configuration)
+        let groupType = listOptionState.validatedGroupType(for: configuration)
+        let sort = self.listOptionState.validatedSort(for: configuration)
         let change = change
         loadTasksIfNeeded { tasks in
             guard self.requestManager.shouldProceed(with: requestID) else {
@@ -114,6 +127,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
                     self.tasks = tasks
                     self.groups = groups
                     self.needsRefresh = false
+                    self.loadingState = .loaded
                     self.didChangeGroups?(change)
                 }
             }
@@ -134,49 +148,49 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
         completion(nil)
     }
     
-    func stateDidChange() {
-        TodoState.shared.setListOptionSate(self.state, for: self.configuration)
+    func listOptionStateDidChange() {
+        TodoState.shared.setListOptionSate(self.listOptionState, for: self.configuration)
     }
 
     // MARK: - 菜单操作
     func toggleShowCompleted() {
-        self.state.showCompleted = !self.state.showCompleted
-        self.stateDidChange()
+        self.listOptionState.showCompleted = !self.listOptionState.showCompleted
+        self.listOptionStateDidChange()
         self.setNeedsRefresh()
         self.loadGroups()
     }
     
     func setGroupType(_ groupType: TodoGroupType) {
         let groupType = self.configuration.validatedGroupType(groupType)
-        guard self.state.groupType != groupType else {
+        guard self.listOptionState.groupType != groupType else {
             return
         }
         
-        self.state.groupType = groupType
-        self.stateDidChange()
+        self.listOptionState.groupType = groupType
+        self.listOptionStateDidChange()
         self.loadGroups()
     }
     
     func setSortType(_ sortType: TodoSortType) {
-        var sort = self.state.validatedSort(for: self.configuration)
+        var sort = self.listOptionState.validatedSort(for: self.configuration)
         sort.type = sortType
         setSort(sort)
     }
     
     func setSortOrder(_ sortOrder: TodoSortOrder) {
-        var sort = self.state.validatedSort(for: self.configuration)
+        var sort = self.listOptionState.validatedSort(for: self.configuration)
         sort.order = sortOrder
         setSort(sort)
     }
     
     private func setSort(_ sort: TodoSort) {
         let sort = self.configuration.validatedSort(sort)
-        guard self.state.sort != sort else {
+        guard self.listOptionState.sort != sort else {
             return
         }
         
-        self.state.sort = sort
-        self.stateDidChange()
+        self.listOptionState.sort = sort
+        self.listOptionStateDidChange()
         self.loadGroups()
     }
     

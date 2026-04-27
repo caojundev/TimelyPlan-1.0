@@ -23,7 +23,13 @@ extension UITableView {
         }
         
         set {
+            /// 移除旧视图
+            if let placeholderView = placeholderView {
+                placeholderView.removeFromSuperview()
+            }
+ 
             associated.set(retain: &AssociatedKeys.placeholderView, newValue)
+            tp_updatePlaceholder()
         }
     }
     
@@ -52,37 +58,37 @@ extension UITableView {
     static func swizzleUITableViewMethods() {
         swizzleInstanceMethod(UITableView.self,
                               #selector(layoutSubviews),
-                              #selector(tf_UITableViewLayoutSubviews))
+                              #selector(tp_UITableViewLayoutSubviews))
         swizzleInstanceMethod(UITableView.self,
                               #selector(reloadData),
-                              #selector(tf_reloadData))
+                              #selector(tp_reloadData))
         swizzleInstanceMethod(UITableView.self,
                               #selector(reloadSections(_:with:)),
-                              #selector(tf_reloadSections(_:with:)))
+                              #selector(tp_reloadSections(_:with:)))
         swizzleInstanceMethod(UITableView.self,
                               #selector(insertSections(_:with:)),
-                              #selector(tf_insertSections(_:with:)))
+                              #selector(tp_insertSections(_:with:)))
         swizzleInstanceMethod(UITableView.self,
                               #selector(deleteSections(_:with:)),
-                              #selector(tf_deleteSections(_:with:)))
+                              #selector(tp_deleteSections(_:with:)))
         swizzleInstanceMethod(UITableView.self,
                               #selector(insertRows(at:with:)),
-                              #selector(tf_insertRows(at:with:)))
+                              #selector(tp_insertRows(at:with:)))
         swizzleInstanceMethod(UITableView.self,
                               #selector(deleteRows(at:with:)),
-                              #selector(tf_deleteRows(at:with:)))
+                              #selector(tp_deleteRows(at:with:)))
         swizzleInstanceMethod(UITableView.self,
                               #selector(performBatchUpdates(_:completion:)),
-                              #selector(tf_performBatchUpdates(_:completion:)))
+                              #selector(tp_performBatchUpdates(_:completion:)))
     }
     
     
-    @objc func tf_UITableViewLayoutSubviews() {
-        self.tf_UITableViewLayoutSubviews()
-        self.tf_updateFrameOfPlaceholderView()
+    @objc func tp_UITableViewLayoutSubviews() {
+        self.tp_UITableViewLayoutSubviews()
+        self.tp_updateFrameOfPlaceholderView()
     }
     
-    private func tf_updateFrameOfPlaceholderView() {
+    private func tp_updateFrameOfPlaceholderView() {
         /// 布局占位视图
         if let placeholderView = self.placeholderView, placeholderView.isDescendant(of: self) {
             let placeholderHeight = self.frame.height - self.keyboardIntersectionBottom
@@ -95,39 +101,39 @@ extension UITableView {
         }
     }
 
-    @objc func tf_reloadData() {
-        self.tf_reloadData()
-        self.tf_updatePlaceholder()
+    @objc func tp_reloadData() {
+        self.tp_reloadData()
+        self.tp_updatePlaceholder()
     }
     
-    @objc func tf_reloadSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
-        self.tf_reloadSections(sections, with: animation)
-        tf_updatePlaceholder()
+    @objc func tp_reloadSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
+        self.tp_reloadSections(sections, with: animation)
+        tp_updatePlaceholder()
     }
     
-    @objc func tf_insertSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
-        self.tf_insertSections(sections, with: animation)
-        tf_updatePlaceholder()
+    @objc func tp_insertSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
+        self.tp_insertSections(sections, with: animation)
+        tp_updatePlaceholder()
     }
     
-    @objc func tf_deleteSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
-        self.tf_deleteSections(sections, with: animation)
-        tf_updatePlaceholder()
+    @objc func tp_deleteSections(_ sections: IndexSet, with animation: UITableView.RowAnimation) {
+        self.tp_deleteSections(sections, with: animation)
+        tp_updatePlaceholder()
     }
     
-    @objc func tf_insertRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
-        self.tf_insertRows(at: indexPaths, with: animation)
-        tf_updatePlaceholder()
+    @objc func tp_insertRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
+        self.tp_insertRows(at: indexPaths, with: animation)
+        tp_updatePlaceholder()
     }
     
-    @objc func tf_deleteRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
-        self.tf_deleteRows(at: indexPaths, with: animation)
-        tf_updatePlaceholder()
+    @objc func tp_deleteRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
+        self.tp_deleteRows(at: indexPaths, with: animation)
+        tp_updatePlaceholder()
     }
     
-    @objc func tf_performBatchUpdates(_ updates: (() -> Void)?, completion: ((Bool) -> Void)? = nil) {
-        self.tf_performBatchUpdates(updates, completion: completion)
-        tf_updatePlaceholder()
+    @objc func tp_performBatchUpdates(_ updates: (() -> Void)?, completion: ((Bool) -> Void)? = nil) {
+        self.tp_performBatchUpdates(updates, completion: completion)
+        tp_updatePlaceholder()
     }
     
     /// 是否有行
@@ -147,7 +153,7 @@ extension UITableView {
         return hasRow
     }
     
-    func tf_updatePlaceholder() {
+    func tp_updatePlaceholder() {
         var bShowPlaceholder = false
         if let shouldShowPlaceholder = self.shouldShowPlaceholder {
             bShowPlaceholder = shouldShowPlaceholder()
@@ -156,19 +162,19 @@ extension UITableView {
         }
         
         if bShowPlaceholder {
-            self.tf_showPlaceholderView()
+            self.tp_showPlaceholderView()
         } else {
-            self.tf_hidePlaceholderView()
+            self.tp_hidePlaceholderView()
         }
     }
     
-    private func tf_showPlaceholderView() {
+    private func tp_showPlaceholderView() {
         if let placeholderView = placeholderView {
             self.addSubview(placeholderView)
         }
     }
     
-    private func tf_hidePlaceholderView() {
+    private func tp_hidePlaceholderView() {
         placeholderView?.removeFromSuperview()
     }
     
@@ -212,18 +218,18 @@ extension UITableView {
         let convertedKeyboardFrame = tableSuperview.convert(keyboardFrame, fromViewOrWindow: nil)
         let intersectionFrame = convertedKeyboardFrame.intersection(self.frame)
         self.keyboardIntersectionBottom = intersectionFrame.height
-        self.tf_animateUpdateFrameOfPlaceholder()
+        self.tp_animateUpdateFrameOfPlaceholder()
     }
 
     @objc func keyboardWillHide(_ notification: Notification) {
         self.keyboardIntersectionBottom = 0.0
-        self.tf_animateUpdateFrameOfPlaceholder()
+        self.tp_animateUpdateFrameOfPlaceholder()
     }
 
-    private func tf_animateUpdateFrameOfPlaceholder() {
+    private func tp_animateUpdateFrameOfPlaceholder() {
         if isPlaceholderShown {
             UIView.animate(withDuration: 0.5, delay: 0.0, options: .beginFromCurrentState, animations: {
-                self.tf_updateFrameOfPlaceholderView()
+                self.tp_updateFrameOfPlaceholderView()
             }, completion: nil)
         }
     }

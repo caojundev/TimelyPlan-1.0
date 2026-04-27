@@ -19,7 +19,7 @@ class TodoTagManager {
         return CDTodoTag.getTags()?.tags ?? []
     }
     
-    func getTag(of identifier: String) -> TodoTag? {
+    func getTag(with identifier: String) -> TodoTag? {
         guard let cdTag = CDTodoTag.getItem(with: identifier) else {
             return nil
         }

@@ -111,19 +111,22 @@ class TodoTaskListView: UIView,
         tableView.showsVerticalScrollIndicator = false
         tableView.allowsSelectionDuringEditing = true
         tableView.contentInsetAdjustmentBehavior = .never
-        let headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.1))
+        let headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.01))
         tableView.tableHeaderView = headerView
+        tableView.shouldShowPlaceholder = { [weak self] in
+            return self?.shouldShowPlaceholder() ?? false
+        }
         
         return tableView
     }()
     
-    /// 占位视图
-    private(set) lazy var placeholderView: TPDefaultPlaceholderView = {
-        let view = TPDefaultPlaceholderView()
-        view.isBorderHidden = true
-        return view
-    }()
-    
+    /// 提供占位视图
+    var placeholderProvider: TPPlaceholderProviding? {
+        didSet {
+            updatePlaceholderView()
+        }
+    }
+
     private var _isSelecting: Bool = false
     
     private let adapter = TPTableViewAdapter()
@@ -201,6 +204,10 @@ class TodoTaskListView: UIView,
         return false
     }
     
+    func updatePlaceholderView() {
+        self.tableView.placeholderView = placeholderProvider?.placeholderView()
+    }
+    
     // MARK: - Public Methods
     func indexPathForRow(at point: CGPoint) -> IndexPath? {
         let convertedPoint = self.convert(point, toViewOrWindow: tableView)
@@ -231,6 +238,7 @@ class TodoTaskListView: UIView,
     
     /// 重新加载数据
     func reloadData() {
+        updatePlaceholderView()
         layoutManager.removeAllLayouts()
         adapter.reloadData()
     }
@@ -247,8 +255,9 @@ class TodoTaskListView: UIView,
     
     /// 更新列表
     func performUpdate(with rowAnimation: UITableView.RowAnimation = .fade) {
+        updatePlaceholderView()
         guard adapter.hasItem else {
-            adapter.reloadData()
+            reloadData()
             return
         }
 

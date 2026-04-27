@@ -92,8 +92,7 @@ extension ScheduleRepeatEditSectionControllerProtocol {
         repeatCellItem.isDisabled = eventDate == nil
     }
     
-
-    private func editRepeat() {
+    func editRepeat() {
         let editVC = RepeatEditViewController(repeatRule: repeatRule, eventDate: eventDate)
         editVC.didEndEditing = { repeatRule in
             self.selectRepeatRule(repeatRule)

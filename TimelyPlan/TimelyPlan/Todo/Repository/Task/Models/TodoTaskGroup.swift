@@ -14,7 +14,6 @@ enum TodoGroupType: String, Codable, TPMenuRepresentable {
     case startDate  /// 开始日期
     case dueDate    /// 截止日期
     case priority   /// 优先级
-    
     case none       /// 无分组
     
     static func titles() -> [String] {

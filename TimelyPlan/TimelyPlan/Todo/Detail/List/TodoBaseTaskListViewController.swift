@@ -80,8 +80,6 @@ class TodoBaseTaskListViewController: UIViewController,
         return toolViewContentHeight + view.layoutMargins.bottom
     }
     
-    private var expansionState = TodoTaskGroupExpansionState()
-    
     /// 列表视图
     private lazy var listView: TodoTaskListView = {
         let view = TodoTaskListView(frame: view.bounds, style: .insetGrouped)
@@ -89,7 +87,7 @@ class TodoBaseTaskListViewController: UIViewController,
         view.delegate = self
         return view
     }()
-    
+
     /// 添加视图按钮
     private let addViewSize = CGSize(width: 50.0, height: 50.0)
     
@@ -114,8 +112,12 @@ class TodoBaseTaskListViewController: UIViewController,
     
     let interactor: TodoListInteractor
     
+    let expansionState: TodoTaskGroupExpansionState
+    
     init(interactor: TodoListInteractor) {
         self.interactor = interactor
+        let identifier = interactor.configuration.identifier
+        self.expansionState = TodoTaskGroupExpansionState(identifier: identifier)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -125,6 +127,7 @@ class TodoBaseTaskListViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.listView.placeholderProvider = self.interactor.placeholderProvider
         self.view.addSubview(self.listView)
         self.setupAddView()
         self.setupReorder()
@@ -563,7 +566,9 @@ class TodoBaseTaskListViewController: UIViewController,
         let priorityAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
             TPImpactFeedback.impactWithSoftStyle()
             let sourceView = listView.cellForRow(at: indexPath)
-            self.taskController.editPriority(for: [task], sourceView: sourceView)
+            self.taskController.editPriority(for: [task],
+                                            sourceView: sourceView,
+                                            preferredPosition: .bottomLeft)
             completion(true)
         }
         
@@ -622,6 +627,10 @@ class TodoBaseTaskListViewController: UIViewController,
 
 // MARK: - 任务排序
 extension TodoBaseTaskListViewController: TPTableDragInsertReorderDelegate {
+    
+    func tableDragReorder(_ reorder: TPTableDragReorder, willBeginAt indexPath: IndexPath) {
+        listView.endEditing()
+    }
     
     func tableDragReorder(_ reorder: TPTableDragReorder, canMoveRowAt indexPath: IndexPath) -> Bool {
         guard interactor is TodoUserListInteractor || interactor is TodoInboxListInteractor else {

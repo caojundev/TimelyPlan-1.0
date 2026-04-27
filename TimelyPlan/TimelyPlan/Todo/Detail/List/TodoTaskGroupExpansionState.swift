@@ -9,20 +9,29 @@ import Foundation
 
 class TodoTaskGroupExpansionState: ExpansionStateProviding {
     
-    private var collapsedGroups = Set<String>()
+    private var collapsedStates: [String: Bool]
     
+    let identifier: String
+    init(identifier: String) {
+        self.identifier = identifier
+        self.collapsedStates = TodoState.shared.groupStates(for: identifier) ?? [:]
+    }
+
     func isExpanded(_ item: Any) -> Bool {
         let group = item as! TodoGroup
-        return !collapsedGroups.contains(group.identifier)
+        let isCollapsed = collapsedStates[group.identifier] ?? false
+        return !isCollapsed
     }
     
     func setExpended(_ isExpended: Bool, for item: Any) {
         let group = item as! TodoGroup
         if isExpended {
-            collapsedGroups.remove(group.identifier)
+            collapsedStates[group.identifier] = nil
         } else {
-            collapsedGroups.insert(group.identifier)
+            collapsedStates[group.identifier] = true
         }
+        
+        TodoState.shared.setGroupStates(self.collapsedStates, for: self.identifier)
     }
 }
 

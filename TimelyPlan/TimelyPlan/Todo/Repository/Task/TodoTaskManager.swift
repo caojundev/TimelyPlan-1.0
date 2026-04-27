@@ -324,6 +324,14 @@ class TodoTaskManager {
 
 extension TodoTaskManager {
 
+    func getTask(with identifier: String) -> TodoTask? {
+        if let cdTask = CDTodoTask.getItem(with: identifier) {
+            return TodoTask(content: cdTask)
+        }
+        
+        return nil
+    }
+    
     /// 获取用户列表任务
     func fetchSmartListTasks(in list: TodoSmartList,
                              showCompleted: Bool = true,

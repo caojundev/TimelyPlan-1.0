@@ -26,7 +26,9 @@ class TodoFilterListInteractor: TodoListInteractor,
     }
     
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        todo.fetchTasks(filter: self.filter, showCompleted: self.state.showCompleted, completion: completion)
+        todo.fetchTasks(filter: self.filter,
+                        showCompleted: self.listOptionState.showCompleted,
+                        completion: completion)
     }
 
     override func title() -> TextRepresentable? {

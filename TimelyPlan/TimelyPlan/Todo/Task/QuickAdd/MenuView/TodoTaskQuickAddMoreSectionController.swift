@@ -26,8 +26,8 @@ class TodoTaskQuickAddMoreSectionController: TPCollectionItemSectionController {
     override init() {
         super.init()
         self.layout.edgeMargins = .zero
-        self.layout.lineSpacing = 0.0
-        self.layout.interitemSpacing = 0.0
+        self.layout.lineSpacing = 8.0
+        self.layout.interitemSpacing = 8.0
         self.cellItems = [moreCellItem]
     }
     

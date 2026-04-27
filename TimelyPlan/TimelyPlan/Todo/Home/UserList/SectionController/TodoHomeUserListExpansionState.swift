@@ -26,7 +26,6 @@ class TodoHomeUserListExpansionState: ExpansionStateProviding {
         if isExpended {
             collapsedStates[list.identifier] = nil
         } else {
-            /// 收起
             collapsedStates[list.identifier] = true
         }
         

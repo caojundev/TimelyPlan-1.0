@@ -132,6 +132,11 @@ extension Todo {
         taskManager.fetchUncompletedTaskCount(for: item, completion: completion)
     }
     
+    /// 根据标识获取任务
+    func getTask(with identifier: String) -> TodoTask? {
+        return taskManager.getTask(with: identifier)
+    }
+    
     // MARK: - 任务处理
     /// 创建任务
     func createTask(with quickAddTask: TodoQuickAddTask) {
@@ -233,8 +238,8 @@ extension Todo {
         return tagManager.getTags()
     }
     
-    func getTag(of identifier: String) -> TodoTag? {
-        return tagManager.getTag(of: identifier)
+    func getTag(with identifier: String) -> TodoTag? {
+        return tagManager.getTag(with: identifier)
     }
     
     func getTags(of identifiers: [String]) -> [TodoTag]? {

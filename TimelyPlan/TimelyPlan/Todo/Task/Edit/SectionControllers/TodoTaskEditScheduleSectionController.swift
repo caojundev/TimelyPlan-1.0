@@ -74,7 +74,7 @@ class TodoTaskEditScheduleSectionController: TodoTaskEditBaseSectionController,
         }
         
         cellItem.didSelectHandler = {
-            self?.editSchedule()
+            self?.editDate()
         }
         
         cellItem.didClickRightButton = { _ in
@@ -94,25 +94,39 @@ class TodoTaskEditScheduleSectionController: TodoTaskEditBaseSectionController,
     
     override var cellItems: [TPBaseTableCellItem]? {
         get {
-            /// 更新当前计划
+            /// 获取单元格条目前更新当前计划
             self.schedule = task.schedule
-            var cellItems: [TPBaseTableCellItem] = [dateCellItem]
-            if schedule?.dateInfo != nil {
-                cellItems.append(reminderCellItem)
-                cellItems.append(repeatCellItem)
+            var cellItems: [TPBaseTableCellItem] = []
+            if let dateInfo = self.dateInfo {
+                cellItems.append(dateCellItem)
+            
+                if let reminder = self.reminder, reminder.hasAlarm {
+                    cellItems.append(reminderCellItem)
+                }
+                
+                if dateInfo.style != .multiDay, repeatRule != nil {
+                    cellItems.append(repeatCellItem)
+                }
+                
+                return cellItems
             }
             
-            return cellItems
+            return nil
         }
         
         set {}
     }
     
-    private var schedule: TaskSchedule?
+    let taskController = TodoTaskController()
+    
+    private var schedule: TaskSchedule? {
+        didSet {
+            updateSeparator()
+        }
+    }
     
     override init(interactor: TodoTaskEditInteractor) {
         super.init(interactor: interactor)
-        self.setupSeparatorFooterItem()
     }
     
     // MARK: - 计划
@@ -130,9 +144,7 @@ class TodoTaskEditScheduleSectionController: TodoTaskEditBaseSectionController,
         }
     }
 
-    let taskController = TodoTaskController()
-    
-    private func editSchedule() {
+    func editDate() {
         TodoTaskController.editSchedule(schedule) {[weak self] newSchedule in
             self?.selectSchedule(newSchedule)
         }
@@ -173,4 +185,9 @@ class TodoTaskEditScheduleSectionController: TodoTaskEditBaseSectionController,
         interactor.setSchedule(self.schedule)
     }
     
+    /// 更新分割线
+    func updateSeparator() {
+        let isHidden = self.schedule?.dateInfo == nil
+        setSeparatorHidden(isHidden)
+    }
 }

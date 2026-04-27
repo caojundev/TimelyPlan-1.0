@@ -94,9 +94,10 @@ class RepeatSpecificDateListView: TPCollectionWrapperView,
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         let cell = cell as! TPDefaultInfoCollectionCell
         cell.delegate = self
-        cell.padding = itemPadding
+        cell.contentView.padding = itemPadding
         cell.infoView.title = title(at: indexPath)
         cell.infoView.titleConfig.font = titleFont
+        cell.infoView.titleConfig.textAlignment = .center
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {

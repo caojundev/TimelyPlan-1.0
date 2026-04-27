@@ -24,31 +24,48 @@ class TodoTaskEditProgressSectionController: TodoTaskEditBaseSectionController {
         return cellItem
     }()
     
+    override var cellItems: [TPBaseTableCellItem]? {
+        get {
+            if let progress = task.progress, progress.isValid {
+                return [progressCellItem]
+            }
+            
+            return nil
+        }
+        
+        set {}
+    }
+    
     override init(interactor: TodoTaskEditInteractor) {
         super.init(interactor: interactor)
-        self.setupSeparatorFooterItem()
-        self.cellItems = [progressCellItem]
+    }
+    
+    func editProgress() {
+        TodoTaskController.editProgress(task.progress) {[weak self] newProgress in
+            self?.didEndEditingProgress(newProgress)
+        }
     }
     
     override func didSelectRow(at index: Int) {
         super.didSelectRow(at: index)
-        TodoTaskController.editProgress(task.progress) {[weak self] newProgress in
-            self?.didEndEditingProgress(newProgress)
-        }
+        editProgress()
     }
     
     private func updateProgressCellItem() {
         if let progress = task.progress, progress.isValid {
             progressCellItem.title = progress.info
             progressCellItem.isActive = true
+            setSeparatorHidden(false)
         } else {
             progressCellItem.title = resGetString("Progress")
             progressCellItem.isActive = false
+            setSeparatorHidden(true)
         }
     }
     
     private func didEndEditingProgress(_ editProgress: TodoEditProgress?) {
         interactor.setProgress(editProgress)
         adapter?.reloadCell(forItem: progressCellItem, with: .none)
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .automatic)
     }
 }

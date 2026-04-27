@@ -48,6 +48,6 @@ class TodoTaskAddStepSectionController: TPTableItemSectionController {
         }
         
         self.isEditing = isEditing
-        self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .bottom)
+        self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .fade)
     }
 }
