@@ -48,7 +48,6 @@ class TodoUserTagViewModel: TodoBaseListViewModel {
     
     override init() {
         super.init()
-        self.loadTags()
         todo.addUpdater(self)
     }
 
@@ -57,12 +56,13 @@ class TodoUserTagViewModel: TodoBaseListViewModel {
     }
     
     // MARK: -
-    func loadTags(with change: TodoUserTagChange? = nil) {
+    func loadTags(with change: TodoUserTagChange? = nil, completion: (() -> Void)? = nil) {
         self.isLoading = true
         let change = change
         let requestID = requestManager.executeRequest()
         loadTagsIfNeeded {[weak self] tags in
             guard let self = self, self.requestManager.shouldProceed(with: requestID) else {
+                completion?()
                 return
             }
 
@@ -71,6 +71,7 @@ class TodoUserTagViewModel: TodoBaseListViewModel {
             self.isLoading = false
             self.state = .loaded
             self.tagsDidChange?(change)
+            completion?()
         }
     }
     

@@ -27,8 +27,6 @@ class TodoFilterSectionController: TPTableBaseSectionController,
 
     var didSelectFilter: ((TodoFilter) -> Void)?
     
-    private let viewModel = TodoHomeFilterViewModel()
-    
     override var items: [ListDiffable]? {
         guard viewModel.isExpanded else {
             return nil
@@ -40,7 +38,10 @@ class TodoFilterSectionController: TPTableBaseSectionController,
     /// 过滤器管理器
     private let filterController = TodoFilterController()
     
-    override init() {
+    private let viewModel: TodoHomeFilterViewModel
+    
+    init(viewModel: TodoHomeFilterViewModel) {
+        self.viewModel = viewModel
         super.init()
         self.headerSectionController.setExpanded(self.viewModel.isExpanded)
         self.viewModel.filtersDidChange = { [weak self] change in

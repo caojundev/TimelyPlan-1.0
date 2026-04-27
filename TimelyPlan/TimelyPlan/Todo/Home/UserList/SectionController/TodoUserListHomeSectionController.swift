@@ -27,14 +27,10 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     /// 列表管理器
     private var listController = TodoUserListController()
     
-    private let expansionState: TodoHomeUserListExpansionState
-    
     private let viewModel: TodoHomeUserListViewModel
 
-    override init() {
-        let expansionState = TodoHomeUserListExpansionState()
-        self.expansionState = expansionState
-        self.viewModel = TodoHomeUserListViewModel(expansionState: expansionState)
+    init(viewModel: TodoHomeUserListViewModel) {
+        self.viewModel = viewModel
         super.init()
         self.headerSectionController.setExpanded(self.viewModel.isExpanded)
         self.viewModel.userListDidChange = { [weak self] change in
@@ -185,11 +181,11 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
     func tableDragReorder(_ reorder: TPTableDragReorder, willBeginAt indexPath: IndexPath) {
         /// 收起已展开的列表
         let list = list(at: indexPath.row)
-        guard list.hasSubItem, expansionState.isExpanded(list) else {
+        guard list.hasSubItem, viewModel.isExpanded(list) else {
             return
         }
         
-        expansionState.setExpended(false, for: list)
+        viewModel.setExpended(false, for: list)
         
         /// 更新列表
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .fade)
@@ -245,7 +241,7 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
     
     func tableDragInsertReorder(_ reorder: TPTableDragInsertReorder, canFlashRowAt indexPath: IndexPath, from sourceIndexPath: IndexPath) -> Bool {
         let list = list(at: indexPath.row)
-        guard !expansionState.isExpanded(list), list.hasSubItem else {
+        guard !viewModel.isExpanded(list), list.hasSubItem else {
             return false
         }
 
@@ -256,11 +252,11 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
     func tableDragInsertReorder(_ reorder: TPTableDragInsertReorder, didFlashRowAt indexPath: IndexPath, from sourceIndexPath: IndexPath) {
         let fromList = list(at: sourceIndexPath.row)
         let touchList = list(at: indexPath.row)
-        guard !expansionState.isExpanded(touchList) else {
+        guard !viewModel.isExpanded(touchList) else {
             return
         }
         
-        expansionState.setExpended(true, for: touchList)
+        viewModel.setExpended(true, for: touchList)
         
         /// 更新列表
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)

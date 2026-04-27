@@ -48,24 +48,15 @@ class TodoHomeViewController: TPTableViewController,
         return view
     }()
     
+    
     /// 智能清单区块
+    let smartListViewModel = TodoSmartListViewModel(types: TodoSmartListType.typesExceptTrash)
+    
     lazy var smartListSectionController: TodoSmartListSectionController = {
-        let types = TodoSmartListType.typesExceptTrash
-        let sectionController = TodoSmartListSectionController(types: types)
+        let sectionController = TodoSmartListSectionController(viewModel: self.smartListViewModel)
         sectionController.identifier = TodoHomeSection.smartList.rawValue
         sectionController.didSelectList = { [weak self] smartList in
             self?.detailCoordinator.showDetail(for: smartList)
-        }
-
-        return sectionController
-    }()
-    
-    /// 回收站区块
-    lazy var trashSectionController: TodoSmartListSectionController = {
-        let sectionController = TodoSmartListSectionController(types: [.trash])
-        sectionController.identifier = TodoHomeSection.trash.rawValue
-        sectionController.didSelectList = { [weak self] trashList in
-            self?.detailCoordinator.showDetail(for: trashList)
         }
 
         return sectionController
@@ -76,8 +67,14 @@ class TodoHomeViewController: TPTableViewController,
         return userListSectionController.headerSectionController
     }
     
+    lazy var userListViewModel: TodoHomeUserListViewModel = {
+        let expansionState = TodoHomeUserListExpansionState()
+        let vm = TodoHomeUserListViewModel(expansionState: expansionState)
+        return vm
+    }()
+    
     lazy var userListSectionController: TodoUserListHomeSectionController = {
-        let sectionController = TodoUserListHomeSectionController()
+        let sectionController = TodoUserListHomeSectionController(viewModel: self.userListViewModel)
         sectionController.identifier = TodoHomeSection.userList.rawValue
         sectionController.didSelectList = { [weak self] list in
             self?.detailCoordinator.showDetail(for: list)
@@ -91,8 +88,10 @@ class TodoHomeViewController: TPTableViewController,
         return tagSectionController.headerSectionController
     }
     
+    let tagListViewModel = TodoHomeUserTagViewModel()
+    
     lazy var tagSectionController: TodoUserTagSectionController = {
-        let sectionController = TodoUserTagSectionController()
+        let sectionController = TodoUserTagSectionController(viewModel: self.tagListViewModel)
         sectionController.identifier = TodoHomeSection.tag.rawValue
         sectionController.didSelectTag = { [weak self] tag in
             self?.detailCoordinator.showDetail(for: tag)
@@ -106,13 +105,28 @@ class TodoHomeViewController: TPTableViewController,
         return filterSectionController.headerSectionController
     }
     
+    let filterListViewModel = TodoHomeFilterViewModel()
+    
     lazy var filterSectionController: TodoFilterSectionController = {
-        let sectionController = TodoFilterSectionController()
+        let sectionController = TodoFilterSectionController(viewModel: self.filterListViewModel)
         sectionController.identifier = TodoHomeSection.filter.rawValue
         sectionController.didSelectFilter = { [weak self] filter in
             self?.detailCoordinator.showDetail(for: filter)
         }
         
+        return sectionController
+    }()
+    
+    /// 回收站区块
+    let trashListViewModel = TodoSmartListViewModel(types: [.trash])
+    
+    lazy var trashSectionController: TodoSmartListSectionController = {
+        let sectionController = TodoSmartListSectionController(viewModel: self.trashListViewModel)
+        sectionController.identifier = TodoHomeSection.trash.rawValue
+        sectionController.didSelectList = { [weak self] trashList in
+            self?.detailCoordinator.showDetail(for: trashList)
+        }
+
         return sectionController
     }()
     
@@ -138,15 +152,49 @@ class TodoHomeViewController: TPTableViewController,
         self.navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
         self.navigationItem.rightBarButtonItem = settingBarButtonItem
         self.view.addSubview(self.toolView)
+        let headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.01))
+        self.tableView.tableHeaderView = headerView
         self.tableView.contentInset = .zero
-        self.setupSectionControllers()
         self.setupReorder()
         self.adapter.cellStyle.backgroundColor = .systemBackground
         self.adapter.dataSource = self
         self.adapter.delegate = self
         self.adapter.reloadData()
-        
+        self.initializeData()
         TodoSetting.shared.addObserver(self, forKey: .homeSectionTypes)
+    }
+    
+    private func initializeData() {
+        let group = DispatchGroup()
+        group.enter()
+        self.smartListViewModel.loadLists {
+            group.leave()
+        }
+        
+        group.enter()
+        self.userListViewModel.loadTopLists {
+            group.leave()
+        }
+        
+        group.enter()
+        self.tagListViewModel.loadTags {
+            group.leave()
+        }
+        
+        group.enter()
+        self.filterListViewModel.loadFilters {
+            group.leave()
+        }
+
+        group.enter()
+        self.trashListViewModel.loadLists {
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            self.setupSectionControllers()
+            self.adapter.reloadData()
+        }
     }
 
     // MARK: - SettingAgentObserver

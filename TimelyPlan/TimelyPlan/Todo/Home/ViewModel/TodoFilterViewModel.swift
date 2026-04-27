@@ -63,7 +63,6 @@ class TodoFilterViewModel: TodoBaseListViewModel {
     
     override init() {
         super.init()
-        self.loadFilters()
         todo.addUpdater(self)
     }
 
@@ -73,13 +72,13 @@ class TodoFilterViewModel: TodoBaseListViewModel {
     
     // MARK: -
     func loadFilters(with change: TodoFilterChange? = nil,
-                     completion: ((Bool) -> Void)? = nil) {
+                     completion: (() -> Void)? = nil) {
         self.isLoading = true
         let change = change
         let requestID = requestManager.executeRequest()
         loadFiltersIfNeeded {[weak self] filters in
             guard let self = self, self.requestManager.shouldProceed(with: requestID) else {
-                completion?(false)
+                completion?()
                 return
             }
 
@@ -88,7 +87,7 @@ class TodoFilterViewModel: TodoBaseListViewModel {
             self.isLoading = false
             self.state = .loaded
             self.filtersDidChange?(change)
-            completion?(true)
+            completion?()
         }
     }
     
@@ -117,7 +116,7 @@ extension TodoFilterViewModel: TodoFilterProcessorDelegate {
     
     func didUpdateTodoFilter(_ filter: TodoFilter) {
         setNeedsRefresh()
-        loadFilters(with: .update(filter)) { [weak self] _ in
+        loadFilters(with: .update(filter)) { [weak self] in
             /// 加载最新的 filters 后根据新规则获取任务数目
             self?.changeCount(for: [filter])
         }

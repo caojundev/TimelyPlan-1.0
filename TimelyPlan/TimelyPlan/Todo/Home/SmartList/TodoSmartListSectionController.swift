@@ -13,14 +13,14 @@ class TodoSmartListSectionController: TPTableBaseSectionController,
     
     var didSelectList: ((TodoSmartList) -> Void)?
     
-    private let viewModel: TodoSmartListViewModel
-    
     override var items: [ListDiffable]? {
         return viewModel.lists
     }
     
-    init(types: [TodoSmartListType]) {
-        self.viewModel = TodoSmartListViewModel(types: types)
+    private let viewModel: TodoSmartListViewModel
+    
+    init(viewModel: TodoSmartListViewModel) {
+        self.viewModel = viewModel
         super.init()
         self.viewModel.listsDidChange = { [weak self] in
             self?.listsChanged()
@@ -30,8 +30,6 @@ class TodoSmartListSectionController: TPTableBaseSectionController,
             self?.updateTaskCount(for: lists)
         }
     }
-    
-    private var isFirstChange: Bool = true
     
     private func listsChanged() {
         let rowAnimation:  UITableView.RowAnimation = .top

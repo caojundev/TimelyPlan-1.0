@@ -48,7 +48,6 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     init(expansionState: ExpansionStateProviding) {
         self.expansionState = expansionState
         super.init()
-        self.loadTopLists()
         todo.addUpdater(self)
     }
     
@@ -57,16 +56,18 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     }
     
     // MARK: -
-    func loadTopLists(with change: TodoUserListChange? = nil) {
+    func loadTopLists(with change: TodoUserListChange? = nil, completion: (() -> Void)? = nil) {
         let requestID = requestManager.executeRequest()
         loadTopListsIfNeeded {[weak self] lists in
             guard let self = self, self.requestManager.shouldProceed(with: requestID) else {
+                completion?()
                 return
             }
 
             self.topLists = lists
             self.needsRefresh = false
             self.userListDidChange?(change)
+            completion?()
         }
     }
     

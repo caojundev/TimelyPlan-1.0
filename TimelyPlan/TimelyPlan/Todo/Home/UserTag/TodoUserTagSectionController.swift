@@ -27,11 +27,6 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
     
     var didSelectTag: ((TodoTag) -> Void)?
     
-    private let viewModel = TodoHomeUserTagViewModel()
-
-    /// 标签管理器
-    private let tagController = TodoTagController()
-
     override var items: [ListDiffable]? {
         guard viewModel.isExpanded else {
             return nil
@@ -40,7 +35,13 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
         return viewModel.tags
     }
     
-    override init() {
+    /// 标签管理器
+    private let tagController = TodoTagController()
+
+    private let viewModel: TodoHomeUserTagViewModel
+    
+    init(viewModel: TodoHomeUserTagViewModel) {
+        self.viewModel = viewModel
         super.init()
         self.headerSectionController.setExpanded(self.viewModel.isExpanded)
         self.viewModel.tagsDidChange = { [weak self] change in

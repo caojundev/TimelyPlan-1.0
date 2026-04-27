@@ -29,15 +29,8 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
     init(types: [TodoSmartListType]) {
         self.types = types
         super.init()
-        self.lists = autoHideEmptyWhiteListTypes.map { TodoSmartList(type: $0) }
-        self.loadLists()
-        
-        /// 添加智能清单显示设置项监听
         TodoSetting.shared.addObserver(self, forKey: .smartListDisplay)
-        
-        /// 添加至凌晨更新对象
         TPMidnightScheduler.shared.addUpdater(self)
-        
         todo.addUpdater(self)
     }
 
@@ -45,7 +38,7 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
         return counter.count(for: list) ?? 0
     }
     
-    private func loadLists(completion: (() -> Void)? = nil) {
+    func loadLists(completion: (() -> Void)? = nil) {
         let requestID = requestManager.executeRequest()
         
         /// 更新当前所有显示类型任务数目
