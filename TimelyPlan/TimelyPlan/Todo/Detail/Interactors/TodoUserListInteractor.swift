@@ -7,8 +7,7 @@
 
 import Foundation
 
-class TodoUserListInteractor: TodoListInteractor,
-                                TodoListProcessorDelegate {
+class TodoUserListInteractor: TodoListInteractor {
     
     var listConfiguration: TodoUserListConfiguration {
        return configuration as! TodoUserListConfiguration
@@ -60,20 +59,16 @@ class TodoUserListInteractor: TodoListInteractor,
     }
 
     // MARK: - TodoListProcessorDelegate
-    func didUpdateTodoList(_ list: TodoList) {
+    override func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
         let oldList = self.list
         guard list.identifier == oldList.identifier else {
             return
         }
         
-        /// 获取更新后的列表
-        guard let newList = todo.getUserList(of: list.identifier) else {
-            return
-        }
-
-        /// 更新列表
-        self.listConfiguration.updateList(newList)
-        if newList.layoutType != oldList.layoutType {
+        let bLayoutTypeChanged = editingList.layoutType != oldList.layoutType
+        list.update(with: editingList)
+        self.listConfiguration.updateList(list)
+        if bLayoutTypeChanged {
             self.didChangeLayoutType?()
         } else {
             self.didChangeListInfo?()

@@ -66,6 +66,10 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         return schedule
     }
     
+    override func detailOption() -> TodoTaskDetailOption {
+        return .all
+    }
+    
     override func allowListOptions() -> [TodoListOption]? {
         switch list.listType {
         case .myDay:
@@ -97,7 +101,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         case .inbox:
             return [.default, .startDate, .dueDate, .priority, .none]
         case .completed:
-            return [.list]
+            return [.completionDate]
         case .overdue, .today, .tomorrow, .upcoming:
             return [.dueDate]
         case .trash:
@@ -112,7 +116,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         case .inbox:
             return TodoSortType.allCases
         case .completed:
-            return [.manually]
+            return [.completionDate]
         case .overdue, .today, .tomorrow, .upcoming:
             return [.dueDate]
         case .trash:
@@ -130,9 +134,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
             }
             
             return TodoSortOrder.allCases
-        case .completed:
-            return [.ascending]
-        case .overdue, .today, .tomorrow, .upcoming:
+        case .completed, .overdue, .today, .tomorrow, .upcoming:
             return TodoSortOrder.allCases
         case .trash:
             return [.descending]
@@ -145,6 +147,10 @@ class TodoSmartListConfiguration: TodoListConfiguration {
 }
 
 class TodoInboxListConfiguration: TodoSmartListConfiguration {
+    
+    override func detailOption() -> TodoTaskDetailOption {
+        return .allExceptList
+    }
     
     override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
         let layoutType = interactor.layoutType()
@@ -160,13 +166,17 @@ class TodoInboxListConfiguration: TodoSmartListConfiguration {
 
 class TodoCompletedListConfiguration: TodoSmartListConfiguration {
     
+    override var preferredSortOrder: TodoSortOrder {
+        return .descending
+    }
+    
     override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
         return TodoCompletedTaskListViewController(interactor: interactor)
     }
 }
 
 class TodoTrashListConfiguration: TodoSmartListConfiguration {
-    
+
     override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
         return TodoTrashTaskListViewController(interactor: interactor)
     }

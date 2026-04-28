@@ -73,7 +73,7 @@ class TodoTagManager {
         }
         
         HandyRecord.save()
-        updater.didUpdateTodoTag(tag)
+        updater.didUpdateTodoTag(tag, with: editingTag)
     }
     
     /// 删除标签

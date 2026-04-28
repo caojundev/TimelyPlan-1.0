@@ -114,7 +114,7 @@ extension TodoUserListViewModel: TodoListProcessorDelegate {
     }
     
     /// 更新列表信息通知
-    func didUpdateTodoList(_ list: TodoList) {
+    func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
         setNeedsRefresh()
         loadTopLists(with: .update(list))
     }

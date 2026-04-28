@@ -11,7 +11,7 @@ import UIKit
 class TodoFilterEditViewController: TodoFilterRuleEditViewController {
     
     /// 结束编辑回调
-    var completion: ((TodoEditFilter) -> Void)?
+    var completion: ((TodoEditingFilter) -> Void)?
     
     /// 名称和颜色编辑区块
     lazy var nameColorSectionController: TPTableItemSectionController = {
@@ -64,14 +64,14 @@ class TodoFilterEditViewController: TodoFilterRuleEditViewController {
     
 
     /// 当前编辑标签
-    private var editFilter: TodoEditFilter
+    private var editFilter: TodoEditingFilter
     
     /// 编辑类型
     private let editType: EditType
     
-    init(filter: TodoEditFilter? = nil) {
+    init(filter: TodoEditingFilter? = nil) {
         self.editType = filter == nil ? .create : .modify
-        self.editFilter = filter ?? TodoEditFilter()
+        self.editFilter = filter ?? TodoEditingFilter()
         super.init(rule: self.editFilter.rule)
     }
     

@@ -23,6 +23,14 @@ extension TodoTask {
     var dueDateType: TodoTaskDueDateType {
         return TodoTaskDueDateType.type(of: self.schedule?.dateInfo?.endDate)
     }
+    
+    var completionDateType: TodoTaskCompletionDateType? {
+        guard let completionDate = self.completionDate, completionDate < Date().endOfDay() else {
+            return nil
+        }
+        
+        return TodoTaskCompletionDateType.type(for: completionDate)
+    }
 }
 
 extension Array where Element == TodoTask {
@@ -120,6 +128,21 @@ extension Array where Element == TodoTask {
         return groups
     }
     
+    func completionDateClassifiedTaskGroups() -> [TodoGroup] {
+        let dic = completionDateClassifiedTasks()
+        var groups = [TodoGroup]()
+        TodoTaskCompletionDateType.allCases.forEach { type in
+            if let tasks = dic[type], tasks.count > 0 {
+                let group = TodoGroup(identifier: type.identifier)
+                group.title = type.title
+                group.tasks = tasks
+                groups.append(group)
+            }
+        }
+    
+        return groups
+    }
+    
     /// 按优先级归类分组
     func priorityClassifiedTaskGroups() -> [TodoGroup] {
         let dic = priorityClassifiedTasks()
@@ -196,6 +219,22 @@ extension Array where Element == TodoTask {
         
         for task in self {
             tasks[task.dueDateType]?.append(task)
+        }
+        
+        return tasks
+    }
+    
+    /// 按完成日期类型归类并存储在字典中
+    func completionDateClassifiedTasks() -> [TodoTaskCompletionDateType: Array<Element>] {
+        var tasks: [TodoTaskCompletionDateType: Array<Element>] = [:]
+        TodoTaskCompletionDateType.allCases.forEach { type in
+            tasks[type] = []
+        }
+        
+        for task in self {
+            if let dateType = task.completionDateType {
+                tasks[dateType]?.append(task)
+            }
         }
         
         return tasks

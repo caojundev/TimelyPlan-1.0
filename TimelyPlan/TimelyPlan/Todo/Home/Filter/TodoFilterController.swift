@@ -52,8 +52,8 @@ class TodoFilterController {
     }
     
     /// 过滤器编辑视图控制器
-    private func showFilterEditViewController(with filter: TodoEditFilter?,
-                                              completion: ((TodoEditFilter) -> Void)?){
+    private func showFilterEditViewController(with filter: TodoEditingFilter?,
+                                              completion: ((TodoEditingFilter) -> Void)?){
         let vc = TodoFilterEditViewController(filter: filter)
         vc.completion = completion
         vc.showAsNavigationRoot()

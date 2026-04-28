@@ -49,6 +49,10 @@ struct TodoTaskDetailOption: OptionSet {
     static var allExceptList: TodoTaskDetailOption {
         return all.subtracting(.list)
     }
+    
+    static var allExceptCompletionDate: TodoTaskDetailOption {
+        return all.subtracting(.completionDate)
+    }
 }
 
 class TodoTaskDetailProvider {

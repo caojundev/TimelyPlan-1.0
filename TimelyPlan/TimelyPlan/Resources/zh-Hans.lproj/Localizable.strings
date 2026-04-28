@@ -581,6 +581,12 @@
 "Due Date" = "截止日期";
 "Creation Date" = "创建时间";
 "Modification Date" = "修改日期";
+"Completion Date" = "完成日期";
+
+"This Week" = "本周";
+"Last Week" = "上周";
+"This Month" = "本月";
+"Earlier" = "更早";
 
 "day" = "天";
 "days" = "天";

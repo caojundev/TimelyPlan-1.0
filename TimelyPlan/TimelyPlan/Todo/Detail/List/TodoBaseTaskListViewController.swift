@@ -499,7 +499,7 @@ class TodoBaseTaskListViewController: UIViewController,
         let actionTypes = self.interactor.taskActionTypes(for: selectedTasks)
         let toolView = TPMenuToolView(actionTypes: actionTypes)
         toolView.backgroundColor = .secondarySystemGroupedBackground
-        toolView.preferredItemsCount = 4
+        toolView.preferredItemsCount = 5
         toolView.disabledTypes = TodoTaskActionType.allCases
         toolView.addSeparator(position: .top)
         toolView.didSelectActionType = {[weak self] actionType, sourceView in

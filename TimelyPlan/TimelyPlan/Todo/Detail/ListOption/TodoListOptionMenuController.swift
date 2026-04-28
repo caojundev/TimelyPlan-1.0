@@ -120,14 +120,18 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
     }
     
     private func updateGroupAction(_ action: TPMenuAction) {
-        action.subtitle = self.config.groupType.title
-        let allowGroupTypes = self.config.allowGroupTypes
+        action.subtitle = config.groupType.title
         
-        let controller = TodoGroupTypeMenuController(types: allowGroupTypes)
-        controller.selectedGroupType = self.config.groupType
-        controller.didSelectGroupType = self.didSelectGroupType
+        let controller = TodoGroupTypeMenuController(types: config.allowGroupTypes)
+        controller.selectedGroupType = config.groupType
+        controller.didSelectGroupType = didSelectGroupType
+        
         let subMenuItems = controller.menuItems()
-        if subMenuItems.count > 1 {
+        let menuItemsCount = subMenuItems.count
+        
+        // 只有当有多个菜单项，或者单个菜单项包含多个子动作时，才设置子菜单
+        let shouldShowSubMenu = menuItemsCount > 1 || subMenuItems.first?.actions?.count ?? 0 > 1
+        if shouldShowSubMenu {
             action.subMenuItems = subMenuItems
         }
     }

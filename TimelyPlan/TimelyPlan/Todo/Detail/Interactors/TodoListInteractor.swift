@@ -11,7 +11,9 @@ enum TodoTaskListChange {
     case create(TodoTask)
 }
 
-class TodoListInteractor: TodoTaskProcessorDelegate {
+class TodoListInteractor: TodoTaskProcessorDelegate,
+                            TodoListProcessorDelegate,
+                            TodoTagProcessorDelegate {
 
     /// 布局改变
     var didChangeLayoutType: (() -> Void)?
@@ -54,7 +56,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     init(configuration: TodoListConfiguration) {
         self.configuration = configuration
         self.listOptionState = TodoState.shared.listOptionState(for: configuration) ?? TodoListOptionState()
-        todo.addUpdater(self, for: [.task])
+        todo.addUpdater(self, for: [.list, .task, .tag])
         
         self.placeholderProvider.emptyImage = resGetImage("placeholder_hashTag_80")
         self.placeholderProvider.state = self.loadingState
@@ -107,10 +109,15 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     }
     
     // MARK: -
+    var groupType: TodoGroupType {
+        let groupType = listOptionState.validatedGroupType(for: configuration)
+        return groupType
+    }
+    
     func loadGroups(with change: TodoTaskListChange? = nil) {
         let requestID = requestManager.executeRequest()
-        let groupType = listOptionState.validatedGroupType(for: configuration)
-        let sort = self.listOptionState.validatedSort(for: configuration)
+        let groupType = groupType
+        let sort = listOptionState.validatedSort(for: configuration)
         let change = change
         loadTasksIfNeeded { tasks in
             guard self.requestManager.shouldProceed(with: requestID) else {
@@ -118,7 +125,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
             }
 
             DispatchQueue.global(qos: .userInitiated).async {
-                let groups = TodoListInteractor.groups(for: tasks, groupType: groupType, sort: sort)
+                let groups = self.groups(for: tasks, groupType: groupType, sort: sort)
                 DispatchQueue.main.async {
                     guard self.requestManager.shouldProceed(with: requestID) else {
                         return
@@ -141,6 +148,11 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
         }
         
         fetchTasks(completion: completion)
+    }
+    
+    /// 将任务根据分组类型和排序方式分组
+    func groups(for tasks: [TodoTask]?, groupType: TodoGroupType, sort: TodoSort) -> [TodoGroup]? {
+        return TodoListInteractor.groups(for: tasks, groupType: groupType, sort: sort)
     }
     
     /// 获取任务方法
@@ -254,6 +266,49 @@ class TodoListInteractor: TodoTaskProcessorDelegate {
     func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask]) {
         
     }
+    
+    // MARK: - TodoListProcessorDelegate
+    func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
+        let detailOption = configuration.detailOption()
+        guard detailOption.contains(.list), list.name != editingList.name, let tasks = tasks else {
+            return
+        }
+        
+        var shouldRefresh = false
+        if groupType == .list {
+            shouldRefresh = true
+        } else {
+            let newName = editingList.name
+            shouldRefresh = tasks.contains { task in
+                guard let taskList = task.list else { return false }
+                return taskList.identifier == list.identifier && taskList.name != newName
+            }
+        }
+        
+        if shouldRefresh {
+            setNeedsRefresh()
+            loadGroups()
+        }
+    }
+    
+    // MARK: - TodoTagProcessorDelegate
+    func didUpdateTodoTag(_ tag: TodoTag, with editingTag: TodoEditingTag) {
+        let detailOption = configuration.detailOption()
+        guard detailOption.contains(.tag), let tasks = tasks else {
+            return
+        }
+        
+        let hasAffectedTask = tasks.contains { task in
+            return task.tags?.contains(where: { aTag in
+                return tag.identifier == aTag.identifier
+            }) ?? false
+        }
+        
+        if hasAffectedTask {
+            setNeedsRefresh()
+            loadGroups()
+        }
+    }
 }
 
 
@@ -328,6 +383,8 @@ extension TodoListInteractor {
             return tasks.startDateClassifiedTaskGroups()
         case .dueDate:
             return tasks.dueDateClassifiedTaskGroups()
+        case .completionDate:
+            return tasks.completionDateClassifiedTaskGroups()
         case .priority:
             return tasks.priorityClassifiedTaskGroups()
         }

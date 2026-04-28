@@ -28,7 +28,7 @@ class TodoListConfiguration: Equatable, IdentifiableItem {
     
     /// 详情选项
     func detailOption() -> TodoTaskDetailOption {
-        return .all
+        return .allExceptList
     }
     
     func quickAddTask() -> TodoQuickAddTask? {
@@ -53,6 +53,11 @@ class TodoListConfiguration: Equatable, IdentifiableItem {
     /// 允许的分组类型
     func allowGroupTypes() -> [TodoGroupType] {
         return TodoGroupType.allCases
+    }
+    
+    /// 首选排列顺序
+    var preferredSortOrder: TodoSortOrder {
+        return .ascending
     }
     
     /// 允许的排序类型
@@ -82,11 +87,16 @@ class TodoListConfiguration: Equatable, IdentifiableItem {
 
         return sortType
     }
-    
+
     func validatedSortOrder(_ sortOrder: TodoSortOrder?, for sortType: TodoSortType) -> TodoSortOrder {
         let allowOrders = allowSortOrders(for: sortType)
         guard let sortOrder = sortOrder, allowOrders.contains(sortOrder) else {
-            return allowOrders.first!
+            if allowOrders.contains(preferredSortOrder) {
+                /// 返回首选排列顺序
+                return preferredSortOrder
+            }
+            
+            return allowOrders.first ?? .ascending
         }
 
         return sortOrder
@@ -203,6 +213,10 @@ class TodoTagListConfiguration: TodoListConfiguration {
         return task
     }
     
+    override func detailOption() -> TodoTaskDetailOption {
+        return .allExceptCompletionDate
+    }
+    
     override func allowListOptions() -> [TodoListOption]? {
         return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .edit]
     }
@@ -236,6 +250,10 @@ class TodoFilterListConfiguration: TodoListConfiguration {
     
     override func quickAddTask() -> TodoQuickAddTask? {
         return filter.matchingQuickAddTask ?? TodoQuickAddTask()
+    }
+    
+    override func detailOption() -> TodoTaskDetailOption {
+        return .allExceptCompletionDate
     }
     
     override func allowListOptions() -> [TodoListOption]? {

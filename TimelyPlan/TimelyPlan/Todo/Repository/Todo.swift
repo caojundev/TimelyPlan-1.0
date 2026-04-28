@@ -295,12 +295,12 @@ extension Todo {
     
     // MARK: - Processors
     /// 新建过滤器
-    func createFilter(with editingFilter: TodoEditFilter, onTop: Bool = false) {
+    func createFilter(with editingFilter: TodoEditingFilter, onTop: Bool = false) {
         filterManager.createFilter(with: editingFilter, onTop: onTop)
     }
     
     /// 更新过滤器
-    func updateFilter(_ filter: TodoFilter, with editingFilter: TodoEditFilter) {
+    func updateFilter(_ filter: TodoFilter, with editingFilter: TodoEditingFilter) {
         filterManager.updateFilter(filter, with: editingFilter)
     }
     

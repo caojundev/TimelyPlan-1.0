@@ -21,7 +21,7 @@ extension CDTodoFilter: SortableIdentifiable {
     }
     
     /// 更新过滤器
-    func update(with editingFilter: TodoEditFilter) {
+    func update(with editingFilter: TodoEditingFilter) {
         self.name = editingFilter.name
         self.colorHex = editingFilter.color.hexString
         self.ruleJSON = editingFilter.rule?.jsonString()
@@ -42,7 +42,7 @@ extension CDTodoFilter: SortableIdentifiable {
     }
     
     // MARK: - 处理
-    static func createFilter(with editingFilter: TodoEditFilter,
+    static func createFilter(with editingFilter: TodoEditingFilter,
                              onTop: Bool = false) -> CDTodoFilter? {
         guard let name = editingFilter.name?.whitespacesAndNewlinesTrimmedString, name.count > 0 else {
             return nil
@@ -58,7 +58,7 @@ extension CDTodoFilter: SortableIdentifiable {
         return tag
     }
     
-    static func newFilter(with editingFilter: TodoEditFilter) -> CDTodoFilter {
+    static func newFilter(with editingFilter: TodoEditingFilter) -> CDTodoFilter {
         let filter = CDTodoFilter.createEntity(in: .defaultContext)
         filter.identifier = UUID().uuidString
         filter.creationDate = .now
@@ -67,7 +67,7 @@ extension CDTodoFilter: SortableIdentifiable {
     }
     
     static func updateFilter(_ filter: TodoFilter,
-                             with editingFilter: TodoEditFilter) -> Bool {
+                             with editingFilter: TodoEditingFilter) -> Bool {
         if filter.editingFilter == editingFilter {
             return false
         }

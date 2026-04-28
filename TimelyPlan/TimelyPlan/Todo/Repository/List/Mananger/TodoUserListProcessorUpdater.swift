@@ -14,7 +14,7 @@ protocol TodoListProcessorDelegate: AnyObject{
     func didCreateTodoList(_ list: TodoList)
     
     /// 更新列表信息通知
-    func didUpdateTodoList(_ list: TodoList)
+    func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList)
     
     /// 删除列表时通知
     func didDeleteTodoLists(_ lists: [TodoList])
@@ -31,7 +31,7 @@ protocol TodoListProcessorDelegate: AnyObject{
 
 extension TodoListProcessorDelegate {
     
-    func didUpdateTodoList(_ list: TodoList) {}
+    func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {}
     
     func didCreateTodoList(_ list: TodoList) {}
     
@@ -53,9 +53,9 @@ class TodoListProcessorUpdater: NSObject,
         }
     }
     
-    func didUpdateTodoList(_ list: TodoList) {
+    func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
         notifyDelegates { (delegate: TodoListProcessorDelegate) in
-            delegate.didUpdateTodoList(list)
+            delegate.didUpdateTodoList(list, with: editingList)
         }
     }
     

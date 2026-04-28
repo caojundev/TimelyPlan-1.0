@@ -12,8 +12,8 @@ enum TodoTaskEditType: String, TPMenuRepresentable {
     case date
     case reminder
     case repeatRule
-    case progress
     case tag
+    case progress
     
     var title: String {
         switch self {

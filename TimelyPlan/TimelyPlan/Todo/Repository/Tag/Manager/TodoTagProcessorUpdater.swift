@@ -17,7 +17,7 @@ protocol TodoTagProcessorDelegate: AnyObject{
     func didDeleteTodoTag(_ tag: TodoTag)
     
     /// 更新标签
-    func didUpdateTodoTag(_ tag: TodoTag)
+    func didUpdateTodoTag(_ tag: TodoTag, with editingTag: TodoEditingTag)
 
     /// 重新排序标签
     func didRecorderTodoTag(in tags: [TodoTag], fromIndex: Int, toIndex: Int)
@@ -29,7 +29,7 @@ extension TodoTagProcessorDelegate {
 
     func didDeleteTodoTag(_ tag: TodoTag) {}
     
-    func didUpdateTodoTag(_ tag: TodoTag) {}
+    func didUpdateTodoTag(_ tag: TodoTag, with editingTag: TodoEditingTag) {}
 
     func didRecorderTodoTag(in tags: [TodoTag], fromIndex: Int, toIndex: Int) {}
 }
@@ -48,9 +48,9 @@ class TodoTagProcessorUpdater: NSObject, TodoTagProcessorDelegate {
         }
     }
     
-    func didUpdateTodoTag(_ tag: TodoTag) {
+    func didUpdateTodoTag(_ tag: TodoTag, with editingTag: TodoEditingTag) {
         notifyDelegates { (delegate: TodoTagProcessorDelegate) in
-            delegate.didUpdateTodoTag(tag)
+            delegate.didUpdateTodoTag(tag, with: editingTag)
         }
     }
     

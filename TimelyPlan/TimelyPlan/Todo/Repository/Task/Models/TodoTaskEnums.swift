@@ -108,3 +108,75 @@ enum TodoTaskDueDateType: String, TPMenuRepresentable {
         return .upcoming
     }
 }
+
+// 待办任务完成日期类型枚举
+enum TodoTaskCompletionDateType: String, TPMenuRepresentable {
+    case today
+    case yesterday
+    case thisWeek
+    case lastWeek
+    case thisMonth
+    case earlier
+    
+    var title: String {
+        switch self {
+        case .today: return resGetString("Today")
+        case .yesterday: return resGetString("Yesterday")
+        case .thisWeek: return resGetString("This Week")
+        case .lastWeek: return resGetString("Last Week")
+        case .thisMonth: return resGetString("This Month")
+        case .earlier: return resGetString("Earlier")
+        }
+    }
+    
+    var identifier: String {
+        return String(describing: TodoTaskCompletionDateType.self) + self.rawValue.capitalized
+    }
+    
+    /// 根据完成日期获取日期类型
+    /// - Parameters:
+    ///   - completionDate: 任务完成的日期
+    ///   - currentDate: 当前日期（默认为系统当前日期）
+    /// - Returns: 对应的日期类型
+    static func type(for completionDate: Date, currentDate: Date = Date()) -> TodoTaskCompletionDateType {
+        let calendar = Calendar.current
+        
+        // 提取日期组件（忽略时间部分）
+        let compCompletion = calendar.dateComponents([.year, .month, .day], from: completionDate)
+        let compCurrent = calendar.dateComponents([.year, .month, .day], from: currentDate)
+        guard let completionDay = calendar.date(from: compCompletion),
+              let currentDay = calendar.date(from: compCurrent) else {
+            return .earlier
+        }
+        
+        // 1. 判断是否是今天
+        if calendar.isDate(completionDay, inSameDayAs: currentDay) {
+            return .today
+        }
+        
+        // 2. 判断是否是昨天
+        if let yesterday = calendar.date(byAdding: .day, value: -1, to: currentDay),
+           calendar.isDate(completionDay, inSameDayAs: yesterday) {
+            return .yesterday
+        }
+        
+        // 3. 判断是否是本周
+        if calendar.isDate(completionDay, equalTo: currentDay, toGranularity: .weekOfYear) {
+            return .thisWeek
+        }
+        
+        // 4. 判断是否是上周
+        if let lastWeekStart = calendar.date(byAdding: .weekOfYear, value: -1, to: currentDay),
+           calendar.isDate(completionDay, equalTo: lastWeekStart, toGranularity: .weekOfYear) {
+            return .lastWeek
+        }
+        
+        // 5. 判断是否是本月
+        if calendar.isDate(completionDay, equalTo: currentDay, toGranularity: .month) {
+            return .thisMonth
+        }
+        
+        // 6. 更早
+        return .earlier
+    }
+}

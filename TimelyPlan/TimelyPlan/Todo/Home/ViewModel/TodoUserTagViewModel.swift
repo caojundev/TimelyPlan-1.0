@@ -97,7 +97,7 @@ extension TodoUserTagViewModel: TodoTagProcessorDelegate {
         loadTags()
     }
     
-    func didUpdateTodoTag(_ tag: TodoTag) {
+    func didUpdateTodoTag(_ tag: TodoTag, with editingTag: TodoEditingTag) {
         setNeedsRefresh()
         loadTags(with: .update(tag))
     }

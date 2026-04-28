@@ -691,7 +691,7 @@
 		E56342042F94829900E120BF /* TodoFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56342032F94829900E120BF /* TodoFilterViewModel.swift */; };
 		E563420B2F948BCC00E120BF /* todo_home_filter_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E56342092F948BCB00E120BF /* todo_home_filter_24@2x.png */; };
 		E563420C2F948BCC00E120BF /* todo_home_filter_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E563420A2F948BCB00E120BF /* todo_home_filter_24@3x.png */; };
-		E563420E2F94C2A600E120BF /* TodoEditFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563420D2F94C2A500E120BF /* TodoEditFilter.swift */; };
+		E563420E2F94C2A600E120BF /* TodoEditingFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563420D2F94C2A500E120BF /* TodoEditingFilter.swift */; };
 		E56342142F94C2E300E120BF /* TodoFilterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56342102F94C2E100E120BF /* TodoFilterValue.swift */; };
 		E56342152F94C2E300E120BF /* TodoDateFilterValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56342112F94C2E100E120BF /* TodoDateFilterValue.swift */; };
 		E56342162F94C2E300E120BF /* TodoFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56342122F94C2E100E120BF /* TodoFilterType.swift */; };
@@ -1650,6 +1650,7 @@
 		E5D8339B2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8338D2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@3x.png */; };
 		E5D8339C2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8338E2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@2x.png */; };
 		E5D8339D2DAB64D60012ABF3 /* todo_task_progress_reset_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8338F2DAB64D60012ABF3 /* todo_task_progress_reset_24@3x.png */; };
+		E5DA039D2FA03B7800A58ACC /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA039C2FA03B7800A58ACC /* Sequence+Extensions.swift */; };
 		E5DAF27F2D4913F2006CC85A /* TPImageInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DAF27E2D4913F2006CC85A /* TPImageInfoTableCell.swift */; };
 		E5DCC4062DC49BA2004DE7A5 /* CalendarTimelineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DCC4052DC49BA2004DE7A5 /* CalendarTimelineLayout.swift */; };
 		E5E276EF2D3DF0B4004EC522 /* todo_list_inbox_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E276E92D3DF0B3004EC522 /* todo_list_inbox_24@3x.png */; };
@@ -2457,7 +2458,7 @@
 		E56342032F94829900E120BF /* TodoFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterViewModel.swift; sourceTree = "<group>"; };
 		E56342092F948BCB00E120BF /* todo_home_filter_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_filter_24@2x.png"; sourceTree = "<group>"; };
 		E563420A2F948BCB00E120BF /* todo_home_filter_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_filter_24@3x.png"; sourceTree = "<group>"; };
-		E563420D2F94C2A500E120BF /* TodoEditFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoEditFilter.swift; sourceTree = "<group>"; };
+		E563420D2F94C2A500E120BF /* TodoEditingFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoEditingFilter.swift; sourceTree = "<group>"; };
 		E56342102F94C2E100E120BF /* TodoFilterValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterValue.swift; sourceTree = "<group>"; };
 		E56342112F94C2E100E120BF /* TodoDateFilterValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoDateFilterValue.swift; sourceTree = "<group>"; };
 		E56342122F94C2E100E120BF /* TodoFilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterType.swift; sourceTree = "<group>"; };
@@ -3431,6 +3432,7 @@
 		E5D8338D2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_progress_initialValue_24@3x.png"; sourceTree = "<group>"; };
 		E5D8338E2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_progress_initialValue_24@2x.png"; sourceTree = "<group>"; };
 		E5D8338F2DAB64D60012ABF3 /* todo_task_progress_reset_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_progress_reset_24@3x.png"; sourceTree = "<group>"; };
+		E5DA039C2FA03B7800A58ACC /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		E5DAF27E2D4913F2006CC85A /* TPImageInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoTableCell.swift; sourceTree = "<group>"; };
 		E5DCC4052DC49BA2004DE7A5 /* CalendarTimelineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineLayout.swift; sourceTree = "<group>"; };
 		E5E276E92D3DF0B3004EC522 /* todo_list_inbox_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_inbox_24@3x.png"; sourceTree = "<group>"; };
@@ -5495,7 +5497,7 @@
 			isa = PBXGroup;
 			children = (
 				E56B94922F8DC52A001E488B /* TodoFilter.swift */,
-				E563420D2F94C2A500E120BF /* TodoEditFilter.swift */,
+				E563420D2F94C2A500E120BF /* TodoEditingFilter.swift */,
 				E563420F2F94C2E100E120BF /* Rule */,
 			);
 			path = Models;
@@ -7242,6 +7244,7 @@
 				E5BB9C022D3BF0C40089667A /* Codable+Extensions.swift */,
 				E5BB9C032D3BF0C40089667A /* TimeInterval+Extensions.swift */,
 				E5BB9C0C2D3BF0C40089667A /* Float+Extensions.swift */,
+				E5DA039C2FA03B7800A58ACC /* Sequence+Extensions.swift */,
 			);
 			path = Stdlib;
 			sourceTree = "<group>";
@@ -10455,7 +10458,7 @@
 				E5BB9E0A2D3BF0C70089667A /* String+Emoji.swift in Sources */,
 				E55549562F76401100C9460D /* HabitTaskBindViewController.swift in Sources */,
 				E5BB9E102D3BF0C70089667A /* TPNotificationAllowAccessViewController.swift in Sources */,
-				E563420E2F94C2A600E120BF /* TodoEditFilter.swift in Sources */,
+				E563420E2F94C2A600E120BF /* TodoEditingFilter.swift in Sources */,
 				E50D60382F7A12B500D5E0A4 /* RepeatWeekdayOfMonthTableViewCell.swift in Sources */,
 				E5BB9DC32D3BF0C60089667A /* EditType.swift in Sources */,
 				E5BB9EE32D3BF0C80089667A /* TPBarProgressView.swift in Sources */,
@@ -11019,6 +11022,7 @@
 				E5BB9EB42D3BF0C80089667A /* TPYearMonthDatePickerViewController.swift in Sources */,
 				E5D7D8EF2D43933600EC877A /* FocusRecordEditBindSectionController.swift in Sources */,
 				E507E7AC2F52DEFA003004C4 /* HabitRecordTypeEditCell.swift in Sources */,
+				E5DA039D2FA03B7800A58ACC /* Sequence+Extensions.swift in Sources */,
 				E57C05E22DD2E6BA009E22F0 /* CalendarWeekEventsView.swift in Sources */,
 				E5D7D9112D43933700EC877A /* FocusStatsInfoView.swift in Sources */,
 				E5D7D8BF2D43933600EC877A /* FocusPomodoroProgressInfoView.swift in Sources */,

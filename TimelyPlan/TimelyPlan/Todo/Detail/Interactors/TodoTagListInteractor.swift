@@ -7,8 +7,7 @@
 
 import Foundation
 
-class TodoTagListInteractor: TodoListInteractor,
-                                TodoTagProcessorDelegate {
+class TodoTagListInteractor: TodoListInteractor {
     
     var tag: TodoTag {
         return listConfiguration.tag
@@ -45,19 +44,15 @@ class TodoTagListInteractor: TodoListInteractor,
     }
     
     // MARK: - TodoTagProcessorDelegate
-    func didUpdateTodoTag(_ tag: TodoTag) {
+    override func didUpdateTodoTag(_ tag: TodoTag, with editingTag: TodoEditingTag) {
         let oldTag = listConfiguration.tag
         guard tag.identifier == oldTag.identifier else {
             return
         }
         
-        /// 获取更新后的标签
-        guard let newTag = todo.getTag(with: tag.identifier), !newTag.isEqual(oldTag) else {
-            return
-        }
-        
         /// 更新列表
-        self.listConfiguration.updateTag(newTag)
+        tag.update(with: editingTag)
+        self.listConfiguration.updateTag(tag)
         self.didChangeListInfo?()
     }
     

@@ -57,18 +57,17 @@ class TodoFilterListInteractor: TodoListInteractor,
     }
     
     // MARK: - TodoFilterProcessorDelegate
-    func didUpdateTodoFilter(_ filter: TodoFilter) {
+    func didUpdateTodoFilter(_ filter: TodoFilter, with editingFilter: TodoEditingFilter) {
         let oldFilter = listConfiguration.filter
         guard filter.identifier == oldFilter.identifier else {
             return
         }
         
         /// 获取更新后的过滤器
-        if let newFilter = todo.getFilter(of: filter.identifier), !newFilter.isEqual(oldFilter) {
-            self.listConfiguration.updateFilter(newFilter)
-            self.didChangeListInfo?()
-        }
-    
+        filter.update(with: editingFilter)
+        self.listConfiguration.updateFilter(filter)
+        self.didChangeListInfo?()
+        
         self.setNeedsRefresh()
         self.loadGroups()
     }

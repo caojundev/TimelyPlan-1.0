@@ -40,8 +40,13 @@ class TodoTaskController {
     
     // MARK: - 编辑计划
     static func editSchedule(_ schedule: TaskSchedule?,
+                             showClear: Bool? = nil,
                              completion: ((TaskSchedule?)->Void)?) {
         let vc = TodoScheduleEditViewController(schedule: schedule)
+        if let showClear = showClear {
+            vc.showClearButton = showClear
+        }
+        
         vc.didEndEditing = { schedule in
             completion?(schedule)
         }
@@ -80,11 +85,14 @@ class TodoTaskController {
     
     func editSchedule(for tasks: [TodoTask], completion: (()->Void)? = nil) {
         var schedule: TaskSchedule?
+        var showClear: Bool?
         if tasks.count == 1 {
             schedule = tasks[0].schedule
+        } else {
+            showClear = tasks.anySatisfy { $0.schedule != nil }
         }
         
-        TodoTaskController.editSchedule(schedule) { newSchedule in
+        TodoTaskController.editSchedule(schedule, showClear: showClear) { newSchedule in
             todo.updateTasks(tasks, schedule: newSchedule)
             completion?()
         }

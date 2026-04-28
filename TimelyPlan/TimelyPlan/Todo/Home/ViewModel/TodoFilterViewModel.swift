@@ -114,7 +114,7 @@ extension TodoFilterViewModel: TodoFilterProcessorDelegate {
         loadFilters()
     }
     
-    func didUpdateTodoFilter(_ filter: TodoFilter) {
+    func didUpdateTodoFilter(_ filter: TodoFilter, with editingFilter: TodoEditingFilter) {
         setNeedsRefresh()
         loadFilters(with: .update(filter)) { [weak self] in
             /// 加载最新的 filters 后根据新规则获取任务数目

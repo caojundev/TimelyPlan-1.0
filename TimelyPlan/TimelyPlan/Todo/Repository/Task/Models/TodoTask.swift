@@ -171,7 +171,10 @@ import Foundation
     override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? TodoTask else { return false }
         if self === other { return true }
-        return identifier == other.identifier && modificationDate == other.modificationDate
+        return identifier == other.identifier &&
+                modificationDate == other.modificationDate &&
+                list != other.list &&
+                tags != other.tags
     }
     
     // MARK: - ListDiffable

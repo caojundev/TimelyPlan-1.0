@@ -22,10 +22,10 @@ class TodoTaskEditMenuView: TPCollectionWrapperView,
     
     let imageSize: CGSize = .size(5)
     
-    let imageMargins: UIEdgeInsets = UIEdgeInsets(right: 4.0)
+    let imageMargins: UIEdgeInsets = UIEdgeInsets(right: 8.0)
     
     /// 边界间距
-    var edgeMargin: CGFloat = 8.0
+    var edgeMargin: CGFloat = 12.0
     
     /// 间距
     var itemMargin: CGFloat = 8.0
@@ -36,7 +36,7 @@ class TodoTaskEditMenuView: TPCollectionWrapperView,
     private lazy var cellStyle: TPCollectionCellStyle = {
         let style = TPCollectionCellStyle()
         style.cornerRadius = 8.0
-        style.borderWidth = 1.6
+        style.borderWidth = 2.0
         style.borderColor = .secondaryLabel
         style.backgroundColor = .systemBackground
         style.selectedBackgroundColor = .systemBackground

@@ -82,34 +82,12 @@ class TodoList: NSObject,
         self.sublists = content.sortedSublists(parent: self)
     }
     
-    // MARK: - 等同性判断
-    override var hash: Int {
-        var hasher = Hasher()
-        hasher.combine(identifier)
-        return hasher.finalize()
+    func update(with editingList: TodoEditingList) {
+        self.emoji = editingList.emoji
+        self.name = editingList.name
+        self.colorHex = editingList.color?.hexString
+        self.layoutType = editingList.layoutType
     }
-    
-    override func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? TodoList else { return false }
-        if self === other { return true }
-        return identifier == other.identifier &&
-                emoji == other.emoji &&
-                name == other.name &&
-                colorHex == other.colorHex &&
-                layoutType == other.layoutType
-    }
-    
-    // MARK: - IGListDiffable
-    override func diffIdentifier() -> NSObjectProtocol {
-        return identifier as NSString
-    }
-    
-    override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let other = object as? TodoList else { return false }
-        return identifier == other.identifier
-    }
-    
-    
     
     func addSublist(_ list: TodoList) {
         if self.identifier == list.identifier {
@@ -133,4 +111,34 @@ class TodoList: NSObject,
             list.parent = nil
         }
     }
+    
+    // MARK: - 等同性判断
+    override var hash: Int {
+        var hasher = Hasher()
+        hasher.combine(identifier)
+        return hasher.finalize()
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? TodoList else { return false }
+        if self === other { return true }
+        return identifier == other.identifier &&
+                emoji == other.emoji &&
+                name == other.name &&
+                colorHex == other.colorHex &&
+                layoutType == other.layoutType
+    }
+    
+    
+    // MARK: - IGListDiffable
+    override func diffIdentifier() -> NSObjectProtocol {
+        return identifier as NSString
+    }
+    
+    override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        guard let other = object as? TodoList else { return false }
+        return identifier == other.identifier
+    }
+
+    
 }

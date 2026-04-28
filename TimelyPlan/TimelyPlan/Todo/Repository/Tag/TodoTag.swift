@@ -66,7 +66,12 @@ class TodoTag: NSObject,
         self.order = content.order
         super.init()
     }
-
+    
+    func update(with editingTag: TodoEditingTag) {
+        self.name = editingTag.name
+        self.colorHex = editingTag.color.hexString
+    }
+    
     // MARK: - 等同性判断
     override var hash: Int {
         var hasher = Hasher()

@@ -152,6 +152,7 @@ extension CDTodoList {
         return false
     }
     
+    /*
     /// 更新列表布局
     static func updateList(_ aList: TodoList, layoutType: TodoListLayoutType) -> Bool {
         guard aList.layoutType != layoutType else {
@@ -165,6 +166,7 @@ extension CDTodoList {
         
         return false
     }
+     */
 
     /// 移动列表
     static func moveList(_ list: TodoList, to parent: TodoList?) -> Bool {

@@ -43,9 +43,9 @@ class TodoFilter: NSObject,
     }()
 
     /// 编辑过滤器
-    var editingFilter: TodoEditFilter {
+    var editingFilter: TodoEditingFilter {
         let color = self.color ?? TodoFilter.defaultColor
-        return TodoEditFilter(name: self.name, color: color, rule: self.rule)
+        return TodoEditingFilter(name: self.name, color: color, rule: self.rule)
     }
     
     var matchingQuickAddTask: TodoQuickAddTask? {
@@ -76,7 +76,6 @@ class TodoFilter: NSObject,
         return colors[0]
     }
     
-    
     init(content: CDTodoFilter) {
         self.identifier = content.identifier ?? ""
         self.name = content.name
@@ -86,6 +85,12 @@ class TodoFilter: NSObject,
         super.init()
     }
 
+    func update(with editingFilter: TodoEditingFilter) {
+        self.name = editingFilter.name
+        self.colorHex = editingFilter.color.hexString
+        self.rule = editingFilter.rule
+    }
+    
     // MARK: - 等同性判断
     override var hash: Int {
         var hasher = Hasher()

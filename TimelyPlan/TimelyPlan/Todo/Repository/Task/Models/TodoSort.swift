@@ -12,6 +12,7 @@ enum TodoSortType: String, Codable, TPMenuRepresentable {
     case manually  /// 手动
     case creationDate     /// 创建时间
     case modificationDate /// 修改日期
+    case completionDate /// 完成日期
     case startDate /// 开始日期
     case dueDate   /// 截止日期
     
@@ -25,6 +26,8 @@ enum TodoSortType: String, Codable, TPMenuRepresentable {
             return resGetString("Creation Date")
         case .modificationDate:
             return resGetString("Modification Date")
+        case .completionDate:
+            return resGetString("Completion Date")
         case .startDate:
             return resGetString("Start Date")
         case .dueDate:
@@ -72,6 +75,8 @@ struct TodoSort: Codable, Equatable {
             descriptor = SortDescriptor(\TodoTask.creationDate, order: order)
         case .modificationDate:
             descriptor = SortDescriptor(\TodoTask.modificationDate, order: order)
+        case .completionDate:
+            descriptor = SortDescriptor(\TodoTask.completionDate, order: order)
         case .startDate:
             descriptor = SortDescriptor(\TodoTask.startDate, order: order)
         case .dueDate:

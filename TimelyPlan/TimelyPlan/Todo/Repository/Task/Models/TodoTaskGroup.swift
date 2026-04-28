@@ -15,6 +15,7 @@ enum TodoGroupType: String, Codable, TPMenuRepresentable {
     case dueDate    /// 截止日期
     case priority   /// 优先级
     case none       /// 无分组
+    case completionDate /// 完成日期
     
     static func titles() -> [String] {
         return ["Default",
@@ -22,7 +23,8 @@ enum TodoGroupType: String, Codable, TPMenuRepresentable {
                 "Start Date",
                 "Due Date",
                 "Priority",
-                "None Group"]
+                "None Group",
+                "Completion Date"]
     }
     
     var iconName: String? {

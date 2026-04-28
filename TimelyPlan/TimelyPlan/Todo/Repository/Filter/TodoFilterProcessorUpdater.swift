@@ -14,7 +14,7 @@ protocol TodoFilterProcessorDelegate: AnyObject{
 
     func didDeleteTodoFilter(_ filter: TodoFilter)
     
-    func didUpdateTodoFilter(_ filter: TodoFilter)
+    func didUpdateTodoFilter(_ filter: TodoFilter, with editingFilter: TodoEditingFilter)
 
     func didReorderTodoFilter(in filters: [TodoFilter], fromIndex: Int, toIndex: Int)
 }
@@ -44,9 +44,9 @@ class TodoFilterProcessorUpdater: NSObject, TodoFilterProcessorDelegate {
         }
     }
     
-    func didUpdateTodoFilter(_ filter: TodoFilter) {
+    func didUpdateTodoFilter(_ filter: TodoFilter, with editingFilter: TodoEditingFilter) {
         notifyDelegates { (delegate: TodoFilterProcessorDelegate) in
-            delegate.didUpdateTodoFilter(filter)
+            delegate.didUpdateTodoFilter(filter, with: editingFilter)
         }
     }
     

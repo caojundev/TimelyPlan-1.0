@@ -72,15 +72,21 @@ class TodoUserListManager {
 
         if CDTodoList.updateList(list, with: editingList) {
             HandyRecord.save()
-            updater.didUpdateTodoList(list)
+            updater.didUpdateTodoList(list, with: editingList)
         }
     }
     
     /// 更新列表布局
     func updateList(_ list: TodoList, layoutType: TodoListLayoutType) {
-        if CDTodoList.updateList(list, layoutType: layoutType) {
+        var editingList = list.editingList
+        guard editingList.layoutType != layoutType else {
+            return
+        }
+        
+        editingList.layoutType = layoutType
+        if CDTodoList.updateList(list, with: editingList) {
             HandyRecord.save()
-            updater.didUpdateTodoList(list)
+            updater.didUpdateTodoList(list, with: editingList)
         }
     }
 
