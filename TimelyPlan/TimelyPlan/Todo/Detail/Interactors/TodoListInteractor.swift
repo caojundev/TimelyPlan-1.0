@@ -247,6 +247,11 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         self.loadGroups()
     }
     
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
         
     }
@@ -256,14 +261,6 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     }
     
     func didDeleteTodoTasks(_ tasks: [TodoTask]) {
-        
-    }
-    
-    func didUpdateActiveRepeatTodoTasks(_ tasks: [TodoTask]) {
-        
-    }
-    
-    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask]) {
         
     }
     

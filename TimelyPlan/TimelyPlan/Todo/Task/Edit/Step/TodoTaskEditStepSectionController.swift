@@ -24,7 +24,7 @@ class TodoStepExpansionState: ExpansionStateProviding {
 class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
                                          TodoTaskStepEditCellDelegate {
     
-    var steps: [TodoStep] = []
+    private(set) var steps: [TodoStep] = []
     
     override var items: [ListDiffable]? {
         let flattenSteps = steps.flattenItems(with: expansionState) as! [TodoStep]
@@ -41,9 +41,12 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
     
     override init(interactor: TodoTaskEditInteractor) {
         super.init(interactor: interactor)
-        self.steps = interactor.task.steps ?? []
     }
 
+    func updateSteps() {
+        self.steps = interactor.task.steps ?? []
+    }
+    
     override func didSelectRow(at index: Int) {
         if let cell = cellForRow(at: index) as? TodoTaskStepEditCell {
             cell.setTextEditing(true)
@@ -190,7 +193,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         }
     }
     
-    func completeSteps(_ steps: [TodoStep]) {
+    private func completeSteps(_ steps: [TodoStep]) {
         for step in steps {
             step.isCompleted = true
         }
@@ -204,7 +207,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         self.stepsDidChange()
     }
     
-    func updateStep(_ step: TodoStep, isCompleted: Bool) {
+    private func updateStep(_ step: TodoStep, isCompleted: Bool) {
         guard step.isCompleted != isCompleted else {
             return
         }
@@ -216,7 +219,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         }
     }
     
-    func updateStep(_ step: TodoStep, name: String) {
+    private func updateStep(_ step: TodoStep, name: String) {
         guard step.content != name else {
             return
         }

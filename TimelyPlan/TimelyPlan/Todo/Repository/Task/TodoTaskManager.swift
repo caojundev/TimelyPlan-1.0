@@ -100,6 +100,20 @@ class TodoTaskManager {
         HandyRecord.save()
     }
     
+    // MARK: - 排序
+    func reorderTask(_ sourceTask: TodoTask,
+                     postion: TodoTaskInsertPosition,
+                     targetTask: TodoTask,
+                     in list: TodoList?) {
+        
+        guard CDTodoTask.reorderTask(sourceTask, postion: postion, targetTask: targetTask, in: list) else {
+            return
+        }
+        
+        updater.didReorderTodoTask(sourceTask)
+        HandyRecord.save()
+    }
+    
     // MARK: - 更新任务
     /// 更新优先级
     func updateTasks(_ tasks: [TodoTask], priority: TodoTaskPriority) {
@@ -131,41 +145,7 @@ class TodoTaskManager {
         
         HandyRecord.save()
     }
-    
-    func updateTask(_ task: TodoTask, isCompleted: Bool) {
-        updateTasks([task], isCompleted: isCompleted)
-    }
-    
-    func updateTasks(_ tasks: [TodoTask], isCompleted: Bool) {
-        var tasksToUpdate = [TodoTask]()
-        for task in tasks {
-            if task.isCompleted != isCompleted {
-                tasksToUpdate.append(task)
-            }
-        }
-        
-        guard tasksToUpdate.count > 0, CDTodoTask.updateTasks(tasksToUpdate, isCompleted: isCompleted) else {
-            return
-        }
-        
-        if tasksToUpdate.count == 1 {
-            let task = tasksToUpdate[0]
-            let change: TodoTaskChange = .completed(oldValue: task.isCompleted, newValue: isCompleted)
-            updater.didUpdateTodoTask(task, with: change)
-        } else {
-            var changeInfos: [TodoTaskChangeInfo] = []
-            for task in tasksToUpdate {
-                let change: TodoTaskChange = .completed(oldValue: task.isCompleted, newValue: isCompleted)
-                let changeInfo = TodoTaskChangeInfo(task: task, change: change)
-                changeInfos.append(changeInfo)
-            }
-            
-            updater.didUpdateTodoTasks(with: changeInfos)
-        }
-        
-        HandyRecord.save()
-    }
-    
+ 
     func updateTasks(_ tasks: [TodoTask], isAddedToMyDay: Bool) {
         var tasksToUpdate = [TodoTask]()
         for task in tasks {
@@ -277,6 +257,7 @@ class TodoTaskManager {
         updateTasks([task], schedule: schedule)
     }
     
+    // MARK: - 标签
     func updateTask(_ task: TodoTask, tags: Set<TodoTag>?) {
         guard CDTodoTask.updateTask(task, tags: tags) else {
             return
@@ -307,18 +288,75 @@ class TodoTaskManager {
         HandyRecord.save()
     }
     
-    // MARK: - 排序
-    func reorderTask(_ sourceTask: TodoTask,
-                     postion: TodoTaskInsertPosition,
-                     targetTask: TodoTask,
-                     in list: TodoList?) {
+    // MARK: - 完成状态
+    
+    func updateTask(_ task: TodoTask, isCompleted: Bool) {
+        updateTasks([task], isCompleted: isCompleted)
+    }
+    
+    func updateTasks(_ tasks: [TodoTask], isCompleted: Bool) {
+        var tasksToUpdate = [TodoTask]()
+        for task in tasks {
+            if task.isCompleted != isCompleted {
+                tasksToUpdate.append(task)
+            }
+        }
         
-        guard CDTodoTask.reorderTask(sourceTask, postion: postion, targetTask: targetTask, in: list) else {
+        guard tasksToUpdate.count > 0, CDTodoTask.updateTasks(tasksToUpdate, isCompleted: isCompleted) else {
             return
         }
         
-        updater.didReorderTodoTask(sourceTask)
+        /// 更新
+        if tasksToUpdate.count == 1 {
+            let task = tasksToUpdate[0]
+            let change: TodoTaskChange = .completed(oldValue: task.isCompleted, newValue: isCompleted)
+            updater.didUpdateTodoTask(task, with: change)
+        } else {
+            var changeInfos: [TodoTaskChangeInfo] = []
+            for task in tasksToUpdate {
+                let change: TodoTaskChange = .completed(oldValue: task.isCompleted, newValue: isCompleted)
+                let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+                changeInfos.append(changeInfo)
+            }
+
+            updater.didUpdateTodoTasks(with: changeInfos)
+        }
+
+        /// 处理重复任务
+        var recurringTasks: [TodoTask]?
+        if isCompleted {
+            recurringTasks = tasksToUpdate.filter { $0.isRecurringTask }
+        }
+        
+        if let recurringTasks = recurringTasks, recurringTasks.count > 0 {
+            didCompleteRecurringTasks(recurringTasks)
+        }
+        
         HandyRecord.save()
+    }
+    
+    /// 处理完成的重复任务
+    private func didCompleteRecurringTasks(_ tasks: [TodoTask]) {
+        var updatedTasks = [TodoTask]()
+        var createdRepeatTasks = [TodoTask]()
+        for task in tasks {
+            guard let nextSchedule = task.nextSchedule else {
+                continue
+            }
+            
+            /// 创建当前周期已完成任务
+            let content = CDTodoTask.createTodoTask(with: task.currentOccurrenceQuickAddTask)
+            let createdTask = TodoTask(content: content)
+            createdRepeatTasks.append(createdTask)
+        
+            /// 更新任务为下一重复周期数据
+            task.reset(with: nextSchedule)
+            if CDTodoTask.updateTodoTask(task) {
+                updatedTasks.append(task)
+            }
+        }
+        
+        updater.didCreateRepeatTodoTasks(createdRepeatTasks, updatedTasks: updatedTasks)
     }
 }
 

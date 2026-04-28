@@ -19,15 +19,9 @@ protocol TodoTaskProcessorDelegate: AnyObject {
     /// 批量任务更新
     func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo])
     
-    
-    /// 更新进行中的重复任务
-    func didUpdateActiveRepeatTodoTasks(_ tasks: [TodoTask])
-    
     /// 创建重复的待办任务
-    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask])
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask])
 
-    
-    
     /// 任务移动
     func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?)
     
@@ -55,9 +49,7 @@ extension TodoTaskProcessorDelegate {
     
     func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {}
     
-    func didUpdateActiveRepeatTodoTasks(_ tasks: [TodoTask]) {}
-    
-    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask]) {}
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {}
 
     func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {}
     
@@ -93,18 +85,9 @@ class TodoTaskProcessorUpdater: NSObject, TodoTaskProcessorDelegate {
         }
     }
     
-    
-    
-    /// 更新进行中的重复任务
-    func didUpdateActiveRepeatTodoTasks(_ tasks: [TodoTask]) {
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
         notifyDelegates { (delegate: TodoTaskProcessorDelegate) in
-            delegate.didUpdateActiveRepeatTodoTasks(tasks)
-        }
-    }
-    
-    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask]) {
-        notifyDelegates { (delegate: TodoTaskProcessorDelegate) in
-            delegate.didCreateRepeatTodoTasks(repeatTasks)
+            delegate.didCreateRepeatTodoTasks(repeatTasks, updatedTasks: updatedTasks)
         }
     }
 

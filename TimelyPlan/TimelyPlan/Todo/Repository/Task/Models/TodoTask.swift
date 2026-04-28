@@ -148,17 +148,33 @@ import Foundation
         self.repeatRuleJSON = content.repeatRuleJSON
         self.progressJSON = content.progressJSON
         self.tags = content.userTags
+        
         self.stepMarkdown = content.stepMarkdown
         self.stepCount = Int(content.stepCount)
         self.stepCompletedCount = Int(content.stepCompletedCount)
         super.init()
     }
     
-    /// 更新步骤
-    func updateSteps(_ steps: [TodoStep]?) {
-        self.steps = steps
-        self.stepCount = steps?.totalCount() ?? 0
-        self.stepCompletedCount = steps?.completedCount() ?? 0
+    func reset(with nextSchedule: TaskSchedule?) {
+        self.schedule = nextSchedule
+        self.isCompleted = false
+        self.completionDate = nil
+        
+        /// 重置进度
+        self.progress?.resetCurrentValue()
+        
+        /// 重置步骤状态
+        if let steps = self.steps?.flatten() {
+            steps.forEach { step in
+                step.isCompleted = false
+                step.isExpanded = true
+            }
+        }
+        
+        /// 重置步骤数目信息
+        self.stepCount = self.steps?.totalCount() ?? 0
+        self.stepCompletedCount = self.steps?.completedCount() ?? 0
+        self.modificationDate = .now
     }
     
     // MARK: - 等同性判断
@@ -195,5 +211,58 @@ import Foundation
         return nil
     }
     
+    var nextSchedule: TaskSchedule? {
+        guard let schedule = schedule,
+              let dateInfo = schedule.dateInfo,
+              let repeatRule = schedule.repeatRule else {
+            return nil
+        }
+        
+        let repeatScheduler = RepeatScheduler()
+        guard let nextRepeatDate = repeatScheduler.nextRepeatDate(completionDate: dateInfo.startDate,
+                                                                  matching: repeatRule,
+                                                                  startDate: dateInfo.startDate) else {
+            return nil
+        }
+        
+        /// 更新任务为下一重复周期数据
+        let startDate = nextRepeatDate
+        let endDate = nextRepeatDate.dateByAddingSeconds(dateInfo.duration)!
+        let nextDateInfo = TaskDateInfo(startDate: startDate,
+                                        endDate: endDate,
+                                        isAllDay: dateInfo.isAllDay)
+        
+        var nextRepeatRule: RepeatRule?
+        if let repeatRule = repeatRule.copy() as? RepeatRule {
+            let count = repeatRule.count ?? 0
+            repeatRule.count = count + 1 /// 重复次数加一
+            nextRepeatRule = repeatRule
+        }
+        
+        return TaskSchedule(dateInfo: nextDateInfo,
+                            reminder: schedule.reminder,
+                            repeatRule: nextRepeatRule)
+    }
+
+    var currentOccurrenceQuickAddTask: TodoQuickAddTask {
+        let repeatTask = TodoQuickAddTask()
+        repeatTask.isCompleted = true
+        repeatTask.list = list
+        repeatTask.name = name
+        repeatTask.priority = priority
+        
+        repeatTask.isNoteEnabled = true /// 开启备注
+        repeatTask.note = note
+        
+        /// 计划
+        var schedule = schedule
+        schedule?.repeatRule = nil
+        repeatTask.schedule = schedule
+        
+        repeatTask.progress = progress
+        repeatTask.tags = tagsSet
+        repeatTask.steps = steps
+        return repeatTask
+    }
 }
 

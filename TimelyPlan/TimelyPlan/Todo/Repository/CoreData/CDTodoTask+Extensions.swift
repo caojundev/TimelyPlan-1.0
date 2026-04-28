@@ -87,6 +87,11 @@ extension CDTodoTask: SortableIdentifiable {
         }
     }
     
+    func updateCompleted(_ isCompleted: Bool) {
+        self.isCompleted = isCompleted
+        self.completionDate = isCompleted ? .now : nil
+    }
+    
     /// 更新计划
     func updateSchedule(_ schedule: TaskSchedule?) {
         self.dateInfo = schedule?.dateInfo
@@ -112,7 +117,20 @@ extension CDTodoTask: SortableIdentifiable {
         }
     }
     
-    static func createTodoTask(with quickAddTask: TodoQuickAddTask, onTop: Bool = true) -> CDTodoTask {
+    @discardableResult
+    func updateSteps(_ steps: [TodoStep]?) -> Bool {
+        let markdown = steps?.markdown()
+        guard self.stepMarkdown != markdown else {
+            return false
+        }
+        
+        self.stepMarkdown = steps?.markdown()
+        self.stepCount = Int64(steps?.totalCount() ?? 0)
+        self.stepCompletedCount = Int64(steps?.completedCount() ?? 0)
+        return true
+    }
+    
+    static func createTodoTask(with quickAddTask: TodoQuickAddTask, onTop: Bool = false) -> CDTodoTask {
         let task = CDTodoTask.createEntity(in: .defaultContext)
         task.identifier = UUID().uuidString
         task.name = quickAddTask.name
@@ -125,8 +143,27 @@ extension CDTodoTask: SortableIdentifiable {
             task.addToTags(Set(cdTags) as NSSet)
         }
     
-        if let list = quickAddTask.list, let cdList = CDTodoList.coreDataList(for: list) {
-            /// 添加到用户列表
+        /// 更新计划
+        if let schedule = quickAddTask.schedule {
+            task.updateSchedule(schedule)
+        }
+        
+        if let progress = quickAddTask.progress {
+            task.updateProgress(progress)
+        }
+
+        if let steps = quickAddTask.steps {
+            task.updateSteps(steps)
+        }
+
+        task.updateCompleted(quickAddTask.isCompleted)
+        
+        let currentDate: Date = .now
+        task.creationDate = currentDate
+        task.modificationDate = currentDate
+        
+        /// 添加到列表
+        if let list = quickAddTask.list, let cdList = CDTodoList.getItem(with: list.identifier) {
             cdList.addTask(task, onTop: onTop)
         } else {
             /// 添加到收件箱
@@ -136,20 +173,22 @@ extension CDTodoTask: SortableIdentifiable {
                 task.order = inboxMaxOrder + kOrderedStep
             }
         }
-
-        /// 更新计划
-        if let schedule = quickAddTask.schedule {
-            task.updateSchedule(schedule)
-        }
         
-        if let progress = quickAddTask.progress {
-            task.updateProgress(progress)
-        }
-        
-        let currentDate: Date = .now
-        task.creationDate = currentDate
-        task.modificationDate = currentDate
         return task
+    }
+    
+    /// 同步任务数据
+    static func updateTodoTask(_ task: TodoTask) -> Bool {
+        guard let cdTask = getItem(with: task.identifier) else {
+            return false
+        }
+
+        cdTask.updateCompleted(task.isCompleted)
+        cdTask.updateSchedule(task.schedule)
+        cdTask.updateProgress(task.progress)
+        cdTask.updateSteps(task.steps)
+        cdTask.modificationDate = task.modificationDate
+        return true
     }
     
     /// 更新优先级
@@ -280,16 +319,12 @@ extension CDTodoTask: SortableIdentifiable {
             return false
         }
         
-        let markdown = steps?.markdown()
-        if cdTask.stepMarkdown == markdown {
-            return false
+        if cdTask.updateSteps(steps) {
+            cdTask.modificationDate = .now
+            return true
         }
         
-        cdTask.stepMarkdown = markdown
-        cdTask.stepCount = Int64(steps?.totalCount() ?? 0)
-        cdTask.stepCompletedCount = Int64(steps?.completedCount() ?? 0)
-        cdTask.modificationDate = .now
-        return true
+        return false
     }
     
     static func reorderTask(_ sourceTask: TodoTask,

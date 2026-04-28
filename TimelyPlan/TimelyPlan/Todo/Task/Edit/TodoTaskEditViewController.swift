@@ -191,13 +191,27 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     }
     
     override func reloadData() {
-        super.reloadData()
+        updateSteps()
         updateInfo()
         updateMenuEditTypes()
         updateFooterView()
+        adapter.reloadData()
     }
     
-    private func taskDidChange(_ change: TodoTaskChange) {
+    private func performUpdate() {
+        updateSteps()
+        updateInfo(animated: true)
+        updateMenuEditTypes()
+        updateFooterView()
+        adapter.performUpdate(with: .fade, completion: nil)
+    }
+    
+    private func taskDidChange(_ change: TodoTaskChange?) {
+        guard let change = change else {
+            reloadData()
+            return
+        }
+
         switch change {
         case .name(_, _):
             updateName()
@@ -214,26 +228,13 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
             if detailOptions.contains(.tag) {
                 updateDetail()
             }
-        case .schedule(_, _):
-            if detailOptions.contains(.schedule) {
-                updateDetail()
-            }
-        case .note(_, _):
-            if detailOptions.contains(.note) {
-                updateDetail()
-            }
-        case .myDay(_, _):
-            if detailOptions.contains(.myDay) {
-                updateDetail()
-            }
-        case .list(_, _):
-            if detailOptions.contains(.list) {
-                updateDetail()
-            }
         case .step(_, _):
             if detailOptions.contains(.step) {
                 updateDetail()
             }
+            
+        default:
+            break
         }
         
         updateMenuEditTypes(animated: true)
@@ -286,25 +287,29 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     }
     
     // MARK: - 更新信息
+    func updateSteps() {
+        stepEditSectionController.updateSteps()
+    }
     
     /// 重新加载信息视图数据
-    private func updateInfo() {
+    private func updateInfo(animated: Bool = false) {
         updateName()
         updatePriority()
         updateCheckType()
-        updateProgress(animated: false)
-        updateCompleted(animated: false)
+        updateProgress(animated: animated)
+        updateCompleted(animated: animated)
         updateDetail()
     }
     
-    /// 更新底部视图
-    private func updateFooterView() {
-        footerView.task = task
-        footerView.updateDateInfo()
-    }
-
     private func updateCompleted(animated: Bool) {
-        infoView.setCompleted(task.isCompleted, animated: animated)
+        let isCompleted = task.isCompleted
+        infoView.setCompleted(isCompleted, animated: animated)
+    }
+    
+    private func updateProgress(animated: Bool = false) {
+        infoView.setProgress(task.completionFraction, animated: animated)
+        infoView.isProgressHidden = !task.isProgressSet
+        view.setNeedsLayout()
     }
     
     private func updateName() {
@@ -331,11 +336,12 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         view.setNeedsLayout()
     }
     
-    private func updateProgress(animated: Bool = false) {
-        infoView.setProgress(task.completionFraction, animated: animated)
-        infoView.isProgressHidden = !task.isProgressSet
-        view.setNeedsLayout()
+    /// 更新底部视图
+    private func updateFooterView() {
+        footerView.task = task
+        footerView.updateDateInfo()
     }
+
     
     // MARK: - Event Response
     private func selectEditType(_ editType: TodoTaskEditType) {

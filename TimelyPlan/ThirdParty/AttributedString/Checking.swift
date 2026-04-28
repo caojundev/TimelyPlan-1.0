@@ -167,7 +167,7 @@ extension ASAttributedString {
             return [:]
         }
         
-        let checkings = checkings.filtered(duplication: \.self).sorted { $0.order < $1.order }
+        let checkings = checkings.as_filtered(duplication: \.self).sorted { $0.order < $1.order }
         var result: [NSRange: (Checking, Checking.Result)] = [:]
         
         func contains(_ range: NSRange) -> Bool {

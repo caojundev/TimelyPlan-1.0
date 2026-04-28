@@ -10,7 +10,7 @@ import Foundation
 class TodoQuickAddTask: NSCopying {
 
     /// 所属列表
-    var list: TodoList?
+    var list: TodoListRepresentable?
     
     /// 名称
     var name: String?
@@ -35,7 +35,13 @@ class TodoQuickAddTask: NSCopying {
     
     /// 标签
     var tags: Set<TodoTag>?
+
+    /// 步骤
+    var steps: [TodoStep]?
     
+    /// 是否已完成
+    var isCompleted: Bool = false
+
     /// 是否有效
     var isValid: Bool {
         var isValid = false
@@ -75,6 +81,13 @@ class TodoQuickAddTask: NSCopying {
         copy.schedule = schedule
         copy.progress = progress
         copy.tags = tags
+        if let markdown = steps?.markdown() {
+            let parser = TodoStepParser()
+            copy.steps = parser.parse(markdown)
+        }
+        
+        copy.isCompleted = isCompleted
+        
         return copy
     }
 }

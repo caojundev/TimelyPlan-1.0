@@ -18,6 +18,15 @@ extension TodoTask: SortableIdentifiable, TaskRepresentable {
     var identifiableKey: String {
         return self.identifier
     }
+    
+    /// 是否是重复任务
+    var isRecurringTask: Bool {
+        guard schedule?.dateInfo != nil, let repeatRule = schedule?.repeatRule else {
+            return false
+        }
+
+        return repeatRule.type != RepeatType.none
+    }
 }
 
 // MARK: - 进度

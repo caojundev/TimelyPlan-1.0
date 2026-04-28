@@ -35,7 +35,7 @@ class TodoTaskEditMenuView: TPCollectionWrapperView,
     
     private lazy var cellStyle: TPCollectionCellStyle = {
         let style = TPCollectionCellStyle()
-        style.cornerRadius = 8.0
+        style.cornerRadius = 12.0
         style.borderWidth = 2.0
         style.borderColor = .secondaryLabel
         style.backgroundColor = .systemBackground

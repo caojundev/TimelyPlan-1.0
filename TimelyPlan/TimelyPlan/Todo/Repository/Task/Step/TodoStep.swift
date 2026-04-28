@@ -70,8 +70,6 @@ class TodoStep: NSObject {
     override var hash: Int {
         var hasher = Hasher()
         hasher.combine(id)
-        hasher.combine(content)
-        hasher.combine(isCompleted)
         return hasher.finalize()
     }
     

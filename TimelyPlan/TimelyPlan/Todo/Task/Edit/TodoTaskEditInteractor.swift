@@ -9,7 +9,7 @@ import Foundation
 
 class TodoTaskEditInteractor: TodoTaskProcessorDelegate {
     
-    var onTaskChange: ((TodoTaskChange) -> Void)?
+    var onTaskChange: ((TodoTaskChange?) -> Void)?
     
     private(set) var task: TodoTask
     
@@ -66,5 +66,16 @@ class TodoTaskEditInteractor: TodoTaskProcessorDelegate {
         }
         
         onTaskChange?(change)
+    }
+    
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
+        let updatedTask = updatedTasks.first(where: { task in
+            return task.identifier == self.task.identifier
+        })
+        
+        if let updatedTask = updatedTask {
+            self.task = updatedTask
+            onTaskChange?(nil)
+        }
     }
 }

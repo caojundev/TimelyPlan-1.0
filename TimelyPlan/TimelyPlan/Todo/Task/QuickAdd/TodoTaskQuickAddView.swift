@@ -180,7 +180,7 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
     }
     
     private func updateSendView() {
-        sendView.list = editTask.list
+        sendView.list = editTask.list as? TodoList
         updateSendButtonEnabled()
     }
     
