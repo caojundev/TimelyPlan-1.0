@@ -82,9 +82,9 @@ class FocusRecordMoreBarButtonItem: UIBarButtonItem {
 
 private class FocusRecordMoreButton: TPMenuListButton {
     
-    var sortOrder: FocusRecordSortOrder = .ascending
+    var sortOrder = FocusState.shared.recordListOrder
     
-    var mode: FocusRecordListMode = .detail
+    var mode = FocusState.shared.recordListMode
     
     override var menuItems: [TPMenuItem]? {
         get {

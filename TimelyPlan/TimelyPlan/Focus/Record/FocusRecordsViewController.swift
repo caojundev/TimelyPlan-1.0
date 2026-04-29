@@ -15,12 +15,6 @@ class FocusRecordsViewController: StatsMainViewController {
     /// 计时器
     var timer: FocusTimer?
 
-    /// 记录排列顺序
-    private var sortOrder = FocusState.shared.recordListOrder
-    
-    /// 列表模式
-    private var mode = FocusState.shared.recordListMode
-
     /// 信息视图
     private let infoViewEdgeMargins = UIEdgeInsets(value: 10.0)
     private let infoViewHeight = 64.0
@@ -29,8 +23,6 @@ class FocusRecordsViewController: StatsMainViewController {
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: FocusRecordMoreBarButtonItem = {
         let item = FocusRecordMoreBarButtonItem()
-        item.sortOrder = sortOrder
-        item.mode = mode
         item.didSelectType = { [weak self] type in
             self?.performMoreMenuAction(with: type)
         }
@@ -136,17 +128,11 @@ class FocusRecordsViewController: StatsMainViewController {
     }
     
     private func setupListViewController(_ vc: FocusRecordListViewController) {
-        vc.sortOrder = sortOrder
-        vc.mode = mode
         vc.timer = timer
         vc.task = task
-        
         if self.infoView != nil {
             /// 调整返回视图的间距不被信息视图遮挡
-            vc.backViewMargins = UIEdgeInsets(top: 10.0,
-                                              left: 16.0,
-                                              bottom: 90.0,
-                                              right: 16.0)
+            vc.backViewMargins = UIEdgeInsets(top: 10.0, left: 16.0, bottom: 90.0, right: 16.0)
         }
     }
     
@@ -169,42 +155,26 @@ class FocusRecordsViewController: StatsMainViewController {
     }
    
     private func toggleShowDetail() {
-        guard let vc = self.contentViewController as? FocusRecordListViewController else {
-            return
-        }
-        
         let newMode: FocusRecordListMode
-        switch mode {
+        switch moreBarButtonItem.mode {
         case .detail:
             newMode = .basic
         case .basic:
             newMode = .detail
         }
         
-        self.mode = newMode
         self.moreBarButtonItem.mode = newMode
-        vc.mode = newMode
-        vc.reloadData()
         
         /// 保存到本地
         FocusState.shared.recordListMode = newMode
     }
     
     private func selectSortOrder(_ sortOrder: FocusRecordSortOrder) {
-        guard self.sortOrder != sortOrder else {
+        guard self.moreBarButtonItem.sortOrder != sortOrder else {
             return
         }
         
-        self.sortOrder = sortOrder
         self.moreBarButtonItem.sortOrder = sortOrder
-        
-        /// 重新加载列表数据
-        if let vc = self.contentViewController as? FocusRecordListViewController {
-            vc.sortOrder = sortOrder
-            vc.reloadData()
-        }
-        
-        /// 保存到本地设置项
         FocusState.shared.recordListOrder = sortOrder
     }
 }

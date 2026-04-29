@@ -49,4 +49,14 @@ class FocusState {
     static let shared = FocusState()
     
     private init() {}
+    
+    // MARK: - Observer
+    func addObserver(_ observer: SettingAgentObserver, forKey key: SettingKey) {
+        SettingAgent.shared.addObserver(observer, forKey: key.name)
+    }
+    
+    func addObserver(_ observer: SettingAgentObserver, forKeys keys: [SettingKey]) {
+        let names = keys.map { $0.name }
+        SettingAgent.shared.addObserver(observer, forKeys: names)
+    }
 }

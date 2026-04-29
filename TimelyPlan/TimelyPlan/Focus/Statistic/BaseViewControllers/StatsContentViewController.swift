@@ -64,8 +64,6 @@ class StatsContentViewController: TPCollectionSectionsViewController,
     
     lazy var placeholderProvider: TPLoadableListPlaceholderProvider = {
         let provider = TPLoadableListPlaceholderProvider()
-        provider.emptyImage = resGetImage("habit_plceholder_task_80")
-        provider.emptyTitle = resGetString("No Habit")
         return provider
     }()
     
@@ -100,7 +98,6 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         self.view.addSubview(self.dateView)
         self.updateCollectionConfiguration()
         self.adapter.cellStyle = self.cellStyle
-        self.reloadData()
         self.updateBackView()
         self.setupBackView()
         self.wrapperView.placeholderProvider = self.placeholderProvider
@@ -186,6 +183,24 @@ class StatsContentViewController: TPCollectionSectionsViewController,
     }
 
     func reloadData(completion: (() -> Void)?) {
+        setupSectionControllers {
+            self.adapter.reloadData()
+            completion?()
+        }
+        
+        updateBackView()
+    }
+    
+    func performUpdate(completion: (() -> Void)? = nil) {
+        setupSectionControllers {
+            self.adapter.performUpdate()
+            completion?()
+        }
+        
+        updateBackView()
+    }
+    
+    private func setupSectionControllers(completion: (() -> Void)?) {
         let date = self.date
         self.fetchSectionControllers { [weak self] sectionControllers in
             guard let self = self, date == self.date else {
@@ -194,11 +209,8 @@ class StatsContentViewController: TPCollectionSectionsViewController,
             
             self.state = .loaded
             self.sectionControllers = sectionControllers
-            self.adapter.reloadData()
             completion?()
         }
-        
-        updateBackView()
     }
     
     private func selectDate(_ date: Date, from oldDate: Date) {

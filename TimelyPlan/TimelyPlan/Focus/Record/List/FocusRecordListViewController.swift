@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 class FocusRecordListViewController: StatsContentViewController,
-                                     FocusSessionProcessorDelegate {
+                                     FocusSessionProcessorDelegate,
+                                     SettingAgentObserver {
     
     /// 任务
     var task: TaskRepresentable?
@@ -17,17 +18,20 @@ class FocusRecordListViewController: StatsContentViewController,
     /// 计时器
     var timer: FocusTimer?
     
-    /// 排序方式，默认为降序(最新的在前面)
-    var sortOrder: FocusRecordSortOrder = .ascending
-    
-    /// 列表显示模式，默认为 detail 模式
-    var mode: FocusRecordListMode = .basic
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.placeholderProvider.emptyImage = resGetImage("placeholder_record_80")
         self.placeholderProvider.emptyTitle = resGetString("No Focus Record")
+        FocusState.shared.addObserver(self, forKeys: [.recordListOrder, .recordListMode])
         focus.addUpdater(self, for: [.session])
+    }
+    
+    func settingAgentDidChangeValue(for keyName: String) {
+        if keyName == FocusState.SettingKey.recordListMode.name {
+            reloadData()
+        } else {
+            performUpdate()
+        }
     }
 
     override func fetchSectionControllers(completion: @escaping ([TPCollectionBaseSectionController]) -> Void) {
@@ -44,8 +48,10 @@ class FocusRecordListViewController: StatsContentViewController,
     }
     
     func sectionControllers(with daySessions: [Int32: [FocusSession]]) -> [FocusRecordListSectionController] {
-        var sectionControllers = [FocusRecordListSectionController]()
+        let mode = FocusState.shared.recordListMode
+        let sortOrder = FocusState.shared.recordListOrder
         
+        var sectionControllers = [FocusRecordListSectionController]()
         // 根据排序方式对数据进行排序
         let sortedDaySessions: [(key: Int32, value: [FocusSession])]
         switch sortOrder {
@@ -68,7 +74,7 @@ class FocusRecordListViewController: StatsContentViewController,
                 
                 let sectionController = FocusRecordListSectionController(date: date,
                                                                          sessions: sortedSessions,
-                                                                         mode: self.mode)
+                                                                         mode: mode)
                 sectionControllers.append(sectionController)
             }
         }
@@ -83,23 +89,15 @@ class FocusRecordListViewController: StatsContentViewController,
             return
         }
         
-        self.reloadData {
-            self.adapter.scrollToItem(session, at: .centeredVertically, animated: true) { _ in
-                self.adapter.commitFocusAnimation(for: session)
-            }
-        }
+        self.performUpdate()
     }
     
     func didUpdateFocusSession(_ session: FocusSession) {
-        self.reloadData {
-            self.adapter.scrollToItem(session, at: .centeredVertically, animated: true) { _ in
-                self.adapter.commitFocusAnimation(for: session)
-            }
-        }
+        self.performUpdate()
     }
     
     func didDeleteFocusSession(_ session: FocusSession) {
-        self.reloadData()
+        self.performUpdate()
     }
     
 }
