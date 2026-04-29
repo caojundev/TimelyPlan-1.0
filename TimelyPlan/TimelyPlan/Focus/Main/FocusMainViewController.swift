@@ -18,7 +18,9 @@ enum FocusMainMenuType: Int, Codable, TPMenuRepresentable {
     }
 }
 
-class FocusMainViewController: TPPageController, TPSidebarContent {
+class FocusMainViewController: TPPageController,
+                               TPSidebarContent,
+                               FocusSessionProcessorDelegate {
  
     var sidebarController: SidebarController?
     
@@ -96,6 +98,7 @@ class FocusMainViewController: TPPageController, TPSidebarContent {
         self.trackingProgress = false
         let pageIndex = FocusState.shared.mainMenuType.rawValue
         self.selectPage(at: pageIndex)
+        focus.addUpdater(self, for: [.session])
     }
     
     override func viewWillLayoutSubviews() {
@@ -165,5 +168,22 @@ class FocusMainViewController: TPPageController, TPSidebarContent {
         case .settings:
             FocusPresenter.showSettings()
         }
+    }
+    
+    // MARK: - FocusSessionProcessorDelegate
+    func didAddFocusSessions(_ sessions: [FocusSession]) {
+        guard sessions.count > 0 else {
+            return
+        }
+        
+        let format: String
+        if sessions.count > 1 {
+            format = resGetString("%ld focus records added successfully")
+        } else {
+            format = resGetString("%ld focus record added successfully")
+        }
+        
+        let message = String(format: format, sessions.count)
+        TPFeedbackQueue.common.postFeedback(text: message, position: .top)
     }
 }

@@ -10,23 +10,7 @@ import UIKit
 
 class FocusTimelineView: UIView {
 
-    var date: Date = .now {
-        didSet {
-            eventListView.date = date
-            dateRange = CalendarTimelineDateRange(date: date)
-            setupIndicatorView()
-        }
-    }
-
-    weak var eventProvider: FocusTimelineEventProvider? {
-        get {
-            return eventListView.eventProvider
-        }
-        
-        set {
-            eventListView.eventProvider = newValue
-        }
-    }
+    private(set) var date: Date = .now
     
     /// 点击事件代理
     weak var tapDelegate: FocusTimelineEventListTapDelegate? {
@@ -102,13 +86,27 @@ class FocusTimelineView: UIView {
     
     private let timerUpdater = TPMinuteUpdater()
     
+    private let viewModel = FocusTimelineViewModel()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupContentView()
+        self.setupContentView()
+        self.viewModel.eventsDidChange = { [weak self] in
+            self?.reloadData()
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func reloadData() {
+        guard let date = viewModel.date, date.isInSameDayAs(self.date) else {
+            return
+        }
+        
+        eventListView.events = viewModel.events
+        eventListView.reloadData()
     }
     
     private func setupContentView() {
@@ -187,11 +185,15 @@ class FocusTimelineView: UIView {
     }
     
     func reset() {
-        eventListView.reset()
+        eventListView.clear()
         timerUpdater.stop()
     }
     
-    func reloadData() {
-        eventListView.reloadData()
+    func loadEvents(for date: Date) {
+        self.date = date
+        self.dateRange = CalendarTimelineDateRange(date: date)
+        self.eventListView.date = date
+        self.setupIndicatorView()
+        self.viewModel.loadEvents(for: date)
     }
 }

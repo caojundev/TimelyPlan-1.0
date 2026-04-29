@@ -7,12 +7,16 @@
 
 import Foundation
 
-protocol FocusUserTimerListViewDelegate: TPLoadableGroupCollectionViewDelegate {
+
+protocol FocusUserTimerListViewDelegate: TPGroupCollectionViewDelegate {
         
     /// 通知外部数据源移动数据条目
     func focusUserTimerListView(_ listView: FocusUserTimerListView,
-                                    moveItemAt sourceIndexPath: IndexPath,
-                                    to targetIndexPath: IndexPath)
+                                moveItemAt sourceIndexPath: IndexPath,
+                                to targetIndexPath: IndexPath)
+    
+    /// 处理下拉刷新
+    func focusUserTimerListViewHandleRefresh(_ listView: FocusUserTimerListView)
 }
 
 extension FocusUserTimerListViewDelegate {
@@ -20,11 +24,10 @@ extension FocusUserTimerListViewDelegate {
     func focusUserTimerListView(_ listView: FocusUserTimerListView,
                                 moveItemAt sourceIndexPath: IndexPath,
                                 to targetIndexPath: IndexPath) {
-        
     }
 }
 
-class FocusUserTimerListView: TPLoadableGroupCollectionView,
+class FocusUserTimerListView: TPGroupCollectionView,
                               FocusUserTimerListCellDelegate,
                               TPCollectionDragInsertReorderDelegate {
     
@@ -53,15 +56,29 @@ class FocusUserTimerListView: TPLoadableGroupCollectionView,
     
     private let cellStyle = FocusUserTimerCellStyle()
     
+    private(set) var refreshControl: UIRefreshControl?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.preferredItemWidth = kFocusTimerListContentMaxWidth
         self.preferredItemHeight = 70.0
         self.setupReorder()
+        self.setupRefreshControl()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: -
+    override func performUpdate(with completion: ((Bool) -> Void)? = nil) {
+        self.endRefreshing()
+        super.performUpdate(with: completion)
+    }
+    
+    override func reloadData() {
+        self.endRefreshing()
+        super.reloadData()
     }
     
     /// 初始化排序管理器
@@ -73,6 +90,27 @@ class FocusUserTimerListView: TPLoadableGroupCollectionView,
         self.reorder = reorder
     }
     
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                                action: #selector(handleRefresh),
+                                 for: .valueChanged)
+        self.collectionView.refreshControl = refreshControl
+        self.refreshControl = refreshControl
+    }
+
+    @objc func handleRefresh() {
+        guard let delegate = self.delegate as? FocusUserTimerListViewDelegate else {
+            return
+        }
+        
+        delegate.focusUserTimerListViewHandleRefresh(self)
+    }
+    
+    func endRefreshing() {
+        self.refreshControl?.endRefreshing()
+    }
+
     func updateFocusingIndicator() {
         guard let visibleCells = adapter.visibleCells as? [FocusHomeUserTimerCell] else {
             return
@@ -114,7 +152,7 @@ class FocusUserTimerListView: TPLoadableGroupCollectionView,
         
         return isFocusing
     }
-    
+
     // MARK: - AdapterDelegate
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return FocusHomeUserTimerCell.self

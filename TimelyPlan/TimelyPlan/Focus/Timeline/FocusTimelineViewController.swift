@@ -14,8 +14,7 @@ protocol FocusTimelineTitleViewProvider: AnyObject {
     var titleView: UIView? { get }
 }
 
-class FocusTimelineViewController: TPContainerViewController,
-                                   FocusSessionProcessorDelegate {
+class FocusTimelineViewController: TPContainerViewController {
     
     private lazy var dayViewController: FocusTimelineDayViewController = {
         let vc = FocusTimelineDayViewController()
@@ -28,8 +27,6 @@ class FocusTimelineViewController: TPContainerViewController,
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         navigationItem.rightBarButtonItem = addBarButtonItem
         navigationItem.titleView = dayViewController.titleView
-        
-        focus.addUpdater(self, for: [.session])
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -43,42 +40,6 @@ class FocusTimelineViewController: TPContainerViewController,
     override func clickAdd() {
         TPImpactFeedback.impactWithSoftStyle()
         FocusPresenter.addRecordManually()
-    }
-    
-    // MARK: - FocusSessionProcessorDelegate
-    func didAddFocusSessions(_ sessions: [FocusSession]) {
-        var shouldReload: Bool = false
-        for session in sessions {
-            if shouldReloadDay(for: session) {
-                shouldReload = true
-                break
-            }
-        }
-        
-        if shouldReload {
-            dayViewController.reloadData()
-        }
-    }
-    
-    func didUpdateFocusSession(_ session: FocusSession) {
-        if shouldReloadDay(for: session) {
-            dayViewController.reloadData()
-        }
-    }
-    
-    func didDeleteFocusSession(_ session: FocusSession) {
-        let date = session.recordTimeline.startDate
-        if date.isInSameDayAs(dayViewController.date) {
-            dayViewController.reloadData()
-        }
-    }
-    
-    private func shouldReloadDay(for session: FocusSession) -> Bool {
-        guard let sessionDate = session.startDate else {
-            return false
-        }
-
-        return sessionDate.isInSameDayAs(dayViewController.date)
     }
 }
 

@@ -11,7 +11,6 @@ import CoreGraphics
 
 class FocusTimelineDayViewController: TPViewController,
                                       FocusTimelineTitleViewProvider,
-                                      FocusTimelineEventProvider,
                                       FocusTimelineEventListTapDelegate,
                                       CalendarDatePageViewDelegate,
                                       TPCalendarSingleDateSelectionDelegate {
@@ -52,7 +51,6 @@ class FocusTimelineDayViewController: TPViewController,
     private lazy var pageView: FocusTimelineDayPageView = {
         let view = FocusTimelineDayPageView(frame: .zero)
         view.delegate = self
-        view.eventProvider = self
         view.tapDelegate = self
         return view
     }()
@@ -162,24 +160,6 @@ class FocusTimelineDayViewController: TPViewController,
         }
     }
     
-    // MARK: - FocusTimelineEventProvider
-    func fetchTimelineEvents(for date: Date, completion: @escaping([FocusTimelineEvent]?) -> Void) {
-        focus.fetchSessions(for: date, includeArchivedTimer: true) { sessions in
-            guard let sessions = sessions else {
-                completion(nil)
-                return
-            }
-
-            var events: [FocusTimelineEvent] = []
-            for session in sessions {
-                let event = FocusTimelineEvent(session: session)
-                events.append(event)
-            }
-            
-            completion(events)
-        }
-    }
-
     // MARK: - FocusTimelineEventListTapDelegate
     func didTapTimelineEvent(_ event: FocusTimelineEvent) {
         TPImpactFeedback.impactWithSoftStyle()

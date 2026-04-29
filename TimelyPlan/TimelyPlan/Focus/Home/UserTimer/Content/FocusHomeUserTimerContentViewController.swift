@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 
 class FocusHomeUserTimerContentViewController: TPViewController,
-                                               FocusTimerProcessorDelegate,
-                                               FocusSessionProcessorDelegate,
                                                FocusTrackerDelegate,
                                                FocusUserTimerListViewDelegate {
     
@@ -29,12 +27,13 @@ class FocusHomeUserTimerContentViewController: TPViewController,
         return view
     }()
     
+    private let viewModel = FocusUserTimerViewModel()
+    
     lazy var listView: FocusUserTimerListView = {
         let listView = FocusUserTimerListView(frame: .zero)
         listView.delegate = self
         listView.isReorderEnabled = true
-        listView.listPlaceholderProvider.emptyImage = resGetImage("focus_placeholder_noTimer_80")
-        listView.listPlaceholderProvider.emptyTitle = resGetString("No Timer")
+        listView.placeholderProvider = self.viewModel.placeholderProvider
         return listView
     }()
 
@@ -42,9 +41,12 @@ class FocusHomeUserTimerContentViewController: TPViewController,
         super.viewDidLoad()
         self.view.addSubview(self.listView)
         self.view.addSubview(self.addView)
-        self.listView.asyncReloadData()
+        self.listView.reloadData()
+        self.viewModel.timersDidChange = { [weak self] change in
+            self?.timersChanged(change)
+        }
         
-        focus.addUpdater(self)
+        self.viewModel.loadTimers()
         FocusTracker.shared.addDelegate(self)
     }
     
@@ -87,27 +89,37 @@ class FocusHomeUserTimerContentViewController: TPViewController,
         return .systemGroupedBackground
     }
     
+    private func timersChanged(_ change: FocusUserTimerChange?) {
+        let group = FocusTimerGroup(identifier: "UserTimerGroup")
+        group.timers = self.viewModel.timers
+        self.listView.groups = [group]
+        self.listView.performUpdate()
+        
+        var revealTimer: FocusTimer?
+        if let change = change {
+            switch change {
+            case .create(let timer), .update(let timer):
+                revealTimer = timer
+            }
+        }
+        
+        if let revealTimer = revealTimer {
+            self.listView.revealItem(revealTimer, autoScroll: true)
+        }
+    }
+    
     private func createNewTimer() {
         let timers = listView.userTimers
         let timerController = FocusUserTimerController()
         timerController.createTimer(in: timers)
     }
     
-    // MARK: -
-    
-    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
-        focus.fetchActiveTimers { timers in
-            guard let timers = timers, timers.count > 0 else {
-                completion(nil)
-                return
-            }
-
-            let group = FocusTimerGroup(identifier: "HomeUserTimerGroup")
-            group.timers = timers
-            completion([group])
-        }
+    // MARK: - Public Methods
+    public func revealTimer(_ timer: FocusTimer) {
+        self.listView.revealItem(timer, autoScroll: true)
     }
-  
+    
+    // MARK: -
     func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
         TPImpactFeedback.impactWithSoftStyle()
         if let timer = collectionView.item(at: indexPath) as? FocusTimer {
@@ -123,63 +135,14 @@ class FocusHomeUserTimerContentViewController: TPViewController,
         focus.reorderTimer(in: timers, fromIndex: sourceIndexPath.item, toIndex: targetIndexPath.item)
     }
     
+    func focusUserTimerListViewHandleRefresh(_ listView: FocusUserTimerListView) {
+        self.viewModel.setNeedsRefresh()
+        self.viewModel.loadTimers()
+    }
+    
     // MARK: - FocusTrackerDelegate
     func focusTrackerStateDidChange(fromState: FocusTrackerState?, toState: FocusTrackerState) {
         self.listView.updateFocusingIndicator()
-    }
-    
-    // MARK: - FocusTimerProcessorDelegate
-    func didCreateFocusTimer(_ timer: FocusTimer) {
-        self.listView.asyncPerformUpdate { [weak self] _ in
-            self?.revealTimer(timer)
-        }
-    }
-    
-    func didChangeArchivedState(_ isArchived: Bool, for timer: FocusTimer) {
-        self.listView.asyncPerformUpdate()
-    }
-    
-    func didUpdateFocusTimer(_ timer: FocusTimer) {
-        self.listView.asyncPerformUpdate { [weak self] _ in
-            self?.revealTimer(timer)
-        }
-    }
-    
-    func didDeleteFocusTimer(_ timer: FocusTimer) {
-        self.listView.asyncPerformUpdate()
-    }
-    
-    func didMoveFocusTimerToTop(_ timer: FocusTimer) {
-        self.listView.asyncPerformUpdate()
-    }
-    
-    func didReorderFocusTimer(in timers: [FocusTimer], fromIndex: Int, toIndex: Int) {
-        /// 无需操作
-    }
-    
-    // MARK: - FocusSessionProcessorDelegate
-    func didAddFocusSessions(_ sessions: [FocusSession]) {
-        guard sessions.count > 0 else {
-            return
-        }
-        
-        let format: String
-        if sessions.count > 1 {
-            format = resGetString("%ld focus records added successfully")
-        } else {
-            format = resGetString("%ld focus record added successfully")
-        }
-        
-        let message = String(format: format, sessions.count)
-        TPFeedbackQueue.common.postFeedback(text: message, position: .top)
-    }
-    
-    func didUpdateFocusSession(_ session: FocusSession) {
-        
-    }
-    
-    func didDeleteFocusSession(_ session: FocusSession) {
-        
     }
     
     // MARK: - Helpers
@@ -191,10 +154,5 @@ class FocusHomeUserTimerContentViewController: TPViewController,
         }
         
         return isCurrent
-    }
-    
-    // MARK: - Public Methods
-    public func revealTimer(_ timer: FocusTimer) {
-        self.listView.revealItem(timer)
     }
 }

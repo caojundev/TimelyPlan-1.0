@@ -13,18 +13,23 @@ enum FocusTimerGroupIdentifier: String {
 }
 
 class FocusTimerSelectViewController: TPViewController,
-                                      TPLoadableGroupCollectionViewDelegate {
+                                      TPGroupCollectionViewDelegate {
     
     var selectedTimerID: String?
     
     var didSelectTimer: ((FocusTimerRepresentable) -> Void)?
     
+    private let viewModel = FocusUserTimerViewModel()
+    
     private lazy var selectView: FocusTimerSelectView = {
         let view = FocusTimerSelectView(frame: view.bounds)
         view.showSectionHeader = true
         view.delegate = self
-        view.listPlaceholderProvider.emptyImage = resGetImage("focus_placeholder_noTimer_80")
-        view.listPlaceholderProvider.emptyTitle = resGetString("No Timer")
+        view.placeholderProvider = self.viewModel.placeholderProvider
+        view.refreshHandler = { [weak self] in
+            self?.handleRefresh()
+        }
+        
         return view
     }()
     
@@ -46,7 +51,12 @@ class FocusTimerSelectViewController: TPViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.selectView)
-        self.selectView.asyncReloadData()
+        self.selectView.reloadData()
+        self.viewModel.timersDidChange = { [weak self] change in
+            self?.timersChanged(change)
+        }
+        
+        self.viewModel.loadTimers()
     }
     
     override func viewWillLayoutSubviews() {
@@ -57,22 +67,26 @@ class FocusTimerSelectViewController: TPViewController,
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
-
-    // MARK: - TPLoadableGroupCollectionViewDelegate
-    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
-        focus.fetchActiveTimers { timers in
-            var groups = [self.defaultTimerGroup]
-            if let timers = timers, timers.count > 0 {
-                let userTimerGroup = FocusTimerGroup(identifier: FocusTimerGroupIdentifier.user.rawValue)
-                userTimerGroup.name = resGetString("Custom")
-                userTimerGroup.timers = timers
-                groups.append(userTimerGroup)
-            }
-            
-            completion(groups)
-        }
+    
+    private func handleRefresh() {
+        self.viewModel.setNeedsRefresh()
+        self.viewModel.loadTimers()
     }
     
+    private func timersChanged(_ change: FocusUserTimerChange?) {
+        var groups = [defaultTimerGroup]
+        if let userTimers = viewModel.timers, userTimers.count > 0 {
+            let group = FocusTimerGroup(identifier: FocusTimerGroupIdentifier.user.rawValue)
+            group.name = resGetString("Custom")
+            group.timers = userTimers
+            groups.append(group)
+        }
+        
+        self.selectView.groups = groups
+        self.selectView.performUpdate()
+    }
+
+    // MARK: - TPGroupCollectionViewDelegate
     func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let timer = collectionView.item(at: indexPath) as? FocusTimerRepresentable else {
             return

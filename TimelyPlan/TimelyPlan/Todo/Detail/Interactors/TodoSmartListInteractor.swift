@@ -40,6 +40,7 @@ class TodoSmartListInteractor: TodoListInteractor,
     }
     
     override func layoutType() -> TodoListLayoutType {
+        return .list
         let layoutType = TodoSetting.shared.listLayoutType(for: self.list.identifier)
         return layoutType ?? .list
     }

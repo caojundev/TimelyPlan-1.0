@@ -19,6 +19,15 @@ protocol FocusSessionProcessorDelegate {
     func didDeleteFocusSession(_ session: FocusSession)
 }
 
+extension FocusSessionProcessorDelegate {
+    
+    func didAddFocusSessions(_ sessions: [FocusSession]) {}
+    
+    func didUpdateFocusSession(_ session: FocusSession) {}
+    
+    func didDeleteFocusSession(_ session: FocusSession) {}
+}
+
 class FocusSessionProcessorUpdater: NSObject,
                                     FocusSessionProcessorDelegate {
 

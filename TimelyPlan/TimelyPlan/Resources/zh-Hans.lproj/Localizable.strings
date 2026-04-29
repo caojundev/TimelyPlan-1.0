@@ -299,6 +299,10 @@
 "Total Duration" = "总专注时长";
 
 /// 运行计时器
+"Start" = "开始";
+"Pause" = "暂停";
+"Continue" = "继续";
+"Next" = "下一步";
 "Screen always on enabled" = "屏幕常亮已开启";
 "Screen always on disabled" = "屏幕常亮已关闭";
 "Hold To Stop" = "长按结束";
@@ -569,10 +573,8 @@
 "Shred" = "删除";
 "Save" = "保存";
 "Cancel" = "取消";
-
 "Note" = "备注";
 "Add Note" = "添加备注";
-
 "Exceeds maximum character limit: %ld" = "已超出最大字符限制: %ld";
 
 /// 日期
@@ -774,3 +776,7 @@
 "Times(count)" = "次";
 "time(count)" = "次";
 "times(count)" = "次";
+
+/// 数据统计
+"NO DATA" = "无数据";
+"No Data" = "无数据";

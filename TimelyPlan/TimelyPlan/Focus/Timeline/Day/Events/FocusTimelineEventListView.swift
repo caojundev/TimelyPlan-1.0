@@ -8,11 +8,6 @@
 import Foundation
 import UIKit
 
-protocol FocusTimelineEventProvider: AnyObject {
-    
-    func fetchTimelineEvents(for date: Date, completion: @escaping([FocusTimelineEvent]?) -> Void)
-}
-
 /// 时间线事件列表视图点击代理协议
 protocol FocusTimelineEventListTapDelegate: AnyObject {
     /// 当用户点击时间线事件时调用
@@ -21,18 +16,9 @@ protocol FocusTimelineEventListTapDelegate: AnyObject {
 }
 
 class FocusTimelineEventListView: UIView, UIGestureRecognizerDelegate {
-  
-    weak var eventProvider: FocusTimelineEventProvider?
-    
+
     /// 点击事件代理
     weak var tapDelegate: FocusTimelineEventListTapDelegate?
-    
-    /// 当前时间线所在日期
-    var date: Date = .now
-    
-    var events: [FocusTimelineEvent]?
-    
-    var eventViews: [FocusTimelineEventView] = []
     
     var hourHeight: CGFloat = 80.0 {
         didSet {
@@ -42,12 +28,25 @@ class FocusTimelineEventListView: UIView, UIGestureRecognizerDelegate {
         }
     }
     
+    /// 当前时间线所在日期
+    var date: Date = .now {
+        didSet {
+            self.dateRange = CalendarTimelineDateRange(date: date)
+        }
+    }
+    
+    var events: [FocusTimelineEvent]?
+
+    private var eventViews: [FocusTimelineEventView] = []
+
     private var layout: FocusTimelineLayout?
     
     private let contentView = UIView()
 
     /// 时间线日期范围
-    private var dateRange: CalendarTimelineDateRange?
+    private lazy var dateRange: CalendarTimelineDateRange = {
+        return CalendarTimelineDateRange(date: self.date)
+    }()
     
     /// 顶部内边距
     var topPadding: CGFloat = 0.0
@@ -98,33 +97,15 @@ class FocusTimelineEventListView: UIView, UIGestureRecognizerDelegate {
         self.setNeedsLayout() /// 重新布局
     }
     
-    func reset() {
+    func clear() {
         events = nil
         layout = nil
         setupEventViews()
     }
     
     func reloadData() {
-        guard let eventProvider = eventProvider else {
-            self.events = nil
-            self.layout = nil
-            self.setupEventViews()
-            return
-        }
-        
-        let date = self.date
-        eventProvider.fetchTimelineEvents(for: date, completion: { events in
-            guard date == self.date else {
-                return
-            }
-            
-            self.events = events
-            let dateRange = CalendarTimelineDateRange(date: date)
-            self.dateRange = dateRange
-            self.layout = FocusTimelineLayout(events: events,
-                                              dateRange: dateRange)
-            self.setupEventViews()
-        })
+        self.layout = FocusTimelineLayout(events: self.events, dateRange: self.dateRange)
+        self.setupEventViews()
     }
     
     /// 设置长按手势识别器
@@ -154,8 +135,6 @@ class FocusTimelineEventListView: UIView, UIGestureRecognizerDelegate {
     
     /// 执行添加操作
     private func performAddOperation(at location: CGPoint) {
-        guard let dateRange = self.dateRange else { return }
-        
         // 将触摸点Y坐标转换为时间
         let viewHeight = layoutFrame().height
         let rawTime = FocusTimelineTimeUtils.time(fromY: location.y,

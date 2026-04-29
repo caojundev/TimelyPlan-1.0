@@ -1655,6 +1655,9 @@
 		E5DA03A12FA0A58A00A58ACC /* todo_sort_type_completionDate_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DA039F2FA0A58A00A58ACC /* todo_sort_type_completionDate_24@3x.png */; };
 		E5DA03A42FA0A59800A58ACC /* todo_group_type_completionDate_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DA03A22FA0A59700A58ACC /* todo_group_type_completionDate_24@3x.png */; };
 		E5DA03A52FA0A59800A58ACC /* todo_group_type_completionDate_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DA03A32FA0A59800A58ACC /* todo_group_type_completionDate_24@2x.png */; };
+		E5DA03A82FA1957700A58ACC /* FocusUserTimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA03A72FA1957600A58ACC /* FocusUserTimerViewModel.swift */; };
+		E5DA03AA2FA1ABF400A58ACC /* FocusArchivedTimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA03A92FA1ABF400A58ACC /* FocusArchivedTimerViewModel.swift */; };
+		E5DA03AE2FA1F49000A58ACC /* FocusTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA03AD2FA1F48F00A58ACC /* FocusTimelineViewModel.swift */; };
 		E5DAF27F2D4913F2006CC85A /* TPImageInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DAF27E2D4913F2006CC85A /* TPImageInfoTableCell.swift */; };
 		E5DCC4062DC49BA2004DE7A5 /* CalendarTimelineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DCC4052DC49BA2004DE7A5 /* CalendarTimelineLayout.swift */; };
 		E5E276EF2D3DF0B4004EC522 /* todo_list_inbox_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E276E92D3DF0B3004EC522 /* todo_list_inbox_24@3x.png */; };
@@ -3441,6 +3444,9 @@
 		E5DA039F2FA0A58A00A58ACC /* todo_sort_type_completionDate_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_sort_type_completionDate_24@3x.png"; sourceTree = "<group>"; };
 		E5DA03A22FA0A59700A58ACC /* todo_group_type_completionDate_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_group_type_completionDate_24@3x.png"; sourceTree = "<group>"; };
 		E5DA03A32FA0A59800A58ACC /* todo_group_type_completionDate_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_group_type_completionDate_24@2x.png"; sourceTree = "<group>"; };
+		E5DA03A72FA1957600A58ACC /* FocusUserTimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusUserTimerViewModel.swift; sourceTree = "<group>"; };
+		E5DA03A92FA1ABF400A58ACC /* FocusArchivedTimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusArchivedTimerViewModel.swift; sourceTree = "<group>"; };
+		E5DA03AD2FA1F48F00A58ACC /* FocusTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimelineViewModel.swift; sourceTree = "<group>"; };
 		E5DAF27E2D4913F2006CC85A /* TPImageInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoTableCell.swift; sourceTree = "<group>"; };
 		E5DCC4052DC49BA2004DE7A5 /* CalendarTimelineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineLayout.swift; sourceTree = "<group>"; };
 		E5E276E92D3DF0B3004EC522 /* todo_list_inbox_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_inbox_24@3x.png"; sourceTree = "<group>"; };
@@ -5869,6 +5875,7 @@
 			isa = PBXGroup;
 			children = (
 				E58C9E052F4AF0DB0096B842 /* FocusTimelineViewController.swift */,
+				E5DA03AD2FA1F48F00A58ACC /* FocusTimelineViewModel.swift */,
 				E58C9E062F4AF0DB0096B842 /* Day */,
 			);
 			path = Timeline;
@@ -8827,6 +8834,7 @@
 			isa = PBXGroup;
 			children = (
 				E5D7D88F2D43933600EC877A /* FocusHomeUserTimerContentViewController.swift */,
+				E5DA03A62FA1955C00A58ACC /* ViewModel */,
 				E568B7DB2F716F84007B7EFE /* TimerListView */,
 				E5D7D8892D43933600EC877A /* Cells */,
 			);
@@ -9030,6 +9038,15 @@
 				E5D8338F2DAB64D60012ABF3 /* todo_task_progress_reset_24@3x.png */,
 			);
 			path = progress;
+			sourceTree = "<group>";
+		};
+		E5DA03A62FA1955C00A58ACC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E5DA03A72FA1957600A58ACC /* FocusUserTimerViewModel.swift */,
+				E5DA03A92FA1ABF400A58ACC /* FocusArchivedTimerViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E5DAF27B2D48F7D4006CC85A /* Label */ = {
@@ -10123,6 +10140,7 @@
 				E56342152F94C2E300E120BF /* TodoDateFilterValue.swift in Sources */,
 				E57CC5AF2F7F61E400ADDBA4 /* TodoUserListInteractor.swift in Sources */,
 				E53B113E2F94D1B300701410 /* TodoFilterDateRangeTypeEditSectionController.swift in Sources */,
+				E5DA03AA2FA1ABF400A58ACC /* FocusArchivedTimerViewModel.swift in Sources */,
 				E51FF6532F571A11003CA953 /* HabitTaskEnums.swift in Sources */,
 				E50BB6832D57557600D316FD /* TPIconAccessoryConfig.swift in Sources */,
 				E555492B2F74D24C00C9460D /* FocusQuickStartViewController.swift in Sources */,
@@ -10669,6 +10687,7 @@
 				E54C7C7B2F5BADD300263B82 /* HabitRecord.swift in Sources */,
 				E5BB9EC52D3BF0C80089667A /* TPButtonActionsView.swift in Sources */,
 				E552FBB62DBE30630072703F /* CalendarMonthViewController.swift in Sources */,
+				E5DA03A82FA1957700A58ACC /* FocusUserTimerViewModel.swift in Sources */,
 				E5BB9DBC2D3BF0C60089667A /* UIColor+Gradient.swift in Sources */,
 				E5BB9E4E2D3BF0C70089667A /* Date+Lunar.swift in Sources */,
 				E552FBAD2DBB24730072703F /* CalendarStripLayoutProvider.swift in Sources */,
@@ -10991,6 +11010,7 @@
 				E5BB9DB52D3BF0C60089667A /* TPWeakDelegateCollection.swift in Sources */,
 				E59244032F51578F00CA2393 /* HabitConstants.swift in Sources */,
 				E5526AC52DD0AC8E00B96A9D /* CalendarWeekView.swift in Sources */,
+				E5DA03AE2FA1F49000A58ACC /* FocusTimelineViewModel.swift in Sources */,
 				E50D60582F7A13F100D5E0A4 /* AlarmPresetListView.swift in Sources */,
 				E50D02602F55A8C100E93977 /* HabitDateRangeEditCell.swift in Sources */,
 				E5BB9E4B2D3BF0C70089667A /* TPHolidayScheduler.swift in Sources */,

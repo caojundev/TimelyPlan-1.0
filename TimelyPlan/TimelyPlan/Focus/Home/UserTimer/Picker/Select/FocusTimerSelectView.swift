@@ -8,13 +8,17 @@
 import Foundation
 import UIKit
 
-class FocusTimerSelectView: TPLoadableGroupCollectionView {
+class FocusTimerSelectView: TPGroupCollectionView {
 
+    var refreshHandler: (() -> Void)?
+    
     var showSectionHeader: Bool = false
     
     private var sectionHeaderHeight = 40.0
     
     private let cellStyle = FocusUserTimerCellStyle()
+    
+    private(set) var refreshControl: UIRefreshControl?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,17 +26,44 @@ class FocusTimerSelectView: TPLoadableGroupCollectionView {
         self.cellStyle.selectedBackgroundColor = .secondarySystemGroupedBackground
         self.preferredItemWidth = .greatestFiniteMagnitude
         self.preferredItemHeight = 70.0
+        self.setupRefreshControl()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func showHeaderOfGroup(_ group: FocusTimerGroup) -> Bool {
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                                action: #selector(handleRefresh),
+                                 for: .valueChanged)
+        self.collectionView.refreshControl = refreshControl
+        self.refreshControl = refreshControl
+    }
+
+    @objc func handleRefresh() {
+        self.refreshHandler?()
+    }
+    
+    func endRefreshing() {
+        self.refreshControl?.endRefreshing()
+    }
+    
+    override func performUpdate(with completion: ((Bool) -> Void)? = nil) {
+        self.endRefreshing()
+        super.performUpdate(with: completion)
+    }
+    
+    override func reloadData() {
+        self.endRefreshing()
+        super.reloadData()
+    }
+    
+    private func showHeaderOfGroup(_ group: FocusTimerGroup) -> Bool {
         return showSectionHeader && group.identifier == FocusTimerGroupIdentifier.user.rawValue
     }
     
-
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         let item = adapter.item(at: indexPath)
         if item is FocusTimer {

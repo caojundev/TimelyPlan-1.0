@@ -131,6 +131,7 @@ class TPCollectionWrapperView: UIView,
     /// 执行更新操作
     func performUpdate(with completion: ((Bool) -> Void)? = nil) {
         self.adapter.performUpdate(with: completion)
+        self.updatePlaceholderView()
     }
 
     // MARK: - 设置布局对象
@@ -157,11 +158,12 @@ class TPCollectionWrapperView: UIView,
     
     func reloadData() {
         adapter.reloadData()
+        updatePlaceholderView()
     }
     
     func reloadData(animateStyle: SlideStyle) {
         changeCollectionView(with: animateStyle)
-        adapter.reloadData()
+        reloadData()
     }
     
     func updateItemSize() {

@@ -7,11 +7,7 @@
 
 import Foundation
 
-class FocusTimelineDayPageView: CalendarDatePageView,
-                                FocusTimelineEventProvider {
-    
-    
-    weak var eventProvider: FocusTimelineEventProvider?
+class FocusTimelineDayPageView: CalendarDatePageView {
     
     /// 点击事件代理
     weak var tapDelegate: FocusTimelineEventListTapDelegate?
@@ -47,16 +43,14 @@ class FocusTimelineDayPageView: CalendarDatePageView,
             return
         }
         
+        let date = adapter.item(at: indexPath) as! Date
+        cell.date = date
         let timelineView = cell.timelineView
         timelineView.hourHeight = hourHeight
         timelineView.topPadding = timelineTopPadding
         timelineView.bottomPadding = timelineBottomPadding
-        timelineView.eventProvider = self
         timelineView.tapDelegate = tapDelegate  // 设置点击代理
-        
-        let date = adapter.item(at: indexPath) as! Date
-        timelineView.date = date
-        timelineView.reloadData()
+        timelineView.loadEvents(for: date)
 
         /// 将时间线视图添加到同步器
         let synchronizer = getSynchronizer()
@@ -86,30 +80,10 @@ class FocusTimelineDayPageView: CalendarDatePageView,
             cell.timelineView.hourHeight = hourHeight
         }
     }
-    
-    // MARK: - FocusTimelineEventProvider
-    func fetchTimelineEvents(for date: Date, completion: @escaping ([FocusTimelineEvent]?) -> Void) {
-        guard isVisibleDate(date) else {
-            completion(nil)
-            return
-        }
-        
-        eventProvider?.fetchTimelineEvents(for: date, completion: completion)
-    }
 }
 
 class FocusTimelineDayTimelineCell: CalendarDatePageCell {
-    
-    override var date: Date {
-        get {
-            return timelineView.date
-        }
-        
-        set {
-            timelineView.date = newValue
-        }
-    }
-    
+
     let timelineView = FocusTimelineView(frame: .zero)
 
     override init(frame: CGRect) {

@@ -9,24 +9,28 @@ import Foundation
 
 class FocusArchivedViewController: TPViewController,
                                    FocusUserTimerListViewDelegate,
-                                   FocusTimerProcessorDelegate,
                                    FocusTrackerDelegate {
     
     lazy var listView: FocusUserTimerListView = {
         let listView = FocusUserTimerListView(frame: .zero)
         listView.delegate = self
-        listView.listPlaceholderProvider.emptyImage = resGetImage("archivedList_80")
-        listView.listPlaceholderProvider.emptyTitle = resGetString("No Archived Timer")
+        listView.placeholderProvider = self.viewModel.placeholderProvider
         return listView
     }()
+    
+    private let viewModel = FocusArchivedTimerViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         self.title = resGetString("Archived")
         self.view.addSubview(self.listView)
-        self.listView.asyncReloadData()
-        focus.addUpdater(self, for: [.timer])
+        self.listView.reloadData()
+        self.viewModel.timersDidChange = { [weak self] change in
+            self?.timersChanged(change)
+        }
+        
+        self.viewModel.loadTimers()
         FocusTracker.shared.addDelegate(self)
     }
     
@@ -63,38 +67,28 @@ class FocusArchivedViewController: TPViewController,
         self.listView.isDisplaying = false
     }
     
+    private func timersChanged(_ change: FocusUserTimerChange?) {
+        let group = FocusTimerGroup(identifier: "HomeUserTimerGroup")
+        group.timers = self.viewModel.timers
+        self.listView.groups = [group]
+        self.listView.performUpdate()
+    }
+    
     // MARK: - FocusTrackerDelegate
     func focusTrackerStateDidChange(fromState: FocusTrackerState?, toState: FocusTrackerState) {
         self.listView.updateFocusingIndicator()
     }
     
     // MARK: - FocusUserTimerListViewDelegate
-    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
-        focus.fetchArchivedTimers { timers in
-            guard let timers = timers, timers.count > 0 else {
-                completion(nil)
-                return
-            }
-
-            let group = FocusTimerGroup(identifier: "ArchivedTimerGroup")
-            group.timers = timers
-            completion([group])
-        }
-    }
-  
     func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
         TPImpactFeedback.impactWithSoftStyle()
         if let timer = collectionView.item(at: indexPath) as? FocusTimer {
             FocusPresenter.showStatistics(for: timer)
         }
     }
-
-    // MARK: - FocusTimerProcessorDelegate
-    func didChangeArchivedState(_ isArchived: Bool, for timer: FocusTimer) {
-        self.listView.asyncPerformUpdate()
-    }
     
-    func didDeleteFocusTimer(_ timer: FocusTimer) {
-        self.listView.asyncPerformUpdate()
+    func focusUserTimerListViewHandleRefresh(_ listView: FocusUserTimerListView) {
+        self.viewModel.setNeedsRefresh()
+        self.viewModel.loadTimers()
     }
 }
