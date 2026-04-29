@@ -187,12 +187,16 @@ class TodoTaskEditInfoView: UIView, TodoTaskEditNameViewDelegate {
     }
     
     // MARK: - Public Methods
-    func setProgress(_ progress: CGFloat, animated: Bool = false) {
-        progressView.setProgress(progress, animated: animated)
+    func setProgress(_ progress: CGFloat,
+                     animated: Bool = false,
+                     completion: (() -> Void)? = nil) {
+        progressView.setProgress(progress, animated: animated, completion: completion)
     }
     
-    func setCompleted(_ isCompleted: Bool, animated: Bool = false) {
-        nameView.setCompleted(isCompleted, animated: animated)
+    func setCompleted(_ isCompleted: Bool,
+                      animated: Bool = false,
+                      completion: (() -> Void)? = nil) {
+        nameView.setCompleted(isCompleted, animated: animated, completion: completion)
     }
     
     func didChangeProgress(from: TodoEditProgress?, to: TodoEditProgress?) {

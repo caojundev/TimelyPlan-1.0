@@ -151,6 +151,11 @@ struct TodoEditProgress: Codable, Hashable, Equatable {
     mutating func resetCurrentValue() {
         self.currentValue = self.initialValue
     }
+    
+    /// 完成进度
+    mutating func complete() {
+        self.currentValue = self.targetValue
+    }
 
     // MARK: - 根据数值获取新的进度
     /// 根据当前数值获取一个新进度

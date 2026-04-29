@@ -221,9 +221,12 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
             updateCompleted(animated: true)
             updateProgress(animated: true)
             updateFooterView()
-        case .progress(let oldProgress, let newProgress):
+        case .progress(_, _):
             updateCheckType()
-            didChangeProgress(from: oldProgress, to: newProgress)
+            updateProgress(animated: true)
+            if detailOptions.contains(.progress) {
+                updateDetail()
+            }
         case .tag(_, _):
             if detailOptions.contains(.tag) {
                 updateDetail()
@@ -262,28 +265,19 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
             editTypes.append(.date)
         }
         
-        let hasProgress = task.progress?.isValid ?? false
-        if !hasProgress {
-            editTypes.append(.progress)
-        }
-        
         let tagsCount = task.tags?.count ?? 0
         if tagsCount == 0 {
             editTypes.append(.tag)
         }
         
+        let hasProgress = task.progress?.isValid ?? false
+        if !hasProgress {
+            editTypes.append(.progress)
+        }
+
         menuView.setEditTypes(editTypes, animated: animated)
         let isHidden = editTypes.count == 0
         menuView.isHidden = isHidden
-    }
-    
-    private func didChangeProgress(from: TodoEditProgress?, to: TodoEditProgress?) {
-        if detailOptions.contains(.progress) {
-            updateDetail()
-        }
-        
-        updateProgress(animated: true)
-        infoView.didChangeProgress(from: from, to: to)
     }
     
     // MARK: - 更新信息
@@ -369,12 +363,34 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         self.stepEditController.beginEditing()
     }
     
+    // MARK: - 设置完成状态和进度
+    private func setCompleted(_ isCompleted: Bool, completion: (@escaping() -> Void)) {
+        infoView.setCompleted(isCompleted, animated: true) {
+            completion()
+        }
+    }
+    
+    private func setProgress(_ progress: TodoEditProgress, completion: (@escaping() -> Void)) {
+        let fromProgress = self.task.progress
+        infoView.didChangeProgress(from: fromProgress, to: progress)
+        let value = progress.completionFraction
+        infoView.setProgress(value, animated: true) {
+            completion()
+        }
+    }
+    
     // MARK: - TodoTaskEditInfoViewDelegate
     func todoTaskEditInfoView(_ infoView: TodoTaskEditInfoView, didClickCheckbox checkbox: TodoTaskCheckbox) {
         let taskController = TodoTaskController()
-        taskController.clickCheckbox(for: self.task,
-                                        completedHandler: nil,
-                                        progressHandler: nil)
+        taskController.clickCheckbox(for: self.task) {isCompleted, execution in
+            self.setCompleted(isCompleted) {
+                execution?()
+            }
+        } progressHandler: { progress, execution in
+            self.setProgress(progress) {
+                execution?()
+            }
+        }
     }
     
     func todoTaskEditInfoView(_ infoView: TodoTaskEditInfoView, didEndEditingName name: String?) {

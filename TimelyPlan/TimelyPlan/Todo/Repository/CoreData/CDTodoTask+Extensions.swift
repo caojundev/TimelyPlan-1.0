@@ -109,12 +109,6 @@ extension CDTodoTask: SortableIdentifiable {
 
         self.progressFraction = progress.completionFraction
         self.progressJSON = progress.jsonString()
-        
-        if progress.isCompleted {
-            /// 已完成
-            self.isCompleted = true
-            self.completionDate = .now
-        }
     }
     
     @discardableResult

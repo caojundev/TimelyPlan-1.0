@@ -191,21 +191,11 @@ class TodoTaskManager {
             return
         }
         
-        var changes = [TodoTaskChange]()
         let change: TodoTaskChange = .progress(oldValue: task.progress, newValue: progress)
-        changes.append(change)
+        updater.didUpdateTodoTask(task, with: change)
         
-        /// 检查完成状态是否改变
         if !task.isCompleted, let progress = progress, progress.isCompleted {
-            let change: TodoTaskChange = .completed(oldValue: false, newValue: true)
-            changes.append(change)
-        }
-        
-        if changes.count == 1 {
-            updater.didUpdateTodoTask(task, with: changes[0])
-        } else {
-            let infos = changes.map { TodoTaskChangeInfo(task: task, change: $0)}
-            updater.didUpdateTodoTasks(with: infos)
+            updateTask(task, isCompleted: true)
         }
         
         HandyRecord.save()

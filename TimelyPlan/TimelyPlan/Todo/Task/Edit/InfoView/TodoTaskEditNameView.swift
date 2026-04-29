@@ -170,9 +170,11 @@ class TodoTaskEditNameView: UIView {
     }
     
     // MARK: - Public Methods
-    func setCompleted(_ isCompleted: Bool, animated: Bool = false) {
+    func setCompleted(_ isCompleted: Bool,
+                      animated: Bool = false,
+                      completion: (() -> Void)? = nil) {
         checkbox.setChecked(isCompleted, animated: animated)
-        textView.setStrikethrough(isCompleted, animated: animated)
+        textView.setStrikethrough(isCompleted, animated: animated, completion: completion)
         self.setNeedsLayout()
     }
 }

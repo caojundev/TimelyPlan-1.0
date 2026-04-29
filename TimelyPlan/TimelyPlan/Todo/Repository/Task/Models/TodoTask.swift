@@ -127,6 +127,74 @@ import Foundation
         return nil
     }()
     
+    // MARK: - 只读
+    var tagsSet: Set<TodoTag>? {
+        if let tags = tags, tags.count > 0 {
+            return Set(tags)
+        }
+        
+        return nil
+    }
+    
+    var nextSchedule: TaskSchedule? {
+        guard let schedule = schedule,
+              let dateInfo = schedule.dateInfo,
+              let repeatRule = schedule.repeatRule else {
+            return nil
+        }
+        
+        let repeatScheduler = RepeatScheduler()
+        guard let nextRepeatDate = repeatScheduler.nextRepeatDate(completionDate: dateInfo.startDate,
+                                                                  matching: repeatRule,
+                                                                  startDate: dateInfo.startDate) else {
+            return nil
+        }
+        
+        /// 更新任务为下一重复周期数据
+        let startDate = nextRepeatDate
+        let endDate = nextRepeatDate.dateByAddingSeconds(dateInfo.duration)!
+        let nextDateInfo = TaskDateInfo(startDate: startDate,
+                                        endDate: endDate,
+                                        isAllDay: dateInfo.isAllDay)
+        
+        var nextRepeatRule: RepeatRule?
+        if let repeatRule = repeatRule.copy() as? RepeatRule {
+            let count = repeatRule.count ?? 0
+            repeatRule.count = count + 1 /// 重复次数加一
+            nextRepeatRule = repeatRule
+        }
+        
+        return TaskSchedule(dateInfo: nextDateInfo,
+                            reminder: schedule.reminder,
+                            repeatRule: nextRepeatRule)
+    }
+
+    var currentOccurrenceQuickAddTask: TodoQuickAddTask {
+        let repeatTask = TodoQuickAddTask()
+        repeatTask.isCompleted = true
+        repeatTask.list = list
+        repeatTask.name = name
+        repeatTask.priority = priority
+        
+        repeatTask.isNoteEnabled = true /// 开启备注
+        repeatTask.note = note
+        
+        /// 计划
+        var schedule = schedule
+        schedule?.repeatRule = nil
+        repeatTask.schedule = schedule
+        
+        if var progress = progress {
+            // 完成进度
+            progress.complete()
+            repeatTask.progress = progress
+        }
+        
+        repeatTask.tags = tagsSet
+        repeatTask.steps = steps
+        return repeatTask
+    }
+    
     init(content: CDTodoTask) {
         self.identifier = content.identifiableKey
         self.order = content.order
@@ -189,8 +257,8 @@ import Foundation
         if self === other { return true }
         return identifier == other.identifier &&
                 modificationDate == other.modificationDate &&
-                list != other.list &&
-                tags != other.tags
+                list == other.list &&
+                tags == other.tags
     }
     
     // MARK: - ListDiffable
@@ -199,70 +267,9 @@ import Foundation
     }
     
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        return self.isEqual(object)
-    }
-    
-    // MARK: - 只读
-    var tagsSet: Set<TodoTag>? {
-        if let tags = tags, tags.count > 0 {
-            return Set(tags)
-        }
-        
-        return nil
-    }
-    
-    var nextSchedule: TaskSchedule? {
-        guard let schedule = schedule,
-              let dateInfo = schedule.dateInfo,
-              let repeatRule = schedule.repeatRule else {
-            return nil
-        }
-        
-        let repeatScheduler = RepeatScheduler()
-        guard let nextRepeatDate = repeatScheduler.nextRepeatDate(completionDate: dateInfo.startDate,
-                                                                  matching: repeatRule,
-                                                                  startDate: dateInfo.startDate) else {
-            return nil
-        }
-        
-        /// 更新任务为下一重复周期数据
-        let startDate = nextRepeatDate
-        let endDate = nextRepeatDate.dateByAddingSeconds(dateInfo.duration)!
-        let nextDateInfo = TaskDateInfo(startDate: startDate,
-                                        endDate: endDate,
-                                        isAllDay: dateInfo.isAllDay)
-        
-        var nextRepeatRule: RepeatRule?
-        if let repeatRule = repeatRule.copy() as? RepeatRule {
-            let count = repeatRule.count ?? 0
-            repeatRule.count = count + 1 /// 重复次数加一
-            nextRepeatRule = repeatRule
-        }
-        
-        return TaskSchedule(dateInfo: nextDateInfo,
-                            reminder: schedule.reminder,
-                            repeatRule: nextRepeatRule)
-    }
-
-    var currentOccurrenceQuickAddTask: TodoQuickAddTask {
-        let repeatTask = TodoQuickAddTask()
-        repeatTask.isCompleted = true
-        repeatTask.list = list
-        repeatTask.name = name
-        repeatTask.priority = priority
-        
-        repeatTask.isNoteEnabled = true /// 开启备注
-        repeatTask.note = note
-        
-        /// 计划
-        var schedule = schedule
-        schedule?.repeatRule = nil
-        repeatTask.schedule = schedule
-        
-        repeatTask.progress = progress
-        repeatTask.tags = tagsSet
-        repeatTask.steps = steps
-        return repeatTask
+        guard let other = object as? TodoTask else { return false }
+        if self === other { return true }
+        return self.identifier == other.identifier
     }
 }
 
