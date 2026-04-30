@@ -16,7 +16,7 @@ class FocusRecordListSectionController: TPCollectionBaseSectionController,
     let sessions: [FocusSession]
     
     /// 显示模式
-    let mode: FocusRecordListMode
+    var mode: FocusRecordListMode
     
     /// 区块布局对象
     let sectionLayout = TPCollectionSectionLayout()

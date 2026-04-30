@@ -34,6 +34,7 @@ class FocusQuickStartUserTimerViewController: TPViewController,
             self?.timersChanged(change)
         }
         
+        
         self.viewModel.loadTimers()
     }
     
@@ -54,8 +55,10 @@ class FocusQuickStartUserTimerViewController: TPViewController,
     private func timersChanged(_ change: FocusUserTimerChange?) {
         let group = FocusTimerGroup(identifier: "UserTimerGroup")
         group.timers = self.viewModel.timers
-        self.selectView.groups = [group]
-        self.selectView.performUpdate()
+        DispatchQueue.main.async {
+            self.selectView.groups = [group]
+            self.selectView.performUpdate()
+        }
     }
     
     // MARK: - TPGroupCollectionViewDelegate

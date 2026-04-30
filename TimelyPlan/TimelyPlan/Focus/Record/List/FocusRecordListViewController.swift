@@ -28,10 +28,23 @@ class FocusRecordListViewController: StatsContentViewController,
     
     func settingAgentDidChangeValue(for keyName: String) {
         if keyName == FocusState.SettingKey.recordListMode.name {
-            reloadData()
+            listModeChanged()
         } else {
             performUpdate()
         }
+    }
+    
+    private func listModeChanged() {
+        guard let sectionControllers = self.sectionControllers as? [FocusRecordListSectionController] else {
+            return
+        }
+        
+        let mode = FocusState.shared.recordListMode
+        sectionControllers.forEach {
+            $0.mode = mode
+        }
+        
+        adapter.reloadData()
     }
 
     override func fetchSectionControllers(completion: @escaping ([TPCollectionBaseSectionController]) -> Void) {

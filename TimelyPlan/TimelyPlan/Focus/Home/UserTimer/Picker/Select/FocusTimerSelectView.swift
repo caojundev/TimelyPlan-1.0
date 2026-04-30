@@ -43,7 +43,7 @@ class FocusTimerSelectView: TPGroupCollectionView {
     }
 
     @objc func handleRefresh() {
-        self.refreshHandler?()
+        refreshHandler?()
     }
     
     func endRefreshing() {
@@ -51,13 +51,13 @@ class FocusTimerSelectView: TPGroupCollectionView {
     }
     
     override func performUpdate(with completion: ((Bool) -> Void)? = nil) {
-        self.endRefreshing()
         super.performUpdate(with: completion)
+        self.endRefreshing()
     }
     
     override func reloadData() {
-        self.endRefreshing()
         super.reloadData()
+        self.endRefreshing()
     }
     
     private func showHeaderOfGroup(_ group: FocusTimerGroup) -> Bool {

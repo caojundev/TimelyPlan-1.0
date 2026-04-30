@@ -120,11 +120,16 @@ class SettingAgent {
         
         let newJsonString = value.jsonString()
         setJsonString(newJsonString, forKey: key)
-        observerMananger.valueDidChange(forKey: key)
-        
+    
         if synchronizeImediately {
             synchronize()
         }
+        
+        // 推送到下一个RunLoop循环执行
+        DispatchQueue.main.async {
+            self.observerMananger.valueDidChange(forKey: key)
+        }
+    
     }
     
     // MARK: - Observer
