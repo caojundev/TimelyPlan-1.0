@@ -150,15 +150,16 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         fetchTasks(completion: completion)
     }
     
+    /// 获取任务方法
+    func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
+        completion(nil)
+    }
+    
     /// 将任务根据分组类型和排序方式分组
     func groups(for tasks: [TodoTask]?, groupType: TodoGroupType, sort: TodoSort) -> [TodoGroup]? {
         return TodoListInteractor.groups(for: tasks, groupType: groupType, sort: sort)
     }
     
-    /// 获取任务方法
-    func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        completion(nil)
-    }
     
     func listOptionStateDidChange() {
         TodoState.shared.setListOptionSate(self.listOptionState, for: self.configuration)

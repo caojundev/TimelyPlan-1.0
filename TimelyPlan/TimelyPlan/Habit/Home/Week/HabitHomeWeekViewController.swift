@@ -9,11 +9,9 @@ import Foundation
 import UIKit
 
 class HabitHomeWeekViewController: TPViewController,
-                                   TPLoadableGroupCollectionViewDelegate,
+                                   TPGroupCollectionViewDelegate,
                                    TPPreviousNextDateViewDelegate,
-                                   HabitHomeWeekListCellDelegate,
-                                   SettingAgentObserver,
-                                    TPMidnightUpdatable {
+                                   HabitHomeWeekListCellDelegate {
     
     /// 当前周日期
     var date: Date = .now
@@ -34,8 +32,7 @@ class HabitHomeWeekViewController: TPViewController,
         let view = HabitPeriodItemListView(frame: view.bounds)
         view.preferredItemHeight = 210.0
         view.delegate = self
-        view.listPlaceholderProvider.emptyImage = resGetImage("habit_plceholder_task_80")
-        view.listPlaceholderProvider.emptyTitle = resGetString("No Habit This Week")
+        view.placeholderProvider = self.viewModel.placeholderProvider
         view.collectionConfiguration = { collectionView in
             collectionView.contentInset = UIEdgeInsets(bottom: 60.0)
         }
@@ -69,11 +66,33 @@ class HabitHomeWeekViewController: TPViewController,
         return view
     }()
     
-    private var groupProvider = HabitHomeWeekListGroupProvider()
-    
     private let dayMenuController = HabitDayMenuController()
     
     private let processor = HabitTaskMenuActionProcessor()
+    
+    private lazy var viewModel: HabitWeekPeriodItemViewModel = { [weak self] in
+        let viewModel = HabitWeekPeriodItemViewModel()
+        viewModel.groupsDidChange = {
+            self?.groupsChanged()
+        }
+        
+        viewModel.firstWeekDidChange = {
+            self?.firstWeekdayChanged()
+        }
+        
+        viewModel.midnightHandler = {
+            self?.updateAtMidnight()
+        }
+        
+        return viewModel
+    }()
+    
+    var period: HabitDatePeriod {
+        let firstWeekday = self.dateView.firstWeekday
+        return HabitDatePeriod(date: self.date,
+                               mode: .week,
+                               firstWeekday: firstWeekday)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,12 +100,9 @@ class HabitHomeWeekViewController: TPViewController,
         view.addSubview(listView)
         view.addSubview(backView)
         view.addSubview(addView)
-        listView.asyncReloadData()
         updateBackView()
-        habit.addUpdater(self, for: .all)
-        HabitSetting.shared.addObserver(self, forKey: .firstWeekday)
-        /// 添加至凌晨更新对象
-        TPMidnightScheduler.shared.addUpdater(self)
+        listView.reloadData()
+        viewModel.loadGroups(in: period)
     }
     
     override func viewWillLayoutSubviews() {
@@ -119,6 +135,12 @@ class HabitHomeWeekViewController: TPViewController,
     }
     
     // MARK: - Event Response
+    private func groupsChanged() {
+        DispatchQueue.main.async {
+            self.listView.groups = self.viewModel.groups
+            self.listView.performUpdate()
+        }
+    }
     
     @objc func didClickBack(_ button: UIButton) {
         let oldDate = self.date
@@ -145,15 +167,11 @@ class HabitHomeWeekViewController: TPViewController,
         }
     }
     
-    // MARK: - SettingAgentObserver
-    func settingAgentDidChangeValue(for keyName: String) {
-        if keyName == HabitSetting.Key.firstWeekday.name {
-            self.dateView.firstWeekday = HabitSetting.shared.firstWeekday
-            self.listView.asyncReloadData()
-        }
+    func firstWeekdayChanged() {
+        self.dateView.firstWeekday = HabitSetting.shared.firstWeekday
+        self.viewModel.loadGroups(in: self.period, forceRefresh: true)
     }
     
-    // MARK: - TPMidnightUpdatable
     func updateAtMidnight() {
         guard self.dateView.dateRange.contains(date: .now) else {
             return
@@ -183,11 +201,14 @@ class HabitHomeWeekViewController: TPViewController,
             return
         }
         
-        let animateStyle: SlideStyle = .horizontalStyle(fromValue: oldDate, toValue: date)
-        self.listView.asyncReloadData(animateStyle: animateStyle)
+        let style: SlideStyle = .horizontalStyle(fromValue: oldDate, toValue: date)
+        self.listView.reloadData(animateStyle: style)
+        self.viewModel.loadGroups(in: self.period)
     }
     
+    
     // MARK: - HabitHomeWeekListCellDelegate
+    
     func habitHomeWeekListCell(_ cell: HabitHomeWeekListCell, didClickMore button: UIButton) {
         guard let periodItem = cell.periodItem else {
             return
@@ -214,19 +235,7 @@ class HabitHomeWeekViewController: TPViewController,
         }
     }
     
-    // MARK: - TPLoadableGroupCollectionViewDelegate,
-    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
-        if forceRefresh {
-            self.groupProvider.setNeedsRefresh()
-        }
-        
-        let firstWeekday = self.dateView.firstWeekday
-        let period = HabitDatePeriod(date: self.date, mode: .week, firstWeekday: firstWeekday)
-        self.groupProvider.fetchGroups(in: period) { groups in
-            completion(groups)
-        }
-    }
-    
+    // MARK: - TPGroupCollectionViewDelegate
     func groupCollectionView(_ collectionView: TPGroupCollectionView, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return HabitHomeWeekListCell.self
     }
@@ -259,50 +268,5 @@ class HabitHomeWeekViewController: TPViewController,
         
         TPImpactFeedback.impactWithSoftStyle()
         HabitPresenter.showStats(for: task.habitTask, date: .now)
-    }
-}
-
-extension HabitHomeWeekViewController: HabitTaskProcessorDelegate,
-                                       HabitRecordProcessorDelegate {
-    
-    func didCreateHabitTask(_ task: HabitTask) {
-        self.listView.asyncPerformUpdate { [weak self] success in
-            guard success, let self = self else { return }
-            self.listView.revealTask(task)
-        }
-    }
-
-    func didUpdateHabitTask(_ task: HabitTask) {
-        self.listView.asyncPerformUpdate { [weak self] success in
-            guard success, let self = self else { return }
-            self.listView.revealTask(task)
-        }
-    }
-    
-    func didDeleteHabitTask(_ task: HabitTask) {
-        self.listView.asyncPerformUpdate()
-    }
-    
-    func didChangeArchivedState(for task: HabitTask) {
-        self.listView.asyncPerformUpdate()
-    }
-    
-    func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
-        self.listView.asyncPerformUpdate()
-    }
-    
-    // MARK: - HabitRecordProcessorDelegate
-    func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
-        self.groupProvider.updateHabitRecord(record, for: task, on: date)
-        if let cell = listView.cell(for: task) as? HabitHomeWeekListCell {
-            cell.updateRecord(on: date, with: change, animated: true)
-        }
-    }
-    
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
-        self.groupProvider.deleteHabitRecords(for: task, in: period)
-        if let cell = listView.cell(for: task) as? HabitHomeWeekListCell {
-            cell.updateRecords(in: period, animated: true)
-        }
     }
 }

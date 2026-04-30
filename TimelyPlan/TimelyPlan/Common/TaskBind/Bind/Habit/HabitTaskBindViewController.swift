@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class HabitTaskBindViewController: TPViewController,
-                                   TPLoadableGroupCollectionViewDelegate{
+                                   TPGroupCollectionViewDelegate {
 
     /// 选中任务回调
     var didSelectTask: ((HabitTask) -> Void)?
@@ -26,7 +26,7 @@ class HabitTaskBindViewController: TPViewController,
     }()
     
     lazy var listView: TPGroupCollectionView = {
-        let view = TPLoadableGroupCollectionView(frame: view.bounds)
+        let view = TPGroupCollectionView(frame: view.bounds)
         view.preferredItemHeight = 64.0
         view.delegate = self
         view.refreshHandler = { [weak self] in
@@ -87,15 +87,7 @@ class HabitTaskBindViewController: TPViewController,
         return .systemGroupedBackground
     }
     
-    // MARK: -
-    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
-        habit.fetchActiveTasks { tasks in
-            let group = HabitTaskGroup(identifier: "ActiveTasks")
-            group.tasks = tasks
-            completion([group])
-        }
-    }
-    
+    // MARK: - TPGroupCollectionViewDelegate
     func groupCollectionView(_ collectionView: TPGroupCollectionView, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return HabitTaskBindCell.self
     }
