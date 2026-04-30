@@ -14,6 +14,8 @@ class TPCollectionWrapperView: UIView,
     /// 集合视图适配器
     let adapter: TPCollectionViewAdapter = TPCollectionViewAdapter()
     
+    var refreshHandler: (() -> Void)?
+    
     var contentSize: CGSize {
         return collectionView.contentSize
     }
@@ -66,6 +68,8 @@ class TPCollectionWrapperView: UIView,
     /// 布局对象
     private(set) var collectionViewLayout: UICollectionViewLayout!
 
+    private(set) var refreshControl: UIRefreshControl?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.collectionViewLayout = UICollectionViewFlowLayout()
@@ -89,6 +93,8 @@ class TPCollectionWrapperView: UIView,
     
     func setupCollectionView() {
         if let collectionView = collectionView {
+            collectionView.refreshControl?.endRefreshing()
+            collectionView.refreshControl = nil
             /// 如果是切换collectionView将原来的dataSource和delegate设置为nil  
             collectionView.dataSource = nil
             collectionView.delegate = nil
@@ -102,6 +108,10 @@ class TPCollectionWrapperView: UIView,
         /// 设置适配器
         adapter.collectionView = collectionView
         updatePlaceholderView()
+        
+        if let refreshControl = self.refreshControl {
+            collectionView.refreshControl = refreshControl
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -112,6 +122,36 @@ class TPCollectionWrapperView: UIView,
         super.layoutSubviews()
         collectionViewLayout.invalidateLayout()
         containerView.frame = bounds
+    }
+
+    func addRefreshControl() {
+        if self.refreshControl == nil {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self,
+                                    action: #selector(handleRefresh),
+                                     for: .valueChanged)
+            self.refreshControl = refreshControl
+        }
+        
+        self.collectionView.refreshControl = self.refreshControl
+    }
+
+    func removeRefreshControl() {
+        self.collectionView.refreshControl?.endRefreshing()
+        self.collectionView.refreshControl = nil
+        self.refreshControl = nil
+    }
+    
+    @objc func handleRefresh() {
+        if let refreshHandler = self.refreshHandler {
+            refreshHandler()
+        } else {
+            endRefreshing()
+        }
+    }
+    
+    func endRefreshing() {
+        self.refreshControl?.endRefreshing()
     }
 
     func hideScrollIndicator() {
@@ -130,8 +170,9 @@ class TPCollectionWrapperView: UIView,
     
     /// 执行更新操作
     func performUpdate(with completion: ((Bool) -> Void)? = nil) {
-        self.adapter.performUpdate(with: completion)
-        self.updatePlaceholderView()
+        adapter.performUpdate(with: completion)
+        updatePlaceholderView()
+        endRefreshing()
     }
 
     // MARK: - 设置布局对象
@@ -159,6 +200,7 @@ class TPCollectionWrapperView: UIView,
     func reloadData() {
         adapter.reloadData()
         updatePlaceholderView()
+        endRefreshing()
     }
     
     func reloadData(animateStyle: SlideStyle) {

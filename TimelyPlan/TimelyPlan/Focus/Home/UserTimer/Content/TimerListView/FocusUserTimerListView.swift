@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 protocol FocusUserTimerListViewDelegate: TPGroupCollectionViewDelegate {
         
@@ -56,31 +56,18 @@ class FocusUserTimerListView: TPGroupCollectionView,
     
     private let cellStyle = FocusUserTimerCellStyle()
     
-    private(set) var refreshControl: UIRefreshControl?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.preferredItemWidth = kFocusTimerListContentMaxWidth
         self.preferredItemHeight = 70.0
         self.setupReorder()
-        self.setupRefreshControl()
+        self.addRefreshControl()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: -
-    override func performUpdate(with completion: ((Bool) -> Void)? = nil) {
-        self.endRefreshing()
-        super.performUpdate(with: completion)
-    }
-    
-    override func reloadData() {
-        self.endRefreshing()
-        super.reloadData()
-    }
-    
     /// 初始化排序管理器
     private func setupReorder() {
         let reorder = TPCollectionDragInsertReorder(collectionView: self.collectionView)
@@ -89,17 +76,8 @@ class FocusUserTimerListView: TPGroupCollectionView,
         reorder.delegate = self
         self.reorder = reorder
     }
-    
-    private func setupRefreshControl() {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self,
-                                action: #selector(handleRefresh),
-                                 for: .valueChanged)
-        self.collectionView.refreshControl = refreshControl
-        self.refreshControl = refreshControl
-    }
 
-    @objc func handleRefresh() {
+    override func handleRefresh() {
         guard let delegate = self.delegate as? FocusUserTimerListViewDelegate else {
             return
         }
@@ -107,10 +85,6 @@ class FocusUserTimerListView: TPGroupCollectionView,
         delegate.focusUserTimerListViewHandleRefresh(self)
     }
     
-    func endRefreshing() {
-        self.refreshControl?.endRefreshing()
-    }
-
     func updateFocusingIndicator() {
         guard let visibleCells = adapter.visibleCells as? [FocusHomeUserTimerCell] else {
             return

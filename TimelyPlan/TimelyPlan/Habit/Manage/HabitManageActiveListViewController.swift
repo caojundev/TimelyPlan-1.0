@@ -27,8 +27,6 @@ class HabitManageActiveListViewController: HabitManageBaseListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupReorder()
-        self.listView.listPlaceholderProvider.emptyImage = resGetImage("habit_plceholder_task_80")
-        self.listView.listPlaceholderProvider.emptyTitle = resGetString("Tap + to create a new habit")
     }
     
     func setupReorder() {
@@ -51,14 +49,6 @@ class HabitManageActiveListViewController: HabitManageBaseListViewController {
         
         let insetBottom = view.height - addView.top - addViewMargin
         listView.contentInset = UIEdgeInsets(bottom: insetBottom)
-    }
-    
-    override func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
-        habit.fetchActiveTasks { tasks in
-            let group = HabitTaskGroup(identifier: "Active")
-            group.tasks = tasks
-            completion([group])
-        }
     }
     
     // MARK: - Event Response

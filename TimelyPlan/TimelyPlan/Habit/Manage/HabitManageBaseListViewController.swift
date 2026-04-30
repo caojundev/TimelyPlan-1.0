@@ -9,27 +9,46 @@ import Foundation
 import UIKit
 
 class HabitManageBaseListViewController: TPViewController,
-                                         TPLoadableGroupCollectionViewDelegate,
+                                         TPGroupCollectionViewDelegate,
                                          HabitTaskListInfoCellDelegate {
 
-    private(set) lazy var listView: TPLoadableGroupCollectionView = {
-        let view = TPLoadableGroupCollectionView(frame: view.bounds)
+    private(set) lazy var listView: TPGroupCollectionView = {
+        let view = TPGroupCollectionView(frame: view.bounds)
         view.delegate = self
         return view
     }()
     
     let taskController = HabitTaskController()
     
+    var viewModel = HabitActiveTaskViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(self.listView)
+        self.view.addSubview(listView)
+        self.listView.placeholderProvider = viewModel.placeholderProvider
         self.setupSubviews()
-        habit.addUpdater(self, for: .all)
-        self.listView.asyncReloadData()
+        self.viewModel.tasksDidChange = { [weak self] change in
+            self?.tasksChanged(change)
+        }
+        
+        self.viewModel.loadTasks()
     }
     
     func setupSubviews() {
         
+    }
+    
+    private func tasksChanged(_ change: HabitTaskChange?) {
+        let group = HabitTaskGroup(identifier: "Tasks")
+        group.tasks = self.viewModel.tasks
+        DispatchQueue.main.async {
+            self.listView.groups = [group]
+            if change != nil {
+                self.listView.performUpdate()
+            } else {
+                self.listView.reloadData()
+            }
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -45,11 +64,7 @@ class HabitManageBaseListViewController: TPViewController,
         return .systemBackground
     }
     
-    // MARK: - TPLoadableGroupCollectionViewDelegate
-    func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
-        completion(nil)
-    }
-    
+    // MARK: - TPGroupCollectionViewDelegate
     func groupCollectionView(_ collectionView: TPGroupCollectionView, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return HabitTaskListDefaultInfoCell.self
     }
@@ -96,30 +111,5 @@ class HabitManageBaseListViewController: TPViewController,
         }
         
         HabitPresenter.showStats(for: task)
-    }
-}
-
-extension HabitManageBaseListViewController: HabitTaskProcessorDelegate {
-    
-    func didCreateHabitTask(_ task: HabitTask) {
-        self.listView.asyncPerformUpdate {[weak self] _ in
-            guard let self = self else { return }
-            self.listView.revealItem(task)
-        }
-    }
-
-    func didUpdateHabitTask(_ task: HabitTask) {
-        self.listView.asyncPerformUpdate {[weak self] _ in
-            guard let self = self else { return }
-            self.listView.revealItem(task)
-        }
-    }
-    
-    func didDeleteHabitTask(_ task: HabitTask) {
-        self.listView.asyncPerformUpdate()
-    }
-    
-    func didChangeArchivedState(for task: HabitTask) {
-        self.listView.asyncPerformUpdate()
     }
 }

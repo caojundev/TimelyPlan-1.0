@@ -70,8 +70,10 @@ class FocusArchivedViewController: TPViewController,
     private func timersChanged(_ change: FocusUserTimerChange?) {
         let group = FocusTimerGroup(identifier: "HomeUserTimerGroup")
         group.timers = self.viewModel.timers
-        self.listView.groups = [group]
-        self.listView.performUpdate()
+        DispatchQueue.main.async {
+            self.listView.groups = [group]
+            self.listView.performUpdate()
+        }
     }
     
     // MARK: - FocusTrackerDelegate

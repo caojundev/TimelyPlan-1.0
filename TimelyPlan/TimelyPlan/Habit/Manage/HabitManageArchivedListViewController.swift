@@ -10,17 +10,12 @@ import UIKit
 
 class HabitManageArchivedListViewController: HabitManageBaseListViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.listView.listPlaceholderProvider.emptyImage = resGetImage("archivedList_80")
-        self.listView.listPlaceholderProvider.emptyTitle = resGetString("No Archived Habit")
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = HabitArchivedTaskViewModel()
     }
     
-    override func loadableGroupCollectionView(_ collectionView: TPLoadableGroupCollectionView, forceRefresh: Bool, fetchTaskGroups completion: @escaping ([GroupRepresentable]?) -> Void) {
-        habit.fetchArchivedTasks { tasks in
-            let group = HabitTaskGroup(identifier: "Archived")
-            group.tasks = tasks
-            completion([group])
-        }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

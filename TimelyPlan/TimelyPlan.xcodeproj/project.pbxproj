@@ -1658,6 +1658,7 @@
 		E5DA03A82FA1957700A58ACC /* FocusUserTimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA03A72FA1957600A58ACC /* FocusUserTimerViewModel.swift */; };
 		E5DA03AA2FA1ABF400A58ACC /* FocusArchivedTimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA03A92FA1ABF400A58ACC /* FocusArchivedTimerViewModel.swift */; };
 		E5DA03AE2FA1F49000A58ACC /* FocusTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA03AD2FA1F48F00A58ACC /* FocusTimelineViewModel.swift */; };
+		E5DA03B32FA3348B00A58ACC /* HabitActiveTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA03B22FA3348A00A58ACC /* HabitActiveTaskViewModel.swift */; };
 		E5DAF27F2D4913F2006CC85A /* TPImageInfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DAF27E2D4913F2006CC85A /* TPImageInfoTableCell.swift */; };
 		E5DCC4062DC49BA2004DE7A5 /* CalendarTimelineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DCC4052DC49BA2004DE7A5 /* CalendarTimelineLayout.swift */; };
 		E5E276EF2D3DF0B4004EC522 /* todo_list_inbox_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E276E92D3DF0B3004EC522 /* todo_list_inbox_24@3x.png */; };
@@ -3447,6 +3448,7 @@
 		E5DA03A72FA1957600A58ACC /* FocusUserTimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusUserTimerViewModel.swift; sourceTree = "<group>"; };
 		E5DA03A92FA1ABF400A58ACC /* FocusArchivedTimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusArchivedTimerViewModel.swift; sourceTree = "<group>"; };
 		E5DA03AD2FA1F48F00A58ACC /* FocusTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimelineViewModel.swift; sourceTree = "<group>"; };
+		E5DA03B22FA3348A00A58ACC /* HabitActiveTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitActiveTaskViewModel.swift; sourceTree = "<group>"; };
 		E5DAF27E2D4913F2006CC85A /* TPImageInfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoTableCell.swift; sourceTree = "<group>"; };
 		E5DCC4052DC49BA2004DE7A5 /* CalendarTimelineLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineLayout.swift; sourceTree = "<group>"; };
 		E5E276E92D3DF0B3004EC522 /* todo_list_inbox_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_inbox_24@3x.png"; sourceTree = "<group>"; };
@@ -5992,6 +5994,7 @@
 				E59244022F51578F00CA2393 /* HabitConstants.swift */,
 				E59243C72F4FFD6900CA2393 /* HabitMainViewController.swift */,
 				E507E7912F528121003004C4 /* HabitMoreBarButtonItem.swift */,
+				E5DA03B12FA3345D00A58ACC /* ViewModel */,
 				E5EFB15E2F590FAC000FFDF4 /* Data */,
 				E507E7A32F52D227003004C4 /* Helpers */,
 				E59244042F51584500CA2393 /* Extensions */,
@@ -9049,6 +9052,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E5DA03B12FA3345D00A58ACC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E5DA03B22FA3348A00A58ACC /* HabitActiveTaskViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E5DAF27B2D48F7D4006CC85A /* Label */ = {
 			isa = PBXGroup;
 			children = (
@@ -10458,6 +10469,7 @@
 				E5B33D382F809D0C00939C3E /* TodoListSelectView.swift in Sources */,
 				E53F328F2F68D6D200B85B65 /* HabitReportMainViewController.swift in Sources */,
 				E5BB9B4B2D3BEF920089667A /* Extension.swift in Sources */,
+				E5DA03B32FA3348B00A58ACC /* HabitActiveTaskViewModel.swift in Sources */,
 				E51FF65F2F5832F0003CA953 /* HabitHomeWeekListCell.swift in Sources */,
 				E5BB9E532D3BF0C70089667A /* TPPreviousNextYearView.swift in Sources */,
 				E51501982D477A89008B2333 /* TPTableViewAdapterDelegate.swift in Sources */,

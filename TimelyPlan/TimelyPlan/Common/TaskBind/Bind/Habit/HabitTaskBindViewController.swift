@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class HabitTaskBindViewController: TPViewController,
                                    TPLoadableGroupCollectionViewDelegate{
@@ -24,14 +25,18 @@ class HabitTaskBindViewController: TPViewController,
         return style
     }()
     
-    lazy var listView: TPLoadableGroupCollectionView = {
+    lazy var listView: TPGroupCollectionView = {
         let view = TPLoadableGroupCollectionView(frame: view.bounds)
         view.preferredItemHeight = 64.0
         view.delegate = self
-        view.listPlaceholderProvider.emptyImage = resGetImage("habit_plceholder_task_80")
-        view.listPlaceholderProvider.emptyTitle = resGetString("No Habit")
+        view.refreshHandler = { [weak self] in
+            self?.handleRefresh()
+        }
+        
         return view
     }()
+    
+    var viewModel = HabitActiveTaskViewModel()
     
     init(selectedTaskID: String?) {
         self.selectedTaskID = selectedTaskID
@@ -45,7 +50,32 @@ class HabitTaskBindViewController: TPViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.listView)
-        self.listView.asyncReloadData()
+        let placeholderProvider = viewModel.placeholderProvider
+        placeholderProvider.emptyTitle = resGetString("No Habit")
+        self.listView.placeholderProvider = placeholderProvider
+        self.viewModel.tasksDidChange = { [weak self] change in
+            self?.tasksChanged(change)
+        }
+        
+        self.viewModel.loadTasks()
+    }
+    
+    private func handleRefresh() {
+        self.viewModel.setNeedsRefresh()
+        self.viewModel.loadTasks()
+    }
+    
+    private func tasksChanged(_ change: HabitTaskChange?) {
+        let group = HabitTaskGroup(identifier: "Tasks")
+        group.tasks = self.viewModel.tasks
+        DispatchQueue.main.async {
+            self.listView.groups = [group]
+            if change != nil {
+                self.listView.performUpdate()
+            } else {
+                self.listView.reloadData()
+            }
+        }
     }
     
     override func viewWillLayoutSubviews() {

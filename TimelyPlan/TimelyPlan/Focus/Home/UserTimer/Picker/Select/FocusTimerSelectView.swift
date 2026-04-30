@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 
 class FocusTimerSelectView: TPGroupCollectionView {
-
-    var refreshHandler: (() -> Void)?
     
     var showSectionHeader: Bool = false
     
@@ -18,46 +16,17 @@ class FocusTimerSelectView: TPGroupCollectionView {
     
     private let cellStyle = FocusUserTimerCellStyle()
     
-    private(set) var refreshControl: UIRefreshControl?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.cellStyle.selectedBackgroundColor = .secondarySystemGroupedBackground
         self.preferredItemWidth = .greatestFiniteMagnitude
         self.preferredItemHeight = 70.0
-        self.setupRefreshControl()
+        self.addRefreshControl()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupRefreshControl() {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self,
-                                action: #selector(handleRefresh),
-                                 for: .valueChanged)
-        self.collectionView.refreshControl = refreshControl
-        self.refreshControl = refreshControl
-    }
-
-    @objc func handleRefresh() {
-        refreshHandler?()
-    }
-    
-    func endRefreshing() {
-        self.refreshControl?.endRefreshing()
-    }
-    
-    override func performUpdate(with completion: ((Bool) -> Void)? = nil) {
-        super.performUpdate(with: completion)
-        self.endRefreshing()
-    }
-    
-    override func reloadData() {
-        super.reloadData()
-        self.endRefreshing()
     }
     
     private func showHeaderOfGroup(_ group: FocusTimerGroup) -> Bool {

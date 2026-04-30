@@ -82,8 +82,10 @@ class FocusTimerSelectViewController: TPViewController,
             groups.append(group)
         }
         
-        self.selectView.groups = groups
-        self.selectView.performUpdate()
+        DispatchQueue.main.async {
+            self.selectView.groups = groups
+            self.selectView.performUpdate()
+        }
     }
 
     // MARK: - TPGroupCollectionViewDelegate

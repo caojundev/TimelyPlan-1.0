@@ -1,5 +1,5 @@
 //
-//  TPLoadableCollectionView.swift
+//  TPLoadableGroupCollectionView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/29.
@@ -19,8 +19,6 @@ protocol TPLoadableGroupCollectionViewDelegate: TPGroupCollectionViewDelegate {
 class TPLoadableGroupCollectionView: TPGroupCollectionView {
 
     private let requestManager = TPRequestManager()
-    
-    private(set) var refreshControl: UIRefreshControl?
 
     private(set) var state: TPListLoadingState = .initialLoading {
         didSet {
@@ -55,11 +53,6 @@ class TPLoadableGroupCollectionView: TPGroupCollectionView {
                                 action: #selector(handleRefresh),
                                  for: .valueChanged)
         self.collectionView.refreshControl = refreshControl
-        self.refreshControl = refreshControl
-    }
-
-    @objc func handleRefresh() {
-        self.asyncReloadData()
     }
 
     // MARK: - Public Methods
@@ -93,14 +86,12 @@ class TPLoadableGroupCollectionView: TPGroupCollectionView {
     private func asyncLoadGroups(forceRefresh: Bool = true, completion: @escaping (Bool) -> Void) {
         let requestID = requestManager.executeRequest()
         guard let delegate = delegate as? TPLoadableGroupCollectionViewDelegate else {
-            self.refreshControl?.endRefreshing()
             self.state = .loaded
             completion(true)
             return
         }
             
         delegate.loadableGroupCollectionView(self, forceRefresh: forceRefresh) { [weak self] groups in
-            self?.refreshControl?.endRefreshing()
             guard let self = self else {
                 completion(false)
                 return
