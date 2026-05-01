@@ -9,8 +9,11 @@ import Foundation
 
 class HabitPeriodItemViewModel: SettingAgentObserver,
                                 TPMidnightUpdatable,
-                                HabitTaskProcessorDelegate {
-    
+                                HabitTaskProcessorDelegate,
+                                HabitRecordProcessorDelegate {
+
+    weak var delegate: HabitRecordProcessorDelegate?
+
     /// 分组改变回调
     var groupsDidChange: (() -> Void)?
     
@@ -148,5 +151,66 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
     
     func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
         self.loadGroups(forceRefresh: true)
+    }
+    
+    
+    // MARK: - HabitRecordProcessorDelegate
+    
+    func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
+        updateHabitRecord(record, for: task, on: date)
+        guard let period = self.period, period.contains(date) else {
+            return
+        }
+        
+        delegate?.didUpdateHabitRecord(record, for: task, on: date, with: change)
+        guard filterType != .all else {
+            return
+        }
+        
+        callback(after: 0.4) {
+            self.loadGroups()
+        }
+    }
+    
+    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
+        deleteHabitRecords(for: task, in: period)
+        guard let currentPeriod = self.period, currentPeriod.intersects(with: period) else {
+            return
+        }
+        
+        delegate?.didDeleteHabitRecords(for: task, in: period)
+        guard filterType != .all else {
+            return
+        }
+        
+        callback(after: 0.4) {
+            self.loadGroups()
+        }
+    }
+    
+    // MARK: - Helpers
+    func updateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date) {
+        let periodItem = periodItem(for: task)
+        periodItem?.updateRecord(record, on: date)
+    }
+        
+    func deleteHabitRecord(for task: HabitTask, on date: Date) {
+        let periodItem = periodItem(for: task)
+        periodItem?.updateRecord(nil, on: date)
+    }
+        
+    func deleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
+        let periodItem = periodItem(for: task)
+        periodItem?.deleteRecords(in: period)
+    }
+        
+    func periodItem(for habitTask: HabitTask) -> HabitPeriodItem? {
+        for periodItem in periodItems {
+            if periodItem.habitTask.identifier == habitTask.identifier {
+                return periodItem
+            }
+        }
+        
+        return nil
     }
 }

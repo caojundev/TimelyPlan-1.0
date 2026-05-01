@@ -11,7 +11,8 @@ import UIKit
 class HabitHomeDayViewController: TPContainerViewController,
                                   TPGroupCollectionViewDelegate,
                                   TPCalendarSingleDateSelectionDelegate,
-                                  HabitHomeDayListCellDelegate {
+                                  HabitHomeDayListCellDelegate,
+                                  HabitRecordProcessorDelegate {
     
     /// 日期
     private(set) var date: Date = .now
@@ -85,6 +86,7 @@ class HabitHomeDayViewController: TPContainerViewController,
     
     private lazy var viewModel: HabitDayPeriodItemViewModel = { [weak self] in
         let viewModel = HabitDayPeriodItemViewModel()
+        viewModel.delegate = self
         viewModel.groupsDidChange = {
             self?.groupsChanged()
         }
@@ -285,5 +287,22 @@ class HabitHomeDayViewController: TPContainerViewController,
         let habitTask = periodItem.habitTask
         let date = periodItem.period.date
         processor.clickRecrod(for: habitTask, on: date)
+    }
+    
+    // MARK: - HabitRecordProcessorDelegate
+    func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
+        updateCell(for: task, with: change)
+    }
+    
+    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
+        updateCell(for: task, with: nil)
+    }
+    
+    private func updateCell(for task: HabitTask, with change: HabitRecordChange?) {
+        guard let cell = listView.cell(for: task) as? HabitHomeDayListCell else {
+            return
+        }
+        
+        cell.updateRecord(with: change, animated: true)
     }
 }

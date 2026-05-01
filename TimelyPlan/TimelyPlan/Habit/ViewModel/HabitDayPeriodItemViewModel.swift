@@ -8,7 +8,7 @@
 import Foundation
 
 class HabitDayPeriodItemViewModel: HabitPeriodItemViewModel {
-
+    
     override init() {
         super.init()
         self.updatePlaceholder()
@@ -50,42 +50,3 @@ class HabitDayPeriodItemViewModel: HabitPeriodItemViewModel {
                                         completion: completion)
     }
 }
-
-
-/*
-extension HabitHomeDayViewController: HabitTaskProcessorDelegate,
-                                        HabitRecordProcessorDelegate {
-    
-    // MARK: - HabitRecordProcessorDelegate
-    func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
-        self.groupProvider.updateHabitRecord(record, for: task, on: date)
-        self.updateCell(for: task, with: change)
-        let status = task.status(with: record)
-        if status != .inProgress {
-            callback(after: 0.4) {
-                self.listView.asyncPerformUpdate(forceRefresh: false)
-            }
-        }
-    }
-    
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
-        guard period.contains(self.date) else {
-            return
-        }
-        
-        self.groupProvider.deleteHabitRecords(for: task, in: period)
-        self.updateCell(for: task, with: nil)
-        callback(after: 0.4) {
-            self.listView.asyncPerformUpdate(forceRefresh: false)
-        }
-    }
-    
-    private func updateCell(for task: HabitTask, with change: HabitRecordChange?) {
-        guard let cell = listView.cell(for: task) as? HabitHomeDayListCell else {
-            return
-        }
-        
-        cell.updateRecord(with: change, animated: true)
-    }
-}
-*/

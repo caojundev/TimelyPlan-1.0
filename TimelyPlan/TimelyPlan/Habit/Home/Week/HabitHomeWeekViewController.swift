@@ -11,7 +11,8 @@ import UIKit
 class HabitHomeWeekViewController: TPViewController,
                                    TPGroupCollectionViewDelegate,
                                    TPPreviousNextDateViewDelegate,
-                                   HabitHomeWeekListCellDelegate {
+                                   HabitHomeWeekListCellDelegate,
+                                   HabitRecordProcessorDelegate {
     
     /// 当前周日期
     var date: Date = .now
@@ -72,6 +73,7 @@ class HabitHomeWeekViewController: TPViewController,
     
     private lazy var viewModel: HabitWeekPeriodItemViewModel = { [weak self] in
         let viewModel = HabitWeekPeriodItemViewModel()
+        viewModel.delegate = self
         viewModel.groupsDidChange = {
             self?.groupsChanged()
         }
@@ -268,5 +270,22 @@ class HabitHomeWeekViewController: TPViewController,
         
         TPImpactFeedback.impactWithSoftStyle()
         HabitPresenter.showStats(for: task.habitTask, date: .now)
+    }
+    
+    // MARK: - HabitRecordProcessorDelegate
+    func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
+        updateCell(for: task, with: change)
+    }
+    
+    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
+        updateCell(for: task, with: nil)
+    }
+    
+    private func updateCell(for task: HabitTask, with change: HabitRecordChange?) {
+        guard let cell = listView.cell(for: task) as? HabitHomeWeekListCell else {
+            return
+        }
+        
+        cell.updateRecords(in: period, animated: true)
     }
 }

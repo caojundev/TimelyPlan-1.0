@@ -9043,8 +9043,8 @@
 			children = (
 				E5DA03B22FA3348A00A58ACC /* HabitActiveTaskViewModel.swift */,
 				E5DA03B42FA35D8000A58ACC /* HabitPeriodItemViewModel.swift */,
-				E5DA03B82FA3A42F00A58ACC /* HabitWeekPeriodItemViewModel.swift */,
 				E5DA03B62FA3A3A500A58ACC /* HabitDayPeriodItemViewModel.swift */,
+				E5DA03B82FA3A42F00A58ACC /* HabitWeekPeriodItemViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
