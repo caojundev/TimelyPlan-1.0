@@ -52,15 +52,7 @@ class AlarmListView: TPCollectionWrapperView,
         config.textAlignment = .center
         return config
     }()
-    
-    private lazy var placeholderView: UIView = {
-        let view = TPDefaultPlaceholderView()
-        view.titleColor = Color(0x888888, 0.6)
-        view.title = resGetString("No Alarm")
-        view.isBorderHidden = true
-        return view
-    }()
-    
+
     lazy var cellStyle: TPCollectionCellStyle = {
         let style = TPCollectionCellStyle()
         style.cornerRadius = 8.0
@@ -72,13 +64,16 @@ class AlarmListView: TPCollectionWrapperView,
         super.init(frame: frame)
         hideScrollIndicator()
         scrollDirection = .horizontal
-        collectionView.placeholderView = placeholderView
         adapter.cellClass = AlarmCollectionViewCell.self
         adapter.sectionInset = UIEdgeInsets(horizontal: 8.0)
         adapter.interitemSpacing = 8.0
         adapter.lineSpacing = 8.0
         adapter.dataSource = self
         adapter.delegate = self
+        
+        let placeholderProvider = TPDefaultPlaceholderProvider()
+        placeholderProvider.emptyTitle = resGetString("No Alarm")
+        self.placeholderProvider = placeholderProvider
     }
     
     required init?(coder: NSCoder) {

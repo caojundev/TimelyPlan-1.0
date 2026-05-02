@@ -189,6 +189,7 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         }
         
         updateBackView()
+        wrapperView.updatePlaceholderView()
     }
     
     func performUpdate(completion: (() -> Void)? = nil) {
@@ -198,6 +199,7 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         }
         
         updateBackView()
+        wrapperView.updatePlaceholderView()
     }
     
     private func setupSectionControllers(completion: (() -> Void)?) {
@@ -228,7 +230,7 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         
         self.sectionControllers = nil
         self.wrapperView.changeCollectionView(with: animateStyle)
-        self.state = .initialLoading /// 初始化切换状态
+        self.state = .loading /// 初始化切换状态
         self.reloadData()
     }
 

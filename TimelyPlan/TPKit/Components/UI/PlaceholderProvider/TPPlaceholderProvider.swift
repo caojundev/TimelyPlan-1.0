@@ -19,11 +19,8 @@ protocol TPPlaceholderProviding: AnyObject {
     func placeholderView() -> UIView?
 }
 
-class TPLoadableListPlaceholderProvider: TPPlaceholderProviding {
-    
-    /// 当前列表状态
-    var state: TPListLoadingState = .initialLoading
-    
+class TPDefaultPlaceholderProvider: TPPlaceholderProviding {
+
     var emptyTitle: String? {
         didSet {
             emptyPlaceholderView.title = emptyTitle
@@ -42,20 +39,44 @@ class TPLoadableListPlaceholderProvider: TPPlaceholderProviding {
         view.titleColor = .lightGray
         return view
     }()
+
+    
+    func placeholderView() -> UIView? {
+        return emptyPlaceholderView
+    }
+}
+
+class TPLoadableListPlaceholderProvider: TPPlaceholderProviding {
+    
+    /// 当前列表状态
+    var state: TPListLoadingState = .initialLoading
+    
+    var emptyImage: UIImage?
+    
+    var emptyTitle: String?
     
     /// 默认占位视图
-    lazy var loadingPlaceholderView: TPDefaultPlaceholderView = {
+    func newEmptyPlaceholderView() -> TPDefaultPlaceholderView {
+        let view = TPDefaultPlaceholderView()
+        view.image = emptyImage
+        view.title = emptyTitle
+        view.titleColor = .lightGray
+        return view
+    }
+    
+    /// 默认占位视图
+    func newLoadingPlaceholderView() -> TPDefaultPlaceholderView {
         let view = TPDefaultPlaceholderView()
         view.titleColor = .lightGray
         view.title = resGetString("Loading......")
         return view
-    }()
+    }
     
     func placeholderView() -> UIView? {
         if state == .initialLoading || state == .loading {
-            return loadingPlaceholderView
+            return newLoadingPlaceholderView()
         } else {
-            return emptyPlaceholderView
+            return newEmptyPlaceholderView()
         }
     }
 }

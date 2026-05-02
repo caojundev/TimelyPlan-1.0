@@ -72,11 +72,13 @@ class HabitManageMainViewController: TPContainerViewController, TPSidebarContent
             return
         }
         
+        let style = SlideStyle.horizontalStyle(fromValue: self.menuType.rawValue,
+                                               toValue: menuType.rawValue)
         self.menuType = menuType
-        updateContentViewController()
+        updateContentViewController(With: style)
     }
     
-    private func updateContentViewController() {
+    private func updateContentViewController(With style: SlideStyle = .none) {
         let vc: UIViewController
         if menuType == .active {
             vc = HabitManageActiveListViewController()
@@ -84,6 +86,6 @@ class HabitManageMainViewController: TPContainerViewController, TPSidebarContent
             vc = HabitManageArchivedListViewController()
         }
         
-        self.contentViewController = vc
+        self.setContentViewController(vc, withAnimationStyle: style)
     }
 }

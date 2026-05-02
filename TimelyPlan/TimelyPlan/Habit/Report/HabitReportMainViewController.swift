@@ -67,7 +67,7 @@ class HabitReportMainViewController: StatsMainViewController,
         if keyName == HabitSetting.Key.isReportShowArchived.name, habit.hasArchivedTask {
             /// 有已归档任务，重新加载数据
             let vc = contentViewController as? HabitReportContentViewController
-            vc?.reloadData()
+            vc?.performUpdate()
         }
     }
     

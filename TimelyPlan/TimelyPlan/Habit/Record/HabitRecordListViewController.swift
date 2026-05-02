@@ -49,15 +49,13 @@ class HabitRecordListViewController: StatsContentViewController,
     
     // MARK: - HabitRecordProcessorDelegate
     func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
-        self.reloadData {
+        self.performUpdate { [weak self] in
             let dailyItem = HabitDailyItem(record: record, task: task)
-            self.adapter.scrollToItem(dailyItem, at: .centeredVertically, animated: true) { _ in
-                self.adapter.commitFocusAnimation(for: dailyItem)
-            }
+            self?.adapter.revealItem(dailyItem, autoScroll: true)
         }
     }
     
     func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
-        self.reloadData()
+        self.performUpdate()
     }
 }

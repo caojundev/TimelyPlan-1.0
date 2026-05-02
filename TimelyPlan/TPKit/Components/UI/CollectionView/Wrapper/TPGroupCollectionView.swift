@@ -233,6 +233,10 @@ class TPGroupCollectionView: TPCollectionWrapperView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
+        if let headerView = headerView as? TPCollectionHeaderFooterView {
+            headerView.delegate = self
+        }
+        
         if let delegate = delegate {
             delegate.groupCollectionView(self, didDequeHeader: headerView, inSection: section)
         }

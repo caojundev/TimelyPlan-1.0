@@ -260,10 +260,7 @@ class HabitHomeDayViewController: TPContainerViewController,
     
     func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
         if let headerView = headerView as? HabitTaskListGroupHeaderView {
-            headerView.contentPadding = UIEdgeInsets(top: 10.0,
-                                                     left: 16.0,
-                                                     bottom: 0.0,
-                                                     right: 16.0)
+            headerView.contentPadding = UIEdgeInsets(top: 10.0, bottom: 0.0)
             headerView.group = listView.sectionObject(at: section) as? HabitTaskGroup
         }
     }

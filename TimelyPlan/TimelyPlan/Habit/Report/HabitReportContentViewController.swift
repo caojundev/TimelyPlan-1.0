@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class HabitReportContentViewController: StatsContentViewController,
                                         HabitRecordProcessorDelegate {
@@ -14,6 +15,7 @@ class HabitReportContentViewController: StatsContentViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.contentInset = UIEdgeInsets(bottom: 80.0)
         habit.addUpdater(self, for: [.record])
     }
 

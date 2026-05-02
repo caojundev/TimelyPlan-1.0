@@ -74,6 +74,7 @@ class TodoHomeHeaderTableCell: TPImageInfoTableCell {
         self.infoView.rightAccessorySize = .mini
         self.infoView.rightAccessoryMargins = UIEdgeInsets(right: 8.0)
         
+        self.expandButton.isUserInteractionEnabled = false
         self.rightView = expandButton
         self.rightViewSize = CGSize(width: 18.0, height: 18.0)
         self.setExpanded(isExpanded, animated: false)

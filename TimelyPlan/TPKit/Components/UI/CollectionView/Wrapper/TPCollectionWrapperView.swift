@@ -37,6 +37,16 @@ class TPCollectionWrapperView: UIView,
         }
     }
 
+    var shouldShowPlaceholder: (() -> Bool)? {
+        get {
+            return collectionView.shouldShowPlaceholder
+        }
+        
+        set {
+            collectionView.shouldShowPlaceholder = newValue
+        }
+    }
+    
     /// 提供占位视图
     var placeholderProvider: TPPlaceholderProviding? {
         didSet {
@@ -93,7 +103,9 @@ class TPCollectionWrapperView: UIView,
     
     func setupCollectionView() {
         let bAddRefreshControl = self.refreshControl != nil
+        var shouldShowPlaceholder: (() -> Bool)?
         if let collectionView = collectionView {
+            shouldShowPlaceholder = collectionView.shouldShowPlaceholder
             removeRefreshControl()
             
             /// 如果是切换collectionView将原来的dataSource和delegate设置为nil  
@@ -105,6 +117,7 @@ class TPCollectionWrapperView: UIView,
                                                collectionViewLayout: self.collectionViewLayout)
         self.collectionView.isPrefetchingEnabled = false
         self.collectionView.backgroundColor = .clear
+        self.collectionView.shouldShowPlaceholder = shouldShowPlaceholder
         self.collectionConfiguration?(self.collectionView)
         /// 设置适配器
         adapter.collectionView = self.collectionView

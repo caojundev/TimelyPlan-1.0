@@ -54,6 +54,9 @@ class TPExpandDefaultInfoTableCell: TPDefaultInfoTableCell {
         return _isExpanded
     }
 
+    /// 是否展开
+    private var _isExpanded: Bool = false
+    
     /// 切换展开状态回调
     var didToggleExpand: ((Bool) -> Void)?
     
@@ -77,9 +80,6 @@ class TPExpandDefaultInfoTableCell: TPDefaultInfoTableCell {
         return button
     }()
 
-    /// 是否展开
-    private var _isExpanded: Bool = false
-    
     override func setupContentSubviews() {
         super.setupContentSubviews()
         self.contentPadding = Self.contentPadding
