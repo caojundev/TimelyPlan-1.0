@@ -92,25 +92,26 @@ class TPCollectionWrapperView: UIView,
     }
     
     func setupCollectionView() {
+        let bAddRefreshControl = self.refreshControl != nil
         if let collectionView = collectionView {
-            collectionView.refreshControl?.endRefreshing()
-            collectionView.refreshControl = nil
+            removeRefreshControl()
+            
             /// 如果是切换collectionView将原来的dataSource和delegate设置为nil  
             collectionView.dataSource = nil
             collectionView.delegate = nil
         }
         
-        collectionView = UICollectionView(frame: bounds,
-                                          collectionViewLayout: collectionViewLayout)
-        collectionView.isPrefetchingEnabled = false
-        collectionView.backgroundColor = .clear
-        collectionConfiguration?(collectionView)
+        self.collectionView = UICollectionView(frame: bounds,
+                                               collectionViewLayout: self.collectionViewLayout)
+        self.collectionView.isPrefetchingEnabled = false
+        self.collectionView.backgroundColor = .clear
+        self.collectionConfiguration?(self.collectionView)
         /// 设置适配器
-        adapter.collectionView = collectionView
+        adapter.collectionView = self.collectionView
         updatePlaceholderView()
         
-        if let refreshControl = self.refreshControl {
-            collectionView.refreshControl = refreshControl
+        if bAddRefreshControl {
+            addRefreshControl()
         }
     }
     
@@ -125,14 +126,13 @@ class TPCollectionWrapperView: UIView,
     }
 
     func addRefreshControl() {
-        if self.refreshControl == nil {
-            let refreshControl = UIRefreshControl()
-            refreshControl.addTarget(self,
-                                    action: #selector(handleRefresh),
-                                     for: .valueChanged)
-            self.refreshControl = refreshControl
-        }
+        self.removeRefreshControl()
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                                action: #selector(handleRefresh),
+                                 for: .valueChanged)
+        self.refreshControl = refreshControl
         self.collectionView.refreshControl = self.refreshControl
     }
 

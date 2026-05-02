@@ -39,14 +39,14 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
     /// 加载状态
     private var loadingState: TPListLoadingState = .initialLoading {
         didSet {
-            self.placeholderProvider.state = loadingState
+            placeholderProvider.state = loadingState
         }
     }
     
-    private(set) var placeholderProvider = TPLoadableListPlaceholderProvider()
+    private(set) var placeholderProvider = HabitListPlaceholderProvider()
     
     init() {
-        self.placeholderProvider.state = self.loadingState
+        self.placeholderProvider.state = .initialLoading
         habit.addUpdater(self, for: .all)
         /// 添加至凌晨更新对象
         TPMidnightScheduler.shared.addUpdater(self)
@@ -71,6 +71,10 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
     func loadGroups(in period: HabitDatePeriod, forceRefresh: Bool = false) {
         if forceRefresh {
             setNeedsRefresh()
+        }
+        
+        if self.loadingState != .initialLoading {
+            self.loadingState = .loading
         }
         
         let requestID = requestManager.executeRequest()

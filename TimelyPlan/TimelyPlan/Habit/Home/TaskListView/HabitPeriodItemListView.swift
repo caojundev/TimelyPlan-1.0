@@ -10,6 +10,16 @@ import UIKit
 
 class HabitPeriodItemListView: TPGroupCollectionView {
     
+    // MARK: - Initialization
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.addRefreshControl()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func revealTask(_ task: HabitTask, autoScroll: Bool = true) {
         let indexPath = adapter.findIndexPath { item in
             guard let item = item as? HabitPeriodItem else {

@@ -10,6 +10,7 @@ import UIKit
 
 enum TPListLoadingState {
     case initialLoading   // 初次加载
+    case loading   // 加载中
     case loaded
 }
 
@@ -24,22 +25,14 @@ class TPLoadableListPlaceholderProvider: TPPlaceholderProviding {
     var state: TPListLoadingState = .initialLoading
     
     var emptyTitle: String? {
-        get {
-            return emptyPlaceholderView.title
-        }
-        
-        set {
-            emptyPlaceholderView.title = newValue
+        didSet {
+            emptyPlaceholderView.title = emptyTitle
         }
     }
     
     var emptyImage: UIImage? {
-        get {
-            return emptyPlaceholderView.image
-        }
-        
-        set {
-            emptyPlaceholderView.image = newValue
+        didSet {
+            emptyPlaceholderView.image = emptyImage
         }
     }
     
@@ -59,7 +52,7 @@ class TPLoadableListPlaceholderProvider: TPPlaceholderProviding {
     }()
     
     func placeholderView() -> UIView? {
-        if state == .initialLoading {
+        if state == .initialLoading || state == .loading {
             return loadingPlaceholderView
         } else {
             return emptyPlaceholderView

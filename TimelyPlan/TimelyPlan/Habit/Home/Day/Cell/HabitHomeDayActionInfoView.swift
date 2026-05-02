@@ -127,7 +127,7 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
             switch recordType {
             case .completeAll:
                 imageName = "HabitRecordTypeCompleteAll"
-                title = resGetString("Complete")
+                title = resGetString("Done")
             case .automatically:
                 imageName = "HabitRecordTypeAutoAdd"
                 title = "\(habitTask.goal.validatedRecordAmount)"

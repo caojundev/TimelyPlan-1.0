@@ -38,6 +38,10 @@ class HabitHomeWeekViewController: TPViewController,
             collectionView.contentInset = UIEdgeInsets(bottom: 60.0)
         }
         
+        view.refreshHandler = { [weak self] in
+            self?.handleRefresh()
+        }
+        
         return view
     }()
     
@@ -136,6 +140,11 @@ class HabitHomeWeekViewController: TPViewController,
         return .systemBackground
     }
     
+    
+    private func handleRefresh() {
+        viewModel.loadGroups(forceRefresh: true)
+    }
+    
     // MARK: - Event Response
     private func groupsChanged() {
         DispatchQueue.main.async {
@@ -206,8 +215,8 @@ class HabitHomeWeekViewController: TPViewController,
         let style: SlideStyle = .horizontalStyle(fromValue: oldDate, toValue: date)
         self.listView.reloadData(animateStyle: style)
         self.viewModel.loadGroups(in: self.period)
+        self.listView.updatePlaceholderView()
     }
-    
     
     // MARK: - HabitHomeWeekListCellDelegate
     

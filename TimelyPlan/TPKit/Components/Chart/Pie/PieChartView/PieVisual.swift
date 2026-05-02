@@ -101,7 +101,7 @@ class PieVisual {
     
     init(slices: [PieSlice],
          colors: [UIColor]? = nil,
-         maxDisplayCount: Int? = 4,
+         maxDisplayCount: Int? = 9,
          othersSliceProvider:(([PieSlice]) -> PieSlice)? = nil) {
         self.slices = slices
         

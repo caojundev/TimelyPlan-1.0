@@ -78,6 +78,10 @@ class HabitHomeDayViewController: TPContainerViewController,
             collectionView.contentInset = UIEdgeInsets(bottom: 60.0)
         }
         
+        view.refreshHandler = { [weak self] in
+            self?.handleRefresh()
+        }
+        
         view.placeholderProvider = self.viewModel.placeholderProvider
         return view
     }()
@@ -166,6 +170,10 @@ class HabitHomeDayViewController: TPContainerViewController,
     private func reloadWeekView() {
         weekView.firstWeekday = HabitSetting.shared.firstWeekday
         weekView.reloadData()
+    }    
+    
+    private func handleRefresh() {
+        viewModel.loadGroups(forceRefresh: true)
     }
     
     // MARK: - Update
@@ -184,6 +192,7 @@ class HabitHomeDayViewController: TPContainerViewController,
         self.listView.groups = nil
         self.listView.reloadData(animateStyle: style)
         self.viewModel.loadGroups(on: self.date)
+        self.listView.updatePlaceholderView()
     }
     
     func updateBackView() {

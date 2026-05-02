@@ -260,6 +260,7 @@
 		E51A4C412DC3B98C005A0E3F /* CalendarDayEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A4C402DC3B98C005A0E3F /* CalendarDayEventsView.swift */; };
 		E51A4C432DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A4C422DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift */; };
 		E51A4C462DC3C3B9005A0E3F /* CalendarDateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A4C452DC3C3B9005A0E3F /* CalendarDateButton.swift */; };
+		E51B28EB2FA5BEC3006B3352 /* HabitListPlaceholderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B28EA2FA5BEC3006B3352 /* HabitListPlaceholderProvider.swift */; };
 		E51DF20B2F84965100D6BCE3 /* TodoTrashTaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51DF20A2F84965100D6BCE3 /* TodoTrashTaskListViewController.swift */; };
 		E51DF20E2F84AF7B00D6BCE3 /* focus_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51DF20C2F84AF7A00D6BCE3 /* focus_24@3x.png */; };
 		E51DF20F2F84AF7B00D6BCE3 /* focus_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51DF20D2F84AF7B00D6BCE3 /* focus_24@2x.png */; };
@@ -2032,6 +2033,7 @@
 		E51A4C402DC3B98C005A0E3F /* CalendarDayEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayEventsView.swift; sourceTree = "<group>"; };
 		E51A4C422DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayTimelineHoursView.swift; sourceTree = "<group>"; };
 		E51A4C452DC3C3B9005A0E3F /* CalendarDateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateButton.swift; sourceTree = "<group>"; };
+		E51B28EA2FA5BEC3006B3352 /* HabitListPlaceholderProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitListPlaceholderProvider.swift; sourceTree = "<group>"; };
 		E51DF20A2F84965100D6BCE3 /* TodoTrashTaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTrashTaskListViewController.swift; sourceTree = "<group>"; };
 		E51DF20C2F84AF7A00D6BCE3 /* focus_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_24@3x.png"; sourceTree = "<group>"; };
 		E51DF20D2F84AF7B00D6BCE3 /* focus_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_24@2x.png"; sourceTree = "<group>"; };
@@ -5999,7 +6001,6 @@
 		E59243C92F5004B300CA2393 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				E50FF8A52F789DF500B8F5BE /* PlaceholderProvider */,
 				E556BCE82F5E5E8900CA20D9 /* Controllers */,
 				E556BCEE2F5E7B1100CA20D9 /* RecordEdit */,
 				E51FF6642F58369E003CA953 /* TaskListView */,
@@ -6903,6 +6904,7 @@
 		E5BB9B6A2D3BF0C30089667A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E50FF8A52F789DF500B8F5BE /* PlaceholderProvider */,
 				E50027692F985C6900EF052D /* DateRangeSegmentedView */,
 				E51FF6562F57217B003CA953 /* FireworkLayer */,
 				E507E7952F528EFF003004C4 /* BarButtonItem */,
@@ -9042,6 +9044,7 @@
 			isa = PBXGroup;
 			children = (
 				E5DA03B22FA3348A00A58ACC /* HabitActiveTaskViewModel.swift */,
+				E51B28EA2FA5BEC3006B3352 /* HabitListPlaceholderProvider.swift */,
 				E5DA03B42FA35D8000A58ACC /* HabitPeriodItemViewModel.swift */,
 				E5DA03B62FA3A3A500A58ACC /* HabitDayPeriodItemViewModel.swift */,
 				E5DA03B82FA3A42F00A58ACC /* HabitWeekPeriodItemViewModel.swift */,
@@ -11110,6 +11113,7 @@
 				E58F46C32F7B9D7B0046FA96 /* TodoUserListManager.swift in Sources */,
 				E5BB9DE62D3BF0C60089667A /* UIViewController+Extensions.swift in Sources */,
 				E5D7D8BA2D43933600EC877A /* CountdownProgressInfoView.swift in Sources */,
+				E51B28EB2FA5BEC3006B3352 /* HabitListPlaceholderProvider.swift in Sources */,
 				E5BB9E182D3BF0C70089667A /* KeyValueEntry+CoreDataProperties.swift in Sources */,
 				E5BB9F0A2D3BF0C90089667A /* TPWeakProxy.swift in Sources */,
 				E5BB9EBD2D3BF0C80089667A /* TPTimePickerView.swift in Sources */,
