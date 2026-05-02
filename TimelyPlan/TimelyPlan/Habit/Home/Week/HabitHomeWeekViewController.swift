@@ -213,6 +213,7 @@ class HabitHomeWeekViewController: TPViewController,
         }
         
         let style: SlideStyle = .horizontalStyle(fromValue: oldDate, toValue: date)
+        self.listView.groups = nil
         self.listView.reloadData(animateStyle: style)
         self.viewModel.loadGroups(in: self.period)
         self.listView.updatePlaceholderView()

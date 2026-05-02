@@ -19,7 +19,7 @@ class TPCustomPopupQueue: NSObject {
     
     static let common = TPCustomPopupQueue()
 
-    var edgeMargins = UIEdgeInsets(value: 20.0)
+    var edgeMargins = UIEdgeInsets(value: 12.0)
     
     /// 当前是否有信息显示
     var isShowing: Bool {
@@ -38,12 +38,14 @@ class TPCustomPopupQueue: NSObject {
     public func showCustomView(_ customView: UIView & TPCustomPopupContent,
                                onView parentView: UIView? = nil,
                                position: Position = .middle,
-                               duration: TimeInterval = 1.5) {
+                               duration: TimeInterval = 1.5,
+                               enableSwipeToDismiss: Bool = true) {
         
         let popup = TPCustomPopup(customView: customView,
                                   parentView: parentView,
                                   position: position,
-                                  duration: duration)
+                                  duration: duration,
+                                  enableSwipeToDismiss: enableSwipeToDismiss)
         popups.append(popup)
         beginShowing()
     }
@@ -72,6 +74,10 @@ class TPCustomPopupQueue: NSObject {
         }
         
         let popupView = TPCustomPopupContainerView(customView: popup.customView, popup: popup)
+        popupView.dismissHandler = { [weak self] in
+            self?.dismissPopup(popup)
+        }
+        
         parentView.addSubview(popupView)
         self.popupView = popupView
         
@@ -92,7 +98,6 @@ class TPCustomPopupQueue: NSObject {
         }
         
         popupView.alignHorizontalCenter()
-        
         popupView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         popupView.alpha = 0.0
         UIView.animate(withDuration: 0.4,
@@ -104,23 +109,28 @@ class TPCustomPopupQueue: NSObject {
             popupView.alpha = 1.0
         } completion: { _ in
             DispatchQueue.main.asyncAfter(deadline: .now() + popup.duration) {
-                UIView.animate(withDuration: 0.2, animations: {
-                    popupView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-                    popupView.alpha = 0.0
-                }) { _ in
-                    DispatchQueue.main.async {
-                        popupView.removeFromSuperview()
-                        self.popupView = nil
-                        self.beginShowing() /// 继续显示
-                    }
-                }
+                self.dismissPopup(popup)
            }
+        }
+    }
+    
+    private func dismissPopup(_ popup: TPCustomPopup) {
+        guard let popupView = popupView, popupView.popup == popup else {
+            return
+        }
+
+        self.popupView = nil
+        popupView.dismiss { [weak self] in
+            popupView.removeFromSuperview()
+            self?.beginShowing() /// 继续显示
         }
     }
 }
 
 // MARK: - TPCustomPopup (弹窗配置模型)
 class TPCustomPopup {
+    
+    var identifier: String = UUID().uuidString
     
     /// 自定义视图
     let customView: UIView & TPCustomPopupContent
@@ -134,23 +144,36 @@ class TPCustomPopup {
     /// 显示时长
     let duration: TimeInterval
     
+    /// 是否启用下滑关闭功能
+    let enableSwipeToDismiss: Bool
+    
     init(customView: UIView & TPCustomPopupContent,
          parentView: UIView?,
          position: TPCustomPopupQueue.Position = .middle,
-         duration: TimeInterval = 1.5) {
+         duration: TimeInterval = 1.5,
+         enableSwipeToDismiss: Bool = false) {
         
         self.customView = customView
         self.parentView = parentView
         self.position = position
         self.duration = duration
+        self.enableSwipeToDismiss = enableSwipeToDismiss
+    }
+    
+    // MARK: - Equatable
+    static func == (lhs: TPCustomPopup, rhs: TPCustomPopup) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
 }
 
 // MARK: - 弹窗容器视图
 class TPCustomPopupContainerView: UIView {
     
+    var dismissHandler: (() -> Void)?
+    
     let customView: UIView & TPCustomPopupContent
     let popup: TPCustomPopup
+    private var swipeGesture: UISwipeGestureRecognizer?
     
     init(customView: UIView & TPCustomPopupContent, popup: TPCustomPopup) {
         self.customView = customView
@@ -161,10 +184,49 @@ class TPCustomPopupContainerView: UIView {
         self.isUserInteractionEnabled = true
         customView.clipsToBounds = true
         customView.layer.cornerRadius = customView.cornerRadius
+        
+        // 如果启用了下滑关闭功能，则添加手势识别器
+        if popup.enableSwipeToDismiss {
+            setupSwipeGesture()
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupSwipeGesture() {
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+        swipeGesture.direction = .down
+        self.addGestureRecognizer(swipeGesture)
+        self.swipeGesture = swipeGesture
+    }
+    
+    @objc private func handleSwipeGesture(_ gesture: UISwipeGestureRecognizer) {
+        guard popup.enableSwipeToDismiss, gesture.state == .recognized else { return }
+        dismissHandler?()
+    }
+    
+    func dismiss(completion: @escaping() -> Void) {
+        var finalTransform: CGAffineTransform
+        switch popup.position {
+        case .top:
+            // 顶部弹窗向上隐藏
+            finalTransform = .init(translationX: 0, y: -(self.height / 2 + 20))
+        case .bottom:
+            // 底部弹窗向下隐藏
+            finalTransform = .init(translationX: 0, y: (self.height / 2 + 20))
+        case .middle:
+            // 中间弹窗保持缩放效果
+            finalTransform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        }
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.transform = finalTransform
+            self.alpha = 0.0
+        }) { _ in
+            completion()
+        }
     }
     
     override func layoutSubviews() {
@@ -200,7 +262,7 @@ extension TPCustomPopupContent {
     }
     
     var preferredHeight: CGFloat {
-        return 70.0
+        return 76.0
     }
     
     var minimumWidth: CGFloat {

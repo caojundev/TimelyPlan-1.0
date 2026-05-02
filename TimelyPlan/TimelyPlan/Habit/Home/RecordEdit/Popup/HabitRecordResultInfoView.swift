@@ -19,6 +19,10 @@ class HabitRecordResultInfoView: UIView, TPCustomPopupContent {
     
     private var infoView = TPImageInfoView()
     
+    var maximumWidth: CGFloat {
+        return 560.0
+    }
+    
     private lazy var logButton: TPDefaultButton = {
         let button = TPDefaultButton()
         button.image = resGetImage("habit_menu_editLog_24")
