@@ -9,10 +9,7 @@ import Foundation
 import UIKit
 
 protocol TodoTaskBoardViewDelegate: AnyObject {
-    
-    /// 列表待办分组数组
-    func todoGroupsForTaskBoardView(_ boardView: TodoTaskBoardView) -> [TodoGroup]?
-    
+
     /// 点击分组添加
     func todoTaskBoardView(_ boardView: TodoTaskBoardView, didClickAddForGroup group: TodoGroup?)
         
@@ -31,9 +28,17 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     /// 代理对象
     weak var delegate: TodoTaskBoardViewDelegate?
     
+    /// 分组数组
+    var groups: [TodoGroup]?
+    
     /// 是否是选择模式
     var isSelecting: Bool {
         return _isSelecting
+    }
+    
+    /// 选中的任务
+    var selectedTasks: Set<TodoTask> {
+        return selection.selectedItems
     }
     
     /// 任务选择器
@@ -135,8 +140,52 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         updateCheckmarksAndSupplementaryViews()
     }
     
-    func selectedTasks() -> Set<TodoTask> {
-        return selection.selectedItems
+    /// 结束编辑模式
+    func endEditing(animated: Bool = true) {
+        if animated {
+            UIView.animate(withDuration: 0.25) {
+                self.setSelecting(false)
+            }
+        } else {
+            setSelecting(false)
+        }
+    }
+    
+    /// 设置任务完成状态
+    func setCompleted(_ isCompleted: Bool, for task: TodoTask, completion: ((Bool) -> Void)?) {
+        guard let cell = cellForTask(task) as? TodoTaskPageCheckCell else {
+            completion?(false)
+            return
+        }
+    
+        cell.setCompleted(isCompleted, animated: true) {
+            completion?(true)
+        }
+    }
+    
+    /// 设置任务进度
+    func setProgress(_ progress: TodoEditProgress, for task: TodoTask, completion: ((Bool) -> Void)?) {
+        guard let from = task.progress,
+              progress.currentValue != from.currentValue,
+              let cell = cellForTask(task) as? TodoTaskPageCheckCell else {
+                  completion?(false)
+            return
+        }
+    
+        let difference = progress.currentValue - from.currentValue
+        let message = (difference >= 0 ? "+" : "") + "\(difference)"
+        TPTextPopUp.showText(message,
+                             color: task.priority.titleColor,
+                             font: BOLD_SMALL_SYSTEM_FONT,
+                             fromView: cell.checkbox,
+                             containerView: self)
+        if progress.isCompleted {
+            cell.setCompleted(true, animated: true, completion: nil)
+        }
+        
+        cell.setProgress(progress.completionFraction, animated: true) {
+            completion?(true)
+        }
     }
     
     /// 返回特定标识的区块是否存在
@@ -271,7 +320,7 @@ extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
-        return delegate?.todoGroupsForTaskBoardView(self)
+        return groups
     }
     
     // MARK: - TPCollectionViewAdapterDelegate
@@ -404,6 +453,28 @@ extension TodoTaskBoardView {
 
         let pageView = boardCell.pageView
         return pageView.cellForItem(at: indexPath.taskIndexPath)
+    }
+    
+    func cellForTask(_ task: TodoTask) -> UICollectionViewCell? {
+        guard let pageIndexPath = pageIndexPath(of: task) else {
+            return nil
+        }
+        
+        return cellForItem(at: pageIndexPath)
+    }
+    
+    func pageIndexPath(of task: TodoTask) -> PageIndexPath? {
+        guard let groups = self.groups else {
+            return nil
+        }
+    
+        for (page, group) in groups.enumerated() {
+            if let row = group.tasks?.indexOf(task) {
+                return PageIndexPath(page: page, section: 0, row: row)
+            }
+        }
+
+        return nil
     }
         
 }

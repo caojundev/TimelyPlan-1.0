@@ -77,6 +77,21 @@ class TodoTaskPageBaseCell: UICollectionViewCell, Checkable {
         infoView.setCompleted(task.isCompleted, animated: animated)
     }
     
+    func setCompleted(_ isCompleted: Bool,
+                      animated: Bool = false,
+                      completion: (() -> Void)? = nil) {
+        infoView.setCompleted(isCompleted,
+                              animated: animated,
+                              completion: completion)
+    }
+    
+    // MARK: - Progress
+    func setProgress(_ progress: CGFloat,
+                     animated: Bool = false,
+                     completion: (() -> Void)? = nil) {
+        infoView.setProgress(progress, animated: animated, completion: completion)
+    }
+    
     // MARK: - Checkable
     private var _isChecked: Bool = false
     var isChecked: Bool {

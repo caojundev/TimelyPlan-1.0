@@ -767,4 +767,27 @@ extension TodoTaskPageView {
     func cellForItem(at indexPath: IndexPath) -> UICollectionViewCell? {
         return collectionView.cellForItem(at: indexPath)
     }
+    
+    // MARK: - Task Status Update
+    /// 更新任务完成状态
+    func updateTaskCompletionStatus(_ task: TodoTask, isCompleted: Bool) {
+        guard let indexPath = adapter.indexPath(of: task),
+              let cell = cellForItem(at: indexPath) as? TodoTaskPageCheckCell else {
+            return
+        }
+        
+        cell.checkbox.isChecked = isCompleted
+        cell.setNeedsLayout()
+    }
+    
+    /// 更新任务进度
+    func updateTaskProgress(_ task: TodoTask, progress: Double) {
+        guard let indexPath = adapter.indexPath(of: task),
+              let cell = cellForItem(at: indexPath) as? TodoTaskPageCheckCell else {
+            return
+        }
+        
+        cell.infoView.setProgress(progress)
+        cell.setNeedsLayout()
+    }
 }

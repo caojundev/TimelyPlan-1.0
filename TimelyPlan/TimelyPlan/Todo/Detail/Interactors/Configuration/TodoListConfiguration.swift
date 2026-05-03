@@ -181,7 +181,7 @@ class TodoUserListConfiguration: TodoListConfiguration {
         if layoutType == .list {
             return TodoUserTaskListViewController(interactor: interactor)
         } else {
-            return TodoTaskBoardViewController()
+            return TodoTaskBoardViewController(interactor: interactor)
         }
     }
 }
