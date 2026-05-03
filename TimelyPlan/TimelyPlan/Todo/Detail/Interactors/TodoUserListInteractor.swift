@@ -8,7 +8,7 @@
 import Foundation
 
 class TodoUserListInteractor: TodoListInteractor {
-    
+
     var listConfiguration: TodoUserListConfiguration {
        return configuration as! TodoUserListConfiguration
     }
@@ -27,6 +27,7 @@ class TodoUserListInteractor: TodoListInteractor {
     
     override init(configuration: TodoListConfiguration) {
         super.init(configuration: configuration)
+        self.placeholderProvider.emptyTitle = resGetString("The current list has no tasks")
         todo.addUpdater(self, for: [.list])
     }
     

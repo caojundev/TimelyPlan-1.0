@@ -112,6 +112,19 @@
 "The task will be restored to its original list. Are you sure to restore?" = "任务将恢复至原清单，是否确认恢复？";
 "%ld tasks will be restored to their original list. Are you sure to restore?" = "%ld项任务将恢复至原清单，是否确认恢复？";
 
+/// 空白任务列表占位文本
+"No tasks in my day" = "我的一天内无任务";
+"The current list has no tasks" = "当前列表无任务";
+"The current tag has no tasks" = "当前标签无任务";
+"The current filter has no tasks" = "当前过滤器无任务";
+"No tasks in the inbox" = "收件箱内无任务";
+"No tasks in the trash" = "废纸篓内无任务";
+"No completed tasks" = "无已完成任务";
+"No overdue tasks" = "无已逾期任务";
+"No upcoming tasks" = "无即将到来任务";
+"No tasks for today" = "今天无任务";
+"No tasks for tomorrow" = "明天无任务";
+
 /// 分组和排序
 "Overdue" = "已逾期";
 "Started" = "已开始";

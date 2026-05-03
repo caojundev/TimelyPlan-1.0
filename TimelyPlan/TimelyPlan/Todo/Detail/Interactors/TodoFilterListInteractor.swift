@@ -21,6 +21,7 @@ class TodoFilterListInteractor: TodoListInteractor,
     
     override init(configuration: TodoListConfiguration) {
         super.init(configuration: configuration)
+        self.placeholderProvider.emptyTitle = resGetString("The current filter has no tasks")
         TPMidnightScheduler.shared.addUpdater(self)
         todo.addUpdater(self, for: [.filter])
     }

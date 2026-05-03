@@ -56,10 +56,8 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     init(configuration: TodoListConfiguration) {
         self.configuration = configuration
         self.listOptionState = TodoState.shared.listOptionState(for: configuration) ?? TodoListOptionState()
-        todo.addUpdater(self, for: [.list, .task, .tag])
-        
-        self.placeholderProvider.emptyImage = resGetImage("placeholder_hashTag_80")
         self.placeholderProvider.state = self.loadingState
+        todo.addUpdater(self, for: [.list, .task, .tag])
     }
     
     func layoutType() -> TodoListLayoutType {
