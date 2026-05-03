@@ -349,6 +349,11 @@
 "Auto Hide Hour" = "自动隐藏小时位";
 "Display only minute and second when the hour is zero" = "当小时位为0时仅显示分和秒";
 
+/// 通知
+"Allow Notifications" = "允许通知";
+"Enable in Settings" = "在设置中启用";
+"Notifications need to be enabled to receive alerts about the task or focus session." = "通知必须被启用才能接收有关任务或专注会话的提醒。";
+
 
 ///**************************习惯**************************///
 "By Day" = "按天";
@@ -485,6 +490,9 @@
 
 /// 报告
 "Show Archived" = "显示已归档";
+"No Report This Week" = "本周无报告";
+"No Report This Month" = "本月无报告";
+"No Report This Year" = "本年度无报告";
 
 /// 设置
 "Habit Settings" = "习惯设置";

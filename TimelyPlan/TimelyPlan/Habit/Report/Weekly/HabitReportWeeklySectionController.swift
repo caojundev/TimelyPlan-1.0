@@ -24,6 +24,14 @@ class HabitReportWeeklySectionController: HabitReportContentSectionController {
         self.layout.interitemSpacing = 0.0
     }
     
+    var hasItem: Bool {
+        guard let periodItems = self.periodItems, periodItems.count > 0 else {
+            return false
+        }
+        
+        return true
+    }
+    
     override func classForCell(at index: Int) -> AnyClass? {
         return HabitReportWeeklyCell.self
     }
@@ -40,10 +48,18 @@ class HabitReportWeeklySectionController: HabitReportContentSectionController {
     }
     
     override func classForHeader() -> AnyClass? {
+        guard hasItem else {
+            return UITableViewHeaderFooterView.self
+        }
+        
         return HabitReportWeeklyHeaderView.self
     }
     
     override func sizeForHeader() -> CGSize {
+        guard hasItem else {
+            return .zero
+        }
+        
         return CGSize(width: .greatestFiniteMagnitude, height: 60.0)
     }
     
@@ -52,20 +68,27 @@ class HabitReportWeeklySectionController: HabitReportContentSectionController {
             return
         }
         
-        let padding = UIEdgeInsets(left: self.layout.sectionInset.left,
-                                   right: self.layout.sectionInset.right)
-        headerView.contentView.padding = padding
+        headerView.delegate = self
         headerView.position = .header
+        headerView.contentPadding = UIEdgeInsets(top: 10.0)
         headerView.firstWeekday = self.firstWeekday
         headerView.reloadData()
     }
     
     override func classForFooter() -> AnyClass? {
+        guard hasItem else {
+            return UITableViewHeaderFooterView.self
+        }
+        
         return HabitReportRoundCornerHeaderFooterView.self
     }
     
     override func sizeForFooter() -> CGSize {
-        return CGSize(width: .greatestFiniteMagnitude, height: 30.0)
+        guard hasItem else {
+            return .zero
+        }
+        
+        return CGSize(width: .greatestFiniteMagnitude, height: 20.0)
     }
     
     override func didDequeFooter(_ footerView: UICollectionReusableView) {
@@ -73,11 +96,14 @@ class HabitReportWeeklySectionController: HabitReportContentSectionController {
             return
         }
         
-        let padding = UIEdgeInsets(left: self.layout.sectionInset.left,
-                                   right: self.layout.sectionInset.right)
-        footerView.contentView.padding = padding
-        footerView.backgroundMargin = 5.0
+        footerView.delegate = self
         footerView.position = .footer
+        footerView.backgroundMargin = 5.0
+    }
+    
+    override func layoutMarginsForHeaderFooterView(_ view: TPCollectionHeaderFooterView) -> UIEdgeInsets {
+        return UIEdgeInsets(left: self.layout.sectionInset.left,
+                            right: self.layout.sectionInset.right)
     }
 }
 

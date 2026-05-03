@@ -98,11 +98,12 @@ class Habit {
             tasks = taskManager.getActiveTasks()
         }
         
-        periodItemFetcher.fetchPeriodItems(for: tasks,
-                                              in: period,
-                                              includeSamples: includeSamples,
-                                              completion: completion)
+        periodItemFetcher.fetchScheduledPeriodItems(for: tasks,
+                                                       in: period,
+                                                       includeSamples: includeSamples,
+                                                       completion: completion)
     }
+    
     
     // MARK: - 任务获取
     func searchActiveTasks(containText text: String, completion:(@escaping([HabitTask]?) -> Void)) {

@@ -73,8 +73,8 @@ class TPNotificationAllowAccessViewController: TPViewController {
     }
     
     @objc func willEnterForeground() {
-        TPNotificationService.requestAuthorization { granted in
-            if granted {
+        TPNotificationService.isAuthorized{ authorized in
+            if authorized {
                 /// 已经获得授权
                 self.dismiss(animated: true, completion: nil)
             }

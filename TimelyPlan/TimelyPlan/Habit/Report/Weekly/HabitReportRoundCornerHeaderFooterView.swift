@@ -15,7 +15,6 @@ enum HabitReportSectionPosition {
 }
 
 class HabitReportRoundCornerHeaderFooterView: TPCollectionHeaderFooterView {
-    
     /// 位置：头部或尾部
     var position: HabitReportSectionPosition = .header {
         didSet {

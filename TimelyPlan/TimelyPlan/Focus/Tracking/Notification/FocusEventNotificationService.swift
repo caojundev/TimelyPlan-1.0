@@ -20,8 +20,8 @@ let kNotiFocusEventIDKey = "FocusEventID"
 class FocusEventNotificationService: TPNotificationService {
     
     static func scheduleNotifications(forEvent event: FocusEvent) {
-        requestAuthorization { granted in
-            guard granted else {
+        isAuthorized { authorized in
+            guard authorized else {
                 return
             }
             

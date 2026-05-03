@@ -83,12 +83,33 @@ class HabitSettingViewController: TPTableSectionsViewController {
                                         defaultScoreCellItem]
          return sectionController
      }()
+    
+    /// 数据管理单元格条目
+    lazy var manageDataCellItem: TPImageInfoTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Manage Data")
+        cellItem.didSelectHandler = {
+            self?.manageData()
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var dataSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 10.0
+        sectionController.cellItems = [manageDataCellItem]
+        return sectionController
+    }()
      
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("Habit Settings")
          self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-         self.sectionControllers = [generalSectionController]
+         self.sectionControllers = [generalSectionController,
+                                    dataSectionController]
          self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
          self.reloadData()
      }
@@ -132,6 +153,11 @@ class HabitSettingViewController: TPTableSectionsViewController {
     
     private func editDefaultScore() {
         let vc = HabitSettingScoreEditViewController(style: .insetGrouped)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func manageData() {
+        let vc = HabitReasonTagEditViewController(style: .insetGrouped)
         self.navigationController?.pushViewController(vc, animated: true)
     }
  }
