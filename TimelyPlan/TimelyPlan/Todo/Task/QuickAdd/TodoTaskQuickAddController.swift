@@ -19,11 +19,13 @@ class TodoTaskQuickAddController: TPKeyboardAwareController,
     }
     
     /// 源任务
-    private let task: TodoQuickAddTask
+    private let originTask: TodoQuickAddTask
     
-    init(containerViewController: UIViewController, task: TodoQuickAddTask) {
-        self.task = task
-        self.addView = TodoTaskQuickAddView(task: task)
+    init(containerViewController: UIViewController,
+         originTask: TodoQuickAddTask,
+         editingTask: TodoQuickAddTask) {
+        self.originTask = originTask
+        self.addView = TodoTaskQuickAddView(task: editingTask)
         super.init(containerViewController: containerViewController)
         self.maskBackgroundColor = .clear
         self.addView.delegate = self
@@ -51,7 +53,7 @@ class TodoTaskQuickAddController: TPKeyboardAwareController,
         }
         
         todo.createTask(with: quickAddTask)
-        quickAddView.reset(with: task)
+        quickAddView.reset(with: self.originTask)
         if !TodoSetting.shared.quickAddContinuously {
             endEditing()
         }

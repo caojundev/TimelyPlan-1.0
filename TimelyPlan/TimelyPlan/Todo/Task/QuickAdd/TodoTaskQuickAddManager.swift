@@ -39,8 +39,17 @@ class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
             return
         }
 
-        let task = task ?? TodoQuickAddTask()
-        let addController = TodoTaskQuickAddController(containerViewController: vc, task: task)
+        let originTask = task ?? TodoQuickAddTask()
+        var editingTask: TodoQuickAddTask
+        if let draftTask = draftTask {
+            editingTask = draftTask
+        } else {
+            editingTask = originTask
+        }
+        
+        let addController = TodoTaskQuickAddController(containerViewController: vc,
+                                                       originTask: originTask,
+                                                       editingTask: editingTask)
         addController.delegate = self
         addController.beginEditing()
         self.addController = addController
@@ -52,6 +61,11 @@ class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
     }
 
     // MARK: - TPKeyboardAwareControllerDelegate
+    func keyboardAwareControllerWillShowInputView(controller: TPKeyboardAwareController) {
+        /// 清除草稿任务
+        self.draftTask = nil
+    }
+    
     func keyboardAwareControllerDidHideInputView(controller: TPKeyboardAwareController) {
         if controller == self.addController {
             var task: TodoQuickAddTask?
