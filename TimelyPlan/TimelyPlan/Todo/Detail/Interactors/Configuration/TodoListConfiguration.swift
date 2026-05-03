@@ -181,9 +181,7 @@ class TodoUserListConfiguration: TodoListConfiguration {
         if layoutType == .list {
             return TodoUserTaskListViewController(interactor: interactor)
         } else {
-            let vc = UIViewController()
-            vc.view.backgroundColor = .random
-            return vc
+            return TodoTaskBoardViewController()
         }
     }
 }
