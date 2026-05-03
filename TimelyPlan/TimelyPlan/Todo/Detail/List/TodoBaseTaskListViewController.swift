@@ -133,6 +133,7 @@ class TodoBaseTaskListViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.listView.placeholderProvider = self.interactor.placeholderProvider
+        self.listView.addRefreshControl()
         self.view.addSubview(self.listView)
         self.setupAddView()
         self.setupReorder()
@@ -389,7 +390,7 @@ class TodoBaseTaskListViewController: UIViewController,
     func clickAdd() {
         TPImpactFeedback.impactWithLightStyle()
         
-        var task = self.interactor.configuration.quickAddTask()
+        let task = self.interactor.configuration.quickAddTask()
         quickAddManager.show(with: task)
     }
     
@@ -521,6 +522,11 @@ class TodoBaseTaskListViewController: UIViewController,
     
     func todoGroupsForTaskListView(_ listView: TodoTaskListView) -> [TodoGroup]? {
         return self.interactor.groups
+    }
+    
+    func todoTaskListViewHandlePullRefresh(_ listView: TodoTaskListView) {
+        self.interactor.setNeedsRefresh()
+        self.interactor.loadGroups(with: nil)
     }
     
     func todoTaskListView(_ listView: TodoTaskListView, didSelectTask task: TodoTask) {

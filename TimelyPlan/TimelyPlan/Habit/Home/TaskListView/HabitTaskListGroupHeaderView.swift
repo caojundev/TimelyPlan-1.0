@@ -32,7 +32,7 @@ class HabitTaskListGroupHeaderView: TPCollectionHeaderFooterView {
         label.textAlignment = .center
         label.font = BOLD_SMALL_SYSTEM_FONT
         label.lineBreakMode = .byTruncatingTail
-        label.textColor = .systemBackground
+        label.textColor = resGetColor(.title)
         return label
     }()
 
@@ -87,6 +87,7 @@ class HabitTaskListGroupHeaderView: TPCollectionHeaderFooterView {
     
     // MARK: - Event Response
     @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+        TPImpactFeedback.impactWithSoftStyle()
         clickExpand()
     }
     

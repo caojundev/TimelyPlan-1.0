@@ -22,7 +22,6 @@ class HabitReportWeeklyHeaderView: HabitReportRoundCornerHeaderFooterView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.addSubview(self.symbolsView)
-        self.contentPadding = .zero
     }
     
     required init?(coder aDecoder: NSCoder) {

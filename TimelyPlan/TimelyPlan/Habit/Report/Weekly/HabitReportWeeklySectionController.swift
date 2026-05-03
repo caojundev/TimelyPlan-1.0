@@ -88,7 +88,7 @@ class HabitReportWeeklySectionController: HabitReportContentSectionController {
             return .zero
         }
         
-        return CGSize(width: .greatestFiniteMagnitude, height: 20.0)
+        return CGSize(width: .greatestFiniteMagnitude, height: 32.0)
     }
     
     override func didDequeFooter(_ footerView: UICollectionReusableView) {

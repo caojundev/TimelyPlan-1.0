@@ -13,6 +13,9 @@ protocol TodoTaskListViewDelegate: AnyObject {
     /// 列表待办分组数组
     func todoGroupsForTaskListView(_ listView: TodoTaskListView) -> [TodoGroup]?
     
+    /// 处理下拉刷新
+    func todoTaskListViewHandlePullRefresh(_ listView: TodoTaskListView)
+    
     /// 通知列表选中任务
     func todoTaskListView(_ listView: TodoTaskListView, didSelectTask task: TodoTask)
     
@@ -162,6 +165,8 @@ class TodoTaskListView: UIView,
     /// 显示详情
     private(set) var showDetail: Bool
     
+    private var refreshControl: UIRefreshControl?
+    
     init(frame: CGRect, style: UITableView.Style, showDetail: Bool = true) {
         self.style = style
         self.showDetail = showDetail
@@ -191,6 +196,32 @@ class TodoTaskListView: UIView,
         addSubview(tableView)
     }
 
+    func addRefreshControl() {
+        self.removeRefreshControl()
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                                action: #selector(handleRefresh),
+                                 for: .valueChanged)
+        self.refreshControl = refreshControl
+        self.tableView.refreshControl = self.refreshControl
+    }
+
+    func removeRefreshControl() {
+        self.refreshControl?.endRefreshing()
+        self.refreshControl = nil
+        self.tableView.refreshControl = nil
+    }
+    
+    @objc func handleRefresh() {
+        self.delegate?.todoTaskListViewHandlePullRefresh(self)
+    }
+    
+    func endRefreshing() {
+        self.refreshControl?.endRefreshing()
+    }
+
+    
     /// 是否显示占位视图
     private func shouldShowPlaceholder() -> Bool {
         guard adapter.objects.count > 0 else {
@@ -238,6 +269,7 @@ class TodoTaskListView: UIView,
     
     /// 重新加载数据
     func reloadData() {
+        endRefreshing()
         updatePlaceholderView()
         layoutManager.removeAllLayouts()
         adapter.reloadData()
@@ -255,6 +287,7 @@ class TodoTaskListView: UIView,
     
     /// 更新列表
     func performUpdate(with rowAnimation: UITableView.RowAnimation = .fade) {
+        endRefreshing()
         updatePlaceholderView()
         guard adapter.hasItem else {
             reloadData()
@@ -315,40 +348,6 @@ class TodoTaskListView: UIView,
         }
     }
     
-    
-    /*
-    func updateCell(for tasks: [TodoTask]) {
-        layoutManager.setNeedsLayout(for: tasks)
-        guard let infos = visibleInfos(for: tasks) else {
-            return
-        }
-        
-        for info in infos {
-            guard let cell = adapter.cellForRow(at: info.indexPath) as? TodoTaskBaseTableCell else {
-                continue
-            }
-
-            cell.layout = layout(for: info.task)
-            cell.reloadData(animated: true)
-        }
-    }
-    
-    /// 更新所有可见单元格
-    func updateVisibleCells(animated: Bool = true) {
-        guard let cells = adapter.visibleCells() as? [TodoTaskBaseTableCell] else {
-            return
-        }
-        
-        for cell in cells {
-            if let task = cell.task {
-                layoutManager.setNeedsLayout(for: task)
-                cell.layout = layout(for: task)
-                cell.reloadData(animated: animated)
-            }
-        }
-    }
-     */
-
     /// 更新所有可见区块的头和脚视图
     func updateHeaderFooterViews() {
         adapter.updateHeaderFooterViews()
@@ -373,9 +372,20 @@ class TodoTaskListView: UIView,
         }
         
         _isSelecting = selecting
+        if isSelecting {
+            self.tableView.refreshControl?.endRefreshing()
+            self.tableView.refreshControl = nil
+        } else {
+            self.tableView.refreshControl = self.refreshControl
+        }
+        
         /// 取消编辑
         tableView.setEditing(false, animated: false)
+        
+        /// 重置选择器
         selection.reset()
+        
+        /// 刷新数据
         tableView.reloadData()
     }
     

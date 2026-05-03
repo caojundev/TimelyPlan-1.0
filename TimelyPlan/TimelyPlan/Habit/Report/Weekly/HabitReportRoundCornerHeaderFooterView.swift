@@ -39,6 +39,7 @@ class HabitReportRoundCornerHeaderFooterView: TPCollectionHeaderFooterView {
         super.init(frame: frame)
         self.contentView.layer.addSublayer(self.backgroundLayer)
         self.contentView.backgroundColor = .clear
+        self.contentPadding = .zero
     }
     
     required init?(coder aDecoder: NSCoder) {
