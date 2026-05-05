@@ -37,6 +37,20 @@ enum TodoTaskStartDateType: String, TPMenuRepresentable {
         return String(describing: TodoTaskStartDateType.self) + self.rawValue.capitalized
     }
     
+    init?(identifier: String) {
+        let prefix = String(describing: TodoTaskStartDateType.self)
+        guard let valueStr = identifier.substring(after: prefix) else {
+            return nil
+        }
+        
+        if let dateType = TodoTaskStartDateType(rawValue: valueStr) {
+            self = dateType
+        } else {
+            return nil
+        }
+    }
+    
+    
     /// 根据开始日期获取其类型
     static func type(of startDate: Date?) -> TodoTaskStartDateType {
         guard let startDate = startDate else {
@@ -77,6 +91,19 @@ enum TodoTaskDueDateType: String, TPMenuRepresentable {
     
     var identifier: String {
         return String(describing: TodoTaskDueDateType.self) + self.rawValue.capitalized
+    }
+    
+    init?(identifier: String) {
+        let prefix = String(describing: TodoTaskDueDateType.self)
+        guard let valueStr = identifier.substring(after: prefix) else {
+            return nil
+        }
+        
+        if let dateType = TodoTaskDueDateType(rawValue: valueStr) {
+            self = dateType
+        } else {
+            return nil
+        }
     }
     
     /// 根据截止日期获取其类型

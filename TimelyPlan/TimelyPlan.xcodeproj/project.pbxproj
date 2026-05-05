@@ -4423,9 +4423,9 @@
 			children = (
 				E51B28F72FA77A07006B3352 /* TodoTaskPageView.swift */,
 				E51B28F82FA77A07006B3352 /* TodoTaskPageHeaderView.swift */,
+				E51B28FD2FA77A07006B3352 /* TodoTaskPageAddView.swift */,
 				E51B28FE2FA77A07006B3352 /* Header */,
 				E51B28F92FA77A07006B3352 /* Cell */,
-				E51B28FD2FA77A07006B3352 /* TodoTaskPageAddView.swift */,
 			);
 			path = Page;
 			sourceTree = "<group>";

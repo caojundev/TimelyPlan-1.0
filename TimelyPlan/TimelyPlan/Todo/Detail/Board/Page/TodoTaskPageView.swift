@@ -10,8 +10,8 @@ import UIKit
 
 protocol TodoTaskPageViewDelegate: AnyObject {
 
-    /// 卡片头标题
-    func headerTitleForTaskPageView(_ pageView: TodoTaskPageView) -> String?
+    /// 是否显示添加
+    func shouldShowAddForTaskPageView(_ pageView: TodoTaskPageView) -> Bool
     
     /// 点击添加
     func taskPageViewDidClickAdd(_ pageView: TodoTaskPageView)
@@ -79,13 +79,6 @@ class TodoTaskPageView: UIView,
     
     /// 区块内间距
     var sectionInset = UIEdgeInsets(top: 8.0, left: 4.0, bottom: 4.0, right: 4.0)
-    
-    /// 是否隐藏添加按钮
-    var isAddHidden: Bool = false {
-        didSet {
-            setNeedsLayout()
-        }
-    }
     
     /// 是否选择模式
     private var _isSelecting: Bool = false
@@ -188,7 +181,8 @@ class TodoTaskPageView: UIView,
     }
     
     func updateHeaderView() {
-        headerView.title = delegate?.headerTitleForTaskPageView(self)
+        headerView.title = group?.title ?? resGetString("Untitled Section")
+        
         var showRescheduleButton = false
         if let group = group, group.isOverdue, group.hasUncompletedTask {
             showRescheduleButton = true
@@ -204,7 +198,7 @@ class TodoTaskPageView: UIView,
     
     private func updateContentInset() {
         var insetBottom = addViewHeight
-        if isSelecting || isAddHidden {
+        if isSelecting || !shouldShowAdd {
             insetBottom = 0.0
         }
         
@@ -216,6 +210,11 @@ class TodoTaskPageView: UIView,
         headerView.isSeparatorHidden = collectionView.contentOffset.y <= 0.0
     }
 
+    /// 是否隐藏添加按钮
+    private var shouldShowAdd: Bool {
+        return delegate?.shouldShowAddForTaskPageView(self) ?? false
+    }
+    
     private func updateAddView(animated: Bool) {
         guard animated else {
             updateAddView()
@@ -232,7 +231,7 @@ class TodoTaskPageView: UIView,
 
     private func updateAddView() {
         collectionView.layoutIfNeeded()
-        addView.isHidden = isAddHidden || isSelecting
+        addView.isHidden = !shouldShowAdd || isSelecting
         
         let bottomPoint = CGPoint(x: 0.0, y: collectionView.contentSize.height - sectionInset.bottom)
         let toolbarY = collectionView.convert(bottomPoint, toViewOrWindow: self).y

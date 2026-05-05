@@ -11,8 +11,11 @@ import UIKit
 protocol TodoTaskBoardViewDelegate: AnyObject {
 
     /// 点击分组添加
-    func todoTaskBoardView(_ boardView: TodoTaskBoardView, didClickAddForGroup group: TodoGroup?)
+    func todoTaskBoardView(_ boardView: TodoTaskBoardView, didClickAddForGroup group: TodoGroup)
         
+    /// 是否显示添加
+    func todoTaskBoardView(_ boardView: TodoTaskBoardView, shouldShowAddForGroup group: TodoGroup) -> Bool
+    
     /// 通知列表选中任务
     func todoTaskBoardView(_ boardView: TodoTaskBoardView, didSelectTask task: TodoTask)
     
@@ -283,16 +286,6 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     }
     
     // MARK: - Helpers
-    
-    private func group(for pageView: TodoTaskPageView) -> TodoGroup? {
-        guard let indexPath = pageView.indexPath,
-              let group = adapter.item(at: indexPath) as? TodoGroup else {
-            return nil
-        }
-        
-        return group
-    }
-    
     /// 获取标识对应的分组和索引信息
     private func groupInfo(for identifier: String) -> (section: Int, group: TodoGroup)? {
         guard let groups = adapter.allItems() as? [TodoGroup] else {
@@ -395,19 +388,19 @@ extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
     // MARK: - TodoTaskPageViewDelegate
 
     func taskPageViewDidClickAdd(_ pageView: TodoTaskPageView) {
-        let group = group(for: pageView)
-        delegate?.todoTaskBoardView(self, didClickAddForGroup: group)
+        if let group = pageView.group {
+            delegate?.todoTaskBoardView(self, didClickAddForGroup: group)
+        }
     }
     
-    func headerTitleForTaskPageView(_ pageView: TodoTaskPageView) -> String? {
-        var title: String?
-        if let group = group(for: pageView) {
-            title = group.title
+    func shouldShowAddForTaskPageView(_ pageView: TodoTaskPageView) -> Bool {
+        guard let group = pageView.group else {
+            return false
         }
         
-        return title ?? resGetString("Untitled Section")
+        return delegate?.todoTaskBoardView(self, shouldShowAddForGroup: group) ?? false
     }
-    
+
     func taskPageView(_ pageView: TodoTaskPageView, didSelectTask task: TodoTask) {
         delegate?.todoTaskBoardView(self, didSelectTask: task)
     }

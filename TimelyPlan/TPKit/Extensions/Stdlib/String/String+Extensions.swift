@@ -46,4 +46,13 @@ extension String {
     
         return String(firstChar).uppercased() + self.dropFirst()
     }
+    
+    /// 从字符串中截取前缀之后的字符串
+    func substring(after prefix: String) -> String? {
+        guard let range = self.range(of: prefix) else { return nil }
+        // 确保前缀是从开头开始的
+        guard range.lowerBound == self.startIndex else { return nil }
+        let afterIndex = range.upperBound
+        return String(self[afterIndex...])
+    }
 }

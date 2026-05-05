@@ -146,5 +146,65 @@ struct TaskSchedule: Hashable, Equatable {
     }
 }
 
+extension TaskSchedule {
+    
+    static func schedule(for startDateType: TodoTaskStartDateType) -> TaskSchedule? {
+        var dateInfo: TaskDateInfo?
+        switch startDateType {
+        case .started:
+            dateInfo = TaskDateInfo()
+        case .today:
+            dateInfo = TaskDateInfo()
+        case .tomorrow:
+            let date = Date().dateByAddingDays(1)!
+            dateInfo = TaskDateInfo(date: date)
+        case .upcoming:
+            let date = Date().dateByAddingDays(2)!
+            dateInfo = TaskDateInfo(date: date)
+        case .later:
+            let date = Date().dateByAddingDays(3)!
+            dateInfo = TaskDateInfo(date: date)
+        case .unassigned:
+            break
+        }
+        
+        guard let dateInfo = dateInfo else {
+            return nil
+        }
 
+        let schedule = TaskSchedule(dateInfo: dateInfo,
+                                    reminder: nil,
+                                    repeatRule: nil)
+        return schedule
+    }
+ 
+    static func schedule(for dueDateType: TodoTaskDueDateType) -> TaskSchedule? {
+        var dateInfo: TaskDateInfo?
+        switch dueDateType {
+        case .today:
+            dateInfo = TaskDateInfo()
+        case .tomorrow:
+            let date = Date().dateByAddingDays(1)!
+            dateInfo = TaskDateInfo(date: date)
+        case .upcoming:
+            let date = Date().dateByAddingDays(2)!
+            dateInfo = TaskDateInfo(date: date)
+        case .later:
+            let date = Date().dateByAddingDays(3)!
+            dateInfo = TaskDateInfo(date: date)
+        default:
+            break
+        }
+
+        guard let dateInfo = dateInfo else {
+            return nil
+        }
+
+        let schedule = TaskSchedule(dateInfo: dateInfo,
+                                    reminder: nil,
+                                    repeatRule: nil)
+        return schedule
+    }
+    
+}
 

@@ -39,7 +39,7 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     private var addView: TPAddView?
 
     /// 任务快速添加控制器
-    private lazy var quickAddManager: TodoTaskQuickAddManager = {
+    private(set) lazy var quickAddManager: TodoTaskQuickAddManager = {
         let manager = TodoTaskQuickAddManager(containerViewController: self)
         manager.inputViewFrameDidChange = {[weak self] inputView in
             self?.didChangeQuickAddInputViewFrame(inputView)

@@ -22,6 +22,10 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
     
     private var reorder: TodoTaskBoardDragInsertReorder?
 
+    private let hiddenAddGroupIdentifiers = [TodoTaskDueDateType.overdue.identifier,
+                                             TodoTaskStaus.completed.identifier,
+                                             TodoGroupType.none.identifier]
+    
     override init(interactor: TodoListInteractor) {
         super.init(interactor: interactor)
     }
@@ -114,11 +118,19 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
 
 // MARK: - TodoTaskBoardViewDelegate
 extension TodoTaskBoardViewController: TodoTaskBoardViewDelegate {
-
-    func todoTaskBoardView(_ boardView: TodoTaskBoardView, didClickAddForGroup group: TodoGroup?) {
+    
+    func todoTaskBoardView(_ boardView: TodoTaskBoardView, shouldShowAddForGroup group: TodoGroup) -> Bool {
+        if hiddenAddGroupIdentifiers.contains(group.identifier) {
+            return false
+        }
+        
+        return true
+    }
+    
+    func todoTaskBoardView(_ boardView: TodoTaskBoardView, didClickAddForGroup group: TodoGroup) {
         TPImpactFeedback.impactWithLightStyle()
-        let task = self.interactor.configuration.quickAddTask()
-        // TODO: 实现快速添加逻辑
+        let task = self.interactor.quickAddTask(in: group)
+        quickAddManager.show(with: task)
     }
     
     func todoTaskBoardView(_ boardView: TodoTaskBoardView, didSelectTask task: TodoTask) {

@@ -19,6 +19,20 @@ enum TodoTaskPriority: Int, Codable, TPMenuRepresentable {
         return String(describing: TodoTaskPriority.self) + "\(self.rawValue)"
     }
     
+    init?(identifier: String) {
+        let prefix = String(describing: TodoTaskPriority.self)
+        guard let valueStr = identifier.substring(after: prefix),
+                let value = Int(valueStr) else {
+            return nil
+        }
+        
+        if let priority = TodoTaskPriority(rawValue: value) {
+            self = priority
+        } else {
+            return nil
+        }
+    }
+    
     static var priorities: [TodoTaskPriority] {
         return TodoTaskPriority.allCases.reversed()
     }

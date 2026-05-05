@@ -60,6 +60,28 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         todo.addUpdater(self, for: [.list, .task, .tag])
     }
     
+    func quickAddTask(in group: TodoGroup) -> TodoQuickAddTask {
+        let task = configuration.quickAddTask() ?? TodoQuickAddTask()
+        switch groupType {
+        case .startDate:
+            if let dateType = TodoTaskStartDateType(identifier: group.identifier) {
+                task.schedule = .schedule(for: dateType)
+            }
+        case .dueDate:
+            if let dateType = TodoTaskDueDateType(identifier: group.identifier) {
+                task.schedule = .schedule(for: dateType)
+            }
+        case .priority:
+            if let priority = TodoTaskPriority(identifier: group.identifier) {
+                task.priority = priority
+            }
+        default:
+            break
+        }
+        
+        return task
+    }
+    
     func layoutType() -> TodoListLayoutType {
         return .list
     }
