@@ -6,14 +6,6 @@
 //
 
 import Foundation
-//
-//  TodoTaskBoardViewController.swift
-//  TimelyPlan
-//
-//  Created by caojun on 2025/2/15.
-//
-
-import Foundation
 import UIKit
 
 class TodoTaskBoardViewController: TodoDetailContentViewController {
@@ -40,24 +32,25 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
         view.addSubview(boardView)
         setupBoardReorder()
         boardView.reloadData()
+        
         self.interactor.didChangeGroups = { [weak self] change in
             self?.groupsChanged(change)
         }
         
-        if self.interactor.loadingState == .initialLoading {
-            self.interactor.loadGroups()
-        }
+        self.interactor.setNeedsRefresh()
+        self.interactor.loadGroups()
     }
     
     func setupBoardReorder() {
-        self.reorder = TodoTaskBoardDragInsertReorder(boardView: boardView)
+        let reorder = TodoTaskBoardDragInsertReorder(boardView: boardView)
+        reorder.delegate = self
+        self.reorder = reorder
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        boardView.frame = view.bounds
+    override func updateListViewFrame() {
+        self.boardView.frame = self.listViewFrame()
     }
-    
+
     // MARK: - 分组改变
     private func groupsChanged(_ change: TodoTaskListChange? = nil) {
         DispatchQueue.main.async {
@@ -84,8 +77,8 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
         boardView.endEditing(animated: animated)
     }
     
-    override func getSelectedTasksCount() -> Int {
-        return boardView.selectedTasks.count
+    override func getSelectedTasks() -> Set<TodoTask> {
+        return boardView.selectedTasks
     }
     
     override func setSelecting(_ isSelecting: Bool) {
@@ -103,6 +96,10 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
     
     override func performDeselectAllTasks() {
         boardView.deselectAllTasks()
+    }
+    
+    override func isAllTasksSelected() -> Bool {
+        return boardView.isAllTaskSelected()
     }
 }
 
@@ -132,6 +129,35 @@ extension TodoTaskBoardViewController: TodoTaskBoardViewDelegate {
     }
     
     func todoTaskBoardViewDidChangeSelectedTasks(_ boardView: TodoTaskBoardView) {
-        self.selectionDelegate?.todoTaskListDidUpdateSelectedTasks(to: boardView.selectedTasks)
+        didChangeSelectedTasks()
     }
+    
+}
+
+extension TodoTaskBoardViewController: TodoTaskBoardDragInsertReorderDelegate {
+    
+    func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, canMoveItemAt indexPath: PageIndexPath) -> Bool {
+        if isSelecting {
+            return false
+        }
+        
+        return true
+    }
+    
+    func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, canInsertItemTo targetIndexPath: PageIndexPath, from sourceIndexPath: PageIndexPath) -> Bool {
+        return true
+    }
+    
+    func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, willBeginAt indexPath: PageIndexPath) {
+    
+    }
+    
+    func todoTaskBoardDragInsertReorderDidEnd(_ reorder: TodoTaskBoardDragInsertReorder) {
+    
+    }
+    
+    func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, inserItemTo targetIndexPath: PageIndexPath, from sourceIndexPath: PageIndexPath) {
+        
+    }
+    
 }

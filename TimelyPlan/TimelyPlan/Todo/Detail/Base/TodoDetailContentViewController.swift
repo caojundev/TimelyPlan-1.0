@@ -17,6 +17,18 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     
     let interactor: TodoListInteractor
     
+    // MARK: - ToolView Properties
+    
+    /// 选择模式底部任务工具栏
+    var toolView: TPMenuToolView<TodoTaskActionType>?
+
+    /// 工具栏高度
+    let toolViewContentHeight = 60.0
+    var toolViewFitHeight: CGFloat {
+        return toolViewContentHeight + view.layoutMargins.bottom
+    }
+    
+    
     // MARK: - Initialization
     
     init(interactor: TodoListInteractor) {
@@ -26,6 +38,42 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.updateListViewFrame()
+//        self.updateContentInset()
+        
+        let layoutFrame = view.safeAreaFrame()
+//        if let addView = addView {
+//            addView.size = addViewSize
+//            addView.bottom = layoutFrame.maxY - addViewMargins.bottom
+//            addView.right = layoutFrame.maxX - addViewMargins.right
+//        }
+//
+//        self.updateAddView()
+        
+        if let toolView = toolView {
+            /// 更新工具视图
+            toolView.width = view.width
+            toolView.height = toolViewFitHeight
+            toolView.bottom = view.height
+        }
+    }
+    
+    /// 子类可以重写此方法以更新列表视图框架
+    func updateListViewFrame() {
+        
+    }
+    
+    /// 列表视图当前 frame
+    func listViewFrame() -> CGRect {
+        if let toolView = toolView {
+            return CGRect(x: 0.0, y: 0.0, width: view.width, height: view.height - toolView.height)
+        }
+
+        return view.bounds
     }
     
     // MARK: - TodoDetailContent
@@ -40,7 +88,7 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
         }
         
         let format = resGetString("%ld selected")
-        let selectedCount = getSelectedTasksCount()
+        let selectedCount = getSelectedTasks().count
         return String(format: format, selectedCount)
     }
     
@@ -49,7 +97,11 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
             return nil
         }
         
-        return createNavigationLeftBarButtonItems()
+        if isAllTasksSelected() {
+            return [deselectAllBarButtonItem]
+        } else {
+            return [selectAllBarButtonItem]
+        }
     }
     
     var navigationRightBarButtonItems: [UIBarButtonItem]? {
@@ -84,15 +136,95 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
         // 默认实现为空
     }
     
-    /// 子类需要重写此方法以获取选中的任务数量
-    func getSelectedTasksCount() -> Int {
-        return 0
-    }
-    
     /// 子类需要重写此方法来设置选择状态
     func setSelecting(_ isSelecting: Bool) {
-        // 默认实现为空
+//        updateAddView()
+        if isSelecting {
+            showToolView()
+        } else {
+            hideToolView()
+        }
+        
         selectionDelegate?.todoTaskListDidUpdateSelectionMode(to: isSelecting)
+    }
+    
+    // MARK: - ToolView Management
+    
+    /// 显示工具视图
+    func showToolView() {
+        if let toolView = self.toolView, toolView.isDescendant(of: self.view) {
+            return
+        }
+        
+        let toolView = createToolView()
+        toolView.frame = CGRect(x: 0.0, y: view.height, width: view.width, height: toolViewFitHeight)
+        self.view.addSubview(toolView)
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut) {
+            toolView.bottom = self.view.height
+        } completion: { _ in
+            self.toolView = toolView
+            self.updateListViewFrame()
+        }
+    }
+    
+    /// 隐藏工具视图
+    func hideToolView() {
+        guard let toolView = self.toolView else {
+            return
+        }
+        
+        self.toolView = nil
+        updateListViewFrame()
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut) {
+            toolView.top = self.view.height
+        } completion: { _ in
+            toolView.removeFromSuperview()
+        }
+    }
+    
+    /// 更新工具视图
+    func updateToolView() {
+        guard let toolView = toolView else {
+            return
+        }
+
+        let selectedTasks = getSelectedTasks()
+        toolView.actionTypes = self.interactor.taskActionTypes(for: selectedTasks)
+        if selectedTasks.count > 0 {
+            toolView.disabledTypes = nil
+        } else {
+            toolView.disabledTypes = TodoTaskActionType.allCases
+        }
+    }
+    
+    /// 创建工具视图
+    func createToolView() -> TPMenuToolView<TodoTaskActionType> {
+        let selectedTasks = getSelectedTasks()
+        let actionTypes = self.interactor.taskActionTypes(for: selectedTasks)
+        let toolView = TPMenuToolView(actionTypes: actionTypes)
+        toolView.backgroundColor = .secondarySystemGroupedBackground
+        toolView.preferredItemsCount = 5
+        toolView.disabledTypes = TodoTaskActionType.allCases
+        toolView.addSeparator(position: .top)
+        toolView.didSelectActionType = {[weak self] actionType, sourceView in
+            self?.performTaskMenuAction(with: actionType, sourceView: sourceView)
+        }
+        
+        return toolView
+    }
+    
+    /// 执行任务菜单操作
+    func performTaskMenuAction(with type: TodoTaskActionType, sourceView: UIView) {
+        let tasks = getSelectedTasks()
+        guard tasks.count > 0 else {
+            return
+        }
+    
+        self.taskController.performMenuAction(with: type,
+                                              for: Array(tasks),
+                                              sourceView: sourceView) { [weak self] in
+            self?.endSelecting()
+        }
     }
     
     // MARK: - Navigation Bar Button Items
@@ -153,12 +285,7 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
         buttonItem.setTitleTextAttributes(attributes, for: .highlighted)
         return buttonItem
     }()
-    
-    /// 子类可以重写此方法来提供左侧导航栏按钮项
-    func createNavigationLeftBarButtonItems() -> [UIBarButtonItem]? {
-        return nil
-    }
-    
+
     // MARK: - Event Response
     
     /// 点击更多
@@ -198,6 +325,11 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
         setSelecting(false)
     }
     
+    func didChangeSelectedTasks() {
+        selectionDelegate?.todoTaskListDidUpdateSelectedTasks(to: getSelectedTasks())
+        updateToolView()
+    }
+    
     /// 选中所有任务
     @objc func selectAllTasks() {
         TPImpactFeedback.impactWithSoftStyle()
@@ -218,6 +350,16 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     /// 子类需要重写此方法以执行反选操作
     func performDeselectAllTasks() {
         // 默认实现为空
+    }
+    
+    /// 子类需要重写此方法以获取选中的任务列表
+    func getSelectedTasks() -> Set<TodoTask> {
+        return []
+    }
+    
+    /// 子类重写此方法获取是否所有任务都被选中
+    func isAllTasksSelected() -> Bool {
+        return false
     }
     
     /// 子类需要重写此方法以执行编辑列表操作

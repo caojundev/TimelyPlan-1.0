@@ -8,7 +8,7 @@
 import Foundation
 
 class TodoUserListInteractor: TodoListInteractor {
-
+    
     var listConfiguration: TodoUserListConfiguration {
        return configuration as! TodoUserListConfiguration
     }

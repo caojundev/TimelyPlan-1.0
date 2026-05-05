@@ -9,10 +9,7 @@ import Foundation
 import UIKit
 
 protocol TodoTaskPageViewDelegate: AnyObject {
-    
-    /// 列表待办分组数组
-    func groupsForTaskCardView(_ cardView: TodoTaskPageView) -> [TodoGroup]?
-    
+
     /// 卡片头标题
     func headerTitleForTaskCardView(_ cardView: TodoTaskPageView) -> String?
     
@@ -35,6 +32,8 @@ class TodoTaskPageView: UIView,
                         TodoTaskPageTopViewDelegate,
                         TodoTaskPageSelectHeaderViewDelegate,
                         TodoTaskPageCheckCellDelegate {
+    
+    var group: TodoGroup?
     
     /// 代理对象
     weak var delegate: TodoTaskPageViewDelegate?
@@ -269,9 +268,10 @@ class TodoTaskPageView: UIView,
         adapter.reloadCell(forItems: tasks)
         updateAddView(animated: true)
     }
-
+    
     /// 更新列表
     func performUpdate() {
+        layoutManager.removeAllLayouts()
         adapter.performUpdate()
         updateTopView()
         updateAddView(animated: true)
@@ -354,15 +354,15 @@ class TodoTaskPageView: UIView,
     
     // MARK: - TPCollectionViewAdapterDataSource
     func sectionObjects(for adapter: TPCollectionViewAdapter) -> [ListDiffable]? {
-        return delegate?.groupsForTaskCardView(self)
-    }
-    
-    func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
-        guard let group = sectionObject as? TodoGroup else {
+        guard let group = group else {
             return nil
         }
         
-        return group.tasks
+        return [group]
+    }
+    
+    func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
+        return group?.tasks
     }
     
     // MARK: - TPCollectionViewAdapterDelegate

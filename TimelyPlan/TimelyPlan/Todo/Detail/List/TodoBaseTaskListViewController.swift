@@ -646,6 +646,10 @@ extension TodoBaseTaskListViewController: TPTableDragInsertReorderDelegate {
     }
     
     func tableDragReorder(_ reorder: TPTableDragReorder, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if isSelecting {
+            return false
+        }
+        
         guard interactor is TodoUserListInteractor || interactor is TodoInboxListInteractor else {
             return false
         }

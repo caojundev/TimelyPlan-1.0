@@ -12,8 +12,8 @@ class TodoTaskBoardCell: UICollectionViewCell {
     
     /// 看板单页卡片视图
     private(set) lazy var pageView: TodoTaskPageView = {
-        let cardView = TodoTaskPageView(frame: bounds)
-        return cardView
+        let view = TodoTaskPageView(frame: bounds)
+        return view
     }()
     
     override init(frame: CGRect) {

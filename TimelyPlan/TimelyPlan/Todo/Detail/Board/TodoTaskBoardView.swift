@@ -345,14 +345,23 @@ extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        guard let cell = cell as? TodoTaskBoardCell else {
+        guard let cell = cell as? TodoTaskBoardCell,
+              let group = adapter.item(at: indexPath) as? TodoGroup else {
             return
         }
-        
-        cell.pageView.indexPath = indexPath
-        cell.pageView.selection = selection
-        cell.pageView.delegate = self
-        cell.pageView.reloadData(isSelecting: isSelecting)
+
+        let pageView = cell.pageView
+        pageView.indexPath = indexPath
+        pageView.selection = selection
+        pageView.delegate = self
+        if pageView.group?.identifier == group.identifier {
+            pageView.group = group
+            pageView.performUpdate()
+            pageView.setSelecting(isSelecting)
+        } else {
+            pageView.group = group
+            pageView.reloadData(isSelecting: isSelecting)
+        }
     }
 
     // MARK: - TodoTaskPageViewDelegate
@@ -369,14 +378,6 @@ extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
         }
         
         return title ?? resGetString("Untitled Section")
-    }
-    
-    func groupsForTaskCardView(_ cardView: TodoTaskPageView) -> [TodoGroup]? {
-        guard let group = group(for: cardView) else {
-            return nil
-        }
-        
-        return [group]
     }
     
     func taskCardView(_ cardView: TodoTaskPageView, didSelectTask task: TodoTask) {

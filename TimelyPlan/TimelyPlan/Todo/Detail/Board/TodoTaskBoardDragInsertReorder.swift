@@ -390,12 +390,10 @@ class TodoTaskBoardDragInsertReorder: NSObject,
     
     // MARK: - Delegate Helpers
     private func canMoveItem(at indexPath: PageIndexPath) -> Bool {
-        return true
         return delegate?.todoTaskBoardDragInsertReorder(self, canMoveItemAt: indexPath) ?? false
     }
     
     private func canInsertItem(to indexPath: PageIndexPath) -> Bool {
-        return true
         if draggingIndexPath == indexPath {
             return true
         }

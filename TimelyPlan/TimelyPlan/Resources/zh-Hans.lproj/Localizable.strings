@@ -136,6 +136,8 @@
 "Ascending" = "升序";
 "Descending" = "降序";
 
+/// 看板
+"Add Task" = "添加任务";
 
 /// 快速添加任务
 "Add a Task" = "添加任务";
