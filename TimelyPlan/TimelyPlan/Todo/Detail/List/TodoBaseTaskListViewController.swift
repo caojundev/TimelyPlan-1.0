@@ -195,6 +195,7 @@ class TodoBaseTaskListViewController: UIViewController,
         return view.bounds
     }
     
+    
     var inputRect: CGRect?
     
     private func updateNormalContentInset() {

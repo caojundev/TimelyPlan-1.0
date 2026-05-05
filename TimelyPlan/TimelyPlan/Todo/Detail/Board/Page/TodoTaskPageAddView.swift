@@ -58,9 +58,9 @@ class TodoTaskPageAddView: UIView {
         super.layoutSubviews()
         addButton.cornerRadius = cornerRadius
         addButton.frame = layoutFrame()
-        addButton.setBorderShadow(color: Color(0x222222, 0.2),
+        addButton.setBorderShadow(color: Color(0x666666, 0.1),
                                   offset: .zero,
-                                  radius: 4.0,
+                                  radius: 2.0,
                                   roundCorners: .allCorners,
                                   cornerRadius: cornerRadius)
     }

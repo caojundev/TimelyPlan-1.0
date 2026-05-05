@@ -157,9 +157,7 @@ class TodoInboxListConfiguration: TodoSmartListConfiguration {
         if layoutType == .list {
             return TodoInboxTaskListViewController(interactor: interactor)
         } else {
-            let vc = UIViewController()
-            vc.view.backgroundColor = .random
-            return vc
+            return TodoTaskBoardViewController(interactor: interactor)
         }
     }
 }

@@ -28,6 +28,25 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
         return toolViewContentHeight + view.layoutMargins.bottom
     }
     
+    // MARK: - AddView
+    /// 添加视图按钮
+    private let addViewSize = CGSize(width: 50.0, height: 50.0)
+    
+    /// 添加视图边界间距
+    private let addViewMargins = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 20.0)
+    
+    /// 添加视图
+    private var addView: TPAddView?
+
+    /// 任务快速添加控制器
+    private lazy var quickAddManager: TodoTaskQuickAddManager = {
+        let manager = TodoTaskQuickAddManager(containerViewController: self)
+        manager.inputViewFrameDidChange = {[weak self] inputView in
+            self?.didChangeQuickAddInputViewFrame(inputView)
+        }
+        
+        return manager
+    }()
     
     // MARK: - Initialization
     
@@ -40,19 +59,25 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupAddView()
+        self.updateNormalContentInset()
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.updateListViewFrame()
-//        self.updateContentInset()
+        self.updateContentInset()
         
         let layoutFrame = view.safeAreaFrame()
-//        if let addView = addView {
-//            addView.size = addViewSize
-//            addView.bottom = layoutFrame.maxY - addViewMargins.bottom
-//            addView.right = layoutFrame.maxX - addViewMargins.right
-//        }
-//
-//        self.updateAddView()
+        if let addView = addView {
+            addView.size = addViewSize
+            addView.bottom = layoutFrame.maxY - addViewMargins.bottom
+            addView.right = layoutFrame.maxX - addViewMargins.right
+        }
+
+        self.updateAddView()
         
         if let toolView = toolView {
             /// 更新工具视图
@@ -61,6 +86,79 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
             toolView.bottom = view.height
         }
     }
+    
+    // MARK: - AddView
+    private func setupAddView() {
+        let configuration = self.interactor.configuration
+        if configuration.canAddTask() {
+            let addView = TPAddView()
+            addView.normalBackgroundColor = configuration.addButtonBackColor()
+            addView.didClickAdd = { [weak self] _ in
+                self?.clickAdd()
+            }
+           
+            self.addView = addView
+            self.view.insertSubview(addView, at: 999)
+        }
+    }
+    
+    private func updateAddView() {
+        guard let addView = addView else {
+            return
+        }
+
+        addView.isHidden = getIsSelecting()
+    }
+    
+    // MARK: - 内容间距
+    private func updateNormalContentInset() {
+        var insetBottom = self.view.layoutMargins.bottom
+        let canAddTask = self.interactor.configuration.canAddTask()
+        if canAddTask {
+            insetBottom += addViewMargins.verticalLength + addViewSize.height
+        }
+        
+        updateContentInset(with: insetBottom)
+    }
+    
+    private func updateContentInset() {
+        guard let inputRect = inputRect else {
+            updateNormalContentInset()
+            return
+        }
+
+        let listFrame = listViewFrame()
+        guard inputRect.intersects(listFrame) else {
+            updateNormalContentInset()
+            return
+        }
+        
+        let intersectRect = inputRect.intersection(listFrame)
+        var insetBottom = listFrame.maxY - intersectRect.minY
+        insetBottom = clampedValue(insetBottom, 0.0, listFrame.height)
+        updateContentInset(with: insetBottom)
+    }
+    
+    /// 子类可以重写此方法以更新列表视图框架
+    func updateContentInset(with bottom: CGFloat) {
+        
+    }
+    
+    // MARK: - 楷书添加视图 frame 改变
+    private var inputRect: CGRect?
+    
+    private func didChangeQuickAddInputViewFrame(_ inputView: UIView?) {
+        var inputRect: CGRect?
+        if let inputView = inputView {
+            inputRect = inputView.convert(inputView.bounds, toViewOrWindow: self.view)
+        }
+
+        self.inputRect = inputRect
+        self.updateContentInset()
+    }
+    
+    
+    // MARK: - 列表视图 frame 相关
     
     /// 子类可以重写此方法以更新列表视图框架
     func updateListViewFrame() {
@@ -138,7 +236,7 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     
     /// 子类需要重写此方法来设置选择状态
     func setSelecting(_ isSelecting: Bool) {
-//        updateAddView()
+        updateAddView()
         if isSelecting {
             showToolView()
         } else {
@@ -287,6 +385,12 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     }()
 
     // MARK: - Event Response
+    /// 点击添加
+    func clickAdd() {
+        TPImpactFeedback.impactWithLightStyle()
+        let task = self.interactor.configuration.quickAddTask()
+        quickAddManager.show(with: task)
+    }
     
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
@@ -386,7 +490,7 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
         }
     }
     
-    private func toggleShowDetail() {
+    func toggleShowDetail() {
         self.interactor.toggleShowDetail()
         // 子类可以重写以更新UI
     }

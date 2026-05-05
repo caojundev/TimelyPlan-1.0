@@ -48,9 +48,9 @@ class TodoTaskPageBaseCell: UICollectionViewCell, Checkable {
        infoView.frame = bounds
        backgroundView?.layer.cornerRadius = cornerRadius
        selectedBackgroundView?.layer.cornerRadius = cornerRadius
-       self.tp_setBorderShadow(color: Color(0x222222, 0.2),
+       self.tp_setBorderShadow(color: Color(0x666666, 0.1),
                                offset: .zero,
-                               radius: 4.0,
+                               radius: 2.0,
                                roundCorners: .allCorners,
                                cornerRadius: cornerRadius)
    }

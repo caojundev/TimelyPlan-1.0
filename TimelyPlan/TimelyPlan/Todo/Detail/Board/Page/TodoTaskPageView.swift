@@ -11,26 +11,27 @@ import UIKit
 protocol TodoTaskPageViewDelegate: AnyObject {
 
     /// 卡片头标题
-    func headerTitleForTaskCardView(_ cardView: TodoTaskPageView) -> String?
+    func headerTitleForTaskPageView(_ pageView: TodoTaskPageView) -> String?
     
     /// 点击添加
-    func taskCardViewDidClickAdd(_ cardView: TodoTaskPageView)
+    func taskPageViewDidClickAdd(_ pageView: TodoTaskPageView)
     
     /// 通知列表选中任务
-    func taskCardView(_ cardView: TodoTaskPageView, didSelectTask task: TodoTask)
+    func taskPageView(_ pageView: TodoTaskPageView, didSelectTask task: TodoTask)
     
     /// 通知列表选中任务
-    func taskCardView(_ cardView: TodoTaskPageView, didClickCheckboxForTask task: TodoTask)
+    func taskPageView(_ pageView: TodoTaskPageView, didClickCheckboxForTask task: TodoTask)
     
-    /// 分组切换了收起 / 展开状态
-    func taskCardView(_ cardView: TodoTaskPageView, didChangeCollapsedForGroup group: TodoGroup)
+    /// 重新安排任务
+    func taskPageView(_ pageView: TodoTaskPageView, rescheduleTasks tasks: [TodoTask])
+    
 }
 
 class TodoTaskPageView: UIView,
                         TPCollectionViewAdapterDataSource,
                         TPCollectionViewAdapterDelegate,
-                        TodoTaskPageTopViewDelegate,
-                        TodoTaskPageSelectHeaderViewDelegate,
+                        TodoTaskPageHeaderViewDelegate,
+                        TodoTaskPageSelectingHeaderViewDelegate,
                         TodoTaskPageCheckCellDelegate {
     
     var group: TodoGroup?
@@ -51,6 +52,27 @@ class TodoTaskPageView: UIView,
 
     /// 布局配置
     var layoutConfig = TodoTaskLayoutConfig()
+    
+    /// 是否显示详情
+    var showDetail: Bool {
+        get {
+            return layoutManager.showDetail
+        }
+        
+        set {
+            layoutManager.showDetail = newValue
+        }
+    }
+    
+    var detailOption: TodoTaskDetailOption {
+        get {
+            return layoutManager.detailOption
+        }
+        
+        set {
+            layoutManager.detailOption = newValue
+        }
+    }
     
     /// 行间距
     var lineSpacing: CGFloat = 8.0
@@ -74,28 +96,14 @@ class TodoTaskPageView: UIView,
     /// 布局管理器
     private let layoutManager = TodoTaskLayoutManager()
     
-    /// 隐藏头视图高度
-    private let hiddenHeaderSize = CGSize(width: .greatestFiniteMagnitude, height: 0.0)
-    
-    /// 显示头视图高度
-    private let showHeaderSize = CGSize(width: .greatestFiniteMagnitude, height: 40.0)
-    
     /// 布局对象
     private var collectionViewLayout: UICollectionViewFlowLayout
-    
-    /// 占位视图
-    private lazy var placeholderView: TPDefaultPlaceholderView = {
-        let view = TPDefaultPlaceholderView()
-        view.isBorderHidden = true
-        return view
-    }()
 
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: bounds, collectionViewLayout: collectionViewLayout)
         collectionView.backgroundColor = .clear
         collectionView.isPrefetchingEnabled = false
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.placeholderView = placeholderView
         collectionView.shouldShowPlaceholder = { [weak self] in
             return self?.shouldShowPlaceholder() ?? false
         }
@@ -105,8 +113,10 @@ class TodoTaskPageView: UIView,
     
     /// 头视图
     private let headerViewHeight = 50.0
-    private lazy var headerView: TodoTaskPageTopView = {
-        let view = TodoTaskPageTopView(frame: .zero)
+    private lazy var headerView: TodoTaskPageHeaderView = {
+        let view = TodoTaskPageHeaderView(frame: .zero)
+        view.padding = UIEdgeInsets(left: sectionInset.left,
+                                    right: sectionInset.right)
         view.delegate = self
         return view
     }()
@@ -156,27 +166,40 @@ class TodoTaskPageView: UIView,
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        headerView.frame = CGRect(x: 0.0, y: 0.0, width: bounds.width, height: headerViewHeight)
+        var headerViewTop = 0.0
+        var collectionTop = headerViewHeight
+        if headerView.isHidden {
+            headerViewTop = -headerViewHeight
+            collectionTop = 0.0
+        }
+        
+        headerView.frame = CGRect(x: 0.0, y: headerViewTop, width: bounds.width, height: headerViewHeight)
         
         collectionViewLayout.invalidateLayout()
         collectionView.frame = CGRect(x: 0.0,
-                                      y: headerViewHeight,
+                                      y: collectionTop,
                                       width: bounds.width,
-                                      height: bounds.height - headerViewHeight)
+                                      height: bounds.height - collectionTop)
         collectionView.contentInset = UIEdgeInsets(bottom: addViewHeight)
         collectionView.layoutIfNeeded()
         updateContentInset()
         updateAddView()
-        updateTopViewSeparator()
+        updateHeaderViewSeparator()
     }
     
-    func updateTopView() {
-       /// 标题
-       headerView.title = delegate?.headerTitleForTaskCardView(self)
-       
-       /// 更多按钮
-       headerView.moreButton.isHidden = isSelecting
-       updateTopViewSeparator()
+    func updateHeaderView() {
+        headerView.title = delegate?.headerTitleForTaskPageView(self)
+        var showRescheduleButton = false
+        if let group = group, group.isOverdue, group.hasUncompletedTask {
+            showRescheduleButton = true
+        }
+        
+        headerView.showRescheduleButton = showRescheduleButton
+        updateHeaderViewSeparator()
+        if headerView.isHidden != isSelecting {
+            headerView.isHidden = isSelecting
+            setNeedsLayout()
+        }
    }
     
     private func updateContentInset() {
@@ -189,7 +212,7 @@ class TodoTaskPageView: UIView,
     }
     
     /// 更新头视图分割线
-    private func updateTopViewSeparator() {
+    private func updateHeaderViewSeparator() {
         headerView.isSeparatorHidden = collectionView.contentOffset.y <= 0.0
     }
 
@@ -239,7 +262,7 @@ class TodoTaskPageView: UIView,
     }
     
     private func clickAdd() {
-        delegate?.taskCardViewDidClickAdd(self)
+        delegate?.taskPageViewDidClickAdd(self)
     }
     
     // MARK: - Public Methods
@@ -247,7 +270,7 @@ class TodoTaskPageView: UIView,
     func reloadData() {
         layoutManager.removeAllLayouts()
         adapter.reloadData()
-        updateTopView()
+        updateHeaderView()
         updateAddView()
     }
     
@@ -273,7 +296,7 @@ class TodoTaskPageView: UIView,
     func performUpdate() {
         layoutManager.removeAllLayouts()
         adapter.performUpdate()
-        updateTopView()
+        updateHeaderView()
         updateAddView(animated: true)
     }
     
@@ -348,7 +371,8 @@ class TodoTaskPageView: UIView,
         collectionView.reloadData()
         collectionView.layoutIfNeeded()
         CATransaction.commit()
-        updateTopView()
+        
+        updateHeaderView()
         updateAddView(animated: true)
     }
     
@@ -381,7 +405,7 @@ class TodoTaskPageView: UIView,
         }
         
         guard isSelecting else {
-            delegate?.taskCardView(self, didSelectTask: task)
+            delegate?.taskPageView(self, didSelectTask: task)
             return
         }
 
@@ -429,52 +453,53 @@ class TodoTaskPageView: UIView,
     
     // MARK: - HeaderView
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForHeaderInSection section: Int) -> CGSize {
-        guard let group = adapter.object(at: section) as? TodoGroup,
-                shouldShowSectionHeader(for: group) else {
-            return hiddenHeaderSize
+        guard shouldShowSectionHeader() else {
+            return .zero
         }
         
-        return showHeaderSize
+        return CGSize(width: .greatestFiniteMagnitude, height: headerViewHeight)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, classForHeaderInSection section: Int) -> AnyClass? {
-        guard let group = adapter.object(at: section) as? TodoGroup, shouldShowSectionHeader(for: group) else {
+        guard shouldShowSectionHeader() else {
             return UICollectionReusableView.self
         }
     
         if isSelecting {
-            return TodoTaskPageSelectHeaderView.self
+            return TodoTaskPageSelectingHeaderView.self
+        } else {
+            return TodoTaskPageSectionHeaderView.self
         }
-   
-        return TodoTaskPageNormalHeaderView.self
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
-        guard let headerView = headerView as? TodoTaskPageNormalHeaderView,
+        guard let headerView = headerView as? TodoTaskPageSectionHeaderView,
               let group = adapter.object(at: section) as? TodoGroup else {
             return
         }
         
+        headerView.padding = UIEdgeInsets(left: sectionInset.left,
+                                          right: sectionInset.right)
         headerView.delegate = self
         headerView.section = section
         headerView.title = group.title
-        headerView.isExpanded = true
         let totalTasksCount = group.tasks?.count ?? 0
-        if isSelecting {
-            /// 选择模式
-            if let headerView = headerView as? TodoTaskPageSelectHeaderView {
-               var selectedTasksCount: Int = 0
-               if let tasks = group.tasks, tasks.count > 0 {
-                   let selectedTasks = selection.selectedItems
-                   selectedTasksCount = selectedTasks.intersection(Set(tasks)).count
-               }
-               
-               headerView.countInfo = (selectedTasksCount, totalTasksCount)
-           }
-        } else {
+        guard isSelecting else {
             /// 正常模式
             headerView.count = totalTasksCount
+            return
         }
+        
+        /// 选择模式
+        if let headerView = headerView as? TodoTaskPageSelectingHeaderView {
+           var selectedTasksCount: Int = 0
+           if let tasks = group.tasks, tasks.count > 0 {
+               let selectedTasks = selection.selectedItems
+               selectedTasksCount = selectedTasks.intersection(Set(tasks)).count
+           }
+           
+           headerView.countInfo = (selectedTasksCount, totalTasksCount)
+       }
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, updateHeaderInSection section: Int) {
@@ -489,28 +514,19 @@ class TodoTaskPageView: UIView,
         .zero
     }
     
-    // MARK: - TodoTaskPageTopViewDelegate
-    func taskTopViewDidClickMore(_ topView: TodoTaskPageTopView) {
+    // MARK: - TodoTaskPageHeaderViewDelegate
+    func taskHeaderViewDidClickMore(_ headerView: TodoTaskPageHeaderView) {
         
+    }
+    
+    func taskHeaderViewDidClickReschedule(_ headerView: TodoTaskPageHeaderView) {
+        if let group = group, group.isOverdue, let tasks = group.uncompletedTasks {
+            delegate?.taskPageView(self, rescheduleTasks: tasks)
+        }
     }
     
     // MARK: - TodoTaskPageSelectingHeaderViewDelegate
-    func taskPageHeaderViewDidClickExpand(_ headerView: TodoTaskPageNormalHeaderView) {
-        guard let group = adapter.object(at: headerView.section) as? TodoGroup else {
-            return
-        }
-        
-//        let isExpanded = !group.isExpanded
-//        group.isExpanded = isExpanded
-        headerView.setExpanded(true, animated: true)
-        adapter.performSectionUpdate(forSectionObject: group)
-        updateAddView(animated: true)
-        
-        /// 通知代理对象分组展开状态数据
-        delegate?.taskCardView(self, didChangeCollapsedForGroup: group)
-    }
-    
-    func taskPageSelectHeaderViewDidClickSelectAll(_ headerView: TodoTaskPageSelectHeaderView) {
+    func taskPageSelectHeaderViewDidClickSelectAll(_ headerView: TodoTaskPageSelectingHeaderView) {
         guard isSelecting, let group = adapter.object(at: headerView.section) as? TodoGroup else {
             return
         }
@@ -521,7 +537,7 @@ class TodoTaskPageView: UIView,
         }
     }
     
-    func taskPageSelectHeaderViewDidClickDeselectAll(_ headerView: TodoTaskPageSelectHeaderView) {
+    func taskPageSelectHeaderViewDidClickDeselectAll(_ headerView: TodoTaskPageSelectingHeaderView) {
         guard isSelecting, let group = adapter.object(at: headerView.section) as? TodoGroup else {
             return
         }
@@ -538,28 +554,25 @@ class TodoTaskPageView: UIView,
             return
         }
     
-        delegate?.taskCardView(self, didClickCheckboxForTask: task)
+        delegate?.taskPageView(self, didClickCheckboxForTask: task)
     }
     
     // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateTopViewSeparator()
+        updateHeaderViewSeparator()
         updateAddView()
     }
 
     // MARK: - Helpers
     
     /// 是否显示分组对应的区块头视图
-    private func shouldShowSectionHeader(for group: TodoGroup) -> Bool {
-        if adapter.objects.count > 1 {
-            return !group.isHeaderHidden
-        }
-        
-        return false
+    private func shouldShowSectionHeader() -> Bool {
+        return isSelecting
     }
     
     private func layout(for task: TodoTask) -> TodoTaskInfoLayout {
         layoutManager.width = collectionView.frame.width - sectionInset.horizontalLength
+        layoutManager.showDetail = showDetail
         layoutManager.config = layoutConfig
         return layoutManager.layout(for: task)
     }

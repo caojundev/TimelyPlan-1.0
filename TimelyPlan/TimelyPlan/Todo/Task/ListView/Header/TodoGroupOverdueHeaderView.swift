@@ -49,7 +49,6 @@ class TodoGroupOverdueHeaderView: TodoGroupNormalHeaderView {
         }
     }
     
-    /// 点击展开或收起按钮
     @objc func clickReschedule(_ button: UIButton) {
         if let delegate = self.delegate as? TodoGroupOverdueHeaderViewDelegate {
             delegate.overdueHeaderViewDidClickReschedule(self)

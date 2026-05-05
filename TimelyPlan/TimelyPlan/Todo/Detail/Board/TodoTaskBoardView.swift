@@ -18,9 +18,13 @@ protocol TodoTaskBoardViewDelegate: AnyObject {
     
     /// 通知列表选中任务
     func todoTaskBoardView(_ boardView: TodoTaskBoardView, didClickCheckboxForTask task: TodoTask)
+
+    /// 重新安排任务
+    func todoTaskBoardView(_ boardView: TodoTaskBoardView, rescheduleTasks tasks: [TodoTask])
     
     /// 通知列表在选择模式下选中任务发生改变
     func todoTaskBoardViewDidChangeSelectedTasks(_ boardView: TodoTaskBoardView)
+    
 }
 
 class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
@@ -30,6 +34,9 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     
     /// 分组数组
     var groups: [TodoGroup]?
+    
+    /// 详情显示
+    var detailOption: TodoTaskDetailOption = .allExceptList
     
     /// 是否是选择模式
     var isSelecting: Bool {
@@ -41,6 +48,9 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         return selection.selectedItems
     }
     
+    /// 显示详情
+    private(set) var showDetail: Bool
+
     /// 任务选择器
     private var selection = TPMultipleItemSelection<TodoTask>()
 
@@ -62,17 +72,19 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     
     private let adapter = TPCollectionViewAdapter()
    
-    override init(frame: CGRect) {
+    init(frame: CGRect, showDetail: Bool) {
+        self.showDetail = showDetail
         super.init(frame: frame)
         setupSubviews()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setupSubviews() {
+        self.backgroundColor = .systemGroupedBackground
+        self.collectionView.backgroundColor = .systemGroupedBackground
         selection.addUpdater(self)
         adapter.dataSource = self
         adapter.delegate = self
@@ -96,6 +108,7 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         
         _isSelecting = isSelecting
         selection.reset(with: nil) /// 重置选择管理器
+        
         guard let visibleCells = adapter.visibleCells as? [TodoTaskBoardCell] else {
             return
         }
@@ -103,6 +116,19 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         for cell in visibleCells {
             cell.pageView.selection = selection
             cell.pageView.setSelecting(isSelecting)
+        }
+    }
+
+    /// 设置是否显示详情
+    func setShowDetail(_ showDetail: Bool) {
+        guard self.showDetail != showDetail else {
+            return
+        }
+
+        self.showDetail = showDetail
+        forEachVisiblePageView { pageView in
+            pageView.showDetail = showDetail
+            pageView.reloadData()
         }
     }
     
@@ -205,15 +231,15 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     /// 更新列表
     func performUpdate() {
         adapter.performUpdate {[weak self] _ in
-            self?.forEachVisibleCell { cell in
-                cell.pageView.performUpdate()
+            self?.forEachVisiblePageView { pageView in
+                pageView.performUpdate()
             }
         }
     }
     
     func didUpdate(with infos: [TodoTaskChangeInfo]) {
-        forEachVisibleCell { cell in
-            cell.pageView.didUpdate(with: infos)
+        forEachVisiblePageView { pageView in
+            pageView.didUpdate(with: infos)
         }
     }
     
@@ -222,15 +248,15 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     }
     
     func reloadCell(for tasks: [TodoTask]) {
-        forEachVisibleCell { cell in
-            cell.pageView.reloadCell(for: tasks)
+        forEachVisiblePageView { pageView in
+            pageView.reloadCell(for: tasks)
         }
     }
     
     /// 更新任务对应单元格内容
     func updateCellContent(for tasks: [TodoTask]) {
-        forEachVisibleCell { cell in
-            cell.pageView.updateCellContent(for: tasks)
+        forEachVisiblePageView { pageView in
+            pageView.updateCellContent(for: tasks)
         }
     }
     
@@ -241,13 +267,13 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
             return
         }
         
-        cell.pageView.updateTopView()
+        cell.pageView.updateHeaderView()
     }
 
     /// 更新选择标记和头尾视图
     private func updateCheckmarksAndSupplementaryViews() {
-        forEachVisibleCell { cell in
-            cell.pageView.updateCheckmarksAndSupplementaryViews()
+        forEachVisiblePageView { pageView in
+            pageView.updateCheckmarksAndSupplementaryViews()
         }
     }
     
@@ -258,8 +284,8 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     
     // MARK: - Helpers
     
-    private func group(for cardView: TodoTaskPageView) -> TodoGroup? {
-        guard let indexPath = cardView.indexPath,
+    private func group(for pageView: TodoTaskPageView) -> TodoGroup? {
+        guard let indexPath = pageView.indexPath,
               let group = adapter.item(at: indexPath) as? TodoGroup else {
             return nil
         }
@@ -298,14 +324,14 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         return results
     }
     
-    /// 遍历可见单元格
-    private func forEachVisibleCell(_ cellHandler: (TodoTaskBoardCell) -> Void) {
+    /// 遍历可见页面视图
+    private func forEachVisiblePageView(_ body: (TodoTaskPageView) -> Void) {
         guard let visibleCells = adapter.visibleCells as? [TodoTaskBoardCell] else {
             return
         }
         
         for cell in visibleCells {
-            cellHandler(cell)
+            body(cell.pageView)
         }
     }
 }
@@ -354,6 +380,8 @@ extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
         pageView.indexPath = indexPath
         pageView.selection = selection
         pageView.delegate = self
+        pageView.detailOption = detailOption
+        pageView.showDetail = showDetail
         if pageView.group?.identifier == group.identifier {
             pageView.group = group
             pageView.performUpdate()
@@ -366,31 +394,32 @@ extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
 
     // MARK: - TodoTaskPageViewDelegate
 
-    func taskCardViewDidClickAdd(_ cardView: TodoTaskPageView) {
-        let group = group(for: cardView)
+    func taskPageViewDidClickAdd(_ pageView: TodoTaskPageView) {
+        let group = group(for: pageView)
         delegate?.todoTaskBoardView(self, didClickAddForGroup: group)
     }
     
-    func headerTitleForTaskCardView(_ cardView: TodoTaskPageView) -> String? {
+    func headerTitleForTaskPageView(_ pageView: TodoTaskPageView) -> String? {
         var title: String?
-        if let group = group(for: cardView) {
+        if let group = group(for: pageView) {
             title = group.title
         }
         
         return title ?? resGetString("Untitled Section")
     }
     
-    func taskCardView(_ cardView: TodoTaskPageView, didSelectTask task: TodoTask) {
+    func taskPageView(_ pageView: TodoTaskPageView, didSelectTask task: TodoTask) {
         delegate?.todoTaskBoardView(self, didSelectTask: task)
     }
     
-    func taskCardView(_ cardView: TodoTaskPageView, didClickCheckboxForTask task: TodoTask) {
+    func taskPageView(_ pageView: TodoTaskPageView, didClickCheckboxForTask task: TodoTask) {
         delegate?.todoTaskBoardView(self, didClickCheckboxForTask: task)
     }
     
-    func taskCardView(_ cardView: TodoTaskPageView, didChangeCollapsedForGroup group: TodoGroup) {
-        
+    func taskPageView(_ pageView: TodoTaskPageView, rescheduleTasks tasks: [TodoTask]) {
+        delegate?.todoTaskBoardView(self, rescheduleTasks: tasks)
     }
+    
 }
 
 // MARK: - Getters
@@ -477,5 +506,6 @@ extension TodoTaskBoardView {
 
         return nil
     }
-        
+            
+    
 }

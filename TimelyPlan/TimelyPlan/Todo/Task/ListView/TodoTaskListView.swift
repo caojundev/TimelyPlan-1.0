@@ -563,7 +563,7 @@ class TodoTaskListView: UIView,
             return TodoGroupSelectingHeaderView.self
         }
    
-        if group.isOverdue {
+        if group.isOverdue, group.hasUncompletedTask {
             return TodoGroupOverdueHeaderView.self
         }
         
@@ -663,7 +663,7 @@ class TodoTaskListView: UIView,
             return
         }
         
-        if let tasks = group.tasks {
+        if let tasks = group.uncompletedTasks {
             delegate?.todoTaskListView(self, rescheduleTasks: tasks)
         }
     }

@@ -65,6 +65,20 @@ class TodoGroup: ListDiffable {
         return self.identifier == TodoTaskDueDateType.overdue.identifier
     }
     
+    /// 是否有未完成的任务
+    var hasUncompletedTask: Bool {
+        return tasks?.anySatisfy({ task in
+            return !task.isCompleted
+        }) ?? false
+    }
+    
+    /// 未完成任务数组
+    var uncompletedTasks: [TodoTask]? {
+        return tasks?.filter({ task in
+            return !task.isCompleted
+        })
+    }
+    
     init(identifier: String) {
         self.identifier = identifier
     }

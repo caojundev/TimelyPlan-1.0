@@ -12,7 +12,10 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
     
     /// 列表视图
     private lazy var boardView: TodoTaskBoardView = {
-        let view = TodoTaskBoardView()
+        let showDetail = self.interactor.showDetail
+        let detailOption = self.interactor.configuration.detailOption()
+        let view = TodoTaskBoardView(frame: view.bounds, showDetail: showDetail)
+        view.detailOption = detailOption
         view.delegate = self
         return view
     }()
@@ -29,7 +32,7 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(boardView)
+        view.insertSubview(boardView, at: 0)
         setupBoardReorder()
         boardView.reloadData()
         
@@ -60,6 +63,12 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
     }
 
     // MARK: - Override Base Methods
+    override func toggleShowDetail() {
+        super.toggleShowDetail()
+        let showDetail = self.interactor.showDetail
+        self.boardView.setShowDetail(showDetail)
+    }
+    
     override func editList() {
         guard let configuration = self.interactor.configuration as? TodoUserListConfiguration else {
             return
@@ -126,6 +135,10 @@ extension TodoTaskBoardViewController: TodoTaskBoardViewDelegate {
                 execution?()
             }
         }
+    }
+    
+    func todoTaskBoardView(_ boardView: TodoTaskBoardView, rescheduleTasks tasks: [TodoTask]) {
+        taskController.editSchedule(for: tasks, completion: nil)
     }
     
     func todoTaskBoardViewDidChangeSelectedTasks(_ boardView: TodoTaskBoardView) {
