@@ -19,6 +19,10 @@ class TodoListFeature: NSObject,
     /// 快照名称
     var name: String?
     
+    var displayName: String {
+        return name ?? resGetString("Untitled List")
+    }
+    
     init(identifier: String, name: String?) {
         self.identifier = identifier
         self.name = name

@@ -20,7 +20,7 @@ enum SideMenuType: String, Codable, TPMenuRepresentable {
     static func titles() -> [String] {
         return ["My Day",
                 "Todo",
-                "Four Quadrants",
+                "Quadrants",
                 "Calendar",
                 "Focus",
                 "Habit",

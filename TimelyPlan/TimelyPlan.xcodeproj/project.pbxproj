@@ -398,6 +398,7 @@
 		E53632932FAB76150095DFEC /* TodoFilterTaskUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632922FAB76150095DFEC /* TodoFilterTaskUpdater.swift */; };
 		E53632982FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632962FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift */; };
 		E53632992FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632972FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift */; };
+		E536329E2FAB84150095DFEC /* TodoDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536329D2FAB84150095DFEC /* TodoDateInfoEditor.swift */; };
 		E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F02D9C1A7F00C5A001 /* TPSlider.swift */; };
 		E53735F42D9C1C0E00C5A001 /* TPSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
@@ -2206,6 +2207,7 @@
 		E53632922FAB76150095DFEC /* TodoFilterTaskUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterTaskUpdater.swift; sourceTree = "<group>"; };
 		E53632962FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterTaskChangeSectionController.swift; sourceTree = "<group>"; };
 		E53632972FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterTaskChangeViewController.swift; sourceTree = "<group>"; };
+		E536329D2FAB84150095DFEC /* TodoDateInfoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDateInfoEditor.swift; sourceTree = "<group>"; };
 		E53735F02D9C1A7F00C5A001 /* TPSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSlider.swift; sourceTree = "<group>"; };
 		E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSliderViewController.swift; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
@@ -3659,7 +3661,6 @@
 			isa = PBXGroup;
 			children = (
 				E5F078CE2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift */,
-				E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */,
 				E5B33D562F80E66E00939C3E /* TaskScheduleEditInfoView.swift */,
 				E5B33D462F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift */,
 				E5B33D552F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift */,
@@ -4912,6 +4913,16 @@
 				E53632972FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift */,
 			);
 			path = Change;
+			sourceTree = "<group>";
+		};
+		E536329C2FAB83F10095DFEC /* DateInfoEditor */ = {
+			isa = PBXGroup;
+			children = (
+				E536329D2FAB84150095DFEC /* TodoDateInfoEditor.swift */,
+				E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */,
+				E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */,
+			);
+			path = DateInfoEditor;
 			sourceTree = "<group>";
 		};
 		E53735F22D9C1AA000C5A001 /* Slider */ = {
@@ -6412,6 +6423,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F078CB2F9711C500F94BDF /* TodoScheduleEditViewController.swift */,
+				E536329C2FAB83F10095DFEC /* DateInfoEditor */,
 				E50027682F97CF0E00EF052D /* Single-Day */,
 				E5F078D82F97790400F94BDF /* Multi-Day */,
 				E5B33D472F80E66E00939C3E /* Reminder */,
@@ -9389,7 +9401,6 @@
 		E5F078D82F97790400F94BDF /* Multi-Day */ = {
 			isa = PBXGroup;
 			children = (
-				E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */,
 				E5F078D02F972E8B00F94BDF /* TodoMultipleScheduleEditViewController.swift */,
 				E5F078D42F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift */,
 				E5F078D22F975D2300F94BDF /* TodoMultiDayScheduleDateRangeView.swift */,
@@ -10489,6 +10500,7 @@
 				E5B33D362F809CCD00939C3E /* TodoListSelectPopoverView.swift in Sources */,
 				E51B29082FA77A08006B3352 /* TodoTaskPageSectionHeaderView.swift in Sources */,
 				E5BB9DF72D3BF0C60089667A /* NSObject+WeakDelegates.swift in Sources */,
+				E536329E2FAB84150095DFEC /* TodoDateInfoEditor.swift in Sources */,
 				E5B9D08C2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift in Sources */,
 				E5BB9ED72D3BF0C80089667A /* TPEmojiView.swift in Sources */,
 				E5BB9D902D3BF0C60089667A /* TPImageInfoRightButtonTableCell.swift in Sources */,

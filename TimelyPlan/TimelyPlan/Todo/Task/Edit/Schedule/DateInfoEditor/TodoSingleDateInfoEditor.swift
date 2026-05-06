@@ -7,9 +7,9 @@
 
 import Foundation
 
-class TodoSingleDateInfoEditor {
+class TodoSingleDateInfoEditor: TodoDateInfoEditable {
     
-    private(set) var dateInfo: TaskDateInfo
+    var dateInfo: TaskDateInfo
     
     init(dateInfo: TaskDateInfo) {
         self.dateInfo = dateInfo

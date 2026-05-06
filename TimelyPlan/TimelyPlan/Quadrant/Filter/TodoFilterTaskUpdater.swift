@@ -47,14 +47,13 @@ class TodoFilterTaskUpdater {
         var newSchedule: TaskSchedule?
         if let oldSchedule = oldSchedule {
             newSchedule = oldSchedule
-            
             /// 调整开始日期
             if let dateRange = rule.dateRange,
                 let newStartDate = TodoDateFilterValue.suitableStartDate(for: dateRange),
-                var dateInfo = newSchedule?.dateInfo {
-                #warning("调整新时间")
-//                dateInfo.setStartDate(newStartDate)
-                newSchedule?.dateInfo = dateInfo
+                let dateInfo = newSchedule?.dateInfo {
+                let editor = TodoDateInfoEditor(dateInfo: dateInfo)
+                editor.setDate(newStartDate, editType: .start)
+                newSchedule?.dateInfo = editor.dateInfo
             }
         } else {
             newSchedule = rule.defaultSchedule
@@ -71,10 +70,9 @@ class TodoFilterTaskUpdater {
         if isMatchFilterRule(rule, for: task, of: .list) {
             return nil
         }
-        
-        #warning("修改列表参数类型")
-        return nil
-//        return .list(oldValue: task.list, newValue: rule.defaultList)
+
+        let newList = rule.defaultList
+        return .list(oldValue: task.list, newValue: newList?.feature)
     }
     
     private func matchedTagChange(for task: TodoTask, with rule: TodoFilterRule) -> TodoTaskChange? {

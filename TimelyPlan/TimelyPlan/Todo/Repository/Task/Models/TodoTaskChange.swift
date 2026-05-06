@@ -32,7 +32,7 @@ enum TodoTaskChange: Hashable {
     case myDay(oldValue: Bool, newValue: Bool)
     
     /// 列表
-    case list(oldValue: TodoList?, newValue: TodoList?)
+    case list(oldValue: TodoListFeature?, newValue: TodoListFeature?)
     
     /// 优先级
     case priority(oldValue: TodoTaskPriority, newValue: TodoTaskPriority)
@@ -137,38 +137,34 @@ extension TodoTaskChange {
         return compontents.joined(separator: " ")
     }
     
-    private func listDescription(oldValue: TodoList?, newValue: TodoList?) -> ASAttributedString? {
-        return nil
+    private func listDescription(oldValue: TodoListFeature?, newValue: TodoListFeature?) -> ASAttributedString? {
         guard oldValue != newValue else {
             return nil
         }
-        /*
+        
         var results: [String] = []
         if let oldValue = oldValue, let newValue = newValue {
-            results.append(oldValue.displayTitle())
-            results.append(newValue.displayTitle())
+            results.append(oldValue.displayName)
+            results.append(newValue.displayName)
         } else if let newValue = newValue {
             results.append(TodoSmartList.inbox.title)
-            results.append(newValue.displayTitle())
+            results.append(newValue.displayName)
         } else if let oldValue = oldValue {
-            results.append(oldValue.displayTitle())
+            results.append(oldValue.displayName)
             results.append(TodoSmartList.inbox.title)
         }
         
         return results.joined(separator: " → ").attributedString
-        */
     }
     
     private func myDayDescription(oldValue: Bool, newValue: Bool) -> ASAttributedString? {
-        return nil
         guard oldValue != newValue else {
             return nil
         }
-        /*
+    
         let oldTitle = oldValue ? TodoMyDayFilterValue.added.title : TodoMyDayFilterValue.notAdded.title
         let newTitle = newValue ? TodoMyDayFilterValue.added.title : TodoMyDayFilterValue.notAdded.title
         return "\(oldTitle) → \(newTitle)"
-         */
     }
     
     private func priorityDescription(oldValue: TodoTaskPriority, newValue: TodoTaskPriority) -> ASAttributedString? {

@@ -203,11 +203,11 @@ extension TodoUserListViewModel: TodoTaskProcessorDelegate {
             case .completed(_, _):
                 lists.append(list)
             case .list(let oldValue, let newValue):
-                if let oldList = oldValue?.feature {
+                if let oldList = oldValue {
                     lists.append(oldList)
                 }
                 
-                if let newList = newValue?.feature {
+                if let newList = newValue {
                     lists.append(newList)
                 }
                 
