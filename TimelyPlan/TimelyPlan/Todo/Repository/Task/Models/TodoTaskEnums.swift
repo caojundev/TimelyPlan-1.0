@@ -43,7 +43,7 @@ enum TodoTaskStartDateType: String, TPMenuRepresentable {
             return nil
         }
         
-        if let dateType = TodoTaskStartDateType(rawValue: valueStr) {
+        if let dateType = TodoTaskStartDateType(rawValue: valueStr.lowercasingFirst()) {
             self = dateType
         } else {
             return nil
@@ -99,7 +99,7 @@ enum TodoTaskDueDateType: String, TPMenuRepresentable {
             return nil
         }
         
-        if let dateType = TodoTaskDueDateType(rawValue: valueStr) {
+        if let dateType = TodoTaskDueDateType(rawValue: valueStr.lowercasingFirst()) {
             self = dateType
         } else {
             return nil

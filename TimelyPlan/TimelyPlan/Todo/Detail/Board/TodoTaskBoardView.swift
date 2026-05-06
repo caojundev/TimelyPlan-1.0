@@ -135,7 +135,7 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         }
     }
     
-    func isAllTaskSelected() -> Bool {
+    func isAllTasksSelected() -> Bool {
         let selectedTasks = selection.selectedItems
         guard selectedTasks.count > 0 else {
             return false

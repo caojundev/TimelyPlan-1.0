@@ -53,6 +53,10 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         }
     }
     
+    func resetLoadingState() {
+        self.loadingState = .initialLoading
+    }
+    
     init(configuration: TodoListConfiguration) {
         self.configuration = configuration
         self.listOptionState = TodoState.shared.listOptionState(for: configuration) ?? TodoListOptionState()
@@ -135,6 +139,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     }
     
     func loadGroups(with change: TodoTaskListChange? = nil) {
+        self.loadingState = .loading
         let requestID = requestManager.executeRequest()
         let groupType = groupType
         let sort = listOptionState.validatedSort(for: configuration)

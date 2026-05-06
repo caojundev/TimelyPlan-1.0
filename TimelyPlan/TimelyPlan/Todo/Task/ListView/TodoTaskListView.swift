@@ -10,9 +10,6 @@ import UIKit
 
 protocol TodoTaskListViewDelegate: AnyObject {
     
-    /// 列表待办分组数组
-    func todoGroupsForTaskListView(_ listView: TodoTaskListView) -> [TodoGroup]?
-    
     /// 处理下拉刷新
     func todoTaskListViewHandlePullRefresh(_ listView: TodoTaskListView)
     
@@ -60,6 +57,9 @@ class TodoTaskListView: UIView,
     
     /// 代理对象
     weak var delegate: TodoTaskListViewDelegate?
+    
+    /// 分组数组
+    var groups: [TodoGroup]?
     
     /// 分组展开状态
     var expansionState: ExpansionStateProviding?
@@ -439,7 +439,7 @@ class TodoTaskListView: UIView,
     
     // MARK: - TPTableViewAdapterDataSource
     func sectionObjects(for adapter: TPTableViewAdapter) -> [ListDiffable]? {
-        return delegate?.todoGroupsForTaskListView(self)
+        return groups
     }
     
     func adapter(_ adapter: TPTableViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {

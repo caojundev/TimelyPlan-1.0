@@ -9,15 +9,7 @@ import Foundation
 
 class TodoUserTaskListViewController: TodoBaseTaskListViewController {
 
-    override func selectListOption(_ option: TodoListOption) {
-        if option == .edit {
-            self.editList()
-        } else {
-            super.selectListOption(option)
-        }
-    }
-    
-    private func editList() {
+    override func performEditOption() {
         guard let configuration = self.interactor.configuration as? TodoUserListConfiguration else {
             return
         }

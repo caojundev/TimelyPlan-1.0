@@ -466,8 +466,8 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
         return false
     }
     
-    /// 子类需要重写此方法以执行编辑列表操作
-    func editList() {
+    /// 子类需要重写此方法以执行编辑操作
+    func performEditOption() {
         // 默认实现为空
     }
     
@@ -484,7 +484,7 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
         case .showDetail:
             self.toggleShowDetail()
         case .edit:
-            self.editList()
+            self.performEditOption()
         default:
             break
         }

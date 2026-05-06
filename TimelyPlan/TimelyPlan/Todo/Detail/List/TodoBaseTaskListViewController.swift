@@ -8,78 +8,9 @@
 import Foundation
 import UIKit
 
-class TodoBaseTaskListViewController: UIViewController,
-                                      TodoDetailContent,
+class TodoBaseTaskListViewController: TodoDetailContentViewController,
                                       TodoTaskListViewDelegate {
- 
-    weak var selectionDelegate: TodoTaskListSelectionDelegate?
 
-    /// 更多按钮
-    private lazy var moreBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(customView: self.moreButton)
-    }()
-    
-    private lazy var moreButton: TPDefaultButton = {
-        let button = TPDefaultButton()
-        button.padding = UIEdgeInsets(horizontal: 5.0)
-        button.image = resGetImage("ellipsis_24")
-        button.imageConfig.color = resGetColor(.title)
-        button.addTarget(self, action: #selector(clickMore(_:)), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var cancelEditBarButtonItem: UIBarButtonItem = {
-        let buttonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                         target: self,
-                                         action: #selector(clickCancelEdit(_:)))
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: BOLD_SYSTEM_FONT
-        ]
-        
-        buttonItem.setTitleTextAttributes(attributes, for: .normal)
-        buttonItem.setTitleTextAttributes(attributes, for: .highlighted)
-        return buttonItem
-    }()
-    
-    /// 选择全部
-    private lazy var selectAllBarButtonItem: UIBarButtonItem = {
-        let buttonItem = UIBarButtonItem(title: resGetString("Select All"),
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(selectAllTasks))
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: BOLD_SYSTEM_FONT
-        ]
-        
-        buttonItem.setTitleTextAttributes(attributes, for: .normal)
-        buttonItem.setTitleTextAttributes(attributes, for: .highlighted)
-        return buttonItem
-    }()
-
-    /// 反选全部
-    private lazy var deselectAllBarButtonItem: UIBarButtonItem = {
-        let buttonItem = UIBarButtonItem(title: resGetString("Deselect All"),
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(deselectAllTasks))
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: BOLD_SYSTEM_FONT
-        ]
-        
-        buttonItem.setTitleTextAttributes(attributes, for: .normal)
-        buttonItem.setTitleTextAttributes(attributes, for: .highlighted)
-        return buttonItem
-    }()
-    
-    /// 选择模式底部任务工具栏
-    private var toolView: TPMenuToolView<TodoTaskActionType>?
-
-    /// 工具栏高度
-    private let toolViewContentHeight = 60.0
-    private var toolViewFitHeight: CGFloat {
-        return toolViewContentHeight + view.layoutMargins.bottom
-    }
-    
     /// 列表视图
     private lazy var listView: TodoTaskListView = {
         let showDetail = self.interactor.showDetail
@@ -93,37 +24,15 @@ class TodoBaseTaskListViewController: UIViewController,
         return listView
     }()
 
-    /// 添加视图按钮
-    private let addViewSize = CGSize(width: 50.0, height: 50.0)
-    
-    /// 添加视图边界间距
-    private let addViewMargins = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 20.0)
-    /// 添加视图
-    private var addView: TPAddView?
-    
-    /// 任务快速添加控制器
-    private lazy var quickAddManager: TodoTaskQuickAddManager = {
-        let manager = TodoTaskQuickAddManager(containerViewController: self)
-        manager.inputViewFrameDidChange = {[weak self] inputView in
-            self?.didChangeQuickAddInputViewFrame(inputView)
-        }
-        
-        return manager
-    }()
-
     private var reorder: TPTableDragInsertReorder?
-    
-    let taskController = TodoTaskController()
-    
-    let interactor: TodoListInteractor
     
     let expansionState: TodoTaskGroupExpansionState
     
-    init(interactor: TodoListInteractor) {
-        self.interactor = interactor
+    override init(interactor: TodoListInteractor) {
         let identifier = interactor.configuration.identifier
         self.expansionState = TodoTaskGroupExpansionState(identifier: identifier)
-        super.init(nibName: nil, bundle: nil)
+        super.init(interactor: interactor)
+        self.interactor.resetLoadingState()
     }
     
     required init?(coder: NSCoder) {
@@ -134,105 +43,15 @@ class TodoBaseTaskListViewController: UIViewController,
         super.viewDidLoad()
         self.listView.placeholderProvider = self.interactor.placeholderProvider
         self.listView.addRefreshControl()
-        self.view.addSubview(self.listView)
-        self.setupAddView()
+        self.view.insertSubview(self.listView, at: 0)
         self.setupReorder()
         self.listView.reloadData()
-        self.updateNormalContentInset()
         self.interactor.didChangeGroups = { [weak self] change in
             self?.groupsChanged(change)
         }
-    }
-
-    private(set) var isFirstAppearance = true
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if isFirstAppearance {
-            isFirstAppearance = false
-            self.interactor.loadGroups()
-        }
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.updateListViewFrame()
-        self.updateContentInset()
         
-        let layoutFrame = view.safeAreaFrame()
-        if let addView = addView {
-            addView.size = addViewSize
-            addView.bottom = layoutFrame.maxY - addViewMargins.bottom
-            addView.right = layoutFrame.maxX - addViewMargins.right
-        }
-        
-        self.updateAddView()
-        
-        if let toolView = toolView {
-            /// 更新工具视图
-            toolView.width = view.width
-            toolView.height = toolViewFitHeight
-            toolView.bottom = view.height
-        }
-
-    }
-    
-    private func setupReorder() {
-        let reorder = TPTableDragInsertReorder(tableView: self.listView.tableView)
-        reorder.delegate = self
-        reorder.isEnabled = true
-        self.reorder = reorder
-    }
-    
-    func updateListViewFrame() {
-        self.listView.frame = listViewFrame()
-    }
-    
-    func listViewFrame() -> CGRect {
-        if let toolView = toolView {
-            return CGRect(x: 0.0, y: 0.0, width: view.width, height: view.height - toolView.height)
-        }
-
-        return view.bounds
-    }
-    
-    
-    var inputRect: CGRect?
-    
-    private func updateNormalContentInset() {
-        var insetBottom = self.view.layoutMargins.bottom
-        let canAddTask = self.interactor.configuration.canAddTask()
-        if canAddTask {
-            insetBottom += addViewMargins.verticalLength + addViewSize.height
-        }
-        
-        listView.contentInset = UIEdgeInsets(bottom: insetBottom)
-    }
-    
-    private func updateContentInset() {
-        guard let inputRect = inputRect else {
-            updateNormalContentInset()
-            return
-        }
-
-        guard inputRect.intersects(listView.frame) else {
-            updateNormalContentInset()
-            return
-        }
-        
-        let intersectRect = inputRect.intersection(listView.frame)
-        var insetBottom = listView.frame.maxY - intersectRect.minY
-        insetBottom = clampedValue(insetBottom, 0.0, listView.frame.height)
-        listView.contentInset = UIEdgeInsets(bottom: insetBottom)
-    }
-    
-    private func didChangeQuickAddInputViewFrame(_ inputView: UIView?) {
-        var inputRect: CGRect?
-        if let inputView = inputView {
-            inputRect = inputView.convert(inputView.bounds, toViewOrWindow: self.view)
-        }
-
-        self.inputRect = inputRect
-        self.updateContentInset()
+        self.interactor.setNeedsRefresh()
+        self.interactor.loadGroups()
     }
     
     // MARK: - 分组改变
@@ -242,289 +61,71 @@ class TodoBaseTaskListViewController: UIViewController,
             rowAnimation = .top
         }
         
-        listView.performUpdate(with: rowAnimation)
-        if case let .create(task) = change {
-            listView.revealTask(task)
-        }
-    }
-
-
-    // MARK: - TodoDetailContent
-    var navigationTitle: TextRepresentable? {
-        return self.interactor.title()
-    }
-    
-    var navigationSubtitle: TextRepresentable? {
-        guard isSelecting else {
-            return nil
-        }
-        
-        let format = resGetString("%ld selected")
-        let selectedCount = listView.selectedTasks.count
-        return String(format: format, selectedCount)
-    }
-    
-    var navigationLeftBarButtonItems: [UIBarButtonItem]? {
-        guard isSelecting else {
-            return nil
-        }
-        
-        if listView.isAllTasksSelected() {
-            return [deselectAllBarButtonItem]
-        } else {
-            return [selectAllBarButtonItem]
-        }
-    }
-    
-    var navigationRightBarButtonItems: [UIBarButtonItem]? {
-        if isSelecting {
-            return [cancelEditBarButtonItem]
-        } else {
-            return [moreBarButtonItem]
-        }
-    }
-    
-    
-    // MARK: - AddView
-    private func setupAddView() {
-        let configuration = self.interactor.configuration
-        if configuration.canAddTask() {
-            let addView = TPAddView()
-            addView.normalBackgroundColor = configuration.addButtonBackColor()
-            addView.didClickAdd = { [weak self] _ in
-                self?.clickAdd()
+        DispatchQueue.main.async {
+            self.listView.groups = self.interactor.groups
+            self.listView.performUpdate(with: rowAnimation)
+            if case let .create(task) = change {
+                self.listView.revealTask(task)
             }
-           
-            self.addView = addView
-            self.view.addSubview(addView)
         }
     }
     
-    private func updateAddView() {
-        guard let addView = addView else {
-            return
-        }
+    private func setupReorder() {
+        let reorder = TPTableDragInsertReorder(tableView: self.listView.tableView)
+        reorder.delegate = self
+        reorder.isEnabled = true
+        self.reorder = reorder
+    }
+    
+    override func updateListViewFrame() {
+        self.listView.frame = listViewFrame()
+    }
+    
+    override func updateContentInset(with bottom: CGFloat) {
+        listView.contentInset = UIEdgeInsets(bottom: bottom)
+    }
 
-        addView.isHidden = listView.isSelecting
-    }
-    
-    // MARK: - 列表选项
-    func selectListOption(_ option: TodoListOption) {
-        switch option {
-        case .select:
-            self.setSelecting(true)
-        case .layout:
-            self.toggleLayout()
-        case .showCompleted:
-            self.interactor.toggleShowCompleted()
-        case .showDetail:
-            self.toggleShowDetail()
-        default:
-            break
-        }
-    }
-    
-    private func toggleShowDetail() {
-        self.interactor.toggleShowDetail()
+    // MARK: - Override Base Methods
+    override func toggleShowDetail() {
+        super.toggleShowDetail()
         let showDetail = self.interactor.showDetail
         self.listView.setShowDetail(showDetail)
     }
     
-    /// 切换布局
-    private func toggleLayout() {
-        var layoutType = self.interactor.layoutType()
-        if layoutType == .list {
-            layoutType = .board
-        } else {
-            layoutType = .list
-        }
-        
-        self.interactor.setLayoutType(layoutType)
-    }
-
-    private func selectGroupType(_ groupType: TodoGroupType) {
-        self.interactor.setGroupType(groupType)
-    }
-    
-    private func selectSortType(_ sortType: TodoSortType) {
-        self.interactor.setSortType(sortType)
-    }
-    
-    private func selectSortOrder(_ sortOrder: TodoSortOrder) {
-        self.interactor.setSortOrder(sortOrder)
-    }
-    
-    // MARK: - Event Response
-    /// 点击更多
-    @objc func clickMore(_ button: UIButton) {
-        self.endEditing(animated: true)
-        guard let config = self.interactor.listOptionConfig() else {
-            return
-        }
-
-        let optionMenuController = TodoListOptionMenuController(config: config)
-        optionMenuController.didSelectListOption = { option in
-            self.selectListOption(option)
-        }
-        
-        optionMenuController.didSelectGroupType = { groupType in
-            self.selectGroupType(groupType)
-        }
-        
-        optionMenuController.didSelectSortType = { sortType in
-            self.selectSortType(sortType)
-        }
-        
-        optionMenuController.didSelectSortOrder = { sortOrder in
-            self.selectSortOrder(sortOrder)
-        }
-        
-        let menuItems = optionMenuController.menuItems()
-        let menuController = TPLevelMenuViewController(menuItems: menuItems)
-        let sourceRect = CGRect(x: moreButton.bounds.maxX,
-                                y: moreButton.bounds.maxY,
-                                size: .zero)
-        menuController.show(from: moreButton, sourceRect: sourceRect, isCovered: false)
-    }
-    
-    /// 点击添加
-    func clickAdd() {
-        TPImpactFeedback.impactWithLightStyle()
-        
-        let task = self.interactor.configuration.quickAddTask()
-        quickAddManager.show(with: task)
-    }
-    
-    @objc func clickCancelEdit(_ buttonItem: UIBarButtonItem) {
-        TPImpactFeedback.impactWithSoftStyle()
-        setSelecting(false)
-    }
-    
-    /// 选中所有任务
-    @objc func selectAllTasks() {
-        TPImpactFeedback.impactWithSoftStyle()
-        listView.selectAllTasks()
-    }
-    
-    /// 反选所有任务
-    @objc func deselectAllTasks() {
-        TPImpactFeedback.impactWithSoftStyle()
-        listView.deselectAllTasks()
-    }
-    
-    // MARK: - Editing & Selecting
-    func endEditing(animated: Bool) {
-        listView.endEditing(animated: animated)
-    }
-    
-    var isSelecting: Bool {
+    override func getIsSelecting() -> Bool {
         return listView.isSelecting
     }
     
-    func endSelecting() {
-        setSelecting(false)
+    override func performEndEditing(animated: Bool) {
+        listView.endEditing(animated: animated)
     }
     
-    private func setSelecting(_ isSelecting: Bool) {
+    override func getSelectedTasks() -> Set<TodoTask> {
+        return listView.selectedTasks
+    }
+    
+    override func setSelecting(_ isSelecting: Bool) {
         guard listView.isSelecting != isSelecting else {
             return
         }
         
         listView.setSelecting(isSelecting)
-        updateAddView()
-        if isSelecting {
-            showToolView()
-        } else {
-            hideToolView()
-        }
-        
-        selectionDelegate?.todoTaskListDidUpdateSelectionMode(to: isSelecting)
+        super.setSelecting(isSelecting)
     }
     
-    // MARK: - ToolView
-    
-    /// 显示工具视图
-    private func showToolView() {
-        if let toolView = self.toolView, toolView.isDescendant(of: self.view) {
-            return
-        }
-        
-        let toolView = createToolView()
-        toolView.frame = CGRect(x: 0.0, y: view.height, width: view.width, height: toolViewFitHeight)
-        self.view.addSubview(toolView)
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut) {
-            toolView.bottom = self.view.height
-        } completion: { _ in
-            self.toolView = toolView
-            self.updateListViewFrame()
-        }
+    override func performSelectAllTasks() {
+        listView.selectAllTasks()
     }
     
-    /// 隐藏工具视图
-    private func hideToolView() {
-        guard let toolView = self.toolView else {
-            return
-        }
-        
-        self.toolView = nil
-        updateListViewFrame()
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseInOut) {
-            toolView.top = self.view.height
-        } completion: { _ in
-            toolView.removeFromSuperview()
-        }
+    override func performDeselectAllTasks() {
+        listView.deselectAllTasks()
     }
     
-    /// 更新工具视图
-    private func updateToolView() {
-        guard let toolView = toolView else {
-            return
-        }
-
-        let selectedTasks = self.listView.selectedTasks
-        toolView.actionTypes = self.interactor.taskActionTypes(for: selectedTasks)
-        if selectedTasks.count > 0 {
-            toolView.disabledTypes = nil
-        } else {
-            toolView.disabledTypes = TodoTaskActionType.allCases
-        }
-    }
-    
-    private func createToolView() -> TPMenuToolView<TodoTaskActionType> {
-        let selectedTasks = self.listView.selectedTasks
-        let actionTypes = self.interactor.taskActionTypes(for: selectedTasks)
-        let toolView = TPMenuToolView(actionTypes: actionTypes)
-        toolView.backgroundColor = .secondarySystemGroupedBackground
-        toolView.preferredItemsCount = 5
-        toolView.disabledTypes = TodoTaskActionType.allCases
-        toolView.addSeparator(position: .top)
-        toolView.didSelectActionType = {[weak self] actionType, sourceView in
-            self?.performTaskMenuAction(with: actionType, sourceView: sourceView)
-        }
-        
-        return toolView
-    }
-    
-    // MARK: - 任务菜单操作
-    private func performTaskMenuAction(with type: TodoTaskActionType, sourceView: UIView) {
-        let tasks = self.listView.selectedTasks
-        guard tasks.count > 0 else {
-            return
-        }
-    
-        self.taskController.performMenuAction(with: type,
-                                              for: Array(tasks),
-                                              sourceView: sourceView) { [weak self] in
-            self?.endSelecting()
-        }
+    override func isAllTasksSelected() -> Bool {
+        return listView.isAllTasksSelected()
     }
     
     // MARK: - TodoTaskListViewDelegate
-    
-    func todoGroupsForTaskListView(_ listView: TodoTaskListView) -> [TodoGroup]? {
-        return self.interactor.groups
-    }
-    
     func todoTaskListViewHandlePullRefresh(_ listView: TodoTaskListView) {
         self.interactor.setNeedsRefresh()
         self.interactor.loadGroups(with: nil)

@@ -28,6 +28,7 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
     
     override init(interactor: TodoListInteractor) {
         super.init(interactor: interactor)
+        self.interactor.resetLoadingState()
     }
     
     required init?(coder: NSCoder) {
@@ -73,7 +74,7 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
         self.boardView.setShowDetail(showDetail)
     }
     
-    override func editList() {
+    override func performEditOption() {
         guard let configuration = self.interactor.configuration as? TodoUserListConfiguration else {
             return
         }
@@ -112,7 +113,7 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
     }
     
     override func isAllTasksSelected() -> Bool {
-        return boardView.isAllTaskSelected()
+        return boardView.isAllTasksSelected()
     }
 }
 

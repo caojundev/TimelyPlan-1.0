@@ -55,4 +55,10 @@ extension String {
         let afterIndex = range.upperBound
         return String(self[afterIndex...])
     }
+    
+    /// 将字符串的首字母转换为小写
+    func lowercasingFirst() -> String {
+        guard let first = self.first else { return self }
+        return first.lowercased() + self.dropFirst()
+    }
 }
