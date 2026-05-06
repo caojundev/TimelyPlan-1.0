@@ -152,19 +152,34 @@ class TodoHomeViewController: TPTableViewController,
         self.navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
         self.navigationItem.rightBarButtonItem = settingBarButtonItem
         self.view.addSubview(self.toolView)
+        self.wrapperView.refreshHandler = { [weak self] in
+            self?.handleRefresh()
+        }
+        
         let headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.01))
         self.tableView.tableHeaderView = headerView
         self.tableView.contentInset = .zero
+        
         self.setupReorder()
         self.adapter.cellStyle.backgroundColor = .systemBackground
         self.adapter.dataSource = self
         self.adapter.delegate = self
         self.adapter.reloadData()
         self.initializeData()
+        
         TodoSetting.shared.addObserver(self, forKey: .homeSectionTypes)
     }
     
     private func initializeData() {
+        loadData { [weak self] in
+            guard let self = self else { return }
+            self.wrapperView.addRefreshControl()
+            self.setupSectionControllers()
+            self.adapter.reloadData()
+        }
+    }
+    
+    private func loadData(completion: @escaping() -> Void) {
         let group = DispatchGroup()
         group.enter()
         self.smartListViewModel.loadLists {
@@ -192,8 +207,14 @@ class TodoHomeViewController: TPTableViewController,
         }
         
         group.notify(queue: .main) {
-            self.setupSectionControllers()
-            self.adapter.reloadData()
+            completion()
+        }
+    }
+    
+    func handleRefresh() {
+        loadData { [weak self] in
+            guard let self = self else { return }
+            self.wrapperView.endRefreshing()
         }
     }
 

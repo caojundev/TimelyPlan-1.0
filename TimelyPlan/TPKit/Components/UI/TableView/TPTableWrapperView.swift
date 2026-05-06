@@ -9,9 +9,18 @@ import Foundation
 import UIKit
 
 class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
-    
+
+    var refreshHandler: (() -> Void)?
+
     /// 集合视图适配器
     let adapter = TPTableViewAdapter()
+    
+    /// 提供占位视图
+    var placeholderProvider: TPPlaceholderProviding? {
+        didSet {
+            updatePlaceholderView()
+        }
+    }
     
     /// 动画容器视图
     private var containerView: TPAnimatedContainerView!
@@ -35,6 +44,8 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
 
     /// TableView 样式
     private(set) var style: UITableView.Style = .grouped
+
+    private(set) var refreshControl: UIRefreshControl?
     
     var contentSize: CGSize {
         return tableView.contentSize
@@ -68,6 +79,35 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
         containerView.frame = bounds
     }
     
+    func addRefreshControl() {
+        self.removeRefreshControl()
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                                action: #selector(handleRefresh),
+                                 for: .valueChanged)
+        self.refreshControl = refreshControl
+        self.tableView.refreshControl = self.refreshControl
+    }
+
+    func removeRefreshControl() {
+        self.tableView.refreshControl?.endRefreshing()
+        self.tableView.refreshControl = nil
+        self.refreshControl = nil
+    }
+    
+    @objc func handleRefresh() {
+        if let refreshHandler = self.refreshHandler {
+            refreshHandler()
+        } else {
+            endRefreshing()
+        }
+    }
+    
+    func endRefreshing() {
+        self.refreshControl?.endRefreshing()
+    }
+
     private func setupKeyboardAdjuster() {
         if isKeyboardAdjusterEnabled {
             let adjuster = TPKeyboardAdjuster(scrollView: tableView)
@@ -88,9 +128,15 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
     }
     
     func setupTableView() {
+        let bAddRefreshControl = self.refreshControl != nil
+        var shouldShowPlaceholder: (() -> Bool)?
         if let tableView = tableView {
+            shouldShowPlaceholder = tableView.shouldShowPlaceholder
+            removeRefreshControl()
             /// 移除原tableView的键盘监听
             tableView.removeKeyboardNotification()
+            tableView.dataSource = nil
+            tableView.delegate = nil
         }
         
         tableView = UITableView(frame: bounds, style: style)
@@ -100,27 +146,45 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
         
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
+        tableView.shouldShowPlaceholder = shouldShowPlaceholder
         tableView.addKeyboardNotification() /// 添加新的键盘监听
         tableViewConfiguration?(tableView)
         
         /// 设置适配器
         adapter.tableView = tableView
         setupKeyboardAdjuster()
+        updatePlaceholderView()
+        if bAddRefreshControl {
+            addRefreshControl()
+        }
     }
-
-    /// 外部配置TableView
-    func configure(_ config: (UITableView) -> Void) {
-        config(tableView)
+    
+    func updatePlaceholderView() {
+        tableView.placeholderView = placeholderProvider?.placeholderView()
     }
     
     func reloadData() {
         adapter.reloadData()
+        updatePlaceholderView()
+        endRefreshing()
     }
     
     func reloadData(animateStyle: SlideStyle) {
         setupTableView()
         containerView.setContentView(tableView, animateStyle: animateStyle)
-        adapter.reloadData()
+        reloadData()
+    }
+    
+    /// 执行更新操作
+    func performUpdate(with completion: ((Bool) -> Void)? = nil) {
+        adapter.performUpdate(completion: completion)
+        updatePlaceholderView()
+        endRefreshing()
+    }
+    
+    /// 外部配置TableView
+    func configure(_ config: (UITableView) -> Void) {
+        config(tableView)
     }
     
     func setEditing(_ editing: Bool, animated: Bool) {

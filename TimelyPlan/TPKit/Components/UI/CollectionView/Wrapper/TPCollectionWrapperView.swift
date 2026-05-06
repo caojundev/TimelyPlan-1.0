@@ -175,18 +175,6 @@ class TPCollectionWrapperView: UIView,
     func updatePlaceholderView() {
         collectionView.placeholderView = placeholderProvider?.placeholderView()
     }
-    
-    /// 聚焦显示
-    func revealItem(_ item: ListDiffable, autoScroll: Bool = true) {
-        self.adapter.revealItem(item, autoScroll: autoScroll)
-    }
-    
-    /// 执行更新操作
-    func performUpdate(with completion: ((Bool) -> Void)? = nil) {
-        adapter.performUpdate(with: completion)
-        updatePlaceholderView()
-        endRefreshing()
-    }
 
     // MARK: - 设置布局对象
     func setCollectionViewLayout(_ layout: UICollectionViewLayout) {
@@ -210,6 +198,7 @@ class TPCollectionWrapperView: UIView,
         }
     }
     
+    // MARK: - 更新列表
     func reloadData() {
         adapter.reloadData()
         updatePlaceholderView()
@@ -221,8 +210,20 @@ class TPCollectionWrapperView: UIView,
         reloadData()
     }
     
+    /// 执行更新操作
+    func performUpdate(with completion: ((Bool) -> Void)? = nil) {
+        adapter.performUpdate(with: completion)
+        updatePlaceholderView()
+        endRefreshing()
+    }
+    
     func updateItemSize() {
         collectionView.performBatchUpdates(nil, completion: nil)
+    }
+    
+    /// 聚焦显示
+    func revealItem(_ item: ListDiffable, autoScroll: Bool = true) {
+        self.adapter.revealItem(item, autoScroll: autoScroll)
     }
     
     // MARK: - TPAnimatedContainerViewDelegate
