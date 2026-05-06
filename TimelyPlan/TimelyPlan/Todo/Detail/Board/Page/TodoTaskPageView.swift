@@ -272,6 +272,7 @@ class TodoTaskPageView: UIView,
         adapter.reloadData()
         updateHeaderView()
         updateAddView()
+        setNeedsLayout()
     }
     
     func reloadData(isSelecting: Bool) {
@@ -298,6 +299,7 @@ class TodoTaskPageView: UIView,
         adapter.performUpdate()
         updateHeaderView()
         updateAddView(animated: true)
+        setNeedsLayout()
     }
     
     func didUpdate(with infos: [TodoTaskChangeInfo]) {
@@ -374,6 +376,13 @@ class TodoTaskPageView: UIView,
         
         updateHeaderView()
         updateAddView(animated: true)
+    }
+    
+    /// 聚焦显示任务
+    func revealTask(_ task: TodoTask,
+                    at scrollPosition: UICollectionView.ScrollPosition = .top,
+                    autoScroll: Bool = true) {
+        adapter.revealItem(task, at: scrollPosition, autoScroll: autoScroll)
     }
     
     // MARK: - TPCollectionViewAdapterDataSource

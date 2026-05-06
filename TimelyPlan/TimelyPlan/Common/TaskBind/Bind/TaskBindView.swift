@@ -26,7 +26,7 @@ class TaskBindView: UIView {
         button.titleConfig.font = BOLD_SYSTEM_FONT
         button.imagePosition = .right
         button.imageConfig.margins = UIEdgeInsets(value: 5.0)
-        button.image = resGetImage("bind_16")
+        button.imageConfig.size = .size(4)
         button.addTarget(self,
                          action: #selector(didClickTask(_:)),
                          for: .touchUpInside)
@@ -57,9 +57,10 @@ class TaskBindView: UIView {
     /// 更新任务名称
     private func updateTaskName(animated: Bool) {
         if let taskFeature = taskFeature {
-            let name = taskFeature.snapshotName ?? resGetString("Untitled")
-            taskButton.title = name
+            taskButton.image = taskFeature.typeImage
+            taskButton.title = taskFeature.snapshotName ?? resGetString("Untitled")
         } else {
+            taskButton.image = resGetImage("bind_16")
             taskButton.title = resGetString("Select Task")
         }
         

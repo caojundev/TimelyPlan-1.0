@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol TodoTaskPageCheckCellDelegate: AnyObject {
     
@@ -13,7 +14,7 @@ protocol TodoTaskPageCheckCellDelegate: AnyObject {
     func todoTaskPageCheckCellDidClickCheckbox(_ cell: TodoTaskPageCheckCell)
 }
 
-class TodoTaskPageCheckCell: TodoTaskPageBaseCell {
+class TodoTaskPageCheckCell: TodoTaskPageBaseCell, FocusAnimatable {
 
     /// 复选框
     var checkbox: TodoTaskCheckbox {
@@ -53,5 +54,10 @@ class TodoTaskPageCheckCell: TodoTaskPageBaseCell {
         if let delegate = delegate as? TodoTaskPageCheckCellDelegate {
             delegate.todoTaskPageCheckCellDidClickCheckbox(self)
         }
+    }
+    
+    // MARK: - FocusAnimatable
+    var focusCornerRadius: CGFloat {
+        self.cornerRadius
     }
 }

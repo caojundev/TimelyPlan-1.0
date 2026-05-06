@@ -240,6 +240,7 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         return false
     }
     
+    
     // MARK: - Reload
     func reloadData() {
         adapter.reloadData()
@@ -291,6 +292,25 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     private func updateCheckmarksAndSupplementaryViews() {
         forEachVisiblePageView { pageView in
             pageView.updateCheckmarksAndSupplementaryViews()
+        }
+    }
+    
+    
+    /// 聚焦显示任务
+    func revealTask(_ task: TodoTask) {
+        guard let pageIndexPath = pageIndexPath(of: task) else {
+            return
+        }
+        
+        let indexPath = IndexPath(item: pageIndexPath.page, section: 0)
+        self.adapter.scrollToItem(at: indexPath,
+                                  scrollPosition: .centeredHorizontally,
+                                  animated: true) { [weak self] _ in
+            guard let pageView = self?.pageView(of: pageIndexPath.page) else {
+                return
+            }
+            
+            pageView.revealTask(task)
         }
     }
     
@@ -398,6 +418,7 @@ extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
         } else {
             pageView.reloadData(isSelecting: isSelecting)
         }
+        
     }
 
     // MARK: - TodoTaskPageViewDelegate
@@ -435,6 +456,16 @@ extension TodoTaskBoardView {
     
     var scrollView: UIScrollView {
         return collectionView
+    }
+    
+    /// 获取对应索引处的页面
+    func pageView(of page: Int) -> TodoTaskPageView? {
+        let indexPath = IndexPath(item: page, section: 0)
+        guard let cell = adapter.cellForItem(at: indexPath) as? TodoTaskBoardCell else {
+            return nil
+        }
+        
+        return cell.pageView
     }
     
     func pageView(at point: CGPoint) -> TodoTaskPageView? {

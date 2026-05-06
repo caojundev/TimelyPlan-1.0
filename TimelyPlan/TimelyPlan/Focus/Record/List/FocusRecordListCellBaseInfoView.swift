@@ -54,7 +54,6 @@ class FocusRecordListCellBaseInfoView: UIView {
     /// 任务信息视图
     lazy var taskInfoView: TPImageTitleView = {
         let view = newInfoVIew()
-        view.image = resGetImage("bind_16")
         return view
     }()
     
@@ -133,11 +132,11 @@ class FocusRecordListCellBaseInfoView: UIView {
         
         /// 任务信息
         if let feature = session.taskFeature{
+            taskInfoView.image = feature.typeImage
             taskInfoView.title = feature.snapshotName ?? resGetString("Untitled task")
             taskInfoView.isHidden = false
         } else {
             /// 未绑定任务
-            taskInfoView.title = resGetString("No task linked")
             taskInfoView.isHidden = true
         }
     }

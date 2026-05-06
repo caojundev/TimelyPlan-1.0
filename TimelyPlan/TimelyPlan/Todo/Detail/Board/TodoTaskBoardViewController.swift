@@ -63,6 +63,9 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
         DispatchQueue.main.async {
             self.boardView.groups = self.interactor.groups
             self.boardView.performUpdate()
+            if case let .create(task) = change {
+                self.boardView.revealTask(task)
+            }
         }
     }
     

@@ -520,13 +520,15 @@ extension TPCollectionViewAdapter {
 extension TPCollectionViewAdapter {
     
     /// 聚焦显示
-    func revealItem(_ item: ListDiffable, autoScroll: Bool = true) {
+    func revealItem(_ item: ListDiffable,
+                    at scrollPosition: UICollectionView.ScrollPosition = .centeredVertically,
+                    autoScroll: Bool = true) {
         guard autoScroll else {
             self.commitFocusAnimation(for: item)
             return
         }
         
-        self.scrollToItem(item, at: .centeredVertically, animated: true) {[weak self] _ in
+        self.scrollToItem(item, at: scrollPosition, animated: true) {[weak self] _ in
             self?.commitFocusAnimation(for: item)
         }
     }

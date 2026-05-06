@@ -43,7 +43,7 @@ extension FocusAnimatable {
     }
     
     var focusPadding: UIEdgeInsets {
-        return UIEdgeInsets(value: 0.0)
+        return UIEdgeInsets(value: focusLineWidth / 2.0)
     }
     
     /// 线条颜色

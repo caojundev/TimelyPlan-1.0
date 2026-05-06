@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// 任务类型
 enum TaskType: Int, Codable, TPMenuRepresentable {
@@ -64,6 +65,11 @@ struct TaskFeature: Codable, Hashable, Equatable {
   
     /// 快照名称
     var snapshotName: String?
+    
+    var typeImage: UIImage? {
+        let image = type.iconImage(with: .mini) ?? resGetImage("bind", size: .mini)
+        return image
+    }
     
     /// 提供自定义的哈希值计算
     func hash(into hasher: inout Hasher) {

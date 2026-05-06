@@ -209,6 +209,11 @@ class TodoTaskManager {
         let change: TodoTaskChange = .name(oldValue: task.name, newValue: name)
         updater.didUpdateTodoTask(task, with: change)
         HandyRecord.save()
+        
+        /// 更新对应专注会话的任务快照
+        var feature = task.feature
+        feature.snapshotName = name
+        focus.updateSession(with: feature)
     }
     
     // MARK: - 更新计划
