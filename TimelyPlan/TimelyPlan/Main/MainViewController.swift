@@ -24,6 +24,13 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         return vc
     }()
     
+    /// 四象限
+    lazy var quadrantViewController: UINavigationController = {
+        let vc = QuadrantMainViewController()
+        vc.sidebarController = sidebarController
+        return UINavigationController(rootViewController: vc)
+    }()
+    
     /// 日历
     lazy var calendarViewController: UINavigationController = {
         let vc = CalendarMainViewController()
@@ -96,7 +103,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         case .todo:
             vc = todoViewController
         case .quadrants:
-            vc = UIViewController()
+            vc = quadrantViewController
         case .calendar:
             vc = calendarViewController
         case .focus:

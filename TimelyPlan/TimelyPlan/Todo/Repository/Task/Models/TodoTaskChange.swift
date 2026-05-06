@@ -220,7 +220,6 @@ extension TodoTaskChange {
 }
 
 extension Array where Element == TodoTaskChange {
-    /*
     /// 获取对应的过滤类型集合
     var filterTypes: Set<TodoFilterType> {
         var results = Set<TodoFilterType>()
@@ -232,7 +231,6 @@ extension Array where Element == TodoTaskChange {
         
         return results
     }
-     */
 }
 
 extension Array where Element == TodoTaskChangeInfo {

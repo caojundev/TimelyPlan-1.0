@@ -211,7 +211,7 @@ class TodoHomeViewController: TPTableViewController,
         }
     }
     
-    func handleRefresh() {
+    private func handleRefresh() {
         loadData { [weak self] in
             guard let self = self else { return }
             self.wrapperView.endRefreshing()

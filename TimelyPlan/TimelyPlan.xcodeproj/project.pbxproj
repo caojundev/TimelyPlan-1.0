@@ -377,6 +377,27 @@
 		E534DAC42D58FCE30079AB08 /* TPLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E534DAC32D58FCE30079AB08 /* TPLabel.swift */; };
 		E534DAC62D59E75F0079AB08 /* TPLabelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E534DAC52D59E75F0079AB08 /* TPLabelLayout.swift */; };
 		E534DAC82D59E76E0079AB08 /* TPLabelContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E534DAC72D59E76E0079AB08 /* TPLabelContent.swift */; };
+		E536327F2FAB72C00095DFEC /* QuadrantTaskMoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632692FAB72BF0095DFEC /* QuadrantTaskMoveController.swift */; };
+		E53632802FAB72C00095DFEC /* QuadrantLayoutEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536326B2FAB72BF0095DFEC /* QuadrantLayoutEditView.swift */; };
+		E53632812FAB72C00095DFEC /* QuadrantLayoutEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536326C2FAB72BF0095DFEC /* QuadrantLayoutEditCell.swift */; };
+		E53632822FAB72C00095DFEC /* QuadrantLayoutEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536326D2FAB72BF0095DFEC /* QuadrantLayoutEditViewController.swift */; };
+		E53632832FAB72C00095DFEC /* QuadrantLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536326F2FAB72BF0095DFEC /* QuadrantLayout.swift */; };
+		E53632842FAB72C00095DFEC /* QuadrantSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632702FAB72BF0095DFEC /* QuadrantSetting.swift */; };
+		E53632852FAB72C00095DFEC /* QuadrantCustomRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632722FAB72BF0095DFEC /* QuadrantCustomRuleViewController.swift */; };
+		E53632862FAB72C00095DFEC /* QuadrantFilterRuleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632732FAB72BF0095DFEC /* QuadrantFilterRuleEditViewController.swift */; };
+		E53632872FAB72C00095DFEC /* QuadrantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632752FAB72BF0095DFEC /* QuadrantDetailViewController.swift */; };
+		E53632882FAB72C00095DFEC /* QuadrantMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632762FAB72BF0095DFEC /* QuadrantMainViewController.swift */; };
+		E53632892FAB72C00095DFEC /* QuadrantMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632772FAB72BF0095DFEC /* QuadrantMoreBarButtonItem.swift */; };
+		E536328A2FAB72C00095DFEC /* QuadrantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632792FAB72BF0095DFEC /* QuadrantFetcher.swift */; };
+		E536328B2FAB72C00095DFEC /* QuadrantDragDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536327A2FAB72BF0095DFEC /* QuadrantDragDropController.swift */; };
+		E536328C2FAB72C00095DFEC /* QuadrantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536327B2FAB72BF0095DFEC /* QuadrantView.swift */; };
+		E536328D2FAB72C00095DFEC /* QuadrantMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536327C2FAB72BF0095DFEC /* QuadrantMatrixView.swift */; };
+		E536328E2FAB72C00095DFEC /* QuadrantTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536327D2FAB72BF0095DFEC /* QuadrantTitleView.swift */; };
+		E536328F2FAB72C00095DFEC /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536327E2FAB72BF0095DFEC /* Quadrant.swift */; };
+		E53632912FAB73C50095DFEC /* TodoFilterRule+Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632902FAB73C50095DFEC /* TodoFilterRule+Quadrant.swift */; };
+		E53632932FAB76150095DFEC /* TodoFilterTaskUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632922FAB76150095DFEC /* TodoFilterTaskUpdater.swift */; };
+		E53632982FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632962FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift */; };
+		E53632992FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632972FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift */; };
 		E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F02D9C1A7F00C5A001 /* TPSlider.swift */; };
 		E53735F42D9C1C0E00C5A001 /* TPSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
@@ -2164,6 +2185,27 @@
 		E534DAC32D58FCE30079AB08 /* TPLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLabel.swift; sourceTree = "<group>"; };
 		E534DAC52D59E75F0079AB08 /* TPLabelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLabelLayout.swift; sourceTree = "<group>"; };
 		E534DAC72D59E76E0079AB08 /* TPLabelContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLabelContent.swift; sourceTree = "<group>"; };
+		E53632692FAB72BF0095DFEC /* QuadrantTaskMoveController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantTaskMoveController.swift; sourceTree = "<group>"; };
+		E536326B2FAB72BF0095DFEC /* QuadrantLayoutEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantLayoutEditView.swift; sourceTree = "<group>"; };
+		E536326C2FAB72BF0095DFEC /* QuadrantLayoutEditCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantLayoutEditCell.swift; sourceTree = "<group>"; };
+		E536326D2FAB72BF0095DFEC /* QuadrantLayoutEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantLayoutEditViewController.swift; sourceTree = "<group>"; };
+		E536326F2FAB72BF0095DFEC /* QuadrantLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantLayout.swift; sourceTree = "<group>"; };
+		E53632702FAB72BF0095DFEC /* QuadrantSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantSetting.swift; sourceTree = "<group>"; };
+		E53632722FAB72BF0095DFEC /* QuadrantCustomRuleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantCustomRuleViewController.swift; sourceTree = "<group>"; };
+		E53632732FAB72BF0095DFEC /* QuadrantFilterRuleEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantFilterRuleEditViewController.swift; sourceTree = "<group>"; };
+		E53632752FAB72BF0095DFEC /* QuadrantDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantDetailViewController.swift; sourceTree = "<group>"; };
+		E53632762FAB72BF0095DFEC /* QuadrantMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantMainViewController.swift; sourceTree = "<group>"; };
+		E53632772FAB72BF0095DFEC /* QuadrantMoreBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantMoreBarButtonItem.swift; sourceTree = "<group>"; };
+		E53632792FAB72BF0095DFEC /* QuadrantFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantFetcher.swift; sourceTree = "<group>"; };
+		E536327A2FAB72BF0095DFEC /* QuadrantDragDropController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantDragDropController.swift; sourceTree = "<group>"; };
+		E536327B2FAB72BF0095DFEC /* QuadrantView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantView.swift; sourceTree = "<group>"; };
+		E536327C2FAB72BF0095DFEC /* QuadrantMatrixView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantMatrixView.swift; sourceTree = "<group>"; };
+		E536327D2FAB72BF0095DFEC /* QuadrantTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantTitleView.swift; sourceTree = "<group>"; };
+		E536327E2FAB72BF0095DFEC /* Quadrant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
+		E53632902FAB73C50095DFEC /* TodoFilterRule+Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoFilterRule+Quadrant.swift"; sourceTree = "<group>"; };
+		E53632922FAB76150095DFEC /* TodoFilterTaskUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterTaskUpdater.swift; sourceTree = "<group>"; };
+		E53632962FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterTaskChangeSectionController.swift; sourceTree = "<group>"; };
+		E53632972FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterTaskChangeViewController.swift; sourceTree = "<group>"; };
 		E53735F02D9C1A7F00C5A001 /* TPSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSlider.swift; sourceTree = "<group>"; };
 		E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSliderViewController.swift; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
@@ -4780,6 +4822,98 @@
 			path = status;
 			sourceTree = "<group>";
 		};
+		E53632672FAB72BF0095DFEC /* Quadrant */ = {
+			isa = PBXGroup;
+			children = (
+				E53632762FAB72BF0095DFEC /* QuadrantMainViewController.swift */,
+				E53632772FAB72BF0095DFEC /* QuadrantMoreBarButtonItem.swift */,
+				E53632942FAB76220095DFEC /* Filter */,
+				E536326E2FAB72BF0095DFEC /* Models */,
+				E536326A2FAB72BF0095DFEC /* Layout */,
+				E53632682FAB72BF0095DFEC /* Move */,
+				E53632712FAB72BF0095DFEC /* Rule */,
+				E53632742FAB72BF0095DFEC /* Detail */,
+				E53632782FAB72BF0095DFEC /* Matrix */,
+			);
+			path = Quadrant;
+			sourceTree = "<group>";
+		};
+		E53632682FAB72BF0095DFEC /* Move */ = {
+			isa = PBXGroup;
+			children = (
+				E53632692FAB72BF0095DFEC /* QuadrantTaskMoveController.swift */,
+			);
+			path = Move;
+			sourceTree = "<group>";
+		};
+		E536326A2FAB72BF0095DFEC /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				E536326B2FAB72BF0095DFEC /* QuadrantLayoutEditView.swift */,
+				E536326C2FAB72BF0095DFEC /* QuadrantLayoutEditCell.swift */,
+				E536326D2FAB72BF0095DFEC /* QuadrantLayoutEditViewController.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		E536326E2FAB72BF0095DFEC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E536327E2FAB72BF0095DFEC /* Quadrant.swift */,
+				E536326F2FAB72BF0095DFEC /* QuadrantLayout.swift */,
+				E53632702FAB72BF0095DFEC /* QuadrantSetting.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E53632712FAB72BF0095DFEC /* Rule */ = {
+			isa = PBXGroup;
+			children = (
+				E53632722FAB72BF0095DFEC /* QuadrantCustomRuleViewController.swift */,
+				E53632732FAB72BF0095DFEC /* QuadrantFilterRuleEditViewController.swift */,
+			);
+			path = Rule;
+			sourceTree = "<group>";
+		};
+		E53632742FAB72BF0095DFEC /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E53632752FAB72BF0095DFEC /* QuadrantDetailViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		E53632782FAB72BF0095DFEC /* Matrix */ = {
+			isa = PBXGroup;
+			children = (
+				E53632792FAB72BF0095DFEC /* QuadrantFetcher.swift */,
+				E536327A2FAB72BF0095DFEC /* QuadrantDragDropController.swift */,
+				E536327B2FAB72BF0095DFEC /* QuadrantView.swift */,
+				E536327C2FAB72BF0095DFEC /* QuadrantMatrixView.swift */,
+				E536327D2FAB72BF0095DFEC /* QuadrantTitleView.swift */,
+			);
+			path = Matrix;
+			sourceTree = "<group>";
+		};
+		E53632942FAB76220095DFEC /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				E53632922FAB76150095DFEC /* TodoFilterTaskUpdater.swift */,
+				E53632902FAB73C50095DFEC /* TodoFilterRule+Quadrant.swift */,
+				E53632952FAB765F0095DFEC /* Change */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		E53632952FAB765F0095DFEC /* Change */ = {
+			isa = PBXGroup;
+			children = (
+				E53632962FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift */,
+				E53632972FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift */,
+			);
+			path = Change;
+			sourceTree = "<group>";
+		};
 		E53735F22D9C1AA000C5A001 /* Slider */ = {
 			isa = PBXGroup;
 			children = (
@@ -5376,6 +5510,7 @@
 				E5BB9F272D3BF4330089667A /* Common */,
 				E5BB9F3F2D3BF45F0089667A /* Main */,
 				E50DD7D02D72EF8F00A85E87 /* Todo */,
+				E53632672FAB72BF0095DFEC /* Quadrant */,
 				E51A43802DB73A0400DC84C9 /* Calendar */,
 				E5D7D7B42D43922900EC877A /* Focus */,
 				E59243C62F4FFC6400CA2393 /* Habit */,
@@ -10215,6 +10350,7 @@
 				E5EAD1E62D5C477B00894A92 /* TPAccessoryTitleView.swift in Sources */,
 				E5D7D8ED2D43933600EC877A /* FocusRecordEditScoreSectionController.swift in Sources */,
 				E5BB9DFD2D3BF0C60089667A /* Array+Elements.swift in Sources */,
+				E536328B2FAB72C00095DFEC /* QuadrantDragDropController.swift in Sources */,
 				E56342152F94C2E300E120BF /* TodoDateFilterValue.swift in Sources */,
 				E57CC5AF2F7F61E400ADDBA4 /* TodoUserListInteractor.swift in Sources */,
 				E53B113E2F94D1B300701410 /* TodoFilterDateRangeTypeEditSectionController.swift in Sources */,
@@ -10239,6 +10375,7 @@
 				E5BB9E052D3BF0C70089667A /* String+Size.swift in Sources */,
 				E52F899A2D5B0903001F18FA /* TPImageContent.swift in Sources */,
 				E5BB9D9F2D3BF0C60089667A /* TPToolbar.swift in Sources */,
+				E53632832FAB72C00095DFEC /* QuadrantLayout.swift in Sources */,
 				E53E96AB2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift in Sources */,
 				E57CC5AC2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift in Sources */,
 				E5B33D652F80E66E00939C3E /* TaskScheduleEditInfoView.swift in Sources */,
@@ -10377,6 +10514,7 @@
 				E5BB9E8D2D3BF0C80089667A /* ChartGuideline.swift in Sources */,
 				E5FC6BAE2F65518000D5A5EA /* HabitStatsWeeklyViewController.swift in Sources */,
 				E5BB9DDD2D3BF0C60089667A /* UIView+Conversion.swift in Sources */,
+				E53632992FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift in Sources */,
 				E5D7D9232D43933700EC877A /* FocusTimerStartCell.swift in Sources */,
 				E53F329B2F68EB5600B85B65 /* HabitReportWeeklyCell.swift in Sources */,
 				E51DF20B2F84965100D6BCE3 /* TodoTrashTaskListViewController.swift in Sources */,
@@ -10444,6 +10582,7 @@
 				E5B98CDA2D55009800E78261 /* TPIconInfoTextValueView.swift in Sources */,
 				E51A4C2D2DC26787005A0E3F /* CalendarWeekViewController.swift in Sources */,
 				E529ACC52F7E0100000EA2F1 /* TodoSmartListCell.swift in Sources */,
+				E53632802FAB72C00095DFEC /* QuadrantLayoutEditView.swift in Sources */,
 				E5BB9E632D3BF0C70089667A /* TPCollectionCell.swift in Sources */,
 				E5BB9B372D3BEF920089667A /* IGListMoveIndex.m in Sources */,
 				E53F32982F68E88000B85B65 /* HabitReportYearlySectionController.swift in Sources */,
@@ -10506,6 +10645,7 @@
 				E5BB9E5E2D3BF0C70089667A /* TFCalendarScrollableMonthView.swift in Sources */,
 				E5FC6BAA2F64F19500D5A5EA /* HabitLogTaskInfoTableCell.swift in Sources */,
 				E50D60362F7A12B500D5E0A4 /* RepeatFrequencySectionController.swift in Sources */,
+				E53632932FAB76150095DFEC /* TodoFilterTaskUpdater.swift in Sources */,
 				E5BB9DC62D3BF0C60089667A /* DateRange.swift in Sources */,
 				E5BB9B4C2D3BEF920089667A /* NSTextFieldExtension.swift in Sources */,
 				E5D7D9392D43933700EC877A /* FocusStopwatchConfigSectionController.swift in Sources */,
@@ -10533,6 +10673,7 @@
 				E529ACD02F7E11E4000EA2F1 /* TodoTagMenuActionController.swift in Sources */,
 				E5BB9E6A2D3BF0C70089667A /* TPGridsCollectionViewFlowLayout.swift in Sources */,
 				E529ACFA2F7E8CDF000EA2F1 /* TodoDetailCoordinator.swift in Sources */,
+				E53632812FAB72C00095DFEC /* QuadrantLayoutEditCell.swift in Sources */,
 				E5D7D9202D43933700EC877A /* StatsSummarySectionController.swift in Sources */,
 				E5FC6BC52F66A44D00D5A5EA /* HabitStatsCalendarMonthCell.swift in Sources */,
 				E5D7D93F2D43933700EC877A /* FocusSteppedConfigSectionController.swift in Sources */,
@@ -10575,6 +10716,7 @@
 				E5F155232F83681E00116091 /* TodoTaskSelectInfoView.swift in Sources */,
 				E5BB9E0A2D3BF0C70089667A /* String+Emoji.swift in Sources */,
 				E55549562F76401100C9460D /* HabitTaskBindViewController.swift in Sources */,
+				E536328F2FAB72C00095DFEC /* Quadrant.swift in Sources */,
 				E5BB9E102D3BF0C70089667A /* TPNotificationAllowAccessViewController.swift in Sources */,
 				E563420E2F94C2A600E120BF /* TodoEditingFilter.swift in Sources */,
 				E50D60382F7A12B500D5E0A4 /* RepeatWeekdayOfMonthTableViewCell.swift in Sources */,
@@ -10713,6 +10855,7 @@
 				E5BB9E4C2D3BF0C70089667A /* Date+Holiday.swift in Sources */,
 				E5BB9E8B2D3BF0C80089667A /* ChartItem.swift in Sources */,
 				E5BB9DBB2D3BF0C60089667A /* ThemeKey.swift in Sources */,
+				E53632872FAB72C00095DFEC /* QuadrantDetailViewController.swift in Sources */,
 				E5BB9EEB2D3BF0C80089667A /* TPAlertController.swift in Sources */,
 				E5D7D9432D43933700EC877A /* FocusHomeUserTimerViewController.swift in Sources */,
 				E51B29052FA77A07006B3352 /* TodoTaskPageBaseCell.swift in Sources */,
@@ -10787,6 +10930,7 @@
 				E53B11392F94D1B300701410 /* TodoFilterProgressEditViewController.swift in Sources */,
 				E58F46C72F7B9DCC0046FA96 /* TodoUpdaterOption.swift in Sources */,
 				E55549612F76899B00C9460D /* SearchHighlightable.swift in Sources */,
+				E53632912FAB73C50095DFEC /* TodoFilterRule+Quadrant.swift in Sources */,
 				E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */,
 				E5D7D7D92D43923800EC877A /* Focus+Statistics.swift in Sources */,
 				E50D60622F7A186F00D5E0A4 /* TodoListEditViewController.swift in Sources */,
@@ -10813,6 +10957,7 @@
 				E5BB9E0E2D3BF0C70089667A /* CALayer+Extensions.swift in Sources */,
 				E5BB9B422D3BEF920089667A /* CGPointExtension.swift in Sources */,
 				E50FF8AC2F78CFDF00B8F5BE /* TPGroupCollectionView.swift in Sources */,
+				E53632862FAB72C00095DFEC /* QuadrantFilterRuleEditViewController.swift in Sources */,
 				E53DCEED2F61AD7600ADA526 /* HabitDaySheetMenuViewController.swift in Sources */,
 				E5BB9EC22D3BF0C80089667A /* TPDurationPickerView.swift in Sources */,
 				E51B28ED2FA7782B006B3352 /* TodoTaskBoardViewController.swift in Sources */,
@@ -10830,6 +10975,7 @@
 				E5BB9B462D3BEF920089667A /* UILabelLayoutManagerDelegate.swift in Sources */,
 				E549B19B2F89F6A70014BE85 /* TodoStepEditController.swift in Sources */,
 				E51B29062FA77A08006B3352 /* TodoTaskPageAddView.swift in Sources */,
+				E53632822FAB72C00095DFEC /* QuadrantLayoutEditViewController.swift in Sources */,
 				E5B33D732F81148500939C3E /* TodoQuickAddProgressValueCell.swift in Sources */,
 				E50D60282F7A12B400D5E0A4 /* RepeatEditViewController.swift in Sources */,
 				E5BB9DAA2D3BF0C60089667A /* FlipClockCardView.swift in Sources */,
@@ -10865,6 +11011,7 @@
 				E5BB9E7D2D3BF0C70089667A /* StatsBarChartCell.swift in Sources */,
 				E54155652F49A415000B2972 /* FocusRecordListBasicCellLayout.swift in Sources */,
 				E5B6B2812D6C9AB700DBBCB0 /* TPAutoScroller.swift in Sources */,
+				E536328D2FAB72C00095DFEC /* QuadrantMatrixView.swift in Sources */,
 				E5BB9E562D3BF0C70089667A /* TPPreviousNextWeekView.swift in Sources */,
 				E50D02662F568F7600E93977 /* ASAttributedString+Habit.swift in Sources */,
 				E5D7D8D62D43933600EC877A /* FocusFlipClockActionView.swift in Sources */,
@@ -10903,6 +11050,7 @@
 				E583896B2F7749DF003C30A4 /* AppSetting.swift in Sources */,
 				E58C9E142F4AF0DC0096B842 /* FocusTimelineDayPageView.swift in Sources */,
 				E526D3FB2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift in Sources */,
+				E53632892FAB72C00095DFEC /* QuadrantMoreBarButtonItem.swift in Sources */,
 				E59244202F51CB7500CA2393 /* HabitTimePlanScheduler.swift in Sources */,
 				E500276B2F985C9600EF052D /* TPDateRangeSegmentedView.swift in Sources */,
 				E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */,
@@ -10916,6 +11064,7 @@
 				E5BB9F252D3BF2C20089667A /* AppDelegate.swift in Sources */,
 				E5BB9F3B2D3BF4330089667A /* TaskFeature.swift in Sources */,
 				E5BB9DF92D3BF0C60089667A /* NSString+Diffable.swift in Sources */,
+				E536328C2FAB72C00095DFEC /* QuadrantView.swift in Sources */,
 				E5F1552B2F8368FB00116091 /* TodoTask.swift in Sources */,
 				E5B33D752F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift in Sources */,
 				E53480132F605B6300CFBF26 /* HabitTaskFilterButton.swift in Sources */,
@@ -10952,6 +11101,7 @@
 				E50D02452F552FAF00E93977 /* HabitTimeSelectView.swift in Sources */,
 				E549B19D2F89F7C20014BE85 /* TodoStep.swift in Sources */,
 				E5BB9DC82D3BF0C60089667A /* FocusAnimatable.swift in Sources */,
+				E53632882FAB72C00095DFEC /* QuadrantMainViewController.swift in Sources */,
 				E56B949B2F8DD61A001E488B /* TodoSmartTaskListViewController.swift in Sources */,
 				E521E35B2F6AB2800071DA12 /* HabitReportWeekRender.swift in Sources */,
 				E5BB9EF42D3BF0C80089667A /* TPViewController.swift in Sources */,
@@ -11005,6 +11155,7 @@
 				E5BB9E9B2D3BF0C80089667A /* ChartAxisLabelMark+Extensions.swift in Sources */,
 				E5BB9DCE2D3BF0C60089667A /* TPImpactFeedback.swift in Sources */,
 				E5BB9D982D3BF0C60089667A /* TPRelativeTimePresetTableCell.swift in Sources */,
+				E536328A2FAB72C00095DFEC /* QuadrantFetcher.swift in Sources */,
 				E534DAC62D59E75F0079AB08 /* TPLabelLayout.swift in Sources */,
 				E5BB9B512D3BEF920089667A /* ParagraphStyle.swift in Sources */,
 				E5D7D8C52D43933600EC877A /* FocusTimerInfo.swift in Sources */,
@@ -11025,6 +11176,7 @@
 				E5B33D712F80F3B700939C3E /* TodoProgressBarView.swift in Sources */,
 				E5BB9EFF2D3BF0C80089667A /* TPPopoverPresentAnimator.swift in Sources */,
 				E59244122F519F5200CA2393 /* TPIconCharacterEditViewController.swift in Sources */,
+				E53632982FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift in Sources */,
 				E55D77182D4E76C80092F8C1 /* TPTextViewTableCell.swift in Sources */,
 				E5BB9E972D3BF0C80089667A /* PieChartView.swift in Sources */,
 				E5D7D9312D43933700EC877A /* FocusTimerPickerViewController.swift in Sources */,
@@ -11107,6 +11259,7 @@
 				E5F155262F83681E00116091 /* TodoGroupOverdueHeaderView.swift in Sources */,
 				E50D608A2F7A5A3900D5E0A4 /* TodoUserListViewModel.swift in Sources */,
 				E58C9E1A2F4AF0DC0096B842 /* FocusTimelineEvent.swift in Sources */,
+				E53632852FAB72C00095DFEC /* QuadrantCustomRuleViewController.swift in Sources */,
 				E5BB9B4D2D3BEF920089667A /* WKInterfaceTextFieldExtension.swift in Sources */,
 				E5BB9EEE2D3BF0C80089667A /* TPMultiColumnProtocol.swift in Sources */,
 				E5BB9E652D3BF0C70089667A /* TPCollectionViewAdapterDelegate.swift in Sources */,
@@ -11114,6 +11267,7 @@
 				E5BB9DB22D3BF0C60089667A /* TPStackView.swift in Sources */,
 				E56341FA2F947C2F00E120BF /* TodoFilterSectionController.swift in Sources */,
 				E5BB9DDB2D3BF0C60089667A /* UIView+Extensions.swift in Sources */,
+				E53632842FAB72C00095DFEC /* QuadrantSetting.swift in Sources */,
 				E5BB9EF52D3BF0C80089667A /* TPContainerViewController.swift in Sources */,
 				E5BB9DCA2D3BF0C60089667A /* AttributedDescriptable.swift in Sources */,
 				E5BB9DB32D3BF0C60089667A /* TPValueValidator.swift in Sources */,
@@ -11160,6 +11314,7 @@
 				E50D602F2F7A12B400D5E0A4 /* RepeatDayOfWeek+Extensions.swift in Sources */,
 				E505D9392F9A1DC8004469DC /* TodoHomeSectionType.swift in Sources */,
 				E5BB9DA52D3BF0C60089667A /* TPBaseButton.swift in Sources */,
+				E536327F2FAB72C00095DFEC /* QuadrantTaskMoveController.swift in Sources */,
 				E5BB9B432D3BEF920089667A /* CGRectExtension.swift in Sources */,
 				E5BB9DFC2D3BF0C60089667A /* Array+Extensions.swift in Sources */,
 				E5BB9DA12D3BF0C60089667A /* TPDefaultButton.swift in Sources */,
@@ -11336,6 +11491,7 @@
 				E57C05E82DD4A207009E22F0 /* CalendarWeekConstant.swift in Sources */,
 				E53B115F2F94F66300701410 /* TodoFilterProcessorUpdater.swift in Sources */,
 				E5BB9B322D3BEF920089667A /* SAConfettiView.swift in Sources */,
+				E536328E2FAB72C00095DFEC /* QuadrantTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,7 +28,7 @@ class SideMenuViewController: TPTableViewController,
     
     /// 任务模块
     lazy var taskMenuItem: TPMenuItem = {
-        let types: [SideMenuType] = [.todo]
+        let types: [SideMenuType] = [.todo, .quadrants]
         let menuItem = TPMenuItem.item(with: types)
         return menuItem
     }()
