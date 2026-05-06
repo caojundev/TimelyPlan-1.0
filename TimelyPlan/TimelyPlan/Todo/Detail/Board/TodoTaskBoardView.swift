@@ -53,7 +53,10 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     
     /// 显示详情
     private(set) var showDetail: Bool
-
+    
+    /// 内容间距
+    private(set) var contentInset: UIEdgeInsets?
+    
     /// 任务选择器
     private var selection = TPMultipleItemSelection<TodoTask>()
 
@@ -132,6 +135,17 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         forEachVisiblePageView { pageView in
             pageView.showDetail = showDetail
             pageView.reloadData()
+        }
+    }
+    
+    func setContentInset(_ contentInset: UIEdgeInsets) {
+        guard self.contentInset != contentInset else {
+            return
+        }
+        
+        self.contentInset = contentInset
+        forEachVisiblePageView { pageView in
+            pageView.contentInset = contentInset
         }
     }
     
@@ -370,17 +384,18 @@ extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
         }
 
         let pageView = cell.pageView
+        let shouldPerformUpdate = pageView.group?.identifier == group.identifier
         pageView.indexPath = indexPath
         pageView.selection = selection
         pageView.delegate = self
         pageView.detailOption = detailOption
         pageView.showDetail = showDetail
-        if pageView.group?.identifier == group.identifier {
-            pageView.group = group
+        pageView.group = group
+        pageView.contentInset = contentInset
+        if shouldPerformUpdate {
             pageView.performUpdate()
             pageView.setSelecting(isSelecting)
         } else {
-            pageView.group = group
             pageView.reloadData(isSelecting: isSelecting)
         }
     }

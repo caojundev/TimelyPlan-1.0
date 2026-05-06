@@ -49,16 +49,15 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
         self.interactor.loadGroups()
     }
     
-    func setupBoardReorder() {
-        let reorder = TodoTaskBoardDragInsertReorder(boardView: boardView)
-        reorder.delegate = self
-        self.reorder = reorder
-    }
-
     override func updateListViewFrame() {
         self.boardView.frame = self.listViewFrame()
     }
-
+    
+    override func updateContentInset(with bottom: CGFloat) {
+        let contentInset = UIEdgeInsets(bottom: bottom)
+        boardView.setContentInset(contentInset)
+    }
+    
     // MARK: - 分组改变
     private func groupsChanged(_ change: TodoTaskListChange? = nil) {
         DispatchQueue.main.async {
@@ -66,6 +65,14 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
             self.boardView.performUpdate()
         }
     }
+    
+    // MARK: - 拖动排序
+    func setupBoardReorder() {
+        let reorder = TodoTaskBoardDragInsertReorder(boardView: boardView)
+        reorder.delegate = self
+        self.reorder = reorder
+    }
+
 
     // MARK: - Override Base Methods
     override func toggleShowDetail() {

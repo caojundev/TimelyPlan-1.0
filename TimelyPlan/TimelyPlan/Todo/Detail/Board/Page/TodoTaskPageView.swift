@@ -173,7 +173,6 @@ class TodoTaskPageView: UIView,
                                       y: collectionTop,
                                       width: bounds.width,
                                       height: bounds.height - collectionTop)
-        collectionView.contentInset = UIEdgeInsets(bottom: addViewHeight)
         collectionView.layoutIfNeeded()
         updateContentInset()
         updateAddView()
@@ -195,14 +194,16 @@ class TodoTaskPageView: UIView,
             setNeedsLayout()
         }
    }
+
+    var contentInset: UIEdgeInsets? {
+        didSet {
+            updateContentInset()
+        }
+    }
     
     private func updateContentInset() {
-        var insetBottom = addViewHeight
-        if isSelecting || !shouldShowAdd {
-            insetBottom = 0.0
-        }
-        
-        collectionView.contentInset = UIEdgeInsets(bottom: insetBottom)
+        let contentInset = self.contentInset ?? .zero
+        collectionView.contentInset = contentInset
     }
     
     /// 更新头视图分割线
