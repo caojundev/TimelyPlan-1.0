@@ -9,31 +9,27 @@ import Foundation
 import UIKit
 
 protocol QuadrantViewDelegate: AnyObject {
-    
-    /// 获取象限视图对应的数据获取器
-    func fetcherForQuadrantView(_ view: QuadrantView) -> QuadrantFetcher?
+
+    /// 点击添加按钮
+    func quadrantViewDidClickAdd(_ view: QuadrantView)
+
+    /// 点击标题视图
+    func quadrantViewDidTapTitleView(_ view: QuadrantView)
     
     func quadrantView(_ view: QuadrantView, didSelectTask task: TodoTask)
     
     func quadrantView(_ view: QuadrantView, didClickCheckboxForTask task: TodoTask)
+
+    func quadrantView(_ view: QuadrantView, leadingSwipeActionsConfigurationForTask task: TodoTask, at indexPath: IndexPath) -> UISwipeActionsConfiguration?
     
-    func quadrantView(_ view: QuadrantView, leadingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration?
-    
-    func quadrantView(_ view: QuadrantView, trailingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration?
-    
-    /// 点击添加按钮
-    func quadrantViewDidClickAdd(_ view: QuadrantView)
-    
-    /// 点击标题视图
-    func quadrantViewDidTapTitleView(_ view: QuadrantView)
+    func quadrantView(_ view: QuadrantView, trailingSwipeActionsConfigurationForTask task: TodoTask, at indexPath: IndexPath) -> UISwipeActionsConfiguration?
     
     func quadrantViewWillBeginDragging(_ view: QuadrantView)
     
     func quadrantView(_ view: QuadrantView, willBeginEditingTask task: TodoTask)
 }
 
-class QuadrantView: UIView,
-                    QuadrantTitleViewDelegate {
+class QuadrantView: UIView, QuadrantTitleViewDelegate {
     
     /// 代理对象
     weak var delegate: QuadrantViewDelegate?
@@ -58,75 +54,90 @@ class QuadrantView: UIView,
         }
     }
     
-    /// 显示详情
-    private(set) var showDetail: Bool
-    
     /// 标题视图高度
     private let titleViewHeight = 40.0
     private lazy var titleView: QuadrantTitleView = {
-        let view = QuadrantTitleView(quadrant: quadrant, position: titlePosition)
+        let view = QuadrantTitleView(quadrant: self.interactor.quadrant,
+                                     position: titlePosition)
         view.delegate = self
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapTitleView))
-        gesture.numberOfTapsRequired = 1
-        gesture.numberOfTouchesRequired = 1
-        view.addGestureRecognizer(gesture)
         return view
     }()
     
     /// 列表视图
     private lazy var listView: TodoTaskListView = {
+        let showDetail = self.interactor.showDetail
         let view = TodoTaskListView(frame: .zero, style: .grouped, showDetail: showDetail)
         view.backgroundColor = .secondarySystemGroupedBackground
+        view.placeholderProvider = self.interactor.placeholderProvider
+        view.shouldHideGroupHeader = true
         view.layoutConfig = .small
         view.detailOption = .all
-        view.shouldHideGroupHeader = true
-//        view.delegate = self
         view.scrollsToTop = false
-        
-//        let placeholderView = view.placeholderView
-//        placeholderView.title = resGetString("No Tasks")
-//        placeholderView.titleColor = .systemGray5
-//        placeholderView.titleLabel.font = BOLD_SMALL_SYSTEM_FONT
-//        placeholderView.image = resGetImage(quadrant.placeholderImageName)
-//        placeholderView.imageColor = .systemGray3
+        view.delegate = self
         return view
     }()
-    
-    private let requestManager = TPRequestManager()
     
     private var groups: [TodoGroup]?
     
     /// 当前象限
-    let quadrant: Quadrant
-    
-    convenience init(quadrant: Quadrant, showDetail: Bool = true) {
-        self.init(frame: .zero, quadrant: quadrant, showDetail: showDetail)
+    var quadrant: Quadrant {
+        return interactor.quadrant
     }
     
-    init(frame: CGRect, quadrant: Quadrant, showDetail: Bool = true) {
-        self.quadrant = quadrant
-        self.showDetail = showDetail
-        super.init(frame: frame)
+    let interactor: QuadrantListInteractor
+    
+    init(interactor: QuadrantListInteractor) {
+        self.interactor = interactor
+        super.init(frame: .zero)
         self.clipsToBounds = true
         self.layer.cornerRadius = 8.0
         self.backgroundColor = .secondarySystemGroupedBackground
+        self.titlePosition = interactor.titlePosition
         self.setupSubviews()
-        updateBorderStyle()
+        self.updateBorderStyle()
+        self.interactor.didChangeGroups = { [weak self] change in
+            self?.groupsChanged(change)
+        }
+        
+        self.interactor.didChangeSetting = { [weak self] keyName in
+            self?.settingChanged(keyName)
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     private func setupSubviews() {
         addSubview(titleView)
         addSubview(listView)
     }
     
+    // MARK: - 分组改变
+    private func groupsChanged(_ change: TodoTaskListChange? = nil) {
+        var rowAnimation: UITableView.RowAnimation = .fade
+        if change != nil {
+            rowAnimation = .top
+        }
+        
+        DispatchQueue.main.async {
+            self.listView.groups = self.interactor.groups
+            self.listView.performUpdate(with: rowAnimation)
+        }
+    }
+    
+    private func settingChanged(_ keyName: QuadrantSetting.Key) {
+        if keyName == .showDetail {
+            let showDetail = interactor.showDetail
+            if listView.showDetail != showDetail {
+                listView.setShowDetail(showDetail)
+            }
+        }
+    }
+    
+    // MARK: - Update
     private func updateBorderStyle() {
-        let color = quadrant.color
+        let color = self.interactor.quadrant.color
         if isHighlighted {
             self.layer.borderWidth = 2.0
             self.layer.borderColor = color.cgColor
@@ -151,8 +162,29 @@ class QuadrantView: UIView,
         }
     }
     
+    func loadData() {
+        self.interactor.setNeedsRefresh()
+        self.interactor.loadGroups()
+    }
+    
     override func endEditing(_ force: Bool) -> Bool {
         return listView.endEditing(force)
+    }
+    
+    func setCompleted(_ isCompleted: Bool,
+                      for task: TodoTask,
+                      completion: ((Bool) -> Void)? = nil) {
+        listView.setCompleted(isCompleted, for: task, completion: completion)
+    }
+    
+    func setProgress(_ progress: TodoEditProgress,
+                     for task: TodoTask,
+                     completion: ((Bool) -> Void)? = nil) {
+        listView.setProgress(progress, for: task, completion: completion)
+    }
+    
+    func cellForItem(at indexPath: IndexPath) -> UITableViewCell? {
+        return listView.cellForRow(at: indexPath)
     }
     
     func indexPathForItem(at point: CGPoint) -> IndexPath? {
@@ -160,70 +192,8 @@ class QuadrantView: UIView,
         return listView.indexPathForRow(at: convertedPoint)
     }
     
-    func cellForItem(at indexPath: IndexPath) -> UITableViewCell? {
-        return listView.cellForRow(at: indexPath)
-    }
-    
     func task(at indexPath: IndexPath) -> TodoTask? {
         return listView.task(at: indexPath)
-    }
-    
-    /// 设置是否显示详情
-    func setShowDetail(_ showDetail: Bool) {
-        self.showDetail = showDetail
-        listView.setShowDetail(showDetail)
-    }
-    
-    func didUpdate(with infos: [TodoTaskChangeInfo]) {
-//        listView.didUpdate(with: infos)
-    }
-    
-    func didDeleteTasks(_ tasks: [TodoTask]) {
-        listView.didDeleteTasks(tasks)
-    }
-    
-    func reloadCell(for task: TodoTask) {
-        listView.reloadCell(for: task)
-    }
-    
-    // MARK: - 异步加载
-    /// 异步重新加载数据
-    func asyncReloadData() {
-        asyncLoadGroups { isSuccess in
-            if isSuccess {
-                self.listView.reloadData()
-            }
-        }
-    }
-    
-    /// 异步执行更新
-    func asyncPerformUpdate(completion: ((Bool) -> Void)? = nil) {
-        asyncLoadGroups { [weak self] isSuccess in
-            if isSuccess {
-                self?.listView.performUpdate()
-            }
-            
-            completion?(isSuccess)
-        }
-    }
-    
-    private func asyncLoadGroups(completion: @escaping(Bool) -> Void) {
-        let requestID = requestManager.executeRequest()
-        guard let fetcher = delegate?.fetcherForQuadrantView(self) else {
-            groups = nil
-            completion(true)
-            return
-        }
-        
-        fetcher.fetchGroups { groups in
-            guard self.requestManager.shouldProceed(with: requestID) else {
-                completion(false)
-                return
-            }
-            
-            self.groups = groups
-            completion(true)
-        }
     }
     
     // MARK: - QuadrantTitleViewDelegate
@@ -231,17 +201,14 @@ class QuadrantView: UIView,
         delegate?.quadrantViewDidClickAdd(self)
     }
     
-    // MARK: - Event Response
-    @objc func didTapTitleView() {
+    func quadrantTitleViewDidTap(_ titleView: QuadrantTitleView) {
         TPImpactFeedback.impactWithSoftStyle()
         delegate?.quadrantViewDidTapTitleView(self)
     }
-    
-    // MARK: - TodoTaskListViewDelegate
-    func todoGroupsForTaskListView(_ listView: TodoTaskListView) -> [TodoGroup]? {
-        return groups
-    }
-    
+}
+
+extension QuadrantView: TodoTaskListViewDelegate {
+
     func todoTaskListView(_ listView: TodoTaskListView, didSelectTask task: TodoTask) {
         delegate?.quadrantView(self, didSelectTask: task)
     }
@@ -250,20 +217,12 @@ class QuadrantView: UIView,
         delegate?.quadrantView(self, didClickCheckboxForTask: task)
     }
 
-    func todoTaskListView(_ listView: TodoTaskListView, didChangeCollapsedForGroup group: TodoGroup) {
-        
+    func todoTaskListView(_ listView: TodoTaskListView, leadingSwipeActionsConfigurationForTask task: TodoTask, at indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return delegate?.quadrantView(self, leadingSwipeActionsConfigurationForTask: task, at: indexPath)
     }
     
-    func todoTaskListViewDidChangeSelectedTasks(_ listView: TodoTaskListView) {
-        
-    }
-    
-    func todoTaskListView(_ listView: TodoTaskListView, leadingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration? {
-        return delegate?.quadrantView(self, leadingSwipeActionsConfigurationForTask: task)
-    }
-    
-    func todoTaskListView(_ listView: TodoTaskListView, trailingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration? {
-        return delegate?.quadrantView(self, trailingSwipeActionsConfigurationForTask: task)
+    func todoTaskListView(_ listView: TodoTaskListView, trailingSwipeActionsConfigurationForTask task: TodoTask, at indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return delegate?.quadrantView(self, trailingSwipeActionsConfigurationForTask: task, at: indexPath)
     }
     
     func todoTaskListViewWillBeginDragging(_ listView: TodoTaskListView) {

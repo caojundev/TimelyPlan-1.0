@@ -66,8 +66,10 @@ class QuadrantMoreBarButtonItem: TPBaseMoreBarButtonItem<QuadrantMoreMenuType> {
     private func updateMenuAction(_ action: TPMenuAction, for type: QuadrantMoreMenuType) {
         switch type {
         case .showCompleted:
+            action.handleBeforeDismiss = true
             action.isChecked = QuadrantSetting.shared.showCompleted
         case .showDetail:
+            action.handleBeforeDismiss = true
             action.isChecked = QuadrantSetting.shared.showDetail
         default:
             break

@@ -390,7 +390,17 @@ extension TodoTaskManager {
     }
     
     func fetchTasks(filter: TodoFilter, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
-        CDTodoTask.fetchTasks(filter: filter, showCompleted: showCompleted) { results in
+        guard let filterRule = filter.rule else {
+            completion(nil)
+            return
+        }
+        
+        fetchTasks(filterRule: filterRule, showCompleted: showCompleted, completion: completion)
+    }
+    
+    func fetchTasks(filterRule: TodoFilterRule, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchTasks(filterRule: filterRule,
+                              showCompleted: showCompleted) { results in
             completion(results?.tasks)
         }
     }

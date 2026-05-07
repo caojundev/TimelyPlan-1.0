@@ -72,6 +72,10 @@ enum Quadrant: String, Codable, Equatable, TPMenuRepresentable {
         return iconName
     }
     
+    var placeholderImage: UIImage? {
+        return resGetImage(placeholderImageName)
+    }
+    
     /// 象限对应的默认优先级
     var defaultPriority: TodoTaskPriority {
         let priority: TodoTaskPriority

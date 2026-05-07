@@ -40,7 +40,6 @@ class TPDefaultPlaceholderProvider: TPPlaceholderProviding {
         return view
     }()
 
-    
     func placeholderView() -> UIView? {
         return emptyPlaceholderView
     }
@@ -55,19 +54,25 @@ class TPLoadableListPlaceholderProvider: TPPlaceholderProviding {
     
     var emptyTitle: String?
     
+    var emptyTitleColor: UIColor = .systemGray5
+    
+    var emptyTitleFont: UIFont = BOLD_SYSTEM_FONT
+
     /// 默认占位视图
     func newEmptyPlaceholderView() -> TPDefaultPlaceholderView {
         let view = TPDefaultPlaceholderView()
         view.image = emptyImage
         view.title = emptyTitle
-        view.titleColor = .lightGray
+        view.titleColor = emptyTitleColor
+        view.titleFont = emptyTitleFont
         return view
     }
     
     /// 默认占位视图
     func newLoadingPlaceholderView() -> TPDefaultPlaceholderView {
         let view = TPDefaultPlaceholderView()
-        view.titleColor = .lightGray
+        view.titleColor = emptyTitleColor
+        view.titleFont = emptyTitleFont
         view.title = resGetString("Loading......")
         return view
     }

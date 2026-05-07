@@ -493,7 +493,18 @@ extension CDTodoTask {
     static func fetchTasks(filter: TodoFilter,
                            showCompleted: Bool,
                            completion: @escaping([CDTodoTask]?) -> Void) {
-        guard let predicate = filterActiveTaskPredicate(for: filter, showCompleted: showCompleted) else {
+        guard let filterRule = filter.rule else {
+            completion(nil)
+            return
+        }
+        
+        fetchTasks(filterRule: filterRule, showCompleted: showCompleted, completion: completion)
+    }
+    
+    static func fetchTasks(filterRule: TodoFilterRule,
+                           showCompleted: Bool,
+                           completion: @escaping([CDTodoTask]?) -> Void) {
+        guard let predicate = filterActiveTaskPredicate(for: filterRule, showCompleted: showCompleted) else {
             completion(nil)
             return
         }
@@ -536,7 +547,12 @@ extension CDTodoTask {
     // MARK: - 过滤器
     static func filterActiveTaskPredicate(for filter: TodoFilter,
                                           showCompleted: Bool = true) -> NSPredicate? {
-        guard let rulePredicate = filter.rule?.predicate else {
+        return filterActiveTaskPredicate(for: filter.rule, showCompleted: showCompleted)
+    }
+    
+    static func filterActiveTaskPredicate(for filterRule: TodoFilterRule?,
+                                          showCompleted: Bool = true) -> NSPredicate? {
+        guard let rulePredicate = filterRule?.predicate else {
             return nil
         }
         
@@ -552,7 +568,7 @@ extension CDTodoTask {
         let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [statusPredicate, rulePredicate])
         return predicate
     }
-    
+
     // MARK: - 标签
     /// 标签活动任务
     static func tagActiveTaskPredicate(for tag: TodoTag, showCompleted: Bool = true) -> NSPredicate {

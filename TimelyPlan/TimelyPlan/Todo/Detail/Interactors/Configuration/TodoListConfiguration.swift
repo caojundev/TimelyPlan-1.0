@@ -262,7 +262,7 @@ class TodoFilterListConfiguration: TodoListConfiguration {
         return true
     }
     
-    /// 更新标签
+    /// 更新过滤器
     func updateFilter(_ filter: TodoFilter) {
         guard self.identifier == filter.identifier else {
             return

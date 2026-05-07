@@ -27,6 +27,9 @@ protocol QuadrantTitleViewDelegate: AnyObject {
     
     /// 点击添加按钮
     func quadrantTitleViewDidClickAdd(_ titleView: QuadrantTitleView)
+    
+    /// 点击标题视图
+    func quadrantTitleViewDidTap(_ titleView: QuadrantTitleView)
 }
 
 class QuadrantTitleView: UIView {
@@ -69,6 +72,7 @@ class QuadrantTitleView: UIView {
         self.position = position
         super.init(frame: .zero)
         setupSubviews()
+        setupTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -85,6 +89,13 @@ class QuadrantTitleView: UIView {
         addSubview(infoView)
         addSeparator()
         updateSeparatorPosition()
+    }
+    
+    func setupTapGesture() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        gesture.numberOfTapsRequired = 1
+        gesture.numberOfTouchesRequired = 1
+        addGestureRecognizer(gesture)
     }
     
     override func layoutSubviews() {
@@ -116,4 +127,9 @@ class QuadrantTitleView: UIView {
     func clickMore() {
         delegate?.quadrantTitleViewDidClickAdd(self)
     }
+    
+    @objc func handleTap() {
+        delegate?.quadrantTitleViewDidTap(self)
+    }
+    
 }

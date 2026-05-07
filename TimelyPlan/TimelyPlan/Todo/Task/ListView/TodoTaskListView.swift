@@ -46,6 +46,12 @@ extension TodoTaskListViewDelegate {
     func todoTaskListViewWillBeginDragging(_ listView: TodoTaskListView) {}
     
     func todoTaskListView(_ listView: TodoTaskListView, willBeginEditingTask task: TodoTask) {}
+    
+    func todoTaskListViewHandlePullRefresh(_ listView: TodoTaskListView) {}
+    
+    func todoTaskListViewDidChangeSelectedTasks(_ listView: TodoTaskListView) {}
+    
+    func todoTaskListView(_ listView: TodoTaskListView, rescheduleTasks tasks: [TodoTask]) {}
 }
 
 class TodoTaskListView: UIView,
@@ -548,7 +554,7 @@ class TodoTaskListView: UIView,
     // MARK: - HeaderView
     func adapter(_ adapter: TPTableViewAdapter, heightForHeaderInSection section: Int) -> CGFloat {
         guard !shouldHideGroupHeader, let group = adapter.object(at: section) as? TodoGroup else {
-            return hiddenHeaderHeight
+            return 0.0
         }
         
         return group.isHeaderHidden ? hiddenHeaderHeight : showHeaderHeight

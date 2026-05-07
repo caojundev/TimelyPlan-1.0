@@ -90,5 +90,4 @@ class TodoSingleDateInfoEditor: TodoDateInfoEditable {
     func clearDuration() {
         clearSpecificTime()
     }
-
 }

@@ -128,6 +128,12 @@ extension Todo {
         taskManager.fetchTasks(filter: filter, showCompleted: showCompleted, completion: completion)
     }
     
+    func fetchTasks(filterRule: TodoFilterRule, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchTasks(filterRule: filterRule,
+                               showCompleted: showCompleted,
+                               completion: completion)
+    }
+    
     func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
         taskManager.fetchUncompletedTaskCount(for: item, completion: completion)
     }

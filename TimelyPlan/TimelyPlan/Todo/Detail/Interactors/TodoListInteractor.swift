@@ -34,6 +34,14 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         return self.listOptionState.validatedSort(for: self.configuration)
     }
     
+    var showCompleted: Bool {
+        return self.listOptionState.showCompleted
+    }
+    
+    var showDetail: Bool {
+        return self.listOptionState.showDetail
+    }
+    
     private(set) var tasks: [TodoTask]?
     
     private(set) var listOptionState: TodoListOptionState
@@ -192,14 +200,10 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
 
     // MARK: - 菜单操作
     func toggleShowCompleted() {
-        self.listOptionState.showCompleted = !self.listOptionState.showCompleted
+        self.listOptionState.showCompleted = !showCompleted
         self.listOptionStateDidChange()
         self.setNeedsRefresh()
         self.loadGroups()
-    }
-    
-    var showDetail: Bool {
-        return self.listOptionState.showDetail
     }
     
     func toggleShowDetail() {

@@ -8,19 +8,15 @@
 import Foundation
 import UIKit
 
-protocol QuadrantMatrixViewDelegate: AnyObject {
-    
-    func quadrantMatrixView(_ view: QuadrantMatrixView, fetcherForQuadrant quadrant: Quadrant) -> QuadrantFetcher
-    
-    func quadrantMatrixView(_ view: QuadrantMatrixView, didClickAddForQuadrant quadrant: Quadrant)
-    
-    func quadrantMatrixView(_ view: QuadrantMatrixView, didClickTapTitleForQuadrant quadrant: Quadrant)
-    
-}
-
 class QuadrantMatrixView: UIView {
     
-    weak var delegate: QuadrantMatrixViewDelegate?
+    weak var delegate: QuadrantViewDelegate? {
+        didSet {
+            for quadrantView in quadrantViews {
+                quadrantView.delegate = delegate
+            }
+        }
+    }
     
     /// 象限视图数组
     private var quadrantViews: [QuadrantView] = []
@@ -31,12 +27,19 @@ class QuadrantMatrixView: UIView {
     /// 外边界间距
     private var margins: UIEdgeInsets = UIEdgeInsets(value: 5.0)
     
-    /// 任务管理器
-    private var taskController = TodoTaskController()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupQuadrantViews()
+    init(interactors: [QuadrantListInteractor]) {
+        super.init(frame: .zero)
+        assert(interactors.count == Quadrant.allCases.count)
+        
+        /// 初始化象限视图
+        var views = [QuadrantView]()
+        for interactor in interactors {
+            let view = QuadrantView(interactor: interactor)
+            views.append(view)
+            addSubview(view)
+        }
+        
+        self.quadrantViews = views
     }
     
     required init?(coder: NSCoder) {
@@ -53,22 +56,12 @@ class QuadrantMatrixView: UIView {
         return true
     }
     
-    /// 初始化象限视图
-    private func setupQuadrantViews() {
-        var views = [QuadrantView]()
-        let showDetail = QuadrantSetting.shared.showDetail
-        let layout = QuadrantSetting.shared.layout
-        let quadrants = layout.getQuadrants()
-        let titlePosition = layout.getTitlePosition()
-        for quadrant in quadrants {
-            let view = QuadrantView(quadrant: quadrant, showDetail: showDetail)
-            view.titlePosition = titlePosition
-            view.delegate = self
-            views.append(view)
-            addSubview(view)
+    func endEditingQuadrantViews(except view: QuadrantView? = nil) {
+        for quadrantView in quadrantViews {
+            if quadrantView != view {
+                let _ = quadrantView.endEditing(true)
+            }
         }
-        
-        self.quadrantViews = views
     }
     
     /// 布局象限视图
@@ -86,49 +79,13 @@ class QuadrantMatrixView: UIView {
     }
     
     // MARK: - Public Methods
-    
-    /// 异步执行更新操作
-    func asyncReloadData() {
+    func loadData() {
         for quadrantView in quadrantViews {
-            quadrantView.asyncReloadData()
-        }
-    }
-
-    func asyncPerformUpdate(completion: ((QuadrantView) -> Void)? = nil) {
-        for quadrantView in quadrantViews {
-            quadrantView.asyncPerformUpdate { isSuccess in
-                if isSuccess {
-                    completion?(quadrantView)
-                }
-            }
+            quadrantView.loadData()
         }
     }
     
-    func didUpdate(with infos: [TodoTaskChangeInfo]) {
-        for quadrantView in quadrantViews {
-            quadrantView.didUpdate(with: infos)
-        }
-    }
-    
-    func didDeleteTasks(_ tasks: [TodoTask]) {
-        for quadrantView in quadrantViews {
-            quadrantView.didDeleteTasks(tasks)
-        }
-    }
-    
-    func reloadCell(for task: TodoTask) {
-        for quadrantView in quadrantViews {
-            quadrantView.reloadCell(for: task)
-        }
-    }
-    
-    func updateQuadrantShowDetail() {
-        let showDetail = QuadrantSetting.shared.showDetail
-        for quadrantView in quadrantViews {
-            quadrantView.setShowDetail(showDetail)
-        }
-    }
-    
+    // MARK: - 更新象限布局
     func updateLayout(animated: Bool = true) {
         updateQuadrantTitlePosition()
         updateQuadrantViewOrders(animated: animated)
@@ -159,7 +116,6 @@ class QuadrantMatrixView: UIView {
     }
     
     // MARK: -
-    
     func quadrantView(at point: CGPoint) -> QuadrantView? {
         for quadrantView in quadrantViews {
             if quadrantView.frame.contains(point) {
@@ -205,60 +161,5 @@ class QuadrantMatrixView: UIView {
         }
         
         return quadrantView.task(at: indexPath.indexPath)
-    }
-}
-
-extension QuadrantMatrixView: QuadrantViewDelegate {
-    
-    // MARK: - QuadrantViewDelegate
-
-    func fetcherForQuadrantView(_ view: QuadrantView) -> QuadrantFetcher? {
-        return delegate?.quadrantMatrixView(self, fetcherForQuadrant: view.quadrant)
-    }
-
-    func quadrantView(_ view: QuadrantView, didSelectTask task: TodoTask) {
-//        taskController.editTask(task)
-    }
-    
-    func quadrantView(_ view: QuadrantView, didClickCheckboxForTask task: TodoTask) {
-//        taskController.clickCheckbox(for: task)
-    }
-    
-    func quadrantView(_ view: QuadrantView, leadingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration? {
-        return nil
-    }
-    
-    func quadrantView(_ view: QuadrantView, trailingSwipeActionsConfigurationForTask task: TodoTask) -> UISwipeActionsConfiguration? {
-        let trashAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in
-//            self.taskController.moveToTrash(with: task)
-            completion(true)
-        }
-        
-        trashAction.image = resGetImage("todo_task_action_trash_24")?.withTintColor(.white)
-        return UISwipeActionsConfiguration(actions: [trashAction])
-    }
-  
-    func quadrantViewDidClickAdd(_ view: QuadrantView) {
-        delegate?.quadrantMatrixView(self, didClickAddForQuadrant: view.quadrant)
-    }
-    
-    func quadrantViewDidTapTitleView(_ view: QuadrantView) {
-        delegate?.quadrantMatrixView(self, didClickTapTitleForQuadrant: view.quadrant)
-    }
-    
-    func quadrantViewWillBeginDragging(_ view: QuadrantView) {
-        endEditingQuadrantViews()
-    }
-    
-    func quadrantView(_ view: QuadrantView, willBeginEditingTask task: TodoTask) {
-        endEditingQuadrantViews(except: view)
-    }
-    
-    private func endEditingQuadrantViews(except view: QuadrantView? = nil) {
-        for quadrantView in quadrantViews {
-            if quadrantView != view {
-                let _ = quadrantView.endEditing(true)
-            }
-        }
     }
 }

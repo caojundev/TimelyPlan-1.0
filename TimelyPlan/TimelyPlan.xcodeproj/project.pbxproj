@@ -388,7 +388,6 @@
 		E53632872FAB72C00095DFEC /* QuadrantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632752FAB72BF0095DFEC /* QuadrantDetailViewController.swift */; };
 		E53632882FAB72C00095DFEC /* QuadrantMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632762FAB72BF0095DFEC /* QuadrantMainViewController.swift */; };
 		E53632892FAB72C00095DFEC /* QuadrantMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632772FAB72BF0095DFEC /* QuadrantMoreBarButtonItem.swift */; };
-		E536328A2FAB72C00095DFEC /* QuadrantFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632792FAB72BF0095DFEC /* QuadrantFetcher.swift */; };
 		E536328B2FAB72C00095DFEC /* QuadrantDragDropController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536327A2FAB72BF0095DFEC /* QuadrantDragDropController.swift */; };
 		E536328C2FAB72C00095DFEC /* QuadrantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536327B2FAB72BF0095DFEC /* QuadrantView.swift */; };
 		E536328D2FAB72C00095DFEC /* QuadrantMatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536327C2FAB72BF0095DFEC /* QuadrantMatrixView.swift */; };
@@ -399,6 +398,8 @@
 		E53632982FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632962FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift */; };
 		E53632992FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632972FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift */; };
 		E536329E2FAB84150095DFEC /* TodoDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536329D2FAB84150095DFEC /* TodoDateInfoEditor.swift */; };
+		E53632A12FAC25090095DFEC /* QuadrantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A02FAC25090095DFEC /* QuadrantListInteractor.swift */; };
+		E53632A32FAC26E20095DFEC /* QuadrantListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A22FAC26E20095DFEC /* QuadrantListConfiguration.swift */; };
 		E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F02D9C1A7F00C5A001 /* TPSlider.swift */; };
 		E53735F42D9C1C0E00C5A001 /* TPSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
@@ -2197,7 +2198,6 @@
 		E53632752FAB72BF0095DFEC /* QuadrantDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantDetailViewController.swift; sourceTree = "<group>"; };
 		E53632762FAB72BF0095DFEC /* QuadrantMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantMainViewController.swift; sourceTree = "<group>"; };
 		E53632772FAB72BF0095DFEC /* QuadrantMoreBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantMoreBarButtonItem.swift; sourceTree = "<group>"; };
-		E53632792FAB72BF0095DFEC /* QuadrantFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantFetcher.swift; sourceTree = "<group>"; };
 		E536327A2FAB72BF0095DFEC /* QuadrantDragDropController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantDragDropController.swift; sourceTree = "<group>"; };
 		E536327B2FAB72BF0095DFEC /* QuadrantView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantView.swift; sourceTree = "<group>"; };
 		E536327C2FAB72BF0095DFEC /* QuadrantMatrixView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadrantMatrixView.swift; sourceTree = "<group>"; };
@@ -2208,6 +2208,8 @@
 		E53632962FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterTaskChangeSectionController.swift; sourceTree = "<group>"; };
 		E53632972FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterTaskChangeViewController.swift; sourceTree = "<group>"; };
 		E536329D2FAB84150095DFEC /* TodoDateInfoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDateInfoEditor.swift; sourceTree = "<group>"; };
+		E53632A02FAC25090095DFEC /* QuadrantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantListInteractor.swift; sourceTree = "<group>"; };
+		E53632A22FAC26E20095DFEC /* QuadrantListConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantListConfiguration.swift; sourceTree = "<group>"; };
 		E53735F02D9C1A7F00C5A001 /* TPSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSlider.swift; sourceTree = "<group>"; };
 		E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSliderViewController.swift; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
@@ -4828,31 +4830,33 @@
 			children = (
 				E53632762FAB72BF0095DFEC /* QuadrantMainViewController.swift */,
 				E53632772FAB72BF0095DFEC /* QuadrantMoreBarButtonItem.swift */,
-				E53632942FAB76220095DFEC /* Filter */,
 				E536326E2FAB72BF0095DFEC /* Models */,
+				E536329F2FAC242A0095DFEC /* ViewModels */,
+				E53632682FAB72BF0095DFEC /* Controllers */,
+				E53632942FAB76220095DFEC /* Filter */,
 				E536326A2FAB72BF0095DFEC /* Layout */,
-				E53632682FAB72BF0095DFEC /* Move */,
 				E53632712FAB72BF0095DFEC /* Rule */,
-				E53632742FAB72BF0095DFEC /* Detail */,
 				E53632782FAB72BF0095DFEC /* Matrix */,
+				E53632742FAB72BF0095DFEC /* Detail */,
 			);
 			path = Quadrant;
 			sourceTree = "<group>";
 		};
-		E53632682FAB72BF0095DFEC /* Move */ = {
+		E53632682FAB72BF0095DFEC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E536327A2FAB72BF0095DFEC /* QuadrantDragDropController.swift */,
 				E53632692FAB72BF0095DFEC /* QuadrantTaskMoveController.swift */,
 			);
-			path = Move;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		E536326A2FAB72BF0095DFEC /* Layout */ = {
 			isa = PBXGroup;
 			children = (
+				E536326D2FAB72BF0095DFEC /* QuadrantLayoutEditViewController.swift */,
 				E536326B2FAB72BF0095DFEC /* QuadrantLayoutEditView.swift */,
 				E536326C2FAB72BF0095DFEC /* QuadrantLayoutEditCell.swift */,
-				E536326D2FAB72BF0095DFEC /* QuadrantLayoutEditViewController.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -4887,11 +4891,9 @@
 		E53632782FAB72BF0095DFEC /* Matrix */ = {
 			isa = PBXGroup;
 			children = (
-				E53632792FAB72BF0095DFEC /* QuadrantFetcher.swift */,
-				E536327A2FAB72BF0095DFEC /* QuadrantDragDropController.swift */,
-				E536327B2FAB72BF0095DFEC /* QuadrantView.swift */,
 				E536327C2FAB72BF0095DFEC /* QuadrantMatrixView.swift */,
 				E536327D2FAB72BF0095DFEC /* QuadrantTitleView.swift */,
+				E536327B2FAB72BF0095DFEC /* QuadrantView.swift */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
@@ -4909,8 +4911,8 @@
 		E53632952FAB765F0095DFEC /* Change */ = {
 			isa = PBXGroup;
 			children = (
-				E53632962FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift */,
 				E53632972FAB765F0095DFEC /* TodoFilterTaskChangeViewController.swift */,
+				E53632962FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift */,
 			);
 			path = Change;
 			sourceTree = "<group>";
@@ -4923,6 +4925,15 @@
 				E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */,
 			);
 			path = DateInfoEditor;
+			sourceTree = "<group>";
+		};
+		E536329F2FAC242A0095DFEC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E53632A22FAC26E20095DFEC /* QuadrantListConfiguration.swift */,
+				E53632A02FAC25090095DFEC /* QuadrantListInteractor.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		E53735F22D9C1AA000C5A001 /* Slider */ = {
@@ -10657,6 +10668,7 @@
 				E5BB9E5E2D3BF0C70089667A /* TFCalendarScrollableMonthView.swift in Sources */,
 				E5FC6BAA2F64F19500D5A5EA /* HabitLogTaskInfoTableCell.swift in Sources */,
 				E50D60362F7A12B500D5E0A4 /* RepeatFrequencySectionController.swift in Sources */,
+				E53632A32FAC26E20095DFEC /* QuadrantListConfiguration.swift in Sources */,
 				E53632932FAB76150095DFEC /* TodoFilterTaskUpdater.swift in Sources */,
 				E5BB9DC62D3BF0C60089667A /* DateRange.swift in Sources */,
 				E5BB9B4C2D3BEF920089667A /* NSTextFieldExtension.swift in Sources */,
@@ -11167,7 +11179,6 @@
 				E5BB9E9B2D3BF0C80089667A /* ChartAxisLabelMark+Extensions.swift in Sources */,
 				E5BB9DCE2D3BF0C60089667A /* TPImpactFeedback.swift in Sources */,
 				E5BB9D982D3BF0C60089667A /* TPRelativeTimePresetTableCell.swift in Sources */,
-				E536328A2FAB72C00095DFEC /* QuadrantFetcher.swift in Sources */,
 				E534DAC62D59E75F0079AB08 /* TPLabelLayout.swift in Sources */,
 				E5BB9B512D3BEF920089667A /* ParagraphStyle.swift in Sources */,
 				E5D7D8C52D43933600EC877A /* FocusTimerInfo.swift in Sources */,
@@ -11459,6 +11470,7 @@
 				E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */,
 				E50D60882F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift in Sources */,
 				E5D7D8CB2D43933600EC877A /* FocusEndBottomView.swift in Sources */,
+				E53632A12FAC25090095DFEC /* QuadrantListInteractor.swift in Sources */,
 				E5BB9E712D3BF0C70089667A /* TPCollectionHeaderFooterView.swift in Sources */,
 				E51FF6632F5833F3003CA953 /* HabitHomeWeekListCellHeader.swift in Sources */,
 				E5BB9DD32D3BF0C60089667A /* UIImage+Extensions.swift in Sources */,
