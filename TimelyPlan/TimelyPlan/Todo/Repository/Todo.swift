@@ -223,6 +223,11 @@ extension Todo {
     func updateTasks(_ tasks: [TodoTask], schedule: TaskSchedule?) {
         taskManager.updateTasks(tasks, schedule: schedule)
     }
+    
+    // MARK: - 根据 change 更新任务
+    func updateTask(_ task: TodoTask, changes: [TodoTaskChange]) {
+        taskManager.updateTask(task, changes: changes)
+    }
 
     // MARK: - 排序任务
     func reorderTask(_ sourceTask: TodoTask,

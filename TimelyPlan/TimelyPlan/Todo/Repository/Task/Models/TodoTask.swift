@@ -272,4 +272,3 @@ import Foundation
         return self.identifier == other.identifier
     }
 }
-

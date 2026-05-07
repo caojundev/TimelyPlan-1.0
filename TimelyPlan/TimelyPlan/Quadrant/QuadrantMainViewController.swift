@@ -152,6 +152,12 @@ extension QuadrantMainViewController: QuadrantViewDelegate {
 
     func quadrantViewDidClickAdd(_ view: QuadrantView) {
         let task = view.interactor.matchingQuickAddTask
+        if let draftTask = quickAddManager.draftTask {
+            if !draftTask.matches(filterRule: view.interactor.filterRule) {
+                quickAddManager.clearDraftTask()
+            }
+        }
+        
         quickAddManager.show(with: task)
     }
 

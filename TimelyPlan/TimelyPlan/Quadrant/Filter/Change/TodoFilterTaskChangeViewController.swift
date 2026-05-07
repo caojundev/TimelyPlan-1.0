@@ -16,6 +16,8 @@ class TodoFilterTaskChangeViewController: TPTableSectionsViewController,
     /// 任务改变
     private(set) var changes: [TodoTaskChange]
     
+    var didSelectChanges: (([TodoTaskChange]) -> Void)?
+    
     /// 已选中改变
     private var selectedChanges = Set<TodoTaskChange>()
     
@@ -84,8 +86,10 @@ class TodoFilterTaskChangeViewController: TPTableSectionsViewController,
     
     override func clickDone() {
         super.clickDone()
-        #warning("更新选中改变")
-//        todo.updateTask(task, withChanges: Array(selectedChanges))
+        
+        if selectedChanges.count > 0 {
+            didSelectChanges?(Array(selectedChanges))
+        }
     }
     
     // MARK: - TPTableSectionControllerDelegate

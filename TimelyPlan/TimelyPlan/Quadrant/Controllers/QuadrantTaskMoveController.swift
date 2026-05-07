@@ -20,12 +20,14 @@ class QuadrantTaskMoveController {
         let filterTypes = changes.filterTypes
         if filterTypes.subtracting([.priority, .myDay]).count > 0 {
             /// 弹窗确认
-            let chnageVC = TodoFilterTaskChangeViewController(task: task, changes: changes)
-            chnageVC.showAsNavigationRoot()
+            let changeVC = TodoFilterTaskChangeViewController(task: task, changes: changes)
+            changeVC.didSelectChanges = { changes in
+                todo.updateTask(task, changes: changes)
+            }
+            
+            changeVC.showAsNavigationRoot()
         } else {
-            /// 直接更新
-            #warning("更新任务")
-//            todo.updateTask(task, withChanges: changes)
+            todo.updateTask(task, changes: changes)
         }
     }
     

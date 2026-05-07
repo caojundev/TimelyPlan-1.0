@@ -194,14 +194,12 @@ extension TodoUserListViewModel: TodoTaskProcessorDelegate {
     func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
         var lists = [TodoListFeature]()
         for changeInfo in changeInfos {
-            guard let list = changeInfo.task.list else {
-                continue
-            }
-            
             let change = changeInfo.change
             switch change {
             case .completed(_, _):
-                lists.append(list)
+                if let list = changeInfo.task.list {
+                    lists.append(list)
+                }
             case .list(let oldValue, let newValue):
                 if let oldList = oldValue {
                     lists.append(oldList)

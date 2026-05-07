@@ -321,6 +321,91 @@ extension CDTodoTask: SortableIdentifiable {
         return false
     }
     
+    // MARK: - 根据 change 更新任务
+    
+    static func updateTask(_ task: TodoTask, changes: [TodoTaskChange]) -> [TodoTaskChange]? {
+        var appliedChanges = Set<TodoTaskChange>()
+        for change in changes {
+            if updateTask(task, change: change) {
+                appliedChanges.insert(change)
+            }
+        }
+        
+        guard appliedChanges.count > 0 else {
+            return nil
+        }
+        
+        return Array(appliedChanges)
+    }
+
+    private static func updateTask(_ task: TodoTask, change: TodoTaskChange) -> Bool {
+        switch change {
+        case .list(_, _):
+            return updateTask(task, listChange: change)
+        case .priority(_, _):
+            return updateTask(task, priorityChange: change)
+        case .schedule(_, _):
+            return updateTask(task, scheduleChange: change)
+        case .myDay(_, _):
+            return updateTask(task, myDayChange: change)
+        case .tag(_, _):
+            return updateTask(task, tagChange: change)
+        case .progress(_, _):
+            return updateTask(task, progressChange: change)
+        default:
+            return false
+        }
+    }
+    
+    private static func updateTask(_ task: TodoTask, priorityChange: TodoTaskChange) -> Bool {
+        guard case let .priority(oldValue, newValue) = priorityChange, oldValue != newValue else {
+            return false
+        }
+        
+        return updateTasks([task], priority: newValue)
+    }
+    
+    private static func updateTask(_ task: TodoTask, scheduleChange: TodoTaskChange) -> Bool {
+        guard case let .schedule(oldSchedule, newSchedule) = scheduleChange, oldSchedule != newSchedule else {
+            return false
+        }
+        
+        return updateTasks([task], schedule: newSchedule)
+    }
+
+    private static func updateTask(_ task: TodoTask, myDayChange: TodoTaskChange) -> Bool {
+        guard case let .myDay(oldValue, newValue) = myDayChange, oldValue != newValue else {
+            return false
+        }
+        
+        return updateTasks([task], isAddedToMyDay: newValue)
+    }
+
+    private static func updateTask(_ task: TodoTask, progressChange: TodoTaskChange) -> Bool {
+        guard case let .progress(oldProgress, newProgress) = progressChange, oldProgress != newProgress else {
+            return false
+        }
+        
+        return updateTask(task, progress: newProgress)
+    }
+    
+    private static func updateTask(_ task: TodoTask, listChange: TodoTaskChange) -> Bool {
+        guard case let .list(oldList, newList) = listChange, oldList != newList else {
+            return false
+        }
+        
+        return moveTasks([task], to: newList)
+    }
+    
+    private static func updateTask(_ task: TodoTask, tagChange: TodoTaskChange) -> Bool {
+        guard case let .tag(oldTags, newTags) = tagChange, oldTags != newTags else {
+            return false
+        }
+        
+        return updateTask(task, tags: newTags)
+    }
+    
+    // MARK: - 排序任务
     static func reorderTask(_ sourceTask: TodoTask,
                             postion: TodoTaskInsertPosition,
                             targetTask: TodoTask,
@@ -365,7 +450,7 @@ extension CDTodoTask: SortableIdentifiable {
 extension CDTodoTask {
 
     /// 移动任务到新列表
-    static func moveTasks(_ tasks: [TodoTask], to list: TodoList?) -> Bool {
+    static func moveTasks(_ tasks: [TodoTask], to list: TodoListRepresentable?) -> Bool {
         guard let cdTasks = getIdentifiableItems(with: tasks) as? [CDTodoTask],
               cdTasks.count > 0 else {
             return false

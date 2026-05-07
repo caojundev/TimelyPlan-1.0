@@ -11,8 +11,8 @@ import UIKit
 class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
     
     /// 草稿任务
-    var draftTask: TodoQuickAddTask?
-    
+    private(set) var draftTask: TodoQuickAddTask?
+
     /// 输入视图 frame 改变
     var inputViewFrameDidChange: ((UIView?) -> Void)?
     
@@ -60,6 +60,11 @@ class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
         addController = nil
     }
 
+    /// 清除草稿任务
+    func clearDraftTask() {
+        self.draftTask = nil
+    }
+    
     // MARK: - TPKeyboardAwareControllerDelegate
     func keyboardAwareControllerWillShowInputView(controller: TPKeyboardAwareController) {
         /// 清除草稿任务

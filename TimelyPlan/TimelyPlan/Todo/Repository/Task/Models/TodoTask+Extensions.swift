@@ -72,11 +72,11 @@ extension TodoTask {
         }
         
         if let image = resGetImage("todo_task_addToMyDay_24") {
-//            let trailingText = resGetString("My Day")
+            let trailingText = resGetString("My Day")
             let info: ASAttributedString = .string(image: image,
                                                    imageSize: .size(3),
                                                    imageColor: .primary,
-                                                   trailingText: nil,
+                                                   trailingText: trailingText,
                                                    textColor: .primary,
                                                    separator: "")
             return info

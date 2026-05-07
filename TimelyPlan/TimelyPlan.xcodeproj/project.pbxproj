@@ -400,6 +400,7 @@
 		E536329E2FAB84150095DFEC /* TodoDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E536329D2FAB84150095DFEC /* TodoDateInfoEditor.swift */; };
 		E53632A12FAC25090095DFEC /* QuadrantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A02FAC25090095DFEC /* QuadrantListInteractor.swift */; };
 		E53632A32FAC26E20095DFEC /* QuadrantListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A22FAC26E20095DFEC /* QuadrantListConfiguration.swift */; };
+		E53632A52FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A42FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift */; };
 		E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F02D9C1A7F00C5A001 /* TPSlider.swift */; };
 		E53735F42D9C1C0E00C5A001 /* TPSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
@@ -2210,6 +2211,7 @@
 		E536329D2FAB84150095DFEC /* TodoDateInfoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDateInfoEditor.swift; sourceTree = "<group>"; };
 		E53632A02FAC25090095DFEC /* QuadrantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantListInteractor.swift; sourceTree = "<group>"; };
 		E53632A22FAC26E20095DFEC /* QuadrantListConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantListConfiguration.swift; sourceTree = "<group>"; };
+		E53632A42FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoQuickAddTask+FilterRule.swift"; sourceTree = "<group>"; };
 		E53735F02D9C1A7F00C5A001 /* TPSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSlider.swift; sourceTree = "<group>"; };
 		E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSliderViewController.swift; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
@@ -5952,9 +5954,9 @@
 			isa = PBXGroup;
 			children = (
 				E5F1552A2F8368FB00116091 /* TodoTask.swift */,
-				E5F1552F2F839F7C00116091 /* TodoTask+Extensions.swift */,
 				E5F1552D2F839C2B00116091 /* TodoTaskEnums.swift */,
 				E51DF2102F853FC700D6BCE3 /* TodoTask+Organizer.swift */,
+				E5F1552F2F839F7C00116091 /* TodoTask+Extensions.swift */,
 				E5F155362F83E1C600116091 /* TodoTaskActionType.swift */,
 				E57CC5C02F7F9FE600ADDBA4 /* TodoSort.swift */,
 				E57CC5E52F7FEF3E00ADDBA4 /* TodoTaskPriority.swift */,
@@ -5981,6 +5983,7 @@
 			isa = PBXGroup;
 			children = (
 				E57CC5D52F7FCED200ADDBA4 /* TodoQuickAddTask.swift */,
+				E53632A42FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift */,
 				E57CC5CE2F7FCED200ADDBA4 /* TodoTaskQuickAddManager.swift */,
 				E57CC5D72F7FCED200ADDBA4 /* TodoTaskQuickAddController.swift */,
 				E57CC5CF2F7FCED200ADDBA4 /* TodoTaskQuickAddEditView.swift */,
@@ -11091,6 +11094,7 @@
 				E536328C2FAB72C00095DFEC /* QuadrantView.swift in Sources */,
 				E5F1552B2F8368FB00116091 /* TodoTask.swift in Sources */,
 				E5B33D752F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift in Sources */,
+				E53632A52FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift in Sources */,
 				E53480132F605B6300CFBF26 /* HabitTaskFilterButton.swift in Sources */,
 				E52F899C2D5B11B3001F18FA /* TPImageView.swift in Sources */,
 				E5BB9DF32D3BF0C60089667A /* DateComponents+Extensions.swift in Sources */,

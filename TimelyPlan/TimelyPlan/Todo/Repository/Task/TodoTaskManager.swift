@@ -283,6 +283,17 @@ class TodoTaskManager {
         HandyRecord.save()
     }
     
+    // MARK: - Update with change
+    func updateTask(_ task: TodoTask, changes: [TodoTaskChange]) {
+        guard let appliedChanges = CDTodoTask.updateTask(task, changes: changes) else {
+            return
+        }
+        
+        let changeInfos = appliedChanges.map { TodoTaskChangeInfo(task: task, change: $0) }
+        updater.didUpdateTodoTasks(with: changeInfos)
+        HandyRecord.save()
+    }
+    
     // MARK: - 完成状态
     
     func updateTask(_ task: TodoTask, isCompleted: Bool) {
