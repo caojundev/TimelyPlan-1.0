@@ -152,8 +152,7 @@ class TodoBaseTaskListViewController: TodoDetailContentViewController,
     }
     
     func todoTaskListViewDidChangeSelectedTasks(_ listView: TodoTaskListView) {
-        self.selectionDelegate?.todoTaskListDidUpdateSelectedTasks(to: listView.selectedTasks)
-        self.updateToolView()
+        didChangeSelectedTasks()
     }
     
     func todoTaskListView(_ listView: TodoTaskListView, leadingSwipeActionsConfigurationForTask task: TodoTask, at indexPath: IndexPath) -> UISwipeActionsConfiguration? {

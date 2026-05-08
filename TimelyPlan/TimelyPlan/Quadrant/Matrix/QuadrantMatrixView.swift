@@ -27,7 +27,7 @@ class QuadrantMatrixView: UIView {
     /// 外边界间距
     private var margins: UIEdgeInsets = UIEdgeInsets(value: 5.0)
     
-    init(interactors: [QuadrantListInteractor]) {
+    init(interactors: [QuadrantHomeListInteractor]) {
         super.init(frame: .zero)
         assert(interactors.count == Quadrant.allCases.count)
         

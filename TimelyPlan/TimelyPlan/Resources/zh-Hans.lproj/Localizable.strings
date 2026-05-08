@@ -526,6 +526,8 @@
 "Urgent & Not Important" = "紧急不重要";
 "Not Urgent & Not Important" = "不重要不紧急";
 
+"No Tasks" = "无任务";
+
 /// 菜单
 "Show Detail" = "显示详情";
 "View Layout" = "视图布局";

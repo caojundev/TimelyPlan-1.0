@@ -84,9 +84,9 @@ class QuadrantView: UIView, QuadrantTitleViewDelegate {
         return interactor.quadrant
     }
     
-    let interactor: QuadrantListInteractor
+    let interactor: QuadrantHomeListInteractor
     
-    init(interactor: QuadrantListInteractor) {
+    init(interactor: QuadrantHomeListInteractor) {
         self.interactor = interactor
         super.init(frame: .zero)
         self.clipsToBounds = true

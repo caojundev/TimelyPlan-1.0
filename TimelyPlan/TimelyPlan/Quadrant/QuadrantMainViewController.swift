@@ -28,12 +28,12 @@ class QuadrantMainViewController: TPViewController,
     private lazy var matrixView: QuadrantMatrixView = {
         let layout = QuadrantSetting.shared.layout
         let quadrants = layout.getQuadrants()
-        var interactors = [QuadrantListInteractor]()
+        var interactors = [QuadrantHomeListInteractor]()
         for quadrant in quadrants {
             let filterRule = QuadrantSetting.shared.filterRule(for: quadrant)
             let configuration = QuadrantListConfiguration(quadrant: quadrant,
                                                           filterRule: filterRule)
-            let interactor = QuadrantListInteractor(configuration: configuration)
+            let interactor = QuadrantHomeListInteractor(configuration: configuration)
             interactors.append(interactor)
         }
         
@@ -151,6 +151,7 @@ class QuadrantMainViewController: TPViewController,
 extension QuadrantMainViewController: QuadrantViewDelegate {
 
     func quadrantViewDidClickAdd(_ view: QuadrantView) {
+        matrixView.endEditingQuadrantViews()
         let task = view.interactor.matchingQuickAddTask
         if let draftTask = quickAddManager.draftTask {
             if !draftTask.matches(filterRule: view.interactor.filterRule) {
@@ -162,7 +163,12 @@ extension QuadrantMainViewController: QuadrantViewDelegate {
     }
 
     func quadrantViewDidTapTitleView(_ view: QuadrantView) {
-        
+        matrixView.endEditingQuadrantViews()
+        let configuration = view.interactor.configuration
+        let interactor = QuadrantDetailListInteractor(configuration: configuration)
+        let detailVC = configuration.makeContent(with: interactor)
+        navigationItem.backButtonDisplayMode = .minimal
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func quadrantView(_ view: QuadrantView, didSelectTask task: TodoTask) {
@@ -170,6 +176,7 @@ extension QuadrantMainViewController: QuadrantViewDelegate {
     }
     
     func quadrantView(_ view: QuadrantView, didClickCheckboxForTask task: TodoTask) {
+        matrixView.endEditingQuadrantViews()
         let dradrantView = view
         taskController.clickCheckbox(for: task) {isCompleted, execution in
             dradrantView.setCompleted(isCompleted, for: task) { _ in

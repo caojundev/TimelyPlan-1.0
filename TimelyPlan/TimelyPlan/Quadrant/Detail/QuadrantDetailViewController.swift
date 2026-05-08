@@ -7,46 +7,74 @@
 
 import Foundation
 
-class QuadrantDetailViewController: TPViewController {
+class QuadrantDetailViewController: TodoBaseTaskListViewController {
     
     /// 标题视图
-    private lazy var titleView: TPImageInfoView = {
-        let view = TPImageInfoView()
+    private lazy var titleView: TPInfoView = {
+        let view = TPInfoView()
         view.padding = .zero
         view.titleConfig.font = BOLD_SYSTEM_FONT
         view.titleConfig.textAlignment = .center
+        view.subtitleConfig.textAlignment = .center
         return view
     }()
     
-    private(set) var quadrant: Quadrant
-    
-    init(quadrant: Quadrant) {
-        self.quadrant = quadrant
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleView = titleView
-        titleView.imageName = quadrant.iconName
-        titleView.imageConfig.color = quadrant.color
-        titleView.title = quadrant.title
-        titleView.sizeToFit()
+        self.navigationItem.titleView = titleView
+        self.updateTitle()
+        self.updateBarButtonItems()
     }
-    
+
     override var themeBackgroundColor: UIColor? {
-        return .secondarySystemGroupedBackground
+        return .systemGroupedBackground
     }
     
     override var themeNavigationBarBackgroundColor: UIColor? {
-        return .secondarySystemGroupedBackground
+        return .systemGroupedBackground
     }
     
     override var themeNavigationBarTintColor: UIColor? {
         return resGetColor(.title)
     }
+    
+    /// 更新标题
+    private func updateTitle() {
+        titleView.title = navigationTitle
+        titleView.sizeToFit()
+    }
+    
+    /// 更新副标题
+    private func updateSubtitle() {
+        titleView.subtitle = navigationSubtitle
+        titleView.sizeToFit()
+    }
+
+    /// 更新导航栏按钮
+    func updateBarButtonItems() {
+        navigationItem.leftBarButtonItems = navigationLeftBarButtonItems
+        navigationItem.rightBarButtonItems = navigationRightBarButtonItems
+    }
+    
+    override func setSelecting(_ isSelecting: Bool) {
+        super.setSelecting(isSelecting)
+        updateBarButtonItems()
+        updateSubtitle()
+    }
+    
+    override func didChangeSelectedTasks() {
+        super.didChangeSelectedTasks()
+        self.updateSubtitle()
+        self.updateBarButtonItems()
+    }
+    
+    override func performEditOption() {
+        guard let configuration = self.interactor.configuration as? QuadrantListConfiguration else {
+            return
+        }
+        
+        /// 编辑象限
+    }
+
 }

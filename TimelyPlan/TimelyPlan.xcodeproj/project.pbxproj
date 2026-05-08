@@ -401,6 +401,8 @@
 		E53632A12FAC25090095DFEC /* QuadrantListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A02FAC25090095DFEC /* QuadrantListInteractor.swift */; };
 		E53632A32FAC26E20095DFEC /* QuadrantListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A22FAC26E20095DFEC /* QuadrantListConfiguration.swift */; };
 		E53632A52FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A42FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift */; };
+		E53632A72FAD7D540095DFEC /* QuadrantDetailListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A62FAD7D540095DFEC /* QuadrantDetailListInteractor.swift */; };
+		E53632A92FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A82FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift */; };
 		E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F02D9C1A7F00C5A001 /* TPSlider.swift */; };
 		E53735F42D9C1C0E00C5A001 /* TPSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
@@ -2212,6 +2214,8 @@
 		E53632A02FAC25090095DFEC /* QuadrantListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantListInteractor.swift; sourceTree = "<group>"; };
 		E53632A22FAC26E20095DFEC /* QuadrantListConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantListConfiguration.swift; sourceTree = "<group>"; };
 		E53632A42FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoQuickAddTask+FilterRule.swift"; sourceTree = "<group>"; };
+		E53632A62FAD7D540095DFEC /* QuadrantDetailListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantDetailListInteractor.swift; sourceTree = "<group>"; };
+		E53632A82FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantHomeListInteractor.swift; sourceTree = "<group>"; };
 		E53735F02D9C1A7F00C5A001 /* TPSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSlider.swift; sourceTree = "<group>"; };
 		E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSliderViewController.swift; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
@@ -4934,6 +4938,8 @@
 			children = (
 				E53632A22FAC26E20095DFEC /* QuadrantListConfiguration.swift */,
 				E53632A02FAC25090095DFEC /* QuadrantListInteractor.swift */,
+				E53632A82FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift */,
+				E53632A62FAD7D540095DFEC /* QuadrantDetailListInteractor.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -10980,6 +10986,7 @@
 				E529ACEF2F7E1D71000EA2F1 /* TodoEditingTag.swift in Sources */,
 				E5B33D892F82584D00939C3E /* TodoTagSelectInfoView.swift in Sources */,
 				E5D3D4DC2DDC68C700E58EFA /* CalendarWeekDragDropManager.swift in Sources */,
+				E53632A92FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift in Sources */,
 				E5BB9EAB2D3BF0C80089667A /* TPSegmentedMenuView.swift in Sources */,
 				E5BB9E0E2D3BF0C70089667A /* CALayer+Extensions.swift in Sources */,
 				E5BB9B422D3BEF920089667A /* CGPointExtension.swift in Sources */,
@@ -11133,6 +11140,7 @@
 				E56B949B2F8DD61A001E488B /* TodoSmartTaskListViewController.swift in Sources */,
 				E521E35B2F6AB2800071DA12 /* HabitReportWeekRender.swift in Sources */,
 				E5BB9EF42D3BF0C80089667A /* TPViewController.swift in Sources */,
+				E53632A72FAD7D540095DFEC /* QuadrantDetailListInteractor.swift in Sources */,
 				E5F155372F83E1C700116091 /* TodoTaskActionType.swift in Sources */,
 				E5BB9E682D3BF0C70089667A /* TPCollectionViewAdapterDataSource.swift in Sources */,
 				E5D7D9032D43933600EC877A /* CountdownTimerEditView.swift in Sources */,

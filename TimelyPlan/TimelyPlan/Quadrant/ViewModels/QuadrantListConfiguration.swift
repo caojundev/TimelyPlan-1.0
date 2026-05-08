@@ -18,7 +18,27 @@ class QuadrantListConfiguration: TodoListConfiguration {
         self.filterRule = filterRule
         super.init(identifier: quadrant.identifier)
     }
+    
+    override func makeContent(with interactor: TodoListInteractor) -> UIViewController {
+        return QuadrantDetailViewController(interactor: interactor)
+    }
 
+    override func allowListOptions() -> [TodoListOption]? {
+        return [.select, .showCompleted, .showDetail, .group, .sort, .edit]
+    }
+    
+    override func allowGroupTypes() -> [TodoGroupType] {
+        return [.default, .startDate, .dueDate, .priority]
+    }
+    
+    override func allowSortTypes() -> [TodoSortType] {
+        return [.creationDate, .modificationDate, .startDate, .dueDate]
+    }
+    
+    override var preferredSortOrder: TodoSortOrder {
+        return .descending
+    }
+    
     override func quickAddTask() -> TodoQuickAddTask? {
         return filterRule.matchingQuickAddTask
     }
