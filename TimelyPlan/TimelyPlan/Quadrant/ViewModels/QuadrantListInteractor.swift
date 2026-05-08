@@ -10,23 +10,23 @@ import Foundation
 class QuadrantListInteractor: TodoListInteractor,
                               TPMidnightUpdatable {
     
+    private(set) var filterRule: TodoFilterRule
+    
     var quadrant: Quadrant {
         return quadrantConfiguration.quadrant
     }
-    
-    var filterRule: TodoFilterRule {
-        return quadrantConfiguration.filterRule
+
+    var quadrantConfiguration: QuadrantListConfiguration{
+       return configuration as! QuadrantListConfiguration
     }
-    
+
     var matchingQuickAddTask: TodoQuickAddTask? {
         return configuration.quickAddTask()
     }
     
-    var quadrantConfiguration: QuadrantListConfiguration{
-       return configuration as! QuadrantListConfiguration
-    }
-    
     override init(configuration: TodoListConfiguration) {
+        let configuration = configuration as! QuadrantListConfiguration
+        self.filterRule = configuration.filterRule
         super.init(configuration: configuration)
         TPMidnightScheduler.shared.addUpdater(self)
     }
@@ -43,6 +43,7 @@ class QuadrantListInteractor: TodoListInteractor,
 
     /// 更新过滤器
     func updateFilterRule(_ filterRule: TodoFilterRule) {
+        self.filterRule = filterRule
         quadrantConfiguration.updateFilterRule(filterRule)
     }
     

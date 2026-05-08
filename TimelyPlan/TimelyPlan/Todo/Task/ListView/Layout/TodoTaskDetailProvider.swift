@@ -78,11 +78,11 @@ class TodoTaskDetailProvider {
             }
         }
         
-        if option.contains(.schedule), let info = task.schedule?.attributedInfo() {
+        if option.contains(.schedule), let info = task.attributedScheduleInfo {
             infos.append(info)
         }
         
-        if option.contains(.myDay), let info = task.attributedMyDayInfo() {
+        if option.contains(.myDay), let info = task.attributedMyDayInfo {
             infos.append(info)
         }
         
@@ -94,7 +94,7 @@ class TodoTaskDetailProvider {
             infos.append(info)
         }
         
-        if option.contains(.note), let info = task.attributedNoteInfo() {
+        if option.contains(.note), let info = task.attributedNoteInfo {
             infos.append(info)
         }
         

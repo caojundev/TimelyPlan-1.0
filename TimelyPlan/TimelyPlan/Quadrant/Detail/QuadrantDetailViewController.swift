@@ -91,13 +91,13 @@ class QuadrantDetailViewController: TodoBaseTaskListViewController {
               interactor.filterRule != rule else {
             return
         }
-
-        interactor.updateFilterRule(rule)
-        interactor.setNeedsRefresh()
-        interactor.loadGroups()
         
         /// 保存到设置
         QuadrantSetting.shared.setFilterRule(rule, for: quadrant)
+        
+        /// 更新过滤规则，重新加载分组
+        interactor.updateFilterRule(rule)
+        interactor.setNeedsRefresh()
+        interactor.loadGroups()
     }
-
 }

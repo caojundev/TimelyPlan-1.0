@@ -56,7 +56,7 @@ class TPLoadableListPlaceholderProvider: TPPlaceholderProviding {
     
     var emptyTitleColor: UIColor = .systemGray4
     
-    var emptyTitleFont: UIFont = BOLD_SYSTEM_FONT
+    var emptyTitleFont: UIFont = BOLD_BODY_FONT
 
     /// 默认占位视图
     func newEmptyPlaceholderView() -> TPDefaultPlaceholderView {

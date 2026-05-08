@@ -22,7 +22,7 @@ class QuadrantHomeListInteractor: QuadrantListInteractor,
     }
     
     override var sort: TodoSort {
-        return TodoSort(type: .creationDate, order: .ascending)
+        return TodoSort(type: .creationDate, order: .descending)
     }
     
     override var showCompleted: Bool {
@@ -66,12 +66,12 @@ class QuadrantHomeListInteractor: QuadrantListInteractor,
     }
     
     private func didChangeCustomRules() {
-        let rule = QuadrantSetting.shared.filterRule(for: quadrant)
-        guard filterRule != rule else {
+        let newRule = QuadrantSetting.shared.filterRule(for: quadrant)
+        guard self.filterRule != newRule else {
             return
         }
         
-        updateFilterRule(rule)
+        updateFilterRule(newRule)
         setNeedsRefresh()
         loadGroups()
     }

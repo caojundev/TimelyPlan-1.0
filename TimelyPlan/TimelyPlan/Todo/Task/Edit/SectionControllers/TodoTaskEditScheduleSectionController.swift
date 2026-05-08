@@ -8,7 +8,7 @@
 import Foundation
 
 class ScheduleDateCellItem: TodoTaskEditTableCellItem {
-    
+
     /// 是否已逾期
     var isOverdue: Bool = false {
         didSet {
@@ -132,11 +132,10 @@ class TodoTaskEditScheduleSectionController: TodoTaskEditBaseSectionController,
     // MARK: - 计划
     private func updateDateCellItem() {
         if let dateInfo = self.dateInfo {
-            dateCellItem.isOverdue = dateInfo.isOverdue
+            let isCompleted = interactor.task.isCompleted
+            dateCellItem.isOverdue = isCompleted ? false : dateInfo.isOverdue
             dateCellItem.isActive = true
-            
-            let textColor: UIColor = dateCellItem.isOverdue ? .redPrimary : .primary
-            dateCellItem.title = dateInfo.attributedTitle(textColor: textColor)
+            dateCellItem.title = dateInfo.attributedTitle().value.string
         } else {
             dateCellItem.title = resGetString("Date")
             dateCellItem.isOverdue = false

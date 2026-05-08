@@ -62,11 +62,11 @@ extension TodoTask {
     
     /// 计划信息
     var attributedScheduleInfo: ASAttributedString? {
-        return schedule?.attributedInfo()
+        return schedule?.attributedInfo(isCompleted: isCompleted)
     }
     
     /// 我的一天信息
-    func attributedMyDayInfo() -> ASAttributedString? {
+    var attributedMyDayInfo: ASAttributedString? {
         guard isAddedToMyDay else {
             return nil
         }
@@ -86,7 +86,7 @@ extension TodoTask {
     }
     
     /// 备注信息
-    func attributedNoteInfo() -> ASAttributedString? {
+    var attributedNoteInfo: ASAttributedString? {
         guard let note = note, note.count > 0 else {
             return nil
         }

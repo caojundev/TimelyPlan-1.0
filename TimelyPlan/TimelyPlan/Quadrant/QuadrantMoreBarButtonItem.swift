@@ -56,11 +56,14 @@ class QuadrantMoreBarButtonItem: TPBaseMoreBarButtonItem<QuadrantMoreMenuType> {
     }
     
     override func menuItems() -> [TPMenuItem] {
-        let menuItem = TPMenuItem.item(with: QuadrantMoreMenuType.allCases) {[weak self] type, action in
+        let typeLists: [[QuadrantMoreMenuType]] = [[.showCompleted, .showDetail],
+                                                   [.viewLayout],
+                                                   [.customRule]]
+        let menuItems = TPMenuItem.items(with: typeLists) {[weak self] type, action in
             self?.updateMenuAction(action, for: type)
         }
         
-        return [menuItem]
+        return menuItems
     }
     
     private func updateMenuAction(_ action: TPMenuAction, for type: QuadrantMoreMenuType) {

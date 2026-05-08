@@ -54,6 +54,10 @@ class TodoTaskEditInteractor: TodoTaskProcessorDelegate {
         todo.updateTask(task, steps: steps)
     }
     
+    func moveToTrash() {
+        todo.moveTasksToTrash([task])
+    }
+    
     // MARK: - TodoTaskProcessorDelegate
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
         guard task.identifier == self.task.identifier else {

@@ -67,19 +67,23 @@ struct TaskSchedule: Hashable, Equatable {
                         overdueColor: UIColor = .redPrimary,
                         imageSize: CGSize = .size(3),
                         showRepeatCount: Bool = false,
-                        separator: String = "") -> ASAttributedString? {
+                        separator: String = "",
+                        isCompleted: Bool? = nil) -> ASAttributedString? {
         guard let dateInfo = dateInfo else {
             return nil
         }
 
         let color: UIColor
-        let isOverdue = dateInfo.isOverdue
-        if isOverdue {
-            color = overdueColor
-        } else if dateInfo.startDate.isToday || dateInfo.startDate.isTomorrow {
-            color = highlightedColor
-        } else {
+        if let isCompleted = isCompleted, isCompleted {
             color = normalColor
+        } else {
+            if dateInfo.isOverdue {
+                color = overdueColor
+            } else if dateInfo.startDate.isToday || dateInfo.startDate.isTomorrow {
+                color = highlightedColor
+            } else {
+                color = normalColor
+            }
         }
         
         var attributedInfos = [ASAttributedString]()

@@ -55,7 +55,7 @@ class TodoTaskEditFooterView: UIView {
     private(set) lazy var moreButton: TPDefaultButton = {
         let button = TPDefaultButton()
         button.padding = .zero
-        button.image = resGetImage("ellipsis_circle_fill_24")
+        button.image = resGetImage("ellipsis_circle_24")
         button.imageConfig.color = resGetColor(.title)
         button.addTarget(self,
                          action: #selector(clickMore(_:)),
@@ -86,7 +86,6 @@ class TodoTaskEditFooterView: UIView {
         addSubview(focusButton)
         addSubview(moreButton)
         addSeparator(position: .top)
-        moreButton.isHidden = true
     }
     
     required init?(coder: NSCoder) {

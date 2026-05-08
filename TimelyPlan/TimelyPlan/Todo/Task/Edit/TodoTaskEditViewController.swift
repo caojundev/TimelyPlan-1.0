@@ -449,19 +449,22 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     
     func todoTaskEditFooterViewDidClickMore(_ view: TodoTaskEditFooterView) {
         UIResponder.resignCurrentFirstResponder()
-//        let moreButton = view.moreButton
-//        let menuController = TodoTaskMenuController(task: task)
-//        menuController.didSelectMenuActionType = { type in
-//            self.performMenuActionType(type)
-//        }
-//
-//        menuController.showMenu(from: moreButton,
-//                                sourceRect: moreButton.bounds.inset(by: .init(value: -5.0)),
-//                                isCovered: true)
+        let moreButton = view.moreButton
+        let menuController = TodoTaskEditMoreMenuController(task: task)
+        menuController.didSelectMenuActionType = { type in
+            self.performMenuActionType(type)
+        }
+
+        menuController.showMenu(from: moreButton,
+                                sourceRect: moreButton.bounds.inset(by: .init(value: -5.0)),
+                                isCovered: true)
     }
     
     private func performMenuActionType(_ type: TodoTaskActionType) {
-        
+        if type == .trash {
+            self.interactor.moveToTrash()
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 
 }
