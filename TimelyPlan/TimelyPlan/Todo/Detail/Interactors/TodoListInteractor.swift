@@ -31,7 +31,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     let configuration: TodoListConfiguration
     
     var sort: TodoSort {
-        return self.listOptionState.validatedSort(for: self.configuration)
+        return listOptionState.validatedSort(for: configuration)
     }
     
     var showCompleted: Bool {
@@ -72,6 +72,11 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         todo.addUpdater(self, for: [.list, .task, .tag])
     }
     
+    /// 是否匹配分组
+    func isQuickAddTask(_ task: TodoQuickAddTask, matches group: TodoGroup) -> Bool {
+        return task.matchesGroup(group, groupType: self.groupType)
+    }
+        
     func quickAddTask(in group: TodoGroup) -> TodoQuickAddTask {
         let task = configuration.quickAddTask() ?? TodoQuickAddTask()
         switch groupType {
@@ -149,8 +154,8 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     func loadGroups(with change: TodoTaskListChange? = nil) {
         self.loadingState = .loading
         let requestID = requestManager.executeRequest()
-        let groupType = groupType
-        let sort = listOptionState.validatedSort(for: configuration)
+        let groupType = self.groupType
+        let sort = self.sort
         let change = change
         loadTasksIfNeeded { tasks in
             guard self.requestManager.shouldProceed(with: requestID) else {

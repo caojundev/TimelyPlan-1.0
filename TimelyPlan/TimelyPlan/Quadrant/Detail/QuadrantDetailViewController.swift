@@ -70,11 +70,34 @@ class QuadrantDetailViewController: TodoBaseTaskListViewController {
     }
     
     override func performEditOption() {
-        guard let configuration = self.interactor.configuration as? QuadrantListConfiguration else {
+        guard let configuration = interactor.configuration as? QuadrantListConfiguration else {
             return
         }
         
         /// 编辑象限
+        let quadrant = configuration.quadrant
+        let rule = configuration.filterRule
+        let vc = QuadrantFilterRuleEditViewController(quadrant: quadrant, rule: rule)
+        vc.didEndEditing = { newRule in
+            self.changeEditingRule(newRule, for: quadrant)
+        }
+        
+        vc.showAsNavigationRoot()
+    }
+    
+    private func changeEditingRule(_ rule: TodoFilterRule, for quadrant: Quadrant) {
+        guard rule.isValid,
+              let interactor = self.interactor as? QuadrantDetailListInteractor,
+              interactor.filterRule != rule else {
+            return
+        }
+
+        interactor.updateFilterRule(rule)
+        interactor.setNeedsRefresh()
+        interactor.loadGroups()
+        
+        /// 保存到设置
+        QuadrantSetting.shared.setFilterRule(rule, for: quadrant)
     }
 
 }

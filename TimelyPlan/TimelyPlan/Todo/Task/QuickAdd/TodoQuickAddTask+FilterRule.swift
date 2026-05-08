@@ -196,3 +196,51 @@ extension TodoQuickAddTask {
          return priorities.contains(priority)
      }
 }
+
+extension TodoQuickAddTask {
+    
+    /// 是否匹配分组
+    func matchesGroup(_ group: TodoGroup, groupType: TodoGroupType) -> Bool {
+        switch groupType {
+        case .startDate:
+            if let dateType = TodoTaskStartDateType(identifier: group.identifier) {
+                guard matches(startDateType: dateType) else {
+                    return false
+                }
+            }
+        case .dueDate:
+            if let dateType = TodoTaskDueDateType(identifier: group.identifier) {
+                guard matches(dueDateType: dateType) else {
+                    return false
+                }
+            }
+        case .priority:
+            if let priority = TodoTaskPriority(identifier: group.identifier) {
+                guard matches(priority: priority) else {
+                    return false
+                }
+            }
+        default:
+            break
+        }
+        
+        return true
+    }
+    
+    private func matches(startDateType: TodoTaskStartDateType) -> Bool {
+        let startDate = schedule?.dateInfo?.startDate
+        let dateType = TodoTaskStartDateType.type(of: startDate)
+        return dateType == startDateType
+    }
+    
+    private func matches(dueDateType: TodoTaskDueDateType) -> Bool {
+        let dueDate = schedule?.dateInfo?.endDate
+        let dateType = TodoTaskDueDateType.type(of: dueDate)
+        return dateType == dueDateType
+    }
+    
+    private func matches(priority: TodoTaskPriority) -> Bool {
+        return self.priority == priority
+    }
+
+}

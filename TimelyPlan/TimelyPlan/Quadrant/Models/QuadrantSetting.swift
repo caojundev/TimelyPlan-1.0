@@ -41,6 +41,12 @@ class QuadrantSetting {
         return filterRule
     }
     
+    func setFilterRule(_ filterRule: TodoFilterRule, for quadrant: Quadrant) {
+        var rules = self.customRules
+        rules[quadrant] = filterRule
+        self.customRules = rules
+    }
+    
     func addObserver(_ observer: SettingAgentObserver, forKey key: Key? = nil) {
         KeyValueStorage.shared.addObserver(observer, forKey: key?.name)
     }

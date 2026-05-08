@@ -140,7 +140,13 @@ extension TodoTaskBoardViewController: TodoTaskBoardViewDelegate {
     
     func todoTaskBoardView(_ boardView: TodoTaskBoardView, didClickAddForGroup group: TodoGroup) {
         TPImpactFeedback.impactWithLightStyle()
-        let task = self.interactor.quickAddTask(in: group)
+        if let draftTask = quickAddManager.draftTask {
+            if !interactor.isQuickAddTask(draftTask, matches: group) {
+                quickAddManager.clearDraftTask()
+            }
+        }
+        
+        let task = interactor.quickAddTask(in: group)
         quickAddManager.show(with: task)
     }
     
