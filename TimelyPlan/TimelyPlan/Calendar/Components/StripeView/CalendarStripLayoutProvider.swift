@@ -96,15 +96,19 @@ struct CalendarEventLayout {
 
 class CalendarStripLayoutProvider {
     
+    let maxStripLinesCount: Int = 5
+    
     private struct PositionInfo {
         let event: CalendarEvent
         let position: CalendarEventPosition
     }
 
-    func layout(events: [CalendarEvent], firstDate: Date, days: Int = DAYS_PER_WEEK) -> CalendarEventLayout {
+    func layout(events: [CalendarEvent],
+                firstDate: Date,
+                days: Int = DAYS_PER_WEEK) -> CalendarEventLayout {
         /// 排序事件位置信息
         let sortedPositionInfos = sortedPositionInfos(for: events, firstDate: firstDate, days: days)
-        let pathInfos = pathInfos(for: sortedPositionInfos, days: days)
+        let pathInfos = pathInfos(for: sortedPositionInfos)
         return CalendarEventLayout(pathInfos: pathInfos, days: days)
     }
     
@@ -113,7 +117,6 @@ class CalendarStripLayoutProvider {
                                      days: Int = DAYS_PER_WEEK) -> [PositionInfo] {
         var positionInfos = [PositionInfo]()
         for event in events {
-            
             if let position = event.position(firstDate: firstDate, days: days) {
                 let positionInfo = PositionInfo(event: event, position: position)
                 positionInfos.append(positionInfo)
@@ -137,10 +140,9 @@ class CalendarStripLayoutProvider {
         return sortedPositionInfos
     }
     
-    private func pathInfos(for positionInfos: [PositionInfo],
-                           days: Int = DAYS_PER_WEEK) -> [CalendarEventPathInfo] {
+    private func pathInfos(for positionInfos: [PositionInfo]) -> [CalendarEventPathInfo] {
         var pathInfos = [CalendarEventPathInfo]()
-        var rowEnds = [Int](repeating: 0, count: days)
+        var rowEnds = [Int](repeating: 0, count: maxStripLinesCount)
         
         for positionInfo in positionInfos {
             let event = positionInfo.event

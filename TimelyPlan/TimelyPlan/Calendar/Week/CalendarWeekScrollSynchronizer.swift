@@ -42,9 +42,9 @@ class CalendarWeekScrollSynchronizer: NSObject, UIScrollViewDelegate {
     
     // MARK: - 添加和移除更新器
     func addEventsView(_ eventView: CalendarWeekEventsView) {
+        eventView.allDayHeight = currentAllDayHeight()
+        eventView.contentOffset = contentOffset
         if !eventViews.contains(eventView) {
-            eventView.allDayHeight = currentAllDayHeight()
-            eventView.contentOffset = contentOffset
             eventViews.add(eventView)
             eventView.scrollViewDelegate = self
         }

@@ -60,20 +60,24 @@ enum Quadrant: String, Codable, Equatable, TPMenuRepresentable {
         let iconName: String
         switch self {
         case .urgentImportant:
-            iconName = "quadrant_I_32"
+            iconName = "quadrant_I"
         case .notUrgentImportant:
-            iconName = "quadrant_II_32"
+            iconName = "quadrant_II"
         case .urgentNotImportant:
-            iconName = "quadrant_III_32"
+            iconName = "quadrant_III"
         case .notUrgentNotImportant:
-            iconName = "quadrant_IV_32"
+            iconName = "quadrant_IV"
         }
         
         return iconName
     }
     
     var placeholderImage: UIImage? {
-        return resGetImage(placeholderImageName)
+        return resGetImage(placeholderImageName, size: .size(8))
+    }
+    
+    var largePlaceholderImage: UIImage? {
+        return resGetImage(placeholderImageName, size: .size(15))
     }
     
     /// 象限对应的默认优先级

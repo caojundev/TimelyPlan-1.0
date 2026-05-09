@@ -10,6 +10,11 @@ import UIKit
 
 class CalendarStripView: UIView {
     
+    enum Mode {
+        case week
+        case day
+    }
+    
     /// 路径信息
     var events: [CalendarEvent]?
     
@@ -28,11 +33,17 @@ class CalendarStripView: UIView {
     private let layoutProvider = CalendarStripLayoutProvider()
 
     /// 横跨天数
-    private let days = DAYS_PER_WEEK
+    private let days: Int
     
-    override init(frame: CGRect) {
+    init(mode: Mode = .week) {
+        if mode == .day {
+            self.days = 1
+        } else {
+            self.days = DAYS_PER_WEEK
+        }
+        
         self.layoutManager = CalendarStripLayoutManager(days: self.days)
-        super.init(frame: frame)
+        super.init(frame: .zero)
     }
     
     required init?(coder: NSCoder) {
@@ -126,6 +137,7 @@ class CalendarStripView: UIView {
     }
     
     func reset() {
+        self.events = nil
         removeAllEventViews()
     }
     
@@ -134,7 +146,7 @@ class CalendarStripView: UIView {
             layout = nil
             return
         }
-
+        
         layout = layoutProvider.layout(events: events, firstDate: startDate, days: days)
         setupViews()
     }

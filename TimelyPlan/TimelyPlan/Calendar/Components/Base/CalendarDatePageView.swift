@@ -131,6 +131,10 @@ class CalendarDatePageView: TPCollectionWrapperView,
         delegate?.calendarDayPagingViewWillEndDragging(self, withTargetDate: targetDate)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+    
     // MARK: - Public Methods
     override func reloadData() {
         super.reloadData()
@@ -204,9 +208,8 @@ class CalendarDatePageView: TPCollectionWrapperView,
         return date.startOfDay()
     }
     
-    // MARK: - Private Metehods
     /// 更新内容偏移
-    private func updateContentOffset(animated: Bool) {
+    func updateContentOffset(animated: Bool) {
         var index = kNearItemsCount
         if let indexPath = adapter.indexPath(of: visibleDate as NSDate) {
             index = indexPath.item
@@ -217,6 +220,7 @@ class CalendarDatePageView: TPCollectionWrapperView,
         collectionView.contentOffset = offset
     }
     
+    // MARK: - Private Metehods
     func validatedIndex(_ index: Int) -> Int {
         return min(2 * kNearItemsCount, max(0, index))
     }

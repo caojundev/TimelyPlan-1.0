@@ -61,6 +61,15 @@ class CalendarDayTimelineView: UIView {
         }
     }
     
+    var allDayHeight: CGFloat = 0.0 {
+        didSet {
+            if allDayHeight != oldValue {
+                layoutAllDayView()
+                updateContentInset()
+            }
+        }
+    }
+    
     /// 时间指示器
     private let indicatorViewHeight = 30.0
     private var indicatorView: CalendarDayTimelineIndicatorView?
@@ -75,6 +84,12 @@ class CalendarDayTimelineView: UIView {
     /// 事件视图
     private lazy var eventsView: CalendarDayEventsView = {
         let view = CalendarDayEventsView()
+        return view
+    }()
+    
+    /// 全天视图
+    private lazy var allDayView: CalendarDayAllDayEventsView = {
+        let view = CalendarDayAllDayEventsView()
         return view
     }()
     
@@ -102,12 +117,31 @@ class CalendarDayTimelineView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func eventsChanged() {
+        guard date.isInSameDayAs(eventsProvider.date) else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.eventsView.dateRange = self.dateRange
+            self.eventsView.events = self.eventsProvider.events
+            self.eventsView.reloadData()
+            
+            self.allDayView.date = self.date
+            self.allDayView.reloadData()
+            self.layoutAllDayView()
+        }
+    }
+    
     private func setupContentView() {
-        contentView.showsVerticalScrollIndicator = false
-        addSubview(contentView)
         backgroundLayer.hourHeight = hourHeight
         backgroundLayer.topPadding = topPadding
         backgroundLayer.bottomPadding = bottomPadding
+        
+        contentView.showsVerticalScrollIndicator = false
+        addSubview(contentView)
+        addSubview(allDayView)
+        
         contentView.layer.addSublayer(backgroundLayer)
         contentView.addSubview(hoursView)
         contentView.addSubview(eventsView)
@@ -134,22 +168,8 @@ class CalendarDayTimelineView: UIView {
         }
     }
     
-    private func eventsChanged() {
-        guard date.isInSameDayAs(eventsProvider.date) else {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            self.eventsView.dateRange = self.dateRange
-            self.eventsView.events = self.eventsProvider.events
-            self.eventsView.reloadData()
-        }
-    }
-    
-    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         let contentHeight = hourHeight * CGFloat(HOURS_PER_DAY) + topPadding + bottomPadding
         contentView.frame = bounds
         contentView.contentSize = CGSize(width: width, height: contentHeight)
@@ -172,6 +192,17 @@ class CalendarDayTimelineView: UIView {
         backgroundLayer.updateColors()
         CATransaction.commit()
         updateIndicator()
+        layoutAllDayView()
+    }
+    
+    private func layoutAllDayView() {
+        allDayView.width = width
+        allDayView.height = allDayHeight
+        allDayView.origin = .zero
+    }
+    
+    private func updateContentInset() {
+        self.contentView.contentInset = UIEdgeInsets(top: allDayHeight)
     }
     
     private func updateIndicator() {
@@ -188,13 +219,18 @@ class CalendarDayTimelineView: UIView {
         indicatorView.title = date.timeString
     }
     
+    func maxRowForAllDayView() -> Int {
+        return allDayView.maxRow()
+    }
+    
     func reset() {
+        allDayView.reset()
         eventsView.reset()
         timerUpdater.stop()
     }
     
     func loadEvents(for date: Date) {
-        reset()
+        self.reset()
         self.date = date
         setupIndicatorView()
         eventsProvider.loadEvents(for: date)

@@ -86,10 +86,6 @@ class CalendarWeekEventsView: UIView {
         timelineView.contentInset = UIEdgeInsets(top: allDayHeight)
     }
     
-    func maxRowForAllDayView(in dateRange: (firstDate: Date, lastDate: Date)) -> Int {
-        return allDayView.maxRow(in: dateRange)
-    }
-    
     func reloadData() {
         allDayView.weekStartDate = weekStartDate
         allDayView.reloadData()
@@ -97,10 +93,13 @@ class CalendarWeekEventsView: UIView {
         timelineView.reloadData()
     }
     
+    func maxRowForAllDayView(in dateRange: (firstDate: Date, lastDate: Date)) -> Int {
+        return allDayView.maxRow(in: dateRange)
+    }
+    
     func didChangeVisibleOffset(_ offset: CGPoint) {
         allDayView.didChangeVisibleOffset(offset)
     }
-    
     
     func eventView(at point: CGPoint) -> CalendarEventView? {
         let convertedPoint = self.convert(point, toViewOrWindow: timelineView)

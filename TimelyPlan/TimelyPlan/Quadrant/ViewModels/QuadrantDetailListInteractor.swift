@@ -12,7 +12,7 @@ class QuadrantDetailListInteractor: QuadrantListInteractor {
     override init(configuration: TodoListConfiguration) {
         super.init(configuration: configuration)
         
-        self.placeholderProvider.emptyImage = quadrant.placeholderImage
+        self.placeholderProvider.emptyImage = quadrant.largePlaceholderImage
         self.placeholderProvider.emptyTitle = resGetString("No Tasks")
         self.placeholderProvider.emptyTitleColor = .systemGray3
         self.placeholderProvider.emptyTitleFont = BOLD_BODY_FONT
