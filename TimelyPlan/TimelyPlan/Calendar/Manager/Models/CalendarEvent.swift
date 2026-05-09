@@ -50,6 +50,9 @@ class CalendarEventColor {
 
 class CalendarEvent: NSObject {
     
+    /// 标识
+    var identifier: String = UUID().uuidString
+    
     /// 名称
     var name: String?
     

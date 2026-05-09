@@ -35,6 +35,11 @@ class FocusStatsBaseViewController: StatsMainViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.contentInset = UIEdgeInsets(bottom: 80.0)
+    }
+    
     override func dailyStatsViewController() -> UIViewController! {
         let vc = FocusStatsDailyViewController(date: date)
         self.configureStatsContentViewController(vc)

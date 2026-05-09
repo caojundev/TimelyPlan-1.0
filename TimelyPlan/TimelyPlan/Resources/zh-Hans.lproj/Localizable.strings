@@ -383,6 +383,7 @@
 "No Skipped Habit Today" = "今日无已跳过习惯";
 "No Failed Habit Today" = "今日无已失败习惯";
 "Untitled Habit" = "未命名习惯";
+"In Progress" = "进行中";
 
 /// 习惯记录
 "No Habit Record" = "无习惯记录";

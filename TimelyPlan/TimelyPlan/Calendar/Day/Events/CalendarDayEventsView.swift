@@ -12,7 +12,9 @@ class CalendarDayEventsView: UIView {
   
     var events: [CalendarEvent]?
     
-    var eventViews: [CalendarEventView] = []
+    var dateRange: CalendarTimelineDateRange?
+    
+    private var eventViews: [CalendarEventView] = []
     
     private var layout: CalendarTimelineLayout?
     
@@ -20,7 +22,6 @@ class CalendarDayEventsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        loadEvents()
         setupContentView()
     }
     
@@ -65,43 +66,6 @@ class CalendarDayEventsView: UIView {
         self.eventViews = eventViews
     }
     
-    private func loadEvents() {
-        let calendar = Calendar.current
-        let now = Date()
-    
-        let events = [
-            CalendarEvent(name: "晨会",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 9, minute: 0, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 9, minute: 15, second: 0, of: now)!),
-            CalendarEvent(name: "产品评审",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 9, minute: 10, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 40, second: 0, of: now)!),
-            
-            CalendarEvent(name: "开发 Coding",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 10, minute: 00, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 30, second: 0, of: now)!),
-            
-            CalendarEvent(name: "阅读",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 13, minute: 00, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 15, minute: 40, second: 0, of: now)!),
-        ]
-        
-        self.events = events
-        
-        let start = Date().startOfDay()
-        let end = start.dateByAddingHours(HOURS_PER_DAY)!
-        self.layout = CalendarTimelineLayout(events: events, dateRange: (start, end))
-    }
-    
-    func reset() {
-        
-    }
-    
-    
     func eventView(at point: CGPoint) -> CalendarEventView? {
         for eventView in eventViews {
             if eventView.frame.contains(point) {
@@ -112,4 +76,23 @@ class CalendarDayEventsView: UIView {
         return nil
     }
     
+    func reloadData() {
+        if let dateRange = dateRange {
+            let events = events ?? []
+            self.layout = CalendarTimelineLayout(events: events, dateRange: dateRange)
+        } else {
+            self.layout = nil
+        }
+        
+        setupEventViews()
+        setNeedsLayout()
+    }
+
+    /// 重置
+    func reset() {
+        dateRange = nil
+        events = nil
+        layout = nil
+        setupEventViews()
+    }
 }

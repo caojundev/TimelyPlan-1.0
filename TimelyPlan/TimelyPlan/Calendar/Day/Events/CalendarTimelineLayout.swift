@@ -11,23 +11,6 @@ import UIKit
 // MARK: - 时间线布局工具
 final class CalendarTimelineLayout {
     
-    // 定义日历事件在视图中的位置
-    private struct EventPosition {
-        let event: CalendarEvent
-        let yStart: CGFloat
-        let yEnd: CGFloat
-        
-        /// 高度
-        var height: CGFloat {
-            return max(yEnd - yStart, 0.0)
-        }
-        
-        /// 检查两个事件是否位置重叠
-        func overlaps(with other: EventPosition) -> Bool {
-           return yStart < other.yEnd && other.yStart < yEnd
-        }
-    }
-    
     /// 内容尺寸
     var containerSize: CGSize = UIScreen.main.bounds.size {
         didSet {
@@ -46,8 +29,10 @@ final class CalendarTimelineLayout {
     /// 最小高度
     let minEventHeight: CGFloat = 20.0
 
+    let offsetWidth = 4.0
+    
     /// 时间线日期范围
-    let dateRange: (start: Date, end: Date)
+    let dateRange: CalendarTimelineDateRange
     
     let events: [CalendarEvent]
     
@@ -55,7 +40,7 @@ final class CalendarTimelineLayout {
     
     private var needsLayout: Bool = true
     
-    init(events: [CalendarEvent], dateRange: (start: Date, end: Date)) {
+    init(events: [CalendarEvent], dateRange: CalendarTimelineDateRange) {
         self.events = events
         self.dateRange = dateRange
     }
@@ -85,7 +70,7 @@ final class CalendarTimelineLayout {
         var uf = UnionFind(count: positions.count)
         for i in 0..<positions.count {
             for j in (i+1)..<positions.count {
-                if positions[i].overlaps(with: positions[j]) {
+                if positions[i].overlaps(with: positions[j], contentHeight: minEventHeight) {
                     uf.union(i, j)
                 }
             }
@@ -133,10 +118,18 @@ final class CalendarTimelineLayout {
     
     // MARK: 轨道分配
     /// 将事件分配到轨道（行）中，确保同一轨道无重叠
-    private func assignEventPositionsToTracks(_ eventPositions: [EventPosition]) -> [(eventPosition: EventPosition, track: Int)] {
-        let sortedEventPositions = eventPositions.sorted { $0.yStart < $1.yStart }
+    private func eventAssignments(for overlappingPositions: [EventPosition]) -> [EventAssignment] {
+        let maxOverlapCount = calculateMaxOverlapCount(in: overlappingPositions)
+        let sortedEventPositions = overlappingPositions.sorted {
+            if $0.height > $1.height {
+                return true
+            } else {
+                return $0.yStart < $1.yStart
+            }
+        }
+        
         var tracks: [CGFloat] = [] // 记录每个轨道的最后结束位置
-        var assignments: [(EventPosition, Int)] = []
+        var assignments: [EventAssignment] = []
         for eventPosition in sortedEventPositions {
             // 查找第一个可用的轨道
             var availableTrack: Int?
@@ -145,18 +138,145 @@ final class CalendarTimelineLayout {
                 break
             }
             
+            var assignmentTrack: Int
             if let track = availableTrack {
                 // 占用现有轨道
                 tracks[track] = eventPosition.yEnd
-                assignments.append((eventPosition, track))
+                assignmentTrack = track
             } else {
                 // 创建新轨道
                 tracks.append(eventPosition.yEnd)
-                assignments.append((eventPosition, tracks.count - 1))
+                assignmentTrack = tracks.count - 1
             }
+            
+            let assignment = EventAssignment(position: eventPosition,
+                                             track: assignmentTrack,
+                                             maxOverlapCount: maxOverlapCount)
+            assignments.append(assignment)
         }
         
         return assignments
+    }
+    
+    // MARK: - Helpers
+    private func layout() {
+        var eventFrames: [CalendarEvent: CGRect] = [:]
+        
+        let eventPositions = events.map { calculatePosition(for: $0) }
+        let groups = groupOverlappingEventPositions(eventPositions)
+        var trackAssignments = [Int: [EventAssignment]]()
+        for group in groups {
+            let eventAssignments = eventAssignments(for: group)
+            for eventAssignment in eventAssignments {
+                let track = eventAssignment.track
+                trackAssignments[track, default: []].append(eventAssignment)
+            }
+        }
+
+        for eventAssignments in Array(trackAssignments.values) {
+            for eventAssignment in eventAssignments {
+                let offset = eventOffset(for: eventAssignment, trackAssignments: trackAssignments)
+                let event = eventAssignment.position.event
+                let eventFrame = frameForEventAssignment(eventAssignment, offset: offset)
+                eventFrames[event] = eventFrame
+            }
+        }
+
+        self.eventFrames = eventFrames
+    }
+    
+    private func eventOffset(for eventAssignment: EventAssignment,
+                             trackAssignments: [Int: [EventAssignment]]) -> Int {
+        var offset = 0
+        let track = eventAssignment.track
+        guard let eventAssignments = trackAssignments[track], eventAssignments.count > 1 else {
+            return offset
+        }
+        
+        /// 根据开始位置排序
+        let sortedEventAssignments = eventAssignments.sorted {
+            $0.position.yStart < $1.position.yStart
+        }
+        
+        /// 找到当前事件在数组中的位置
+        let index = sortedEventAssignments.firstIndex {
+            $0.position.event.identifier == eventAssignment.position.event.identifier
+        }
+        
+        guard let index = index, index > 0 else {
+            return offset
+        }
+        
+        for i in 0..<index {
+            let sortedEventAssignment = sortedEventAssignments[i]
+            if sortedEventAssignment.position.overlaps(with: eventAssignment.position) {
+                offset += 1
+            }
+        }
+        
+        return offset
+    }
+    
+    /// 计算事件的垂直位置和高度
+    private func calculatePosition(for event: CalendarEvent) -> EventPosition {
+        let totalMinutes = dateRange.end.timeIntervalSince(dateRange.start) / 60
+        let minutesFromStart = CGFloat(event.startDate.timeIntervalSince(dateRange.start)) / 60
+        let durationMinutes = CGFloat(event.endDate.timeIntervalSince(event.startDate)) / 60
+        let y = (minutesFromStart / totalMinutes) * containerSize.height
+        var h = (durationMinutes / totalMinutes) * containerSize.height
+        if h < minEventHeight {
+            h = minEventHeight
+        }
+
+        return EventPosition(event: event, yStart: y, yEnd: y + h)
+    }
+    
+    private func frameForEventAssignment(_ eventAssignment: EventAssignment, offset: Int) -> CGRect {
+        let eventPosition = eventAssignment.position
+        let track = eventAssignment.track
+        let overlapsCount = max(eventAssignment.maxOverlapCount, 1)
+        var w = (containerSize.width - 2 * edgeMargin - CGFloat(overlapsCount - 1) * eventMargin) / CGFloat(overlapsCount)
+        var x = edgeMargin + CGFloat(track) * (w + eventMargin)
+        
+        let offsetWidth = CGFloat(offset) * offsetWidth
+        x += offsetWidth
+        w -= offsetWidth
+        return CGRect(x: x, y: eventPosition.yStart, width: w, height: eventPosition.height)
+    }
+    
+    // MARK: - Struct
+    
+    // 定义日历事件在视图中的位置
+    private struct EventPosition {
+        let event: CalendarEvent
+        let yStart: CGFloat
+        let yEnd: CGFloat
+        
+        /// 高度
+        var height: CGFloat {
+            return max(yEnd - yStart, 0.0)
+        }
+        
+        /// 检查两个事件是否位置重叠
+        func overlaps(with other: EventPosition, contentHeight: CGFloat? = nil) -> Bool {
+            let currentContentYEnd: CGFloat
+            let otherContentYEnd: CGFloat
+            if let contentHeight = contentHeight {
+                currentContentYEnd = yStart + contentHeight
+                otherContentYEnd = other.yStart + contentHeight
+            } else {
+                currentContentYEnd = yEnd
+                otherContentYEnd = other.yEnd
+            }
+            
+            return yStart < otherContentYEnd && other.yStart < currentContentYEnd
+        }
+    }
+    
+    private struct EventAssignment {
+        let position: EventPosition
+        let track: Int
+        let maxOverlapCount: Int
     }
     
     // MARK: - 并查集数据结构
@@ -193,44 +313,4 @@ final class CalendarTimelineLayout {
         }
     }
     
-    // MARK: - Helpers
-    private func layout() {
-        let eventPositions = events.map { calculatePosition(for: $0) }
-        var eventFrames: [CalendarEvent: CGRect] = [:]
-        let groups = groupOverlappingEventPositions(eventPositions)
-        for group in groups {
-            let maxOverlapsCount = calculateMaxOverlapCount(in: group)
-            let trackAssignments = assignEventPositionsToTracks(group)
-            for trackAssignment in trackAssignments {
-                let eventPosition = trackAssignment.eventPosition
-                let frame = frameForEventPosition(eventPosition,
-                                                  track: trackAssignment.track,
-                                                  maxOverlapsCount: maxOverlapsCount)
-                eventFrames[eventPosition.event] = frame
-            }
-        }
-
-        self.eventFrames = eventFrames
-    }
-    
-    /// 计算事件的垂直位置和高度
-    private func calculatePosition(for event: CalendarEvent) -> EventPosition {
-        let totalMinutes = dateRange.end.timeIntervalSince(dateRange.start) / 60
-        let minutesFromStart = CGFloat(event.startDate.timeIntervalSince(dateRange.start)) / 60
-        let durationMinutes = CGFloat(event.endDate.timeIntervalSince(event.startDate)) / 60
-        let y = (minutesFromStart / totalMinutes) * containerSize.height
-        var h = (durationMinutes / totalMinutes) * containerSize.height
-        if h < minEventHeight {
-            h = minEventHeight
-        }
-
-        return EventPosition(event: event, yStart: y, yEnd: y + h)
-    }
-    
-    private func frameForEventPosition(_ eventPosition: EventPosition, track: Int, maxOverlapsCount: Int) -> CGRect {
-        let overlapsCount = max(maxOverlapsCount, 1)
-        let eventWidth = (containerSize.width - 2 * edgeMargin - CGFloat(overlapsCount - 1) * eventMargin) / CGFloat(overlapsCount)
-        let x = edgeMargin + CGFloat(track) * (eventWidth + eventMargin)
-        return CGRect(x: x, y: eventPosition.yStart, width: eventWidth, height: eventPosition.height)
-    }
 }

@@ -143,7 +143,6 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print(#function)
         let toDate = date(at: scrollView.contentOffset.x)
         if visibleDate == toDate {
             return

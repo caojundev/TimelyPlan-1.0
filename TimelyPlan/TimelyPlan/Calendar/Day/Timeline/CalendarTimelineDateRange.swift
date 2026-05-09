@@ -25,5 +25,4 @@ struct CalendarTimelineDateRange {
         self.start = start
         self.end = start.dateByAddingHours(HOURS_PER_DAY)!
     }
-    
 }

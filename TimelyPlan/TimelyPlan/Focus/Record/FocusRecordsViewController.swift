@@ -48,6 +48,7 @@ class FocusRecordsViewController: StatsMainViewController {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         self.navigationItem.rightBarButtonItem = moreBarButtonItem
+        self.contentInset = UIEdgeInsets(bottom: 80.0)
     }
     
     private func setupInfoView() {

@@ -50,6 +50,7 @@ class FocusTimelineDayPageView: CalendarDatePageView {
         timelineView.topPadding = timelineTopPadding
         timelineView.bottomPadding = timelineBottomPadding
         timelineView.tapDelegate = tapDelegate  // 设置点击代理
+        timelineView.layoutIfNeeded()
         timelineView.loadEvents(for: date)
 
         /// 将时间线视图添加到同步器

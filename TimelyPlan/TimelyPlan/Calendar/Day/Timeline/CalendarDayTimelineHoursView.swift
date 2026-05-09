@@ -26,7 +26,6 @@ struct CalendarTimelineRange {
     let end: Duration
 }
 
-
 class CalendarDayTimelineHoursView: UIView {
     
     var hourHeight: CGFloat = 40 {

@@ -10,16 +10,17 @@ import UIKit
 
 class CalendarDayTimelineView: UIView {
     
-    var date: Date = .now {
+    private(set) var date: Date = .now {
         didSet {
-            /// 初始化指示器
-            setupIndicatorView()
+            self.dateRange = CalendarTimelineDateRange(date: date)
         }
     }
     
-    var dateRange = CalendarTimelineDateRange(date: .now)
+    private lazy var dateRange: CalendarTimelineDateRange = {
+        return CalendarTimelineDateRange(date: date)
+    }()
     
-    var hourHeight: CGFloat = 40 {
+    var hourHeight: CGFloat = 80 {
         didSet {
             backgroundLayer.hourHeight = hourHeight
             setNeedsLayout()
@@ -40,30 +41,61 @@ class CalendarDayTimelineView: UIView {
         }
     }
     
+    var scrollViewDelegate: UIScrollViewDelegate? {
+        get {
+            return contentView.delegate
+        }
+        
+        set {
+            contentView.delegate = newValue
+        }
+    }
+    
+    var contentOffset: CGPoint {
+        get {
+            return contentView.contentOffset
+        }
+        
+        set {
+            contentView.contentOffset = newValue
+        }
+    }
+    
+    /// 时间指示器
+    private let indicatorViewHeight = 30.0
+    private var indicatorView: CalendarDayTimelineIndicatorView?
+
+    /// 小时视图
     private let hoursViewWidth = 60.0
-    private let hoursView: CalendarDayTimelineHoursView = {
+    private lazy var hoursView: CalendarDayTimelineHoursView = {
         let view = CalendarDayTimelineHoursView()
         return view
     }()
     
-    private let eventsView: CalendarDayEventsView = {
+    /// 事件视图
+    private lazy var eventsView: CalendarDayEventsView = {
         let view = CalendarDayEventsView()
         return view
     }()
     
-    private let indicatorViewHeight = 30.0
-    private var indicatorView: CalendarDayTimelineIndicatorView?
-
+    /// 内容视图
+    private let contentView = UIScrollView()
+    
     /// 时间线背景图层
     private let backgroundLayer = CalendarDayTimelineBackLayer()
     
-    private let contentView = UIScrollView()
-    
+    /// 指示器分钟更新器
     private let timerUpdater = TPMinuteUpdater()
+    
+    /// 事件供应者
+    private let eventsProvider = CalendarDayEventsProvider()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupContentView()
+        eventsProvider.eventsDidChange = { [weak self] in
+            self?.eventsChanged()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -90,15 +122,30 @@ class CalendarDayTimelineView: UIView {
             return
         }
         
-        let indicatorView = CalendarDayTimelineIndicatorView()
-        self.indicatorView = indicatorView
-        contentView.addSubview(indicatorView)
+        if self.indicatorView == nil {
+            let view = CalendarDayTimelineIndicatorView()
+            self.indicatorView = view
+            contentView.addSubview(view)
+        }
         
         /// 启动计时器
         timerUpdater.start { [weak self] in
             self?.updateIndicator()
         }
     }
+    
+    private func eventsChanged() {
+        guard date.isInSameDayAs(eventsProvider.date) else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.eventsView.dateRange = self.dateRange
+            self.eventsView.events = self.eventsProvider.events
+            self.eventsView.reloadData()
+        }
+    }
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -142,7 +189,14 @@ class CalendarDayTimelineView: UIView {
     }
     
     func reset() {
-//        eventsView.reset()
-//        timerUpdater.stop()
+        eventsView.reset()
+        timerUpdater.stop()
+    }
+    
+    func loadEvents(for date: Date) {
+        reset()
+        self.date = date
+        setupIndicatorView()
+        eventsProvider.loadEvents(for: date)
     }
 }

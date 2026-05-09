@@ -65,12 +65,12 @@ class FocusTimelineView: UIView {
     }()
 
     private let hoursViewWidth = 60.0
-    private let hoursView: CalendarDayTimelineHoursView = {
+    private lazy var hoursView: CalendarDayTimelineHoursView = {
         let view = CalendarDayTimelineHoursView()
         return view
     }()
     
-    private let eventListView: FocusTimelineEventListView = {
+    private lazy var eventListView: FocusTimelineEventListView = {
         let view = FocusTimelineEventListView()
         return view
     }()

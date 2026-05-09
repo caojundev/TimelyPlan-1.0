@@ -1,20 +1,19 @@
 //
-//  FocusTimelineSynchronizer.swift
+//  CalendarDayTimelineSynchronizer.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/2/7.
+//  Created by caojun on 2026/5/8.
 //
 
 import Foundation
 
-class FocusTimelineSynchronizer: NSObject, UIScrollViewDelegate {
+class CalendarDayTimelineSynchronizer: NSObject, UIScrollViewDelegate {
     
     /// 当前内容偏移
     private var contentOffset: CGPoint = .zero
     
     /// 时间线视图
-    internal var timelineViews = NSHashTable<FocusTimelineView>.weakObjects()
-    
+    internal var timelineViews = NSHashTable<CalendarDayTimelineView>.weakObjects()
     
     private func synchronize() {
         for timelineView in timelineViews.allObjects {
@@ -28,7 +27,7 @@ class FocusTimelineSynchronizer: NSObject, UIScrollViewDelegate {
     }
     
     // MARK: - 添加和移除更新器
-    func addTimelineView(_ timelineView: FocusTimelineView) {
+    func addTimelineView(_ timelineView: CalendarDayTimelineView) {
         if !timelineViews.contains(timelineView) {
             timelineView.contentOffset = contentOffset
             timelineViews.add(timelineView)
