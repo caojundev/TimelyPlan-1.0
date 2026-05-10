@@ -11,7 +11,14 @@ class CalendarDayEventsProvider {
     
     var eventsDidChange: (() -> Void)?
     
-    private(set) var events: [CalendarEvent]?
+    /// 全天事件
+    private(set) var allDayEvents: [CalendarEvent]?
+    
+    /// 定时事件
+    private(set) var timedEvents: [CalendarEvent]?
+    
+    /// 所有事件
+    private var events: [CalendarEvent]?
     
     private(set) var date: Date = .now
     
@@ -31,7 +38,8 @@ class CalendarDayEventsProvider {
                 return
             }
             
-            self.events = events
+            self.timedEvents = events
+            self.allDayEvents = self.getTestAllDayEvents()
             self.eventsDidChange?()
         }
     }
@@ -52,17 +60,12 @@ class CalendarDayEventsProvider {
                 
                 CalendarEvent(name: "开发 Coding",
                               color: CalendarEventColor.random,
-                              startDate: calendar.date(bySettingHour: 10, minute: 00, second: 0, of: now)!,
+                              startDate: calendar.date(bySettingHour: 9, minute: 40, second: 0, of: now)!,
                               endDate: calendar.date(bySettingHour: 10, minute: 30, second: 0, of: now)!),
                 CalendarEvent(name: "阅读",
                               color: CalendarEventColor.random,
                               startDate: calendar.date(bySettingHour: 10, minute: 05, second: 0, of: now)!,
-                              endDate: calendar.date(bySettingHour: 10, minute: 50, second: 0, of: now)!),
-                
-//                CalendarEvent(name: "阅读",
-//                              color: CalendarEventColor.random,
-//                              startDate: calendar.date(bySettingHour: 13, minute: 00, second: 0, of: now)!,
-//                              endDate: calendar.date(bySettingHour: 15, minute: 40, second: 0, of: now)!),
+                              endDate: calendar.date(bySettingHour: 10, minute: 50, second: 0, of: now)!)
             ]
             
             DispatchQueue.main.async {
@@ -71,4 +74,18 @@ class CalendarDayEventsProvider {
         }
     }
     
+    private func getTestAllDayEvents() -> [CalendarEvent] {
+        var events = [CalendarEvent]()
+        let count = arc4random() % 20
+        for i in 0...count {
+            let name = "事件名称 \(i)"
+            let event = CalendarEvent(name: name,
+                                      color: CalendarEventColor.random,
+                                      startDate: date,
+                                      endDate: date.dateByAddingDays(1)!)
+            events.append(event)
+        }
+        
+        return events
+    }
 }

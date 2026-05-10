@@ -11,7 +11,25 @@ import UIKit
 
 class CalendarDayAllDayEventsView: UIView {
 
-    var date: Date?
+    var date: Date? {
+        get {
+            return stripView.startDate
+        }
+        
+        set {
+            stripView.startDate = newValue
+        }
+    }
+    
+    var events: [CalendarEvent]? {
+        get {
+            return stripView.events
+        }
+        
+        set {
+            stripView.events = newValue
+        }
+    }
     
     private lazy var stripView: CalendarStripView = {
         let view = CalendarStripView(mode: .day)
@@ -55,32 +73,10 @@ class CalendarDayAllDayEventsView: UIView {
     }
     
     func reset() {
-        self.stripView.reset()
+        stripView.reset()
     }
     
-    
     func reloadData() {
-        guard let date = date else {
-            stripView.startDate = nil
-            stripView.events = nil
-            stripView.reloadData()
-            return
-        }
-        
-        stripView.startDate = date
-        
-        var events = [CalendarEvent]()
-        let count = arc4random() % 20
-        for i in 0...count {
-            let name = "事件名称 \(i)"
-            let event = CalendarEvent(name: name,
-                                      color: CalendarEventColor.random,
-                                      startDate: date,
-                                      endDate: date.dateByAddingDays(1)!)
-            events.append(event)
-        }
-        
-        stripView.events = events
         stripView.reloadData()
     }
 }

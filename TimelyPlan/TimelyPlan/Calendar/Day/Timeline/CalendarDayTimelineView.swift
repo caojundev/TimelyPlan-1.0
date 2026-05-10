@@ -8,7 +8,15 @@
 import Foundation
 import UIKit
 
+protocol CalendarDayTimelineViewDelegate: AnyObject {
+    
+    /// 全天事件加载完成
+    func calendarDayTimelineViewDidLoadAllDayEvents(_ view: CalendarDayTimelineView)
+}
+
 class CalendarDayTimelineView: UIView {
+    
+    weak var delegate: CalendarDayTimelineViewDelegate?
     
     private(set) var date: Date = .now {
         didSet {
@@ -124,13 +132,18 @@ class CalendarDayTimelineView: UIView {
         
         DispatchQueue.main.async {
             self.eventsView.dateRange = self.dateRange
-            self.eventsView.events = self.eventsProvider.events
+            self.eventsView.events = self.eventsProvider.timedEvents
             self.eventsView.reloadData()
             
             self.allDayView.date = self.date
+            self.allDayView.events = self.eventsProvider.allDayEvents
             self.allDayView.reloadData()
-            self.layoutAllDayView()
+            self.allDayEventsDidLoaded()
         }
+    }
+    
+    private func allDayEventsDidLoaded() {
+        self.delegate?.calendarDayTimelineViewDidLoadAllDayEvents(self)
     }
     
     private func setupContentView() {

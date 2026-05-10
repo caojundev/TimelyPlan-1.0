@@ -138,7 +138,8 @@ class CalendarStripView: UIView {
     
     func reset() {
         self.events = nil
-        removeAllEventViews()
+        self.layout = nil
+        self.removeAllEventViews()
     }
     
     func reloadData() {

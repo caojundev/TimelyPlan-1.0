@@ -3715,11 +3715,12 @@
 		E5007F7C2DCA0682006AD311 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				E53632B02FAE15FE0095DFEC /* CalendarDayTimelineSynchronizer.swift */,
 				E53632B42FAF2EE40095DFEC /* AllDay */,
 				E5007F822DCA4A8E006AD311 /* CalendarTimelineDateRange.swift */,
 				E51A4C3E2DC3B95D005A0E3F /* CalendarDayTimelineView.swift */,
-				E5007F7D2DCA0728006AD311 /* CalendarDayTimelineBackLayer.swift */,
 				E51A4C422DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift */,
+				E5007F7D2DCA0728006AD311 /* CalendarDayTimelineBackLayer.swift */,
 				E5007F7A2DC9ADB1006AD311 /* CalendarDayTimelineIndicatorView.swift */,
 			);
 			path = Timeline;
@@ -3728,7 +3729,6 @@
 		E5007F812DCA40D5006AD311 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				E53632B22FAEB5F40095DFEC /* CalendarDayEventsProvider.swift */,
 				E51A4C402DC3B98C005A0E3F /* CalendarDayEventsView.swift */,
 				E5DCC4052DC49BA2004DE7A5 /* CalendarTimelineLayout.swift */,
 			);
@@ -5347,7 +5347,7 @@
 			children = (
 				E51A4C2E2DC26795005A0E3F /* CalendarDayViewController.swift */,
 				E5396EB62DC5A80700342B0E /* CalendarDayPagingView.swift */,
-				E53632B02FAE15FE0095DFEC /* CalendarDayTimelineSynchronizer.swift */,
+				E53632B22FAEB5F40095DFEC /* CalendarDayEventsProvider.swift */,
 				E5007F7C2DCA0682006AD311 /* Timeline */,
 				E5007F812DCA40D5006AD311 /* Events */,
 			);

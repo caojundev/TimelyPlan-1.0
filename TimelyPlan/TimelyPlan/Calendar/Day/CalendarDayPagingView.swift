@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CalendarDayPagingView: CalendarDatePageView {
+class CalendarDayPagingView: CalendarDatePageView, CalendarDayTimelineViewDelegate {
     
     /// 小时高度
     var hourHeight: CGFloat = 80.0 {
@@ -49,6 +49,17 @@ class CalendarDayPagingView: CalendarDatePageView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func updateContentOffset(animated: Bool) {
+        super.updateContentOffset(animated: animated)
+        collectionView.layoutIfNeeded() /// 先完成布局
+        let contentOffset = collectionView.contentOffset
+        self.updateAllDay(with: contentOffset)
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateAllDay(with: scrollView.contentOffset)
+    }
+
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return CalendarDayTimelineCell.self
     }
@@ -63,6 +74,7 @@ class CalendarDayPagingView: CalendarDatePageView {
         
         /// 配置时间线视图
         let timelineView = cell.timelineView
+        timelineView.delegate = self
         timelineView.hourHeight = hourHeight
         timelineView.topPadding = timelineTopPadding
         timelineView.bottomPadding = timelineBottomPadding
@@ -72,20 +84,16 @@ class CalendarDayPagingView: CalendarDatePageView {
         synchronizer.addTimelineView(timelineView)
         
         let date = adapter.item(at: indexPath) as! Date
-        if timelineView.date != date, isVisibleDate(date) {
+        if isVisibleDate(date) {
+            print("加载 \(date.yearMonthDayString)")
             timelineView.loadEvents(for: date)
         }
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateAllDay(with: scrollView.contentOffset)
-    }
-
-    override func updateContentOffset(animated: Bool) {
-        super.updateContentOffset(animated: animated)
-        collectionView.layoutIfNeeded() /// 先完成布局
+    // MARK: - CalendarDayTimelineViewDelegate
+    func calendarDayTimelineViewDidLoadAllDayEvents(_ view: CalendarDayTimelineView) {
         let contentOffset = collectionView.contentOffset
-        self.updateAllDay(with: contentOffset)
+        updateAllDay(with: contentOffset)
     }
     
     // MARK: - 更新布局
