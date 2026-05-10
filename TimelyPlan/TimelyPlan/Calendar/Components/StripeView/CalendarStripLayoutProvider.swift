@@ -96,8 +96,6 @@ struct CalendarEventLayout {
 
 class CalendarStripLayoutProvider {
     
-    let maxStripLinesCount: Int = 5
-    
     private struct PositionInfo {
         let event: CalendarEvent
         let position: CalendarEventPosition
@@ -142,7 +140,7 @@ class CalendarStripLayoutProvider {
     
     private func pathInfos(for positionInfos: [PositionInfo]) -> [CalendarEventPathInfo] {
         var pathInfos = [CalendarEventPathInfo]()
-        var rowEnds = [Int](repeating: 0, count: maxStripLinesCount)
+        var rowEnds = [Int](repeating: 0, count: positionInfos.count)
         
         for positionInfo in positionInfos {
             let event = positionInfo.event

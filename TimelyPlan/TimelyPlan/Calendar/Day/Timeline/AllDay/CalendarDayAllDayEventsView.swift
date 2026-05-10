@@ -37,7 +37,9 @@ class CalendarDayAllDayEventsView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        stripView.frame = bounds
+        stripView.width = width
+        stripView.height = stripView.heightThatFits(CalendarDayConstant.allDayMaxStripLinesCount)
+        stripView.origin = .zero
     }
     
     func maxRow() -> Int {
@@ -46,6 +48,10 @@ class CalendarDayAllDayEventsView: UIView {
         }
 
         return stripView.maxRow(in: (date, date))
+    }
+    
+    func didChangeVisibleOffset(_ offset: CGPoint) {
+        stripView.didChangeVisibleOffset(offset)
     }
     
     func reset() {
@@ -64,7 +70,7 @@ class CalendarDayAllDayEventsView: UIView {
         stripView.startDate = date
         
         var events = [CalendarEvent]()
-        let count = arc4random() % 10
+        let count = arc4random() % 20
         for i in 0...count {
             let name = "事件名称 \(i)"
             let event = CalendarEvent(name: name,
@@ -72,7 +78,6 @@ class CalendarDayAllDayEventsView: UIView {
                                       startDate: date,
                                       endDate: date.dateByAddingDays(1)!)
             events.append(event)
-
         }
         
         stripView.events = events

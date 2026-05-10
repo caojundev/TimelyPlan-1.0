@@ -600,11 +600,12 @@ extension TPCollectionViewAdapter {
         collectionView.performBatchUpdates(nil, completion: nil)
     }
     
-    func performUpdate() {
-        performUpdate(with: nil)
+    func performUpdate(updateVisibleItems: Bool = true) {
+        performUpdate(with: nil, updateVisibleItems: updateVisibleItems)
     }
     
-    func performUpdate(with completion: ((Bool) -> Void)?) {
+    func performUpdate(with completion: ((Bool) -> Void)?,
+                       updateVisibleItems: Bool = true) {
         guard collectionView.window != nil else {
             reloadData()
             completion?(true)
@@ -681,8 +682,10 @@ extension TPCollectionViewAdapter {
             completion?(finished)
         }
         
-        updateVisibleCells()
-        updateVisibleHeaderFooterViews()
+        if updateVisibleItems {
+            updateVisibleCells()
+            updateVisibleHeaderFooterViews()
+        }
     }
     
     func performSectionUpdate(forSectionObject sectionObject: ListDiffable) {

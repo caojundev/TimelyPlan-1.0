@@ -115,7 +115,7 @@ class CalendarDatePageView: TPCollectionWrapperView,
 
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        adapter.performUpdate()
+        adapter.performUpdate(updateVisibleItems: false)
         CATransaction.commit()
         updateContentOffset(animated: false)
         

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CalendarDayTimelineSynchronizer: NSObject, UIScrollViewDelegate {
     
@@ -22,7 +23,19 @@ class CalendarDayTimelineSynchronizer: NSObject, UIScrollViewDelegate {
     private var contentOffset: CGPoint = .zero
     
     /// 时间线视图
-    internal var timelineViews = NSHashTable<CalendarDayTimelineView>.weakObjects()
+    private var timelineViews = NSHashTable<CalendarDayTimelineView>.weakObjects()
+    
+    /// 动画定时器
+    private var displayLink: CADisplayLink?
+
+    /// 参考视图
+    private let referenceView = UIView()
+
+    init(view: UIView) {
+        super.init()
+        referenceView.isHidden = true
+        view.addSubview(referenceView)
+    }
     
     private func synchronize() {
         for timelineView in timelineViews.allObjects {
@@ -52,26 +65,59 @@ class CalendarDayTimelineSynchronizer: NSObject, UIScrollViewDelegate {
     }
     
     // MARK: -
-    func currentAllDayHeight() -> CGFloat {
-        return allDayHeight
+    private func updateAllDayHeight() {
+//        print("更新高度：\(allDayHeight)")
+//        for timelineView in timelineViews.allObjects {
+//            timelineView.allDayHeight = currentAllDayHeight()
+//        }
+
+        guard referenceView.height != allDayHeight else {
+            return
+        }
+
+        UIView.animate(withDuration: 0.25,
+                       delay: 0.0,
+                       options: .beginFromCurrentState,
+                       animations: {
+            self.referenceView.height = self.allDayHeight
+        })
+        
+        startDisplayLink()
+    }
+
+    private func startDisplayLink() {
+        if displayLink != nil {
+            return;
+        }
+     
+        displayLink = CADisplayLink(target: self, selector: #selector(displayLinkAction))
+        displayLink?.add(to: RunLoop.current, forMode: .common)
+    }
+
+    private func stopDisplayLink() {
+        if displayLink != nil {
+            displayLink!.invalidate()
+            displayLink = nil
+        }
     }
     
-    private func updateAllDayHeight() {
+    @objc private func displayLinkAction() {
+        let currentAllDayHeight = currentAllDayHeight()
         for timelineView in timelineViews.allObjects {
-            timelineView.allDayHeight = currentAllDayHeight()
+            timelineView.allDayHeight = currentAllDayHeight
         }
         
-//        guard referenceView.height != allDayHeight else {
-//            return
-//        }
-//        
-//        UIView.animate(withDuration: 0.25,
-//                       delay: 0.0,
-//                       options: .beginFromCurrentState,
-//                       animations: {
-//            self.referenceView.height = self.allDayHeight
-//        }, completion: nil)
-//        startDisplayLink()
+        if currentAllDayHeight == allDayHeight {
+            stopDisplayLink()
+        }
+    }
+    
+    private func currentAllDayHeight() -> CGFloat {
+        if let presentation = referenceView.layer.presentation() {
+            return presentation.frame.height
+        }
+
+        return allDayHeight
     }
     
 }

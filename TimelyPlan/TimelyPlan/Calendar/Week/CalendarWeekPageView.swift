@@ -266,7 +266,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     
     private func performUpdate() {
         executeWithoutAnimation {
-            self.adapter.performUpdate()
+            self.adapter.performUpdate(updateVisibleItems: false)
             self.updateContentOffset(animated: false)
         }
     }

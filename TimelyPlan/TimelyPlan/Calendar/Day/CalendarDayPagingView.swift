@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CalendarDayPagingView: CalendarDatePageView {
     
@@ -27,14 +28,26 @@ class CalendarDayPagingView: CalendarDatePageView {
     
     /// 滚动同步器
     private lazy var synchronizer: CalendarDayTimelineSynchronizer = {
-        let synchronizer = CalendarDayTimelineSynchronizer()
+        let synchronizer = CalendarDayTimelineSynchronizer(view: synchronizerView)
         let maxY = hourHeight * CGFloat(HOURS_PER_DAY)
         let offsetY = CGFloat(autoScrollHour) * hourHeight
         synchronizer.setContentOffset(CGPoint(x: 0.0, y: min(offsetY, maxY)))
         return synchronizer
     }()
     
+    private let synchronizerView = UIView()
+    
     private let allDayEventLayoutManager = CalendarStripLayoutManager()
+    
+    override init(frame: CGRect, visibleDate: Date = .now) {
+        super.init(frame: frame, visibleDate: visibleDate)
+        synchronizerView.isHidden = true
+        insertSubview(synchronizerView, belowSubview: collectionView)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return CalendarDayTimelineCell.self
@@ -66,7 +79,6 @@ class CalendarDayPagingView: CalendarDatePageView {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateAllDay(with: scrollView.contentOffset)
-        print(#function)
     }
 
     override func updateContentOffset(animated: Bool) {
@@ -76,12 +88,6 @@ class CalendarDayPagingView: CalendarDatePageView {
         self.updateAllDay(with: contentOffset)
     }
     
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        super.scrollViewDidEndDecelerating(scrollView)
-        self.updateAllDay(with: scrollView.contentOffset)
-        print(#function)
-    }
-    
     // MARK: - 更新布局
     private func updateAllDay(with contentOffset: CGPoint) {
         updateAllDayVisibleOffset(with: contentOffset)
@@ -89,17 +95,32 @@ class CalendarDayPagingView: CalendarDatePageView {
     }
     
     private func updateAllDayVisibleOffset(with contentOffset: CGPoint) {
-//        let visibleCells = adapter.visibleCells as! [CalendarDayTimelineCell]
-//        for cell in visibleCells {
-//            let visibleOffset = collectionView.convert(contentOffset, toViewOrWindow: cell)
-//            cell.didChangeVisibleOffset(visibleOffset)
-//        }
+        let visibleCells = adapter.visibleCells as! [CalendarDayTimelineCell]
+        for cell in visibleCells {
+            let visibleOffset = collectionView.convert(contentOffset,
+                                                       toViewOrWindow: cell)
+            cell.timelineView.didChangeVisibleOffset(visibleOffset)
+        }
     }
 
     private func updateAllDayHeight(with contentOffset: CGPoint) {
-        let visibleCells = adapter.visibleCells as! [CalendarDayTimelineCell]
+        let pageWidth = bounds.width
+        guard pageWidth > 0 else {
+            return
+        }
+        
+        var pages = Set<Int>()
+        let value = contentOffset.x / pageWidth
+        pages.insert(Int(value))
+        pages.insert(Int(ceil(value)))
+        
         var maxRow = -1
-        for cell in visibleCells {
+        for page in pages {
+            let indexPath = IndexPath(item: page, section: 0)
+            guard let cell = adapter.cellForItem(at: indexPath) as? CalendarDayTimelineCell else {
+                continue
+            }
+            
             let result = cell.timelineView.maxRowForAllDayView()
             if maxRow < result {
                 maxRow = result
@@ -113,8 +134,6 @@ class CalendarDayPagingView: CalendarDatePageView {
         }
     
         synchronizer.allDayHeight = allDayHeight
-        print(allDayHeight)
-        print(contentOffset)
     }
     
     // MARK: - Helpers

@@ -219,6 +219,10 @@ class CalendarDayTimelineView: UIView {
         indicatorView.title = date.timeString
     }
     
+    func didChangeVisibleOffset(_ offset: CGPoint) {
+        allDayView.didChangeVisibleOffset(offset)
+    }
+    
     func maxRowForAllDayView() -> Int {
         return allDayView.maxRow()
     }
