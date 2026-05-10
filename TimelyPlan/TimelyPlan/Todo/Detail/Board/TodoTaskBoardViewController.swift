@@ -15,6 +15,7 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
         let showDetail = self.interactor.showDetail
         let detailOption = self.interactor.configuration.detailOption()
         let view = TodoTaskBoardView(frame: view.bounds, showDetail: showDetail)
+        view.placeholderProvider = self.interactor.placeholderProvider
         view.detailOption = detailOption
         view.delegate = self
         return view

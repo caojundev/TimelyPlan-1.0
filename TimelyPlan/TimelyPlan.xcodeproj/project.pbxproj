@@ -5363,9 +5363,9 @@
 				E57C05E52DD34421009E22F0 /* CalendarWeekTimelineHoursView.swift */,
 				E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift */,
 				E5526AC42DD0AC8E00B96A9D /* CalendarWeekView.swift */,
-				E5D3D4DA2DDC689C00E58EFA /* DragDropManager */,
-				E5526ACA2DD0F46400B96A9D /* WeekDays */,
 				E5526ACB2DD19CA300B96A9D /* Events */,
+				E5526ACA2DD0F46400B96A9D /* WeekDays */,
+				E5D3D4DA2DDC689C00E58EFA /* DragDropManager */,
 			);
 			path = Week;
 			sourceTree = "<group>";

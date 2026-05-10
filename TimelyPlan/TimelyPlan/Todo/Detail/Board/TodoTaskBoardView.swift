@@ -51,6 +51,23 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         return selection.selectedItems
     }
     
+    var shouldShowPlaceholder: (() -> Bool)? {
+        get {
+            return collectionView.shouldShowPlaceholder
+        }
+        
+        set {
+            collectionView.shouldShowPlaceholder = newValue
+        }
+    }
+    
+    /// 提供占位视图
+    var placeholderProvider: TPPlaceholderProviding? {
+        didSet {
+            updatePlaceholderView()
+        }
+    }
+    
     /// 显示详情
     private(set) var showDetail: Bool
     
@@ -105,6 +122,10 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         collectionView.frame = layoutFrame
         collectionView.setNeedsLayout()
         collectionView.layoutIfNeeded()
+    }
+    
+    func updatePlaceholderView() {
+        collectionView.placeholderView = placeholderProvider?.placeholderView()
     }
     
     func setSelecting(_ isSelecting: Bool) {
@@ -243,11 +264,13 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     
     // MARK: - Reload
     func reloadData() {
+        updatePlaceholderView()
         adapter.reloadData()
     }
     
     /// 更新列表
     func performUpdate() {
+        updatePlaceholderView()
         adapter.performUpdate {[weak self] _ in
             self?.forEachVisiblePageView { pageView in
                 pageView.performUpdate()
