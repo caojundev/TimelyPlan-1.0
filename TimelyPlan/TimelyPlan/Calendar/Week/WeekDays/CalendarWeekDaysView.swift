@@ -51,26 +51,34 @@ class CalendarWeekDaysView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        backLayer.frame = bounds
-        backLayer.updateColors()
-        CATransaction.commit()
-        
+        executeWithoutAnimation {
+            self.backLayer.frame = bounds
+            self.backLayer.updateColors()
+        }
+
         stackView.frame = bounds
     }
     
+    private var dayViews: [CalendarWeekSingleDayView] {
+        return stackView.arrangedSubviews as! [CalendarWeekSingleDayView]
+    }
+    
+    private func reset() {
+        dayViews.forEach { view in
+            view.reset()
+        }
+    }
+    
     private func reloadData() {
-        let dayViews = stackView.arrangedSubviews as! [CalendarWeekSingleDayView]
+        guard let weekStartDate = weekStartDate else {
+            reset()
+            return
+        }
+
         for dayView in dayViews {
-            let days = dayView.tag
-            
-            if let date = weekStartDate?.dateByAddingDays(days) {
-                let config = CalendarMonthDayConfig(date: date)
-                dayView.update(with: config)
-            } else {
-                dayView.reset()
-            }
+            let date = weekStartDate.dateByAddingDays(dayView.tag)!
+            let config = CalendarMonthDayConfig(date: date)
+            dayView.update(with: config)
         }
     }
 }

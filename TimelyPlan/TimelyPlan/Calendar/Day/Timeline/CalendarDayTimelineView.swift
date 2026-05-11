@@ -131,13 +131,14 @@ class CalendarDayTimelineView: UIView {
         }
         
         DispatchQueue.main.async {
-            self.eventsView.dateRange = self.dateRange
+            self.eventsView.date = self.date
             self.eventsView.events = self.eventsProvider.timedEvents
             self.eventsView.reloadData()
             
             self.allDayView.date = self.date
             self.allDayView.events = self.eventsProvider.allDayEvents
             self.allDayView.reloadData()
+            
             self.allDayEventsDidLoaded()
         }
     }

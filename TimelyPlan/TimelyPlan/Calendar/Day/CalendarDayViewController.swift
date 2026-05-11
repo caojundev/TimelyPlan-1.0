@@ -7,25 +7,12 @@
 
 import Foundation
 
-class CalendarDayViewController: TPViewController,
-                                 CalendarTitleViewProvider,
+class CalendarDayViewController: CalendarBaseViewController,
                                  CalendarDatePageViewDelegate,
                                  TPCalendarSingleDateSelectionDelegate {
 
-    /// 标题视图
-    var titleView: UIView? {
-        return dateButton
-    }
-    
     private var date: Date = .now
     
-    /// 日期按钮
-    private lazy var dateButton: CalendarDateButton = {
-        let button = CalendarDateButton()
-        button.addTarget(self, action: #selector(clickDate(_:)), for: .touchUpInside)
-        return button
-    }()
-
     /// 周视图
     private let weekViewHeight = 80.0
     private lazy var weekView: TPCalendarScrollableWeekView = {
@@ -51,8 +38,8 @@ class CalendarDayViewController: TPViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(weekView)
-        view.addSubview(pageView)
+        view.insertSubview(pageView, at: 0)
+        view.insertSubview(weekView, aboveSubview: pageView)
         weekView.reloadData()
         pageView.reloadData()
         updateTitle(with: date)
@@ -69,15 +56,17 @@ class CalendarDayViewController: TPViewController,
         pageView.height = layoutFrame.height - weekViewHeight
         pageView.top = weekView.bottom
     }
-    
-    override var themeBackgroundColor: UIColor? {
-        return .systemBackground
-    }
-    
-    override var themeNavigationBarBackgroundColor: UIColor? {
-        return .systemBackground
-    }
 
+    override func quickAddTaskDateInfo() -> TaskDateInfo? {
+        let now = Date()
+        var date = self.date
+        if date.isPreviousDay(of: now) {
+            date = now
+        }
+        
+        return TaskDateInfo(date: date)
+    }
+        
     // MARK: - Update
     private func updateTitle(with date: Date) {
         dateButton.title = date.slashFormattedYearMonthDayString
@@ -93,8 +82,7 @@ class CalendarDayViewController: TPViewController,
         pageView.setVisibleDate(date, animated: animated)
     }
     
-    // MARK: - Event Response
-    @objc func clickDate(_ button: UIButton) {
+    override func clickDate(_ button: UIButton) {
         let vc = TPCalendarViewController(date: date)
         vc.didSelectDate = { date in
             self.pickDate(date)

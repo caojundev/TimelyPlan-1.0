@@ -12,15 +12,13 @@ protocol CalendarWeekPageViewDelegate: AnyObject {
     
     /// 滚动到特定日期
     func calendarWeekPageView(_ weekPageView: CalendarWeekPageView, didScrollTo date: Date)
-    
-    func calendarWeekPageView(_ weekPageView: CalendarWeekPageView,
-                              fetchEventsForWeek weekStartDate: Date,
-                              completion: @escaping ([CalendarEvent]?) -> Void)
+
 }
 
 class CalendarWeekPageView: TPCollectionWrapperView,
                             TPCollectionViewAdapterDataSource,
-                            TPCollectionViewAdapterDelegate {
+                            TPCollectionViewAdapterDelegate,
+                            CalendarWeekViewDelegate {
 
     weak var delegate: CalendarWeekPageViewDelegate?
     
@@ -44,6 +42,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         return view
     }()
     
+    /// 全天布局管理器
     private let allDayEventLayoutManager = CalendarStripLayoutManager()
     
     init(frame: CGRect, visibleDate: Date = .now) {
@@ -115,15 +114,16 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         guard let cell = cell as? CalendarWeekPageCell,
-              let date = adapter.item(at: indexPath) as? Date else {
+                let weekStartDate = adapter.item(at: indexPath) as? Date else {
             return
         }
         
-        /// 需要立即布局以解决滚动跳动的问题
-        cell.layoutIfNeeded()
-        cell.weekStartDate = date
-        cell.reloadData()
-        synchronizer.addEventsView(cell.eventsView)
+        cell.layoutIfNeeded() /// 需要立即布局以解决滚动跳动的问题
+        let weekView = cell.weekView
+        weekView.delegate = self
+        weekView.loadEvents(with: weekStartDate)
+        
+        synchronizer.addEventsView(weekView.eventsView)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -132,6 +132,11 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return weekCellSize
+    }
+    
+    // MARK: - CalendarWeekViewDelegate
+    func calendarWeekViewDidLoadAllDayEvents(_ view: CalendarWeekView) {
+        updateAllDay(with: collectionView.contentOffset)
     }
     
     // MARK: - UIScrollViewDelegate
@@ -160,15 +165,21 @@ class CalendarWeekPageView: TPCollectionWrapperView,
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
-        updateAllDayHeight(with: offset)
-        updateAllDayVisibleOffset(with: offset)
+        updateAllDay(with: offset)
+    }
+    
+    // MARK: - Update
+    
+    private func updateAllDay(with contentOffset: CGPoint) {
+        updateAllDayVisibleOffset(with: contentOffset)
+        updateAllDayHeight(with: contentOffset)
     }
     
     private func updateAllDayVisibleOffset(with contentOffset: CGPoint) {
         let visibleCells = adapter.visibleCells as! [CalendarWeekPageCell]
         for cell in visibleCells {
             let visibleOffset = collectionView.convert(contentOffset, toViewOrWindow: cell)
-            cell.didChangeVisibleOffset(visibleOffset)
+            cell.weekView.didChangeVisibleOffset(visibleOffset)
         }
     }
     
@@ -177,7 +188,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         let visibleCells = adapter.visibleCells as! [CalendarWeekPageCell]
         var maxRow = -1
         for cell in visibleCells {
-            let result = cell.eventsView.maxRowForAllDayView(in: dateRange)
+            let result = cell.weekView.maxRowForAllDayView(in: dateRange)
             if maxRow < result {
                 maxRow = result
             }
@@ -242,7 +253,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
             return nil
         }
         
-        let eventsView = cell.eventsView
+        let eventsView = cell.weekView.eventsView
         let convertedPoint = self.convert(point, toViewOrWindow: eventsView)
         return eventsView.eventView(at: convertedPoint)
     }
@@ -301,8 +312,6 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         let endDate = startDate.dateByAddingDays(Int(days))!
         return (startDate, endDate)
     }
-    
-    
     
     // MARK: - 时间线
     func highlightRange(_ range: CalendarTimelineRange?) {

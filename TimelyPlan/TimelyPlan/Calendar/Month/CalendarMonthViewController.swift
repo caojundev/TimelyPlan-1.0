@@ -7,19 +7,8 @@
 
 import Foundation
 
-class CalendarMonthViewController: TPViewController,
-                                   CalendarTitleViewProvider,
+class CalendarMonthViewController: CalendarBaseViewController,
                                    CalendarMonthViewDelegate {
-    var titleView: UIView? {
-        return dateButton
-    }
-    
-    /// 标题视图
-    private lazy var dateButton: CalendarDateButton = {
-        let button = CalendarDateButton()
-        button.addTarget(self, action: #selector(clickDate(_:)), for: .touchUpInside)
-        return button
-    }()
 
     private lazy var monthView: CalendarMonthView = {
         let view = CalendarMonthView(frame: view.bounds, monthDate: .now)
@@ -29,7 +18,7 @@ class CalendarMonthViewController: TPViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(monthView)
+        view.insertSubview(monthView, at: 0)
         updateTitle(with: monthView.visibleMonthDate)
     }
     
@@ -38,19 +27,21 @@ class CalendarMonthViewController: TPViewController,
         monthView.frame = view.safeLayoutFrame()
     }
     
-    override var themeBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
-    
-    override var themeNavigationBarBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
-    
     private func updateTitle(with date: Date) {
         dateButton.title = date.slashFormattedYearMonthString
     }
     
-    @objc func clickDate(_ button: UIButton) {
+    override func quickAddTaskDateInfo() -> TaskDateInfo? {
+        let now = Date()
+        var date = monthView.topWeekStartDate ?? now
+        if date.isPreviousDay(of: now) {
+            date = now
+        }
+        
+        return TaskDateInfo(date: date)
+    }
+    
+    override func clickDate(_ button: UIButton) {
         let datePickerVC = TPYearMonthDatePickerViewController()
         datePickerVC.date = monthView.visibleMonthDate
         datePickerVC.didPickDate = { date in
@@ -74,6 +65,14 @@ class CalendarMonthViewController: TPViewController,
     func calendarMonthView(_ monthView: CalendarMonthView, didScrollTo topWeekStartDate: Date) {
         let monthDate = monthView.visibleMonthDate(with: topWeekStartDate)
         updateTitle(with: monthDate)
+    }
+    
+    func calendarMonthView(_ monthView: CalendarMonthView, longPressDidBeganOnDate date: Date) {
+        TPImpactFeedback.impactWithLightStyle()
+        let dateInfo = TaskDateInfo(date: date)
+        let task = quickAddTask()
+        task.schedule = TaskSchedule(dateInfo: dateInfo, reminder: nil, repeatRule: nil)
+        quickAddManager.show(with: task)
     }
     
     func calendarMonthView(_ monthView: CalendarMonthView, fetchEventsForWeek weekStartDate: Date, completion: @escaping ([CalendarEvent]?) -> Void) {

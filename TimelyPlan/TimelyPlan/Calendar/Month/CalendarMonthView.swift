@@ -13,6 +13,9 @@ protocol CalendarMonthViewDelegate: AnyObject {
     /// 滚动到特定日期
     func calendarMonthView(_ monthView: CalendarMonthView, didScrollTo topWeekStartDate: Date)
     
+    func calendarMonthView(_ monthView: CalendarMonthView, longPressDidBeganOnDate date: Date)
+    
+    
     func calendarMonthView(_ monthView: CalendarMonthView,
                            fetchEventsForWeek weekStartDate: Date,
                            completion: @escaping ([CalendarEvent]?) -> Void)
@@ -219,6 +222,9 @@ class CalendarMonthView: TPCollectionWrapperView,
     }
     
     // MARK: - CalendarMonthWeekViewDelegate
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, longPressDidBeganOnDate date: Date) {
+        delegate?.calendarMonthView(self, longPressDidBeganOnDate: date)
+    }
     
     func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, fetchEventsForWeek weekStartDate: Date, completion: @escaping ([CalendarEvent]?) -> Void) {
         guard let delegate = delegate else {
@@ -292,7 +298,7 @@ class CalendarMonthViewFlowLayout: UICollectionViewFlowLayout {
         }
     }
 
-    var preferredRowsCount = 6
+    var preferredRowsCount = 5
     
     private var minimumItemHeight = 120.0
     

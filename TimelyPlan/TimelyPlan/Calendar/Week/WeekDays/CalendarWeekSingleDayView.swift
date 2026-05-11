@@ -105,6 +105,16 @@ class CalendarWeekSingleDayView: UIView {
         dayLabel.text = config.dayLabelText
         lunarLabel.text = config.lunarLabelText
 
+        if config.date.isToday {
+            dayLabel.textColor = .primary
+            weekSymbolLabel.textColor = .primary
+            lunarLabel.textColor = .primary
+        } else {
+            dayLabel.textColor = .label
+            weekSymbolLabel.textColor = .secondaryLabel
+            lunarLabel.textColor = .gray
+        }
+        
         if config.workStatus == .inWorking {
             workStatusLabel.textColor = Color(0xFF3B30)
         } else if config.workStatus == .onHoliday {

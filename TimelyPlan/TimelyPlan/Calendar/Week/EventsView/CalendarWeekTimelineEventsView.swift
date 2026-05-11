@@ -8,11 +8,19 @@
 import Foundation
 import UIKit
 
+protocol CalendarWeekTimelineEventsViewDelegate: AnyObject {
+    
+    /// 指定日期定时事项
+    func weekTimelineEventsView(_ view: CalendarWeekTimelineEventsView, timedEventsOnDate date: Date) -> [CalendarEvent]?
+}
+
 class CalendarWeekTimelineEventsView: UIScrollView {
+    
+    weak var eventsProvider: CalendarWeekTimelineEventsViewDelegate?
     
     var weekStartDate: Date?
     
-    var hourHeight: CGFloat = 40 {
+    var hourHeight: CGFloat = 80 {
         didSet {
             setNeedsLayout()
         }
@@ -58,8 +66,9 @@ class CalendarWeekTimelineEventsView: UIScrollView {
 
         /// 初始化日视图
         var dayViews = [CalendarDayEventsView]()
-        for _ in 1...daysCount {
+        for index in 1...daysCount {
             let view = CalendarDayEventsView()
+            view.tag = index
             addSubview(view)
             dayViews.append(view)
         }
@@ -89,8 +98,26 @@ class CalendarWeekTimelineEventsView: UIScrollView {
         }
     }
     
+    // MARK: - Public Methods
+    
+    func reset() {
+        dayViews.forEach { view in
+            view.reset()
+        }
+    }
+    
     func reloadData() {
+        guard let weekStartDate = weekStartDate else {
+            reset()
+            return
+        }
         
+        for dayView in dayViews {
+            let date = weekStartDate.dateByAddingDays(dayView.tag)!
+            dayView.date = date
+            dayView.events = eventsProvider?.weekTimelineEventsView(self, timedEventsOnDate: date)
+            dayView.reloadData()
+        }
     }
     
     func eventView(at point: CGPoint) -> CalendarEventView? {

@@ -12,7 +12,7 @@ class CalendarDayEventsView: UIView {
   
     var events: [CalendarEvent]?
     
-    var dateRange: CalendarTimelineDateRange?
+    var date: Date?
     
     private var eventViews: [CalendarEventView] = []
     
@@ -77,8 +77,9 @@ class CalendarDayEventsView: UIView {
     }
     
     func reloadData() {
-        if let dateRange = dateRange {
-            let events = events ?? []
+        if let date = date {
+            let dateRange = CalendarTimelineDateRange(date: date)
+            let events = self.events ?? []
             self.layout = CalendarTimelineLayout(events: events, dateRange: dateRange)
         } else {
             self.layout = nil
@@ -90,9 +91,9 @@ class CalendarDayEventsView: UIView {
 
     /// 重置
     func reset() {
-        dateRange = nil
-        events = nil
-        layout = nil
-        setupEventViews()
+        self.date = nil
+        self.events = nil
+        self.layout = nil
+        self.setupEventViews()
     }
 }

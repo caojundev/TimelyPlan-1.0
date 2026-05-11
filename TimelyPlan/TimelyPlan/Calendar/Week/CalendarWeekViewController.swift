@@ -7,22 +7,10 @@
 
 import Foundation
 
-class CalendarWeekViewController: TPViewController,
-                                    CalendarTitleViewProvider,
-                                    CalendarWeekPageViewDelegate {
-    
-    var titleView: UIView? {
-        return dateButton
-    }
-    
-    private var firstWeekday: Weekday = .sunday
+class CalendarWeekViewController: CalendarBaseViewController,
+                                  CalendarWeekPageViewDelegate {
 
-    /// 日期按钮
-    private lazy var dateButton: CalendarDateButton = {
-        let button = CalendarDateButton()
-        button.addTarget(self, action: #selector(clickDate(_:)), for: .touchUpInside)
-        return button
-    }()
+    private var firstWeekday: Weekday = .sunday
 
     /// 周视图
     private lazy var pageView: CalendarWeekPageView = {
@@ -35,10 +23,9 @@ class CalendarWeekViewController: TPViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(pageView)
+        view.insertSubview(pageView, at: 0)
         pageView.reloadData()
         updateTitle(with: pageView.visibleDate)
-        
         dragDropManager = CalendarWeekDragDropManager(pageView: pageView)
     }
     
@@ -47,21 +34,23 @@ class CalendarWeekViewController: TPViewController,
         pageView.frame = view.safeLayoutFrame()
     }
     
-    override var themeBackgroundColor: UIColor? {
-        return .systemBackground
+    override func quickAddTaskDateInfo() -> TaskDateInfo? {
+        let now = Date()
+        var date = pageView.visibleDate ?? now
+        if date.isPreviousDay(of: now) {
+            date = now
+        }
+        
+        return TaskDateInfo(date: date)
     }
-    
-    override var themeNavigationBarBackgroundColor: UIColor? {
-        return .systemBackground
-    }
-
+        
     // MARK: - Update
     private func updateTitle(with date: Date) {
         dateButton.title = date.slashFormattedYearMonthString
     }
     
     // MARK: - Event Response
-    @objc func clickDate(_ button: UIButton) {
+    override func clickDate(_ button: UIButton) {
         let datePickerVC = TPYearMonthDatePickerViewController()
         datePickerVC.date = pageView.visibleDate
         datePickerVC.didPickDate = { date in
@@ -84,9 +73,5 @@ class CalendarWeekViewController: TPViewController,
     // MARK: - CalendarWeekPageViewDelegate
     func calendarWeekPageView(_ weekPageView: CalendarWeekPageView, didScrollTo date: Date) {
         updateTitle(with: date)
-    }
-    
-    func calendarWeekPageView(_ weekPageView: CalendarWeekPageView, fetchEventsForWeek weekStartDate: Date, completion: @escaping ([CalendarEvent]?) -> Void) {
-        
     }
 }

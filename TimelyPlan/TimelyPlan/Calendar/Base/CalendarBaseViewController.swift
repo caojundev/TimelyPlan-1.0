@@ -1,0 +1,111 @@
+//
+//  CalendarBaseViewController.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/5/11.
+//
+
+import Foundation
+
+class CalendarBaseViewController: TPViewController, CalendarTitleViewProvider {
+
+    /// 标题视图
+    var titleView: UIView? {
+        return dateButton
+    }
+    
+    /// 日期按钮
+    lazy var dateButton: CalendarDateButton = {
+        let button = CalendarDateButton()
+        button.addTarget(self, action: #selector(clickDate(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    
+    // MARK: - AddView
+    /// 添加视图按钮
+    private let addViewSize = CGSize(width: 50.0, height: 50.0)
+    
+    /// 添加视图边界间距
+    private let addViewMargins = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 20.0)
+    
+    /// 添加视图
+    private var addView: TPAddView?
+
+    /// 任务快速添加控制器
+    private(set) lazy var quickAddManager: TodoTaskQuickAddManager = {
+        let manager = TodoTaskQuickAddManager(containerViewController: self)
+        return manager
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupAddView()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        layoutAddView()
+    }
+    
+    private func layoutAddView() {
+        let layoutFrame = view.safeAreaFrame()
+        if let addView = addView {
+            addView.size = addViewSize
+            addView.bottom = layoutFrame.maxY - addViewMargins.bottom
+            addView.right = layoutFrame.maxX - addViewMargins.right
+        }
+    }
+    
+    override var themeBackgroundColor: UIColor? {
+        return .systemBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .systemBackground
+    }
+
+    // MARK: - AddView
+    private func setupAddView() {
+        if canAddTask() {
+            let addView = TPAddView()
+            addView.normalBackgroundColor = .primary
+            addView.didClickAdd = { [weak self] _ in
+                self?.clickAddTask()
+            }
+           
+            self.addView = addView
+            self.view.insertSubview(addView, at: 999)
+        }
+    }
+    
+    func canAddTask() -> Bool {
+        return true
+    }
+    
+    func quickAddTask() -> TodoQuickAddTask {
+        let dateInfo = quickAddTaskDateInfo()
+        let task = TodoQuickAddTask()
+        task.schedule = TaskSchedule(dateInfo: dateInfo,
+                                     reminder: nil,
+                                     repeatRule: nil)
+        return task
+    }
+    
+    func quickAddTaskDateInfo() -> TaskDateInfo? {
+        return nil
+    }
+    
+    // MARK: - Event Response
+    @objc func clickDate(_ button: UIButton) {
+        
+    }
+    
+    /// 点击添加
+    func clickAddTask() {
+        TPImpactFeedback.impactWithLightStyle()
+        let task = quickAddTask()
+        quickAddManager.show(with: task)
+    }
+    
+}

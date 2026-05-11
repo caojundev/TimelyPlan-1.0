@@ -1,70 +1,80 @@
 //
-//  CalendarWeekAllDayEventsView.swift
+//  CalendarWeekEventsProvider.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2025/5/13.
+//  Created by caojun on 2026/5/11.
 //
 
 import Foundation
-import UIKit
 
-class CalendarWeekAllDayEventsView: UIView {
-
+class CalendarWeekEventsProvider {
+    
+    /// 周开始日期
     var weekStartDate: Date?
     
-    private let stripView: CalendarStripView = {
-        let view = CalendarStripView()
-        return view
-    }()
+    var eventsDidChange: (() -> Void)?
     
-    private let backLayer = CalendarWeekDaysBackLayer()
+    /// 全天事件
+    private(set) var allDayEvents: [CalendarEvent]?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
+    /// 定时事件
+    private(set) var timedEvents: [CalendarEvent]?
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupView()
-    }
+    /// 所有事件
+    private var events: [CalendarEvent]?
     
-    private func setupView() {
-        backgroundColor = .systemGray5
-        clipsToBounds = true
-        layer.addSublayer(backLayer)
-        addSubview(stripView)
-        reloadData()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        stripView.width = width
-        stripView.height = stripView.heightThatFits(CalendarWeekConstant.allDayMaxStripLinesCount)
-        stripView.origin = .zero
-        executeWithoutAnimation {
-            self.backLayer.frame = bounds
-            self.backLayer.updateColors()
-        }
-    }
-    
-    func maxRow(in dateRange: (firstDate: Date, lastDate: Date)) -> Int {
-        return stripView.maxRow(in: dateRange)
-    }
-    
-    func didChangeVisibleOffset(_ offset: CGPoint) {
-        stripView.didChangeVisibleOffset(offset)
-    }
-    
-    func reloadData() {
-        guard let weekStartDate = weekStartDate else {
-            stripView.startDate = nil
-            stripView.events = nil
-            stripView.reloadData()
-            return
-        }
+    init() {
         
-        stripView.startDate = weekStartDate
+    }
+
+    func loadEvents(with weekStartDate: Date) {
+        self.weekStartDate = weekStartDate
+        fetchEvents(on: weekStartDate) { events in
+            guard self.weekStartDate == weekStartDate else {
+                print("非相同日期: 获取的是\(weekStartDate.yearMonthDayString)，当前日期\(self.weekStartDate?.yearMonthDayString)")
+                return
+            }
+            
+            self.timedEvents = events
+            self.allDayEvents = self.getTestAllDayEvents()
+            self.eventsDidChange?()
+        }
+    }
+    
+    private func fetchEvents(on date: Date, completion:@escaping([CalendarEvent]?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let calendar = Calendar.current
+            let now = date
+            let events = [
+                CalendarEvent(name: "晨会",
+                              color: CalendarEventColor.random,
+                              startDate: calendar.date(bySettingHour: 9, minute: 0, second: 0, of: now)!,
+                              endDate: calendar.date(bySettingHour: 9, minute: 15, second: 0, of: now)!),
+                CalendarEvent(name: "产品评审",
+                              color: CalendarEventColor.random,
+                              startDate: calendar.date(bySettingHour: 9, minute: 10, second: 0, of: now)!,
+                              endDate: calendar.date(bySettingHour: 10, minute: 40, second: 0, of: now)!),
+                
+                CalendarEvent(name: "开发 Coding",
+                              color: CalendarEventColor.random,
+                              startDate: calendar.date(bySettingHour: 9, minute: 40, second: 0, of: now)!,
+                              endDate: calendar.date(bySettingHour: 10, minute: 30, second: 0, of: now)!),
+                CalendarEvent(name: "阅读",
+                              color: CalendarEventColor.random,
+                              startDate: calendar.date(bySettingHour: 10, minute: 05, second: 0, of: now)!,
+                              endDate: calendar.date(bySettingHour: 10, minute: 50, second: 0, of: now)!)
+            ]
+            
+            DispatchQueue.main.async {
+                completion(events)
+            }
+        }
+    }
+    
+    private func getTestAllDayEvents() -> [CalendarEvent] {
+        guard let weekStartDate = weekStartDate else {
+            return  []
+        }
         
         var events = [CalendarEvent]()
         var event = CalendarEvent(name: "事件名称1",
@@ -132,7 +142,7 @@ class CalendarWeekAllDayEventsView: UIView {
                                     startDate: weekStartDate.dateByAddingDays(2)!,
                                   endDate: weekStartDate.dateByAddingDays(2)!)
         events.append(event)
-        stripView.events = events
-        stripView.reloadData()
+        
+        return events
     }
 }

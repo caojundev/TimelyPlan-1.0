@@ -10,9 +10,16 @@ import UIKit
 
 protocol CalendarWeekEventsViewDelegate: AnyObject {
     
+    /// 周全天事项
+    func allDayEventsForWeekEventsView(_ view: CalendarWeekEventsView) -> [CalendarEvent]?
+    
+    /// 指定日期定时事项
+    func weekEventsView(_ view: CalendarWeekEventsView, timedEventsOnDate date: Date) -> [CalendarEvent]?
 }
 
-class CalendarWeekEventsView: UIView {
+class CalendarWeekEventsView: UIView, CalendarWeekTimelineEventsViewDelegate {
+    
+    weak var delegate: CalendarWeekEventsViewDelegate?
     
     var weekStartDate: Date?
     
@@ -42,15 +49,16 @@ class CalendarWeekEventsView: UIView {
         }
     }
     
-    /// 时间线视图
-    private let timelineView: CalendarWeekTimelineEventsView = {
-        let view = CalendarWeekTimelineEventsView()
+    /// 全天事件视图
+    private lazy var allDayView: CalendarWeekAllDayEventsView = {
+        let view = CalendarWeekAllDayEventsView()
         return view
     }()
     
-    /// 全天事件视图
-    private let allDayView: CalendarWeekAllDayEventsView = {
-        let view = CalendarWeekAllDayEventsView()
+    /// 时间线视图
+    private lazy var timelineView: CalendarWeekTimelineEventsView = {
+        let view = CalendarWeekTimelineEventsView()
+        view.eventsProvider = self
         return view
     }()
     
@@ -86,9 +94,27 @@ class CalendarWeekEventsView: UIView {
         timelineView.contentInset = UIEdgeInsets(top: allDayHeight)
     }
     
+    // MARK: - CalendarWeekTimelineEventsViewDelegate
+    func weekTimelineEventsView(_ view: CalendarWeekTimelineEventsView, timedEventsOnDate date: Date) -> [CalendarEvent]? {
+        return delegate?.weekEventsView(self, timedEventsOnDate: date)
+    }
+    
+    // MARK: - Public Methods
+    func reset() {
+        allDayView.reset()
+        timelineView.reset()
+    }
+    
     func reloadData() {
+        guard let weekStartDate = weekStartDate else {
+            reset()
+            return
+        }
+
         allDayView.weekStartDate = weekStartDate
+        allDayView.events = delegate?.allDayEventsForWeekEventsView(self)
         allDayView.reloadData()
+        
         timelineView.weekStartDate = weekStartDate
         timelineView.reloadData()
     }

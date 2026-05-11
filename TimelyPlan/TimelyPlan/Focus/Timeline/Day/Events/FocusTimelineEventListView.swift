@@ -111,7 +111,7 @@ class FocusTimelineEventListView: UIView, UIGestureRecognizerDelegate {
     /// 设置长按手势识别器
     private func setupLongPressGesture() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-        longPressGesture.minimumPressDuration = 0.25 // 0.5秒长按触发
+        longPressGesture.minimumPressDuration = 0.25
         longPressGesture.delaysTouchesBegan = true
         longPressGesture.cancelsTouchesInView = false
         self.addGestureRecognizer(longPressGesture)

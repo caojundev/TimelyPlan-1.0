@@ -10,6 +10,8 @@ import UIKit
 
 protocol CalendarMonthWeekViewDelegate: AnyObject {
     
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, longPressDidBeganOnDate date: Date)
+    
     /// 获取指定周的事件
     /// - Parameters:
     ///   - weekView: 周视图实例
@@ -44,7 +46,7 @@ class CalendarMonthWeekView: UIView {
     }()
 
     /// 头视图高度
-    private let headerHeight = 30.0
+    private let headerHeight = 36.0
     
     /// 数据请求管理器
     private let requestManager = TPRequestManager()
@@ -54,6 +56,7 @@ class CalendarMonthWeekView: UIView {
         setupDayViews()
         layer.addSublayer(backgroundLayer)
         addSubview(eventView)
+        setupLongPressGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -72,6 +75,36 @@ class CalendarMonthWeekView: UIView {
         eventView.frame = CGRect(x: 0.0, y: headerHeight, width: width, height: stripHeight)
     }
     
+    /// 设置长按手势识别器
+    private func setupLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        longPressGesture.minimumPressDuration = 0.25
+        longPressGesture.delaysTouchesBegan = true
+        longPressGesture.cancelsTouchesInView = false
+        self.addGestureRecognizer(longPressGesture)
+    }
+    
+    /// 处理长按手势
+    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            let location = gesture.location(in: self)
+            if let date = date(on: location) {
+                delegate?.calendarMonthWeekView(self, longPressDidBeganOnDate: date)
+            }
+        }
+    }
+    
+    private func date(on loacation: CGPoint) -> Date? {
+        guard let weekStartDate = weekStartDate else {
+            return nil
+        }
+
+        let dayWidth = bounds.width / CGFloat(DAYS_PER_WEEK)
+        let index = Int(loacation.x / dayWidth)
+        let date = weekStartDate.dateByAddingDays(index)!
+        return date
+    }
+    
     private func setupDayViews() {
         var dayViews = [CalendarMonthDayView]()
         for _ in 1...DAYS_PER_WEEK {
@@ -88,6 +121,7 @@ class CalendarMonthWeekView: UIView {
         let itemHeight = height
         for (index, dayView) in dayViews.enumerated() {
             let x = CGFloat(index) * itemWidth
+            dayView.headerHeight = headerHeight
             dayView.frame = CGRect(x: x, y: 0.0, width: itemWidth, height: itemHeight)
         }
     }

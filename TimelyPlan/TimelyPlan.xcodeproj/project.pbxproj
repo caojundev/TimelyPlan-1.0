@@ -353,6 +353,8 @@
 		E52B62A72F36121000673620 /* focus_main_timeline_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */; };
 		E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */; };
 		E52E481B2F8A07EE00B8CD25 /* TPImageInfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52E481A2F8A07EE00B8CD25 /* TPImageInfoButton.swift */; };
+		E52EF61A2FB15033002CF355 /* CalendarWeekEventsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52EF6192FB15033002CF355 /* CalendarWeekEventsProvider.swift */; };
+		E52EF61E2FB1A96E002CF355 /* CalendarBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52EF61D2FB1A96E002CF355 /* CalendarBaseViewController.swift */; };
 		E52F899A2D5B0903001F18FA /* TPImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F89992D5B0902001F18FA /* TPImageContent.swift */; };
 		E52F899C2D5B11B3001F18FA /* TPImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F899B2D5B11B3001F18FA /* TPImageView.swift */; };
 		E53032962DC0776B0040C75E /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53032952DC0776B0040C75E /* CalendarManager.swift */; };
@@ -2179,6 +2181,8 @@
 		E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_main_timeline_24@2x.png"; sourceTree = "<group>"; };
 		E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_main_timeline_24@3x.png"; sourceTree = "<group>"; };
 		E52E481A2F8A07EE00B8CD25 /* TPImageInfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoButton.swift; sourceTree = "<group>"; };
+		E52EF6192FB15033002CF355 /* CalendarWeekEventsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekEventsProvider.swift; sourceTree = "<group>"; };
+		E52EF61D2FB1A96E002CF355 /* CalendarBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBaseViewController.swift; sourceTree = "<group>"; };
 		E52F89992D5B0902001F18FA /* TPImageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageContent.swift; sourceTree = "<group>"; };
 		E52F899B2D5B11B3001F18FA /* TPImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageView.swift; sourceTree = "<group>"; };
 		E53032952DC0776B0040C75E /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
@@ -3715,10 +3719,10 @@
 		E5007F7C2DCA0682006AD311 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				E51A4C3E2DC3B95D005A0E3F /* CalendarDayTimelineView.swift */,
+				E5007F822DCA4A8E006AD311 /* CalendarTimelineDateRange.swift */,
 				E53632B02FAE15FE0095DFEC /* CalendarDayTimelineSynchronizer.swift */,
 				E53632B42FAF2EE40095DFEC /* AllDay */,
-				E5007F822DCA4A8E006AD311 /* CalendarTimelineDateRange.swift */,
-				E51A4C3E2DC3B95D005A0E3F /* CalendarDayTimelineView.swift */,
 				E51A4C422DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift */,
 				E5007F7D2DCA0728006AD311 /* CalendarDayTimelineBackLayer.swift */,
 				E5007F7A2DC9ADB1006AD311 /* CalendarDayTimelineIndicatorView.swift */,
@@ -4449,6 +4453,7 @@
 				E53632D72FAF77BC0095DFEC /* CalendarConstants.swift */,
 				E51A43812DB73A7400DC84C9 /* CalendarMainViewController.swift */,
 				E51A4C2A2DC261E8005A0E3F /* CalendarModeBarButtonItem.swift */,
+				E52EF61C2FB1A959002CF355 /* Base */,
 				E53632AD2FAE13C30095DFEC /* Settting */,
 				E53032942DC076F10040C75E /* Manager */,
 				E51A4C442DC3C363005A0E3F /* Components */,
@@ -4775,6 +4780,26 @@
 				E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */,
 			);
 			path = main;
+			sourceTree = "<group>";
+		};
+		E52EF61B2FB153E6002CF355 /* PageView */ = {
+			isa = PBXGroup;
+			children = (
+				E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */,
+				E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift */,
+				E57C05E52DD34421009E22F0 /* CalendarWeekTimelineHoursView.swift */,
+				E5B9D08B2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift */,
+				E5526AC42DD0AC8E00B96A9D /* CalendarWeekView.swift */,
+			);
+			path = PageView;
+			sourceTree = "<group>";
+		};
+		E52EF61C2FB1A959002CF355 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E52EF61D2FB1A96E002CF355 /* CalendarBaseViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		E52F89982D5B08CA001F18FA /* Image */ = {
@@ -5305,13 +5330,13 @@
 			isa = PBXGroup;
 			children = (
 				E5526AC62DD0ACB600B96A9D /* CalendarWeekDaysView.swift */,
-				E5E67DCE2DD243D00018A64D /* CalendarWeekDaysBackLayer.swift */,
 				E5526AC82DD0E82E00B96A9D /* CalendarWeekSingleDayView.swift */,
+				E5E67DCE2DD243D00018A64D /* CalendarWeekDaysBackLayer.swift */,
 			);
 			path = WeekDays;
 			sourceTree = "<group>";
 		};
-		E5526ACB2DD19CA300B96A9D /* Events */ = {
+		E5526ACB2DD19CA300B96A9D /* EventsView */ = {
 			isa = PBXGroup;
 			children = (
 				E57C05E12DD2E6BA009E22F0 /* CalendarWeekEventsView.swift */,
@@ -5319,7 +5344,7 @@
 				E5526ACC2DD19CBB00B96A9D /* CalendarWeekTimelineEventsView.swift */,
 				E5E67DCC2DD23B950018A64D /* CalendarWeekTimelineBackLayer.swift */,
 			);
-			path = Events;
+			path = EventsView;
 			sourceTree = "<group>";
 		};
 		E552FBA52DBA23260072703F /* StripeView */ = {
@@ -5358,12 +5383,9 @@
 			isa = PBXGroup;
 			children = (
 				E51A4C2C2DC26787005A0E3F /* CalendarWeekViewController.swift */,
-				E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */,
-				E5B9D08B2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift */,
-				E57C05E52DD34421009E22F0 /* CalendarWeekTimelineHoursView.swift */,
-				E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageCell.swift */,
-				E5526AC42DD0AC8E00B96A9D /* CalendarWeekView.swift */,
-				E5526ACB2DD19CA300B96A9D /* Events */,
+				E52EF6192FB15033002CF355 /* CalendarWeekEventsProvider.swift */,
+				E52EF61B2FB153E6002CF355 /* PageView */,
+				E5526ACB2DD19CA300B96A9D /* EventsView */,
 				E5526ACA2DD0F46400B96A9D /* WeekDays */,
 				E5D3D4DA2DDC689C00E58EFA /* DragDropManager */,
 			);
@@ -6693,6 +6715,7 @@
 		E5BB9A032D3BEF0D0089667A /* list */ = {
 			isa = PBXGroup;
 			children = (
+				E5E277102D3E099C004EC522 /* option */,
 				E5BB9A062D3BEF0D0089667A /* todo_list_24@2x.png */,
 				E5BB9A072D3BEF0D0089667A /* todo_list_24@3x.png */,
 				E5E276F52D3DF2F3004EC522 /* todo_list_add_24@2x.png */,
@@ -6707,7 +6730,6 @@
 				E58F46B52F7AAE360046FA96 /* todo_list_noParent_24@3x.png */,
 				E5E276FA2D3DF58B004EC522 /* todo_list_move_24@2x.png */,
 				E5E276FB2D3DF58B004EC522 /* todo_list_move_24@3x.png */,
-				E5E277102D3E099C004EC522 /* option */,
 				E5BB9A0B2D3BEF0D0089667A /* todo_list_board_24@2x.png */,
 				E5BB9A082D3BEF0D0089667A /* todo_list_board_24@3x.png */,
 				E5E276EB2D3DF0B3004EC522 /* todo_list_inbox_24@2x.png */,
@@ -10527,6 +10549,7 @@
 				E56B94A62F8F93F5001E488B /* TodoState.swift in Sources */,
 				E5D7D9122D43933700EC877A /* FocusStatsOverallViewController.swift in Sources */,
 				E53F328E2F68D6D200B85B65 /* HabitReportWeeklyViewController.swift in Sources */,
+				E52EF61E2FB1A96E002CF355 /* CalendarBaseViewController.swift in Sources */,
 				E5BB9E142D3BF0C70089667A /* HandyRecord+Setup.swift in Sources */,
 				E5D7D8CF2D43933600EC877A /* FocusEndViewController.swift in Sources */,
 				E5B33D8D2F829E1800939C3E /* TodoTagSearchResultsPlaceholderView.swift in Sources */,
@@ -11115,6 +11138,7 @@
 				E5BB9DD82D3BF0C60089667A /* UIBezierPath+Extensions.swift in Sources */,
 				E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */,
 				E5B33D832F81FD0200939C3E /* TodoTagPickerViewController.swift in Sources */,
+				E52EF61A2FB15033002CF355 /* CalendarWeekEventsProvider.swift in Sources */,
 				E531FDF12F7371B400067A0F /* PieHighlightView.swift in Sources */,
 				E5BB9E7D2D3BF0C70089667A /* StatsBarChartCell.swift in Sources */,
 				E54155652F49A415000B2972 /* FocusRecordListBasicCellLayout.swift in Sources */,

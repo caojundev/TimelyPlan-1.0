@@ -9,15 +9,8 @@ import Foundation
 import UIKit
 
 class CalendarWeekPageCell: TPCollectionCell {
-    
-    /// 周开始日期
-    var weekStartDate: Date?
-    
-    var eventsView: CalendarWeekEventsView {
-        return weekView.eventsView
-    }
-    
-    private lazy var weekView: CalendarWeekView = {
+
+    private(set) lazy var weekView: CalendarWeekView = {
         let view = CalendarWeekView(frame: bounds)
         return view
     }()
@@ -34,19 +27,5 @@ class CalendarWeekPageCell: TPCollectionCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         weekView.frame = bounds
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        weekView.reset()
-    }
-    
-    func reloadData() {
-        weekView.weekStartDate = weekStartDate
-        weekView.reloadData()
-    }
-    
-    func didChangeVisibleOffset(_ offset: CGPoint) {
-        eventsView.didChangeVisibleOffset(offset)
     }
 }
