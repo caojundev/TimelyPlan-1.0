@@ -111,7 +111,9 @@ class CalendarMainViewController: TPContainerViewController,
     }
     
     @objc private func clickMore() {
-        
+        TPImpactFeedback.impactWithSoftStyle()
+        let settingVC = CalendarSettingViewController(style: .insetGrouped)
+        settingVC.showAsNavigationRoot()
     }
     
 }

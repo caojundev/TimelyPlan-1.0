@@ -31,14 +31,14 @@ class CalendarMonthViewController: CalendarBaseViewController,
         dateButton.title = date.slashFormattedYearMonthString
     }
     
-    override func quickAddTaskDateInfo() -> TaskDateInfo? {
+    override func quickAddTaskDate() -> Date {
         let now = Date()
         var date = monthView.topWeekStartDate ?? now
         if date.isPreviousDay(of: now) {
             date = now
         }
         
-        return TaskDateInfo(date: date)
+        return date
     }
     
     override func clickDate(_ button: UIButton) {
@@ -69,10 +69,7 @@ class CalendarMonthViewController: CalendarBaseViewController,
     
     func calendarMonthView(_ monthView: CalendarMonthView, longPressDidBeganOnDate date: Date) {
         TPImpactFeedback.impactWithLightStyle()
-        let dateInfo = TaskDateInfo(date: date)
-        let task = quickAddTask()
-        task.schedule = TaskSchedule(dateInfo: dateInfo, reminder: nil, repeatRule: nil)
-        quickAddManager.show(with: task)
+        showQuickAddTask(on: date)
     }
     
     func calendarMonthView(_ monthView: CalendarMonthView, fetchEventsForWeek weekStartDate: Date, completion: @escaping ([CalendarEvent]?) -> Void) {

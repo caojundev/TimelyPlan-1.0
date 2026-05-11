@@ -53,7 +53,7 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
         layer.strokeColor = UIColor.lightGray.cgColor
         return layer
     }()
-    
+
     override func setupInfoView() {
         self.infoView = TPIconInfoTextValueView()
     }
@@ -78,6 +78,15 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
         CATransaction.commit()
     }
     
+    override func isExpandButtonEnabled() -> Bool {
+        let isEnabled = super.isExpandButtonEnabled()
+        guard isEnabled else {
+            return false
+        }
+        
+        return list?.hasSubItem ?? false
+    }
+    
     func updateListInfo() {
         guard let list = list else {
             return
@@ -93,6 +102,7 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
         self.iconInfoTextValueView.iconConfig = iconConfig
         
         self.updateExpanded(animated: false)
+        self.updateExpandedButton()
         setNeedsLayout()
     }
 }

@@ -31,14 +31,17 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     /// 左右条目数
     private let kNearItemsCount = 6
     
+    private var hourHeight = 80.0
+    
     /// 滚动同步器
     private lazy var synchronizer: CalendarWeekScrollSynchronizer = {
         return CalendarWeekScrollSynchronizer(hoursView: hoursView)
     }()
     
     private let hoursViewWidth = 50.0
-    private let hoursView: CalendarWeekTimelineHoursView = {
+    private lazy var hoursView: CalendarWeekTimelineHoursView = {
         let view = CalendarWeekTimelineHoursView(frame: .zero)
+        view.hourHeight = hourHeight
         return view
     }()
     

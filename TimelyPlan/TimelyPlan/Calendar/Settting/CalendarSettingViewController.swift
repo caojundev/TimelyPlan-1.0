@@ -20,7 +20,7 @@ class CalendarSettingViewController: TPTableSectionsViewController {
         cellItem.title = resGetString("Week Start on")
         cellItem.updater = {
             guard let self = self else { return }
-            let firstWeekday = HabitSetting.shared.firstWeekday
+            let firstWeekday = CalendarSetting.shared.firstWeekday
             self.firstWeekdayCellItem.valueConfig = .valueText(firstWeekday.symbol)
         }
         
@@ -64,7 +64,7 @@ class CalendarSettingViewController: TPTableSectionsViewController {
             return
         }
         
-        let firstWeekday = HabitSetting.shared.firstWeekday
+        let firstWeekday = CalendarSetting.shared.firstWeekday
         WeekdayPickerController.show(currentWeekday: firstWeekday,
                                      allowWeekdays: [.sunday, .monday],
                                      from: cell.contentView,
@@ -73,7 +73,7 @@ class CalendarSettingViewController: TPTableSectionsViewController {
                                      isSourceViewCovered: false,
                                      animated: true) { weekday in
             if firstWeekday != weekday {
-                HabitSetting.shared.firstWeekday = weekday
+                CalendarSetting.shared.firstWeekday = weekday
                 self.adapter.reloadCell(forItem: self.firstWeekdayCellItem, with: .none)
             }
         }

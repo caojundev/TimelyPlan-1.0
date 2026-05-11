@@ -57,14 +57,14 @@ class CalendarDayViewController: CalendarBaseViewController,
         pageView.top = weekView.bottom
     }
 
-    override func quickAddTaskDateInfo() -> TaskDateInfo? {
+    override func quickAddTaskDate() -> Date {
         let now = Date()
         var date = self.date
         if date.isPreviousDay(of: now) {
             date = now
         }
         
-        return TaskDateInfo(date: date)
+        return date
     }
         
     // MARK: - Update

@@ -51,7 +51,7 @@ class CalendarWeekScrollSynchronizer: NSObject, UIScrollViewDelegate {
     }
     
     private func synchronize() {
-        hoursView.contentView.contentOffset = contentOffset
+        hoursView.contentOffset = contentOffset
         for eventView in eventViews.allObjects {
             eventView.contentOffset = contentOffset
         }
@@ -73,7 +73,7 @@ class CalendarWeekScrollSynchronizer: NSObject, UIScrollViewDelegate {
     
     // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        contentOffset = scrollView.contentOffset
+        self.contentOffset = scrollView.contentOffset
         synchronize()
     }
     

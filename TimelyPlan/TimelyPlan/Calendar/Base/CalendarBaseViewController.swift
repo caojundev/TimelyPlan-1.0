@@ -83,17 +83,8 @@ class CalendarBaseViewController: TPViewController, CalendarTitleViewProvider {
         return true
     }
     
-    func quickAddTask() -> TodoQuickAddTask {
-        let dateInfo = quickAddTaskDateInfo()
-        let task = TodoQuickAddTask()
-        task.schedule = TaskSchedule(dateInfo: dateInfo,
-                                     reminder: nil,
-                                     repeatRule: nil)
-        return task
-    }
-    
-    func quickAddTaskDateInfo() -> TaskDateInfo? {
-        return nil
+    func quickAddTaskDate() -> Date {
+        return .now
     }
     
     // MARK: - Event Response
@@ -104,8 +95,36 @@ class CalendarBaseViewController: TPViewController, CalendarTitleViewProvider {
     /// 点击添加
     func clickAddTask() {
         TPImpactFeedback.impactWithLightStyle()
-        let task = quickAddTask()
+        
+        // 检查并清理过期的草稿任务
+        let date = quickAddTaskDate()
+        showQuickAddTask(on: date)
+    }
+
+    func showQuickAddTask(on date: Date) {
+        // 检查并清理过期的草稿任务
+        if shouldClearDraftTask(with: date) {
+            quickAddManager.clearDraftTask()
+        }
+
+        let task = quickAddTask(on: date)
         quickAddManager.show(with: task)
     }
     
+    // MARK: - Helpers
+    private func quickAddTask(on date: Date) -> TodoQuickAddTask {
+        let dateInfo = TaskDateInfo(date: date)
+        let task = TodoQuickAddTask()
+        task.schedule = TaskSchedule(dateInfo: dateInfo, reminder: nil, repeatRule: nil)
+        return task
+    }
+    
+    private func shouldClearDraftTask(with date: Date) -> Bool {
+        guard let draftTask = quickAddManager.draftTask,
+              let dateInfo = draftTask.schedule?.dateInfo else {
+            return quickAddManager.draftTask != nil // 无日期信息的草稿需要清理
+        }
+        
+        return !dateInfo.startDate.isInSameDayAs(date)
+    }
 }

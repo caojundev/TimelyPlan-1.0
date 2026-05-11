@@ -125,13 +125,17 @@ class TPExpandDefaultInfoTableCell: TPDefaultInfoTableCell {
         }
     }
     
-    func updateExpandedButton() {
+    func isExpandButtonEnabled() -> Bool {
         guard let delegate = delegate as? TPExpandDefaultInfoTableCellDelegate else {
-            return
+            return false
         }
         
         let isExpanded = !self.isExpanded
-        if delegate.expandTableCell(self, canToggleExpandStateTo: isExpanded) {
+        return delegate.expandTableCell(self, canToggleExpandStateTo: isExpanded)
+    }
+    
+    func updateExpandedButton() {
+        if isExpandButtonEnabled() {
             self.expandButton.isEnabled = true
             self.expandButton.alpha = 1.0
         } else {

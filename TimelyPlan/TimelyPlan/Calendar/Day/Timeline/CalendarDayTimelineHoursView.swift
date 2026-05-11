@@ -30,7 +30,19 @@ class CalendarDayTimelineHoursView: UIView {
     
     var hourHeight: CGFloat = 80.0 {
         didSet {
-            setNeedsLayout()
+            if hourHeight != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
+    
+    var contentOffset: CGPoint {
+        get {
+            return contentView.contentOffset
+        }
+        
+        set {
+            contentView.contentOffset = newValue
         }
     }
     
@@ -65,6 +77,7 @@ class CalendarDayTimelineHoursView: UIView {
     
     func setupContentView() {
         backgroundColor = .systemBackground
+        contentView.scrollsToTop = false
         contentView.showsVerticalScrollIndicator = false
         contentView.showsHorizontalScrollIndicator = false
         addSubview(contentView)

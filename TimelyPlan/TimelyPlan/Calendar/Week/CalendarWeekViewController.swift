@@ -34,14 +34,14 @@ class CalendarWeekViewController: CalendarBaseViewController,
         pageView.frame = view.safeLayoutFrame()
     }
     
-    override func quickAddTaskDateInfo() -> TaskDateInfo? {
+    override func quickAddTaskDate() -> Date {
         let now = Date()
         var date = pageView.visibleDate ?? now
         if date.isPreviousDay(of: now) {
             date = now
         }
         
-        return TaskDateInfo(date: date)
+        return date
     }
         
     // MARK: - Update
