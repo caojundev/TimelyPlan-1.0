@@ -26,15 +26,7 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
     var selection: TPCalendarDateSelection? = TPCalendarSingleDateSelection()
     
     /// 周开始日
-    var firstWeekday: Weekday = .firstWeekday {
-        didSet {
-            guard firstWeekday != oldValue else {
-                return
-            }
-            
-            visibleDateComponents = Date.now.firstDayOfWeek(firstWeekday: firstWeekday).yearMonthDayComponents
-        }
-    }
+    var firstWeekday: Weekday = .firstWeekday
     
     /// 当前月份日期组件
     private(set) lazy var visibleDateComponents: DateComponents = {
@@ -130,7 +122,7 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
 
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        adapter.performUpdate()
+        adapter.performUpdate(updateVisibleItems: false)
         CATransaction.commit()
         
         updateContentOffset(animated: false)

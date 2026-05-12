@@ -96,7 +96,7 @@ class CalendarMonthWeekView: UIView {
             let weekNumberFrame = CGRect(x: 0.0, y: 0.0, width: weekNumberWidth, height: headerHeight)
             weekNumberView.padding = UIEdgeInsets(vertical: 2.0)
             weekNumberView.numberHeight = weekNumberHeight
-            weekNumberView.frame = weekNumberFrame.insetBy(dx: 1.0, dy: 1.0)
+            weekNumberView.frame = weekNumberFrame
         }
     }
     

@@ -9,16 +9,17 @@ import Foundation
 
 class CalendarDayViewController: CalendarBaseViewController,
                                  CalendarDatePageViewDelegate,
-                                 TPCalendarSingleDateSelectionDelegate {
+                                 TPCalendarSingleDateSelectionDelegate,
+                                 SettingAgentObserver {
 
     private var date: Date = .now
     
     /// 周视图
     private let weekViewHeight = 80.0
-    private lazy var weekView: TPCalendarScrollableWeekView = {
-        let view = TPCalendarScrollableWeekView(frame: .zero)
+    private lazy var weekView: CalendarDayWeekView = {
+        let view = CalendarDayWeekView()
+        view.firstWeekday = CalendarSetting.shared.firstWeekday
         view.selection = selection
-        view.addSeparator(position: .bottom)
         return view
     }()
     
@@ -43,6 +44,19 @@ class CalendarDayViewController: CalendarBaseViewController,
         weekView.reloadData()
         pageView.reloadData()
         updateTitle(with: date)
+        CalendarSetting.shared.addObserver(self)
+    }
+    
+    func settingAgentDidChangeValue(for keyName: String) {
+        guard let key = CalendarSetting.Key(name: keyName) else {
+            return
+        }
+        
+        if key == .firstWeekday {
+            weekView.firstWeekday = CalendarSetting.shared.firstWeekday
+            weekView.reloadData()
+        }
+        
     }
     
     override func viewWillLayoutSubviews() {

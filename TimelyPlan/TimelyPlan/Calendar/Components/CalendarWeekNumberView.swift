@@ -30,13 +30,13 @@ class CalendarWeekNumberView: UIView {
             }
         }
     }
-    
+
     // 可自定义样式
-    public var weekNumberFont: UIFont = .boldSystemFont(ofSize: 10.0) {
+    public var weekNumberFont: UIFont = .boldSystemFont(ofSize: 12.0) {
         didSet { weekLabel.font = weekNumberFont }
     }
     
-    public var weekTextFont: UIFont = UIFont.systemFont(ofSize: 8.0) {
+    public var weekTextFont: UIFont = UIFont.systemFont(ofSize: 10.0) {
         didSet { weekTextLabel.font = weekTextFont }
     }
     

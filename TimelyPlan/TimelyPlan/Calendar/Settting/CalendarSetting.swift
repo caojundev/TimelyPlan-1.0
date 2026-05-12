@@ -13,7 +13,7 @@ class CalendarSetting {
     static let maxDaysInWeek = 7
     static let minWeeksInMonth = 2
     static let maxWeeksInMonth = 6
-    
+
     enum Key: String, SettingKeyRepresentable {
         case firstWeekday
         case showWeekNumber
@@ -52,6 +52,12 @@ class CalendarSetting {
     // MARK: - Observer
     func addObserver(_ observer: SettingAgentObserver, forKey key: Key) {
         KeyValueStorage.shared.addObserver(observer, forKey: key.name)
+    }
+    
+    func addObserver(_ observer: SettingAgentObserver, forKeys keys: [Key]? = nil) {
+        let keys = keys ?? Key.allCases
+        let keyNames = keys.map { $0.name }
+        KeyValueStorage.shared.addObserver(observer, forKeys: keyNames)
     }
     
     // MARK: - Public Methods
