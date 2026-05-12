@@ -9,17 +9,41 @@ import Foundation
 
 class CalendarSetting {
     
+    static let minDaysInWeek = 2
+    static let maxDaysInWeek = 7
+    static let minWeeksInMonth = 2
+    static let maxWeeksInMonth = 6
+    
     enum Key: String, SettingKeyRepresentable {
         case firstWeekday
-
+        case showWeekNumber
+        case showLunar
+        case showChineseHolidays
+        case daysInWeek
+        case weeksInMonth
+        
         static func keyPrefix() -> String? {
             return "CalendarSetting"
         }
     }
 
-    /// 周开始日
     @CloudStored(key: Key.firstWeekday.name, defaultValue: .monday)
     var firstWeekday: Weekday
+    
+    @CloudStored(key: Key.showWeekNumber.name, defaultValue: true)
+    var showWeekNumber: Bool
+    
+    @CloudStored(key: Key.showLunar.name, defaultValue: true)
+    var showLunar: Bool
+    
+    @CloudStored(key: Key.showChineseHolidays.name, defaultValue: true)
+    var showChineseHolidays: Bool
+    
+    @CloudStored(key: Key.daysInWeek.name, defaultValue: 3)
+    private var daysInWeek: Int
+    
+    @CloudStored(key: Key.weeksInMonth.name, defaultValue: 6)
+    private var weeksInMonth: Int
     
     static let shared = CalendarSetting()
     
@@ -28,5 +52,29 @@ class CalendarSetting {
     // MARK: - Observer
     func addObserver(_ observer: SettingAgentObserver, forKey key: Key) {
         KeyValueStorage.shared.addObserver(observer, forKey: key.name)
+    }
+    
+    // MARK: - Public Methods
+    
+    func getDaysInWeek() -> Int {
+        return clampedValue(daysInWeek, Self.minDaysInWeek, Self.maxDaysInWeek)
+    }
+    
+    func setDaysInWeek(_ daysInWeek: Int) {
+        let daysInWeek = clampedValue(daysInWeek, Self.minDaysInWeek, Self.maxDaysInWeek)
+        if self.daysInWeek != daysInWeek {
+            self.daysInWeek = daysInWeek
+        }
+    }
+    
+    func getWeeksInMonth() -> Int {
+        return clampedValue(weeksInMonth, Self.minWeeksInMonth, Self.maxWeeksInMonth)
+    }
+    
+    func setWeeksInMonth(_ weeksInMonth: Int) {
+        let weeksInMonth = clampedValue(weeksInMonth, Self.minWeeksInMonth, Self.maxWeeksInMonth)
+        if self.weeksInMonth != weeksInMonth {
+            self.weeksInMonth = weeksInMonth
+        }
     }
 }

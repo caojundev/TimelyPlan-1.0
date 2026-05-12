@@ -19,9 +19,8 @@ class CalendarSettingViewController: TPTableSectionsViewController {
         cellItem.height = defaultCellHeight
         cellItem.title = resGetString("Week Start on")
         cellItem.updater = {
-            guard let self = self else { return }
             let firstWeekday = CalendarSetting.shared.firstWeekday
-            self.firstWeekdayCellItem.valueConfig = .valueText(firstWeekday.symbol)
+            self?.firstWeekdayCellItem.valueConfig = .valueText(firstWeekday.symbol)
         }
         
         cellItem.didSelectHandler = {
@@ -38,11 +37,122 @@ class CalendarSettingViewController: TPTableSectionsViewController {
          return sectionController
      }()
      
+    /// 显示周数
+    lazy var showWeekNumberCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show Week Number")
+        cellItem.updater = {
+            self?.showWeekNumberCellItem.isOn = CalendarSetting.shared.showWeekNumber
+        }
+
+        cellItem.valueChanged = { isOn in
+            CalendarSetting.shared.showWeekNumber = isOn
+        }
+        
+        return cellItem
+    }()
+    
+    /// 显示农历
+    lazy var showLunarCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show Lunar Calendar")
+        cellItem.updater = {
+            self?.showLunarCellItem.isOn = CalendarSetting.shared.showLunar
+        }
+
+        cellItem.valueChanged = { isOn in
+            CalendarSetting.shared.showLunar = isOn
+        }
+        
+        return cellItem
+    }()
+    
+    /// 显示中国节假日
+    lazy var showChineseHolidaysCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show Chinese Public Holidays")
+        cellItem.updater = {
+            self?.showChineseHolidaysCellItem.isOn = CalendarSetting.shared.showChineseHolidays
+        }
+
+        cellItem.valueChanged = { isOn in
+            CalendarSetting.shared.showChineseHolidays = isOn
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var viewOptionsSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.title = resGetString("View Options")
+        sectionController.cellItems = [showWeekNumberCellItem,
+                                       showLunarCellItem,
+                                       showChineseHolidaysCellItem]
+        return sectionController
+    }()
+    
+    // MARK: - 周视图
+    lazy var daysInWeekViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Days in Week View")
+        cellItem.updater = {
+            let days = CalendarSetting.shared.getDaysInWeek()
+            self?.daysInWeekViewCellItem.valueConfig = .valueText("\(days)")
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editDaysInWeek()
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var weekViewSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.title = resGetString("Week View")
+        sectionController.cellItems = [daysInWeekViewCellItem]
+        return sectionController
+    }()
+    
+    // MARK: - 月视图
+    lazy var weeksInMonthViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Weeks in Month View")
+        cellItem.updater = {
+            let weeks = CalendarSetting.shared.getWeeksInMonth()
+            self?.weeksInMonthViewCellItem.valueConfig = .valueText("\(weeks)")
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editWeeksInMonth()
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var monthViewSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.title = resGetString("Month View")
+        sectionController.cellItems = [weeksInMonthViewCellItem]
+        return sectionController
+    }()
+    
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("Settings")
          self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-         self.sectionControllers = [generalSectionController]
+         self.sectionControllers = [generalSectionController,
+                                    viewOptionsSectionController,
+                                    weekViewSectionController,
+                                    monthViewSectionController]
          self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
          self.reloadData()
      }
@@ -78,4 +188,33 @@ class CalendarSettingViewController: TPTableSectionsViewController {
             }
         }
     }
+    
+    func editDaysInWeek() {
+        let pickerVC = TPCountPickerViewController()
+        pickerVC.minimumCount = CalendarSetting.minDaysInWeek
+        pickerVC.maximumCount = CalendarSetting.maxDaysInWeek
+        pickerVC.count = CalendarSetting.shared.getDaysInWeek()
+        pickerVC.didPickCount = { count in
+            CalendarSetting.shared.setDaysInWeek(count)
+            self.adapter.reloadCell(forItem: self.daysInWeekViewCellItem,
+                                    with: .none)
+        }
+        
+        pickerVC.popoverShow()
+    }
+    
+    func editWeeksInMonth() {
+        let pickerVC = TPCountPickerViewController()
+        pickerVC.minimumCount = CalendarSetting.minWeeksInMonth
+        pickerVC.maximumCount = CalendarSetting.maxWeeksInMonth
+        pickerVC.count = CalendarSetting.shared.getWeeksInMonth()
+        pickerVC.didPickCount = { count in
+            CalendarSetting.shared.setWeeksInMonth(count)
+            self.adapter.reloadCell(forItem: self.weeksInMonthViewCellItem,
+                                    with: .none)
+        }
+        
+        pickerVC.popoverShow()
+    }
+    
  }

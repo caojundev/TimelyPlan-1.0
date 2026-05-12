@@ -22,7 +22,7 @@ class CalendarWeekView: UIView, CalendarWeekEventsViewDelegate {
     weak var delegate: CalendarWeekViewDelegate?
     
     /// 周开始日
-    private var weekStartDate: Date? {
+    private(set) var weekStartDate: Date? {
         didSet {
             weekDaysView.weekStartDate = weekStartDate
         }
@@ -94,9 +94,12 @@ class CalendarWeekView: UIView, CalendarWeekEventsViewDelegate {
     func loadEvents(with weekStartDate: Date) {
         self.weekStartDate = weekStartDate
         
-        self.eventsView.reset()
-        self.eventsView.weekStartDate = weekStartDate
-        self.eventsProvider.loadEvents(with: weekStartDate)
+        if eventsView.weekStartDate != weekStartDate {
+            eventsView.weekStartDate = weekStartDate
+            eventsView.reset()
+        }
+        
+        eventsProvider.loadEvents(with: weekStartDate)
     }
     
     func didChangeVisibleOffset(_ offset: CGPoint) {

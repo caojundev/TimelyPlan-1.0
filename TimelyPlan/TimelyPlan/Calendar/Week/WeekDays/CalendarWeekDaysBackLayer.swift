@@ -49,7 +49,7 @@ class CalendarWeekDaysBackLayer: TPGridsLayer {
         style.fromRow = 1
         style.toRow = 1
         style.lineWidth = 0.4
-        style.lineColor = Color(light: 0x000000, dark: 0xFFFFFF, alpha: 0.2)
+        style.lineColor = CalendarWeekConstant.separatorColor
         self.layoutStyle = style
         
         // 配置左侧分割线

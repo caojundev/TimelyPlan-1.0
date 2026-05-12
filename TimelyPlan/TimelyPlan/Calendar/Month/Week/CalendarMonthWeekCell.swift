@@ -9,22 +9,8 @@ import Foundation
 
 class CalendarMonthWeekCell: UICollectionViewCell {
     
-    /// 代理对象
-    weak var weekViewDelegate: CalendarMonthWeekViewDelegate? {
-        get {
-            return weekView.delegate
-        }
-        
-        set {
-            weekView.delegate = newValue
-        }
-    }
-    
-    /// 周开始日的日期
-    var weekStartDate: Date?
-    
     /// 周视图
-    private lazy var weekView: CalendarMonthWeekView = {
+    private(set) lazy var weekView: CalendarMonthWeekView = {
         let view = CalendarMonthWeekView(frame: self.bounds)
         return view
     }()
@@ -42,15 +28,5 @@ class CalendarMonthWeekCell: UICollectionViewCell {
         super.layoutSubviews()
         weekView.frame = bounds
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        weekView.weekStartDate = nil
-        weekView.reset()
-    }
-    
-    func reloadData() {
-        weekView.weekStartDate = weekStartDate
-        weekView.reloadData()
-    }
+
 }

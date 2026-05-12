@@ -38,6 +38,8 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         return CalendarWeekScrollSynchronizer(hoursView: hoursView)
     }()
     
+    private let weekNumberView = CalendarWeekNumberContainerView()
+    
     private let hoursViewWidth = 50.0
     private lazy var hoursView: CalendarWeekTimelineHoursView = {
         let view = CalendarWeekTimelineHoursView(frame: .zero)
@@ -59,6 +61,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     
     override func setupSubviews() {
         super.setupSubviews()
+        addSubview(weekNumberView)
         addSubview(hoursView)
         addSeparator(position: .top)
         scrollDirection = .horizontal
@@ -78,9 +81,14 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     override func layoutSubviews() {
         super.layoutSubviews()
         let weekDaysViewHeight = CalendarWeekView.weekDaysViewHeight
+        weekNumberView.width = hoursViewWidth
+        weekNumberView.height = weekDaysViewHeight
+        weekNumberView.origin = .zero
+        
         hoursView.width = hoursViewWidth
         hoursView.height = bounds.height - weekDaysViewHeight
         hoursView.top = weekDaysViewHeight
+        
         DispatchQueue.main.async {
             self.updateContentOffset(animated: false)
         }
@@ -124,7 +132,9 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         cell.layoutIfNeeded() /// 需要立即布局以解决滚动跳动的问题
         let weekView = cell.weekView
         weekView.delegate = self
-        weekView.loadEvents(with: weekStartDate)
+        if weekView.weekStartDate != weekStartDate {
+            weekView.loadEvents(with: weekStartDate)
+        }
         
         synchronizer.addEventsView(weekView.eventsView)
     }
@@ -162,16 +172,24 @@ class CalendarWeekPageView: TPCollectionWrapperView,
             performUpdate()
         }
          
+        updateWeekNumber()
         /// 日期变化回调
         delegate?.calendarWeekPageView(self, didScrollTo: toDate)
     }
-
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset
         updateAllDay(with: offset)
     }
     
     // MARK: - Update
+    private func updateWeekNumber() {
+        guard let date = self.visibleDate else {
+            return
+        }
+        
+        weekNumberView.weekNumber = Calendar.weekNumber(for: date, firstWeekday: firstWeekday)
+    }
     
     private func updateAllDay(with contentOffset: CGPoint) {
         updateAllDayVisibleOffset(with: contentOffset)
@@ -210,11 +228,13 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     override func reloadData() {
         super.reloadData()
         updateContentOffset(animated: false)
+        updateWeekNumber()
     }
     
     override func reloadData(animateStyle: SlideStyle) {
         super.reloadData(animateStyle: animateStyle)
         updateContentOffset(animated: false)
+        updateWeekNumber()
     }
     
     /// 当前月份日期组件
@@ -227,6 +247,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         if visibleDate.isInSameWeekAs(date, firstWeekday: firstWeekday) {
             visibleDate = date
             updateContentOffset(animated: true)
+            updateWeekNumber()
             return
         }
                 
@@ -239,11 +260,13 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     func goPreviousDay() {
         visibleDate = visibleDate.dateByAddingDays(-1)
         updateContentOffset(animated: true)
+        updateWeekNumber()
     }
     
     func goNextDay() {
         visibleDate = visibleDate.dateByAddingDays(1)
         updateContentOffset(animated: true)
+        updateWeekNumber()
     }
     
     func eventView(at point: CGPoint) -> CalendarEventView? {

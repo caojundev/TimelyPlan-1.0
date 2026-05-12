@@ -13,12 +13,8 @@ protocol CalendarMonthViewDelegate: AnyObject {
     /// 滚动到特定日期
     func calendarMonthView(_ monthView: CalendarMonthView, didScrollTo topWeekStartDate: Date)
     
+    /// 长按日期
     func calendarMonthView(_ monthView: CalendarMonthView, longPressDidBeganOnDate date: Date)
-    
-    
-    func calendarMonthView(_ monthView: CalendarMonthView,
-                           fetchEventsForWeek weekStartDate: Date,
-                           completion: @escaping ([CalendarEvent]?) -> Void)
 }
 
 class CalendarMonthView: TPCollectionWrapperView,
@@ -173,7 +169,7 @@ class CalendarMonthView: TPCollectionWrapperView,
         updateDates()
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        adapter.performUpdate()
+        adapter.performUpdate(updateVisibleItems: false)
         updateContentOffset(animated: false)
         CATransaction.commit()
     }
@@ -196,9 +192,14 @@ class CalendarMonthView: TPCollectionWrapperView,
             return
         }
         
-        cell.weekStartDate = date
-        cell.weekViewDelegate = self
-        cell.reloadData()
+        let weekView = cell.weekView
+        weekView.showWeekNumber = true
+        weekView.firstWeekday = firstWeekday
+        weekView.delegate = self
+        
+        if weekView.weekStartDate != date {
+            weekView.loadEvents(weekStartDate: date)
+        }
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -224,15 +225,6 @@ class CalendarMonthView: TPCollectionWrapperView,
     // MARK: - CalendarMonthWeekViewDelegate
     func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, longPressDidBeganOnDate date: Date) {
         delegate?.calendarMonthView(self, longPressDidBeganOnDate: date)
-    }
-    
-    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, fetchEventsForWeek weekStartDate: Date, completion: @escaping ([CalendarEvent]?) -> Void) {
-        guard let delegate = delegate else {
-            completion(nil)
-            return
-        }
-
-        delegate.calendarMonthView(self, fetchEventsForWeek: weekStartDate, completion: completion)
     }
     
     // MARK: - UIScrollViewDelegate

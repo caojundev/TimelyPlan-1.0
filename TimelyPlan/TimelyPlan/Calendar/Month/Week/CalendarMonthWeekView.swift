@@ -11,15 +11,6 @@ import UIKit
 protocol CalendarMonthWeekViewDelegate: AnyObject {
     
     func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, longPressDidBeganOnDate date: Date)
-    
-    /// 获取指定周的事件
-    /// - Parameters:
-    ///   - weekView: 周视图实例
-    ///   - weekStartDate: 周的起始日期
-    ///   - completion: 异步回调，返回该周的事件数组
-    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView,
-                               fetchEventsForWeek weekStartDate: Date,
-                               completion: @escaping ([CalendarEvent]?) -> Void)
 }
 
 class CalendarMonthWeekView: UIView {
@@ -27,17 +18,37 @@ class CalendarMonthWeekView: UIView {
     /// 代理对象
     weak var delegate: CalendarMonthWeekViewDelegate?
     
+    var firstWeekday: Weekday = .sunday {
+        didSet {
+            if firstWeekday != oldValue {
+                updateWeekNumber()
+            }
+        }
+    }
+    
+    var showWeekNumber: Bool = true {
+        didSet {
+            if showWeekNumber != oldValue {
+                setupWeekNumberView()
+            }
+        }
+    }
+    
     /// 周开始日期
-    var weekStartDate: Date?
+    private(set) var weekStartDate: Date?
     
     /// 事件视图
-    private let eventView: CalendarStripView = {
+    private let eventsView: CalendarStripView = {
         let view = CalendarStripView()
         return view
     }()
     
     /// 天视图数组
     private var dayViews: [CalendarMonthDayView]!
+    
+    private let weekNumberWidth = 16.0
+    private let weekNumberHeight = 20.0
+    private var weekNumberView: CalendarWeekNumberView?
     
     /// 背景分割线图层
     private lazy var backgroundLayer: CalendarMonthWeekBackgroundLayer = {
@@ -48,15 +59,20 @@ class CalendarMonthWeekView: UIView {
     /// 头视图高度
     private let headerHeight = 36.0
     
-    /// 数据请求管理器
-    private let requestManager = TPRequestManager()
+    /// 事件供应者
+    private let eventsProvider = CalendarWeekEventsProvider()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupDayViews()
         layer.addSublayer(backgroundLayer)
-        addSubview(eventView)
+        addSubview(eventsView)
+        setupWeekNumberView()
+        
         setupLongPressGesture()
+        eventsProvider.eventsDidChange = { [weak self] in
+            self?.eventsChanged()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -65,15 +81,62 @@ class CalendarMonthWeekView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        backgroundLayer.frame = bounds
-        CATransaction.commit()
-        layoutDayViews()
+        executeWithoutAnimation {
+            self.backgroundLayer.frame = bounds
+        }
         
+        layoutDayViews()
+        layoutWeekNumberView()
         let stripHeight = height - headerHeight
-        eventView.frame = CGRect(x: 0.0, y: headerHeight, width: width, height: stripHeight)
+        eventsView.frame = CGRect(x: 0.0, y: headerHeight, width: width, height: stripHeight)
     }
+    
+    private func layoutWeekNumberView() {
+        if let weekNumberView = weekNumberView {
+            let weekNumberFrame = CGRect(x: 0.0, y: 0.0, width: weekNumberWidth, height: headerHeight)
+            weekNumberView.padding = UIEdgeInsets(vertical: 2.0)
+            weekNumberView.numberHeight = weekNumberHeight
+            weekNumberView.frame = weekNumberFrame.insetBy(dx: 1.0, dy: 1.0)
+        }
+    }
+    
+    private func layoutDayViews() {
+        let itemWidth = width / CGFloat(DAYS_PER_WEEK)
+        let itemHeight = height
+        for (index, dayView) in dayViews.enumerated() {
+            let x = CGFloat(index) * itemWidth
+            dayView.headerHeight = headerHeight
+            dayView.frame = CGRect(x: x, y: 0.0, width: itemWidth, height: itemHeight)
+        }
+    }
+    
+    private func eventsChanged() {
+        guard weekStartDate == eventsProvider.weekStartDate else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.eventsView.events = self.eventsProvider.allDayEvents
+            self.eventsView.reloadData()
+        }
+    }
+    
+    private func setupWeekNumberView() {
+        guard showWeekNumber else {
+            weekNumberView?.removeFromSuperview()
+            weekNumberView = nil
+            return
+        }
+        
+        let weekNumberView = CalendarWeekNumberView()
+        weekNumberView.backgroundColor = .systemGray6
+        self.weekNumberView = weekNumberView
+        updateWeekNumber()
+        layer.insertSublayer(weekNumberView.layer, below: backgroundLayer)
+        setNeedsLayout()
+    }
+    
+    // MARK: - 长按手势
     
     /// 设置长按手势识别器
     private func setupLongPressGesture() {
@@ -94,17 +157,6 @@ class CalendarMonthWeekView: UIView {
         }
     }
     
-    private func date(on loacation: CGPoint) -> Date? {
-        guard let weekStartDate = weekStartDate else {
-            return nil
-        }
-
-        let dayWidth = bounds.width / CGFloat(DAYS_PER_WEEK)
-        let index = Int(loacation.x / dayWidth)
-        let date = weekStartDate.dateByAddingDays(index)!
-        return date
-    }
-    
     private func setupDayViews() {
         var dayViews = [CalendarMonthDayView]()
         for _ in 1...DAYS_PER_WEEK {
@@ -115,34 +167,37 @@ class CalendarMonthWeekView: UIView {
         
         self.dayViews = dayViews
     }
-    
-    private func layoutDayViews() {
-        let itemWidth = width / CGFloat(DAYS_PER_WEEK)
-        let itemHeight = height
-        for (index, dayView) in dayViews.enumerated() {
-            let x = CGFloat(index) * itemWidth
-            dayView.headerHeight = headerHeight
-            dayView.frame = CGRect(x: x, y: 0.0, width: itemWidth, height: itemHeight)
-        }
-    }
-    
-    func reset() {
-        eventView.reset()
-        dayViews.forEach { view in
-            view.reset()
-        }
-    }
-    
-    func reloadData() {
-        guard let weekStartDate = weekStartDate else {
-            reset()
+
+    private func updateWeekNumber() {
+        guard let weekNumberView = weekNumberView, let date = weekStartDate else {
             return
         }
         
+        weekNumberView.weekNumber = Calendar.weekNumber(for: date, firstWeekday: firstWeekday)
+    }
+    
+    
+    func loadEvents(weekStartDate: Date) {
+        self.weekStartDate = weekStartDate
+        updateWeekNumber()
         backgroundLayer.weekStartDate = weekStartDate
-        let requestID = requestManager.executeRequest()
-        loadDayConfigsAsync(weekStartDate: weekStartDate) { dayConfigs in
-            guard self.requestManager.shouldProceed(with: requestID) else {
+        updateDayConfigs()
+        
+        if eventsView.startDate != weekStartDate {
+            eventsView.startDate = weekStartDate
+            eventsView.reset()
+        }
+        
+        eventsProvider.loadEvents(with: weekStartDate)
+    }
+    
+    private func updateDayConfigs() {
+        guard let weekStartDate = weekStartDate else {
+            return
+        }
+
+        loadDayConfigs(weekStartDate: weekStartDate) { dayConfigs in
+            guard self.weekStartDate == weekStartDate else {
                 return
             }
             
@@ -150,19 +205,9 @@ class CalendarMonthWeekView: UIView {
                 self.dayViews[i].update(with: dayConfigs[i])
             }
         }
-        
-        eventView.startDate = weekStartDate
-        loadEventAsync(weekStartDate: weekStartDate) { events in
-            guard self.requestManager.shouldProceed(with: requestID) else {
-                return
-            }
-            
-            self.eventView.events = events
-            self.eventView.reloadData()
-        }
     }
     
-    func loadDayConfigsAsync(weekStartDate: Date, completion: @escaping ([CalendarMonthDayConfig]) -> Void) {
+    private func loadDayConfigs(weekStartDate: Date, completion: @escaping ([CalendarMonthDayConfig]) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             var dayConfigs = [CalendarMonthDayConfig]()
             for i in 0..<DAYS_PER_WEEK {
@@ -177,12 +222,15 @@ class CalendarMonthWeekView: UIView {
         }
     }
     
-    func loadEventAsync(weekStartDate: Date, completion: @escaping ([CalendarEvent]?) -> Void) {
-        guard let delegate = delegate else {
-            completion(nil)
-            return
+    // MARK: - Helpers
+    private func date(on loacation: CGPoint) -> Date? {
+        guard let weekStartDate = weekStartDate else {
+            return nil
         }
 
-        delegate.calendarMonthWeekView(self, fetchEventsForWeek: weekStartDate, completion: completion)
+        let dayWidth = bounds.width / CGFloat(DAYS_PER_WEEK)
+        let index = Int(loacation.x / dayWidth)
+        let date = weekStartDate.dateByAddingDays(index)!
+        return date
     }
 }

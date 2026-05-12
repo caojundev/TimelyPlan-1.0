@@ -11,7 +11,9 @@ class CalendarMonthWeekBackgroundLayer: TPGridsLayer {
     
     var weekStartDate: Date? {
         didSet {
-            updateMonthSeparatorLayerPath()
+            if weekStartDate != oldValue {
+                updateMonthSeparatorLayerPath()
+            }
         }
     }
     

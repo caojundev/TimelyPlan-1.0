@@ -72,6 +72,7 @@ class CalendarMonthViewController: CalendarBaseViewController,
         showQuickAddTask(on: date)
     }
     
+    /*
     func calendarMonthView(_ monthView: CalendarMonthView, fetchEventsForWeek weekStartDate: Date, completion: @escaping ([CalendarEvent]?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             var events = [CalendarEvent]()
@@ -146,4 +147,5 @@ class CalendarMonthViewController: CalendarBaseViewController,
             }
         }
     }
+     */
 }

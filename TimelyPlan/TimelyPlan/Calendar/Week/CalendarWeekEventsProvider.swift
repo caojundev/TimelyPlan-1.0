@@ -29,6 +29,7 @@ class CalendarWeekEventsProvider {
 
     func loadEvents(with weekStartDate: Date) {
         self.weekStartDate = weekStartDate
+        
         fetchEvents(on: weekStartDate) { events in
             guard self.weekStartDate == weekStartDate else {
                 print("非相同日期: 获取的是\(weekStartDate.yearMonthDayString)，当前日期\(self.weekStartDate?.yearMonthDayString)")
@@ -43,6 +44,7 @@ class CalendarWeekEventsProvider {
     
     private func fetchEvents(on date: Date, completion:@escaping([CalendarEvent]?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
+            Thread.sleep(forTimeInterval: 0.8)
             let calendar = Calendar.current
             let now = date
             let events = [
@@ -72,7 +74,7 @@ class CalendarWeekEventsProvider {
     }
     
     private func getTestAllDayEvents() -> [CalendarEvent] {
-        guard let weekStartDate = weekStartDate else {
+        guard let weekStartDate = self.weekStartDate else {
             return  []
         }
         

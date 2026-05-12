@@ -43,7 +43,7 @@ class CalendarWeekTimelineBackLayer: CALayer {
     }
     
     // 横线颜色
-    var horizontalLineColor: UIColor = Color(light: 0x000000, dark: 0xFFFFFF, alpha: 0.2) {
+    var horizontalLineColor: UIColor = CalendarWeekConstant.separatorColor {
         didSet {
             horizontalLinesLayer.strokeColor = horizontalLineColor.cgColor
         }
