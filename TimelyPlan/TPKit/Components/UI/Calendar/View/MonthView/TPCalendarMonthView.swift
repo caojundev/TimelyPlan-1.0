@@ -146,6 +146,7 @@ class TPCalendarMonthView: UIView,
         if let cell = cell as? TPCalendarDayCell {
             cell.dayDateComponents = components
             cell.isChecked = shouldShowCheckmarkForItem(at: indexPath)
+            cell.reloadData()
         }
 
         delegate?.calendarMonthView(self, didDequeCell: cell, forDateComponents: components)

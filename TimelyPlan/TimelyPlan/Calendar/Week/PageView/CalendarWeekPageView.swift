@@ -22,8 +22,31 @@ class CalendarWeekPageView: TPCollectionWrapperView,
 
     weak var delegate: CalendarWeekPageViewDelegate?
     
+    /// 周视图天数
+    var daysInWeekView: Int = 3 {
+        didSet {
+            if daysInWeekView != oldValue {
+                flowLayout.invalidateLayout()
+                setNeedsLayout()
+            }
+        }
+    }
+    
     /// 周开始日
     var firstWeekday: Weekday = .sunday
+    
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
+    
+    /// 显示周数
+    var showWeekNumber: Bool = true {
+        didSet {
+            weekNumberView.showWeekNumber = showWeekNumber
+        }
+    }
     
     /// 当前可见日期
     private(set) var visibleDate: Date!
@@ -61,6 +84,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     
     override func setupSubviews() {
         super.setupSubviews()
+        weekNumberView.showWeekNumber = showWeekNumber
         addSubview(weekNumberView)
         addSubview(hoursView)
         addSeparator(position: .top)
@@ -132,13 +156,15 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         cell.layoutIfNeeded() /// 需要立即布局以解决滚动跳动的问题
         let weekView = cell.weekView
         weekView.delegate = self
+        weekView.showLunar = showLunar
+        weekView.showChineseHolidays = showChineseHolidays
         if weekView.weekStartDate != weekStartDate {
             weekView.loadEvents(with: weekStartDate)
         }
         
         synchronizer.addEventsView(weekView.eventsView)
     }
-    
+
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return false
     }
@@ -235,6 +261,16 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         super.reloadData(animateStyle: animateStyle)
         updateContentOffset(animated: false)
         updateWeekNumber()
+    }
+    
+    func reloadWeekDays() {
+        let visibleCells = adapter.visibleCells as! [CalendarWeekPageCell]
+        for cell in visibleCells {
+            let weekView = cell.weekView
+            weekView.showLunar = showLunar
+            weekView.showChineseHolidays = showChineseHolidays
+            weekView.reloadWeekDays()
+        }
     }
     
     /// 当前月份日期组件
@@ -355,13 +391,16 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     }
     
     // MARK: -  Helpers
-    /// 日宽度
-    private let minimumDayWidth = 120.0
-    private let maximumDayWidth = 160.0
+    /// 日最小宽度
+    private let minimumDayWidth = 40.0
+    
     private var dayWidth: CGFloat {
         let collectionSize = adapter.collectionViewSize()
-        let width = ceil(collectionSize.width / CGFloat(DAYS_PER_WEEK))
-        return min(max(minimumDayWidth, width), maximumDayWidth)
+        let daysInWeekView = clampedValue(daysInWeekView,
+                                          CalendarSetting.minDaysInWeek,
+                                          CalendarSetting.maxDaysInWeek)
+        let width = ceil(collectionSize.width / CGFloat(daysInWeekView))
+        return max(minimumDayWidth, width)
     }
     
     /// 周单元格尺寸

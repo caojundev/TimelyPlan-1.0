@@ -35,6 +35,12 @@ class TPCalendarSingleWeekView: TPCollectionWrapperView,
     /// 周开始日
     var firstWeekday: Weekday = .sunday
 
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
+    
     /// 选择管理器
     var selection: TPCalendarDateSelection? {
         didSet {
@@ -86,8 +92,11 @@ class TPCalendarSingleWeekView: TPCollectionWrapperView,
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         let components = adapter.item(at: indexPath) as! DateComponents
         if let cell = cell as? TPCalendarDayCell {
+            cell.showLunar = showLunar
+            cell.showChineseHolidays = showChineseHolidays
             cell.dayDateComponents = components
             cell.isChecked = shouldShowCheckmarkForItem(at: indexPath)
+            cell.reloadData()
         }
         
         delegate?.calendarSingleWeekView?(self, didDequeCell: cell, forDateComponents: components)

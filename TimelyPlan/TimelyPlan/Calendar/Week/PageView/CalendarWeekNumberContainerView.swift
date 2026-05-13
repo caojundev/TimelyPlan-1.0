@@ -10,13 +10,23 @@ import UIKit
 
 class CalendarWeekNumberContainerView: UIView {
     
-    var weekNumber: Int = 0 {
+    var showWeekNumber: Bool = false {
         didSet {
-            numberView.weekNumber = weekNumber
+            if showWeekNumber != oldValue {
+                setupWeekNumberView()
+            }
         }
     }
     
-    var numberView = CalendarWeekNumberView()
+    var weekNumber: Int = 0 {
+        didSet {
+            weekNumberView?.weekNumber = weekNumber
+        }
+    }
+    
+    private let weekNumberSize = CGSize(width: 24.0, height: 32.0)
+    private let weekNumberHeight = 20.0
+    private var weekNumberView: CalendarWeekNumberView?
     
     private let backLayer = TPGridsLayer()
     
@@ -31,6 +41,7 @@ class CalendarWeekNumberContainerView: UIView {
     }
     
     private func setupSubviews() {
+        backgroundColor = .systemBackground
         var layoutStyle = TPGridsLayoutStyle()
         layoutStyle.rowsCount = 1
         layoutStyle.columsCount = 1
@@ -40,11 +51,7 @@ class CalendarWeekNumberContainerView: UIView {
         layoutStyle.lineColor = CalendarWeekConstant.separatorColor
         backLayer.layoutStyle = layoutStyle
         layer.addSublayer(backLayer)
-        
-        numberView.weekNumber = weekNumber
-        numberView.backgroundColor = .clear
-        addSubview(numberView)
-        backgroundColor = .systemBackground
+        setupWeekNumberView()
     }
     
     override func layoutSubviews() {
@@ -53,8 +60,29 @@ class CalendarWeekNumberContainerView: UIView {
             self.backLayer.frame = bounds
         }
         
-        numberView.size = CGSize(width: 24.0, height: 32.0)
-        numberView.alignCenter()
+        layoutWeekNumberView()
+    }
+    
+    private func layoutWeekNumberView() {
+        if let weekNumberView = weekNumberView {
+            weekNumberView.size = weekNumberSize
+            weekNumberView.alignCenter()
+        }
+    }
+    
+    private func setupWeekNumberView() {
+        guard showWeekNumber else {
+            weekNumberView?.removeFromSuperview()
+            weekNumberView = nil
+            return
+        }
+        
+        let weekNumberView = CalendarWeekNumberView()
+        weekNumberView.numberHeight = weekNumberHeight
+        weekNumberView.weekNumber = weekNumber
+        self.weekNumberView = weekNumberView
+        addSubview(weekNumberView)
+        setNeedsLayout()
     }
     
 }

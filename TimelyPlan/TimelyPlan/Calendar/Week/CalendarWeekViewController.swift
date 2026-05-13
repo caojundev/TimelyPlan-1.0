@@ -8,31 +8,58 @@
 import Foundation
 
 class CalendarWeekViewController: CalendarBaseViewController,
-                                  CalendarWeekPageViewDelegate {
-
-    private var firstWeekday: Weekday = .sunday
+                                  CalendarWeekPageViewDelegate,
+                                  SettingAgentObserver {
 
     /// 周视图
     private lazy var pageView: CalendarWeekPageView = {
         let view = CalendarWeekPageView(frame: .zero, visibleDate: .now)
+        view.daysInWeekView = CalendarSetting.shared.getDaysInWeek()
+        view.firstWeekday = CalendarSetting.shared.firstWeekday
+        view.showLunar = CalendarSetting.shared.showLunar
+        view.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
+        view.showWeekNumber = CalendarSetting.shared.showWeekNumber
         view.delegate = self
         return view
     }()
-    
-    private var dragDropManager: CalendarWeekDragDropManager?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.insertSubview(pageView, at: 0)
         pageView.reloadData()
         updateTitle(with: pageView.visibleDate)
-        dragDropManager = CalendarWeekDragDropManager(pageView: pageView)
+        CalendarSetting.shared.addObserver(self)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         pageView.frame = view.safeLayoutFrame()
     }
+    
+    func settingAgentDidChangeValue(for keyName: String) {
+        guard let key = CalendarSetting.Key(name: keyName) else {
+            return
+        }
+        
+        switch key {
+        case .firstWeekday:
+            pageView.firstWeekday = CalendarSetting.shared.firstWeekday
+            pageView.reloadData()
+        case .showWeekNumber:
+            pageView.showWeekNumber = CalendarSetting.shared.showWeekNumber
+        case .showLunar:
+            pageView.showLunar = CalendarSetting.shared.showLunar
+            pageView.reloadWeekDays()
+        case .showChineseHolidays:
+            pageView.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
+            pageView.reloadWeekDays()
+        case .daysInWeek:
+            pageView.daysInWeekView = CalendarSetting.shared.getDaysInWeek()
+        default:
+            break
+        }
+    }
+    
     
     override func quickAddTaskDate() -> Date {
         let now = Date()

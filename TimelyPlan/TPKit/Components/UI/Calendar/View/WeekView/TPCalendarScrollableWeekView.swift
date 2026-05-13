@@ -18,6 +18,12 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
     /// 符号样式
     var symbolStyle: WeekdaySymbolStyle = .short
     
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
+    
     /// 日历视图切换到新月份回调
     var didChangeVisibleDateComponents: ((_ currentDateComponents: DateComponents,
                                           _ previousDateComponents: DateComponents) -> Void)?
@@ -26,7 +32,22 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
     var selection: TPCalendarDateSelection? = TPCalendarSingleDateSelection()
     
     /// 周开始日
-    var firstWeekday: Weekday = .firstWeekday
+    var firstWeekday: Weekday = .firstWeekday {
+        didSet {
+            guard firstWeekday != oldValue else {
+                return
+            }
+        
+            var date: Date?
+            if let selection = selection as? TPCalendarSingleDateSelection,
+               let selectedComponents = selection.selectedDate {
+               date = Date.dateFromComponents(selectedComponents)
+            }
+            
+            let currentDate = date ?? .now
+            visibleDateComponents = currentDate.firstDayOfWeek(firstWeekday: firstWeekday).yearMonthDayComponents
+        }
+    }
     
     /// 当前月份日期组件
     private(set) lazy var visibleDateComponents: DateComponents = {
@@ -87,14 +108,19 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
         }
         
         let dateComponents = adapter.item(at: indexPath) as! DateComponents
-        cell.symbolsView.firstWeekday = firstWeekday
-        cell.symbolsView.style = symbolStyle
-        cell.symbolsView.reloadData()
-        cell.weekView.delegate = delegate
-        cell.weekView.firstWeekday = firstWeekday
-        cell.weekView.visibleDateComponents = dateComponents
-        cell.weekView.selection = selection
-        cell.weekView.reloadData()
+        let symbolsView = cell.symbolsView
+        symbolsView.firstWeekday = firstWeekday
+        symbolsView.style = symbolStyle
+        symbolsView.reloadData()
+        
+        let weekView = cell.weekView
+        weekView.delegate = delegate
+        weekView.firstWeekday = firstWeekday
+        weekView.showLunar = showLunar
+        weekView.showChineseHolidays = showChineseHolidays
+        weekView.visibleDateComponents = dateComponents
+        weekView.selection = selection
+        weekView.reloadData()
     }
 
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {

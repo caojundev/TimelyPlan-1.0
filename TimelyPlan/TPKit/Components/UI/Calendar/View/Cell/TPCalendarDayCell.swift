@@ -10,38 +10,14 @@ import UIKit
 
 class TPCalendarDayCell: TPDefaultInfoCollectionCell {
     
-    /// 选中指示圆形尺寸
-    private let selectedIndicatorSize = CGSize(width: 46.0, height: 46.0)
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
     
     /// 天日期组件
-    var dayDateComponents: DateComponents? {
-        didSet {
-            guard let components = dayDateComponents, let date = Date.dateFromComponents(components) else {
-                return
-            }
-            
-            var title: String?
-            if date.isToday {
-                title = "今"
-            } else {
-                title = String(date.day)
-            }
-
-            infoView.title = title
-            
-            var subtitle: String?
-            if let holidayName = date.holidayName {
-                subtitle = holidayName
-            } else if let solarTermName = date.solarTermName {
-                subtitle = solarTermName
-            } else {
-                subtitle = date.lunarCalendarDayString
-            }
-            
-            infoView.subtitle = subtitle
-            badgeView.state = TPHolidayScheduler.shared.state(for: date)
-        }
-    }
+    var dayDateComponents: DateComponents?
     
     var date: Date? {
         guard let dayDateComponents = dayDateComponents else {
@@ -71,6 +47,9 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
         let view = TPCalendarDayBadgeView(frame: .zero)
         return view
     }()
+    
+    /// 选中指示圆形尺寸
+    private let selectedIndicatorSize = CGSize(width: 46.0, height: 46.0)
 
     override func setupContentSubviews() {
         super.setupContentSubviews()
@@ -171,4 +150,57 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
         self.updateBackgroundView()
         CATransaction.commit()
     }
+    
+    func reloadData() {
+        guard let date = self.date else {
+            infoView.title = nil
+            infoView.subtitle = nil
+            badgeView.state = .inNormal
+            return
+        }
+    
+        infoView.title = title(for: date)
+        infoView.subtitle = subtitle(for: date)
+        updateBadgeView(for: date)
+    }
+    
+    private func updateBadgeView(for date: Date) {
+        if showChineseHolidays {
+            badgeView.isHidden = false
+            badgeView.state = TPHolidayScheduler.shared.state(for: date)
+        } else {
+            badgeView.isHidden = true
+            badgeView.state = .inNormal
+        }
+    }
+    
+    // MARK: - Helpers
+    private func title(for date: Date) -> String? {
+        var title: String?
+        if date.isToday {
+            title = "今"
+        } else {
+            title = String(date.day)
+        }
+
+        return title
+    }
+  
+    private func subtitle(for date: Date) -> String? {
+        guard showLunar else {
+            return nil
+        }
+        
+        var subtitle: String?
+        if let holidayName = date.holidayName {
+            subtitle = holidayName
+        } else if let solarTermName = date.solarTermName {
+            subtitle = solarTermName
+        } else {
+            subtitle = date.lunarCalendarDayString
+        }
+        
+        return subtitle
+    }
+    
 }

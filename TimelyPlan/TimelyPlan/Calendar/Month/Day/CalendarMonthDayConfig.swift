@@ -19,11 +19,11 @@ struct CalendarMonthDayConfig {
     var solarTermName: String?
     
     /// 农历日期
-    var lunarDayString: String
+    var lunarDayString: String?
     
     /// 调休状态
-    var workStatus: TPDateState
-    
+    let workStatus: TPDateState
+
     var dayLabelText: String {
         let day = date.day
         if day != 1 {
@@ -33,8 +33,8 @@ struct CalendarMonthDayConfig {
         return date.shortMonthSymbol
     }
     
-    var lunarLabelText: String {
-        var result: String
+    var lunarLabelText: String? {
+        var result: String?
         if let holidayName = holidayName {
             result = holidayName
         } else if let solarTermName = solarTermName {
@@ -49,12 +49,19 @@ struct CalendarMonthDayConfig {
     var workStatusLabelText: String? {
         return workStatus.title
     }
-    
-    init(date: Date) {
+
+    init(date: Date, showLunar: Bool = true, showChineseHolidays: Bool = true) {
         self.date = date
-        self.holidayName = date.holidayName
-        self.solarTermName = date.solarTermName
-        self.lunarDayString = date.lunarCalendarDayString
-        self.workStatus = TPHolidayScheduler.shared.state(for: date)
+        if showLunar {
+            self.holidayName = date.holidayName
+            self.solarTermName = date.solarTermName
+            self.lunarDayString = date.lunarCalendarDayString
+        }
+   
+        if showChineseHolidays {
+            self.workStatus = TPHolidayScheduler.shared.state(for: date)
+        } else {
+            self.workStatus = .inNormal
+        }
     }
 }

@@ -21,17 +21,18 @@ class CalendarWeekView: UIView, CalendarWeekEventsViewDelegate {
     /// 代理对象
     weak var delegate: CalendarWeekViewDelegate?
     
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
+    
     /// 周开始日
-    private(set) var weekStartDate: Date? {
-        didSet {
-            weekDaysView.weekStartDate = weekStartDate
-        }
-    }
-
+    var weekStartDate: Date?
+    
     /// 周天日期视图
-    private let weekDaysView: CalendarWeekDaysView = {
-        let view = CalendarWeekDaysView()
-        return view
+    private lazy var weekDaysView: CalendarWeekDaysView = {
+        return CalendarWeekDaysView()
     }()
     
     /// 事件视图
@@ -91,9 +92,16 @@ class CalendarWeekView: UIView, CalendarWeekEventsViewDelegate {
         eventsView.reset()
     }
     
+    func reloadWeekDays() {
+        weekDaysView.weekStartDate = weekStartDate
+        weekDaysView.showLunar = showLunar
+        weekDaysView.showChineseHolidays = showChineseHolidays
+        weekDaysView.reloadData()
+    }
+    
     func loadEvents(with weekStartDate: Date) {
         self.weekStartDate = weekStartDate
-        
+        reloadWeekDays()
         if eventsView.weekStartDate != weekStartDate {
             eventsView.weekStartDate = weekStartDate
             eventsView.reset()

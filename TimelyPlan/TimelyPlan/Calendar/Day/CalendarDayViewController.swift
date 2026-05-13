@@ -19,6 +19,9 @@ class CalendarDayViewController: CalendarBaseViewController,
     private lazy var weekView: CalendarDayWeekView = {
         let view = CalendarDayWeekView()
         view.firstWeekday = CalendarSetting.shared.firstWeekday
+        view.showWeekNumber = CalendarSetting.shared.showWeekNumber
+        view.showLunar = CalendarSetting.shared.showLunar
+        view.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
         view.selection = selection
         return view
     }()
@@ -52,11 +55,21 @@ class CalendarDayViewController: CalendarBaseViewController,
             return
         }
         
-        if key == .firstWeekday {
+        switch key {
+        case .firstWeekday:
             weekView.firstWeekday = CalendarSetting.shared.firstWeekday
             weekView.reloadData()
+        case .showWeekNumber:
+            weekView.showWeekNumber = CalendarSetting.shared.showWeekNumber
+        case .showLunar:
+            weekView.showLunar = CalendarSetting.shared.showLunar
+            weekView.reloadData()
+        case .showChineseHolidays:
+            weekView.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
+            weekView.reloadData()
+        default:
+            break
         }
-        
     }
     
     override func viewWillLayoutSubviews() {

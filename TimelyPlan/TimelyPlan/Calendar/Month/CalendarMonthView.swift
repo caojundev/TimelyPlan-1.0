@@ -25,6 +25,39 @@ class CalendarMonthView: TPCollectionWrapperView,
     /// 代理对象
     weak var delegate: CalendarMonthViewDelegate?
     
+    /// 周开始日
+    var firstWeekday: Weekday = .sunday {
+        didSet {
+            if firstWeekday != oldValue {
+                topWeekStartDate = topWeekStartDate.firstDayOfWeek(firstWeekday: firstWeekday)
+            }
+        }
+    }
+    
+    /// 显示周数
+    var showWeekNumber: Bool = true
+    
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
+    
+    /// 周视图天数
+    var weeksInMonth: Int {
+        get {
+            return monthViewFlowLayout.preferredRowsCount
+        }
+        
+        set {
+            if monthViewFlowLayout.preferredRowsCount != newValue {
+                monthViewFlowLayout.preferredRowsCount = newValue
+                monthViewFlowLayout.invalidateLayout()
+                setNeedsLayout()
+            }
+        }
+    }
+    
     /// 当前可见月份日期
     var visibleMonthDate: Date {
         return visibleMonthDate(with: topWeekStartDate)
@@ -32,9 +65,6 @@ class CalendarMonthView: TPCollectionWrapperView,
     
     /// 当前顶部周开始日期
     private(set) var topWeekStartDate: Date!
-    
-    /// 周开始日
-    private let firstWeekday: Weekday = .sunday
     
     /// 日期数组
     private var dates: [Date] = []
@@ -92,7 +122,10 @@ class CalendarMonthView: TPCollectionWrapperView,
         super.layoutSubviews()
         weekdaySymbolView.width = bounds.width
         weekdaySymbolView.height = weekdaySymbolHeight
-        updateContentOffset(animated: false)
+        
+        DispatchQueue.main.async {
+            self.updateContentOffset(animated: false)
+        }
     }
 
     /// 更新当前日期数组
@@ -145,6 +178,24 @@ class CalendarMonthView: TPCollectionWrapperView,
         updateContentOffset(animated: false)
     }
     
+    func reloadWeekNumber() {
+        let visibleCells = adapter.visibleCells as! [CalendarMonthWeekCell]
+        for cell in visibleCells {
+            let weekView = cell.weekView
+            weekView.showWeekNumber = showWeekNumber
+        }
+    }
+    
+    func reloadWeekDays() {
+        let visibleCells = adapter.visibleCells as! [CalendarMonthWeekCell]
+        for cell in visibleCells {
+            let weekView = cell.weekView
+            weekView.showLunar = showLunar
+            weekView.showChineseHolidays = showChineseHolidays
+            weekView.reloadWeekDays()
+        }
+    }
+    
     private func reloadWeekdaySymbol() {
         if weekdaySymbolView.firstWeekday != firstWeekday {
             weekdaySymbolView.firstWeekday = firstWeekday
@@ -193,15 +244,17 @@ class CalendarMonthView: TPCollectionWrapperView,
         }
         
         let weekView = cell.weekView
-        weekView.showWeekNumber = true
+        weekView.showWeekNumber = showWeekNumber
         weekView.firstWeekday = firstWeekday
+        weekView.showLunar = showLunar
+        weekView.showChineseHolidays = showChineseHolidays
         weekView.delegate = self
         
         if weekView.weekStartDate != date {
             weekView.loadEvents(weekStartDate: date)
         }
     }
-    
+
     func adapter(_ adapter: TPCollectionViewAdapter, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .zero
     }
@@ -290,7 +343,13 @@ class CalendarMonthViewFlowLayout: UICollectionViewFlowLayout {
         }
     }
 
-    var preferredRowsCount = 5
+    var preferredRowsCount = 5 {
+        didSet {
+            if preferredRowsCount != oldValue {
+                updateItemSize()
+            }
+        }
+    }
     
     private var minimumItemHeight = 120.0
     

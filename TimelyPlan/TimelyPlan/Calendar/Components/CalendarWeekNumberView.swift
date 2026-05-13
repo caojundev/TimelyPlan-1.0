@@ -36,7 +36,7 @@ class CalendarWeekNumberView: UIView {
         didSet { weekLabel.font = weekNumberFont }
     }
     
-    public var weekTextFont: UIFont = UIFont.systemFont(ofSize: 10.0) {
+    public var weekTextFont: UIFont = .systemFont(ofSize: 10.0) {
         didSet { weekTextLabel.font = weekTextFont }
     }
     

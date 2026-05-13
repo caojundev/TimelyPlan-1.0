@@ -10,13 +10,13 @@ import UIKit
 class CalendarWeekDaysView: UIView {
     
     /// 周开始日
-    var weekStartDate: Date? {
-        didSet {
-            if weekStartDate != oldValue {
-                reloadData()
-            }
-        }
-    }
+    var weekStartDate: Date?
+    
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -69,7 +69,7 @@ class CalendarWeekDaysView: UIView {
         }
     }
     
-    private func reloadData() {
+    func reloadData() {
         guard let weekStartDate = weekStartDate else {
             reset()
             return
@@ -77,7 +77,9 @@ class CalendarWeekDaysView: UIView {
 
         for dayView in dayViews {
             let date = weekStartDate.dateByAddingDays(dayView.tag)!
-            let config = CalendarMonthDayConfig(date: date)
+            let config = CalendarMonthDayConfig(date: date,
+                                                showLunar: showLunar,
+                                                showChineseHolidays: showChineseHolidays)
             dayView.update(with: config)
         }
     }

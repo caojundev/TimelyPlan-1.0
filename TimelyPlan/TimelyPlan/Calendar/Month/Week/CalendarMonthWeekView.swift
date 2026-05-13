@@ -34,6 +34,12 @@ class CalendarMonthWeekView: UIView {
         }
     }
     
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
+    
     /// 周开始日期
     private(set) var weekStartDate: Date?
     
@@ -94,7 +100,7 @@ class CalendarMonthWeekView: UIView {
     private func layoutWeekNumberView() {
         if let weekNumberView = weekNumberView {
             let weekNumberFrame = CGRect(x: 0.0, y: 0.0, width: weekNumberWidth, height: headerHeight)
-            weekNumberView.padding = UIEdgeInsets(vertical: 2.0)
+            weekNumberView.padding = UIEdgeInsets(value: 2.0)
             weekNumberView.numberHeight = weekNumberHeight
             weekNumberView.frame = weekNumberFrame
         }
@@ -129,7 +135,8 @@ class CalendarMonthWeekView: UIView {
         }
         
         let weekNumberView = CalendarWeekNumberView()
-        weekNumberView.backgroundColor = .systemGray6
+        weekNumberView.weekNumberFont = .boldSystemFont(ofSize: 10.0)
+        weekNumberView.weekTextFont = .systemFont(ofSize: 8.0)
         self.weekNumberView = weekNumberView
         updateWeekNumber()
         layer.insertSublayer(weekNumberView.layer, below: backgroundLayer)
@@ -176,12 +183,11 @@ class CalendarMonthWeekView: UIView {
         weekNumberView.weekNumber = Calendar.weekNumber(for: date, firstWeekday: firstWeekday)
     }
     
-    
     func loadEvents(weekStartDate: Date) {
         self.weekStartDate = weekStartDate
+        reloadWeekDays()
         updateWeekNumber()
         backgroundLayer.weekStartDate = weekStartDate
-        updateDayConfigs()
         
         if eventsView.startDate != weekStartDate {
             eventsView.startDate = weekStartDate
@@ -191,7 +197,8 @@ class CalendarMonthWeekView: UIView {
         eventsProvider.loadEvents(with: weekStartDate)
     }
     
-    private func updateDayConfigs() {
+    
+    func reloadWeekDays() {
         guard let weekStartDate = weekStartDate else {
             return
         }
@@ -212,7 +219,9 @@ class CalendarMonthWeekView: UIView {
             var dayConfigs = [CalendarMonthDayConfig]()
             for i in 0..<DAYS_PER_WEEK {
                 let date = i > 0 ? weekStartDate.dateByAddingDays(i)! : weekStartDate
-                let config = CalendarMonthDayConfig(date: date)
+                let config = CalendarMonthDayConfig(date: date,
+                                                    showLunar: self.showLunar,
+                                                    showChineseHolidays: self.showChineseHolidays)
                 dayConfigs.append(config)
             }
 

@@ -10,26 +10,6 @@ import UIKit
 
 class CalendarDayWeekView: UIView {
     
-    var firstWeekday: Weekday {
-        get {
-            return weekView.firstWeekday
-        }
-        
-        set {
-            weekView.firstWeekday = newValue
-        }
-    }
-    
-    var selection: TPCalendarDateSelection? {
-        get {
-            return weekView.selection
-        }
-        
-        set {
-            weekView.selection = newValue
-        }
-    }
-    
     var showWeekNumber: Bool = true {
         didSet {
             if showWeekNumber != oldValue {
@@ -38,13 +18,39 @@ class CalendarDayWeekView: UIView {
         }
     }
     
-    private let weekNumberWidth = 32.0
-    private let weekNumberHeight = 24.0
+    var firstWeekday: Weekday = .sunday {
+        didSet {
+            weekView.firstWeekday = firstWeekday
+        }
+    }
+    
+    var selection: TPCalendarDateSelection? {
+        didSet {
+            weekView.selection = selection
+        }
+    }
+    
+    var showLunar: Bool = true {
+        didSet {
+            weekView.showLunar = showLunar
+        }
+    }
+    
+    var showChineseHolidays: Bool = true {
+        didSet {
+            weekView.showChineseHolidays = showChineseHolidays
+        }
+    }
+    
+    private let weekNumberSize = CGSize.size(8)
+    private let weekNumberHeight = 20.0
     private var weekNumberView: CalendarWeekNumberView?
     
     private lazy var weekView: TPCalendarScrollableWeekView = {
         let view = TPCalendarScrollableWeekView(frame: .zero)
-        view.firstWeekday
+        view.firstWeekday = firstWeekday
+        view.showLunar = showLunar
+        view.showChineseHolidays = showChineseHolidays
         view.didChangeVisibleDateComponents = { [weak self] _, _ in
             self?.updateWeekNumber()
         }
@@ -56,7 +62,6 @@ class CalendarDayWeekView: UIView {
         super.init(frame: frame)
         addSubview(weekView)
         setupWeekNumberView()
-        addSeparator(position: .right)
     }
     
     required init?(coder: NSCoder) {
@@ -78,10 +83,11 @@ class CalendarDayWeekView: UIView {
     
     private func layoutWeekNumberView() {
         if let weekNumberView = weekNumberView {
-            let padding = UIEdgeInsets(top: 30.0, left: 5.0, bottom: 10.0, right: 5.0)
+            let paddingVertical = (height - weekNumberSize.height) / 2.0
+            let padding = UIEdgeInsets(vertical: paddingVertical)
             weekNumberView.padding = padding
-            weekNumberView.separatorEdgeInset = UIEdgeInsets(top: padding.top, bottom: padding.bottom)
-            weekNumberView.frame = CGRect(x: 0.0, y: 0.0, width: weekNumberWidth, height: height)
+            weekNumberView.separatorEdgeInset = padding
+            weekNumberView.frame = CGRect(x: 0.0, y: 0.0, width: weekNumberSize.width, height: height)
         }
     }
     
@@ -95,7 +101,6 @@ class CalendarDayWeekView: UIView {
         let weekNumberView = CalendarWeekNumberView()
         weekNumberView.numberHeight = weekNumberHeight
         weekNumberView.addSeparator(position: .right)
-        weekNumberView.backgroundColor = .systemBackground
         self.weekNumberView = weekNumberView
         updateWeekNumber()
         addSubview(weekNumberView)

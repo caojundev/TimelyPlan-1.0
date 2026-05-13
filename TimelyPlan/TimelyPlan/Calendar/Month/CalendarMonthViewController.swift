@@ -8,10 +8,16 @@
 import Foundation
 
 class CalendarMonthViewController: CalendarBaseViewController,
-                                   CalendarMonthViewDelegate {
+                                   CalendarMonthViewDelegate,
+                                    SettingAgentObserver {
 
     private lazy var monthView: CalendarMonthView = {
         let view = CalendarMonthView(frame: view.bounds, monthDate: .now)
+        view.weeksInMonth = CalendarSetting.shared.getWeeksInMonth()
+        view.firstWeekday = CalendarSetting.shared.firstWeekday
+        view.showLunar = CalendarSetting.shared.showLunar
+        view.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
+        view.showWeekNumber = CalendarSetting.shared.showWeekNumber
         view.delegate = self
         return view
     }()
@@ -20,11 +26,37 @@ class CalendarMonthViewController: CalendarBaseViewController,
         super.viewDidLoad()
         view.insertSubview(monthView, at: 0)
         updateTitle(with: monthView.visibleMonthDate)
+        CalendarSetting.shared.addObserver(self)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         monthView.frame = view.safeLayoutFrame()
+    }
+    
+    func settingAgentDidChangeValue(for keyName: String) {
+        guard let key = CalendarSetting.Key(name: keyName) else {
+            return
+        }
+        
+        switch key {
+        case .firstWeekday:
+            monthView.firstWeekday = CalendarSetting.shared.firstWeekday
+            monthView.reloadData()
+        case .showWeekNumber:
+            monthView.showWeekNumber = CalendarSetting.shared.showWeekNumber
+            monthView.reloadWeekNumber()
+        case .showLunar:
+            monthView.showLunar = CalendarSetting.shared.showLunar
+            monthView.reloadWeekDays()
+        case .showChineseHolidays:
+            monthView.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
+            monthView.reloadWeekDays()
+        case .weeksInMonth:
+            monthView.weeksInMonth = CalendarSetting.shared.getWeeksInMonth()
+        default:
+            break
+        }
     }
     
     private func updateTitle(with date: Date) {
