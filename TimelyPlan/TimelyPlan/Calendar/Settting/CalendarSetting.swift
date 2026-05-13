@@ -8,6 +8,8 @@
 import Foundation
 
 class CalendarSetting {
+    static let defaultEventDurations = [15, 30, 45, 60, 90, 120, 180]
+    static let defaultEventDuration = 15
     
     static let minDaysInWeek = 2
     static let maxDaysInWeek = 7
@@ -16,6 +18,7 @@ class CalendarSetting {
 
     enum Key: String, SettingKeyRepresentable {
         case firstWeekday
+        case defaultEventDuration
         case showWeekNumber
         case showLunar
         case showChineseHolidays
@@ -29,6 +32,9 @@ class CalendarSetting {
 
     @CloudStored(key: Key.firstWeekday.name, defaultValue: .monday)
     var firstWeekday: Weekday
+    
+    @CloudStored(key: Key.defaultEventDuration.name, defaultValue: CalendarSetting.defaultEventDuration)
+    var defaultEventDuration: Int
     
     @CloudStored(key: Key.showWeekNumber.name, defaultValue: true)
     var showWeekNumber: Bool

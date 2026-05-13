@@ -93,14 +93,14 @@ class CalendarMonthView: TPCollectionWrapperView,
     /// 布局
     private let monthViewFlowLayout: CalendarMonthViewFlowLayout
     
-    init(frame: CGRect, monthDate: Date) {
+    init(frame: CGRect, monthDate: Date, firstWeekday: Weekday = .firstWeekday) {
+        self.firstWeekday = firstWeekday
         self.monthViewFlowLayout = CalendarMonthViewFlowLayout()
         super.init(frame: frame, collectionViewLayout: self.monthViewFlowLayout)
         addSubview(weekdaySymbolView)
         adapter.dataSource = self
         adapter.delegate = self
         topWeekStartDate = monthDate.firstDayOfWeek(firstWeekday: firstWeekday)
-        reloadData()
     }
     
     required init?(coder: NSCoder) {
@@ -122,10 +122,7 @@ class CalendarMonthView: TPCollectionWrapperView,
         super.layoutSubviews()
         weekdaySymbolView.width = bounds.width
         weekdaySymbolView.height = weekdaySymbolHeight
-        
-        DispatchQueue.main.async {
-            self.updateContentOffset(animated: false)
-        }
+        updateContentOffset(animated: false)
     }
 
     /// 更新当前日期数组

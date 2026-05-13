@@ -17,7 +17,7 @@ class CalendarWeekNumberView: UIView {
         }
     }
     
-    public var weekText: String = resGetString("CW") {
+    public var weekText: String = resGetString("W") {
         didSet {
             weekTextLabel.text = weekText
         }

@@ -12,9 +12,9 @@ class CalendarMonthViewController: CalendarBaseViewController,
                                     SettingAgentObserver {
 
     private lazy var monthView: CalendarMonthView = {
-        let view = CalendarMonthView(frame: view.bounds, monthDate: .now)
+        let firstWeekday = CalendarSetting.shared.firstWeekday
+        let view = CalendarMonthView(frame: view.bounds, monthDate: .now, firstWeekday: firstWeekday)
         view.weeksInMonth = CalendarSetting.shared.getWeeksInMonth()
-        view.firstWeekday = CalendarSetting.shared.firstWeekday
         view.showLunar = CalendarSetting.shared.showLunar
         view.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
         view.showWeekNumber = CalendarSetting.shared.showWeekNumber
@@ -25,6 +25,7 @@ class CalendarMonthViewController: CalendarBaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         view.insertSubview(monthView, at: 0)
+        monthView.reloadData()
         updateTitle(with: monthView.visibleMonthDate)
         CalendarSetting.shared.addObserver(self)
     }

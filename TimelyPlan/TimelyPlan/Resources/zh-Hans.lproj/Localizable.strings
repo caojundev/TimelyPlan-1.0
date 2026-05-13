@@ -23,7 +23,11 @@
 "Settings" = "设置";
 
 ///**********************日历*********************///
-"CW" = "周";
+"W" = "周";
+
+"New Events" = "新事项";
+"Default Duration" = "默认时长";
+
 "View Options" = "视图选项";
 "Show Week Number" = "显示第几周";
 "Show Lunar Calendar" = "显示农历";

@@ -134,12 +134,17 @@ class CalendarMonthWeekView: UIView {
             return
         }
         
+        if self.weekNumberView != nil {
+            return
+        }
+        
         let weekNumberView = CalendarWeekNumberView()
         weekNumberView.weekNumberFont = .boldSystemFont(ofSize: 10.0)
         weekNumberView.weekTextFont = .systemFont(ofSize: 8.0)
+        layer.insertSublayer(weekNumberView.layer, below: backgroundLayer)
+        
         self.weekNumberView = weekNumberView
         updateWeekNumber()
-        layer.insertSublayer(weekNumberView.layer, below: backgroundLayer)
         setNeedsLayout()
     }
     

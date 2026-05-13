@@ -68,6 +68,11 @@ class TPTableItemSectionController: TPTableBaseSectionController,
     }
     
     override func shouldShowCheckmarkForRow(at index: Int) -> Bool {
+        if let delegate = self.delegate {
+            let bShow = delegate.tableSectionController(self, shouldShowCheckmarkForRowAt: index)
+            return bShow
+        }
+ 
         if let cellItem = item(at: index) as? TPBaseTableCellItem {
             return cellItem.isChecked
         }

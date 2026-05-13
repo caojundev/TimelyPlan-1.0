@@ -11,7 +11,11 @@ import UIKit
 class CalendarSettingViewController: TPTableSectionsViewController {
      
     private let defaultCellHeight = 60.0
-     
+    
+    private let headerHeight = 50.0
+    
+    private let headerPadding = UIEdgeInsets(top: 15.0, left: 12.0, bottom: 0.0, right: 12.0)
+    
     /// 周开始日
     lazy var firstWeekdayCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
@@ -37,6 +41,35 @@ class CalendarSettingViewController: TPTableSectionsViewController {
          return sectionController
      }()
      
+    // MARK: - 新事项
+    lazy var defaultEventDurationCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Default Duration")
+        cellItem.updater = {
+            let duration = CalendarSetting.shared.defaultEventDuration
+            let valueText = (duration * SECONDS_PER_MINUTE).localizedTitle
+            self?.defaultEventDurationCellItem.valueConfig = .valueText(valueText)
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editDefaultEventDuration()
+        }
+        
+        return cellItem
+    }()
+ 
+     lazy var newEventsSectionController: TPTableItemSectionController = {
+         let sectionController = TPTableItemSectionController()
+         sectionController.headerItem.height = headerHeight
+         sectionController.headerItem.padding = headerPadding
+         sectionController.headerItem.title = resGetString("New Events")
+         sectionController.cellItems = [defaultEventDurationCellItem]
+         return sectionController
+     }()
+    
+    // MARK: - 视图选项
     /// 显示周数
     lazy var showWeekNumberCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
@@ -87,7 +120,8 @@ class CalendarSettingViewController: TPTableSectionsViewController {
     
     lazy var viewOptionsSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.height = headerHeight
+        sectionController.headerItem.padding = headerPadding
         sectionController.headerItem.title = resGetString("View Options")
         sectionController.cellItems = [showWeekNumberCellItem,
                                        showLunarCellItem,
@@ -114,7 +148,8 @@ class CalendarSettingViewController: TPTableSectionsViewController {
     
     lazy var weekViewSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.height = headerHeight
+        sectionController.headerItem.padding = headerPadding
         sectionController.headerItem.title = resGetString("Week View")
         sectionController.cellItems = [daysInWeekViewCellItem]
         return sectionController
@@ -139,7 +174,8 @@ class CalendarSettingViewController: TPTableSectionsViewController {
     
     lazy var monthViewSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.height = headerHeight
+        sectionController.headerItem.padding = headerPadding
         sectionController.headerItem.title = resGetString("Month View")
         sectionController.cellItems = [weeksInMonthViewCellItem]
         return sectionController
@@ -150,6 +186,7 @@ class CalendarSettingViewController: TPTableSectionsViewController {
          self.title = resGetString("Settings")
          self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
          self.sectionControllers = [generalSectionController,
+                                    newEventsSectionController,
                                     viewOptionsSectionController,
                                     weekViewSectionController,
                                     monthViewSectionController]
@@ -215,6 +252,16 @@ class CalendarSettingViewController: TPTableSectionsViewController {
         }
         
         pickerVC.popoverShow()
+    }
+    
+    func editDefaultEventDuration() {
+        let vc = CalendarEventDurationEditViewController(style: .insetGrouped)
+        vc.didEndEditing = {
+            self.adapter.reloadCell(forItem: self.defaultEventDurationCellItem,
+                                    with: .none)
+        }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
  }
