@@ -29,14 +29,18 @@ extension CDTodoTag: SortableIdentifiable {
     }
     
     /// 新建标签
-    static func createTag(with editingTag: TodoEditingTag) -> CDTodoTag? {
+    static func createTag(with editingTag: TodoEditingTag, onTop: Bool) -> CDTodoTag? {
         guard let name = editingTag.name?.whitespacesAndNewlinesTrimmedString, name.count > 0 else {
             return nil
         }
         
         let tag = newTag(with: editingTag)
-        /// 设置排序因子
-        tag.order = maximumOrder + kOrderedStep
+        if onTop {
+            tag.order = minimumOrder - kOrderedStep
+        } else {
+            tag.order = maximumOrder + kOrderedStep
+        }
+        
         return tag
     }
     

@@ -94,23 +94,29 @@ extension CDTodoList {
         self.layoutRawValue = Int16(editingList.layoutType.rawValue)
     }
     
-    func addSublist(_ list: CDTodoList) {
+    func addSublist(_ list: CDTodoList, onTop: Bool) {
         let sublists = self.sublists?.allObjects as? [CDTodoList]
-        let maxOrder = sublists?.maxOrder ?? 0
-        list.order = maxOrder + kOrderedStep
-        self.addToSublists(list)
+        if onTop {
+            let minOrder = sublists?.minOrder ?? kOrderedStep
+            list.order = minOrder - kOrderedStep
+        } else {
+            let maxOrder = sublists?.maxOrder ?? 0
+            list.order = maxOrder + kOrderedStep
+        }
+        
+        addToSublists(list)
     }
     
     func removeSublist(_ list: CDTodoList) {
-        self.removeFromSublists(list)
+        removeFromSublists(list)
     }
     
     func removeAllSublists() {
-        guard let lists = self.sublists else {
+        guard let lists = sublists else {
             return
         }
         
-        self.removeFromSublists(lists)
+        removeFromSublists(lists)
     }
 }
 
@@ -119,21 +125,27 @@ extension CDTodoList {
     /// 创建默认用户列表
     static func createDefaultTopLists() -> [CDTodoList] {
         let editingList = TodoEditingList(name: resGetString("My List"))
-        let defaultList = CDTodoList.newList(with: editingList, parent: nil)
+        let defaultList = newList(with: editingList, parent: nil, onTop: true)
         return [defaultList]
     }
     
-    static func newList(with editingList: TodoEditingList, parent: TodoList?) -> CDTodoList {
-        let list = CDTodoList.createEntity(in: .defaultContext)
+    static func newList(with editingList: TodoEditingList,
+                        parent: TodoList?,
+                        onTop: Bool) -> CDTodoList {
+        let list = createEntity(in: .defaultContext)
         list.identifier = UUID().uuidString
         list.creationDate = .now
         list.update(with: editingList)
         if let parent = parent {
             let cdParent = coreDataList(for: parent)
-            cdParent?.addSublist(list)
+            cdParent?.addSublist(list, onTop: onTop)
         } else {
             /// 设置排序因子
-            list.order = CDTodoList.maximumOrder + kOrderedStep
+            if onTop {
+                list.order = minimumOrder - kOrderedStep
+            } else {
+                list.order = maximumOrder + kOrderedStep
+            }
         }
     
         return list
@@ -152,22 +164,6 @@ extension CDTodoList {
         return false
     }
     
-    /*
-    /// 更新列表布局
-    static func updateList(_ aList: TodoList, layoutType: TodoListLayoutType) -> Bool {
-        guard aList.layoutType != layoutType else {
-            return false
-        }
-        
-        if let cdList = coreDataList(for: aList) {
-            cdList.layoutRawValue = Int16(layoutType.rawValue)
-            return true
-        }
-        
-        return false
-    }
-     */
-
     /// 移动列表
     static func moveList(_ list: TodoList, to parent: TodoList?) -> Bool {
         if list.identifier == parent?.identifier || parent?.identifier == list.parent?.identifier {
@@ -184,11 +180,11 @@ extension CDTodoList {
         }
         
         if let cdParent = cdParent {
-            cdParent.addSublist(cdList)
+            cdParent.addSublist(cdList, onTop: false)
         } else {
             /// 移动到顶层
             cdList.parent = nil
-            cdList.order = CDTodoList.maximumOrder + kOrderedStep
+            cdList.order = maximumOrder + kOrderedStep
         }
         
         return true
@@ -279,7 +275,7 @@ extension CDTodoList {
    
         /// 更新排序因子
         if sameDepthLists.count > 1 {
-            let bSynced = CDTodoList.syncOrders(for: sameDepthLists)
+            let bSynced = syncOrders(for: sameDepthLists)
             bChanged = bChanged || bSynced
         }
         

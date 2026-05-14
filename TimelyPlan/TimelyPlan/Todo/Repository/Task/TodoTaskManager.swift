@@ -20,7 +20,8 @@ class TodoTaskManager {
     
     /// 创建任务
     func createTask(with quickAddTask: TodoQuickAddTask) {
-        let content = CDTodoTask.createTodoTask(with: quickAddTask, onTop: true)
+        let onTop = TodoSetting.shared.addTaskOnTop
+        let content = CDTodoTask.createTodoTask(with: quickAddTask, onTop: onTop)
         let task = TodoTask(content: content)
         updater.didCreateTodoTask(task)
         HandyRecord.save()

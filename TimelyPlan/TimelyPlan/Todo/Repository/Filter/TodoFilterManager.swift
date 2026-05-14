@@ -32,7 +32,8 @@ class TodoFilterManager {
     
     // MARK: - Processors
     /// 新建过滤器
-    func createFilter(with editingFilter: TodoEditingFilter, onTop: Bool = false) {
+    func createFilter(with editingFilter: TodoEditingFilter) {
+        let onTop = TodoSetting.shared.addFilterOnTop
         guard let content = CDTodoFilter.createFilter(with: editingFilter, onTop: onTop) else {
             return
         }

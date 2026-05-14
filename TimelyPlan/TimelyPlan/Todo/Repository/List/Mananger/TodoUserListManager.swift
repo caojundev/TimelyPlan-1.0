@@ -58,7 +58,8 @@ class TodoUserListManager {
     // MARK: - 列表操作
     /// 新建列表
     func createList(with editList: TodoEditingList, parent: TodoList?) {
-        let content = CDTodoList.newList(with: editList, parent: parent)
+        let onTop = TodoSetting.shared.addListOnTop
+        let content = CDTodoList.newList(with: editList, parent: parent, onTop: onTop)
         let list = TodoList(content: content)
         HandyRecord.save()
         updater.didCreateTodoList(list)

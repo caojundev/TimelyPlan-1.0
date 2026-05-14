@@ -48,14 +48,14 @@ extension CDTodoFilter: SortableIdentifiable {
             return nil
         }
         
-        let tag = newFilter(with: editingFilter)
+        let filter = newFilter(with: editingFilter)
         if onTop {
-            tag.order = minimumOrder - kOrderedStep
+            filter.order = minimumOrder - kOrderedStep
         } else {
-            tag.order = maximumOrder + kOrderedStep
+            filter.order = maximumOrder + kOrderedStep
         }
         
-        return tag
+        return filter
     }
     
     static func newFilter(with editingFilter: TodoEditingFilter) -> CDTodoFilter {

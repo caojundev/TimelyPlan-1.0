@@ -57,7 +57,8 @@ class TodoTagManager {
     
     /// 新建标签
     func createTag(with editingTag: TodoEditingTag) {
-        guard let content = CDTodoTag.createTag(with: editingTag) else {
+        let onTop = TodoSetting.shared.addTagOnTop
+        guard let content = CDTodoTag.createTag(with: editingTag, onTop: onTop) else {
             return
         }
         

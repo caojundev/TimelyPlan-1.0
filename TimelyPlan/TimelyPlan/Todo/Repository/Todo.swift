@@ -306,8 +306,8 @@ extension Todo {
     
     // MARK: - Processors
     /// 新建过滤器
-    func createFilter(with editingFilter: TodoEditingFilter, onTop: Bool = false) {
-        filterManager.createFilter(with: editingFilter, onTop: onTop)
+    func createFilter(with editingFilter: TodoEditingFilter) {
+        filterManager.createFilter(with: editingFilter)
     }
     
     /// 更新过滤器
