@@ -11,7 +11,7 @@ class ReminderEditSectionController: TPTableItemSectionController,
                                        TPMultipleItemSelectionDelegate {
     
     /// 日期
-    let eventDate: Date
+    let eventDate: Date?
     
     /// 全天
     let isAllDay: Bool
@@ -106,7 +106,7 @@ class ReminderEditSectionController: TPTableItemSectionController,
         }
     }
     
-    init(date: Date, isAllDay: Bool = true, alarms: [TaskAlarm]?) {
+    init(date: Date?, isAllDay: Bool = true, alarms: [TaskAlarm]?) {
         self.eventDate = date
         self.isAllDay = isAllDay
         self.selection = TPMultipleItemSelection(items: alarms ?? [])
@@ -115,7 +115,7 @@ class ReminderEditSectionController: TPTableItemSectionController,
         let headerItem = TPDefaultInfoTableHeaderFooterItem()
         headerItem.padding = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 0.0, right: 15.0)
         headerItem.height = 40.0
-        headerItem.titleConfig.font = BOLD_SMALL_SYSTEM_FONT
+        headerItem.titleConfig.font = BOLD_SYSTEM_FONT
         self.headerItem = headerItem
         self.footerItem.height = 10.0
         

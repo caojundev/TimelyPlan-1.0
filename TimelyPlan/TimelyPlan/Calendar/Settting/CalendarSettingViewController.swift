@@ -181,12 +181,60 @@ class CalendarSettingViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
+    // MARK: - 提醒
+    lazy var timedEventAlertCellItem: TPDefaultInfoTableCellItem = { [weak self] in
+        let cellItem = TPDefaultInfoTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = true
+        cellItem.minimumHeight = defaultCellHeight
+        cellItem.title = resGetString("Timed Event Alert")
+        cellItem.subtitleConfig.font = .boldSystemFont(ofSize: 11.0)
+        cellItem.subtitleConfig.numberOfLines = 2
+        cellItem.updater = {
+            self?.updateTimedEventAlertCellItem()
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editTimedEventAlert()
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var allDayEventAlertCellItem: TPDefaultInfoTableCellItem = { [weak self] in
+        let cellItem = TPDefaultInfoTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = true
+        cellItem.minimumHeight = defaultCellHeight
+        cellItem.title = resGetString("All-Day Event Alert")
+        cellItem.subtitleConfig.font = .boldSystemFont(ofSize: 11.0)
+        cellItem.subtitleConfig.numberOfLines = 2
+        cellItem.updater = {
+            self?.updateAllDayEventAlertCellItem()
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editAllDayEventAlert()
+        }
+        
+        return cellItem
+    }()
+
+    lazy var alertSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = headerHeight
+        sectionController.headerItem.padding = headerPadding
+        sectionController.headerItem.title = resGetString("Default Alert")
+        sectionController.cellItems = [timedEventAlertCellItem,
+                                       allDayEventAlertCellItem]
+        return sectionController
+    }()
+    
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("Settings")
          self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
          self.sectionControllers = [generalSectionController,
                                     newEventsSectionController,
+                                    alertSectionController,
                                     viewOptionsSectionController,
                                     weekViewSectionController,
                                     monthViewSectionController]
@@ -206,6 +254,29 @@ class CalendarSettingViewController: TPTableSectionsViewController {
         return .systemGroupedBackground
     }
     
+    // MARK: - Update CellItem
+    private func updateTimedEventAlertCellItem() {
+        guard let reminder = CalendarSetting.shared.timedEventReminder else {
+            timedEventAlertCellItem.subtitle = resGetString("None")
+            return
+        }
+        
+        let info = reminder.info(startDate: nil, endDate: nil)
+        timedEventAlertCellItem.subtitle = info
+    }
+    
+    private func updateAllDayEventAlertCellItem() {
+        guard let reminder = CalendarSetting.shared.allDayEventReminder else {
+            allDayEventAlertCellItem.subtitle = resGetString("None")
+            return
+        }
+        
+        let info = reminder.info(startDate: nil, endDate: nil)
+        allDayEventAlertCellItem.subtitle = info
+    }
+    
+    
+    // MARK: - Edit
     private func editFirstWeekday() {
         guard let cell = adapter.cellForItem(firstWeekdayCellItem) else {
             return
@@ -226,7 +297,7 @@ class CalendarSettingViewController: TPTableSectionsViewController {
         }
     }
     
-    func editDaysInWeek() {
+    private func editDaysInWeek() {
         let pickerVC = TPCountPickerViewController()
         pickerVC.minimumCount = CalendarSetting.minDaysInWeek
         pickerVC.maximumCount = CalendarSetting.maxDaysInWeek
@@ -240,7 +311,7 @@ class CalendarSettingViewController: TPTableSectionsViewController {
         pickerVC.popoverShow()
     }
     
-    func editWeeksInMonth() {
+    private func editWeeksInMonth() {
         let pickerVC = TPCountPickerViewController()
         pickerVC.minimumCount = CalendarSetting.minWeeksInMonth
         pickerVC.maximumCount = CalendarSetting.maxWeeksInMonth
@@ -254,7 +325,7 @@ class CalendarSettingViewController: TPTableSectionsViewController {
         pickerVC.popoverShow()
     }
     
-    func editDefaultEventDuration() {
+    private func editDefaultEventDuration() {
         let vc = CalendarEventDurationEditViewController(style: .insetGrouped)
         vc.didEndEditing = {
             self.adapter.reloadCell(forItem: self.defaultEventDurationCellItem,
@@ -264,4 +335,25 @@ class CalendarSettingViewController: TPTableSectionsViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    private func editTimedEventAlert() {
+        let reminder = CalendarSetting.shared.timedEventReminder
+        let vc = CalendarEventAlertEditViewController(reminder: reminder, isAllDay: false)
+        vc.didEndEditing = { reminder in
+            CalendarSetting.shared.timedEventReminder = reminder
+            self.adapter.reloadCell(forItem: self.timedEventAlertCellItem, with: .none)
+        }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func editAllDayEventAlert() {
+        let reminder = CalendarSetting.shared.allDayEventReminder
+        let vc = CalendarEventAlertEditViewController(reminder: reminder, isAllDay: true)
+        vc.didEndEditing = { reminder in
+            CalendarSetting.shared.allDayEventReminder = reminder
+            self.adapter.reloadCell(forItem: self.allDayEventAlertCellItem, with: .none)
+        }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
  }

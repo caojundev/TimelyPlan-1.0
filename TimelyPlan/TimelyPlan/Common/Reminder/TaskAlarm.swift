@@ -277,7 +277,6 @@ extension TaskAlarm {
         }
     }
     
-    
     func subtitle(for eventDate: Date? = nil) -> String? {
         if offsetType == .relative {
             return relativeSubtitle(for: eventDate)
@@ -395,7 +394,6 @@ extension TaskAlarm {
     
     
     func info(with eventDate: Date?) -> String? {
-        
         guard let intervalString = subtitle(for: eventDate) else {
             return nil
         }
@@ -411,7 +409,7 @@ extension TaskAlarm {
             return "\(intervalString)(\(timeString))"
         }
         
-        return nil
+        return intervalString
     }
 }
 

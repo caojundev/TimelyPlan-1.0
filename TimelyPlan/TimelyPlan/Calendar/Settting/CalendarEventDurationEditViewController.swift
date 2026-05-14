@@ -54,7 +54,7 @@ class CalendarEventDurationEditViewController: TPTableSectionsViewController,
         self.navigationController?.popViewController(animated: true)
         if CalendarSetting.shared.defaultEventDuration != selectedDuration {
             CalendarSetting.shared.defaultEventDuration = selectedDuration
-            callback(after: 0.2) {
+            callback(after: 0.1) {
                 self.didEndEditing?()
             }
         }

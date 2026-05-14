@@ -114,8 +114,12 @@ class CalendarBaseViewController: TPViewController, CalendarTitleViewProvider {
     // MARK: - Helpers
     private func quickAddTask(on date: Date) -> TodoQuickAddTask {
         let dateInfo = TaskDateInfo(date: date)
+        let reminder = CalendarSetting.shared.allDayEventReminder
+        let schedule = TaskSchedule(dateInfo: dateInfo,
+                                    reminder: reminder,
+                                    repeatRule: nil)
         let task = TodoQuickAddTask()
-        task.schedule = TaskSchedule(dateInfo: dateInfo, reminder: nil, repeatRule: nil)
+        task.schedule = schedule
         return task
     }
     

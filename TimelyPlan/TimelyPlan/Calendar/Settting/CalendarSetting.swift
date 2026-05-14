@@ -25,6 +25,9 @@ class CalendarSetting {
         case daysInWeek
         case weeksInMonth
         
+        case timedEventReminder
+        case allDayEventReminder
+        
         static func keyPrefix() -> String? {
             return "CalendarSetting"
         }
@@ -35,6 +38,12 @@ class CalendarSetting {
     
     @CloudStored(key: Key.defaultEventDuration.name, defaultValue: CalendarSetting.defaultEventDuration)
     var defaultEventDuration: Int
+    
+    @CloudStored(key: Key.timedEventReminder.name, defaultValue: nil)
+    var timedEventReminder: TaskReminder?
+    
+    @CloudStored(key: Key.allDayEventReminder.name, defaultValue: nil)
+    var allDayEventReminder: TaskReminder?
     
     @CloudStored(key: Key.showWeekNumber.name, defaultValue: true)
     var showWeekNumber: Bool

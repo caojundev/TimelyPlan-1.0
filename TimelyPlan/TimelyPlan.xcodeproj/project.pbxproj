@@ -572,6 +572,7 @@
 		E552FBB22DBD20A40072703F /* CalendarStripMoreTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB12DBD20A40072703F /* CalendarStripMoreTextLayer.swift */; };
 		E552FBB42DBDDCA70072703F /* CalendarMonthWeekBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */; };
 		E552FBB62DBE30630072703F /* CalendarMonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */; };
+		E55528182FB55D230093DD7E /* CalendarEventAlertEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */; };
 		E555492B2F74D24C00C9460D /* FocusQuickStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492A2F74D24C00C9460D /* FocusQuickStartViewController.swift */; };
 		E555492D2F74D2AC00C9460D /* FocusQuickStartTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492C2F74D2AC00C9460D /* FocusQuickStartTypeView.swift */; };
 		E555492F2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492E2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift */; };
@@ -2406,6 +2407,7 @@
 		E552FBB12DBD20A40072703F /* CalendarStripMoreTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStripMoreTextLayer.swift; sourceTree = "<group>"; };
 		E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthWeekBackgroundLayer.swift; sourceTree = "<group>"; };
 		E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthViewController.swift; sourceTree = "<group>"; };
+		E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventAlertEditViewController.swift; sourceTree = "<group>"; };
 		E555492A2F74D24C00C9460D /* FocusQuickStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusQuickStartViewController.swift; sourceTree = "<group>"; };
 		E555492C2F74D2AC00C9460D /* FocusQuickStartTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusQuickStartTypeView.swift; sourceTree = "<group>"; };
 		E555492E2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusQuickStartSystemTimerViewController.swift; sourceTree = "<group>"; };
@@ -5027,6 +5029,7 @@
 				E52EF6202FB211B8002CF355 /* CalendarSetting.swift */,
 				E53632AE2FAE14060095DFEC /* CalendarSettingViewController.swift */,
 				E52EF62B2FB4A417002CF355 /* CalendarEventDurationEditViewController.swift */,
+				E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */,
 			);
 			path = Settting;
 			sourceTree = "<group>";
@@ -11131,6 +11134,7 @@
 				E53632822FAB72C00095DFEC /* QuadrantLayoutEditViewController.swift in Sources */,
 				E5B33D732F81148500939C3E /* TodoQuickAddProgressValueCell.swift in Sources */,
 				E50D60282F7A12B400D5E0A4 /* RepeatEditViewController.swift in Sources */,
+				E55528182FB55D230093DD7E /* CalendarEventAlertEditViewController.swift in Sources */,
 				E5BB9DAA2D3BF0C60089667A /* FlipClockCardView.swift in Sources */,
 				E5BB9F152D3BF0C90089667A /* GlobalFunctions.swift in Sources */,
 				E5FF12EB2D5DF6D600340DCC /* TPEmojiEditView.swift in Sources */,

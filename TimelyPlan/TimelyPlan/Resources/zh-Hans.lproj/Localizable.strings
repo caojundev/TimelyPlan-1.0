@@ -38,6 +38,11 @@
 "Month View" = "月视图";
 "Weeks in Month View" = "月视图中周数目";
 
+"Default Alert" = "默认提醒";
+"All-Day Event Alert" = "全天事项提醒";
+"Timed Event Alert" = "非全天事项提醒";
+
+
 ///**********************待办*********************///
 
 /// 智能列表

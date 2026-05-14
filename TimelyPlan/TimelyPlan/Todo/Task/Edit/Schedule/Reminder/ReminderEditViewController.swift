@@ -23,17 +23,30 @@ class ReminderEditViewController: TPTableSectionsViewController {
     private var endAlarmSectionController: ReminderEditSectionController?
     
     /// 任务提醒对象
-    private var reminder: TaskReminder
-    
-    /// 任务日期
-    private var dateInfo: TaskDateInfo
+    private(set) var reminder: TaskReminder
     
     /// 最多提醒数目
     private let maximumAlarmsCount = 5
 
-    init(reminder: TaskReminder?, dateInfo: TaskDateInfo) {
+    let isAllDay: Bool
+    let startDate: Date?
+    let endDate: Date?
+    
+    convenience init(reminder: TaskReminder?, dateInfo: TaskDateInfo) {
+        self.init(reminder: reminder,
+                  isAllDay: dateInfo.isAllDay,
+                  startDate: dateInfo.startDate,
+                  endDate: dateInfo.endDate)
+    }
+    
+    init(reminder: TaskReminder?,
+         isAllDay: Bool,
+         startDate: Date?,
+         endDate: Date?) {
         self.reminder = (reminder?.copy() as? TaskReminder) ?? TaskReminder()
-        self.dateInfo = dateInfo
+        self.isAllDay = isAllDay
+        self.startDate = startDate
+        self.endDate = endDate
         super.init(style: .grouped)
         self.setupSectionControllers()
     }
@@ -66,8 +79,8 @@ class ReminderEditViewController: TPTableSectionsViewController {
     }
     
     private func setupStartAlarmSectionController() {
-        let sectionController = sectionController(date: dateInfo.startDate,
-                                                  isAllDay: dateInfo.isAllDay,
+        let sectionController = sectionController(date: startDate,
+                                                  isAllDay: isAllDay,
                                                   alarms: reminder.startAlarms)
         sectionController.headerTitle = resGetString("Start Reminder")
         sectionController.didClickCustom = { [weak self] in
@@ -82,8 +95,8 @@ class ReminderEditViewController: TPTableSectionsViewController {
     }
     
     private func setupEndAlarmSectionController() {
-        let sectionController = sectionController(date: dateInfo.endDate,
-                                                  isAllDay: dateInfo.isAllDay,
+        let sectionController = sectionController(date: endDate,
+                                                  isAllDay: isAllDay,
                                                   alarms: reminder.endAlarms)
         sectionController.headerTitle = resGetString("End Reminder")
         sectionController.didClickCustom = { [weak self] in
@@ -125,7 +138,7 @@ class ReminderEditViewController: TPTableSectionsViewController {
     }
     
     func newAlarm(for type: ReminderAlarmType) {
-        if dateInfo.isAllDay {
+        if isAllDay {
             createAbsoluteAlarm(for: type)
         } else {
             createRelativeAlarm(for: type)
@@ -175,10 +188,10 @@ class ReminderEditViewController: TPTableSectionsViewController {
     }
     
     // MARK: - Helpers
-    private func sectionController(date: Date, isAllDay: Bool, alarms: [TaskAlarm]?) -> ReminderEditSectionController {
+    private func sectionController(date: Date?, isAllDay: Bool, alarms: [TaskAlarm]?) -> ReminderEditSectionController {
         let sectionController = ReminderEditSectionController(date: date,
-                                                      isAllDay: isAllDay,
-                                                      alarms: alarms)
+                                                              isAllDay: isAllDay,
+                                                              alarms: alarms)
         sectionController.canAddAlarm = { [weak self] in
             return self?.canAddNewAlarm() ?? false
         }

@@ -92,9 +92,15 @@ class AlarmListView: TPCollectionWrapperView,
     
     // MARK: - CollectionListDelegate
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         let alarm = adapter.item(at: indexPath) as! TaskAlarm
-        let title = alarm.attributedTitle(for: eventDate)?.value
-        let subtitle = alarm.attributedSubtitle(for: eventDate)?.value
+        var title = alarm.attributedTitle(for: eventDate)?.value
+        var subtitle = alarm.attributedSubtitle(for: eventDate)?.value
+        if title == nil {
+            title = subtitle
+            subtitle = nil
+        }
+        
         let titleWidth = title?.width(with: titleConfig.font) ?? 0.0
         let subtitleWidth = subtitle?.width(with: subtitleConfig.font) ?? 0.0
         let width = max(titleWidth, subtitleWidth) + itemPadding.horizontalLength
@@ -244,19 +250,28 @@ class AlarmCollectionViewCell: TPDefaultInfoCollectionCell {
     }
     
     func updateTitle() {
-        let badgeColor: UIColor?
+        
+        var title: TextRepresentable?
+        
+        let badgeColor: UIColor
         if isChecked {
-            badgeColor = infoView.titleConfig.selectedTextColor
+            badgeColor = infoView.titleConfig.selectedTextColor ?? .secondaryLabel
         } else {
-            badgeColor = infoView.titleConfig.textColor
+            badgeColor = infoView.titleConfig.textColor ?? .secondaryLabel
         }
         
-        infoView.title = alarm?.attributedTitle(for: eventDate, badgeColor: badgeColor ?? .secondaryLabel)
+        title = alarm?.attributedTitle(for: eventDate, badgeColor: badgeColor)
+        var subtitle = alarm?.attributedSubtitle(for: eventDate)
+        if title == nil {
+            title = subtitle
+            subtitle = nil
+        }
         
         if isSubtitleHidden {
-            infoView.subtitle = nil
-        } else {
-            infoView.subtitle = alarm?.attributedSubtitle(for: eventDate)
+            subtitle = nil
         }
+        
+        infoView.title = title
+        infoView.subtitle = subtitle
     }
 }

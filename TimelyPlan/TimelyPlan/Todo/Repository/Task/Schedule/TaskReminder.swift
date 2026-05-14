@@ -35,13 +35,17 @@ public class TaskReminder: NSObject, NSCopying, Codable {
     
     /// 获取提醒日期对应的提醒描述
     func info(with dateInfo: TaskDateInfo) -> String? {
+        return info(startDate: dateInfo.startDate, endDate: dateInfo.endDate)
+    }
+    
+    func info(startDate: Date?, endDate: Date?) -> String? {
         var infos = [String]()
-        if let startAlarmsInfo = startAlarmsInfo(with: dateInfo.startDate) {
+        if let startAlarmsInfo = startAlarmsInfo(with: startDate) {
             let description = String(format: resGetString("Start: %@"), startAlarmsInfo)
             infos.append(description)
         }
 
-        if let endAlarmsInfo = endAlarmsInfo(with: dateInfo.endDate) {
+        if let endAlarmsInfo = endAlarmsInfo(with: endDate) {
             let description = String(format: resGetString("Due: %@"), endAlarmsInfo)
             infos.append(description)
         }
