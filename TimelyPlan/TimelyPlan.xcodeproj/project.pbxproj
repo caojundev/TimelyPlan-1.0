@@ -573,6 +573,28 @@
 		E552FBB42DBDDCA70072703F /* CalendarMonthWeekBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */; };
 		E552FBB62DBE30630072703F /* CalendarMonthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */; };
 		E55528182FB55D230093DD7E /* CalendarEventAlertEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */; };
+		E555281C2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555281A2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png */; };
+		E555281D2FB5C3200093DD7E /* todo_smartlist_inbox_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555281B2FB5C3200093DD7E /* todo_smartlist_inbox_80@2x.png */; };
+		E55528202FB5C4BF0093DD7E /* todo_smartlist_trash_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555281E2FB5C4BF0093DD7E /* todo_smartlist_trash_80@3x.png */; };
+		E55528212FB5C4BF0093DD7E /* todo_smartlist_trash_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555281F2FB5C4BF0093DD7E /* todo_smartlist_trash_80@2x.png */; };
+		E555282A2FB5C81E0093DD7E /* todo_smartlist_overdue_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528222FB5C81B0093DD7E /* todo_smartlist_overdue_80@2x.png */; };
+		E555282B2FB5C81E0093DD7E /* todo_smartlist_upcoming_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528232FB5C81C0093DD7E /* todo_smartlist_upcoming_80@2x.png */; };
+		E555282C2FB5C81E0093DD7E /* todo_smartlist_myDay_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528242FB5C81C0093DD7E /* todo_smartlist_myDay_80@2x.png */; };
+		E555282D2FB5C81E0093DD7E /* todo_smartlist_completed_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528252FB5C81C0093DD7E /* todo_smartlist_completed_80@2x.png */; };
+		E555282E2FB5C81E0093DD7E /* todo_smartlist_myDay_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528262FB5C81D0093DD7E /* todo_smartlist_myDay_80@3x.png */; };
+		E555282F2FB5C81E0093DD7E /* todo_smartlist_completed_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528272FB5C81D0093DD7E /* todo_smartlist_completed_80@3x.png */; };
+		E55528302FB5C81E0093DD7E /* todo_smartlist_overdue_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528282FB5C81D0093DD7E /* todo_smartlist_overdue_80@3x.png */; };
+		E55528312FB5C81E0093DD7E /* todo_smartlist_upcoming_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528292FB5C81D0093DD7E /* todo_smartlist_upcoming_80@3x.png */; };
+		E55528362FB5CB2C0093DD7E /* todo_smartlist_tomorrow_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528322FB5CB2B0093DD7E /* todo_smartlist_tomorrow_80@2x.png */; };
+		E55528372FB5CB2C0093DD7E /* todo_smartlist_tomorrow_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528332FB5CB2C0093DD7E /* todo_smartlist_tomorrow_80@3x.png */; };
+		E55528382FB5CB2C0093DD7E /* todo_smartlist_today_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528342FB5CB2C0093DD7E /* todo_smartlist_today_80@2x.png */; };
+		E55528392FB5CB2C0093DD7E /* todo_smartlist_today_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528352FB5CB2C0093DD7E /* todo_smartlist_today_80@3x.png */; };
+		E555283C2FB5D34C0093DD7E /* todo_filter_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555283A2FB5D34C0093DD7E /* todo_filter_80@3x.png */; };
+		E555283D2FB5D34C0093DD7E /* todo_filter_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555283B2FB5D34C0093DD7E /* todo_filter_80@2x.png */; };
+		E55528402FB5D37C0093DD7E /* todo_tag_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555283E2FB5D37C0093DD7E /* todo_tag_80@2x.png */; };
+		E55528412FB5D37C0093DD7E /* todo_tag_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E555283F2FB5D37C0093DD7E /* todo_tag_80@3x.png */; };
+		E55528442FB5D4230093DD7E /* todo_list_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528422FB5D4230093DD7E /* todo_list_80@2x.png */; };
+		E55528452FB5D4230093DD7E /* todo_list_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55528432FB5D4230093DD7E /* todo_list_80@3x.png */; };
 		E555492B2F74D24C00C9460D /* FocusQuickStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492A2F74D24C00C9460D /* FocusQuickStartViewController.swift */; };
 		E555492D2F74D2AC00C9460D /* FocusQuickStartTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492C2F74D2AC00C9460D /* FocusQuickStartTypeView.swift */; };
 		E555492F2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492E2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift */; };
@@ -2408,6 +2430,28 @@
 		E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthWeekBackgroundLayer.swift; sourceTree = "<group>"; };
 		E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthViewController.swift; sourceTree = "<group>"; };
 		E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventAlertEditViewController.swift; sourceTree = "<group>"; };
+		E555281A2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_inbox_80@3x.png"; sourceTree = "<group>"; };
+		E555281B2FB5C3200093DD7E /* todo_smartlist_inbox_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_inbox_80@2x.png"; sourceTree = "<group>"; };
+		E555281E2FB5C4BF0093DD7E /* todo_smartlist_trash_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_trash_80@3x.png"; sourceTree = "<group>"; };
+		E555281F2FB5C4BF0093DD7E /* todo_smartlist_trash_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_trash_80@2x.png"; sourceTree = "<group>"; };
+		E55528222FB5C81B0093DD7E /* todo_smartlist_overdue_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_overdue_80@2x.png"; sourceTree = "<group>"; };
+		E55528232FB5C81C0093DD7E /* todo_smartlist_upcoming_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_upcoming_80@2x.png"; sourceTree = "<group>"; };
+		E55528242FB5C81C0093DD7E /* todo_smartlist_myDay_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_myDay_80@2x.png"; sourceTree = "<group>"; };
+		E55528252FB5C81C0093DD7E /* todo_smartlist_completed_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_completed_80@2x.png"; sourceTree = "<group>"; };
+		E55528262FB5C81D0093DD7E /* todo_smartlist_myDay_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_myDay_80@3x.png"; sourceTree = "<group>"; };
+		E55528272FB5C81D0093DD7E /* todo_smartlist_completed_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_completed_80@3x.png"; sourceTree = "<group>"; };
+		E55528282FB5C81D0093DD7E /* todo_smartlist_overdue_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_overdue_80@3x.png"; sourceTree = "<group>"; };
+		E55528292FB5C81D0093DD7E /* todo_smartlist_upcoming_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_upcoming_80@3x.png"; sourceTree = "<group>"; };
+		E55528322FB5CB2B0093DD7E /* todo_smartlist_tomorrow_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_tomorrow_80@2x.png"; sourceTree = "<group>"; };
+		E55528332FB5CB2C0093DD7E /* todo_smartlist_tomorrow_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_tomorrow_80@3x.png"; sourceTree = "<group>"; };
+		E55528342FB5CB2C0093DD7E /* todo_smartlist_today_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_today_80@2x.png"; sourceTree = "<group>"; };
+		E55528352FB5CB2C0093DD7E /* todo_smartlist_today_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_today_80@3x.png"; sourceTree = "<group>"; };
+		E555283A2FB5D34C0093DD7E /* todo_filter_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_80@3x.png"; sourceTree = "<group>"; };
+		E555283B2FB5D34C0093DD7E /* todo_filter_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_80@2x.png"; sourceTree = "<group>"; };
+		E555283E2FB5D37C0093DD7E /* todo_tag_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_tag_80@2x.png"; sourceTree = "<group>"; };
+		E555283F2FB5D37C0093DD7E /* todo_tag_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_tag_80@3x.png"; sourceTree = "<group>"; };
+		E55528422FB5D4230093DD7E /* todo_list_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_80@2x.png"; sourceTree = "<group>"; };
+		E55528432FB5D4230093DD7E /* todo_list_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_80@3x.png"; sourceTree = "<group>"; };
 		E555492A2F74D24C00C9460D /* FocusQuickStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusQuickStartViewController.swift; sourceTree = "<group>"; };
 		E555492C2F74D2AC00C9460D /* FocusQuickStartTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusQuickStartTypeView.swift; sourceTree = "<group>"; };
 		E555492E2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusQuickStartSystemTimerViewController.swift; sourceTree = "<group>"; };
@@ -5412,6 +5456,29 @@
 			path = Week;
 			sourceTree = "<group>";
 		};
+		E55528192FB5C3140093DD7E /* 80 */ = {
+			isa = PBXGroup;
+			children = (
+				E555281B2FB5C3200093DD7E /* todo_smartlist_inbox_80@2x.png */,
+				E555281A2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png */,
+				E555281F2FB5C4BF0093DD7E /* todo_smartlist_trash_80@2x.png */,
+				E555281E2FB5C4BF0093DD7E /* todo_smartlist_trash_80@3x.png */,
+				E55528252FB5C81C0093DD7E /* todo_smartlist_completed_80@2x.png */,
+				E55528272FB5C81D0093DD7E /* todo_smartlist_completed_80@3x.png */,
+				E55528242FB5C81C0093DD7E /* todo_smartlist_myDay_80@2x.png */,
+				E55528262FB5C81D0093DD7E /* todo_smartlist_myDay_80@3x.png */,
+				E55528222FB5C81B0093DD7E /* todo_smartlist_overdue_80@2x.png */,
+				E55528282FB5C81D0093DD7E /* todo_smartlist_overdue_80@3x.png */,
+				E55528232FB5C81C0093DD7E /* todo_smartlist_upcoming_80@2x.png */,
+				E55528292FB5C81D0093DD7E /* todo_smartlist_upcoming_80@3x.png */,
+				E55528342FB5CB2C0093DD7E /* todo_smartlist_today_80@2x.png */,
+				E55528352FB5CB2C0093DD7E /* todo_smartlist_today_80@3x.png */,
+				E55528322FB5CB2B0093DD7E /* todo_smartlist_tomorrow_80@2x.png */,
+				E55528332FB5CB2C0093DD7E /* todo_smartlist_tomorrow_80@3x.png */,
+			);
+			path = 80;
+			sourceTree = "<group>";
+		};
 		E55549272F74CA6800C9460D /* QuickStart */ = {
 			isa = PBXGroup;
 			children = (
@@ -6729,6 +6796,7 @@
 				E5BB9A012D3BEF0D0089667A /* todo_smartlist_upcoming_24@2x.png */,
 				E55E4B7F2F925EA40068E032 /* todo_smartlist_overdue_24@2x.png */,
 				E55E4B802F925EA40068E032 /* todo_smartlist_overdue_24@3x.png */,
+				E55528192FB5C3140093DD7E /* 80 */,
 			);
 			path = smartlist;
 			sourceTree = "<group>";
@@ -6739,6 +6807,8 @@
 				E5E277102D3E099C004EC522 /* option */,
 				E5BB9A062D3BEF0D0089667A /* todo_list_24@2x.png */,
 				E5BB9A072D3BEF0D0089667A /* todo_list_24@3x.png */,
+				E55528422FB5D4230093DD7E /* todo_list_80@2x.png */,
+				E55528432FB5D4230093DD7E /* todo_list_80@3x.png */,
 				E5E276F52D3DF2F3004EC522 /* todo_list_add_24@2x.png */,
 				E5E276F42D3DF2F3004EC522 /* todo_list_add_24@3x.png */,
 				E58F46A02F7AA0B50046FA96 /* todo_list_addSublist_24@2x.png */,
@@ -6856,6 +6926,8 @@
 		E5BB9A4C2D3BEF0D0089667A /* Tag */ = {
 			isa = PBXGroup;
 			children = (
+				E555283E2FB5D37C0093DD7E /* todo_tag_80@2x.png */,
+				E555283F2FB5D37C0093DD7E /* todo_tag_80@3x.png */,
 			);
 			path = Tag;
 			sourceTree = "<group>";
@@ -9598,6 +9670,8 @@
 		E5F473232D9269B5002D4A86 /* filter */ = {
 			isa = PBXGroup;
 			children = (
+				E555283B2FB5D34C0093DD7E /* todo_filter_80@2x.png */,
+				E555283A2FB5D34C0093DD7E /* todo_filter_80@3x.png */,
 				E5E4D1462D92AF2B00813B6C /* todo_filter_list_36@2x.png */,
 				E5E4D1432D92AF2900813B6C /* todo_filter_list_36@3x.png */,
 				E5186E3F2D93B140007AA074 /* todo_filter_myDay_36@2x.png */,
@@ -9608,8 +9682,8 @@
 				E5E4D1502D93033800813B6C /* todo_filter_date_36@3x.png */,
 				E5E4D1412D92AF2700813B6C /* todo_filter_priority_36@2x.png */,
 				E5E4D1422D92AF2700813B6C /* todo_filter_priority_36@3x.png */,
-				E5E4D1452D92AF2A00813B6C /* todo_filter_tag_36@2x.png */,
 				E5E4D1442D92AF2900813B6C /* todo_filter_tag_36@3x.png */,
+				E5E4D1452D92AF2A00813B6C /* todo_filter_tag_36@2x.png */,
 				E5F078C72F95DEB200F94BDF /* todo_filter_tag_none_24@2x.png */,
 				E5F078C82F95DEB200F94BDF /* todo_filter_tag_none_24@3x.png */,
 				E500DE452DB09D4500EAEAF7 /* Indicator */,
@@ -9816,6 +9890,7 @@
 				E55E4BF82F9336170068E032 /* calendar_12_24@2x.png in Resources */,
 				E524C7802F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@2x.png in Resources */,
 				E55E4BCF2F9336170068E032 /* calendar_28_24@3x.png in Resources */,
+				E55528452FB5D4230093DD7E /* todo_list_80@3x.png in Resources */,
 				E5D7D8F62D43933600EC877A /* PositiveCircleFill@2x.png in Resources */,
 				E5D7D95F2D43DBE000EC877A /* focus_timer_countdown_32@2x.png in Resources */,
 				E55E4B822F925EA50068E032 /* todo_smartlist_overdue_24@3x.png in Resources */,
@@ -9826,6 +9901,7 @@
 				E51A4C3C2DC31C7A005A0E3F /* calendar_mode_week_24@3x.png in Resources */,
 				E55E4BD32F9336170068E032 /* calendar_23_24@3x.png in Resources */,
 				E50D02592F55860B00E93977 /* habit_time_afternoon_24@3x.png in Resources */,
+				E555281C2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png in Resources */,
 				E56B94662F8CD6D0001E488B /* todo_group_type_dueDate_24@3x.png in Resources */,
 				E5BB9E452D3BF0C70089667A /* StepperNegative@3x.png in Resources */,
 				E583896F2F774E5F003C30A4 /* task_type_habit_24@3x.png in Resources */,
@@ -9833,6 +9909,7 @@
 				E56B945F2F8CD6D0001E488B /* todo_group_type_priority_24@2x.png in Resources */,
 				E5168BD02F545B400000A760 /* dateRange_background_end@3x.png in Resources */,
 				E5BB9A8B2D3BEF0D0089667A /* todo_smartlist_completed_24@2x.png in Resources */,
+				E555281D2FB5C3200093DD7E /* todo_smartlist_inbox_80@2x.png in Resources */,
 				E56B94AE2F8FB56A001E488B /* todo_task_action_addToMyDay_24@2x.png in Resources */,
 				E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */,
 				E52A4FE72F62C5D7009EC01B /* habit_week_day_notscheduled_42@2x.png in Resources */,
@@ -9841,6 +9918,7 @@
 				E50D94DF2D4528E500F57957 /* ellipsis_circle_fill_24@3x.png in Resources */,
 				E5D7D9772D43E05700EC877A /* focus_running_screenAlwaysOnEnabled_24@3x.png in Resources */,
 				E50D02552F55860B00E93977 /* habit_time_morning_24@3x.png in Resources */,
+				E55528362FB5CB2C0093DD7E /* todo_smartlist_tomorrow_80@2x.png in Resources */,
 				E5E276EF2D3DF0B4004EC522 /* todo_list_inbox_24@3x.png in Resources */,
 				E5BB9AA82D3BEF0D0089667A /* todo_task_note_24@3x.png in Resources */,
 				E555493E2F75590100C9460D /* focus_timer_stopwatch_24@3x.png in Resources */,
@@ -9877,6 +9955,7 @@
 				E5BB9A882D3BEF0D0089667A /* todo_smartlist_inbox_24@3x.png in Resources */,
 				E55CE3622D8BC4BB0083316E /* quadrant_circle_I@3x.png in Resources */,
 				E570FC022D62C14A0017F930 /* chevron_right_16@2x.png in Resources */,
+				E555282E2FB5C81E0093DD7E /* todo_smartlist_myDay_80@3x.png in Resources */,
 				E55E4BEC2F9336170068E032 /* calendar_30_24@2x.png in Resources */,
 				E58389702F774E5F003C30A4 /* task_type_habit_24@2x.png in Resources */,
 				E56B94862F8CDB42001E488B /* todo_sort_type_manually_24@2x.png in Resources */,
@@ -9884,6 +9963,7 @@
 				E5E276F62D3DF2F3004EC522 /* todo_list_add_24@3x.png in Resources */,
 				E56B94812F8CDB42001E488B /* todo_sort_type_startDate_24@2x.png in Resources */,
 				E5E2770E2D3E06F5004EC522 /* trash_empty_24@2x.png in Resources */,
+				E55528302FB5C81E0093DD7E /* todo_smartlist_overdue_80@3x.png in Resources */,
 				E54E63412F5B1BFD00FCBCAE /* habit_menu_completeAll_24@3x.png in Resources */,
 				E55E4C042F9336170068E032 /* calendar_1_24@3x.png in Resources */,
 				E55E4BF62F9336170068E032 /* calendar_27_24@2x.png in Resources */,
@@ -9918,6 +9998,7 @@
 				E5BB9ADD2D3BEF0D0089667A /* xmark_circle_fill_24@2x.png in Resources */,
 				E5D8339B2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@3x.png in Resources */,
 				E500DE5B2DB09D4500EAEAF7 /* todo_filter_indicator_priority_12@3x.png in Resources */,
+				E555282A2FB5C81E0093DD7E /* todo_smartlist_overdue_80@2x.png in Resources */,
 				E515AD6D2D3CC49800AA9AF2 /* fullscreen_exit_24@3x.png in Resources */,
 				E5BBA10A2D3BFB3C0089667A /* SideMenuTodo@2x.png in Resources */,
 				E53F32C92F699AC900B85B65 /* habit_report_failed_20@2x.png in Resources */,
@@ -9942,6 +10023,7 @@
 				E5D7D9852D43E35000EC877A /* focus_timer_stepMode_break_24@3x.png in Resources */,
 				E5E2771A2D3E099C004EC522 /* todo_list_option_group_24@2x.png in Resources */,
 				E50D94F22D452DD700F57957 /* focus_record_timeline_paused_24@2x.png in Resources */,
+				E55528212FB5C4BF0093DD7E /* todo_smartlist_trash_80@2x.png in Resources */,
 				E5BB9AB52D3BEF0D0089667A /* todo_task_progress_24@3x.png in Resources */,
 				E5BB9AF02D3BEF0D0089667A /* plus_24@2x.png in Resources */,
 				E5FC6BA62F64EFBC00D5A5EA /* habit_status_failed_36@3x.png in Resources */,
@@ -9965,6 +10047,7 @@
 				E5D833922DAB64D60012ABF3 /* todo_task_progress_targetValue_24@2x.png in Resources */,
 				E58389742F776404003C30A4 /* focus_quickStart_record_24@3x.png in Resources */,
 				E500DE562DB09D4500EAEAF7 /* todo_filter_indicator_tag_12@3x.png in Resources */,
+				E555282F2FB5C81E0093DD7E /* todo_smartlist_completed_80@3x.png in Resources */,
 				E55E4BCE2F9336170068E032 /* calendar_4_24@3x.png in Resources */,
 				E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */,
 				E524C79C2F9F499F005CCEBD /* todo_home_list_24@3x.png in Resources */,
@@ -9983,6 +10066,7 @@
 				E5BB9ABF2D3BEF0D0089667A /* todo_task_action_undone_24@3x.png in Resources */,
 				E5BBA1022D3BFB3C0089667A /* SideMenuSettings@2x.png in Resources */,
 				E547C7272F3DA2F00095918C /* focus_record_order_descending_24@2x.png in Resources */,
+				E555283D2FB5D34C0093DD7E /* todo_filter_80@2x.png in Resources */,
 				E5BB9AED2D3BEF0D0089667A /* keyboard_dismiss_24@3x.png in Resources */,
 				E54E633D2F5B1BFD00FCBCAE /* habit_menu_reset_24@3x.png in Resources */,
 				E55E4C052F9336170068E032 /* calendar_13_24@2x.png in Resources */,
@@ -10065,6 +10149,8 @@
 				E5BB9ADF2D3BEF0D0089667A /* moveToBottom_24@3x.png in Resources */,
 				E55E4BF02F9336170068E032 /* calendar_14_24@2x.png in Resources */,
 				E5BB9AAA2D3BEF0D0089667A /* todo_task_checkbox_plus_20@2x.png in Resources */,
+				E55528402FB5D37C0093DD7E /* todo_tag_80@2x.png in Resources */,
+				E555283C2FB5D34C0093DD7E /* todo_filter_80@3x.png in Resources */,
 				E5E276FF2D3DF58B004EC522 /* todo_list_move_24@3x.png in Resources */,
 				E5BB9B342D3BEF920089667A /* triangle.png in Resources */,
 				E53A15E12D45DF0300474F94 /* archivedList_80@2x.png in Resources */,
@@ -10092,6 +10178,7 @@
 				E50D02562F55860B00E93977 /* habit_time_morning_24@2x.png in Resources */,
 				E55E4BF22F9336170068E032 /* calendar_21_24@2x.png in Resources */,
 				E55E4BCA2F9336160068E032 /* calendar_9_24@3x.png in Resources */,
+				E55528392FB5CB2C0093DD7E /* todo_smartlist_today_80@3x.png in Resources */,
 				E5D7D97D2D43E19700EC877A /* focus_timer_step_addNext_24@3x.png in Resources */,
 				E5DA03A42FA0A59800A58ACC /* todo_group_type_completionDate_24@3x.png in Resources */,
 				E50D94CE2D45248D00F57957 /* gear_24@2x.png in Resources */,
@@ -10105,6 +10192,7 @@
 				E53632D42FAF63480095DFEC /* quadrant_I_60@3x.png in Resources */,
 				E547C71E2F3D7ED40095918C /* focus_placeholder_noTimer_80@3x.png in Resources */,
 				E56B94642F8CD6D0001E488B /* todo_group_type_none_24@2x.png in Resources */,
+				E555282B2FB5C81E0093DD7E /* todo_smartlist_upcoming_80@2x.png in Resources */,
 				E555493A2F75590100C9460D /* focus_timer_countdown_24@3x.png in Resources */,
 				E5BB9ADB2D3BEF0D0089667A /* xmark_16@2x.png in Resources */,
 				E55A7B9C2D463917000D224C /* bell_fill_16@3x.png in Resources */,
@@ -10116,6 +10204,7 @@
 				E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */,
 				E58F46A12F7AA0B50046FA96 /* todo_list_ungroup_24@3x.png in Resources */,
 				E5BB9A872D3BEF0D0089667A /* todo_smartlist_inbox_24@2x.png in Resources */,
+				E55528202FB5C4BF0093DD7E /* todo_smartlist_trash_80@3x.png in Resources */,
 				E515AD5D2D3CBC3500AA9AF2 /* todo_task_step_addPosition_24@3x.png in Resources */,
 				E58389732F776404003C30A4 /* focus_quickStart_record_24@2x.png in Resources */,
 				E5D7D9802D43E19700EC877A /* focus_timer_step_addPrevious_24@3x.png in Resources */,
@@ -10151,6 +10240,7 @@
 				E5BB9AEA2D3BEF0D0089667A /* copy_24@3x.png in Resources */,
 				E55CE3642D8BC4BB0083316E /* quadrant_circle_II@2x.png in Resources */,
 				E53A15E22D45DF0300474F94 /* archivedList_24@2x.png in Resources */,
+				E55528412FB5D37C0093DD7E /* todo_tag_80@3x.png in Resources */,
 				E5C76BA92F74C0DD003FCCE3 /* focus_stats_group_timer_24@3x.png in Resources */,
 				E5BB9A962D3BEF0D0089667A /* todo_list_layout_board_96@3x.png in Resources */,
 				E5BB9A982D3BEF0D0089667A /* todo_list_24@3x.png in Resources */,
@@ -10161,6 +10251,7 @@
 				E5F2BAD12D532316007DDCD4 /* xmark_circle_fill_12@3x.png in Resources */,
 				E55E4C062F9336170068E032 /* calendar_18_24@3x.png in Resources */,
 				E56B94872F8CDB42001E488B /* todo_sort_type_manually_24@3x.png in Resources */,
+				E55528442FB5D4230093DD7E /* todo_list_80@2x.png in Resources */,
 				E5BB9AA92D3BEF0D0089667A /* todo_task_addToMyDay_24@3x.png in Resources */,
 				E55CE3542D8BC2A60083316E /* quadrant_II_32@3x.png in Resources */,
 				E5BB9E462D3BF0C70089667A /* StepperPositive@3x.png in Resources */,
@@ -10245,6 +10336,7 @@
 				E5BB9ABD2D3BEF0D0089667A /* todo_task_action_date_24@2x.png in Resources */,
 				E515AD732D3CC5E600AA9AF2 /* ellipsis_24@2x.png in Resources */,
 				E55E4BE82F9336170068E032 /* calendar_11_24@2x.png in Resources */,
+				E555282D2FB5C81E0093DD7E /* todo_smartlist_completed_80@2x.png in Resources */,
 				E5BB9AAB2D3BEF0D0089667A /* todo_task_checkbox_plus_20@3x.png in Resources */,
 				E50D94B92D451C1800F57957 /* focus_record_view_24@2x.png in Resources */,
 				E5BB9AB42D3BEF0D0089667A /* todo_task_priority_24@3x.png in Resources */,
@@ -10333,6 +10425,7 @@
 				E5BB9AD82D3BEF0D0089667A /* xmark_24@3x.png in Resources */,
 				E5BB9AF12D3BEF0D0089667A /* placeholder_hashTag_80@2x.png in Resources */,
 				E5BB9B332D3BEF920089667A /* confetti.png in Resources */,
+				E555282C2FB5C81E0093DD7E /* todo_smartlist_myDay_80@2x.png in Resources */,
 				E526D4142F6D7AE0005C1DED /* habit_plceholder_task_80@3x.png in Resources */,
 				E5BBA1032D3BFB3C0089667A /* SideMenuMyDay@3x.png in Resources */,
 				E556BCD42F5D746400CA20D9 /* HabitRecordTypeCheckin@3x.png in Resources */,
@@ -10367,6 +10460,7 @@
 				E5E2771E2D3E099C004EC522 /* todo_list_option_sort_24@2x.png in Resources */,
 				E556BCCE2F5D746400CA20D9 /* HabitRecordTypeCompleteAll@3x.png in Resources */,
 				E53A15E42D45DF0300474F94 /* archivedList_24@3x.png in Resources */,
+				E55528372FB5CB2C0093DD7E /* todo_smartlist_tomorrow_80@3x.png in Resources */,
 				E5C76BA82F74C0DD003FCCE3 /* focus_stats_group_timer_24@2x.png in Resources */,
 				E5BB9AB72D3BEF0D0089667A /* todo_task_action_shred_24@3x.png in Resources */,
 				E5BB9AE22D3BEF0D0089667A /* moveToBottom_24@2x.png in Resources */,
@@ -10407,6 +10501,7 @@
 				E58D47982F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@2x.png in Resources */,
 				E5C76BA72F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png in Resources */,
 				E5BBA1082D3BFB3C0089667A /* SideMenu@2x.png in Resources */,
+				E55528382FB5CB2C0093DD7E /* todo_smartlist_today_80@2x.png in Resources */,
 				E5BBA1042D3BFB3C0089667A /* SideMenuFocus@3x.png in Resources */,
 				E515AD652D3CC36800AA9AF2 /* chevron_left_24@3x.png in Resources */,
 				E5B926D32D3FEF830065FA79 /* chevron_right_24@3x.png in Resources */,
@@ -10423,6 +10518,7 @@
 				E500DE5D2DB09D4500EAEAF7 /* todo_filter_indicator_list_12@2x.png in Resources */,
 				E55E4BF32F9336170068E032 /* calendar_21_24@3x.png in Resources */,
 				E55E4BE12F9336170068E032 /* calendar_5_24@3x.png in Resources */,
+				E55528312FB5C81E0093DD7E /* todo_smartlist_upcoming_80@3x.png in Resources */,
 				E53480092F604ACF00CFBF26 /* habit_status_completed_24@3x.png in Resources */,
 				E56B947D2F8CDB42001E488B /* todo_sort_order_descending_24@2x.png in Resources */,
 			);

@@ -27,6 +27,7 @@ class TodoUserListInteractor: TodoListInteractor {
     
     override init(configuration: TodoListConfiguration) {
         super.init(configuration: configuration)
+        self.placeholderProvider.emptyImage = resGetImage("todo_list_80")
         self.placeholderProvider.emptyTitle = resGetString("The current list has no tasks")
         todo.addUpdater(self, for: [.list])
     }

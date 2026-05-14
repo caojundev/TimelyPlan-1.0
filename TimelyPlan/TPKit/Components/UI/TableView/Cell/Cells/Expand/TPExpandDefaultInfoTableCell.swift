@@ -149,9 +149,17 @@ class TPExpandDefaultInfoTableCell: TPDefaultInfoTableCell {
             return
         }
         
-        let isExpanded = delegate.isExpandedTableCell(self)
-        setExpanded(isExpanded, animated: animated)
         updateExpandedButton()
+        
+        var isExpanded: Bool
+        if expandButton.isEnabled {
+            isExpanded = delegate.isExpandedTableCell(self)
+        } else {
+            /// 禁用保持收起状态
+            isExpanded = false
+        }
+        
+        setExpanded(isExpanded, animated: animated)
     }
     
     /// 改变展开状态通知方法，子类重写该方法进行内容更新操作

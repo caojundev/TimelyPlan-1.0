@@ -34,34 +34,36 @@ class TodoSmartListInteractor: TodoListInteractor,
     
     override init(configuration: TodoListConfiguration) {
         super.init(configuration: configuration)
-        var emptyTitle: String?
-        switch listConfiguration.list.listType {
+        var title: String?
+        let listType = listConfiguration.list.listType
+        switch listType {
         case .inbox:
-            emptyTitle = resGetString("No tasks in the inbox")
+            title = resGetString("No tasks in the inbox")
         case .myDay:
-            emptyTitle = resGetString("No tasks in my day")
+            title = resGetString("No tasks in my day")
         case .completed:
-            emptyTitle = resGetString("No completed tasks")
+            title = resGetString("No completed tasks")
         case .overdue:
-            emptyTitle = resGetString("No overdue tasks")
+            title = resGetString("No overdue tasks")
         case .today:
-            emptyTitle = resGetString("No tasks for today")
+            title = resGetString("No tasks for today")
         case .tomorrow:
-            emptyTitle = resGetString("No tasks for tomorrow")
+            title = resGetString("No tasks for tomorrow")
         case .upcoming:
-            emptyTitle = resGetString("No upcoming tasks")
+            title = resGetString("No upcoming tasks")
         case .trash:
-            emptyTitle = resGetString("No tasks in the trash")
+            title = resGetString("No tasks in the trash")
         }
-        
-        self.placeholderProvider.emptyTitle = emptyTitle
+
+        let imageName = "todo_smartlist_" + listType.rawValue + "_80"
+        self.placeholderProvider.emptyImage = resGetImage(imageName)
+        self.placeholderProvider.emptyTitle = title
             
         /// 添加至凌晨更新对象
         TPMidnightScheduler.shared.addUpdater(self)
     }
     
     override func layoutType() -> TodoListLayoutType {
-        return .list
         let layoutType = TodoSetting.shared.listLayoutType(for: self.list.identifier)
         return layoutType ?? .list
     }
