@@ -7,8 +7,7 @@
 
 import Foundation
 
-class HabitStatsContentViewController: StatsContentViewController,
-                                       HabitRecordProcessorDelegate {
+class HabitStatsContentViewController: StatsContentViewController {
     
     /// 任务
     var task: HabitTask
@@ -28,20 +27,5 @@ class HabitStatsContentViewController: StatsContentViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.backViewMargins = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 90.0, right: 16.0)
-        habit.addUpdater(self, for: [.record])
-    }
-    
-    // MARK: - HabitRecordProcessorDelegate
-    /// 通知习惯记录已更新
-    func didUpdateHabitRecord(_ record: HabitRecord,
-                              for task: HabitTask,
-                              on date: Date,
-                              with change: HabitRecordChange) {
-        
-    }
-    
-    /// 通知习惯记录删除
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
-        
     }
 }

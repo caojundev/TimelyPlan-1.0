@@ -19,9 +19,9 @@ enum TPSortOrder: Int, Codable, TPMenuRepresentable {
     var iconName: String? {
         switch self {
         case .ascending:
-            return "focus_record_order_ascending_24"
+            return "sort_order_ascending_24"
         case .descending:
-            return "focus_record_order_descending_24"
+            return "sort_order_descending_24"
         }
     }
 }

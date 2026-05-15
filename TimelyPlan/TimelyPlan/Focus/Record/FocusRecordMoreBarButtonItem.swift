@@ -28,9 +28,9 @@ enum FocusRecordMoreMenuType: Int, TPMenuRepresentable {
         case .showDetail:
             return "focus_record_showDetail_24"
         case .orderAscending:
-            return "focus_record_order_ascending_24"
+            return "sort_order_ascending_24"
         case .orderDescending:
-            return "focus_record_order_descending_24"
+            return "sort_order_descending_24"
         }
     }
 }

@@ -525,6 +525,14 @@
 "Monthly Time of Day" = "月打卡时间";
 "Check-in Times Distribution" = "打卡时间段分布";
 
+/// 删除记录
+"Delete Records" = "删除记录";
+"Delete Day Records" = "删除日记录";
+"Delete Week Records" = "删除周记录";
+"Delete Month Records" = "删除月记录";
+"All records will be removed for %@. Are you sure to delete records?" = "%@的所有记录将会被删除。确定删除记录吗？";
+"All records will be removed from %@ to %@. Are you sure to delete records?" = "从%@到%@的所有记录将会被删除。确定删除记录吗？";
+
 /// 报告
 "Show Archived" = "显示已归档";
 "No Report This Week" = "本周无报告";

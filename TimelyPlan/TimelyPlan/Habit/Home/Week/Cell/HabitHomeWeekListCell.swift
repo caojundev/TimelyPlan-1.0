@@ -146,7 +146,17 @@ class HabitHomeWeekListCell: HabitTaskListBaseCell {
         }
         
         for cell in cells {
-            cell.updateRecord(with: nil, animated: true)
+            cell.updateRecord(with: nil, animated: animated)
+        }
+    }
+    
+    func updateRecords(animated: Bool) {
+        guard let cells = weekView.visibleCells as? [HabitHomeWeekDayCell] else {
+            return
+        }
+        
+        for cell in cells {
+            cell.updateRecord(with: nil, animated: animated)
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 typealias HabitHourlyCheckinResults = [Int: Int]
 
@@ -131,13 +132,16 @@ extension CDHabitRecord {
         return conditions
     }
     
-    static func conditions(forTask task: HabitTask,
+    static func conditions(forTask task: HabitTask?,
                            fromDate: Date,
                            toDate: Date) -> [PredicateCondition] {
-        let conditions: [PredicateCondition] = [
-            condition(forTask: task),
+        var conditions: [PredicateCondition] = [
             condition(fromDate: fromDate, toDate: toDate)
         ]
+        
+        if let task = task {
+            conditions.append(condition(forTask: task))
+        }
         
         return conditions
     }
@@ -184,7 +188,7 @@ extension CDHabitRecord {
         return nil
     }
     
-    static func getRecords(for task: HabitTask, fromDate: Date, toDate: Date) -> [CDHabitRecord]? {
+    static func getRecords(for task: HabitTask?, fromDate: Date, toDate: Date) -> [CDHabitRecord]? {
         let conditions = CDHabitRecord.conditions(forTask: task, fromDate: fromDate, toDate: toDate)
         let predicate = conditions.andPredicate()
         return CDHabitRecord.findAll(with: predicate, in: .defaultContext)
@@ -228,4 +232,26 @@ extension CDHabitRecord {
             completion(results as? [CDHabitRecord])
         }
     }
+    
+    // MARK: -
+    /// 删除对应任务在周期内所有记录
+    static func deleteRecords(for task: HabitTask, within period: HabitDatePeriod) -> Bool {
+        let dateRange = period.dateRange
+        guard let fromDate = dateRange.startDate, let toDate = dateRange.endDate else {
+            return false
+        }
+
+        return deleteRecords(for: task, fromDate: fromDate, toDate: toDate)
+    }
+    
+    /// 删除对应任务从fromDate到toDate之间所有记录
+    static func deleteRecords(for task: HabitTask?, fromDate: Date, toDate: Date)  -> Bool {
+        guard let records = getRecords(for: task, fromDate: fromDate, toDate: toDate), records.count > 0 else {
+            return false
+        }
+        
+        NSManagedObjectContext.defaultContext.deleteObjects(records)
+        return true
+    }
+    
 }

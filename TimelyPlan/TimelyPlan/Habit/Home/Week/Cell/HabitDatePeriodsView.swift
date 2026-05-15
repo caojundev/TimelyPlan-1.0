@@ -66,7 +66,7 @@ class HabitDatePeriodsView: TPCollectionWrapperView,
     func reloadPeriods(intersects otherPeriod: HabitDatePeriod) {
         var periodsToUpdate = [HabitDatePeriod]()
         for period in periods {
-            if period.intersects(with: otherPeriod) {
+            if period.intersects(otherPeriod) {
                 periodsToUpdate.append(period)
             }
         }
@@ -79,7 +79,7 @@ class HabitDatePeriodsView: TPCollectionWrapperView,
     func cells(intersect period: HabitDatePeriod) -> [UICollectionViewCell] {
         var cells = [UICollectionViewCell]()
         for aPeriod in periods {
-            guard aPeriod.intersects(with: period) else {
+            guard aPeriod.intersects(period) else {
                 continue
             }
             

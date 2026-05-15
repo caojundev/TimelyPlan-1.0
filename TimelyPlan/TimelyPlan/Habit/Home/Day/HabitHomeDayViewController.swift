@@ -300,8 +300,12 @@ class HabitHomeDayViewController: TPContainerViewController,
         updateCell(for: task, with: change)
     }
     
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
-        updateCell(for: task, with: nil)
+    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
+        if let task = task {
+            updateCell(for: task, with: nil)
+        } else {
+            updateVisbleCellRecords()
+        }
     }
     
     private func updateCell(for task: HabitTask, with change: HabitRecordChange?) {
@@ -310,5 +314,15 @@ class HabitHomeDayViewController: TPContainerViewController,
         }
         
         cell.updateRecord(with: change, animated: true)
+    }
+
+    private func updateVisbleCellRecords() {
+        guard let cells = listView.visibleCells as? [HabitHomeDayListCell] else {
+            return
+        }
+        
+        for cell in cells {
+            cell.updateRecord(with: nil, animated: true)
+        }
     }
 }

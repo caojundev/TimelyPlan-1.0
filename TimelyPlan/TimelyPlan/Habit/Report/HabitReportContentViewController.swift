@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 
-class HabitReportContentViewController: StatsContentViewController,
-                                        HabitRecordProcessorDelegate {
+class HabitReportContentViewController: StatsContentViewController {
     
     let imageCacher = HabitReportImageCacher()
 
@@ -31,20 +30,5 @@ class HabitReportContentViewController: StatsContentViewController,
                 
         self.placeholderProvider.emptyImage = emptyImage
         self.placeholderProvider.emptyTitle = emptyTitle
-        habit.addUpdater(self, for: [.record])
-    }
-
-    // MARK: - HabitRecordProcessorDelegate
-    /// 通知习惯记录已更新
-    func didUpdateHabitRecord(_ record: HabitRecord,
-                              for task: HabitTask,
-                              on date: Date,
-                              with change: HabitRecordChange) {
-        
-    }
-    
-    /// 通知习惯记录删除
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
-        
     }
 }

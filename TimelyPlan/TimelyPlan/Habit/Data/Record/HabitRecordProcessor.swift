@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreData
 
 /// 习惯记录处理通知协议
 protocol HabitRecordProcessorDelegate: AnyObject{
@@ -18,12 +17,12 @@ protocol HabitRecordProcessorDelegate: AnyObject{
                               with change: HabitRecordChange)
     
     /// 通知习惯记录删除
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod)
+    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange)
 }
 
 extension HabitRecordProcessorDelegate {
     
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {}
+    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {}
 }
 
 class HabitRecordProcessorUpdater: NSObject, HabitRecordProcessorDelegate {
@@ -37,9 +36,9 @@ class HabitRecordProcessorUpdater: NSObject, HabitRecordProcessorDelegate {
         }
     }
     
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
+    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
         notifyDelegates { (delegate: HabitRecordProcessorDelegate) in
-            delegate.didDeleteHabitRecords(for: task, in: period)
+            delegate.didDeleteHabitRecords(for: task, in: dateRange)
         }
     }
 }
@@ -208,54 +207,25 @@ class HabitRecordProcessor {
     /// 重置今日
     func resetToday(of date: Date, for task: HabitTask) {
         let period = HabitDatePeriod(date: date, mode: .day)
-        guard deleteRecords(for: task, within: period) else {
+        guard CDHabitRecord.deleteRecords(for: task, within: period) else {
             return
         }
         
         HandyRecord.save()
-        updater.didDeleteHabitRecords(for: task, in: period)
+        updater.didDeleteHabitRecords(for: task, in: period.dateRange)
     }
     
-    /// 重置本周
-    func resetThisWeek(contain date: Date, for task: HabitTask) {
-        let firstWeekday = HabitSetting.shared.firstWeekday
-        let period = HabitDatePeriod.weekPeriod(date: date, firstWeekday: firstWeekday)
-        guard deleteRecords(for: task, within: period) else {
+    func deleteRecords(in dateRange: DateRange) {
+        guard let startDate = dateRange.startDate, let endDate = dateRange.endDate else {
+            return
+        }
+        
+        guard CDHabitRecord.deleteRecords(for: nil, fromDate: startDate, toDate: endDate) else {
             return
         }
         
         HandyRecord.save()
-        updater.didDeleteHabitRecords(for: task, in: period)
-    }
-    
-    func resetThisMonth(contain date: Date, for task: HabitTask) {
-        let period = HabitDatePeriod(date: date, mode: .month)
-        guard deleteRecords(for: task, within: period) else {
-            return
-        }
-        
-        HandyRecord.save()
-        updater.didDeleteHabitRecords(for: task, in: period)
-    }
-    
-    /// 删除对应任务在周期内所有记录
-    private func deleteRecords(for task: HabitTask, within period: HabitDatePeriod) -> Bool {
-        let dateRange = period.dateRange
-        guard let fromDate = dateRange.startDate, let toDate = dateRange.endDate else {
-            return false
-        }
-
-        return deleteRecords(for: task, fromDate: fromDate, toDate: toDate)
-    }
-    
-    /// 删除对应任务从fromDate到toDate之间所有记录
-    private func deleteRecords(for task: HabitTask, fromDate: Date, toDate: Date)  -> Bool {
-        guard let records = CDHabitRecord.getRecords(for: task, fromDate: fromDate, toDate: toDate), records.count > 0 else {
-            return false
-        }
-        
-        NSManagedObjectContext.defaultContext.deleteObjects(records)
-        return true
+        updater.didDeleteHabitRecords(for: nil, in: dateRange)
     }
     
     // MARK: - 通知更新

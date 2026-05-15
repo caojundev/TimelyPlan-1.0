@@ -115,7 +115,7 @@ class HabitStatsMainViewController: StatsMainViewController,
     }
     
     /// 通知习惯记录删除
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
+    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
         reloadContentViewController()
     }
 

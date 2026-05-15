@@ -39,13 +39,13 @@ class HabitPeriodItem: NSObject {
     }
     
     /// 删除时间范围内的记录
-    func deleteRecords(in period: HabitDatePeriod) {
+    func deleteRecords(in dateRange: DateRange) {
         guard let keys = self.records?.keys else {
             return
         }
         
-        let startDayKey = period.dateRange.startDate?.dayIntegerKey ?? 0
-        let endDayKey = period.dateRange.endDate?.dayIntegerKey ?? Int32.max
+        let startDayKey = dateRange.startDate?.dayIntegerKey ?? 0
+        let endDayKey = dateRange.endDate?.dayIntegerKey ?? Int32.max
         for key in keys {
             if key >= startDayKey && key <= endDayKey {
                 self.records?[key] = nil

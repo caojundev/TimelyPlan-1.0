@@ -93,7 +93,7 @@ class HabitRecordListViewController: StatsContentViewController,
         }
     }
     
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
+    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
         self.performUpdate()
     }
 }

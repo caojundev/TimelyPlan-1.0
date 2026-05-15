@@ -176,13 +176,13 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
         }
     }
     
-    func didDeleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
-        deleteHabitRecords(for: task, in: period)
-        guard let currentPeriod = self.period, currentPeriod.intersects(with: period) else {
+    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
+        deleteHabitRecords(for: task, in: dateRange)
+        guard let currentPeriod = self.period, currentPeriod.intersects(dateRange) else {
             return
         }
         
-        delegate?.didDeleteHabitRecords(for: task, in: period)
+        delegate?.didDeleteHabitRecords(for: task, in: dateRange)
         guard filterType != .all else {
             return
         }
@@ -202,12 +202,18 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
         let periodItem = periodItem(for: task)
         periodItem?.updateRecord(nil, on: date)
     }
-        
-    func deleteHabitRecords(for task: HabitTask, in period: HabitDatePeriod) {
-        let periodItem = periodItem(for: task)
-        periodItem?.deleteRecords(in: period)
+
+    func deleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
+        if let task = task {
+            let periodItem = periodItem(for: task)
+            periodItem?.deleteRecords(in: dateRange)
+        } else {
+            periodItems.forEach { periodItem in
+                periodItem.deleteRecords(in: dateRange)
+            }
+        }
     }
-        
+    
     func periodItem(for habitTask: HabitTask) -> HabitPeriodItem? {
         for periodItem in periodItems {
             if periodItem.habitTask.identifier == habitTask.identifier {

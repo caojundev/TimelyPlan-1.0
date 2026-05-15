@@ -7,6 +7,32 @@
 
 import Foundation
 
+enum HabitRecordMoreType: Int, Codable, TPMenuRepresentable {
+    
+    case deleteRecords /// 删除记录
+    
+    var title: String {
+        switch self {
+        case .deleteRecords:
+            return resGetString("Delete Records")
+        }
+    }
+    
+    var iconName: String? {
+        switch self {
+        case .deleteRecords:
+            return "shred_24"
+        }
+    }
+    
+    var actionStyle: TPMenuActionStyle {
+        switch self {
+        case .deleteRecords:
+            return .destructive
+        }
+    }
+}
+
 class HabitRecordsViewController: StatsMainViewController {
     
     /// 更多菜单按钮
@@ -66,9 +92,15 @@ class HabitRecordsViewController: StatsMainViewController {
             }
         }
         
+        let deleteMenuItem = TPMenuItem.item(with: HabitRecordMoreType.allCases) { type, action in
+            action.handler = { [weak self] _ in
+                self?.selectDeleteRecords()
+            }
+        }
+        
         let menuList = TPMenuListViewController()
         menuList.menuContentWidth = 180.0
-        menuList.menuItems = [sortMenuItem]
+        menuList.menuItems = [sortMenuItem, deleteMenuItem]
         let sourceView = moreBarButtonItem.moreButton
         menuList.popoverShow(from: sourceView,
                              sourceRect: sourceView.bounds,
@@ -76,6 +108,32 @@ class HabitRecordsViewController: StatsMainViewController {
                              preferredPosition: .bottomLeft)
     }
     
+    private func selectDeleteRecords() {
+        guard let contentVC = self.contentViewController as? HabitRecordListViewController else {
+            return
+        }
+        
+        let date = contentVC.date
+        let completion: ((Bool) -> Void) = { confirmed in
+            if confirmed {
+                habit.deleteRecords(in: contentVC.dateRange)
+            }
+        }
+        
+        switch self.type {
+        case .day:
+            HabitPresenter.confirmDayRecordsDeletion(on: date, completion: completion)
+        case .week:
+            let firstWeekday = contentVC.firstWeekday
+            HabitPresenter.confirmWeekRecordsDeletion(contains: date,
+                                                      firstWeekday: firstWeekday,
+                                                      completion: completion)
+        case .month:
+            HabitPresenter.confirmMonthRecordsDeletion(contains: date, completion: completion)
+        default:
+            break
+        }
+    }
     
     private func selectSortOrder(_ sortOrder: TPSortOrder) {
         guard HabitSetting.shared.recordSortOrder != sortOrder else {

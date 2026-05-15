@@ -101,8 +101,12 @@ class HabitDatePeriod: NSObject {
     }
     
     /// 判断两个时段是否有交集
-    func intersects(with otherPeriod: HabitDatePeriod) -> Bool {
-        return dateRange.intersects(with: otherPeriod.dateRange)
+    func intersects(_ period: HabitDatePeriod) -> Bool {
+        return dateRange.intersects(with: period.dateRange)
+    }
+    
+    func intersects(_ dateRange: DateRange) -> Bool {
+        return self.dateRange.intersects(with: dateRange)
     }
     
     /// 是否是未来时段

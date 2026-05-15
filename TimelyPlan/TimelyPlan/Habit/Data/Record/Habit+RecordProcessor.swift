@@ -50,4 +50,10 @@ extension Habit {
     func resetToday(of date: Date, for task: HabitTask) {
         self.recordProcessor.resetToday(of: date, for: task)
     }
+    
+    func deleteRecords(in dateRange: DateRange) {
+        self.recordProcessor.deleteRecords(in: dateRange)
+    }
+    
+    
 }
