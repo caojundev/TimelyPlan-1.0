@@ -48,3 +48,19 @@ class HabitDailyItem: NSObject {
         return self.identifier as NSString
     }
 }
+
+extension Array where Element == HabitDailyItem {
+    
+    func orderedDailyItems(ascending: Bool = true) -> [HabitDailyItem] {
+        let sortedDailyItems = sorted(by: { lItem, rItem in
+            guard let lDate = lItem.record.modificationDate,
+                    let rDate = rItem.record.modificationDate else {
+                return true
+            }
+            
+            return ascending ? lDate < rDate : lDate > rDate
+        })
+        
+        return sortedDailyItems
+    }
+}

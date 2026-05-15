@@ -42,7 +42,7 @@ enum QuadrantMoreMenuType: Int, TPMenuRepresentable {
     }
 }
 
-class QuadrantMoreBarButtonItem: TPBaseMoreBarButtonItem<QuadrantMoreMenuType> {
+class QuadrantMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<QuadrantMoreMenuType> {
     
     override func configButton(_ button: TPMenuListButton) {
         super.configButton(button)

@@ -12,8 +12,3 @@ enum FocusRecordListMode: Int, Codable {
     case detail = 0
     case basic
 }
-
-enum FocusRecordSortOrder: Int, Codable {
-    case ascending = 0 /// 升序
-    case descending    /// 降序
-}

@@ -32,7 +32,7 @@ enum HabitMoreMenuType: Int, TPMenuRepresentable {
     }
 }
 
-class HabitMoreBarButtonItem: TPBaseMoreBarButtonItem<HabitMoreMenuType> {
+class HabitMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<HabitMoreMenuType> {
     
     override func menuItems() -> [TPMenuItem] {
         let typeLists: [Array<HabitMoreMenuType>]

@@ -117,12 +117,12 @@ class CalendarMonthWeekView: UIView {
     }
     
     private func eventsChanged() {
-        guard weekStartDate == eventsProvider.weekStartDate else {
+        guard let weekStartDate = weekStartDate, eventsProvider.contains(date: weekStartDate) else {
             return
         }
         
         DispatchQueue.main.async {
-            self.eventsView.events = self.eventsProvider.allDayEvents
+            self.eventsView.events = self.eventsProvider.events
             self.eventsView.reloadData()
         }
     }
@@ -199,7 +199,7 @@ class CalendarMonthWeekView: UIView {
             eventsView.reset()
         }
         
-        eventsProvider.loadEvents(with: weekStartDate)
+        eventsProvider.loadEvents(weekStartDate: weekStartDate)
     }
     
     

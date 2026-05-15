@@ -170,7 +170,7 @@ class FocusRecordsViewController: StatsMainViewController {
         FocusState.shared.recordListMode = newMode
     }
     
-    private func selectSortOrder(_ sortOrder: FocusRecordSortOrder) {
+    private func selectSortOrder(_ sortOrder: TPSortOrder) {
         guard self.moreBarButtonItem.sortOrder != sortOrder else {
             return
         }

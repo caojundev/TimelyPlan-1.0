@@ -59,17 +59,24 @@ class CalendarEvent: NSObject {
     /// 颜色
     let color: UIColor
     
+    /// 是否为全天事项
+//    let allDay: Bool
+    
     /// 开始日期
     let startDate: Date
     
     /// 结束日期
     let endDate: Date
     
-    init(name: String?, color: UIColor, startDate: Date, endDate: Date) {
+    init(name: String?,
+         color: UIColor,
+         startDate: Date,
+         endDate: Date) {
         self.name = name
         self.color = color
         self.startDate = startDate
         self.endDate = endDate
+//        self.allDay = false
         super.init()
     }
 }

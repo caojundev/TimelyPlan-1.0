@@ -74,7 +74,7 @@ class CalendarWeekView: UIView, CalendarWeekEventsViewDelegate {
     }
     
     private func eventsChanged() {
-        guard weekStartDate == eventsProvider.weekStartDate else {
+        guard let weekStartDate = weekStartDate, eventsProvider.contains(date: weekStartDate) else {
             return
         }
         
@@ -107,7 +107,7 @@ class CalendarWeekView: UIView, CalendarWeekEventsViewDelegate {
             eventsView.reset()
         }
         
-        eventsProvider.loadEvents(with: weekStartDate)
+        eventsProvider.loadEvents(weekStartDate: weekStartDate)
     }
     
     func didChangeVisibleOffset(_ offset: CGPoint) {
@@ -120,33 +120,11 @@ class CalendarWeekView: UIView, CalendarWeekEventsViewDelegate {
     
     // MARK: - CalendarWeekEventsViewDelegate
     func allDayEventsForWeekEventsView(_ view: CalendarWeekEventsView) -> [CalendarEvent]? {
-        return eventsProvider.allDayEvents
+        return nil
     }
     
     func weekEventsView(_ view: CalendarWeekEventsView, timedEventsOnDate date: Date) -> [CalendarEvent]? {
-        let calendar = Calendar.current
-        let now = date
-        let events = [
-            CalendarEvent(name: "晨会",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 9, minute: 0, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 9, minute: 15, second: 0, of: now)!),
-            CalendarEvent(name: "产品评审",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 9, minute: 10, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 40, second: 0, of: now)!),
-            
-            CalendarEvent(name: "开发 Coding",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 9, minute: 40, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 30, second: 0, of: now)!),
-            CalendarEvent(name: "阅读",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 10, minute: 05, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 50, second: 0, of: now)!)
-        ]
-        
-        return events
-        return eventsProvider.timedEvents
+        print(date)
+        return eventsProvider.events
     }
 }

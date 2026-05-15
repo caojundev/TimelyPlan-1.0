@@ -27,7 +27,7 @@ enum HabitReportMoreMenuType: Int, TPMenuRepresentable {
     }
 }
 
-class HabitReportMoreBarButtonItem: TPBaseMoreBarButtonItem<HabitReportMoreMenuType> {
+class HabitReportMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<HabitReportMoreMenuType> {
     
     override func configButton(_ button: TPMenuListButton) {
         super.configButton(button)

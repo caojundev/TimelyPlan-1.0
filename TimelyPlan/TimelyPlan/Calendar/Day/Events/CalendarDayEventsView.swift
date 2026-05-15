@@ -52,12 +52,13 @@ class CalendarDayEventsView: UIView {
     private func setupEventViews() {
         eventViews.forEach { $0.removeFromSuperview() }
         eventViews.removeAll()
-        guard let events = events else {
+        
+        guard let layout = layout else {
             return
         }
 
         var eventViews = [CalendarEventView]()
-        for event in events {
+        for event in layout.events {
             let eventView = CalendarEventView(event: event)
             contentView.addSubview(eventView)
             eventViews.append(eventView)

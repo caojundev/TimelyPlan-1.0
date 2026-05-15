@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class TodoUserListInteractor: TodoListInteractor {
     
@@ -23,13 +24,28 @@ class TodoUserListInteractor: TodoListInteractor {
     
     override func setLayoutType(_ layoutType: TodoListLayoutType) {
         todo.updateList(list, layoutType: layoutType)
+        updatePlaceholder()
     }
     
     override init(configuration: TodoListConfiguration) {
         super.init(configuration: configuration)
-        self.placeholderProvider.emptyImage = resGetImage("todo_list_80")
-        self.placeholderProvider.emptyTitle = resGetString("The current list has no tasks")
+        self.updatePlaceholder()
         todo.addUpdater(self, for: [.list])
+    }
+    
+    private func updatePlaceholder() {
+        var image: UIImage?
+        var title: String?
+        if list.layoutType == .board {
+            image = resGetImage("todo_board_80")
+            title = resGetString("The current board has no tasks")
+        } else {
+            image = resGetImage("todo_list_80")
+            title = resGetString("The current list has no tasks")
+        }
+        
+        self.placeholderProvider.emptyImage = image
+        self.placeholderProvider.emptyTitle = title
     }
     
     override func title() -> TextRepresentable? {
@@ -54,9 +70,8 @@ class TodoUserListInteractor: TodoListInteractor {
     }
     
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        
-        todo.fetchUserListTasks(in: self.list,
-                                showCompleted: self.listOptionState.showCompleted,
+        todo.fetchUserListTasks(in: list,
+                                showCompleted: listOptionState.showCompleted,
                                 completion: completion)
     }
 
@@ -69,11 +84,12 @@ class TodoUserListInteractor: TodoListInteractor {
         
         let bLayoutTypeChanged = editingList.layoutType != oldList.layoutType
         list.update(with: editingList)
-        self.listConfiguration.updateList(list)
+        listConfiguration.updateList(list)
         if bLayoutTypeChanged {
-            self.didChangeLayoutType?()
+            updatePlaceholder() /// 更新占位信息
+            didChangeLayoutType?()
         } else {
-            self.didChangeListInfo?()
+            didChangeListInfo?()
         }
     }
 }

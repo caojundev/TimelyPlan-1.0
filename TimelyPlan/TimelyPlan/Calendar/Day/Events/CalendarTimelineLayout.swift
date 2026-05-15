@@ -41,7 +41,7 @@ final class CalendarTimelineLayout {
     private var needsLayout: Bool = true
     
     init(events: [CalendarEvent], dateRange: CalendarTimelineDateRange) {
-        self.events = events
+        self.events = events.sorted { $0.startDate <= $1.startDate}
         self.dateRange = dateRange
     }
     

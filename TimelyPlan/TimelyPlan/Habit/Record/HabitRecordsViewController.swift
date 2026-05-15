@@ -9,9 +9,20 @@ import Foundation
 
 class HabitRecordsViewController: StatsMainViewController {
     
+    /// 更多菜单按钮
+    private lazy var moreBarButtonItem: TPMoreBarButtonItem = {
+        let item = TPMoreBarButtonItem()
+        item.didClickMore = { [weak self] in
+            self?.showMoreMenu()
+        }
+        
+        return item
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
+        self.navigationItem.rightBarButtonItem = moreBarButtonItem
     }
     
     init(type: StatsType = .week,
@@ -39,7 +50,38 @@ class HabitRecordsViewController: StatsMainViewController {
         return vc
     }
     
-    private func performMoreMenuAction(with actionType: FocusRecordMoreMenuType) {
+    private func showMoreMenu() {
+        let sortOrder = HabitSetting.shared.recordSortOrder
+        let sortMenuItem = TPMenuItem.item(with: TPSortOrder.allCases) { order, action in
+            action.handleBeforeDismiss = true
+            switch order {
+            case .ascending:
+                action.isChecked = sortOrder == .ascending
+            case .descending:
+                action.isChecked = sortOrder == .descending
+            }
+            
+            action.handler = { [weak self] _ in
+                self?.selectSortOrder(order)
+            }
+        }
         
+        let menuList = TPMenuListViewController()
+        menuList.menuContentWidth = 180.0
+        menuList.menuItems = [sortMenuItem]
+        let sourceView = moreBarButtonItem.moreButton
+        menuList.popoverShow(from: sourceView,
+                             sourceRect: sourceView.bounds,
+                             isSourceViewCovered: false,
+                             preferredPosition: .bottomLeft)
+    }
+    
+    
+    private func selectSortOrder(_ sortOrder: TPSortOrder) {
+        guard HabitSetting.shared.recordSortOrder != sortOrder else {
+            return
+        }
+        
+        HabitSetting.shared.recordSortOrder = sortOrder
     }
 }

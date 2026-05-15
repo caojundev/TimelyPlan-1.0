@@ -27,7 +27,7 @@ enum FocusStatsOverallMoreMenuType: Int, TPMenuRepresentable {
     }
 }
 
-class FocusStatsOverallMoreBarButtonItem: TPBaseMoreBarButtonItem<FocusStatsOverallMoreMenuType> {
+class FocusStatsOverallMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<FocusStatsOverallMoreMenuType> {
     
     override func configButton(_ button: TPMenuListButton) {
         super.configButton(button)

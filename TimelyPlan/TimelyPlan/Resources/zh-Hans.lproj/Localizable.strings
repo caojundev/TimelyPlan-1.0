@@ -135,6 +135,7 @@
 /// 空白任务列表占位文本
 "No tasks in my day" = "我的一天内无任务";
 "The current list has no tasks" = "当前列表无任务";
+"The current board has no tasks" = "当前看板无任务";
 "The current tag has no tasks" = "当前标签无任务";
 "The current filter has no tasks" = "当前过滤器无任务";
 "No tasks in the inbox" = "收件箱内无任务";

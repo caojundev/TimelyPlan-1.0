@@ -126,17 +126,17 @@ class CalendarDayTimelineView: UIView {
     }
     
     private func eventsChanged() {
-        guard date.isInSameDayAs(eventsProvider.date) else {
+        guard eventsProvider.contains(date: date) else {
             return
         }
         
         DispatchQueue.main.async {
             self.eventsView.date = self.date
-            self.eventsView.events = self.eventsProvider.timedEvents
+            self.eventsView.events = self.eventsProvider.events
             self.eventsView.reloadData()
             
             self.allDayView.date = self.date
-            self.allDayView.events = self.eventsProvider.allDayEvents
+            self.allDayView.events = nil
             self.allDayView.reloadData()
             
             self.allDayEventsDidLoaded()
@@ -251,6 +251,6 @@ class CalendarDayTimelineView: UIView {
         self.reset()
         self.date = date
         setupIndicatorView()
-        eventsProvider.loadEvents(for: date)
+        eventsProvider.loadEvents(on: date)
     }
 }

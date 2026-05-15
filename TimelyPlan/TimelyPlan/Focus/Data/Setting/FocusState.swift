@@ -41,7 +41,7 @@ class FocusState {
     var countdownConfig: FocusCountdownConfig
     
     @LocalStored(key: SettingKey.recordListOrder.name, defaultValue: .ascending)
-    var recordListOrder: FocusRecordSortOrder
+    var recordListOrder: TPSortOrder
     
     @LocalStored(key: SettingKey.recordListMode.name, defaultValue: .detail)
     var recordListMode: FocusRecordListMode

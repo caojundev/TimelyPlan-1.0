@@ -41,7 +41,7 @@ class CalendarWeekTimelineEventsView: UIScrollView {
     /// 天视图数组
     private var dayViews: [CalendarDayEventsView]!
 
-    private var daysCount = DAYS_PER_WEEK
+    private let daysCount = DAYS_PER_WEEK
     
     /// 时间线背景图层
     private let backgroundLayer: CalendarWeekTimelineBackLayer = {
@@ -66,7 +66,7 @@ class CalendarWeekTimelineEventsView: UIScrollView {
 
         /// 初始化日视图
         var dayViews = [CalendarDayEventsView]()
-        for index in 1...daysCount {
+        for index in 0..<daysCount {
             let view = CalendarDayEventsView()
             view.tag = index
             addSubview(view)

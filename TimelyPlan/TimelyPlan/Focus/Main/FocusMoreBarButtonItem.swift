@@ -36,7 +36,7 @@ enum FocusMoreMenuType: Int, TPMenuRepresentable {
     }
 }
 
-class FocusMoreBarButtonItem: TPBaseMoreBarButtonItem<FocusMoreMenuType> {
+class FocusMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<FocusMoreMenuType> {
     
     override func configButton(_ button: TPMenuListButton) {
         button.image = resGetImage("ellipsis_circle_24")

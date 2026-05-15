@@ -37,7 +37,7 @@ enum FocusRecordMoreMenuType: Int, TPMenuRepresentable {
 
 class FocusRecordMoreBarButtonItem: UIBarButtonItem {
     
-    var sortOrder: FocusRecordSortOrder {
+    var sortOrder: TPSortOrder {
         get {
             return button.sortOrder
         }

@@ -1,14 +1,15 @@
 //
-//  TPBaseMoreBarButtonItem.swift
+//  TPBaseMoreMenuBarButtonItem.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/2/28.
 //
 
 import Foundation
+import UIKit
 
 /// 通用的更多按钮基类
-class TPBaseMoreBarButtonItem<MenuType: TPMenuRepresentable>: UIBarButtonItem {
+class TPBaseMoreMenuBarButtonItem<MenuType: TPMenuRepresentable>: UIBarButtonItem {
     
     /// 选中菜单类型的回调
     var didSelectType: ((MenuType) -> Void)?

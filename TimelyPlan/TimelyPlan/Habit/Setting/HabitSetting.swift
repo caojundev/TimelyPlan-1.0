@@ -15,10 +15,13 @@ class HabitSetting {
         case addHabitOnTop
         case customUnits /// 自定义单位
         case reasonTags  /// 原因标签
-        case isReportShowArchived /// 报告是否显示已归档
         case defaultCompletedScore
         case defaultSkippedScore
         case defaultFailedScore
+        
+        case isReportShowArchived /// 报告是否显示已归档
+        
+        case recordSortOrder /// 记录排列顺序
         
         static func keyPrefix() -> String? {
             return "HabitSetting"
@@ -51,6 +54,9 @@ class HabitSetting {
     @CloudStored(key: Key.defaultFailedScore.name, defaultValue: kHabitDefaultFailedScore)
     var defaultFailedScore: Int
     
+    @CloudStored(key: Key.recordSortOrder.name, defaultValue: TPSortOrder.descending)
+    var recordSortOrder: TPSortOrder
+    
     static let shared = HabitSetting()
     
     private init() {}
@@ -58,5 +64,10 @@ class HabitSetting {
     // MARK: - Observer
     func addObserver(_ observer: SettingAgentObserver, forKey key: Key) {
         KeyValueStorage.shared.addObserver(observer, forKey: key.name)
+    }
+    
+    func addObserver(_ observer: SettingAgentObserver, forKeys keys: [Key]) {
+        let names = keys.map { $0.name }
+        KeyValueStorage.shared.addObserver(observer, forKeys: names)
     }
 }

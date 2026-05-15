@@ -31,7 +31,7 @@ enum TodoListLayoutType: Int, Codable, TPMenuRepresentable {
         case .list:
             return "todo_list_24"
         case .board:
-            return "todo_list_board_24"
+            return "todo_board_24"
         }
     }
 }
