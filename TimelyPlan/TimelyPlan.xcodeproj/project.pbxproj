@@ -600,6 +600,9 @@
 		E555284C2FB6016B0093DD7E /* CalendarEventsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555284B2FB6016B0093DD7E /* CalendarEventsProvider.swift */; };
 		E555284E2FB699750093DD7E /* TPSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555284D2FB699750093DD7E /* TPSortOrder.swift */; };
 		E55528502FB6B6040093DD7E /* TPMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555284F2FB6B6040093DD7E /* TPMoreBarButtonItem.swift */; };
+		E55528532FB707560093DD7E /* CalendarDragDropMangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55528522FB707560093DD7E /* CalendarDragDropMangeView.swift */; };
+		E55528552FB70DA30093DD7E /* CalendarScheduleDragView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55528542FB70DA30093DD7E /* CalendarScheduleDragView.swift */; };
+		E55528572FB86E020093DD7E /* CalendarDragDropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55528562FB86E020093DD7E /* CalendarDragDropManager.swift */; };
 		E555492B2F74D24C00C9460D /* FocusQuickStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492A2F74D24C00C9460D /* FocusQuickStartViewController.swift */; };
 		E555492D2F74D2AC00C9460D /* FocusQuickStartTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492C2F74D2AC00C9460D /* FocusQuickStartTypeView.swift */; };
 		E555492F2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555492E2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift */; };
@@ -1545,7 +1548,7 @@
 		E5CFD2742F58619300A898CB /* HabitTaskStatusProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2702F58619200A898CB /* HabitTaskStatusProgressView.swift */; };
 		E5CFD2752F58619300A898CB /* HabitTaskStatusSymbolProgressValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2712F58619200A898CB /* HabitTaskStatusSymbolProgressValueCell.swift */; };
 		E5CFD2762F58619300A898CB /* HabitTaskStatusProgressValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2722F58619200A898CB /* HabitTaskStatusProgressValueCell.swift */; };
-		E5D3D4DC2DDC68C700E58EFA /* CalendarWeekDragDropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3D4DB2DDC68C700E58EFA /* CalendarWeekDragDropManager.swift */; };
+		E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */; };
 		E5D7D7D92D43923800EC877A /* Focus+Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B72D43923800EC877A /* Focus+Statistics.swift */; };
 		E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */; };
 		E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */; };
@@ -2462,6 +2465,9 @@
 		E555284B2FB6016B0093DD7E /* CalendarEventsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsProvider.swift; sourceTree = "<group>"; };
 		E555284D2FB699750093DD7E /* TPSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSortOrder.swift; sourceTree = "<group>"; };
 		E555284F2FB6B6040093DD7E /* TPMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMoreBarButtonItem.swift; sourceTree = "<group>"; };
+		E55528522FB707560093DD7E /* CalendarDragDropMangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDragDropMangeView.swift; sourceTree = "<group>"; };
+		E55528542FB70DA30093DD7E /* CalendarScheduleDragView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarScheduleDragView.swift; sourceTree = "<group>"; };
+		E55528562FB86E020093DD7E /* CalendarDragDropManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDragDropManager.swift; sourceTree = "<group>"; };
 		E555492A2F74D24C00C9460D /* FocusQuickStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusQuickStartViewController.swift; sourceTree = "<group>"; };
 		E555492C2F74D2AC00C9460D /* FocusQuickStartTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusQuickStartTypeView.swift; sourceTree = "<group>"; };
 		E555492E2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusQuickStartSystemTimerViewController.swift; sourceTree = "<group>"; };
@@ -3424,7 +3430,7 @@
 		E5CFD2702F58619200A898CB /* HabitTaskStatusProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusProgressView.swift; sourceTree = "<group>"; };
 		E5CFD2712F58619200A898CB /* HabitTaskStatusSymbolProgressValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusSymbolProgressValueCell.swift; sourceTree = "<group>"; };
 		E5CFD2722F58619200A898CB /* HabitTaskStatusProgressValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusProgressValueCell.swift; sourceTree = "<group>"; };
-		E5D3D4DB2DDC68C700E58EFA /* CalendarWeekDragDropManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekDragDropManager.swift; sourceTree = "<group>"; };
+		E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageAutoScroller.swift; sourceTree = "<group>"; };
 		E5D7D7B72D43923800EC877A /* Focus+Statistics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Focus+Statistics.swift"; sourceTree = "<group>"; };
 		E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDataItem.swift; sourceTree = "<group>"; };
 		E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDayInfo.swift; sourceTree = "<group>"; };
@@ -4522,8 +4528,8 @@
 				E53032942DC076F10040C75E /* Manager */,
 				E51A4C442DC3C363005A0E3F /* Components */,
 				E552FBB72DBE663B0072703F /* Day */,
-				E552FBB82DBE67660072703F /* Week */,
 				E59E715D2DB7979200744C68 /* Month */,
+				E552FBB82DBE67660072703F /* Week */,
 				E53632AD2FAE13C30095DFEC /* Settting */,
 			);
 			path = Calendar;
@@ -8790,7 +8796,10 @@
 		E5D3D4DA2DDC689C00E58EFA /* DragDropManager */ = {
 			isa = PBXGroup;
 			children = (
-				E5D3D4DB2DDC68C700E58EFA /* CalendarWeekDragDropManager.swift */,
+				E55528562FB86E020093DD7E /* CalendarDragDropManager.swift */,
+				E55528522FB707560093DD7E /* CalendarDragDropMangeView.swift */,
+				E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */,
+				E55528542FB70DA30093DD7E /* CalendarScheduleDragView.swift */,
 			);
 			path = DragDropManager;
 			sourceTree = "<group>";
@@ -10992,6 +11001,7 @@
 				E5D7D8C02D43933600EC877A /* StopwatchProgressInfoView.swift in Sources */,
 				E5F155322F83B6B000116091 /* TodoGroupBaseHeaderView.swift in Sources */,
 				E529ACEC2F7E1D18000EA2F1 /* TodoTagEditViewController.swift in Sources */,
+				E55528552FB70DA30093DD7E /* CalendarScheduleDragView.swift in Sources */,
 				E5CFD25F2F585A4300A898CB /* HabitDatePeriodsView.swift in Sources */,
 				E5D7D9282D43933700EC877A /* FocusHomeUserTimerContentViewController.swift in Sources */,
 				E5F155232F83681E00116091 /* TodoTaskSelectInfoView.swift in Sources */,
@@ -11237,7 +11247,7 @@
 				E5D7D9252D43933700EC877A /* FocusUserTimerInfoCell.swift in Sources */,
 				E529ACEF2F7E1D71000EA2F1 /* TodoEditingTag.swift in Sources */,
 				E5B33D892F82584D00939C3E /* TodoTagSelectInfoView.swift in Sources */,
-				E5D3D4DC2DDC68C700E58EFA /* CalendarWeekDragDropManager.swift in Sources */,
+				E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */,
 				E53632A92FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift in Sources */,
 				E5BB9EAB2D3BF0C80089667A /* TPSegmentedMenuView.swift in Sources */,
 				E5BB9E0E2D3BF0C70089667A /* CALayer+Extensions.swift in Sources */,
@@ -11406,6 +11416,7 @@
 				E5BB9DBF2D3BF0C60089667A /* String+Theme.swift in Sources */,
 				E5BB9EE42D3BF0C80089667A /* TPIcon.swift in Sources */,
 				E5168BDA2F547DBE0000A760 /* HabitReminder.swift in Sources */,
+				E55528532FB707560093DD7E /* CalendarDragDropMangeView.swift in Sources */,
 				E5D7D8D22D43933600EC877A /* FocusEndTimelineCell.swift in Sources */,
 				E5BB9E872D3BF0C80089667A /* RectangleChartView.swift in Sources */,
 				E50D602E2F7A12B400D5E0A4 /* RecurrenceRule.swift in Sources */,
@@ -11707,6 +11718,7 @@
 				E5BB9DE52D3BF0C60089667A /* UIWindow+Extensions.swift in Sources */,
 				E5D7D7F42D43923800EC877A /* FocusSession+Array.swift in Sources */,
 				E5BB9E882D3BF0C80089667A /* RectangleChartMark.swift in Sources */,
+				E55528572FB86E020093DD7E /* CalendarDragDropManager.swift in Sources */,
 				E59E71652DB892C400744C68 /* CalendarMonthDayConfig.swift in Sources */,
 				E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */,
 				E5BB9E042D3BF0C70089667A /* String+Extensions.swift in Sources */,

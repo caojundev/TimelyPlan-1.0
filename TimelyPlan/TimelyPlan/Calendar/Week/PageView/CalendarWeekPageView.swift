@@ -57,7 +57,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     private var hourHeight = 80.0
     
     /// 滚动同步器
-    private lazy var synchronizer: CalendarWeekScrollSynchronizer = {
+    private(set) lazy var synchronizer: CalendarWeekScrollSynchronizer = {
         return CalendarWeekScrollSynchronizer(hoursView: hoursView)
     }()
     
@@ -72,6 +72,10 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     
     /// 全天布局管理器
     private let allDayEventLayoutManager = CalendarStripLayoutManager()
+    
+    private lazy var dragDropManager: CalendarDragDropManager = {
+        return CalendarDragDropManager(pageView: self)
+    }()
     
     init(frame: CGRect, visibleDate: Date = .now) {
         super.init(frame: frame)
@@ -105,6 +109,8 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     override func layoutSubviews() {
         super.layoutSubviews()
         let weekDaysViewHeight = CalendarWeekView.weekDaysViewHeight
+        dragDropManager.eventsFrame = eventsFrame()
+        
         weekNumberView.width = hoursViewWidth
         weekNumberView.height = weekDaysViewHeight
         weekNumberView.origin = .zero
@@ -112,10 +118,18 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         hoursView.width = hoursViewWidth
         hoursView.height = bounds.height - weekDaysViewHeight
         hoursView.top = weekDaysViewHeight
-        
         DispatchQueue.main.async {
             self.updateContentOffset(animated: false)
         }
+    }
+    
+    /// 事项显示区域
+    func eventsFrame() -> CGRect {
+        let weekDaysViewHeight = CalendarWeekView.weekDaysViewHeight
+        return CGRect(x: hoursViewWidth,
+                      y: weekDaysViewHeight,
+                      width: bounds.width - hoursViewWidth,
+                      height: bounds.height - weekDaysViewHeight)
     }
     
     override func animatedContainerView(_ containerView: TPAnimatedContainerView, frameForContentView contentView: UIView) -> CGRect {
@@ -123,6 +137,16 @@ class CalendarWeekPageView: TPCollectionWrapperView,
                       y: 0.0,
                       width: bounds.width - hoursViewWidth,
                       height: bounds.height)
+    }
+    
+    // MARK: -
+    
+    func showDragDropManage() {
+        if dragDropManager.isActive {
+            dragDropManager.dismiss()
+        } else {
+            dragDropManager.show()
+        }
     }
     
     // MARK: -
@@ -162,7 +186,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
             weekView.loadEvents(with: weekStartDate)
         }
         
-        synchronizer.addEventsView(weekView.eventsView)
+        synchronizer.addSynchronizableView(weekView.eventsView)
     }
 
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -177,7 +201,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     func calendarWeekViewDidLoadAllDayEvents(_ view: CalendarWeekView) {
         updateAllDay(with: collectionView.contentOffset)
     }
-    
+
     // MARK: - UIScrollViewDelegate
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let dayWidth = dayWidth
@@ -391,6 +415,17 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     }
     
     // MARK: -  Helpers
+    var isMoving: Bool {
+        let offset = collectionView.contentOffset
+        let dayWidth = dayWidth
+        guard dayWidth > 0 else {
+            return false
+        }
+
+        let remainder = offset.x.truncatingRemainder(dividingBy: dayWidth)
+        return abs(remainder) > 1e-10
+    }
+    
     /// 日最小宽度
     private let minimumDayWidth = 40.0
     
@@ -417,12 +452,4 @@ class CalendarWeekPageView: TPCollectionWrapperView,
          return weekStartDate!
      }
      
-}
-
-extension CalendarWeekPageView {
-    
-    /// 时间线滚动视图
-    var timelineScrollView: UIScrollView {
-        return hoursView.contentView
-    }
 }

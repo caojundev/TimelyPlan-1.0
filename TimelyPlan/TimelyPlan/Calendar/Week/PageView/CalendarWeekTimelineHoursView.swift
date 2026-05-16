@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class CalendarWeekTimelineHoursView: CalendarDayTimelineHoursView {
+class CalendarWeekTimelineHoursView: CalendarDayTimelineHoursView,
+                                     CalendarScrollSynchronizable {
 
     var allDayHeight: CGFloat = 0.0 {
         didSet {
@@ -16,6 +17,16 @@ class CalendarWeekTimelineHoursView: CalendarDayTimelineHoursView {
                 layoutAllDayView()
                 updateContentInset()
             }
+        }
+    }
+    
+    var scrollViewDelegate: UIScrollViewDelegate? {
+        get {
+            return contentView.delegate
+        }
+        
+        set {
+            contentView.delegate = newValue
         }
     }
     

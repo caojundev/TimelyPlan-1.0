@@ -17,7 +17,9 @@ protocol CalendarWeekEventsViewDelegate: AnyObject {
     func weekEventsView(_ view: CalendarWeekEventsView, timedEventsOnDate date: Date) -> [CalendarEvent]?
 }
 
-class CalendarWeekEventsView: UIView, CalendarWeekTimelineEventsViewDelegate {
+class CalendarWeekEventsView: UIView,
+                              CalendarWeekTimelineEventsViewDelegate,
+                              CalendarScrollSynchronizable {
     
     weak var delegate: CalendarWeekEventsViewDelegate?
     
@@ -43,9 +45,13 @@ class CalendarWeekEventsView: UIView, CalendarWeekTimelineEventsViewDelegate {
     }
     
     /// 滚动视图代理
-    weak var scrollViewDelegate: UIScrollViewDelegate? {
-        didSet {
-            timelineView.delegate = scrollViewDelegate
+    var scrollViewDelegate: UIScrollViewDelegate? {
+        get {
+            return timelineView.delegate
+        }
+        
+        set {
+            timelineView.delegate = newValue
         }
     }
     
