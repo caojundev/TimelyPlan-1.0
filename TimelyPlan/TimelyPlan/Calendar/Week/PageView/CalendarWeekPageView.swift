@@ -54,8 +54,6 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     /// 左右条目数
     private let kNearItemsCount = 6
     
-    private var hourHeight = 80.0
-    
     /// 滚动同步器
     private(set) lazy var synchronizer: CalendarWeekScrollSynchronizer = {
         return CalendarWeekScrollSynchronizer(hoursView: hoursView)
@@ -66,7 +64,6 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     private let hoursViewWidth = 50.0
     private lazy var hoursView: CalendarWeekTimelineHoursView = {
         let view = CalendarWeekTimelineHoursView(frame: .zero)
-        view.hourHeight = hourHeight
         return view
     }()
     
@@ -400,18 +397,12 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     }
     
     // MARK: - 时间线
-    func highlightRange(_ range: CalendarTimelineRange?) {
-        hoursView.highlightRange(range)
+    func highlightDateRange(_ dateRange: DateRange) {
+        hoursView.highlightDateRange(dateRange)
     }
     
     func clearHighlight() {
         hoursView.clearHighlight()
-    }
-    
-    /// 获取y坐标对应的时间偏移
-    func timeOffset(at point: CGPoint) -> Duration {
-        let convertedPoint = self.convert(point, toViewOrWindow: hoursView)
-        return hoursView.timeOffset(at: convertedPoint)
     }
     
     // MARK: -  Helpers

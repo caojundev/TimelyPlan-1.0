@@ -148,7 +148,7 @@ class FocusTimelineView: UIView {
         contentView.frame = bounds
         contentView.contentSize = CGSize(width: width, height: contentHeight)
         contentView.contentInset = UIEdgeInsets(bottom: hourHeight / 2.0)
-        hoursView.hourHeight = hourHeight
+        
         hoursView.width = hoursViewWidth
         hoursView.height = contentHeight
         

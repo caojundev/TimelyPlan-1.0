@@ -8,33 +8,7 @@
 import Foundation
 import UIKit
 
-struct CalendarTimeline {
-    /// 相对零点的偏移（以秒为单位）
-    let offset: Int
-    
-    /// 时间线总时长（以秒为单位）
-    let duration: Int
-    
-    init() {
-        self.offset = 0
-        self.duration = SECONDS_PER_DAY
-    }
-}
-
-struct CalendarTimelineRange {
-    let start: Duration
-    let end: Duration
-}
-
 class CalendarDayTimelineHoursView: UIView {
-    
-    var hourHeight: CGFloat = 80.0 {
-        didSet {
-            if hourHeight != oldValue {
-                setNeedsLayout()
-            }
-        }
-    }
     
     var contentOffset: CGPoint {
         get {
@@ -49,10 +23,8 @@ class CalendarDayTimelineHoursView: UIView {
     let contentView = UIScrollView()
     
     private var hourLabels = [UILabel]()
-    
-    let topPadding: CGFloat = 20 // 顶部间距
-    
-    let bottomPadding: CGFloat = 20 // 新增底部间距
+
+    var layout = CalendarAxisLayout()
     
     let labelHeight = 15.0
     
@@ -62,8 +34,6 @@ class CalendarDayTimelineHoursView: UIView {
     
     // 添加高亮视图
     private var highlightView: CalendarTimelineHourHighlightView?
-    
-    private var timeline = CalendarTimeline()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,6 +51,7 @@ class CalendarDayTimelineHoursView: UIView {
         contentView.showsVerticalScrollIndicator = false
         contentView.showsHorizontalScrollIndicator = false
         addSubview(contentView)
+        contentView.contentSize = CGSize(width: bounds.width, height: layout.contentHeight)
     }
     
     private func setupHourLabels() {
@@ -95,67 +66,79 @@ class CalendarDayTimelineHoursView: UIView {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = bounds
+        contentView.contentSize = CGSize(width: bounds.width, height: layout.contentHeight)
+        
+        for (hour, label) in hourLabels.enumerated() {
+            let position = layout.position(of: hour)
+            label.frame = CGRect(x: 0,
+                                 y: position.y - labelHeight / 2.0,
+                                 width: bounds.width,
+                                 height: labelHeight)
+        }
+    
+        layoutHighlightView()
+        updateHourLabelVisibility()
+    }
+    
+    func updateHourLabelVisibility() {
+        guard let highlightView = highlightView else {
+            hourLabels.forEach { label in
+                label.isHidden = false
+            }
+            
+            return
+        }
+
+        for hourLabel in hourLabels {
+            hourLabel.isHidden = highlightView.shouldHideHourLabel(hourLabel)
+        }
+    }
+    
+    private func layoutHighlightView() {
+        guard let highlightView = highlightView else {
+            return
+        }
+        
+        highlightView.frame = CGRect(x: 0.0,
+                                     y: 0.0,
+                                     width: bounds.width,
+                                     height: layout.contentHeight)
+    }
+    
+    
     // 高亮日期范围
-    func highlightRange(_ range: CalendarTimelineRange?) {
+    func highlightDateRange(_ dateRange: DateRange) {
         if highlightView == nil {
-            let highlightView = CalendarTimelineHourHighlightView(timeline: timeline)
+            let highlightView = CalendarTimelineHourHighlightView(layout: layout)
             contentView.addSubview(highlightView)
             self.highlightView = highlightView
             layoutHighlightView()
         }
         
-        highlightView?.highlightRange(range)
+        highlightView?.highlightDateRange(dateRange)
+        updateHourLabelVisibility()
     }
     
     // 清除高亮
     func clearHighlight() {
         highlightView?.removeFromSuperview()
         highlightView = nil
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = bounds
-        
-        for (index, label) in hourLabels.enumerated() {
-            let centerY = topPadding + hourHeight * CGFloat(index)
-            let y = centerY - labelHeight / 2.0
-            label.frame = CGRect(x: 0, y: y, width: bounds.width, height: labelHeight)
-        }
-        
-        let contentHeight = hourHeight * CGFloat(HOURS_PER_DAY) + topPadding + bottomPadding
-        contentView.contentSize = CGSize(width: bounds.width, height: contentHeight)
-        layoutHighlightView()
-    }
-    
-    
-    private func layoutHighlightView() {
-        guard let highlightView = highlightView else {
-            return
-        }
-
-        let height = hourHeight * CGFloat(HOURS_PER_DAY)
-        highlightView.frame = CGRect(x: 0.0, y: topPadding, width: bounds.width, height: height)
-    }
-    
-    
-    func timeOffset(at point: CGPoint) -> Duration {
-        let convertedPoint = self.convert(point, toViewOrWindow: contentView)
-        let offsetY = convertedPoint.y
-        let duraion = CGFloat(timeline.duration) * (offsetY - topPadding) / (hourHeight * CGFloat(HOURS_PER_DAY))
-        return timeline.offset + Duration(duraion)
+        updateHourLabelVisibility()
     }
 }
 
-// 新增高亮视图类
+// 高亮视图类
 private class CalendarTimelineHourHighlightView: UIView {
-    
-    private var hightlightRange: CalendarTimelineRange?
+
+    private var dateRange: DateRange?
     
     /// 开始标签
     private lazy var startLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        label.font = .boldSystemFont(ofSize: 12.0)
         label.textAlignment = .center
         label.textColor = .primary
         label.adjustsFontSizeToFitWidth = true
@@ -165,17 +148,16 @@ private class CalendarTimelineHourHighlightView: UIView {
     /// 结束标签
     private var endLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        label.font = .boldSystemFont(ofSize: 12.0)
         label.textAlignment = .center
         label.textColor = .primary
         label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
-    private let timeline: CalendarTimeline
+    var layout = CalendarAxisLayout()
     
-    init(timeline: CalendarTimeline) {
-        self.timeline = timeline
+    init(layout: CalendarAxisLayout) {
         super.init(frame: .zero)
         setupSubviews()
     }
@@ -191,23 +173,64 @@ private class CalendarTimelineHourHighlightView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        guard let range = hightlightRange else {
+        layoutLabels()
+    }
+    
+    func highlightDateRange(_ dateRange: DateRange) {
+        self.dateRange = dateRange
+        layoutLabels()
+    }
+    
+    private func layoutLabels() {
+        guard let dateRange = dateRange,
+              let startDate = dateRange.startDate,
+              let endDate = dateRange.endDate else {
+            startLabel.text = nil
+            startLabel.isHidden = true
+            endLabel.text = nil
+            endLabel.isHidden = true
             return
         }
         
-        startLabel.sizeToFit()
-        startLabel.centerY = height * CGFloat(range.start - timeline.offset) / CGFloat(timeline.duration)
-        startLabel.alignHorizontalCenter()
+        startLabel.isHidden = false
+        startLabel.text = startDate.timeString
+        let labelHeight = 15.0
+        let startPosition = layout.position(of: startDate)
+        let startFrame = CGRect(x: 0,
+                                y: startPosition.y - labelHeight / 2.0,
+                                width: bounds.width,
+                                height: labelHeight)
+        startLabel.frame = startFrame
         
-        endLabel.sizeToFit()
-        endLabel.centerY = height * CGFloat(range.end - timeline.offset) / CGFloat(timeline.duration)
-        endLabel.alignHorizontalCenter()
+        if endDate.isInSameDayAs(startDate) {
+            endLabel.text = endDate.timeString
+            let endPosition = layout.position(of: endDate)
+            let endFrame = CGRect(x: 0,
+                                  y: endPosition.y - labelHeight / 2.0,
+                                  width: bounds.width,
+                                  height: labelHeight)
+            endLabel.frame = endFrame
+            if endFrame.intersects(startFrame) {
+                endLabel.isHidden = true
+            } else {
+                endLabel.isHidden = false
+            }
+        } else {
+            endLabel.isHidden = true
+            endLabel.text = nil
+            endLabel.frame = .zero
+        }
     }
     
-    func highlightRange(_ range: CalendarTimelineRange?) {
-        hightlightRange = range
-        startLabel.text = range?.start.timeString
-        endLabel.text = range?.end.timeString
-        setNeedsLayout()
+    func shouldHideHourLabel(_ hourLabel: UILabel) -> Bool {
+        if startLabel.frame.intersects(hourLabel.frame) {
+            return true
+        }
+        
+        if !endLabel.isHidden, endLabel.frame.intersects(hourLabel.frame) {
+            return true
+        }
+        
+        return false
     }
 }

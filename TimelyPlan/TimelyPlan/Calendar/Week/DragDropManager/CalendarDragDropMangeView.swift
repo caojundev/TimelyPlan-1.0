@@ -142,6 +142,12 @@ class CalendarDragDropManageView: UIView,
     }
     
     private func panBegan(with touchPoint: CGPoint) {
+        let startDate = Date()
+        let endDate = startDate.dateByAddingMinutes(20)
+        let dateRange = DateRange(startDate: startDate, endDate: endDate)
+        pageView?.highlightDateRange(dateRange)
+        
+        
         dragMode = dragMode(at: touchPoint)
         let point = convert(touchPoint, toViewOrWindow: scheduleView)
         switch dragMode {
@@ -218,6 +224,7 @@ class CalendarDragDropManageView: UIView,
     }
     
     private func panEnded(with touchPoint: CGPoint) {
+        pageView?.clearHighlight()
         pageAutoScroller.stopAutoScroll()
         contentAutoScroller.stopAutoScroll()
         guard self.dragMode != .none else {

@@ -187,8 +187,7 @@ class CalendarDayTimelineView: UIView {
         let contentHeight = hourHeight * CGFloat(HOURS_PER_DAY) + topPadding + bottomPadding
         contentView.frame = bounds
         contentView.contentSize = CGSize(width: width, height: contentHeight)
-        
-        hoursView.hourHeight = hourHeight
+    
         hoursView.width = hoursViewWidth
         hoursView.height = contentHeight
         

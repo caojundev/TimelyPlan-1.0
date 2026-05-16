@@ -68,7 +68,7 @@ class CalendarWeekTimelineHoursView: CalendarDayTimelineHoursView,
         rightDividerLayer.frame = CGRect(x: width - rightDividerWidth,
                                          y: 0.0,
                                          width: rightDividerWidth,
-                                         height: contentView.contentSize.height - bottomPadding)
+                                         height: contentView.contentSize.height - layout.bottomMargin)
         rightDividerLayer.backgroundColor = rightDividerColor.cgColor
     }
     
