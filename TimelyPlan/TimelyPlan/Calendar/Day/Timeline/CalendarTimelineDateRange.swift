@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CalendarTimelineDateRange {
+struct CalendarTimelineDateRange: Equatable {
     
     /// 时间线开始日期
     var start: Date
@@ -24,5 +24,10 @@ struct CalendarTimelineDateRange {
         let start = date.startOfDay()
         self.start = start
         self.end = start.dateByAddingHours(HOURS_PER_DAY)!
+    }
+    
+    init(start: Date, end: Date) {
+        self.start = start
+        self.end = end
     }
 }

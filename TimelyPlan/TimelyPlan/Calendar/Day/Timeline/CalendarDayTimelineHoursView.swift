@@ -110,7 +110,7 @@ class CalendarDayTimelineHoursView: UIView {
     
     
     // 高亮日期范围
-    func highlightDateRange(_ dateRange: DateRange) {
+    func highlightDateRange(_ dateRange: CalendarTimelineDateRange) {
         if highlightView == nil {
             let highlightView = CalendarTimelineHourHighlightView(layout: layout)
             contentView.addSubview(highlightView)
@@ -118,8 +118,10 @@ class CalendarDayTimelineHoursView: UIView {
             layoutHighlightView()
         }
         
-        highlightView?.highlightDateRange(dateRange)
-        updateHourLabelVisibility()
+        if highlightView?.dateRange != dateRange {
+            highlightView?.highlightDateRange(dateRange)
+            updateHourLabelVisibility()
+        }
     }
     
     // 清除高亮
@@ -133,7 +135,7 @@ class CalendarDayTimelineHoursView: UIView {
 // 高亮视图类
 private class CalendarTimelineHourHighlightView: UIView {
 
-    private var dateRange: DateRange?
+    private(set) var dateRange: CalendarTimelineDateRange?
     
     /// 开始标签
     private lazy var startLabel: UILabel = {
@@ -176,15 +178,13 @@ private class CalendarTimelineHourHighlightView: UIView {
         layoutLabels()
     }
     
-    func highlightDateRange(_ dateRange: DateRange) {
+    func highlightDateRange(_ dateRange: CalendarTimelineDateRange) {
         self.dateRange = dateRange
         layoutLabels()
     }
     
     private func layoutLabels() {
-        guard let dateRange = dateRange,
-              let startDate = dateRange.startDate,
-              let endDate = dateRange.endDate else {
+        guard let dateRange = dateRange else {
             startLabel.text = nil
             startLabel.isHidden = true
             endLabel.text = nil
@@ -192,6 +192,8 @@ private class CalendarTimelineHourHighlightView: UIView {
             return
         }
         
+        let startDate = dateRange.start
+        let endDate = dateRange.end
         startLabel.isHidden = false
         startLabel.text = startDate.timeString
         let labelHeight = 15.0

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CalendarAxisLayout {
+class CalendarAxisLayout {
     
     // 小时高度
     var hourHeight: CGFloat = 80.0
@@ -20,9 +20,17 @@ struct CalendarAxisLayout {
     
     /// 内容高度
     var contentHeight: CGFloat {
-        let height = hourHeight * CGFloat(HOURS_PER_DAY) + topMargin + bottomMargin
+        let height = timelineHeight + topMargin + bottomMargin
         return height
     }
+    
+    /// 时间线高度
+    var timelineHeight: CGFloat {
+        return hourHeight * CGFloat(HOURS_PER_DAY)
+    }
+    
+    /// 吸附分钟数
+    let snapGridMinutes: Int = 10
     
     /// 获取整点的位置
     func position(of hour: Int) -> CGPoint {
@@ -34,7 +42,81 @@ struct CalendarAxisLayout {
     func position(of date: Date) -> CGPoint {
         let offset = date.offset()
         let timelineHeight = hourHeight * CGFloat(HOURS_PER_DAY)
-        let y = timelineHeight * CGFloat(offset) / CGFloat(SECONDS_PER_DAY)
+        let y = topMargin + timelineHeight * CGFloat(offset) / CGFloat(SECONDS_PER_DAY)
         return CGPoint(x: 0.0, y: y)
+    }
+    
+    func date(of position: CGPoint) -> Date {
+        let timeOffset = timeOffset(of: position)
+        return Date().dateWithTimeOffset(timeOffset)
+    }
+    
+    func timeOffset(of position: CGPoint) -> Duration {
+        let percent = (position.y - topMargin) / timelineHeight
+        let offset = CGFloat(SECONDS_PER_DAY) * clampedValue(percent, 0.0, 1.0)
+        return Duration(round(offset))
+    }
+    
+    /// 根据吸附分钟数获取特定位置对应的吸附位置
+    private var gridUnit: CGFloat {
+        return CGFloat(snapGridMinutes) / CGFloat(MINUTES_PER_HOUR) * hourHeight
+    }
+    
+    func snappedPosition(of position: CGPoint) -> CGPoint {
+        let gridUnit = gridUnit
+        var snappedY = topMargin + round((position.y - topMargin) / gridUnit) * gridUnit
+        snappedY = clampedValue(snappedY, topMargin, topMargin + timelineHeight)
+        return CGPoint(x: position.x, y: snappedY)
+    }
+    
+    func snappedHeight(of height: CGFloat) -> CGFloat {
+        let gridUnit = gridUnit
+        return round(height / gridUnit) * gridUnit
+    }
+    
+    func snappedFrame(of rect: CGRect, minHeight: CGFloat) -> CGRect {
+        var snappedY = snappedPosition(of: rect.origin).y
+        var snappedHeight = snappedHeight(of: rect.height)
+        
+        // 防止吸附后太小
+        if snappedHeight < minHeight {
+            snappedHeight = minHeight
+        }
+        
+        // 防止吸附后超出屏幕下方
+        let maxY = topMargin + timelineHeight
+        if snappedY + snappedHeight > maxY {
+            snappedY = maxY - snappedHeight
+        }
+        
+        if snappedY < topMargin {
+            snappedY = topMargin
+        }
+        
+        return CGRect(x: rect.minX,
+                      y: snappedY,
+                      width: rect.width,
+                      height: snappedHeight)
+    }
+    
+    func dateRange(of frame: CGRect) -> CalendarTimelineDateRange {
+        let startDate = date(of: frame.origin)
+        let endPoint = CGPoint(x: 0.0, y: frame.maxY)
+        let endDate = date(of: endPoint)
+        return CalendarTimelineDateRange(start: startDate, end: endDate)
+    }
+    
+    func frame(of dateRange: CalendarTimelineDateRange, minHeight: CGFloat) -> CGRect {
+        let startPosition = position(of: dateRange.start)
+        let endPosition = position(of: dateRange.end)
+        var height = endPosition.y - startPosition.y
+        if height < minHeight {
+            height = minHeight
+        }
+        
+        return CGRect(x: 0.0,
+                      y: startPosition.y,
+                      width: 0.0,
+                      height: height)
     }
 }

@@ -50,16 +50,6 @@ class ScheduleDragView: UIView {
         return v
     }()
     
-    // 文本 Label
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = resGetString("New Task")
-        label.textColor = .systemBlue
-        label.font = .boldSystemFont(ofSize: 13.0)
-        label.textAlignment = .center
-        return label
-    }()
-    
     let contentView = UIView()
     
     // MARK: - Initialization
@@ -72,24 +62,21 @@ class ScheduleDragView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupView() {
+    func setupView() {
         clipsToBounds = false
         contentView.layer.cornerRadius = 8
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.systemBlue.cgColor
         contentView.backgroundColor = UIColor(red: 0.9, green: 0.95, blue: 1.0, alpha: 1.0) // 浅蓝色背景
-        contentView.addSubview(titleLabel)
         addSubview(contentView)
         addSubview(topRightHandle)
         addSubview(bottomLeftHandle)
         updateHandleFrames()
-        titleLabel.frame = bounds
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = bounds
-        titleLabel.frame = bounds
         updateHandleFrames()
     }
     

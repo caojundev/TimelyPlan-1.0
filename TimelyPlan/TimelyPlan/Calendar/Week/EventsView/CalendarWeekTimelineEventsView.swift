@@ -12,11 +12,19 @@ protocol CalendarWeekTimelineEventsViewDelegate: AnyObject {
     
     /// 指定日期定时事项
     func weekTimelineEventsView(_ view: CalendarWeekTimelineEventsView, timedEventsOnDate date: Date) -> [CalendarEvent]?
+    
+    /// 长按事项
+    func weekTimelineEventsView(_ view: CalendarWeekTimelineEventsView, longPressEvent event: CalendarEvent)
+    
+    /// 点击特定日期的特定位置
+    func weekTimelineEventsView(_ view: CalendarWeekTimelineEventsView,
+                                didTapLocation location: CGPoint,
+                                onDate date: Date)
 }
 
-class CalendarWeekTimelineEventsView: UIScrollView {
+class CalendarWeekTimelineEventsView: UIScrollView, CalendarDayEventsViewDelegate {
     
-    weak var eventsProvider: CalendarWeekTimelineEventsViewDelegate?
+    weak var eventDelegate: CalendarWeekTimelineEventsViewDelegate?
     
     var weekStartDate: Date?
     
@@ -68,6 +76,7 @@ class CalendarWeekTimelineEventsView: UIScrollView {
         var dayViews = [CalendarDayEventsView]()
         for index in 0..<daysCount {
             let view = CalendarDayEventsView()
+            view.delegate = self
             view.tag = index
             addSubview(view)
             dayViews.append(view)
@@ -115,7 +124,7 @@ class CalendarWeekTimelineEventsView: UIScrollView {
         for dayView in dayViews {
             let date = weekStartDate.dateByAddingDays(dayView.tag)!
             dayView.date = date
-            dayView.events = eventsProvider?.weekTimelineEventsView(self, timedEventsOnDate: date)
+            dayView.events = eventDelegate?.weekTimelineEventsView(self, timedEventsOnDate: date)
             dayView.reloadData()
         }
     }
@@ -131,4 +140,21 @@ class CalendarWeekTimelineEventsView: UIScrollView {
         let convertedPoint = convert(point, toViewOrWindow: dayView)
         return dayView.eventView(at: convertedPoint)
     }
+    
+    // MARK: - CalendarDayEventsViewDelegate
+    func calendarDayEventsView(_ eventsView: CalendarDayEventsView, longPressEvent event: CalendarEvent) {
+        eventDelegate?.weekTimelineEventsView(self, longPressEvent: event)
+    }
+    
+    func calendarDayEventsView(_ eventsView: CalendarDayEventsView, didTapLocation location: CGPoint) {
+        guard let date = eventsView.date else {
+            return
+        }
+        
+        let convertedLocation = CGPoint(x: location.x, y: location.y + topPadding)
+        eventDelegate?.weekTimelineEventsView(self,
+                                              didTapLocation: convertedLocation,
+                                              onDate: date)
+    }
+    
 }

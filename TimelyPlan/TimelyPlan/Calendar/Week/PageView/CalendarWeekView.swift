@@ -11,6 +11,10 @@ import UIKit
 protocol CalendarWeekViewDelegate: AnyObject {
     
     func calendarWeekViewDidLoadAllDayEvents(_ view: CalendarWeekView)
+    
+    func calendarWeekView(_ view: CalendarWeekView, longPressEvent event: CalendarEvent)
+    
+    func calendarWeekView(_ view: CalendarWeekView, didTapLocation location: CGPoint, onDate date: Date)
 }
 
 class CalendarWeekView: UIView, CalendarWeekEventsViewDelegate {
@@ -127,4 +131,13 @@ class CalendarWeekView: UIView, CalendarWeekEventsViewDelegate {
         print(date)
         return eventsProvider.events
     }
+
+    func weekEventsView(_ view: CalendarWeekEventsView, longPressEvent event: CalendarEvent) {
+        delegate?.calendarWeekView(self, longPressEvent: event)
+    }
+    
+    func weekEventsView(_ view: CalendarWeekEventsView, didTapLocation location: CGPoint, onDate date: Date) {
+        delegate?.calendarWeekView(self, didTapLocation: location, onDate: date)
+    }
+    
 }

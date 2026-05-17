@@ -28,6 +28,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
             if daysInWeekView != oldValue {
                 flowLayout.invalidateLayout()
                 setNeedsLayout()
+                dragDropManager.dismiss()
             }
         }
     }
@@ -137,16 +138,6 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     }
     
     // MARK: -
-    
-    func showDragDropManage() {
-        if dragDropManager.isActive {
-            dragDropManager.dismiss()
-        } else {
-            dragDropManager.show()
-        }
-    }
-    
-    // MARK: -
     func sectionObjects(for adapter: TPCollectionViewAdapter) -> [ListDiffable]? {
         return [String(describing: type(of: self)) as NSString]
     }
@@ -199,6 +190,22 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         updateAllDay(with: collectionView.contentOffset)
     }
 
+    func calendarWeekView(_ view: CalendarWeekView, longPressEvent event: CalendarEvent) {
+        
+    }
+    
+    private var axisLayout = CalendarAxisLayout()
+    
+    func calendarWeekView(_ view: CalendarWeekView, didTapLocation location: CGPoint, onDate date: Date) {
+        var startDate = axisLayout.date(of: location)
+        startDate = startDate.dateByReplacingDay(with: date)
+        let endDate = startDate.dateByAddingMinutes(20)!
+        let dateRange = CalendarTimelineDateRange(start: startDate, end: endDate)
+        dragDropManager.showAddEvent(with: dateRange)
+        
+        print("\(date.yearMonthDayString(omitYear: true)) - \(location)")
+    }
+    
     // MARK: - UIScrollViewDelegate
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let dayWidth = dayWidth
@@ -222,6 +229,10 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         updateWeekNumber()
         /// 日期变化回调
         delegate?.calendarWeekPageView(self, didScrollTo: toDate)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        dragDropManager.dismiss()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -300,6 +311,8 @@ class CalendarWeekPageView: TPCollectionWrapperView,
             return
         }
         
+        dragDropManager.dismiss()
+        
         /// 在同一周
         if visibleDate.isInSameWeekAs(date, firstWeekday: firstWeekday) {
             visibleDate = date
@@ -325,6 +338,17 @@ class CalendarWeekPageView: TPCollectionWrapperView,
         updateContentOffset(animated: true)
         updateWeekNumber()
     }
+    
+    /// 日期相对当前显示首日的列索引
+    func column(of date: Date) -> Int {
+        let days = Date.days(fromDate: visibleDate, toDate: date)
+        return days
+    }
+    
+    func date(of column: Int) -> Date {
+        return visibleDate.dateByAddingDays(column)!
+    }
+    
     
     func eventView(at point: CGPoint) -> CalendarEventView? {
         let touchPoint = self.convert(point, toViewOrWindow: collectionView)
@@ -397,7 +421,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     }
     
     // MARK: - 时间线
-    func highlightDateRange(_ dateRange: DateRange) {
+    func highlightDateRange(_ dateRange: CalendarTimelineDateRange) {
         hoursView.highlightDateRange(dateRange)
     }
     
@@ -420,7 +444,7 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     /// 日最小宽度
     private let minimumDayWidth = 40.0
     
-    private var dayWidth: CGFloat {
+    var dayWidth: CGFloat {
         let collectionSize = adapter.collectionViewSize()
         let daysInWeekView = clampedValue(daysInWeekView,
                                           CalendarSetting.minDaysInWeek,
@@ -442,5 +466,4 @@ class CalendarWeekPageView: TPCollectionWrapperView,
          let weekStartDate = adapter.allItems().first as? Date
          return weekStartDate!
      }
-     
 }

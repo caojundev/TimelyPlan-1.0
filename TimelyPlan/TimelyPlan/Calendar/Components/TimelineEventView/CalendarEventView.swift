@@ -100,16 +100,4 @@ class CalendarEventView: UIView {
         
         timeLabel.textColor = nameLabel.textColor
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.highlighted = true
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.highlighted = false
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.highlighted = false
-    }
 }

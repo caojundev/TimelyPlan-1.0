@@ -12,24 +12,12 @@ class CalendarDragDropManageView: UIView,
                                   UIGestureRecognizerDelegate,
                                   CalendarScrollSynchronizable,
                                   TPAutoScrollerDelegate {
-
-    let snapGridMinutes: Int = 10
     
-    var columns: Int = 3
-    
-    var columnEdgeMargin: CGFloat = 5.0
+    // 点击取消
+    var didTapCancel: (() -> Void)?
     
     // 属性
     var minHeight: CGFloat = 20
-    
-    // 小时高度
-    var hourHeight: CGFloat = 80.0 {
-        didSet {
-            if hourHeight != oldValue {
-                setNeedsLayout()
-            }
-        }
-    }
 
     /// 当前全天高度
     var allDayHeight: CGFloat = 0.0 {
@@ -61,17 +49,14 @@ class CalendarDragDropManageView: UIView,
         }
     }
     
-    // 顶部间距
-    private let topPadding: CGFloat = 20
-    
-    // 底部间距
-    private let bottomPadding: CGFloat = 20
+    var layout = CalendarAxisLayout() {
+        didSet {
+            setNeedsLayout()
+        }
+    }
     
     // 内容视图
     private let contentView = UIScrollView()
-    
-    // 拖动模式
-    private let scheduleView = ScheduleDragView()
     
     // 拖动模式
     private var dragMode: CalendarScheduleDragMode = .none
@@ -85,15 +70,49 @@ class CalendarDragDropManageView: UIView,
     /// 水平页面滚动器
     private var pageAutoScroller = CalendarPageAutoScroller()
     
-    private weak var pageView: CalendarWeekPageView?
+    /// 页面视图
+    weak var pageView: CalendarWeekPageView? {
+        didSet {
+            pageAutoScroller.pageView = pageView
+            setNeedsLayout()
+        }
+    }
     
-    init(pageView: CalendarWeekPageView) {
-        self.pageView = pageView
+    // 作用事项
+    private var event: CalendarEvent?
+    
+    // 计划视图
+    private let scheduleView: ScheduleDragView
+
+    // 当前日期范围
+    private var dateRange: CalendarTimelineDateRange
+    
+    /// 当前天
+    private var dayDate: Date
+    
+    var columnEdgeMargin: CGFloat = 2.0
+    
+    init(dateRange: CalendarTimelineDateRange) {
+        self.dateRange = dateRange
+        self.dayDate = dateRange.start
+        self.scheduleView = CalendarScheduleDragAddView()
         super.init(frame: .zero)
+        commonInit()
+    }
+
+    init(event: CalendarEvent) {
+        self.event = event
+        self.dateRange = event.dateRange
+        self.dayDate = dateRange.start
+        self.scheduleView = CalendarScheduleDragAddView()
+        super.init(frame: .zero)
+        commonInit()
+    }
+
+    private func commonInit() {
         setupContentView()
         setupGesture()
         setupAutoScroller()
-        pageView.synchronizer.addSynchronizableView(self)
     }
     
     required init?(coder: NSCoder) {
@@ -103,14 +122,13 @@ class CalendarDragDropManageView: UIView,
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = bounds
-        updateContentSize()
-
-        scheduleView.frame = CGRect(x: 60, y: 100, width: 180.0, height: 180)
-        performSnapAnimation()
+        contentView.contentSize = CGSize(width: bounds.width,
+                                         height: layout.contentHeight)
+        updateScheduleViewFrame()
+        highlightDateRange()
     }
     
     private func setupAutoScroller() {
-        pageAutoScroller.pageView = pageView
         pageAutoScroller.interval = 0.25
         pageAutoScroller.autoScrollDetectionLength = 40.0
         
@@ -120,18 +138,58 @@ class CalendarDragDropManageView: UIView,
     }
     
     private func setupContentView() {
-        backgroundColor = .orangePrimary.withAlphaComponent(0.6)
+        backgroundColor = .clear
         contentView.scrollsToTop = false
         contentView.showsVerticalScrollIndicator = true
         contentView.showsHorizontalScrollIndicator = false
+        contentView.contentSize = CGSize(width: bounds.width,
+                                         height: layout.contentHeight)
         addSubview(contentView)
-        updateContentSize()
+        
+        /// 添加计划视图
         contentView.addSubview(scheduleView)
     }
     
-    private func updateContentSize() {
-        let contentHeight = hourHeight * CGFloat(HOURS_PER_DAY) + topPadding + bottomPadding
-        contentView.contentSize = CGSize(width: bounds.width, height: contentHeight)
+    // MARK: - Update
+    private func updateScheduleViewFrame() {
+        guard let pageView = pageView else {
+            return
+        }
+
+        let column = pageView.column(of: dayDate)
+        var frame = layout.frame(of: dateRange, minHeight: minHeight)
+        frame.size.width = columnWidth -  2 * columnEdgeMargin
+        frame.origin.x = CGFloat(column) * columnWidth + columnEdgeMargin
+        scheduleView.frame = frame
+    }
+    
+    private func updateDayDate() {
+        guard let pageView = pageView else {
+            return
+        }
+
+        let column = snappedColumn(of: scheduleView.center)
+        self.dayDate = pageView.date(of: column)
+        print(self.dayDate.yearMonthDayString(omitYear: true))
+    }
+    
+    /// 更新日期范围
+    private func updateDateRange() {
+        let snappedFrame = snappedFrame(of: scheduleView.frame)
+        self.dateRange = layout.dateRange(of: snappedFrame)
+    }
+    
+    private func highlightDateRange() {
+        guard let pageView = pageView else {
+            return
+        }
+
+        pageView.highlightDateRange(dateRange)
+    }
+    
+    private func updateAndHighlightDateRange() {
+        updateDateRange()
+        highlightDateRange()
     }
     
     // MARK: - Gesture Handling
@@ -139,15 +197,19 @@ class CalendarDragDropManageView: UIView,
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         pan.delegate = self
         self.addGestureRecognizer(pan)
+        
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(handleTap(_:)))
+        tapGesture.numberOfTouchesRequired = 1
+        tapGesture.numberOfTapsRequired = 1
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+        self.didTapCancel?()
     }
     
     private func panBegan(with touchPoint: CGPoint) {
-        let startDate = Date()
-        let endDate = startDate.dateByAddingMinutes(20)
-        let dateRange = DateRange(startDate: startDate, endDate: endDate)
-        pageView?.highlightDateRange(dateRange)
-        
-        
         dragMode = dragMode(at: touchPoint)
         let point = convert(touchPoint, toViewOrWindow: scheduleView)
         switch dragMode {
@@ -187,7 +249,7 @@ class CalendarDragDropManageView: UIView,
         case .resizeTopRight:
             var frame = scheduleView.frame
             var originY = contentPoint.y - touchOffset.y
-            originY = max(originY, topPadding)
+            originY = max(originY, layout.topMargin)
             let maxY = frame.maxY - minHeight
             if originY > maxY {
                 originY = maxY
@@ -221,16 +283,18 @@ class CalendarDragDropManageView: UIView,
         }
         
         contentAutoScroller.updateTouchInfo(touchInfo)
+        updateAndHighlightDateRange()
     }
     
     private func panEnded(with touchPoint: CGPoint) {
-        pageView?.clearHighlight()
         pageAutoScroller.stopAutoScroll()
         contentAutoScroller.stopAutoScroll()
         guard self.dragMode != .none else {
             return
         }
         
+        updateDayDate()
+        updateAndHighlightDateRange()
         performSnapAnimation()
         dragMode = .none
         touchOffset = .zero
@@ -250,53 +314,47 @@ class CalendarDragDropManageView: UIView,
     
     // MARK: - 吸附逻辑
     private func performSnapAnimation() {
-        let gridUnit = CGFloat(snapGridMinutes) / CGFloat(MINUTES_PER_HOUR) * hourHeight
-        let rect = scheduleView.frame
+        let snappedFrame = snappedFrame(of: scheduleView.frame)
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut) {
+            self.scheduleView.frame = snappedFrame
+        }
+        
+        updateAndHighlightDateRange()
+    }
+
+    private func snappedFrame(of rect: CGRect) -> CGRect {
+        var frame = rect
         let snappedX = snappedX(of: rect.center)
-        let snappedWidth = width / CGFloat(columns) - 2 * columnEdgeMargin
-        
-        var snappedY = topPadding + round((rect.minY - topPadding) / gridUnit) * gridUnit
-        var snappedHeight = round(rect.height / gridUnit) * gridUnit
-        
-        // 防止吸附后太小
-        if snappedHeight < minHeight {
-            snappedHeight = minHeight
-        }
-        
-        // 防止吸附后超出屏幕下方
-        let maxY = contentView.contentSize.height - bottomPadding
-        if snappedY + snappedHeight > maxY {
-            snappedY = maxY - snappedHeight
-        }
-        
-        if snappedY < topPadding {
-            snappedY = topPadding
-        }
-        
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut) {
-            self.scheduleView.frame = CGRect(x: snappedX,
-                                             y: snappedY,
-                                             width: snappedWidth,
-                                             height: snappedHeight)
-        }
+        frame.origin.x = snappedX
+        frame.size.width = columnWidth - 2 * columnEdgeMargin
+        return layout.snappedFrame(of: frame, minHeight: minHeight)
     }
     
+    // MARK: - 水平位置
     private func snappedX(of point: CGPoint) -> CGFloat {
         let column = snappedColumn(of: point)
-        let columnWidth = bounds.width / CGFloat(columns)
         return CGFloat(column) * columnWidth + columnEdgeMargin
     }
     
     private func snappedColumn(of point: CGPoint) -> Int {
-        let columnWidth = bounds.width / CGFloat(columns)
+        let columnWidth = columnWidth
         guard columnWidth > 0 else {
             return 0
         }
         
         let column = Int(point.x / columnWidth)
-        return clampedValue(column, 0, columns - 1)
+        var maxColumn = Int(round(bounds.width / columnWidth)) - 1
+        maxColumn = max(0, maxColumn)
+        return clampedValue(column, 0, maxColumn)
     }
     
+    private var columnWidth: CGFloat {
+        guard let pageView = pageView else {
+            return 0.0
+        }
+
+        return pageView.dayWidth
+    }
     
     // MARK: - Helpers
     private func dragMode(at touchPoint: CGPoint) -> CalendarScheduleDragMode {

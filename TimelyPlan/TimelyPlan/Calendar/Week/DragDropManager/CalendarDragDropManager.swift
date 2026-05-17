@@ -30,30 +30,40 @@ class CalendarDragDropManager {
         self.pageView = pageView
     }
     
-    func show() {
+    func showAddEvent(with dateRange: CalendarTimelineDateRange) {
         manageView?.removeFromSuperview()
         manageView = nil
         
         guard let pageView = pageView else {
             return
         }
-
-        let manageView = CalendarDragDropManageView(pageView: pageView)
+        
+        let manageView = CalendarDragDropManageView(dateRange: dateRange)
+        manageView.pageView = pageView
+        manageView.didTapCancel = { [weak self] in
+            self?.dismiss()
+        }
+        
         self.manageView = manageView
         updateManageViewFrame()
         pageView.addSubview(manageView)
+        
+        /// 将管理视图添加到同步器
+        pageView.synchronizer.addSynchronizableView(manageView)
     }
     
     func dismiss() {
+        pageView?.clearHighlight()
         manageView?.removeFromSuperview()
         manageView = nil
     }
     
     private func updateManageViewFrame() {
-        guard let eventsFrame = eventsFrame else {
+        guard let eventsFrame = eventsFrame,
+              let manageView = manageView else {
             return
         }
         
-        manageView?.frame = eventsFrame
+        manageView.frame = eventsFrame
     }
 }

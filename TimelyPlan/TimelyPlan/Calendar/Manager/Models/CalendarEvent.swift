@@ -79,6 +79,11 @@ class CalendarEvent: NSObject {
 //        self.allDay = false
         super.init()
     }
+    
+    var dateRange: CalendarTimelineDateRange {
+        return CalendarTimelineDateRange(start: startDate,
+                                         end: endDate)
+    }
 }
 
 extension CalendarEvent {

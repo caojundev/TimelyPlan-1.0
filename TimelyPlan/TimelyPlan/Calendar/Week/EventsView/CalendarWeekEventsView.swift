@@ -15,6 +15,10 @@ protocol CalendarWeekEventsViewDelegate: AnyObject {
     
     /// 指定日期定时事项
     func weekEventsView(_ view: CalendarWeekEventsView, timedEventsOnDate date: Date) -> [CalendarEvent]?
+    
+    func weekEventsView(_ view: CalendarWeekEventsView, longPressEvent event: CalendarEvent)
+    
+    func weekEventsView(_ view: CalendarWeekEventsView, didTapLocation location: CGPoint, onDate date: Date)
 }
 
 class CalendarWeekEventsView: UIView,
@@ -64,7 +68,7 @@ class CalendarWeekEventsView: UIView,
     /// 时间线视图
     private lazy var timelineView: CalendarWeekTimelineEventsView = {
         let view = CalendarWeekTimelineEventsView()
-        view.eventsProvider = self
+        view.eventDelegate = self
         return view
     }()
     
@@ -103,6 +107,14 @@ class CalendarWeekEventsView: UIView,
     // MARK: - CalendarWeekTimelineEventsViewDelegate
     func weekTimelineEventsView(_ view: CalendarWeekTimelineEventsView, timedEventsOnDate date: Date) -> [CalendarEvent]? {
         return delegate?.weekEventsView(self, timedEventsOnDate: date)
+    }
+    
+    func weekTimelineEventsView(_ view: CalendarWeekTimelineEventsView, longPressEvent event: CalendarEvent) {
+        delegate?.weekEventsView(self, longPressEvent: event)
+    }
+    
+    func weekTimelineEventsView(_ view: CalendarWeekTimelineEventsView, didTapLocation location: CGPoint, onDate date: Date) {
+        delegate?.weekEventsView(self, didTapLocation: location, onDate: date)
     }
     
     // MARK: - Public Methods

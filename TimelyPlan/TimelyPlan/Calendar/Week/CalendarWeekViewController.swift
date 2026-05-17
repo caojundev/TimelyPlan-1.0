@@ -78,14 +78,13 @@ class CalendarWeekViewController: CalendarBaseViewController,
     
     // MARK: - Event Response
     override func clickDate(_ button: UIButton) {
-        pageView.showDragDropManage()
-//        let datePickerVC = TPYearMonthDatePickerViewController()
-//        datePickerVC.date = pageView.visibleDate
-//        datePickerVC.didPickDate = { date in
-//            self.pickDate(date)
-//        }
-//
-//        datePickerVC.popoverShow(from: button, preferredPosition: .bottomCenter)
+        let datePickerVC = TPYearMonthDatePickerViewController()
+        datePickerVC.date = pageView.visibleDate
+        datePickerVC.didPickDate = { date in
+            self.pickDate(date)
+        }
+
+        datePickerVC.popoverShow(from: button, preferredPosition: .bottomCenter)
     }
     
     private func pickDate(_ date: Date) {

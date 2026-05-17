@@ -8,8 +8,19 @@
 import Foundation
 import UIKit
 
+protocol CalendarDayEventsViewDelegate: AnyObject {
+    
+    /// 长按事项
+    func calendarDayEventsView(_ eventsView: CalendarDayEventsView, longPressEvent event: CalendarEvent)
+    
+    /// 点击特定点
+    func calendarDayEventsView(_ eventsView: CalendarDayEventsView, didTapLocation location: CGPoint)
+}
+
 class CalendarDayEventsView: UIView {
-  
+    
+    weak var delegate: CalendarDayEventsViewDelegate?
+    
     var events: [CalendarEvent]?
     
     var date: Date?
@@ -23,6 +34,7 @@ class CalendarDayEventsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupContentView()
+        setupGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +54,28 @@ class CalendarDayEventsView: UIView {
         for eventView in eventViews {
             eventView.frame = layout.frame(for: eventView.event)
         }
+    }
+    
+    // MARK: - 手势
+    private func setupGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self,
+                                                            action: #selector(handleLongPress(_:)))
+        addGestureRecognizer(longPressGesture)
+        
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(handleTap(_:)))
+        tapGesture.numberOfTouchesRequired = 1
+        tapGesture.numberOfTapsRequired = 1
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        
+    }
+    
+    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+        let location = gesture.location(in: self)
+        delegate?.calendarDayEventsView(self, didTapLocation: location)
     }
     
     private func setupContentView() {
