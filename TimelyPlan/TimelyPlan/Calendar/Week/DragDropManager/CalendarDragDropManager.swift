@@ -40,10 +40,6 @@ class CalendarDragDropManager {
         
         let manageView = CalendarDragDropManageView(dateRange: dateRange)
         manageView.pageView = pageView
-        manageView.didTapCancel = { [weak self] in
-            self?.dismiss()
-        }
-        
         self.manageView = manageView
         updateManageViewFrame()
         pageView.addSubview(manageView)

@@ -119,4 +119,20 @@ class CalendarAxisLayout {
                       width: 0.0,
                       height: height)
     }
+    
+    func snappedDateRange(onDay dayDate: Date,
+                          touchPoint: CGPoint,
+                          minutes: Int = 30) -> CalendarTimelineDateRange {
+        let position = snappedPosition(of: touchPoint)
+        var startDate = date(of: position)
+        var endDate = startDate.dateByAddingMinutes(minutes)!
+        if !endDate.isInSameDayAs(startDate) {
+            endDate = startDate.endOfDay()
+            startDate = endDate.dateByAddingMinutes(-minutes)!
+        }
+        
+        startDate = startDate.dateByReplacingDay(with: dayDate)
+        endDate = endDate.dateByReplacingDay(with: dayDate)
+        return CalendarTimelineDateRange(start: startDate, end: endDate)
+    }
 }

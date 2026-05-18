@@ -41,7 +41,7 @@ class CalendarWeekDaysView: UIView {
         backgroundColor = .systemBackground
         layer.addSublayer(backLayer)
         for i in 0..<DAYS_PER_WEEK {
-            let dayView = CalendarWeekSingleDayView()
+            let dayView = CalendarDayInfoView()
             dayView.tag = i
             stackView.addArrangedSubview(dayView)
         }
@@ -59,8 +59,8 @@ class CalendarWeekDaysView: UIView {
         stackView.frame = bounds
     }
     
-    private var dayViews: [CalendarWeekSingleDayView] {
-        return stackView.arrangedSubviews as! [CalendarWeekSingleDayView]
+    private var dayViews: [CalendarDayInfoView] {
+        return stackView.arrangedSubviews as! [CalendarDayInfoView]
     }
     
     private func reset() {

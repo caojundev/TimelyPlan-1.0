@@ -197,13 +197,15 @@ class CalendarWeekPageView: TPCollectionWrapperView,
     private var axisLayout = CalendarAxisLayout()
     
     func calendarWeekView(_ view: CalendarWeekView, didTapLocation location: CGPoint, onDate date: Date) {
-        var startDate = axisLayout.date(of: location)
-        startDate = startDate.dateByReplacingDay(with: date)
-        let endDate = startDate.dateByAddingMinutes(20)!
-        let dateRange = CalendarTimelineDateRange(start: startDate, end: endDate)
-        dragDropManager.showAddEvent(with: dateRange)
-        
-        print("\(date.yearMonthDayString(omitYear: true)) - \(location)")
+        if dragDropManager.isActive {
+            dragDropManager.dismiss()
+        } else {
+            let minutes = CalendarSetting.shared.getDefaultEventDuration()
+            let dateRange = axisLayout.snappedDateRange(onDay: date,
+                                                        touchPoint: location,
+                                                        minutes: minutes)
+            dragDropManager.showAddEvent(with: dateRange)
+        }
     }
     
     // MARK: - UIScrollViewDelegate

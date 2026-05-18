@@ -564,7 +564,7 @@
 		E551943D2D49C585007CEDBC /* TPSwitchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E551943C2D49C585007CEDBC /* TPSwitchTableCell.swift */; };
 		E5526AC52DD0AC8E00B96A9D /* CalendarWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5526AC42DD0AC8E00B96A9D /* CalendarWeekView.swift */; };
 		E5526AC72DD0ACB600B96A9D /* CalendarWeekDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5526AC62DD0ACB600B96A9D /* CalendarWeekDaysView.swift */; };
-		E5526AC92DD0E82E00B96A9D /* CalendarWeekSingleDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5526AC82DD0E82E00B96A9D /* CalendarWeekSingleDayView.swift */; };
+		E5526AC92DD0E82E00B96A9D /* CalendarDayInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5526AC82DD0E82E00B96A9D /* CalendarDayInfoView.swift */; };
 		E5526ACD2DD19CBB00B96A9D /* CalendarWeekTimelineEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5526ACC2DD19CBB00B96A9D /* CalendarWeekTimelineEventsView.swift */; };
 		E552FBA72DBA23570072703F /* CalendarStripLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBA62DBA23570072703F /* CalendarStripLayoutManager.swift */; };
 		E552FBAD2DBB24730072703F /* CalendarStripLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E552FBAC2DBB24730072703F /* CalendarStripLayoutProvider.swift */; };
@@ -2432,7 +2432,7 @@
 		E551943C2D49C585007CEDBC /* TPSwitchTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSwitchTableCell.swift; sourceTree = "<group>"; };
 		E5526AC42DD0AC8E00B96A9D /* CalendarWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekView.swift; sourceTree = "<group>"; };
 		E5526AC62DD0ACB600B96A9D /* CalendarWeekDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekDaysView.swift; sourceTree = "<group>"; };
-		E5526AC82DD0E82E00B96A9D /* CalendarWeekSingleDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekSingleDayView.swift; sourceTree = "<group>"; };
+		E5526AC82DD0E82E00B96A9D /* CalendarDayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayInfoView.swift; sourceTree = "<group>"; };
 		E5526ACC2DD19CBB00B96A9D /* CalendarWeekTimelineEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekTimelineEventsView.swift; sourceTree = "<group>"; };
 		E552FBA62DBA23570072703F /* CalendarStripLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStripLayoutManager.swift; sourceTree = "<group>"; };
 		E552FBAC2DBB24730072703F /* CalendarStripLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStripLayoutProvider.swift; sourceTree = "<group>"; };
@@ -5415,8 +5415,8 @@
 			isa = PBXGroup;
 			children = (
 				E5526AC62DD0ACB600B96A9D /* CalendarWeekDaysView.swift */,
-				E5526AC82DD0E82E00B96A9D /* CalendarWeekSingleDayView.swift */,
 				E5E67DCE2DD243D00018A64D /* CalendarWeekDaysBackLayer.swift */,
+				E5526AC82DD0E82E00B96A9D /* CalendarDayInfoView.swift */,
 			);
 			path = WeekDays;
 			sourceTree = "<group>";
@@ -11082,7 +11082,7 @@
 				E529ACF62F7E4B94000EA2F1 /* CDTodoTag+Extensions.swift in Sources */,
 				E5BB9F492D3BF45F0089667A /* SideMenuType.swift in Sources */,
 				E5FC6BD12F66E35C00D5A5EA /* HabitStatsLogCell.swift in Sources */,
-				E5526AC92DD0E82E00B96A9D /* CalendarWeekSingleDayView.swift in Sources */,
+				E5526AC92DD0E82E00B96A9D /* CalendarDayInfoView.swift in Sources */,
 				E5BBA0EF2D3BF5BB0089667A /* TaskBindView.swift in Sources */,
 				E5BB9DF22D3BF0C60089667A /* Date+Extensions.swift in Sources */,
 				E5BB9E072D3BF0C70089667A /* Character+Emoji.swift in Sources */,

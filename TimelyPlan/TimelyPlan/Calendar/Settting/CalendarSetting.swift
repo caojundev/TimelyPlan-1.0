@@ -98,4 +98,9 @@ class CalendarSetting {
             self.weeksInMonth = weeksInMonth
         }
     }
+    
+    func getDefaultEventDuration() -> Int {
+        let minutes = defaultEventDuration
+        return clampedValue(minutes, 15, 180)
+    }
 }

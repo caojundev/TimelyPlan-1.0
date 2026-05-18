@@ -61,23 +61,36 @@ class ScheduleDragView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = bounds
+        updateHandleFrames()
+    }
+
     func setupView() {
         clipsToBounds = false
         contentView.layer.cornerRadius = 8
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.systemBlue.cgColor
-        contentView.backgroundColor = UIColor(red: 0.9, green: 0.95, blue: 1.0, alpha: 1.0) // 浅蓝色背景
+        contentView.backgroundColor = UIColor(red: 0.9,
+                                              green: 0.95,
+                                              blue: 1.0,
+                                              alpha: 0.8) // 浅蓝色背景
         addSubview(contentView)
         addSubview(topRightHandle)
         addSubview(bottomLeftHandle)
         updateHandleFrames()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = bounds
-        updateHandleFrames()
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        if isHidden {
+            return super.point(inside: point, with: event)
+        }
+        
+        let edgeInsets = UIEdgeInsets(horizontal: -10.0, vertical: -20.0)
+        let hitTestFrame = self.bounds.inset(by: edgeInsets)
+        return hitTestFrame.contains(point)
     }
     
     private func updateHandleFrames() {

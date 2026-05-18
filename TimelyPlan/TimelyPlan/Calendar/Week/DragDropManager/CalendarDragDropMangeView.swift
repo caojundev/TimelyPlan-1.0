@@ -13,9 +13,6 @@ class CalendarDragDropManageView: UIView,
                                   CalendarScrollSynchronizable,
                                   TPAutoScrollerDelegate {
     
-    // 点击取消
-    var didTapCancel: (() -> Void)?
-    
     // 属性
     var minHeight: CGFloat = 20
 
@@ -119,6 +116,17 @@ class CalendarDragDropManageView: UIView,
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, with: event)
+        if hitView == contentView {
+            let collectionView = pageView?.collectionView
+            let collectionPoint = convert(point, toViewOrWindow: collectionView)
+            return collectionView?.hitTest(collectionPoint, with: event)
+        }
+        
+        return hitView
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = bounds
@@ -140,7 +148,7 @@ class CalendarDragDropManageView: UIView,
     private func setupContentView() {
         backgroundColor = .clear
         contentView.scrollsToTop = false
-        contentView.showsVerticalScrollIndicator = true
+        contentView.showsVerticalScrollIndicator = false
         contentView.showsHorizontalScrollIndicator = false
         contentView.contentSize = CGSize(width: bounds.width,
                                          height: layout.contentHeight)
@@ -206,7 +214,7 @@ class CalendarDragDropManageView: UIView,
     }
     
     @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
-        self.didTapCancel?()
+        
     }
     
     private func panBegan(with touchPoint: CGPoint) {
