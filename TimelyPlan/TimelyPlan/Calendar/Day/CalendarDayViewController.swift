@@ -8,7 +8,7 @@
 import Foundation
 
 class CalendarDayViewController: CalendarBaseViewController,
-                                 CalendarDatePageViewDelegate,
+                                 CalendarPageViewDelegate,
                                  TPCalendarSingleDateSelectionDelegate,
                                  SettingAgentObserver {
 
@@ -34,8 +34,8 @@ class CalendarDayViewController: CalendarBaseViewController,
         return selection
     }()
 
-    private lazy var pageView: CalendarDayPagingView = {
-        let view = CalendarDayPagingView(frame: .zero)
+    private lazy var pageView: CalendarDayPageView = {
+        let view = CalendarDayPageView(frame: .zero, visibleDate: .now)
         view.delegate = self
         return view
     }()
@@ -140,15 +140,14 @@ class CalendarDayViewController: CalendarBaseViewController,
         updatePagingView(with: selectedDate)
     }
     
-    // MARK: - CalendarDayPagingViewDelegate
-    func calendarDayPagingViewWillEndDragging(_ pageView: CalendarDatePageView, withTargetDate targetDate: Date) {
-        if self.date.isInSameDayAs(targetDate) {
+    // MARK: - CalendarWeekPageViewDelegate
+    func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {
+        if self.date.isInSameDayAs(date) {
             return
         }
             
-        self.date = targetDate
-        updateTitle(with: targetDate)
-        updateWeekView(with: targetDate)
+        self.date = date
+        updateTitle(with: date)
+        updateWeekView(with: date)
     }
-
 }

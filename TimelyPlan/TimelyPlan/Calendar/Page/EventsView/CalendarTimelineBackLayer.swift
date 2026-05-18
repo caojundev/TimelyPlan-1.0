@@ -1,5 +1,5 @@
 //
-//  CalendarWeekTimelineBackLayer.swift
+//  CalendarTimelineBackLayer.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2025/5/12.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CalendarWeekTimelineBackLayer: CALayer {
+class CalendarTimelineBackLayer: CALayer {
     
     // 横线图层
     private let horizontalLinesLayer = CAShapeLayer()

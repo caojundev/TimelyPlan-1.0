@@ -59,10 +59,6 @@ class CalendarWeekPageView: CalendarPageView {
         return CalendarWeekPageTimelineCell.self
     }
     
-    override func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        super.adapter(adapter, didDequeCell: cell, at: indexPath)
-    }
-    
     // MARK: - Update
     private func updateWeekNumber() {
         guard let date = self.visibleDate else {

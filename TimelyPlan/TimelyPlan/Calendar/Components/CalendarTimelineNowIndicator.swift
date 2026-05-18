@@ -1,5 +1,5 @@
 //
-//  CalendarDayTimelineIndicatorView.swift
+//  CalendarTimelineNowIndicator.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2025/5/6.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CalendarDayTimelineIndicatorView: UIView {
+class CalendarTimelineNowIndicator: UIView {
     
     var title: String? {
         get {

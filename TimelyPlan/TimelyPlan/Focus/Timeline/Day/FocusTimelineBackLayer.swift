@@ -1,5 +1,5 @@
 //
-//  CalendarDayTimelineBackLayer.swift
+//  FocusTimelineBackLayer.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2025/5/6.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CalendarDayTimelineBackLayer: CAShapeLayer {
+class FocusTimelineBackLayer: CAShapeLayer {
     
     var hourHeight: CGFloat = 40 {
         didSet {

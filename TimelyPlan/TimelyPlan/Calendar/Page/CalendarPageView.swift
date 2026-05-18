@@ -23,7 +23,7 @@ class CalendarPageView: TPCollectionWrapperView,
     weak var delegate: CalendarPageViewDelegate?
     
     /// 每一页包含的天数
-    let pageDaysCount = DAYS_PER_WEEK
+    var pageDaysCount = DAYS_PER_WEEK
     
     /// 屏幕首选显示天数
     var displayDays: Int = 3 {
