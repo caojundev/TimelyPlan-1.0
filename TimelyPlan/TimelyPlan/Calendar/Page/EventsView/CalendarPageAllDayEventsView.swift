@@ -1,16 +1,16 @@
 //
-//  CalendarWeekAllDayEventsView.swift
+//  CalendarPageAllDayEventsView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2025/5/13.
+//  Created by caojun on 2026/5/18.
 //
 
 import Foundation
 import UIKit
 
-class CalendarWeekAllDayEventsView: UIView {
+class CalendarPageAllDayEventsView: UIView {
 
-    var weekStartDate: Date? {
+    var firstDate: Date? {
         get {
             return stripView.startDate
         }
@@ -30,21 +30,24 @@ class CalendarWeekAllDayEventsView: UIView {
         }
     }
     
-    private let stripView: CalendarStripView = {
-        let view = CalendarStripView()
+    private lazy var stripView: CalendarStripView = {
+        let mode: CalendarStripView.Mode = self.mode == .day ? .day : .week
+        let view = CalendarStripView(mode: mode)
         return view
     }()
     
     private let backLayer = CalendarWeekDaysBackLayer()
     
-    override init(frame: CGRect) {
+    let mode: CalendarPageMode
+    
+    init(frame: CGRect, mode: CalendarPageMode) {
+        self.mode = mode
         super.init(frame: frame)
         setupView()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupView()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupView() {

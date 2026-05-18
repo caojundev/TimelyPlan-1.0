@@ -7,6 +7,14 @@
 
 import Foundation
 
+
+struct CalendarConstant {
+    
+    static var allDayMaxStripLinesCount = 5
+
+}
+
+
 struct CalendarDayConstant {
     
     static var allDayMaxStripLinesCount = 5

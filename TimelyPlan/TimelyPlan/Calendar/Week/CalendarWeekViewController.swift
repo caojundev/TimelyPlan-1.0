@@ -8,13 +8,13 @@
 import Foundation
 
 class CalendarWeekViewController: CalendarBaseViewController,
-                                  CalendarWeekPageViewDelegate,
+                                  CalendarPageViewDelegate,
                                   SettingAgentObserver {
 
     /// 周视图
     private lazy var pageView: CalendarWeekPageView = {
         let view = CalendarWeekPageView(frame: .zero, visibleDate: .now)
-        view.daysInWeekView = CalendarSetting.shared.getDaysInWeek()
+        view.displayDays = CalendarSetting.shared.getDaysInWeek()
         view.firstWeekday = CalendarSetting.shared.firstWeekday
         view.showLunar = CalendarSetting.shared.showLunar
         view.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
@@ -54,7 +54,7 @@ class CalendarWeekViewController: CalendarBaseViewController,
             pageView.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
             pageView.reloadWeekDays()
         case .daysInWeek:
-            pageView.daysInWeekView = CalendarSetting.shared.getDaysInWeek()
+            pageView.displayDays = CalendarSetting.shared.getDaysInWeek()
         default:
             break
         }
@@ -98,7 +98,7 @@ class CalendarWeekViewController: CalendarBaseViewController,
     }
     
     // MARK: - CalendarWeekPageViewDelegate
-    func calendarWeekPageView(_ weekPageView: CalendarWeekPageView, didScrollTo date: Date) {
+    func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {
         updateTitle(with: date)
     }
 }

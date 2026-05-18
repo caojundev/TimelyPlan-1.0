@@ -1,5 +1,5 @@
 //
-//  CalendarDayInfoView.swift
+//  CalendarWeekDayInfoView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2025/5/11.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CalendarDayInfoView: UIView {
+class CalendarWeekDayInfoView: UIView {
 
     private let weekSymbolLabel: UILabel = {
         let label = UILabel()

@@ -1,5 +1,5 @@
 //
-//  CalendarWeekTimelineHoursView.swift
+//  CalendarPageTimelineHoursView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2025/5/13.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CalendarWeekTimelineHoursView: CalendarDayTimelineHoursView,
+class CalendarPageTimelineHoursView: CalendarDayTimelineHoursView,
                                      CalendarScrollSynchronizable {
 
     var allDayHeight: CGFloat = 0.0 {
@@ -47,7 +47,7 @@ class CalendarWeekTimelineHoursView: CalendarDayTimelineHoursView,
     // 右侧分割线
     private let rightDividerLayer = CALayer()
     
-    private let allDayView = CalendarWeekTimelineHoursAllDayView(frame: .zero)
+    private let allDayView = CalendarPageTimelineHoursAllDayView(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,8 +82,7 @@ class CalendarWeekTimelineHoursView: CalendarDayTimelineHoursView,
     }
 }
 
-
-class CalendarWeekTimelineHoursAllDayView: UIView {
+class CalendarPageTimelineHoursAllDayView: UIView {
     
     private let textLabelHeight = 20.0
     private let textLabel: UILabel = {

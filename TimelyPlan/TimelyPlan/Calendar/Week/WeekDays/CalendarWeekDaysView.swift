@@ -9,6 +9,8 @@ import UIKit
 
 class CalendarWeekDaysView: UIView {
     
+    static var defaultHeight = 80.0
+
     /// 周开始日
     var weekStartDate: Date?
     
@@ -41,7 +43,7 @@ class CalendarWeekDaysView: UIView {
         backgroundColor = .systemBackground
         layer.addSublayer(backLayer)
         for i in 0..<DAYS_PER_WEEK {
-            let dayView = CalendarDayInfoView()
+            let dayView = CalendarWeekDayInfoView()
             dayView.tag = i
             stackView.addArrangedSubview(dayView)
         }
@@ -59,8 +61,8 @@ class CalendarWeekDaysView: UIView {
         stackView.frame = bounds
     }
     
-    private var dayViews: [CalendarDayInfoView] {
-        return stackView.arrangedSubviews as! [CalendarDayInfoView]
+    private var dayViews: [CalendarWeekDayInfoView] {
+        return stackView.arrangedSubviews as! [CalendarWeekDayInfoView]
     }
     
     private func reset() {

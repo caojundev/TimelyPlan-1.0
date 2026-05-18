@@ -21,12 +21,12 @@ class CalendarDragDropManager {
     }
     
     /// 页面视图
-    private(set) weak var pageView: CalendarWeekPageView?
+    private(set) weak var pageView: CalendarPageView?
     
     /// 拖放容器视图
     private var manageView: CalendarDragDropManageView?
     
-    init(pageView: CalendarWeekPageView) {
+    init(pageView: CalendarPageView) {
         self.pageView = pageView
     }
     

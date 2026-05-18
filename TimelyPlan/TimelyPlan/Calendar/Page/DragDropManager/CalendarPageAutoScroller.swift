@@ -19,7 +19,7 @@ class CalendarPageAutoScroller {
     /// 触摸信息
     private(set) var touchInfo: (point: CGPoint, view: UIView)?
 
-    weak var pageView: CalendarWeekPageView?
+    weak var pageView: CalendarPageView?
 
     /// 计时器
     private var timer: Timer?

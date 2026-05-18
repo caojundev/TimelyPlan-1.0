@@ -1,5 +1,5 @@
 //
-//  CalendarWeekScrollSynchronizer.swift
+//  CalendarPageScrollSynchronizer.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2025/5/11.
@@ -20,7 +20,7 @@ protocol CalendarScrollSynchronizable {
     var contentOffset: CGPoint { get set}
 }
 
-class CalendarWeekScrollSynchronizer: NSObject, UIScrollViewDelegate {
+class CalendarPageScrollSynchronizer: NSObject, UIScrollViewDelegate {
     
     /// 全天高度
     var allDayHeight: CGFloat = 0.0 {
@@ -41,7 +41,7 @@ class CalendarWeekScrollSynchronizer: NSObject, UIScrollViewDelegate {
     /// 参考视图
     private let referenceView = UIView()
     
-    init(hoursView: CalendarWeekTimelineHoursView) {
+    init(hoursView: CalendarPageTimelineHoursView) {
         super.init()
         referenceView.isHidden = true
         hoursView.addSubview(referenceView)

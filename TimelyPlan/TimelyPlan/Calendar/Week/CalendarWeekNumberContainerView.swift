@@ -58,6 +58,7 @@ class CalendarWeekNumberContainerView: UIView {
         super.layoutSubviews()
         executeWithoutAnimation {
             self.backLayer.frame = bounds
+            self.backLayer.updateColors()
         }
         
         layoutWeekNumberView()

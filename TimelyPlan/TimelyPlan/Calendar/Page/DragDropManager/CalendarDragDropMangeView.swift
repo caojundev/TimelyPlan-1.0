@@ -68,7 +68,7 @@ class CalendarDragDropManageView: UIView,
     private var pageAutoScroller = CalendarPageAutoScroller()
     
     /// 页面视图
-    weak var pageView: CalendarWeekPageView? {
+    weak var pageView: CalendarPageView? {
         didSet {
             pageAutoScroller.pageView = pageView
             setNeedsLayout()
