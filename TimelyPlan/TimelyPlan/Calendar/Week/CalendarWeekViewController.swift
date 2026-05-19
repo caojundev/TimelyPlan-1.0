@@ -101,4 +101,8 @@ class CalendarWeekViewController: CalendarBaseViewController,
     func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {
         updateTitle(with: date)
     }
+    
+    func calendarPageViewWillEndDragging(_ pageView: CalendarPageView, withTargetDate date: Date) {
+        updateTitle(with: date)
+    }
 }

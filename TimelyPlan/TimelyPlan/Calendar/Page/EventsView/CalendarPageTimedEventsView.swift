@@ -39,9 +39,8 @@ class CalendarPageTimedEventsView: UIView,
     private(set) var dayViews: [CalendarDayTimedEventsView]!
 
     /// 时间线背景图层
-    private let backgroundLayer: CalendarTimelineBackLayer = {
-        let backlayer = CalendarTimelineBackLayer()
-        backlayer.columnsCount = DAYS_PER_WEEK
+    private lazy var backgroundLayer: CalendarTimelineBackLayer = {
+        let backlayer = CalendarTimelineBackLayer(mode: mode)
         return backlayer
     }()
     
@@ -105,9 +104,7 @@ class CalendarPageTimedEventsView: UIView,
                                    height: dayHeight)
         }
         
-        backgroundLayer.topPadding = layout.topMargin
-        backgroundLayer.bottomPadding = layout.bottomMargin
-        backgroundLayer.hourHeight = layout.hourHeight
+        backgroundLayer.layout = layout
         backgroundLayer.updateColors()
     
         executeWithoutAnimation {

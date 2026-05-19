@@ -137,7 +137,7 @@ class CalendarDragDropManageView: UIView,
     }
     
     private func setupAutoScroller() {
-        pageAutoScroller.interval = 0.25
+        pageAutoScroller.interval = 0.4
         pageAutoScroller.autoScrollDetectionLength = 40.0
         
         contentAutoScroller.scrollView = contentView
@@ -178,7 +178,6 @@ class CalendarDragDropManageView: UIView,
 
         let column = snappedColumn(of: scheduleView.center)
         self.dayDate = pageView.date(of: column)
-        print(self.dayDate.yearMonthDayString(omitYear: true))
     }
     
     /// 更新日期范围

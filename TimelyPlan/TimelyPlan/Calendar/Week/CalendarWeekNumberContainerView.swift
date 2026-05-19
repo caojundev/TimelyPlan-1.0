@@ -28,20 +28,15 @@ class CalendarWeekNumberContainerView: UIView {
     private let weekNumberHeight = 20.0
     private var weekNumberView: CalendarWeekNumberView?
     
+    var layoutStyle: TPGridsLayoutStyle {
+        didSet {
+            backLayer.layoutStyle = layoutStyle
+        }
+    }
+    
     private let backLayer = TPGridsLayer()
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupSubviews()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSubviews()
-    }
-    
-    private func setupSubviews() {
-        backgroundColor = .systemBackground
         var layoutStyle = TPGridsLayoutStyle()
         layoutStyle.rowsCount = 1
         layoutStyle.columsCount = 1
@@ -49,6 +44,17 @@ class CalendarWeekNumberContainerView: UIView {
         layoutStyle.fromRow = 1
         layoutStyle.fromColum = 1
         layoutStyle.lineColor = CalendarWeekConstant.separatorColor
+        self.layoutStyle = layoutStyle
+        super.init(frame: frame)
+        setupSubviews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupSubviews() {
+        backgroundColor = .systemBackground
         backLayer.layoutStyle = layoutStyle
         layer.addSublayer(backLayer)
         setupWeekNumberView()

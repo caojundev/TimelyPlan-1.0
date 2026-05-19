@@ -16,6 +16,7 @@ class CalendarDayViewController: CalendarBaseViewController,
     
     /// 周视图
     private let weekViewHeight = 80.0
+    
     private lazy var weekView: CalendarDayWeekView = {
         let view = CalendarDayWeekView()
         view.firstWeekday = CalendarSetting.shared.firstWeekday
@@ -142,6 +143,14 @@ class CalendarDayViewController: CalendarBaseViewController,
     
     // MARK: - CalendarWeekPageViewDelegate
     func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {
+        calendarPageDateChanged(date)
+    }
+    
+    func calendarPageViewWillEndDragging(_ pageView: CalendarPageView, withTargetDate date: Date) {
+        calendarPageDateChanged(date)
+    }
+    
+    private func calendarPageDateChanged(_ date: Date) {
         if self.date.isInSameDayAs(date) {
             return
         }

@@ -59,13 +59,23 @@ class CalendarWeekPageView: CalendarPageView {
         return CalendarWeekPageTimelineCell.self
     }
     
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        super.scrollViewDidEndDecelerating(scrollView)
+        updateWeekNumber()
+    }
+    
+    override func willEndDragging(withTargetDate date: Date) {
+        updateWeekNumber(with: date)
+    }
+    
     // MARK: - Update
-    private func updateWeekNumber() {
-        guard let date = self.visibleDate else {
+    private func updateWeekNumber(with date: Date? = nil) {
+        let weekDate = date ?? visibleDate
+        guard let weekDate = weekDate else {
             return
         }
         
-        weekNumberView.weekNumber = Calendar.weekNumber(for: date, firstWeekday: firstWeekday)
+        weekNumberView.weekNumber = Calendar.weekNumber(for: weekDate, firstWeekday: firstWeekday)
     }
     
     // MARK: - Public Methods

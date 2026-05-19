@@ -12,6 +12,8 @@ protocol CalendarPageViewDelegate: AnyObject {
     
     /// 滚动到特定日期
     func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date)
+    
+    func calendarPageViewWillEndDragging(_ pageView: CalendarPageView, withTargetDate date: Date)
 }
 
 class CalendarPageView: TPCollectionWrapperView,
@@ -139,6 +141,10 @@ class CalendarPageView: TPCollectionWrapperView,
         return true
     }
     
+    func willEndDragging(withTargetDate date: Date) {
+        
+    }
+    
     // MARK: - 更新
     private func updateAllDay(with contentOffset: CGPoint) {
         updateAllDayVisibleOffset(with: contentOffset)
@@ -217,13 +223,13 @@ class CalendarPageView: TPCollectionWrapperView,
     }
     
     func goPreviousDay() {
-        visibleDate = visibleDate.dateByAddingDays(-1)
-        updateContentOffset(animated: true)
+        let toDate = visibleDate.dateByAddingDays(-1)!
+        goToDate(date: toDate)
     }
     
     func goNextDay() {
-        visibleDate = visibleDate.dateByAddingDays(1)
-        updateContentOffset(animated: true)
+        let toDate = visibleDate.dateByAddingDays(1)!
+        goToDate(date: toDate)
     }
     
     /// 日期相对当前显示首日的列索引
@@ -313,9 +319,22 @@ class CalendarPageView: TPCollectionWrapperView,
     // MARK: - UIScrollViewDelegate
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let dayWidth = dayWidth
-        let offsetX = targetContentOffset.pointee.x
-        let targetX = round(offsetX / dayWidth) * dayWidth
+        let targetOffsetX = targetContentOffset.pointee.x
+        var targetPage = round(targetOffsetX / dayWidth)
+        if abs(velocity.x) < 1.0 {
+            let velocityThreshold: CGFloat = 0.5
+            if velocity.x > velocityThreshold {
+                targetPage += 1
+            } else if velocity.x < -velocityThreshold {
+                targetPage -= 1
+            }
+        }
+
+        let targetX = targetPage * dayWidth
         targetContentOffset.pointee.x = targetX
+        let targetDate = date(at: targetX)
+        willEndDragging(withTargetDate: targetDate)
+        delegate?.calendarPageViewWillEndDragging(self, withTargetDate: targetDate)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -343,6 +362,39 @@ class CalendarPageView: TPCollectionWrapperView,
     }
     
     // MARK: -  Helpers
+    /// 页面是否在移动中
+    var isMoving: Bool {
+        let offset = collectionView.contentOffset
+        let dayWidth = dayWidth
+        guard dayWidth > 0 else {
+            return false
+        }
+
+        let remainder = offset.x.truncatingRemainder(dividingBy: dayWidth)
+        return abs(remainder) > 1e-10
+    }
+    
+    /// 日最小宽度
+    private let minimumDayWidth = 40.0
+    
+    /// 每日宽度
+    var dayWidth: CGFloat {
+        let collectionSize = adapter.collectionViewSize()
+        let width = ceil(collectionSize.width / CGFloat(displayDays))
+        return max(minimumDayWidth, width)
+    }
+    
+    /// 手动跳转特定日期
+    private func goToDate(date: Date) {
+        visibleDate = date
+        if shouldPerformUpdate() {
+            adapter.performUpdate(updateVisibleItems: false)
+        }
+        
+        updateContentOffset(animated: true)
+        delegate?.calendarPageView(self, didScrollTo: date)
+    }
+    
     /// 获取指定日期对应的水平偏移
     private func offsetX(for date: Date) -> CGFloat {
         let days = Date.days(fromDate: firstPageStartDate, toDate: date)
@@ -372,28 +424,6 @@ class CalendarPageView: TPCollectionWrapperView,
     private var firstPageStartDate: Date {
          let startDate = adapter.allItems().first as? Date
          return startDate!
-    }
-    
-    /// 页面是否在移动中
-    var isMoving: Bool {
-        let offset = collectionView.contentOffset
-        let dayWidth = dayWidth
-        guard dayWidth > 0 else {
-            return false
-        }
-
-        let remainder = offset.x.truncatingRemainder(dividingBy: dayWidth)
-        return abs(remainder) > 1e-10
-    }
-    
-    /// 日最小宽度
-    private let minimumDayWidth = 40.0
-    
-    /// 每日宽度
-    var dayWidth: CGFloat {
-        let collectionSize = adapter.collectionViewSize()
-        let width = ceil(collectionSize.width / CGFloat(displayDays))
-        return max(minimumDayWidth, width)
     }
     
     /// 页面单元格尺寸

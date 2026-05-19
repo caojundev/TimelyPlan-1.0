@@ -252,6 +252,10 @@ class TPCollectionViewAdapter: NSObject,
         delegate?.scrollViewDidScroll?(scrollView)
     }
 
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        delegate?.scrollViewDidEndScrollingAnimation?(scrollView)
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         delegate?.scrollViewDidEndDecelerating?(scrollView)
     }

@@ -10,11 +10,13 @@ import UIKit
 
 class CalendarDayWeekView: UIView {
     
-    var showWeekNumber: Bool = true {
-        didSet {
-            if showWeekNumber != oldValue {
-                setupWeekNumberView()
-            }
+    var showWeekNumber: Bool {
+        get {
+            return weekNumberView.showWeekNumber
+        }
+        
+        set {
+            weekNumberView.showWeekNumber = newValue
         }
     }
     
@@ -42,9 +44,9 @@ class CalendarDayWeekView: UIView {
         }
     }
     
-    private let weekNumberSize = CGSize.size(8)
-    private let weekNumberHeight = 20.0
-    private var weekNumberView: CalendarWeekNumberView?
+    let weekNumberViewWidth = 50.0
+    
+    private var weekNumberView = CalendarWeekNumberContainerView()
     
     private lazy var weekView: TPCalendarScrollableWeekView = {
         let view = TPCalendarScrollableWeekView(frame: .zero)
@@ -61,7 +63,11 @@ class CalendarDayWeekView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(weekView)
-        setupWeekNumberView()
+        var layoutStyle = weekNumberView.layoutStyle
+        layoutStyle.rowsCount = 0
+        weekNumberView.layoutStyle = layoutStyle
+        addSubview(weekNumberView)
+        addSeparator(position: .bottom)
     }
     
     required init?(coder: NSCoder) {
@@ -70,46 +76,18 @@ class CalendarDayWeekView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layoutWeekNumberView()
         
-        if let weekNumberView = weekNumberView {
-            weekView.width = width - weekNumberView.width
-            weekView.height = height
-            weekView.left = weekNumberView.right
-        } else {
-            weekView.frame = bounds
-        }
-    }
-    
-    private func layoutWeekNumberView() {
-        if let weekNumberView = weekNumberView {
-            let paddingVertical = (height - weekNumberSize.height) / 2.0
-            let padding = UIEdgeInsets(vertical: paddingVertical)
-            weekNumberView.padding = padding
-            weekNumberView.separatorEdgeInset = padding
-            weekNumberView.frame = CGRect(x: 0.0, y: 0.0, width: weekNumberSize.width, height: height)
-        }
-    }
-    
-    private func setupWeekNumberView() {
-        guard showWeekNumber else {
-            weekNumberView?.removeFromSuperview()
-            weekNumberView = nil
-            return
-        }
+        weekNumberView.width = weekNumberViewWidth
+        weekNumberView.height = height
+        weekNumberView.origin = .zero
         
-        let weekNumberView = CalendarWeekNumberView()
-        weekNumberView.numberHeight = weekNumberHeight
-        weekNumberView.addSeparator(position: .right)
-        self.weekNumberView = weekNumberView
-        updateWeekNumber()
-        addSubview(weekNumberView)
-        setNeedsLayout()
+        weekView.width = width - weekNumberViewWidth
+        weekView.height = height
+        weekView.left = weekNumberView.right
     }
     
     private func updateWeekNumber() {
-        guard let weekNumberView = weekNumberView,
-                let date = Date.dateFromComponents(weekView.visibleDateComponents) else {
+        guard let date = Date.dateFromComponents(weekView.visibleDateComponents) else {
             return
         }
 
