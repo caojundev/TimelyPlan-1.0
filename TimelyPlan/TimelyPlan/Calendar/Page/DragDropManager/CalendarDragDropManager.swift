@@ -49,6 +49,7 @@ class CalendarDragDropManager {
     }
     
     func dismiss() {
+        pageView?.synchronizer.removeSynchronizableView(manageView)
         pageView?.clearHighlight()
         manageView?.removeFromSuperview()
         manageView = nil

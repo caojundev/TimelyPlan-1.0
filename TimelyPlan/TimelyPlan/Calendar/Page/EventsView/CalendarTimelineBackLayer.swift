@@ -58,8 +58,6 @@ class CalendarTimelineBackLayer: CALayer {
     }()
 
     private var columnsCount: Int
-    
-    private let horizontalEdgeMargin: CGFloat
 
     let mode: CalendarPageMode
     
@@ -68,10 +66,8 @@ class CalendarTimelineBackLayer: CALayer {
         switch mode {
         case .day:
             self.columnsCount = 1
-            self.horizontalEdgeMargin = 5.0
         case .week:
             self.columnsCount = DAYS_PER_WEEK
-            self.horizontalEdgeMargin = 0.0
         }
         
         super.init()
@@ -81,7 +77,6 @@ class CalendarTimelineBackLayer: CALayer {
     override init(layer: Any) {
         self.mode = .day
         self.columnsCount = 1
-        self.horizontalEdgeMargin = 5.0
         super.init(layer: layer)
         self.setupLayers()
     }
@@ -149,8 +144,8 @@ class CalendarTimelineBackLayer: CALayer {
         let path = UIBezierPath()
         for hour in 0...24 {
             let yPosition = layout.topMargin + layout.hourHeight * CGFloat(hour)
-            path.move(to: CGPoint(x: horizontalEdgeMargin, y: yPosition))
-            path.addLine(to: CGPoint(x: bounds.width - 2 * horizontalEdgeMargin, y: yPosition))
+            path.move(to: CGPoint(x: 0.0, y: yPosition))
+            path.addLine(to: CGPoint(x: bounds.width, y: yPosition))
         }
         
         return path.cgPath
@@ -166,7 +161,7 @@ class CalendarTimelineBackLayer: CALayer {
         for i in 0...columnsCount {
             let x = CGFloat(i) * columnWidth
             path.move(to: CGPoint(x: x, y: 0.0))
-            let y = layout.topMargin + layout.hourHeight * CGFloat(HOURS_PER_DAY)
+            let y = bounds.height
             path.addLine(to: CGPoint(x: x, y: y))
         }
         return path.cgPath

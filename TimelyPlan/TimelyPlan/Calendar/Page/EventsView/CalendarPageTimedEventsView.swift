@@ -60,6 +60,7 @@ class CalendarPageTimedEventsView: UIView,
     }
     
     private func setupContentView() {
+        contentView.contentInsetAdjustmentBehavior = .never
         contentView.scrollsToTop = false
         contentView.showsVerticalScrollIndicator = false
         addSubview(contentView)

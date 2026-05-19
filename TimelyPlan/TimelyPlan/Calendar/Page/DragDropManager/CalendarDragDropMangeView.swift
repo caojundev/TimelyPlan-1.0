@@ -121,29 +121,18 @@ class CalendarDragDropManageView: UIView,
         setupAutoScroller()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let hitView = super.hitTest(point, with: event)
-        if hitView == contentView {
-            let collectionView = pageView?.collectionView
-            let collectionPoint = convert(point, toViewOrWindow: collectionView)
-            return collectionView?.hitTest(collectionPoint, with: event)
-        }
-        
-        return hitView
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = bounds
+    private func setupContentView() {
+        backgroundColor = .clear
+        contentView.contentInsetAdjustmentBehavior = .never
+        contentView.scrollsToTop = false
+        contentView.showsVerticalScrollIndicator = false
+        contentView.showsHorizontalScrollIndicator = false
         contentView.contentSize = CGSize(width: bounds.width,
                                          height: layout.contentHeight)
-        updateMaskLayer()
-        updateScheduleViewFrame()
-        highlightDateRange()
+        addSubview(contentView)
+        
+        /// 添加计划视图
+        contentView.addSubview(scheduleView)
     }
     
     private func setupAutoScroller() {
@@ -155,17 +144,30 @@ class CalendarDragDropManageView: UIView,
         contentAutoScroller.delegate = self
     }
     
-    private func setupContentView() {
-        backgroundColor = .clear
-        contentView.scrollsToTop = false
-        contentView.showsVerticalScrollIndicator = false
-        contentView.showsHorizontalScrollIndicator = false
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = bounds
         contentView.contentSize = CGSize(width: bounds.width,
                                          height: layout.contentHeight)
-        addSubview(contentView)
+        updateMaskLayer()
+        updateScheduleViewFrame()
+        highlightDateRange()
+    }
+
+    // MARK: - 响应者链
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, with: event)
+        if hitView == contentView {
+            let collectionView = pageView?.collectionView
+            let collectionPoint = convert(point, toViewOrWindow: collectionView)
+            return collectionView?.hitTest(collectionPoint, with: event)
+        }
         
-        /// 添加计划视图
-        contentView.addSubview(scheduleView)
+        return hitView
     }
     
     // MARK: - Update

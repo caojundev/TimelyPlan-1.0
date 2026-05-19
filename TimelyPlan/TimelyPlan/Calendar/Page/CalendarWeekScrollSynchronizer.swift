@@ -66,6 +66,17 @@ class CalendarPageScrollSynchronizer: NSObject, UIScrollViewDelegate {
         }
     }
     
+    func removeSynchronizableView(_ view: CalendarScrollSynchronizable?) {
+        guard var view = view else {
+            return
+        }
+
+        view.scrollViewDelegate = nil
+        if let aView = view as? UIView {
+            synchronizableViews.remove(aView)
+        }
+    }
+    
     private func synchronize() {
         for view in synchronizableViews.allObjects {
             if var synchronizableView = view as? CalendarScrollSynchronizable {

@@ -47,6 +47,7 @@ class CalendarDayTimelineHoursView: UIView {
     
     func setupContentView() {
         backgroundColor = .systemBackground
+        contentView.contentInsetAdjustmentBehavior = .never
         contentView.scrollsToTop = false
         contentView.showsVerticalScrollIndicator = false
         contentView.showsHorizontalScrollIndicator = false
