@@ -186,7 +186,6 @@ class CalendarPageView: TPCollectionWrapperView,
         collectionView.setContentOffset(offset, animated: animated)
         collectionView.layoutIfNeeded()
         updateAllDayHeight(with: offset)
-        updateAllDayVisibleOffset(with: offset)
     }
     
     private func performUpdate() {
@@ -322,14 +321,14 @@ class CalendarPageView: TPCollectionWrapperView,
         let targetOffsetX = targetContentOffset.pointee.x
         var targetPage = round(targetOffsetX / dayWidth)
         if abs(velocity.x) < 1.0 {
-            let velocityThreshold: CGFloat = 0.5
+            let velocityThreshold: CGFloat = 0.2
             if velocity.x > velocityThreshold {
                 targetPage += 1
             } else if velocity.x < -velocityThreshold {
                 targetPage -= 1
             }
         }
-
+        
         let targetX = targetPage * dayWidth
         targetContentOffset.pointee.x = targetX
         let targetDate = date(at: targetX)

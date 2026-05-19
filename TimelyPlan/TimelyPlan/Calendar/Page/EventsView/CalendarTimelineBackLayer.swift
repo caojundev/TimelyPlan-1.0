@@ -18,14 +18,22 @@ class CalendarTimelineBackLayer: CALayer {
     // 左侧分割线
     private var leftDividerLayer: CALayer?
     
-    var layout = CalendarAxisLayout() {
+    var showHorizontalLines: Bool = true {
         didSet {
             updatePaths()
         }
     }
     
+    var layout = CalendarAxisLayout() {
+        didSet {
+            leftDividerBottomMargin = layout.bottomMargin
+            updatePaths()
+            setNeedsLayout()
+        }
+    }
+    
     // 横线颜色
-    var horizontalLineColor: UIColor = CalendarWeekConstant.separatorColor {
+    var horizontalLineColor: UIColor = CalendarConstant.separatorColor {
         didSet {
             horizontalLinesLayer.strokeColor = horizontalLineColor.cgColor
         }
@@ -44,6 +52,10 @@ class CalendarTimelineBackLayer: CALayer {
             leftDividerLayer?.backgroundColor = leftDividerColor.cgColor
         }
     }
+
+    lazy var leftDividerBottomMargin: CGFloat = {
+        return layout.bottomMargin
+    }()
 
     private var columnsCount: Int
     
@@ -101,15 +113,19 @@ class CalendarTimelineBackLayer: CALayer {
         super.layoutSublayers()
         updateColors()
         updatePaths()
+        
         // 设置左侧分割线的frame
+        
         if let leftDividerLayer = leftDividerLayer {
-            leftDividerLayer.frame = CGRect(x: 0,
-                                            y: 0,
-                                            width: 1.2,
-                                            height: bounds.height - layout.bottomMargin)
+            let leftDividerFrame = CGRect(x: 0,
+                                          y: 0,
+                                          width: 1.2,
+                                          height: bounds.height - leftDividerBottomMargin)
+            executeWithoutAnimation {
+                leftDividerLayer.frame = leftDividerFrame
+            }
         }
     }
-    
     
     func updateColors() {
         horizontalLinesLayer.strokeColor = horizontalLineColor.cgColor
@@ -118,7 +134,12 @@ class CalendarTimelineBackLayer: CALayer {
     }
     
     private func updatePaths() {
-        horizontalLinesLayer.path = createHorizontalLinesPath()
+        if showHorizontalLines {
+            horizontalLinesLayer.path = createHorizontalLinesPath()
+        } else {
+            horizontalLinesLayer.path = nil
+        }
+        
         if let verticalLinesLayer = verticalLinesLayer {
             verticalLinesLayer.path = createVerticalLinesPath()
         }

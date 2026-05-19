@@ -40,8 +40,8 @@ class CalendarPageTimedEventsView: UIView,
 
     /// 时间线背景图层
     private lazy var backgroundLayer: CalendarTimelineBackLayer = {
-        let backlayer = CalendarTimelineBackLayer(mode: mode)
-        return backlayer
+        let layer = CalendarTimelineBackLayer(mode: mode)
+        return layer
     }()
     
     private let contentView = UIScrollView()

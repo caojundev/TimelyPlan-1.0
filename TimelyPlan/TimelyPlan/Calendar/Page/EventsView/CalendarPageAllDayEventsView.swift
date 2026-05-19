@@ -36,7 +36,13 @@ class CalendarPageAllDayEventsView: UIView {
         return view
     }()
     
-    private let backLayer = CalendarWeekDaysBackLayer()
+    /// 时间线背景图层
+    private lazy var backgroundLayer: CalendarTimelineBackLayer = {
+        let layer = CalendarTimelineBackLayer(mode: mode)
+        layer.showHorizontalLines = false
+        layer.leftDividerBottomMargin = 0.0
+        return layer
+    }()
     
     let mode: CalendarPageMode
     
@@ -53,7 +59,7 @@ class CalendarPageAllDayEventsView: UIView {
     private func setupView() {
         backgroundColor = .systemGray5
         clipsToBounds = true
-        layer.addSublayer(backLayer)
+        layer.addSublayer(backgroundLayer)
         addSubview(stripView)
         reloadData()
     }
@@ -61,11 +67,11 @@ class CalendarPageAllDayEventsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         stripView.width = width
-        stripView.height = stripView.heightThatFits(CalendarWeekConstant.allDayMaxStripLinesCount)
+        stripView.height = stripView.heightThatFits(CalendarConstant.allDayMaxStripLinesCount)
         stripView.origin = .zero
         executeWithoutAnimation {
-            self.backLayer.frame = bounds
-            self.backLayer.updateColors()
+            self.backgroundLayer.frame = bounds
+            self.backgroundLayer.updateColors()
         }
     }
     

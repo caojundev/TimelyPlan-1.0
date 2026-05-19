@@ -27,7 +27,13 @@ class CalendarWeekDaysView: UIView {
         return stackView
     }()
     
-    private let backLayer = CalendarWeekDaysBackLayer()
+    /// 时间线背景图层
+    private lazy var backgroundLayer: CalendarTimelineBackLayer = {
+        let layer = CalendarTimelineBackLayer(mode: .week)
+        layer.showHorizontalLines = false
+        layer.leftDividerBottomMargin = 0.0
+        return layer
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,7 +47,7 @@ class CalendarWeekDaysView: UIView {
     
     private func setupView() {
         backgroundColor = .systemBackground
-        layer.addSublayer(backLayer)
+        layer.addSublayer(backgroundLayer)
         for i in 0..<DAYS_PER_WEEK {
             let dayView = CalendarWeekDayInfoView()
             dayView.tag = i
@@ -54,8 +60,8 @@ class CalendarWeekDaysView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         executeWithoutAnimation {
-            self.backLayer.frame = bounds
-            self.backLayer.updateColors()
+            self.backgroundLayer.frame = bounds
+            self.backgroundLayer.updateColors()
         }
 
         stackView.frame = bounds

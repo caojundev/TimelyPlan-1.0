@@ -31,7 +31,7 @@ class CalendarPageTimelineHoursView: CalendarDayTimelineHoursView,
     }
     
     // 右侧分割线颜色
-    var rightDividerColor: UIColor = CalendarWeekConstant.separatorColor {
+    var rightDividerColor: UIColor = CalendarConstant.separatorColor {
         didSet {
             rightDividerLayer.backgroundColor = rightDividerColor.cgColor
         }
@@ -105,7 +105,7 @@ class CalendarPageTimelineHoursAllDayView: UIView {
         style.fromRow = 1
         style.toRow = 1
         style.lineWidth = 0.4
-        style.lineColor = CalendarWeekConstant.separatorColor
+        style.lineColor = CalendarConstant.separatorColor
         let backLayer = TPGridsLayer()
         backLayer.layoutStyle = style
         return backLayer

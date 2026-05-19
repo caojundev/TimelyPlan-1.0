@@ -43,7 +43,7 @@ class CalendarWeekNumberContainerView: UIView {
         layoutStyle.lineWidth = 0.5
         layoutStyle.fromRow = 1
         layoutStyle.fromColum = 1
-        layoutStyle.lineColor = CalendarWeekConstant.separatorColor
+        layoutStyle.lineColor = CalendarConstant.separatorColor
         self.layoutStyle = layoutStyle
         super.init(frame: frame)
         setupSubviews()

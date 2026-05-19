@@ -157,7 +157,7 @@ class CalendarStripView: UIView {
     }
     
     func maxRow(in dateRange: (firstDate: Date, lastDate: Date)) -> Int {
-        guard let startDate = startDate, let layout = layout else {
+        guard let startDate = startDate else {
             return -1
         }
 
@@ -172,12 +172,12 @@ class CalendarStripView: UIView {
         /// 取不到 end 值
         var result = -1
         for column in startColumn..<endColumn {
-            let maxRow = layout.maxRow(at: column)
+            let maxRow = maxRow(at: column)
             if maxRow > result {
                 result = maxRow
             }
         }
-        
+    
         return result
     }
     
@@ -185,5 +185,33 @@ class CalendarStripView: UIView {
         for eventView in eventViews {
             eventView.contentOffset = CGPoint(x: offset.x - eventView.frame.origin.x, y: 0.0)
         }
+    }
+    
+    // MARK: - Helpers
+    /// 获取特定列对应的最大行索引，如果列没有事件则返回 -1
+    private func maxRow(at column: Int) -> Int {
+        guard column >= 0, column < days else {
+            return -1
+        }
+        
+        for moreTextLayer in moreTextLayers {
+            if moreTextLayer.column == column {
+                return layoutManager.linesCount - 1
+            }
+        }
+        
+        var maxRow = -1
+        for eventView in eventViews {
+            let path = eventView.path
+            guard path.position.column <= column, path.position.end >= column else {
+                continue
+            }
+            
+            if path.row > maxRow {
+                maxRow = path.row
+            }
+        }
+    
+        return maxRow
     }
 }

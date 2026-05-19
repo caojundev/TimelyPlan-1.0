@@ -21,6 +21,7 @@ class CalendarDragDropManageView: UIView,
         didSet {
             if allDayHeight != oldValue {
                 contentView.contentInset = UIEdgeInsets(bottom: allDayHeight)
+                updateMaskLayer()
             }
         }
     }
@@ -75,6 +76,13 @@ class CalendarDragDropManageView: UIView,
         }
     }
     
+    /// 遮罩图层
+    lazy var maskLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.fillColor = UIColor.black.cgColor
+        return layer
+    }()
+    
     // 作用事项
     private var event: CalendarEvent?
     
@@ -107,6 +115,7 @@ class CalendarDragDropManageView: UIView,
     }
 
     private func commonInit() {
+        self.layer.mask = maskLayer
         setupContentView()
         setupGesture()
         setupAutoScroller()
@@ -132,6 +141,7 @@ class CalendarDragDropManageView: UIView,
         contentView.frame = bounds
         contentView.contentSize = CGSize(width: bounds.width,
                                          height: layout.contentHeight)
+        updateMaskLayer()
         updateScheduleViewFrame()
         highlightDateRange()
     }
@@ -159,6 +169,15 @@ class CalendarDragDropManageView: UIView,
     }
     
     // MARK: - Update
+    private func updateMaskLayer() {
+        let frame = CGRect(x: 0.0,
+                           y: allDayHeight,
+                           width: bounds.width,
+                           height: bounds.height - allDayHeight)
+        let path = UIBezierPath(rect: frame)
+        self.maskLayer.path = path.cgPath
+    }
+    
     private func updateScheduleViewFrame() {
         guard let pageView = pageView else {
             return

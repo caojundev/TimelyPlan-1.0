@@ -8,16 +8,20 @@
 import Foundation
 
 /// 事件位置信息
-struct CalendarEventPosition {
+struct CalendarEventPosition: Equatable {
     
     /// 事件在周视图中的列（从0开始）
     let column: Int
     
     /// 事件跨越的长度
     let length: Int
+    
+    var end: Int {
+        return column + length
+    }
 }
 
-struct CalendarEventPath {
+struct CalendarEventPath: Equatable {
     
     /// 事件在周视图中的行（从0开始）
     let row: Int
@@ -80,18 +84,6 @@ struct CalendarEventLayout {
         
         return columnPathInfos[column].count
     }
-    
-    /// 获取特定列对应的最大行索引，如果列没有事件则返回 -1
-    func maxRow(at column: Int) -> Int {
-        guard column >= 0, column < days else {
-            return -1
-        }
-        
-        let pathInfos = columnPathInfos[column]
-        let maxRow = pathInfos.map { $0.path.row }.max()
-        return maxRow ?? -1
-    }
-    
 }
 
 class CalendarStripLayoutProvider {

@@ -1781,7 +1781,6 @@
 		E5E4D1512D93033800813B6C /* todo_filter_date_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4D14F2D93033800813B6C /* todo_filter_date_36@2x.png */; };
 		E5E4D1522D93033800813B6C /* todo_filter_date_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4D1502D93033800813B6C /* todo_filter_date_36@3x.png */; };
 		E5E67DCD2DD23B950018A64D /* CalendarTimelineBackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E67DCC2DD23B950018A64D /* CalendarTimelineBackLayer.swift */; };
-		E5E67DCF2DD243D00018A64D /* CalendarWeekDaysBackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E67DCE2DD243D00018A64D /* CalendarWeekDaysBackLayer.swift */; };
 		E5E8C9EB2F701ED1006728C5 /* FocusTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E8C9EA2F701ED1006728C5 /* FocusTimer.swift */; };
 		E5E8C9EE2F702163006728C5 /* CDFocusTimer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E8C9ED2F702163006728C5 /* CDFocusTimer+Extensions.swift */; };
 		E5EAD1E62D5C477B00894A92 /* TPAccessoryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EAD1E52D5C477B00894A92 /* TPAccessoryTitleView.swift */; };
@@ -3667,7 +3666,6 @@
 		E5E4D14F2D93033800813B6C /* todo_filter_date_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_date_36@2x.png"; sourceTree = "<group>"; };
 		E5E4D1502D93033800813B6C /* todo_filter_date_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_date_36@3x.png"; sourceTree = "<group>"; };
 		E5E67DCC2DD23B950018A64D /* CalendarTimelineBackLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineBackLayer.swift; sourceTree = "<group>"; };
-		E5E67DCE2DD243D00018A64D /* CalendarWeekDaysBackLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekDaysBackLayer.swift; sourceTree = "<group>"; };
 		E5E8C9EA2F701ED1006728C5 /* FocusTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimer.swift; sourceTree = "<group>"; };
 		E5E8C9ED2F702163006728C5 /* CDFocusTimer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDFocusTimer+Extensions.swift"; sourceTree = "<group>"; };
 		E5EAD1E52D5C477B00894A92 /* TPAccessoryTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAccessoryTitleView.swift; sourceTree = "<group>"; };
@@ -5384,7 +5382,6 @@
 			isa = PBXGroup;
 			children = (
 				E5526AC62DD0ACB600B96A9D /* CalendarWeekDaysView.swift */,
-				E5E67DCE2DD243D00018A64D /* CalendarWeekDaysBackLayer.swift */,
 				E5526AC82DD0E82E00B96A9D /* CalendarWeekDayInfoView.swift */,
 			);
 			path = WeekDays;
@@ -11699,7 +11696,6 @@
 				E5BB9E1E2D3BF0C70089667A /* NSManagedObject+Fetch.swift in Sources */,
 				E529ACC62F7E0100000EA2F1 /* TodoSmartListSectionController.swift in Sources */,
 				E53F328C2F68D6D200B85B65 /* HabitReportContentViewController.swift in Sources */,
-				E5E67DCF2DD243D00018A64D /* CalendarWeekDaysBackLayer.swift in Sources */,
 				E57CC5AA2F7F5A5300ADDBA4 /* TodoListInteractor.swift in Sources */,
 				E5BB9DD02D3BF0C60089667A /* CGSize+Extensions.swift in Sources */,
 				E50D603F2F7A12B500D5E0A4 /* RepeatMonthOfYearSelectView.swift in Sources */,

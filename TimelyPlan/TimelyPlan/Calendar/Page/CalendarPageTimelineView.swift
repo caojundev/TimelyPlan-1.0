@@ -104,7 +104,90 @@ class CalendarPageTimelineView: UIView, CalendarPageEventsViewDelegate {
     
     // MARK: - CalendarPageEventsViewDelegate
     func allDayEventsForPageEventsView(_ view: CalendarPageEventsView) -> [CalendarEvent]? {
-        return nil
+        guard let date = view.firstDate else {
+            return nil
+        }
+        
+        var events = [CalendarEvent]()
+        var event = CalendarEvent(name: "事件名称1",
+                                  color: CalendarEventColor.random,
+                                    startDate: date.dateByAddingDays(1)!,
+                                  endDate: date.dateByAddingDays(2)!)
+        events.append(event)
+
+        event = CalendarEvent(name: "事件名称2",
+                                  color: CalendarEventColor.random,
+                                    startDate: date.dateByAddingDays(2)!,
+                                  endDate: date.dateByAddingDays(4)!)
+        events.append(event)
+
+        event = CalendarEvent(name: "事件名称3",
+                                  color: CalendarEventColor.random,
+                                    startDate: date.dateByAddingDays(3)!,
+                                  endDate: date.dateByAddingDays(3)!)
+        events.append(event)
+        
+        event = CalendarEvent(name: "事件名称4",
+                                  color: CalendarEventColor.random,
+                                    startDate: date.dateByAddingDays(1)!,
+                                  endDate: date.dateByAddingDays(4)!)
+        events.append(event)
+        
+        event = CalendarEvent(name: "事件名称5",
+                                  color: CalendarEventColor.random,
+                                    startDate: date.dateByAddingDays(1)!,
+                                  endDate: date.dateByAddingDays(1)!)
+        events.append(event)
+        
+        event = CalendarEvent(name: "事件名称6",
+                                  color: CalendarEventColor.random,
+                                    startDate: date.dateByAddingDays(4)!,
+                                  endDate: date.dateByAddingDays(5)!)
+        events.append(event)
+        
+        event = CalendarEvent(name: "事件名称7",
+                              color: CalendarEventColor.random,
+                              startDate: date,
+                              endDate: date.dateByAddingDays(1)!)
+        events.append(event)
+        
+        event = CalendarEvent(name: "事件名称8",
+                                  color: CalendarEventColor.random,
+                                    startDate: date.dateByAddingDays(1)!,
+                                  endDate: date.dateByAddingDays(1)!)
+        events.append(event)
+        
+        event = CalendarEvent(name: "事件名称9",
+                                  color: CalendarEventColor.random,
+                                    startDate: date.dateByAddingDays(1)!,
+                                  endDate: date.dateByAddingDays(1)!)
+        events.append(event)
+        
+        event = CalendarEvent(name: "事件名称10",
+                                  color: CalendarEventColor.random,
+                                    startDate: date.dateByAddingDays(1)!,
+                                  endDate: date.dateByAddingDays(2)!)
+        events.append(event)
+        
+        event = CalendarEvent(name: "事件名称11",
+                                  color: CalendarEventColor.random,
+                                    startDate: date.dateByAddingDays(2)!,
+                                  endDate: date.dateByAddingDays(2)!)
+        events.append(event)
+        
+        event = CalendarEvent(name: "事件名称12",
+                              color: CalendarEventColor.random,
+                              startDate: date,
+                              endDate: date.dateByAddingDays(1)!)
+        events.append(event)
+        
+        event = CalendarEvent(name: "事件名称13",
+                              color: CalendarEventColor.random,
+                              startDate: date,
+                              endDate: date.dateByAddingDays(1)!)
+        events.append(event)
+        
+        return events
     }
     
     func pageEventsView(_ view: CalendarPageEventsView, timedEventsOnDate date: Date) -> [CalendarEvent]? {
