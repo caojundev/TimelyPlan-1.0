@@ -30,7 +30,7 @@ class CalendarAxisLayout {
     }
     
     /// 吸附分钟数
-    let snapGridMinutes: Int = 10
+    let snapGridMinutes: Int = 5
     
     /// 获取整点的位置
     func position(of hour: Int) -> CGPoint {

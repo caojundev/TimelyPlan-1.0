@@ -7,7 +7,13 @@
 
 import Foundation
 
-class CalendarDragDropManager {
+class CalendarDragDropManager{
+    
+    weak var delegate: CalendarDragDropManageViewDelegate? {
+        didSet {
+            manageView?.delegate = delegate
+        }
+    }
     
     /// 事项显示区域
     var eventsFrame: CGRect? {
@@ -30,22 +36,16 @@ class CalendarDragDropManager {
         self.pageView = pageView
     }
     
+    func showEvent(_ event: CalendarEvent) {
+        let manageView = CalendarDragDropManageView(event: event)
+        manageView.delegate = delegate
+        showManangeView(manageView)
+    }
+    
     func showAddEvent(with dateRange: CalendarTimelineDateRange) {
-        manageView?.removeFromSuperview()
-        manageView = nil
-        
-        guard let pageView = pageView else {
-            return
-        }
-        
         let manageView = CalendarDragDropManageView(dateRange: dateRange)
-        manageView.pageView = pageView
-        self.manageView = manageView
-        updateManageViewFrame()
-        pageView.addSubview(manageView)
-        
-        /// 将管理视图添加到同步器
-        pageView.synchronizer.addSynchronizableView(manageView)
+        manageView.delegate = delegate
+        showManangeView(manageView)
     }
     
     func dismiss() {
@@ -53,6 +53,22 @@ class CalendarDragDropManager {
         pageView?.clearHighlight()
         manageView?.removeFromSuperview()
         manageView = nil
+    }
+    
+    private func showManangeView(_ manageView: CalendarDragDropManageView) {
+        self.manageView?.removeFromSuperview()
+        self.manageView = nil
+        guard let pageView = pageView else {
+            return
+        }
+        
+        manageView.pageView = pageView
+        self.manageView = manageView
+        updateManageViewFrame()
+        pageView.addSubview(manageView)
+        
+        /// 将管理视图添加到同步器
+        pageView.synchronizer.addSynchronizableView(manageView)
     }
     
     private func updateManageViewFrame() {

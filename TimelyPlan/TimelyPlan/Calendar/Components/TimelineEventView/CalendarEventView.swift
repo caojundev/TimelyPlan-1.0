@@ -28,7 +28,7 @@ class CalendarEventView: UIView {
     /// 时间标签
     private let timeLabel = UILabel()
     
-    var highlighted: Bool = false {
+    var isHighlighted: Bool = false {
         didSet {
             updateStyle()
         }
@@ -45,7 +45,7 @@ class CalendarEventView: UIView {
     }
     
     private func setupSubviews() {
-        self.layer.cornerRadius = 2.0
+        self.layer.cornerRadius = CalendarConstant.eventViewCornerRadius
         self.clipsToBounds = true
         self.padding = UIEdgeInsets(top: 4.0, left: 2.0, bottom: 2.0, right: 2.0)
         layer.addSublayer(lineLayer)
@@ -88,7 +88,7 @@ class CalendarEventView: UIView {
     }
     
     private func updateStyle() {
-        if highlighted {
+        if isHighlighted {
             backgroundColor = event.color
             lineLayer.backgroundColor = event.color.darkerColor.cgColor
             nameLabel.textColor = CalendarEventColor.highlightedForegroundColor(for: event.color)

@@ -15,7 +15,10 @@ protocol CalendarPageTimedEventsViewDelegate: AnyObject {
 
     /// 长按事项
     func calendarPageTimedEventsView(_ view: CalendarPageTimedEventsView, longPressEvent event: CalendarEvent)
-
+    
+    /// 单击事项
+    func calendarPageTimedEventsView(_ view: CalendarPageTimedEventsView, didTapEvent event: CalendarEvent)
+    
     /// 点击特定日期的特定位置
     func calendarPageTimedEventsView(_ view: CalendarPageTimedEventsView,
                                      didTapLocation location: CGPoint,
@@ -142,12 +145,17 @@ class CalendarPageTimedEventsView: UIView,
         delegate?.calendarPageTimedEventsView(self, longPressEvent: event)
     }
     
+    func calendarDayTimedEventsView(_ view: CalendarDayTimedEventsView, didTapEvent event: CalendarEvent) {
+        delegate?.calendarPageTimedEventsView(self, didTapEvent: event)
+    }
+    
     func calendarDayTimedEventsView(_ view: CalendarDayTimedEventsView, didTapLocation location: CGPoint) {
         guard let date = view.date else {
             return
         }
         
-        delegate?.calendarPageTimedEventsView(self, didTapLocation: location, onDate: date)
+        let convertedLocation = view.convert(location, toViewOrWindow: contentView)
+        delegate?.calendarPageTimedEventsView(self, didTapLocation: convertedLocation, onDate: date)
     }
     
     // MARK: - Helpers

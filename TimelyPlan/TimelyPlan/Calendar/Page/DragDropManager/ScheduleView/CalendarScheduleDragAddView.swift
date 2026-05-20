@@ -12,7 +12,7 @@ class CalendarScheduleDragAddView: ScheduleDragView {
     // 文本 Label
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = resGetString("New Task")
+        label.text = resGetString("New Event")
         label.textColor = .systemBlue
         label.font = .boldSystemFont(ofSize: 13.0)
         label.textAlignment = .center

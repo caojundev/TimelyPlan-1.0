@@ -9,16 +9,23 @@ import Foundation
 
 class CalendarScheduleDragEventView: ScheduleDragView {
     
-    let event: CalendarEvent
+    let eventView: CalendarEventView
     
     init(event: CalendarEvent) {
-        self.event = event
+        self.eventView = CalendarEventView(event: event)
+        self.eventView.isHighlighted = true
         super.init(frame: .zero)
-        
-        self.contentView.backgroundColor = .greenPrimary
+        self.color = event.color.darkerColor
+        self.contentView.addSubview(self.eventView)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.eventView.frame = bounds
+    }
+    
 }

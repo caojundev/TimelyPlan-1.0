@@ -98,6 +98,10 @@ class CalendarWeekViewController: CalendarBaseViewController,
     }
     
     // MARK: - CalendarWeekPageViewDelegate
+    func calendarPageView(_ pageView: CalendarPageView, newEventWithDateRange dateRange: CalendarTimelineDateRange) {
+        showQuickAddTask(with: dateRange)
+    }
+    
     func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {
         updateTitle(with: date)
     }

@@ -14,12 +14,15 @@ protocol CalendarPageViewDelegate: AnyObject {
     func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date)
     
     func calendarPageViewWillEndDragging(_ pageView: CalendarPageView, withTargetDate date: Date)
+    
+    func calendarPageView(_ pageView: CalendarPageView, newEventWithDateRange dateRange: CalendarTimelineDateRange)
 }
 
 class CalendarPageView: TPCollectionWrapperView,
                         TPCollectionViewAdapterDataSource,
                         TPCollectionViewAdapterDelegate,
-                        CalendarPageTimelineViewDelegate {
+                        CalendarPageTimelineViewDelegate,
+                        CalendarDragDropManageViewDelegate {
     
     /// 代理对象
     weak var delegate: CalendarPageViewDelegate?
@@ -67,7 +70,9 @@ class CalendarPageView: TPCollectionWrapperView,
     
     /// 拖放管理器
     private lazy var dragDropManager: CalendarDragDropManager = {
-        return CalendarDragDropManager(pageView: self)
+        let manager = CalendarDragDropManager(pageView: self)
+        manager.delegate = self
+        return manager
     }()
     
     // 时间线坐标轴布局
@@ -304,6 +309,7 @@ class CalendarPageView: TPCollectionWrapperView,
             return
         }
         
+        TPImpactFeedback.impactWithSoftStyle()
         let minutes = CalendarSetting.shared.getDefaultEventDuration()
         let dateRange = axisLayout.snappedDateRange(onDay: date,
                                                     touchPoint: location,
@@ -312,7 +318,31 @@ class CalendarPageView: TPCollectionWrapperView,
     }
     
     func pageTimelineView(_ view: CalendarPageTimelineView, longPressEvent event: CalendarEvent) {
+        guard !dragDropManager.isActive else {
+            dragDropManager.dismiss()
+            return
+        }
         
+        TPImpactFeedback.impactWithMediumStyle()
+        dragDropManager.showEvent(event)
+    }
+    
+    func pageTimelineView(_ view: CalendarPageTimelineView, didTapEvent event: CalendarEvent) {
+        guard !dragDropManager.isActive else {
+            dragDropManager.dismiss()
+            return
+        }
+        
+        TPImpactFeedback.impactWithSoftStyle()
+    }
+    
+    
+    // MARK: - CalendarDragDropManageViewDelegate
+    
+    func dragDropManageView(_ view: CalendarDragDropManageView, newEventWithDateRange dateRange: CalendarTimelineDateRange) {
+        TPImpactFeedback.impactWithSoftStyle()
+        dragDropManager.dismiss()
+        delegate?.calendarPageView(self, newEventWithDateRange: dateRange)
     }
     
     // MARK: - UIScrollViewDelegate

@@ -8,19 +8,25 @@
 import Foundation
 import UIKit
 
+protocol CalendarDragDropManageViewDelegate: AnyObject {
+    
+    // 创建新事项
+    func dragDropManageView(_ view: CalendarDragDropManageView,
+                            newEventWithDateRange dateRange: CalendarTimelineDateRange)
+}
+
 class CalendarDragDropManageView: UIView,
                                   UIGestureRecognizerDelegate,
                                   CalendarScrollSynchronizable,
                                   TPAutoScrollerDelegate {
     
-    // 属性
-    var minHeight: CGFloat = 20
-
+    weak var delegate: CalendarDragDropManageViewDelegate?
+    
     /// 当前全天高度
     var allDayHeight: CGFloat = 0.0 {
         didSet {
             if allDayHeight != oldValue {
-                contentView.contentInset = UIEdgeInsets(bottom: allDayHeight)
+                contentView.contentInset = UIEdgeInsets(top: allDayHeight)
                 updateMaskLayer()
             }
         }
@@ -97,6 +103,11 @@ class CalendarDragDropManageView: UIView,
     
     var columnEdgeMargin: CGFloat = 2.0
     
+    // 属性
+    var minHeight: CGFloat {
+        return CalendarConstant.minimumTimedEventViewHeight
+    }
+
     init(dateRange: CalendarTimelineDateRange) {
         self.dateRange = dateRange
         self.dayDate = dateRange.start
@@ -109,7 +120,7 @@ class CalendarDragDropManageView: UIView,
         self.event = event
         self.dateRange = event.dateRange
         self.dayDate = dateRange.start
-        self.scheduleView = CalendarScheduleDragAddView()
+        self.scheduleView = CalendarScheduleDragEventView(event: event)
         super.init(frame: .zero)
         commonInit()
     }
@@ -234,7 +245,10 @@ class CalendarDragDropManageView: UIView,
     }
     
     @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
-        
+        var dateRange = self.dateRange
+        dateRange.replacingDay(with: dayDate)
+        print(dateRange)
+        delegate?.dragDropManageView(self, newEventWithDateRange: dateRange)
     }
     
     private func panBegan(with touchPoint: CGPoint) {

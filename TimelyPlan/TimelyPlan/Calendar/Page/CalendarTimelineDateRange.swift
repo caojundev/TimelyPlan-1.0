@@ -30,4 +30,11 @@ struct CalendarTimelineDateRange: Equatable {
         self.start = start
         self.end = end
     }
+    
+    /// 替换天日期
+    mutating func replacingDay(with dayDate: Date) {
+        let interval = self.interval
+        self.start = self.start.dateByReplacingDay(with: dayDate)
+        self.end = self.start.addingTimeInterval(interval)
+    }
 }

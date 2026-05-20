@@ -18,6 +18,12 @@ enum CalendarScheduleDragMode {
 
 class ScheduleDragView: UIView {
     
+    var color: UIColor = .systemBlue {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     var topRightHandleCenter: CGPoint {
         return topRightHandle.center
     }
@@ -44,7 +50,6 @@ class ScheduleDragView: UIView {
     private let bottomLeftHandle: UIView = {
         let v = UIView()
         v.backgroundColor = .white
-        v.layer.borderColor = UIColor.systemBlue.cgColor
         v.layer.borderWidth = 2
         v.isUserInteractionEnabled = false
         return v
@@ -64,19 +69,21 @@ class ScheduleDragView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        topRightHandle.layer.borderColor = color.cgColor
+        bottomLeftHandle.layer.borderColor = color.cgColor
+        contentView.layer.borderColor = color.cgColor
         contentView.frame = bounds
         updateHandleFrames()
     }
-
+    
     func setupView() {
         clipsToBounds = false
-        contentView.layer.cornerRadius = 8
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.systemBlue.cgColor
-        contentView.backgroundColor = UIColor(red: 0.9,
-                                              green: 0.95,
-                                              blue: 1.0,
-                                              alpha: 0.8) // 浅蓝色背景
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = CalendarConstant.eventViewCornerRadius
+        contentView.layer.borderWidth = 1.2
+        contentView.backgroundColor = Color(light: 0xDAECFF,
+                                            dark: 0x23303F,
+                                            alpha: 0.9)
         addSubview(contentView)
         addSubview(topRightHandle)
         addSubview(bottomLeftHandle)

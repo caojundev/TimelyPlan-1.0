@@ -11,7 +11,7 @@ class CalendarDayViewController: CalendarBaseViewController,
                                  CalendarPageViewDelegate,
                                  TPCalendarSingleDateSelectionDelegate,
                                  SettingAgentObserver {
-
+    
     private var date: Date = .now
     
     /// 周视图
@@ -142,6 +142,10 @@ class CalendarDayViewController: CalendarBaseViewController,
     }
     
     // MARK: - CalendarWeekPageViewDelegate
+    func calendarPageView(_ pageView: CalendarPageView, newEventWithDateRange dateRange: CalendarTimelineDateRange) {
+        showQuickAddTask(with: dateRange)
+    }
+    
     func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {
         calendarPageDateChanged(date)
     }

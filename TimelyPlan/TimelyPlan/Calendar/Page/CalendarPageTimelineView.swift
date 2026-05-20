@@ -14,6 +14,8 @@ protocol CalendarPageTimelineViewDelegate: AnyObject {
     
     func pageTimelineView(_ view: CalendarPageTimelineView, longPressEvent event: CalendarEvent)
     
+    func pageTimelineView(_ view: CalendarPageTimelineView, didTapEvent event: CalendarEvent)
+    
     func pageTimelineView(_ view: CalendarPageTimelineView, didTapLocation location: CGPoint, onDate date: Date)
 }
 
@@ -196,6 +198,10 @@ class CalendarPageTimelineView: UIView, CalendarPageEventsViewDelegate {
     
     func pageEventsView(_ view: CalendarPageEventsView, longPressEvent event: CalendarEvent) {
         delegate?.pageTimelineView(self, longPressEvent: event)
+    }
+    
+    func pageEventsView(_ view: CalendarPageEventsView, didTapEvent event: CalendarEvent) {
+        delegate?.pageTimelineView(self, didTapEvent: event)
     }
     
     func pageEventsView(_ view: CalendarPageEventsView, didTapLocation location: CGPoint, onDate date: Date) {

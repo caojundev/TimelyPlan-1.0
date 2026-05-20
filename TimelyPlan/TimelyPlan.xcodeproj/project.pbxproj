@@ -9797,8 +9797,8 @@
 		E5FC91812FBAF91400FC75C6 /* HoursView */ = {
 			isa = PBXGroup;
 			children = (
-				E51A4C422DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift */,
 				E57C05E52DD34421009E22F0 /* CalendarPageTimelineHoursView.swift */,
+				E51A4C422DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift */,
 			);
 			path = HoursView;
 			sourceTree = "<group>";

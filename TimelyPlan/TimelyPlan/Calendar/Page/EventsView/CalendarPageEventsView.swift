@@ -18,6 +18,8 @@ protocol CalendarPageEventsViewDelegate: AnyObject {
 
     func pageEventsView(_ view: CalendarPageEventsView, longPressEvent event: CalendarEvent)
 
+    func pageEventsView(_ view: CalendarPageEventsView, didTapEvent event: CalendarEvent)
+    
     func pageEventsView(_ view: CalendarPageEventsView, didTapLocation location: CGPoint, onDate date: Date)
 }
 
@@ -125,6 +127,10 @@ class CalendarPageEventsView: UIView,
     
     func calendarPageTimedEventsView(_ view: CalendarPageTimedEventsView, longPressEvent event: CalendarEvent) {
         delegate?.pageEventsView(self, longPressEvent: event)
+    }
+    
+    func calendarPageTimedEventsView(_ view: CalendarPageTimedEventsView, didTapEvent event: CalendarEvent) {
+        delegate?.pageEventsView(self, didTapEvent: event)
     }
     
     func calendarPageTimedEventsView(_ view: CalendarPageTimedEventsView, didTapLocation location: CGPoint, onDate date: Date) {

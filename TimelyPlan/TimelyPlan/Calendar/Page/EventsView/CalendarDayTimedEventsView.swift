@@ -10,10 +10,13 @@ import UIKit
 
 protocol CalendarDayTimedEventsViewDelegate: AnyObject {
     
-    /// 长按事项
+    // 长按事项
     func calendarDayTimedEventsView(_ view: CalendarDayTimedEventsView, longPressEvent event: CalendarEvent)
     
-    /// 点击特定点
+    // 单击事项
+    func calendarDayTimedEventsView(_ view: CalendarDayTimedEventsView, didTapEvent event: CalendarEvent)
+    
+    // 单击空白位置
     func calendarDayTimedEventsView(_ view: CalendarDayTimedEventsView, didTapLocation location: CGPoint)
 }
 
@@ -62,6 +65,13 @@ class CalendarDayTimedEventsView: UIView {
         }
     }
     
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let edgeInsets = UIEdgeInsets(top: -axisLayout.topMargin,
+                                      bottom: -axisLayout.bottomMargin)
+        let hitTestFrame = bounds.inset(by: edgeInsets)
+        return hitTestFrame.contains(point)
+    }
+    
     // MARK: - 手势
     private func setupGesture() {
         let longPressGesture = UILongPressGestureRecognizer(target: self,
@@ -76,12 +86,25 @@ class CalendarDayTimedEventsView: UIView {
     }
     
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else {
+            return
+        }
         
+        let location = gesture.location(in: self)
+        if let eventView = eventView(at: location) {
+            delegate?.calendarDayTimedEventsView(self, longPressEvent: eventView.event)
+        } else {
+            delegate?.calendarDayTimedEventsView(self, didTapLocation: location)
+        }
     }
     
     @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: self)
-        delegate?.calendarDayTimedEventsView(self, didTapLocation: location)
+        if let eventView = eventView(at: location) {
+            delegate?.calendarDayTimedEventsView(self, didTapEvent: eventView.event)
+        } else {
+            delegate?.calendarDayTimedEventsView(self, didTapLocation: location)
+        }
     }
     
     private func setupContentView() {
@@ -108,13 +131,14 @@ class CalendarDayTimedEventsView: UIView {
     }
     
     func eventView(at point: CGPoint) -> CalendarEventView? {
+        var results = [CalendarEventView]()
         for eventView in eventViews {
             if eventView.frame.contains(point) {
-                return eventView
+                results.append(eventView)
             }
         }
         
-        return nil
+        return results.last
     }
     
     func reloadData() {
