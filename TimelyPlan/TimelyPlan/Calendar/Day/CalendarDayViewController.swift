@@ -111,12 +111,27 @@ class CalendarDayViewController: CalendarBaseViewController,
     }
     
     override func clickDate(_ button: UIButton) {
-        let vc = TPCalendarViewController(date: date)
-        vc.didSelectDate = { date in
-            self.pickDate(date)
-        }
+//        let vc = TPCalendarViewController(date: date)
+//        vc.didSelectDate = { date in
+//            self.pickDate(date)
+//        }
+//
+//        vc.popoverShow(from: button, preferredPosition: .bottomCenter)
         
-        vc.popoverShow(from: button, preferredPosition: .bottomCenter)
+        let controller = UIViewController()
+        controller.view.backgroundColor = .random
+
+        var options = SheetOptions()
+        options.transitionDuration = 0.4
+        options.transitionAnimationOptions = [.curveEaseInOut]
+        options.shrinkPresentingViewController = false
+
+        let sheetController = SheetViewController(controller: controller,
+                                                  sizes: [.percent(0.40), .fullscreen],
+                                                  options: options)
+        sheetController.cornerCurve = .continuous
+        sheetController.cornerRadius = 20
+        self.present(sheetController, animated: true, completion: nil)
     }
     
     private func pickDate(_ date: Date) {
