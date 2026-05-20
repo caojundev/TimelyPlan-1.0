@@ -17,6 +17,9 @@ protocol CalendarPageTimelineViewDelegate: AnyObject {
     func pageTimelineView(_ view: CalendarPageTimelineView, didTapEvent event: CalendarEvent)
     
     func pageTimelineView(_ view: CalendarPageTimelineView, didTapLocation location: CGPoint, onDate date: Date)
+    
+    /// 单击全天更多
+    func pageTimelineView(_ view: CalendarPageTimelineView, didTapAllDayMoreOnDate date: Date)
 }
 
 class CalendarPageTimelineView: UIView, CalendarPageEventsViewDelegate {
@@ -206,5 +209,9 @@ class CalendarPageTimelineView: UIView, CalendarPageEventsViewDelegate {
     
     func pageEventsView(_ view: CalendarPageEventsView, didTapLocation location: CGPoint, onDate date: Date) {
         delegate?.pageTimelineView(self, didTapLocation: location, onDate: date)
+    }
+    
+    func pageEventsView(_ view: CalendarPageEventsView, didTapAllDayMoreOnDate date: Date) {
+        delegate?.pageTimelineView(self, didTapAllDayMoreOnDate: date)
     }
 }

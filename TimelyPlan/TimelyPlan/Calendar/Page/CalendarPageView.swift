@@ -15,14 +15,21 @@ protocol CalendarPageViewDelegate: AnyObject {
     
     func calendarPageViewWillEndDragging(_ pageView: CalendarPageView, withTargetDate date: Date)
     
-    func calendarPageView(_ pageView: CalendarPageView, newEventWithDateRange dateRange: CalendarTimelineDateRange)
+    func calendarPageView(_ pageView: CalendarPageView, createEventWithDateRange dateRange: CalendarTimelineDateRange)
+    
+    func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: CalendarTimelineDateRange)
+
+    func calendarPageView(_ pageView: CalendarPageView, didTapEvent event: CalendarEvent)
+    
+    /// 单击全天更多
+    func calendarPageView(_ pageView: CalendarPageView, didTapAllDayMoreOnDate date: Date)
 }
 
 class CalendarPageView: TPCollectionWrapperView,
                         TPCollectionViewAdapterDataSource,
                         TPCollectionViewAdapterDelegate,
                         CalendarPageTimelineViewDelegate,
-                        CalendarDragDropManageViewDelegate {
+                        CalendarDragDropManagerDelegate {
     
     /// 代理对象
     weak var delegate: CalendarPageViewDelegate?
@@ -333,16 +340,22 @@ class CalendarPageView: TPCollectionWrapperView,
             return
         }
         
-        TPImpactFeedback.impactWithSoftStyle()
+        delegate?.calendarPageView(self, didTapEvent: event)
     }
     
+    func pageTimelineView(_ view: CalendarPageTimelineView, didTapAllDayMoreOnDate date: Date) {
+        delegate?.calendarPageView(self, didTapAllDayMoreOnDate: date)
+    }
     
-    // MARK: - CalendarDragDropManageViewDelegate
-    
-    func dragDropManageView(_ view: CalendarDragDropManageView, newEventWithDateRange dateRange: CalendarTimelineDateRange) {
+    // MARK: - CalendarDragDropManagerDelegate
+    func calendarDragDropManager(_ manager: CalendarDragDropManager, createEventWithDateRange dateRange: CalendarTimelineDateRange) {
         TPImpactFeedback.impactWithSoftStyle()
-        dragDropManager.dismiss()
-        delegate?.calendarPageView(self, newEventWithDateRange: dateRange)
+        delegate?.calendarPageView(self, createEventWithDateRange: dateRange)
+    }
+    
+    func calendarDragDropManager(_ manager: CalendarDragDropManager, updateEvent event: CalendarEvent, withDateRange dateRange: CalendarTimelineDateRange) {
+        TPImpactFeedback.impactWithSoftStyle()
+        delegate?.calendarPageView(self, updateEvent: event, withDateRange: dateRange)
     }
     
     // MARK: - UIScrollViewDelegate

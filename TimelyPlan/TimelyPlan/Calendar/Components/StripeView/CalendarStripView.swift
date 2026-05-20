@@ -8,12 +8,21 @@
 import Foundation
 import UIKit
 
+protocol CalendarStripViewDelegate: AnyObject {
+    
+    func calendarStripView(_ view: CalendarStripView, didTapEvent event: CalendarEvent)
+    
+    func calendarStripView(_ view: CalendarStripView, didTapMoreOnDate date: Date)
+}
+
 class CalendarStripView: UIView {
     
     enum Mode {
         case week
         case day
     }
+    
+    weak var delegate: CalendarStripViewDelegate?
     
     /// 路径信息
     var events: [CalendarEvent]?
@@ -44,6 +53,7 @@ class CalendarStripView: UIView {
         
         self.layoutManager = CalendarStripLayoutManager(days: self.days)
         super.init(frame: .zero)
+        setupGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -72,6 +82,30 @@ class CalendarStripView: UIView {
         
         for layer in moreTextLayers {
             layer.frame = layoutManager.moreTextFrame(for: layer.column)
+        }
+    }
+    
+    // MARK: - 手势
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(handleTap(_:)))
+        tapGesture.numberOfTouchesRequired = 1
+        tapGesture.numberOfTapsRequired = 1
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+        let location = gesture.location(in: self)
+        if let eventView = stripeEventView(at: location) {
+            delegate?.calendarStripView(self, didTapEvent: eventView.event)
+            return
+        }
+  
+        if let moreTextLayer = moreTextLayer(at: location) {
+            let column = moreTextLayer.column
+            if let date = startDate?.dateByAddingDays(column) {
+                delegate?.calendarStripView(self, didTapMoreOnDate: date)
+            }
         }
     }
     
@@ -213,5 +247,26 @@ class CalendarStripView: UIView {
         }
     
         return maxRow
+    }
+    
+    
+    private func stripeEventView(at point: CGPoint) -> CalendarStripEventView? {
+        for eventView in eventViews {
+            if eventView.frame.contains(point) {
+                return eventView
+            }
+        }
+        
+        return nil
+    }
+    
+    private func moreTextLayer(at point: CGPoint) -> CalendarStripMoreTextLayer? {
+        for moreTextLayer in moreTextLayers {
+            if moreTextLayer.frame.contains(point) {
+                return moreTextLayer
+            }
+        }
+        
+        return nil
     }
 }

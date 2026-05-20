@@ -10,9 +10,8 @@ import UIKit
 
 protocol CalendarDragDropManageViewDelegate: AnyObject {
     
-    // 创建新事项
-    func dragDropManageView(_ view: CalendarDragDropManageView,
-                            newEventWithDateRange dateRange: CalendarTimelineDateRange)
+    /// 结束编辑日期范围
+    func dragDropManageView(_ view: CalendarDragDropManageView, didEndEditingDateRange dateRange: CalendarTimelineDateRange)
 }
 
 class CalendarDragDropManageView: UIView,
@@ -90,7 +89,7 @@ class CalendarDragDropManageView: UIView,
     }()
     
     // 作用事项
-    private var event: CalendarEvent?
+    private(set) var event: CalendarEvent?
     
     // 计划视图
     private let scheduleView: ScheduleDragView
@@ -247,8 +246,7 @@ class CalendarDragDropManageView: UIView,
     @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
         var dateRange = self.dateRange
         dateRange.replacingDay(with: dayDate)
-        print(dateRange)
-        delegate?.dragDropManageView(self, newEventWithDateRange: dateRange)
+        delegate?.dragDropManageView(self, didEndEditingDateRange: dateRange)
     }
     
     private func panBegan(with touchPoint: CGPoint) {

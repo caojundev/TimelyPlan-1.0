@@ -8,7 +8,6 @@
 import Foundation
 
 class CalendarDayViewController: CalendarBaseViewController,
-                                 CalendarPageViewDelegate,
                                  TPCalendarSingleDateSelectionDelegate,
                                  SettingAgentObserver {
     
@@ -94,6 +93,16 @@ class CalendarDayViewController: CalendarBaseViewController,
         
         return date
     }
+    
+    override func calendarPageDateChanged(_ date: Date) {
+        if self.date.isInSameDayAs(date) {
+            return
+        }
+            
+        self.date = date
+        updateTitle(with: date)
+        updateWeekView(with: date)
+    }
         
     // MARK: - Update
     private func updateTitle(with date: Date) {
@@ -111,27 +120,12 @@ class CalendarDayViewController: CalendarBaseViewController,
     }
     
     override func clickDate(_ button: UIButton) {
-//        let vc = TPCalendarViewController(date: date)
-//        vc.didSelectDate = { date in
-//            self.pickDate(date)
-//        }
-//
-//        vc.popoverShow(from: button, preferredPosition: .bottomCenter)
-        
-        let controller = UIViewController()
-        controller.view.backgroundColor = .random
+        let vc = TPCalendarViewController(date: date)
+        vc.didSelectDate = { date in
+            self.pickDate(date)
+        }
 
-        var options = SheetOptions()
-        options.transitionDuration = 0.4
-        options.transitionAnimationOptions = [.curveEaseInOut]
-        options.shrinkPresentingViewController = false
-
-        let sheetController = SheetViewController(controller: controller,
-                                                  sizes: [.percent(0.40), .fullscreen],
-                                                  options: options)
-        sheetController.cornerCurve = .continuous
-        sheetController.cornerRadius = 20
-        self.present(sheetController, animated: true, completion: nil)
+        vc.popoverShow(from: button, preferredPosition: .bottomCenter)
     }
     
     private func pickDate(_ date: Date) {
@@ -154,28 +148,5 @@ class CalendarDayViewController: CalendarBaseViewController,
         self.date = selectedDate
         updateTitle(with: selectedDate)
         updatePagingView(with: selectedDate)
-    }
-    
-    // MARK: - CalendarWeekPageViewDelegate
-    func calendarPageView(_ pageView: CalendarPageView, newEventWithDateRange dateRange: CalendarTimelineDateRange) {
-        showQuickAddTask(with: dateRange)
-    }
-    
-    func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {
-        calendarPageDateChanged(date)
-    }
-    
-    func calendarPageViewWillEndDragging(_ pageView: CalendarPageView, withTargetDate date: Date) {
-        calendarPageDateChanged(date)
-    }
-    
-    private func calendarPageDateChanged(_ date: Date) {
-        if self.date.isInSameDayAs(date) {
-            return
-        }
-            
-        self.date = date
-        updateTitle(with: date)
-        updateWeekView(with: date)
     }
 }

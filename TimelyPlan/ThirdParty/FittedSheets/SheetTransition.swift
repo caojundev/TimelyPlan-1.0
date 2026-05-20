@@ -125,9 +125,7 @@ public class SheetTransition: NSObject, UIViewControllerAnimatedTransitioning {
                 }
             }
             animations?()
-        }) { _ in
-            completion?($0)
-        }
+        }, completion: completion)
     }
     
     func setPresentor(percentComplete: CGFloat) {

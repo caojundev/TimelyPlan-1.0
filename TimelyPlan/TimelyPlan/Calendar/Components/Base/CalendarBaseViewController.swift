@@ -7,7 +7,9 @@
 
 import Foundation
 
-class CalendarBaseViewController: TPViewController, CalendarTitleViewProvider {
+class CalendarBaseViewController: TPViewController,
+                                  CalendarTitleViewProvider,
+                                    CalendarPageViewDelegate {
 
     /// 标题视图
     var titleView: UIView? {
@@ -87,6 +89,10 @@ class CalendarBaseViewController: TPViewController, CalendarTitleViewProvider {
         return .now
     }
     
+    func calendarPageDateChanged(_ date: Date) {
+        // 子类重写
+    }
+    
     // MARK: - Event Response
     @objc func clickDate(_ button: UIButton) {
         
@@ -115,6 +121,48 @@ class CalendarBaseViewController: TPViewController, CalendarTitleViewProvider {
         quickAddManager.clearDraftTask()
         let task = quickAddTask(with: dateRange)
         quickAddManager.show(with: task)
+    }
+    
+    private func showEventSheet() {
+        let controller = UIViewController()
+        controller.view.backgroundColor = .random
+
+        var options = SheetOptions()
+        options.transitionDuration = 0.4
+        options.transitionAnimationOptions = [.curveEaseInOut]
+        options.shrinkPresentingViewController = false
+
+        let sheetController = SheetViewController(controller: controller,
+                                                  sizes: [.percent(0.40), .fullscreen],
+                                                  options: options)
+        sheetController.cornerCurve = .continuous
+        sheetController.cornerRadius = 20
+        self.present(sheetController, animated: true, completion: nil)
+    }
+    
+    // MARK: - CalendarPageViewDelegate
+    func calendarPageView(_ pageView: CalendarPageView, didTapEvent event: CalendarEvent) {
+        showEventSheet()
+    }
+    
+    func calendarPageView(_ pageView: CalendarPageView, didTapAllDayMoreOnDate date: Date) {
+        showEventSheet()
+    }
+    
+    func calendarPageView(_ pageView: CalendarPageView, createEventWithDateRange dateRange: CalendarTimelineDateRange) {
+        showQuickAddTask(with: dateRange)
+    }
+    
+    func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: CalendarTimelineDateRange) {
+        print("更新事项: \(event), 日期: \(dateRange)")
+    }
+    
+    func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {
+        calendarPageDateChanged(date)
+    }
+    
+    func calendarPageViewWillEndDragging(_ pageView: CalendarPageView, withTargetDate date: Date) {
+        calendarPageDateChanged(date)
     }
     
     // MARK: - Helpers

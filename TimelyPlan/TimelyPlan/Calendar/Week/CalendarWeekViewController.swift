@@ -8,7 +8,6 @@
 import Foundation
 
 class CalendarWeekViewController: CalendarBaseViewController,
-                                  CalendarPageViewDelegate,
                                   SettingAgentObserver {
 
     /// 周视图
@@ -71,6 +70,11 @@ class CalendarWeekViewController: CalendarBaseViewController,
         return date
     }
         
+    
+    override func calendarPageDateChanged(_ date: Date) {
+        updateTitle(with: date)
+    }
+    
     // MARK: - Update
     private func updateTitle(with date: Date) {
         dateButton.title = date.slashFormattedYearMonthString
@@ -94,19 +98,6 @@ class CalendarWeekViewController: CalendarBaseViewController,
         }
         
         pageView.setVisibleDate(date, animated: true)
-        updateTitle(with: date)
-    }
-    
-    // MARK: - CalendarWeekPageViewDelegate
-    func calendarPageView(_ pageView: CalendarPageView, newEventWithDateRange dateRange: CalendarTimelineDateRange) {
-        showQuickAddTask(with: dateRange)
-    }
-    
-    func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {
-        updateTitle(with: date)
-    }
-    
-    func calendarPageViewWillEndDragging(_ pageView: CalendarPageView, withTargetDate date: Date) {
         updateTitle(with: date)
     }
 }

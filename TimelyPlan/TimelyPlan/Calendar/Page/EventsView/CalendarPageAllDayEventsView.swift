@@ -8,8 +8,20 @@
 import Foundation
 import UIKit
 
-class CalendarPageAllDayEventsView: UIView {
+protocol CalendarPageAllDayEventsViewDelegate: AnyObject {
+    
+    /// 单击事项
+    func calendarPageAllDayEventsView(_ view: CalendarPageAllDayEventsView, didTapEvent event: CalendarEvent)
+    
+    /// 点击更多
+    func calendarPageAllDayEventsView(_ view: CalendarPageAllDayEventsView, didTapMoreOnDate date: Date)
+}
 
+
+class CalendarPageAllDayEventsView: UIView, CalendarStripViewDelegate {
+
+    weak var delegate: CalendarPageAllDayEventsViewDelegate?
+    
     var firstDate: Date? {
         get {
             return stripView.startDate
@@ -33,6 +45,7 @@ class CalendarPageAllDayEventsView: UIView {
     private lazy var stripView: CalendarStripView = {
         let mode: CalendarStripView.Mode = self.mode == .day ? .day : .week
         let view = CalendarStripView(mode: mode)
+        view.delegate = self
         return view
     }()
     
@@ -89,5 +102,14 @@ class CalendarPageAllDayEventsView: UIView {
     
     func reloadData() {
         stripView.reloadData()
+    }
+    
+    // MARK: - CalendarStripViewDelegate
+    func calendarStripView(_ view: CalendarStripView, didTapEvent event: CalendarEvent) {
+        delegate?.calendarPageAllDayEventsView(self, didTapEvent: event)
+    }
+    
+    func calendarStripView(_ view: CalendarStripView, didTapMoreOnDate date: Date) {
+        delegate?.calendarPageAllDayEventsView(self, didTapMoreOnDate: date)
     }
 }

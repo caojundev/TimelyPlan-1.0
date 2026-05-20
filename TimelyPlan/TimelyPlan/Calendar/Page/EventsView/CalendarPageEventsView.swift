@@ -21,6 +21,9 @@ protocol CalendarPageEventsViewDelegate: AnyObject {
     func pageEventsView(_ view: CalendarPageEventsView, didTapEvent event: CalendarEvent)
     
     func pageEventsView(_ view: CalendarPageEventsView, didTapLocation location: CGPoint, onDate date: Date)
+    
+    /// 单击全天更多
+    func pageEventsView(_ view: CalendarPageEventsView, didTapAllDayMoreOnDate date: Date)
 }
 
 /// 页面模式
@@ -31,6 +34,7 @@ enum CalendarPageMode {
 
 class CalendarPageEventsView: UIView,
                               CalendarScrollSynchronizable,
+                              CalendarPageAllDayEventsViewDelegate,
                               CalendarPageTimedEventsViewDelegate {
     
     /// 代理对象
@@ -76,6 +80,7 @@ class CalendarPageEventsView: UIView,
     private lazy var allDayEventsView: CalendarPageAllDayEventsView = {
         let frame = CGRect(x: 0.0, y: 0.0, width: bounds.width, height: 0.0)
         let view = CalendarPageAllDayEventsView(frame: frame, mode: self.mode)
+        view.delegate = self
         return view
     }()
     
@@ -118,6 +123,15 @@ class CalendarPageEventsView: UIView,
         allDayEventsView.width = width
         allDayEventsView.height = allDayHeight
         allDayEventsView.origin = .zero
+    }
+    
+    // MARK: - CalendarPageAllDayEventsViewDelegate
+    func calendarPageAllDayEventsView(_ view: CalendarPageAllDayEventsView, didTapEvent event: CalendarEvent) {
+        delegate?.pageEventsView(self, didTapEvent: event)
+    }
+    
+    func calendarPageAllDayEventsView(_ view: CalendarPageAllDayEventsView, didTapMoreOnDate date: Date) {
+        delegate?.pageEventsView(self, didTapAllDayMoreOnDate: date)
     }
 
     // MARK: - CalendarPageTimedEventsViewDelegate

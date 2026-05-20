@@ -7,13 +7,20 @@
 
 import Foundation
 
-class CalendarDragDropManager{
+protocol CalendarDragDropManagerDelegate: AnyObject {
     
-    weak var delegate: CalendarDragDropManageViewDelegate? {
-        didSet {
-            manageView?.delegate = delegate
-        }
-    }
+    // 创建新事项
+    func calendarDragDropManager(_ manager: CalendarDragDropManager, createEventWithDateRange dateRange: CalendarTimelineDateRange)
+    
+    /// 更新事项日期
+    func calendarDragDropManager(_ manager: CalendarDragDropManager,
+                                 updateEvent event: CalendarEvent,
+                                 withDateRange dateRange: CalendarTimelineDateRange)
+}
+
+class CalendarDragDropManager: CalendarDragDropManageViewDelegate {
+
+    weak var delegate: CalendarDragDropManagerDelegate?
     
     /// 事项显示区域
     var eventsFrame: CGRect? {
@@ -38,13 +45,13 @@ class CalendarDragDropManager{
     
     func showEvent(_ event: CalendarEvent) {
         let manageView = CalendarDragDropManageView(event: event)
-        manageView.delegate = delegate
+        manageView.delegate = self
         showManangeView(manageView)
     }
     
     func showAddEvent(with dateRange: CalendarTimelineDateRange) {
         let manageView = CalendarDragDropManageView(dateRange: dateRange)
-        manageView.delegate = delegate
+        manageView.delegate = self
         showManangeView(manageView)
     }
     
@@ -79,4 +86,24 @@ class CalendarDragDropManager{
         
         manageView.frame = eventsFrame
     }
+    
+    // MARK: -
+    
+    func dragDropManageView(_ view: CalendarDragDropManageView, didEndEditingDateRange dateRange: CalendarTimelineDateRange) {
+        dismiss()
+        guard let event = view.event else {
+            /// 创建新事项
+            delegate?.calendarDragDropManager(self, createEventWithDateRange: dateRange)
+            return
+        }
+        
+        if event.dateRange == dateRange {
+            return
+        }
+        
+        /// 更新事项
+        delegate?.calendarDragDropManager(self, updateEvent: event, withDateRange: dateRange)
+    }
+    
+    
 }
