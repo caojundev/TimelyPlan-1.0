@@ -26,7 +26,11 @@ class CalendarDayTimedEventsView: UIView {
     
     var events: [CalendarEvent]?
     
-    var date: Date?
+    var date: Date? {
+        didSet {
+            setupIndicatorView()
+        }
+    }
     
     var axisLayout = CalendarAxisLayout() {
         didSet {
@@ -39,6 +43,13 @@ class CalendarDayTimedEventsView: UIView {
     private var layout: CalendarTimelineLayout?
     
     private let contentView = UIView()
+    
+    /// 时间指示器
+    private let indicatorViewHeight = 10.0
+    private var indicatorView: CalendarTimelineDotIndicator?
+    
+    /// 指示器分钟更新器
+    private let timerUpdater = TPMinuteUpdater()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -107,6 +118,7 @@ class CalendarDayTimedEventsView: UIView {
         }
     }
     
+    // MARK: - 初始化内容视图
     private func setupContentView() {
         addSubview(contentView)
         setupEventViews()
@@ -151,6 +163,7 @@ class CalendarDayTimedEventsView: UIView {
         }
         
         setupEventViews()
+        setupIndicatorView()
         setNeedsLayout()
     }
 
@@ -160,5 +173,39 @@ class CalendarDayTimedEventsView: UIView {
         self.events = nil
         self.layout = nil
         self.setupEventViews()
+        self.timerUpdater.stop()
+    }
+    
+    // MARK: - 时间指示器
+    private func setupIndicatorView() {
+        guard let date = date, date.isToday else {
+            indicatorView?.removeFromSuperview()
+            indicatorView = nil
+            timerUpdater.stop()
+            return
+        }
+        
+        if indicatorView == nil {
+            let view = CalendarTimelineDotIndicator()
+            addSubview(view)
+            self.indicatorView = view
+        }
+        
+        /// 启动计时器
+        timerUpdater.start { [weak self] in
+            self?.updateIndicator()
+        }
+    }
+    
+    private func updateIndicator() {
+        guard let indicatorView = indicatorView else {
+            return
+        }
+
+        let position = axisLayout.position(of: .now)
+        indicatorView.frame = CGRect(x: 0.0,
+                                     y: position.y - indicatorViewHeight / 2.0,
+                                     width: width,
+                                     height: indicatorViewHeight)
     }
 }

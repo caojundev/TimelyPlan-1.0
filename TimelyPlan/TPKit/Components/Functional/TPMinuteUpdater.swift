@@ -14,6 +14,10 @@ class TPMinuteUpdater {
     
     func start(updateHandler: @escaping () -> Void) {
         self.updateHandler = updateHandler
+        if timer != nil {
+            updateHandler()
+            return
+        }
         
         let calendar = Calendar.current
         let seconds = calendar.component(.second, from: Date())

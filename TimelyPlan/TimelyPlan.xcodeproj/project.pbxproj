@@ -12,7 +12,7 @@
 		E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */; };
 		E500276B2F985C9600EF052D /* TPDateRangeSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500276A2F985C9600EF052D /* TPDateRangeSegmentedView.swift */; };
 		E500276D2F985EB900EF052D /* TPDateRangeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500276C2F985EB900EF052D /* TPDateRangeInfoView.swift */; };
-		E5007F7B2DC9ADB1006AD311 /* CalendarTimelineNowIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7A2DC9ADB1006AD311 /* CalendarTimelineNowIndicator.swift */; };
+		E5007F7B2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7A2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift */; };
 		E5007F802DCA0981006AD311 /* TPMinuteUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */; };
 		E5007F832DCA4A8E006AD311 /* CalendarTimelineDateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F822DCA4A8E006AD311 /* CalendarTimelineDateRange.swift */; };
 		E500DE522DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE462DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png */; };
@@ -257,6 +257,7 @@
 		E518D68A2FBD99D60045D456 /* Yalta.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6782FBD99D50045D456 /* Yalta.swift */; };
 		E518D68E2FBD99D60045D456 /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D67E2FBD99D50045D456 /* SheetViewController.swift */; };
 		E518D6902FBD9DA20045D456 /* FittedSheets+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D68F2FBD9DA20045D456 /* FittedSheets+UIApplication.swift */; };
+		E518D6942FBDEF8E0045D456 /* CalendarTimelineDotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */; };
 		E51A43822DB73A7400DC84C9 /* CalendarMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A43812DB73A7400DC84C9 /* CalendarMainViewController.swift */; };
 		E51A43862DB740ED00DC84C9 /* CalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A43852DB740ED00DC84C9 /* CalendarMonthView.swift */; };
 		E51A4C292DC25B24005A0E3F /* CalendarMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A4C282DC25B24005A0E3F /* CalendarMode.swift */; };
@@ -1890,7 +1891,7 @@
 		E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSingleDateInfoEditor.swift; sourceTree = "<group>"; };
 		E500276A2F985C9600EF052D /* TPDateRangeSegmentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDateRangeSegmentedView.swift; sourceTree = "<group>"; };
 		E500276C2F985EB900EF052D /* TPDateRangeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDateRangeInfoView.swift; sourceTree = "<group>"; };
-		E5007F7A2DC9ADB1006AD311 /* CalendarTimelineNowIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineNowIndicator.swift; sourceTree = "<group>"; };
+		E5007F7A2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineLabelIndicator.swift; sourceTree = "<group>"; };
 		E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMinuteUpdater.swift; sourceTree = "<group>"; };
 		E5007F822DCA4A8E006AD311 /* CalendarTimelineDateRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineDateRange.swift; sourceTree = "<group>"; };
 		E500DE462DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_progress_12@3x.png"; sourceTree = "<group>"; };
@@ -2139,6 +2140,7 @@
 		E518D6782FBD99D50045D456 /* Yalta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yalta.swift; sourceTree = "<group>"; };
 		E518D67E2FBD99D50045D456 /* SheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
 		E518D68F2FBD9DA20045D456 /* FittedSheets+UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FittedSheets+UIApplication.swift"; sourceTree = "<group>"; };
+		E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineDotIndicator.swift; sourceTree = "<group>"; };
 		E51A43812DB73A7400DC84C9 /* CalendarMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMainViewController.swift; sourceTree = "<group>"; };
 		E51A43852DB740ED00DC84C9 /* CalendarMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthView.swift; sourceTree = "<group>"; };
 		E51A4C282DC25B24005A0E3F /* CalendarMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMode.swift; sourceTree = "<group>"; };
@@ -4558,6 +4560,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E518D6922FBDEF4F0045D456 /* Indicator */ = {
+			isa = PBXGroup;
+			children = (
+				E5007F7A2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift */,
+				E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */,
+			);
+			path = Indicator;
+			sourceTree = "<group>";
+		};
 		E51A43802DB73A0400DC84C9 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -4601,21 +4612,13 @@
 			isa = PBXGroup;
 			children = (
 				E52EF6252FB2DDBC002CF355 /* CalendarWeekNumberView.swift */,
-				E5007F7A2DC9ADB1006AD311 /* CalendarTimelineNowIndicator.swift */,
+				E51A4C452DC3C3B9005A0E3F /* CalendarDateButton.swift */,
+				E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */,
 				E56BAC7A2DCCDABE0013C6F6 /* Base */,
-				E51A4C472DC3C44C005A0E3F /* Button */,
+				E518D6922FBDEF4F0045D456 /* Indicator */,
 				E552FBA52DBA23260072703F /* StripeView */,
-				E59780CC2DCE42F100D91EAE /* TimelineEventView */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		E51A4C472DC3C44C005A0E3F /* Button */ = {
-			isa = PBXGroup;
-			children = (
-				E51A4C452DC3C3B9005A0E3F /* CalendarDateButton.swift */,
-			);
-			path = Button;
 			sourceTree = "<group>";
 		};
 		E51B28F62FA77A07006B3352 /* Page */ = {
@@ -6617,14 +6620,6 @@
 				E5BB9C942D3BF0C40089667A /* TPCollectionSectionControllersList.swift */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		E59780CC2DCE42F100D91EAE /* TimelineEventView */ = {
-			isa = PBXGroup;
-			children = (
-				E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */,
-			);
-			path = TimelineEventView;
 			sourceTree = "<group>";
 		};
 		E59E715D2DB7979200744C68 /* Month */ = {
@@ -10827,6 +10822,7 @@
 				E505D9332F99AD5F004469DC /* TodoHomeHeaderTableCell.swift in Sources */,
 				E5FC6BCF2F66E25500D5A5EA /* HabitStatsLogSectionController.swift in Sources */,
 				E5BB9EE72D3BF0C80089667A /* TPMenuListPopoverView.swift in Sources */,
+				E518D6942FBDEF8E0045D456 /* CalendarTimelineDotIndicator.swift in Sources */,
 				E50BB6782D5706FE00D316FD /* TPSeparatorSectionController.swift in Sources */,
 				E51FF6552F571EF1003CA953 /* TPFireworkLayer.swift in Sources */,
 				E5BB9EB02D3BF0C80089667A /* TPSheetMenuViewController.swift in Sources */,
@@ -11675,7 +11671,7 @@
 				E59244082F515A3700CA2393 /* HabitTaskEditViewController.swift in Sources */,
 				E5D7D8EC2D43933600EC877A /* FocusRecordEditViewController.swift in Sources */,
 				E5D7D7DC2D43923800EC877A /* FocusRecord.swift in Sources */,
-				E5007F7B2DC9ADB1006AD311 /* CalendarTimelineNowIndicator.swift in Sources */,
+				E5007F7B2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift in Sources */,
 				E5CFD2742F58619300A898CB /* HabitTaskStatusProgressView.swift in Sources */,
 				E5BB9E762D3BF0C70089667A /* TPColorSelectView.swift in Sources */,
 				E53F32952F68E0C100B85B65 /* HabitReportWeeklySectionController.swift in Sources */,

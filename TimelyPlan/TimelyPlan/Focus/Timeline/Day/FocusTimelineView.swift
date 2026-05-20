@@ -77,7 +77,7 @@ class FocusTimelineView: UIView {
     
     /// 当前小时指示器
     private let indicatorViewHeight = 30.0
-    private var indicatorView: CalendarTimelineNowIndicator?
+    private var indicatorView: CalendarTimelineLabelIndicator?
 
     /// 时间线背景图层
     private let backgroundLayer = FocusTimelineBackLayer()
@@ -130,7 +130,7 @@ class FocusTimelineView: UIView {
         }
         
         if self.indicatorView == nil {
-            let view = CalendarTimelineNowIndicator()
+            let view = CalendarTimelineLabelIndicator()
             self.indicatorView = view
             contentView.addSubview(view)
         }
