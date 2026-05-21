@@ -99,11 +99,11 @@ class CalendarPageTimedEventsView: UIView,
         contentView.contentSize = contentSize
         
         let dayWidth = width / CGFloat(dayViews.count)
-        let dayHeight = layout.timelineHeight
+        let dayHeight = layout.contentHeight
         for (index, dayView) in dayViews.enumerated() {
             let x = CGFloat(index) * dayWidth
             dayView.frame = CGRect(x: x,
-                                   y: layout.topMargin,
+                                   y: 0.0,
                                    width: dayWidth,
                                    height: dayHeight)
         }
@@ -154,8 +154,7 @@ class CalendarPageTimedEventsView: UIView,
             return
         }
         
-        let convertedLocation = view.convert(location, toViewOrWindow: contentView)
-        delegate?.calendarPageTimedEventsView(self, didTapLocation: convertedLocation, onDate: date)
+        delegate?.calendarPageTimedEventsView(self, didTapLocation: location, onDate: date)
     }
     
     // MARK: - Helpers

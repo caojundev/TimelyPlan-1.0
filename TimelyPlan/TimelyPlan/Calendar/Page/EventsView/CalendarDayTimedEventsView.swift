@@ -63,6 +63,7 @@ class CalendarDayTimedEventsView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.padding = UIEdgeInsets(top: axisLayout.topMargin, bottom: axisLayout.bottomMargin)
         let layoutFrame = layoutFrame()
         contentView.frame = layoutFrame
         
@@ -74,13 +75,6 @@ class CalendarDayTimedEventsView: UIView {
         for eventView in eventViews {
             eventView.frame = layout.frame(for: eventView.event)
         }
-    }
-    
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        let edgeInsets = UIEdgeInsets(top: -axisLayout.topMargin,
-                                      bottom: -axisLayout.bottomMargin)
-        let hitTestFrame = bounds.inset(by: edgeInsets)
-        return hitTestFrame.contains(point)
     }
     
     // MARK: - 手势
@@ -143,6 +137,7 @@ class CalendarDayTimedEventsView: UIView {
     }
     
     func eventView(at point: CGPoint) -> CalendarEventView? {
+        let point = convert(point, toViewOrWindow: contentView)
         var results = [CalendarEventView]()
         for eventView in eventViews {
             if eventView.frame.contains(point) {

@@ -28,7 +28,7 @@ class CalendarTimelineDotIndicator: UIView {
     }
 
     private func setupViews() {
-        self.padding = UIEdgeInsets(value: 4.0)
+        self.padding = UIEdgeInsets(horizontal: 2.0)
         self.isUserInteractionEnabled = false
         layer.addSublayer(shapeLayer)
     }
@@ -43,7 +43,7 @@ class CalendarTimelineDotIndicator: UIView {
     }
     
     private func updateLayerPath() {
-        let dotSize: CGSize = .size(2)
+        let dotSize: CGSize = .size(1)
         let layoutFrame = layoutFrame()
         let bezierPath = UIBezierPath()
         let dotCenter = CGPoint(x: layoutFrame.minX + dotSize.halfWidth, y: layoutFrame.midY)
