@@ -14,7 +14,6 @@
 		E500276D2F985EB900EF052D /* TPDateRangeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500276C2F985EB900EF052D /* TPDateRangeInfoView.swift */; };
 		E5007F7B2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7A2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift */; };
 		E5007F802DCA0981006AD311 /* TPMinuteUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */; };
-		E5007F832DCA4A8E006AD311 /* CalendarTimelineDateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F822DCA4A8E006AD311 /* CalendarTimelineDateRange.swift */; };
 		E500DE522DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE462DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png */; };
 		E500DE532DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE472DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png */; };
 		E500DE542DB09D4500EAEAF7 /* todo_filter_indicator_date_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE482DB09D4500EAEAF7 /* todo_filter_indicator_date_12@3x.png */; };
@@ -1895,7 +1894,6 @@
 		E500276C2F985EB900EF052D /* TPDateRangeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDateRangeInfoView.swift; sourceTree = "<group>"; };
 		E5007F7A2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineLabelIndicator.swift; sourceTree = "<group>"; };
 		E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMinuteUpdater.swift; sourceTree = "<group>"; };
-		E5007F822DCA4A8E006AD311 /* CalendarTimelineDateRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineDateRange.swift; sourceTree = "<group>"; };
 		E500DE462DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_progress_12@3x.png"; sourceTree = "<group>"; };
 		E500DE472DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_date_12@2x.png"; sourceTree = "<group>"; };
 		E500DE482DB09D4500EAEAF7 /* todo_filter_indicator_date_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_date_12@3x.png"; sourceTree = "<group>"; };
@@ -9868,7 +9866,6 @@
 				E5B9D08B2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift */,
 				E5FC91822FBAFAD000FC75C6 /* CalendarPageTimelineCell.swift */,
 				E5FC918F2FBB343E00FC75C6 /* CalendarPageTimelineView.swift */,
-				E5007F822DCA4A8E006AD311 /* CalendarTimelineDateRange.swift */,
 				E518D69E2FBEB5080045D456 /* CalendarEventsViewModel.swift */,
 				E5FC91842FBAFB4B00FC75C6 /* EventsView */,
 				E5FC91812FBAF91400FC75C6 /* HoursView */,
@@ -11013,7 +11010,6 @@
 				E56BAC772DCC56E60013C6F6 /* CalendarWeekPageView.swift in Sources */,
 				E50D60462F7A139D00D5E0A4 /* TaskAlarm.swift in Sources */,
 				E51B28EF2FA778A6006B3352 /* TodoTaskBoardDragInsertReorder.swift in Sources */,
-				E5007F832DCA4A8E006AD311 /* CalendarTimelineDateRange.swift in Sources */,
 				E5BB9D9D2D3BF0C60089667A /* TPToolbarButton.swift in Sources */,
 				E5BB9E3C2D3BF0C70089667A /* TPSeparatorTableHeaderFooterView.swift in Sources */,
 				E50FF8B12F7922A400B8F5BE /* HabitTaskBindCell.swift in Sources */,

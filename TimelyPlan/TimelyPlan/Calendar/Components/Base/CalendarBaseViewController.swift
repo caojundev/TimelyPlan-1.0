@@ -119,7 +119,7 @@ class CalendarBaseViewController: TPViewController,
         quickAddManager.show(with: task)
     }
     
-    func showQuickAddTask(with dateRange: CalendarTimelineDateRange) {
+    func showQuickAddTask(with dateRange: DateInterval) {
         quickAddManager.clearDraftTask()
         let task = quickAddTask(with: dateRange)
         quickAddManager.show(with: task)
@@ -151,11 +151,11 @@ class CalendarBaseViewController: TPViewController,
         showEventSheet()
     }
     
-    func calendarPageView(_ pageView: CalendarPageView, createEventWithDateRange dateRange: CalendarTimelineDateRange) {
+    func calendarPageView(_ pageView: CalendarPageView, createEventWithDateRange dateRange: DateInterval) {
         showQuickAddTask(with: dateRange)
     }
     
-    func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: CalendarTimelineDateRange) {
+    func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: DateInterval) {
         print("更新事项: \(event), 日期: \(dateRange)")
     }
     
@@ -168,7 +168,7 @@ class CalendarBaseViewController: TPViewController,
     }
     
     // MARK: - Helpers
-    private func quickAddTask(with dateRange: CalendarTimelineDateRange) -> TodoQuickAddTask {
+    private func quickAddTask(with dateRange: DateInterval) -> TodoQuickAddTask {
         let dateInfo = TaskDateInfo(startDate: dateRange.start,
                                     endDate: dateRange.end,
                                     isAllDay: false)

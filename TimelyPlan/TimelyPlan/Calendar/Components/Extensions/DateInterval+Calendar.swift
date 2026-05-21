@@ -9,7 +9,20 @@ import Foundation
 
 extension DateInterval {
     
-    static func weekRange(of weekStartDate: Date) -> DateInterval {
+    /// 替换天日期
+    mutating func replacingDay(with dayDate: Date) {
+        let duration = self.duration
+        self.start = self.start.dateByReplacingDay(with: dayDate)
+        self.end = self.start.addingTimeInterval(duration)
+    }
+    
+    static func rangeOfDay(_ date: Date) -> DateInterval  {
+        let start = date.startOfDay()
+        let end = start.dateByAddingHours(HOURS_PER_DAY)!
+        return DateInterval(start: start, end: end)
+    }
+    
+    static func rangeOfWeek(weekStartDate: Date) -> DateInterval {
         let weekEndDate = weekStartDate.dateByAddingDays(6)!
         let range = DateInterval(start: weekStartDate.startOfDay(),
                                  end: weekEndDate.endOfDay())

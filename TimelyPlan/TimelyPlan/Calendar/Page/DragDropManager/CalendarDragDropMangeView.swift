@@ -11,7 +11,7 @@ import UIKit
 protocol CalendarDragDropManageViewDelegate: AnyObject {
     
     /// 结束编辑日期范围
-    func dragDropManageView(_ view: CalendarDragDropManageView, didEndEditingDateRange dateRange: CalendarTimelineDateRange)
+    func dragDropManageView(_ view: CalendarDragDropManageView, didEndEditingDateRange dateRange: DateInterval)
 }
 
 class CalendarDragDropManageView: UIView,
@@ -95,7 +95,7 @@ class CalendarDragDropManageView: UIView,
     private let scheduleView: ScheduleDragView
 
     // 当前日期范围
-    private var dateRange: CalendarTimelineDateRange
+    private var dateRange: DateInterval
     
     /// 当前天
     private var dayDate: Date
@@ -107,7 +107,7 @@ class CalendarDragDropManageView: UIView,
         return CalendarConstant.minimumTimedEventViewHeight
     }
 
-    init(dateRange: CalendarTimelineDateRange) {
+    init(dateRange: DateInterval) {
         self.dateRange = dateRange
         self.dayDate = dateRange.start
         self.scheduleView = CalendarScheduleDragAddView()
@@ -133,6 +133,7 @@ class CalendarDragDropManageView: UIView,
     
     private func setupContentView() {
         backgroundColor = .clear
+        isMultipleTouchEnabled = false
         contentView.contentInsetAdjustmentBehavior = .never
         contentView.scrollsToTop = false
         contentView.showsVerticalScrollIndicator = false
@@ -234,7 +235,7 @@ class CalendarDragDropManageView: UIView,
     private func setupGesture() {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         pan.delegate = self
-        self.addGestureRecognizer(pan)
+        addGestureRecognizer(pan)
         
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(handleTap(_:)))

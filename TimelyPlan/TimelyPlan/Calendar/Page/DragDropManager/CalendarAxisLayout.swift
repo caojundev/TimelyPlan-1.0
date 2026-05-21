@@ -99,14 +99,14 @@ class CalendarAxisLayout {
                       height: snappedHeight)
     }
     
-    func dateRange(of frame: CGRect) -> CalendarTimelineDateRange {
+    func dateRange(of frame: CGRect) -> DateInterval {
         let startDate = date(of: frame.origin)
         let endPoint = CGPoint(x: 0.0, y: frame.maxY)
         let endDate = date(of: endPoint)
-        return CalendarTimelineDateRange(start: startDate, end: endDate)
+        return DateInterval(start: startDate, end: endDate)
     }
     
-    func frame(of dateRange: CalendarTimelineDateRange, minHeight: CGFloat) -> CGRect {
+    func frame(of dateRange: DateInterval, minHeight: CGFloat) -> CGRect {
         let startPosition = position(of: dateRange.start)
         let endPosition = position(of: dateRange.end)
         var height = endPosition.y - startPosition.y
@@ -122,7 +122,7 @@ class CalendarAxisLayout {
     
     func snappedDateRange(onDay dayDate: Date,
                           touchPoint: CGPoint,
-                          minutes: Int = 30) -> CalendarTimelineDateRange {
+                          minutes: Int = 30) -> DateInterval {
         let position = snappedPosition(of: touchPoint)
         var startDate = date(of: position)
         var endDate = startDate.dateByAddingMinutes(minutes)!
@@ -133,6 +133,6 @@ class CalendarAxisLayout {
         
         startDate = startDate.dateByReplacingDay(with: dayDate)
         endDate = endDate.dateByReplacingDay(with: dayDate)
-        return CalendarTimelineDateRange(start: startDate, end: endDate)
+        return DateInterval(start: startDate, end: endDate)
     }
 }

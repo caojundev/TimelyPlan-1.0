@@ -79,14 +79,14 @@ class CalendarEvent: NSObject {
         self.color = color
         self.startDate = startDate
         self.endDate = endDate
-        self.isAllDay = false
+        self.isAllDay = isAllDay
         self.notes = nil
         self.rawLocalTaskID = nil
     }
     
     /// 日期范围
-    var dateRange: CalendarTimelineDateRange {
-        return CalendarTimelineDateRange(start: startDate, end: endDate)
+    var dateRange: DateInterval {
+        return DateInterval(start: startDate, end: endDate)
     }
 }
 

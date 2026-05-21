@@ -47,7 +47,7 @@ final class FocusTimelineLayout {
     let minEventHeight: CGFloat = 20.0
 
     /// 时间线日期范围
-    let dateRange: CalendarTimelineDateRange
+    let dateRange: DateInterval
     
     let events: [FocusTimelineEvent]
     
@@ -55,7 +55,7 @@ final class FocusTimelineLayout {
     
     private var needsLayout: Bool = true
     
-    init(events: [FocusTimelineEvent]?, dateRange: CalendarTimelineDateRange) {
+    init(events: [FocusTimelineEvent]?, dateRange: DateInterval) {
         self.events = events ?? []
         self.dateRange = dateRange
     }

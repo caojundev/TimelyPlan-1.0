@@ -15,9 +15,9 @@ protocol CalendarPageViewDelegate: AnyObject {
     
     func calendarPageViewWillEndDragging(_ pageView: CalendarPageView, withTargetDate date: Date)
     
-    func calendarPageView(_ pageView: CalendarPageView, createEventWithDateRange dateRange: CalendarTimelineDateRange)
+    func calendarPageView(_ pageView: CalendarPageView, createEventWithDateRange dateRange: DateInterval)
     
-    func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: CalendarTimelineDateRange)
+    func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: DateInterval)
 
     func calendarPageView(_ pageView: CalendarPageView, didTapEvent event: CalendarEvent)
     
@@ -243,6 +243,10 @@ class CalendarPageView: TPCollectionWrapperView,
         goToDate(date: toDate)
     }
     
+    func endDragDropEditing() {
+        dragDropManager.dismiss()
+    }
+    
     /// 日期相对当前显示首日的列索引
     func column(of date: Date) -> Int {
         let days = Date.days(fromDate: visibleDate, toDate: date)
@@ -254,7 +258,7 @@ class CalendarPageView: TPCollectionWrapperView,
     }
 
     // MARK: - 时间线
-    func highlightDateRange(_ dateRange: CalendarTimelineDateRange) {
+    func highlightDateRange(_ dateRange: DateInterval) {
         hoursView.highlightDateRange(dateRange)
     }
     
@@ -348,12 +352,12 @@ class CalendarPageView: TPCollectionWrapperView,
     }
     
     // MARK: - CalendarDragDropManagerDelegate
-    func calendarDragDropManager(_ manager: CalendarDragDropManager, createEventWithDateRange dateRange: CalendarTimelineDateRange) {
+    func calendarDragDropManager(_ manager: CalendarDragDropManager, createEventWithDateRange dateRange: DateInterval) {
         TPImpactFeedback.impactWithSoftStyle()
         delegate?.calendarPageView(self, createEventWithDateRange: dateRange)
     }
     
-    func calendarDragDropManager(_ manager: CalendarDragDropManager, updateEvent event: CalendarEvent, withDateRange dateRange: CalendarTimelineDateRange) {
+    func calendarDragDropManager(_ manager: CalendarDragDropManager, updateEvent event: CalendarEvent, withDateRange dateRange: DateInterval) {
         TPImpactFeedback.impactWithSoftStyle()
         delegate?.calendarPageView(self, updateEvent: event, withDateRange: dateRange)
     }

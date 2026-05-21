@@ -58,8 +58,7 @@ class CalendarWeekViewController: CalendarBaseViewController,
             break
         }
     }
-    
-    
+
     override func quickAddTaskDate() -> Date {
         let now = Date()
         var date = pageView.visibleDate ?? now
@@ -69,7 +68,6 @@ class CalendarWeekViewController: CalendarBaseViewController,
         
         return date
     }
-        
     
     override func calendarPageDateChanged(_ date: Date) {
         updateTitle(with: date)
@@ -81,7 +79,14 @@ class CalendarWeekViewController: CalendarBaseViewController,
     }
     
     // MARK: - Event Response
+    override func clickAddTask() {
+        super.clickAddTask()
+        pageView.endDragDropEditing()
+    }
+    
     override func clickDate(_ button: UIButton) {
+        pageView.endDragDropEditing()
+        
         let datePickerVC = TPYearMonthDatePickerViewController()
         datePickerVC.date = pageView.visibleDate
         datePickerVC.didPickDate = { date in

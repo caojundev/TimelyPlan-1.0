@@ -10,12 +10,12 @@ import Foundation
 protocol CalendarDragDropManagerDelegate: AnyObject {
     
     // 创建新事项
-    func calendarDragDropManager(_ manager: CalendarDragDropManager, createEventWithDateRange dateRange: CalendarTimelineDateRange)
+    func calendarDragDropManager(_ manager: CalendarDragDropManager, createEventWithDateRange dateRange: DateInterval)
     
     /// 更新事项日期
     func calendarDragDropManager(_ manager: CalendarDragDropManager,
                                  updateEvent event: CalendarEvent,
-                                 withDateRange dateRange: CalendarTimelineDateRange)
+                                 withDateRange dateRange: DateInterval)
 }
 
 class CalendarDragDropManager: CalendarDragDropManageViewDelegate {
@@ -49,7 +49,7 @@ class CalendarDragDropManager: CalendarDragDropManageViewDelegate {
         showManangeView(manageView)
     }
     
-    func showAddEvent(with dateRange: CalendarTimelineDateRange) {
+    func showAddEvent(with dateRange: DateInterval) {
         let manageView = CalendarDragDropManageView(dateRange: dateRange)
         manageView.delegate = self
         showManangeView(manageView)
@@ -89,7 +89,7 @@ class CalendarDragDropManager: CalendarDragDropManageViewDelegate {
     
     // MARK: -
     
-    func dragDropManageView(_ view: CalendarDragDropManageView, didEndEditingDateRange dateRange: CalendarTimelineDateRange) {
+    func dragDropManageView(_ view: CalendarDragDropManageView, didEndEditingDateRange dateRange: DateInterval) {
         dismiss()
         guard let event = view.event else {
             /// 创建新事项

@@ -118,7 +118,7 @@ class CalendarMonthWeekView: UIView {
     
     private func eventsChanged() {
         guard let weekStartDate = weekStartDate,
-                eventsViewModel.range == .weekRange(of: weekStartDate) else {
+                eventsViewModel.range == .rangeOfWeek(weekStartDate: weekStartDate) else {
             return
         }
         
@@ -200,7 +200,7 @@ class CalendarMonthWeekView: UIView {
             eventsView.reset()
         }
         
-        eventsViewModel.loadEvents(in: .weekRange(of: weekStartDate))
+        eventsViewModel.loadEvents(in: .rangeOfWeek(weekStartDate: weekStartDate))
     }
     
     func reloadWeekDays() {

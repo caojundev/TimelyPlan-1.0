@@ -60,8 +60,8 @@ class FocusTimelineView: UIView {
         }
     }
     
-    private lazy var dateRange: CalendarTimelineDateRange = {
-        return CalendarTimelineDateRange(date: date)
+    private lazy var dateRange: DateInterval = {
+        return .rangeOfDay(date)
     }()
 
     private let hoursViewWidth = 60.0
@@ -176,7 +176,7 @@ class FocusTimelineView: UIView {
         }
 
         let date = Date()
-        let centerY = topPadding +  hourHeight * CGFloat(HOURS_PER_DAY) * (date.timeIntervalSince(dateRange.start) / dateRange.interval)
+        let centerY = topPadding +  hourHeight * CGFloat(HOURS_PER_DAY) * (date.timeIntervalSince(dateRange.start) / dateRange.duration)
         indicatorView.frame = CGRect(x: 0.0,
                                      y: centerY - indicatorViewHeight / 2.0,
                                      width: width,
@@ -191,7 +191,7 @@ class FocusTimelineView: UIView {
     
     func loadEvents(for date: Date) {
         self.date = date
-        self.dateRange = CalendarTimelineDateRange(date: date)
+        self.dateRange = .rangeOfDay(date)
         self.eventListView.date = date
         self.setupIndicatorView()
         self.viewModel.loadEvents(for: date)

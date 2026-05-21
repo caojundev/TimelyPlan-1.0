@@ -111,7 +111,7 @@ class CalendarDayTimelineHoursView: UIView {
     
     
     // 高亮日期范围
-    func highlightDateRange(_ dateRange: CalendarTimelineDateRange) {
+    func highlightDateRange(_ dateRange: DateInterval) {
         if highlightView == nil {
             let highlightView = CalendarTimelineHourHighlightView(layout: layout)
             contentView.addSubview(highlightView)
@@ -136,7 +136,7 @@ class CalendarDayTimelineHoursView: UIView {
 // 高亮视图类
 private class CalendarTimelineHourHighlightView: UIView {
 
-    private(set) var dateRange: CalendarTimelineDateRange?
+    private(set) var dateRange: DateInterval?
     
     /// 开始标签
     private lazy var startLabel: UILabel = {
@@ -179,7 +179,7 @@ private class CalendarTimelineHourHighlightView: UIView {
         layoutLabels()
     }
     
-    func highlightDateRange(_ dateRange: CalendarTimelineDateRange) {
+    func highlightDateRange(_ dateRange: DateInterval) {
         self.dateRange = dateRange
         layoutLabels()
     }

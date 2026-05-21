@@ -119,7 +119,13 @@ class CalendarDayViewController: CalendarBaseViewController,
         pageView.setVisibleDate(date, animated: animated)
     }
     
+    override func clickAddTask() {
+        super.clickAddTask()
+        pageView.endDragDropEditing()
+    }
+    
     override func clickDate(_ button: UIButton) {
+        pageView.endDragDropEditing()
         let vc = TPCalendarViewController(date: date)
         vc.didSelectDate = { date in
             self.pickDate(date)

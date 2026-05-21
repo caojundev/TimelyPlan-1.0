@@ -32,7 +32,7 @@ final class CalendarTimelineLayout {
     let offsetWidth = 4.0
     
     /// 时间线日期范围
-    let dateRange: CalendarTimelineDateRange
+    let dateRange: DateInterval
     
     let events: [CalendarEvent]
     
@@ -40,8 +40,16 @@ final class CalendarTimelineLayout {
     
     private var needsLayout: Bool = true
     
-    init(events: [CalendarEvent], dateRange: CalendarTimelineDateRange) {
-        self.events = events.sorted { $0.startDate <= $1.startDate}
+    init(events: [CalendarEvent], dateRange: DateInterval) {
+        /// 过滤掉不在时间线上的事项
+        var validEvents = [CalendarEvent]()
+        for event in events {
+            if !event.isAllDay, event.dateRange.intersects(dateRange) {
+                validEvents.append(event)
+            }
+        }
+        
+        self.events = validEvents.sorted { $0.startDate <= $1.startDate}
         self.dateRange = dateRange
     }
     

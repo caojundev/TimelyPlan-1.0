@@ -24,12 +24,12 @@ class FocusTimelineTimeUtils {
     ///   - viewHeight: 视图总高度
     /// - Returns: 对应的时间
     static func time(fromY y: CGFloat, 
-                     dateRange: CalendarTimelineDateRange,
+                     dateRange: DateInterval,
                      viewHeight: CGFloat) -> Date {
         let adjustedY = max(0, y)
         let totalHeight = viewHeight
         let progress = totalHeight > 0 ? adjustedY / totalHeight : 0
-        let timeInterval = dateRange.interval * Double(progress)
+        let timeInterval = dateRange.duration * Double(progress)
         var date = dateRange.start.addingTimeInterval(timeInterval)
         if date > dateRange.end {
             date = dateRange.end
@@ -46,11 +46,11 @@ class FocusTimelineTimeUtils {
     ///   - topPadding: 顶部内边距
     /// - Returns: 对应的Y坐标
     static func y(fromTime time: Date,
-                  dateRange: CalendarTimelineDateRange,
+                  dateRange: DateInterval,
                   viewHeight: CGFloat,
                   topPadding: CGFloat = 0) -> CGFloat {
         let timeIntervalSinceStart = time.timeIntervalSince(dateRange.start)
-        let progress = dateRange.interval > 0 ? timeIntervalSinceStart / dateRange.interval : 0
+        let progress = dateRange.duration > 0 ? timeIntervalSinceStart / dateRange.duration : 0
         let totalHeight = viewHeight - topPadding
         return topPadding + CGFloat(progress) * totalHeight
     }
@@ -94,9 +94,9 @@ class FocusTimelineTimeUtils {
     ///   - viewHeight: 视图总高度
     /// - Returns: 对应的高度
     static func heightForDuration(_ duration: TimeInterval,
-                                  dateRange: CalendarTimelineDateRange,
+                                  dateRange: DateInterval,
                                   viewHeight: CGFloat) -> CGFloat {
-        let durationRatio = dateRange.interval > 0 ? duration / dateRange.interval : 0
+        let durationRatio = dateRange.duration > 0 ? duration / dateRange.duration : 0
         return CGFloat(durationRatio) * viewHeight
     }
     
