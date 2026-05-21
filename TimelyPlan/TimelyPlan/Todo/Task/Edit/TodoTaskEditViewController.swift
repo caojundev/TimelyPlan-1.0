@@ -25,10 +25,14 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     }()
     
     /// 步骤区块
-    lazy var stepAddSectionController: TodoTaskAddStepSectionController = {
+    lazy var stepAddSectionController: TodoTaskAddStepSectionController = { [weak self] in
         let sectionController = TodoTaskAddStepSectionController()
-        sectionController.didClickAdd = { [weak self] in
+        sectionController.didClickAdd = {
             self?.clickAddStep()
+        }
+        
+        sectionController.didSelectActionType = { actionType in
+            self?.stepEditSectionController.performTaskStepBulkMenuAction(with: actionType)
         }
 
         return sectionController

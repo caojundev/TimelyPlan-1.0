@@ -185,8 +185,13 @@
 "Add step to bottom" = "添加步骤到底部";
 "Add Substep" = "添加子步骤";
 "Copy Step" = "拷贝步骤";
-"The step has been copied to the clipboard." = "步骤已复制到剪贴板";
+"The step has been copied to the clipboard" = "步骤已复制到剪贴板";
+"All steps copied as Markdown" = "步骤已复制为 Markdown 格式";
 
+"Import Steps" = "导入步骤";
+"Copy Steps As Markdown" = "复制为 Markdown";
+"Delete Completed Steps" = "删除已完成步骤";
+"All completed steps will be permanently deleted." = "所有已完成步骤将永久删除。";
 
 /// 进度
 "Progress" = "进度";

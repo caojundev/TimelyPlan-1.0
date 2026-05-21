@@ -32,7 +32,7 @@ class TodoTaskStepEditCellItem: TPAutoResizeTextViewTableCellItem {
         self.leftViewMargins = UIEdgeInsets(left: 14.0, right: 10.0)
         self.leftViewSize = .size(5)
         self.rightViewSize = .mini
-        self.rightViewMargins = UIEdgeInsets(right: 5.0)
+        self.rightViewMargins = UIEdgeInsets(right: 10.0)
         self.depthWidth = 32.0
     }
     

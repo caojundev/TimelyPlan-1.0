@@ -172,7 +172,10 @@ class TodoStepParser {
     
     /// 将 TodoStep 转换回 Markdown
     /// 根据父步骤的展开状态决定子步骤的缩进
-    func toMarkdown(_ steps: [TodoStep], parentIndent: Int = 0, parentIsExpanded: Bool = true) -> String {
+    func toMarkdown(_ steps: [TodoStep],
+                    parentIndent: Int = 0,
+                    parentIsExpanded: Bool = true,
+                    forceExpanded: Bool = false) -> String {
         var result: [String] = []
         
         for step in steps {
@@ -187,10 +190,18 @@ class TodoStepParser {
                 // 关键：根据当前步骤的展开状态决定子步骤的缩进
                 // 如果展开，子步骤缩进 = 当前缩进 + 2
                 // 如果折叠，子步骤缩进 = 当前缩进 + 4（表示跳过了一级）
-                let childIndent = step.isExpanded ? currentIndent + 2 : currentIndent + 4
+                
+                let childIndent: Int
+                if forceExpanded {
+                    childIndent = currentIndent + 2
+                } else {
+                    childIndent = step.isExpanded ? currentIndent + 2 : currentIndent + 4
+                }
+                
                 let childMarkdown = toMarkdown(step.subSteps,
-                                              parentIndent: childIndent,
-                                              parentIsExpanded: step.isExpanded)
+                                               parentIndent: childIndent,
+                                               parentIsExpanded: step.isExpanded,
+                                               forceExpanded: forceExpanded)
                 result.append(childMarkdown)
             }
         }

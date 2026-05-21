@@ -149,6 +149,68 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
     }
     
     // MARK: - 任务步骤菜单操作
+    func performTaskStepBulkMenuAction(with type: TodoTaskStepBulkMenuActionType) {
+        print(type)
+        switch type {
+        case .importSteps:
+            importSteps()
+        case .copyStepsAsMarkdown:
+            copyStepsAsMarkdown()
+        case .deleteCompletedSteps:
+            confirmCompletedStepsDeletion()
+        }
+    }
+    
+    private func importSteps() {
+    
+    }
+    
+    private func copyStepsAsMarkdown() {
+        guard let steps = interactor.task.steps, steps.count > 0 else {
+            return
+        }
+        
+        if let markdown = steps.markdown(forceExpanded: true), markdown.count > 0 {
+            UIPasteboard.general.string = markdown
+            let message = resGetString("All steps copied as Markdown")
+            TPFeedbackQueue.common.postFeedback(text: message, position: .top)
+        }
+    }
+    
+    func confirmCompletedStepsDeletion() {
+        guard self.steps.completedCount() > 0 else {
+            return
+        }
+        
+        let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
+            self.deleteCompletedSteps()
+        }
+        
+        let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))
+        let message = resGetString("All completed steps will be permanently deleted.")
+        let alertController = TPAlertController(title: resGetString("Delete Completed Steps"),
+                                                message: message,
+                                                actions: [cancelAction, deleteAction])
+        alertController.show()
+    }
+    
+    
+    private func deleteCompletedSteps() {
+        var steps = self.steps
+        let completedSteps = steps.getAllCompletedSteps()
+        for completedStep in completedSteps {
+            if let parent = completedStep.parent {
+                parent.removeSubStep(completedStep)
+            } else {
+                steps.remove(completedStep)
+            }
+        }
+    
+        self.steps = steps
+        self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+        self.stepsDidChange()
+    }
+    
     func performTaskStepMenuAction(with type: TodoTaskStepMenuActionType, for step: TodoStep) {
         switch type {
         case .addSubStep:
@@ -166,7 +228,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
 
     private func copyStep(_ step: TodoStep) {
         UIPasteboard.general.string = step.content
-        let message = resGetString("The step has been copied to the clipboard.")
+        let message = resGetString("The step has been copied to the clipboard")
         TPFeedbackQueue.common.postFeedback(text: message, position: .top)
     }
 

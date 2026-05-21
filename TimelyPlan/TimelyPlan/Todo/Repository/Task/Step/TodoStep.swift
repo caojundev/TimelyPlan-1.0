@@ -131,6 +131,21 @@ extension TodoStep {
     func completedCount() -> Int {
         return flatten().filter { $0.isCompleted }.count
     }
+    
+    // 获取当前节点及其所有子节点中已完成的步骤
+    func getAllCompletedSteps() -> [TodoStep] {
+        var completedSteps: [TodoStep] = []
+        
+        if isCompleted {
+            completedSteps.append(self)
+        }
+        
+        for subStep in subSteps {
+            completedSteps.append(contentsOf: subStep.getAllCompletedSteps())
+        }
+        
+        return completedSteps
+    }
 }
 
 extension Array where Element == TodoStep {
@@ -149,8 +164,12 @@ extension Array where Element == TodoStep {
         return flatten().filter { $0.isCompleted }.count
     }
     
-    func markdown() -> String? {
+    func getAllCompletedSteps() -> [TodoStep] {
+        return flatMap { $0.getAllCompletedSteps() }
+    }
+    
+    func markdown(forceExpanded: Bool = false) -> String? {
         let parser = TodoStepParser()
-        return parser.toMarkdown(self)
+        return parser.toMarkdown(self, forceExpanded: forceExpanded)
     }
 }
