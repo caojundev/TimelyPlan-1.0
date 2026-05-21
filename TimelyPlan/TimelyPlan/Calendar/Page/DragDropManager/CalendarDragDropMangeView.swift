@@ -107,6 +107,8 @@ class CalendarDragDropManageView: UIView,
         return CalendarConstant.minimumTimedEventViewHeight
     }
 
+    private var panGesture: UIPanGestureRecognizer?
+    
     init(dateRange: DateInterval) {
         self.dateRange = dateRange
         self.dayDate = dateRange.start
@@ -167,6 +169,12 @@ class CalendarDragDropManageView: UIView,
         updateMaskLayer()
         updateScheduleViewFrame()
         highlightDateRange()
+    }
+    
+    func dismiss() {
+        delegate = nil
+        panGesture?.isEnabled = false
+        removeFromSuperview()
     }
 
     // MARK: - 响应者链
@@ -233,9 +241,11 @@ class CalendarDragDropManageView: UIView,
     
     // MARK: - Gesture Handling
     private func setupGesture() {
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        pan.delegate = self
-        addGestureRecognizer(pan)
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        panGesture.maximumNumberOfTouches = 1
+        panGesture.delegate = self
+        addGestureRecognizer(panGesture)
+        self.panGesture = panGesture
         
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(handleTap(_:)))
@@ -273,6 +283,10 @@ class CalendarDragDropManageView: UIView,
                 x: point.x - bottomLeftHandleCenter.x,
                 y: point.y - bottomLeftHandleCenter.y
             )
+        }
+        
+        if dragMode != .none {
+            pageView?.dragDropPanBegan()
         }
     }
     
@@ -330,6 +344,7 @@ class CalendarDragDropManageView: UIView,
     private func panEnded(with touchPoint: CGPoint) {
         pageAutoScroller.stopAutoScroll()
         contentAutoScroller.stopAutoScroll()
+        pageView?.dragDropPanEnded()
         guard self.dragMode != .none else {
             return
         }
@@ -410,11 +425,7 @@ class CalendarDragDropManageView: UIView,
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if otherGestureRecognizer is UIPanGestureRecognizer {
-            return true
-        }
-        
-        return false
+        return true
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {

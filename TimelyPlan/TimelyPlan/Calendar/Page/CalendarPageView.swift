@@ -256,7 +256,17 @@ class CalendarPageView: TPCollectionWrapperView,
     func date(of column: Int) -> Date {
         return visibleDate.dateByAddingDays(column)!
     }
-
+    
+    func dragDropPanBegan() {
+        collectionView.isUserInteractionEnabled = false
+        hoursView.isUserInteractionEnabled = false
+    }
+    
+    func dragDropPanEnded() {
+        collectionView.isUserInteractionEnabled = true
+        hoursView.isUserInteractionEnabled = true
+    }
+    
     // MARK: - 时间线
     func highlightDateRange(_ dateRange: DateInterval) {
         hoursView.highlightDateRange(dateRange)

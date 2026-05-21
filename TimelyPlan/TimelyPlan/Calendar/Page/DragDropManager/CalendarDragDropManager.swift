@@ -57,14 +57,17 @@ class CalendarDragDropManager: CalendarDragDropManageViewDelegate {
     
     func dismiss() {
         pageView?.synchronizer.removeSynchronizableView(manageView)
-        pageView?.clearHighlight()
-        manageView?.removeFromSuperview()
+        manageView?.dismiss()
         manageView = nil
+        /// 清除高亮
+        pageView?.clearHighlight()
     }
     
     private func showManangeView(_ manageView: CalendarDragDropManageView) {
-        self.manageView?.removeFromSuperview()
-        self.manageView = nil
+        if self.manageView != nil {
+            dismiss()
+        }
+        
         guard let pageView = pageView else {
             return
         }
