@@ -71,14 +71,7 @@ class CalendarPageTimedEventsView: UIView,
     }
     
     private func setupDayViews() {
-        let daysCount: Int
-        switch mode {
-        case .day:
-            daysCount = 1
-        case .week:
-            daysCount = DAYS_PER_WEEK
-        }
-        
+        let daysCount = mode.days
         /// 初始化日视图
         var dayViews = [CalendarDayTimedEventsView]()
         for index in 0..<daysCount {

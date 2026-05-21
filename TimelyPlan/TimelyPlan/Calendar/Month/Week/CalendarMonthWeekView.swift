@@ -66,7 +66,7 @@ class CalendarMonthWeekView: UIView {
     private let headerHeight = 36.0
     
     /// 事件供应者
-    private let eventsProvider = CalendarWeekEventsProvider()
+    private let eventsViewModel = CalendarEventsViewModel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,7 +76,7 @@ class CalendarMonthWeekView: UIView {
         setupWeekNumberView()
         
         setupLongPressGesture()
-        eventsProvider.eventsDidChange = { [weak self] in
+        eventsViewModel.onEventsChanged = { [weak self] in
             self?.eventsChanged()
         }
     }
@@ -117,12 +117,13 @@ class CalendarMonthWeekView: UIView {
     }
     
     private func eventsChanged() {
-        guard let weekStartDate = weekStartDate, eventsProvider.contains(date: weekStartDate) else {
+        guard let weekStartDate = weekStartDate,
+                eventsViewModel.range == .weekRange(of: weekStartDate) else {
             return
         }
         
         DispatchQueue.main.async {
-            self.eventsView.events = self.eventsProvider.events
+            self.eventsView.events = self.eventsViewModel.events
             self.eventsView.reloadData()
         }
     }
@@ -199,9 +200,8 @@ class CalendarMonthWeekView: UIView {
             eventsView.reset()
         }
         
-        eventsProvider.loadEvents(weekStartDate: weekStartDate)
+        eventsViewModel.loadEvents(in: .weekRange(of: weekStartDate))
     }
-    
     
     func reloadWeekDays() {
         guard let weekStartDate = weekStartDate else {

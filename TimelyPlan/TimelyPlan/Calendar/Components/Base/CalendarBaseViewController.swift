@@ -36,7 +36,9 @@ class CalendarBaseViewController: TPViewController,
 
     /// 任务快速添加控制器
     private(set) lazy var quickAddManager: TodoTaskQuickAddManager = {
-        let manager = TodoTaskQuickAddManager(containerViewController: self)
+        let options = TodoQuickAddOptions(showMoreSetting: false,
+                                          forbidContinuousAdd: true)
+        let manager = TodoTaskQuickAddManager(containerViewController: self, options: options)
         return manager
     }()
     

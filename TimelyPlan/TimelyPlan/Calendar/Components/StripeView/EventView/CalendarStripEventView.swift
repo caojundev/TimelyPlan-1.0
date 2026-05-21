@@ -45,7 +45,7 @@ class CalendarStripEventView: UIView {
         super.init(frame: .zero)
         layer.cornerRadius = 2.0
         layer.masksToBounds = true
-        textLayer.string = event.name
+        textLayer.string = event.title
         layer.addSublayer(textLayer)
         backgroundColor = CalendarEventColor.backgroundColor(for: event.color)
         lineLayer.backgroundColor = event.color.cgColor

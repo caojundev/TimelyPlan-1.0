@@ -51,7 +51,7 @@ class CalendarEventView: UIView {
         layer.addSublayer(lineLayer)
         
         nameLabel.font = .systemFont(ofSize: 10, weight: .bold)
-        nameLabel.text = event.name
+        nameLabel.text = event.title
         addSubview(nameLabel)
         
         timeLabel.font = .systemFont(ofSize: 8, weight: .medium)

@@ -62,11 +62,16 @@ class TodoTaskQuickAddMenuView: UIView,
         return sectionController
     }()
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, options: TodoQuickAddOptions) {
         super.init(frame: frame)
         addSubview(collectionView)
-        self.sectionControllers = [menuSectionController,
-                                   moreSectionController]
+        if options.showMoreSetting {
+            self.sectionControllers = [menuSectionController,
+                                       moreSectionController]
+        } else {
+            self.sectionControllers = [menuSectionController]
+        }
+        
         self.adapter.collectionView = collectionView
         self.adapter.sectionInset = .zero
         self.adapter.dataSource = self

@@ -48,41 +48,45 @@ class CalendarEventColor {
     }
 }
 
+// 1. 枚举区分事件来源
+enum CalendarEventSource {
+    case local      // 用户自定义任务
+    case system     // 系统日历
+}
+
 class CalendarEvent: NSObject {
-    
-    /// 标识
-    var identifier: String = UUID().uuidString
-    
-    /// 名称
-    var name: String?
-    
-    /// 颜色
-    let color: UIColor
-    
-    /// 是否为全天事项
-//    let allDay: Bool
-    
-    /// 开始日期
+    let identifier: String
+    let source: CalendarEventSource
+    let title: String?
     let startDate: Date
-    
-    /// 结束日期
     let endDate: Date
+    let isAllDay: Bool
+    let color: UIColor
+    let notes: String?
+
+    // 原始数据的引用
+    let rawLocalTaskID: String?
+//    let rawSystemEvent: EKEvent?
     
     init(name: String?,
          color: UIColor,
          startDate: Date,
-         endDate: Date) {
-        self.name = name
+         endDate: Date,
+         isAllDay: Bool = true) {
+        self.identifier = UUID().uuidString
+        self.source = .local
+        self.title = name
         self.color = color
         self.startDate = startDate
         self.endDate = endDate
-//        self.allDay = false
-        super.init()
+        self.isAllDay = false
+        self.notes = nil
+        self.rawLocalTaskID = nil
     }
     
+    /// 日期范围
     var dateRange: CalendarTimelineDateRange {
-        return CalendarTimelineDateRange(start: startDate,
-                                         end: endDate)
+        return CalendarTimelineDateRange(start: startDate, end: endDate)
     }
 }
 
@@ -108,4 +112,16 @@ extension CalendarEvent {
         
         return CalendarEventPosition(column: column, length: length)
     }
+}
+
+extension Array where Element == CalendarEvent {
+    
+    var allDayEvents: [CalendarEvent] {
+        return self.filter { $0.isAllDay }
+    }
+    
+    var timedEvents: [CalendarEvent] {
+        return self.filter { !$0.isAllDay }
+    }
+    
 }

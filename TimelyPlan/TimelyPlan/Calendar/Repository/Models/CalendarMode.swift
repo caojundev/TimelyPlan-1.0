@@ -34,9 +34,7 @@ enum CalendarMode: Int, TPMenuRepresentable {
         }
     }
     
-    
     var iconImage: UIImage? {
         return iconImage(with: .mini)
     }
-    
 }

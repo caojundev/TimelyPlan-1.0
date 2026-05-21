@@ -18,13 +18,7 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
                                 TodoTaskQuickAddMenuViewDelegate {
 
     weak var delegate: TodoTaskQuickAddViewDelegate?
-
-    /// 快速添加任务
-    private(set) var editTask: TodoQuickAddTask
-
-    /// 是否连续添加
-    private var shouldAddContinuously: Bool = true
-
+    
     /// 编辑视图
     private lazy var editView: TodoTaskQuickAddEditView = { [weak self] in
         let view = TodoTaskQuickAddEditView(frame: bounds)
@@ -56,7 +50,7 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
     
     /// 菜单视图
     private lazy var menuView: TodoTaskQuickAddMenuView = { [weak self] in
-        let view = TodoTaskQuickAddMenuView()
+        let view = TodoTaskQuickAddMenuView(frame: .zero, options: options)
         view.delegate = self
         return view
     }()
@@ -89,8 +83,16 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
     /// 发送视图高度
     let sendViewHeight = 45.0
     
-    init(task: TodoQuickAddTask) {
+    
+    /// 快速添加任务
+    private(set) var editTask: TodoQuickAddTask
+
+    /// 显示更多设置
+    let options: TodoQuickAddOptions
+
+    init(task: TodoQuickAddTask, options: TodoQuickAddOptions) {
         self.editTask = task.copy() as! TodoQuickAddTask
+        self.options = options
         super.init(frame: .zero)
         self.backgroundColor = .secondarySystemGroupedBackground
         self.padding = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 5.0, right: 10.0)

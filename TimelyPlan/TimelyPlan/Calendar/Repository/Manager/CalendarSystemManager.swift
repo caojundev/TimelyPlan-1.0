@@ -1,5 +1,5 @@
 //
-//  CalendarManager.swift
+//  CalendarSystemManager.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2025/4/29.
@@ -8,12 +8,12 @@
 import Foundation
 import EventKit
 
-class CalendarManager {
+class CalendarSystemManager {
     
     private let eventStore = EKEventStore()
     
     // MARK: - 单例模式（如果需要）
-    static let shared = CalendarManager()
+    static let shared = CalendarSystemManager()
     
     private init() {
         requestAccess()

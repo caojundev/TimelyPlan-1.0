@@ -8,6 +8,15 @@
 import Foundation
 import UIKit
 
+struct TodoQuickAddOptions: Codable {
+    
+    /// 显示更多设置
+    var showMoreSetting: Bool = true
+
+    /// 禁止连续添加
+    var forbidContinuousAdd: Bool = false
+}
+
 class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
     
     /// 草稿任务
@@ -19,12 +28,15 @@ class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
     /// 容器视图控制器
     weak var containerViewController: UIViewController?
     
-    init(containerViewController: UIViewController) {
+    private let options: TodoQuickAddOptions
+    
+    init(containerViewController: UIViewController, options: TodoQuickAddOptions? = nil) {
         var viewController = containerViewController
         if let navigationController = containerViewController.navigationController {
             viewController = navigationController
         }
         
+        self.options = options ?? TodoQuickAddOptions()
         self.containerViewController = viewController
     }
     
@@ -49,7 +61,8 @@ class TodoTaskQuickAddManager: TPKeyboardAwareControllerDelegate {
         
         let addController = TodoTaskQuickAddController(containerViewController: vc,
                                                        originTask: originTask,
-                                                       editingTask: editingTask)
+                                                       editingTask: editingTask,
+                                                       options: options)
         addController.delegate = self
         addController.beginEditing()
         self.addController = addController

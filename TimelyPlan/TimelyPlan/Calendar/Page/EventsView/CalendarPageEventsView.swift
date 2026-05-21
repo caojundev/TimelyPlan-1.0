@@ -30,6 +30,15 @@ protocol CalendarPageEventsViewDelegate: AnyObject {
 enum CalendarPageMode {
     case day
     case week
+    
+    var days: Int {
+        switch self {
+        case .day:
+            return 1
+        case .week:
+            return DAYS_PER_WEEK
+        }
+    }
 }
 
 class CalendarPageEventsView: UIView,
