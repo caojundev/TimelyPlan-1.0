@@ -21,6 +21,8 @@ class TodoStepImporter {
         let line: String
     }
     
+    var maxDepth = kTodoListMaxDepth
+    
     // MARK: - 主要解析方法
     func parse(text: String) -> ParseResult {
         var result = ParseResult()
@@ -50,12 +52,16 @@ class TodoStepImporter {
                 ))
                 continue
             }
-            
+
             // 创建新的步骤
             let newStep = TodoStep(content: content, isCompleted: isCompleted)
             
             // 确定父步骤
             if let parentStep = findParentStep(for: indentLevel, in: &stepStack) {
+                if parentStep.depth >= maxDepth {
+                    continue
+                }
+                
                 parentStep.subSteps.append(newStep)
                 newStep.parent = parentStep
             } else {

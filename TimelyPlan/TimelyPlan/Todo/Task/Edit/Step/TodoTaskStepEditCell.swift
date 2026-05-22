@@ -110,6 +110,8 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
     private(set) lazy var depthLineLayer: TodoListBranchLayer = {
         let layer = TodoListBranchLayer()
         layer.indentationWidth = depthWidth
+        layer.maxDepthWidth = layer.depthWidth
+        layer.maxDepth = kTodoStepMaxDepth
         layer.lineWidth = 2.0
         layer.strokeColor = UIColor.lightGray.cgColor
         return layer
@@ -348,6 +350,8 @@ class TodoTaskStepEditCellPreviewView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .secondarySystemBackground
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 12.0
         self.infoView.leftAccessoryView = self.checkbox
         self.addSubview(infoView)
     }

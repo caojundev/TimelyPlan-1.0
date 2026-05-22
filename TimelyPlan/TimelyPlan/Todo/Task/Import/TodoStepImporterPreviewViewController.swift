@@ -10,6 +10,8 @@ import UIKit
 
 class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
     
+    var completion: (([TodoStep]) -> Void)?
+    
     let editSectionController: TodoStepEditSectionController
     
     init(steps: [TodoStep]) {
@@ -23,14 +25,14 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = resGetString("Steps Preview")
-        self.wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
-        self.tableView.keyboardDismissMode = .interactive
-        self.setupReorder()
-        self.setupActionsBar(actions: [doneAction])
-        self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        self.sectionControllers = [editSectionController]
-        self.reloadData()
+        title = resGetString("Steps Preview")
+        wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
+        tableView.keyboardDismissMode = .interactive
+        setupReorder()
+        setupActionsBar(actions: [doneAction])
+        adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
+        sectionControllers = [editSectionController]
+        reloadData()
     }
 
     override var themeBackgroundColor: UIColor? {
@@ -42,7 +44,13 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
     }
     
     override func clickDone() {
-        self.dismiss(animated: true, completion: nil)
+        let steps = editSectionController.steps
+        for step in steps.flatten() {
+            step.isExpanded = true
+        }
+        
+        completion?(steps)
+        dismiss(animated: true, completion: nil)
     }
     
     /// 排序管理器

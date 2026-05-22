@@ -42,14 +42,16 @@ class TodoListBranchLayer: CAShapeLayer {
         }
     }
     
+    var depthWidth = 16.0
+    
+    var maxDepthWidth = 32.0
+    
+    var maxDepth = 3
+    
     /// 分割线开始层级
     private let fromLevel: Int = 1
 
     private let radius = 12.0
-    
-    private let depthWidth = 16.0
-    
-    private let maxDepthWidth = 32.0
     
     override func layoutSublayers() {
         super.layoutSublayers()
@@ -87,7 +89,7 @@ class TodoListBranchLayer: CAShapeLayer {
                 bezierPath.addQuadCurve(to: curveMiddlePoint, controlPoint: controlPoint)
                 
                 let curveEndPoint: CGPoint
-                if toLevel >= kTodoListMaxDepth {
+                if toLevel >= maxDepth {
                     curveEndPoint = CGPoint(x: curveMiddlePoint.x + maxDepthWidth - radius, y: halfHeight)
                 } else {
                     curveEndPoint = CGPoint(x: curveMiddlePoint.x + depthWidth - radius, y: halfHeight)

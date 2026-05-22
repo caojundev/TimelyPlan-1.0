@@ -48,6 +48,7 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
     /// 缩进分割线图层
     private(set) lazy var depthLineLayer: TodoListBranchLayer = {
         let layer = TodoListBranchLayer()
+        layer.maxDepth = kTodoListMaxDepth
         layer.indentationWidth = depthWidth
         layer.lineWidth = 2.0
         layer.strokeColor = UIColor.lightGray.cgColor

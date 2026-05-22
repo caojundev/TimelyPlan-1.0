@@ -24,7 +24,7 @@ class TodoStepExpansionState: ExpansionStateProviding {
 class TodoStepEditSectionController: TPTableItemSectionController,
                                          TodoTaskStepEditCellDelegate {
     
-    private(set) var steps: [TodoStep] = []
+    var steps: [TodoStep] = []
     
     override var items: [ListDiffable]? {
         let flattenSteps = steps.flattenItems(with: expansionState) as! [TodoStep]
@@ -45,8 +45,7 @@ class TodoStepEditSectionController: TPTableItemSectionController,
     }
 
     func stepsDidChange() {
-        let importer = TodoStepImporter()
-        print(importer.visualize(self.steps))
+
     }
     
     /// 开始或结束特定步骤的文本编辑

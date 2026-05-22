@@ -23,8 +23,9 @@ class TodoPresenter {
     }
     
     /// 显示导入步骤
-    static func showStepImportViewController() {
+    static func showStepImporter(completion: @escaping([TodoStep]) -> Void) {
         let vc = TodoStepImporterMainViewController(style: .insetGrouped)
+        vc.completion = completion
         vc.showAsNavigationRoot()
     }
     

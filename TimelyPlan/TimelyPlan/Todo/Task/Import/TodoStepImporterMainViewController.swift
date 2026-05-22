@@ -10,7 +10,7 @@ import UIKit
 
 class TodoStepImporterMainViewController: TPTableSectionsViewController {
     
-    var inputText = """
+    var inputText: String? = """
     完成项目报告
       - [x] 收集数据
         - [ ] 销售数据
@@ -22,6 +22,8 @@ class TodoStepImporterMainViewController: TPTableSectionsViewController {
     买水果
     """
     
+    var completion: (([TodoStep]) -> Void)?
+    
     lazy var nextAction: TPButtonAction = {
         let action = TPButtonAction(title:  resGetString("Next")) {  [weak self] action in
             self?.clickNext()
@@ -30,7 +32,6 @@ class TodoStepImporterMainViewController: TPTableSectionsViewController {
         return action
     }()
 
-    
     lazy var inputCellItem: TPAutoResizeTextViewTableCellItem = {[weak self] in
         let cellItem = TPAutoResizeTextViewTableCellItem()
         cellItem.minimumHeight = 480.0
@@ -39,7 +40,7 @@ class TodoStepImporterMainViewController: TPTableSectionsViewController {
         cellItem.placeholder = resGetString("Import Steps")
         cellItem.isNewlineEnabled = true
         cellItem.textColor = resGetColor(.title)
-        cellItem.font = .boldSystemFont(ofSize: 14.0)
+        cellItem.font = .systemFont(ofSize: 14.0)
         cellItem.returnKeyType = .next
         cellItem.maxCount = .max
         cellItem.updater = {
@@ -48,13 +49,13 @@ class TodoStepImporterMainViewController: TPTableSectionsViewController {
         
         cellItem.editingChanged = { textView in
             self?.inputText = textView.text
+            self?.updateNextButton()
         }
         
         cellItem.didEndEditing = { textView in
             let text = textView.text?.whitespacesAndNewlinesTrimmedString
-            if let text = text, text.count > 0 {
-                self?.inputText = text
-            }
+            self?.inputText = text
+            self?.updateNextButton()
         }
         
         return cellItem
@@ -70,14 +71,15 @@ class TodoStepImporterMainViewController: TPTableSectionsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = resGetString("Import Steps")
-        self.navigationItem.leftBarButtonItem = self.chevronDownCancelButtonItem
-        self.wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
-        self.tableView.keyboardDismissMode = .interactive
-        self.setupActionsBar(actions: [nextAction])
-        self.sectionControllers = [inputSectionController]
-        self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        self.reloadData()
+        title = resGetString("Import Steps")
+        navigationItem.leftBarButtonItem = self.chevronDownCancelButtonItem
+        wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
+        tableView.keyboardDismissMode = .interactive
+        setupActionsBar(actions: [nextAction])
+        sectionControllers = [inputSectionController]
+        adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
+        reloadData()
+        updateNextButton()
     }
 
     override var themeBackgroundColor: UIColor? {
@@ -94,13 +96,30 @@ class TodoStepImporterMainViewController: TPTableSectionsViewController {
         }
     }
     
-    private func clickNext() {
-        let importer = TodoStepImporter()
-        let steps = importer.importSteps(from: self.inputText)
-        let previewVC = TodoStepImporterPreviewViewController(steps: steps)
-        navigationController?.pushViewController(previewVC, animated: true)
+    private func updateNextButton() {
+        guard let inputText = inputText, inputText.count > 0 else {
+            nextAction.isEnabled = false
+            return
+        }
+        
+        nextAction.isEnabled = true
+    }
     
-        print(importer.visualize(steps))
+    private func clickNext() {
+        guard let inputText = inputText else {
+            return
+        }
+
+        let importer = TodoStepImporter()
+        let steps = importer.importSteps(from: inputText)
+        guard steps.count > 0 else {
+            return
+        }
+        
+        let previewVC = TodoStepImporterPreviewViewController(steps: steps)
+        previewVC.completion = completion
+        navigationItem.backButtonDisplayMode = .minimal
+        navigationController?.pushViewController(previewVC, animated: true)
     }
     
 }
