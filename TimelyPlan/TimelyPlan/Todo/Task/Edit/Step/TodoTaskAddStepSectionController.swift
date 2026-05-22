@@ -63,14 +63,17 @@ class TodoTaskAddStepSectionController: TPTableItemSectionController {
     func showMoreMenu(from sourceView: UIView) {
         let typeLists: [[TodoTaskStepBulkMenuActionType]] = [[.importSteps, .copyStepsAsMarkdown], [.deleteCompletedSteps]]
         let menuItems = TPMenuItem.items(with: typeLists) { type, action in
-            action.handleBeforeDismiss = true
+            if type != .deleteCompletedSteps {
+                action.handleBeforeDismiss = true
+            }
+        
             action.handler = { _ in
                 self.didSelectActionType?(type)
             }
         }
 
         let menuList = TPMenuListViewController()
-        menuList.menuContentWidth = 240.0
+        menuList.menuContentWidth = 200.0
         menuList.menuItems = menuItems
         menuList.popoverShow(from: sourceView,
                              sourceRect: sourceView.bounds,

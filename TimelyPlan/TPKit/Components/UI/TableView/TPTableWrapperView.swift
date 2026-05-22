@@ -135,10 +135,8 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
             removeRefreshControl()
             /// 移除原tableView的键盘监听
             tableView.removeKeyboardNotification()
-            tableView.dataSource = nil
-            tableView.delegate = nil
         }
-        
+
         tableView = UITableView(frame: bounds, style: style)
         if #available(iOS 15.0, *) {
             tableView.isPrefetchingEnabled = false

@@ -187,7 +187,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         }
         
         let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))
-        let message = resGetString("All completed steps will be permanently deleted.")
+        let message = resGetString("All completed steps and their substeps will be permanently deleted.")
         let alertController = TPAlertController(title: resGetString("Delete Completed Steps"),
                                                 message: message,
                                                 actions: [cancelAction, deleteAction])
