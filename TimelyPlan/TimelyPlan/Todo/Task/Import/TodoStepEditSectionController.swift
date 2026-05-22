@@ -1,14 +1,27 @@
 //
-//  TodoTaskEditStepSectionController.swift
+//  TodoStepEditSectionController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2024/8/30.
+//  Created by caojun on 2026/5/22.
 //
 
 import Foundation
 import UIKit
 
-class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
+class TodoStepExpansionState: ExpansionStateProviding {
+    
+    func isExpanded(_ item: Any) -> Bool {
+        let step = item as! TodoStep
+        return step.isExpanded
+    }
+    
+    func setExpended(_ isExpended: Bool, for item: Any) {
+        let step = item as! TodoStep
+        step.isExpanded = isExpended
+    }
+}
+
+class TodoStepEditSectionController: TPTableItemSectionController,
                                          TodoTaskStepEditCellDelegate {
     
     private(set) var steps: [TodoStep] = []
@@ -26,18 +39,14 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
     
     private let expansionState = TodoStepExpansionState()
     
-    override init(interactor: TodoTaskEditInteractor) {
-        super.init(interactor: interactor)
+    init(steps: [TodoStep]) {
+        super.init()
+        self.steps = steps
     }
 
-    func updateSteps() {
-        self.steps = interactor.task.steps ?? []
-    }
-    
-    override func didSelectRow(at index: Int) {
-        if let cell = cellForRow(at: index) as? TodoTaskStepEditCell {
-            cell.setTextEditing(true)
-        }
+    func stepsDidChange() {
+        let importer = TodoStepImporter()
+        print(importer.visualize(self.steps))
     }
     
     /// 开始或结束特定步骤的文本编辑
@@ -47,8 +56,10 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
         }
     }
     
-    private func stepsDidChange() {
-        self.interactor.setSteps(self.steps)
+    override func didSelectRow(at index: Int) {
+        if let cell = cellForRow(at: index) as? TodoTaskStepEditCell {
+            cell.setTextEditing(true)
+        }
     }
     
     // MARK: - TodoTaskStepEditCellDelegate
@@ -136,68 +147,6 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
     }
     
     // MARK: - 任务步骤菜单操作
-    func performTaskStepBulkMenuAction(with type: TodoTaskStepBulkMenuActionType) {
-        print(type)
-        switch type {
-        case .importSteps:
-            importSteps()
-        case .copyStepsAsMarkdown:
-            copyStepsAsMarkdown()
-        case .deleteCompletedSteps:
-            confirmCompletedStepsDeletion()
-        }
-    }
-    
-    private func importSteps() {
-        TodoPresenter.showStepImportViewController()
-    }
-    
-    private func copyStepsAsMarkdown() {
-        guard let steps = interactor.task.steps, steps.count > 0 else {
-            return
-        }
-        
-        if let markdown = steps.markdown(forceExpanded: true), markdown.count > 0 {
-            UIPasteboard.general.string = markdown
-            let message = resGetString("All steps copied as Markdown")
-            TPFeedbackQueue.common.postFeedback(text: message, position: .top)
-        }
-    }
-    
-    func confirmCompletedStepsDeletion() {
-        guard self.steps.completedCount() > 0 else {
-            return
-        }
-        
-        let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
-            self.deleteCompletedSteps()
-        }
-        
-        let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))
-        let message = resGetString("All completed steps and their substeps will be permanently deleted.")
-        let alertController = TPAlertController(title: resGetString("Delete Completed Steps"),
-                                                message: message,
-                                                actions: [cancelAction, deleteAction])
-        alertController.show()
-    }
-    
-    
-    private func deleteCompletedSteps() {
-        var steps = self.steps
-        let completedSteps = steps.getAllCompletedSteps()
-        for completedStep in completedSteps {
-            if let parent = completedStep.parent {
-                parent.removeSubStep(completedStep)
-            } else {
-                steps.remove(completedStep)
-            }
-        }
-    
-        self.steps = steps
-        self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-        self.stepsDidChange()
-    }
-    
     func performTaskStepMenuAction(with type: TodoTaskStepMenuActionType, for step: TodoStep) {
         switch type {
         case .addSubStep:
@@ -442,7 +391,7 @@ class TodoTaskEditStepSectionController: TodoTaskEditBaseSectionController,
 }
 
 // MARK: - 列表排序
-extension TodoTaskEditStepSectionController: TPTableDragInsertReorderDelegate {
+extension TodoStepEditSectionController: TPTableDragInsertReorderDelegate {
     
     func tableDragReorder(_ reorder: TPTableDragReorder, canMoveRowAt indexPath: IndexPath) -> Bool {
         /// 仅在当前区块可移动

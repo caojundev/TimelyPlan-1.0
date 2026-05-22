@@ -284,7 +284,7 @@ class TodoHomeViewController: TPTableViewController,
     }
         
     private func clickToolbarStatistic() {
-        
+        TodoPresenter.showStepImportViewController()
     }
     
     private func clickToolbarAdd() {

@@ -23,6 +23,17 @@ enum TodoTaskStepBulkMenuActionType: String, TPMenuRepresentable {
         }
     }
     
+    var iconName: String? {
+        switch self {
+        case .importSteps:
+            return "todo_step_import_24"
+        case .copyStepsAsMarkdown:
+            return "todo_step_copyAsMarkdown_24"
+        case .deleteCompletedSteps:
+            return "todo_step_deleteCompleted_24"
+        }
+    }
+    
     var actionStyle: TPMenuActionStyle {
         if self == .deleteCompletedSteps {
             return .destructive

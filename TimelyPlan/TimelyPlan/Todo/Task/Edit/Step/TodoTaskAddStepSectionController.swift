@@ -63,7 +63,7 @@ class TodoTaskAddStepSectionController: TPTableItemSectionController {
     func showMoreMenu(from sourceView: UIView) {
         let typeLists: [[TodoTaskStepBulkMenuActionType]] = [[.importSteps, .copyStepsAsMarkdown], [.deleteCompletedSteps]]
         let menuItems = TPMenuItem.items(with: typeLists) { type, action in
-            if type != .deleteCompletedSteps {
+            if type == .copyStepsAsMarkdown {
                 action.handleBeforeDismiss = true
             }
         

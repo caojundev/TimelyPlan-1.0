@@ -27,6 +27,10 @@ class TPTableViewController: TPViewController {
         return wrapperView.tableView
     }
 
+    convenience init() {
+        self.init(style: .insetGrouped)
+    }
+    
     init(style: UITableView.Style) {
         super.init(nibName: nil, bundle: nil)
         self.style = style

@@ -192,6 +192,8 @@
 "Copy Steps As Markdown" = "复制为 Markdown";
 "Delete Completed Steps" = "删除已完成步骤";
 "All completed steps and their substeps will be permanently deleted." = "所有已完成步骤及其子步骤将永久删除。";
+"Steps Preview" = "步骤预览";
+
 
 /// 进度
 "Progress" = "进度";

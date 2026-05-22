@@ -22,12 +22,11 @@ class TodoPresenter {
         vc.popoverShow()
     }
     
-//    /// 显示设置视图控制器
-//    static func showSettingsViewController() {
-//        let vc = TodoSettingViewController(style: .insetGrouped)
-//        vc.showAsNavigationRoot()
-//    }
-    
+    /// 显示导入步骤
+    static func showStepImportViewController() {
+        let vc = TodoStepImporterMainViewController(style: .insetGrouped)
+        vc.showAsNavigationRoot()
+    }
     
     static func showMaxTagsLimitMessage() {
         let format = resGetString("You can select up to %ld tags.")
