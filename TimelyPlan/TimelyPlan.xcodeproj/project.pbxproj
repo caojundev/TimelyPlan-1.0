@@ -427,7 +427,6 @@
 		E53632A52FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A42FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift */; };
 		E53632A72FAD7D540095DFEC /* QuadrantDetailListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A62FAD7D540095DFEC /* QuadrantDetailListInteractor.swift */; };
 		E53632A92FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632A82FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift */; };
-		E53632AB2FADDD790095DFEC /* TodoTaskEditMoreMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632AA2FADDD790095DFEC /* TodoTaskEditMoreMenuController.swift */; };
 		E53632AF2FAE14070095DFEC /* CalendarSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632AE2FAE14060095DFEC /* CalendarSettingViewController.swift */; };
 		E53632CF2FAF63480095DFEC /* quadrant_IV_60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53632C72FAF63450095DFEC /* quadrant_IV_60@3x.png */; };
 		E53632D02FAF63480095DFEC /* quadrant_III_60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53632C82FAF63450095DFEC /* quadrant_III_60@3x.png */; };
@@ -2322,7 +2321,6 @@
 		E53632A42FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoQuickAddTask+FilterRule.swift"; sourceTree = "<group>"; };
 		E53632A62FAD7D540095DFEC /* QuadrantDetailListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantDetailListInteractor.swift; sourceTree = "<group>"; };
 		E53632A82FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantHomeListInteractor.swift; sourceTree = "<group>"; };
-		E53632AA2FADDD790095DFEC /* TodoTaskEditMoreMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskEditMoreMenuController.swift; sourceTree = "<group>"; };
 		E53632AE2FAE14060095DFEC /* CalendarSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSettingViewController.swift; sourceTree = "<group>"; };
 		E53632C72FAF63450095DFEC /* quadrant_IV_60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_IV_60@3x.png"; sourceTree = "<group>"; };
 		E53632C82FAF63450095DFEC /* quadrant_III_60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_III_60@3x.png"; sourceTree = "<group>"; };
@@ -5166,14 +5164,6 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		E53632AC2FADDDD80095DFEC /* MoreMenu */ = {
-			isa = PBXGroup;
-			children = (
-				E53632AA2FADDD790095DFEC /* TodoTaskEditMoreMenuController.swift */,
-			);
-			path = MoreMenu;
-			sourceTree = "<group>";
-		};
 		E53632AD2FAE13C30095DFEC /* Settting */ = {
 			isa = PBXGroup;
 			children = (
@@ -6328,7 +6318,6 @@
 			children = (
 				E549B1562F877C340014BE85 /* TodoTaskEditViewController.swift */,
 				E549B1742F88E4C00014BE85 /* TodoTaskEditInteractor.swift */,
-				E53632AC2FADDDD80095DFEC /* MoreMenu */,
 				E524C7922F9E15F0005CCEBD /* Views */,
 				E57CC5F12F7FF12900ADDBA4 /* InfoView */,
 				E5B33D6A2F80E7D600939C3E /* SectionControllers */,
@@ -9662,8 +9651,7 @@
 		E5E9F7822FBFF6BE00717004 /* Import */ = {
 			isa = PBXGroup;
 			children = (
-				E5E9F7832FBFF6F700717004 /* TodoStepImporterMainViewController.swift */,
-				E5E9F7942FC0510B00717004 /* TodoStepImporterPreviewViewController.swift */,
+				E5E9F79A2FC0956200717004 /* Step */,
 			);
 			path = Import;
 			sourceTree = "<group>";
@@ -9679,6 +9667,15 @@
 				E5E9F78B2FC03FCA00717004 /* todo_step_import_24@3x.png */,
 			);
 			path = step;
+			sourceTree = "<group>";
+		};
+		E5E9F79A2FC0956200717004 /* Step */ = {
+			isa = PBXGroup;
+			children = (
+				E5E9F7832FBFF6F700717004 /* TodoStepImporterMainViewController.swift */,
+				E5E9F7942FC0510B00717004 /* TodoStepImporterPreviewViewController.swift */,
+			);
+			path = Step;
 			sourceTree = "<group>";
 		};
 		E5EAD1E42D5C475C00894A92 /* TitleView */ = {
@@ -11424,7 +11421,6 @@
 				E5BB9E162D3BF0C70089667A /* HandyRecord+iCloud.swift in Sources */,
 				E5FC6BC62F66A44D00D5A5EA /* HabitStatsCalendarMonthView.swift in Sources */,
 				E507E7A72F52D25C003004C4 /* HabitGoalTargetEditCell.swift in Sources */,
-				E53632AB2FADDD790095DFEC /* TodoTaskEditMoreMenuController.swift in Sources */,
 				E52EF62C2FB4A418002CF355 /* CalendarEventDurationEditViewController.swift in Sources */,
 				E5BB9E992D3BF0C80089667A /* ChartAxis.swift in Sources */,
 				E549B1532F85F63D0014BE85 /* TodoTaskChange.swift in Sources */,

@@ -454,14 +454,28 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     func todoTaskEditFooterViewDidClickMore(_ view: TodoTaskEditFooterView) {
         UIResponder.resignCurrentFirstResponder()
         let moreButton = view.moreButton
-        let menuController = TodoTaskEditMoreMenuController(task: task)
-        menuController.didSelectMenuActionType = { type in
-            self.performMenuActionType(type)
+        
+        let stepActionTypes: [TodoTaskStepBulkMenuActionType] = [.importSteps]
+        let stepMenuItem = TPMenuItem.item(with: stepActionTypes) { actionType, action in
+            action.handler = { _ in
+                self.stepEditSectionController.performTaskStepBulkMenuAction(with: actionType)
+            }
         }
-
-        menuController.showMenu(from: moreButton,
-                                sourceRect: moreButton.bounds.inset(by: .init(value: -5.0)),
-                                isCovered: true)
+        
+        let trashTypes: [TodoTaskActionType] = [.trash]
+        let trashMenuItem = TPMenuItem.item(with: trashTypes) { actionType, action in
+            action.handler = { _ in
+                self.performMenuActionType(actionType)
+            }
+        }
+        
+        let menuList = TPMenuListViewController()
+        menuList.menuContentWidth = 180.0
+        menuList.menuItems = [stepMenuItem, trashMenuItem]
+        menuList.popoverShow(from: moreButton,
+                             sourceRect: moreButton.bounds,
+                             isSourceViewCovered: false,
+                             preferredPosition: .topLeft)
     }
     
     private func performMenuActionType(_ type: TodoTaskActionType) {

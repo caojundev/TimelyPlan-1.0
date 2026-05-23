@@ -49,9 +49,21 @@ class HabitTaskManager {
             return
         }
         
+        var isNameChanged: Bool = false
+        if content.name != editingTask.name {
+            isNameChanged = true
+        }
+        
         content.update(with: editingTask)
-        self.updater.didUpdateHabitTask(task)
+        updater.didUpdateHabitTask(task)
         HandyRecord.save()
+        
+        if isNameChanged {
+            /// 更新对应专注会话的任务快照
+            var feature = task.feature
+            feature.snapshotName = editingTask.name
+            focus.updateSession(with: feature)
+        }
     }
     
     /// 删除任务

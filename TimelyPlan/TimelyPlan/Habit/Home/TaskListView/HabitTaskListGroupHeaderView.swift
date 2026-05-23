@@ -28,11 +28,13 @@ class HabitTaskListGroupHeaderView: TPCollectionHeaderFooterView {
     /// 值标签
     private(set) lazy var valueLabel: TPLabel = {
         let label = TPLabel()
-        label.edgeInsets = UIEdgeInsets(horizontal: 4.0)
+        label.clipsToBounds = true
         label.textAlignment = .center
         label.font = BOLD_SMALL_SYSTEM_FONT
         label.lineBreakMode = .byTruncatingTail
-        label.textColor = resGetColor(.title)
+        label.backgroundColor = resGetColor(.title)
+        label.textColor = .systemBackground
+        label.edgeInsets = UIEdgeInsets(horizontal: 12.0, vertical: 4.0)
         return label
     }()
 
@@ -74,6 +76,7 @@ class HabitTaskListGroupHeaderView: TPCollectionHeaderFooterView {
         self.expandButton.centerY = layoutFrame.midY
     
         let valueSize = valueLabel.sizeThatFits(.unlimited)
+        self.valueLabel.layer.cornerRadius = valueSize.halfHeight
         self.infoView.rightAccessorySize = valueSize
         self.infoView.width = layoutFrame.width - expandButtonSize.width
     }

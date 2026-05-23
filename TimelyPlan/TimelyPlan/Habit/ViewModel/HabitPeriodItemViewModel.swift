@@ -15,7 +15,7 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
     weak var delegate: HabitRecordProcessorDelegate?
 
     /// 分组改变回调
-    var groupsDidChange: (() -> Void)?
+    var groupsDidChange: ((HabitTaskChange?) -> Void)?
     
     var midnightHandler: (() -> Void)?
     
@@ -57,18 +57,20 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
         self.needsRefresh = refresh
     }
     
-    func loadGroups(forceRefresh: Bool = false) {
+    func loadGroups(forceRefresh: Bool = false, change: HabitTaskChange? = nil) {
         if let period = period {
-            loadGroups(in: period, forceRefresh: forceRefresh)
+            loadGroups(in: period, forceRefresh: forceRefresh, change: change)
         }
     }
     
-    func loadGroups(on date: Date, forceRefresh: Bool = false) {
+    func loadGroups(on date: Date, forceRefresh: Bool = false, change: HabitTaskChange? = nil) {
         let period = HabitDatePeriod(date: date, mode: .day)
-        loadGroups(in: period, forceRefresh: forceRefresh)
+        loadGroups(in: period, forceRefresh: forceRefresh, change: change)
     }
     
-    func loadGroups(in period: HabitDatePeriod, forceRefresh: Bool = false) {
+    func loadGroups(in period: HabitDatePeriod,
+                    forceRefresh: Bool = false,
+                    change: HabitTaskChange? = nil) {
         if forceRefresh {
             setNeedsRefresh()
         }
@@ -77,6 +79,7 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
             self.loadingState = .loading
         }
         
+        let change = change
         let requestID = requestManager.executeRequest()
         let filterType = self.filterType
         loadPeriodItemsIfNeeded(in: period) { periodItems in
@@ -97,7 +100,7 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
                     self.groups = groups
                     self.setNeedsRefresh(false)
                     self.loadingState = .loaded
-                    self.groupsDidChange?()
+                    self.groupsDidChange?(change)
                 }
             }
         }
@@ -138,11 +141,11 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
     
     // MARK: - HabitTaskProcessorDelegate
     func didCreateHabitTask(_ task: HabitTask) {
-        self.loadGroups(forceRefresh: true)
+        self.loadGroups(forceRefresh: true, change: .create(task))
     }
 
     func didUpdateHabitTask(_ task: HabitTask) {
-        self.loadGroups(forceRefresh: true)
+        self.loadGroups(forceRefresh: true, change: .update(task))
     }
     
     func didDeleteHabitTask(_ task: HabitTask) {

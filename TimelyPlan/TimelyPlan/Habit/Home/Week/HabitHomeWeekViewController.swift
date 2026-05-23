@@ -78,8 +78,8 @@ class HabitHomeWeekViewController: TPViewController,
     private lazy var viewModel: HabitWeekPeriodItemViewModel = { [weak self] in
         let viewModel = HabitWeekPeriodItemViewModel()
         viewModel.delegate = self
-        viewModel.groupsDidChange = {
-            self?.groupsChanged()
+        viewModel.groupsDidChange = { change in
+            self?.groupsChanged(change)
         }
         
         viewModel.firstWeekDidChange = {
@@ -109,6 +109,28 @@ class HabitHomeWeekViewController: TPViewController,
         updateBackView()
         listView.reloadData()
         viewModel.loadGroups(in: period)
+    }
+    
+    private func groupsChanged(_ change: HabitTaskChange?) {
+        DispatchQueue.main.async {
+            self.listView.groups = self.viewModel.groups
+            self.listView.performUpdate()
+            guard let change = change else {
+                return
+            }
+            
+            var task: HabitTask?
+            switch change {
+            case .create(let habitTask), .update(let habitTask):
+                task = habitTask
+            default:
+                break
+            }
+            
+            if let task = task {
+                self.listView.revealTask(task)
+            }
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -146,13 +168,6 @@ class HabitHomeWeekViewController: TPViewController,
     }
     
     // MARK: - Event Response
-    private func groupsChanged() {
-        DispatchQueue.main.async {
-            self.listView.groups = self.viewModel.groups
-            self.listView.performUpdate()
-        }
-    }
-    
     @objc func didClickBack(_ button: UIButton) {
         let oldDate = self.date
         let date = Date().startOfDay()

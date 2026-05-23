@@ -31,13 +31,13 @@ class TodoStepImporterMainViewController: TPTableSectionsViewController {
         
         return action
     }()
-
+    
     lazy var inputCellItem: TPAutoResizeTextViewTableCellItem = {[weak self] in
         let cellItem = TPAutoResizeTextViewTableCellItem()
         cellItem.minimumHeight = 480.0
         cellItem.maximumHeight = 640.0
         cellItem.contentPadding = UIEdgeInsets(horizontal: 15.0, vertical: 10.0)
-        cellItem.placeholder = resGetString("Import Steps")
+        cellItem.placeholder = resGetString("Enter steps, one per line\nUse - [ ] or - [x] for status\nIndent with spaces for sub-steps")
         cellItem.isNewlineEnabled = true
         cellItem.textColor = resGetColor(.title)
         cellItem.font = .systemFont(ofSize: 14.0)

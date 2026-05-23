@@ -91,8 +91,8 @@ class HabitHomeDayViewController: TPContainerViewController,
     private lazy var viewModel: HabitDayPeriodItemViewModel = { [weak self] in
         let viewModel = HabitDayPeriodItemViewModel()
         viewModel.delegate = self
-        viewModel.groupsDidChange = {
-            self?.groupsChanged()
+        viewModel.groupsDidChange = { change in
+            self?.groupsChanged(change)
         }
         
         viewModel.firstWeekDidChange = {
@@ -106,6 +106,7 @@ class HabitHomeDayViewController: TPContainerViewController,
         return viewModel
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         filterButton.filterType = viewModel.filterType
@@ -117,6 +118,28 @@ class HabitHomeDayViewController: TPContainerViewController,
         reloadData()
     }
     
+    private func groupsChanged(_ change: HabitTaskChange?) {
+        DispatchQueue.main.async {
+            self.listView.groups = self.viewModel.groups
+            self.listView.performUpdate()
+            guard let change = change else {
+                return
+            }
+            
+            var task: HabitTask?
+            switch change {
+            case .create(let habitTask), .update(let habitTask):
+                task = habitTask
+            default:
+                break
+            }
+            
+            if let task = task {
+                self.listView.revealTask(task)
+            }
+        }
+    }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let layoutFrame = view.safeLayoutFrame()
@@ -150,13 +173,6 @@ class HabitHomeDayViewController: TPContainerViewController,
     
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemBackground
-    }
-
-    private func groupsChanged() {
-        DispatchQueue.main.async {
-            self.listView.groups = self.viewModel.groups
-            self.listView.performUpdate()
-        }
     }
     
     // MARK: - Public

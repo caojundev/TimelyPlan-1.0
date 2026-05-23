@@ -17,6 +17,11 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
     init(steps: [TodoStep]) {
         self.editSectionController = TodoStepEditSectionController(steps: steps)
         super.init(style: .insetGrouped)
+        let footerItem = self.editSectionController.footerItem
+        footerItem.height = 40.0
+        footerItem.title = resGetString("Tap to edit, hold and drag to reorder or change level")
+        footerItem.titleConfig.font = .systemFont(ofSize: 12.0)
+        footerItem.titleConfig.textColor = .secondaryLabel
     }
     
     required init?(coder: NSCoder) {
