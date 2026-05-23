@@ -10,116 +10,48 @@ import Foundation
 class CalendarLocalEventProvider: CalendarEventProvider {
     
     func fetchEvents(in range: DateInterval, completion: @escaping ([CalendarEvent]?) -> Void) {
-        let calendar = Calendar.current
-        let now = range.start
-        let timeredEvents = [
-            CalendarEvent(name: "A产品评审02",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 9, minute: 10, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 40, second: 0, of: now)!,
-                         isAllDay: false),
-            CalendarEvent(name: "B晨会01",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 9, minute: 0, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 9, minute: 15, second: 0, of: now)!,
-                          isAllDay: false),
-            
-            CalendarEvent(name: "C阅读",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 10, minute: 05, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 50, second: 0, of: now)!,
-                          isAllDay: false),
-            
-            CalendarEvent(name: "D开发 Coding 03",
-                          color: CalendarEventColor.random,
-                          startDate: calendar.date(bySettingHour: 9, minute: 40, second: 0, of: now)!,
-                          endDate: calendar.date(bySettingHour: 10, minute: 30, second: 0, of: now)!,
-                          isAllDay: false)
-            
-        ]
-  
-        let date = range.start
-        let allDayEvents = [
-            CalendarEvent(name: "全天事项1",
-                          color: CalendarEventColor.random,
-                          startDate: date.dateByAddingDays(1)!,
-                          endDate: date.dateByAddingDays(2)!,
-                          isAllDay: true),
+        todo.fetchScheduledTasks(in: range, showCompleted: true) { tasks in
+            guard let tasks = tasks else {
+                completion(nil)
+                return
+            }
 
-            CalendarEvent(name: "全天事项2",
-                                  color: CalendarEventColor.random,
-                                    startDate: date.dateByAddingDays(2)!,
-                                  endDate: date.dateByAddingDays(4)!,
-                          isAllDay: true),
-
-            CalendarEvent(name: "全天事项3",
-                                  color: CalendarEventColor.random,
-                                    startDate: date.dateByAddingDays(3)!,
-                                  endDate: date.dateByAddingDays(3)!,
-                          isAllDay: true),
-            
-            CalendarEvent(name: "全天事项4",
-                                  color: CalendarEventColor.random,
-                                    startDate: date.dateByAddingDays(1)!,
-                                  endDate: date.dateByAddingDays(4)!,
-                          isAllDay: true),
-        
-            CalendarEvent(name: "全天事项5",
-                                  color: CalendarEventColor.random,
-                                    startDate: date.dateByAddingDays(1)!,
-                                  endDate: date.dateByAddingDays(1)!,
-                          isAllDay: true),
-            
-            CalendarEvent(name: "全天事项6",
-                                  color: CalendarEventColor.random,
-                                    startDate: date.dateByAddingDays(4)!,
-                                  endDate: date.dateByAddingDays(5)!,
-                          isAllDay: true),
-        
-            CalendarEvent(name: "全天事项7",
-                              color: CalendarEventColor.random,
-                              startDate: date,
-                              endDate: date.dateByAddingDays(1)!,
-                          isAllDay: true),
-        
-            CalendarEvent(name: "全天事项8",
-                                  color: CalendarEventColor.random,
-                                    startDate: date.dateByAddingDays(1)!,
-                                  endDate: date.dateByAddingDays(1)!,
-                          isAllDay: true),
-        
-            CalendarEvent(name: "全天事项9",
-                                  color: CalendarEventColor.random,
-                                    startDate: date.dateByAddingDays(1)!,
-                                  endDate: date.dateByAddingDays(1)!,
-                          isAllDay: true),
-        
-            CalendarEvent(name: "全天事项10",
-                                  color: CalendarEventColor.random,
-                                    startDate: date.dateByAddingDays(1)!,
-                                  endDate: date.dateByAddingDays(2)!,
-                          isAllDay: true),
-        
-            CalendarEvent(name: "全天事项11",
-                                  color: CalendarEventColor.random,
-                                    startDate: date.dateByAddingDays(2)!,
-                                  endDate: date.dateByAddingDays(2)!,
-                          isAllDay: true),
-            
-            CalendarEvent(name: "全天事项12",
-                              color: CalendarEventColor.random,
-                              startDate: date,
-                              endDate: date.dateByAddingDays(1)!,
-                          isAllDay: true),
-        
-            CalendarEvent(name: "全天事项13",
-                              color: CalendarEventColor.random,
-                              startDate: date,
-                              endDate: date.dateByAddingDays(1)!,
-                          isAllDay: true)
-        ]
-        
-        completion(timeredEvents + allDayEvents)
+            let events = self.events(for: tasks)
+            completion(events)
+        }
     }
     
+    func events(for tasks: [TodoTask]) -> [CalendarEvent] {
+        var results = [CalendarEvent]()
+        for task in tasks {
+            if let event = event(with: task) {
+                results.append(event)
+            }
+        }
+        
+        return results
+    }
+    
+    func event(with task: TodoTask) -> CalendarEvent? {
+        guard let dateInfo = task.schedule?.dateInfo else {
+            return nil
+        }
+        
+        let color = task.priority.color
+        var isAllDay = dateInfo.isAllDay
+        if !isAllDay && dateInfo.style == .multiDay {
+            /// 跨天任务，显示为全天事项
+            isAllDay = true
+        }
+        
+        let event = CalendarEvent(identifier: task.identifier,
+                                  source: .local,
+                                  name: task.name,
+                                  color: color,
+                                  startDate: dateInfo.startDate,
+                                  endDate: dateInfo.endDate,
+                                  isAllDay: isAllDay,
+                                  sourceItem: task)
+        return event
+    }
 }

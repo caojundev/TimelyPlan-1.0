@@ -4978,8 +4978,8 @@
 			isa = PBXGroup;
 			children = (
 				E518D6982FBEAC450045D456 /* CalendarRepository.swift */,
-				E59E71682DB921A500744C68 /* Models */,
 				E518D69A2FBEAEA80045D456 /* Provider */,
+				E59E71682DB921A500744C68 /* Models */,
 				E518D69D2FBEAF490045D456 /* Manager */,
 			);
 			path = Repository;

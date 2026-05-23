@@ -598,6 +598,15 @@ extension CDTodoTask {
             completion(results as? [CDTodoTask])
         }
     }
+    
+    static func fetchScheduledTasks(in range: DateInterval,
+                                    showCompleted: Bool = true,
+                                    completion: @escaping([CDTodoTask]?) -> Void) {
+        let predicate = activeScheduledTaskPredicate(in: range, showCompleted: showCompleted)
+        findAll(with: predicate, sortedBy: TodoTaskKey.startDate, ascending: true) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
    
     static func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
         var predicate: NSPredicate?
@@ -795,14 +804,20 @@ extension CDTodoTask {
     
     static func activeScheduledTaskPredicate(on date: Date,
                                              showCompleted: Bool = true) -> NSPredicate {
-        let conditions = scheduledConditions(showCompleted: showCompleted)
-        let comparison = PredicateComparison.between(date.startOfDay(), date.endOfDay())
-        let dateConditions: [PredicateCondition] = [
-            (TodoTaskKey.startDate, comparison),
-            (TodoTaskKey.dueDate, comparison),
-        ]
-        
-        return .andPredicate(andConditions: conditions, orConditions: dateConditions)
+        let range = DateInterval.rangeOfDay(date)
+        return activeScheduledTaskPredicate(in: range)
+    }
+    
+    static func activeScheduledTaskPredicate(in range: DateInterval,
+                                             showCompleted: Bool = true) -> NSPredicate {
+        let scheduledConditions = scheduledConditions(showCompleted: showCompleted)
+        let scheduledPredicate = scheduledConditions.andPredicate()
+        let format = "!((\(TodoTaskKey.dueDate) < %@) AND (\(TodoTaskKey.startDate) < %@))"
+        let start = range.start as NSDate
+        let end = range.end as NSDate
+        let dateRangePredicate = NSPredicate(format: format, start, end)
+        let predicates = [scheduledPredicate, dateRangePredicate]
+        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
     
     // MARK: - Conditions

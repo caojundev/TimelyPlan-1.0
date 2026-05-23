@@ -62,26 +62,27 @@ class CalendarEvent: NSObject {
     let endDate: Date
     let isAllDay: Bool
     let color: UIColor
-    let notes: String?
+    var notes: String?
 
-    // 原始数据的引用
-    let rawLocalTaskID: String?
-//    let rawSystemEvent: EKEvent?
+    // 原始数据条目的引用
+    let sourceItem: Any
     
-    init(name: String?,
+    init(identifier: String,
+         source: CalendarEventSource,
+         name: String?,
          color: UIColor,
          startDate: Date,
          endDate: Date,
-         isAllDay: Bool = true) {
-        self.identifier = UUID().uuidString
-        self.source = .local
+         isAllDay: Bool,
+         sourceItem: Any) {
+        self.identifier = identifier
+        self.source = source
         self.title = name
         self.color = color
         self.startDate = startDate
         self.endDate = endDate
         self.isAllDay = isAllDay
-        self.notes = nil
-        self.rawLocalTaskID = nil
+        self.sourceItem = sourceItem
     }
     
     /// 日期范围

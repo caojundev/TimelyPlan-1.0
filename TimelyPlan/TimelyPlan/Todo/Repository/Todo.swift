@@ -134,6 +134,11 @@ extension Todo {
                                completion: completion)
     }
     
+    /// 获取计划任务
+    func fetchScheduledTasks(in range: DateInterval, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchScheduledTasks(in: range, showCompleted: showCompleted, completion: completion)
+    }
+    
     func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
         taskManager.fetchUncompletedTaskCount(for: item, completion: completion)
     }

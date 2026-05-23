@@ -420,4 +420,13 @@ extension TodoTaskManager {
     func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
         CDTodoTask.fetchUncompletedTaskCount(for: item, completion: completion)
     }
+    
+    /// 获取计划任务
+    func fetchScheduledTasks(in range: DateInterval, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchScheduledTasks(in: range,
+                                       showCompleted: showCompleted) { results in
+            completion(results?.tasks)
+        }
+    }
+    
 }
