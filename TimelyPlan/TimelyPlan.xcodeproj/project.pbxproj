@@ -1809,6 +1809,7 @@
 		E5E9F7932FC03FCA00717004 /* todo_step_copyAsMarkdown_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E9F78D2FC03FCA00717004 /* todo_step_copyAsMarkdown_24@3x.png */; };
 		E5E9F7952FC0510B00717004 /* TodoStepImporterPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E9F7942FC0510B00717004 /* TodoStepImporterPreviewViewController.swift */; };
 		E5E9F7972FC056CA00717004 /* TodoStepEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E9F7962FC056C900717004 /* TodoStepEditSectionController.swift */; };
+		E5E9F79C2FC1A67800717004 /* CalendarUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E9F79B2FC1A67800717004 /* CalendarUpdater.swift */; };
 		E5EAD1E62D5C477B00894A92 /* TPAccessoryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EAD1E52D5C477B00894A92 /* TPAccessoryTitleView.swift */; };
 		E5EAD1E82D5C5EDD00894A92 /* TPImageTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EAD1E72D5C5EDD00894A92 /* TPImageTitleView.swift */; };
 		E5EFB1602F591120000FFDF4 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB15F2F591120000FFDF4 /* Habit.swift */; };
@@ -3720,6 +3721,7 @@
 		E5E9F78D2FC03FCA00717004 /* todo_step_copyAsMarkdown_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_step_copyAsMarkdown_24@3x.png"; sourceTree = "<group>"; };
 		E5E9F7942FC0510B00717004 /* TodoStepImporterPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepImporterPreviewViewController.swift; sourceTree = "<group>"; };
 		E5E9F7962FC056C900717004 /* TodoStepEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepEditSectionController.swift; sourceTree = "<group>"; };
+		E5E9F79B2FC1A67800717004 /* CalendarUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarUpdater.swift; sourceTree = "<group>"; };
 		E5EAD1E52D5C477B00894A92 /* TPAccessoryTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAccessoryTitleView.swift; sourceTree = "<group>"; };
 		E5EAD1E72D5C5EDD00894A92 /* TPImageTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageTitleView.swift; sourceTree = "<group>"; };
 		E5EFB15F2F591120000FFDF4 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
@@ -4978,6 +4980,7 @@
 			isa = PBXGroup;
 			children = (
 				E518D6982FBEAC450045D456 /* CalendarRepository.swift */,
+				E5E9F79B2FC1A67800717004 /* CalendarUpdater.swift */,
 				E518D69A2FBEAEA80045D456 /* Provider */,
 				E59E71682DB921A500744C68 /* Models */,
 				E518D69D2FBEAF490045D456 /* Manager */,
@@ -10741,6 +10744,7 @@
 			files = (
 				E5B33D592F80E66E00939C3E /* ReminderEditViewController.swift in Sources */,
 				E5F078D52F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift in Sources */,
+				E5E9F79C2FC1A67800717004 /* CalendarUpdater.swift in Sources */,
 				E5D7D8E42D43933600EC877A /* UIColor+Focus.swift in Sources */,
 				E5BB9DCC2D3BF0C60089667A /* TPFeedbackQueue.swift in Sources */,
 				E58F46C62F7B9DCC0046FA96 /* TodoUserListProcessorUpdater.swift in Sources */,

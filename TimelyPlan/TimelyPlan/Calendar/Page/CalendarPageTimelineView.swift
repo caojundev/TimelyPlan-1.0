@@ -91,13 +91,8 @@ class CalendarPageTimelineView: UIView, CalendarPageEventsViewDelegate {
     
     func loadEvents(with firstDate: Date) {
         self.firstDate = firstDate
-        if eventsView.firstDate != firstDate {
-            eventsView.firstDate = firstDate
-            eventsView.reset()
-        }
-     
-        let range: DateInterval = .range(with: firstDate, mode: mode)
-        eventsViewModel.loadEvents(in: range)
+        eventsView.firstDate = firstDate
+        eventsViewModel.loadEvents(in: .range(with: firstDate, mode: mode))
     }
     
     func didChangeVisibleOffset(_ offset: CGPoint) {

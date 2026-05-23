@@ -77,6 +77,11 @@ class CalendarPageScrollSynchronizer: NSObject, UIScrollViewDelegate {
         }
     }
     
+    func setContentOffset(_ contentOffset: CGPoint) {
+        self.contentOffset = contentOffset
+        synchronize()
+    }
+    
     private func synchronize() {
         for view in synchronizableViews.allObjects {
             if var synchronizableView = view as? CalendarScrollSynchronizable {

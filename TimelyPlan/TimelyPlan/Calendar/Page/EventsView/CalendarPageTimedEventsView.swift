@@ -30,7 +30,11 @@ class CalendarPageTimedEventsView: UIView,
     
     weak var delegate: CalendarPageTimedEventsViewDelegate?
     
-    var firstDate: Date?
+    var firstDate: Date? {
+        didSet {
+            updateDayViewDate()
+        }
+    }
     
     var layout = CalendarAxisLayout() {
         didSet {
@@ -119,15 +123,24 @@ class CalendarPageTimedEventsView: UIView,
         }
     }
     
-    func reloadData() {
+    private func updateDayViewDate() {
         guard let firstDate = firstDate else {
-            reset()
             return
         }
         
         for dayView in dayViews {
             let date = firstDate.dateByAddingDays(dayView.tag)!
             dayView.date = date
+        }
+    }
+    
+    func reloadData() {
+        for dayView in dayViews {
+            guard let date = dayView.date else {
+                dayView.reset()
+                continue
+            }
+
             dayView.events = delegate?.calendarPageTimedEventsView(self, eventsOnDate: date)
             dayView.reloadData()
         }

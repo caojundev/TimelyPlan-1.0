@@ -55,6 +55,7 @@ class CalendarWeekDaysView: UIView {
         }
     
         addSubview(stackView)
+        addSeparator(position: .bottom)
     }
     
     override func layoutSubviews() {

@@ -50,7 +50,16 @@ class CalendarPageEventsView: UIView,
     weak var delegate: CalendarPageEventsViewDelegate?
     
     /// 开始日期
-    var firstDate: Date?
+    var firstDate: Date? {
+        didSet {
+            if firstDate != oldValue {
+                reset()
+            }
+            
+            allDayEventsView.firstDate = firstDate
+            timedEventsView.firstDate = firstDate
+        }
+    }
     
     /// 全天高度
     var allDayHeight: CGFloat = 0.0 {

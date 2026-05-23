@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CalendarEventsViewModel {
+class CalendarEventsViewModel: CalendarEventChangeDelegate {
 
     /// 当前日期范围事项改变
     var onEventsChanged: (() -> Void)?
@@ -23,6 +23,7 @@ class CalendarEventsViewModel {
     
     init() {
         self.repository = CalendarRepository()
+        self.repository.addUpdater(self)
     }
 
     func refresh() {
@@ -43,6 +44,25 @@ class CalendarEventsViewModel {
             
             self.events = events
             self.onEventsChanged?()
+        }
+    }
+    
+    // MARK: - CalendarEventChangeDelegate
+    func calendarEventsDidChange(in ranges: [DateInterval]) {
+        guard let currentRange = self.range else {
+            return
+        }
+        
+        var shouldReload: Bool = false
+        for range in ranges {
+            if currentRange.intersects(range) {
+                shouldReload = true
+                break
+            }
+        }
+        
+        if shouldReload {
+            loadEvents(in: currentRange)
         }
     }
 }

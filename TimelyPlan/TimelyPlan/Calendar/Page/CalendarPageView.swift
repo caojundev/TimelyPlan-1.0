@@ -62,7 +62,11 @@ class CalendarPageView: TPCollectionWrapperView,
 
     /// 滚动同步器
     private(set) lazy var synchronizer: CalendarPageScrollSynchronizer = {
-        return CalendarPageScrollSynchronizer(hoursView: hoursView)
+        let synchronizer = CalendarPageScrollSynchronizer(hoursView: hoursView)
+        let hour = Date().hour
+        let position = axisLayout.position(of: hour)
+        synchronizer.setContentOffset(position)
+        return synchronizer
     }()
     
     /// 小时时间线视图
