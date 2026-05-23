@@ -358,10 +358,12 @@ class CalendarPageView: TPCollectionWrapperView,
             return
         }
         
+        TPImpactFeedback.impactWithSoftStyle()
         delegate?.calendarPageView(self, didTapEvent: event)
     }
     
     func pageTimelineView(_ view: CalendarPageTimelineView, didTapAllDayMoreOnDate date: Date) {
+        TPImpactFeedback.impactWithSoftStyle()
         delegate?.calendarPageView(self, didTapAllDayMoreOnDate: date)
     }
     

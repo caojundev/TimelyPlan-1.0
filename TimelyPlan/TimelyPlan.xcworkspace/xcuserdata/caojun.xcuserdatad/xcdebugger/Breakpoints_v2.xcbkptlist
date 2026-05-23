@@ -3,4 +3,86 @@
    uuid = "4DA66E56-7419-46AF-9262-43827019E03F"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6FB38A1B-96D4-419E-863D-C39DF126A697"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TimelyPlan/Calendar/Page/CalendarEventsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "calendarEventsDidChange(in:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6FB38A1B-96D4-419E-863D-C39DF126A697 - 810223d96a41dfda"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TimelyPlan.CalendarEventsViewModel.calendarEventsDidChange(in: Swift.Array&lt;Foundation.DateInterval&gt;) -&gt; ()"
+                  moduleName = "TimelyPlan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/caojun/Working/TimelyPlan-1.0/TimelyPlan/TimelyPlan/Calendar/Page/CalendarEventsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "308">
+               </Location>
+               <Location
+                  uuid = "6FB38A1B-96D4-419E-863D-C39DF126A697 - 810223d96a41dfda"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TimelyPlan.CalendarEventsViewModel.calendarEventsDidChange(in: Swift.Array&lt;Foundation.DateInterval&gt;) -&gt; ()"
+                  moduleName = "TimelyPlan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/caojun/Working/TimelyPlan-1.0/TimelyPlan/TimelyPlan/Calendar/Page/CalendarEventsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "372">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "29AE643A-BC4E-4E96-976C-FDA573E28CC8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TimelyPlan/Calendar/Components/Page/CalendarPageTimelineView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "eventsChanged()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "80F3C2A9-EBD9-482E-8285-50DB738D9FE5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TimelyPlan/Calendar/Components/Page/CalendarPageTimelineView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "eventsChanged()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

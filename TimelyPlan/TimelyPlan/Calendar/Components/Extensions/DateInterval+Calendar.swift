@@ -9,6 +9,16 @@ import Foundation
 
 extension DateInterval {
     
+    /// 任务日期信息
+    var dateInfo: TaskDateInfo {
+        return TaskDateInfo(startDate: start, endDate: end, isAllDay: false)
+    }
+    
+    /// 无限的日期范围
+    static var infiniteInterval: DateInterval {
+        return DateInterval(start: .distantPast, end: .distantFuture)
+    }
+
     /// 替换天日期
     mutating func replacingDay(with dayDate: Date) {
         let duration = self.duration

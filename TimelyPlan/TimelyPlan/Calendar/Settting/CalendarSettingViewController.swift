@@ -129,6 +129,31 @@ class CalendarSettingViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
+    /// 显示已完成任务
+    lazy var showCompletedTaskCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show Completed Task")
+        cellItem.updater = {
+            self?.showCompletedTaskCellItem.isOn = CalendarSetting.shared.showCompletedTask
+        }
+
+        cellItem.valueChanged = { isOn in
+            CalendarSetting.shared.showCompletedTask = isOn
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var taskOptionsSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 15.0
+        sectionController.cellItems = [showCompletedTaskCellItem]
+        return sectionController
+    }()
+    
+    
+    
     // MARK: - 周视图
     lazy var daysInWeekViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
@@ -236,6 +261,7 @@ class CalendarSettingViewController: TPTableSectionsViewController {
                                     newEventsSectionController,
                                     alertSectionController,
                                     viewOptionsSectionController,
+                                    taskOptionsSectionController,
                                     weekViewSectionController,
                                     monthViewSectionController]
          self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground

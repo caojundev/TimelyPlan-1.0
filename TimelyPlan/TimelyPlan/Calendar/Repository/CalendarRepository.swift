@@ -16,14 +16,15 @@ protocol CalendarEventChangeDelegate: AnyObject {
 class CalendarRepository {
     
     // 可动态注册多个 Provider
-    private var providers: [CalendarEventProvider]!
+    private var providers: [CalendarEventProvider]
+    
+    private var localProvider = CalendarLocalEventProvider()
     
     private let updater = CalendarUpdater()
     
     init() {
-        let localProvider = CalendarLocalEventProvider()
-        localProvider.delegate = updater
-        self.providers = [localProvider]
+        self.providers = [self.localProvider]
+        self.localProvider.delegate = updater
     }
     
     func addUpdater(_ delegate: AnyObject) {
@@ -47,5 +48,25 @@ class CalendarRepository {
         group.notify(queue: .main) {
             completion(results)
         }
+    }
+    
+    func updateEvent(_ event: CalendarEvent, with dateRange: DateInterval) {
+        switch event.source {
+        case .local:
+            updateLocalEvent(event, with: dateRange)
+        case .system:
+            break
+        }
+    }
+    
+    private func updateLocalEvent(_ event: CalendarEvent, with dateRange: DateInterval) {
+        guard let task = event.sourceItem as? TodoTask else {
+            return
+        }
+        
+        let schedule = TaskSchedule(dateInfo: dateRange.dateInfo,
+                                    reminder: task.schedule?.reminder,
+                                    repeatRule: task.schedule?.repeatRule)
+        todo.updateTask(task, schedule: schedule)
     }
 }

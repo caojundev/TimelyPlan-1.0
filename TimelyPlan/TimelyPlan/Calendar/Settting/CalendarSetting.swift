@@ -22,6 +22,8 @@ class CalendarSetting {
         case showWeekNumber
         case showLunar
         case showChineseHolidays
+        case showCompletedTask
+        
         case daysInWeek
         case weeksInMonth
         
@@ -53,6 +55,9 @@ class CalendarSetting {
     
     @CloudStored(key: Key.showChineseHolidays.name, defaultValue: true)
     var showChineseHolidays: Bool
+    
+    @CloudStored(key: Key.showCompletedTask.name, defaultValue: true)
+    var showCompletedTask: Bool
     
     @CloudStored(key: Key.daysInWeek.name, defaultValue: 3)
     private var daysInWeek: Int

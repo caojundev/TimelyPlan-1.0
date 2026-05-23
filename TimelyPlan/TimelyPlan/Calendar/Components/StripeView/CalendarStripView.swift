@@ -178,7 +178,9 @@ class CalendarStripView: UIView {
     
     func reloadData() {
         guard let startDate = startDate, let events = events, events.count > 0 else {
+            /// 无事项移除所有
             layout = nil
+            removeAllEventViews()
             return
         }
         

@@ -7,13 +7,27 @@
 
 import Foundation
 
-class CalendarLocalEventProvider: CalendarEventProvider {
+class CalendarLocalEventProvider: CalendarEventProvider, SettingAgentObserver {
     
     /// 事项改变代理
     weak var delegate: CalendarEventChangeDelegate?
 
+    init() {
+        /// 添加任务处理监听
+        todo.addUpdater(self, for: [.task])
+        CalendarSetting.shared.addObserver(self, forKey: .showCompletedTask)
+    }
+    
+    // MARK: - SettingAgentObserver
+    func settingAgentDidChangeValue(for keyName: String) {
+        if keyName == CalendarSetting.Key.showCompletedTask.name {
+            delegate?.calendarEventsDidChange(in: [.infiniteInterval])
+        }
+    }
+    
     func fetchEvents(in range: DateInterval, completion: @escaping ([CalendarEvent]?) -> Void) {
-        todo.fetchScheduledTasks(in: range, showCompleted: true) { tasks in
+        let showCompleted = CalendarSetting.shared.showCompletedTask
+        todo.fetchScheduledTasks(in: range, showCompleted: showCompleted) { tasks in
             guard let tasks = tasks else {
                 completion(nil)
                 return
@@ -87,7 +101,7 @@ extension CalendarLocalEventProvider: TodoTaskProcessorDelegate {
     }
 
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
-        guard let ranges = ranges(with: change) else {
+        guard let ranges = ranges(for: task, with: change) else {
             return
         }
         
@@ -97,7 +111,7 @@ extension CalendarLocalEventProvider: TodoTaskProcessorDelegate {
     func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
         var results = [DateInterval]()
         for changeInfo in changeInfos {
-            if let ranges = ranges(with: changeInfo.change) {
+            if let ranges = ranges(for:changeInfo.task, with: changeInfo.change) {
                 results.append(contentsOf: ranges)
             }
         }
@@ -120,21 +134,33 @@ extension CalendarLocalEventProvider: TodoTaskProcessorDelegate {
         return ranges
     }
     
-    private func ranges(with change: TodoTaskChange) -> [DateInterval]? {
-        guard case let .schedule(oldValue, newValue) = change else {
+    private func ranges(for task: TodoTask, with change: TodoTaskChange) -> [DateInterval]? {
+        var shouldUpdate: Bool = false
+        switch change {
+        case .name(_, _), .completed(_, _), .priority(_, _), .schedule(_, _):
+            shouldUpdate = true
+        default:
+            break
+        }
+        
+        guard shouldUpdate else {
             return nil
         }
         
-        var ranges = [DateInterval]()
-        if let oldRange = oldValue?.dateInfo?.dateInterval {
-            ranges.append(oldRange)
+        if case let .schedule(oldValue, newValue) = change {
+            var ranges = [DateInterval]()
+            if let oldRange = oldValue?.dateInfo?.dateInterval {
+                ranges.append(oldRange)
+            }
+            
+            if let newRange = newValue?.dateInfo?.dateInterval {
+                ranges.append(newRange)
+            }
+            
+            return ranges
         }
         
-        if let newRange = newValue?.dateInfo?.dateInterval {
-            ranges.append(newRange)
-        }
-        
-        return ranges
+        return affectedRanges(for: [task])
     }
 }
 

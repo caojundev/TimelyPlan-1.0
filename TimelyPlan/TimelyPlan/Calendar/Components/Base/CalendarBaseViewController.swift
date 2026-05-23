@@ -42,6 +42,8 @@ class CalendarBaseViewController: TPViewController,
         return manager
     }()
     
+    private let eventProcessor = CalendarEventProcessor()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAddView()
@@ -144,7 +146,7 @@ class CalendarBaseViewController: TPViewController,
     
     // MARK: - CalendarPageViewDelegate
     func calendarPageView(_ pageView: CalendarPageView, didTapEvent event: CalendarEvent) {
-        showEventSheet()
+        eventProcessor.editEvent(event)
     }
     
     func calendarPageView(_ pageView: CalendarPageView, didTapAllDayMoreOnDate date: Date) {
@@ -156,7 +158,7 @@ class CalendarBaseViewController: TPViewController,
     }
     
     func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: DateInterval) {
-        print("更新事项: \(event), 日期: \(dateRange)")
+        eventProcessor.updateEvent(event, with: dateRange)
     }
     
     func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {
