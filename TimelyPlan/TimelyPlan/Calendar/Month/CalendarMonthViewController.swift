@@ -100,85 +100,22 @@ class CalendarMonthViewController: CalendarBaseViewController,
         updateTitle(with: monthDate)
     }
     
-    func calendarMonthView(_ monthView: CalendarMonthView, longPressDidBeganOnDate date: Date) {
+    func calendarMonthView(_ monthView: CalendarMonthView, didLongPressDate date: Date) {
         TPImpactFeedback.impactWithLightStyle()
         showQuickAddTask(on: date)
     }
     
-    /*
-    func calendarMonthView(_ monthView: CalendarMonthView, fetchEventsForWeek weekStartDate: Date, completion: @escaping ([CalendarEvent]?) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            var events = [CalendarEvent]()
-            var event = CalendarEvent(name: "事件名称1",
-                                      color: CalendarEventColor.random,
-                                        startDate: weekStartDate.dateByAddingDays(1)!,
-                                      endDate: weekStartDate.dateByAddingDays(2)!)
-            events.append(event)
-
-            event = CalendarEvent(name: "事件名称2",
-                                      color: CalendarEventColor.random,
-                                        startDate: weekStartDate.dateByAddingDays(2)!,
-                                      endDate: weekStartDate.dateByAddingDays(4)!)
-            events.append(event)
-
-            event = CalendarEvent(name: "事件名称3",
-                                      color: CalendarEventColor.random,
-                                        startDate: weekStartDate.dateByAddingDays(3)!,
-                                      endDate: weekStartDate.dateByAddingDays(3)!)
-            events.append(event)
-            
-            event = CalendarEvent(name: "事件名称4",
-                                      color: CalendarEventColor.random,
-                                        startDate: weekStartDate.dateByAddingDays(1)!,
-                                      endDate: weekStartDate.dateByAddingDays(4)!)
-            events.append(event)
-            
-            event = CalendarEvent(name: "事件名称5",
-                                      color: CalendarEventColor.random,
-                                        startDate: weekStartDate.dateByAddingDays(1)!,
-                                      endDate: weekStartDate.dateByAddingDays(1)!)
-            events.append(event)
-            
-            event = CalendarEvent(name: "事件名称6",
-                                      color: CalendarEventColor.random,
-                                        startDate: weekStartDate.dateByAddingDays(4)!,
-                                      endDate: weekStartDate.dateByAddingDays(5)!)
-            events.append(event)
-            
-            event = CalendarEvent(name: "事件名称7",
-                                  color: CalendarEventColor.random,
-                                  startDate: weekStartDate,
-                                  endDate: weekStartDate.dateByAddingDays(1)!)
-            events.append(event)
-            
-            event = CalendarEvent(name: "事件名称8",
-                                      color: CalendarEventColor.random,
-                                        startDate: weekStartDate.dateByAddingDays(1)!,
-                                      endDate: weekStartDate.dateByAddingDays(1)!)
-            events.append(event)
-            
-            event = CalendarEvent(name: "事件名称9",
-                                      color: CalendarEventColor.random,
-                                        startDate: weekStartDate.dateByAddingDays(1)!,
-                                      endDate: weekStartDate.dateByAddingDays(1)!)
-            events.append(event)
-            
-            event = CalendarEvent(name: "事件名称10",
-                                      color: CalendarEventColor.random,
-                                        startDate: weekStartDate.dateByAddingDays(1)!,
-                                      endDate: weekStartDate.dateByAddingDays(2)!)
-            events.append(event)
-            
-            event = CalendarEvent(name: "事件名称11",
-                                      color: CalendarEventColor.random,
-                                        startDate: weekStartDate.dateByAddingDays(2)!,
-                                      endDate: weekStartDate.dateByAddingDays(2)!)
-            events.append(event)
-
-            DispatchQueue.main.async {
-                completion(events)
-            }
-        }
+    func calendarMonthView(_ monthView: CalendarMonthView, didTapEvent event: CalendarEvent) {
+        TPImpactFeedback.impactWithLightStyle()
+        eventProcessor.editEvent(event)
     }
-     */
+    
+    func calendarMonthView(_ monthView: CalendarMonthView, didTapMoreOnDate date: Date) {
+        TPImpactFeedback.impactWithLightStyle()
+        showEventSheet()
+    }
+    
+    func calendarMonthView(_ monthView: CalendarMonthView, didTapDate date: Date) {
+        showEventSheet()
+    }
 }

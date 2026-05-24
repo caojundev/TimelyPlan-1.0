@@ -1,5 +1,5 @@
 //
-//  CalendarDatePageView.swift
+//  FocusDatePageView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2025/5/8.
@@ -7,34 +7,34 @@
 
 import Foundation
 
-protocol CalendarDatePageViewDelegate: AnyObject {
+protocol FocusDatePageViewDelegate: AnyObject {
 
     /// 日历视图切换到新日期
-    func calendarDayPagingView(_ pageView: CalendarDatePageView,
+    func focusDayPagingView(_ pageView: FocusDatePageView,
                                didChangeVisibleDateFromDate fromDate: Date,
                                toDate: Date)
     
     /// 结束手指拖动
-    func calendarDayPagingViewWillEndDragging(_ pageView: CalendarDatePageView,
+    func focusDayPagingViewWillEndDragging(_ pageView: FocusDatePageView,
                                               withTargetDate targetDate: Date)
 }
 
-extension CalendarDatePageViewDelegate {
+extension FocusDatePageViewDelegate {
     
-    func calendarDayPagingView(_ pageView: CalendarDatePageView,
+    func focusDayPagingView(_ pageView: FocusDatePageView,
                                didChangeVisibleDateFromDate fromDate: Date,
                                toDate: Date) {}
     
-    func calendarDayPagingViewWillEndDragging(_ pageView: CalendarDatePageView,
+    func focusDayPagingViewWillEndDragging(_ pageView: FocusDatePageView,
                                               withTargetDate targetDate: Date) {}
 }
 
-class CalendarDatePageView: TPCollectionWrapperView,
+class FocusDatePageView: TPCollectionWrapperView,
                              TPCollectionViewAdapterDataSource,
                             TPCollectionViewAdapterDelegate {
     
     /// 代理对象
-    weak var delegate: CalendarDatePageViewDelegate?
+    weak var delegate: FocusDatePageViewDelegate?
     
     private(set) var visibleDate: Date!
     
@@ -120,7 +120,7 @@ class CalendarDatePageView: TPCollectionWrapperView,
         updateContentOffset(animated: false)
         
         /// 日期变化回调
-        delegate?.calendarDayPagingView(self,
+        delegate?.focusDayPagingView(self,
                                         didChangeVisibleDateFromDate: fromDate,
                                         toDate: toDate)
     }
@@ -128,7 +128,7 @@ class CalendarDatePageView: TPCollectionWrapperView,
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let offset = targetContentOffset.pointee
         let targetDate = date(at: offset)
-        delegate?.calendarDayPagingViewWillEndDragging(self, withTargetDate: targetDate)
+        delegate?.focusDayPagingViewWillEndDragging(self, withTargetDate: targetDate)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -180,7 +180,7 @@ class CalendarDatePageView: TPCollectionWrapperView,
             }
         }
         
-        if let visibleCells = collectionView.visibleCells as? [CalendarDatePageCell] {
+        if let visibleCells = collectionView.visibleCells as? [FocusDatePageCell] {
             for visibleCell in visibleCells {
                 if visibleCell.date.isInSameDayAs(date) {
                     return true
@@ -254,7 +254,7 @@ class CalendarDatePageView: TPCollectionWrapperView,
     }
 }
 
-class CalendarDatePageCell: TPCollectionCell {
+class FocusDatePageCell: TPCollectionCell {
     
     var date: Date = .now
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FocusTimelineDayPageView: CalendarDatePageView {
+class FocusTimelineDayPageView: FocusDatePageView {
     
     /// 点击事件代理
     weak var tapDelegate: FocusTimelineEventListTapDelegate?
@@ -83,7 +83,7 @@ class FocusTimelineDayPageView: CalendarDatePageView {
     }
 }
 
-class FocusTimelineDayTimelineCell: CalendarDatePageCell {
+class FocusTimelineDayTimelineCell: FocusDatePageCell {
 
     let timelineView = FocusTimelineView(frame: .zero)
 

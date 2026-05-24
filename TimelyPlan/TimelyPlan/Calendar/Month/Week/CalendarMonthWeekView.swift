@@ -10,10 +10,16 @@ import UIKit
 
 protocol CalendarMonthWeekViewDelegate: AnyObject {
     
-    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, longPressDidBeganOnDate date: Date)
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapEvent event: CalendarEvent)
+    
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapMoreOnDate date: Date)
+
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapDate date: Date)
+    
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didLongPressDate date: Date)
 }
 
-class CalendarMonthWeekView: UIView {
+class CalendarMonthWeekView: UIView, CalendarStripViewDelegate {
     
     /// 代理对象
     weak var delegate: CalendarMonthWeekViewDelegate?
@@ -44,8 +50,9 @@ class CalendarMonthWeekView: UIView {
     private(set) var weekStartDate: Date?
     
     /// 事件视图
-    private let eventsView: CalendarStripView = {
+    private lazy var eventsView: CalendarStripView = {
         let view = CalendarStripView()
+        view.delegate = self
         return view
     }()
     
@@ -75,7 +82,7 @@ class CalendarMonthWeekView: UIView {
         addSubview(eventsView)
         setupWeekNumberView()
         
-        setupLongPressGesture()
+        setupGesture()
         eventsViewModel.onEventsChanged = { [weak self] in
             self?.eventsChanged()
         }
@@ -152,12 +159,24 @@ class CalendarMonthWeekView: UIView {
     // MARK: - 长按手势
     
     /// 设置长按手势识别器
-    private func setupLongPressGesture() {
+    private func setupGesture() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         longPressGesture.minimumPressDuration = 0.25
         longPressGesture.delaysTouchesBegan = true
         longPressGesture.cancelsTouchesInView = false
-        self.addGestureRecognizer(longPressGesture)
+        addGestureRecognizer(longPressGesture)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+        let location = gesture.location(in: self)
+        if let date = date(on: location) {
+            delegate?.calendarMonthWeekView(self, didTapDate: date)
+        }
     }
     
     /// 处理长按手势
@@ -165,7 +184,7 @@ class CalendarMonthWeekView: UIView {
         if gesture.state == .began {
             let location = gesture.location(in: self)
             if let date = date(on: location) {
-                delegate?.calendarMonthWeekView(self, longPressDidBeganOnDate: date)
+                delegate?.calendarMonthWeekView(self, didLongPressDate: date)
             }
         }
     }
@@ -246,5 +265,14 @@ class CalendarMonthWeekView: UIView {
         let index = Int(loacation.x / dayWidth)
         let date = weekStartDate.dateByAddingDays(index)!
         return date
+    }
+    
+    // MARK: - CalendarStripViewDelegate
+    func calendarStripView(_ view: CalendarStripView, didTapEvent event: CalendarEvent) {
+        delegate?.calendarMonthWeekView(self, didTapEvent: event)
+    }
+    
+    func calendarStripView(_ view: CalendarStripView, didTapMoreOnDate date: Date) {
+        delegate?.calendarMonthWeekView(self, didTapMoreOnDate: date)
     }
 }

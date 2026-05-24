@@ -147,7 +147,7 @@ class CalendarSettingViewController: TPTableSectionsViewController {
     
     lazy var taskOptionsSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 15.0
+        sectionController.headerItem.height = 20.0
         sectionController.cellItems = [showCompletedTaskCellItem]
         return sectionController
     }()

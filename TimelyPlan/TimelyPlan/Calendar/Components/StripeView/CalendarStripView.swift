@@ -15,7 +15,7 @@ protocol CalendarStripViewDelegate: AnyObject {
     func calendarStripView(_ view: CalendarStripView, didTapMoreOnDate date: Date)
 }
 
-class CalendarStripView: UIView {
+class CalendarStripView: UIView, UIGestureRecognizerDelegate {
     
     enum Mode {
         case week
@@ -89,6 +89,7 @@ class CalendarStripView: UIView {
     private func setupGesture() {
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(handleTap(_:)))
+        tapGesture.delegate = self
         tapGesture.numberOfTouchesRequired = 1
         tapGesture.numberOfTapsRequired = 1
         addGestureRecognizer(tapGesture)
@@ -108,6 +109,7 @@ class CalendarStripView: UIView {
             }
         }
     }
+    
     
     /// 初始化图层
     private func setupViews() {
@@ -271,4 +273,23 @@ class CalendarStripView: UIView {
         
         return nil
     }
+    
+    // MARK: - UIGestureRecognizerDelegate
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let location = touch.location(in: self)
+        if stripeEventView(at: location) != nil {
+            return true
+        }
+  
+        if moreTextLayer(at: location) != nil {
+            return true
+        }
+        
+        return false
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return otherGestureRecognizer is UITapGestureRecognizer
+    }
+    
 }

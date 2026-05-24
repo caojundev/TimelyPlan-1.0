@@ -42,7 +42,7 @@ class CalendarBaseViewController: TPViewController,
         return manager
     }()
     
-    private let eventProcessor = CalendarEventProcessor()
+    let eventProcessor = CalendarEventProcessor()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,7 +127,7 @@ class CalendarBaseViewController: TPViewController,
         quickAddManager.show(with: task)
     }
     
-    private func showEventSheet() {
+    func showEventSheet() {
         let controller = UIViewController()
         controller.view.backgroundColor = .random
 

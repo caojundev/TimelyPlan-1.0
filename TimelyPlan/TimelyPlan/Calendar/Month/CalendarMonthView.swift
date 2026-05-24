@@ -14,7 +14,13 @@ protocol CalendarMonthViewDelegate: AnyObject {
     func calendarMonthView(_ monthView: CalendarMonthView, didScrollTo topWeekStartDate: Date)
     
     /// 长按日期
-    func calendarMonthView(_ monthView: CalendarMonthView, longPressDidBeganOnDate date: Date)
+    func calendarMonthView(_ monthView: CalendarMonthView, didLongPressDate date: Date)
+    
+    func calendarMonthView(_ monthView: CalendarMonthView, didTapEvent event: CalendarEvent)
+    
+    func calendarMonthView(_ monthView: CalendarMonthView, didTapDate date: Date)
+    
+    func calendarMonthView(_ monthView: CalendarMonthView, didTapMoreOnDate date: Date)
 }
 
 class CalendarMonthView: TPCollectionWrapperView,
@@ -273,8 +279,20 @@ class CalendarMonthView: TPCollectionWrapperView,
     }
     
     // MARK: - CalendarMonthWeekViewDelegate
-    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, longPressDidBeganOnDate date: Date) {
-        delegate?.calendarMonthView(self, longPressDidBeganOnDate: date)
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didLongPressDate date: Date) {
+        delegate?.calendarMonthView(self, didLongPressDate: date)
+    }
+    
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapEvent event: CalendarEvent) {
+        delegate?.calendarMonthView(self, didTapEvent: event)
+    }
+    
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapMoreOnDate date: Date) {
+        delegate?.calendarMonthView(self, didTapMoreOnDate: date)
+    }
+    
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapDate date: Date) {
+        delegate?.calendarMonthView(self, didTapDate: date)
     }
     
     // MARK: - UIScrollViewDelegate

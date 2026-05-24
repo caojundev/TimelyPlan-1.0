@@ -851,7 +851,7 @@
 		E56B94AF2F8FB56A001E488B /* todo_task_action_removeFromMyDay_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E56B94AB2F8FB56A001E488B /* todo_task_action_removeFromMyDay_24@2x.png */; };
 		E56B94B12F8FCF27001E488B /* TodoCompletedTaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94B02F8FCF27001E488B /* TodoCompletedTaskListViewController.swift */; };
 		E56B94B42F8FD17E001E488B /* TodoSmartListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94B32F8FD17E001E488B /* TodoSmartListConfiguration.swift */; };
-		E56BAC752DCC56BB0013C6F6 /* CalendarDatePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC742DCC56BB0013C6F6 /* CalendarDatePageView.swift */; };
+		E56BAC752DCC56BB0013C6F6 /* FocusDatePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC742DCC56BB0013C6F6 /* FocusDatePageView.swift */; };
 		E56BAC772DCC56E60013C6F6 /* CalendarWeekPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */; };
 		E56BAC7C2DCCDB1D0013C6F6 /* CalendarWeekPageTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageTimelineCell.swift */; };
 		E56E7FF02DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56E7FEF2DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift */; };
@@ -2750,7 +2750,7 @@
 		E56B94AB2F8FB56A001E488B /* todo_task_action_removeFromMyDay_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_action_removeFromMyDay_24@2x.png"; sourceTree = "<group>"; };
 		E56B94B02F8FCF27001E488B /* TodoCompletedTaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCompletedTaskListViewController.swift; sourceTree = "<group>"; };
 		E56B94B32F8FD17E001E488B /* TodoSmartListConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSmartListConfiguration.swift; sourceTree = "<group>"; };
-		E56BAC742DCC56BB0013C6F6 /* CalendarDatePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDatePageView.swift; sourceTree = "<group>"; };
+		E56BAC742DCC56BB0013C6F6 /* FocusDatePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDatePageView.swift; sourceTree = "<group>"; };
 		E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekPageView.swift; sourceTree = "<group>"; };
 		E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekPageTimelineCell.swift; sourceTree = "<group>"; };
 		E56E7FEF2DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoCircularCheckboxTableCell.swift; sourceTree = "<group>"; };
@@ -6404,7 +6404,7 @@
 			isa = PBXGroup;
 			children = (
 				E58C9E092F4AF0DB0096B842 /* FocusTimelineDayViewController.swift */,
-				E56BAC742DCC56BB0013C6F6 /* CalendarDatePageView.swift */,
+				E56BAC742DCC56BB0013C6F6 /* FocusDatePageView.swift */,
 				E58C9E072F4AF0DB0096B842 /* FocusTimelineDayPageView.swift */,
 				E58C9E082F4AF0DB0096B842 /* FocusTimelineSynchronizer.swift */,
 				E58C9E0A2F4AF0DB0096B842 /* FocusTimelineView.swift */,
@@ -11388,7 +11388,7 @@
 				E55CE36A2D8BCCC20083316E /* TPCollectionDragExchangeReorder.swift in Sources */,
 				E5D7D8DB2D43933600EC877A /* FocusFloatingEndView.swift in Sources */,
 				E5D7D8F12D43933600EC877A /* OpenCircleTitleView.swift in Sources */,
-				E56BAC752DCC56BB0013C6F6 /* CalendarDatePageView.swift in Sources */,
+				E56BAC752DCC56BB0013C6F6 /* FocusDatePageView.swift in Sources */,
 				E53B11392F94D1B300701410 /* TodoFilterProgressEditViewController.swift in Sources */,
 				E58F46C72F7B9DCC0046FA96 /* TodoUpdaterOption.swift in Sources */,
 				E518D6802FBD99D60045D456 /* SheetContentViewDelegate.swift in Sources */,

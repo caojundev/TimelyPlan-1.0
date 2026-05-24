@@ -97,8 +97,8 @@ class HabitPresenter {
 
         let title = resGetString("Delete Week Records")
         let messageFormat = resGetString("All records will be removed from %@ to %@. Are you sure to delete records?")
-        let startDateString = startDate.yearMonthDayString(omitYear: true)
-        let endDateString = endDate.yearMonthDayString(omitYear: true)
+        let startDateString = startDate.yearMonthDayString(omitYear: true, showRelativeDate: false)
+        let endDateString = endDate.yearMonthDayString(omitYear: true, showRelativeDate: false)
         let message = String(format: messageFormat, startDateString, endDateString)
         confirmDeletion(title: title, message: message, completion: completion)
     }
@@ -114,8 +114,8 @@ class HabitPresenter {
 
         let title = resGetString("Delete Month Records")
         let messageFormat = resGetString("All records will be removed from %@ to %@. Are you sure to delete records?")
-        let startDateString = startDate.yearMonthDayString(omitYear: true)
-        let endDateString = endDate.yearMonthDayString(omitYear: true)
+        let startDateString = startDate.yearMonthDayString(omitYear: true, showRelativeDate: false)
+        let endDateString = endDate.yearMonthDayString(omitYear: true, showRelativeDate: false)
         let message = String(format: messageFormat, startDateString, endDateString)
         confirmDeletion(title: title, message: message, completion: completion)
     }
