@@ -9,7 +9,10 @@ import Foundation
 import UIKit
 
 class TPKeyboardAdjuster {
-
+    
+    /// 是否为外部的第一响应者进行调整
+    var adjustsForExternalResponder: Bool = false
+    
     /// 绑定的滚动视图
     private weak var scrollView: UIScrollView!
     
@@ -31,6 +34,7 @@ class TPKeyboardAdjuster {
     }
     
     init(scrollView: UIScrollView) {
+        
         self.scrollView = scrollView
     }
     
@@ -56,7 +60,7 @@ class TPKeyboardAdjuster {
     }
     
     @objc private func keyboardDidShow(_ notification: Notification) {
-        guard scrollView.isDescendantFirstResponder else {
+        guard adjustsForExternalResponder || scrollView.isDescendantFirstResponder else {
             return
         }
         
@@ -65,7 +69,7 @@ class TPKeyboardAdjuster {
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
-        guard scrollView.isDescendantFirstResponder else {
+        guard adjustsForExternalResponder || scrollView.isDescendantFirstResponder else {
             return
         }
         

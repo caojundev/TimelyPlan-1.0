@@ -27,7 +27,12 @@ extension UITableView {
             if let placeholderView = placeholderView {
                 placeholderView.removeFromSuperview()
             }
- 
+            
+            if let view = newValue {
+                view.frame = placeholderFrame()
+                view.layoutIfNeeded()
+            }
+            
             associated.set(retain: &AssociatedKeys.placeholderView, newValue)
             tp_updatePlaceholder()
         }
@@ -91,16 +96,16 @@ extension UITableView {
     private func tp_updateFrameOfPlaceholderView() {
         /// 布局占位视图
         if let placeholderView = self.placeholderView, placeholderView.isDescendant(of: self) {
-            let placeholderHeight = self.frame.height - self.keyboardIntersectionBottom
-            let placeholderFrame = CGRect(x: 0,
-                                          y: 0,
-                                          width: self.frame.width,
-                                          height: placeholderHeight)
-            placeholderView.frame = placeholderFrame
+            placeholderView.frame = placeholderFrame()
             placeholderView.layoutIfNeeded()
         }
     }
 
+    private func placeholderFrame() -> CGRect {
+        let placeholderHeight = self.frame.height - self.keyboardIntersectionBottom
+        return CGRect(x: 0, y: 0, width: self.frame.width, height: placeholderHeight)
+    }
+    
     @objc func tp_reloadData() {
         self.tp_reloadData()
         self.tp_updatePlaceholder()
@@ -199,9 +204,10 @@ extension UITableView {
     }
 
     func removeKeyboardNotification() {
-        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     @objc func keyboardWillShow(_ notification: Notification) {
         guard let tableSuperview = self.superview,
               let userInfo = notification.userInfo,

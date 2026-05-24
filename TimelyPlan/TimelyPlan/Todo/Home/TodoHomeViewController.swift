@@ -33,6 +33,13 @@ class TodoHomeViewController: TPTableViewController,
         return item
     }()
     
+    /// 搜索
+    private lazy var searchBarButtonItem: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .search,
+                               target: self,
+                               action: #selector(clickSearch))
+    }()
+    
     /// 底部工具栏
     private let toolViewHeight = 60.0
     lazy var toolView: TodoHomeToolView = { [weak self] in
@@ -150,7 +157,7 @@ class TodoHomeViewController: TPTableViewController,
         super.viewDidLoad()
         self.title = resGetString("Todo")
         self.navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
-        self.navigationItem.rightBarButtonItem = settingBarButtonItem
+        self.navigationItem.rightBarButtonItems = [settingBarButtonItem, searchBarButtonItem]
         self.view.addSubview(self.toolView)
         self.wrapperView.refreshHandler = { [weak self] in
             self?.handleRefresh()
@@ -282,9 +289,15 @@ class TodoHomeViewController: TPTableViewController,
         TPImpactFeedback.impactWithSoftStyle()
         TodoPresenter.showSettings()
     }
+    
+    @objc private func clickSearch() {
+        TPImpactFeedback.impactWithSoftStyle()
+        TodoPresenter.showSearch()
+    }
         
     private func clickToolbarStatistic() {
-        
+        TPImpactFeedback.impactWithSoftStyle()
+        TodoPresenter.showSettings()
     }
     
     private func clickToolbarAdd() {

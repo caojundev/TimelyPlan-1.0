@@ -19,7 +19,6 @@ class TodoHomeToolView: TPToolbar {
     lazy var statButtonItem: TPBarButtonItem = {
         let image = resGetImage("chart_bar_24")
         let item = TPBarButtonItem(image: image) {[weak self] _ in
-            TPImpactFeedback.impactWithSoftStyle()
             self?.didClickStatistic?()
         }
         
@@ -29,7 +28,6 @@ class TodoHomeToolView: TPToolbar {
     lazy var addButtonItem: TPBarButtonItem = {
         let image = resGetImage("plus_24")
         let item = TPBarButtonItem(image: image) {[weak self] _ in
-            TPImpactFeedback.impactWithSoftStyle()
             self?.didClickAdd?()
         }
         

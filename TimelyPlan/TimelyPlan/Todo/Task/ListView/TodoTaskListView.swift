@@ -137,12 +137,7 @@ class TodoTaskListView: UIView,
     }
 
     private var _isSelecting: Bool = false
-    
-    private let adapter = TPTableViewAdapter()
    
-    /// 布局管理器
-    private let layoutManager = TodoTaskLayoutManager()
-    
     var layoutConfig = TodoTaskLayoutConfig() {
         didSet {
             layoutManager.config = layoutConfig
@@ -172,6 +167,11 @@ class TodoTaskListView: UIView,
     private(set) var showDetail: Bool
     
     private var refreshControl: UIRefreshControl?
+    
+    /// 布局管理器
+    private let layoutManager = TodoTaskLayoutManager()
+    
+    let adapter = TPTableViewAdapter()
     
     init(frame: CGRect, style: UITableView.Style, showDetail: Bool = true) {
         self.style = style
@@ -744,5 +744,38 @@ class TodoTaskListView: UIView,
         adapter.updateCheckmark(at: indexPath, animated: true)
         adapter.updateHeaderFooterView(forSectionObject: group)
         delegate?.todoTaskListViewDidChangeSelectedTasks(self)
+    }
+    
+    // MARK: - Keyboard Adjuster
+    var isKeyboardAdjusterEnabled: Bool = false {
+        didSet {
+            setupKeyboardAdjuster()
+        }
+    }
+    
+    private var keyboardAdjuster: TPTableKeyboardAdjuster?
+
+    private func setupKeyboardAdjuster() {
+        if isKeyboardAdjusterEnabled {
+            let adjuster = TPTableKeyboardAdjuster(tableView: tableView)
+            adjuster.isEnabled = true
+            self.keyboardAdjuster = adjuster
+        } else {
+            self.keyboardAdjuster = nil
+        }
+    }
+    
+}
+
+extension TodoTaskListView {
+    
+    var keyboardDismissMode: UIScrollView.KeyboardDismissMode {
+        get {
+            return tableView.keyboardDismissMode
+        }
+        
+        set {
+            tableView.keyboardDismissMode = newValue
+        }
     }
 }

@@ -21,7 +21,7 @@ class TodoTaskCheckTableCell: TodoTaskBaseTableCell {
     }
     
     /// 复选信息视图
-    private lazy var checkInfoView: TodoTaskCheckInfoView = {
+    private(set) lazy var checkInfoView: TodoTaskCheckInfoView = {
         let view = TodoTaskCheckInfoView()
         view.didClickCheckbox = { [weak self] _ in
             self?.clickCheckbox()

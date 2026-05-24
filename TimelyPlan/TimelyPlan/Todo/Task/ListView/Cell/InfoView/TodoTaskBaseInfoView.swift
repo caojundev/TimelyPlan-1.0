@@ -13,10 +13,19 @@ class TodoTaskBaseInfoView: UIView {
     /// 任务名称
     var name: String? {
         didSet {
-            if name != oldValue {
-                nameLabel.text = name
-                setNeedsLayout()
-            }
+            nameLabel.text = name
+            setNeedsLayout()
+        }
+    }
+    
+    var attributedName: NSAttributedString? {
+        get {
+            return nameLabel.attributedText
+        }
+        
+        set {
+            nameLabel.attributedText = newValue
+            setNeedsLayout()
         }
     }
     
@@ -154,7 +163,6 @@ class TodoTaskBaseInfoView: UIView {
         let label = TPStrikethroughLabel()
         label.font = UIFont.boldSystemFont(ofSize: 15.0)
         label.textAlignment = .left
-        label.textColor = .label
         label.numberOfLines = 0
         return label
     }()
@@ -214,6 +222,7 @@ class TodoTaskBaseInfoView: UIView {
                                   right: rightViewSize.width + rightViewMargins.horizontalLength)
         return layoutFrame.inset(by: insets)
     }
+    
     /// 布局标签
     func layoutContents() {
         let layoutFrame = labelLayoutFrame()
@@ -307,7 +316,11 @@ class TodoTaskBaseInfoView: UIView {
         let task = layout.task
         checkType = task.checkType
         priority = task.priority
+        
         name = task.name
+        nameLabel.attributedText = nil
+        nameLabel.text = task.name
+        
         setProgress(task.completionFraction, animated: animated)
         setCompleted(task.isCompleted, animated: animated)
         setNeedsLayout()

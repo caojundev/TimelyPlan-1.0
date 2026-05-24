@@ -9,6 +9,12 @@ import Foundation
 
 class TodoPresenter {
     
+    /// 显示搜索
+    static func showSearch() {
+        let vc = TodoSearchMainViewController()
+        vc.showAsNavigationRoot()
+    }
+    
     /// 显示设置
     static func showSettings() {
         let vc = TodoSettingViewController(style: .insetGrouped)
