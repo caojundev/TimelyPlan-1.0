@@ -140,15 +140,7 @@ class TodoBaseTaskListViewController: TodoDetailContentViewController,
     }
     
     func todoTaskListView(_ listView: TodoTaskListView, didClickCheckboxForTask task: TodoTask) {
-        taskController.clickCheckbox(for: task) {isCompleted, execution in
-            listView.setCompleted(isCompleted, for: task) { _ in
-                execution?()
-            }
-        } progressHandler: { progress, execution in
-            listView.setProgress(progress, for: task) {  _ in
-                execution?()
-            }
-        }
+        taskController.clickCheckbox(for: task, in: listView)
     }
     
     func todoTaskListViewDidChangeSelectedTasks(_ listView: TodoTaskListView) {
@@ -156,86 +148,15 @@ class TodoBaseTaskListViewController: TodoDetailContentViewController,
     }
     
     func todoTaskListView(_ listView: TodoTaskListView, leadingSwipeActionsConfigurationForTask task: TodoTask, at indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        var actions = [UIContextualAction]()
-        /// 我的一天
-        let myDayAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
-            TPImpactFeedback.impactWithSoftStyle()
-            self.taskController.setAddToMyDay(!task.isAddedToMyDay, for: task)
-            completion(true)
-        }
-        
-        var myDayImage: UIImage?
-        if task.isAddedToMyDay {
-            myDayImage = resGetImage("todo_task_action_removeFromMyDay_24@2x")
-            myDayAction.backgroundColor = .gray(5)
-        } else {
-            myDayImage = resGetImage("todo_task_action_addToMyDay_24@2x")
-            myDayAction.backgroundColor = .greenPrimary
-        }
-        
-        myDayAction.image = myDayImage?.withTintColor(.white)
-        actions.append(myDayAction)
-        
-        /// 优先级
-        let priorityAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
-            TPImpactFeedback.impactWithSoftStyle()
-            let sourceView = listView.cellForRow(at: indexPath)
-            self.taskController.editPriority(for: [task],
-                                            sourceView: sourceView,
-                                            preferredPosition: .bottomLeft)
-            completion(true)
-        }
-        
-        priorityAction.backgroundColor = .orange(4)
-        priorityAction.image = resGetImage("todo_task_action_priority_24")?.withTintColor(.white)
-        actions.append(priorityAction)
-        
-        /// 专注
-        let focusAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
-            TPImpactFeedback.impactWithSoftStyle()
-            self.taskController.quickStartFocus(for: task)
-            completion(true)
-        }
-        
-        focusAction.backgroundColor = Color(0x5856D6)
-        focusAction.image = resGetImage("focus_24")?.withTintColor(.white)
-        actions.append(focusAction)
-        return UISwipeActionsConfiguration(actions: actions)
+        return taskController.leadingSwipeActionsConfiguration(for: task,
+                                                                  in: listView,
+                                                                  at: indexPath)
     }
     
     func todoTaskListView(_ listView: TodoTaskListView, trailingSwipeActionsConfigurationForTask task: TodoTask, at indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        var actions = [UIContextualAction]()
-        
-        /// 移动
-        let moveAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
-            TPImpactFeedback.impactWithSoftStyle()
-            self.taskController.moveTask(task)
-            completion(true)
-        }
-        
-        moveAction.backgroundColor = Color(0xFF9B00)
-        moveAction.image = resGetImage("todo_task_action_move_24")?.withTintColor(.white)
-        
-        /// 计划
-        let scheduleAction = UIContextualAction(style: .normal, title: nil) { _, _, completion in
-            TPImpactFeedback.impactWithSoftStyle()
-            self.taskController.editSchedule(for: task)
-            completion(true)
-        }
-
-        scheduleAction.backgroundColor = .primary
-        scheduleAction.image = resGetImage("todo_task_action_date_24")?.withTintColor(.white)
-        
-        /// 废纸篓
-        let trashAction = UIContextualAction(style: .destructive, title: nil) { _, _, completion in
-            TPImpactFeedback.impactWithMediumStyle()
-            self.taskController.moveTaskToTrash(task)
-            completion(true)
-        }
-                            
-        trashAction.image = resGetImage("todo_task_action_trash_24")?.withTintColor(.white)
-        actions = [scheduleAction, trashAction, moveAction]
-        return UISwipeActionsConfiguration(actions: actions)
+        return taskController.trailingSwipeActionsConfiguration(for: task,
+                                                                   in: listView,
+                                                                   at: indexPath)
     }
 }
 

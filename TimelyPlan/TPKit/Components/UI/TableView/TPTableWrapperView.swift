@@ -27,11 +27,24 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
     
     /// 集合视图
     fileprivate(set) var tableView: UITableView!
+
+    private lazy var keyboardAdjuster: TPTableKeyboardAdjuster = {
+        return TPTableKeyboardAdjuster(tableView: tableView)
+    }()
     
-    private var keyboardAdjuster: TPKeyboardAdjuster?
+    var keyboardAdjusterInsetBottom: CGFloat {
+        get {
+            return keyboardAdjuster.keyboardIntersectionBottom
+        }
+        
+        set {
+            keyboardAdjuster.keyboardIntersectionBottom = newValue
+        }
+    }
+    
     var isKeyboardAdjusterEnabled: Bool = false {
         didSet {
-            setupKeyboardAdjuster()
+            keyboardAdjuster.isEnabled = isKeyboardAdjusterEnabled
         }
     }
     
@@ -49,10 +62,6 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
     
     var contentSize: CGSize {
         return tableView.contentSize
-    }
-    
-    deinit {
-        tableView.removeKeyboardNotification()
     }
     
     convenience init(style: UITableView.Style = .grouped) {
@@ -107,16 +116,6 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
     func endRefreshing() {
         self.refreshControl?.endRefreshing()
     }
-
-    private func setupKeyboardAdjuster() {
-        if isKeyboardAdjusterEnabled {
-            let adjuster = TPKeyboardAdjuster(scrollView: tableView)
-            adjuster.isEnabled = true
-            self.keyboardAdjuster = adjuster
-        } else {
-            self.keyboardAdjuster = nil
-        }
-    }
     
     func setupSubviews() {
         self.containerView = TPAnimatedContainerView(frame: bounds)
@@ -133,24 +132,21 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
         if let tableView = tableView {
             shouldShowPlaceholder = tableView.shouldShowPlaceholder
             removeRefreshControl()
-            /// 移除原tableView的键盘监听
-            tableView.removeKeyboardNotification()
+            keyboardAdjuster.isEnabled = false
         }
 
         tableView = UITableView(frame: bounds, style: style)
-        if #available(iOS 15.0, *) {
-            tableView.isPrefetchingEnabled = false
-        }
-        
+        tableView.isPrefetchingEnabled = false
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.01))        
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.shouldShowPlaceholder = shouldShowPlaceholder
-        tableView.addKeyboardNotification() /// 添加新的键盘监听
         tableViewConfiguration?(tableView)
         
         /// 设置适配器
         adapter.tableView = tableView
-        setupKeyboardAdjuster()
+        keyboardAdjuster = TPTableKeyboardAdjuster(tableView: tableView)
+        keyboardAdjuster.isEnabled = isKeyboardAdjusterEnabled
         updatePlaceholderView()
         if bAddRefreshControl {
             addRefreshControl()

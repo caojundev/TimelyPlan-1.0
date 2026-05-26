@@ -23,11 +23,12 @@ extension UITableView {
         }
         
         set {
-            /// 移除旧视图
-            if let placeholderView = placeholderView {
-                placeholderView.removeFromSuperview()
+            guard placeholderView != newValue else {
+                return
             }
             
+            /// 移除旧视图
+            placeholderView?.removeFromSuperview()
             if let view = newValue {
                 view.frame = placeholderFrame()
                 view.layoutIfNeeded()
@@ -49,14 +50,18 @@ extension UITableView {
     }
     
     /// 键盘与tableView相交区域底部高度
-    private var keyboardIntersectionBottom: CGFloat {
+    var keyboardIntersectionBottom: CGFloat {
         get {
             let value: CGFloat = associated.get(&AssociatedKeys.keyboardIntersectionBottom) ?? 0.0
             return value
         }
         
         set {
+            let shouldUpdatePlaceholder = newValue != keyboardIntersectionBottom
             associated.set(retain: &AssociatedKeys.keyboardIntersectionBottom, newValue)
+            if shouldUpdatePlaceholder {
+                tp_animateUpdateFrameOfPlaceholder()
+            }
         }
     }
     
@@ -190,51 +195,10 @@ extension UITableView {
         
         return false
     }
-    
-    // MARK: - 键盘
-    func addKeyboardNotification() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide(_:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-    }
-
-    func removeKeyboardNotification() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(_ notification: Notification) {
-        guard let tableSuperview = self.superview,
-              let userInfo = notification.userInfo,
-                let frameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
-            return
-        }
-        
-        let offsetY: CGFloat = 0.0
-        /// 根据y间距调整键盘 frame 信息
-        var keyboardFrame = frameValue.cgRectValue
-        keyboardFrame.origin.y -= offsetY
-        keyboardFrame.size.height += offsetY
-        
-        let convertedKeyboardFrame = tableSuperview.convert(keyboardFrame, fromViewOrWindow: nil)
-        let intersectionFrame = convertedKeyboardFrame.intersection(self.frame)
-        self.keyboardIntersectionBottom = intersectionFrame.height
-        self.tp_animateUpdateFrameOfPlaceholder()
-    }
-
-    @objc func keyboardWillHide(_ notification: Notification) {
-        self.keyboardIntersectionBottom = 0.0
-        self.tp_animateUpdateFrameOfPlaceholder()
-    }
 
     private func tp_animateUpdateFrameOfPlaceholder() {
         if isPlaceholderShown {
-            UIView.animate(withDuration: 0.5, delay: 0.0, options: .beginFromCurrentState, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .beginFromCurrentState, animations: {
                 self.tp_updateFrameOfPlaceholderView()
             }, completion: nil)
         }

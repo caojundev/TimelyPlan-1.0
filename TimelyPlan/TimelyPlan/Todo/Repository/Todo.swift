@@ -106,6 +106,13 @@ extension Todo {
 /// 任务相关
 extension Todo {
     
+    /// 搜索任务
+    func searchTasks(matching searchText: String,
+                     options: TodoSearchOptions,
+                     completion: @escaping ([TodoTask]?) -> Void) {
+        taskManager.searchTasks(matching: searchText, options: options, completion: completion)
+    }
+    
     /// 获取用户列表任务
     func fetchSmartListTasks(in list: TodoSmartList,
                             showCompleted: Bool = true,

@@ -151,7 +151,7 @@ extension NSManagedObject {
                                    completion: @escaping([NSFetchRequestResult]?) -> Void) {
         let context: NSManagedObjectContext = .context(withParent: .defaultContext)
         context.perform {
-            Thread.sleep(forTimeInterval: 0.2)
+            Thread.sleep(forTimeInterval: 0.1)
             var results: [NSFetchRequestResult]? = nil
             do{
                results = try context.fetch(request)

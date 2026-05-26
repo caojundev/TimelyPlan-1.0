@@ -20,13 +20,17 @@ class TPStrikethroughLabel: UILabel {
     
     var normalTextColor: UIColor = Color(light: 0x232323, dark: 0xFEFEFF, alpha: 1.0) {
         didSet {
-            setNeedsLayout()
+            if normalTextColor != oldValue {
+                updateTextColor()
+            }
         }
     }
     
-    var strikethroughTextColor: UIColor? {
+    var strikethroughTextColor: UIColor = Color(light: 0x232323, dark: 0xFEFEFF, alpha: 0.6) {
         didSet {
-            setNeedsLayout()
+            if isStrikethrough, strikethroughTextColor != oldValue {
+                updateTextColor()
+            }
         }
     }
     
@@ -77,6 +81,25 @@ class TPStrikethroughLabel: UILabel {
         }
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        strikethroughLayer.strokeEnd = 0.0
+        layer.addSublayer(strikethroughLayer)
+        updateTextColor()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        strikethroughLayer.strokeColor = strikethroughColor.cgColor
+        strikethroughLayer.frame = bounds
+        updateStrikethroughLayerPath()
+        updateAlpha()
+    }
+    
     func setStrikethrough(_ isStrikethrough: Bool,
                           animated: Bool,
                           completion: (() -> Void)? = nil) {
@@ -107,33 +130,13 @@ class TPStrikethroughLabel: UILabel {
             completion?()
         }
     }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        strikethroughLayer.strokeEnd = 0.0
-        layer.addSublayer(strikethroughLayer)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        strikethroughLayer.strokeColor = strikethroughColor.cgColor
-        strikethroughLayer.frame = bounds
-        updateStrikethroughLayerPath()
-        updateTextColor()
-        updateAlpha()
-    }
 
+    var currentTextColor: UIColor {
+        return isStrikethrough ? strikethroughTextColor : normalTextColor
+    }
+    
     private func updateTextColor() {
-        var textColor = isStrikethrough ? strikethroughTextColor : normalTextColor
-        if textColor == nil {
-            textColor = normalTextColor
-        }
-        
-        self.textColor = textColor
+        self.textColor = currentTextColor
     }
     
     private func updateAlpha() {

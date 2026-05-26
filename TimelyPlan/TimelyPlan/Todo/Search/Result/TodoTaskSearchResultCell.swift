@@ -16,7 +16,7 @@ class TodoTaskSearchResultCell: TodoTaskCheckTableCell,
     
     var normalAttributes: [NSAttributedString.Key: Any] {
         return [
-            .foregroundColor: checkInfoView.nameLabel.textColor ?? .label,
+            .foregroundColor: checkInfoView.nameLabel.currentTextColor,
             .font: checkInfoView.nameLabel.font ?? BOLD_SYSTEM_FONT
         ]
     }
@@ -29,20 +29,27 @@ class TodoTaskSearchResultCell: TodoTaskCheckTableCell,
         ]
     }
     
-    override func reloadData(animated: Bool) {
-        super.reloadData(animated: animated)
-        
-        guard let name = checkInfoView.name,
-              let highlightedText = highlightedText,
-              highlightedText.count > 0 else {
-                  return
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateHighlightedResult()
+    }
+    
+    func updateHighlightedResult() {
+        guard let name = checkInfoView.name, let highlightedText = highlightedText, highlightedText.count > 0 else {
+            return
         }
         
-        let attributedText = name.attributedStringWithHighlight(highlightedText,
+        let searchRange = NSString(string: name).range(of: highlightedText)
+        if searchRange.location == NSNotFound {
+            return
+        }
+        
+        let attributedName = name.attributedStringWithHighlight(highlightedText,
                                                                 normalAttributes: normalAttributes,
                                                                 highlightAttributes: highlightAttributes)
-        self.checkInfoView.nameLabel.attributedText = attributedText
+        self.checkInfoView.attributedName = attributedName
     }
+    
     
     /// 设置搜索文本并更新高亮显示
     func setHighlightedText(_ highlightedText: String?) {

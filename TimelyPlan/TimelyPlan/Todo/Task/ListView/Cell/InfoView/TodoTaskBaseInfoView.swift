@@ -12,8 +12,12 @@ class TodoTaskBaseInfoView: UIView {
     
     /// 任务名称
     var name: String? {
-        didSet {
-            nameLabel.text = name
+        get {
+            return nameLabel.text
+        }
+        
+        set {
+            nameLabel.text = newValue
             setNeedsLayout()
         }
     }
@@ -316,10 +320,9 @@ class TodoTaskBaseInfoView: UIView {
         let task = layout.task
         checkType = task.checkType
         priority = task.priority
-        
+
+        attributedName = nil
         name = task.name
-        nameLabel.attributedText = nil
-        nameLabel.text = task.name
         
         setProgress(task.completionFraction, animated: animated)
         setCompleted(task.isCompleted, animated: animated)

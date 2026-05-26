@@ -17,7 +17,7 @@ class TodoState {
         case isHomeFilterExpanded /// 过滤器是否展开
         
         case listOption  /// 列表选项
-        
+        case searchHistories /// 搜索历史
         static func keyPrefix() -> String? {
             return "TodoState"
         }
@@ -40,6 +40,9 @@ class TodoState {
     
     @LocalStored(key: SettingKey.isHomeFilterExpanded.name, defaultValue: true)
     var isHomeFilterExpanded: Bool
+    
+    @LocalStored(key: SettingKey.searchHistories.name, defaultValue: nil)
+    var searchHistories: Set<TodoSearchHistory>?
     
     static let shared = TodoState()
     

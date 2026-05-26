@@ -229,7 +229,7 @@ class TodoTaskListView: UIView,
 
     
     /// 是否显示占位视图
-    private func shouldShowPlaceholder() -> Bool {
+    func shouldShowPlaceholder() -> Bool {
         guard adapter.objects.count > 0 else {
             return true
         }
@@ -749,22 +749,19 @@ class TodoTaskListView: UIView,
     // MARK: - Keyboard Adjuster
     var isKeyboardAdjusterEnabled: Bool = false {
         didSet {
-            setupKeyboardAdjuster()
+            keyboardAdjuster.isEnabled = isKeyboardAdjusterEnabled
         }
     }
     
-    private var keyboardAdjuster: TPTableKeyboardAdjuster?
-
-    private func setupKeyboardAdjuster() {
-        if isKeyboardAdjusterEnabled {
-            let adjuster = TPTableKeyboardAdjuster(tableView: tableView)
-            adjuster.isEnabled = true
-            self.keyboardAdjuster = adjuster
-        } else {
-            self.keyboardAdjuster = nil
+    var keyboardAdjusterInsetBottom: CGFloat = 0.0 {
+        didSet {
+            keyboardAdjuster.keyboardIntersectionBottom = keyboardAdjusterInsetBottom
         }
     }
     
+    private lazy var keyboardAdjuster: TPTableKeyboardAdjuster = {
+        return TPTableKeyboardAdjuster(tableView: tableView)
+    }()
 }
 
 extension TodoTaskListView {

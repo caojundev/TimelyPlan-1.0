@@ -19,6 +19,8 @@ struct TodoTaskKey {
     static var tagsIdentifier = "tags.identifier"
     
     static var order = "order"
+    static var name = "name"
+    static var stepMarkdown = "stepMarkdown"
     static var isCompleted = "isCompleted"
     static var isRemoved = "isRemoved"
     static var creationDate = "creationDate"
@@ -534,6 +536,31 @@ extension CDTodoTask {
 
 // MARK: - 获取任务
 extension CDTodoTask {
+    
+    /// 搜索任务
+    static func searchTasks(matching searchText: String,
+                            options: TodoSearchOptions,
+                            completion: @escaping ([CDTodoTask]?) -> Void) {
+        let sortTerms: [SortTerm] = [(TodoTagKey.creationDate, true)]
+        var andConditions = [notRemovedCondition]
+        if !options.showCompleted {
+            andConditions.append(notCompletedCondition)
+        }
+
+        var orConditions: [PredicateCondition] = []
+        let nameCondition: PredicateCondition = (TodoTaskKey.name, .contains(searchText))
+        orConditions.append(nameCondition)
+        if options.searchStep {
+            let stepCondition: PredicateCondition = (TodoTaskKey.stepMarkdown, .contains(searchText))
+            orConditions.append(stepCondition)
+        }
+        
+        let predicate = NSPredicate.andPredicate(andConditions: andConditions,
+                                                 orConditions: orConditions)
+        fetchAll(matching: predicate, sortTerms: sortTerms) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
     
     /// 同步获取收件箱任务
     static func getInboxTasks(showCompleted: Bool = true) -> [CDTodoTask]? {

@@ -429,4 +429,13 @@ extension TodoTaskManager {
         }
     }
     
+    /// 搜索任务
+    func searchTasks(matching searchText: String,
+                     options: TodoSearchOptions,
+                     completion: @escaping ([TodoTask]?) -> Void) {
+        CDTodoTask.searchTasks(matching: searchText,
+                               options: options) { results in
+            completion(results?.tasks)
+        }
+    }
 }

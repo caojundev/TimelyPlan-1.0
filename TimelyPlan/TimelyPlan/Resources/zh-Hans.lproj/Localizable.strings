@@ -69,6 +69,12 @@
 "Are you sure to ungroup list \"%@\" ?" = "是否确认解散列表\"%@\"？";
 "\"%@\" will be permanently deleted. Sure to delete?" = "\"%@\"将被永久删除。是否确认删除？";
 
+/// 搜索
+"Search" = "搜索";
+"Search Task" = "搜索任务";
+"Search history" = "搜索历史";
+"Clear Search History" = "清除搜索历史";
+
 /// 列表编辑
 "New List" = "新建列表";
 "Edit List" = "编辑列表";
@@ -373,9 +379,6 @@
 "There is no focused record over %@ in this round." = "本轮无超过%@的专注记录";
 "%ld focus records added successfully" = "成功添加%ld条专注记录";
 "%ld focus record added successfully" = "成功添加%ld条专注记录";
-
-/// 绑定任务
-"Search Task" = "搜索任务";
 
 /// 专注设置
 "Focus Settings" = "专注设置";
