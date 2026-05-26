@@ -26,6 +26,17 @@
 		E500DE5B2DB09D4500EAEAF7 /* todo_filter_indicator_priority_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE4F2DB09D4500EAEAF7 /* todo_filter_indicator_priority_12@3x.png */; };
 		E500DE5C2DB09D4500EAEAF7 /* todo_filter_indicator_list_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE502DB09D4500EAEAF7 /* todo_filter_indicator_list_12@3x.png */; };
 		E500DE5D2DB09D4500EAEAF7 /* todo_filter_indicator_list_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE512DB09D4500EAEAF7 /* todo_filter_indicator_list_12@2x.png */; };
+		E500E3742FC5431500252011 /* TodoSearchResultOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3732FC5431500252011 /* TodoSearchResultOptionsView.swift */; };
+		E500E3762FC54DF500252011 /* TodoSearchOptionsSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3752FC54DF500252011 /* TodoSearchOptionsSectionController.swift */; };
+		E500E3782FC5954000252011 /* TodoSearchFilterRuleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3772FC5953F00252011 /* TodoSearchFilterRuleEditViewController.swift */; };
+		E500E3822FC59BE600252011 /* todo_search_option_step_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500E37A2FC59BE600252011 /* todo_search_option_step_16@2x.png */; };
+		E500E3832FC59BE600252011 /* todo_search_option_note_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500E37B2FC59BE600252011 /* todo_search_option_note_16@3x.png */; };
+		E500E3842FC59BE600252011 /* todo_search_option_note_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500E37C2FC59BE600252011 /* todo_search_option_note_16@2x.png */; };
+		E500E3852FC59BE600252011 /* todo_search_option_step_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500E37D2FC59BE600252011 /* todo_search_option_step_16@3x.png */; };
+		E500E3862FC59BE600252011 /* todo_search_option_completed_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500E37E2FC59BE600252011 /* todo_search_option_completed_16@3x.png */; };
+		E500E3872FC59BE600252011 /* todo_search_option_filter_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500E37F2FC59BE600252011 /* todo_search_option_filter_16@3x.png */; };
+		E500E3882FC59BE600252011 /* todo_search_option_filter_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500E3802FC59BE600252011 /* todo_search_option_filter_16@2x.png */; };
+		E500E3892FC59BE600252011 /* todo_search_option_completed_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500E3812FC59BE600252011 /* todo_search_option_completed_16@2x.png */; };
 		E505A14E2DA7717F00595B5D /* Date+Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505A14D2DA7717F00595B5D /* Date+Year.swift */; };
 		E505A1502DA771F200595B5D /* Date+Hour.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505A14F2DA771F200595B5D /* Date+Hour.swift */; };
 		E505D9312F990B60004469DC /* TodoHomeAddMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */; };
@@ -1931,6 +1942,17 @@
 		E500DE4F2DB09D4500EAEAF7 /* todo_filter_indicator_priority_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_priority_12@3x.png"; sourceTree = "<group>"; };
 		E500DE502DB09D4500EAEAF7 /* todo_filter_indicator_list_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_list_12@3x.png"; sourceTree = "<group>"; };
 		E500DE512DB09D4500EAEAF7 /* todo_filter_indicator_list_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_list_12@2x.png"; sourceTree = "<group>"; };
+		E500E3732FC5431500252011 /* TodoSearchResultOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSearchResultOptionsView.swift; sourceTree = "<group>"; };
+		E500E3752FC54DF500252011 /* TodoSearchOptionsSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSearchOptionsSectionController.swift; sourceTree = "<group>"; };
+		E500E3772FC5953F00252011 /* TodoSearchFilterRuleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSearchFilterRuleEditViewController.swift; sourceTree = "<group>"; };
+		E500E37A2FC59BE600252011 /* todo_search_option_step_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_search_option_step_16@2x.png"; sourceTree = "<group>"; };
+		E500E37B2FC59BE600252011 /* todo_search_option_note_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_search_option_note_16@3x.png"; sourceTree = "<group>"; };
+		E500E37C2FC59BE600252011 /* todo_search_option_note_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_search_option_note_16@2x.png"; sourceTree = "<group>"; };
+		E500E37D2FC59BE600252011 /* todo_search_option_step_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_search_option_step_16@3x.png"; sourceTree = "<group>"; };
+		E500E37E2FC59BE600252011 /* todo_search_option_completed_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_search_option_completed_16@3x.png"; sourceTree = "<group>"; };
+		E500E37F2FC59BE600252011 /* todo_search_option_filter_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_search_option_filter_16@3x.png"; sourceTree = "<group>"; };
+		E500E3802FC59BE600252011 /* todo_search_option_filter_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_search_option_filter_16@2x.png"; sourceTree = "<group>"; };
+		E500E3812FC59BE600252011 /* todo_search_option_completed_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_search_option_completed_16@2x.png"; sourceTree = "<group>"; };
 		E505A14D2DA7717F00595B5D /* Date+Year.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Year.swift"; sourceTree = "<group>"; };
 		E505A14F2DA771F200595B5D /* Date+Hour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Hour.swift"; sourceTree = "<group>"; };
 		E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeAddMenuController.swift; sourceTree = "<group>"; };
@@ -3895,6 +3917,32 @@
 				E500DE512DB09D4500EAEAF7 /* todo_filter_indicator_list_12@2x.png */,
 			);
 			path = Indicator;
+			sourceTree = "<group>";
+		};
+		E500E3722FC542C400252011 /* OptionsView */ = {
+			isa = PBXGroup;
+			children = (
+				E5E9F7B22FC3E5EA00717004 /* TodoSearchOptions.swift */,
+				E500E3732FC5431500252011 /* TodoSearchResultOptionsView.swift */,
+				E500E3752FC54DF500252011 /* TodoSearchOptionsSectionController.swift */,
+				E500E3772FC5953F00252011 /* TodoSearchFilterRuleEditViewController.swift */,
+			);
+			path = OptionsView;
+			sourceTree = "<group>";
+		};
+		E500E3792FC59BE600252011 /* option */ = {
+			isa = PBXGroup;
+			children = (
+				E500E37A2FC59BE600252011 /* todo_search_option_step_16@2x.png */,
+				E500E37B2FC59BE600252011 /* todo_search_option_note_16@3x.png */,
+				E500E37C2FC59BE600252011 /* todo_search_option_note_16@2x.png */,
+				E500E37D2FC59BE600252011 /* todo_search_option_step_16@3x.png */,
+				E500E37F2FC59BE600252011 /* todo_search_option_filter_16@3x.png */,
+				E500E3802FC59BE600252011 /* todo_search_option_filter_16@2x.png */,
+				E500E3812FC59BE600252011 /* todo_search_option_completed_16@2x.png */,
+				E500E37E2FC59BE600252011 /* todo_search_option_completed_16@3x.png */,
+			);
+			path = option;
 			sourceTree = "<group>";
 		};
 		E505D92F2F990B2F004469DC /* Menu */ = {
@@ -6326,10 +6374,10 @@
 		E57CC5D12F7FCED200ADDBA4 /* MenuView */ = {
 			isa = PBXGroup;
 			children = (
-				E57CC5D22F7FCED200ADDBA4 /* TodoTaskQuickAddMenuSectionController.swift */,
-				E56B949C2F8DF183001E488B /* TodoTaskQuickAddMoreSectionController.swift */,
 				E57CC5D32F7FCED200ADDBA4 /* TodoTaskQuickAddMenuView.swift */,
+				E57CC5D22F7FCED200ADDBA4 /* TodoTaskQuickAddMenuSectionController.swift */,
 				E57CC5D42F7FCED200ADDBA4 /* TodoTaskQuickAddMenuCell.swift */,
+				E56B949C2F8DF183001E488B /* TodoTaskQuickAddMoreSectionController.swift */,
 				E56B949E2F8DF582001E488B /* TodoTaskQuickAddSettingView.swift */,
 			);
 			path = MenuView;
@@ -9726,8 +9774,8 @@
 		E5E9F7B42FC3F5DD00717004 /* Result */ = {
 			isa = PBXGroup;
 			children = (
+				E500E3722FC542C400252011 /* OptionsView */,
 				E5E9F7A62FC2E81A00717004 /* TodoTaskSearchViewModel.swift */,
-				E5E9F7B22FC3E5EA00717004 /* TodoSearchOptions.swift */,
 				E5E9F7A32FC2B58200717004 /* TodoSearchResultViewController.swift */,
 				E5E9F7AC2FC32A3D00717004 /* TodoTaskSearchResultListView.swift */,
 				E5E9F7AE2FC32BBB00717004 /* TodoTaskSearchResultCell.swift */,
@@ -9750,6 +9798,7 @@
 			children = (
 				E5E9F7BD2FC50BD600717004 /* todo_search_history_24@2x.png */,
 				E5E9F7BE2FC50BD700717004 /* todo_search_history_24@3x.png */,
+				E500E3792FC59BE600252011 /* option */,
 			);
 			path = search;
 			sourceTree = "<group>";
@@ -10162,6 +10211,7 @@
 				E55E4C032F9336170068E032 /* calendar_26_24@2x.png in Resources */,
 				E56B945F2F8CD6D0001E488B /* todo_group_type_priority_24@2x.png in Resources */,
 				E5168BD02F545B400000A760 /* dateRange_background_end@3x.png in Resources */,
+				E500E3832FC59BE600252011 /* todo_search_option_note_16@3x.png in Resources */,
 				E5BB9A8B2D3BEF0D0089667A /* todo_smartlist_completed_24@2x.png in Resources */,
 				E555281D2FB5C3200093DD7E /* todo_smartlist_inbox_80@2x.png in Resources */,
 				E56B94AE2F8FB56A001E488B /* todo_task_action_addToMyDay_24@2x.png in Resources */,
@@ -10187,6 +10237,7 @@
 				E5C18FBC2DB4FE1F008FAA13 /* todo_task_change_new_16@3x.png in Resources */,
 				E5E4D1512D93033800813B6C /* todo_filter_date_36@2x.png in Resources */,
 				E5BB9ABE2D3BEF0D0089667A /* todo_task_action_priority_24@2x.png in Resources */,
+				E500E3872FC59BE600252011 /* todo_search_option_filter_16@3x.png in Resources */,
 				E55E4BED2F9336170068E032 /* calendar_12_24@3x.png in Resources */,
 				E55E4BD42F9336170068E032 /* calendar_28_24@2x.png in Resources */,
 				E5BBA1202D3BFD150089667A /* BarlowCondensed-SemiBold.ttf in Resources */,
@@ -10249,6 +10300,7 @@
 				E5E2771B2D3E099C004EC522 /* todo_list_option_showCompleted_24@3x.png in Resources */,
 				E55E4BEB2F9336170068E032 /* calendar_3_24@3x.png in Resources */,
 				E58F46B62F7AAE370046FA96 /* todo_list_noParent_24@2x.png in Resources */,
+				E500E3842FC59BE600252011 /* todo_search_option_note_16@2x.png in Resources */,
 				E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */,
 				E56B946A2F8CD822001E488B /* todo_group_type_list_24@2x.png in Resources */,
 				E5BB9ADD2D3BEF0D0089667A /* xmark_circle_fill_24@2x.png in Resources */,
@@ -10258,6 +10310,7 @@
 				E515AD6D2D3CC49800AA9AF2 /* fullscreen_exit_24@3x.png in Resources */,
 				E5BBA10A2D3BFB3C0089667A /* SideMenuTodo@2x.png in Resources */,
 				E53F32C92F699AC900B85B65 /* habit_report_failed_20@2x.png in Resources */,
+				E500E3862FC59BE600252011 /* todo_search_option_completed_16@3x.png in Resources */,
 				E570FC012D62C14A0017F930 /* chevron_right_16@3x.png in Resources */,
 				E5168BD32F545B400000A760 /* dateRange_background_start@3x.png in Resources */,
 				E524C79B2F9F499F005CCEBD /* todo_home_list_24@2x.png in Resources */,
@@ -10333,6 +10386,7 @@
 				E55A7B7F2D45F873000D224C /* timer_next_circle_fill_32@3x.png in Resources */,
 				E5D7D9622D43DBE000EC877A /* focus_timer_countdown_32@3x.png in Resources */,
 				E5D815C62F729C3700A4822D /* focus_record_bind_timer_24@2x.png in Resources */,
+				E500E3822FC59BE600252011 /* todo_search_option_step_16@2x.png in Resources */,
 				E53F32CA2F699AC900B85B65 /* habit_report_notScheduled_20@3x.png in Resources */,
 				E5C18FBA2DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png in Resources */,
 				E524C7812F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png in Resources */,
@@ -10353,6 +10407,7 @@
 				E5D815C82F729C3700A4822D /* focus_record_bind_task_24@2x.png in Resources */,
 				E5D7D9872D43E35000EC877A /* focus_timer_stepMode_focus_24@2x.png in Resources */,
 				E53F32C62F699AC900B85B65 /* habit_report_notScheduled_20@2x.png in Resources */,
+				E500E3852FC59BE600252011 /* todo_search_option_step_16@3x.png in Resources */,
 				E55E4BD72F9336170068E032 /* calendar_2_24@3x.png in Resources */,
 				E526D4102F6D76EA005C1DED /* habit_report_24@3x.png in Resources */,
 				E534800C2F604ACF00CFBF26 /* habit_status_failed_24@3x.png in Resources */,
@@ -10433,6 +10488,7 @@
 				E526D4152F6D7AE0005C1DED /* habit_plceholder_task_80@2x.png in Resources */,
 				E5D7D8F72D43933600EC877A /* OpenCircleAngleGradient@3x.png in Resources */,
 				E5BB9ABA2D3BEF0D0089667A /* todo_task_action_date_24@3x.png in Resources */,
+				E500E3892FC59BE600252011 /* todo_search_option_completed_16@2x.png in Resources */,
 				E50D02562F55860B00E93977 /* habit_time_morning_24@2x.png in Resources */,
 				E55E4BF22F9336170068E032 /* calendar_21_24@2x.png in Resources */,
 				E55E4BCA2F9336160068E032 /* calendar_9_24@3x.png in Resources */,
@@ -10515,6 +10571,7 @@
 				E5BB9E462D3BF0C70089667A /* StepperPositive@3x.png in Resources */,
 				E5D833902DAB64D60012ABF3 /* todo_task_progress_targetValue_24@3x.png in Resources */,
 				E5D7D8F52D43933600EC877A /* PositiveCircleFill@3x.png in Resources */,
+				E500E3882FC59BE600252011 /* todo_search_option_filter_16@2x.png in Resources */,
 				E547C71F2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png in Resources */,
 				E5E9F7932FC03FCA00717004 /* todo_step_copyAsMarkdown_24@3x.png in Resources */,
 				E556BCD22F5D746400CA20D9 /* HabitRecordTypeAutoAdd@3x.png in Resources */,
@@ -11027,6 +11084,7 @@
 				E53F32B52F6948F900B85B65 /* HabitReportWeeklyHeaderView.swift in Sources */,
 				E5BB9E6C2D3BF0C70089667A /* TPCollectionSectionLayout.swift in Sources */,
 				E5BB9F052D3BF0C90089667A /* TPTableDragInsertReorder.swift in Sources */,
+				E500E3762FC54DF500252011 /* TodoSearchOptionsSectionController.swift in Sources */,
 				E5BB9E8D2D3BF0C80089667A /* ChartGuideline.swift in Sources */,
 				E5FC6BAE2F65518000D5A5EA /* HabitStatsWeeklyViewController.swift in Sources */,
 				E5BB9DDD2D3BF0C60089667A /* UIView+Conversion.swift in Sources */,
@@ -11557,6 +11615,7 @@
 				E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */,
 				E5B33D832F81FD0200939C3E /* TodoTagPickerViewController.swift in Sources */,
 				E5E9F7B92FC400E800717004 /* TodoSearchHistoryClearFooterView.swift in Sources */,
+				E500E3742FC5431500252011 /* TodoSearchResultOptionsView.swift in Sources */,
 				E531FDF12F7371B400067A0F /* PieHighlightView.swift in Sources */,
 				E5BB9E7D2D3BF0C70089667A /* StatsBarChartCell.swift in Sources */,
 				E54155652F49A415000B2972 /* FocusRecordListBasicCellLayout.swift in Sources */,
@@ -11710,6 +11769,7 @@
 				E5BB9EC72D3BF0C80089667A /* TPButtonActionsBar.swift in Sources */,
 				E5D7D8B92D43933600EC877A /* FocusRunningViewController.swift in Sources */,
 				E5BB9E9B2D3BF0C80089667A /* ChartAxisLabelMark+Extensions.swift in Sources */,
+				E500E3782FC5954000252011 /* TodoSearchFilterRuleEditViewController.swift in Sources */,
 				E5BB9DCE2D3BF0C60089667A /* TPImpactFeedback.swift in Sources */,
 				E5BB9D982D3BF0C60089667A /* TPRelativeTimePresetTableCell.swift in Sources */,
 				E534DAC62D59E75F0079AB08 /* TPLabelLayout.swift in Sources */,

@@ -22,6 +22,12 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
         }
     }
     
+    var tableHeaderView: UIView? {
+        didSet {
+            tableView.tableHeaderView = tableHeaderView
+        }
+    }
+
     /// 动画容器视图
     private var containerView: TPAnimatedContainerView!
     
@@ -137,7 +143,6 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
 
         tableView = UITableView(frame: bounds, style: style)
         tableView.isPrefetchingEnabled = false
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.01))        
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
         tableView.shouldShowPlaceholder = shouldShowPlaceholder

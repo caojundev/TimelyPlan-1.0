@@ -15,6 +15,9 @@ struct TodoSearchOptions {
     /// 搜索步骤
     var searchStep: Bool = true
     
+    /// 搜索备注
+    var searchNote: Bool = true
+    
     /// 过滤规则
     var filterRule: TodoFilterRule?
 }

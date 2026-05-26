@@ -155,10 +155,10 @@ class TodoTaskListView: UIView,
     }
     
     /// 隐藏头视图高度
-    private let hiddenHeaderHeight = 15.0
+    var hiddenHeaderHeight = 10.0
     
     /// 显示头视图高度
-    private let showHeaderHeight = 50.0
+    var normalHeaderHeight = 50.0
     
     /// 是否隐藏分组头
     var shouldHideGroupHeader: Bool = false
@@ -554,10 +554,10 @@ class TodoTaskListView: UIView,
     // MARK: - HeaderView
     func adapter(_ adapter: TPTableViewAdapter, heightForHeaderInSection section: Int) -> CGFloat {
         guard !shouldHideGroupHeader, let group = adapter.object(at: section) as? TodoGroup else {
-            return 0.0
+            return hiddenHeaderHeight
         }
         
-        return group.isHeaderHidden ? hiddenHeaderHeight : showHeaderHeight
+        return group.isHeaderHidden ? hiddenHeaderHeight : normalHeaderHeight
     }
     
     func adapter(_ adapter: TPTableViewAdapter, classForHeaderInSection section: Int) -> AnyClass? {

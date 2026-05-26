@@ -46,11 +46,16 @@ class TodoTaskSearchViewModel: NSObject, TodoTaskProcessorDelegate {
     
     private let requestManager = TPRequestManager()
     
-    var options = TodoSearchOptions()
+    private(set) var options = TodoSearchOptions()
     
     override init() {
         super.init()
         todo.addUpdater(self, for: [.task])
+    }
+    
+    func updateSearchOptions(_ options: TodoSearchOptions) {
+        self.options = options
+        reloadSearchResults()
     }
     
     func updateSearchResults(with searchText: String?, forceRefresh: Bool = false) {

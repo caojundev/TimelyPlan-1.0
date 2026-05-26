@@ -20,9 +20,20 @@ class TodoSearchResultViewController: TPViewController,
         listView.detailOption = .allExceptCompletionDate
         listView.keyboardDismissMode = .onDrag
         listView.isKeyboardAdjusterEnabled = true
-        listView.shouldHideGroupHeader = true
         listView.delegate = self
         return listView
+    }()
+    
+    private let optionsViewHeight = 40.0
+    private lazy var optionsView: TodoSearchResultOptionsView = {
+        let frame = CGRect(x: 0.0, y: 0.0, width: view.width, height: optionsViewHeight)
+        let options = viewModel.options
+        let view = TodoSearchResultOptionsView(frame: frame, options: options)
+        view.optionsChanged = {[weak self] options in
+            self?.viewModel.updateSearchOptions(options)
+        }
+        
+        return view
     }()
     
     private let viewModel = TodoTaskSearchViewModel()
@@ -31,10 +42,10 @@ class TodoSearchResultViewController: TPViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(optionsView)
         view.addSubview(listView)
         listView.placeholderProvider = viewModel.placeholderProvider
         listView.keyboardAdjusterInsetBottom = insetBottom
-        
         viewModel.onResultsChanged = { [weak self] in
             self?.searchResultsChanged()
         }
@@ -42,7 +53,12 @@ class TodoSearchResultViewController: TPViewController,
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        listView.frame = view.bounds
+        optionsView.width = view.width
+        optionsView.height = optionsViewHeight
+        
+        listView.width = view.width
+        listView.height = view.height - optionsViewHeight
+        listView.top = optionsView.bottom
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -53,7 +69,7 @@ class TodoSearchResultViewController: TPViewController,
         DispatchQueue.main.async {
             self.listView.searchText = self.viewModel.searchText
             self.listView.groups = self.viewModel.groups
-            self.listView.reloadData()
+            self.listView.performUpdate()
         }
     }
     

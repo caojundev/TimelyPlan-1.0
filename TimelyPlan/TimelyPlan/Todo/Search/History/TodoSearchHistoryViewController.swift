@@ -39,6 +39,10 @@ class TodoSearchHistoryViewController: TPTableSectionsViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         wrapperView.isKeyboardAdjusterEnabled = true
+        wrapperView.tableHeaderView = UIView(frame: CGRect(x: 0.0,
+                                                           y: 0.0,
+                                                           width: 0.0,
+                                                           height: 0.01))
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         setupSectionControllers()
         adapter.reloadData()

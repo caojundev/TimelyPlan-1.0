@@ -20,6 +20,7 @@ struct TodoTaskKey {
     
     static var order = "order"
     static var name = "name"
+    static var note = "note"
     static var stepMarkdown = "stepMarkdown"
     static var isCompleted = "isCompleted"
     static var isRemoved = "isRemoved"
@@ -541,23 +542,40 @@ extension CDTodoTask {
     static func searchTasks(matching searchText: String,
                             options: TodoSearchOptions,
                             completion: @escaping ([CDTodoTask]?) -> Void) {
-        let sortTerms: [SortTerm] = [(TodoTagKey.creationDate, true)]
+        let sortTerms: [SortTerm] = [(TodoTagKey.creationDate, false)]
+    
+        var predicates = [NSPredicate]()
         var andConditions = [notRemovedCondition]
         if !options.showCompleted {
             andConditions.append(notCompletedCondition)
         }
 
-        var orConditions: [PredicateCondition] = []
+        predicates.append(andConditions.andPredicate())
+        
+        /// 文本匹配条件
+        var textConditions: [PredicateCondition] = []
         let nameCondition: PredicateCondition = (TodoTaskKey.name, .contains(searchText))
-        orConditions.append(nameCondition)
+        textConditions.append(nameCondition)
+        
         if options.searchStep {
             let stepCondition: PredicateCondition = (TodoTaskKey.stepMarkdown, .contains(searchText))
-            orConditions.append(stepCondition)
+            textConditions.append(stepCondition)
         }
         
-        let predicate = NSPredicate.andPredicate(andConditions: andConditions,
-                                                 orConditions: orConditions)
-        fetchAll(matching: predicate, sortTerms: sortTerms) { results in
+        if options.searchNote {
+            let noteCondition: PredicateCondition = (TodoTaskKey.note, .contains(searchText))
+            textConditions.append(noteCondition)
+        }
+        
+        predicates.append(textConditions.orPredicate())
+        
+        /// 过滤
+        if let filterPredicate = options.filterRule?.predicate {
+            predicates.append(filterPredicate)
+        }
+        
+        let searchPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        fetchAll(matching: searchPredicate, sortTerms: sortTerms) { results in
             completion(results as? [CDTodoTask])
         }
     }
