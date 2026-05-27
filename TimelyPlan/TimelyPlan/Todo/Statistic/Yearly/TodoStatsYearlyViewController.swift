@@ -29,8 +29,12 @@ class TodoStatsYearlyViewController: StatsContentViewController {
     func sectionControllers(for dataItem: TodoStatsDataItem) -> [TPCollectionItemSectionController] {
         let yearCompletionSectionController = yearCompletionSectionController(for: dataItem)
         let prioritySectionController = priorityDistributionSectionController(for: dataItem)
+        let completionTimeDistributionSectionController = completionTimeDistributionSectionController(for: dataItem)
+        let heatMapSectionController = heatMapSectionController(for: dataItem)
         return [yearCompletionSectionController,
-                prioritySectionController]
+                prioritySectionController,
+                completionTimeDistributionSectionController,
+                heatMapSectionController]
     }
 
     /// 年完成
@@ -60,5 +64,35 @@ class TodoStatsYearlyViewController: StatsContentViewController {
         }
         
         return controller
+    }
+    
+    /// 完成时间段分布
+    func completionTimeDistributionSectionController(for dataItem: TodoStatsDataItem) -> TPCollectionItemSectionController {
+        let completionTimeDistribution = dataItem.getCompletionTimeDistribution()
+        let chartItem = completionTimeDistribution.barChartItem()
+        chartItem.xAxis.guideline?.style = .solid
+        
+        let sectionItem = StatsBarChartSectionController()
+        sectionItem.cellItem.headerTitle = resGetString("Completion Times Distribution")
+        sectionItem.chartItem = chartItem
+        return sectionItem
+    }
+    
+    /// 热力图
+    func heatMapSectionController(for dataItem: TodoStatsDataItem) -> TPCollectionItemSectionController {
+        let heatMap = dataItem.getWorkloadHeatmap()
+        
+        let sectionController = DayHeatMapSectionController()
+        sectionController.cellItem.date = dataItem.period.date
+        let levelsCount = sectionController.levelsCount
+        sectionController.levelIndexForDate = { date in
+            guard let count = heatMap.dailyDistribution[date.dayIntegerKey] else {
+                return 0
+            }
+            
+            return min(count, levelsCount)
+        }
+        
+        return sectionController
     }
 }

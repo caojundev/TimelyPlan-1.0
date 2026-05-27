@@ -44,6 +44,8 @@
 		E500E3982FC69A7100252011 /* TodoStatsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3972FC69A7100252011 /* TodoStatsDataItem.swift */; };
 		E500E39A2FC69C6800252011 /* TodoStatsCompletionTrend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3992FC69C6800252011 /* TodoStatsCompletionTrend.swift */; };
 		E500E39D2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E39C2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift */; };
+		E500E39F2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E39E2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift */; };
+		E500E3A12FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3A02FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift */; };
 		E505A14E2DA7717F00595B5D /* Date+Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505A14D2DA7717F00595B5D /* Date+Year.swift */; };
 		E505A1502DA771F200595B5D /* Date+Hour.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505A14F2DA771F200595B5D /* Date+Hour.swift */; };
 		E505D9312F990B60004469DC /* TodoHomeAddMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */; };
@@ -1967,6 +1969,8 @@
 		E500E3972FC69A7100252011 /* TodoStatsDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsDataItem.swift; sourceTree = "<group>"; };
 		E500E3992FC69C6800252011 /* TodoStatsCompletionTrend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsCompletionTrend.swift; sourceTree = "<group>"; };
 		E500E39C2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsPriorityDistribution.swift; sourceTree = "<group>"; };
+		E500E39E2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsCompletionTimeDistribution.swift; sourceTree = "<group>"; };
+		E500E3A02FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsWorkloadHeatmap.swift; sourceTree = "<group>"; };
 		E505A14D2DA7717F00595B5D /* Date+Year.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Year.swift"; sourceTree = "<group>"; };
 		E505A14F2DA771F200595B5D /* Date+Hour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Hour.swift"; sourceTree = "<group>"; };
 		E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeAddMenuController.swift; sourceTree = "<group>"; };
@@ -4001,6 +4005,8 @@
 				E500E3972FC69A7100252011 /* TodoStatsDataItem.swift */,
 				E500E3992FC69C6800252011 /* TodoStatsCompletionTrend.swift */,
 				E500E39C2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift */,
+				E500E39E2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift */,
+				E500E3A02FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -12070,6 +12076,7 @@
 				E556BCDF2F5D9F8900CA20D9 /* ReasonTag.swift in Sources */,
 				E53B11372F94D1B300701410 /* TodoFilterTagEditViewController.swift in Sources */,
 				E5BB9E1E2D3BF0C70089667A /* NSManagedObject+Fetch.swift in Sources */,
+				E500E39F2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift in Sources */,
 				E529ACC62F7E0100000EA2F1 /* TodoSmartListSectionController.swift in Sources */,
 				E53F328C2F68D6D200B85B65 /* HabitReportContentViewController.swift in Sources */,
 				E57CC5AA2F7F5A5300ADDBA4 /* TodoListInteractor.swift in Sources */,
@@ -12166,6 +12173,7 @@
 				E5BB9EF12D3BF0C80089667A /* UIViewController+MultiColumn.swift in Sources */,
 				E56B948B2F8CDDDF001E488B /* TodoSettingViewController.swift in Sources */,
 				E5D7D92B2D43933700EC877A /* FocusHomeUserTimerCell.swift in Sources */,
+				E500E3A12FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift in Sources */,
 				E5BB9F132D3BF0C90089667A /* Language.swift in Sources */,
 				E58F46AD2F7AAD4B0046FA96 /* TodoUserListSelectSectionController.swift in Sources */,
 				E57CC5F32F7FF13300ADDBA4 /* TodoTaskEditDetailView.swift in Sources */,

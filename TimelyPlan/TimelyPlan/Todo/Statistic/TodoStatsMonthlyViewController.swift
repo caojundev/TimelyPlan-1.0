@@ -29,8 +29,10 @@ class TodoStatsMonthlyViewController: StatsContentViewController {
     func sectionControllers(for dataItem: TodoStatsDataItem) -> [TPCollectionItemSectionController] {
         let monthCompletionSectionController = monthCompletionSectionController(for: dataItem)
         let prioritySectionController = priorityDistributionSectionController(for: dataItem)
+        let completionTimeDistributionSectionController = completionTimeDistributionSectionController(for: dataItem)
         return [monthCompletionSectionController,
-                prioritySectionController]
+                prioritySectionController,
+                completionTimeDistributionSectionController]
     }
 
     /// 月完成
@@ -60,5 +62,17 @@ class TodoStatsMonthlyViewController: StatsContentViewController {
         }
         
         return controller
+    }
+    
+    /// 完成时间段分布
+    func completionTimeDistributionSectionController(for dataItem: TodoStatsDataItem) -> TPCollectionItemSectionController {
+        let completionTimeDistribution = dataItem.getCompletionTimeDistribution()
+        let chartItem = completionTimeDistribution.barChartItem()
+        chartItem.xAxis.guideline?.style = .solid
+        
+        let sectionItem = StatsBarChartSectionController()
+        sectionItem.cellItem.headerTitle = resGetString("Completion Times Distribution")
+        sectionItem.chartItem = chartItem
+        return sectionItem
     }
 }

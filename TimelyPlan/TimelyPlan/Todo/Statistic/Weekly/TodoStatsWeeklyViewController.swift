@@ -29,8 +29,10 @@ class TodoStatsWeeklyViewController: StatsContentViewController {
     func sectionControllers(for dataItem: TodoStatsDataItem) -> [TPCollectionItemSectionController] {
         let weekCompletionSectionController = weekCompletionSectionController(for: dataItem)
         let prioritySectionController = priorityDistributionSectionController(for: dataItem)
+        let completionTimeDistributionSectionController = completionTimeDistributionSectionController(for: dataItem)
         return [weekCompletionSectionController,
-                prioritySectionController]
+                prioritySectionController,
+                completionTimeDistributionSectionController]
     }
 
     /// 周完成
@@ -58,5 +60,17 @@ class TodoStatsWeeklyViewController: StatsContentViewController {
         }
         
         return controller
+    }
+    
+    /// 完成时间段分布
+    func completionTimeDistributionSectionController(for dataItem: TodoStatsDataItem) -> TPCollectionItemSectionController {
+        let completionTimeDistribution = dataItem.getCompletionTimeDistribution()
+        let chartItem = completionTimeDistribution.barChartItem()
+        chartItem.xAxis.guideline?.style = .solid
+        
+        let sectionItem = StatsBarChartSectionController()
+        sectionItem.cellItem.headerTitle = resGetString("Completion Times Distribution")
+        sectionItem.chartItem = chartItem
+        return sectionItem
     }
 }

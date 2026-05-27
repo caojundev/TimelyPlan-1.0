@@ -219,4 +219,13 @@ extension ChartAxis {
         axis.guideline = ChartGuideline(range: axis.range, step: 20)
         return axis
     }
+    
+    /// 空白 y 坐标
+    static func emptyYAxis() -> ChartAxis {
+        let labelMarks = ChartAxisLabelMark.marks(fromValue: 0, toValue: 10, step: 5)
+        let range = ChartAxisRange(minValue: 0, maxValue: 10)
+        var axis = ChartAxis(range: range, labelMarks: labelMarks)
+        axis.guideline = ChartGuideline(range: axis.range, step: 5)
+        return axis
+    }
 }

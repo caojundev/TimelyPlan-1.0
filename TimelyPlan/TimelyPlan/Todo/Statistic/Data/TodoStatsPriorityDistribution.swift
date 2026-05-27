@@ -60,3 +60,43 @@ extension TodoStatsPriorityDistribution {
         return PieVisual(slices: slices, colors: colors)
     }
 }
+
+extension TodoStatsDataItem {
+    
+    /// 获取优先级分布统计数据
+    func getPriorityDistribution() -> TodoStatsPriorityDistribution {
+        guard let tasks = tasks, !tasks.isEmpty else {
+            return TodoStatsPriorityDistribution(
+                period: period,
+                highCount: 0,
+                mediumCount: 0,
+                lowCount: 0,
+                noneCount: 0
+            )
+        }
+        
+        var highCount: Int = 0
+        var mediumCount: Int = 0
+        var lowCount: Int = 0
+        var noneCount: Int = 0
+        for task in tasks {
+            switch task.priority {
+            case .none:
+                noneCount += 1
+            case .low:
+                lowCount += 1
+            case .medium:
+                mediumCount += 1
+            case .high:
+                highCount += 1
+            }
+        }
+        return TodoStatsPriorityDistribution(
+            period: period,
+            highCount: highCount,
+            mediumCount: mediumCount,
+            lowCount: lowCount,
+            noneCount: noneCount
+        )
+    }
+}
