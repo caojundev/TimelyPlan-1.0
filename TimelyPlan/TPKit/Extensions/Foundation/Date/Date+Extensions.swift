@@ -272,6 +272,14 @@ extension Date {
     }
     
     /// 替换当前日期的月和天
+    func dateByReplacingMonth(_ month: Int) -> Date? {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)
+        components.month = month
+        return calendar.date(from: components) ?? self
+    }
+    
+    /// 替换当前日期的月和天
     func dateByReplacingMonthAndDay(month: Int, day: Int) -> Date? {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)

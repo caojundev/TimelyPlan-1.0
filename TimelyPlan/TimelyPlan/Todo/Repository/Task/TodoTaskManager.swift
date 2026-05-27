@@ -429,6 +429,19 @@ extension TodoTaskManager {
         }
     }
     
+    /// 获取已完成任务
+    func fetchCompletedTasks(in range: DateRange, completion: @escaping([TodoTask]?) -> Void) {
+        guard let start = range.startDate, let end = range.endDate else {
+            completion(nil)
+            return
+        }
+        
+        let dateInterval = DateInterval(start: start, end: end)
+        CDTodoTask.fetchCompletedTasks(in: dateInterval) { results in
+            completion(results?.tasks)
+        }
+    }
+    
     /// 搜索任务
     func searchTasks(matching searchText: String,
                      options: TodoSearchOptions,
@@ -438,4 +451,5 @@ extension TodoTaskManager {
             completion(results?.tasks)
         }
     }
+    
 }

@@ -337,3 +337,16 @@ extension Todo {
         filterManager.reorderFilter(in: filters, fromIndex: fromIndex, toIndex: toIndex)
     }
 }
+
+extension Todo {
+    
+    /// 获取统计条目
+    func fetchStatsDataItem(in period: StatisticsPeriod,
+                            completion:@escaping(TodoStatsDataItem) -> Void) {
+        let dateRange = period.dateRange()
+        taskManager.fetchCompletedTasks(in: dateRange) { tasks in
+            let dataItem = TodoStatsDataItem(period: period, tasks: tasks)
+            completion(dataItem)
+        }
+    }
+}

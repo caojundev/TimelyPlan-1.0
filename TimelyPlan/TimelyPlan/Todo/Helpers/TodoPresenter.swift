@@ -9,6 +9,12 @@ import Foundation
 
 class TodoPresenter {
     
+    /// 显示统计
+    static func showStats(date: Date = .now) {
+        let vc = TodoStatsMainViewController(type: .month, date: date)
+        vc.showAsNavigationRoot()
+    }
+    
     /// 显示搜索
     static func showSearch() {
         let vc = TodoSearchMainViewController()

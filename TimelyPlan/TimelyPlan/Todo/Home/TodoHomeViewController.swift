@@ -297,7 +297,7 @@ class TodoHomeViewController: TPTableViewController,
         
     private func clickToolbarStatistic() {
         TPImpactFeedback.impactWithSoftStyle()
-        TodoPresenter.showSettings()
+        TodoPresenter.showStats()
     }
     
     private func clickToolbarAdd() {

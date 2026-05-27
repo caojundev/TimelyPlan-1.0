@@ -26,6 +26,8 @@ struct TodoTaskKey {
     static var isRemoved = "isRemoved"
     static var creationDate = "creationDate"
     static var modificationDate = "modificationDate"
+    static var completionDate = "completionDate"
+    
     static var startDate = "startDate"
     static var dueDate = "dueDate"
     
@@ -653,6 +655,22 @@ extension CDTodoTask {
         }
     }
    
+    /// 获取特定范围已完成任务
+    static func fetchCompletedTasks(in range: DateInterval,
+                                    completion: @escaping([CDTodoTask]?) -> Void) {
+        let conditions: [PredicateCondition] = [
+            completedCondition,
+            notRemovedCondition,
+            (TodoTaskKey.completionDate, .between(range.start, range.end))
+        ]
+        
+        let predicate = conditions.andPredicate()
+        findAll(with: predicate) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
+    
+    
     static func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
         var predicate: NSPredicate?
         switch item {

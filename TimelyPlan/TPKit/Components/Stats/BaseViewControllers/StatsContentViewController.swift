@@ -101,6 +101,7 @@ class StatsContentViewController: TPCollectionSectionsViewController,
         self.updateBackView()
         self.setupBackView()
         self.wrapperView.placeholderProvider = self.placeholderProvider
+        self.reloadData()
     }
 
     override func viewWillLayoutSubviews() {
