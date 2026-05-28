@@ -112,10 +112,10 @@ class CalendarMonthViewController: CalendarBaseViewController,
     
     func calendarMonthView(_ monthView: CalendarMonthView, didTapMoreOnDate date: Date) {
         TPImpactFeedback.impactWithLightStyle()
-        showEventSheet()
+        CalendarPresenter.showEventSheet()
     }
     
     func calendarMonthView(_ monthView: CalendarMonthView, didTapDate date: Date) {
-        showEventSheet()
+        CalendarPresenter.showEventSheet()
     }
 }

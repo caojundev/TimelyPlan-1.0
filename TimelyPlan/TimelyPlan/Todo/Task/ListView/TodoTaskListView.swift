@@ -295,11 +295,6 @@ class TodoTaskListView: UIView,
     func performUpdate(with rowAnimation: UITableView.RowAnimation = .fade) {
         endRefreshing()
         updatePlaceholderView()
-        guard adapter.hasItem else {
-            reloadData()
-            return
-        }
-
         adapter.performUpdate(with: rowAnimation, completion: nil)
     }
     

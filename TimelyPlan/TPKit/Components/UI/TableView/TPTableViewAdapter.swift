@@ -418,7 +418,7 @@ extension TPTableViewAdapter {
     }
         
     func performUpdate(with rowAnimation: UITableView.RowAnimation, completion: ((Bool) -> Void)? = nil) {
-        guard tableView.window != nil else {
+        guard tableView.window != nil, hasItem else {
             reloadData()
             completion?(true)
             return

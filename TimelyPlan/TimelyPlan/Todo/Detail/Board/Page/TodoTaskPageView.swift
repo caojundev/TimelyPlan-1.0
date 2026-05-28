@@ -708,7 +708,7 @@ extension TodoTaskPageView {
     
     /// 是否有任务
     var hasTask: Bool {
-        return adapter.hasItem()
+        return adapter.hasItem
     }
     
     // MARK: - Indicator

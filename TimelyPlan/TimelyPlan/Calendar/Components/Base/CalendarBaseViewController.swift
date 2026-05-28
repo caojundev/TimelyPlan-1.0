@@ -127,30 +127,13 @@ class CalendarBaseViewController: TPViewController,
         quickAddManager.show(with: task)
     }
     
-    func showEventSheet() {
-        let controller = UIViewController()
-        controller.view.backgroundColor = .random
-
-        var options = SheetOptions()
-        options.transitionDuration = 0.4
-        options.transitionAnimationOptions = [.curveEaseInOut]
-        options.shrinkPresentingViewController = false
-
-        let sheetController = SheetViewController(controller: controller,
-                                                  sizes: [.percent(0.40), .fullscreen],
-                                                  options: options)
-        sheetController.cornerCurve = .continuous
-        sheetController.cornerRadius = 20
-        self.present(sheetController, animated: true, completion: nil)
-    }
-    
     // MARK: - CalendarPageViewDelegate
     func calendarPageView(_ pageView: CalendarPageView, didTapEvent event: CalendarEvent) {
         eventProcessor.editEvent(event)
     }
     
     func calendarPageView(_ pageView: CalendarPageView, didTapAllDayMoreOnDate date: Date) {
-        showEventSheet()
+        CalendarPresenter.showEventSheet()
     }
     
     func calendarPageView(_ pageView: CalendarPageView, createEventWithDateRange dateRange: DateInterval) {

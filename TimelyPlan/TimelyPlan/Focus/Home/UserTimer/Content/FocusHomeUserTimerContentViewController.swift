@@ -90,9 +90,10 @@ class FocusHomeUserTimerContentViewController: TPViewController,
     }
     
     private func timersChanged(_ change: FocusUserTimerChange?) {
+        let group = FocusTimerGroup(identifier: "UserTimerGroup")
+        group.timers = self.viewModel.timers
+        
         DispatchQueue.main.async {
-            let group = FocusTimerGroup(identifier: "UserTimerGroup")
-            group.timers = self.viewModel.timers
             self.listView.groups = [group]
             self.listView.performUpdate()
             

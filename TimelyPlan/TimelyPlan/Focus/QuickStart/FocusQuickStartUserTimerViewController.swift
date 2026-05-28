@@ -34,7 +34,6 @@ class FocusQuickStartUserTimerViewController: TPViewController,
             self?.timersChanged(change)
         }
         
-        
         self.viewModel.loadTimers()
     }
     

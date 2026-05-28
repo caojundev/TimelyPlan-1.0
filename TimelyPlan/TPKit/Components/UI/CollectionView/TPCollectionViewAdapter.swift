@@ -327,15 +327,8 @@ class TPCollectionViewAdapter: NSObject,
     // MARK: - Items
     
     /// 是否有数据条目
-    func hasItem() -> Bool {
-        for object in objects {
-            let items = items(for: object)
-            if items.count > 0 {
-                return true
-            }
-        }
-        
-        return false
+    var hasItem: Bool {
+        return objects.contains { !items(for: $0).isEmpty }
     }
     
     /// 获取所有条目
@@ -610,7 +603,7 @@ extension TPCollectionViewAdapter {
     
     func performUpdate(with completion: ((Bool) -> Void)?,
                        updateVisibleItems: Bool = true) {
-        guard collectionView.window != nil else {
+        guard collectionView.window != nil, hasItem else {
             reloadData()
             completion?(true)
             return
