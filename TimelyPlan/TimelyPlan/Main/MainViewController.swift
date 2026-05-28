@@ -90,7 +90,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         super.viewWillLayoutSubviews()
         if mainViewSize != view.size {
             mainViewSize = view.size
-            NotificationCenter.default.post(name: AppNotificationName.mainViewSizeDidChange.name, object: nil)
+            NotificationCenter.default.post(name: .notificationMainViewSizeDidChange, object: nil)
         }
     }
     

@@ -15,10 +15,22 @@ class TPNotificationService {
             if !granted {
                 let vc = TPNotificationAllowAccessViewController()
                 vc.slideShow(from: .bottom, animated: true, completion: nil)
+            } else {
+                /// 发出已授权了通知
+                postAuthorizationGrantedNotification()
             }
         }
     }
-
+    
+    /// 发出"已授权"通知
+    static func postAuthorizationGrantedNotification() {
+        NotificationCenter.default.post(
+            name: .notificationAuthorizationGranted,
+            object: nil,
+            userInfo: ["granted": true]
+        )
+    }
+    
     static func isAuthorized(completion: @escaping (Bool) -> Void) {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             DispatchQueue.main.async {
@@ -48,7 +60,6 @@ class TPNotificationService {
                             debugPrint("通知权限请求失败: \(error.localizedDescription)")
                         }
                         
-                        print("granted: = \(granted)")
                         DispatchQueue.main.async {
                             completion?(granted)
                         }

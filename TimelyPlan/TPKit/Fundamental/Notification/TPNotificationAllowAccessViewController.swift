@@ -61,10 +61,9 @@ class TPNotificationAllowAccessViewController: TPViewController {
     }
     
     func addWillEnterForegroundNotifiCation() {
-        let name = AppNotificationName.willEnterForeground.name
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(willEnterForeground),
-                                               name: name,
+                                               name: .notificationWillEnterForeground,
                                                object: nil)
     }
     

@@ -188,7 +188,7 @@ class FocusFloatingTimerManager: NSObject {
     private func addMainViewSizeChangeNotification() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(mainViewSizeDidChange),
-                                               name: AppNotificationName.mainViewSizeDidChange.name,
+                                               name: .notificationMainViewSizeDidChange,
                                                object: nil)
     }
     

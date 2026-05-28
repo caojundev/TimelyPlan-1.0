@@ -19,9 +19,11 @@ let kNotiFocusEventIDKey = "FocusEventID"
 
 class FocusEventNotificationService: TPNotificationService {
     
-    static func scheduleNotifications(forEvent event: FocusEvent) {
+    static func scheduleNotifications(forEvent event: FocusEvent,
+                                      completion: @escaping(Bool) -> Void) {
         isAuthorized { authorized in
             guard authorized else {
+                completion(false)
                 return
             }
             
@@ -29,6 +31,8 @@ class FocusEventNotificationService: TPNotificationService {
             removeAllFocusPendingNotifications {
                 addRequests(forEvent: event)
             }
+            
+            completion(true)
         }
     }
     
@@ -56,7 +60,7 @@ class FocusEventNotificationService: TPNotificationService {
             content.userInfo = [kNotiTaskTypeKey: kNotiFocusTaskTypeValue,
                                 kNotiFocusEventIDKey: eventID]
             content.title = fireInfo.step.name ?? resGetString("New Message")
-            content.body = "结束"
+            content.body = "End"
             
             // 获取自定义铃声的 URL
             let soundURL = Bundle.main.url(forResource: "happy", withExtension: "wav")

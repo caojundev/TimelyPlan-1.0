@@ -113,18 +113,26 @@ class FocusTracker: NSObject {
     /// 当前专注事件键值
     private let kFocusingEventKey = "focusingEvent"
     
+    /// 通知授权状态
+    var isNotiAuthorized: Bool?
+    
+    deinit {
+        removeNotification()
+    }
+    
     private override init() {
         super.init()
+        addNotification()
     }
     
     /// 清除事件
     func clearEvent() {
         /// 移除所有待处理通知
         FocusEventNotificationService.removeAllFocusPendingNotifications(completion: nil)
-        self.event = nil
-        self.stopTimerIfNeeded()
-        self.checkStateAndNotifyDelegatesIfNeeded()
-        self.previousState = nil ///
+        event = nil
+        stopTimerIfNeeded()
+        checkStateAndNotifyDelegatesIfNeeded()
+        previousState = nil ///
         
         /// 删除保存的事件数据
         SettingAgent.shared.setValue(nil, forKey: kFocusingEventKey)
@@ -160,7 +168,7 @@ class FocusTracker: NSObject {
             updateFloatingBubbleTimer() /// 更新浮动计时器
         }
     }
-
+    
     private func track(timer: FocusTimerRepresentable,
                        task: TaskFeature? = nil,
                        forceAutoStart: Bool) {
@@ -181,7 +189,7 @@ class FocusTracker: NSObject {
     private func track(event: FocusEvent) {
         self.event = event
         /// 安排专注事件的通知
-        FocusEventNotificationService.scheduleNotifications(forEvent: event)
+        scheduleNotifications(forEvent: event)
         saveEvent()
     }
 
@@ -305,7 +313,7 @@ class FocusTracker: NSObject {
         updateTimer()
         
         /// 重新计划通知
-        FocusEventNotificationService.scheduleNotifications(forEvent: event)
+        scheduleNotifications(forEvent: event)
     }
     
     /// 结束当前事件
@@ -317,7 +325,7 @@ class FocusTracker: NSObject {
         event.completeAllStep()
         saveEvent()
         updateTimer()
-        FocusEventNotificationService.scheduleNotifications(forEvent: event)
+        scheduleNotifications(forEvent: event)
     }
     
     /// 调整当前步骤时长
@@ -330,7 +338,7 @@ class FocusTracker: NSObject {
         event.adjustDuration(by: TimeInterval(stepDuration))
         saveEvent()
         updateTimer()
-        FocusEventNotificationService.scheduleNotifications(forEvent: event)
+        scheduleNotifications(forEvent: event)
     }
     
     func reduceDuration() {
@@ -342,7 +350,7 @@ class FocusTracker: NSObject {
         event.adjustDuration(by: -TimeInterval(20))
         saveEvent()
         updateTimer()
-        FocusEventNotificationService.scheduleNotifications(forEvent: event)
+        scheduleNotifications(forEvent: event)
     }
     
     func canIncrease(remainDuration: TimeInterval) -> Bool {
@@ -415,5 +423,60 @@ class FocusTracker: NSObject {
             stopTimer()
         }
     }
+}
 
+extension FocusTracker {
+    
+    func addNotification() {
+        // 监听通知授权成功
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleNotificationAuthorizationGranted),
+            name: .notificationAuthorizationGranted,
+            object: nil
+        )
+        
+        /// 监听进入前台
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willEnterForeground),
+            name: .notificationWillEnterForeground,
+            object: nil
+        )
+    }
+    
+    func removeNotification() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func willEnterForeground() {
+        TPNotificationService.isAuthorized{ authorized in
+            guard authorized else {
+                return
+            }
+            
+            if let isNotiAuthorized = self.isNotiAuthorized, !isNotiAuthorized {
+                self.rescheduleEvent()
+            }
+        }
+    }
+    
+    @objc private func handleNotificationAuthorizationGranted() {
+        rescheduleEvent()
+    }
+    
+    /// 计划通知
+    func scheduleNotifications(forEvent event: FocusEvent) {
+        FocusEventNotificationService.scheduleNotifications(forEvent: event) { authorized in
+            /// 更新授权状态
+            self.isNotiAuthorized = authorized
+        }
+    }
+    
+    /// 重新计划通知
+    private func rescheduleEvent() {
+        if let event = event {
+            scheduleNotifications(forEvent: event)
+        }
+    }
 }

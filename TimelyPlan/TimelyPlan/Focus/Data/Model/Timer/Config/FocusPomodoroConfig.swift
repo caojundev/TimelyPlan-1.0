@@ -20,8 +20,8 @@ enum FocusPomodoroPhase: Int, Codable, TPMenuRepresentable {
 }
 
 struct FocusPomodoroConfig: Hashable, Equatable, Codable {
-    static let defaultFocusDuration: TimeInterval = 25 * 60
-    static let minimumFocusDuration: TimeInterval = 5 * 60
+    static let defaultFocusDuration: TimeInterval = 1 * 60
+    static let minimumFocusDuration: TimeInterval = 1 * 60
     static let maximumFocusDuration: TimeInterval = 180 * 60
 
     static let defaultShortBreakDuration: TimeInterval = 5 * 60
