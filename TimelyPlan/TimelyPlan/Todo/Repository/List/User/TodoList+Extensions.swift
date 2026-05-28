@@ -19,8 +19,9 @@ extension TodoList {
     }
     
     var feature: TodoListFeature {
-        return TodoListFeature(identifier: self.identifier,
-                               name: self.name)
+        return TodoListFeature(identifier: identifier,
+                               name: name,
+                               colorHex: colorHex)
     }
     
     // MARK: - 编辑列表

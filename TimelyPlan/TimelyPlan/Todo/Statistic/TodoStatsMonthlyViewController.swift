@@ -30,9 +30,13 @@ class TodoStatsMonthlyViewController: StatsContentViewController {
         let monthCompletionSectionController = monthCompletionSectionController(for: dataItem)
         let prioritySectionController = priorityDistributionSectionController(for: dataItem)
         let completionTimeDistributionSectionController = completionTimeDistributionSectionController(for: dataItem)
+        let delayedTagDistributionSectionController = delayedTagDistributionSectionController(for: dataItem)
+        let listDistributionSectionController = listDistributionSectionController(for: dataItem)
         return [monthCompletionSectionController,
                 prioritySectionController,
-                completionTimeDistributionSectionController]
+                completionTimeDistributionSectionController,
+                delayedTagDistributionSectionController,
+                listDistributionSectionController]
     }
 
     /// 月完成
@@ -42,7 +46,7 @@ class TodoStatsMonthlyViewController: StatsContentViewController {
         chartItem.xAxis.guideline?.style = .solid
         
         let sectionController = StatsBarChartSectionController()
-        sectionController.cellItem.headerTitle = resGetString("Month Completion")
+        sectionController.cellItem.headerTitle = resGetString("Monthly Completion Trend")
         sectionController.chartItem = chartItem
         return sectionController
     }
@@ -74,5 +78,31 @@ class TodoStatsMonthlyViewController: StatsContentViewController {
         sectionItem.cellItem.headerTitle = resGetString("Completion Times Distribution")
         sectionItem.chartItem = chartItem
         return sectionItem
+    }
+    
+    /// 拖延标签分布
+    func delayedTagDistributionSectionController(for dataItem: TodoStatsDataItem) -> TPCollectionItemSectionController {
+        let delayedTagDistribution = dataItem.getDelayedTagDistribution()
+        let controller = PieChartSectionController()
+        let cellItem = controller.cellItem
+        cellItem.headerTitle = resGetString("Delayed Tag Distribution")
+        cellItem.visual = delayedTagDistribution.pieVisual()
+        let slicesCount = cellItem.visual.slices?.count ?? 0
+        if slicesCount == 0 {
+            cellItem.innerTitleConfig.font = .boldSystemFont(ofSize: 18.0)
+            cellItem.innerTitle = resGetString("No Data")
+            cellItem.innerSubtitle = nil
+        }
+        
+        return controller
+    }
+    
+    func listDistributionSectionController(for dataItem: TodoStatsDataItem) -> TPCollectionItemSectionController {
+        let listDistribution = dataItem.getListDistribution()
+        let controller = BarRankListChartSectionController()
+        controller.listItem = listDistribution.barRankListItem()
+        let cellItem = controller.cellItem
+        cellItem.headerTitle = resGetString("List Distribution")
+        return controller
     }
 }

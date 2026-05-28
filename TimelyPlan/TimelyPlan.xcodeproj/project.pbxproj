@@ -46,6 +46,11 @@
 		E500E39D2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E39C2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift */; };
 		E500E39F2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E39E2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift */; };
 		E500E3A12FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3A02FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift */; };
+		E500E3A32FC7CD0400252011 /* TodoStatsDelayedTagDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3A22FC7CD0400252011 /* TodoStatsDelayedTagDistribution.swift */; };
+		E500E3A62FC7E21600252011 /* BarRankListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3A52FC7E21600252011 /* BarRankListView.swift */; };
+		E500E3A82FC7E39100252011 /* BarRankListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3A72FC7E39000252011 /* BarRankListCell.swift */; };
+		E500E3AA2FC7E66D00252011 /* BarRankListChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3A92FC7E66D00252011 /* BarRankListChartCell.swift */; };
+		E500E3AC2FC7F12A00252011 /* TodoStatsListDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500E3AB2FC7F12A00252011 /* TodoStatsListDistribution.swift */; };
 		E505A14E2DA7717F00595B5D /* Date+Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505A14D2DA7717F00595B5D /* Date+Year.swift */; };
 		E505A1502DA771F200595B5D /* Date+Hour.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505A14F2DA771F200595B5D /* Date+Hour.swift */; };
 		E505D9312F990B60004469DC /* TodoHomeAddMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */; };
@@ -1971,6 +1976,11 @@
 		E500E39C2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsPriorityDistribution.swift; sourceTree = "<group>"; };
 		E500E39E2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsCompletionTimeDistribution.swift; sourceTree = "<group>"; };
 		E500E3A02FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsWorkloadHeatmap.swift; sourceTree = "<group>"; };
+		E500E3A22FC7CD0400252011 /* TodoStatsDelayedTagDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsDelayedTagDistribution.swift; sourceTree = "<group>"; };
+		E500E3A52FC7E21600252011 /* BarRankListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarRankListView.swift; sourceTree = "<group>"; };
+		E500E3A72FC7E39000252011 /* BarRankListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarRankListCell.swift; sourceTree = "<group>"; };
+		E500E3A92FC7E66D00252011 /* BarRankListChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarRankListChartCell.swift; sourceTree = "<group>"; };
+		E500E3AB2FC7F12A00252011 /* TodoStatsListDistribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStatsListDistribution.swift; sourceTree = "<group>"; };
 		E505A14D2DA7717F00595B5D /* Date+Year.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Year.swift"; sourceTree = "<group>"; };
 		E505A14F2DA771F200595B5D /* Date+Hour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Hour.swift"; sourceTree = "<group>"; };
 		E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeAddMenuController.swift; sourceTree = "<group>"; };
@@ -4007,6 +4017,8 @@
 				E500E39C2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift */,
 				E500E39E2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift */,
 				E500E3A02FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift */,
+				E500E3A22FC7CD0400252011 /* TodoStatsDelayedTagDistribution.swift */,
+				E500E3AB2FC7F12A00252011 /* TodoStatsListDistribution.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -4017,6 +4029,16 @@
 				E5D7D8682D43933500EC877A /* BaseViewControllers */,
 			);
 			path = Stats;
+			sourceTree = "<group>";
+		};
+		E500E3A42FC7E1E700252011 /* BarRankListView */ = {
+			isa = PBXGroup;
+			children = (
+				E500E3A92FC7E66D00252011 /* BarRankListChartCell.swift */,
+				E500E3A52FC7E21600252011 /* BarRankListView.swift */,
+				E500E3A72FC7E39000252011 /* BarRankListCell.swift */,
+			);
+			path = BarRankListView;
 			sourceTree = "<group>";
 		};
 		E505D92F2F990B2F004469DC /* Menu */ = {
@@ -8356,6 +8378,7 @@
 				E5BB9CB32D3BF0C40089667A /* Point */,
 				E5BB9CB62D3BF0C40089667A /* Curve */,
 				E5BB9CB82D3BF0C40089667A /* Rectangle */,
+				E500E3A42FC7E1E700252011 /* BarRankListView */,
 				E5BB9CBC2D3BF0C40089667A /* Bar */,
 			);
 			path = ChartViews;
@@ -11135,6 +11158,7 @@
 				E5E9F7A52FC2B58300717004 /* TodoSearchResultViewController.swift in Sources */,
 				E51B29082FA77A08006B3352 /* TodoTaskPageSectionHeaderView.swift in Sources */,
 				E5BB9DF72D3BF0C60089667A /* NSObject+WeakDelegates.swift in Sources */,
+				E500E3A32FC7CD0400252011 /* TodoStatsDelayedTagDistribution.swift in Sources */,
 				E536329E2FAB84150095DFEC /* TodoDateInfoEditor.swift in Sources */,
 				E5B9D08C2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift in Sources */,
 				E5BB9ED72D3BF0C80089667A /* TPEmojiView.swift in Sources */,
@@ -11149,6 +11173,7 @@
 				E58F46B02F7AAD4B0046FA96 /* TodoParentListNoneSectionController.swift in Sources */,
 				E5BB9DE92D3BF0C60089667A /* UIEdgeInsets+Extensions.swift in Sources */,
 				E5BB9EF62D3BF0C80089667A /* UIViewController+SlidePresent.swift in Sources */,
+				E500E3A82FC7E39100252011 /* BarRankListCell.swift in Sources */,
 				E53B11442F94D1B300701410 /* TimeOffsetPickerView.swift in Sources */,
 				E59244242F51CB7600CA2393 /* HabitTimePlanRegularSectionController.swift in Sources */,
 				E5FC91882FBAFE8A00FC75C6 /* CalendarPageTimedEventsView.swift in Sources */,
@@ -11693,6 +11718,7 @@
 				E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */,
 				E5B33D832F81FD0200939C3E /* TodoTagPickerViewController.swift in Sources */,
 				E5E9F7B92FC400E800717004 /* TodoSearchHistoryClearFooterView.swift in Sources */,
+				E500E3A62FC7E21600252011 /* BarRankListView.swift in Sources */,
 				E500E3742FC5431500252011 /* TodoSearchResultOptionsView.swift in Sources */,
 				E531FDF12F7371B400067A0F /* PieHighlightView.swift in Sources */,
 				E5BB9E7D2D3BF0C70089667A /* StatsBarChartCell.swift in Sources */,
@@ -11816,6 +11842,7 @@
 				E5BB9EAA2D3BF0C80089667A /* TPSegmentedMenuItem.swift in Sources */,
 				E5D7D8D42D43933600EC877A /* FocusEndTimelineTrackView.swift in Sources */,
 				E529ACD22F7E11E4000EA2F1 /* TodoUserTagSectionController.swift in Sources */,
+				E500E3AC2FC7F12A00252011 /* TodoStatsListDistribution.swift in Sources */,
 				E5BB9ED92D3BF0C80089667A /* TPHoldActionView.swift in Sources */,
 				E59E71612DB7DBA500744C68 /* CalendarMonthDayView.swift in Sources */,
 				E5BB9E922D3BF0C80089667A /* PieCircleView.swift in Sources */,
@@ -11843,6 +11870,7 @@
 				E54155632F49A415000B2972 /* FocusRecordListDetailCellLayout.swift in Sources */,
 				E5BB9DFF2D3BF0C60089667A /* Array+Date.swift in Sources */,
 				E5D7D8D02D43933600EC877A /* FocusEndScoreCell.swift in Sources */,
+				E500E3AA2FC7E66D00252011 /* BarRankListChartCell.swift in Sources */,
 				E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */,
 				E5BB9EC72D3BF0C80089667A /* TPButtonActionsBar.swift in Sources */,
 				E5D7D8B92D43933600EC877A /* FocusRunningViewController.swift in Sources */,

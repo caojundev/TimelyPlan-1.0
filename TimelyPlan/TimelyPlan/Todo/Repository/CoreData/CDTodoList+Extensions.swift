@@ -22,8 +22,9 @@ extension CDTodoList {
     
     /// 列表特征
     var feature: TodoListFeature {
-        return TodoListFeature(identifier: self.identifiableKey,
-                               name: self.name)
+        return TodoListFeature(identifier: identifiableKey,
+                               name: name,
+                               colorHex: colorHex)
     }
     
     /// 添加任务到列表，自动设置排序因子

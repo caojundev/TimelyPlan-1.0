@@ -96,7 +96,9 @@ class TodoSmartList: NSObject,
     }
     
     var feature: TodoListFeature {
-        return TodoListFeature(identifier: self.identifier, name: self.listType.title)
+        return TodoListFeature(identifier: identifier,
+                               name: listType.title,
+                               colorHex: color.hexString)
     }
     
     /// 列表类型

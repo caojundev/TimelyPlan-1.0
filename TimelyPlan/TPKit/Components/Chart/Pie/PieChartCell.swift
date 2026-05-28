@@ -112,7 +112,7 @@ class PieChartCell: StatsBaseChartCell {
         }
     }
     
-    /// 图标尺寸
+    /// 图表尺寸
     var chartHeight: CGFloat = 240.0
     
     var rankListHeight: CGFloat = 0.0

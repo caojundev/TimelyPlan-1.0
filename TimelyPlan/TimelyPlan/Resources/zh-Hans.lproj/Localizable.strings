@@ -75,6 +75,15 @@
 "Search history" = "搜索历史";
 "Clear Search History" = "清除搜索历史";
 
+/// 统计
+"Weekly Completion Trend" = "周完成趋势";
+"Monthly Completion Trend" = "月完成趋势";
+"Yearly Completion Trend" = "年度完成趋势";
+"Priority Distribution" = "优先级分布";
+"Completion Time Distribution" = "完成时段分布";
+"Delayed Tag Distribution" = "延期标签分布";
+"List Distribution" = "清单分布";
+
 /// 列表编辑
 "New List" = "新建列表";
 "Edit List" = "编辑列表";
@@ -203,8 +212,6 @@
 "All completed steps and their substeps will be permanently deleted." = "所有已完成步骤及其子步骤将永久删除。";
 "Steps Preview" = "步骤预览";
 "Tap to edit, hold and drag to reorder or change level" = "轻点编辑步骤，长按拖拽调整顺序和层级";
-
-
 
 /// 进度
 "Progress" = "进度";
@@ -638,6 +645,7 @@
 "Statistics" = "统计";
 "Custom" = "自定义";
 "None" = "无";
+"Less" = "更少";
 "More" = "更多";
 "Confirm" = "确认";
 "Done" = "完成";

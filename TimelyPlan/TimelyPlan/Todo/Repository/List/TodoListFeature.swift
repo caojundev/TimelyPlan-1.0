@@ -10,6 +10,7 @@ import UIKit
 
 /// 列表特征信息
 class TodoListFeature: NSObject,
+                       TPHexColorConvertible,
                         TodoListRepresentable,
                         IdentifiableItem {
 
@@ -23,9 +24,13 @@ class TodoListFeature: NSObject,
         return name ?? resGetString("Untitled List")
     }
     
-    init(identifier: String, name: String?) {
+    /// 十六进制颜色字符串
+    var colorHex: String?
+    
+    init(identifier: String, name: String?, colorHex: String?) {
         self.identifier = identifier
         self.name = name
+        self.colorHex = colorHex
         super.init()
     }
     
