@@ -868,7 +868,7 @@ extension CDTodoTask {
     static func activeScheduledTaskPredicate(on date: Date,
                                              showCompleted: Bool = true) -> NSPredicate {
         let range = DateInterval.rangeOfDay(date)
-        return activeScheduledTaskPredicate(in: range)
+        return activeScheduledTaskPredicate(in: range, showCompleted: showCompleted)
     }
     
     static func activeScheduledTaskPredicate(in range: DateInterval,

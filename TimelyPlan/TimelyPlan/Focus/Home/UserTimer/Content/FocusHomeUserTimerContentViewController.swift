@@ -90,21 +90,23 @@ class FocusHomeUserTimerContentViewController: TPViewController,
     }
     
     private func timersChanged(_ change: FocusUserTimerChange?) {
-        let group = FocusTimerGroup(identifier: "UserTimerGroup")
-        group.timers = self.viewModel.timers
-        self.listView.groups = [group]
-        self.listView.performUpdate()
-        
-        var revealTimer: FocusTimer?
-        if let change = change {
-            switch change {
-            case .create(let timer), .update(let timer):
-                revealTimer = timer
+        DispatchQueue.main.async {
+            let group = FocusTimerGroup(identifier: "UserTimerGroup")
+            group.timers = self.viewModel.timers
+            self.listView.groups = [group]
+            self.listView.performUpdate()
+            
+            var revealTimer: FocusTimer?
+            if let change = change {
+                switch change {
+                case .create(let timer), .update(let timer):
+                    revealTimer = timer
+                }
             }
-        }
-        
-        if let revealTimer = revealTimer {
-            self.listView.revealItem(revealTimer, autoScroll: true)
+            
+            if let revealTimer = revealTimer {
+                self.listView.revealItem(revealTimer, autoScroll: true)
+            }
         }
     }
     
