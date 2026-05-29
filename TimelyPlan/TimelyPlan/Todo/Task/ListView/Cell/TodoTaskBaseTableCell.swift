@@ -8,7 +8,10 @@
 import Foundation
 import UIKit
 
-class TodoTaskBaseTableCell: UITableViewCell, FocusAnimatable, Checkable {
+class TodoTaskBaseTableCell: UITableViewCell,
+                             Checkable,
+                             FocusAnimatable,
+                             SearchHighlightable {
     
     weak var delegate: AnyObject?
 
@@ -23,7 +26,7 @@ class TodoTaskBaseTableCell: UITableViewCell, FocusAnimatable, Checkable {
     var infoView: TodoTaskBaseInfoView!
     
     private var modificationDate: Date?
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundView = UIView()
@@ -44,14 +47,16 @@ class TodoTaskBaseTableCell: UITableViewCell, FocusAnimatable, Checkable {
     }
     
     override func layoutSubviews() {
-       super.layoutSubviews()
-       infoView.frame = bounds
+        super.layoutSubviews()
+        infoView.frame = bounds
        
-       /// 更新信息视图布局
-       if let layout = layout {
+        /// 更新信息视图布局
+        if let layout = layout {
            layout.layoutIfNeeded()
            infoView.updateLayout(with: layout)
-       }
+        }
+
+        updateHighlightedName()
     }
     
     func reloadDataIfNeeded(animated: Bool) {
@@ -116,5 +121,52 @@ class TodoTaskBaseTableCell: UITableViewCell, FocusAnimatable, Checkable {
     
     var focusLineWidth: CGFloat {
         return 1.6
+    }
+    
+    // MARK: - SearchHighlightable
+    
+    /// 高亮文本
+    var highlightedText: String?
+    
+    /// 高亮普通文本属性
+    var normalAttributes: [NSAttributedString.Key: Any] {
+        return [
+            .foregroundColor: infoView.nameLabel.currentTextColor,
+            .font: infoView.nameLabel.font ?? BOLD_SYSTEM_FONT
+        ]
+    }
+
+    /// 高亮文本属性
+    var highlightAttributes: [NSAttributedString.Key: Any] {
+        return [
+            .backgroundColor: Color(0xFFD60A),
+            .foregroundColor: UIColor.black,
+            .font: infoView.nameLabel.font ?? BOLD_SYSTEM_FONT
+        ]
+    }
+    
+    /// 设置搜索文本并更新高亮显示
+    func setHighlightedText(_ highlightedText: String?) {
+        self.highlightedText = highlightedText
+        setNeedsLayout()
+    }
+    
+    /// 更新高亮名称
+    func updateHighlightedName() {
+        guard let highlightedText = highlightedText,
+              highlightedText.count > 0,
+              let name = infoView.name else {
+            return
+        }
+        
+        let searchRange = NSString(string: name).range(of: highlightedText)
+        if searchRange.location == NSNotFound {
+            return
+        }
+        
+        let attributedName = name.attributedStringWithHighlight(highlightedText,
+                                                                normalAttributes: normalAttributes,
+                                                                highlightAttributes: highlightAttributes)
+        self.infoView.attributedName = attributedName
     }
 }

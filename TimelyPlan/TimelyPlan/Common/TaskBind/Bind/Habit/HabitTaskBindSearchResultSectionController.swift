@@ -8,28 +8,37 @@
 import Foundation
 import UIKit
 
-class HabitTaskBindSearchResultSectionController: TPCollectionSearchResultSectionController {
+class HabitTaskBindSearchResultSectionController: TPTableSearchResultSectionController {
     
-    override init() {
-        super.init()
-        self.layout.preferredItemWidth = .greatestFiniteMagnitude
+    override func didDequeHeader(_ headerView: UITableViewHeaderFooterView) {
+        super.didDequeHeader(headerView)
+        guard let headerView = headerView as? TPDefaultInfoTableHeaderFooterView else {
+            return
+        }
+        
+        headerView.title = resGetString("Habit")
+    }
+    
+    override func heightForRow(at index: Int) -> CGFloat {
+        return 60.0
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
-        return HabitTaskBindCell.self
+        return HabitTaskBindSearchResultCell.self
     }
-
-    override func didDequeCell(_ cell: UICollectionViewCell, forItemAt index: Int) {
-        let cell = cell as! HabitTaskBindCell
-        cell.habitTask = item(at: index) as? HabitTask
+    
+    override func didDequeCell(_ cell: UITableViewCell, forRowAt index: Int) {
+        super.didDequeCell(cell, forRowAt: index)
+        guard let cell = cell as? HabitTaskBindSearchResultCell,
+              let task = item(at: index) as? HabitTask else {
+            return
+        }
         
-        /// 需要显示高亮数据
-        super.didDequeCell(cell, forItemAt: index)
+        cell.habitTask = task
     }
     
     override func fetchResults(containText text: String, completion: @escaping ([ListDiffable]?) -> Void) {
-        habit.searchActiveTasks(containText: text) { tasks in
-            completion(tasks)
-        }
+        habit.searchActiveTasks(containText: text, completion: completion)
     }
+    
 }

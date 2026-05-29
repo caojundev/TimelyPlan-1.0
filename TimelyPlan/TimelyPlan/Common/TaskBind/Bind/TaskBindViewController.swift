@@ -169,14 +169,10 @@ class TaskBindViewController: TPContainerViewController,
     
     // MARK: - UISearchControllerDelegate
     func willPresentSearchController(_ searchController: UISearchController) {
-        let selectedTaskID = self.task?.identifier
-        let resultVC = TaskBindSearchResultViewController(selectedTaskID: selectedTaskID)
-        resultVC.didSelectTask = { [weak self] task in
-            self?.selectTask(task)
-        }
-        
+        let resultVC = TaskBindSearchResultViewController(selectedTaskFeature: task)
+        resultVC.delegate = self
         searchController.searchResultsUpdater = resultVC
-        self.setContentViewController(resultVC, withAnimationStyle: .none)
+        setContentViewController(resultVC, withAnimationStyle: .none)
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {

@@ -20,7 +20,7 @@ class TodoTaskBindViewController: TPViewController,
     private(set) var selectedFeature: TaskFeature?
 
     lazy var selectView: TodoTaskSelectView = {
-        let view = TodoTaskSelectView(frame: view.bounds, style: .insetGrouped)
+        let view = TodoTaskSelectView(frame: view.bounds)
         view.placeholderProvider = viewModel.placeholderProvider
         view.delegate = self
         return view

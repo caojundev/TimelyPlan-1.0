@@ -11,16 +11,29 @@ import UIKit
 class TPTableSearchResultSectionController: TPTableBaseSectionController,
                                                 UISearchResultsUpdating {
     
+    
+    var normalHeaderHeight = 40.0
+    
+    var headerPadding = UIEdgeInsets(top: 10, left: 6.0, bottom: 0.0, right: 6.0)
+    
     /// 当前结果对应的搜索文本
     private(set) var searchText: String?
     
     /// 当前搜索结果
     private(set) var searchResults: [ListDiffable]?
     
+    var hasResult: Bool {
+        if let searchResults = searchResults, searchResults.count > 0 {
+            return true
+        }
+        
+        return false
+    }
+    
     lazy var cellStyle: TPTableCellStyle = {
         let style = TPTableCellStyle()
         style.backgroundColor = .secondarySystemGroupedBackground
-        style.selectedBackgroundColor = .secondarySystemFill
+        style.selectedBackgroundColor = .tertiarySystemFill
         return style
     }()
 
@@ -52,6 +65,23 @@ class TPTableSearchResultSectionController: TPTableBaseSectionController,
     
     override func styleForRow(at index: Int) -> TPTableCellStyle? {
         return cellStyle
+    }
+
+    override func heightForHeader() -> CGFloat {
+        return hasResult ? normalHeaderHeight : 0.0
+    }
+    
+    override func classForHeader() -> AnyClass? {
+        return TPDefaultInfoTableHeaderFooterView.self
+    }
+    
+    override func didDequeHeader(_ headerView: UITableViewHeaderFooterView) {
+        super.didDequeHeader(headerView)
+        guard let headerView = headerView as? TPDefaultInfoTableHeaderFooterView else {
+            return
+        }
+        
+        headerView.contentPadding = headerPadding
     }
     
     // MARK: -

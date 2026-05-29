@@ -9,29 +9,23 @@ import Foundation
 import UIKit
 
 class HabitTaskBindViewController: TPViewController,
-                                   TPGroupCollectionViewDelegate {
+                                   TPGroupTableViewDelegate {
 
     weak var delegate: TaskBindViewControllerDelegate?
     
     /// 当前选中任务标识
     private(set) var selectedFeature: TaskFeature?
 
-    lazy var cellStyle: TPCollectionCellStyle = {
-        let style = TPCollectionCellStyle()
+    lazy var cellStyle: TPTableCellStyle = {
+        let style = TPTableCellStyle()
         style.backgroundColor = .secondarySystemGroupedBackground
-        style.selectedBackgroundColor = .secondarySystemFill
-        style.cornerRadius = 12.0
+        style.selectedBackgroundColor = .tertiarySystemFill
         return style
     }()
-    
-    lazy var listView: TPGroupCollectionView = {
-        let view = TPGroupCollectionView(frame: view.bounds)
-        view.preferredItemHeight = 64.0
+
+    lazy var listView: TPGroupTableView = {
+        let view = TPGroupTableView(frame: view.bounds, style: .insetGrouped)
         view.delegate = self
-        view.refreshHandler = { [weak self] in
-            self?.handleRefresh()
-        }
-        
         return view
     }()
     
@@ -51,17 +45,12 @@ class HabitTaskBindViewController: TPViewController,
         self.view.addSubview(self.listView)
         let placeholderProvider = viewModel.placeholderProvider
         placeholderProvider.emptyTitle = resGetString("No Habit")
-        self.listView.placeholderProvider = placeholderProvider
-        self.viewModel.tasksDidChange = { [weak self] change in
+        listView.placeholderProvider = placeholderProvider
+        viewModel.tasksDidChange = { [weak self] change in
             self?.tasksChanged(change)
         }
         
-        self.viewModel.loadTasks()
-    }
-    
-    private func handleRefresh() {
-        self.viewModel.setNeedsRefresh()
-        self.viewModel.loadTasks()
+        viewModel.loadTasks()
     }
     
     private func tasksChanged(_ change: HabitTaskChange?) {
@@ -82,34 +71,38 @@ class HabitTaskBindViewController: TPViewController,
         return .systemGroupedBackground
     }
     
-    // MARK: - TPGroupCollectionViewDelegate
-    func groupCollectionView(_ collectionView: TPGroupCollectionView, classForCellAt indexPath: IndexPath) -> AnyClass? {
+    // MARK: - TPGroupTableViewDelegate
+    func groupTableView(_ tableView: TPGroupTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 68.0
+    }
+    
+    func groupTableView(_ tableView: TPGroupTableView, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return HabitTaskBindCell.self
     }
     
-    func groupCollectionView(_ collectionView: TPGroupCollectionView, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
+    func groupTableView(_ tableView: TPGroupTableView, didDequeCell cell: UITableViewCell, at indexPath: IndexPath) {
         let cell = cell as! HabitTaskBindCell
-        cell.cellStyle = cellStyle
-        cell.habitTask = collectionView.item(at: indexPath) as? HabitTask
+        cell.style = cellStyle
+        cell.habitTask = tableView.item(at: indexPath) as? HabitTask
     }
     
-    func groupCollectionView(_ collectionView: TPGroupCollectionView, shouldShowCheckmarkForItemAt indexPath: IndexPath) -> Bool {
-        guard let task = collectionView.item(at: indexPath) as? HabitTask else {
+    func groupTableView(_ tableView: TPGroupTableView, shouldShowCheckmarkForRowAt indexPath: IndexPath) -> Bool {
+        guard let task = tableView.item(at: indexPath) as? HabitTask else {
             return false
         }
         
         return task.identifier == selectedFeature?.identifier
     }
     
-    func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let task = collectionView.item(at: indexPath) as? HabitTask else {
+    func groupTableView(_ tableView: TPGroupTableView, didSelectRowAt indexPath: IndexPath) {
+        guard let task = tableView.item(at: indexPath) as? HabitTask else {
             return
         }
     
         TPImpactFeedback.impactWithSoftStyle()
         selectedFeature = task.feature
         delegate?.taskBindViewController(self, didSelectTask: task)
-        collectionView.updateCheckmarks()
+        tableView.updateCheckmarks()
     }
 }
 

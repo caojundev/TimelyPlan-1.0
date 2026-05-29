@@ -8,36 +8,29 @@
 import Foundation
 import UIKit
 
-class TaskBindSearchResultViewController: TPCollectionSectionsViewController,
-                                          TPCollectionSectionControllerDelegate,
-                                            UISearchResultsUpdating {
+class TaskBindSearchResultViewController: TPTableSectionsViewController,
+                                          UISearchResultsUpdating, TPTableSectionControllerDelegate {
 
-    var didSelectTask: ((TaskRepresentable) -> Void)?
+    weak var delegate: TaskBindViewControllerDelegate?
     
-    /// 当前选中任务标识
-    private(set) var selectedTaskID: String?
-    
-    private lazy var placeholderView: TPDefaultPlaceholderView = {
-        let view = TPDefaultPlaceholderView()
-        view.isBorderHidden = true
-        view.titleColor = .placeholderText
-        view.image = resGetImage("placeholder_noSearchResult_80")
-        return view
+    /// 当前选中任务特征值
+    private(set) var selectedTaskFeature: TaskFeature?
+ 
+    lazy var todoResultSectionController: TodoTaskBindSearchResultSectionController = {
+        let sectionController = TodoTaskBindSearchResultSectionController()
+        sectionController.delegate = self
+        return sectionController
     }()
-    
-    lazy var habitSearchResultSectionController: HabitTaskBindSearchResultSectionController = {
+ 
+    lazy var habitResultSectionController: HabitTaskBindSearchResultSectionController = {
         let sectionController = HabitTaskBindSearchResultSectionController()
         sectionController.delegate = self
         return sectionController
     }()
-
-    deinit {
-        self.collectionView.removeKeyboardNotification()
-    }
     
-    init(selectedTaskID: String?) {
-        self.selectedTaskID = selectedTaskID
-        super.init(nibName: nil, bundle: nil)
+    init(selectedTaskFeature: TaskFeature?) {
+        self.selectedTaskFeature = selectedTaskFeature
+        super.init(style: .insetGrouped)
     }
     
     required init?(coder: NSCoder) {
@@ -46,12 +39,9 @@ class TaskBindSearchResultViewController: TPCollectionSectionsViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.placeholderView = placeholderView
-        self.collectionView.keyboardAutoAdjustContentInset = true
-        self.collectionView.addKeyboardNotification()
-        self.collectionView.keyboardDismissMode = .interactive
-        self.sectionControllers = [self.habitSearchResultSectionController]
-        self.reloadData()
+        sectionControllers = [todoResultSectionController,
+                              habitResultSectionController]
+        reloadData()
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -59,9 +49,8 @@ class TaskBindSearchResultViewController: TPCollectionSectionsViewController,
     }
     
     // MARK: - UISearchResultsUpdating
-    
     func updateSearchResults(for searchController: UISearchController) {
-        guard let sectionControllers = self.sectionControllers as? [UISearchResultsUpdating] else {
+        guard let sectionControllers = sectionControllers as? [UISearchResultsUpdating] else {
             return
         }
         
@@ -70,21 +59,22 @@ class TaskBindSearchResultViewController: TPCollectionSectionsViewController,
         }
     }
     
-    // MARK: - TPCollectionSectionControllerDelegate
-    func collectionSectionController(_ sectionController: TPCollectionBaseSectionController, shouldShowCheckmarkForItemAt index: Int) -> Bool {
-        guard let task = sectionController.item(at: index) as? TaskRepresentable else {
-            return false
-        }
     
-        return task.feature.identifier == self.selectedTaskID
-    }
-    
-    func collectionSectionController(_ sectionController: TPCollectionBaseSectionController, didSelectItemAt index: Int) {
+    // MARK: - TPTableSectionControllerDelegate
+    func tableSectionController(_ sectionController: TPTableBaseSectionController, didSelectRowAt index: Int) {
         guard let task = sectionController.item(at: index) as? TaskRepresentable else {
             return
         }
-        
-        didSelectTask?(task)
+
+        delegate?.taskBindViewController(self, didSelectTask: task)
+    }
+    
+    func tableSectionController(_ sectionController: TPTableBaseSectionController, shouldShowCheckmarkForRowAt index: Int) -> Bool {
+        guard let task = sectionController.item(at: index) as? TaskRepresentable else {
+            return false
+        }
+
+        return task.feature == selectedTaskFeature
     }
 }
 

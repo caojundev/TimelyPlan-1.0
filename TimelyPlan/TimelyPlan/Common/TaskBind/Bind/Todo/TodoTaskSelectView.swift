@@ -51,11 +51,8 @@ class TodoTaskSelectView: UIView,
     /// 显示头视图高度
     var normalHeaderHeight = 50.0
     
-    /// 样式
-    let style: UITableView.Style
-
     /// 显示详情
-    let showDetail: Bool
+    let showDetail: Bool = false
 
     private let adapter = TPTableViewAdapter()
     
@@ -64,7 +61,7 @@ class TodoTaskSelectView: UIView,
     
     /// 集合视图
     private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: bounds, style: style)
+        let tableView = UITableView(frame: bounds, style: .insetGrouped)
         tableView.isPrefetchingEnabled = false
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -82,9 +79,7 @@ class TodoTaskSelectView: UIView,
         return tableView
     }()
 
-    init(frame: CGRect, style: UITableView.Style) {
-        self.style = style
-        self.showDetail = false
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .systemGroupedBackground
         setupSubviews()
@@ -171,7 +166,6 @@ class TodoTaskSelectView: UIView,
             return
         }
         
-        cell.delegate = self
         cell.layout = layout(for: task)
         cell.reloadData(animated: false)
     }

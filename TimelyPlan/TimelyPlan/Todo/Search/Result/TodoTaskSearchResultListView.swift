@@ -13,7 +13,7 @@ class TodoTaskSearchResultListView: TodoTaskListView {
     var searchText: String?
     
     override func adapter(_ adapter: TPTableViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        return TodoTaskSearchResultCell.self
+        return TodoTaskCheckTableCell.self
     }
     
     override func adapter(_ adapter: TPTableViewAdapter, didDequeCell cell: UITableViewCell, forRowAt indexPath: IndexPath) {
