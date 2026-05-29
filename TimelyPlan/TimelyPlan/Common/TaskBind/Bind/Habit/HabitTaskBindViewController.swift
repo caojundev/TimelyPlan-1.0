@@ -11,11 +11,10 @@ import UIKit
 class HabitTaskBindViewController: TPViewController,
                                    TPGroupCollectionViewDelegate {
 
-    /// 选中任务回调
-    var didSelectTask: ((HabitTask) -> Void)?
+    weak var delegate: TaskBindViewControllerDelegate?
     
     /// 当前选中任务标识
-    private(set) var selectedTaskID: String?
+    private(set) var selectedFeature: TaskFeature?
 
     lazy var cellStyle: TPCollectionCellStyle = {
         let style = TPCollectionCellStyle()
@@ -38,8 +37,8 @@ class HabitTaskBindViewController: TPViewController,
     
     var viewModel = HabitActiveTaskViewModel()
     
-    init(selectedTaskID: String?) {
-        self.selectedTaskID = selectedTaskID
+    init(selectedFeature: TaskFeature?) {
+        self.selectedFeature = selectedFeature
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -70,11 +69,7 @@ class HabitTaskBindViewController: TPViewController,
         group.tasks = self.viewModel.tasks
         DispatchQueue.main.async {
             self.listView.groups = [group]
-            if change != nil {
-                self.listView.performUpdate()
-            } else {
-                self.listView.reloadData()
-            }
+            self.listView.reloadData()
         }
     }
     
@@ -103,7 +98,7 @@ class HabitTaskBindViewController: TPViewController,
             return false
         }
         
-        return task.identifier == self.selectedTaskID
+        return task.identifier == selectedFeature?.identifier
     }
     
     func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -112,7 +107,9 @@ class HabitTaskBindViewController: TPViewController,
         }
     
         TPImpactFeedback.impactWithSoftStyle()
-        didSelectTask?(task)
+        selectedFeature = task.feature
+        delegate?.taskBindViewController(self, didSelectTask: task)
+        collectionView.updateCheckmarks()
     }
 }
 

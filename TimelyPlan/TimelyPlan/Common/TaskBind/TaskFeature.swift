@@ -15,7 +15,7 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
     case habit /// 习惯
     
     static var allTypes: [TaskType] {
-        return [.habit]
+        return [.todo, .habit]
     }
     
     var identifier: String {

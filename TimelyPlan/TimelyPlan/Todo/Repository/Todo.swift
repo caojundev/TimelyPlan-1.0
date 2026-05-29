@@ -120,6 +120,13 @@ extension Todo {
         taskManager.fetchSmartListTasks(in: list, showCompleted: showCompleted, completion: completion)
     }
     
+    
+    /// 获取用户列表任务
+    func fetchAllTasks(showCompleted: Bool = false,
+                       completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchAllTasks(showCompleted: showCompleted, completion: completion)
+    }
+    
     /// 获取用户列表任务
     func fetchUserListTasks(in list: TodoList,
                             showCompleted: Bool = true,

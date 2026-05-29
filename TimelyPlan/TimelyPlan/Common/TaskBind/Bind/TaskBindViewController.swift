@@ -8,7 +8,13 @@
 import Foundation
 import UIKit
 
+protocol TaskBindViewControllerDelegate: AnyObject {
+    
+    func taskBindViewController(_ viewController: UIViewController, didSelectTask task: TaskRepresentable)
+}
+
 class TaskBindViewController: TPContainerViewController,
+                              TaskBindViewControllerDelegate,
                               UISearchControllerDelegate {
     
     /// 当前列表任务类型
@@ -66,11 +72,12 @@ class TaskBindViewController: TPContainerViewController,
     }()
 
     convenience init() {
-        self.init(task: nil, type: .habit)
+        self.init(task: nil, type: .todo)
     }
     
     convenience init(task: TaskFeature?) {
-        self.init(task: task, type: .habit)
+        let type = task?.type ?? .todo
+        self.init(task: task, type: type)
     }
     
     init(task: TaskFeature?,
@@ -137,25 +144,26 @@ class TaskBindViewController: TPContainerViewController,
     
     private func listViewController(for type: TaskType) -> UIViewController! {
         switch type {
+        case .todo:
+            return newTodoTaskBindViewController()
         case .habit:
-            return createHabitTaskBindViewController()
+            return newHabitTaskBindViewController()
         default:
             return UIViewController()
         }
     }
     
+    /// 创建待办绑定视图控制器
+    private func newTodoTaskBindViewController() -> TodoTaskBindViewController {
+        let vc = TodoTaskBindViewController(selectedFeature: task)
+        vc.delegate = self
+        return vc
+    }
+    
     /// 创建习惯绑定视图控制器
-    private func createHabitTaskBindViewController() -> HabitTaskBindViewController {
-        var selectedTaskID: String?
-        if let task = task, task.type == .habit {
-            selectedTaskID = task.identifier
-        }
-        
-        let vc = HabitTaskBindViewController(selectedTaskID: selectedTaskID)
-        vc.didSelectTask = {[weak self] task in
-            self?.selectTask(task)
-        }
-        
+    private func newHabitTaskBindViewController() -> HabitTaskBindViewController {
+        let vc = HabitTaskBindViewController(selectedFeature: task)
+        vc.delegate = self
         return vc
     }
     
@@ -172,9 +180,14 @@ class TaskBindViewController: TPContainerViewController,
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {
-        self.setContentViewController(self.listViewController, withAnimationStyle: .none)
+        setContentViewController(listViewController, withAnimationStyle: .none)
     }
      
+    // MARK: - TaskBindViewControllerDelegate
+    func taskBindViewController(_ viewController: UIViewController, didSelectTask task: TaskRepresentable) {
+        selectTask(task)
+    }
+    
     // MARK: - Event Response
     @objc private func clickClear(_ buttonItem: UIBarButtonItem) {
         TPImpactFeedback.impactWithMediumStyle()

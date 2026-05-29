@@ -33,7 +33,7 @@ class FocusRunningViewController: TPViewController,
     let timerNameView = FocusRunningTimerNameView()
 
     /// 任务绑定视图
-    let taskBindView = TaskBindView()
+    let taskBindView = TaskBinder()
     
     /// 计时器操作视图
     lazy var actionView: FocusRunningActionView = {

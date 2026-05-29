@@ -47,7 +47,7 @@ class FocusSystemTimerViewController: TPViewController,
     var editContainerView: TPAnimatedContainerView = TPAnimatedContainerView()
 
     /// 任务选择器
-    let taskBindView = TaskBindView()
+    let taskBindView = TaskBinder()
     
     /// 动作视图
     private lazy var actionView: FocusStartActionView = { [weak self] in

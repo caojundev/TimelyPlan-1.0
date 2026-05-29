@@ -609,6 +609,15 @@ extension CDTodoTask {
         }
     }
     
+    /// 获取所有任务
+    static func fetchAllTasks(showCompleted: Bool = false,
+                              completion: @escaping([CDTodoTask]?) -> Void) {
+        let predicate = allActiveTaskPredicate(showCompleted: showCompleted)
+        findAll(with: predicate) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
+    
     static func getUserListTasks(in list: TodoList, showCompleted: Bool = true) -> [CDTodoTask]? {
         let predicate = userListActiveTaskPredicate(for: list, showCompleted: showCompleted)
         let results: [CDTodoTask]? = findAll(with: predicate, sortedBy: TodoTaskKey.order, ascending: true, in: .defaultContext)
@@ -742,6 +751,19 @@ extension CDTodoTask {
     }
     
     // MARK: - 用户清单任务
+    /// 所有活动任务
+    static func allActiveTaskPredicate(showCompleted: Bool = true) -> NSPredicate {
+        var conditions: [PredicateCondition] = [
+            notRemovedCondition
+        ]
+
+        if !showCompleted {
+            conditions.append(notCompletedCondition)
+        }
+        
+        return conditions.andPredicate()
+    }
+    
     /// 用户清单活动任务
     static func userListActiveTaskPredicate(for list: TodoList,
                                              showCompleted: Bool = true) -> NSPredicate {

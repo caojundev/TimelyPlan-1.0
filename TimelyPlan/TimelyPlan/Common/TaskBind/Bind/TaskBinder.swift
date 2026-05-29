@@ -1,5 +1,5 @@
 //
-//  TaskBindView.swift
+//  TaskBinder.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/11/1.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TaskBindView: UIView {
+class TaskBinder: UIView {
     
     /// 当前任务改变
     var didPickTask: ((TaskRepresentable?) -> Void)?
