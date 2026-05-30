@@ -24,7 +24,7 @@ class QuadrantListConfiguration: TodoListConfiguration {
     }
 
     override func allowListOptions() -> [TodoListOption]? {
-        return [.select, .showCompleted, .showDetail, .group, .sort, .edit]
+        return [.select, .showCompleted, .showDetail, .group, .sort, .edit, .search]
     }
     
     override func allowGroupTypes() -> [TodoGroupType] {

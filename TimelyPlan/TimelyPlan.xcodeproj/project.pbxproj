@@ -416,6 +416,16 @@
 		E531FDF52F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531FDF42F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift */; };
 		E531FDF82F73EB1900067A0F /* archived_show_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E531FDF62F73EB1800067A0F /* archived_show_24@3x.png */; };
 		E531FDF92F73EB1900067A0F /* archived_show_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E531FDF72F73EB1800067A0F /* archived_show_24@2x.png */; };
+		E5320C252FCA878C001DFE98 /* search_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5320C232FCA878B001DFE98 /* search_24@3x.png */; };
+		E5320C262FCA878C001DFE98 /* search_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5320C242FCA878C001DFE98 /* search_24@2x.png */; };
+		E5320C2B2FCA87CE001DFE98 /* todo_list_option_importTask_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5320C272FCA87CD001DFE98 /* todo_list_option_importTask_24@3x.png */; };
+		E5320C2C2FCA87CE001DFE98 /* todo_list_option_manageSection_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5320C282FCA87CD001DFE98 /* todo_list_option_manageSection_24@3x.png */; };
+		E5320C2D2FCA87CE001DFE98 /* todo_list_option_importTask_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5320C292FCA87CD001DFE98 /* todo_list_option_importTask_24@2x.png */; };
+		E5320C2E2FCA87CE001DFE98 /* todo_list_option_manageSection_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5320C2A2FCA87CD001DFE98 /* todo_list_option_manageSection_24@2x.png */; };
+		E5320C312FCA949E001DFE98 /* TodoImportInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C302FCA949E001DFE98 /* TodoImportInputViewController.swift */; };
+		E5320C332FCAC443001DFE98 /* TodoTaskImporterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C322FCAC443001DFE98 /* TodoTaskImporterViewController.swift */; };
+		E5320C352FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C342FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift */; };
+		E5320C3B2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C3A2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift */; };
 		E5347FF52F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */; };
 		E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */; };
 		E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */; };
@@ -1831,7 +1841,7 @@
 		E5E67DCD2DD23B950018A64D /* CalendarTimelineBackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E67DCC2DD23B950018A64D /* CalendarTimelineBackLayer.swift */; };
 		E5E8C9EB2F701ED1006728C5 /* FocusTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E8C9EA2F701ED1006728C5 /* FocusTimer.swift */; };
 		E5E8C9EE2F702163006728C5 /* CDFocusTimer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E8C9ED2F702163006728C5 /* CDFocusTimer+Extensions.swift */; };
-		E5E9F7842FBFF6F700717004 /* TodoStepImporterMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E9F7832FBFF6F700717004 /* TodoStepImporterMainViewController.swift */; };
+		E5E9F7842FBFF6F700717004 /* TodoStepImporterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E9F7832FBFF6F700717004 /* TodoStepImporterViewController.swift */; };
 		E5E9F7862FC001EA00717004 /* TodoStepImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E9F7852FC001EA00717004 /* TodoStepImporter.swift */; };
 		E5E9F78E2FC03FCA00717004 /* todo_step_deleteCompleted_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E9F7882FC03FC900717004 /* todo_step_deleteCompleted_24@3x.png */; };
 		E5E9F78F2FC03FCA00717004 /* todo_step_import_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E9F7892FC03FC900717004 /* todo_step_import_24@2x.png */; };
@@ -2356,6 +2366,16 @@
 		E531FDF42F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusStatsOverallMoreBarButtonItem.swift; sourceTree = "<group>"; };
 		E531FDF62F73EB1800067A0F /* archived_show_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archived_show_24@3x.png"; sourceTree = "<group>"; };
 		E531FDF72F73EB1800067A0F /* archived_show_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archived_show_24@2x.png"; sourceTree = "<group>"; };
+		E5320C232FCA878B001DFE98 /* search_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_24@3x.png"; sourceTree = "<group>"; };
+		E5320C242FCA878C001DFE98 /* search_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search_24@2x.png"; sourceTree = "<group>"; };
+		E5320C272FCA87CD001DFE98 /* todo_list_option_importTask_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_importTask_24@3x.png"; sourceTree = "<group>"; };
+		E5320C282FCA87CD001DFE98 /* todo_list_option_manageSection_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_manageSection_24@3x.png"; sourceTree = "<group>"; };
+		E5320C292FCA87CD001DFE98 /* todo_list_option_importTask_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_importTask_24@2x.png"; sourceTree = "<group>"; };
+		E5320C2A2FCA87CD001DFE98 /* todo_list_option_manageSection_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_manageSection_24@2x.png"; sourceTree = "<group>"; };
+		E5320C302FCA949E001DFE98 /* TodoImportInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoImportInputViewController.swift; sourceTree = "<group>"; };
+		E5320C322FCAC443001DFE98 /* TodoTaskImporterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskImporterViewController.swift; sourceTree = "<group>"; };
+		E5320C342FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskImporterPreviewViewController.swift; sourceTree = "<group>"; };
+		E5320C3A2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoImporterStepEditSectionController.swift; sourceTree = "<group>"; };
 		E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordLogEditViewController.swift; sourceTree = "<group>"; };
 		E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitReasonTagEditViewController.swift; sourceTree = "<group>"; };
 		E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPEmojiTitleEditAlertController.swift; sourceTree = "<group>"; };
@@ -3788,7 +3808,7 @@
 		E5E67DCC2DD23B950018A64D /* CalendarTimelineBackLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineBackLayer.swift; sourceTree = "<group>"; };
 		E5E8C9EA2F701ED1006728C5 /* FocusTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimer.swift; sourceTree = "<group>"; };
 		E5E8C9ED2F702163006728C5 /* CDFocusTimer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDFocusTimer+Extensions.swift"; sourceTree = "<group>"; };
-		E5E9F7832FBFF6F700717004 /* TodoStepImporterMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepImporterMainViewController.swift; sourceTree = "<group>"; };
+		E5E9F7832FBFF6F700717004 /* TodoStepImporterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepImporterViewController.swift; sourceTree = "<group>"; };
 		E5E9F7852FC001EA00717004 /* TodoStepImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepImporter.swift; sourceTree = "<group>"; };
 		E5E9F7882FC03FC900717004 /* todo_step_deleteCompleted_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_step_deleteCompleted_24@3x.png"; sourceTree = "<group>"; };
 		E5E9F7892FC03FC900717004 /* todo_step_import_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_step_import_24@2x.png"; sourceTree = "<group>"; };
@@ -5231,6 +5251,15 @@
 				E531FDF42F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift */,
 			);
 			path = Overall;
+			sourceTree = "<group>";
+		};
+		E5320C2F2FCA9471001DFE98 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				E5320C322FCAC443001DFE98 /* TodoTaskImporterViewController.swift */,
+				E5320C342FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift */,
+			);
+			path = Task;
 			sourceTree = "<group>";
 		};
 		E5347FF62F5FC31600CFBF26 /* ReasonTag */ = {
@@ -7249,6 +7278,8 @@
 		E5BB9A4D2D3BEF0D0089667A /* common */ = {
 			isa = PBXGroup;
 			children = (
+				E5320C242FCA878C001DFE98 /* search_24@2x.png */,
+				E5320C232FCA878B001DFE98 /* search_24@3x.png */,
 				E524C78E2F9C5A02005CCEBD /* eye_slash_24@2x.png */,
 				E524C78F2F9C5A02005CCEBD /* eye_slash_24@3x.png */,
 				E505D93C2F9A4EBA004469DC /* reorderControl_24@2x.png */,
@@ -9840,6 +9871,10 @@
 				E5E277132D3E099C004EC522 /* todo_list_option_showCompleted_24@3x.png */,
 				E524C79E2F9FA04D005CCEBD /* todo_list_option_showDetail_24@2x.png */,
 				E524C79D2F9FA04D005CCEBD /* todo_list_option_showDetail_24@3x.png */,
+				E5320C292FCA87CD001DFE98 /* todo_list_option_importTask_24@2x.png */,
+				E5320C272FCA87CD001DFE98 /* todo_list_option_importTask_24@3x.png */,
+				E5320C2A2FCA87CD001DFE98 /* todo_list_option_manageSection_24@2x.png */,
+				E5320C282FCA87CD001DFE98 /* todo_list_option_manageSection_24@3x.png */,
 			);
 			path = option;
 			sourceTree = "<group>";
@@ -9867,6 +9902,9 @@
 		E5E9F7822FBFF6BE00717004 /* Import */ = {
 			isa = PBXGroup;
 			children = (
+				E5320C302FCA949E001DFE98 /* TodoImportInputViewController.swift */,
+				E5320C3A2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift */,
+				E5320C2F2FCA9471001DFE98 /* Task */,
 				E5E9F79A2FC0956200717004 /* Step */,
 			);
 			path = Import;
@@ -9888,7 +9926,7 @@
 		E5E9F79A2FC0956200717004 /* Step */ = {
 			isa = PBXGroup;
 			children = (
-				E5E9F7832FBFF6F700717004 /* TodoStepImporterMainViewController.swift */,
+				E5E9F7832FBFF6F700717004 /* TodoStepImporterViewController.swift */,
 				E5E9F7942FC0510B00717004 /* TodoStepImporterPreviewViewController.swift */,
 			);
 			path = Step;
@@ -10385,6 +10423,7 @@
 				E52A4FE82F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png in Resources */,
 				E534800A2F604ACF00CFBF26 /* habit_status_skipped_24@3x.png in Resources */,
 				E5D7D9732D43E05700EC877A /* focus_running_minimal_24@2x.png in Resources */,
+				E5320C252FCA878C001DFE98 /* search_24@3x.png in Resources */,
 				E54E633C2F5B1BFD00FCBCAE /* habit_menu_reset_24@2x.png in Resources */,
 				E5BBA10C2D3BFB3C0089667A /* SideMenuCalendar@2x.png in Resources */,
 				E5BB9AC82D3BEF0D0089667A /* todo_task_date_24@2x.png in Resources */,
@@ -10426,6 +10465,7 @@
 				E5B926D92D3FF04A0065FA79 /* arrow_up_24@3x.png in Resources */,
 				E50D94C92D45224500F57957 /* archive_24@2x.png in Resources */,
 				E5BB9ECD2D3BF0C80089667A /* Wheat01@2x.png in Resources */,
+				E5320C2D2FCA87CE001DFE98 /* todo_list_option_importTask_24@2x.png in Resources */,
 				E50D606E2F7A29D100D5E0A4 /* todo_list_parent_24@2x.png in Resources */,
 				E55CE3552D8BC2A60083316E /* quadrant_IV_32@3x.png in Resources */,
 				E5F078CA2F95DEB300F94BDF /* todo_filter_tag_none_24@3x.png in Resources */,
@@ -10433,6 +10473,7 @@
 				E55E4BEB2F9336170068E032 /* calendar_3_24@3x.png in Resources */,
 				E58F46B62F7AAE370046FA96 /* todo_list_noParent_24@2x.png in Resources */,
 				E500E3842FC59BE600252011 /* todo_search_option_note_16@2x.png in Resources */,
+				E5320C2B2FCA87CE001DFE98 /* todo_list_option_importTask_24@3x.png in Resources */,
 				E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */,
 				E56B946A2F8CD822001E488B /* todo_group_type_list_24@2x.png in Resources */,
 				E5BB9ADD2D3BEF0D0089667A /* xmark_circle_fill_24@2x.png in Resources */,
@@ -10511,6 +10552,7 @@
 				E555283D2FB5D34C0093DD7E /* todo_filter_80@2x.png in Resources */,
 				E5BB9AED2D3BEF0D0089667A /* keyboard_dismiss_24@3x.png in Resources */,
 				E5E9F78F2FC03FCA00717004 /* todo_step_import_24@2x.png in Resources */,
+				E5320C2C2FCA87CE001DFE98 /* todo_list_option_manageSection_24@3x.png in Resources */,
 				E54E633D2F5B1BFD00FCBCAE /* habit_menu_reset_24@3x.png in Resources */,
 				E55E4C052F9336170068E032 /* calendar_13_24@2x.png in Resources */,
 				E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */,
@@ -10713,6 +10755,7 @@
 				E55E4BDB2F9336170068E032 /* calendar_30_24@3x.png in Resources */,
 				E55CE3442D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png in Resources */,
 				E55E4BC92F9336160068E032 /* calendar_25_24@3x.png in Resources */,
+				E5320C262FCA878C001DFE98 /* search_24@2x.png in Resources */,
 				E59243F62F514AF400CA2393 /* arrow_up_right_fill_36@2x.png in Resources */,
 				E524C7912F9C5A02005CCEBD /* eye_slash_24@3x.png in Resources */,
 				E54E633B2F5B1BFD00FCBCAE /* habit_menu_skip_24@2x.png in Resources */,
@@ -10809,6 +10852,7 @@
 				E5BB9AB02D3BEF0D0089667A /* todo_task_step_addNext_24@3x.png in Resources */,
 				E53AC84D2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png in Resources */,
 				E5168BDD2F5481660000A760 /* bell_add_20@3x.png in Resources */,
+				E5320C2E2FCA87CE001DFE98 /* todo_list_option_manageSection_24@2x.png in Resources */,
 				E5D7D8F32D43933600EC877A /* NegativeCircleFill@2x.png in Resources */,
 				E55A7B8F2D46000E000D224C /* placeholder_noSearchResult_80@2x.png in Resources */,
 				E5BB9A9D2D3BEF0D0089667A /* todo_task_tag_24@3x.png in Resources */,
@@ -11401,6 +11445,7 @@
 				E5D7D9202D43933700EC877A /* StatsSummarySectionController.swift in Sources */,
 				E5FC6BC52F66A44D00D5A5EA /* HabitStatsCalendarMonthCell.swift in Sources */,
 				E5D7D93F2D43933700EC877A /* FocusSteppedConfigSectionController.swift in Sources */,
+				E5320C3B2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift in Sources */,
 				E5BB9E742D3BF0C70089667A /* TPSlashLayer.swift in Sources */,
 				E5D7D7E82D43923800EC877A /* FocusPomodoroConfig.swift in Sources */,
 				E5B33D382F809D0C00939C3E /* TodoListSelectView.swift in Sources */,
@@ -11521,6 +11566,7 @@
 				E52E481B2F8A07EE00B8CD25 /* TPImageInfoButton.swift in Sources */,
 				E500E39A2FC69C6800252011 /* TodoStatsCompletionTrend.swift in Sources */,
 				E531FDF52F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift in Sources */,
+				E5320C352FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift in Sources */,
 				E52EF62A2FB359D2002CF355 /* CalendarDayWeekView.swift in Sources */,
 				E5BB9E9D2D3BF0C80089667A /* ChartIntermediateValue.swift in Sources */,
 				E5D7D9152D43933700EC877A /* FocusStatsDailyViewController.swift in Sources */,
@@ -11773,6 +11819,7 @@
 				E5B33D5A2F80E66E00939C3E /* ReminderEditSectionController.swift in Sources */,
 				E53F32BA2F69557500B85B65 /* HabitReportContentSectionController.swift in Sources */,
 				E5F078CF2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift in Sources */,
+				E5320C332FCAC443001DFE98 /* TodoTaskImporterViewController.swift in Sources */,
 				E5BB9D8D2D3BF0C60089667A /* TPNumberFieldTableCell.swift in Sources */,
 				E58C9E132F4AF0DC0096B842 /* FocusTimelineViewController.swift in Sources */,
 				E5BB9DEB2D3BF0C60089667A /* Date+Week.swift in Sources */,
@@ -12013,7 +12060,7 @@
 				E500E3912FC5D73600252011 /* TodoStatsWeeklyViewController.swift in Sources */,
 				E5D7D9082D43933600EC877A /* PomodoroTimerEditView.swift in Sources */,
 				E5D7D8C32D43933600EC877A /* FocusEventNotificationService.swift in Sources */,
-				E5E9F7842FBFF6F700717004 /* TodoStepImporterMainViewController.swift in Sources */,
+				E5E9F7842FBFF6F700717004 /* TodoStepImporterViewController.swift in Sources */,
 				E5BB9F0B2D3BF0C90089667A /* TPMultipleItemSelection.swift in Sources */,
 				E552FBB42DBDDCA70072703F /* CalendarMonthWeekBackgroundLayer.swift in Sources */,
 				E5BB9DB52D3BF0C60089667A /* TPWeakDelegateCollection.swift in Sources */,
@@ -12203,6 +12250,7 @@
 				E521E3592F6A50110071DA12 /* HabitReportYearlyMonthRender.swift in Sources */,
 				E5BB9E7E2D3BF0C70089667A /* StatsBarChartSectionController.swift in Sources */,
 				E556BCEA2F5E5EB500CA20D9 /* HabitRecordController.swift in Sources */,
+				E5320C312FCA949E001DFE98 /* TodoImportInputViewController.swift in Sources */,
 				E5BB9E6E2D3BF0C70089667A /* TPCollectionItemSectionController.swift in Sources */,
 				E5BB9EEC2D3BF0C80089667A /* TPTextFieldAlertController.swift in Sources */,
 				E5BB9EF72D3BF0C80089667A /* TPSlidePresentationConfigure.swift in Sources */,

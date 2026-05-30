@@ -30,7 +30,7 @@ class TodoStepEditSectionController: TPTableItemSectionController,
         let flattenSteps = steps.flattenItems(with: expansionState) as! [TodoStep]
         var cellItems = [TodoTaskStepEditCellItem]()
         for step in flattenSteps {
-            let cellItem = TodoTaskStepEditCellItem(step: step)
+            let cellItem = newCellItem(with: step)
             cellItems.append(cellItem)
         }
         
@@ -44,6 +44,10 @@ class TodoStepEditSectionController: TPTableItemSectionController,
         self.steps = steps
     }
 
+    func newCellItem(with step: TodoStep) -> TodoTaskStepEditCellItem {
+        return TodoTaskStepEditCellItem(step: step)
+    }
+    
     func stepsDidChange() {
 
     }

@@ -68,11 +68,14 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
 
     override func orderedMenuActionTypeLists() -> [Array<TodoListOption>] {
         var lists: [Array<TodoListOption>]
-        lists = [[.select,
+        lists = [[.search],
+                 [.select,
                   .showCompleted,
                   .showDetail],
                  [.layout],
                  [.group, .sort],
+                 [.manageSection],
+                 [.importTask],
                  [.edit],
                  [.emptyTrash]]
         return lists

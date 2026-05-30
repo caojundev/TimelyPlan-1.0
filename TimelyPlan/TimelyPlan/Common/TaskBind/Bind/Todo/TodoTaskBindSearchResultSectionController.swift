@@ -48,7 +48,7 @@ class TodoTaskBindSearchResultSectionController: TPTableSearchResultSectionContr
     
     override func fetchResults(containText text: String, completion: @escaping ([ListDiffable]?) -> Void) {
         var options = TodoSearchOptions()
-        options.showCompleted = false
+        options.showCompleted = true
         options.searchNote = false
         options.searchStep = false
         todo.searchTasks(matching: text, options: options, completion: completion)

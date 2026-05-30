@@ -476,17 +476,37 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     func selectListOption(_ option: TodoListOption) {
         switch option {
         case .select:
-            self.setSelecting(true)
+            setSelecting(true)
         case .layout:
-            self.toggleLayout()
+            toggleLayout()
         case .showCompleted:
-            self.interactor.toggleShowCompleted()
+            interactor.toggleShowCompleted()
         case .showDetail:
-            self.toggleShowDetail()
+            toggleShowDetail()
         case .edit:
-            self.performEditOption()
+            performEditOption()
+        case .search:
+            searchTask()
+        case .manageSection:
+            manageSection()
+        case .importTask:
+            importTask()
         default:
             break
+        }
+    }
+    
+    func searchTask() {
+        TodoPresenter.showSearch()
+    }
+    
+    func manageSection() {
+        
+    }
+    
+    func importTask() {
+        TodoPresenter.showTaskImporter { steps in
+            print(steps)
         }
     }
     

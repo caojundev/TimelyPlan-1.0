@@ -12,11 +12,12 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
     
     var completion: (([TodoStep]) -> Void)?
     
-    let editSectionController: TodoStepEditSectionController
+    var editSectionController: TodoStepEditSectionController!
     
     init(steps: [TodoStep]) {
-        self.editSectionController = TodoStepEditSectionController(steps: steps)
         super.init(style: .insetGrouped)
+        setupEditSectionController(steps: steps)
+        
         let footerItem = self.editSectionController.footerItem
         footerItem.height = 40.0
         footerItem.title = resGetString("Tap to edit, hold and drag to reorder or change level")
@@ -28,9 +29,13 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupEditSectionController(steps: [TodoStep]) {
+        self.editSectionController = TodoImporterStepEditSectionController(steps: steps)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = resGetString("Steps Preview")
+        updateTitle()
         wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
         tableView.keyboardDismissMode = .interactive
         setupReorder()
@@ -38,6 +43,10 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         sectionControllers = [editSectionController]
         reloadData()
+    }
+    
+    func updateTitle() {
+        title = resGetString("Steps Preview")
     }
 
     override var themeBackgroundColor: UIColor? {

@@ -34,14 +34,11 @@ class TPKeyboardAdjuster {
     }
     
     init(scrollView: UIScrollView) {
-        
         self.scrollView = scrollView
     }
     
     deinit {
-        if isEnabled {
-            removeKeyboardNotification()
-        }
+        removeKeyboardNotification()
     }
     
     private func addKeyboardNotification() {

@@ -34,9 +34,16 @@ class TodoPresenter {
         vc.popoverShow()
     }
     
+    /// 显示导入任务
+    static func showTaskImporter(completion: @escaping([TodoStep]) -> Void) {
+        let vc = TodoTaskImporterViewController()
+        vc.completion = completion
+        vc.showAsNavigationRoot()
+    }
+    
     /// 显示导入步骤
     static func showStepImporter(completion: @escaping([TodoStep]) -> Void) {
-        let vc = TodoStepImporterMainViewController(style: .insetGrouped)
+        let vc = TodoStepImporterViewController()
         vc.completion = completion
         vc.showAsNavigationRoot()
     }

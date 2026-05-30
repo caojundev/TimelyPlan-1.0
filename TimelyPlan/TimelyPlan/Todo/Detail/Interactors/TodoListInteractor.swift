@@ -120,7 +120,8 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     func listOptionConfig() -> TodoListOptionConfig? {
         var state = listOptionState
         state.layoutType = layoutType() /// 设置布局类型
-        return TodoListOptionConfig.config(with: state, configuration: self.configuration)
+        return TodoListOptionConfig.config(with: state,
+                                           configuration: configuration)
     }
     
     /// 当前选中任务可用的任务操作类型数组

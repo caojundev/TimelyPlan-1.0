@@ -17,10 +17,15 @@ enum TodoListOption: String, TPMenuRepresentable {
     case edit      /// 编辑列表
     case delete    /// 删除列表
     case emptyTrash /// 清空废纸篓
+    case manageSection /// 管理分区
+    case search     /// 搜索
+    case importTask /// 导入任务
     
     /// 图标名称
     var iconName: String? {
         switch self {
+        case .search:
+            return "search_24"
         case .edit:
             return "edit_24"
         case .delete:
@@ -53,6 +58,12 @@ enum TodoListOption: String, TPMenuRepresentable {
             return resGetString("Delete")
         case .emptyTrash:
             return resGetString("Empty Trash")
+        case .manageSection:
+            return resGetString("Manage Section")
+        case .importTask:
+            return resGetString("Import Task")
+        case .search:
+            return resGetString("Search")
         }
     }
 

@@ -33,6 +33,15 @@ class TPTextView: UITextView {
 
     var placeholderPosition: PlaceholderPosition = .topLeft
     
+    /// 占位文本左侧间距
+    var placeholderMargin = 2.0 {
+        didSet {
+            if placeholderMargin != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
+    
     var placeholder: String? {
         didSet {
             setNeedsLayout()
@@ -100,10 +109,9 @@ class TPTextView: UITextView {
             placeHolderLabel.frame = layoutFrame
             placeHolderLabel.textAlignment = .center
         } else if placeholderPosition == .topLeft {
-            let labelMargin: CGFloat = 2.0
-            let placeHolderLabelWidth = bounds.size.width - insets.horizontalLength - labelMargin
+            let placeHolderLabelWidth = bounds.size.width - insets.horizontalLength - placeholderMargin
             let size = placeHolderLabel.sizeThatFits(CGSize(width: placeHolderLabelWidth, height: .greatestFiniteMagnitude))
-            let placeHolderLabelRect = CGRect(x: insets.left + labelMargin,
+            let placeHolderLabelRect = CGRect(x: insets.left + placeholderMargin,
                                                y: insets.top,
                                                size: size)
             placeHolderLabel.frame = placeHolderLabelRect

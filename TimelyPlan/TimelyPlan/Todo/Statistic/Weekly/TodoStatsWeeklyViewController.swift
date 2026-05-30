@@ -73,7 +73,7 @@ class TodoStatsWeeklyViewController: StatsContentViewController {
         chartItem.xAxis.guideline?.style = .solid
         
         let sectionItem = StatsBarChartSectionController()
-        sectionItem.cellItem.headerTitle = resGetString("Completion Times Distribution")
+        sectionItem.cellItem.headerTitle = resGetString("Completion Time Distribution")
         sectionItem.chartItem = chartItem
         return sectionItem
     }

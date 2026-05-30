@@ -137,6 +137,8 @@
 "Sort Order" = "顺序";
 "Show Completed" = "显示已完成";
 "Show Detail" = "显示详情";
+"Manage Section" = "管理分区";
+"Import Task" = "导入任务";
 
 "Delete Task" = "删除任务";
 "Empty Trash" = "清空废纸篓";
@@ -204,14 +206,19 @@
 "The step has been copied to the clipboard" = "步骤已复制到剪贴板";
 "All steps copied as Markdown" = "步骤已复制为 Markdown 格式";
 
-"Import Steps" = "导入步骤";
 "Copy Steps As Markdown" = "复制为 Markdown";
 "Delete Completed Steps" = "删除已完成步骤";
-
-"Enter steps, one per line\nUse - [ ] or - [x] for status\nIndent with spaces for sub-steps" = "输入待办步骤，每行一项\n用 - [ ] 或 - [x] 标记状态\n空格缩进表示子步骤";
 "All completed steps and their substeps will be permanently deleted." = "所有已完成步骤及其子步骤将永久删除。";
+
+
+"Import Tasks" = "导入任务";
+"Import Steps" = "导入步骤";
+"Preview" = "预览";
 "Steps Preview" = "步骤预览";
-"Tap to edit, hold and drag to reorder or change level" = "轻点编辑步骤，长按拖拽调整顺序和层级";
+"Tasks Preview" = "任务预览";
+"Tap to edit, hold and drag to reorder or change level" = "点击编辑步骤，长按拖拽调整顺序和层级";
+"Enter steps, one per line\nUse - [ ] or - [x] for status\nIndent with spaces for sub-steps" = "输入待办步骤，每行一项\n用 - [ ] 或 - [x] 标记状态\n空格缩进表示子步骤";
+"Enter tasks, one per line\nUse - [ ] or - [x] for status\nIndent with spaces for steps" = "输入待办任务，每行一项\n用 - [ ] 或 - [x] 标记任务状态\n空格缩进表示任务步骤";
 
 /// 进度
 "Progress" = "进度";

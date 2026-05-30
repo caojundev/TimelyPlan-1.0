@@ -73,13 +73,13 @@ class TodoSmartListConfiguration: TodoListConfiguration {
     override func allowListOptions() -> [TodoListOption]? {
         switch list.listType {
         case .myDay:
-            return [.select, .showCompleted, .showDetail, .group, .sort]
+            return [.select, .showCompleted, .showDetail, .group, .sort, .search]
         case .inbox:
-            return [.select, .showCompleted, .showDetail, .layout, .group, .sort]
+            return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .search, .manageSection, .importTask]
         case .completed:
-            return [.select, .group, .sort]
+            return [.select, .group, .sort, .search]
         case .overdue, .today, .tomorrow, .upcoming:
-            return [.select, .showCompleted, .showDetail, .group, .sort]
+            return [.select, .showCompleted, .showDetail, .group, .sort, .search]
         case .trash:
             return [.select, .emptyTrash]
         }
