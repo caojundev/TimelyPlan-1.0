@@ -39,6 +39,16 @@ class TaskBindSearchResultViewController: TPTableSectionsViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let provider = TPDefaultPlaceholderProvider()
+        provider.emptyImage = resGetImage("placeholder_noSearchResult_80")
+        wrapperView.placeholderProvider = provider
+        wrapperView.shouldShowPlaceholder = { [weak self] in
+            guard let self = self else { return false }
+            return !self.adapter.hasItem
+        }
+    
+        wrapperView.isKeyboardAdjusterEnabled = true
+        wrapperView.keyboardDismissMode = .onDrag
         sectionControllers = [todoResultSectionController,
                               habitResultSectionController]
         reloadData()

@@ -22,6 +22,12 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
         }
     }
     
+    var shouldShowPlaceholder: (() -> Bool)? {
+        didSet {
+            tableView.shouldShowPlaceholder = shouldShowPlaceholder
+        }
+    }
+    
     var tableHeaderView: UIView? {
         didSet {
             tableView.tableHeaderView = tableHeaderView
@@ -45,6 +51,16 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
         
         set {
             keyboardAdjuster.keyboardIntersectionBottom = newValue
+        }
+    }
+    
+    var keyboardDismissMode: UIScrollView.KeyboardDismissMode {
+        get {
+            return tableView.keyboardDismissMode
+        }
+        
+        set {
+            tableView.keyboardDismissMode = newValue
         }
     }
     
