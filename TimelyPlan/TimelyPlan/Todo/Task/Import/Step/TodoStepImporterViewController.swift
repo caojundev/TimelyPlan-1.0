@@ -10,6 +10,8 @@ import UIKit
 
 class TodoStepImporterViewController: TodoImportInputViewController {
     
+    var completion: (([TodoStep]) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = resGetString("Import Steps")

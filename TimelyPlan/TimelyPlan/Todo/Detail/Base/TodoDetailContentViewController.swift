@@ -505,37 +505,37 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     }
     
     func importTask() {
-        TodoPresenter.showTaskImporter { steps in
-            print(steps)
+        TodoPresenter.showTaskImporter { tasks in
+            self.interactor.importTasks(tasks)
         }
     }
     
     func toggleShowDetail() {
-        self.interactor.toggleShowDetail()
+        interactor.toggleShowDetail()
         // 子类可以重写以更新UI
     }
     
     /// 切换布局
     private func toggleLayout() {
-        var layoutType = self.interactor.layoutType()
+        var layoutType = interactor.layoutType()
         if layoutType == .list {
             layoutType = .board
         } else {
             layoutType = .list
         }
         
-        self.interactor.setLayoutType(layoutType)
+        interactor.setLayoutType(layoutType)
     }
 
     private func selectGroupType(_ groupType: TodoGroupType) {
-        self.interactor.setGroupType(groupType)
+        interactor.setGroupType(groupType)
     }
     
     private func selectSortType(_ sortType: TodoSortType) {
-        self.interactor.setSortType(sortType)
+        interactor.setSortType(sortType)
     }
     
     private func selectSortOrder(_ sortOrder: TodoSortOrder) {
-        self.interactor.setSortOrder(sortOrder)
+        interactor.setSortOrder(sortOrder)
     }
 }

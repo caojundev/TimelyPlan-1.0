@@ -426,6 +426,7 @@
 		E5320C332FCAC443001DFE98 /* TodoTaskImporterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C322FCAC443001DFE98 /* TodoTaskImporterViewController.swift */; };
 		E5320C352FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C342FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift */; };
 		E5320C3B2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C3A2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift */; };
+		E5320C3D2FCB1AA1001DFE98 /* TodoImportTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C3C2FCB1AA1001DFE98 /* TodoImportTask.swift */; };
 		E5347FF52F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */; };
 		E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */; };
 		E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */; };
@@ -2376,6 +2377,7 @@
 		E5320C322FCAC443001DFE98 /* TodoTaskImporterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskImporterViewController.swift; sourceTree = "<group>"; };
 		E5320C342FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskImporterPreviewViewController.swift; sourceTree = "<group>"; };
 		E5320C3A2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoImporterStepEditSectionController.swift; sourceTree = "<group>"; };
+		E5320C3C2FCB1AA1001DFE98 /* TodoImportTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoImportTask.swift; sourceTree = "<group>"; };
 		E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordLogEditViewController.swift; sourceTree = "<group>"; };
 		E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitReasonTagEditViewController.swift; sourceTree = "<group>"; };
 		E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPEmojiTitleEditAlertController.swift; sourceTree = "<group>"; };
@@ -5256,6 +5258,7 @@
 		E5320C2F2FCA9471001DFE98 /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				E5320C3C2FCB1AA1001DFE98 /* TodoImportTask.swift */,
 				E5320C322FCAC443001DFE98 /* TodoTaskImporterViewController.swift */,
 				E5320C342FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift */,
 			);
@@ -11332,6 +11335,7 @@
 				E5D7D8D92D43933600EC877A /* FocusEventActionView.swift in Sources */,
 				E5BB9EBC2D3BF0C80089667A /* TPTimePickerTableCell.swift in Sources */,
 				E5BB9E522D3BF0C70089667A /* TPWeekdaySymbolView.swift in Sources */,
+				E5320C3D2FCB1AA1001DFE98 /* TodoImportTask.swift in Sources */,
 				E50FF8A72F789E1F00B8F5BE /* TPPlaceholderProvider.swift in Sources */,
 				E507E7B92F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m in Sources */,
 				E53B11402F94D1B300701410 /* TodoFilterSpecificDateRangeSegmentedView.swift in Sources */,

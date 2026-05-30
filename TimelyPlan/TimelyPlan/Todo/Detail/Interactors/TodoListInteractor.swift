@@ -205,6 +205,10 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     }
 
     // MARK: - 菜单操作
+    func importTasks(_ tasks: [TodoImportTask]) {
+    
+    }
+    
     func toggleShowCompleted() {
         self.listOptionState.showCompleted = !showCompleted
         self.listOptionStateDidChange()
@@ -252,6 +256,10 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     }
     
     // MARK: - TodoTaskProcessorDelegate
+    func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
     
     func didCreateTodoTask(_ task: TodoTask) {
         self.setNeedsRefresh()

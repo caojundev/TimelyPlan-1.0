@@ -147,6 +147,10 @@ extension TodoFilterViewModel: TodoTaskProcessorDelegate {
         countDidChange?(filters)
     }
     
+    func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        changeCountForAllFilters()
+    }
+    
     func didCreateTodoTask(_ task: TodoTask) {
         changeCountForAllFilters()
     }

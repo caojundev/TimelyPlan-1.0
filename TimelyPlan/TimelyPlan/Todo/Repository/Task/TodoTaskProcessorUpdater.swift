@@ -9,7 +9,9 @@ import Foundation
 
 /// 待办任务处理通知协议
 protocol TodoTaskProcessorDelegate: AnyObject {
-
+    
+    func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?)
+    
     /// 任务被添加到特定分组
     func didCreateTodoTask(_ task: TodoTask)
 
@@ -43,6 +45,8 @@ protocol TodoTaskProcessorDelegate: AnyObject {
 
 extension TodoTaskProcessorDelegate {
     
+    func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {}
+    
     func didCreateTodoTask(_ task: TodoTask) {}
 
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {}
@@ -66,6 +70,12 @@ extension TodoTaskProcessorDelegate {
 }
 
 class TodoTaskProcessorUpdater: NSObject, TodoTaskProcessorDelegate {
+    
+    func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        notifyDelegates { (delegate: TodoTaskProcessorDelegate) in
+            delegate.didImportTodoTasks(tasks, to: list)
+        }
+    }
     
     func didCreateTodoTask(_ task: TodoTask) {
         notifyDelegates { (delegate: TodoTaskProcessorDelegate) in

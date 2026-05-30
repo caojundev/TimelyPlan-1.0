@@ -136,7 +136,11 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
 }
 
 extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
-
+    
+    func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        self.countChanged()
+    }
+    
     func didCreateTodoTask(_ task: TodoTask) {
         self.countChanged()
     }

@@ -27,6 +27,15 @@ extension CDTodoList {
                                colorHex: colorHex)
     }
     
+    /// 列表任务最大排序因子
+    var maxTaskOrder: Int64 {
+        guard let tasks = tasks?.allObjects as? [CDTodoTask] else {
+            return 0
+        }
+        
+        return tasks.maxOrder
+    }
+    
     /// 添加任务到列表，自动设置排序因子
     func addTask(_ task: CDTodoTask, onTop: Bool = false) {
         let tasks = tasks?.allObjects as? [CDTodoTask]

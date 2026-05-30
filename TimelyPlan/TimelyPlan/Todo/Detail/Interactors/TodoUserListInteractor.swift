@@ -75,6 +75,10 @@ class TodoUserListInteractor: TodoListInteractor {
                                 completion: completion)
     }
 
+    override func importTasks(_ tasks: [TodoImportTask]) {
+        todo.importTasks(tasks, to: list)
+    }
+    
     // MARK: - TodoListProcessorDelegate
     override func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
         let oldList = self.list

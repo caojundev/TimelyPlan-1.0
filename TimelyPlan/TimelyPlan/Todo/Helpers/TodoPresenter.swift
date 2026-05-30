@@ -35,7 +35,7 @@ class TodoPresenter {
     }
     
     /// 显示导入任务
-    static func showTaskImporter(completion: @escaping([TodoStep]) -> Void) {
+    static func showTaskImporter(completion: @escaping([TodoImportTask]) -> Void) {
         let vc = TodoTaskImporterViewController()
         vc.completion = completion
         vc.showAsNavigationRoot()

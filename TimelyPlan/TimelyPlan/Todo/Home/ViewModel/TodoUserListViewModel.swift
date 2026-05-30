@@ -153,6 +153,13 @@ extension TodoUserListViewModel: TodoListProcessorDelegate {
 
 extension TodoUserListViewModel: TodoTaskProcessorDelegate {
     
+    func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        if let list = list?.feature {
+            counter.invalidateCount(for: list)
+            countDidChange?([list])
+        }
+    }
+    
     func didCreateTodoTask(_ task: TodoTask) {
         if let list = task.list {
             counter.invalidateCount(for: list)

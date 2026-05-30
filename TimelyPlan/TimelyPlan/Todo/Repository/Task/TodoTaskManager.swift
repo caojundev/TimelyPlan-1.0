@@ -115,6 +115,18 @@ class TodoTaskManager {
         HandyRecord.save()
     }
     
+    // MARK: - 导入任务
+    func importTasks(_ tasks: [TodoImportTask], to list: TodoList?) {
+        let contents = CDTodoTask.importTasks(tasks, to: list)
+        guard contents.count > 0 else {
+            return
+        }
+        
+        let importedTasks = contents.tasks
+        updater.didImportTodoTasks(importedTasks, to: list)
+        HandyRecord.save()
+    }
+    
     // MARK: - 更新任务
     /// 更新优先级
     func updateTasks(_ tasks: [TodoTask], priority: TodoTaskPriority) {

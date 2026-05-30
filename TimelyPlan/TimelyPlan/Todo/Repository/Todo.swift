@@ -243,6 +243,7 @@ extension Todo {
         taskManager.updateTasks(tasks, schedule: schedule)
     }
     
+    
     // MARK: - 根据 change 更新任务
     func updateTask(_ task: TodoTask, changes: [TodoTaskChange]) {
         taskManager.updateTask(task, changes: changes)
@@ -254,6 +255,11 @@ extension Todo {
                      targetTask: TodoTask,
                      in list: TodoList?) {
         taskManager.reorderTask(sourceTask, postion: postion, targetTask: targetTask, in: list)
+    }
+    
+    // MARK: - 导入任务
+    func importTasks(_ tasks: [TodoImportTask], to list: TodoList?) {
+        taskManager.importTasks(tasks, to: list)
     }
 }
 

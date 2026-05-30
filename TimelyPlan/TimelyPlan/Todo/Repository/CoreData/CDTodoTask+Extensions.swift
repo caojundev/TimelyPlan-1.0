@@ -129,6 +129,35 @@ extension CDTodoTask: SortableIdentifiable {
         return true
     }
     
+    static func importTasks(_ tasks: [TodoImportTask], to  list: TodoList?) -> [CDTodoTask] {
+        var createdTasks = [CDTodoTask]()
+        let currentDate: Date = .now
+        
+        var cdList: CDTodoList?
+        var order: Int64
+        if let list = list {
+            cdList = CDTodoList.getItem(with: list.identifier)
+            order = cdList?.maxTaskOrder ?? 0
+        } else {
+            order = inboxMaxOrder
+        }
+    
+        for task in tasks {
+            let cdTask = CDTodoTask.createEntity(in: .defaultContext)
+            cdTask.identifier = UUID().uuidString
+            cdTask.name = task.name
+            cdTask.isCompleted = task.isCompleted
+            cdTask.completionDate = task.isCompleted ? currentDate : nil
+            cdTask.creationDate = currentDate
+            cdTask.modificationDate = currentDate
+            cdTask.order = order + kOrderedStep
+            cdList?.addToTasks(cdTask)
+            createdTasks.append(cdTask)
+        }
+    
+        return createdTasks
+    }
+    
     static func createTodoTask(with quickAddTask: TodoQuickAddTask, onTop: Bool = false) -> CDTodoTask {
         let task = CDTodoTask.createEntity(in: .defaultContext)
         task.identifier = UUID().uuidString

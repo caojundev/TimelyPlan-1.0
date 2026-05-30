@@ -99,6 +99,9 @@ class TodoTaskSearchViewModel: NSObject, TodoTaskProcessorDelegate {
     }
     
     // MARK: - TodoTaskProcessorDelegate
+    func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        reloadSearchResults()
+    }
     
     func didCreateTodoTask(_ task: TodoTask) {
         reloadSearchResults()

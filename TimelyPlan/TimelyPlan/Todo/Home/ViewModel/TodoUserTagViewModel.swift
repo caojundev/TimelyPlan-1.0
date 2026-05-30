@@ -121,6 +121,10 @@ extension TodoUserTagViewModel: TodoTaskProcessorDelegate {
         }
     }
     
+    func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        didChangeTagForTasks(tasks)
+    }
+    
     func didCreateTodoTask(_ task: TodoTask) {
         didChangeTagForTasks([task])
     }

@@ -9,6 +9,8 @@ import Foundation
 
 class TodoTaskImporterViewController: TodoImportInputViewController {
     
+    var completion: (([TodoImportTask]) -> Void)?
+    
     override var maxDepth: Int {
         return kTodoStepMaxDepth + 1
     }
@@ -21,7 +23,11 @@ class TodoTaskImporterViewController: TodoImportInputViewController {
     
     override func previewSteps(_ steps: [TodoStep]) {
         let previewVC = TodoTaskImporterPreviewViewController(steps: steps)
-        previewVC.completion = completion
+        previewVC.completion = { steps in
+            let tasks = steps.map { TodoImportTask(step: $0)}
+            self.completion?(tasks)
+        }
+        
         navigationItem.backButtonDisplayMode = .minimal
         navigationController?.pushViewController(previewVC, animated: true)
     }

@@ -21,8 +21,6 @@ class TodoImportInputViewController: TPViewController, UITextViewDelegate {
       - [ ] 预定会议室
     买水果
     """
-
-    var completion: (([TodoStep]) -> Void)?
     
     var placeholder: String? {
         get {

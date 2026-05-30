@@ -96,6 +96,14 @@ class TodoSmartListInteractor: TodoListInteractor,
                                  completion: completion)
     }
     
+    override func importTasks(_ tasks: [TodoImportTask]) {
+        guard list.listType == .inbox else {
+            return
+        }
+        
+        todo.importTasks(tasks, to: nil)
+    }
+    
     // MARK: - TPMidnightUpdatable
     func updateAtMidnight() {
         guard list.listType.isScheduleType else {
