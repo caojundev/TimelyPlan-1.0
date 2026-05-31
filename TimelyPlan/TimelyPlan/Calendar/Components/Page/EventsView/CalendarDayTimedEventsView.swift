@@ -150,7 +150,7 @@ class CalendarDayTimedEventsView: UIView {
     
     func reloadData() {
         if let date = date {
-            let dateRange = DateInterval.rangeOfDay(date)
+            let dateRange = DateInterval.timelineRangeOfDay(date)
             let events = self.events ?? []
             self.layout = CalendarTimelineLayout(events: events, dateRange: dateRange)
         } else {

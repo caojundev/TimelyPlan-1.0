@@ -127,13 +127,19 @@ class CalendarBaseViewController: TPViewController,
         quickAddManager.show(with: task)
     }
     
+    /// 显示事项列表
+    func showEventList(on date: Date) {
+        let options = CalendarEventListOptions(date: date)
+        CalendarPresenter.showEventList(with: options)
+    }
+    
     // MARK: - CalendarPageViewDelegate
     func calendarPageView(_ pageView: CalendarPageView, didTapEvent event: CalendarEvent) {
         eventProcessor.editEvent(event)
     }
     
     func calendarPageView(_ pageView: CalendarPageView, didTapAllDayMoreOnDate date: Date) {
-        CalendarPresenter.showEventSheet()
+        showEventList(on: date)
     }
     
     func calendarPageView(_ pageView: CalendarPageView, createEventWithDateRange dateRange: DateInterval) {

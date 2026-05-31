@@ -31,7 +31,7 @@ class FocusTimelineEventListView: UIView, UIGestureRecognizerDelegate {
     /// 当前时间线所在日期
     var date: Date = .now {
         didSet {
-            self.dateRange = .rangeOfDay(date)
+            self.dateRange = .timelineRangeOfDay(date)
         }
     }
     
@@ -45,7 +45,7 @@ class FocusTimelineEventListView: UIView, UIGestureRecognizerDelegate {
 
     /// 时间线日期范围
     private lazy var dateRange: DateInterval = {
-        return .rangeOfDay(date)
+        return .timelineRangeOfDay(date)
     }()
     
     /// 顶部内边距

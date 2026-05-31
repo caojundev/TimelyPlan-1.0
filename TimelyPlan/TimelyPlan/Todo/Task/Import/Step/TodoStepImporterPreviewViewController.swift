@@ -20,7 +20,7 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
         
         let footerItem = self.editSectionController.footerItem
         footerItem.height = 40.0
-        footerItem.title = resGetString("Tap to edit, hold and drag to reorder or change level")
+        footerItem.title = footerTitle()
         footerItem.titleConfig.font = .systemFont(ofSize: 12.0)
         footerItem.titleConfig.textColor = .secondaryLabel
     }
@@ -35,7 +35,7 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateTitle()
+        title = navigationTitle()
         wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
         tableView.keyboardDismissMode = .interactive
         setupReorder()
@@ -44,9 +44,13 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
         sectionControllers = [editSectionController]
         reloadData()
     }
-    
-    func updateTitle() {
-        title = resGetString("Steps Preview")
+
+    func navigationTitle() -> String? {
+        return resGetString("Steps Preview")
+    }
+
+    func footerTitle() -> String? {
+        return resGetString("Tap to edit, hold and drag to reorder or change level")
     }
 
     override var themeBackgroundColor: UIColor? {

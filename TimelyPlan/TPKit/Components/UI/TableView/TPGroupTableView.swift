@@ -13,7 +13,7 @@ protocol TPGroupTableViewDelegate: AnyObject {
     /// 获取单元格类
     func groupTableView(_ tableView: TPGroupTableView, classForCellAt indexPath: IndexPath) -> AnyClass?
     
-    /// 获取头部视图尺寸
+    /// 获取单元格高度
     func groupTableView(_ tableView: TPGroupTableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     
     /// 配置出队的单元格
@@ -75,7 +75,6 @@ class TPGroupTableView: TPTableWrapperView,
     var groups: [GroupRepresentable]?
     
     weak var delegate: TPGroupTableViewDelegate?
-    
     
     // MARK: - Initialization
     override init(frame: CGRect, style: UITableView.Style) {

@@ -925,14 +925,10 @@ extension CDTodoTask {
     
     static func activeScheduledTaskPredicate(in range: DateInterval,
                                              showCompleted: Bool = true) -> NSPredicate {
-        let scheduledConditions = scheduledConditions(showCompleted: showCompleted)
-        let scheduledPredicate = scheduledConditions.andPredicate()
-        let format = "!((\(TodoTaskKey.dueDate) < %@) AND (\(TodoTaskKey.startDate) < %@))"
-        let start = range.start as NSDate
-        let end = range.end as NSDate
-        let dateRangePredicate = NSPredicate(format: format, start, end)
-        let predicates = [scheduledPredicate, dateRangePredicate]
-        return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        var conditions = scheduledConditions(showCompleted: showCompleted)
+        conditions.append((TodoTaskKey.dueDate, .greaterThanOrEqual(range.start)))
+        conditions.append((TodoTaskKey.startDate, .lessThanOrEqual(range.end)))
+        return conditions.andPredicate()
     }
     
     // MARK: - Conditions

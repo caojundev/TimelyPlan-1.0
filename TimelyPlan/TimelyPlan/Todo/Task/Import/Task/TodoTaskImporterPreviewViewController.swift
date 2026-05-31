@@ -14,8 +14,8 @@ class TodoTaskImporterPreviewViewController: TodoStepImporterPreviewViewControll
         self.editSectionController = TodoTaskImporterStepEditSectionController(steps: steps)
     }
     
-    override func updateTitle() {
-        self.title = resGetString("Tasks Preview")
+    override func navigationTitle() -> String? {
+        return resGetString("Tasks Preview")
     }
 }
 
@@ -34,7 +34,7 @@ class TodoTaskImporterStepCell: TodoImporterStepCell {
         super.layoutSubviews()
         let level = depthLineLayer.indentationLevel
         if level == 0 {
-            checkbox.cornerRadius = 6.0
+            checkbox.cornerRadius = 8.0
         } else {
             checkbox.cornerRadius = .greatestFiniteMagnitude
         }

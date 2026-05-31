@@ -144,8 +144,8 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
         self.containerView.delegate = self
         self.addSubview(self.containerView)
         
-        self.setupTableView()
-        self.containerView.setContentView(self.tableView)
+        setupTableView()
+        containerView.setContentView(tableView)
     }
     
     func setupTableView() {

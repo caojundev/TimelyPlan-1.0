@@ -61,7 +61,7 @@ class FocusTimelineView: UIView {
     }
     
     private lazy var dateRange: DateInterval = {
-        return .rangeOfDay(date)
+        return .timelineRangeOfDay(date)
     }()
 
     private let hoursViewWidth = 60.0

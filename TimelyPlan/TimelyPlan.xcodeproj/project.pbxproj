@@ -427,6 +427,10 @@
 		E5320C352FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C342FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift */; };
 		E5320C3B2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C3A2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift */; };
 		E5320C3D2FCB1AA1001DFE98 /* TodoImportTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C3C2FCB1AA1001DFE98 /* TodoImportTask.swift */; };
+		E5320C412FCC2960001DFE98 /* CalendarEventListOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C402FCC2960001DFE98 /* CalendarEventListOptions.swift */; };
+		E5320C452FCC37E8001DFE98 /* CalendarEventGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C442FCC37E7001DFE98 /* CalendarEventGroup.swift */; };
+		E5320C472FCC3DAF001DFE98 /* CalendarEventListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C462FCC3DAE001DFE98 /* CalendarEventListCell.swift */; };
+		E5320C492FCC667A001DFE98 /* CalendarEventListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C482FCC667A001DFE98 /* CalendarEventListHeaderView.swift */; };
 		E5347FF52F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */; };
 		E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */; };
 		E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */; };
@@ -2378,6 +2382,10 @@
 		E5320C342FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskImporterPreviewViewController.swift; sourceTree = "<group>"; };
 		E5320C3A2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoImporterStepEditSectionController.swift; sourceTree = "<group>"; };
 		E5320C3C2FCB1AA1001DFE98 /* TodoImportTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoImportTask.swift; sourceTree = "<group>"; };
+		E5320C402FCC2960001DFE98 /* CalendarEventListOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventListOptions.swift; sourceTree = "<group>"; };
+		E5320C442FCC37E7001DFE98 /* CalendarEventGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventGroup.swift; sourceTree = "<group>"; };
+		E5320C462FCC3DAE001DFE98 /* CalendarEventListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventListCell.swift; sourceTree = "<group>"; };
+		E5320C482FCC667A001DFE98 /* CalendarEventListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventListHeaderView.swift; sourceTree = "<group>"; };
 		E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordLogEditViewController.swift; sourceTree = "<group>"; };
 		E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitReasonTagEditViewController.swift; sourceTree = "<group>"; };
 		E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPEmojiTitleEditAlertController.swift; sourceTree = "<group>"; };
@@ -4078,7 +4086,11 @@
 		E500E3AD2FC8682C00252011 /* EventList */ = {
 			isa = PBXGroup;
 			children = (
+				E5320C442FCC37E7001DFE98 /* CalendarEventGroup.swift */,
+				E5320C402FCC2960001DFE98 /* CalendarEventListOptions.swift */,
 				E500E3AE2FC8690C00252011 /* CalendarEventListViewController.swift */,
+				E5320C462FCC3DAE001DFE98 /* CalendarEventListCell.swift */,
+				E5320C482FCC667A001DFE98 /* CalendarEventListHeaderView.swift */,
 			);
 			path = EventList;
 			sourceTree = "<group>";
@@ -11245,6 +11257,7 @@
 				E5BB9DF72D3BF0C60089667A /* NSObject+WeakDelegates.swift in Sources */,
 				E500E3A32FC7CD0400252011 /* TodoStatsDelayedTagDistribution.swift in Sources */,
 				E536329E2FAB84150095DFEC /* TodoDateInfoEditor.swift in Sources */,
+				E5320C492FCC667A001DFE98 /* CalendarEventListHeaderView.swift in Sources */,
 				E5B9D08C2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift in Sources */,
 				E5BB9ED72D3BF0C80089667A /* TPEmojiView.swift in Sources */,
 				E5BB9D902D3BF0C60089667A /* TPImageInfoRightButtonTableCell.swift in Sources */,
@@ -11336,6 +11349,7 @@
 				E5BB9EBC2D3BF0C80089667A /* TPTimePickerTableCell.swift in Sources */,
 				E5BB9E522D3BF0C70089667A /* TPWeekdaySymbolView.swift in Sources */,
 				E5320C3D2FCB1AA1001DFE98 /* TodoImportTask.swift in Sources */,
+				E5320C452FCC37E8001DFE98 /* CalendarEventGroup.swift in Sources */,
 				E50FF8A72F789E1F00B8F5BE /* TPPlaceholderProvider.swift in Sources */,
 				E507E7B92F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m in Sources */,
 				E53B11402F94D1B300701410 /* TodoFilterSpecificDateRangeSegmentedView.swift in Sources */,
@@ -11881,6 +11895,7 @@
 				E5D7D9052D43933600EC877A /* StopwatchTimerProgressView.swift in Sources */,
 				E5D7D8D72D43933600EC877A /* FocusFlipClockTopbar.swift in Sources */,
 				E5BB9EA32D3BF0C80089667A /* HeatMapCell.swift in Sources */,
+				E5320C472FCC3DAF001DFE98 /* CalendarEventListCell.swift in Sources */,
 				E51501AB2D47DBC9008B2333 /* TPTableItemSectionController.swift in Sources */,
 				E5D7D9322D43933700EC877A /* FocusTimerSelectViewController.swift in Sources */,
 				E529ACCA2F7E0184000EA2F1 /* TodoSmartList.swift in Sources */,
@@ -12138,6 +12153,7 @@
 				E5BB9B432D3BEF920089667A /* CGRectExtension.swift in Sources */,
 				E5BB9DFC2D3BF0C60089667A /* Array+Extensions.swift in Sources */,
 				E518D6842FBD99D60045D456 /* SheetViewDelegate.swift in Sources */,
+				E5320C412FCC2960001DFE98 /* CalendarEventListOptions.swift in Sources */,
 				E5BB9DA12D3BF0C60089667A /* TPDefaultButton.swift in Sources */,
 				E5D7D7ED2D43923800EC877A /* FocusSessionProcessorUpdater.swift in Sources */,
 				E5BB9EA22D3BF0C80089667A /* DayHeatMapCell.swift in Sources */,

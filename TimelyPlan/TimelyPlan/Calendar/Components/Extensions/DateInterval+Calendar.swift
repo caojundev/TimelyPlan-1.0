@@ -26,9 +26,17 @@ extension DateInterval {
         self.end = self.start.addingTimeInterval(duration)
     }
     
-    static func rangeOfDay(_ date: Date) -> DateInterval  {
+    /// 时间线范围 00:00 ~ 00:00
+    static func timelineRangeOfDay(_ date: Date) -> DateInterval  {
         let start = date.startOfDay()
         let end = start.dateByAddingHours(HOURS_PER_DAY)!
+        return DateInterval(start: start, end: end)
+    }
+    
+    /// 时间线范围 00:00 ~ 23:59:59
+    static func rangeOfDay(_ date: Date) -> DateInterval  {
+        let start = date.startOfDay()
+        let end = date.endOfDay()
         return DateInterval(start: start, end: end)
     }
     

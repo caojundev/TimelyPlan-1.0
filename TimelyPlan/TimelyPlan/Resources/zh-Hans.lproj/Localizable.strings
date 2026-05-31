@@ -210,13 +210,13 @@
 "Delete Completed Steps" = "删除已完成步骤";
 "All completed steps and their substeps will be permanently deleted." = "所有已完成步骤及其子步骤将永久删除。";
 
-
+/// 导入任务和步骤
 "Import Tasks" = "导入任务";
 "Import Steps" = "导入步骤";
 "Preview" = "预览";
 "Steps Preview" = "步骤预览";
 "Tasks Preview" = "任务预览";
-"Tap to edit, hold and drag to reorder or change level" = "点击编辑步骤，长按拖拽调整顺序和层级";
+"Tap to edit, hold and drag to reorder or change level" = "点击进行编辑，长按拖拽调整顺序和层级";
 "Enter steps, one per line\nUse - [ ] or - [x] for status\nIndent with spaces for sub-steps" = "输入待办步骤，每行一项\n用 - [ ] 或 - [x] 标记状态\n空格缩进表示子步骤";
 "Enter tasks, one per line\nUse - [ ] or - [x] for status\nIndent with spaces for steps" = "输入待办任务，每行一项\n用 - [ ] 或 - [x] 标记任务状态\n空格缩进表示任务步骤";
 
