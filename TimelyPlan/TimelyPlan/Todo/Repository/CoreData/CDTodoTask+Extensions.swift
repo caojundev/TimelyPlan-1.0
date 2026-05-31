@@ -146,6 +146,7 @@ extension CDTodoTask: SortableIdentifiable {
             let cdTask = CDTodoTask.createEntity(in: .defaultContext)
             cdTask.identifier = UUID().uuidString
             cdTask.name = task.name
+            cdTask.updateSteps(task.steps)
             cdTask.isCompleted = task.isCompleted
             cdTask.completionDate = task.isCompleted ? currentDate : nil
             cdTask.creationDate = currentDate

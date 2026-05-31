@@ -348,15 +348,13 @@ class TPButtonBackgroundView: UIView {
     
     var borderColor: UIColor? {
         didSet {
-            let borderColor = borderColor ?? .clear
-            backLayer.strokeColor = borderColor.cgColor
+            setNeedsLayout()
         }
     }
     
     var backColor: UIColor? {
         didSet {
-            let backColor = backColor ?? .clear
-            backLayer.fillColor = backColor.cgColor
+            setNeedsLayout()
         }
     }
     
@@ -367,7 +365,7 @@ class TPButtonBackgroundView: UIView {
     }
     
     /// 背景图层
-    private var backLayer = CAShapeLayer()
+    private var backLayer = CALayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -383,24 +381,16 @@ class TPButtonBackgroundView: UIView {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         backLayer.frame = bounds
-        CATransaction.commit()
-        
-        updateLayerPath()
-    }
-    
-    private func updateLayerPath() {
-        backLayer.lineWidth = borderWidth
-        
+        backLayer.borderWidth = borderWidth
         let borderColor = borderColor ?? .clear
-        backLayer.strokeColor = borderColor.cgColor
+        backLayer.borderColor = borderColor.cgColor
         
         let backColor = backColor ?? .clear
-        backLayer.fillColor = backColor.cgColor
-      
-        let dx = borderWidth / 2.0
-        let roundedRect = bounds.insetBy(dx: dx, dy: dx)
-        let cornerRadius = min(cornerRadius, roundedRect.boundingCornerRadius)
-        let path = UIBezierPath(roundedRect: roundedRect, cornerRadius: cornerRadius)
-        self.backLayer.path = path.cgPath
+        backLayer.backgroundColor = backColor.cgColor
+        
+        let roundedRect = bounds
+        backLayer.cornerRadius = min(cornerRadius, roundedRect.boundingCornerRadius)
+        CATransaction.commit()
     }
 }
+
