@@ -274,20 +274,6 @@
 		E5186E442D93B141007AA074 /* todo_filter_myDay_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E402D93B140007AA074 /* todo_filter_myDay_36@3x.png */; };
 		E5186E452D93B141007AA074 /* todo_filter_progress_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E412D93B140007AA074 /* todo_filter_progress_36@2x.png */; };
 		E5186E462D93B141007AA074 /* todo_filter_progress_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E422D93B141007AA074 /* todo_filter_progress_36@3x.png */; };
-		E518D67F2FBD99D60045D456 /* FittedSheets+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D66C2FBD99D50045D456 /* FittedSheets+UIColor.swift */; };
-		E518D6802FBD99D60045D456 /* SheetContentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D66D2FBD99D50045D456 /* SheetContentViewDelegate.swift */; };
-		E518D6812FBD99D60045D456 /* SheetSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D66E2FBD99D50045D456 /* SheetSize.swift */; };
-		E518D6822FBD99D60045D456 /* FittedSheets+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D66F2FBD99D50045D456 /* FittedSheets+UIViewController.swift */; };
-		E518D6832FBD99D60045D456 /* SheetOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6702FBD99D50045D456 /* SheetOptions.swift */; };
-		E518D6842FBD99D60045D456 /* SheetViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6712FBD99D50045D456 /* SheetViewDelegate.swift */; };
-		E518D6852FBD99D60045D456 /* SheetContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6722FBD99D50045D456 /* SheetContentViewController.swift */; };
-		E518D6862FBD99D60045D456 /* SheetTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6732FBD99D50045D456 /* SheetTransition.swift */; };
-		E518D6872FBD99D60045D456 /* Compatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6742FBD99D50045D456 /* Compatible.swift */; };
-		E518D6882FBD99D60045D456 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6752FBD99D50045D456 /* SheetView.swift */; };
-		E518D6892FBD99D60045D456 /* InitialTouchPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6762FBD99D50045D456 /* InitialTouchPanGestureRecognizer.swift */; };
-		E518D68A2FBD99D60045D456 /* Yalta.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6782FBD99D50045D456 /* Yalta.swift */; };
-		E518D68E2FBD99D60045D456 /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D67E2FBD99D50045D456 /* SheetViewController.swift */; };
-		E518D6902FBD9DA20045D456 /* FittedSheets+UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D68F2FBD9DA20045D456 /* FittedSheets+UIApplication.swift */; };
 		E518D6942FBDEF8E0045D456 /* CalendarTimelineDotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */; };
 		E518D6972FBEAB870045D456 /* CalendarEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6962FBEAB870045D456 /* CalendarEventProvider.swift */; };
 		E518D6992FBEAC450045D456 /* CalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6982FBEAC450045D456 /* CalendarRepository.swift */; };
@@ -2229,20 +2215,6 @@
 		E5186E402D93B140007AA074 /* todo_filter_myDay_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_myDay_36@3x.png"; sourceTree = "<group>"; };
 		E5186E412D93B140007AA074 /* todo_filter_progress_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_progress_36@2x.png"; sourceTree = "<group>"; };
 		E5186E422D93B141007AA074 /* todo_filter_progress_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_progress_36@3x.png"; sourceTree = "<group>"; };
-		E518D66C2FBD99D50045D456 /* FittedSheets+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FittedSheets+UIColor.swift"; sourceTree = "<group>"; };
-		E518D66D2FBD99D50045D456 /* SheetContentViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetContentViewDelegate.swift; sourceTree = "<group>"; };
-		E518D66E2FBD99D50045D456 /* SheetSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetSize.swift; sourceTree = "<group>"; };
-		E518D66F2FBD99D50045D456 /* FittedSheets+UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FittedSheets+UIViewController.swift"; sourceTree = "<group>"; };
-		E518D6702FBD99D50045D456 /* SheetOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetOptions.swift; sourceTree = "<group>"; };
-		E518D6712FBD99D50045D456 /* SheetViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetViewDelegate.swift; sourceTree = "<group>"; };
-		E518D6722FBD99D50045D456 /* SheetContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetContentViewController.swift; sourceTree = "<group>"; };
-		E518D6732FBD99D50045D456 /* SheetTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetTransition.swift; sourceTree = "<group>"; };
-		E518D6742FBD99D50045D456 /* Compatible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compatible.swift; sourceTree = "<group>"; };
-		E518D6752FBD99D50045D456 /* SheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
-		E518D6762FBD99D50045D456 /* InitialTouchPanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialTouchPanGestureRecognizer.swift; sourceTree = "<group>"; };
-		E518D6782FBD99D50045D456 /* Yalta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yalta.swift; sourceTree = "<group>"; };
-		E518D67E2FBD99D50045D456 /* SheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
-		E518D68F2FBD9DA20045D456 /* FittedSheets+UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FittedSheets+UIApplication.swift"; sourceTree = "<group>"; };
 		E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineDotIndicator.swift; sourceTree = "<group>"; };
 		E518D6962FBEAB870045D456 /* CalendarEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventProvider.swift; sourceTree = "<group>"; };
 		E518D6982FBEAC450045D456 /* CalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRepository.swift; sourceTree = "<group>"; };
@@ -4793,35 +4765,6 @@
 				E5168BD72F547C6F0000A760 /* HabitReminderEditSectionController.swift */,
 			);
 			path = Reminder;
-			sourceTree = "<group>";
-		};
-		E518D66B2FBD99D50045D456 /* FittedSheets */ = {
-			isa = PBXGroup;
-			children = (
-				E518D6912FBD9E890045D456 /* Extensions */,
-				E518D67E2FBD99D50045D456 /* SheetViewController.swift */,
-				E518D66D2FBD99D50045D456 /* SheetContentViewDelegate.swift */,
-				E518D66E2FBD99D50045D456 /* SheetSize.swift */,
-				E518D6702FBD99D50045D456 /* SheetOptions.swift */,
-				E518D6712FBD99D50045D456 /* SheetViewDelegate.swift */,
-				E518D6722FBD99D50045D456 /* SheetContentViewController.swift */,
-				E518D6732FBD99D50045D456 /* SheetTransition.swift */,
-				E518D6742FBD99D50045D456 /* Compatible.swift */,
-				E518D6752FBD99D50045D456 /* SheetView.swift */,
-				E518D6762FBD99D50045D456 /* InitialTouchPanGestureRecognizer.swift */,
-				E518D6782FBD99D50045D456 /* Yalta.swift */,
-			);
-			path = FittedSheets;
-			sourceTree = "<group>";
-		};
-		E518D6912FBD9E890045D456 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				E518D66F2FBD99D50045D456 /* FittedSheets+UIViewController.swift */,
-				E518D68F2FBD9DA20045D456 /* FittedSheets+UIApplication.swift */,
-				E518D66C2FBD99D50045D456 /* FittedSheets+UIColor.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E518D6922FBDEF4F0045D456 /* Indicator */ = {
@@ -7446,7 +7389,6 @@
 		E5BB9AF32D3BEF920089667A /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				E518D66B2FBD99D50045D456 /* FittedSheets */,
 				E507E7B62F5321B2003004C4 /* UICollectionViewLeftAlignedLayout */,
 				E5BB9AFB2D3BEF920089667A /* IGListDiff */,
 				E5BB9AF42D3BEF920089667A /* SAConfettiView */,
@@ -11147,7 +11089,6 @@
 				E500E3B42FC927C700252011 /* TodoTaskSelectView.swift in Sources */,
 				E50D60342F7A12B500D5E0A4 /* RepeatCustomViewController.swift in Sources */,
 				E51FF6592F57E970003CA953 /* HabitHomeWeekViewController.swift in Sources */,
-				E518D67F2FBD99D60045D456 /* FittedSheets+UIColor.swift in Sources */,
 				E5BB9E022D3BF0C60089667A /* Codable+Extensions.swift in Sources */,
 				E53B11592F94D26C00701410 /* TodoFilterRulePriorityEditSectionController.swift in Sources */,
 				E5F155302F839F7C00116091 /* TodoTask+Extensions.swift in Sources */,
@@ -11222,7 +11163,6 @@
 				E5BB9B492D3BEF920089667A /* UITextFieldExtension.swift in Sources */,
 				E5D7D7E42D43923800EC877A /* FocusTimerConfig.swift in Sources */,
 				E5BB9F002D3BF0C80089667A /* UIViewController+PopoverPresent.swift in Sources */,
-				E518D6812FBD99D60045D456 /* SheetSize.swift in Sources */,
 				E549B15C2F87CF820014BE85 /* TodoProgressEditViewController.swift in Sources */,
 				E5FC6BAC2F651CC800D5A5EA /* HabitStatsMainViewController.swift in Sources */,
 				E507E7B52F531A28003004C4 /* HabitUnitManageViewController.swift in Sources */,
@@ -11249,7 +11189,6 @@
 				E5D7D9352D43933700EC877A /* FocusHomeSearchResultViewController.swift in Sources */,
 				E53B11612F94F68700701410 /* TodoFilterManager.swift in Sources */,
 				E50D60442F7A12B500D5E0A4 /* RepeatAfterCompletionSectionController.swift in Sources */,
-				E518D6832FBD99D60045D456 /* SheetOptions.swift in Sources */,
 				E5BB9DBE2D3BF0C60089667A /* UIColorFunctions.swift in Sources */,
 				E5B33D362F809CCD00939C3E /* TodoListSelectPopoverView.swift in Sources */,
 				E5E9F7A52FC2B58300717004 /* TodoSearchResultViewController.swift in Sources */,
@@ -11393,7 +11332,6 @@
 				E505D9352F99B012004469DC /* TodoHomeHeaderSectionController.swift in Sources */,
 				E549B19F2F8A01AE0014BE85 /* TodoStepAddView.swift in Sources */,
 				E5D7D92F2D43933700EC877A /* FocusTimerSearchResultViewController.swift in Sources */,
-				E518D68A2FBD99D60045D456 /* Yalta.swift in Sources */,
 				E5D7D8DE2D43933600EC877A /* FocusFloatingTimerActionView.swift in Sources */,
 				E5FC918A2FBB05A000FC75C6 /* CalendarDayTimedEventsView.swift in Sources */,
 				E5BB9E852D3BF0C80089667A /* CurveChartView.swift in Sources */,
@@ -11509,7 +11447,6 @@
 				E5BB9E102D3BF0C70089667A /* TPNotificationAllowAccessViewController.swift in Sources */,
 				E563420E2F94C2A600E120BF /* TodoEditingFilter.swift in Sources */,
 				E50D60382F7A12B500D5E0A4 /* RepeatWeekdayOfMonthTableViewCell.swift in Sources */,
-				E518D6892FBD99D60045D456 /* InitialTouchPanGestureRecognizer.swift in Sources */,
 				E5BB9DC32D3BF0C60089667A /* EditType.swift in Sources */,
 				E5BB9EE32D3BF0C80089667A /* TPBarProgressView.swift in Sources */,
 				E50D606B2F7A1E6600D5E0A4 /* TodoList.swift in Sources */,
@@ -11527,7 +11464,6 @@
 				E5D7D8D52D43933600EC877A /* FocusEndSummarySectionController.swift in Sources */,
 				E500E3B82FC97F5D00252011 /* TodoTaskBindSearchResultSectionController.swift in Sources */,
 				E568B7D22F70C474007B7EFE /* CDFocusSession+Extensions.swift in Sources */,
-				E518D6852FBD99D60045D456 /* SheetContentViewController.swift in Sources */,
 				E5BB9D8A2D3BF0C60089667A /* ExtensionSwizzler.swift in Sources */,
 				E5BB9DA62D3BF0C60089667A /* TPImageButton.swift in Sources */,
 				E5B33D6F2F80EE0100939C3E /* TodoQuickAddProgressEditView.swift in Sources */,
@@ -11661,7 +11597,6 @@
 				E5CFD2752F58619300A898CB /* HabitTaskStatusSymbolProgressValueCell.swift in Sources */,
 				E5BB9F212D3BF2C20089667A /* AppLaunchViewContrtoller.swift in Sources */,
 				E556BCD92F5D9D3700CA20D9 /* CDHabitSample+Extensions.swift in Sources */,
-				E518D6872FBD99D60045D456 /* Compatible.swift in Sources */,
 				E549B1612F88D2940014BE85 /* TodoTaskPriorityButton.swift in Sources */,
 				E59243C82F4FFD6900CA2393 /* HabitMainViewController.swift in Sources */,
 				E5BB9B542D3BEF920089667A /* Action.swift in Sources */,
@@ -11731,7 +11666,6 @@
 				E56BAC752DCC56BB0013C6F6 /* FocusDatePageView.swift in Sources */,
 				E53B11392F94D1B300701410 /* TodoFilterProgressEditViewController.swift in Sources */,
 				E58F46C72F7B9DCC0046FA96 /* TodoUpdaterOption.swift in Sources */,
-				E518D6802FBD99D60045D456 /* SheetContentViewDelegate.swift in Sources */,
 				E55549612F76899B00C9460D /* SearchHighlightable.swift in Sources */,
 				E53632912FAB73C50095DFEC /* TodoFilterRule+Quadrant.swift in Sources */,
 				E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */,
@@ -11769,7 +11703,6 @@
 				E53632862FAB72C00095DFEC /* QuadrantFilterRuleEditViewController.swift in Sources */,
 				E53DCEED2F61AD7600ADA526 /* HabitDaySheetMenuViewController.swift in Sources */,
 				E5BB9EC22D3BF0C80089667A /* TPDurationPickerView.swift in Sources */,
-				E518D68E2FBD99D60045D456 /* SheetViewController.swift in Sources */,
 				E51B28ED2FA7782B006B3352 /* TodoTaskBoardViewController.swift in Sources */,
 				E5BB9E162D3BF0C70089667A /* HandyRecord+iCloud.swift in Sources */,
 				E5FC6BC62F66A44D00D5A5EA /* HabitStatsCalendarMonthView.swift in Sources */,
@@ -11793,7 +11726,6 @@
 				E55528182FB55D230093DD7E /* CalendarEventAlertEditViewController.swift in Sources */,
 				E5BB9DAA2D3BF0C60089667A /* FlipClockCardView.swift in Sources */,
 				E5BB9F152D3BF0C90089667A /* GlobalFunctions.swift in Sources */,
-				E518D6862FBD99D60045D456 /* SheetTransition.swift in Sources */,
 				E5FF12EB2D5DF6D600340DCC /* TPEmojiEditView.swift in Sources */,
 				E5B98CDC2D55076B00E78261 /* TPIconInfoTextValueTableCell.swift in Sources */,
 				E5BB9EE62D3BF0C80089667A /* TPBasePopoverView.swift in Sources */,
@@ -11815,7 +11747,6 @@
 				E524C7942F9E1619005CCEBD /* TodoTaskEditMenuView.swift in Sources */,
 				E58C9E1C2F4AF0DC0096B842 /* FocusTimelinePauseView.swift in Sources */,
 				E552FBB22DBD20A40072703F /* CalendarStripMoreTextLayer.swift in Sources */,
-				E518D6902FBD9DA20045D456 /* FittedSheets+UIApplication.swift in Sources */,
 				E5F155222F83681E00116091 /* TodoTaskCheckInfoView.swift in Sources */,
 				E5BB9DD22D3BF0C60089667A /* CGFloat+Extensions.swift in Sources */,
 				E5F1551D2F83681E00116091 /* TodoTaskCheckTableCell.swift in Sources */,
@@ -12127,7 +12058,6 @@
 				E5D7D8E62D43933600EC877A /* FocusSettingViewController.swift in Sources */,
 				E56342042F94829900E120BF /* TodoFilterViewModel.swift in Sources */,
 				E57CC5B32F7F621C00ADDBA4 /* TodoTagListInteractor.swift in Sources */,
-				E518D6822FBD99D60045D456 /* FittedSheets+UIViewController.swift in Sources */,
 				E5BB9E772D3BF0C70089667A /* StatsDotChartSectionController.swift in Sources */,
 				E5D7D9042D43933600EC877A /* WatchTickView.swift in Sources */,
 				E5BB9B502D3BEF920089667A /* ObjectExtension.swift in Sources */,
@@ -12152,7 +12082,6 @@
 				E536327F2FAB72C00095DFEC /* QuadrantTaskMoveController.swift in Sources */,
 				E5BB9B432D3BEF920089667A /* CGRectExtension.swift in Sources */,
 				E5BB9DFC2D3BF0C60089667A /* Array+Extensions.swift in Sources */,
-				E518D6842FBD99D60045D456 /* SheetViewDelegate.swift in Sources */,
 				E5320C412FCC2960001DFE98 /* CalendarEventListOptions.swift in Sources */,
 				E5BB9DA12D3BF0C60089667A /* TPDefaultButton.swift in Sources */,
 				E5D7D7ED2D43923800EC877A /* FocusSessionProcessorUpdater.swift in Sources */,
@@ -12234,7 +12163,6 @@
 				E500E3932FC5D7DD00252011 /* TodoStatsMonthlyViewController.swift in Sources */,
 				E529ACF42F7E48AD000EA2F1 /* TodoTagProcessorUpdater.swift in Sources */,
 				E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */,
-				E518D6882FBD99D60045D456 /* SheetView.swift in Sources */,
 				E5BB9F012D3BF0C80089667A /* UIViewController+CustomTransition.swift in Sources */,
 				E50D60642F7A186F00D5E0A4 /* TodoListNameEmojiEditCell.swift in Sources */,
 				E5BB9F072D3BF0C90089667A /* TPCollectionDragReorder.swift in Sources */,

@@ -32,25 +32,12 @@ class CalendarEventListHeaderView: UIView {
         view.subtitleConfig.textAlignment = .left
         return view
     }()
-
-    /// 添加按钮
-    private(set) lazy var addButton: TPDefaultButton = {
-        let button = TPDefaultButton()
-        button.padding = .zero
-        button.image = resGetImage("plus_24")
-        button.imageConfig.color = resGetColor(.title)
-        button.addTarget(self,
-                         action: #selector(clickAdd(_:)),
-                         for: .touchUpInside)
-        return button
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .systemBackground
         self.padding = UIEdgeInsets(horizontal: 16.0)
         addSubview(dateInfoView)
-        addSubview(addButton)
         addSeparator(position: .bottom)
     }
     
@@ -66,16 +53,8 @@ class CalendarEventListHeaderView: UIView {
         dateInfoView.height = layoutFrame.height
         dateInfoView.left = layoutFrame.minX
         dateInfoView.top = layoutFrame.minY
-        
-        addButton.size = .size(8)
-        addButton.right = layoutFrame.maxX
-        addButton.centerY = layoutFrame.midY
     }
     
-    @objc func clickAdd(_ button: UIButton) {
-        didClickAdd?()
-    }
-
     func updateDateInfo() {
         dateInfoView.title = date?.yearMonthDayString(omitYear: true, showRelativeDate: false)
         dateInfoView.subtitle = date?.weekdaySymbol(style: .full)

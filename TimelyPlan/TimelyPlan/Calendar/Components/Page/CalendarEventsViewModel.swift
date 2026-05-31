@@ -21,7 +21,16 @@ class CalendarEventsViewModel: CalendarEventChangeDelegate {
     
     private let repository: CalendarRepository
     
+    private(set) var state: TPListLoadingState = .initialLoading {
+        didSet {
+            self.placeholderProvider.state = state
+        }
+    }
+    
+    private(set) var placeholderProvider = TPLoadableListPlaceholderProvider()
+    
     init() {
+        self.placeholderProvider.state = state
         self.repository = CalendarRepository()
         self.repository.addUpdater(self)
     }

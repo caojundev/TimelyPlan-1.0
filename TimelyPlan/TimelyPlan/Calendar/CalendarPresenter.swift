@@ -19,21 +19,6 @@ class CalendarPresenter {
         }
         
         vc.show()
-        
-        
-        /*
-        var sheetOptions = SheetOptions()
-        sheetOptions.transitionDuration = 0.4
-        sheetOptions.transitionAnimationOptions = [.curveEaseInOut]
-        sheetOptions.shrinkPresentingViewController = false
-        let sheetController = SheetViewController(controller: controller,
-                                                  sizes: [.percent(0.4), .percent(0.8)],
-                                                  options: sheetOptions)
-        sheetController.cornerCurve = .continuous
-        sheetController.gripColor = Color(light: 0x000000, dark: 0xFFFFFF, alpha: 0.2)
-        sheetController.cornerRadius = 16.0
-        sheetController.show()
-         */
     }
     
     static func showSetting() {

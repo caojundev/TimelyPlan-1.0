@@ -29,10 +29,6 @@ class CalendarEventListViewController: TPViewController,
     
     private lazy var headerView: CalendarEventListHeaderView = {
         let view = CalendarEventListHeaderView()
-        view.didClickAdd = { [weak self] in
-            
-        }
-        
         return view
     }()
     
@@ -55,6 +51,11 @@ class CalendarEventListViewController: TPViewController,
         super.viewDidLoad()
         headerView.date = options.date
         view.addSubview(headerView)
+        
+        let placeholderProvider = eventsViewModel.placeholderProvider
+        placeholderProvider.emptyTitle = resGetString("No Events")
+        placeholderProvider.emptyImage = resGetImage("todo_smartlist_today_80")
+        listView.placeholderProvider = placeholderProvider
         view.addSubview(listView)
         eventsViewModel.onEventsChanged = { [weak self] in
             self?.eventsChanged()
@@ -64,9 +65,11 @@ class CalendarEventListViewController: TPViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         eventsViewModel.loadEvents(in: options.dateRange)
+        print(#function)
     }
     
     override func viewWillLayoutSubviews() {
+        print(#function)
         super.viewWillLayoutSubviews()
         let layoutFrame = view.bounds.inset(by: UIEdgeInsets(top: 20.0))
         headerView.width = layoutFrame.width
