@@ -46,11 +46,13 @@ class CalendarEventsViewModel: CalendarEventChangeDelegate {
     func loadEvents(in range: DateInterval) {
         self.range = range
         let requestID = requestManager.executeRequest()
+        self.state = .loading
         repository.fetchEvents(in: range) { [weak self] events in
             guard let self = self, self.requestManager.shouldProceed(with: requestID) else {
                 return
             }
             
+            self.state = .loaded
             self.events = events
             self.onEventsChanged?()
         }

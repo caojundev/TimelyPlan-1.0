@@ -89,6 +89,29 @@ class CalendarEvent: NSObject {
     var dateRange: DateInterval {
         return DateInterval(start: startDate, end: endDate)
     }
+    
+    /// 是否横跨多天
+    var spansMultipleDays: Bool {
+        let count = Date.days(fromDate: startDate, toDate: endDate)
+        if count == 0 {
+            return false
+        }
+        
+        return true
+    }
+    
+    /// 横跨天数
+    var spanDays: Int {
+        let count = Date.days(fromDate: startDate, toDate: endDate)
+        return count + 1
+    }
+    
+    /// 获取特定日期在某个时间范围内横跨的第几天
+    func getDayIndex(targetDate: Date) -> Int {
+        let index = Date.days(fromDate: startDate, toDate: targetDate)
+        return index
+    }
+
 }
 
 extension CalendarEvent {

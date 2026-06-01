@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
-class TPLabel: UILabel {
+protocol TPSelectable {
+    
+    var isSelected: Bool {get set}
+}
+
+class TPLabel: UILabel, TPSelectable {
 
     /// 是否为选中状态
     var isSelected: Bool = false {
@@ -45,7 +50,7 @@ class TPLabel: UILabel {
     }
 }
 
-extension TPLabel {
+extension UILabel {
     
     /// 应用配置（样式 + 内容）
     func updateConfig(_ config: TPLabelConfig) {
@@ -61,7 +66,7 @@ extension TPLabel {
         var textColor: UIColor?
         if isHighlighted {
             textColor = config.highlightedTextColor
-        } else if isSelected {
+        } else if let label = self as? TPSelectable, label.isSelected {
             textColor = config.selectedTextColor
         }
         

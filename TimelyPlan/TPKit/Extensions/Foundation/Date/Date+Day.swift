@@ -14,15 +14,20 @@ extension Date {
         return Date().startOfDay()
     }
     
+    /// 判断当前日期是否为当天的 00:00:00
+    var isStartOfDay: Bool {
+        return self == self.startOfDay()
+    }
+    
     /// 日期所在日开始日期（00:00:00）
     func startOfDay() -> Date {
-        let unitFlags: Set<Calendar.Component> = [.year, .month, .day]
-        let calendar = Calendar.current
-        let components = calendar.dateComponents(unitFlags, from: self)
-        let date = calendar.date(from: components)!
-        return date
+        return Calendar.current.startOfDay(for: self)
     }
-
+    
+    var isEndOfDay: Bool {
+        return self == self.endOfDay()
+    }
+    
     /// 日期所在日结束日期（23:59:59）
     func endOfDay() -> Date {
         let unitFlags: Set<Calendar.Component> = [.year, .month, .day]

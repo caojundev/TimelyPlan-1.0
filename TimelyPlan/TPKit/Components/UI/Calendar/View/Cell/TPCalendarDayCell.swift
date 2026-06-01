@@ -95,7 +95,7 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
         CATransaction.setDisableActions(true)
         let isPastDate = dayDateComponents?.isPastDate ?? false
         
-        let highlightedBackgroundColor = isPastDate ? Color(0xFF544A) : tintColor
+        let highlightedBackgroundColor = isPastDate ? Color(0xFF544A) : .primary
         var highlightedTextColor: UIColor? = highlightedBackgroundColor
         
         var backgroundColor: UIColor? = .clear
@@ -119,7 +119,7 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
             highlightedTextColor = selectedTitleColor
         } else if isToday {
             backgroundColor = .clear
-            selectedBackgroundColor = tintColor.withAlphaComponent(0.1)
+            selectedBackgroundColor = .primary.withAlphaComponent(0.1)
             titleColor = tintColor
             selectedTitleColor = tintColor.darkerColor
             subtitleColor = titleColor
@@ -127,7 +127,7 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
         } else {
             /// 高亮
             backgroundColor = .clear
-            selectedBackgroundColor = highlightedBackgroundColor?.withAlphaComponent(0.1)
+            selectedBackgroundColor = highlightedBackgroundColor.withAlphaComponent(0.1)
             selectedTitleColor = highlightedTextColor
             selectedSubtitleColor = highlightedTextColor
         }

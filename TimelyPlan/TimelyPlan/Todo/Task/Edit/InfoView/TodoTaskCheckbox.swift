@@ -20,7 +20,7 @@ struct TodoTaskCheckboxConfig: Equatable {
     
     static var normal: TodoTaskCheckboxConfig {
         return TodoTaskCheckboxConfig(size: .size(5),
-                                      cornerRadius: 5.0,
+                                      cornerRadius: 6.0,
                                       borderWidth: 2.0,
                                       checkmarkLineWidth: 3.0)
     }

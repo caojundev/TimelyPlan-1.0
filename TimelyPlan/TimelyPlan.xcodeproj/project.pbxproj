@@ -417,6 +417,7 @@
 		E5320C452FCC37E8001DFE98 /* CalendarEventGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C442FCC37E7001DFE98 /* CalendarEventGroup.swift */; };
 		E5320C472FCC3DAF001DFE98 /* CalendarEventListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C462FCC3DAE001DFE98 /* CalendarEventListCell.swift */; };
 		E5320C492FCC667A001DFE98 /* CalendarEventListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C482FCC667A001DFE98 /* CalendarEventListHeaderView.swift */; };
+		E5320C4B2FCD122E001DFE98 /* CalendarEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C4A2FCD122D001DFE98 /* CalendarEventInfoView.swift */; };
 		E5347FF52F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */; };
 		E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */; };
 		E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */; };
@@ -2358,6 +2359,7 @@
 		E5320C442FCC37E7001DFE98 /* CalendarEventGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventGroup.swift; sourceTree = "<group>"; };
 		E5320C462FCC3DAE001DFE98 /* CalendarEventListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventListCell.swift; sourceTree = "<group>"; };
 		E5320C482FCC667A001DFE98 /* CalendarEventListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventListHeaderView.swift; sourceTree = "<group>"; };
+		E5320C4A2FCD122D001DFE98 /* CalendarEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventInfoView.swift; sourceTree = "<group>"; };
 		E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordLogEditViewController.swift; sourceTree = "<group>"; };
 		E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitReasonTagEditViewController.swift; sourceTree = "<group>"; };
 		E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPEmojiTitleEditAlertController.swift; sourceTree = "<group>"; };
@@ -4062,6 +4064,7 @@
 				E5320C402FCC2960001DFE98 /* CalendarEventListOptions.swift */,
 				E500E3AE2FC8690C00252011 /* CalendarEventListViewController.swift */,
 				E5320C462FCC3DAE001DFE98 /* CalendarEventListCell.swift */,
+				E5320C4A2FCD122D001DFE98 /* CalendarEventInfoView.swift */,
 				E5320C482FCC667A001DFE98 /* CalendarEventListHeaderView.swift */,
 			);
 			path = EventList;
@@ -11262,6 +11265,7 @@
 				E5BB9EBB2D3BF0C80089667A /* TPTimePickerViewController.swift in Sources */,
 				E5FC6BB22F6553B100D5A5EA /* HabitStatsMonthlyViewController.swift in Sources */,
 				E50D60322F7A12B500D5E0A4 /* RepeatEnd.swift in Sources */,
+				E5320C4B2FCD122E001DFE98 /* CalendarEventInfoView.swift in Sources */,
 				E50FF8B62F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift in Sources */,
 				E5D7D8D12D43933600EC877A /* FocusRecordTimelineBar.swift in Sources */,
 				E51A4C2B2DC261E8005A0E3F /* CalendarModeBarButtonItem.swift in Sources */,

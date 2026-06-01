@@ -113,6 +113,10 @@ struct ChartAxis {
     
     static func yAxisWithGuideline(chartMarks: [ChartMark],
                                    titleOfValue: ((CGFloat)-> String?)? = nil) -> ChartAxis {
+        guard chartMarks.count > 0 else {
+            return .emptyYAxis()
+        }
+        
         var axis = yAxis(chartMarks: chartMarks, titleOfValue: titleOfValue)
         axis.labelStyle.numberOfLines = 1
         let values = axis.labelMarks.map{ return $0.value}

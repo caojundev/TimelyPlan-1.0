@@ -145,13 +145,13 @@ class TPInfoView: UIView {
     }
     
     /// 标题标签
-    private(set) lazy var titleLabel: TPLabel = {
+    lazy var titleLabel: UILabel = {
         let label = TPLabel()
         return label
     }()
     
     /// 副标题标签
-    private(set) lazy var subtitleLabel: TPLabel = {
+    lazy var subtitleLabel: UILabel = {
         let label = TPLabel()
         return label
     }()
@@ -173,11 +173,17 @@ class TPInfoView: UIView {
 
     private func applyConfig() {
         titleLabel.isHighlighted = isHighlighted
-        titleLabel.isSelected = isSelected
+        if var titleLabel = titleLabel as? TPSelectable {
+            titleLabel.isSelected = isSelected
+        }
+        
         titleLabel.updateConfig(titleConfig)
     
         subtitleLabel.isHighlighted = isHighlighted
-        subtitleLabel.isSelected = isSelected
+        if var subtitleLabel = subtitleLabel as? TPSelectable {
+            subtitleLabel.isSelected = isSelected
+        }
+        
         subtitleLabel.updateConfig(subtitleConfig)
     }
     
@@ -242,7 +248,6 @@ class TPInfoView: UIView {
         
     }
     
-
     /// 标签布局
     func labelLayoutFrame() -> CGRect {
         let layoutFrame = layoutFrame()

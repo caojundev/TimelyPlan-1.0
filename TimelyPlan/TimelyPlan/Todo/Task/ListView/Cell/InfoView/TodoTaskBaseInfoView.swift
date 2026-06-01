@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class TodoTaskBaseInfoView: UIView {
-    
+
     /// 任务名称
     var name: String? {
         get {

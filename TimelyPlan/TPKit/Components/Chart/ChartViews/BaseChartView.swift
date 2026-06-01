@@ -23,13 +23,16 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
         return chartItem.xAxis
     }
     
-    var stepWidth: CGFloat {
-        return canvasFrame.width / CGFloat(xAxis.stepsCount)
-    }
-    
     var yAxis: ChartAxis {
         return chartItem.yAxis
     }
+    
+    var stepWidth: CGFloat {
+        let width = contentView.frame.width / CGFloat(xAxis.stepsCount)
+        return max(width, minimumStepWidth)
+    }
+    
+    var minimumStepWidth: CGFloat = 20.0
     
     /// 画布视图
     let canvasView = UIView()
@@ -47,10 +50,15 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
     private(set) lazy var contentView: UIScrollView = {
         let view = UIScrollView()
         view.clipsToBounds = false
+        view.bounces = false
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
+        contentMask.backgroundColor = UIColor.black.cgColor
+        view.layer.mask = contentMask
         return view
     }()
+    
+    private let contentMask = CALayer()
     
     // MARK: - 手势
     /// 平移手势
@@ -94,8 +102,8 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
         super.init(frame: frame)
         self.backgroundColor = .clear
         self.clipsToBounds = false
-        self.addSubview(self.yLabelsView)
         self.addSubview(self.contentView)
+        self.addSubview(self.yLabelsView)
         self.addSubview(self.placeholderView)
         self.contentView.addSubview(self.guidelineView)
         self.contentView.addSubview(self.xLabelsView)
@@ -131,6 +139,13 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
             contentView.left = layoutFrame.minX
         }
         
+        executeWithoutAnimation {
+            contentMask.frame = CGRect(x: 0.0,
+                                       y: -contentView.height / 2.0,
+                                       width: contentView.width,
+                                       height: contentView.height * 2.0)
+        }
+
         /// 更新内容尺寸
         self.updateContentSize()
         canvasView.frame = canvasFrame
@@ -147,13 +162,14 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
 
     /// 更新内容尺寸
     func updateContentSize() {
-        contentView.contentSize = CGSize(width: contentView.frame.width,
+        contentView.contentSize = CGSize(width: canvasFrame.width,
                                          height: contentView.frame.height)
     }
     
     /// 绘制画布区域
     var canvasFrame: CGRect {
-        let w = max(contentView.contentSize.width, contentView.frame.width)
+        let contentWidth = stepWidth * CGFloat(xAxis.stepsCount)
+        let w = max(contentWidth, contentView.frame.width)
         let h = frame.height - chartItem.xAxisLabelHeight
         return CGRect(x: 0, y: 0, width: w, height: h)
     }

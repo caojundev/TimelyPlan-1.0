@@ -143,6 +143,7 @@ extension CDTodoTask: SortableIdentifiable {
         }
     
         for task in tasks {
+            order += kOrderedStep
             let cdTask = CDTodoTask.createEntity(in: .defaultContext)
             cdTask.identifier = UUID().uuidString
             cdTask.name = task.name
@@ -151,7 +152,7 @@ extension CDTodoTask: SortableIdentifiable {
             cdTask.completionDate = task.isCompleted ? currentDate : nil
             cdTask.creationDate = currentDate
             cdTask.modificationDate = currentDate
-            cdTask.order = order + kOrderedStep
+            cdTask.order = order
             cdList?.addToTasks(cdTask)
             createdTasks.append(cdTask)
         }

@@ -65,11 +65,9 @@ class CalendarEventListViewController: TPViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         eventsViewModel.loadEvents(in: options.dateRange)
-        print(#function)
     }
     
     override func viewWillLayoutSubviews() {
-        print(#function)
         super.viewWillLayoutSubviews()
         let layoutFrame = view.bounds.inset(by: UIEdgeInsets(top: 20.0))
         headerView.width = layoutFrame.width
@@ -96,7 +94,7 @@ class CalendarEventListViewController: TPViewController,
     }
     
     func groupTableView(_ tableView: TPGroupTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return 64.0
     }
     
     func groupTableView(_ tableView: TPGroupTableView, didDequeCell cell: UITableViewCell, at indexPath: IndexPath) {
@@ -106,6 +104,7 @@ class CalendarEventListViewController: TPViewController,
         }
         
         cell.style = cellStyle
+        cell.date = options.date
         cell.event = event
     }
     
@@ -114,6 +113,7 @@ class CalendarEventListViewController: TPViewController,
             return
         }
         
+        TPImpactFeedback.impactWithSoftStyle()
         eventProcessor.editEvent(event)
     }
     

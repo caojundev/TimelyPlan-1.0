@@ -177,8 +177,7 @@ extension HabitPeriodItem {
         for (_, record) in records {
             let status = status(with: record)
             if status != .notStarted {
-                let currentDays = infos[status] ?? 0
-                infos[status] = currentDays + 1
+                infos[status, default: 0] += 1
                 recordDays += 1
             }
         }
