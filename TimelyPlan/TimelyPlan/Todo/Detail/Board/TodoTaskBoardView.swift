@@ -300,16 +300,6 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
             pageView.updateCellContent(for: tasks)
         }
     }
-    
-    /// 根据特定标识对应的页面头视图
-    func updateTopView(for identifer: String) {
-        guard let groupInfo = groupInfo(for: identifer),
-              let cell = adapter.cellForItem(groupInfo.group) as? TodoTaskBoardCell else {
-            return
-        }
-        
-        cell.pageView.updateHeaderView()
-    }
 
     /// 更新选择标记和头尾视图
     private func updateCheckmarksAndSupplementaryViews() {

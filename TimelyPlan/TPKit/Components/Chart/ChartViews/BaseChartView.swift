@@ -32,7 +32,7 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
         return max(width, minimumStepWidth)
     }
     
-    var minimumStepWidth: CGFloat = 20.0
+    var minimumStepWidth: CGFloat = 15.0
     
     /// 画布视图
     let canvasView = UIView()
@@ -50,16 +50,11 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
     private(set) lazy var contentView: UIScrollView = {
         let view = UIScrollView()
         view.clipsToBounds = false
-        view.bounces = false
         view.showsVerticalScrollIndicator = false
         view.showsHorizontalScrollIndicator = false
-        contentMask.backgroundColor = UIColor.black.cgColor
-        view.layer.mask = contentMask
         return view
     }()
-    
-    private let contentMask = CALayer()
-    
+
     // MARK: - 手势
     /// 平移手势
     private lazy var panGesture: UIPanGestureRecognizer = {
@@ -76,6 +71,14 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
                                              action: #selector(handleTap(_:)))
         return gesture
     }()
+    
+    private func updatePanEnabled() {
+        if contentView.contentSize.width > contentView.width {
+            panGesture.isEnabled = false
+        } else {
+            panGesture.isEnabled = true
+        }
+    }
     
     // MARK: - 占位视图
     /// 是否为空白图表
@@ -139,15 +142,9 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
             contentView.left = layoutFrame.minX
         }
         
-        executeWithoutAnimation {
-            contentMask.frame = CGRect(x: 0.0,
-                                       y: -contentView.height / 2.0,
-                                       width: contentView.width,
-                                       height: contentView.height * 2.0)
-        }
-
         /// 更新内容尺寸
-        self.updateContentSize()
+        updateContentSize()
+        
         canvasView.frame = canvasFrame
         highlightView.frame = canvasView.frame
         guidelineView.frame = canvasView.frame
@@ -164,6 +161,7 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
     func updateContentSize() {
         contentView.contentSize = CGSize(width: canvasFrame.width,
                                          height: contentView.frame.height)
+        updatePanEnabled()
     }
     
     /// 绘制画布区域

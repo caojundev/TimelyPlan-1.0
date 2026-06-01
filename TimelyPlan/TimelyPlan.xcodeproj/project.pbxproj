@@ -418,6 +418,8 @@
 		E5320C472FCC3DAF001DFE98 /* CalendarEventListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C462FCC3DAE001DFE98 /* CalendarEventListCell.swift */; };
 		E5320C492FCC667A001DFE98 /* CalendarEventListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C482FCC667A001DFE98 /* CalendarEventListHeaderView.swift */; };
 		E5320C4B2FCD122E001DFE98 /* CalendarEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C4A2FCD122D001DFE98 /* CalendarEventInfoView.swift */; };
+		E5320C4D2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C4C2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift */; };
+		E5320C502FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C4F2FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift */; };
 		E5347FF52F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */; };
 		E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */; };
 		E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */; };
@@ -2360,6 +2362,8 @@
 		E5320C462FCC3DAE001DFE98 /* CalendarEventListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventListCell.swift; sourceTree = "<group>"; };
 		E5320C482FCC667A001DFE98 /* CalendarEventListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventListHeaderView.swift; sourceTree = "<group>"; };
 		E5320C4A2FCD122D001DFE98 /* CalendarEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventInfoView.swift; sourceTree = "<group>"; };
+		E5320C4C2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoardPageFlowLayout.swift; sourceTree = "<group>"; };
+		E5320C4F2FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskPageAddFooterView.swift; sourceTree = "<group>"; };
 		E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordLogEditViewController.swift; sourceTree = "<group>"; };
 		E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitReasonTagEditViewController.swift; sourceTree = "<group>"; };
 		E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPEmojiTitleEditAlertController.swift; sourceTree = "<group>"; };
@@ -4861,10 +4865,11 @@
 		E51B28F62FA77A07006B3352 /* Page */ = {
 			isa = PBXGroup;
 			children = (
+				E5320C4C2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift */,
 				E51B28F72FA77A07006B3352 /* TodoTaskPageView.swift */,
 				E51B28F82FA77A07006B3352 /* TodoTaskPageHeaderView.swift */,
-				E51B28FD2FA77A07006B3352 /* TodoTaskPageAddView.swift */,
 				E51B28FE2FA77A07006B3352 /* Header */,
+				E5320C4E2FCD7404001DFE98 /* Footer */,
 				E51B28F92FA77A07006B3352 /* Cell */,
 			);
 			path = Page;
@@ -5221,6 +5226,15 @@
 				E5320C342FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift */,
 			);
 			path = Task;
+			sourceTree = "<group>";
+		};
+		E5320C4E2FCD7404001DFE98 /* Footer */ = {
+			isa = PBXGroup;
+			children = (
+				E51B28FD2FA77A07006B3352 /* TodoTaskPageAddView.swift */,
+				E5320C4F2FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift */,
+			);
+			path = Footer;
 			sourceTree = "<group>";
 		};
 		E5347FF62F5FC31600CFBF26 /* ReasonTag */ = {
@@ -11525,6 +11539,7 @@
 				E500E39A2FC69C6800252011 /* TodoStatsCompletionTrend.swift in Sources */,
 				E531FDF52F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift in Sources */,
 				E5320C352FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift in Sources */,
+				E5320C4D2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift in Sources */,
 				E52EF62A2FB359D2002CF355 /* CalendarDayWeekView.swift in Sources */,
 				E5BB9E9D2D3BF0C80089667A /* ChartIntermediateValue.swift in Sources */,
 				E5D7D9152D43933700EC877A /* FocusStatsDailyViewController.swift in Sources */,
@@ -12186,6 +12201,7 @@
 				E5BB9E882D3BF0C80089667A /* RectangleChartMark.swift in Sources */,
 				E55528572FB86E020093DD7E /* CalendarDragDropManager.swift in Sources */,
 				E59E71652DB892C400744C68 /* CalendarMonthDayConfig.swift in Sources */,
+				E5320C502FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift in Sources */,
 				E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */,
 				E5BB9E042D3BF0C70089667A /* String+Extensions.swift in Sources */,
 				E5BB9D972D3BF0C60089667A /* TPCircularCheckboxInfoTableCell.swift in Sources */,
