@@ -417,7 +417,6 @@ extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
         }
 
         let pageView = cell.pageView
-        let shouldPerformUpdate = pageView.group?.identifier == group.identifier
         pageView.indexPath = indexPath
         pageView.selection = selection
         pageView.delegate = self
@@ -425,13 +424,7 @@ extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
         pageView.showDetail = showDetail
         pageView.group = group
         pageView.contentInset = contentInset
-        if shouldPerformUpdate {
-            pageView.performUpdate()
-            pageView.setSelecting(isSelecting)
-        } else {
-            pageView.reloadData(isSelecting: isSelecting)
-        }
-        
+        pageView.reloadData(isSelecting: isSelecting)
     }
 
     // MARK: - TodoTaskPageViewDelegate

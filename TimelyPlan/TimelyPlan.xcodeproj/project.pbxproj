@@ -307,8 +307,6 @@
 		E51B29042FA77A07006B3352 /* TodoTaskPageSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B28FB2FA77A07006B3352 /* TodoTaskPageSelectCell.swift */; };
 		E51B29052FA77A07006B3352 /* TodoTaskPageBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B28FC2FA77A07006B3352 /* TodoTaskPageBaseCell.swift */; };
 		E51B29062FA77A08006B3352 /* TodoTaskPageAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B28FD2FA77A07006B3352 /* TodoTaskPageAddView.swift */; };
-		E51B29072FA77A08006B3352 /* TodoTaskPageSelectingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B28FF2FA77A07006B3352 /* TodoTaskPageSelectingHeaderView.swift */; };
-		E51B29082FA77A08006B3352 /* TodoTaskPageSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B29002FA77A07006B3352 /* TodoTaskPageSectionHeaderView.swift */; };
 		E51B290B2FA780CF006B3352 /* TodoDetailContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B290A2FA780CF006B3352 /* TodoDetailContentViewController.swift */; };
 		E51DF20B2F84965100D6BCE3 /* TodoTrashTaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51DF20A2F84965100D6BCE3 /* TodoTrashTaskListViewController.swift */; };
 		E51DF20E2F84AF7B00D6BCE3 /* focus_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51DF20C2F84AF7A00D6BCE3 /* focus_24@3x.png */; };
@@ -2251,8 +2249,6 @@
 		E51B28FB2FA77A07006B3352 /* TodoTaskPageSelectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskPageSelectCell.swift; sourceTree = "<group>"; };
 		E51B28FC2FA77A07006B3352 /* TodoTaskPageBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskPageBaseCell.swift; sourceTree = "<group>"; };
 		E51B28FD2FA77A07006B3352 /* TodoTaskPageAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskPageAddView.swift; sourceTree = "<group>"; };
-		E51B28FF2FA77A07006B3352 /* TodoTaskPageSelectingHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskPageSelectingHeaderView.swift; sourceTree = "<group>"; };
-		E51B29002FA77A07006B3352 /* TodoTaskPageSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskPageSectionHeaderView.swift; sourceTree = "<group>"; };
 		E51B290A2FA780CF006B3352 /* TodoDetailContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailContentViewController.swift; sourceTree = "<group>"; };
 		E51DF20A2F84965100D6BCE3 /* TodoTrashTaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTrashTaskListViewController.swift; sourceTree = "<group>"; };
 		E51DF20C2F84AF7A00D6BCE3 /* focus_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_24@3x.png"; sourceTree = "<group>"; };
@@ -4865,10 +4861,9 @@
 		E51B28F62FA77A07006B3352 /* Page */ = {
 			isa = PBXGroup;
 			children = (
-				E5320C4C2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift */,
 				E51B28F72FA77A07006B3352 /* TodoTaskPageView.swift */,
+				E5320C4C2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift */,
 				E51B28F82FA77A07006B3352 /* TodoTaskPageHeaderView.swift */,
-				E51B28FE2FA77A07006B3352 /* Header */,
 				E5320C4E2FCD7404001DFE98 /* Footer */,
 				E51B28F92FA77A07006B3352 /* Cell */,
 			);
@@ -4883,15 +4878,6 @@
 				E51B28FC2FA77A07006B3352 /* TodoTaskPageBaseCell.swift */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		E51B28FE2FA77A07006B3352 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				E51B28FF2FA77A07006B3352 /* TodoTaskPageSelectingHeaderView.swift */,
-				E51B29002FA77A07006B3352 /* TodoTaskPageSectionHeaderView.swift */,
-			);
-			path = Header;
 			sourceTree = "<group>";
 		};
 		E51B29092FA7806E006B3352 /* Base */ = {
@@ -11209,7 +11195,6 @@
 				E5BB9DBE2D3BF0C60089667A /* UIColorFunctions.swift in Sources */,
 				E5B33D362F809CCD00939C3E /* TodoListSelectPopoverView.swift in Sources */,
 				E5E9F7A52FC2B58300717004 /* TodoSearchResultViewController.swift in Sources */,
-				E51B29082FA77A08006B3352 /* TodoTaskPageSectionHeaderView.swift in Sources */,
 				E5BB9DF72D3BF0C60089667A /* NSObject+WeakDelegates.swift in Sources */,
 				E500E3A32FC7CD0400252011 /* TodoStatsDelayedTagDistribution.swift in Sources */,
 				E536329E2FAB84150095DFEC /* TodoDateInfoEditor.swift in Sources */,
@@ -12148,7 +12133,6 @@
 				E541555D2F49A415000B2972 /* FocusRecordListCellBasicInfoView.swift in Sources */,
 				E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */,
 				E5B33D3C2F80B15E00939C3E /* TodoBaseListSelectViewController.swift in Sources */,
-				E51B29072FA77A08006B3352 /* TodoTaskPageSelectingHeaderView.swift in Sources */,
 				E5BB9EF32D3BF0C80089667A /* TPPageMenuRepresentable.swift in Sources */,
 				E5BB9EFA2D3BF0C80089667A /* TPSlideTransitioningDelegate.swift in Sources */,
 				E541554B2F499896000B2972 /* FocusRecordMoreBarButtonItem.swift in Sources */,
