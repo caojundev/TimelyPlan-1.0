@@ -67,6 +67,7 @@ class QuadrantView: UIView, QuadrantTitleViewDelegate {
     private lazy var listView: TodoTaskListView = {
         let showDetail = self.interactor.showDetail
         let view = TodoTaskListView(frame: .zero, style: .grouped, showDetail: showDetail)
+        view.hiddenHeaderHeight = 0.0
         view.backgroundColor = .secondarySystemGroupedBackground
         view.placeholderProvider = self.interactor.placeholderProvider
         view.shouldHideGroupHeader = true

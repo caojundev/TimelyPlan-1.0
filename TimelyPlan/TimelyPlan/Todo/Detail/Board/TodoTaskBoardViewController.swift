@@ -136,6 +136,7 @@ extension TodoTaskBoardViewController: TodoTaskBoardViewDelegate {
     
     func todoTaskBoardView(_ boardView: TodoTaskBoardView, didClickAddForGroup group: TodoGroup) {
         TPImpactFeedback.impactWithLightStyle()
+        
         if let draftTask = quickAddManager.draftTask {
             if !interactor.isQuickAddTask(draftTask, matches: group) {
                 quickAddManager.clearDraftTask()
@@ -203,7 +204,7 @@ extension TodoTaskBoardViewController: TodoTaskBoardDragInsertReorderDelegate {
                 return
         }
         
-        groupManager.drop(task, from: fromGroup, to: toGroup)
+        groupManager.insert(task, from: fromGroup, to: toGroup)
     }
     
     func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, canInsertItemTo targetIndexPath: PageIndexPath, from sourceIndexPath: PageIndexPath) -> Bool {

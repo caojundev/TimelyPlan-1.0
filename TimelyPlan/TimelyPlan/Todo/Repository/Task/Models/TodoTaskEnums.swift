@@ -22,6 +22,20 @@ enum TodoTaskStaus: String, TPMenuRepresentable {
     var identifier: String {
         return String(describing: TodoTaskStaus.self) + self.rawValue.capitalized
     }
+    
+    init?(identifier: String) {
+        let prefix = String(describing: TodoTaskStaus.self)
+        guard let valueStr = identifier.substring(after: prefix) else {
+            return nil
+        }
+        
+        if let status = TodoTaskStaus(rawValue: valueStr.lowercasingFirst()) {
+            self = status
+        } else {
+            return nil
+        }
+    }
+    
 }
 
 /// 开始日期类型
@@ -49,7 +63,6 @@ enum TodoTaskStartDateType: String, TPMenuRepresentable {
             return nil
         }
     }
-    
     
     /// 根据开始日期获取其类型
     static func type(of startDate: Date?) -> TodoTaskStartDateType {

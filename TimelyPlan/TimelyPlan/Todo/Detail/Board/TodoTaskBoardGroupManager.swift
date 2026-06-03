@@ -73,35 +73,82 @@ class TodoTaskBoardGroupManager {
         switch groupType {
         case .default:
             handleDefaultDrop(task, from: source, to: destination)
-        case .list:
-            handleListDrop(task, from: source, to: destination)
+        case .priority:
+            handlePriorityDrop(task, from: source, to: destination)
         case .startDate:
             handleStartDateDrop(task, from: source, to: destination)
         case .dueDate:
             handleDueDateDrop(task, from: source, to: destination)
-        case .priority:
-            handlePriorityDrop(task, from: source, to: destination)
+        case .list:
+            break
         case .none:
-            handleNoneDrop(task, from: source, to: destination)
+            break
         case .completionDate:
             break
         }
     }
 
     private func handleDefaultDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
-        // 处理默认分组的拖放逻辑
-    }
-
-    private func handleListDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
-        // 处理列表分组的拖放逻辑
+        guard let status = TodoTaskStaus(identifier: destination.identifier) else {
+            return
+        }
+        
+        let isCompleted = status == .completed
+        todo.updateTasks([task], isCompleted: isCompleted)
     }
 
     private func handleStartDateDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
-        // 处理开始日期分组的拖放逻辑
+        guard let dateType = TodoTaskStartDateType(identifier: destination.identifier) else {
+            return
+        }
+        
+        var newSchedule = TaskSchedule.schedule(for: dateType)
+        if let newDateInfo = newSchedule?.dateInfo,
+           let oldSchedule = task.schedule,
+           let oldDateInfo = oldSchedule.dateInfo {
+
+            /// 替换开始日期天
+            let editor: TodoDateInfoEditable
+            if oldDateInfo.style == .singleDay {
+                editor = TodoSingleDateInfoEditor(dateInfo: oldDateInfo)
+            } else {
+                editor = TodoMultiDateInfoEditor(dateInfo: oldDateInfo)
+            }
+
+            editor.setDate(newDateInfo.startDate, editType: .start)
+            newSchedule?.dateInfo = editor.dateInfo
+            newSchedule?.reminder = oldSchedule.reminder
+            newSchedule?.repeatRule = oldSchedule.repeatRule
+        }
+        
+        todo.updateTask(task, schedule: newSchedule)
     }
 
     private func handleDueDateDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
-        // 处理截止日期分组的拖放逻辑
+        guard let dateType = TodoTaskDueDateType(identifier: destination.identifier) else {
+            return
+        }
+        
+        var newSchedule = TaskSchedule.schedule(for: dateType)
+        if let newDateInfo = newSchedule?.dateInfo,
+           let oldSchedule = task.schedule,
+           let oldDateInfo = oldSchedule.dateInfo {
+
+            /// 替换开始日期天
+            let editor: TodoDateInfoEditable
+            if oldDateInfo.style == .singleDay {
+                editor = TodoSingleDateInfoEditor(dateInfo: oldDateInfo)
+            } else {
+                editor = TodoMultiDateInfoEditor(dateInfo: oldDateInfo)
+            }
+
+            editor.setDate(newDateInfo.endDate, editType: .end)
+            newSchedule?.dateInfo = editor.dateInfo
+            newSchedule?.reminder = oldSchedule.reminder
+            newSchedule?.repeatRule = oldSchedule.repeatRule
+        }
+        
+        todo.updateTask(task, schedule: newSchedule)
     }
 
     private func handlePriorityDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
@@ -109,11 +156,6 @@ class TodoTaskBoardGroupManager {
             todo.updateTasks([task], priority: priority)
         }
     }
-
-    private func handleNoneDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
-        // 处理无分组类型的拖放逻辑
-    }
-
 
     // MARK: - 辅助方法
 
