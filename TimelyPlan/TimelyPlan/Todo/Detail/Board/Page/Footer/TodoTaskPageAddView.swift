@@ -41,7 +41,7 @@ class TodoTaskPageAddView: UIView {
     }
     
     private func setupSubviews() {
-        self.padding = UIEdgeInsets(top: 8.0, left: 4.0, bottom: 4.0, right: 4.0)
+        self.padding = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 0.0, right: 4.0)
         addButton.scaleMaxLength = 8.0
         addButton.imageConfig.margins = UIEdgeInsets(value: 5.0)
         addButton.image = resGetImage("plus_24")

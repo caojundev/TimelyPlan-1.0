@@ -213,7 +213,7 @@ class TPCollectionWrapperView: UIView,
     
     /// 执行更新操作
     func performUpdate(with completion: ((Bool) -> Void)? = nil) {
-        adapter.performUpdate(with: completion)
+        adapter.performUpdate(completion: completion)
         updatePlaceholderView()
         endRefreshing()
     }

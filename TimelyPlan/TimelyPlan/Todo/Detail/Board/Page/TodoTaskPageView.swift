@@ -96,11 +96,18 @@ class TodoTaskPageView: UIView,
     private let layoutManager = TodoTaskLayoutManager()
        
     /// 脚视图高度
-    private let footerViewHeight = 64.0
+    private let footerViewHeight = 60.0
     
     /// 布局对象
-    private let collectionViewLayout = TodoBoardPageFlowLayout()
-
+    private lazy var collectionViewLayout: TodoBoardPageFlowLayout = {
+        let layout = TodoBoardPageFlowLayout()
+        layout.sectionCornerRadius = 16.0
+        layout.sectionDecorationVisible = false
+        layout.sectionColor = .primary
+        layout.sectionEdgeInsets = UIEdgeInsets(value: 4.0)
+        return layout
+    }()
+    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: bounds, collectionViewLayout: collectionViewLayout)
         collectionView.backgroundColor = .clear
@@ -403,7 +410,6 @@ class TodoTaskPageView: UIView,
             return
         }
         
-        footerView.backgroundColor = .systemGroupedBackground
         footerView.delegate = self
     }
     
@@ -565,7 +571,17 @@ extension TodoTaskPageView {
         return adapter.hasItem
     }
     
-    // MARK: - Indicator
+    // MARK: - 插入指示器
+    var isInsertionHighlighted: Bool {
+        return collectionViewLayout.sectionDecorationVisible
+    }
+    
+    func setInsertionHighlight(_ isHighlighted: Bool) {
+        if collectionViewLayout.sectionDecorationVisible != isHighlighted {
+            collectionViewLayout.sectionDecorationVisible = isHighlighted
+        }
+    }
+    
     func setupInsertIndicator() {
         if insertIndicatorView == nil {
             let view = TPDragInsertIndicatorView()

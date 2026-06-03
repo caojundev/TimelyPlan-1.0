@@ -30,9 +30,16 @@ protocol TodoTaskBoardDragInsertReorderDelegate: AnyObject {
 
     /// 索引处的单元格拖动排序将要开始，做一些预处理操作
     func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, willBeginAt indexPath: PageIndexPath)
+
+    /// 是否可以将源索引处条目插入特定页面
+    func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder,
+                                        canDropItemTo page: Int,
+                                        from sourceIndexPath: PageIndexPath) -> Bool
     
-    /// 拖动排序结束
-    func todoTaskBoardDragInsertReorderDidEnd(_ reorder: TodoTaskBoardDragInsertReorder)
+    /// 执行将源索引处条目插入到目标索引处
+    func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder,
+                                        dropItemTo page: Int,
+                                        from sourceIndexPath: PageIndexPath)
     
     /// 是否可以将源索引处条目插入到目标索引处
     func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder,
@@ -43,6 +50,18 @@ protocol TodoTaskBoardDragInsertReorderDelegate: AnyObject {
     func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder,
                                         inserItemTo targetIndexPath: PageIndexPath,
                                         from sourceIndexPath: PageIndexPath)
+    
+    
+    /// 拖动排序结束
+    func todoTaskBoardDragInsertReorderDidEnd(_ reorder: TodoTaskBoardDragInsertReorder)
+    
+}
+
+extension TodoTaskBoardDragInsertReorderDelegate {
+    func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, willBeginAt indexPath: PageIndexPath) {}
+    
+    
+    func todoTaskBoardDragInsertReorderDidEnd(_ reorder: TodoTaskBoardDragInsertReorder) {}
 }
 
 class TodoTaskBoardDragInsertReorder: NSObject,
@@ -189,15 +208,27 @@ class TodoTaskBoardDragInsertReorder: NSObject,
         pageAutoScroller.stopAutoScroll()
         update(with: point)
         
-        if let draggingIndexPath = draggingIndexPath, let targetIndexPath = targetIndexPath {
-            print("插入到 \(targetIndexPath)")
-            delegate?.todoTaskBoardDragInsertReorder(self, inserItemTo: targetIndexPath, from: draggingIndexPath)
+        var bReordered = false
+        if let sourceIndexPath = draggingIndexPath {
+           if let targetIndexPath = targetIndexPath {
+               bReordered = true
+               delegate?.todoTaskBoardDragInsertReorder(self,
+                                                        inserItemTo: targetIndexPath,
+                                                        from: sourceIndexPath)
+           } else if let page = boardView.page(at: point),
+                        page != sourceIndexPath.page,
+                        canDropItem(to: page) {
+               bReordered = true
+               delegate?.todoTaskBoardDragInsertReorder(self,
+                                                        dropItemTo: page,
+                                                        from: sourceIndexPath)
+           }
         }
         
-        if targetIndexPath == nil {
-            resetDraggingView(at: draggingIndexPath)
-        } else {
+        if bReordered {
             resetDraggingView(at: nil)
+        } else {
+            resetDraggingView(at: draggingIndexPath)
         }
         
         clearTargetAndHideIndicator()
@@ -206,9 +237,17 @@ class TodoTaskBoardDragInsertReorder: NSObject,
     // MARK: - Update
     func updateCurrentPageView(at point: CGPoint) {
         let pageView = boardView.pageView(at: point)
-        if currentPageView != pageView {
-            currentPageView?.hideInsertIndicator()
-            currentPageView = pageView
+        guard currentPageView != pageView else {
+            return
+        }
+        
+        currentPageView?.setInsertionHighlight(false)
+        currentPageView?.hideInsertIndicator()
+        currentPageView = pageView
+        
+        if let page = boardView.page(at: point) {
+            let isHighlighted = canDropItem(to: page)
+            pageView?.setInsertionHighlight(isHighlighted)
         }
     }
     
@@ -219,7 +258,9 @@ class TodoTaskBoardDragInsertReorder: NSObject,
             return
         }
         
-        guard let pageView = currentPageView, let page = pageView.indexPath?.item else {
+        guard let pageView = currentPageView,
+              let page = pageView.indexPath?.item,
+                pageView.isInsertionHighlighted else {
             return
         }
         
@@ -274,6 +315,8 @@ class TodoTaskBoardDragInsertReorder: NSObject,
     private func clearTargetAndHideIndicator() {
         targetIndexPath = nil
         currentPageView?.hideInsertIndicator()
+        currentPageView?.setInsertionHighlight(false)
+        currentPageView = nil
     }
     
     func resetDraggingIndexPath() {
@@ -393,11 +436,17 @@ class TodoTaskBoardDragInsertReorder: NSObject,
         return delegate?.todoTaskBoardDragInsertReorder(self, canMoveItemAt: indexPath) ?? false
     }
     
-    private func canInsertItem(to indexPath: PageIndexPath) -> Bool {
-        if draggingIndexPath == indexPath {
-            return true
+    private func canDropItem(to page: Int) -> Bool {
+        if let sourceIndexPath = draggingIndexPath, let delegate = delegate {
+            return delegate.todoTaskBoardDragInsertReorder(self,
+                                                            canDropItemTo: page,
+                                                            from: sourceIndexPath)
         }
-        
+
+        return false
+    }
+    
+    private func canInsertItem(to indexPath: PageIndexPath) -> Bool {
         if let sourceIndexPath = draggingIndexPath, let delegate = delegate {
             return delegate.todoTaskBoardDragInsertReorder(self,
                                                            canInsertItemTo: indexPath,

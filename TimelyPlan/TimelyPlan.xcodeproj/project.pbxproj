@@ -344,6 +344,7 @@
 		E524C79C2F9F499F005CCEBD /* todo_home_list_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C79A2F9F499F005CCEBD /* todo_home_list_24@3x.png */; };
 		E524C79F2F9FA04E005CCEBD /* todo_list_option_showDetail_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C79D2F9FA04D005CCEBD /* todo_list_option_showDetail_24@3x.png */; };
 		E524C7A02F9FA04E005CCEBD /* todo_list_option_showDetail_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C79E2F9FA04D005CCEBD /* todo_list_option_showDetail_24@2x.png */; };
+		E524D29D2FCEB330002791E5 /* TodoTaskBoardGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524D29C2FCEB330002791E5 /* TodoTaskBoardGroupManager.swift */; };
 		E52678542D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */; };
 		E52678562D4BD14300428500 /* TPSegmentedMenuTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */; };
 		E526D3F62F6B8EDF005C1DED /* HabitReportImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */; };
@@ -2286,6 +2287,7 @@
 		E524C79A2F9F499F005CCEBD /* todo_home_list_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_list_24@3x.png"; sourceTree = "<group>"; };
 		E524C79D2F9FA04D005CCEBD /* todo_list_option_showDetail_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_showDetail_24@3x.png"; sourceTree = "<group>"; };
 		E524C79E2F9FA04D005CCEBD /* todo_list_option_showDetail_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_showDetail_24@2x.png"; sourceTree = "<group>"; };
+		E524D29C2FCEB330002791E5 /* TodoTaskBoardGroupManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskBoardGroupManager.swift; sourceTree = "<group>"; };
 		E52678532D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPFullSizeSegmentedTableCell.swift; sourceTree = "<group>"; };
 		E52678552D4BD14300428500 /* TPSegmentedMenuTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSegmentedMenuTableCell.swift; sourceTree = "<group>"; };
 		E526D3F52F6B8EDF005C1DED /* HabitReportImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportImageCacher.swift; sourceTree = "<group>"; };
@@ -6372,6 +6374,7 @@
 			isa = PBXGroup;
 			children = (
 				E51B28EC2FA7782A006B3352 /* TodoTaskBoardViewController.swift */,
+				E524D29C2FCEB330002791E5 /* TodoTaskBoardGroupManager.swift */,
 				E51B28EE2FA778A6006B3352 /* TodoTaskBoardDragInsertReorder.swift */,
 				E51B28F02FA7791D006B3352 /* TodoTaskBoardView.swift */,
 				E51B28F22FA77969006B3352 /* TodoTaskBoardFlowLayout.swift */,
@@ -11991,6 +11994,7 @@
 				E5D7D8C92D43933600EC877A /* FocusTrackingViewController.swift in Sources */,
 				E5D7D8B82D43933600EC877A /* FocusRunningTopbar.swift in Sources */,
 				E5BB9E942D3BF0C80089667A /* PieVisual.swift in Sources */,
+				E524D29D2FCEB330002791E5 /* TodoTaskBoardGroupManager.swift in Sources */,
 				E56342142F94C2E300E120BF /* TodoFilterValue.swift in Sources */,
 				E5168BBA2F53EA430000A760 /* HabitUserUnitCell.swift in Sources */,
 				E58C9E172F4AF0DC0096B842 /* FocusTimelineView.swift in Sources */,

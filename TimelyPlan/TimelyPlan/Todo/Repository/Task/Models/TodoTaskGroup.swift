@@ -92,6 +92,14 @@ class TodoGroup: ListDiffable {
         return tasks[index]
     }
     
+    func index(of task: TodoTask) -> Int? {
+        guard let tasks = tasks, tasks.count > 0 else {
+            return nil
+        }
+
+        return tasks.indexOf(task)
+    }
+    
     // MARK: - ListDiffable
     func diffIdentifier() -> NSObjectProtocol {
         return identifier as NSString

@@ -20,7 +20,6 @@ class TodoTaskPageAddFooterView: UICollectionReusableView {
     weak var delegate: TodoTaskPageAddFooterViewDelegate?
    
     /// 添加视图
-    private let addViewHeight: CGFloat = 64.0
     private lazy var addView: TodoTaskPageAddView = {
         let view = TodoTaskPageAddView(frame: .zero)
         view.didClickAdd = { [weak self] in
@@ -47,9 +46,6 @@ class TodoTaskPageAddFooterView: UICollectionReusableView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        let layoutFrame = layoutFrame()
-        addView.width = layoutFrame.width
-        addView.height = addViewHeight
-        addView.center = layoutFrame.center
+        addView.frame = bounds
     }
 }

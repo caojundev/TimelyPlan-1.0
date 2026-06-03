@@ -24,7 +24,7 @@ class SideMenuViewController: TPTableViewController,
     weak var delegate: SideMenuViewControllerDelegate?
     
     /// 当前选中菜单类型
-    var selectedMenuType: SideMenuType = .focus
+    var selectedMenuType: SideMenuType = .todo
     
     /// 任务模块
     lazy var taskMenuItem: TPMenuItem = {

@@ -597,12 +597,8 @@ extension TPCollectionViewAdapter {
         collectionView.performBatchUpdates(nil, completion: nil)
     }
     
-    func performUpdate(updateVisibleItems: Bool = true) {
-        performUpdate(with: nil, updateVisibleItems: updateVisibleItems)
-    }
-    
-    func performUpdate(with completion: ((Bool) -> Void)?,
-                       updateVisibleItems: Bool = true) {
+    func performUpdate(updateVisibleItems: Bool = true,
+                       completion: ((Bool) -> Void)? = nil) {
         guard collectionView.window != nil, hasItem else {
             reloadData()
             completion?(true)

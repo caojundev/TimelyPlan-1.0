@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+
 class TodoTaskBoardViewController: TodoDetailContentViewController {
     
     /// 列表视图
@@ -23,11 +24,10 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
     
     private var reorder: TodoTaskBoardDragInsertReorder?
 
-    private let hiddenAddGroupIdentifiers = [TodoTaskDueDateType.overdue.identifier,
-                                             TodoTaskStaus.completed.identifier,
-                                             TodoGroupType.none.identifier]
+    private let groupManager: TodoTaskBoardGroupManager
     
     override init(interactor: TodoListInteractor) {
+        self.groupManager = TodoTaskBoardGroupManager(interactor: interactor)
         super.init(interactor: interactor)
         self.interactor.resetLoadingState()
     }
@@ -59,6 +59,13 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
         boardView.setContentInset(contentInset)
     }
     
+    // MARK: - 拖动排序
+    func setupBoardReorder() {
+        let reorder = TodoTaskBoardDragInsertReorder(boardView: boardView)
+        reorder.delegate = self
+        self.reorder = reorder
+    }
+
     // MARK: - 分组改变
     private func groupsChanged(_ change: TodoTaskListChange? = nil) {
         DispatchQueue.main.async {
@@ -70,14 +77,6 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
         }
     }
     
-    // MARK: - 拖动排序
-    func setupBoardReorder() {
-        let reorder = TodoTaskBoardDragInsertReorder(boardView: boardView)
-        reorder.delegate = self
-        self.reorder = reorder
-    }
-
-
     // MARK: - Override Base Methods
     override func toggleShowDetail() {
         super.toggleShowDetail()
@@ -132,11 +131,7 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
 extension TodoTaskBoardViewController: TodoTaskBoardViewDelegate {
     
     func todoTaskBoardView(_ boardView: TodoTaskBoardView, shouldShowAddForGroup group: TodoGroup) -> Bool {
-        if hiddenAddGroupIdentifiers.contains(group.identifier) {
-            return false
-        }
-        
-        return true
+        return groupManager.shouldShowAdd(for: group)
     }
     
     func todoTaskBoardView(_ boardView: TodoTaskBoardView, didClickAddForGroup group: TodoGroup) {
@@ -178,29 +173,57 @@ extension TodoTaskBoardViewController: TodoTaskBoardViewDelegate {
 }
 
 extension TodoTaskBoardViewController: TodoTaskBoardDragInsertReorderDelegate {
-    
+
     func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, canMoveItemAt indexPath: PageIndexPath) -> Bool {
         if isSelecting {
             return false
         }
         
-        return true
+        guard let group = boardView.group(at: indexPath.page) else {
+            return false
+        }
+        
+        return groupManager.canDrag(from: group)
+    }
+    
+    func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, canDropItemTo page: Int, from sourceIndexPath: PageIndexPath) -> Bool {
+        guard let task = boardView.task(at: sourceIndexPath),
+              let fromGroup = boardView.group(at: sourceIndexPath.page),
+              let toGroup = boardView.group(at: page) else {
+                return false
+        }
+        
+        return groupManager.canDrop(task, from: fromGroup, to: toGroup)
+    }
+    
+    func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, dropItemTo page: Int, from sourceIndexPath: PageIndexPath) {
+        guard let task = boardView.task(at: sourceIndexPath),
+              let fromGroup = boardView.group(at: sourceIndexPath.page),
+              let toGroup = boardView.group(at: page) else {
+                return
+        }
+        
+        groupManager.drop(task, from: fromGroup, to: toGroup)
     }
     
     func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, canInsertItemTo targetIndexPath: PageIndexPath, from sourceIndexPath: PageIndexPath) -> Bool {
-        return true
-    }
-    
-    func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, willBeginAt indexPath: PageIndexPath) {
-    
-    }
-    
-    func todoTaskBoardDragInsertReorderDidEnd(_ reorder: TodoTaskBoardDragInsertReorder) {
-    
+        guard let task = boardView.task(at: sourceIndexPath),
+              let fromGroup = boardView.group(at: sourceIndexPath.page),
+              let toGroup = boardView.group(at: targetIndexPath.page) else {
+                return false
+        }
+        
+        return groupManager.canInsert(task, from: fromGroup, to: toGroup, at: targetIndexPath.row)
     }
     
     func todoTaskBoardDragInsertReorder(_ reorder: TodoTaskBoardDragInsertReorder, inserItemTo targetIndexPath: PageIndexPath, from sourceIndexPath: PageIndexPath) {
+        guard let task = boardView.task(at: sourceIndexPath),
+              let fromGroup = boardView.group(at: sourceIndexPath.page),
+              let toGroup = boardView.group(at: targetIndexPath.page) else {
+                return
+        }
         
+        return groupManager.insert(task, from: fromGroup, to: toGroup, at: targetIndexPath.row)
     }
     
 }

@@ -271,10 +271,9 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
     /// 更新列表
     func performUpdate() {
         updatePlaceholderView()
-        adapter.performUpdate {[weak self] _ in
-            self?.forEachVisiblePageView { pageView in
-                pageView.performUpdate()
-            }
+        adapter.performUpdate(updateVisibleItems: false) {[weak self] _ in
+            guard let self = self else { return }
+            self.performUpdateForVisiblePages()
         }
     }
     
@@ -374,6 +373,25 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
             body(cell.pageView)
         }
     }
+    
+    /// 对可见页面执行批量更新
+    private func performUpdateForVisiblePages() {
+        let visibleIndexPaths = adapter.visibleIndexPaths()
+        guard visibleIndexPaths.count > 0 else {
+            return
+        }
+                
+        for visibleIndexPath in visibleIndexPaths {
+            guard let cell = adapter.cellForItem(at: visibleIndexPath) as? TodoTaskBoardCell,
+                  let group = adapter.item(at: visibleIndexPath) as? TodoGroup else {
+                return
+            }
+            
+            let pageView = cell.pageView
+            pageView.group = group
+            pageView.performUpdate()
+        }
+    }
 }
 
 extension TodoTaskBoardView: TPCollectionViewAdapterDataSource,
@@ -464,6 +482,15 @@ extension TodoTaskBoardView {
         return collectionView
     }
     
+    /// 获取页面分组
+    func group(at page: Int) -> TodoGroup? {
+        guard let groups = groups, page >= 0, page < groups.count else {
+            return nil
+        }
+    
+        return groups[page]
+    }
+    
     /// 获取对应索引处的页面
     func pageView(of page: Int) -> TodoTaskPageView? {
         let indexPath = IndexPath(item: page, section: 0)
@@ -485,6 +512,15 @@ extension TodoTaskBoardView {
         }
     
         return nil
+    }
+    
+    func page(at point: CGPoint) -> Int? {
+        let convertedPoint = self.convert(point, toViewOrWindow: collectionView)
+        guard let pageIndexPath = collectionView.indexPathForItem(at: convertedPoint) else {
+            return nil
+        }
+     
+        return pageIndexPath.item
     }
     
     func touchIndexPath(at point: CGPoint) -> PageIndexPath? {
@@ -538,6 +574,14 @@ extension TodoTaskBoardView {
         return cellForItem(at: pageIndexPath)
     }
     
+    func task(at indexPath: PageIndexPath) -> TodoTask? {
+        guard let group = group(at: indexPath.page) else {
+            return nil
+        }
+
+        return group.task(at: indexPath.row)
+    }
+        
     func pageIndexPath(of task: TodoTask) -> PageIndexPath? {
         guard let groups = self.groups else {
             return nil
