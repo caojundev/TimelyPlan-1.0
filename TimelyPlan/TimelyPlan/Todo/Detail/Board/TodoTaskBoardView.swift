@@ -261,6 +261,12 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         return false
     }
     
+    // MARK: - Scroll
+    
+    /// 滚动到指定页
+    func scrollToPage(_ page: Int, animated: Bool) {
+        collectionViewLayout.scrollToPage(page, animated: animated)
+    }
     
     // MARK: - Reload
     func reloadData() {

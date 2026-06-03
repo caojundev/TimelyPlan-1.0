@@ -207,10 +207,12 @@ class TodoTaskBoardDragInsertReorder: NSObject,
         pageAutoScroller.scrollView = nil
         pageAutoScroller.stopAutoScroll()
         update(with: point)
-        
+
+        var targetPage: Int?
         var bReordered = false
         if let sourceIndexPath = draggingIndexPath {
            if let targetIndexPath = targetIndexPath {
+               targetPage = targetIndexPath.page
                bReordered = true
                delegate?.todoTaskBoardDragInsertReorder(self,
                                                         inserItemTo: targetIndexPath,
@@ -218,13 +220,20 @@ class TodoTaskBoardDragInsertReorder: NSObject,
            } else if let page = boardView.page(at: point),
                         page != sourceIndexPath.page,
                         canDropItem(to: page) {
+               targetPage = page
                bReordered = true
                delegate?.todoTaskBoardDragInsertReorder(self,
                                                         dropItemTo: page,
                                                         from: sourceIndexPath)
+           } else {
+               targetPage = sourceIndexPath.page
            }
         }
         
+        if let targetPage = targetPage {
+            boardView.scrollToPage(targetPage, animated: true)
+        }
+
         if bReordered {
             resetDraggingView(at: nil)
         } else {

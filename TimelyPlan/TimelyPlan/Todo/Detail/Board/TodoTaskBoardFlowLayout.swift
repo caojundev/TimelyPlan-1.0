@@ -32,6 +32,21 @@ class TodoTaskBoardFlowLayout: UICollectionViewFlowLayout {
     /// iPad regular 模式下条目宽度
     private let regularItemWidth: CGFloat = 300.0
     
+    /// 滚动到指定页
+    /// - Parameters:
+    ///   - page: 目标页码（从0开始）
+    ///   - animated: 是否动画
+    func scrollToPage(_ page: Int, animated: Bool) {
+        guard isPagingEnabled, let collectionView = collectionView else {
+            return
+        }
+        
+        let maxPage = max(0, Int(ceil(collectionView.contentSize.width / pageWidth)) - 1)
+        let targetPage = max(0, min(page, maxPage))
+        let targetOffsetX = CGFloat(targetPage) * pageWidth - itemSpacing
+        collectionView.setContentOffset(CGPoint(x: targetOffsetX, y: collectionView.contentOffset.y), animated: animated)
+    }
+    
     /// 更新条目
     private func updateItemSize() {
         var itemWidth: CGFloat
@@ -52,6 +67,7 @@ class TodoTaskBoardFlowLayout: UICollectionViewFlowLayout {
         invalidateLayout()
     }
     
+
     override func prepare() {
         super.prepare()
         scrollDirection = .horizontal
