@@ -10,14 +10,16 @@ import Foundation
 extension Array {
     
     /// 移动对象从 fromIndex 索引处到 toIndex 索引处
-    mutating func moveObject(fromIndex:Int, toIndex:Int) {
+    @discardableResult
+    mutating func moveObject(fromIndex:Int, toIndex:Int) -> Bool {
         if fromIndex >= self.count || toIndex >= self.count {
-            return
+            return false
         }
         
         let obj = self[fromIndex]
         self.remove(at: fromIndex)
         self.insert(obj, at: toIndex)
+        return true
     }
     
     mutating func replaceElement(at index: Int, with newElement: Element) {

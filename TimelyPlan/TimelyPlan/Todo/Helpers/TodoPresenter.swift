@@ -9,6 +9,19 @@ import Foundation
 
 class TodoPresenter {
     
+    /// 显示板块管理
+    static func showSectionManage(for list: TodoList?) {
+        let vc = TodoSectionManageViewController(list: list)
+        let navController = UINavigationController(rootViewController: vc)
+        if let sheet = navController.sheetPresentationController {
+            sheet.prefersGrabberVisible = true // 显示顶部的小横条抓手
+            sheet.detents = [.medium(), .large()] // medium是半屏，large是全屏幕
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true // 滚动到底部/顶部时自动展开/收起
+        }
+        
+        navController.show()
+    }
+    
     /// 显示统计
     static func showStats(date: Date = .now) {
         let vc = TodoStatsMainViewController(type: .month, date: date)

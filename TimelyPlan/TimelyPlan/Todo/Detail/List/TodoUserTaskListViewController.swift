@@ -10,7 +10,7 @@ import Foundation
 class TodoUserTaskListViewController: TodoBaseTaskListViewController {
 
     override func performEditOption() {
-        guard let configuration = self.interactor.configuration as? TodoUserListConfiguration else {
+        guard let configuration = interactor.configuration as? TodoUserListConfiguration else {
             return
         }
         

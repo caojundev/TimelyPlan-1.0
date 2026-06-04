@@ -51,6 +51,14 @@ extension CDTodoList {
         task.order = order
         self.addToTasks(task)
     }
+    
+    /// 添加板块到列表
+    func addSection(_ section: CDTodoSection) {
+        let sections = sections?.allObjects as? [CDTodoSection]
+        let maxOrder = sections?.maxOrder ?? 0
+        section.order = maxOrder + kOrderedStep
+        self.addToSections(section)
+    }
 }
 
 extension CDTodoList: SortableIdentifiable {

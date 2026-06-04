@@ -12,6 +12,9 @@ class Todo {
     /// 用户列表管理器
     private let userListManager = TodoUserListManager()
     
+    /// 板块管理器
+    private let sectionManager = TodoSectionManager()
+    
     /// 标签管理器
     private let tagManager = TodoTagManager()
     
@@ -25,6 +28,10 @@ class Todo {
     func addUpdater(_ updater: AnyObject, for option: TodoUpdaterOption = .all) {
         if option.contains(.list) {
             userListManager.updater.addDelegate(updater)
+        }
+        
+        if option.contains(.section) {
+            sectionManager.updater.addDelegate(updater)
         }
         
         if option.contains(.tag) {
@@ -361,5 +368,32 @@ extension Todo {
             let dataItem = TodoStatsDataItem(period: period, tasks: tasks)
             completion(dataItem)
         }
+    }
+}
+
+// MARK: - 板块相关
+extension Todo {
+    
+    func getSections(for list: TodoList?) -> [TodoSection]? {
+        return sectionManager.getSections(for: list)
+    }
+    
+    func createSection(with name: String, in list: TodoList?) {
+        sectionManager.createSection(with: name, in: list)
+    }
+    
+    func updateSection(_ section: TodoSection, with name: String) {
+        sectionManager.updateSection(section, with: name)
+    }
+    
+    func deleteSection(_ section: TodoSection) {
+        sectionManager.deleteSection(section)
+    }
+
+    @discardableResult
+    func reorderSection(in sections: [TodoSection], fromIndex: Int, toIndex: Int) -> Bool {
+        return sectionManager.reorderSection(in: sections,
+                                             fromIndex: fromIndex,
+                                             toIndex: toIndex)
     }
 }

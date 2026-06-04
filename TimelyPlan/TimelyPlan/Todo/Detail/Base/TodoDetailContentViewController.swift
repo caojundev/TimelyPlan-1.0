@@ -501,7 +501,14 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     }
     
     func manageSection() {
-        
+        let configuration = interactor.configuration
+        if let configuration = configuration as? TodoUserListConfiguration {
+            /// 用户列表板块管理
+            TodoPresenter.showSectionManage(for: configuration.list)
+        } else if configuration is TodoUserListConfiguration {
+            /// 收件箱板块管理
+            TodoPresenter.showSectionManage(for: nil)
+        }
     }
     
     func importTask() {

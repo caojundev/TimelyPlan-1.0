@@ -26,6 +26,7 @@
 "W" = "周";
 "New Event" = "新事项";
 "New Events" = "新事项";
+"No Events" = "无事项";
 "Default Duration" = "默认时长";
 
 "View Options" = "视图选项";
@@ -138,8 +139,16 @@
 "Sort Order" = "顺序";
 "Show Completed" = "显示已完成";
 "Show Detail" = "显示详情";
-"Manage Section" = "管理分区";
+"Manage Section" = "管理板块";
 "Import Task" = "导入任务";
+
+/// 板块管理
+"Add Section" = "添加板块";
+"New Section" = "新建板块";
+"Edit Section" = "编辑板块";
+"Delete Section" = "删除板块";
+"Untitled Section" = "未命名板块";
+"No Sections" = "无板块";
 
 "Delete Task" = "删除任务";
 "Empty Trash" = "清空废纸篓";
