@@ -14,34 +14,14 @@ class TodoSectionManageSectionController: TPTableBaseSectionController,
     
     let viewModel: TodoSectionViewModel
     
+    let cellStyle = TPTableCellStyle()
+    
     init(viewModel: TodoSectionViewModel) {
         self.viewModel = viewModel
         super.init()
+        self.cellStyle.backgroundColor = .secondarySystemGroupedBackground
+        self.cellStyle.selectedBackgroundColor = .tertiarySystemFill
         self.sections = viewModel.sections
-        viewModel.onSectionsChanged = { [weak self] change in
-            self?.sectionsChanged(with: change)
-        }
-    }
-    
-    private func sectionsChanged(with change: TodoSectionChange?) {
-        DispatchQueue.main.async {
-            self.sections = self.viewModel.sections
-            guard let change = change else {
-                self.adapter?.performUpdate(with: .top, completion: nil)
-                return
-            }
-
-            var animateSection: TodoSection?
-            switch change {
-            case .create(let section), .update(let section):
-                animateSection = section
-            }
-
-            self.adapter?.performUpdate(with: .top, completion: nil)
-            if let animateSection = animateSection {
-                self.adapter?.revealItem(animateSection, at: .middle, autoScroll: true)
-            }
-        }
     }
     
     override var items: [ListDiffable]? {
@@ -57,16 +37,17 @@ class TodoSectionManageSectionController: TPTableBaseSectionController,
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
-        return TPDefaultInfoTableCell.self
+        return TodoSectionManageCell.self
     }
     
     override func didDequeCell(_ cell: UITableViewCell, forRowAt index: Int) {
-        guard let cell = cell as? TPDefaultInfoTableCell,
+        guard let cell = cell as? TodoSectionManageCell,
               let section = item(at: index) as? TodoSection else {
                   return
               }
         
-        cell.title = section.name
+        cell.style = cellStyle
+        cell.section = section
     }
     
     override func didSelectRow(at index: Int) {
@@ -117,6 +98,7 @@ class TodoSectionManageSectionController: TPTableBaseSectionController,
         vc.selectAllAtBeginning = false
         vc.textField.textAlignment = .left
         vc.textField.font = BOLD_SYSTEM_FONT
+        vc.textField.textColor = .label
         vc.show()
     }
     
@@ -132,6 +114,7 @@ class TodoSectionManageSectionController: TPTableBaseSectionController,
         vc.selectAllAtBeginning = false
         vc.textField.textAlignment = .left
         vc.textField.font = BOLD_SYSTEM_FONT
+        vc.textField.textColor = .label
         vc.show()
     }
     
@@ -169,11 +152,33 @@ class TodoSectionManageSectionController: TPTableBaseSectionController,
                                 inserRowTo targetIndexPath: IndexPath,
                                 from sourceIndexPath: IndexPath,
                                 depth: Int) -> IndexPath? {
+        guard targetIndexPath.row != sourceIndexPath.row else {
+            return nil
+        }
+        
         if viewModel.reorderSection(fromIndex: sourceIndexPath.row,
                                     toIndex: targetIndexPath.row) {
+            adapter?.moveRow(at: sourceIndexPath, to: targetIndexPath)
             return targetIndexPath
         }
         
         return sourceIndexPath
     }
+}
+
+class TodoSectionManageCell: TPImageInfoTableCell {
+    
+    var section: TodoSection? {
+        didSet {
+            self.title = section?.name ?? resGetString("Untitled Section")
+        }
+    }
+    
+    override func setupContentSubviews() {
+        super.setupContentSubviews()
+        self.imageConfig.shouldRenderImageWithColor = true
+        self.imageConfig.color = resGetColor(.title)
+        self.imageContent = .init(imageName: "todo_section_24")
+    }
+    
 }

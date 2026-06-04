@@ -412,12 +412,9 @@ extension TPTableViewAdapter {
     func performNilUpdate() {
         tableView.performBatchUpdates(nil, completion: nil)
     }
-    
-    func performUpdate(completion: ((Bool) -> Void)? = nil) {
-        performUpdate(with: .automatic, completion: completion)
-    }
         
-    func performUpdate(with rowAnimation: UITableView.RowAnimation, completion: ((Bool) -> Void)? = nil) {
+    func performUpdate(with rowAnimation: UITableView.RowAnimation = .automatic,
+                       completion: ((Bool) -> Void)? = nil) {
         guard tableView.window != nil, hasItem else {
             reloadData()
             completion?(true)

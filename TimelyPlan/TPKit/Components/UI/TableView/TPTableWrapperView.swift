@@ -191,10 +191,17 @@ class TPTableWrapperView: UIView, TPAnimatedContainerViewDelegate {
     }
     
     /// 执行更新操作
-    func performUpdate(with completion: ((Bool) -> Void)? = nil) {
-        adapter.performUpdate(completion: completion)
+    func performUpdate(with rowAnimation: UITableView.RowAnimation = .automatic,
+                       completion: ((Bool) -> Void)? = nil) {
+        adapter.performUpdate(with: rowAnimation, completion: completion)
         updatePlaceholderView()
         endRefreshing()
+    }
+    
+    func revealItem(_ item: ListDiffable,
+                    at scrollPosition: UITableView.ScrollPosition = .middle,
+                    autoScroll: Bool = true) {
+        adapter.revealItem(item, at: scrollPosition, autoScroll: autoScroll)
     }
     
     /// 外部配置TableView

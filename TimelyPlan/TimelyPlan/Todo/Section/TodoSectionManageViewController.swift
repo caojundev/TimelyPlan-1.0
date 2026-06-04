@@ -13,9 +13,7 @@ class TodoSectionManageViewController: TPTableSectionsViewController {
         let action = TPButtonAction(title:  resGetString("Add Section")) {  [weak self] action in
             self?.clickAddSection()
         }
-
-        action.style.backgroundColor = .greenPrimary
-        action.style.selectedBackgroundColor = .greenPrimary
+        
         return action
     }()
 
@@ -46,6 +44,10 @@ class TodoSectionManageViewController: TPTableSectionsViewController {
         setupActionsBar(actions: [addSectionAction])
         sectionControllers = [sectionController]
         reloadData()
+        viewModel.onSectionsChanged = { [weak self] change in
+            self?.sectionsChanged(with: change)
+        }
+        
         viewModel.loadSections()
     }
     
@@ -57,6 +59,27 @@ class TodoSectionManageViewController: TPTableSectionsViewController {
         return .systemGroupedBackground
     }
 
+    private func sectionsChanged(with change: TodoSectionChange?) {
+        DispatchQueue.main.async {
+            self.sectionController.sections = self.viewModel.sections
+            self.wrapperView.performUpdate(with: .top)
+            
+            guard let change = change else {
+                return
+            }
+
+            var animateSection: TodoSection?
+            switch change {
+            case .create(let section), .update(let section):
+                animateSection = section
+            }
+            
+            if let animateSection = animateSection {
+                self.wrapperView.revealItem(animateSection, at: .middle, autoScroll: true)
+            }
+        }
+    }
+    
     /// 初始化排序管理器
     private func setupReorder() {
         let reorder = TPTableDragInsertReorder(tableView: adapter.tableView)

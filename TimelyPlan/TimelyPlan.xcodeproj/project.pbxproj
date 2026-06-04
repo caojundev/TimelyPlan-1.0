@@ -1590,6 +1590,8 @@
 		E5C76BA92F74C0DD003FCCE3 /* focus_stats_group_timer_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C76BA52F74C0DD003FCCE3 /* focus_stats_group_timer_24@3x.png */; };
 		E5C92F4A2FD124220051F355 /* todo_section_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C92F482FD124210051F355 /* todo_section_80@2x.png */; };
 		E5C92F4B2FD124220051F355 /* todo_section_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C92F492FD124220051F355 /* todo_section_80@3x.png */; };
+		E5C92F4E2FD164FA0051F355 /* todo_section_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C92F4C2FD164F90051F355 /* todo_section_24@2x.png */; };
+		E5C92F4F2FD164FA0051F355 /* todo_section_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C92F4D2FD164F90051F355 /* todo_section_24@3x.png */; };
 		E5CAA9672D700ABD00A0539C /* todo_task_quadrant_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAA9632D700ABC00A0539C /* todo_task_quadrant_24@2x.png */; };
 		E5CAA9682D700ABD00A0539C /* todo_task_quadrant_fill_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAA9642D700ABC00A0539C /* todo_task_quadrant_fill_24@2x.png */; };
 		E5CAA9692D700ABD00A0539C /* todo_task_quadrant_fill_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CAA9652D700ABD00A0539C /* todo_task_quadrant_fill_24@3x.png */; };
@@ -3559,6 +3561,8 @@
 		E5C76BA52F74C0DD003FCCE3 /* focus_stats_group_timer_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_stats_group_timer_24@3x.png"; sourceTree = "<group>"; };
 		E5C92F482FD124210051F355 /* todo_section_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_section_80@2x.png"; sourceTree = "<group>"; };
 		E5C92F492FD124220051F355 /* todo_section_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_section_80@3x.png"; sourceTree = "<group>"; };
+		E5C92F4C2FD164F90051F355 /* todo_section_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_section_24@2x.png"; sourceTree = "<group>"; };
+		E5C92F4D2FD164F90051F355 /* todo_section_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_section_24@3x.png"; sourceTree = "<group>"; };
 		E5CAA9632D700ABC00A0539C /* todo_task_quadrant_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quadrant_24@2x.png"; sourceTree = "<group>"; };
 		E5CAA9642D700ABC00A0539C /* todo_task_quadrant_fill_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quadrant_fill_24@2x.png"; sourceTree = "<group>"; };
 		E5CAA9652D700ABD00A0539C /* todo_task_quadrant_fill_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quadrant_fill_24@3x.png"; sourceTree = "<group>"; };
@@ -9085,6 +9089,8 @@
 		E5C92F472FD124150051F355 /* section */ = {
 			isa = PBXGroup;
 			children = (
+				E5C92F4C2FD164F90051F355 /* todo_section_24@2x.png */,
+				E5C92F4D2FD164F90051F355 /* todo_section_24@3x.png */,
 				E5C92F482FD124210051F355 /* todo_section_80@2x.png */,
 				E5C92F492FD124220051F355 /* todo_section_80@3x.png */,
 			);
@@ -10797,6 +10803,7 @@
 				E5BB9ECE2D3BF0C80089667A /* Wheat02@2x.png in Resources */,
 				E50D94D82D45268B00F57957 /* chart_bar_24@2x.png in Resources */,
 				E55E78042D8ABB09005E3DED /* quadrant_option_edit_24@3x.png in Resources */,
+				E5C92F4F2FD164FA0051F355 /* todo_section_24@3x.png in Resources */,
 				E5C92F4B2FD124220051F355 /* todo_section_80@3x.png in Resources */,
 				E55E4BEF2F9336170068E032 /* calendar_27_24@3x.png in Resources */,
 				E56B94AF2F8FB56A001E488B /* todo_task_action_removeFromMyDay_24@2x.png in Resources */,
@@ -11023,6 +11030,7 @@
 				E5BB9A822D3BEF0D0089667A /* schedule_repeat_24@2x.png in Resources */,
 				E5CAA9682D700ABD00A0539C /* todo_task_quadrant_fill_24@2x.png in Resources */,
 				E55A7B9D2D463917000D224C /* bell_fill_16@2x.png in Resources */,
+				E5C92F4E2FD164FA0051F355 /* todo_section_24@2x.png in Resources */,
 				E500DE5C2DB09D4500EAEAF7 /* todo_filter_indicator_list_12@3x.png in Resources */,
 				E531FDF92F73EB1900067A0F /* archived_show_24@2x.png in Resources */,
 				E5BB9E482D3BF0C70089667A /* StepperNegative@2x.png in Resources */,

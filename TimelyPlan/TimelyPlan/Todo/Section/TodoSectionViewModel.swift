@@ -41,6 +41,7 @@ class TodoSectionViewModel: TodoSectionProcessorDelegate {
     
     init(list: TodoList?) {
         self.list = list
+        todo.addUpdater(self, for: [.section])
     }
     
     func createSection(with name: String) {
@@ -56,7 +57,12 @@ class TodoSectionViewModel: TodoSectionProcessorDelegate {
     }
     
     func reorderSection(fromIndex: Int, toIndex: Int) -> Bool {
-        return todo.reorderSection(in: sections, fromIndex: fromIndex, toIndex: toIndex)
+        guard todo.reorderSection(in: sections, fromIndex: fromIndex, toIndex: toIndex) else {
+            return false
+        }
+        
+        sections.moveObject(fromIndex: fromIndex, toIndex: toIndex)
+        return true
     }
     
     // MARK: -
@@ -93,11 +99,5 @@ class TodoSectionViewModel: TodoSectionProcessorDelegate {
     
     func didUpdateTodoSection(_ section: TodoSection, with name: String) {
         loadSections(with: .update(section))
-    }
-    
-    func didRecorderTodoSection(in sections: [TodoSection], fromIndex: Int, toIndex: Int) {
-        self.sections.moveObject(fromIndex: fromIndex, toIndex: toIndex)
-        self.sections.updateOrders()
-        onSectionsChanged?(nil)
     }
 }
