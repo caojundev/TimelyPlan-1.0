@@ -36,6 +36,13 @@ enum TodoSortType: String, Codable, TPMenuRepresentable {
             return resGetString(rawValue.capitalizedFirstLetter())
         }
     }
+    
+    static func completionDateExcluded() -> [TodoSortType] {
+        var types = TodoSortType.allCases
+        types.remove(.completionDate)
+        return types
+    }
+    
 }
 
 /// 排列顺序

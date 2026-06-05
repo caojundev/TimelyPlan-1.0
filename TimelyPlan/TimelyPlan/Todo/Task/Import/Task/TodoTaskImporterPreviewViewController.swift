@@ -17,6 +17,10 @@ class TodoTaskImporterPreviewViewController: TodoStepImporterPreviewViewControll
     override func navigationTitle() -> String? {
         return resGetString("Tasks Preview")
     }
+    
+    override func footerTitle() -> String? {
+        return resGetString("Tap to edit task or step")
+    }
 }
 
 class TodoTaskImporterStepEditSectionController: TodoImporterStepEditSectionController {

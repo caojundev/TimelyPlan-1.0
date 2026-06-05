@@ -96,6 +96,16 @@
 "List" = "列表";
 "Board" = "看板";
 
+/// 板块管理
+"Add Section" = "添加板块";
+"New Section" = "新建板块";
+"Edit Section" = "编辑板块";
+"Delete Section" = "删除板块";
+"Untitled Section" = "未命名板块";
+"No Sections" = "无板块";
+"Custom Section" = "自定义板块";
+"None Section" = "无板块";
+
 /// 标签
 "Search Tag" = "搜索标签";
 "Delete Tag" = "删除标签";
@@ -141,14 +151,6 @@
 "Show Detail" = "显示详情";
 "Manage Section" = "管理板块";
 "Import Task" = "导入任务";
-
-/// 板块管理
-"Add Section" = "添加板块";
-"New Section" = "新建板块";
-"Edit Section" = "编辑板块";
-"Delete Section" = "删除板块";
-"Untitled Section" = "未命名板块";
-"No Sections" = "无板块";
 
 "Delete Task" = "删除任务";
 "Empty Trash" = "清空废纸篓";
@@ -226,7 +228,9 @@
 "Preview" = "预览";
 "Steps Preview" = "步骤预览";
 "Tasks Preview" = "任务预览";
-"Tap to edit, hold and drag to reorder or change level" = "点击进行编辑，长按拖拽调整顺序和层级";
+"Tap to edit task or step" = "点击编辑任务或步骤";
+"Tap to edit step" = "点击编辑步骤";
+
 "Enter steps, one per line\nUse - [ ] or - [x] for status\nIndent with spaces for sub-steps" = "输入待办步骤，每行一项\n用 - [ ] 或 - [x] 标记状态\n空格缩进表示子步骤";
 "Enter tasks, one per line\nUse - [ ] or - [x] for status\nIndent with spaces for steps" = "输入待办任务，每行一项\n用 - [ ] 或 - [x] 标记任务状态\n空格缩进表示任务步骤";
 

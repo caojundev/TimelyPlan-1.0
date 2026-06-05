@@ -99,7 +99,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         case .myDay:
             return [.default, .startDate, .dueDate, .priority]
         case .inbox:
-            return [.default, .startDate, .dueDate, .priority, .none]
+            return [.default, .startDate, .dueDate, .priority, .custom, .none]
         case .completed:
             return [.completionDate]
         case .overdue, .today, .tomorrow, .upcoming:
@@ -112,9 +112,9 @@ class TodoSmartListConfiguration: TodoListConfiguration {
     override func allowSortTypes() -> [TodoSortType] {
         switch list.listType {
         case .myDay:
-            return [.creationDate, .modificationDate, .startDate, .dueDate]
+            return [.creationDate, .startDate, .dueDate]
         case .inbox:
-            return TodoSortType.allCases
+            return TodoSortType.completionDateExcluded()
         case .completed:
             return [.completionDate]
         case .overdue, .today, .tomorrow, .upcoming:

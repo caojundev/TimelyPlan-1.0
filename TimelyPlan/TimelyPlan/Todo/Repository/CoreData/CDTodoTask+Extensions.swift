@@ -57,6 +57,15 @@ extension CDTodoTask: SortableIdentifiable {
         return self.list?.feature
     }
     
+    /// 板块特征
+    var sectionFeature: TodoSectionFeature {
+        if let section = section {
+            return section.feature
+        } else {
+            return .none(for: list?.feature)
+        }
+    }
+    
     /// 用户标签
     var userTags: [TodoTag]? {
         guard let cdTags = self.tags as? Set<CDTodoTag> else {

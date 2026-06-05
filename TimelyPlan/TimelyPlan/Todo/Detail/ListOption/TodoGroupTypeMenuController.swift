@@ -22,7 +22,7 @@ class TodoGroupTypeMenuController: TPBaseMenuController<TodoGroupType> {
 
     override func orderedMenuActionTypeLists() -> [Array<TodoGroupType>] {
         var lists: [Array<TodoGroupType>]
-        lists = [[.default, .list, .startDate, .dueDate, .priority],
+        lists = [[.default, .list, .startDate, .dueDate, .priority, .custom],
                  [.none]]
         return lists
     }

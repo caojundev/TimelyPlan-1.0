@@ -93,6 +93,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
                 task.priority = priority
             }
         default:
+            #warning("自定义板块")
             break
         }
         
@@ -428,6 +429,8 @@ extension TodoListInteractor {
             return tasks.completionDateClassifiedTaskGroups()
         case .priority:
             return tasks.priorityClassifiedTaskGroups()
+        case .custom:
+            return tasks.customSectionClassifiedTaskGroups()
         }
     }
 }

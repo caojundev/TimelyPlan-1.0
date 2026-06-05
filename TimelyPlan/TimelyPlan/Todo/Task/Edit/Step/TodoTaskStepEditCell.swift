@@ -112,7 +112,7 @@ class TodoTaskStepEditCell: TPTextViewTableCell {
         let layer = TodoListBranchLayer()
         layer.indentationWidth = depthWidth
         layer.maxDepthWidth = layer.depthWidth
-        layer.maxDepth = kTodoStepMaxDepth
+        layer.maxDepth = TodoStep.allowMaxDepth
         layer.lineWidth = 2.0
         layer.strokeColor = UIColor.lightGray.cgColor
         return layer

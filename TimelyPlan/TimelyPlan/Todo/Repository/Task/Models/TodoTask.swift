@@ -16,7 +16,12 @@ import Foundation
     var order: Int64 = 0
     
     /// 列表
-    var list: TodoListFeature?
+    var list: TodoListFeature? {
+        return section.list
+    }
+    
+    /// 板块
+    var section: TodoSectionFeature
     
     /// 我的一天
     var isAddedToMyDay: Bool = false
@@ -56,7 +61,6 @@ import Foundation
         
         return nil
     }()
-    
     
     /// 任务计划
     var schedule: TaskSchedule? {
@@ -202,7 +206,7 @@ import Foundation
         self.name = content.name
         self.note = content.note
         self.priority = content.priority
-        self.list = content.listFeature
+        self.section = content.sectionFeature
         self.isCompleted = content.isCompleted
         self.isRemoved = content.isRemoved
         self.creationDate = content.creationDate

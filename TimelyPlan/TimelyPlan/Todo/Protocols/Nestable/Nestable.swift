@@ -101,7 +101,7 @@ extension Nestable {
     
     /// 所有嵌套子条目顺序数组
     func flattenOrderedSubItems(with stateProvier: ExpansionStateProviding?) -> [Nestable] {
-        guard self.depth < Self.allowMaxDepth, let subItems = orderedSubItems, subItems.count > 0 else {
+        guard let subItems = orderedSubItems, subItems.count > 0 else {
             return []
         }
         

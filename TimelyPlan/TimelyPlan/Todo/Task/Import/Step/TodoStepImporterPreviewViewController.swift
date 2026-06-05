@@ -38,7 +38,6 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
         title = navigationTitle()
         wrapperView.isKeyboardAdjusterEnabled = true /// 键盘自动调整开启
         tableView.keyboardDismissMode = .interactive
-        setupReorder()
         setupActionsBar(actions: [doneAction])
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         sectionControllers = [editSectionController]
@@ -50,7 +49,7 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
     }
 
     func footerTitle() -> String? {
-        return resGetString("Tap to edit, hold and drag to reorder or change level")
+        return resGetString("Tap to edit step")
     }
 
     override var themeBackgroundColor: UIColor? {
@@ -69,18 +68,6 @@ class TodoStepImporterPreviewViewController: TPTableSectionsViewController {
         
         completion?(steps)
         dismiss(animated: true, completion: nil)
-    }
-    
-    /// 排序管理器
-    private var reorder: TPTableDragInsertReorder?
-    
-    /// 初始化排序管理器
-    private func setupReorder() {
-        let reorder = TPTableDragInsertReorder(tableView: adapter.tableView)
-        reorder.indicatorBackColor = Color(0xFFFFFF, 0.1)
-        reorder.isEnabled = true
-        reorder.delegate = self.editSectionController
-        self.reorder = reorder
     }
     
 }

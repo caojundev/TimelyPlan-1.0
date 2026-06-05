@@ -53,3 +53,34 @@ class TodoSection: NSObject, SortableIdentifiable {
         return identifier
     }
 }
+
+struct TodoSectionFeature: Hashable, Sortable {
+    
+    let identifier: String
+    
+    let name: String?
+    
+    var order: Int64
+    
+    let list: TodoListFeature?
+    
+    var isNone: Bool {
+        return identifier == Self.noneIdentifier
+    }
+    
+    // MARK: - Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+    
+    /// 无板块标识
+    static let noneIdentifier = "none"
+    
+    /// 无板块特征值
+    static func none(for list: TodoListFeature?) -> TodoSectionFeature {
+        return TodoSectionFeature(identifier: noneIdentifier,
+                                  name: nil,
+                                  order: Int64.max,
+                                  list: list)
+    }
+}

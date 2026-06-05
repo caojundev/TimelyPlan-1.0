@@ -505,7 +505,7 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
         if let configuration = configuration as? TodoUserListConfiguration {
             /// 用户列表板块管理
             TodoPresenter.showSectionManage(for: configuration.list)
-        } else if configuration is TodoUserListConfiguration {
+        } else if configuration is TodoSmartListConfiguration {
             /// 收件箱板块管理
             TodoPresenter.showSectionManage(for: nil)
         }

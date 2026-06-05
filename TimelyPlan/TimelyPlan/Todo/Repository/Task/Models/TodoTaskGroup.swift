@@ -14,6 +14,7 @@ enum TodoGroupType: String, Codable, TPMenuRepresentable {
     case startDate  /// 开始日期
     case dueDate    /// 截止日期
     case priority   /// 优先级
+    case custom     /// 自定义板块
     case none       /// 无分组
     case completionDate /// 完成日期
     
@@ -23,6 +24,7 @@ enum TodoGroupType: String, Codable, TPMenuRepresentable {
                 "Start Date",
                 "Due Date",
                 "Priority",
+                "Custom Section",
                 "None Group",
                 "Completion Date"]
     }

@@ -79,6 +79,8 @@ class TodoTaskBoardGroupManager {
             handleStartDateDrop(task, from: source, to: destination)
         case .dueDate:
             handleDueDateDrop(task, from: source, to: destination)
+        case .custom:
+            handleCustomDrop(task, from: source, to: destination)
         case .list:
             break
         case .none:
@@ -157,6 +159,11 @@ class TodoTaskBoardGroupManager {
         }
     }
 
+    private func handleCustomDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
+        #warning("#待办")
+    }
+
+    
     // MARK: - 辅助方法
 
     /// 执行任务重新排序的完整逻辑

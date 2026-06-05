@@ -52,7 +52,7 @@ class TodoListConfiguration: Equatable, IdentifiableItem {
     
     /// 允许的分组类型
     func allowGroupTypes() -> [TodoGroupType] {
-        return TodoGroupType.allCases
+        return []
     }
     
     /// 首选排列顺序
@@ -62,7 +62,7 @@ class TodoListConfiguration: Equatable, IdentifiableItem {
     
     /// 允许的排序类型
     func allowSortTypes() -> [TodoSortType] {
-        return TodoSortType.allCases
+        return TodoSortType.completionDateExcluded()
     }
     
     /// 根据排序类型返回允许的排列顺序
@@ -162,11 +162,11 @@ class TodoUserListConfiguration: TodoListConfiguration {
     }
     
     override func allowGroupTypes() -> [TodoGroupType] {
-        return [.default, .startDate, .dueDate, .priority, .none]
+        return [.default, .startDate, .dueDate, .priority, .custom, .none]
     }
     
     override func allowSortTypes() -> [TodoSortType] {
-        return TodoSortType.allCases
+        return TodoSortType.completionDateExcluded()
     }
     
     override func allowSortOrders(for sortType: TodoSortType) -> [TodoSortOrder] {
@@ -217,7 +217,15 @@ class TodoTagListConfiguration: TodoListConfiguration {
     }
     
     override func allowListOptions() -> [TodoListOption]? {
-        return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .edit, .search]
+        return [.select, .showCompleted, .showDetail, .group, .sort, .edit, .search]
+    }
+    
+    override func allowGroupTypes() -> [TodoGroupType] {
+        return [.default, .startDate, .dueDate, .priority, .none]
+    }
+    
+    override func allowSortTypes() -> [TodoSortType] {
+        return TodoSortType.completionDateExcluded()
     }
     
     override func canAddTask() -> Bool {
@@ -256,7 +264,15 @@ class TodoFilterListConfiguration: TodoListConfiguration {
     }
     
     override func allowListOptions() -> [TodoListOption]? {
-        return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .edit, .search]
+        return [.select, .showCompleted, .showDetail, .group, .sort, .edit, .search]
+    }
+    
+    override func allowGroupTypes() -> [TodoGroupType] {
+        return [.default, .startDate, .dueDate, .priority, .none]
+    }
+    
+    override func allowSortTypes() -> [TodoSortType] {
+        return TodoSortType.completionDateExcluded()
     }
     
     override func canAddTask() -> Bool {

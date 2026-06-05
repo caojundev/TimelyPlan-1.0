@@ -159,7 +159,25 @@ extension Array where Element == TodoTask {
         return groups
     }
     
+    /// 按自定义板块归类分组
+    func customSectionClassifiedTaskGroups() -> [TodoGroup] {
+        let dic = customSectionClassifiedTasks()
+        let orderedSectionTasks = dic.sorted {
+            return $0.key.order < $1.key.order
+        }
+        
+        var groups = [TodoGroup]()
+        for sectionTasks in orderedSectionTasks {
+            let section = sectionTasks.key
+            let group = TodoGroup(identifier: section.identifier)
+            group.title = section.name ?? resGetString("None Section")
+            group.tasks = sectionTasks.value
+            groups.append(group)
+        }
     
+        return groups
+    }
+
     // MARK: - 归类任务字典
     
     // 将任务按列表归类并存储在字典中
@@ -249,6 +267,16 @@ extension Array where Element == TodoTask {
         
         for task in self {
             tasks[task.priority]?.append(task)
+        }
+        
+        return tasks
+    }
+    
+    /// 将待办任务按板块归类并存储在字典中
+    func customSectionClassifiedTasks() -> [TodoSectionFeature: Array<Element>] {
+        var tasks: [TodoSectionFeature: Array<Element>] = [:]
+        for task in self {
+            tasks[task.section, default: []].append(task)
         }
         
         return tasks

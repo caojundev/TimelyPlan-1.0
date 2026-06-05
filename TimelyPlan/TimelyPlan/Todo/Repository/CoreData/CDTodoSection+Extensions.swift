@@ -15,6 +15,14 @@ struct TodoSectionKey {
 
 extension CDTodoSection: SortableIdentifiable {
     
+    /// 板块特征值
+    var feature: TodoSectionFeature {
+        return TodoSectionFeature(identifier: identifier ?? "",
+                                  name: name,
+                                  order: order,
+                                  list: list?.feature)
+    }
+    
     // MARK: - SortableIdentifiable
     var identifiableKey: String {
         return self.identifier ?? ""

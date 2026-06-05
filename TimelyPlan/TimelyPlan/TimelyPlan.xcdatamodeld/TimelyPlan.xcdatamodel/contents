@@ -93,6 +93,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTodoList" inverseName="sections" inverseEntity="CDTodoList"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTodoTask" inverseName="section" inverseEntity="CDTodoTask"/>
     </entity>
     <entity name="CDTodoTag" representedClassName="CDTodoTag" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
@@ -125,6 +126,7 @@
         <attribute name="stepCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="stepMarkdown" optional="YES" attributeType="String"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTodoList" inverseName="tasks" inverseEntity="CDTodoList"/>
+        <relationship name="section" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTodoSection" inverseName="tasks" inverseEntity="CDTodoSection"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTodoTag" inverseName="tasks" inverseEntity="CDTodoTag"/>
     </entity>
     <entity name="KeyValueStore" representedClassName="KeyValueEntry" syncable="YES">
@@ -140,9 +142,9 @@
         <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="359"/>
         <element name="CDTodoFilter" positionX="45" positionY="261" width="128" height="119"/>
         <element name="CDTodoList" positionX="54" positionY="99" width="128" height="194"/>
+        <element name="CDTodoSection" positionX="45" positionY="261" width="128" height="104"/>
         <element name="CDTodoTag" positionX="45" positionY="261" width="128" height="119"/>
-        <element name="CDTodoTask" positionX="54" positionY="270" width="128" height="374"/>
+        <element name="CDTodoTask" positionX="54" positionY="270" width="128" height="389"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
-        <element name="CDTodoSection" positionX="45" positionY="261" width="128" height="89"/>
     </elements>
 </model>
