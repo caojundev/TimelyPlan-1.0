@@ -152,14 +152,19 @@ class TPExpandDefaultInfoTableCell: TPDefaultInfoTableCell {
         updateExpandedButton()
         
         var isExpanded: Bool
-        if expandButton.isEnabled {
-            isExpanded = delegate.isExpandedTableCell(self)
-        } else {
+        if collapseOnExpandButtonDisabled {
             /// 禁用保持收起状态
             isExpanded = false
+        } else {
+            isExpanded = delegate.isExpandedTableCell(self)
         }
-        
+ 
         setExpanded(isExpanded, animated: animated)
+    }
+    
+    /// 展开按钮禁用时的收起策略
+    var collapseOnExpandButtonDisabled: Bool {
+        return true
     }
     
     /// 改变展开状态通知方法，子类重写该方法进行内容更新操作

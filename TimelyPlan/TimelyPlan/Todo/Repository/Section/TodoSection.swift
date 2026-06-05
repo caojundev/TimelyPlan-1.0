@@ -17,6 +17,9 @@ class TodoSection: NSObject, SortableIdentifiable {
     /// 排序因子
     var order: Int64
     
+    /// 所属列表
+    weak var list: TodoList?
+    
     init(content: CDTodoSection) {
         self.identifier = content.identifier ?? ""
         self.name = content.name
@@ -74,7 +77,7 @@ struct TodoSectionFeature: Hashable, Sortable {
     }
     
     /// 无板块标识
-    static let noneIdentifier = "none"
+    static let noneIdentifier = "noneSection"
     
     /// 无板块特征值
     static func none(for list: TodoListFeature?) -> TodoSectionFeature {

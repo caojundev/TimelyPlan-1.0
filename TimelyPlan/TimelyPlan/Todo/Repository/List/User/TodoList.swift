@@ -56,13 +56,16 @@ class TodoList: NSObject,
     
     /// 布局
     var layoutType: TodoListLayoutType = .list
-    
-    /// 子列表
-    var sublists: [TodoList]?
-    
+
     /// 父清单
     weak var parent: TodoList?
     
+    /// 子列表
+    var sublists: [TodoList]?
+
+    /// 板块
+    var sections: [TodoSection]?
+
     // MARK: - SortableIdentifiable
     /// 排序因子
     var order: Int64
@@ -80,6 +83,7 @@ class TodoList: NSObject,
         self.layoutType = TodoListLayoutType(rawValue: Int(content.layoutRawValue)) ?? .list
         super.init()
         self.sublists = content.sortedSublists(parent: self)
+        self.sections = content.orderedSections(list: self)
     }
     
     func update(with editingList: TodoEditingList) {

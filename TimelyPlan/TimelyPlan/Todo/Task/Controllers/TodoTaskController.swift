@@ -246,6 +246,7 @@ class TodoTaskController {
         moveTasks([task], completion: completion)
     }
     
+    /*
     func moveTasks(_ tasks: [TodoTask], completion: (()->Void)? = nil) {
         var lists = Set<TodoListFeature?>()
         for task in tasks {
@@ -274,7 +275,19 @@ class TodoTaskController {
         navController.modalPresentationStyle = .formSheet
         navController.show()
     }
+    */
     
+    func moveTasks(_ tasks: [TodoTask], completion: (()->Void)? = nil) {
+        let vc = TodoTaskMoveViewController(section: nil)
+        vc.didSelectSection = { section in
+            
+            completion?()
+        }
+
+        let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .formSheet
+        navController.show()
+    }
     
     // MARK: -  移动任务到废纸篓
     

@@ -101,6 +101,20 @@ extension CDTodoList: SortableIdentifiable {
             return list
         }
     }
+    
+    /// 列表板块数组
+    func orderedSections(list: TodoList) -> [TodoSection]? {
+        guard let cdSections = sections as? Set<CDTodoSection> else {
+            return nil
+        }
+        
+        return cdSections.orderedElements().map {
+            let section = TodoSection(content: $0)
+            section.list = list
+            return section
+        }
+    }
+    
 }
 
 extension CDTodoList {

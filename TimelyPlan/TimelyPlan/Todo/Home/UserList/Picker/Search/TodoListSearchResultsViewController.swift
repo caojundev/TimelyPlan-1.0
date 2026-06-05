@@ -44,6 +44,7 @@ class TodoListSearchResultsViewController: TPTableSectionsViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.wrapperView.isKeyboardAdjusterEnabled = true
         self.tableView.keyboardDismissMode = .onDrag
         self.tableView.placeholderView = self.placeholderView
         self.sectionControllers = [resultsSectionController]
