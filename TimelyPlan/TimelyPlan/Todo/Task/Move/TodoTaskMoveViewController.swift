@@ -12,7 +12,7 @@ class TodoTaskMoveViewController: TPContainerViewController,
                                   UISearchControllerDelegate  {
     
     /// 选中板块
-    var didSelectSection: ((TodoSectionFeature?) -> Void)?
+    var didSelectSection: ((TodoSection?) -> Void)?
 
     /// 当前板块
     let section: TodoSectionFeature?
@@ -37,15 +37,10 @@ class TodoTaskMoveViewController: TPContainerViewController,
     init(section: TodoSectionFeature?) {
         self.section = section
         super.init(nibName: nil, bundle: nil)
-        self.setupSelectViewController()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    func setupSelectViewController() {
-        
     }
     
     override func viewDidLoad() {
@@ -54,10 +49,10 @@ class TodoTaskMoveViewController: TPContainerViewController,
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-//        selectViewController.didSelectList = { [weak self] list in
-//            self?.pickList(list)
-//        }
-//
+        selectViewController.didSelectSection = { [weak self] section in
+            self?.selectSection(section)
+        }
+
         setContentViewController(selectViewController, withAnimationStyle: .none)
     }
 
@@ -70,9 +65,9 @@ class TodoTaskMoveViewController: TPContainerViewController,
     }
     
     /// 选中板块
-    private func pickSection(_ section: TodoSectionFeature?) {
+    private func selectSection(_ section: TodoSection) {
         TPImpactFeedback.impactWithSoftStyle()
-        self.didSelectSection?(section)
+        didSelectSection?(section)
         if let presentingVC = self.presentingViewController {
             presentingVC.dismiss(animated: true, completion: nil)
         } else {
@@ -90,9 +85,9 @@ class TodoTaskMoveViewController: TPContainerViewController,
 //        resultVC.didSelectList = { list in
 //            self.pickList(list)
 //        }
+//        searchController.searchResultsUpdater = resultVC
 
         let resultVC = UIViewController()
-//        searchController.searchResultsUpdater = resultVC
         setContentViewController(resultVC, withAnimationStyle: .none)
     }
     

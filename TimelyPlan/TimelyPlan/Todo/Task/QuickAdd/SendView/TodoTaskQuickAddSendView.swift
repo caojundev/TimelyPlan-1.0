@@ -31,8 +31,8 @@ class TodoTaskQuickAddSendView: UIView {
     var didClickSend: ((UIButton) -> Void)?
 
     /// 列表选择按钮
-    private lazy var listButton: TodoTaskQuickAddListPicker = {
-        let button = TodoTaskQuickAddListPicker()
+    private lazy var listButton: TodoTaskQuickAddSectionPicker = {
+        let button = TodoTaskQuickAddSectionPicker()
         button.didSelectList = { [weak self] list in
             guard let self = self else { return }
             self.list = list as? TodoList

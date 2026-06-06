@@ -10,6 +10,12 @@ import UIKit
 
 class TodoTaskSectionSelectViewController: TPTableSectionsViewController {
     
+    var didSelectSection: ((TodoSection) -> Void)? {
+        didSet {
+            selection.didSelectSection = didSelectSection
+        }
+    }
+    
     /// 收集箱区块控制器
     private(set) lazy var inboxSectionController: TodoTaskInboxSectionSelectSectionController = {
         let controller = TodoTaskInboxSectionSelectSectionController(selection: selection)

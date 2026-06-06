@@ -1,5 +1,5 @@
 //
-//  TodoTaskQuickAddListButton.swift
+//  TodoTaskQuickAddSectionPicker.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/6/12.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TodoTaskQuickAddListPicker: TPBaseButton {
+class TodoTaskQuickAddSectionPicker: TPBaseButton {
 
     var didSelectList: ((TodoListRepresentable?) -> Void)?
     
@@ -66,10 +66,10 @@ class TodoTaskQuickAddListPicker: TPBaseButton {
 
     override func didTouchUpInside() {
         super.didTouchUpInside()
-        let selectView = TodoListSelectPopoverView()
-        selectView.selectedList = self.list
-        selectView.didSelectList = {[weak self] list in
-            self?.selectList(list)
+        let selectView = TodoTaskSectionSelectPopoverView()
+//        selectView.selectedList = self.list
+        selectView.didSelectSection = { [weak self] section in
+            self?.selectSection(section)
         }
         
         let sourceRect = self.bounds.insetBy(dx: -5.0, dy: -10.0)
@@ -81,15 +81,14 @@ class TodoTaskQuickAddListPicker: TPBaseButton {
                         animated: true)
     }
     
-    func selectList(_ list: TodoListRepresentable?) {
-        let isEqual = self.list?.identifier == list?.identifier
-        if isEqual {
-            return
-        }
-        
-        self.list = list == nil ? TodoSmartList.inbox : list
-        self.didSelectList?(list)
+    func selectSection(_ section: TodoSection) {
+//        let isEqual = self.list?.identifier == list?.identifier
+//        if isEqual {
+//            return
+//        }
+//
+//        self.list = list == nil ? TodoSmartList.inbox : list
+//        self.didSelectList?(list)
         superview?.setNeedsLayout()
     }
-    
 }

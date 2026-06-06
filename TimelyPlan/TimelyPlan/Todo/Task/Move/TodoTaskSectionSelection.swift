@@ -9,6 +9,8 @@ import Foundation
 
 class TodoTaskSectionSelection {
     
+    var didSelectSection: ((TodoSection) -> Void)?
+    
     /// 展开板块的列表标识
     private(set) var expandedSectionListID: String? = TodoSmartList.inbox.identifier
     
@@ -16,6 +18,7 @@ class TodoTaskSectionSelection {
     
     func selectSection(_ section: TodoSection) {
         selectedSection = section
+        didSelectSection?(section)
     }
     
     func isSectionExpanded(for list: TodoList?) -> Bool {
