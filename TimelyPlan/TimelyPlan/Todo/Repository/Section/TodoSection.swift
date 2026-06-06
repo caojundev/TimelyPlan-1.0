@@ -20,10 +20,16 @@ class TodoSection: NSObject, SortableIdentifiable {
     /// 所属列表
     weak var list: TodoList?
     
-    init(content: CDTodoSection) {
-        self.identifier = content.identifier ?? ""
-        self.name = content.name
-        self.order = content.order
+    convenience init(content: CDTodoSection) {
+        self.init(identifier: content.identifier ?? "",
+                  name: content.name,
+                  order: content.order)
+    }
+    
+    init(identifier: String, name: String?, order: Int64) {
+        self.identifier = identifier
+        self.name = name
+        self.order = order
         super.init()
     }
     
@@ -31,29 +37,44 @@ class TodoSection: NSObject, SortableIdentifiable {
     override var hash: Int {
         var hasher = Hasher()
         hasher.combine(identifier)
+        hasher.combine(list)
         return hasher.finalize()
     }
     
     override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? TodoSection else { return false }
         if self === other { return true }
-        return identifier == other.identifier &&
-                name == other.name
+        return identifier == other.identifier && list == other.list
     }
     
     override func diffIdentifier() -> NSObjectProtocol {
-        return self.identifier as NSString
+        var identifier = identifier
+        if let list = list {
+           identifier = list.identifier + "_" + identifier
+        }
+        
+        return identifier as NSString
     }
     
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        guard let other = object as? TodoSection else { return false }
-        if self === other { return true }
-        return identifier == other.identifier
+        return isEqual(object)
     }
     
     // MARK: - SortableIdentifiable
     var identifiableKey: String {
         return identifier
+    }
+    
+    /// 无板块标识
+    static let noneIdentifier = "noneSection"
+    
+    /// 无板块特征值
+    static func none(for list: TodoList?) -> TodoSection {
+        let section = TodoSection(identifier: noneIdentifier,
+                                  name: resGetString("None Section"),
+                                  order: Int64.max)
+        section.list = list
+        return section
     }
 }
 
@@ -68,7 +89,7 @@ struct TodoSectionFeature: Hashable, Sortable {
     let list: TodoListFeature?
     
     var isNone: Bool {
-        return identifier == Self.noneIdentifier
+        return identifier == TodoSection.noneIdentifier
     }
     
     // MARK: - Hashable
@@ -76,12 +97,9 @@ struct TodoSectionFeature: Hashable, Sortable {
         hasher.combine(identifier)
     }
     
-    /// 无板块标识
-    static let noneIdentifier = "noneSection"
-    
     /// 无板块特征值
     static func none(for list: TodoListFeature?) -> TodoSectionFeature {
-        return TodoSectionFeature(identifier: noneIdentifier,
+        return TodoSectionFeature(identifier: TodoSection.noneIdentifier,
                                   name: nil,
                                   order: Int64.max,
                                   list: list)

@@ -1,65 +1,12 @@
 //
-//  TodoTaskMoveSectionCell.swift
+//  TodoSectionBranchLayer.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/6/5.
+//  Created by caojun on 2026/6/6.
 //
 
 import Foundation
 import UIKit
-
-class TodoTaskMoveSectionCell: TPImageInfoTableCell {
-    
-    var section: TodoSection? {
-        didSet {
-            self.title = section?.name ?? resGetString("Untitled Section")
-            let listDepth = section?.list?.depth ?? 0
-            self.depth = listDepth + 1
-            self.depthLineLayer.indentationLevel = self.depth
-        }
-    }
-    
-    /// 深度绘制层级
-    var depthLineLevels: [Int]? {
-        get {
-            return depthLineLayer.depthLineLevels
-        }
-        
-        set {
-            depthLineLayer.depthLineLevels = newValue
-        }
-    }
-    
-    /// 缩进分割线图层
-    private(set) lazy var depthLineLayer: TodoSectionBranchLayer = {
-        let layer = TodoSectionBranchLayer()
-        layer.indentationWidth = depthWidth
-        layer.lineWidth = 2.0
-        layer.strokeColor = UIColor.lightGray.cgColor
-        return layer
-    }()
-    
-    override func setupContentSubviews() {
-        super.setupContentSubviews()
-        layer.addSublayer(depthLineLayer)
-        self.imageConfig.shouldRenderImageWithColor = true
-        self.imageConfig.color = resGetColor(.title)
-        self.imageContent = .init(imageName: "todo_section_24")
-        self.imageConfig.margins = UIEdgeInsets(left: 16.0, right: 4.0)
-        
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        depthLineLayer.frame = CGRect(x: 0.0, y: 0.0, width: contentView.left, height: bounds.height)
-        depthLineLayer.indentationWidth = depthWidth
-        CATransaction.commit()
-    }
-    
-}
 
 class TodoSectionBranchLayer: CAShapeLayer {
     
@@ -130,12 +77,6 @@ class TodoSectionBranchLayer: CAShapeLayer {
     }
     
     private func containsLevel(_ level: Int) -> Bool {
-//        if level == indentationLevel {
-//            return true
-//        }
-//        
         return depthLineLevels?.contains(level) ?? false
     }
-    
-
 }

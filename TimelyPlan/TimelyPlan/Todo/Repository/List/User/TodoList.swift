@@ -144,5 +144,13 @@ class TodoList: NSObject,
         return identifier == other.identifier
     }
 
+    // MARK: - 板块
+    // 所有板块，包含无板块
+    var allSections: [TodoSection] {
+        var results = sections ?? []
+        let noneSection = TodoSection.none(for: self)
+        results.append(noneSection)
+        return results
+    }
     
 }

@@ -43,6 +43,23 @@ class TodoTaskMoveUserListCell: TodoUserListBaseCell {
         rightView = sectionExpandButton
         rightViewSize = .mini
     }
+
+    override func updateCellStyle() {
+        super.updateCellStyle()
+        let titleConfig = titleConfig
+        if isChecked {
+            titleConfig.textColor = .primary
+        } else {
+            titleConfig.textColor = resGetColor(.title)
+        }
+        
+        infoView.titleConfig = titleConfig
+    }
+    
+    override func setChecked(_ checked: Bool, animated: Bool) {
+        super.setChecked(checked, animated: animated)
+        updateCellStyle()
+    }
     
     private func updateSectionExpandedButton() {
         guard let sections = list?.sections, sections.count > 0  else {
@@ -61,22 +78,6 @@ class TodoTaskMoveUserListCell: TodoUserListBaseCell {
             delegate.taskMoveUserListCell(self, didToggleSectionExpand: isExpanded)
         }
     }
-    
-    override func updateCellStyle() {
-        super.updateCellStyle()
-        if isChecked {
-            titleConfig.textColor = .primary
-        } else {
-            titleConfig.textColor = resGetColor(.title)
-        }
-    }
-    
-    override func setChecked(_ checked: Bool, animated: Bool) {
-        super.setChecked(checked, animated: animated)
-        updateCellStyle()
-        infoView.setNeedsLayout()
-    }
-    
     
     // MARK: - Public Methods
     /// 板块展开

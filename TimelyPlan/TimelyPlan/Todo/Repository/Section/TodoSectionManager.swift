@@ -14,7 +14,11 @@ class TodoSectionManager {
     
     // MARK: - Providers
     func getSections(for list: TodoList?) -> [TodoSection]? {
-        return CDTodoSection.getSections(in: list)?.sections
+        guard let cdSections = CDTodoSection.getSections(in: list) else {
+            return nil
+        }
+        
+        return cdSections.sections(with: list)
     }
 
     // MARK: - Processors

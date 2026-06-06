@@ -1,5 +1,5 @@
 //
-//  TodoTaskSectionSelectSectionController.swift
+//  TodoTaskUserSectionSelectSectionController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/6/5.
@@ -8,52 +8,43 @@
 import Foundation
 import UIKit
 
-class TodoTaskSectionSelectSectionController: TPTableBaseSectionController,
+class TodoTaskUserSectionSelectSectionController: TPTableBaseSectionController,
                                               TodoTaskMoveUserListCellDelegate,
                                               TPExpandDefaultInfoTableCellDelegate {
-    
-    private let expansionState: TodoParentListSelectExpansionState
-    
-    private let viewModel: TodoUserListViewModel
-    
+
     var lists: [TodoList] = []
     
-    var expandedSectionList: TodoList?
+    let selection: TodoTaskSectionSelection
     
-    override init() {
-        let expansionState = TodoParentListSelectExpansionState(allowMaxDepth: kTodoListMaxDepth)
-        self.expansionState = expansionState
-        self.viewModel = TodoUserListViewModel(expansionState: expansionState)
-        super.init()
-        self.viewModel.userListDidChange = { [weak self] change in
-            self?.userListChanged(change)
-        }
+    /// 顶层列表
+    private var topLists: [TodoList]?
 
-        self.viewModel.loadTopLists()
+    private let expansionState: TodoParentListSelectExpansionState
+    
+    init(selection: TodoTaskSectionSelection) {
+        self.selection = selection
+        self.expansionState = TodoParentListSelectExpansionState(allowMaxDepth: kTodoListMaxDepth)
+        super.init()
+        self.topLists = todo.getTopLists()
+        self.updateLists()
     }
     
     private func updateLists() {
-        self.lists = self.viewModel.lists()
-    }
-    
-    private func userListChanged(_ change: TodoUserListChange? = nil) {
-        DispatchQueue.main.async {
-            var rowAnimation: UITableView.RowAnimation = .none
-            if change != nil {
-                rowAnimation = .top
-            }
-            
-            self.updateLists()
-            self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: rowAnimation)
+        guard let topLists = topLists else {
+            self.lists = []
+            return
         }
+        
+        let lists = topLists.flattenItems(with: expansionState) as? [TodoList]
+        self.lists = lists ?? []
     }
     
     override var items: [ListDiffable]? {
         var items = [ListDiffable]()
         for list in lists {
             items.append(list)
-            if list == expandedSectionList, let sections = list.sections {
-                items.append(contentsOf: sections)
+            if selection.isSectionExpanded(for: list), expansionState.isExpanded(list) {
+                items.append(contentsOf: list.allSections)
             }
         }
     
@@ -100,7 +91,11 @@ class TodoTaskSectionSelectSectionController: TPTableBaseSectionController,
         cell.isDisabled = expansionState.isDisabledList(list)
         cell.depthLineLevels = TodoList.depthLineLevels(for: list, in: lists)
         
-        let isExpanded = list == expandedSectionList
+        var isExpanded = false
+        if expansionState.isExpanded(list), selection.isSectionExpanded(for: list) {
+           isExpanded = true
+        }
+        
         cell.setSectionExpanded(isExpanded, animated: true)
     }
     
@@ -118,8 +113,11 @@ class TodoTaskSectionSelectSectionController: TPTableBaseSectionController,
     
     override func didSelectRow(at index: Int) {
         TPImpactFeedback.impactWithSoftStyle()
-        if let list = item(at: index) as? TodoList {
+        let item = item(at: index)
+        if let list = item as? TodoList {
             selectList(list)
+        } else if let section = item as? TodoSection {
+            selectSection(section)
         }
     }
 
@@ -131,27 +129,52 @@ class TodoTaskSectionSelectSectionController: TPTableBaseSectionController,
         return true
     }
     
+    override func shouldShowCheckmarkForRow(at index: Int) -> Bool {
+        let item = item(at: index)
+        if let list = item as? TodoList {
+            return selection.isSelectedList(list)
+        } else if let section = item as? TodoSection {
+            return selection.isSelectedSection(section)
+        }
+        
+        return false
+    }
+
     private func selectList(_ list: TodoList) {
-        if expandedSectionList == list {
-            expandedSectionList = nil
+        guard let sections = list.sections, sections.count > 0 else {
+            /// 直接选中列表的无板块
+            selectSection(.none(for: list))
+            return
+        }
+                
+        if selection.isSectionExpanded(for: list) {
+            selection.setSectionExpanded(false, for: list)
         } else {
-            expandedSectionList = list
+            selection.setSectionExpanded(true, for: list)
+            
             if !expansionState.isExpanded(list) {
                 expansionState.setExpended(true, for: list)
                 updateLists()
             }
         }
-        
+
+        adapter?.updateCheckmarks()
+        adapter?.performUpdate()
+    }
+    
+    private func selectSection(_ section: TodoSection) {
+        selection.selectSection(section)
+        adapter?.updateCheckmarks()
         adapter?.performUpdate()
     }
     
     // MARK: - TodoTaskMoveUserListCellDelegate
     func taskMoveUserListCell(_ cell: TodoTaskMoveUserListCell, didToggleSectionExpand isExpanded: Bool) {
-        guard let list = cell.list else {
-            return
+        if let list = cell.list {
+            selection.setSectionExpanded(isExpanded, for: list)
         }
         
-        selectList(list)
+        adapter?.performUpdate()
     }
     
     // MARK: - TPExpandDefaultInfoTableCellDelegate

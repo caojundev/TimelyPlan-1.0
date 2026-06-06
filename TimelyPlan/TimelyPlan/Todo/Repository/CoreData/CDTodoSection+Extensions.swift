@@ -106,11 +106,12 @@ extension CDTodoSection: SortableIdentifiable {
 
 extension Array where Element == CDTodoSection {
     
-    var sections: [TodoSection] {
+    func sections(with list: TodoList?) -> [TodoSection] {
         var results = [TodoSection]()
         for content in self {
             if content.identifier != nil {
                 let section = TodoSection(content: content)
+                section.list = list
                 results.append(section)
             }
         }

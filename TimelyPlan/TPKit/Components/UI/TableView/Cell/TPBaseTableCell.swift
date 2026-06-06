@@ -16,6 +16,9 @@ class TPBaseTableCellItem: NSObject {
     /// 单元格注册类
     var registerClass: UITableViewCell.Type = TPBaseTableCell.self
     
+    /// 绑定数据条目
+    var dataItem: Any?
+    
     /// 整数标签
     var tag: Int = 0
 
