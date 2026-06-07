@@ -23,8 +23,10 @@ extension CDTodoList {
     /// 列表特征
     var feature: TodoListFeature {
         return TodoListFeature(identifier: identifiableKey,
+                               emoji: emoji,
                                name: name,
-                               colorHex: colorHex)
+                               colorHex: colorHex,
+                               layoutRawValue: Int(layoutRawValue))
     }
     
     /// 列表任务最大排序因子

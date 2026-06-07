@@ -153,4 +153,9 @@ class TodoList: NSObject,
         return results
     }
     
+    /// 显示名称
+    var displayName: String {
+        return name ?? resGetString("Untitled List")
+    }
+
 }

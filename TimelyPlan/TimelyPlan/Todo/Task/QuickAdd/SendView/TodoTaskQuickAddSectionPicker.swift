@@ -10,11 +10,11 @@ import UIKit
 
 class TodoTaskQuickAddSectionPicker: TPBaseButton {
 
-    var didSelectList: ((TodoListRepresentable?) -> Void)?
+    var didSelectSection: ((TodoSectionFeature) -> Void)?
     
-    var list: TodoListRepresentable? {
+    var section: TodoSectionFeature = .none(for: nil) {
         didSet {
-            updateListInfo()
+            updateSectionInfo()
         }
     }
     
@@ -37,7 +37,7 @@ class TodoTaskQuickAddSectionPicker: TPBaseButton {
         self.normalBackgroundColor = .clear
         self.selectedBackgroundColor = .clear
         self.contentView.addSubview(infoView)
-        self.updateListInfo()
+        self.updateSectionInfo()
     }
     
     override func layoutSubviews() {
@@ -49,25 +49,24 @@ class TodoTaskQuickAddSectionPicker: TPBaseButton {
         return infoView.sizeThatFits(size)
     }
     
-    private func updateListInfo() {
-        if let list = list as? TodoList {
+    private func updateSectionInfo() {
+        if let list = section.list {
             infoView.icon = list.icon
-            infoView.title = list.name
             infoView.foreColor = list.color
+            infoView.title = list.name
         } else {
             /// 收件箱
             infoView.icon = TPIcon(name: "todo_list_inbox_24")
-            infoView.title = resGetString("Inbox")
             infoView.foreColor = titleColor
         }
 
+        infoView.title = section.title
         superview?.setNeedsLayout()
     }
 
     override func didTouchUpInside() {
         super.didTouchUpInside()
-        let selectView = TodoTaskSectionSelectPopoverView()
-//        selectView.selectedList = self.list
+        let selectView = TodoTaskSectionSelectPopoverView(selectedSection: section)
         selectView.didSelectSection = { [weak self] section in
             self?.selectSection(section)
         }
@@ -81,14 +80,13 @@ class TodoTaskQuickAddSectionPicker: TPBaseButton {
                         animated: true)
     }
     
-    func selectSection(_ section: TodoSection) {
-//        let isEqual = self.list?.identifier == list?.identifier
-//        if isEqual {
-//            return
-//        }
-//
-//        self.list = list == nil ? TodoSmartList.inbox : list
-//        self.didSelectList?(list)
+    func selectSection(_ section: TodoSectionFeature) {
+        guard self.section != section else {
+            return
+        }
+        
+        self.section = section
+        didSelectSection?(section)
         superview?.setNeedsLayout()
     }
 }

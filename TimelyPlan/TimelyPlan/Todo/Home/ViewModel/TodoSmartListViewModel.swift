@@ -145,7 +145,7 @@ extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
         self.countChanged()
     }
     
-    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+    func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
         var bInboxChanged: Bool = false
         for task in tasks {
             if task.list == nil {
@@ -154,7 +154,7 @@ extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
             }
         }
         
-        if !bInboxChanged, list == nil {
+        if !bInboxChanged, section.list == nil {
             bInboxChanged = true
         }
         

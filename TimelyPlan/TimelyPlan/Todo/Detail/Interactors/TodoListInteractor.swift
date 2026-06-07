@@ -92,8 +92,11 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
             if let priority = TodoTaskPriority(identifier: group.identifier) {
                 task.priority = priority
             }
+        case .custom:
+            if let section = group.dataItem as? TodoSectionFeature {
+                task.section = section
+            }
         default:
-            #warning("自定义板块")
             break
         }
         
@@ -267,7 +270,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         self.loadGroups(with: .create(task))
     }
     
-    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+    func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
         self.setNeedsRefresh()
         self.loadGroups()
     }

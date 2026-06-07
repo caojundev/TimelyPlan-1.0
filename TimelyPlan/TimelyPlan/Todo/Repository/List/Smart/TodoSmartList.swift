@@ -97,8 +97,10 @@ class TodoSmartList: NSObject,
     
     var feature: TodoListFeature {
         return TodoListFeature(identifier: identifier,
+                               emoji: nil,
                                name: listType.title,
-                               colorHex: color.hexString)
+                               colorHex: color.hexString,
+                               layoutRawValue: -1)
     }
     
     /// 列表类型

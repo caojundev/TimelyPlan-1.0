@@ -10,7 +10,7 @@ import Foundation
 class TodoQuickAddTask: NSCopying {
 
     /// 所属列表
-    var list: TodoListRepresentable?
+    var section: TodoSectionFeature?
     
     /// 名称
     var name: String?
@@ -72,7 +72,7 @@ class TodoQuickAddTask: NSCopying {
     
     func copy(with zone: NSZone? = nil) -> Any {
         let copy = TodoQuickAddTask()
-        copy.list = list
+        copy.section = section
         copy.name = name
         copy.note = note
         copy.isNoteEnabled = isNoteEnabled

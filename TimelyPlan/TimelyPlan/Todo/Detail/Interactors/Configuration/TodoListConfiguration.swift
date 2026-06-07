@@ -148,7 +148,7 @@ class TodoUserListConfiguration: TodoListConfiguration {
     
     override func quickAddTask() -> TodoQuickAddTask? {
         let task = TodoQuickAddTask()
-        task.list = self.list
+        task.section = .none(for: list.feature)
         return task
     }
     

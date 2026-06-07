@@ -20,6 +20,14 @@ class TodoSection: NSObject, SortableIdentifiable {
     /// 所属列表
     weak var list: TodoList?
     
+    /// 特征值
+    var feature: TodoSectionFeature {
+        return TodoSectionFeature(identifier: identifier,
+                                  name: name,
+                                  order: order,
+                                  list: list?.feature)
+    }
+    
     convenience init(content: CDTodoSection) {
         self.init(identifier: content.identifier ?? "",
                   name: content.name,
@@ -59,7 +67,7 @@ class TodoSection: NSObject, SortableIdentifiable {
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         return isEqual(object)
     }
-    
+
     // MARK: - SortableIdentifiable
     var identifiableKey: String {
         return identifier
@@ -78,7 +86,7 @@ class TodoSection: NSObject, SortableIdentifiable {
     }
 }
 
-struct TodoSectionFeature: Hashable, Sortable {
+struct TodoSectionFeature: Hashable, Equatable, Sortable {
     
     let identifier: String
     
@@ -87,6 +95,26 @@ struct TodoSectionFeature: Hashable, Sortable {
     var order: Int64
     
     let list: TodoListFeature?
+    
+    /// 显示名称
+    var displayName: String {
+        return name ?? resGetString("Untitled Section")
+    }
+    
+    var title: String {
+        var names = [String]()
+        if let list = list {
+            names.append(list.displayName)
+        } else {
+            names.append(resGetString("Inbox"))
+        }
+
+        if !isNone {
+            names.append(displayName)
+        }
+        
+        return names.joined(separator: "/")
+    }
     
     var isNone: Bool {
         return identifier == TodoSection.noneIdentifier
@@ -97,11 +125,20 @@ struct TodoSectionFeature: Hashable, Sortable {
         hasher.combine(identifier)
     }
     
+    // MARK: - Equatable
+    static func == (lhs: TodoSectionFeature, rhs: TodoSectionFeature) -> Bool {
+        return lhs.identifier == rhs.identifier && lhs.list == rhs.list
+    }
+    
     /// 无板块特征值
     static func none(for list: TodoListFeature?) -> TodoSectionFeature {
         return TodoSectionFeature(identifier: TodoSection.noneIdentifier,
                                   name: nil,
                                   order: Int64.max,
                                   list: list)
+    }
+    
+    static var defaultSection: TodoSectionFeature {
+        return .none(for: nil)
     }
 }

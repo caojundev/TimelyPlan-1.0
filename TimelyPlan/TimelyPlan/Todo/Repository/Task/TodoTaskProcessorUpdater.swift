@@ -25,7 +25,7 @@ protocol TodoTaskProcessorDelegate: AnyObject {
     func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask])
 
     /// 任务移动
-    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?)
+    func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature)
     
     /// 恢复任务
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask])
@@ -55,7 +55,7 @@ extension TodoTaskProcessorDelegate {
     
     func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {}
 
-    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {}
+    func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {}
     
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {}
     
@@ -107,9 +107,9 @@ class TodoTaskProcessorUpdater: NSObject, TodoTaskProcessorDelegate {
         }
     }
     
-    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+    func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
         notifyDelegates { (delegate: TodoTaskProcessorDelegate) in
-            delegate.didMoveTodoTasks(tasks, to: list)
+            delegate.didMoveTodoTasks(tasks, to: section)
         }
     }
     

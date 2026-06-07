@@ -10,14 +10,7 @@ import UIKit
 
 class TodoTaskSectionSelectPopoverView: TPBasePopoverView {
     
-    var didSelectSection: ((TodoSection) -> Void)?
-
-    /// 选中列表
-    var selectedSection: TodoSection? {
-        didSet {
-//            selectView.list = selectedList
-        }
-    }
+    var didSelectSection: ((TodoSectionFeature) -> Void)?
     
     var handleBeforeDismiss: Bool = true
     
@@ -27,15 +20,22 @@ class TodoTaskSectionSelectPopoverView: TPBasePopoverView {
     
     private let maximumContentHeight = 360.0
     
-    private var selectView: TodoTaskSectionSelectView!
+    private var selectView: TodoTaskSectionSelectView
     
-    override func setupSubviews() {
-        super.setupSubviews()
-        self.selectView = TodoTaskSectionSelectView()
+    init(selectedSection: TodoSectionFeature) {
+        self.selectView = TodoTaskSectionSelectView(selectedSection: selectedSection)
+        super.init(frame: .zero)
         self.selectView.didSelectSection = { [weak self] section in
             self?.selectSection(section)
         }
-        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func setupSubviews() {
+        super.setupSubviews()
         self.popoverView = self.selectView
     }
 
@@ -45,9 +45,8 @@ class TodoTaskSectionSelectPopoverView: TPBasePopoverView {
         return CGSize(width: contentWidth, height: contentHeight)
     }
     
-
     // MARK: - 选中菜单项
-    private func selectSection(_ section: TodoSection) {
+    private func selectSection(_ section: TodoSectionFeature) {
         if handleBeforeDismiss {
             didSelectSection?(section)
             hide(animated: isHideWithAnimation)

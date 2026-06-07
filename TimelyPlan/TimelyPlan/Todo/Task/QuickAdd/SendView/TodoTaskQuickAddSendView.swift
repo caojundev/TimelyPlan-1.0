@@ -10,35 +10,33 @@ import UIKit
  
 class TodoTaskQuickAddSendView: UIView {
     
-    /// 任务所属列表
-    var list: TodoList? {
+    /// 任务所属板块
+    var section: TodoSectionFeature = .defaultSection {
         didSet {
-            updateListPicker()
+            sectionButton.section = section
         }
     }
 
+    /// 选中板块回调
+    var didSelectSection: ((TodoSectionFeature) -> Void)? {
+        didSet {
+            sectionButton.didSelectSection = didSelectSection
+        }
+    }
+    
     /// 发送按钮是否可用
     var isSendEnabled: Bool = false {
         didSet {
             sendButton.isEnabled = isSendEnabled
         }
     }
-
-    /// 选中清单回调
-    var didSelectList: ((TodoList?) -> Void)?
     
     /// 点击发送按钮
     var didClickSend: ((UIButton) -> Void)?
 
     /// 列表选择按钮
-    private lazy var listButton: TodoTaskQuickAddSectionPicker = {
+    private lazy var sectionButton: TodoTaskQuickAddSectionPicker = {
         let button = TodoTaskQuickAddSectionPicker()
-        button.didSelectList = { [weak self] list in
-            guard let self = self else { return }
-            self.list = list as? TodoList
-            self.didSelectList?(self.list)
-        }
-        
         return button
     }()
     
@@ -63,7 +61,7 @@ class TodoTaskQuickAddSendView: UIView {
         super.init(frame: frame)
         self.padding = UIEdgeInsets(horizontal: 10.0)
         self.addSeparator(position: .top)
-        self.addSubview(self.listButton)
+        self.addSubview(self.sectionButton)
         self.addSubview(self.sendButton)
     }
     
@@ -75,23 +73,14 @@ class TodoTaskQuickAddSendView: UIView {
         super.layoutSubviews()
         
         let layoutFrame = self.layoutFrame()
-        listButton.sizeToFit()
-        listButton.width = min(layoutFrame.width / 2.0, listButton.width)
-        listButton.left = layoutFrame.minX
-        listButton.centerY = layoutFrame.midY
+        sectionButton.sizeToFit()
+        sectionButton.width = min(layoutFrame.width / 2.0, sectionButton.width)
+        sectionButton.left = layoutFrame.minX
+        sectionButton.centerY = layoutFrame.midY
     
         sendButton.right = layoutFrame.maxX
         sendButton.alignVerticalCenter()
     }
-    
-    func updateListPicker() {
-        if let list = list {
-            listButton.list = list
-        } else {
-            listButton.list = TodoSmartList.inbox
-        }
-    }
-    
     
     // MARK: - Event Response
     /// 点击完成

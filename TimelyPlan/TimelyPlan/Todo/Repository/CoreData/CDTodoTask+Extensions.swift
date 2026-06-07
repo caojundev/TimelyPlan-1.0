@@ -202,7 +202,7 @@ extension CDTodoTask: SortableIdentifiable {
         task.modificationDate = currentDate
         
         /// 添加到列表
-        if let list = quickAddTask.list, let cdList = CDTodoList.getItem(with: list.identifier) {
+        if let list = quickAddTask.section?.list, let cdList = CDTodoList.getItem(with: list.identifier) {
             cdList.addTask(task, onTop: onTop)
         } else {
             /// 添加到收件箱
@@ -211,6 +211,12 @@ extension CDTodoTask: SortableIdentifiable {
             } else {
                 task.order = inboxMaxOrder + kOrderedStep
             }
+        }
+        
+        /// 添加到板块
+        if let section = quickAddTask.section, !section.isNone {
+            let cdSection = CDTodoSection.getItem(with: section.identifier)
+            cdSection?.addToTasks(task)
         }
         
         return task
@@ -439,7 +445,8 @@ extension CDTodoTask: SortableIdentifiable {
             return false
         }
         
-        return moveTasks([task], to: newList)
+        let section = TodoSectionFeature.none(for: newList)
+        return moveTasks([task], to: section)
     }
     
     private static func updateTask(_ task: TodoTask, tagChange: TodoTaskChange) -> Bool {
@@ -495,25 +502,49 @@ extension CDTodoTask: SortableIdentifiable {
 extension CDTodoTask {
 
     /// 移动任务到新列表
-    static func moveTasks(_ tasks: [TodoTask], to list: TodoListRepresentable?) -> Bool {
+    static func moveTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) -> Bool {
         guard let cdTasks = getIdentifiableItems(with: tasks) as? [CDTodoTask],
-              cdTasks.count > 0 else {
+                cdTasks.count > 0 else {
             return false
         }
         
-        var cdToList: CDTodoList? = nil
-        if let toList = list {
+        var cdToList: CDTodoList?
+        var cdToSection: CDTodoSection?
+        if let toList = section.list {
             cdToList = CDTodoList.getItem(with: toList.identifier)
         }
         
+        if !section.isNone {
+           cdToSection = CDTodoSection.getItem(with: section.identifier)
+        }
+        
+        // 计算 inbox 起始排序值
+        var inboxOrder = cdToList == nil ? inboxMaxOrder : 0
         for cdTask in cdTasks {
             let cdFromList = cdTask.list
-            if cdFromList == cdToList {
-                continue
+            if cdFromList != cdToList {
+                /// 移动列表
+                if let cdToList = cdToList {
+                    cdToList.addTask(cdTask)
+                } else {
+                    /// 移动到 inbox
+                    cdFromList?.removeFromTasks(cdTask)
+                    cdTask.list = nil
+                    cdTask.order = inboxOrder + kOrderedStep
+                    inboxOrder = cdTask.order
+                }
             }
             
-            cdFromList?.removeFromTasks(cdTask)
-            cdToList?.addTask(cdTask)
+            let cdFromSection = cdTask.section
+            if cdFromSection != cdToSection {
+                if let cdToSection = cdToSection {
+                    cdToSection.addToTasks(cdTask)
+                } else {
+                    /// 无板块
+                    cdFromSection?.removeFromTasks(cdTask)
+                    cdTask.section = nil
+                }
+            }
         }
         
         return true

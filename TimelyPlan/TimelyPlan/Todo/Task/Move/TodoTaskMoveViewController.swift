@@ -12,10 +12,7 @@ class TodoTaskMoveViewController: TPContainerViewController,
                                   UISearchControllerDelegate  {
     
     /// 选中板块
-    var didSelectSection: ((TodoSection?) -> Void)?
-
-    /// 当前板块
-    let section: TodoSectionFeature?
+    var didSelectSection: ((TodoSectionFeature) -> Void)?
     
     /// 列表搜索控制器
     lazy var searchController: UISearchController = {
@@ -30,12 +27,15 @@ class TodoTaskMoveViewController: TPContainerViewController,
     }()
     
     lazy var selectViewController: TodoTaskSectionSelectViewController = {
-        let vc = TodoTaskSectionSelectViewController()
+        let vc = TodoTaskSectionSelectViewController(section: section)
         return vc
     }()
 
+    /// 当前板块
+    let section: TodoSectionFeature
+    
     init(section: TodoSectionFeature?) {
-        self.section = section
+        self.section = section ?? .none(for: nil)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -65,7 +65,7 @@ class TodoTaskMoveViewController: TPContainerViewController,
     }
     
     /// 选中板块
-    private func selectSection(_ section: TodoSection) {
+    private func selectSection(_ section: TodoSectionFeature) {
         TPImpactFeedback.impactWithSoftStyle()
         didSelectSection?(section)
         if let presentingVC = self.presentingViewController {

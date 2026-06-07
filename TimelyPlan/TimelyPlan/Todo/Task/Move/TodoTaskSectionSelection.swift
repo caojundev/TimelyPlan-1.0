@@ -9,16 +9,25 @@ import Foundation
 
 class TodoTaskSectionSelection {
     
-    var didSelectSection: ((TodoSection) -> Void)?
+    var didSelectSection: ((TodoSectionFeature) -> Void)?
     
     /// 展开板块的列表标识
-    private(set) var expandedSectionListID: String? = TodoSmartList.inbox.identifier
+    private(set) var expandedSectionListID: String?
     
-    private(set) var selectedSection: TodoSection = .none(for: nil)
+    private(set) var selectedSection: TodoSectionFeature
+    
+    init(section: TodoSectionFeature) {
+        self.selectedSection = section
+        if let list = section.list {
+            expandedSectionListID = list.identifier
+        } else {
+            expandedSectionListID = TodoSmartList.inbox.identifier
+        }
+    }
     
     func selectSection(_ section: TodoSection) {
-        selectedSection = section
-        didSelectSection?(section)
+        selectedSection = section.feature
+        didSelectSection?(selectedSection)
     }
     
     func isSectionExpanded(for list: TodoList?) -> Bool {
@@ -43,21 +52,10 @@ class TodoTaskSectionSelection {
             return list == nil && selectedSection.list == nil
         }
         
-        var isSelected = false
-        var currentList: TodoList? = selectedList
-        while currentList != nil {
-            if currentList?.identifier == list.identifier {
-                isSelected = true
-                break
-            }
-            
-            currentList = currentList?.parent
-        }
-        
-        return isSelected
+        return list.identifier == selectedList.identifier
     }
     
     func isSelectedSection(_ section: TodoSection) -> Bool {
-        return section.isEqual(selectedSection)
+        return selectedSection == section.feature
     }
 }

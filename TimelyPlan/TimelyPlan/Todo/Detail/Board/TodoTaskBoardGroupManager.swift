@@ -160,10 +160,11 @@ class TodoTaskBoardGroupManager {
     }
 
     private func handleCustomDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
-        #warning("#待办")
+        if let section = destination.dataItem as? TodoSectionFeature {
+            todo.moveTasks([task], to: section)
+        }
     }
 
-    
     // MARK: - 辅助方法
 
     /// 执行任务重新排序的完整逻辑

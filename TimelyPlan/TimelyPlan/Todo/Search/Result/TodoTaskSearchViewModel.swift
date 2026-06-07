@@ -107,7 +107,7 @@ class TodoTaskSearchViewModel: NSObject, TodoTaskProcessorDelegate {
         reloadSearchResults()
     }
     
-    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+    func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
         reloadSearchResults()
     }
     

@@ -12,7 +12,8 @@ class TodoTaskSectionSelectView: TPTableWrapperView,
                                  TPTableSectionControllersList,
                                  TPTableSectionControllerDelegate {
     
-    var didSelectSection: ((TodoSection) -> Void)? {
+    
+    var didSelectSection: ((TodoSectionFeature) -> Void)? {
         didSet {
             selection.didSelectSection = didSelectSection
         }
@@ -31,11 +32,12 @@ class TodoTaskSectionSelectView: TPTableWrapperView,
         return controller
     }()
     
-    private let selection = TodoTaskSectionSelection()
-    
     var sectionControllers: [TPTableBaseSectionController]?
     
-    init() {
+    private let selection: TodoTaskSectionSelection
+    
+    init(selectedSection: TodoSectionFeature) {
+        self.selection = TodoTaskSectionSelection(section: selectedSection)
         super.init(frame: .zero, style: .grouped)
         self.tableView.separatorStyle = .none
         self.tableView.showsVerticalScrollIndicator = false

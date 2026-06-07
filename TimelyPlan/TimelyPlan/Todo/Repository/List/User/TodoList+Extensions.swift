@@ -20,8 +20,10 @@ extension TodoList {
     
     var feature: TodoListFeature {
         return TodoListFeature(identifier: identifier,
+                               emoji: emoji,
                                name: name,
-                               colorHex: colorHex)
+                               colorHex: colorHex,
+                               layoutRawValue: layoutType.rawValue)
     }
     
     // MARK: - 编辑列表

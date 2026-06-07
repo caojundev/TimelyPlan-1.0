@@ -246,41 +246,21 @@ class TodoTaskController {
         moveTasks([task], completion: completion)
     }
     
-    /*
     func moveTasks(_ tasks: [TodoTask], completion: (()->Void)? = nil) {
-        var lists = Set<TodoListFeature?>()
+        var sections = Set<TodoSectionFeature>()
         for task in tasks {
-            lists.insert(task.list)
+            sections.insert(task.section)
         }
         
-        var currentList: TodoListFeature? = nil
-        if lists.count == 1 {
-            /// 属于同一列表
-            let list = Array(lists)[0]
-            if list == nil {
-                /// 收件箱
-                currentList = TodoSmartList.inbox.feature
-            } else {
-                currentList = list
-            }
+        var section: TodoSectionFeature? = nil
+        if sections.count == 1 {
+            /// 属于同一列
+            section = Array(sections)[0]
         }
-
-        let vc = TodoTaskListPickerViewController(list: currentList)
-        vc.didSelectList = { list in
-            todo.moveTasks(tasks, to: list)
-            completion?()
-        }
-
-        let navController = UINavigationController(rootViewController: vc)
-        navController.modalPresentationStyle = .formSheet
-        navController.show()
-    }
-    */
-    
-    func moveTasks(_ tasks: [TodoTask], completion: (()->Void)? = nil) {
-        let vc = TodoTaskMoveViewController(section: nil)
+        
+        let vc = TodoTaskMoveViewController(section: section)
         vc.didSelectSection = { section in
-            
+            todo.moveTasks(tasks, to: section)
             completion?()
         }
 

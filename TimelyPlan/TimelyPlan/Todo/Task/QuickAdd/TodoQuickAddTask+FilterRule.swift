@@ -89,7 +89,7 @@ extension TodoQuickAddTask {
      private func matches(listFilter filterValue: TodoListFilterValue) -> Bool {
          // 如果包含收件箱且任务没有所属列表，则匹配
          if let includeInbox = filterValue.includeInbox, includeInbox {
-             if list == nil {
+             if section?.list == nil {
                  return true
              }
          }
@@ -98,11 +98,11 @@ extension TodoQuickAddTask {
          guard let identifiers = filterValue.identifiers, !identifiers.isEmpty else {
              // 如果没有指定列表标识符，但包含了收件箱，已经处理过了
              // 否则，如果任务有列表但不匹配任何指定列表，则不匹配
-             return list == nil ? (filterValue.includeInbox ?? false) : false
+             return section?.list == nil ? (filterValue.includeInbox ?? false) : false
          }
          
          // 检查任务列表是否在指定的列表中
-         if let taskList = list {
+         if let taskList = section?.list {
              return identifiers.contains(taskList.identifier)
          }
          
@@ -220,8 +220,13 @@ extension TodoQuickAddTask {
                     return false
                 }
             }
+        case .custom:
+            if let section = group.dataItem as? TodoSectionFeature {
+                guard matches(section: section) else {
+                    return false
+                }
+            }
         default:
-        #warning("自定义板块")
             break
         }
         
@@ -243,5 +248,8 @@ extension TodoQuickAddTask {
     private func matches(priority: TodoTaskPriority) -> Bool {
         return self.priority == priority
     }
-
+    
+    private func matches(section: TodoSectionFeature?) -> Bool {
+        return self.section == section
+    }
 }

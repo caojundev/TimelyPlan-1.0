@@ -69,10 +69,11 @@ extension Array where Element == TodoTask {
         }
 
         for list in sortedLists {
-            if let tasks = result[list], tasks .count > 0 {
+            if let tasks = result[list], tasks.count > 0 {
                 let group = TodoGroup(identifier: list.identifier)
                 group.title = list.name ?? resGetString("Untitled")
                 group.tasks = tasks
+                group.dataItem = list
                 groups.append(group)
             }
         }
@@ -167,11 +168,11 @@ extension Array where Element == TodoTask {
         }
         
         var groups = [TodoGroup]()
-        for sectionTasks in orderedSectionTasks {
-            let section = sectionTasks.key
+        for (section, sectionTasks) in orderedSectionTasks {
             let group = TodoGroup(identifier: section.identifier)
             group.title = section.name ?? resGetString("None Section")
-            group.tasks = sectionTasks.value
+            group.tasks = sectionTasks
+            group.dataItem = section /// 绑定分组板块信息
             groups.append(group)
         }
     

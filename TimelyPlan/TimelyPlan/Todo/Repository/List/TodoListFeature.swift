@@ -17,20 +17,42 @@ class TodoListFeature: NSObject,
     /// 标识
     var identifier: String
   
+    var emoji: String?
+    
     /// 快照名称
     var name: String?
-    
-    var displayName: String {
-        return name ?? resGetString("Untitled List")
-    }
     
     /// 十六进制颜色字符串
     var colorHex: String?
     
-    init(identifier: String, name: String?, colorHex: String?) {
+    /// 布局类型原始数值
+    var layoutRawValue: Int
+    
+    /// 显示名称
+    var displayName: String {
+        return name ?? resGetString("Untitled List")
+    }
+    
+    /// 列表图标
+    var icon: TPIcon? {
+        if let emoji = emoji {
+            return TPIcon(text: emoji)
+        }
+        
+        let layoutType = TodoListLayoutType(rawValue: layoutRawValue) ?? .list
+        return TPIcon(name: layoutType.miniIconName)
+    }
+    
+    init(identifier: String,
+         emoji: String?,
+         name: String?,
+         colorHex: String?,
+         layoutRawValue: Int) {
         self.identifier = identifier
+        self.emoji = emoji
         self.name = name
         self.colorHex = colorHex
+        self.layoutRawValue = layoutRawValue
         super.init()
     }
     

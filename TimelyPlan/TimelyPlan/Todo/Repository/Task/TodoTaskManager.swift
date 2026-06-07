@@ -28,21 +28,22 @@ class TodoTaskManager {
     }
     
     /// 移动任务到新列表
-    func moveTasks(_ tasks: [TodoTask], to list: TodoList?) {
+    func moveTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
         var tasksToMove = [TodoTask]()
         for task in tasks {
-            if task.list?.identifier != list?.identifier {
+            if task.section != section {
                 tasksToMove.append(task)
             }
         }
         
-        guard tasksToMove.count > 0, CDTodoTask.moveTasks(tasksToMove, to: list) else {
+        guard tasksToMove.count > 0, CDTodoTask.moveTasks(tasksToMove, to: section) else {
             return
         }
         
-        updater.didMoveTodoTasks(tasksToMove, to: list)
+        updater.didMoveTodoTasks(tasksToMove, to: section)
         HandyRecord.save()
     }
+    
     
     /// 将任务移动到废纸篓
     func moveTasksToTrash(_ tasks: [TodoTask]) {

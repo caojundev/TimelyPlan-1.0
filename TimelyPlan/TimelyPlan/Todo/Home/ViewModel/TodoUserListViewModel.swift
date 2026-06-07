@@ -181,9 +181,9 @@ extension TodoUserListViewModel: TodoTaskProcessorDelegate {
         }
     }
     
-    func didMoveTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+    func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
         var lists = tasks.userListFeatures ?? []
-        if let toList = list?.feature {
+        if let toList = section.list {
             lists.append(toList)
         }
         

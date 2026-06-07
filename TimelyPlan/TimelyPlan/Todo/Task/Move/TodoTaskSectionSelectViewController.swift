@@ -10,7 +10,7 @@ import UIKit
 
 class TodoTaskSectionSelectViewController: TPTableSectionsViewController {
     
-    var didSelectSection: ((TodoSection) -> Void)? {
+    var didSelectSection: ((TodoSectionFeature) -> Void)? {
         didSet {
             selection.didSelectSection = didSelectSection
         }
@@ -30,7 +30,16 @@ class TodoTaskSectionSelectViewController: TPTableSectionsViewController {
         return controller
     }()
     
-    private let selection = TodoTaskSectionSelection()
+    private let selection: TodoTaskSectionSelection
+    
+    init(section: TodoSectionFeature) {
+        self.selection = TodoTaskSectionSelection(section: section)
+        super.init(style: .insetGrouped)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -175,8 +175,8 @@ extension Todo {
         taskManager.createTask(with: quickAddTask)
     }
     
-    func moveTasks(_ tasks: [TodoTask], to list: TodoList?) {
-        taskManager.moveTasks(tasks, to: list)
+    func moveTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
+        taskManager.moveTasks(tasks, to: section)
     }
     
     /// 将任务移动到废纸篓

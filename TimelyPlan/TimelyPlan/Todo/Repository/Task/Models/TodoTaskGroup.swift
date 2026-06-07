@@ -53,6 +53,9 @@ class TodoGroup: ListDiffable {
     /// 任务
     var tasks: [TodoTask]?
     
+    /// 绑定数据
+    var dataItem: Any?
+    
     /// 分组内是否包含任务
     var hasTasks: Bool {
         if let tasks = tasks, tasks.count > 0 {

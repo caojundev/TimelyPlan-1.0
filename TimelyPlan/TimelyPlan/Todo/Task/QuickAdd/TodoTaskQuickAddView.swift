@@ -58,8 +58,8 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
     /// 发送视图
     private lazy var sendView: TodoTaskQuickAddSendView = { [weak self] in
         let view = TodoTaskQuickAddSendView(frame: .zero)
-        view.didSelectList = { list in
-            self?.editTask.list = list
+        view.didSelectSection = { section in
+            self?.editTask.section = section
         }
         
         view.didClickSend = { button in
@@ -182,7 +182,7 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
     }
     
     private func updateSendView() {
-        sendView.list = editTask.list as? TodoList
+        sendView.section = editTask.section ?? .defaultSection
         updateSendButtonEnabled()
     }
     
