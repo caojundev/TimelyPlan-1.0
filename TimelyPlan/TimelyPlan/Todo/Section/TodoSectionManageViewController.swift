@@ -47,8 +47,6 @@ class TodoSectionManageViewController: TPTableSectionsViewController {
         viewModel.onSectionsChanged = { [weak self] change in
             self?.sectionsChanged(with: change)
         }
-        
-        viewModel.loadSections()
     }
     
     override var themeBackgroundColor: UIColor? {

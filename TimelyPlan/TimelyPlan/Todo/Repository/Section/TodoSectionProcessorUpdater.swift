@@ -13,9 +13,12 @@ protocol TodoSectionProcessorDelegate: AnyObject{
 
     func didDeleteTodoSection(_ section: TodoSection)
     
-    func didUpdateTodoSection(_ section: TodoSection, with name: String)
+    func didUpdateTodoSection(_ section: TodoSection)
 
-    func didRecorderTodoSection(in sections: [TodoSection], fromIndex: Int, toIndex: Int)
+    func didReorderTodoSection(in sections: [TodoSection],
+                               of list: TodoList?,
+                               from fromIndex: Int,
+                               to toIndex: Int)
 }
 
 extension TodoSectionProcessorDelegate {
@@ -24,9 +27,12 @@ extension TodoSectionProcessorDelegate {
 
     func didDeleteTodoSection(_ section: TodoSection) {}
 
-    func didUpdateTodoSection(_ section: TodoSection, with name: String) {}
+    func didUpdateTodoSection(_ section: TodoSection) {}
 
-    func didRecorderTodoSection(in sections: [TodoSection], fromIndex: Int, toIndex: Int) {}
+    func didReorderTodoSection(in sections: [TodoSection],
+                               of list: TodoList?,
+                               from fromIndex: Int,
+                               to toIndex: Int) {}
 }
 
 class TodoSectionProcessorUpdater: NSObject, TodoSectionProcessorDelegate {
@@ -43,15 +49,21 @@ class TodoSectionProcessorUpdater: NSObject, TodoSectionProcessorDelegate {
         }
     }
     
-    func didUpdateTodoSection(_ section: TodoSection, with name: String) {
+    func didUpdateTodoSection(_ section: TodoSection) {
         notifyDelegates { (delegate: TodoSectionProcessorDelegate) in
-            delegate.didUpdateTodoSection(section, with: name)
+            delegate.didUpdateTodoSection(section)
         }
     }
     
-    func didRecorderTodoSection(in sections: [TodoSection], fromIndex: Int, toIndex: Int) {
+    func didReorderTodoSection(in sections: [TodoSection],
+                               of list: TodoList?,
+                               from fromIndex: Int,
+                               to toIndex: Int) {
         notifyDelegates { (delegate: TodoSectionProcessorDelegate) in
-            delegate.didRecorderTodoSection(in: sections, fromIndex: fromIndex, toIndex: toIndex)
+            delegate.didReorderTodoSection(in: sections,
+                                           of: list,
+                                           from: fromIndex,
+                                           to: toIndex)
         }
     }
 }

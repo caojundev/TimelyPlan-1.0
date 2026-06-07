@@ -391,9 +391,13 @@ extension Todo {
     }
 
     @discardableResult
-    func reorderSection(in sections: [TodoSection], fromIndex: Int, toIndex: Int) -> Bool {
+    func reorderSection(in sections: [TodoSection],
+                        of list: TodoList?,
+                        from fromIndex: Int,
+                        to toIndex: Int) -> Bool {
         return sectionManager.reorderSection(in: sections,
-                                             fromIndex: fromIndex,
-                                             toIndex: toIndex)
+                                             of: list,
+                                             from: fromIndex,
+                                             to: toIndex)
     }
 }

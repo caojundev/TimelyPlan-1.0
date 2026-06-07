@@ -28,6 +28,8 @@ class TodoSectionManager {
         }
         
         let section = TodoSection(content: content)
+        list?.addSection(section)
+        
         HandyRecord.save()
         updater.didCreateTodoSection(section, in: list)
     }
@@ -37,8 +39,9 @@ class TodoSectionManager {
             return
         }
         
+        section.name = name
         HandyRecord.save()
-        updater.didUpdateTodoSection(section, with: name)
+        updater.didUpdateTodoSection(section)
     }
     
     func deleteSection(_ section: TodoSection) {
@@ -46,17 +49,27 @@ class TodoSectionManager {
             return
         }
         
+        if let list = section.list {
+            list.removeSection(section)
+        }
+
         HandyRecord.save()
         updater.didDeleteTodoSection(section)
     }
 
-    func reorderSection(in sections: [TodoSection], fromIndex: Int, toIndex: Int) -> Bool {
-        guard CDTodoSection.reorderSection(in: sections, fromIndex: fromIndex, toIndex: toIndex) else {
+    func reorderSection(in sections: [TodoSection],
+                        of list: TodoList?,
+                        from fromIndex: Int,
+                        to toIndex: Int) -> Bool {
+        guard CDTodoSection.reorderSection(in: sections,
+                                           fromIndex: fromIndex,
+                                           toIndex: toIndex) else {
             return false
         }
         
+        list?.moveSection(at: fromIndex, to: toIndex)
         HandyRecord.save()
-        updater.didRecorderTodoSection(in: sections, fromIndex: fromIndex, toIndex: toIndex)
+        updater.didReorderTodoSection(in: sections, of: list, from: fromIndex, to: toIndex)
         return true
     }
 }

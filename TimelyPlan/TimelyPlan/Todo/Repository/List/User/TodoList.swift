@@ -116,6 +116,30 @@ class TodoList: NSObject,
         }
     }
     
+    // MARK: - 板块操作
+    func addSection(_ section: TodoSection) {
+        var sections = sections ?? []
+        section.list = self
+        sections.append(section)
+        self.sections = sections
+    }
+    
+    func removeSection(_ section: TodoSection) {
+        if let _ = sections?.remove(section) {
+            section.list = nil
+        }
+    }
+    
+    func moveSection(at source: Int, to destination: Int) {
+        guard var sections = sections else {
+            return
+        }
+
+        sections.moveObject(fromIndex: source, toIndex: destination)
+        self.sections = sections
+    }
+    
+    
     // MARK: - 等同性判断
     override var hash: Int {
         var hasher = Hasher()

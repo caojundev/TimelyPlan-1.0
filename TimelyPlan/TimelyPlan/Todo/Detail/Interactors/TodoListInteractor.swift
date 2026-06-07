@@ -12,8 +12,9 @@ enum TodoTaskListChange {
 }
 
 class TodoListInteractor: TodoTaskProcessorDelegate,
-                            TodoListProcessorDelegate,
-                            TodoTagProcessorDelegate {
+                          TodoListProcessorDelegate,
+                          TodoSectionProcessorDelegate,
+                          TodoTagProcessorDelegate {
 
     /// 布局改变
     var didChangeLayoutType: (() -> Void)?
@@ -69,7 +70,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         self.configuration = configuration
         self.listOptionState = TodoState.shared.listOptionState(for: configuration) ?? TodoListOptionState()
         self.placeholderProvider.state = self.loadingState
-        todo.addUpdater(self, for: [.list, .task, .tag])
+        todo.addUpdater(self, for: [.list, .section, .task, .tag])
     }
     
     /// 是否匹配分组
@@ -334,6 +335,27 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
             setNeedsRefresh()
             loadGroups()
         }
+    }
+    
+    // MARK: - TodoSectionProcessorDelegate,
+    func didCreateTodoSection(_ section: TodoSection, in list: TodoList?) {
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
+    func didDeleteTodoSection(_ section: TodoSection) {
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+        
+    func didUpdateTodoSection(_ section: TodoSection) {
+        self.setNeedsRefresh()
+        self.loadGroups()
+    }
+    
+    func didReorderTodoSection(in sections: [TodoSection], of list: TodoList?, from fromIndex: Int, to toIndex: Int) {
+        self.setNeedsRefresh()
+        self.loadGroups()
     }
     
     // MARK: - TodoTagProcessorDelegate

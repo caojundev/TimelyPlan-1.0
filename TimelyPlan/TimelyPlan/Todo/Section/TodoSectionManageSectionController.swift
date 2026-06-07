@@ -19,9 +19,9 @@ class TodoSectionManageSectionController: TPTableBaseSectionController,
     init(viewModel: TodoSectionViewModel) {
         self.viewModel = viewModel
         super.init()
+        self.sections = viewModel.sections
         self.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.cellStyle.selectedBackgroundColor = .tertiarySystemFill
-        self.sections = viewModel.sections
     }
     
     override var items: [ListDiffable]? {
