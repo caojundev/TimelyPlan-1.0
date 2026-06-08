@@ -23,9 +23,11 @@ class TodoTaskSectionSelectPopoverView: TPBasePopoverView {
     private var selectView: TodoTaskSectionSelectView
     
     init(selectedSection: TodoSectionFeature) {
-        self.selectView = TodoTaskSectionSelectView(selectedSection: selectedSection)
+        let selection = TodoTaskSectionSelection(section: selectedSection)
+        let viewModel = TodoTaskSectionViewModel(selection: selection)
+        self.selectView = TodoTaskSectionSelectView(viewModel: viewModel)
         super.init(frame: .zero)
-        self.selectView.didSelectSection = { [weak self] section in
+        selection.didSelectSection = { [weak self] section in
             self?.selectSection(section)
         }
     }

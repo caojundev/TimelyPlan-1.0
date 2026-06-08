@@ -18,11 +18,15 @@ class TodoTaskInboxSectionSelectSectionController: TPTableItemSectionController,
     
     var sections: [TodoSection]
     
-    let selection: TodoTaskSectionSelection
+    let viewModel: TodoTaskSectionViewModel
     
-    init(selection: TodoTaskSectionSelection) {
-        self.selection = selection
-        self.sections = todo.getSections(for: nil) ?? []
+    private var selection: TodoTaskSectionSelection {
+        return viewModel.selection
+    }
+    
+    init(viewModel: TodoTaskSectionViewModel) {
+        self.viewModel = viewModel
+        self.sections = viewModel.inboxSections
         super.init()
         self.inboxCellItem.isExpanded = selection.isSectionExpanded(for: nil)
         self.sections.append(.none(for: nil))

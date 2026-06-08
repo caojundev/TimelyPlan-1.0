@@ -14,23 +14,23 @@ class TodoTaskUserSectionSelectSectionController: TPTableBaseSectionController,
 
     var lists: [TodoList] = []
     
-    let selection: TodoTaskSectionSelection
-    
-    /// 顶层列表
-    private var topLists: [TodoList]?
-
     private let expansionState: TodoParentListSelectExpansionState
     
-    init(selection: TodoTaskSectionSelection) {
-        self.selection = selection
+    let viewModel: TodoTaskSectionViewModel
+    
+    private var selection: TodoTaskSectionSelection {
+        return viewModel.selection
+    }
+    
+    init(viewModel: TodoTaskSectionViewModel) {
+        self.viewModel = viewModel
         self.expansionState = TodoParentListSelectExpansionState(allowMaxDepth: kTodoListMaxDepth)
         super.init()
-        self.topLists = todo.getTopLists()
         self.updateLists()
     }
     
     private func updateLists() {
-        guard let topLists = topLists else {
+        guard let topLists = viewModel.topLists else {
             self.lists = []
             return
         }

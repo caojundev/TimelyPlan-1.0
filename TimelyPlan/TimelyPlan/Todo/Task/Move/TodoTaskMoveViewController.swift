@@ -27,16 +27,20 @@ class TodoTaskMoveViewController: TPContainerViewController,
     }()
     
     lazy var selectViewController: TodoTaskSectionSelectViewController = {
-        let vc = TodoTaskSectionSelectViewController(section: section)
+        let vc = TodoTaskSectionSelectViewController(viewModel: viewModel)
         return vc
     }()
 
-    /// 当前板块
-    let section: TodoSectionFeature
+    let viewModel: TodoTaskSectionViewModel
     
     init(section: TodoSectionFeature?) {
-        self.section = section ?? .none(for: nil)
+        let section = section ?? .none(for: nil)
+        let selection = TodoTaskSectionSelection(section: section)
+        self.viewModel = TodoTaskSectionViewModel(selection: selection)
         super.init(nibName: nil, bundle: nil)
+        selection.didSelectSection = { [weak self] selectedSection in
+            self?.selectSection(selectedSection)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -49,10 +53,6 @@ class TodoTaskMoveViewController: TPContainerViewController,
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        selectViewController.didSelectSection = { [weak self] section in
-            self?.selectSection(section)
-        }
-
         setContentViewController(selectViewController, withAnimationStyle: .none)
     }
 
@@ -77,17 +77,8 @@ class TodoTaskMoveViewController: TPContainerViewController,
     
     // MARK: - UISearchControllerDelegate
     func willPresentSearchController(_ searchController: UISearchController) {
-//        let topLists = self.selectViewController.topLists
-//        let resultVC = TodoListSearchResultsViewController(selectedList: self.list,
-//                                                           disabledLists: self.disabledLists,
-//                                                           topLists: topLists,
-//                                                           allowMaxDepth: self.allowMaxDepth)
-//        resultVC.didSelectList = { list in
-//            self.pickList(list)
-//        }
-//        searchController.searchResultsUpdater = resultVC
-
-        let resultVC = UIViewController()
+        let resultVC = TodoTaskMoveSearchResultsViewController(viewModel: viewModel)
+        searchController.searchResultsUpdater = resultVC
         setContentViewController(resultVC, withAnimationStyle: .none)
     }
     

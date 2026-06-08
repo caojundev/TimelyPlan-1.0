@@ -67,6 +67,10 @@
 		E50179522FD44D6000DC544D /* TodoTaskSectionSelectPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50179512FD44D6000DC544D /* TodoTaskSectionSelectPopoverView.swift */; };
 		E50179542FD44DAD00DC544D /* TodoTaskSectionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50179532FD44DAD00DC544D /* TodoTaskSectionSelectView.swift */; };
 		E50179562FD454F200DC544D /* TodoListSelectInboxSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50179552FD454F200DC544D /* TodoListSelectInboxSectionController.swift */; };
+		E50179582FD6533A00DC544D /* TodoTaskSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50179572FD6533900DC544D /* TodoTaskSectionViewModel.swift */; };
+		E501795C2FD6A12D00DC544D /* TodoTaskMoveSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E501795B2FD6A12D00DC544D /* TodoTaskMoveSearchResultsViewController.swift */; };
+		E501795E2FD6AAF500DC544D /* TodoTaskMoveSearchResultsSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E501795D2FD6AAF500DC544D /* TodoTaskMoveSearchResultsSectionController.swift */; };
+		E50179602FD6B75900DC544D /* TodoTaskMoveSectionSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E501795F2FD6B75900DC544D /* TodoTaskMoveSectionSearchResultCell.swift */; };
 		E505A14E2DA7717F00595B5D /* Date+Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505A14D2DA7717F00595B5D /* Date+Year.swift */; };
 		E505A1502DA771F200595B5D /* Date+Hour.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505A14F2DA771F200595B5D /* Date+Hour.swift */; };
 		E505D9312F990B60004469DC /* TodoHomeAddMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */; };
@@ -2029,6 +2033,10 @@
 		E50179512FD44D6000DC544D /* TodoTaskSectionSelectPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskSectionSelectPopoverView.swift; sourceTree = "<group>"; };
 		E50179532FD44DAD00DC544D /* TodoTaskSectionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskSectionSelectView.swift; sourceTree = "<group>"; };
 		E50179552FD454F200DC544D /* TodoListSelectInboxSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListSelectInboxSectionController.swift; sourceTree = "<group>"; };
+		E50179572FD6533900DC544D /* TodoTaskSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskSectionViewModel.swift; sourceTree = "<group>"; };
+		E501795B2FD6A12D00DC544D /* TodoTaskMoveSearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskMoveSearchResultsViewController.swift; sourceTree = "<group>"; };
+		E501795D2FD6AAF500DC544D /* TodoTaskMoveSearchResultsSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskMoveSearchResultsSectionController.swift; sourceTree = "<group>"; };
+		E501795F2FD6B75900DC544D /* TodoTaskMoveSectionSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskMoveSectionSearchResultCell.swift; sourceTree = "<group>"; };
 		E505A14D2DA7717F00595B5D /* Date+Year.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Year.swift"; sourceTree = "<group>"; };
 		E505A14F2DA771F200595B5D /* Date+Hour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Hour.swift"; sourceTree = "<group>"; };
 		E505D9302F990B60004469DC /* TodoHomeAddMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeAddMenuController.swift; sourceTree = "<group>"; };
@@ -4158,6 +4166,29 @@
 				E50179532FD44DAD00DC544D /* TodoTaskSectionSelectView.swift */,
 			);
 			path = Popover;
+			sourceTree = "<group>";
+		};
+		E50179592FD6A09900DC544D /* Select */ = {
+			isa = PBXGroup;
+			children = (
+				E5C92F592FD273570051F355 /* TodoTaskSectionSelectViewController.swift */,
+				E50179572FD6533900DC544D /* TodoTaskSectionViewModel.swift */,
+				E501794C2FD4045500DC544D /* TodoTaskSectionSelection.swift */,
+				E50179472FD3B15F00DC544D /* Inbox */,
+				E50179422FD39B0200DC544D /* User */,
+				E50179502FD44D2600DC544D /* Popover */,
+			);
+			path = Select;
+			sourceTree = "<group>";
+		};
+		E501795A2FD6A0D500DC544D /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				E501795B2FD6A12D00DC544D /* TodoTaskMoveSearchResultsViewController.swift */,
+				E501795D2FD6AAF500DC544D /* TodoTaskMoveSearchResultsSectionController.swift */,
+				E501795F2FD6B75900DC544D /* TodoTaskMoveSectionSearchResultCell.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		E505D92F2F990B2F004469DC /* Menu */ = {
@@ -9140,11 +9171,8 @@
 			isa = PBXGroup;
 			children = (
 				E5C92F572FD26F4E0051F355 /* TodoTaskMoveViewController.swift */,
-				E5C92F592FD273570051F355 /* TodoTaskSectionSelectViewController.swift */,
-				E501794C2FD4045500DC544D /* TodoTaskSectionSelection.swift */,
-				E50179502FD44D2600DC544D /* Popover */,
-				E50179472FD3B15F00DC544D /* Inbox */,
-				E50179422FD39B0200DC544D /* User */,
+				E501795A2FD6A0D500DC544D /* Search */,
+				E50179592FD6A09900DC544D /* Select */,
 			);
 			path = Move;
 			sourceTree = "<group>";
@@ -11385,6 +11413,7 @@
 				E5320C4B2FCD122E001DFE98 /* CalendarEventInfoView.swift in Sources */,
 				E50FF8B62F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift in Sources */,
 				E5D7D8D12D43933600EC877A /* FocusRecordTimelineBar.swift in Sources */,
+				E50179602FD6B75900DC544D /* TodoTaskMoveSectionSearchResultCell.swift in Sources */,
 				E51A4C2B2DC261E8005A0E3F /* CalendarModeBarButtonItem.swift in Sources */,
 				E549B1692F88D3800014BE85 /* TodoTaskEditNameView.swift in Sources */,
 				E5BB9B412D3BEF920089667A /* CGSizeExtension.swift in Sources */,
@@ -11485,6 +11514,7 @@
 				E5BB9EE22D3BF0C80089667A /* TPCircleOutlineProgressView.swift in Sources */,
 				E568B7D02F702E07007B7EFE /* FocusTimerProcessorUpdater.swift in Sources */,
 				E5BB9E5E2D3BF0C70089667A /* TFCalendarScrollableMonthView.swift in Sources */,
+				E501795E2FD6AAF500DC544D /* TodoTaskMoveSearchResultsSectionController.swift in Sources */,
 				E5FC6BAA2F64F19500D5A5EA /* HabitLogTaskInfoTableCell.swift in Sources */,
 				E50D60362F7A12B500D5E0A4 /* RepeatFrequencySectionController.swift in Sources */,
 				E53632A32FAC26E20095DFEC /* QuadrantListConfiguration.swift in Sources */,
@@ -11539,6 +11569,7 @@
 				E5C92F5C2FD27B260051F355 /* TodoTaskUserSectionSelectSectionController.swift in Sources */,
 				E5BB9E082D3BF0C70089667A /* String+ASAttributed.swift in Sources */,
 				E501794F2FD4163900DC544D /* TodoTaskMoveInboxSectionCell.swift in Sources */,
+				E501795C2FD6A12D00DC544D /* TodoTaskMoveSearchResultsViewController.swift in Sources */,
 				E524C78B2F9BA209005CCEBD /* TodoHomeDisplaySettingViewController.swift in Sources */,
 				E5BB9B472D3BEF920089667A /* UITextViewExtension.swift in Sources */,
 				E56342172F94C2E300E120BF /* TodoFilterRule.swift in Sources */,
@@ -12148,6 +12179,7 @@
 				E5D7D8C32D43933600EC877A /* FocusEventNotificationService.swift in Sources */,
 				E5E9F7842FBFF6F700717004 /* TodoStepImporterViewController.swift in Sources */,
 				E5BB9F0B2D3BF0C90089667A /* TPMultipleItemSelection.swift in Sources */,
+				E50179582FD6533A00DC544D /* TodoTaskSectionViewModel.swift in Sources */,
 				E552FBB42DBDDCA70072703F /* CalendarMonthWeekBackgroundLayer.swift in Sources */,
 				E5BB9DB52D3BF0C60089667A /* TPWeakDelegateCollection.swift in Sources */,
 				E59244032F51578F00CA2393 /* HabitConstants.swift in Sources */,

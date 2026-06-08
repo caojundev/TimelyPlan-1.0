@@ -10,15 +10,9 @@ import UIKit
 
 class TodoTaskSectionSelectViewController: TPTableSectionsViewController {
     
-    var didSelectSection: ((TodoSectionFeature) -> Void)? {
-        didSet {
-            selection.didSelectSection = didSelectSection
-        }
-    }
-    
     /// 收集箱区块控制器
     private(set) lazy var inboxSectionController: TodoTaskInboxSectionSelectSectionController = {
-        let controller = TodoTaskInboxSectionSelectSectionController(selection: selection)
+        let controller = TodoTaskInboxSectionSelectSectionController(viewModel: viewModel)
         controller.headerItem.height = 5.0
         controller.footerItem.height = 15.0
         return controller
@@ -26,14 +20,14 @@ class TodoTaskSectionSelectViewController: TPTableSectionsViewController {
     
     /// 用户列表区块控制器
     private(set) lazy var userSectionController: TodoTaskUserSectionSelectSectionController = {
-        let controller = TodoTaskUserSectionSelectSectionController(selection: selection)
+        let controller = TodoTaskUserSectionSelectSectionController(viewModel: viewModel)
         return controller
     }()
     
-    private let selection: TodoTaskSectionSelection
+    let viewModel: TodoTaskSectionViewModel
     
-    init(section: TodoSectionFeature) {
-        self.selection = TodoTaskSectionSelection(section: section)
+    init(viewModel: TodoTaskSectionViewModel) {
+        self.viewModel = viewModel
         super.init(style: .insetGrouped)
     }
     

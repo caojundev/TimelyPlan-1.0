@@ -95,6 +95,7 @@
 "Layout" = "布局";
 "List" = "列表";
 "Board" = "看板";
+"Search List Or Section" = "搜索列表或板块";
 
 /// 板块管理
 "Add Section" = "添加板块";

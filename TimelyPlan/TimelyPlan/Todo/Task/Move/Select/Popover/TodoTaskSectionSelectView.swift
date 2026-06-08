@@ -12,32 +12,25 @@ class TodoTaskSectionSelectView: TPTableWrapperView,
                                  TPTableSectionControllersList,
                                  TPTableSectionControllerDelegate {
     
-    
-    var didSelectSection: ((TodoSectionFeature) -> Void)? {
-        didSet {
-            selection.didSelectSection = didSelectSection
-        }
-    }
-    
     /// 收集箱区块控制器
     private(set) lazy var inboxSectionController: TodoTaskInboxSectionSelectSectionController = {
-        let controller = TodoTaskInboxSectionSelectSectionController(selection: selection)
+        let controller = TodoTaskInboxSectionSelectSectionController(viewModel: viewModel)
         controller.setupSeparatorFooterItem()
         return controller
     }()
     
     /// 用户列表区块控制器
     private(set) lazy var userSectionController: TodoTaskUserSectionSelectSectionController = {
-        let controller = TodoTaskUserSectionSelectSectionController(selection: selection)
+        let controller = TodoTaskUserSectionSelectSectionController(viewModel: viewModel)
         return controller
     }()
     
     var sectionControllers: [TPTableBaseSectionController]?
     
-    private let selection: TodoTaskSectionSelection
+    let viewModel: TodoTaskSectionViewModel
     
-    init(selectedSection: TodoSectionFeature) {
-        self.selection = TodoTaskSectionSelection(section: selectedSection)
+    init(viewModel: TodoTaskSectionViewModel) {
+        self.viewModel = viewModel
         super.init(frame: .zero, style: .grouped)
         self.tableView.separatorStyle = .none
         self.tableView.showsVerticalScrollIndicator = false
