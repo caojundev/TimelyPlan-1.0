@@ -53,7 +53,6 @@ class TodoTaskQuickAddSectionPicker: TPBaseButton {
         if let list = section.list {
             infoView.icon = list.icon
             infoView.foreColor = list.color
-            infoView.title = list.name
         } else {
             /// 收件箱
             infoView.icon = TPIcon(name: "todo_list_inbox_24")

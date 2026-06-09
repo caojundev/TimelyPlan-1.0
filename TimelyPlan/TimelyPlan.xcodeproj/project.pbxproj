@@ -1046,6 +1046,7 @@
 		E5B33D892F82584D00939C3E /* TodoTagSelectInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D882F82584D00939C3E /* TodoTagSelectInfoView.swift */; };
 		E5B33D8B2F828DDF00939C3E /* TodoTagSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D8A2F828DDE00939C3E /* TodoTagSearchResultViewModel.swift */; };
 		E5B33D8D2F829E1800939C3E /* TodoTagSearchResultsPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B33D8C2F829E1800939C3E /* TodoTagSearchResultsPlaceholderView.swift */; };
+		E5B499472FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499462FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift */; };
 		E5B6B2812D6C9AB700DBBCB0 /* TPAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */; };
 		E5B926CD2D3F97F30065FA79 /* plus_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B926CB2D3F97F30065FA79 /* plus_32@3x.png */; };
 		E5B926CE2D3F97F30065FA79 /* plus_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B926CC2D3F97F30065FA79 /* plus_32@2x.png */; };
@@ -3018,6 +3019,7 @@
 		E5B33D882F82584D00939C3E /* TodoTagSelectInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTagSelectInfoView.swift; sourceTree = "<group>"; };
 		E5B33D8A2F828DDE00939C3E /* TodoTagSearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTagSearchResultViewModel.swift; sourceTree = "<group>"; };
 		E5B33D8C2F829E1800939C3E /* TodoTagSearchResultsPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTagSearchResultsPlaceholderView.swift; sourceTree = "<group>"; };
+		E5B499462FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskEditSectionTitleView.swift; sourceTree = "<group>"; };
 		E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAutoScroller.swift; sourceTree = "<group>"; };
 		E5B926CB2D3F97F30065FA79 /* plus_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_32@3x.png"; sourceTree = "<group>"; };
 		E5B926CC2D3F97F30065FA79 /* plus_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_32@2x.png"; sourceTree = "<group>"; };
@@ -5046,6 +5048,7 @@
 		E524C7922F9E15F0005CCEBD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E5B499462FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift */,
 				E524C7972F9F13FB005CCEBD /* TodoTaskEditMenuAction.swift */,
 				E524C7932F9E1618005CCEBD /* TodoTaskEditMenuView.swift */,
 				E549B1622F88D3630014BE85 /* TodoTaskEditFooterView.swift */,
@@ -12203,6 +12206,7 @@
 				E5BB9EF52D3BF0C80089667A /* TPContainerViewController.swift in Sources */,
 				E5BB9DCA2D3BF0C60089667A /* AttributedDescriptable.swift in Sources */,
 				E5BB9DB32D3BF0C60089667A /* TPValueValidator.swift in Sources */,
+				E5B499472FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift in Sources */,
 				E592441E2F51CB7500CA2393 /* HabitTimePlan.swift in Sources */,
 				E5BB9B552D3BEF920089667A /* Attribute.swift in Sources */,
 				E5BB9E9C2D3BF0C80089667A /* ChartAxisLabel.swift in Sources */,

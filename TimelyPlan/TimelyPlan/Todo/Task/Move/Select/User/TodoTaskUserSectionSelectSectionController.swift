@@ -221,13 +221,11 @@ class TodoTaskUserSectionSelectSectionController: TPTableBaseSectionController,
         for i in fromIndex..<items.count {
             let depth = items[i].depth
             if depth == 0 {
-                /// 检查到下一个根列表，跳出循环
                 break
             }
-
-            if depth > currentDepth {
+            
+            if i == fromIndex, depth > currentDepth {
                 depths.append(depth)
-                /// 深度大于当前深度，检查下一个列表
                 continue
             }
             

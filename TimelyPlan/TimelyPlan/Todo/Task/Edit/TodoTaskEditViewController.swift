@@ -112,6 +112,15 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         return stepEditController
     }()
     
+    private lazy var sectionTitleView: TodoTaskEditSectionTitleView = {
+        let titleView = TodoTaskEditSectionTitleView()
+        titleView.didClickSection = { [weak self] in
+            self?.clickSection()
+        }
+        
+        return titleView
+    }()
+    
     /// 排序管理器
     private var reorder: TPTableDragInsertReorder?
     
@@ -139,6 +148,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.backButtonItem
         self.navigationItem.rightBarButtonItem = self.priorityBarButtonItem
+        self.navigationItem.titleView = sectionTitleView
         self.view.addSubview(self.infoView)
         self.view.addSubview(self.menuView)
         self.view.addSubview(self.footerView)
@@ -158,6 +168,8 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        sectionTitleView.sizeToFit()
+        
         let layoutFrame = view.safeAreaFrame()
         infoView.width = layoutFrame.width
         infoView.height = infoView.contentHeight
@@ -176,7 +188,7 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         wrapperView.top = infoView.bottom
         wrapperView.left = layoutFrame.minX
     }
-    
+
     override var themeBackgroundColor: UIColor? {
         return .systemBackground
     }
@@ -215,8 +227,10 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
             reloadData()
             return
         }
-
+        
         switch change {
+        case .section(_, _):
+            updateSectionTitle()
         case .name(_, _):
             updateName()
         case .priority(_, _):
@@ -239,7 +253,6 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
             if detailOptions.contains(.step) {
                 updateDetail()
             }
-            
         default:
             break
         }
@@ -291,12 +304,18 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     
     /// 重新加载信息视图数据
     private func updateInfo(animated: Bool = false) {
+        updateSectionTitle()
         updateName()
         updatePriority()
         updateCheckType()
         updateProgress(animated: animated)
         updateCompleted(animated: animated)
         updateDetail()
+    }
+    
+    private func updateSectionTitle() {
+        sectionTitleView.section = task.section
+        sectionTitleView.sizeToFit()
     }
     
     private func updateCompleted(animated: Bool) {
@@ -359,12 +378,17 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         }
     }
     
+    private func clickSection() {
+        let taskController = TodoTaskController()
+        taskController.moveTask(task, completion: nil)
+    }
+    
     func selectPriority(_ priority: TodoTaskPriority) {
         interactor.setPriority(priority)
     }
     
     func clickAddStep() {
-        self.stepEditController.beginEditing()
+        stepEditController.beginEditing()
     }
     
     // MARK: - 设置完成状态和进度

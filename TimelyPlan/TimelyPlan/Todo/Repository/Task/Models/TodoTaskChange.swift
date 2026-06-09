@@ -34,6 +34,9 @@ enum TodoTaskChange: Hashable {
     /// 列表
     case list(oldValue: TodoListFeature?, newValue: TodoListFeature?)
     
+    /// 板块
+    case section(oldValue: TodoSectionFeature, newValue: TodoSectionFeature)
+    
     /// 优先级
     case priority(oldValue: TodoTaskPriority, newValue: TodoTaskPriority)
     
@@ -77,7 +80,7 @@ extension TodoTaskChange {
     
     var changeType: TaskChangeType {
         switch self {
-        case .myDay(_, _), .completed(_, _), .priority(_, _):
+        case .myDay(_, _), .completed(_, _), .priority(_, _), .section(_, _):
             return .modified
         case .name(let oldValue, let newValue), .note(let oldValue, let newValue):
             return changeType(oldValue: oldValue, newValue: newValue)

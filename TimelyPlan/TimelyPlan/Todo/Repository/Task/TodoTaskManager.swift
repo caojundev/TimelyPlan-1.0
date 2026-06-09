@@ -39,6 +39,21 @@ class TodoTaskManager {
         guard tasksToMove.count > 0, CDTodoTask.moveTasks(tasksToMove, to: section) else {
             return
         }
+
+        if tasksToMove.count == 1 {
+            let task = tasksToMove[0]
+            let change: TodoTaskChange = .section(oldValue: task.section, newValue: section)
+            updater.didUpdateTodoTask(task, with: change)
+        } else {
+            var changeInfos: [TodoTaskChangeInfo] = []
+            for task in tasksToMove {
+                let change: TodoTaskChange = .section(oldValue: task.section, newValue: section)
+                let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+                changeInfos.append(changeInfo)
+            }
+            
+            updater.didUpdateTodoTasks(with: changeInfos)
+        }
         
         updater.didMoveTodoTasks(tasksToMove, to: section)
         HandyRecord.save()
