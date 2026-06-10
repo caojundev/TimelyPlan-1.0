@@ -24,7 +24,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        UNUserNotificationCenter.current().delegate = self
+        
+        // 设置通知代理
+        UNUserNotificationCenter.current().delegate = TaskNotificationManager.shared
+        
+//        // 请求权限并运行测试
+//        TaskNotificationManager.shared.requestAuthorization { granted in
+//            if granted {
+//                #if DEBUG
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                    NotificationTester.runTests()
+//                }
+//                #endif
+//            }
+//        }
+//        
         return true
     }
     
@@ -64,16 +78,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         /// 恢复专注
         FocusTracker.shared.restoreFocus()
     }
-    
-    // MARK: - UNUserNotificationCenterDelegate
-    // 处理前台收到的通知
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        if #available(iOS 14.0, *) {
-            completionHandler([.sound, .banner])
-        } else {
-            completionHandler([.sound, .alert])
-        }
-    }
-    
 }
 

@@ -16,10 +16,7 @@ class HabitReportMonthlyCell: TPCollectionCell {
     var periodItem: HabitPeriodItem?
     
     var imageCacher: HabitReportImageCacher?
-    
-    /// 数据请求管理器
-    private let requestManager = TPRequestManager()
-    
+
     /// 任务信息视图
     private(set) lazy var infoView: HabitReportIconInfoView = {
         let view = HabitReportIconInfoView()
@@ -76,9 +73,9 @@ class HabitReportMonthlyCell: TPCollectionCell {
         }
         
         self.monthImageView.image = nil
-        let requestID = requestManager.executeRequest()
         render.renderImage { image in
-            guard self.requestManager.shouldProceed(with: requestID) else {
+            guard taskID == self.periodItem?.habitTask.identifier,
+                  date == self.periodItem?.period.date else {
                 return
             }
             

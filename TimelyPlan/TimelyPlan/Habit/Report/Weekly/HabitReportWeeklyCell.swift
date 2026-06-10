@@ -27,9 +27,6 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
     /// 周视图
     private let weekImageView = UIImageView()
     
-    /// 数据请求管理器
-    private let requestManager = TPRequestManager()
-    
     override func setupContentSubviews() {
         super.setupContentSubviews()
         contentView.addSubview(infoView)
@@ -97,10 +94,9 @@ class HabitReportWeeklyCell: TPCollectionCell, TPCalendarSingleWeekViewDelegate 
         }
 
         self.weekImageView.image = nil
-
-        let requestID = requestManager.executeRequest()
         render.renderImage { image in
-            guard self.requestManager.shouldProceed(with: requestID) else {
+            guard taskID == self.periodItem?.habitTask.identifier,
+                  date == self.periodItem?.period.date else {
                 return
             }
             

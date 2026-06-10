@@ -20,9 +20,6 @@ class HabitReportYearlyMonthCell: TPCollectionCell {
     /// 月视图
     private let monthImageView = UIImageView()
     
-    /// 数据请求管理器
-    private let requestManager = TPRequestManager()
-    
     override func setupContentSubviews() {
         monthImageView.contentMode = .scaleAspectFit
         contentView.addSubview(monthImageView)
@@ -52,11 +49,9 @@ class HabitReportYearlyMonthCell: TPCollectionCell {
         }
         
         self.monthImageView.image = nil
-        
-        /// 开始渲染图片
-        let requestID = requestManager.executeRequest()
         render.renderImage { image in
-            guard self.requestManager.shouldProceed(with: requestID) else {
+            guard taskID == self.periodItem?.habitTask.identifier,
+                  date == self.periodItem?.period.date else {
                 return
             }
             
