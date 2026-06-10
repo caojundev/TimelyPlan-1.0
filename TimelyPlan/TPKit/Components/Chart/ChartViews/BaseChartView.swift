@@ -32,7 +32,7 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
         return max(width, minimumStepWidth)
     }
     
-    var minimumStepWidth: CGFloat = 15.0
+    var minimumStepWidth: CGFloat = 10.0
     
     /// 画布视图
     let canvasView = UIView()

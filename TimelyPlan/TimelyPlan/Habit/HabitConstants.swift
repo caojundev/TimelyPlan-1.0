@@ -30,7 +30,7 @@ let kHabitRecordDefaultAmount: Int64 = 1
 let kHabitTaskListContentMaxWidth = 560.0
 
 /// 任务编辑输入框圆角
-let kTaskEditInputFieldCornerRadius = 8.0
+let kTaskEditInputFieldCornerRadius = CGFloat.greatestFiniteMagnitude
 
 
 /// 默认评分
@@ -38,4 +38,4 @@ let kHabitDefaultCompletedScore = 100
 
 let kHabitDefaultSkippedScore = 60
 
-let kHabitDefaultFailedScore = 10
+let kHabitDefaultFailedScore = 20

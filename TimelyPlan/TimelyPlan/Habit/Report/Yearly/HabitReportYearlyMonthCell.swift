@@ -51,7 +51,7 @@ class HabitReportYearlyMonthCell: TPCollectionCell {
         self.monthImageView.image = nil
         render.renderImage { image in
             guard taskID == self.periodItem?.habitTask.identifier,
-                  date == self.periodItem?.period.date else {
+                  date == self.date else {
                 return
             }
             

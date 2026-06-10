@@ -115,17 +115,17 @@ class HabitStatsMonthlyViewController: HabitStatsContentViewController {
     }
     
     // MARK: - 得分趋势
-    func scoreTrendsSectionController(for periodItem: HabitPeriodItem) -> StatsCurveChartSectionController {
-        let pointMarks = periodItem.scoreChartMarks(in: self.dateRange) { date in
+    func scoreTrendsSectionController(for periodItem: HabitPeriodItem) -> StatsBarChartSectionController {
+        let barMarks = periodItem.scoreChartMarks(in: self.dateRange) { date in
             return CGFloat(date.day)
         }
     
-        let chartItem = CurveChartItem()
-        chartItem.pointMarks = pointMarks
+        let chartItem = BarChartItem()
+        chartItem.barMarks = barMarks
         chartItem.xAxis = .monthDaysAxis(date: date)
         chartItem.yAxis = .scoreAxis()
         
-        let sectionController = StatsCurveChartSectionController()
+        let sectionController = StatsBarChartSectionController()
         sectionController.cellItem.headerTitle = resGetString("Score Trends")
         sectionController.chartItem = chartItem
         return sectionController

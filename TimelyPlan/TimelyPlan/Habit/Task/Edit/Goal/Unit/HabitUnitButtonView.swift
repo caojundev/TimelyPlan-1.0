@@ -32,7 +32,7 @@ class HabitUnitButtonView: UIView {
         button.imageConfig.shouldRenderImageWithColor = true
         button.imageConfig.color = .secondaryLabel
         button.titleConfig.textAlignment = .center
-        button.titleConfig.font = BOLD_SYSTEM_FONT
+        button.titleConfig.font = .boldSystemFont(ofSize: 13.0)
         button.image = resGetImage("chevron_down_24")
         button.normalBackgroundColor = .secondarySystemFill
         button.selectedBackgroundColor = .tertiarySystemFill

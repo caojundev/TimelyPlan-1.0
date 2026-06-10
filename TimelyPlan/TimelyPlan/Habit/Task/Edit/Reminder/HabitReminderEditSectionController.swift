@@ -95,9 +95,10 @@ class HabitReminderEditSectionController: TPTableItemSectionController,
         cellItem.selection = selection
         cellItem.editingEnabled = true /// 可编辑
         cellItem.isSubtitleHidden = true /// 隐藏副标题
-        cellItem.titleConfig.textColor = Color(0xFFFFFF, 0.8)
+        cellItem.titleConfig.textColor = Color(0xFFFFFF, 0.9)
         cellItem.cellStyle.backgroundColor = .primary
-        cellItem.cellStyle.focusLineColor = .primary.withBrightness(0.2)
+        cellItem.cellStyle.focusLineColor = Color(light: 0x0126C4, dark: 0x8AA0FF)
+        cellItem.cellStyle.cornerRadius = .greatestFiniteMagnitude
         return cellItem
     }()
     
@@ -108,10 +109,10 @@ class HabitReminderEditSectionController: TPTableItemSectionController,
         cellItem.buttonTitle = resGetString("Add Alarm")
         cellItem.buttonImageName = "bell_add_20"
         cellItem.buttonFixedImageSize = .size(5)
-        cellItem.buttonImageColor = .secondaryLabel
-        cellItem.buttonNormalTitleColor = .secondaryLabel
-        cellItem.buttonNormalBackgroundColor = Color(0xdddddd, 0.1)
-        cellItem.buttonSelectedBackgroundColor = Color(0xdddddd, 0.2)
+        cellItem.buttonImageColor = Color(0xFFFFFF, 0.9)
+        cellItem.buttonNormalTitleColor = Color(0xFFFFFF, 0.9)
+        cellItem.buttonNormalBackgroundColor = .primary
+        cellItem.buttonSelectedBackgroundColor = .primary.darkerColor
         cellItem.updater = {
             guard let self = self else {
                 return

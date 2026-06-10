@@ -98,18 +98,18 @@ class FocusStatsWeeklyViewController: FocusStatsContentViewController {
     }
     
     // MARK: - 平均得分趋势
-    func scoreTrendsSectionController(with dataItem: FocusStatsDataItem) -> StatsCurveChartSectionController {
+    func scoreTrendsSectionController(with dataItem: FocusStatsDataItem) -> StatsBarChartSectionController {
         let dateRange = date.rangeOfThisWeek(firstWeekday: firstWeekday)
-        let pointMarks = dataItem.scoreChartMarks(in: dateRange) { date in
+        let barMarks = dataItem.scoreChartMarks(in: dateRange) { date in
             return CGFloat(date.weekIndex(firstWeekday: firstWeekday))
         }
     
-        let chartItem = CurveChartItem()
-        chartItem.pointMarks = pointMarks
+        let chartItem = BarChartItem()
+        chartItem.barMarks = barMarks
         chartItem.xAxis = .weekDaysAxis(date: date, firstWeekday: firstWeekday)
         chartItem.yAxis = .scoreAxis()
         
-        let sectionController = StatsCurveChartSectionController()
+        let sectionController = StatsBarChartSectionController()
         sectionController.cellItem.headerTitle = resGetString("Score Trends")
         sectionController.chartItem = chartItem
         return sectionController

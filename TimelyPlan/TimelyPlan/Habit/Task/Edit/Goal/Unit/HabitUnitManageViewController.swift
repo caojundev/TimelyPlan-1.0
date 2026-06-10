@@ -44,7 +44,7 @@ class HabitUnitManageViewController: TPCollectionSectionsViewController,
         self.sectionControllers = [userSectionController, systemSectionController]
         self.adapter.interitemSpacing = 8.0
         self.adapter.lineSpacing = 8.0
-        self.adapter.cellStyle.cornerRadius = 8.0
+        self.adapter.cellStyle.cornerRadius = .greatestFiniteMagnitude
         self.adapter.cellStyle.backgroundColor = .secondarySystemFill
         self.adapter.cellStyle.selectedBackgroundColor = .tertiarySystemFill
         self.adapter.reloadData()

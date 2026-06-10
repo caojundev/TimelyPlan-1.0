@@ -48,7 +48,6 @@ class HabitDateRangeView: UIView {
         self.addSubview(self.startDateButton)
         self.addSubview(self.endDateButton)
         self.updateInfo()
-        self.addSeparator(position: .bottom, color: Color(0x888888, 0.1))
     }
     
     required init?(coder: NSCoder) {
@@ -144,11 +143,11 @@ class HabitDateRangeInfoButton: TPBaseButton {
         super.init(frame: frame)
         self.contentView.padding = UIEdgeInsets(top: 10.0, left: 15.0, bottom: 10.0, right: 5.0)
         self.contentView.addSubview(infoView)
-        self.normalBackgroundColor = Color(0xcccccc, 0.1)
-        self.selectedBackgroundColor = Color(0xcccccc, 0.2)
-        self.borderWidth = 1.0
-        self.normalBorderColor = Color(0xcccccc, 0.2)
-        self.selectedBorderColor = Color(0xcccccc, 0.4)
+        self.normalBackgroundColor = .primary
+        self.selectedBackgroundColor = .primary.darkerColor
+        self.infoView.headerTextColor = Color(0xFFFFFF, 0.7)
+        self.infoView.titleTextColor = Color(0xFFFFFF, 0.9)
+        self.infoView.subtitleTextColor = Color(0xFFFFFF, 0.8)
         self.cornerRadius = 8.0
         self.preferredTappedScale = 0.95
         self.scaleMaxLength = 8.0

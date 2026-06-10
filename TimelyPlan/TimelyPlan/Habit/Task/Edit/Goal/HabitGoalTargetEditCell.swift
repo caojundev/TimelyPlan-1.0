@@ -49,6 +49,7 @@ class HabitGoalTargetEditCell: TPNumberFieldTableCell {
             numberField.number = cellItem.number
             unitView.unit = cellItem.unit
             unitView.placeholderUnit = cellItem.placeholderUnit
+            setNeedsLayout()
         }
     }
     
@@ -65,10 +66,10 @@ class HabitGoalTargetEditCell: TPNumberFieldTableCell {
         super.layoutSubviews()
         
         let layoutFrame = contentView.layoutFrame()
-        let titleSize = textLabel?.sizeThatFits(layoutFrame.size) ?? .zero
+        let titleSize = infoView.sizeThatFits(layoutFrame.size)
         let maxWidth = layoutFrame.width - titleSize.width - 2 * itemMargin
         unitView.sizeToFit()
-        
+    
         if unitView.width + Self.numberFieldSize.width > maxWidth {
             unitView.width = maxWidth - Self.numberFieldSize.width
         }

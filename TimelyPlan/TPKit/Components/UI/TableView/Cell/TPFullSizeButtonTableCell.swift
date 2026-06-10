@@ -13,6 +13,9 @@ class TPFullSizeButtonTableCellItem: TPBaseTableCellItem {
     /// 点击按钮
     var didClickButton: ((UIButton) -> Void)?
     
+    /// 禁用状态下透明度
+    var disabledAlpha: CGFloat = 0.6
+        
     /// 按钮标题
     var buttonTitle: String?
     
@@ -104,6 +107,7 @@ class TPFullSizeButtonTableCell: TPBaseTableCell {
             return
         }
     
+        button.disabledAlpha = cellItem.disabledAlpha
         button.title = cellItem.buttonTitle
         button.padding = cellItem.buttonPadding
         button.imageConfig.color = cellItem.buttonImageColor

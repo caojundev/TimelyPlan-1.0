@@ -23,6 +23,7 @@ class HabitSystemUnitSectionController: TPCollectionBaseSectionController {
     lazy var titleConfig: TPLabelConfig = {
         let config = TPLabelConfig()
         config.textAlignment = .center
+        config.font = SMALL_SYSTEM_FONT
         return config
     }()
     

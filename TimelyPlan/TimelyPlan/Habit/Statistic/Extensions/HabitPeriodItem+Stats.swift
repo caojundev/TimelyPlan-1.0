@@ -131,21 +131,14 @@ extension HabitPeriodItem {
         var marks = [ChartMark]()
         let count = dateRange.lastsCount()
         for i in 0..<count {
-            guard let date = startDate.dateByAddingDays(i), !date.isFutureDay else {
+            guard let date = startDate.dateByAddingDays(i),
+                  let score = records[date.dayIntegerKey]?.score else {
                 continue
             }
-            
+        
             let x = xValueForDate(date)
-            
-            var score = records[date.dayIntegerKey]?.score
-            if score == nil, !isScheduledDate(date) {
-                /// 非计划日，评分设置为100
-                score = 100
-            }
-            
-            let markScore = score ?? 0
-            var mark = ChartMark(x: x, y: CGFloat(markScore))
-            mark.highlightText = "\(date.monthDayShortWeekdaySymbolString), \(markScore)"
+            var mark = ChartMark(x: x, y: CGFloat(score))
+            mark.highlightText = "\(date.monthDayShortWeekdaySymbolString), \(score)"
             marks.append(mark)
         }
         

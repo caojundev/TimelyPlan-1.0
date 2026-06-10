@@ -19,7 +19,7 @@ class HabitUserUnitSectionController: HabitSystemUnitSectionController, HabitUse
     override init() {
         self.userUnits = HabitSetting.shared.customUnits
         super.init()
-        self.cellPadding = UIEdgeInsets(left: 12.0)
+        self.cellPadding = UIEdgeInsets(left: 12.0, right: 8.0)
         self.maxItemWidth = 128.0
     }
     

@@ -246,7 +246,10 @@ extension FocusStatsDataItem {
                                           xEnd: xEnd,
                                           yStart: yStart,
                                           yEnd: yEnd)
-            mark.highlightText = "\(fragment.startDate.timeString)~\(fragment.endDate.timeString), \(fragment.duration.localizedTitle)"
+            if fragment.interval > SECONDS_PER_MINUTE {
+                mark.highlightText = "\(fragment.startDate.timeString)~\(fragment.endDate.timeString), \(fragment.duration.localizedTitle)"
+            }
+            
             marks.append(mark)
         }
         
@@ -264,14 +267,12 @@ extension FocusStatsDataItem {
         var marks: [ChartMark] = []
         let count = dateRange.lastsCount()
         for i in 0..<count {
-            let date = startDate.dateByAddingDays(i)!
-            if date.isFutureDay {
-                /// 未来日期跳出循环
-                break
+            guard let date = startDate.dateByAddingDays(i),
+                  let score = dayInfos[date.dayStringKey]?.averageScore else {
+                continue
             }
             
             let x = xValueForDate(date)
-            let score = dayInfos[date.dayStringKey]?.averageScore ?? 0
             var mark = ChartMark(x: x, y: CGFloat(score))
             mark.highlightText = "\(date.monthDayShortWeekdaySymbolString), \(score)"
             marks.append(mark)

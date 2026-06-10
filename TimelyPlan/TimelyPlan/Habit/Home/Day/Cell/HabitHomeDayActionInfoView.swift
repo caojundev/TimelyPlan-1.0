@@ -78,7 +78,7 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let layoutFrame = layoutFrame()
-        var infoViewWidth = layoutFrame.width
+        var titleViewWidth = layoutFrame.maxX - titleView.left
         
         recordButton.sizeToFit()
         if actionType == .record {
@@ -89,7 +89,7 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
             }
             
             recordButton.right = layoutFrame.maxX
-            infoViewWidth = recordButton.left - layoutFrame.minX
+            titleViewWidth = recordButton.left - titleView.left
         } else if actionType == .resetToday {
             recordButton.alpha = 0.0
             recordButton.right = layoutFrame.maxX
@@ -98,7 +98,7 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
             recordButton.right = layoutFrame.maxX
         }
         
-        titleView.width = infoViewWidth
+        titleView.width = titleViewWidth
         recordButton.centerYEqualToView(titleView)
     }
     

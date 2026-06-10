@@ -115,18 +115,18 @@ class HabitStatsWeeklyViewController: HabitStatsContentViewController {
     }
     
     // MARK: - 得分趋势
-    func scoreTrendsSectionController(for periodItem: HabitPeriodItem) -> StatsCurveChartSectionController {
+    func scoreTrendsSectionController(for periodItem: HabitPeriodItem) -> StatsBarChartSectionController {
         let dateRange = date.rangeOfThisWeek(firstWeekday: firstWeekday)
-        let pointMarks = periodItem.scoreChartMarks(in: dateRange) { date in
+        let barMarks = periodItem.scoreChartMarks(in: dateRange) { date in
             return CGFloat(date.weekIndex(firstWeekday: firstWeekday))
         }
     
-        let chartItem = CurveChartItem()
-        chartItem.pointMarks = pointMarks
+        let chartItem = BarChartItem()
+        chartItem.barMarks = barMarks
         chartItem.xAxis = .weekDaysAxis(date: date, firstWeekday: firstWeekday)
         chartItem.yAxis = .scoreAxis()
         
-        let sectionController = StatsCurveChartSectionController()
+        let sectionController = StatsBarChartSectionController()
         sectionController.cellItem.headerTitle = resGetString("Score Trends")
         sectionController.chartItem = chartItem
         return sectionController

@@ -10,6 +10,38 @@ import UIKit
 
 class TPDateRangeInfoView: UIView {
     
+    var headerTextColor: UIColor {
+        get {
+            return headerLabel.textColor
+        }
+        
+        set {
+            headerLabel.textColor = newValue
+        }
+    }
+    
+    var titleTextColor: UIColor? {
+        get {
+            return detailView.titleConfig.textColor
+        }
+        
+        set {
+            detailView.titleConfig.textColor = newValue
+        }
+    }
+    
+    var subtitleTextColor: UIColor? {
+        get {
+            return detailView.subtitleConfig.textColor
+        }
+        
+        set {
+            detailView.subtitleConfig.textColor = newValue
+        }
+    }
+    
+    
+    
     var detailTitle: TextRepresentable? {
         get {
             return detailView.title

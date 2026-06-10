@@ -143,18 +143,6 @@ extension CalendarLocalEventProvider: TodoTaskProcessorDelegate {
     }
     
     private func ranges(for task: TodoTask, with change: TodoTaskChange) -> [DateInterval]? {
-        var shouldUpdate: Bool = false
-        switch change {
-        case .name(_, _), .completed(_, _), .priority(_, _), .schedule(_, _):
-            shouldUpdate = true
-        default:
-            break
-        }
-        
-        guard shouldUpdate else {
-            return nil
-        }
-        
         if case let .schedule(oldValue, newValue) = change {
             var ranges = [DateInterval]()
             if let oldRange = oldValue?.dateInfo?.dateInterval {
