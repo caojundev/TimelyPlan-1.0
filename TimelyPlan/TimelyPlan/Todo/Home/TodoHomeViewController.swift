@@ -153,26 +153,35 @@ class TodoHomeViewController: TPTableViewController,
         fatalError("init(coder:) has not been implemented")
     }
     
+    private lazy var searchView: TodoHomeSearchView = {
+        let view = TodoHomeSearchView()
+        view.height = TodoHomeSearchView.height
+        view.didClickSearch = { [weak self] in
+            self?.clickSearch()
+        }
+        
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = resGetString("Todo")
-        self.navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
-        self.navigationItem.rightBarButtonItems = [settingBarButtonItem, searchBarButtonItem]
-        self.view.addSubview(self.toolView)
-        self.wrapperView.refreshHandler = { [weak self] in
+        title = resGetString("Todo")
+        navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
+        updateRightBarButtonItems()
+        view.addSubview(toolView)
+        
+        wrapperView.tableHeaderView = searchView
+        wrapperView.refreshHandler = { [weak self] in
             self?.handleRefresh()
         }
         
-        let headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.01))
-        self.tableView.tableHeaderView = headerView
-        self.tableView.contentInset = .zero
-        
-        self.setupReorder()
-        self.adapter.cellStyle.backgroundColor = .systemBackground
-        self.adapter.dataSource = self
-        self.adapter.delegate = self
-        self.adapter.reloadData()
-        self.initializeData()
+        tableView.contentInset = .zero
+        setupReorder()
+        adapter.cellStyle.backgroundColor = .systemBackground
+        adapter.dataSource = self
+        adapter.delegate = self
+        adapter.reloadData()
+        initializeData()
         
         TodoSetting.shared.addObserver(self, forKey: .homeSectionTypes)
     }
@@ -326,6 +335,33 @@ class TodoHomeViewController: TPTableViewController,
         }
     }
     
+    // MARK: - 导航搜索按钮
+    var isSearchBarButtonHidden: Bool = true {
+        didSet {
+            if isSearchBarButtonHidden != oldValue {
+                updateRightBarButtonItems()
+            }
+        }
+    }
+    
+    private func updateRightBarButtonItems() {
+        let items: [UIBarButtonItem]
+        if isSearchBarButtonHidden {
+           items = [settingBarButtonItem]
+        } else {
+           items = [settingBarButtonItem, searchBarButtonItem]
+        }
+        
+        navigationItem.rightBarButtonItems = items
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y >= TodoHomeSearchView.height {
+            isSearchBarButtonHidden = false
+        } else {
+            isSearchBarButtonHidden = true
+        }
+    }
 }
 
 

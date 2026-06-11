@@ -246,7 +246,7 @@ extension FocusStatsDataItem {
                                           xEnd: xEnd,
                                           yStart: yStart,
                                           yEnd: yEnd)
-            if fragment.interval > SECONDS_PER_MINUTE {
+            if fragment.interval > CGFloat(SECONDS_PER_MINUTE) {
                 mark.highlightText = "\(fragment.startDate.timeString)~\(fragment.endDate.timeString), \(fragment.duration.localizedTitle)"
             }
             
