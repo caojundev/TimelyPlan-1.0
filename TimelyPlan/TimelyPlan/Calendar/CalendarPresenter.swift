@@ -22,7 +22,7 @@ class CalendarPresenter {
     }
     
     static func showSetting() {
-        let settingVC = CalendarSettingViewController(style: .insetGrouped)
+        let settingVC = CalendarSettingViewController()
         settingVC.showAsNavigationRoot()
     }
     

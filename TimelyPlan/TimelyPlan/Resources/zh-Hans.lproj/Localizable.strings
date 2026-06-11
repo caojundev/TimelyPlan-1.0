@@ -29,6 +29,7 @@
 "No Events" = "无事项";
 "Default Duration" = "默认时长";
 
+"Calendar Settings" = "日历设置";
 "View Options" = "视图选项";
 "Show Week Number" = "显示第几周";
 "Show Lunar Calendar" = "显示农历";
@@ -263,6 +264,7 @@
 "Multi-Day" = "多日";
 
 /// 设置
+"Todo Settings" = "待办设置";
 "Display" = "显示";
 "Home" = "主页";
 "Smart List" = "智能列表";
@@ -655,8 +657,13 @@
 
 ///**********************设置*********************///
 "General" = "常规";
-"Haptic Feedback" = "触感反馈";
 "Week Start On" = "周开始于";
+
+"Haptic Feedback" = "触感反馈";
+"Support Us" = "支持我们":
+"Rate Us" = "好评鼓励";
+"Share with Friends" = "与好友分享";
+"About" = "关于";
 
 ///**********************通用*********************///
 "Others" = "其它";

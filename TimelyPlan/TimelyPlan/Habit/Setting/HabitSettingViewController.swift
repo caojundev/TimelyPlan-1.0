@@ -8,9 +8,7 @@
 import Foundation
 import UIKit
 
-class HabitSettingViewController: TPTableSectionsViewController {
-     
-    private let defaultCellHeight = 60.0
+class HabitSettingViewController: BaseSettingViewController {
      
     /// 周开始日
     lazy var firstWeekdayCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
@@ -87,23 +85,9 @@ class HabitSettingViewController: TPTableSectionsViewController {
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("Habit Settings")
-         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
          self.sectionControllers = [generalSectionController]
-         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
          self.reloadData()
      }
-     
-     override func viewWillLayoutSubviews() {
-         super.viewWillLayoutSubviews()
-     }
-     
-    override var themeBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
-    
-    override var themeNavigationBarBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
     
     private func editFirstWeekday() {
         guard let cell = adapter.cellForItem(firstWeekdayCellItem) else {

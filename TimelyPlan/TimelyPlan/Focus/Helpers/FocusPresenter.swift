@@ -98,7 +98,7 @@ class FocusPresenter {
 
     /// 显示设置视图控制器
     static func showSettings() {
-        let vc = FocusSettingViewController(style: .insetGrouped)
+        let vc = FocusSettingViewController()
         vc.showAsNavigationRoot()
     }
     

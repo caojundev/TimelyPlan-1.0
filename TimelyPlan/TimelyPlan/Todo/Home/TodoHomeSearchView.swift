@@ -10,7 +10,7 @@ import UIKit
 
 class TodoHomeSearchView: UIView {
     
-    static let height = 60.0
+    static let height = 50.0
     
     var didClickSearch: (() -> Void)?
     

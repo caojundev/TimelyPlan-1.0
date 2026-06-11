@@ -8,10 +8,8 @@
 import Foundation
 import UIKit
 
-class CalendarSettingViewController: TPTableSectionsViewController {
-     
-    private let defaultCellHeight = 60.0
-    
+class CalendarSettingViewController: BaseSettingViewController {
+
     private let headerHeight = 50.0
     
     private let headerPadding = UIEdgeInsets(top: 15.0, left: 12.0, bottom: 0.0, right: 12.0)
@@ -255,8 +253,7 @@ class CalendarSettingViewController: TPTableSectionsViewController {
     
      override func viewDidLoad() {
          super.viewDidLoad()
-         self.title = resGetString("Settings")
-         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
+         self.title = resGetString("Calendar Settings")
          self.sectionControllers = [generalSectionController,
                                     newEventsSectionController,
                                     alertSectionController,
@@ -264,21 +261,8 @@ class CalendarSettingViewController: TPTableSectionsViewController {
                                     taskOptionsSectionController,
                                     weekViewSectionController,
                                     monthViewSectionController]
-         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
          self.reloadData()
      }
-     
-     override func viewWillLayoutSubviews() {
-         super.viewWillLayoutSubviews()
-     }
-     
-    override var themeBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
-    
-    override var themeNavigationBarBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
     
     // MARK: - Update CellItem
     private func updateTimedEventAlertCellItem() {

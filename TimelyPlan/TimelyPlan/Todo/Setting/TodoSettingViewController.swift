@@ -8,10 +8,8 @@
 import Foundation
 import UIKit
 
-class TodoSettingViewController: TPTableSectionsViewController {
-    
-    let defaultCellHeight = 55.0
-    
+class TodoSettingViewController: BaseSettingViewController {
+
     // MARK: - 显示设置
     lazy var homeDisplayCellItem: TPDefaultInfoTableCellItem = {
         let cellItem = TPDefaultInfoTableCellItem(accessoryType: .disclosureIndicator)
@@ -209,34 +207,24 @@ class TodoSettingViewController: TPTableSectionsViewController {
                                         autoCompleteParentTaskCellItem]
          return sectionController
      }()
-     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = resGetString("Settings")
-        self.navigationItem.leftBarButtonItems = [chevronDownCancelButtonItem]
-        self.sectionControllers = [displaySectionController,
+        title = resGetString("Todo Settings")
+        sectionControllers = [displaySectionController,
                                    insertLocationSectionController,
                                    quickAddSectionController,
                                    stepSectionController]
-        self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        self.reloadData()
-    }
-    
-    override var themeBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
-    
-    override var themeNavigationBarBackgroundColor: UIColor? {
-        return .systemGroupedBackground
+        reloadData()
     }
     
     private func showHomeDisplaySettings() {
         let vc = TodoHomeDisplaySettingViewController(style: .insetGrouped)
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func showSmartListDisplaySettings() {
         let vc = TodoSmartListDisplaySettingViewController(style: .insetGrouped)
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

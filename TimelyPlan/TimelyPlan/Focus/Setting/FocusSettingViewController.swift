@@ -8,9 +8,7 @@
 import Foundation
 import UIKit
 
-class FocusSettingViewController: TPTableSectionsViewController {
-     
-    private let defaultCellHeight = 60.0
+class FocusSettingViewController: BaseSettingViewController {
      
     /// 周开始日
     lazy var firstWeekdayCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
@@ -252,23 +250,13 @@ class FocusSettingViewController: TPTableSectionsViewController {
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("Focus Settings")
-         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
          self.sectionControllers = [generalSectionController,
                                     pomodoroSectionController,
                                     steppedSectionController,
                                     stopwatchSectionController,
                                     flipClockSectionController]
-         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
          self.reloadData()
      }
-     
-    override var themeBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
-    
-    override var themeNavigationBarBackgroundColor: UIColor? {
-        return .systemGroupedBackground
-    }
     
      private func selectMinute(within range: ClosedRange<Int>, selectedMinute: Int, completion: ((Int) -> Void)?) {
          let pickerVC = TPCountPickerViewController()

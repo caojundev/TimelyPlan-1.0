@@ -54,7 +54,7 @@ class HabitPresenter {
     
     /// 显示设置视图控制器
     static func showSettings() {
-        let vc = HabitSettingViewController(style: .insetGrouped)
+        let vc = HabitSettingViewController()
         vc.showAsNavigationRoot()
     }
     

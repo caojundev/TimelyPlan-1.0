@@ -36,7 +36,7 @@ class TodoPresenter {
     
     /// 显示设置
     static func showSettings() {
-        let vc = TodoSettingViewController(style: .insetGrouped)
+        let vc = TodoSettingViewController()
         vc.showAsNavigationRoot()
     }
     
