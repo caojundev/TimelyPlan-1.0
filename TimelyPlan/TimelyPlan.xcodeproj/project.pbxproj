@@ -1054,7 +1054,6 @@
 		E5B499552FDA5BD100F3A9BD /* BaseSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499542FDA5BD100F3A9BD /* BaseSettingViewController.swift */; };
 		E5B499572FDAA00800F3A9BD /* CalendarMoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499562FDAA00800F3A9BD /* CalendarMoreViewController.swift */; };
 		E5B499592FDBADBF00F3A9BD /* CalendarVisibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499582FDBADBF00F3A9BD /* CalendarVisibilityManager.swift */; };
-		E5B4995B2FDBAF6C00F3A9BD /* EKSourceType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B4995A2FDBAF6C00F3A9BD /* EKSourceType+Extension.swift */; };
 		E5B6B2812D6C9AB700DBBCB0 /* TPAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */; };
 		E5B926CD2D3F97F30065FA79 /* plus_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B926CB2D3F97F30065FA79 /* plus_32@3x.png */; };
 		E5B926CE2D3F97F30065FA79 /* plus_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B926CC2D3F97F30065FA79 /* plus_32@2x.png */; };
@@ -3035,7 +3034,6 @@
 		E5B499542FDA5BD100F3A9BD /* BaseSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSettingViewController.swift; sourceTree = "<group>"; };
 		E5B499562FDAA00800F3A9BD /* CalendarMoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMoreViewController.swift; sourceTree = "<group>"; };
 		E5B499582FDBADBF00F3A9BD /* CalendarVisibilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVisibilityManager.swift; sourceTree = "<group>"; };
-		E5B4995A2FDBAF6C00F3A9BD /* EKSourceType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EKSourceType+Extension.swift"; sourceTree = "<group>"; };
 		E5B6B2802D6C9AB700DBBCB0 /* TPAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAutoScroller.swift; sourceTree = "<group>"; };
 		E5B926CB2D3F97F30065FA79 /* plus_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_32@3x.png"; sourceTree = "<group>"; };
 		E5B926CC2D3F97F30065FA79 /* plus_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_32@2x.png"; sourceTree = "<group>"; };
@@ -4914,8 +4912,7 @@
 			isa = PBXGroup;
 			children = (
 				E51A43812DB73A7400DC84C9 /* CalendarMainViewController.swift */,
-				E5B499562FDAA00800F3A9BD /* CalendarMoreViewController.swift */,
-				E51A4C2A2DC261E8005A0E3F /* CalendarModeBarButtonItem.swift */,
+				E5B4995C2FDBF66F00F3A9BD /* More */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -5287,7 +5284,6 @@
 			children = (
 				E52EF6232FB2DCBE002CF355 /* Calendar+Extension.swift */,
 				E518D6A02FBEC6610045D456 /* DateInterval+Calendar.swift */,
-				E5B4995A2FDBAF6C00F3A9BD /* EKSourceType+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -7140,6 +7136,15 @@
 				E5B499502FD9132C00F3A9BD /* IAPManager.swift */,
 			);
 			path = IAP;
+			sourceTree = "<group>";
+		};
+		E5B4995C2FDBF66F00F3A9BD /* More */ = {
+			isa = PBXGroup;
+			children = (
+				E5B499562FDAA00800F3A9BD /* CalendarMoreViewController.swift */,
+				E51A4C2A2DC261E8005A0E3F /* CalendarModeBarButtonItem.swift */,
+			);
+			path = More;
 			sourceTree = "<group>";
 		};
 		E5B926D52D3FF04A0065FA79 /* arrow */ = {
@@ -11978,7 +11983,6 @@
 				E53F32BA2F69557500B85B65 /* HabitReportContentSectionController.swift in Sources */,
 				E5F078CF2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift in Sources */,
 				E5B499572FDAA00800F3A9BD /* CalendarMoreViewController.swift in Sources */,
-				E5B4995B2FDBAF6C00F3A9BD /* EKSourceType+Extension.swift in Sources */,
 				E5320C332FCAC443001DFE98 /* TodoTaskImporterViewController.swift in Sources */,
 				E5BB9D8D2D3BF0C60089667A /* TPNumberFieldTableCell.swift in Sources */,
 				E58C9E132F4AF0DC0096B842 /* FocusTimelineViewController.swift in Sources */,

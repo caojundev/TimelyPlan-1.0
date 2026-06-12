@@ -23,13 +23,8 @@
 "Settings" = "设置";
 
 ///**********************日历*********************///
-
-"Local Calendar" = "本地日历";
-"Exchange Calendar" = "Exchange 日历";
-"iCloud / CalDAV" = "iCloud / CalDAV 日历";
-"Subscribed Calendar" = "订阅日历";
 "Subscribed Calendars" = "订阅日历";
-"Birthdays Calendar" = "生日日历";
+"Birthdays" = "生日";
 "Other" = "其它";
 
 "W" = "周";

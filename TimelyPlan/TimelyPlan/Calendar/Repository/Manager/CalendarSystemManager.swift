@@ -7,31 +7,25 @@
 import Foundation
 import EventKit
 
-// MARK: - 自定义错误类型
-enum CalendarManagerError: Error, LocalizedError {
-    case accessDenied
-    case calendarNotFound
-    case saveFailed(Error)
-    case removeFailed(Error)
-    
-    var errorDescription: String? {
-        switch self {
-        case .accessDenied:
-            return "没有权限访问日历"
-        case .calendarNotFound:
-            return "未找到默认日历"
-        case .saveFailed(let error):
-            return "保存事件失败: \(error.localizedDescription)"
-        case .removeFailed(let error):
-            return "删除事件失败: \(error.localizedDescription)"
-        }
-    }
-}
-
 // MARK: - 结果类型封装
 enum CalendarManagerResult<T> {
     case success(T)
     case failure(CalendarManagerError)
+}
+
+
+protocol CalendarSystemManagerDelegate: AnyObject {
+    func calendarSystemManagerDidUpdate(_ manager: CalendarSystemManager)
+}
+
+class CalendarSystemManagerUpdater: NSObject,
+                                    CalendarSystemManagerDelegate {
+
+    func calendarSystemManagerDidUpdate(_ manager: CalendarSystemManager) {
+        notifyDelegates { (delegate: CalendarSystemManagerDelegate) in
+            delegate.calendarSystemManagerDidUpdate(manager)
+        }
+    }
 }
 
 class CalendarSystemManager {
@@ -42,8 +36,22 @@ class CalendarSystemManager {
     private let eventStore = EKEventStore()
     private let operationQueue = DispatchQueue(label: "com.calendar.operation", qos: .userInitiated)
     
+    private let updater = CalendarSystemManagerUpdater()
+    
     private init() {
-        // 不在初始化时请求权限，按需请求
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(calendarsDidChange),
+            name: .EKEventStoreChanged, object: nil
+        )
+    }
+    
+    func addDelegate(_ delegate: CalendarSystemManagerDelegate) {
+        updater.addDelegate(delegate)
+    }
+
+    @objc private func calendarsDidChange() {
+        CalendarVisibilityManager.shared.resolveVisibleCalendars()
+        updater.calendarSystemManagerDidUpdate(self)
     }
     
     // MARK: - 权限管理
@@ -393,5 +401,26 @@ class CalendarSystemManager {
             return
         }
         fetchEvents(from: startOfDay, to: endOfDay, completion: completion)
+    }
+}
+
+// MARK: - 自定义错误类型
+enum CalendarManagerError: Error, LocalizedError {
+    case accessDenied
+    case calendarNotFound
+    case saveFailed(Error)
+    case removeFailed(Error)
+    
+    var errorDescription: String? {
+        switch self {
+        case .accessDenied:
+            return "没有权限访问日历"
+        case .calendarNotFound:
+            return "未找到默认日历"
+        case .saveFailed(let error):
+            return "保存事件失败: \(error.localizedDescription)"
+        case .removeFailed(let error):
+            return "删除事件失败: \(error.localizedDescription)"
+        }
     }
 }

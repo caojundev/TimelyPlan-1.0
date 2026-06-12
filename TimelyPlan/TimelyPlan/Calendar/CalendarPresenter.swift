@@ -26,12 +26,14 @@ class CalendarPresenter {
         settingVC.showAsNavigationRoot()
     }
     
-    static func showMoreViewController() {
+    static func showMoreViewController(mode: CalendarMode,
+                                       selectModeHandler: @escaping(CalendarMode) -> Void) {
         guard let topVC = UIViewController.topPresented else {
             return
         }
         
-        let moreVC = CalendarMoreViewController(style: .grouped)
+        let moreVC = CalendarMoreViewController(mode: mode)
+        moreVC.didSelectMode = selectModeHandler
         let navController = UINavigationController(rootViewController: moreVC)
         
         let configure = TPSlidePresentationConfigure()

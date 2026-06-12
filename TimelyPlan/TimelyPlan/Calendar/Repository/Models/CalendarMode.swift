@@ -24,17 +24,16 @@ enum CalendarMode: Int, TPMenuRepresentable {
     }
 
     var iconName: String? {
+        var name: String
         switch self {
         case .day:
-            return "calendar_mode_day"
+            name = "calendar_mode_day"
         case .week:
-            return "calendar_mode_week"
+            name = "calendar_mode_week"
         case .month:
-            return "calendar_mode_month"
+            name = "calendar_mode_month"
         }
-    }
-    
-    var iconImage: UIImage? {
-        return iconImage(with: .mini)
+        
+        return resGetShotName(name, size: .mini)
     }
 }

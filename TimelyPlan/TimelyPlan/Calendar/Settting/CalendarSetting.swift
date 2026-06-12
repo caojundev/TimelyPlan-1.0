@@ -30,6 +30,8 @@ class CalendarSetting {
         case timedEventReminder
         case allDayEventReminder
         
+        case hiddenCalendars
+        
         static func keyPrefix() -> String? {
             return "CalendarSetting"
         }
@@ -64,6 +66,9 @@ class CalendarSetting {
     
     @CloudStored(key: Key.weeksInMonth.name, defaultValue: 6)
     private var weeksInMonth: Int
+    
+    @CloudStored(key: Key.hiddenCalendars.name, defaultValue: [])
+    var hiddenCalendars: [CalendarSnapshot]
     
     static let shared = CalendarSetting()
     

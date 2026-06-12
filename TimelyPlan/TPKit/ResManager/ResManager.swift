@@ -35,10 +35,18 @@ func resGetImage(_ shotName: String, color: UIColor) -> UIImage? {
 }
 
 func resGetImage(_ shotName: String, size: Int) -> UIImage? {
-    let imageName = shotName + "_\(size)"
-    return UIImage(named: imageName)
+    resGetImage(shotName, size: CGSize(width: size, height: size))
 }
 
 func resGetImage(_ shotName: String, size: CGSize) -> UIImage? {
-    return resGetImage(shotName, size: Int(size.height))
+    let imageName = resGetShotName(shotName, size: size)
+    return UIImage(named: imageName)
+}
+
+func resGetShotName(_ shotName: String, size: CGSize = .mini) -> String {
+    if size.width == size.height {
+        return shotName + "_\(Int(size.height))"
+    } else {
+        return shotName + "_\(Int(size.width))x\(Int(size.height))"
+    }
 }

@@ -9,7 +9,10 @@ import Foundation
 import EventKit
 import UIKit
 
-class CalendarMoreViewController: TPTableSectionsViewController {
+class CalendarMoreViewController: TPTableSectionsViewController,
+                                    CalendarSystemManagerDelegate {
+    
+    var didSelectMode: ((CalendarMode) -> Void)?
     
     /// 返回
     lazy var dismissButtonItem: UIBarButtonItem = {
@@ -31,23 +34,72 @@ class CalendarMoreViewController: TPTableSectionsViewController {
         return item
     }()
     
+    /// 模式
+    lazy var modeCellItem: TPFullSizeSegmentedMenuTableCellItem = { [weak self] in
+        let cellItem = TPFullSizeSegmentedMenuTableCellItem()
+        cellItem.height = 90.0
+        cellItem.contentPadding = UIEdgeInsets(horizontal: 8.0, vertical: 4.0)
+        cellItem.minimumButtonWidth = 80.0
+        cellItem.imagePosition = .top
+        cellItem.segmentedImageConfig.margins = UIEdgeInsets(bottom: 4.0)
+        cellItem.segmentedImageConfig.size = .size(6)
+        cellItem.segmentedTitleConfig.font = BOLD_SYSTEM_FONT
+        cellItem.cornerRadius = 16.0
+         
+        cellItem.menuItems = CalendarMode.segmentedMenuItems()
+        cellItem.updater = {
+            guard let self = self else { return }
+            self.modeCellItem.selectedMenuTag = self.mode.tag
+        }
+        
+        cellItem.didSelectMenuItem = { menuItem in
+            let mode: CalendarMode? = menuItem.actionType()
+            if let mode = mode {
+                self?.selectMode(mode)
+            }
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var modeSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 5.0
+        sectionController.cellItems = [modeCellItem]
+        return sectionController
+    }()
+    
+    private(set) var mode: CalendarMode
+    
+    init(mode: CalendarMode) {
+        self.mode = mode
+        super.init(style: .grouped)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = dismissButtonItem
         navigationItem.rightBarButtonItem = settingBarButtonItem
         wrapperView.tableHeaderView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.01))
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
+        sectionControllers = [modeSectionController]
+        reloadData()
         
+        CalendarSystemManager.shared.addDelegate(self)
         CalendarSystemManager.shared.requestAccess { granted in
             guard granted else {
                 return
             }
-
+            
+            CalendarVisibilityManager.shared.resolveVisibleCalendars()
             CalendarSystemManager.shared.fetchSortedGroupedCalendars { result in
                 self.reloadData(with: result)
             }
         }
-        
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -58,15 +110,34 @@ class CalendarMoreViewController: TPTableSectionsViewController {
         return .systemGroupedBackground
     }
     
+    private func selectMode(_ mode: CalendarMode) {
+        guard self.mode != mode else {
+            return
+        }
+        
+        self.mode = mode
+        didSelectMode?(mode)
+        dismiss(animated: true)
+    }
+    
+    // MARK: - CalendarSystemManagerDelegate
+    func calendarSystemManagerDidUpdate(_ manager: CalendarSystemManager) {
+        CalendarSystemManager.shared.fetchSortedGroupedCalendars { result in
+            self.reloadData(with: result)
+        }
+    }
+    
     func reloadData(with result: [(EKSource, [EKCalendar])]) {
-        var sourceSectionControllers = [CalendarSourceSectionController]()
+        var sectionControllers = [TPTableBaseSectionController]()
+        sectionControllers.append(modeSectionController)
+        
         for (source, calendars) in result {
             let sectionController = CalendarSourceSectionController(source: source,
                                                                     calendars: calendars)
-            sourceSectionControllers.append(sectionController)
+            sectionControllers.append(sectionController)
         }
         
-        sectionControllers = sourceSectionControllers
+        self.sectionControllers = sectionControllers
         reloadData()
     }
     
@@ -81,7 +152,6 @@ class CalendarMoreViewController: TPTableSectionsViewController {
         CalendarPresenter.showSetting()
     }
 }
-
 
 class CalendarSourceSectionController: TPTableBaseSectionController {
     
@@ -101,7 +171,7 @@ class CalendarSourceSectionController: TPTableBaseSectionController {
     }
     
     override func heightForHeader() -> CGFloat {
-        return 55.0
+        return 45.0
     }
     
     override func classForHeader() -> AnyClass? {
@@ -134,7 +204,21 @@ class CalendarSourceSectionController: TPTableBaseSectionController {
     }
     
     override func shouldShowCheckmarkForRow(at index: Int) -> Bool {
-        return true
+        guard let calendar = item(at: index) as? EKCalendar else {
+            return true
+        }
+        
+        return !CalendarVisibilityManager.shared.isHidden(calendar)
+    }
+    
+    override func didSelectRow(at index: Int) {
+        guard let calendar = item(at: index) as? EKCalendar else {
+            return
+        }
+        
+        TPImpactFeedback.impactWithSoftStyle()
+        CalendarVisibilityManager.shared.toggleVisibility(for: calendar)
+        adapter?.updateCheckmarks()
     }
 }
 
