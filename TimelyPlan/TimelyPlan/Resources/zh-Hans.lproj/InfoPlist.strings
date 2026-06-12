@@ -7,4 +7,10 @@
 */
 
 "CFBundleDisplayName" = "准点计划";
-"NSCalendarsUsageDescription" = "我们需要访问您的日历以同步事件";
+
+/* 日历权限描述 - iOS 17+
+"NSCalendarsFullAccessUsageDescription" = "需要完整访问您的日历以创建和管理日程提醒";
+ */
+
+/* 日历权限描述 - iOS 16 及以下 */
+"NSCalendarsUsageDescription" = "需要访问您的日历以查看和同步日程安排";

@@ -53,7 +53,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     }()
     
     var settingsViewController: UIViewController {
-        let vc = AppSettingsViewController(style: .insetGrouped)
+        let vc = AppSettingsViewController()
         vc.sidebarController = sidebarController
         return UINavigationController(rootViewController: vc)
     }

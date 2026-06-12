@@ -46,6 +46,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>NSCalendarsUsageDescription</key>
-	<string>We need access to your calendar to sync events with your account</string>
+	<string>Calendar access is needed to view and sync your schedule</string>
 </dict>
 </plist>

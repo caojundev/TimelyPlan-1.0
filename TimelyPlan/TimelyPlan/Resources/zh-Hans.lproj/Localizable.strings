@@ -23,6 +23,15 @@
 "Settings" = "设置";
 
 ///**********************日历*********************///
+
+"Local Calendar" = "本地日历";
+"Exchange Calendar" = "Exchange 日历";
+"iCloud / CalDAV" = "iCloud / CalDAV 日历";
+"Subscribed Calendar" = "订阅日历";
+"Subscribed Calendars" = "订阅日历";
+"Birthdays Calendar" = "生日日历";
+"Other" = "其它";
+
 "W" = "周";
 "New Event" = "新事项";
 "New Events" = "新事项";
@@ -660,7 +669,7 @@
 "Week Start On" = "周开始于";
 
 "Haptic Feedback" = "触感反馈";
-"Support Us" = "支持我们":
+"Support Us" = "支持我们";
 "Rate Us" = "好评鼓励";
 "Share with Friends" = "与好友分享";
 "About" = "关于";

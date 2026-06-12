@@ -7,3 +7,7 @@
 */
 
 "CFBundleDisplayName" = "Timely";
+
+/* Calendar Permission Description - iOS 17+
+"NSCalendarsFullAccessUsageDescription" = "Full calendar access is required to create and manage your schedule and reminders";
+ */

@@ -26,4 +26,28 @@ class CalendarPresenter {
         settingVC.showAsNavigationRoot()
     }
     
+    static func showMoreViewController() {
+        guard let topVC = UIViewController.topPresented else {
+            return
+        }
+        
+        let moreVC = CalendarMoreViewController(style: .grouped)
+        let navController = UINavigationController(rootViewController: moreVC)
+        
+        let configure = TPSlidePresentationConfigure()
+        configure.automaticallyAdjustsForKeyboard = false
+        configure.maskColor = Color(0x000000, 0.4)
+        configure.direction = .right
+        configure.cornerRadius = 0.0
+        configure.presentPosition = .right
+        configure.contentSize = CGSize(width: 280.0, height: .greatestFiniteMagnitude)
+        configure.roundingCorners = []
+        configure.edgeInsets = .zero
+        
+        topVC.slidePresent(navController,
+                           configure: configure,
+                           isInteractive: true,
+                           animated: true,
+                           completion: nil)
+    }
 }

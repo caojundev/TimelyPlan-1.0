@@ -112,7 +112,7 @@ class CalendarMainViewController: TPContainerViewController,
     
     @objc private func clickMore() {
         TPImpactFeedback.impactWithSoftStyle()
-        CalendarPresenter.showSetting()
+        CalendarPresenter.showMoreViewController()
     }
     
 }

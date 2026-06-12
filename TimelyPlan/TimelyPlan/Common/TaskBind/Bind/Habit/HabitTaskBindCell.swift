@@ -56,8 +56,7 @@ class HabitTaskBindCell: TPBaseTableCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let layoutFrame = contentView.layoutFrame()
-        infoView.frame = layoutFrame
+        infoView.frame = availableLayoutFrame()
     }
     
     
