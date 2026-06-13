@@ -17,8 +17,8 @@ protocol CalendarPageAllDayEventsViewDelegate: AnyObject {
     func calendarPageAllDayEventsView(_ view: CalendarPageAllDayEventsView, didTapMoreOnDate date: Date)
 }
 
-
-class CalendarPageAllDayEventsView: UIView, CalendarStripViewDelegate {
+class CalendarPageAllDayEventsView: UIView,
+                                        CalendarStripViewDelegate {
 
     weak var delegate: CalendarPageAllDayEventsViewDelegate?
     
@@ -50,9 +50,8 @@ class CalendarPageAllDayEventsView: UIView, CalendarStripViewDelegate {
     }()
     
     /// 时间线背景图层
-    private lazy var backgroundLayer: CalendarTimelineBackLayer = {
-        let layer = CalendarTimelineBackLayer(mode: mode)
-        layer.showHorizontalLines = false
+    private lazy var backgroundLayer: CalendarAllDayBackLayer = {
+        let layer = CalendarAllDayBackLayer(mode: mode)
         layer.leftDividerBottomMargin = 0.0
         return layer
     }()
@@ -70,7 +69,7 @@ class CalendarPageAllDayEventsView: UIView, CalendarStripViewDelegate {
     }
     
     private func setupView() {
-        backgroundColor = .systemGray5
+        backgroundColor = CalendarConstant.allDayBackgroundColor
         clipsToBounds = true
         layer.addSublayer(backgroundLayer)
         addSubview(stripView)
@@ -111,5 +110,18 @@ class CalendarPageAllDayEventsView: UIView, CalendarStripViewDelegate {
     
     func calendarStripView(_ view: CalendarStripView, didTapMoreOnDate date: Date) {
         delegate?.calendarPageAllDayEventsView(self, didTapMoreOnDate: date)
+    }
+}
+
+class CalendarAllDayBackLayer: CalendarTimelineBackLayer {
+    
+    override func createHorizontalLinesPath() -> CGPath? {
+        let startPoint = CGPoint(x: 0.0,
+                                 y: bounds.height - horizontalLinesLayer.lineWidth / 2.0)
+        let endPoint = CGPoint(x: bounds.width, y: startPoint.y)
+        let path = UIBezierPath()
+        path.move(to: startPoint)
+        path.addLine(to: endPoint)
+        return path.cgPath
     }
 }

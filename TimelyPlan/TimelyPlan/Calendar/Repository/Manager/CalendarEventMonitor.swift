@@ -10,7 +10,6 @@ import EventKit
 
 class CalendarEventMonitor {
     
-    private let eventStore = EKEventStore()
     private var isObserving = false
     
     // 变化回调

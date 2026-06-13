@@ -10,10 +10,10 @@ import Foundation
 class CalendarTimelineBackLayer: CALayer {
     
     // 横线图层
-    private let horizontalLinesLayer = CAShapeLayer()
+    let horizontalLinesLayer = CAShapeLayer()
     
     // 竖线图层
-    private var verticalLinesLayer: CAShapeLayer?
+    var verticalLinesLayer = CAShapeLayer()
     
     // 左侧分割线
     private var leftDividerLayer: CALayer?
@@ -33,21 +33,21 @@ class CalendarTimelineBackLayer: CALayer {
     }
     
     // 横线颜色
-    var horizontalLineColor: UIColor = CalendarConstant.separatorColor {
+    var horizontalLineColor: UIColor = CalendarConstant.horizontalSeparatorColor {
         didSet {
             horizontalLinesLayer.strokeColor = horizontalLineColor.cgColor
         }
     }
     
     // 竖线颜色
-    var verticalLineColor: UIColor = Color(light: 0x000000, dark: 0xFFFFFF, alpha: 0.1) {
+    var verticalLineColor: UIColor = CalendarConstant.verticalSeparatorColor {
         didSet {
-            verticalLinesLayer?.strokeColor = verticalLineColor.cgColor
+            verticalLinesLayer.strokeColor = verticalLineColor.cgColor
         }
     }
     
     // 左侧分割线颜色
-    var leftDividerColor: UIColor = .lightGray {
+    var leftDividerColor: UIColor = CalendarConstant.dividerColor {
         didSet {
             leftDividerLayer?.backgroundColor = leftDividerColor.cgColor
         }
@@ -88,16 +88,14 @@ class CalendarTimelineBackLayer: CALayer {
     
     private func setupLayers() {
         // 配置横线图层
-        horizontalLinesLayer.lineWidth = 0.6
+        horizontalLinesLayer.lineWidth = CalendarConstant.separatorLineWidth
         addSublayer(horizontalLinesLayer)
+        
+        verticalLinesLayer.lineWidth = CalendarConstant.separatorLineWidth
+        addSublayer(verticalLinesLayer)
         
         // 配置竖线图层
         if mode == .week {
-            let verticalLinesLayer = CAShapeLayer()
-            verticalLinesLayer.lineWidth = 0.6
-            addSublayer(verticalLinesLayer)
-            self.verticalLinesLayer = verticalLinesLayer
-            
             let leftDividerLayer = CALayer()
             addSublayer(leftDividerLayer)
             self.leftDividerLayer = leftDividerLayer
@@ -124,23 +122,20 @@ class CalendarTimelineBackLayer: CALayer {
     
     func updateColors() {
         horizontalLinesLayer.strokeColor = horizontalLineColor.cgColor
-        verticalLinesLayer?.strokeColor = verticalLineColor.cgColor
+        verticalLinesLayer.strokeColor = verticalLineColor.cgColor
         leftDividerLayer?.backgroundColor = leftDividerColor.cgColor
     }
     
     private func updatePaths() {
-        if showHorizontalLines {
-            horizontalLinesLayer.path = createHorizontalLinesPath()
-        } else {
-            horizontalLinesLayer.path = nil
-        }
-        
-        if let verticalLinesLayer = verticalLinesLayer {
-            verticalLinesLayer.path = createVerticalLinesPath()
-        }
+        horizontalLinesLayer.path = createHorizontalLinesPath()
+        verticalLinesLayer.path = createVerticalLinesPath()
     }
     
-    private func createHorizontalLinesPath() -> CGPath {
+    func createHorizontalLinesPath() -> CGPath? {
+        guard showHorizontalLines else {
+            return nil
+        }
+        
         let path = UIBezierPath()
         for hour in 0...24 {
             let yPosition = layout.topMargin + layout.hourHeight * CGFloat(hour)
@@ -151,7 +146,11 @@ class CalendarTimelineBackLayer: CALayer {
         return path.cgPath
     }
     
-    private func createVerticalLinesPath() -> CGPath {
+    func createVerticalLinesPath() -> CGPath? {
+        guard self.mode == .week else {
+            return nil
+        }
+        
         let path = UIBezierPath()
         guard columnsCount > 1 else {
             return path.cgPath

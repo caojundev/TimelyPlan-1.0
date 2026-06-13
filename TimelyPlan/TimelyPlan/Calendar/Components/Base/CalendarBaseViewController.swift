@@ -135,7 +135,7 @@ class CalendarBaseViewController: TPViewController,
     
     // MARK: - CalendarPageViewDelegate
     func calendarPageView(_ pageView: CalendarPageView, didTapEvent event: CalendarEvent) {
-        eventProcessor.editEvent(event)
+        eventProcessor.clickEvent(event)
     }
     
     func calendarPageView(_ pageView: CalendarPageView, didTapAllDayMoreOnDate date: Date) {

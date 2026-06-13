@@ -28,9 +28,8 @@ class CalendarWeekDaysView: UIView {
     }()
     
     /// 时间线背景图层
-    private lazy var backgroundLayer: CalendarTimelineBackLayer = {
-        let layer = CalendarTimelineBackLayer(mode: .week)
-        layer.showHorizontalLines = false
+    private lazy var backgroundLayer: CalendarWeekDaysBackLayer = {
+        let layer = CalendarWeekDaysBackLayer(mode: .week)
         layer.leftDividerBottomMargin = 0.0
         return layer
     }()
@@ -91,5 +90,19 @@ class CalendarWeekDaysView: UIView {
                                                 showChineseHolidays: showChineseHolidays)
             dayView.update(with: config)
         }
+    }
+}
+
+
+class CalendarWeekDaysBackLayer: CalendarTimelineBackLayer {
+    
+    override func createHorizontalLinesPath() -> CGPath? {
+        let startPoint = CGPoint(x: 0.0,
+                                 y: bounds.height - horizontalLinesLayer.lineWidth)
+        let endPoint = CGPoint(x: bounds.width, y: startPoint.y)
+        let path = UIBezierPath()
+        path.move(to: startPoint)
+        path.addLine(to: endPoint)
+        return path.cgPath
     }
 }

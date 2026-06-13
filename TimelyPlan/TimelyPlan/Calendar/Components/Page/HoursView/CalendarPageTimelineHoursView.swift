@@ -31,7 +31,7 @@ class CalendarPageTimelineHoursView: CalendarDayTimelineHoursView,
     }
     
     // 右侧分割线颜色
-    var rightDividerColor: UIColor = CalendarConstant.separatorColor {
+    var rightDividerColor: UIColor = CalendarConstant.verticalSeparatorColor {
         didSet {
             rightDividerLayer.backgroundColor = rightDividerColor.cgColor
         }
@@ -52,7 +52,7 @@ class CalendarPageTimelineHoursView: CalendarDayTimelineHoursView,
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.layer.addSublayer(rightDividerLayer)
-        allDayView.backgroundColor = .systemGray5
+        allDayView.backgroundColor = CalendarConstant.allDayBackgroundColor
         addSubview(allDayView)
     }
     
@@ -104,8 +104,9 @@ class CalendarPageTimelineHoursAllDayView: UIView {
         style.rowsCount = 1
         style.fromRow = 1
         style.toRow = 1
-        style.lineWidth = 0.4
-        style.lineColor = CalendarConstant.separatorColor
+        style.lineWidth = CalendarConstant.separatorLineWidth
+        style.horizontalLineColor = CalendarConstant.horizontalSeparatorColor
+        style.verticalLineColor = CalendarConstant.verticalSeparatorColor
         let backLayer = TPGridsLayer()
         backLayer.layoutStyle = style
         return backLayer
@@ -123,7 +124,7 @@ class CalendarPageTimelineHoursAllDayView: UIView {
     
     private func setupView() {
         clipsToBounds = true
-        backgroundColor = .systemGray5
+        backgroundColor = CalendarConstant.allDayBackgroundColor
         layer.addSublayer(backLayer)
         addSubview(textLabel)
     }

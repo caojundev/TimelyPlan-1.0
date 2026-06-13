@@ -38,12 +38,13 @@ class CalendarWeekNumberContainerView: UIView {
     
     override init(frame: CGRect) {
         var layoutStyle = TPGridsLayoutStyle()
+        layoutStyle.lineWidth = CalendarConstant.separatorLineWidth
+        layoutStyle.horizontalLineColor = CalendarConstant.horizontalSeparatorColor
+        layoutStyle.verticalLineColor = CalendarConstant.verticalSeparatorColor
         layoutStyle.rowsCount = 1
-        layoutStyle.columsCount = 1
-        layoutStyle.lineWidth = 0.5
         layoutStyle.fromRow = 1
+        layoutStyle.columsCount = 1
         layoutStyle.fromColum = 1
-        layoutStyle.lineColor = CalendarConstant.separatorColor
         self.layoutStyle = layoutStyle
         super.init(frame: frame)
         setupSubviews()
@@ -63,7 +64,8 @@ class CalendarWeekNumberContainerView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         executeWithoutAnimation {
-            self.backLayer.frame = bounds
+            let padding = UIEdgeInsets(value: CalendarConstant.separatorLineWidth / 2.0)
+            self.backLayer.frame = bounds.inset(by: padding)
             self.backLayer.updateColors()
         }
         

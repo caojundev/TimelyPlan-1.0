@@ -6,6 +6,7 @@
 //
 import Foundation
 import EventKit
+import EventKitUI
 
 // MARK: - 结果类型封装
 enum CalendarManagerResult<T> {
@@ -17,29 +18,18 @@ protocol CalendarSystemManagerDelegate: AnyObject {
     func calendarSystemManagerDidUpdate(_ manager: CalendarSystemManager)
 }
 
-class CalendarSystemManagerUpdater: NSObject,
-                                    CalendarSystemManagerDelegate {
-
-    func calendarSystemManagerDidUpdate(_ manager: CalendarSystemManager) {
-        notifyDelegates { (delegate: CalendarSystemManagerDelegate) in
-            delegate.calendarSystemManagerDidUpdate(manager)
-        }
-    }
-}
-
-class CalendarSystemManager {
+class CalendarSystemManager: NSObject {
     
     // MARK: - 单例
     static let shared = CalendarSystemManager()
     
     private let eventStore = EKEventStore()
     private let operationQueue = DispatchQueue(label: "com.calendar.operation", qos: .userInitiated)
-    
-    private let updater = CalendarSystemManagerUpdater()
-    
+
     private let monitor = CalendarEventMonitor()
     
-    private init() {
+    private override init() {
+        super.init()
         self.monitor.onEventsChanged = { [weak self] in
             CalendarVisibilityManager.shared.resolveVisibleCalendars()
             self?.notifyDelegates()
@@ -57,12 +47,10 @@ class CalendarSystemManager {
         }
     }
     
-    func addDelegate(_ delegate: CalendarSystemManagerDelegate) {
-        updater.addDelegate(delegate)
-    }
-
     func notifyDelegates() {
-        updater.calendarSystemManagerDidUpdate(self)
+        notifyDelegates { (delegate: CalendarSystemManagerDelegate) in
+            delegate.calendarSystemManagerDidUpdate(self)
+        }
     }
     
     // MARK: - 权限管理
@@ -469,5 +457,56 @@ enum CalendarManagerError: Error, LocalizedError {
         case .removeFailed(let error):
             return "删除事件失败: \(error.localizedDescription)"
         }
+    }
+}
+
+extension CalendarSystemManager: EKEventEditViewDelegate {
+    
+    func presentEditViewController(for event: EKEvent,
+                                   on viewController: UIViewController) {
+        let editViewController = EKEventEditViewController()
+        editViewController.event = event  // 传入要编辑的事件
+        editViewController.eventStore = eventStore
+        editViewController.editViewDelegate = self
+        viewController.present(editViewController, animated: true)
+    }
+    
+    // 创建新事件（可选设置默认值）
+    func presentNewEventViewController(on viewController: UIViewController) {
+        let editViewController = EKEventEditViewController()
+        editViewController.eventStore = eventStore
+        editViewController.editViewDelegate = self
+        
+        // 可以预设一些默认值
+        // let newEvent = EKEvent(eventStore: eventStore)
+        // newEvent.title = "预填标题"
+        // editViewController.event = newEvent
+        
+        viewController.present(editViewController, animated: true)
+    }
+    
+    // MARK: - EKEventEditViewDelegate
+    
+    func eventEditViewController(_ controller: EKEventEditViewController,
+                                  didCompleteWith action: EKEventEditViewAction) {
+        switch action {
+        case .saved:
+            // 保存成功
+            if let event = controller.event {
+                print("事件保存成功：\(event.title)")
+            }
+            
+        case .canceled:
+            print("用户取消编辑")
+            
+        case .deleted:
+            // 删除事件成功
+            print("事件已删除")
+            
+        @unknown default:
+            break
+        }
+        
+        controller.dismiss(animated: true)
     }
 }

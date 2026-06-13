@@ -114,7 +114,7 @@ class CalendarEventListViewController: TPViewController,
         }
         
         TPImpactFeedback.impactWithSoftStyle()
-        eventProcessor.editEvent(event)
+        eventProcessor.clickEvent(event)
     }
     
 }

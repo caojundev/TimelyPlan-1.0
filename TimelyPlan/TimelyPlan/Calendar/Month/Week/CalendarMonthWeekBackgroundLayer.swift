@@ -48,7 +48,8 @@ class CalendarMonthWeekBackgroundLayer: TPGridsLayer {
         style.fromRow = 1
         style.toRow = 1
         style.lineWidth = 0.4
-        style.lineColor = Color(0x888888, 0.2)
+        style.horizontalLineColor = Color(0x888888, 0.2)
+        style.verticalLineColor = Color(0x888888, 0.2)
         self.layoutStyle = style
         addSublayer(monthSeparatorLayer)
     }
@@ -81,12 +82,12 @@ class CalendarMonthWeekBackgroundLayer: TPGridsLayer {
         
         let column = lastDays + 1
         let columnX = CGFloat(column) * columnWidth
-        let y = bounds.height - lineWidth / 2.0
+        let y = bounds.height - layoutStyle.lineWidth / 2.0
         bezierPath.move(to: CGPoint(x: frame.minX, y: y))
         bezierPath.addLine(to: CGPoint(x: columnX, y: y))
         if column >= layoutStyle.fromColum && column <= layoutStyle.toColum {
-            bezierPath.addLine(to: CGPoint(x: columnX, y: lineWidth / 2.0))
-            bezierPath.addLine(to: CGPoint(x: frame.maxX, y: lineWidth / 2.0))
+            bezierPath.addLine(to: CGPoint(x: columnX, y: layoutStyle.lineWidth / 2.0))
+            bezierPath.addLine(to: CGPoint(x: frame.maxX, y: layoutStyle.lineWidth / 2.0))
         }
         
         monthSeparatorLayer.path = bezierPath.cgPath

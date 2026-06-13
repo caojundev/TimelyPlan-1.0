@@ -9,6 +9,19 @@ import Foundation
 
 class CalendarPresenter {
     
+    static func previewEvent(_ event: CalendarEvent) {
+        let vc = CalendarEventPreviewViewController(event: event)
+        let navController = UINavigationController(rootViewController: vc)
+        if let sheet = navController.sheetPresentationController {
+            // 设置展示模式为自动，允许在不同高度间切换
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [.medium()] // 半屏
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+        }
+        
+        navController.show()
+    }
+    
     static func showEventList(with listOptions: CalendarEventListOptions) {
         let vc = CalendarEventListViewController(options: listOptions)
         if let sheet = vc.sheetPresentationController {
