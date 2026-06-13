@@ -33,7 +33,9 @@ final class CalendarVisibilityManager {
     
     static let shared = CalendarVisibilityManager()
     
-    private let hiddenSnapshotsKey = "hidden_calendar_snapshots_v2"
+    /// 日历可见改变
+    var onVisibilityChanged: (() -> Void)?
+    
     /// 现在这个数组仅代表“被隐藏的日历”
     private var hiddenSnapshots: [CalendarSnapshot] = []
     
@@ -131,7 +133,9 @@ final class CalendarVisibilityManager {
                 calendarTitle: calendar.title
             ))
         }
+        
         saveSnapshots()
+        onVisibilityChanged?()
     }
     
     /// 查询某日历当前是否隐藏

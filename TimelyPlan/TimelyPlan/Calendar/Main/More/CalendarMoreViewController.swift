@@ -120,13 +120,6 @@ class CalendarMoreViewController: TPTableSectionsViewController,
         dismiss(animated: true)
     }
     
-    // MARK: - CalendarSystemManagerDelegate
-    func calendarSystemManagerDidUpdate(_ manager: CalendarSystemManager) {
-        CalendarSystemManager.shared.fetchSortedGroupedCalendars { result in
-            self.reloadData(with: result)
-        }
-    }
-    
     func reloadData(with result: [(EKSource, [EKCalendar])]) {
         var sectionControllers = [TPTableBaseSectionController]()
         sectionControllers.append(modeSectionController)
@@ -139,6 +132,13 @@ class CalendarMoreViewController: TPTableSectionsViewController,
         
         self.sectionControllers = sectionControllers
         reloadData()
+    }
+    
+    // MARK: - CalendarSystemManagerDelegate
+    func calendarSystemManagerDidUpdate(_ manager: CalendarSystemManager) {
+        CalendarSystemManager.shared.fetchSortedGroupedCalendars { result in
+            self.reloadData(with: result)
+        }
     }
     
     // MARK: - Event Response

@@ -13,7 +13,6 @@ enum CalendarManagerResult<T> {
     case failure(CalendarManagerError)
 }
 
-
 protocol CalendarSystemManagerDelegate: AnyObject {
     func calendarSystemManagerDidUpdate(_ manager: CalendarSystemManager)
 }
@@ -38,19 +37,31 @@ class CalendarSystemManager {
     
     private let updater = CalendarSystemManagerUpdater()
     
+    private let monitor = CalendarEventMonitor()
+    
     private init() {
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(calendarsDidChange),
-            name: .EKEventStoreChanged, object: nil
-        )
+        self.monitor.onEventsChanged = { [weak self] in
+            CalendarVisibilityManager.shared.resolveVisibleCalendars()
+            self?.notifyDelegates()
+        }
+        
+        /// 用户操作日历可见性改变
+        CalendarVisibilityManager.shared.onVisibilityChanged = { [weak self] in
+            self?.notifyDelegates()
+        }
+        
+        self.requestAccess { [weak self] granted in
+            if granted {
+                self?.notifyDelegates()
+            }
+        }
     }
     
     func addDelegate(_ delegate: CalendarSystemManagerDelegate) {
         updater.addDelegate(delegate)
     }
 
-    @objc private func calendarsDidChange() {
-        CalendarVisibilityManager.shared.resolveVisibleCalendars()
+    func notifyDelegates() {
         updater.calendarSystemManagerDidUpdate(self)
     }
     
@@ -63,6 +74,7 @@ class CalendarSystemManager {
                 if let error = error {
                     debugPrint("请求日历权限失败: \(error.localizedDescription)")
                 }
+                
                 completion(granted)
             }
         }
@@ -114,6 +126,18 @@ class CalendarSystemManager {
     }
     
     // MARK: - 日历操作
+    /// 根据设置获取
+    func fetchVisibleCalendars(completion: @escaping ([EKCalendar]) -> Void) {
+        fetchCalendars { result in
+            guard case .success(let calendars) = result else {
+                completion([])
+                return
+            }
+            
+            let visibleCalendars = CalendarVisibilityManager.shared.resolveVisibleCalendars(from: calendars)
+            completion(visibleCalendars)
+        }
+    }
     
     /// 获取所有日历
     func fetchCalendars(completion: @escaping (CalendarManagerResult<[EKCalendar]>) -> Void) {
@@ -220,6 +244,29 @@ class CalendarSystemManager {
     
     // MARK: - 事件操作
     
+    /// 根据设置获取可见日历特定日期范围内的事项
+    func fetchVisbleCalendarEvents(from startDate: Date,
+                                   to endDate: Date,
+                                   completion: @escaping ([EKEvent]) -> Void) {
+        fetchVisibleCalendars { [weak self] calendars in
+            guard let self = self else {
+                completion([])
+                return
+            }
+            
+            self.fetchEvents(from: startDate,
+                        to: endDate,
+                        calendars: calendars) { result in
+                guard case .success(let events) = result else {
+                    completion([])
+                    return
+                }
+                
+                completion(events)
+            }
+        }
+    }
+        
     /// 获取指定时间范围内的事件
     func fetchEvents(from startDate: Date, to endDate: Date,
                      calendars: [EKCalendar]? = nil,

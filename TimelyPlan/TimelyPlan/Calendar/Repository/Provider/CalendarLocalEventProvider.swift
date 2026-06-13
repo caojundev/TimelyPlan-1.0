@@ -28,49 +28,8 @@ class CalendarLocalEventProvider: CalendarEventProvider, SettingAgentObserver {
     func fetchEvents(in range: DateInterval, completion: @escaping ([CalendarEvent]?) -> Void) {
         let showCompleted = CalendarSetting.shared.showCompletedTask
         todo.fetchScheduledTasks(in: range, showCompleted: showCompleted) { tasks in
-            guard let tasks = tasks else {
-                completion(nil)
-                return
-            }
-
-            let events = self.events(for: tasks)
-            completion(events)
+            completion(tasks?.toCalendarEvents())
         }
-    }
-    
-    // MARK: - Helpers
-    private func events(for tasks: [TodoTask]) -> [CalendarEvent] {
-        var results = [CalendarEvent]()
-        for task in tasks {
-            if let event = event(with: task) {
-                results.append(event)
-            }
-        }
-        
-        return results
-    }
-    
-    private func event(with task: TodoTask) -> CalendarEvent? {
-        guard let dateInfo = task.schedule?.dateInfo else {
-            return nil
-        }
-        
-        let color = task.priority.color
-        var isAllDay = dateInfo.isAllDay
-        if !isAllDay && dateInfo.style == .multiDay {
-            /// 跨天任务，显示为全天事项
-            isAllDay = true
-        }
-        
-        let event = CalendarEvent(identifier: task.identifier,
-                                  source: .local,
-                                  name: task.name,
-                                  color: color,
-                                  startDate: dateInfo.startDate,
-                                  endDate: dateInfo.endDate,
-                                  isAllDay: isAllDay,
-                                  sourceItem: task)
-        return event
     }
 }
 
