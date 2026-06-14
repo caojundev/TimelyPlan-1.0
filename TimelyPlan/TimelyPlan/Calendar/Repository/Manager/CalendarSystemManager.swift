@@ -462,6 +462,14 @@ enum CalendarManagerError: Error, LocalizedError {
 
 extension CalendarSystemManager: EKEventEditViewDelegate {
     
+    func editEvent(_ event: EKEvent) {
+        guard let topVC = UIViewController.topPresented else {
+            return
+        }
+        
+        presentEditViewController(for: event, on: topVC)
+    }
+    
     func presentEditViewController(for event: EKEvent,
                                    on viewController: UIViewController) {
         let editViewController = EKEventEditViewController()

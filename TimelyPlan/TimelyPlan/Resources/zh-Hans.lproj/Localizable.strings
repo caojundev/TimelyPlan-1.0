@@ -48,8 +48,31 @@
 "Default Alert" = "默认提醒";
 "All-Day Event Alert" = "全天事项提醒";
 "Timed Event Alert" = "非全天事项提醒";
-
 "Day %ld/%ld" = "第%ld/%ld天";
+
+/* 分隔符 */
+", " = "，";
+
+/* 重复频率 */
+"Every Day" = "每天";
+"Every Week" = "每周";
+"Every Month" = "每月";
+"Every Year" = "每年";
+"Every %ld Days" = "每%ld天";
+"Every %ld Weeks" = "每%ld周";
+"Every %ld Months" = "每%ld个月";
+"Every %ld Years" = "每%ld年";
+"on %@" = "在%@";
+"in %@" = "在%@";
+"Ends on %@" = "结束于%@";
+"Repeat %ld Times" = "重复%ld次";
+
+/* 提醒 */
+"When Arriving" = "到达时";
+"When Leaving" = "离开时";
+"On day of event (%@)" = "当天(%@)";
+"1 day" = "1天";
+"%@ before (%@)" = "%@前（%@）";
 
 ///**********************待办*********************///
 

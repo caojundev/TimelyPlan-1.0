@@ -15,6 +15,9 @@ protocol CalendarEventPreviewDisplayable: AnyObject {
     var eventTitle: String? { get }
     var dateInfo: (title: String?, subtitle: String?) { get }
     var sourceDescription: String? { get }
+    
+    var repeatInfo: (ruleDescription: String?, endDescription: String?)? { get }
+    var alarmDescription: String? { get }
 }
 
 final class CalendarEventPreviewInfoView: UIView {
@@ -40,15 +43,14 @@ final class CalendarEventPreviewInfoView: UIView {
         static let titleLabelHeight: CGFloat = 30.0
         static let dateInfoViewHeight: CGFloat = 40.0
         static let sourceLabelHeight: CGFloat = 25.0
-        static let horizontalSpacing: CGFloat = 8.0
+        static let horizontalSpacing: CGFloat = 16.0
         
         static let defaultPadding = UIEdgeInsets(
-            top: 5.0,
-            left: 40.0,
-            bottom: 5.0,
+            top: 10.0,
+            left: 50.0,
+            bottom: 10.0,
             right: 16.0
         )
-        
     }
     
     // MARK: - Computed Properties

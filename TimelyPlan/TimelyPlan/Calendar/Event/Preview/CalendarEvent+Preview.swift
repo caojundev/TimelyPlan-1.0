@@ -50,16 +50,53 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         return (title, subtitle)
     }
     
+    var repeatInfo: (ruleDescription: String?, endDescription: String?)? {
+        switch source {
+        case .local:
+            return nil
+        case .system:
+            return systemEventRepeatInfo
+        }
+    }
+    
+    var alarmDescription: String? {
+        switch source {
+        case .local:
+            return nil
+        case .system:
+            return systemEventAlarmDescription
+        }
+    }
+    
     var sourceDescription: String? {
         switch source {
         case .local:
             return resGetString("Todo")
         case .system:
-            return systemCalendarDescription
+            return systemEventSourceDescription
         }
     }
     
-    private var systemCalendarDescription: String? {
+    // MARK: - Helpers
+    private var systemEventRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
+        guard let event = sourceItem as? EKEvent, event.hasRecurrenceRules else {
+            return nil
+        }
+        
+        let ruleDescription = event.recurrenceDescription
+        let endDescription = event.repeatEndDescription
+        return (ruleDescription, endDescription)
+    }
+    
+    private var systemEventAlarmDescription: String? {
+        guard let event = sourceItem as? EKEvent, event.hasAlarms else {
+            return nil
+        }
+        
+        return event.alarmDescription
+    }
+    
+    private var systemEventSourceDescription: String? {
         guard let event = sourceItem as? EKEvent else {
             return nil
         }

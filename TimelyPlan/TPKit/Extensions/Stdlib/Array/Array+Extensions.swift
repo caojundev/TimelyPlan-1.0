@@ -9,6 +9,11 @@ import Foundation
 
 extension Array {
     
+    // MARK: - 数组安全访问扩展
+    subscript(safe index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+    
     /// 移动对象从 fromIndex 索引处到 toIndex 索引处
     @discardableResult
     mutating func moveObject(fromIndex:Int, toIndex:Int) -> Bool {
