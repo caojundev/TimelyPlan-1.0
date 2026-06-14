@@ -17,6 +17,18 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
     
     let event: CalendarEvent
     
+    lazy var infoCellItem: CalendarEventPreviewInfoCellItem = {
+        let cellItem = CalendarEventPreviewInfoCellItem()
+        cellItem.event = event
+        return cellItem
+    }()
+    
+    lazy var sectionController: TPTableItemSectionController = {
+        let controller = TPTableItemSectionController()
+        controller.cellItems = [infoCellItem]
+        return controller
+    }()
+    
     init(event: CalendarEvent) {
         self.event = event
         super.init(style: .grouped)
@@ -29,6 +41,15 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupToolView()
+        sectionControllers = [sectionController]
+        reloadData()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        toolView.width = view.width
+        toolView.height = toolViewHeight
+        toolView.bottom = view.safeLayoutFrame().maxY
     }
     
     func setupToolView() {
@@ -46,13 +67,6 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
         toolView.buttonItems = [editItem, .flexibleSpaceButtonItem, deleteItem]
         toolView.addSeparator(position: .top)
         view.addSubview(toolView)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        toolView.width = view.width
-        toolView.height = toolViewHeight
-        toolView.bottom = view.safeLayoutFrame().maxY
     }
     
     @objc private func editTapped() {

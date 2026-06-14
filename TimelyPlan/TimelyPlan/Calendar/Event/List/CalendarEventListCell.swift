@@ -65,7 +65,7 @@ class CalendarEventListCell: TPDefaultInfoTableCell {
                     infos.append(event.startDate.timeString)
                 }
             } else if date.isInSameDayAs(event.endDate) {
-                if event.startDate.isEndOfDay {
+                if event.endDate.isEndOfDay {
                     infos.append(allDayString)
                 } else {
                     let format = resGetString("Until %@")
