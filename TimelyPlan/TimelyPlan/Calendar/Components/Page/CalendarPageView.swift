@@ -17,7 +17,7 @@ protocol CalendarPageViewDelegate: AnyObject {
     
     func calendarPageView(_ pageView: CalendarPageView, createEventWithDateRange dateRange: DateInterval)
     
-    func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: DateInterval)
+    func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: DateInterval, completion: @escaping ((Bool) -> Void))
 
     func calendarPageView(_ pageView: CalendarPageView, didTapEvent event: CalendarEvent)
     
@@ -348,6 +348,11 @@ class CalendarPageView: TPCollectionWrapperView,
             return
         }
         
+        guard event.isEditable else {
+            return
+        }
+        
+        /// 在拖放管理器中开始编辑该事项
         TPImpactFeedback.impactWithMediumStyle()
         dragDropManager.showEvent(event)
     }
@@ -373,9 +378,9 @@ class CalendarPageView: TPCollectionWrapperView,
         delegate?.calendarPageView(self, createEventWithDateRange: dateRange)
     }
     
-    func calendarDragDropManager(_ manager: CalendarDragDropManager, updateEvent event: CalendarEvent, withDateRange dateRange: DateInterval) {
+    func calendarDragDropManager(_ manager: CalendarDragDropManager, updateEvent event: CalendarEvent, withDateRange dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
         TPImpactFeedback.impactWithSoftStyle()
-        delegate?.calendarPageView(self, updateEvent: event, withDateRange: dateRange)
+        delegate?.calendarPageView(self, updateEvent: event, withDateRange: dateRange, completion: completion)
     }
     
     // MARK: - UIScrollViewDelegate

@@ -15,7 +15,8 @@ protocol CalendarDragDropManagerDelegate: AnyObject {
     /// 更新事项日期
     func calendarDragDropManager(_ manager: CalendarDragDropManager,
                                  updateEvent event: CalendarEvent,
-                                 withDateRange dateRange: DateInterval)
+                                 withDateRange dateRange: DateInterval,
+                                 completion: @escaping((Bool) -> Void))
 }
 
 class CalendarDragDropManager: CalendarDragDropManageViewDelegate {
@@ -93,19 +94,23 @@ class CalendarDragDropManager: CalendarDragDropManageViewDelegate {
     // MARK: -
     
     func dragDropManageView(_ view: CalendarDragDropManageView, didEndEditingDateRange dateRange: DateInterval) {
-        dismiss()
         guard let event = view.event else {
             /// 创建新事项
             delegate?.calendarDragDropManager(self, createEventWithDateRange: dateRange)
+            dismiss()
             return
         }
         
-        if event.dateRange == dateRange {
+        guard let delegate = delegate, event.dateRange != dateRange else {
+            dismiss()
             return
         }
-        
-        /// 更新事项
-        delegate?.calendarDragDropManager(self, updateEvent: event, withDateRange: dateRange)
+
+        delegate.calendarDragDropManager(self,
+                                         updateEvent: event,
+                                         withDateRange: dateRange) { [weak self] _ in
+            self?.dismiss()
+        }
     }
     
     

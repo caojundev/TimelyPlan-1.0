@@ -13,10 +13,39 @@ class CalendarEventProcessor {
     private let repository = CalendarRepository()
     
     /// 更新事项日期
-    func updateEvent(_ event: CalendarEvent, with dateRange: DateInterval) {
-        repository.updateEvent(event, with: dateRange)
+    func updateEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
+        switch event.source {
+        case .local:
+            updateLocalEvent(event, with: dateRange, completion: completion)
+        case .system:
+            updateSystemEvent(event, with: dateRange, completion: completion)
+        }
     }
     
+    private func updateLocalEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
+        repository.updateLocalEvent(event, with: dateRange)
+        completion(true)
+    }
+    
+    private func updateSystemEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
+        guard let ekEvent = event.sourceItem as? EKEvent else {
+            completion(false)
+            return
+        }
+        
+        CalendarSystemManager.shared.updateEventWithConfirmation(ekEvent, with: dateRange) { result in
+            switch result {
+            case .success:
+                debugPrint("事项更新成功")
+                completion(true)
+            case .failure(let error):
+                debugPrint("事项更新失败: \(error.localizedDescription)")
+                completion(false)
+            }
+        }
+    }
+    
+    /// 点击事项
     func clickEvent(_ event: CalendarEvent) {
         switch event.source {
         case .local:

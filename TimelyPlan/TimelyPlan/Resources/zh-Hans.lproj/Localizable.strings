@@ -80,6 +80,9 @@
 "This is a repeating event" = "此为重复日程";
 "Delete This Event Only" = "仅删除此日程";
 "Delete All Future Events" = "删除所有将来日程";
+"Update Repeating Event" = "更新重复日程";
+"Update This Event Only" = "仅更新此日程";
+"Update All Future Events" = "更新所有将来日程";
 
 ///**********************待办*********************///
 

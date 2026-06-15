@@ -53,16 +53,7 @@ class CalendarRepository {
         }
     }
     
-    func updateEvent(_ event: CalendarEvent, with dateRange: DateInterval) {
-        switch event.source {
-        case .local:
-            updateLocalEvent(event, with: dateRange)
-        case .system:
-            break
-        }
-    }
-    
-    private func updateLocalEvent(_ event: CalendarEvent, with dateRange: DateInterval) {
+    func updateLocalEvent(_ event: CalendarEvent, with dateRange: DateInterval) {
         if let task = event.sourceItem as? TodoTask {
             let schedule = TaskSchedule(dateInfo: dateRange.dateInfo,
                                         reminder: task.schedule?.reminder,

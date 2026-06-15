@@ -146,8 +146,8 @@ class CalendarBaseViewController: TPViewController,
         showQuickAddTask(with: dateRange)
     }
     
-    func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: DateInterval) {
-        eventProcessor.updateEvent(event, with: dateRange)
+    func calendarPageView(_ pageView: CalendarPageView, updateEvent event: CalendarEvent, withDateRange dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
+        eventProcessor.updateEvent(event, with: dateRange, completion: completion)
     }
     
     func calendarPageView(_ pageView: CalendarPageView, didScrollTo date: Date) {

@@ -362,6 +362,7 @@ class CalendarSystemManager: NSObject {
     
     /// 更新现有事件
     func updateEvent(_ event: EKEvent,
+                     span: EKSpan,
                      completion: @escaping (CalendarManagerResult<Void>) -> Void) {
         operationQueue.async { [weak self] in
             guard let self = self else { return }
@@ -374,7 +375,7 @@ class CalendarSystemManager: NSObject {
             }
             
             do {
-                try self.eventStore.save(event, span: .thisEvent)
+                try self.eventStore.save(event, span: span)
                 DispatchQueue.main.async {
                     completion(.success(()))
                 }
@@ -528,7 +529,101 @@ extension CalendarSystemManager {
         case futureEvents    // 删除所有未来事件
     }
     
+    /// 判断事件的删除类型
+    private func determineUpdateType(for event: EKEvent) -> UpdateEventType {
+        if event.hasRecurrenceRules || event.isDetached {
+            return .recurring
+        }
+        return .normal
+    }
+    
+    // MARK: - 更新确认
+    
+    /// 执行带确认的更新操作
+    func updateEventWithConfirmation(
+        _ event: EKEvent,
+        with dateRange: DateInterval,
+        completion: @escaping (CalendarManagerResult<Void>) -> Void
+    ) {
+        showUpdateConfirmation(for: event) { [weak self] confirmed, updateOption in
+            guard let self = self, confirmed else {
+                return
+            }
+            
+            let span: EKSpan = updateOption == .futureEvents ? .futureEvents : .thisEvent
+            event.startDate = dateRange.start
+            event.endDate = dateRange.end
+            self.updateEvent(event, span: span, completion: completion)
+        }
+    }
+    
+    func showUpdateConfirmation(for event: EKEvent,
+                                completion: @escaping (Bool, RecurringUpdateOption?) -> Void) {
+        let updateType = determineUpdateType(for: event)
+        switch updateType {
+        case .normal:
+            completion(true, .thisEvent)
+        case .recurring:
+            showRecurringUpdateAlert(
+                event: event,
+                completion: completion
+            )
+        }
+    }
+    
+    private func showRecurringUpdateAlert(
+        event: EKEvent,
+        completion: @escaping (Bool, RecurringUpdateOption?) -> Void
+    ) {
+        let title = resGetString("Update Repeating Event")
+        let message = resGetString("This is a repeating event")
+        let updateThisAction = TPAlertAction(type: .destructive,
+                                         title: resGetString("Update This Event Only"),
+                                         handleBeforeDismiss: false) { _ in
+            completion(true, .thisEvent)
+        }
+        
+        let updateFutureAction = TPAlertAction(type: .destructive,
+                                               title: resGetString("Update All Future Events"),
+                                               handleBeforeDismiss: false) { _ in
+            completion(true, .futureEvents)
+        }
+        
+        
+        let cancelAction = TPAlertAction(type: .cancel,
+                                         title: resGetString("Cancel"),
+                                         handleBeforeDismiss: false) { _ in
+            completion(false, nil)
+        }
+        
+        let alertController = TPAlertController(title: title,
+                                                message: message,
+                                                style: .actionSheet,
+                                                actions: [updateThisAction,
+                                                          updateFutureAction,
+                                                          cancelAction])
+        alertController.show()
+    }
+    
+    
     // MARK: - 删除确认
+    /// 执行带确认的删除操作
+    /// - Parameters:
+    ///   - event: 要删除的事件
+    ///   - completion: 完成回调
+    func deleteEventWithConfirmation(
+        _ event: EKEvent,
+        completion: @escaping (CalendarManagerResult<Void>) -> Void
+    ) {
+        showDeleteConfirmation(for: event) { [weak self] confirmed, deleteOption in
+            guard let self = self, confirmed else {
+                return
+            }
+            
+            let span: EKSpan = deleteOption == .futureEvents ? .futureEvents : .thisEvent
+            self.deleteEvent(event, span: span, completion: completion)
+        }
+    }
     
     /// 显示删除确认弹窗
     /// - Parameters:
@@ -553,16 +648,6 @@ extension CalendarSystemManager {
                 completion: completion
             )
         }
-    }
-    
-    // MARK: - 类型判断
-    
-    /// 判断事件的删除类型
-    private func determineUpdateType(for event: EKEvent) -> UpdateEventType {
-        if event.hasRecurrenceRules || event.isDetached {
-            return .recurring
-        }
-        return .normal
     }
     
     // MARK: - 普通事件删除弹窗
@@ -633,28 +718,5 @@ extension CalendarSystemManager {
                                                           deleteFutureAction,
                                                           cancelAction])
         alertController.show()
-    }
-}
-
-// MARK: - 完整的删除流程封装
-extension CalendarSystemManager {
-    
-    /// 执行带确认的删除操作
-    /// - Parameters:
-    ///   - event: 要删除的事件
-    ///   - presentingViewController: 展示确认弹窗的视图控制器
-    ///   - completion: 完成回调
-    func deleteEventWithConfirmation(
-        _ event: EKEvent,
-        completion: @escaping (CalendarManagerResult<Void>) -> Void
-    ) {
-        showDeleteConfirmation(for: event) { [weak self] confirmed, deleteOption in
-            guard let self = self, confirmed else {
-                return
-            }
-            
-            let span: EKSpan = deleteOption == .futureEvents ? .futureEvents : .thisEvent
-            self.deleteEvent(event, span: span, completion: completion)
-        }
     }
 }
