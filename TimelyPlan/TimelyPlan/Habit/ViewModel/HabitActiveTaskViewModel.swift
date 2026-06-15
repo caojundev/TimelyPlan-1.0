@@ -35,7 +35,7 @@ class HabitActiveTaskViewModel: HabitTaskProcessorDelegate {
     init() {
         self.placeholderProvider.state = self.state
         self.setupPlaceholderProvider()
-        habit.addUpdater(self, for: [.task])
+        HabitRepository.addUpdater(self, for: [.task])
     }
 
     func setupPlaceholderProvider() {
@@ -73,7 +73,7 @@ class HabitActiveTaskViewModel: HabitTaskProcessorDelegate {
     }
 
     func fetchTasks(completion: @escaping ([HabitTask]?) -> Void) {
-        habit.fetchActiveTasks(completion: completion)
+        HabitRepository.fetchActiveTasks(completion: completion)
     }
     
     // MARK: - HabitTaskProcessorDelegate
@@ -106,6 +106,6 @@ class HabitArchivedTaskViewModel: HabitActiveTaskViewModel {
     }
     
     override func fetchTasks(completion: @escaping ([HabitTask]?) -> Void) {
-        habit.fetchArchivedTasks(completion: completion)
+        HabitRepository.fetchArchivedTasks(completion: completion)
     }
 }

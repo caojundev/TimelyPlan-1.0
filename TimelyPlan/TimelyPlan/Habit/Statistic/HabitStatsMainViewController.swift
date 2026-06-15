@@ -31,7 +31,7 @@ class HabitStatsMainViewController: StatsMainViewController,
         let allowTypes: [StatsType] = [.week, .month, .year]
         super.init(type: type, allowTypes: allowTypes, date: date)
         self.updateInfoView()
-        habit.addUpdater(self, for: [.record])
+        HabitRepository.addUpdater(self, for: [.record])
     }
     
     required init?(coder: NSCoder) {

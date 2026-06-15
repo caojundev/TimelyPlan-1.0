@@ -36,7 +36,7 @@ class HabitPresenter {
     static func createNewHabitTask() {
         let vc = HabitTaskEditViewController(task: nil)
         vc.didEndEditing = { editingTask in
-            habit.createTask(with: editingTask)
+            HabitRepository.createTask(with: editingTask)
         }
         
         vc.showAsNavigationRoot()
@@ -46,7 +46,7 @@ class HabitPresenter {
     static func editHabitTask(_ task: HabitTask) {
         let vc = HabitTaskEditViewController(task: task.editingTask)
         vc.didEndEditing = { editingTask in
-            habit.updateTask(task, with: editingTask)
+            HabitRepository.updateTask(task, with: editingTask)
         }
         
         vc.showAsNavigationRoot()

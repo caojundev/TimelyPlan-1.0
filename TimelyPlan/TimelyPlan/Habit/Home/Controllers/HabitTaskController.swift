@@ -19,18 +19,18 @@ class HabitTaskController {
     }
     
     func archiveTask(_ task: HabitTask){
-        habit.setArchived(true, for: task)
+        HabitRepository.setArchived(true, for: task)
     }
     
     func unarchiveTask(_ task: HabitTask){
-        habit.setArchived(false, for: task)
+        HabitRepository.setArchived(false, for: task)
     }
     
     /// 删除任务
     func deleteTask(_ task: HabitTask){
         confirmTaskDeletion(for: task) { confirmed in
             if confirmed {
-                habit.deleteTask(task)
+                HabitRepository.deleteTask(task)
             }
         }
     }
@@ -57,6 +57,6 @@ class HabitTaskController {
     }
     
     func reorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
-        habit.reorderTask(in: tasks, fromIndex: fromIndex, toIndex: toIndex)
+        HabitRepository.reorderTask(in: tasks, fromIndex: fromIndex, toIndex: toIndex)
     }
 }

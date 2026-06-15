@@ -47,7 +47,7 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
     
     init() {
         self.placeholderProvider.state = .initialLoading
-        habit.addUpdater(self, for: .all)
+        HabitRepository.addUpdater(self, for: .all)
         /// 添加至凌晨更新对象
         TPMidnightScheduler.shared.addUpdater(self)
         HabitSetting.shared.addObserver(self, forKey: .firstWeekday)

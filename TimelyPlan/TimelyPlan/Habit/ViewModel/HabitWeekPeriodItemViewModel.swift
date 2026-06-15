@@ -16,7 +16,7 @@ class HabitWeekPeriodItemViewModel: HabitPeriodItemViewModel {
     }
     
     override func fetchPeriodItems(in period: HabitDatePeriod, completion: @escaping ([HabitPeriodItem]?) -> Void) {
-        habit.fetchScheduledPeriodItems(in: period,
+        HabitRepository.fetchScheduledPeriodItems(in: period,
                                         includeSamples: false,
                                         completion: completion)
     }

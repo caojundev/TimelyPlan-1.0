@@ -18,7 +18,7 @@ class HabitRecordListViewController: StatsContentViewController,
         self.placeholderProvider.emptyTitle = resGetString("No Habit Record")
         self.contentInset = UIEdgeInsets(bottom: 80.0)
         HabitSetting.shared.addObserver(self, forKey: .recordSortOrder)
-        habit.addUpdater(self, for: [.record])
+        HabitRepository.addUpdater(self, for: [.record])
     }
     
     func settingAgentDidChangeValue(for keyName: String) {
@@ -41,7 +41,7 @@ class HabitRecordListViewController: StatsContentViewController,
     }
     
     override func fetchSectionControllers(completion: @escaping ([TPCollectionBaseSectionController]) -> Void) {
-        Habit.fetchDailyItemsGroupedByDay(in: self.dateRange) { results in
+        HabitRepository.fetchDailyItemsGroupedByDay(in: self.dateRange) { results in
             let sectionControllers: [HabitRecordListSectionController]
             if let results = results, results.count > 0 {
                 sectionControllers = self.sectionControllers(with: results)

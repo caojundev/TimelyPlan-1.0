@@ -9,7 +9,6 @@ import Foundation
 
 var todo: Todo! /// 待办
 var focus: Focus! /// 专注
-var habit: Habit!
 
 class AppInitializer {
     
@@ -37,6 +36,5 @@ class AppInitializer {
         TPImpactFeedback.feedback.enabled = AppSetting.shared.isHapiticFeedbackOn
         todo = Todo()
         focus = Focus()
-        habit = Habit()
     }
 }

@@ -38,7 +38,7 @@ class HabitTaskBindSearchResultSectionController: TPTableSearchResultSectionCont
     }
     
     override func fetchResults(containText text: String, completion: @escaping ([ListDiffable]?) -> Void) {
-        habit.searchActiveTasks(containText: text, completion: completion)
+        HabitRepository.searchActiveTasks(containText: text, completion: completion)
     }
     
 }

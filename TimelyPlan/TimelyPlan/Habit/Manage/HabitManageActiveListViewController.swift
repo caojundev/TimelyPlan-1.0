@@ -78,7 +78,7 @@ extension HabitManageActiveListViewController: TPCollectionDragInsertReorderDele
             return nil
         }
         
-        habit.reorderTask(in: tasks, fromIndex: sourceIndexPath.item, toIndex: targetIndexPath.item)
+        HabitRepository.reorderTask(in: tasks, fromIndex: sourceIndexPath.item, toIndex: targetIndexPath.item)
         listView.moveItem(at: sourceIndexPath, to: targetIndexPath)
         return targetIndexPath
     }

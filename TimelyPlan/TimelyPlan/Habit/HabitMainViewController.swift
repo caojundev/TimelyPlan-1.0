@@ -84,7 +84,7 @@ class HabitMainViewController: TPContainerViewController, TPSidebarContent {
         navigationItem.rightBarButtonItems = [moreBarButtonItem,
                                               recordBarButtonItem]
         updateContentViewController()
-        habit.addUpdater(recordResultPopupController, for: [.record])
+        HabitRepository.addUpdater(recordResultPopupController, for: [.record])
     }
     
     override func viewWillLayoutSubviews() {

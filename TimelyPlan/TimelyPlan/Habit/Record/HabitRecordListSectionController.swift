@@ -131,7 +131,7 @@ class HabitRecordListSectionController: TPCollectionBaseSectionController,
         
         HabitPresenter.confirmRecordDeletion { confirmed in
             if confirmed {
-                habit.resetToday(of: date, for: dailyItem.task)
+                HabitRepository.resetToday(of: date, for: dailyItem.task)
             }
         }
     }

@@ -36,7 +36,7 @@ class HabitMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<HabitMoreMenuType> {
     
     override func menuItems() -> [TPMenuItem] {
         let typeLists: [Array<HabitMoreMenuType>]
-        let archivedTasksCount = habit.archivedTasksCount()
+        let archivedTasksCount = HabitRepository.archivedTasksCount()
         if archivedTasksCount > 0 {
             typeLists = [[.manageHabits, .archived], [.settings]]
         } else {

@@ -64,7 +64,7 @@ class HabitReportMainViewController: StatsMainViewController,
     
     // MARK: - SettingAgentObserver
     func settingAgentDidChangeValue(for keyName: String) {
-        if keyName == HabitSetting.Key.isReportShowArchived.name, habit.hasArchivedTask {
+        if keyName == HabitSetting.Key.isReportShowArchived.name, HabitRepository.hasArchivedTask {
             /// 有已归档任务，重新加载数据
             let vc = contentViewController as? HabitReportContentViewController
             vc?.performUpdate()

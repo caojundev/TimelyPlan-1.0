@@ -116,7 +116,7 @@ class HabitRecordsViewController: StatsMainViewController {
         let date = contentVC.date
         let completion: ((Bool) -> Void) = { confirmed in
             if confirmed {
-                habit.deleteRecords(in: contentVC.dateRange)
+                HabitRepository.deleteRecords(in: contentVC.dateRange)
             }
         }
         

@@ -373,7 +373,6 @@
 		E526D3FD2F6C2C8E005C1DED /* HabitRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3FC2F6C2C8E005C1DED /* HabitRecordsViewController.swift */; };
 		E526D3FF2F6CFCA3005C1DED /* HabitRecordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D3FE2F6CFCA3005C1DED /* HabitRecordListViewController.swift */; };
 		E526D4012F6D36BC005C1DED /* HabitDailyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D4002F6D36BC005C1DED /* HabitDailyItem.swift */; };
-		E526D4032F6D3CB3005C1DED /* Habit+RecordFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E526D4022F6D3CB3005C1DED /* Habit+RecordFetcher.swift */; };
 		E526D4062F6D7479005C1DED /* habit_menu_editLog_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E526D4042F6D7478005C1DED /* habit_menu_editLog_24@3x.png */; };
 		E526D4072F6D7479005C1DED /* habit_menu_editLog_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E526D4052F6D7479005C1DED /* habit_menu_editLog_24@2x.png */; };
 		E526D40A2F6D748C005C1DED /* habit_record_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E526D4082F6D748B005C1DED /* habit_record_24@3x.png */; };
@@ -715,7 +714,6 @@
 		E556BCD92F5D9D3700CA20D9 /* CDHabitSample+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556BCD82F5D9D3700CA20D9 /* CDHabitSample+Extensions.swift */; };
 		E556BCDB2F5D9D8500CA20D9 /* HabitRecordProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556BCDA2F5D9D8400CA20D9 /* HabitRecordProcessor.swift */; };
 		E556BCDF2F5D9F8900CA20D9 /* ReasonTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556BCDE2F5D9F8900CA20D9 /* ReasonTag.swift */; };
-		E556BCE62F5E553700CA20D9 /* Habit+RecordProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556BCE52F5E553700CA20D9 /* Habit+RecordProcessor.swift */; };
 		E556BCEA2F5E5EB500CA20D9 /* HabitRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556BCE92F5E5EB400CA20D9 /* HabitRecordController.swift */; };
 		E556BCEC2F5E610900CA20D9 /* HabitTaskMenuActionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556BCEB2F5E610900CA20D9 /* HabitTaskMenuActionProcessor.swift */; };
 		E556BCF82F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556BCF72F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift */; };
@@ -2359,7 +2357,6 @@
 		E526D3FC2F6C2C8E005C1DED /* HabitRecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitRecordsViewController.swift; sourceTree = "<group>"; };
 		E526D3FE2F6CFCA3005C1DED /* HabitRecordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordListViewController.swift; sourceTree = "<group>"; };
 		E526D4002F6D36BC005C1DED /* HabitDailyItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDailyItem.swift; sourceTree = "<group>"; };
-		E526D4022F6D3CB3005C1DED /* Habit+RecordFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+RecordFetcher.swift"; sourceTree = "<group>"; };
 		E526D4042F6D7478005C1DED /* habit_menu_editLog_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_menu_editLog_24@3x.png"; sourceTree = "<group>"; };
 		E526D4052F6D7479005C1DED /* habit_menu_editLog_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_menu_editLog_24@2x.png"; sourceTree = "<group>"; };
 		E526D4082F6D748B005C1DED /* habit_record_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_record_24@3x.png"; sourceTree = "<group>"; };
@@ -2701,7 +2698,6 @@
 		E556BCD82F5D9D3700CA20D9 /* CDHabitSample+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDHabitSample+Extensions.swift"; sourceTree = "<group>"; };
 		E556BCDA2F5D9D8400CA20D9 /* HabitRecordProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitRecordProcessor.swift; sourceTree = "<group>"; };
 		E556BCDE2F5D9F8900CA20D9 /* ReasonTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReasonTag.swift; sourceTree = "<group>"; };
-		E556BCE52F5E553700CA20D9 /* Habit+RecordProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+RecordProcessor.swift"; sourceTree = "<group>"; };
 		E556BCE92F5E5EB400CA20D9 /* HabitRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitRecordController.swift; sourceTree = "<group>"; };
 		E556BCEB2F5E610900CA20D9 /* HabitTaskMenuActionProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskMenuActionProcessor.swift; sourceTree = "<group>"; };
 		E556BCF72F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitRecordInputViewController.swift; sourceTree = "<group>"; };
@@ -6042,8 +6038,6 @@
 		E556BCE02F5DA09500CA20D9 /* Record */ = {
 			isa = PBXGroup;
 			children = (
-				E526D4022F6D3CB3005C1DED /* Habit+RecordFetcher.swift */,
-				E556BCE52F5E553700CA20D9 /* Habit+RecordProcessor.swift */,
 				E556BCDA2F5D9D8400CA20D9 /* HabitRecordProcessor.swift */,
 			);
 			path = Record;
@@ -11320,7 +11314,6 @@
 				E5BB9E9A2D3BF0C80089667A /* ChartAxisView.swift in Sources */,
 				E50D607B2F7A2EE500D5E0A4 /* TodoConstants.swift in Sources */,
 				E5BB9E092D3BF0C70089667A /* String+DaysCount.swift in Sources */,
-				E526D4032F6D3CB3005C1DED /* Habit+RecordFetcher.swift in Sources */,
 				E5BB9E032D3BF0C60089667A /* TimeInterval+Extensions.swift in Sources */,
 				E549B14F2F85F5D70014BE85 /* TodoTaskManager.swift in Sources */,
 				E5BB9B392D3BEF920089667A /* IGListIndexSetResult.m in Sources */,
@@ -11427,7 +11420,6 @@
 				E549B1722F88DF550014BE85 /* TodoTaskEditTagSectionController.swift in Sources */,
 				E55E4B872F9318710068E032 /* TodoBaseListViewModel.swift in Sources */,
 				E50C0F772D82AA2400AFF908 /* TPExpandImageInfoRightButtonTableCell.swift in Sources */,
-				E556BCE62F5E553700CA20D9 /* Habit+RecordProcessor.swift in Sources */,
 				E5E9F7862FC001EA00717004 /* TodoStepImporter.swift in Sources */,
 				E5D7D9352D43933700EC877A /* FocusHomeSearchResultViewController.swift in Sources */,
 				E53B11612F94F68700701410 /* TodoFilterManager.swift in Sources */,
