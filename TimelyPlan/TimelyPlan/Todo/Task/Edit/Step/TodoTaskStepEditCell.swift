@@ -8,12 +8,21 @@
 import Foundation
 import UIKit
 
+
+struct TodoStepCellConfig {
+    static let depthWidth = 32.0
+    static let checkboxSize = CGSize.size(5)
+    static let checkboxMargins = UIEdgeInsets(left: 14.0, right: 10.0)
+    static let moreButtonSize = CGSize.mini
+    static let moreButtonMargins = UIEdgeInsets(right: 10.0)
+}
+
 class TodoTaskStepEditCellItem: TPAutoResizeTextViewTableCellItem {
     
     /// 展开按钮尺寸
     var expandButtonSize: CGSize = .mini
     
-    var depthWidth: CGFloat = 32.0
+    var depthWidth: CGFloat = TodoStepCellConfig.depthWidth
     
     let step: TodoStep
     
@@ -30,11 +39,11 @@ class TodoTaskStepEditCellItem: TPAutoResizeTextViewTableCellItem {
         self.returnKeyType = .next
         self.maxCount = 120
         
-        self.leftViewMargins = UIEdgeInsets(left: 14.0, right: 10.0)
-        self.leftViewSize = .size(5)
-        self.rightViewSize = .mini
-        self.rightViewMargins = UIEdgeInsets(right: 10.0)
-        self.depthWidth = 32.0
+        self.leftViewMargins = TodoStepCellConfig.checkboxMargins
+        self.leftViewSize = TodoStepCellConfig.checkboxSize
+        self.rightViewSize = TodoStepCellConfig.moreButtonSize
+        self.rightViewMargins = TodoStepCellConfig.moreButtonMargins
+        self.depthWidth = TodoStepCellConfig.depthWidth
     }
     
     override func textContentWidth() -> CGFloat? {
@@ -309,12 +318,11 @@ extension TodoTaskStepEditCell: TPDragPreviewViewProviding {
     
     func dragPreviewView() -> UIView? {
         let view = TodoTaskStepEditCellPreviewView(frame: contentView.frame)
-        view.padding = self.contentPadding
-        view.infoView.titleConfig.font = self.textView.font ?? SYSTEM_FONT
-        view.infoView.leftAccessoryMargins = self.leftViewMargins
-        view.infoView.leftAccessorySize = self.leftViewSize
-        view.infoView.title = self.textView.text
-        view.checkbox.isChecked = self.checkbox.isChecked
+        view.padding = contentPadding
+        view.textLabel.font = textView.font
+        view.textLabel.textColor = textView.textColor
+        view.textLabel.text = textView.text
+        view.isChecked = checkbox.isChecked
         return view
     }
     
@@ -328,13 +336,24 @@ extension TodoTaskStepEditCell: TPDragPreviewViewProviding {
     
     private func currentFrame() -> CGRect {
         let x = CGFloat(self.depth) * depthWidth
-        let w = self.width - x
-        return CGRect(x: x, y: 0.0, width: w, height: self.height)
+        var w = width - x - rightViewSize.width - rightViewMargins.horizontalLength
+        if !expandButton.isHidden {
+            w -= expandButtonSize.width
+        }
+        
+        return CGRect(x: x, y: 0.0, width: w, height: height)
     }
 }
 
 class TodoTaskStepEditCellPreviewView: UIView {
 
+    var isChecked: Bool = false {
+        didSet {
+            checkbox.isChecked = isChecked
+            textLabel.isStrikethrough = isChecked
+        }
+    }
+    
     /// 检查框
     lazy var checkbox: TPSquareCheckbox = {
         let checkbox = TPSquareCheckbox()
@@ -346,15 +365,22 @@ class TodoTaskStepEditCellPreviewView: UIView {
         return checkbox
     }()
     
-    let infoView = TPInfoView()
+    /// 标签视图
+    lazy var textLabel: TPStrikethroughLabel = {
+        let label = TPStrikethroughLabel()
+        label.numberOfLines = 0
+        return label
+    }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .secondarySystemBackground
-        self.clipsToBounds = true
-        self.layer.cornerRadius = 12.0
-        self.infoView.leftAccessoryView = self.checkbox
-        self.addSubview(infoView)
+        backgroundColor = .secondarySystemBackground
+        clipsToBounds = true
+        layer.cornerRadius = 12.0
+        
+        addSubview(checkbox)
+        addSubview(textLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -363,6 +389,16 @@ class TodoTaskStepEditCellPreviewView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.infoView.frame = layoutFrame()
+        let layoutFrame = layoutFrame()
+        checkbox.size = TodoStepCellConfig.checkboxSize
+        checkbox.left = layoutFrame.minX + TodoStepCellConfig.checkboxMargins.left
+        checkbox.centerY = layoutFrame.midY
+        
+        let labelLeft = checkbox.right + TodoStepCellConfig.checkboxMargins.right
+        
+        textLabel.width = layoutFrame.maxX - labelLeft
+        textLabel.height = layoutFrame.height
+        textLabel.left = labelLeft
+        textLabel.top = layoutFrame.minY
     }
 }
