@@ -52,12 +52,6 @@ extension EKEvent {
             break
         }
         
-        // 检查是否为独立事件（重复事件的例外）
-        if self.isDetached {
-            // 这是重复事件的分离实例，不可编辑
-            return false
-        }
-        
         return true
     }
     
@@ -272,7 +266,9 @@ extension EKEvent {
         let days = Date.days(fromDate: startDate, toDate: alarmDate)
         if days == 0 {
             return String(format: resGetString("On day of event (%@)"), timeString)
-        } if days < 0 {
+        }
+        
+        if days < 0 {
             let interval = -days
             let intervalString = interval == 1 ? resGetString("1 day") : String(format: resGetString("%ld days"), interval)
             return String(format: resGetString("%@ before (%@)"), intervalString, timeString)

@@ -74,6 +74,13 @@
 "1 day" = "1天";
 "%@ before (%@)" = "%@前（%@）";
 
+"Delete Event" = "删除日程";
+"Delete Repeating Event" = "删除重复日程";
+"Are you sure you want to delete this event?" = "您确定要删除此日程吗？";
+"This is a repeating event" = "此为重复日程";
+"Delete This Event Only" = "仅删除此日程";
+"Delete All Future Events" = "删除所有将来日程";
+
 ///**********************待办*********************///
 
 /// 智能列表

@@ -15,9 +15,10 @@ protocol CalendarEventPreviewDisplayable: AnyObject {
     var eventTitle: String? { get }
     var dateInfo: (title: String?, subtitle: String?) { get }
     var sourceDescription: String? { get }
-    
     var repeatInfo: (ruleDescription: String?, endDescription: String?)? { get }
     var alarmDescription: String? { get }
+    var isEditable: Bool { get }
+    var isDeletable: Bool { get }
 }
 
 final class CalendarEventPreviewInfoView: UIView {

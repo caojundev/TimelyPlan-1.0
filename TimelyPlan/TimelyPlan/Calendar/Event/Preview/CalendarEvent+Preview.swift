@@ -77,6 +77,32 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         }
     }
     
+    var isEditable: Bool {
+        switch source {
+        case .local:
+            return true
+        case .system:
+            if let event = sourceItem as? EKEvent {
+                return event.isEditable
+            } else {
+                return false
+            }
+        }
+    }
+    
+    var isDeletable: Bool {
+        switch source {
+        case .local:
+            return true
+        case .system:
+            if let event = sourceItem as? EKEvent {
+                return event.isDeletable
+            } else {
+                return false
+            }
+        }
+    }
+    
     // MARK: - Helpers
     private var systemEventRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
         guard let event = sourceItem as? EKEvent, event.hasRecurrenceRules else {

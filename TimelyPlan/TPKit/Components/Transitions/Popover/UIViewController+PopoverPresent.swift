@@ -9,11 +9,12 @@ import Foundation
 import UIKit
 
 extension UIViewController {
+    
     private struct Constants {
       static var popoverPresentationControllerKey = "popoverPresentationControllerKey"
     }
     
-    var popoverPresentationController: TPPopoverPresentationController? {
+    var tp_popoverPresentationController: TPPopoverPresentationController? {
         get {
             var weakProxy = objc_getAssociatedObject(self, &Constants.popoverPresentationControllerKey)
             if weakProxy == nil, let navigationController = self.navigationController {

@@ -5,6 +5,7 @@
 //  Created by caojun on 2025/4/29.
 //
 import Foundation
+import UIKit
 import EventKit
 import EventKitUI
 
@@ -499,22 +500,161 @@ extension CalendarSystemManager: EKEventEditViewDelegate {
                                   didCompleteWith action: EKEventEditViewAction) {
         switch action {
         case .saved:
-            // 保存成功
-            if let event = controller.event {
-                print("事件保存成功：\(event.title)")
-            }
-            
+            debugPrint("事件保存成功")
         case .canceled:
-            print("用户取消编辑")
-            
+            debugPrint("用户取消编辑")
         case .deleted:
-            // 删除事件成功
-            print("事件已删除")
-            
+            debugPrint("事件已删除")
         @unknown default:
             break
         }
         
         controller.dismiss(animated: true)
+    }
+}
+
+// MARK: - 更新/删除确认管理模块
+extension CalendarSystemManager {
+    
+    /// 删除事件类型
+    enum UpdateEventType {
+        case normal          // 普通事件
+        case recurring       // 重复事件
+    }
+    
+    /// 重复事件删除选项
+    enum RecurringUpdateOption {
+        case thisEvent       // 仅删除此事件
+        case futureEvents    // 删除所有未来事件
+    }
+    
+    // MARK: - 删除确认
+    
+    /// 显示删除确认弹窗
+    /// - Parameters:
+    ///   - event: 要删除的事件
+    ///   - completion: 完成回调，返回用户的选择结果
+    func showDeleteConfirmation(
+        for event: EKEvent,
+        completion: @escaping (Bool, RecurringUpdateOption?) -> Void
+    ) {
+        let deleteType = determineUpdateType(for: event)
+        
+        switch deleteType {
+        case .normal:
+            showNormalDeleteAlert(
+                event: event,
+                completion: completion
+            )
+            
+        case .recurring:
+            showRecurringDeleteAlert(
+                event: event,
+                completion: completion
+            )
+        }
+    }
+    
+    // MARK: - 类型判断
+    
+    /// 判断事件的删除类型
+    private func determineUpdateType(for event: EKEvent) -> UpdateEventType {
+        if event.hasRecurrenceRules || event.isDetached {
+            return .recurring
+        }
+        return .normal
+    }
+    
+    // MARK: - 普通事件删除弹窗
+    
+    /// 显示普通事件删除确认
+    private func showNormalDeleteAlert(
+        event: EKEvent,
+        completion: @escaping (Bool, RecurringUpdateOption?) -> Void
+    ) {
+        let title = resGetString("Delete Event")
+        let message = resGetString("Are you sure you want to delete this event?")
+        let cancelAction = TPAlertAction(type: .cancel,
+                                         title: resGetString("Cancel"),
+                                         handleBeforeDismiss: false) { _ in
+            completion(false, nil)
+        }
+        
+        let deleteAction = TPAlertAction(type: .destructive,
+                                         title: resGetString("Delete"),
+                                         handleBeforeDismiss: false) { _ in
+            completion(true, nil)
+        }
+        
+        let alertController = TPAlertController(title: title,
+                                                message: message,
+                                                style: .actionSheet,
+                                                actions: [deleteAction, cancelAction])
+        alertController.show()
+    }
+    
+    // MARK: - 重复事件删除弹窗
+    
+    /// 显示重复事件删除确认
+    private func showRecurringDeleteAlert(
+        event: EKEvent,
+        completion: @escaping (Bool, RecurringUpdateOption?) -> Void
+    ) {
+    
+        let title = resGetString("Delete Repeating Event")
+        var message = resGetString("Are you sure you want to delete this event?")
+        message += resGetString("This is a repeating event")
+        
+        // 仅删除此事件
+        let deleteThisAction = TPAlertAction(type: .destructive,
+                                         title: resGetString("Delete This Event Only"),
+                                         handleBeforeDismiss: false) { _ in
+            completion(true, .thisEvent)
+        }
+        
+        // 删除所有未来事件
+        let deleteFutureAction = TPAlertAction(type: .destructive,
+                                               title: resGetString("Delete All Future Events"),
+                                               handleBeforeDismiss: false) { _ in
+            completion(true, .futureEvents)
+        }
+        
+        
+        let cancelAction = TPAlertAction(type: .cancel,
+                                         title: resGetString("Cancel"),
+                                         handleBeforeDismiss: false) { _ in
+            completion(false, nil)
+        }
+        
+        let alertController = TPAlertController(title: title,
+                                                message: message,
+                                                style: .actionSheet,
+                                                actions: [deleteThisAction,
+                                                          deleteFutureAction,
+                                                          cancelAction])
+        alertController.show()
+    }
+}
+
+// MARK: - 完整的删除流程封装
+extension CalendarSystemManager {
+    
+    /// 执行带确认的删除操作
+    /// - Parameters:
+    ///   - event: 要删除的事件
+    ///   - presentingViewController: 展示确认弹窗的视图控制器
+    ///   - completion: 完成回调
+    func deleteEventWithConfirmation(
+        _ event: EKEvent,
+        completion: @escaping (CalendarManagerResult<Void>) -> Void
+    ) {
+        showDeleteConfirmation(for: event) { [weak self] confirmed, deleteOption in
+            guard let self = self, confirmed else {
+                return
+            }
+            
+            let span: EKSpan = deleteOption == .futureEvents ? .futureEvents : .thisEvent
+            self.deleteEvent(event, span: span, completion: completion)
+        }
     }
 }

@@ -179,10 +179,10 @@ class TPSlidePresentationController: UIPresentationController {
         }
         
         let margins = containerView.layoutMargins
-        let top = insets.top + margins.top
-        let left = insets.left + margins.left
-        let bottom = insets.bottom + margins.bottom
-        let right = insets.right + margins.right
+        let top = max(insets.top, margins.top)
+        let left = max(insets.left, margins.left)
+        let bottom = max(insets.bottom, margins.bottom)
+        let right = max(insets.right, margins.right)
         return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
     }
 

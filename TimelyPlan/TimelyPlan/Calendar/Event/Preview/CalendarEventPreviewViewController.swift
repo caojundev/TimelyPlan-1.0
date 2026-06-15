@@ -19,27 +19,32 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
     
     lazy var infoCellItem: CalendarEventPreviewInfoCellItem = {
         let cellItem = CalendarEventPreviewInfoCellItem()
+        cellItem.selectionStyle = .none
         cellItem.event = event
         return cellItem
     }()
 
     lazy var repeatCellItem: TPImageInfoTableCellItem = {
         let cellItem = TPImageInfoTableCellItem()
-        cellItem.height = 70.0
-        cellItem.titleConfig.font = .systemFont(ofSize: 14.0)
-        cellItem.titleConfig.textColor = .secondaryLabel
-        cellItem.subtitleConfig.font = .systemFont(ofSize: 13.0)
-        cellItem.subtitleConfig.textColor = .tertiaryLabel
         cellItem.imageName = "schedule_repeat_24"
+        cellItem.selectionStyle = .none
+        cellItem.height = 80.0
+        cellItem.titleConfig.numberOfLines = 2
+        cellItem.titleConfig.font = .systemFont(ofSize: 14.0)
+        cellItem.titleConfig.textColor = .label
+        cellItem.subtitleConfig.font = .systemFont(ofSize: 13.0)
+        cellItem.subtitleConfig.textColor = .secondaryLabel
         return cellItem
     }()
     
     lazy var alarmCellItem: TPImageInfoTableCellItem = {
         let cellItem = TPImageInfoTableCellItem()
+        cellItem.imageName = "schedule_alarm_24"
+        cellItem.selectionStyle = .none
+        cellItem.height = 70.0
         cellItem.titleConfig.numberOfLines = 2
         cellItem.titleConfig.font = .systemFont(ofSize: 14.0)
-        cellItem.titleConfig.textColor = .secondaryLabel
-        cellItem.imageName = "schedule_alarm_24"
+        cellItem.titleConfig.textColor = .label
         return cellItem
     }()
     
@@ -64,7 +69,7 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
     
     lazy var editAction: TPButtonAction = {
         let action = TPButtonAction(title:  resGetString("Edit")) {  [weak self] action in
-            self?.editTapped()
+            self?.clickEdit()
         }
         
         action.style.cornerRadius = .greatestFiniteMagnitude
@@ -73,7 +78,7 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
 
     lazy var deleteAction: TPButtonAction = {
         let action = TPButtonAction(title:  resGetString("Delete")) {  [weak self] action in
-            self?.deleteTapped()
+            self?.clickDelete()
         }
         
         action.style.cornerRadius = .greatestFiniteMagnitude
@@ -93,43 +98,28 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setupToolView()
+        var actions = [TPButtonAction]()
+        if event.isEditable {
+            actions.append(editAction)
+        }
+        
+        if event.isDeletable {
+            actions.append(deleteAction)
+        }
+        
+        if actions.count > 0 {
+            setupActionsBar(actions: actions)
+        }
+        
         wrapperView.tableView.separatorStyle = .singleLine
         wrapperView.tableView.separatorColor = .systemGray6
         adapter.cellStyle.backgroundColor = themeBackgroundColor
-        adapter.cellStyle.selectedBackgroundColor  = themeBackgroundColor
+        adapter.cellStyle.selectedBackgroundColor = themeBackgroundColor
         sectionControllers = [sectionController]
         reloadData()
-        
-        
-        setupActionsBar(actions: [editAction, deleteAction])
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-//        toolView.width = view.width
-//        toolView.height = toolViewHeight
-//        toolView.bottom = view.safeLayoutFrame().maxY
-    }
-    
-    func setupToolView() {
-        let editImage = resGetImage("edit_24")
-        let editItem = TPBarButtonItem(image: editImage) {[weak self] _ in
-            self?.editTapped()
-        }
-         
-        let deleteImage = resGetImage("trash_24")
-        let deleteItem = TPBarButtonItem(image: deleteImage) {[weak self] _ in
-            self?.deleteTapped()
-        }
-        
-        deleteItem.color = .danger6
-        toolView.buttonItems = [editItem, .flexibleSpaceButtonItem, deleteItem]
-        toolView.addSeparator(position: .top)
-        view.addSubview(toolView)
-    }
-    
-    @objc private func editTapped() {
+    @objc private func clickEdit() {
         guard let ekEvent = event.sourceItem as? EKEvent else {
             return
         }
@@ -139,8 +129,20 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
         }
     }
     
-    @objc private func deleteTapped() {
-        print("删除按钮被点击")
+    @objc private func clickDelete() {
+        guard let ekEvent = event.sourceItem as? EKEvent else {
+            return
+        }
+        
+        CalendarSystemManager.shared.deleteEventWithConfirmation(ekEvent) { [weak self] result in
+            switch result {
+            case .success:
+                debugPrint("事件删除成功")
+                self?.dismiss(animated: true, completion: nil)
+            case .failure(let error):
+                debugPrint("删除失败: \(error.localizedDescription)")
+            }
+        }
     }
 
 }

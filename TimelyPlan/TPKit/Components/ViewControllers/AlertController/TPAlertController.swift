@@ -187,7 +187,7 @@ class TPAlertController : TPViewController {
         
         height += actionsView.contentSize.height
         height += padding.bottom
-        return CGSize(width: 380.0, height: height)
+        return CGSize(width: 400.0, height: height)
     }    
     
     func didSelectAction(_ action: TPAlertAction) {
