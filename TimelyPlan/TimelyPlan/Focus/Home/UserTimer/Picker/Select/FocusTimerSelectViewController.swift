@@ -35,7 +35,7 @@ class FocusTimerSelectViewController: TPViewController,
     
     lazy var defaultTimerGroup: FocusTimerGroup = {
         let group = FocusTimerGroup(identifier: FocusTimerGroupIdentifier.system.rawValue)
-        group.timers = focus.allDefaultTimers()
+        group.timers = FocusRepository.allDefaultTimers()
         return group
     }()
     

@@ -24,7 +24,7 @@ class FocusStatsSpecificViewController: FocusStatsBaseViewController,
         self.setupInfoView(timer: timer)
         self.canSelectDetailGroupType = false
         self.allowDetailGroupTypes = [.task]
-        focus.addUpdater(self, for: [.session])
+        FocusRepository.addUpdater(self, for: [.session])
     }
     
     init(task: TaskRepresentable) {
@@ -33,7 +33,7 @@ class FocusStatsSpecificViewController: FocusStatsBaseViewController,
         self.setupInfoView(task: task)
         self.canSelectDetailGroupType = false
         self.allowDetailGroupTypes = [.timer]
-        focus.addUpdater(self, for: [.session])
+        FocusRepository.addUpdater(self, for: [.session])
     }
     
     func setupInfoView(timer: FocusTimer) {

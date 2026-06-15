@@ -17,6 +17,6 @@ class FocusArchivedTimerViewModel: FocusUserTimerViewModel {
     }
 
     override func fetchTimers(completion: @escaping ([FocusTimer]?) -> Void) {
-        focus.fetchArchivedTimers(completion: completion)
+        FocusRepository.fetchArchivedTimers(completion: completion)
     }
 }

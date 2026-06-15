@@ -8,7 +8,6 @@
 import Foundation
 
 var todo: Todo! /// 待办
-var focus: Focus! /// 专注
 
 class AppInitializer {
     
@@ -35,6 +34,5 @@ class AppInitializer {
     static func setup() {
         TPImpactFeedback.feedback.enabled = AppSetting.shared.isHapiticFeedbackOn
         todo = Todo()
-        focus = Focus()
     }
 }

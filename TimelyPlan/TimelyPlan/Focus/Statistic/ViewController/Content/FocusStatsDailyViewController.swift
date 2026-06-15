@@ -18,7 +18,7 @@ class FocusStatsDailyViewController: FocusStatsContentViewController {
     }
     
     override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
-        focus.fetchDailyStats(forTask: task,
+        FocusRepository.fetchDailyStats(forTask: task,
                               timer: timer,
                               on: date,
                               includeArchivedTimer: showArchivedTimer) { dataItem in

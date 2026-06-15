@@ -98,7 +98,7 @@ class FocusMainViewController: TPPageController,
         self.trackingProgress = false
         let pageIndex = FocusState.shared.mainMenuType.rawValue
         self.selectPage(at: pageIndex)
-        focus.addUpdater(self, for: [.session])
+        FocusRepository.addUpdater(self, for: [.session])
     }
     
     override func viewWillLayoutSubviews() {

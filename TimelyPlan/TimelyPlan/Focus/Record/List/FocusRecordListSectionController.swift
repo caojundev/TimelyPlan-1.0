@@ -161,7 +161,7 @@ class FocusRecordListSectionController: TPCollectionBaseSectionController,
     func deleteRecord(for session: FocusSession) {
         FocusPresenter.confirmRecordDeletion { confirmed in
             if confirmed {
-                focus.deleteSession(session)
+                FocusRepository.deleteSession(session)
             }
         }
     }

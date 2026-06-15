@@ -134,7 +134,7 @@ class FocusStatsSpecificTimerInfoView: FocusStatsInfoView {
             return
         }
         
-        focus.fetchDuration(forTask: nil, timer: self.timer) { result in
+        FocusRepository.fetchDuration(forTask: nil, timer: self.timer) { result in
             durationInfoView.title = Duration(result).attributedTitle()
         }
     }
@@ -188,7 +188,7 @@ class FocusStatsSpecificTaskInfoView: FocusStatsInfoView {
             return
         }
         
-        focus.fetchDuration(forTask: self.task, timer: nil) { result in
+        FocusRepository.fetchDuration(forTask: self.task, timer: nil) { result in
             durationInfoView.title = Duration(result).attributedTitle()
         }
     }

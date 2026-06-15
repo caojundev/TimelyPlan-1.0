@@ -28,7 +28,7 @@ class FocusTimerSearchResultSectionController: TPCollectionSearchResultSectionCo
     }
     
     override func fetchResults(containText text: String, completion: @escaping ([ListDiffable]?) -> Void) {
-        focus.searchActiveTimers(containText: text) { timers in
+        FocusRepository.searchActiveTimers(containText: text) { timers in
             completion(timers)
         }
     }

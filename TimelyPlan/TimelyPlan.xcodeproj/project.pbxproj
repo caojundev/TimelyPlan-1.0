@@ -1634,7 +1634,6 @@
 		E5CFD2752F58619300A898CB /* HabitTaskStatusSymbolProgressValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2712F58619200A898CB /* HabitTaskStatusSymbolProgressValueCell.swift */; };
 		E5CFD2762F58619300A898CB /* HabitTaskStatusProgressValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2722F58619200A898CB /* HabitTaskStatusProgressValueCell.swift */; };
 		E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */; };
-		E5D7D7D92D43923800EC877A /* Focus+Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B72D43923800EC877A /* Focus+Statistics.swift */; };
 		E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */; };
 		E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */; };
 		E5D7D7DC2D43923800EC877A /* FocusRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7BB2D43923800EC877A /* FocusRecord.swift */; };
@@ -3635,7 +3634,6 @@
 		E5CFD2712F58619200A898CB /* HabitTaskStatusSymbolProgressValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusSymbolProgressValueCell.swift; sourceTree = "<group>"; };
 		E5CFD2722F58619200A898CB /* HabitTaskStatusProgressValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusProgressValueCell.swift; sourceTree = "<group>"; };
 		E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageAutoScroller.swift; sourceTree = "<group>"; };
-		E5D7D7B72D43923800EC877A /* Focus+Statistics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Focus+Statistics.swift"; sourceTree = "<group>"; };
 		E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDataItem.swift; sourceTree = "<group>"; };
 		E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDayInfo.swift; sourceTree = "<group>"; };
 		E5D7D7BB2D43923800EC877A /* FocusRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusRecord.swift; sourceTree = "<group>"; };
@@ -9337,7 +9335,6 @@
 		E5D7D7B62D43923800EC877A /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
-				E5D7D7B72D43923800EC877A /* Focus+Statistics.swift */,
 				E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */,
 				E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */,
 			);
@@ -11918,7 +11915,6 @@
 				E55549612F76899B00C9460D /* SearchHighlightable.swift in Sources */,
 				E53632912FAB73C50095DFEC /* TodoFilterRule+Quadrant.swift in Sources */,
 				E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */,
-				E5D7D7D92D43923800EC877A /* Focus+Statistics.swift in Sources */,
 				E50D60622F7A186F00D5E0A4 /* TodoListEditViewController.swift in Sources */,
 				E5BB9EBF2D3BF0C80089667A /* TPLoopingPickerView.swift in Sources */,
 				E506B5CC2F63B15E008B3321 /* HabitReasonTagManager.swift in Sources */,

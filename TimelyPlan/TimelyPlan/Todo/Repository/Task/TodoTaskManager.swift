@@ -242,7 +242,7 @@ class TodoTaskManager {
         /// 更新对应专注会话的任务快照
         var feature = task.feature
         feature.snapshotName = name
-        focus.updateSession(with: feature)
+        FocusRepository.updateSession(with: feature)
     }
     
     // MARK: - 更新计划

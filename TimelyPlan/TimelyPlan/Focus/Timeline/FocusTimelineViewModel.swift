@@ -16,13 +16,13 @@ class FocusTimelineViewModel: FocusSessionProcessorDelegate {
     private(set) var date: Date?
     
     init() {
-        focus.addUpdater(self, for: [.session])
+        FocusRepository.addUpdater(self, for: [.session])
     }
     
     func loadEvents(for date: Date) {
         self.date = date
         let sessionDate = date
-        focus.fetchSessions(for: sessionDate, includeArchivedTimer: true) { sessions in
+        FocusRepository.fetchSessions(for: sessionDate, includeArchivedTimer: true) { sessions in
             guard self.date == sessionDate else {
                 /// 非当前日期
                 return

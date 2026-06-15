@@ -19,7 +19,7 @@ class FocusStatsYearlyViewController: FocusStatsContentViewController {
     }
     
     override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
-        focus.fetchYearlyStats(forTask: task,
+        FocusRepository.fetchYearlyStats(forTask: task,
                                timer: timer,
                                inYearContaining: date,
                                includeArchivedTimer: showArchivedTimer) { dataItem in

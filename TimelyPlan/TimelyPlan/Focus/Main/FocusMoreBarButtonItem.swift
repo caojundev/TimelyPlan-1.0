@@ -43,7 +43,7 @@ class FocusMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<FocusMoreMenuType> {
     }
     
     override func menuItems() -> [TPMenuItem] {
-        let archivedCount = focus.numberOfArchivedTimers()
+        let archivedCount = FocusRepository.numberOfArchivedTimers()
         let typeLists: [Array<FocusMoreMenuType>]
         if archivedCount > 0 {
             typeLists = [[.allRecords, .addRecord], [.archived, .settings]]

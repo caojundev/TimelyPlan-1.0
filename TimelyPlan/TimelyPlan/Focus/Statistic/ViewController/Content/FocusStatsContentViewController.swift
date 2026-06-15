@@ -58,7 +58,7 @@ class FocusStatsContentViewController: StatsContentViewController,
                                                 right: 16.0)
         }
         
-        focus.addUpdater(self, for: [.session])
+        FocusRepository.addUpdater(self, for: [.session])
     }
     
     /// 详情统计

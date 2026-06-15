@@ -32,18 +32,18 @@ final class HabitRepository {
 
     // MARK: - Internal Dependencies
 
-    private let taskManager = HabitTaskManager()
-    private let periodItemFetcher = HabitPeriodItemFetcher()
-    private let recordProcessor = HabitRecordProcessor()
+    private static let taskManager = HabitTaskManager()
+    private static let periodItemFetcher = HabitPeriodItemFetcher()
+    private static let recordProcessor = HabitRecordProcessor()
 
     // MARK: Updater
 
     static func addUpdater(_ updater: AnyObject, for option: HabitUpdaterOption = .all) {
         if option.contains(.task) {
-            shared.taskManager.updater.addDelegate(updater)
+            taskManager.updater.addDelegate(updater)
         }
         if option.contains(.record) {
-            shared.recordProcessor.updater.addDelegate(updater)
+            recordProcessor.updater.addDelegate(updater)
         }
     }
 
@@ -54,8 +54,8 @@ final class HabitRepository {
         includeSamples: Bool = false,
         completion: @escaping ([HabitPeriodItem]?) -> Void
     ) {
-        let activeTasks = shared.taskManager.getActiveTasks()
-        shared.periodItemFetcher.fetchScheduledPeriodItems(
+        let activeTasks = taskManager.getActiveTasks()
+        periodItemFetcher.fetchScheduledPeriodItems(
             for: activeTasks,
             on: date,
             includeSamples: includeSamples,
@@ -68,8 +68,8 @@ final class HabitRepository {
         includeSamples: Bool = false,
         completion: @escaping ([HabitPeriodItem]) -> Void
     ) {
-        let activeTasks = shared.taskManager.getActiveTasks()
-        shared.periodItemFetcher.fetchScheduledPeriodItems(
+        let activeTasks = taskManager.getActiveTasks()
+        periodItemFetcher.fetchScheduledPeriodItems(
             for: activeTasks,
             in: period,
             includeSamples: includeSamples,
@@ -82,8 +82,8 @@ final class HabitRepository {
         includeSamples: Bool = false,
         completion: @escaping ([HabitPeriodItem]) -> Void
     ) {
-        let activeTasks = shared.taskManager.getActiveTasks()
-        shared.periodItemFetcher.fetchPeriodItems(
+        let activeTasks = taskManager.getActiveTasks()
+        periodItemFetcher.fetchPeriodItems(
             for: activeTasks,
             in: period,
             includeSamples: includeSamples,
@@ -97,7 +97,7 @@ final class HabitRepository {
         includeSamples: Bool = false,
         completion: @escaping (HabitPeriodItem) -> Void
     ) {
-        shared.periodItemFetcher.fetchPeriodItem(
+        periodItemFetcher.fetchPeriodItem(
             for: task,
             in: period,
             includeSamples: includeSamples,
@@ -112,10 +112,10 @@ final class HabitRepository {
         completion: @escaping ([HabitPeriodItem]) -> Void
     ) {
         let tasks: [HabitTask] = includeArchived
-        ? shared.taskManager.getAllTasks()
-        : shared.taskManager.getActiveTasks()
+        ? taskManager.getAllTasks()
+        : taskManager.getActiveTasks()
 
-        shared.periodItemFetcher.fetchScheduledPeriodItems(
+        periodItemFetcher.fetchScheduledPeriodItems(
             for: tasks,
             in: period,
             includeSamples: includeSamples,
@@ -126,20 +126,20 @@ final class HabitRepository {
     // MARK: Task Queries
 
     static func searchActiveTasks(containText text: String, completion: @escaping ([HabitTask]?) -> Void) {
-        shared.taskManager.searchActiveTasks(containText: text,
+        taskManager.searchActiveTasks(containText: text,
                                              completion: completion)
     }
 
     static func fetchActiveTasks(completion: @escaping ([HabitTask]?) -> Void) {
-        shared.taskManager.fetchActiveTasks(completion: completion)
+        taskManager.fetchActiveTasks(completion: completion)
     }
 
     static func fetchArchivedTasks(completion: @escaping ([HabitTask]?) -> Void) {
-        shared.taskManager.fetchArchivedTasks(completion: completion)
+        taskManager.fetchArchivedTasks(completion: completion)
     }
 
     static func activeTasks() -> [HabitTask] {
-        shared.taskManager.getActiveTasks()
+        taskManager.getActiveTasks()
     }
 
     static var hasArchivedTask: Bool {
@@ -147,33 +147,33 @@ final class HabitRepository {
     }
 
     static func archivedTasks() -> [HabitTask] {
-        shared.taskManager.getArchivedTasks()
+        taskManager.getArchivedTasks()
     }
 
     static func archivedTasksCount() -> Int {
-        shared.taskManager.getArchivedTasksCount()
+        taskManager.getArchivedTasksCount()
     }
 
     // MARK: Task Mutations
 
     static func createTask(with editingTask: HabitEditingTask) {
-        shared.taskManager.createTask(with: editingTask)
+        taskManager.createTask(with: editingTask)
     }
 
     static func updateTask(_ task: HabitTask, with editingTask: HabitEditingTask) {
-        shared.taskManager.updateTask(task, with: editingTask)
+        taskManager.updateTask(task, with: editingTask)
     }
 
     static func deleteTask(_ task: HabitTask) {
-        shared.taskManager.deleteTask(task)
+        taskManager.deleteTask(task)
     }
 
     static func reorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
-        shared.taskManager.reorderTask(in: tasks, fromIndex: fromIndex, toIndex: toIndex)
+        taskManager.reorderTask(in: tasks, fromIndex: fromIndex, toIndex: toIndex)
     }
 
     static func setArchived(_ isArchived: Bool, for task: HabitTask) {
-        shared.taskManager.setArchived(isArchived, for: task)
+        taskManager.setArchived(isArchived, for: task)
     }
 }
 
@@ -260,7 +260,7 @@ extension HabitRepository {
 
     /// 完成所有
     static func completeAll(for task: HabitTask, on date: Date) {
-        shared.recordProcessor.completeAll(for: task, on: date)
+        recordProcessor.completeAll(for: task, on: date)
     }
 
     static func updateRecord(
@@ -269,40 +269,40 @@ extension HabitRepository {
         for task: HabitTask,
         on date: Date
     ) {
-        shared.recordProcessor.updateRecord(amount: amount, inputType: inputType, for: task, on: date)
+        recordProcessor.updateRecord(amount: amount, inputType: inputType, for: task, on: date)
     }
 
     /// 添加或更改备注
     static func addLog(_ logInfo: HabitRecordLogInfo?, for task: HabitTask, on date: Date) {
-        shared.recordProcessor.addLog(logInfo, for: task, on: date)
+        recordProcessor.addLog(logInfo, for: task, on: date)
     }
 
     /// 跳过今天
     static func skip(with tag: ReasonTag, for task: HabitTask, on date: Date) {
-        shared.recordProcessor.skip(with: tag, for: task, on: date)
+        recordProcessor.skip(with: tag, for: task, on: date)
     }
 
     /// 取消跳过
     static func cancelSkip(for task: HabitTask, on date: Date) {
-        shared.recordProcessor.cancelSkip(for: task, on: date)
+        recordProcessor.cancelSkip(for: task, on: date)
     }
 
     /// 标记为失败
     static func markAsFail(with tag: ReasonTag, for task: HabitTask, on date: Date) {
-        shared.recordProcessor.markAsFail(with: tag, for: task, on: date)
+        recordProcessor.markAsFail(with: tag, for: task, on: date)
     }
 
     /// 取消失败
     static func cancelFail(for task: HabitTask, on date: Date) {
-        shared.recordProcessor.cancelFail(for: task, on: date)
+        recordProcessor.cancelFail(for: task, on: date)
     }
 
     /// 重置今日
     static func resetToday(of date: Date, for task: HabitTask) {
-        shared.recordProcessor.resetToday(of: date, for: task)
+        recordProcessor.resetToday(of: date, for: task)
     }
 
     static func deleteRecords(in dateRange: DateRange) {
-        shared.recordProcessor.deleteRecords(in: dateRange)
+        recordProcessor.deleteRecords(in: dateRange)
     }
 }

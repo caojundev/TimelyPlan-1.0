@@ -62,7 +62,7 @@ class HabitTaskManager {
             /// 更新对应专注会话的任务快照
             var feature = task.feature
             feature.snapshotName = editingTask.name
-            focus.updateSession(with: feature)
+            FocusRepository.updateSession(with: feature)
         }
     }
     

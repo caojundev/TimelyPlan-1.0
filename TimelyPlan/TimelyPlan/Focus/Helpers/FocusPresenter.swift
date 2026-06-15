@@ -133,7 +133,7 @@ class FocusPresenter {
                 completion(record)
             } else {
                 // 默认更新行为
-                focus.updateSession(session, with: record)
+                FocusRepository.updateSession(session, with: record)
             }
         }
         
@@ -142,7 +142,7 @@ class FocusPresenter {
                 deletionHandler(session)
             } else {
                 // 默认删除行为
-                focus.deleteSession(session)
+                FocusRepository.deleteSession(session)
             }
         }
         
@@ -158,7 +158,7 @@ class FocusPresenter {
         let record = FocusRecord(timerFeature: timer.feature, taskFeature: task?.feature)
         let vc = FocusRecordEditViewController(record: record)
         vc.didEndEditing = { record in
-            focus.addSession(with: record, isManual: true)
+            FocusRepository.addSession(with: record, isManual: true)
         }
         
         vc.showAsNavigationRoot()
@@ -174,7 +174,7 @@ class FocusPresenter {
         let record = FocusRecord(timerFeature: timer.feature, timeline: timeline)
         let vc = FocusRecordEditViewController(record: record)
         vc.didEndEditing = { record in
-            focus.addSession(with: record, isManual: true)
+            FocusRepository.addSession(with: record, isManual: true)
         }
         
         vc.showAsNavigationRoot()

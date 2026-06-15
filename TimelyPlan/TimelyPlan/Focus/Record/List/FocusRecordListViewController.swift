@@ -23,7 +23,7 @@ class FocusRecordListViewController: StatsContentViewController,
         self.placeholderProvider.emptyImage = resGetImage("placeholder_record_80")
         self.placeholderProvider.emptyTitle = resGetString("No Focus Record")
         FocusState.shared.addObserver(self, forKeys: [.recordListOrder, .recordListMode])
-        focus.addUpdater(self, for: [.session])
+        FocusRepository.addUpdater(self, for: [.session])
     }
     
     func settingAgentDidChangeValue(for keyName: String) {
@@ -48,7 +48,7 @@ class FocusRecordListViewController: StatsContentViewController,
     }
 
     override func fetchSectionControllers(completion: @escaping ([TPCollectionBaseSectionController]) -> Void) {
-        focus.fetchSessionsGroupedByDay(forTask: task, timer: timer, within: dateRange) { results in
+        FocusRepository.fetchSessionsGroupedByDay(forTask: task, timer: timer, within: dateRange) { results in
             let sectionControllers: [FocusRecordListSectionController]
             if let results = results {
                 sectionControllers = self.sectionControllers(with: results)

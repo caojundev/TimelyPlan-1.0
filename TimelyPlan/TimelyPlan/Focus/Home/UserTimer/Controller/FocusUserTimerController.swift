@@ -14,7 +14,7 @@ class FocusUserTimerController {
     func createTimer(in timers: [FocusTimer]?) {
         let vc = FocusTimerEditViewController(timer: nil)
         vc.didEndEditing = { editingTimer in
-            focus.createTimer(with: editingTimer, in: timers)
+            FocusRepository.createTimer(with: editingTimer, in: timers)
         }
 
         vc.showAsNavigationRoot()
@@ -23,7 +23,7 @@ class FocusUserTimerController {
     func createTimer() {
         let vc = FocusTimerEditViewController(timer: nil)
         vc.didEndEditing = { editingTimer in
-            focus.createTimer(with: editingTimer)
+            FocusRepository.createTimer(with: editingTimer)
         }
 
         vc.showAsNavigationRoot()
@@ -33,7 +33,7 @@ class FocusUserTimerController {
     func editTimer(_ timer: FocusTimer){
         let vc = FocusTimerEditViewController(timer: timer.editingTimer)
         vc.didEndEditing = { editingTimer in
-            focus.updateTimer(timer, with: editingTimer)
+            FocusRepository.updateTimer(timer, with: editingTimer)
         }
 
         let navController = UINavigationController(rootViewController: vc)
@@ -43,18 +43,18 @@ class FocusUserTimerController {
     
     /// 归档计时器
     func archiveTimer(_ timer: FocusTimer){
-        focus.setArchived(true, for: timer)
+        FocusRepository.setArchived(true, for: timer)
     }
      
     func unarchiveTimer(_ timer: FocusTimer){
-        focus.setArchived(false, for: timer)
+        FocusRepository.setArchived(false, for: timer)
     }
 
     /// 弹窗确认删除计时器
     func deleteTimer(_ timer: FocusTimer){
         let deleteAction = TPAlertAction(type: .destructive,
                                          title: resGetString("Delete")) { action in
-            focus.deleteTimer(timer)
+            FocusRepository.deleteTimer(timer)
         }
         
         let cancelAction = TPAlertAction(type: .cancel,
@@ -69,11 +69,11 @@ class FocusUserTimerController {
     }
 
     func moveTimerToTop(_ timer: FocusTimer, in timers: [FocusTimer]) {
-        focus.moveTimer(timer, in: timers, toTop: true)
+        FocusRepository.moveTimer(timer, in: timers, toTop: true)
     }
     
     func moveTimerToBottom(_ timer: FocusTimer, in timers: [FocusTimer]) {
-        focus.moveTimer(timer, in: timers, toTop: false)
+        FocusRepository.moveTimer(timer, in: timers, toTop: false)
     }
     
     // MARK: - 任务记录操作

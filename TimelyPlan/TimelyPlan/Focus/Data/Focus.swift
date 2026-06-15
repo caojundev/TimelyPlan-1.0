@@ -22,65 +22,71 @@ struct FocusUpdaterOption: OptionSet {
     static let all: FocusUpdaterOption = [.timer, .session]
 }
 
-class Focus {
+class FocusRepository {
     
+    // MARK: - 单例
+    static let shared = FocusRepository()
+    
+    private init() {}
+    
+    // MARK: - 私有管理器
     /// 系统计时器管理器
-    private let systemTimerManager = FocusSystemTimerManager()
+    private static let systemTimerManager = FocusSystemTimerManager()
     
     /// 用户计时器管理器
-    private let userTimerManager = FocusUserTimerManager()
+    private static let userTimerManager = FocusUserTimerManager()
     
     /// 会话管理器
-    private let sessionManager = FocusSessionManager()
+    private static let sessionManager = FocusSessionManager()
     
     // MARK: - 添加处理更新器
     /// 添加更新器代理对象
-    func addUpdater(_ updater: AnyObject, for option: FocusUpdaterOption = .all) {
+    static func addUpdater(_ updater: AnyObject, for option: FocusUpdaterOption = .all) {
         if option.contains(.timer) {
-            self.userTimerManager.updater.addDelegate(updater)
+            userTimerManager.updater.addDelegate(updater)
         }
         
         if option.contains(.session) {
-            self.sessionManager.updater.addDelegate(updater)
+            sessionManager.updater.addDelegate(updater)
         }
     }
     
     // MARK: - 默认计时器
     /// 所有默认计时器
-    func allDefaultTimers() -> [FocusSystemTimer] {
+    static func allDefaultTimers() -> [FocusSystemTimer] {
         return systemTimerManager.allTimers
     }
     
     /// 默认计时器
-    func defaultTimer() -> FocusSystemTimer {
+    static func defaultTimer() -> FocusSystemTimer {
         return systemTimerManager.defaultTimer
     }
     
     // MARK: - 获取用户计时器
-    func fetchActiveTimers(completion: @escaping([FocusTimer]?) -> Void) {
+    static func fetchActiveTimers(completion: @escaping([FocusTimer]?) -> Void) {
         userTimerManager.fetchActiveTimers(completion: completion)
     }
     
-    func fetchArchivedTimers(completion: @escaping([FocusTimer]?) -> Void) {
+    static func fetchArchivedTimers(completion: @escaping([FocusTimer]?) -> Void) {
         userTimerManager.fetchArchivedTimers(completion: completion)
     }
     
     /// 获取所有活动计时器
-    func getActiveTimers() -> [FocusTimer]? {
+    static func getActiveTimers() -> [FocusTimer]? {
         return userTimerManager.getActiveTimers()
     }
 
     /// 获取所有已归档计时器
-    func getArchivedTimers() -> [FocusTimer]? {
+    static func getArchivedTimers() -> [FocusTimer]? {
         return userTimerManager.getArchivedTimers()
     }
     
     /// 获取归档计时器数目
-    func numberOfArchivedTimers() -> Int {
+    static func numberOfArchivedTimers() -> Int {
         return userTimerManager.numberOfArchivedTimers()
     }
     
-    func getTimer(withFeature feature: TimerFeature) -> FocusTimerRepresentable? {
+    static func getTimer(withFeature feature: TimerFeature) -> FocusTimerRepresentable? {
         if feature.isNone {
             return nil
         }
@@ -95,20 +101,20 @@ class Focus {
     }
     
     /// 搜索计时器
-    func searchActiveTimers(containText text: String, completion:(@escaping([FocusTimer]?) -> Void)) {
+    static func searchActiveTimers(containText text: String, completion:(@escaping([FocusTimer]?) -> Void)) {
         userTimerManager.searchActiveTimers(containText: text, completion: completion)
     }
     
     // MARK: - 处理用户计时器
-    func createTimer(with editingTimer: FocusEditingTimer) {
+    static func createTimer(with editingTimer: FocusEditingTimer) {
         userTimerManager.createTimer(with: editingTimer)
     }
 
-    func createTimer(with editingTimer: FocusEditingTimer, in timers: [FocusTimer]?) {
+    static func createTimer(with editingTimer: FocusEditingTimer, in timers: [FocusTimer]?) {
         userTimerManager.createTimer(with: editingTimer, in: timers)
     }
     
-    func updateTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) {
+    static func updateTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) {
         let oldFeature = timer.feature
         let newTimer = userTimerManager.updateTimer(timer, with: editingTimer)
         guard let newTimer = newTimer else {
@@ -120,41 +126,41 @@ class Focus {
         }
     }
     
-    func setArchived(_ isArchived: Bool, for timer: FocusTimer) {
+    static func setArchived(_ isArchived: Bool, for timer: FocusTimer) {
         userTimerManager.setArchived(isArchived, for: timer)
     }
         
-    func deleteTimer(_ timer: FocusTimer) {
+    static func deleteTimer(_ timer: FocusTimer) {
         userTimerManager.deleteTimer(timer)
     }
     
-    func reorderTimer(in timers: [FocusTimer], fromIndex: Int, toIndex: Int) {
+    static func reorderTimer(in timers: [FocusTimer], fromIndex: Int, toIndex: Int) {
         userTimerManager.reorderTimer(in: timers, fromIndex: fromIndex, toIndex: toIndex)
     }
     
-    func moveTimer(_ timer: FocusTimer, in timers: [FocusTimer], toTop: Bool = true) {
+    static func moveTimer(_ timer: FocusTimer, in timers: [FocusTimer], toTop: Bool = true) {
         userTimerManager.moveTimer(timer, in: timers, toTop: toTop)
     }
     
     // MARK: - 获取会话
-    func fetchDuration(forTask task: TaskRepresentable? = nil,
+    static func fetchDuration(forTask task: TaskRepresentable? = nil,
                        timer: FocusTimer? = nil,
                        completion: @escaping(Int64) -> Void) {
         sessionManager.fetchDuration(forTask: task, timer: timer, completion: completion)
     }
     
-    func getTotalDuration(for timer: FocusTimer? = nil) -> Int64 {
+    static func getTotalDuration(for timer: FocusTimer? = nil) -> Int64 {
         return sessionManager.getTotalDuration(for: timer)
     }
     
     /// 异步获取日期当日所有专注会话
-    func fetchSessions(for date: Date, includeArchivedTimer: Bool, completion: @escaping([FocusSession]?) -> Void) {
+    static func fetchSessions(for date: Date, includeArchivedTimer: Bool, completion: @escaping([FocusSession]?) -> Void) {
         sessionManager.fetchSessions(for: date,
                                         includeArchivedTimer: includeArchivedTimer,
                                         completion: completion)
     }
     
-    func fetchSessions(forTask task: TaskRepresentable? = nil,
+    static func fetchSessions(forTask task: TaskRepresentable? = nil,
                        timer: FocusTimer? = nil,
                        dateRange: DateRange,
                        includeArchivedTimer: Bool,
@@ -168,7 +174,7 @@ class Focus {
         
     
     /// 获取按日分组的专注会话字典
-    func fetchSessionsGroupedByDay(forTask task: TaskRepresentable? = nil,
+    static func fetchSessionsGroupedByDay(forTask task: TaskRepresentable? = nil,
                                    timer: FocusTimer? = nil,
                                    within dateRange: DateRange,
                                    includeArchivedTimer: Bool = true,
@@ -182,30 +188,106 @@ class Focus {
     
     
     // MARK: - 处理会话
-    func addSessions(with records: [FocusRecord]) {
+    static func addSessions(with records: [FocusRecord]) {
         sessionManager.addSessions(with: records)
     }
     
     /// 手动添加会话
-    func addSession(with record: FocusRecord, isManual: Bool) {
+    static func addSession(with record: FocusRecord, isManual: Bool) {
         sessionManager.addSession(with: record, isManual: isManual)
     }
     
     /// 删除会话
-    func deleteSession(_ session: FocusSession) {
+    static func deleteSession(_ session: FocusSession) {
         sessionManager.deleteSession(session)
     }
     
     /// 更新会话
-    func updateSession(_ session: FocusSession, with record: FocusRecord) {
+    static func updateSession(_ session: FocusSession, with record: FocusRecord) {
         sessionManager.updateSession(session, with: record)
     }
     
-    func updateSession(with feature: TimerFeature) {
+    static func updateSession(with feature: TimerFeature) {
         sessionManager.updateSession(with: feature)
     }
     
-    func updateSession(with feature: TaskFeature) {
+    static func updateSession(with feature: TaskFeature) {
         sessionManager.updateSession(with: feature)
+    }
+}
+
+// MARK: - 统计数据
+extension FocusRepository {
+    
+    // MARK: - 获取特定任务统计数据
+    /// 获取日统计数据
+    static func fetchDailyStats(forTask task: TaskRepresentable? = nil,
+                         timer: FocusTimer? = nil,
+                         on date: Date,
+                         includeArchivedTimer: Bool,
+                         completion: @escaping(FocusStatsDataItem) -> Void) {
+        let dateRange = date.rangeOfThisDay()
+        fetchStats(forTask: task,
+                   timer: timer,
+                   dateRange: dateRange,
+                   includeArchivedTimer: includeArchivedTimer,
+                   completion: completion)
+    }
+    
+    /// 获取周统计数据
+    static func fetchWeeklyStats(forTask task: TaskRepresentable? = nil,
+                          timer: FocusTimer? = nil,
+                          inWeekContaining date: Date,
+                          firstWeekday: Weekday = .firstWeekday,
+                          includeArchivedTimer: Bool,
+                          completion: @escaping(FocusStatsDataItem) -> Void) {
+        let dateRange = date.rangeOfThisWeek(firstWeekday: firstWeekday)
+        fetchStats(forTask: task,
+                   timer: timer,
+                   dateRange: dateRange,
+                   includeArchivedTimer: includeArchivedTimer,
+                   completion: completion)
+    }
+    
+    /// 获取月统计数据
+    static func fetchMonthlyStats(forTask task: TaskRepresentable? = nil,
+                           timer: FocusTimer? = nil,
+                           inMonthContaining date: Date,
+                           includeArchivedTimer: Bool,
+                           completion: @escaping(FocusStatsDataItem) -> Void) {
+        let dateRange = date.rangeOfThisMonth()
+        fetchStats(forTask: task,
+                   timer: timer,
+                   dateRange: dateRange,
+                   includeArchivedTimer: includeArchivedTimer,
+                   completion: completion)
+    }
+    
+    /// 获取年数据
+    static func fetchYearlyStats(forTask task: TaskRepresentable? = nil,
+                          timer: FocusTimer? = nil,
+                          inYearContaining date: Date,
+                          includeArchivedTimer: Bool,
+                          completion: @escaping(FocusStatsDataItem) -> Void) {
+        let dateRange = date.rangeOfThisYear()
+        fetchStats(forTask: task,
+                   timer: timer,
+                   dateRange: dateRange,
+                   includeArchivedTimer: includeArchivedTimer,
+                   completion: completion)
+    }
+    
+    private static func fetchStats(forTask task: TaskRepresentable? = nil,
+                            timer: FocusTimer? = nil,
+                            dateRange: DateRange,
+                            includeArchivedTimer: Bool,
+                            completion: @escaping(FocusStatsDataItem) -> Void) {
+        fetchSessions(forTask: task,
+                      timer: timer,
+                      dateRange: dateRange,
+                      includeArchivedTimer: includeArchivedTimer) { sessions in
+            let item = FocusStatsDataItem(task: task, timer: timer, dateRange: dateRange, sessions: sessions)
+            completion(item)
+        }
     }
 }

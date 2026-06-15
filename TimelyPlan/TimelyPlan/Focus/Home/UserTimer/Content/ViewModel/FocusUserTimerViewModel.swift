@@ -36,7 +36,7 @@ class FocusUserTimerViewModel: FocusTimerProcessorDelegate {
         self.placeholderProvider.state = self.state
         self.placeholderProvider.emptyImage = resGetImage("focus_placeholder_noTimer_80")
         self.placeholderProvider.emptyTitle = resGetString("No Timer")
-        focus.addUpdater(self)
+        FocusRepository.addUpdater(self)
     }
 
     func setNeedsRefresh(_ refresh: Bool = true) {
@@ -71,7 +71,7 @@ class FocusUserTimerViewModel: FocusTimerProcessorDelegate {
     }
 
     func fetchTimers(completion: @escaping ([FocusTimer]?) -> Void) {
-        focus.fetchActiveTimers(completion: completion)
+        FocusRepository.fetchActiveTimers(completion: completion)
     }
     
     // MARK: - FocusTimerProcessorDelegate

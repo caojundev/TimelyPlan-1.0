@@ -135,7 +135,7 @@ class FocusHomeUserTimerContentViewController: TPViewController,
             return
         }
         
-        focus.reorderTimer(in: timers, fromIndex: sourceIndexPath.item, toIndex: targetIndexPath.item)
+        FocusRepository.reorderTimer(in: timers, fromIndex: sourceIndexPath.item, toIndex: targetIndexPath.item)
     }
     
     func focusUserTimerListViewHandleRefresh(_ listView: FocusUserTimerListView) {

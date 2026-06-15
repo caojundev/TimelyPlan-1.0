@@ -102,7 +102,7 @@ class FocusEndViewController: TPCollectionSectionsViewController {
     func clickSaveRecords() {
         if let records = dataItem.validFocusRecords {
             /// 保存有效记录
-            focus.addSessions(with: records)
+            FocusRepository.addSessions(with: records)
         }
         
         self.dismiss(animated: true, completion: nil)
