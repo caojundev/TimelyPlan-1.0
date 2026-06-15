@@ -57,9 +57,12 @@ class ScheduleDragView: UIView {
     
     let contentView = UIView()
     
+    var dateRange: DateInterval
+    
     // MARK: - Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(dateRange: DateInterval) {
+        self.dateRange = dateRange
+        super.init(frame: .zero)
         setupView()
     }
     

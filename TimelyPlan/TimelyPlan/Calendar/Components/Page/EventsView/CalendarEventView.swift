@@ -26,7 +26,7 @@ class CalendarEventView: UIView {
     private let nameLabel = UILabel()
     
     /// 时间标签
-    private let timeLabel = UILabel()
+    let timeLabel = UILabel()
     
     var isHighlighted: Bool = false {
         didSet {

@@ -9,12 +9,20 @@ import Foundation
 
 class CalendarScheduleDragEventView: ScheduleDragView {
     
+    override var dateRange: DateInterval {
+        didSet {
+            if dateRange != oldValue {
+                eventView.timeLabel.text = dateRange.start.timeString
+            }
+        }
+    }
+    
     let eventView: CalendarEventView
     
     init(event: CalendarEvent) {
         self.eventView = CalendarEventView(event: event)
         self.eventView.isHighlighted = true
-        super.init(frame: .zero)
+        super.init(dateRange: event.dateRange)
         self.color = event.color.darkerColor
         self.contentView.addSubview(self.eventView)
     }

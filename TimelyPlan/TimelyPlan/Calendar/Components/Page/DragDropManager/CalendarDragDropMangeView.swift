@@ -112,7 +112,7 @@ class CalendarDragDropManageView: UIView,
     init(dateRange: DateInterval) {
         self.dateRange = dateRange
         self.dayDate = dateRange.start
-        self.scheduleView = CalendarScheduleDragAddView()
+        self.scheduleView = CalendarScheduleDragAddView(dateRange: dateRange)
         super.init(frame: .zero)
         commonInit()
     }
@@ -223,7 +223,8 @@ class CalendarDragDropManageView: UIView,
     /// 更新日期范围
     private func updateDateRange() {
         let snappedFrame = snappedFrame(of: scheduleView.frame)
-        self.dateRange = layout.dateRange(of: snappedFrame)
+        dateRange = layout.dateRange(of: snappedFrame)
+        scheduleView.dateRange = dateRange
     }
     
     private func highlightDateRange() {
