@@ -17,8 +17,8 @@ class TodoTaskSectionViewModel {
     
     init(selection: TodoTaskSectionSelection) {
         self.selection = selection
-        self.inboxSections = todo.getSections(for: nil) ?? []
-        self.topLists = todo.getTopLists()
+        self.inboxSections = TodoRepository.getSections(for: nil) ?? []
+        self.topLists = TodoRepository.getTopLists()
     }
     
     func searchItems(containText text: String, completion: @escaping ([ListDiffable]?) -> Void) {

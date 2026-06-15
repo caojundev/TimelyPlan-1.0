@@ -18,7 +18,7 @@ class TodoDetailCoordinator: TodoListProcessorDelegate,
     
     init(multiColumnViewController: TPMultiColumnViewController) {
         self.multiColumnVC = multiColumnViewController
-        todo.addUpdater(self)
+        TodoRepository.addUpdater(self)
     }
     
     /// 显示用户列表详情

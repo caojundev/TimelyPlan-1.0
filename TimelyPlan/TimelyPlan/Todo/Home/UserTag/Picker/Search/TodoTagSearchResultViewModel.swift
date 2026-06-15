@@ -35,7 +35,7 @@ class TodoTagSearchResultViewModel: NSObject {
         
         self.isLoading = true
         self.searchText = searchText
-        todo.searchTags(containText: searchText) {[weak self] tags in
+        TodoRepository.searchTags(containText: searchText) {[weak self] tags in
             guard let self = self, searchText == self.searchText else {
                 return
             }

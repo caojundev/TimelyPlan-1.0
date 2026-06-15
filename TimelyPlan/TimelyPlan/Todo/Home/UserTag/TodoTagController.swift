@@ -30,29 +30,29 @@ class TodoTagController {
                 return false
             }
   
-            if todo.isTagExist(with: name) {
+            if TodoRepository.isTagExist(with: name) {
                 self.showTagExistMessage()
                 return false
             } else {
-                todo.createTag(with: editingTag)
+                TodoRepository.createTag(with: editingTag)
                 return true
             }
         }
     }
     
     func createTag(withName name: String, color: UIColor) {
-        if todo.isTagExist(with: name) {
+        if TodoRepository.isTagExist(with: name) {
             showTagExistMessage()
         } else {
             let editingTag = TodoEditingTag(name: name, color: color)
-            todo.createTag(with: editingTag)
+            TodoRepository.createTag(with: editingTag)
         }
     }
     
     /// 编辑列表
     func editTag(_ tag: TodoTag){
         TodoPresenter.showTagEditViewController(with: tag.editingTag) { editingTag in
-            todo.updateTag(tag, with: editingTag)
+            TodoRepository.updateTag(tag, with: editingTag)
             return true
         }
     }
@@ -67,7 +67,7 @@ class TodoTagController {
     func deleteTag(_ tag: TodoTag) {
         let deleteAction = TPAlertAction(type: .destructive,
                                          title: resGetString("Delete")) { action in
-            todo.deleteTag(tag)
+            TodoRepository.deleteTag(tag)
         }
         
         let cancelAction = TPAlertAction.cancel

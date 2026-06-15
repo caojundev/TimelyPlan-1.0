@@ -63,7 +63,7 @@ class TodoFilterViewModel: TodoBaseListViewModel {
     
     override init() {
         super.init()
-        todo.addUpdater(self)
+        TodoRepository.addUpdater(self)
     }
 
     func setNeedsRefresh() {
@@ -97,7 +97,7 @@ class TodoFilterViewModel: TodoBaseListViewModel {
             return
         }
         
-        todo.fetchFilters(completion: completion)
+        TodoRepository.fetchFilters(completion: completion)
     }
 }
 
@@ -126,7 +126,7 @@ extension TodoFilterViewModel: TodoFilterProcessorDelegate {
         setNeedsRefresh()
         
         /// 同步更新
-        self.filters = todo.getFilters()
+        self.filters = TodoRepository.getFilters()
         self.needsRefresh = false
         self.filtersDidChange?(nil)
     }

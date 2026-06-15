@@ -25,20 +25,20 @@ class TodoFilterController {
                 return
             }
 
-            todo.createFilter(with: editingFilter)
+            TodoRepository.createFilter(with: editingFilter)
         }
     }
     
     func editFilter(_ filter: TodoFilter) {
         showFilterEditViewController(with: filter.editingFilter) { editingFilter in
-            todo.updateFilter(filter, with: editingFilter)
+            TodoRepository.updateFilter(filter, with: editingFilter)
         }
     }
     
     func deleteFilter(_ filter: TodoFilter) {
         let deleteAction = TPAlertAction(type: .destructive,
                                          title: resGetString("Delete")) { action in
-            todo.deleteFilter(filter)
+            TodoRepository.deleteFilter(filter)
         }
         
         let cancelAction = TPAlertAction.cancel

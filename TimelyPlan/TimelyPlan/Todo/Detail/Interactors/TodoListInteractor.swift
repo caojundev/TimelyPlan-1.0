@@ -70,7 +70,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         self.configuration = configuration
         self.listOptionState = TodoState.shared.listOptionState(for: configuration) ?? TodoListOptionState()
         self.placeholderProvider.state = self.loadingState
-        todo.addUpdater(self, for: [.list, .section, .task, .tag])
+        TodoRepository.addUpdater(self, for: [.list, .section, .task, .tag])
     }
     
     /// 是否匹配分组

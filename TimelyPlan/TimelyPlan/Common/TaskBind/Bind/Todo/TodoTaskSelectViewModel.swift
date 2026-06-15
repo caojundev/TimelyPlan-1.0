@@ -78,6 +78,6 @@ class TodoTaskSelectViewModel {
             return
         }
         
-        todo.fetchAllTasks(showCompleted: false, completion: completion)
+        TodoRepository.fetchAllTasks(showCompleted: false, completion: completion)
     }
 }

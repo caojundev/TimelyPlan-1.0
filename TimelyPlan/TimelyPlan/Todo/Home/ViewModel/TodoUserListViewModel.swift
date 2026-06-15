@@ -48,7 +48,7 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     init(expansionState: ExpansionStateProviding) {
         self.expansionState = expansionState
         super.init()
-        todo.addUpdater(self)
+        TodoRepository.addUpdater(self)
     }
     
     func setNeedsRefresh() {
@@ -77,7 +77,7 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
             return
         }
         
-        todo.fetchTopLists(completion: completion)
+        TodoRepository.fetchTopLists(completion: completion)
     }
     
     private func lists(with stateProvier: ExpansionStateProviding) -> [TodoList] {
@@ -145,7 +145,7 @@ extension TodoUserListViewModel: TodoListProcessorDelegate {
         expandAllParent(of: list, includeCurrent: false)
         
         /// 同步更新列表
-        self.topLists = todo.getTopLists()
+        self.topLists = TodoRepository.getTopLists()
         self.needsRefresh = false
         self.userListDidChange?(nil)
     }

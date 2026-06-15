@@ -96,7 +96,7 @@ class TodoTaskBoardGroupManager {
         }
         
         let isCompleted = status == .completed
-        todo.updateTasks([task], isCompleted: isCompleted)
+        TodoRepository.updateTasks([task], isCompleted: isCompleted)
     }
 
     private func handleStartDateDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
@@ -123,7 +123,7 @@ class TodoTaskBoardGroupManager {
             newSchedule?.repeatRule = oldSchedule.repeatRule
         }
         
-        todo.updateTask(task, schedule: newSchedule)
+        TodoRepository.updateTask(task, schedule: newSchedule)
     }
 
     private func handleDueDateDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
@@ -150,18 +150,18 @@ class TodoTaskBoardGroupManager {
             newSchedule?.repeatRule = oldSchedule.repeatRule
         }
         
-        todo.updateTask(task, schedule: newSchedule)
+        TodoRepository.updateTask(task, schedule: newSchedule)
     }
 
     private func handlePriorityDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
         if let priority = TodoTaskPriority(identifier: destination.identifier) {
-            todo.updateTasks([task], priority: priority)
+            TodoRepository.updateTasks([task], priority: priority)
         }
     }
 
     private func handleCustomDrop(_ task: TodoTask, from source: TodoGroup, to destination: TodoGroup) {
         if let section = destination.dataItem as? TodoSectionFeature {
-            todo.moveTasks([task], to: section)
+            TodoRepository.moveTasks([task], to: section)
         }
     }
 
@@ -185,7 +185,7 @@ class TodoTaskBoardGroupManager {
         }
         
         // 3. 执行排序操作
-        todo.reorderTask(
+        TodoRepository.reorderTask(
             task,
             postion: reorderInfo.position,
             targetTask: reorderInfo.targetTask,

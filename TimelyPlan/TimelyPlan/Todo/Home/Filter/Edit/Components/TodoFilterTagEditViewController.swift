@@ -137,7 +137,7 @@ private class TodoFilterUserTagSectionController: TPTableBaseSectionController {
     var didSelectTag: ((TodoTag) -> Void)?
     
     override var items: [ListDiffable]? {
-        return todo.getTags()
+        return TodoRepository.getTags()
     }
     
     // MARK: - Delegate

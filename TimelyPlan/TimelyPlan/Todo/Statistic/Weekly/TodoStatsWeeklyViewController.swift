@@ -20,7 +20,7 @@ class TodoStatsWeeklyViewController: StatsContentViewController {
    
     override func fetchSectionControllers(completion: @escaping([TPCollectionBaseSectionController]) -> Void) {
         let period: StatisticsPeriod = .week(date, firstWeekday)
-        todo.fetchStatsDataItem(in: period) { dataItem in
+        TodoRepository.fetchStatsDataItem(in: period) { dataItem in
             let sectionControllers = self.sectionControllers(for: dataItem)
             completion(sectionControllers)
         }

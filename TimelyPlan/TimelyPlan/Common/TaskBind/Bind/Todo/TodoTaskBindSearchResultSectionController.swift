@@ -51,7 +51,7 @@ class TodoTaskBindSearchResultSectionController: TPTableSearchResultSectionContr
         options.showCompleted = true
         options.searchNote = false
         options.searchStep = false
-        todo.searchTasks(matching: text, options: options, completion: completion)
+        TodoRepository.searchTasks(matching: text, options: options, completion: completion)
     }
     
     // MARK: - Helpers

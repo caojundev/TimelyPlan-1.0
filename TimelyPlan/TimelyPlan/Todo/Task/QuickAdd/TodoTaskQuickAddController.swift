@@ -56,7 +56,7 @@ class TodoTaskQuickAddController: TPKeyboardAwareController,
             return
         }
         
-        todo.createTask(with: quickAddTask)
+        TodoRepository.createTask(with: quickAddTask)
         quickAddView.reset(with: self.originTask)
         if options.forbidContinuousAdd || !TodoSetting.shared.quickAddContinuously {
             endEditing()

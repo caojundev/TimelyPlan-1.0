@@ -102,7 +102,7 @@ class TodoTaskQuickAddView: TPKeyboardAwareView,
         self.addSubview(sendView)
         self.addSeparator(position: .top)
         self.reloadData()
-        todo.addUpdater(self, for: [.list, .tag])
+        TodoRepository.addUpdater(self, for: [.list, .tag])
     }
     
     required init?(coder: NSCoder) {

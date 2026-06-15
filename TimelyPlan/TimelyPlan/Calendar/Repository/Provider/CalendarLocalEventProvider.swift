@@ -14,7 +14,7 @@ class CalendarLocalEventProvider: CalendarEventProvider, SettingAgentObserver {
 
     init() {
         /// 添加任务处理监听
-        todo.addUpdater(self, for: [.task])
+        TodoRepository.addUpdater(self, for: [.task])
         CalendarSetting.shared.addObserver(self, forKey: .showCompletedTask)
     }
     
@@ -27,7 +27,7 @@ class CalendarLocalEventProvider: CalendarEventProvider, SettingAgentObserver {
     
     func fetchEvents(in range: DateInterval, completion: @escaping ([CalendarEvent]?) -> Void) {
         let showCompleted = CalendarSetting.shared.showCompletedTask
-        todo.fetchScheduledTasks(in: range, showCompleted: showCompleted) { tasks in
+        TodoRepository.fetchScheduledTasks(in: range, showCompleted: showCompleted) { tasks in
             completion(tasks?.toCalendarEvents())
         }
     }

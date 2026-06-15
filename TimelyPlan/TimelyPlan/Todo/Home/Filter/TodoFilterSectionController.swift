@@ -190,7 +190,7 @@ extension TodoFilterSectionController: TPTableDragInsertReorderDelegate {
             return nil
         }
     
-        todo.reorderFilter(in: self.filters,
+        TodoRepository.reorderFilter(in: self.filters,
                            fromIndex: sourceIndexPath.row,
                            toIndex: targetIndexPath.row)
         

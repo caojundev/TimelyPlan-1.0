@@ -7,8 +7,6 @@
 
 import Foundation
 
-var todo: Todo! /// 待办
-
 class AppInitializer {
     
     static var isInitialized = false
@@ -33,6 +31,5 @@ class AppInitializer {
     /// 初始化管理器
     static func setup() {
         TPImpactFeedback.feedback.enabled = AppSetting.shared.isHapiticFeedbackOn
-        todo = Todo()
     }
 }

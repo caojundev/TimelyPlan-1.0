@@ -229,7 +229,7 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
             return sourceIndexPath
         }
         
-        todo.reorderList(in: lists, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row, depth: depth)
+        TodoRepository.reorderList(in: lists, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row, depth: depth)
         /// 重新排序完成返回新索引
         var newIndexPath: IndexPath? = nil
         if let newIndex = lists.indexOf(list) {

@@ -58,7 +58,7 @@ class CalendarRepository {
             let schedule = TaskSchedule(dateInfo: dateRange.dateInfo,
                                         reminder: task.schedule?.reminder,
                                         repeatRule: task.schedule?.repeatRule)
-            todo.updateTask(task, schedule: schedule)
+            TodoRepository.updateTask(task, schedule: schedule)
         }
     }
 }

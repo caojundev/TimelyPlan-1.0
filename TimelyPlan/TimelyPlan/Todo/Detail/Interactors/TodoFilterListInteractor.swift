@@ -24,11 +24,11 @@ class TodoFilterListInteractor: TodoListInteractor,
         self.placeholderProvider.emptyImage = resGetImage("todo_filter_80")
         self.placeholderProvider.emptyTitle = resGetString("The current filter has no tasks")
         TPMidnightScheduler.shared.addUpdater(self)
-        todo.addUpdater(self, for: [.filter])
+        TodoRepository.addUpdater(self, for: [.filter])
     }
     
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        todo.fetchTasks(filter: self.filter,
+        TodoRepository.fetchTasks(filter: self.filter,
                         showCompleted: self.listOptionState.showCompleted,
                         completion: completion)
     }

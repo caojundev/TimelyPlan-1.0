@@ -21,11 +21,11 @@ class TodoTagListInteractor: TodoListInteractor {
         super.init(configuration: configuration)
         self.placeholderProvider.emptyImage = resGetImage("todo_tag_80")
         self.placeholderProvider.emptyTitle = resGetString("The current tag has no tasks")
-        todo.addUpdater(self, for: [.tag])
+        TodoRepository.addUpdater(self, for: [.tag])
     }
     
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        todo.fetchTasks(tag: self.tag,
+        TodoRepository.fetchTasks(tag: self.tag,
                         showCompleted: self.listOptionState.showCompleted,
                         completion: completion)
     }

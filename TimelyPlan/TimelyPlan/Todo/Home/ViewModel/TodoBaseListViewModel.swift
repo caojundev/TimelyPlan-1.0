@@ -17,7 +17,7 @@ class TodoBaseListViewModel {
             return
         }
         
-        todo.fetchUncompletedTaskCount(for: item) { count in
+        TodoRepository.fetchUncompletedTaskCount(for: item) { count in
             self.counter.setCount(count, for: item)
             completion(count)
         }

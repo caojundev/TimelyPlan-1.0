@@ -31,7 +31,7 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
         super.init()
         TodoSetting.shared.addObserver(self, forKey: .smartListDisplay)
         TPMidnightScheduler.shared.addUpdater(self)
-        todo.addUpdater(self)
+        TodoRepository.addUpdater(self)
     }
 
     func uncompletedTaskCount(for list: TodoSmartList) -> Int {

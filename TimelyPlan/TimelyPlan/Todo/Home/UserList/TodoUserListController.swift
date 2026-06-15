@@ -13,14 +13,14 @@ class TodoUserListController {
     /// 新建列表
     public func createList(parent: TodoList? = nil) {
         editList(nil, parent: parent) { editingList, parent in
-            todo.createList(with: editingList, parent: parent)
+            TodoRepository.createList(with: editingList, parent: parent)
         }
     }
     
     /// 编辑列表
     public func editList(_ list: TodoList){
         editList(list, parent: list.parent) { editingList, parent in
-            todo.updateList(list, with: editingList, parent: parent)
+            TodoRepository.updateList(list, with: editingList, parent: parent)
         }
     }
     
@@ -39,7 +39,7 @@ class TodoUserListController {
     func deleteList(_ list: TodoList) {
         let deleteAction = TPAlertAction(type: .destructive,
                                          title: resGetString("Delete")) { action in
-            todo.deleteList(list)
+            TodoRepository.deleteList(list)
         }
         
         let cancelAction = TPAlertAction(type: .cancel,
@@ -60,7 +60,7 @@ class TodoUserListController {
                                                     allowMaxDepth: allowMaxDepth)
         vc.disabledLists = [list]
         vc.didSelectList = { moveToList in
-            todo.moveList(list, to: moveToList)
+            TodoRepository.moveList(list, to: moveToList)
         }
 
         vc.showAsNavigationRoot()
@@ -69,7 +69,7 @@ class TodoUserListController {
     // MARK: - 解散列表
     func ungroupList(_ list: TodoList) {
         let ungroupAction = TPAlertAction(type: .destructive, title: resGetString("Ungroup")) { action in
-            todo.ungroupList(list)
+            TodoRepository.ungroupList(list)
         }
         
         let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))

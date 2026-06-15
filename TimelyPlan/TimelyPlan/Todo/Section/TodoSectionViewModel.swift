@@ -33,7 +33,7 @@ class TodoSectionViewModel: TodoSectionProcessorDelegate {
     init(list: TodoList?) {
         self.list = list
         self.updateSections()
-        todo.addUpdater(self, for: [.section])
+        TodoRepository.addUpdater(self, for: [.section])
     }
     
     private func updateSections() {
@@ -41,24 +41,24 @@ class TodoSectionViewModel: TodoSectionProcessorDelegate {
             self.sections = list.sections ?? []
         } else {
             /// 收件箱
-            self.sections = todo.getSections(for: nil) ?? []
+            self.sections = TodoRepository.getSections(for: nil) ?? []
         }
     }
     
     func createSection(with name: String) {
-        todo.createSection(with: name, in: list)
+        TodoRepository.createSection(with: name, in: list)
     }
     
     func updateSection(_ section: TodoSection, with name: String) {
-        todo.updateSection(section, with: name)
+        TodoRepository.updateSection(section, with: name)
     }
     
     func deleteSection(_ section: TodoSection) {
-        todo.deleteSection(section)
+        TodoRepository.deleteSection(section)
     }
     
     func reorderSection(fromIndex: Int, toIndex: Int) -> Bool {
-        guard todo.reorderSection(in: sections, of: list, from: fromIndex, to: toIndex) else {
+        guard TodoRepository.reorderSection(in: sections, of: list, from: fromIndex, to: toIndex) else {
             return false
         }
         

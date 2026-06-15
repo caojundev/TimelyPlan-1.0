@@ -93,14 +93,14 @@ class TodoTaskController {
         }
         
         TodoTaskController.editSchedule(schedule, showClear: showClear) { newSchedule in
-            todo.updateTasks(tasks, schedule: newSchedule)
+            TodoRepository.updateTasks(tasks, schedule: newSchedule)
             completion?()
         }
     }
     
     // MARK: - 完成任务
     func setCompleted(_ isCompleted: Bool, for tasks: [TodoTask], completion: (()->Void)? = nil) {
-        todo.updateTasks(tasks, isCompleted: isCompleted)
+        TodoRepository.updateTasks(tasks, isCompleted: isCompleted)
         completion?()
     }
 
@@ -110,7 +110,7 @@ class TodoTaskController {
     }
     
     func setAddToMyDay(_ isAddedToMyDay: Bool, for tasks: [TodoTask], completion: (()->Void)? = nil) {
-        todo.updateTasks(tasks, isAddedToMyDay: isAddedToMyDay)
+        TodoRepository.updateTasks(tasks, isAddedToMyDay: isAddedToMyDay)
         completion?()
     }
 
@@ -127,7 +127,7 @@ class TodoTaskController {
         popoverView.menuItems = [menuItem]
         popoverView.didSelectMenuAction = { action in
             if let priority = TodoTaskPriority(rawValue: action.tag) {
-                todo.updateTasks(tasks, priority: priority)
+                TodoRepository.updateTasks(tasks, priority: priority)
             }
             
             completion?()
@@ -184,7 +184,7 @@ class TodoTaskController {
         if isCompleted {
             let isCompleted = false
             executeCompletedHandler(completedHandler, isCompleted: isCompleted) {
-                todo.updateTasks([task], isCompleted: isCompleted)
+                TodoRepository.updateTasks([task], isCompleted: isCompleted)
             }
             
             return
@@ -195,7 +195,7 @@ class TodoTaskController {
             /// 完成任务
             let isCompleted = true
             executeCompletedHandler(completedHandler, isCompleted: isCompleted) {
-                todo.updateTasks([task], isCompleted: isCompleted)
+                TodoRepository.updateTasks([task], isCompleted: isCompleted)
             }
             
             return
@@ -208,7 +208,7 @@ class TodoTaskController {
     
         if let autoRecordedProgress = progress.autoRecordedProgress() {
             executeProgressHandler(progressHandler, progress: autoRecordedProgress) {
-                todo.updateTask(task, progress: autoRecordedProgress)
+                TodoRepository.updateTask(task, progress: autoRecordedProgress)
             }
             
             return
@@ -218,7 +218,7 @@ class TodoTaskController {
         inputVC.completion = { value, type in
             let newProgress = progress.progressWithInputValue(value, inputType: type)
             self.executeProgressHandler(progressHandler, progress: newProgress) {
-                todo.updateTask(task, progress: newProgress)
+                TodoRepository.updateTask(task, progress: newProgress)
             }
         }
         
@@ -260,7 +260,7 @@ class TodoTaskController {
         
         let vc = TodoTaskMoveViewController(section: section)
         vc.didSelectSection = { section in
-            todo.moveTasks(tasks, to: section)
+            TodoRepository.moveTasks(tasks, to: section)
             completion?()
         }
 
@@ -272,12 +272,12 @@ class TodoTaskController {
     // MARK: -  移动任务到废纸篓
     
     func moveTaskToTrash(_ task: TodoTask, completion: (()->Void)? = nil) {
-        todo.moveTasksToTrash([task])
+        TodoRepository.moveTasksToTrash([task])
         completion?()
     }
     
     func moveTasksToTrash(_ tasks: [TodoTask], completion: (()->Void)? = nil) {
-        todo.moveTasksToTrash(tasks)
+        TodoRepository.moveTasksToTrash(tasks)
         completion?()
     }
     
@@ -286,7 +286,7 @@ class TodoTaskController {
     /// 弹窗确认删除列表
     func confirmDeletion(for task: TodoTask, completion: (()->Void)? = nil) {
         let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
-            todo.deleteTasks([task])
+            TodoRepository.deleteTasks([task])
             completion?()
         }
         
@@ -313,7 +313,7 @@ class TodoTaskController {
         
         /// 确认删除多个任务
         let deleteAction = TPAlertAction(type: .destructive, title: resGetString("Delete")) { action in
-            todo.deleteTasks(tasks)
+            TodoRepository.deleteTasks(tasks)
             completion?()
         }
         
@@ -330,7 +330,7 @@ class TodoTaskController {
     // MARK: - 从废纸篓恢复
     func confirmRestoration(for task: TodoTask, completion: (()->Void)? = nil) {
         let restoreAction = TPAlertAction(type: .normal, title: resGetString("Restore")) { action in
-            todo.restoreTrashTask(task)
+            TodoRepository.restoreTrashTask(task)
             completion?()
         }
         
@@ -355,7 +355,7 @@ class TodoTaskController {
         
         let restoreAction = TPAlertAction(type: .normal,
                                          title: resGetString("Restore")) { action in
-            todo.restoreTrashTasks(tasks)
+            TodoRepository.restoreTrashTasks(tasks)
             completion?()
         }
         
@@ -372,7 +372,7 @@ class TodoTaskController {
     /// 清空废纸篓
     func emptyTrash() {
         let confirmAction = TPAlertAction(type: .destructive, title: resGetString("Confirm")) { action in
-            todo.emptyTrash()
+            TodoRepository.emptyTrash()
         }
         
         let cancelAction = TPAlertAction(type: .cancel, title: resGetString("Cancel"))
@@ -384,7 +384,7 @@ class TodoTaskController {
     }
     
     func restoreTrashTask(_ task: TodoTask) {
-        todo.restoreTrashTask(task)
+        TodoRepository.restoreTrashTask(task)
     }
     
     // MARK: - Providers

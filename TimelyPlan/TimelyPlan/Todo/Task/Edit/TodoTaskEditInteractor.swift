@@ -15,47 +15,47 @@ class TodoTaskEditInteractor: TodoTaskProcessorDelegate {
     
     init(task: TodoTask) {
         self.task = task
-        todo.addUpdater(self, for: [.task])
+        TodoRepository.addUpdater(self, for: [.task])
     }
     
     func setName(_ name: String?) {
-        todo.updateTask(task, name: name)
+        TodoRepository.updateTask(task, name: name)
     }
     
     func setCompleted(_ isCompleted: Bool) {
-        todo.updateTasks([task], isCompleted: isCompleted)
+        TodoRepository.updateTasks([task], isCompleted: isCompleted)
     }
     
     func setPriority(_ priority: TodoTaskPriority) {
-        todo.updateTasks([task], priority: priority)
+        TodoRepository.updateTasks([task], priority: priority)
     }
     
     func setAddedToMyDay(_ isAddedToMyDay: Bool) {
-        todo.updateTask(task, isAddedToMyDay: isAddedToMyDay)
+        TodoRepository.updateTask(task, isAddedToMyDay: isAddedToMyDay)
     }
     
     func setSchedule(_ schedule: TaskSchedule?) {
-        todo.updateTask(task, schedule: schedule)
+        TodoRepository.updateTask(task, schedule: schedule)
     }
     
     func setProgress(_ progress: TodoEditProgress?) {
-        todo.updateTask(task, progress: progress)
+        TodoRepository.updateTask(task, progress: progress)
     }
     
     func setTags(_ tags: Set<TodoTag>?) {
-        todo.updateTask(task, tags: tags)
+        TodoRepository.updateTask(task, tags: tags)
     }
     
     func setNote(_ note: String?) {
-        todo.updateTask(task, note: note)
+        TodoRepository.updateTask(task, note: note)
     }
     
     func setSteps(_ steps: [TodoStep]?) {
-        todo.updateTask(task, steps: steps)
+        TodoRepository.updateTask(task, steps: steps)
     }
     
     func moveToTrash() {
-        todo.moveTasksToTrash([task])
+        TodoRepository.moveTasksToTrash([task])
     }
     
     // MARK: - TodoTaskProcessorDelegate
@@ -65,7 +65,7 @@ class TodoTaskEditInteractor: TodoTaskProcessorDelegate {
         }
         
         /// 更新任务
-        if let task = todo.getTask(with: task.identifier) {
+        if let task = TodoRepository.getTask(with: task.identifier) {
             self.task = task
         }
         

@@ -208,7 +208,7 @@ extension TodoBaseTaskListViewController: TPTableDragInsertReorderDelegate {
         }
         
         listView.moveRow(at: sourceIndexPath, to: targetIndexPath)
-        todo.reorderTask(sourceTask, postion: insertPosition, targetTask: targetTask, in: list)
+        TodoRepository.reorderTask(sourceTask, postion: insertPosition, targetTask: targetTask, in: list)
         return targetIndexPath
     }
 }

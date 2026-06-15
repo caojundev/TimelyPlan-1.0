@@ -48,7 +48,7 @@ class TodoUserTagViewModel: TodoBaseListViewModel {
     
     override init() {
         super.init()
-        todo.addUpdater(self)
+        TodoRepository.addUpdater(self)
     }
 
     func setNeedsRefresh() {
@@ -81,7 +81,7 @@ class TodoUserTagViewModel: TodoBaseListViewModel {
             return
         }
         
-        todo.fetchTags(completion: completion)
+        TodoRepository.fetchTags(completion: completion)
     }
 }
 
@@ -105,7 +105,7 @@ extension TodoUserTagViewModel: TodoTagProcessorDelegate {
     func didRecorderTodoTag(in tags: [TodoTag], fromIndex: Int, toIndex: Int) {
         setNeedsRefresh()
         /// 同步更新
-        self.tags = todo.getTags()
+        self.tags = TodoRepository.getTags()
         self.needsRefresh = false
         self.tagsDidChange?(nil)
     }

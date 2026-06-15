@@ -190,7 +190,7 @@ extension TodoUserTagSectionController: TPTableDragInsertReorderDelegate {
             return nil
         }
     
-        todo.reorderTag(in: self.tags, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row)
+        TodoRepository.reorderTag(in: self.tags, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row)
         
         /// 重新排序完成返回新索引
         var newIndexPath: IndexPath? = nil

@@ -23,14 +23,14 @@ class TodoUserListInteractor: TodoListInteractor {
     }
     
     override func setLayoutType(_ layoutType: TodoListLayoutType) {
-        todo.updateList(list, layoutType: layoutType)
+        TodoRepository.updateList(list, layoutType: layoutType)
         updatePlaceholder()
     }
     
     override init(configuration: TodoListConfiguration) {
         super.init(configuration: configuration)
         self.updatePlaceholder()
-        todo.addUpdater(self, for: [.list])
+        TodoRepository.addUpdater(self, for: [.list])
     }
     
     private func updatePlaceholder() {
@@ -70,13 +70,13 @@ class TodoUserListInteractor: TodoListInteractor {
     }
     
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        todo.fetchUserListTasks(in: list,
+        TodoRepository.fetchUserListTasks(in: list,
                                 showCompleted: listOptionState.showCompleted,
                                 completion: completion)
     }
 
     override func importTasks(_ tasks: [TodoImportTask]) {
-        todo.importTasks(tasks, to: list)
+        TodoRepository.importTasks(tasks, to: list)
     }
     
     // MARK: - TodoListProcessorDelegate

@@ -22,12 +22,12 @@ class QuadrantTaskMoveController {
             /// 弹窗确认
             let changeVC = TodoFilterTaskChangeViewController(task: task, changes: changes)
             changeVC.didSelectChanges = { changes in
-                todo.updateTask(task, changes: changes)
+                TodoRepository.updateTask(task, changes: changes)
             }
             
             changeVC.showAsNavigationRoot()
         } else {
-            todo.updateTask(task, changes: changes)
+            TodoRepository.updateTask(task, changes: changes)
         }
     }
     

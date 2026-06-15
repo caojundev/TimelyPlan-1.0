@@ -32,7 +32,7 @@ class QuadrantListInteractor: TodoListInteractor,
     }
 
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        todo.fetchTasks(filterRule: filterRule,
+        TodoRepository.fetchTasks(filterRule: filterRule,
                         showCompleted: showCompleted,
                         completion: completion)
     }

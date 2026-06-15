@@ -91,7 +91,7 @@ class TodoSmartListInteractor: TodoListInteractor,
     }
     
     override func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        todo.fetchSmartListTasks(in: list,
+        TodoRepository.fetchSmartListTasks(in: list,
                                  showCompleted: self.listOptionState.showCompleted,
                                  completion: completion)
     }
@@ -101,7 +101,7 @@ class TodoSmartListInteractor: TodoListInteractor,
             return
         }
         
-        todo.importTasks(tasks, to: nil)
+        TodoRepository.importTasks(tasks, to: nil)
     }
     
     // MARK: - TPMidnightUpdatable

@@ -24,7 +24,7 @@ struct TodoListFilterValue: Hashable, Codable, PredicateProvider {
     
     var lists: [TodoList]? {
         if let identifiers = identifiers {
-            return todo.getUserLists(of: identifiers)
+            return TodoRepository.getUserLists(of: identifiers)
         }
 
         return nil
@@ -178,7 +178,7 @@ struct TodoTagFilterValue: Hashable, Codable, PredicateProvider {
     /// 标识对应的标签数组
     var tags: [TodoTag]? {
         if let identifiers = identifiers {
-            return todo.getTags(of: identifiers)
+            return TodoRepository.getTags(of: identifiers)
         }
         
         return nil

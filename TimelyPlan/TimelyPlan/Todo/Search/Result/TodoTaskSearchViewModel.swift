@@ -50,7 +50,7 @@ class TodoTaskSearchViewModel: NSObject, TodoTaskProcessorDelegate {
     
     override init() {
         super.init()
-        todo.addUpdater(self, for: [.task])
+        TodoRepository.addUpdater(self, for: [.task])
     }
     
     func updateSearchOptions(_ options: TodoSearchOptions) {
@@ -93,7 +93,7 @@ class TodoTaskSearchViewModel: NSObject, TodoTaskProcessorDelegate {
     }
     
     private func fetchResults(matching searchText: String, completion: @escaping([TodoTask]?) -> Void) {
-        todo.searchTasks(matching: searchText,
+        TodoRepository.searchTasks(matching: searchText,
                          options: options,
                          completion: completion)
     }
