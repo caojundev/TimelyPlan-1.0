@@ -30,10 +30,10 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
         cellItem.selectionStyle = .none
         cellItem.height = 80.0
         cellItem.titleConfig.numberOfLines = 2
-        cellItem.titleConfig.font = .systemFont(ofSize: 14.0)
-        cellItem.titleConfig.textColor = .label
-        cellItem.subtitleConfig.font = .systemFont(ofSize: 13.0)
-        cellItem.subtitleConfig.textColor = .secondaryLabel
+        cellItem.titleConfig.font = .boldSystemFont(ofSize: 13.0)
+        cellItem.titleConfig.textColor = Color(light: 0x111111, dark: 0xFFFFFF, alpha: 0.9)
+        cellItem.subtitleConfig.font = .systemFont(ofSize: 12.0)
+        cellItem.subtitleConfig.textColor = Color(light: 0x111111, dark: 0xFFFFFF, alpha: 0.8)
         return cellItem
     }()
     
@@ -43,8 +43,8 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
         cellItem.selectionStyle = .none
         cellItem.height = 70.0
         cellItem.titleConfig.numberOfLines = 2
-        cellItem.titleConfig.font = .systemFont(ofSize: 14.0)
-        cellItem.titleConfig.textColor = .label
+        cellItem.titleConfig.font = .boldSystemFont(ofSize: 13.0)
+        cellItem.titleConfig.textColor = Color(light: 0x111111, dark: 0xFFFFFF, alpha: 0.9)
         return cellItem
     }()
     

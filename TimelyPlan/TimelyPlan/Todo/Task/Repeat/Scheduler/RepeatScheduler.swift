@@ -35,8 +35,13 @@ class RepeatScheduler {
         
         return repeatDates
     }
-    
+
     /// 判断特定日期是否为重复日
+    func isRepeatDate(_ date: Date, matching repeatRule: RepeatRule, startDate: Date) -> Bool {
+        let endDate = endDate(of: repeatRule, startDate: startDate)
+        return isRepeatDate(date, matching: repeatRule, startDate: startDate, endDate: endDate)
+    }
+
     private func isRepeatDate(_ date: Date, matching repeatRule: RepeatRule, startDate: Date, endDate: Date?) -> Bool {
         guard let type = repeatRule.type, type != .none else {
             return false

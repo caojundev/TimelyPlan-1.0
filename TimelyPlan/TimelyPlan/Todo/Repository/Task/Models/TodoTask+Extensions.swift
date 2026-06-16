@@ -210,8 +210,8 @@ extension Array where Element == TodoTask {
 extension Array where Element == TodoTask {
     
     func eventTasks(in range: DateInterval, showCompleted: Bool) -> [TodoTask] {
+        let scheduler = RepeatScheduler()
         var results = [TodoTask]()
-        let calculator = RecurrenceDateCalculator()
         for task in self {
             guard let dateInfo = task.schedule?.dateInfo,
                   let repeatRule = task.schedule?.repeatRule,
@@ -220,24 +220,23 @@ extension Array where Element == TodoTask {
                       continue
             }
             
-            /// 重复任务
-            let occurrenceDates = calculator.calculateOccurrences(startDate: dateInfo.startDate,
-                                                                  repeatRule: repeatRule,
-                                                                  fromDate: range.start,
-                                                                  toDate: range.end)
-            for occurrenceDate in occurrenceDates {
-                guard range.contains(occurrenceDate) else {
-                    continue
-                }
-                
-                if occurrenceDate.isInSameDayAs(dateInfo.startDate) {
+            range.enumerateDays { date in
+                if date.isInSameDayAs(dateInfo.startDate) {
                     if showCompleted || !task.isCompleted {
                         results.append(task)
                     }
-                } else {
-                    let detachedTask = TodoTask(masterTask: task, occurrenceDate: occurrenceDate)
+                    
+                    return true
+                }
+                
+                if !task.isCompleted, scheduler.isRepeatDate(date,
+                                                             matching: repeatRule,
+                                                             startDate: dateInfo.startDate) {
+                    let detachedTask = TodoTask(masterTask: task, occurrenceDate: date)
                     results.append(detachedTask)
                 }
+                
+                return true
             }
         }
 

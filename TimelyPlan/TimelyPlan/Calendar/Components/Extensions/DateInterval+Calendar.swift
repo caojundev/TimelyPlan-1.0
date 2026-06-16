@@ -9,6 +9,25 @@ import Foundation
 
 extension DateInterval {
     
+    /// 遍历区间内每一天，返回 false 可随时停止
+    func enumerateDays(using calendar: Calendar = .current,
+                       _ handler: (Date) -> Bool) {
+        var currentDate = calendar.startOfDay(for: start)
+        let endDate = calendar.startOfDay(for: end)
+        
+        while currentDate <= endDate {
+            let shouldContinue = handler(currentDate)
+            if !shouldContinue {
+                break
+            }
+            
+            guard let nextDate = calendar.date(byAdding: .day, value: 1, to: currentDate) else {
+                break
+            }
+            currentDate = nextDate
+        }
+    }
+    
     /// 任务日期信息
     var dateInfo: TaskDateInfo {
         return TaskDateInfo(startDate: start, endDate: end, isAllDay: false)
