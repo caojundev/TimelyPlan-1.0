@@ -27,7 +27,7 @@ class CalendarLocalEventProvider: CalendarEventProvider, SettingAgentObserver {
     
     func fetchEvents(in range: DateInterval, completion: @escaping ([CalendarEvent]?) -> Void) {
         let showCompleted = CalendarSetting.shared.showCompletedTask
-        TodoRepository.fetchScheduledTasks(in: range, showCompleted: showCompleted) { tasks in
+        TodoRepository.fetchEventTasks(in: range, showCompleted: showCompleted) { tasks in
             completion(tasks?.toCalendarEvents())
         }
     }
@@ -87,6 +87,11 @@ extension CalendarLocalEventProvider: TodoTaskProcessorDelegate {
     }
     
     private func affectedRanges(for tasks: [TodoTask]) -> [DateInterval]? {
+        let hasRepeatTask = tasks.anySatisfy{ $0.isRecurringTask }
+        if hasRepeatTask {
+            return [.infiniteInterval]
+        }
+        
         var ranges = [DateInterval]()
         for task in tasks {
             if let range = task.schedule?.dateInfo?.dateInterval {
@@ -103,6 +108,16 @@ extension CalendarLocalEventProvider: TodoTaskProcessorDelegate {
     
     private func ranges(for task: TodoTask, with change: TodoTaskChange) -> [DateInterval]? {
         if case let .schedule(oldValue, newValue) = change {
+            /// 重复任务
+            if let oldRepeatRule = oldValue?.repeatRule, oldRepeatRule.type != RepeatType.none {
+                return [.infiniteInterval]
+            }
+            
+            if let newRepeatRule = newValue?.repeatRule, newRepeatRule.type != RepeatType.none {
+                return [.infiniteInterval]
+            }
+            
+            /// 非重复任务
             var ranges = [DateInterval]()
             if let oldRange = oldValue?.dateInfo?.dateInterval {
                 ranges.append(oldRange)

@@ -65,8 +65,8 @@ class RepeatScheduler {
     }
     
     func nextRepeatDate(completionDate: Date,
-                                matching repeatRule: RepeatRule,
-                                startDate: Date) -> Date? {
+                        matching repeatRule: RepeatRule,
+                        startDate: Date) -> Date? {
         var nextDate = nextRepeatDate(afterDate: completionDate, matching: repeatRule, startDate: startDate)
         if nextDate == nil,
             let type = repeatRule.type, type == .custom,
@@ -417,7 +417,9 @@ class RegularlyScheduler {
         self.firstWeekday = firstWeekday
     }
     
-    func isRepeatDate(_ date: Date, matching recurrenceRule: RecurrenceRule, startDate: Date) -> Bool {
+    func isRepeatDate(_ date: Date,
+                      matching recurrenceRule: RecurrenceRule,
+                      startDate: Date) -> Bool {
         let type = recurrenceRule.getType()
         switch type {
         case .regularly:
@@ -879,9 +881,9 @@ extension RegularlyScheduler {
     
     /// 月按周
     private func nextMonthlyRepeatDate(afterDate: Date,
-                               startDate: Date,
-                               interval: Int,
-                               dayOfTheWeek: RepeatDayOfWeek) -> Date? {
+                                       startDate: Date,
+                                       interval: Int,
+                                       dayOfTheWeek: RepeatDayOfWeek) -> Date? {
         guard interval > 0 else {
             return nil
         }
@@ -918,7 +920,9 @@ extension RegularlyScheduler {
     }
     
     // MARK: - 按年
-    private func nextYearlyRepeatDate(afterDate: Date, matching recurrenceRule: RecurrenceRule, startDate: Date) -> Date? {
+    private func nextYearlyRepeatDate(afterDate: Date,
+                                      matching recurrenceRule: RecurrenceRule,
+                                      startDate: Date) -> Date? {
         guard let monthsOfTheYear = recurrenceRule.monthsOfTheYear, monthsOfTheYear.count > 0 else {
             return nil
         }

@@ -9,6 +9,7 @@ import Foundation
 import EventKit
 
 extension CalendarEvent: CalendarEventPreviewDisplayable {
+    
     var eventColor: UIColor? {
         return self.color
     }
@@ -53,34 +54,39 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
     var repeatInfo: (ruleDescription: String?, endDescription: String?)? {
         switch source {
         case .local:
-            return nil
+            return localRepeatInfo
         case .system:
-            return systemEventRepeatInfo
+            return systemRepeatInfo
         }
     }
     
     var alarmDescription: String? {
         switch source {
         case .local:
-            return nil
+            return localAlarmDescription
         case .system:
-            return systemEventAlarmDescription
+            return systemAlarmDescription
         }
     }
     
     var sourceDescription: String? {
         switch source {
         case .local:
-            return resGetString("Todo")
+            return localSourceDescription
         case .system:
-            return systemEventSourceDescription
+            return systemSourceDescription
         }
     }
     
     var isEditable: Bool {
         switch source {
         case .local:
-            return true
+            if let task = sourceItem as? TodoTask {
+                /// 重复任务不可编辑
+                return !task.isDetached
+            } else {
+                return false
+            }
         case .system:
             if let event = sourceItem as? EKEvent {
                 return event.isEditable
@@ -93,7 +99,7 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
     var isDeletable: Bool {
         switch source {
         case .local:
-            return true
+            return isEditable
         case .system:
             if let event = sourceItem as? EKEvent {
                 return event.isDeletable
@@ -104,7 +110,20 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
     }
     
     // MARK: - Helpers
-    private var systemEventRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
+    private var localRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
+        guard let task = sourceItem as? TodoTask,
+              let eventDate = task.startDate,
+              let repeatRule = task.schedule?.repeatRule,
+                repeatRule.type != RepeatType.none else {
+            return nil
+        }
+        
+        let title = repeatRule.title(for: eventDate)
+        let subtitle = repeatRule.subtitle(for: eventDate, showRepeatCount: false)
+        return (title, subtitle)
+    }
+    
+    private var systemRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
         guard let event = sourceItem as? EKEvent, event.hasRecurrenceRules else {
             return nil
         }
@@ -114,7 +133,17 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         return (ruleDescription, endDescription)
     }
     
-    private var systemEventAlarmDescription: String? {
+    private var localAlarmDescription: String? {
+        guard let task = sourceItem as? TodoTask,
+              let dateInfo = task.schedule?.dateInfo,
+              let reminder = task.reminder, reminder.hasAlarm else {
+            return nil
+        }
+        
+        return reminder.info(with: dateInfo)
+    }
+    
+    private var systemAlarmDescription: String? {
         guard let event = sourceItem as? EKEvent, event.hasAlarms else {
             return nil
         }
@@ -122,7 +151,20 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         return event.alarmDescription
     }
     
-    private var systemEventSourceDescription: String? {
+    private var localSourceDescription: String? {
+        guard let task = sourceItem as? TodoTask else {
+            return nil
+        }
+        
+        let string = resGetString("Todo")
+        if task.isDetached {
+            return string + "(\(resGetString("Repeat Task")))"
+        }
+        
+        return string
+    }
+    
+    private var systemSourceDescription: String? {
         guard let event = sourceItem as? EKEvent else {
             return nil
         }

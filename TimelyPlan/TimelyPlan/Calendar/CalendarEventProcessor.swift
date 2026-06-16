@@ -49,20 +49,25 @@ class CalendarEventProcessor {
     func clickEvent(_ event: CalendarEvent) {
         switch event.source {
         case .local:
-            editLocalEvent(event)
+            clickLocalEvent(event)
         case .system:
             previewSystemEvent(event)
         }
     }
     
     /// 编辑本地事项
-    private func editLocalEvent(_ event: CalendarEvent) {
+    private func clickLocalEvent(_ event: CalendarEvent) {
         guard let task = event.sourceItem as? TodoTask else {
             return
         }
         
-                   let taskController = TodoTaskController()
-        taskController.editTask(task)
+        if task.isDetached {
+            CalendarPresenter.previewEvent(event)
+        } else {
+            /// 编辑任务
+            let taskController = TodoTaskController()
+            taskController.editTask(task)
+        }
     }
     
     /// 预览系统事项

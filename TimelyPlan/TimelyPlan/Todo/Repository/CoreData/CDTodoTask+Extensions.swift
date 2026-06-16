@@ -30,7 +30,7 @@ struct TodoTaskKey {
     
     static var startDate = "startDate"
     static var dueDate = "dueDate"
-    
+    static let repeatRuleJSON = "repeatRuleJSON"
     static var progressJSON = "progressJSON"
     static var progressFraction = "progressFraction"
 }
@@ -726,10 +726,13 @@ extension CDTodoTask {
         }
     }
     
-    static func fetchScheduledTasks(in range: DateInterval,
-                                    showCompleted: Bool = true,
-                                    completion: @escaping([CDTodoTask]?) -> Void) {
-        let predicate = activeScheduledTaskPredicate(in: range, showCompleted: showCompleted)
+    static func fetchEventTasks(in range: DateInterval,
+                                showCompleted: Bool = true,
+                                completion: @escaping([CDTodoTask]?) -> Void) {
+        let scheduledTaskPredicate = activeScheduledTaskPredicate(in: range, showCompleted: showCompleted)
+        let repeatTaskPredicate = activeRepeatTaskPredicate(showCompleted: false)
+        let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [scheduledTaskPredicate,
+                                                                           repeatTaskPredicate])
         findAll(with: predicate, sortedBy: TodoTaskKey.startDate, ascending: true) { results in
             completion(results as? [CDTodoTask])
         }
@@ -972,10 +975,18 @@ extension CDTodoTask {
         return conditions.andPredicate()
     }
     
+    /// 活动重复任务谓词
+    static func activeRepeatTaskPredicate(showCompleted: Bool = false) -> NSPredicate {
+        var conditions = scheduledConditions(showCompleted: showCompleted)
+        conditions.append((TodoTaskKey.repeatRuleJSON, .isNotEmpty))
+        return conditions.andPredicate()
+    }
+    
     // MARK: - Conditions
     static func scheduledConditions(showCompleted: Bool = true) -> [PredicateCondition] {
         var conditions: [PredicateCondition] = [
             notRemovedCondition,
+            (TodoTaskKey.startDate, .isNotEmpty),
             (TodoTaskKey.dueDate, .isNotEmpty)
         ]
         
@@ -997,13 +1008,11 @@ extension CDTodoTask {
     static var notCompletedCondition: PredicateCondition {
         return (TodoTaskKey.isCompleted, .isFalse)
     }
-    
-    
 }
 
 extension Array where Element == CDTodoTask {
     
-    var tasks: [TodoTask] {
+    var toTasks: [TodoTask] {
         self.map{ TodoTask(content: $0) }
     }
 }

@@ -27,6 +27,16 @@ extension TodoTask: SortableIdentifiable, TaskRepresentable {
 
         return repeatRule.type != RepeatType.none
     }
+    
+    /// 是否是特定日期范围内的计划
+    func isScheduled(in range: DateInterval) -> Bool {
+        guard let dateInfo = schedule?.dateInfo else {
+            return false
+        }
+        
+        return dateInfo.endDate >= range.start && dateInfo.startDate <= range.end
+    }
+    
 }
 
 // MARK: - 进度
@@ -193,5 +203,44 @@ extension Array where Element == TodoTask {
         }
         
         return nil
+    }
+}
+
+// MARK: - 获取事项相关任务数组
+extension Array where Element == TodoTask {
+    
+    func eventTasks(in range: DateInterval, showCompleted: Bool) -> [TodoTask] {
+        var results = [TodoTask]()
+        let calculator = RecurrenceDateCalculator()
+        for task in self {
+            guard let dateInfo = task.schedule?.dateInfo,
+                  let repeatRule = task.schedule?.repeatRule,
+                  repeatRule.type != RepeatType.none else {
+                      results.append(task)
+                      continue
+            }
+            
+            /// 重复任务
+            let occurrenceDates = calculator.calculateOccurrences(startDate: dateInfo.startDate,
+                                                                  repeatRule: repeatRule,
+                                                                  fromDate: range.start,
+                                                                  toDate: range.end)
+            for occurrenceDate in occurrenceDates {
+                guard range.contains(occurrenceDate) else {
+                    continue
+                }
+                
+                if occurrenceDate.isInSameDayAs(dateInfo.startDate) {
+                    if showCompleted || !task.isCompleted {
+                        results.append(task)
+                    }
+                } else {
+                    let detachedTask = TodoTask(masterTask: task, occurrenceDate: occurrenceDate)
+                    results.append(detachedTask)
+                }
+            }
+        }
+
+        return results
     }
 }

@@ -110,13 +110,7 @@ class TodoTaskBoardGroupManager {
            let oldDateInfo = oldSchedule.dateInfo {
 
             /// 替换开始日期天
-            let editor: TodoDateInfoEditable
-            if oldDateInfo.style == .singleDay {
-                editor = TodoSingleDateInfoEditor(dateInfo: oldDateInfo)
-            } else {
-                editor = TodoMultiDateInfoEditor(dateInfo: oldDateInfo)
-            }
-
+            let editor = TodoDateInfoEditor(dateInfo: oldDateInfo)
             editor.setDate(newDateInfo.startDate, editType: .start)
             newSchedule?.dateInfo = editor.dateInfo
             newSchedule?.reminder = oldSchedule.reminder
@@ -137,13 +131,7 @@ class TodoTaskBoardGroupManager {
            let oldDateInfo = oldSchedule.dateInfo {
 
             /// 替换开始日期天
-            let editor: TodoDateInfoEditable
-            if oldDateInfo.style == .singleDay {
-                editor = TodoSingleDateInfoEditor(dateInfo: oldDateInfo)
-            } else {
-                editor = TodoMultiDateInfoEditor(dateInfo: oldDateInfo)
-            }
-
+            let editor = TodoDateInfoEditor(dateInfo: oldDateInfo)
             editor.setDate(newDateInfo.endDate, editType: .end)
             newSchedule?.dateInfo = editor.dateInfo
             newSchedule?.reminder = oldSchedule.reminder

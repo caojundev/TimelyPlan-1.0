@@ -129,7 +129,7 @@ public class RepeatRule: NSObject, NSCopying, Codable, AttributedDescriptable {
         return type.title
     }
     
-    func subtitle(for eventDate: Date?) -> String? {
+    func subtitle(for eventDate: Date?, showRepeatCount: Bool = true) -> String? {
         var strings = [String]()
         let type = self.type ?? .none
         /// 规则文本
@@ -149,8 +149,10 @@ public class RepeatRule: NSObject, NSCopying, Codable, AttributedDescriptable {
             strings.append(endString)
         }
         
-        let repeatCountInfo = repeatCountInfo()
-        strings.append(repeatCountInfo)
+        if showRepeatCount {
+            let repeatCountInfo = repeatCountInfo()
+            strings.append(repeatCountInfo)
+        }
         
         return strings.joined(separator: ", ")
     }

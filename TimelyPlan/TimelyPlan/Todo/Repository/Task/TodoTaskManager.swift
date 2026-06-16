@@ -17,7 +17,7 @@ class TodoTaskManager {
     
     /// 任务处理更新器
     let updater = TodoTaskProcessorUpdater()
-    
+
     /// 创建任务
     func createTask(with quickAddTask: TodoQuickAddTask) {
         let onTop = TodoSetting.shared.addTaskOnTop
@@ -76,7 +76,7 @@ class TodoTaskManager {
             return
         }
         
-        let tasks = Array(cdTasks).tasks
+        let tasks = Array(cdTasks).toTasks
         updater.didMoveTodoTasksToTrash(tasks)
         HandyRecord.save()
     }
@@ -138,7 +138,7 @@ class TodoTaskManager {
             return
         }
         
-        let importedTasks = contents.tasks
+        let importedTasks = contents.toTasks
         updater.didImportTodoTasks(importedTasks, to: list)
         HandyRecord.save()
     }
@@ -410,7 +410,7 @@ extension TodoTaskManager {
                              showCompleted: Bool = true,
                              completion: @escaping([TodoTask]?) -> Void) {
         CDTodoTask.fetchSmartListTasks(in: list, showCompleted: showCompleted) { results in
-            completion(results?.tasks)
+            completion(results?.toTasks)
         }
     }
     
@@ -419,21 +419,21 @@ extension TodoTaskManager {
                             showCompleted: Bool = true,
                             completion: @escaping([TodoTask]?) -> Void) {
         CDTodoTask.fetchUserListTasks(in: list, showCompleted: showCompleted) { results in
-            completion(results?.tasks)
+            completion(results?.toTasks)
         }
     }
 
     func fetchAllTasks(showCompleted: Bool = false,
                        completion: @escaping([TodoTask]?) -> Void) {
         CDTodoTask.fetchAllTasks(showCompleted: showCompleted) { results in
-            completion(results?.tasks)
+            completion(results?.toTasks)
         }
     }
     
     
     func fetchTasks(tag: TodoTag, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
         CDTodoTask.fetchTasks(tag: tag, showCompleted: showCompleted) { results in
-            completion(results?.tasks)
+            completion(results?.toTasks)
         }
     }
     
@@ -449,20 +449,12 @@ extension TodoTaskManager {
     func fetchTasks(filterRule: TodoFilterRule, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
         CDTodoTask.fetchTasks(filterRule: filterRule,
                               showCompleted: showCompleted) { results in
-            completion(results?.tasks)
+            completion(results?.toTasks)
         }
     }
     
     func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
         CDTodoTask.fetchUncompletedTaskCount(for: item, completion: completion)
-    }
-    
-    /// 获取计划任务
-    func fetchScheduledTasks(in range: DateInterval, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
-        CDTodoTask.fetchScheduledTasks(in: range,
-                                       showCompleted: showCompleted) { results in
-            completion(results?.tasks)
-        }
     }
     
     /// 获取已完成任务
@@ -474,7 +466,7 @@ extension TodoTaskManager {
         
         let dateInterval = DateInterval(start: start, end: end)
         CDTodoTask.fetchCompletedTasks(in: dateInterval) { results in
-            completion(results?.tasks)
+            completion(results?.toTasks)
         }
     }
     
@@ -484,8 +476,25 @@ extension TodoTaskManager {
                      completion: @escaping ([TodoTask]?) -> Void) {
         CDTodoTask.searchTasks(matching: searchText,
                                options: options) { results in
-            completion(results?.tasks)
+            completion(results?.toTasks)
         }
     }
     
+    /// 获取事项任务
+    func fetchEventTasks(in range: DateInterval, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchEventTasks(in: range, showCompleted: showCompleted) { results in
+            guard let results = results else {
+                completion(nil)
+                return
+            }
+
+            let tasks = results.toTasks /// 必须在主线程操作
+            DispatchQueue.global(qos: .userInitiated).async {
+                let eventTasks = tasks.eventTasks(in: range, showCompleted: showCompleted)
+                DispatchQueue.main.async {
+                    completion(eventTasks)
+                }
+            }
+        }
+    }
 }
