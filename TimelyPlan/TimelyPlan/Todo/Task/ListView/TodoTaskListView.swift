@@ -281,6 +281,14 @@ class TodoTaskListView: UIView,
         adapter.reloadData()
     }
     
+    func reloadDataIfNeeded() {
+        guard adapter.needsReload else {
+            return
+        }
+        
+        reloadData()
+    }
+    
     func reloadCell(for task: TodoTask) {
         layoutManager.setNeedsLayout(for: [task])
         adapter.reloadCell(forItem: task, with: .none)

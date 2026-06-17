@@ -274,6 +274,12 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         adapter.reloadData()
     }
     
+    func reloadDataIfNeeded() {
+        if adapter.needsReload {
+            reloadData()
+        }
+    }
+    
     /// 更新列表
     func performUpdate() {
         updatePlaceholderView()

@@ -54,6 +54,11 @@ class TodoBaseTaskListViewController: TodoDetailContentViewController,
         self.interactor.loadGroups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        listView.reloadDataIfNeeded()
+    }
+    
     // MARK: - 分组改变
     private func groupsChanged(_ change: TodoTaskListChange? = nil) {
         var rowAnimation: UITableView.RowAnimation = .fade

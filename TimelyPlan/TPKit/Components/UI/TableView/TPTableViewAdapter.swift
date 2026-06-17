@@ -69,6 +69,14 @@ class TPTableViewAdapter: NSObject,
     }
 
     // MARK: - Reload
+    private(set) var needsReload: Bool = false
+    
+    func reloadDataIfNeeded() {
+        if needsReload {
+            needsReload = false
+            reloadData()
+        }
+    }
     
     /// 重新加载数据
     func reloadData() {
@@ -415,7 +423,14 @@ extension TPTableViewAdapter {
         
     func performUpdate(with rowAnimation: UITableView.RowAnimation = .automatic,
                        completion: ((Bool) -> Void)? = nil) {
-        guard tableView.window != nil, hasItem else {
+        guard tableView.window != nil else {
+            needsReload = true
+            completion?(true)
+            return
+        }
+        
+        if !hasItem {
+            /// 空白列表，直接重新加载数据
             reloadData()
             completion?(true)
             return
@@ -504,21 +519,20 @@ extension TPTableViewAdapter {
                               rowAnimation: UITableView.RowAnimation = .automatic,
                               completion: ((Bool) -> Void)? = nil) {
         performSectionUpdate(forSectionObjects: [sectionObject],
-                            rowAnimation: rowAnimation,
-                            completion: completion)
+                             rowAnimation: rowAnimation,
+                             completion: completion)
     }
     
     func performSectionUpdate(forSectionObjects sectionObjects: [ListDiffable],
                               rowAnimation: UITableView.RowAnimation = .automatic,
                               completion: ((Bool) -> Void)? = nil) {
         guard tableView.window != nil else {
-            reloadData()
+            needsReload = true
             completion?(true)
             return
         }
         
         var indexPathResults = [ListIndexPathResult]()
-        
         for sectionObject in sectionObjects {
             guard let section = section(of: sectionObject) else {
                 continue
@@ -820,6 +834,10 @@ extension TPTableViewAdapter {
     
     func revealItemAutoScrollIfNeeded(_ item: ListDiffable,
                                       at scrollPosition: UITableView.ScrollPosition = .middle) {
+        guard tableView.window != nil else {
+            return
+        }
+        
         if let cell = cellForItem(item) {
             if let cell = cell as? FocusAnimatable {
                 cell.commitFocusAnimation()
@@ -835,6 +853,10 @@ extension TPTableViewAdapter {
     
     
     func commitFocusAnimation(for item: ListDiffable) {
+        guard tableView.window != nil else {
+            return
+        }
+        
         if let indexPath = indexPath(of: item) {
             commitFocusAnimation(at: indexPath)
         }

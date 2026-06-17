@@ -39,15 +39,20 @@ class FocusHomeUserTimerContentViewController: TPViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(self.listView)
-        self.view.addSubview(self.addView)
-        self.listView.reloadData()
-        self.viewModel.timersDidChange = { [weak self] change in
+        view.addSubview(listView)
+        view.addSubview(addView)
+        listView.reloadData()
+        viewModel.timersDidChange = { [weak self] change in
             self?.timersChanged(change)
         }
         
-        self.viewModel.loadTimers()
+        viewModel.loadTimers()
         FocusTracker.shared.addDelegate(self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        listView.reloadDataIfNeeded()
     }
     
     override func viewDidAppear(_ animated: Bool) {

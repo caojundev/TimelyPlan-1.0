@@ -32,7 +32,7 @@ class TodoSmartListSectionController: TPTableBaseSectionController,
     }
     
     private func listsChanged() {
-        let rowAnimation:  UITableView.RowAnimation = .top
+        let rowAnimation: UITableView.RowAnimation = .top
         adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: rowAnimation)
     }
     

@@ -50,6 +50,11 @@ class TodoTaskBoardViewController: TodoDetailContentViewController {
         self.interactor.loadGroups()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        boardView.reloadDataIfNeeded()
+    }
+    
     override func updateListViewFrame() {
         self.boardView.frame = self.listViewFrame()
     }

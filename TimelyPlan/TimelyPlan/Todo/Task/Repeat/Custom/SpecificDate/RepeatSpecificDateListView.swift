@@ -35,13 +35,16 @@ class RepeatSpecificDateListView: TPCollectionWrapperView,
     
     var titleFont = BOLD_SMALL_SYSTEM_FONT
     
-    private lazy var placeholderView: UIView = {
+    private lazy var emptyViewProvider: TPDefaultPlaceholderProvider = {
         let view = TPDefaultPlaceholderView()
         view.padding = UIEdgeInsets(value: 2.0)
         view.titleColor = .separator
         view.isBorderHidden = false
         view.title = resGetString("No Date")
-        return view
+        
+        let provider = TPDefaultPlaceholderProvider()
+        provider.emptyPlaceholderView = view
+        return provider
     }()
     
     private lazy var cellStyle: TPCollectionCellStyle = {
@@ -52,13 +55,11 @@ class RepeatSpecificDateListView: TPCollectionWrapperView,
         return style
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        placeholderProvider = emptyViewProvider
         hideScrollIndicator()
-        collectionView.placeholderView = placeholderView
         scrollDirection = .horizontal
-        
         adapter.cellClass = TPDefaultInfoCollectionCell.self
         adapter.cellStyle = cellStyle
         adapter.sectionInset = UIEdgeInsets(horizontal: 5.0)

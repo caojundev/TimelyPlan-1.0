@@ -251,6 +251,11 @@ class TodoHomeViewController: TPTableViewController,
         wrapperView.height = layoutFrame.height - toolViewHeight
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        adapter.reloadDataIfNeeded()
+    }
+    
     override func themeDidChange() {
         super.themeDidChange()
         toolView.backgroundColor = .systemBackground

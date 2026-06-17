@@ -88,6 +88,15 @@ class TPCollectionViewAdapter: NSObject,
     }
 
     // MARK: - Reload
+    private(set) var needsReload: Bool = false
+    
+    func reloadDataIfNeeded() {
+        if needsReload {
+            needsReload = false
+            reloadData()
+        }
+    }
+    
     /// 重新加载数据
     func reloadData() {
         itemsMapTable.removeAllObjects()
@@ -520,6 +529,10 @@ extension TPCollectionViewAdapter {
     func revealItem(_ item: ListDiffable,
                     at scrollPosition: UICollectionView.ScrollPosition = .centeredVertically,
                     autoScroll: Bool = true) {
+        guard collectionView.window != nil else {
+            return
+        }
+        
         guard autoScroll else {
             self.commitFocusAnimation(for: item)
             return
@@ -599,7 +612,13 @@ extension TPCollectionViewAdapter {
     
     func performUpdate(updateVisibleItems: Bool = true,
                        completion: ((Bool) -> Void)? = nil) {
-        guard collectionView.window != nil, hasItem else {
+        guard collectionView.window != nil else {
+            needsReload = true
+            completion?(true)
+            return
+        }
+        
+        if !hasItem {
             reloadData()
             completion?(true)
             return
@@ -691,7 +710,7 @@ extension TPCollectionViewAdapter {
     
     func performSectionUpdate(forSectionObjects sectionObjects: [ListDiffable], completion: ((Bool) -> Void)?) {
         guard collectionView.window != nil else {
-            reloadData()
+            needsReload = true
             completion?(true)
             return
         }

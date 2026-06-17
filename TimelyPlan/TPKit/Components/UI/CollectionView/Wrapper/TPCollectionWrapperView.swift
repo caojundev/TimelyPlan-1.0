@@ -206,6 +206,12 @@ class TPCollectionWrapperView: UIView,
         endRefreshing()
     }
     
+    func reloadDataIfNeeded() {
+        if adapter.needsReload {
+            reloadData()
+        }
+    }
+    
     func reloadData(animateStyle: SlideStyle) {
         changeCollectionView(with: animateStyle)
         reloadData()
