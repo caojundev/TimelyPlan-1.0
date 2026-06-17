@@ -85,6 +85,12 @@ class QuadrantMatrixView: UIView {
         }
     }
     
+    func reloadDataIfNeeded() {
+        for quadrantView in quadrantViews {
+            quadrantView.reloadDataIfNeeded()
+        }
+    }
+
     // MARK: - 更新象限布局
     func updateLayout(animated: Bool = true) {
         updateQuadrantTitlePosition()

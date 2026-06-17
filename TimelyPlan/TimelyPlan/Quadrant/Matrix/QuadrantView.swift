@@ -168,6 +168,10 @@ class QuadrantView: UIView, QuadrantTitleViewDelegate {
         self.interactor.loadGroups()
     }
     
+    func reloadDataIfNeeded() {
+        listView.reloadDataIfNeeded()
+    }
+    
     override func endEditing(_ force: Bool) -> Bool {
         return listView.endEditing(force)
     }

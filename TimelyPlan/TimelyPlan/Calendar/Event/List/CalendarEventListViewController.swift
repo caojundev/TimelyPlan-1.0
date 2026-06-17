@@ -54,7 +54,7 @@ class CalendarEventListViewController: TPViewController,
         
         let placeholderProvider = eventsViewModel.placeholderProvider
         placeholderProvider.emptyTitle = resGetString("No Events")
-        placeholderProvider.emptyImage = resGetImage("todo_smartlist_today_80")
+        placeholderProvider.emptyImage = resGetImage("placeholder_calendar_80")
         listView.placeholderProvider = placeholderProvider
         view.addSubview(listView)
         eventsViewModel.onEventsChanged = { [weak self] in

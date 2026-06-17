@@ -154,6 +154,11 @@ class HabitHomeWeekViewController: TPViewController,
                                 height: view.height - dateViewHeight)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        listView.reloadDataIfNeeded()
+    }
+    
     override var themeBackgroundColor: UIColor? {
         return .systemBackground
     }

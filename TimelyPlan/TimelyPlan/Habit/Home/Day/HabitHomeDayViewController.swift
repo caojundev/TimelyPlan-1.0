@@ -167,6 +167,11 @@ class HabitHomeDayViewController: TPContainerViewController,
         listView.top = weekView.bottom
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        listView.reloadDataIfNeeded()
+    }
+
     override var themeBackgroundColor: UIColor? {
         return .systemBackground
     }

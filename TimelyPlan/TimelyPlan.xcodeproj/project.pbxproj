@@ -950,6 +950,10 @@
 		E58389732F776404003C30A4 /* focus_quickStart_record_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58389712F776403003C30A4 /* focus_quickStart_record_24@2x.png */; };
 		E58389742F776404003C30A4 /* focus_quickStart_record_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58389722F776404003C30A4 /* focus_quickStart_record_24@3x.png */; };
 		E586DA6C2FE23DAE00758ED6 /* CalendarEvent+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DA6B2FE23DAE00758ED6 /* CalendarEvent+Layout.swift */; };
+		E586DA702FE2A1A500758ED6 /* TPPermissionDeniedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DA6F2FE2A1A500758ED6 /* TPPermissionDeniedView.swift */; };
+		E586DA732FE2A74A00758ED6 /* TPPermissionDeniedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DA722FE2A74A00758ED6 /* TPPermissionDeniedTableCell.swift */; };
+		E586DA762FE2D39F00758ED6 /* placeholder_calendar_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E586DA742FE2D39E00758ED6 /* placeholder_calendar_80@3x.png */; };
+		E586DA772FE2D39F00758ED6 /* placeholder_calendar_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E586DA752FE2D39F00758ED6 /* placeholder_calendar_80@2x.png */; };
 		E58C9E032F49E1870096B842 /* FocusRecordEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E022F49E1870096B842 /* FocusRecordEnums.swift */; };
 		E58C9E132F4AF0DC0096B842 /* FocusTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E052F4AF0DB0096B842 /* FocusTimelineViewController.swift */; };
 		E58C9E142F4AF0DC0096B842 /* FocusTimelineDayPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E072F4AF0DB0096B842 /* FocusTimelineDayPageView.swift */; };
@@ -2936,6 +2940,10 @@
 		E58389712F776403003C30A4 /* focus_quickStart_record_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_quickStart_record_24@2x.png"; sourceTree = "<group>"; };
 		E58389722F776404003C30A4 /* focus_quickStart_record_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_quickStart_record_24@3x.png"; sourceTree = "<group>"; };
 		E586DA6B2FE23DAE00758ED6 /* CalendarEvent+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CalendarEvent+Layout.swift"; sourceTree = "<group>"; };
+		E586DA6F2FE2A1A500758ED6 /* TPPermissionDeniedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPermissionDeniedView.swift; sourceTree = "<group>"; };
+		E586DA722FE2A74A00758ED6 /* TPPermissionDeniedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPermissionDeniedTableCell.swift; sourceTree = "<group>"; };
+		E586DA742FE2D39E00758ED6 /* placeholder_calendar_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder_calendar_80@3x.png"; sourceTree = "<group>"; };
+		E586DA752FE2D39F00758ED6 /* placeholder_calendar_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder_calendar_80@2x.png"; sourceTree = "<group>"; };
 		E58C9E022F49E1870096B842 /* FocusRecordEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRecordEnums.swift; sourceTree = "<group>"; };
 		E58C9E052F4AF0DB0096B842 /* FocusTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineViewController.swift; sourceTree = "<group>"; };
 		E58C9E072F4AF0DB0096B842 /* FocusTimelineDayPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineDayPageView.swift; sourceTree = "<group>"; };
@@ -6742,6 +6750,15 @@
 			path = quickStart;
 			sourceTree = "<group>";
 		};
+		E586DA712FE2A72D00758ED6 /* PermissionDenied */ = {
+			isa = PBXGroup;
+			children = (
+				E586DA6F2FE2A1A500758ED6 /* TPPermissionDeniedView.swift */,
+				E586DA722FE2A74A00758ED6 /* TPPermissionDeniedTableCell.swift */,
+			);
+			path = PermissionDenied;
+			sourceTree = "<group>";
+		};
 		E58C9E042F4AF0DB0096B842 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
@@ -7577,6 +7594,8 @@
 				E55A7B8E2D46000D000D224C /* placeholder_noSearchResult_80@3x.png */,
 				E5BB9A712D3BEF0D0089667A /* placeholder_hashTag_80@2x.png */,
 				E5BB9A722D3BEF0D0089667A /* placeholder_hashTag_80@3x.png */,
+				E586DA752FE2D39F00758ED6 /* placeholder_calendar_80@2x.png */,
+				E586DA742FE2D39E00758ED6 /* placeholder_calendar_80@3x.png */,
 			);
 			path = placeholder;
 			sourceTree = "<group>";
@@ -7847,6 +7866,7 @@
 				E5BB9B7E2D3BF0C30089667A /* Toolbar */,
 				E5BB9D182D3BF0C50089667A /* WheatView */,
 				E5BB9D792D3BF0C50089667A /* Keyboard */,
+				E586DA712FE2A72D00758ED6 /* PermissionDenied */,
 				E5BB9B8C2D3BF0C30089667A /* FlipClock */,
 			);
 			path = UI;
@@ -10804,6 +10824,7 @@
 				E5D7D8F42D43933600EC877A /* NegativeCircleFill@3x.png in Resources */,
 				E531FDF82F73EB1900067A0F /* archived_show_24@3x.png in Resources */,
 				E55E4C022F9336170068E032 /* calendar_15_24@3x.png in Resources */,
+				E586DA762FE2D39F00758ED6 /* placeholder_calendar_80@3x.png in Resources */,
 				E55E4BD92F9336170068E032 /* calendar_9_24@2x.png in Resources */,
 				E50D94D72D45268B00F57957 /* chart_pie_24@3x.png in Resources */,
 				E556BCD12F5D746400CA20D9 /* HabitRecordTypeManually@2x.png in Resources */,
@@ -10949,6 +10970,7 @@
 				E5BB9A842D3BEF0D0089667A /* schedule_duration_24@2x.png in Resources */,
 				E5BB9AE92D3BEF0D0089667A /* copy_24@2x.png in Resources */,
 				E505D93D2F9A4EBA004469DC /* reorderControl_24@3x.png in Resources */,
+				E586DA772FE2D39F00758ED6 /* placeholder_calendar_80@2x.png in Resources */,
 				E55E78012D8ABB09005E3DED /* quadrant_option_edit_24@2x.png in Resources */,
 				E515AD582D3CB2F900AA9AF2 /* LaunchLogo@2x.png in Resources */,
 				E500DE522DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png in Resources */,
@@ -11667,6 +11689,7 @@
 				E56BAC7C2DCCDB1D0013C6F6 /* CalendarWeekPageTimelineCell.swift in Sources */,
 				E5BB9EEA2D3BF0C80089667A /* TPAlertAction.swift in Sources */,
 				E551943D2D49C585007CEDBC /* TPSwitchTableCell.swift in Sources */,
+				E586DA702FE2A1A500758ED6 /* TPPermissionDeniedView.swift in Sources */,
 				E5E67DCD2DD23B950018A64D /* CalendarTimelineBackLayer.swift in Sources */,
 				E568B7D52F70C804007B7EFE /* FocusSession.swift in Sources */,
 				E53B113D2F94D1B300701410 /* TodoFilterDateEditViewController.swift in Sources */,
@@ -12524,6 +12547,7 @@
 				E5D7D7E72D43923800EC877A /* FocusSteppedConfig.swift in Sources */,
 				E58C9E032F49E1870096B842 /* FocusRecordEnums.swift in Sources */,
 				E5BB9E8E2D3BF0C80089667A /* ChartGuidelineView.swift in Sources */,
+				E586DA732FE2A74A00758ED6 /* TPPermissionDeniedTableCell.swift in Sources */,
 				E5BB9EA82D3BF0C80089667A /* TPTextField.swift in Sources */,
 				E529AD022F7EB255000EA2F1 /* TodoBaseTaskListViewController.swift in Sources */,
 				E568B7DF2F717196007B7EFE /* FocusTimerGroup.swift in Sources */,

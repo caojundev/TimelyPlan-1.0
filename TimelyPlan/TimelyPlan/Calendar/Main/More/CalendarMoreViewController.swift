@@ -68,6 +68,18 @@ class CalendarMoreViewController: TPTableSectionsViewController,
         sectionController.cellItems = [modeCellItem]
         return sectionController
     }()
+
+    lazy var permissionDeniedSectionController: TPTableItemSectionController = {
+        let cellItem = TPPermissionDeniedTableCellItem()
+        
+        cellItem.title = resGetString("Calendar Access Required")
+        cellItem.subtitle = resGetString("Please enable calendar access in Settings to view and manage your events.")
+        cellItem.imageName = "placeholder_calendar_80"
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 15.0
+        sectionController.cellItems = [cellItem]
+        return sectionController
+    }()
     
     private(set) var mode: CalendarMode
     
@@ -92,6 +104,7 @@ class CalendarMoreViewController: TPTableSectionsViewController,
         CalendarSystemManager.shared.addDelegate(self)
         CalendarSystemManager.shared.requestAccess { granted in
             guard granted else {
+                self.reloadPermissionDeniedData()
                 return
             }
             
@@ -118,6 +131,12 @@ class CalendarMoreViewController: TPTableSectionsViewController,
         self.mode = mode
         didSelectMode?(mode)
         dismiss(animated: true)
+    }
+    
+    func reloadPermissionDeniedData() {
+        sectionControllers = [modeSectionController,
+                                   permissionDeniedSectionController]
+        reloadData()
     }
     
     func reloadData(with result: [(EKSource, [EKCalendar])]) {

@@ -30,8 +30,6 @@ class HabitGroupExpansionState: ExpansionStateProviding {
         } else {
             collapsedStates[group.identifier] = true
         }
-        
-//        TodoState.shared.collapsedListStates = collapsedStates
     }
 }
 

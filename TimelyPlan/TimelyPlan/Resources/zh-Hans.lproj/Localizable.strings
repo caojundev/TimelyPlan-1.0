@@ -88,6 +88,9 @@
 "Repeat Task" = "重复任务";
 "Calendar Event" = "日历事项";
 
+"Calendar Access Required" = "无法访问日历";
+"Please enable calendar access in Settings to view and manage your events." =  "请在设置中开启日历权限，以便查看和管理您的日程安排。";
+
 ///**********************待办*********************///
 
 /// 智能列表

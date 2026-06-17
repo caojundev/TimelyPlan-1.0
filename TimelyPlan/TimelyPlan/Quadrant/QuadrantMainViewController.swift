@@ -77,6 +77,11 @@ class QuadrantMainViewController: TPViewController,
         matrixView.frame = view.bounds
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        matrixView.reloadDataIfNeeded()
+    }
+
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }

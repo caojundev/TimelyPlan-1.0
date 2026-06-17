@@ -35,7 +35,7 @@ class CalendarMonthWeekView: UIView, CalendarStripViewDelegate {
     var showWeekNumber: Bool = true {
         didSet {
             if showWeekNumber != oldValue {
-                setupWeekNumberView()
+                setupWeekNumberLabel()
             }
         }
     }
@@ -61,7 +61,7 @@ class CalendarMonthWeekView: UIView, CalendarStripViewDelegate {
     
     private let weekNumberWidth = 16.0
     private let weekNumberHeight = 20.0
-    private var weekNumberView: CalendarWeekNumberView?
+    private var weekNumberLabel: TPLabel?
     
     /// 背景分割线图层
     private lazy var backgroundLayer: CalendarMonthWeekBackgroundLayer = {
@@ -80,7 +80,7 @@ class CalendarMonthWeekView: UIView, CalendarStripViewDelegate {
         setupDayViews()
         layer.addSublayer(backgroundLayer)
         addSubview(eventsView)
-        setupWeekNumberView()
+        setupWeekNumberLabel()
         
         setupGesture()
         eventsViewModel.onEventsChanged = { [weak self] in
@@ -99,17 +99,16 @@ class CalendarMonthWeekView: UIView, CalendarStripViewDelegate {
         }
         
         layoutDayViews()
-        layoutWeekNumberView()
+        layoutWeekNumberLabel()
         let stripHeight = height - headerHeight
         eventsView.frame = CGRect(x: 0.0, y: headerHeight, width: width, height: stripHeight)
     }
     
-    private func layoutWeekNumberView() {
-        if let weekNumberView = weekNumberView {
+    private func layoutWeekNumberLabel() {
+        if let weekNumberLabel = weekNumberLabel {
             let weekNumberFrame = CGRect(x: 0.0, y: 0.0, width: weekNumberWidth, height: headerHeight)
-            weekNumberView.padding = UIEdgeInsets(value: 2.0)
-            weekNumberView.numberHeight = weekNumberHeight
-            weekNumberView.frame = weekNumberFrame
+            weekNumberLabel.edgeInsets = UIEdgeInsets(value: 2.0)
+            weekNumberLabel.frame = weekNumberFrame
         }
     }
     
@@ -135,23 +134,24 @@ class CalendarMonthWeekView: UIView, CalendarStripViewDelegate {
         }
     }
     
-    private func setupWeekNumberView() {
+    private func setupWeekNumberLabel() {
         guard showWeekNumber else {
-            weekNumberView?.removeFromSuperview()
-            weekNumberView = nil
+            weekNumberLabel?.removeFromSuperview()
+            weekNumberLabel = nil
             return
         }
         
-        if self.weekNumberView != nil {
+        if self.weekNumberLabel != nil {
             return
         }
         
-        let weekNumberView = CalendarWeekNumberView()
-        weekNumberView.weekNumberFont = .boldSystemFont(ofSize: 10.0)
-        weekNumberView.weekTextFont = .systemFont(ofSize: 8.0)
-        layer.insertSublayer(weekNumberView.layer, below: backgroundLayer)
+        let weekNumberLabel = TPLabel()
+        weekNumberLabel.adjustsFontSizeToFitWidth = true
+        weekNumberLabel.textColor = .secondaryLabel
+        weekNumberLabel.font = .boldSystemFont(ofSize: 8.0)
+        layer.insertSublayer(weekNumberLabel.layer, below: backgroundLayer)
         
-        self.weekNumberView = weekNumberView
+        self.weekNumberLabel = weekNumberLabel
         updateWeekNumber()
         setNeedsLayout()
     }
@@ -201,11 +201,12 @@ class CalendarMonthWeekView: UIView, CalendarStripViewDelegate {
     }
 
     private func updateWeekNumber() {
-        guard let weekNumberView = weekNumberView, let date = weekStartDate else {
+        guard let weekNumberLabel = weekNumberLabel, let date = weekStartDate else {
             return
         }
         
-        weekNumberView.weekNumber = Calendar.weekNumber(for: date, firstWeekday: firstWeekday)
+        let number = Calendar.weekNumber(for: date, firstWeekday: firstWeekday)
+        weekNumberLabel.text = "\(number)"
     }
     
     func loadEvents(weekStartDate: Date) {
