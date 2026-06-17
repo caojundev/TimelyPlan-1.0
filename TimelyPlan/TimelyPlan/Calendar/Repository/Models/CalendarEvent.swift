@@ -114,30 +114,6 @@ class CalendarEvent: NSObject {
 
 }
 
-extension CalendarEvent {
-    
-    /// 根据开始日期和布局持续天数，获取事件对应的位置
-    func position(firstDate: Date, days: Int = DAYS_PER_WEEK) -> CalendarEventPosition? {
-        var column = Date.days(fromDate: firstDate, toDate: startDate)
-        var length = Date.days(fromDate: startDate, toDate: endDate)
-        if length < 0 || column >= days || column + length < 0 {
-            return nil
-        }
-        
-        let maxLength = days - 1
-        if column < 0 {
-            length = min(column + length, maxLength)
-            column = 0
-        } else {
-            if column + length > maxLength {
-                length = maxLength - column
-            }
-        }
-        
-        return CalendarEventPosition(column: column, length: length)
-    }
-}
-
 extension Array where Element == CalendarEvent {
     
     var allDayEvents: [CalendarEvent] {
@@ -146,6 +122,36 @@ extension Array where Element == CalendarEvent {
     
     var timedEvents: [CalendarEvent] {
         return self.filter { !$0.isAllDay }
+    }
+    
+    /// 获取排序后的日历事项数组
+    var orderedEvents: [CalendarEvent] {
+        return sorted { lEvent, rEvent in
+            // 1. 全天任务放在上方
+            if lEvent.isAllDay != rEvent.isAllDay {
+                return lEvent.isAllDay && !rEvent.isAllDay
+            }
+            
+            // 2. 开始日期早的在上方
+            if lEvent.startDate != rEvent.startDate {
+                return lEvent.startDate < rEvent.startDate
+            }
+            
+            // 3. 持续时间长的在上方
+            let lDuration = lEvent.endDate.timeIntervalSince(lEvent.startDate)
+            let rDuration = rEvent.endDate.timeIntervalSince(rEvent.startDate)
+            if lDuration != rDuration {
+                return lDuration > rDuration
+            }
+            
+            // 4. source 为 system 的在上方
+            if lEvent.source != rEvent.source {
+                return lEvent.source == .system
+            }
+            
+            // 所有条件都相同时保持原有顺序
+            return false
+        }
     }
     
 }

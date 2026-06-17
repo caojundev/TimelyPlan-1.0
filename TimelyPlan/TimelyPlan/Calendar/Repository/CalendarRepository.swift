@@ -49,7 +49,7 @@ class CalendarRepository {
         }
         
         group.notify(queue: .main) {
-            completion(results)
+            completion(results.orderedEvents)
         }
     }
     

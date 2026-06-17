@@ -949,6 +949,7 @@
 		E58389702F774E5F003C30A4 /* task_type_habit_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E583896E2F774E5F003C30A4 /* task_type_habit_24@2x.png */; };
 		E58389732F776404003C30A4 /* focus_quickStart_record_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58389712F776403003C30A4 /* focus_quickStart_record_24@2x.png */; };
 		E58389742F776404003C30A4 /* focus_quickStart_record_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58389722F776404003C30A4 /* focus_quickStart_record_24@3x.png */; };
+		E586DA6C2FE23DAE00758ED6 /* CalendarEvent+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DA6B2FE23DAE00758ED6 /* CalendarEvent+Layout.swift */; };
 		E58C9E032F49E1870096B842 /* FocusRecordEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E022F49E1870096B842 /* FocusRecordEnums.swift */; };
 		E58C9E132F4AF0DC0096B842 /* FocusTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E052F4AF0DB0096B842 /* FocusTimelineViewController.swift */; };
 		E58C9E142F4AF0DC0096B842 /* FocusTimelineDayPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C9E072F4AF0DB0096B842 /* FocusTimelineDayPageView.swift */; };
@@ -2934,6 +2935,7 @@
 		E583896E2F774E5F003C30A4 /* task_type_habit_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_habit_24@2x.png"; sourceTree = "<group>"; };
 		E58389712F776403003C30A4 /* focus_quickStart_record_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_quickStart_record_24@2x.png"; sourceTree = "<group>"; };
 		E58389722F776404003C30A4 /* focus_quickStart_record_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_quickStart_record_24@3x.png"; sourceTree = "<group>"; };
+		E586DA6B2FE23DAE00758ED6 /* CalendarEvent+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CalendarEvent+Layout.swift"; sourceTree = "<group>"; };
 		E58C9E022F49E1870096B842 /* FocusRecordEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRecordEnums.swift; sourceTree = "<group>"; };
 		E58C9E052F4AF0DB0096B842 /* FocusTimelineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineViewController.swift; sourceTree = "<group>"; };
 		E58C9E072F4AF0DB0096B842 /* FocusTimelineDayPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineDayPageView.swift; sourceTree = "<group>"; };
@@ -7040,6 +7042,7 @@
 			children = (
 				E51A4C282DC25B24005A0E3F /* CalendarMode.swift */,
 				E59E71692DB921E600744C68 /* CalendarEvent.swift */,
+				E586DA6B2FE23DAE00758ED6 /* CalendarEvent+Layout.swift */,
 				E56643252FDE50EB00348C47 /* CalendarEvent+Preview.swift */,
 			);
 			path = Models;
@@ -11286,6 +11289,7 @@
 				E555492B2F74D24C00C9460D /* FocusQuickStartViewController.swift in Sources */,
 				E5BB9E8F2D3BF0C80089667A /* PieChartCell.swift in Sources */,
 				E5BB9EAC2D3BF0C80089667A /* TPMenuListViewController.swift in Sources */,
+				E586DA6C2FE23DAE00758ED6 /* CalendarEvent+Layout.swift in Sources */,
 				E57CC5ED2F7FEFD900ADDBA4 /* TaskDateInfo.swift in Sources */,
 				E5D7D9442D43933700EC877A /* FocusTimerBindView.swift in Sources */,
 				E5D7D8F02D43933600EC877A /* OpenCircleProgressView.swift in Sources */,

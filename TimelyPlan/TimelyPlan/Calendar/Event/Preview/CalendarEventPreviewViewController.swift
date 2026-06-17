@@ -98,6 +98,13 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
+        switch event.source {
+        case .local:
+            title = resGetString("Todo Task")
+        case .system:
+            title = resGetString("Calendar Event")
+        }
+        
         var actions = [TPButtonAction]()
         if event.isEditable {
             actions.append(editAction)

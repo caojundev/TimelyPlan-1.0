@@ -41,7 +41,7 @@ final class CalendarEventPreviewInfoView: UIView {
     private enum Constants {
         static let colorIndicatorSize = CGSize.size(4)
         static let colorIndicatorCornerRadius: CGFloat = 8.0
-        static let titleLabelHeight: CGFloat = 30.0
+        static let titleLabelHeight: CGFloat = 50.0
         static let dateInfoViewHeight: CGFloat = 40.0
         static let sourceLabelHeight: CGFloat = 25.0
         static let horizontalSpacing: CGFloat = 16.0
@@ -88,7 +88,9 @@ final class CalendarEventPreviewInfoView: UIView {
         addSubview(colorIndicatorView)
         
         // Title label
-        titleLabel.font = .boldSystemFont(ofSize: 15.0)
+        titleLabel.font = .boldSystemFont(ofSize: 18.0)
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.numberOfLines = 2
         titleLabel.textColor = .label
         titleLabel.alpha = 0.9
         addSubview(titleLabel)

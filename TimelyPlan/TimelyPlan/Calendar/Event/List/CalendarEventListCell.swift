@@ -25,7 +25,8 @@ class CalendarEventListCell: TPDefaultInfoTableCell {
     
     override func setupInfoView() {
         self.infoView = eventInfoView
-        infoView.titleConfig.font = .boldSystemFont(ofSize: 15.0)
+        infoView.titleConfig.font = .boldSystemFont(ofSize: 14.0)
+        infoView.subtitleConfig.font = .boldSystemFont(ofSize: 10.0)
         eventInfoView.strikethroughColor = infoView.titleConfig.textColor ?? .label
     }
     
@@ -94,6 +95,10 @@ class CalendarEventListCell: TPDefaultInfoTableCell {
             }
         }
 
+        if let sourceDescription = event.sourceDescription {
+            infos.append(sourceDescription)
+        }
+        
         eventInfoView.subtitle = infos.joined(separator: " • ")
     }
 }

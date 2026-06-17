@@ -9,6 +9,23 @@ import Foundation
 
 class CalendarPresenter {
     
+    /// 编辑本地待办事项
+    static func editLocalEvent(_ event: CalendarEvent) {
+        guard let task = event.sourceItem as? TodoTask else {
+            return
+        }
+        
+        let editVC = TodoTaskEditViewController(task: task)
+        let navController = UINavigationController(rootViewController: editVC)
+        if let sheet = navController.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+        }
+        
+        navController.show()
+    }
+    
     static func previewEvent(_ event: CalendarEvent) {
         let vc = CalendarEventPreviewViewController(event: event)
         let navController = UINavigationController(rootViewController: vc)

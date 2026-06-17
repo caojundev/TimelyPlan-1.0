@@ -64,9 +64,7 @@ class CalendarEventProcessor {
         if task.isDetached {
             CalendarPresenter.previewEvent(event)
         } else {
-            /// 编辑任务
-            let taskController = TodoTaskController()
-            taskController.editTask(task)
+            CalendarPresenter.editLocalEvent(event)
         }
     }
     
