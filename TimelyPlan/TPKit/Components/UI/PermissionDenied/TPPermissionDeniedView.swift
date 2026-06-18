@@ -12,7 +12,7 @@ import FluentDarkModeKit
 class TPPermissionDeniedView: UIView {
     
     struct Constants {
-        static let margin = 10.0
+        static let margin = 15.0
         static let padding = UIEdgeInsets(top: 30.0, left: 12.0, bottom: 12.0, right: 12.0)
         static let numberOfTitleLines = 2
         static let numberOfSubtitleLines = 0

@@ -229,11 +229,7 @@ extension Array where Element == TodoTask {
                     return !task.isCompleted
                 }
                 
-                if task.isCompleted {
-                    return false
-                }
-                
-                if scheduler.isRepeatDate(date, matching: repeatRule, startDate: dateInfo.startDate) {
+                if !task.isCompleted, scheduler.isRepeatDate(date, matching: repeatRule, startDate: dateInfo.startDate) {
                     let detachedTask = TodoTask(masterTask: task, occurrenceDate: date)
                     results.append(detachedTask)
                 }

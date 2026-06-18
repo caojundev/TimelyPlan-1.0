@@ -26,6 +26,7 @@ class TodoHomeHeaderSectionController: TPTableItemSectionController,
         self.sectionType = sectionType
         super.init()
         self.cellItem.title = sectionType.title
+        self.cellItem.titleConfig.font = .boldSystemFont(ofSize: 15.0)
         self.cellItem.imageName = sectionType.iconName
         self.cellItem.imageConfig.color = sectionType.iconColor
         self.cellItems = [cellItem]

@@ -18,7 +18,10 @@ class TPNotificationAllowAccessViewController: TPViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        deniedView.titleLabel.font = .boldSystemFont(ofSize: 18.0)
         deniedView.titleLabel.text = resGetString("Allow Notifications")
+        deniedView.subtitleLabel.font = .systemFont(ofSize: 15.0)
         deniedView.subtitleLabel.text = resGetString("Notifications need to be enabled to receive alerts about the task or focus session.")
         deniedView.imageView.image = resGetImage("bell_badge_fill_80")
         view.addSubview(deniedView)
