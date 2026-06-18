@@ -98,8 +98,8 @@ extension CDTodoTag {
     
     /// 同步获取所有标签
     static func getTags() -> [CDTodoTag]? {
-        let results: [CDTodoTag]? = findAll(with: nil,
-                                            sortedBy: ElementOrderKey,
+        let results: [CDTodoTag]? = getAll(matching: nil,
+                                            sortBy: ElementOrderKey,
                                             ascending: true,
                                             in: .defaultContext)
         return results
@@ -114,7 +114,7 @@ extension CDTodoTag {
     }
 
     static func fetchTags(completion: @escaping([CDTodoTag]?) -> Void) {
-        findAll(with: nil, sortedBy: ElementOrderKey, ascending: true) { results in
+        fetchAll(matching: nil, sortBy: ElementOrderKey, ascending: true) { results in
             completion(results as? [CDTodoTag])
         }
     }

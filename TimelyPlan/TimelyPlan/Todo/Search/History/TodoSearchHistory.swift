@@ -66,7 +66,7 @@ extension Set where Element == TodoSearchHistory {
         self = toKeep
     }
     
-    func sortedByTimestampLatestFirst() -> [TodoSearchHistory] {
+    func sortByTimestampLatestFirst() -> [TodoSearchHistory] {
         return self.sorted {
             return $0.timestamp > $1.timestamp
         }

@@ -24,7 +24,7 @@ class HabitPeriodItemFetcher {
         }
         
         let predicate = conditions.andPredicate()
-        CDHabitRecord.findAll(with: predicate) { results in
+        CDHabitRecord.fetchAll(matching: predicate) { results in
             let groupedRecords = self.recordsGroupedByTask(with: results as? [CDHabitRecord],
                                                            includeSamples: includeSamples)
             var periodItems: [HabitPeriodItem] = []
@@ -98,7 +98,7 @@ class HabitPeriodItemFetcher {
                          completion: @escaping(HabitPeriodItem)->Void) {
         let conditions = CDHabitRecord.conditions(forTask: task, inPeriod: period)
         let predicate = conditions.andPredicate()
-        CDHabitRecord.findAll(with: predicate) { results in
+        CDHabitRecord.fetchAll(matching: predicate) { results in
             let periodItem = HabitPeriodItem(habitTask: task, period: period)
             periodItem.records = self.records(with: results, includeSamples: includeSamples)
             completion(periodItem)

@@ -366,9 +366,9 @@ extension CDTodoList {
     }
     
     static func getTopLists() -> [CDTodoList]? {
-        let results: [CDTodoList]? = findAll(with: topListPredicate,
-                                             sortTerms: sortTerms,
-                                             in: .defaultContext)
+        let results: [CDTodoList]? = getAll(matching: topListPredicate,
+                                            sortTerms: sortTerms,
+                                            in: .defaultContext)
         return results
     }
 

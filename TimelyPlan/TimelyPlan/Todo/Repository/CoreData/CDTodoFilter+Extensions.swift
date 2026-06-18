@@ -29,14 +29,14 @@ extension CDTodoFilter: SortableIdentifiable {
     
     // MARK: - 获取
     static func getFilters() -> [CDTodoFilter]? {
-        return findAll(with: nil,
-                       sortedBy: TodoFilterKey.order,
+        return getAll(matching: nil,
+                       sortBy: TodoFilterKey.order,
                        ascending: true,
                        in: .defaultContext)
     }
     
     static func fetchFilters(completion: @escaping([CDTodoFilter]?) -> Void) {
-        findAll(with: nil, sortedBy: TodoFilterKey.order, ascending: true) { results in
+        fetchAll(matching: nil, sortBy: TodoFilterKey.order, ascending: true) { results in
             completion(results as? [CDTodoFilter])
         }
     }

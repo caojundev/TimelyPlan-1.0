@@ -19,7 +19,7 @@ class KeyValueStorage {
     private let context: NSManagedObjectContext
     
     /// 实体名称
-    private let entityName: String = "KeyValueStore"
+    private let entityName = EntityName.keyValueStore.rawValue
     
     /// 存储已获取数值字典
     private var valueDic: [String: Any] = [:]
@@ -172,20 +172,19 @@ class KeyValueStorage {
         return results
     }
     
+    /// 打印所有条目数据
     func printAllEntries() {
         let request = NSFetchRequest<KeyValueEntry>(entityName: entityName)
         let results: [KeyValueEntry]? = KeyValueEntry.executeFetchRequest(request, in: context)
         if let results = results {
-            print("==================================")
             for result in results {
                 if result.key == "FocusSetting" {
                     context.delete(result)
                     synchronize()
                 }
                 
-                print("\(result.key ?? "") = \(result.value ?? ""), \(result.modificationDate?.yearMonthDayTimeString(omitYear: true) ?? "无日期")")
+                debugPrint("\(result.key ?? "") = \(result.value ?? ""), \(result.modificationDate?.yearMonthDayTimeString(omitYear: true) ?? "无日期")")
             }
-            print("==================================")
         }
     }
 }

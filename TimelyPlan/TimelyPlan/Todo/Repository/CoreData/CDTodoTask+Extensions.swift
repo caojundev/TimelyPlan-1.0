@@ -656,7 +656,7 @@ extension CDTodoTask {
     /// 同步获取收件箱任务
     static func getInboxTasks(showCompleted: Bool = true) -> [CDTodoTask]? {
         let predicate = activeInboxTaskPredicate(showCompleted: showCompleted)
-        let results: [CDTodoTask]? = findAll(with: predicate, sortedBy: TodoTaskKey.order, ascending: true, in: .defaultContext)
+        let results: [CDTodoTask]? = getAll(matching: predicate, sortBy: TodoTaskKey.order, ascending: true, in: .defaultContext)
         return results
     }
     
@@ -665,7 +665,7 @@ extension CDTodoTask {
                                     showCompleted: Bool = true,
                                     completion: @escaping([CDTodoTask]?) -> Void) {
         let predicate = smartListTaskPredicate(in: list, showCompleted: showCompleted)
-        findAll(with: predicate, sortedBy: TodoTaskKey.creationDate, ascending: true) { results in
+        fetchAll(matching: predicate, sortBy: TodoTaskKey.creationDate, ascending: true) { results in
             completion(results as? [CDTodoTask])
         }
     }
@@ -675,7 +675,7 @@ extension CDTodoTask {
                                    showCompleted: Bool = true,
                                    completion: @escaping([CDTodoTask]?) -> Void) {
         let predicate = userListActiveTaskPredicate(for: list, showCompleted: showCompleted)
-        findAll(with: predicate, sortedBy: TodoTaskKey.creationDate, ascending: true) { results in
+        fetchAll(matching: predicate, sortBy: TodoTaskKey.creationDate, ascending: true) { results in
             completion(results as? [CDTodoTask])
         }
     }
@@ -684,20 +684,20 @@ extension CDTodoTask {
     static func fetchAllTasks(showCompleted: Bool = false,
                               completion: @escaping([CDTodoTask]?) -> Void) {
         let predicate = allActiveTaskPredicate(showCompleted: showCompleted)
-        findAll(with: predicate) { results in
+        fetchAll(matching: predicate) { results in
             completion(results as? [CDTodoTask])
         }
     }
     
     static func getUserListTasks(in list: TodoList, showCompleted: Bool = true) -> [CDTodoTask]? {
         let predicate = userListActiveTaskPredicate(for: list, showCompleted: showCompleted)
-        let results: [CDTodoTask]? = findAll(with: predicate, sortedBy: TodoTaskKey.order, ascending: true, in: .defaultContext)
+        let results: [CDTodoTask]? = getAll(matching: predicate, sortBy: TodoTaskKey.order, ascending: true, in: .defaultContext)
         return results
     }
     
     static func fetchTasks(tag: TodoTag, showCompleted: Bool, completion: @escaping([CDTodoTask]?) -> Void) {
         let predicate = tagActiveTaskPredicate(for: tag, showCompleted: showCompleted)
-        findAll(with: predicate) { results in
+        fetchAll(matching: predicate) { results in
             completion(results as? [CDTodoTask])
         }
     }
@@ -721,7 +721,7 @@ extension CDTodoTask {
             return
         }
         
-        findAll(with: predicate) { results in
+        fetchAll(matching: predicate) { results in
             completion(results as? [CDTodoTask])
         }
     }
@@ -733,7 +733,7 @@ extension CDTodoTask {
         let repeatTaskPredicate = activeRepeatTaskPredicate(showCompleted: false)
         let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [scheduledTaskPredicate,
                                                                            repeatTaskPredicate])
-        findAll(with: predicate, sortedBy: TodoTaskKey.startDate, ascending: true) { results in
+        fetchAll(matching: predicate, sortBy: TodoTaskKey.startDate, ascending: true) { results in
             completion(results as? [CDTodoTask])
         }
     }
@@ -748,7 +748,7 @@ extension CDTodoTask {
         ]
         
         let predicate = conditions.andPredicate()
-        findAll(with: predicate) { results in
+        fetchAll(matching: predicate) { results in
             completion(results as? [CDTodoTask])
         }
     }

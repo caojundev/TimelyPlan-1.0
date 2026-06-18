@@ -177,7 +177,7 @@ extension CDHabitRecord {
     static func getRecord(for task: HabitTask, on date: Date, createIfNil: Bool) -> CDHabitRecord? {
         let conditions = CDHabitRecord.conditions(forTask: task, onDate: date)
         let predicate = conditions.andPredicate()
-        if let record = CDHabitRecord.findFirst(withPredicate: predicate, in: .defaultContext) {
+        if let record = CDHabitRecord.getFirst(matching: predicate, in: .defaultContext) {
             return record
         }
         
@@ -191,7 +191,7 @@ extension CDHabitRecord {
     static func getRecords(for task: HabitTask?, fromDate: Date, toDate: Date) -> [CDHabitRecord]? {
         let conditions = CDHabitRecord.conditions(forTask: task, fromDate: fromDate, toDate: toDate)
         let predicate = conditions.andPredicate()
-        return CDHabitRecord.findAll(with: predicate, in: .defaultContext)
+        return CDHabitRecord.getAll(matching: predicate, in: .defaultContext)
     }
     
     // MARK: - 异步获取

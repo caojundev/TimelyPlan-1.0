@@ -123,7 +123,7 @@ class TodoSearchHistoryViewController: TPTableSectionsViewController,
     }
     
     private func historyCellItems(with histories: Set<TodoSearchHistory>) -> [TPBaseTableCellItem] {
-        let orderedHistorys = histories.sortedByTimestampLatestFirst()
+        let orderedHistorys = histories.sortByTimestampLatestFirst()
         var cellItems = [TPBaseTableCellItem]()
         for history in orderedHistorys {
             let cellItem = TPImageInfoRightButtonTableCellItem()

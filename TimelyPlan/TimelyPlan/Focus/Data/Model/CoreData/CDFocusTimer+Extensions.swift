@@ -66,18 +66,18 @@ extension CDFocusTimer {
     // MARK: - 异步获取
     static func fetchActiveTimers(completion: @escaping([CDFocusTimer]?) -> Void) {
         let predicate = NSPredicate.predicate(with: activeTimersPredcateCondition)
-        CDFocusTimer.findAll(with: predicate,
-                             sortedBy: ElementOrderKey,
-                             ascending: true) { results in
+        CDFocusTimer.fetchAll(matching: predicate,
+                              sortBy: ElementOrderKey,
+                              ascending: true) { results in
             completion(results as? [CDFocusTimer])
         }
     }
     
     static func fetchArchivedTimers(completion: @escaping([CDFocusTimer]?) -> Void) {
         let predicate = NSPredicate.predicate(with: archivedTimersPredcateCondition)
-        CDFocusTimer.findAll(with: predicate,
-                             sortedBy: ElementOrderKey,
-                             ascending: true) { results in
+        CDFocusTimer.fetchAll(matching: predicate,
+                              sortBy: ElementOrderKey,
+                              ascending: true) { results in
             completion(results as? [CDFocusTimer])
         }
     }
@@ -87,7 +87,7 @@ extension CDFocusTimer {
     static func getTimers(with identifiers: [String]) -> [CDFocusTimer]? {
         let condition: PredicateCondition = (FocusTimerKey.identifier, .belongsTo(identifiers))
         let predicate = NSPredicate.predicate(with: condition)
-        let results: [CDFocusTimer]? = CDFocusTimer.findAll(with: predicate, in: .defaultContext)
+        let results: [CDFocusTimer]? = CDFocusTimer.getAll(matching: predicate, in: .defaultContext)
         return results
     }
     
@@ -95,15 +95,15 @@ extension CDFocusTimer {
     static func getTimer(withIdentifier identifier: String) -> CDFocusTimer? {
         let condition: PredicateCondition = (FocusTimerKey.identifier, .equal(identifier))
         let predicate = NSPredicate.predicate(with: condition)
-        let timer = CDFocusTimer.findFirst(withPredicate: predicate, in: .defaultContext)
+        let timer = CDFocusTimer.getFirst(matching: predicate, in: .defaultContext)
         return timer
     }
     
     /// 同步获取所有计时器
     static func getAllTimers() -> [CDFocusTimer]? {
-        let timers: [CDFocusTimer]? = CDFocusTimer.findAll(sortedBy: ElementOrderKey,
-                                                           ascending: true,
-                                                           in: .defaultContext)
+        let timers: [CDFocusTimer]? = CDFocusTimer.getAll(sortBy: ElementOrderKey,
+                                                          ascending: true,
+                                                          in: .defaultContext)
         return timers
     }
     
@@ -114,8 +114,8 @@ extension CDFocusTimer {
 
     private static func getTimers(withCondition condition: PredicateCondition) -> [CDFocusTimer]? {
         let predicate = NSPredicate.predicate(with: condition)
-        let timers: [CDFocusTimer]? = CDFocusTimer.findAll(with: predicate,
-                                                      sortedBy: ElementOrderKey,
+        let timers: [CDFocusTimer]? = CDFocusTimer.getAll(matching: predicate,
+                                                      sortBy: ElementOrderKey,
                                                       ascending: true,
                                                       in: .defaultContext)
         return timers

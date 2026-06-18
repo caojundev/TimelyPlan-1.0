@@ -99,17 +99,17 @@ extension CDHabitTask {
     
     // MARK: - 异步获取
     static func fetchActiveTasks(completion: @escaping([CDHabitTask]?) -> Void) {
-        CDHabitTask.findAll(with: activeTaskPredicate,
-                            sortedBy: ElementOrderKey,
-                            ascending: true) { results in
+        fetchAll(matching: activeTaskPredicate,
+                 sortBy: ElementOrderKey,
+                 ascending: true) { results in
             completion(results as? [CDHabitTask])
         }
     }
     
     static func fetchArchivedTasks(completion: @escaping([CDHabitTask]?) -> Void) {
-        CDHabitTask.findAll(with: archivedTaskPredicate,
-                            sortedBy: ElementOrderKey,
-                            ascending: true) { results in
+        fetchAll(matching: archivedTaskPredicate,
+                 sortBy: ElementOrderKey,
+                 ascending: true) { results in
             completion(results as? [CDHabitTask])
         }
     }
@@ -119,7 +119,7 @@ extension CDHabitTask {
     static func getTask(with identifier: String) -> CDHabitTask? {
         let condition: PredicateCondition = (HabitTaskKey.identifier, .equal(identifier))
         let predicate = NSPredicate.predicate(with: condition)
-        let result = CDHabitTask.findFirst(withPredicate: predicate, in: .defaultContext)
+        let result = getFirst(matching: predicate, in: .defaultContext)
         return result
     }
     
@@ -127,7 +127,7 @@ extension CDHabitTask {
     static func getTasks(with identifiers: [String]) -> [CDHabitTask]? {
         let condition: PredicateCondition = (HabitTaskKey.identifier, .belongsTo(identifiers))
         let predicate = NSPredicate.predicate(with: condition)
-        let results: [CDHabitTask]? = CDHabitTask.findAll(with: predicate, in: .defaultContext)
+        let results: [CDHabitTask]? = getAll(matching: predicate, in: .defaultContext)
         return results
     }
     
@@ -145,7 +145,7 @@ extension CDHabitTask {
     /// 归档任务数目
     static func getArchivedTasksCount() -> Int {
         let predicate = archivedTaskPredicate
-        let count = CDHabitTask.countOfEntries(with: predicate, in: .defaultContext)
+        let count = countOfEntries(with: predicate, in: .defaultContext)
         return count
     }
     
@@ -155,8 +155,8 @@ extension CDHabitTask {
     }
     
     static func getTasks(with predicate: NSPredicate? = nil) -> [CDHabitTask] {
-        let results: [CDHabitTask]? = CDHabitTask.findAll(with: predicate,
-                                                          sortedBy: HabitTaskKey.order,
+        let results: [CDHabitTask]? = CDHabitTask.getAll(matching: predicate,
+                                                          sortBy: HabitTaskKey.order,
                                                           ascending: true,
                                                           in: .defaultContext)
         guard let results = results else {

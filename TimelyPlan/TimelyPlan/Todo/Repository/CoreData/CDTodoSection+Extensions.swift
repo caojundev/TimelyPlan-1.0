@@ -38,8 +38,8 @@ extension CDTodoSection: SortableIdentifiable {
         /// 获取收件箱板块
         let condition: PredicateCondition = (TodoSectionKey.list, .isEmpty)
         let predicate = NSPredicate.predicate(with: condition)
-        let results: [CDTodoSection]? = findAll(with: predicate,
-                                                sortedBy: ElementOrderKey,
+        let results: [CDTodoSection]? = getAll(matching: predicate,
+                                                sortBy: ElementOrderKey,
                                                 ascending: true,
                                                 in: .defaultContext)
         return results

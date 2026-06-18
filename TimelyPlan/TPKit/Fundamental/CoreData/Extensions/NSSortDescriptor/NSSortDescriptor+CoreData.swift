@@ -1,5 +1,5 @@
 //
-//  NSSortDescriptor+HandyRecord.swift
+//  NSSortDescriptor+CoreData.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/31.

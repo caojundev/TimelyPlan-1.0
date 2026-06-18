@@ -989,7 +989,7 @@
 		E58F46C32F7B9D7B0046FA96 /* TodoUserListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F46C22F7B9D7B0046FA96 /* TodoUserListManager.swift */; };
 		E58F46C62F7B9DCC0046FA96 /* TodoUserListProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F46C42F7B9DCB0046FA96 /* TodoUserListProcessorUpdater.swift */; };
 		E58F46C72F7B9DCC0046FA96 /* TodoUpdaterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F46C52F7B9DCC0046FA96 /* TodoUpdaterOption.swift */; };
-		E58F46C92F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F46C82F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift */; };
+		E58F46C92F7BF5580046FA96 /* NSSortDescriptor+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58F46C82F7BF5580046FA96 /* NSSortDescriptor+CoreData.swift */; };
 		E590CA962F4D677D00E66041 /* String+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA952F4D677C00E66041 /* String+Highlight.swift */; };
 		E590CA992F4DD02900E66041 /* FocusState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA982F4DD02900E66041 /* FocusState.swift */; };
 		E590CA9C2F4DF84C00E66041 /* StoragePropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590CA9B2F4DF84C00E66041 /* StoragePropertyWrapper.swift */; };
@@ -1340,22 +1340,18 @@
 		E5BB9E0F2D3BF0C70089667A /* TPNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C132D3BF0C40089667A /* TPNotificationService.swift */; };
 		E5BB9E102D3BF0C70089667A /* TPNotificationAllowAccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C142D3BF0C40089667A /* TPNotificationAllowAccessViewController.swift */; };
 		E5BB9E132D3BF0C70089667A /* NSPredicate+Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C1A2D3BF0C40089667A /* NSPredicate+Condition.swift */; };
-		E5BB9E142D3BF0C70089667A /* HandyRecord+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C1B2D3BF0C40089667A /* HandyRecord+Setup.swift */; };
 		E5BB9E152D3BF0C70089667A /* HandyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C1C2D3BF0C40089667A /* HandyRecord.swift */; };
-		E5BB9E162D3BF0C70089667A /* HandyRecord+iCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C1D2D3BF0C40089667A /* HandyRecord+iCloud.swift */; };
 		E5BB9E172D3BF0C70089667A /* KeyValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C1F2D3BF0C40089667A /* KeyValueStorage.swift */; };
-		E5BB9E182D3BF0C70089667A /* KeyValueEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C202D3BF0C40089667A /* KeyValueEntry+CoreDataProperties.swift */; };
 		E5BB9E192D3BF0C70089667A /* KeyValueEntry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C212D3BF0C40089667A /* KeyValueEntry+CoreDataClass.swift */; };
 		E5BB9E1A2D3BF0C70089667A /* NSManagedObject+Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C242D3BF0C40089667A /* NSManagedObject+Entity.swift */; };
-		E5BB9E1B2D3BF0C70089667A /* NSManagedObject+Finders.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C252D3BF0C40089667A /* NSManagedObject+Finders.swift */; };
+		E5BB9E1B2D3BF0C70089667A /* NSManagedObject+Finder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C252D3BF0C40089667A /* NSManagedObject+Finder.swift */; };
 		E5BB9E1C2D3BF0C70089667A /* NSManagedObject+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C262D3BF0C40089667A /* NSManagedObject+Request.swift */; };
 		E5BB9E1D2D3BF0C70089667A /* NSManagedObject+Aggregation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C272D3BF0C40089667A /* NSManagedObject+Aggregation.swift */; };
-		E5BB9E1E2D3BF0C70089667A /* NSManagedObject+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C282D3BF0C40089667A /* NSManagedObject+Fetch.swift */; };
-		E5BB9E1F2D3BF0C70089667A /* NSPersistentStore+HandyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C292D3BF0C40089667A /* NSPersistentStore+HandyRecord.swift */; };
+		E5BB9E1F2D3BF0C70089667A /* NSPersistentStore+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C292D3BF0C40089667A /* NSPersistentStore+Setup.swift */; };
 		E5BB9E202D3BF0C70089667A /* NSManagedObjectContext+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C2B2D3BF0C40089667A /* NSManagedObjectContext+Setup.swift */; };
 		E5BB9E212D3BF0C70089667A /* NSManagedObjectContext+Observing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C2C2D3BF0C40089667A /* NSManagedObjectContext+Observing.swift */; };
 		E5BB9E222D3BF0C70089667A /* NSManagedObjectContext+Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C2D2D3BF0C40089667A /* NSManagedObjectContext+Save.swift */; };
-		E5BB9E232D3BF0C70089667A /* NSPersistentStoreCoordinator+HandyRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C2E2D3BF0C40089667A /* NSPersistentStoreCoordinator+HandyRecord.swift */; };
+		E5BB9E232D3BF0C70089667A /* NSPersistentStoreCoordinator+Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C2E2D3BF0C40089667A /* NSPersistentStoreCoordinator+Setup.swift */; };
 		E5BB9E262D3BF0C70089667A /* TPFullSizeButtonTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C352D3BF0C40089667A /* TPFullSizeButtonTableCell.swift */; };
 		E5BB9E2B2D3BF0C70089667A /* TPDescriptionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C3A2D3BF0C40089667A /* TPDescriptionTableCell.swift */; };
 		E5BB9E302D3BF0C70089667A /* TPPlaceholderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C3F2D3BF0C40089667A /* TPPlaceholderTableCell.swift */; };
@@ -1876,6 +1872,10 @@
 		E5E4D14C2D92AF2C00813B6C /* todo_filter_list_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4D1462D92AF2B00813B6C /* todo_filter_list_36@2x.png */; };
 		E5E4D1512D93033800813B6C /* todo_filter_date_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4D14F2D93033800813B6C /* todo_filter_date_36@2x.png */; };
 		E5E4D1522D93033800813B6C /* todo_filter_date_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4D1502D93033800813B6C /* todo_filter_date_36@3x.png */; };
+		E5E5BDB52FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDB42FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift */; };
+		E5E5BDB72FE3E698008D3F64 /* CoreDataEntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */; };
+		E5E5BDBB2FE3E9EF008D3F64 /* PredicateCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDBA2FE3E9EF008D3F64 /* PredicateCondition.swift */; };
+		E5E5BDBF2FE41AF5008D3F64 /* NSManagedObjectContext+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDBE2FE41AF5008D3F64 /* NSManagedObjectContext+Actions.swift */; };
 		E5E67DCD2DD23B950018A64D /* CalendarTimelineBackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E67DCC2DD23B950018A64D /* CalendarTimelineBackLayer.swift */; };
 		E5E8C9EB2F701ED1006728C5 /* FocusTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E8C9EA2F701ED1006728C5 /* FocusTimer.swift */; };
 		E5E8C9EE2F702163006728C5 /* CDFocusTimer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E8C9ED2F702163006728C5 /* CDFocusTimer+Extensions.swift */; };
@@ -2979,7 +2979,7 @@
 		E58F46C22F7B9D7B0046FA96 /* TodoUserListManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUserListManager.swift; sourceTree = "<group>"; };
 		E58F46C42F7B9DCB0046FA96 /* TodoUserListProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUserListProcessorUpdater.swift; sourceTree = "<group>"; };
 		E58F46C52F7B9DCC0046FA96 /* TodoUpdaterOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUpdaterOption.swift; sourceTree = "<group>"; };
-		E58F46C82F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSortDescriptor+HandyRecord.swift"; sourceTree = "<group>"; };
+		E58F46C82F7BF5580046FA96 /* NSSortDescriptor+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSSortDescriptor+CoreData.swift"; sourceTree = "<group>"; };
 		E590CA952F4D677C00E66041 /* String+Highlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Highlight.swift"; sourceTree = "<group>"; };
 		E590CA982F4DD02900E66041 /* FocusState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusState.swift; sourceTree = "<group>"; };
 		E590CA9B2F4DF84C00E66041 /* StoragePropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoragePropertyWrapper.swift; sourceTree = "<group>"; };
@@ -3345,22 +3345,18 @@
 		E5BB9C132D3BF0C40089667A /* TPNotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPNotificationService.swift; sourceTree = "<group>"; };
 		E5BB9C142D3BF0C40089667A /* TPNotificationAllowAccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPNotificationAllowAccessViewController.swift; sourceTree = "<group>"; };
 		E5BB9C1A2D3BF0C40089667A /* NSPredicate+Condition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPredicate+Condition.swift"; sourceTree = "<group>"; };
-		E5BB9C1B2D3BF0C40089667A /* HandyRecord+Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HandyRecord+Setup.swift"; sourceTree = "<group>"; };
 		E5BB9C1C2D3BF0C40089667A /* HandyRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandyRecord.swift; sourceTree = "<group>"; };
-		E5BB9C1D2D3BF0C40089667A /* HandyRecord+iCloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HandyRecord+iCloud.swift"; sourceTree = "<group>"; };
 		E5BB9C1F2D3BF0C40089667A /* KeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStorage.swift; sourceTree = "<group>"; };
-		E5BB9C202D3BF0C40089667A /* KeyValueEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyValueEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E5BB9C212D3BF0C40089667A /* KeyValueEntry+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "KeyValueEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E5BB9C242D3BF0C40089667A /* NSManagedObject+Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Entity.swift"; sourceTree = "<group>"; };
-		E5BB9C252D3BF0C40089667A /* NSManagedObject+Finders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Finders.swift"; sourceTree = "<group>"; };
+		E5BB9C252D3BF0C40089667A /* NSManagedObject+Finder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Finder.swift"; sourceTree = "<group>"; };
 		E5BB9C262D3BF0C40089667A /* NSManagedObject+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Request.swift"; sourceTree = "<group>"; };
 		E5BB9C272D3BF0C40089667A /* NSManagedObject+Aggregation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Aggregation.swift"; sourceTree = "<group>"; };
-		E5BB9C282D3BF0C40089667A /* NSManagedObject+Fetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Fetch.swift"; sourceTree = "<group>"; };
-		E5BB9C292D3BF0C40089667A /* NSPersistentStore+HandyRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPersistentStore+HandyRecord.swift"; sourceTree = "<group>"; };
+		E5BB9C292D3BF0C40089667A /* NSPersistentStore+Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPersistentStore+Setup.swift"; sourceTree = "<group>"; };
 		E5BB9C2B2D3BF0C40089667A /* NSManagedObjectContext+Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Setup.swift"; sourceTree = "<group>"; };
 		E5BB9C2C2D3BF0C40089667A /* NSManagedObjectContext+Observing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Observing.swift"; sourceTree = "<group>"; };
 		E5BB9C2D2D3BF0C40089667A /* NSManagedObjectContext+Save.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Save.swift"; sourceTree = "<group>"; };
-		E5BB9C2E2D3BF0C40089667A /* NSPersistentStoreCoordinator+HandyRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPersistentStoreCoordinator+HandyRecord.swift"; sourceTree = "<group>"; };
+		E5BB9C2E2D3BF0C40089667A /* NSPersistentStoreCoordinator+Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSPersistentStoreCoordinator+Setup.swift"; sourceTree = "<group>"; };
 		E5BB9C352D3BF0C40089667A /* TPFullSizeButtonTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPFullSizeButtonTableCell.swift; sourceTree = "<group>"; };
 		E5BB9C3A2D3BF0C40089667A /* TPDescriptionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPDescriptionTableCell.swift; sourceTree = "<group>"; };
 		E5BB9C3F2D3BF0C40089667A /* TPPlaceholderTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPlaceholderTableCell.swift; sourceTree = "<group>"; };
@@ -3881,6 +3877,10 @@
 		E5E4D1462D92AF2B00813B6C /* todo_filter_list_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_list_36@2x.png"; sourceTree = "<group>"; };
 		E5E4D14F2D93033800813B6C /* todo_filter_date_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_date_36@2x.png"; sourceTree = "<group>"; };
 		E5E4D1502D93033800813B6C /* todo_filter_date_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_date_36@3x.png"; sourceTree = "<group>"; };
+		E5E5BDB42FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRemoteChangeManager.swift; sourceTree = "<group>"; };
+		E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEntityName.swift; sourceTree = "<group>"; };
+		E5E5BDBA2FE3E9EF008D3F64 /* PredicateCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateCondition.swift; sourceTree = "<group>"; };
+		E5E5BDBE2FE41AF5008D3F64 /* NSManagedObjectContext+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Actions.swift"; sourceTree = "<group>"; };
 		E5E67DCC2DD23B950018A64D /* CalendarTimelineBackLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineBackLayer.swift; sourceTree = "<group>"; };
 		E5E8C9EA2F701ED1006728C5 /* FocusTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimer.swift; sourceTree = "<group>"; };
 		E5E8C9ED2F702163006728C5 /* CDFocusTimer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDFocusTimer+Extensions.swift"; sourceTree = "<group>"; };
@@ -8242,7 +8242,7 @@
 				E55549622F76A71D00C9460D /* Protocols */,
 				E590CA9A2F4DF82600E66041 /* Storage */,
 				E5BB9C122D3BF0C40089667A /* Notification */,
-				E5BB9C152D3BF0C40089667A /* HandyRecord */,
+				E5E5BDB82FE3E868008D3F64 /* CoreData */,
 			);
 			path = Fundamental;
 			sourceTree = "<group>";
@@ -8256,66 +8256,19 @@
 			path = Notification;
 			sourceTree = "<group>";
 		};
-		E5BB9C152D3BF0C40089667A /* HandyRecord */ = {
-			isa = PBXGroup;
-			children = (
-				E5BB9C192D3BF0C40089667A /* Core */,
-				E5BB9C1E2D3BF0C40089667A /* KeyValueStorage */,
-				E5BB9C222D3BF0C40089667A /* Extensions */,
-			);
-			path = HandyRecord;
-			sourceTree = "<group>";
-		};
-		E5BB9C192D3BF0C40089667A /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				E5BB9C1A2D3BF0C40089667A /* NSPredicate+Condition.swift */,
-				E5BB9C1B2D3BF0C40089667A /* HandyRecord+Setup.swift */,
-				E5BB9C1C2D3BF0C40089667A /* HandyRecord.swift */,
-				E5BB9C1D2D3BF0C40089667A /* HandyRecord+iCloud.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
 		E5BB9C1E2D3BF0C40089667A /* KeyValueStorage */ = {
 			isa = PBXGroup;
 			children = (
 				E5BB9C1F2D3BF0C40089667A /* KeyValueStorage.swift */,
-				E5BB9C202D3BF0C40089667A /* KeyValueEntry+CoreDataProperties.swift */,
 				E5BB9C212D3BF0C40089667A /* KeyValueEntry+CoreDataClass.swift */,
 			);
 			path = KeyValueStorage;
 			sourceTree = "<group>";
 		};
-		E5BB9C222D3BF0C40089667A /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				E5BB9C292D3BF0C40089667A /* NSPersistentStore+HandyRecord.swift */,
-				E5BB9C232D3BF0C40089667A /* NSManagedObject */,
-				E5BB9C2A2D3BF0C40089667A /* NSManagedObjectContext */,
-				E5BB9C2E2D3BF0C40089667A /* NSPersistentStoreCoordinator+HandyRecord.swift */,
-				E58F46C82F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift */,
-				E5141F0F2F7D3E5B007A864B /* NSManagedObject+Sort.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		E5BB9C232D3BF0C40089667A /* NSManagedObject */ = {
-			isa = PBXGroup;
-			children = (
-				E5BB9C242D3BF0C40089667A /* NSManagedObject+Entity.swift */,
-				E5BB9C252D3BF0C40089667A /* NSManagedObject+Finders.swift */,
-				E5BB9C262D3BF0C40089667A /* NSManagedObject+Request.swift */,
-				E5BB9C272D3BF0C40089667A /* NSManagedObject+Aggregation.swift */,
-				E5BB9C282D3BF0C40089667A /* NSManagedObject+Fetch.swift */,
-			);
-			path = NSManagedObject;
-			sourceTree = "<group>";
-		};
 		E5BB9C2A2D3BF0C40089667A /* NSManagedObjectContext */ = {
 			isa = PBXGroup;
 			children = (
-				E5BB9C2B2D3BF0C40089667A /* NSManagedObjectContext+Setup.swift */,
+				E5E5BDBE2FE41AF5008D3F64 /* NSManagedObjectContext+Actions.swift */,
 				E5BB9C2C2D3BF0C40089667A /* NSManagedObjectContext+Observing.swift */,
 				E5BB9C2D2D3BF0C40089667A /* NSManagedObjectContext+Save.swift */,
 			);
@@ -10081,6 +10034,69 @@
 			path = option;
 			sourceTree = "<group>";
 		};
+		E5E5BDB82FE3E868008D3F64 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E5BB9C1C2D3BF0C40089667A /* HandyRecord.swift */,
+				E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */,
+				E5E5BDB42FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift */,
+				E5BB9C1E2D3BF0C40089667A /* KeyValueStorage */,
+				E5E5BDBC2FE3EA2D008D3F64 /* Extensions */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		E5E5BDB92FE3E90D008D3F64 /* NSPredicate */ = {
+			isa = PBXGroup;
+			children = (
+				E5E5BDBA2FE3E9EF008D3F64 /* PredicateCondition.swift */,
+				E5BB9C1A2D3BF0C40089667A /* NSPredicate+Condition.swift */,
+			);
+			path = NSPredicate;
+			sourceTree = "<group>";
+		};
+		E5E5BDBC2FE3EA2D008D3F64 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E5E5BDC02FE4311A008D3F64 /* Setup */,
+				E5BB9C2A2D3BF0C40089667A /* NSManagedObjectContext */,
+				E5E5BDBD2FE3F56D008D3F64 /* NSManagedObject */,
+				E5E5BDC12FE43138008D3F64 /* NSSortDescriptor */,
+				E5E5BDB92FE3E90D008D3F64 /* NSPredicate */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E5E5BDBD2FE3F56D008D3F64 /* NSManagedObject */ = {
+			isa = PBXGroup;
+			children = (
+				E5BB9C242D3BF0C40089667A /* NSManagedObject+Entity.swift */,
+				E5141F0F2F7D3E5B007A864B /* NSManagedObject+Sort.swift */,
+				E5BB9C272D3BF0C40089667A /* NSManagedObject+Aggregation.swift */,
+				E5BB9C262D3BF0C40089667A /* NSManagedObject+Request.swift */,
+				E5BB9C252D3BF0C40089667A /* NSManagedObject+Finder.swift */,
+			);
+			path = NSManagedObject;
+			sourceTree = "<group>";
+		};
+		E5E5BDC02FE4311A008D3F64 /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				E5BB9C292D3BF0C40089667A /* NSPersistentStore+Setup.swift */,
+				E5BB9C2E2D3BF0C40089667A /* NSPersistentStoreCoordinator+Setup.swift */,
+				E5BB9C2B2D3BF0C40089667A /* NSManagedObjectContext+Setup.swift */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
+		E5E5BDC12FE43138008D3F64 /* NSSortDescriptor */ = {
+			isa = PBXGroup;
+			children = (
+				E58F46C82F7BF5580046FA96 /* NSSortDescriptor+CoreData.swift */,
+			);
+			path = NSSortDescriptor;
+			sourceTree = "<group>";
+		};
 		E5E8C9E92F701EBB006728C5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -11382,7 +11398,6 @@
 				E5D7D9122D43933700EC877A /* FocusStatsOverallViewController.swift in Sources */,
 				E53F328E2F68D6D200B85B65 /* HabitReportWeeklyViewController.swift in Sources */,
 				E52EF61E2FB1A96E002CF355 /* CalendarBaseViewController.swift in Sources */,
-				E5BB9E142D3BF0C70089667A /* HandyRecord+Setup.swift in Sources */,
 				E5D7D8CF2D43933600EC877A /* FocusEndViewController.swift in Sources */,
 				E5B33D8D2F829E1800939C3E /* TodoTagSearchResultsPlaceholderView.swift in Sources */,
 				E5B33D812F81FD0200939C3E /* TodoTagSearchResultsViewController.swift in Sources */,
@@ -11534,7 +11549,7 @@
 				E53B11562F94D26C00701410 /* TodoFilterRuleProgressEditSectionController.swift in Sources */,
 				E5BB9DCD2D3BF0C60089667A /* TPMidnightScheduler.swift in Sources */,
 				E50BB6762D57043000D316FD /* TPSeparatorTableCell.swift in Sources */,
-				E5BB9E1B2D3BF0C70089667A /* NSManagedObject+Finders.swift in Sources */,
+				E5BB9E1B2D3BF0C70089667A /* NSManagedObject+Finder.swift in Sources */,
 				E5168BC92F5452B10000A760 /* HabitDateRangeEditViewController.swift in Sources */,
 				E5B2BC8A2F6E7DA400DC1721 /* HabitRecordMenuController.swift in Sources */,
 				E5C92F602FD2B0000051F355 /* TodoTaskMoveSectionCell.swift in Sources */,
@@ -11809,6 +11824,7 @@
 				E5BBA0E72D3BF4A50089667A /* Date+DateRange.swift in Sources */,
 				E52EF6282FB32DB8002CF355 /* CalendarWeekNumberContainerView.swift in Sources */,
 				E549B1512F85F6030014BE85 /* TodoTaskProcessorUpdater.swift in Sources */,
+				E5E5BDBF2FE41AF5008D3F64 /* NSManagedObjectContext+Actions.swift in Sources */,
 				E524C78D2F9C514F005CCEBD /* TodoSmartListDisplaySettingViewController.swift in Sources */,
 				E5EFB16D2F597215000FFDF4 /* HabitTaskBaseMenuController.swift in Sources */,
 				E58C9E152F4AF0DC0096B842 /* FocusTimelineSynchronizer.swift in Sources */,
@@ -11818,6 +11834,7 @@
 				E5BB9DF12D3BF0C60089667A /* Date+DateComponents.swift in Sources */,
 				E5EFB1642F591354000FFDF4 /* HabitTaskProcessorUpdater.swift in Sources */,
 				E5D7D90E2D43933700EC877A /* StatsContentViewController.swift in Sources */,
+				E5E5BDBB2FE3E9EF008D3F64 /* PredicateCondition.swift in Sources */,
 				E59243CB2F50054200CA2393 /* HabitHomeDayViewController.swift in Sources */,
 				E5BB9E4F2D3BF0C70089667A /* TPCalendarSingleDateSelection.swift in Sources */,
 				E5D7D9062D43933600EC877A /* PomodoroFragmentLayer.swift in Sources */,
@@ -11881,7 +11898,7 @@
 				E5BB9F112D3BF0C90089667A /* TPKeyboardAdjuster.swift in Sources */,
 				E5BB9DAF2D3BF0C60089667A /* TPWaveIndicatorView.swift in Sources */,
 				E5B499512FD9132C00F3A9BD /* IAPManager.swift in Sources */,
-				E5BB9E232D3BF0C70089667A /* NSPersistentStoreCoordinator+HandyRecord.swift in Sources */,
+				E5BB9E232D3BF0C70089667A /* NSPersistentStoreCoordinator+Setup.swift in Sources */,
 				E549B1602F88D2940014BE85 /* TodoTaskPriorityBarButtonItem.swift in Sources */,
 				E5BB9E892D3BF0C80089667A /* BarElementView.swift in Sources */,
 				E5BB9E9E2D3BF0C80089667A /* HeatMapLevel.swift in Sources */,
@@ -11977,7 +11994,6 @@
 				E53DCEED2F61AD7600ADA526 /* HabitDaySheetMenuViewController.swift in Sources */,
 				E5BB9EC22D3BF0C80089667A /* TPDurationPickerView.swift in Sources */,
 				E51B28ED2FA7782B006B3352 /* TodoTaskBoardViewController.swift in Sources */,
-				E5BB9E162D3BF0C70089667A /* HandyRecord+iCloud.swift in Sources */,
 				E5FC6BC62F66A44D00D5A5EA /* HabitStatsCalendarMonthView.swift in Sources */,
 				E507E7A72F52D25C003004C4 /* HabitGoalTargetEditCell.swift in Sources */,
 				E52EF62C2FB4A418002CF355 /* CalendarEventDurationEditViewController.swift in Sources */,
@@ -12129,6 +12145,7 @@
 				E57CC5B12F7F61F000ADDBA4 /* TodoSmartListInteractor.swift in Sources */,
 				E50D02452F552FAF00E93977 /* HabitTimeSelectView.swift in Sources */,
 				E549B19D2F89F7C20014BE85 /* TodoStep.swift in Sources */,
+				E5E5BDB52FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift in Sources */,
 				E5BB9DC82D3BF0C60089667A /* FocusAnimatable.swift in Sources */,
 				E53632882FAB72C00095DFEC /* QuadrantMainViewController.swift in Sources */,
 				E56B949B2F8DD61A001E488B /* TodoSmartTaskListViewController.swift in Sources */,
@@ -12392,7 +12409,7 @@
 				E5BB9EC32D3BF0C80089667A /* TPDurationPickerTableCell.swift in Sources */,
 				E5D7D7E92D43923800EC877A /* FocusSystemTimerManager.swift in Sources */,
 				E53F32BE2F6998F600B85B65 /* HabitReportMonthRender.swift in Sources */,
-				E58F46C92F7BF5580046FA96 /* NSSortDescriptor+HandyRecord.swift in Sources */,
+				E58F46C92F7BF5580046FA96 /* NSSortDescriptor+CoreData.swift in Sources */,
 				E55549522F762E9800C9460D /* TaskBindViewController.swift in Sources */,
 				E5BB9DF52D3BF0C60089667A /* Date+Symbol.swift in Sources */,
 				E58F46B12F7AAD4B0046FA96 /* TodoParentListPickerViewController.swift in Sources */,
@@ -12408,7 +12425,6 @@
 				E5BB9DE62D3BF0C60089667A /* UIViewController+Extensions.swift in Sources */,
 				E5D7D8BA2D43933600EC877A /* CountdownProgressInfoView.swift in Sources */,
 				E51B28EB2FA5BEC3006B3352 /* HabitListPlaceholderProvider.swift in Sources */,
-				E5BB9E182D3BF0C70089667A /* KeyValueEntry+CoreDataProperties.swift in Sources */,
 				E5BB9F0A2D3BF0C90089667A /* TPWeakProxy.swift in Sources */,
 				E5BB9EBD2D3BF0C80089667A /* TPTimePickerView.swift in Sources */,
 				E5BB9F042D3BF0C90089667A /* TPDragInsertFlashMonitor.swift in Sources */,
@@ -12426,7 +12442,6 @@
 				E5D7D9222D43933700EC877A /* FocusPresenter.swift in Sources */,
 				E556BCDF2F5D9F8900CA20D9 /* ReasonTag.swift in Sources */,
 				E53B11372F94D1B300701410 /* TodoFilterTagEditViewController.swift in Sources */,
-				E5BB9E1E2D3BF0C70089667A /* NSManagedObject+Fetch.swift in Sources */,
 				E56643222FDE34AA00348C47 /* CalendarEventPreviewInfoView.swift in Sources */,
 				E500E39F2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift in Sources */,
 				E529ACC62F7E0100000EA2F1 /* TodoSmartListSectionController.swift in Sources */,
@@ -12439,7 +12454,7 @@
 				E5926DD12D4C6392007D5A6A /* TPColorSelectTableCell.swift in Sources */,
 				E555495F2F76870D00C9460D /* HabitTaskBindSearchResultSectionController.swift in Sources */,
 				E5BB9DF82D3BF0C60089667A /* NSObject+Diffable.swift in Sources */,
-				E5BB9E1F2D3BF0C70089667A /* NSPersistentStore+HandyRecord.swift in Sources */,
+				E5BB9E1F2D3BF0C70089667A /* NSPersistentStore+Setup.swift in Sources */,
 				E50D5FEA2F7A0F5100D5E0A4 /* TodoRepository.swift in Sources */,
 				E5BB9B3B2D3BEF920089667A /* IGListIndexPathResult.m in Sources */,
 				E5BB9F0D2D3BF0C90089667A /* TPBaseMenuController.swift in Sources */,
@@ -12486,6 +12501,7 @@
 				E58C9E1D2F4AF0DC0096B842 /* FocusTimelineEventListView.swift in Sources */,
 				E59243FF2F51572D00CA2393 /* HabitEditingTask.swift in Sources */,
 				E521E3592F6A50110071DA12 /* HabitReportYearlyMonthRender.swift in Sources */,
+				E5E5BDB72FE3E698008D3F64 /* CoreDataEntityName.swift in Sources */,
 				E5BB9E7E2D3BF0C70089667A /* StatsBarChartSectionController.swift in Sources */,
 				E556BCEA2F5E5EB500CA20D9 /* HabitRecordController.swift in Sources */,
 				E5320C312FCA949E001DFE98 /* TodoImportInputViewController.swift in Sources */,

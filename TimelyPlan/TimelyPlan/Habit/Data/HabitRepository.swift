@@ -202,7 +202,7 @@ extension HabitRepository {
         }
         
         let predicate = conditions.andPredicate()
-        CDHabitRecord.findAll(with: predicate) { results in
+        CDHabitRecord.fetchAll(matching: predicate) { results in
             completion(results as? [CDHabitRecord])
         }
     }
@@ -211,7 +211,7 @@ extension HabitRepository {
                              completion: @escaping([CDHabitRecord]?)->Void) {
         let condition = CDHabitRecord.condition(in: dateRange)
         let predicate = NSPredicate.predicate(with: condition)
-        CDHabitRecord.findAll(with: predicate) { results in
+        CDHabitRecord.fetchAll(matching: predicate) { results in
             completion(results as? [CDHabitRecord])
         }
     }
@@ -226,7 +226,7 @@ extension HabitRepository {
         }
         
         let predicate = NSPredicate.predicate(with: condition)
-        CDHabitRecord.findAll(with: predicate) { results in
+        CDHabitRecord.fetchAll(matching: predicate) { results in
             completion(results as? [CDHabitRecord])
         }
     }

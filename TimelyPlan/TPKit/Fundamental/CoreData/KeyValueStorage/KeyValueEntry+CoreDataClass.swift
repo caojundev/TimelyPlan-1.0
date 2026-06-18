@@ -13,3 +13,9 @@ import CoreData
 public class KeyValueEntry: NSManagedObject {
     
 }
+
+extension KeyValueEntry : Identifiable {
+    @NSManaged public var key: String?
+    @NSManaged public var value: String?
+    @NSManaged public var modificationDate: Date?
+}

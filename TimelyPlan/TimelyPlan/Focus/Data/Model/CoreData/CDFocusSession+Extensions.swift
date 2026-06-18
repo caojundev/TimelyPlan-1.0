@@ -105,7 +105,7 @@ extension CDFocusSession {
                                   fromDate: fromDate,
                                   toDate: toDate,
                                   includeArchivedTimer: includeArchivedTimer)
-        findAll(with: predicate) { results in
+        fetchAll(matching: predicate) { results in
             completion(results as? [CDFocusSession])
         }
     }
@@ -140,7 +140,7 @@ extension CDFocusSession {
                                   fromDate: fromDate,
                                   toDate: toDate,
                                   includeArchivedTimer: includeArchivedTimer)
-        findAll(with: predicate, sortedBy: FocusSessionKey.startDate, ascending: true) { results in
+        fetchAll(matching: predicate, sortBy: FocusSessionKey.startDate, ascending: true) { results in
             completion(results as? [CDFocusSession])
         }
     }
@@ -159,7 +159,7 @@ extension CDFocusSession {
     static func getSession(withIdentifier identifier: String) -> CDFocusSession? {
         let condition: PredicateCondition = (FocusSessionKey.identifier, .equal(identifier))
         let predicate = NSPredicate.predicate(with: condition)
-        return findFirst(withPredicate: predicate, in: .defaultContext)
+        return getFirst(matching: predicate, in: .defaultContext)
     }
     
     /// 获取任务使用计时器在特定日期专注时长
@@ -253,7 +253,7 @@ extension CDFocusSession {
                                       completion: @escaping([CDFocusSession]?) -> Void) {
         let condition: PredicateCondition = (FocusSessionKey.timerID, .equal(timerID))
         let predicate = NSPredicate.predicate(with: condition)
-        findAll(with: predicate) { results in
+        fetchAll(matching: predicate) { results in
             completion(results as? [CDFocusSession])
         }
     }
@@ -264,7 +264,7 @@ extension CDFocusSession {
         let conditions: [PredicateCondition] = [(FocusSessionKey.taskType, .equal(taskType.rawValue)),
                                                 (FocusSessionKey.taskID, .equal(taskID))]
         let predicate = conditions.andPredicate()
-        findAll(with: predicate) { results in
+        fetchAll(matching: predicate) { results in
             completion(results as? [CDFocusSession])
         }
     }
