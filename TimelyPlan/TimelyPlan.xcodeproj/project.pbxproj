@@ -8242,7 +8242,7 @@
 				E55549622F76A71D00C9460D /* Protocols */,
 				E590CA9A2F4DF82600E66041 /* Storage */,
 				E5BB9C122D3BF0C40089667A /* Notification */,
-				E5E5BDB82FE3E868008D3F64 /* CoreData */,
+				E5E5BDB82FE3E868008D3F64 /* HandyRecord */,
 			);
 			path = Fundamental;
 			sourceTree = "<group>";
@@ -10034,7 +10034,7 @@
 			path = option;
 			sourceTree = "<group>";
 		};
-		E5E5BDB82FE3E868008D3F64 /* CoreData */ = {
+		E5E5BDB82FE3E868008D3F64 /* HandyRecord */ = {
 			isa = PBXGroup;
 			children = (
 				E5BB9C1C2D3BF0C40089667A /* HandyRecord.swift */,
@@ -10043,7 +10043,7 @@
 				E5BB9C1E2D3BF0C40089667A /* KeyValueStorage */,
 				E5E5BDBC2FE3EA2D008D3F64 /* Extensions */,
 			);
-			path = CoreData;
+			path = HandyRecord;
 			sourceTree = "<group>";
 		};
 		E5E5BDB92FE3E90D008D3F64 /* NSPredicate */ = {
