@@ -37,11 +37,35 @@ final class HabitRepository {
     private static let recordProcessor = HabitRecordProcessor()
 
     // MARK: Updater
-
+    // MARK: - 注册远程数据变更
+    private static var isRemoteChangeObserved = false
+    private static func observeRemoteChangeIfNeeded() {
+        if isRemoteChangeObserved {
+            return
+        }
+        
+        isRemoteChangeObserved = true
+        HandyRecord.observeRemoteChange { changeInfo in
+            let entityNames = changeInfo.entityNames
+            if entityNames.contains(.habitTask) {
+                taskManager.updater.remoteHabitTaskDidChange()
+            }
+            
+            if entityNames.contains(.habitRecord) ||
+                entityNames.contains(.habitSample) {
+                recordProcessor.updater.remoteHabitRecordDidChange()
+            }
+        }
+    }
+    
+    // MARK: - 添加处理更新器
+    /// 添加更新器代理对象
     static func addUpdater(_ updater: AnyObject, for option: HabitUpdaterOption = .all) {
+        observeRemoteChangeIfNeeded()
         if option.contains(.task) {
             taskManager.updater.addDelegate(updater)
         }
+        
         if option.contains(.record) {
             recordProcessor.updater.addDelegate(updater)
         }

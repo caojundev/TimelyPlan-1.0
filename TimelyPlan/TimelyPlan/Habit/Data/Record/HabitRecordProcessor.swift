@@ -10,6 +10,9 @@ import Foundation
 /// 习惯记录处理通知协议
 protocol HabitRecordProcessorDelegate: AnyObject{
     
+    /// 远程习惯记录改变
+    func remoteHabitRecordDidChange()
+    
     /// 通知习惯记录已更新
     func didUpdateHabitRecord(_ record: HabitRecord,
                               for task: HabitTask,
@@ -21,12 +24,18 @@ protocol HabitRecordProcessorDelegate: AnyObject{
 }
 
 extension HabitRecordProcessorDelegate {
-    
+    func remoteHabitRecordDidChange() {}
     func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {}
 }
 
 class HabitRecordProcessorUpdater: NSObject, HabitRecordProcessorDelegate {
 
+    func remoteHabitRecordDidChange() {
+        notifyDelegates { (delegate: HabitRecordProcessorDelegate) in
+            delegate.remoteHabitRecordDidChange()
+        }
+    }
+    
     func didUpdateHabitRecord(_ record: HabitRecord,
                               for task: HabitTask,
                               on date: Date,

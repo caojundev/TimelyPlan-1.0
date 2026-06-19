@@ -140,13 +140,19 @@ class HandyRecord {
     private static func configureRemoteChangeManager(with container: NSPersistentCloudKitContainer) {
         let changeManager = CoreDataRemoteChangeManager.shared
         changeManager.configure(with: container)
-        
+#if DEBUG
         // 监听远程变更并在主线程打印调试信息
         changeManager.observe(on: .main) { changeInfo in
             print("========== 远程数据变更 ==========")
             print(changeInfo.debugDescription)
             print("==================================\n")
         }
+#endif
+    }
+    
+    // 监听远程变更
+    static func observeRemoteChange(handler: @escaping CoreDataRemoteChangeHandler) {
+        CoreDataRemoteChangeManager.shared.observe(on: .main, handler: handler)
     }
     
     /// 根据名称初始化持久化容器
@@ -161,7 +167,7 @@ class HandyRecord {
         
         // 获取并验证持久化存储描述
         guard let description = container.persistentStoreDescriptions.first else {
-            NSLog("无法获取持久化存储描述")
+            debugPrint("无法获取持久化存储描述")
             completion(nil)
             return
         }

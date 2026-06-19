@@ -140,28 +140,35 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
     }
     
     // MARK: - HabitTaskProcessorDelegate
+    func remoteHabitTaskDidChange() {
+        loadGroups(forceRefresh: true)
+    }
+    
     func didCreateHabitTask(_ task: HabitTask) {
-        self.loadGroups(forceRefresh: true, change: .create(task))
+        loadGroups(forceRefresh: true, change: .create(task))
     }
 
     func didUpdateHabitTask(_ task: HabitTask) {
-        self.loadGroups(forceRefresh: true, change: .update(task))
+        loadGroups(forceRefresh: true, change: .update(task))
     }
     
     func didDeleteHabitTask(_ task: HabitTask) {
-        self.loadGroups(forceRefresh: true)
+        loadGroups(forceRefresh: true)
     }
     
     func didChangeArchivedState(for task: HabitTask) {
-        self.loadGroups(forceRefresh: true)
+        loadGroups(forceRefresh: true)
     }
     
     func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
-        self.loadGroups(forceRefresh: true)
+        loadGroups(forceRefresh: true)
     }
     
     
     // MARK: - HabitRecordProcessorDelegate
+    func remoteHabitRecordDidChange() {
+        loadGroups(forceRefresh: true)
+    }
     
     func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
         updateHabitRecord(record, for: task, on: date)

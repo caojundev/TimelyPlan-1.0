@@ -74,6 +74,10 @@ class FocusStatsContentViewController: StatsContentViewController,
     }
 
     // MARK: - FocusSessionProcessorDelegate
+    func remoteFocusSessionDidChange() {
+        reloadData()
+    }
+    
     func didAddFocusSessions(_ sessions: [FocusSession]) {
         var shouldReload = false
         for session in sessions {
@@ -84,16 +88,16 @@ class FocusStatsContentViewController: StatsContentViewController,
         }
         
         if shouldReload {
-            self.reloadData()
+            reloadData()
         }
     }
     
     func didUpdateFocusSession(_ session: FocusSession) {
-        self.reloadData()
+        reloadData()
     }
     
     func didDeleteFocusSession(_ session: FocusSession) {
-        self.reloadData()
+        reloadData()
     }
     
 }

@@ -9,19 +9,30 @@ import Foundation
 import CoreData
 import Combine
 
+// MARK: - 类型定义
+typealias CoreDataRemoteChangeHandler = (CoreDataRemoteChangeManager.ChangeInfo) -> Void
+
 // MARK: - 远程数据变更管理器
 class CoreDataRemoteChangeManager {
     
     // MARK: - 单例
     static let shared = CoreDataRemoteChangeManager()
     
-    // MARK: - 类型定义
-    typealias RemoteChangeHandler = (ChangeInfo) -> Void
-    
     // MARK: - 变更信息模型
     struct ChangeInfo {
         let timestamp: Date
         let changesByEntity: [String: EntityChanges]
+        
+        var entityNames: [EntityName] {
+            var names = [EntityName]()
+            for key in changesByEntity.keys {
+                if let name = EntityName(rawValue: key) {
+                    names.append(name)
+                }
+            }
+            
+            return names
+        }
         
         var debugDescription: String {
             var desc = "📱 远程数据变更 [\(timestamp)]\n"
@@ -55,7 +66,7 @@ class CoreDataRemoteChangeManager {
     // MARK: - 私有属性
     private var container: NSPersistentCloudKitContainer?
     private var lastHistoryToken: NSPersistentHistoryToken?
-    private var handlers: [(handler: RemoteChangeHandler, queue: DispatchQueue)] = []
+    private var handlers: [(handler: CoreDataRemoteChangeHandler, queue: DispatchQueue)] = []
     private let handlerLock = NSLock()
     private let tokenKey = "CoreDataRemoteChangeToken"
     
@@ -82,7 +93,7 @@ class CoreDataRemoteChangeManager {
     /// - Parameters:
     ///   - queue: 回调执行的队列，默认为主队列
     ///   - handler: 变更处理闭包
-    func observe(on queue: DispatchQueue = .main, handler: @escaping RemoteChangeHandler) {
+    func observe(on queue: DispatchQueue = .main, handler: @escaping CoreDataRemoteChangeHandler) {
         handlerLock.lock()
         handlers.append((handler: handler, queue: queue))
         handlerLock.unlock()

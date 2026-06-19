@@ -105,6 +105,9 @@ class HabitStatsMainViewController: StatsMainViewController,
     }
     
     // MARK: - HabitRecordProcessorDelegate
+    func remoteHabitRecordDidChange() {
+        reloadContentViewController()
+    }
     
     /// 通知习惯记录已更新
     func didUpdateHabitRecord(_ record: HabitRecord,

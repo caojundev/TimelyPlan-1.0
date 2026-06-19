@@ -96,29 +96,33 @@ class FocusRecordListViewController: StatsContentViewController,
     }
     
     // MARK: - FocusSessionProcessorDelegate
+    func remoteFocusSessionDidChange() {
+        performUpdate()
+    }
+    
     func didAddFocusSessions(_ sessions: [FocusSession]) {
         guard sessions.count == 1, let session = sessions.first else {
-            self.performUpdate()
+            performUpdate()
             return
         }
         
-        guard let date = session.startDate, self.dateRange.contains(date: date) else {
+        guard let date = session.startDate, dateRange.contains(date: date) else {
             return
         }
         
-        self.performUpdate { [weak self] in
+        performUpdate { [weak self] in
             self?.adapter.revealItem(session, autoScroll: true)
         }
     }
     
     func didUpdateFocusSession(_ session: FocusSession) {
-        self.performUpdate { [weak self] in
+        performUpdate { [weak self] in
             self?.adapter.revealItem(session, autoScroll: true)
         }
     }
     
     func didDeleteFocusSession(_ session: FocusSession) {
-        self.performUpdate()
+        performUpdate()
     }
     
 }

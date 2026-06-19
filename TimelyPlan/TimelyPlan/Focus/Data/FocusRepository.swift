@@ -24,11 +24,6 @@ struct FocusUpdaterOption: OptionSet {
 
 class FocusRepository {
     
-    // MARK: - 单例
-    static let shared = FocusRepository()
-    
-    private init() {}
-    
     // MARK: - 私有管理器
     /// 系统计时器管理器
     private static let systemTimerManager = FocusSystemTimerManager()
@@ -39,9 +34,31 @@ class FocusRepository {
     /// 会话管理器
     private static let sessionManager = FocusSessionManager()
     
+    // MARK: - 注册远程数据变更
+    private static var isRemoteChangeObserved = false
+    private static func observeRemoteChangeIfNeeded() {
+        if isRemoteChangeObserved {
+            return
+        }
+        
+        isRemoteChangeObserved = true
+        HandyRecord.observeRemoteChange { changeInfo in
+            let entityNames = changeInfo.entityNames
+            if entityNames.contains(.focusTimer) {
+                userTimerManager.updater.remoteFocusTimerDidChange()
+            }
+            
+            if entityNames.contains(.focusSession) {
+                sessionManager.updater.remoteFocusSessionDidChange()
+            }
+        }
+    }
+    
     // MARK: - 添加处理更新器
     /// 添加更新器代理对象
     static func addUpdater(_ updater: AnyObject, for option: FocusUpdaterOption = .all) {
+        observeRemoteChangeIfNeeded()
+        
         if option.contains(.timer) {
             userTimerManager.updater.addDelegate(updater)
         }

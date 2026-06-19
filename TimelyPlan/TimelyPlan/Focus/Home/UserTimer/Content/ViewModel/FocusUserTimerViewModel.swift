@@ -14,7 +14,6 @@ enum FocusUserTimerChange {
 
 class FocusUserTimerViewModel: FocusTimerProcessorDelegate {
     
-
     private(set) var timers: [FocusTimer]?
     
     /// 计时器改变
@@ -75,6 +74,11 @@ class FocusUserTimerViewModel: FocusTimerProcessorDelegate {
     }
     
     // MARK: - FocusTimerProcessorDelegate
+    func remoteFocusTimerDidChange() {
+        setNeedsRefresh()
+        loadTimers()
+    }
+    
     func didCreateFocusTimer(_ timer: FocusTimer) {
         setNeedsRefresh()
         loadTimers(with: .create(timer))

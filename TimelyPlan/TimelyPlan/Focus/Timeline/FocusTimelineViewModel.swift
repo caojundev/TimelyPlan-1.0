@@ -57,6 +57,10 @@ class FocusTimelineViewModel: FocusSessionProcessorDelegate {
     }
     
     // MARK: - FocusSessionProcessorDelegate
+    func remoteFocusSessionDidChange() {
+        loadEvents()
+    }
+    
     func didAddFocusSessions(_ sessions: [FocusSession]) {
         var shouldReload: Bool = false
         for session in sessions {

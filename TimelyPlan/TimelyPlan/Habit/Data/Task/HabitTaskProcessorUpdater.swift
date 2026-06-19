@@ -10,6 +10,9 @@ import Foundation
 /// 习惯任务处理通知协议
 protocol HabitTaskProcessorDelegate: AnyObject{
     
+    /// 远程习惯任务改变
+    func remoteHabitTaskDidChange()
+    
     /// 添加任务时通知
     func didCreateHabitTask(_ task: HabitTask)
     
@@ -27,6 +30,7 @@ protocol HabitTaskProcessorDelegate: AnyObject{
 }
 
 extension HabitTaskProcessorDelegate {
+    func remoteHabitTaskDidChange() {}
     func didCreateHabitTask(_ task: HabitTask) {}
     func didUpdateHabitTask(_ task: HabitTask) {}
     func didDeleteHabitTask(_ task: HabitTask) {}
@@ -37,6 +41,12 @@ extension HabitTaskProcessorDelegate {
 class HabitTaskProcessorUpdater: NSObject,
                                   HabitTaskProcessorDelegate {
 
+    func remoteHabitTaskDidChange() {
+        notifyDelegates { (delegate: HabitTaskProcessorDelegate) in
+            delegate.remoteHabitTaskDidChange()
+        }
+    }
+    
     func didCreateHabitTask(_ task: HabitTask) {
         notifyDelegates { (delegate: HabitTaskProcessorDelegate) in
             delegate.didCreateHabitTask(task)

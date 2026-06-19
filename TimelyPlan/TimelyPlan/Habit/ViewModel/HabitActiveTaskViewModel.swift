@@ -77,6 +77,11 @@ class HabitActiveTaskViewModel: HabitTaskProcessorDelegate {
     }
     
     // MARK: - HabitTaskProcessorDelegate
+    func remoteHabitTaskDidChange() {
+        setNeedsRefresh()
+        loadTasks(with: nil)
+    }
+    
     func didCreateHabitTask(_ task: HabitTask) {
         setNeedsRefresh()
         loadTasks(with: .create(task))

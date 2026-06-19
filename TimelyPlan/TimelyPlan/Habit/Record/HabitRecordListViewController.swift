@@ -86,14 +86,18 @@ class HabitRecordListViewController: StatsContentViewController,
     }
     
     // MARK: - HabitRecordProcessorDelegate
+    func remoteHabitRecordDidChange() {
+        performUpdate()
+    }
+    
     func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
-        self.performUpdate { [weak self] in
+        performUpdate { [weak self] in
             let dailyItem = HabitDailyItem(record: record, task: task)
             self?.adapter.revealItem(dailyItem, autoScroll: true)
         }
     }
     
     func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
-        self.performUpdate()
+        performUpdate()
     }
 }

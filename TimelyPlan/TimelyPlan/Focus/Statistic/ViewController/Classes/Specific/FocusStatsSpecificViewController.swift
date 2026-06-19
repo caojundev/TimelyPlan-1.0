@@ -90,15 +90,19 @@ class FocusStatsSpecificViewController: FocusStatsBaseViewController,
     }
     
     // MARK: - FocusSessionProcessorDelegate
+    func remoteFocusSessionDidChange() {
+        infoView.reloadData()
+    }
+    
     func didAddFocusSessions(_ sessions: [FocusSession]) {
-        self.infoView.reloadData()
+        infoView.reloadData()
     }
     
     func didUpdateFocusSession(_ session: FocusSession) {
-        self.infoView.reloadData()
+        infoView.reloadData()
     }
     
     func didDeleteFocusSession(_ session: FocusSession) {
-        self.infoView.reloadData()
+        infoView.reloadData()
     }
 }

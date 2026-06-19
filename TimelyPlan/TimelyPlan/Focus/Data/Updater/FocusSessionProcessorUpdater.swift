@@ -17,6 +17,9 @@ protocol FocusSessionProcessorDelegate {
     
     /// 删除专注会话
     func didDeleteFocusSession(_ session: FocusSession)
+    
+    /// 远程专注会话改变
+    func remoteFocusSessionDidChange()
 }
 
 extension FocusSessionProcessorDelegate {
@@ -26,6 +29,8 @@ extension FocusSessionProcessorDelegate {
     func didUpdateFocusSession(_ session: FocusSession) {}
     
     func didDeleteFocusSession(_ session: FocusSession) {}
+    
+    func remoteFocusSessionDidChange() {}
 }
 
 class FocusSessionProcessorUpdater: NSObject,
@@ -47,6 +52,12 @@ class FocusSessionProcessorUpdater: NSObject,
     func didUpdateFocusSession(_ session: FocusSession) {
         notifyDelegates { (delegate: FocusSessionProcessorDelegate) in
             delegate.didUpdateFocusSession(session)
+        }
+    }
+    
+    func remoteFocusSessionDidChange() {
+        notifyDelegates { (delegate: FocusSessionProcessorDelegate) in
+            delegate.remoteFocusSessionDidChange()
         }
     }
 }

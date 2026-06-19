@@ -28,33 +28,26 @@ protocol FocusTimerProcessorDelegate: AnyObject {
     func didReorderFocusTimer(in timers: [FocusTimer],
                               fromIndex: Int,
                               toIndex: Int)
+    
+    /// 远程计时器改变
+    func remoteFocusTimerDidChange()
 }
 
 extension FocusTimerProcessorDelegate {
 
-    func didCreateFocusTimer(_ timer: FocusTimer) {
-        
-    }
+    func didCreateFocusTimer(_ timer: FocusTimer) {}
 
-    func didChangeArchivedState(_ isArchived: Bool, for timer: FocusTimer) {
-        
-    }
+    func didChangeArchivedState(_ isArchived: Bool, for timer: FocusTimer) {}
     
-    func didDeleteFocusTimer(_ timer: FocusTimer) {
-        
-    }
+    func didDeleteFocusTimer(_ timer: FocusTimer) {}
 
-    func didUpdateFocusTimer(_ timer: FocusTimer) {
-        
-    }
+    func didUpdateFocusTimer(_ timer: FocusTimer) {}
 
-    func didMoveFocusTimerToTop(_ timer: FocusTimer) {
-        
-    }
+    func didMoveFocusTimerToTop(_ timer: FocusTimer) {}
 
-    func didReorderFocusTimer(in timers: [FocusTimer], fromIndex: Int, toIndex: Int) {
-        
-    }
+    func didReorderFocusTimer(in timers: [FocusTimer], fromIndex: Int, toIndex: Int) {}
+    
+    func remoteFocusTimerDidChange() {}
 }
 
 class FocusTimerProcessorUpdater: NSObject,
@@ -93,6 +86,12 @@ class FocusTimerProcessorUpdater: NSObject,
     func didMoveFocusTimerToTop(_ timer: FocusTimer) {
         notifyDelegates { (delegate: FocusTimerProcessorDelegate) in
             delegate.didMoveFocusTimerToTop(timer)
+        }
+    }
+    
+    func remoteFocusTimerDidChange() {
+        notifyDelegates { (delegate: FocusTimerProcessorDelegate) in
+            delegate.remoteFocusTimerDidChange()
         }
     }
 }
