@@ -31,11 +31,6 @@ class TodoBaseListSelectViewController: TPTableSectionsViewController,
         }
     }
     
-    /// 当前显示的顶层列表
-    var topLists: [TodoList] {
-        return userSectionController.lists.topLists
-    }
-    
     /// 用户列表区块控制器
     private(set) lazy var userSectionController: TodoUserListSelectSectionController = {
         let sectionController = TodoUserListSelectSectionController(allowMaxDepth: self.allowMaxDepth)

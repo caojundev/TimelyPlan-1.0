@@ -74,8 +74,12 @@ class TodoList: NSObject,
         return identifier
     }
     
-    init(content: CDTodoList) {
-        self.identifier = content.identifier ?? UUID().uuidString
+    init?(content: CDTodoList) {
+        guard let identifier = content.identifier else {
+            return nil
+        }
+        
+        self.identifier = identifier
         self.order = content.order
         self.emoji = content.emoji
         self.name = content.name

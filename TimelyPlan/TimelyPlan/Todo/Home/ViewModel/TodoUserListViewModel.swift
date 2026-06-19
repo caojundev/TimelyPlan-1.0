@@ -37,11 +37,6 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     
     /// 顶层清单
     private var topLists: [TodoList]?
-
-    /// 是否需要刷新任务
-    private var needsRefresh = true
-
-    private let requestManager = TPRequestManager()
     
     let expansionState: ExpansionStateProviding
     
@@ -51,33 +46,10 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
         TodoRepository.addUpdater(self)
     }
     
-    func setNeedsRefresh() {
-        self.needsRefresh = true
-    }
-    
     // MARK: -
     func loadTopLists(with change: TodoUserListChange? = nil, completion: (() -> Void)? = nil) {
-        let requestID = requestManager.executeRequest()
-        loadTopListsIfNeeded {[weak self] lists in
-            guard let self = self, self.requestManager.shouldProceed(with: requestID) else {
-                completion?()
-                return
-            }
-
-            self.topLists = lists
-            self.needsRefresh = false
-            self.userListDidChange?(change)
-            completion?()
-        }
-    }
-    
-    private func loadTopListsIfNeeded(completion: @escaping ([TodoList]?) -> Void) {
-        guard self.needsRefresh else {
-            completion(self.topLists)
-            return
-        }
-        
-        TodoRepository.fetchTopLists(completion: completion)
+        topLists = TodoRepository.getTopLists()
+        userListDidChange?(change)
     }
     
     private func lists(with stateProvier: ExpansionStateProviding) -> [TodoList] {
@@ -107,31 +79,26 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
 extension TodoUserListViewModel: TodoListProcessorDelegate {
     
     func remoteTodoListDidChange() {
-        setNeedsRefresh()
         loadTopLists()
     }
     
     /// 添加新组时通知
     func didCreateTodoList(_ list: TodoList) {
         expandAllParent(of: list)
-        setNeedsRefresh()
         loadTopLists(with: .create(list))
     }
     
     /// 更新列表信息通知
     func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
-        setNeedsRefresh()
         loadTopLists(with: .update(list))
     }
     
     func didUngroupList(_ list: TodoList) {
-        setNeedsRefresh()
         loadTopLists()
     }
     
     /// 删除列表时通知
     func didDeleteTodoLists(_ lists: [TodoList]) {
-        setNeedsRefresh()
         loadTopLists()
     }
     
@@ -141,18 +108,13 @@ extension TodoUserListViewModel: TodoListProcessorDelegate {
             expandAllParent(of: parent, includeCurrent: true)
         }
         
-        setNeedsRefresh()
         loadTopLists()
     }
 
     /// 重新列表排序
     func didReorderTodoList(_ list: TodoList) {
         expandAllParent(of: list, includeCurrent: false)
-        
-        /// 同步更新列表
-        self.topLists = TodoRepository.getTopLists()
-        self.needsRefresh = false
-        self.userListDidChange?(nil)
+        loadTopLists()
     }
 }
 

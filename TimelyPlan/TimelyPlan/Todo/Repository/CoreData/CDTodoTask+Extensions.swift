@@ -72,7 +72,7 @@ extension CDTodoTask: SortableIdentifiable {
             return nil
         }
         
-        return cdTags.map { TodoTag(content: $0) }
+        return cdTags.compactMap { TodoTag(content: $0) }
     }
     
     var priority: TodoTaskPriority {

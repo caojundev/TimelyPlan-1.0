@@ -93,11 +93,9 @@ class TodoBaseListPickerViewController: TPContainerViewController,
     
     // MARK: - UISearchControllerDelegate
     func willPresentSearchController(_ searchController: UISearchController) {
-        let topLists = self.selectViewController.topLists
-        let resultVC = TodoListSearchResultsViewController(selectedList: self.list,
-                                                           disabledLists: self.disabledLists,
-                                                           topLists: topLists,
-                                                           allowMaxDepth: self.allowMaxDepth)
+        let resultVC = TodoListSearchResultsViewController(selectedList: list,
+                                                           disabledLists: disabledLists,
+                                                           allowMaxDepth: allowMaxDepth)
         resultVC.didSelectList = { list in
             self.pickList(list)
         }

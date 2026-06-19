@@ -41,7 +41,7 @@ class TodoRepository {
         HandyRecord.observeRemoteChange { changeInfo in
             let entityNames = changeInfo.entityNames
             if entityNames.contains(.todoList) {
-                userListManager.updater.remoteTodoListDidChange()
+                userListManager.remoteTodoListDidChange()
             }
             
             /*
@@ -91,22 +91,22 @@ class TodoRepository {
 
 // MARK: - 列表相关
 extension TodoRepository {
-   
-    /// 获取列表
-    static func fetchTopLists(completion: @escaping([TodoList]?) -> Void) {
-        return userListManager.fetchTopLists(completion: completion)
-    }
-    
     static func getTopLists() -> [TodoList]? {
-        return userListManager.getTopLists()
+        return userListManager.topLists
     }
     
+    /// 根据标识符获取单个清单
     static func getUserList(of identifier: String) -> TodoList? {
         return userListManager.getUserList(of: identifier)
     }
     
+    /// 根据多个标识符批量获取清单
     static func getUserLists(of identifiers: [String]) -> [TodoList]? {
         return userListManager.getUserLists(of: identifiers)
+    }
+    
+    static func fetchLists(containText text: String, completion: @escaping ([TodoList]?) -> Void) {
+        userListManager.fetchLists(containText: text, completion: completion)
     }
     
     // MARK: - 列表处理

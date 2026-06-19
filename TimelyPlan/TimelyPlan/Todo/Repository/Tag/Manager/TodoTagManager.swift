@@ -16,7 +16,7 @@ class TodoTagManager {
     // MARK: - Providers
     /// 获取所有标签
     func getTags() -> [TodoTag] {
-        return CDTodoTag.getTags()?.tags ?? []
+        return CDTodoTag.getTags()?.toTags ?? []
     }
     
     func getTag(with identifier: String) -> TodoTag? {
@@ -32,12 +32,12 @@ class TodoTagManager {
             return nil
         }
         
-        return cdTags.tags
+        return cdTags.toTags
     }
     
     func fetchTags(completion: @escaping([TodoTag]?) -> Void) {
         CDTodoTag.fetchTags { results in
-            completion(results?.tags)
+            completion(results?.toTags)
         }
     }
     
@@ -49,7 +49,7 @@ class TodoTagManager {
     
     func fetchTags(containText text: String, completion:(@escaping([TodoTag]?) -> Void)) {
         CDTodoTag.fetchTags(containText: text) { results in
-            completion(results?.tags)
+            completion(results?.toTags)
         }
     }
 
@@ -58,11 +58,11 @@ class TodoTagManager {
     /// 新建标签
     func createTag(with editingTag: TodoEditingTag) {
         let onTop = TodoSetting.shared.addTagOnTop
-        guard let content = CDTodoTag.createTag(with: editingTag, onTop: onTop) else {
+        guard let content = CDTodoTag.createTag(with: editingTag, onTop: onTop),
+              let tag = TodoTag(content: content) else {
             return
         }
         
-        let tag = TodoTag(content: content)
         HandyRecord.save()
         updater.didCreateTodoTag(tag)
     }

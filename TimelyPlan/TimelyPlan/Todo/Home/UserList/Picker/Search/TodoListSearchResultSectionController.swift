@@ -20,34 +20,25 @@ class TodoListSearchResultSectionController: TPTableSearchResultSectionControlle
     /// 禁止选择列表
     var disabledLists: [TodoList]?
     
-    /// 顶层列表数组
-    var topLists: [TodoList]?
-
     override func fetchResults(containText text: String, completion: @escaping ([ListDiffable]?) -> Void) {
-        guard let lists = topLists?.flattenItems() as? [TodoList] else {
-            completion(nil)
-            return
-        }
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            let results = lists.filter {
-                $0.name?.localizedCaseInsensitiveContains(text) ?? false
+        TodoRepository.fetchLists(containText: text) { results in
+            guard let results = results else {
+                completion(nil)
+                return
+            }
+
+            var enabledResults: [TodoList] = []
+            var disabledResults: [TodoList] = []
+            for result in results {
+                if self.isDisabledList(result) {
+                    disabledResults.append(result)
+                } else {
+                    enabledResults.append(result)
+                }
             }
             
-            DispatchQueue.main.async {
-                var enabledResults: [TodoList] = []
-                var disabledResults: [TodoList] = []
-                for result in results {
-                    if self.isDisabledList(result) {
-                        disabledResults.append(result)
-                    } else {
-                        enabledResults.append(result)
-                    }
-                }
-                
-                let orderedResults = enabledResults + disabledResults
-                completion(orderedResults)
-            }
+            let orderedResults = enabledResults + disabledResults
+            completion(orderedResults)
         }
     }
     

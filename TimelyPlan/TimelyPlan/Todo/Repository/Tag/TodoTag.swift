@@ -59,8 +59,12 @@ class TodoTag: NSObject,
         return colors[0]
     }
     
-    init(content: CDTodoTag) {
-        self.identifier = content.identifier ?? ""
+    init?(content: CDTodoTag) {
+        guard let identifier = content.identifier else {
+            return nil
+        }
+        
+        self.identifier = identifier
         self.name = content.name
         self.colorHex = content.colorHex
         self.order = content.order

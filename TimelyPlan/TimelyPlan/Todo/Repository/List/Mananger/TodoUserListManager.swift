@@ -13,46 +13,74 @@ class TodoUserListManager {
     /// 列表处理更新器
     let updater = TodoListProcessorUpdater()
     
-    // MARK: - 用户列表数组
-    func fetchUserLists(with stateProvider: ExpansionStateProviding,
-                        completion: @escaping([TodoList]?) -> Void) {
-        CDTodoList.fetchTopLists { results in
-            guard let userLists = results?.userLists else {
-                completion(nil)
-                return
+    private(set) var topLists: [TodoList]?
+    private var listIndex: [String: TodoList] = [:]
+    
+    init() {
+        self.refreshTopLists()
+    }
+    
+    func refreshTopLists() {
+        if let cdTopLists = CDTodoList.getTopLists() {
+            topLists = cdTopLists.toLists
+        } else {
+            topLists = []
+        }
+        
+        rebuildIndex()
+    }
+    
+    // MARK: - Index
+    
+    /// 重建索引
+    private func rebuildIndex() {
+        listIndex.removeAll()
+        indexLists(topLists)
+    }
+    
+    /// 递归索引清单
+    private func indexLists(_ lists: [TodoList]?) {
+        guard let lists = lists else { return }
+        
+        for list in lists {
+            listIndex[list.identifier] = list
+            indexLists(list.sublists)
+        }
+    }
+
+    func remoteTodoListDidChange() {
+        refreshTopLists()
+        updater.remoteTodoListDidChange()
+    }
+    
+    // MARK: - 获取清单
+    
+    /// 根据标识符获取单个清单
+     func getUserList(of identifier: String) -> TodoList? {
+         return listIndex[identifier]
+     }
+     
+     /// 根据多个标识符批量获取清单
+     func getUserLists(of identifiers: [String]) -> [TodoList]? {
+         let lists = identifiers.compactMap { listIndex[$0] }
+         return lists.isEmpty ? nil : lists
+     }
+    
+    func fetchLists(containText text: String, completion: @escaping ([TodoList]?) -> Void) {
+        guard let lists = topLists?.flattenItems() as? [TodoList] else {
+            completion(nil)
+            return
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let results = lists.filter {
+                $0.name?.localizedCaseInsensitiveContains(text) ?? false
             }
             
-            let lists = userLists.flattenItems(with: stateProvider)
-            completion(lists as? [TodoList])
+            DispatchQueue.main.async {
+                completion(results)
+            }
         }
-    }
-    
-    // MARK: - 获取列表
-    func fetchTopLists(completion: @escaping([TodoList]?) -> Void) {
-        return CDTodoList.fetchTopLists { results in
-            completion(results?.userLists)
-        }
-    }
-    
-    func getTopLists() -> [TodoList]? {
-        return CDTodoList.getTopLists()?.userLists
-    }
-    
-    func getUserList(of identifier: String) -> TodoList? {
-        guard let cdList = CDTodoList.getItem(with: identifier) else {
-            return nil
-        }
-        
-        return TodoList(content: cdList)
-    }
-    
-    func getUserLists(of identifiers: [String]) -> [TodoList]? {
-        guard let cdLists = CDTodoList.getItems(with: identifiers) as? [CDTodoList] else {
-            return nil
-        }
-        
-        
-        return cdLists.userLists
     }
     
     // MARK: - 列表操作
@@ -60,9 +88,11 @@ class TodoUserListManager {
     func createList(with editList: TodoEditingList, parent: TodoList?) {
         let onTop = TodoSetting.shared.addListOnTop
         let content = CDTodoList.newList(with: editList, parent: parent, onTop: onTop)
-        let list = TodoList(content: content)
         HandyRecord.save()
-        updater.didCreateTodoList(list)
+        refreshTopLists()
+        if let list = TodoList(content: content) {
+            updater.didCreateTodoList(list)
+        }
     }
     
     /// 更新列表信息
@@ -73,6 +103,7 @@ class TodoUserListManager {
 
         if CDTodoList.updateList(list, with: editingList) {
             HandyRecord.save()
+            list.update(with: editingList)
             updater.didUpdateTodoList(list, with: editingList)
         }
     }
@@ -87,6 +118,7 @@ class TodoUserListManager {
         editingList.layoutType = layoutType
         if CDTodoList.updateList(list, with: editingList) {
             HandyRecord.save()
+            list.update(with: editingList)
             updater.didUpdateTodoList(list, with: editingList)
         }
     }
@@ -98,6 +130,7 @@ class TodoUserListManager {
         }
         
         HandyRecord.save()
+        refreshTopLists()
         updater.didMoveTodoList(list, to: parent)
     }
     
@@ -108,6 +141,7 @@ class TodoUserListManager {
         }
         
         HandyRecord.save()
+        refreshTopLists()
         updater.didUngroupList(list)
     }
     
@@ -115,6 +149,7 @@ class TodoUserListManager {
     func deleteList(_ list: TodoList) {
         if CDTodoList.deleteList(list) {
             HandyRecord.save()
+            refreshTopLists()
             updater.didDeleteTodoLists([list])
         }
     }
@@ -129,6 +164,7 @@ class TodoUserListManager {
         }
         
         HandyRecord.save()
+        refreshTopLists()
         updater.didReorderTodoList(lists[fromIndex])
     }
 

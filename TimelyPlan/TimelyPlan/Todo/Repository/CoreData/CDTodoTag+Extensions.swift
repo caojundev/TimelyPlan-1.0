@@ -129,7 +129,7 @@ extension CDTodoTag {
 
 extension Array where Element == CDTodoTag {
     
-    var tags: [TodoTag] {
-        self.map{ TodoTag(content: $0) }
+    var toTags: [TodoTag] {
+        self.compactMap{ TodoTag(content: $0) }
     }
 }

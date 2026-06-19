@@ -97,8 +97,11 @@ extension CDTodoList: SortableIdentifiable {
             return nil
         }
         
-        return sortedSublists.map { content in
-            let list = TodoList(content: content)
+        return sortedSublists.compactMap { content in
+            guard let list = TodoList(content: content) else {
+                return nil
+            }
+            
             list.parent = parent
             return list
         }
@@ -116,7 +119,6 @@ extension CDTodoList: SortableIdentifiable {
             return section
         }
     }
-    
 }
 
 extension CDTodoList {
@@ -380,7 +382,7 @@ extension CDTodoList {
 
 extension Array where Element == CDTodoList {
     
-    var userLists: [TodoList] {
-        return self.map { TodoList(content: $0) }
+    var toLists: [TodoList] {
+        return compactMap { TodoList(content: $0) }
     }
 }

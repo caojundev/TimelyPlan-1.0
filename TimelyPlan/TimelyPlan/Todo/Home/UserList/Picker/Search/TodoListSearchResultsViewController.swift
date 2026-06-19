@@ -29,12 +29,10 @@ class TodoListSearchResultsViewController: TPTableSectionsViewController,
     
     init(selectedList: TodoListRepresentable?,
          disabledLists: [TodoList]?,
-         topLists: [TodoList]?,
          allowMaxDepth: Int) {
         super.init(style: .insetGrouped)
         resultsSectionController.selectedList = selectedList
         resultsSectionController.disabledLists = disabledLists
-        resultsSectionController.topLists = topLists
         resultsSectionController.allowMaxDepth = allowMaxDepth
     }
     
