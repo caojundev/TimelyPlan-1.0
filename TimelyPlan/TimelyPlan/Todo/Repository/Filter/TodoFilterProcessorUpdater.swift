@@ -10,6 +10,8 @@ import Foundation
 /// 过滤器处理通知协议
 protocol TodoFilterProcessorDelegate: AnyObject{
     
+    func remoteTodoFilterDidChange()
+    
     func didCreateTodoFilter(_ filter: TodoFilter)
 
     func didDeleteTodoFilter(_ filter: TodoFilter)
@@ -31,6 +33,12 @@ extension TodoFilterProcessorDelegate {
 }
 
 class TodoFilterProcessorUpdater: NSObject, TodoFilterProcessorDelegate {
+    
+    func remoteTodoFilterDidChange() {
+        notifyDelegates { (delegate: TodoFilterProcessorDelegate) in
+            delegate.remoteTodoFilterDidChange()
+        }
+    }
     
     func didCreateTodoFilter(_ filter: TodoFilter) {
         notifyDelegates { (delegate: TodoFilterProcessorDelegate) in

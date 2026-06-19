@@ -343,28 +343,38 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         }
     }
     
-    // MARK: - TodoSectionProcessorDelegate,
+    // MARK: - TodoSectionProcessorDelegate
+    func remoteTodoSectionDidChange() {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
     func didCreateTodoSection(_ section: TodoSection, in list: TodoList?) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
     
     func didDeleteTodoSection(_ section: TodoSection) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
         
     func didUpdateTodoSection(_ section: TodoSection) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
     
     func didReorderTodoSection(in sections: [TodoSection], of list: TodoList?, from fromIndex: Int, to toIndex: Int) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
     
     // MARK: - TodoTagProcessorDelegate
+    func remoteTodoTagDidChange() {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
     func didUpdateTodoTag(_ tag: TodoTag, with editingTag: TodoEditingTag) {
         let detailOption = configuration.detailOption()
         guard detailOption.contains(.tag), let tasks = tasks else {

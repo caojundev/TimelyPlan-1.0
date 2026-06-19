@@ -41,25 +41,28 @@ class TodoRepository {
         HandyRecord.observeRemoteChange { changeInfo in
             let entityNames = changeInfo.entityNames
             if entityNames.contains(.todoList) {
-                userListManager.remoteTodoListDidChange()
+                userListManager.refreshTopLists()
+                userListManager.updater.remoteTodoListDidChange()
             }
             
-            /*
             if entityNames.contains(.todoSection) {
-                sectionManager.updater.remoteHabitTaskDidChange()
+                userListManager.refreshTopLists()
+                sectionManager.updater.remoteTodoSectionDidChange()
             }
-            
-            if entityNames.contains(.todoTask) {
-                taskManager.updater.remoteHabitTaskDidChange()
-            }
-            
+        
             if entityNames.contains(.todoTag) {
-                tagManager.updater.remoteHabitTaskDidChange()
+                tagManager.updater.remoteTodoTagDidChange()
             }
             
             if entityNames.contains(.todoFilter) {
-                filterManager.updater.remoteHabitTaskDidChange()
+                filterManager.updater.remoteTodoFilterDidChange()
             }
+            
+            /*
+            if entityNames.contains(.todoTask) {
+                taskManager.updater.remoteHabitTaskDidChange()
+            }
+        
              */
         }
     }

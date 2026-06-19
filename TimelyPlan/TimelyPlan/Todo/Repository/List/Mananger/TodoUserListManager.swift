@@ -48,11 +48,6 @@ class TodoUserListManager {
         }
     }
 
-    func remoteTodoListDidChange() {
-        refreshTopLists()
-        updater.remoteTodoListDidChange()
-    }
-    
     // MARK: - 获取清单
     
     /// 根据标识符获取单个清单

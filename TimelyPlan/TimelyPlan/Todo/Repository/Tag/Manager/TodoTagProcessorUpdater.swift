@@ -10,6 +10,8 @@ import Foundation
 /// 标签处理通知协议
 protocol TodoTagProcessorDelegate: AnyObject{
     
+    func remoteTodoTagDidChange()
+    
     /// 添加新标签
     func didCreateTodoTag(_ tag: TodoTag)
 
@@ -25,6 +27,8 @@ protocol TodoTagProcessorDelegate: AnyObject{
 
 extension TodoTagProcessorDelegate {
     
+    func remoteTodoTagDidChange() {}
+    
     func didCreateTodoTag(_ tag: TodoTag) {}
 
     func didDeleteTodoTag(_ tag: TodoTag) {}
@@ -35,6 +39,12 @@ extension TodoTagProcessorDelegate {
 }
 
 class TodoTagProcessorUpdater: NSObject, TodoTagProcessorDelegate {
+    
+    func remoteTodoTagDidChange() {
+        notifyDelegates { (delegate: TodoTagProcessorDelegate) in
+            delegate.remoteTodoTagDidChange()
+        }
+    }
     
     func didCreateTodoTag(_ tag: TodoTag) {
         notifyDelegates { (delegate: TodoTagProcessorDelegate) in

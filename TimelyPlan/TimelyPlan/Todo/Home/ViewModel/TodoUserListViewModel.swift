@@ -50,6 +50,7 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
     func loadTopLists(with change: TodoUserListChange? = nil, completion: (() -> Void)? = nil) {
         topLists = TodoRepository.getTopLists()
         userListDidChange?(change)
+        completion?()
     }
     
     private func lists(with stateProvier: ExpansionStateProviding) -> [TodoList] {

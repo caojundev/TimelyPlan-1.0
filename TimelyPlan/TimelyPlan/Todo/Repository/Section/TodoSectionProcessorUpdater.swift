@@ -8,6 +8,8 @@
 import Foundation
 
 protocol TodoSectionProcessorDelegate: AnyObject{
+
+    func remoteTodoSectionDidChange()
     
     func didCreateTodoSection(_ section: TodoSection, in list: TodoList?)
 
@@ -23,6 +25,8 @@ protocol TodoSectionProcessorDelegate: AnyObject{
 
 extension TodoSectionProcessorDelegate {
 
+    func remoteTodoSectionDidChange() {}
+    
     func didCreateTodoSection(_ section: TodoSection, in list: TodoList?) {}
 
     func didDeleteTodoSection(_ section: TodoSection) {}
@@ -36,6 +40,12 @@ extension TodoSectionProcessorDelegate {
 }
 
 class TodoSectionProcessorUpdater: NSObject, TodoSectionProcessorDelegate {
+    
+    func remoteTodoSectionDidChange() {
+        notifyDelegates { (delegate: TodoSectionProcessorDelegate) in
+            delegate.remoteTodoSectionDidChange()
+        }
+    }
     
     func didCreateTodoSection(_ section: TodoSection, in list: TodoList?) {
         notifyDelegates { (delegate: TodoSectionProcessorDelegate) in

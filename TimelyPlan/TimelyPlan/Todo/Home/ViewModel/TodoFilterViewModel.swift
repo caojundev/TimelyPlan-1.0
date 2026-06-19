@@ -104,6 +104,11 @@ class TodoFilterViewModel: TodoBaseListViewModel {
 
 extension TodoFilterViewModel: TodoFilterProcessorDelegate {
 
+    func remoteTodoFilterDidChange() {
+        setNeedsRefresh()
+        loadFilters(with: nil)
+    }
+    
     func didCreateTodoFilter(_ filter: TodoFilter) {
         setNeedsRefresh()
         loadFilters(with: .create(filter))

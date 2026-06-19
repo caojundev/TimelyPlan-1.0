@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class TodoDetailCoordinator: TodoListProcessorDelegate,
-                                TodoTagProcessorDelegate,
+                             TodoTagProcessorDelegate,
                              TodoFilterProcessorDelegate {
 
     /// 多边栏视图管理器
@@ -46,26 +46,18 @@ class TodoDetailCoordinator: TodoListProcessorDelegate,
     
     // MARK: - TodoListProcessorDelegate
     func remoteTodoListDidChange() {
-        if let configuration = self.configuration as? TodoUserListConfiguration {
-            if TodoRepository.getUserList(of: configuration.identifier) == nil {
-                /// 当前列表被删除
-                replaceDetail(for: TodoSmartList.inbox)
-            }
-        } else if let configuration = self.configuration as? TodoTagListConfiguration {
-            if TodoRepository.getTag(with: configuration.identifier) == nil {
-                /// 当前标签被删除
-                replaceDetail(for: TodoSmartList.inbox)
-            }
-        } else if let configuration = self.configuration as? TodoFilterListConfiguration {
-            if TodoRepository.getFilter(of: configuration.identifier) == nil {
-                /// 当前过滤器被删除
-                replaceDetail(for: TodoSmartList.inbox)
-            }
+        guard let configuration = configuration as? TodoUserListConfiguration else {
+            return
+        }
+        
+        if TodoRepository.getUserList(of: configuration.identifier) == nil {
+            /// 当前列表被删除
+            replaceDetail(for: TodoSmartList.inbox)
         }
     }
     
     func didDeleteTodoLists(_ lists: [TodoList]) {
-        guard let configuration = self.configuration as? TodoUserListConfiguration else {
+        guard let configuration = configuration as? TodoUserListConfiguration else {
             return
         }
         
@@ -76,6 +68,16 @@ class TodoDetailCoordinator: TodoListProcessorDelegate,
     }
     
     // MARK: - TodoTagProcessorDelegate
+    func remoteTodoTagDidChange() {
+        guard let configuration = configuration as? TodoTagListConfiguration else {
+            return
+        }
+        
+        if TodoRepository.getTag(with: configuration.identifier) == nil {
+            replaceDetail(for: TodoSmartList.inbox)
+        }
+    }
+    
     func didDeleteTodoTag(_ tag: TodoTag) {
         guard let configuration = self.configuration as? TodoTagListConfiguration else {
             return
@@ -87,8 +89,18 @@ class TodoDetailCoordinator: TodoListProcessorDelegate,
     }
     
     // MARK: - TodoFilterProcessorDelegate
+    func remoteTodoFilterDidChange() {
+        guard let configuration = configuration as? TodoFilterListConfiguration else {
+            return
+        }
+        
+        if TodoRepository.getFilter(of: configuration.identifier) == nil {
+            replaceDetail(for: TodoSmartList.inbox)
+        }
+    }
+    
     func didDeleteTodoFilter(_ filter: TodoFilter) {
-        guard let configuration = self.configuration as? TodoFilterListConfiguration else {
+        guard let configuration = configuration as? TodoFilterListConfiguration else {
             return
         }
         

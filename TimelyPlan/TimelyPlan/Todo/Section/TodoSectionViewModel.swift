@@ -28,7 +28,7 @@ class TodoSectionViewModel: TodoSectionProcessorDelegate {
     /// 列表包含的板块
     private(set) var sections: [TodoSection] = []
     
-    private let list: TodoList?
+    private var list: TodoList?
     
     init(list: TodoList?) {
         self.list = list
@@ -67,6 +67,16 @@ class TodoSectionViewModel: TodoSectionProcessorDelegate {
     }
     
     // MARK: - TodoSectionProcessorDelegate
+    func remoteTodoSectionDidChange() {
+        if let id = list?.identifier, let list = TodoRepository.getUserList(of: id) {
+            /// 更新当前列表
+            self.list = list
+        }
+        
+        updateSections()
+        onSectionsChanged?(nil)
+    }
+    
     func didCreateTodoSection(_ section: TodoSection, in list: TodoList?) {
         updateSections()
         onSectionsChanged?(.create(section))

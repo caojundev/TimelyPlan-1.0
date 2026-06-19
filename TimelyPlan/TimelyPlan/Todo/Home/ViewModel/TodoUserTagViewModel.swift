@@ -87,6 +87,11 @@ class TodoUserTagViewModel: TodoBaseListViewModel {
 
 extension TodoUserTagViewModel: TodoTagProcessorDelegate {
     
+    func remoteTodoTagDidChange() {
+        setNeedsRefresh()
+        loadTags(with: nil)
+    }
+    
     func didCreateTodoTag(_ tag: TodoTag) {
         setNeedsRefresh()
         loadTags(with: .create(tag))
@@ -103,11 +108,10 @@ extension TodoUserTagViewModel: TodoTagProcessorDelegate {
     }
     
     func didRecorderTodoTag(in tags: [TodoTag], fromIndex: Int, toIndex: Int) {
-        setNeedsRefresh()
         /// 同步更新
         self.tags = TodoRepository.getTags()
-        self.needsRefresh = false
-        self.tagsDidChange?(nil)
+        needsRefresh = false
+        tagsDidChange?(nil)
     }
 }
 
