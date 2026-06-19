@@ -30,8 +30,43 @@ class TodoRepository {
     /// 过滤器管理器
     private static let filterManager = TodoFilterManager()
     
+    // MARK: - 注册远程数据变更
+    private static var isRemoteChangeObserved = false
+    private static func observeRemoteChangeIfNeeded() {
+        if isRemoteChangeObserved {
+            return
+        }
+        
+        isRemoteChangeObserved = true
+        HandyRecord.observeRemoteChange { changeInfo in
+            let entityNames = changeInfo.entityNames
+            if entityNames.contains(.todoList) {
+                userListManager.updater.remoteTodoListDidChange()
+            }
+            
+            /*
+            if entityNames.contains(.todoSection) {
+                sectionManager.updater.remoteHabitTaskDidChange()
+            }
+            
+            if entityNames.contains(.todoTask) {
+                taskManager.updater.remoteHabitTaskDidChange()
+            }
+            
+            if entityNames.contains(.todoTag) {
+                tagManager.updater.remoteHabitTaskDidChange()
+            }
+            
+            if entityNames.contains(.todoFilter) {
+                filterManager.updater.remoteHabitTaskDidChange()
+            }
+             */
+        }
+    }
+    
     /// 添加处理更新器
     static func addUpdater(_ updater: AnyObject, for option: TodoUpdaterOption = .all) {
+        observeRemoteChangeIfNeeded()
         if option.contains(.list) {
             userListManager.updater.addDelegate(updater)
         }

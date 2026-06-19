@@ -24,9 +24,9 @@ extension TodoFilterProcessorDelegate {
     func didCreateTodoFilter(_ filter: TodoFilter) {}
 
     func didDeleteTodoFilter(_ filter: TodoFilter) {}
-    
-    func didUpdateTodoFilter(_ filter: TodoFilter) {}
 
+    func didUpdateTodoFilter(_ filter: TodoFilter, with editingFilter: TodoEditingFilter) {}
+    
     func didReorderTodoFilter(in filters: [TodoFilter], fromIndex: Int, toIndex: Int) {}
 }
 

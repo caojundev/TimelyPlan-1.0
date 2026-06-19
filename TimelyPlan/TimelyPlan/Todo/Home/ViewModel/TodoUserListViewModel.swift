@@ -106,6 +106,11 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
 
 extension TodoUserListViewModel: TodoListProcessorDelegate {
     
+    func remoteTodoListDidChange() {
+        setNeedsRefresh()
+        loadTopLists()
+    }
+    
     /// 添加新组时通知
     func didCreateTodoList(_ list: TodoList) {
         expandAllParent(of: list)

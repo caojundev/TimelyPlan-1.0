@@ -80,6 +80,24 @@ class TodoUserListInteractor: TodoListInteractor {
     }
     
     // MARK: - TodoListProcessorDelegate
+    override func remoteTodoListDidChange() {
+        /// 更新列表信息以及布局
+        guard let newList = TodoRepository.getUserList(of: list.identifier) else {
+            return
+        }
+    
+        let oldList = list
+        listConfiguration.updateList(list)
+        /// 更新列表信息
+        didChangeListInfo?()
+        
+        if oldList.layoutType != newList.layoutType {
+            /// 布局改变
+            updatePlaceholder()
+            didChangeLayoutType?()
+        }
+    }
+    
     override func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
         let oldList = self.list
         guard list.identifier == oldList.identifier else {
@@ -89,6 +107,7 @@ class TodoUserListInteractor: TodoListInteractor {
         let bLayoutTypeChanged = editingList.layoutType != oldList.layoutType
         list.update(with: editingList)
         listConfiguration.updateList(list)
+        
         if bLayoutTypeChanged {
             updatePlaceholder() /// 更新占位信息
             didChangeLayoutType?()

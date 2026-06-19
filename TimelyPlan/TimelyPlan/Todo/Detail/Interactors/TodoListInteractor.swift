@@ -314,7 +314,13 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     }
     
     // MARK: - TodoListProcessorDelegate
+    func remoteTodoListDidChange() {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
     func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
+        /// 如果详情显示包含列表信息，检查是否更新
         let detailOption = configuration.detailOption()
         guard detailOption.contains(.list), list.name != editingList.name, let tasks = tasks else {
             return

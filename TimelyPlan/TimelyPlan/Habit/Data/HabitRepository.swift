@@ -36,7 +36,6 @@ final class HabitRepository {
     private static let periodItemFetcher = HabitPeriodItemFetcher()
     private static let recordProcessor = HabitRecordProcessor()
 
-    // MARK: Updater
     // MARK: - 注册远程数据变更
     private static var isRemoteChangeObserved = false
     private static func observeRemoteChangeIfNeeded() {

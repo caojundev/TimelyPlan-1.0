@@ -10,7 +10,10 @@ import Foundation
 /// 用户列表处理通知协议
 protocol TodoListProcessorDelegate: AnyObject{
     
-    /// 添加新组时通知
+    /// 远程用户列表改变
+    func remoteTodoListDidChange()
+    
+    /// 添加列表时通知
     func didCreateTodoList(_ list: TodoList)
     
     /// 更新列表信息通知
@@ -47,6 +50,12 @@ extension TodoListProcessorDelegate {
 class TodoListProcessorUpdater: NSObject,
                                 TodoListProcessorDelegate {
 
+    func remoteTodoListDidChange() {
+        notifyDelegates { (delegate: TodoListProcessorDelegate) in
+            delegate.remoteTodoListDidChange()
+        }
+    }
+    
     func didCreateTodoList(_ list: TodoList) {
         notifyDelegates { (delegate: TodoListProcessorDelegate) in
             delegate.didCreateTodoList(list)
