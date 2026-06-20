@@ -139,10 +139,12 @@ class TodoHomeViewController: TPTableViewController,
     
     private var reorder: TPTableDragInsertReorder?
     
-    let detailCoordinator: TodoDetailCoordinator
-    
     /// 列表区块控制器数组
     var sectionControllers: [TPTableBaseSectionController]?
+    
+    private var sectionTypes = TodoSetting.shared.orderedHomeSectionTypes
+    
+    let detailCoordinator: TodoDetailCoordinator
     
     init(detailCoordinator: TodoDetailCoordinator) {
         self.detailCoordinator = detailCoordinator
@@ -235,10 +237,15 @@ class TodoHomeViewController: TPTableViewController,
     }
 
     // MARK: - SettingAgentObserver
+    
     func settingAgentDidChangeValue(for keyName: String) {
         if keyName == TodoSetting.Key.homeSectionTypes.name {
-            self.setupSectionControllers()
-            self.adapter.performUpdate()
+            let sectionTypes = TodoSetting.shared.orderedHomeSectionTypes
+            if self.sectionTypes != sectionTypes {
+                self.sectionTypes = sectionTypes
+                setupSectionControllers()
+                adapter.performUpdate()
+            }
         }
     }
     
@@ -272,7 +279,6 @@ class TodoHomeViewController: TPTableViewController,
     // MARK: - 初始化
     private func setupSectionControllers() {
         var sectionControllers: [TPTableBaseSectionController] = [smartListSectionController]
-        let sectionTypes = TodoSetting.shared.orderedHomeSectionTypes
         for sectionType in sectionTypes {
             switch sectionType {
             case .list:

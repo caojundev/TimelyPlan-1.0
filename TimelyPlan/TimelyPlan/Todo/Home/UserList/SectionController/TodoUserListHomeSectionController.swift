@@ -43,27 +43,29 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     }
     
     private func userListChanged(_ change: TodoUserListChange? = nil) {
-        let rowAnimation: UITableView.RowAnimation = .top
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: rowAnimation)
-        guard let change = change else {
-            return
-        }
+        DispatchQueue.main.async {
+            let rowAnimation: UITableView.RowAnimation = .top
+            self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: rowAnimation)
+            guard let change = change else {
+                return
+            }
         
-        var list: TodoList?
-        switch change {
-        case .create(let todoList):
-            if !viewModel.isExpanded {
-                setExpanded(true)
-                headerSectionController.setExpanded(true)
+            var list: TodoList?
+            switch change {
+            case .create(let todoList):
+                if !self.viewModel.isExpanded {
+                    self.setExpanded(true)
+                    self.headerSectionController.setExpanded(true)
+                }
+                
+                list = todoList
+            case .update(let todoList):
+                list = todoList
             }
             
-            list = todoList
-        case .update(let todoList):
-            list = todoList
-        }
-        
-        if let list = list {
-            adapter?.revealItemAutoScrollIfNeeded(list, at: .middle)
+            if let list = list {
+                self.adapter?.revealItemAutoScrollIfNeeded(list, at: .middle)
+            }
         }
     }
 

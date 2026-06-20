@@ -40,13 +40,11 @@ class KeyValueStorage {
     /// 根据上下文和实体名称初始化键值存储对象
     init() {
         self.context = .defaultContext
-        HandyRecord.observeRemoteChange { changeInfo in
-            HandyRecord.observeRemoteChange { [weak self] changeInfo in
-                let entityNames = changeInfo.entityNames
-                if entityNames.contains(.keyValueStore) {
-                    let results = changeInfo.extractKeyValueStore()
-                    self?.didChangeRemoteValue(with: results)
-                }
+        HandyRecord.observeRemoteChange { [weak self] changeInfo in
+            let entityNames = changeInfo.entityNames
+            if entityNames.contains(.keyValueStore) {
+                let results = changeInfo.extractKeyValueStore()
+                self?.didChangeRemoteValue(with: results)
             }
         }
     }
@@ -59,10 +57,12 @@ class KeyValueStorage {
         let inserted = results.inserted.compactMap{ $0.key }
         let updated = results.updated.compactMap{ $0.key }
         let keys = inserted + updated
-        let observedKeys = Set(keys).union(observedRemoteKeys)
-        for key in observedKeys {
-            valueDic.removeValue(forKey: key)
-            observerMananger.valueDidChange(forKey: key)
+        let observedKeys = Set(keys).intersection(observedRemoteKeys)
+        DispatchQueue.main.async {
+            for key in observedKeys {
+                self.valueDic.removeValue(forKey: key)
+                self.observerMananger.valueDidChange(forKey: key)
+            }
         }
     }
     

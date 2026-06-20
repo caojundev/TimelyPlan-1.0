@@ -44,16 +44,22 @@ class TodoUserListSelectSectionController: TodoUserListBaseSectionController {
     }
     
     private func userListChanged(_ change: TodoUserListChange? = nil) {
-        var rowAnimation: UITableView.RowAnimation = .none
-        if change != nil {
-            rowAnimation = .top
+        DispatchQueue.main.async {
+            var rowAnimation: UITableView.RowAnimation = .none
+            if change != nil {
+                rowAnimation = .top
+            }
+            
+            self.adapter?.performSectionUpdate(forSectionObject: self,
+                                               rowAnimation: rowAnimation)
         }
-        
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: rowAnimation)
     }
     
     private func updateUserList() {
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+        DispatchQueue.main.async {
+            self.adapter?.performSectionUpdate(forSectionObject: self,
+                                               rowAnimation: .top)
+        }
     }
 
     // MARK: - Delegate

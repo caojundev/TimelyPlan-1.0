@@ -65,28 +65,32 @@ class TodoUserTagSectionController: TPTableBaseSectionController,
     }
     
     private func tagsDidChange(with change: TodoUserTagChange?) {
-        guard let change = change else {
-            adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-            return
-        }
-
-        var animateTag: TodoTag?
-        switch change {
-        case .create(let tag):
-            /// 展开标签
-            if !viewModel.isExpanded {
-                headerSectionController.setExpanded(true)
-                setExpanded(true)
+        DispatchQueue.main.async {
+            guard let change = change else {
+                self.adapter?.performSectionUpdate(forSectionObject: self,
+                                                   rowAnimation: .top)
+                return
             }
-            
-            animateTag = tag
-        case .update(let tag):
-            animateTag = tag
-        }
 
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-        if let animateTag = animateTag {
-            adapter?.commitFocusAnimation(for: animateTag)
+            var animateTag: TodoTag?
+            switch change {
+            case .create(let tag):
+                /// 展开标签
+                if !self.viewModel.isExpanded {
+                    self.headerSectionController.setExpanded(true)
+                    self.setExpanded(true)
+                }
+                
+                animateTag = tag
+            case .update(let tag):
+                animateTag = tag
+            }
+
+            self.adapter?.performSectionUpdate(forSectionObject: self,
+                                               rowAnimation: .top)
+            if let animateTag = animateTag {
+                self.adapter?.commitFocusAnimation(for: animateTag)
+            }
         }
     }
     

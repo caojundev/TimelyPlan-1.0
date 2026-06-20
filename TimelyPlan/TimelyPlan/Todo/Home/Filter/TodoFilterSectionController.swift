@@ -65,28 +65,31 @@ class TodoFilterSectionController: TPTableBaseSectionController,
     }
     
     private func filtersDidChange(with change: TodoFilterChange?) {
-        guard let change = change else {
-            adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-            return
-        }
-
-        var animateFilter: TodoFilter?
-        switch change {
-        case .create(let filter):
-            if !viewModel.isExpanded {
-                /// 展开过滤器
-                headerSectionController.setExpanded(true)
-                setExpanded(true)
+        DispatchQueue.main.async {
+            guard let change = change else {
+                self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+                return
             }
-            
-            animateFilter = filter
-        case .update(let filter):
-            animateFilter = filter
-        }
 
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
-        if let animateFilter = animateFilter {
-            adapter?.commitFocusAnimation(for: animateFilter)
+            var animateFilter: TodoFilter?
+            switch change {
+            case .create(let filter):
+                if !self.viewModel.isExpanded {
+                    /// 展开过滤器
+                    self.headerSectionController.setExpanded(true)
+                    self.setExpanded(true)
+                }
+                
+                animateFilter = filter
+            case .update(let filter):
+                animateFilter = filter
+            }
+
+            self.adapter?.performSectionUpdate(forSectionObject: self,
+                                               rowAnimation: .top)
+            if let animateFilter = animateFilter {
+                self.adapter?.commitFocusAnimation(for: animateFilter)
+            }
         }
     }
     

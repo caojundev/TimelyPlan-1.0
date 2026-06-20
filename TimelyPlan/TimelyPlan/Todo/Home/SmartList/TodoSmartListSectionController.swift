@@ -32,8 +32,11 @@ class TodoSmartListSectionController: TPTableBaseSectionController,
     }
     
     private func listsChanged() {
-        let rowAnimation: UITableView.RowAnimation = .top
-        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: rowAnimation)
+        DispatchQueue.main.async {
+            let rowAnimation: UITableView.RowAnimation = .top
+            self.adapter?.performSectionUpdate(forSectionObject: self,
+                                               rowAnimation: rowAnimation)
+        }
     }
     
     /// 更新列表任务数目

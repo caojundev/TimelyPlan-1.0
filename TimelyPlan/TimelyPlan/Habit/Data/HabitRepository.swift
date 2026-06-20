@@ -49,7 +49,7 @@ final class HabitRepository {
             if entityNames.contains(.habitTask) {
                 taskManager.updater.didChangeRemoteHabitTask(with: changeInfo.extractHabitTask())
             }
-            
+
             if entityNames.contains(.habitRecord) {
                 recordProcessor.updater.didChangeRemoteHabitRecord(with: changeInfo.extractHabitRecord())
             }

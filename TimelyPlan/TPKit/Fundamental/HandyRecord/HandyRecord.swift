@@ -140,14 +140,14 @@ class HandyRecord {
     private static func configureRemoteChangeManager(with container: NSPersistentCloudKitContainer) {
         let changeManager = CoreDataRemoteChangeManager.shared
         changeManager.configure(with: container)
-//#if DEBUG
-//        // 监听远程变更并在主线程打印调试信息
-//        changeManager.observe(on: .main) { changeInfo in
-//            print("========== 远程数据变更 ==========")
-//            print(changeInfo.debugDescription)
-//            print("==================================\n")
-//        }
-//#endif
+#if DEBUG
+        // 监听远程变更并在主线程打印调试信息
+        changeManager.observe(on: .main) { changeInfo in
+            print("========== 远程数据变更 ==========")
+            print(changeInfo.debugDescription)
+            print("==================================\n")
+        }
+#endif
     }
     
     // 监听远程变更
