@@ -10,8 +10,8 @@ import Foundation
 /// 标签处理通知协议
 protocol TodoTagProcessorDelegate: AnyObject{
     
-    func remoteTodoTagDidChange()
-    
+    func didChangeRemoteTodoTag(with results: EntityChangeResults<TodoTag>?)
+        
     /// 添加新标签
     func didCreateTodoTag(_ tag: TodoTag)
 
@@ -27,7 +27,7 @@ protocol TodoTagProcessorDelegate: AnyObject{
 
 extension TodoTagProcessorDelegate {
     
-    func remoteTodoTagDidChange() {}
+    func didChangeRemoteTodoTag(with results: EntityChangeResults<TodoTag>?) {}
     
     func didCreateTodoTag(_ tag: TodoTag) {}
 
@@ -40,9 +40,9 @@ extension TodoTagProcessorDelegate {
 
 class TodoTagProcessorUpdater: NSObject, TodoTagProcessorDelegate {
     
-    func remoteTodoTagDidChange() {
+    func didChangeRemoteTodoTag(with results: EntityChangeResults<TodoTag>?) {
         notifyDelegates { (delegate: TodoTagProcessorDelegate) in
-            delegate.remoteTodoTagDidChange()
+            delegate.didChangeRemoteTodoTag(with: results)
         }
     }
     

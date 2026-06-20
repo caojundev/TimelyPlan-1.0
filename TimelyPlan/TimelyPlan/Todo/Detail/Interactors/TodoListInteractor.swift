@@ -261,44 +261,49 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     }
     
     // MARK: - TodoTaskProcessorDelegate
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
     func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
     
     func didCreateTodoTask(_ task: TodoTask) {
-        self.setNeedsRefresh()
-        self.loadGroups(with: .create(task))
+        setNeedsRefresh()
+        loadGroups(with: .create(task))
     }
     
     func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
     
     func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
     
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
     
     func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
     
     func didReorderTodoTask(_ task: TodoTask) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
     
     func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
-        self.setNeedsRefresh()
-        self.loadGroups()
+        setNeedsRefresh()
+        loadGroups()
     }
     
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
@@ -314,7 +319,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     }
     
     // MARK: - TodoListProcessorDelegate
-    func remoteTodoListDidChange() {
+    func didChangeRemoteTodoList(with results: EntityChangeResults<TodoList>?) {
         setNeedsRefresh()
         loadGroups()
     }
@@ -344,7 +349,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     }
     
     // MARK: - TodoSectionProcessorDelegate
-    func remoteTodoSectionDidChange() {
+    func didChangeRemoteTodoSection(with results: EntityChangeResults<TodoSection>?) {
         setNeedsRefresh()
         loadGroups()
     }
@@ -370,7 +375,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
     }
     
     // MARK: - TodoTagProcessorDelegate
-    func remoteTodoTagDidChange() {
+    func didChangeRemoteTodoTag(with results: EntityChangeResults<TodoTag>?) {
         setNeedsRefresh()
         loadGroups()
     }

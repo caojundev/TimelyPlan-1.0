@@ -9,6 +9,9 @@ import Foundation
 
 protocol FocusSessionProcessorDelegate {
     
+    /// 远程专注会话改变
+    func didChangeRemoteFocusSession(with results: EntityChangeResults<FocusSession>?)
+        
     /// 添加专注会话
     func didAddFocusSessions(_ sessions: [FocusSession])
     
@@ -17,20 +20,17 @@ protocol FocusSessionProcessorDelegate {
     
     /// 删除专注会话
     func didDeleteFocusSession(_ session: FocusSession)
-    
-    /// 远程专注会话改变
-    func remoteFocusSessionDidChange()
 }
 
 extension FocusSessionProcessorDelegate {
+    
+    func didChangeRemoteFocusSession(with results: EntityChangeResults<FocusSession>?) {}
     
     func didAddFocusSessions(_ sessions: [FocusSession]) {}
     
     func didUpdateFocusSession(_ session: FocusSession) {}
     
     func didDeleteFocusSession(_ session: FocusSession) {}
-    
-    func remoteFocusSessionDidChange() {}
 }
 
 class FocusSessionProcessorUpdater: NSObject,
@@ -55,9 +55,9 @@ class FocusSessionProcessorUpdater: NSObject,
         }
     }
     
-    func remoteFocusSessionDidChange() {
+    func didChangeRemoteFocusSession(with results: EntityChangeResults<FocusSession>?) {
         notifyDelegates { (delegate: FocusSessionProcessorDelegate) in
-            delegate.remoteFocusSessionDidChange()
+            delegate.didChangeRemoteFocusSession(with: results)
         }
     }
 }

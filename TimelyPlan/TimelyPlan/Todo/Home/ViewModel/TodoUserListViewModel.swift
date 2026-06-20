@@ -79,7 +79,7 @@ class TodoUserListViewModel: TodoBaseListViewModel, ExpansionStateProviding {
 
 extension TodoUserListViewModel: TodoListProcessorDelegate {
     
-    func remoteTodoListDidChange() {
+    func didChangeRemoteTodoList(with results: EntityChangeResults<TodoList>?) {
         loadTopLists()
     }
     
@@ -120,6 +120,17 @@ extension TodoUserListViewModel: TodoListProcessorDelegate {
 }
 
 extension TodoUserListViewModel: TodoTaskProcessorDelegate {
+    
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {
+        guard let updated = results?.updated else {
+            return
+        }
+        
+        if let lists = updated.userListFeatures {
+            counter.invalidateCount(for: lists)
+            countDidChange?(lists)
+        }
+    }
     
     func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
         if let list = list?.feature {

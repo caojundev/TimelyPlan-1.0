@@ -11,7 +11,7 @@ import Foundation
 protocol HabitRecordProcessorDelegate: AnyObject{
     
     /// 远程习惯记录改变
-    func remoteHabitRecordDidChange()
+    func didChangeRemoteHabitRecord(with results: EntityChangeResults<HabitRecord>?)
     
     /// 通知习惯记录已更新
     func didUpdateHabitRecord(_ record: HabitRecord,
@@ -24,15 +24,15 @@ protocol HabitRecordProcessorDelegate: AnyObject{
 }
 
 extension HabitRecordProcessorDelegate {
-    func remoteHabitRecordDidChange() {}
+    func didChangeRemoteHabitRecord(with results: EntityChangeResults<HabitRecord>?) {}
     func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {}
 }
 
 class HabitRecordProcessorUpdater: NSObject, HabitRecordProcessorDelegate {
 
-    func remoteHabitRecordDidChange() {
+    func didChangeRemoteHabitRecord(with results: EntityChangeResults<HabitRecord>?) {
         notifyDelegates { (delegate: HabitRecordProcessorDelegate) in
-            delegate.remoteHabitRecordDidChange()
+            delegate.didChangeRemoteHabitRecord(with: results)
         }
     }
     

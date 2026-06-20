@@ -104,7 +104,7 @@ class TodoFilterViewModel: TodoBaseListViewModel {
 
 extension TodoFilterViewModel: TodoFilterProcessorDelegate {
 
-    func remoteTodoFilterDidChange() {
+    func didChangeRemoteTodoFilter(with results: EntityChangeResults<TodoFilter>?) {
         setNeedsRefresh()
         loadFilters(with: nil)
     }
@@ -150,6 +150,10 @@ extension TodoFilterViewModel: TodoTaskProcessorDelegate {
     private func changeCount(for filters: [TodoFilter]) {
         counter.invalidateCount(for: filters)
         countDidChange?(filters)
+    }
+    
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {
+        changeCountForAllFilters()
     }
     
     func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {

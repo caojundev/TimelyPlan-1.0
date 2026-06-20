@@ -45,11 +45,13 @@ class FocusRepository {
         HandyRecord.observeRemoteChange { changeInfo in
             let entityNames = changeInfo.entityNames
             if entityNames.contains(.focusTimer) {
-                userTimerManager.updater.remoteFocusTimerDidChange()
+                let results = changeInfo.extractFocusTimer()
+                userTimerManager.updater.didChangeRemoteFocusTimer(with: results)
             }
             
             if entityNames.contains(.focusSession) {
-                sessionManager.updater.remoteFocusSessionDidChange()
+                let results = changeInfo.extractFocusSession()
+                sessionManager.updater.didChangeRemoteFocusSession(with: results)
             }
         }
     }

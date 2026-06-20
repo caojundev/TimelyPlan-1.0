@@ -67,8 +67,8 @@ class TodoSectionViewModel: TodoSectionProcessorDelegate {
     }
     
     // MARK: - TodoSectionProcessorDelegate
-    func remoteTodoSectionDidChange() {
-        if let id = list?.identifier, let list = TodoRepository.getUserList(of: id) {
+    func didChangeRemoteTodoSection(with results: EntityChangeResults<TodoSection>?) {
+        if let identifier = list?.identifier, let list = TodoRepository.getUserList(of: identifier) {
             /// 更新当前列表
             self.list = list
         }

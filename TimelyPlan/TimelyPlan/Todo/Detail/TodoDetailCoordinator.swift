@@ -45,7 +45,7 @@ class TodoDetailCoordinator: TodoListProcessorDelegate,
     }
     
     // MARK: - TodoListProcessorDelegate
-    func remoteTodoListDidChange() {
+    func didChangeRemoteTodoList(with results: EntityChangeResults<TodoList>?) {
         guard let configuration = configuration as? TodoUserListConfiguration else {
             return
         }
@@ -68,7 +68,7 @@ class TodoDetailCoordinator: TodoListProcessorDelegate,
     }
     
     // MARK: - TodoTagProcessorDelegate
-    func remoteTodoTagDidChange() {
+    func didChangeRemoteTodoTag(with results: EntityChangeResults<TodoTag>?) {
         guard let configuration = configuration as? TodoTagListConfiguration else {
             return
         }
@@ -89,7 +89,7 @@ class TodoDetailCoordinator: TodoListProcessorDelegate,
     }
     
     // MARK: - TodoFilterProcessorDelegate
-    func remoteTodoFilterDidChange() {
+    func didChangeRemoteTodoFilter(with results: EntityChangeResults<TodoFilter>?) {
         guard let configuration = configuration as? TodoFilterListConfiguration else {
             return
         }

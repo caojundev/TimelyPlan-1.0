@@ -140,7 +140,7 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
     }
     
     // MARK: - HabitTaskProcessorDelegate
-    func remoteHabitTaskDidChange() {
+    func didChangeRemoteHabitTask(with results: EntityChangeResults<HabitTask>?) {
         loadGroups(forceRefresh: true)
     }
     
@@ -166,7 +166,7 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
     
     
     // MARK: - HabitRecordProcessorDelegate
-    func remoteHabitRecordDidChange() {
+    func didChangeRemoteHabitRecord(with results: EntityChangeResults<HabitRecord>?) {
         loadGroups(forceRefresh: true)
     }
     

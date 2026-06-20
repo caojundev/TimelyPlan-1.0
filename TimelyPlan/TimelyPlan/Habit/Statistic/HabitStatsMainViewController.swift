@@ -105,7 +105,7 @@ class HabitStatsMainViewController: StatsMainViewController,
     }
     
     // MARK: - HabitRecordProcessorDelegate
-    func remoteHabitRecordDidChange() {
+    func didChangeRemoteHabitRecord(with results: EntityChangeResults<HabitRecord>?) {
         reloadContentViewController()
     }
     

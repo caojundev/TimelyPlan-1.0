@@ -1876,6 +1876,7 @@
 		E5E5BDB72FE3E698008D3F64 /* CoreDataEntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */; };
 		E5E5BDBB2FE3E9EF008D3F64 /* PredicateCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDBA2FE3E9EF008D3F64 /* PredicateCondition.swift */; };
 		E5E5BDBF2FE41AF5008D3F64 /* NSManagedObjectContext+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDBE2FE41AF5008D3F64 /* NSManagedObjectContext+Actions.swift */; };
+		E5E5BDC42FE62E75008D3F64 /* CoreDataEntityChangeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDC32FE62E75008D3F64 /* CoreDataEntityChangeConverter.swift */; };
 		E5E67DCD2DD23B950018A64D /* CalendarTimelineBackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E67DCC2DD23B950018A64D /* CalendarTimelineBackLayer.swift */; };
 		E5E8C9EB2F701ED1006728C5 /* FocusTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E8C9EA2F701ED1006728C5 /* FocusTimer.swift */; };
 		E5E8C9EE2F702163006728C5 /* CDFocusTimer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E8C9ED2F702163006728C5 /* CDFocusTimer+Extensions.swift */; };
@@ -3881,6 +3882,7 @@
 		E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEntityName.swift; sourceTree = "<group>"; };
 		E5E5BDBA2FE3E9EF008D3F64 /* PredicateCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateCondition.swift; sourceTree = "<group>"; };
 		E5E5BDBE2FE41AF5008D3F64 /* NSManagedObjectContext+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Actions.swift"; sourceTree = "<group>"; };
+		E5E5BDC32FE62E75008D3F64 /* CoreDataEntityChangeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEntityChangeConverter.swift; sourceTree = "<group>"; };
 		E5E67DCC2DD23B950018A64D /* CalendarTimelineBackLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineBackLayer.swift; sourceTree = "<group>"; };
 		E5E8C9EA2F701ED1006728C5 /* FocusTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimer.swift; sourceTree = "<group>"; };
 		E5E8C9ED2F702163006728C5 /* CDFocusTimer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDFocusTimer+Extensions.swift"; sourceTree = "<group>"; };
@@ -10038,8 +10040,7 @@
 			isa = PBXGroup;
 			children = (
 				E5BB9C1C2D3BF0C40089667A /* HandyRecord.swift */,
-				E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */,
-				E5E5BDB42FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift */,
+				E5E5BDC22FE62E40008D3F64 /* RemoteChange */,
 				E5BB9C1E2D3BF0C40089667A /* KeyValueStorage */,
 				E5E5BDBC2FE3EA2D008D3F64 /* Extensions */,
 			);
@@ -10095,6 +10096,16 @@
 				E58F46C82F7BF5580046FA96 /* NSSortDescriptor+CoreData.swift */,
 			);
 			path = NSSortDescriptor;
+			sourceTree = "<group>";
+		};
+		E5E5BDC22FE62E40008D3F64 /* RemoteChange */ = {
+			isa = PBXGroup;
+			children = (
+				E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */,
+				E5E5BDC32FE62E75008D3F64 /* CoreDataEntityChangeConverter.swift */,
+				E5E5BDB42FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift */,
+			);
+			path = RemoteChange;
 			sourceTree = "<group>";
 		};
 		E5E8C9E92F701EBB006728C5 /* Model */ = {
@@ -12441,6 +12452,7 @@
 				E524D2A92FD05BB9002791E5 /* TodoSectionProcessorUpdater.swift in Sources */,
 				E5D7D9222D43933700EC877A /* FocusPresenter.swift in Sources */,
 				E556BCDF2F5D9F8900CA20D9 /* ReasonTag.swift in Sources */,
+				E5E5BDC42FE62E75008D3F64 /* CoreDataEntityChangeConverter.swift in Sources */,
 				E53B11372F94D1B300701410 /* TodoFilterTagEditViewController.swift in Sources */,
 				E56643222FDE34AA00348C47 /* CalendarEventPreviewInfoView.swift in Sources */,
 				E500E39F2FC7219F00252011 /* TodoStatsCompletionTimeDistribution.swift in Sources */,

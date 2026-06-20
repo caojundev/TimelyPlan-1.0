@@ -77,7 +77,7 @@ class HabitActiveTaskViewModel: HabitTaskProcessorDelegate {
     }
     
     // MARK: - HabitTaskProcessorDelegate
-    func remoteHabitTaskDidChange() {
+    func didChangeRemoteHabitTask(with results: EntityChangeResults<HabitTask>?) {
         setNeedsRefresh()
         loadTasks(with: nil)
     }

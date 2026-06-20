@@ -131,7 +131,7 @@ class TPPageController: UIViewController,
     }()
     
     deinit {
-        self.cancelPreviousChageCachePolicyPerform()
+        self.cancelPreviousChangeCachePolicyPerform()
         self.removeNotification()
     }
 
@@ -180,7 +180,7 @@ class TPPageController: UIViewController,
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         self.memoryWarningCount += 1
-        self.cancelPreviousChageCachePolicyPerform()
+        self.cancelPreviousChangeCachePolicyPerform()
         self.cachePolicy = .low
         self.foreCache.removeAllObjects()
         if self.memoryWarningCount < 3 {
@@ -329,7 +329,7 @@ class TPPageController: UIViewController,
     }
     
     // MARK: - Cache Policy
-    private func cancelPreviousChageCachePolicyPerform() {
+    private func cancelPreviousChangeCachePolicyPerform() {
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(changeCachePolicyAfterMemoryWarning),
                                                object: nil)

@@ -59,7 +59,7 @@ class TodoFilterListInteractor: TodoListInteractor,
     }
     
     // MARK: - TodoFilterProcessorDelegate
-    func remoteTodoFilterDidChange() {
+    func didChangeRemoteTodoFilter(with results: EntityChangeResults<TodoFilter>?) {
         guard let newFilter = TodoRepository.getFilter(of: filter.identifier) else {
             return
         }

@@ -10,7 +10,7 @@ import Foundation
 /// 过滤器处理通知协议
 protocol TodoFilterProcessorDelegate: AnyObject{
     
-    func remoteTodoFilterDidChange()
+    func didChangeRemoteTodoFilter(with results: EntityChangeResults<TodoFilter>?)
     
     func didCreateTodoFilter(_ filter: TodoFilter)
 
@@ -23,6 +23,8 @@ protocol TodoFilterProcessorDelegate: AnyObject{
 
 extension TodoFilterProcessorDelegate {
     
+    func didChangeRemoteTodoFilter(with results: EntityChangeResults<TodoFilter>?) {}
+    
     func didCreateTodoFilter(_ filter: TodoFilter) {}
 
     func didDeleteTodoFilter(_ filter: TodoFilter) {}
@@ -34,9 +36,9 @@ extension TodoFilterProcessorDelegate {
 
 class TodoFilterProcessorUpdater: NSObject, TodoFilterProcessorDelegate {
     
-    func remoteTodoFilterDidChange() {
+    func didChangeRemoteTodoFilter(with results: EntityChangeResults<TodoFilter>?) {
         notifyDelegates { (delegate: TodoFilterProcessorDelegate) in
-            delegate.remoteTodoFilterDidChange()
+            delegate.didChangeRemoteTodoFilter(with: results)
         }
     }
     

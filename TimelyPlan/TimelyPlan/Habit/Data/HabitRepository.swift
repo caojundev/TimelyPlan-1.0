@@ -47,12 +47,11 @@ final class HabitRepository {
         HandyRecord.observeRemoteChange { changeInfo in
             let entityNames = changeInfo.entityNames
             if entityNames.contains(.habitTask) {
-                taskManager.updater.remoteHabitTaskDidChange()
+                taskManager.updater.didChangeRemoteHabitTask(with: changeInfo.extractHabitTask())
             }
             
-            if entityNames.contains(.habitRecord) ||
-                entityNames.contains(.habitSample) {
-                recordProcessor.updater.remoteHabitRecordDidChange()
+            if entityNames.contains(.habitRecord) {
+                recordProcessor.updater.didChangeRemoteHabitRecord(with: changeInfo.extractHabitRecord())
             }
         }
     }

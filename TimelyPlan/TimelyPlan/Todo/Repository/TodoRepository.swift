@@ -42,28 +42,25 @@ class TodoRepository {
             let entityNames = changeInfo.entityNames
             if entityNames.contains(.todoList) {
                 userListManager.refreshTopLists()
-                userListManager.updater.remoteTodoListDidChange()
+                userListManager.updater.didChangeRemoteTodoList(with: changeInfo.extractTodoList())
             }
             
             if entityNames.contains(.todoSection) {
                 userListManager.refreshTopLists()
-                sectionManager.updater.remoteTodoSectionDidChange()
+                sectionManager.updater.didChangeRemoteTodoSection(with: changeInfo.extractTodoSection())
             }
         
             if entityNames.contains(.todoTag) {
-                tagManager.updater.remoteTodoTagDidChange()
+                tagManager.updater.didChangeRemoteTodoTag(with: changeInfo.extractTodoTag())
             }
             
             if entityNames.contains(.todoFilter) {
-                filterManager.updater.remoteTodoFilterDidChange()
+                filterManager.updater.didChangeRemoteTodoFilter(with: changeInfo.extractTodoFilter())
             }
             
-            /*
             if entityNames.contains(.todoTask) {
-                taskManager.updater.remoteHabitTaskDidChange()
+                taskManager.updater.didChangeRemoteTodoTask(with: changeInfo.extractTodoTask())
             }
-        
-             */
         }
     }
     

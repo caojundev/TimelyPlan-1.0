@@ -137,12 +137,16 @@ class TodoSmartListViewModel: TodoBaseListViewModel,
 
 extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
     
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {
+        countChanged()
+    }
+    
     func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
-        self.countChanged()
+        countChanged()
     }
     
     func didCreateTodoTask(_ task: TodoTask) {
-        self.countChanged()
+        countChanged()
     }
     
     func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
@@ -181,7 +185,7 @@ extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
     
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
         let changeInfo = TodoTaskChangeInfo(task: task, change: change)
-        self.didUpdateTodoTasks(with: [changeInfo])
+        didUpdateTodoTasks(with: [changeInfo])
     }
     
     func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {

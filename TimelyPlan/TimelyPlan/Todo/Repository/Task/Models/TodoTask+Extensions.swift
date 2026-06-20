@@ -176,18 +176,8 @@ extension TodoTask {
 extension Array where Element == TodoTask {
     
     var userListFeatures: [TodoListFeature]? {
-        var lists = [TodoListFeature]()
-        for task in self {
-            if let list = task.list {
-                lists.append(list)
-            }
-        }
-        
-        if lists.count > 0 {
-            return lists
-        }
-        
-        return nil
+        let results = compactMap { $0.list }
+        return results.count > 0 ? results : nil
     }
     
     var userTags: Set<TodoTag>? {

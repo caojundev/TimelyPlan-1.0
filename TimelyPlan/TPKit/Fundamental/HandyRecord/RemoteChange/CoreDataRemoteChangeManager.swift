@@ -42,12 +42,13 @@ class CoreDataRemoteChangeManager {
             return desc
         }
         
-        func hasChanges(for entityName: String) -> Bool {
-            return changesByEntity[entityName] != nil
+        
+        func hasChanges(for entityName: EntityName) -> Bool {
+            return changesByEntity[entityName.rawValue] != nil
         }
         
-        func changes(for entityName: String) -> EntityChanges? {
-            return changesByEntity[entityName]
+        func changes(for entityName: EntityName) -> EntityChanges? {
+            return changesByEntity[entityName.rawValue]
         }
     }
     

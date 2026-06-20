@@ -57,7 +57,7 @@ class FocusTimelineViewModel: FocusSessionProcessorDelegate {
     }
     
     // MARK: - FocusSessionProcessorDelegate
-    func remoteFocusSessionDidChange() {
+    func didChangeRemoteFocusSession(with results: EntityChangeResults<FocusSession>?) {
         loadEvents()
     }
     

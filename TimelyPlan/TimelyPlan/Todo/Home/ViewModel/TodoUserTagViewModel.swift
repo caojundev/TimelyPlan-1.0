@@ -87,7 +87,7 @@ class TodoUserTagViewModel: TodoBaseListViewModel {
 
 extension TodoUserTagViewModel: TodoTagProcessorDelegate {
     
-    func remoteTodoTagDidChange() {
+    func didChangeRemoteTodoTag(with results: EntityChangeResults<TodoTag>?) {
         setNeedsRefresh()
         loadTags(with: nil)
     }
@@ -122,6 +122,14 @@ extension TodoUserTagViewModel: TodoTaskProcessorDelegate {
             let tagsArray = Array(tags)
             counter.invalidateCount(for: tagsArray)
             countDidChange?(tagsArray)
+        }
+    }
+    
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {
+        if let tags = self.tags {
+            /// 更新所有标签任务数目
+            counter.invalidateCount(for: tags)
+            countDidChange?(tags)
         }
     }
     

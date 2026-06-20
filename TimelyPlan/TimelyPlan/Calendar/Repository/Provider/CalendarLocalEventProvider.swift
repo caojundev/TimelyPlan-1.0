@@ -35,6 +35,10 @@ class CalendarLocalEventProvider: CalendarEventProvider, SettingAgentObserver {
 
 extension CalendarLocalEventProvider: TodoTaskProcessorDelegate {
     
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {
+        delegate?.calendarEventsDidChange(in: [.infiniteInterval])
+    }
+    
     func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
         guard let ranges = affectedRanges(for: tasks) else {
             return

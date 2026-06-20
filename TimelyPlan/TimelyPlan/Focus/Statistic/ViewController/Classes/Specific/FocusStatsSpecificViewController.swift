@@ -90,7 +90,7 @@ class FocusStatsSpecificViewController: FocusStatsBaseViewController,
     }
     
     // MARK: - FocusSessionProcessorDelegate
-    func remoteFocusSessionDidChange() {
+    func didChangeRemoteFocusSession(with results: EntityChangeResults<FocusSession>?) {
         infoView.reloadData()
     }
     

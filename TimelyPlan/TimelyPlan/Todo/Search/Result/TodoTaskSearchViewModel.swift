@@ -99,6 +99,11 @@ class TodoTaskSearchViewModel: NSObject, TodoTaskProcessorDelegate {
     }
     
     // MARK: - TodoTaskProcessorDelegate
+    
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {
+        reloadSearchResults()
+    }
+    
     func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
         reloadSearchResults()
     }

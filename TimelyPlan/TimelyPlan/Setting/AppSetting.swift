@@ -18,7 +18,7 @@ class AppSetting {
     }
 
     /// 震动反馈开关
-    @CloudStored(key: Key.isHapiticFeedbackOn.name, defaultValue: false)
+    @CloudStored(key: Key.isHapiticFeedbackOn.name, defaultValue: true)
     var isHapiticFeedbackOn: Bool
     
     static let shared = AppSetting()

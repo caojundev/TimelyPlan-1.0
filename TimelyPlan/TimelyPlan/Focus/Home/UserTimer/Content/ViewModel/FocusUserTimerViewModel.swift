@@ -74,7 +74,7 @@ class FocusUserTimerViewModel: FocusTimerProcessorDelegate {
     }
     
     // MARK: - FocusTimerProcessorDelegate
-    func remoteFocusTimerDidChange() {
+    func didChangeRemoteFocusTimer(with results: EntityChangeResults<FocusTimer>?) {
         setNeedsRefresh()
         loadTimers()
     }

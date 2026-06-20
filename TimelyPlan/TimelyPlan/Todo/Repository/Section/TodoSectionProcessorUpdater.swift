@@ -9,8 +9,8 @@ import Foundation
 
 protocol TodoSectionProcessorDelegate: AnyObject{
 
-    func remoteTodoSectionDidChange()
-    
+    func didChangeRemoteTodoSection(with results: EntityChangeResults<TodoSection>?)
+        
     func didCreateTodoSection(_ section: TodoSection, in list: TodoList?)
 
     func didDeleteTodoSection(_ section: TodoSection)
@@ -25,7 +25,7 @@ protocol TodoSectionProcessorDelegate: AnyObject{
 
 extension TodoSectionProcessorDelegate {
 
-    func remoteTodoSectionDidChange() {}
+    func didChangeRemoteTodoSection(with results: EntityChangeResults<TodoSection>?) {}
     
     func didCreateTodoSection(_ section: TodoSection, in list: TodoList?) {}
 
@@ -41,9 +41,9 @@ extension TodoSectionProcessorDelegate {
 
 class TodoSectionProcessorUpdater: NSObject, TodoSectionProcessorDelegate {
     
-    func remoteTodoSectionDidChange() {
+    func didChangeRemoteTodoSection(with results: EntityChangeResults<TodoSection>?) {
         notifyDelegates { (delegate: TodoSectionProcessorDelegate) in
-            delegate.remoteTodoSectionDidChange()
+            delegate.didChangeRemoteTodoSection(with: results)
         }
     }
     

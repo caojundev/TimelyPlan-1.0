@@ -162,7 +162,7 @@ class HabitRecord: NSObject {
     
     /// 初始化习惯记录
     /// - Parameter content: 核心数据记录对象
-    init(content: CDHabitRecord, includeSamples: Bool) {
+    init(content: CDHabitRecord, includeSamples: Bool = false) {
         self.includeSamples = includeSamples
         if includeSamples {
             self.samples = content.sampleValues

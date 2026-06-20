@@ -138,6 +138,10 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         self.interactor.onTaskChange = { [weak self] change in
             self?.taskDidChange(change)
         }
+        
+        self.interactor.onTaskDeleted = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
     }
 
     required init?(coder: NSCoder) {

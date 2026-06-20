@@ -26,9 +26,44 @@ class KeyValueStorage {
     
     private var observerMananger = SettingObserverManager()
     
+    /// 监听远程更新的键值
+    private var observedRemoteKeys = Set<String>()
+
+    func startObservingRemoteValue(forKey key: String) {
+        observedRemoteKeys.insert(key)
+    }
+
+    func stopObservingRemoteValue(forKey key: String) {
+        observedRemoteKeys.remove(key)
+    }
+    
     /// 根据上下文和实体名称初始化键值存储对象
     init() {
         self.context = .defaultContext
+        HandyRecord.observeRemoteChange { changeInfo in
+            HandyRecord.observeRemoteChange { [weak self] changeInfo in
+                let entityNames = changeInfo.entityNames
+                if entityNames.contains(.keyValueStore) {
+                    let results = changeInfo.extractKeyValueStore()
+                    self?.didChangeRemoteValue(with: results)
+                }
+            }
+        }
+    }
+    
+    private func didChangeRemoteValue(with results: EntityChangeResults<KeyValueEntry>?) {
+        guard let results = results else {
+            return
+        }
+        
+        let inserted = results.inserted.compactMap{ $0.key }
+        let updated = results.updated.compactMap{ $0.key }
+        let keys = inserted + updated
+        let observedKeys = Set(keys).union(observedRemoteKeys)
+        for key in observedKeys {
+            valueDic.removeValue(forKey: key)
+            observerMananger.valueDidChange(forKey: key)
+        }
     }
     
     // MARK: - 对象
@@ -178,11 +213,6 @@ class KeyValueStorage {
         let results: [KeyValueEntry]? = KeyValueEntry.executeFetchRequest(request, in: context)
         if let results = results {
             for result in results {
-                if result.key == "FocusSetting" {
-                    context.delete(result)
-                    synchronize()
-                }
-                
                 debugPrint("\(result.key ?? "") = \(result.value ?? ""), \(result.modificationDate?.yearMonthDayTimeString(omitYear: true) ?? "无日期")")
             }
         }

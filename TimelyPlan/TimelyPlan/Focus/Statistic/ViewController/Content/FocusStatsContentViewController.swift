@@ -74,7 +74,7 @@ class FocusStatsContentViewController: StatsContentViewController,
     }
 
     // MARK: - FocusSessionProcessorDelegate
-    func remoteFocusSessionDidChange() {
+    func didChangeRemoteFocusSession(with results: EntityChangeResults<FocusSession>?) {
         reloadData()
     }
     

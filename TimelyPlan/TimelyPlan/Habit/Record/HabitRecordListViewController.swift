@@ -86,7 +86,7 @@ class HabitRecordListViewController: StatsContentViewController,
     }
     
     // MARK: - HabitRecordProcessorDelegate
-    func remoteHabitRecordDidChange() {
+    func didChangeRemoteHabitRecord(with results: EntityChangeResults<HabitRecord>?) {
         performUpdate()
     }
     

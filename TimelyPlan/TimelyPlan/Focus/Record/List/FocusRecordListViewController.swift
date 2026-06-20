@@ -96,7 +96,7 @@ class FocusRecordListViewController: StatsContentViewController,
     }
     
     // MARK: - FocusSessionProcessorDelegate
-    func remoteFocusSessionDidChange() {
+    func didChangeRemoteFocusSession(with results: EntityChangeResults<FocusSession>?) {
         performUpdate()
     }
     

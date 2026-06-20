@@ -11,7 +11,7 @@ import Foundation
 protocol TodoListProcessorDelegate: AnyObject{
     
     /// 远程用户列表改变
-    func remoteTodoListDidChange()
+    func didChangeRemoteTodoList(with results: EntityChangeResults<TodoList>?)
     
     /// 添加列表时通知
     func didCreateTodoList(_ list: TodoList)
@@ -34,6 +34,8 @@ protocol TodoListProcessorDelegate: AnyObject{
 
 extension TodoListProcessorDelegate {
     
+    func didChangeRemoteTodoList(with results: EntityChangeResults<TodoList>?) {}
+    
     func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {}
     
     func didCreateTodoList(_ list: TodoList) {}
@@ -50,9 +52,9 @@ extension TodoListProcessorDelegate {
 class TodoListProcessorUpdater: NSObject,
                                 TodoListProcessorDelegate {
 
-    func remoteTodoListDidChange() {
+    func didChangeRemoteTodoList(with results: EntityChangeResults<TodoList>?) {
         notifyDelegates { (delegate: TodoListProcessorDelegate) in
-            delegate.remoteTodoListDidChange()
+            delegate.didChangeRemoteTodoList(with: results)
         }
     }
     

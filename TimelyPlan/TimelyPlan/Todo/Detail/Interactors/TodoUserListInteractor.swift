@@ -80,7 +80,7 @@ class TodoUserListInteractor: TodoListInteractor {
     }
     
     // MARK: - TodoListProcessorDelegate
-    override func remoteTodoListDidChange() {
+    override func didChangeRemoteTodoList(with results: EntityChangeResults<TodoList>?) {
         /// 更新列表信息以及布局
         guard let newList = TodoRepository.getUserList(of: list.identifier) else {
             return

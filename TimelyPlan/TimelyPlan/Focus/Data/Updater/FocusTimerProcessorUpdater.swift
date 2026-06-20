@@ -9,6 +9,8 @@ import Foundation
 
 protocol FocusTimerProcessorDelegate: AnyObject {
     
+    func didChangeRemoteFocusTimer(with results: EntityChangeResults<FocusTimer>?)
+        
     /// 创建新计时器
     func didCreateFocusTimer(_ timer: FocusTimer)
 
@@ -28,9 +30,6 @@ protocol FocusTimerProcessorDelegate: AnyObject {
     func didReorderFocusTimer(in timers: [FocusTimer],
                               fromIndex: Int,
                               toIndex: Int)
-    
-    /// 远程计时器改变
-    func remoteFocusTimerDidChange()
 }
 
 extension FocusTimerProcessorDelegate {
@@ -46,13 +45,17 @@ extension FocusTimerProcessorDelegate {
     func didMoveFocusTimerToTop(_ timer: FocusTimer) {}
 
     func didReorderFocusTimer(in timers: [FocusTimer], fromIndex: Int, toIndex: Int) {}
-    
-    func remoteFocusTimerDidChange() {}
 }
 
 class FocusTimerProcessorUpdater: NSObject,
                                   FocusTimerProcessorDelegate {
-              
+             
+    func didChangeRemoteFocusTimer(with results: EntityChangeResults<FocusTimer>?) {
+        notifyDelegates { (delegate: FocusTimerProcessorDelegate) in
+            delegate.didChangeRemoteFocusTimer(with: results)
+        }
+    }
+    
     func didCreateFocusTimer(_ timer: FocusTimer) {
         notifyDelegates { (delegate: FocusTimerProcessorDelegate) in
             delegate.didCreateFocusTimer(timer)
@@ -86,12 +89,6 @@ class FocusTimerProcessorUpdater: NSObject,
     func didMoveFocusTimerToTop(_ timer: FocusTimer) {
         notifyDelegates { (delegate: FocusTimerProcessorDelegate) in
             delegate.didMoveFocusTimerToTop(timer)
-        }
-    }
-    
-    func remoteFocusTimerDidChange() {
-        notifyDelegates { (delegate: FocusTimerProcessorDelegate) in
-            delegate.remoteFocusTimerDidChange()
         }
     }
 }

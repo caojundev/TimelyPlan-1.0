@@ -9,6 +9,8 @@ import Foundation
 
 /// 待办任务处理通知协议
 protocol TodoTaskProcessorDelegate: AnyObject {
+
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?)
     
     func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?)
     
@@ -66,10 +68,15 @@ extension TodoTaskProcessorDelegate {
     func didDeleteTodoTasks(_ tasks: [TodoTask]) {}
     
     func didReorderTodoTask(_ task: TodoTask) {}
-    
 }
 
 class TodoTaskProcessorUpdater: NSObject, TodoTaskProcessorDelegate {
+    
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {
+        notifyDelegates { (delegate: TodoTaskProcessorDelegate) in
+            delegate.didChangeRemoteTodoTask(with: results)
+        }
+    }
     
     func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
         notifyDelegates { (delegate: TodoTaskProcessorDelegate) in
