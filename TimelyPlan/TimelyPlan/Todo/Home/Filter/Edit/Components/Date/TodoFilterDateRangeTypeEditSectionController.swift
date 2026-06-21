@@ -13,7 +13,7 @@ class TodoFilterDateRangeTypeEditSectionController: TPTableItemSectionController
 
     lazy var typeCellItem: TPFullSizeSegmentedMenuTableCellItem = {
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
+        cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
         cellItem.menuItems = TodoDateFilterValue.RangeType.segmentedMenuItems()
         cellItem.updater = { [weak self] in
             self?.updateTypeCellItem()

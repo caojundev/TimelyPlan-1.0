@@ -104,15 +104,14 @@ class TodoUserListInteractor: TodoListInteractor {
             return
         }
         
-        let bLayoutTypeChanged = editingList.layoutType != oldList.layoutType
+        let layoutChanged = editingList.layoutType != oldList.layoutType
         list.update(with: editingList)
         listConfiguration.updateList(list)
+        didChangeListInfo?()
         
-        if bLayoutTypeChanged {
+        if layoutChanged {
             updatePlaceholder() /// 更新占位信息
             didChangeLayoutType?()
-        } else {
-            didChangeListInfo?()
         }
     }
 }

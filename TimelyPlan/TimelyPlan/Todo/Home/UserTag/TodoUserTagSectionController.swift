@@ -194,11 +194,12 @@ extension TodoUserTagSectionController: TPTableDragInsertReorderDelegate {
             return nil
         }
     
-        TodoRepository.reorderTag(in: self.tags, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row)
+        TodoRepository.reorderTag(in: tags, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row)
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
         
         /// 重新排序完成返回新索引
         var newIndexPath: IndexPath? = nil
-        if let newIndex = self.tags.indexOf(tag) {
+        if let newIndex = tags.indexOf(tag) {
             newIndexPath = IndexPath(row: newIndex, section: targetIndexPath.section)
         }
 

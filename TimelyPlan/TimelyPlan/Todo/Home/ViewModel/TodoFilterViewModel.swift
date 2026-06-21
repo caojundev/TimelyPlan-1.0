@@ -128,12 +128,8 @@ extension TodoFilterViewModel: TodoFilterProcessorDelegate {
     }
     
     func didReorderTodoFilter(in filters: [TodoFilter], fromIndex: Int, toIndex: Int) {
-        setNeedsRefresh()
-        
-        /// 同步更新
+        /// 同步更新过滤器
         self.filters = TodoRepository.getFilters()
-        self.needsRefresh = false
-        self.filtersDidChange?(nil)
     }
 }
 

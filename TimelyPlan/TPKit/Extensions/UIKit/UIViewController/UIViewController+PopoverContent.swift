@@ -17,7 +17,7 @@ protocol TFPopoverContent {
 extension UIViewController: TFPopoverContent {
     
     @objc var popoverContentSize: CGSize {
-        return kPopoverPreferredContentSize
+        return AppLayout.Popover.preferredContentSize
     }
     
     /// 更新内容大小

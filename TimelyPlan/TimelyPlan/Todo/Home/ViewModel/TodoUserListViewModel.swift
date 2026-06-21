@@ -115,7 +115,9 @@ extension TodoUserListViewModel: TodoListProcessorDelegate {
     /// 重新列表排序
     func didReorderTodoList(_ list: TodoList) {
         expandAllParent(of: list, includeCurrent: false)
-        loadTopLists()
+        
+        /// 更新列表
+        topLists = TodoRepository.getTopLists()
     }
 }
 

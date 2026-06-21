@@ -29,7 +29,7 @@ class RepeatDaysOfMonthSectionController: TPTableItemSectionController {
     /// 月重复模式
     lazy var monthlyModeCellItem: TPFullSizeSegmentedMenuTableCellItem = { [weak self] in
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
+        cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
         cellItem.menuItems = RepeatMonthlyMode.segmentedMenuItems()
         cellItem.updater = {
             self?.updateMonthlyModeCellItem()

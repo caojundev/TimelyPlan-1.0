@@ -50,7 +50,7 @@ class HabitTimePlanRegularSectionController: TPTableItemSectionController {
     /// 频率
     lazy var frequencyCellItem: TPFullSizeSegmentedMenuTableCellItem = { [weak self] in
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
+        cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
         cellItem.menuItems = frequencies.segmentedMenuItems()
         cellItem.updater = {
             self?.updateFrequencyCellItem()

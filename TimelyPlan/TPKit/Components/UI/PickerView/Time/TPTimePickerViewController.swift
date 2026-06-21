@@ -93,7 +93,7 @@ class TPTimePickerViewController: TPTableSectionsViewController {
     override var popoverContentSize: CGSize {
         var contentHeight = timePickerCellItem.height + absoluteTimePresetCellItem.height + relativeTimePresetCellItem.height + actionsBarHeight
         contentHeight += timePointSectionController.headerItem.height
-        return CGSize(width: kPopoverPreferredContentWidth, height: contentHeight)
+        return CGSize(width: AppLayout.Popover.preferredContentWidth, height: contentHeight)
     }
     
     override func clickDone() {

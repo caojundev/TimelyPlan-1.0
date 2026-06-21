@@ -33,7 +33,7 @@ class SidebarController {
     
     /// 创建新侧边栏菜单按钮
     func newMenuButtonItem() -> UIBarButtonItem {
-        let image = resGetImage("SideMenu")
+        let image = resGetImage("sideMenu_24")
         let buttonItem = UIBarButtonItem(image: image,
                                          style: .plain,
                                          target: self,

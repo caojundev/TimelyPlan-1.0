@@ -108,10 +108,7 @@ extension TodoUserTagViewModel: TodoTagProcessorDelegate {
     }
     
     func didRecorderTodoTag(in tags: [TodoTag], fromIndex: Int, toIndex: Int) {
-        /// 同步更新
         self.tags = TodoRepository.getTags()
-        needsRefresh = false
-        tagsDidChange?(nil)
     }
 }
 

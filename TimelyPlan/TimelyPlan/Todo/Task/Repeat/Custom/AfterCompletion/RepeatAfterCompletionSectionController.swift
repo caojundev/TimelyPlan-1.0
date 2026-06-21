@@ -20,7 +20,7 @@ class RepeatAfterCompletionSectionController: TPTableItemSectionController {
     /// 频率
     lazy var frequencyCellItem: TPFullSizeSegmentedMenuTableCellItem = {
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
+        cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
         cellItem.menuItems = frequencyMenuItems
         cellItem.updater = { [weak self] in
             self?.updateFrequencyCellItem()

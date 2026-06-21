@@ -89,7 +89,7 @@ class TPCalendarView: UIView, TPPreviousNextDateViewDelegate {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: kPopoverPreferredContentWidth, height: 420.0)
+        return CGSize(width: AppLayout.Popover.preferredContentWidth, height: 420.0)
     }
     
     private func didChangeVisibleDateComponents(currentDateComponents: DateComponents,

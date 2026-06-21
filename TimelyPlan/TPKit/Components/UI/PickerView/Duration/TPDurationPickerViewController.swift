@@ -97,7 +97,7 @@ class TPDurationPickerViewController: TPTableSectionsViewController {
             contentHeight += durationPresetCellItem.height
         }
         
-        return CGSize(width: kPopoverPreferredContentWidth, height: contentHeight)
+        return CGSize(width: AppLayout.Popover.preferredContentWidth, height: contentHeight)
     }
     
     override var themeBackgroundColor: UIColor? {

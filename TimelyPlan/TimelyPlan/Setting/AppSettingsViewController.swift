@@ -17,6 +17,7 @@ class AppSettingsViewController: BaseSettingViewController,
     /// 震动反馈
     lazy var hapticFeedbackCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
+        cellItem.imageName = "setting_hapticFeedback_24"
         cellItem.title = resGetString("Haptic Feedback")
         cellItem.updater = {
             let isOn = AppSetting.shared.isHapiticFeedbackOn
@@ -48,6 +49,7 @@ class AppSettingsViewController: BaseSettingViewController,
         var cellItems = [TPImageInfoTableCellItem]()
         for menuType in menuTypes {
             let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
+            cellItem.imageName = "setting_\(menuType.rawValue)_24"
             cellItem.title = menuType.title
             cellItem.didSelectHandler = { [weak self] in
                 self?.showSettings(for: menuType)
@@ -62,13 +64,23 @@ class AppSettingsViewController: BaseSettingViewController,
     
     lazy var rateCellItem: TPImageInfoTableCellItem = {
         let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.imageName = "setting_rate_24"
         cellItem.title = resGetString("Rate Us")
+        cellItem.didSelectHandler = { [weak self] in
+            self?.writeReview()
+        }
+        
         return cellItem
     }()
     
     lazy var shareCellItem: TPImageInfoTableCellItem = {
         let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.imageName = "setting_share_24"
         cellItem.title = resGetString("Share with Friends")
+        cellItem.didSelectHandler = { [weak self] in
+            self?.shareApp()
+        }
+        
         return cellItem
     }()
     
@@ -82,9 +94,14 @@ class AppSettingsViewController: BaseSettingViewController,
     }()
     
     // MARK: - 关于
-    lazy var aboutCellItem: TPImageInfoTableCellItem = {
-        let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
+    lazy var aboutCellItem: TPImageInfoTextValueTableCellItem = {
+        let cellItem = TPImageInfoTextValueTableCellItem()
+        cellItem.imageName = "setting_abount_24"
         cellItem.title = resGetString("About")
+        
+        var valueConfig: TPTextAccessoryConfig = .valueText("V\(Bundle.main.releaseVersion)")
+        valueConfig.valueMargins = UIEdgeInsets(right: 16.0)
+        cellItem.valueConfig = valueConfig
         return cellItem
     }()
     
@@ -130,4 +147,33 @@ class AppSettingsViewController: BaseSettingViewController,
         }
     }
     
+    private func writeReview() {
+        if let reviewURL = URL(string: AppConfig.reviewLink) {
+            UIApplication.shared.open(reviewURL,
+                                      options: [:],
+                                      completionHandler: nil)
+        }
+    }
+    
+    private func shareApp() {
+        guard let shareURL = URL(string: AppConfig.detailLink) else { return }
+        let shareText = resGetString("Timely Plan: To-do · Matrix · Focus Timer — one app does it all 🚀")
+        let activityItems: [Any] = [shareText, shareURL]
+        let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+        
+        activityVC.excludedActivityTypes = [
+            .saveToCameraRoll,
+            .print,
+            .addToReadingList
+        ]
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let sourceView = adapter.cellForItem(shareCellItem)
+            activityVC.popoverPresentationController?.sourceView = sourceView
+            activityVC.popoverPresentationController?.sourceRect = sourceView?.bounds ?? .zero
+        }
+        
+        present(activityVC, animated: true)
+    }
+
 }

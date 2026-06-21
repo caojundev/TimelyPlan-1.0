@@ -50,7 +50,7 @@ enum FocusTimerType: Int, Codable, TPMenuRepresentable {
     var attributedTitle: ASAttributedString {
         if let image = self.iconImage {
             return .string(image: image,
-                           imageSize: kIndicatorMediumSize,
+                           imageSize: AppLayout.Indicator.mediumSize,
                            imageColor: .label,
                            trailingText: title,
                            separator: " ")

@@ -851,7 +851,6 @@ extension TPTableViewAdapter {
         }
     }
     
-    
     func commitFocusAnimation(for item: ListDiffable) {
         guard tableView.window != nil else {
             return

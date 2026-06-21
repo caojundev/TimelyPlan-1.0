@@ -64,7 +64,7 @@ class RepeatEndEditViewController: TPTableSectionsViewController,
     /// 规则类型单元格
     lazy var endTypeCellItem: TPFullSizeSegmentedMenuTableCellItem = {
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
+        cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
         cellItem.menuItems = RepeatEndType.segmentedMenuItems()
         cellItem.updater = { [weak self] in
             self?.updateEndTypeCellItem()

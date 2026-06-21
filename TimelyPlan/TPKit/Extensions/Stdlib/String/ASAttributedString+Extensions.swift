@@ -110,7 +110,7 @@ extension ASAttributedString {
     static func string(with image: UIImage,
                        trailingText: String? = nil) -> ASAttributedString {
         return string(image: image,
-                      imageSize: kIndicatorMediumSize,
+                      imageSize: AppLayout.Indicator.mediumSize,
                       trailingText: trailingText)
     }
     

@@ -86,7 +86,7 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
     }
     
     override var popoverContentSize: CGSize {
-        return CGSize(width: kPopoverPreferredContentWidth, height: 580.0)
+        return CGSize(width: AppLayout.Popover.preferredContentWidth, height: 580.0)
     }
     
     override func viewWillLayoutSubviews() {

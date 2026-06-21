@@ -231,8 +231,15 @@ extension TodoUserListHomeSectionController: TPTableDragInsertReorderDelegate {
             return sourceIndexPath
         }
         
-        TodoRepository.reorderList(in: lists, fromIndex: sourceIndexPath.row, toIndex: targetIndexPath.row, depth: depth)
-        /// 重新排序完成返回新索引
+        /// 排序列表
+        TodoRepository.reorderList(in: lists,
+                                   fromIndex: sourceIndexPath.row,
+                                   toIndex: targetIndexPath.row,
+                                   depth: depth)
+        /// 更新列表区块
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .fade)
+        
+        /// 获取排序后的新索引
         var newIndexPath: IndexPath? = nil
         if let newIndex = lists.indexOf(list) {
             newIndexPath = IndexPath(row: newIndex, section: targetIndexPath.section)

@@ -26,7 +26,7 @@ class TPCountPickerViewController: TPViewController {
     var didPickCount: ((Int) -> Void)?
     
     /// 内容尺寸
-    var contentSize: CGSize = CGSize(width: kPopoverPreferredContentWidth, height: 260.0)
+    var contentSize: CGSize = CGSize(width: AppLayout.Popover.preferredContentWidth, height: 260.0)
     
     /// 获取特定数目对应的尾文本
     var tailingTextForCount: ((Int) -> String?)? {

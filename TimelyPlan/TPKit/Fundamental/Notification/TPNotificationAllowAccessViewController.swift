@@ -52,7 +52,7 @@ class TPNotificationAllowAccessViewController: TPViewController {
         super.viewWillLayoutSubviews()
         deniedView.width = view.width
         deniedView.sizeToFit()
-        let contentSize = CGSize(width: kPopoverPreferredContentWidth,
+        let contentSize = CGSize(width: AppLayout.Popover.preferredContentWidth,
                                  height: deniedView.height)
         setContentSize(contentSize)
     }

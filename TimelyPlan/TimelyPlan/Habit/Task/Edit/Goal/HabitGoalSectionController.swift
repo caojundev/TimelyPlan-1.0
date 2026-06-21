@@ -19,7 +19,7 @@ class HabitGoalSectionController: TPTableItemSectionController {
     /// 目标模式
     lazy var targetModeCellItem: TPFullSizeSegmentedMenuTableCellItem = { [weak self] in
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
+        cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
         cellItem.menuItems = HabitGoal.TargetMode.segmentedMenuItems()
         cellItem.updater = {
             guard let self = self else {

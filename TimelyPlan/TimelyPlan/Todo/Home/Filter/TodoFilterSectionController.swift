@@ -193,13 +193,14 @@ extension TodoFilterSectionController: TPTableDragInsertReorderDelegate {
             return nil
         }
     
-        TodoRepository.reorderFilter(in: self.filters,
-                           fromIndex: sourceIndexPath.row,
-                           toIndex: targetIndexPath.row)
+        TodoRepository.reorderFilter(in: filters,
+                                     fromIndex: sourceIndexPath.row,
+                                     toIndex: targetIndexPath.row)
+        adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
         
         /// 重新排序完成返回新索引
         var newIndexPath: IndexPath? = nil
-        if let newIndex = self.filters.indexOf(filter) {
+        if let newIndex = filters.indexOf(filter) {
             newIndexPath = IndexPath(row: newIndex, section: targetIndexPath.section)
         }
 

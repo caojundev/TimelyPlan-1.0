@@ -49,7 +49,7 @@ class RepeatCustomViewController: TPTableSectionsViewController {
     /// 规则类型单元格
     lazy var typeCellItem: TPFullSizeSegmentedMenuTableCellItem = {
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
+        cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
         cellItem.menuItems = RecurrenceRuleType.segmentedMenuItems()
         cellItem.updater = { [weak self] in
             self?.updateRuleTypeCellItem()

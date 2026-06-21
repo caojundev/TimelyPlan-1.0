@@ -10,17 +10,7 @@ import UIKit
 
 class TodoImportInputViewController: TPViewController, UITextViewDelegate {
     
-    var inputText: String? = """
-    完成项目报告
-      - [x] 收集数据
-        - [ ] 销售数据
-        - [ ] 用户反馈
-      - [ ] 编写分析
-    准备会议
-      - [ ] 制作PPT
-      - [ ] 预定会议室
-    买水果
-    """
+    var inputText: String?
     
     var placeholder: String? {
         get {

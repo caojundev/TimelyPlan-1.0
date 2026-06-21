@@ -18,7 +18,7 @@ class TPPopoverPresentationController: UIPresentationController {
     var keyboardOffsetY: CGFloat = 10.0
 
     /// 默认内容尺寸
-    let defaultContentSize = kPopoverPreferredContentSize
+    let defaultContentSize = AppLayout.Popover.preferredContentSize
 
     
     /// 弹窗边界间距

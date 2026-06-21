@@ -92,7 +92,7 @@ class TPSheetMenuViewController: TPTableViewController,
         let tableViewFrame = tableViewFrame()
         var contentHeight = tableViewFrame.minY
         contentHeight += wrapperView.contentSize.height + actionsBarHeight
-        return CGSize(width: kPopoverPreferredContentWidth, height: contentHeight)
+        return CGSize(width: AppLayout.Popover.preferredContentWidth, height: contentHeight)
     }
 
     override func clickDone() {

@@ -97,9 +97,9 @@ class TodoUserListManager {
         }
 
         if CDTodoList.updateList(list, with: editingList) {
-            HandyRecord.save()
-            list.update(with: editingList)
             updater.didUpdateTodoList(list, with: editingList)
+//            list.update(with: editingList)
+            HandyRecord.save()
         }
     }
     
@@ -112,9 +112,9 @@ class TodoUserListManager {
         
         editingList.layoutType = layoutType
         if CDTodoList.updateList(list, with: editingList) {
-            HandyRecord.save()
-            list.update(with: editingList)
             updater.didUpdateTodoList(list, with: editingList)
+//            list.update(with: editingList)
+            HandyRecord.save()
         }
     }
 

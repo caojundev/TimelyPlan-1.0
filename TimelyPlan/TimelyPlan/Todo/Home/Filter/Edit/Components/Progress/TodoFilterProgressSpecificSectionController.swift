@@ -16,7 +16,7 @@ class TodoFilterProgressSpecificSectionController: TPTableItemSectionController 
     /// 类型单元格
     lazy var typeCellItem: TPFullSizeSegmentedMenuTableCellItem = {
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
+        cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
         cellItem.menuItems = TodoFilterProgressSpecificValueType.segmentedMenuItems()
         cellItem.updater = { [weak self] in
             self?.updateTypeCellItem()

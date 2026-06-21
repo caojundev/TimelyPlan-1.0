@@ -14,7 +14,7 @@ class TodoFilterRelativeDateOffsetSectionController: TPTableItemSectionControlle
      
     lazy var directionCellItem: TPFullSizeSegmentedMenuTableCellItem = {
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
+        cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
         cellItem.menuItems = TodoRelativeDateOffset.Direction.segmentedMenuItems()
         cellItem.updater = { [weak self] in
             self?.updateDirectionCellItem()
@@ -47,7 +47,7 @@ class TodoFilterRelativeDateOffsetSectionController: TPTableItemSectionControlle
     
     lazy var timeUnitCellItem: TPFullSizeSegmentedMenuTableCellItem = {
         let cellItem = TPFullSizeSegmentedMenuTableCellItem()
-        cellItem.cornerRadius = kInsetGroupedSegmentedMenuCornerRadius
+        cellItem.cornerRadius = AppLayout.Cell.segmentedMenuCornerRadius
         cellItem.menuItems = TPSegmentedMenuItem.items(with: TodoRelativeDateOffset.permittedUnits)
         cellItem.updater = { [weak self] in
             self?.updateTimeUnitCellItem()

@@ -157,7 +157,7 @@ class FocusQuickStartViewController: TPContainerViewController {
     }
     
     override var popoverContentSize: CGSize {
-        return CGSize(kPopoverPreferredContentWidth, 660.0)
+        return CGSize(AppLayout.Popover.preferredContentWidth, 660.0)
     }
     
     private func updateTaskInfoView() {
