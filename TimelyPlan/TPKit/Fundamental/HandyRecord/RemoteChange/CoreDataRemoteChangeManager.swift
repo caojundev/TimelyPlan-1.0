@@ -18,24 +18,31 @@ class CoreDataRemoteChangeManager {
     // MARK: - 单例
     static let shared = CoreDataRemoteChangeManager()
     
+    // MARK: - 观察者Token
+    struct ObserverToken {
+        fileprivate let id: UUID
+        fileprivate weak var manager: CoreDataRemoteChangeManager?
+        
+        func invalidate() {
+            manager?.removeObserver(token: self)
+        }
+    }
+    
     // MARK: - 变更信息模型
     struct ChangeInfo {
         let timestamp: Date
         let changesByEntity: [String: EntityChanges]
-        let isInitialSync: Bool
         
         var entityNames: [EntityName] {
-            var names = [EntityName]()
-            for key in changesByEntity.keys {
-                if let name = EntityName(rawValue: key) {
-                    names.append(name)
-                }
-            }
-            return names
+            return changesByEntity.keys.compactMap { EntityName(rawValue: $0) }
+        }
+        
+        var totalChangeCount: Int {
+            return changesByEntity.values.reduce(0) { $0 + $1.totalCount }
         }
         
         var debugDescription: String {
-            var desc = "📱 远程数据变更 [\(timestamp)]\(isInitialSync ? " (初始同步)" : "")\n"
+            var desc = "📱 远程数据变更 [\(timestamp)]\n"
             for (entityName, changes) in changesByEntity {
                 desc += "├─ \(entityName): 新增\(changes.inserted.count) 更新\(changes.updated.count) 删除\(changes.deleted.count)\n"
             }
@@ -74,36 +81,32 @@ class CoreDataRemoteChangeManager {
     
     // MARK: - 配置选项
     struct Configuration {
-        /// 初始同步的触发间隔（秒）
-        var initialSyncInterval: TimeInterval = 3.0
-        /// 正常运行的触发间隔（秒）
-        var normalSyncInterval: TimeInterval = 0.8
-        /// 初始同步的最大持续时间（秒）
-        var maxInitialSyncDuration: TimeInterval = 10.0
-        /// 立即触发的变更阈值
-        var immediateFlushThreshold: Int = 50
+        /// 防抖等待时间（秒）- 收到最后一条通知后等待这段时间再触发
+        var debounceInterval: TimeInterval = 0.8
+        /// 最大等待时间（秒）- 防止无限等待的兜底策略
+        var maxWaitTime: TimeInterval = 5.0
+        /// 变更数量超过此阈值时，防抖时间减半
+        var largeBatchThreshold: Int = 50
     }
     
     // MARK: - 私有属性
     private var container: NSPersistentCloudKitContainer?
     private var lastHistoryToken: NSPersistentHistoryToken?
-    private var handlers: [(handler: CoreDataRemoteChangeHandler, queue: DispatchQueue)] = []
+    private var handlerDict: [UUID: (handler: CoreDataRemoteChangeHandler, queue: DispatchQueue)] = [:]
     private let handlerLock = NSLock()
     private let tokenKey = "CoreDataRemoteChangeToken"
-    private let initialSyncKey = "CoreDataInitialSyncCompleted"
     
-    // 变更缓存
+    // 防抖相关
     private var pendingChanges: [String: EntityChanges] = [:]
     private var pendingChangeCount: Int = 0
+    private var debounceTimer: Timer?
+    private var maxWaitTimer: Timer?
+    private var firstChangeTime: Date?
     private let changeLock = NSLock()
     
-    // 定时器相关
-    private var flushTimer: Timer?
-    private var initialSyncStartTime: Date?
-    private var isInitialSyncCompleted = false
-    
-    private var isInitialSync: Bool {
-        return !UserDefaults.standard.bool(forKey: initialSyncKey) && !isInitialSyncCompleted
+    // 标记是否正在防抖等待中
+    private var isDebouncing: Bool {
+        return debounceTimer != nil
     }
     
     // MARK: - 发布者
@@ -121,35 +124,38 @@ class CoreDataRemoteChangeManager {
     func configure(with container: NSPersistentCloudKitContainer) {
         container.viewContext.markAsLocal()
         self.container = container
-        
-        if isInitialSync {
-            debugPrint("🆕 检测到首次启动，将使用初始同步策略")
-        }
-        
         self.loadToken()
         self.startObserving()
-        
-        // 在主线程启动定时器
-        DispatchQueue.main.async { [weak self] in
-            self?.startFlushTimer()
-        }
     }
     
     // MARK: - 观察者管理
     
-    var count = 0
-    func observe(on queue: DispatchQueue = .main, handler: @escaping CoreDataRemoteChangeHandler) {
-        count += 1
-        print("✅ 添加观察者.....\(count)")
+    @discardableResult
+    func observe(on queue: DispatchQueue = .main, handler: @escaping CoreDataRemoteChangeHandler) -> ObserverToken {
+        let id = UUID()
         handlerLock.lock()
-        handlers.append((handler: handler, queue: queue))
+        handlerDict[id] = (handler: handler, queue: queue)
+        let count = handlerDict.count
         handlerLock.unlock()
+        
+        debugPrint("➕ 添加观察者，当前总数: \(count)")
+        return ObserverToken(id: id, manager: self)
+    }
+    
+    fileprivate func removeObserver(token: ObserverToken) {
+        handlerLock.lock()
+        handlerDict.removeValue(forKey: token.id)
+        let count = handlerDict.count
+        handlerLock.unlock()
+        
+        debugPrint("➖ 移除观察者，当前总数: \(count)")
     }
     
     func removeAllObservers() {
         handlerLock.lock()
-        handlers.removeAll()
+        handlerDict.removeAll()
         handlerLock.unlock()
+        debugPrint("🗑 移除所有观察者")
     }
     
     func refreshViewContext() {
@@ -167,24 +173,11 @@ class CoreDataRemoteChangeManager {
             name: UIApplication.didEnterBackgroundNotification,
             object: nil
         )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleAppWillEnterForeground),
-            name: UIApplication.willEnterForegroundNotification,
-            object: nil
-        )
     }
     
     @objc private func handleAppDidEnterBackground() {
-        flushPendingChanges(force: true, reason: "进入后台")
-        stopFlushTimer()
-    }
-    
-    @objc private func handleAppWillEnterForeground() {
-        DispatchQueue.main.async { [weak self] in
-            self?.startFlushTimer()
-        }
+        // 进入后台立即触发
+        flushPendingChanges(reason: "进入后台")
     }
     
     // MARK: - 远程变更监听
@@ -207,49 +200,84 @@ class CoreDataRemoteChangeManager {
         return transaction.author?.hasPrefix(localPrefix) ?? false
     }
     
-    // MARK: - 定时器管理
+    // MARK: - 防抖机制核心
     
-    private func startFlushTimer() {
-        stopFlushTimer()
+    /// 重置防抖计时器（每次收到新变更时调用）
+    private func resetDebounceTimer() {
+        // 取消现有计时器
+        debounceTimer?.invalidate()
         
-        let interval = isInitialSync ? configuration.initialSyncInterval : configuration.normalSyncInterval
-        debugPrint("⏰ 启动刷新定时器，间隔: \(interval)秒，模式: \(isInitialSync ? "初始同步" : "正常")")
+        // 确定防抖间隔
+        var interval = configuration.debounceInterval
         
-        flushTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] timer in
-            self?.timerFired()
+        // 如果累积变更很多，缩短防抖时间
+        if pendingChangeCount >= configuration.largeBatchThreshold {
+            interval = configuration.debounceInterval / 2
+            debugPrint("⏱ 大量变更(\(pendingChangeCount)条)，防抖时间缩短为: \(String(format: "%.1f", interval))秒")
         }
         
-        // 确保定时器在滚动等场景下也能触发
-        if let timer = flushTimer {
+        // 创建新的计时器
+        debounceTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { [weak self] _ in
+            self?.debounceTimerFired()
+        }
+        
+        if let timer = debounceTimer {
             RunLoop.main.add(timer, forMode: .common)
         }
+        
+        debugPrint("⏱ 重置防抖计时器(\(String(format: "%.1f", interval))秒)，待处理: \(pendingChangeCount)条")
     }
     
-    private func stopFlushTimer() {
-        flushTimer?.invalidate()
-        flushTimer = nil
+    /// 启动最大等待计时器（只在第一次收到变更时启动）
+    private func startMaxWaitTimer() {
+        guard maxWaitTimer == nil else { return }
+        
+        maxWaitTimer = Timer.scheduledTimer(withTimeInterval: configuration.maxWaitTime, repeats: false) { [weak self] _ in
+            self?.maxWaitTimerFired()
+        }
+        
+        if let timer = maxWaitTimer {
+            RunLoop.main.add(timer, forMode: .common)
+        }
+        
+        debugPrint("⏰ 启动最大等待计时器(\(String(format: "%.1f", configuration.maxWaitTime))秒)")
     }
     
-    private func timerFired() {
+    /// 防抖计时器触发：连续没有新变更，可以通知了
+    private func debounceTimerFired() {
         changeLock.lock()
         let hasChanges = !pendingChanges.isEmpty
         let count = pendingChangeCount
-        let isInitial = isInitialSync
         changeLock.unlock()
         
         if hasChanges {
-            debugPrint("⏰ 定时器触发，待处理变更: \(count)条")
-            flushPendingChanges(force: false, reason: "定时触发")
+            debugPrint("✅ 防抖计时器触发，连续无新变更，发送通知: \(count)条")
+            flushPendingChanges(reason: "防抖触发")
+        } else {
+            debugPrint("⏭ 防抖计时器触发，但无待处理变更")
         }
+    }
+    
+    /// 最大等待计时器触发：兜底策略，防止无限等待
+    private func maxWaitTimerFired() {
+        changeLock.lock()
+        let hasChanges = !pendingChanges.isEmpty
+        let count = pendingChangeCount
+        changeLock.unlock()
         
-        // 检查初始同步是否超时
-        if isInitial, let startTime = initialSyncStartTime {
-            let elapsed = Date().timeIntervalSince(startTime)
-            if elapsed >= configuration.maxInitialSyncDuration {
-                debugPrint("⏱ 初始同步超时，强制完成")
-                markInitialSyncCompleted()
-            }
+        if hasChanges {
+            debugPrint("⚠️ 最大等待时间到，强制发送通知: \(count)条")
+            flushPendingChanges(reason: "最大等待时间触发")
         }
+    }
+    
+    /// 停止所有计时器
+    private func stopAllTimers() {
+        debounceTimer?.invalidate()
+        debounceTimer = nil
+        maxWaitTimer?.invalidate()
+        maxWaitTimer = nil
+        firstChangeTime = nil
     }
     
     // MARK: - 处理历史变更
@@ -269,7 +297,7 @@ class CoreDataRemoteChangeManager {
                 return
             }
             
-            // 过滤掉本地操作
+            // 过滤本地操作
             let remoteTransactions = transactions.filter { !self.isLocalTransaction($0) }
             
             // 更新Token（无论是否有远程操作都要更新）
@@ -279,36 +307,39 @@ class CoreDataRemoteChangeManager {
             }
             
             guard !remoteTransactions.isEmpty else {
+                debugPrint("🏠 只有本地操作，不触发通知")
                 return
             }
             
             let totalChanges = remoteTransactions.reduce(0) { $0 + ($1.changes?.count ?? 0) }
             debugPrint("🌐 收到 \(remoteTransactions.count) 个远程事务，变更总数: \(totalChanges)")
             
-            // 提取变更信息
-            let extractedChanges = self.extractChanges(from: remoteTransactions)
+            // 提取并累积变更
+            self.accumulateChanges(from: remoteTransactions)
             
-            // 累积变更
-            let shouldFlushImmediately = self.accumulateChanges(extractedChanges)
-            
-            // 如果需要立即刷新，在主线程执行
-            if shouldFlushImmediately {
-                DispatchQueue.main.async {
-                    self.flushPendingChanges(force: true, reason: "达到阈值")
-                }
+            // 在主线程重置防抖计时器
+            DispatchQueue.main.async {
+                self.handleNewChangesArrived()
             }
         }
     }
     
-    private func extractChanges(from transactions: [NSPersistentHistoryTransaction]) -> [String: EntityChanges] {
-        var changesByEntity: [String: EntityChanges] = [:]
+    /// 累积变更到待处理池
+    private func accumulateChanges(from transactions: [NSPersistentHistoryTransaction]) {
+        changeLock.lock()
+        defer { changeLock.unlock() }
+        
+        // 记录首次变更时间
+        if firstChangeTime == nil {
+            firstChangeTime = Date()
+        }
         
         for transaction in transactions {
             guard let changes = transaction.changes else { continue }
             
             for change in changes {
                 let entityName = change.changedObjectID.entity.name ?? "Unknown"
-                var entityChanges = changesByEntity[entityName] ?? EntityChanges(entityName: entityName)
+                var entityChanges = pendingChanges[entityName] ?? EntityChanges(entityName: entityName)
                 
                 switch change.changeType {
                 case .insert:
@@ -321,106 +352,59 @@ class CoreDataRemoteChangeManager {
                     break
                 }
                 
-                changesByEntity[entityName] = entityChanges
+                pendingChanges[entityName] = entityChanges
             }
         }
         
-        return changesByEntity
-    }
-    
-    // MARK: - 变更累积
-    
-    /// 累积变更并返回是否需要立即刷新
-    private func accumulateChanges(_ newChanges: [String: EntityChanges]) -> Bool {
-        changeLock.lock()
-        defer { changeLock.unlock() }
-        
-        // 如果是初始同步，记录开始时间
-        if isInitialSync && initialSyncStartTime == nil {
-            initialSyncStartTime = Date()
-            debugPrint("🔄 开始初始同步")
-        }
-        
-        // 合并变更
-        for (entityName, changes) in newChanges {
-            if var existing = pendingChanges[entityName] {
-                let oldCount = existing.totalCount
-                existing.merge(with: changes)
-                pendingChanges[entityName] = existing
-                pendingChangeCount += (existing.totalCount - oldCount)
-            } else {
-                pendingChanges[entityName] = changes
-                pendingChangeCount += changes.totalCount
-            }
-        }
+        // 重新计算总数
+        pendingChangeCount = pendingChanges.values.reduce(0) { $0 + $1.totalCount }
         
         debugPrint("📦 累积待处理变更: \(pendingChangeCount) 条 (涉及 \(pendingChanges.count) 个实体)")
-        
-        // 检查是否需要立即刷新
-        let shouldFlushImmediately = pendingChangeCount >= configuration.immediateFlushThreshold
-        
-        // 检查初始同步是否即将超时
-        if !shouldFlushImmediately && isInitialSync, let startTime = initialSyncStartTime {
-            let elapsed = Date().timeIntervalSince(startTime)
-            if elapsed >= configuration.maxInitialSyncDuration * 0.8 {
-                return true
-            }
-        }
-        
-        return shouldFlushImmediately
     }
     
-    // MARK: - 刷新变更
+    /// 收到新变更后的处理（在主线程调用）
+    private func handleNewChangesArrived() {
+        // 启动最大等待计时器（只在第一次时启动）
+        startMaxWaitTimer()
+        
+        // 重置防抖计时器
+        resetDebounceTimer()
+    }
     
-    private func flushPendingChanges(force: Bool, reason: String) {
+    // MARK: - 刷新变更并通知
+    
+    private func flushPendingChanges(reason: String) {
+        // 停止所有计时器
+        stopAllTimers()
+        
         changeLock.lock()
         
         guard !pendingChanges.isEmpty else {
             changeLock.unlock()
+            debugPrint("⏭ 无待处理变更，跳过通知")
             return
         }
         
         let changes = pendingChanges
-        let isInitial = isInitialSync
+        let totalCount = pendingChangeCount
         pendingChanges.removeAll()
         pendingChangeCount = 0
         
         changeLock.unlock()
         
-        // 如果是初始同步完成
-        if isInitial {
-            markInitialSyncCompleted()
-        }
-        
-        let totalChanges = changes.values.reduce(0) { $0 + $1.totalCount }
-        debugPrint("📢 [\(reason)] 发送批量通知: \(totalChanges) 条变更 (涉及 \(changes.count) 个实体)")
+        debugPrint("📢 [\(reason)] 发送通知: \(totalCount)条变更 (涉及\(changes.count)个实体)")
         
         let changeInfo = ChangeInfo(
             timestamp: Date(),
-            changesByEntity: changes,
-            isInitialSync: isInitial
+            changesByEntity: changes
         )
         
-        // 通知观察者
+        // 通知所有观察者
         notifyHandlers(with: changeInfo)
         
-        // 发送 Combine 事件
-        DispatchQueue.main.async {
-            self.changePublisher.send(changeInfo)
-        }
-    }
-    
-    private func markInitialSyncCompleted() {
-        guard isInitialSync else { return }
-        
-        isInitialSyncCompleted = true
-        UserDefaults.standard.set(true, forKey: initialSyncKey)
-        initialSyncStartTime = nil
-        debugPrint("✅ 初始同步完成，切换到正常模式")
-        
-        // 重新启动定时器（使用正常间隔）
+        // 发送Combine事件
         DispatchQueue.main.async { [weak self] in
-            self?.startFlushTimer()
+            self?.changePublisher.send(changeInfo)
         }
     }
     
@@ -428,7 +412,7 @@ class CoreDataRemoteChangeManager {
     
     private func notifyHandlers(with changeInfo: ChangeInfo) {
         handlerLock.lock()
-        let currentHandlers = handlers
+        let currentHandlers = Array(handlerDict.values)
         handlerLock.unlock()
         
         debugPrint("📣 通知 \(currentHandlers.count) 个观察者")
@@ -459,7 +443,7 @@ class CoreDataRemoteChangeManager {
     }
     
     deinit {
-        stopFlushTimer()
+        stopAllTimers()
         NotificationCenter.default.removeObserver(self)
     }
 }
