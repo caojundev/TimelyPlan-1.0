@@ -14,10 +14,18 @@ class AppSettingsViewController: BaseSettingViewController,
     /// 侧边栏管理器
     var sidebarController: SidebarController?
     
+    lazy var imageConfig: TPImageAccessoryConfig = {
+        var config = TPImageAccessoryConfig()
+        config.shouldRenderImageWithColor = false
+        config.size = .size(8)
+        return config
+    }()
+    
     /// 震动反馈
     lazy var hapticFeedbackCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
-        cellItem.imageName = "setting_hapticFeedback_24"
+        cellItem.imageConfig = imageConfig
+        cellItem.imageName = "setting_hapticFeedback_32"
         cellItem.title = resGetString("Haptic Feedback")
         cellItem.updater = {
             let isOn = AppSetting.shared.isHapiticFeedbackOn
@@ -49,7 +57,8 @@ class AppSettingsViewController: BaseSettingViewController,
         var cellItems = [TPImageInfoTableCellItem]()
         for menuType in menuTypes {
             let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
-            cellItem.imageName = "setting_\(menuType.rawValue)_24"
+            cellItem.imageConfig = imageConfig
+            cellItem.imageName = menuType.iconName
             cellItem.title = menuType.title
             cellItem.didSelectHandler = { [weak self] in
                 self?.showSettings(for: menuType)
@@ -64,7 +73,8 @@ class AppSettingsViewController: BaseSettingViewController,
     
     lazy var rateCellItem: TPImageInfoTableCellItem = {
         let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.imageName = "setting_rate_24"
+        cellItem.imageConfig = imageConfig
+        cellItem.imageName = "setting_rate_32"
         cellItem.title = resGetString("Rate Us")
         cellItem.didSelectHandler = { [weak self] in
             self?.writeReview()
@@ -75,7 +85,8 @@ class AppSettingsViewController: BaseSettingViewController,
     
     lazy var shareCellItem: TPImageInfoTableCellItem = {
         let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.imageName = "setting_share_24"
+        cellItem.imageConfig = imageConfig
+        cellItem.imageName = "setting_share_32"
         cellItem.title = resGetString("Share with Friends")
         cellItem.didSelectHandler = { [weak self] in
             self?.shareApp()
@@ -96,7 +107,8 @@ class AppSettingsViewController: BaseSettingViewController,
     // MARK: - 关于
     lazy var aboutCellItem: TPImageInfoTextValueTableCellItem = {
         let cellItem = TPImageInfoTextValueTableCellItem()
-        cellItem.imageName = "setting_abount_24"
+        cellItem.imageConfig = imageConfig
+        cellItem.imageName = "setting_abount_32"
         cellItem.title = resGetString("About")
         
         var valueConfig: TPTextAccessoryConfig = .valueText("V\(Bundle.main.releaseVersion)")

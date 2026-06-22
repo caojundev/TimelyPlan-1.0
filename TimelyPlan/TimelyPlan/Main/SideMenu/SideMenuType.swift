@@ -28,10 +28,6 @@ enum SideMenuType: String, Codable, TPMenuRepresentable {
     }
     
     var iconName: String? {
-        let firstCharIndex = rawValue.startIndex
-        let firstChar = String(rawValue[firstCharIndex]).capitalized
-        let suffixName = firstChar + String(rawValue.dropFirst())
-        let name = "SideMenu" + suffixName
-        return name
+        return "sideMenu_\(rawValue)_40"
     }
 }
