@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 class TodoTaskUserSectionSelectSectionController: TPTableBaseSectionController,
-                                              TodoTaskMoveUserListCellDelegate,
-                                              TPExpandDefaultInfoTableCellDelegate {
+                                                  TodoTaskMoveUserListCellDelegate,
+                                                  TPExpandDefaultInfoTableCellDelegate {
 
     var lists: [TodoList] = []
     
@@ -24,7 +24,8 @@ class TodoTaskUserSectionSelectSectionController: TPTableBaseSectionController,
     
     init(viewModel: TodoTaskSectionViewModel) {
         self.viewModel = viewModel
-        self.expansionState = TodoParentListSelectExpansionState(allowMaxDepth: kTodoListMaxDepth)
+        let allowMaxDepth = kTodoListMaxDepth + 1 /// 最大板块深度
+        self.expansionState = TodoParentListSelectExpansionState(allowMaxDepth: allowMaxDepth)
         super.init()
         self.updateLists()
     }

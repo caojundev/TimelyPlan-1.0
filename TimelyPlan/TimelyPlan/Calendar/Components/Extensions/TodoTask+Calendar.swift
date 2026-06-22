@@ -28,6 +28,7 @@ extension TodoTask {
                                   startDate: dateInfo.startDate,
                                   endDate: dateInfo.endDate,
                                   isAllDay: isAllDay,
+                                  isCompleted: isCompleted,
                                   sourceItem: self)
         return event
     }

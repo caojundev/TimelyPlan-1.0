@@ -58,12 +58,13 @@ class CalendarEvent: NSObject {
     let identifier: String
     let source: CalendarEventSource
     let title: String?
+    let color: UIColor
     let startDate: Date
     let endDate: Date
     let isAllDay: Bool
-    let color: UIColor
+    let isCompleted: Bool
     var notes: String?
-
+    
     // 原始数据条目的引用
     let sourceItem: Any
     
@@ -74,6 +75,7 @@ class CalendarEvent: NSObject {
          startDate: Date,
          endDate: Date,
          isAllDay: Bool,
+         isCompleted: Bool,
          sourceItem: Any) {
         self.identifier = identifier
         self.source = source
@@ -83,6 +85,7 @@ class CalendarEvent: NSObject {
         self.endDate = endDate
         self.isAllDay = isAllDay
         self.sourceItem = sourceItem
+        self.isCompleted = isCompleted
     }
     
     /// 日期范围

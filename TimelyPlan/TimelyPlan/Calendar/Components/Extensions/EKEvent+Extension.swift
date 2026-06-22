@@ -164,12 +164,11 @@ extension EKEvent {
     
     private func daysOfWeekDescription(_ days: [EKRecurrenceDayOfWeek]?) -> String? {
         guard let days = days, !days.isEmpty else { return nil }
-        
         let weekdaySymbols = Calendar.current.shortWeekdaySymbols
         let dayNames = days.compactMap { day -> String? in
             let dayOfTheWeek = day.dayOfTheWeek.rawValue
             guard dayOfTheWeek >= 1 && dayOfTheWeek <= 7 else { return nil }
-            let index = (dayOfTheWeek + 5) % 7
+            let index = dayOfTheWeek - 1
             return weekdaySymbols[safe: index]
         }
         
@@ -312,6 +311,7 @@ extension EKEvent {
             startDate: self.startDate,
             endDate: self.endDate,
             isAllDay: isAllDay,
+            isCompleted: false,
             sourceItem: self
         )
     }
