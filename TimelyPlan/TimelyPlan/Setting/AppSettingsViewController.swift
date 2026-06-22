@@ -114,6 +114,10 @@ class AppSettingsViewController: BaseSettingViewController,
         var valueConfig: TPTextAccessoryConfig = .valueText("V\(Bundle.main.releaseVersion)")
         valueConfig.valueMargins = UIEdgeInsets(right: 16.0)
         cellItem.valueConfig = valueConfig
+        cellItem.didSelectHandler = { [weak self] in
+            self?.clickAbount()
+        }
+        
         return cellItem
     }()
     
@@ -188,4 +192,10 @@ class AppSettingsViewController: BaseSettingViewController,
         present(activityVC, animated: true)
     }
 
+    private func clickAbount() {
+    #if DEBUG
+        let previewVC = LocalNotificationPreviewViewController()
+        navigationController?.pushViewController(previewVC, animated: true)
+    #endif
+    }
 }
