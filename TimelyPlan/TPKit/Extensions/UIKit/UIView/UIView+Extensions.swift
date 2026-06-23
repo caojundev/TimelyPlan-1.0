@@ -37,12 +37,26 @@ extension UIView {
     
     /// 第一响应者是否为当前视图的子视图
     var isDescendantFirstResponder: Bool {
-        let responder = UIResponder.currentFirstResponder()
-        if let view = responder as? UIView, view.isDescendant(of: self) {
+        if findFirstResponder(in: self) != nil {
             return true
         }
         
         return false
+    }
+    
+    // 递归查找第一响应者
+    private func findFirstResponder(in view: UIView) -> UIResponder? {
+        if view.isFirstResponder {
+            return view
+        }
+        
+        for subview in view.subviews {
+            if let firstResponder = findFirstResponder(in: subview) {
+                return firstResponder
+            }
+        }
+        
+        return nil
     }
     
     /// 将数组中视图从父视图移除

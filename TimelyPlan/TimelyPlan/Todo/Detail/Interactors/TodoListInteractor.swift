@@ -324,10 +324,12 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         loadGroups()
     }
     
-    func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
+    func didUpdateTodoList(_ list: TodoList, with info: TodoUserListUpdateInfo) {
         /// 如果详情显示包含列表信息，检查是否更新
         let detailOption = configuration.detailOption()
-        guard detailOption.contains(.list), list.name != editingList.name, let tasks = tasks else {
+        guard detailOption.contains(.list),
+              info.old.name != info.new.name,
+              let tasks = tasks else {
             return
         }
         
@@ -335,7 +337,7 @@ class TodoListInteractor: TodoTaskProcessorDelegate,
         if groupType == .list {
             shouldRefresh = true
         } else {
-            let newName = editingList.name
+            let newName = info.new.name
             shouldRefresh = tasks.contains { task in
                 guard let taskList = task.list else { return false }
                 return taskList.identifier == list.identifier && taskList.name != newName

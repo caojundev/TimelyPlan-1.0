@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-fileprivate weak var _currentFirstResponder: UIResponder?
 
 extension UIResponder {
     
@@ -25,17 +24,26 @@ extension UIResponder {
         }
     }
     
+    /// 获取当前第一响应者（全窗口安全搜索）
     static func currentFirstResponder() -> UIResponder? {
-        _currentFirstResponder = nil
-        UIApplication.shared.sendAction(#selector(findFirstResponder),
-                                        to: nil,
-                                        from: nil,
-                                        for: nil)
-        return _currentFirstResponder
-    }
-    
-    @objc private func findFirstResponder() {
-        _currentFirstResponder = self
+        // 优先搜索 keyWindow
+        for scene in UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }) {
+            for window in scene.windows where window.isKeyWindow {
+                if let responder = window.tp_findFirstResponder() {
+                    return responder
+                }
+            }
+        }
+        
+        // 搜索非 keyWindow（如 UIRemoteKeyboardWindow）
+        for scene in UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }) {
+            for window in scene.windows where !window.isKeyWindow {
+                if let responder = window.tp_findFirstResponder() {
+                    return responder
+                }
+            }
+        }
+        return nil
     }
     
     static func resignCurrentFirstResponder() {
@@ -52,5 +60,17 @@ extension UIResponder {
         }
         
         return isDescendant
+    }
+}
+
+extension UIView {
+    fileprivate func tp_findFirstResponder() -> UIResponder? {
+        if self.isFirstResponder { return self }
+        for subview in subviews {
+            if let found = subview.tp_findFirstResponder() {
+                return found
+            }
+        }
+        return nil
     }
 }

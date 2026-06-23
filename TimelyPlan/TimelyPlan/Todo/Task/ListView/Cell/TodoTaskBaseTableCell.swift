@@ -112,7 +112,7 @@ class TodoTaskBaseTableCell: UITableViewCell,
     // MARK: - FocusAnimatable
     
     var focusCornerRadius: CGFloat {
-        return 12.0
+        return AppLayout.Cell.insetGroupedCornerRadius
     }
     
     var focusPadding: UIEdgeInsets {

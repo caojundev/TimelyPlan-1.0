@@ -422,6 +422,7 @@ extension TPTableViewAdapter {
     }
         
     func performUpdate(with rowAnimation: UITableView.RowAnimation = .automatic,
+                       updateVisibleItems: Bool = true,
                        completion: ((Bool) -> Void)? = nil) {
         guard tableView.window != nil else {
             needsReload = true
@@ -509,8 +510,10 @@ extension TPTableViewAdapter {
             completion?(finished)
         }
         
-        updateVisibleCells()
-        updateHeaderFooterViews()
+        if updateVisibleItems {
+            updateVisibleCells()
+            updateHeaderFooterViews()
+        }
     }
     
     // MARK: - Section Update

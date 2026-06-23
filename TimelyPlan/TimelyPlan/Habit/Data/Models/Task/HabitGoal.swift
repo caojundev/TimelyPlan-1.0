@@ -63,7 +63,7 @@ struct HabitGoal: Equatable {
         }
         
         /// 返回默认值
-        return kHabitGoalDefaultTargetAmount
+        return HabitConstant.goalDefaultTargetAmount
     }
     
     var validatedUnit: String {
@@ -79,7 +79,7 @@ struct HabitGoal: Equatable {
             return amount
         }
         
-        return kHabitRecordDefaultAmount
+        return HabitConstant.recordDefaultAmount
     }
     
     /// 目标描述

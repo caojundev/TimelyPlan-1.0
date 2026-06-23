@@ -58,7 +58,7 @@ class FocusTimer: NSObject, SortableIdentifiable {
         self.identifier = content.identifier ?? UUID().uuidString
         self.order = content.order
         self.name = content.name
-        self.color = content.color ?? kFocusTimerDefaultColor
+        self.color = content.color ?? FocusConstant.timerDefaultColor
         self.configJSON = content.configJSON
         self.isArchived = content.isArchived
         self.modificationDate = content.modificationDate

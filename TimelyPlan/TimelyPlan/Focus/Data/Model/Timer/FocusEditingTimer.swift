@@ -15,7 +15,7 @@ struct FocusEditingTimer: Equatable {
     var name: String?
     
     /// 颜色
-    var color: UIColor = kFocusTimerDefaultColor
+    var color: UIColor = FocusConstant.timerDefaultColor
     
     /// 备注
     var note: String?

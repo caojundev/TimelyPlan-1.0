@@ -24,7 +24,7 @@ class TodoImportInputViewController: TPViewController, UITextViewDelegate {
     
     /// 步骤最大深度
     var maxDepth: Int {
-        return kTodoStepMaxDepth
+        return TodoConstant.stepMaxDepth
     }
     
     lazy var textView: TPTextView = {

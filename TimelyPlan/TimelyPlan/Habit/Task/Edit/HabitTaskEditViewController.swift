@@ -71,7 +71,7 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
 
     lazy var colorSelectCellItem: TPColorSelectTableCellItem = { [weak self] in
         let cellItem = TPColorSelectTableCellItem()
-        cellItem.colors = UIColor.habitTaskColors
+        cellItem.colors = HabitConstant.taskColors
         cellItem.updater = {
             self?.colorSelectCellItem.selectedColor = self?.editingTask.color
         }

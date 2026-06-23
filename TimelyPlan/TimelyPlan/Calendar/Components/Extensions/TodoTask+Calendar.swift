@@ -21,6 +21,15 @@ extension TodoTask {
             isAllDay = true
         }
         
+        var nameStrings = [String]()
+        nameStrings.append(self.name ?? resGetString("Untitled"))
+        if let progress = progress {
+            let completionFraction = Float(progress.completionFraction)
+            let percentageString = completionFraction.percentageString(decimalPlaces: 0)
+            nameStrings.append(percentageString)
+        }
+        
+        let name = nameStrings.joined(separator: "•")
         let event = CalendarEvent(identifier: identifier,
                                   source: .local,
                                   name: name,
@@ -38,13 +47,6 @@ extension TodoTask {
 extension Array where Element == TodoTask {
     
     func toCalendarEvents() -> [CalendarEvent] {
-        var results = [CalendarEvent]()
-        for task in self {
-            if let event = task.toCalendarEvent() {
-                results.append(event)
-            }
-        }
-        
-        return results
+        return compactMap { $0.toCalendarEvent() }
     }
 }

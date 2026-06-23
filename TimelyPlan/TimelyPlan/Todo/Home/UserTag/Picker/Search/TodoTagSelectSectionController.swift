@@ -61,7 +61,7 @@ class TodoTagSelectSectionController: TPTableBaseSectionController,
         }
         
         if !selection.isSelectedItem(tag),
-           selection.selectedCount >= kTodoTaskMaxTagsCount {
+           selection.selectedCount >= TodoConstant.taskMaxTagsCount {
             TodoPresenter.showMaxTagsLimitMessage()
             return
         }

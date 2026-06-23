@@ -12,7 +12,7 @@ extension FocusSession {
 
     /// 会话显示颜色
     var color: UIColor {
-        return timerFeature?.color ?? kFocusSessionDefaultColor
+        return timerFeature?.color ?? FocusConstant.sessionDefaultColor
     }
     
     /// 获取会话对应的计时器信息

@@ -51,7 +51,7 @@ class FocusTimerEditViewController: TPTableSectionsViewController {
     /// 颜色选择
     lazy var colorSelectCellItem: TPColorSelectTableCellItem = { [weak self] in
         let cellItem = TPColorSelectTableCellItem()
-        cellItem.colors = UIColor.focusTimerColors
+        cellItem.colors = FocusConstant.timerColors
         cellItem.updater = {
             self?.colorSelectCellItem.selectedColor = self?.editingTimer.color
         }

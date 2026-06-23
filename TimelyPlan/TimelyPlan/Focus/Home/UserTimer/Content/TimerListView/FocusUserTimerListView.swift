@@ -58,7 +58,7 @@ class FocusUserTimerListView: TPGroupCollectionView,
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.preferredItemWidth = kFocusTimerListContentMaxWidth
+        self.preferredItemWidth = FocusConstant.timerListContentMaxWidth
         self.preferredItemHeight = 70.0
         self.setupReorder()
         self.addRefreshControl()

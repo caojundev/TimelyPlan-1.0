@@ -18,7 +18,7 @@ extension CDHabitTask: TPHexColorConvertible, SortableIdentifiable {
     
     /// 默认颜色
     static var defaultColor: UIColor {
-        return kHabitTaskDefaultColor
+        return HabitConstant.taskDefaultColor
     }
     
     /// 表情符号

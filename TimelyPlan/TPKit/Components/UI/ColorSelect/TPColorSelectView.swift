@@ -133,7 +133,7 @@ class TPColorSelectCell: TPCollectionCell {
     
     var color: UIColor? {
         didSet {
-            dotLayer.backgroundColor = color?.cgColor
+            setNeedsLayout()
         }
     }
     
@@ -166,6 +166,7 @@ class TPColorSelectCell: TPCollectionCell {
         dotRect.origin.y = (bounds.height - dotSize.height) / 2.0
         dotLayer.frame = dotRect
         dotLayer.cornerRadius = dotSize.width / 2.0
+        dotLayer.backgroundColor = color?.cgColor
         
         let indicatorRect = dotLayer.bounds.inset(by: UIEdgeInsets(value: indicatorBorderWidth))
         indicatorLayer.frame = indicatorRect

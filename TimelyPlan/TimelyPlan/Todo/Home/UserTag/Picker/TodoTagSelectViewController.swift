@@ -127,7 +127,7 @@ class TodoTagSelectViewController: TPViewController,
     // MARK: - TodoTagSelectCollectionViewDelegate
     func selectCollectionView(_ view: TodoTagSelectCollectionView, didSelectTag tag: TodoTag) {
         if !selection.isSelectedItem(tag),
-            selection.selectedCount >= kTodoTaskMaxTagsCount {
+            selection.selectedCount >= TodoConstant.taskMaxTagsCount {
             TodoPresenter.showMaxTagsLimitMessage()
             return
         }

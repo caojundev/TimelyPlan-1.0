@@ -95,25 +95,31 @@ class TodoUserListManager {
         if list.parent?.identifier != parent?.identifier {
             moveList(list, to: parent) /// 移动列表
         }
-
+        
         if CDTodoList.updateList(list, with: editingList) {
-            updater.didUpdateTodoList(list, with: editingList)
-//            list.update(with: editingList)
+            let old = list.editingList
+            list.update(with: editingList)
+            let info = TodoUserListUpdateInfo(old: old, new: editingList)
+            updater.didUpdateTodoList(list, with: info)
             HandyRecord.save()
         }
     }
     
     /// 更新列表布局
     func updateList(_ list: TodoList, layoutType: TodoListLayoutType) {
-        var editingList = list.editingList
-        guard editingList.layoutType != layoutType else {
+        guard list.layoutType != layoutType else {
             return
         }
         
-        editingList.layoutType = layoutType
-        if CDTodoList.updateList(list, with: editingList) {
-            updater.didUpdateTodoList(list, with: editingList)
-//            list.update(with: editingList)
+        let oldEditingList = list.editingList
+        var newEditingList = oldEditingList
+        newEditingList.layoutType = layoutType
+        
+        if CDTodoList.updateList(list, with: newEditingList) {
+            list.update(with: newEditingList)
+            let info = TodoUserListUpdateInfo(old: oldEditingList,
+                                              new: newEditingList)
+            updater.didUpdateTodoList(list, with: info)
             HandyRecord.save()
         }
     }

@@ -1,5 +1,5 @@
 //
-//  AppConfiguration.swift
+//  AppConfig.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/9/16.
@@ -51,6 +51,8 @@ struct AppLayout {
     struct Cell {
         /// 选项卡菜单圆角半径
         static let segmentedMenuCornerRadius = 14.0
+        
+        static let insetGroupedCornerRadius = 10.0
     }
     
     /// 指示器

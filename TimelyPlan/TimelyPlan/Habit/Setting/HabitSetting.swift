@@ -45,13 +45,13 @@ class HabitSetting {
     @CloudStored(key: Key.isReportShowArchived.name, defaultValue: false)
     var isReportShowArchived: Bool
     
-    @CloudStored(key: Key.defaultCompletedScore.name, defaultValue: kHabitDefaultCompletedScore)
+    @CloudStored(key: Key.defaultCompletedScore.name, defaultValue: HabitConstant.defaultCompletedScore)
     var defaultCompletedScore: Int
     
-    @CloudStored(key: Key.defaultSkippedScore.name, defaultValue: kHabitDefaultSkippedScore)
+    @CloudStored(key: Key.defaultSkippedScore.name, defaultValue: HabitConstant.defaultSkippedScore)
     var defaultSkippedScore: Int
     
-    @CloudStored(key: Key.defaultFailedScore.name, defaultValue: kHabitDefaultFailedScore)
+    @CloudStored(key: Key.defaultFailedScore.name, defaultValue: HabitConstant.defaultFailedScore)
     var defaultFailedScore: Int
     
     @CloudStored(key: Key.recordSortOrder.name, defaultValue: TPSortOrder.descending)

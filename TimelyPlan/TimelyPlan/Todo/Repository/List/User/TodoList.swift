@@ -68,7 +68,7 @@ class TodoList: NSObject,
 
     // MARK: - SortableIdentifiable
     /// 排序因子
-    var order: Int64
+    var order: Int64 = 0
     
     var identifiableKey: String {
         return identifier

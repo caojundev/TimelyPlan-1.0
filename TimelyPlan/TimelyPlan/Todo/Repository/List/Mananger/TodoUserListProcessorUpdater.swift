@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct TodoUserListUpdateInfo {
+    var old: TodoEditingList
+    var new: TodoEditingList
+}
+
 /// 用户列表处理通知协议
 protocol TodoListProcessorDelegate: AnyObject{
     
@@ -17,7 +22,7 @@ protocol TodoListProcessorDelegate: AnyObject{
     func didCreateTodoList(_ list: TodoList)
     
     /// 更新列表信息通知
-    func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList)
+    func didUpdateTodoList(_ list: TodoList, with info: TodoUserListUpdateInfo)
     
     /// 删除列表时通知
     func didDeleteTodoLists(_ lists: [TodoList])
@@ -36,7 +41,7 @@ extension TodoListProcessorDelegate {
     
     func didChangeRemoteTodoList(with results: EntityChangeResults<TodoList>?) {}
     
-    func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {}
+    func didUpdateTodoList(_ list: TodoList, with info: TodoUserListUpdateInfo) {}
     
     func didCreateTodoList(_ list: TodoList) {}
     
@@ -64,9 +69,9 @@ class TodoListProcessorUpdater: NSObject,
         }
     }
     
-    func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
+    func didUpdateTodoList(_ list: TodoList, with info: TodoUserListUpdateInfo) {
         notifyDelegates { (delegate: TodoListProcessorDelegate) in
-            delegate.didUpdateTodoList(list, with: editingList)
+            delegate.didUpdateTodoList(list, with: info)
         }
     }
     

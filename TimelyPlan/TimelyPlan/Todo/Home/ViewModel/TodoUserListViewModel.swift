@@ -90,7 +90,7 @@ extension TodoUserListViewModel: TodoListProcessorDelegate {
     }
     
     /// 更新列表信息通知
-    func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
+    func didUpdateTodoList(_ list: TodoList, with info: TodoUserListUpdateInfo) {
         loadTopLists(with: .update(list))
     }
     

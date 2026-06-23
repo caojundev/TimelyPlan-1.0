@@ -55,8 +55,8 @@ class FocusTimerTypeSectionController: TPTableItemSectionController {
     // MARK: - 操作处理
     /// 选中计时器模式
     func selectTimerType(_ type: FocusTimerType) {
-        self.timerType = type
-        self.didChangeTimerType?(type)
-        self.adapter?.performUpdate(with: .fade, completion: nil)
+        timerType = type
+        didChangeTimerType?(type)
+        adapter?.performUpdate(with: .fade, updateVisibleItems: false)
     }
 }

@@ -503,6 +503,7 @@
 /// 习惯编辑
 "New Habit" = "新建习惯";
 "Edit Habit" = "编辑习惯";
+"Delete Habit" = "删除习惯";
 "Fill in the habit name" = "输入习惯名称";
 "Edit Emoji" = "编辑Emoji";
 "Goal And Record" = "目标和记录";

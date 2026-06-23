@@ -31,7 +31,7 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
     /// 列表深度
     override var depth: Int {
         didSet {
-            if depth < kTodoListMaxDepth {
+            if depth < TodoConstant.listMaxDepth {
                 expandButton.isHidden = false
             } else {
                 expandButton.isHidden = true
@@ -48,7 +48,7 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
     /// 缩进分割线图层
     private(set) lazy var depthLineLayer: TodoListBranchLayer = {
         let layer = TodoListBranchLayer()
-        layer.maxDepth = kTodoListMaxDepth
+        layer.maxDepth = TodoConstant.listMaxDepth
         layer.indentationWidth = depthWidth
         layer.lineWidth = 2.0
         layer.strokeColor = UIColor.lightGray.cgColor

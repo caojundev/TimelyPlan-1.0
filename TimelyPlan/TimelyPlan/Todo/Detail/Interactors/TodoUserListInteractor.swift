@@ -87,7 +87,7 @@ class TodoUserListInteractor: TodoListInteractor {
         }
     
         let oldList = list
-        listConfiguration.updateList(list)
+        listConfiguration.updateList(newList)
         /// 更新列表信息
         didChangeListInfo?()
         
@@ -98,18 +98,15 @@ class TodoUserListInteractor: TodoListInteractor {
         }
     }
     
-    override func didUpdateTodoList(_ list: TodoList, with editingList: TodoEditingList) {
-        let oldList = self.list
-        guard list.identifier == oldList.identifier else {
+    override func didUpdateTodoList(_ list: TodoList, with info: TodoUserListUpdateInfo) {
+        guard list.identifier == self.list.identifier,
+              let newList = TodoRepository.getUserList(of: list.identifier) else {
             return
         }
         
-        let layoutChanged = editingList.layoutType != oldList.layoutType
-        list.update(with: editingList)
-        listConfiguration.updateList(list)
+        listConfiguration.updateList(newList)
         didChangeListInfo?()
-        
-        if layoutChanged {
+        if info.new.layoutType != info.old.layoutType {
             updatePlaceholder() /// 更新占位信息
             didChangeLayoutType?()
         }

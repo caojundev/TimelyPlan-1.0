@@ -12,7 +12,7 @@ class TodoTaskImporterViewController: TodoImportInputViewController {
     var completion: (([TodoImportTask]) -> Void)?
     
     override var maxDepth: Int {
-        return kTodoStepMaxDepth + 1
+        return TodoConstant.stepMaxDepth + 1
     }
     
     override func viewDidLoad() {

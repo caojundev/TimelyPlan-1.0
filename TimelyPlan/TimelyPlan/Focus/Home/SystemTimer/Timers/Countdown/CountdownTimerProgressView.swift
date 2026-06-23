@@ -12,7 +12,7 @@ import QuartzCore
 class CountdownTimerProgressView: UIView {
     
     /// 进度条颜色
-    var lineColor: UIColor = kFocusCountdownTimerColor {
+    var lineColor: UIColor = FocusConstant.countdownTimerColor {
         didSet {
             guard lineColor != oldValue else {
                 return

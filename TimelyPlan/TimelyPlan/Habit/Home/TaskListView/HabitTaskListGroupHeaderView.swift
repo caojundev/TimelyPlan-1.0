@@ -42,7 +42,7 @@ class HabitTaskListGroupHeaderView: TPCollectionHeaderFooterView {
     let expandButtonSize: CGSize = .size(4)
     
     /// 展开按钮
-    private(set) lazy var expandButton: TPChevronExpandButton = {
+    private lazy var expandButton: TPChevronExpandButton = {
         let button = TPChevronExpandButton()
         button.padding = .zero
         button.image = resGetImage("todo_home_expand_18")
@@ -97,27 +97,18 @@ class HabitTaskListGroupHeaderView: TPCollectionHeaderFooterView {
     /// 点击展开或收起按钮
     @objc private func clickExpand() {
         let isExpanded = !expandButton.isExpanded
-        setExpanded(isExpanded, animated: true)
-        
+        expandButton.setExpanded(isExpanded, animated: true)
         if let delegate = self.delegate as? HabitTaskListGroupHeaderViewDelegate {
             delegate.groupHeaderView(self, didToggleExpand: isExpanded)
         }
     }
-    
-    func setExpanded(_ isExpanded: Bool, animated: Bool) {
-        guard expandButton.isExpanded != isExpanded else {
-            return
-        }
-        
-        expandButton.setExpanded(isExpanded, animated: animated)
-    }
-    
+
     func updateExpanded(animated: Bool) {
         guard let delegate = delegate as? HabitTaskListGroupHeaderViewDelegate else {
             return
         }
         
         let isExpanded = delegate.isExpandedGroupHeaderView(self)
-        setExpanded(isExpanded, animated: animated)
+        expandButton.setExpanded(isExpanded, animated: animated)
     }
 }

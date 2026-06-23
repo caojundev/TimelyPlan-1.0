@@ -156,7 +156,7 @@ extension FocusStep {
                              timerType: .countdown,
                              duration: duration,
                              autoStart: autoStart)
-        step.color = kFocusCountdownTimerColor
+        step.color = FocusConstant.countdownTimerColor
         return step
     }
     
@@ -168,7 +168,7 @@ extension FocusStep {
                              timerType: .stopwatch,
                              duration: TimeInterval(duration),
                              autoStart: autoStart)
-        step.color = kFocusStopwatchTimerColor
+        step.color = FocusConstant.stopwatchTimerColor
         return step
     }
     

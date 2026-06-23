@@ -27,7 +27,7 @@ class StopwatchTimerProgressView: UIView {
         tickView.scaleLength = 12.0
         addSubview(tickView)
         
-        progressView.scaleColor = kFocusStopwatchTimerColor
+        progressView.scaleColor = FocusConstant.stopwatchTimerColor
         progressView.scaleLineWidth = 6.0
         progressView.scaleLength = 12.0
         progressView.strokeEnd = 0.0

@@ -26,7 +26,7 @@ class HabitUnitButtonView: UIView {
     private lazy var button: TPDefaultButton = {
         let button = TPDefaultButton()
         button.padding = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 5)
-        button.cornerRadius = kTaskEditInputFieldCornerRadius
+        button.cornerRadius = HabitConstant.taskEditInputFieldCornerRadius
         button.preferredTappedScale = 0.9
         button.imagePosition = .right
         button.imageConfig.shouldRenderImageWithColor = true

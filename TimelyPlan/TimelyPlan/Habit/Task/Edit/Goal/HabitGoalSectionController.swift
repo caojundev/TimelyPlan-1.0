@@ -45,7 +45,7 @@ class HabitGoalSectionController: TPTableItemSectionController {
     lazy var targetAmountCellItem: HabitGoalTargetEditCellItem = { [weak self] in
         let cellItem = HabitGoalTargetEditCellItem()
         cellItem.contentPadding = contentPadding
-        cellItem.fieldCornerRadius = kTaskEditInputFieldCornerRadius
+        cellItem.fieldCornerRadius = HabitConstant.taskEditInputFieldCornerRadius
         cellItem.title = resGetString("Daily Target")
         cellItem.updater = {
             guard let self = self else {
@@ -89,7 +89,7 @@ class HabitGoalSectionController: TPTableItemSectionController {
     lazy var autoRecordNumberCellItem: TPNumberFieldTableCellItem = { [weak self] in
         let cellItem = TPNumberFieldTableCellItem()
         cellItem.contentPadding = contentPadding
-        cellItem.fieldCornerRadius = kTaskEditInputFieldCornerRadius
+        cellItem.fieldCornerRadius = HabitConstant.taskEditInputFieldCornerRadius
         cellItem.title = resGetString("Record Value")
         cellItem.updater = {
             guard let self = self else { return }

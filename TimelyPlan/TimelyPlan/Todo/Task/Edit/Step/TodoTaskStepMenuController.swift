@@ -83,7 +83,7 @@ class TodoTaskStepMenuController: TPBaseMenuController<TodoTaskStepMenuActionTyp
                                                    .addNextStep,
                                                    .copyStep,
                                                    .delete]
-        if step.depth < kTodoStepMaxDepth {
+        if step.depth < TodoConstant.stepMaxDepth {
             types.append(.addSubStep)
         }
         

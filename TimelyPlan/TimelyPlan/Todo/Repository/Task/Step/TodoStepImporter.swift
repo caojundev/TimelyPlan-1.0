@@ -21,7 +21,7 @@ class TodoStepImporter {
         let line: String
     }
     
-    var maxDepth = kTodoStepMaxDepth
+    var maxDepth = TodoConstant.stepMaxDepth
     
     // MARK: - 主要解析方法
     func parse(text: String) -> ParseResult {

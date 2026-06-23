@@ -63,7 +63,7 @@ class TodoPresenter {
     
     static func showMaxTagsLimitMessage() {
         let format = resGetString("You can select up to %ld tags.")
-        let message = String(format: format, kTodoTaskMaxTagsCount)
+        let message = String(format: format, TodoConstant.taskMaxTagsCount)
         TPFeedbackQueue.common.postFeedback(text: message, position: .middle)
     }
 }

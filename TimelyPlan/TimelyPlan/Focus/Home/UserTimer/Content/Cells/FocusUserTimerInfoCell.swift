@@ -78,7 +78,7 @@ class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell,
     }
     
     func updateInfo() {
-        indicatorView.backgroundColor = timer?.color ?? kFocusTimerDefaultColor
+        indicatorView.backgroundColor = timer?.color ?? FocusConstant.timerDefaultColor
         if let timerName = timer?.name {
             if let highlightedText = highlightedText, highlightedText.count > 0 {
                 let value = timerName.attributedStringWithHighlight(highlightedText,

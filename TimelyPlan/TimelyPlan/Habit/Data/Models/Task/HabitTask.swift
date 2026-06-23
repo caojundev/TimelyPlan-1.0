@@ -117,7 +117,7 @@ class HabitTask: NSObject, SortableIdentifiable {
         self.order = content.order
         self.emoji = content.emoji
         self.name = content.name
-        self.color = content.color ?? kHabitTaskDefaultColor
+        self.color = content.color ?? HabitConstant.taskDefaultColor
         self.dateRange = content.dateRange
         self.timeOption = HabitTimeOption(rawValue: Int(content.timeOption)) ?? .anytime
         self.shouldRemind = content.shouldRemind

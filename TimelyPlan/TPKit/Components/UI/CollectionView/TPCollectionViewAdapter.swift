@@ -618,11 +618,11 @@ extension TPCollectionViewAdapter {
             return
         }
         
-        if !hasItem {
-            reloadData()
-            completion?(true)
-            return
-        }
+//        if !hasItem {
+//            reloadData()
+//            completion?(true)
+//            return
+//        }
         
         let oldObjects = self.objects
         let newObjects = fetchSectionObjects()

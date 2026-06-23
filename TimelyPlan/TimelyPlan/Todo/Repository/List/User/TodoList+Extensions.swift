@@ -46,7 +46,7 @@ extension TodoList {
 extension TodoList: Nestable {
     
     static var allowMaxDepth: Int {
-        return kTodoListMaxDepth
+        return TodoConstant.listMaxDepth
     }
     
     var parentItem: Nestable? {

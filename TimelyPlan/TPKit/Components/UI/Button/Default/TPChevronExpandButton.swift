@@ -10,7 +10,7 @@ import UIKit
 
 class TPChevronExpandButton: TPDefaultButton {
     
-    var isExpanded: Bool = false {
+    var isExpanded: Bool = true {
         didSet {
             setNeedsLayout()
         }
@@ -27,14 +27,19 @@ class TPChevronExpandButton: TPDefaultButton {
     }
     
     override func layoutSubviews() {
-        self.imageTitleView.imageView.transform = .identity
         super.layoutSubviews()
         if isExpanded {
             self.imageTitleView.imageView.transform = .init(rotationAngle: CGFloat.pi / 2.0)
+        } else {
+            self.imageTitleView.imageView.transform = .identity
         }
     }
     
     func setExpanded(_ expanded: Bool, animated: Bool) {
+        guard isExpanded != expanded else {
+            return
+        }
+        
         isExpanded = expanded
         if animated {
             animateLayout(withDuration: 0.25)

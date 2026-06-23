@@ -20,7 +20,7 @@ class FocusHomeSearchResultViewController: FocusTimerSearchResultViewController 
         super.init(selectedTimerID: selectedTimerID)
         self.resultSectionController = FocusHomeSearchResultSectionController()
         self.resultSectionController.delegate = self
-        self.resultSectionController.layout.preferredItemWidth = kFocusTimerListContentMaxWidth
+        self.resultSectionController.layout.preferredItemWidth = FocusConstant.timerListContentMaxWidth
     }
     
     required init?(coder: NSCoder) {

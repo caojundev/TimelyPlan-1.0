@@ -89,7 +89,7 @@ class HabitPeriodItemListView: TPGroupCollectionView,
     override func adapter(_ adapter: TPCollectionViewAdapter, didDequeHeader headerView: UICollectionReusableView, inSection section: Int) {
         super.adapter(adapter, didDequeHeader: headerView, inSection: section)
         if let headerView = headerView as? HabitTaskListGroupHeaderView {
-            headerView.updateExpanded(animated: false)
+            headerView.updateExpanded(animated: true)
         }
     }
     
@@ -108,7 +108,7 @@ class HabitPeriodItemListView: TPGroupCollectionView,
         }
         
         expansionState.setExpended(isExpanded, for: group)
-        self.performUpdate()
+        performUpdate()
     }
     
     

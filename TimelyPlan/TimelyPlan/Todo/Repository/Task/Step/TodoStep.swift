@@ -95,7 +95,7 @@ class TodoStep: NSObject {
 extension TodoStep: Nestable {
     
     static var allowMaxDepth: Int {
-        return kTodoStepMaxDepth
+        return TodoConstant.stepMaxDepth
     }
     
     var parentItem: Nestable? {

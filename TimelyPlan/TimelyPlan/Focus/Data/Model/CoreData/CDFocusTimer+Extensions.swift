@@ -16,7 +16,7 @@ extension CDFocusTimer: TPHexColorConvertible, SortableIdentifiable {
     
     // MARK: - TPHexColorConvertible
     static var defaultColor: UIColor  {
-        return kFocusTimerDefaultColor
+        return FocusConstant.timerDefaultColor
     }
     
     /// 根据编辑任务创建新任务

@@ -82,9 +82,9 @@ class HabitSettingScoreEditViewController: TPTableSectionsViewController {
     }
     
     private func clickReset() {
-        editSectionController.completedScore = kHabitDefaultCompletedScore
-        editSectionController.skippedScore = kHabitDefaultSkippedScore
-        editSectionController.failedScore = kHabitDefaultFailedScore
+        editSectionController.completedScore = HabitConstant.defaultCompletedScore
+        editSectionController.skippedScore = HabitConstant.defaultSkippedScore
+        editSectionController.failedScore = HabitConstant.defaultFailedScore
         editSectionController.updateAllValues()
     }
     

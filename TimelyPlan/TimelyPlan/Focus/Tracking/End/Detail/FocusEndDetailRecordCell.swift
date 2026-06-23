@@ -167,7 +167,7 @@ class FocusEndDetailRecordCell: TPCollectionCell {
 
     func reloadData() {
         /// 头信息
-        headerView.color = record?.color ?? kFocusTimerDefaultColor
+        headerView.color = record?.color ?? FocusConstant.timerDefaultColor
         if let attributedRangeText = record?.timeline.attributedDateRangeString() {
             headerView.title = attributedRangeText
         } else {

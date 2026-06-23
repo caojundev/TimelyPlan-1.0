@@ -24,7 +24,7 @@ class TodoTaskUserSectionSelectSectionController: TPTableBaseSectionController,
     
     init(viewModel: TodoTaskSectionViewModel) {
         self.viewModel = viewModel
-        let allowMaxDepth = kTodoListMaxDepth + 1 /// 最大板块深度
+        let allowMaxDepth = TodoConstant.listMaxDepth + 1 /// 最大板块深度
         self.expansionState = TodoParentListSelectExpansionState(allowMaxDepth: allowMaxDepth)
         super.init()
         self.updateLists()

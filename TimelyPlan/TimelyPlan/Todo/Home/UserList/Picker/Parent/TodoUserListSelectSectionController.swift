@@ -29,7 +29,7 @@ class TodoUserListSelectSectionController: TodoUserListBaseSectionController {
     
     private let viewModel: TodoUserListViewModel
     
-    init(allowMaxDepth: Int = kTodoListMaxDepth) {
+    init(allowMaxDepth: Int = TodoConstant.listMaxDepth) {
         self.allowMaxDepth = allowMaxDepth
         let expansionState = TodoParentListSelectExpansionState(allowMaxDepth: allowMaxDepth)
         self.expansionState = expansionState
