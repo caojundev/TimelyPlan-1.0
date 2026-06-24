@@ -125,7 +125,8 @@ class FocusSettingViewController: BaseSettingViewController {
      
      /// 自动专注
      lazy var pomodoroAutoFocusCellItem: TPSwitchTableCellItem = { [weak self] in
-         let cellItem = TPSwitchTableCellItem(autoResizable: true)
+         let cellItem = TPSwitchTableCellItem()
+         cellItem.autoResizable = true
          cellItem.minimumHeight = defaultCellHeight
          cellItem.title = resGetString("Auto-Focus")
          cellItem.subtitle = resGetString("After the break is over, start to focus automatically")
@@ -144,7 +145,8 @@ class FocusSettingViewController: BaseSettingViewController {
      
      /// 自动休息
      lazy var pomodoroAutoBreakCellItem: TPSwitchTableCellItem = { [weak self] in
-         let cellItem = TPSwitchTableCellItem(autoResizable: true)
+         let cellItem = TPSwitchTableCellItem()
+         cellItem.autoResizable = true
          cellItem.minimumHeight = defaultCellHeight
          cellItem.title = resGetString("Auto-Break")
          cellItem.subtitle = resGetString("After the focus is over, start to rest automatically")
@@ -170,7 +172,8 @@ class FocusSettingViewController: BaseSettingViewController {
      // MARK: - 步骤计时器
      /// 自动休息
      lazy var steppedAutoStartNextCellItem: TPSwitchTableCellItem = { [weak self] in
-         let cellItem = TPSwitchTableCellItem(autoResizable: false)
+         let cellItem = TPSwitchTableCellItem()
+         cellItem.autoResizable = true
          cellItem.height = defaultCellHeight
          cellItem.title = resGetString("Auto Start Next Step")
          cellItem.updater = {
@@ -217,7 +220,8 @@ class FocusSettingViewController: BaseSettingViewController {
      // MARK: - 步骤计时器
      /// 自动休息
      lazy var autoHideHourCellItem: TPSwitchTableCellItem = { [weak self] in
-         let cellItem = TPSwitchTableCellItem(autoResizable: true)
+         let cellItem = TPSwitchTableCellItem()
+         cellItem.autoResizable = true
          cellItem.minimumHeight = defaultCellHeight
          cellItem.title = resGetString("Auto Hide Hour")
          cellItem.subtitle = resGetString("Display only minute and second when the hour is zero")

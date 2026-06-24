@@ -134,6 +134,13 @@ class TPDefaultInfoTableCellItem: TPBaseTableCellItem {
     /// 右侧视图外间距
     var rightAccessoryMargins: UIEdgeInsets = .zero
     
+    override var autoResizable: Bool {
+        didSet {
+            titleConfig.numberOfLines = autoResizable ? 0 : 1
+            subtitleConfig.numberOfLines = autoResizable ? 0 : 1
+        }
+    }
+    
     override init() {
         super.init()
         self.registerClass = TPDefaultInfoTableCell.self

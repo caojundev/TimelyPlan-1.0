@@ -1998,6 +1998,9 @@
 		E5FF4EC62FEB6C7400282416 /* AppSettingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4EC52FEB6C7400282416 /* AppSettingUtil.swift */; };
 		E5FF4EC92FEB70B300282416 /* setting_language_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FF4EC72FEB70B100282416 /* setting_language_32@3x.png */; };
 		E5FF4ECA2FEB70B300282416 /* setting_language_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FF4EC82FEB70B100282416 /* setting_language_32@2x.png */; };
+		E5FF4ECC2FEB859800282416 /* CloudKitSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4ECB2FEB859800282416 /* CloudKitSyncManager.swift */; };
+		E5FF4ED02FEBCBD500282416 /* setting_iCloud_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FF4ECE2FEBCBD400282416 /* setting_iCloud_32@3x.png */; };
+		E5FF4ED12FEBCBD500282416 /* setting_iCloud_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FF4ECF2FEBCBD400282416 /* setting_iCloud_32@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -4015,6 +4018,9 @@
 		E5FF4EC52FEB6C7400282416 /* AppSettingUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingUtil.swift; sourceTree = "<group>"; };
 		E5FF4EC72FEB70B100282416 /* setting_language_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_language_32@3x.png"; sourceTree = "<group>"; };
 		E5FF4EC82FEB70B100282416 /* setting_language_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_language_32@2x.png"; sourceTree = "<group>"; };
+		E5FF4ECB2FEB859800282416 /* CloudKitSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitSyncManager.swift; sourceTree = "<group>"; };
+		E5FF4ECE2FEBCBD400282416 /* setting_iCloud_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_iCloud_32@3x.png"; sourceTree = "<group>"; };
+		E5FF4ECF2FEBCBD400282416 /* setting_iCloud_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_iCloud_32@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -6429,6 +6435,8 @@
 				E563F1CF2FE8E97300DF86BB /* setting_hapticFeedback_32@3x.png */,
 				E5FF4EC82FEB70B100282416 /* setting_language_32@2x.png */,
 				E5FF4EC72FEB70B100282416 /* setting_language_32@3x.png */,
+				E5FF4ECF2FEBCBD400282416 /* setting_iCloud_32@2x.png */,
+				E5FF4ECE2FEBCBD400282416 /* setting_iCloud_32@3x.png */,
 				E563F1D62FE9184200DF86BB /* setting_rate_32@2x.png */,
 				E563F1D42FE9184100DF86BB /* setting_rate_32@3x.png */,
 				E563F1D72FE9184200DF86BB /* setting_abount_32@2x.png */,
@@ -10073,6 +10081,7 @@
 			isa = PBXGroup;
 			children = (
 				E5BB9C1C2D3BF0C40089667A /* HandyRecord.swift */,
+				E5FF4ECD2FEB91EC00282416 /* CloudKit */,
 				E5E5BDC22FE62E40008D3F64 /* RemoteChange */,
 				E5BB9C1E2D3BF0C40089667A /* KeyValueStorage */,
 				E5E5BDBC2FE3EA2D008D3F64 /* Extensions */,
@@ -10552,6 +10561,14 @@
 			path = Preview;
 			sourceTree = "<group>";
 		};
+		E5FF4ECD2FEB91EC00282416 /* CloudKit */ = {
+			isa = PBXGroup;
+			children = (
+				E5FF4ECB2FEB859800282416 /* CloudKitSyncManager.swift */,
+			);
+			path = CloudKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -10738,6 +10755,7 @@
 				E50D94C92D45224500F57957 /* archive_24@2x.png in Resources */,
 				E5BB9ECD2D3BF0C80089667A /* Wheat01@2x.png in Resources */,
 				E5320C2D2FCA87CE001DFE98 /* todo_list_option_importTask_24@2x.png in Resources */,
+				E5FF4ED12FEBCBD500282416 /* setting_iCloud_32@2x.png in Resources */,
 				E50D606E2F7A29D100D5E0A4 /* todo_list_parent_24@2x.png in Resources */,
 				E55CE3552D8BC2A60083316E /* quadrant_IV_32@3x.png in Resources */,
 				E5F078CA2F95DEB300F94BDF /* todo_filter_tag_none_24@3x.png in Resources */,
@@ -11167,6 +11185,7 @@
 				E55A7B7E2D45F873000D224C /* timer_pause_24@2x.png in Resources */,
 				E5BB9A7F2D3BEF0D0089667A /* schedule_repeat_24@3x.png in Resources */,
 				E5BB9AB32D3BEF0D0089667A /* todo_task_note_24@2x.png in Resources */,
+				E5FF4ED02FEBCBD500282416 /* setting_iCloud_32@3x.png in Resources */,
 				E5D833972DAB64D60012ABF3 /* todo_task_progress_recordType_24@2x.png in Resources */,
 				E556BCC12F5D6C7000CA20D9 /* habit_indicator_status_failed_16@3x.png in Resources */,
 				E5D815C72F729C3700A4822D /* focus_record_bind_timer_24@3x.png in Resources */,
@@ -11804,6 +11823,7 @@
 				E5BB9B532D3BEF920089667A /* Interpolation.swift in Sources */,
 				E5D7D8D52D43933600EC877A /* FocusEndSummarySectionController.swift in Sources */,
 				E500E3B82FC97F5D00252011 /* TodoTaskBindSearchResultSectionController.swift in Sources */,
+				E5FF4ECC2FEB859800282416 /* CloudKitSyncManager.swift in Sources */,
 				E568B7D22F70C474007B7EFE /* CDFocusSession+Extensions.swift in Sources */,
 				E5BB9D8A2D3BF0C60089667A /* ExtensionSwizzler.swift in Sources */,
 				E5BB9DA62D3BF0C60089667A /* TPImageButton.swift in Sources */,

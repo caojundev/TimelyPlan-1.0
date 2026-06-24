@@ -37,7 +37,8 @@ class HabitDateFrequencySectionController: TPTableItemSectionController {
     
     /// 频率
     lazy var frequencyCellItem: TPDefaultInfoTableCellItem = {  [weak self] in
-        let cellItem = TPDefaultInfoTableCellItem(autoResizable: true)
+        let cellItem = TPDefaultInfoTableCellItem()
+        cellItem.autoResizable = true
         cellItem.minimumHeight = defaultCellHeight
         cellItem.titleConfig.font = .boldSystemFont(ofSize: 16.0)
         cellItem.subtitleConfig.numberOfLines = 0

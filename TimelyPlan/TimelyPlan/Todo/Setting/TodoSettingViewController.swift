@@ -167,7 +167,8 @@ class TodoSettingViewController: BaseSettingViewController {
     
     /// 自动完成子步骤
     lazy var autoCompleteSubtasksCellItem: TPSwitchTableCellItem = { [weak self] in
-        let cellItem = TPSwitchTableCellItem(autoResizable: true)
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.autoResizable = true
         cellItem.title = resGetString("Auto-complete Substeps")
         cellItem.subtitle = resGetString("When parent is done")
         cellItem.updater = {
@@ -184,7 +185,8 @@ class TodoSettingViewController: BaseSettingViewController {
     
     /// 自动完成父步骤
     lazy var autoCompleteParentTaskCellItem: TPSwitchTableCellItem = { [weak self] in
-        let cellItem = TPSwitchTableCellItem(autoResizable: true)
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.autoResizable = true
         cellItem.title = resGetString("Auto-complete Parent")
         cellItem.subtitle = resGetString("When all substeps are done")
         cellItem.updater = {

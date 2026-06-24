@@ -10,7 +10,7 @@ import UIKit
 
 class TPChevronExpandButton: TPDefaultButton {
     
-    var isExpanded: Bool = true {
+    var isExpanded: Bool = false {
         didSet {
             setNeedsLayout()
         }

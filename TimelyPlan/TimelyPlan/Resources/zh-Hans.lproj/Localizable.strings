@@ -705,11 +705,22 @@
 "Language" = "语言";
 
 "Haptic Feedback" = "触感反馈";
+"iCloud Sync" = "iCloud 数据同步";
 "Support Us" = "支持我们";
 "Rate Us" = "好评鼓励";
 "Share with Friends" = "与好友分享";
 "Timely Plan: To-do · Matrix · Focus Timer — one app does it all 🚀" = "准点计划：强推！待办 · 四象限 · 番茄钟，一个全搞定 🚀";
 "About" = "关于";
+
+/// iCloud 同步状态
+"Not Logged In" = "未登录";
+"Restricted" = "受限";
+"Cannot Determine" = "无法确定";
+"Temporarily Unavailable" = "暂时不可用";
+"Available" = "可用";
+"No Account" = "无账户";
+"No Network" = "无网络";
+"Disabled" = "已禁用";
 
 ///**********************通用*********************///
 "Others" = "其它";

@@ -84,7 +84,7 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
         guard isEnabled else {
             return false
         }
-        
+
         return list?.hasSubItem ?? false
     }
     
@@ -100,10 +100,9 @@ class TodoUserListBaseCell: TPExpandDefaultInfoTableCell {
         iconConfig.margins = .zero
         iconConfig.icon = list.icon
         iconConfig.foreColor = list.color
-        self.iconInfoTextValueView.iconConfig = iconConfig
+        iconInfoTextValueView.iconConfig = iconConfig
         
-        self.updateExpanded(animated: false)
-        self.updateExpandedButton()
+        updateExpanded(animated: false)
         setNeedsLayout()
     }
 }

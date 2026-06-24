@@ -73,7 +73,7 @@ class TPBaseTableCellItem: NSObject {
         return layout.cellPadding
     }
     
-    ///
+    /// 单元格高度
     var height: CGFloat {
         get {
             let layout = getLayout()
@@ -102,11 +102,6 @@ class TPBaseTableCellItem: NSObject {
     convenience init(accessoryType: UITableViewCell.AccessoryType) {
         self.init()
         self.accessoryType = accessoryType
-    }
-    
-    convenience init(autoResizable: Bool) {
-        self.init()
-        self.autoResizable = autoResizable
     }
     
     // MARK: - IGListDiffable

@@ -128,12 +128,14 @@ class HandyRecord {
             // 配置远程变更管理器，用于监听 iCloud 或其他上下文的变更
             configureRemoteChangeManager(with: container)
             
+            // 配置 CloudKit 数据同步管理器
+            configureCloudKitSyncManager(with: container)
             completion(true)
         }
     }
     
 
-    // MARK: 私有方法 - 容器配置
+    // MARK: - 容器配置
     
     /// 配置远程变更管理器
     /// - Parameter container: 持久化容器
@@ -150,6 +152,11 @@ class HandyRecord {
 #endif
     }
     
+    private static func configureCloudKitSyncManager(with container: NSPersistentCloudKitContainer) {
+        let cloudKitSyncManager = CloudKitSyncManager.shared
+        cloudKitSyncManager.configure(with: container)
+    }
+
     // 监听远程变更
     static func observeRemoteChange(handler: @escaping CoreDataRemoteChangeHandler) {
         CoreDataRemoteChangeManager.shared.observe(on: .main, handler: handler)

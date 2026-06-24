@@ -63,6 +63,28 @@ class AppSettingsViewController: BaseSettingViewController,
         return sectionController
     }()
     
+    // MARK: - 数据
+    // iCloud 数据同步
+    lazy var cloudCellItem: TPImageInfoTextValueTableCellItem = {
+        let cellItem = TPImageInfoTextValueTableCellItem()
+        cellItem.imageConfig = imageConfig
+        cellItem.imageName = "setting_iCloud_32"
+        cellItem.title = resGetString("iCloud Sync")
+        cellItem.selectionStyle = .none
+        cellItem.updater = { [weak self] in
+            self?.updateCloudCellItem()
+        }
+
+        return cellItem
+    }()
+    
+    lazy var dataSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = normalHeaderHeight
+        sectionController.cellItems = [cloudCellItem]
+        return sectionController
+    }()
+    
     
     // 模块设置区块
     lazy var moduleSectionController: TPTableItemSectionController = {
@@ -144,20 +166,51 @@ class AppSettingsViewController: BaseSettingViewController,
         return sectionController
     }()
     
+    private let cloudStatusViewModel = iCloudStatusViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = resGetString("Settings")
         if let sidebarButtonItem = sidebarController?.newMenuButtonItem() {
             navigationItem.leftBarButtonItems = [sidebarButtonItem]
         }
-        
+    
         sectionControllers = [generalSectionController,
+                              dataSectionController,
                               moduleSectionController,
                               supportUsSectionController,
                               aboutSectionController]
         reloadData()
+        
+        cloudStatusViewModel.onStatusChanged = { [weak self] _ in
+            self?.reloadCloudCell()
+        }
     }
 
+    private func updateCloudCellItem() {
+        let status = cloudStatusViewModel.cloudKitStatus
+        if status.isAvailable {
+            let syncDate = cloudStatusViewModel.lastSyncTime
+            cloudCellItem.subtitle = syncDate?.yearMonthDayTimeString(omitYear: true,
+                                                                      showRelativeDate: true,
+                                                                      slashFormatted: false)
+        } else {
+            cloudCellItem.subtitle = status.description
+        }
+        
+        let valueConfig = TPTextAccessoryConfig.valueText("•")
+        valueConfig.textColor = status.color
+        valueConfig.valueMargins = UIEdgeInsets(right: 16.0)
+        valueConfig.valueFont = .boldSystemFont(ofSize: 36.0)
+        cloudCellItem.valueConfig = valueConfig
+    }
+    
+    private func reloadCloudCell() {
+        DispatchQueue.main.async {
+            self.adapter.reloadCell(forItem: self.cloudCellItem, with: .none)
+        }
+    }
+    
     private func showSettings(for menuType: SideMenuType) {
         var vc: BaseSettingViewController?
         switch menuType {

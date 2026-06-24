@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CalendarMonthWeekBackgroundLayer: TPGridsLayer {
     
@@ -76,18 +77,18 @@ class CalendarMonthWeekBackgroundLayer: TPGridsLayer {
             return
         }
         
-        let frame = bounds.inset(by: .zero)
+        let separatorLineWidth = monthSeparatorLayer.lineWidth
+        let frame = bounds.inset(by:UIEdgeInsets(vertical: separatorLineWidth / 2.0))
         let columnWidth = frame.width / CGFloat(DAYS_PER_WEEK)
         let bezierPath = UIBezierPath()
-        
+
         let column = lastDays + 1
         let columnX = CGFloat(column) * columnWidth
-        let y = bounds.height - layoutStyle.lineWidth / 2.0
-        bezierPath.move(to: CGPoint(x: frame.minX, y: y))
-        bezierPath.addLine(to: CGPoint(x: columnX, y: y))
+        bezierPath.move(to: CGPoint(x: frame.minX, y: frame.maxY))
+        bezierPath.addLine(to: CGPoint(x: columnX, y: frame.maxY))
         if column >= layoutStyle.fromColum && column <= layoutStyle.toColum {
-            bezierPath.addLine(to: CGPoint(x: columnX, y: layoutStyle.lineWidth / 2.0))
-            bezierPath.addLine(to: CGPoint(x: frame.maxX, y: layoutStyle.lineWidth / 2.0))
+            bezierPath.addLine(to: CGPoint(x: columnX, y: frame.minY))
+            bezierPath.addLine(to: CGPoint(x: frame.maxX, y: frame.minY))
         }
         
         monthSeparatorLayer.path = bezierPath.cgPath
