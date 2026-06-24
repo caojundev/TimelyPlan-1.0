@@ -40,10 +40,26 @@ class AppSettingsViewController: BaseSettingViewController,
         return cellItem
     }()
     
+    
+    // 语言
+    lazy var languageCellItem: TPImageInfoTextValueTableCellItem = {
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.imageConfig = imageConfig
+        cellItem.imageName = "setting_language_32"
+        cellItem.title = resGetString("Language")
+        cellItem.valueConfig = .valueText(AppSettingUtil.currentLanguageDisplayName)
+        cellItem.didSelectHandler = { [weak self] in
+            self?.clickLanguage()
+        }
+        
+        return cellItem
+    }()
+    
     lazy var generalSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = normalHeaderHeight
-        sectionController.cellItems = [hapticFeedbackCellItem]
+        sectionController.cellItems = [hapticFeedbackCellItem,
+                                       languageCellItem]
         return sectionController
     }()
     
@@ -192,6 +208,10 @@ class AppSettingsViewController: BaseSettingViewController,
         present(activityVC, animated: true)
     }
 
+    private func clickLanguage() {
+        AppSettingUtil.openSettings()
+    }
+    
     private func clickAbount() {
     #if DEBUG
         let previewVC = LocalNotificationPreviewViewController()

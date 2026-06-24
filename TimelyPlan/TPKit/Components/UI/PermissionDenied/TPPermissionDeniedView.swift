@@ -119,10 +119,6 @@ class TPPermissionDeniedView: UIView {
     
     @objc func clickAllowAccess() {
         TPImpactFeedback.impactWithLightStyle()
-        if let appSettingsURL = URL(string: UIApplication.openSettingsURLString) {
-            if UIApplication.shared.canOpenURL(appSettingsURL) {
-                UIApplication.shared.open(appSettingsURL, options: [:], completionHandler: nil)
-            }
-        }
+        AppSettingUtil.openSettings()
     }
 }

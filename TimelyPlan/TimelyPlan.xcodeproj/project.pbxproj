@@ -1995,6 +1995,9 @@
 		E5FF4EC02FE9360300282416 /* LocalNotificationPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4EBF2FE9360300282416 /* LocalNotificationPreviewViewController.swift */; };
 		E5FF4EC22FE95E8500282416 /* TaskNotificationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4EC12FE95E8500282416 /* TaskNotificationConfig.swift */; };
 		E5FF4EC42FE976E500282416 /* TaskNotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4EC32FE976E500282416 /* TaskNotificationScheduler.swift */; };
+		E5FF4EC62FEB6C7400282416 /* AppSettingUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4EC52FEB6C7400282416 /* AppSettingUtil.swift */; };
+		E5FF4EC92FEB70B300282416 /* setting_language_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FF4EC72FEB70B100282416 /* setting_language_32@3x.png */; };
+		E5FF4ECA2FEB70B300282416 /* setting_language_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FF4EC82FEB70B100282416 /* setting_language_32@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -4009,6 +4012,9 @@
 		E5FF4EBF2FE9360300282416 /* LocalNotificationPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationPreviewViewController.swift; sourceTree = "<group>"; };
 		E5FF4EC12FE95E8500282416 /* TaskNotificationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNotificationConfig.swift; sourceTree = "<group>"; };
 		E5FF4EC32FE976E500282416 /* TaskNotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNotificationScheduler.swift; sourceTree = "<group>"; };
+		E5FF4EC52FEB6C7400282416 /* AppSettingUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingUtil.swift; sourceTree = "<group>"; };
+		E5FF4EC72FEB70B100282416 /* setting_language_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_language_32@3x.png"; sourceTree = "<group>"; };
+		E5FF4EC82FEB70B100282416 /* setting_language_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_language_32@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -6022,6 +6028,7 @@
 		E55549632F76C0F700C9460D /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				E5FF4EC52FEB6C7400282416 /* AppSettingUtil.swift */,
 				E55549642F76C10A00C9460D /* AppSettingsViewController.swift */,
 				E583896A2F7749DF003C30A4 /* AppSetting.swift */,
 				E5B499542FDA5BD100F3A9BD /* BaseSettingViewController.swift */,
@@ -6420,6 +6427,8 @@
 			children = (
 				E563F1D02FE8E97400DF86BB /* setting_hapticFeedback_32@2x.png */,
 				E563F1CF2FE8E97300DF86BB /* setting_hapticFeedback_32@3x.png */,
+				E5FF4EC82FEB70B100282416 /* setting_language_32@2x.png */,
+				E5FF4EC72FEB70B100282416 /* setting_language_32@3x.png */,
 				E563F1D62FE9184200DF86BB /* setting_rate_32@2x.png */,
 				E563F1D42FE9184100DF86BB /* setting_rate_32@3x.png */,
 				E563F1D72FE9184200DF86BB /* setting_abount_32@2x.png */,
@@ -10923,6 +10932,7 @@
 				E524C7882F9B6855005CCEBD /* todo_smartlist_myDay_24@2x.png in Resources */,
 				E5BB9A972D3BEF0D0089667A /* todo_list_24@2x.png in Resources */,
 				E5FC6BA52F64EFBC00D5A5EA /* habit_status_completed_36@3x.png in Resources */,
+				E5FF4ECA2FEB70B300282416 /* setting_language_32@2x.png in Resources */,
 				E55549402F75590100C9460D /* focus_timer_custom_24@2x.png in Resources */,
 				E515AD7D2D3CF87F00AA9AF2 /* triangle_right_12@3x.png in Resources */,
 				E526D4152F6D7AE0005C1DED /* habit_plceholder_task_80@2x.png in Resources */,
@@ -11037,6 +11047,7 @@
 				E505D93D2F9A4EBA004469DC /* reorderControl_24@3x.png in Resources */,
 				E586DA772FE2D39F00758ED6 /* placeholder_calendar_80@2x.png in Resources */,
 				E55E78012D8ABB09005E3DED /* quadrant_option_edit_24@2x.png in Resources */,
+				E5FF4EC92FEB70B300282416 /* setting_language_32@3x.png in Resources */,
 				E515AD582D3CB2F900AA9AF2 /* LaunchLogo@2x.png in Resources */,
 				E500DE522DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png in Resources */,
 				E55E78002D8ABB09005E3DED /* quadrant_option_layout_24@3x.png in Resources */,
@@ -12346,6 +12357,7 @@
 				E5EFB1792F59D703000FFDF4 /* HabitTaskListDefaultInfoCell.swift in Sources */,
 				E5BB9F092D3BF0C90089667A /* TPDragInsertIndicatorView.swift in Sources */,
 				E5D7D9262D43933700EC877A /* FocusUserTimerListCell.swift in Sources */,
+				E5FF4EC62FEB6C7400282416 /* AppSettingUtil.swift in Sources */,
 				E5BB9DEA2D3BF0C60089667A /* UITableView+Extension.swift in Sources */,
 				E507E7922F528121003004C4 /* HabitMoreBarButtonItem.swift in Sources */,
 				E5BB9E722D3BF0C70089667A /* TPCollectionViewAdapter.swift in Sources */,
