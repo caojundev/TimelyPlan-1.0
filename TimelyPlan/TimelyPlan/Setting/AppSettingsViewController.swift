@@ -168,6 +168,10 @@ class AppSettingsViewController: BaseSettingViewController,
     
     private let cloudStatusViewModel = iCloudStatusViewModel()
     
+    deinit {
+        cloudStatusViewModel.stopObserving()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = resGetString("Settings")
@@ -182,6 +186,7 @@ class AppSettingsViewController: BaseSettingViewController,
                               aboutSectionController]
         reloadData()
         
+        cloudStatusViewModel.startObserving()
         cloudStatusViewModel.onStatusChanged = { [weak self] _ in
             self?.reloadCloudCell()
         }

@@ -31,6 +31,7 @@ struct TodoTaskKey {
     static var startDate = "startDate"
     static var dueDate = "dueDate"
     static let repeatRuleJSON = "repeatRuleJSON"
+    static let reminderJSON = "reminderJSON"
     static var progressJSON = "progressJSON"
     static var progressFraction = "progressFraction"
 }
@@ -737,7 +738,14 @@ extension CDTodoTask {
             completion(results as? [CDTodoTask])
         }
     }
-   
+    
+    static func fetchNotifiableTasks(completion: @escaping ([CDTodoTask]?) -> Void) {
+        let predicate = activeReminderTaskPredicate()
+        fetchAll(matching: predicate) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
+    
     /// 获取特定范围已完成任务
     static func fetchCompletedTasks(in range: DateInterval,
                                     completion: @escaping([CDTodoTask]?) -> Void) {
@@ -981,6 +989,14 @@ extension CDTodoTask {
         conditions.append((TodoTaskKey.repeatRuleJSON, .isNotEmpty))
         return conditions.andPredicate()
     }
+    
+    /// 包含通知的任务谓词
+    static func activeReminderTaskPredicate() -> NSPredicate {
+        var conditions = scheduledConditions(showCompleted: false)
+        conditions.append((TodoTaskKey.reminderJSON, .isNotEmpty))
+        return conditions.andPredicate()
+    }
+    
     
     // MARK: - Conditions
     static func scheduledConditions(showCompleted: Bool = true) -> [PredicateCondition] {

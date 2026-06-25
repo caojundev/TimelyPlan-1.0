@@ -329,6 +329,10 @@ import Foundation
         self.modificationDate = .now
     }
     
+    var hasReminder: Bool {
+        return reminderJSON != nil
+    }
+    
     // MARK: - Hashable & Equatable
     
     override var hash: Int {

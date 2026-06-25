@@ -9,9 +9,13 @@ import UserNotifications
 import Foundation
 import UIKit
 
-// MARK: - 任务协议
-protocol ScheduledTask {
+// MARK: - 表示该类型可以转换为本地通知
+protocol LocalNotifiable {
+    
+    /// 任务表示
     var taskIdentifier: String { get }
+    
+    /// 获取通知配置信息
     func getNotificationConfigs() -> [TaskNotificationConfig]
 }
 
@@ -66,7 +70,7 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
     private var latestScheduledVersion: Int64 = 0
     
     // 最后一次成功调度的任务快照
-    private var lastScheduledTasks: [ScheduledTask] = []
+    private var lastScheduledTasks: [LocalNotifiable] = []
     private let tasksLock = NSLock()
     
     // 防抖配置
@@ -115,7 +119,7 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
     // MARK: - 核心方法：支持取消和防抖的调度
     
     /// 调度任务（带防抖）
-    func scheduleWithDebounce(_ tasks: [ScheduledTask], completion: ((Result<Int, Error>) -> Void)? = nil) {
+    func scheduleWithDebounce(_ tasks: [LocalNotifiable], completion: ((Result<Int, Error>) -> Void)? = nil) {
         guard enableDebounce else {
             schedule(tasks, completion: completion)
             return
@@ -132,7 +136,7 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
     }
     
     /// 立即调度任务（取消上一次未完成的操作）
-    func schedule(_ tasks: [ScheduledTask], completion: ((Result<Int, Error>) -> Void)? = nil) {
+    func schedule(_ tasks: [LocalNotifiable], completion: ((Result<Int, Error>) -> Void)? = nil) {
         // 取消上一次操作
         cancelCurrentOperation()
         
@@ -158,7 +162,7 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
                     
                     // 1. 收集所有配置
                     let allConfigs = tasks.flatMap { task -> [TaskNotificationConfig] in
-                        Array(task.getNotificationConfigs().prefix(5))
+                        task.getNotificationConfigs()
                     }
                     
                     try operation.checkCancelled()
@@ -212,7 +216,7 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
     }
     
     /// 异步版本
-    func schedule(_ tasks: [ScheduledTask]) async -> Result<Int, Error> {
+    func schedule(_ tasks: [LocalNotifiable]) async -> Result<Int, Error> {
         return await withCheckedContinuation { continuation in
             schedule(tasks) { result in
                 continuation.resume(returning: result)
@@ -251,7 +255,7 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
     }
     
     // MARK: - 任务快照
-    private func saveTaskSnapshot(_ tasks: [ScheduledTask]) {
+    private func saveTaskSnapshot(_ tasks: [LocalNotifiable]) {
         tasksLock.lock()
         lastScheduledTasks = tasks
         tasksLock.unlock()
@@ -440,11 +444,12 @@ extension Date {
     }
 }
 
+/*
 // MARK: - 测试
 class LocalNotificationTester {
 
     // MARK: - 使用示例（与之前相同）
-    struct DailyTask: ScheduledTask {
+    struct DailyTask: LocalNotifiable {
         let taskIdentifier = "daily_task"
         
         func getNotificationConfigs() -> [TaskNotificationConfig] {
@@ -471,7 +476,7 @@ class LocalNotificationTester {
         }
     }
 
-    struct MeetingTask: ScheduledTask {
+    struct MeetingTask: LocalNotifiable {
         let taskIdentifier = "meeting_task"
         
         func getNotificationConfigs() -> [TaskNotificationConfig] {
@@ -509,7 +514,7 @@ class LocalNotificationTester {
             for i in 1...5 {
                 let delay = Double(i) * 0.1
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    let tasks: [ScheduledTask] = [DailyTask(), MeetingTask()]
+                    let tasks: [LocalNotifiable] = [DailyTask(), MeetingTask()]
                     manager.schedule(tasks) { result in
                         switch result {
                         case .success(let count):
@@ -527,5 +532,5 @@ class LocalNotificationTester {
             }
         }
     }
-
 }
+*/

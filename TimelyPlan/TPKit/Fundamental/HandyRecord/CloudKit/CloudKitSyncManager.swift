@@ -71,7 +71,7 @@ class CloudKitSyncManager {
     
     // MARK: - 私有属性
     private var container: NSPersistentCloudKitContainer?
-    private var cancellables = Set<AnyCancellable>()
+    private var cancellables: Set<AnyCancellable>?
     private let userDefaultsKey = "CloudKitLastSyncTime"
     private let networkMonitor = NWPathMonitor()
     private let monitorQueue = DispatchQueue(label: "com.cloudkit.network.monitor")
@@ -86,7 +86,36 @@ class CloudKitSyncManager {
         self.container = container
         checkCloudKitStatus()
         checkiCloudAccountStatus()
-        setupNotifications()
+    }
+    
+    // MARK: - 开始 / 结束监听
+    func startObserving() {
+        guard cancellables == nil else { return }
+        cancellables = Set<AnyCancellable>()
+        
+        NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange)
+            .sink { [weak self] notification in
+                self?.handleRemoteChange(notification)
+            }
+            .store(in: &cancellables!)
+
+        NotificationCenter.default.publisher(for: .CKAccountChanged)
+            .sink { [weak self] _ in
+                debugPrint("🔄 iCloud 账户发生变化")
+                self?.checkiCloudAccountStatus()
+            }
+            .store(in: &cancellables!)
+
+        NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
+            .sink { [weak self] _ in
+                debugPrint("📱 应用回到前台，重新检查状态")
+                self?.checkiCloudAccountStatus()
+            }
+            .store(in: &cancellables!)
+    }
+
+    func stopObserving() {
+        cancellables = nil
     }
     
     // MARK: - 检查 iCloud 账户状态
@@ -171,29 +200,6 @@ class CloudKitSyncManager {
             }
         }
         networkMonitor.start(queue: monitorQueue)
-    }
-    
-    // MARK: - 监听通知
-    private func setupNotifications() {
-        NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange)
-            .sink { [weak self] notification in
-                self?.handleRemoteChange(notification)
-            }
-            .store(in: &cancellables)
-        
-        NotificationCenter.default.publisher(for: .CKAccountChanged)
-            .sink { [weak self] _ in
-                debugPrint("🔄 iCloud 账户发生变化")
-                self?.checkiCloudAccountStatus()
-            }
-            .store(in: &cancellables)
-        
-        NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
-            .sink { [weak self] _ in
-                debugPrint("📱 应用回到前台，重新检查状态")
-                self?.checkiCloudAccountStatus()
-            }
-            .store(in: &cancellables)
     }
     
     // MARK: - 处理远程变更
@@ -336,6 +342,14 @@ class iCloudStatusViewModel: ObservableObject {
                 self?.lastSyncTime = time
             }
             .store(in: &cancellables)
+    }
+    
+    func startObserving() {
+        CloudKitSyncManager.shared.startObserving()
+    }
+    
+    func stopObserving() {
+        CloudKitSyncManager.shared.stopObserving()
     }
     
     func refreshStatus() {

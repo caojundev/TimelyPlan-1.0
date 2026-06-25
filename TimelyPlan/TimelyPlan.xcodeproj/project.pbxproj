@@ -2001,6 +2001,10 @@
 		E5FF4ECC2FEB859800282416 /* CloudKitSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4ECB2FEB859800282416 /* CloudKitSyncManager.swift */; };
 		E5FF4ED02FEBCBD500282416 /* setting_iCloud_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FF4ECE2FEBCBD400282416 /* setting_iCloud_32@3x.png */; };
 		E5FF4ED12FEBCBD500282416 /* setting_iCloud_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FF4ECF2FEBCBD400282416 /* setting_iCloud_32@2x.png */; };
+		E5FF4ED52FECB7AC00282416 /* LocalNotifiableTaskFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4ED42FECB7AC00282416 /* LocalNotifiableTaskFetcher.swift */; };
+		E5FF4ED72FECCB1C00282416 /* TodoNotifiableTaskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4ED62FECCB1C00282416 /* TodoNotifiableTaskProvider.swift */; };
+		E5FF4ED92FECCB7400282416 /* HabitNotifiableTaskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4ED82FECCB7400282416 /* HabitNotifiableTaskProvider.swift */; };
+		E5FF4EDC2FED150C00282416 /* TodoTask+LocalNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4EDB2FED150B00282416 /* TodoTask+LocalNotifiable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -4021,6 +4025,10 @@
 		E5FF4ECB2FEB859800282416 /* CloudKitSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitSyncManager.swift; sourceTree = "<group>"; };
 		E5FF4ECE2FEBCBD400282416 /* setting_iCloud_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_iCloud_32@3x.png"; sourceTree = "<group>"; };
 		E5FF4ECF2FEBCBD400282416 /* setting_iCloud_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_iCloud_32@2x.png"; sourceTree = "<group>"; };
+		E5FF4ED42FECB7AC00282416 /* LocalNotifiableTaskFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotifiableTaskFetcher.swift; sourceTree = "<group>"; };
+		E5FF4ED62FECCB1C00282416 /* TodoNotifiableTaskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoNotifiableTaskProvider.swift; sourceTree = "<group>"; };
+		E5FF4ED82FECCB7400282416 /* HabitNotifiableTaskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitNotifiableTaskProvider.swift; sourceTree = "<group>"; };
+		E5FF4EDB2FED150B00282416 /* TodoTask+LocalNotifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoTask+LocalNotifiable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -7203,9 +7211,8 @@
 		E5B4994A2FD8FCB200F3A9BD /* Notification */ = {
 			isa = PBXGroup;
 			children = (
-				E5FF4EC12FE95E8500282416 /* TaskNotificationConfig.swift */,
-				E5B4994B2FD8FD9F00F3A9BD /* TaskNotificationManager.swift */,
-				E5FF4EC32FE976E500282416 /* TaskNotificationScheduler.swift */,
+				E5FF4ED32FECB6D000282416 /* Manager */,
+				E5FF4ED22FECB6A000282416 /* Scheduler */,
 				E5FF4EBE2FE935E200282416 /* Preview */,
 			);
 			path = Notification;
@@ -10569,6 +10576,35 @@
 			path = CloudKit;
 			sourceTree = "<group>";
 		};
+		E5FF4ED22FECB6A000282416 /* Scheduler */ = {
+			isa = PBXGroup;
+			children = (
+				E5FF4EC32FE976E500282416 /* TaskNotificationScheduler.swift */,
+				E5FF4ED42FECB7AC00282416 /* LocalNotifiableTaskFetcher.swift */,
+				E5FF4ED62FECCB1C00282416 /* TodoNotifiableTaskProvider.swift */,
+				E5FF4ED82FECCB7400282416 /* HabitNotifiableTaskProvider.swift */,
+				E5FF4EDA2FED148100282416 /* Extensions */,
+			);
+			path = Scheduler;
+			sourceTree = "<group>";
+		};
+		E5FF4ED32FECB6D000282416 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				E5FF4EC12FE95E8500282416 /* TaskNotificationConfig.swift */,
+				E5B4994B2FD8FD9F00F3A9BD /* TaskNotificationManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		E5FF4EDA2FED148100282416 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E5FF4EDB2FED150B00282416 /* TodoTask+LocalNotifiable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -12063,6 +12099,7 @@
 				E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */,
 				E518D6992FBEAC450045D456 /* CalendarRepository.swift in Sources */,
 				E5B499642FDC4A8100F3A9BD /* CalendarEventMonitor.swift in Sources */,
+				E5FF4ED92FECCB7400282416 /* HabitNotifiableTaskProvider.swift in Sources */,
 				E5FC91802FBAC1DD00FC75C6 /* CalendarPageView.swift in Sources */,
 				E53632A92FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift in Sources */,
 				E5BB9EAB2D3BF0C80089667A /* TPSegmentedMenuView.swift in Sources */,
@@ -12190,6 +12227,7 @@
 				E5B33D752F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift in Sources */,
 				E53632A52FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift in Sources */,
 				E53480132F605B6300CFBF26 /* HabitTaskFilterButton.swift in Sources */,
+				E5FF4ED72FECCB1C00282416 /* TodoNotifiableTaskProvider.swift in Sources */,
 				E52F899C2D5B11B3001F18FA /* TPImageView.swift in Sources */,
 				E5BB9DF32D3BF0C60089667A /* DateComponents+Extensions.swift in Sources */,
 				E50D602A2F7A12B400D5E0A4 /* Date+RepeatScheduler.swift in Sources */,
@@ -12478,6 +12516,7 @@
 				E5B98CE52D55C22E00E78261 /* TPExpandDefaultInfoTableCell.swift in Sources */,
 				E50D60772F7A2E2D00D5E0A4 /* TodoUserListSelectCell.swift in Sources */,
 				E54E63272F5A731300FCBCAE /* HabitManageArchivedListViewController.swift in Sources */,
+				E5FF4ED52FECB7AC00282416 /* LocalNotifiableTaskFetcher.swift in Sources */,
 				E5BB9F142D3BF0C90089667A /* CocoaHook.swift in Sources */,
 				E5D7D7E62D43923800EC877A /* FocusStopwatchConfig.swift in Sources */,
 				E50BB6812D57533300D316FD /* TPTextAccessoryConfig.swift in Sources */,
@@ -12514,6 +12553,7 @@
 				E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */,
 				E5B33D3C2F80B15E00939C3E /* TodoBaseListSelectViewController.swift in Sources */,
 				E5C92F5A2FD273570051F355 /* TodoTaskSectionSelectViewController.swift in Sources */,
+				E5FF4EDC2FED150C00282416 /* TodoTask+LocalNotifiable.swift in Sources */,
 				E5BB9EF32D3BF0C80089667A /* TPPageMenuRepresentable.swift in Sources */,
 				E5BB9EFA2D3BF0C80089667A /* TPSlideTransitioningDelegate.swift in Sources */,
 				E541554B2F499896000B2972 /* FocusRecordMoreBarButtonItem.swift in Sources */,

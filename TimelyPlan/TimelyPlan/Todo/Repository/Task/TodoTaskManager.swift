@@ -497,4 +497,10 @@ extension TodoTaskManager {
             }
         }
     }
+    
+    func fetchNotifiableTasks(completion: @escaping ([TodoTask]?) -> Void) {
+        CDTodoTask.fetchNotifiableTasks { results in
+            completion(results?.toTasks)
+        }
+    }
 }

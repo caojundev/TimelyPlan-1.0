@@ -212,3 +212,25 @@ extension TaskSchedule {
     
 }
 
+/// 提醒日期
+extension TaskSchedule {
+    
+    /// 任务开始提醒日期
+    var startAlarmDates: [Date]? {
+        guard let dateInfo = dateInfo, let reminder = reminder else {
+            return nil
+        }
+        
+        return reminder.startAlarmDates(for: dateInfo.startDate)
+    }
+    
+    /// 任务结束提醒日期
+    var endAlarmDates: [Date]? {
+        guard let dateInfo = dateInfo, let reminder = reminder else {
+            return nil
+        }
+        
+        return reminder.endAlarmDates(for: dateInfo.endDate)
+    }
+    
+}

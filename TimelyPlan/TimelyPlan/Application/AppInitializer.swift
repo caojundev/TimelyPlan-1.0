@@ -31,5 +31,8 @@ class AppInitializer {
     /// 初始化管理器
     static func setup() {
         TPImpactFeedback.feedback.enabled = AppSetting.shared.isHapiticFeedbackOn
+        
+        /// 任务通知刷新
+        TaskNotificationScheduler.shared.refreshTasks()
     }
 }
