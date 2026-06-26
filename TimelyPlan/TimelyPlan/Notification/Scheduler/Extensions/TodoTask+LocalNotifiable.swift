@@ -87,7 +87,7 @@ extension TodoTask: LocalNotifiable {
     }
 
     func formatAllDayStartsInText(alarmDate: Date, eventDate: Date) -> String? {
-        guard alarmDate >= eventDate else {
+        guard eventDate >= alarmDate else {
             return nil
         }
         
@@ -109,7 +109,7 @@ extension TodoTask: LocalNotifiable {
     }
 
     func formatTimedStartsInText(alarmDate: Date, eventDate: Date) -> String? {
-        guard alarmDate >= eventDate else {
+        guard eventDate >= alarmDate else {
             return nil
         }
         
@@ -158,7 +158,7 @@ extension TodoTask: LocalNotifiable {
     }
     
     func formatAllDayDueInText(alarmDate: Date, eventDate: Date) -> String? {
-        guard alarmDate >= eventDate else {
+        guard eventDate >= alarmDate else {
             return nil
         }
         
@@ -180,7 +180,7 @@ extension TodoTask: LocalNotifiable {
     }
     
     func formatTimedDueInText(alarmDate: Date, eventDate: Date) -> String? {
-        guard alarmDate >= eventDate else {
+        guard eventDate >= alarmDate else {
             return nil
         }
         
