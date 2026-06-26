@@ -154,7 +154,7 @@ extension HabitPeriodItem {
             let days: Int = othersSlices.totalAddtionalCount()
             let percent = othersSlices.totalPercent
             return PieSlice(title: resGetString("Others"),
-                            detail: days.dayCountStirng,
+                            detail: days.dayCountString,
                             percent: percent)
         }
     }
@@ -192,7 +192,7 @@ extension HabitPeriodItem {
                 details.append(resGetString("Failed"))
             }
             
-            let daysDetail = count.dayCountStirng
+            let daysDetail = count.dayCountString
             details.append(daysDetail)
             let detail = details.joined(separator: " • ")
             

@@ -105,12 +105,36 @@ extension Duration {
     }
     
     /// 获取天数字符串
-    var dayCountStirng: String {
+    var dayCountString: String {
         let format: String
         if self > 1 {
             format = resGetString("%ld days")
         } else {
             format = resGetString("%ld day")
+        }
+        
+        return String(format: format, self)
+    }
+    
+    /// 小时数字符串
+    var hourCountStirng: String {
+        let format: String
+        if self > 1 {
+            format = resGetString("%ld hours")
+        } else {
+            format = resGetString("%ld hour")
+        }
+        
+        return String(format: format, self)
+    }
+    
+    /// 分钟数字符串
+    var minuteCountStirng: String {
+        let format: String
+        if self > 1 {
+            format = resGetString("%ld minutes")
+        } else {
+            format = resGetString("%ld minute")
         }
         
         return String(format: format, self)

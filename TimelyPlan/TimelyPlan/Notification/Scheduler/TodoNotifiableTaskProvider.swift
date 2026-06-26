@@ -63,6 +63,11 @@ extension TodoNotifiableTaskProvider: TodoTaskProcessorDelegate {
     func didCreateTodoTask(_ task: TodoTask) {
         notifyIfNeeded(with: [task])
     }
+    
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
+        let tasks = repeatTasks + updatedTasks
+        notifyIfNeeded(with: tasks)
+    }
 
     func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
         notifyIfNeeded(with: tasks)
@@ -73,14 +78,15 @@ extension TodoNotifiableTaskProvider: TodoTaskProcessorDelegate {
     }
 
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
-        if shouldNotify(with: change) {
+        let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+        if shouldNotify(with: changeInfo) {
             setNeedsRefresh()
             delegate?.localNotifiableTaskDidChange()
         }
     }
     
     func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
-        let shouldNotify = changeInfos.anySatisfy{ self.shouldNotify(with: $0.change) }
+        let shouldNotify = changeInfos.anySatisfy{ self.shouldNotify(with: $0) }
         if shouldNotify {
             setNeedsRefresh()
             delegate?.localNotifiableTaskDidChange()
@@ -95,15 +101,18 @@ extension TodoNotifiableTaskProvider: TodoTaskProcessorDelegate {
         }
     }
 
-    private func shouldNotify(with change: TodoTaskChange) -> Bool {
-        guard case let .schedule(oldValue, newValue) = change else {
+    private func shouldNotify(with changeInfo: TodoTaskChangeInfo) -> Bool {
+        if case .completed(_, _) = changeInfo.change {
+            /// 完成状态改变，并且设置了提醒
+            return changeInfo.task.hasReminder
+        }
+        
+        guard case let .schedule(oldValue, newValue) = changeInfo.change else {
             return false
         }
         
         if oldValue?.reminder != nil || newValue?.reminder != nil {
-            if oldValue?.reminder != newValue?.reminder {
-                return true
-            }
+            return true
         }
         
         return false

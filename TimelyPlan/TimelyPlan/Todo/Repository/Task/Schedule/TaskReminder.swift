@@ -9,6 +9,11 @@ import Foundation
 
 public class TaskReminder: NSObject, NSCopying, Codable {
     
+    enum ReminderType {
+        case start
+        case end
+    }
+    
     /// 开始提醒
     var startAlarms: [TaskAlarm]?
     

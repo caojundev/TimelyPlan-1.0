@@ -149,6 +149,10 @@ extension TodoSmartListViewModel: TodoTaskProcessorDelegate {
         countChanged()
     }
     
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
+        countChanged()
+    }
+    
     func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
         var bInboxChanged: Bool = false
         for task in tasks {

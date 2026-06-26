@@ -148,6 +148,14 @@ extension TodoUserListViewModel: TodoTaskProcessorDelegate {
         }
     }
     
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
+        let tasks = repeatTasks + updatedTasks
+        if let lists = tasks.userListFeatures {
+            counter.invalidateCount(for: lists)
+            countDidChange?(lists)
+        }
+    }
+    
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
         if let lists = tasks.userListFeatures {
             counter.invalidateCount(for: lists)

@@ -160,6 +160,10 @@ extension TodoFilterViewModel: TodoTaskProcessorDelegate {
         changeCountForAllFilters()
     }
     
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
+        changeCountForAllFilters()
+    }
+    
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
         changeCountForAllFilters()
     }

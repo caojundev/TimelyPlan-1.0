@@ -55,6 +55,15 @@ extension CalendarLocalEventProvider: TodoTaskProcessorDelegate {
         delegate?.calendarEventsDidChange(in: ranges)
     }
 
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
+        let tasks = repeatTasks + updatedTasks
+        guard let ranges = affectedRanges(for: tasks) else {
+            return
+        }
+        
+        delegate?.calendarEventsDidChange(in: ranges)
+    }
+    
     func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
         guard let ranges = affectedRanges(for: tasks) else {
             return

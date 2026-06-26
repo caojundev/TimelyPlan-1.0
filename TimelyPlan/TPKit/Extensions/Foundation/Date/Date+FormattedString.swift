@@ -114,4 +114,36 @@ extension Date {
                                         slashFormatted: slashFormatted)
         return string + " " + timeString
     }
+    
+    
+    
+    func yearMonthDayString(omitYear: Bool,
+                            relativeDate: Date?,
+                            slashFormatted: Bool = false) -> String {
+        if let relativeDate = relativeDate {
+            if relativeDate.isInSameDayAs(self) {
+                return resGetString("Today")
+            }
+            
+            if let date = relativeDate.dateByAddingDays(1), date.isInSameDayAs(self) {
+                return resGetString("Tomorrow")
+            }
+            
+            if omitYear && relativeDate.isInSameYearAs(self) {
+                return slashFormatted ? slashFormattedMonthDayString : monthDayString
+            }
+        }
+   
+        return slashFormatted ? slashFormattedYearMonthDayString : yearMonthDayString
+    }
+    
+    
+    func yearMonthDayTimeString(omitYear: Bool,
+                                relativeDate: Date?,
+                                slashFormatted: Bool = false) -> String {
+        let string = yearMonthDayString(omitYear: omitYear,
+                                        relativeDate: relativeDate,
+                                        slashFormatted: slashFormatted)
+        return string + " " + timeString
+    }
 }

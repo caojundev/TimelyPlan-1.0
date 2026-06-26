@@ -138,6 +138,11 @@ extension TodoUserTagViewModel: TodoTaskProcessorDelegate {
         didChangeTagForTasks([task])
     }
     
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
+        let tasks = repeatTasks + updatedTasks
+        didChangeTagForTasks(tasks)
+    }
+    
     func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
         didChangeTagForTasks(tasks)
     }

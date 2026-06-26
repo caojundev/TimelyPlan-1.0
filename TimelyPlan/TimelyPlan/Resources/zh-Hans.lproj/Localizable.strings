@@ -752,6 +752,7 @@
 
 /// 日期
 "Date" = "日期";
+"Due" = "截止";
 "Start Date" = "开始日期";
 "Due Date" = "截止日期";
 "Creation Date" = "创建时间";
@@ -948,7 +949,6 @@
 
 "No Date" = "无日期";
 
-
 "Time(count)" = "次";
 "Times(count)" = "次";
 "time(count)" = "次";
@@ -957,3 +957,20 @@
 /// 数据统计
 "NO DATA" = "无数据";
 "No Data" = "无数据";
+
+/// 通知
+"Starting now" = "现在开始";
+"Starts in %@" = "%@后开始";
+"Starts today" = "今天开始";
+"Starts tomorrow" = "明天开始";
+
+"Due in %@" = "%@后截止";
+"Due now" = "现在截止";
+"Due today" = "今天截止";
+"Due tomorrow" = "明天截止";
+
+"%ld minute" = "%ld分钟";
+"%ld minutes" = "%ld分钟";
+"%ld hour" = "%ld小时";
+"%ld hours" = "%ld小时";
+"%@ %@" = "%@ %@";
