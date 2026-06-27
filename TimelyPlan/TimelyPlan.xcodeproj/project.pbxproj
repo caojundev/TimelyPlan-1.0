@@ -1877,6 +1877,8 @@
 		E5E4D14C2D92AF2C00813B6C /* todo_filter_list_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4D1462D92AF2B00813B6C /* todo_filter_list_36@2x.png */; };
 		E5E4D1512D93033800813B6C /* todo_filter_date_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4D14F2D93033800813B6C /* todo_filter_date_36@2x.png */; };
 		E5E4D1522D93033800813B6C /* todo_filter_date_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4D1502D93033800813B6C /* todo_filter_date_36@3x.png */; };
+		E5E552EA2FEECEDB00072D3F /* HabitPeriodItem+LocalNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E552E92FEECEDB00072D3F /* HabitPeriodItem+LocalNotifiable.swift */; };
+		E5E552EC2FEF65EB00072D3F /* HabitTimePlanRegularRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E552EB2FEF65EB00072D3F /* HabitTimePlanRegularRule.swift */; };
 		E5E5BDB52FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDB42FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift */; };
 		E5E5BDB72FE3E698008D3F64 /* CoreDataEntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */; };
 		E5E5BDBB2FE3E9EF008D3F64 /* PredicateCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDBA2FE3E9EF008D3F64 /* PredicateCondition.swift */; };
@@ -3901,6 +3903,8 @@
 		E5E4D1462D92AF2B00813B6C /* todo_filter_list_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_list_36@2x.png"; sourceTree = "<group>"; };
 		E5E4D14F2D93033800813B6C /* todo_filter_date_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_date_36@2x.png"; sourceTree = "<group>"; };
 		E5E4D1502D93033800813B6C /* todo_filter_date_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_date_36@3x.png"; sourceTree = "<group>"; };
+		E5E552E92FEECEDB00072D3F /* HabitPeriodItem+LocalNotifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitPeriodItem+LocalNotifiable.swift"; sourceTree = "<group>"; };
+		E5E552EB2FEF65EB00072D3F /* HabitTimePlanRegularRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTimePlanRegularRule.swift; sourceTree = "<group>"; };
 		E5E5BDB42FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRemoteChangeManager.swift; sourceTree = "<group>"; };
 		E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEntityName.swift; sourceTree = "<group>"; };
 		E5E5BDBA2FE3E9EF008D3F64 /* PredicateCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateCondition.swift; sourceTree = "<group>"; };
@@ -5848,6 +5852,7 @@
 				E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */,
 				E59243FE2F51572D00CA2393 /* HabitEditingTask.swift */,
 				E507E7A92F52D2D7003004C4 /* HabitGoal.swift */,
+				E5E552EB2FEF65EB00072D3F /* HabitTimePlanRegularRule.swift */,
 				E59244152F51CB7500CA2393 /* HabitTimePlan.swift */,
 				E5168BD92F547DBE0000A760 /* HabitReminder.swift */,
 			);
@@ -10601,6 +10606,7 @@
 			isa = PBXGroup;
 			children = (
 				E5FF4EDB2FED150B00282416 /* TodoTask+LocalNotifiable.swift */,
+				E5E552E92FEECEDB00072D3F /* HabitPeriodItem+LocalNotifiable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -11881,6 +11887,7 @@
 				E52678562D4BD14300428500 /* TPSegmentedMenuTableCell.swift in Sources */,
 				E52EF6242FB2DCBE002CF355 /* Calendar+Extension.swift in Sources */,
 				E54E632B2F5AFE0200FCBCAE /* CDHabitRecord+Extensions.swift in Sources */,
+				E5E552EC2FEF65EB00072D3F /* HabitTimePlanRegularRule.swift in Sources */,
 				E5E9F7BB2FC44AC400717004 /* TodoSearchHistory.swift in Sources */,
 				E5D7D8F22D43933600EC877A /* OpenCircleAdjustButtonView.swift in Sources */,
 				E50D60802F7A342F00D5E0A4 /* Nestable.swift in Sources */,
@@ -12213,6 +12220,7 @@
 				E500276B2F985C9600EF052D /* TPDateRangeSegmentedView.swift in Sources */,
 				E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */,
 				E50D602C2F7A12B400D5E0A4 /* RepeatEndEditViewController.swift in Sources */,
+				E5E552EA2FEECEDB00072D3F /* HabitPeriodItem+LocalNotifiable.swift in Sources */,
 				E5BB9D8C2D3BF0C60089667A /* UIViewController+Swizzler.swift in Sources */,
 				E5BB9DD42D3BF0C60089667A /* UIImage+Color.swift in Sources */,
 				E53480112F6059F600CFBF26 /* HabitTaskFilterType.swift in Sources */,

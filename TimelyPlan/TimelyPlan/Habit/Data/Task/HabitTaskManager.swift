@@ -13,6 +13,10 @@ struct HabitTaskKey {
     static let name = "name"
     static let order = "order"
     static let isArchived = "isArchived"
+    static let shouldRemind = "shouldRemind"
+    static let reminderJSON = "reminderJSON"
+    static let startDate = "startDate"
+    static let endDate = "endDate"
 }
 
 class HabitTaskManager {
@@ -35,7 +39,10 @@ class HabitTaskManager {
             content.order = CDHabitTask.maximumOrder + kOrderedStep
         }
         
-        let task = HabitTask(content: content)
+        guard let task = HabitTask(content: content) else {
+            return
+        }
+        
         self.updater.didCreateHabitTask(task)
         HandyRecord.save()
     }
@@ -55,7 +62,7 @@ class HabitTaskManager {
         }
         
         content.update(with: editingTask)
-        updater.didUpdateHabitTask(task)
+        updater.didUpdateHabitTask(task, with: editingTask)
         HandyRecord.save()
         
         if isNameChanged {
@@ -101,12 +108,12 @@ class HabitTaskManager {
     
     /// 获取所有习惯任务
     func getAllTasks() -> [HabitTask] {
-        return CDHabitTask.getAllTasks().tasks
+        return CDHabitTask.getAllTasks().toTasks
     }
     
     /// 获取归档任务
     func getArchivedTasks() -> [HabitTask] {
-        return CDHabitTask.getArchivedTasks().tasks
+        return CDHabitTask.getArchivedTasks().toTasks
     }
     
     /// 获取归档任务数目
@@ -116,24 +123,30 @@ class HabitTaskManager {
     
     /// 获取活动任务
     func getActiveTasks() -> [HabitTask] {
-        return CDHabitTask.getActiveTasks().tasks
+        return CDHabitTask.getActiveTasks().toTasks
     }
     
     func fetchArchivedTasks(completion: @escaping([HabitTask]?) -> Void) {
         CDHabitTask.fetchArchivedTasks { results in
-            completion(results?.tasks)
+            completion(results?.toTasks)
         }
     }
     
     func fetchActiveTasks(completion: @escaping([HabitTask]?) -> Void) {
         CDHabitTask.fetchActiveTasks { results in
-            completion(results?.tasks)
+            completion(results?.toTasks)
+        }
+    }
+    
+    func fetchNotifiableTasks(completion: @escaping([HabitTask]?) -> Void) {
+        CDHabitTask.fetchNotifiableTasks { results in
+            completion(results?.toTasks)
         }
     }
     
     func searchActiveTasks(containText text: String, completion:(@escaping([HabitTask]?) -> Void)) {
         CDHabitTask.searchActiveTasks(containText: text) { results in
-            completion(results?.tasks)
+            completion(results?.toTasks)
         }
     }
 }

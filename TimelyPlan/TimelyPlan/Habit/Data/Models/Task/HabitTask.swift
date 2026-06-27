@@ -51,6 +51,11 @@ class HabitTask: NSObject, SortableIdentifiable {
     /// 提醒 JSON 字符串
     let reminderJSON: String?
 
+    var displayName: String {
+        let name = name ?? resGetString("Untitled Habit")
+        return emoji + name
+    }
+    
     /// 时间计划
     private(set) lazy var timePlan: HabitTimePlan = {
         if let json = timePlanRuleJSON {
@@ -112,8 +117,12 @@ class HabitTask: NSObject, SortableIdentifiable {
         return .inProgress
     }
     
-    init(content: CDHabitTask) {
-        self.identifier = content.identifier ?? UUID().uuidString
+    init?(content: CDHabitTask) {
+        guard let identifier = content.identifier else {
+            return nil
+        }
+        
+        self.identifier = identifier
         self.order = content.order
         self.emoji = content.emoji
         self.name = content.name
@@ -141,5 +150,44 @@ class HabitTask: NSObject, SortableIdentifiable {
         }
         
         return false
+    }
+    
+    func isReminderChanged(_ editingTask: HabitEditingTask) -> Bool {
+        if shouldRemind != editingTask.shouldRemind {
+            return true
+        }
+        
+        return reminder != editingTask.reminder   
+    }
+    
+    // MARK: - 计划日期
+    func nextPlanDates(from date: Date = .now, count: Int = 3) -> [Date] {
+        var dates = Set<Date>()
+        var referenceDate: Date = date
+        for _ in 1...count {
+            guard let planDate = nextPlanDate(from: referenceDate) else {
+               break
+            }
+            
+            dates.insert(planDate)
+            if let nextReferenceDate = planDate.dateByAddingDays(1) {
+                referenceDate = nextReferenceDate
+            } else {
+                break
+            }
+        }
+        
+        return dates.sorted{ $0 < $1}
+    }
+    
+    func nextPlanDate(from date: Date) -> Date? {
+        guard let startDate = dateRange.startDate else {
+            return nil
+        }
+        
+        let endDate = dateRange.endDate
+        return timePlan.nextPlanDate(from: date,
+                                     startDate: startDate,
+                                     endDate: endDate)
     }
 }

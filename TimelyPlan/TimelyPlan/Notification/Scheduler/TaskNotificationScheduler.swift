@@ -87,7 +87,7 @@ class TaskNotificationScheduler {
         let operation = CancellableOperation()
         setCurrentFetchOperation(operation)
         
-        debugPrint("🔄 开始获取任务...")
+//        debugPrint("🔄 开始获取任务...")
         // 调用 provider 获取任务
         fetcher.fetchNotifiableTasks { [weak self] tasks in
             guard let self = self else { return }
@@ -97,17 +97,17 @@ class TaskNotificationScheduler {
                 return
             }
             
-            print("📥 获取到 \(tasks.count) 个任务")
+//            print("📥 获取到 \(tasks.count) 个任务")
             
             // 注册通知
             self.notificationManager.schedule(tasks) { result in
-                switch result {
-                case .success(let count):
-                    print("✅ 通知注册完成: \(count)个")
-                case .failure(let error):
-                    print("❌ 通知注册失败: \(error)")
-                }
-                
+//                switch result {
+//                case .success(let count):
+//                    print("✅ 通知注册完成: \(count)个")
+//                case .failure(let error):
+//                    print("❌ 通知注册失败: \(error)")
+//                }
+//
                 self.callbackOnMain(completion, result: result)
             }
         }

@@ -114,6 +114,12 @@ extension CDHabitTask {
         }
     }
     
+    static func fetchNotifiableTasks(completion: @escaping([CDHabitTask]?) -> Void) {
+        fetchAll(matching: notifiableTaskPredicate) { results in
+            completion(results as? [CDHabitTask])
+        }
+    }
+    
     // MARK: - 同步获取
     /// 获取特定标识的任务
     static func getTask(with identifier: String) -> CDHabitTask? {
@@ -177,6 +183,23 @@ extension CDHabitTask {
         let condition: PredicateCondition = (HabitTaskKey.isArchived, .notEqual(true))
         return NSPredicate.predicate(with: condition)
     }
+    
+    /// 可通知的任务谓词
+    private static var notifiableTaskPredicate: NSPredicate {
+        let andConditions: [PredicateCondition] = [
+            (HabitTaskKey.isArchived, .notEqual(true)),
+            (HabitTaskKey.shouldRemind, .isTrue),
+            (HabitTaskKey.reminderJSON, .isNotEmpty),
+        ]
+        
+        let orConditions:  [PredicateCondition] = [
+            (HabitTaskKey.endDate, .isEmpty),
+            (HabitTaskKey.endDate, .greaterThan(Date.now)),
+        ]
+        
+        return NSPredicate.andPredicate(andConditions: andConditions,
+                                        orConditions: orConditions)
+    }
 }
 
 extension NSManagedObject {
@@ -210,7 +233,7 @@ extension NSManagedObject {
 
 extension Array where Element == CDHabitTask {
     /// 转换成 HabitTask 数组
-    var tasks: [HabitTask] {
-        return self.map { HabitTask(content: $0) }
+    var toTasks: [HabitTask] {
+        return self.compactMap{ HabitTask(content: $0) }
     }
 }

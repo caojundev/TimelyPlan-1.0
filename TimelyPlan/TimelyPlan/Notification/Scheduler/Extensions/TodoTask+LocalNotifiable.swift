@@ -9,6 +9,10 @@ import Foundation
 
 extension TodoTask: LocalNotifiable {
     
+    var displayName: String {
+        return name ?? resGetString("Untitled Todo Task")
+    }
+    
     var taskIdentifier: String {
         return identifier
     }
@@ -20,11 +24,9 @@ extension TodoTask: LocalNotifiable {
             return []
         }
         
-        print("===============⏰===============")
-        let title = self.name ?? resGetString("Untitled Todo Task")
+        let title = displayName
         var configs = [TaskNotificationConfig]()
         if let startAlarmDates = schedule.startAlarmDates {
-            print("开始提醒")
             for alarmDate in startAlarmDates {
                 let body = formatStartsBodyString(dateInfo: dateInfo,
                                                   alarmDate: alarmDate)
@@ -36,12 +38,10 @@ extension TodoTask: LocalNotifiable {
                 )
                 
                 configs.append(config)
-                print(alarmDate.yearMonthDayTimeString(omitYear: true))
             }
         }
         
         if let endAlarmDates = schedule.endAlarmDates {
-            print("结束提醒")
             for alarmDate in endAlarmDates {
                 let body = formatDueBodyString(dateInfo: dateInfo,
                                                alarmDate: alarmDate)
@@ -53,11 +53,9 @@ extension TodoTask: LocalNotifiable {
                 )
                 
                 configs.append(config)
-                print(alarmDate.yearMonthDayTimeString(omitYear: true))
             }
         }
         
-        print("================================\n")
         return configs
     }
     

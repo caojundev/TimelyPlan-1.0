@@ -87,7 +87,7 @@ class HabitActiveTaskViewModel: HabitTaskProcessorDelegate {
         loadTasks(with: .create(task))
     }
 
-    func didUpdateHabitTask(_ task: HabitTask) {
+    func didUpdateHabitTask(_ task: HabitTask, with editingTask: HabitEditingTask) {
         setNeedsRefresh()
         loadTasks(with: .update(task))
     }

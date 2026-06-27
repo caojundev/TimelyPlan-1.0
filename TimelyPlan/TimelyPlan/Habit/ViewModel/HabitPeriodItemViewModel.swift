@@ -148,7 +148,7 @@ class HabitPeriodItemViewModel: SettingAgentObserver,
         loadGroups(forceRefresh: true, change: .create(task))
     }
 
-    func didUpdateHabitTask(_ task: HabitTask) {
+    func didUpdateHabitTask(_ task: HabitTask, with editingTask: HabitEditingTask) {
         loadGroups(forceRefresh: true, change: .update(task))
     }
     

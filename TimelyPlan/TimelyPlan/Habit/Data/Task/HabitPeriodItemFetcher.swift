@@ -67,7 +67,7 @@ class HabitPeriodItemFetcher {
         }
             
         fetchPeriodItems(for: scheduledTasks,
-                            in: period,
+                         in: period,
                             includeSamples: includeSamples,
                             completion: completion)
     }

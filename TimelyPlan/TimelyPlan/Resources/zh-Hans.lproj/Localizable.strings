@@ -172,7 +172,8 @@
 "Delete Filter" = "删除过滤器";
 "Enter filter name" = "输入过滤器名称";
 
-/// 任务列表
+/// 任务
+"Untitled Todo Task" = "未命名待办任务";
 "Reschedule" = "重新安排";
 
 /// 优先级
@@ -244,7 +245,6 @@
 
 /// 任务编辑
 "Schedule" = "计划";
-
 "Add to My Day" = "添加到我的一天";
 "Added to My Day" = "已添加到我的一天";
 "Remove from My Day" = "从我的一天移除";
@@ -974,3 +974,5 @@
 "%ld hour" = "%ld小时";
 "%ld hours" = "%ld小时";
 "%@ %@" = "%@ %@";
+
+"Habit Reminder at %@" = "%@习惯提醒";

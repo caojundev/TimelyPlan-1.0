@@ -70,7 +70,22 @@ final class HabitRepository {
     }
 
     // MARK: Period Items
-
+    static func fetchNotifiablePeriodItems(completion: @escaping ([HabitPeriodItem]) -> Void) {
+        taskManager.fetchNotifiableTasks { tasks in
+            guard let tasks = tasks else {
+                completion([])
+                return
+            }
+            
+            let period = HabitDatePeriod(date: .now, mode: .day)
+            periodItemFetcher.fetchPeriodItems(
+                for: tasks,
+                in: period,
+                includeSamples: false,
+                completion: completion)
+        }
+    }
+    
     static func fetchScheduledPeriodItems(
         on date: Date = .now,
         includeSamples: Bool = false,
@@ -266,9 +281,11 @@ extension HabitRepository {
             }
             
             let record = HabitRecord(content: result, includeSamples: includeSamples)
-            let task = HabitTask(content: taskContent)
-            let item = HabitDailyItem(record: record, task: task)
+            guard let task = HabitTask(content: taskContent) else {
+                continue
+            }
             
+            let item = HabitDailyItem(record: record, task: task)
             let key = result.day
             var dayItems = groupedDailyItems[key] ?? []
             dayItems.append(item)

@@ -102,6 +102,11 @@ extension TodoNotifiableTaskProvider: TodoTaskProcessorDelegate {
     }
 
     private func shouldNotify(with changeInfo: TodoTaskChangeInfo) -> Bool {
+        if case .name(_, _) = changeInfo.change {
+            /// 任务名称改变，并且设置了提醒
+            return changeInfo.task.hasReminder
+        }
+    
         if case .completed(_, _) = changeInfo.change {
             /// 完成状态改变，并且设置了提醒
             return changeInfo.task.hasReminder
@@ -119,4 +124,3 @@ extension TodoNotifiableTaskProvider: TodoTaskProcessorDelegate {
     }
     
 }
-
