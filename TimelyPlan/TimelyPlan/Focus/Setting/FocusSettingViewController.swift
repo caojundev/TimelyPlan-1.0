@@ -120,7 +120,53 @@ class FocusSettingViewController: BaseSettingViewController {
                                         adjustStepDurationCellItem]
          return sectionController
      }()
+
+    // MARK: - 通知
+    lazy var focusEndSoundCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Focus End Sound")
+        cellItem.updater = {
+            let name = NotificationSound.displayName(of: FocusSetting.shared.focusEndSound)
+            self?.focusEndSoundCellItem.valueConfig = .valueText(name)
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editFocusEndSound()
+        }
+
+        return cellItem
+    }()
+    
+    lazy var breakEndSoundCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Break End Sound")
+        cellItem.updater = {
+            let name = NotificationSound.displayName(of: FocusSetting.shared.breakEndSound)
+            self?.breakEndSoundCellItem.valueConfig = .valueText(name)
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editBreakEndSound()
+        }
+
+        return cellItem
+    }()
      
+     lazy var notificationSectionController: TPTableItemSectionController = {
+         let sectionController = TPTableItemSectionController()
+         sectionController.headerItem.title = resGetString("Notification")
+         sectionController.headerItem.height = titleHeaderHeight
+         sectionController.headerItem.padding = titleHeaderPadding
+         sectionController.cellItems = [focusEndSoundCellItem,
+                                        breakEndSoundCellItem]
+         return sectionController
+     }()
+    
+    
      // MARK: - Pomodoro
      
      /// 自动专注
@@ -173,7 +219,6 @@ class FocusSettingViewController: BaseSettingViewController {
      /// 自动休息
      lazy var steppedAutoStartNextCellItem: TPSwitchTableCellItem = { [weak self] in
          let cellItem = TPSwitchTableCellItem()
-         cellItem.autoResizable = true
          cellItem.height = defaultCellHeight
          cellItem.title = resGetString("Auto Start Next Step")
          cellItem.updater = {
@@ -246,8 +291,8 @@ class FocusSettingViewController: BaseSettingViewController {
      func sectionController(title: String) -> TPTableItemSectionController {
          let sectionController = TPTableItemSectionController()
          sectionController.headerItem.title = title
-         sectionController.headerItem.height = 50.0
-         sectionController.headerItem.padding = UIEdgeInsets(horizontal: 5.0, top: 10.0)
+         sectionController.headerItem.height = titleHeaderHeight
+         sectionController.headerItem.padding = titleHeaderPadding
          return sectionController
      }
      
@@ -255,6 +300,7 @@ class FocusSettingViewController: BaseSettingViewController {
          super.viewDidLoad()
          self.title = resGetString("Focus Settings")
          self.sectionControllers = [generalSectionController,
+                                    notificationSectionController,
                                     pomodoroSectionController,
                                     steppedSectionController,
                                     stopwatchSectionController,
@@ -329,5 +375,30 @@ class FocusSettingViewController: BaseSettingViewController {
             self.adapter.reloadCell(forItem: self.firstWeekdayCellItem, with: .none)
         }
     }
+    
+    private func editFocusEndSound() {
+        let vc = NotificationSoundSelectViewController(sound: FocusSetting.shared.focusEndSound)
+        vc.completion = { sound in
+            if FocusSetting.shared.focusEndSound != sound {
+                FocusSetting.shared.focusEndSound = sound
+                self.adapter.reloadCell(forItem: self.focusEndSoundCellItem, with: .none)
+            }
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func editBreakEndSound() {
+        let vc = NotificationSoundSelectViewController(sound: FocusSetting.shared.breakEndSound)
+        vc.completion = { sound in
+            if FocusSetting.shared.breakEndSound != sound {
+                FocusSetting.shared.breakEndSound = sound
+                self.adapter.reloadCell(forItem: self.breakEndSoundCellItem, with: .none)
+            }
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
  }
                                                                             

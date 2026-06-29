@@ -458,6 +458,8 @@
 
 /// 专注设置
 "Focus Settings" = "专注设置";
+"Focus End Sound" = "专注结束提示音";
+"Break End Sound" = "休息结束提示音";
 "Week Start on" = "周开始于";
 "Auto-Focus" = "自动专注";
 "After the break is over, start to focus automatically" = "休息结束后自动开始专注";
@@ -986,6 +988,12 @@
 "%ld minutes" = "%ld分钟";
 "%ld hour" = "%ld小时";
 "%ld hours" = "%ld小时";
-"%@ %@" = "%@ %@";
+"%ld seconds" = "%ld秒";
+"%ld second" = "%ld秒";
+"%@ %@" = "%@%@";
 
 "Habit Reminder at %@" = "%@习惯提醒";
+"%@ focus ended" = "%@专注结束";
+"%@ break ended" = "%@休息结束";
+"Focus ended" = "专注结束";
+"Break ended" = "休息结束";

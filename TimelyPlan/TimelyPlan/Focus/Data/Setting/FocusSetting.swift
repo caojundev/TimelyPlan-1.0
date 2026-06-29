@@ -31,11 +31,21 @@ class FocusSetting {
         case flipClockAutoHideHour
         case isOverallStatsShowArchived /// 总体统计是否显示已归档
         
+        case focusEndSound /// 专注结束提示音
+        case breakEndSound /// 休息结束提示音
+        
+        
         static func keyPrefix() -> String? {
             return "FocusSetting"
         }
     }
 
+    @CloudStored(key: Key.focusEndSound.name, defaultValue: nil)
+    var focusEndSound: NotificationSound?
+    
+    @CloudStored(key: Key.breakEndSound.name, defaultValue: nil)
+    var breakEndSound: NotificationSound?
+    
     /// 周开始日
     @CloudStored(key: Key.firstWeekday.name, defaultValue: .monday)
     var firstWeekday: Weekday

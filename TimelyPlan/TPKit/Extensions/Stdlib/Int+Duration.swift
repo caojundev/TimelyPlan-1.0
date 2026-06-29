@@ -117,7 +117,7 @@ extension Duration {
     }
     
     /// 小时数字符串
-    var hourCountStirng: String {
+    var hourCountString: String {
         let format: String
         if self > 1 {
             format = resGetString("%ld hours")
@@ -129,12 +129,24 @@ extension Duration {
     }
     
     /// 分钟数字符串
-    var minuteCountStirng: String {
+    var minuteCountString: String {
         let format: String
         if self > 1 {
             format = resGetString("%ld minutes")
         } else {
             format = resGetString("%ld minute")
+        }
+        
+        return String(format: format, self)
+    }
+    
+    /// 秒数字符串
+    var secondCountString: String {
+        let format: String
+        if self > 1 {
+            format = resGetString("%ld seconds")
+        } else {
+            format = resGetString("%ld second")
         }
         
         return String(format: format, self)

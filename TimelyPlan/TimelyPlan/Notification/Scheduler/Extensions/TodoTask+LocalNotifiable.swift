@@ -221,8 +221,8 @@ extension TodoTask: LocalNotifiable {
         let hours = totalSeconds / 3600
         let minutes = (totalSeconds % 3600) / 60
         var parts: [String] = []
-        if hours > 0   { parts.append(hours.hourCountStirng) }
-        if minutes > 0 { parts.append(minutes.minuteCountStirng) }
+        if hours > 0   { parts.append(hours.hourCountString) }
+        if minutes > 0 { parts.append(minutes.minuteCountString) }
         if parts.count == 2 {
             let format = resGetString("%@ %@")
             return String(format: format, parts[0], parts[1])

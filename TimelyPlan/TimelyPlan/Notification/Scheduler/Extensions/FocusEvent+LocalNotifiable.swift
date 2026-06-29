@@ -35,12 +35,30 @@ extension FocusEvent: LocalNotifiable {
             }
             
             let title = step.name ?? resGetString("Untitled Step")
-            let body = resGetString("End")
+            let bodyFormat: String
+            var sound: NotificationSound?
+            if step.mode == .focus {
+                sound = FocusSetting.shared.focusEndSound
+                bodyFormat = resGetString("%@ focus ended")
+            } else {
+                sound = FocusSetting.shared.breakEndSound
+                bodyFormat = resGetString("%@ break ended")
+            }
+        
+            var body: String
+            if Int(step.duration) > 0 {
+                let durationString = step.duration.durationString()
+                body = String(format: bodyFormat, durationString)
+            } else {
+                body = step.mode == .focus ? resGetString("Focus ended") : resGetString("Break ended")
+            }
+            
             let config = TaskNotificationConfig(
                 taskIdentifier: taskIdentifier,
                 title: title,
                 body: body,
-                triggerDate: alarmDate
+                triggerDate: alarmDate,
+                sound: sound?.toUNNotificationSound
             )
             
             configs.append(config)

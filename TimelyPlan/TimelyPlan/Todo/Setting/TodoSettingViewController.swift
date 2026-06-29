@@ -34,7 +34,8 @@ class TodoSettingViewController: BaseSettingViewController {
     lazy var displaySectionController: TPTableItemSectionController = {
          let sectionController = TPTableItemSectionController()
          sectionController.headerItem.title = resGetString("Display")
-         sectionController.headerItem.height = 50.0
+        sectionController.headerItem.height = titleHeaderHeight
+        sectionController.headerItem.padding = titleHeaderPadding
          sectionController.cellItems = [homeDisplayCellItem,
                                         smartListDisplayCellItem]
          return sectionController
@@ -116,7 +117,8 @@ class TodoSettingViewController: BaseSettingViewController {
     lazy var insertLocationSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.title = resGetString("New Item Location")
-        sectionController.headerItem.height = 50.0
+        sectionController.headerItem.height = titleHeaderHeight
+        sectionController.headerItem.padding = titleHeaderPadding
         sectionController.cellItems = [addListOnTopCellItem,
                                        addTaskOnTopCellItem,
                                        addTagOnTopCellItem,
@@ -159,7 +161,8 @@ class TodoSettingViewController: BaseSettingViewController {
      lazy var quickAddSectionController: TPTableItemSectionController = {
          let sectionController = TPTableItemSectionController()
          sectionController.headerItem.title = resGetString("Quick Add")
-         sectionController.headerItem.height = 50.0
+         sectionController.headerItem.height = titleHeaderHeight
+         sectionController.headerItem.padding = titleHeaderPadding
          sectionController.cellItems = [quickAddKeepContentCellItem,
                                         quickAddContinuouslyCellItem]
          return sectionController
@@ -204,7 +207,8 @@ class TodoSettingViewController: BaseSettingViewController {
      lazy var stepSectionController: TPTableItemSectionController = {
          let sectionController = TPTableItemSectionController()
          sectionController.headerItem.title = resGetString("Step")
-         sectionController.headerItem.height = 50.0
+         sectionController.headerItem.height = titleHeaderHeight
+         sectionController.headerItem.padding = titleHeaderPadding
          sectionController.cellItems = [autoCompleteSubtasksCellItem,
                                         autoCompleteParentTaskCellItem]
          return sectionController

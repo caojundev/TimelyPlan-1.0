@@ -62,4 +62,18 @@ extension TimeInterval {
             return String(format: "%02d:%02d", m, s)
         }
     }
+    
+    
+    func durationString() -> String {
+        let totalSeconds = Int(self)
+        let hours = totalSeconds / 3600
+        let minutes = (totalSeconds % 3600) / 60
+        let seconds = totalSeconds % 60
+        var parts: [String] = []
+        if hours > 0   { parts.append(hours.hourCountString) }
+        if minutes > 0 { parts.append(minutes.minuteCountString) }
+        if seconds > 0 { parts.append(minutes.secondCountString) }
+        return parts.joined(separator: " ")
+    }
+    
 }
