@@ -430,6 +430,7 @@
 /// 运行计时器
 "Start" = "开始";
 "Pause" = "暂停";
+"Paused" = "已暂停";
 "Continue" = "继续";
 "Next" = "下一步";
 "Screen always on enabled" = "屏幕常亮已开启";
@@ -721,6 +722,18 @@
 "No Account" = "无账户";
 "No Network" = "无网络";
 "Disabled" = "已禁用";
+
+/// 通知
+"Notification" = "通知";
+"Notification Sound" = "通知声音";
+"Start Sound" = "开始提示音";
+"Due Sound" = "截止提示音";
+"Sound" = "声音";
+"System Default" = "系统默认";
+
+"Glad Notice" = "欣然讯铃";
+"Happy Alert" = "悦知提示";
+"Light Hearted" = "轻快短铃";
 
 ///**********************通用*********************///
 "Others" = "其它";

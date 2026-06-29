@@ -33,6 +33,12 @@ class FocusTracker: NSObject {
     /// 单例对象
     static let shared = FocusTracker()
 
+    /// 事项改变回调
+//    var onEventChanged: (() -> Void)?
+    
+    /// 外部为事项注册通知
+    var scheduleNotificationHandler: (() -> Void)?
+    
     /// 当前状态
     var state: FocusTrackerState {
         guard let event = event else {
@@ -99,7 +105,7 @@ class FocusTracker: NSObject {
     }
     
     /// 当前追踪的专注事件
-    private var event: FocusEvent?
+    private(set) var event: FocusEvent?
     
     /// 定时器
     private var timer: Timer?
@@ -127,15 +133,15 @@ class FocusTracker: NSObject {
     
     /// 清除事件
     func clearEvent() {
-        /// 移除所有待处理通知
-        FocusEventNotificationService.removeAllFocusPendingNotifications(completion: nil)
         event = nil
         stopTimerIfNeeded()
         checkStateAndNotifyDelegatesIfNeeded()
-        previousState = nil ///
+        previousState = nil
         
         /// 删除保存的事件数据
         SettingAgent.shared.setValue(nil, forKey: kFocusingEventKey)
+        
+        scheduleNotificationHandler?()
     }
 
     /// 保存事件数据
@@ -188,9 +194,8 @@ class FocusTracker: NSObject {
     
     private func track(event: FocusEvent) {
         self.event = event
-        /// 安排专注事件的通知
-        scheduleNotifications(forEvent: event)
         saveEvent()
+        scheduleNotificationHandler?()
     }
 
     // MARK: - 追踪视图控制器
@@ -313,7 +318,7 @@ class FocusTracker: NSObject {
         updateTimer()
         
         /// 重新计划通知
-        scheduleNotifications(forEvent: event)
+        scheduleNotificationHandler?()
     }
     
     /// 结束当前事件
@@ -325,7 +330,7 @@ class FocusTracker: NSObject {
         event.completeAllStep()
         saveEvent()
         updateTimer()
-        scheduleNotifications(forEvent: event)
+        scheduleNotificationHandler?()
     }
     
     /// 调整当前步骤时长
@@ -338,7 +343,7 @@ class FocusTracker: NSObject {
         event.adjustDuration(by: TimeInterval(stepDuration))
         saveEvent()
         updateTimer()
-        scheduleNotifications(forEvent: event)
+        scheduleNotificationHandler?()
     }
     
     func reduceDuration() {
@@ -350,7 +355,7 @@ class FocusTracker: NSObject {
         event.adjustDuration(by: -TimeInterval(20))
         saveEvent()
         updateTimer()
-        scheduleNotifications(forEvent: event)
+        scheduleNotificationHandler?()
     }
     
     func canIncrease(remainDuration: TimeInterval) -> Bool {
@@ -456,27 +461,12 @@ extension FocusTracker {
             }
             
             if let isNotiAuthorized = self.isNotiAuthorized, !isNotiAuthorized {
-                self.rescheduleEvent()
+                self.scheduleNotificationHandler?()
             }
         }
     }
     
     @objc private func handleNotificationAuthorizationGranted() {
-        rescheduleEvent()
-    }
-    
-    /// 计划通知
-    func scheduleNotifications(forEvent event: FocusEvent) {
-        FocusEventNotificationService.scheduleNotifications(forEvent: event) { authorized in
-            /// 更新授权状态
-            self.isNotiAuthorized = authorized
-        }
-    }
-    
-    /// 重新计划通知
-    private func rescheduleEvent() {
-        if let event = event {
-            scheduleNotifications(forEvent: event)
-        }
+        scheduleNotificationHandler?()
     }
 }

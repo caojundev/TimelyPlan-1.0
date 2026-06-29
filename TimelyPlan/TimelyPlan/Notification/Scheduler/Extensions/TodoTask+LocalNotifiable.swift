@@ -27,6 +27,7 @@ extension TodoTask: LocalNotifiable {
         let title = displayName
         var configs = [TaskNotificationConfig]()
         if let startAlarmDates = schedule.startAlarmDates {
+            let startSound = TodoSetting.shared.startSound?.toUNNotificationSound
             for alarmDate in startAlarmDates {
                 let body = formatStartsBodyString(dateInfo: dateInfo,
                                                   alarmDate: alarmDate)
@@ -34,7 +35,8 @@ extension TodoTask: LocalNotifiable {
                     taskIdentifier: taskIdentifier,
                     title: title,
                     body: body,
-                    triggerDate: alarmDate
+                    triggerDate: alarmDate,
+                    sound: startSound
                 )
                 
                 configs.append(config)
@@ -42,6 +44,7 @@ extension TodoTask: LocalNotifiable {
         }
         
         if let endAlarmDates = schedule.endAlarmDates {
+            let dueSound = TodoSetting.shared.dueSound?.toUNNotificationSound
             for alarmDate in endAlarmDates {
                 let body = formatDueBodyString(dateInfo: dateInfo,
                                                alarmDate: alarmDate)
@@ -49,7 +52,8 @@ extension TodoTask: LocalNotifiable {
                     taskIdentifier: taskIdentifier,
                     title: title,
                     body: body,
-                    triggerDate: alarmDate
+                    triggerDate: alarmDate,
+                    sound: dueSound
                 )
                 
                 configs.append(config)
@@ -120,7 +124,7 @@ extension TodoTask: LocalNotifiable {
             return resGetString("Starts tomorrow")
         }
         
-        let timeString: String
+        var timeString: String?
         if days > 1 {
             /// 大于一天仅提供天信息
             timeString = days.dayCountString
@@ -130,8 +134,12 @@ extension TodoTask: LocalNotifiable {
             timeString = formattedTime(from: Int(difference))
         }
         
-        let format = resGetString("Starts in %@")
-        return String(format: format, timeString)
+        if let timeString = timeString {
+            let format = resGetString("Starts in %@")
+            return String(format: format, timeString)
+        }
+        
+        return resGetString("Starting now")
     }
     
     /// 截止提醒
@@ -191,7 +199,7 @@ extension TodoTask: LocalNotifiable {
             return resGetString("Due tomorrow")
         }
         
-        let timeString: String
+        var timeString: String?
         if days > 1 {
             /// 大于一天仅提供天信息
             timeString = days.dayCountString
@@ -201,11 +209,15 @@ extension TodoTask: LocalNotifiable {
             timeString = formattedTime(from: Int(difference))
         }
         
-        let format = resGetString("Due in %@")
-        return String(format: format, timeString)
+        if let timeString = timeString {
+            let format = resGetString("Due in %@")
+            return String(format: format, timeString)
+        }
+         
+        return resGetString("Due now")
     }
     
-    private func formattedTime(from totalSeconds: Int) -> String {
+    private func formattedTime(from totalSeconds: Int) -> String? {
         let hours = totalSeconds / 3600
         let minutes = (totalSeconds % 3600) / 60
         var parts: [String] = []
@@ -216,9 +228,9 @@ extension TodoTask: LocalNotifiable {
             return String(format: format, parts[0], parts[1])
         } else if parts.count == 1 {
             return parts[0]
-        } else {
-            return resGetString("0 minute")
         }
+        
+        return nil
     }
     
     private func eventDateString(with date: Date,

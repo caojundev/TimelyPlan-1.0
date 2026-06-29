@@ -11,6 +11,8 @@ import UIKit
 class HabitSetting {
     
     enum Key: String, SettingKeyRepresentable {
+        case sound /// 通知音
+        
         case firstWeekday
         case addHabitOnTop
         case customUnits /// 自定义单位
@@ -20,7 +22,6 @@ class HabitSetting {
         case defaultFailedScore
         
         case isReportShowArchived /// 报告是否显示已归档
-        
         case recordSortOrder /// 记录排列顺序
         
         static func keyPrefix() -> String? {
@@ -28,6 +29,10 @@ class HabitSetting {
         }
     }
 
+    /// 通知音
+    @CloudStored(key: Key.sound.name, defaultValue: nil)
+    var sound: NotificationSound?
+    
     /// 周开始日
     @CloudStored(key: Key.firstWeekday.name, defaultValue: .monday)
     var firstWeekday: Weekday

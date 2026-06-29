@@ -32,13 +32,17 @@ class LocalNotifiableTaskFetcher: LocalNotifiableTaskProvider,
     private var providers: [LocalNotifiableTaskProvider] = []
     
     private var todoTaskProvider = TodoNotifiableTaskProvider()
-    
+
     private var habitTaskProvider = HabitNotifiableTaskProvider()
+
+    private var focusEventProvider = FocusNotifiableEventProvider()
     
     init() {
+        self.focusEventProvider.delegate = self
         self.todoTaskProvider.delegate = self
         self.habitTaskProvider.delegate = self
-        self.providers = [self.todoTaskProvider,
+        self.providers = [self.focusEventProvider,
+                          self.todoTaskProvider,
                           self.habitTaskProvider]
     }
     

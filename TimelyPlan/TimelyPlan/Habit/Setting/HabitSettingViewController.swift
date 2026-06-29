@@ -81,11 +81,37 @@ class HabitSettingViewController: BaseSettingViewController {
                                         defaultScoreCellItem]
          return sectionController
      }()
+    
+    lazy var soundCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Notification Sound")
+        cellItem.updater = {
+            let name = NotificationSound.displayName(of: HabitSetting.shared.sound)
+            self?.soundCellItem.valueConfig = .valueText(name)
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editSound()
+        }
+        
+        return cellItem
+    }()
      
+     lazy var notificationSectionController: TPTableItemSectionController = {
+         let sectionController = TPTableItemSectionController()
+         sectionController.headerItem.height = 15.0
+         sectionController.cellItems = [soundCellItem]
+         return sectionController
+     }()
+     
+    
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("Habit Settings")
-         self.sectionControllers = [generalSectionController]
+         self.sectionControllers = [generalSectionController,
+                                    notificationSectionController]
          self.reloadData()
      }
     
@@ -111,11 +137,23 @@ class HabitSettingViewController: BaseSettingViewController {
     
     private func editReasonTag() {
         let vc = HabitReasonTagEditViewController(style: .insetGrouped)
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func editDefaultScore() {
         let vc = HabitSettingScoreEditViewController(style: .insetGrouped)
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func editSound() {
+        let vc = NotificationSoundSelectViewController(sound: HabitSetting.shared.sound)
+        vc.completion = { sound in
+            if HabitSetting.shared.sound != sound {
+                HabitSetting.shared.sound = sound
+                self.adapter.reloadCell(forItem: self.soundCellItem, with: .none)
+            }
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
  }

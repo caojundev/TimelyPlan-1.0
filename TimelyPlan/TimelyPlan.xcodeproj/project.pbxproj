@@ -491,6 +491,16 @@
 		E53632D52FAF63480095DFEC /* quadrant_II_60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53632CD2FAF63470095DFEC /* quadrant_II_60@2x.png */; };
 		E53632D62FAF63480095DFEC /* quadrant_III_60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53632CE2FAF63480095DFEC /* quadrant_III_60@2x.png */; };
 		E53632D82FAF77BC0095DFEC /* CalendarConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53632D72FAF77BC0095DFEC /* CalendarConstant.swift */; };
+		E5371DCC2FF00A8800BA9DEF /* FocusEvent+LocalNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DCB2FF00A8800BA9DEF /* FocusEvent+LocalNotifiable.swift */; };
+		E5371DCE2FF018D000BA9DEF /* FocusNotifiableEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DCD2FF018D000BA9DEF /* FocusNotifiableEventProvider.swift */; };
+		E5371DD12FF0FCE500BA9DEF /* NotificationSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DD02FF0FCE500BA9DEF /* NotificationSound.swift */; };
+		E5371DD62FF1508200BA9DEF /* NotificationSoundSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DD52FF1508200BA9DEF /* NotificationSoundSelectViewController.swift */; };
+		E5371DD72FF166F800BA9DEF /* glad-notice.caf in Resources */ = {isa = PBXBuildFile; fileRef = E5371DD42FF1250B00BA9DEF /* glad-notice.caf */; };
+		E5371DD82FF166F800BA9DEF /* happy-alert.caf in Resources */ = {isa = PBXBuildFile; fileRef = E5371DD22FF1250A00BA9DEF /* happy-alert.caf */; };
+		E5371DD92FF166F800BA9DEF /* light-hearted.caf in Resources */ = {isa = PBXBuildFile; fileRef = E5371DD32FF1250B00BA9DEF /* light-hearted.caf */; };
+		E5371DDE2FF1FD1C00BA9DEF /* notification_sound_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5371DDC2FF1FD1C00BA9DEF /* notification_sound_24@2x.png */; };
+		E5371DDF2FF1FD1C00BA9DEF /* notification_sound_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5371DDD2FF1FD1C00BA9DEF /* notification_sound_24@3x.png */; };
+		E5371DE72FF21FC600BA9DEF /* mute.caf in Resources */ = {isa = PBXBuildFile; fileRef = E5371DE62FF21FC500BA9DEF /* mute.caf */; };
 		E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F02D9C1A7F00C5A001 /* TPSlider.swift */; };
 		E53735F42D9C1C0E00C5A001 /* TPSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
@@ -1602,7 +1612,6 @@
 		E5BBA0EF2D3BF5BB0089667A /* TaskBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BBA0ED2D3BF5BB0089667A /* TaskBinder.swift */; };
 		E5BBA1142D3BFC520089667A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA1132D3BFC520089667A /* Assets.xcassets */; };
 		E5BBA1162D3BFC6A0089667A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA1152D3BFC6A0089667A /* LaunchScreen.storyboard */; };
-		E5BBA11F2D3BFD150089667A /* happy.wav in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA11A2D3BFD110089667A /* happy.wav */; };
 		E5BBA1202D3BFD150089667A /* BarlowCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA11C2D3BFD120089667A /* BarlowCondensed-SemiBold.ttf */; };
 		E5BBA1212D3BFD150089667A /* RobotoMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA11D2D3BFD120089667A /* RobotoMono-Bold.ttf */; };
 		E5BBA1222D3BFD150089667A /* Akrobat-Extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA11E2D3BFD120089667A /* Akrobat-Extrabold.ttf */; };
@@ -1673,7 +1682,6 @@
 		E5D7D8C02D43933600EC877A /* StopwatchProgressInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8022D43933100EC877A /* StopwatchProgressInfoView.swift */; };
 		E5D7D8C12D43933600EC877A /* FocusPomodoroProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8032D43933100EC877A /* FocusPomodoroProgressView.swift */; };
 		E5D7D8C22D43933600EC877A /* FocusRunningDayFlipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8042D43933100EC877A /* FocusRunningDayFlipView.swift */; };
-		E5D7D8C32D43933600EC877A /* FocusEventNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8062D43933100EC877A /* FocusEventNotificationService.swift */; };
 		E5D7D8C42D43933600EC877A /* FocusEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8082D43933100EC877A /* FocusEvent.swift */; };
 		E5D7D8C52D43933600EC877A /* FocusTimerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D8092D43933100EC877A /* FocusTimerInfo.swift */; };
 		E5D7D8C62D43933600EC877A /* FocusStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D80A2D43933100EC877A /* FocusStep.swift */; };
@@ -2500,6 +2508,16 @@
 		E53632CD2FAF63470095DFEC /* quadrant_II_60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_II_60@2x.png"; sourceTree = "<group>"; };
 		E53632CE2FAF63480095DFEC /* quadrant_III_60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_III_60@2x.png"; sourceTree = "<group>"; };
 		E53632D72FAF77BC0095DFEC /* CalendarConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarConstant.swift; sourceTree = "<group>"; };
+		E5371DCB2FF00A8800BA9DEF /* FocusEvent+LocalNotifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusEvent+LocalNotifiable.swift"; sourceTree = "<group>"; };
+		E5371DCD2FF018D000BA9DEF /* FocusNotifiableEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusNotifiableEventProvider.swift; sourceTree = "<group>"; };
+		E5371DD02FF0FCE500BA9DEF /* NotificationSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSound.swift; sourceTree = "<group>"; };
+		E5371DD22FF1250A00BA9DEF /* happy-alert.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "happy-alert.caf"; sourceTree = "<group>"; };
+		E5371DD32FF1250B00BA9DEF /* light-hearted.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "light-hearted.caf"; sourceTree = "<group>"; };
+		E5371DD42FF1250B00BA9DEF /* glad-notice.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "glad-notice.caf"; sourceTree = "<group>"; };
+		E5371DD52FF1508200BA9DEF /* NotificationSoundSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSoundSelectViewController.swift; sourceTree = "<group>"; };
+		E5371DDC2FF1FD1C00BA9DEF /* notification_sound_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_sound_24@2x.png"; sourceTree = "<group>"; };
+		E5371DDD2FF1FD1C00BA9DEF /* notification_sound_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_sound_24@3x.png"; sourceTree = "<group>"; };
+		E5371DE62FF21FC500BA9DEF /* mute.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mute.caf; sourceTree = "<group>"; };
 		E53735F02D9C1A7F00C5A001 /* TPSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSlider.swift; sourceTree = "<group>"; };
 		E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSliderViewController.swift; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
@@ -3628,7 +3646,6 @@
 		E5BBA0ED2D3BF5BB0089667A /* TaskBinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBinder.swift; sourceTree = "<group>"; };
 		E5BBA1132D3BFC520089667A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5BBA1152D3BFC6A0089667A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		E5BBA11A2D3BFD110089667A /* happy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = happy.wav; sourceTree = "<group>"; };
 		E5BBA11C2D3BFD120089667A /* BarlowCondensed-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BarlowCondensed-SemiBold.ttf"; sourceTree = "<group>"; };
 		E5BBA11D2D3BFD120089667A /* RobotoMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Bold.ttf"; sourceTree = "<group>"; };
 		E5BBA11E2D3BFD120089667A /* Akrobat-Extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Akrobat-Extrabold.ttf"; sourceTree = "<group>"; };
@@ -3699,7 +3716,6 @@
 		E5D7D8022D43933100EC877A /* StopwatchProgressInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopwatchProgressInfoView.swift; sourceTree = "<group>"; };
 		E5D7D8032D43933100EC877A /* FocusPomodoroProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusPomodoroProgressView.swift; sourceTree = "<group>"; };
 		E5D7D8042D43933100EC877A /* FocusRunningDayFlipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusRunningDayFlipView.swift; sourceTree = "<group>"; };
-		E5D7D8062D43933100EC877A /* FocusEventNotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusEventNotificationService.swift; sourceTree = "<group>"; };
 		E5D7D8082D43933100EC877A /* FocusEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusEvent.swift; sourceTree = "<group>"; };
 		E5D7D8092D43933100EC877A /* FocusTimerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimerInfo.swift; sourceTree = "<group>"; };
 		E5D7D80A2D43933100EC877A /* FocusStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStep.swift; sourceTree = "<group>"; };
@@ -5580,6 +5596,35 @@
 			path = Settting;
 			sourceTree = "<group>";
 		};
+		E5371DCF2FF0FCBF00BA9DEF /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				E5371DD02FF0FCE500BA9DEF /* NotificationSound.swift */,
+				E5371DD52FF1508200BA9DEF /* NotificationSoundSelectViewController.swift */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
+		E5371DDA2FF1681700BA9DEF /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				E5371DE62FF21FC500BA9DEF /* mute.caf */,
+				E5371DD42FF1250B00BA9DEF /* glad-notice.caf */,
+				E5371DD22FF1250A00BA9DEF /* happy-alert.caf */,
+				E5371DD32FF1250B00BA9DEF /* light-hearted.caf */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		E5371DDB2FF1FD1C00BA9DEF /* notification */ = {
+			isa = PBXGroup;
+			children = (
+				E5371DDC2FF1FD1C00BA9DEF /* notification_sound_24@2x.png */,
+				E5371DDD2FF1FD1C00BA9DEF /* notification_sound_24@3x.png */,
+			);
+			path = notification;
+			sourceTree = "<group>";
+		};
 		E53735F22D9C1AA000C5A001 /* Slider */ = {
 			isa = PBXGroup;
 			children = (
@@ -7216,6 +7261,7 @@
 		E5B4994A2FD8FCB200F3A9BD /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				E5371DCF2FF0FCBF00BA9DEF /* Sound */,
 				E5FF4ED32FECB6D000282416 /* Manager */,
 				E5FF4ED22FECB6A000282416 /* Scheduler */,
 				E5FF4EBE2FE935E200282416 /* Preview */,
@@ -7292,6 +7338,7 @@
 			children = (
 				E5BBA10D2D3BFB4D0089667A /* launch */,
 				E563F1882FE7CEB200DF86BB /* settting */,
+				E5371DDB2FF1FD1C00BA9DEF /* notification */,
 				E5BBA0F02D3BFB3C0089667A /* sideMenu */,
 				E5BB9A4D2D3BEF0D0089667A /* common */,
 				E583896C2F774E56003C30A4 /* task */,
@@ -9207,20 +9254,12 @@
 				E5BBA1152D3BFC6A0089667A /* LaunchScreen.storyboard */,
 				E5BBA1132D3BFC520089667A /* Assets.xcassets */,
 				E5BBA1232D3BFD610089667A /* Themes */,
+				E5371DDA2FF1681700BA9DEF /* Sounds */,
 				E5BBA11B2D3BFD120089667A /* Fonts */,
-				E5BBA1192D3BFD110089667A /* Ringtones */,
 				E515AD4E2D3C0EA900AA9AF2 /* Localizable.strings */,
 				E515AD532D3C0EFB00AA9AF2 /* InfoPlist.strings */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		E5BBA1192D3BFD110089667A /* Ringtones */ = {
-			isa = PBXGroup;
-			children = (
-				E5BBA11A2D3BFD110089667A /* happy.wav */,
-			);
-			path = Ringtones;
 			sourceTree = "<group>";
 		};
 		E5BBA11B2D3BFD120089667A /* Fonts */ = {
@@ -9424,7 +9463,6 @@
 			children = (
 				E5D7D80D2D43933100EC877A /* FocusTrackingViewController.swift */,
 				E5D7D7F62D43933100EC877A /* Running */,
-				E5D7D8052D43933100EC877A /* Notification */,
 				E5D7D8072D43933100EC877A /* Tracker */,
 				E5D7D80E2D43933100EC877A /* End */,
 				E5D7D81E2D43933100EC877A /* FlipClock */,
@@ -9460,14 +9498,6 @@
 				E5D7D8032D43933100EC877A /* FocusPomodoroProgressView.swift */,
 			);
 			path = ProgressView;
-			sourceTree = "<group>";
-		};
-		E5D7D8052D43933100EC877A /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				E5D7D8062D43933100EC877A /* FocusEventNotificationService.swift */,
-			);
-			path = Notification;
 			sourceTree = "<group>";
 		};
 		E5D7D8072D43933100EC877A /* Tracker */ = {
@@ -10588,6 +10618,7 @@
 				E5FF4ED42FECB7AC00282416 /* LocalNotifiableTaskFetcher.swift */,
 				E5FF4ED62FECCB1C00282416 /* TodoNotifiableTaskProvider.swift */,
 				E5FF4ED82FECCB7400282416 /* HabitNotifiableTaskProvider.swift */,
+				E5371DCD2FF018D000BA9DEF /* FocusNotifiableEventProvider.swift */,
 				E5FF4EDA2FED148100282416 /* Extensions */,
 			);
 			path = Scheduler;
@@ -10607,6 +10638,7 @@
 			children = (
 				E5FF4EDB2FED150B00282416 /* TodoTask+LocalNotifiable.swift */,
 				E5E552E92FEECEDB00072D3F /* HabitPeriodItem+LocalNotifiable.swift */,
+				E5371DCB2FF00A8800BA9DEF /* FocusEvent+LocalNotifiable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -10671,6 +10703,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5371DD72FF166F800BA9DEF /* glad-notice.caf in Resources */,
+				E5371DD82FF166F800BA9DEF /* happy-alert.caf in Resources */,
+				E5371DD92FF166F800BA9DEF /* light-hearted.caf in Resources */,
 				E55E4BD82F9336170068E032 /* calendar_31_24@2x.png in Resources */,
 				E5BB9A902D3BEF0D0089667A /* todo_smartlist_upcoming_24@3x.png in Resources */,
 				E52B62A72F36121000673620 /* focus_main_timeline_24@2x.png in Resources */,
@@ -10704,6 +10739,7 @@
 				E55E4BD32F9336170068E032 /* calendar_23_24@3x.png in Resources */,
 				E50D02592F55860B00E93977 /* habit_time_afternoon_24@3x.png in Resources */,
 				E555281C2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png in Resources */,
+				E5371DDE2FF1FD1C00BA9DEF /* notification_sound_24@2x.png in Resources */,
 				E56B94662F8CD6D0001E488B /* todo_group_type_dueDate_24@3x.png in Resources */,
 				E5BB9E452D3BF0C70089667A /* StepperNegative@3x.png in Resources */,
 				E583896F2F774E5F003C30A4 /* task_type_habit_24@3x.png in Resources */,
@@ -10841,6 +10877,7 @@
 				E5BB9AB52D3BEF0D0089667A /* todo_task_progress_24@3x.png in Resources */,
 				E5BB9AF02D3BEF0D0089667A /* plus_24@2x.png in Resources */,
 				E5FC6BA62F64EFBC00D5A5EA /* habit_status_failed_36@3x.png in Resources */,
+				E5371DDF2FF1FD1C00BA9DEF /* notification_sound_24@3x.png in Resources */,
 				E55E4BCC2F9336170068E032 /* calendar_2_24@2x.png in Resources */,
 				E563F1AD2FE8082900DF86BB /* sideMenu_24@2x.png in Resources */,
 				E5BB9E472D3BF0C70089667A /* StepperPositive@2x.png in Resources */,
@@ -11039,6 +11076,7 @@
 				E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */,
 				E53632D22FAF63480095DFEC /* quadrant_IV_60@2x.png in Resources */,
 				E55549412F75590100C9460D /* focus_timer_stopwatch_24@2x.png in Resources */,
+				E5371DE72FF21FC600BA9DEF /* mute.caf in Resources */,
 				E56B94632F8CD6D0001E488B /* todo_group_type_none_24@3x.png in Resources */,
 				E555493B2F75590100C9460D /* focus_timer_countdown_24@2x.png in Resources */,
 				E5BB9B362D3BEF920089667A /* star.png in Resources */,
@@ -11144,7 +11182,6 @@
 				E5BB9A862D3BEF0D0089667A /* schedule_repeatEnd_24@2x.png in Resources */,
 				E55E4BF42F9336170068E032 /* calendar_6_24@2x.png in Resources */,
 				E5BB9ED12D3BF0C80089667A /* Wheat04@3x.png in Resources */,
-				E5BBA11F2D3BFD150089667A /* happy.wav in Resources */,
 				E55CE3572D8BC2A60083316E /* quadrant_III_32@2x.png in Resources */,
 				E5E276FD2D3DF58B004EC522 /* todo_folder_ungroup_24@2x.png in Resources */,
 				E563F1D12FE8E97400DF86BB /* setting_hapticFeedback_32@3x.png in Resources */,
@@ -11416,6 +11453,7 @@
 				E5B33D692F80E6CA00939C3E /* TodoTaskController.swift in Sources */,
 				E555284E2FB699750093DD7E /* TPSortOrder.swift in Sources */,
 				E526D3FF2F6CFCA3005C1DED /* HabitRecordListViewController.swift in Sources */,
+				E5371DCC2FF00A8800BA9DEF /* FocusEvent+LocalNotifiable.swift in Sources */,
 				E56643242FDE4D5F00348C47 /* CalendarEventPreviewInfoCell.swift in Sources */,
 				E5D7D91A2D43933700EC877A /* FocusStatsHistoryCell.swift in Sources */,
 				E5BB9B4A2D3BEF920089667A /* ArrayExtension.swift in Sources */,
@@ -11474,6 +11512,7 @@
 				E50D607B2F7A2EE500D5E0A4 /* TodoConstant.swift in Sources */,
 				E5BB9E092D3BF0C70089667A /* String+DaysCount.swift in Sources */,
 				E5BB9E032D3BF0C60089667A /* TimeInterval+Extensions.swift in Sources */,
+				E5371DCE2FF018D000BA9DEF /* FocusNotifiableEventProvider.swift in Sources */,
 				E549B14F2F85F5D70014BE85 /* TodoTaskManager.swift in Sources */,
 				E5BB9B392D3BEF920089667A /* IGListIndexSetResult.m in Sources */,
 				E59243CF2F50529200CA2393 /* TPAddView.swift in Sources */,
@@ -11558,6 +11597,7 @@
 				E5BB9F002D3BF0C80089667A /* UIViewController+PopoverPresent.swift in Sources */,
 				E549B15C2F87CF820014BE85 /* TodoProgressEditViewController.swift in Sources */,
 				E5FC6BAC2F651CC800D5A5EA /* HabitStatsMainViewController.swift in Sources */,
+				E5371DD12FF0FCE500BA9DEF /* NotificationSound.swift in Sources */,
 				E507E7B52F531A28003004C4 /* HabitUnitManageViewController.swift in Sources */,
 				E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */,
 				E54155612F49A415000B2972 /* FocusRecordListSectionController.swift in Sources */,
@@ -12345,6 +12385,7 @@
 				E56341FC2F947C6400E120BF /* TodoFilterHomeCell.swift in Sources */,
 				E5D7D9012D43933600EC877A /* FocusStartActionView.swift in Sources */,
 				E5DA03B92FA3A42F00A58ACC /* HabitWeekPeriodItemViewModel.swift in Sources */,
+				E5371DD62FF1508200BA9DEF /* NotificationSoundSelectViewController.swift in Sources */,
 				E5BB9DD72D3BF0C60089667A /* UIFont+Extension.swift in Sources */,
 				E50D024B2F557BF800E93977 /* HabitDateFrequencySectionController.swift in Sources */,
 				E5BB9DDF2D3BF0C60089667A /* UIScrollView+Scroll.swift in Sources */,
@@ -12437,7 +12478,6 @@
 				E5BB9DA32D3BF0C60089667A /* TPChevronExpandButton.swift in Sources */,
 				E500E3912FC5D73600252011 /* TodoStatsWeeklyViewController.swift in Sources */,
 				E5D7D9082D43933600EC877A /* PomodoroTimerEditView.swift in Sources */,
-				E5D7D8C32D43933600EC877A /* FocusEventNotificationService.swift in Sources */,
 				E5E9F7842FBFF6F700717004 /* TodoStepImporterViewController.swift in Sources */,
 				E5BB9F0B2D3BF0C90089667A /* TPMultipleItemSelection.swift in Sources */,
 				E50179582FD6533A00DC544D /* TodoTaskSectionViewModel.swift in Sources */,

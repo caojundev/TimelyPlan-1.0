@@ -21,7 +21,7 @@ protocol LocalNotifiable {
 
 // MARK: - 时间冲突策略
 enum TimeConflictStrategy {
-    case skip
+    case ignore
     case shift(seconds: TimeInterval)
     case merge
 }
@@ -78,7 +78,7 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
     private let debounceInterval: TimeInterval = 0.3
     
     // 配置
-    var conflictStrategy: TimeConflictStrategy = .shift(seconds: 300)
+    var conflictStrategy: TimeConflictStrategy = .ignore
     var conflictThreshold: TimeInterval = 60
     var enableDebounce: Bool = true
     
@@ -286,10 +286,10 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
             
             let lastConfig = resolved.last!
             let interval = config.triggerDate.timeIntervalSince(lastConfig.triggerDate)
-            
             if interval < conflictThreshold {
                 switch conflictStrategy {
-                case .skip:
+                case .ignore:
+                    resolved.append(config)
                     continue
                     
                 case .shift(let seconds):
@@ -305,7 +305,6 @@ class TaskNotificationManager: NSObject, @unchecked Sendable {
                     )
                     shiftedConfig.categoryIdentifier = config.categoryIdentifier
                     resolved.append(shiftedConfig)
-                    
                 case .merge:
                     let merged = TaskNotificationConfig(
                         taskIdentifier: lastConfig.taskIdentifier,

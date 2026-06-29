@@ -17,6 +17,9 @@ struct TodoSmartListDisplay: Codable, Equatable {
 class TodoSetting {
     
     enum Key: String, SettingKeyRepresentable {
+        case startSound /// 开始提示音
+        case dueSound /// 截止提示音
+        
         case homeSectionTypes
         case smartListDisplay   /// 智能清单显示
         
@@ -37,6 +40,12 @@ class TodoSetting {
             return "TodoSetting"
         }
     }
+    
+    @CloudStored(key: Key.startSound.name, defaultValue: nil)
+    var startSound: NotificationSound?
+    
+    @CloudStored(key: Key.dueSound.name, defaultValue: nil)
+    var dueSound: NotificationSound?
     
     @CloudStored(key: Key.smartListDisplay.name, defaultValue: nil)
     var smartListDisplay: TodoSmartListDisplay?

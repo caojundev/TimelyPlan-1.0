@@ -71,8 +71,10 @@ extension HabitNotifiableTaskProvider: HabitTaskProcessorDelegate,
         var shouldRefresh = false
         if task.isReminderChanged(editingTask) {
             shouldRefresh = true
-        } else if task.name != editingTask.name, task.hasAlarm {
-            shouldRefresh = true
+        } else {
+            if task.name != editingTask.name || task.emoji != editingTask.emoji {
+                shouldRefresh = task.hasAlarm
+            }
         }
         
         if shouldRefresh {

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class TodoSettingViewController: BaseSettingViewController {
-
+    
     // MARK: - 显示设置
     lazy var homeDisplayCellItem: TPDefaultInfoTableCellItem = {
         let cellItem = TPDefaultInfoTableCellItem(accessoryType: .disclosureIndicator)
@@ -209,14 +209,58 @@ class TodoSettingViewController: BaseSettingViewController {
                                         autoCompleteParentTaskCellItem]
          return sectionController
      }()
+
+    lazy var startSoundCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Start Sound")
+        cellItem.updater = {
+            let name = NotificationSound.displayName(of: TodoSetting.shared.startSound)
+            self?.startSoundCellItem.valueConfig = .valueText(name)
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editStartSound()
+        }
+
+        return cellItem
+    }()
+    
+    lazy var dueSoundCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Due Sound")
+        cellItem.updater = {
+            let name = NotificationSound.displayName(of: TodoSetting.shared.dueSound)
+            self?.dueSoundCellItem.valueConfig = .valueText(name)
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editDueSound()
+        }
+
+        return cellItem
+    }()
+     
+     lazy var notificationSectionController: TPTableItemSectionController = {
+         let sectionController = TPTableItemSectionController()
+         sectionController.headerItem.title = resGetString("Notification")
+         sectionController.headerItem.height = titleHeaderHeight
+         sectionController.headerItem.padding = titleHeaderPadding
+         sectionController.cellItems = [startSoundCellItem, dueSoundCellItem]
+         return sectionController
+     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = resGetString("Todo Settings")
         sectionControllers = [displaySectionController,
-                                   insertLocationSectionController,
-                                   quickAddSectionController,
-                                   stepSectionController]
+                              notificationSectionController,
+                              insertLocationSectionController,
+                              quickAddSectionController,
+                              stepSectionController]
         reloadData()
     }
     
@@ -227,6 +271,30 @@ class TodoSettingViewController: BaseSettingViewController {
     
     private func showSmartListDisplaySettings() {
         let vc = TodoSmartListDisplaySettingViewController(style: .insetGrouped)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func editStartSound() {
+        let vc = NotificationSoundSelectViewController(sound: TodoSetting.shared.startSound)
+        vc.completion = { sound in
+            if TodoSetting.shared.startSound != sound {
+                TodoSetting.shared.startSound = sound
+                self.adapter.reloadCell(forItem: self.startSoundCellItem, with: .none)
+            }
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func editDueSound() {
+        let vc = NotificationSoundSelectViewController(sound: TodoSetting.shared.dueSound)
+        vc.completion = { sound in
+            if TodoSetting.shared.dueSound != sound {
+                TodoSetting.shared.dueSound = sound
+                self.adapter.reloadCell(forItem: self.dueSoundCellItem, with: .none)
+            }
+        }
+        
         navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -20,6 +20,7 @@ extension HabitPeriodItem: LocalNotifiable {
         
         let title = habitTask.displayName
         let bodyFormat = resGetString("Habit Reminder at %@")
+        let sound = HabitSetting.shared.sound?.toUNNotificationSound
         
         var configs = [TaskNotificationConfig]()
         let planDates = habitTask.nextPlanDates()
@@ -40,7 +41,8 @@ extension HabitPeriodItem: LocalNotifiable {
                     taskIdentifier: taskIdentifier,
                     title: title,
                     body: body,
-                    triggerDate: alarmDate
+                    triggerDate: alarmDate,
+                    sound: sound
                 )
                 
                 configs.append(config)

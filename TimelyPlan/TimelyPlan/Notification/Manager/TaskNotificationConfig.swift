@@ -38,6 +38,7 @@ class TaskNotificationConfig {
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
+        
         if let sound = sound { content.sound = sound }
         if let badge = badge { content.badge = badge }
         if let categoryIdentifier = categoryIdentifier {
