@@ -151,4 +151,22 @@ extension Duration {
         
         return String(format: format, self)
     }
+    
+    
+    var hourMinuteDurationString: String? {
+        let hours = self / 3600
+        let minutes = (self % 3600) / 60
+        var parts: [String] = []
+        if hours > 0   { parts.append(hours.hourCountString) }
+        if minutes > 0 { parts.append(minutes.minuteCountString) }
+        if parts.count == 2 {
+            let format = resGetString("%@ %@")
+            return String(format: format, parts[0], parts[1])
+        } else if parts.count == 1 {
+            return parts[0]
+        }
+        
+        return nil
+    }
+    
 }

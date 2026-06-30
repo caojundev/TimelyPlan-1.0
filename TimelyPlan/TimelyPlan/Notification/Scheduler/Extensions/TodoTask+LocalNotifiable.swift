@@ -89,10 +89,6 @@ extension TodoTask: LocalNotifiable {
     }
 
     func formatAllDayStartsInText(alarmDate: Date, eventDate: Date) -> String? {
-        guard eventDate >= alarmDate else {
-            return nil
-        }
-        
         let days = Date.days(fromDate: alarmDate, toDate: eventDate)
         guard days >= 0 else {
             return resGetString("Start")
@@ -131,7 +127,7 @@ extension TodoTask: LocalNotifiable {
         } else {
             /// 同一天提供时和分信息
             let difference = eventDate.timeIntervalSince(alarmDate)
-            timeString = formattedTime(from: Int(difference))
+            timeString = Int(difference).hourMinuteDurationString
         }
         
         if let timeString = timeString {
@@ -164,10 +160,6 @@ extension TodoTask: LocalNotifiable {
     }
     
     func formatAllDayDueInText(alarmDate: Date, eventDate: Date) -> String? {
-        guard eventDate >= alarmDate else {
-            return nil
-        }
-        
         let days = Date.days(fromDate: alarmDate, toDate: eventDate)
         guard days >= 0 else {
             return resGetString("Due")
@@ -206,7 +198,7 @@ extension TodoTask: LocalNotifiable {
         } else {
             /// 同一天提供时和分信息
             let difference = eventDate.timeIntervalSince(alarmDate)
-            timeString = formattedTime(from: Int(difference))
+            timeString = Int(difference).hourMinuteDurationString
         }
         
         if let timeString = timeString {
@@ -215,22 +207,6 @@ extension TodoTask: LocalNotifiable {
         }
          
         return resGetString("Due now")
-    }
-    
-    private func formattedTime(from totalSeconds: Int) -> String? {
-        let hours = totalSeconds / 3600
-        let minutes = (totalSeconds % 3600) / 60
-        var parts: [String] = []
-        if hours > 0   { parts.append(hours.hourCountString) }
-        if minutes > 0 { parts.append(minutes.minuteCountString) }
-        if parts.count == 2 {
-            let format = resGetString("%@ %@")
-            return String(format: format, parts[0], parts[1])
-        } else if parts.count == 1 {
-            return parts[0]
-        }
-        
-        return nil
     }
     
     private func eventDateString(with date: Date,

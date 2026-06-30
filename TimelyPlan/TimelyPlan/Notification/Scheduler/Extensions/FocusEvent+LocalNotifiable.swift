@@ -46,8 +46,7 @@ extension FocusEvent: LocalNotifiable {
             }
         
             var body: String
-            if Int(step.duration) > 0 {
-                let durationString = step.duration.durationString()
+            if let durationString = step.durationString {
                 body = String(format: bodyFormat, durationString)
             } else {
                 body = step.mode == .focus ? resGetString("Focus ended") : resGetString("Break ended")

@@ -117,6 +117,12 @@ class FocusStep: Codable, Equatable, TPHexColorConvertible {
         self.duration = duration
         self.autoStart = autoStart
     }
+    
+    var durationString: String? {
+        let totalSeconds = Int(duration)
+        return totalSeconds.hourMinuteDurationString
+    }
+    
 }
 
 // MARK: - 便捷构造类方法
