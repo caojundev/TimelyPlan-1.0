@@ -1,5 +1,5 @@
 //
-//  CalendarLocalEventProvider.swift
+//  CalendarTodoEventProvider.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/5/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CalendarLocalEventProvider: CalendarEventProvider, SettingAgentObserver {
+class CalendarTodoEventProvider: CalendarEventProvider, SettingAgentObserver {
     
     /// 事项改变代理
     weak var delegate: CalendarEventChangeDelegate?
@@ -33,7 +33,7 @@ class CalendarLocalEventProvider: CalendarEventProvider, SettingAgentObserver {
     }
 }
 
-extension CalendarLocalEventProvider: TodoTaskProcessorDelegate {
+extension CalendarTodoEventProvider: TodoTaskProcessorDelegate {
     
     func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {
         delegate?.calendarEventsDidChange(in: [.infiniteInterval])

@@ -50,8 +50,9 @@ class CalendarEventColor {
 
 // 1. 枚举区分事件来源
 enum CalendarEventSource {
-    case local      // 用户自定义任务
-    case system     // 系统日历
+    case system // 系统日历
+    case todo   // 待办任务
+    case habit  // 习惯任务
 }
 
 class CalendarEvent: NSObject {

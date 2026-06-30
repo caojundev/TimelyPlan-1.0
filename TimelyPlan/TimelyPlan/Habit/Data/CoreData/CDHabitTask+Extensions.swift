@@ -91,13 +91,20 @@ extension CDHabitTask {
         let conditions: [PredicateCondition] = [(HabitTaskKey.isArchived, .isFalse),
                                                 (HabitTaskKey.name, .contains(text))]
         let predicate = conditions.andPredicate()
-        CDHabitTask.fetchAll(matching: predicate, sortBy: ElementOrderKey, ascending: true) { results in
-            let tasks = results as? [CDHabitTask]
-            completion(tasks)
+        fetchAll(matching: predicate, sortBy: ElementOrderKey, ascending: true) { results in
+            completion(results as? [CDHabitTask])
         }
     }
     
     // MARK: - 异步获取
+    static func fetchEventTasks(in range: DateInterval, completion: @escaping([CDHabitTask]?) -> Void) {
+        let predicate = activeTaskPredicate(in: range)
+        fetchAll(matching: predicate) { results in
+            completion(results as? [CDHabitTask])
+        }
+    }
+    
+    
     static func fetchActiveTasks(completion: @escaping([CDHabitTask]?) -> Void) {
         fetchAll(matching: activeTaskPredicate,
                  sortBy: ElementOrderKey,
@@ -200,6 +207,29 @@ extension CDHabitTask {
         return NSPredicate.andPredicate(andConditions: andConditions,
                                         orConditions: orConditions)
     }
+    
+    private static func activeTaskPredicate(in range: DateInterval) -> NSPredicate {
+        let activeConditions: [PredicateCondition] = [
+            (HabitTaskKey.isArchived, .notEqual(true)),
+            (HabitTaskKey.startDate, .isNotEmpty),
+            (HabitTaskKey.startDate, .lessThanOrEqual(range.end))
+        ]
+        
+        let emptyEndDateCondition: PredicateCondition = (HabitTaskKey.endDate, .isEmpty)
+        let withEndDateConditions: [PredicateCondition] = [
+            (HabitTaskKey.endDate, .isNotEmpty),
+            (HabitTaskKey.endDate, .greaterThanOrEqual(range.start)),
+        ]
+        
+        let emptyEndDatePredicate = NSPredicate.predicate(with: emptyEndDateCondition)
+        let withEndDatePredicate = withEndDateConditions.andPredicate()
+        let endDatePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [emptyEndDatePredicate,
+                                                                                  withEndDatePredicate])
+        let activePredicate = activeConditions.andPredicate()
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [activePredicate,
+                                                                   endDatePredicate])
+    }
+    
 }
 
 extension NSManagedObject {

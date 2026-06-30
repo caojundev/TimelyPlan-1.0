@@ -53,64 +53,74 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
     
     var repeatInfo: (ruleDescription: String?, endDescription: String?)? {
         switch source {
-        case .local:
-            return localRepeatInfo
         case .system:
             return systemRepeatInfo
+        case .todo:
+            return todoRepeatInfo
+        case .habit:
+            return habitRepeatInfo
         }
     }
     
     var alarmDescription: String? {
         switch source {
-        case .local:
-            return localAlarmDescription
         case .system:
             return systemAlarmDescription
+        case .todo:
+            return todoAlarmDescription
+        case .habit:
+            return habitAlarmDescription
         }
     }
     
     var sourceDescription: String? {
         switch source {
-        case .local:
-            return localSourceDescription
         case .system:
             return systemSourceDescription
+        case .todo:
+            return todoSourceDescription
+        case .habit:
+            return habitSourceDescription
         }
     }
     
     var isEditable: Bool {
         switch source {
-        case .local:
-            if let task = sourceItem as? TodoTask {
-                /// 重复任务不可编辑
-                return !task.isDetached
-            } else {
-                return false
-            }
         case .system:
             if let event = sourceItem as? EKEvent {
                 return event.isEditable
             } else {
                 return false
             }
+        case .todo:
+            if let task = sourceItem as? TodoTask {
+                /// 重复任务不可编辑
+                return !task.isDetached
+            } else {
+                return false
+            }
+        case .habit:
+            return false
         }
     }
     
     var isDeletable: Bool {
         switch source {
-        case .local:
-            return isEditable
         case .system:
             if let event = sourceItem as? EKEvent {
                 return event.isDeletable
             } else {
                 return false
             }
+        case .todo:
+            return isEditable
+        case .habit:
+            return false
         }
     }
     
     // MARK: - Helpers
-    private var localRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
+    private var todoRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
         guard let task = sourceItem as? TodoTask,
               let eventDate = task.startDate,
               let repeatRule = task.schedule?.repeatRule,
@@ -120,6 +130,31 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         
         let title = repeatRule.title(for: eventDate)
         let subtitle = repeatRule.subtitle(for: eventDate, showRepeatCount: false)
+        return (title, subtitle)
+    }
+    
+    private var habitRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
+        guard let task = sourceItem as? HabitTask else {
+            return nil
+        }
+        
+        let timePlan = task.timePlan
+        var repeatParts = [String]()
+        if let repeatTitle = timePlan.title {
+            repeatParts.append(repeatTitle)
+        }
+        
+        if let repeatSubtitle = timePlan.subtitle {
+            repeatParts.append(repeatSubtitle)
+        }
+    
+        let title = repeatParts.joined(separator: ", ")
+        var subtitle: String?
+        if let endDate = task.dateRange.endDate {
+            let format = resGetString("Until %@")
+            subtitle = String(format: format, endDate.yearMonthDayString(omitYear: true))
+        }
+        
         return (title, subtitle)
     }
     
@@ -133,7 +168,7 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         return (ruleDescription, endDescription)
     }
     
-    private var localAlarmDescription: String? {
+    private var todoAlarmDescription: String? {
         guard let task = sourceItem as? TodoTask,
               let dateInfo = task.schedule?.dateInfo,
               let reminder = task.reminder, reminder.hasAlarm else {
@@ -141,6 +176,21 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         }
         
         return reminder.info(with: dateInfo)
+    }
+    
+    private var habitAlarmDescription: String? {
+        guard let task = sourceItem as? HabitTask, task.hasAlarm,
+              let date = task.dateRange.startDate,
+              let alarmDates = task.reminder?.alarmDates(for: date) else {
+            return nil
+        }
+        
+        let timeStrings = alarmDates.map { $0.timeString}
+        if timeStrings.count > 0 {
+            return timeStrings.joined(separator: ", ")
+        }
+        
+        return nil
     }
     
     private var systemAlarmDescription: String? {
@@ -151,7 +201,7 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         return event.alarmDescription
     }
     
-    private var localSourceDescription: String? {
+    private var todoSourceDescription: String? {
         guard let task = sourceItem as? TodoTask else {
             return nil
         }
@@ -162,6 +212,10 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         }
         
         return string
+    }
+    
+    private var habitSourceDescription: String? {
+        return resGetString("Habit")
     }
     
     private var systemSourceDescription: String? {

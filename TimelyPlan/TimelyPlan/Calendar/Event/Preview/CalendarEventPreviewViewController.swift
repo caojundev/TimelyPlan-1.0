@@ -99,10 +99,12 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         switch event.source {
-        case .local:
-            title = resGetString("Todo Task")
         case .system:
             title = resGetString("Calendar Event")
+        case .todo:
+            title = resGetString("Todo Task")
+        case .habit:
+            title = resGetString("Habit")
         }
         
         var actions = [TPButtonAction]()

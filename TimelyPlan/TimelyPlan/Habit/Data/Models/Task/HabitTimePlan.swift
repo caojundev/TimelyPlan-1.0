@@ -142,7 +142,7 @@ extension HabitTimePlan {
     }
     
     // MARK: - Weekly (O(1))
-    
+
     private func nextWeeklyDate(from date: Date, daysOfWeek: [Weekday]?, startDate: Date, calendar: Calendar) -> Date? {
         let targetDays = (daysOfWeek?.isEmpty ?? true)
             ? [Weekday(rawValue: calendar.component(.weekday, from: startDate))!]
@@ -151,28 +151,36 @@ extension HabitTimePlan {
         let currentWeekday = calendar.component(.weekday, from: date)
         let sortedDays = targetDays.map { $0.rawValue }.sorted()
         
-        // 查找本周内的下一个目标星期几
+        // 查找最近的下一个目标星期几（包括今天）
+        var minDaysToAdd: Int?
+        
         for weekday in sortedDays {
             var daysToAdd = weekday - currentWeekday
+            
+            // 如果小于0，说明是下周的日期
             if daysToAdd < 0 {
-                daysToAdd += 7  // 下周
+                daysToAdd += 7
             }
             
-            if let candidateDate = calendar.date(byAdding: .day, value: daysToAdd, to: date) {
-                if daysToAdd == 0 || candidateDate >= date {
-                    return candidateDate
-                }
+            // 找最小的正数或0（包括今天）
+            if minDaysToAdd == nil || daysToAdd < minDaysToAdd! {
+                minDaysToAdd = daysToAdd
             }
         }
         
-        // 如果本周没有，返回下周的第一个
+        // 如果本周有合适的日期
+        if let daysToAdd = minDaysToAdd {
+            return calendar.date(byAdding: .day, value: daysToAdd, to: date)
+        }
+        
+        // 如果本周没有（不太可能发生），返回下周第一个
         if let firstWeekday = sortedDays.first {
             let daysToAdd = 7 - currentWeekday + firstWeekday
             return calendar.date(byAdding: .day, value: daysToAdd, to: date)
         }
         
         return nil
-    }
+    }    
     
     // MARK: - Monthly (O(n), n为daysOfMonth数量)
     

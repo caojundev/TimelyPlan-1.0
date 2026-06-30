@@ -15,15 +15,17 @@ class CalendarEventProcessor {
     /// 更新事项日期
     func updateEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
         switch event.source {
-        case .local:
-            updateLocalEvent(event, with: dateRange, completion: completion)
         case .system:
             updateSystemEvent(event, with: dateRange, completion: completion)
+        case .todo:
+            updateTodoEvent(event, with: dateRange, completion: completion)
+        case .habit:
+            break
         }
     }
     
-    private func updateLocalEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
-        repository.updateLocalEvent(event, with: dateRange)
+    private func updateTodoEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
+        repository.updateTodoEvent(event, with: dateRange)
         completion(true)
     }
     
@@ -48,15 +50,26 @@ class CalendarEventProcessor {
     /// 点击事项
     func clickEvent(_ event: CalendarEvent) {
         switch event.source {
-        case .local:
-            clickLocalEvent(event)
         case .system:
             previewSystemEvent(event)
+        case .todo:
+            clickTodoEvent(event)
+        case .habit:
+            clickHabitEvent(event)
         }
     }
     
-    /// 编辑本地事项
-    private func clickLocalEvent(_ event: CalendarEvent) {
+    /// 预览系统事项
+    private func previewSystemEvent(_ event: CalendarEvent) {
+        guard let _ = event.sourceItem as? EKEvent else {
+            return
+        }
+        
+        CalendarPresenter.previewEvent(event)
+    }
+    
+    /// 编辑待办
+    private func clickTodoEvent(_ event: CalendarEvent) {
         guard let task = event.sourceItem as? TodoTask else {
             return
         }
@@ -68,9 +81,9 @@ class CalendarEventProcessor {
         }
     }
     
-    /// 预览系统事项
-    private func previewSystemEvent(_ event: CalendarEvent) {
-        guard let _ = event.sourceItem as? EKEvent else {
+    /// 点击习惯
+    private func clickHabitEvent(_ event: CalendarEvent) {
+        guard let task = event.sourceItem as? HabitTask else {
             return
         }
         

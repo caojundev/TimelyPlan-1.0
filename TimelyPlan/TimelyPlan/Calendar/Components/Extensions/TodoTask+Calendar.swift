@@ -31,7 +31,7 @@ extension TodoTask {
         
         let name = nameStrings.joined(separator: "•")
         let event = CalendarEvent(identifier: identifier,
-                                  source: .local,
+                                  source: .todo,
                                   name: name,
                                   color: color,
                                   startDate: dateInfo.startDate,

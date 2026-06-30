@@ -161,7 +161,11 @@ final class HabitRepository {
     }
 
     // MARK: Task Queries
-
+    /// 获取事项任务
+    static func fetchEventTasks(in range: DateInterval, completion: @escaping([HabitTask]?) -> Void) {
+        taskManager.fetchEventTasks(in: range, completion: completion)
+    }
+    
     static func searchActiveTasks(containText text: String, completion: @escaping ([HabitTask]?) -> Void) {
         taskManager.searchActiveTasks(containText: text,
                                              completion: completion)

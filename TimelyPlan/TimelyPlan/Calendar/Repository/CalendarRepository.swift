@@ -18,16 +18,19 @@ class CalendarRepository {
     // 可动态注册多个 Provider
     private var providers: [CalendarEventProvider] = []
     
-    private var localProvider = CalendarLocalEventProvider()
-    
+    private var todoProvider = CalendarTodoEventProvider()
+    private var habitProvider = CalendarHabitEventProvider()
     private var systemProvider = CalendarSystemEventProvider()
     
     private let updater = CalendarUpdater()
     
     init() {
-        self.localProvider.delegate = self.updater
+        self.todoProvider.delegate = self.updater
         self.systemProvider.delegate = self.updater
-        self.providers = [self.localProvider, self.systemProvider]
+        self.habitProvider.delegate = self.updater
+        self.providers = [self.todoProvider,
+                          self.habitProvider,
+                          self.systemProvider]
     }
     
     func addUpdater(_ delegate: AnyObject) {
@@ -53,7 +56,7 @@ class CalendarRepository {
         }
     }
     
-    func updateLocalEvent(_ event: CalendarEvent, with dateRange: DateInterval) {
+    func updateTodoEvent(_ event: CalendarEvent, with dateRange: DateInterval) {
         if let task = event.sourceItem as? TodoTask {
             let schedule = TaskSchedule(dateInfo: dateRange.dateInfo,
                                         reminder: task.schedule?.reminder,

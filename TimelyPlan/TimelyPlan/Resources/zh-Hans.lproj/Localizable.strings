@@ -997,3 +997,6 @@
 "%@ break ended" = "%@休息结束";
 "Focus ended" = "专注结束";
 "Break ended" = "休息结束";
+
+
+", " = "，";

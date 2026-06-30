@@ -290,7 +290,7 @@
 		E518D6942FBDEF8E0045D456 /* CalendarTimelineDotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */; };
 		E518D6972FBEAB870045D456 /* CalendarEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6962FBEAB870045D456 /* CalendarEventProvider.swift */; };
 		E518D6992FBEAC450045D456 /* CalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6982FBEAC450045D456 /* CalendarRepository.swift */; };
-		E518D69C2FBEAECE0045D456 /* CalendarLocalEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D69B2FBEAECE0045D456 /* CalendarLocalEventProvider.swift */; };
+		E518D69C2FBEAECE0045D456 /* CalendarTodoEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D69B2FBEAECE0045D456 /* CalendarTodoEventProvider.swift */; };
 		E518D69F2FBEB5080045D456 /* CalendarEventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D69E2FBEB5080045D456 /* CalendarEventsViewModel.swift */; };
 		E518D6A12FBEC6610045D456 /* DateInterval+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6A02FBEC6610045D456 /* DateInterval+Calendar.swift */; };
 		E518D6A32FBF2E850045D456 /* TodoTaskStepBulkMenuActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6A22FBF2E850045D456 /* TodoTaskStepBulkMenuActionType.swift */; };
@@ -501,6 +501,8 @@
 		E5371DDE2FF1FD1C00BA9DEF /* notification_sound_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5371DDC2FF1FD1C00BA9DEF /* notification_sound_24@2x.png */; };
 		E5371DDF2FF1FD1C00BA9DEF /* notification_sound_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5371DDD2FF1FD1C00BA9DEF /* notification_sound_24@3x.png */; };
 		E5371DE72FF21FC600BA9DEF /* mute.caf in Resources */ = {isa = PBXBuildFile; fileRef = E5371DE62FF21FC500BA9DEF /* mute.caf */; };
+		E5371DE92FF36A9D00BA9DEF /* CalendarHabitEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DE82FF36A9C00BA9DEF /* CalendarHabitEventProvider.swift */; };
+		E5371DEB2FF372C300BA9DEF /* HabitTask+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DEA2FF372C300BA9DEF /* HabitTask+Calendar.swift */; };
 		E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F02D9C1A7F00C5A001 /* TPSlider.swift */; };
 		E53735F42D9C1C0E00C5A001 /* TPSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
@@ -2307,7 +2309,7 @@
 		E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineDotIndicator.swift; sourceTree = "<group>"; };
 		E518D6962FBEAB870045D456 /* CalendarEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventProvider.swift; sourceTree = "<group>"; };
 		E518D6982FBEAC450045D456 /* CalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRepository.swift; sourceTree = "<group>"; };
-		E518D69B2FBEAECE0045D456 /* CalendarLocalEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarLocalEventProvider.swift; sourceTree = "<group>"; };
+		E518D69B2FBEAECE0045D456 /* CalendarTodoEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTodoEventProvider.swift; sourceTree = "<group>"; };
 		E518D69E2FBEB5080045D456 /* CalendarEventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsViewModel.swift; sourceTree = "<group>"; };
 		E518D6A02FBEC6610045D456 /* DateInterval+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateInterval+Calendar.swift"; sourceTree = "<group>"; };
 		E518D6A22FBF2E850045D456 /* TodoTaskStepBulkMenuActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskStepBulkMenuActionType.swift; sourceTree = "<group>"; };
@@ -2518,6 +2520,8 @@
 		E5371DDC2FF1FD1C00BA9DEF /* notification_sound_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_sound_24@2x.png"; sourceTree = "<group>"; };
 		E5371DDD2FF1FD1C00BA9DEF /* notification_sound_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_sound_24@3x.png"; sourceTree = "<group>"; };
 		E5371DE62FF21FC500BA9DEF /* mute.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mute.caf; sourceTree = "<group>"; };
+		E5371DE82FF36A9C00BA9DEF /* CalendarHabitEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHabitEventProvider.swift; sourceTree = "<group>"; };
+		E5371DEA2FF372C300BA9DEF /* HabitTask+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Calendar.swift"; sourceTree = "<group>"; };
 		E53735F02D9C1A7F00C5A001 /* TPSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSlider.swift; sourceTree = "<group>"; };
 		E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSliderViewController.swift; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
@@ -4995,7 +4999,8 @@
 			isa = PBXGroup;
 			children = (
 				E518D6962FBEAB870045D456 /* CalendarEventProvider.swift */,
-				E518D69B2FBEAECE0045D456 /* CalendarLocalEventProvider.swift */,
+				E518D69B2FBEAECE0045D456 /* CalendarTodoEventProvider.swift */,
+				E5371DE82FF36A9C00BA9DEF /* CalendarHabitEventProvider.swift */,
 				E5B4995D2FDC271400F3A9BD /* CalendarSystemEventProvider.swift */,
 			);
 			path = Provider;
@@ -5362,6 +5367,7 @@
 				E5B4995F2FDC2E7B00F3A9BD /* EKEvent+Extension.swift */,
 				E518D6A02FBEC6610045D456 /* DateInterval+Calendar.swift */,
 				E5B499612FDC2ED800F3A9BD /* TodoTask+Calendar.swift */,
+				E5371DEA2FF372C300BA9DEF /* HabitTask+Calendar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -11843,6 +11849,7 @@
 				E5320C3B2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift in Sources */,
 				E5BB9E742D3BF0C70089667A /* TPSlashLayer.swift in Sources */,
 				E5D7D7E82D43923800EC877A /* FocusPomodoroConfig.swift in Sources */,
+				E5371DE92FF36A9D00BA9DEF /* CalendarHabitEventProvider.swift in Sources */,
 				E53F328F2F68D6D200B85B65 /* HabitReportMainViewController.swift in Sources */,
 				E5BB9B4B2D3BEF920089667A /* Extension.swift in Sources */,
 				E518D6A32FBF2E850045D456 /* TodoTaskStepBulkMenuActionType.swift in Sources */,
@@ -12135,6 +12142,7 @@
 				E500E3BC2FC9C6C700252011 /* TPGroupTableView.swift in Sources */,
 				E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */,
 				E57CC5DC2F7FCED300ADDBA4 /* TodoTaskQuickAddView.swift in Sources */,
+				E5371DEB2FF372C300BA9DEF /* HabitTask+Calendar.swift in Sources */,
 				E5BB9EC62D3BF0C80089667A /* TPButtonAction.swift in Sources */,
 				E53735F42D9C1C0E00C5A001 /* TPSliderViewController.swift in Sources */,
 				E549B1732F88DF550014BE85 /* TodoTaskEditMyDaySectionController.swift in Sources */,
@@ -12168,7 +12176,7 @@
 				E5BB9E552D3BF0C70089667A /* TPPreviousNextMonthView.swift in Sources */,
 				E5BB9E832D3BF0C80089667A /* PointElementView.swift in Sources */,
 				E5BB9E952D3BF0C80089667A /* PieLineView.swift in Sources */,
-				E518D69C2FBEAECE0045D456 /* CalendarLocalEventProvider.swift in Sources */,
+				E518D69C2FBEAECE0045D456 /* CalendarTodoEventProvider.swift in Sources */,
 				E5BB9B462D3BEF920089667A /* UILabelLayoutManagerDelegate.swift in Sources */,
 				E549B19B2F89F6A70014BE85 /* TodoStepEditController.swift in Sources */,
 				E51B29062FA77A08006B3352 /* TodoTaskPageAddView.swift in Sources */,

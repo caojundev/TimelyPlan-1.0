@@ -149,4 +149,10 @@ class HabitTaskManager {
             completion(results?.toTasks)
         }
     }
+    
+    func fetchEventTasks(in range: DateInterval, completion: @escaping([HabitTask]?) -> Void) {
+        CDHabitTask.fetchEventTasks(in: range) { results in
+            completion(results?.toTasks)
+        }
+    }
 }
