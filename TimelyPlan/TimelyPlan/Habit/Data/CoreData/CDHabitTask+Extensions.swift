@@ -91,7 +91,7 @@ extension CDHabitTask {
         let conditions: [PredicateCondition] = [(HabitTaskKey.isArchived, .isFalse),
                                                 (HabitTaskKey.name, .contains(text))]
         let predicate = conditions.andPredicate()
-        fetchAll(matching: predicate, sortBy: ElementOrderKey, ascending: true) { results in
+        fetchAll(matching: predicate, sortBy: HabitTaskKey.order, ascending: true) { results in
             completion(results as? [CDHabitTask])
         }
     }
@@ -99,15 +99,16 @@ extension CDHabitTask {
     // MARK: - 异步获取
     static func fetchEventTasks(in range: DateInterval, completion: @escaping([CDHabitTask]?) -> Void) {
         let predicate = activeTaskPredicate(in: range)
-        fetchAll(matching: predicate) { results in
+        fetchAll(matching: predicate,
+                 sortBy: HabitTaskKey.order,
+                 ascending: true) { results in
             completion(results as? [CDHabitTask])
         }
     }
     
-    
     static func fetchActiveTasks(completion: @escaping([CDHabitTask]?) -> Void) {
         fetchAll(matching: activeTaskPredicate,
-                 sortBy: ElementOrderKey,
+                 sortBy: HabitTaskKey.order,
                  ascending: true) { results in
             completion(results as? [CDHabitTask])
         }
@@ -115,7 +116,7 @@ extension CDHabitTask {
     
     static func fetchArchivedTasks(completion: @escaping([CDHabitTask]?) -> Void) {
         fetchAll(matching: archivedTaskPredicate,
-                 sortBy: ElementOrderKey,
+                 sortBy: HabitTaskKey.order,
                  ascending: true) { results in
             completion(results as? [CDHabitTask])
         }
@@ -241,7 +242,7 @@ extension NSManagedObject {
     
     static func minimumOrder(with predicate: NSPredicate? = nil) -> Int64 {
         let order = performAggregateOperation(function: .min,
-                                              onAttribute: ElementOrderKey,
+                                              onAttribute: HabitTaskKey.order,
                                               withPredicate: predicate,
                                               in: .defaultContext) as? Int64
         return order ?? 0
@@ -254,7 +255,7 @@ extension NSManagedObject {
     
     static func maximumOrder(with predicate: NSPredicate? = nil) -> Int64 {
         let order = performAggregateOperation(function: .max,
-                                              onAttribute: ElementOrderKey,
+                                              onAttribute: HabitTaskKey.order,
                                               withPredicate: predicate,
                                               in: .defaultContext) as? Int64
         return order ?? 0

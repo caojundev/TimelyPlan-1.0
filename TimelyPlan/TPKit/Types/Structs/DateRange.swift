@@ -82,6 +82,14 @@ struct DateRange: DateRangeProtocol, Hashable, Codable {
         return startDate.isFutureDay(of: date)
     }
     
+    /// 转换为 DateInterval
+    var interval: DateInterval {
+        let start = startDate ?? .distantPast
+        let end = endDate ?? .distantFuture
+        return DateInterval(start: start, end: end)
+    }
+
+    
     /// 当前编辑类型对应的日期
     func date(for editType: DateRangeEditType) -> Date? {
         return editType == .start ? self.startDate : self.endDate

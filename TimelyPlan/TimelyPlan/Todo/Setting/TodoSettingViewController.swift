@@ -46,7 +46,7 @@ class TodoSettingViewController: BaseSettingViewController {
     lazy var addListOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
         cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Add New List On Top")
+        cellItem.title = resGetString("Add New List on Top")
         cellItem.updater = {
             guard let self = self else { return }
             let isOn = TodoSetting.shared.addListOnTop
@@ -64,7 +64,7 @@ class TodoSettingViewController: BaseSettingViewController {
     lazy var addTaskOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
         cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Add New Task On Top")
+        cellItem.title = resGetString("Add New Task on Top")
         cellItem.updater = {
             guard let self = self else { return }
             let isOn = TodoSetting.shared.addTaskOnTop
@@ -82,7 +82,7 @@ class TodoSettingViewController: BaseSettingViewController {
     lazy var addTagOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
         cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Add New Tag On Top")
+        cellItem.title = resGetString("Add New Tag on Top")
         cellItem.updater = {
             guard let self = self else { return }
             let isOn = TodoSetting.shared.addTagOnTop
@@ -100,7 +100,7 @@ class TodoSettingViewController: BaseSettingViewController {
     lazy var addFilterOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
         cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Add New Filter On Top")
+        cellItem.title = resGetString("Add New Filter on Top")
         cellItem.updater = {
             guard let self = self else { return }
             let isOn = TodoSetting.shared.addFilterOnTop

@@ -500,9 +500,10 @@
 		E5371DD92FF166F800BA9DEF /* light-hearted.caf in Resources */ = {isa = PBXBuildFile; fileRef = E5371DD32FF1250B00BA9DEF /* light-hearted.caf */; };
 		E5371DDE2FF1FD1C00BA9DEF /* notification_sound_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5371DDC2FF1FD1C00BA9DEF /* notification_sound_24@2x.png */; };
 		E5371DDF2FF1FD1C00BA9DEF /* notification_sound_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5371DDD2FF1FD1C00BA9DEF /* notification_sound_24@3x.png */; };
-		E5371DE72FF21FC600BA9DEF /* mute.caf in Resources */ = {isa = PBXBuildFile; fileRef = E5371DE62FF21FC500BA9DEF /* mute.caf */; };
 		E5371DE92FF36A9D00BA9DEF /* CalendarHabitEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DE82FF36A9C00BA9DEF /* CalendarHabitEventProvider.swift */; };
 		E5371DEB2FF372C300BA9DEF /* HabitTask+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DEA2FF372C300BA9DEF /* HabitTask+Calendar.swift */; };
+		E5371DED2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DEC2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift */; };
+		E5371DEF2FF4C03100BA9DEF /* CalendarHabitSettingSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DEE2FF4C03000BA9DEF /* CalendarHabitSettingSectionController.swift */; };
 		E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F02D9C1A7F00C5A001 /* TPSlider.swift */; };
 		E53735F42D9C1C0E00C5A001 /* TPSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
@@ -2519,9 +2520,10 @@
 		E5371DD52FF1508200BA9DEF /* NotificationSoundSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSoundSelectViewController.swift; sourceTree = "<group>"; };
 		E5371DDC2FF1FD1C00BA9DEF /* notification_sound_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_sound_24@2x.png"; sourceTree = "<group>"; };
 		E5371DDD2FF1FD1C00BA9DEF /* notification_sound_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_sound_24@3x.png"; sourceTree = "<group>"; };
-		E5371DE62FF21FC500BA9DEF /* mute.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mute.caf; sourceTree = "<group>"; };
 		E5371DE82FF36A9C00BA9DEF /* CalendarHabitEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHabitEventProvider.swift; sourceTree = "<group>"; };
 		E5371DEA2FF372C300BA9DEF /* HabitTask+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Calendar.swift"; sourceTree = "<group>"; };
+		E5371DEC2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHabitDisplayRange.swift; sourceTree = "<group>"; };
+		E5371DEE2FF4C03000BA9DEF /* CalendarHabitSettingSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHabitSettingSectionController.swift; sourceTree = "<group>"; };
 		E53735F02D9C1A7F00C5A001 /* TPSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSlider.swift; sourceTree = "<group>"; };
 		E53735F32D9C1C0E00C5A001 /* TPSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSliderViewController.swift; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
@@ -4999,9 +5001,9 @@
 			isa = PBXGroup;
 			children = (
 				E518D6962FBEAB870045D456 /* CalendarEventProvider.swift */,
+				E5B4995D2FDC271400F3A9BD /* CalendarSystemEventProvider.swift */,
 				E518D69B2FBEAECE0045D456 /* CalendarTodoEventProvider.swift */,
 				E5371DE82FF36A9C00BA9DEF /* CalendarHabitEventProvider.swift */,
-				E5B4995D2FDC271400F3A9BD /* CalendarSystemEventProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -5595,6 +5597,8 @@
 			isa = PBXGroup;
 			children = (
 				E52EF6202FB211B8002CF355 /* CalendarSetting.swift */,
+				E5371DEC2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift */,
+				E5371DEE2FF4C03000BA9DEF /* CalendarHabitSettingSectionController.swift */,
 				E53632AE2FAE14060095DFEC /* CalendarSettingViewController.swift */,
 				E52EF62B2FB4A417002CF355 /* CalendarEventDurationEditViewController.swift */,
 				E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */,
@@ -5614,7 +5618,6 @@
 		E5371DDA2FF1681700BA9DEF /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				E5371DE62FF21FC500BA9DEF /* mute.caf */,
 				E5371DD42FF1250B00BA9DEF /* glad-notice.caf */,
 				E5371DD22FF1250A00BA9DEF /* happy-alert.caf */,
 				E5371DD32FF1250B00BA9DEF /* light-hearted.caf */,
@@ -11082,7 +11085,6 @@
 				E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */,
 				E53632D22FAF63480095DFEC /* quadrant_IV_60@2x.png in Resources */,
 				E55549412F75590100C9460D /* focus_timer_stopwatch_24@2x.png in Resources */,
-				E5371DE72FF21FC600BA9DEF /* mute.caf in Resources */,
 				E56B94632F8CD6D0001E488B /* todo_group_type_none_24@3x.png in Resources */,
 				E555493B2F75590100C9460D /* focus_timer_countdown_24@2x.png in Resources */,
 				E5BB9B362D3BEF920089667A /* star.png in Resources */,
@@ -11536,6 +11538,7 @@
 				E5D7D8C42D43933600EC877A /* FocusEvent.swift in Sources */,
 				E5BB9E202D3BF0C70089667A /* NSManagedObjectContext+Setup.swift in Sources */,
 				E5D7D9402D43933700EC877A /* FocusTimerStepMenuController.swift in Sources */,
+				E5371DED2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift in Sources */,
 				E53E96AD2D53A3E200EC4872 /* TPInfoTextValueView.swift in Sources */,
 				E57CC5BF2F7F9FA600ADDBA4 /* TodoTaskGroup.swift in Sources */,
 				E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */,
@@ -12489,6 +12492,7 @@
 				E5E9F7842FBFF6F700717004 /* TodoStepImporterViewController.swift in Sources */,
 				E5BB9F0B2D3BF0C90089667A /* TPMultipleItemSelection.swift in Sources */,
 				E50179582FD6533A00DC544D /* TodoTaskSectionViewModel.swift in Sources */,
+				E5371DEF2FF4C03100BA9DEF /* CalendarHabitSettingSectionController.swift in Sources */,
 				E552FBB42DBDDCA70072703F /* CalendarMonthWeekBackgroundLayer.swift in Sources */,
 				E5BB9DB52D3BF0C60089667A /* TPWeakDelegateCollection.swift in Sources */,
 				E59244032F51578F00CA2393 /* HabitConstant.swift in Sources */,

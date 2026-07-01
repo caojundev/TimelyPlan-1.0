@@ -33,7 +33,7 @@ class HabitSettingViewController: BaseSettingViewController {
      lazy var addHabitOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
          let cellItem = TPSwitchTableCellItem()
          cellItem.height = defaultCellHeight
-         cellItem.title = resGetString("Add New Habits On Top")
+         cellItem.title = resGetString("Add New Habits on Top")
          cellItem.updater = {
              guard let self = self else { return }
              let isOn = HabitSetting.shared.addHabitOnTop
@@ -82,6 +82,9 @@ class HabitSettingViewController: BaseSettingViewController {
          return sectionController
      }()
     
+    
+    // MARK: - 通知
+    
     lazy var soundCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
         cellItem.autoResizable = false
@@ -99,18 +102,26 @@ class HabitSettingViewController: BaseSettingViewController {
         return cellItem
     }()
      
-     lazy var notificationSectionController: TPTableItemSectionController = {
-         let sectionController = TPTableItemSectionController()
-         sectionController.headerItem.height = 15.0
-         sectionController.cellItems = [soundCellItem]
-         return sectionController
-     }()
+    lazy var notificationSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = normalHeaderHeight
+        sectionController.cellItems = [soundCellItem]
+        return sectionController
+    }()
      
+    // MARK: - 日历
+    
+    lazy var calendarSectionController: CalendarHabitSettingSectionController = {
+        let sectionController = CalendarHabitSettingSectionController()
+        sectionController.headerItem.height = normalHeaderHeight
+        return sectionController
+    }()
     
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("Habit Settings")
          self.sectionControllers = [generalSectionController,
+                                    calendarSectionController,
                                     notificationSectionController]
          self.reloadData()
      }
@@ -156,4 +167,4 @@ class HabitSettingViewController: BaseSettingViewController {
         
         navigationController?.pushViewController(vc, animated: true)
     }
- }
+}

@@ -323,10 +323,10 @@
 "Keep Input Content When Hidden" = "隐藏时保留输入内容";
 
 "New Item Location" = "新增位置";
-"Add New List On Top" = "添加新列表到顶部";
-"Add New Task On Top" = "添加新任务到顶部";
-"Add New Tag On Top" = "添加新标签到顶部";
-"Add New Filter On Top" = "添加新过滤器到顶部";
+"Add New List on Top" = "添加新列表到顶部";
+"Add New Task on Top" = "添加新任务到顶部";
+"Add New Tag on Top" = "添加新标签到顶部";
+"Add New Filter on Top" = "添加新过滤器到顶部";
 
 "Step" = "步骤";
 "Auto-complete Substeps" = "自动完成子步骤";
@@ -465,7 +465,7 @@
 "After the break is over, start to focus automatically" = "休息结束后自动开始专注";
 "Auto-Break" = "自动休息";
 "After the focus is over, start to rest automatically" = "专注结束后自动开始休息";
-"Add New Timers On Top" = "添加新计时器到顶部";
+"Add New Timers on Top" = "添加新计时器到顶部";
 "Hide Next Button Of Floating Timer" = "隐藏浮动计时器下一步按钮";
 "Minimum Record Duration" = "最小记录时长";
 "Records with a focus duration of less than %@ will be discarded" = "专注时长小于%@的记录将被丢弃";
@@ -635,7 +635,15 @@
 
 /// 设置
 "Habit Settings" = "习惯设置";
-"Add New Habits On Top" = "添加新习惯到顶部";
+"Show Habit" = "显示习惯";
+"Show in Calendar" = "在日历显示";
+"Display Range" = "显示范围";
+"Today Only" = "仅今天";
+"Next 3 Days" = "未来 3 天";
+"Next 7 Days" = "未来 7 天";
+"Next 30 Days" = "未来 30 天";
+
+"Add New Habits on Top" = "添加新习惯到顶部";
 "Auto Show Log Dialog" = "自动显示日志弹窗";
 "Default Score" = "默认评分";
 "Completed Score" = "完成评分";
@@ -990,7 +998,6 @@
 "%ld hours" = "%ld小时";
 "%ld seconds" = "%ld秒";
 "%ld second" = "%ld秒";
-"%@ %@" = "%@%@";
 
 "Habit Reminder at %@" = "%@习惯提醒";
 "%@ focus ended" = "%@专注结束";
@@ -998,5 +1005,5 @@
 "Focus ended" = "专注结束";
 "Break ended" = "休息结束";
 
-
+"%@ %@" = "%@%@";
 ", " = "，";

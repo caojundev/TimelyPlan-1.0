@@ -49,7 +49,7 @@ class CalendarEventColor {
 }
 
 // 1. 枚举区分事件来源
-enum CalendarEventSource {
+enum CalendarEventSource: Int {
     case system // 系统日历
     case todo   // 待办任务
     case habit  // 习惯任务
@@ -148,9 +148,9 @@ extension Array where Element == CalendarEvent {
                 return lDuration > rDuration
             }
             
-            // 4. source 为 system 的在上方
+            // 4. 按 source 排序
             if lEvent.source != rEvent.source {
-                return lEvent.source == .system
+                return lEvent.source.rawValue < rEvent.source.rawValue
             }
             
             // 所有条件都相同时保持原有顺序

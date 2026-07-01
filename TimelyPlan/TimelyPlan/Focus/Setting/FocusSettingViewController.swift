@@ -76,7 +76,7 @@ class FocusSettingViewController: BaseSettingViewController {
      lazy var addTimerOnTopCellItem: TPSwitchTableCellItem = { [weak self] in
          let cellItem = TPSwitchTableCellItem()
          cellItem.height = defaultCellHeight
-         cellItem.title = resGetString("Add New Timers On Top")
+         cellItem.title = resGetString("Add New Timers on Top")
          cellItem.updater = {
              guard let self = self else { return }
              let isOn = FocusSetting.shared.addTimerOnTop

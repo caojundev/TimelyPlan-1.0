@@ -39,6 +39,13 @@ class CalendarSettingViewController: BaseSettingViewController {
          return sectionController
      }()
      
+    lazy var habitSectionController: CalendarHabitSettingSectionController = {
+        let sectionController = CalendarHabitSettingSectionController()
+        sectionController.showInCalendarCellItem.title = resGetString("Show Habit")
+        sectionController.headerItem.height = normalHeaderHeight
+        return sectionController
+    }()
+    
     // MARK: - 新事项
     lazy var defaultEventDurationCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
@@ -255,6 +262,7 @@ class CalendarSettingViewController: BaseSettingViewController {
          super.viewDidLoad()
          self.title = resGetString("Calendar Settings")
          self.sectionControllers = [generalSectionController,
+                                    habitSectionController,
                                     newEventsSectionController,
                                     alertSectionController,
                                     viewOptionsSectionController,
