@@ -405,12 +405,12 @@ extension TaskNotificationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
-        let taskIdentifier = response.notification.request.content.userInfo["taskIdentifier"] as? String
-        NotificationCenter.default.post(
-            name: .taskNotificationTapped,
-            object: nil,
-            userInfo: ["taskIdentifier": taskIdentifier ?? ""]
+        let info = NotificationClickInfo(
+            userInfo: response.notification.request.content.userInfo,
+            actionIdentifier: response.actionIdentifier
         )
+        
+        TaskNotificationDispatcher.shared.handleNotificationClick(info)
         completionHandler()
     }
 }

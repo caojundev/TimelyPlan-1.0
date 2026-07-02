@@ -106,6 +106,12 @@ class HabitTaskManager {
     }
     
     
+    /// 根据标识获取习惯任务
+    func getTask(with identifier: String) -> HabitTask? {
+        let cdTask = CDHabitTask.getTask(with: identifier)
+        return cdTask?.toTask
+    }
+    
     /// 获取所有习惯任务
     func getAllTasks() -> [HabitTask] {
         return CDHabitTask.getAllTasks().toTasks

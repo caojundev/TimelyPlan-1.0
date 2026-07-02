@@ -94,6 +94,23 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         }
     }
     
+    private(set) var isFirstAppearance = true
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if isFirstAppearance {
+            isFirstAppearance = false
+            handleFirstAppearance()
+        }
+    }
+    
+    private func handleFirstAppearance() {
+        // 任务通知分发器标记主界面已准备好
+        TaskNotificationDispatcher.shared.markMainViewReady()
+        
+        /// 习惯记录结果弹窗管理器开始监测
+        HabitRecordResultPopupManager.shared.startObserving()
+    }
+    
     // MARK: - Private Methods
     private func replaceViewController(with menuType: SideMenuType) {
         var vc: UIViewController

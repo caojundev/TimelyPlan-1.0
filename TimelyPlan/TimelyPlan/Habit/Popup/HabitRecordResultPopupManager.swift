@@ -1,5 +1,5 @@
 //
-//  HabitRecordResultPopupController.swift
+//  HabitRecordResultPopupManager.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/13.
@@ -8,9 +8,15 @@
 import Foundation
 import UIKit
 
-class HabitRecordResultPopupController: HabitRecordProcessorDelegate {
+class HabitRecordResultPopupManager: HabitRecordProcessorDelegate {
+
+    static let shared = HabitRecordResultPopupManager()
     
     private let recordController = HabitRecordController()
+    
+    func startObserving() {
+        HabitRepository.addUpdater(self, for: [.record])
+    }
     
     func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
         var shouldShow: Bool = false

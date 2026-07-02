@@ -142,15 +142,22 @@ class HabitTaskDetailProvider {
     
     /// 更新详细文本
     func detail(for periodItem: HabitPeriodItem) -> TextRepresentable {
-        let habitTask = periodItem.habitTask
         let date = periodItem.period.date
+        return detail(for: periodItem, on: date, color: .white)
+    }
+    
+    /// 更新详细文本
+    func detail(for periodItem: HabitPeriodItem,
+                on date: Date,
+                color: UIColor = .white) -> TextRepresentable {
+        let task = periodItem.habitTask
         if date.isFutureDay {
-            return habitTask.goal.targetDescription
+            return task.goal.targetDescription
         }
         
         /// 进度详情
         let record = periodItem.records?[date.dayIntegerKey]
-        let progressDetail = Self.completedAmountDetail(for: habitTask, with: record)
+        let progressDetail = Self.completedAmountDetail(for: task, with: record)
         guard let record = record else {
             return progressDetail
         }
@@ -159,7 +166,7 @@ class HabitTaskDetailProvider {
         
         /// 备注
         if record.hasLog {
-            details.append(habitTask.logIndicator(color: .white))
+            details.append(task.logIndicator(color: color))
         }
         
         return details.joined(separator: "•")

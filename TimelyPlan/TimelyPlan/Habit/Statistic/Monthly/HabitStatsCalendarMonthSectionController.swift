@@ -18,8 +18,6 @@ class HabitStatsCalendarMonthSectionController: TPCollectionItemSectionControlle
     
     /// 月单元格条目
     private let monthCellItem = HabitStatsCalendarMonthCellItem()
-
-    private let dayMenuController = HabitDayMenuController()
     
     init(periodItem: HabitPeriodItem, date: Date, firstWeekday: Weekday = .firstWeekday) {
         self.periodItem = periodItem
@@ -70,7 +68,7 @@ class HabitStatsCalendarMonthSectionController: TPCollectionItemSectionControlle
         TPImpactFeedback.impactWithSoftStyle()
         let isScheduled = self.periodItem.isScheduledDate(date)
         if isScheduled {
-            dayMenuController.showMenu(for: self.periodItem, on: date)
+            HabitDayMenuPresenter.showMenu(for: periodItem, on: date)
         } else {
             HabitPresenter.showNotScheduledDayMessage(for: date)
         }

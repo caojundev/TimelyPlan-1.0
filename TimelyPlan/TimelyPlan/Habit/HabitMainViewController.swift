@@ -69,9 +69,7 @@ class HabitMainViewController: TPContainerViewController, TPSidebarContent {
         
         return item
     }()
-    
-    private let recordResultPopupController = HabitRecordResultPopupController()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if let sidebarButtonItem = sidebarController?.newMenuButtonItem() {
@@ -84,7 +82,6 @@ class HabitMainViewController: TPContainerViewController, TPSidebarContent {
         navigationItem.rightBarButtonItems = [moreBarButtonItem,
                                               recordBarButtonItem]
         updateContentViewController()
-        HabitRepository.addUpdater(recordResultPopupController, for: [.record])
     }
     
     override func viewWillLayoutSubviews() {

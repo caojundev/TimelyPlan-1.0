@@ -12,10 +12,10 @@ class TPSheetMenuViewController: TPTableViewController,
                                  TPTableViewAdapterDataSource,
                                  TPTableViewAdapterDelegate {
     /// 元素间距
-    var titleMargins = UIEdgeInsets(top: 20.0, bottom: 10.0)
+    var titleMargins = UIEdgeInsets(top: 20.0, bottom: 5.0)
     
     /// 头高度
-    let sectionHeaderHeight = 10.0
+    let sectionHeaderHeight = 5.0
     
     /// 行高度
     let rowHeight = 60.0
@@ -25,7 +25,7 @@ class TPSheetMenuViewController: TPTableViewController,
     
     private(set) var menuItems: [TPMenuItem]
     
-    private lazy var titleLabel: UILabel = {
+    private(set) lazy var titleLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.textAlignment = .center

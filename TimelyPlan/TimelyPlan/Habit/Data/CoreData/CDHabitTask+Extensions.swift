@@ -80,6 +80,10 @@ extension CDHabitTask: TPHexColorConvertible, SortableIdentifiable {
         self.note = editingTask.note
         self.modificationDate = .now
     }
+    
+    var toTask: HabitTask? {
+        return HabitTask(content: self)
+    }
 }
 
 // MARK: - 获取任务

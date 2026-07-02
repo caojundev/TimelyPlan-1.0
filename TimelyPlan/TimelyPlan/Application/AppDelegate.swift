@@ -27,18 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // 设置通知代理
         UNUserNotificationCenter.current().delegate = TaskNotificationManager.shared
-        
-//        // 请求权限并运行测试
-//        TaskNotificationManager.shared.requestAuthorization { granted in
-//            if granted {
-//                #if DEBUG
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                    NotificationTester.runTests()
-//                }
-//                #endif
-//            }
-//        }
-//        
+
+        // 检查是否通过通知冷启动
+        if let notification = launchOptions?[.remoteNotification] as? [AnyHashable: Any] {
+            let info = NotificationClickInfo(
+                userInfo: notification,
+                isAppLaunchedFromKilled: true
+            )
+            
+            TaskNotificationDispatcher.shared.handleNotificationClick(info)
+        }
+
         return true
     }
     

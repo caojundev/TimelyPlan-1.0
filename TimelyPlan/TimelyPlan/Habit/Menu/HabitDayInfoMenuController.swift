@@ -1,16 +1,24 @@
 //
-//  HabitHomeWeekDayMenuController.swift
+//  HabitDayInfoMenuController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/3/11.
+//  Created by caojun on 2026/7/2.
 //
 
 import Foundation
 
-class HabitHomeWeekDayMenuController: HabitHomeDayMenuController {
+class HabitDayInfoMenuController: HabitHomeDayMenuController {
     
     /// 点击记录
     var didClickRecord: (() -> Void)?
+    
+    let periodItem: HabitPeriodItem
+    
+    init(periodItem: HabitPeriodItem, date: Date) {
+        self.periodItem = periodItem
+        let status = periodItem.status(on: date)
+        super.init(task: periodItem.habitTask, status: status, date: date)
+    }
     
     override func allowMenuActionTypes() -> [HabitTaskMenuActionType] {
         var allowTypes: [HabitTaskMenuActionType]
@@ -32,10 +40,9 @@ class HabitHomeWeekDayMenuController: HabitHomeDayMenuController {
             return
         }
         
-        let menuVC = HabitDaySheetMenuViewController(task: self.task,
-                                                     date: self.date,
-                                                     status: self.status,
-                                                     menuItems: menuItems)
+        let menuVC = HabitDayInfoMenuViewController(periodItem: periodItem,
+                                                    date: date,
+                                                    menuItems: menuItems)
         menuVC.didSelectMenuAction = { action in
             guard let type = HabitTaskMenuActionType(rawValue: action.identifier) else {
                 return

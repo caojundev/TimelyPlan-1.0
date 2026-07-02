@@ -71,8 +71,6 @@ class HabitHomeWeekViewController: TPViewController,
         return view
     }()
     
-    private let dayMenuController = HabitDayMenuController()
-    
     private let processor = HabitTaskMenuActionProcessor()
     
     private lazy var viewModel: HabitWeekPeriodItemViewModel = { [weak self] in
@@ -261,7 +259,7 @@ class HabitHomeWeekViewController: TPViewController,
         }
         let isScheduled = periodItem.isScheduledDate(date)
         if isScheduled {
-            dayMenuController.showMenu(for: periodItem, on: date)
+            HabitDayMenuPresenter.showInfoMenu(for: periodItem, on: date)
         } else {
             HabitPresenter.showNotScheduledDayMessage(for: date)
         }

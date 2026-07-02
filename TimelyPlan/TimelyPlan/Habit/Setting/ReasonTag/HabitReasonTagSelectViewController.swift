@@ -46,7 +46,7 @@ class HabitReasonTagSelectViewController: TPCollectionViewController,
         super.viewDidLoad()
         self.title = resGetString("Select Tag")
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        self.preferredContentSize = CGSize(width: 400.0, height: 420.0)
+        self.preferredContentSize = AppLayout.Popover.medium
         self.collectionView.showsVerticalScrollIndicator = false
         self.actionsBar?.actionsCountPerRow = 1
         let newAction = TPButtonAction(title: resGetString("New Tag")) { [weak self] action in

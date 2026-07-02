@@ -53,6 +53,16 @@ class TPIconView: UIView {
         }
     }
     
+    var font: UIFont {
+        get {
+            return textLabel.font
+        }
+        
+        set {
+            textLabel.font = newValue
+        }
+    }
+    
     // 前景颜色
     var foreColor: UIColor? {
         didSet { setNeedsLayout() }

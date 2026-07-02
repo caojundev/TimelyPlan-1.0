@@ -11,7 +11,7 @@ import UIKit
 class HabitTaskStatusView: UIView {
     
     /// 任务状态
-    var status: HabitTaskStatus = .notStarted
+    private(set) var status: HabitTaskStatus = .notStarted
     
     var rotation: CGFloat = 0.0
     var contentView: UIView!

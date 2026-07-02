@@ -31,6 +31,7 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
         self.status = status
         super.init(menuItems: menuItems)
         self.title = date.yearMonthDayWeekdaySymbolString()
+        actionsBar?.backgroundColor = themeBackgroundColor
         actionsBar?.padding = UIEdgeInsets(horizontal: 20.0, vertical: 10.0)
     }
     

@@ -43,9 +43,17 @@ struct AppLayout {
     
     /// 弹窗尺寸
     struct Popover {
-        static let preferredContentWidth = 420.0
+        static let preferredContentWidth = 400.0
         static let preferredContentSize = CGSize(width: preferredContentWidth, height: 320.0)
+        
+        static let mini = CGSize(width: preferredContentWidth, height: 280.0)
+        static let small = CGSize(width: preferredContentWidth, height: 320.0)
+        static let medium = CGSize(width: preferredContentWidth, height: 480.0)
+        static let large = CGSize(width: preferredContentWidth, height: 640.0)
+        static let extraLarge = CGSize(width: preferredContentWidth, height: 740.0)
     }
+    
+    
     
     /// 单元格
     struct Cell {

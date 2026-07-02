@@ -7,6 +7,18 @@
 
 import Foundation
 
+struct FocusNotificationKey {
+    
+    /// 事项标识
+    static let eventIdentifier = "eventIdentifier"
+    
+    /// 步骤标识
+    static let stepIdentifier = "stepIdentifier"
+    
+    /// 计划日期
+    static let planDate = "planDate"
+}
+
 extension FocusEvent: LocalNotifiable {
     
     /// 通知专注任务类型
@@ -21,6 +33,9 @@ extension FocusEvent: LocalNotifiable {
             return []
         }
         
+        let userInfo: [String: Any] = [TaskNotificationKey.taskType: TaskNotificationType.focus.rawValue,
+                                       FocusNotificationKey.eventIdentifier: identifier ?? ""]
+
         let currentDate = Date()
         var configs = [TaskNotificationConfig]()
         for step in steps {
@@ -33,6 +48,9 @@ extension FocusEvent: LocalNotifiable {
                 /// 结束日期已过
                 continue
             }
+            
+            var userInfo = userInfo
+            userInfo[FocusNotificationKey.stepIdentifier] = step.identifier
             
             let title = step.name ?? resGetString("Untitled Step")
             let bodyFormat: String
@@ -57,7 +75,8 @@ extension FocusEvent: LocalNotifiable {
                 title: title,
                 body: body,
                 triggerDate: alarmDate,
-                sound: sound?.toUNNotificationSound
+                sound: sound?.toUNNotificationSound,
+                userInfo: userInfo
             )
             
             configs.append(config)

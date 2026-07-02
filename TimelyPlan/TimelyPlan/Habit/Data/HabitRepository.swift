@@ -142,6 +142,24 @@ final class HabitRepository {
         )
     }
     
+    static func fetchPeriodItem(for taskIdentifier: String,
+                                on date: Date,
+                                completion: @escaping (HabitPeriodItem?) -> Void
+    ) {
+        guard let task = taskManager.getTask(with: taskIdentifier) else {
+            completion(nil)
+            return
+        }
+        
+        let period = HabitDatePeriod(date: date, mode: .day)
+        periodItemFetcher.fetchPeriodItem(
+            for: task,
+            in: period,
+            includeSamples: false,
+            completion: completion
+        )
+    }
+    
     static func fetchReportPeriodItems(
         in period: HabitDatePeriod,
         includeArchived: Bool,

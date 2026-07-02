@@ -25,6 +25,8 @@ extension TodoTask: LocalNotifiable {
         }
         
         let title = displayName
+        let userInfo: [String: Any] = [TaskNotificationKey.taskType: TaskNotificationType.todo.rawValue,
+                                       TaskNotificationKey.taskIdentifier: taskIdentifier]
         var configs = [TaskNotificationConfig]()
         if let startAlarmDates = schedule.startAlarmDates {
             let startSound = TodoSetting.shared.startSound?.toUNNotificationSound
@@ -36,7 +38,8 @@ extension TodoTask: LocalNotifiable {
                     title: title,
                     body: body,
                     triggerDate: alarmDate,
-                    sound: startSound
+                    sound: startSound,
+                    userInfo: userInfo
                 )
                 
                 configs.append(config)
@@ -53,7 +56,8 @@ extension TodoTask: LocalNotifiable {
                     title: title,
                     body: body,
                     triggerDate: alarmDate,
-                    sound: dueSound
+                    sound: dueSound,
+                    userInfo: userInfo
                 )
                 
                 configs.append(config)

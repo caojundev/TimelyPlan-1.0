@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct HabitNotificationKey {
+    /// 计划日期
+    static let planDate = "planDate"
+}
+
 extension HabitPeriodItem: LocalNotifiable {
     
     var taskIdentifier: String {
@@ -21,7 +26,8 @@ extension HabitPeriodItem: LocalNotifiable {
         let title = habitTask.displayName
         let bodyFormat = resGetString("Habit Reminder at %@")
         let sound = HabitSetting.shared.sound?.toUNNotificationSound
-        
+        let userInfo: [String: Any] = [TaskNotificationKey.taskType: TaskNotificationType.habit.rawValue,
+                                       TaskNotificationKey.taskIdentifier: taskIdentifier]
         var configs = [TaskNotificationConfig]()
         let planDates = habitTask.nextPlanDates()
         for planDate in planDates {
@@ -35,6 +41,10 @@ extension HabitPeriodItem: LocalNotifiable {
                 continue
             }
             
+            /// 设置计划日期
+            var userInfo = userInfo
+            userInfo[HabitNotificationKey.planDate] = planDate
+            
             for alarmDate in alarmDates {
                 let body = String(format: bodyFormat, alarmDate.timeString)
                 let config = TaskNotificationConfig(
@@ -42,7 +52,8 @@ extension HabitPeriodItem: LocalNotifiable {
                     title: title,
                     body: body,
                     triggerDate: alarmDate,
-                    sound: sound
+                    sound: sound,
+                    userInfo: userInfo
                 )
                 
                 configs.append(config)

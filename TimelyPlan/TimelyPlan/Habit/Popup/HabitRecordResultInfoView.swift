@@ -46,7 +46,7 @@ class HabitRecordResultInfoView: UIView, TPCustomPopupContent {
     }
     
     private func setupSubviews() {
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = Color(light: 0xFFFFFF, dark: 0x232323)
         self.padding = UIEdgeInsets(left: 16.0, right: 16.0)
         infoView.imageConfig.size = .size(8)
         infoView.imageConfig.shouldRenderImageWithColor = false

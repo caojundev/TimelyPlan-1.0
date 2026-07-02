@@ -18,8 +18,6 @@ class HabitStatsCalendarWeekSectionController: TPCollectionItemSectionController
     /// 周单元格条目
     private let weekCellItem = HabitStatsCalendarWeekCellItem()
     
-    private let dayMenuController = HabitDayMenuController()
-    
     init(periodItem: HabitPeriodItem, date: Date, firstWeekday: Weekday = .firstWeekday) {
         self.periodItem = periodItem
         self.date = date
@@ -61,7 +59,7 @@ extension HabitStatsCalendarWeekSectionController: HabitDatePeriodsViewDelegate 
         
         let isScheduled = periodItem.isScheduledDate(period.date)
         if isScheduled {
-            dayMenuController.showMenu(for: self.periodItem, on: period.date)
+            HabitDayMenuPresenter.showMenu(for: periodItem, on: period.date)
         } else {
             HabitPresenter.showNotScheduledDayMessage(for: period.date)
         }

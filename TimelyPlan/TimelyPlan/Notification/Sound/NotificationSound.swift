@@ -58,33 +58,27 @@ class NotificationSoundManager {
     // MARK: - 单例
     static let shared = NotificationSoundManager()
     
-    private init() {}
+    private init() {
+        for sound in NotificationSound.allCases {
+            let notificationSound: UNNotificationSound
+            if soundFileExists(sound) {
+                let soundName = UNNotificationSoundName(rawValue: sound.fullFileName)
+                notificationSound = UNNotificationSound(named: soundName)
+                soundCache[sound] = notificationSound
+            }
+        }
+    }
     
     // MARK: - 声音缓存
-    private var soundCache: [NotificationSound: UNNotificationSound?] = [:]
+    private var soundCache: [NotificationSound: UNNotificationSound] = [:]
     
     // MARK: - 音频播放器引用（修复播放问题）
     private var audioPlayer: AVAudioPlayer?
     
     // MARK: - 转换为 UNNotificationSound
+    
     func convertToUNNotificationSound(_ sound: NotificationSound) -> UNNotificationSound? {
-        // 检查缓存
-        if let cachedSound = soundCache[sound] {
-            return cachedSound
-        }
-        
-        let notificationSound: UNNotificationSound
-        if soundFileExists(sound) {
-            let soundName = UNNotificationSoundName(rawValue: sound.fullFileName)
-            notificationSound = UNNotificationSound(named: soundName)
-        } else {
-            // 如果文件不存在，回退到默认声音
-            notificationSound = .default
-        }
-  
-        // 缓存结果
-        soundCache[sound] = notificationSound
-        return notificationSound
+        return soundCache[sound]
     }
     
     // MARK: - 检查声音文件是否存在
