@@ -9,8 +9,24 @@ import Foundation
 
 class CalendarPresenter {
     
-    /// 编辑本地待办事项
-    static func editLocalEvent(_ event: CalendarEvent) {
+    /// 编辑习惯事项
+    static func editHabitEvent(_ event: CalendarEvent) {
+        guard event.startDate.isToday, let task = event.sourceItem as? HabitTask else {
+            return
+        }
+        
+        let date = Date()
+        HabitRepository.fetchPeriodItem(for: task.identifier, on: date) { periodItem in
+            guard let periodItem = periodItem else {
+                return
+            }
+
+            HabitDayMenuPresenter.showMenu(for: periodItem, on: date)
+        }
+    }
+    
+    /// 编辑待办事项
+    static func editTodoEvent(_ event: CalendarEvent) {
         guard let task = event.sourceItem as? TodoTask else {
             return
         }

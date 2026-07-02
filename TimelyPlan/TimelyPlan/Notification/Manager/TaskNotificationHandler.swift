@@ -49,7 +49,7 @@ class TaskNotificationHandler: NotificationClickProcessor {
             }
 
             DispatchQueue.main.async {
-                HabitDayMenuPresenter.showInfoMenu(for: periodItem, on: date)
+                HabitDayMenuPresenter.showMenu(for: periodItem, on: date)
             }
         }
     }

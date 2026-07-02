@@ -77,17 +77,17 @@ class CalendarEventProcessor {
         if task.isDetached {
             CalendarPresenter.previewEvent(event)
         } else {
-            CalendarPresenter.editLocalEvent(event)
+            CalendarPresenter.editTodoEvent(event)
         }
     }
     
     /// 点击习惯
     private func clickHabitEvent(_ event: CalendarEvent) {
-        guard let task = event.sourceItem as? HabitTask else {
-            return
+        if event.startDate.isToday {
+            CalendarPresenter.editHabitEvent(event)
+        } else {
+            CalendarPresenter.previewEvent(event)
         }
-        
-        CalendarPresenter.previewEvent(event)
     }
     
 }

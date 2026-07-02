@@ -105,7 +105,6 @@ class HabitTaskManager {
         HandyRecord.save()
     }
     
-    
     /// 根据标识获取习惯任务
     func getTask(with identifier: String) -> HabitTask? {
         let cdTask = CDHabitTask.getTask(with: identifier)

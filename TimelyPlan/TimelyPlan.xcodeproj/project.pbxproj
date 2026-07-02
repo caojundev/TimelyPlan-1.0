@@ -546,7 +546,6 @@
 		E53B115C2F94F62900701410 /* CDTodoFilter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B115B2F94F62900701410 /* CDTodoFilter+Extensions.swift */; };
 		E53B115F2F94F66300701410 /* TodoFilterProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B115E2F94F66300701410 /* TodoFilterProcessorUpdater.swift */; };
 		E53B11612F94F68700701410 /* TodoFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B11602F94F68700701410 /* TodoFilterManager.swift */; };
-		E53DCEEB2F61AC4800ADA526 /* HabitHomeWeekDayMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DCEEA2F61AC4800ADA526 /* HabitHomeWeekDayMenuController.swift */; };
 		E53DCEED2F61AD7600ADA526 /* HabitDaySheetMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DCEEC2F61AD7500ADA526 /* HabitDaySheetMenuViewController.swift */; };
 		E53E96AB2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53E96AA2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift */; };
 		E53E96AD2D53A3E200EC4872 /* TPInfoTextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53E96AC2D53A3E200EC4872 /* TPInfoTextValueView.swift */; };
@@ -2571,7 +2570,6 @@
 		E53B115B2F94F62900701410 /* CDTodoFilter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTodoFilter+Extensions.swift"; sourceTree = "<group>"; };
 		E53B115E2F94F66300701410 /* TodoFilterProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterProcessorUpdater.swift; sourceTree = "<group>"; };
 		E53B11602F94F68700701410 /* TodoFilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterManager.swift; sourceTree = "<group>"; };
-		E53DCEEA2F61AC4800ADA526 /* HabitHomeWeekDayMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHomeWeekDayMenuController.swift; sourceTree = "<group>"; };
 		E53DCEEC2F61AD7500ADA526 /* HabitDaySheetMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitDaySheetMenuViewController.swift; sourceTree = "<group>"; };
 		E53E96AA2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDefaultInfoTextValueTableCell.swift; sourceTree = "<group>"; };
 		E53E96AC2D53A3E200EC4872 /* TPInfoTextValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPInfoTextValueView.swift; sourceTree = "<group>"; };
@@ -7117,7 +7115,6 @@
 			isa = PBXGroup;
 			children = (
 				E51FF6582F57E970003CA953 /* HabitHomeWeekViewController.swift */,
-				E53DCEEA2F61AC4800ADA526 /* HabitHomeWeekDayMenuController.swift */,
 				E5CFD2612F585D5200A898CB /* Cell */,
 			);
 			path = Week;
@@ -11992,7 +11989,6 @@
 				E5F078D32F975D2300F94BDF /* TodoMultiDayScheduleDateRangeView.swift in Sources */,
 				E556BCDB2F5D9D8500CA20D9 /* HabitRecordProcessor.swift in Sources */,
 				E5BB9F202D3BF2C20089667A /* AppConfig.swift in Sources */,
-				E53DCEEB2F61AC4800ADA526 /* HabitHomeWeekDayMenuController.swift in Sources */,
 				E50A7CEF2F8A401D0074F1A3 /* TodoTaskEditStepSectionController.swift in Sources */,
 				E5BB9B4F2D3BEF920089667A /* WKInterfaceButtonExtension.swift in Sources */,
 				E5BB9D852D3BF0C50089667A /* LayoutConstants.swift in Sources */,

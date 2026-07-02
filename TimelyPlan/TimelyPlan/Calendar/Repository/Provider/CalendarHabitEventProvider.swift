@@ -96,4 +96,3 @@ extension CalendarHabitEventProvider: HabitTaskProcessorDelegate {
         delegate?.calendarEventsDidChange(in: [interval])
     }
 }
-

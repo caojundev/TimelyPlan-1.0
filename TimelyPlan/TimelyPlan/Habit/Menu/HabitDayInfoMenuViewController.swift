@@ -40,7 +40,7 @@ class HabitDayInfoMenuViewController: HabitDaySheetMenuViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let layoutFrame = view.bounds.inset(by: UIEdgeInsets(horizontal: 16.0))
+        let layoutFrame = view.bounds.inset(by: UIEdgeInsets(horizontal: 20.0))
         infoView.width = layoutFrame.width
         infoView.height = infoViewHeight
         infoView.top = titleLabel.bottom + titleMargins.bottom

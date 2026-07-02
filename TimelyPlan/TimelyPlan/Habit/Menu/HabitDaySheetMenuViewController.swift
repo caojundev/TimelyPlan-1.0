@@ -31,8 +31,6 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
         self.status = status
         super.init(menuItems: menuItems)
         self.title = date.yearMonthDayWeekdaySymbolString()
-        actionsBar?.backgroundColor = themeBackgroundColor
-        actionsBar?.padding = UIEdgeInsets(horizontal: 20.0, vertical: 10.0)
     }
     
     required init?(coder: NSCoder) {
@@ -56,7 +54,7 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        actionsBarHeight = 80.0
         let actions: [TPButtonAction]
         if status == .notStarted || status == .inProgress {
             if task.goal.mode == .amount, task.goal.recordType == .automatically {
@@ -69,6 +67,12 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
         }
         
         setupActionsBar(actions: actions)
+        actionsBar?.backgroundColor = themeBackgroundColor
+        actionsBar?.padding = UIEdgeInsets(top: 10.0,
+                                           left: 20.0,
+                                           bottom: 15.0,
+                                           right: 20.0)
+        
     }
     
     private func clickRecord() {

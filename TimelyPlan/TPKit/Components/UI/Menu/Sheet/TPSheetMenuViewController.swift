@@ -17,6 +17,8 @@ class TPSheetMenuViewController: TPTableViewController,
     /// 头高度
     let sectionHeaderHeight = 5.0
     
+    let sectionFooterHeight = 5.0
+    
     /// 行高度
     let rowHeight = 60.0
     
@@ -125,6 +127,10 @@ class TPSheetMenuViewController: TPTableViewController,
 
     func adapter(_ adapter: TPTableViewAdapter, heightForHeaderInSection section: Int) -> CGFloat {
         return sectionHeaderHeight
+    }
+    
+    func adapter(_ adapter: TPTableViewAdapter, heightForFooterInSection section: Int) -> CGFloat {
+        return sectionFooterHeight
     }
 
     func adapter(_ adapter: TPTableViewAdapter, didSelectRowAt indexPath: IndexPath) {
