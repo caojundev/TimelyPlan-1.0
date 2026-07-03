@@ -45,8 +45,8 @@ class CalendarMainViewController: TPContainerViewController,
         return item
     }()
     
-    private lazy var dayViewController: CalendarDayViewController = {
-        let vc = CalendarDayViewController()
+    private lazy var dayViewController: CalendarYearViewController = {
+        let vc = CalendarYearViewController()
         return vc
     }()
     

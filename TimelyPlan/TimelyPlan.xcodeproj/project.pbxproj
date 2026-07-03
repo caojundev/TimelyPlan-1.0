@@ -438,6 +438,9 @@
 		E5320C4B2FCD122E001DFE98 /* CalendarEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C4A2FCD122D001DFE98 /* CalendarEventInfoView.swift */; };
 		E5320C4D2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C4C2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift */; };
 		E5320C502FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5320C4F2FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift */; };
+		E53352862FF775E100546986 /* CalendarYearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352852FF775E100546986 /* CalendarYearViewController.swift */; };
+		E533528A2FF7C36600546986 /* CalendarYearHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352892FF7C36600546986 /* CalendarYearHeaderView.swift */; };
+		E533528C2FF7E78500546986 /* CalendarYearCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E533528B2FF7E78500546986 /* CalendarYearCollectionLayout.swift */; };
 		E5347FF52F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */; };
 		E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */; };
 		E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */; };
@@ -2462,6 +2465,9 @@
 		E5320C4A2FCD122D001DFE98 /* CalendarEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventInfoView.swift; sourceTree = "<group>"; };
 		E5320C4C2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoardPageFlowLayout.swift; sourceTree = "<group>"; };
 		E5320C4F2FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskPageAddFooterView.swift; sourceTree = "<group>"; };
+		E53352852FF775E100546986 /* CalendarYearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearViewController.swift; sourceTree = "<group>"; };
+		E53352892FF7C36600546986 /* CalendarYearHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearHeaderView.swift; sourceTree = "<group>"; };
+		E533528B2FF7E78500546986 /* CalendarYearCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearCollectionLayout.swift; sourceTree = "<group>"; };
 		E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordLogEditViewController.swift; sourceTree = "<group>"; };
 		E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitReasonTagEditViewController.swift; sourceTree = "<group>"; };
 		E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPEmojiTitleEditAlertController.swift; sourceTree = "<group>"; };
@@ -5035,10 +5041,11 @@
 				E518D6952FBEAAEB0045D456 /* Main */,
 				E53032942DC076F10040C75E /* Repository */,
 				E51A4C442DC3C363005A0E3F /* Components */,
+				E500E3AD2FC8682C00252011 /* Event */,
 				E552FBB72DBE663B0072703F /* Day */,
 				E552FBB82DBE67660072703F /* Week */,
 				E59E715D2DB7979200744C68 /* Month */,
-				E500E3AD2FC8682C00252011 /* Event */,
+				E53352842FF7759900546986 /* Year */,
 				E53632AD2FAE13C30095DFEC /* Settting */,
 			);
 			path = Calendar;
@@ -5457,6 +5464,16 @@
 				E5320C4F2FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift */,
 			);
 			path = Footer;
+			sourceTree = "<group>";
+		};
+		E53352842FF7759900546986 /* Year */ = {
+			isa = PBXGroup;
+			children = (
+				E53352852FF775E100546986 /* CalendarYearViewController.swift */,
+				E533528B2FF7E78500546986 /* CalendarYearCollectionLayout.swift */,
+				E53352892FF7C36600546986 /* CalendarYearHeaderView.swift */,
+			);
+			path = Year;
 			sourceTree = "<group>";
 		};
 		E5347FF62F5FC31600CFBF26 /* ReasonTag */ = {
@@ -11705,6 +11722,7 @@
 				E555492F2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift in Sources */,
 				E5BB9DC12D3BF0C60089667A /* Weekday.swift in Sources */,
 				E5BB9DDE2D3BF0C60089667A /* UIView+Animate.swift in Sources */,
+				E53352862FF775E100546986 /* CalendarYearViewController.swift in Sources */,
 				E549B1702F88DF550014BE85 /* TodoTaskEditProgressSectionController.swift in Sources */,
 				E5B4994C2FD8FD9F00F3A9BD /* TaskNotificationManager.swift in Sources */,
 				E5D7D8C72D43933600EC877A /* FocusTracker.swift in Sources */,
@@ -11968,6 +11986,7 @@
 				E56B948F2F8D246B001E488B /* TodoTaskListSelectionDelegate.swift in Sources */,
 				E56B94A42F8F7C1A001E488B /* IdentifiableItem.swift in Sources */,
 				E5D7D8C12D43933600EC877A /* FocusPomodoroProgressView.swift in Sources */,
+				E533528A2FF7C36600546986 /* CalendarYearHeaderView.swift in Sources */,
 				E5DCC4062DC49BA2004DE7A5 /* CalendarTimelineLayout.swift in Sources */,
 				E5BB9E002D3BF0C60089667A /* Array+ListDiffable.swift in Sources */,
 				E5BB9DFA2D3BF0C60089667A /* Int+Extensions.swift in Sources */,
@@ -12376,6 +12395,7 @@
 				E500E3AC2FC7F12A00252011 /* TodoStatsListDistribution.swift in Sources */,
 				E5BB9ED92D3BF0C80089667A /* TPHoldActionView.swift in Sources */,
 				E59E71612DB7DBA500744C68 /* CalendarMonthDayView.swift in Sources */,
+				E533528C2FF7E78500546986 /* CalendarYearCollectionLayout.swift in Sources */,
 				E5BB9E922D3BF0C80089667A /* PieCircleView.swift in Sources */,
 				E5BB9E7B2D3BF0C70089667A /* StatsCurveChartSectionController.swift in Sources */,
 				E534DAC02D5861190079AB08 /* TPLabelConfig.swift in Sources */,
