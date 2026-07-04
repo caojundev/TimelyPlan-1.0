@@ -17,7 +17,7 @@ extension Date {
             return stringWithFormat("yyyy")
         }
     }
-    
+
     /// 年+月字符串
     var yearMonthString: String {
         let format: String = resGetString("MMM, yyyy")

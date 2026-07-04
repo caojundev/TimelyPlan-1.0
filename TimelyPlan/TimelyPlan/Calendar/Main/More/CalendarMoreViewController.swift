@@ -41,9 +41,9 @@ class CalendarMoreViewController: TPTableSectionsViewController,
         cellItem.contentPadding = UIEdgeInsets(horizontal: 8.0, vertical: 4.0)
         cellItem.minimumButtonWidth = 80.0
         cellItem.imagePosition = .top
-        cellItem.segmentedImageConfig.margins = UIEdgeInsets(bottom: 4.0)
+        cellItem.segmentedImageConfig.margins = UIEdgeInsets(bottom: 5.0)
         cellItem.segmentedImageConfig.size = .size(6)
-        cellItem.segmentedTitleConfig.font = BOLD_SYSTEM_FONT
+        cellItem.segmentedTitleConfig.font = BOLD_SMALL_SYSTEM_FONT
         cellItem.cornerRadius = 16.0
          
         cellItem.menuItems = CalendarMode.segmentedMenuItems()

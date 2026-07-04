@@ -17,6 +17,8 @@ class TPYearMonthDatePickerViewController: UIViewController {
     
     var didPickDate: ((Date) -> Void)?
     
+    var yearRange: (from: Int, to: Int) = (1, 9999)
+    
     var datePickerView: TPYearMonthDatePickerView!
     
     lazy var currentDateButton: TPDefaultButton = {
@@ -77,11 +79,12 @@ class TPYearMonthDatePickerViewController: UIViewController {
         
         self.preferredContentSize = kPreferredContentSize
         self.datePickerView = TPYearMonthDatePickerView(mode: mode)
+        self.datePickerView.yearRange = yearRange
         self.datePickerView.date = self.date
         self.datePickerView.didPickDate = { [weak self] date in
             self?.didPickDate(date: date)
         }
-    
+
         contentView.addSubview(self.datePickerView)
         contentView.addSubview(self.currentDateButton)
         contentView.addSubview(self.doneButton)

@@ -243,6 +243,20 @@ extension Date {
         return offset - self.second
     }
     
+    /// 替换当前日期的年
+    func dateByReplacingYear(_ year: Int) -> Date {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year,
+                                                  .month,
+                                                  .day,
+                                                  .hour,
+                                                  .minute,
+                                                  .second], from: self)
+        components.year = year
+        return calendar.date(from: components) ?? self
+    }
+    
+    
     /// 将时、分、秒替换为当前的时、分、秒
     func dateByReplacingTimeWithCurrent() -> Date {
         return self.dateByReplacingTime(with: Date())
@@ -271,7 +285,7 @@ extension Date {
         return calendar.date(from: components) ?? self
     }
     
-    /// 替换当前日期的月和天
+    /// 替换当前日期的月
     func dateByReplacingMonth(_ month: Int) -> Date? {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)

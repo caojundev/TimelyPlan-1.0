@@ -11,6 +11,8 @@ enum CalendarMode: Int, TPMenuRepresentable {
     case day
     case week
     case month
+    case quarter
+    case year
     
     var title: String {
         switch self {
@@ -20,6 +22,10 @@ enum CalendarMode: Int, TPMenuRepresentable {
             return resGetString("Week")
         case .month:
             return resGetString("Month")
+        case .quarter:
+            return resGetString("Quarter")
+        case .year:
+            return resGetString("Year")
         }
     }
 
@@ -27,11 +33,15 @@ enum CalendarMode: Int, TPMenuRepresentable {
         var name: String
         switch self {
         case .day:
-            name = "calendar_mode_day"
+            name = "calendar_day"
         case .week:
-            name = "calendar_mode_week"
+            name = "calendar_week"
         case .month:
-            name = "calendar_mode_month"
+            name = "calendar_month"
+        case .quarter:
+            name = "calendar_quarter"
+        case .year:
+            name = "calendar_year"
         }
         
         return resGetShotName(name, size: .mini)

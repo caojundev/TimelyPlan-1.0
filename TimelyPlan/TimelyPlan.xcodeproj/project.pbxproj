@@ -300,12 +300,6 @@
 		E51A4C2B2DC261E8005A0E3F /* CalendarModeBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A4C2A2DC261E8005A0E3F /* CalendarModeBarButtonItem.swift */; };
 		E51A4C2D2DC26787005A0E3F /* CalendarWeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A4C2C2DC26787005A0E3F /* CalendarWeekViewController.swift */; };
 		E51A4C2F2DC26795005A0E3F /* CalendarDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A4C2E2DC26795005A0E3F /* CalendarDayViewController.swift */; };
-		E51A4C382DC31C7A005A0E3F /* calendar_mode_month_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51A4C322DC31C7A005A0E3F /* calendar_mode_month_24@3x.png */; };
-		E51A4C392DC31C7A005A0E3F /* calendar_mode_month_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51A4C332DC31C7A005A0E3F /* calendar_mode_month_24@2x.png */; };
-		E51A4C3A2DC31C7A005A0E3F /* calendar_mode_day_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51A4C342DC31C7A005A0E3F /* calendar_mode_day_24@2x.png */; };
-		E51A4C3B2DC31C7A005A0E3F /* calendar_mode_day_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51A4C352DC31C7A005A0E3F /* calendar_mode_day_24@3x.png */; };
-		E51A4C3C2DC31C7A005A0E3F /* calendar_mode_week_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51A4C362DC31C7A005A0E3F /* calendar_mode_week_24@3x.png */; };
-		E51A4C3D2DC31C7A005A0E3F /* calendar_mode_week_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51A4C372DC31C7A005A0E3F /* calendar_mode_week_24@2x.png */; };
 		E51A4C432DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A4C422DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift */; };
 		E51A4C462DC3C3B9005A0E3F /* CalendarDateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51A4C452DC3C3B9005A0E3F /* CalendarDateButton.swift */; };
 		E51B28EB2FA5BEC3006B3352 /* HabitListPlaceholderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51B28EA2FA5BEC3006B3352 /* HabitListPlaceholderProvider.swift */; };
@@ -441,6 +435,18 @@
 		E53352862FF775E100546986 /* CalendarYearViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352852FF775E100546986 /* CalendarYearViewController.swift */; };
 		E533528A2FF7C36600546986 /* CalendarYearHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352892FF7C36600546986 /* CalendarYearHeaderView.swift */; };
 		E533528C2FF7E78500546986 /* CalendarYearCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E533528B2FF7E78500546986 /* CalendarYearCollectionLayout.swift */; };
+		E53352972FF8C9CC00546986 /* calendar_day_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E533528D2FF8C9C800546986 /* calendar_day_24@2x.png */; };
+		E53352982FF8C9CC00546986 /* calendar_month_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E533528E2FF8C9C900546986 /* calendar_month_24@3x.png */; };
+		E53352992FF8C9CC00546986 /* calendar_week_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E533528F2FF8C9C900546986 /* calendar_week_24@2x.png */; };
+		E533529A2FF8C9CC00546986 /* calendar_quarter_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53352902FF8C9C900546986 /* calendar_quarter_24@3x.png */; };
+		E533529B2FF8C9CC00546986 /* calendar_month_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53352912FF8C9C900546986 /* calendar_month_24@2x.png */; };
+		E533529C2FF8C9CC00546986 /* calendar_week_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53352922FF8C9CA00546986 /* calendar_week_24@3x.png */; };
+		E533529D2FF8C9CC00546986 /* calendar_quarter_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53352932FF8C9CB00546986 /* calendar_quarter_24@2x.png */; };
+		E533529E2FF8C9CC00546986 /* calendar_year_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53352942FF8C9CB00546986 /* calendar_year_24@3x.png */; };
+		E533529F2FF8C9CC00546986 /* calendar_day_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53352952FF8C9CC00546986 /* calendar_day_24@3x.png */; };
+		E53352A02FF8C9CC00546986 /* calendar_year_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53352962FF8C9CC00546986 /* calendar_year_24@2x.png */; };
+		E53352A22FF90A0700546986 /* CalendarYearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352A12FF90A0700546986 /* CalendarYearView.swift */; };
+		E53352A42FF92DC700546986 /* CalendarYearConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352A32FF92DC700546986 /* CalendarYearConfig.swift */; };
 		E5347FF52F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */; };
 		E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */; };
 		E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */; };
@@ -2327,12 +2333,6 @@
 		E51A4C2A2DC261E8005A0E3F /* CalendarModeBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModeBarButtonItem.swift; sourceTree = "<group>"; };
 		E51A4C2C2DC26787005A0E3F /* CalendarWeekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekViewController.swift; sourceTree = "<group>"; };
 		E51A4C2E2DC26795005A0E3F /* CalendarDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayViewController.swift; sourceTree = "<group>"; };
-		E51A4C322DC31C7A005A0E3F /* calendar_mode_month_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_mode_month_24@3x.png"; sourceTree = "<group>"; };
-		E51A4C332DC31C7A005A0E3F /* calendar_mode_month_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_mode_month_24@2x.png"; sourceTree = "<group>"; };
-		E51A4C342DC31C7A005A0E3F /* calendar_mode_day_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_mode_day_24@2x.png"; sourceTree = "<group>"; };
-		E51A4C352DC31C7A005A0E3F /* calendar_mode_day_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_mode_day_24@3x.png"; sourceTree = "<group>"; };
-		E51A4C362DC31C7A005A0E3F /* calendar_mode_week_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_mode_week_24@3x.png"; sourceTree = "<group>"; };
-		E51A4C372DC31C7A005A0E3F /* calendar_mode_week_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_mode_week_24@2x.png"; sourceTree = "<group>"; };
 		E51A4C422DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayTimelineHoursView.swift; sourceTree = "<group>"; };
 		E51A4C452DC3C3B9005A0E3F /* CalendarDateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateButton.swift; sourceTree = "<group>"; };
 		E51B28EA2FA5BEC3006B3352 /* HabitListPlaceholderProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitListPlaceholderProvider.swift; sourceTree = "<group>"; };
@@ -2468,6 +2468,18 @@
 		E53352852FF775E100546986 /* CalendarYearViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearViewController.swift; sourceTree = "<group>"; };
 		E53352892FF7C36600546986 /* CalendarYearHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearHeaderView.swift; sourceTree = "<group>"; };
 		E533528B2FF7E78500546986 /* CalendarYearCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearCollectionLayout.swift; sourceTree = "<group>"; };
+		E533528D2FF8C9C800546986 /* calendar_day_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_day_24@2x.png"; sourceTree = "<group>"; };
+		E533528E2FF8C9C900546986 /* calendar_month_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_month_24@3x.png"; sourceTree = "<group>"; };
+		E533528F2FF8C9C900546986 /* calendar_week_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_week_24@2x.png"; sourceTree = "<group>"; };
+		E53352902FF8C9C900546986 /* calendar_quarter_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_quarter_24@3x.png"; sourceTree = "<group>"; };
+		E53352912FF8C9C900546986 /* calendar_month_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_month_24@2x.png"; sourceTree = "<group>"; };
+		E53352922FF8C9CA00546986 /* calendar_week_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_week_24@3x.png"; sourceTree = "<group>"; };
+		E53352932FF8C9CB00546986 /* calendar_quarter_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_quarter_24@2x.png"; sourceTree = "<group>"; };
+		E53352942FF8C9CB00546986 /* calendar_year_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_year_24@3x.png"; sourceTree = "<group>"; };
+		E53352952FF8C9CC00546986 /* calendar_day_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_day_24@3x.png"; sourceTree = "<group>"; };
+		E53352962FF8C9CC00546986 /* calendar_year_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_year_24@2x.png"; sourceTree = "<group>"; };
+		E53352A12FF90A0700546986 /* CalendarYearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearView.swift; sourceTree = "<group>"; };
+		E53352A32FF92DC700546986 /* CalendarYearConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearConfig.swift; sourceTree = "<group>"; };
 		E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordLogEditViewController.swift; sourceTree = "<group>"; };
 		E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitReasonTagEditViewController.swift; sourceTree = "<group>"; };
 		E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPEmojiTitleEditAlertController.swift; sourceTree = "<group>"; };
@@ -5054,22 +5066,18 @@
 		E51A4C302DC31C68005A0E3F /* calendar */ = {
 			isa = PBXGroup;
 			children = (
-				E51A4C312DC31C7A005A0E3F /* Mode */,
+				E53352932FF8C9CB00546986 /* calendar_quarter_24@2x.png */,
+				E53352902FF8C9C900546986 /* calendar_quarter_24@3x.png */,
+				E533528D2FF8C9C800546986 /* calendar_day_24@2x.png */,
+				E53352952FF8C9CC00546986 /* calendar_day_24@3x.png */,
+				E53352912FF8C9C900546986 /* calendar_month_24@2x.png */,
+				E533528E2FF8C9C900546986 /* calendar_month_24@3x.png */,
+				E533528F2FF8C9C900546986 /* calendar_week_24@2x.png */,
+				E53352922FF8C9CA00546986 /* calendar_week_24@3x.png */,
+				E53352962FF8C9CC00546986 /* calendar_year_24@2x.png */,
+				E53352942FF8C9CB00546986 /* calendar_year_24@3x.png */,
 			);
 			path = calendar;
-			sourceTree = "<group>";
-		};
-		E51A4C312DC31C7A005A0E3F /* Mode */ = {
-			isa = PBXGroup;
-			children = (
-				E51A4C322DC31C7A005A0E3F /* calendar_mode_month_24@3x.png */,
-				E51A4C332DC31C7A005A0E3F /* calendar_mode_month_24@2x.png */,
-				E51A4C342DC31C7A005A0E3F /* calendar_mode_day_24@2x.png */,
-				E51A4C352DC31C7A005A0E3F /* calendar_mode_day_24@3x.png */,
-				E51A4C362DC31C7A005A0E3F /* calendar_mode_week_24@3x.png */,
-				E51A4C372DC31C7A005A0E3F /* calendar_mode_week_24@2x.png */,
-			);
-			path = Mode;
 			sourceTree = "<group>";
 		};
 		E51A4C442DC3C363005A0E3F /* Components */ = {
@@ -5469,7 +5477,9 @@
 		E53352842FF7759900546986 /* Year */ = {
 			isa = PBXGroup;
 			children = (
+				E53352A32FF92DC700546986 /* CalendarYearConfig.swift */,
 				E53352852FF775E100546986 /* CalendarYearViewController.swift */,
+				E53352A12FF90A0700546986 /* CalendarYearView.swift */,
 				E533528B2FF7E78500546986 /* CalendarYearCollectionLayout.swift */,
 				E53352892FF7C36600546986 /* CalendarYearHeaderView.swift */,
 			);
@@ -10759,6 +10769,7 @@
 				E500DE532DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png in Resources */,
 				E515AD512D3C0EFB00AA9AF2 /* InfoPlist.strings in Resources */,
 				E5D7D9692D43DCCE00EC877A /* triangle_right_32@2x.png in Resources */,
+				E53352982FF8C9CC00546986 /* calendar_month_24@3x.png in Resources */,
 				E56B947B2F8CDB42001E488B /* todo_sort_order_ascending_24@3x.png in Resources */,
 				E5E9F7912FC03FCA00717004 /* todo_step_import_24@3x.png in Resources */,
 				E56B94692F8CD822001E488B /* todo_group_type_list_24@3x.png in Resources */,
@@ -10781,7 +10792,6 @@
 				E56B94882F8CDB42001E488B /* todo_sort_type_modificationDate_24@3x.png in Resources */,
 				E515AD722D3CC5E600AA9AF2 /* ellipsis_24@3x.png in Resources */,
 				E515AD592D3CB2F900AA9AF2 /* LaunchLogo@3x.png in Resources */,
-				E51A4C3C2DC31C7A005A0E3F /* calendar_mode_week_24@3x.png in Resources */,
 				E55E4BD32F9336170068E032 /* calendar_23_24@3x.png in Resources */,
 				E50D02592F55860B00E93977 /* habit_time_afternoon_24@3x.png in Resources */,
 				E555281C2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png in Resources */,
@@ -10866,6 +10876,7 @@
 				E5BBA1242D3BFD610089667A /* Themes in Resources */,
 				E55A7B992D463779000D224C /* bell_badge_fill_80@2x.png in Resources */,
 				E5D833932DAB64D60012ABF3 /* todo_task_progress_currentValue_24@2x.png in Resources */,
+				E533529F2FF8C9CC00546986 /* calendar_day_24@3x.png in Resources */,
 				E5BB9A9F2D3BEF0D0089667A /* todo_task_priority_fill_24@2x.png in Resources */,
 				E5BB9AAD2D3BEF0D0089667A /* todo_task_checkbox_minus_20@3x.png in Resources */,
 				E55E4C002F9336170068E032 /* calendar_7_24@2x.png in Resources */,
@@ -10903,6 +10914,7 @@
 				E524C79B2F9F499F005CCEBD /* todo_home_list_24@2x.png in Resources */,
 				E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */,
 				E55E4BD22F9336170068E032 /* calendar_16_24@3x.png in Resources */,
+				E533529C2FF8C9CC00546986 /* calendar_week_24@3x.png in Resources */,
 				E56B94852F8CDB42001E488B /* todo_sort_type_modificationDate_24@2x.png in Resources */,
 				E50D94EF2D452DD700F57957 /* focus_record_timeline_start_24@3x.png in Resources */,
 				E55A7B7A2D45F873000D224C /* timer_next_24@2x.png in Resources */,
@@ -11017,8 +11029,6 @@
 				E5DA03A52FA0A59800A58ACC /* todo_group_type_completionDate_24@2x.png in Resources */,
 				E5BB9A992D3BEF0D0089667A /* todo_board_24@3x.png in Resources */,
 				E50D94E02D4528E500F57957 /* ellipsis_circle_fill_24@2x.png in Resources */,
-				E51A4C3D2DC31C7A005A0E3F /* calendar_mode_week_24@2x.png in Resources */,
-				E51A4C392DC31C7A005A0E3F /* calendar_mode_month_24@2x.png in Resources */,
 				E5BB9AB12D3BEF0D0089667A /* todo_task_step_addNext_24@2x.png in Resources */,
 				E556BCC32F5D6C7000CA20D9 /* habit_indicator_status_checked_16@3x.png in Resources */,
 				E5BB9ECB2D3BF0C80089667A /* Wheat03@2x.png in Resources */,
@@ -11063,6 +11073,7 @@
 				E5BB9E4A2D3BF0C70089667A /* ChinaHoliday.json in Resources */,
 				E524C7872F9B6855005CCEBD /* todo_smartlist_tomorrow_24@2x.png in Resources */,
 				E5E2771F2D3E099C004EC522 /* todo_list_option_select_24@2x.png in Resources */,
+				E53352972FF8C9CC00546986 /* calendar_day_24@2x.png in Resources */,
 				E5D7D9882D43E35000EC877A /* focus_timer_stepMode_focus_24@3x.png in Resources */,
 				E56B94602F8CD6D0001E488B /* todo_group_type_default_24@3x.png in Resources */,
 				E500DE572DB09D4500EAEAF7 /* todo_filter_indicator_tag_12@2x.png in Resources */,
@@ -11070,6 +11081,7 @@
 				E50D94F32D452DD700F57957 /* focus_record_timeline_paused_24@3x.png in Resources */,
 				E55CE3652D8BC4BB0083316E /* quadrant_circle_IV@3x.png in Resources */,
 				E55E4BFD2F9336170068E032 /* calendar_15_24@2x.png in Resources */,
+				E533529E2FF8C9CC00546986 /* calendar_year_24@3x.png in Resources */,
 				E556BCD32F5D746400CA20D9 /* HabitRecordTypeCompleteAll@2x.png in Resources */,
 				E506B5C72F638B2E008B3321 /* habit_task_filter_all_24@2x.png in Resources */,
 				E524C7882F9B6855005CCEBD /* todo_smartlist_myDay_24@2x.png in Resources */,
@@ -11241,12 +11253,12 @@
 				E59243F52F514AF400CA2393 /* arrow_up_backward_fill_36@3x.png in Resources */,
 				E55E4BF72F9336170068E032 /* calendar_19_24@3x.png in Resources */,
 				E5E4D14B2D92AF2C00813B6C /* todo_filter_tag_36@2x.png in Resources */,
+				E53352992FF8C9CC00546986 /* calendar_week_24@2x.png in Resources */,
 				E55E4BE02F9336170068E032 /* calendar_22_24@2x.png in Resources */,
 				E5BB9A802D3BEF0D0089667A /* schedule_reminder_24@3x.png in Resources */,
 				E5E277032D3DF6EA004EC522 /* shred_24@2x.png in Resources */,
 				E58F46A22F7AA0B50046FA96 /* todo_list_ungroup_24@2x.png in Resources */,
 				E515AD612D3CC04A00AA9AF2 /* chevron_down_24@2x.png in Resources */,
-				E51A4C3B2DC31C7A005A0E3F /* calendar_mode_day_24@3x.png in Resources */,
 				E50D02582F55860B00E93977 /* habit_time_afternoon_24@2x.png in Resources */,
 				E55A7B862D45FAA0000D224C /* bind_24@2x.png in Resources */,
 				E5B926DD2D3FFBA00065FA79 /* clear_24@3x.png in Resources */,
@@ -11268,7 +11280,6 @@
 				E555494B2F7629CA00C9460D /* focus_timer_bind_pomodoro_32@3x.png in Resources */,
 				E5BB9B352D3BEF920089667A /* diamond.png in Resources */,
 				E50D94BD2D451C1800F57957 /* focus_record_24@3x.png in Resources */,
-				E51A4C3A2DC31C7A005A0E3F /* calendar_mode_day_24@2x.png in Resources */,
 				E53F32C82F699AC900B85B65 /* habit_report_skipped_20@2x.png in Resources */,
 				E555494C2F7629CA00C9460D /* focus_timer_bind_countdown_32@2x.png in Resources */,
 				E55E4BE22F9336170068E032 /* calendar_29_24@3x.png in Resources */,
@@ -11322,6 +11333,7 @@
 				E50D94BE2D451C1800F57957 /* placeholder_record_80@2x.png in Resources */,
 				E5C76BA62F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png in Resources */,
 				E5BB9A852D3BEF0D0089667A /* schedule_repeatEnd_24@3x.png in Resources */,
+				E533529D2FF8C9CC00546986 /* calendar_quarter_24@2x.png in Resources */,
 				E56B94622F8CD6D0001E488B /* todo_group_type_startDate_24@3x.png in Resources */,
 				E515AD6E2D3CC49800AA9AF2 /* fullscreen_enter_24@3x.png in Resources */,
 				E50D025C2F55860B00E93977 /* habit_time_anytime_24@2x.png in Resources */,
@@ -11349,6 +11361,7 @@
 				E5BB9B332D3BEF920089667A /* confetti.png in Resources */,
 				E555282C2FB5C81E0093DD7E /* todo_smartlist_myDay_80@2x.png in Resources */,
 				E526D4142F6D7AE0005C1DED /* habit_plceholder_task_80@3x.png in Resources */,
+				E533529A2FF8C9CC00546986 /* calendar_quarter_24@3x.png in Resources */,
 				E556BCD42F5D746400CA20D9 /* HabitRecordTypeCheckin@3x.png in Resources */,
 				E55A7B8C2D45FDC7000D224C /* bind_16@3x.png in Resources */,
 				E5B926D42D3FEF830065FA79 /* chevron_right_24@2x.png in Resources */,
@@ -11356,6 +11369,7 @@
 				E55A7B982D463779000D224C /* bell_badge_fill_80@3x.png in Resources */,
 				E50DD7D92D72FD7600A85E87 /* todo_folder_opened_24@3x.png in Resources */,
 				E5BB9AC22D3BEF0D0089667A /* todo_task_action_trash_24@2x.png in Resources */,
+				E53352A02FF8C9CC00546986 /* calendar_year_24@2x.png in Resources */,
 				E54E63402F5B1BFD00FCBCAE /* habit_menu_completeAll_24@2x.png in Resources */,
 				E55E78032D8ABB09005E3DED /* quadrant_option_layout_24@2x.png in Resources */,
 				E53632D52FAF63480095DFEC /* quadrant_II_60@2x.png in Resources */,
@@ -11394,7 +11408,6 @@
 				E53632D62FAF63480095DFEC /* quadrant_III_60@2x.png in Resources */,
 				E55E4BFC2F9336170068E032 /* calendar_26_24@3x.png in Resources */,
 				E5BB9AEF2D3BEF0D0089667A /* plus_24@3x.png in Resources */,
-				E51A4C382DC31C7A005A0E3F /* calendar_mode_month_24@3x.png in Resources */,
 				E5BB9A832D3BEF0D0089667A /* schedule_duration_24@3x.png in Resources */,
 				E5E4B8CF2DBF875200EED889 /* triangle_down_12@2x.png in Resources */,
 				E5E9F7C02FC50BD800717004 /* todo_search_history_24@3x.png in Resources */,
@@ -11404,6 +11417,7 @@
 				E5BB9AA62D3BEF0D0089667A /* todo_task_tag_24@2x.png in Resources */,
 				E515AD6F2D3CC49800AA9AF2 /* fullscreen_enter_24@2x.png in Resources */,
 				E5B926CD2D3F97F30065FA79 /* plus_32@3x.png in Resources */,
+				E533529B2FF8C9CC00546986 /* calendar_month_24@2x.png in Resources */,
 				E55E4BD52F9336170068E032 /* calendar_4_24@2x.png in Resources */,
 				E5D8339C2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@2x.png in Resources */,
 				E55CE3672D8BC4BB0083316E /* quadrant_circle_III@3x.png in Resources */,
@@ -12244,6 +12258,7 @@
 				E5D7D90A2D43933600EC877A /* ChartAxis+Focus.swift in Sources */,
 				E5D7D8DD2D43933600EC877A /* FocusFloatingTimerView.swift in Sources */,
 				E5C92F5E2FD281650051F355 /* TodoParentListSelectExpansionState.swift in Sources */,
+				E53352A42FF92DC700546986 /* CalendarYearConfig.swift in Sources */,
 				E5BB9B452D3BEF920089667A /* UILabelExtension.swift in Sources */,
 				E5BB9E262D3BF0C70089667A /* TPFullSizeButtonTableCell.swift in Sources */,
 				E5371DF72FF65E4C00BA9DEF /* HabitDayInfoMenuViewController.swift in Sources */,
@@ -12427,6 +12442,7 @@
 				E500E3AA2FC7E66D00252011 /* BarRankListChartCell.swift in Sources */,
 				E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */,
 				E5BB9EC72D3BF0C80089667A /* TPButtonActionsBar.swift in Sources */,
+				E53352A22FF90A0700546986 /* CalendarYearView.swift in Sources */,
 				E5D7D8B92D43933600EC877A /* FocusRunningViewController.swift in Sources */,
 				E5BB9E9B2D3BF0C80089667A /* ChartAxisLabelMark+Extensions.swift in Sources */,
 				E5C92F582FD26F4F0051F355 /* TodoTaskMoveViewController.swift in Sources */,

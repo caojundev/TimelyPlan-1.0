@@ -155,14 +155,38 @@ class MonthCell: UICollectionViewCell {
     private var monthInfo: MonthInfo?
     private var todayDay: Int = 0
     
-    private static let monthTitleHeight: CGFloat = 20
-    private static let weekdayHeaderHeight: CGFloat = 16
-    private static let monthTitleFont = UIFont.systemFont(ofSize: 14, weight: .medium)
-    private static let weekdayFont = UIFont.systemFont(ofSize: 9)
-    private static let dayFont = UIFont.systemFont(ofSize: 10)
+    // 上次绘制的宽度，用于检测是否需要重绘
+    private var lastDrawnWidth: CGFloat = 0
     
-    static let lunarNewYearLineHeight = 1.8
-    static let lunarFirstDayLineHeight = 1.0
+    // 字体基础比例（以最小宽度120pt为基准）
+    private static let baseWidth: CGFloat = 120.0
+    private static let baseMonthTitleSize: CGFloat = 14.0
+    private static let baseWeekdaySize: CGFloat = 9.0
+    private static let baseDaySize: CGFloat = 10.0
+    
+    // 字体缩放比例
+    private static var monthTitleScale: CGFloat = 1.0
+    private static var weekdayScale: CGFloat = 1.0
+    private static var dayScale: CGFloat = 1.0
+    
+    // 当前使用的字体
+    private static var monthTitleFont = UIFont.systemFont(ofSize: 14, weight: .medium)
+    private static var weekdayFont = UIFont.systemFont(ofSize: 9)
+    private static var dayFont = UIFont.systemFont(ofSize: 10)
+    
+    // 上次更新字体时的宽度
+    private static var lastFontUpdateWidth: CGFloat = 0
+    
+    // 标题和星期头高度（会根据字体动态调整）
+    private static var monthTitleHeight: CGFloat = 20
+    private static var weekdayHeaderHeight: CGFloat = 16
+    
+    // 布局常量
+    private static let monthTitleToWeekdaySpacing: CGFloat = 2.0
+    
+    // 农历横线属性
+    static let lunarNewYearLineHeight: CGFloat = 1.8
+    static let lunarFirstDayLineHeight: CGFloat = 1.0
     static let lunarFirstLineColor = UIColor.systemOrange
     
     override init(frame: CGRect) {
@@ -175,10 +199,78 @@ class MonthCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let currentWidth = bounds.width
+        
+        // 检查宽度是否发生变化
+        if abs(currentWidth - lastDrawnWidth) > 0.5 {
+            lastDrawnWidth = currentWidth
+            updateFontsIfNeeded()
+            setNeedsDisplay()
+        }
+    }
+    
     func configure(monthInfo: MonthInfo, todayDay: Int) {
         self.monthInfo = monthInfo
         self.todayDay = todayDay
+        
+        // 检查是否需要更新
+        let currentWidth = bounds.width
+        if currentWidth > 0 && abs(currentWidth - lastDrawnWidth) > 0.5 {
+            lastDrawnWidth = currentWidth
+            updateFontsIfNeeded()
+        }
+        
         setNeedsDisplay()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        monthInfo = nil
+        todayDay = 0
+        lastDrawnWidth = 0
+    }
+    
+    private func updateFontsIfNeeded() {
+        let width = bounds.width
+        guard width > 0 else { return }
+        
+        // 计算缩放比例（限制在0.8到1.5之间）
+        let scale = min(1.5, max(0.8, width / Self.baseWidth))
+        
+        // 检查是否需要更新字体（宽度变化超过1pt才更新）
+        if abs(width - Self.lastFontUpdateWidth) > 1.0 {
+            Self.lastFontUpdateWidth = width
+            
+            Self.monthTitleScale = scale
+            Self.weekdayScale = scale
+            Self.dayScale = scale
+            
+            // 更新字体
+            let monthFontSize = Self.baseMonthTitleSize * scale
+            let weekdayFontSize = Self.baseWeekdaySize * scale
+            let dayFontSize = Self.baseDaySize * scale
+            
+            Self.monthTitleFont = UIFont.systemFont(ofSize: monthFontSize, weight: .medium)
+            Self.weekdayFont = UIFont.systemFont(ofSize: weekdayFontSize)
+            Self.dayFont = UIFont.systemFont(ofSize: dayFontSize)
+            
+            // 更新标题和星期头高度
+            let monthTitleAttributes: [NSAttributedString.Key: Any] = [
+                .font: Self.monthTitleFont
+            ]
+            let sampleText = "12月"
+            let titleSize = sampleText.size(withAttributes: monthTitleAttributes)
+            Self.monthTitleHeight = ceil(titleSize.height)
+            
+            let weekdayAttributes: [NSAttributedString.Key: Any] = [
+                .font: Self.weekdayFont
+            ]
+            let weekdaySize = "日".size(withAttributes: weekdayAttributes)
+            Self.weekdayHeaderHeight = ceil(weekdaySize.height)
+        }
     }
     
     override func draw(_ rect: CGRect) {
@@ -189,7 +281,7 @@ class MonthCell: UICollectionViewCell {
         let dayWidth = width / 7.0
         
         // 计算日期区域高度
-        let dateAreaTop = Self.monthTitleHeight + Self.weekdayHeaderHeight
+        let dateAreaTop = Self.monthTitleHeight + Self.monthTitleToWeekdaySpacing + Self.weekdayHeaderHeight
         let dateAreaHeight = bounds.height - dateAreaTop
         let dayHeight = dateAreaHeight / 6.0 // 固定按6行计算
         
@@ -202,7 +294,8 @@ class MonthCell: UICollectionViewCell {
         
         let titleSize = monthTitle.size(withAttributes: titleAttributes)
         let titleX = (width - titleSize.width) / 2
-        monthTitle.draw(at: CGPoint(x: titleX, y: 0), withAttributes: titleAttributes)
+        let titleY = (Self.monthTitleHeight - titleSize.height) / 2
+        monthTitle.draw(at: CGPoint(x: titleX, y: titleY), withAttributes: titleAttributes)
         
         // 2. 绘制星期头
         let weekdays = ["日", "一", "二", "三", "四", "五", "六"]
@@ -214,7 +307,8 @@ class MonthCell: UICollectionViewCell {
         for (index, weekday) in weekdays.enumerated() {
             let weekdaySize = weekday.size(withAttributes: weekdayAttributes)
             let x = CGFloat(index) * dayWidth + (dayWidth - weekdaySize.width) / 2
-            weekday.draw(at: CGPoint(x: x, y: Self.monthTitleHeight + 2), withAttributes: weekdayAttributes)
+            let y = Self.monthTitleHeight + Self.monthTitleToWeekdaySpacing
+            weekday.draw(at: CGPoint(x: x, y: y), withAttributes: weekdayAttributes)
         }
         
         // 3. 绘制日期
@@ -288,160 +382,46 @@ class MonthCell: UICollectionViewCell {
             }
         }
     }
-}
-
-// MARK: - 年日历View
-class CalendarYearView: UIView {
-    private var collectionView: UICollectionView!
-    private let baseYear = 1970
-    private let totalSections = 200 // 覆盖1900-2099年
-
-    private var currentYear: Int {
-        let calendar = Calendar.current
-        return calendar.component(.year, from: Date())
-    }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: - 公开方法：获取当前cell高度
+    static func estimatedHeight(for width: CGFloat) -> CGFloat {
+        let scale = min(1.5, max(0.8, width / baseWidth))
+        let titleHeight = baseMonthTitleSize * scale * 1.2
+        let weekdayHeight = baseWeekdaySize * scale * 1.2
+        let dateAreaHeight = width / 7.0 * 6.0
         
-        setupCollectionView()
-        scrollToCurrentYear(animated: false)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupCollectionView() {
-        // 使用自定义布局，所有布局参数都在布局内部
-        let collectionLayout = CalendarYearCollectionLayout()
-        collectionLayout.minimumItemsPerRow = 3
-        collectionLayout.maximumItemsPerRow = 4
-        collectionLayout.preferredMinimumSpacing = 4.0
-        collectionLayout.preferredSectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
-        collectionLayout.yearHeaderHeight = 80
-        collectionLayout.monthAspectRatio = 1.4
-        
-        collectionView = UICollectionView(frame: bounds, collectionViewLayout: collectionLayout)
-        collectionView.backgroundColor = .systemBackground
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(MonthCell.self, forCellWithReuseIdentifier: "MonthCell")
-        collectionView.register(CalendarYearHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "YearHeader")
-        collectionView.showsVerticalScrollIndicator = true
-        
-        addSubview(collectionView)
-        
-        /// 跳转到今年
-        DispatchQueue.main.async { [weak self] in
-            self?.scrollToCurrentYear(animated: false)
-        }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        collectionView.frame = bounds
-    }
-    
-    
-    func scrollToCurrentYear(animated: Bool) {
-        let section = currentYear - baseYear
-        guard section >= 0 && section < totalSections else { return }
-        
-        if animated {
-            let indexPath = IndexPath(item: 0, section: section)
-            if let attributes = collectionView.collectionViewLayout.layoutAttributesForSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                at: indexPath
-            ) {
-                let offsetY = attributes.frame.origin.y - collectionView.contentInset.top
-                collectionView.setContentOffset(CGPoint(x: 0, y: max(0, offsetY)), animated: true)
-            }
-        } else {
-            // 无动画方式：直接设置 contentOffset
-            let indexPath = IndexPath(item: 0, section: section)
-            if let attributes = collectionView.collectionViewLayout.layoutAttributesForSupplementaryView(
-                ofKind: UICollectionView.elementKindSectionHeader,
-                at: indexPath
-            ) {
-                let offsetY = attributes.frame.origin.y - collectionView.contentInset.top
-                collectionView.contentOffset = CGPoint(x: 0, y: max(0, offsetY))
-            }
-        }
-    }
-    
-    // MARK: - 公开方法
-    func goToToday() {
-        scrollToCurrentYear(animated: true)
+        return titleHeight + monthTitleToWeekdaySpacing + weekdayHeight + dateAreaHeight
     }
 }
 
-// MARK: - UICollectionView DataSource & Delegate
-extension CalendarYearView: UICollectionViewDataSource, UICollectionViewDelegate {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return totalSections
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MonthCell", for: indexPath) as! MonthCell
-        
-        let year = baseYear + indexPath.section
-        let month = indexPath.item + 1
-        let monthInfo = CalendarCache.shared.getMonthInfo(year: year, month: month)
-        
-        let calendar = Calendar.current
-        let todayDay = calendar.component(.day, from: Date())
-        
-        cell.configure(monthInfo: monthInfo, todayDay: todayDay)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: "YearHeader",
-            for: indexPath
-        ) as! CalendarYearHeaderView
-        
-        let year = baseYear + indexPath.section
-        header.configure(year: year)
-        
-        return header
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let year = baseYear + indexPath.section
-        let month = indexPath.item + 1
-        print("选中: \(year)年\(month)月")
-        // 这里可以跳转到月视图
-    }
-}
 
-// MARK: - UIScrollViewDelegate 预加载
-extension CalendarYearView: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let visibleCenter = CGPoint(x: collectionView.bounds.midX, y: collectionView.bounds.midY)
-        if let indexPath = collectionView.indexPathForItem(at: visibleCenter) {
-            let year = baseYear + indexPath.section
-            CalendarCache.shared.preloadNearbyYears(currentYear: year)
-        }
+class CalendarYearViewController: TPViewController,
+                                  CalendarTitleViewProvider {
+    
+    /// 标题视图
+    var titleView: UIView? {
+        return dateButton
     }
-}
 
-class CalendarYearViewController: UIViewController {
+    /// 日期按钮
+    lazy var dateButton: CalendarDateButton = {
+        let button = CalendarDateButton()
+        button.addTarget(self, action: #selector(clickDate(_:)), for: .touchUpInside)
+        return button
+    }()
+
     private var calendarYearView: CalendarYearView!
+    
+    private var currentYearDate: Date {
+        let year = calendarYearView.currentDisplayYear
+        let date = Date()
+        return date.dateByReplacingYear(year)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "年日历"
-        
         calendarYearView = CalendarYearView(frame: view.bounds)
+        calendarYearView.delegate = self
         calendarYearView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(calendarYearView)
         
@@ -451,13 +431,9 @@ class CalendarYearViewController: UIViewController {
         // 无动画滚动到今年
         calendarYearView.scrollToCurrentYear(animated: false)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "今天",
-            style: .plain,
-            target: self,
-            action: #selector(goToToday)
-        )
+        updateTitle()
     }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -467,7 +443,38 @@ class CalendarYearViewController: UIViewController {
         }
     }
     
-    @objc private func goToToday() {
-        calendarYearView.scrollToCurrentYear(animated: true)
+    private func updateTitle() {
+        dateButton.title = "\(calendarYearView.currentDisplayYear)"
+    }
+
+    @objc private func clickDate(_ button: UIButton) {
+        let datePickerVC = TPYearMonthDatePickerViewController(mode: .yearOnly)
+        datePickerVC.date = currentYearDate
+        datePickerVC.yearRange = CalendarYearConfig.yearRange
+        datePickerVC.didPickDate = { date in
+            self.pickDate(date)
+        }
+        
+        datePickerVC.popoverShow(from: button, preferredPosition: .bottomCenter)
+    }
+    
+    private func pickDate(_ date: Date) {
+        let year = date.year
+        guard calendarYearView.currentDisplayYear != year else {
+            return
+        }
+        
+        calendarYearView.scrollToYear(year: year, animated: true)
+        updateTitle()
+    }
+}
+
+// MARK: - CalendarYearViewDelegate
+extension CalendarYearViewController: CalendarYearViewDelegate {
+    
+    func calendarYearView(_ view: CalendarYearView, didChangeYearTo year: Int) {
+        print(year)
+        // 更新标题
+        updateTitle()
     }
 }

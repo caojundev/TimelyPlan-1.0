@@ -45,8 +45,8 @@ class CalendarMainViewController: TPContainerViewController,
         return item
     }()
     
-    private lazy var dayViewController: CalendarYearViewController = {
-        let vc = CalendarYearViewController()
+    private lazy var dayViewController: CalendarDayViewController = {
+        let vc = CalendarDayViewController()
         return vc
     }()
     
@@ -57,6 +57,16 @@ class CalendarMainViewController: TPContainerViewController,
     
     private lazy var monthViewController: CalendarMonthViewController = {
         let vc = CalendarMonthViewController()
+        return vc
+    }()
+    
+    private lazy var quarterViewController: CalendarMonthViewController = {
+        let vc = CalendarMonthViewController()
+        return vc
+    }()
+    
+    private lazy var yearViewController: CalendarYearViewController = {
+        let vc = CalendarYearViewController()
         return vc
     }()
     
@@ -88,6 +98,10 @@ class CalendarMainViewController: TPContainerViewController,
             contentViewController = weekViewController
         case .month:
             contentViewController = monthViewController
+        case .quarter:
+            contentViewController = quarterViewController
+        case .year:
+            contentViewController = yearViewController
         }
 
         setContentViewController(contentViewController)

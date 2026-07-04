@@ -17,7 +17,7 @@ class TPYearMonthDatePickerView: UIView,
                                  TPLoopingPickerViewDataSource,
                                  TPLoopingPickerViewDelegate {
     
-    var mode: TPYearMonthDatePickerMode = .yearAndMonth
+    let mode: TPYearMonthDatePickerMode
     
     private var yearComponent: Int = 0
     private var monthComponent: Int = 1
@@ -37,9 +37,21 @@ class TPYearMonthDatePickerView: UIView,
     private var fromYear: Int = 1
     private var toYear: Int = 10000
 
+    var yearRange: (from: Int, to: Int) {
+        get {
+            return (fromYear, toYear)
+        }
+        
+        set {
+            fromYear = newValue.from
+            toYear = newValue.to
+            pickerView.reloadAllComponents()
+            updateSelectedRow()
+        }
+    }
+    
     private var _date: Date = Date()
     var date: Date {
-        
         get {
             return _date
         }

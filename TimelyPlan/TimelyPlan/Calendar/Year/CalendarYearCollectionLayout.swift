@@ -11,7 +11,7 @@ import Foundation
 class CalendarYearCollectionLayout: UICollectionViewFlowLayout {
     
     // MARK: - 公开属性
-    var minimumItemsPerRow: Int = 3 {
+    var minimumItemsPerRow: Int = 2 {
         didSet { if oldValue != minimumItemsPerRow { needsLayout = true } }
     }
     var maximumItemsPerRow: Int = 4 {
@@ -29,7 +29,7 @@ class CalendarYearCollectionLayout: UICollectionViewFlowLayout {
         didSet { if oldValue != minimumItemWidth { needsLayout = true } }
     }
     
-    var maximumItemWidth: CGFloat = 180 {
+    var maximumItemWidth: CGFloat = 200 {
         didSet { if oldValue != maximumItemWidth { needsLayout = true } }
     }
     
