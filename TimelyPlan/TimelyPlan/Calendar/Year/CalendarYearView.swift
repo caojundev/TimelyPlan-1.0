@@ -18,12 +18,7 @@ class CalendarYearView: UIView {
     weak var delegate: CalendarYearViewDelegate?
     
     // 事项数据提供者
-    weak var eventsProvider: CalendarYearEventsProvider? {
-        didSet {
-            // 刷新可见的 cells
-            collectionView.reloadData()
-        }
-    }
+    weak var eventsProvider: CalendarYearEventsProvider?
     
     private var collectionView: UICollectionView!
     private let baseYear = CalendarYearConfig.baseYear
@@ -66,6 +61,7 @@ class CalendarYearView: UIView {
         collectionLayout.monthAspectRatio = 1.4
         
         collectionView = UICollectionView(frame: bounds, collectionViewLayout: collectionLayout)
+        collectionView.decelerationRate = .fast
         collectionView.backgroundColor = .systemBackground
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self
