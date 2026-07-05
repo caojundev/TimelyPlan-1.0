@@ -17,6 +17,14 @@ class CalendarYearView: UIView {
     
     weak var delegate: CalendarYearViewDelegate?
     
+    // 事项数据提供者
+    weak var eventsProvider: CalendarYearEventsProvider? {
+        didSet {
+            // 刷新可见的 cells
+            collectionView.reloadData()
+        }
+    }
+    
     private var collectionView: UICollectionView!
     private let baseYear = CalendarYearConfig.baseYear
     private let totalSections = CalendarYearConfig.displayYears
@@ -59,9 +67,10 @@ class CalendarYearView: UIView {
         
         collectionView = UICollectionView(frame: bounds, collectionViewLayout: collectionLayout)
         collectionView.backgroundColor = .systemBackground
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(MonthCell.self, forCellWithReuseIdentifier: "MonthCell")
+        collectionView.register(CalendarYearMonthCell.self, forCellWithReuseIdentifier: "CalendarYearMonthCell")
         collectionView.register(CalendarYearHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "YearHeader")
         collectionView.showsVerticalScrollIndicator = true
         
@@ -80,7 +89,6 @@ class CalendarYearView: UIView {
         // 布局变化后更新当前年份
         updateCurrentDisplayYear()
     }
-    
     
     // MARK: - 获取和更新当前显示年份
     
@@ -179,6 +187,19 @@ class CalendarYearView: UIView {
     func goToToday() {
         scrollToCurrentYear(animated: true)
     }
+    
+    // 刷新当前可见月份的事项
+    func refreshVisibleEvents() {
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            if let cell = collectionView.cellForItem(at: indexPath) as? CalendarYearMonthCell {
+                let year = baseYear + indexPath.section
+                let month = indexPath.item + 1
+                let monthInfo = CalendarYearCache.shared.getMonthInfo(year: year, month: month)
+                let todayDay = Calendar.current.component(.day, from: Date())
+                cell.configure(monthInfo: monthInfo, todayDay: todayDay, eventsProvider: eventsProvider)
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionView DataSource & Delegate
@@ -188,20 +209,20 @@ extension CalendarYearView: UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return MONTHS_PER_YEAR
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MonthCell", for: indexPath) as! MonthCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalendarYearMonthCell", for: indexPath) as! CalendarYearMonthCell
         
         let year = baseYear + indexPath.section
         let month = indexPath.item + 1
-        let monthInfo = CalendarCache.shared.getMonthInfo(year: year, month: month)
+        let monthInfo = CalendarYearCache.shared.getMonthInfo(year: year, month: month)
         
         let calendar = Calendar.current
         let todayDay = calendar.component(.day, from: Date())
         
-        cell.configure(monthInfo: monthInfo, todayDay: todayDay)
+        cell.configure(monthInfo: monthInfo, todayDay: todayDay, eventsProvider: eventsProvider)
         
         return cell
     }
@@ -240,7 +261,7 @@ extension CalendarYearView: UIScrollViewDelegate {
         if let indexPath = collectionView.indexPathForItem(at: visibleCenter) {
             let year = baseYear + indexPath.section
             if year >= baseYear && year < baseYear + totalSections {
-                CalendarCache.shared.preloadNearbyYears(currentYear: year)
+                CalendarYearCache.shared.preloadNearbyYears(currentYear: year)
             }
         }
         

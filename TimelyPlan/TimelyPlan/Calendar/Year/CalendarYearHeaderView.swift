@@ -34,15 +34,15 @@ class CalendarYearHeaderView: UICollectionReusableView {
         addSubview(yearLabel)
         
         // 农历年份标签
-        chineseYearIndicator.lineHeight = MonthCell.lunarNewYearLineHeight
-        chineseYearIndicator.lineColor = MonthCell.lunarFirstLineColor
+        chineseYearIndicator.lineHeight = CalendarYearConfig.lunarNewYearLineHeight
+        chineseYearIndicator.lineColor = CalendarYearConfig.lunarFirstLineColor
         chineseYearIndicator.font = .systemFont(ofSize: 10)
         chineseYearIndicator.textColor = .secondaryLabel
         addSubview(chineseYearIndicator)
         
         // 农历初一标签
-        firstDayIndicator.lineHeight = MonthCell.lunarFirstDayLineHeight
-        firstDayIndicator.lineColor = MonthCell.lunarFirstLineColor
+        firstDayIndicator.lineHeight = CalendarYearConfig.lunarFirstDayLineHeight
+        firstDayIndicator.lineColor = CalendarYearConfig.lunarFirstLineColor
         firstDayIndicator.font = .systemFont(ofSize: 10)
         firstDayIndicator.textColor = .secondaryLabel
         firstDayIndicator.title = "农历初一"
