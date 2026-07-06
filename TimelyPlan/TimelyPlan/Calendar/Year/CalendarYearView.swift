@@ -61,15 +61,14 @@ class CalendarYearView: UIView {
         collectionLayout.monthAspectRatio = 1.4
         
         collectionView = UICollectionView(frame: bounds, collectionViewLayout: collectionLayout)
-        collectionView.decelerationRate = .fast
         collectionView.backgroundColor = .systemBackground
+        collectionView.decelerationRate = .fast
+        collectionView.scrollsToTop = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(CalendarYearMonthCell.self, forCellWithReuseIdentifier: "CalendarYearMonthCell")
         collectionView.register(CalendarYearHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "YearHeader")
-        collectionView.showsVerticalScrollIndicator = true
-        
         addSubview(collectionView)
         
         /// 跳转到今年
@@ -239,11 +238,9 @@ extension CalendarYearView: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let year = baseYear + indexPath.section
         let month = indexPath.item + 1
-        print("选中: \(year)年\(month)月")
         // 这里可以跳转到月视图
     }
 }
-
 
 // MARK: - UIScrollViewDelegate 预加载和年份检测
 extension CalendarYearView: UIScrollViewDelegate {

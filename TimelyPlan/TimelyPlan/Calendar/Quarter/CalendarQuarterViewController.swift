@@ -1,20 +1,23 @@
 //
-//  CalendarMonthViewController.swift
+//  CalendarQuarterViewController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2025/4/27.
+//  Created by caojun on 2026/7/5.
 //
 
 import Foundation
+import UIKit
 
-class CalendarMonthViewController: CalendarBaseViewController,
-                                   CalendarMonthViewDelegate,
-                                    SettingAgentObserver {
+class CalendarQuarterViewController: CalendarBaseViewController,
+                                     CalendarMonthViewDelegate,
+                                     SettingAgentObserver {
 
-    private lazy var monthView: CalendarMonthView = {
+    private lazy var quarterView: CalendarQuarterView = {
         let firstWeekday = CalendarSetting.shared.firstWeekday
-        let view = CalendarMonthView(frame: view.bounds, monthDate: .now, firstWeekday: firstWeekday)
-        view.preferredWeeksCount = CalendarSetting.shared.getWeeksInMonth()
+        let view = CalendarQuarterView(frame: view.bounds,
+                                       monthDate: .now,
+                                       firstWeekday: firstWeekday)
+        view.preferredWeeksCount = CalendarSetting.shared.getWeeksInQuarter()
         view.showLunar = CalendarSetting.shared.showLunar
         view.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
         view.showWeekNumber = CalendarSetting.shared.showWeekNumber
@@ -24,15 +27,15 @@ class CalendarMonthViewController: CalendarBaseViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.insertSubview(monthView, at: 0)
-        monthView.reloadData()
-        updateTitle(with: monthView.visibleMonthDate)
+        view.insertSubview(quarterView, at: 0)
+        quarterView.reloadData()
+        updateTitle(with: quarterView.visibleMonthDate)
         CalendarSetting.shared.addObserver(self)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        monthView.frame = view.safeLayoutFrame()
+        quarterView.frame = view.safeLayoutFrame()
     }
     
     func settingAgentDidChangeValue(for keyName: String) {
@@ -42,19 +45,19 @@ class CalendarMonthViewController: CalendarBaseViewController,
         
         switch key {
         case .firstWeekday:
-            monthView.firstWeekday = CalendarSetting.shared.firstWeekday
-            monthView.reloadData()
+            quarterView.firstWeekday = CalendarSetting.shared.firstWeekday
+            quarterView.reloadData()
         case .showWeekNumber:
-            monthView.showWeekNumber = CalendarSetting.shared.showWeekNumber
-            monthView.reloadWeekNumber()
+            quarterView.showWeekNumber = CalendarSetting.shared.showWeekNumber
+            quarterView.reloadWeekNumber()
         case .showLunar:
-            monthView.showLunar = CalendarSetting.shared.showLunar
-            monthView.reloadWeekDays()
+            quarterView.showLunar = CalendarSetting.shared.showLunar
+            quarterView.reloadWeekDays()
         case .showChineseHolidays:
-            monthView.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
-            monthView.reloadWeekDays()
-        case .weeksInMonth:
-            monthView.preferredWeeksCount = CalendarSetting.shared.getWeeksInMonth()
+            quarterView.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
+            quarterView.reloadWeekDays()
+        case .weeksInQuarter:
+            quarterView.preferredWeeksCount = CalendarSetting.shared.getWeeksInQuarter()
         default:
             break
         }
@@ -66,7 +69,7 @@ class CalendarMonthViewController: CalendarBaseViewController,
     
     override func quickAddTaskDate() -> Date {
         let now = Date()
-        var date = monthView.topWeekStartDate ?? now
+        var date = quarterView.topWeekStartDate ?? now
         if date.isPreviousDay(of: now) {
             date = now
         }
@@ -76,7 +79,7 @@ class CalendarMonthViewController: CalendarBaseViewController,
     
     override func clickDate(_ button: UIButton) {
         let datePickerVC = TPYearMonthDatePickerViewController()
-        datePickerVC.date = monthView.visibleMonthDate
+        datePickerVC.date = quarterView.visibleMonthDate
         datePickerVC.didPickDate = { date in
             self.pickDate(date)
         }
@@ -86,11 +89,11 @@ class CalendarMonthViewController: CalendarBaseViewController,
     
     private func pickDate(_ date: Date) {
         let date = date.startOfMonth()
-        if date.isInSameMonthAs(monthView.visibleMonthDate) {
+        if date.isInSameMonthAs(quarterView.visibleMonthDate) {
             return
         }
         
-        monthView.setVisibleDate(date)
+        quarterView.setVisibleDate(date)
         updateTitle(with: date)
     }
     
@@ -103,16 +106,6 @@ class CalendarMonthViewController: CalendarBaseViewController,
     func calendarMonthView(_ monthView: CalendarMonthView, didLongPressDate date: Date) {
         TPImpactFeedback.impactWithLightStyle()
         showQuickAddTask(on: date)
-    }
-    
-    func calendarMonthView(_ monthView: CalendarMonthView, didTapEvent event: CalendarEvent) {
-        TPImpactFeedback.impactWithLightStyle()
-        eventProcessor.clickEvent(event)
-    }
-    
-    func calendarMonthView(_ monthView: CalendarMonthView, didTapMoreOnDate date: Date) {
-        TPImpactFeedback.impactWithLightStyle()
-        showEventList(on: date)
     }
     
     func calendarMonthView(_ monthView: CalendarMonthView, didTapDate date: Date) {

@@ -65,7 +65,7 @@ class CalendarEventIndicatorView: UIView {
     private var monthInfo: MonthInfo?
     
     // 布局常量
-    private static let indicatorHeight: CGFloat = 3.2 // 圆点直径
+    private static let indicatorHeight: CGFloat = 2.8 // 圆点直径
     private static let maxDotsCount = 3 // 最多显示圆点数
     private static let dotSpacing: CGFloat = 2.0 // 圆点之间的间距
     

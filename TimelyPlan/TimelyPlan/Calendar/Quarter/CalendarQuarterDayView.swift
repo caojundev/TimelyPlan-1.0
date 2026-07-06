@@ -1,16 +1,18 @@
 //
-//  CalendarMonthDayView.swift
+//  CalendarQuarterDayView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2025/4/22.
+//  Created by caojun on 2026/7/5.
 //
 
 import Foundation
 import UIKit
 
-class CalendarMonthDayView: UIView {
-
-    var headerHeight: CGFloat = 36.0 {
+class CalendarQuarterDayView: UIView {
+    
+    static let headerHeight = 20.0
+    
+    var headerHeight: CGFloat = 20.0 {
         didSet {
             if headerHeight != oldValue {
                 setNeedsLayout()
@@ -21,6 +23,7 @@ class CalendarMonthDayView: UIView {
     // 阳历日期标签
     let dayLabel: UILabel = {
         let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 13.0)
         label.textAlignment = .center
         label.textColor = .label
         label.adjustsFontSizeToFitWidth = true
@@ -30,20 +33,16 @@ class CalendarMonthDayView: UIView {
     // 阴历/节假日标签
     let lunarLabel: UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 8.0)
         label.textAlignment = .center
-        label.textColor = .gray
+        label.textColor = .secondaryLabel
         label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
     /// 调休状态
-    let workStatusLabel: UILabel = {
-        let label = UILabel()
-        label.adjustsFontSizeToFitWidth = true
-        label.textAlignment = .center
-        label.textColor = .gray
-        return label
-    }()
+    let workStatusIndicator = UIView()
+    let workStatusIndicatorSize = CGSize(width: 4.0, height: 4.0)
     
     let headerView = UIView()
     
@@ -58,48 +57,38 @@ class CalendarMonthDayView: UIView {
     }
 
     func setupViews() {
-        headerView.padding = UIEdgeInsets(top: 4.0)
+        headerView.padding = UIEdgeInsets(left:4.0, right: 4.0)
         headerView.clipsToBounds = true
         addSubview(headerView)
         headerView.addSubview(dayLabel)
         headerView.addSubview(lunarLabel)
-        headerView.addSubview(workStatusLabel)
-        configLabels()
+        headerView.addSubview(workStatusIndicator)
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         headerView.frame = CGRect(x: 0.0, y: 0.0, width: width, height: headerHeight)
-        layoutLabels()
-    }
-    
-    func configLabels() {
-        dayLabel.font = .boldSystemFont(ofSize: 16.0)
-        lunarLabel.font = .systemFont(ofSize: 8.0)
-        workStatusLabel.font = .boldSystemFont(ofSize: 8.0)
-    }
-    
-    func layoutLabels() {
+        
         let layoutFrame = headerView.layoutFrame()
-        dayLabel.width = layoutFrame.width
-        dayLabel.height = 20.0
+        dayLabel.width = layoutFrame.width / 2.0
+        dayLabel.height = layoutFrame.height
         dayLabel.origin = layoutFrame.origin
         
-        lunarLabel.width = layoutFrame.width
-        lunarLabel.height = 12.0
-        lunarLabel.left = layoutFrame.minX
-        lunarLabel.top = dayLabel.bottom
+        lunarLabel.width = layoutFrame.width / 2.0
+        lunarLabel.height = layoutFrame.height
+        lunarLabel.left = dayLabel.right
+        lunarLabel.top = layoutFrame.minY
         
-        workStatusLabel.size = .size(4)
-        workStatusLabel.right = layoutFrame.maxX
-        workStatusLabel.top = layoutFrame.minY
+        workStatusIndicator.size = workStatusIndicatorSize
+        workStatusIndicator.centerX = layoutFrame.midX
+        workStatusIndicator.top = workStatusIndicatorSize.height
+        workStatusIndicator.layer.cornerRadius = workStatusIndicatorSize.halfHeight
     }
-    
+
     /// 重置标签数据
     func reset() {
         dayLabel.text = nil
         lunarLabel.text = nil
-        workStatusLabel.text = nil
     }
     
     /// 更新数据
@@ -114,16 +103,16 @@ class CalendarMonthDayView: UIView {
             dayLabel.textColor = .label
             lunarLabel.textColor = .gray
         }
-        
+     
         if config.workStatus == .inWorking {
-            workStatusLabel.textColor = Color(0xFF3B30)
+            workStatusIndicator.backgroundColor = Color(0xFF3B30)
         } else if config.workStatus == .onHoliday {
-            workStatusLabel.textColor = Color(0x34C759)
+            workStatusIndicator.backgroundColor = Color(0x34C759)
         } else {
-            workStatusLabel.textColor = .gray
+            workStatusIndicator.isHidden = true
         }
         
-        workStatusLabel.text = config.workStatusLabelText
+        workStatusIndicator.isHidden = config.workStatus == .inNormal
         setNeedsLayout()
     }
 }

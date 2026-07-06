@@ -451,6 +451,13 @@
 		E53352A82FF9364100546986 /* CalendarYearMonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352A72FF9364100546986 /* CalendarYearMonthCell.swift */; };
 		E53352AA2FF9371800546986 /* CalendarYearCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352A92FF9371800546986 /* CalendarYearCache.swift */; };
 		E53352AD2FF9FF3200546986 /* CalendarYearEventsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352AC2FF9FF3200546986 /* CalendarYearEventsFetcher.swift */; };
+		E53352B12FFA528A00546986 /* CalendarQuarterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352B02FFA528A00546986 /* CalendarQuarterViewController.swift */; };
+		E53352B32FFA5A1300546986 /* CalendarQuarterWeekCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352B22FFA5A1300546986 /* CalendarQuarterWeekCell.swift */; };
+		E53352B52FFA5E2200546986 /* CalendarQuarterWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352B42FFA5E2200546986 /* CalendarQuarterWeekView.swift */; };
+		E53352B72FFA640300546986 /* CalendarMonthViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352B62FFA640300546986 /* CalendarMonthViewFlowLayout.swift */; };
+		E53352B92FFA65A400546986 /* CalendarQuarterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352B82FFA65A400546986 /* CalendarQuarterView.swift */; };
+		E53352BB2FFA94C300546986 /* CalendarQuarterDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352BA2FFA94C300546986 /* CalendarQuarterDayView.swift */; };
+		E53352BE2FFB5AFF00546986 /* CalendarQuarterStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53352BD2FFB5AFF00546986 /* CalendarQuarterStripView.swift */; };
 		E5347FF52F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */; };
 		E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */; };
 		E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */; };
@@ -2488,6 +2495,13 @@
 		E53352A72FF9364100546986 /* CalendarYearMonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearMonthCell.swift; sourceTree = "<group>"; };
 		E53352A92FF9371800546986 /* CalendarYearCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearCache.swift; sourceTree = "<group>"; };
 		E53352AC2FF9FF3200546986 /* CalendarYearEventsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearEventsFetcher.swift; sourceTree = "<group>"; };
+		E53352B02FFA528A00546986 /* CalendarQuarterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarQuarterViewController.swift; sourceTree = "<group>"; };
+		E53352B22FFA5A1300546986 /* CalendarQuarterWeekCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarQuarterWeekCell.swift; sourceTree = "<group>"; };
+		E53352B42FFA5E2200546986 /* CalendarQuarterWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarQuarterWeekView.swift; sourceTree = "<group>"; };
+		E53352B62FFA640300546986 /* CalendarMonthViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMonthViewFlowLayout.swift; sourceTree = "<group>"; };
+		E53352B82FFA65A400546986 /* CalendarQuarterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarQuarterView.swift; sourceTree = "<group>"; };
+		E53352BA2FFA94C300546986 /* CalendarQuarterDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarQuarterDayView.swift; sourceTree = "<group>"; };
+		E53352BD2FFB5AFF00546986 /* CalendarQuarterStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarQuarterStripView.swift; sourceTree = "<group>"; };
 		E5347FF42F5FAA9300CFBF26 /* HabitRecordLogEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordLogEditViewController.swift; sourceTree = "<group>"; };
 		E5347FF72F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitReasonTagEditViewController.swift; sourceTree = "<group>"; };
 		E5347FFD2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPEmojiTitleEditAlertController.swift; sourceTree = "<group>"; };
@@ -5058,13 +5072,14 @@
 				E53632D72FAF77BC0095DFEC /* CalendarConstant.swift */,
 				E5E9F79D2FC1D79700717004 /* CalendarPresenter.swift */,
 				E5E9F79F2FC1DBA400717004 /* CalendarEventProcessor.swift */,
-				E518D6952FBEAAEB0045D456 /* Main */,
 				E53032942DC076F10040C75E /* Repository */,
+				E518D6952FBEAAEB0045D456 /* Main */,
 				E51A4C442DC3C363005A0E3F /* Components */,
 				E500E3AD2FC8682C00252011 /* Event */,
 				E552FBB72DBE663B0072703F /* Day */,
 				E552FBB82DBE67660072703F /* Week */,
 				E59E715D2DB7979200744C68 /* Month */,
+				E53352AF2FFA523F00546986 /* Quarter */,
 				E53352842FF7759900546986 /* Year */,
 				E53632AD2FAE13C30095DFEC /* Settting */,
 			);
@@ -5097,7 +5112,7 @@
 				E56BAC7A2DCCDABE0013C6F6 /* Base */,
 				E5FC917E2FBAC11300FC75C6 /* Page */,
 				E518D6922FBDEF4F0045D456 /* Indicator */,
-				E552FBA52DBA23260072703F /* StripeView */,
+				E552FBA52DBA23260072703F /* StripView */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -5486,6 +5501,7 @@
 			isa = PBXGroup;
 			children = (
 				E53352AB2FF9FF0300546986 /* Data */,
+				E53352AE2FFA512500546986 /* Helpers */,
 				E53352A32FF92DC700546986 /* CalendarYearConfig.swift */,
 				E53352852FF775E100546986 /* CalendarYearViewController.swift */,
 				E53352A12FF90A0700546986 /* CalendarYearView.swift */,
@@ -5493,7 +5509,6 @@
 				E53352A72FF9364100546986 /* CalendarYearMonthCell.swift */,
 				E53352892FF7C36600546986 /* CalendarYearHeaderView.swift */,
 				E533528B2FF7E78500546986 /* CalendarYearCollectionLayout.swift */,
-				E53352A52FF9358200546986 /* LunarCalendar.swift */,
 			);
 			path = Year;
 			sourceTree = "<group>";
@@ -5504,6 +5519,35 @@
 				E53352AC2FF9FF3200546986 /* CalendarYearEventsFetcher.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		E53352AE2FFA512500546986 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E53352A52FF9358200546986 /* LunarCalendar.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E53352AF2FFA523F00546986 /* Quarter */ = {
+			isa = PBXGroup;
+			children = (
+				E53352B02FFA528A00546986 /* CalendarQuarterViewController.swift */,
+				E53352B82FFA65A400546986 /* CalendarQuarterView.swift */,
+				E53352B22FFA5A1300546986 /* CalendarQuarterWeekCell.swift */,
+				E53352B42FFA5E2200546986 /* CalendarQuarterWeekView.swift */,
+				E53352BA2FFA94C300546986 /* CalendarQuarterDayView.swift */,
+				E53352BC2FFB5A5500546986 /* StripView */,
+			);
+			path = Quarter;
+			sourceTree = "<group>";
+		};
+		E53352BC2FFB5A5500546986 /* StripView */ = {
+			isa = PBXGroup;
+			children = (
+				E53352BD2FFB5AFF00546986 /* CalendarQuarterStripView.swift */,
+			);
+			path = StripView;
 			sourceTree = "<group>";
 		};
 		E5347FF62F5FC31600CFBF26 /* ReasonTag */ = {
@@ -6015,7 +6059,7 @@
 			path = WeekDays;
 			sourceTree = "<group>";
 		};
-		E552FBA52DBA23260072703F /* StripeView */ = {
+		E552FBA52DBA23260072703F /* StripView */ = {
 			isa = PBXGroup;
 			children = (
 				E552FBAE2DBD206B0072703F /* EventView */,
@@ -6023,7 +6067,7 @@
 				E552FBA62DBA23570072703F /* CalendarStripLayoutManager.swift */,
 				E552FBAC2DBB24730072703F /* CalendarStripLayoutProvider.swift */,
 			);
-			path = StripeView;
+			path = StripView;
 			sourceTree = "<group>";
 		};
 		E552FBAE2DBD206B0072703F /* EventView */ = {
@@ -7229,6 +7273,7 @@
 			children = (
 				E552FBB52DBE30630072703F /* CalendarMonthViewController.swift */,
 				E51A43852DB740ED00DC84C9 /* CalendarMonthView.swift */,
+				E53352B62FFA640300546986 /* CalendarMonthViewFlowLayout.swift */,
 				E53032992DC0BB4F0040C75E /* Week */,
 				E53032972DC0B9B50040C75E /* Day */,
 			);
@@ -11653,6 +11698,7 @@
 				E5BB9E5D2D3BF0C70089667A /* TPCalendarSpanningView.swift in Sources */,
 				E534800F2F60526E00CFBF26 /* HabitPeriodItemOrganizer.swift in Sources */,
 				E50D60302F7A12B400D5E0A4 /* RepeatDayOfWeek.swift in Sources */,
+				E53352B92FFA65A400546986 /* CalendarQuarterView.swift in Sources */,
 				E518D6972FBEAB870045D456 /* CalendarEventProvider.swift in Sources */,
 				E5BB9DEC2D3BF0C60089667A /* Date+Day.swift in Sources */,
 				E5BB9D932D3BF0C60089667A /* TPImageTextFieldTableCell.swift in Sources */,
@@ -11675,6 +11721,7 @@
 				E57CC5DF2F7FCED300ADDBA4 /* TodoTaskQuickAddMenuCell.swift in Sources */,
 				E5BB9B492D3BEF920089667A /* UITextFieldExtension.swift in Sources */,
 				E5D7D7E42D43923800EC877A /* FocusTimerConfig.swift in Sources */,
+				E53352B72FFA640300546986 /* CalendarMonthViewFlowLayout.swift in Sources */,
 				E5BB9F002D3BF0C80089667A /* UIViewController+PopoverPresent.swift in Sources */,
 				E549B15C2F87CF820014BE85 /* TodoProgressEditViewController.swift in Sources */,
 				E5FC6BAC2F651CC800D5A5EA /* HabitStatsMainViewController.swift in Sources */,
@@ -11922,6 +11969,7 @@
 				E53632812FAB72C00095DFEC /* QuadrantLayoutEditCell.swift in Sources */,
 				E5D7D9202D43933700EC877A /* StatsSummarySectionController.swift in Sources */,
 				E5FC6BC52F66A44D00D5A5EA /* HabitStatsCalendarMonthCell.swift in Sources */,
+				E53352B12FFA528A00546986 /* CalendarQuarterViewController.swift in Sources */,
 				E5D7D93F2D43933700EC877A /* FocusSteppedConfigSectionController.swift in Sources */,
 				E5320C3B2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift in Sources */,
 				E5BB9E742D3BF0C70089667A /* TPSlashLayer.swift in Sources */,
@@ -12365,6 +12413,7 @@
 				E5F1552B2F8368FB00116091 /* TodoTask.swift in Sources */,
 				E5B33D752F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift in Sources */,
 				E53632A52FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift in Sources */,
+				E53352BB2FFA94C300546986 /* CalendarQuarterDayView.swift in Sources */,
 				E53480132F605B6300CFBF26 /* HabitTaskFilterButton.swift in Sources */,
 				E5FF4ED72FECCB1C00282416 /* TodoNotifiableTaskProvider.swift in Sources */,
 				E52F899C2D5B11B3001F18FA /* TPImageView.swift in Sources */,
@@ -12459,6 +12508,7 @@
 				E53B11572F94D26C00701410 /* TodoFilterRuleTagEditSectionController.swift in Sources */,
 				E5D7D7F22D43923800EC877A /* FocusSession+Fragment.swift in Sources */,
 				E5D7D7E02D43923800EC877A /* TimerFeature.swift in Sources */,
+				E53352B32FFA5A1300546986 /* CalendarQuarterWeekCell.swift in Sources */,
 				E51B290B2FA780CF006B3352 /* TodoDetailContentViewController.swift in Sources */,
 				E54155632F49A415000B2972 /* FocusRecordListDetailCellLayout.swift in Sources */,
 				E5BB9DFF2D3BF0C60089667A /* Array+Date.swift in Sources */,
@@ -12494,6 +12544,7 @@
 				E5BB9EAE2D3BF0C80089667A /* TPMenuListView.swift in Sources */,
 				E5B33D712F80F3B700939C3E /* TodoProgressBarView.swift in Sources */,
 				E50179522FD44D6000DC544D /* TodoTaskSectionSelectPopoverView.swift in Sources */,
+				E53352B52FFA5E2200546986 /* CalendarQuarterWeekView.swift in Sources */,
 				E5BB9EFF2D3BF0C80089667A /* TPPopoverPresentAnimator.swift in Sources */,
 				E59244122F519F5200CA2393 /* TPIconCharacterEditViewController.swift in Sources */,
 				E53632982FAB765F0095DFEC /* TodoFilterTaskChangeSectionController.swift in Sources */,
@@ -12839,6 +12890,7 @@
 				E5BB9DE22D3BF0C60089667A /* UITraitCollection+Extension.swift in Sources */,
 				E53B115F2F94F66300701410 /* TodoFilterProcessorUpdater.swift in Sources */,
 				E5BB9B322D3BEF920089667A /* SAConfettiView.swift in Sources */,
+				E53352BE2FFB5AFF00546986 /* CalendarQuarterStripView.swift in Sources */,
 				E536328E2FAB72C00095DFEC /* QuadrantTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

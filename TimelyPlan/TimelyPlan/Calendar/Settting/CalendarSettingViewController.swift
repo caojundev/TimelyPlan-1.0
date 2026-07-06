@@ -211,6 +211,32 @@ class CalendarSettingViewController: BaseSettingViewController {
         return sectionController
     }()
     
+    // MARK: - 季度视图
+    lazy var weeksInQuarterViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Weeks in Quarter View")
+        cellItem.updater = {
+            let weeks = CalendarSetting.shared.getWeeksInQuarter()
+            self?.weeksInQuarterViewCellItem.valueConfig = .valueText("\(weeks)")
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editWeeksInQuarter()
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var quarterViewSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = headerHeight
+        sectionController.headerItem.padding = headerPadding
+        sectionController.headerItem.title = resGetString("Quarter View")
+        sectionController.cellItems = [weeksInQuarterViewCellItem]
+        return sectionController
+    }()
+    
     // MARK: - 提醒
     lazy var timedEventAlertCellItem: TPDefaultInfoTableCellItem = { [weak self] in
         let cellItem = TPDefaultInfoTableCellItem(accessoryType: .disclosureIndicator)
@@ -268,7 +294,8 @@ class CalendarSettingViewController: BaseSettingViewController {
                                     viewOptionsSectionController,
                                     taskOptionsSectionController,
                                     weekViewSectionController,
-                                    monthViewSectionController]
+                                    monthViewSectionController,
+                                    quarterViewSectionController]
          self.reloadData()
      }
     
@@ -337,6 +364,20 @@ class CalendarSettingViewController: BaseSettingViewController {
         pickerVC.didPickCount = { count in
             CalendarSetting.shared.setWeeksInMonth(count)
             self.adapter.reloadCell(forItem: self.weeksInMonthViewCellItem,
+                                    with: .none)
+        }
+        
+        pickerVC.popoverShow()
+    }
+    
+    private func editWeeksInQuarter() {
+        let pickerVC = TPCountPickerViewController()
+        pickerVC.minimumCount = CalendarSetting.minWeeksInQuarter
+        pickerVC.maximumCount = CalendarSetting.maxWeeksInQuarter
+        pickerVC.count = CalendarSetting.shared.getWeeksInQuarter()
+        pickerVC.didPickCount = { count in
+            CalendarSetting.shared.setWeeksInQuarter(count)
+            self.adapter.reloadCell(forItem: self.weeksInQuarterViewCellItem,
                                     with: .none)
         }
         

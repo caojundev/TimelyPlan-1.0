@@ -1,18 +1,18 @@
 //
-//  CalendarMonthWeekCell.swift
+//  CalendarQuarterWeekCell.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2025/4/22.
+//  Created by caojun on 2026/7/5.
 //
 
 import Foundation
 import UIKit
 
-class CalendarMonthWeekCell: UICollectionViewCell {
+class CalendarQuarterWeekCell: UICollectionViewCell {
     
     /// 周视图
-    private(set) lazy var weekView: CalendarMonthWeekView = {
-        let view = CalendarMonthWeekView(frame: self.bounds)
+    private(set) lazy var weekView: CalendarQuarterWeekView = {
+        let view = CalendarQuarterWeekView(frame: self.bounds)
         return view
     }()
     
@@ -29,5 +29,4 @@ class CalendarMonthWeekCell: UICollectionViewCell {
         super.layoutSubviews()
         weekView.frame = bounds
     }
-
 }

@@ -16,6 +16,9 @@ class CalendarSetting {
     static let minWeeksInMonth = 2
     static let maxWeeksInMonth = 6
 
+    static let minWeeksInQuarter = 9
+    static let maxWeeksInQuarter = 15
+    
     enum Key: String, SettingKeyRepresentable {
         case firstWeekday
         case defaultEventDuration
@@ -26,6 +29,7 @@ class CalendarSetting {
         
         case daysInWeek
         case weeksInMonth
+        case weeksInQuarter
         
         case timedEventReminder
         case allDayEventReminder
@@ -66,8 +70,11 @@ class CalendarSetting {
     @CloudStored(key: Key.daysInWeek.name, defaultValue: 3)
     private var daysInWeek: Int
     
-    @CloudStored(key: Key.weeksInMonth.name, defaultValue: 6)
+    @CloudStored(key: Key.weeksInMonth.name, defaultValue: 5)
     private var weeksInMonth: Int
+    
+    @CloudStored(key: Key.weeksInQuarter.name, defaultValue: 12)
+    private var weeksInQuarter: Int
     
     @CloudStored(key: Key.hiddenCalendars.name, defaultValue: [])
     var hiddenCalendars: [CalendarSnapshot]
@@ -114,6 +121,17 @@ class CalendarSetting {
         let weeksInMonth = clampedValue(weeksInMonth, Self.minWeeksInMonth, Self.maxWeeksInMonth)
         if self.weeksInMonth != weeksInMonth {
             self.weeksInMonth = weeksInMonth
+        }
+    }
+    
+    func getWeeksInQuarter() -> Int {
+        return clampedValue(weeksInQuarter, Self.minWeeksInQuarter, Self.maxWeeksInQuarter)
+    }
+    
+    func setWeeksInQuarter(_ weeksInQuarter: Int) {
+        let weeksInQuarter = clampedValue(weeksInQuarter, Self.minWeeksInQuarter, Self.maxWeeksInQuarter)
+        if self.weeksInQuarter != weeksInQuarter {
+            self.weeksInQuarter = weeksInQuarter
         }
     }
     

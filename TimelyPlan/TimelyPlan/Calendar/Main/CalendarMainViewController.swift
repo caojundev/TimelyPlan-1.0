@@ -60,8 +60,8 @@ class CalendarMainViewController: TPContainerViewController,
         return vc
     }()
     
-    private lazy var quarterViewController: CalendarMonthViewController = {
-        let vc = CalendarMonthViewController()
+    private lazy var quarterViewController: CalendarQuarterViewController = {
+        let vc = CalendarQuarterViewController()
         return vc
     }()
     

@@ -16,17 +16,27 @@ protocol CalendarMonthViewDelegate: AnyObject {
     /// 长按日期
     func calendarMonthView(_ monthView: CalendarMonthView, didLongPressDate date: Date)
     
+    /// 点击事项
     func calendarMonthView(_ monthView: CalendarMonthView, didTapEvent event: CalendarEvent)
     
+    /// 点击日期
     func calendarMonthView(_ monthView: CalendarMonthView, didTapDate date: Date)
     
+    /// 点击更多
     func calendarMonthView(_ monthView: CalendarMonthView, didTapMoreOnDate date: Date)
 }
 
+extension CalendarMonthViewDelegate {
+    
+    func calendarMonthView(_ monthView: CalendarMonthView, didTapEvent event: CalendarEvent) {}
+    
+    func calendarMonthView(_ monthView: CalendarMonthView, didTapMoreOnDate date: Date) {}
+}
+
+
 class CalendarMonthView: TPCollectionWrapperView,
                          TPCollectionViewAdapterDataSource,
-                         TPCollectionViewAdapterDelegate,
-                         CalendarMonthWeekViewDelegate {
+                         TPCollectionViewAdapterDelegate {
     
     /// 代理对象
     weak var delegate: CalendarMonthViewDelegate?
@@ -49,8 +59,8 @@ class CalendarMonthView: TPCollectionWrapperView,
     /// 显示中国节假日
     var showChineseHolidays: Bool = true
     
-    /// 周视图天数
-    var weeksInMonth: Int {
+    /// 页面显示周视图
+    var preferredWeeksCount: Int {
         get {
             return monthViewFlowLayout.preferredRowsCount
         }
@@ -58,10 +68,18 @@ class CalendarMonthView: TPCollectionWrapperView,
         set {
             if monthViewFlowLayout.preferredRowsCount != newValue {
                 monthViewFlowLayout.preferredRowsCount = newValue
-                monthViewFlowLayout.invalidateLayout()
                 setNeedsLayout()
             }
         }
+    }
+    
+    /// 相邻周数目
+    var nearWeeksCount: Int {
+        return 30
+    }
+    
+    var minimumItemHeight: CGFloat {
+        return 120.0
     }
     
     /// 当前可见月份日期
@@ -74,9 +92,6 @@ class CalendarMonthView: TPCollectionWrapperView,
     
     /// 日期数组
     private var dates: [Date] = []
-    
-    /// 相邻周数目
-    private let nearWeeksCount = 20
     
     /// 周符号
     private let weekdaySymbolHeight = 20.0
@@ -97,12 +112,13 @@ class CalendarMonthView: TPCollectionWrapperView,
     }
 
     /// 布局
-    private let monthViewFlowLayout: CalendarMonthViewFlowLayout
+    let monthViewFlowLayout: CalendarMonthViewFlowLayout
     
     init(frame: CGRect, monthDate: Date, firstWeekday: Weekday = .firstWeekday) {
         self.firstWeekday = firstWeekday
         self.monthViewFlowLayout = CalendarMonthViewFlowLayout()
         super.init(frame: frame, collectionViewLayout: self.monthViewFlowLayout)
+        self.monthViewFlowLayout.minimumItemHeight = minimumItemHeight
         addSubview(weekdaySymbolView)
         adapter.dataSource = self
         adapter.delegate = self
@@ -126,6 +142,7 @@ class CalendarMonthView: TPCollectionWrapperView,
     override func layoutSubviews() {
         monthViewFlowLayout.collectionSize = colllectionFrame.size
         super.layoutSubviews()
+        
         weekdaySymbolView.width = bounds.width
         weekdaySymbolView.height = weekdaySymbolHeight
         updateContentOffset(animated: false)
@@ -278,23 +295,6 @@ class CalendarMonthView: TPCollectionWrapperView,
         return false
     }
     
-    // MARK: - CalendarMonthWeekViewDelegate
-    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didLongPressDate date: Date) {
-        delegate?.calendarMonthView(self, didLongPressDate: date)
-    }
-    
-    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapEvent event: CalendarEvent) {
-        delegate?.calendarMonthView(self, didTapEvent: event)
-    }
-    
-    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapMoreOnDate date: Date) {
-        delegate?.calendarMonthView(self, didTapMoreOnDate: date)
-    }
-    
-    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapDate date: Date) {
-        delegate?.calendarMonthView(self, didTapDate: date)
-    }
-    
     // MARK: - UIScrollViewDelegate
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let toDate = topWeekStartDate(at: scrollView.contentOffset)
@@ -308,12 +308,12 @@ class CalendarMonthView: TPCollectionWrapperView,
             performUpdate()
         }
         
-        delegate?.calendarMonthView(self, didScrollTo: toDate)
+        didScrollToDate(toDate)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let date = topWeekStartDate(at: scrollView.contentOffset)
-        delegate?.calendarMonthView(self, didScrollTo: date)
+        didScrollToDate(date)
     }
     
     // MARK: - TPAnimatedContainerViewDelegate
@@ -346,61 +346,29 @@ class CalendarMonthView: TPCollectionWrapperView,
         date = date.dateByAddingDays(6)!
         return date.startOfMonth()
     }
+    
+    // MARK: - Helpers
+    func didScrollToDate(_ date: Date) {
+        delegate?.calendarMonthView(self, didScrollTo: date)
+    }
 }
 
-class CalendarMonthViewFlowLayout: UICollectionViewFlowLayout {
-    
-    var collectionSize: CGSize = .zero {
-        didSet {
-            if collectionSize != oldValue {
-                updateItemSize()
-            }
-        }
-    }
+extension CalendarMonthView: CalendarMonthWeekViewDelegate {
 
-    var preferredRowsCount = 5 {
-        didSet {
-            if preferredRowsCount != oldValue {
-                updateItemSize()
-            }
-        }
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didLongPressDate date: Date) {
+        delegate?.calendarMonthView(self, didLongPressDate: date)
     }
     
-    private var minimumItemHeight = 120.0
-    
-    /// 更新条目尺寸
-    private func updateItemSize() {
-        let itemWidth = collectionSize.width
-        var itemHeight = collectionSize.height / CGFloat(preferredRowsCount)
-        itemHeight = max(itemHeight, minimumItemHeight)
-        self.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        self.invalidateLayout()
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapEvent event: CalendarEvent) {
+        delegate?.calendarMonthView(self, didTapEvent: event)
     }
     
-    override func prepare() {
-        super.prepare()
-        scrollDirection = .vertical
-        sectionInset = .zero
-        minimumInteritemSpacing = 0.0
-        minimumLineSpacing = 0.0
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapMoreOnDate date: Date) {
+        delegate?.calendarMonthView(self, didTapMoreOnDate: date)
     }
     
-    override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        // 计算最近的单元格顶部位置
-        let offsetY = proposedContentOffset.y
-        let nearestPage = round(offsetY / itemSize.height)
-        var targetY = nearestPage * itemSize.height
-        let contentHeight = collectionView?.contentSize.height ?? .greatestFiniteMagnitude
-        if targetY + collectionSize.height > contentHeight {
-            targetY = CGFloat(Int(offsetY / itemSize.height)) * itemSize.height
-        }
-        
-        // 返回调整后的偏移量
-        return CGPoint(x: proposedContentOffset.x, y: targetY)
+    func calendarMonthWeekView(_ weekView: CalendarMonthWeekView, didTapDate date: Date) {
+        delegate?.calendarMonthView(self, didTapDate: date)
     }
     
-    /// 启用实时布局更新
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return true
-    }
 }

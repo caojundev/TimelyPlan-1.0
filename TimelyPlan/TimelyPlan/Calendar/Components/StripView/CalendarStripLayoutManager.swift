@@ -20,7 +20,7 @@ class CalendarStripLayoutManager {
     }
     
     /// 每个事件条目的高度
-    private var itemHeight: CGFloat = 16.0
+    var itemHeight: CGFloat = 16.0
     
     /// 内部间距
     private var padding: UIEdgeInsets = UIEdgeInsets(value: 2.0)
