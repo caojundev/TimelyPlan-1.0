@@ -95,14 +95,16 @@ class CalendarQuarterWeekView: UIView {
         
         layoutDayViews()
         layoutWeekNumberLabel()
-        let stripHeight = height - headerHeight
-        eventsView.frame = CGRect(x: 0.0, y: headerHeight, width: width, height: stripHeight)
+        eventsView.frame = CGRect(x: 0.0,
+                                  y: headerHeight,
+                                  width: width,
+                                  height: height - headerHeight)
     }
     
     private func layoutWeekNumberLabel() {
         if let weekNumberLabel = weekNumberLabel {
-            let weekNumberFrame = CGRect(x: 2.0,
-                                         y: -weekNumberHeight / 2.0,
+            let weekNumberFrame = CGRect(x: 0.0,
+                                         y: (headerHeight - weekNumberHeight) / 2.0,
                                          width: weekNumberWidth,
                                          height: weekNumberHeight)
             weekNumberLabel.edgeInsets = UIEdgeInsets(value: 2.0)
@@ -148,8 +150,6 @@ class CalendarQuarterWeekView: UIView {
         weekNumberLabel.adjustsFontSizeToFitWidth = true
         weekNumberLabel.textColor = .secondaryLabel
         weekNumberLabel.font = .boldSystemFont(ofSize: 10.0)
-        weekNumberLabel.backgroundColor = .systemGray5
-        weekNumberLabel.layer.cornerRadius = 2.0
         addSubview(weekNumberLabel)
         
         self.weekNumberLabel = weekNumberLabel

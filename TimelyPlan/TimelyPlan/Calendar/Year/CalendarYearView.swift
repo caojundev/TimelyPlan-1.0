@@ -20,6 +20,9 @@ class CalendarYearView: UIView {
     // 事项数据提供者
     weak var eventsProvider: CalendarYearEventsProvider?
     
+    // 周开始日，默认周日
+    private(set) var firstWeekday: Weekday
+    
     private var collectionView: UICollectionView!
     private let baseYear = CalendarYearConfig.baseYear
     private let totalSections = CalendarYearConfig.displayYears
@@ -38,9 +41,9 @@ class CalendarYearView: UIView {
     private let callbackThrottleInterval: TimeInterval = 0.3 // 300ms节流
     
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, firstWeekday: Weekday = .sunday) {
+        self.firstWeekday = firstWeekday
         super.init(frame: frame)
-        
         setupCollectionView()
         scrollToCurrentYear(animated: false)
         updateCurrentDisplayYear()
@@ -189,10 +192,34 @@ class CalendarYearView: UIView {
             if let cell = collectionView.cellForItem(at: indexPath) as? CalendarYearMonthCell {
                 let year = baseYear + indexPath.section
                 let month = indexPath.item + 1
-                let monthInfo = CalendarYearCache.shared.getMonthInfo(year: year, month: month)
+                let monthInfo = CalendarYearCache.shared.getMonthInfo(year: year,
+                                                                      month: month,
+                                                                      firstWeekday: firstWeekday.rawValue)
                 let todayDay = Calendar.current.component(.day, from: Date())
-                cell.configure(monthInfo: monthInfo, todayDay: todayDay, eventsProvider: eventsProvider)
+                cell.configure(monthInfo: monthInfo,
+                               todayDay: todayDay,
+                               eventsProvider: eventsProvider)
             }
+        }
+    }
+    
+    // MARK: - 设置周开始日
+    func setFirstWeekday(_ firstWeekday: Weekday) {
+        guard self.firstWeekday != firstWeekday else {
+            return
+        }
+
+        self.firstWeekday = firstWeekday
+        reloadCalendar()
+    }
+    
+    private func reloadCalendar() {
+        CalendarYearCache.shared.clearCache()
+        let currentYear = currentDisplayYear
+        collectionView.reloadData()
+        // 保持当前年份位置
+        DispatchQueue.main.async { [weak self] in
+            self?.scrollToYear(year: currentYear, animated: false)
         }
     }
 }
@@ -209,14 +236,13 @@ extension CalendarYearView: UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalendarYearMonthCell", for: indexPath) as! CalendarYearMonthCell
-        
+        cell.firstWeekday = firstWeekday.rawValue
         let year = baseYear + indexPath.section
         let month = indexPath.item + 1
-        let monthInfo = CalendarYearCache.shared.getMonthInfo(year: year, month: month)
-        
-        let calendar = Calendar.current
-        let todayDay = calendar.component(.day, from: Date())
-        
+        let monthInfo = CalendarYearCache.shared.getMonthInfo(year: year,
+                                                              month: month,
+                                                              firstWeekday: firstWeekday.rawValue)
+        let todayDay = Date().day
         cell.configure(monthInfo: monthInfo, todayDay: todayDay, eventsProvider: eventsProvider)
         
         return cell
@@ -254,7 +280,8 @@ extension CalendarYearView: UIScrollViewDelegate {
         if let indexPath = collectionView.indexPathForItem(at: visibleCenter) {
             let year = baseYear + indexPath.section
             if year >= baseYear && year < baseYear + totalSections {
-                CalendarYearCache.shared.preloadNearbyYears(currentYear: year)
+                CalendarYearCache.shared.preloadNearbyYears(currentYear: year,
+                                                            firstWeekday: firstWeekday.rawValue)
             }
         }
         

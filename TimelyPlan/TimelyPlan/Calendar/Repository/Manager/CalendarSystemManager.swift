@@ -141,8 +141,10 @@ class CalendarSystemManager: NSObject {
             }
             
             let calendars = self.eventStore.calendars(for: .event)
+            let sortedCalendars = calendars.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+
             DispatchQueue.main.async {
-                completion(.success(calendars))
+                completion(.success(sortedCalendars))
             }
         }
     }

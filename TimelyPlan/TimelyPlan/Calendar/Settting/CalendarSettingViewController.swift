@@ -210,7 +210,7 @@ class CalendarSettingViewController: BaseSettingViewController {
         sectionController.cellItems = [weeksInMonthViewCellItem]
         return sectionController
     }()
-    
+
     // MARK: - 季度视图
     lazy var weeksInQuarterViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)

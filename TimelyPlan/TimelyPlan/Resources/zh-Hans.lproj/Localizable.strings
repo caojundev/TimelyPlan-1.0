@@ -46,6 +46,9 @@
 "Days in Week View" = "周视图中天数目";
 "Month View" = "月视图";
 "Weeks in Month View" = "月视图中周数目";
+"Quarter View" = "季度视图";
+"Weeks in Quarter View" = "季度视图中周数目";
+
 
 "Default Alert" = "默认提醒";
 "All-Day Event Alert" = "全天事项提醒";

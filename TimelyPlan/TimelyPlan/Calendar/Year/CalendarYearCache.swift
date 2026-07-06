@@ -19,19 +19,24 @@ class CalendarYearCache {
         }
     }
     
-    func getMonthInfo(year: Int, month: Int) -> MonthInfo {
-        let key = "\(year)-\(month)" as NSString
+    func getMonthInfo(year: Int, month: Int, firstWeekday: Int) -> MonthInfo {
+        // key 包含 firstWeekday，不同周开始日使用不同缓存
+        let key = "\(year)-\(month)-w\(firstWeekday)" as NSString
+        
         if let cached = cache.object(forKey: key) {
             return cached.info
         }
         
-        let info = calculateMonthInfo(year: year, month: month)
+        let info = calculateMonthInfo(year: year, month: month, firstWeekday: firstWeekday)
         cache.setObject(MonthInfoWrapper(info), forKey: key)
         return info
     }
     
-    private func calculateMonthInfo(year: Int, month: Int) -> MonthInfo {
-        let calendar = Calendar.current
+    
+    private func calculateMonthInfo(year: Int, month: Int, firstWeekday: Int) -> MonthInfo {
+        var calendar = Calendar.current
+        calendar.firstWeekday = firstWeekday
+        
         let dateComponents = DateComponents(year: year, month: month)
         
         guard let date = calendar.date(from: dateComponents) else {
@@ -48,6 +53,7 @@ class CalendarYearCache {
         guard let firstDay = calendar.date(from: firstDateComponents) else {
             return MonthInfo(year: year, month: month, daysCount: daysCount, firstWeekday: 1, containsToday: false, lunarFirstDays: [])
         }
+        
         let firstWeekday = calendar.component(.weekday, from: firstDay)
         
         // 检查是否包含今天
@@ -68,12 +74,12 @@ class CalendarYearCache {
         )
     }
     
-    func preloadNearbyYears(currentYear: Int) {
+    func preloadNearbyYears(currentYear: Int, firstWeekday: Int) {
         let queue = DispatchQueue.global(qos: .userInitiated)
         queue.async {
             for year in (currentYear - 2)...(currentYear + 2) {
                 for month in 1...12 {
-                    _ = self.getMonthInfo(year: year, month: month)
+                    _ = self.getMonthInfo(year: year, month: month, firstWeekday: firstWeekday)
                 }
             }
         }

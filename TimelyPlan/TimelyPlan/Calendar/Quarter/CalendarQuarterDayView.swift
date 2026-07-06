@@ -30,16 +30,6 @@ class CalendarQuarterDayView: UIView {
         return label
     }()
      
-    // 阴历/节假日标签
-    let lunarLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 8.0)
-        label.textAlignment = .center
-        label.textColor = .secondaryLabel
-        label.adjustsFontSizeToFitWidth = true
-        return label
-    }()
-    
     /// 调休状态
     let workStatusIndicator = UIView()
     let workStatusIndicatorSize = CGSize(width: 4.0, height: 4.0)
@@ -57,11 +47,10 @@ class CalendarQuarterDayView: UIView {
     }
 
     func setupViews() {
-        headerView.padding = UIEdgeInsets(left:4.0, right: 4.0)
+        headerView.padding = UIEdgeInsets(left:16.0, right: 16.0)
         headerView.clipsToBounds = true
         addSubview(headerView)
         headerView.addSubview(dayLabel)
-        headerView.addSubview(lunarLabel)
         headerView.addSubview(workStatusIndicator)
     }
     
@@ -70,17 +59,10 @@ class CalendarQuarterDayView: UIView {
         headerView.frame = CGRect(x: 0.0, y: 0.0, width: width, height: headerHeight)
         
         let layoutFrame = headerView.layoutFrame()
-        dayLabel.width = layoutFrame.width / 2.0
-        dayLabel.height = layoutFrame.height
-        dayLabel.origin = layoutFrame.origin
-        
-        lunarLabel.width = layoutFrame.width / 2.0
-        lunarLabel.height = layoutFrame.height
-        lunarLabel.left = dayLabel.right
-        lunarLabel.top = layoutFrame.minY
+        dayLabel.frame = layoutFrame
         
         workStatusIndicator.size = workStatusIndicatorSize
-        workStatusIndicator.centerX = layoutFrame.midX
+        workStatusIndicator.centerX = layoutFrame.maxX
         workStatusIndicator.top = workStatusIndicatorSize.height
         workStatusIndicator.layer.cornerRadius = workStatusIndicatorSize.halfHeight
     }
@@ -88,20 +70,16 @@ class CalendarQuarterDayView: UIView {
     /// 重置标签数据
     func reset() {
         dayLabel.text = nil
-        lunarLabel.text = nil
     }
     
     /// 更新数据
     func update(with config: CalendarMonthDayConfig) {
         dayLabel.text = config.dayLabelText
-        lunarLabel.text = config.lunarLabelText
-        
+
         if config.date.isToday {
             dayLabel.textColor = .primary
-            lunarLabel.textColor = .primary
         } else {
             dayLabel.textColor = .label
-            lunarLabel.textColor = .gray
         }
      
         if config.workStatus == .inWorking {

@@ -12,7 +12,7 @@ class CalendarQuarterView: CalendarMonthView,
                            CalendarQuarterWeekViewDelegate {
     
     override var nearWeeksCount: Int {
-        return 40
+        return 120
     }
     
     override var minimumItemHeight: CGFloat {

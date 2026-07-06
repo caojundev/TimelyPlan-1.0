@@ -61,6 +61,14 @@ extension CalendarYearEventsProvider {
 // MARK: - 天事项指示条视图
 class CalendarEventIndicatorView: UIView {
     
+    var firstWeekday: Int = 1 {
+        didSet {
+            if oldValue != firstWeekday {
+                setNeedsDisplay()
+            }
+        }
+    }
+    
     private var dayEventColors: [Int: [UIColor]] = [:] // day -> colors
     private var monthInfo: MonthInfo?
     
@@ -88,7 +96,7 @@ class CalendarEventIndicatorView: UIView {
         self.dayEventColors = [:]
         setNeedsDisplay()
     }
-    
+  
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext(),
               let monthInfo = monthInfo,
@@ -102,12 +110,12 @@ class CalendarEventIndicatorView: UIView {
         let dateAreaHeight = bounds.height - dateAreaTop
         let dayHeight = dateAreaHeight / 6.0
         
+        let firstDayAdjustedCol = (monthInfo.firstWeekday - firstWeekday + 7) % 7
         for (day, colors) in dayEventColors {
             guard !colors.isEmpty else { continue }
             guard day >= 1 && day <= monthInfo.daysCount else { continue }
-            
-            // 计算该天的位置
-            let position = day + monthInfo.firstWeekday - 2
+
+            let position = day - 1 + firstDayAdjustedCol
             let col = position % 7
             let row = position / 7
             
@@ -148,10 +156,24 @@ class CalendarEventIndicatorView: UIView {
 
 // MARK: - 天内容绘制视图（独立封装）
 class CalendarDayContentView: UIView {
+    
     // 暴露给 CalendarEventIndicatorView 使用的布局常量
     static var dateAreaTopOffset: CGFloat {
         return monthTitleHeight + monthTitleToWeekdaySpacing + weekdayHeaderHeight
     }
+    
+    var firstWeekday: Int = 1 {
+        didSet {
+            if oldValue != firstWeekday {
+                weekdays = Date.veryShortWeekdaySymbols(firstWeekday: firstWeekday)
+                setNeedsDisplay()
+            }
+        }
+    }
+    
+    private lazy var weekdays: [String] = {
+        return Date.veryShortWeekdaySymbols(firstWeekday: firstWeekday)
+    }()
     
     // 绘制相关数据
     private var monthInfo: MonthInfo?
@@ -250,7 +272,6 @@ class CalendarDayContentView: UIView {
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext(),
               let monthInfo = monthInfo else { return }
-        
         let width = bounds.width
         let dayWidth = width / 7.0
         
@@ -271,7 +292,6 @@ class CalendarDayContentView: UIView {
         monthTitle.draw(at: CGPoint(x: titleX, y: titleY), withAttributes: titleAttributes)
         
         // 2. 绘制星期头
-        let weekdays = ["日", "一", "二", "三", "四", "五", "六"]
         let weekdayAttributes: [NSAttributedString.Key: Any] = [
             .font: Self.weekdayFont,
             .foregroundColor: UIColor.secondaryLabel
@@ -300,8 +320,10 @@ class CalendarDayContentView: UIView {
             .foregroundColor: UIColor.systemGray3
         ]
         
+        // 计算该月1号在调整后网格中的起始位置
+        let firstDayAdjustedCol = (monthInfo.firstWeekday - firstWeekday + 7) % 7
         for day in 1...monthInfo.daysCount {
-            let position = day + monthInfo.firstWeekday - 2
+            let position = day - 1 + firstDayAdjustedCol
             let col = position % 7
             let row = position / 7
             
@@ -357,6 +379,13 @@ class CalendarDayContentView: UIView {
 
 // MARK: - 月视图Cell
 class CalendarYearMonthCell: UICollectionViewCell {
+    
+    var firstWeekday: Int = 1 {
+        didSet {
+            eventIndicatorView.firstWeekday = firstWeekday
+            dayContentView.firstWeekday = firstWeekday
+        }
+    }
     
     private let dayContentView = CalendarDayContentView()
     private let eventIndicatorView = CalendarEventIndicatorView()

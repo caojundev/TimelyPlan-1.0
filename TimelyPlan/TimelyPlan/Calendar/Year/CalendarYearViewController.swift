@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 class CalendarYearViewController: TPViewController,
-                                  CalendarTitleViewProvider {
+                                  CalendarTitleViewProvider,
+                                  SettingAgentObserver{
     
     /// 标题视图
     var titleView: UIView? {
@@ -35,7 +36,8 @@ class CalendarYearViewController: TPViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        calendarYearView = CalendarYearView(frame: view.bounds)
+        let firstWeekday = CalendarSetting.shared.firstWeekday
+        calendarYearView = CalendarYearView(frame: view.bounds, firstWeekday: firstWeekday)
         calendarYearView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         calendarYearView.delegate = self
         calendarYearView.eventsProvider = eventsProvider
@@ -46,8 +48,23 @@ class CalendarYearViewController: TPViewController,
         
         // 无动画滚动到今年
         calendarYearView.scrollToCurrentYear(animated: false)
-        
         updateTitle()
+        
+        CalendarSetting.shared.addObserver(self)
+    }
+    
+    func settingAgentDidChangeValue(for keyName: String) {
+        guard let key = CalendarSetting.Key(name: keyName) else {
+            return
+        }
+        
+        switch key {
+        case .firstWeekday:
+            let firstWeekday = CalendarSetting.shared.firstWeekday
+            calendarYearView.setFirstWeekday(firstWeekday)
+        default:
+            break
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
