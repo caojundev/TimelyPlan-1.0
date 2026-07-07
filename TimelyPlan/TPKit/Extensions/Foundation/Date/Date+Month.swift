@@ -182,6 +182,10 @@ extension Date {
     }
     
     static func monthSymbol(ofMonth month: Int) -> String {
+        guard (1...12).contains(month) else {
+            return ""
+        }
+        
         let index = month - 1
         return monthSymbols[index]
     }
@@ -191,4 +195,14 @@ extension Date {
         dateFormatter.timeStyle = .none
         return dateFormatter.shortMonthSymbols
     }
+    
+    static func shortMonthSymbol(ofMonth month: Int) -> String {
+        guard (1...12).contains(month) else {
+            return ""
+        }
+        
+        let index = month - 1
+        return shortMonthSymbols[index]
+    }
+    
 }

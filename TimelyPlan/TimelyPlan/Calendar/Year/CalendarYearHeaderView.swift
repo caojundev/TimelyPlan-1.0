@@ -50,7 +50,7 @@ class CalendarYearHeaderView: UICollectionReusableView {
     }
     
     func configure(year: Int) {
-        yearLabel.text = "\(year)年"
+        yearLabel.text = "\(year)"
         chineseYearIndicator.title = LunarCalendar.getChineseYearDescription(year: year)
         setNeedsLayout()
     }

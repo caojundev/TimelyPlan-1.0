@@ -17,6 +17,9 @@ struct CalendarYearConfig {
     static let lunarFirstDayLineHeight = 1.0
     static let lunarFirstLineColor = UIColor.systemBlue
     
+    static let currentMonthColor = UIColor.systemBlue
+    static let todayColor = UIColor.systemBlue
+    
     /// 显示年范围
     static var yearRange: (from: Int, to: Int) {
         let toYear = baseYear + displayYears - 1

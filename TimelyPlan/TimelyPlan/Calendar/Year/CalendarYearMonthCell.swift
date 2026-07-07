@@ -260,11 +260,11 @@ class CalendarDayContentView: UIView {
             Self.dayFont = UIFont.systemFont(ofSize: dayFontSize)
             
             let monthTitleAttributes: [NSAttributedString.Key: Any] = [.font: Self.monthTitleFont]
-            let titleSize = "12月".size(withAttributes: monthTitleAttributes)
+            let titleSize = "JAN".size(withAttributes: monthTitleAttributes)
             Self.monthTitleHeight = ceil(titleSize.height)
             
             let weekdayAttributes: [NSAttributedString.Key: Any] = [.font: Self.weekdayFont]
-            let weekdaySize = "日".size(withAttributes: weekdayAttributes)
+            let weekdaySize = "S".size(withAttributes: weekdayAttributes)
             Self.weekdayHeaderHeight = ceil(weekdaySize.height)
         }
     }
@@ -280,10 +280,10 @@ class CalendarDayContentView: UIView {
         let dayHeight = dateAreaHeight / 6.0
         
         // 1. 绘制月份标题
-        let monthTitle = "\(monthInfo.month)月"
+        let monthTitle = Date.shortMonthSymbol(ofMonth: monthInfo.month)
         let titleAttributes: [NSAttributedString.Key: Any] = [
             .font: Self.monthTitleFont,
-            .foregroundColor: monthInfo.containsToday ? UIColor.systemRed : UIColor.label
+            .foregroundColor: monthInfo.containsToday ? CalendarYearConfig.currentMonthColor : UIColor.label
         ]
         
         let titleSize = monthTitle.size(withAttributes: titleAttributes)
@@ -335,20 +335,23 @@ class CalendarDayContentView: UIView {
             let dayX = cellX + (dayWidth - daySize.width) / 2
             let dayY = cellY + (dayHeight - daySize.height) / 2
             
+            // 计算该天真实的星期几（1=周日, 2=周一...7=周六）
+            let realWeekday = ((day - 1) + monthInfo.firstWeekday - 1) % 7 + 1
+            let isWeekend = (realWeekday == 1 || realWeekday == 7)
+            
             // 判断是否今天
             if monthInfo.containsToday && day == todayDay {
                 let circleDiameter = min(dayWidth, dayHeight) * 0.75
                 let circleX = cellX + (dayWidth - circleDiameter) / 2
                 let circleY = cellY + (dayHeight - circleDiameter) / 2
                 let circleRect = CGRect(x: circleX, y: circleY, width: circleDiameter, height: circleDiameter)
-                
-                context.setFillColor(UIColor.systemRed.cgColor)
+                context.setFillColor(CalendarYearConfig.todayColor.cgColor)
                 context.fillEllipse(in: circleRect)
                 
                 dayString.draw(at: CGPoint(x: dayX, y: dayY), withAttributes: todayAttributes)
             } else {
                 let attributes: [NSAttributedString.Key: Any]
-                if col == 0 || col == 6 {
+                if isWeekend {
                     attributes = weekendAttributes
                 } else {
                     attributes = dayAttributes
