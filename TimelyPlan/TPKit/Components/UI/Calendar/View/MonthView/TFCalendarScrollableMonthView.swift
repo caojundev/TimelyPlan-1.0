@@ -18,6 +18,9 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     var didChangeVisibleDateComponents: ((_ currentDateComponents: DateComponents,
                                           _ previousDateComponents: DateComponents) -> Void)?
     
+    /// 周开始日
+    var firstWeekday: Weekday = .firstWeekday
+    
     /// 当前月份日期组件
     var visibleDateComponents: DateComponents = Date().yearMonthComponents
 
@@ -39,7 +42,9 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        updateContentOffset(animated: false)
+        DispatchQueue.main.async {
+            self.updateContentOffset(animated: false)
+        }
     }
     
     override func setupCollectionView() {
@@ -71,11 +76,12 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        guard let cell = cell as? TPCalendarSingleMonthCell, let monthView = cell.monthView else {
+        guard let cell = cell as? TPCalendarSingleMonthCell else {
             return
         }
         
         let dateComponents = adapter.item(at: indexPath) as! DateComponents
+        let monthView = cell.monthView
         monthView.delegate = delegate
         monthView.visibleDateComponents = dateComponents
         monthView.selection = selection
@@ -128,15 +134,26 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     
     /// 当前月份日期组件
     func setVisibleDateComponents(_ dateComponents: DateComponents, animated: Bool) {
+        guard visibleDateComponents != dateComponents else {    
+            return
+        }
+        
+        guard animated else {
+            visibleDateComponents = dateComponents
+            reloadData()
+            return
+        }
+        
         let animateStyle = SlideStyle.horizontalStyle(fromValue: visibleDateComponents.yearMonthDateComponents,
                                                         toValue: dateComponents.yearMonthDateComponents)
-        self.visibleDateComponents = dateComponents
-        self.reloadData(animateStyle: animateStyle)
+        visibleDateComponents = dateComponents
+        reloadData(animateStyle: animateStyle)
     }
     
     // MARK: - Private Metehods
     /// 更新内容偏移
     func updateContentOffset(animated: Bool) {
+        collectionView.layoutIfNeeded()
         var index = kNearMonthsCount
         if let indexPath = adapter.indexPath(of: visibleDateComponents as NSDateComponents) {
             index = indexPath.item

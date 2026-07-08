@@ -9,7 +9,12 @@ import Foundation
 import UIKit
 
 protocol CalendarYearViewDelegate: AnyObject {
+    
     func calendarYearView(_ view: CalendarYearView, didChangeYearTo year: Int)
+    
+    func calendarYearView(_ view: CalendarYearView,
+                          didSelectYear year: Int,
+                          month: Int)
 }
 
 // MARK: - 年日历View
@@ -222,6 +227,13 @@ class CalendarYearView: UIView {
             self?.scrollToYear(year: currentYear, animated: false)
         }
     }
+    
+    func cellForYear(_ year: Int, month: Int) -> CalendarYearMonthCell? {
+        let section = year - baseYear
+        let item = month - 1
+        let indexPath = IndexPath(item: item, section: section)
+        return collectionView.cellForItem(at: indexPath) as? CalendarYearMonthCell
+    }
 }
 
 // MARK: - UICollectionView DataSource & Delegate
@@ -264,7 +276,7 @@ extension CalendarYearView: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let year = baseYear + indexPath.section
         let month = indexPath.item + 1
-        // 这里可以跳转到月视图
+        delegate?.calendarYearView(self, didSelectYear: year, month: month)
     }
 }
 

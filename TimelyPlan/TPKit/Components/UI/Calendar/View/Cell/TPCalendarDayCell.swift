@@ -43,6 +43,16 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
         return date?.isSolarTerm ?? false
     }
     
+    var isDimmed: Bool = false {
+        didSet {
+            if isDimmed != oldValue {
+                let alpha = isDimmed ? 0.3 : 1.0
+                contentView.alpha = alpha
+                backgroundView?.alpha = alpha
+            }
+        }
+    }
+    
     lazy var badgeView: TPCalendarDayBadgeView = {
         let view = TPCalendarDayBadgeView(frame: .zero)
         return view

@@ -9,11 +9,12 @@ import Foundation
 
 class TPCalendarSingleMonthCell: TPCollectionCell {
     
-    fileprivate(set) var monthView: TPCalendarMonthView!
-    
+    private(set) lazy var  monthView: TPCalendarMonthView = {
+        return TPCalendarMonthView(frame: bounds)
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        monthView = TPCalendarMonthView(frame: bounds)
         contentView.addSubview(monthView)
     }
     

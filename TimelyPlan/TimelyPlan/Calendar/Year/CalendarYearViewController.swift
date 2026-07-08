@@ -105,7 +105,13 @@ class CalendarYearViewController: TPViewController,
 extension CalendarYearViewController: CalendarYearViewDelegate {
     
     func calendarYearView(_ view: CalendarYearView, didChangeYearTo year: Int) {
-        // 更新标题
         updateTitle()
+    }
+    
+    func calendarYearView(_ view: CalendarYearView, didSelectYear year: Int, month: Int) {
+        let vc = CalendarListViewContller()
+        let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true)
     }
 }

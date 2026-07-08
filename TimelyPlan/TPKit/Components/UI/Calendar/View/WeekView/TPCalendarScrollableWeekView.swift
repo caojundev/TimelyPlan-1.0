@@ -112,8 +112,10 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
         symbolsView.firstWeekday = firstWeekday
         symbolsView.style = symbolStyle
         symbolsView.reloadData()
-        
-        let weekView = cell.weekView
+        updateWeekView(cell.weekView, with: dateComponents)
+    }
+    
+    func updateWeekView(_ weekView: TPCalendarSingleWeekView, with dateComponents: DateComponents) {
         weekView.delegate = delegate
         weekView.firstWeekday = firstWeekday
         weekView.showLunar = showLunar
@@ -175,7 +177,13 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
         }
         
         let dateComponents = date.firstDayOfWeek(firstWeekday: firstWeekday).yearMonthDayComponents
-        if visibleDateComponents == dateComponents {
+        guard visibleDateComponents != dateComponents else {
+            return
+        }
+
+        guard animated else {
+            visibleDateComponents = dateComponents
+            reloadData()
             return
         }
         

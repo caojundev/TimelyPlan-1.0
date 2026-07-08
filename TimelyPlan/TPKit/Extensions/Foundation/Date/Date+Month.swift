@@ -90,6 +90,44 @@ extension Date {
         return previousMonthDays + currentMonthDays + nextMonthDays
     }
     
+    /// 生成以当前月份为核心的6周（42天）日历网格数据
+    /// - Parameter firstWeekday: 每周的起始星期（如周日或周一），用于确定上月补位天数
+    /// - Returns: 包含42个日期的数组，依次由「上月尾部 + 当月全部 + 下月头部」组成
+    func calendarGridMonthDates(firstWeekday: Weekday) -> [Date] {
+        // 获取当前月的所有日期
+        let currentMonthDays = datesInMonth()
+        
+        guard let firstDayOfCurrentMonth = currentMonthDays.first,
+              let lastDayOfCurrentMonth = currentMonthDays.last else {
+            return []
+        }
+        
+        // 计算上月需要补齐的天数
+        // 找到当前月第一天所在周的起始日（根据 firstWeekday 对齐）
+        var previousMonthDays: [Date] = []
+        var cursor = firstDayOfCurrentMonth.firstDayOfWeek(firstWeekday: firstWeekday.rawValue)
+        
+        // 从该周起始日逐天递增，直到抵达当月第一天为止
+        while cursor < firstDayOfCurrentMonth {
+            previousMonthDays.append(cursor)
+            cursor = cursor.dateByAddingDays(1)!
+        }
+        
+        // 拼接上月 + 当月
+        var gridDates = previousMonthDays + currentMonthDays
+        
+        // 用下月日期补齐至42天（6行×7列）
+        // 使用独立游标避免修改原数组元素引用
+        var nextMonthCursor = lastDayOfCurrentMonth
+        while gridDates.count < 42 {
+            nextMonthCursor = nextMonthCursor.dateByAddingDays(1)!
+            gridDates.append(nextMonthCursor)
+        }
+        
+        return gridDates
+    }
+    
+    
     /// 计算两个日期之间的月份数目
     static func months(fromDate: Date, toDate: Date) -> Int {
         // 计算年份差和月份差

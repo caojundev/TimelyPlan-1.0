@@ -13,7 +13,7 @@ class CalendarModeBarButtonItem: UIBarButtonItem {
     var didSelectMode: ((CalendarMode) -> Void)?
     
     /// 模式
-    var mode: CalendarMode = .day {
+    var mode: CalendarMode = .year {
         didSet {
             if mode != oldValue {
                 updateButton()
