@@ -53,9 +53,7 @@ protocol CalendarYearEventsProvider: AnyObject {
 
 // 默认实现，取消方法可选
 extension CalendarYearEventsProvider {
-    func cancelFetchForMonth(year: Int, month: Int) {
-        // 默认不实现
-    }
+    func cancelFetchForMonth(year: Int, month: Int) { }
 }
 
 // MARK: - 天事项指示条视图
@@ -86,6 +84,18 @@ class CalendarEventIndicatorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private var lastDrawnWidth = 0.0
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let currentWidth = bounds.width
+        if currentWidth != lastDrawnWidth {
+            lastDrawnWidth = currentWidth
+            setNeedsDisplay()
+        }
+    }
+    
     func configure(monthInfo: MonthInfo, dayEventColors: [Int: [UIColor]]) {
         self.monthInfo = monthInfo
         self.dayEventColors = dayEventColors
@@ -101,7 +111,7 @@ class CalendarEventIndicatorView: UIView {
         guard let context = UIGraphicsGetCurrentContext(),
               let monthInfo = monthInfo,
               !dayEventColors.isEmpty else { return }
-        
+        self.lastDrawnWidth = bounds.width
         let width = bounds.width
         let dayWidth = width / 7.0
         
@@ -216,7 +226,7 @@ class CalendarDayContentView: UIView {
         super.layoutSubviews()
         
         let currentWidth = bounds.width
-        if abs(currentWidth - lastDrawnWidth) > 0.5 {
+        if currentWidth != lastDrawnWidth {
             lastDrawnWidth = currentWidth
             updateFontsIfNeeded()
             setNeedsDisplay()
@@ -234,7 +244,7 @@ class CalendarDayContentView: UIView {
         }
         
         let currentWidth = bounds.width
-        if currentWidth > 0 && abs(currentWidth - lastDrawnWidth) > 0.5 {
+        if currentWidth > 0 && currentWidth != lastDrawnWidth {
             lastDrawnWidth = currentWidth
             updateFontsIfNeeded()
         }

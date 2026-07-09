@@ -15,12 +15,13 @@ class CalendarExpandWeekView: TPCalendarScrollableWeekView {
     }
     
     override func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        guard let cell = cell as? CalendarExpandWeekCell,
-                let dateComponents = adapter.item(at: indexPath) as? DateComponents else {
+        guard let cell = cell as? CalendarExpandWeekCell else {
             return
         }
         
-        updateWeekView(cell.weekView, with: dateComponents)
+        if let dateComponents = adapter.item(at: indexPath) as? DateComponents {
+            updateWeekView(cell.weekView, with: dateComponents)
+        }
     }
 }
 

@@ -319,6 +319,9 @@
 		E51DF20E2F84AF7B00D6BCE3 /* focus_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51DF20C2F84AF7A00D6BCE3 /* focus_24@3x.png */; };
 		E51DF20F2F84AF7B00D6BCE3 /* focus_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51DF20D2F84AF7B00D6BCE3 /* focus_24@2x.png */; };
 		E51DF2112F853FC700D6BCE3 /* TodoTask+Organizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51DF2102F853FC700D6BCE3 /* TodoTask+Organizer.swift */; };
+		E51F94002FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */; };
+		E51F94032FFF582000734910 /* CalendarRangeEventsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */; };
+		E51F94062FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */; };
 		E51FF64D2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */; };
 		E51FF64F2F57162D003CA953 /* HabitTaskProgressInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */; };
 		E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF6502F571978003CA953 /* HabitTaskStatusView.swift */; };
@@ -2369,6 +2372,9 @@
 		E51DF20C2F84AF7A00D6BCE3 /* focus_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_24@3x.png"; sourceTree = "<group>"; };
 		E51DF20D2F84AF7B00D6BCE3 /* focus_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_24@2x.png"; sourceTree = "<group>"; };
 		E51DF2102F853FC700D6BCE3 /* TodoTask+Organizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TodoTask+Organizer.swift"; sourceTree = "<group>"; };
+		E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCalendarDayEventIndicatorView.swift; sourceTree = "<group>"; };
+		E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfo.swift; sourceTree = "<group>"; };
+		E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfoFetcher.swift; sourceTree = "<group>"; };
 		E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskDefaultInfoView.swift; sourceTree = "<group>"; };
 		E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskProgressInfoView.swift; sourceTree = "<group>"; };
 		E51FF6502F571978003CA953 /* HabitTaskStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusView.swift; sourceTree = "<group>"; };
@@ -4276,6 +4282,7 @@
 		E500E3AD2FC8682C00252011 /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				E51F94042FFF5F0300734910 /* InfoFetcher */,
 				E5B499652FDCEF6100F3A9BD /* Preview */,
 				E5B499682FDCEF9E00F3A9BD /* List */,
 			);
@@ -5088,6 +5095,7 @@
 				E518D6952FBEAAEB0045D456 /* Main */,
 				E51A4C442DC3C363005A0E3F /* Components */,
 				E500E3AD2FC8682C00252011 /* Event */,
+				E56A7BE32FFCA28C0068410D /* List */,
 				E552FBB72DBE663B0072703F /* Day */,
 				E552FBB82DBE67660072703F /* Week */,
 				E59E715D2DB7979200744C68 /* Month */,
@@ -5157,6 +5165,22 @@
 				E51B290A2FA780CF006B3352 /* TodoDetailContentViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		E51F94012FFF57D500734910 /* EventInfo */ = {
+			isa = PBXGroup;
+			children = (
+				E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */,
+			);
+			path = EventInfo;
+			sourceTree = "<group>";
+		};
+		E51F94042FFF5F0300734910 /* InfoFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */,
+			);
+			path = InfoFetcher;
 			sourceTree = "<group>";
 		};
 		E51FF64B2F570CC0003CA953 /* InfoView */ = {
@@ -6396,7 +6420,6 @@
 				E50DD7D02D72EF8F00A85E87 /* Todo */,
 				E53632672FAB72BF0095DFEC /* Quadrant */,
 				E51A43802DB73A0400DC84C9 /* Calendar */,
-				E56A7BE32FFCA28C0068410D /* List */,
 				E5D7D7B42D43922900EC877A /* Focus */,
 				E59243C62F4FFC6400CA2393 /* Habit */,
 				E55549632F76C0F700C9460D /* Setting */,
@@ -8633,6 +8656,7 @@
 				E5BB9C792D3BF0C40089667A /* MonthView */,
 				E5BB9C7E2D3BF0C40089667A /* WeekView */,
 				E5BB9C752D3BF0C40089667A /* Cell */,
+				E51F94012FFF57D500734910 /* EventInfo */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -8653,6 +8677,7 @@
 			isa = PBXGroup;
 			children = (
 				E5BB9C762D3BF0C40089667A /* TPCalendarDayCell.swift */,
+				E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */,
 				E5BB9C772D3BF0C40089667A /* TPCalendarDayBadgeView.swift */,
 			);
 			path = Cell;
@@ -11606,6 +11631,7 @@
 				E5371DCC2FF00A8800BA9DEF /* FocusEvent+LocalNotifiable.swift in Sources */,
 				E56643242FDE4D5F00348C47 /* CalendarEventPreviewInfoCell.swift in Sources */,
 				E5D7D91A2D43933700EC877A /* FocusStatsHistoryCell.swift in Sources */,
+				E51F94032FFF582000734910 /* CalendarRangeEventsInfo.swift in Sources */,
 				E5BB9B4A2D3BEF920089667A /* ArrayExtension.swift in Sources */,
 				E59244062F51585800CA2393 /* UIColor+Habit.swift in Sources */,
 				E549B14D2F85F53C0014BE85 /* CDTodoTask+Extensions.swift in Sources */,
@@ -12350,6 +12376,7 @@
 				E5BB9E792D3BF0C70089667A /* StatsBaseChartCell.swift in Sources */,
 				E53B113B2F94D1B300701410 /* TodoFilterProgressSpecificSectionController.swift in Sources */,
 				E5BB9DE82D3BF0C60089667A /* UICollectionView+Extension.swift in Sources */,
+				E51F94062FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift in Sources */,
 				E5BB9F0F2D3BF0C90089667A /* TPMenuRepresentable.swift in Sources */,
 				E5BB9EA62D3BF0C80089667A /* UILabel+LineFrames.swift in Sources */,
 				E5BB9E1A2D3BF0C70089667A /* NSManagedObject+Entity.swift in Sources */,
@@ -12917,6 +12944,7 @@
 				E586DA732FE2A74A00758ED6 /* TPPermissionDeniedTableCell.swift in Sources */,
 				E5BB9EA82D3BF0C80089667A /* TPTextField.swift in Sources */,
 				E529AD022F7EB255000EA2F1 /* TodoBaseTaskListViewController.swift in Sources */,
+				E51F94002FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift in Sources */,
 				E568B7DF2F717196007B7EFE /* FocusTimerGroup.swift in Sources */,
 				E5BB9F062D3BF0C90089667A /* TPCollectionDragInsertReorder.swift in Sources */,
 				E5BB9DE22D3BF0C60089667A /* UITraitCollection+Extension.swift in Sources */,

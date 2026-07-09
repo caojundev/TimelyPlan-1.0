@@ -52,12 +52,6 @@ class TPCalendarMonthView: UIView,
     /// 代理对象
     weak var delegate: TPCalendarMonthViewDelegate?
     
-    /// 当前月份日期
-    var visibleDateComponents: DateComponents = Date().yearMonthComponents
-    
-    /// 周开始日
-    var firstWeekday: Weekday = .sunday
-    
     /// 选择管理器
     var selection: TPCalendarDateSelection? {
         didSet {
@@ -65,14 +59,25 @@ class TPCalendarMonthView: UIView,
         }
     }
 
+    /// 周开始日
+    private(set) var firstWeekday: Weekday = .sunday
+
+    /// 当前月份日期
+    private(set) var visibleDateComponents: DateComponents = Date().yearMonthComponents
+    
     /// 集合视图
     private var collectionView: UICollectionView!
     
+    /// 跨天指示器视图
     private let spanningView = TPCalendarSpanningView()
 
     /// 集合视图适配器
-    private let adapter: TPCollectionViewAdapter = TPCollectionViewAdapter()
-
+    let adapter: TPCollectionViewAdapter = TPCollectionViewAdapter()
+    
+    private var requestToken: Int = 0
+    
+    private var rangeEventsInfo: CalendarRangeEventsInfo?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
@@ -121,6 +126,63 @@ class TPCalendarMonthView: UIView,
         spanningView.reloadData()
     }
     
+    func configure(firstWeekday: Weekday,
+                   visibleDateComponents: DateComponents,
+                   eventsProvider: CalendarRangeEventsProvider? = nil) {
+        rangeEventsInfo = nil
+        
+        // 取消之前的请求
+        cancelCurrentRequest()
+        
+        self.visibleDateComponents = visibleDateComponents
+        reloadData()
+        
+        // 生成新的请求令牌
+        requestToken += 1
+        let token = requestToken
+        
+        // 异步获取事项数据
+        guard let range = eventRange() else {
+            return
+        }
+        
+        eventsProvider?.fetchRangeEventsInfo(in: range) { [weak self] eventsInfo in
+            guard let self = self else { return }
+            // 检查令牌是否匹配
+            guard token == self.requestToken else { return }
+            self.rangeEventsInfo = eventsInfo
+            self.updateEventsInfo()
+        }
+    }
+    
+    /// 获取事项的日期范围
+    func eventRange() -> DateInterval? {
+        guard let date = Date.dateFromComponents(visibleDateComponents) else {
+            return nil
+        }
+        
+        return .rangeOfMonth(containing: date)
+    }
+    
+    private func updateEventsInfo() {
+        guard let cells = adapter.visibleCells as? [TPCalendarDayCell] else {
+            return
+        }
+        
+        for cell in cells {
+            guard !cell.isHidden, let dateComponents = cell.dayDateComponents else {
+                continue
+            }
+            
+            let colors = rangeEventsInfo?.eventColors(for: dateComponents)
+            cell.configureEventColors(colors)
+        }
+    }
+    
+    private func cancelCurrentRequest() {
+        requestToken += 1
+    }
+    
     // MARK: - Data Source
     func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
         
@@ -141,12 +203,17 @@ class TPCalendarMonthView: UIView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        cell.isHidden = !isCurrentMonthDate(at: indexPath)
         let components = adapter.item(at: indexPath) as! DateComponents
+        cell.isHidden = shouldHideCell(for: components)
         if let cell = cell as? TPCalendarDayCell {
             cell.dayDateComponents = components
             cell.isChecked = shouldShowCheckmarkForItem(at: indexPath)
+            cell.isDimmed = !visibleDateComponents.isInSameMonth(as: components)
             cell.reloadData()
+            
+            /// 配置事项颜色信息
+            let colors = rangeEventsInfo?.eventColors(for: components)
+            cell.configureEventColors(colors)
         }
 
         delegate?.calendarMonthView(self, didDequeCell: cell, forDateComponents: components)
@@ -187,14 +254,11 @@ class TPCalendarMonthView: UIView,
     
     // MARK: - TPCalendarDateSelectionUpdater
     func updateCalendar(forDates dates: [DateComponents]) {
-        /// 过滤出在当前月份中的日期
-        var updateDates = [DateComponents]()
-        for date in dates {
-            if date.isInSameMonth(as: visibleDateComponents) {
-                updateDates.append(date)
-            }
+        guard let dateComponents = adapter.allItems() as? [DateComponents] else {
+            return
         }
         
+        let updateDates = dates.filter { dateComponents.contains($0) }
         adapter.reloadCell(forItems: updateDates as [NSDateComponents])
         
         /// 更新跨天视图
@@ -220,10 +284,9 @@ class TPCalendarMonthView: UIView,
     }
     
     // MARK: - Helpers
-    /// 判断索引处的日期是否是当前月的日期
-    private func isCurrentMonthDate(at indexPath: IndexPath) -> Bool {
-        let dateComponents = adapter.item(at: indexPath) as! DateComponents
-        return visibleDateComponents.isInSameMonth(as: dateComponents)
+    
+    func shouldHideCell(for dateComponents: DateComponents) -> Bool {
+        return !visibleDateComponents.isInSameMonth(as: dateComponents)
     }
     
 }

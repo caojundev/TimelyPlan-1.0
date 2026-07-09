@@ -54,6 +54,8 @@ class CalendarWeekMonthExpandView: UIView {
     /// 可见日期组件
     private(set) var visibleDateComponents: DateComponents = Date().yearMonthDayComponents
     
+    private let eventsInfoFetcher = CalendarRangeEventsInfoFetcher()
+    
     // MARK: - 初始化
     init(frame: CGRect, firstWeekday: Weekday = .firstWeekday) {
         self.firstWeekday = firstWeekday
@@ -113,6 +115,13 @@ class CalendarWeekMonthExpandView: UIView {
     }
     
     private func didChangeVisibleDateComponents(_ dateComponents: DateComponents) {
+        if containerView.currentMode == .month,
+           let selectedDate = selection.selectedDate,
+           selectedDate.isInSameMonth(as: dateComponents) {
+            self.visibleDateComponents = selectedDate
+            return
+        }
+        
         self.visibleDateComponents = dateComponents
     }
     
@@ -125,6 +134,7 @@ extension CalendarWeekMonthExpandView: CalendarExpandContainerDelegate {
         switch mode {
         case .week:
             let view = CalendarExpandWeekView(frame: .zero)
+            view.eventsProvider = eventsInfoFetcher
             view.didChangeVisibleDateComponents = { [weak self] currentComponents, _ in
                 self?.didChangeVisibleDateComponents(currentComponents)
             }
@@ -135,6 +145,7 @@ extension CalendarWeekMonthExpandView: CalendarExpandContainerDelegate {
             return view
         case .month:
             let view = CalendarExpandMonthView(frame: .zero)
+            view.eventsProvider = eventsInfoFetcher
             view.didChangeVisibleDateComponents = { [weak self] currentComponents, _ in
                 self?.didChangeVisibleDateComponents(currentComponents)
             }

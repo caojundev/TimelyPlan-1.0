@@ -60,10 +60,16 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
     
     /// 选中指示圆形尺寸
     private let selectedIndicatorSize = CGSize(width: 46.0, height: 46.0)
-
+    
+    /// 事项视图
+    private let eventIndicatorHeight = 12.0
+    private let eventIndicatorMargin = 4.0
+    private let eventIndicatorView = TPCalendarDayEventIndicatorView()
+    
     override func setupContentSubviews() {
         super.setupContentSubviews()
         contentView.addSubview(badgeView)
+        contentView.addSubview(eventIndicatorView)
         cellStyle = TPCollectionCellStyle()
         scaleWhenHighlighted = false
         infoView.titleConfig.font = UIFont.boldSystemFont(ofSize: 12.0)
@@ -77,6 +83,11 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
         super.layoutSubviews()
         let backgroundFrame = backgroundView?.frame ?? bounds
         infoView.frame = backgroundFrame.middleCircleInnerSquareRect
+        
+        eventIndicatorView.width = bounds.width - eventIndicatorMargin * 2.0
+        eventIndicatorView.height = eventIndicatorHeight
+        eventIndicatorView.top = infoView.bottom
+        eventIndicatorView.left = eventIndicatorMargin
         
         /// 布局角标
         badgeView.sizeToFit()
@@ -174,6 +185,10 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
         updateBadgeView(for: date)
     }
     
+    func configureEventColors(_ colors: [UIColor]?) {
+        eventIndicatorView.configure(colors: colors)
+    }
+    
     private func updateBadgeView(for date: Date) {
         if showChineseHolidays {
             badgeView.isHidden = false
@@ -212,5 +227,4 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
         
         return subtitle
     }
-    
 }

@@ -59,6 +59,12 @@ extension DateInterval {
         return DateInterval(start: start, end: end)
     }
     
+    static func rangeOfMonth(containing date: Date) -> DateInterval  {
+        let start = date.startOfMonth()
+        let end = date.endOfMonth()
+        return DateInterval(start: start, end: end)
+    }
+    
     static func rangeOfWeek(weekStartDate: Date) -> DateInterval {
         let weekEndDate = weekStartDate.dateByAddingDays(6)!
         let range = DateInterval(start: weekStartDate.startOfDay(),

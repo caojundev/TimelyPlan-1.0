@@ -14,6 +14,8 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     /// 月份视图代理对象
     weak var delegate: TPCalendarMonthViewDelegate?
     
+    weak var eventsProvider: CalendarRangeEventsProvider?
+    
     /// 日历视图切换到新月份回调
     var didChangeVisibleDateComponents: ((_ currentDateComponents: DateComponents,
                                           _ previousDateComponents: DateComponents) -> Void)?
@@ -83,11 +85,12 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
         let dateComponents = adapter.item(at: indexPath) as! DateComponents
         let monthView = cell.monthView
         monthView.delegate = delegate
-        monthView.visibleDateComponents = dateComponents
         monthView.selection = selection
-        monthView.reloadData()
+        monthView.configure(firstWeekday: firstWeekday,
+                            visibleDateComponents: dateComponents,
+                            eventsProvider: eventsProvider)
     }
-
+    
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return false
     }
@@ -113,7 +116,7 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
 
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        adapter.performUpdate()
+        adapter.performUpdate(updateVisibleItems: false)
         CATransaction.commit()
         
         updateContentOffset(animated: false)

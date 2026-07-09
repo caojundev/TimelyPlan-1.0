@@ -29,24 +29,28 @@ class TPCalendarSingleWeekView: TPCollectionWrapperView,
     /// 代理对象
     weak var delegate: TPCalendarSingleWeekViewDelegate?
     
-    /// 当前周日期
-    var visibleDateComponents: DateComponents = Date().yearMonthDayComponents
-    
-    /// 周开始日
-    var firstWeekday: Weekday = .sunday
-
-    /// 显示农历
-    var showLunar: Bool = true
-    
-    /// 显示中国节假日
-    var showChineseHolidays: Bool = true
-    
     /// 选择管理器
     var selection: TPCalendarDateSelection? {
         didSet {
             selection?.addUpdater(self) /// 添加选择器更新监听
         }
     }
+    
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
+    
+    /// 周开始日
+    private(set) var firstWeekday: Weekday = .sunday
+
+    /// 当前周日期
+    private(set) var visibleDateComponents: DateComponents = Date().yearMonthDayComponents
+    
+    private var requestToken: Int = 0
+    
+    private var rangeEventsInfo: CalendarRangeEventsInfo?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,6 +67,69 @@ class TPCalendarSingleWeekView: TPCollectionWrapperView,
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func configure(firstWeekday: Weekday,
+                   visibleDateComponents: DateComponents,
+                   eventsProvider: CalendarRangeEventsProvider? = nil) {
+        rangeEventsInfo = nil
+        
+        // 取消之前的请求
+        cancelCurrentRequest()
+        
+        self.visibleDateComponents = visibleDateComponents
+        reloadData()
+        
+        // 生成新的请求令牌
+        requestToken += 1
+        let token = requestToken
+        
+        // 异步获取事项数据
+        guard let range = eventRange() else {
+            return
+        }
+        
+        eventsProvider?.fetchRangeEventsInfo(in: range) { [weak self] eventsInfo in
+            guard let self = self else { return }
+            // 检查令牌是否匹配
+            guard token == self.requestToken else { return }
+            self.rangeEventsInfo = eventsInfo
+            self.updateEventsInfo()
+        }
+    }
+    
+    /// 获取事项的日期范围
+    func eventRange() -> DateInterval? {
+        guard let date = Date.dateFromComponents(visibleDateComponents) else {
+            return nil
+        }
+        
+        let range = date.rangeOfThisWeek(firstWeekday: firstWeekday)
+        guard let start = range.startDate, let end = range.endDate else {
+            return nil
+        }
+        
+        return DateInterval(start: start, end: end)
+    }
+    
+    private func updateEventsInfo() {
+        guard let cells = adapter.visibleCells as? [TPCalendarDayCell] else {
+            return
+        }
+        
+        for cell in cells {
+            guard !cell.isHidden, let dateComponents = cell.dayDateComponents else {
+                continue
+            }
+            
+            let colors = rangeEventsInfo?.eventColors(for: dateComponents)
+            cell.configureEventColors(colors)
+        }
+    }
+    
+    private func cancelCurrentRequest() {
+        requestToken += 1
+    }
+    
     
     // MARK: - Data Source
     func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
@@ -97,6 +164,10 @@ class TPCalendarSingleWeekView: TPCollectionWrapperView,
             cell.dayDateComponents = components
             cell.isChecked = shouldShowCheckmarkForItem(at: indexPath)
             cell.reloadData()
+            
+            /// 配置事项颜色信息
+            let colors = rangeEventsInfo?.eventColors(for: components)
+            cell.configureEventColors(colors)
         }
         
         delegate?.calendarSingleWeekView?(self, didDequeCell: cell, forDateComponents: components)

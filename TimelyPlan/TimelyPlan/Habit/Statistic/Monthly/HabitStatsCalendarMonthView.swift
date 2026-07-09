@@ -26,11 +26,7 @@ class HabitStatsCalendarMonthView: UIView {
         }
     }
     
-    var date: Date = Date() {
-        didSet {
-            monthView.visibleDateComponents = date.yearMonthDayComponents
-        }
-    }
+    var date: Date = Date()
     
     /// 未来日是否可用
     var isFutureDayEnabled: Bool = true
@@ -82,8 +78,7 @@ class HabitStatsCalendarMonthView: UIView {
     func reloadData() {
         symbolsView.firstWeekday = firstWeekday
         symbolsView.reloadData()
-        
-        monthView.firstWeekday = firstWeekday
-        monthView.reloadData()
+        monthView.configure(firstWeekday: firstWeekday,
+                            visibleDateComponents: date.yearMonthDayComponents)
     }
 }

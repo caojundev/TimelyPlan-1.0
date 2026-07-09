@@ -15,6 +15,8 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
     /// 月份视图代理对象
     weak var delegate: TPCalendarSingleWeekViewDelegate?
     
+    weak var eventsProvider: CalendarRangeEventsProvider?
+    
     /// 符号样式
     var symbolStyle: WeekdaySymbolStyle = .short
     
@@ -117,12 +119,12 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
     
     func updateWeekView(_ weekView: TPCalendarSingleWeekView, with dateComponents: DateComponents) {
         weekView.delegate = delegate
-        weekView.firstWeekday = firstWeekday
+        weekView.selection = selection
         weekView.showLunar = showLunar
         weekView.showChineseHolidays = showChineseHolidays
-        weekView.visibleDateComponents = dateComponents
-        weekView.selection = selection
-        weekView.reloadData()
+        weekView.configure(firstWeekday: firstWeekday,
+                           visibleDateComponents: dateComponents,
+                           eventsProvider: eventsProvider)
     }
 
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
