@@ -72,7 +72,7 @@ class TPCalendarDayCell: TPDefaultInfoCollectionCell {
         contentView.addSubview(eventIndicatorView)
         cellStyle = TPCollectionCellStyle()
         scaleWhenHighlighted = false
-        infoView.titleConfig.font = UIFont.boldSystemFont(ofSize: 12.0)
+        infoView.titleConfig.font = UIFont.boldSystemFont(ofSize: 14.0)
         infoView.titleConfig.textAlignment = .center
         infoView.subtitleConfig.font = UIFont.systemFont(ofSize: 8.0)
         infoView.subtitleConfig.alpha = 1.0

@@ -8,8 +8,14 @@
 import Foundation
 import UIKit
 
-class CalendarWeekMonthExpandView: UIView {
+protocol CalendarWeekMonthExpandViewDelegate: AnyObject {
+    func calendarWeekMonthExpandViewFrameChanged(_ view: CalendarWeekMonthExpandView)
+}
 
+class CalendarWeekMonthExpandView: UIView {
+    
+    weak var delegate: CalendarWeekMonthExpandViewDelegate?
+    
     // MARK: - 常量配置
     /// 星期栏高度
     private let weekdaySymbolHeight: CGFloat = 20.0
@@ -90,10 +96,14 @@ class CalendarWeekMonthExpandView: UIView {
         // 切换容器紧跟星期栏，宽度与父视图对齐，高度由容器自身管理（手势/动画驱动）
         containerView.frame = CGRect(
             x: 0,
-            y: weekdaySymbolView.frame.maxY,
+            y: weekdaySymbolHeight,
             width: bounds.width,
-            height: containerView.frame.height
+            height: containerView.height
         )
+    }
+    
+    var contentHeight: CGFloat {
+        return weekdaySymbolHeight + containerView.height
     }
 
     // MARK: - 对外公共方法
@@ -103,7 +113,7 @@ class CalendarWeekMonthExpandView: UIView {
 
     /// 外部手动切换周/月模式
     func switchMode(_ mode: CalendarExpandMode, animated: Bool) {
-//        containerView.switchToMode(mode, animated: animated)
+        containerView.switchToMode(mode, animated: animated)
     }
 
     // MARK: - 私有方法
@@ -178,10 +188,14 @@ extension CalendarWeekMonthExpandView: CalendarExpandContainerDelegate {
     }
 
     func container(_ container: CalendarExpandContainerView, didFinishTransitionTo mode: CalendarExpandMode) {
+        
+    }
+    
+    func containerFrameDidChange(_ container: CalendarExpandContainerView) {
+        self.height = contentHeight
         setNeedsLayout()
-//        // 切换完成后触发父视图重排，同步更新布局
-//        superview?.setNeedsLayout()
-//        // 可在此处添加业务回调，例如通知外部模式变更
+        layoutIfNeeded()
+        delegate?.calendarWeekMonthExpandViewFrameChanged(self)
     }
 }
 

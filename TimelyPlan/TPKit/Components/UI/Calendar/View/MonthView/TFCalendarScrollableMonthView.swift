@@ -44,9 +44,7 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        DispatchQueue.main.async {
-            self.updateContentOffset(animated: false)
-        }
+        updateContentOffset(animated: false)
     }
     
     override func setupCollectionView() {

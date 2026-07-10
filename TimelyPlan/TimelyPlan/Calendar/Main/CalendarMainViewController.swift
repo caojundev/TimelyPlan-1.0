@@ -45,6 +45,11 @@ class CalendarMainViewController: TPContainerViewController,
         return item
     }()
     
+    private lazy var listViewController: CalendarListViewController = {
+        let vc = CalendarListViewController()
+        return vc
+    }()
+    
     private lazy var dayViewController: CalendarDayViewController = {
         let vc = CalendarDayViewController()
         return vc
@@ -92,6 +97,8 @@ class CalendarMainViewController: TPContainerViewController,
     private func updateContentViewController() {
         let contentViewController: UIViewController
         switch mode {
+        case .list:
+            contentViewController = listViewController
         case .day:
             contentViewController = dayViewController
         case .week:

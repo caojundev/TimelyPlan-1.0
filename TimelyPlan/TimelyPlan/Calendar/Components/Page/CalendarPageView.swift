@@ -388,7 +388,6 @@ class CalendarPageView: TPCollectionWrapperView,
         let dayWidth = dayWidth
         let targetOffsetX = targetContentOffset.pointee.x
         var targetPage = round(targetOffsetX / dayWidth)
-        print("\(dayWidth) : \(velocity.x)")
         if abs(velocity.x) < 2.0 {
             let velocityThreshold: CGFloat = 0.2
             if velocity.x > velocityThreshold {

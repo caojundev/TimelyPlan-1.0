@@ -90,7 +90,7 @@ class TPYearMonthDatePickerViewController: UIViewController {
         contentView.addSubview(self.doneButton)
         
         if mode == .yearAndMonth {
-            currentDateButton.title = resGetString("Current Month")
+            currentDateButton.title = resGetString("This Month")
         } else {
             currentDateButton.title = resGetString("This Year")
         }

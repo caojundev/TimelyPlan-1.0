@@ -23,8 +23,12 @@ final class TPGrabberView: UIView {
         didSet { grabberLineView.backgroundColor = lineColor }
     }
     
+    /// 单击回调
+    var onTap: (() -> Void)?
+    
     // MARK: - 私有视图
     private let grabberLineView = UIView()
+    private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
     
     // MARK: - 初始化
     override init(frame: CGRect) {
@@ -38,12 +42,16 @@ final class TPGrabberView: UIView {
     }
     
     private func commonInit() {
+        clipsToBounds = true
         backgroundColor = .clear
         // 圆角，和系统grabber保持一致
         grabberLineView.layer.cornerRadius = 2.5
         grabberLineView.clipsToBounds = true
         grabberLineView.backgroundColor = lineColor
         addSubview(grabberLineView)
+        
+        // 添加单击手势
+        addGestureRecognizer(tapGesture)
     }
     
     // 手动布局核心：横线在父视图水平+垂直居中
@@ -55,6 +63,10 @@ final class TPGrabberView: UIView {
             width: lineWidth,
             height: lineHeight
         )
+    }
+    
+    @objc private func handleTap() {
+        onTap?()
     }
     
     /// 快速获取系统默认尺寸的grabber视图（系统标准36×5）

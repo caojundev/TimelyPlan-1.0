@@ -1,5 +1,5 @@
 //
-//  CalendarCollapsibleContainerView.swift
+//  CalendarExpandContainerView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/8.
@@ -26,6 +26,9 @@ protocol CalendarExpandContainerDelegate: AnyObject {
     
     /// 切换动画完成回调
     func container(_ container: CalendarExpandContainerView, didFinishTransitionTo mode: CalendarExpandMode)
+    
+    /// 尺寸变化回调
+    func containerFrameDidChange(_ container: CalendarExpandContainerView)
 }
 
 // 可选实现扩展
@@ -81,6 +84,10 @@ class CalendarExpandContainerView: UIView {
         contentContainer.clipsToBounds = true
         contentContainer.backgroundColor = .systemBackground
         addSubview(contentContainer)
+        
+        grabberView.onTap = { [weak self] in
+            self?.toggleMode()
+        }
         
         addSubview(grabberView)
         addSeparator(position: .bottom)
@@ -181,17 +188,36 @@ class CalendarExpandContainerView: UIView {
     private func addTargetView(_ targetView: UIView,
                                targetMode: CalendarExpandMode,
                                progress: CGFloat) {
-        contentContainer.addSubview(targetView)
+        self.targetView = targetView
+        
+        targetView.alpha = 0.0
+        targetView.isUserInteractionEnabled = false
         targetView.width = bounds.width
         targetView.height = delegate?.container(self, heightFor: targetMode) ?? 0.0
         targetView.top = offsetY(for: targetMode, progress: progress)
+        targetView.layoutIfNeeded()
+        contentContainer.addSubview(targetView)
+        
+        // 首次布局（建立 frame 和子视图布局）
+        targetView.setNeedsLayout()
+        targetView.layoutIfNeeded()
+       
+        // 延迟再次布局（处理无限滚动）
+        DispatchQueue.main.async { [weak targetView] in
+             guard let targetView = targetView else { return }
+           
+            // 第二次布局
+            targetView.setNeedsLayout()
+            targetView.layoutIfNeeded()
+        }
     }
     
     /// 完成过渡：清理旧视图，更新常驻视图
-    func finishTransition(to mode: CalendarExpandMode) {
+    private func finishTransition(to mode: CalendarExpandMode) {
+        currentView?.isUserInteractionEnabled = true
+        targetView?.isUserInteractionEnabled = true
         // 移除旧的常驻视图
         currentView?.removeFromSuperview()
-        
         // 目标视图升级为常驻视图
         currentView = targetView
         targetView = nil
@@ -205,7 +231,9 @@ class CalendarExpandContainerView: UIView {
     }
     
     /// 回弹取消过渡
-    func cancelTransition() {
+    private func cancelTransition() {
+        currentView?.isUserInteractionEnabled = true
+        targetView?.isUserInteractionEnabled = true
         targetView?.removeFromSuperview()
         targetView = nil
         isAnimating = false
@@ -213,23 +241,28 @@ class CalendarExpandContainerView: UIView {
     }
     
     // MARK: - 对外手动切换方法
-    /*
+    func toggleMode(animated: Bool = true) {
+        TPImpactFeedback.impactWithSoftStyle()
+        let targetMode: CalendarExpandMode = currentMode == .week ? .month : .week
+        switchToMode(targetMode, animated: animated)
+    }
+    
     func switchToMode(_ mode: CalendarExpandMode, animated: Bool) {
         guard mode != currentMode, !isAnimating, !isDragging else { return }
         guard let delegate = delegate else { return }
         
         let targetView = delegate.container(self, viewFor: mode)
-        let targetHeight = delegate.container(self, heightFor: mode)
-        let targetOffset = delegate.container(self, contentOffsetYFor: mode)
+        let currentProgress = currentMode == .week ? 0.0 : 1.0
+        addTargetView(targetView, targetMode: mode, progress: currentProgress)
         
-        // 添加目标视图到容器
-        addTargetView(targetView, offsetY: targetOffset)
-        self.targetView = targetView
-        
+        let targetProgress = mode == .week ? 0.0 : 1.0
+        let targetContentHeight = contentHeight(of: targetProgress)
+        self.progress = targetProgress
         let transition = {
-            self.frame.size.height = targetHeight
-            self.contentContainer.frame.size.height = targetHeight
-            targetView.frame.origin.y = 0
+            self.frame.size.height = targetContentHeight + self.grabberHeight
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+            delegate.containerFrameDidChange(self)
         }
         
         if animated {
@@ -244,7 +277,6 @@ class CalendarExpandContainerView: UIView {
             finishTransition(to: mode)
         }
     }
-     */
 }
 
 // MARK: - 拖动手势处理
@@ -273,10 +305,7 @@ extension CalendarExpandContainerView {
             
             // 获取目标视图并添加
             let targetView = delegate.container(self, viewFor: targetMode)
-            targetView.alpha = 0.0
-            targetView.isUserInteractionEnabled = false
             addTargetView(targetView, targetMode: targetMode, progress: progress)
-            self.targetView = targetView
         case .changed:
             guard isDragging else { return }
             let targetMode: CalendarExpandMode = currentMode == .week ? .month : .week
@@ -293,10 +322,9 @@ extension CalendarExpandContainerView {
             layoutContentContainer()
             layoutContentView(with: progress)
             layoutGrabberView()
+            delegate.containerFrameDidChange(self)
         case .ended, .cancelled:
             guard isDragging else { return }
-            currentView?.isUserInteractionEnabled = true
-            targetView?.isUserInteractionEnabled = true
             let targetMode: CalendarExpandMode = currentMode == .week ? .month : .week
             let targetHeight = delegate.container(self, heightFor: targetMode)
             
@@ -318,6 +346,7 @@ extension CalendarExpandContainerView {
                 self.frame.size.height = contentHeight + self.grabberHeight
                 self.setNeedsLayout()
                 self.layoutIfNeeded()
+                delegate.containerFrameDidChange(self)
             } completion: { _ in
                 if finalMode == self.currentMode {
                     self.cancelTransition()

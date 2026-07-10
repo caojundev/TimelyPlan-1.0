@@ -8,6 +8,7 @@
 import Foundation
 
 enum CalendarMode: Int, TPMenuRepresentable {
+    case list
     case day
     case week
     case month
@@ -16,6 +17,8 @@ enum CalendarMode: Int, TPMenuRepresentable {
     
     var title: String {
         switch self {
+        case .list:
+            return resGetString("List")
         case .day:
             return resGetString("Day")
         case .week:
@@ -32,6 +35,8 @@ enum CalendarMode: Int, TPMenuRepresentable {
     var iconName: String? {
         var name: String
         switch self {
+        case .list:
+            name = "calendar_list"
         case .day:
             name = "calendar_day"
         case .week:
