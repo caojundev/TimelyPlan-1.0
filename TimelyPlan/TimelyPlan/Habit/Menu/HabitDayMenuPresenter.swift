@@ -11,8 +11,9 @@ class HabitDayMenuPresenter {
     
     private static let processor = HabitTaskMenuActionProcessor()
     
-    /// 显示信息菜单（包含了习惯信息）
-    static func showMenu(for periodItem: HabitPeriodItem, on date: Date) {
+    private static func dayMenuController(
+        for periodItem: HabitPeriodItem,
+        on date: Date) -> HabitDayInfoMenuController {
         let habitTask = periodItem.habitTask
         let record = periodItem.record(on: date)
         let menuController = HabitDayInfoMenuController(periodItem: periodItem, date: date)
@@ -24,6 +25,16 @@ class HabitDayMenuPresenter {
             processor.clickRecrod(for: habitTask, on: date)
         }
         
-        menuController.showMenu()
+        return menuController
+    }
+    
+    static func showPopoverMenu(for periodItem: HabitPeriodItem, on date: Date) {
+        let menuController = dayMenuController(for: periodItem, on: date)
+        menuController.showPopoverMenu()
+    }
+    
+    static func showSheetMenu(for periodItem: HabitPeriodItem, on date: Date) {
+        let menuController = dayMenuController(for: periodItem, on: date)
+        menuController.showSheetMenu()
     }
 }

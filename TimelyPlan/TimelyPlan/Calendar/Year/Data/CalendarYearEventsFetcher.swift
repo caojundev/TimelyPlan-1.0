@@ -8,10 +8,17 @@
 import Foundation
 
 class CalendarYearEventsFetcher: CalendarYearEventsProvider {
+    
     private let repository = CalendarRepository()
+    
     private let calculationQueue = DispatchQueue(label: "com.calendar.eventCalculation",
                                                   qos: .userInitiated,
                                                   attributes: .concurrent)
+    
+    func addEventChangeDelegate(_ delegate: CalendarEventChangeDelegate) {
+        repository.addUpdaterDelegate(delegate)
+    }
+    
     func fetchEventsForMonth(year: Int, month: Int, completion: @escaping (CalendarMonthEventsInfo) -> Void) {
         guard let interval = Calendar.current.monthInterval(year: year, month: month) else {
             let info = CalendarMonthEventsInfo(year: year, month: month, dayEvents: [])

@@ -259,7 +259,7 @@ class HabitHomeWeekViewController: TPViewController,
         }
         let isScheduled = periodItem.isScheduledDate(date)
         if isScheduled {
-            HabitDayMenuPresenter.showMenu(for: periodItem, on: date)
+            HabitDayMenuPresenter.showPopoverMenu(for: periodItem, on: date)
         } else {
             HabitPresenter.showNotScheduledDayMessage(for: date)
         }

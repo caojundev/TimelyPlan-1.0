@@ -126,35 +126,6 @@ class TPCalendarMonthView: UIView,
         spanningView.reloadData()
     }
     
-    func configure(firstWeekday: Weekday,
-                   visibleDateComponents: DateComponents,
-                   eventsProvider: CalendarRangeEventsProvider? = nil) {
-        rangeEventsInfo = nil
-        
-        // 取消之前的请求
-        cancelCurrentRequest()
-        
-        self.visibleDateComponents = visibleDateComponents
-        reloadData()
-        
-        // 生成新的请求令牌
-        requestToken += 1
-        let token = requestToken
-        
-        // 异步获取事项数据
-        guard let range = eventRange() else {
-            return
-        }
-        
-        eventsProvider?.fetchRangeEventsInfo(in: range) { [weak self] eventsInfo in
-            guard let self = self else { return }
-            // 检查令牌是否匹配
-            guard token == self.requestToken else { return }
-            self.rangeEventsInfo = eventsInfo
-            self.updateEventsInfo()
-        }
-    }
-    
     /// 获取事项的日期范围
     func eventRange() -> DateInterval? {
         guard let date = Date.dateFromComponents(visibleDateComponents) else {
@@ -162,6 +133,40 @@ class TPCalendarMonthView: UIView,
         }
         
         return .rangeOfMonth(containing: date)
+    }
+    
+    private var eventsProvider: CalendarRangeEventsProvider?
+    
+    func configure(firstWeekday: Weekday,
+                   visibleDateComponents: DateComponents,
+                   eventsProvider: CalendarRangeEventsProvider? = nil) {
+        self.firstWeekday = firstWeekday
+        self.visibleDateComponents = visibleDateComponents
+        self.eventsProvider = eventsProvider
+        self.eventsProvider?.addEventChangeDelegate(self)
+        
+        rangeEventsInfo = nil
+        cancelCurrentRequest()
+        reloadData()
+        reloadEventsInfo()
+    }
+    
+    private func reloadEventsInfo() {
+        // 异步获取事项数据
+        guard let eventsProvider = eventsProvider, let range = eventRange() else {
+            return
+        }
+        
+        // 生成新的请求令牌
+        requestToken += 1
+        let token = requestToken
+        eventsProvider.fetchRangeEventsInfo(in: range) { [weak self] eventsInfo in
+            guard let self = self else { return }
+            // 检查令牌是否匹配
+            guard token == self.requestToken else { return }
+            self.rangeEventsInfo = eventsInfo
+            self.updateEventsInfo()
+        }
     }
     
     private func updateEventsInfo() {
@@ -289,4 +294,18 @@ class TPCalendarMonthView: UIView,
         return !visibleDateComponents.isInSameMonth(as: dateComponents)
     }
     
+}
+
+extension TPCalendarMonthView: CalendarEventChangeDelegate {
+    
+    func calendarEventsDidChange(in ranges: [DateInterval]) {
+        guard let eventRange = eventRange() else {
+            return
+        }
+        
+        let shouldUpdate = ranges.anySatisfy { $0.intersects(eventRange)}
+        if shouldUpdate {
+            reloadEventsInfo()
+        }
+    }
 }

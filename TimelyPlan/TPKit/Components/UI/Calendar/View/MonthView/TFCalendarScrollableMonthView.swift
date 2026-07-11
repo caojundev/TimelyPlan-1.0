@@ -44,7 +44,14 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        /// 更新内容偏移
         updateContentOffset(animated: false)
+        
+        /// 内容偏移可能会被 collectionView 布局覆盖，在下一个 Runloop 再更新一次
+        DispatchQueue.main.async {
+            self.updateContentOffset(animated: false)
+        }
     }
     
     override func setupCollectionView() {
@@ -134,11 +141,7 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     }
     
     /// 当前月份日期组件
-    func setVisibleDateComponents(_ dateComponents: DateComponents, animated: Bool) {
-        guard visibleDateComponents != dateComponents else {    
-            return
-        }
-        
+    func setVisibleDateComponents(_ dateComponents: DateComponents, animated: Bool = false) {
         guard animated else {
             visibleDateComponents = dateComponents
             reloadData()

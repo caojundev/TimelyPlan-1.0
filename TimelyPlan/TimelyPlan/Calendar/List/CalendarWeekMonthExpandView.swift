@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 
 protocol CalendarWeekMonthExpandViewDelegate: AnyObject {
+    
+    func calendarWeekMonthExpandView(_ view: CalendarWeekMonthExpandView, didSelectDate dateComponents: DateComponents)
+    
+    func calendarWeekMonthExpandView(_ view: CalendarWeekMonthExpandView, didChangeVisibleDate dateComponents: DateComponents)
+    
     func calendarWeekMonthExpandViewFrameChanged(_ view: CalendarWeekMonthExpandView)
 }
 
@@ -31,9 +36,10 @@ class CalendarWeekMonthExpandView: UIView {
     // MARK: - 子视图
     /// 顶部星期栏（固定不参与展开动画）
     private lazy var weekdaySymbolView: TPWeekdaySymbolView = {
-        let view = TPWeekdaySymbolView(frame: .zero, style: .short)
+        let view = TPWeekdaySymbolView(frame: .zero,
+                                       style: .short,
+                                       firstWeekday: firstWeekday)
         view.backgroundColor = .systemBackground
-        view.firstWeekday = firstWeekday
         view.addSeparator(position: .bottom)
         return view
     }()
@@ -58,13 +64,16 @@ class CalendarWeekMonthExpandView: UIView {
     private(set) var firstWeekday: Weekday
 
     /// 可见日期组件
-    private(set) var visibleDateComponents: DateComponents = Date().yearMonthDayComponents
+    private(set) var visibleDateComponents: DateComponents
     
     private let eventsInfoFetcher = CalendarRangeEventsInfoFetcher()
     
     // MARK: - 初始化
-    init(frame: CGRect, firstWeekday: Weekday = .firstWeekday) {
+    init(frame: CGRect,
+         firstWeekday: Weekday,
+         visibleDateComponents: DateComponents) {
         self.firstWeekday = firstWeekday
+        self.visibleDateComponents = visibleDateComponents
         super.init(frame: frame)
         setupViews()
     }
@@ -107,34 +116,58 @@ class CalendarWeekMonthExpandView: UIView {
     }
 
     // MARK: - 对外公共方法
-    func reloadData() {
-        reloadWeekdaySymbol()
+    
+    // 设置周开始日
+    func setFirstWeekday(_ firstWeekday: Weekday) {
+        guard self.firstWeekday != firstWeekday else {
+            return
+        }
+
+        self.firstWeekday = firstWeekday
+        weekdaySymbolView.setFirstWeekday(firstWeekday)
+        
+        let currentView = containerView.currentView
+        if let monthView = currentView as? CalendarExpandMonthView {
+            monthView.firstWeekday = firstWeekday
+            monthView.reloadData()
+        } else if let weekView = currentView as? CalendarExpandWeekView {
+            weekView.firstWeekday = firstWeekday
+            weekView.reloadData()
+        }
     }
 
+    func setVisibleDateComponents(_ visibleDateComponents: DateComponents, animated: Bool = true ) {
+        guard self.visibleDateComponents != visibleDateComponents else {
+            return
+        }
+        
+        self.visibleDateComponents = visibleDateComponents
+        let currentView = containerView.currentView
+        if let monthView = currentView as? CalendarExpandMonthView {
+            monthView.setVisibleDateComponents(visibleDateComponents, animated: animated)
+        } else if let weekView = currentView as? CalendarExpandWeekView {
+            weekView.setVisibleDateComponents(visibleDateComponents, animated: animated)
+        }
+    }
+    
     /// 外部手动切换周/月模式
     func switchMode(_ mode: CalendarExpandMode, animated: Bool) {
         containerView.switchToMode(mode, animated: animated)
     }
 
     // MARK: - 私有方法
-    private func reloadWeekdaySymbol() {
-        if weekdaySymbolView.firstWeekday != firstWeekday {
-            weekdaySymbolView.firstWeekday = firstWeekday
-            weekdaySymbolView.reloadData()
-        }
-    }
-    
-    private func didChangeVisibleDateComponents(_ dateComponents: DateComponents) {
+    private func changeVisibleDateComponents(_ dateComponents: DateComponents) {
         if containerView.currentMode == .month,
            let selectedDate = selection.selectedDate,
            selectedDate.isInSameMonth(as: dateComponents) {
             self.visibleDateComponents = selectedDate
+            delegate?.calendarWeekMonthExpandView(self, didChangeVisibleDate: selectedDate)
             return
         }
         
         self.visibleDateComponents = dateComponents
+        delegate?.calendarWeekMonthExpandView(self, didChangeVisibleDate: dateComponents)
     }
-    
 }
 
 // MARK: - 容器代理实现
@@ -146,23 +179,23 @@ extension CalendarWeekMonthExpandView: CalendarExpandContainerDelegate {
             let view = CalendarExpandWeekView(frame: .zero)
             view.eventsProvider = eventsInfoFetcher
             view.didChangeVisibleDateComponents = { [weak self] currentComponents, _ in
-                self?.didChangeVisibleDateComponents(currentComponents)
+                self?.changeVisibleDateComponents(currentComponents)
             }
             
             view.firstWeekday = firstWeekday
             view.selection = selection
-            view.setVisibleDateComponents(visibleDateComponents, animated: false)
+            view.setVisibleDateComponents(visibleDateComponents)
             return view
         case .month:
             let view = CalendarExpandMonthView(frame: .zero)
             view.eventsProvider = eventsInfoFetcher
             view.didChangeVisibleDateComponents = { [weak self] currentComponents, _ in
-                self?.didChangeVisibleDateComponents(currentComponents)
+                self?.changeVisibleDateComponents(currentComponents)
             }
             
             view.firstWeekday = firstWeekday
             view.selection = selection
-            view.setVisibleDateComponents(visibleDateComponents, animated: false)
+            view.setVisibleDateComponents(visibleDateComponents)
             return view
         }
     }
@@ -188,7 +221,16 @@ extension CalendarWeekMonthExpandView: CalendarExpandContainerDelegate {
     }
 
     func container(_ container: CalendarExpandContainerView, didFinishTransitionTo mode: CalendarExpandMode) {
+        /// 更新当前可见日期
+        var visibleDateComponents = self.visibleDateComponents
+        let currentView = containerView.currentView
+        if let monthView = currentView as? CalendarExpandMonthView {
+            visibleDateComponents = monthView.visibleDateComponents
+        } else if let weekView = currentView as? CalendarExpandWeekView {
+            visibleDateComponents = weekView.visibleDateComponents
+        }
         
+        changeVisibleDateComponents(visibleDateComponents)
     }
     
     func containerFrameDidChange(_ container: CalendarExpandContainerView) {
@@ -206,11 +248,13 @@ extension CalendarWeekMonthExpandView: TPCalendarSingleDateSelectionDelegate {
         guard containerView.currentMode == .month,
               !visibleDateComponents.isInSameMonth(as: date),
               let monthView = containerView.currentView as? CalendarExpandMonthView else {
-            visibleDateComponents = date
+                  visibleDateComponents = date
+                  delegate?.calendarWeekMonthExpandView(self, didSelectDate: date)
             return
         }
         
         visibleDateComponents = date
         monthView.setVisibleDateComponents(visibleDateComponents, animated: true)
+        delegate?.calendarWeekMonthExpandView(self, didSelectDate: date)
     }
 }

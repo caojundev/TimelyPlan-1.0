@@ -10,11 +10,13 @@ import Foundation
 class CalendarRangeEventsInfoFetcher: CalendarRangeEventsProvider {
     
     private let repository = CalendarRepository()
+    
     private let calculationQueue = DispatchQueue(label: "com.calendar.rangeEvents",
                                                   qos: .userInitiated,
                                                   attributes: .concurrent)
     
     func fetchRangeEventsInfo(in range: DateInterval, completion: @escaping (CalendarRangeEventsInfo) -> Void) {
+        
         repository.fetchEvents(in: range) { [weak self] events in
             guard let self = self else { return }
             self.calculationQueue.async {
@@ -25,6 +27,10 @@ class CalendarRangeEventsInfoFetcher: CalendarRangeEventsProvider {
                 }
             }
         }
+    }
+    
+    func addEventChangeDelegate(_ delegate: CalendarEventChangeDelegate) {
+        repository.addUpdaterDelegate(delegate)
     }
     
     private func calculateDayColors(

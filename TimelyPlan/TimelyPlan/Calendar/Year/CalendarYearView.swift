@@ -327,3 +327,51 @@ extension CalendarYearView: UIScrollViewDelegate {
         updateCurrentDisplayYear()
     }
 }
+
+extension CalendarYearView: CalendarEventChangeDelegate {
+    
+    func calendarEventsDidChange(in ranges: [DateInterval]) {
+        
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            let year = baseYear + indexPath.section
+            let month = indexPath.item + 1
+            guard monthIntersectsRanges(year: year, month: month, ranges: ranges) else {
+                continue
+            }
+            
+            if let cell = collectionView.cellForItem(at: indexPath) as? CalendarYearMonthCell {
+                let monthInfo = CalendarYearCache.shared.getMonthInfo(year: year,
+                                                                      month: month,
+                                                                      firstWeekday: firstWeekday.rawValue)
+                let todayDay = Calendar.current.component(.day, from: Date())
+                cell.configure(monthInfo: monthInfo, todayDay: todayDay, eventsProvider: eventsProvider)
+            }
+        }
+        
+    }
+    
+    private func monthIntersectsRanges(year: Int, month: Int, ranges: [DateInterval]) -> Bool {
+        let calendar = Calendar.current
+        
+        // 创建月份的 DateInterval
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = 1
+        
+        guard let monthStart = calendar.date(from: dateComponents) else {
+            return false
+        }
+        
+        // 计算下个月的第一天，然后减去一秒得到当月最后一天
+        guard let nextMonth = calendar.date(byAdding: .month, value: 1, to: monthStart),
+              let monthEnd = calendar.date(byAdding: .second, value: -1, to: nextMonth) else {
+            return false
+        }
+        
+        let monthInterval = DateInterval(start: monthStart, end: monthEnd)
+        
+        // 使用 DateInterval 的内置方法检查交集
+        return ranges.contains { $0.intersects(monthInterval) }
+    }
+}

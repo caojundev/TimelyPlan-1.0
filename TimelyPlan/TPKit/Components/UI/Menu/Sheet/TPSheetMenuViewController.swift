@@ -83,7 +83,7 @@ class TPSheetMenuViewController: TPTableViewController,
     }
     
     override func tableViewFrame() -> CGRect {
-        let layoutFrame = view.layoutFrame()
+        let layoutFrame = view.safeLayoutFrame()
         var y = layoutFrame.minY + titleMargins.verticalLength
         y += titleLabel.sizeThatFits(layoutFrame.size).height
         let h = layoutFrame.height - y - actionsBarHeight

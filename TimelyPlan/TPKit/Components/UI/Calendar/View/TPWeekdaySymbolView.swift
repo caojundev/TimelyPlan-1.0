@@ -19,14 +19,15 @@ class TPWeekdaySymbolView: TPCollectionWrapperView,
     var style: WeekdaySymbolStyle
     
     /// 周开始日
-    var firstWeekday: Weekday = .sunday
+    private(set) var firstWeekday: Weekday
     
     convenience override init(frame: CGRect) {
         self.init(frame: frame, style: .veryShort)
     }
     
-    init(frame: CGRect, style: WeekdaySymbolStyle) {
+    init(frame: CGRect, style: WeekdaySymbolStyle, firstWeekday: Weekday = .firstWeekday) {
         self.style = style
+        self.firstWeekday = firstWeekday
         super.init(frame: frame)
         isUserInteractionEnabled = false
         hideScrollIndicator()
@@ -39,6 +40,15 @@ class TPWeekdaySymbolView: TPCollectionWrapperView,
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setFirstWeekday(_ firstWeekday: Weekday) {
+        guard self.firstWeekday != firstWeekday else {
+            return
+        }
+        
+        self.firstWeekday = firstWeekday
+        reloadData()
     }
     
     // MARK: - Data Source

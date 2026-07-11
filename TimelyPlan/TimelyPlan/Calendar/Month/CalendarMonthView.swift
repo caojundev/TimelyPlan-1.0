@@ -96,10 +96,11 @@ class CalendarMonthView: TPCollectionWrapperView,
     /// 周符号
     private let weekdaySymbolHeight = 20.0
     
-    private let weekdaySymbolView: TPWeekdaySymbolView = {
-        let view = TPWeekdaySymbolView(frame: .zero, style: .short)
+    private lazy var weekdaySymbolView: TPWeekdaySymbolView = {
+        let view = TPWeekdaySymbolView(frame: .zero,
+                                       style: .short,
+                                       firstWeekday: firstWeekday)
         view.backgroundColor = .systemBackground
-        view.firstWeekday = .sunday
         view.addSeparator(position: .bottom)
         return view
     }()
@@ -217,10 +218,7 @@ class CalendarMonthView: TPCollectionWrapperView,
     }
     
     private func reloadWeekdaySymbol() {
-        if weekdaySymbolView.firstWeekday != firstWeekday {
-            weekdaySymbolView.firstWeekday = firstWeekday
-            weekdaySymbolView.reloadData()
-        }
+        weekdaySymbolView.setFirstWeekday(firstWeekday)
     }
     
     private func shouldPerformUpdate() -> Bool {

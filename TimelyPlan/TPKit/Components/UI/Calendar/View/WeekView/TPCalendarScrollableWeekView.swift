@@ -72,6 +72,11 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
     override func layoutSubviews() {
         super.layoutSubviews()
         updateContentOffset(animated: false)
+
+        /// 内容偏移可能会被 collectionView 布局覆盖，在下一个 Runloop 再更新一次
+        DispatchQueue.main.async {
+            self.updateContentOffset(animated: false)
+        }
     }
     
     override func setupCollectionView() {
@@ -109,9 +114,8 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
         
         let dateComponents = adapter.item(at: indexPath) as! DateComponents
         let symbolsView = cell.symbolsView
-        symbolsView.firstWeekday = firstWeekday
         symbolsView.style = symbolStyle
-        symbolsView.reloadData()
+        symbolsView.setFirstWeekday(firstWeekday)
         updateWeekView(cell.weekView, with: dateComponents)
     }
     
@@ -170,17 +174,13 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
     }
     
     /// 当前月份日期组件
-    func setVisibleDateComponents(_ dateComponents: DateComponents, animated: Bool) {
+    func setVisibleDateComponents(_ dateComponents: DateComponents, animated: Bool = false) {
         /// 判断是否在同一周
         guard let date = Date.dateFromComponents(dateComponents) else {
             return
         }
         
         let dateComponents = date.firstDayOfWeek(firstWeekday: firstWeekday).yearMonthDayComponents
-        guard visibleDateComponents != dateComponents else {
-            return
-        }
-
         guard animated else {
             visibleDateComponents = dateComponents
             reloadData()

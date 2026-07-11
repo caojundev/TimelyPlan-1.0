@@ -10,7 +10,7 @@ import UIKit
 
 class CalendarYearViewController: TPViewController,
                                   CalendarTitleViewProvider,
-                                  SettingAgentObserver{
+                                  SettingAgentObserver {
     
     /// 标题视图
     var titleView: UIView? {
@@ -51,6 +51,9 @@ class CalendarYearViewController: TPViewController,
         updateTitle()
         
         CalendarSetting.shared.addObserver(self)
+        
+        /// 添加事项改变代理
+        eventsProvider.addEventChangeDelegate(self)
     }
     
     func settingAgentDidChangeValue(for keyName: String) {
@@ -101,6 +104,14 @@ class CalendarYearViewController: TPViewController,
     }
 }
 
+// MARK: - CalendarEventChangeDelegate
+extension CalendarYearViewController: CalendarEventChangeDelegate {
+    
+    func calendarEventsDidChange(in ranges: [DateInterval]) {
+        calendarYearView.calendarEventsDidChange(in: ranges)
+    }
+}
+
 // MARK: - CalendarYearViewDelegate
 extension CalendarYearViewController: CalendarYearViewDelegate {
     
@@ -109,9 +120,26 @@ extension CalendarYearViewController: CalendarYearViewDelegate {
     }
     
     func calendarYearView(_ view: CalendarYearView, didSelectYear year: Int, month: Int) {
-        let vc = CalendarListViewController()
+        var date: Date?
+        let todayDate = Date()
+        if todayDate.year == year, todayDate.month == month {
+            date = todayDate
+        } else {
+            var dateComponents = DateComponents()
+            dateComponents.year = year
+            dateComponents.month = month
+            dateComponents.day = 1
+            date = Date.dateFromComponents(dateComponents)
+        }
+        
+        guard let date = date else {
+            return
+        }
+        
+        let vc = CalendarListViewController(date: date)
         let navController = UINavigationController(rootViewController: vc)
         navController.modalPresentationStyle = .fullScreen
+        navController.modalTransitionStyle = .crossDissolve
         present(navController, animated: true)
     }
 }

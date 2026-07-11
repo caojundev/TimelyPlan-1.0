@@ -7,12 +7,6 @@
 
 import Foundation
 
-protocol CalendarEventChangeDelegate: AnyObject {
-    
-    /// 当日历事件发生改变时触发
-    func calendarEventsDidChange(in ranges: [DateInterval])
-}
-
 class CalendarRepository {
     
     // 可动态注册多个 Provider
@@ -22,19 +16,16 @@ class CalendarRepository {
     private var habitProvider = CalendarHabitEventProvider()
     private var systemProvider = CalendarSystemEventProvider()
     
-    private let updater = CalendarUpdater()
+    private let changeObserver = CalendarEventChangeObserver()
     
     init() {
-        self.todoProvider.delegate = self.updater
-        self.systemProvider.delegate = self.updater
-        self.habitProvider.delegate = self.updater
         self.providers = [self.todoProvider,
                           self.habitProvider,
                           self.systemProvider]
     }
     
-    func addUpdater(_ delegate: AnyObject) {
-        updater.addDelegate(delegate)
+    func addUpdaterDelegate(_ delegate: CalendarEventChangeDelegate) {
+        changeObserver.addUpdaterDelegate(delegate)
     }
     
     func fetchEvents(in range: DateInterval, completion: @escaping([CalendarEvent]) -> Void) {

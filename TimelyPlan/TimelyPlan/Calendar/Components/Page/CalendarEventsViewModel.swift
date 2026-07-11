@@ -32,7 +32,7 @@ class CalendarEventsViewModel: CalendarEventChangeDelegate {
     init() {
         self.placeholderProvider.state = state
         self.repository = CalendarRepository()
-        self.repository.addUpdater(self)
+        self.repository.addUpdaterDelegate(self)
     }
 
     func refresh() {

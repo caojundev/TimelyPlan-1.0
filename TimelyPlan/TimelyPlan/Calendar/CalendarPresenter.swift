@@ -21,7 +21,7 @@ class CalendarPresenter {
                 return
             }
 
-            HabitDayMenuPresenter.showMenu(for: periodItem, on: date)
+            HabitDayMenuPresenter.showSheetMenu(for: periodItem, on: date)
         }
     }
     

@@ -13,7 +13,6 @@ class CalendarEventListView: UIView, TPGroupTableViewDelegate {
     // MARK: - Properties
     var onEventSelected: ((CalendarEvent) -> Void)?
     
-    private let options: CalendarEventListOptions
     private let eventsViewModel = CalendarEventsViewModel()
     
     private lazy var cellStyle: TPTableCellStyle = {
@@ -25,19 +24,23 @@ class CalendarEventListView: UIView, TPGroupTableViewDelegate {
     
     private lazy var listView: TPGroupTableView = {
         let view = TPGroupTableView(frame: bounds, style: .grouped)
-        view.delegate = self
+        view.tableViewConfiguration = { tableView in
+            tableView.tableHeaderView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.1))
+        }
         
+        view.delegate = self
+
         let placeholderProvider = eventsViewModel.placeholderProvider
         placeholderProvider.emptyTitle = resGetString("No Events")
         placeholderProvider.emptyImage = resGetImage("placeholder_calendar_80")
         view.placeholderProvider = placeholderProvider
-        
         return view
     }()
     
+    private(set) var options: CalendarEventListOptions?
+    
     // MARK: - Initialization
-    init(options: CalendarEventListOptions) {
-        self.options = options
+    override init(frame: CGRect) {
         super.init(frame: .zero)
         setupViews()
         setupBindings()
@@ -50,7 +53,6 @@ class CalendarEventListView: UIView, TPGroupTableViewDelegate {
     // MARK: - Setup
     private func setupViews() {
         addSubview(listView)
-        loadEvents()
     }
     
     private func setupBindings() {
@@ -66,19 +68,25 @@ class CalendarEventListView: UIView, TPGroupTableViewDelegate {
     }
     
     // MARK: - Public Methods
-    func loadEvents() {
+    func reloadEvents(options: CalendarEventListOptions,
+                      animated: Bool = false) {
+        var animateStyle: SlideStyle = .none
+        if animated, let oldOptions = self.options {
+            animateStyle = .horizontalStyle(fromValue: oldOptions.date, toValue: options.date)
+        }
+        
+        self.options = options
+        
+        listView.groups = nil
+        listView.reloadData(animateStyle: animateStyle)
         eventsViewModel.loadEvents(in: options.dateRange)
-    }
-    
-    func reloadEvents() {
-        loadEvents()
+        listView.updatePlaceholderView()
     }
     
     // MARK: - Private Methods
     private func handleEventsChanged() {
         let group = CalendarEventGroup(identifier: "EventGroup")
         group.events = eventsViewModel.events
-        
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.listView.groups = [group]
@@ -102,7 +110,7 @@ class CalendarEventListView: UIView, TPGroupTableViewDelegate {
         }
         
         cell.style = cellStyle
-        cell.date = options.date
+        cell.date = options?.date
         cell.event = event
     }
     

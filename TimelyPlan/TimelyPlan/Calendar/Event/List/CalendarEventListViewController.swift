@@ -17,7 +17,10 @@ class CalendarEventListViewController: TPViewController {
         return view
     }()
     
-    private var eventListView: CalendarEventListView!
+    private lazy var eventListView: CalendarEventListView = {
+        let view = CalendarEventListView(frame: view.bounds)
+        return view
+    }()
     
     private let eventProcessor = CalendarEventProcessor()
 
@@ -26,7 +29,6 @@ class CalendarEventListViewController: TPViewController {
     init(options: CalendarEventListOptions) {
         self.options = options
         super.init(nibName: nil, bundle: nil)
-        eventListView = CalendarEventListView(options: options)
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +44,8 @@ class CalendarEventListViewController: TPViewController {
         eventListView.onEventSelected = { [weak self] event in
             self?.selectEvent(event)
         }
+        
+        eventListView.reloadEvents(options: options)
     }
     
     override func viewWillLayoutSubviews() {

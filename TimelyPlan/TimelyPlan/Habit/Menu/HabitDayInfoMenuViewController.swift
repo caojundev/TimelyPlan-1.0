@@ -50,6 +50,7 @@ class HabitDayInfoMenuViewController: HabitDaySheetMenuViewController {
     override func tableViewFrame() -> CGRect {
         var frame = super.tableViewFrame()
         frame.origin.y = frame.origin.y + infoViewHeight
+        frame.size.height = frame.size.height - infoViewHeight
         return frame
     }
     

@@ -68,7 +68,7 @@ class HabitStatsCalendarMonthSectionController: TPCollectionItemSectionControlle
         TPImpactFeedback.impactWithSoftStyle()
         let isScheduled = self.periodItem.isScheduledDate(date)
         if isScheduled {
-            HabitDayMenuPresenter.showMenu(for: periodItem, on: date)
+            HabitDayMenuPresenter.showPopoverMenu(for: periodItem, on: date)
         } else {
             HabitPresenter.showNotScheduledDayMessage(for: date)
         }

@@ -41,7 +41,6 @@ class HabitReportWeeklyHeaderView: HabitReportRoundCornerHeaderFooterView {
     }
     
     func reloadData() {
-        symbolsView.firstWeekday = firstWeekday
-        symbolsView.reloadData()
+        symbolsView.setFirstWeekday(firstWeekday)
     }
 }

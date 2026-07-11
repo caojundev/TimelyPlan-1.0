@@ -325,6 +325,8 @@
 		E51F94093000993300734910 /* calendar_list_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F94073000993100734910 /* calendar_list_24@3x.png */; };
 		E51F940A3000993300734910 /* calendar_list_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F94083000993200734910 /* calendar_list_24@2x.png */; };
 		E51F940C3000D0C200734910 /* CalendarEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F940B3000D0C200734910 /* CalendarEventListView.swift */; };
+		E51F940E300227D700734910 /* CalendarEventChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F940D300227D700734910 /* CalendarEventChangeObserver.swift */; };
+		E51F941030028C8D00734910 /* CalendarYearDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F940F30028C8C00734910 /* CalendarYearDetailViewController.swift */; };
 		E51FF64D2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */; };
 		E51FF64F2F57162D003CA953 /* HabitTaskProgressInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */; };
 		E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF6502F571978003CA953 /* HabitTaskStatusView.swift */; };
@@ -2381,6 +2383,8 @@
 		E51F94073000993100734910 /* calendar_list_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_list_24@3x.png"; sourceTree = "<group>"; };
 		E51F94083000993200734910 /* calendar_list_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_list_24@2x.png"; sourceTree = "<group>"; };
 		E51F940B3000D0C200734910 /* CalendarEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventListView.swift; sourceTree = "<group>"; };
+		E51F940D300227D700734910 /* CalendarEventChangeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventChangeObserver.swift; sourceTree = "<group>"; };
+		E51F940F30028C8C00734910 /* CalendarYearDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearDetailViewController.swift; sourceTree = "<group>"; };
 		E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskDefaultInfoView.swift; sourceTree = "<group>"; };
 		E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskProgressInfoView.swift; sourceTree = "<group>"; };
 		E51FF6502F571978003CA953 /* HabitTaskStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusView.swift; sourceTree = "<group>"; };
@@ -5478,6 +5482,7 @@
 			children = (
 				E518D6982FBEAC450045D456 /* CalendarRepository.swift */,
 				E5E9F79B2FC1A67800717004 /* CalendarUpdater.swift */,
+				E51F940D300227D700734910 /* CalendarEventChangeObserver.swift */,
 				E59E71682DB921A500744C68 /* Models */,
 				E518D69A2FBEAEA80045D456 /* Provider */,
 				E518D69D2FBEAF490045D456 /* Manager */,
@@ -5548,6 +5553,7 @@
 				E53352AE2FFA512500546986 /* Helpers */,
 				E53352A32FF92DC700546986 /* CalendarYearConfig.swift */,
 				E53352852FF775E100546986 /* CalendarYearViewController.swift */,
+				E51F940F30028C8C00734910 /* CalendarYearDetailViewController.swift */,
 				E53352A12FF90A0700546986 /* CalendarYearView.swift */,
 				E53352A92FF9371800546986 /* CalendarYearCache.swift */,
 				E53352A72FF9364100546986 /* CalendarYearMonthCell.swift */,
@@ -11863,6 +11869,7 @@
 				E5BB9E5F2D3BF0C70089667A /* TPCalendarSingleWeekView.swift in Sources */,
 				E5BB9B442D3BEF920089667A /* UIButtonExtension.swift in Sources */,
 				E50D603E2F7A12B500D5E0A4 /* RepeatDayOfWeekSelectView.swift in Sources */,
+				E51F940E300227D700734910 /* CalendarEventChangeObserver.swift in Sources */,
 				E51DF2112F853FC700D6BCE3 /* TodoTask+Organizer.swift in Sources */,
 				E555492F2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift in Sources */,
 				E5BB9DC12D3BF0C60089667A /* Weekday.swift in Sources */,
@@ -11923,6 +11930,7 @@
 				E5BB9F472D3BF45F0089667A /* SideMenuViewController.swift in Sources */,
 				E50D60432F7A12B500D5E0A4 /* RepeatSpecificDateTableCell.swift in Sources */,
 				E5B98CDA2D55009800E78261 /* TPIconInfoTextValueView.swift in Sources */,
+				E51F941030028C8D00734910 /* CalendarYearDetailViewController.swift in Sources */,
 				E51A4C2D2DC26787005A0E3F /* CalendarWeekViewController.swift in Sources */,
 				E529ACC52F7E0100000EA2F1 /* TodoSmartListCell.swift in Sources */,
 				E53632802FAB72C00095DFEC /* QuadrantLayoutEditView.swift in Sources */,

@@ -47,6 +47,7 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
         }
         
         action.titleColor = resGetColor(.title)
+        action.highlightedTitleColor = action.titleColor
         action.style.backgroundColor = .secondarySystemGroupedBackground
         action.style.selectedBackgroundColor = .secondarySystemFill
         return action
@@ -54,7 +55,6 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        actionsBarHeight = 80.0
         let actions: [TPButtonAction]
         if status == .notStarted || status == .inProgress {
             if task.goal.mode == .amount, task.goal.recordType == .automatically {
@@ -66,6 +66,7 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
             actions = [doneAction]
         }
         
+        actionsBarHeight = 80.0
         setupActionsBar(actions: actions)
         actionsBar?.backgroundColor = themeBackgroundColor
         actionsBar?.padding = UIEdgeInsets(top: 10.0,

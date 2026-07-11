@@ -9,36 +9,49 @@ import Foundation
 import UIKit
 
 class CalendarListViewController: CalendarBaseViewController,
-                                  CalendarWeekMonthExpandViewDelegate {
-    
-    var date: Date = .now
-    
+                                  CalendarWeekMonthExpandViewDelegate,
+                                  SettingAgentObserver {
+
     private lazy var calendarView: CalendarWeekMonthExpandView = {
-        let view = CalendarWeekMonthExpandView(frame: .zero, firstWeekday: .sunday)
+        let firstWeekday = CalendarSetting.shared.firstWeekday
+        let view = CalendarWeekMonthExpandView(frame: .zero,
+                                               firstWeekday: firstWeekday,
+                                               visibleDateComponents: date.yearMonthDayComponents)
         view.delegate = self
         return view
     }()
 
     private lazy var eventListView: CalendarEventListView = {
-        let options = CalendarEventListOptions(date: .now)
-        let view = CalendarEventListView(options: options)
+        let view = CalendarEventListView(frame: view.bounds)
         return view
     }()
     
-    let contentView = UIView()
+    private let contentView = UIView()
+    
+    private(set) var date: Date
+    
+    init(date: Date = .now) {
+        self.date = date
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         view.insertSubview(contentView, at: 0)
         contentView.addSubview(eventListView)
         contentView.addSubview(calendarView)
         updateTitle(with: date)
-        
         eventListView.onEventSelected = { [weak self] event in
             self?.selectEvent(event)
         }
+        
+        reloadEvents(on: date, animated: false)
+        CalendarSetting.shared.addObserver(self)
     }
      
     override func viewWillLayoutSubviews() {
@@ -58,6 +71,7 @@ class CalendarListViewController: CalendarBaseViewController,
     
     private func updateTitle(with date: Date) {
         dateButton.title = date.slashFormattedYearMonthString
+        dateButton.sizeToFit()
     }
    
     override func clickDate(_ button: UIButton) {
@@ -72,6 +86,7 @@ class CalendarListViewController: CalendarBaseViewController,
     
     private func pickDate(_ date: Date) {
         updateTitle(with: date)
+        calendarView.setVisibleDateComponents(date.yearMonthDayComponents, animated: true)
     }
     
     private func selectEvent(_ event: CalendarEvent) {
@@ -79,7 +94,47 @@ class CalendarListViewController: CalendarBaseViewController,
         eventProcessor.clickEvent(event)
     }
     
+    private func reloadEvents(on date: Date, animated: Bool) {
+        let options = CalendarEventListOptions(date: date)
+        eventListView.reloadEvents(options: options, animated: animated)
+    }
+    
+    // MARK: -
+    func settingAgentDidChangeValue(for keyName: String) {
+        guard let key = CalendarSetting.Key(name: keyName) else {
+            return
+        }
+        
+        switch key {
+        case .firstWeekday:
+            let firstWeekday = CalendarSetting.shared.firstWeekday
+            calendarView.setFirstWeekday(firstWeekday)
+        default:
+            break
+        }
+    }
+    
     // MARK: - CalendarWeekMonthExpandViewDelegate
+    
+    func calendarWeekMonthExpandView(_ view: CalendarWeekMonthExpandView, didChangeVisibleDate dateComponents: DateComponents) {
+        guard let date = Date.dateFromComponents(dateComponents) else {
+            return
+        }
+        
+        self.date = date
+        updateTitle(with: date)
+    }
+    
+    func calendarWeekMonthExpandView(_ view: CalendarWeekMonthExpandView, didSelectDate dateComponents: DateComponents) {
+        guard let date = Date.dateFromComponents(dateComponents) else {
+            return
+        }
+        
+        self.date = date
+        updateTitle(with: date)
+        reloadEvents(on: date, animated: true)
+    }
+    
     func calendarWeekMonthExpandViewFrameChanged(_ view: CalendarWeekMonthExpandView) {
         layoutContents()
     }

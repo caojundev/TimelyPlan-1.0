@@ -31,7 +31,13 @@ class DayHeatMapView: TPCollectionWrapperView,
     let itemMargin = 2.0
     
     /// 周符号视图
-    let weekdaySymbolsView = TPWeekdaySymbolView(frame: .zero, style: .veryShort)
+    lazy var weekdaySymbolsView: TPWeekdaySymbolView = {
+        let view =  TPWeekdaySymbolView(frame: .zero,
+                                        style: .veryShort,
+                                        firstWeekday: firstWeekday)
+        view.scrollDirection = .vertical
+        return view
+    }()
     
     /// 周符号宽度
     let weekdaySymbolsWidth: CGFloat = 36.0
@@ -86,8 +92,6 @@ class DayHeatMapView: TPCollectionWrapperView,
         self.hideScrollIndicator()
         
         /// 周符号视图
-        weekdaySymbolsView.firstWeekday = firstWeekday
-        weekdaySymbolsView.scrollDirection = .vertical
         addSubview(weekdaySymbolsView)
         
         /// 描述标签

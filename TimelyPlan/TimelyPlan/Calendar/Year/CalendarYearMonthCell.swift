@@ -49,6 +49,9 @@ protocol CalendarYearEventsProvider: AnyObject {
     
     /// 取消指定月份的请求（可选实现）
     func cancelFetchForMonth(year: Int, month: Int)
+    
+    /// 添加事项变化代理对象
+    func addEventChangeDelegate(_ delegate: CalendarEventChangeDelegate)
 }
 
 // 默认实现，取消方法可选

@@ -19,13 +19,6 @@ struct CalendarRangeEventsInfo {
     }
 }
 
-/// 天事项绘制信息
-struct CalendarDayEventColorInfo {
-    let day: DayIntegerKey
-    let indicatorColors: [UIColor] // 事项指示颜色数组，空数组表示没有事项
-}
-
-
 // MARK: - 事项数据获取协议
 protocol CalendarRangeEventsProvider: AnyObject {
     /// 异步获取指定日期范围的事项绘制信息
@@ -34,6 +27,9 @@ protocol CalendarRangeEventsProvider: AnyObject {
     
     /// 取消指定范围的请求（可选实现）
     func cancelFetchForRange(_ range: DateInterval)
+    
+    /// 添加事项变化代理对象
+    func addEventChangeDelegate(_ delegate: CalendarEventChangeDelegate)
 }
 
 // 默认实现，取消方法可选

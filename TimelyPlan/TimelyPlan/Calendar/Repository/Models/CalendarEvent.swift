@@ -49,7 +49,7 @@ class CalendarEventColor {
 }
 
 // 1. 枚举区分事件来源
-enum CalendarEventSource: Int {
+enum CalendarEventSource: Int, CaseIterable {
     case system // 系统日历
     case todo   // 待办任务
     case habit  // 习惯任务

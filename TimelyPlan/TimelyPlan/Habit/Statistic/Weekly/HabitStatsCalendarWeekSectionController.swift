@@ -59,7 +59,7 @@ extension HabitStatsCalendarWeekSectionController: HabitDatePeriodsViewDelegate 
         
         let isScheduled = periodItem.isScheduledDate(period.date)
         if isScheduled {
-            HabitDayMenuPresenter.showMenu(for: periodItem, on: period.date)
+            HabitDayMenuPresenter.showPopoverMenu(for: periodItem, on: period.date)
         } else {
             HabitPresenter.showNotScheduledDayMessage(for: period.date)
         }

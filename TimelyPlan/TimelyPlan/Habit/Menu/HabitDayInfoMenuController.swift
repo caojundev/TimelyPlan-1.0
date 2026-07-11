@@ -34,10 +34,10 @@ class HabitDayInfoMenuController: HabitHomeDayMenuController {
         return allowTypes
     }
     
-    func showMenu() {
+    private func menuViewController() -> HabitDayInfoMenuViewController? {
         let menuItems = menuItems()
         guard menuItems.count > 0 else {
-            return
+            return nil
         }
         
         let menuVC = HabitDayInfoMenuViewController(periodItem: periodItem,
@@ -52,6 +52,26 @@ class HabitDayInfoMenuController: HabitHomeDayMenuController {
         }
         
         menuVC.didClickRecord = didClickRecord
-        menuVC.popoverShow()
+        return menuVC
+    }
+    
+    func showPopoverMenu() {
+        if let menuVC = menuViewController() {
+            menuVC.popoverShow()
+        }
+    }
+    
+    func showSheetMenu() {
+        guard let menuVC = menuViewController() else {
+            return
+        }
+        
+        if let sheet = menuVC.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [.medium()]
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+        }
+        
+        menuVC.show()
     }
 }
