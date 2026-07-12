@@ -15,7 +15,7 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
     /// 月份视图代理对象
     weak var delegate: TPCalendarSingleWeekViewDelegate?
     
-    weak var eventsProvider: CalendarRangeEventsProvider?
+    var eventsProvider: CalendarRangeEventsProvider?
     
     /// 符号样式
     var symbolStyle: WeekdaySymbolStyle = .short

@@ -73,6 +73,11 @@ class CalendarListViewController: CalendarBaseViewController,
         dateButton.title = date.slashFormattedYearMonthString
         dateButton.sizeToFit()
     }
+    
+    override func clickAddTask() {
+        super.clickAddTask()
+        calendarView.switchMode(.week, animated: true)
+    }
    
     override func clickDate(_ button: UIButton) {
         let datePickerVC = TPYearMonthDatePickerViewController()

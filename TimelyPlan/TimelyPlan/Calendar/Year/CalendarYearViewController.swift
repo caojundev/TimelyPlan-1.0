@@ -69,14 +69,6 @@ class CalendarYearViewController: TPViewController,
             break
         }
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        // 确保在视图出现前再次确认位置
-        if calendarYearView != nil {
-            calendarYearView.scrollToCurrentYear(animated: false)
-        }
-    }
     
     private func updateTitle() {
         dateButton.title = "\(calendarYearView.currentDisplayYear)"
@@ -136,10 +128,9 @@ extension CalendarYearViewController: CalendarYearViewDelegate {
             return
         }
         
-        let vc = CalendarListViewController(date: date)
+        let vc = CalendarYearDetailViewController(date: date)
         let navController = UINavigationController(rootViewController: vc)
         navController.modalPresentationStyle = .fullScreen
-        navController.modalTransitionStyle = .crossDissolve
         present(navController, animated: true)
     }
 }

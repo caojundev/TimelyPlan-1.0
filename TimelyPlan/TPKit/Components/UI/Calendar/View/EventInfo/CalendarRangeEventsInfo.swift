@@ -8,14 +8,46 @@
 import Foundation
 import UIKit
 
+typealias DailyEventColors = [DateComponents: [UIColor]]
+
 struct CalendarRangeEventsInfo {
     
     let range: DateInterval
     
-    var dayColors: [DateComponents: [UIColor]] // 所有天的事项信息
+    var dayColors: DailyEventColors // 所有天的事项信息
     
     func eventColors(for dateComponents: DateComponents) -> [UIColor]? {
         return dayColors[dateComponents]
+    }
+    
+    static func empty(with range: DateInterval) -> CalendarRangeEventsInfo {
+        return CalendarRangeEventsInfo(range: range, dayColors: [:])
+    }
+}
+
+struct CalendarEventColorMapper {
+    
+    static func mapColorsByDay(
+        events: [CalendarEvent],
+        range: DateInterval
+    ) -> DailyEventColors {
+        let calendar = Calendar.current
+        // 使用有序字典保持颜色插入顺序
+        var dayColorsMap: [DateComponents: OrderedSet<UIColor>] = [:]
+        for event in events {
+            let eventStart = max(event.startDate, range.start)
+            let eventEnd = min(event.endDate, range.end)
+            guard eventStart <= eventEnd else { continue }
+        
+            let eventRange = DateInterval(start: eventStart, end: eventEnd)
+            eventRange.enumerateDays { date in
+                let key = calendar.dateComponents([.year, .month, .day], from: date)
+                dayColorsMap[key, default: OrderedSet<UIColor>()].append(event.color)
+                return true
+            }
+        }
+    
+        return dayColorsMap.mapValues { $0.array }
     }
 }
 

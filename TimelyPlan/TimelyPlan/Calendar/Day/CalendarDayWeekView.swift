@@ -10,6 +10,12 @@ import UIKit
 
 class CalendarDayWeekView: UIView {
     
+    var eventsProvider: CalendarRangeEventsProvider? {
+        didSet {
+            weekView.eventsProvider = eventsProvider
+        }
+    }
+    
     var showWeekNumber: Bool {
         get {
             return weekNumberView.showWeekNumber

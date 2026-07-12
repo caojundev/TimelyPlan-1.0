@@ -35,6 +35,7 @@ class FocusTimelineDayViewController: TPViewController,
         let view = TPCalendarScrollableWeekView(frame: .zero)
         view.firstWeekday = FocusSetting.shared.firstWeekday
         view.selection = selection
+        view.eventsProvider = FocusRangeEventColorInfoFetcher()
         view.addSeparator(position: .bottom)
         return view
     }()

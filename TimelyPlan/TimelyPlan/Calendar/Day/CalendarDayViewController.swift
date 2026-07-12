@@ -23,6 +23,7 @@ class CalendarDayViewController: CalendarBaseViewController,
         view.showLunar = CalendarSetting.shared.showLunar
         view.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
         view.selection = selection
+        view.eventsProvider = CalendarRangeEventsInfoFetcher()
         return view
     }()
     

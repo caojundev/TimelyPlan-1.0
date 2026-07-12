@@ -1,25 +1,25 @@
 //
-//  CalendarRangeEventsInfoFetcher.swift
+//  HabitRangeEventColorInfoFetcher.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/7/9.
+//  Created by caojun on 2026/7/12.
 //
 
 import Foundation
 
-class CalendarRangeEventsInfoFetcher: CalendarRangeEventsProvider {
+class HabitRangeEventColorInfoFetcher: CalendarRangeEventsProvider {
     
-    private let repository = CalendarRepository()
-    
-    private let calculationQueue = DispatchQueue(label: "com.calendar.rangeEvents",
-                                                  qos: .userInitiated,
-                                                  attributes: .concurrent)
+    private let changeObserver = CalendarEventChangeObserver(sources: [.habit])
     
     func fetchRangeEventsInfo(in range: DateInterval, completion: @escaping (CalendarRangeEventsInfo) -> Void) {
-        
-        repository.fetchEvents(in: range) { [weak self] events in
-            guard let self = self else { return }
-            self.calculationQueue.async {
+        HabitRepository.fetchEventTasks(in: range) { tasks in
+            guard let tasks = tasks else {
+                completion(.empty(with: range))
+                return
+            }
+
+            DispatchQueue.global(qos: .userInitiated).async {
+                let events = tasks.toCalendarEvents(in: range)
                 let dayColors = CalendarEventColorMapper.mapColorsByDay(events: events,
                                                                         range: range)
                 let result = CalendarRangeEventsInfo(range: range, dayColors: dayColors)
@@ -31,6 +31,6 @@ class CalendarRangeEventsInfoFetcher: CalendarRangeEventsProvider {
     }
     
     func addEventChangeDelegate(_ delegate: CalendarEventChangeDelegate) {
-        repository.addUpdaterDelegate(delegate)
+        changeObserver.addUpdaterDelegate(delegate)
     }
 }

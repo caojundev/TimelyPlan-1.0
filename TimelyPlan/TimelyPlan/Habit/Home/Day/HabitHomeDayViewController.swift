@@ -21,6 +21,7 @@ class HabitHomeDayViewController: TPContainerViewController,
     private let weekViewHeight = 80.0
     private lazy var weekView: TPCalendarScrollableWeekView = {
         let view = TPCalendarScrollableWeekView(frame: .zero)
+        view.eventsProvider = HabitRangeEventColorInfoFetcher()
         view.symbolStyle = .veryShort
         view.selection = selection
         view.addSeparator(position: .bottom)

@@ -327,6 +327,8 @@
 		E51F940C3000D0C200734910 /* CalendarEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F940B3000D0C200734910 /* CalendarEventListView.swift */; };
 		E51F940E300227D700734910 /* CalendarEventChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F940D300227D700734910 /* CalendarEventChangeObserver.swift */; };
 		E51F941030028C8D00734910 /* CalendarYearDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F940F30028C8C00734910 /* CalendarYearDetailViewController.swift */; };
+		E51F941330033C7C00734910 /* HabitRangeEventColorInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F941230033C7B00734910 /* HabitRangeEventColorInfoFetcher.swift */; };
+		E51F94153003508400734910 /* FocusRangeEventColorInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94143003508300734910 /* FocusRangeEventColorInfoFetcher.swift */; };
 		E51FF64D2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */; };
 		E51FF64F2F57162D003CA953 /* HabitTaskProgressInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */; };
 		E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF6502F571978003CA953 /* HabitTaskStatusView.swift */; };
@@ -2385,6 +2387,8 @@
 		E51F940B3000D0C200734910 /* CalendarEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventListView.swift; sourceTree = "<group>"; };
 		E51F940D300227D700734910 /* CalendarEventChangeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventChangeObserver.swift; sourceTree = "<group>"; };
 		E51F940F30028C8C00734910 /* CalendarYearDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearDetailViewController.swift; sourceTree = "<group>"; };
+		E51F941230033C7B00734910 /* HabitRangeEventColorInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRangeEventColorInfoFetcher.swift; sourceTree = "<group>"; };
+		E51F94143003508300734910 /* FocusRangeEventColorInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRangeEventColorInfoFetcher.swift; sourceTree = "<group>"; };
 		E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskDefaultInfoView.swift; sourceTree = "<group>"; };
 		E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskProgressInfoView.swift; sourceTree = "<group>"; };
 		E51FF6502F571978003CA953 /* HabitTaskStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusView.swift; sourceTree = "<group>"; };
@@ -5195,6 +5199,14 @@
 			path = InfoFetcher;
 			sourceTree = "<group>";
 		};
+		E51F941130033C3700734910 /* EventsInfo */ = {
+			isa = PBXGroup;
+			children = (
+				E51F941230033C7B00734910 /* HabitRangeEventColorInfoFetcher.swift */,
+			);
+			path = EventsInfo;
+			sourceTree = "<group>";
+		};
 		E51FF64B2F570CC0003CA953 /* InfoView */ = {
 			isa = PBXGroup;
 			children = (
@@ -7052,6 +7064,7 @@
 			children = (
 				E58C9E052F4AF0DB0096B842 /* FocusTimelineViewController.swift */,
 				E5DA03AD2FA1F48F00A58ACC /* FocusTimelineViewModel.swift */,
+				E51F94143003508300734910 /* FocusRangeEventColorInfoFetcher.swift */,
 				E58C9E062F4AF0DB0096B842 /* Day */,
 			);
 			path = Timeline;
@@ -10488,6 +10501,7 @@
 				E556BCE72F5E559B00CA20D9 /* Task */,
 				E556BCE02F5DA09500CA20D9 /* Record */,
 				E50D02622F567F1600E93977 /* Models */,
+				E51F941130033C3700734910 /* EventsInfo */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -11706,6 +11720,7 @@
 				E5BB9E092D3BF0C70089667A /* String+DaysCount.swift in Sources */,
 				E5BB9E032D3BF0C60089667A /* TimeInterval+Extensions.swift in Sources */,
 				E5371DCE2FF018D000BA9DEF /* FocusNotifiableEventProvider.swift in Sources */,
+				E51F941330033C7C00734910 /* HabitRangeEventColorInfoFetcher.swift in Sources */,
 				E549B14F2F85F5D70014BE85 /* TodoTaskManager.swift in Sources */,
 				E5BB9B392D3BEF920089667A /* IGListIndexSetResult.m in Sources */,
 				E59243CF2F50529200CA2393 /* TPAddView.swift in Sources */,
@@ -12919,6 +12934,7 @@
 				E51B29012FA77A07006B3352 /* TodoTaskPageView.swift in Sources */,
 				E5EFB1692F5971A6000FFDF4 /* HabitHomeWeekMenuController.swift in Sources */,
 				E58F46AF2F7AAD4B0046FA96 /* TodoParentListSelectViewController.swift in Sources */,
+				E51F94153003508400734910 /* FocusRangeEventColorInfoFetcher.swift in Sources */,
 				E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */,
 				E50D60882F7A4F6300D5E0A4 /* TodoUserListBaseSectionController.swift in Sources */,
 				E5D7D8CB2D43933600EC877A /* FocusEndBottomView.swift in Sources */,
