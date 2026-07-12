@@ -65,6 +65,12 @@ class TPCalendarMonthView: UIView,
     /// 当前月份日期
     private(set) var visibleDateComponents: DateComponents = Date().yearMonthComponents
     
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
+    
     /// 集合视图
     private var collectionView: UICollectionView!
     
@@ -212,6 +218,8 @@ class TPCalendarMonthView: UIView,
         cell.isHidden = shouldHideCell(for: components)
         if let cell = cell as? TPCalendarDayCell {
             cell.dayDateComponents = components
+            cell.showLunar = showLunar
+            cell.showChineseHolidays = showChineseHolidays
             cell.isChecked = shouldShowCheckmarkForItem(at: indexPath)
             cell.isDimmed = !visibleDateComponents.isInSameMonth(as: components)
             cell.reloadData()

@@ -66,14 +66,22 @@ class CalendarWeekMonthExpandView: UIView {
     /// 可见日期组件
     private(set) var visibleDateComponents: DateComponents
     
+    private(set) var showLunar: Bool
+    
+    private(set) var showChineseHolidays: Bool
+    
     private let eventsInfoFetcher = CalendarRangeEventsInfoFetcher()
     
     // MARK: - 初始化
     init(frame: CGRect,
          firstWeekday: Weekday,
-         visibleDateComponents: DateComponents) {
+         visibleDateComponents: DateComponents,
+         showLunar: Bool,
+         showChineseHolidays: Bool) {
         self.firstWeekday = firstWeekday
         self.visibleDateComponents = visibleDateComponents
+        self.showLunar = showLunar
+        self.showChineseHolidays = showChineseHolidays
         super.init(frame: frame)
         setupViews()
     }
@@ -135,6 +143,38 @@ class CalendarWeekMonthExpandView: UIView {
             weekView.reloadData()
         }
     }
+    
+    func setShowLunar(_ showLunar: Bool) {
+        guard self.showLunar != showLunar else {
+            return
+        }
+        
+        self.showLunar = showLunar
+        let currentView = containerView.currentView
+        if let monthView = currentView as? CalendarExpandMonthView {
+            monthView.showLunar = showLunar
+            monthView.reloadData()
+        } else if let weekView = currentView as? CalendarExpandWeekView {
+            weekView.showLunar = showLunar
+            weekView.reloadData()
+        }
+    }
+    
+    func setShowChineseHolidays(_ showChineseHolidays: Bool) {
+        guard self.showChineseHolidays != showChineseHolidays else {
+            return
+        }
+        
+        self.showChineseHolidays = showChineseHolidays
+        let currentView = containerView.currentView
+        if let monthView = currentView as? CalendarExpandMonthView {
+            monthView.showChineseHolidays = showChineseHolidays
+            monthView.reloadData()
+        } else if let weekView = currentView as? CalendarExpandWeekView {
+            weekView.showChineseHolidays = showChineseHolidays
+            weekView.reloadData()
+        }
+    }
 
     func setVisibleDateComponents(_ visibleDateComponents: DateComponents, animated: Bool = true ) {
         guard self.visibleDateComponents != visibleDateComponents else {
@@ -183,6 +223,8 @@ extension CalendarWeekMonthExpandView: CalendarExpandContainerDelegate {
             }
             
             view.firstWeekday = firstWeekday
+            view.showLunar = showLunar
+            view.showChineseHolidays = showChineseHolidays
             view.selection = selection
             view.setVisibleDateComponents(visibleDateComponents)
             return view
@@ -194,6 +236,8 @@ extension CalendarWeekMonthExpandView: CalendarExpandContainerDelegate {
             }
             
             view.firstWeekday = firstWeekday
+            view.showLunar = showLunar
+            view.showChineseHolidays = showChineseHolidays
             view.selection = selection
             view.setVisibleDateComponents(visibleDateComponents)
             return view

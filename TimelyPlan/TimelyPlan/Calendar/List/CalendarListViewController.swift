@@ -14,9 +14,13 @@ class CalendarListViewController: CalendarBaseViewController,
 
     private lazy var calendarView: CalendarWeekMonthExpandView = {
         let firstWeekday = CalendarSetting.shared.firstWeekday
+        let showLunar = CalendarSetting.shared.showLunar
+        let showChineseHolidays = CalendarSetting.shared.showChineseHolidays
         let view = CalendarWeekMonthExpandView(frame: .zero,
                                                firstWeekday: firstWeekday,
-                                               visibleDateComponents: date.yearMonthDayComponents)
+                                               visibleDateComponents: date.yearMonthDayComponents,
+                                               showLunar: showLunar,
+                                               showChineseHolidays: showChineseHolidays)
         view.delegate = self
         return view
     }()
@@ -114,11 +118,17 @@ class CalendarListViewController: CalendarBaseViewController,
         case .firstWeekday:
             let firstWeekday = CalendarSetting.shared.firstWeekday
             calendarView.setFirstWeekday(firstWeekday)
+        case .showLunar:
+            let showLunar = CalendarSetting.shared.showLunar
+            calendarView.setShowLunar(showLunar)
+        case .showChineseHolidays:
+            let showChineseHolidays = CalendarSetting.shared.showChineseHolidays
+            calendarView.setShowChineseHolidays(showChineseHolidays)
         default:
             break
         }
     }
-    
+
     // MARK: - CalendarWeekMonthExpandViewDelegate
     
     func calendarWeekMonthExpandView(_ view: CalendarWeekMonthExpandView, didChangeVisibleDate dateComponents: DateComponents) {
@@ -131,10 +141,11 @@ class CalendarListViewController: CalendarBaseViewController,
     }
     
     func calendarWeekMonthExpandView(_ view: CalendarWeekMonthExpandView, didSelectDate dateComponents: DateComponents) {
-        guard let date = Date.dateFromComponents(dateComponents) else {
+        guard let date = Date.dateFromComponents(dateComponents),
+                !self.date.isInSameDayAs(date) else {
             return
         }
-        
+
         self.date = date
         updateTitle(with: date)
         reloadEvents(on: date, animated: true)

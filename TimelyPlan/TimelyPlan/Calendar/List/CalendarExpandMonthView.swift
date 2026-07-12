@@ -19,13 +19,9 @@ class CalendarExpandMonthView: TPCalendarScrollableMonthView {
             return
         }
         
-        let dateComponents = adapter.item(at: indexPath) as! DateComponents
-        let monthView = cell.monthView
-        monthView.delegate = delegate
-        monthView.selection = selection
-        monthView.configure(firstWeekday: firstWeekday,
-                            visibleDateComponents: dateComponents,
-                            eventsProvider: eventsProvider)
+        if let dateComponents = adapter.item(at: indexPath) as? DateComponents {
+            updateMonthView(cell.monthView, with: dateComponents)
+        }
     }
 }
 

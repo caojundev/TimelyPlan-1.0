@@ -26,6 +26,12 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     /// 当前月份日期组件
     var visibleDateComponents: DateComponents = Date().yearMonthComponents
 
+    /// 显示农历
+    var showLunar: Bool = true
+    
+    /// 显示中国节假日
+    var showChineseHolidays: Bool = true
+    
     /// 日期选择管理器
     var selection: TPCalendarDateSelection? = TPCalendarSingleDateSelection()
     
@@ -87,14 +93,21 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
             return
         }
         
-        let dateComponents = adapter.item(at: indexPath) as! DateComponents
-        let monthView = cell.monthView
+        if let dateComponents = adapter.item(at: indexPath) as? DateComponents {
+            updateMonthView(cell.monthView, with: dateComponents)
+        }
+    }
+    
+    func updateMonthView(_ monthView: TPCalendarMonthView, with dateComponents: DateComponents) {
         monthView.delegate = delegate
         monthView.selection = selection
+        monthView.showLunar = showLunar
+        monthView.showChineseHolidays = showChineseHolidays
         monthView.configure(firstWeekday: firstWeekday,
                             visibleDateComponents: dateComponents,
                             eventsProvider: eventsProvider)
     }
+
     
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return false
