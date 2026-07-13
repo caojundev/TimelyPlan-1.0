@@ -26,8 +26,9 @@ class CalendarEventListView: UIView, TPGroupTableViewDelegate {
         let view = TPGroupTableView(frame: bounds, style: .grouped)
         view.tableViewConfiguration = { tableView in
             tableView.tableHeaderView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.1))
+            tableView.contentInset = UIEdgeInsets(bottom: 120.0)
         }
-        
+    
         view.delegate = self
 
         let placeholderProvider = eventsViewModel.placeholderProvider

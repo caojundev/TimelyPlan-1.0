@@ -17,6 +17,13 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         return controller
     }()
     
+    /// 我的一天
+    lazy var myDayViewController: MyDayMainViewController = {
+        let vc = MyDayMainViewController()
+        vc.sidebarController = sidebarController
+        return vc
+    }()
+    
     /// 待办
     lazy var todoViewController: TodoMainViewController = {
         let vc = TodoMainViewController()
@@ -116,7 +123,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         var vc: UIViewController
         switch menuType {
         case .myDay:
-            vc = UIViewController()
+            vc = myDayViewController
         case .todo:
             vc = todoViewController
         case .quadrants:

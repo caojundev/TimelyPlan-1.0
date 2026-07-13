@@ -329,6 +329,9 @@
 		E51F941030028C8D00734910 /* CalendarYearDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F940F30028C8C00734910 /* CalendarYearDetailViewController.swift */; };
 		E51F941330033C7C00734910 /* HabitRangeEventColorInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F941230033C7B00734910 /* HabitRangeEventColorInfoFetcher.swift */; };
 		E51F94153003508400734910 /* FocusRangeEventColorInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94143003508300734910 /* FocusRangeEventColorInfoFetcher.swift */; };
+		E51F941830049A8500734910 /* MyDayMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F941730049A8400734910 /* MyDayMainViewController.swift */; };
+		E51F941B3004F20E00734910 /* sideMenu_myDay_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */; };
+		E51F941C3004F20E00734910 /* sideMenu_myDay_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */; };
 		E51FF64D2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */; };
 		E51FF64F2F57162D003CA953 /* HabitTaskProgressInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */; };
 		E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF6502F571978003CA953 /* HabitTaskStatusView.swift */; };
@@ -2389,6 +2392,9 @@
 		E51F940F30028C8C00734910 /* CalendarYearDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarYearDetailViewController.swift; sourceTree = "<group>"; };
 		E51F941230033C7B00734910 /* HabitRangeEventColorInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRangeEventColorInfoFetcher.swift; sourceTree = "<group>"; };
 		E51F94143003508300734910 /* FocusRangeEventColorInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRangeEventColorInfoFetcher.swift; sourceTree = "<group>"; };
+		E51F941730049A8400734910 /* MyDayMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayMainViewController.swift; sourceTree = "<group>"; };
+		E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_myDay_40@2x.png"; sourceTree = "<group>"; };
+		E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_myDay_40@3x.png"; sourceTree = "<group>"; };
 		E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskDefaultInfoView.swift; sourceTree = "<group>"; };
 		E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskProgressInfoView.swift; sourceTree = "<group>"; };
 		E51FF6502F571978003CA953 /* HabitTaskStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusView.swift; sourceTree = "<group>"; };
@@ -5207,6 +5213,14 @@
 			path = EventsInfo;
 			sourceTree = "<group>";
 		};
+		E51F941630049A2C00734910 /* MyDay */ = {
+			isa = PBXGroup;
+			children = (
+				E51F941730049A8400734910 /* MyDayMainViewController.swift */,
+			);
+			path = MyDay;
+			sourceTree = "<group>";
+		};
 		E51FF64B2F570CC0003CA953 /* InfoView */ = {
 			isa = PBXGroup;
 			children = (
@@ -6436,6 +6450,7 @@
 		E55AD8102CB29135006BCF8C /* TimelyPlan */ = {
 			isa = PBXGroup;
 			children = (
+				E51F941630049A2C00734910 /* MyDay */,
 				E5BB99DA2D3BEB320089667A /* TimelyPlan.entitlements */,
 				E55AD81A2CB29135006BCF8C /* TimelyPlan.xcdatamodeld */,
 				E5BB9F182D3BF2C10089667A /* Application */,
@@ -9419,6 +9434,8 @@
 			children = (
 				E563F1AB2FE8082900DF86BB /* sideMenu_24@2x.png */,
 				E563F1AC2FE8082900DF86BB /* sideMenu_24@3x.png */,
+				E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */,
+				E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */,
 				E563F1B82FE8E42600DF86BB /* sideMenu_calendar_40@2x.png */,
 				E563F1C02FE8E42C00DF86BB /* sideMenu_calendar_40@3x.png */,
 				E563F1BD2FE8E42B00DF86BB /* sideMenu_focus_40@2x.png */,
@@ -11031,6 +11048,7 @@
 				E50D94DD2D4528E500F57957 /* ellipsis_circle_24@3x.png in Resources */,
 				E55E4BEE2F9336170068E032 /* calendar_19_24@2x.png in Resources */,
 				E515AD7E2D3CF87F00AA9AF2 /* triangle_right_12@2x.png in Resources */,
+				E51F941B3004F20E00734910 /* sideMenu_myDay_40@2x.png in Resources */,
 				E5B926D92D3FF04A0065FA79 /* arrow_up_24@3x.png in Resources */,
 				E50D94C92D45224500F57957 /* archive_24@2x.png in Resources */,
 				E5BB9ECD2D3BF0C80089667A /* Wheat01@2x.png in Resources */,
@@ -11565,6 +11583,7 @@
 				E5B926CD2D3F97F30065FA79 /* plus_32@3x.png in Resources */,
 				E533529B2FF8C9CC00546986 /* calendar_month_24@2x.png in Resources */,
 				E55E4BD52F9336170068E032 /* calendar_4_24@2x.png in Resources */,
+				E51F941C3004F20E00734910 /* sideMenu_myDay_40@3x.png in Resources */,
 				E5D8339C2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@2x.png in Resources */,
 				E55CE3672D8BC4BB0083316E /* quadrant_circle_III@3x.png in Resources */,
 				E547C7262F3DA2F00095918C /* sort_order_ascending_24@2x.png in Resources */,
@@ -12757,6 +12776,7 @@
 				E56B94972F8DCB72001E488B /* TodoTagTaskListViewController.swift in Sources */,
 				E59244082F515A3700CA2393 /* HabitTaskEditViewController.swift in Sources */,
 				E5D7D8EC2D43933600EC877A /* FocusRecordEditViewController.swift in Sources */,
+				E51F941830049A8500734910 /* MyDayMainViewController.swift in Sources */,
 				E5D7D7DC2D43923800EC877A /* FocusRecord.swift in Sources */,
 				E5007F7B2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift in Sources */,
 				E5CFD2742F58619300A898CB /* HabitTaskStatusProgressView.swift in Sources */,

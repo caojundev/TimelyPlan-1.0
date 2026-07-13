@@ -25,14 +25,17 @@ class SideMenuViewController: TPTableViewController,
     
     /// 当前选中菜单类型
     var selectedMenuType: SideMenuType = .calendar
-    
-    /// 任务模块
+
+    /// 我的一天
+    let myDayMenuItem = TPMenuItem.item(with: [SideMenuType.myDay])
+
+    /// 待办任务模块
     lazy var taskMenuItem: TPMenuItem = {
         let types: [SideMenuType] = [.todo, .quadrants]
         let menuItem = TPMenuItem.item(with: types)
         return menuItem
     }()
-    
+
     /// 专注
     let focusMenuItem = TPMenuItem.item(with: [SideMenuType.focus])
 
@@ -69,7 +72,8 @@ class SideMenuViewController: TPTableViewController,
 
     // MARK: - dataSource
     func sectionObjects(for adapter: TPTableViewAdapter) -> [ListDiffable]? {
-        return [taskMenuItem,
+        return [myDayMenuItem,
+                taskMenuItem,
                 calendarMenuItem,
                 focusMenuItem,
                 habitMenuItem,
