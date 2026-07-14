@@ -15,6 +15,9 @@ class TPTimePickerViewController: TPTableSectionsViewController {
     /// 选中日期回调
     var didPickDate: ((Date) -> Void)?
 
+    /// 点击清除
+    var didClickClear: (() -> Void)?
+    
     init(date: Date = .now) {
         self.date = date.dateByRemovingSeconds()!
         super.init(style: .grouped)
@@ -30,8 +33,7 @@ class TPTimePickerViewController: TPTableSectionsViewController {
         sectionController.headerItem.height = 20.0
         sectionController.headerItem.height = 0.0
         sectionController.footerItem.height = 0.0
-        sectionController.cellItems = [relativeTimePresetCellItem,
-                                       timePickerCellItem,
+        sectionController.cellItems = [timePickerCellItem,
                                        absoluteTimePresetCellItem]
         return sectionController
     }()
@@ -70,10 +72,20 @@ class TPTimePickerViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
+    /// 清除按钮
+    private lazy var clearBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(title: resGetString("Clear"),
+                                   style: .done,
+                                   target: self,
+                                   action: #selector(clickClear))
+        item.tintColor = .redPrimary
+        return item
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = resGetString("Time")
-        self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
+        self.navigationItem.rightBarButtonItem = clearBarButtonItem
         self.preferredContentSize = popoverContentSize
         self.actionsBarHeight = 70.0
         self.setupActionsBar(actions: [cancelAction, doneAction])
@@ -83,16 +95,21 @@ class TPTimePickerViewController: TPTableSectionsViewController {
     }
     
     override var themeBackgroundColor: UIColor? {
-        return .systemBackground
+        return .secondarySystemBackground
     }
     
     override var themeNavigationBarBackgroundColor: UIColor? {
-        return .systemBackground
+        return .secondarySystemBackground
     }
     
     override var popoverContentSize: CGSize {
-        var contentHeight = timePickerCellItem.height + absoluteTimePresetCellItem.height + relativeTimePresetCellItem.height + actionsBarHeight
-        contentHeight += timePointSectionController.headerItem.height
+        var contentHeight = timePointSectionController.headerItem.height
+        let cellItems = timePointSectionController.cellItems ?? []
+        for cellItem in cellItems {
+            contentHeight += cellItem.height
+        }
+        
+        contentHeight += actionsBarHeight
         return CGSize(width: AppLayout.Popover.preferredContentWidth, height: contentHeight)
     }
     
@@ -101,6 +118,13 @@ class TPTimePickerViewController: TPTableSectionsViewController {
         didPickDate?(date)
         dismiss(animated: true, completion: nil)
     }
+    
+    @objc private func clickClear() {
+        TPImpactFeedback.impactWithSoftStyle()
+        didClickClear?()
+        dismiss(animated: true, completion: nil)
+    }
+
     
     // MARK: - Select
     private func didSelectPresetAbsoluteTimeOffset(_ offset: Duration) {

@@ -62,7 +62,14 @@ class FocusTimerEditViewController: TPTableSectionsViewController {
         
         return cellItem
     }()
-
+    
+    // MARK: - 我的一天
+    lazy var myDaySectionController: FocusTimerMyDayEditSectionController = {
+        let sectionController = FocusTimerMyDayEditSectionController()
+        sectionController.headerItem.height = 15.0
+        return sectionController
+    }()
+    
     // MARK: - 计时器
     /// 计时器模式
     lazy var timerTypeSectionController: FocusTimerTypeSectionController = {
@@ -131,6 +138,7 @@ class FocusTimerEditViewController: TPTableSectionsViewController {
                 sectionControllers.append(stopwatchConfigSectionController)
             }
             
+            sectionControllers.append(myDaySectionController)
             return sectionControllers
         }
         

@@ -54,7 +54,7 @@ class TPCalendarTableCell: TPBaseTableCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        calendarView = TPCalendarView(frame: contentView.bounds)
+        calendarView = TPCalendarView(frame: bounds)
         calendarView.visibleDateDidChange = { [weak self] dateComponents in
             self?.visibleDateDidChange(dateComponents)
         }

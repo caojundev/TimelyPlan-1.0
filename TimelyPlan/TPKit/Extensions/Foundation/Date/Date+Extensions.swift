@@ -272,6 +272,17 @@ extension Date {
         return calendar.date(from: dateComponents) ?? self
     }
     
+    func dateByReplacingHour(with hour: Int) -> Date {
+        guard hour >= 0, hour < 24 else {
+            return self
+        }
+        
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)
+        components.hour = hour
+        return calendar.date(from: components) ?? self
+    }
+    
     func dateByReplacingDayWithToday() -> Date {
         return self.dateByReplacingDay(with: Date())
     }

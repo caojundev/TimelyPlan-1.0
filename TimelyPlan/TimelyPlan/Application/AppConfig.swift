@@ -60,7 +60,7 @@ struct AppLayout {
         /// 选项卡菜单圆角半径
         static let segmentedMenuCornerRadius = 14.0
         
-        static let insetGroupedCornerRadius = 10.0
+        static let insetGroupedCornerRadius = 8.0
     }
     
     /// 指示器

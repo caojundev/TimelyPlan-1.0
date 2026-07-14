@@ -91,7 +91,7 @@ class CalendarEventListView: UIView, TPGroupTableViewDelegate {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.listView.groups = [group]
-            self.listView.reloadData()
+            self.listView.performUpdate(with: .fade, completion: nil)
         }
     }
     

@@ -14,7 +14,7 @@ class TodoTaskEditMyDaySectionController: TodoTaskEditBaseSectionController {
         let cellItem = TodoTaskEditTableCellItem()
         cellItem.imageName = "todo_task_addToMyDay_24"
         cellItem.updater = {
-            self?.updatemyDayCellItem()
+            self?.updateMyDayCellItem()
         }
         
         cellItem.didSelectHandler = {
@@ -44,7 +44,7 @@ class TodoTaskEditMyDaySectionController: TodoTaskEditBaseSectionController {
         super.init(interactor: interactor)
     }
     
-    private func updatemyDayCellItem() {
+    private func updateMyDayCellItem() {
         let isActive = task.isAddedToMyDay
         myDayCellItem.isActive = isActive
         if isActive {

@@ -170,7 +170,6 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     // MARK: - Private Metehods
     /// 更新内容偏移
     func updateContentOffset(animated: Bool) {
-        collectionView.layoutIfNeeded()
         var index = kNearMonthsCount
         if let indexPath = adapter.indexPath(of: visibleDateComponents as NSDateComponents) {
             index = indexPath.item

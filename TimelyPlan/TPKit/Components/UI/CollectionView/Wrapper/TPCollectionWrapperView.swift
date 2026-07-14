@@ -107,10 +107,6 @@ class TPCollectionWrapperView: UIView,
         if let collectionView = collectionView {
             shouldShowPlaceholder = collectionView.shouldShowPlaceholder
             removeRefreshControl()
-            
-//            /// 如果是切换collectionView将原来的dataSource和delegate设置为nil  
-//            collectionView.dataSource = nil
-//            collectionView.delegate = nil
         }
         
         self.collectionView = UICollectionView(frame: bounds,

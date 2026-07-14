@@ -97,8 +97,9 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
     }()
     
     /// 日期频率
-    lazy var dateFrequencySectionController: HabitDateFrequencySectionController = {
-        let sectionController = HabitDateFrequencySectionController()
+    lazy var dateFrequencySectionController: DateFrequencySectionController = {
+        let sectionController = DateFrequencySectionController()
+        sectionController.headerItem.title = resGetString("Date And Frequency")
         sectionController.headerItem.height = sectionHeaderHeight
         sectionController.headerItem.padding = sectionHeaderPadding
         sectionController.dateRange = self.editingTask.dateRange
@@ -114,27 +115,16 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    /// 时间选择
-    lazy var timeEditCellItem: HabitTimeEditTableCellItem = { [weak self] in
-        let cellItem = HabitTimeEditTableCellItem()
-        cellItem.updater = {
-            guard let self = self else { return }
-            cellItem.selectedOption = self.editingTask.timeOption
-        }
-        
-        cellItem.didSelectTimeOption = { timeOption in
-            self?.editingTask.timeOption = timeOption
-        }
-        
-        return cellItem
-    }()
-    
-    lazy var timeSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-//        sectionController.headerItem.title = resGetString("Time")
+    /// 时间
+    lazy var timeSectionController: HabitTimeEditSectionController = {
+        let sectionController = HabitTimeEditSectionController()
         sectionController.headerItem.height = 15.0
         sectionController.headerItem.padding = sectionHeaderPadding
-        sectionController.cellItems = [timeEditCellItem]
+        sectionController.timeOption = self.editingTask.timeOption
+        sectionController.onTimeOptionChanged = { [weak self] timeOption in
+            self?.editingTask.timeOption = timeOption
+        }
+
         return sectionController
     }()
     
@@ -174,6 +164,14 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
+    /// 我的一天
+    lazy var myDaySectionController: MyDayEditSectionController = { [weak self] in
+        let sectionController = MyDayEditSectionController()
+        sectionController.headerItem.height = 15.0
+        sectionController.myDayCellItem.imageName = nil
+        return sectionController
+    }()
+    
     init(task: HabitEditingTask? = nil) {
         if let task = task {
             self.editingTask = task
@@ -199,6 +197,7 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         tableView.keyboardDismissMode = .onDrag
         let sectionControllers = [iconNameSectionController,
                                   colorSectionController,
+                                  myDaySectionController,
                                   goalSectionController,
                                   dateFrequencySectionController,
                                   timeSectionController,

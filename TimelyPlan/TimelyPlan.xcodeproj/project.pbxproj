@@ -117,7 +117,7 @@
 		E50C0F772D82AA2400AFF908 /* TPExpandImageInfoRightButtonTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50C0F762D82AA2400AFF908 /* TPExpandImageInfoRightButtonTableCell.swift */; };
 		E50D02452F552FAF00E93977 /* HabitTimeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D02442F552FAF00E93977 /* HabitTimeSelectView.swift */; };
 		E50D02472F55318200E93977 /* HabitTimeEditTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D02462F55318200E93977 /* HabitTimeEditTableCell.swift */; };
-		E50D024B2F557BF800E93977 /* HabitDateFrequencySectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D024A2F557BF800E93977 /* HabitDateFrequencySectionController.swift */; };
+		E50D024B2F557BF800E93977 /* DateFrequencySectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D024A2F557BF800E93977 /* DateFrequencySectionController.swift */; };
 		E50D02552F55860B00E93977 /* habit_time_morning_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D024D2F55860B00E93977 /* habit_time_morning_24@3x.png */; };
 		E50D02562F55860B00E93977 /* habit_time_morning_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D024E2F55860B00E93977 /* habit_time_morning_24@2x.png */; };
 		E50D02572F55860B00E93977 /* habit_time_evening_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50D024F2F55860B00E93977 /* habit_time_evening_24@2x.png */; };
@@ -332,6 +332,9 @@
 		E51F941830049A8500734910 /* MyDayMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F941730049A8400734910 /* MyDayMainViewController.swift */; };
 		E51F941B3004F20E00734910 /* sideMenu_myDay_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */; };
 		E51F941C3004F20E00734910 /* sideMenu_myDay_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */; };
+		E51F941E3005252900734910 /* MyDayEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F941D3005252800734910 /* MyDayEditSectionController.swift */; };
+		E51F94213006178F00734910 /* FocusTimerMyDayEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94203006178F00734910 /* FocusTimerMyDayEditSectionController.swift */; };
+		E51F94233006357B00734910 /* HabitTimeEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94223006357B00734910 /* HabitTimeEditSectionController.swift */; };
 		E51FF64D2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */; };
 		E51FF64F2F57162D003CA953 /* HabitTaskProgressInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */; };
 		E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF6502F571978003CA953 /* HabitTaskStatusView.swift */; };
@@ -1465,7 +1468,7 @@
 		E5BB9E5B2D3BF0C70089667A /* TPCalendarSingleMonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C7A2D3BF0C40089667A /* TPCalendarSingleMonthCell.swift */; };
 		E5BB9E5C2D3BF0C70089667A /* TPCalendarMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C7B2D3BF0C40089667A /* TPCalendarMonthView.swift */; };
 		E5BB9E5D2D3BF0C70089667A /* TPCalendarSpanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C7C2D3BF0C40089667A /* TPCalendarSpanningView.swift */; };
-		E5BB9E5E2D3BF0C70089667A /* TFCalendarScrollableMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C7D2D3BF0C40089667A /* TFCalendarScrollableMonthView.swift */; };
+		E5BB9E5E2D3BF0C70089667A /* TPCalendarScrollableMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C7D2D3BF0C40089667A /* TPCalendarScrollableMonthView.swift */; };
 		E5BB9E5F2D3BF0C70089667A /* TPCalendarSingleWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C7F2D3BF0C40089667A /* TPCalendarSingleWeekView.swift */; };
 		E5BB9E602D3BF0C70089667A /* TPCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C812D3BF0C40089667A /* TPCollectionViewController.swift */; };
 		E5BB9E612D3BF0C70089667A /* TPImageTitleCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9C832D3BF0C40089667A /* TPImageTitleCollectionCell.swift */; };
@@ -2177,7 +2180,7 @@
 		E50C0F762D82AA2400AFF908 /* TPExpandImageInfoRightButtonTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPExpandImageInfoRightButtonTableCell.swift; sourceTree = "<group>"; };
 		E50D02442F552FAF00E93977 /* HabitTimeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTimeSelectView.swift; sourceTree = "<group>"; };
 		E50D02462F55318200E93977 /* HabitTimeEditTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTimeEditTableCell.swift; sourceTree = "<group>"; };
-		E50D024A2F557BF800E93977 /* HabitDateFrequencySectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDateFrequencySectionController.swift; sourceTree = "<group>"; };
+		E50D024A2F557BF800E93977 /* DateFrequencySectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFrequencySectionController.swift; sourceTree = "<group>"; };
 		E50D024D2F55860B00E93977 /* habit_time_morning_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_time_morning_24@3x.png"; sourceTree = "<group>"; };
 		E50D024E2F55860B00E93977 /* habit_time_morning_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_time_morning_24@2x.png"; sourceTree = "<group>"; };
 		E50D024F2F55860B00E93977 /* habit_time_evening_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_time_evening_24@2x.png"; sourceTree = "<group>"; };
@@ -2395,6 +2398,9 @@
 		E51F941730049A8400734910 /* MyDayMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayMainViewController.swift; sourceTree = "<group>"; };
 		E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_myDay_40@2x.png"; sourceTree = "<group>"; };
 		E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_myDay_40@3x.png"; sourceTree = "<group>"; };
+		E51F941D3005252800734910 /* MyDayEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayEditSectionController.swift; sourceTree = "<group>"; };
+		E51F94203006178F00734910 /* FocusTimerMyDayEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerMyDayEditSectionController.swift; sourceTree = "<group>"; };
+		E51F94223006357B00734910 /* HabitTimeEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTimeEditSectionController.swift; sourceTree = "<group>"; };
 		E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskDefaultInfoView.swift; sourceTree = "<group>"; };
 		E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskProgressInfoView.swift; sourceTree = "<group>"; };
 		E51FF6502F571978003CA953 /* HabitTaskStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusView.swift; sourceTree = "<group>"; };
@@ -3545,7 +3551,7 @@
 		E5BB9C7A2D3BF0C40089667A /* TPCalendarSingleMonthCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCalendarSingleMonthCell.swift; sourceTree = "<group>"; };
 		E5BB9C7B2D3BF0C40089667A /* TPCalendarMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCalendarMonthView.swift; sourceTree = "<group>"; };
 		E5BB9C7C2D3BF0C40089667A /* TPCalendarSpanningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCalendarSpanningView.swift; sourceTree = "<group>"; };
-		E5BB9C7D2D3BF0C40089667A /* TFCalendarScrollableMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFCalendarScrollableMonthView.swift; sourceTree = "<group>"; };
+		E5BB9C7D2D3BF0C40089667A /* TPCalendarScrollableMonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCalendarScrollableMonthView.swift; sourceTree = "<group>"; };
 		E5BB9C7F2D3BF0C40089667A /* TPCalendarSingleWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCalendarSingleWeekView.swift; sourceTree = "<group>"; };
 		E5BB9C812D3BF0C40089667A /* TPCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCollectionViewController.swift; sourceTree = "<group>"; };
 		E5BB9C832D3BF0C40089667A /* TPImageTitleCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPImageTitleCollectionCell.swift; sourceTree = "<group>"; };
@@ -4518,6 +4524,7 @@
 		E50D02432F552F5E00E93977 /* Time */ = {
 			isa = PBXGroup;
 			children = (
+				E51F94223006357B00734910 /* HabitTimeEditSectionController.swift */,
 				E50D02462F55318200E93977 /* HabitTimeEditTableCell.swift */,
 				E50D02442F552FAF00E93977 /* HabitTimeSelectView.swift */,
 			);
@@ -5028,15 +5035,6 @@
 			path = triangle;
 			sourceTree = "<group>";
 		};
-		E5168BBB2F53FA3D0000A760 /* Date */ = {
-			isa = PBXGroup;
-			children = (
-				E50D024A2F557BF800E93977 /* HabitDateFrequencySectionController.swift */,
-				E5168BC42F54529B0000A760 /* DateRange */,
-			);
-			path = Date;
-			sourceTree = "<group>";
-		};
 		E5168BC42F54529B0000A760 /* DateRange */ = {
 			isa = PBXGroup;
 			children = (
@@ -5217,8 +5215,19 @@
 			isa = PBXGroup;
 			children = (
 				E51F941730049A8400734910 /* MyDayMainViewController.swift */,
+				E51F941D3005252800734910 /* MyDayEditSectionController.swift */,
 			);
 			path = MyDay;
+			sourceTree = "<group>";
+		};
+		E51F941F3005D85900734910 /* TaskEdit */ = {
+			isa = PBXGroup;
+			children = (
+				E50D024A2F557BF800E93977 /* DateFrequencySectionController.swift */,
+				E5168BC42F54529B0000A760 /* DateRange */,
+				E59244142F51CB7500CA2393 /* TimePlan */,
+			);
+			path = TaskEdit;
 			sourceTree = "<group>";
 		};
 		E51FF64B2F570CC0003CA953 /* InfoView */ = {
@@ -5244,8 +5253,6 @@
 				E59244072F515A3700CA2393 /* HabitTaskEditViewController.swift */,
 				E592440B2F519D7400CA2393 /* HabitIconNameTableCell.swift */,
 				E507E7A42F52D248003004C4 /* Goal */,
-				E5168BBB2F53FA3D0000A760 /* Date */,
-				E59244142F51CB7500CA2393 /* TimePlan */,
 				E50D02432F552F5E00E93977 /* Time */,
 				E5168BD62F547AED0000A760 /* Reminder */,
 			);
@@ -6450,7 +6457,6 @@
 		E55AD8102CB29135006BCF8C /* TimelyPlan */ = {
 			isa = PBXGroup;
 			children = (
-				E51F941630049A2C00734910 /* MyDay */,
 				E5BB99DA2D3BEB320089667A /* TimelyPlan.entitlements */,
 				E55AD81A2CB29135006BCF8C /* TimelyPlan.xcdatamodeld */,
 				E5BB9F182D3BF2C10089667A /* Application */,
@@ -6458,6 +6464,7 @@
 				E5B4994A2FD8FCB200F3A9BD /* Notification */,
 				E5BB9F272D3BF4330089667A /* Common */,
 				E5BB9F3F2D3BF45F0089667A /* Main */,
+				E51F941630049A2C00734910 /* MyDay */,
 				E50DD7D02D72EF8F00A85E87 /* Todo */,
 				E53632672FAB72BF0095DFEC /* Quadrant */,
 				E51A43802DB73A0400DC84C9 /* Calendar */,
@@ -8729,7 +8736,7 @@
 		E5BB9C792D3BF0C40089667A /* MonthView */ = {
 			isa = PBXGroup;
 			children = (
-				E5BB9C7D2D3BF0C40089667A /* TFCalendarScrollableMonthView.swift */,
+				E5BB9C7D2D3BF0C40089667A /* TPCalendarScrollableMonthView.swift */,
 				E5BB9C7A2D3BF0C40089667A /* TPCalendarSingleMonthCell.swift */,
 				E5BB9C7B2D3BF0C40089667A /* TPCalendarMonthView.swift */,
 				E5BB9C7C2D3BF0C40089667A /* TPCalendarSpanningView.swift */,
@@ -9382,6 +9389,7 @@
 			isa = PBXGroup;
 			children = (
 				E50D5FFB2F7A124300D5E0A4 /* Reminder */,
+				E51F941F3005D85900734910 /* TaskEdit */,
 				E5BB9F282D3BF4330089667A /* TaskBind */,
 			);
 			path = Common;
@@ -10111,6 +10119,7 @@
 			isa = PBXGroup;
 			children = (
 				E5D7D8A32D43933600EC877A /* FocusTimerEditViewController.swift */,
+				E51F94203006178F00734910 /* FocusTimerMyDayEditSectionController.swift */,
 				E5D7D8A42D43933600EC877A /* Config */,
 			);
 			path = Edit;
@@ -11853,6 +11862,7 @@
 				E53B11612F94F68700701410 /* TodoFilterManager.swift in Sources */,
 				E50D60442F7A12B500D5E0A4 /* RepeatAfterCompletionSectionController.swift in Sources */,
 				E5BB9DBE2D3BF0C60089667A /* UIColorFunctions.swift in Sources */,
+				E51F94233006357B00734910 /* HabitTimeEditSectionController.swift in Sources */,
 				E5E9F7A52FC2B58300717004 /* TodoSearchResultViewController.swift in Sources */,
 				E5BB9DF72D3BF0C60089667A /* NSObject+WeakDelegates.swift in Sources */,
 				E5FF4EC02FE9360300282416 /* LocalNotificationPreviewViewController.swift in Sources */,
@@ -11879,6 +11889,7 @@
 				E53B11552F94D26C00701410 /* TodoFilterRuleEditBaseSectionController.swift in Sources */,
 				E58C9E192F4AF0DC0096B842 /* FocusTimelineLayout.swift in Sources */,
 				E58F469B2F7A9C120046FA96 /* TodoListMenuActionType.swift in Sources */,
+				E51F94213006178F00734910 /* FocusTimerMyDayEditSectionController.swift in Sources */,
 				E5BB9E1C2D3BF0C70089667A /* NSManagedObject+Request.swift in Sources */,
 				E53F32B52F6948F900B85B65 /* HabitReportWeeklyHeaderView.swift in Sources */,
 				E5BB9E6C2D3BF0C70089667A /* TPCollectionSectionLayout.swift in Sources */,
@@ -11989,6 +12000,7 @@
 				E57CC5D92F7FCED300ADDBA4 /* TodoTaskQuickAddSectionPicker.swift in Sources */,
 				E5E8C9EE2F702163006728C5 /* CDFocusTimer+Extensions.swift in Sources */,
 				E529ACFC2F7E94C8000EA2F1 /* TodoListDetailViewController.swift in Sources */,
+				E51F941E3005252900734910 /* MyDayEditSectionController.swift in Sources */,
 				E50D025F2F55A8C100E93977 /* HabitDateRangeView.swift in Sources */,
 				E5EFB1622F591312000FFDF4 /* HabitTaskManager.swift in Sources */,
 				E50BB67F2D5751FC00D316FD /* TPImageAccessoryConfig.swift in Sources */,
@@ -12034,7 +12046,7 @@
 				E5BB9F0E2D3BF0C90089667A /* TPMenuItem.swift in Sources */,
 				E5BB9EE22D3BF0C80089667A /* TPCircleOutlineProgressView.swift in Sources */,
 				E568B7D02F702E07007B7EFE /* FocusTimerProcessorUpdater.swift in Sources */,
-				E5BB9E5E2D3BF0C70089667A /* TFCalendarScrollableMonthView.swift in Sources */,
+				E5BB9E5E2D3BF0C70089667A /* TPCalendarScrollableMonthView.swift in Sources */,
 				E501795E2FD6AAF500DC544D /* TodoTaskMoveSearchResultsSectionController.swift in Sources */,
 				E5FC6BAA2F64F19500D5A5EA /* HabitLogTaskInfoTableCell.swift in Sources */,
 				E50D60362F7A12B500D5E0A4 /* RepeatFrequencySectionController.swift in Sources */,
@@ -12640,7 +12652,7 @@
 				E5DA03B92FA3A42F00A58ACC /* HabitWeekPeriodItemViewModel.swift in Sources */,
 				E5371DD62FF1508200BA9DEF /* NotificationSoundSelectViewController.swift in Sources */,
 				E5BB9DD72D3BF0C60089667A /* UIFont+Extension.swift in Sources */,
-				E50D024B2F557BF800E93977 /* HabitDateFrequencySectionController.swift in Sources */,
+				E50D024B2F557BF800E93977 /* DateFrequencySectionController.swift in Sources */,
 				E5BB9DDF2D3BF0C60089667A /* UIScrollView+Scroll.swift in Sources */,
 				E5BB9EBE2D3BF0C80089667A /* TPAbsoluteTimePresetTableCell.swift in Sources */,
 				E541555F2F49A415000B2972 /* FocusRecordListCellBaseInfoView.swift in Sources */,

@@ -31,7 +31,30 @@ enum HabitTimeOption: Int, TPMenuRepresentable {
         case .evening: return "habit_time_evening_24"
         }
     }
+    
+    // 预设时间
+    var presetHour: Int {
+        switch self {
+        case .morning:   return 8   // 早上 8:00
+        case .afternoon: return 14  // 下午 2:00
+        case .evening:   return 20  // 晚上 8:00
+        case .anytime:   return 0   // 0:00
+        }
+    }
+    
+    // 根据当前时间判断所属区间
+    static func currentPeriod(from date: Date = Date()) -> HabitTimeOption {
+        let hour = Calendar.current.component(.hour, from: date)
+        switch hour {
+        case 5..<12:  return .morning
+        case 12..<17: return .afternoon
+        case 17..<22: return .evening
+        default:      return hour >= 22 ? .evening : .morning
+        }
+    }
 }
+
+
 
 /// 习惯任务状态
 enum HabitTaskStatus: Hashable, Equatable {

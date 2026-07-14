@@ -115,13 +115,6 @@ class TPSegmentedMenuTableCell: TPImageInfoTableCell {
         return menuView
     }()
     
-//    override func layoutSubviews() {
-//        CATransaction.begin()
-//        CATransaction.setDisableActions(true)
-//        super.layoutSubviews()
-//        CATransaction.commit()
-//    }
-    
     override func setupContentSubviews() {
         super.setupContentSubviews()
         setupSegmentedMenuView()

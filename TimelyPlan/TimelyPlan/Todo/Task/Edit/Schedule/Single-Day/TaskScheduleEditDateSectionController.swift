@@ -151,7 +151,7 @@ class TaskScheduleEditDateSectionController: TPTableItemSectionController,
             self.didPickTime(date)
         }
         
-        timePicker.popoverShowAsNavigationRoot()
+        timePicker.popoverShow()
     }
     
     /// 选中时间

@@ -1,5 +1,5 @@
 //
-//  HabitDateFrequencySectionController.swift
+//  DateFrequencySectionController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/2.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HabitDateFrequencySectionController: TPTableItemSectionController {
+class DateFrequencySectionController: TPTableItemSectionController {
     
     var dateRange: DateRange = DateRange()
     
@@ -17,7 +17,7 @@ class HabitDateFrequencySectionController: TPTableItemSectionController {
     
     var timePlanDidChange: ((HabitTimePlan) -> Void)?
     
-    private let defaultCellHeight = 55.0
+    let defaultCellHeight = 55.0
     
     /// 开始日期
     lazy var dateRangeCellItem: HabitDateRangeEditTableCellItem = { [weak self] in
@@ -36,11 +36,10 @@ class HabitDateFrequencySectionController: TPTableItemSectionController {
     }()
     
     /// 频率
-    lazy var frequencyCellItem: TPDefaultInfoTableCellItem = {  [weak self] in
-        let cellItem = TPDefaultInfoTableCellItem()
+    lazy var frequencyCellItem: TPImageInfoTableCellItem = {  [weak self] in
+        let cellItem = TPImageInfoTableCellItem()
         cellItem.autoResizable = true
         cellItem.minimumHeight = defaultCellHeight
-        cellItem.titleConfig.font = .boldSystemFont(ofSize: 16.0)
         cellItem.subtitleConfig.numberOfLines = 0
         cellItem.accessoryType = .disclosureIndicator
         cellItem.title = resGetString("Frequency")
@@ -59,7 +58,6 @@ class HabitDateFrequencySectionController: TPTableItemSectionController {
     
     override init() {
         super.init()
-        self.headerItem.title = resGetString("Date And Frequency")
         self.cellItems = [dateRangeCellItem, frequencyCellItem]
     }
 
