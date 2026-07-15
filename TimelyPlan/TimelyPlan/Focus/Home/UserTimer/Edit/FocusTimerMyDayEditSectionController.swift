@@ -13,8 +13,20 @@ class FocusTimerMyDayEditSectionController: DateFrequencySectionController {
     /// 添加到我的一天
     var isAddedToMyDay: Bool = true
 
+    var onAddToMyDayValueChanged: ((Bool) -> Void)?
+
+    var startTime: Int64 = Int64(8 * SECONDS_PER_HOUR)
+    
+    var onStartTimeChanged: ((Int64) -> Void)?
+    
     /// 日期
-    var date: Date?
+    private var date: Date? {
+        if startTime >= 0 {
+            return .dateWithTimeOffset(Duration(startTime))
+        }
+        
+        return nil
+    }
     
     /// 添加到我的一天
     lazy var myDayCellItem: TPSwitchTableCellItem = { [weak self] in
@@ -77,6 +89,7 @@ class FocusTimerMyDayEditSectionController: DateFrequencySectionController {
     
     private func addToMyDayValueChanged(_ isAddedToMyDay: Bool) {
         self.isAddedToMyDay = isAddedToMyDay
+        onAddToMyDayValueChanged?(isAddedToMyDay)
         adapter?.performSectionUpdate(forSectionObject: self,
                                       rowAnimation: .fade,
                                       completion: nil)
@@ -101,8 +114,18 @@ class FocusTimerMyDayEditSectionController: DateFrequencySectionController {
     
     /// 选中时间
     private func pickTime(_ date: Date?) {
-        self.date = date
-        adapter?.reloadCell(forItem: timeCellItem, with: .none)
+        let offset: Int64
+        if let date = date {
+            offset = Int64(date.offset())
+        } else {
+            offset = -1
+        }
+        
+        if startTime != offset {
+            startTime = offset
+            onStartTimeChanged?(startTime)
+            adapter?.reloadCell(forItem: timeCellItem, with: .none)
+        }
     }
     
 }

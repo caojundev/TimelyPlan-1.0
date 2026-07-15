@@ -45,10 +45,15 @@ extension CDFocusTimer: TPHexColorConvertible, SortableIdentifiable {
         self.name = editingTimer.name
         self.colorHex = editingTimer.color.hexString
         self.note = editingTimer.note
-        self.configJSON = editingTimer.config?.jsonString()
         self.modificationDate = .now
+        
+        self.isAddedToMyDay = editingTimer.isAddedToMyDay
+        self.startDate = editingTimer.startDate
+        self.endDate = editingTimer.endDate
+        self.startTime = editingTimer.startTime
+        self.configJSON = editingTimer.config?.jsonString()
+        self.timePlanRuleJSON = editingTimer.timePlan?.regularRule?.jsonString()
     }
-
 }
 
 /// 获取计时器

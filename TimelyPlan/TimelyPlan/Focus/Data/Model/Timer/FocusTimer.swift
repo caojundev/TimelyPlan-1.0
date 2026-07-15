@@ -28,11 +28,23 @@ class FocusTimer: NSObject, SortableIdentifiable {
     /// 备注
     var note: String?
     
-    /// 修改日期
-    let modificationDate: Date?
+    /// 是否添加到我的一天
+    let isAddedToMyDay: Bool
+    
+    /// 开始日期
+    let startDate: Date?
+    
+    /// 结束日期
+    let endDate: Date?
+    
+    /// 开始时间
+    let startTime: Int64
     
     /// 是否已归档
     let isArchived: Bool
+    
+    /// 修改日期
+    let modificationDate: Date?
     
     /// 计时器配置
     private(set) lazy var config: FocusTimerConfig = {
@@ -45,6 +57,19 @@ class FocusTimer: NSObject, SortableIdentifiable {
     
     /// 计时器配置 JSON 字符串
     private var configJSON: String?
+    
+    /// 时间计划
+    private(set) lazy var timePlan: HabitTimePlan = {
+        if let json = timePlanRuleJSON {
+            let regularRule = HabitTimePlanRegularRule.model(with: json)
+            return HabitTimePlan(regularRule: regularRule)
+        }
+        
+        return HabitTimePlan()
+    }()
+    
+    /// 时间计划规则 JSON 字符串
+    private var timePlanRuleJSON: String?
     
     // MARK: - SortableIdentifiable
     /// 排序因子
@@ -62,6 +87,11 @@ class FocusTimer: NSObject, SortableIdentifiable {
         self.configJSON = content.configJSON
         self.isArchived = content.isArchived
         self.modificationDate = content.modificationDate
+        self.timePlanRuleJSON = content.timePlanRuleJSON
+        self.isAddedToMyDay = content.isAddedToMyDay
+        self.startDate = content.startDate
+        self.endDate = content.endDate
+        self.startTime = content.startTime 
         super.init()
     }
     
@@ -69,24 +99,13 @@ class FocusTimer: NSObject, SortableIdentifiable {
     override var hash: Int {
         var hasher = Hasher()
         hasher.combine(identifier)
-        hasher.combine(name)
-        hasher.combine(color)
-        hasher.combine(configJSON)
-        hasher.combine(isArchived)
-        hasher.combine(modificationDate)
         return hasher.finalize()
     }
     
     override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? FocusTimer else { return false }
         if self === other { return true }
-        return identifier == other.identifier &&
-                name == other.name &&
-                color == other.color &&
-                configJSON == other.configJSON &&
-                isArchived == other.isArchived &&
-                modificationDate == other.modificationDate
-                    
+        return editingTimer == other.editingTimer
     }
     
     // MARK: - IGListDiffable
@@ -136,16 +155,19 @@ extension FocusTimer {
         var timer = FocusEditingTimer()
         timer.name = name
         timer.color = color
+        timer.isAddedToMyDay = isAddedToMyDay
+        timer.startDate = startDate
+        timer.endDate = endDate
+        timer.startTime = startTime
         timer.config = config.copy() as? FocusTimerConfig
+        timer.timePlan = timePlan.copy() as? HabitTimePlan
         return timer
     }
 
     /// 判断编辑任务内容是否与当前任务相同
     func isSameTimer(as editingTimer: FocusEditingTimer) -> Bool {
-        return editingTimer.name == name &&
-                editingTimer.color == color &&
-                editingTimer.config == config &&
-                editingTimer.note == note
+        let current = self.editingTimer
+        return current == editingTimer
     }
 }
 

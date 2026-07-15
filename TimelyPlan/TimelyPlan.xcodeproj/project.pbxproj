@@ -6103,8 +6103,6 @@
 				E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */,
 				E59243FE2F51572D00CA2393 /* HabitEditingTask.swift */,
 				E507E7A92F52D2D7003004C4 /* HabitGoal.swift */,
-				E5E552EB2FEF65EB00072D3F /* HabitTimePlanRegularRule.swift */,
-				E59244152F51CB7500CA2393 /* HabitTimePlan.swift */,
 				E5168BD92F547DBE0000A760 /* HabitReminder.swift */,
 			);
 			path = Task;
@@ -7336,6 +7334,8 @@
 		E59244142F51CB7500CA2393 /* TimePlan */ = {
 			isa = PBXGroup;
 			children = (
+				E5E552EB2FEF65EB00072D3F /* HabitTimePlanRegularRule.swift */,
+				E59244152F51CB7500CA2393 /* HabitTimePlan.swift */,
 				E59244162F51CB7500CA2393 /* Scheduler */,
 				E592441A2F51CB7500CA2393 /* Edit */,
 			);

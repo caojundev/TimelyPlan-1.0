@@ -23,11 +23,30 @@ struct FocusEditingTimer: Equatable {
     /// 专注计时器
     var config: FocusTimerConfig?
     
-    // MARK: - Equatable
-    static func == (lhs: FocusEditingTimer, rhs: FocusEditingTimer) -> Bool {
-        return lhs.name == rhs.name &&
-                lhs.color == rhs.color &&
-                lhs.note == rhs.note &&
-                lhs.config == rhs.config
+    /// 是否添加到我的一天
+    var isAddedToMyDay: Bool = false
+    
+    /// 开始日期
+    var startDate: Date?
+    
+    /// 结束日期
+    var endDate: Date?
+    
+    /// 开始时间
+    var startTime: Int64 = -1
+    
+    /// 时间计划
+    var timePlan: HabitTimePlan?
+
+    /// 日期范围
+    var dateRange: DateRange {
+        get {
+            return DateRange(startDate: startDate ?? .now, endDate: endDate)
+        }
+        
+        set {
+            self.startDate = newValue.startDate
+            self.endDate = newValue.endDate
+        }
     }
 }
