@@ -11,7 +11,47 @@ class HabitTimeEditSectionController: TPTableItemSectionController {
     
     var onTimeOptionChanged: ((HabitTimeOption) -> Void)?
     
-    var timeOption: HabitTimeOption = .anytime
+    var onStartTimeChanged: ((Int64) -> Void)?
+    
+    var onDurationChanged: ((Int64) -> Void)?
+    
+    private(set) var timeOption: HabitTimeOption {
+        didSet {
+            if timeOption != oldValue {
+                onTimeOptionChanged?(timeOption)
+            }
+        }
+    }
+    
+    private(set) var startTime: Int64 {
+        didSet {
+            if startTime != oldValue {
+                onStartTimeChanged?(startTime)
+            }
+        }
+    }
+    
+    private(set) var duration: Int64 {
+        didSet {
+            if duration != oldValue {
+                onDurationChanged?(duration)
+            }
+        }
+    }
+    
+    private var startDate: Date {
+        return .dateWithTimeOffset(Duration(startTime))
+    }
+    
+    private var endDate: Date {
+        let startDate = startDate
+        let seconds = Int(duration)
+        guard let endDate = startDate.dateByAddingSeconds(seconds) else {
+            return startDate
+        }
+        
+        return endDate
+    }
     
     /// 时间选择
     lazy var timeEditCellItem: HabitTimeEditTableCellItem = { [weak self] in
@@ -58,10 +98,6 @@ class HabitTimeEditSectionController: TPTableItemSectionController {
         return cellItem
     }()
     
-    
-    var startDate: Date = .now
-    var duration: Duration = SECONDS_PER_DAY
-    
     override var cellItems: [TPBaseTableCellItem]? {
         get {
             var items: [TPBaseTableCellItem] = [timeEditCellItem]
@@ -76,26 +112,15 @@ class HabitTimeEditSectionController: TPTableItemSectionController {
         set {}
     }
     
-    override init() {
+    init(timeOption: HabitTimeOption,
+         startTime: Int64,
+         duration: Int64) {
+        self.timeOption = timeOption
+        self.startTime = startTime
+        self.duration = duration
         super.init()
     }
  
-    private func selectTimeOption(_ timeOption: HabitTimeOption) {
-        guard self.timeOption != timeOption else {
-            return
-        }
-        
-        self.timeOption = timeOption
-        /// 更新日期
-        startDate = startDate.dateByReplacingHour(with: timeOption.presetHour)
-        
-        adapter?.performSectionUpdate(forSectionObject: self,
-                                      rowAnimation: .fade,
-                                      completion: nil)
-        onTimeOptionChanged?(timeOption)
-        
-    }
-
     /// 更新时间单元格条目
     private func updateTimeCellItem() {
         if timeOption == .anytime {
@@ -108,11 +133,10 @@ class HabitTimeEditSectionController: TPTableItemSectionController {
     
     /// 更新时长单元格
     private func updateDurationCellItem() {
-        guard let endDate = startDate.dateByAddingSeconds(duration) else {
-            return
-        }
+        let startDate = startDate
+        let endDate = endDate
         
-        let title = "\(duration.localizedTitle) → \(endDate.timeString)"
+        let title = "\(Duration(duration).localizedTitle) → \(endDate.timeString)"
         let daysCount = startDate.daysBetween(endDate)
         if daysCount > 0 {
             let badgeString = "+\(daysCount)"
@@ -126,7 +150,25 @@ class HabitTimeEditSectionController: TPTableItemSectionController {
         }
     }
     
+    private let defaultDuration = 5 * SECONDS_PER_MINUTE
+    
     // MARK: - Edit
+    private func selectTimeOption(_ timeOption: HabitTimeOption) {
+        guard self.timeOption != timeOption else {
+            return
+        }
+        
+        if self.timeOption == .anytime, self.duration == 0 {
+            /// 从任意时间切换到具体时间
+            self.duration = Int64(defaultDuration)
+        }
+        
+        self.startTime = Int64(timeOption.presetHour * SECONDS_PER_HOUR)
+        self.timeOption = timeOption
+        adapter?.performSectionUpdate(forSectionObject: self,
+                                      rowAnimation: .fade,
+                                      completion: nil)
+    }
 
     /// 编辑时间
     private func editTime() {
@@ -141,16 +183,18 @@ class HabitTimeEditSectionController: TPTableItemSectionController {
     
     /// 选中时间
     private func didPickTime(_ date: Date) {
-        startDate = date
-        adapter?.reloadCell(forItems: [timeCellItem, durationCellItem],
-                            with: .none)
+        startTime = Int64(date.offset())
+        timeOption = HabitTimeOption.currentPeriod(from: date)
+        adapter?.performSectionUpdate(forSectionObject: self,
+                                      rowAnimation: .none,
+                                      completion: nil)
     }
 
     // MARK: - 持续时长
     private func editDuration() {
         let pickerVC = TPDurationPickerViewController()
         pickerVC.minimumDuration = SECONDS_PER_MINUTE
-        pickerVC.duration = duration
+        pickerVC.duration = Int(duration)
         pickerVC.didPickDuration = { duration in
             self.selectDuration(duration)
         }
@@ -159,9 +203,7 @@ class HabitTimeEditSectionController: TPTableItemSectionController {
     }
     
     private func selectDuration(_ duration: Duration) {
-        self.duration = duration
-        adapter?.reloadCell(forItems: [timeCellItem, durationCellItem],
-                            with: .none)
+        self.duration = Int64(duration)
+        adapter?.reloadCell(forItems: [timeCellItem, durationCellItem], with: .none)
     }
-
 }

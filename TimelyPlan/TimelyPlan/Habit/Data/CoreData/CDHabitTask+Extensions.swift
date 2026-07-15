@@ -60,10 +60,13 @@ extension CDHabitTask: TPHexColorConvertible, SortableIdentifiable {
         self.iconName = editingTask.emoji
         self.name = editingTask.name
         self.colorHex = editingTask.color.hexString
-        
+        self.isAddedToMyDay = editingTask.isAddedToMyDay
         /// 时间范围
         self.startDate = editingTask.dateRange.startDate
         self.endDate = editingTask.dateRange.endDate
+        self.timeOption = Int16(editingTask.timeOption.rawValue)
+        self.startTime = editingTask.startTime
+        self.duration = editingTask.duration
         
         /// 目标
         let goal = editingTask.goal
@@ -74,7 +77,6 @@ extension CDHabitTask: TPHexColorConvertible, SortableIdentifiable {
         self.goalRecordAmount = goal.recordAmount ?? 0
         
         self.timePlanRuleJSON = editingTask.timePlan.regularRule?.jsonString()
-        self.timeOption = Int16(editingTask.timeOption.rawValue)
         self.shouldRemind = editingTask.shouldRemind
         self.reminderJSON = editingTask.reminder?.jsonString()
         self.note = editingTask.note

@@ -35,14 +35,29 @@ extension HabitTask {
     }
     
     func event(on planDate: Date) -> CalendarEvent {
-        let interval = DateInterval.rangeOfDay(planDate)
+        let isAllDay: Bool
+        let interval: DateInterval
+        if timeOption != .anytime {
+            isAllDay = false
+            let start = planDate.dateWithTimeOffset(Duration(validatedStartTime))
+            var end = start.dateByAddingSeconds(Duration(validatedDuration)) ?? start
+            if !end.isInSameDayAs(start) {
+                end = start.endOfDay()
+            }
+            
+            interval = DateInterval(start: start, end: end)
+        } else {
+            isAllDay = true
+            interval = .rangeOfDay(planDate)
+        }
+        
         let event = CalendarEvent(identifier: identifier,
                                   source: .habit,
-                                  name: displayName,
+                                  name: displayTitle,
                                   color: color,
                                   startDate: interval.start,
                                   endDate: interval.end,
-                                  isAllDay: true,
+                                  isAllDay: isAllDay,
                                   isCompleted: false,
                                   sourceItem: self)
         return event

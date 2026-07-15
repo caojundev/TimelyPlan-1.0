@@ -11,7 +11,7 @@ import UIKit
 class MyDayEditSectionController: TPTableItemSectionController {
     
     /// 添加到我的一天改变回调
-    var addToMyDayValueChanged: ((Bool) -> Void)?
+    var onAddToMyDayValueChanged: ((Bool) -> Void)?
     
     /// 添加到我的一天
     var isAddedToMyDay: Bool = true
@@ -44,9 +44,7 @@ class MyDayEditSectionController: TPTableItemSectionController {
     
     private func addToMyDayValueChanged(_ isAddedToMyDay: Bool) {
         self.isAddedToMyDay = isAddedToMyDay
-        adapter?.performSectionUpdate(forSectionObject: self,
-                                      rowAnimation: .fade,
-                                      completion: nil)
+        onAddToMyDayValueChanged?(isAddedToMyDay)
     }
     
 }

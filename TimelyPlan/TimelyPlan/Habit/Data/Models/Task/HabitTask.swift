@@ -33,6 +33,15 @@ class HabitTask: NSObject, SortableIdentifiable {
     /// 时间选项
     let timeOption: HabitTimeOption
     
+    /// 开始时间
+    let startTime: Int64
+    
+    /// 持续时长
+    let duration: Int64
+    
+    /// 是否添加到我的一天
+    let isAddedToMyDay: Bool
+    
     /// 备注
     let note: String?
 
@@ -51,9 +60,13 @@ class HabitTask: NSObject, SortableIdentifiable {
     /// 提醒 JSON 字符串
     let reminderJSON: String?
 
+    /// 显示标题（emoji + displayName）
+    var displayTitle: String {
+        return emoji + displayName
+    }
+    
     var displayName: String {
-        let name = name ?? resGetString("Untitled Habit")
-        return emoji + name
+        return name ?? resGetString("Untitled Habit")
     }
     
     /// 时间计划
@@ -128,7 +141,10 @@ class HabitTask: NSObject, SortableIdentifiable {
         self.name = content.name
         self.color = content.color ?? HabitConstant.taskDefaultColor
         self.dateRange = content.dateRange
+        self.isAddedToMyDay = content.isAddedToMyDay
         self.timeOption = HabitTimeOption(rawValue: Int(content.timeOption)) ?? .anytime
+        self.startTime = content.startTime
+        self.duration = content.duration
         self.shouldRemind = content.shouldRemind
         self.note = content.note
         self.modificationDate = content.modificationDate
@@ -137,6 +153,30 @@ class HabitTask: NSObject, SortableIdentifiable {
         self.timePlanRuleJSON = content.timePlanRuleJSON
         self.reminderJSON = content.reminderJSON
         super.init()
+    }
+    
+    var validatedStartTime: Int64 {
+        guard timeOption != .anytime else {
+            return 0
+        }
+        
+        if startTime == 0, duration == 0 {
+            return Int64(timeOption.presetHour * SECONDS_PER_HOUR)
+        }
+        
+        return startTime
+    }
+    
+    var validatedDuration: Int64 {
+        guard timeOption != .anytime else {
+            return 0
+        }
+        
+        if duration < SECONDS_PER_MINUTE {
+            return Int64(SECONDS_PER_MINUTE)
+        }
+        
+        return duration
     }
     
     // MARK: - IGListDiffable

@@ -323,6 +323,11 @@ extension Date {
         return calendar.date(from: dateComponents) ?? self
     }
     
+    static func dateWithTimeOffset(_ timeOffset: Duration) -> Date {
+        let date = Date()
+        return date.dateWithTimeOffset(timeOffset)
+    }
+    
     /// 将日期的时间部分截断到分钟级别
     /// - Returns: 截断后的日期对象，如果转换失败则返回原日期
     func truncatedToMinute() -> Date {

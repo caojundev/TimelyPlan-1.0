@@ -23,7 +23,7 @@ extension HabitPeriodItem: LocalNotifiable {
             return []
         }
         
-        let title = habitTask.displayName
+        let title = habitTask.displayTitle
         let bodyFormat = resGetString("Habit Reminder at %@")
         let sound = HabitSetting.shared.sound?.toUNNotificationSound
         let userInfo: [String: Any] = [TaskNotificationKey.taskType: TaskNotificationType.habit.rawValue,

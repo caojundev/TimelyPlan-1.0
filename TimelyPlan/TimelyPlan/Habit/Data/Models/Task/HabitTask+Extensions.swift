@@ -53,10 +53,14 @@ extension HabitTask {
 
     func attributedInfo(color: UIColor? = nil) -> ASAttributedString {
         var indicators = [ASAttributedString]()
-
+        
+        /// 我的一天
+        if isAddedToMyDay, let myDayIndicator = myDayIndicator(color: color) {
+            indicators.append(myDayIndicator)
+        }
+        
         /// 提醒
-        if hasAlarm {
-            let bellIndicator = bellIndicator(color: color)
+        if hasAlarm, let bellIndicator = bellIndicator(color: color) {
             indicators.append(bellIndicator)
         }
 
@@ -70,11 +74,24 @@ extension HabitTask {
         
         return indicators.joined(separator: " • ")
     }
-
+    
+    /// 我的一天图标信息
+    func myDayIndicator(color: UIColor? = nil) -> ASAttributedString? {
+        guard let image = resGetImage("myDay_24") else {
+            return nil
+        }
+        
+        return .string(image: image, imageSize: .size(4), imageColor: color)
+    }
+    
+    
     /// 备注图标信息
-    func bellIndicator(color: UIColor? = nil) -> ASAttributedString {
-        let image = resGetImage("bell_fill_16")!
-        return .string(image: image, imageColor: color)
+    func bellIndicator(color: UIColor? = nil) -> ASAttributedString? {
+        guard let image = resGetImage("bell_fill_16") else {
+            return nil
+        }
+        
+        return .string(image: image, imageSize: .size(4), imageColor: color)
     }
     
     /// 时间计划富文本信息
@@ -115,6 +132,9 @@ extension HabitTask {
         task.goal = goal
         task.dateRange = dateRange
         task.timeOption = timeOption
+        task.startTime = startTime
+        task.duration = duration
+        task.isAddedToMyDay = isAddedToMyDay
         task.timePlan = (timePlan.copy() as? HabitTimePlan) ?? HabitTimePlan()
         task.shouldRemind = shouldRemind
         task.reminder = reminder?.copy() as? HabitReminder

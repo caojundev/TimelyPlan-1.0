@@ -29,9 +29,18 @@ struct HabitEditingTask: Equatable {
     /// 频率
     var timePlan: HabitTimePlan = HabitTimePlan()
     
+    /// 是否添加到我的一天
+    var isAddedToMyDay: Bool = false
+
     /// 时间选项
     var timeOption: HabitTimeOption = .anytime
     
+    /// 开始时间
+    var startTime: Int64 = 0
+    
+    /// 持续时长
+    var duration: Int64 = 0
+        
     /// 是否提醒
     var shouldRemind: Bool = false
     
@@ -46,4 +55,29 @@ struct HabitEditingTask: Equatable {
         get { return TPIcon(text: emoji ?? "C") }
         set { self.emoji = newValue.text }
     }
+    
+    var validatedStartTime: Int64 {
+        guard timeOption != .anytime else {
+            return 0
+        }
+        
+        if startTime == 0, duration == 0 {
+            return Int64(timeOption.presetHour * SECONDS_PER_HOUR)
+        }
+        
+        return startTime
+    }
+    
+    var validatedDuration: Int64 {
+        guard timeOption != .anytime else {
+            return 0
+        }
+        
+        if duration < SECONDS_PER_MINUTE {
+            return Int64(SECONDS_PER_MINUTE)
+        }
+        
+        return duration
+    }
+
 }

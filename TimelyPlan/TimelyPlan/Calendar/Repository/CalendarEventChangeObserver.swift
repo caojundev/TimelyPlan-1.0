@@ -197,7 +197,11 @@ extension CalendarEventChangeObserver: HabitTaskProcessorDelegate {
     func didUpdateHabitTask(_ task: HabitTask, with editingTask: HabitEditingTask) {
         let oldInterval = task.dateRange.interval
         let newInterval = editingTask.dateRange.interval
-        guard oldInterval != newInterval || task.timePlan != editingTask.timePlan else {
+        guard oldInterval != newInterval ||
+                task.timePlan != editingTask.timePlan ||
+                task.timeOption != editingTask.timeOption ||
+                task.startTime != editingTask.startTime ||
+                task.duration != editingTask.duration else {
             return
         }
         

@@ -116,13 +116,22 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
     }()
     
     /// 时间
-    lazy var timeSectionController: HabitTimeEditSectionController = {
-        let sectionController = HabitTimeEditSectionController()
+    lazy var timeSectionController: HabitTimeEditSectionController = { [weak self] in
+        let sectionController = HabitTimeEditSectionController(timeOption: editingTask.timeOption,
+                                                               startTime: editingTask.validatedStartTime,
+                                                               duration: editingTask.validatedDuration)
         sectionController.headerItem.height = 15.0
         sectionController.headerItem.padding = sectionHeaderPadding
-        sectionController.timeOption = self.editingTask.timeOption
-        sectionController.onTimeOptionChanged = { [weak self] timeOption in
+        sectionController.onTimeOptionChanged = { timeOption in
             self?.editingTask.timeOption = timeOption
+        }
+        
+        sectionController.onStartTimeChanged = { startTime in
+            self?.editingTask.startTime = startTime
+        }
+        
+        sectionController.onDurationChanged = { duration in
+            self?.editingTask.duration = duration
         }
 
         return sectionController
@@ -169,6 +178,11 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         let sectionController = MyDayEditSectionController()
         sectionController.headerItem.height = 15.0
         sectionController.myDayCellItem.imageName = nil
+        sectionController.isAddedToMyDay = editingTask.isAddedToMyDay
+        sectionController.onAddToMyDayValueChanged = { isAddedToMyDay in
+            self?.editingTask.isAddedToMyDay = isAddedToMyDay
+        }
+        
         return sectionController
     }()
     

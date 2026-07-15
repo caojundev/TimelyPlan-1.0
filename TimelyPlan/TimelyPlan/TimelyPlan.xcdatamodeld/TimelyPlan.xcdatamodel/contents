@@ -46,6 +46,7 @@
     <entity name="CDHabitTask" representedClassName="CDHabitTask" syncable="YES" codeGenerationType="class">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="duration" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="goalMode" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="goalRecordAmount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -55,6 +56,7 @@
         <attribute name="iconName" optional="YES" attributeType="String"/>
         <attribute name="iconType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="isAddedToMyDay" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -63,6 +65,7 @@
         <attribute name="reminderJSON" optional="YES" attributeType="String"/>
         <attribute name="shouldRemind" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="startTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timeOption" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timePlanRuleJSON" optional="YES" attributeType="String"/>
         <relationship name="records" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDHabitRecord" inverseName="task" inverseEntity="CDHabitRecord"/>
@@ -139,7 +142,7 @@
         <element name="CDFocusTimer" positionX="18" positionY="180" width="128" height="164"/>
         <element name="CDHabitRecord" positionX="18" positionY="180" width="128" height="164"/>
         <element name="CDHabitSample" positionX="27" positionY="189" width="128" height="74"/>
-        <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="359"/>
+        <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="404"/>
         <element name="CDTodoFilter" positionX="45" positionY="261" width="128" height="119"/>
         <element name="CDTodoList" positionX="54" positionY="99" width="128" height="194"/>
         <element name="CDTodoSection" positionX="45" positionY="261" width="128" height="104"/>
