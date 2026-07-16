@@ -244,10 +244,10 @@ class HabitHomeWeekViewController: TPViewController,
             return
         }
 
-        let habitTask = periodItem.habitTask
-        let menuController = HabitHomeWeekMenuController()
+        let task = periodItem.habitTask
+        let menuController = HabitHomeWeekMenuController(task: task)
         menuController.didSelectMenuActionType = {[weak self] type in
-            self?.processor.performMenuAction(type, for: habitTask, on: .now)
+            self?.processor.performMenuAction(type, for: task, on: .now)
         }
         
         menuController.showMenu(from: button)

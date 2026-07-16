@@ -26,6 +26,18 @@ class HabitTaskController {
         HabitRepository.setArchived(false, for: task)
     }
     
+    func addTaskToMyDay(_ task: HabitTask) {
+        var editingTask = task.editingTask
+        editingTask.isAddedToMyDay = true
+        HabitRepository.updateTask(task, with: editingTask)
+    }
+
+    func removeTaskFromMyDay(_ task: HabitTask) {
+        var editingTask = task.editingTask
+        editingTask.isAddedToMyDay = false
+        HabitRepository.updateTask(task, with: editingTask)
+    }
+    
     /// 删除任务
     func deleteTask(_ task: HabitTask){
         confirmTaskDeletion(for: task) { confirmed in

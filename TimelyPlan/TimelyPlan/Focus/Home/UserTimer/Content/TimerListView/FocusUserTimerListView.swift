@@ -215,6 +215,10 @@ class FocusUserTimerListView: TPGroupCollectionView,
             timerController.unarchiveTimer(timer)
         case .delete:
             timerController.deleteTimer(timer)
+        case .addToMyDay:
+            timerController.addTimerToMyDay(timer)
+        case .removeFromMyDay:
+            timerController.removeTimerFromMyDay(timer)
         }
     }
 }

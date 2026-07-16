@@ -8,7 +8,8 @@
 import Foundation
 
 enum HabitTaskMenuActionType: String, TPMenuRepresentable {
-    
+    case addToMyDay /// 添加到我的一天
+    case removeFromMyDay /// 从我的一天移除
     case resetToday     /// 重置今日数据
     case cancelSkip     /// 取消跳过
     case completeAll /// 完成所有
@@ -28,6 +29,10 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
     var title: String {
         let title: String
         switch self {
+        case .addToMyDay:
+            title = "Add to My Day"
+        case .removeFromMyDay:
+            title = "Remove from My Day"
         case .resetToday:
             title = "Reset Today"
         case .cancelSkip:
@@ -63,6 +68,10 @@ enum HabitTaskMenuActionType: String, TPMenuRepresentable {
     
     var iconName: String? {
         switch self {
+        case .addToMyDay:
+            return "myDay_add_24"
+        case .removeFromMyDay:
+            return "myDay_remove_24"
         case .resetToday:
             return "habit_menu_reset_24"
         case .completeAll:

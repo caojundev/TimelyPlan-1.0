@@ -9,9 +9,18 @@ import Foundation
 
 class HabitHomeWeekMenuController: TPBaseMenuController<HabitTaskMenuActionType> {
     
+    let task: HabitTask
+    
+    init(task: HabitTask) {
+        self.task = task
+        super.init()
+    }
+    
     override func orderedMenuActionTypeLists() -> [Array<HabitTaskMenuActionType>] {
         var lists: [Array<HabitTaskMenuActionType>]
-        lists = [[.focus],
+        lists = [[.addToMyDay,
+                  .removeFromMyDay],
+                 [.focus],
                  [.edit,
                   .archive],
                  [.delete]]
@@ -19,6 +28,13 @@ class HabitHomeWeekMenuController: TPBaseMenuController<HabitTaskMenuActionType>
     }
  
     override func menuActionTypes() -> [HabitTaskMenuActionType] {
-        return [.focus, .edit, .archive, .delete]
+        var types: [HabitTaskMenuActionType] = [.focus, .edit, .archive, .delete]
+        if task.isAddedToMyDay {
+            types.append(.removeFromMyDay)
+        } else {
+            types.append(.addToMyDay)
+        }
+        
+        return types
     }
 }

@@ -20,15 +20,22 @@ class HabitTaskBaseMenuController: TPBaseMenuController<HabitTaskMenuActionType>
                   .markAsFail,
                   .cancelFail,
                   .resetToday],
+                 [.addToMyDay, .removeFromMyDay],
                  [.focus],
-                 [.edit,
-                  .archive],
+                 [.edit, .archive],
                  [.delete]]
         return lists
     }
  
     override func menuActionTypes() -> [HabitTaskMenuActionType] {
         var types: [HabitTaskMenuActionType] = [.edit, .archive, .delete]
+        
+        if isAddedToMyDay() {
+            types.append(.removeFromMyDay)
+        } else {
+            types.append(.addToMyDay)
+        }
+        
         let status = taskStatus()
         if status == .notStarted || status == .inProgress {
             let mode = taskGoalMode()
@@ -69,6 +76,9 @@ class HabitTaskBaseMenuController: TPBaseMenuController<HabitTaskMenuActionType>
     }
     
     // MARK: - 子类重写
+    func isAddedToMyDay() -> Bool {
+        return false
+    }
     
     /// 当前任务状态
     func taskStatus() -> HabitTaskStatus {

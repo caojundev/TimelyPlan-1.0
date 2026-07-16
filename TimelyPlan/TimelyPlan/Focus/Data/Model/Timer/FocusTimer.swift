@@ -91,7 +91,7 @@ class FocusTimer: NSObject, SortableIdentifiable {
         self.isAddedToMyDay = content.isAddedToMyDay
         self.startDate = content.startDate
         self.endDate = content.endDate
-        self.startTime = content.startTime 
+        self.startTime = content.startTime
         super.init()
     }
     
@@ -132,11 +132,11 @@ extension FocusTimer: FocusTimerRepresentable {
     }
     
     var timerDescription: String? {
-        return self.config.summary
+        return config.summary
     }
     
     var timerConfig: FocusTimerConfig? {
-        return self.config
+        return config
     }
     
     /// 计时器信息
@@ -144,6 +144,15 @@ extension FocusTimer: FocusTimerRepresentable {
         let timerName = self.name ?? resGetString("Untitled")
         let attributedInfo: ASAttributedString = "\("●", .foreground(self.color)) \(timerName)"
         return attributedInfo
+    }
+    
+    /// 我的一天图标信息
+    func myDayIndicator(color: UIColor? = nil) -> ASAttributedString? {
+        guard let image = resGetImage("myDay_fill_16") else {
+            return nil
+        }
+        
+        return .string(image: image, imageSize: .size(4), imageColor: color)
     }
 }
 

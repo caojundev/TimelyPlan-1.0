@@ -59,6 +59,10 @@ class HabitTaskMenuActionProcessor {
             taskController.archiveTask(task)
         case .unarchive:
             taskController.unarchiveTask(task)
+        case .addToMyDay:
+            taskController.addTaskToMyDay(task)
+        case .removeFromMyDay:
+            taskController.removeTaskFromMyDay(task)
         }
     }
 }

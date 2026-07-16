@@ -37,7 +37,6 @@ class FocusUserTimerController {
         }
 
         let navController = UINavigationController(rootViewController: vc)
-//        navController.modalPresentationStyle = .formSheet
         navController.show()
     }
     
@@ -75,6 +74,38 @@ class FocusUserTimerController {
     func moveTimerToBottom(_ timer: FocusTimer, in timers: [FocusTimer]) {
         FocusRepository.moveTimer(timer, in: timers, toTop: false)
     }
+    
+    func addTimerToMyDay(_ timer: FocusTimer) {
+        var editingTimer = timer.editingTimer
+        editingTimer.isAddedToMyDay = true
+        var shouldUpdateDate = false
+        if editingTimer.startDate == nil {
+            shouldUpdateDate = true
+        }
+
+        let now = Date()
+        if !shouldUpdateDate, let endDate = editingTimer.endDate, endDate < now {
+            shouldUpdateDate = true
+        }
+       
+        if shouldUpdateDate {
+            editingTimer.startDate = now
+            editingTimer.endDate = nil
+        }
+        
+        if editingTimer.timePlan == nil {
+            editingTimer.timePlan = HabitTimePlan()
+        }
+        
+        FocusRepository.updateTimer(timer, with: editingTimer)
+    }
+
+    func removeTimerFromMyDay(_ timer: FocusTimer) {
+        var editingTimer = timer.editingTimer
+        editingTimer.isAddedToMyDay = false
+        FocusRepository.updateTimer(timer, with: editingTimer)
+    }
+    
     
     // MARK: - 任务记录操作
     func addRecordManually(forTimer timer: FocusTimerRepresentable? = nil, task: TaskRepresentable? = nil) {

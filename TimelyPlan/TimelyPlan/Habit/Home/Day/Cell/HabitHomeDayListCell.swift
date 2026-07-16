@@ -143,16 +143,28 @@ class HabitTaskDetailProvider {
     /// 更新详细文本
     func detail(for periodItem: HabitPeriodItem) -> TextRepresentable {
         let date = periodItem.period.date
-        return detail(for: periodItem, on: date, color: .white)
+        let result = detail(for: periodItem, on: date, color: .white)
+        let task = periodItem.habitTask
+        guard task.isAddedToMyDay else {
+            return result
+        }
+        
+        /// 添加我的一天信息
+        var components = [result]
+        if let myDayIndicator = task.myDayIndicator(color: .white) {
+            components.append(myDayIndicator)
+        }
+        
+        return components.joined(separator: " • ")
     }
     
     /// 更新详细文本
     func detail(for periodItem: HabitPeriodItem,
                 on date: Date,
-                color: UIColor = .white) -> TextRepresentable {
+                color: UIColor = .white) -> ASAttributedString {
         let task = periodItem.habitTask
         if date.isFutureDay {
-            return task.goal.targetDescription
+            return task.goal.targetDescription.attributedString
         }
         
         /// 进度详情
@@ -169,7 +181,7 @@ class HabitTaskDetailProvider {
             details.append(task.logIndicator(color: color))
         }
         
-        return details.joined(separator: "•")
+        return details.joined(separator: " • ")
     }
 }
 

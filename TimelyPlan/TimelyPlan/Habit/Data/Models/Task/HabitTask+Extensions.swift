@@ -64,9 +64,6 @@ extension HabitTask {
             indicators.append(bellIndicator)
         }
 
-        /// 所处阶段
-        indicators.append("\(phase.title)")
-        
         /// 时间计划
         if let timePlanIndicator = timePlanIndicator {
             indicators.append(timePlanIndicator)
@@ -77,7 +74,7 @@ extension HabitTask {
     
     /// 我的一天图标信息
     func myDayIndicator(color: UIColor? = nil) -> ASAttributedString? {
-        guard let image = resGetImage("myDay_24") else {
+        guard let image = resGetImage("myDay_fill_16") else {
             return nil
         }
         

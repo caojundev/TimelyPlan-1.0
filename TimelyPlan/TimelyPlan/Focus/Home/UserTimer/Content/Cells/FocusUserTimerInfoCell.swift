@@ -78,9 +78,15 @@ class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell,
     }
     
     func updateInfo() {
-        indicatorView.backgroundColor = timer?.color ?? FocusConstant.timerDefaultColor
-        if let timerName = timer?.name {
+        guard let timer = timer else {
+            return
+        }
+
+        indicatorView.backgroundColor = timer.color
+        
+        if let timerName = timer.name {
             if let highlightedText = highlightedText, highlightedText.count > 0 {
+                /// 高亮文本
                 let value = timerName.attributedStringWithHighlight(highlightedText,
                                                                     normalAttributes: normalAttributes,
                                                                     highlightAttributes: highlightAttributes)
@@ -92,7 +98,17 @@ class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell,
             infoView.title = resGetString("Untitled")
         }
         
-        infoView.subtitle = timer?.timerDescription
+        /// 副标题
+        var subtitleComponents = [ASAttributedString]()
+        if timer.isAddedToMyDay, let myDayIndicator = timer.myDayIndicator(color: subtitleConfig.textColor) {
+            subtitleComponents.append(myDayIndicator)
+        }
+        
+        if let timerDescription = timer.timerDescription {
+            subtitleComponents.append(timerDescription.attributedString)
+        }
+        
+        infoView.subtitle = subtitleComponents.joined(separator: " • ")
     }
     
     /// 设置搜索文本并更新高亮显示

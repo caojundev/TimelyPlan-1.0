@@ -9,6 +9,8 @@ import Foundation
 
 /// 专注计时器操作菜单
 enum FocusUserTimerMenuType: String, TPMenuRepresentable {
+    case addToMyDay /// 添加到我的一天
+    case removeFromMyDay /// 从我的一天移除
     case statistics  /// 统计
     case viewRecord /// 查看记录
     case addRecord  /// 添加记录
@@ -21,6 +23,10 @@ enum FocusUserTimerMenuType: String, TPMenuRepresentable {
     
     var title: String {
         switch self {
+        case .addToMyDay:
+            return resGetString("Add to My Day")
+        case .removeFromMyDay:
+            return resGetString("Remove from My Day")
         case .viewRecord:
             return resGetString("View Record")
         case .addRecord:
@@ -36,6 +42,10 @@ enum FocusUserTimerMenuType: String, TPMenuRepresentable {
     
     var iconName: String? {
         switch self {
+        case .addToMyDay:
+            return "myDay_add_24"
+        case .removeFromMyDay:
+            return "myDay_remove_24"
         case .addRecord:
             return "plus_24"
         case .viewRecord:
@@ -76,7 +86,8 @@ class FocusUserTimerMenuController: TPBaseMenuController<FocusUserTimerMenuType>
     
     override func orderedMenuActionTypeLists() -> [Array<FocusUserTimerMenuType>] {
         var lists: [Array<FocusUserTimerMenuType>]
-        lists = [[.statistics],
+        lists = [[.addToMyDay, .removeFromMyDay],
+                 [.statistics],
                  [.viewRecord,
                   .addRecord],
                  [.moveToTop,
@@ -101,6 +112,12 @@ class FocusUserTimerMenuController: TPBaseMenuController<FocusUserTimerMenuType>
             
             if showMoveToBottom {
                 types.append(.moveToBottom)
+            }
+            
+            if timer.isAddedToMyDay {
+                types.append(.removeFromMyDay)
+            } else {
+                types.append(.addToMyDay)
             }
         }
         

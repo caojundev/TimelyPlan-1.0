@@ -25,7 +25,9 @@ class HabitHomeDayMenuController: HabitTaskBaseMenuController {
     }
     
     override func allowMenuActionTypes() -> [HabitTaskMenuActionType] {
-        let allowTypes: [HabitTaskMenuActionType] = [.edit,
+        let allowTypes: [HabitTaskMenuActionType] = [.addToMyDay,
+                                                     .removeFromMyDay,
+                                                     .edit,
                                                      .archive,
                                                      .delete]
         if date.isFutureDay {
@@ -39,6 +41,10 @@ class HabitHomeDayMenuController: HabitTaskBaseMenuController {
         var actionTypes = super.menuActionTypes()
         actionTypes.append(.focus)
         return actionTypes
+    }
+    
+    override func isAddedToMyDay() -> Bool {
+        return task.isAddedToMyDay
     }
     
     override func taskGoalMode() -> HabitGoal.TargetMode {
