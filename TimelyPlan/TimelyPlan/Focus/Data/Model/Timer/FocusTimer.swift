@@ -8,10 +8,13 @@
 import Foundation
 
 struct FocusTimerKey {
-    static var identifier = "identifier"
-    static var order = "order"
-    static var name = "name"
-    static var isArchived = "isArchived"
+    static let identifier = "identifier"
+    static let order = "order"
+    static let name = "name"
+    static let isArchived = "isArchived"
+    static let isAddedToMyDay = "isAddedToMyDay"
+    static let startDate = "startDate"
+    static let endDate = "endDate"
 }
 
 class FocusTimer: NSObject, SortableIdentifiable {
@@ -78,6 +81,20 @@ class FocusTimer: NSObject, SortableIdentifiable {
     var identifiableKey: String {
         return identifier
     }
+    
+    // MARK: - Getters
+    
+    var displayName: String {
+        return name ?? resGetString("Untitled Timer")
+    }
+    
+    /// 转换为 DateInterval
+    var interval: DateInterval {
+        let start = startDate ?? .distantPast
+        let end = endDate ?? .distantFuture
+        return DateInterval(start: start, end: end)
+    }
+    
     
     init(content: CDFocusTimer) {
         self.identifier = content.identifier ?? UUID().uuidString

@@ -361,6 +361,7 @@
 
 /// 计时器
 "Unknown Timer" = "未知计时器";
+"Untitled Timer" = "未命名计时器";
 "New Timer" = "新建计时器";
 "Edit Timer" = "编辑计时器";
 "Delete Timer" = "删除计时器";

@@ -21,30 +21,30 @@ class FocusUserTimerManager {
     // MARK: - 异步获取计时器
     func fetchActiveTimers(completion: @escaping([FocusTimer]?) -> Void) {
         CDFocusTimer.fetchActiveTimers { results in
-            completion(results?.timers)
+            completion(results?.toTimers)
         }
     }
     
     func fetchArchivedTimers(completion: @escaping([FocusTimer]?) -> Void) {
         CDFocusTimer.fetchArchivedTimers { results in
-            completion(results?.timers)
+            completion(results?.toTimers)
         }
     }
     
     // MARK: - 同步获取计时器
     /// 获取所有计时器
     func getAllTimers() -> [FocusTimer]? {
-        return CDFocusTimer.getAllTimers()?.timers
+        return CDFocusTimer.getAllTimers()?.toTimers
     }
     
     /// 获取所有活动计时器
     func getActiveTimers() -> [FocusTimer]? {
-        return CDFocusTimer.getActiveTimers()?.timers
+        return CDFocusTimer.getActiveTimers()?.toTimers
     }
 
     /// 获取所有已归档计时器
     func getArchivedTimers() -> [FocusTimer]? {
-        return CDFocusTimer.getArchivedTimers()?.timers
+        return CDFocusTimer.getArchivedTimers()?.toTimers
     }
     
     /// 获取归档计时器数目
@@ -55,7 +55,7 @@ class FocusUserTimerManager {
     /// 搜索计时器
     func searchActiveTimers(containText text: String, completion:(@escaping([FocusTimer]?) -> Void)) {
         CDFocusTimer.searchActiveTimers(containText: text) { results in
-            completion(results?.timers)
+            completion(results?.toTimers)
         }
     }
     
@@ -65,6 +65,12 @@ class FocusUserTimerManager {
         }
         
         return nil
+    }
+    
+    func fetchMyDayEventTimers(in range: DateInterval, completion: @escaping([FocusTimer]?) -> Void) {
+        CDFocusTimer.fetchMyDayEventTimers(in: range) { results in
+            completion(results?.toTimers)
+        }
     }
     
     // MARK: - 处理计时器
@@ -102,7 +108,7 @@ class FocusUserTimerManager {
             content.update(with: editingTimer)
             
             let updatedTimer = FocusTimer(content: content)
-            updater.didUpdateFocusTimer(updatedTimer)
+            updater.didUpdateFocusTimer(updatedTimer, with: editingTimer)
             HandyRecord.save()
             return updatedTimer
         }

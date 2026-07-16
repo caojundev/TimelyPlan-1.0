@@ -89,7 +89,7 @@ class FocusUserTimerViewModel: FocusTimerProcessorDelegate {
         loadTimers(with: .update(timer))
     }
     
-    func didUpdateFocusTimer(_ timer: FocusTimer) {
+    func didUpdateFocusTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) {
         setNeedsRefresh()
         loadTimers(with: .update(timer))
     }

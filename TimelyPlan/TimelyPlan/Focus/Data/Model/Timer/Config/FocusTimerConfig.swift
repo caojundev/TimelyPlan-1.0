@@ -205,6 +205,33 @@ public class FocusTimerConfig: NSObject, NSCopying, Codable {
         }
     }
     
+    /// 计时持续时长
+    var duration: TimeInterval {
+        let steps: [FocusStep]
+        let timerType = self.timerType ??  .defaultType
+        switch timerType {
+        case .pomodoro:
+            let timer = pomodoroConfig ?? FocusPomodoroConfig()
+            steps = timer.steps()
+        case .countdown:
+            let timer = countdownConfig ?? FocusCountdownConfig()
+            steps = timer.steps()
+        case .stopwatch:
+            let timer = stopwatchConfig ?? FocusStopwatchConfig()
+            steps = timer.steps()
+        case .stepped:
+            let timer = steppedConfig ?? FocusSteppedConfig()
+            steps = timer.steps()
+        }
+        
+        var duration = 0.0
+        for step in steps {
+            duration += step.duration
+        }
+        
+        return duration
+    }
+    
     // MARK: - Event
     func event() -> FocusEvent {
         let stepsProvider: FocusStepsProvider

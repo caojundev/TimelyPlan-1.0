@@ -11,7 +11,7 @@ class CalendarTodoEventProvider: CalendarEventProvider {
 
     func fetchEvents(in range: DateInterval, completion: @escaping ([CalendarEvent]?) -> Void) {
         let showCompleted = CalendarSetting.shared.showCompletedTask
-        TodoRepository.fetchEventTasks(in: range, showCompleted: showCompleted) { tasks in
+        TodoRepository.fetchCalendarEventTasks(in: range, showCompleted: showCompleted) { tasks in
             completion(tasks?.toCalendarEvents())
         }
     }

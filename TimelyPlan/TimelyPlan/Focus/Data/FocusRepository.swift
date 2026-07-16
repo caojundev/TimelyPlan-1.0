@@ -161,6 +161,12 @@ class FocusRepository {
         userTimerManager.moveTimer(timer, in: timers, toTop: toTop)
     }
     
+    /// 获取我的一天事项任务
+    static func fetchMyDayEventTimers(in range: DateInterval,
+                                      completion: @escaping([FocusTimer]?) -> Void) {
+        userTimerManager.fetchMyDayEventTimers(in: range, completion: completion)
+    }
+
     // MARK: - 获取会话
     static func fetchDuration(forTask task: TaskRepresentable? = nil,
                        timer: FocusTimer? = nil,

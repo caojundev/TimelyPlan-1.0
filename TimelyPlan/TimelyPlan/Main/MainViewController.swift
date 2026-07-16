@@ -18,10 +18,10 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     }()
     
     /// 我的一天
-    lazy var myDayViewController: MyDayMainViewController = {
+    lazy var myDayViewController: UINavigationController = {
         let vc = MyDayMainViewController()
         vc.sidebarController = sidebarController
-        return vc
+        return UINavigationController(rootViewController: vc)
     }()
     
     /// 待办

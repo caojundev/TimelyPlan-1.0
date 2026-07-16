@@ -12,7 +12,7 @@ class HabitRangeEventColorInfoFetcher: CalendarRangeEventsProvider {
     private let changeObserver = CalendarEventChangeObserver(sources: [.habit])
     
     func fetchRangeEventsInfo(in range: DateInterval, completion: @escaping (CalendarRangeEventsInfo) -> Void) {
-        HabitRepository.fetchEventTasks(in: range) { tasks in
+        HabitRepository.fetchCalendarEventTasks(in: range) { tasks in
             guard let tasks = tasks else {
                 completion(.empty(with: range))
                 return

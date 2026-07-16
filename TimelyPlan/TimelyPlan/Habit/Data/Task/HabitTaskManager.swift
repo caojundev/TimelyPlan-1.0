@@ -17,6 +17,7 @@ struct HabitTaskKey {
     static let reminderJSON = "reminderJSON"
     static let startDate = "startDate"
     static let endDate = "endDate"
+    static let isAddedToMyDay = "isAddedToMyDay"
 }
 
 class HabitTaskManager {
@@ -155,8 +156,14 @@ class HabitTaskManager {
         }
     }
     
-    func fetchEventTasks(in range: DateInterval, completion: @escaping([HabitTask]?) -> Void) {
-        CDHabitTask.fetchEventTasks(in: range) { results in
+    func fetchCalendarEventTasks(in range: DateInterval, completion: @escaping([HabitTask]?) -> Void) {
+        CDHabitTask.fetchCalendarEventTasks(in: range) { results in
+            completion(results?.toTasks)
+        }
+    }
+    
+    func fetchMyDayEventTasks(in range: DateInterval, completion: @escaping([HabitTask]?) -> Void) {
+        CDHabitTask.fetchMyDayEventTasks(in: range) { results in
             completion(results?.toTasks)
         }
     }

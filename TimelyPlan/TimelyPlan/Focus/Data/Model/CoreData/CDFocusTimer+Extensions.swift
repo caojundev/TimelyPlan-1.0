@@ -150,6 +150,38 @@ extension CDFocusTimer {
             completion(timers)
         }
     }
+    
+    static func fetchMyDayEventTimers(in range: DateInterval, completion: @escaping([CDFocusTimer]?) -> Void) {
+        let predicate = activeMyDayTimerPredicate(in: range)
+        fetchAll(matching: predicate,
+                 sortBy: FocusTimerKey.order,
+                 ascending: true) { results in
+            completion(results as? [CDFocusTimer])
+        }
+    }
+    
+    private static func activeMyDayTimerPredicate(in range: DateInterval) -> NSPredicate {
+        let activeConditions: [PredicateCondition] = [
+            (FocusTimerKey.isAddedToMyDay, .isTrue),
+            (FocusTimerKey.isArchived, .notEqual(true)),
+            (FocusTimerKey.startDate, .isNotEmpty),
+            (FocusTimerKey.startDate, .lessThanOrEqual(range.end)),
+        ]
+        
+        let emptyEndDateCondition: PredicateCondition = (FocusTimerKey.endDate, .isEmpty)
+        let withEndDateConditions: [PredicateCondition] = [
+            (FocusTimerKey.endDate, .isNotEmpty),
+            (FocusTimerKey.endDate, .greaterThanOrEqual(range.start)),
+        ]
+        
+        let emptyEndDatePredicate = NSPredicate.predicate(with: emptyEndDateCondition)
+        let withEndDatePredicate = withEndDateConditions.andPredicate()
+        let endDatePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [emptyEndDatePredicate,
+                                                                                  withEndDatePredicate])
+        let activePredicate = activeConditions.andPredicate()
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [activePredicate,
+                                                                   endDatePredicate])
+    }
 }
 
 extension Array where Element == CDFocusTimer {
@@ -166,7 +198,7 @@ extension Array where Element == CDFocusTimer {
         return results
     }
     
-    var timers: [FocusTimer] {
+    var toTimers: [FocusTimer] {
         return self.map { FocusTimer(content: $0) }
     }
 }

@@ -103,8 +103,17 @@ extension CDHabitTask {
     }
     
     // MARK: - 异步获取
-    static func fetchEventTasks(in range: DateInterval, completion: @escaping([CDHabitTask]?) -> Void) {
+    static func fetchCalendarEventTasks(in range: DateInterval, completion: @escaping([CDHabitTask]?) -> Void) {
         let predicate = activeTaskPredicate(in: range)
+        fetchAll(matching: predicate,
+                 sortBy: HabitTaskKey.order,
+                 ascending: true) { results in
+            completion(results as? [CDHabitTask])
+        }
+    }
+    
+    static func fetchMyDayEventTasks(in range: DateInterval, completion: @escaping([CDHabitTask]?) -> Void) {
+        let predicate = activeTaskPredicate(in: range, isAddedToMyDay: true)
         fetchAll(matching: predicate,
                  sortBy: HabitTaskKey.order,
                  ascending: true) { results in
@@ -215,12 +224,21 @@ extension CDHabitTask {
                                         orConditions: orConditions)
     }
     
-    private static func activeTaskPredicate(in range: DateInterval) -> NSPredicate {
-        let activeConditions: [PredicateCondition] = [
+    private static func activeTaskPredicate(in range: DateInterval,
+                                            isAddedToMyDay: Bool? = nil) -> NSPredicate {
+        var activeConditions: [PredicateCondition] = [
             (HabitTaskKey.isArchived, .notEqual(true)),
             (HabitTaskKey.startDate, .isNotEmpty),
             (HabitTaskKey.startDate, .lessThanOrEqual(range.end))
         ]
+        
+        if let isAddedToMyDay = isAddedToMyDay {
+            if isAddedToMyDay {
+                activeConditions.append((HabitTaskKey.isAddedToMyDay, .isTrue))
+            } else {
+                activeConditions.append((HabitTaskKey.isAddedToMyDay, .notEqual(true)))
+            }
+        }
         
         let emptyEndDateCondition: PredicateCondition = (HabitTaskKey.endDate, .isEmpty)
         let withEndDateConditions: [PredicateCondition] = [

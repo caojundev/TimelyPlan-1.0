@@ -416,7 +416,6 @@ class MyDayMainViewController: TPViewController,
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
         collectionView.register(TimelineCell.self, forCellWithReuseIdentifier: "TimelineCell")
-        collectionView.contentInset = UIEdgeInsets(top: 20, left: 16, bottom: 20, right: 16)
         view.addSubview(collectionView)
     }
     

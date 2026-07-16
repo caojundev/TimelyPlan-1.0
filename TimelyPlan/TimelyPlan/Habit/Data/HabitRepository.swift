@@ -179,11 +179,18 @@ final class HabitRepository {
     }
 
     // MARK: Task Queries
-    /// 获取事项任务
-    static func fetchEventTasks(in range: DateInterval, completion: @escaping([HabitTask]?) -> Void) {
-        taskManager.fetchEventTasks(in: range, completion: completion)
+    /// 获取日历事项任务
+    static func fetchCalendarEventTasks(in range: DateInterval,
+                                        completion: @escaping([HabitTask]?) -> Void) {
+        taskManager.fetchCalendarEventTasks(in: range, completion: completion)
     }
     
+    /// 获取我的一天事项任务
+    static func fetchMyDayEventTasks(in range: DateInterval,
+                                     completion: @escaping([HabitTask]?) -> Void) {
+        taskManager.fetchMyDayEventTasks(in: range, completion: completion)
+    }
+
     static func searchActiveTasks(containText text: String, completion: @escaping ([HabitTask]?) -> Void) {
         taskManager.searchActiveTasks(containText: text,
                                              completion: completion)

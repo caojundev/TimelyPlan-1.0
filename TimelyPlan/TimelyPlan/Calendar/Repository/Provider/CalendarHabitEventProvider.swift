@@ -21,7 +21,7 @@ class CalendarHabitEventProvider: CalendarEventProvider {
             return
         }
         
-        HabitRepository.fetchEventTasks(in: displayRange) { tasks in
+        HabitRepository.fetchCalendarEventTasks(in: displayRange) { tasks in
             guard let tasks = tasks else {
                 completion(nil)
                 return

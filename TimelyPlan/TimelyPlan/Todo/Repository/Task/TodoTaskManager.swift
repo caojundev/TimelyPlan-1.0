@@ -480,21 +480,24 @@ extension TodoTaskManager {
         }
     }
     
-    /// 获取事项任务
-    func fetchEventTasks(in range: DateInterval, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
-        CDTodoTask.fetchEventTasks(in: range, showCompleted: showCompleted) { results in
-            guard let results = results else {
-                completion(nil)
-                return
-            }
-
-            let tasks = results.toTasks /// 必须在主线程操作
-            DispatchQueue.global(qos: .userInitiated).async {
-                let eventTasks = tasks.eventTasks(in: range, showCompleted: showCompleted)
-                DispatchQueue.main.async {
-                    completion(eventTasks)
-                }
-            }
+    /// 获取日历事项任务
+    func fetchCalendarEventTasks(in range: DateInterval, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchCalendarEventTasks(in: range, showCompleted: showCompleted) { results in
+            let tasks = results?.toTasks
+            TodoTaskManager.calculateEventTasks(for: tasks,
+                                                in: range,
+                                                showCompleted: showCompleted,
+                                                completion: completion)
+        }
+    }
+    
+    func fetchMyDayEventTasks(in range: DateInterval, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchMyDayEventTasks(in: range, showCompleted: showCompleted) { results in
+            let tasks = results?.toTasks
+            TodoTaskManager.calculateEventTasks(for: tasks,
+                                                in: range,
+                                                showCompleted: showCompleted,
+                                                completion: completion)
         }
     }
     
@@ -503,4 +506,22 @@ extension TodoTaskManager {
             completion(results?.toTasks)
         }
     }
+    
+    private static func calculateEventTasks(for tasks: [TodoTask]?,
+                                            in range: DateInterval,
+                                            showCompleted: Bool = true,
+                                            completion: @escaping(([TodoTask]?) -> Void)) {
+        guard let tasks = tasks else {
+            completion(nil)
+            return
+        }
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            let eventTasks = tasks.eventTasks(in: range, showCompleted: showCompleted)
+            DispatchQueue.main.async {
+                completion(eventTasks)
+            }
+        }
+    }
+    
 }

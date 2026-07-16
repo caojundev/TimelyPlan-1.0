@@ -21,7 +21,7 @@ protocol FocusTimerProcessorDelegate: AnyObject {
     func didDeleteFocusTimer(_ timer: FocusTimer)
 
     /// 更新计时器
-    func didUpdateFocusTimer(_ timer: FocusTimer)
+    func didUpdateFocusTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer)
     
     /// 移动计时器到顶部
     func didMoveFocusTimerToTop(_ timer: FocusTimer)
@@ -40,7 +40,7 @@ extension FocusTimerProcessorDelegate {
     
     func didDeleteFocusTimer(_ timer: FocusTimer) {}
 
-    func didUpdateFocusTimer(_ timer: FocusTimer) {}
+    func didUpdateFocusTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) {}
 
     func didMoveFocusTimerToTop(_ timer: FocusTimer) {}
 
@@ -74,9 +74,9 @@ class FocusTimerProcessorUpdater: NSObject,
         }
     }
 
-    func didUpdateFocusTimer(_ timer: FocusTimer) {
+    func didUpdateFocusTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) {
         notifyDelegates { (delegate: FocusTimerProcessorDelegate) in
-             delegate.didUpdateFocusTimer(timer)
+             delegate.didUpdateFocusTimer(timer, with: editingTimer)
         }
     }
 

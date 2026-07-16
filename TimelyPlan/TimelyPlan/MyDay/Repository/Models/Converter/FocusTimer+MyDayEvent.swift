@@ -1,31 +1,31 @@
 //
-//  HabitTask+Calendar.swift
+//  FocusTimer+MyDayEvent.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/6/30.
+//  Created by caojun on 2026/7/16.
 //
 
 import Foundation
 
-extension HabitTask {
+extension FocusTimer {
 
-    func calendarEvents(in range: DateInterval) -> [CalendarEvent]? {
-        guard let startDate = dateRange.startDate else {
+    func myDayEvents(in range: DateInterval) -> [MyDayEvent]? {
+        guard isAddedToMyDay, let startDate = startDate else {
             return nil
         }
         
-        var events = [CalendarEvent]()
+        var events = [MyDayEvent]()
         var planDate = timePlan.nextPlanDate(from: range.start,
                                              startDate: startDate,
-                                             endDate: dateRange.endDate)
+                                             endDate: endDate)
         while let date = planDate, date <= range.end {
-            let event = calendarEvent(on: date)
+            let event = myDayEvent(on: date)
             events.append(event)
             
             if let nextReferenceDate = date.dateByAddingDays(1) {
                 planDate = timePlan.nextPlanDate(from: nextReferenceDate,
                                                  startDate: startDate,
-                                                 endDate: dateRange.endDate)
+                                                 endDate: endDate)
             } else {
                 planDate = nil
             }
@@ -34,26 +34,27 @@ extension HabitTask {
         return events
     }
     
-    private func calendarEvent(on planDate: Date) -> CalendarEvent {
+    private func myDayEvent(on planDate: Date) -> MyDayEvent {
         let isAllDay: Bool
         let interval: DateInterval
-        if timeOption != .anytime {
+        if startTime > 0 {
             isAllDay = false
-            let start = planDate.dateWithTimeOffset(Duration(validatedStartTime))
-            var end = start.dateByAddingSeconds(Duration(validatedDuration)) ?? start
-            if !end.isInSameDayAs(start) {
-                end = start.endOfDay()
+            let start = planDate.dateWithTimeOffset(Duration(startTime))
+            var duration = config.duration
+            let minDuration = TimeInterval(SECONDS_PER_MINUTE)
+            if duration <= minDuration {
+               duration = minDuration
             }
             
-            interval = DateInterval(start: start, end: end)
+            interval = DateInterval(start: start, duration: duration)
         } else {
             isAllDay = true
             interval = .rangeOfDay(planDate)
         }
         
-        let event = CalendarEvent(identifier: identifier,
-                                  source: .habit,
-                                  name: displayTitle,
+        let event = MyDayEvent(identifier: identifier,
+                                  source: .focus,
+                                  name: displayName,
                                   color: color,
                                   startDate: interval.start,
                                   endDate: interval.end,
@@ -65,12 +66,12 @@ extension HabitTask {
 }
 
 // MARK: - Array 扩展
-extension Array where Element == HabitTask {
+extension Array where Element == FocusTimer {
     
-    func toCalendarEvents(in range: DateInterval) -> [CalendarEvent] {
-        var results = [CalendarEvent]()
+    func toMyDayEvents(in range: DateInterval) -> [MyDayEvent] {
+        var results = [MyDayEvent]()
         for task in self {
-            if let events = task.calendarEvents(in: range) {
+            if let events = task.myDayEvents(in: range) {
                 results.append(contentsOf: events)
             }
         }

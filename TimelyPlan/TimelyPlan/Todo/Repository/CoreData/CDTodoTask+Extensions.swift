@@ -727,12 +727,25 @@ extension CDTodoTask {
         }
     }
     
-    static func fetchEventTasks(in range: DateInterval,
-                                showCompleted: Bool = true,
-                                completion: @escaping([CDTodoTask]?) -> Void) {
+    static func fetchCalendarEventTasks(in range: DateInterval,
+                                        showCompleted: Bool = true,
+                                        completion: @escaping([CDTodoTask]?) -> Void) {
         let scheduledTaskPredicate = activeScheduledTaskPredicate(in: range, showCompleted: showCompleted)
         let repeatTaskPredicate = activeRepeatTaskPredicate(showCompleted: false)
         let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [scheduledTaskPredicate,
+                                                                           repeatTaskPredicate])
+        fetchAll(matching: predicate, sortBy: TodoTaskKey.startDate, ascending: true) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
+    
+    static func fetchMyDayEventTasks(in range: DateInterval,
+                                     showCompleted: Bool = true,
+                                     completion: @escaping([CDTodoTask]?) -> Void) {
+        let myDayScheduledTaskPredicate = activeMyDayScheduledTaskPredicate(in: range,
+                                                                            showCompleted: showCompleted)
+        let repeatTaskPredicate = activeRepeatTaskPredicate(showCompleted: false)
+        let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [myDayScheduledTaskPredicate,
                                                                            repeatTaskPredicate])
         fetchAll(matching: predicate, sortBy: TodoTaskKey.startDate, ascending: true) { results in
             completion(results as? [CDTodoTask])
@@ -977,9 +990,14 @@ extension CDTodoTask {
     
     static func activeScheduledTaskPredicate(in range: DateInterval,
                                              showCompleted: Bool = true) -> NSPredicate {
-        var conditions = scheduledConditions(showCompleted: showCompleted)
-        conditions.append((TodoTaskKey.dueDate, .greaterThanOrEqual(range.start)))
-        conditions.append((TodoTaskKey.startDate, .lessThanOrEqual(range.end)))
+        let conditions = activeScheduledTaskConditions(in: range, showCompleted: showCompleted)
+        return conditions.andPredicate()
+    }
+    
+    static func activeMyDayScheduledTaskPredicate(in range: DateInterval,
+                                                  showCompleted: Bool = true) -> NSPredicate {
+        var conditions = activeScheduledTaskConditions(in: range, showCompleted: showCompleted)
+        conditions.append((TodoTaskKey.isAddedToMyDay, .isTrue))
         return conditions.andPredicate()
     }
     
@@ -999,6 +1017,14 @@ extension CDTodoTask {
     
     
     // MARK: - Conditions
+    private static func activeScheduledTaskConditions(in range: DateInterval,
+                                                      showCompleted: Bool = true) -> [PredicateCondition] {
+        var conditions = scheduledConditions(showCompleted: showCompleted)
+        conditions.append((TodoTaskKey.dueDate, .greaterThanOrEqual(range.start)))
+        conditions.append((TodoTaskKey.startDate, .lessThanOrEqual(range.end)))
+        return conditions
+    }
+    
     static func scheduledConditions(showCompleted: Bool = true) -> [PredicateCondition] {
         var conditions: [PredicateCondition] = [
             notRemovedCondition,
