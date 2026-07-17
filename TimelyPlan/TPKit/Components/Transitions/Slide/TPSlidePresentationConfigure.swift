@@ -198,4 +198,5 @@ class TPSlidePresentationConfigure {
         configure.regularEdgeInsets = UIEdgeInsets(value: 10.0)
         return configure
     }
+    
 }

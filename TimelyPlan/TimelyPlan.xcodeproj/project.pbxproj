@@ -569,6 +569,11 @@
 		E53ABED73008D96B00EB8632 /* MyDayEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABED63008D96B00EB8632 /* MyDayEventProvider.swift */; };
 		E53ABEDA3008D9E200EB8632 /* MyDayRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABED93008D9E200EB8632 /* MyDayRepository.swift */; };
 		E53ABEDC3008DA0200EB8632 /* MyDayUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABEDB3008DA0200EB8632 /* MyDayUpdater.swift */; };
+		E53ABEDF3009168100EB8632 /* MyDayTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */; };
+		E53ABEE23009CC5D00EB8632 /* MyDayRangeEventsInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABEE13009CC5D00EB8632 /* MyDayRangeEventsInfoFetcher.swift */; };
+		E53ABEE53009D7D000EB8632 /* MyDaySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABEE43009D7D000EB8632 /* MyDaySettingViewController.swift */; };
+		E53ABEE73009D8FE00EB8632 /* MyDayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABEE63009D8FE00EB8632 /* MyDayPresenter.swift */; };
+		E53ABEE93009E35400EB8632 /* MyDaySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABEE83009E35400EB8632 /* MyDaySetting.swift */; };
 		E53AC84C2D8C6DBC00814618 /* quadrant_option_detail_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53AC84A2D8C6DBB00814618 /* quadrant_option_detail_24@3x.png */; };
 		E53AC84D2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53AC84B2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png */; };
 		E53B11372F94D1B300701410 /* TodoFilterTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B11222F94D1B300701410 /* TodoFilterTagEditViewController.swift */; };
@@ -2651,6 +2656,11 @@
 		E53ABED63008D96B00EB8632 /* MyDayEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayEventProvider.swift; sourceTree = "<group>"; };
 		E53ABED93008D9E200EB8632 /* MyDayRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayRepository.swift; sourceTree = "<group>"; };
 		E53ABEDB3008DA0200EB8632 /* MyDayUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayUpdater.swift; sourceTree = "<group>"; };
+		E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineView.swift; sourceTree = "<group>"; };
+		E53ABEE13009CC5D00EB8632 /* MyDayRangeEventsInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayRangeEventsInfoFetcher.swift; sourceTree = "<group>"; };
+		E53ABEE43009D7D000EB8632 /* MyDaySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDaySettingViewController.swift; sourceTree = "<group>"; };
+		E53ABEE63009D8FE00EB8632 /* MyDayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayPresenter.swift; sourceTree = "<group>"; };
+		E53ABEE83009E35400EB8632 /* MyDaySetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDaySetting.swift; sourceTree = "<group>"; };
 		E53AC84A2D8C6DBB00814618 /* quadrant_option_detail_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_detail_24@3x.png"; sourceTree = "<group>"; };
 		E53AC84B2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_detail_24@2x.png"; sourceTree = "<group>"; };
 		E53B11222F94D1B300701410 /* TodoFilterTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterTagEditViewController.swift; sourceTree = "<group>"; };
@@ -5247,9 +5257,11 @@
 			isa = PBXGroup;
 			children = (
 				E51F941730049A8400734910 /* MyDayMainViewController.swift */,
-				E51F941D3005252800734910 /* MyDayEditSectionController.swift */,
+				E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */,
+				E53ABEE63009D8FE00EB8632 /* MyDayPresenter.swift */,
 				E53ABED83008D9CE00EB8632 /* Repository */,
-				E53ABED53008D94800EB8632 /* Provider */,
+				E53ABEE03009169500EB8632 /* Edit */,
+				E53ABEE33009D79100EB8632 /* Setting */,
 			);
 			path = MyDay;
 			sourceTree = "<group>";
@@ -5813,9 +5825,9 @@
 			isa = PBXGroup;
 			children = (
 				E52EF6202FB211B8002CF355 /* CalendarSetting.swift */,
+				E53632AE2FAE14060095DFEC /* CalendarSettingViewController.swift */,
 				E5371DEC2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift */,
 				E5371DEE2FF4C03000BA9DEF /* CalendarHabitSettingSectionController.swift */,
-				E53632AE2FAE14060095DFEC /* CalendarSettingViewController.swift */,
 				E52EF62B2FB4A417002CF355 /* CalendarEventDurationEditViewController.swift */,
 				E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */,
 			);
@@ -5906,10 +5918,12 @@
 		E53ABED83008D9CE00EB8632 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				E53ABEDD3008DA2300EB8632 /* Models */,
 				E53ABED93008D9E200EB8632 /* MyDayRepository.swift */,
 				E53ABEDB3008DA0200EB8632 /* MyDayUpdater.swift */,
 				E53ABECA30087BF700EB8632 /* MyDayEventChangeObserver.swift */,
+				E53ABEE13009CC5D00EB8632 /* MyDayRangeEventsInfoFetcher.swift */,
+				E53ABEDD3008DA2300EB8632 /* Models */,
+				E53ABED53008D94800EB8632 /* Provider */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -5921,6 +5935,23 @@
 				E53ABECC30088D6E00EB8632 /* MyDayEvent.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E53ABEE03009169500EB8632 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				E51F941D3005252800734910 /* MyDayEditSectionController.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		E53ABEE33009D79100EB8632 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E53ABEE83009E35400EB8632 /* MyDaySetting.swift */,
+				E53ABEE43009D7D000EB8632 /* MyDaySettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		E53B11212F94D1B300701410 /* Edit */ = {
@@ -11835,6 +11866,7 @@
 				E55528502FB6B6040093DD7E /* TPMoreBarButtonItem.swift in Sources */,
 				E53632832FAB72C00095DFEC /* QuadrantLayout.swift in Sources */,
 				E53E96AB2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift in Sources */,
+				E53ABEE53009D7D000EB8632 /* MyDaySettingViewController.swift in Sources */,
 				E57CC5AC2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift in Sources */,
 				E5B33D652F80E66E00939C3E /* TaskScheduleEditInfoView.swift in Sources */,
 				E57CC5BA2F7F9E0000ADDBA4 /* TodoListOption.swift in Sources */,
@@ -12911,6 +12943,7 @@
 				E5DA039D2FA03B7800A58ACC /* Sequence+Extensions.swift in Sources */,
 				E53ABEDC3008DA0200EB8632 /* MyDayUpdater.swift in Sources */,
 				E51B29022FA77A07006B3352 /* TodoTaskPageHeaderView.swift in Sources */,
+				E53ABEE93009E35400EB8632 /* MyDaySetting.swift in Sources */,
 				E5D7D9112D43933700EC877A /* FocusStatsInfoView.swift in Sources */,
 				E5D7D8BF2D43933600EC877A /* FocusPomodoroProgressInfoView.swift in Sources */,
 				E526D4012F6D36BC005C1DED /* HabitDailyItem.swift in Sources */,
@@ -13053,6 +13086,7 @@
 				E5BB9EEC2D3BF0C80089667A /* TPTextFieldAlertController.swift in Sources */,
 				E5BB9EF72D3BF0C80089667A /* TPSlidePresentationConfigure.swift in Sources */,
 				E5FF4EC42FE976E500282416 /* TaskNotificationScheduler.swift in Sources */,
+				E53ABEDF3009168100EB8632 /* MyDayTimelineView.swift in Sources */,
 				E51A4C462DC3C3B9005A0E3F /* CalendarDateButton.swift in Sources */,
 				E556BCD72F5D777F00CA20D9 /* HabitHomeDayActionInfoView.swift in Sources */,
 				E50D026C2F56D06B00E93977 /* HabitHomeDayListCell.swift in Sources */,
@@ -13068,6 +13102,7 @@
 				E524D2AD2FD063B0002791E5 /* CDTodoSection+Extensions.swift in Sources */,
 				E51B29012FA77A07006B3352 /* TodoTaskPageView.swift in Sources */,
 				E5EFB1692F5971A6000FFDF4 /* HabitHomeWeekMenuController.swift in Sources */,
+				E53ABEE73009D8FE00EB8632 /* MyDayPresenter.swift in Sources */,
 				E58F46AF2F7AAD4B0046FA96 /* TodoParentListSelectViewController.swift in Sources */,
 				E51F94153003508400734910 /* FocusRangeEventColorInfoFetcher.swift in Sources */,
 				E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */,
@@ -13106,6 +13141,7 @@
 				E5D7D7E52D43923800EC877A /* FocusCountdownConfig.swift in Sources */,
 				E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */,
 				E53B11432F94D1B300701410 /* TodoFilterRelativeDateOffsetSectionController.swift in Sources */,
+				E53ABEE23009CC5D00EB8632 /* MyDayRangeEventsInfoFetcher.swift in Sources */,
 				E5BB9DF62D3BF0C60089667A /* NSNumber+String.swift in Sources */,
 				E549B1972F89F6A70014BE85 /* TodoTaskStepMenuController.swift in Sources */,
 				E5BB9E502D3BF0C70089667A /* TPCalendarMultipleDateSelection.swift in Sources */,

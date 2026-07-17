@@ -118,6 +118,21 @@ class CalendarEvent: NSObject {
 
 }
 
+extension CalendarEvent: DateRangeColorEvent {
+    
+    var eventColor: UIColor {
+        return color
+    }
+    
+    var eventStart: Date {
+        return startDate
+    }
+    
+    var eventEnd: Date {
+        return endDate
+    }
+}
+
 extension Array where Element == CalendarEvent {
     
     var allDayEvents: [CalendarEvent] {

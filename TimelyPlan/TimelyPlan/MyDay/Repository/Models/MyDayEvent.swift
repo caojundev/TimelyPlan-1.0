@@ -54,6 +54,22 @@ class MyDayEvent: NSObject {
     
 }
 
+extension MyDayEvent: DateRangeColorEvent {
+    
+    var eventColor: UIColor {
+        return color
+    }
+    
+    var eventStart: Date {
+        return startDate
+    }
+    
+    var eventEnd: Date {
+        return endDate
+    }
+}
+
+
 extension Array where Element == MyDayEvent {
     
     var allDayEvents: [MyDayEvent] {

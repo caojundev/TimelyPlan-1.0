@@ -16,11 +16,13 @@ class CalendarListViewController: CalendarBaseViewController,
         let firstWeekday = CalendarSetting.shared.firstWeekday
         let showLunar = CalendarSetting.shared.showLunar
         let showChineseHolidays = CalendarSetting.shared.showChineseHolidays
+        let eventsInfoFetcher = CalendarRangeEventsInfoFetcher()
         let view = CalendarWeekMonthExpandView(frame: .zero,
                                                firstWeekday: firstWeekday,
                                                visibleDateComponents: date.yearMonthDayComponents,
                                                showLunar: showLunar,
-                                               showChineseHolidays: showChineseHolidays)
+                                               showChineseHolidays: showChineseHolidays,
+                                               eventsInfoFetcher: eventsInfoFetcher)
         view.delegate = self
         return view
     }()

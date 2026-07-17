@@ -91,7 +91,6 @@ class CalendarPresenter {
         configure.contentSize = CGSize(width: 280.0, height: .greatestFiniteMagnitude)
         configure.roundingCorners = []
         configure.edgeInsets = .zero
-        
         topVC.slidePresent(navController,
                            configure: configure,
                            isInteractive: true,

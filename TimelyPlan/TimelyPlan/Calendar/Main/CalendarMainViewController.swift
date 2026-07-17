@@ -45,36 +45,6 @@ class CalendarMainViewController: TPContainerViewController,
         return item
     }()
     
-    private lazy var listViewController: CalendarListViewController = {
-        let vc = CalendarListViewController()
-        return vc
-    }()
-    
-    private lazy var dayViewController: CalendarDayViewController = {
-        let vc = CalendarDayViewController()
-        return vc
-    }()
-    
-    private lazy var weekViewController: CalendarWeekViewController = {
-        let vc = CalendarWeekViewController()
-        return vc
-    }()
-    
-    private lazy var monthViewController: CalendarMonthViewController = {
-        let vc = CalendarMonthViewController()
-        return vc
-    }()
-    
-    private lazy var quarterViewController: CalendarQuarterViewController = {
-        let vc = CalendarQuarterViewController()
-        return vc
-    }()
-    
-    private lazy var yearViewController: CalendarYearViewController = {
-        let vc = CalendarYearViewController()
-        return vc
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let sidebarButtonItem = sidebarController?.newMenuButtonItem() {
@@ -98,17 +68,17 @@ class CalendarMainViewController: TPContainerViewController,
         let contentViewController: UIViewController
         switch mode {
         case .list:
-            contentViewController = listViewController
+            contentViewController = CalendarListViewController()
         case .day:
-            contentViewController = dayViewController
+            contentViewController = CalendarDayViewController()
         case .week:
-            contentViewController = weekViewController
+            contentViewController = CalendarWeekViewController()
         case .month:
-            contentViewController = monthViewController
+            contentViewController = CalendarMonthViewController()
         case .quarter:
-            contentViewController = quarterViewController
+            contentViewController = CalendarQuarterViewController()
         case .year:
-            contentViewController = yearViewController
+            contentViewController = CalendarYearViewController()
         }
 
         setContentViewController(contentViewController)

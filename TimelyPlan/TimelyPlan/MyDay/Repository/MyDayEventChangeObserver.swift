@@ -15,25 +15,50 @@ class MyDayEventChangeObserver {
     
     init(sources: [MyDayEventSource] = MyDayEventSource.allCases) {
         self.sources = sources
-    
+        
+        var observeSettingKeys: [MyDaySetting.Key] = []
+        
         /// 待办任务
         if sources.contains(.todo) {
             TodoRepository.addUpdater(self, for: [.task])
+            observeSettingKeys.append(.showTodo)
         }
         
         /// 习惯任务
         if sources.contains(.habit) {
             HabitRepository.addUpdater(self, for: [.task])
+            observeSettingKeys.append(.showHabit)
         }
         
         /// 专注计时器
         if sources.contains(.focus) {
             FocusRepository.addUpdater(self, for: [.timer])
+            observeSettingKeys.append(.showFocus)
+        }
+        
+        if observeSettingKeys.count > 0 {
+            MyDaySetting.shared.addObserver(self, forKeys: observeSettingKeys)
         }
     }
     
     func addUpdaterDelegate(_ delegate: AnyObject) {
         updater.addDelegate(delegate)
+    }
+}
+
+extension MyDayEventChangeObserver: SettingAgentObserver {
+    
+    func settingAgentDidChangeValue(for keyName: String) {
+        guard let key = MyDaySetting.Key(name: keyName) else {
+            return
+        }
+        
+        switch key {
+        case .showTodo, .showHabit, .showFocus:
+            updater.myDayEventsDidChange(in: [.infiniteInterval])
+        default:
+            break
+        }
     }
 }
 

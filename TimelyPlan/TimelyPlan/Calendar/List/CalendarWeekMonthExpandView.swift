@@ -23,10 +23,10 @@ class CalendarWeekMonthExpandView: UIView {
     
     // MARK: - 常量配置
     /// 星期栏高度
-    private let weekdaySymbolHeight: CGFloat = 20.0
+    let weekdaySymbolHeight: CGFloat = 20.0
     
     /// 单行周视图高度
-    private let weekHeight: CGFloat = 60.0
+    let weekHeight: CGFloat = 60.0
     
     /// 月视图总高度（6行）
     private var monthViewHeight: CGFloat {
@@ -70,18 +70,20 @@ class CalendarWeekMonthExpandView: UIView {
     
     private(set) var showChineseHolidays: Bool
     
-    private let eventsInfoFetcher = CalendarRangeEventsInfoFetcher()
+    private(set) var eventsInfoFetcher: CalendarRangeEventsProvider?
     
     // MARK: - 初始化
     init(frame: CGRect,
          firstWeekday: Weekday,
          visibleDateComponents: DateComponents,
-         showLunar: Bool,
-         showChineseHolidays: Bool) {
+         showLunar: Bool = true,
+         showChineseHolidays: Bool = true,
+         eventsInfoFetcher: CalendarRangeEventsProvider? = nil) {
         self.firstWeekday = firstWeekday
         self.visibleDateComponents = visibleDateComponents
         self.showLunar = showLunar
         self.showChineseHolidays = showChineseHolidays
+        self.eventsInfoFetcher = eventsInfoFetcher
         super.init(frame: frame)
         setupViews()
     }

@@ -25,24 +25,30 @@ struct CalendarRangeEventsInfo {
     }
 }
 
+protocol DateRangeColorEvent: AnyObject {
+    var eventColor: UIColor { get }
+    var eventStart: Date { get }
+    var eventEnd: Date { get }
+}
+
 struct CalendarEventColorMapper {
-    
+
     static func mapColorsByDay(
-        events: [CalendarEvent],
+        events: [DateRangeColorEvent],
         range: DateInterval
     ) -> DailyEventColors {
         let calendar = Calendar.current
         // 使用有序字典保持颜色插入顺序
         var dayColorsMap: [DateComponents: OrderedSet<UIColor>] = [:]
         for event in events {
-            let eventStart = max(event.startDate, range.start)
-            let eventEnd = min(event.endDate, range.end)
+            let eventStart = max(event.eventStart, range.start)
+            let eventEnd = min(event.eventEnd, range.end)
             guard eventStart <= eventEnd else { continue }
         
             let eventRange = DateInterval(start: eventStart, end: eventEnd)
             eventRange.enumerateDays { date in
                 let key = calendar.dateComponents([.year, .month, .day], from: date)
-                dayColorsMap[key, default: OrderedSet<UIColor>()].append(event.color)
+                dayColorsMap[key, default: OrderedSet<UIColor>()].append(event.eventColor)
                 return true
             }
         }

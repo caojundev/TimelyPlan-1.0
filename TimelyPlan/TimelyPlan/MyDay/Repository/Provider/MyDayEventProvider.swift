@@ -16,6 +16,11 @@ protocol MyDayEventProvider {
 class MyDayTodoEventProvider: MyDayEventProvider {
     
     func fetchMyDayEvents(in range: DateInterval, completion: @escaping ([MyDayEvent]?) -> Void) {
+        guard MyDaySetting.shared.showTodo else {
+            completion(nil)
+            return
+        }
+        
         TodoRepository.fetchMyDayEventTasks(in: range, showCompleted: true) { tasks in
             completion(tasks?.toMyDayEvents())
         }
@@ -25,6 +30,11 @@ class MyDayTodoEventProvider: MyDayEventProvider {
 class MyDayHabitEventProvider: MyDayEventProvider {
     
     func fetchMyDayEvents(in range: DateInterval, completion: @escaping ([MyDayEvent]?) -> Void) {
+        guard MyDaySetting.shared.showHabit else {
+            completion(nil)
+            return
+        }
+        
         HabitRepository.fetchMyDayEventTasks(in: range) { tasks in
             guard let tasks = tasks else {
                 completion(nil)
@@ -44,6 +54,11 @@ class MyDayHabitEventProvider: MyDayEventProvider {
 class MyDayFocusEventProvider: MyDayEventProvider {
     
     func fetchMyDayEvents(in range: DateInterval, completion: @escaping ([MyDayEvent]?) -> Void) {
+        guard MyDaySetting.shared.showFocus else {
+            completion(nil)
+            return
+        }
+        
         FocusRepository.fetchMyDayEventTimers(in: range) { timers in
             guard let timers = timers else {
                 completion(nil)

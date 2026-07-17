@@ -9,11 +9,7 @@ import Foundation
 import EventKit
 
 extension CalendarEvent: CalendarEventPreviewDisplayable {
-    
-    var eventColor: UIColor? {
-        return self.color
-    }
-    
+
     var eventTitle: String? {
         self.title
     }

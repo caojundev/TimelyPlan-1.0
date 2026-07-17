@@ -11,7 +11,7 @@ import UIKit
 // MARK: - Protocol
 
 protocol CalendarEventPreviewDisplayable: AnyObject {
-    var eventColor: UIColor? { get }
+    var eventColor: UIColor { get }
     var eventTitle: String? { get }
     var dateInfo: (title: String?, subtitle: String?) { get }
     var sourceDescription: String? { get }
