@@ -574,6 +574,7 @@
 		E53ABEE53009D7D000EB8632 /* MyDaySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABEE43009D7D000EB8632 /* MyDaySettingViewController.swift */; };
 		E53ABEE73009D8FE00EB8632 /* MyDayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABEE63009D8FE00EB8632 /* MyDayPresenter.swift */; };
 		E53ABEE93009E35400EB8632 /* MyDaySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABEE83009E35400EB8632 /* MyDaySetting.swift */; };
+		E53ABEEC300A149B00EB8632 /* MyDayTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53ABEEB300A149B00EB8632 /* MyDayTimeline.swift */; };
 		E53AC84C2D8C6DBC00814618 /* quadrant_option_detail_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53AC84A2D8C6DBB00814618 /* quadrant_option_detail_24@3x.png */; };
 		E53AC84D2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53AC84B2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png */; };
 		E53B11372F94D1B300701410 /* TodoFilterTagEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B11222F94D1B300701410 /* TodoFilterTagEditViewController.swift */; };
@@ -2661,6 +2662,7 @@
 		E53ABEE43009D7D000EB8632 /* MyDaySettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDaySettingViewController.swift; sourceTree = "<group>"; };
 		E53ABEE63009D8FE00EB8632 /* MyDayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayPresenter.swift; sourceTree = "<group>"; };
 		E53ABEE83009E35400EB8632 /* MyDaySetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDaySetting.swift; sourceTree = "<group>"; };
+		E53ABEEB300A149B00EB8632 /* MyDayTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimeline.swift; sourceTree = "<group>"; };
 		E53AC84A2D8C6DBB00814618 /* quadrant_option_detail_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_detail_24@3x.png"; sourceTree = "<group>"; };
 		E53AC84B2D8C6DBC00814618 /* quadrant_option_detail_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_detail_24@2x.png"; sourceTree = "<group>"; };
 		E53B11222F94D1B300701410 /* TodoFilterTagEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterTagEditViewController.swift; sourceTree = "<group>"; };
@@ -5257,8 +5259,8 @@
 			isa = PBXGroup;
 			children = (
 				E51F941730049A8400734910 /* MyDayMainViewController.swift */,
-				E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */,
 				E53ABEE63009D8FE00EB8632 /* MyDayPresenter.swift */,
+				E53ABEEA300A145E00EB8632 /* TimlineView */,
 				E53ABED83008D9CE00EB8632 /* Repository */,
 				E53ABEE03009169500EB8632 /* Edit */,
 				E53ABEE33009D79100EB8632 /* Setting */,
@@ -5931,8 +5933,8 @@
 		E53ABEDD3008DA2300EB8632 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E53ABED43008CDC100EB8632 /* Converter */,
 				E53ABECC30088D6E00EB8632 /* MyDayEvent.swift */,
+				E53ABED43008CDC100EB8632 /* Converter */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5952,6 +5954,15 @@
 				E53ABEE43009D7D000EB8632 /* MyDaySettingViewController.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		E53ABEEA300A145E00EB8632 /* TimlineView */ = {
+			isa = PBXGroup;
+			children = (
+				E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */,
+				E53ABEEB300A149B00EB8632 /* MyDayTimeline.swift */,
+			);
+			path = TimlineView;
 			sourceTree = "<group>";
 		};
 		E53B11212F94D1B300701410 /* Edit */ = {
@@ -11882,6 +11893,7 @@
 				E53ABED13008CB5F00EB8632 /* HabitTask+MyDayEvent.swift in Sources */,
 				E59243CF2F50529200CA2393 /* TPAddView.swift in Sources */,
 				E500E3B42FC927C700252011 /* TodoTaskSelectView.swift in Sources */,
+				E53ABEEC300A149B00EB8632 /* MyDayTimeline.swift in Sources */,
 				E50D60342F7A12B500D5E0A4 /* RepeatCustomViewController.swift in Sources */,
 				E51FF6592F57E970003CA953 /* HabitHomeWeekViewController.swift in Sources */,
 				E5BB9E022D3BF0C60089667A /* Codable+Extensions.swift in Sources */,

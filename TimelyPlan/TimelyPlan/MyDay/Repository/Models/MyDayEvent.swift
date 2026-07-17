@@ -69,7 +69,6 @@ extension MyDayEvent: DateRangeColorEvent {
     }
 }
 
-
 extension Array where Element == MyDayEvent {
     
     var allDayEvents: [MyDayEvent] {
