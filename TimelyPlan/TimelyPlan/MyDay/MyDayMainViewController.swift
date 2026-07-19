@@ -136,14 +136,18 @@ class MyDayMainViewController: TPViewController,
     }
 }
 
-extension MyDayMainViewController: MyDayTimelineViewDelegate {
+extension MyDayMainViewController: TimelineViewDelegate {
     
-    // MARK: - MyDayTimelineViewDelegate
-    func timelineViewEvents(_ timelineView: MyDayTimelineView) -> [MyDayEvent] {
+    // MARK: - TimelineViewDelegate
+    func timelineViewWillBeginDragging(_ timelineView: BaseTimelineView) {
+        calendarView.switchMode(.week, animated: true)
+    }
+    
+    func timelineViewEvents(_ timelineView: BaseTimelineView) -> [MyDayEvent] {
         return testEvents
     }
     
-    func timelineView(_ timelineView: MyDayTimelineView, didSelectEvent event: MyDayEvent) {
+    func timelineView(_ timelineView: BaseTimelineView, didSelectEvent event: MyDayEvent) {
         let completedText = event.isCompleted ? "✅ 已完成" : "⏳ 进行中"
         
         print("=======================================")
