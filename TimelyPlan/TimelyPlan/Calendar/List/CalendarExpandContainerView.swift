@@ -58,7 +58,7 @@ class CalendarExpandContainerView: UIView {
     private let fastVelocity: CGFloat = 300
     private let animationDuration: TimeInterval = 0.3
     
-    private let grabberHeight = 20.0
+    let grabberHeight = 20.0
     private let grabberView: TPGrabberView = .systemStyleGrabber()
 
     // 拖拽起始记录
@@ -85,6 +85,7 @@ class CalendarExpandContainerView: UIView {
         contentContainer.backgroundColor = .systemBackground
         addSubview(contentContainer)
         
+        grabberView.backgroundColor = .systemBackground
         grabberView.onTap = { [weak self] in
             self?.toggleMode()
         }

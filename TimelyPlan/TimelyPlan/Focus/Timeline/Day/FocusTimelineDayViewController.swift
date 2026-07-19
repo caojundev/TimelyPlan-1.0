@@ -7,12 +7,11 @@
 
 import Foundation
 import UIKit
-import CoreGraphics
 
 class FocusTimelineDayViewController: TPViewController,
                                       FocusTimelineTitleViewProvider,
                                       FocusTimelineEventListTapDelegate,
-                                      FocusDatePageViewDelegate,
+                                      TPDayPageViewDelegate,
                                       TPCalendarSingleDateSelectionDelegate {
 
     /// 标题视图
@@ -179,8 +178,8 @@ class FocusTimelineDayViewController: TPViewController,
         updateAddView()
     }
     
-    // MARK: - FocusDayPagingViewDelegate
-    func focusDayPagingViewWillEndDragging(_ pageView: FocusDatePageView, withTargetDate targetDate: Date) {
+    // MARK: - TPDayPageViewDelegate
+    func dayPageViewWillEndDragging(_ pageView: TPDayPageView, withTargetDate targetDate: Date) {
         if self.date.isInSameDayAs(targetDate) {
             return
         }

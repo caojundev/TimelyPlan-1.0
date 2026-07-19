@@ -33,6 +33,10 @@ class CalendarWeekMonthExpandView: UIView {
         return 6.0 * weekHeight
     }
 
+    var weekContentHeight: CGFloat {
+        return weekdaySymbolHeight + weekHeight + containerView.grabberHeight
+    }
+    
     // MARK: - 子视图
     /// 顶部星期栏（固定不参与展开动画）
     private lazy var weekdaySymbolView: TPWeekdaySymbolView = {
@@ -190,6 +194,12 @@ class CalendarWeekMonthExpandView: UIView {
         } else if let weekView = currentView as? CalendarExpandWeekView {
             weekView.setVisibleDateComponents(visibleDateComponents, animated: animated)
         }
+    }
+    
+    func setSelectedDate(_ date: Date) {
+        let dateComponents = date.yearMonthDayComponents
+        selection.setSelectedDateComponents(dateComponents)
+        setVisibleDateComponents(dateComponents, animated: true)
     }
     
     /// 外部手动切换周/月模式

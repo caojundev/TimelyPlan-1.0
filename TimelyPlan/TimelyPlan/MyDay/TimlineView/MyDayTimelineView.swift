@@ -397,12 +397,12 @@ class TimelineLayout: UICollectionViewFlowLayout {
     }
 }
 
-// MARK: - 连接线 Cell
+// MARK: - 连接线基类 Cell
 
 class TimelineConnectionCell: UICollectionViewCell {
     
-    private let gradientLayer = CAGradientLayer()
-    private let shapeLayer = CAShapeLayer()
+    let gradientLayer = CAGradientLayer()
+    let shapeLayer = CAShapeLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -416,19 +416,19 @@ class TimelineConnectionCell: UICollectionViewCell {
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         gradientLayer.speed = 0
         shapeLayer.speed = 0
+        
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeColor = UIColor.white.cgColor
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    func configure(with item: TimelineConnectionItem, lineWidth: CGFloat = 2, dashPattern: [NSNumber]? = nil) {
+    /// 配置连接线（子类可重写）
+    func configure(with item: TimelineConnectionItem) {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
         gradientLayer.colors = [item.topColor.cgColor, item.bottomColor.cgColor]
-        shapeLayer.lineWidth = lineWidth
-        shapeLayer.lineDashPattern = dashPattern
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.white.cgColor
         
         CATransaction.commit()
         
@@ -473,9 +473,56 @@ class TimelineConnectionCell: UICollectionViewCell {
     }
 }
 
+// MARK: - 实线连接线 Cell
 
+class TimelineSolidConnectionCell: TimelineConnectionCell {
+    
+    override func configure(with item: TimelineConnectionItem) {
+        super.configure(with: item)
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        shapeLayer.lineWidth = TimelineConfig.solidLineWidth
+        shapeLayer.lineDashPattern = nil
+        
+        CATransaction.commit()
+    }
+}
 
+// MARK: - 虚线连接线 Cell
 
+class TimelineDashedConnectionCell: TimelineConnectionCell {
+    
+    override func configure(with item: TimelineConnectionItem) {
+        super.configure(with: item)
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        shapeLayer.lineWidth = TimelineConfig.dashedLineWidth
+        shapeLayer.lineDashPattern = TimelineConfig.dashedPattern
+        
+        CATransaction.commit()
+    }
+}
+
+// MARK: - 重叠连接线 Cell
+
+class TimelineOverlappingConnectionCell: TimelineConnectionCell {
+    
+    override func configure(with item: TimelineConnectionItem) {
+        super.configure(with: item)
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        shapeLayer.lineWidth = TimelineConfig.overlappingLineWidth
+        shapeLayer.lineDashPattern = nil
+        
+        CATransaction.commit()
+    }
+}
 
 // MARK: - 时间线基类 Cell
 
@@ -894,9 +941,6 @@ class BaseTimelineView: UIView, UICollectionViewDataSource, UICollectionViewDele
     /// 已注册的 Cell 类名集合
     private var registeredCellClassNames: Set<String> = []
     
-    /// 连接线 Cell 复用标识符
-    private let connectionCellIdentifier = "TimelineConnectionCell"
-    
     // MARK: - Initialization
     
     override init(frame: CGRect) {
@@ -924,10 +968,6 @@ class BaseTimelineView: UIView, UICollectionViewDataSource, UICollectionViewDele
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        // 注册连接线 Cell
-        collectionView.register(TimelineConnectionCell.self, forCellWithReuseIdentifier: connectionCellIdentifier)
-        
         addSubview(collectionView)
     }
     
@@ -948,9 +988,20 @@ class BaseTimelineView: UIView, UICollectionViewDataSource, UICollectionViewDele
     }
     
     // MARK: - 子类重写方法
-    
+    /// 根据 TimelineConnectionItem 返回对应的连接线 Cell 类（子类可重写）
+    func connectionCellClass(for item: TimelineConnectionItem) -> AnyClass {
+        switch item.style {
+        case .solid:
+            return TimelineSolidConnectionCell.self
+        case .dashed:
+            return TimelineDashedConnectionCell.self
+        case .overlapping:
+            return TimelineOverlappingConnectionCell.self
+        }
+    }
+        
     /// 根据 TimelineItem 返回对应的 Cell 类（子类必须重写）
-    func cellClass(for item: TimelineItem) -> AnyClass {
+    func eventCellClass(for item: TimelineItem) -> AnyClass {
         fatalError("Subclasses must override cellClass(for:)")
     }
     
@@ -959,29 +1010,11 @@ class BaseTimelineView: UIView, UICollectionViewDataSource, UICollectionViewDele
         cell.configure(with: item)
     }
     
-    /// 配置连接线 Cell（子类可重写以自定义连接线样式）
-    func configureConnectionCell(_ cell: TimelineConnectionCell, with item: TimelineConnectionItem) {
-        switch item.style {
-        case .solid:
-            cell.configure(
-                with: item,
-                lineWidth: TimelineConfig.solidLineWidth,
-                dashPattern: nil
-            )
-        case .dashed:
-            cell.configure(
-                with: item,
-                lineWidth: TimelineConfig.dashedLineWidth,
-                dashPattern: TimelineConfig.dashedPattern
-            )
-        case .overlapping:
-            cell.configure(
-                with: item,
-                lineWidth: TimelineConfig.overlappingLineWidth,
-                dashPattern: nil
-            )
-        }
-    }
+    /// 配置连接线 Cell（子类可重写以进行额外配置）
+     func configureConnectionCell(_ cell: TimelineConnectionCell, with item: TimelineConnectionItem) {
+         cell.configure(with: item)
+     }
+     
     
     // MARK: - Public Methods
     
@@ -1017,7 +1050,7 @@ class BaseTimelineView: UIView, UICollectionViewDataSource, UICollectionViewDele
         
         switch item {
         case .event(let eventItem):
-            let cellClass = self.cellClass(for: eventItem)
+            let cellClass: AnyClass = self.eventCellClass(for: eventItem)
             let identifier = reuseIdentifier(for: cellClass)
             
             // 动态注册（自动去重）
@@ -1031,7 +1064,15 @@ class BaseTimelineView: UIView, UICollectionViewDataSource, UICollectionViewDele
             return cell
             
         case .connection(let connectionItem):
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: connectionCellIdentifier, for: indexPath) as! TimelineConnectionCell
+            let cellClass: AnyClass = self.connectionCellClass(for: connectionItem)
+            let identifier = reuseIdentifier(for: cellClass)
+
+            registerCellIfNeeded(cellClass)
+
+            guard let cell =        collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? TimelineConnectionCell else {
+                fatalError("Cell with identifier \(identifier) is not a TimelineConnectionCell subclass")
+            }
+
             configureConnectionCell(cell, with: connectionItem)
             return cell
         }
@@ -1053,7 +1094,7 @@ class BaseTimelineView: UIView, UICollectionViewDataSource, UICollectionViewDele
 
 class MyDayTimelineView: BaseTimelineView {
     
-    override func cellClass(for item: TimelineItem) -> AnyClass {
+    override func eventCellClass(for item: TimelineItem) -> AnyClass {
         guard let event = item.event else {
             return MyDayTodoTimelineCell.self
         }

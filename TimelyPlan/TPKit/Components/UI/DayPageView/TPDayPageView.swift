@@ -1,46 +1,46 @@
 //
-//  FocusDatePageView.swift
+//  DayPageView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2025/5/8.
+//  Created by caojun on 2026/7/19.
 //
 
 import Foundation
+import UIKit
 
-protocol FocusDatePageViewDelegate: AnyObject {
+protocol TPDayPageViewDelegate: AnyObject {
 
-    /// 日历视图切换到新日期
-    func focusDayPagingView(_ pageView: FocusDatePageView,
-                               didChangeVisibleDateFromDate fromDate: Date,
-                               toDate: Date)
+    /// 天页面视图切换到新日期
+    func dayPageView(_ pageView: TPDayPageView,
+                     didChangeVisibleDateFromDate fromDate: Date,
+                     toDate: Date)
     
     /// 结束手指拖动
-    func focusDayPagingViewWillEndDragging(_ pageView: FocusDatePageView,
-                                              withTargetDate targetDate: Date)
+    func dayPageViewWillEndDragging(_ pageView: TPDayPageView,
+                                    withTargetDate targetDate: Date)
 }
 
-extension FocusDatePageViewDelegate {
+extension TPDayPageViewDelegate {
+    func dayPageView(_ pageView: TPDayPageView,
+                     didChangeVisibleDateFromDate fromDate: Date,
+                     toDate: Date) {}
     
-    func focusDayPagingView(_ pageView: FocusDatePageView,
-                               didChangeVisibleDateFromDate fromDate: Date,
-                               toDate: Date) {}
-    
-    func focusDayPagingViewWillEndDragging(_ pageView: FocusDatePageView,
-                                              withTargetDate targetDate: Date) {}
+    func dayPageViewWillEndDragging(_ pageView: TPDayPageView,
+                                    withTargetDate targetDate: Date) {}
 }
 
-class FocusDatePageView: TPCollectionWrapperView,
-                             TPCollectionViewAdapterDataSource,
-                            TPCollectionViewAdapterDelegate {
+class TPDayPageView: TPCollectionWrapperView,
+                     TPCollectionViewAdapterDataSource,
+                     TPCollectionViewAdapterDelegate {
     
     /// 代理对象
-    weak var delegate: FocusDatePageViewDelegate?
-    
-    private(set) var visibleDate: Date!
+    weak var delegate: TPDayPageViewDelegate?
     
     /// 当前月左右条数目
-    let kNearItemsCount = 5
+    private let kNearItemsCount = 8
 
+    private(set) var visibleDate: Date!
+    
     init(frame: CGRect, visibleDate: Date = .now) {
         super.init(frame: frame)
         self.visibleDate = validatedDate(visibleDate)
@@ -61,6 +61,10 @@ class FocusDatePageView: TPCollectionWrapperView,
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        /// 更新内容偏移
+        updateContentOffset(animated: false)
+        
+        /// 内容偏移可能会被 collectionView 布局覆盖，在下一个 Runloop 再更新一次
         DispatchQueue.main.async {
             self.updateContentOffset(animated: false)
         }
@@ -120,15 +124,13 @@ class FocusDatePageView: TPCollectionWrapperView,
         updateContentOffset(animated: false)
         
         /// 日期变化回调
-        delegate?.focusDayPagingView(self,
-                                        didChangeVisibleDateFromDate: fromDate,
-                                        toDate: toDate)
+        delegate?.dayPageView(self, didChangeVisibleDateFromDate: fromDate, toDate: toDate)
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let offset = targetContentOffset.pointee
         let targetDate = date(at: offset)
-        delegate?.focusDayPagingViewWillEndDragging(self, withTargetDate: targetDate)
+        delegate?.dayPageViewWillEndDragging(self, withTargetDate: targetDate)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -149,10 +151,6 @@ class FocusDatePageView: TPCollectionWrapperView,
     /// 当前月份日期组件
     func setVisibleDate(_ date: Date, animated: Bool) {
         let date = validatedDate(date)
-        if visibleDate == date {
-            return
-        }
-        
         let animateStyle = SlideStyle.horizontalStyle(fromValue: visibleDate,
                                                         toValue: date)
         visibleDate = date
@@ -180,7 +178,7 @@ class FocusDatePageView: TPCollectionWrapperView,
             }
         }
         
-        if let visibleCells = collectionView.visibleCells as? [FocusDatePageCell] {
+        if let visibleCells = collectionView.visibleCells as? [TPDayPageCell] {
             for visibleCell in visibleCells {
                 if visibleCell.date.isInSameDayAs(date) {
                     return true
@@ -254,7 +252,8 @@ class FocusDatePageView: TPCollectionWrapperView,
     }
 }
 
-class FocusDatePageCell: TPCollectionCell {
+class TPDayPageCell: TPCollectionCell {
     
     var date: Date = .now
+    
 }

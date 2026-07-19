@@ -283,6 +283,8 @@
 		E5168BDA2F547DBE0000A760 /* HabitReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5168BD92F547DBE0000A760 /* HabitReminder.swift */; };
 		E5168BDD2F5481660000A760 /* bell_add_20@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5168BDB2F5481660000A760 /* bell_add_20@3x.png */; };
 		E5168BDE2F5481660000A760 /* bell_add_20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5168BDC2F5481660000A760 /* bell_add_20@2x.png */; };
+		E5185055300CA94B00112DFC /* TPDayPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185054300CA94B00112DFC /* TPDayPageView.swift */; };
+		E5185057300CACD400112DFC /* MyDayTimelinePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185056300CACD400112DFC /* MyDayTimelinePageView.swift */; };
 		E5186E432D93B141007AA074 /* todo_filter_myDay_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E3F2D93B140007AA074 /* todo_filter_myDay_36@2x.png */; };
 		E5186E442D93B141007AA074 /* todo_filter_myDay_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E402D93B140007AA074 /* todo_filter_myDay_36@3x.png */; };
 		E5186E452D93B141007AA074 /* todo_filter_progress_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E412D93B140007AA074 /* todo_filter_progress_36@2x.png */; };
@@ -1011,7 +1013,6 @@
 		E56B94AF2F8FB56A001E488B /* todo_task_action_removeFromMyDay_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E56B94AB2F8FB56A001E488B /* todo_task_action_removeFromMyDay_24@2x.png */; };
 		E56B94B12F8FCF27001E488B /* TodoCompletedTaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94B02F8FCF27001E488B /* TodoCompletedTaskListViewController.swift */; };
 		E56B94B42F8FD17E001E488B /* TodoSmartListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B94B32F8FD17E001E488B /* TodoSmartListConfiguration.swift */; };
-		E56BAC752DCC56BB0013C6F6 /* FocusDatePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC742DCC56BB0013C6F6 /* FocusDatePageView.swift */; };
 		E56BAC772DCC56E60013C6F6 /* CalendarWeekPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */; };
 		E56BAC7C2DCCDB1D0013C6F6 /* CalendarWeekPageTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageTimelineCell.swift */; };
 		E56E7FF02DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56E7FEF2DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift */; };
@@ -2371,6 +2372,8 @@
 		E5168BD92F547DBE0000A760 /* HabitReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReminder.swift; sourceTree = "<group>"; };
 		E5168BDB2F5481660000A760 /* bell_add_20@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell_add_20@3x.png"; sourceTree = "<group>"; };
 		E5168BDC2F5481660000A760 /* bell_add_20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell_add_20@2x.png"; sourceTree = "<group>"; };
+		E5185054300CA94B00112DFC /* TPDayPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDayPageView.swift; sourceTree = "<group>"; };
+		E5185056300CACD400112DFC /* MyDayTimelinePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelinePageView.swift; sourceTree = "<group>"; };
 		E5186E3F2D93B140007AA074 /* todo_filter_myDay_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_myDay_36@2x.png"; sourceTree = "<group>"; };
 		E5186E402D93B140007AA074 /* todo_filter_myDay_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_myDay_36@3x.png"; sourceTree = "<group>"; };
 		E5186E412D93B140007AA074 /* todo_filter_progress_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_progress_36@2x.png"; sourceTree = "<group>"; };
@@ -3101,7 +3104,6 @@
 		E56B94AB2F8FB56A001E488B /* todo_task_action_removeFromMyDay_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_action_removeFromMyDay_24@2x.png"; sourceTree = "<group>"; };
 		E56B94B02F8FCF27001E488B /* TodoCompletedTaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCompletedTaskListViewController.swift; sourceTree = "<group>"; };
 		E56B94B32F8FD17E001E488B /* TodoSmartListConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSmartListConfiguration.swift; sourceTree = "<group>"; };
-		E56BAC742DCC56BB0013C6F6 /* FocusDatePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDatePageView.swift; sourceTree = "<group>"; };
 		E56BAC762DCC56E60013C6F6 /* CalendarWeekPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekPageView.swift; sourceTree = "<group>"; };
 		E56BAC7B2DCCDB1D0013C6F6 /* CalendarWeekPageTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekPageTimelineCell.swift; sourceTree = "<group>"; };
 		E56E7FEF2DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoCircularCheckboxTableCell.swift; sourceTree = "<group>"; };
@@ -5108,6 +5110,14 @@
 			path = Reminder;
 			sourceTree = "<group>";
 		};
+		E5185053300CA91800112DFC /* DayPageView */ = {
+			isa = PBXGroup;
+			children = (
+				E5185054300CA94B00112DFC /* TPDayPageView.swift */,
+			);
+			path = DayPageView;
+			sourceTree = "<group>";
+		};
 		E518D6922FBDEF4F0045D456 /* Indicator */ = {
 			isa = PBXGroup;
 			children = (
@@ -5959,6 +5969,7 @@
 		E53ABEEA300A145E00EB8632 /* TimlineView */ = {
 			isa = PBXGroup;
 			children = (
+				E5185056300CACD400112DFC /* MyDayTimelinePageView.swift */,
 				E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */,
 				E53ABEEB300A149B00EB8632 /* MyDayTimeline.swift */,
 			);
@@ -7223,7 +7234,6 @@
 			isa = PBXGroup;
 			children = (
 				E58C9E092F4AF0DB0096B842 /* FocusTimelineDayViewController.swift */,
-				E56BAC742DCC56BB0013C6F6 /* FocusDatePageView.swift */,
 				E58C9E072F4AF0DB0096B842 /* FocusTimelineDayPageView.swift */,
 				E58C9E082F4AF0DB0096B842 /* FocusTimelineSynchronizer.swift */,
 				E58C9E0A2F4AF0DB0096B842 /* FocusTimelineView.swift */,
@@ -8301,6 +8311,7 @@
 		E5BB9B6A2D3BF0C30089667A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E5185053300CA91800112DFC /* DayPageView */,
 				E50FF8A52F789DF500B8F5BE /* PlaceholderProvider */,
 				E50027692F985C6900EF052D /* DateRangeSegmentedView */,
 				E51FF6562F57217B003CA953 /* FireworkLayer */,
@@ -11986,6 +11997,7 @@
 				E549B1682F88D3800014BE85 /* TodoTaskEditInfoView.swift in Sources */,
 				E5BB9E3D2D3BF0C70089667A /* TPDefaultInfoTableHeaderFooterView.swift in Sources */,
 				E505D9332F99AD5F004469DC /* TodoHomeHeaderTableCell.swift in Sources */,
+				E5185055300CA94B00112DFC /* TPDayPageView.swift in Sources */,
 				E5E9F7B32FC3E5EB00717004 /* TodoSearchOptions.swift in Sources */,
 				E5FC6BCF2F66E25500D5A5EA /* HabitStatsLogSectionController.swift in Sources */,
 				E5BB9EE72D3BF0C80089667A /* TPMenuListPopoverView.swift in Sources */,
@@ -12001,6 +12013,7 @@
 				E5E9F7862FC001EA00717004 /* TodoStepImporter.swift in Sources */,
 				E5D7D9352D43933700EC877A /* FocusHomeSearchResultViewController.swift in Sources */,
 				E53B11612F94F68700701410 /* TodoFilterManager.swift in Sources */,
+				E5185057300CACD400112DFC /* MyDayTimelinePageView.swift in Sources */,
 				E50D60442F7A12B500D5E0A4 /* RepeatAfterCompletionSectionController.swift in Sources */,
 				E5BB9DBE2D3BF0C60089667A /* UIColorFunctions.swift in Sources */,
 				E51F94233006357B00734910 /* HabitTimeEditSectionController.swift in Sources */,
@@ -12513,7 +12526,6 @@
 				E55CE36A2D8BCCC20083316E /* TPCollectionDragExchangeReorder.swift in Sources */,
 				E5D7D8DB2D43933600EC877A /* FocusFloatingEndView.swift in Sources */,
 				E5D7D8F12D43933600EC877A /* OpenCircleTitleView.swift in Sources */,
-				E56BAC752DCC56BB0013C6F6 /* FocusDatePageView.swift in Sources */,
 				E53B11392F94D1B300701410 /* TodoFilterProgressEditViewController.swift in Sources */,
 				E58F46C72F7B9DCC0046FA96 /* TodoUpdaterOption.swift in Sources */,
 				E55549612F76899B00C9460D /* SearchHighlightable.swift in Sources */,

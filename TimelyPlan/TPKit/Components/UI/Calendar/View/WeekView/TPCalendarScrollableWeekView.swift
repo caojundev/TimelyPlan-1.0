@@ -181,6 +181,10 @@ class TPCalendarScrollableWeekView: TPCollectionWrapperView,
         }
         
         let dateComponents = date.firstDayOfWeek(firstWeekday: firstWeekday).yearMonthDayComponents
+        guard visibleDateComponents != dateComponents else {
+            return
+        }
+        
         guard animated else {
             visibleDateComponents = dateComponents
             reloadData()

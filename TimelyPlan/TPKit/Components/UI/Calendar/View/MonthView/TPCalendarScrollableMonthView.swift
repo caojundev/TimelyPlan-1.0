@@ -155,6 +155,16 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
     
     /// 当前月份日期组件
     func setVisibleDateComponents(_ dateComponents: DateComponents, animated: Bool = false) {
+        /// 判断是否在同一周
+        guard let date = Date.dateFromComponents(dateComponents) else {
+            return
+        }
+        
+        let dateComponents = date.firstDayOfMonth().yearMonthDayComponents
+        guard visibleDateComponents != dateComponents else {
+            return
+        }
+        
         guard animated else {
             visibleDateComponents = dateComponents
             reloadData()
