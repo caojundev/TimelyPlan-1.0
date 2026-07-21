@@ -64,7 +64,7 @@ class CalendarExpandContainerView: UIView {
     // 拖拽起始记录
     private var initialHeight: CGFloat = 0
     
-    private var progress: CGFloat
+    private(set) var progress: CGFloat
     
     // MARK: - 初始化
     init(initialMode: CalendarExpandMode) {

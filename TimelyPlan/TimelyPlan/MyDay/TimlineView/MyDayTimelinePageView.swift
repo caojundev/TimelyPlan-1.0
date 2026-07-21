@@ -17,7 +17,6 @@ class MyDayTimelinePageView: TPDayPageView {
     override func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         
     }
-    
 }
 
 class MyDayTimelinePageCell: TPDayPageCell {
@@ -45,7 +44,6 @@ class MyDayTimelinePageCell: TPDayPageCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         timelineView.frame = bounds
-        contentView.backgroundColor = .random
     }
     
     override func prepareForReuse() {
@@ -58,55 +56,18 @@ class MyDayTimelinePageCell: TPDayPageCell {
 extension MyDayTimelinePageCell: TimelineViewDelegate {
     
     // MARK: - TimelineViewDelegate
-    func timelineViewWillBeginDragging(_ timelineView: BaseTimelineView) {
+    func timelineViewWillBeginDragging(_ timelineView: TimelineView) {
         
     }
     
-    func timelineViewEvents(_ timelineView: BaseTimelineView) -> [MyDayEvent] {
+    func timelineViewEvents(_ timelineView: TimelineView) -> [MyDayEvent] {
         return testEvents
     }
     
-    func timelineView(_ timelineView: BaseTimelineView, didSelectEvent event: MyDayEvent) {
-        let completedText = event.isCompleted ? "✅ 已完成" : "⏳ 进行中"
-        
-        print("=======================================")
-        print("Selected Event:")
-        print("  Title: \(event.title ?? "N/A")")
-        print("  ID: \(event.identifier)")
-        print("  Source: \(event.source)")
-        print("  Color: \(event.color)")
-        print("  Start: \(event.startDate)")
-        print("  End: \(event.endDate)")
-        print("  Completed: \(completedText)")
-        print("=======================================")
-        
-        // 示例：显示一个 Alert
-        let sourceName = getSourceName(for: event.source)
-        let alert = UIAlertController(
-            title: event.title,
-            message: "来源: \(sourceName)\n开始: \(formatDate(event.startDate))\n结束: \(formatDate(event.endDate))\n状态: \(completedText)",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        UIViewController.topPresented?.present(alert, animated: true)
+    func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent) {
+
     }
     
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.string(from: date)
-    }
-    
-    private func getSourceName(for source: MyDayEventSource) -> String {
-        switch source {
-        case .todo:
-            return "📋 待办任务"
-        case .habit:
-            return "🔄 习惯追踪"
-        case .focus:
-            return "⏱️ 专注计时"
-        }
-    }
 }
 
 // 创建测试数据的工厂方法

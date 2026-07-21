@@ -21,22 +21,26 @@ class CalendarWeekMonthExpandView: UIView {
     
     weak var delegate: CalendarWeekMonthExpandViewDelegate?
     
+    var weekContentHeight: CGFloat {
+        return weekdaySymbolHeight + weekHeight + containerView.grabberHeight
+    }
+    
+    var progress: CGFloat {
+        return containerView.progress
+    }
+    
     // MARK: - 常量配置
     /// 星期栏高度
-    let weekdaySymbolHeight: CGFloat = 20.0
+    private let weekdaySymbolHeight: CGFloat = 20.0
     
     /// 单行周视图高度
-    let weekHeight: CGFloat = 60.0
+    private let weekHeight: CGFloat = 60.0
     
     /// 月视图总高度（6行）
     private var monthViewHeight: CGFloat {
         return 6.0 * weekHeight
     }
 
-    var weekContentHeight: CGFloat {
-        return weekdaySymbolHeight + weekHeight + containerView.grabberHeight
-    }
-    
     // MARK: - 子视图
     /// 顶部星期栏（固定不参与展开动画）
     private lazy var weekdaySymbolView: TPWeekdaySymbolView = {

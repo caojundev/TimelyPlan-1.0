@@ -161,10 +161,6 @@ class TPCalendarScrollableMonthView: TPCollectionWrapperView,
         }
         
         let dateComponents = date.firstDayOfMonth().yearMonthDayComponents
-        guard visibleDateComponents != dateComponents else {
-            return
-        }
-        
         guard animated else {
             visibleDateComponents = dateComponents
             reloadData()

@@ -42,8 +42,8 @@ class TPDayPageView: TPCollectionWrapperView,
     private(set) var visibleDate: Date!
     
     init(frame: CGRect, visibleDate: Date = .now) {
+        self.visibleDate = visibleDate.startOfDay()
         super.init(frame: frame)
-        self.visibleDate = validatedDate(visibleDate)
     }
     
     required init?(coder: NSCoder) {
@@ -57,6 +57,7 @@ class TPDayPageView: TPCollectionWrapperView,
         adapter.cellStyle.selectedBackgroundColor = .clear
         adapter.dataSource = self
         adapter.delegate = self
+        reloadData()
     }
     
     override func layoutSubviews() {
@@ -151,8 +152,11 @@ class TPDayPageView: TPCollectionWrapperView,
     /// 当前月份日期组件
     func setVisibleDate(_ date: Date, animated: Bool) {
         let date = validatedDate(date)
-        let animateStyle = SlideStyle.horizontalStyle(fromValue: visibleDate,
-                                                        toValue: date)
+        guard !visibleDate.isInSameDayAs(date) else {
+            return
+        }
+        
+        let animateStyle = SlideStyle.horizontalStyle(fromValue: visibleDate, toValue: date)
         visibleDate = date
         reloadData(animateStyle: animateStyle)
     }

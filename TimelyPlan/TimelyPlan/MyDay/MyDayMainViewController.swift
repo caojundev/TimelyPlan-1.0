@@ -23,7 +23,7 @@ class MyDayMainViewController: TPViewController,
         let eventsInfoFetcher = MyDayRangeEventsInfoFetcher()
         let view = CalendarWeekMonthExpandView(frame: .zero,
                                                firstWeekday: firstWeekday,
-                                               visibleDateComponents: date.yearMonthDayComponents,
+                                               visibleDateComponents: visibleDate.yearMonthDayComponents,
                                                showLunar: showLunar,
                                                showChineseHolidays: showChineseHolidays,
                                                eventsInfoFetcher: eventsInfoFetcher)
@@ -33,7 +33,7 @@ class MyDayMainViewController: TPViewController,
     
     /// 页面视图
     private lazy var pageView: MyDayTimelinePageView = {
-        let view = MyDayTimelinePageView(frame: view.bounds)
+        let view = MyDayTimelinePageView(frame: .zero)
         view.delegate = self
         return view
     }()
@@ -53,12 +53,23 @@ class MyDayMainViewController: TPViewController,
         return item
     }()
     
+    private lazy var maskView: UIView = {
+        let blurEffect = UIBlurEffect(style: .systemMaterial)
+        let view = UIVisualEffectView(effect: blurEffect)
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapMaskView))
+        gesture.numberOfTapsRequired = 1
+        gesture.numberOfTouchesRequired = 1
+        view.contentView.addGestureRecognizer(gesture)
+        return view
+    }()
+    
     private let contentView = UIView()
     
-    private(set) var date: Date
+    private(set) var visibleDate: Date
     
     init(date: Date = .now) {
-        self.date = date
+        self.visibleDate = date
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -76,9 +87,10 @@ class MyDayMainViewController: TPViewController,
         navigationItem.titleView = dateButton
         view.addSubview(contentView)
         contentView.addSubview(pageView)
+        contentView.addSubview(maskView)
         contentView.addSubview(calendarView)
-        pageView.setVisibleDate(date, animated: false)
-        updateTitle(with: date)
+        pageView.setVisibleDate(visibleDate, animated: false)
+        updateTitle(with: visibleDate)
         MyDaySetting.shared.addObserver(self)
     }
 
@@ -93,6 +105,7 @@ class MyDayMainViewController: TPViewController,
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         contentView.frame = view.bounds
+        maskView.frame = view.bounds
         layoutContents()
     }
 
@@ -105,6 +118,10 @@ class MyDayMainViewController: TPViewController,
         pageView.width = layoutFrame.width
         pageView.height = layoutFrame.height - pageTop
         pageView.top = pageTop
+        
+        let progress = calendarView.progress
+        maskView.alpha = progress
+        maskView.isUserInteractionEnabled = progress > 0
     }
     
     private func updateTitle(with date: Date) {
@@ -113,6 +130,10 @@ class MyDayMainViewController: TPViewController,
     }
     
     // MARK: - Event Response
+    @objc func didTapMaskView() {
+        calendarView.switchMode(.week, animated: true)
+    }
+    
     @objc private func clickMore() {
         TPImpactFeedback.impactWithSoftStyle()
         MyDayPresenter.showSetting()
@@ -120,7 +141,7 @@ class MyDayMainViewController: TPViewController,
     
     @objc func clickDate(_ button: UIButton) {
         let datePickerVC = TPYearMonthDatePickerViewController()
-        datePickerVC.date = date
+        datePickerVC.date = visibleDate
         datePickerVC.didPickDate = { date in
             self.pickDate(date)
         }
@@ -129,11 +150,11 @@ class MyDayMainViewController: TPViewController,
     }
     
     private func pickDate(_ date: Date) {
-        guard !self.date.isInSameDayAs(date) else {
+        guard !visibleDate.isInSameDayAs(date) else {
             return
         }
         
-        self.date = date
+        visibleDate = date
         updateTitle(with: date)
         calendarView.setVisibleDateComponents(date.yearMonthDayComponents, animated: true)
     }
@@ -144,11 +165,7 @@ extension MyDayMainViewController: TPDayPageViewDelegate {
     
     // MARK: - TPDayPageViewDelegate
     func dayPageViewWillEndDragging(_ pageView: TPDayPageView, withTargetDate targetDate: Date) {
-        if date.isInSameDayAs(targetDate) {
-            return
-        }
-            
-        date = targetDate
+        visibleDate = targetDate
         updateTitle(with: targetDate)
         calendarView.setSelectedDate(targetDate)
     }
@@ -161,7 +178,7 @@ extension MyDayMainViewController: CalendarWeekMonthExpandViewDelegate {
             return
         }
         
-        self.date = date
+        visibleDate = date
         updateTitle(with: date)
     }
     
@@ -170,8 +187,9 @@ extension MyDayMainViewController: CalendarWeekMonthExpandViewDelegate {
             return
         }
 
-        self.date = date
+        visibleDate = date
         updateTitle(with: date)
+        
         pageView.setVisibleDate(date, animated: true)
     }
     
