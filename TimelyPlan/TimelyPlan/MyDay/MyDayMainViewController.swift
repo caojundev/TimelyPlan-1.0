@@ -22,6 +22,7 @@ class MyDayMainViewController: TPViewController,
         let showChineseHolidays = MyDaySetting.shared.showChineseHolidays
         let eventsInfoFetcher = MyDayRangeEventsInfoFetcher()
         let view = CalendarWeekMonthExpandView(frame: .zero,
+                                               mode: .week,
                                                firstWeekday: firstWeekday,
                                                visibleDateComponents: visibleDate.yearMonthDayComponents,
                                                showLunar: showLunar,

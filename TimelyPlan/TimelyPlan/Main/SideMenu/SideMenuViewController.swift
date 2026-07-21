@@ -24,7 +24,7 @@ class SideMenuViewController: TPTableViewController,
     weak var delegate: SideMenuViewControllerDelegate?
     
     /// 当前选中菜单类型
-    var selectedMenuType: SideMenuType = .calendar
+    var selectedMenuType: SideMenuType = .myDay
 
     /// 我的一天
     let myDayMenuItem = TPMenuItem.item(with: [SideMenuType.myDay])

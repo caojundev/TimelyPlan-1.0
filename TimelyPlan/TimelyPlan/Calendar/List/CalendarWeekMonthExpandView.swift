@@ -53,11 +53,7 @@ class CalendarWeekMonthExpandView: UIView {
     }()
 
     /// 周月切换容器（仅负责手势+动画+子视图管理）
-    private lazy var containerView: CalendarExpandContainerView = {
-        let container = CalendarExpandContainerView(initialMode: .month)
-        container.delegate = self
-        return container
-    }()
+    private var containerView: CalendarExpandContainerView!
     
     // MARK: - 业务组件
     /// 日期选择管理器（周/月视图共用，保证选中状态同步）
@@ -82,6 +78,7 @@ class CalendarWeekMonthExpandView: UIView {
     
     // MARK: - 初始化
     init(frame: CGRect,
+         mode: CalendarExpandMode,
          firstWeekday: Weekday,
          visibleDateComponents: DateComponents,
          showLunar: Bool = true,
@@ -93,6 +90,8 @@ class CalendarWeekMonthExpandView: UIView {
         self.showChineseHolidays = showChineseHolidays
         self.eventsInfoFetcher = eventsInfoFetcher
         super.init(frame: frame)
+        self.containerView = CalendarExpandContainerView(initialMode: mode)
+        self.containerView.delegate = self
         setupViews()
     }
 

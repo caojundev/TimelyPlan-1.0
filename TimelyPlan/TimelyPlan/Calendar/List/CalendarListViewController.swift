@@ -18,6 +18,7 @@ class CalendarListViewController: CalendarBaseViewController,
         let showChineseHolidays = CalendarSetting.shared.showChineseHolidays
         let eventsInfoFetcher = CalendarRangeEventsInfoFetcher()
         let view = CalendarWeekMonthExpandView(frame: .zero,
+                                               mode: .month,
                                                firstWeekday: firstWeekday,
                                                visibleDateComponents: date.yearMonthDayComponents,
                                                showLunar: showLunar,

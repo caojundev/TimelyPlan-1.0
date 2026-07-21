@@ -65,7 +65,10 @@ extension UIColor {
 extension UIColor {
     
     var lighterColor: UIColor {
-        return withBrightness(1.0).withSaturation(0.5)
+        var s: CGFloat = 0.0
+        getHue(nil, saturation: &s, brightness: nil, alpha: nil)
+        s = min(0.4, s)
+        return withBrightness(1.0).withSaturation(s)
     }
     
     var darkerColor: UIColor {

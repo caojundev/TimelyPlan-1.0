@@ -14,8 +14,8 @@ class TodoTaskCheckInfoView: TodoTaskBaseInfoView {
     var didClickCheckbox: ((TodoTaskCheckbox) -> Void)?
     
     /// 检查按钮
-    private let checkboxSize = CGSize(width: 20.0, height: 20.0)
-    private let checkboxMargins = UIEdgeInsets(right: 15.0)
+    let checkboxSize = CGSize(width: 20.0, height: 20.0)
+    let checkboxMargins = UIEdgeInsets(right: 15.0)
     private(set) lazy var checkbox: TodoTaskCheckbox = {
         let checkbox = TodoTaskCheckbox()
         checkbox.hitTestEdgeInsets = UIEdgeInsets(horizontal: -20.0, vertical: -20.0)

@@ -7,9 +7,16 @@
 
 import Foundation
 
-extension HabitHomeDayActionInfoView.ActionButtonType {
+/// 按钮显示模式
+enum HabitDayActionButtonType {
+    case none /// 无按钮
+    case resetToday /// 重置今日
+    case record /// 记录按钮
+}
+
+extension HabitDayActionButtonType {
     
-    static func actionButtonType(for periodItem: HabitPeriodItem) -> HabitHomeDayActionInfoView.ActionButtonType {
+    static func actionButtonType(for periodItem: HabitPeriodItem) -> HabitDayActionButtonType {
         let date = periodItem.period.date
         if date.isFutureDay {
             return .none
@@ -35,15 +42,8 @@ extension HabitHomeDayActionInfoView.ActionButtonType {
 }
 
 class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
-    
-    /// 按钮显示模式
-    enum ActionButtonType {
-        case none /// 无按钮
-        case resetToday /// 重置今日
-        case record /// 记录按钮
-    }
 
-    private(set) var actionType: ActionButtonType = .none
+    private(set) var actionType: HabitDayActionButtonType = .none
     
     /// 记录按钮最大宽度
     private let recordButtonMaxWidth = 100.0
@@ -111,7 +111,7 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
             return
         }
 
-        self.actionType = ActionButtonType.actionButtonType(for: periodItem)
+        self.actionType = HabitDayActionButtonType.actionButtonType(for: periodItem)
         let habitTask = periodItem.habitTask
         let color = habitTask.color.darkerColor
         recordButton.titleConfig.textColor = color
@@ -141,28 +141,5 @@ class HabitHomeDayActionInfoView: HabitTaskProgressInfoView {
         recordButton.title = title
         setNeedsLayout()
     }
-    
-    func actionButtonType(for periodItem: HabitPeriodItem) -> ActionButtonType {
-        let date = periodItem.period.date
-        if date.isFutureDay {
-            return .none
-        }
-        
-        let record = periodItem.records?[date.dayIntegerKey]
-        let status = periodItem.status(with: record)
-        if status.isSkipped || status.isFailed {
-            return .resetToday
-        }
-        
-        if status == .completed {
-            let amount = record?.amount ?? 0
-            if amount == 0 {
-                return .none
-            }
-            
-            return .resetToday
-        }
-        
-        return .record
-    }
+
 }

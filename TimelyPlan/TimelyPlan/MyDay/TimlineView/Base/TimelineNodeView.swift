@@ -13,9 +13,6 @@ import UIKit
 /// 时间线节点视图组件（可复用的节点容器）
 class TimelineNodeView: UIView {
     
-    // MARK: 子视图
-    let iconImageView = UIImageView()
-    
     // MARK: 初始化
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,9 +21,8 @@ class TimelineNodeView: UIView {
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    private func setupView() {
-        iconImageView.contentMode = .center
-        addSubview(iconImageView)
+    func setupView() {
+        
     }
     
     // MARK: 配置方法
@@ -50,15 +46,30 @@ class TimelineNodeView: UIView {
             layer.cornerRadius = 0
         }
     }
+
+    /// 配置背景颜色
+    func configureBackgroundColor(_ color: UIColor) {
+        backgroundColor = color
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        return CGSize(width: TimelineConfig.centerNodeWidth, height: size.height)
+    }
+}
+
+class TimelineIconNodeView: TimelineNodeView {
+    
+    // MARK: 子视图
+    let iconImageView = UIImageView()
+
+    override func setupView() {
+        iconImageView.contentMode = .scaleAspectFit
+        addSubview(iconImageView)
+    }
     
     /// 配置图标
     func configureIcon(_ icon: UIImage?) {
         iconImageView.image = icon
-    }
-    
-    /// 配置背景颜色
-    func configureBackgroundColor(_ color: UIColor) {
-        backgroundColor = color
     }
     
     // MARK: 布局
@@ -73,7 +84,4 @@ class TimelineNodeView: UIView {
         )
     }
     
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: TimelineConfig.centerNodeWidth, height: size.height)
-    }
 }

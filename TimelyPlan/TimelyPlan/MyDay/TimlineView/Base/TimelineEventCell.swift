@@ -12,7 +12,8 @@ class TimelineCell: UICollectionViewCell {
     
     // MARK: 基类控件
     let startTimeLabel = UILabel()
-    let nodeView = TimelineNodeView()  // 重命名为 nodeView
+    
+    var nodeView: TimelineNodeView!
     
     // MARK: 事件内容容器（子类在此添加内容）
     let eventContentView = UIView()
@@ -27,6 +28,7 @@ class TimelineCell: UICollectionViewCell {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     private func setupBaseUI() {
+        setupNodeView()
         backgroundColor = .clear
         
         startTimeLabel.font = TimelineConfig.timeFont
@@ -36,8 +38,17 @@ class TimelineCell: UICollectionViewCell {
         eventContentView.backgroundColor = .clear
         
         contentView.addSubview(startTimeLabel)
-        contentView.addSubview(nodeView)  // 直接添加 nodeView
+        contentView.addSubview(nodeView)
         contentView.addSubview(eventContentView)
+        setupEventContentSubviews()
+    }
+    
+    func setupNodeView() {
+        nodeView = TimelineNodeView()
+    }
+    
+    func setupEventContentSubviews() {
+        
     }
     
     /// 配置基类公共属性
@@ -88,12 +99,15 @@ class TimelineCell: UICollectionViewCell {
     }
 }
 
-// MARK: - 带图标的简单时间线 Cell（原来仅显示图标的逻辑）
+// MARK: - 带图标的简单时间线 Cell
 
 class TimelineIconCell: TimelineCell {
     
-    // 此类继承自 TimelineCell，使用默认的 nodeView 配置
-    // 适用于只需要中心图标的场景（如原来的 point 类型）
+    let iconNodeView = TimelineIconNodeView()
+    
+    override func setupNodeView() {
+        self.nodeView = iconNodeView
+    }
     
     override func configure(with item: TimelineItem) {
         super.configure(with: item)

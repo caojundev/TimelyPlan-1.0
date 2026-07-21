@@ -254,7 +254,7 @@ class TodoTaskBaseInfoView: UIView {
         progressView.width = layoutFrame.width
         progressView.height = progressHeight
         progressView.left = layoutFrame.minX
-        progressView.bottom = layoutFrame.maxY
+        progressView.top = detailLabel.bottom + progressTopMargin
     }
     
     /// 布局左视图

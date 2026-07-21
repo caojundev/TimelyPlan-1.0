@@ -31,7 +31,7 @@ func resGetImage(_ shotName: String) -> UIImage? {
 
 func resGetImage(_ shotName: String, color: UIColor) -> UIImage? {
     let image = UIImage(named: shotName)
-    return image?.withRenderingMode(.alwaysTemplate)
+    return image?.withTintColor(color)
 }
 
 func resGetImage(_ shotName: String, size: Int) -> UIImage? {
