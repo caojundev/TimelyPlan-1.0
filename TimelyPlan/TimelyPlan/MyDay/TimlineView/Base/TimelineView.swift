@@ -8,10 +8,23 @@
 import Foundation
 import UIKit
 
+// MARK: - 布局管理器
+
+struct TimelineLayoutManager {
+    static func cellHeight(for item: TimelineItem) -> CGFloat {
+        switch item.type {
+        case .long: return TimelineConfig.longCellHeight
+        case .point: return TimelineConfig.pointCellHeight
+        case .short: return TimelineConfig.shortCellHeight
+        }
+    }
+}
+
+
 // MARK: - TimelineView
 
 protocol TimelineViewDelegate: AnyObject {
-    func timelineViewEvents(_ timelineView: TimelineView) -> [MyDayEvent]
+    func timelineViewEvents(_ timelineView: TimelineView) -> [MyDayEvent]?
     func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent)
 
     func timelineViewWillBeginDragging(_ timelineView: TimelineView)
@@ -25,7 +38,10 @@ extension TimelineViewDelegate {
 
 // MARK: - TimelineView
 
-class TimelineView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
+class TimelineView: UIView,
+                    UICollectionViewDataSource,
+                    UICollectionViewDelegate,
+                    UICollectionViewDelegateFlowLayout {
     
     // MARK: - Properties
     
@@ -58,10 +74,10 @@ class TimelineView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     
     private func setupCollectionView() {
         backgroundColor = .systemBackground
-        let layout = TimelineLayout()
-        layout.scrollDirection = .vertical
-        
-        collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        collectionView = UICollectionView(frame: bounds,
+                                          collectionViewLayout: flowLayout)
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -118,13 +134,8 @@ class TimelineView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     func reloadData() {
         guard let delegate = delegate else { return }
         
-        let events = delegate.timelineViewEvents(self)
-        dataSource = TimelineEventConverter.convert(events: events)
-        
-        if let layout = collectionView.collectionViewLayout as? TimelineLayout {
-            layout.dataSource = dataSource
-        }
-        
+        let events = delegate.timelineViewEvents(self) ?? []
+        dataSource = TimelineEventConverter.convert(events: events)        
         collectionView.reloadData()
     }
     
@@ -185,5 +196,33 @@ class TimelineView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         delegate?.timelineViewWillBeginDragging(self)
     }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width
+        var height = 0.0
+        let item = dataSource[indexPath.row]
+        switch item {
+        case .event(let eventItem):
+            height = TimelineLayoutManager.cellHeight(for: eventItem)
+        case .connection(let connectionItem):
+            height = connectionItem.height
+        }
+        
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .zero
+    }
+    
 }
 

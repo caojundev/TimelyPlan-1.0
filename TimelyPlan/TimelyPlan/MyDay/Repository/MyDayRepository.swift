@@ -28,6 +28,10 @@ class MyDayRepository {
         changeObserver.addUpdaterDelegate(delegate)
     }
     
+    func removeUpdaterDelegate(_ delegate: MyDayEventChangeDelegate) {
+        changeObserver.removeUpdaterDelegate(delegate)
+    }
+    
     func fetchEvents(in range: DateInterval, completion: @escaping([MyDayEvent]) -> Void) {
         var results = [MyDayEvent]()
         let group = DispatchGroup()

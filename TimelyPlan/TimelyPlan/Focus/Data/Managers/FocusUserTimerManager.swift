@@ -106,11 +106,9 @@ class FocusUserTimerManager {
         
         if let content = CDFocusTimer.getTimer(withIdentifier: timer.identifier) {
             content.update(with: editingTimer)
-            
-            let updatedTimer = FocusTimer(content: content)
-            updater.didUpdateFocusTimer(updatedTimer, with: editingTimer)
+            updater.didUpdateFocusTimer(timer, with: editingTimer)
             HandyRecord.save()
-            return updatedTimer
+            return FocusTimer(content: content)
         }
         
         return nil

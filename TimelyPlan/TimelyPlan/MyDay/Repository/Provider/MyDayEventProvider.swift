@@ -41,12 +41,8 @@ class MyDayHabitEventProvider: MyDayEventProvider {
                 return
             }
             
-            DispatchQueue.global(qos: .userInitiated).async {
-                let events = tasks.toMyDayEvents(in: range)
-                DispatchQueue.main.async {
-                    completion(events)
-                }
-            }
+            let events = tasks.toMyDayEvents(in: range)
+            completion(events)
         }
     }
 }
@@ -65,12 +61,8 @@ class MyDayFocusEventProvider: MyDayEventProvider {
                 return
             }
 
-            DispatchQueue.global(qos: .userInitiated).async {
-                let events = timers.toMyDayEvents(in: range)
-                DispatchQueue.main.async {
-                    completion(events)
-                }
-            }
+            let events = timers.toMyDayEvents(in: range)
+            completion(events)
         }
     }
 }

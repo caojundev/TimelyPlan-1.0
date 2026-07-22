@@ -8,13 +8,36 @@
 import Foundation
 import UIKit
 
-// MARK: - MyDayTimelineView
-
-class MyDayTimelineView: TimelineView {
+class MyDayTimelineView: TimelineView, TimelineViewDelegate {
+    
+    private let eventsViewModel = MyDayTimelineViewModel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        delegate = self
+        setupBindings()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupBindings() {
+        eventsViewModel.onEventsChanged = { [weak self] in
+            self?.handleEventsChanged()
+        }
+    }
+    
+    private func handleEventsChanged() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.reloadData()
+        }
+    }
     
     override func eventCellClass(for item: TimelineItem) -> AnyClass {
         guard let event = item.event else {
-            return MyDayTodoTimelineCell.self
+            return TimelineCell.self
         }
         
         switch event.source {
@@ -26,17 +49,29 @@ class MyDayTimelineView: TimelineView {
             return MyDayHabitTimelineCell.self
         }
     }
+
+    func loadEvents(on date: Date) {
+        eventsViewModel.startObserving()
+        eventsViewModel.loadEvents(on: date)
+    }
     
-    override func configureEventCell(_ cell: TimelineCell, with item: TimelineItem) {
-        // 根据不同类型进行特定配置
-        if let todoCell = cell as? MyDayTodoTimelineCell {
-            todoCell.configure(with: item)
-        } else if let focusCell = cell as? MyDayFocusTimelineCell {
-            focusCell.configure(with: item)
-        } else if let habitCell = cell as? MyDayHabitTimelineCell {
-            habitCell.configure(with: item)
-        } else {
-            cell.configure(with: item)
-        }
+    func clear() {
+        eventsViewModel.stopObserving()
+        eventsViewModel.clear()
+        reloadData()
+    }
+    
+    // MARK: - TimelineViewDelegate
+    func timelineViewEvents(_ timelineView: TimelineView) -> [MyDayEvent]? {
+        return eventsViewModel.events
+    }
+    
+    func timelineViewWillBeginDragging(_ timelineView: TimelineView) {
+        
+    }
+    
+    
+    func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent) {
+
     }
 }

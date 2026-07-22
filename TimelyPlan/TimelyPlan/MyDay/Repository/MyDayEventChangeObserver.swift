@@ -44,6 +44,10 @@ class MyDayEventChangeObserver {
     func addUpdaterDelegate(_ delegate: AnyObject) {
         updater.addDelegate(delegate)
     }
+    
+    func removeUpdaterDelegate(_ delegate: AnyObject) {
+        updater.removeDelegate(delegate)
+    }
 }
 
 extension MyDayEventChangeObserver: SettingAgentObserver {

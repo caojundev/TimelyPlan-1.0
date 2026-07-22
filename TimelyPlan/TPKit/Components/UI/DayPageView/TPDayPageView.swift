@@ -97,7 +97,12 @@ class TPDayPageView: TPCollectionWrapperView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
- 
+        guard let cell = cell as? TPDayPageCell,
+                let date = adapter.item(at: indexPath) as? Date else {
+            return
+        }
+        
+        cell.date = date
     }
 
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {

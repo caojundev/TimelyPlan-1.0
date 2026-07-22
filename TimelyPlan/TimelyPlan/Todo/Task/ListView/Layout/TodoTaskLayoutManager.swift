@@ -32,7 +32,7 @@ struct TodoTaskLayoutConfig: Equatable {
     var detailTopMargin: CGFloat = 5.0
     
     /// 详情字体
-    var detailFont: UIFont = UIFont.boldSystemFont(ofSize: 10.0)
+    var detailFont: UIFont = .boldSystemFont(ofSize: 10.0)
     
     /// 最大详情行数目
     var detailLinesCount: Int = 0

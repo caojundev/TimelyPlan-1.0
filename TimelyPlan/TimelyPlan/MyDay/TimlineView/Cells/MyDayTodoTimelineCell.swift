@@ -31,22 +31,50 @@ class MyDayTodoTimelineCell: TimelineIconCell {
         infoView.frame = eventContentView.bounds
     }
     
+    let detailOption: TodoTaskDetailOption = [.step,
+                                              .progress,
+                                              .tag,
+                                              .list,
+                                              .note]
+    
     override func configure(with item: TimelineItem) {
         super.configure(with: item)
         self.todoItem = item
-        infoView.name = item.title
-        infoView.attributedDetail = item.durationText?.attributedString
-        infoView.setCompleted(item.isCompleted)
         
+        guard let task = item.event?.sourceItem as? TodoTask else {
+            return
+        }
+        
+        configureIcon(with: task)
+        
+        infoView.checkType = task.checkType
+        infoView.priority = task.priority
+        infoView.name = task.displayName
+        
+        /// 更新详情
+        let detailProvider = TodoTaskDetailProvider(task: task, option: detailOption)
+        infoView.attributedDetail = detailProvider.attributedInfo()
+        
+        /// 更新进度
+        infoView.isProgressHidden = !task.isProgressSet
+        infoView.setProgress(task.completionFraction)
+        
+        /// 完成状态
+        infoView.setCompleted(task.isCompleted)
+        
+        setNeedsLayout()
+    }
+    
+    /// 更新图标
+    private func configureIcon(with task: TodoTask) {
         let icon: UIImage?
-        if item.isCompleted {
+        if task.isCompleted {
             icon = resGetImage("myDay_todo_completed_24", color: .white)
         } else {
             icon = resGetImage("myDay_todo_normal_24", color: .white)
         }
         
         iconNodeView.configureIcon(icon)
-        setNeedsLayout()
     }
     
     func clickCheckbox() {
@@ -65,6 +93,9 @@ class MyDayTodoEventInfoView: TodoTaskCheckInfoView {
         self.rightView = checkbox
         self.rightViewSize = checkboxSize
         self.rightViewMargins = UIEdgeInsets(left: 12.0)
+        self.detailLabel.font = .boldSystemFont(ofSize: 10.0)
+        self.detailTopMargin = 2.0
+        self.progressTopMargin = 6.0
     }
     
 }

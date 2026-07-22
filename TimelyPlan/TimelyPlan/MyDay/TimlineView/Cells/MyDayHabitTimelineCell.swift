@@ -106,11 +106,12 @@ class HabitTimelineInfoView: UIView {
         button.cornerRadius = .greatestFiniteMagnitude
         button.image = resGetImage("HabitRecordTypeCheckin")
         button.title = resGetString("Check-in")
-       return button
+        return button
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        padding = UIEdgeInsets(right: 16.0)
         addSubview(titleView)
         addSubview(recordButton)
     }

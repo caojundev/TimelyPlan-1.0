@@ -15,26 +15,26 @@ class MyDayTimelinePageView: TPDayPageView {
     }
     
     override func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
+        super.adapter(adapter, didDequeCell: cell, at: indexPath)
+        guard let cell = cell as? MyDayTimelinePageCell else {
+            return
+        }
         
+        let timelineView = cell.timelineView
+        timelineView.loadEvents(on: cell.date)
     }
 }
 
 class MyDayTimelinePageCell: TPDayPageCell {
 
-    private var testEvents: [MyDayEvent] = []
-    
-    private lazy var timelineView: MyDayTimelineView = {
+    private(set) lazy var timelineView: MyDayTimelineView = {
         let view = MyDayTimelineView(frame: bounds)
-        view.delegate = self
         return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        // 生成测试数据
-        self.testEvents = MyDayEventFactory.createTestEvents()
         contentView.addSubview(timelineView)
-        timelineView.reloadData()
     }
     
     required init?(coder: NSCoder) {
@@ -48,26 +48,9 @@ class MyDayTimelinePageCell: TPDayPageCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+        print("\(date.yearMonthDayString) -> prepareForReuse")
+        timelineView.clear()
     }
-}
-
-
-extension MyDayTimelinePageCell: TimelineViewDelegate {
-    
-    // MARK: - TimelineViewDelegate
-    func timelineViewWillBeginDragging(_ timelineView: TimelineView) {
-        
-    }
-    
-    func timelineViewEvents(_ timelineView: TimelineView) -> [MyDayEvent] {
-        return testEvents
-    }
-    
-    func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent) {
-
-    }
-    
 }
 
 // 创建测试数据的工厂方法

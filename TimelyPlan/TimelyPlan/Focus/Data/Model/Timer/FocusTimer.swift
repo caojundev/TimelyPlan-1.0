@@ -129,6 +129,15 @@ class FocusTimer: NSObject, SortableIdentifiable {
     override func diffIdentifier() -> NSObjectProtocol {
         return identifier as NSString
     }
+    
+    override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
+        if let other = object as? FocusTimer {
+            return self.identifier == other.identifier
+        }
+        
+        return false
+    }
+    
 }
 
 extension FocusTimer: FocusTimerRepresentable {
@@ -182,7 +191,7 @@ extension FocusTimer {
         timer.name = name
         timer.color = color
         timer.isAddedToMyDay = isAddedToMyDay
-        timer.startDate = startDate
+        timer.startDate = startDate ?? Date().startOfDay()
         timer.endDate = endDate
         timer.startTime = startTime
         timer.config = config.copy() as? FocusTimerConfig
@@ -193,7 +202,7 @@ extension FocusTimer {
     /// 判断编辑任务内容是否与当前任务相同
     func isSameTimer(as editingTimer: FocusEditingTimer) -> Bool {
         let current = self.editingTimer
-        return current == editingTimer
+        return current == editingTimer && startDate == editingTimer.startDate
     }
 }
 
