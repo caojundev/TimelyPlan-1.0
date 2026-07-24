@@ -25,12 +25,12 @@ class HabitHomeDayMenuController: HabitTaskBaseMenuController {
     }
     
     override func allowMenuActionTypes() -> [HabitTaskMenuActionType] {
-        let allowTypes: [HabitTaskMenuActionType] = [.addToMyDay,
-                                                     .removeFromMyDay,
-                                                     .edit,
-                                                     .archive,
-                                                     .delete]
         if date.isFutureDay {
+            let allowTypes: [HabitTaskMenuActionType] = [.addToMyDay,
+                                                         .removeFromMyDay,
+                                                         .edit,
+                                                         .archive,
+                                                         .delete]
             return allowTypes
         }
 

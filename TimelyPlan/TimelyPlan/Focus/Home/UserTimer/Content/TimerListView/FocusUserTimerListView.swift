@@ -56,6 +56,8 @@ class FocusUserTimerListView: TPGroupCollectionView,
     
     private let cellStyle = FocusUserTimerCellStyle()
     
+    private let menuProcessor = FocusUserTimerMenuProcessor()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.preferredItemWidth = FocusConstant.timerListContentMaxWidth
@@ -187,38 +189,10 @@ class FocusUserTimerListView: TPGroupCollectionView,
             menuController.showMoveToBottom = index < (userTimers.count - 1)
         }
  
-        menuController.didSelectMenuActionType = { type in
-            self.performMenuAction(type, for: timer)
+        menuController.didSelectMenuActionType = { [weak self] type in
+            self?.menuProcessor.performMenuAction(type, for: timer)
         }
         
         menuController.showMenu(from: cell.moreButton)
-    }
-    
-    func performMenuAction(_ type: FocusUserTimerMenuType, for timer: FocusTimer) {
-        let timerController = FocusUserTimerController()
-        switch type {
-        case .statistics:
-            timerController.showStatistics(forTimer: timer)
-        case .viewRecord:
-            timerController.showRecords(forTimer: timer)
-        case .addRecord:
-            timerController.addRecordManually(forTimer: timer)
-        case .moveToTop:
-            timerController.moveTimerToTop(timer, in: userTimers)
-        case .moveToBottom:
-            timerController.moveTimerToBottom(timer, in: userTimers)
-        case .edit:
-            timerController.editTimer(timer)
-        case .archive:
-            timerController.archiveTimer(timer)
-        case .unarchive:
-            timerController.unarchiveTimer(timer)
-        case .delete:
-            timerController.deleteTimer(timer)
-        case .addToMyDay:
-            timerController.addTimerToMyDay(timer)
-        case .removeFromMyDay:
-            timerController.removeTimerFromMyDay(timer)
-        }
     }
 }

@@ -48,7 +48,6 @@ class MyDayTimelinePageCell: TPDayPageCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        print("\(date.yearMonthDayString) -> prepareForReuse")
         timelineView.clear()
     }
 }

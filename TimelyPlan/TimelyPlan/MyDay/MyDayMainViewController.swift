@@ -55,7 +55,7 @@ class MyDayMainViewController: TPViewController,
     }()
     
     private lazy var maskView: UIView = {
-        let blurEffect = UIBlurEffect(style: .systemMaterial)
+        let blurEffect = UIBlurEffect(style: .systemThinMaterial)
         let view = UIVisualEffectView(effect: blurEffect)
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapMaskView))

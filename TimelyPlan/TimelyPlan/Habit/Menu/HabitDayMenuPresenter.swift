@@ -28,13 +28,17 @@ class HabitDayMenuPresenter {
         return menuController
     }
     
-    static func showPopoverMenu(for periodItem: HabitPeriodItem, on date: Date) {
+    static func showPopoverMenu(for periodItem: HabitPeriodItem,
+                                on date: Date,
+                                menuType: HabitDayMenuType = .all) {
         let menuController = dayMenuController(for: periodItem, on: date)
-        menuController.showPopoverMenu()
+        menuController.showPopoverMenu(with: menuType)
     }
     
-    static func showSheetMenu(for periodItem: HabitPeriodItem, on date: Date) {
+    static func showSheetMenu(for periodItem: HabitPeriodItem,
+                              on date: Date,
+                              menuType: HabitDayMenuType = .all) {
         let menuController = dayMenuController(for: periodItem, on: date)
-        menuController.showSheetMenu()
+        menuController.showSheetMenu(with: menuType)
     }
 }

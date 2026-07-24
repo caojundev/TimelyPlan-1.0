@@ -7,10 +7,17 @@
 
 import Foundation
 
+enum HabitDayMenuType {
+    case all /// 包含所有操作
+    case recordOnly /// 仅记录操作
+}
+
 class HabitDayInfoMenuController: HabitHomeDayMenuController {
-    
+
     /// 点击记录
     var didClickRecord: (() -> Void)?
+    
+    private var menuType: HabitDayMenuType = .all
     
     let periodItem: HabitPeriodItem
     
@@ -21,6 +28,10 @@ class HabitDayInfoMenuController: HabitHomeDayMenuController {
     }
     
     override func allowMenuActionTypes() -> [HabitTaskMenuActionType] {
+        if menuType == .all {
+            return super.allowMenuActionTypes()
+        }
+        
         var allowTypes: [HabitTaskMenuActionType]
         allowTypes = [.completeAll,
                       .checkin,
@@ -55,20 +66,22 @@ class HabitDayInfoMenuController: HabitHomeDayMenuController {
         return menuVC
     }
     
-    func showPopoverMenu() {
+    func showPopoverMenu(with menuType: HabitDayMenuType) {
+        self.menuType = menuType
         if let menuVC = menuViewController() {
             menuVC.popoverShow()
         }
     }
     
-    func showSheetMenu() {
+    func showSheetMenu(with menuType: HabitDayMenuType) {
+        self.menuType = menuType
         guard let menuVC = menuViewController() else {
             return
         }
         
         if let sheet = menuVC.sheetPresentationController {
             sheet.prefersGrabberVisible = true
-            sheet.detents = [.medium()]
+            sheet.detents = [.medium(), .large()]
             sheet.prefersScrollingExpandsWhenScrolledToEdge = true
         }
         

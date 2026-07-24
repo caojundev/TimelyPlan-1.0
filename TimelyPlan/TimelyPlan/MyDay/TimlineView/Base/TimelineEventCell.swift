@@ -10,6 +10,8 @@ import UIKit
 
 class TimelineCell: UICollectionViewCell {
     
+    weak var delegate: AnyObject?
+    
     // MARK: 基类控件
     let startTimeLabel = UILabel()
     

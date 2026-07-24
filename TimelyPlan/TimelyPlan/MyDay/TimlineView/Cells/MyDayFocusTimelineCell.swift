@@ -8,9 +8,15 @@
 import Foundation
 import UIKit
 
+protocol MyDayFocusTimelineCellDelegate: AnyObject {
+    
+    /// 点击开始专注
+    func myDayFocusTimelineCellDidClickStart(_ cell: MyDayFocusTimelineCell)
+}
+
 class MyDayFocusTimelineCell: TimelineIconCell {
 
-    private var focusItem: TimelineItem?
+    private(set) var focusItem: TimelineItem?
     
     /// 开始按钮
     lazy var startButton: TPDefaultButton = {
@@ -18,17 +24,17 @@ class MyDayFocusTimelineCell: TimelineIconCell {
         button.padding = UIEdgeInsets(value: 10.0)
         button.hitTestEdgeInsets = UIEdgeInsets(value: -10.0)
         button.image = resGetImage("triangle_right_32")
-        button.imageConfig.color = .primary
+        button.imageConfig.color = .label
         button.addTarget(self, action: #selector(clickStart(_:)), for: .touchUpInside)
         return button
     }()
 
     private lazy var infoView: TPInfoView = {
         let view = TPInfoView()
-        view.titleConfig.font = .systemFont(ofSize: 16, weight: .bold)
+        view.titleConfig.font = .boldSystemFont(ofSize: 15.0)
         view.titleConfig.textColor = .label
         view.titleConfig.numberOfLines = 1
-        view.subtitleConfig.font = .systemFont(ofSize: 12, weight: .regular)
+        view.subtitleConfig.font = .boldSystemFont(ofSize: 10.0)
         view.subtitleConfig.textColor = .secondaryLabel
         return view
     }()
@@ -48,16 +54,23 @@ class MyDayFocusTimelineCell: TimelineIconCell {
     override func configure(with item: TimelineItem) {
         super.configure(with: item)
         self.focusItem = item
-        infoView.title = item.title
-        infoView.subtitle = item.durationText
         
-        let icon = FocusTimerType.pomodoro.iconImage?.withTintColor(.white)
+        guard let timer = item.event?.sourceItem as? FocusTimer else {
+            return
+        }
+        
+        infoView.title = timer.displayName
+        infoView.subtitle = timer.timerDescription
+        
+        let icon = timer.timerType.iconImage?.withTintColor(.white)
         iconNodeView.configureIcon(icon)
         setNeedsLayout()
     }
 
     @objc func clickStart(_ button: UIButton) {
-        print("开始专注")
+        if let delegate = delegate as? MyDayFocusTimelineCellDelegate {
+            delegate.myDayFocusTimelineCellDidClickStart(self)
+        }
     }
     
 }

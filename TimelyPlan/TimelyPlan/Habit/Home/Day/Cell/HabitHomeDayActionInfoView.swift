@@ -17,13 +17,20 @@ enum HabitDayActionButtonType {
 extension HabitDayActionButtonType {
     
     static func actionButtonType(for periodItem: HabitPeriodItem) -> HabitDayActionButtonType {
+        let task = periodItem.habitTask
         let date = periodItem.period.date
+        let record = periodItem.records?[date.dayIntegerKey]
+        return actionButtonType(for: task, on: date, with: record)
+    }
+    
+    static func actionButtonType(for task: HabitTask,
+                                 on date: Date,
+                                 with record: HabitRecord?) -> HabitDayActionButtonType {
         if date.isFutureDay {
             return .none
         }
         
-        let record = periodItem.records?[date.dayIntegerKey]
-        let status = periodItem.status(with: record)
+        let status = task.status(with: record)
         if status.isSkipped || status.isFailed {
             return .resetToday
         }

@@ -12,6 +12,8 @@ import UIKit
 
 class TimelineConnectionCell: UICollectionViewCell {
     
+    weak var delegate: AnyObject?
+    
     let gradientLayer = CAGradientLayer()
     let shapeLayer = CAShapeLayer()
     
@@ -22,15 +24,11 @@ class TimelineConnectionCell: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor = .clear
         contentView.backgroundColor = .clear
-        
-        layer.speed = 0
+
         layer.addSublayer(gradientLayer)
         gradientLayer.mask = shapeLayer
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
-        gradientLayer.speed = 0
-        shapeLayer.speed = 0
-        
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.white.cgColor
         

@@ -35,29 +35,16 @@ class MyDayHabitTimelineCell: TimelineCell {
     override func configure(with item: TimelineItem) {
         super.configure(with: item)
         self.habitItem = item
-        infoView.configureColor(item.nodeColor)
-        infoView.title = item.title
-        infoView.subtitle = item.durationText
-        
-        let icon = TPIcon(text: Character.randomEmojiString())
-        var progress = 0.0
-        let value = arc4random() % 200
-        if value > 100 {
-            progress = 1.0
-        } else {
-            progress = CGFloat(value) / 100.0
+        guard let task = item.event?.sourceItem as? HabitTask else {
+            return
         }
         
-        var status = HabitTaskStatus.notStarted
-        if progress == 1.0 {
-            status = .completed
-        } else if progress > 0 {
-            status = .inProgress
-        }
-        
-        iconNodeView.configure(icon: icon,
-                               progress: progress,
-                               status: status)
+        let date = item.startDate
+        iconNodeView.configure(icon: task.icon)
+        infoView.configureColor(task.color)
+        infoView.title = task.displayName
+        infoView.subtitle = task.goal.targetDescription
+        infoView.updateRecordButton(for: task, on: date, with: nil)
         setNeedsLayout()
     }
 }
@@ -76,7 +63,7 @@ class HabitTimelineInfoView: UIView {
     
     private lazy var titleView: TPInfoView = {
         let view = TPInfoView()
-        view.padding = UIEdgeInsets(left: 10.0)
+        view.padding = .zero
         view.titleConfig.textAlignment = .left
         view.titleConfig.font = BOLD_BODY_FONT
         view.subtitleConfig.textAlignment = .left
@@ -85,7 +72,7 @@ class HabitTimelineInfoView: UIView {
         return view
     }()
     
-    private var actionType: HabitDayActionButtonType = .record
+    private var actionType: HabitDayActionButtonType = .none
     
     /// 记录按钮最大宽度
     private let recordButtonMaxWidth = 100.0
@@ -104,14 +91,12 @@ class HabitTimelineInfoView: UIView {
         button.preferredTappedScale = 0.9
         button.scaleMaxLength = 5.0
         button.cornerRadius = .greatestFiniteMagnitude
-        button.image = resGetImage("HabitRecordTypeCheckin")
-        button.title = resGetString("Check-in")
         return button
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        padding = UIEdgeInsets(right: 16.0)
+        padding = .zero
         addSubview(titleView)
         addSubview(recordButton)
     }
@@ -154,31 +139,24 @@ class HabitTimelineInfoView: UIView {
         recordButton.normalBackgroundColor = color
     }
     
-    func updateRecordButton(with periodItem: HabitPeriodItem?) {
-        guard let periodItem = periodItem else {
-            self.actionType = .none
-            self.recordButton.image = nil
-            self.recordButton.title = nil
-            setNeedsLayout()
-            return
-        }
-
-        self.actionType = HabitDayActionButtonType.actionButtonType(for: periodItem)
-        let habitTask = periodItem.habitTask
+    func updateRecordButton(for task: HabitTask,
+                            on date: Date,
+                            with record: HabitRecord?) {
+        self.actionType = .actionButtonType(for: task, on: date, with: record)
         var imageName: String
         var title: String
-        if habitTask.goal.mode == .checkin {
+        if task.goal.mode == .checkin {
             imageName = "HabitRecordTypeCheckin"
             title = resGetString("Check-in")
         } else {
-            let recordType = habitTask.goal.validatedRecordType
+            let recordType = task.goal.validatedRecordType
             switch recordType {
             case .completeAll:
                 imageName = "HabitRecordTypeCompleteAll"
                 title = resGetString("Done")
             case .automatically:
                 imageName = "HabitRecordTypeAutoAdd"
-                title = "\(habitTask.goal.validatedRecordAmount)"
+                title = "\(task.goal.validatedRecordAmount)"
             default:
                 imageName = "HabitRecordTypeManually"
                 title = resGetString("Input")
@@ -246,7 +224,9 @@ class HabitTimelineNodeView: TimelineNodeView {
         progressView.progressLineColor = color.lighterColor
     }
     
-    func configure(icon: TPIcon, progress: CGFloat, status: HabitTaskStatus) {
+    func configure(icon: TPIcon,
+                   progress: CGFloat = 0.0,
+                   status: HabitTaskStatus = .notStarted) {
         iconView.icon = icon
         progressView.progress = progress
         statusView.setStatus(status)

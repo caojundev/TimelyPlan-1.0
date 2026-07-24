@@ -42,7 +42,6 @@ struct TimelineItem {
     let timeStart: String
     let timeEnd: String?
     let title: String
-    let subtitle: String?
     let type: TimelineItemType
     let isCompleted: Bool
     let durationText: String?

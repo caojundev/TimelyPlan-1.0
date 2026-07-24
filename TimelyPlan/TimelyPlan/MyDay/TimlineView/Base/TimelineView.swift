@@ -168,6 +168,7 @@ class TimelineView: UIView,
                 fatalError("Cell with identifier \(identifier) is not a TimelineCell subclass")
             }
             
+            cell.delegate = self
             configureEventCell(cell, with: eventItem)
             return cell
             
@@ -181,6 +182,7 @@ class TimelineView: UIView,
                 fatalError("Cell with identifier \(identifier) is not a TimelineConnectionCell subclass")
             }
 
+            cell.delegate = self
             configureConnectionCell(cell, with: connectionItem)
             return cell
         }

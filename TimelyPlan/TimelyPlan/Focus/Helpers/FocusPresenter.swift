@@ -11,6 +11,16 @@ import UIKit
 
 class FocusPresenter {
 
+    static func showSheetMenu(for timer: FocusTimer) {
+        let controller = FocusTimerInfoMenuController(timer: timer)
+        controller.didSelectMenuActionType = { type in
+            let menuProcessor = FocusUserTimerMenuProcessor()
+            menuProcessor.performMenuAction(type, for: timer)
+        }
+        
+        controller.showSheetMenu()
+    }
+    
     static func quickStartFocus(for task: TaskRepresentable) {
         let taskFeature = task.feature
         let startVC = FocusQuickStartViewController(editType: .pomodoro, taskFeature: taskFeature)

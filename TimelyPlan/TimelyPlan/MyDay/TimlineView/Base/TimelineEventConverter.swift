@@ -23,53 +23,196 @@ struct TimelineEventConverter {
         return insertConnections(items: timelineItems)
     }
     
+    // MARK: - 节点样式计算
+    
     private static func calculateNodeStyles(events: [MyDayEvent]) -> [TimeLineNodeStyle] {
-        var styles: [TimeLineNodeStyle] = []
+        let n = events.count
+        var styles: [TimeLineNodeStyle] = Array(repeating: .independent, count: n)
         
-        for (index, event) in events.enumerated() {
-            let currentStart = event.startDate
-            let currentEnd = event.endDate
-            
+        // 首先构建直接重叠关系图
+        var directOverlap: [[Bool]] = Array(repeating: Array(repeating: false, count: n), count: n)
+        for i in 0..<n {
+            for j in 0..<n {
+                if i != j && eventsOverlap(events[i], events[j]) {
+                    directOverlap[i][j] = true
+                }
+            }
+        }
+        
+        // 计算每个事件是否与前面或后面的事件有"有效重叠"
+        for i in 0..<n {
             var overlapsWithPrevious = false
             var overlapsWithNext = false
             
-            if index > 0 {
-                for prevIndex in (0..<index).reversed() {
-                    let prevEvent = events[prevIndex]
-                    
-                    if (currentStart >= prevEvent.startDate && currentStart < prevEvent.endDate) ||
-                       (prevEvent.endDate > currentStart && prevEvent.endDate <= currentEnd) {
-                        overlapsWithPrevious = true
-                        break
-                    }
-                }
+            // 检查与前面事件的有效重叠
+            if i > 0 {
+                overlapsWithPrevious = hasEffectiveOverlapWithPrevious(
+                    index: i,
+                    events: events,
+                    directOverlap: directOverlap
+                )
             }
             
-            if index < events.count - 1 {
-                for nextIndex in (index + 1)..<events.count {
-                    let nextEvent = events[nextIndex]
-                    
-                    if (currentEnd > nextEvent.startDate && currentEnd <= nextEvent.endDate) ||
-                       (nextEvent.startDate >= currentStart && nextEvent.startDate < currentEnd) {
-                        overlapsWithNext = true
-                        break
-                    }
-                }
+            // 检查与后面事件的有效重叠
+            if i < n - 1 {
+                overlapsWithNext = hasEffectiveOverlapWithNext(
+                    index: i,
+                    events: events,
+                    directOverlap: directOverlap
+                )
             }
             
-            let style: TimeLineNodeStyle
+            // 确定节点样式
             switch (overlapsWithPrevious, overlapsWithNext) {
-            case (false, false): style = .independent
-            case (true, false): style = .connectToPrevious
-            case (false, true): style = .connectToNext
-            case (true, true): style = .connectToBoth
+            case (false, false): styles[i] = .independent
+            case (true, false): styles[i] = .connectToPrevious
+            case (false, true): styles[i] = .connectToNext
+            case (true, true): styles[i] = .connectToBoth
             }
-            
-            styles.append(style)
         }
         
         return styles
     }
+    
+    // MARK: - 有效重叠判断
+    
+    /// 判断事件是否与前面的事件有"有效重叠"
+    /// 有效重叠：通过直接重叠关系链能够连接到前面的某个事件
+    private static func hasEffectiveOverlapWithPrevious(
+        index: Int,
+        events: [MyDayEvent],
+        directOverlap: [[Bool]]
+    ) -> Bool {
+        let n = events.count
+        var visited = Array(repeating: false, count: n)
+        
+        // BFS 从当前事件向前搜索
+        var queue: [Int] = []
+        queue.append(index)
+        visited[index] = true
+        
+        while !queue.isEmpty {
+            let current = queue.removeFirst()
+            
+            // 检查是否已经连接到前面的某个事件
+            if current < index {
+                // 找到了前面的重叠事件，但需要验证这条路径是否"有效"
+                if isValidOverlapPath(from: current, to: index, events: events, directOverlap: directOverlap) {
+                    return true
+                }
+            }
+            
+            // 继续向前和向后搜索直接重叠的事件
+            for j in 0..<n {
+                if !visited[j] && directOverlap[current][j] {
+                    visited[j] = true
+                    queue.append(j)
+                }
+            }
+        }
+        
+        return false
+    }
+    
+    /// 判断事件是否与后面的事件有"有效重叠"
+    private static func hasEffectiveOverlapWithNext(
+        index: Int,
+        events: [MyDayEvent],
+        directOverlap: [[Bool]]
+    ) -> Bool {
+        let n = events.count
+        var visited = Array(repeating: false, count: n)
+        
+        // BFS 从当前事件向后搜索
+        var queue: [Int] = []
+        queue.append(index)
+        visited[index] = true
+        
+        while !queue.isEmpty {
+            let current = queue.removeFirst()
+            
+            // 检查是否已经连接到后面的某个事件
+            if current > index {
+                // 找到了后面的重叠事件，但需要验证这条路径是否"有效"
+                if isValidOverlapPath(from: index, to: current, events: events, directOverlap: directOverlap) {
+                    return true
+                }
+            }
+            
+            // 继续向前和向后搜索直接重叠的事件
+            for j in 0..<n {
+                if !visited[j] && directOverlap[current][j] {
+                    visited[j] = true
+                    queue.append(j)
+                }
+            }
+        }
+        
+        return false
+    }
+    
+    /// 验证重叠路径是否有效
+    /// 路径有效条件：路径上的事件在时间上是连续的，没有大的时间间隔
+    private static func isValidOverlapPath(
+        from startIndex: Int,
+        to endIndex: Int,
+        events: [MyDayEvent],
+        directOverlap: [[Bool]]
+    ) -> Bool {
+        // 如果两个事件直接重叠，路径有效
+        if directOverlap[startIndex][endIndex] {
+            return true
+        }
+        
+        // 查找从 startIndex 到 endIndex 的最短路径
+        let n = events.count
+        var queue: [(index: Int, path: [Int])] = [(startIndex, [startIndex])]
+        var visited = Array(repeating: false, count: n)
+        visited[startIndex] = true
+        
+        while !queue.isEmpty {
+            let (current, path) = queue.removeFirst()
+            
+            for j in 0..<n {
+                if !visited[j] && directOverlap[current][j] {
+                    let newPath = path + [j]
+                    
+                    if j == endIndex {
+                        // 找到路径，验证路径上事件的时间连续性
+                        return isTimeContinuous(events: events, path: newPath)
+                    }
+                    
+                    visited[j] = true
+                    queue.append((j, newPath))
+                }
+            }
+        }
+        
+        return false
+    }
+    
+    /// 检查路径上事件的时间连续性
+    /// 如果中间有任何事件与前后事件都没有时间重叠，则路径无效
+    private static func isTimeContinuous(events: [MyDayEvent], path: [Int]) -> Bool {
+        // 路径至少要有2个事件
+        guard path.count >= 2 else { return false }
+        
+        // 检查每对相邻事件是否直接重叠
+        for i in 0..<(path.count - 1) {
+            if !eventsOverlap(events[path[i]], events[path[i+1]]) {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    /// 判断两个事件是否在时间上重叠
+    private static func eventsOverlap(_ event1: MyDayEvent, _ event2: MyDayEvent) -> Bool {
+        return event1.startDate < event2.endDate && event2.startDate < event1.endDate
+    }
+    
+    // MARK: - 连接线插入
     
     private static func insertConnections(items: [TimelineItem]) -> [TimelineDataItem] {
         var result: [TimelineDataItem] = []
@@ -85,7 +228,8 @@ struct TimelineEventConverter {
             let style = determineConnectionStyle(
                 from: item,
                 to: nextItem,
-                timeInterval: timeInterval
+                items: items,
+                currentIndex: index
             )
             
             let height = calculateConnectionHeight(
@@ -107,6 +251,38 @@ struct TimelineEventConverter {
         return result
     }
     
+    // MARK: - 连接样式判断
+    
+    private static func determineConnectionStyle(
+        from topItem: TimelineItem,
+        to bottomItem: TimelineItem,
+        items: [TimelineItem],
+        currentIndex: Int
+    ) -> TimelineConnectionStyle {
+        // 检查两个事件是否直接重叠
+        if let topEvent = topItem.event,
+           let bottomEvent = bottomItem.event,
+           eventsOverlap(topEvent, bottomEvent) {
+            return .overlapping
+        }
+        
+        // 检查节点样式是否需要 overlapping
+        if (topItem.nodeStyle == .connectToNext || topItem.nodeStyle == .connectToBoth) &&
+           (bottomItem.nodeStyle == .connectToPrevious || bottomItem.nodeStyle == .connectToBoth) {
+            return .overlapping
+        }
+        
+        // 根据时间间隔判断
+        let timeInterval = bottomItem.startDate.timeIntervalSince(topItem.endDate)
+        if timeInterval >= TimelineConfig.dashedThresholdMinutes {
+            return .dashed
+        }
+        
+        return .solid
+    }
+    
+    // MARK: - 连接线高度计算
+    
     private static func calculateConnectionHeight(
         style: TimelineConnectionStyle,
         timeInterval: TimeInterval
@@ -126,27 +302,12 @@ struct TimelineEventConverter {
     private static func calculateProportionalHeight(timeInterval: TimeInterval) -> CGFloat {
         let threshold = TimelineConfig.dashedThresholdMinutes
         let minHeight = TimelineConfig.solidConnectionMinHeight
-        let maxHeight = TimelineConfig.solidConnectionMinHeight
+        let maxHeight = TimelineConfig.solidConnectionMaxHeight
         let ratio = CGFloat(min(timeInterval, threshold) / threshold)
         return minHeight + (maxHeight - minHeight) * ratio
     }
     
-    private static func determineConnectionStyle(
-        from topItem: TimelineItem,
-        to bottomItem: TimelineItem,
-        timeInterval: TimeInterval
-    ) -> TimelineConnectionStyle {
-        if (topItem.nodeStyle == .connectToNext || topItem.nodeStyle == .connectToBoth) &&
-           (bottomItem.nodeStyle == .connectToPrevious || bottomItem.nodeStyle == .connectToBoth) {
-            return .overlapping
-        }
-        
-        if timeInterval >= TimelineConfig.dashedThresholdMinutes {
-            return .dashed
-        }
-        
-        return .solid
-    }
+    // MARK: - 事件转换
     
     static func convertToTimelineItem(event: MyDayEvent, nodeStyle: TimeLineNodeStyle) -> TimelineItem {
         let formatter = DateFormatter()
@@ -157,12 +318,11 @@ struct TimelineEventConverter {
         
         let durationText = calculateDuration(from: event.startDate, to: event.endDate)
         let type = determineTimelineType(for: event)
-
+        
         return TimelineItem(
             timeStart: timeStart,
             timeEnd: timeEnd,
             title: event.title ?? "No Title",
-            subtitle: nil,
             type: type,
             isCompleted: event.isCompleted,
             durationText: durationText,

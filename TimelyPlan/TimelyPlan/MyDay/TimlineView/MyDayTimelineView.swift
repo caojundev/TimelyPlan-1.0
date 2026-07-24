@@ -10,7 +10,9 @@ import UIKit
 
 class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     
-    private let eventsViewModel = MyDayTimelineViewModel()
+    private let eventViewModel = MyDayTimelineViewModel()
+    
+    private let eventProcessor = MyDayEventProcessor()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,7 +25,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     }
     
     private func setupBindings() {
-        eventsViewModel.onEventsChanged = { [weak self] in
+        eventViewModel.onEventsChanged = { [weak self] in
             self?.handleEventsChanged()
         }
     }
@@ -51,27 +53,34 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     }
 
     func loadEvents(on date: Date) {
-        eventsViewModel.startObserving()
-        eventsViewModel.loadEvents(on: date)
+        eventViewModel.startObserving()
+        eventViewModel.loadEvents(on: date)
     }
     
     func clear() {
-        eventsViewModel.stopObserving()
-        eventsViewModel.clear()
+        eventViewModel.stopObserving()
+        eventViewModel.clear()
         reloadData()
     }
     
     // MARK: - TimelineViewDelegate
     func timelineViewEvents(_ timelineView: TimelineView) -> [MyDayEvent]? {
-        return eventsViewModel.events
+        return eventViewModel.events
     }
-    
-    func timelineViewWillBeginDragging(_ timelineView: TimelineView) {
-        
-    }
-    
     
     func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent) {
+        TPImpactFeedback.impactWithSoftStyle()
+        eventProcessor.clickEvent(event)
+    }
+}
 
+extension MyDayTimelineView: MyDayFocusTimelineCellDelegate {
+    
+    func myDayFocusTimelineCellDidClickStart(_ cell: MyDayFocusTimelineCell) {
+        guard let event = cell.focusItem?.event else {
+            return
+        }
+        
+        eventProcessor.clickStart(for: event)
     }
 }
