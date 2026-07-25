@@ -195,6 +195,28 @@ extension CDHabitRecord {
     }
     
     // MARK: - 异步获取
+    static func fetchDailyItemsGroupedByDay(in dateRange: DateRange,
+                                            includeSamples: Bool = false,
+                                            completion: @escaping (HabitGroupedDailyItems?) -> Void) {
+        let condition = condition(in: dateRange)
+        let predicate = NSPredicate.predicate(with: condition)
+        fetchAll(matching: predicate) { results in
+            let cdRecords = results as? [CDHabitRecord]
+            let items = groupedDailyItems(with: cdRecords, includeSamples: includeSamples)
+            completion(items)
+        }
+    }
+    
+    static func fetchRecord(for task: HabitTask,
+                            on date: Date,
+                            completion: @escaping (CDHabitRecord?) -> Void) {
+        let conditions = conditions(forTask: task, onDate: date)
+        let predicate = conditions.andPredicate()
+        fetchFirst(matching: predicate) { result in
+            completion(result as? CDHabitRecord)
+        }
+    }
+    
     static func fetchRecords(for tasks: [HabitTask],
                              onDate date: Date,
                              completion: @escaping([CDHabitRecord]?) -> Void) {
@@ -232,6 +254,34 @@ extension CDHabitRecord {
             completion(results as? [CDHabitRecord])
         }
     }
+    
+    private static func groupedDailyItems(with results: [CDHabitRecord]?,
+                                          includeSamples: Bool) -> HabitGroupedDailyItems? {
+        guard let results = results else {
+            return nil
+        }
+        
+        var groupedDailyItems = HabitGroupedDailyItems()
+        for result in results {
+            guard let taskContent = result.task else {
+                continue
+            }
+            
+            let record = HabitRecord(content: result, includeSamples: includeSamples)
+            guard let task = HabitTask(content: taskContent) else {
+                continue
+            }
+            
+            let item = HabitDailyItem(record: record, task: task)
+            let key = result.day
+            var dayItems = groupedDailyItems[key] ?? []
+            dayItems.append(item)
+            groupedDailyItems[key] = dayItems
+        }
+        
+        return groupedDailyItems
+    }
+    
     
     // MARK: -
     /// 删除对应任务在周期内所有记录
