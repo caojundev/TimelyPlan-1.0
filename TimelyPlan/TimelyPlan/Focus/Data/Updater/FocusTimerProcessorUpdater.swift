@@ -24,7 +24,7 @@ protocol FocusTimerProcessorDelegate: AnyObject {
     func didUpdateFocusTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer)
     
     /// 移动计时器到顶部
-    func didMoveFocusTimerToTop(_ timer: FocusTimer)
+    func didMoveFocusTimer(_ timer: FocusTimer)
     
     /// 通知任务的顺序发生改变
     func didReorderFocusTimer(in timers: [FocusTimer],
@@ -42,7 +42,7 @@ extension FocusTimerProcessorDelegate {
 
     func didUpdateFocusTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) {}
 
-    func didMoveFocusTimerToTop(_ timer: FocusTimer) {}
+    func didMoveFocusTimer(_ timer: FocusTimer) {}
 
     func didReorderFocusTimer(in timers: [FocusTimer], fromIndex: Int, toIndex: Int) {}
 }
@@ -86,9 +86,9 @@ class FocusTimerProcessorUpdater: NSObject,
         }
     }
 
-    func didMoveFocusTimerToTop(_ timer: FocusTimer) {
+    func didMoveFocusTimer(_ timer: FocusTimer) {
         notifyDelegates { (delegate: FocusTimerProcessorDelegate) in
-            delegate.didMoveFocusTimerToTop(timer)
+            delegate.didMoveFocusTimer(timer)
         }
     }
 }

@@ -93,7 +93,8 @@ class MyDayTodoEventInfoView: TodoTaskCheckInfoView {
         self.rightView = checkbox
         self.rightViewSize = checkboxSize
         self.rightViewMargins = UIEdgeInsets(left: 12.0)
-        self.detailLabel.font = .boldSystemFont(ofSize: 10.0)
+        self.nameLabel.font = MyDayTimelineConfig.titleFont
+        self.detailLabel.font = MyDayTimelineConfig.subtitleFont
         self.detailTopMargin = 2.0
         self.progressTopMargin = 6.0
     }

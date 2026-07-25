@@ -67,12 +67,12 @@ class FocusUserTimerController {
         alertController.show()
     }
 
-    func moveTimerToTop(_ timer: FocusTimer, in timers: [FocusTimer]) {
-        FocusRepository.moveTimer(timer, in: timers, toTop: true)
+    func moveTimerToTop(_ timer: FocusTimer) {
+        FocusRepository.moveTimer(timer, toTop: true)
     }
     
-    func moveTimerToBottom(_ timer: FocusTimer, in timers: [FocusTimer]) {
-        FocusRepository.moveTimer(timer, in: timers, toTop: false)
+    func moveTimerToBottom(_ timer: FocusTimer) {
+        FocusRepository.moveTimer(timer, toTop: false)
     }
     
     func addTimerToMyDay(_ timer: FocusTimer) {

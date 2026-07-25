@@ -19,9 +19,9 @@ class FocusUserTimerMenuProcessor {
         case .addRecord:
             timerController.addRecordManually(forTimer: timer)
         case .moveToTop:
-            timerController.moveTimerToTop(timer, in: [])
+            timerController.moveTimerToTop(timer)
         case .moveToBottom:
-            timerController.moveTimerToBottom(timer, in: [])
+            timerController.moveTimerToBottom(timer)
         case .edit:
             timerController.editTimer(timer)
         case .archive:

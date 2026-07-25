@@ -1174,6 +1174,7 @@
 		E5B3BAB4301254AE00D908B6 /* MyDayEventProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3BAB3301254AE00D908B6 /* MyDayEventProcessor.swift */; };
 		E5B3BAB630136BAD00D908B6 /* FocusTimerInfoMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3BAB530136BAD00D908B6 /* FocusTimerInfoMenuController.swift */; };
 		E5B3BAB830136FBD00D908B6 /* FocusUserTimerMenuProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3BAB730136FBD00D908B6 /* FocusUserTimerMenuProcessor.swift */; };
+		E5B3BABA3014B00800D908B6 /* MyDayTimelineConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3BAB93014B00800D908B6 /* MyDayTimelineConfig.swift */; };
 		E5B499472FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499462FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift */; };
 		E5B4994C2FD8FD9F00F3A9BD /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B4994B2FD8FD9F00F3A9BD /* TaskNotificationManager.swift */; };
 		E5B499512FD9132C00F3A9BD /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499502FD9132C00F3A9BD /* IAPManager.swift */; };
@@ -3284,6 +3285,7 @@
 		E5B3BAB3301254AE00D908B6 /* MyDayEventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayEventProcessor.swift; sourceTree = "<group>"; };
 		E5B3BAB530136BAD00D908B6 /* FocusTimerInfoMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerInfoMenuController.swift; sourceTree = "<group>"; };
 		E5B3BAB730136FBD00D908B6 /* FocusUserTimerMenuProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusUserTimerMenuProcessor.swift; sourceTree = "<group>"; };
+		E5B3BAB93014B00800D908B6 /* MyDayTimelineConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelineConfig.swift; sourceTree = "<group>"; };
 		E5B499462FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskEditSectionTitleView.swift; sourceTree = "<group>"; };
 		E5B4994B2FD8FD9F00F3A9BD /* TaskNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNotificationManager.swift; sourceTree = "<group>"; };
 		E5B499502FD9132C00F3A9BD /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
@@ -6048,6 +6050,7 @@
 				E5185056300CACD400112DFC /* MyDayTimelinePageView.swift */,
 				E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */,
 				E518507D301062D300112DFC /* MyDayTimelineViewModel.swift */,
+				E5B3BAB93014B00800D908B6 /* MyDayTimelineConfig.swift */,
 				E518506E300F5CC500112DFC /* Cells */,
 				E518505D300F039F00112DFC /* Base */,
 			);
@@ -12618,6 +12621,7 @@
 				E5FC6BBC2F666F1900D5A5EA /* HabitStatsCalendarWeekSectionController.swift in Sources */,
 				E50D60832F7A360700D5E0A4 /* TodoList+Extensions.swift in Sources */,
 				E5D7D7DD2D43923800EC877A /* FocusScoreCalculator.swift in Sources */,
+				E5B3BABA3014B00800D908B6 /* MyDayTimelineConfig.swift in Sources */,
 				E55CE36A2D8BCCC20083316E /* TPCollectionDragExchangeReorder.swift in Sources */,
 				E5D7D8DB2D43933600EC877A /* FocusFloatingEndView.swift in Sources */,
 				E5D7D8F12D43933600EC877A /* OpenCircleTitleView.swift in Sources */,

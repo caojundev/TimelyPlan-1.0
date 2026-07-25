@@ -309,6 +309,7 @@ extension CalendarWeekMonthExpandView: TPCalendarSingleDateSelectionDelegate {
               let monthView = containerView.currentView as? CalendarExpandMonthView else {
                   visibleDateComponents = date
                   delegate?.calendarWeekMonthExpandView(self, didSelectDate: date)
+                  switchMode(.week, animated: true)
             return
         }
         

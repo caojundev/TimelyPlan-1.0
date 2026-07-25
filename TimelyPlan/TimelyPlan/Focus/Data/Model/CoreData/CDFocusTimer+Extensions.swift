@@ -19,6 +19,22 @@ extension CDFocusTimer: TPHexColorConvertible, SortableIdentifiable {
         return FocusConstant.timerDefaultColor
     }
     
+    /// 移动计时器到顶部 / 底部
+    static func moveTimer(_ timer: FocusTimer, toTop: Bool = true) {
+        guard let cdTimer = getItem(with: timer.identifier) else {
+            return
+        }
+    
+        var order: Int64
+        if toTop {
+            order = minimumOrder - kOrderedStep
+        } else {
+            order = maximumOrder + kOrderedStep
+        }
+        
+        cdTimer.order = order
+    }
+    
     /// 根据编辑任务创建新任务
     static func newTimer(with editingTimer: FocusEditingTimer, onTop: Bool) -> CDFocusTimer {
         let timer = newTimer(with: editingTimer)

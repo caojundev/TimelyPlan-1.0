@@ -157,8 +157,8 @@ class FocusRepository {
         userTimerManager.reorderTimer(in: timers, fromIndex: fromIndex, toIndex: toIndex)
     }
     
-    static func moveTimer(_ timer: FocusTimer, in timers: [FocusTimer], toTop: Bool = true) {
-        userTimerManager.moveTimer(timer, in: timers, toTop: toTop)
+    static func moveTimer(_ timer: FocusTimer, toTop: Bool = true) {
+        userTimerManager.moveTimer(timer, toTop: toTop)
     }
     
     /// 获取我的一天事项任务

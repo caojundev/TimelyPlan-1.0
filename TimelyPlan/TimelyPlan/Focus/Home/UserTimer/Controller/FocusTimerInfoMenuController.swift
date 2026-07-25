@@ -49,9 +49,12 @@ class FocusTimerInfoMenuController: FocusUserTimerMenuController {
 }
 
 class FocusTimerInfoSheetMenuViewController: TPSheetMenuViewController {
-
+    
     private let infoViewHeight = 70.0
-    private let infoView = HabitTaskProgressInfoView()
+
+    private let indicatorSize = CGSize(width: 6.0, height: 36.0)
+    
+    private let infoView = TPColorInfoView()
     
     /// 任务
     let timer: FocusTimer
@@ -92,6 +95,8 @@ class FocusTimerInfoSheetMenuViewController: TPSheetMenuViewController {
     }
     
     private func updateInfo() {
-
+        infoView.colorConfig = .withColor(timer.color, size: indicatorSize)
+        infoView.title = timer.displayName
+        infoView.subtitle = timer.timerDescription
     }
 }

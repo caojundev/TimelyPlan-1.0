@@ -99,7 +99,7 @@ class FocusUserTimerViewModel: FocusTimerProcessorDelegate {
         loadTimers()
     }
     
-    func didMoveFocusTimerToTop(_ timer: FocusTimer) {
+    func didMoveFocusTimer(_ timer: FocusTimer) {
         setNeedsRefresh()
         loadTimers()
     }

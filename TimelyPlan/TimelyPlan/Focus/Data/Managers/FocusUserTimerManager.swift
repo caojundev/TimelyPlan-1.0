@@ -143,20 +143,9 @@ class FocusUserTimerManager {
         HandyRecord.save()
     }
     
-    func moveTimer(_ timer: FocusTimer, in timers: [FocusTimer], toTop: Bool = true) {
-        var timers = timers
-        guard timers.count > 1, let _ = timers.remove(timer) else {
-            return
-        }
-
-        if toTop {
-            timers.insert(timer, at: 0)
-        } else {
-            timers.append(timer)
-        }
-        
-        CDFocusTimer.syncOrders(for: timers)
-        updater.didMoveFocusTimerToTop(timer)
+    func moveTimer(_ timer: FocusTimer, toTop: Bool = true) {
+        CDFocusTimer.moveTimer(timer, toTop: toTop)
+        updater.didMoveFocusTimer(timer)
         HandyRecord.save()
     }
     

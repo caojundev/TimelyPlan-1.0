@@ -27,6 +27,32 @@ class TPColorAccessoryConfig {
     }
 }
 
+class TPColorInfoView: TPInfoView {
+    
+    /// 颜色配置
+    var colorConfig: TPColorAccessoryConfig? {
+        didSet {
+            colorView.backgroundColor = colorConfig?.color
+            leftAccessorySize = colorConfig?.size ?? .zero
+            leftAccessoryMargins = colorConfig?.margins ?? .zero
+            setNeedsLayout()
+        }
+    }
+    
+    /// 颜色视图
+    private(set) var colorView = UIView()
+    
+    override func setupSubviews() {
+        super.setupSubviews()
+        self.leftAccessoryView = colorView
+    }
+  
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        colorView.layer.cornerRadius = colorView.size.roundCornerRadius
+    }
+}
+
 class TPColorInfoTextValueView: TPInfoTextValueView {
     
     /// 颜色配置

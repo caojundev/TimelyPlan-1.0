@@ -65,9 +65,9 @@ class HabitTimelineInfoView: UIView {
         let view = TPInfoView()
         view.padding = .zero
         view.titleConfig.textAlignment = .left
-        view.titleConfig.font = BOLD_BODY_FONT
+        view.titleConfig.font = MyDayTimelineConfig.titleFont
         view.subtitleConfig.textAlignment = .left
-        view.subtitleConfig.font = BOLD_SMALL_SYSTEM_FONT
+        view.subtitleConfig.font = MyDayTimelineConfig.subtitleFont
         view.subtitleLabel.alpha = 0.6
         return view
     }()
@@ -199,17 +199,17 @@ class HabitTimelineNodeView: TimelineNodeView {
     }()
 
     override func setupView() {
-        addSubview(iconView)
-        addSubview(progressView)
-        addSubview(statusView)
+        contentView.addSubview(iconView)
+        contentView.addSubview(progressView)
+        contentView.addSubview(statusView)
     }
 
     // MARK: 布局
     override func layoutSubviews() {
         super.layoutSubviews()
         iconView.frame = CGRect(
-            x: (bounds.width - iconSize.width) / 2,
-            y: (bounds.height - iconSize.height) / 2,
+            x: (contentView.width - iconSize.width) / 2,
+            y: (contentView.height - iconSize.height) / 2,
             width: iconSize.width,
             height: iconSize.height
         )

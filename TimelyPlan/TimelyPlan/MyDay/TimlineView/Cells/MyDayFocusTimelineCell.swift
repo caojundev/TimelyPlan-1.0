@@ -31,10 +31,10 @@ class MyDayFocusTimelineCell: TimelineIconCell {
 
     private lazy var infoView: TPInfoView = {
         let view = TPInfoView()
-        view.titleConfig.font = .boldSystemFont(ofSize: 15.0)
+        view.titleConfig.font = MyDayTimelineConfig.titleFont
         view.titleConfig.textColor = .label
         view.titleConfig.numberOfLines = 1
-        view.subtitleConfig.font = .boldSystemFont(ofSize: 10.0)
+        view.subtitleConfig.font = MyDayTimelineConfig.subtitleFont
         view.subtitleConfig.textColor = .secondaryLabel
         return view
     }()
