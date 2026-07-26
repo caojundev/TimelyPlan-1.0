@@ -10,6 +10,9 @@ import UIKit
 
 class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     
+    /// 习惯记录供应器
+    weak var habitRecordProvider: MyDayHabitRecordProvider?
+    
     private let eventViewModel = MyDayTimelineViewModel()
     
     private let eventProcessor = MyDayEventProcessor()
@@ -49,6 +52,13 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
             return MyDayFocusTimelineCell.self
         case .habit:
             return MyDayHabitTimelineCell.self
+        }
+    }
+    
+    override func configureEventCell(_ cell: TimelineCell, with item: TimelineItem) {
+        super.configureEventCell(cell, with: item)
+        if let cell = cell as? MyDayHabitTimelineCell {
+            cell.configure(with: item, recordProvider: habitRecordProvider)
         }
     }
 

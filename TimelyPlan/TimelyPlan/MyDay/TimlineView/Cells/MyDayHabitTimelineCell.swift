@@ -10,14 +10,36 @@ import UIKit
 
 class MyDayHabitTimelineCell: TimelineCell {
     
+    /// 习惯记录供应器
+    weak var recordProvider: MyDayHabitRecordProvider?
+    
     private var habitItem: TimelineItem?
+    
+    private var habitTask: HabitTask?
     
     private let iconNodeView = HabitTimelineNodeView()
     
     private lazy var infoView: HabitTimelineInfoView = {
         let view = HabitTimelineInfoView()
+        view.recordButton.addTarget(self,
+                                    action: #selector(clickRecord(_:)),
+                                    for: .touchUpInside)
         return view
     }()
+    
+    private let requestManager = TPRequestManager()
+    
+    private let processor = HabitTaskMenuActionProcessor()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        requestManager.executeRequest()
+        recordProvider?.removeUpdaterDelegate(self)
+        recordProvider = nil
+        
+        iconNodeView.setStatus(.notStarted)
+        iconNodeView.setProgress(0.0)
+    }
     
     override func setupNodeView() {
         self.nodeView = iconNodeView
@@ -32,20 +54,141 @@ class MyDayHabitTimelineCell: TimelineCell {
         infoView.frame = eventContentView.bounds
     }
     
-    override func configure(with item: TimelineItem) {
-        super.configure(with: item)
+    func configure(with item: TimelineItem, recordProvider: MyDayHabitRecordProvider?) {
+        configure(with: item)
+        
+        self.recordProvider = recordProvider
+        self.recordProvider?.addUpdaterDelegate(self)
         self.habitItem = item
-        guard let task = item.event?.sourceItem as? HabitTask else {
+        self.habitTask = item.event?.sourceItem as? HabitTask
+        guard let task = habitTask else {
             return
         }
         
-        let date = item.startDate
+        configureAppearance(for: task)
+        loadRecordAndUpdateDisplay()
+        setNeedsLayout()
+    }
+
+    private func configureAppearance(for task: HabitTask) {
         iconNodeView.configure(icon: task.icon)
+        infoView.resetRecordButton()
         infoView.configureColor(task.color)
         infoView.title = task.displayName
         infoView.subtitle = task.goal.targetDescription
-        infoView.updateRecordButton(for: task, on: date, with: nil)
+    }
+
+    private func loadRecordAndUpdateDisplay() {
+        guard let task = habitTask, let date = habitItem?.startDate else {
+            return
+        }
+        
+        let requestID = requestManager.executeRequest()
+        recordProvider?.fetchRecord(for: task, on: date) { [weak self] record in
+            guard let self = self,
+                  let item = self.habitItem else {
+                      return
+                  }
+            
+            guard self.requestManager.shouldProceed(with: requestID),
+                  task.identifier == self.habitTask?.identifier,
+                  item.startDate.isInSameDayAs(date) else {
+                return
+            }
+
+            self.refreshDisplay(for: task, on: date, with: record)
+        }
+    }
+
+    private func refreshDisplay(for task: HabitTask,
+                                on date: Date,
+                                with record: HabitRecord?,
+                                animated: Bool = false) {
+        updateStatusAndProgress(for: task, with: record, animated: animated)
+        updateInfoView(for: task, on: date, with: record)
         setNeedsLayout()
+    }
+
+    private func updateStatusAndProgress(for task: HabitTask,
+                                         with record: HabitRecord?,
+                                         animated: Bool = false) {
+        let status = task.status(with: record)
+        iconNodeView.setStatus(status, animated: animated)
+        
+        let progress = task.progress(with: record)
+        iconNodeView.setProgress(progress, animated: animated)
+    }
+
+    private func updateInfoView(for task: HabitTask, on date: Date, with record: HabitRecord?) {
+        infoView.updateRecordButton(for: task, on: date, with: record)
+        if !date.isFutureDay {
+            infoView.subtitle = HabitTaskDetailProvider.completedAmountDetail(for: task, with: record)
+        }
+    }
+    
+    @objc private func clickRecord(_ button: UIButton) {
+        guard let habitTask = habitTask, let date = habitItem?.startDate else {
+            return
+        }
+
+        processor.clickRecrod(for: habitTask, on: date)
+    }
+    
+    private func didChangeRecord(withIncreament amount: Int) {
+        guard amount != 0 else { return }
+        let text = (amount >= 0 ? "+" : "") + "\(amount)"
+        let color = habitItem?.nodeColor ?? .label
+        let font = BOLD_SYSTEM_FONT
+        let fromView = infoView
+        let sourceWidth = text.width(with: font)
+        let sourceRect = CGRect(x: 0.0, y: 0.0, width: sourceWidth, height: fromView.height)
+        
+        TPTextPopUp.showText(text,
+                             color: color,
+                             font: font,
+                             fromView: infoView,
+                             sourceRect: sourceRect,
+                             containerView: superview)
+    }
+    
+}
+
+extension MyDayHabitTimelineCell: HabitRecordProcessorDelegate {
+    
+    func didUpdateHabitRecord(_ record: HabitRecord, for task: HabitTask, on date: Date, with change: HabitRecordChange) {
+        guard let currentDate = habitItem?.startDate,
+              currentDate.isInSameDayAs(date),
+                task.identifier == habitTask?.identifier else {
+                    return
+                }
+        
+        refreshDisplay(for: task, on: date, with: record, animated: true)
+        
+        if case let .amountChanged(oldValue, newValue) = change {
+            didChangeRecord(withIncreament: Int(newValue - oldValue))
+        }
+    }
+    
+
+    func didChangeRemoteHabitRecord(with results: EntityChangeResults<HabitRecord>?) {
+        loadRecordAndUpdateDisplay()
+    }
+    
+    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
+        guard let date = habitItem?.startDate,
+              let currentTask = habitTask,
+                dateRange.contains(date: date) else {
+            return
+        }
+
+        var shouldUpdate = true
+        if let task = task, task.identifier != currentTask.identifier {
+            shouldUpdate = false
+        }
+        
+        if shouldUpdate {
+            refreshDisplay(for: currentTask, on: date, with: nil, animated: true)
+        }
     }
 }
 
@@ -61,7 +204,7 @@ class HabitTimelineInfoView: UIView {
         set { titleView.subtitle = newValue }
     }
     
-    private lazy var titleView: TPInfoView = {
+    private(set) lazy var titleView: TPInfoView = {
         let view = TPInfoView()
         view.padding = .zero
         view.titleConfig.textAlignment = .left
@@ -137,6 +280,11 @@ class HabitTimelineInfoView: UIView {
         recordButton.imageConfig.color = .white
         recordButton.titleConfig.textColor = .white
         recordButton.normalBackgroundColor = color
+    }
+    
+    func resetRecordButton() {
+        self.actionType = .none
+        setNeedsLayout()
     }
     
     func updateRecordButton(for task: HabitTask,
@@ -239,5 +387,4 @@ class HabitTimelineNodeView: TimelineNodeView {
     func setStatus(_ status: HabitTaskStatus, animated: Bool = false) {
         statusView.setStatus(status, animated: animated)
     }
-    
 }

@@ -17,13 +17,27 @@ class MyDayHabitRecordProvider {
     // 管理正在进行的请求，第一层key: task.identifier, 第二层key: 日期整数
     private var requestTokens: [String: [Int32: UUID]] = [:]
     
+    private let updater = HabitRecordProcessorUpdater()
+    
     // MARK: - Cache Entry
     private enum CacheEntry {
         case record(HabitRecord?)
         case notFound
     }
     
+    init() {
+        HabitRepository.addUpdater(self, for: [.record])
+    }
+    
     // MARK: - Public Methods
+    
+    func addUpdaterDelegate(_ delegate: HabitRecordProcessorDelegate) {
+        updater.addDelegate(delegate)
+    }
+    
+    func removeUpdaterDelegate(_ delegate: HabitRecordProcessorDelegate) {
+        updater.removeDelegate(delegate)
+    }
     
     func fetchRecord(for task: HabitTask,
                      on date: Date,
@@ -306,39 +320,60 @@ class MyDayHabitRecordProvider {
         }
     }
     
-    /// 清除特定日期之前的所有缓存和token
-    func clearCache(before date: Date) {
-        let cutoffKey: Int32
+    /// 清除缓存和token
+    /// - Parameters:
+    ///   - task: 特定任务，为nil时清除所有任务
+    ///   - range: 日期区间
+    func clearCache(for task: HabitTask?, in range: DateInterval) {
+        // 计算起始和结束的Int32 key
+        let startKey: Int32
+        let endKey: Int32
         
-        if date == Date.distantPast {
-            return // 不清除任何记录
+        if range.start == Date.distantPast {
+            startKey = 0
         } else {
-            cutoffKey = date.dayIntegerKey
+            startKey = range.start.dayIntegerKey
+        }
+        
+        if range.end == Date.distantFuture {
+            endKey = Int32.max
+        } else {
+            endKey = range.end.dayIntegerKey
+        }
+        
+        // 确定要处理的任务ID列表
+        let taskIds: [String]
+        if let task = task {
+            taskIds = [task.identifier]
+        } else {
+            taskIds = Array(recordCache.keys)
         }
         
         // 清除缓存
-        for (taskId, var taskCache) in recordCache {
-            taskCache = taskCache.filter { dayKey, _ in
-                return dayKey >= cutoffKey
+        for taskId in taskIds {
+            if var taskCache = recordCache[taskId] {
+                taskCache = taskCache.filter { dayKey, _ in
+                    return dayKey < startKey || dayKey > endKey
+                }
+                
+                if taskCache.isEmpty {
+                    recordCache.removeValue(forKey: taskId)
+                } else {
+                    recordCache[taskId] = taskCache
+                }
             }
             
-            if taskCache.isEmpty {
-                recordCache.removeValue(forKey: taskId)
-            } else {
-                recordCache[taskId] = taskCache
-            }
-        }
-        
-        // 清除过期token
-        for (taskId, var taskTokens) in requestTokens {
-            taskTokens = taskTokens.filter { dayKey, _ in
-                return dayKey >= cutoffKey
-            }
-            
-            if taskTokens.isEmpty {
-                requestTokens.removeValue(forKey: taskId)
-            } else {
-                requestTokens[taskId] = taskTokens
+            // 清除token
+            if var taskTokens = requestTokens[taskId] {
+                taskTokens = taskTokens.filter { dayKey, _ in
+                    return dayKey < startKey || dayKey > endKey
+                }
+                
+                if taskTokens.isEmpty {
+                    requestTokens.removeValue(forKey: taskId)
+                } else {
+                    requestTokens[taskId] = taskTokens
+                }
             }
         }
     }
@@ -350,4 +385,27 @@ class MyDayHabitRecordProvider {
         
         return requestTokens[taskId]?[dayKey] != nil
     }
+}
+
+extension MyDayHabitRecordProvider: HabitRecordProcessorDelegate {
+    
+    /// 远程习惯记录改变
+    func didChangeRemoteHabitRecord(with results: EntityChangeResults<HabitRecord>?) {
+        clearAllCache()
+        updater.didChangeRemoteHabitRecord(with: results)
+    }
+    
+    func didUpdateHabitRecord(_ record: HabitRecord,
+                              for task: HabitTask,
+                              on date: Date,
+                              with change: HabitRecordChange) {
+        clearCache(for: task, on: date)
+        updater.didUpdateHabitRecord(record, for: task, on: date, with: change)
+    }
+    
+    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
+        clearCache(for: task, in: dateRange.interval)
+        updater.didDeleteHabitRecords(for: task, in: dateRange)
+    }
+
 }

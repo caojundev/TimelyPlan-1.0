@@ -10,6 +10,9 @@ import UIKit
 
 class MyDayTimelinePageView: TPDayPageView {
 
+    /// 习惯记录供应器
+    var habitRecordProvider = MyDayHabitRecordProvider()
+    
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return MyDayTimelinePageCell.self
     }
@@ -21,6 +24,7 @@ class MyDayTimelinePageView: TPDayPageView {
         }
         
         let timelineView = cell.timelineView
+        timelineView.habitRecordProvider = habitRecordProvider
         timelineView.loadEvents(on: cell.date)
     }
 }
