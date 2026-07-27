@@ -41,11 +41,11 @@ class MyDayTimelineViewModel: MyDayEventChangeDelegate {
     }
     
     func startObserving() {
-        self.repository.addUpdaterDelegate(self)
+        repository.addUpdaterDelegate(self)
     }
     
     func stopObserving() {
-        self.repository.removeUpdaterDelegate(self)
+        repository.removeUpdaterDelegate(self)
     }
     
     func refresh() {

@@ -13,6 +13,9 @@ class MyDayEventChangeObserver {
     
     let sources: [MyDayEventSource]
     
+    /// 是否通知所有的任务更新
+    private let notifyAllUpdates: Bool = false
+    
     init(sources: [MyDayEventSource] = MyDayEventSource.allCases) {
         self.sources = sources
         
@@ -219,17 +222,12 @@ extension MyDayEventChangeObserver: HabitTaskProcessorDelegate {
     }
     
     func didUpdateHabitTask(_ task: HabitTask, with editingTask: HabitEditingTask) {
-        let oldInterval = task.dateRange.interval
-        let newInterval = editingTask.dateRange.interval
-        guard oldInterval != newInterval ||
-                task.isAddedToMyDay != editingTask.isAddedToMyDay ||
-                task.timePlan != editingTask.timePlan ||
-                task.timeOption != editingTask.timeOption ||
-                task.startTime != editingTask.startTime ||
-                task.duration != editingTask.duration else {
+        guard task.isAddedToMyDay || editingTask.isAddedToMyDay else {
             return
         }
         
+        let oldInterval = task.dateRange.interval
+        let newInterval = editingTask.dateRange.interval
         updater.myDayEventsDidChange(in: [oldInterval, newInterval])
     }
     
@@ -285,15 +283,12 @@ extension MyDayEventChangeObserver: FocusTimerProcessorDelegate {
     }
     
     func didUpdateFocusTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) {
-        let oldInterval = timer.interval
-        let newInterval = editingTimer.dateRange.interval
-        guard oldInterval != newInterval ||
-                timer.isAddedToMyDay != editingTimer.isAddedToMyDay ||
-                timer.timePlan != editingTimer.timePlan ||
-                timer.startTime != editingTimer.startTime else {
+        guard timer.isAddedToMyDay || editingTimer.isAddedToMyDay else {
             return
         }
         
+        let oldInterval = timer.interval
+        let newInterval = editingTimer.dateRange.interval
         updater.myDayEventsDidChange(in: [oldInterval, newInterval])
     }
     

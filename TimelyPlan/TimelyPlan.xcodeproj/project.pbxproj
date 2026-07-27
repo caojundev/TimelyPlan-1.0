@@ -5192,7 +5192,6 @@
 			children = (
 				E518506F300F5CE800112DFC /* MyDayFocusTimelineCell.swift */,
 				E5185071300F5D3200112DFC /* MyDayTodoTimelineCell.swift */,
-				E518507B300F9F7C00112DFC /* MyDayHabitTimelineCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -6049,11 +6048,11 @@
 		E53ABEEA300A145E00EB8632 /* TimlineView */ = {
 			isa = PBXGroup;
 			children = (
-				E5B3BABB3014F54200D908B6 /* Habit */,
 				E5185056300CACD400112DFC /* MyDayTimelinePageView.swift */,
 				E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */,
 				E518507D301062D300112DFC /* MyDayTimelineViewModel.swift */,
 				E5B3BAB93014B00800D908B6 /* MyDayTimelineConfig.swift */,
+				E5B3BABB3014F54200D908B6 /* Habit */,
 				E518506E300F5CC500112DFC /* Cells */,
 				E518505D300F039F00112DFC /* Base */,
 			);
@@ -7701,6 +7700,7 @@
 			isa = PBXGroup;
 			children = (
 				E5B3BABC3014F58300D908B6 /* MyDayHabitRecordProvider.swift */,
+				E518507B300F9F7C00112DFC /* MyDayHabitTimelineCell.swift */,
 			);
 			path = Habit;
 			sourceTree = "<group>";

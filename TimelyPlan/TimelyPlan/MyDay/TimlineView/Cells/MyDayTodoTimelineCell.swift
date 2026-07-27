@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class MyDayTodoTimelineCell: TimelineIconCell {
-    
+        
     /// 复选信息视图
     private lazy var infoView: MyDayTodoEventInfoView = {
         let view = MyDayTodoEventInfoView()
@@ -21,6 +21,7 @@ class MyDayTodoTimelineCell: TimelineIconCell {
     }()
     
     private var todoItem: TimelineItem?
+    private var todoTask: TodoTask?
     
     override func setupEventContentSubviews() {
         eventContentView.addSubview(infoView)
@@ -40,8 +41,9 @@ class MyDayTodoTimelineCell: TimelineIconCell {
     override func configure(with item: TimelineItem) {
         super.configure(with: item)
         self.todoItem = item
+        self.todoTask = item.event?.sourceItem as? TodoTask
         
-        guard let task = item.event?.sourceItem as? TodoTask else {
+        guard let task = self.todoTask else {
             return
         }
         
@@ -78,7 +80,20 @@ class MyDayTodoTimelineCell: TimelineIconCell {
     }
     
     func clickCheckbox() {
+        guard let task = self.todoTask else {
+            return
+        }
         
+        let taskController = TodoTaskController()
+        taskController.clickCheckbox(for: task) { isCompleted, execution in
+            self.infoView.setCompleted(isCompleted, animated: true) {
+                execution?()
+            }
+        } progressHandler: { progress, execution in
+            self.infoView.setProgress(progress.completionFraction, animated: true) {
+                execution?()
+            }
+        }
     }
     
 }
@@ -94,8 +109,10 @@ class MyDayTodoEventInfoView: TodoTaskCheckInfoView {
         self.rightViewSize = checkboxSize
         self.rightViewMargins = UIEdgeInsets(left: 12.0)
         self.nameLabel.font = MyDayTimelineConfig.titleFont
-        self.detailLabel.font = MyDayTimelineConfig.subtitleFont
+        self.detailLabel.font = MyDayTimelineConfig.todoDetailFont
+        self.detailLabel.numberOfLines = 2
         self.detailTopMargin = 2.0
+        self.detailHeight = 24.0
         self.progressTopMargin = 6.0
     }
     

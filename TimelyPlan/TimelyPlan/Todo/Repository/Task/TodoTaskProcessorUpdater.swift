@@ -46,7 +46,8 @@ protocol TodoTaskProcessorDelegate: AnyObject {
 }
 
 extension TodoTaskProcessorDelegate {
-    
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {}
+
     func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {}
     
     func didCreateTodoTask(_ task: TodoTask) {}
