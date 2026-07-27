@@ -16,13 +16,31 @@ struct TimelineEventConverter {
         guard !nonAllDayEvents.isEmpty else { return [] }
         
         let nodeStyles = calculateNodeStyles(events: nonAllDayEvents)
-        let timelineItems = nonAllDayEvents.enumerated().map { index, event in
-            convertToTimelineItem(event: event, nodeStyle: nodeStyles[index])
+        let timelineItems = nonAllDayEvents.enumerated().map { index, event -> TimelineItem in
+            // 计算位置
+            let position = calculatePosition(index: index, totalCount: nonAllDayEvents.count)
+            return convertToTimelineItem(event: event, nodeStyle: nodeStyles[index], position: position)
         }
         
         return insertConnections(items: timelineItems)
     }
     
+    /// 根据索引和总数计算位置
+    private static func calculatePosition(index: Int, totalCount: Int) -> TimelineItemPosition {
+        switch totalCount {
+        case 1:
+            return .only
+        default:
+            if index == 0 {
+                return .first
+            } else if index == totalCount - 1 {
+                return .last
+            } else {
+                return .middle
+            }
+        }
+    }
+
     // MARK: - 节点样式计算
     
     private static func calculateNodeStyles(events: [MyDayEvent]) -> [TimeLineNodeStyle] {
@@ -309,7 +327,9 @@ struct TimelineEventConverter {
     
     // MARK: - 事件转换
     
-    static func convertToTimelineItem(event: MyDayEvent, nodeStyle: TimeLineNodeStyle) -> TimelineItem {
+    static func convertToTimelineItem(event: MyDayEvent,
+                                      nodeStyle: TimeLineNodeStyle,
+                                      position: TimelineItemPosition) -> TimelineItem {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         
@@ -324,6 +344,7 @@ struct TimelineEventConverter {
             timeEnd: timeEnd,
             title: event.title ?? "No Title",
             type: type,
+            position: position,
             isCompleted: event.isCompleted,
             durationText: durationText,
             nodeColor: event.color,

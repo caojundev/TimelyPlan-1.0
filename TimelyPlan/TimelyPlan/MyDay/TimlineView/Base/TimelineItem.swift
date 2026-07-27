@@ -16,6 +16,13 @@ enum TimeLineNodeStyle {
     case connectToBoth
 }
 
+enum TimelineItemPosition {
+    case first      // 第一个节点
+    case middle     // 中间节点
+    case last       // 最后一个节点
+    case only       // 唯一节点（只有一个事件时）
+}
+
 enum TimelineItemType: Equatable {
     case point
     case short
@@ -43,6 +50,7 @@ struct TimelineItem {
     let timeEnd: String?
     let title: String
     let type: TimelineItemType
+    let position: TimelineItemPosition 
     let isCompleted: Bool
     let durationText: String?
     let nodeColor: UIColor

@@ -19,6 +19,8 @@ class TimelineNodeView: UIView {
     
     private var style: TimeLineNodeStyle = .independent
     
+    private var position: TimelineItemPosition = .middle
+    
     // MARK: 初始化
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,14 +48,30 @@ class TimelineNodeView: UIView {
         case .independent:
             contentFrame.origin.y = margin
             contentFrame.size.height = bounds.height - 2 * margin
+            if position == .first {
+                lineFrame.origin.y = bounds.height / 2.0
+                lineFrame.size.height = bounds.height / 2.0
+            } else if position == .last {
+                lineFrame.size.height = bounds.height / 2.0
+            } else if position == .only {
+                lineFrame.size.height = .zero
+            }
         case .connectToPrevious:
             contentFrame.size.height = bounds.height - margin
-            lineFrame.origin.y = bounds.height / 2.0
-            lineFrame.size.height = bounds.height / 2.0
+            if position == .last {
+                lineFrame.size.height = 0.0
+            } else {
+                lineFrame.origin.y = bounds.height / 2.0
+                lineFrame.size.height = bounds.height / 2.0
+            }
         case .connectToNext:
             contentFrame.origin.y = margin
-            contentFrame.size.height = bounds.height - margin
-            lineFrame.size.height = bounds.height / 2.0
+            if position == .first {
+                lineFrame.size.height = 0.0
+            } else {
+                contentFrame.size.height = bounds.height - margin
+                lineFrame.size.height = bounds.height / 2.0
+            }
         case .connectToBoth:
             lineFrame.size.height = 0.0
         }
@@ -65,9 +83,15 @@ class TimelineNodeView: UIView {
     }
     
     // MARK: 配置方法
+    func configure(with item: TimelineItem) {
+        position = item.position
+        applyNodeStyle(item.nodeStyle)
+        configureBackgroundColor(item.nodeColor)
+        setNeedsLayout()
+    }
     
     /// 应用节点样式（圆角配置）
-    func applyNodeStyle(_ style: TimeLineNodeStyle) {
+    private func applyNodeStyle(_ style: TimeLineNodeStyle) {
         self.style = style
         contentView.layer.maskedCorners = []
         
@@ -88,7 +112,7 @@ class TimelineNodeView: UIView {
         
         setNeedsLayout()
     }
-
+    
     /// 配置背景颜色
     func configureBackgroundColor(_ color: UIColor) {
         lineLayer.backgroundColor = color.cgColor

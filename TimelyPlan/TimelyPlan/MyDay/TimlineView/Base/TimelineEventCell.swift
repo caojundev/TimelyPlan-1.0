@@ -56,13 +56,8 @@ class TimelineCell: UICollectionViewCell {
     /// 配置基类公共属性
     func configure(with item: TimelineItem) {
         self.currentItem = item
-        
+        nodeView.configure(with: item)
         startTimeLabel.text = item.timeStart
-        nodeView.configureBackgroundColor(item.nodeColor)
-    
-        // 应用节点样式
-        nodeView.applyNodeStyle(item.nodeStyle)
-        
         setNeedsLayout()
     }
     
