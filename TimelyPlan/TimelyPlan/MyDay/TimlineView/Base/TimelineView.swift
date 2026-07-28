@@ -79,6 +79,7 @@ class TimelineView: UIView,
         collectionView = UICollectionView(frame: bounds,
                                           collectionViewLayout: flowLayout)
         collectionView.backgroundColor = .clear
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
         addSubview(collectionView)

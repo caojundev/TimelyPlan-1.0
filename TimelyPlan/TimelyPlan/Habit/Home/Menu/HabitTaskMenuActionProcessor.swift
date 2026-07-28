@@ -49,6 +49,8 @@ class HabitTaskMenuActionProcessor {
             recordController.skipToday(for: task, on: date)
         case .editLog:
             recordController.editLog(for: task, with: record, on: date)
+        case .statistics:
+            HabitPresenter.showStats(for: task, date: date)
         case .focus:
             FocusPresenter.quickStartFocus(for: task)
         case .edit:

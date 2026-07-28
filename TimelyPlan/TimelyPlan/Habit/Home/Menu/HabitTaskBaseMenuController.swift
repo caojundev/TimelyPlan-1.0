@@ -21,6 +21,7 @@ class HabitTaskBaseMenuController: TPBaseMenuController<HabitTaskMenuActionType>
                   .cancelFail,
                   .resetToday],
                  [.addToMyDay, .removeFromMyDay],
+                 [.statistics],
                  [.focus],
                  [.edit, .archive],
                  [.delete]]
@@ -28,7 +29,7 @@ class HabitTaskBaseMenuController: TPBaseMenuController<HabitTaskMenuActionType>
     }
  
     override func menuActionTypes() -> [HabitTaskMenuActionType] {
-        var types: [HabitTaskMenuActionType] = [.edit, .archive, .delete]
+        var types: [HabitTaskMenuActionType] = [.statistics, .edit, .archive, .delete]
         
         if isAddedToMyDay() {
             types.append(.removeFromMyDay)

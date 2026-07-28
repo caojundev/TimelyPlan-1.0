@@ -40,20 +40,21 @@ class MyDayEventProcessor {
             return
         }
         
-        if task.isDetached {
-//            MyDayPresenter.previewEvent(event)
-        } else {
+        if !task.isDetached {
+            TPImpactFeedback.impactWithSoftStyle()
             MyDayPresenter.editTodoEvent(event)
         }
     }
     
     /// 点击专注计时器
     private func clickFocusEvent(_ event: MyDayEvent) {
+        TPImpactFeedback.impactWithSoftStyle()
         MyDayPresenter.editFocusEvent(event)
     }
     
     /// 点击习惯
     private func clickHabitEvent(_ event: MyDayEvent) {
+        TPImpactFeedback.impactWithSoftStyle()
         MyDayPresenter.editHabitEvent(event)
     }
     

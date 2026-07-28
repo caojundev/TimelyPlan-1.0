@@ -33,8 +33,8 @@ class HabitPresenter {
     }
     
     /// 创建新习惯
-    static func createNewHabitTask() {
-        let vc = HabitTaskEditViewController(task: nil)
+    static func createNewHabitTask(task: HabitEditingTask? = nil) {
+        let vc = HabitTaskEditViewController(task: task)
         vc.didEndEditing = { editingTask in
             HabitRepository.createTask(with: editingTask)
         }

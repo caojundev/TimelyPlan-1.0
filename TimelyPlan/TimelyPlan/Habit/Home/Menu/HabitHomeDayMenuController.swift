@@ -28,6 +28,7 @@ class HabitHomeDayMenuController: HabitTaskBaseMenuController {
         if date.isFutureDay {
             let allowTypes: [HabitTaskMenuActionType] = [.addToMyDay,
                                                          .removeFromMyDay,
+                                                         .statistics,
                                                          .edit,
                                                          .archive,
                                                          .delete]

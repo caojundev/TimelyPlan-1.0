@@ -200,6 +200,7 @@ import Foundation
     var currentOccurrenceQuickAddTask: TodoQuickAddTask {
         let repeatTask = TodoQuickAddTask()
         repeatTask.isCompleted = true
+        repeatTask.isAddedToMyDay = isAddedToMyDay
         repeatTask.section = section
         repeatTask.name = name
         repeatTask.priority = priority

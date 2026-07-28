@@ -189,5 +189,10 @@ class FocusPresenter {
         
         vc.showAsNavigationRoot()
     }
-    
+
+    /// 创建新计时器
+    static func createNewTimer(with editingTimer: FocusEditingTimer? = nil) {
+        let controller = FocusUserTimerController()
+        controller.createNewTimer(with: editingTimer)
+    }
 }

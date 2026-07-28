@@ -59,7 +59,9 @@ extension HabitStatsCalendarWeekSectionController: HabitDatePeriodsViewDelegate 
         
         let isScheduled = periodItem.isScheduledDate(period.date)
         if isScheduled {
-            HabitDayMenuPresenter.showPopoverMenu(for: periodItem, on: period.date)
+            HabitDayMenuPresenter.showPopoverMenu(for: periodItem,
+                                                     on: period.date,
+                                                     menuType: .recordOnly)
         } else {
             HabitPresenter.showNotScheduledDayMessage(for: period.date)
         }
@@ -106,7 +108,4 @@ class HabitStatsCalendarWeekDayCell: HabitHomeWeekDayCell {
         self.valueLabel.textColor = textColor
         self.emptyLineColor = Color(light: 0x121212, dark: 0xf1f1f1, alpha: 0.2)
     }
-    
-    
 }
-

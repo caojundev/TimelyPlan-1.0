@@ -48,7 +48,7 @@ class MyDayTodoTimelineCell: TimelineIconCell {
         }
         
         configureIcon(with: task)
-        
+        infoView.isDetached = task.isDetached
         infoView.checkType = task.checkType
         infoView.priority = task.priority
         infoView.name = task.displayName
@@ -99,6 +99,33 @@ class MyDayTodoTimelineCell: TimelineIconCell {
 }
 
 class MyDayTodoEventInfoView: TodoTaskCheckInfoView {
+    
+    override var priority: TodoTaskPriority {
+        didSet {
+            if isDetached {
+                repeatButton.imageConfig.color = priority.titleColor
+            }
+        }
+    }
+    
+    var isDetached: Bool = false {
+        didSet {
+            if isDetached {
+                repeatButton.imageConfig.color = priority.titleColor
+                rightView = repeatButton
+            } else {
+                rightView = checkbox
+            }
+        }
+    }
+    
+    /// 重复按钮
+    lazy var repeatButton: TPDefaultButton = {
+        let button = TPDefaultButton()
+        button.image = resGetImage("myDay_todo_repeat_24")
+        button.isUserInteractionEnabled = false
+        return button
+    }()
     
     override func setupSubviews() {
         super.setupSubviews()

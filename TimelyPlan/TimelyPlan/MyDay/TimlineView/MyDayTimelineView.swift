@@ -79,7 +79,6 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     }
     
     func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent) {
-        TPImpactFeedback.impactWithSoftStyle()
         eventProcessor.clickEvent(event)
     }
 }

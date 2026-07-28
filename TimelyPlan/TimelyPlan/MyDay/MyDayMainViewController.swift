@@ -65,9 +65,38 @@ class MyDayMainViewController: TPViewController,
         return view
     }()
     
+    // MARK: - AddView
+    /// 添加视图按钮
+    private let addViewSize = CGSize(width: 50.0, height: 50.0)
+    
+    /// 添加视图边界间距
+    private let addViewMargins = UIEdgeInsets(top: 10.0,
+                                              left: 0.0,
+                                              bottom: 10.0,
+                                              right: 20.0)
+    
+    /// 添加视图
+    private lazy var addView: TPAddView = {
+        let view = TPAddView()
+        view.normalBackgroundColor = .primary
+        view.didClickAdd = { [weak self] _ in
+            self?.clickEventAdd()
+        }
+       
+        return view
+    }()
+
     private let contentView = UIView()
     
-    private(set) var visibleDate: Date
+    private var visibleDate: Date
+
+    /// 待办任务快速添加控制器
+    private lazy var quickAddManager: TodoTaskQuickAddManager = {
+        let options = TodoQuickAddOptions(showMoreSetting: false,
+                                          forbidContinuousAdd: true)
+        let manager = TodoTaskQuickAddManager(containerViewController: self, options: options)
+        return manager
+    }()
     
     init(date: Date = .now) {
         self.visibleDate = date
@@ -88,6 +117,7 @@ class MyDayMainViewController: TPViewController,
         navigationItem.titleView = dateButton
         view.addSubview(contentView)
         contentView.addSubview(pageView)
+        contentView.addSubview(addView)
         contentView.addSubview(maskView)
         contentView.addSubview(calendarView)
         pageView.setVisibleDate(visibleDate, animated: false)
@@ -109,7 +139,7 @@ class MyDayMainViewController: TPViewController,
         maskView.frame = view.bounds
         layoutContents()
     }
-
+    
     private func layoutContents() {
         let layoutFrame = view.safeLayoutFrame()
         calendarView.width = layoutFrame.width
@@ -119,6 +149,10 @@ class MyDayMainViewController: TPViewController,
         pageView.width = layoutFrame.width
         pageView.height = layoutFrame.height - pageTop
         pageView.top = pageTop
+        
+        addView.size = addViewSize
+        addView.bottom = layoutFrame.maxY - addViewMargins.bottom
+        addView.right = layoutFrame.maxX - addViewMargins.right
         
         let progress = calendarView.progress
         maskView.alpha = progress
@@ -157,7 +191,89 @@ class MyDayMainViewController: TPViewController,
         
         visibleDate = date
         updateTitle(with: date)
-        calendarView.setVisibleDateComponents(date.yearMonthDayComponents, animated: true)
+        calendarView.setVisibleDateComponents(date.yearMonthDayComponents,
+                                              animated: true)
+    }
+    
+}
+
+extension MyDayMainViewController {
+    
+    func clickEventAdd() {
+        TPImpactFeedback.impactWithSoftStyle()
+        
+        let menuController = MyDayEventAddMenuController()
+        menuController.didSelectMenuActionType = { type in
+            self.performAddMenuAction(with: type)
+        }
+
+        let sourceRect = addView.bounds.insetBy(dx: -5.0, dy: -5.0)
+        menuController.showMenu(from: addView,
+                                sourceRect: sourceRect,
+                                isCovered: true)
+    }
+    
+    func performAddMenuAction(with type: MyDayEventAddType) {
+        let date = pageView.visibleDate ?? .now
+        switch type {
+        case .bind:
+            break
+        case .todo:
+            showQuickAddTask(on: date)
+        case .habit:
+            createNewHabit(on: date)
+        case .focus:
+            createNewTimer(on: date)
+        }
+    }
+    
+    // MARK: - 习惯
+    func createNewHabit(on date: Date) {
+        let startDate = date.startOfDay()
+        var task = HabitEditingTask()
+        task.dateRange = DateRange(startDate: startDate, endDate: nil)
+        task.isAddedToMyDay = true
+        HabitPresenter.createNewHabitTask(task: task)
+    }
+    
+    // MARK: - 专注
+    func createNewTimer(on date: Date) {
+        let startDate = date.startOfDay()
+        var timer = FocusEditingTimer()
+        timer.dateRange = DateRange(startDate: startDate, endDate: nil)
+        timer.isAddedToMyDay = true
+        FocusPresenter.createNewTimer(with: timer)
+    }
+    
+    // MARK: - 待办任务
+    func showQuickAddTask(on date: Date) {
+        // 检查并清理过期的草稿任务
+        if shouldClearDraftTask(with: date) {
+            quickAddManager.clearDraftTask()
+        }
+
+        let task = quickAddTask(on: date)
+        quickAddManager.show(with: task)
+    }
+    
+    private func shouldClearDraftTask(with date: Date) -> Bool {
+        guard let draftTask = quickAddManager.draftTask,
+              let dateInfo = draftTask.schedule?.dateInfo else {
+            return quickAddManager.draftTask != nil // 无日期信息的草稿需要清理
+        }
+        
+        return !dateInfo.startDate.isInSameDayAs(date)
+    }
+    
+    private func quickAddTask(on date: Date) -> TodoQuickAddTask {
+        let dateInfo = TaskDateInfo(date: date)
+        let schedule = TaskSchedule(dateInfo: dateInfo,
+                                    reminder: nil,
+                                    repeatRule: nil)
+        let task = TodoQuickAddTask()
+        task.schedule = schedule
+        task.isAddedToMyDay = true
+        return task
     }
     
 }
