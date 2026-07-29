@@ -75,7 +75,10 @@ class MyDayHabitTimelineCell: TimelineCell {
         infoView.resetRecordButton()
         infoView.configureColor(task.color)
         infoView.title = task.displayName
-        infoView.subtitle = task.goal.targetDescription
+        
+        if let date = habitItem?.startDate {
+            updateSubtitle(for: task, on: date, with: nil)
+        }
     }
 
     private func loadRecordAndUpdateDisplay() {
@@ -121,8 +124,15 @@ class MyDayHabitTimelineCell: TimelineCell {
 
     private func updateInfoView(for task: HabitTask, on date: Date, with record: HabitRecord?) {
         infoView.updateRecordButton(for: task, on: date, with: record)
-        if !date.isFutureDay {
-            infoView.subtitle = HabitTaskDetailProvider.completedAmountDetail(for: task, with: record)
+        updateSubtitle(for: task, on: date, with: record)
+    }
+    
+    private func updateSubtitle(for task: HabitTask, on date: Date, with record: HabitRecord?) {
+        if date.isFutureDay {
+            infoView.subtitle = task.goal.targetDescription
+        } else {
+            infoView.subtitle = HabitTaskDetailProvider.completedAmountDetail(for: task,
+                                                                              with: record)
         }
     }
     

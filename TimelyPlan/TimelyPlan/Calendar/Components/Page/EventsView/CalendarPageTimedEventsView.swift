@@ -43,7 +43,7 @@ class CalendarPageTimedEventsView: UIView,
     }
 
     /// 天视图数组
-    private(set) var dayViews: [CalendarDayTimedEventsView]!
+    private(set) var dayViews: [CalendarDayTimedEventsView] = []
 
     /// 时间线背景图层
     private lazy var backgroundLayer: CalendarTimelineBackLayer = {
@@ -53,6 +53,12 @@ class CalendarPageTimedEventsView: UIView,
     
     private let contentView = UIScrollView()
     
+    private var topIndicator: CalendarPageEventIndicatorView!
+    
+    private var bottomIndicator: CalendarPageEventIndicatorView!
+    
+    private let indicatorHeight = 12.0
+    
     let mode: CalendarPageMode
     
     init(frame: CGRect, mode: CalendarPageMode) {
@@ -60,10 +66,19 @@ class CalendarPageTimedEventsView: UIView,
         super.init(frame: frame)
         setupContentView()
         setupDayViews()
+        setupIndicator()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupIndicator() {
+        topIndicator = CalendarPageEventIndicatorView(mode: mode, position: .top)
+        addSubview(topIndicator)
+        
+        bottomIndicator = CalendarPageEventIndicatorView(mode: mode, position: .bottom)
+        addSubview(bottomIndicator)
     }
     
     private func setupContentView() {
@@ -99,20 +114,51 @@ class CalendarPageTimedEventsView: UIView,
         let dayHeight = layout.contentHeight
         for (index, dayView) in dayViews.enumerated() {
             let x = CGFloat(index) * dayWidth
-            dayView.frame = CGRect(x: x,
-                                   y: 0.0,
-                                   width: dayWidth,
-                                   height: dayHeight)
+            dayView.frame = CGRect(x: x, y: 0.0, width: dayWidth, height: dayHeight)
         }
         
         backgroundLayer.layout = layout
         backgroundLayer.updateColors()
     
         executeWithoutAnimation {
-            backgroundLayer.frame = CGRect(x: 0.0,
-                                           y: 0.0,
-                                           size: contentSize)
+            backgroundLayer.frame = CGRect(x: 0.0, y: 0.0, size: contentSize)
         }
+        
+        layoutIndicators()
+    }
+    
+    private func layoutIndicators() {
+        topIndicator.frame = CGRect(x: 0.0,
+                                    y: contentInset.top,
+                                    width: bounds.width,
+                                    height: indicatorHeight)
+        bottomIndicator.frame = CGRect(x: 0.0,
+                                       y: bounds.height - indicatorHeight,
+                                       width: bounds.width,
+                                       height: indicatorHeight)
+        updateIndicators()
+    }
+    
+    private func updateIndicators() {
+        let visibleY = contentOffset.y + contentInset.top
+        let visibleHeight = bounds.height - contentInset.top
+        var aboveInfos = [(Int, Bool)]()
+        var belowInfos = [(Int, Bool)]()
+        for dayView in dayViews {
+            let visibleFrame = CGRect(x: 0.0,
+                                      y: visibleY - dayView.axisLayout.topMargin,
+                                      width: bounds.width,
+                                      height: visibleHeight)
+            
+            let index = dayView.tag
+            let hasEventAbove = dayView.hasEventAbove(visibleFrame: visibleFrame)
+            let hasEventBelow = dayView.hasEventBelow(visibleFrame: visibleFrame)
+            aboveInfos.append((index, hasEventAbove))
+            belowInfos.append((index, hasEventBelow))
+        }
+        
+        topIndicator.update(with: aboveInfos)
+        bottomIndicator.update(with: belowInfos)
     }
     
     // MARK: - Public Methods
@@ -121,6 +167,9 @@ class CalendarPageTimedEventsView: UIView,
         dayViews.forEach { view in
             view.reset()
         }
+        
+        topIndicator.reset()
+        bottomIndicator.reset()
     }
     
     private func updateDayViewDate() {
@@ -144,6 +193,8 @@ class CalendarPageTimedEventsView: UIView,
             dayView.events = delegate?.calendarPageTimedEventsView(self, eventsOnDate: date)
             dayView.reloadData()
         }
+        
+        updateIndicators()
     }
 
     // MARK: - CalendarDayTimedEventsViewDelegate
@@ -171,6 +222,7 @@ class CalendarPageTimedEventsView: UIView,
         
         set {
             contentView.contentOffset = newValue
+            updateIndicators()
         }
     }
 
@@ -181,6 +233,7 @@ class CalendarPageTimedEventsView: UIView,
         
         set {
             contentView.contentInset = newValue
+            layoutIndicators()
         }
     }
 
@@ -194,5 +247,101 @@ class CalendarPageTimedEventsView: UIView,
             contentView.delegate = newValue
         }
     }
+}
+
+
+class CalendarPageEventIndicatorView: UIView {
     
+    let mode: CalendarPageMode
+    
+    let position: CalendarEventIndicatorPosition
+    
+    private(set) var indicatorBars: [UIView] = []
+    
+    init(mode: CalendarPageMode, position: CalendarEventIndicatorPosition) {
+        self.mode = mode
+        self.position = position
+        super.init(frame: .zero)
+        
+        for index in 0..<mode.days {
+            let view = CalendarEventIndicatorBar(position: position)
+            view.backgroundColor = .clear
+            view.tag = index
+            view.isHidden = true
+            addSubview(view)
+            indicatorBars.append(view)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let dayWidth = width / CGFloat(mode.days)
+        for indicatorBar in indicatorBars {
+            indicatorBar.width = dayWidth
+            indicatorBar.height = height
+            indicatorBar.left = CGFloat(indicatorBar.tag) * dayWidth
+        }
+    }
+    
+    func reset() {
+        for indicatorBar in indicatorBars {
+            indicatorBar.isHidden = true
+        }
+    }
+    
+    func update(with infos: [(index: Int, isExist: Bool)]) {
+        for info in infos {
+            let view = indicatorBars[info.index]
+            view.isHidden = !info.isExist
+        }
+    }
+}
+
+enum CalendarEventIndicatorPosition {
+    case top
+    case bottom
+}
+
+class CalendarEventIndicatorBar: UIView {
+    
+    let position: CalendarEventIndicatorPosition
+    private let imageView = UIImageView()
+    
+    init(position: CalendarEventIndicatorPosition) {
+        self.position = position
+        super.init(frame: .zero)
+        setupImageView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupImageView() {
+        imageView.contentMode = .scaleAspectFit
+        if position == .top {
+            imageView.image = resGetImage("triangle_up_12")
+        } else {
+            imageView.image = resGetImage("triangle_down_12")
+        }
+        
+        imageView.updateImage(withColor: .primary)
+        addSubview(imageView)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let imageSize: CGFloat = 12
+        imageView.frame = CGRect(
+            x: (bounds.width - imageSize) / 2,
+            y: (bounds.height - imageSize) / 2,
+            width: imageSize,
+            height: imageSize
+        )
+    }
 }

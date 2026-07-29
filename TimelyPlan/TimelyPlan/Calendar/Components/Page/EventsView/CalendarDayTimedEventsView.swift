@@ -42,7 +42,7 @@ class CalendarDayTimedEventsView: UIView {
     
     private var layout: CalendarTimelineLayout?
     
-    private let contentView = UIView()
+    let contentView = UIView()
     
     /// 时间指示器
     private let indicatorViewHeight = 10.0
@@ -169,6 +169,34 @@ class CalendarDayTimedEventsView: UIView {
         self.layout = nil
         self.setupEventViews()
         self.timerUpdater.stop()
+    }
+    
+    /// 检查指定区域上方是否有事件视图
+    func hasEventAbove(visibleFrame: CGRect) -> Bool {
+        layoutIfNeeded()
+        
+        for eventView in eventViews {
+            let eventFrame = eventView.frame
+            // 事件视图完全在可视区域上方
+            if eventFrame.maxY <= visibleFrame.minY {
+                return true
+            }
+        }
+        
+        return false
+    }
+
+    /// 检查指定区域下方是否有事件视图
+    func hasEventBelow(visibleFrame: CGRect) -> Bool {
+        layoutIfNeeded()
+        for eventView in eventViews {
+            let eventFrame = eventView.frame
+            // 事件视图完全在可视区域下方
+            if eventFrame.minY >= visibleFrame.maxY {
+                return true
+            }
+        }
+        return false
     }
     
     // MARK: - 时间指示器
