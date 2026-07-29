@@ -96,7 +96,6 @@ class TimelineConnectionCell: UICollectionViewCell {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
-        gradientLayer.colors = nil
         shapeLayer.path = nil
         
         CATransaction.commit()
@@ -170,6 +169,11 @@ class TimelineDashedConnectionCell: TimelineConnectionCell {
         
         CATransaction.commit()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleView.title = nil
+    }
 }
 
 // MARK: - 重叠连接线 Cell
@@ -192,10 +196,12 @@ class TimelineOverlappingConnectionCell: TimelineConnectionCell {
     }()
     
     override func setupConnectionContentSubviews() {
+        super.setupConnectionContentSubviews()
         connectionContentView.addSubview(titleView)
     }
     
     override func layoutConnectionContentSubviews() {
+        super.layoutConnectionContentSubviews()
         titleView.width = connectionContentView.width
         titleView.height = 20.0
         titleView.alignVerticalCenter()

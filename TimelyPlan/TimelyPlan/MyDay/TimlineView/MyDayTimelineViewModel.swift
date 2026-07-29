@@ -7,7 +7,8 @@
 
 import Foundation
 
-class MyDayTimelineViewModel: MyDayEventChangeDelegate {
+class MyDayTimelineViewModel: MyDayEventChangeDelegate,
+                              TPMidnightUpdatable {
 
     /// 当前日期范围事项改变
     var onEventsChanged: (() -> Void)?
@@ -32,6 +33,7 @@ class MyDayTimelineViewModel: MyDayEventChangeDelegate {
     
     init() {
         self.placeholderProvider.state = state
+        TPMidnightScheduler.shared.addUpdater(self)
     }
 
     func clear() {
@@ -91,6 +93,17 @@ class MyDayTimelineViewModel: MyDayEventChangeDelegate {
         
         if shouldReload {
             loadEvents(on: date)
+        }
+    }
+    
+    // MARK: - TPMidnightUpdatable
+    func updateAtMidnight() {
+        guard let date = date else {
+            return
+        }
+        
+        if date.isToday || date.isYesterday {
+            refresh()
         }
     }
 }

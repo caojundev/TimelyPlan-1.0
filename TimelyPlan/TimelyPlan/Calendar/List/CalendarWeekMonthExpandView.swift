@@ -17,7 +17,7 @@ protocol CalendarWeekMonthExpandViewDelegate: AnyObject {
     func calendarWeekMonthExpandViewFrameChanged(_ view: CalendarWeekMonthExpandView)
 }
 
-class CalendarWeekMonthExpandView: UIView {
+class CalendarWeekMonthExpandView: UIView, TPMidnightUpdatable {
     
     weak var delegate: CalendarWeekMonthExpandViewDelegate?
     
@@ -93,12 +93,13 @@ class CalendarWeekMonthExpandView: UIView {
         self.containerView = CalendarExpandContainerView(initialMode: mode)
         self.containerView.delegate = self
         setupViews()
+        TPMidnightScheduler.shared.addUpdater(self)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - 视图搭建
     private func setupViews() {
         addSubview(weekdaySymbolView)
@@ -223,6 +224,17 @@ class CalendarWeekMonthExpandView: UIView {
         self.visibleDateComponents = dateComponents
         delegate?.calendarWeekMonthExpandView(self, didChangeVisibleDate: dateComponents)
     }
+    
+    // MARK: - TPMidnightUpdatable
+    func updateAtMidnight() {
+        let currentView = containerView.currentView
+        if let monthView = currentView as? CalendarExpandMonthView {
+            monthView.reloadData()
+        } else if let weekView = currentView as? CalendarExpandWeekView {
+            weekView.reloadData()
+        }
+    }
+
 }
 
 // MARK: - 容器代理实现

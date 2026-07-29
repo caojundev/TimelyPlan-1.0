@@ -57,7 +57,12 @@ class TimelineCell: UICollectionViewCell {
     func configure(with item: TimelineItem) {
         self.currentItem = item
         nodeView.configure(with: item)
-        startTimeLabel.text = item.timeStart
+        if item.event.isAllDay {
+            startTimeLabel.text = resGetString("All-Day")
+        } else {
+            startTimeLabel.text = item.startDate.timeString
+        }
+        
         setNeedsLayout()
     }
     

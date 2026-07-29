@@ -7,9 +7,27 @@
 
 import Foundation
 
+struct TimelineAllDayEventConverter {
+    
+    static func convert(events: [MyDayEvent]) -> [TimelineDataItem] {
+        let allDayEvents = events.filter { $0.isAllDay }
+        guard !allDayEvents.isEmpty else { return [] }
+        
+        let dataItems = allDayEvents.map { event -> TimelineDataItem in
+            let item = TimelineItem(event: event,
+                                    type: .point,
+                                    position: .only,
+                                    nodeStyle: .independent)
+            return .event(item)
+        }
+        
+        return dataItems
+    }
+}
+
 // MARK: - 事件转换器
 
-struct TimelineEventConverter {
+struct TimelineTimedEventConverter {
     
     static func convert(events: [MyDayEvent]) -> [TimelineDataItem] {
         let nonAllDayEvents = events.filter { !$0.isAllDay }
@@ -278,9 +296,9 @@ struct TimelineEventConverter {
         currentIndex: Int
     ) -> TimelineConnectionStyle {
         // 检查两个事件是否直接重叠
-        if let topEvent = topItem.event,
-           let bottomEvent = bottomItem.event,
-           eventsOverlap(topEvent, bottomEvent) {
+        let topEvent = topItem.event
+        let bottomEvent = bottomItem.event
+        if eventsOverlap(topEvent, bottomEvent) {
             return .overlapping
         }
         
@@ -330,46 +348,15 @@ struct TimelineEventConverter {
     static func convertToTimelineItem(event: MyDayEvent,
                                       nodeStyle: TimeLineNodeStyle,
                                       position: TimelineItemPosition) -> TimelineItem {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        
-        let timeStart = formatter.string(from: event.startDate)
-        let timeEnd = formatter.string(from: event.endDate)
-        
-        let durationText = calculateDuration(from: event.startDate, to: event.endDate)
         let type = determineTimelineType(for: event)
-        
         return TimelineItem(
-            timeStart: timeStart,
-            timeEnd: timeEnd,
-            title: event.title ?? "No Title",
+            event:event,
             type: type,
             position: position,
-            isCompleted: event.isCompleted,
-            durationText: durationText,
-            nodeColor: event.color,
-            nodeStyle: nodeStyle,
-            event: event,
-            startDate: event.startDate,
-            endDate: event.endDate
+            nodeStyle: nodeStyle
         )
     }
-    
-    private static func calculateDuration(from startDate: Date, to endDate: Date) -> String? {
-        let interval = endDate.timeIntervalSince(startDate)
-        let hours = Int(interval) / 3600
-        let minutes = (Int(interval) % 3600) / 60
-        
-        if hours > 0 && minutes > 0 {
-            return "\(hours) hr, \(minutes) min"
-        } else if hours > 0 {
-            return "\(hours) hr"
-        } else if minutes > 0 {
-            return "\(minutes) min"
-        }
-        return nil
-    }
-    
+
     private static func determineTimelineType(for event: MyDayEvent) -> TimelineItemType {
         let interval = event.endDate.timeIntervalSince(event.startDate)
         let hours = interval / 3600

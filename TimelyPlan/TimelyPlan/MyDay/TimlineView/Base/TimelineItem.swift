@@ -46,19 +46,22 @@ struct TimelineConnectionItem {
 
 struct TimelineItem {
     let id = UUID()
-    let timeStart: String
-    let timeEnd: String?
-    let title: String
+    let event: MyDayEvent
     let type: TimelineItemType
-    let position: TimelineItemPosition 
-    let isCompleted: Bool
-    let durationText: String?
-    let nodeColor: UIColor
+    let position: TimelineItemPosition
     let nodeStyle: TimeLineNodeStyle
-    let event: MyDayEvent?
     
-    let startDate: Date
-    let endDate: Date
+    var nodeColor: UIColor {
+        return event.color
+    }
+    
+    var startDate: Date {
+        return event.startDate
+    }
+    
+    var endDate: Date {
+        return event.endDate
+    }
 }
 
 enum TimelineDataItem {

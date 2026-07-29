@@ -36,6 +36,7 @@ extension TimelineViewDelegate {
     func timelineViewWillBeginDragging(_ timelineView: TimelineView) {}
 }
 
+
 // MARK: - TimelineView
 
 class TimelineView: UIView,
@@ -46,9 +47,10 @@ class TimelineView: UIView,
     // MARK: - Properties
     
     private var collectionView: UICollectionView!
-    var dataSource: [TimelineDataItem] = []
-    
+   
     weak var delegate: TimelineViewDelegate?
+   
+    var dataSource: TimelineDataSource = TimelineDataSource(events: [])
     
     /// 已注册的 Cell 类名集合
     private var registeredCellClassNames: Set<String> = []
@@ -82,6 +84,7 @@ class TimelineView: UIView,
         collectionView.showsVerticalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.contentInset = UIEdgeInsets(bottom: 80.0)
         addSubview(collectionView)
     }
     
@@ -134,29 +137,32 @@ class TimelineView: UIView,
     
     func reloadData() {
         guard let delegate = delegate else { return }
-        
         let events = delegate.timelineViewEvents(self) ?? []
-        dataSource = TimelineEventConverter.convert(events: events)        
+        dataSource = TimelineDataSource(events: events)
         collectionView.reloadData()
     }
     
-    func event(at indexPath: IndexPath) -> MyDayEvent? {
-        guard indexPath.item < dataSource.count else { return nil }
-        if case .event(let item) = dataSource[indexPath.item] {
-            return item.event
-        }
-        return nil
-    }
-    
+//    func event(at indexPath: IndexPath) -> MyDayEvent? {
+//        guard indexPath.item < dataSource.count else { return nil }
+//        if case .event(let item) = dataSource[indexPath.item] {
+//            return item.event
+//        }
+//        return nil
+//    }
+//
     // MARK: - UICollectionViewDataSource
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.numberOfItems(in: section)
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = dataSource[indexPath.item]
-        
+        let item = dataSource.dataItem(at: indexPath)
         switch item {
         case .event(let eventItem):
             let cellClass: AnyClass = self.eventCellClass(for: eventItem)
@@ -192,7 +198,7 @@ class TimelineView: UIView,
     // MARK: - UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let event = event(at: indexPath) else { return }
+        guard let event = dataSource.event(at: indexPath) else { return }
         delegate?.timelineView(self, didSelectEvent: event)
     }
     
@@ -204,7 +210,7 @@ class TimelineView: UIView,
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         var height = 0.0
-        let item = dataSource[indexPath.row]
+        let item = dataSource.dataItem(at: indexPath)
         switch item {
         case .event(let eventItem):
             height = TimelineLayoutManager.cellHeight(for: eventItem)
@@ -229,3 +235,44 @@ class TimelineView: UIView,
     
 }
 
+enum TimelineSection: Int {
+    case allDay = 0
+    case timed
+}
+
+struct TimelineDataSource {
+    
+    private var allDayItems: [TimelineDataItem] = []
+    
+    private var timedItems: [TimelineDataItem] = []
+    
+    init(events: [MyDayEvent]) {
+        self.allDayItems = TimelineAllDayEventConverter.convert(events: events)
+        self.timedItems = TimelineTimedEventConverter.convert(events: events)
+    }
+    
+    func numberOfItems(in section: Int) -> Int {
+        if section == TimelineSection.allDay.rawValue {
+            return allDayItems.count
+        } else {
+            return timedItems.count
+        }
+    }
+    
+    func dataItem(at indexPath: IndexPath) -> TimelineDataItem {
+        if indexPath.section == TimelineSection.allDay.rawValue {
+            return allDayItems[indexPath.row]
+        } else {
+            return timedItems[indexPath.row]
+        }
+    }
+    
+    func event(at indexPath: IndexPath) -> MyDayEvent? {
+        let dataItem = dataItem(at: indexPath)
+        if case .event(let item) = dataItem {
+            return item.event
+        }
+        
+        return nil
+    }
+}

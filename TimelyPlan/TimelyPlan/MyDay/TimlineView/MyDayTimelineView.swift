@@ -41,11 +41,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     }
     
     override func eventCellClass(for item: TimelineItem) -> AnyClass {
-        guard let event = item.event else {
-            return TimelineCell.self
-        }
-        
-        switch event.source {
+        switch item.event.source {
         case .todo:
             return MyDayTodoTimelineCell.self
         case .focus:

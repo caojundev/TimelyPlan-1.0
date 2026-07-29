@@ -60,7 +60,7 @@ class MyDayHabitTimelineCell: TimelineCell {
         self.recordProvider = recordProvider
         self.recordProvider?.addUpdaterDelegate(self)
         self.habitItem = item
-        self.habitTask = item.event?.sourceItem as? HabitTask
+        self.habitTask = item.event.sourceItem as? HabitTask
         guard let task = habitTask else {
             return
         }

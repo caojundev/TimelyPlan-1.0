@@ -41,7 +41,7 @@ class MyDayTodoTimelineCell: TimelineIconCell {
     override func configure(with item: TimelineItem) {
         super.configure(with: item)
         self.todoItem = item
-        self.todoTask = item.event?.sourceItem as? TodoTask
+        self.todoTask = item.event.sourceItem as? TodoTask
         
         guard let task = self.todoTask else {
             return
