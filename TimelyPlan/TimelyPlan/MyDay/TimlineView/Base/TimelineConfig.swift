@@ -48,5 +48,10 @@ struct TimelineConfig {
     // MARK: 字体配置
     static let timeFont = UIFont.systemFont(ofSize: 12, weight: .medium)
     static let timeColor = UIColor.lightGray
+    
+    static let durationFont = UIFont.systemFont(ofSize: 11, weight: .regular)
+    static let durationColor = Color(light: 0x000000, dark: 0xffffff, alpha: 0.8)
+    static let durationBackgroundColor = Color(light: 0x000000, dark: 0xffffff, alpha: 0.2)
+    static let durationCornerRadius: CGFloat = 4
 }
 

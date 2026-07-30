@@ -26,6 +26,8 @@
 "My Day Settings" = "我的一天设置";
 "Show Todo" = "显示待办";
 "Show Focus" = "显示专注";
+"Bind Task" = "绑定任务";
+"Overlapping" = "重叠";
 
 ///**********************日历*********************///
 "Quarter" = "季";

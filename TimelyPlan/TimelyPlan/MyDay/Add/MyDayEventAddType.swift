@@ -16,7 +16,7 @@ enum MyDayEventAddType: Int, TPMenuRepresentable {
     var title: String {
         switch self {
         case .bind:
-            return resGetString("Bind")
+            return resGetString("Bind Task")
         case .todo:
             return resGetString("Todo")
         case .habit:
@@ -35,7 +35,7 @@ enum MyDayEventAddType: Int, TPMenuRepresentable {
         case .habit:
             return "myDayEventAdd_habit_24"
         case .focus:
-            return "myDayEventAdd_focus _24"
+            return "myDayEventAdd_focus_24"
         }
     }
 }

@@ -58,7 +58,9 @@ class HabitDayInfoMenuViewController: HabitDaySheetMenuViewController {
         infoView.iconView.icon = task.icon
         infoView.iconView.font = .boldSystemFont(ofSize: 24.0)
         infoView.titleView.title = task.name ?? resGetString("Untitled Habit")
-        let subtitle = detailProvider.detail(for: periodItem, on: date, color: .secondaryLabel)
+        let subtitle = detailProvider.detail(for: periodItem,
+                                                on: date,
+                                                color: .secondaryLabel)
         infoView.titleView.subtitle = subtitle
         
         let status = periodItem.status(on: date)

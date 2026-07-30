@@ -19,6 +19,10 @@ class MyDayHabitTimelineCell: TimelineCell {
     
     private let iconNodeView = HabitTimelineNodeView()
     
+    private let infoViewHeight = 40.0
+    
+    private let durationLabel = TPLabel()
+
     private lazy var infoView: HabitTimelineInfoView = {
         let view = HabitTimelineInfoView()
         view.recordButton.addTarget(self,
@@ -31,6 +35,8 @@ class MyDayHabitTimelineCell: TimelineCell {
     
     private let processor = HabitTaskMenuActionProcessor()
     
+    let detailProvider = HabitTaskDetailProvider()
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         requestManager.executeRequest()
@@ -39,6 +45,10 @@ class MyDayHabitTimelineCell: TimelineCell {
         
         iconNodeView.setStatus(.notStarted)
         iconNodeView.setProgress(0.0)
+        
+        durationLabel.text = nil
+        infoView.title = nil
+        infoView.subtitle = nil
     }
     
     override func setupNodeView() {
@@ -46,17 +56,35 @@ class MyDayHabitTimelineCell: TimelineCell {
     }
     
     override func setupEventContentSubviews() {
+        durationLabel.edgeInsets = UIEdgeInsets(horizontal: 6.0, vertical: 2.0)
+        durationLabel.font = TimelineConfig.durationFont
+        durationLabel.textColor = TimelineConfig.durationColor
+        durationLabel.textAlignment = .center
+        durationLabel.layer.cornerRadius = TimelineConfig.durationCornerRadius
+        durationLabel.layer.masksToBounds = true
+        durationLabel.backgroundColor = TimelineConfig.durationBackgroundColor
+        eventContentView.addSubview(durationLabel)
         eventContentView.addSubview(infoView)
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        infoView.frame = eventContentView.bounds
+        infoView.width = eventContentView.width
+        infoView.height = infoViewHeight
+        
+        if !durationLabel.isHidden {
+            durationLabel.sizeToFit()
+            durationLabel.top = (eventContentView.height - durationLabel.height - infoViewHeight ) / 2.0
+            infoView.top = durationLabel.bottom + 8.0
+        } else {
+            durationLabel.size = .zero
+            infoView.top = (eventContentView.height - infoViewHeight ) / 2.0
+        }
     }
     
     func configure(with item: TimelineItem, recordProvider: MyDayHabitRecordProvider?) {
         configure(with: item)
-        
+
         self.recordProvider = recordProvider
         self.recordProvider?.addUpdaterDelegate(self)
         self.habitItem = item
@@ -65,13 +93,52 @@ class MyDayHabitTimelineCell: TimelineCell {
             return
         }
         
+        configureDurationLabel(for: item.event)
         configureAppearance(for: task)
         loadRecordAndUpdateDisplay()
         setNeedsLayout()
     }
-
+    
+    private func configureDurationLabel(for event: MyDayEvent) {
+        if event.isAllDay {
+            durationLabel.text = nil
+            durationLabel.isHidden = true
+            return
+        }
+    
+        durationLabel.isHidden = false
+        
+        let interval = event.endDate.timeIntervalSince(event.startDate)
+        durationLabel.text = Duration(interval).localizedTitle
+        
+        /*
+        if event.isAllDay {
+            timeLabel.text = nil
+            return
+        }
+    
+        let startTimeString = event.startDate.timeString
+        let endTimeString = event.endDate.timeString
+        
+        let title = "\(startTimeString) - \(endTimeString)"
+        let daysCount = event.startDate.daysBetween(event.endDate)
+        if daysCount > 0 {
+            let badgeString = "+\(daysCount)"
+            let attributedTitle = title.byAppend(badge: badgeString,
+                                                 baselineOffset: 6.0,
+                                                 font: .boldSystemFont(ofSize: 8.0),
+                                                 color: resGetColor(.title))
+            timeLabel.update(with: attributedTitle)
+        } else {
+            timeLabel.update(with: title)
+        }
+         */
+    }
+    
     private func configureAppearance(for task: HabitTask) {
         iconNodeView.configure(icon: task.icon)
+        
+        /// 任务信息
         infoView.resetRecordButton()
         infoView.configureColor(task.color)
         infoView.title = task.displayName
@@ -128,12 +195,12 @@ class MyDayHabitTimelineCell: TimelineCell {
     }
     
     private func updateSubtitle(for task: HabitTask, on date: Date, with record: HabitRecord?) {
-        if date.isFutureDay {
-            infoView.subtitle = task.goal.targetDescription
-        } else {
-            infoView.subtitle = HabitTaskDetailProvider.completedAmountDetail(for: task,
-                                                                              with: record)
-        }
+        let detail = detailProvider.detail(for: task,
+                                              on: date,
+                                              with: record,
+                                              color: .secondaryLabel,
+                                              addToMyDayIncluded: false)
+        infoView.subtitle = detail
     }
     
     @objc private func clickRecord(_ button: UIButton) {

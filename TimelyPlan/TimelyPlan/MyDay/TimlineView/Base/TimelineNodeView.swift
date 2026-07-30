@@ -115,8 +115,10 @@ class TimelineNodeView: UIView {
     
     /// 配置背景颜色
     func configureBackgroundColor(_ color: UIColor) {
-        lineLayer.backgroundColor = color.cgColor
         contentView.backgroundColor = color
+        executeWithoutAnimation {
+            self.lineLayer.backgroundColor = color.cgColor
+        }
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {

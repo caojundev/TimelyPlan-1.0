@@ -141,34 +141,30 @@ class HabitTaskDetailProvider {
     }
     
     /// 更新详细文本
-    func detail(for periodItem: HabitPeriodItem) -> TextRepresentable {
-        let date = periodItem.period.date
-        let result = detail(for: periodItem, on: date, color: .white)
+    func detail(for periodItem: HabitPeriodItem,
+                on date: Date? = nil,
+                color: UIColor = .white,
+                addToMyDayIncluded: Bool = true) -> TextRepresentable {
         let task = periodItem.habitTask
-        guard task.isAddedToMyDay else {
-            return result
-        }
-        
-        /// 添加我的一天信息
-        var components = [result]
-        if let myDayIndicator = task.myDayIndicator(color: .white) {
-            components.append(myDayIndicator)
-        }
-        
-        return components.joined(separator: " • ")
+        let date = date ?? periodItem.period.date
+        let record = periodItem.record(on: date)
+        return detail(for: task,
+                         on: date,
+                         with: record,
+                         color: color,
+                         addToMyDayIncluded: addToMyDayIncluded)
     }
     
-    /// 更新详细文本
-    func detail(for periodItem: HabitPeriodItem,
+    func detail(for task: HabitTask,
                 on date: Date,
-                color: UIColor = .white) -> ASAttributedString {
-        let task = periodItem.habitTask
+                with record: HabitRecord?,
+                color: UIColor = .white,
+                addToMyDayIncluded: Bool = true) -> TextRepresentable {
         if date.isFutureDay {
             return task.goal.targetDescription.attributedString
         }
         
         /// 进度详情
-        let record = periodItem.records?[date.dayIntegerKey]
         let progressDetail = Self.completedAmountDetail(for: task, with: record)
         guard let record = record else {
             return progressDetail
@@ -179,6 +175,12 @@ class HabitTaskDetailProvider {
         /// 备注
         if record.hasLog {
             details.append(task.logIndicator(color: color))
+        }
+        
+        if addToMyDayIncluded, task.isAddedToMyDay {
+            if let myDayIndicator = task.myDayIndicator(color: color) {
+                details.append(myDayIndicator)
+            }
         }
         
         return details.joined(separator: " • ")
