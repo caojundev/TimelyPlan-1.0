@@ -5216,13 +5216,12 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		E518506E300F5CC500112DFC /* Cells */ = {
+		E518506E300F5CC500112DFC /* Focus */ = {
 			isa = PBXGroup;
 			children = (
 				E518506F300F5CE800112DFC /* MyDayFocusTimelineCell.swift */,
-				E5185071300F5D3200112DFC /* MyDayTodoTimelineCell.swift */,
 			);
-			path = Cells;
+			path = Focus;
 			sourceTree = "<group>";
 		};
 		E518D6922FBDEF4F0045D456 /* Indicator */ = {
@@ -6104,8 +6103,9 @@
 				E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */,
 				E518507D301062D300112DFC /* MyDayTimelineViewModel.swift */,
 				E5B3BAB93014B00800D908B6 /* MyDayTimelineConfig.swift */,
+				E5F9E3B9301B8FBE00EDC2A5 /* Todo */,
 				E5B3BABB3014F54200D908B6 /* Habit */,
-				E518506E300F5CC500112DFC /* Cells */,
+				E518506E300F5CC500112DFC /* Focus */,
 				E518505D300F039F00112DFC /* Base */,
 			);
 			path = TimlineView;
@@ -10947,6 +10947,14 @@
 				E500DE452DB09D4500EAEAF7 /* Indicator */,
 			);
 			path = filter;
+			sourceTree = "<group>";
+		};
+		E5F9E3B9301B8FBE00EDC2A5 /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+				E5185071300F5D3200112DFC /* MyDayTodoTimelineCell.swift */,
+			);
+			path = Todo;
 			sourceTree = "<group>";
 		};
 		E5FC6BA82F64F16A00D5A5EA /* Log */ = {

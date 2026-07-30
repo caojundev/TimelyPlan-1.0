@@ -10,6 +10,8 @@ import UIKit
 
 class MyDayTodoTimelineCell: TimelineIconCell {
         
+    private let infoViewHeight = 60.0
+    
     /// 复选信息视图
     private lazy var infoView: MyDayTodoEventInfoView = {
         let view = MyDayTodoEventInfoView()
@@ -30,6 +32,10 @@ class MyDayTodoTimelineCell: TimelineIconCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         infoView.frame = eventContentView.bounds
+    }
+    
+    override func eventContentHeight() -> CGFloat {
+        return infoViewHeight
     }
     
     let detailOption: TodoTaskDetailOption = [.step,

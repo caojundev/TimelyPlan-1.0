@@ -29,6 +29,8 @@ class MyDayFocusTimelineCell: TimelineIconCell {
         return button
     }()
 
+    private let infoViewHeight = 50.0
+    
     private lazy var infoView: TPInfoView = {
         let view = TPInfoView()
         view.titleConfig.font = MyDayTimelineConfig.titleFont
@@ -49,6 +51,10 @@ class MyDayFocusTimelineCell: TimelineIconCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         infoView.frame = eventContentView.bounds
+    }
+    
+    override func eventContentHeight() -> CGFloat {
+        return infoViewHeight
     }
     
     override func configure(with item: TimelineItem) {
