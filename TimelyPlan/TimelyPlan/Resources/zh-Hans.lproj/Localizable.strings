@@ -787,6 +787,7 @@
 "Date" = "日期";
 "Due" = "截止";
 "Start Date" = "开始日期";
+"Start Time" = "开始时间";
 "Due Date" = "截止日期";
 "Creation Date" = "创建时间";
 "Modification Date" = "修改日期";
@@ -875,7 +876,7 @@
 
 /// 时间
 "Time" = "时间";
-"Duration" = "持续时间";
+"Duration" = "持续时长";
 "%ldd" = "%ld天";
 "%ldh%ldm" = "%ld小时%ld分钟";
 "%ldh" = "%ld小时";

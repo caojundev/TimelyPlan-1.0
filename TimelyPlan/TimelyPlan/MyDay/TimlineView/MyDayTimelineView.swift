@@ -51,7 +51,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
         }
     }
     
-    override func configureEventCell(_ cell: TimelineCell, with item: TimelineItem) {
+    override func configureEventCell(_ cell: TimelineEventCell, with item: TimelineItem) {
         super.configureEventCell(cell, with: item)
         if let cell = cell as? MyDayHabitTimelineCell {
             cell.configure(with: item, recordProvider: habitRecordProvider)
@@ -76,6 +76,17 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     
     func timelineView(_ timelineView: TimelineView, didSelectEvent event: MyDayEvent) {
         eventProcessor.clickEvent(event)
+    }
+}
+
+extension MyDayTimelineView: TimelineEventCellDelegate {
+    
+    func timelineEventCellDidClickStartTime(_ cell: TimelineEventCell) {
+        guard let event = cell.currentItem?.event else {
+            return
+        }
+        
+        MyDayEventScheduleEditor.editSchedule(for: event)
     }
 }
 

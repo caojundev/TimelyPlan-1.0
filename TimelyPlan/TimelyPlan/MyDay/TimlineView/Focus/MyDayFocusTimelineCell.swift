@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol MyDayFocusTimelineCellDelegate: AnyObject {
+protocol MyDayFocusTimelineCellDelegate: TimelineEventCellDelegate {
     
     /// 点击开始专注
     func myDayFocusTimelineCellDidClickStart(_ cell: MyDayFocusTimelineCell)

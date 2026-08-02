@@ -24,7 +24,7 @@ class TPAbsoluteTimePresetTableCellItem: TPBaseTableCellItem {
         super.init()
         self.registerClass = TPTimePresetTableCell.self
         self.selectionStyle = .none
-        self.contentPadding = UIEdgeInsets(horizontal: 10.0)
+        self.contentPadding = UIEdgeInsets(horizontal: 4.0)
         self.height = 60.0
     }
 }

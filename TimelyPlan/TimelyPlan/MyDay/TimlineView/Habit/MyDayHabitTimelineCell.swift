@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MyDayHabitTimelineCell: TimelineCell {
+class MyDayHabitTimelineCell: TimelineEventCell {
     
     /// 习惯记录供应器
     weak var recordProvider: MyDayHabitRecordProvider?

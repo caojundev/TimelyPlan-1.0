@@ -8,12 +8,37 @@
 import Foundation
 import UIKit
 
-class TimelineCell: UICollectionViewCell {
+protocol TimelineEventCellDelegate: AnyObject {
+    /// 点击开始时间
+    func timelineEventCellDidClickStartTime(_ cell: TimelineEventCell)
+}
+
+extension TimelineEventCellDelegate {
+    func timelineEventCellDidClickStartTime(_ cell: TimelineEventCell) {}
+}
+
+class TimelineEventCell: UICollectionViewCell {
     
     weak var delegate: AnyObject?
     
     // MARK: 基类控件
-    let startTimeLabel = UILabel()
+    private lazy var startTimeLabel: UILabel = {
+        let label = UILabel()
+        label.font = TimelineConfig.timeFont
+        label.textColor = TimelineConfig.timeColor
+        label.textAlignment = .center
+        label.isUserInteractionEnabled = false
+        return label
+    }()
+    
+    private lazy var startTimeButton: TPDefaultButton = {
+        let button = TPDefaultButton()
+        button.preferredTappedScale = 1.0
+        button.normalBackgroundColor = .clear
+        button.selectedBackgroundColor = .clear
+        button.addTarget(self, action: #selector(clickStartTime), for: .touchUpInside)
+        return button
+    }()
     
     var nodeView: TimelineNodeView!
     
@@ -32,7 +57,7 @@ class TimelineCell: UICollectionViewCell {
     // MARK: 事件内容容器（子类在此添加内容）
     let eventContentView = UIView()
     
-    private var currentItem: TimelineItem?
+    private(set) var currentItem: TimelineItem?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,13 +69,8 @@ class TimelineCell: UICollectionViewCell {
     private func setupBaseUI() {
         setupNodeView()
         backgroundColor = .clear
-        
-        startTimeLabel.font = TimelineConfig.timeFont
-        startTimeLabel.textColor = TimelineConfig.timeColor
-        startTimeLabel.textAlignment = .right
-        
         eventContentView.backgroundColor = .clear
-        
+        contentView.addSubview(startTimeButton)
         contentView.addSubview(startTimeLabel)
         contentView.addSubview(nodeView)
         contentView.addSubview(durationLabel)
@@ -93,25 +113,31 @@ class TimelineCell: UICollectionViewCell {
         durationLabel.text = Duration(interval).localizedTitle
     }
     
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         let bounds = contentView.bounds
         let verticalCenterY = bounds.height / 2
-        let centerX = TimelineConfig.leftTimeWidth + TimelineConfig.margin + 8
+        let nodeX = TimelineConfig.leftTimeWidth + TimelineConfig.margin + 8
         
         // 时间标签
         startTimeLabel.sizeToFit()
         startTimeLabel.frame = CGRect(
-            x: 0,
-            y: verticalCenterY - startTimeLabel.bounds.height / 2,
+            x: (nodeX - startTimeLabel.width) / 2.0,
+            y: verticalCenterY - startTimeLabel.halfHeight,
             width: TimelineConfig.leftTimeWidth,
             height: startTimeLabel.bounds.height
         )
         
+        startTimeButton.frame = CGRect(
+            x: 0.0,
+            y: 0.0,
+            width: nodeX,
+            height: bounds.height
+        )
+        
         // 节点视图（高度随 cell 高度变化）
         nodeView.frame = CGRect(
-            x: centerX,
+            x: nodeX,
             y: 0,
             width: TimelineConfig.centerNodeWidth,
             height: bounds.height
@@ -150,13 +176,18 @@ class TimelineCell: UICollectionViewCell {
     func eventContentHeight() -> CGFloat {
         return 60.0
     }
+    
+    /// 点击开始时间
+    @objc func clickStartTime() {
+        if let delegate = delegate as? TimelineEventCellDelegate {
+            delegate.timelineEventCellDidClickStartTime(self)
+        }
+    }
 }
-
-
 
 // MARK: - 带图标的简单时间线 Cell
 
-class TimelineIconCell: TimelineCell {
+class TimelineIconCell: TimelineEventCell {
     
     let iconNodeView = TimelineIconNodeView()
     

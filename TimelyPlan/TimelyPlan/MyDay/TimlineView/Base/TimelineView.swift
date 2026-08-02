@@ -123,7 +123,7 @@ class TimelineView: UIView,
     }
     
     /// 配置事件 Cell（子类可重写以进行额外配置）
-    func configureEventCell(_ cell: TimelineCell, with item: TimelineItem) {
+    func configureEventCell(_ cell: TimelineEventCell, with item: TimelineItem) {
         cell.configure(with: item)
     }
     
@@ -142,14 +142,6 @@ class TimelineView: UIView,
         collectionView.reloadData()
     }
     
-//    func event(at indexPath: IndexPath) -> MyDayEvent? {
-//        guard indexPath.item < dataSource.count else { return nil }
-//        if case .event(let item) = dataSource[indexPath.item] {
-//            return item.event
-//        }
-//        return nil
-//    }
-//
     // MARK: - UICollectionViewDataSource
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -171,7 +163,7 @@ class TimelineView: UIView,
             // 动态注册（自动去重）
             registerCellIfNeeded(cellClass)
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? TimelineCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? TimelineEventCell else {
                 fatalError("Cell with identifier \(identifier) is not a TimelineCell subclass")
             }
             

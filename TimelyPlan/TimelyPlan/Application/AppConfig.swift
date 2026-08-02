@@ -53,8 +53,6 @@ struct AppLayout {
         static let extraLarge = CGSize(width: preferredContentWidth, height: 740.0)
     }
     
-    
-    
     /// 单元格
     struct Cell {
         /// 选项卡菜单圆角半径

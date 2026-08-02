@@ -2067,6 +2067,11 @@
 		E5F155372F83E1C700116091 /* TodoTaskActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F155362F83E1C600116091 /* TodoTaskActionType.swift */; };
 		E5F2BAD12D532316007DDCD4 /* xmark_circle_fill_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */; };
 		E5F2BAD22D532316007DDCD4 /* xmark_circle_fill_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */; };
+		E5F9E3BB301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */; };
+		E5F9E3BE301DD1D500EDC2A5 /* MyDayEventScheduleEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BD301DD1D400EDC2A5 /* MyDayEventScheduleEditor.swift */; };
+		E5F9E3C0301EDE0200EDC2A5 /* MyDayHabitScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BF301EDE0100EDC2A5 /* MyDayHabitScheduleEditViewController.swift */; };
+		E5F9E3C2301F261800EDC2A5 /* MyDayHabitTimeEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3C1301F261800EDC2A5 /* MyDayHabitTimeEditSectionController.swift */; };
+		E5F9E3C4301F474100EDC2A5 /* MyDayFocusScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3C3301F474100EDC2A5 /* MyDayFocusScheduleEditViewController.swift */; };
 		E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */; };
 		E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBD0F02DA9135200924EED /* SettingAgent.swift */; };
 		E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */; };
@@ -4206,6 +4211,11 @@
 		E5F155362F83E1C600116091 /* TodoTaskActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskActionType.swift; sourceTree = "<group>"; };
 		E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@3x.png"; sourceTree = "<group>"; };
 		E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@2x.png"; sourceTree = "<group>"; };
+		E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTodoEventInfoView.swift; sourceTree = "<group>"; };
+		E5F9E3BD301DD1D400EDC2A5 /* MyDayEventScheduleEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayEventScheduleEditor.swift; sourceTree = "<group>"; };
+		E5F9E3BF301EDE0100EDC2A5 /* MyDayHabitScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayHabitScheduleEditViewController.swift; sourceTree = "<group>"; };
+		E5F9E3C1301F261800EDC2A5 /* MyDayHabitTimeEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayHabitTimeEditSectionController.swift; sourceTree = "<group>"; };
+		E5F9E3C3301F474100EDC2A5 /* MyDayFocusScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayFocusScheduleEditViewController.swift; sourceTree = "<group>"; };
 		E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventView.swift; sourceTree = "<group>"; };
 		E5FBD0F02DA9135200924EED /* SettingAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAgent.swift; sourceTree = "<group>"; };
 		E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@3x.png"; sourceTree = "<group>"; };
@@ -5378,6 +5388,7 @@
 				E53ABEE63009D8FE00EB8632 /* MyDayPresenter.swift */,
 				E5B3BAB3301254AE00D908B6 /* MyDayEventProcessor.swift */,
 				E5259B0A3017A72D00A6D253 /* Add */,
+				E5F9E3BC301DD1AA00EDC2A5 /* Schedule */,
 				E53ABEEA300A145E00EB8632 /* TimlineView */,
 				E53ABED83008D9CE00EB8632 /* Repository */,
 				E53ABEE03009169500EB8632 /* Edit */,
@@ -6099,6 +6110,7 @@
 		E53ABEEA300A145E00EB8632 /* TimlineView */ = {
 			isa = PBXGroup;
 			children = (
+				E518505D300F039F00112DFC /* Base */,
 				E5185056300CACD400112DFC /* MyDayTimelinePageView.swift */,
 				E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */,
 				E518507D301062D300112DFC /* MyDayTimelineViewModel.swift */,
@@ -6106,7 +6118,6 @@
 				E5F9E3B9301B8FBE00EDC2A5 /* Todo */,
 				E5B3BABB3014F54200D908B6 /* Habit */,
 				E518506E300F5CC500112DFC /* Focus */,
-				E518505D300F039F00112DFC /* Base */,
 			);
 			path = TimlineView;
 			sourceTree = "<group>";
@@ -10953,8 +10964,36 @@
 			isa = PBXGroup;
 			children = (
 				E5185071300F5D3200112DFC /* MyDayTodoTimelineCell.swift */,
+				E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */,
 			);
 			path = Todo;
+			sourceTree = "<group>";
+		};
+		E5F9E3BC301DD1AA00EDC2A5 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				E5F9E3BD301DD1D400EDC2A5 /* MyDayEventScheduleEditor.swift */,
+				E5F9E3C5301F474A00EDC2A5 /* Habit */,
+				E5F9E3C6301F477000EDC2A5 /* Focus */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		E5F9E3C5301F474A00EDC2A5 /* Habit */ = {
+			isa = PBXGroup;
+			children = (
+				E5F9E3BF301EDE0100EDC2A5 /* MyDayHabitScheduleEditViewController.swift */,
+				E5F9E3C1301F261800EDC2A5 /* MyDayHabitTimeEditSectionController.swift */,
+			);
+			path = Habit;
+			sourceTree = "<group>";
+		};
+		E5F9E3C6301F477000EDC2A5 /* Focus */ = {
+			isa = PBXGroup;
+			children = (
+				E5F9E3C3301F474100EDC2A5 /* MyDayFocusScheduleEditViewController.swift */,
+			);
+			path = Focus;
 			sourceTree = "<group>";
 		};
 		E5FC6BA82F64F16A00D5A5EA /* Log */ = {
@@ -12087,6 +12126,7 @@
 				E549B1982F89F6A70014BE85 /* TodoTaskStepEditCell.swift in Sources */,
 				E5D7D8FF2D43933600EC877A /* FocusMainViewController.swift in Sources */,
 				E5D7D8C42D43933600EC877A /* FocusEvent.swift in Sources */,
+				E5F9E3BB301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift in Sources */,
 				E5BB9E202D3BF0C70089667A /* NSManagedObjectContext+Setup.swift in Sources */,
 				E5D7D9402D43933700EC877A /* FocusTimerStepMenuController.swift in Sources */,
 				E5371DED2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift in Sources */,
@@ -12355,6 +12395,7 @@
 				E58F46BD2F7B53E80046FA96 /* ExpansionStateProviding.swift in Sources */,
 				E56BAC772DCC56E60013C6F6 /* CalendarWeekPageView.swift in Sources */,
 				E50D60462F7A139D00D5E0A4 /* TaskAlarm.swift in Sources */,
+				E5F9E3C0301EDE0200EDC2A5 /* MyDayHabitScheduleEditViewController.swift in Sources */,
 				E51B28EF2FA778A6006B3352 /* TodoTaskBoardDragInsertReorder.swift in Sources */,
 				E5BB9D9D2D3BF0C60089667A /* TPToolbarButton.swift in Sources */,
 				E5BB9E3C2D3BF0C70089667A /* TPSeparatorTableHeaderFooterView.swift in Sources */,
@@ -12918,6 +12959,7 @@
 				E5F155372F83E1C700116091 /* TodoTaskActionType.swift in Sources */,
 				E5BB9E682D3BF0C70089667A /* TPCollectionViewAdapterDataSource.swift in Sources */,
 				E5D7D9032D43933600EC877A /* CountdownTimerEditView.swift in Sources */,
+				E5F9E3C4301F474100EDC2A5 /* MyDayFocusScheduleEditViewController.swift in Sources */,
 				E5BB9F4A2D3BF45F0089667A /* SidebarController.swift in Sources */,
 				E57CC5D82F7FCED300ADDBA4 /* TodoTaskQuickAddSendView.swift in Sources */,
 				E5BB9DBF2D3BF0C60089667A /* String+Theme.swift in Sources */,
@@ -13178,6 +13220,7 @@
 				E54E632F2F5B0DA200FCBCAE /* HabitHomeDayMenuController.swift in Sources */,
 				E5B98CE52D55C22E00E78261 /* TPExpandDefaultInfoTableCell.swift in Sources */,
 				E50D60772F7A2E2D00D5E0A4 /* TodoUserListSelectCell.swift in Sources */,
+				E5F9E3C2301F261800EDC2A5 /* MyDayHabitTimeEditSectionController.swift in Sources */,
 				E54E63272F5A731300FCBCAE /* HabitManageArchivedListViewController.swift in Sources */,
 				E5FF4ED52FECB7AC00282416 /* LocalNotifiableTaskFetcher.swift in Sources */,
 				E5BB9F142D3BF0C90089667A /* CocoaHook.swift in Sources */,
@@ -13256,6 +13299,7 @@
 				E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */,
 				E5BB9F012D3BF0C80089667A /* UIViewController+CustomTransition.swift in Sources */,
 				E50D60642F7A186F00D5E0A4 /* TodoListNameEmojiEditCell.swift in Sources */,
+				E5F9E3BE301DD1D500EDC2A5 /* MyDayEventScheduleEditor.swift in Sources */,
 				E5BB9F072D3BF0C90089667A /* TPCollectionDragReorder.swift in Sources */,
 				E54C7C872F5C53E000263B82 /* TPRequestManager.swift in Sources */,
 				E50D60552F7A13F100D5E0A4 /* AlarmAbsoluteOffsetPickerView.swift in Sources */,
