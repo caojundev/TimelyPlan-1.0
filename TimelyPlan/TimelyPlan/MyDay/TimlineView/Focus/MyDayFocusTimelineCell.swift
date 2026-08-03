@@ -61,7 +61,11 @@ class MyDayFocusTimelineCell: TimelineIconCell {
         super.configure(with: item)
         self.focusItem = item
         startButton.isHidden = item.startDate.isFutureDay
-        startButton.imageConfig.color = item.nodeColor
+        
+        let imageConfig = startButton.imageConfig
+        imageConfig.color = item.nodeColor
+        startButton.imageConfig = imageConfig
+        
         guard let timer = item.event.sourceItem as? FocusTimer else {
             return
         }

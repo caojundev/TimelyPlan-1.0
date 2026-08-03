@@ -36,6 +36,10 @@ class MyDayHabitScheduleEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
 
+    private let infoViewTopMargin = 20.0
+    private let infoViewHeight = 60.0
+    private let infoViewBottomMargin = 10.0
+    private let infoView = HabitTaskDefaultInfoView()
     
     init(task: HabitEditingTask) {
         self.editingTask = task
@@ -48,11 +52,28 @@ class MyDayHabitScheduleEditViewController: TPTableSectionsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(infoView)
         setupActionsBar(actions: [doneAction])
-        let sectionControllers = [timeSectionController]
-        self.sectionControllers = sectionControllers
+        sectionControllers = [timeSectionController]
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         reloadData()
+        updateInfoView()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        let layoutFrame = view.bounds.inset(by: UIEdgeInsets(horizontal: 20.0))
+        infoView.width = layoutFrame.width
+        infoView.height = infoViewHeight
+        infoView.top = infoViewTopMargin
+        infoView.left = layoutFrame.minX
+    }
+    
+    override func tableViewFrame() -> CGRect {
+        var frame = super.tableViewFrame()
+        frame.origin.y = frame.origin.y + infoViewTopMargin + infoViewHeight + infoViewBottomMargin
+        frame.size.height = frame.size.height - infoViewTopMargin - infoViewHeight - infoViewBottomMargin
+        return frame
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -63,8 +84,18 @@ class MyDayHabitScheduleEditViewController: TPTableSectionsViewController {
         return .systemGroupedBackground
     }
     
+    private func updateInfoView() {
+        infoView.iconView.backColor = .secondarySystemGroupedBackground
+        infoView.iconView.icon = editingTask.icon
+        infoView.iconView.font = .boldSystemFont(ofSize: 32.0)
+        infoView.titleView.titleConfig.font = .boldSystemFont(ofSize: 14.0)
+        infoView.titleView.subtitleConfig.font = .boldSystemFont(ofSize: 12.0)
+        infoView.titleView.title = editingTask.name ?? resGetString("Untitled Habit")
+        infoView.titleView.subtitle = editingTask.goal.targetDescription
+    }
+    
     override func clickDone() {
-        self.didEndEditing?(self.editingTask)
-        self.dismiss(animated: true, completion: nil)
+        didEndEditing?(editingTask)
+        dismiss(animated: true, completion: nil)
     }
 }
