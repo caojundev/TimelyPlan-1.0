@@ -1,5 +1,5 @@
 //
-//  TaskBindViewController.swift
+//  MyDayTaskBindViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/2/19.
@@ -8,27 +8,15 @@
 import Foundation
 import UIKit
 
-protocol TaskBindViewControllerDelegate: AnyObject {
-    
-    func taskBindViewController(_ viewController: UIViewController, didSelectTask task: TaskRepresentable)
-}
-
-class TaskBindViewController: TPContainerViewController,
-                              TaskBindViewControllerDelegate,
-                              UISearchControllerDelegate {
+class MyDayTaskBindViewController: TPContainerViewController,
+                                    UISearchControllerDelegate {
     
     /// 当前列表任务类型
     private(set) var taskType: TaskType
     
     /// 允许选择的任务类型
-    private(set) var allowTypes: [TaskType] = [.todo, .habit]
+    private(set) var allowTypes: [TaskType] = [.todo, .habit, .focus]
 
-    /// 当前选中任务
-    private(set) var task: TaskFeature?
-    
-    /// 选中任务回调
-    var didSelectTask: ((TaskRepresentable?) -> Void)?
-    
     /// 当前任务列表视图控制器
     var listViewController: UIViewController!
  
@@ -44,16 +32,6 @@ class TaskBindViewController: TPContainerViewController,
         return searchController
     }()
  
-    /// 清除按钮
-    private lazy var clearButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: resGetImage("clear_24"),
-                                   style: .done,
-                                   target: self,
-                                   action: #selector(clickClear(_:)))
-        item.tintColor = .danger6
-        return item
-    }()
-    
     /// 统计类型菜单
     lazy var typeMenuView: TPSegmentedMenuView = {
         let view = TPSegmentedMenuView()
@@ -71,21 +49,8 @@ class TaskBindViewController: TPContainerViewController,
         return view
     }()
 
-    convenience init() {
-        self.init(task: nil, type: .todo)
-    }
-    
-    convenience init(task: TaskFeature?) {
-        let type = task?.type ?? .todo
-        self.init(task: task, type: type)
-    }
-    
-    init(task: TaskFeature?,
-         type: TaskType,
-         allowTypes: [TaskType] = [.todo, .habit]) {
+    init(type: TaskType = .todo) {
         self.taskType = type
-        self.allowTypes = allowTypes
-        self.task = task
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -96,11 +61,6 @@ class TaskBindViewController: TPContainerViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        if task != nil {
-            navigationItem.rightBarButtonItem = clearButtonItem
-            navigationItem.rightBarButtonItem?.tintColor = .danger6
-        }
-        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         self.setupTitleView()
@@ -145,72 +105,24 @@ class TaskBindViewController: TPContainerViewController,
     private func listViewController(for type: TaskType) -> UIViewController! {
         switch type {
         case .todo:
-            return newTodoTaskBindViewController()
+            return MyDayTodoTaskBindViewController()
         case .habit:
-            return newHabitTaskBindViewController()
+            return MyDayHabitTaskBindViewController()
+        case .focus:
+            return MyDayFocusTimerBindViewController()
         default:
             return UIViewController()
         }
     }
     
-    /// 创建待办绑定视图控制器
-    private func newTodoTaskBindViewController() -> TodoTaskBindViewController {
-        let vc = TodoTaskBindViewController(selectedFeature: task)
-        vc.delegate = self
-        return vc
-    }
-    
-    /// 创建习惯绑定视图控制器
-    private func newHabitTaskBindViewController() -> HabitTaskBindViewController {
-        let vc = HabitTaskBindViewController(selectedFeature: task)
-        vc.delegate = self
-        return vc
-    }
-    
     // MARK: - UISearchControllerDelegate
     func willPresentSearchController(_ searchController: UISearchController) {
-        let resultVC = TaskBindSearchResultViewController(selectedTaskFeature: task)
-        resultVC.delegate = self
+        let resultVC = TaskBindSearchResultViewController(selectedTaskFeature: nil)
         searchController.searchResultsUpdater = resultVC
         setContentViewController(resultVC, withAnimationStyle: .none)
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {
         setContentViewController(listViewController, withAnimationStyle: .none)
-    }
-     
-    // MARK: - TaskBindViewControllerDelegate
-    func taskBindViewController(_ viewController: UIViewController, didSelectTask task: TaskRepresentable) {
-        selectTask(task)
-    }
-    
-    // MARK: - Event Response
-    @objc private func clickClear(_ buttonItem: UIBarButtonItem) {
-        TPImpactFeedback.impactWithMediumStyle()
-        self.selectTask(nil)
-    }
-
-    private func selectTask(_ task: TaskRepresentable?) {
-        self.didSelectTask?(task)
-        if let presentingVC = presentingViewController {
-            presentingVC.dismiss(animated: true, completion: nil)
-        } else {
-            dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    // MARK: - Helpers
-    static func show(with selectedTask: TaskFeature?,
-                     completion: ((TaskRepresentable?) -> Void)?) {
-        let vc = TaskBindViewController(task: selectedTask)
-        vc.didSelectTask = { task in
-            if selectedTask == task?.feature {
-                return
-            }
-            
-            completion?(task)
-        }
-        
-        vc.showAsNavigationRoot(style: .formSheet, animated: true, completion: nil)
     }
 }

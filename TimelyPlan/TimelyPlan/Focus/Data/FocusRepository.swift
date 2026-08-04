@@ -145,6 +145,16 @@ class FocusRepository {
         }
     }
     
+    static func updateTimer(_ timer: FocusTimer, isAddedToMyDay: Bool) {
+        var editingTimer = timer.editingTimer
+        guard editingTimer.isAddedToMyDay != isAddedToMyDay else {
+            return
+        }
+        
+        editingTimer.isAddedToMyDay = isAddedToMyDay
+        userTimerManager.updateTimer(timer, with: editingTimer)
+    }
+    
     static func setArchived(_ isArchived: Bool, for timer: FocusTimer) {
         userTimerManager.setArchived(isArchived, for: timer)
     }

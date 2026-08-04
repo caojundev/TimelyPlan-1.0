@@ -98,6 +98,12 @@ class MyDayMainViewController: TPViewController,
         return manager
     }()
     
+    private lazy var addController: MyDayEventAddController = {
+        let controller = MyDayEventAddController()
+        controller.quickAddManager = quickAddManager
+        return controller
+    }()
+    
     init(date: Date = .now) {
         self.visibleDate = date
         super.init(nibName: nil, bundle: nil)
@@ -165,7 +171,22 @@ class MyDayMainViewController: TPViewController,
     }
     
     // MARK: - Event Response
-    @objc func didTapMaskView() {
+    func clickEventAdd() {
+        TPImpactFeedback.impactWithSoftStyle()
+        let menuController = MyDayEventAddMenuController()
+        menuController.didSelectMenuActionType = { [weak self] type in
+            guard let self = self else { return }
+            let date = self.pageView.visibleDate!
+            self.addController.performAddMenuAction(with: type, on: date)
+        }
+
+        let sourceRect = addView.bounds.insetBy(dx: -5.0, dy: -5.0)
+        menuController.showMenu(from: addView,
+                                sourceRect: sourceRect,
+                                isCovered: true)
+    }
+    
+    @objc private func didTapMaskView() {
         calendarView.switchMode(.week, animated: true)
     }
     
@@ -174,7 +195,7 @@ class MyDayMainViewController: TPViewController,
         MyDayPresenter.showSetting()
     }
     
-    @objc func clickDate(_ button: UIButton) {
+    @objc private func clickDate(_ button: UIButton) {
         let datePickerVC = TPYearMonthDatePickerViewController()
         datePickerVC.date = visibleDate
         datePickerVC.didPickDate = { date in
@@ -193,87 +214,6 @@ class MyDayMainViewController: TPViewController,
         updateTitle(with: date)
         calendarView.setVisibleDateComponents(date.yearMonthDayComponents,
                                               animated: true)
-    }
-    
-}
-
-extension MyDayMainViewController {
-    
-    func clickEventAdd() {
-        TPImpactFeedback.impactWithSoftStyle()
-        
-        let menuController = MyDayEventAddMenuController()
-        menuController.didSelectMenuActionType = { type in
-            self.performAddMenuAction(with: type)
-        }
-
-        let sourceRect = addView.bounds.insetBy(dx: -5.0, dy: -5.0)
-        menuController.showMenu(from: addView,
-                                sourceRect: sourceRect,
-                                isCovered: true)
-    }
-    
-    func performAddMenuAction(with type: MyDayEventAddType) {
-        let date = pageView.visibleDate ?? .now
-        switch type {
-        case .bind:
-            break
-        case .todo:
-            showQuickAddTask(on: date)
-        case .habit:
-            createNewHabit(on: date)
-        case .focus:
-            createNewTimer(on: date)
-        }
-    }
-    
-    // MARK: - 习惯
-    func createNewHabit(on date: Date) {
-        let startDate = date.startOfDay()
-        var task = HabitEditingTask()
-        task.dateRange = DateRange(startDate: startDate, endDate: nil)
-        task.isAddedToMyDay = true
-        HabitPresenter.createNewHabitTask(task: task)
-    }
-    
-    // MARK: - 专注
-    func createNewTimer(on date: Date) {
-        let startDate = date.startOfDay()
-        var timer = FocusEditingTimer()
-        timer.dateRange = DateRange(startDate: startDate, endDate: nil)
-        timer.isAddedToMyDay = true
-        FocusPresenter.createNewTimer(with: timer)
-    }
-    
-    // MARK: - 待办任务
-    func showQuickAddTask(on date: Date) {
-        // 检查并清理过期的草稿任务
-        if shouldClearDraftTask(with: date) {
-            quickAddManager.clearDraftTask()
-        }
-
-        let task = quickAddTask(on: date)
-        quickAddManager.show(with: task)
-    }
-    
-    private func shouldClearDraftTask(with date: Date) -> Bool {
-        guard let draftTask = quickAddManager.draftTask,
-              let dateInfo = draftTask.schedule?.dateInfo else {
-            return quickAddManager.draftTask != nil // 无日期信息的草稿需要清理
-        }
-        
-        return !dateInfo.startDate.isInSameDayAs(date)
-    }
-    
-    private func quickAddTask(on date: Date) -> TodoQuickAddTask {
-        let dateInfo = TaskDateInfo(date: date)
-        let schedule = TaskSchedule(dateInfo: dateInfo,
-                                    reminder: nil,
-                                    repeatRule: nil)
-        let task = TodoQuickAddTask()
-        task.schedule = schedule
-        task.isAddedToMyDay = true
-        return task
     }
     
 }
@@ -336,5 +276,4 @@ extension MyDayMainViewController: SettingAgentObserver {
             break
         }
     }
-
 }

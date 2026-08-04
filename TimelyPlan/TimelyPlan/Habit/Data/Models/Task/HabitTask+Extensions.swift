@@ -81,7 +81,6 @@ extension HabitTask {
         return .string(image: image, imageSize: .size(4), imageColor: color)
     }
     
-    
     /// 备注图标信息
     func bellIndicator(color: UIColor? = nil) -> ASAttributedString? {
         guard let image = resGetImage("bell_fill_16") else {

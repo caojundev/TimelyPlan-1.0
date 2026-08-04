@@ -38,6 +38,7 @@ class TodoTaskSelectViewModel {
     init() {
         self.placeholderProvider.state = self.loadingState
         self.placeholderProvider.emptyTitle = resGetString("No Task")
+        TodoRepository.addUpdater(self, for: [.task])
     }
  
     func setNeedsRefresh() {
@@ -81,3 +82,52 @@ class TodoTaskSelectViewModel {
         TodoRepository.fetchAllTasks(showCompleted: false, completion: completion)
     }
 }
+
+extension TodoTaskSelectViewModel: TodoTaskProcessorDelegate {
+    
+    func didChangeRemoteTodoTask(with results: EntityChangeResults<TodoTask>?) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didImportTodoTasks(_ tasks: [TodoTask], to list: TodoList?) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didCreateTodoTask(_ task: TodoTask) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didCreateRepeatTodoTasks(_ repeatTasks: [TodoTask], updatedTasks: [TodoTask]) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didRestoreTrashTodoTasks(_ tasks: [TodoTask]) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didMoveTodoTasksToTrash(_ tasks: [TodoTask]) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didMoveTodoTasks(_ tasks: [TodoTask], to section: TodoSectionFeature) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didUpdateTodoTasks(with changeInfos: [TodoTaskChangeInfo]) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+}
+

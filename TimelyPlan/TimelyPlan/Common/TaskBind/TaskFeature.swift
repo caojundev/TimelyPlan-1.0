@@ -11,13 +11,14 @@ import UIKit
 /// 任务类型
 enum TaskType: Int, Codable, TPMenuRepresentable {
     case none = 0
-    case todo /// 待办
+    case todo  /// 待办
     case habit /// 习惯
+    case focus /// 专注
     
-    static var allTypes: [TaskType] {
-        return [.todo, .habit]
-    }
-    
+//    static var allTypes: [TaskType] {
+//        return [.todo, .habit]
+//    }
+//    
     var identifier: String {
         switch self {
         case .none:
@@ -26,6 +27,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return "Todo"
         case .habit:
             return "Habit"
+        case .focus:
+            return "Focus"
         }
     }
     
@@ -37,6 +40,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return resGetString("Todo")
         case .habit:
             return resGetString("Habit")
+        case .focus:
+            return resGetString("Focus")
         }
     }
     
@@ -50,8 +55,6 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return nil
         }
     }
-    
-    
 }
 
 /// 任务信息
@@ -67,8 +70,7 @@ struct TaskFeature: Codable, Hashable, Equatable {
     var snapshotName: String?
     
     var typeImage: UIImage? {
-        let image = type.iconImage(with: .mini) ?? resGetImage("bind", size: .mini)
-        return image
+        return type.iconImage(with: .mini) ?? resGetImage("bind", size: .mini)
     }
     
     /// 提供自定义的哈希值计算
@@ -79,9 +81,8 @@ struct TaskFeature: Codable, Hashable, Equatable {
     }
     
     static var none: TaskFeature {
-        let snapshotName = resGetString("Unlinked Task")
         return TaskFeature(type: .none,
                            identifier: TaskType.none.identifier,
-                           snapshotName: snapshotName)
+                           snapshotName: resGetString("Unlinked"))
     }
 }

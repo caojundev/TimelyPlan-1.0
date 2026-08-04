@@ -52,7 +52,7 @@ class TodoTaskSelectView: UIView,
     var normalHeaderHeight = 50.0
     
     /// 显示详情
-    let showDetail: Bool = false
+    var showDetail: Bool = false
 
     private let adapter = TPTableViewAdapter()
     

@@ -226,6 +226,16 @@ final class HabitRepository {
         taskManager.createTask(with: editingTask)
     }
 
+    static func updateTask(_ task: HabitTask, isAddedToMyDay: Bool) {
+        var editingTask = task.editingTask
+        guard editingTask.isAddedToMyDay != isAddedToMyDay else {
+            return
+        }
+        
+        editingTask.isAddedToMyDay = isAddedToMyDay
+        taskManager.updateTask(task, with: editingTask)
+    }
+    
     static func updateTask(_ task: HabitTask, with editingTask: HabitEditingTask) {
         taskManager.updateTask(task, with: editingTask)
     }

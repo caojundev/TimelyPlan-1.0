@@ -160,29 +160,28 @@ class HabitTaskDetailProvider {
                 with record: HabitRecord?,
                 color: UIColor = .white,
                 addToMyDayIncluded: Bool = true) -> TextRepresentable {
-        if date.isFutureDay {
-            return task.goal.targetDescription.attributedString
-        }
         
-        /// 进度详情
-        let progressDetail = Self.completedAmountDetail(for: task, with: record)
-        guard let record = record else {
-            return progressDetail
-        }
-
-        var details = [progressDetail]
-        
-        /// 备注
-        if record.hasLog {
-            details.append(task.logIndicator(color: color))
-        }
-        
+        var details = [ASAttributedString]()
         if addToMyDayIncluded, task.isAddedToMyDay {
             if let myDayIndicator = task.myDayIndicator(color: color) {
-                details.append(myDayIndicator)
+                details.insert(myDayIndicator, at: 0)
             }
         }
         
+        if date.isFutureDay {
+            details.insert(task.goal.targetDescription.attributedString, at: 0)
+            return details.joined(separator: " • ")
+        }
+        
+        /// 备注
+        if let record = record, record.hasLog {
+            let logIndicator = task.logIndicator(color: color)
+            details.insert(logIndicator, at: 0)
+        }
+    
+        /// 进度详情
+        let progressDetail = Self.completedAmountDetail(for: task, with: record)
+        details.insert(progressDetail, at: 0)
         return details.joined(separator: " • ")
     }
 }
