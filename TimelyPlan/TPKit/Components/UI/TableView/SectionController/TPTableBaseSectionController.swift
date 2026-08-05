@@ -75,6 +75,7 @@ class TPTableBaseSectionController: NSObject {
         
         cell.delegate = self
         cell.style = styleForRow(at: index)
+        cell.isChecked = shouldShowCheckmarkForRow(at: index)
     }
     
     func didSelectRow(at index: Int) {

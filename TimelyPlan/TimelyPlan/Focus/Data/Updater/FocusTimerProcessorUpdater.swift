@@ -33,7 +33,9 @@ protocol FocusTimerProcessorDelegate: AnyObject {
 }
 
 extension FocusTimerProcessorDelegate {
-
+    
+    func didChangeRemoteFocusTimer(with results: EntityChangeResults<FocusTimer>?) {}
+        
     func didCreateFocusTimer(_ timer: FocusTimer) {}
 
     func didChangeArchivedState(_ isArchived: Bool, for timer: FocusTimer) {}

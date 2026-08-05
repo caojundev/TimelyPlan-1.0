@@ -2080,6 +2080,10 @@
 		E5F9E3E23021D17E00EDC2A5 /* MyDayTodoTaskBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3DE3021D17E00EDC2A5 /* MyDayTodoTaskBindViewController.swift */; };
 		E5F9E3E53021D8EB00EDC2A5 /* MyDayFocusTimerBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3E43021D8EB00EDC2A5 /* MyDayFocusTimerBindViewController.swift */; };
 		E5F9E3E73021DDDB00EDC2A5 /* MyDayFocusTimerBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3E63021DDDB00EDC2A5 /* MyDayFocusTimerBindCell.swift */; };
+		E5F9E3E93021EF1F00EDC2A5 /* MyDayTaskBindSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3E83021EF1F00EDC2A5 /* MyDayTaskBindSearchResultViewController.swift */; };
+		E5F9E3EC3021EFEE00EDC2A5 /* MyDayFocusBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3EB3021EFEE00EDC2A5 /* MyDayFocusBindSearchResultSectionController.swift */; };
+		E5F9E3EE3022235100EDC2A5 /* MyDayHabitBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3ED3022235100EDC2A5 /* MyDayHabitBindSearchResultSectionController.swift */; };
+		E5F9E3F03022258C00EDC2A5 /* MyDayTodoBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3EF3022258B00EDC2A5 /* MyDayTodoBindSearchResultSectionController.swift */; };
 		E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */; };
 		E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBD0F02DA9135200924EED /* SettingAgent.swift */; };
 		E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */; };
@@ -4232,6 +4236,10 @@
 		E5F9E3DE3021D17E00EDC2A5 /* MyDayTodoTaskBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDayTodoTaskBindViewController.swift; sourceTree = "<group>"; };
 		E5F9E3E43021D8EB00EDC2A5 /* MyDayFocusTimerBindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayFocusTimerBindViewController.swift; sourceTree = "<group>"; };
 		E5F9E3E63021DDDB00EDC2A5 /* MyDayFocusTimerBindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayFocusTimerBindCell.swift; sourceTree = "<group>"; };
+		E5F9E3E83021EF1F00EDC2A5 /* MyDayTaskBindSearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDayTaskBindSearchResultViewController.swift; sourceTree = "<group>"; };
+		E5F9E3EB3021EFEE00EDC2A5 /* MyDayFocusBindSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayFocusBindSearchResultSectionController.swift; sourceTree = "<group>"; };
+		E5F9E3ED3022235100EDC2A5 /* MyDayHabitBindSearchResultSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDayHabitBindSearchResultSectionController.swift; sourceTree = "<group>"; };
+		E5F9E3EF3022258B00EDC2A5 /* MyDayTodoBindSearchResultSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDayTodoBindSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventView.swift; sourceTree = "<group>"; };
 		E5FBD0F02DA9135200924EED /* SettingAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAgent.swift; sourceTree = "<group>"; };
 		E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@3x.png"; sourceTree = "<group>"; };
@@ -11027,6 +11035,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F9E3CF3021983900EDC2A5 /* MyDayTaskBindViewController.swift */,
+				E5F9E3EA3021EFC400EDC2A5 /* Search */,
 				E5F9E3DA3021D17E00EDC2A5 /* Todo */,
 				E5F9E3D130219D6000EDC2A5 /* Habit */,
 				E5F9E3E33021D88F00EDC2A5 /* Focus */,
@@ -11058,6 +11067,17 @@
 				E5F9E3E63021DDDB00EDC2A5 /* MyDayFocusTimerBindCell.swift */,
 			);
 			path = Focus;
+			sourceTree = "<group>";
+		};
+		E5F9E3EA3021EFC400EDC2A5 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				E5F9E3E83021EF1F00EDC2A5 /* MyDayTaskBindSearchResultViewController.swift */,
+				E5F9E3EF3022258B00EDC2A5 /* MyDayTodoBindSearchResultSectionController.swift */,
+				E5F9E3ED3022235100EDC2A5 /* MyDayHabitBindSearchResultSectionController.swift */,
+				E5F9E3EB3021EFEE00EDC2A5 /* MyDayFocusBindSearchResultSectionController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		E5FC6BA82F64F16A00D5A5EA /* Log */ = {
@@ -12209,6 +12229,7 @@
 				E51B28F52FA77970006B3352 /* TodoTaskBoardCell.swift in Sources */,
 				E50D026E2F56D44500E93977 /* HabitTaskGroup.swift in Sources */,
 				E5BB9E492D3BF0C70089667A /* TPCalendarViewController.swift in Sources */,
+				E5F9E3EC3021EFEE00EDC2A5 /* MyDayFocusBindSearchResultSectionController.swift in Sources */,
 				E5BB9E0B2D3BF0C70089667A /* Float+Extensions.swift in Sources */,
 				E50D60762F7A2E2D00D5E0A4 /* TodoListBranchLayer.swift in Sources */,
 				E5D7D9342D43933700EC877A /* FocusUserTimerController.swift in Sources */,
@@ -12953,6 +12974,7 @@
 				E5BB9E902D3BF0C80089667A /* PieRankListCell.swift in Sources */,
 				E5BB9EF22D3BF0C80089667A /* TPPageController.swift in Sources */,
 				E5D7D9132D43933700EC877A /* FocusStatsMonthlyViewController.swift in Sources */,
+				E5F9E3E93021EF1F00EDC2A5 /* MyDayTaskBindSearchResultViewController.swift in Sources */,
 				E5926DD32D4C645D007D5A6A /* TPTextFieldTableCellItem.swift in Sources */,
 				E5F078D12F972E8B00F94BDF /* TodoMultipleScheduleEditViewController.swift in Sources */,
 				E5C92F642FD2C9D70051F355 /* TodoTaskMoveUserListCell.swift in Sources */,
@@ -13088,6 +13110,7 @@
 				E500E3AA2FC7E66D00252011 /* BarRankListChartCell.swift in Sources */,
 				E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */,
 				E5259B0C3017A75600A6D253 /* MyDayEventAddType.swift in Sources */,
+				E5F9E3EE3022235100EDC2A5 /* MyDayHabitBindSearchResultSectionController.swift in Sources */,
 				E5BB9EC72D3BF0C80089667A /* TPButtonActionsBar.swift in Sources */,
 				E53352A22FF90A0700546986 /* CalendarYearView.swift in Sources */,
 				E5D7D8B92D43933600EC877A /* FocusRunningViewController.swift in Sources */,
@@ -13368,6 +13391,7 @@
 				E500E3932FC5D7DD00252011 /* TodoStatsMonthlyViewController.swift in Sources */,
 				E529ACF42F7E48AD000EA2F1 /* TodoTagProcessorUpdater.swift in Sources */,
 				E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */,
+				E5F9E3F03022258C00EDC2A5 /* MyDayTodoBindSearchResultSectionController.swift in Sources */,
 				E5BB9F012D3BF0C80089667A /* UIViewController+CustomTransition.swift in Sources */,
 				E50D60642F7A186F00D5E0A4 /* TodoListNameEmojiEditCell.swift in Sources */,
 				E5F9E3BE301DD1D500EDC2A5 /* MyDayEventScheduleEditor.swift in Sources */,

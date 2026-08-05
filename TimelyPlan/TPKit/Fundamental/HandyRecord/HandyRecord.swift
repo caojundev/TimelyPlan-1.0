@@ -50,6 +50,149 @@ class HandyRecord {
     /// 默认开启，可根据应用配置动态调整
     static var isICloudEnabled: Bool = true
     
+    // MARK: - 变更计数与自动保存机制
+    
+    /// 当前未保存的变更计数
+    private static var changeCount: Int = 0
+    
+    /// 触发自动保存的阈值，默认累积 10 次变更后自动保存
+    static var autoSaveThreshold: Int = 10
+    
+    /// 自动保存定时器
+    private static var autoSaveTimer: Timer?
+    
+    /// 自动保存的时间间隔（秒），默认 30 秒
+    static var autoSaveInterval: TimeInterval = 30.0
+    
+    /// 是否有未保存的变更
+    static var hasUnsavedChanges: Bool {
+        return changeCount > 0
+    }
+    
+    /// 用于线程安全的锁
+    private static let changeCountLock = NSLock()
+    
+    /// 记录一次变更，增加变更计数
+    /// - Note: 类似于 UIDocument.updateChangeCount() 的行为
+    /// - Warning: 此方法线程安全，可在任意线程调用
+    static func updateChangeCount() {
+        changeCountLock.lock()
+        changeCount += 1
+        let currentCount = changeCount
+        changeCountLock.unlock()
+        
+        // 检查是否达到自动保存阈值
+        if currentCount >= autoSaveThreshold {
+            performAutoSave()
+        }
+        
+        #if DEBUG
+        print("📝 变更计数: \(currentCount)/\(autoSaveThreshold)")
+        #endif
+    }
+    
+    /// 根据重要性增加变更计数
+    /// - Parameter importance: 变更重要程度，1 为普通变更，5 为关键变更
+    /// - Note: 关键变更会更快触发自动保存
+    static func updateChangeCount(withImportance importance: Int) {
+        let weight = max(1, min(importance, 10))  // 限制在 1-10 之间
+        changeCountLock.lock()
+        changeCount += weight
+        let currentCount = changeCount
+        changeCountLock.unlock()
+        
+        if currentCount >= autoSaveThreshold {
+            performAutoSave()
+        }
+    }
+    
+    /// 执行自动保存
+    private static func performAutoSave() {
+        // 重置计数器
+        resetChangeCount()
+        
+        // 执行异步保存
+        save { success, error in
+            #if DEBUG
+            if success {
+                print("✅ 自动保存成功")
+            } else {
+                print("❌ 自动保存失败: \(error?.localizedDescription ?? "未知错误")")
+            }
+            #endif
+        }
+    }
+    
+    /// 重置变更计数
+    static func resetChangeCount() {
+        changeCountLock.lock()
+        changeCount = 0
+        changeCountLock.unlock()
+    }
+    
+    // MARK: - 自动保存定时器管理
+    
+    /// 启动自动保存定时器
+    /// - Note: 定时器会在指定间隔后检查是否有未保存的变更，如果有则执行保存
+    static func startAutoSaveTimer() {
+        stopAutoSaveTimer()
+        
+        autoSaveTimer = Timer.scheduledTimer(
+            withTimeInterval: autoSaveInterval,
+            repeats: true
+        ) { _ in
+            checkAndSaveIfNeeded()
+        }
+        
+        // 允许定时器在滚动等场景下也能触发
+        RunLoop.current.add(autoSaveTimer!, forMode: .common)
+        
+        #if DEBUG
+        print("⏰ 自动保存定时器已启动，间隔: \(autoSaveInterval)秒")
+        #endif
+    }
+    
+    /// 停止自动保存定时器
+    static func stopAutoSaveTimer() {
+        autoSaveTimer?.invalidate()
+        autoSaveTimer = nil
+        
+        #if DEBUG
+        print("⏰ 自动保存定时器已停止")
+        #endif
+    }
+    
+    /// 检查并执行必要的保存
+    private static func checkAndSaveIfNeeded() {
+        guard hasUnsavedChanges else { return }
+        
+        #if DEBUG
+        print("🔍 检测到未保存的变更，开始自动保存...")
+        #endif
+        
+        performAutoSave()
+    }
+    
+    /// 强制立即保存所有未保存的变更
+    /// - Parameter completion: 保存完成回调
+    static func forceSavePendingChanges(completion: ((Bool) -> Void)? = nil) {
+        guard hasUnsavedChanges else {
+            completion?(true)
+            return
+        }
+        
+        changeCountLock.lock()
+        changeCount = 0
+        changeCountLock.unlock()
+        
+        save { success, error in
+            completion?(success)
+            if let error = error {
+                print("❌ 强制保存失败: \(error.localizedDescription ?? "未知错误")")
+            }
+        }
+    }
+    
     // MARK: 异步保存操作
     
     /// 使用默认上下文进行异步保存
@@ -57,53 +200,6 @@ class HandyRecord {
     class func save(completion: HandyRecordSaveCompletionHandler? = nil) {
         let defaultContext = NSManagedObjectContext.defaultContext
         defaultContext.saveWithOptions([.parentContexts], completion: completion)
-    }
-    
-    /// 在临时上下文中执行操作并异步保存
-    /// - Parameter block: 在临时上下文中执行的操作闭包
-    class func save(block: HandyRecordSaveBlock?) {
-        save(block: block, completion: nil)
-    }
-    
-    /// 在临时上下文中执行操作并异步保存，支持完成回调
-    /// - Parameters:
-    ///   - block: 在临时上下文中执行的操作闭包，通常用于创建或修改数据
-    ///   - completion: 保存完成后的回调，在主线程执行
-    /// - Note: 使用独立的临时上下文，避免阻塞主线程
-    class func save(block: HandyRecordSaveBlock? = nil,
-                    completion: HandyRecordSaveCompletionHandler?) {
-        let savingContext = NSManagedObjectContext.rootSavingContext
-        let localContext = NSManagedObjectContext.context(withParent: savingContext)
-        
-        localContext.perform {
-            // 在临时上下文中执行用户操作
-            block?(localContext)
-            
-            // 保存临时上下文并级联到父上下文
-            localContext.saveWithOptions([.parentContexts], completion: completion)
-        }
-    }
-
-    // MARK: 同步保存操作
-    
-    /// 在临时上下文中执行操作并同步保存
-    /// - Parameters:
-    ///   - block: 在临时上下文中执行的操作闭包
-    ///   - completion: 保存完成后的回调，在主线程执行
-    /// - Note: 使用 performAndWait 阻塞当前线程，确保操作完成后再继续执行
-    /// - Warning: 避免在主线程调用此方法，可能造成 UI 卡顿
-    class func save(blockAndWait block: HandyRecordSaveBlock?,
-                    completion: HandyRecordSaveCompletionHandler?) {
-        let savingContext = NSManagedObjectContext.rootSavingContext
-        let localContext = NSManagedObjectContext.context(withParent: savingContext)
-        
-        localContext.performAndWait {
-            // 在临时上下文中同步执行用户操作
-            block?(localContext)
-            
-            // 同步保存临时上下文并级联到父上下文
-            localContext.saveWithOptions([.parentContexts, .synchronously], completion: completion)
-        }
     }
     
     // MARK: - CoreData 堆栈初始化
@@ -130,10 +226,39 @@ class HandyRecord {
             
             // 配置 CloudKit 数据同步管理器
             configureCloudKitSyncManager(with: container)
+            
+            // 启动自动保存定时器
+            startAutoSaveTimer()
+            
             completion(true)
         }
     }
     
+    // MARK: - 应用生命周期集成
+    
+    /// 应用进入后台时调用，强制保存所有未保存的变更
+    /// - Note: 应在 AppDelegate 或 SceneDelegate 的对应方法中调用
+    static func applicationDidEnterBackground() {
+        // 暂停定时器
+        stopAutoSaveTimer()
+        
+        // 强制同步保存所有变更
+        forceSavePendingChanges { success in
+            #if DEBUG
+            if success {
+                print("✅ 后台保存成功")
+            } else {
+                print("❌ 后台保存失败")
+            }
+            #endif
+        }
+    }
+    
+    /// 应用回到前台时调用，恢复自动保存定时器
+    /// - Note: 应在 AppDelegate 或 SceneDelegate 的对应方法中调用
+    static func applicationWillEnterForeground() {
+        startAutoSaveTimer()
+    }
 
     // MARK: - 容器配置
     

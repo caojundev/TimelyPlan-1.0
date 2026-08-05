@@ -98,8 +98,8 @@ class MyDayTaskBindViewController: TPContainerViewController,
     }
 
     private func updateContentViewController(with style: SlideStyle) {
-        self.listViewController = listViewController(for: self.taskType)
-        self.setContentViewController(self.listViewController, withAnimationStyle: style)
+        listViewController = listViewController(for: taskType)
+        setContentViewController(listViewController, withAnimationStyle: style)
     }
     
     private func listViewController(for type: TaskType) -> UIViewController! {
@@ -117,7 +117,7 @@ class MyDayTaskBindViewController: TPContainerViewController,
     
     // MARK: - UISearchControllerDelegate
     func willPresentSearchController(_ searchController: UISearchController) {
-        let resultVC = TaskBindSearchResultViewController(selectedTaskFeature: nil)
+        let resultVC = MyDayTaskBindSearchResultViewController(style: .insetGrouped)
         searchController.searchResultsUpdater = resultVC
         setContentViewController(resultVC, withAnimationStyle: .none)
     }

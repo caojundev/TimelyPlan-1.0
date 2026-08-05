@@ -91,7 +91,6 @@ class MyDayFocusTimerBindViewController: TPViewController,
         }
     
         TPImpactFeedback.impactWithSoftStyle()
-        
         let isAddedToMyDay = !timer.isAddedToMyDay
         FocusRepository.updateTimer(timer, isAddedToMyDay: isAddedToMyDay)
     }

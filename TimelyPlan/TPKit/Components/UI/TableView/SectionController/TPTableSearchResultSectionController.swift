@@ -87,7 +87,7 @@ class TPTableSearchResultSectionController: TPTableBaseSectionController,
     // MARK: -
     func highlightSearchText(for cell: UITableViewCell) {
         if let cell = cell as? SearchHighlightable {
-            cell.setHighlightedText(self.searchText)
+            cell.setHighlightedText(searchText)
         }
     }
     
@@ -116,25 +116,40 @@ class TPTableSearchResultSectionController: TPTableBaseSectionController,
         }
 
         self.searchText = searchText
+        performSearch(with: searchText)
+    }
+
+    func refreshSearchResults() {
+        guard let searchText = self.searchText, searchText.count > 0 else {
+            return
+        }
+        
+        performSearch(with: searchText)
+    }
+
+    private func performSearch(with searchText: String) {
+        self.searchText = searchText
         self.fetchResults(containText: searchText) { [weak self] results in
             guard let self = self, searchText == self.searchText else {
                 return
             }
             
             self.searchResults = results
-            self.adapter?.performUpdate()
+            self.adapter?.performSectionUpdate(forSectionObject: self,
+                                               rowAnimation: .fade,
+                                               completion: nil)
             self.updateSearchTextForVisibleCells()
         }
     }
-
+    
     /// 更新可见 cell 搜索文本
-    private func updateSearchTextForVisibleCells() {
+    func updateSearchTextForVisibleCells() {
         guard let cells = adapter?.visibleCells as? [SearchHighlightable] else {
             return
         }
         
         for cell in cells {
-            cell.setHighlightedText(self.searchText)
+            cell.setHighlightedText(searchText)
         }
     }
 }

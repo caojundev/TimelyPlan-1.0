@@ -18,11 +18,11 @@ enum MyDayEventAddType: Int, TPMenuRepresentable {
         case .bind:
             return resGetString("Bind Task")
         case .todo:
-            return resGetString("Todo")
+            return resGetString("Add Todo")
         case .habit:
-            return resGetString("Habit")
+            return resGetString("Add Habit")
         case .focus:
-            return resGetString("Focus")
+            return resGetString("Add Focus")
         }
     }
     

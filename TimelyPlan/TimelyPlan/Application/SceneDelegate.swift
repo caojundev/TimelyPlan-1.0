@@ -48,6 +48,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         NotificationCenter.default.post(name: .notificationWillEnterForeground, object: nil)
+        HandyRecord.applicationWillEnterForeground()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -56,6 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
         /// 序列化设置数据
         SettingAgent.shared.synchronize()
+        HandyRecord.applicationDidEnterBackground()
     }
 }
 

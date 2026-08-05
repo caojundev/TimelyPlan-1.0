@@ -96,4 +96,3 @@ class MyDayHabitTaskBindViewController: TPViewController,
         HabitRepository.updateTask(task, isAddedToMyDay: isAddedToMyDay)
     }
 }
-

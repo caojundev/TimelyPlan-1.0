@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-class MyDayHabitTaskBindCell: TPBaseTableCell {
+class MyDayHabitTaskBindCell: TPBaseTableCell, SearchHighlightable {
     
     var habitTask: HabitTask? {
         didSet {
-            updateTaskInfo()
+            updateInfo()
         }
     }
     
@@ -38,7 +38,7 @@ class MyDayHabitTaskBindCell: TPBaseTableCell {
         contentView.addSubview(infoView)
         contentView.padding = UIEdgeInsets(top: 4.0, left: 12.0, bottom: 4.0, right: 8.0)
     
-        let titleColor = resGetColor(.title)
+        let titleColor = UIColor.label
         let iconView = infoView.iconView
         iconView.foreColor = titleColor
         iconView.backColor = Color(0xcccccc, 0.2)
@@ -59,20 +59,60 @@ class MyDayHabitTaskBindCell: TPBaseTableCell {
         infoView.frame = availableLayoutFrame()
     }
     
-    func updateTaskInfo() {
+    func updateInfo() {
         guard let habitTask = habitTask else {
             return
         }
 
         infoView.iconView.icon = habitTask.icon
-        infoView.titleView.title = habitTask.displayName
+
+        let titleView = infoView.titleView
+        if let taskName = habitTask.name,
+            let highlightedText = highlightedText,
+            highlightedText.count > 0  {
+            /// 高亮文本
+            let value = taskName.attributedStringWithHighlight(highlightedText,
+                                                                normalAttributes: normalAttributes,
+                                                                highlightAttributes: highlightAttributes)
+            titleView.title = ASAttributedString(value: value)
+        } else {
+            titleView.title = habitTask.displayName
+        }
+        
         let detailProvider = HabitTaskDetailProvider()
         let subtitle = detailProvider.detail(for: habitTask,
                                                 on: .distantFuture,
                                                 with: nil,
                                                 color: .secondaryLabel,
                                                 addToMyDayIncluded: true)
-        infoView.titleView.subtitle = subtitle
+        titleView.subtitle = subtitle
     }
     
+   
+    // MARK: - SearchHighlightable
+    /// 高亮文本
+    var highlightedText: String?
+    
+    /// 获取默认的正常文本属性
+    var normalAttributes: [NSAttributedString.Key: Any] {
+        return [
+            .foregroundColor: infoView.titleView.titleConfig.textColor ?? .label,
+            .font: infoView.titleView.titleConfig.font
+        ]
+    }
+    
+    /// 获取默认的高亮文本属性（黄色背景，黑色文字）
+    var highlightAttributes: [NSAttributedString.Key: Any] {
+        return [
+            .backgroundColor: Color(0xFFD60A),
+            .foregroundColor: UIColor.black,
+            .font: infoView.titleView.titleConfig.font
+        ]
+    }
+    
+    /// 设置搜索文本并更新高亮显示
+    func setHighlightedText(_ highlightedText: String?) {
+        self.highlightedText = highlightedText
+        self.updateInfo()
+    }
 }

@@ -21,8 +21,8 @@ class TodoTaskSelectInfoView: TodoTaskBaseInfoView {
     }
     
     /// 选中按钮
-    private let checkboxSize = CGSize(width: 20.0, height: 20.0)
-    private let checkboxMargins = UIEdgeInsets(right: 15.0)
+    let checkboxSize = CGSize(width: 20.0, height: 20.0)
+    let checkboxMargins = UIEdgeInsets(right: 15.0)
     private(set) lazy var checkbox: TPCircularCheckbox = {
         let checkbox = TPCircularCheckbox()
         checkbox.isUserInteractionEnabled = false
