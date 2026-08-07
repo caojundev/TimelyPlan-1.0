@@ -79,7 +79,7 @@ class FocusUserTimerManager {
         let content = CDFocusTimer.newTimer(with: editingTimer, onTop: onTop)
         let timer = FocusTimer(content: content)
         updater.didCreateFocusTimer(timer)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     func createTimer(with editingTimer: FocusEditingTimer, in timers: [FocusTimer]?) {
@@ -95,7 +95,7 @@ class FocusUserTimerManager {
         
         let timer = FocusTimer(content: content)
         updater.didCreateFocusTimer(timer)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     @discardableResult
@@ -107,7 +107,7 @@ class FocusUserTimerManager {
         if let content = CDFocusTimer.getTimer(withIdentifier: timer.identifier) {
             content.update(with: editingTimer)
             updater.didUpdateFocusTimer(timer, with: editingTimer)
-            HandyRecord.save()
+            HandyRecord.updateChangeCount()
             return FocusTimer(content: content)
         }
         
@@ -118,7 +118,7 @@ class FocusUserTimerManager {
         if let content = CDFocusTimer.getTimer(withIdentifier: timer.identifier) {
             context.delete(content)
             updater.didDeleteFocusTimer(timer)
-            HandyRecord.save()
+            HandyRecord.updateChangeCount()
         }
     }
     
@@ -132,7 +132,7 @@ class FocusUserTimerManager {
             
             let updatedTimer = FocusTimer(content: content)
             updater.didChangeArchivedState(isArchived, for: updatedTimer)
-            HandyRecord.save()
+            HandyRecord.updateChangeCount()
         }
     }
     
@@ -140,13 +140,13 @@ class FocusUserTimerManager {
         var timers = timers
         timers.moveObject(fromIndex: fromIndex, toIndex: toIndex)
         CDFocusTimer.syncOrders(for: timers)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     func moveTimer(_ timer: FocusTimer, toTop: Bool = true) {
         CDFocusTimer.moveTimer(timer, toTop: toTop)
         updater.didMoveFocusTimer(timer)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
 }

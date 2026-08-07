@@ -21,6 +21,9 @@ class CalendarWeekMonthExpandView: UIView, TPMidnightUpdatable {
     
     weak var delegate: CalendarWeekMonthExpandViewDelegate?
     
+    /// 选中日期自动切换到周视图
+    var autoSwitchToWeekOnSelectDate: Bool = false
+    
     var weekContentHeight: CGFloat {
         return weekdaySymbolHeight + weekHeight + containerView.grabberHeight
     }
@@ -321,7 +324,9 @@ extension CalendarWeekMonthExpandView: TPCalendarSingleDateSelectionDelegate {
               let monthView = containerView.currentView as? CalendarExpandMonthView else {
                   visibleDateComponents = date
                   delegate?.calendarWeekMonthExpandView(self, didSelectDate: date)
-                  switchMode(.week, animated: true)
+                  if autoSwitchToWeekOnSelectDate {
+                      switchMode(.week, animated: true)
+                  }
             return
         }
         

@@ -45,7 +45,7 @@ class HabitTaskManager {
         }
         
         self.updater.didCreateHabitTask(task)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     func updateTask(_ task: HabitTask, with editingTask: HabitEditingTask) {
@@ -64,7 +64,7 @@ class HabitTaskManager {
         
         content.update(with: editingTask)
         updater.didUpdateHabitTask(task, with: editingTask)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         
         if isNameChanged {
             /// 更新对应专注会话的任务快照
@@ -81,7 +81,7 @@ class HabitTaskManager {
         }
         
         self.updater.didDeleteHabitTask(task)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     /// 重新排序
@@ -90,7 +90,7 @@ class HabitTaskManager {
         reorderedTasks.moveObject(fromIndex: fromIndex, toIndex: toIndex)
         CDHabitTask.syncOrders(for: reorderedTasks)
         self.updater.didReorderTask(in: tasks, fromIndex: fromIndex, toIndex: toIndex)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     func setArchived(_ isArchived: Bool, for task: HabitTask) {
@@ -103,7 +103,7 @@ class HabitTaskManager {
         }
         
         self.updater.didChangeArchivedState(for: task)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     /// 根据标识获取习惯任务

@@ -21,7 +21,6 @@ class HandyRecord {
     /// 格式：iCloud.{teamID}.{bundleID}
     static let kUbiquityContainerIdentifier = "iCloud.com.caojun.TimelyPlan"
 
-
     // MARK: 保存选项
     
     /// 保存操作的配置选项
@@ -188,7 +187,7 @@ class HandyRecord {
         save { success, error in
             completion?(success)
             if let error = error {
-                print("❌ 强制保存失败: \(error.localizedDescription ?? "未知错误")")
+                debugPrint("❌ 强制保存失败: \(error.localizedDescription ?? "未知错误")")
             }
         }
     }

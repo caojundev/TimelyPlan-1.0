@@ -43,12 +43,19 @@ enum MyDayEventAddType: Int, TPMenuRepresentable {
 
 class MyDayEventAddMenuController: TPBaseMenuController<MyDayEventAddType> {
   
+    let addTypes: [MyDayEventAddType]
+    
+    init(addTypes: [MyDayEventAddType] = MyDayEventAddType.allCases) {
+        self.addTypes = addTypes
+        super.init()
+    }
+    
     override func orderedMenuActionTypeLists() -> [Array<MyDayEventAddType>] {
         return [[.bind], [.todo, .habit, .focus]]
     }
     
     override func menuActionTypes() -> [MyDayEventAddType] {
-        return MyDayEventAddType.allCases
+        return addTypes
     }
 }
 

@@ -66,7 +66,7 @@ class MyDayPresenter {
         configure.direction = .right
         configure.cornerRadius = 0.0
         configure.presentPosition = .right
-        configure.contentSize = CGSize(width: 280.0, height: .greatestFiniteMagnitude)
+        configure.contentSize = CGSize(width: 300.0, height: .greatestFiniteMagnitude)
         configure.roundingCorners = []
         configure.edgeInsets = .zero
         topVC.slidePresent(navController,

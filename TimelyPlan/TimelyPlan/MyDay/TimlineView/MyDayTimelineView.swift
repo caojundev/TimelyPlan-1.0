@@ -13,6 +13,8 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     /// 习惯记录供应器
     weak var habitRecordProvider: MyDayHabitRecordProvider?
     
+    weak var eventAddController: MyDayEventAddController?
+    
     private let eventViewModel = MyDayTimelineViewModel()
     
     private let eventProcessor = MyDayEventProcessor()
@@ -87,6 +89,37 @@ extension MyDayTimelineView: TimelineEventCellDelegate {
         }
         
         MyDayEventScheduleEditor.editSchedule(for: event)
+    }
+}
+
+extension MyDayTimelineView: TimelineDashedConnectionCellDelegate {
+    
+    func timelineDashedConnectionCellDidClickAdd(_ cell: TimelineDashedConnectionCell) {
+        TPImpactFeedback.impactWithSoftStyle()
+        let addTypes: [MyDayEventAddType] = [.todo, .habit, .focus]
+        let menuController = MyDayEventAddMenuController(addTypes: addTypes)
+        menuController.didSelectMenuActionType = { [weak self] type in
+            self?.selectAddType(type, with: cell.item)
+        }
+                            
+        let sourceView = cell.addButton
+        let sourceRect = sourceView.bounds.insetBy(dx: -4.0, dy: -4.0)
+        menuController.showMenu(from: sourceView,
+                                sourceRect: sourceRect,
+                                isCovered: true)
+    }
+    
+    func timelineDashedConnectionCellDidClickBind(_ cell: TimelineDashedConnectionCell) {
+        TPImpactFeedback.impactWithSoftStyle()
+        selectAddType(.bind, with: cell.item)
+    }
+    
+    private func selectAddType(_ addType: MyDayEventAddType, with connectionItem: TimelineConnectionItem?) {
+        guard let eventAddController = eventAddController, let date = eventViewModel.date else {
+            return
+        }
+        
+        eventAddController.performAddMenuAction(with: addType, on: date)
     }
 }
 

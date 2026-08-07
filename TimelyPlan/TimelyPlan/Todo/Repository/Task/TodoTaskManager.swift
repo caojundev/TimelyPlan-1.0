@@ -24,7 +24,7 @@ class TodoTaskManager {
         let content = CDTodoTask.createTodoTask(with: quickAddTask, onTop: onTop)
         let task = TodoTask(content: content)
         updater.didCreateTodoTask(task)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     /// 移动任务到新列表
@@ -56,7 +56,7 @@ class TodoTaskManager {
         }
         
         updater.didMoveTodoTasks(tasksToMove, to: section)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     
@@ -67,7 +67,7 @@ class TodoTaskManager {
         }
         
         updater.didMoveTodoTasksToTrash(tasks)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
         
     /// 将特定列表中所有任务移到废纸篓
@@ -78,7 +78,7 @@ class TodoTaskManager {
         
         let tasks = Array(cdTasks).toTasks
         updater.didMoveTodoTasksToTrash(tasks)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     /// 恢复废纸篓中的任务
@@ -92,7 +92,7 @@ class TodoTaskManager {
         }
         
         updater.didRestoreTrashTodoTasks(tasks)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     /// 清空废纸篓
@@ -103,7 +103,7 @@ class TodoTaskManager {
             }
             
             self.updater.didEmptyTrash()
-            HandyRecord.save()
+            HandyRecord.updateChangeCount()
         }
     }
     
@@ -114,7 +114,7 @@ class TodoTaskManager {
         }
         
         self.updater.didDeleteTodoTasks(tasks)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     // MARK: - 排序
@@ -128,7 +128,7 @@ class TodoTaskManager {
         }
         
         updater.didReorderTodoTask(sourceTask)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     // MARK: - 导入任务
@@ -140,7 +140,7 @@ class TodoTaskManager {
         
         let importedTasks = contents.toTasks
         updater.didImportTodoTasks(importedTasks, to: list)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     // MARK: - 更新任务
@@ -172,7 +172,7 @@ class TodoTaskManager {
             updater.didUpdateTodoTasks(with: changeInfos)
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
  
     func updateTasks(_ tasks: [TodoTask], isAddedToMyDay: Bool) {
@@ -202,7 +202,7 @@ class TodoTaskManager {
             updater.didUpdateTodoTasks(with: changeInfos)
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
 
     /// 更新任务进度
@@ -227,7 +227,7 @@ class TodoTaskManager {
             updateTask(task, isCompleted: true)
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     func updateTask(_ task: TodoTask, name: String?) {
@@ -237,7 +237,7 @@ class TodoTaskManager {
         
         let change: TodoTaskChange = .name(oldValue: task.name, newValue: name)
         updater.didUpdateTodoTask(task, with: change)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         
         /// 更新对应专注会话的任务快照
         var feature = task.feature
@@ -274,7 +274,7 @@ class TodoTaskManager {
             updater.didUpdateTodoTasks(with: changeInfos)
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     func updateTask(_ task: TodoTask, schedule: TaskSchedule?) {
@@ -289,7 +289,7 @@ class TodoTaskManager {
     
         let change: TodoTaskChange = .tag(oldValue: task.tagsSet, newValue: tags)
         updater.didUpdateTodoTask(task, with: change)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     func updateTask(_ task: TodoTask, note: String?) {
@@ -299,7 +299,7 @@ class TodoTaskManager {
         
         let change: TodoTaskChange = .note(oldValue: task.note, newValue: note)
         updater.didUpdateTodoTask(task, with: change)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     func updateTask(_ task: TodoTask, steps: [TodoStep]?) {
@@ -309,7 +309,7 @@ class TodoTaskManager {
 
         let change: TodoTaskChange = .step(oldValue: task.steps, newValue: steps)
         updater.didUpdateTodoTask(task, with: change)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     // MARK: - Update with change
@@ -320,7 +320,7 @@ class TodoTaskManager {
         
         let changeInfos = appliedChanges.map { TodoTaskChangeInfo(task: task, change: $0) }
         updater.didUpdateTodoTasks(with: changeInfos)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     // MARK: - 完成状态
@@ -367,7 +367,7 @@ class TodoTaskManager {
             didCompleteRecurringTasks(recurringTasks)
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
     }
     
     /// 处理完成的重复任务

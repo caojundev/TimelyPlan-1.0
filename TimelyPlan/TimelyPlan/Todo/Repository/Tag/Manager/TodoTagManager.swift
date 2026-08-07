@@ -63,7 +63,7 @@ class TodoTagManager {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didCreateTodoTag(tag)
     }
     
@@ -73,7 +73,7 @@ class TodoTagManager {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didUpdateTodoTag(tag, with: editingTag)
     }
     
@@ -83,7 +83,7 @@ class TodoTagManager {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didDeleteTodoTag(tag)
     }
 
@@ -93,7 +93,7 @@ class TodoTagManager {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didRecorderTodoTag(in: tags, fromIndex: fromIndex, toIndex: toIndex)
     }
 }

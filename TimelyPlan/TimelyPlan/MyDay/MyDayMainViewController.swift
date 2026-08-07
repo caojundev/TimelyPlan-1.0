@@ -28,6 +28,7 @@ class MyDayMainViewController: TPViewController,
                                                showLunar: showLunar,
                                                showChineseHolidays: showChineseHolidays,
                                                eventsInfoFetcher: eventsInfoFetcher)
+        view.autoSwitchToWeekOnSelectDate = true
         view.delegate = self
         return view
     }()
@@ -36,6 +37,7 @@ class MyDayMainViewController: TPViewController,
     private lazy var pageView: MyDayTimelinePageView = {
         let view = MyDayTimelinePageView(frame: .zero)
         view.delegate = self
+        view.eventAddController = self.addController
         return view
     }()
     

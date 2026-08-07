@@ -20,6 +20,8 @@ class TimelineConnectionCell: UICollectionViewCell {
     // MARK: 连接线内容容器（子类在此添加内容）
     let connectionContentView = UIView()
     
+    var item: TimelineConnectionItem?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
@@ -50,6 +52,7 @@ class TimelineConnectionCell: UICollectionViewCell {
     
     /// 配置连接线（子类可重写）
     func configure(with item: TimelineConnectionItem) {
+        self.item = item
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         
@@ -127,6 +130,12 @@ class TimelineSolidConnectionCell: TimelineConnectionCell {
 }
 
 // MARK: - 虚线连接线 Cell
+protocol TimelineDashedConnectionCellDelegate: AnyObject {
+    
+    func timelineDashedConnectionCellDidClickAdd(_ cell: TimelineDashedConnectionCell)
+    
+    func timelineDashedConnectionCellDidClickBind(_ cell: TimelineDashedConnectionCell)
+}
 
 class TimelineDashedConnectionCell: TimelineConnectionCell {
     
@@ -143,14 +152,39 @@ class TimelineDashedConnectionCell: TimelineConnectionCell {
         return view
     }()
     
+    private(set) lazy var addButton: TPDefaultButton = {
+        let image = resGetImage("plus_24")
+        let title = resGetString("Add")
+        let button = newButton(image: image, title: title)
+        button.addTarget(self, action: #selector(clickAdd), for: .touchUpInside)
+        return button
+    }()
+    
+    private(set) lazy var bindButton: TPDefaultButton = {
+        let image = resGetImage("bind_24")
+        let title = resGetString("Bind")
+        let button = newButton(image: image, title: title)
+        button.addTarget(self, action: #selector(clickBind), for: .touchUpInside)
+        return button
+    }()
+    
     override func setupConnectionContentSubviews() {
         connectionContentView.addSubview(titleView)
+        connectionContentView.addSubview(addButton)
+        connectionContentView.addSubview(bindButton)
     }
     
     override func layoutConnectionContentSubviews() {
         titleView.width = connectionContentView.width
         titleView.height = 20.0
-        titleView.alignVerticalCenter()
+        titleView.bottom = connectionContentView.halfHeight - 2.0
+        
+        addButton.sizeToFit()
+        addButton.top = connectionContentView.halfHeight + 2.0
+        
+        bindButton.sizeToFit()
+        bindButton.topEqualToView(addButton)
+        bindButton.left = addButton.right + 8.0
     }
     
     override func configure(with item: TimelineConnectionItem) {
@@ -173,6 +207,41 @@ class TimelineDashedConnectionCell: TimelineConnectionCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleView.title = nil
+    }
+    
+    @objc func clickAdd() {
+        if let delegate = delegate as? TimelineDashedConnectionCellDelegate {
+            delegate.timelineDashedConnectionCellDidClickAdd(self)
+        }
+    }
+    
+    @objc func clickBind() {
+        if let delegate = delegate as? TimelineDashedConnectionCellDelegate {
+            delegate.timelineDashedConnectionCellDidClickBind(self)
+        }
+    }
+    
+    private func newButton(image: UIImage?, title: String?) -> TPDefaultButton {
+        let normalColor = Color(light: 0x000000, dark: 0xffffff, alpha: 0.8)
+        let selectedColor = Color(light: 0x000000, dark: 0xffffff, alpha: 0.6)
+        let button = TPDefaultButton()
+        button.padding = UIEdgeInsets(top: 5.0, left: 4.0, bottom: 5.0, right: 8.0)
+        button.preferredTappedScale = 0.9
+        button.scaleMaxLength = 2.0
+        button.cornerRadius = 6.0
+        button.image = image
+        button.imageConfig.shouldRenderImageWithColor = true
+        button.imageConfig.color = normalColor
+        button.imageConfig.selectedColor = selectedColor
+        button.imageConfig.size = .size(4)
+        button.imageConfig.margins = UIEdgeInsets(right: 2.0)
+        button.title = title
+        button.titleConfig.font = .boldSystemFont(ofSize: 11.0)
+        button.titleConfig.textColor = normalColor
+        button.titleConfig.selectedTextColor = selectedColor
+        button.normalBackgroundColor = Color(light: 0x000000, dark: 0xffffff, alpha: 0.1)
+        button.selectedBackgroundColor = Color(light: 0x000000, dark: 0xffffff, alpha: 0.2)
+        return button
     }
 }
 

@@ -90,7 +90,7 @@ class HabitRecordProcessor {
         
         /// 添加sample
         CDHabitSample.addNewSample(amount: incrementAmount, date: .now, toRecord: record)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         
         let change: HabitRecordChange = .amountChanged(oldValue: oldAmount,
                                                        newValue: newAmount)
@@ -121,7 +121,7 @@ class HabitRecordProcessor {
         
         /// 添加sample
         CDHabitSample.addNewSample(amount: increment, date: .now, toRecord: record)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         
         /// 记录变化通知
         let change: HabitRecordChange = .amountChanged(oldValue: oldAmount,
@@ -139,7 +139,7 @@ class HabitRecordProcessor {
         record.log = logInfo?.log
         record.score = Int16(logInfo?.score ?? 0)
         record.modificationDate = .now
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         
         let change: HabitRecordChange = .logEdited(oldValue: oldLogInfo,
                                                    newValue: logInfo)
@@ -156,7 +156,7 @@ class HabitRecordProcessor {
         record.reason = tag.combinedString
         record.score = Int16(HabitSetting.shared.defaultSkippedScore)
         record.modificationDate = .now
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         
         let change = HabitRecordChange.skipChanged(oldValue: false,
                                                       newValue: true)
@@ -173,7 +173,7 @@ class HabitRecordProcessor {
         record.reason = nil
         record.score = 0
         record.modificationDate = .now
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         
         let change = HabitRecordChange.skipChanged(oldValue: true, newValue: false)
         didUpdateCoreDataRecord(record, for: task, on: date, with: change)
@@ -189,7 +189,7 @@ class HabitRecordProcessor {
         record.reason = tag.combinedString
         record.score = Int16(HabitSetting.shared.defaultFailedScore)
         record.modificationDate = .now
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         
         let change: HabitRecordChange = .failChanged(oldValue: false,
                                                      newValue: true)
@@ -206,7 +206,7 @@ class HabitRecordProcessor {
         record.reason = nil
         record.score = 0
         record.modificationDate = .now
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         
         let change = HabitRecordChange.failChanged(oldValue: true, newValue: false)
         didUpdateCoreDataRecord(record, for: task, on: date, with: change)
@@ -220,7 +220,7 @@ class HabitRecordProcessor {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didDeleteHabitRecords(for: task, in: period.dateRange)
     }
     
@@ -233,7 +233,7 @@ class HabitRecordProcessor {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didDeleteHabitRecords(for: nil, in: dateRange)
     }
     

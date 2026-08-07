@@ -39,7 +39,7 @@ class TodoFilterManager {
         }
         
         let filter = TodoFilter(content: content)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didCreateTodoFilter(filter)
     }
     
@@ -49,7 +49,7 @@ class TodoFilterManager {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didUpdateTodoFilter(filter, with: editingFilter)
     }
     
@@ -59,7 +59,7 @@ class TodoFilterManager {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didDeleteTodoFilter(filter)
     }
 
@@ -69,7 +69,7 @@ class TodoFilterManager {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didReorderTodoFilter(in: filters, fromIndex: fromIndex, toIndex: toIndex)
     }
     

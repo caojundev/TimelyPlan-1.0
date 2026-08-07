@@ -138,14 +138,31 @@ class MyDaySettingViewController: BaseSettingViewController {
         return sectionController
     }()
 
+    /// 返回
+    lazy var dismissButtonItem: UIBarButtonItem = {
+        let image = resGetImage("chevron_right_24")
+        let item = UIBarButtonItem(image: image,
+                                   style: .plain,
+                                   target: self,
+                                   action: #selector(clickDismiss))
+        return item
+    }()
+    
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("My Day Settings")
+         self.navigationItem.leftBarButtonItem = dismissButtonItem
          self.sectionControllers = [generalSectionController,
                                     viewOptionsSectionController,
                                     showSectionController]
          self.reloadData()
      }
+    
+    // MARK: - Event Response
+    @objc private func clickDismiss() {
+        TPImpactFeedback.impactWithSoftStyle()
+        dismiss(animated: true)
+    }
     
     // MARK: - Edit
     private func editFirstWeekday() {

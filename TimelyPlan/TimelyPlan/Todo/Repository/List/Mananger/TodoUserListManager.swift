@@ -83,7 +83,7 @@ class TodoUserListManager {
     func createList(with editList: TodoEditingList, parent: TodoList?) {
         let onTop = TodoSetting.shared.addListOnTop
         let content = CDTodoList.newList(with: editList, parent: parent, onTop: onTop)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         refreshTopLists()
         if let list = TodoList(content: content) {
             updater.didCreateTodoList(list)
@@ -101,7 +101,7 @@ class TodoUserListManager {
             list.update(with: editingList)
             let info = TodoUserListUpdateInfo(old: old, new: editingList)
             updater.didUpdateTodoList(list, with: info)
-            HandyRecord.save()
+            HandyRecord.updateChangeCount()
         }
     }
     
@@ -120,7 +120,7 @@ class TodoUserListManager {
             let info = TodoUserListUpdateInfo(old: oldEditingList,
                                               new: newEditingList)
             updater.didUpdateTodoList(list, with: info)
-            HandyRecord.save()
+            HandyRecord.updateChangeCount()
         }
     }
 
@@ -130,7 +130,7 @@ class TodoUserListManager {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         refreshTopLists()
         updater.didMoveTodoList(list, to: parent)
     }
@@ -141,7 +141,7 @@ class TodoUserListManager {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         refreshTopLists()
         updater.didUngroupList(list)
     }
@@ -149,7 +149,7 @@ class TodoUserListManager {
     /// 删除列表
     func deleteList(_ list: TodoList) {
         if CDTodoList.deleteList(list) {
-            HandyRecord.save()
+            HandyRecord.updateChangeCount()
             refreshTopLists()
             updater.didDeleteTodoLists([list])
         }
@@ -164,7 +164,7 @@ class TodoUserListManager {
             return
         }
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         refreshTopLists()
         updater.didReorderTodoList(lists[fromIndex])
     }

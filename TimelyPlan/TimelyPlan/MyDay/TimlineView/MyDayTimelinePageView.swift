@@ -13,6 +13,8 @@ class MyDayTimelinePageView: TPDayPageView {
     /// 习惯记录供应器
     var habitRecordProvider = MyDayHabitRecordProvider()
     
+    var eventAddController: MyDayEventAddController?
+    
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return MyDayTimelinePageCell.self
     }
@@ -25,6 +27,7 @@ class MyDayTimelinePageView: TPDayPageView {
         
         let timelineView = cell.timelineView
         timelineView.habitRecordProvider = habitRecordProvider
+        timelineView.eventAddController = eventAddController
         timelineView.loadEvents(on: cell.date)
     }
 }

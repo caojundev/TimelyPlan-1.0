@@ -30,7 +30,7 @@ class TodoSectionManager {
         let section = TodoSection(content: content)
         list?.addSection(section)
         
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didCreateTodoSection(section, in: list)
     }
     
@@ -40,7 +40,7 @@ class TodoSectionManager {
         }
         
         section.name = name
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didUpdateTodoSection(section)
     }
     
@@ -53,7 +53,7 @@ class TodoSectionManager {
             list.removeSection(section)
         }
 
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didDeleteTodoSection(section)
     }
 
@@ -68,7 +68,7 @@ class TodoSectionManager {
         }
         
         list?.moveSection(at: fromIndex, to: toIndex)
-        HandyRecord.save()
+        HandyRecord.updateChangeCount()
         updater.didReorderTodoSection(in: sections, of: list, from: fromIndex, to: toIndex)
         return true
     }

@@ -27,7 +27,7 @@ class MyDayEventScheduleEditor {
     }
     
     private static func openScheduleEditor(for task: TodoTask) {
-        guard let schedule = task.schedule else {
+        guard !task.isDetached, let schedule = task.schedule else {
             return
         }
         
