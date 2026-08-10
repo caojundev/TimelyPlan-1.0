@@ -145,10 +145,10 @@ class FocusTimelineDayViewController: TPViewController,
         updateTitle(with: date)
         updateWeekView(with: date)
         updatePagingView(with: date)
-        updateAddView()
+        updateBackView()
     }
 
-    func updateAddView() {
+    func updateBackView() {
         if date.isToday {
             backView.showTodayButton()
         }else{
@@ -175,7 +175,7 @@ class FocusTimelineDayViewController: TPViewController,
         self.date = selectedDate
         updateTitle(with: selectedDate)
         updatePagingView(with: selectedDate)
-        updateAddView()
+        updateBackView()
     }
     
     // MARK: - TPDayPageViewDelegate
@@ -187,6 +187,6 @@ class FocusTimelineDayViewController: TPViewController,
         self.date = targetDate
         updateTitle(with: targetDate)
         updateWeekView(with: targetDate)
-        updateAddView()
+        updateBackView()
     }
 }

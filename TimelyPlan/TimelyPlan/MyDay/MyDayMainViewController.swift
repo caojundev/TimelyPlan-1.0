@@ -69,7 +69,7 @@ class MyDayMainViewController: TPViewController,
     
     // MARK: - AddView
     /// 添加视图按钮
-    private let addViewSize = CGSize(width: 50.0, height: 50.0)
+    private let addViewSize = CGSize(width: 40.0, height: 40.0)
     
     /// 添加视图边界间距
     private let addViewMargins = UIEdgeInsets(top: 10.0,
@@ -87,7 +87,19 @@ class MyDayMainViewController: TPViewController,
        
         return view
     }()
-
+    
+    /// 返回和添加按钮视图
+    private let backViewMargin = 15.0
+    lazy var backTodayView: TPFlipBackTodayView = {
+        let view = TPFlipBackTodayView()
+        view.showTodayButton()
+        view.didClickBack = { [weak self] _ in
+            self?.clickBackToday()
+        }
+        
+        return view
+    }()
+    
     private let contentView = UIView()
     
     private var visibleDate: Date
@@ -125,11 +137,13 @@ class MyDayMainViewController: TPViewController,
         navigationItem.titleView = dateButton
         view.addSubview(contentView)
         contentView.addSubview(pageView)
+        contentView.addSubview(backTodayView)
         contentView.addSubview(addView)
         contentView.addSubview(maskView)
         contentView.addSubview(calendarView)
         pageView.setVisibleDate(visibleDate, animated: false)
         updateTitle(with: visibleDate)
+        updateBackTodayView()
         MyDaySetting.shared.addObserver(self)
     }
 
@@ -162,6 +176,10 @@ class MyDayMainViewController: TPViewController,
         addView.bottom = layoutFrame.maxY - addViewMargins.bottom
         addView.right = layoutFrame.maxX - addViewMargins.right
         
+        backTodayView.size = addView.size
+        backTodayView.right = addView.left - backViewMargin
+        backTodayView.centerY = addView.centerY
+        
         let progress = calendarView.progress
         maskView.alpha = progress
         maskView.isUserInteractionEnabled = progress > 0
@@ -172,7 +190,32 @@ class MyDayMainViewController: TPViewController,
         dateButton.sizeToFit()
     }
     
+    private func updateBackTodayView() {
+        guard let date = calendarView.selectedDate else {
+            return
+        }
+        
+        if date.isToday {
+            backTodayView.showTodayButton()
+        }else{
+            if date.compare(.now) == .orderedAscending {
+                backTodayView.showLeftBackButton()
+            } else {
+                backTodayView.showRightBackButton()
+            }
+        }
+    }
+    
     // MARK: - Event Response
+    private func clickBackToday() {
+        let date = Date()
+        visibleDate = date
+        updateTitle(with: date)
+        calendarView.setSelectedDate(date)
+        pageView.setVisibleDate(date, animated: true)
+        updateBackTodayView()
+    }
+    
     func clickEventAdd() {
         TPImpactFeedback.impactWithSoftStyle()
         let menuController = MyDayEventAddMenuController()
@@ -227,6 +270,7 @@ extension MyDayMainViewController: TPDayPageViewDelegate {
         visibleDate = targetDate
         updateTitle(with: targetDate)
         calendarView.setSelectedDate(targetDate)
+        updateBackTodayView()
     }
 }
 
@@ -248,8 +292,8 @@ extension MyDayMainViewController: CalendarWeekMonthExpandViewDelegate {
 
         visibleDate = date
         updateTitle(with: date)
-        
         pageView.setVisibleDate(date, animated: true)
+        updateBackTodayView()
     }
     
     func calendarWeekMonthExpandViewFrameChanged(_ view: CalendarWeekMonthExpandView) {

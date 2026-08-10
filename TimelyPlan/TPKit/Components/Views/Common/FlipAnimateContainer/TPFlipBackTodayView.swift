@@ -21,7 +21,7 @@ class TPFlipBackTodayView: TPFlipAnimateContainerView {
     
     lazy var leftBackButton: TPImageButton = {
         let button = TPImageButton()
-        button.normalImage = resGetImage("arrow_up_right_fill_36")
+        button.normalImage = resGetImage("arrow_uturn_right_36")
         button.normalImageColor = .white
         button.normalBackgroundColor = Color(0xFF9500)
         button.cornerRadius = .greatestFiniteMagnitude
@@ -31,7 +31,7 @@ class TPFlipBackTodayView: TPFlipAnimateContainerView {
     
     lazy var rightBackButton: TPImageButton = {
         let button = TPImageButton()
-        button.normalImage = resGetImage("arrow_up_backward_fill_36")
+        button.normalImage = resGetImage("arrow_uturn_left_36")
         button.normalImageColor = .white
         button.normalBackgroundColor = Color(0xFF9500)
         button.cornerRadius = .greatestFiniteMagnitude

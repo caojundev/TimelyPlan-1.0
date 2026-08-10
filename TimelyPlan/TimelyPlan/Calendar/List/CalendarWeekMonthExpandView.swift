@@ -24,6 +24,14 @@ class CalendarWeekMonthExpandView: UIView, TPMidnightUpdatable {
     /// 选中日期自动切换到周视图
     var autoSwitchToWeekOnSelectDate: Bool = false
     
+    /// 当前选中日期
+    var selectedDate: Date? {
+        guard let dateComponents = selection.selectedDate else {
+            return nil
+        }
+        return .dateFromComponents(dateComponents)
+    }
+    
     var weekContentHeight: CGFloat {
         return weekdaySymbolHeight + weekHeight + containerView.grabberHeight
     }
