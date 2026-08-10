@@ -74,9 +74,13 @@ class CalendarEventIndicatorView: UIView {
     private var monthInfo: MonthInfo?
     
     // 布局常量
-    private static let indicatorHeight: CGFloat = 2.8 // 圆点直径
+    private static let indicatorHeight: CGFloat = 4.0 // 圆点直径
     private static let maxDotsCount = 3 // 最多显示圆点数
-    private static let dotSpacing: CGFloat = 2.0 // 圆点之间的间距
+    private static let dotSpacing: CGFloat = 2.0 // 圆点之间的间距（保留兼容，但重叠模式下不使用）
+    
+    // 重叠相关常量
+    private static let overlapRatio: CGFloat = 0.15 // 重叠比例（0~1，0为不重叠，1为完全重叠）
+    private static let borderWidth: CGFloat = 1.2 // 描边宽度
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -140,32 +144,40 @@ class CalendarEventIndicatorView: UIView {
             
             // 取前3个颜色
             let displayColors = Array(colors.prefix(Self.maxDotsCount))
-            drawDots(context: context, cellX: cellX, cellWidth: dayWidth, y: indicatorY, colors: displayColors)
+            drawOverlappingDots(context: context, cellX: cellX, cellWidth: dayWidth, y: indicatorY, colors: displayColors)
         }
     }
     
-    /// 绘制小圆点
-    private func drawDots(context: CGContext, cellX: CGFloat, cellWidth: CGFloat, y: CGFloat, colors: [UIColor]) {
+    /// 绘制重叠的小圆点（在单元格内居中）
+    private func drawOverlappingDots(context: CGContext, cellX: CGFloat, cellWidth: CGFloat, y: CGFloat, colors: [UIColor]) {
         let dotDiameter = Self.indicatorHeight
-        let spacing = Self.dotSpacing
+        let overlapOffset = dotDiameter * Self.overlapRatio // 每个圆点相对于前一个的偏移量
         
-        // 计算所有圆点的总宽度
-        let totalWidth = CGFloat(colors.count) * dotDiameter + CGFloat(max(0, colors.count - 1)) * spacing
+        // 计算所有圆点占用的总宽度（考虑重叠）
+        // 总宽度 = 第一个圆的完整宽度 + 后续每个圆的偏移量
+        let totalWidth = dotDiameter + CGFloat(max(0, colors.count - 1)) * (dotDiameter - overlapOffset)
         
-        // 居中起始位置
-        var startX = cellX + (cellWidth - totalWidth) / 2.0
+        // 在单元格内居中起始位置
+        let startX = cellX + (cellWidth - totalWidth) / 2.0
         
-        for color in colors {
-            let dotRect = CGRect(x: startX, y: y, width: dotDiameter, height: dotDiameter)
+        // 从左到右绘制，后面的圆会部分覆盖前面的圆
+        for (index, color) in colors.enumerated() {
+            let dotRect = CGRect(x: startX + CGFloat(index) * (dotDiameter - overlapOffset),
+                                y: y,
+                                width: dotDiameter,
+                                height: dotDiameter)
             
+            // 绘制填充
             context.setFillColor(color.cgColor)
             context.fillEllipse(in: dotRect)
             
-            startX += dotDiameter + spacing
+            // 绘制描边（使用白色描边，让重叠边界清晰可见）
+            context.setStrokeColor(UIColor.systemBackground.cgColor)
+            context.setLineWidth(Self.borderWidth)
+            context.strokeEllipse(in: dotRect)
         }
     }
 }
-
 
 // MARK: - 天内容绘制视图（独立封装）
 class CalendarDayContentView: UIView {

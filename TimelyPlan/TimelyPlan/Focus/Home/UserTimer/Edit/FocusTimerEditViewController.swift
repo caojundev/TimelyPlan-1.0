@@ -64,17 +64,24 @@ class FocusTimerEditViewController: TPTableSectionsViewController {
     }()
     
     // MARK: - 我的一天
-    lazy var myDaySectionController: FocusTimerMyDayEditSectionController = { [weak self] in
-        let sectionController = FocusTimerMyDayEditSectionController()
+    /// 我的一天
+    lazy var myDaySectionController: MyDayEditSectionController = { [weak self] in
+        let sectionController = MyDayEditSectionController()
         sectionController.headerItem.height = 15.0
         sectionController.isAddedToMyDay = editingTimer.isAddedToMyDay
-        sectionController.dateRange = editingTimer.dateRange
-        sectionController.timePlan = editingTimer.timePlan ?? HabitTimePlan()
-        sectionController.startTime = editingTimer.startTime
         sectionController.onAddToMyDayValueChanged = { isAddedToMyDay in
             self?.editingTimer.isAddedToMyDay = isAddedToMyDay
         }
+
+        return sectionController
+    }()
         
+    lazy var scheduleSectionController: FocusTimerScheduleEditSectionController = { [weak self] in
+        let sectionController = FocusTimerScheduleEditSectionController()
+        sectionController.headerItem.height = 15.0
+        sectionController.dateRange = editingTimer.dateRange
+        sectionController.timePlan = editingTimer.timePlan ?? HabitTimePlan()
+        sectionController.startTime = editingTimer.startTime
         sectionController.dateRangeDidChange = { dateRange in
             self?.editingTimer.dateRange = dateRange
         }
@@ -159,6 +166,7 @@ class FocusTimerEditViewController: TPTableSectionsViewController {
             }
             
             sectionControllers.append(myDaySectionController)
+            sectionControllers.append(scheduleSectionController)
             return sectionControllers
         }
         

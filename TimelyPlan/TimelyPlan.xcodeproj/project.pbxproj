@@ -352,7 +352,7 @@
 		E51F941B3004F20E00734910 /* sideMenu_myDay_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */; };
 		E51F941C3004F20E00734910 /* sideMenu_myDay_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */; };
 		E51F941E3005252900734910 /* MyDayEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F941D3005252800734910 /* MyDayEditSectionController.swift */; };
-		E51F94213006178F00734910 /* FocusTimerMyDayEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94203006178F00734910 /* FocusTimerMyDayEditSectionController.swift */; };
+		E51F94213006178F00734910 /* FocusTimerScheduleEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94203006178F00734910 /* FocusTimerScheduleEditSectionController.swift */; };
 		E51F94233006357B00734910 /* HabitTimeEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94223006357B00734910 /* HabitTimeEditSectionController.swift */; };
 		E51FF64D2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */; };
 		E51FF64F2F57162D003CA953 /* HabitTaskProgressInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */; };
@@ -2492,7 +2492,7 @@
 		E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_myDay_40@2x.png"; sourceTree = "<group>"; };
 		E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_myDay_40@3x.png"; sourceTree = "<group>"; };
 		E51F941D3005252800734910 /* MyDayEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayEditSectionController.swift; sourceTree = "<group>"; };
-		E51F94203006178F00734910 /* FocusTimerMyDayEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerMyDayEditSectionController.swift; sourceTree = "<group>"; };
+		E51F94203006178F00734910 /* FocusTimerScheduleEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerScheduleEditSectionController.swift; sourceTree = "<group>"; };
 		E51F94223006357B00734910 /* HabitTimeEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTimeEditSectionController.swift; sourceTree = "<group>"; };
 		E51FF64C2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskDefaultInfoView.swift; sourceTree = "<group>"; };
 		E51FF64E2F57162D003CA953 /* HabitTaskProgressInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskProgressInfoView.swift; sourceTree = "<group>"; };
@@ -10446,7 +10446,7 @@
 			isa = PBXGroup;
 			children = (
 				E5D7D8A32D43933600EC877A /* FocusTimerEditViewController.swift */,
-				E51F94203006178F00734910 /* FocusTimerMyDayEditSectionController.swift */,
+				E51F94203006178F00734910 /* FocusTimerScheduleEditSectionController.swift */,
 				E5D7D8A42D43933600EC877A /* Config */,
 			);
 			path = Edit;
@@ -12344,7 +12344,7 @@
 				E53B11552F94D26C00701410 /* TodoFilterRuleEditBaseSectionController.swift in Sources */,
 				E58C9E192F4AF0DC0096B842 /* FocusTimelineLayout.swift in Sources */,
 				E58F469B2F7A9C120046FA96 /* TodoListMenuActionType.swift in Sources */,
-				E51F94213006178F00734910 /* FocusTimerMyDayEditSectionController.swift in Sources */,
+				E51F94213006178F00734910 /* FocusTimerScheduleEditSectionController.swift in Sources */,
 				E5BB9E1C2D3BF0C70089667A /* NSManagedObject+Request.swift in Sources */,
 				E53F32B52F6948F900B85B65 /* HabitReportWeeklyHeaderView.swift in Sources */,
 				E5BB9E6C2D3BF0C70089667A /* TPCollectionSectionLayout.swift in Sources */,
