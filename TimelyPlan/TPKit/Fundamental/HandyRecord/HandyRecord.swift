@@ -61,7 +61,7 @@ class HandyRecord {
     private static var autoSaveTimer: Timer?
     
     /// 自动保存的时间间隔（秒），默认 30 秒
-    static var autoSaveInterval: TimeInterval = 30.0
+    static var autoSaveInterval: TimeInterval = 60.0
     
     /// 是否有未保存的变更
     static var hasUnsavedChanges: Bool {
@@ -108,7 +108,7 @@ class HandyRecord {
     /// 执行自动保存
     private static func performAutoSave() {
         // 重置计数器
-        resetChangeCount()
+        resetChangeCountAndTimer()
         
         // 执行异步保存
         save { success, error in
@@ -123,10 +123,13 @@ class HandyRecord {
     }
     
     /// 重置变更计数
-    static func resetChangeCount() {
+    static func resetChangeCountAndTimer() {
         changeCountLock.lock()
         changeCount = 0
         changeCountLock.unlock()
+        
+        /// 重新启动计时器
+        startAutoSaveTimer()
     }
     
     // MARK: - 自动保存定时器管理
@@ -180,14 +183,12 @@ class HandyRecord {
             return
         }
         
-        changeCountLock.lock()
-        changeCount = 0
-        changeCountLock.unlock()
+        resetChangeCountAndTimer()
         
         save { success, error in
             completion?(success)
             if let error = error {
-                debugPrint("❌ 强制保存失败: \(error.localizedDescription ?? "未知错误")")
+                debugPrint("❌ 强制保存失败: \(error.localizedDescription)")
             }
         }
     }

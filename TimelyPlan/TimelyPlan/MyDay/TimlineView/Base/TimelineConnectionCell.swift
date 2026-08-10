@@ -32,7 +32,7 @@ class TimelineConnectionCell: UICollectionViewCell {
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.white.cgColor
+        shapeLayer.strokeColor = UIColor.black.cgColor
         
         // 添加连接线内容容器
         connectionContentView.backgroundColor = .clear
@@ -101,13 +101,6 @@ class TimelineConnectionCell: UICollectionViewCell {
         
         shapeLayer.path = nil
         
-        CATransaction.commit()
-    }
-    
-    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        super.apply(layoutAttributes)
         CATransaction.commit()
     }
 }
@@ -281,10 +274,8 @@ class TimelineOverlappingConnectionCell: TimelineConnectionCell {
         
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        
         shapeLayer.lineWidth = TimelineConfig.overlappingLineWidth
         shapeLayer.lineDashPattern = nil
-        
         CATransaction.commit()
     }
 }

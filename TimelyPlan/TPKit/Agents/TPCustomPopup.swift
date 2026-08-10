@@ -64,9 +64,17 @@ class TPCustomPopupQueue: NSObject {
     
     private func showUp(_ popup: TPCustomPopup) {
         
-        if popupView != nil {
-            popupView?.removeFromSuperview()
-            popupView = nil
+        if let popupView = popupView {
+            UIView.animate(withDuration: 0.4,
+                           delay: 0,
+                           usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0.0,
+                           options: .curveEaseInOut) {
+                popupView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                popupView.alpha = 0.0
+            } completion: { _ in
+                popupView.removeFromSuperview()
+            }
         }
         
         guard let parentView = popup.parentView ?? UIWindow.keyWindow else {

@@ -66,10 +66,10 @@ class TimelineNodeView: UIView {
             }
         case .connectToNext:
             contentFrame.origin.y = margin
+            contentFrame.size.height = bounds.height - margin
             if position == .first {
                 lineFrame.size.height = 0.0
             } else {
-                contentFrame.size.height = bounds.height - margin
                 lineFrame.size.height = bounds.height / 2.0
             }
         case .connectToBoth:

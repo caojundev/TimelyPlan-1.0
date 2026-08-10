@@ -12,7 +12,7 @@ class CalendarYearDetailViewController: CalendarListViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = backButtonItem
+        navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         navigationItem.titleView = titleView
     }
 }

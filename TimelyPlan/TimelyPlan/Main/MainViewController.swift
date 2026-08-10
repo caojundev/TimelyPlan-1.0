@@ -115,7 +115,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         TaskNotificationDispatcher.shared.markMainViewReady()
         
         /// 习惯记录结果弹窗管理器开始监测
-        HabitRecordResultPopupManager.shared.startObserving()
+        HabitRecordPopupManager.shared.startObserving()
     }
     
     // MARK: - Private Methods

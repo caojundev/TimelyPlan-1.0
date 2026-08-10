@@ -100,12 +100,12 @@ class FocusUserTimerInfoCell: TPDefaultInfoCollectionCell,
         
         /// 副标题
         var subtitleComponents = [ASAttributedString]()
-        if timer.isAddedToMyDay, let myDayIndicator = timer.myDayIndicator(color: subtitleConfig.textColor) {
-            subtitleComponents.append(myDayIndicator)
-        }
-        
         if let timerDescription = timer.timerDescription {
             subtitleComponents.append(timerDescription.attributedString)
+        }
+        
+        if timer.isAddedToMyDay, let myDayIndicator = timer.myDayIndicator(color: subtitleConfig.textColor) {
+            subtitleComponents.append(myDayIndicator)
         }
         
         infoView.subtitle = subtitleComponents.joined(separator: " • ")
