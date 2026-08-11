@@ -9,6 +9,7 @@ import Foundation
 
 enum MyDayEventAddType: Int, TPMenuRepresentable {
     case bind
+    case calendar
     case todo
     case habit
     case focus
@@ -16,13 +17,15 @@ enum MyDayEventAddType: Int, TPMenuRepresentable {
     var title: String {
         switch self {
         case .bind:
-            return resGetString("Bind Task")
+            return resGetString("Bind Event")
+        case .calendar:
+            return resGetString("Calendar Event")
         case .todo:
-            return resGetString("Add Todo")
+            return resGetString("Todo Task")
         case .habit:
-            return resGetString("Add Habit")
+            return resGetString("Habit Task")
         case .focus:
-            return resGetString("Add Focus")
+            return resGetString("Focus Timer")
         }
     }
     
@@ -30,6 +33,8 @@ enum MyDayEventAddType: Int, TPMenuRepresentable {
         switch self {
         case .bind:
             return "bind_24"
+        case .calendar:
+            return "calendar_24"
         case .todo:
             return "myDayEventAdd_todo_24"
         case .habit:
@@ -51,7 +56,7 @@ class MyDayEventAddMenuController: TPBaseMenuController<MyDayEventAddType> {
     }
     
     override func orderedMenuActionTypeLists() -> [Array<MyDayEventAddType>] {
-        return [[.bind], [.todo, .habit, .focus]]
+        return [[.bind], [.todo, .habit], [.focus], [.calendar]]
     }
     
     override func menuActionTypes() -> [MyDayEventAddType] {

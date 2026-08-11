@@ -1,31 +1,17 @@
 //
-//  TodoScheduleEditViewController.swift
+//  TaskDateInfoEditViewController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/4/21.
+//  Created by caojun on 2026/8/11.
 //
 
 import Foundation
 import UIKit
 
-enum TodoScheduleType: Int, TPMenuRepresentable {
-    case singleDay /// 单日
-    case multiDay  /// 多日
-    
-    var title: String {
-        switch self {
-        case .singleDay:
-            return resGetString("Single-Day")
-        case .multiDay:
-            return resGetString("Multi-Day")
-        }
-    }
-}
-
-class TodoScheduleEditViewController: TPContainerViewController {
+class TaskDateInfoEditViewController: TPContainerViewController {
     
     /// 结束计划编辑
-    var didEndEditing: ((TaskSchedule?) -> Void)?
+    var didEndEditing: ((TaskDateInfo?) -> Void)?
     
     /// 选项菜单
     lazy var segmentedMenuView: TPSegmentedMenuView = {
@@ -61,25 +47,26 @@ class TodoScheduleEditViewController: TPContainerViewController {
     }()
     
     /// 单日计划编辑
-    lazy var singleScheduleEditViewController: TodoSingleScheduleEditViewController = {
-        let viewController = TodoSingleScheduleEditViewController(schedule: self.schedule)
+    lazy var singleDateInfoEditViewController: TaskSingleDateInfoEditViewController = {
+        let viewController = TaskSingleDateInfoEditViewController(dateInfo: dateInfo)
         return viewController
     }()
     
     /// 跨天计划编辑
-    lazy var multipleScheduleEditViewController: TodoMultipleScheduleEditViewController = {
-        let viewController = TodoMultipleScheduleEditViewController(schedule: self.schedule)
+    lazy var multipleDateInfoEditViewController: TaskMultipleDateInfoEditViewController = {
+        let viewController = TaskMultipleDateInfoEditViewController(dateInfo: dateInfo)
         return viewController
     }()
     
     private var scheduleType: TodoScheduleType
     
-    private var schedule: TaskSchedule?
+    private var dateInfo: TaskDateInfo?
     
-    init(schedule: TaskSchedule?) {
-        self.showClearButton = schedule != nil
-        self.schedule = schedule
-        if let dateInfo = schedule?.dateInfo, dateInfo.style == .multiDay {
+    init(dateInfo: TaskDateInfo?) {
+        self.showClearButton = dateInfo != nil
+        self.dateInfo = dateInfo
+        
+        if let dateInfo = dateInfo, dateInfo.style == .multiDay {
             self.scheduleType = .multiDay
         } else {
             self.scheduleType = .singleDay
@@ -124,14 +111,14 @@ class TodoScheduleEditViewController: TPContainerViewController {
     
     override func clickDone() {
         super.clickDone()
-        var schedule: TaskSchedule?
+        var dateInfo: TaskDateInfo?
         if scheduleType == .singleDay {
-            schedule = singleScheduleEditViewController.schedule
+            dateInfo = singleDateInfoEditViewController.dateInfo
         } else {
-            schedule = multipleScheduleEditViewController.schedule
+            dateInfo = multipleDateInfoEditViewController.dateInfo
         }
         
-        didEndEditing?(schedule)
+        didEndEditing?(dateInfo)
     }
     
     @objc private func clickClear() {
@@ -155,9 +142,9 @@ class TodoScheduleEditViewController: TPContainerViewController {
     private func updateContentViewController(with style: SlideStyle) {
         let vc: UIViewController
         if self.scheduleType == .singleDay {
-            vc = singleScheduleEditViewController
+            vc = singleDateInfoEditViewController
         } else {
-            vc = multipleScheduleEditViewController
+            vc = multipleDateInfoEditViewController
         }
 
         self.setContentViewController(vc, withAnimationStyle: style)

@@ -26,6 +26,9 @@ class MyDayCalendarTimelineCell: TimelineIconCell {
     }()
     
     override func setupEventContentSubviews() {
+        let image = resGetImage("myDay_calendar_24")
+        let icon = image?.withTintColor(.white)
+        iconNodeView.configureIcon(icon)
         eventContentView.addSubview(infoView)
     }
     
@@ -45,11 +48,6 @@ class MyDayCalendarTimelineCell: TimelineIconCell {
         if let event = item.event.sourceItem as? EKEvent {
             infoView.subtitle = event.calendar.title
         }
-        
-        let imageName = "calendar_\(item.startDate.day)_24"
-        let image = resGetImage(imageName)
-        let icon = image?.withTintColor(.white)
-        iconNodeView.configureIcon(icon)
         
         setNeedsLayout()
     }

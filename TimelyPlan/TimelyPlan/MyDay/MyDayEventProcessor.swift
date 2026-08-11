@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import EventKit
 
 class MyDayEventProcessor {
     
@@ -38,7 +39,13 @@ class MyDayEventProcessor {
     
     /// 点击日历事项
     private func clickCalendarEvent(_ event: MyDayEvent) {
-        #warning("点击日历事项")
+        guard let ekEvent = event.sourceItem as? EKEvent else {
+            return
+        }
+        
+        if let event = ekEvent.toCalendarEvent() {
+            CalendarPresenter.previewEvent(event)
+        }
     }
     
     /// 点击待办

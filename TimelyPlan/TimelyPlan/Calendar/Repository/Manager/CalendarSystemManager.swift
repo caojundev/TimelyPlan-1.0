@@ -474,6 +474,20 @@ extension CalendarSystemManager: EKEventEditViewDelegate {
         presentEditViewController(for: event, on: topVC)
     }
     
+    // 创建新事件（可选设置默认值）
+    func createNewEvent(with dateInfo: TaskDateInfo) {
+        guard let topVC = UIViewController.topPresented else {
+            return
+        }
+        
+        // 预设默认值
+        let newEvent = EKEvent(eventStore: eventStore)
+        newEvent.isAllDay = dateInfo.isAllDay
+        newEvent.startDate = dateInfo.startDate
+        newEvent.endDate = dateInfo.endDate
+        presentEditViewController(for: newEvent, on: topVC)
+    }
+    
     func presentEditViewController(for event: EKEvent,
                                    on viewController: UIViewController) {
         let editViewController = EKEventEditViewController()
@@ -483,19 +497,6 @@ extension CalendarSystemManager: EKEventEditViewDelegate {
         viewController.present(editViewController, animated: true)
     }
     
-    // 创建新事件（可选设置默认值）
-    func presentNewEventViewController(on viewController: UIViewController) {
-        let editViewController = EKEventEditViewController()
-        editViewController.eventStore = eventStore
-        editViewController.editViewDelegate = self
-        
-        // 可以预设一些默认值
-        // let newEvent = EKEvent(eventStore: eventStore)
-        // newEvent.title = "预填标题"
-        // editViewController.event = newEvent
-        
-        viewController.present(editViewController, animated: true)
-    }
     
     // MARK: - EKEventEditViewDelegate
     
@@ -555,6 +556,24 @@ extension CalendarSystemManager {
             let span: EKSpan = updateOption == .futureEvents ? .futureEvents : .thisEvent
             event.startDate = dateRange.start
             event.endDate = dateRange.end
+            self.updateEvent(event, span: span, completion: completion)
+        }
+    }
+    
+    func updateEventWithConfirmation(
+        _ event: EKEvent,
+        with dateInfo: TaskDateInfo,
+        completion: @escaping (CalendarManagerResult<Void>) -> Void
+    ) {
+        showUpdateConfirmation(for: event) { [weak self] confirmed, updateOption in
+            guard let self = self, confirmed else {
+                return
+            }
+            
+            let span: EKSpan = updateOption == .futureEvents ? .futureEvents : .thisEvent
+            event.startDate = dateInfo.startDate
+            event.endDate = dateInfo.endDate
+            event.isAllDay = dateInfo.isAllDay
             self.updateEvent(event, span: span, completion: completion)
         }
     }

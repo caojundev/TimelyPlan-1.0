@@ -31,8 +31,28 @@ class MyDayEventScheduleEditor {
         }
     }
     
-    private static func openScheduleEditor(for ekEvent: EKEvent) {
+    private static func openScheduleEditor(for event: EKEvent) {
+        let dateInfo = TaskDateInfo(startDate: event.startDate,
+                                    endDate: event.endDate,
+                                    isAllDay: event.isAllDay)
+        let vc = TaskDateInfoEditViewController(dateInfo: dateInfo)
+        vc.showClearButton = false
+        vc.didEndEditing = { newDateInfo in
+            guard let newDateInfo = newDateInfo else {
+                return
+            }
+            
+            CalendarSystemManager.shared.updateEventWithConfirmation(event, with: newDateInfo) { result in
+                switch result {
+                case .success:
+                    debugPrint("事项更新成功")
+                case .failure(let error):
+                    debugPrint("事项更新失败: \(error.localizedDescription)")
+                }
+            }
+        }
         
+        vc.popoverShowAsNavigationRoot()
     }
     
     private static func openScheduleEditor(for task: TodoTask) {

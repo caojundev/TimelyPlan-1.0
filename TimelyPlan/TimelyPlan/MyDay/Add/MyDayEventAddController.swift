@@ -15,6 +15,8 @@ class MyDayEventAddController {
         switch type {
         case .bind:
             bindTask()
+        case .calendar:
+            createCalendarEvent(on: date)
         case .todo:
             showQuickAddTask(on: date)
         case .habit:
@@ -22,6 +24,19 @@ class MyDayEventAddController {
         case .focus:
             createNewTimer(on: date)
         }
+    }
+    
+    private func createCalendarEvent(on date: Date) {
+        let currentDate = Date()
+        let startDate = date.dateByReplacingHour(with: currentDate.hour)
+        guard let endDate = startDate.dateByAddingHours(1) else {
+            return
+        }
+
+        let dateInfo = TaskDateInfo(startDate: startDate,
+                                    endDate: endDate,
+                                    isAllDay: false)
+        CalendarSystemManager.shared.createNewEvent(with: dateInfo)
     }
     
     // MARK: - 绑定任务

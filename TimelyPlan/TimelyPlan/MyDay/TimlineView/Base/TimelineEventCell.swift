@@ -31,11 +31,9 @@ class TimelineEventCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var startTimeButton: TPDefaultButton = {
-        let button = TPDefaultButton()
-        button.preferredTappedScale = 1.0
-        button.normalBackgroundColor = .clear
-        button.selectedBackgroundColor = .clear
+    private lazy var startTimeButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
         button.addTarget(self, action: #selector(clickStartTime), for: .touchUpInside)
         return button
     }()
