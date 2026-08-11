@@ -24,10 +24,12 @@
 "Settings" = "设置";
 
 ///**********************我的一天*********************///
-"My Day Settings" = "我的一天设置";
-"Show Todo" = "显示待办";
-"Show Focus" = "显示专注";
 "Overlapping" = "重叠";
+
+"My Day Settings" = "我的一天设置";
+"Show Calendar Event" = "显示日历事项";
+"Show Todo" = "显示待办事项";
+"Show Focus Timer" = "显示专注计时器";
 
 "Bind" = "绑定";
 "Bind Task" = "绑定任务";

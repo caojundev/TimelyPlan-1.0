@@ -321,13 +321,6 @@ extension EKEvent {
 extension Array where Element == EKEvent {
     
     func toCalendarEvents() -> [CalendarEvent] {
-        var results = [CalendarEvent]()
-        for ekEvent in self {
-            if let event = ekEvent.toCalendarEvent() {
-                results.append(event)
-            }
-        }
-        
-        return results
+        return compactMap { $0.toCalendarEvent() }
     }
 }

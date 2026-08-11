@@ -239,6 +239,8 @@
 		E5135095302A0BD1000E9871 /* arrow_uturn_right_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */; };
 		E5135096302A0BD1000E9871 /* arrow_uturn_left_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135092302A0BD0000E9871 /* arrow_uturn_left_36@2x.png */; };
 		E5135097302A0BD1000E9871 /* arrow_uturn_right_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135093302A0BD0000E9871 /* arrow_uturn_right_36@2x.png */; };
+		E5135099302A1BB9000E9871 /* EKEvent+MyDayEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5135098302A1BB8000E9871 /* EKEvent+MyDayEvent.swift */; };
+		E513509C302AD02E000E9871 /* MyDayCalendarTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E513509B302AD02E000E9871 /* MyDayCalendarTimelineCell.swift */; };
 		E5141F082F7CCAF2007A864B /* TPTableSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F072F7CCAF2007A864B /* TPTableSearchResultSectionController.swift */; };
 		E5141F0A2F7CCD61007A864B /* TodoListSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F092F7CCD61007A864B /* TodoListSearchResultCell.swift */; };
 		E5141F0C2F7CCD6E007A864B /* TodoListSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F0B2F7CCD6E007A864B /* TodoListSearchResultsViewController.swift */; };
@@ -2376,6 +2378,8 @@
 		E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_right_36@3x.png"; sourceTree = "<group>"; };
 		E5135092302A0BD0000E9871 /* arrow_uturn_left_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_left_36@2x.png"; sourceTree = "<group>"; };
 		E5135093302A0BD0000E9871 /* arrow_uturn_right_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_right_36@2x.png"; sourceTree = "<group>"; };
+		E5135098302A1BB8000E9871 /* EKEvent+MyDayEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EKEvent+MyDayEvent.swift"; sourceTree = "<group>"; };
+		E513509B302AD02E000E9871 /* MyDayCalendarTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayCalendarTimelineCell.swift; sourceTree = "<group>"; };
 		E5141F072F7CCAF2007A864B /* TPTableSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E5141F092F7CCD61007A864B /* TodoListSearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListSearchResultCell.swift; sourceTree = "<group>"; };
 		E5141F0B2F7CCD6E007A864B /* TodoListSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListSearchResultsViewController.swift; sourceTree = "<group>"; };
@@ -5100,6 +5104,14 @@
 			path = Wrapper;
 			sourceTree = "<group>";
 		};
+		E513509A302ACF85000E9871 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				E513509B302AD02E000E9871 /* MyDayCalendarTimelineCell.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		E515019A2D478773008B2333 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -6084,6 +6096,7 @@
 				E53ABECE3008CA5400EB8632 /* TodoTask+MyDayEvent.swift */,
 				E53ABED03008CB5F00EB8632 /* HabitTask+MyDayEvent.swift */,
 				E53ABED23008CBA400EB8632 /* FocusTimer+MyDayEvent.swift */,
+				E5135098302A1BB8000E9871 /* EKEvent+MyDayEvent.swift */,
 			);
 			path = Converter;
 			sourceTree = "<group>";
@@ -6143,6 +6156,7 @@
 				E53ABEDE3009168000EB8632 /* MyDayTimelineView.swift */,
 				E518507D301062D300112DFC /* MyDayTimelineViewModel.swift */,
 				E5B3BAB93014B00800D908B6 /* MyDayTimelineConfig.swift */,
+				E513509A302ACF85000E9871 /* Calendar */,
 				E5F9E3B9301B8FBE00EDC2A5 /* Todo */,
 				E5B3BABB3014F54200D908B6 /* Habit */,
 				E518506E300F5CC500112DFC /* Focus */,
@@ -12446,6 +12460,7 @@
 				E51501A92D47DA78008B2333 /* TPTableBaseSectionController.swift in Sources */,
 				E50179562FD454F200DC544D /* TodoListSelectInboxSectionController.swift in Sources */,
 				E507E79D2F52CCF8003004C4 /* WeekdayPickerViewController.swift in Sources */,
+				E513509C302AD02E000E9871 /* MyDayCalendarTimelineCell.swift in Sources */,
 				E5BB9E542D3BF0C70089667A /* TPPreviousNextDateView.swift in Sources */,
 				E507E7972F529303003004C4 /* HabitPresenter.swift in Sources */,
 				E53F329E2F68EC8600B85B65 /* HabitReportIconInfoView.swift in Sources */,
@@ -13451,6 +13466,7 @@
 				E529ACD92F7E183D000EA2F1 /* TodoTagController.swift in Sources */,
 				E5E9F7972FC056CA00717004 /* TodoStepEditSectionController.swift in Sources */,
 				E56B94952F8DCA32001E488B /* TodoUserTaskListViewController.swift in Sources */,
+				E5135099302A1BB9000E9871 /* EKEvent+MyDayEvent.swift in Sources */,
 				E507E7A82F52D25C003004C4 /* HabitGoalSectionController.swift in Sources */,
 				E500E39D2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift in Sources */,
 				E5BB9EDA2D3BF0C80089667A /* TPAnimatedContainerView.swift in Sources */,

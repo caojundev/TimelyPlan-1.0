@@ -13,6 +13,7 @@ class MyDaySetting {
         case firstWeekday
         case showLunar
         case showChineseHolidays
+        case showCalendarEvent
         case showTodo
         case showFocus
         case showHabit
@@ -31,6 +32,9 @@ class MyDaySetting {
     @CloudStored(key: Key.showChineseHolidays.name, defaultValue: true)
     var showChineseHolidays: Bool
 
+    @CloudStored(key: Key.showCalendarEvent.name, defaultValue: true)
+    var showCalendarEvent: Bool
+    
     @CloudStored(key: Key.showTodo.name, defaultValue: true)
     var showTodo: Bool
 

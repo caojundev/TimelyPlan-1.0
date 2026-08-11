@@ -25,6 +25,8 @@ class MyDayEventProcessor {
     /// 点击事项
     func clickEvent(_ event: MyDayEvent) {
         switch event.source {
+        case .calendar:
+            clickCalendarEvent(event)
         case .todo:
             clickTodoEvent(event)
         case .habit:
@@ -32,6 +34,11 @@ class MyDayEventProcessor {
         case .focus:
             clickFocusEvent(event)
         }
+    }
+    
+    /// 点击日历事项
+    private func clickCalendarEvent(_ event: MyDayEvent) {
+        #warning("点击日历事项")
     }
     
     /// 点击待办

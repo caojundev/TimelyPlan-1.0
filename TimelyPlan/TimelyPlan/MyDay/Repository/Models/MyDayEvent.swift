@@ -9,6 +9,7 @@ import Foundation
 
 // 我的一天事件来源
 enum MyDayEventSource: Int, CaseIterable {
+    case calendar // 系统日历
     case todo   // 待办任务
     case habit  // 习惯任务
     case focus  // 专注计时器
@@ -104,8 +105,7 @@ extension Array where Element == MyDayEvent {
                 return lEvent.source.rawValue < rEvent.source.rawValue
             }
             
-            // 所有条件都相同时保持原有顺序
-            return false
+            return lEvent.identifier.compare(rEvent.identifier) == .orderedAscending
         }
     }
     

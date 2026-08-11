@@ -66,3 +66,19 @@ class MyDayFocusEventProvider: MyDayEventProvider {
         }
     }
 }
+
+
+class MyDayCalendarEventProvider: MyDayEventProvider {
+    
+    func fetchMyDayEvents(in range: DateInterval, completion: @escaping ([MyDayEvent]?) -> Void) {
+        guard MyDaySetting.shared.showCalendarEvent else {
+            completion(nil)
+            return
+        }
+        
+        CalendarSystemManager.shared.fetchVisbleCalendarEvents(from: range.start,
+                                                               to: range.end) { results in
+            completion(results.toMyDayEvents())
+        }
+    }
+}

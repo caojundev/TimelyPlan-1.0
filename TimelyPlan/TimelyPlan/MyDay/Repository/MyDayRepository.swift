@@ -11,7 +11,7 @@ class MyDayRepository {
     
     // 可动态注册多个 Provider
     private var providers: [MyDayEventProvider] = []
-    
+    private var calendarProvider = MyDayCalendarEventProvider()
     private var todoProvider = MyDayTodoEventProvider()
     private var habitProvider = MyDayHabitEventProvider()
     private var focusProvider = MyDayFocusEventProvider()
@@ -19,7 +19,8 @@ class MyDayRepository {
     private let changeObserver = MyDayEventChangeObserver()
     
     init() {
-        self.providers = [self.todoProvider,
+        self.providers = [self.calendarProvider,
+                          self.todoProvider,
                           self.habitProvider,
                           self.focusProvider]
     }

@@ -169,7 +169,7 @@ extension Array where Element == CalendarEvent {
             }
             
             // 所有条件都相同时保持原有顺序
-            return false
+            return lEvent.identifier.compare(rEvent.identifier) == .orderedAscending
         }
     }
     

@@ -144,11 +144,14 @@ class CalendarListViewController: CalendarBaseViewController,
     }
     
     func calendarWeekMonthExpandView(_ view: CalendarWeekMonthExpandView, didSelectDate dateComponents: DateComponents) {
-        guard let date = Date.dateFromComponents(dateComponents),
-                !self.date.isInSameDayAs(date) else {
+        guard let date = Date.dateFromComponents(dateComponents) else {
             return
         }
-
+        
+        if let eventListDate = eventListView.options?.date, eventListDate.isInSameDayAs(date) {
+            return
+        }
+        
         self.date = date
         updateTitle(with: date)
         reloadEvents(on: date, animated: true)

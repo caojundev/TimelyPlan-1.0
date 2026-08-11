@@ -21,6 +21,12 @@ class MyDayEventChangeObserver {
         
         var observeSettingKeys: [MyDaySetting.Key] = []
         
+        /// 系统事项
+        if sources.contains(.calendar) {
+            CalendarSystemManager.shared.addDelegate(self)
+            observeSettingKeys.append(.showCalendarEvent)
+        }
+        
         /// 待办任务
         if sources.contains(.todo) {
             TodoRepository.addUpdater(self, for: [.task])
@@ -61,13 +67,20 @@ extension MyDayEventChangeObserver: SettingAgentObserver {
         }
         
         switch key {
-        case .showTodo, .showHabit, .showFocus:
+        case .showTodo, .showHabit, .showFocus, .showCalendarEvent:
             updater.myDayEventsDidChange(in: [.infiniteInterval])
         default:
             break
         }
     }
 }
+
+extension MyDayEventChangeObserver: CalendarSystemManagerDelegate {
+    func calendarSystemManagerDidUpdate(_ manager: CalendarSystemManager) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
+}
+
 
 extension MyDayEventChangeObserver: TodoTaskProcessorDelegate {
     

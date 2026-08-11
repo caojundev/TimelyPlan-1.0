@@ -6,11 +6,16 @@
 //
 
 import Foundation
+import EventKit
 
 class MyDayEventScheduleEditor {
     
     static func editSchedule(for event: MyDayEvent) {
         switch event.source {
+        case .calendar:
+            if let ekEvent = event.sourceItem as? EKEvent {
+                openScheduleEditor(for: ekEvent)
+            }
         case .todo:
             if let task = event.sourceItem as? TodoTask {
                 openScheduleEditor(for: task)
@@ -24,6 +29,10 @@ class MyDayEventScheduleEditor {
                 openScheduleEditor(for: timer)
             }
         }
+    }
+    
+    private static func openScheduleEditor(for ekEvent: EKEvent) {
+        
     }
     
     private static func openScheduleEditor(for task: TodoTask) {

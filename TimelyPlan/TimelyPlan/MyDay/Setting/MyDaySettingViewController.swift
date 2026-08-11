@@ -83,6 +83,7 @@ class MyDaySettingViewController: BaseSettingViewController {
     }()
     
     // MARK: - 事项显示
+    
     /// 显示待办
     lazy var showTodoCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
@@ -94,22 +95,6 @@ class MyDaySettingViewController: BaseSettingViewController {
 
         cellItem.valueChanged = { isOn in
             MyDaySetting.shared.showTodo = isOn
-        }
-
-        return cellItem
-    }()
-    
-    /// 显示专注
-    lazy var showFocusCellItem: TPSwitchTableCellItem = { [weak self] in
-        let cellItem = TPSwitchTableCellItem()
-        cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Show Focus")
-        cellItem.updater = {
-            self?.showFocusCellItem.isOn = MyDaySetting.shared.showFocus
-        }
-
-        cellItem.valueChanged = { isOn in
-            MyDaySetting.shared.showFocus = isOn
         }
 
         return cellItem
@@ -130,11 +115,47 @@ class MyDaySettingViewController: BaseSettingViewController {
 
         return cellItem
     }()
+    
+    
+    /// 显示专注
+    lazy var showFocusCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show Focus Timer")
+        cellItem.updater = {
+            self?.showFocusCellItem.isOn = MyDaySetting.shared.showFocus
+        }
+
+        cellItem.valueChanged = { isOn in
+            MyDaySetting.shared.showFocus = isOn
+        }
+
+        return cellItem
+    }()
+    
+    /// 显示日历事项
+    lazy var showCalendarEventCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show Calendar Event")
+        cellItem.updater = {
+            self?.showCalendarEventCellItem.isOn = MyDaySetting.shared.showCalendarEvent
+        }
+
+        cellItem.valueChanged = { isOn in
+            MyDaySetting.shared.showCalendarEvent = isOn
+        }
+
+        return cellItem
+    }()
 
     lazy var showSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = normalHeaderHeight
-        sectionController.cellItems = [showTodoCellItem, showFocusCellItem, showHabitCellItem]
+        sectionController.cellItems = [showCalendarEventCellItem,
+                                       showTodoCellItem,
+                                       showFocusCellItem,
+                                       showHabitCellItem]
         return sectionController
     }()
 
@@ -173,7 +194,7 @@ class MyDaySettingViewController: BaseSettingViewController {
         let firstWeekday = MyDaySetting.shared.firstWeekday
         WeekdayPickerController.show(currentWeekday: firstWeekday,
                                      allowWeekdays: [.sunday, .monday],
-                                     from: cell.contentView,
+                                     from: cell,
                                      popoverPosition: .bottomLeft,
                                      permittedPositions: [.bottomLeft, .topLeft],
                                      isSourceViewCovered: false,

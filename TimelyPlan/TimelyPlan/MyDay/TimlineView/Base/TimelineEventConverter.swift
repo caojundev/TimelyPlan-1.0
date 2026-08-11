@@ -12,8 +12,8 @@ struct TimelineAllDayEventConverter {
     static func convert(events: [MyDayEvent]) -> [TimelineDataItem] {
         let allDayEvents = events.filter { $0.isAllDay }
         guard !allDayEvents.isEmpty else { return [] }
-        
-        let dataItems = allDayEvents.map { event -> TimelineDataItem in
+        let orderedEvents = allDayEvents.orderedEvents
+        let dataItems = orderedEvents.map { event -> TimelineDataItem in
             let item = TimelineItem(event: event,
                                     type: .point,
                                     position: .only,
