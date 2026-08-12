@@ -38,7 +38,7 @@ class MyDayEventAddController {
     }
     
     private func bindTask(with dateInfo: TaskDateInfo) {
-        let vc = MyDayTaskBindViewController()
+        let vc = MyDayTaskBindViewController(dateInfo: dateInfo)
         vc.showAsNavigationRoot(style: .formSheet, animated: true, completion: nil)
     }
     

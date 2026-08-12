@@ -49,8 +49,11 @@ class MyDayTaskBindViewController: TPContainerViewController,
         return view
     }()
 
-    init(type: TaskType = .todo) {
+    let dateInfo: TaskDateInfo
+    
+    init(type: TaskType = .todo, dateInfo: TaskDateInfo) {
         self.taskType = type
+        self.dateInfo = dateInfo
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -105,7 +108,7 @@ class MyDayTaskBindViewController: TPContainerViewController,
     private func listViewController(for type: TaskType) -> UIViewController! {
         switch type {
         case .todo:
-            return MyDayTodoTaskBindViewController()
+            return MyDayTodoTaskBindViewController(dateInfo: dateInfo)
         case .habit:
             return MyDayHabitTaskBindViewController()
         case .focus:

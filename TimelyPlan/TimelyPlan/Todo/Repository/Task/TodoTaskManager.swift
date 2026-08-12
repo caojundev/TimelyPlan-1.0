@@ -281,6 +281,30 @@ class TodoTaskManager {
         updateTasks([task], schedule: schedule)
     }
     
+    func updateTask(_ task: TodoTask, schedule: TaskSchedule?, isAddedToMyDay: Bool) {
+        var changeInfos: [TodoTaskChangeInfo] = []
+        let oldSchedule = task.schedule
+        if oldSchedule != schedule, CDTodoTask.updateTasks([task], schedule: schedule) {
+            let change: TodoTaskChange = .schedule(oldValue: oldSchedule, newValue: schedule)
+            let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+            changeInfos.append(changeInfo)
+        }
+        
+        if task.isAddedToMyDay != isAddedToMyDay,
+           CDTodoTask.updateTasks([task], isAddedToMyDay: isAddedToMyDay) {
+            let change: TodoTaskChange = .myDay(oldValue: task.isAddedToMyDay, newValue: isAddedToMyDay)
+            let changeInfo = TodoTaskChangeInfo(task: task, change: change)
+            changeInfos.append(changeInfo)
+        }
+        
+        guard changeInfos.count > 0 else {
+            return
+        }
+        
+        updater.didUpdateTodoTasks(with: changeInfos)
+        HandyRecord.updateChangeCount()
+    }
+    
     // MARK: - 标签
     func updateTask(_ task: TodoTask, tags: Set<TodoTag>?) {
         guard CDTodoTask.updateTask(task, tags: tags) else {

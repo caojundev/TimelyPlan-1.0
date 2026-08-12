@@ -271,6 +271,12 @@ extension TodoRepository {
         taskManager.updateTask(task, schedule: schedule)
     }
     
+    static func updateTask(_ task: TodoTask,
+                           schedule: TaskSchedule?,
+                           isAddedToMyDay: Bool) {
+        taskManager.updateTask(task, schedule: schedule, isAddedToMyDay: isAddedToMyDay)
+    }
+    
     static func updateTask(_ task: TodoTask, tags: Set<TodoTag>?) {
         taskManager.updateTask(task, tags: tags)
     }
