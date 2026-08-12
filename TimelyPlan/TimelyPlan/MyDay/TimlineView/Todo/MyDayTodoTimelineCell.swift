@@ -38,7 +38,8 @@ class MyDayTodoTimelineCell: TimelineIconCell {
         return infoViewHeight
     }
     
-    let detailOption: TodoTaskDetailOption = [.step,
+    let detailOption: TodoTaskDetailOption = [.schedule,
+                                              .step,
                                               .progress,
                                               .tag,
                                               .list,

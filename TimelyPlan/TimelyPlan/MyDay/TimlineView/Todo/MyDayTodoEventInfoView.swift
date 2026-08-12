@@ -31,7 +31,7 @@ class MyDayTodoEventInfoView: TodoTaskCheckInfoView {
     /// 重复按钮
     lazy var repeatButton: TPDefaultButton = {
         let button = TPDefaultButton()
-        button.image = resGetImage("myDay_todo_repeat_24")
+        button.image = resGetImage("myDay_repeat_24")
         button.isUserInteractionEnabled = false
         return button
     }()

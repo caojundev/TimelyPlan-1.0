@@ -220,8 +220,7 @@ class MyDayMainViewController: TPViewController,
         TPImpactFeedback.impactWithSoftStyle()
         let menuController = MyDayEventAddMenuController()
         menuController.didSelectMenuActionType = { [weak self] type in
-            guard let self = self else { return }
-            let date = self.pageView.visibleDate!
+            guard let self = self, let date = self.pageView.visibleDate else { return }
             self.addController.performAddMenuAction(with: type, on: date)
         }
 

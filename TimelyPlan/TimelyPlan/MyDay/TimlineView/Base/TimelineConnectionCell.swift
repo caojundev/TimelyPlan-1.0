@@ -167,22 +167,25 @@ class TimelineDashedConnectionCell: TimelineConnectionCell {
         connectionContentView.addSubview(bindButton)
     }
     
+    private let buttonTopMargin = 4.0
+    
     override func layoutConnectionContentSubviews() {
+        addButton.sizeToFit()
+        bindButton.sizeToFit()
+        
         titleView.width = connectionContentView.width
         titleView.height = 20.0
-        titleView.bottom = connectionContentView.halfHeight - 2.0
-        
-        addButton.sizeToFit()
-        addButton.top = connectionContentView.halfHeight + 2.0
-        
-        bindButton.sizeToFit()
+        titleView.top = (connectionContentView.height - (addButton.height + buttonTopMargin + titleView.height)) / 2.0
+   
+        addButton.top = titleView.bottom + buttonTopMargin
         bindButton.topEqualToView(addButton)
         bindButton.left = addButton.right + 8.0
     }
     
     override func configure(with item: TimelineConnectionItem) {
         super.configure(with: item)
-        if let interval = item.timeInterval, interval > 0 {
+        let interval = item.timeInterval
+        if interval > 0 {
             titleView.title = Duration(interval).hourMinuteDurationString
         } else {
             titleView.title = nil

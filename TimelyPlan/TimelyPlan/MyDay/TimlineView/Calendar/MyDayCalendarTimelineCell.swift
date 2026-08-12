@@ -22,6 +22,7 @@ class MyDayCalendarTimelineCell: TimelineIconCell {
         view.titleConfig.numberOfLines = 1
         view.subtitleConfig.font = MyDayTimelineConfig.subtitleFont
         view.subtitleConfig.textColor = .secondaryLabel
+        view.subtitleConfig.lineBreakMode = .byTruncatingMiddle
         return view
     }()
     
@@ -45,11 +46,27 @@ class MyDayCalendarTimelineCell: TimelineIconCell {
         super.configure(with: item)
         calendarItem = item
         infoView.title = item.event.title
+        
         if let event = item.event.sourceItem as? EKEvent {
-            infoView.subtitle = event.calendar.title
+            var components: [ASAttributedString] = []
+            components.append(event.calendar.title.attributedString)
+            if event.hasRecurrenceRules, let indicator = repeatIndicator(color: .secondaryLabel) {
+                components.append(indicator)
+            }
+            
+            infoView.subtitle = components.joined(separator: " • ")
         }
         
         setNeedsLayout()
+    }
+    
+    /// 我的一天图标信息
+    func repeatIndicator(color: UIColor? = nil) -> ASAttributedString? {
+        guard let image = resGetImage("myDay_repeat_24") else {
+            return nil
+        }
+        
+        return .string(image: image, imageSize: .size(4), imageColor: color)
     }
 }
 

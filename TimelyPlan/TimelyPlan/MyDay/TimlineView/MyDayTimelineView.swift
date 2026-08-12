@@ -98,7 +98,7 @@ extension MyDayTimelineView: TimelineDashedConnectionCellDelegate {
     
     func timelineDashedConnectionCellDidClickAdd(_ cell: TimelineDashedConnectionCell) {
         TPImpactFeedback.impactWithSoftStyle()
-        let addTypes: [MyDayEventAddType] = [.todo, .habit, .focus]
+        let addTypes: [MyDayEventAddType] = [.calendar, .todo, .habit, .focus]
         let menuController = MyDayEventAddMenuController(addTypes: addTypes)
         menuController.didSelectMenuActionType = { [weak self] type in
             self?.selectAddType(type, with: cell.item)
@@ -117,11 +117,28 @@ extension MyDayTimelineView: TimelineDashedConnectionCellDelegate {
     }
     
     private func selectAddType(_ addType: MyDayEventAddType, with connectionItem: TimelineConnectionItem?) {
-        guard let eventAddController = eventAddController, let date = eventViewModel.date else {
+        guard let eventAddController = eventAddController else {
             return
         }
         
-        eventAddController.performAddMenuAction(with: addType, on: date)
+        guard let connectionItem = connectionItem else { return }
+        let timeCalculator = MyDayEventTimeCalculator(config: .compact)
+        
+        let dateInfo: TaskDateInfo
+        if let suggestedTime = timeCalculator.calculateSuggestedTime(
+            topDate: connectionItem.topDate,
+            bottomDate: connectionItem.bottomDate
+        ) {
+            dateInfo = TaskDateInfo(startDate: suggestedTime.startDate,
+                                    endDate: suggestedTime.endDate,
+                                    isAllDay: false)
+        } else {
+            let startDate = connectionItem.topDate.startOfDay()
+            let endDate = connectionItem.topDate.endOfDay()
+            dateInfo = TaskDateInfo(startDate: startDate, endDate: endDate, isAllDay: true)
+        }
+        
+        eventAddController.performAddMenuAction(with: addType, with: dateInfo)
     }
 }
 

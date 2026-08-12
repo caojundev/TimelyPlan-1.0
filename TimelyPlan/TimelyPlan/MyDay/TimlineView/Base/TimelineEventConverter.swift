@@ -275,10 +275,11 @@ struct TimelineTimedEventConverter {
             
             let connection = TimelineConnectionItem(
                 style: style,
-                topColor: item.nodeColor,
-                bottomColor: nextItem.nodeColor,
                 height: height,
-                timeInterval: timeInterval
+                topDate: item.endDate,
+                bottomDate: nextItem.startDate,
+                topColor: item.nodeColor,
+                bottomColor: nextItem.nodeColor
             )
             
             result.append(.connection(connection))

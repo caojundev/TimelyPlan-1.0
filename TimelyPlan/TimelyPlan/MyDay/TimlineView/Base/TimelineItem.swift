@@ -38,10 +38,15 @@ enum TimelineConnectionStyle {
 struct TimelineConnectionItem {
     let id = UUID()
     let style: TimelineConnectionStyle
+    let height: CGFloat
+    let topDate: Date /// 顶部日期
+    let bottomDate: Date /// 底部日期
     let topColor: UIColor
     let bottomColor: UIColor
-    let height: CGFloat
-    let timeInterval: TimeInterval?
+    
+    var timeInterval: TimeInterval {
+        return bottomDate.timeIntervalSince(topDate)
+    }
 }
 
 struct TimelineItem {

@@ -110,7 +110,6 @@ class TaskDateInfoEditViewController: TPContainerViewController {
     }
     
     override func clickDone() {
-        super.clickDone()
         var dateInfo: TaskDateInfo?
         if scheduleType == .singleDay {
             dateInfo = singleDateInfoEditViewController.dateInfo
@@ -118,7 +117,10 @@ class TaskDateInfoEditViewController: TPContainerViewController {
             dateInfo = multipleDateInfoEditViewController.dateInfo
         }
         
-        didEndEditing?(dateInfo)
+        TPImpactFeedback.impactWithSoftStyle()
+        dismiss(animated: true) { [weak self] in
+            self?.didEndEditing?(dateInfo)
+        }
     }
     
     @objc private func clickClear() {

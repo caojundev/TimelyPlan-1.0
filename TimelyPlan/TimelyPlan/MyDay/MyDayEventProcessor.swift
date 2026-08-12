@@ -54,7 +54,12 @@ class MyDayEventProcessor {
             return
         }
         
-        if !task.isDetached {
+        if task.isDetached {
+            if let event = task.toCalendarEvent() {
+                TPImpactFeedback.impactWithSoftStyle()
+                CalendarPresenter.previewEvent(event)
+            }
+        } else {
             TPImpactFeedback.impactWithSoftStyle()
             MyDayPresenter.editTodoEvent(event)
         }

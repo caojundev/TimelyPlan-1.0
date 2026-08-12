@@ -56,7 +56,7 @@ class MyDayEventAddMenuController: TPBaseMenuController<MyDayEventAddType> {
     }
     
     override func orderedMenuActionTypeLists() -> [Array<MyDayEventAddType>] {
-        return [[.bind], [.todo, .habit], [.focus], [.calendar]]
+        return [[.bind], [.calendar], [.todo, .habit], [.focus]]
     }
     
     override func menuActionTypes() -> [MyDayEventAddType] {
