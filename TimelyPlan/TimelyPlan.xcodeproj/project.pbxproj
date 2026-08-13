@@ -255,6 +255,7 @@
 		E5141F102F7D3E5B007A864B /* NSManagedObject+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F0F2F7D3E5B007A864B /* NSManagedObject+Sort.swift */; };
 		E5141F122F7D49C7007A864B /* TPDragPreviewViewProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5141F112F7D49C7007A864B /* TPDragPreviewViewProviding.swift */; };
 		E5146C7F302C9DE7007A8BCB /* MyDayEventTimeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C7E302C9DE7007A8BCB /* MyDayEventTimeCalculator.swift */; };
+		E5146C81302D6C80007A8BCB /* CalendarLocalEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C80302D6C80007A8BCB /* CalendarLocalEditViewController.swift */; };
 		E51501942D477962008B2333 /* TPTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501932D477962008B2333 /* TPTableViewAdapter.swift */; };
 		E51501962D477A26008B2333 /* TPTableViewAdapterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */; };
 		E51501982D477A89008B2333 /* TPTableViewAdapterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501972D477A89008B2333 /* TPTableViewAdapterDelegate.swift */; };
@@ -2402,6 +2403,7 @@
 		E5141F0F2F7D3E5B007A864B /* NSManagedObject+Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Sort.swift"; sourceTree = "<group>"; };
 		E5141F112F7D49C7007A864B /* TPDragPreviewViewProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDragPreviewViewProviding.swift; sourceTree = "<group>"; };
 		E5146C7E302C9DE7007A8BCB /* MyDayEventTimeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayEventTimeCalculator.swift; sourceTree = "<group>"; };
+		E5146C80302D6C80007A8BCB /* CalendarLocalEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarLocalEditViewController.swift; sourceTree = "<group>"; };
 		E51501932D477962008B2333 /* TPTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapter.swift; sourceTree = "<group>"; };
 		E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapterDataSource.swift; sourceTree = "<group>"; };
 		E51501972D477A89008B2333 /* TPTableViewAdapterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapterDelegate.swift; sourceTree = "<group>"; };
@@ -6172,6 +6174,7 @@
 			children = (
 				E53ABEE83009E35400EB8632 /* MyDaySetting.swift */,
 				E53ABEE43009D7D000EB8632 /* MyDaySettingViewController.swift */,
+				E5146C80302D6C80007A8BCB /* CalendarLocalEditViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -12175,6 +12178,7 @@
 				E50D60292F7A12B400D5E0A4 /* RepeatScheduler.swift in Sources */,
 				E5F078CC2F9711C500F94BDF /* TodoScheduleEditViewController.swift in Sources */,
 				E53B114A2F94D23100701410 /* TodoFilterRuleEditViewController.swift in Sources */,
+				E5146C81302D6C80007A8BCB /* CalendarLocalEditViewController.swift in Sources */,
 				E5BB9E9F2D3BF0C80089667A /* HourHeatMapView.swift in Sources */,
 				E5D7D7EF2D43923800EC877A /* FocusRepository.swift in Sources */,
 				E5D7D9192D43933700EC877A /* FocusPieChartSectionController.swift in Sources */,

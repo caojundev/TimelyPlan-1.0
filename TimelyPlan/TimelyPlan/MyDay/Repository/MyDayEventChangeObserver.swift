@@ -130,6 +130,17 @@ extension MyDayEventChangeObserver: TodoTaskProcessorDelegate {
     }
 
     func didUpdateTodoTask(_ task: TodoTask, with change: TodoTaskChange) {
+        let isMyDayChange: Bool
+        if case .myDay(_, _) = change {
+            isMyDayChange = true
+        } else {
+            isMyDayChange = false
+        }
+        
+        guard isMyDayChange || task.isAddedToMyDay else {
+            return
+        }
+        
         guard let ranges = ranges(for: task, with: change) else {
             return
         }
@@ -186,10 +197,6 @@ extension MyDayEventChangeObserver: TodoTaskProcessorDelegate {
             return nil
         }
 
-        guard task.isAddedToMyDay else {
-            return nil
-        }
-        
         if case let .schedule(oldValue, newValue) = change {
             /// 重复任务
             if let oldRepeatRule = oldValue?.repeatRule, oldRepeatRule.type != RepeatType.none {

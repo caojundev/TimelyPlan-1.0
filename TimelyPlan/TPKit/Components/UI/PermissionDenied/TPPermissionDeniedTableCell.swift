@@ -15,16 +15,12 @@ class TPPermissionDeniedTableCellItem: TPBaseTableCellItem {
     var subtitle: String?
     
     var imageName: String?
-    
-    var backgroundColor = UIColor.secondarySystemGroupedBackground
-    
+
     override init() {
         super.init()
         self.registerClass = TPPermissionDeniedTableCell.self
         self.selectionStyle = .none
         self.height = 360.0
-        self.style = TPTableCellStyle()
-        self.style?.backgroundColor = .clear
     }
 }
 
@@ -42,7 +38,6 @@ class TPPermissionDeniedTableCell: TPBaseTableCell {
                 deniedView.imageView.image = resGetImage(imageName)
             }
             
-            deniedView.backgroundColor = cellItem.backgroundColor
             setNeedsLayout()
         }
     }
@@ -57,9 +52,6 @@ class TPPermissionDeniedTableCell: TPBaseTableCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        let layoutFrame = contentView.layoutFrame()
-        deniedView.width = contentView.width
-        deniedView.sizeToFit()
-        deniedView.top = layoutFrame.minY
+        deniedView.frame = contentView.bounds
     }
 }

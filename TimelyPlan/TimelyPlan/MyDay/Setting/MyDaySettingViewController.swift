@@ -116,7 +116,6 @@ class MyDaySettingViewController: BaseSettingViewController {
         return cellItem
     }()
     
-    
     /// 显示专注
     lazy var showFocusCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
@@ -131,6 +130,15 @@ class MyDaySettingViewController: BaseSettingViewController {
         }
 
         return cellItem
+    }()
+    
+    lazy var showSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = normalHeaderHeight
+        sectionController.cellItems = [showTodoCellItem,
+                                       showFocusCellItem,
+                                       showHabitCellItem]
+        return sectionController
     }()
     
     /// 显示日历事项
@@ -148,14 +156,25 @@ class MyDaySettingViewController: BaseSettingViewController {
 
         return cellItem
     }()
-
-    lazy var showSectionController: TPTableItemSectionController = {
+    
+    /// 本地日历
+    lazy var localCalendarCellItem: TPImageInfoTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Local Calendars")
+        cellItem.didSelectHandler = {
+            self?.editLocalCalendar()
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var calendarSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = normalHeaderHeight
         sectionController.cellItems = [showCalendarEventCellItem,
-                                       showTodoCellItem,
-                                       showFocusCellItem,
-                                       showHabitCellItem]
+                                       localCalendarCellItem]
         return sectionController
     }()
 
@@ -175,7 +194,8 @@ class MyDaySettingViewController: BaseSettingViewController {
          self.navigationItem.leftBarButtonItem = dismissButtonItem
          self.sectionControllers = [generalSectionController,
                                     viewOptionsSectionController,
-                                    showSectionController]
+                                    showSectionController,
+                                    calendarSectionController]
          self.reloadData()
      }
     
@@ -206,5 +226,9 @@ class MyDaySettingViewController: BaseSettingViewController {
         }
     }
 
+    private func editLocalCalendar() {
+        let vc = CalendarLocalEditViewController(style: .grouped)
+        navigationController?.pushViewController(vc, animated: true)
+    }
  }
 

@@ -13,7 +13,7 @@ class TPPermissionDeniedView: UIView {
     
     struct Constants {
         static let margin = 15.0
-        static let padding = UIEdgeInsets(top: 30.0, left: 12.0, bottom: 12.0, right: 12.0)
+        static let padding = UIEdgeInsets(horizontal: 16.0, vertical: 24.0)
         static let numberOfTitleLines = 2
         static let numberOfSubtitleLines = 0
         static let accessButtonHeight = 50.0
@@ -80,18 +80,18 @@ class TPPermissionDeniedView: UIView {
         super.layoutSubviews()
         padding = Constants.padding
         let layoutFrame = layoutFrame()
-        
         titleLabel.width = layoutFrame.width
+        subtitleLabel.width = layoutFrame.width
         titleLabel.sizeToFit()
-        titleLabel.top = layoutFrame.minY
+        subtitleLabel.sizeToFit()
+        imageView.sizeToFit()
+        let topMargin = (layoutFrame.height - titleLabel.height - subtitleLabel.height - imageView.height - Constants.accessButtonHeight - 3 * Constants.margin) / 2.0
+        titleLabel.top = layoutFrame.minY + topMargin
         titleLabel.alignHorizontalCenter()
         
-        subtitleLabel.width = layoutFrame.width
-        subtitleLabel.sizeToFit()
         subtitleLabel.top = titleLabel.bottom + Constants.margin
         subtitleLabel.alignHorizontalCenter()
         
-        imageView.sizeToFit()
         imageView.alignHorizontalCenter()
         imageView.top = subtitleLabel.bottom + Constants.margin
         imageView.updateImage(withColor: .label)

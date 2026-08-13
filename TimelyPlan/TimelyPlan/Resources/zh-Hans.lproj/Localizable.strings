@@ -36,9 +36,10 @@
 "Habit Task" = "习惯任务";
 "Focus Timer" = "专注计时器";
 
+
 ///**********************日历*********************///
 "Quarter" = "季";
-
+"Local Calendars" = "本地日历";
 "Subscribed Calendars" = "订阅日历";
 "Birthdays" = "生日";
 "Other" = "其它";
