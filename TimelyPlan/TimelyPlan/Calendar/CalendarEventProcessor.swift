@@ -12,41 +12,6 @@ class CalendarEventProcessor {
     
     private let repository = CalendarRepository()
     
-    /// 更新事项日期
-    func updateEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
-        switch event.source {
-        case .system:
-            updateSystemEvent(event, with: dateRange, completion: completion)
-        case .todo:
-            updateTodoEvent(event, with: dateRange, completion: completion)
-        case .habit:
-            break
-        }
-    }
-    
-    private func updateTodoEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
-        repository.updateTodoEvent(event, with: dateRange)
-        completion(true)
-    }
-    
-    private func updateSystemEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
-        guard let ekEvent = event.sourceItem as? EKEvent else {
-            completion(false)
-            return
-        }
-        
-        CalendarSystemManager.shared.updateEventWithConfirmation(ekEvent, with: dateRange) { result in
-            switch result {
-            case .success:
-                debugPrint("事项更新成功")
-                completion(true)
-            case .failure(let error):
-                debugPrint("事项更新失败: \(error.localizedDescription)")
-                completion(false)
-            }
-        }
-    }
-    
     /// 点击事项
     func clickEvent(_ event: CalendarEvent) {
         switch event.source {
@@ -83,11 +48,48 @@ class CalendarEventProcessor {
     
     /// 点击习惯
     private func clickHabitEvent(_ event: CalendarEvent) {
-        if event.startDate.isToday {
-            CalendarPresenter.editHabitEvent(event)
-        } else {
-            CalendarPresenter.previewEvent(event)
+        CalendarPresenter.editHabitEvent(event)
+    }
+    
+    // MARK: - 更新事项
+    
+    /// 更新事项日期
+    func updateEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
+        switch event.source {
+        case .system:
+            updateSystemEvent(event, with: dateRange, completion: completion)
+        case .todo:
+            updateTodoEvent(event, with: dateRange, completion: completion)
+        case .habit:
+            updateHabitEvent(event, with: dateRange, completion: completion)
         }
     }
     
+    private func updateTodoEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
+        repository.updateTodoEvent(event, with: dateRange)
+        completion(true)
+    }
+    
+    private func updateHabitEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
+        repository.updateHabitEvent(event, with: dateRange)
+        completion(true)
+    }
+    
+    private func updateSystemEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
+        guard let ekEvent = event.sourceItem as? EKEvent else {
+            completion(false)
+            return
+        }
+        
+        CalendarSystemManager.shared.updateEventWithConfirmation(ekEvent, with: dateRange) { result in
+            switch result {
+            case .success:
+                debugPrint("事项更新成功")
+                completion(true)
+            case .failure(let error):
+                debugPrint("事项更新失败: \(error.localizedDescription)")
+                completion(false)
+            }
+        }
+    }
 }

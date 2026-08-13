@@ -142,6 +142,15 @@ final class HabitRepository {
         )
     }
     
+    static func getPeriodItem(for task: HabitTask, on date: Date) -> HabitPeriodItem {
+        let period = HabitDatePeriod(date: date, mode: .day)
+        let result = periodItemFetcher.getPeriodItem(for: task,
+                                                        in: period,
+                                                        includeSamples: false)
+        
+        return result
+    }
+    
     static func fetchPeriodItem(for taskIdentifier: String,
                                 on date: Date,
                                 completion: @escaping (HabitPeriodItem?) -> Void

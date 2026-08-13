@@ -96,7 +96,7 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
                 return false
             }
         case .habit:
-            return false
+            return true
         }
     }
     

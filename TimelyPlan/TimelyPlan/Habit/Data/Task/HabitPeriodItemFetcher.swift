@@ -92,6 +92,18 @@ class HabitPeriodItemFetcher {
         }
     }
     
+    
+    func getPeriodItem(for task: HabitTask,
+                       in period: HabitDatePeriod,
+                        includeSamples: Bool) -> HabitPeriodItem {
+        let conditions = CDHabitRecord.conditions(forTask: task, inPeriod: period)
+        let predicate = conditions.andPredicate()
+        let results: [CDHabitRecord]? = CDHabitRecord.getAll(matching: predicate, in: .defaultContext)
+        let periodItem = HabitPeriodItem(habitTask: task, period: period)
+        periodItem.records = records(with: results, includeSamples: includeSamples)
+        return periodItem
+    }
+    
     func fetchPeriodItem(for task: HabitTask,
                          in period: HabitDatePeriod,
                          includeSamples: Bool,

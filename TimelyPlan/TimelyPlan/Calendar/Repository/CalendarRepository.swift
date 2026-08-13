@@ -55,4 +55,14 @@ class CalendarRepository {
             TodoRepository.updateTask(task, schedule: schedule)
         }
     }
+    
+    func updateHabitEvent(_ event: CalendarEvent, with dateRange: DateInterval) {
+        if let task = event.sourceItem as? HabitTask {
+            var editingTask = task.editingTask
+            editingTask.timeOption = .currentPeriod(from: dateRange.start)
+            editingTask.startTime = Int64(dateRange.start.offset())
+            editingTask.duration = Int64(dateRange.duration)
+            HabitRepository.updateTask(task, with: editingTask)
+        }
+    }
 }

@@ -72,7 +72,7 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
             self?.clickEdit()
         }
         
-        action.style.cornerRadius = .greatestFiniteMagnitude
+        action.style.cornerRadius = 12.0
         return action
     }()
 
@@ -81,7 +81,7 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
             self?.clickDelete()
         }
         
-        action.style.cornerRadius = .greatestFiniteMagnitude
+        action.style.cornerRadius = 12.0
         action.style.backgroundColor = .danger6
         action.style.selectedBackgroundColor = .danger6
         return action

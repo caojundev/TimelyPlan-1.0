@@ -6,23 +6,19 @@
 //
 
 import Foundation
+import EventKit
 
 class CalendarPresenter {
     
     /// 编辑习惯事项
     static func editHabitEvent(_ event: CalendarEvent) {
-        guard event.startDate.isToday, let task = event.sourceItem as? HabitTask else {
+        guard let task = event.sourceItem as? HabitTask else {
             return
         }
         
-        let date = Date()
-        HabitRepository.fetchPeriodItem(for: task.identifier, on: date) { periodItem in
-            guard let periodItem = periodItem else {
-                return
-            }
-
-            HabitDayMenuPresenter.showSheetMenu(for: periodItem, on: date)
-        }
+        let date = event.startDate
+        let periodItem = HabitRepository.getPeriodItem(for: task, on: date)
+        HabitDayMenuPresenter.showSheetMenu(for: periodItem, on: date)
     }
     
     /// 编辑待办事项

@@ -17,13 +17,8 @@ class MyDayPresenter {
         }
         
         let date = event.startDate
-        HabitRepository.fetchPeriodItem(for: task.identifier, on: date) { periodItem in
-            guard let periodItem = periodItem else {
-                return
-            }
-
-            HabitDayMenuPresenter.showSheetMenu(for: periodItem, on: date)
-        }
+        let periodItem = HabitRepository.getPeriodItem(for: task, on: date)
+        HabitDayMenuPresenter.showSheetMenu(for: periodItem, on: date)
     }
         
     static func editFocusEvent(_ event: MyDayEvent) {
