@@ -11,18 +11,7 @@ import UIKit
 class TaskTimePlanEditViewController: TPTableSectionsViewController {
 
     /// 结束编辑回调
-    var didEndEditing: ((TaskTimePlan) -> Void)?
-    
-    /// 时间计划
-    private(set) var timePlan: TaskTimePlan {
-        get {
-            return TaskTimePlan(regularRule: regularRule)
-        }
-        
-        set {
-            self.regularRule = newValue.regularRule ?? TaskTimePlanRegularRule()
-        }
-    }
+    var didEndEditing: ((TaskTimePlanRegularRule) -> Void)?
     
     var regularRule: TaskTimePlanRegularRule {
         get {
@@ -66,9 +55,9 @@ class TaskTimePlanEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    init(timePlan: TaskTimePlan?) {
+    init(regularRule: TaskTimePlanRegularRule?) {
         super.init(style: .insetGrouped)
-        self.timePlan = timePlan ?? TaskTimePlan()
+        self.regularRule = regularRule ?? TaskTimePlanRegularRule()
     }
     
     required init?(coder: NSCoder) {
@@ -106,7 +95,7 @@ class TaskTimePlanEditViewController: TPTableSectionsViewController {
     
     override func clickDone() {
         dismiss(animated: true, completion: nil)
-        didEndEditing?(timePlan)
+        didEndEditing?(regularRule)
     }
     
     /// 更新计划描述信息

@@ -12,13 +12,13 @@ class TaskTimePlanRegularScheduler {
     
     /// 判断特定日期是否为计划日
     func isScheduledDate(_ date: Date,
-                         withRule rule: TaskTimePlanRegularRule?,
+                         timePlan: TaskTimePlanRegularRule?,
                          dateRange: DateRange) -> Bool {
         guard let startDate = dateRange.startDate, dateRange.contains(date: date) else {
             return false
         }
         
-        return isScheduledDate(date, withRule: rule, startDate: startDate)
+        return isScheduledDate(date, withRule: timePlan, startDate: startDate)
     }
     
     func isScheduledDate(_ date: Date,

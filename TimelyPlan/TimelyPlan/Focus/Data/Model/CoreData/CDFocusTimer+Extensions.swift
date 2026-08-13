@@ -68,7 +68,7 @@ extension CDFocusTimer: TPHexColorConvertible, SortableIdentifiable {
         self.endDate = editingTimer.endDate
         self.startTime = editingTimer.startTime
         self.configJSON = editingTimer.config?.jsonString()
-        self.timePlanRuleJSON = editingTimer.timePlan?.regularRule?.jsonString()
+        self.timePlanRuleJSON = editingTimer.timePlan?.jsonString()
     }
 }
 

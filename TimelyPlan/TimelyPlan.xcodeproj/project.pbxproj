@@ -259,7 +259,6 @@
 		E5146C8A302DBC91007A8BCB /* TaskTimePlanEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C83302DBC8B007A8BCB /* TaskTimePlanEditViewController.swift */; };
 		E5146C8B302DBC91007A8BCB /* TaskTimePlanRegularSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C84302DBC8B007A8BCB /* TaskTimePlanRegularSectionController.swift */; };
 		E5146C8C302DBC91007A8BCB /* TaskTimePlanRegularScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C86302DBC8D007A8BCB /* TaskTimePlanRegularScheduler.swift */; };
-		E5146C8E302DBC91007A8BCB /* TaskTimePlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C88302DBC8D007A8BCB /* TaskTimePlan.swift */; };
 		E5146C8F302DBC91007A8BCB /* TaskTimePlanRegularRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C89302DBC8F007A8BCB /* TaskTimePlanRegularRule.swift */; };
 		E51501942D477962008B2333 /* TPTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501932D477962008B2333 /* TPTableViewAdapter.swift */; };
 		E51501962D477A26008B2333 /* TPTableViewAdapterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */; };
@@ -2406,7 +2405,6 @@
 		E5146C83302DBC8B007A8BCB /* TaskTimePlanEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlanEditViewController.swift; sourceTree = "<group>"; };
 		E5146C84302DBC8B007A8BCB /* TaskTimePlanRegularSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlanRegularSectionController.swift; sourceTree = "<group>"; };
 		E5146C86302DBC8D007A8BCB /* TaskTimePlanRegularScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlanRegularScheduler.swift; sourceTree = "<group>"; };
-		E5146C88302DBC8D007A8BCB /* TaskTimePlan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlan.swift; sourceTree = "<group>"; };
 		E5146C89302DBC8F007A8BCB /* TaskTimePlanRegularRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlanRegularRule.swift; sourceTree = "<group>"; };
 		E51501932D477962008B2333 /* TPTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapter.swift; sourceTree = "<group>"; };
 		E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapterDataSource.swift; sourceTree = "<group>"; };
@@ -7706,7 +7704,6 @@
 		E59244142F51CB7500CA2393 /* TimePlan */ = {
 			isa = PBXGroup;
 			children = (
-				E5146C88302DBC8D007A8BCB /* TaskTimePlan.swift */,
 				E5146C89302DBC8F007A8BCB /* TaskTimePlanRegularRule.swift */,
 				E5146C82302DBC8B007A8BCB /* Edit */,
 				E5146C85302DBC8D007A8BCB /* Scheduler */,
@@ -12293,7 +12290,6 @@
 				E5BB9D9C2D3BF0C60089667A /* TPColorSelectPopoverView.swift in Sources */,
 				E500E3B22FC91E6000252011 /* TodoTaskBindViewController.swift in Sources */,
 				E50D60512F7A13F100D5E0A4 /* AlarmPresetListTableCell.swift in Sources */,
-				E5146C8E302DBC91007A8BCB /* TaskTimePlan.swift in Sources */,
 				E5BB9DD52D3BF0C60089667A /* UIDevice+Extension.swift in Sources */,
 				E56B94A62F8F93F5001E488B /* TodoState.swift in Sources */,
 				E5D7D9122D43933700EC877A /* FocusStatsOverallViewController.swift in Sources */,

@@ -51,7 +51,7 @@ class HabitPeriodItemFetcher {
             
             let hasScheduledDate = !period.enumerateDates { date in
                 let isScheduled = scheduler.isScheduledDate(date,
-                                                            withRule: task.timePlan.regularRule,
+                                                            timePlan: task.timePlan,
                                                             dateRange: task.dateRange)
                 if isScheduled {
                     /// 中断循环
@@ -79,7 +79,7 @@ class HabitPeriodItemFetcher {
         var scheduledTasks: [HabitTask] = []
         for task in tasks {
             let isScheduled = scheduler.isScheduledDate(date,
-                                                        withRule: task.timePlan.regularRule,
+                                                        timePlan: task.timePlan,
                                                         dateRange: task.dateRange)
             if isScheduled {
                 scheduledTasks.append(task)

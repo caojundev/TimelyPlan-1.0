@@ -94,7 +94,7 @@ class FocusUserTimerController {
         }
         
         if editingTimer.timePlan == nil {
-            editingTimer.timePlan = TaskTimePlan()
+            editingTimer.timePlan = TaskTimePlanRegularRule()
         }
         
         FocusRepository.updateTimer(timer, with: editingTimer)

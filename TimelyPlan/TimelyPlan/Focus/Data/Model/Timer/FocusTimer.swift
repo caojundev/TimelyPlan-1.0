@@ -62,13 +62,13 @@ class FocusTimer: NSObject, SortableIdentifiable {
     private var configJSON: String?
     
     /// 时间计划
-    private(set) lazy var timePlan: TaskTimePlan = {
-        if let json = timePlanRuleJSON {
-            let regularRule = TaskTimePlanRegularRule.model(with: json)
-            return TaskTimePlan(regularRule: regularRule)
+    private(set) lazy var timePlan: TaskTimePlanRegularRule = {
+        if let json = timePlanRuleJSON,
+           let regularRule = TaskTimePlanRegularRule.model(with: json) {
+            return regularRule
         }
         
-        return TaskTimePlan()
+        return TaskTimePlanRegularRule()
     }()
     
     /// 时间计划规则 JSON 字符串
@@ -195,7 +195,7 @@ extension FocusTimer {
         timer.endDate = endDate
         timer.startTime = startTime
         timer.config = config.copy() as? FocusTimerConfig
-        timer.timePlan = timePlan.copy() as? TaskTimePlan
+        timer.timePlan = timePlan
         return timer
     }
 

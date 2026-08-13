@@ -76,7 +76,7 @@ extension CDHabitTask: TPHexColorConvertible, SortableIdentifiable {
         self.goalRecordType = Int16(goal.recordType?.rawValue ?? 0)
         self.goalRecordAmount = goal.recordAmount ?? 0
         
-        self.timePlanRuleJSON = editingTask.timePlan.regularRule?.jsonString()
+        self.timePlanRuleJSON = editingTask.timePlan.jsonString()
         self.shouldRemind = editingTask.shouldRemind
         self.reminderJSON = editingTask.reminder?.jsonString()
         self.note = editingTask.note

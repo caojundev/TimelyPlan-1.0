@@ -11,11 +11,11 @@ class DateFrequencySectionController: TPTableItemSectionController {
     
     var dateRange: DateRange = DateRange()
     
-    var timePlan: TaskTimePlan = TaskTimePlan()
+    var timePlan: TaskTimePlanRegularRule = TaskTimePlanRegularRule()
     
     var dateRangeDidChange: ((DateRange) -> Void)?
     
-    var timePlanDidChange: ((TaskTimePlan) -> Void)?
+    var timePlanDidChange: ((TaskTimePlanRegularRule) -> Void)?
     
     let defaultCellHeight = 55.0
     
@@ -46,7 +46,7 @@ class DateFrequencySectionController: TPTableItemSectionController {
         cellItem.updater = {
             guard let self = self else { return }
             self.frequencyCellItem.title = self.timePlan.title
-            self.frequencyCellItem.subtitle = self.timePlan.subtitle
+            self.frequencyCellItem.subtitle = self.timePlan.title
         }
     
         cellItem.didSelectHandler = {
@@ -63,7 +63,7 @@ class DateFrequencySectionController: TPTableItemSectionController {
 
     // MARK: - Edit
     func editFrequency() {
-        let vc = TaskTimePlanEditViewController(timePlan: timePlan)
+        let vc = TaskTimePlanEditViewController(regularRule: timePlan)
         vc.didEndEditing = { timePlan in
             self.timePlan = timePlan
             self.timePlanDidChange?(timePlan)

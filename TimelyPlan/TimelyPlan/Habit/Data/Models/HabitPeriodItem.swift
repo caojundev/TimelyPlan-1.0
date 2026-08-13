@@ -77,7 +77,7 @@ class HabitPeriodItem: NSObject {
 
     func isScheduledDate(_ date: Date) -> Bool {
         return scheduler.isScheduledDate(date,
-                                         withRule: habitTask.timePlan.regularRule,
+                                         timePlan: habitTask.timePlan,
                                          dateRange: habitTask.dateRange)
     }
     
