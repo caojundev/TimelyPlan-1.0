@@ -1,5 +1,5 @@
 //
-//  HabitDateRangeEditViewController.swift
+//  TaskDateRangeEditViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/12/23.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HabitDateRangeEditViewController: TPTableSectionsViewController,
+class TaskDateRangeEditViewController: TPTableSectionsViewController,
                                         TPCalendarSingleDateSelectionDelegate {
     
     /// 日期范围改变
@@ -35,8 +35,8 @@ class HabitDateRangeEditViewController: TPTableSectionsViewController,
     
     private let separatorView = UIView()
     
-    lazy var sectionController: HabitDateRangeEditSectionController = {
-        let sectionController = HabitDateRangeEditSectionController()
+    lazy var sectionController: TaskDateRangeEditSectionController = {
+        let sectionController = TaskDateRangeEditSectionController()
         sectionController.dateRangeChanged = { [weak self] dateRange in
             self?.sectionController.dateRange = dateRange
             self?.reloadDateRangeView()

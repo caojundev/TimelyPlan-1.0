@@ -36,7 +36,7 @@ struct FocusEditingTimer: Equatable {
     var startTime: Int64 = -1
     
     /// 时间计划
-    var timePlan: HabitTimePlan?
+    var timePlan: TaskTimePlan?
 
     /// 日期范围
     var dateRange: DateRange {

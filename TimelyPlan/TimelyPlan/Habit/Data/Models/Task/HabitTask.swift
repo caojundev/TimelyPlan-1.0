@@ -70,13 +70,13 @@ class HabitTask: NSObject, SortableIdentifiable {
     }
     
     /// 时间计划
-    private(set) lazy var timePlan: HabitTimePlan = {
+    private(set) lazy var timePlan: TaskTimePlan = {
         if let json = timePlanRuleJSON {
-            let regularRule = HabitTimePlanRegularRule.model(with: json)
-            return HabitTimePlan(regularRule: regularRule)
+            let regularRule = TaskTimePlanRegularRule.model(with: json)
+            return TaskTimePlan(regularRule: regularRule)
         }
         
-        return HabitTimePlan()
+        return TaskTimePlan()
     }()
     
     /// 习惯提醒

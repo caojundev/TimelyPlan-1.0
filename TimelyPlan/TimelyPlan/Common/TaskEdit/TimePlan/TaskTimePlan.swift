@@ -1,5 +1,5 @@
 //
-//  HabitTimePlan.swift
+//  TaskTimePlan.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/5/22.
@@ -8,7 +8,7 @@
 import UIKit
 
 /// 计划类型
-enum HabitTimePlanType: Int, Hashable, Codable, Equatable, TPMenuRepresentable {
+enum TaskTimePlanType: Int, Hashable, Codable, Equatable, TPMenuRepresentable {
     case regularly /// 定期
     
     static func titles() -> [String] {
@@ -17,30 +17,30 @@ enum HabitTimePlanType: Int, Hashable, Codable, Equatable, TPMenuRepresentable {
 }
 
 /// 时间计划
-public class HabitTimePlan: NSObject, Codable, NSCopying {
+public class TaskTimePlan: NSObject, Codable, NSCopying {
     
     /// 类型
-    var type: HabitTimePlanType = .regularly
+    var type: TaskTimePlanType = .regularly
     
     /// 定期规则，当 type 为 regularly 时有效
-    var regularRule: HabitTimePlanRegularRule?
+    var regularRule: TaskTimePlanRegularRule?
     
     override init() {
         super.init()
     }
     
-    init(regularRule: HabitTimePlanRegularRule?) {
+    init(regularRule: TaskTimePlanRegularRule?) {
         super.init()
         self.regularRule = regularRule
     }
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        if let type = try? container.decodeIfPresent(HabitTimePlanType.self, forKey: .type) {
+        if let type = try? container.decodeIfPresent(TaskTimePlanType.self, forKey: .type) {
             self.type = type
         }
 
-        self.regularRule = try? container.decodeIfPresent(HabitTimePlanRegularRule.self,
+        self.regularRule = try? container.decodeIfPresent(TaskTimePlanRegularRule.self,
                                                           forKey: .regularRule)
     }
     
@@ -52,13 +52,13 @@ public class HabitTimePlan: NSObject, Codable, NSCopying {
     
     /// 描述标题
     var title: String? {
-        let rule = regularRule ?? HabitTimePlanRegularRule()
+        let rule = regularRule ?? TaskTimePlanRegularRule()
         return rule.title
     }
     
     /// 副标题
     var subtitle: String? {
-        let rule = regularRule ?? HabitTimePlanRegularRule()
+        let rule = regularRule ?? TaskTimePlanRegularRule()
         return rule.subtitle
     }
     
@@ -77,21 +77,21 @@ public class HabitTimePlan: NSObject, Codable, NSCopying {
     }
     
     public override func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? HabitTimePlan else { return false }
+        guard let other = object as? TaskTimePlan else { return false }
         if self === other { return true }
         return type == other.type && regularRule == other.regularRule
     }
     
     // MARK: - NSCopying
     public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = HabitTimePlan()
+        let copy = TaskTimePlan()
         copy.type = type
         copy.regularRule = regularRule
         return copy
     }
 }
 
-extension HabitTimePlan {
+extension TaskTimePlan {
     
     /// 获取特定日期之后（包括当天）最近的一个计划日
     /// - Parameters:
@@ -100,7 +100,7 @@ extension HabitTimePlan {
     ///   - endDate: 习惯结束日期（nil表示永不结束）
     /// - Returns: 最近的下一个计划日，如果找不到返回nil
     func nextPlanDate(from date: Date, startDate: Date, endDate: Date? = nil) -> Date? {
-        let rule = regularRule ?? HabitTimePlanRegularRule()
+        let rule = regularRule ?? TaskTimePlanRegularRule()
         let calendar = Calendar.current
         let referenceDate = max(calendar.startOfDay(for: date), calendar.startOfDay(for: startDate))
         

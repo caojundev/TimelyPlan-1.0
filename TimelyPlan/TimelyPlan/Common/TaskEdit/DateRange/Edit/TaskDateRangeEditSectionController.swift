@@ -1,5 +1,5 @@
 //
-//  HabitDateRangeEditSectionController.swift
+//  TaskDateRangeEditSectionController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/2/1.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HabitDateRangeEditSectionController: TPTableItemSectionController,
+class TaskDateRangeEditSectionController: TPTableItemSectionController,
                                            TPCalendarSingleDateSelectionDelegate,
                                            TPCalendarMonthViewDelegate {
 

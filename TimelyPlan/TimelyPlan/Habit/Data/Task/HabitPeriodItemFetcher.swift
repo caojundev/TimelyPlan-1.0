@@ -10,7 +10,7 @@ import CoreData
 
 class HabitPeriodItemFetcher {
     
-    private let scheduler = HabitTimePlanScheduler()
+    private let scheduler = TaskTimePlanRegularScheduler()
     
     func fetchPeriodItems(for tasks: [HabitTask],
                           in period: HabitDatePeriod,
@@ -51,7 +51,7 @@ class HabitPeriodItemFetcher {
             
             let hasScheduledDate = !period.enumerateDates { date in
                 let isScheduled = scheduler.isScheduledDate(date,
-                                                            timePlan: task.timePlan,
+                                                            withRule: task.timePlan.regularRule,
                                                             dateRange: task.dateRange)
                 if isScheduled {
                     /// 中断循环
@@ -79,7 +79,7 @@ class HabitPeriodItemFetcher {
         var scheduledTasks: [HabitTask] = []
         for task in tasks {
             let isScheduled = scheduler.isScheduledDate(date,
-                                                        timePlan: task.timePlan,
+                                                        withRule: task.timePlan.regularRule,
                                                         dateRange: task.dateRange)
             if isScheduled {
                 scheduledTasks.append(task)

@@ -1,5 +1,5 @@
 //
-//  HabitTimePlanRegularRule.swift
+//  TaskTimePlanRegularRule.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/6/27.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// 定期规则结构体
-struct HabitTimePlanRegularRule: Hashable, Codable, Equatable {
+struct TaskTimePlanRegularRule: Hashable, Codable, Equatable {
     
     /// 频率
     var frequency: RepeatFrequency = .daily
@@ -42,7 +42,7 @@ struct HabitTimePlanRegularRule: Hashable, Codable, Equatable {
 }
 
 /// 定期规则描述
-extension HabitTimePlanRegularRule: AttributedDescriptable {
+extension TaskTimePlanRegularRule: AttributedDescriptable {
     
     /// 描述标题
     var title: String? {

@@ -18,9 +18,7 @@ class HabitPeriodItem: NSObject {
     /// 记录字典
     var records: [DayIntegerKey: HabitRecord]?
     
-    private lazy var scheduler: HabitTimePlanScheduler = {
-        return HabitTimePlanScheduler()
-    }()
+    private let scheduler = TaskTimePlanRegularScheduler()
     
     // MARK: - Initialization
 
@@ -79,7 +77,7 @@ class HabitPeriodItem: NSObject {
 
     func isScheduledDate(_ date: Date) -> Bool {
         return scheduler.isScheduledDate(date,
-                                         timePlan: habitTask.timePlan,
+                                         withRule: habitTask.timePlan.regularRule,
                                          dateRange: habitTask.dateRange)
     }
     

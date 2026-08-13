@@ -1,5 +1,5 @@
 //
-//  HabitTimePlanRegularScheduler.swift
+//  TaskTimePlanRegularScheduler.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/10/9.
@@ -8,10 +8,21 @@
 import Foundation
 
 /// 定期重复计划
-class HabitTimePlanRegularScheduler {
+class TaskTimePlanRegularScheduler {
+    
+    /// 判断特定日期是否为计划日
+    func isScheduledDate(_ date: Date,
+                         withRule rule: TaskTimePlanRegularRule?,
+                         dateRange: DateRange) -> Bool {
+        guard let startDate = dateRange.startDate, dateRange.contains(date: date) else {
+            return false
+        }
+        
+        return isScheduledDate(date, withRule: rule, startDate: startDate)
+    }
     
     func isScheduledDate(_ date: Date,
-                         withRule rule: HabitTimePlanRegularRule?,
+                         withRule rule: TaskTimePlanRegularRule?,
                          startDate: Date) -> Bool {
         guard let rule = rule else {
             return true

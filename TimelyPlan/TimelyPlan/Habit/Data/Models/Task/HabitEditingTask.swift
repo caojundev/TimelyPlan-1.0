@@ -27,7 +27,7 @@ struct HabitEditingTask: Equatable {
     var goal: HabitGoal = HabitGoal()
     
     /// 频率
-    var timePlan: HabitTimePlan = HabitTimePlan()
+    var timePlan: TaskTimePlan = TaskTimePlan()
     
     /// 是否添加到我的一天
     var isAddedToMyDay: Bool = false

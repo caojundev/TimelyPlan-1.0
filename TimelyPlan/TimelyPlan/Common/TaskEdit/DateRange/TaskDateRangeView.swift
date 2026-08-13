@@ -1,5 +1,5 @@
 //
-//  HabitDateRangeView.swift
+//  TaskDateRangeView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/5/24.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HabitDateRangeView: UIView {
+class TaskDateRangeView: UIView {
     
     let margin = 8.0
     
@@ -23,8 +23,8 @@ class HabitDateRangeView: UIView {
     var didEndEditing: ((DateRange) -> ())?
 
     /// 开始日期按钮
-    lazy var startDateButton: HabitDateRangeInfoButton = {
-        let button = HabitDateRangeInfoButton()
+    lazy var startDateButton: TaskDateRangeInfoButton = {
+        let button = TaskDateRangeInfoButton()
         button.headerText = resGetString("Start Date")
         button.addTarget(self,
                          action: #selector(clickStartDate),
@@ -33,8 +33,8 @@ class HabitDateRangeView: UIView {
     }()
     
     /// 结束日期按钮
-    lazy var endDateButton: HabitDateRangeInfoButton = {
-        let button = HabitDateRangeInfoButton()
+    lazy var endDateButton: TaskDateRangeInfoButton = {
+        let button = TaskDateRangeInfoButton()
         button.headerText = resGetString("End Date")
         button.addTarget(self,
                          action: #selector(clickEndDate),
@@ -88,7 +88,7 @@ class HabitDateRangeView: UIView {
 
     // MARK: - Edit
     func editDateRangeWithType(_ type: DateRangeEditType) {
-        let vc = HabitDateRangeEditViewController(dateRange: dateRange,
+        let vc = TaskDateRangeEditViewController(dateRange: dateRange,
                                                   editType: type)
         vc.didEndEditing = { dateRange in
             self.dateRange = dateRange
@@ -100,7 +100,7 @@ class HabitDateRangeView: UIView {
     }
 }
 
-class HabitDateRangeInfoButton: TPBaseButton {
+class TaskDateRangeInfoButton: TPBaseButton {
     
     var headerText: String? {
         get {

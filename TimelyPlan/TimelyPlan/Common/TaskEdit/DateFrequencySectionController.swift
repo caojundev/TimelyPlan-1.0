@@ -11,17 +11,17 @@ class DateFrequencySectionController: TPTableItemSectionController {
     
     var dateRange: DateRange = DateRange()
     
-    var timePlan: HabitTimePlan = HabitTimePlan()
+    var timePlan: TaskTimePlan = TaskTimePlan()
     
     var dateRangeDidChange: ((DateRange) -> Void)?
     
-    var timePlanDidChange: ((HabitTimePlan) -> Void)?
+    var timePlanDidChange: ((TaskTimePlan) -> Void)?
     
     let defaultCellHeight = 55.0
     
     /// 开始日期
-    lazy var dateRangeCellItem: HabitDateRangeEditTableCellItem = { [weak self] in
-        let cellItem = HabitDateRangeEditTableCellItem()
+    lazy var dateRangeCellItem: TaskDateRangeEditTableCellItem = { [weak self] in
+        let cellItem = TaskDateRangeEditTableCellItem()
         cellItem.updater = {
             guard let self = self else { return}
             self.dateRangeCellItem.dateRange = self.dateRange
@@ -63,7 +63,7 @@ class DateFrequencySectionController: TPTableItemSectionController {
 
     // MARK: - Edit
     func editFrequency() {
-        let vc = HabitTimePlanEditViewController(timePlan: timePlan)
+        let vc = TaskTimePlanEditViewController(timePlan: timePlan)
         vc.didEndEditing = { timePlan in
             self.timePlan = timePlan
             self.timePlanDidChange?(timePlan)

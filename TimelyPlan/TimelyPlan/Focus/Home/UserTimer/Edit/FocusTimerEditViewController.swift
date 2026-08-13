@@ -80,7 +80,7 @@ class FocusTimerEditViewController: TPTableSectionsViewController {
         let sectionController = FocusTimerScheduleEditSectionController()
         sectionController.headerItem.height = 15.0
         sectionController.dateRange = editingTimer.dateRange
-        sectionController.timePlan = editingTimer.timePlan ?? HabitTimePlan()
+        sectionController.timePlan = editingTimer.timePlan ?? TaskTimePlan()
         sectionController.startTime = editingTimer.startTime
         sectionController.dateRangeDidChange = { dateRange in
             self?.editingTimer.dateRange = dateRange

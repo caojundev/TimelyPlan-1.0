@@ -1,5 +1,5 @@
 //
-//  HabitTimePlanRegularSectionController.swift
+//  TaskTimePlanRegularSectionController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/9/5.
@@ -8,15 +8,15 @@
 import Foundation
 import UIKit
 
-class HabitTimePlanRegularSectionController: TPTableItemSectionController {
+class TaskTimePlanRegularSectionController: TPTableItemSectionController {
     
     /// 规则变化
-    var ruleDidChange: ((HabitTimePlanRegularRule) -> Void)?
+    var ruleDidChange: ((TaskTimePlanRegularRule) -> Void)?
 
     /// 规则
-    var rule: HabitTimePlanRegularRule {
+    var rule: TaskTimePlanRegularRule {
         get {
-            return HabitTimePlanRegularRule(frequency: frequency,
+            return TaskTimePlanRegularRule(frequency: frequency,
                                        interval: interval,
                                        daysOfTheWeek: daysOfTheWeek,
                                        daysOfTheMonth: daysOfTheMonth)

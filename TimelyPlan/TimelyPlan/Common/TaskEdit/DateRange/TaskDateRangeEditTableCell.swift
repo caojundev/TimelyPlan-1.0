@@ -1,5 +1,5 @@
 //
-//  HabitDateRangeEditTableCell.swift
+//  TaskDateRangeEditTableCell.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/4/13.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HabitDateRangeEditTableCellItem: TPBaseTableCellItem {
+class TaskDateRangeEditTableCellItem: TPBaseTableCellItem {
     
     /// 日期范围
     var dateRange: DateRange?
@@ -18,21 +18,21 @@ class HabitDateRangeEditTableCellItem: TPBaseTableCellItem {
     override init() {
         super.init()
         self.selectionStyle = .none
-        self.registerClass = HabitDateRangeEditTableCell.self
+        self.registerClass = TaskDateRangeEditTableCell.self
         self.height = 120.0
     }
 }
 
-protocol HabitDateRangeEditTableCellDelegate {
+protocol TaskDateRangeEditTableCellDelegate {
     /// 日期范围结束编辑
-    func HabitDateRangeEditTableCellEndEditing(_ cell: HabitDateRangeEditTableCell)
+    func taskDateRangeEditTableCellEndEditing(_ cell: TaskDateRangeEditTableCell)
 }
 
-class HabitDateRangeEditTableCell: TPBaseTableCell {
+class TaskDateRangeEditTableCell: TPBaseTableCell {
     
     override var cellItem: TPBaseTableCellItem? {
         didSet {
-            guard let cellItem = cellItem as? HabitDateRangeEditTableCellItem else {
+            guard let cellItem = cellItem as? TaskDateRangeEditTableCellItem else {
                 return
             }
             
@@ -50,8 +50,8 @@ class HabitDateRangeEditTableCell: TPBaseTableCell {
         }
     }
 
-    lazy var rangeView: HabitDateRangeView = {
-        let view = HabitDateRangeView()
+    lazy var rangeView: TaskDateRangeView = {
+        let view = TaskDateRangeView()
         view.didEndEditing = { [weak self] dateRange in
             self?.didEndEditing(dateRange)
         }
@@ -75,11 +75,11 @@ class HabitDateRangeEditTableCell: TPBaseTableCell {
     }
     
     private func didEndEditing(_ dateRange: DateRange) {
-        if let delegate = delegate as? HabitDateRangeEditTableCellDelegate {
-            delegate.HabitDateRangeEditTableCellEndEditing(self)
+        if let delegate = delegate as? TaskDateRangeEditTableCellDelegate {
+            delegate.taskDateRangeEditTableCellEndEditing(self)
         }
         
-        if let cellItem = cellItem as? HabitDateRangeEditTableCellItem {
+        if let cellItem = cellItem as? TaskDateRangeEditTableCellItem {
             cellItem.dateRange = dateRange
             cellItem.didEndEditing?(dateRange)
         }

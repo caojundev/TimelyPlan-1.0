@@ -1,5 +1,5 @@
 //
-//  HabitTimePlanEditViewController.swift
+//  TaskTimePlanEditViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2023/9/4.
@@ -8,23 +8,23 @@
 import Foundation
 import UIKit
 
-class HabitTimePlanEditViewController: TPTableSectionsViewController {
+class TaskTimePlanEditViewController: TPTableSectionsViewController {
 
     /// 结束编辑回调
-    var didEndEditing: ((HabitTimePlan) -> Void)?
+    var didEndEditing: ((TaskTimePlan) -> Void)?
     
     /// 时间计划
-    private(set) var timePlan: HabitTimePlan {
+    private(set) var timePlan: TaskTimePlan {
         get {
-            return HabitTimePlan(regularRule: regularRule)
+            return TaskTimePlan(regularRule: regularRule)
         }
         
         set {
-            self.regularRule = newValue.regularRule ?? HabitTimePlanRegularRule()
+            self.regularRule = newValue.regularRule ?? TaskTimePlanRegularRule()
         }
     }
     
-    var regularRule: HabitTimePlanRegularRule {
+    var regularRule: TaskTimePlanRegularRule {
         get {
             return self.regularSectionController.rule
         }
@@ -56,8 +56,8 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
     }()
     
     /// 定期区块
-    lazy var regularSectionController: HabitTimePlanRegularSectionController = { [weak self] in
-        let sectionController = HabitTimePlanRegularSectionController()
+    lazy var regularSectionController: TaskTimePlanRegularSectionController = { [weak self] in
+        let sectionController = TaskTimePlanRegularSectionController()
         sectionController.headerItem.height = 10.0
         sectionController.ruleDidChange = { [weak self] rule in
             self?.regularRuleDidChange(rule)
@@ -66,9 +66,9 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    init(timePlan: HabitTimePlan?) {
+    init(timePlan: TaskTimePlan?) {
         super.init(style: .insetGrouped)
-        self.timePlan = timePlan ?? HabitTimePlan()
+        self.timePlan = timePlan ?? TaskTimePlan()
     }
     
     required init?(coder: NSCoder) {
@@ -123,7 +123,7 @@ class HabitTimePlanEditViewController: TPTableSectionsViewController {
         }
     }
     
-    private func regularRuleDidChange(_ regularRule: HabitTimePlanRegularRule) {
+    private func regularRuleDidChange(_ regularRule: TaskTimePlanRegularRule) {
         updatePlanInfo()
         adapter.performNilUpdate()
     }
