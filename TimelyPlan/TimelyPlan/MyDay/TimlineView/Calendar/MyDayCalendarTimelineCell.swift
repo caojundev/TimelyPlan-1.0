@@ -27,9 +27,6 @@ class MyDayCalendarTimelineCell: TimelineIconCell {
     }()
     
     override func setupEventContentSubviews() {
-        let image = resGetImage("myDay_calendar_24")
-        let icon = image?.withTintColor(.white)
-        iconNodeView.configureIcon(icon)
         eventContentView.addSubview(infoView)
     }
     
@@ -45,6 +42,8 @@ class MyDayCalendarTimelineCell: TimelineIconCell {
     override func configure(with item: TimelineItem) {
         super.configure(with: item)
         calendarItem = item
+        configureIcon(with: item)
+        
         infoView.title = item.event.title
         
         if let event = item.event.sourceItem as? EKEvent {
@@ -58,6 +57,20 @@ class MyDayCalendarTimelineCell: TimelineIconCell {
         }
         
         setNeedsLayout()
+    }
+    
+    /// 更新图标
+    private func configureIcon(with item: TimelineItem) {
+        let color: UIColor
+        if item.startDate.isFutureDay {
+            color = item.nodeColor
+        } else {
+            color = .white
+        }
+        
+        let image = resGetImage("myDay_calendar_24")
+        let icon = image?.withTintColor(color)
+        iconNodeView.configureIcon(icon)
     }
     
     /// 我的一天图标信息

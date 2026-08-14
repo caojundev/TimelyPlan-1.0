@@ -67,30 +67,36 @@ class MyDayHabitTimelineCell: TimelineEventCell {
     
     func configure(with item: TimelineItem, recordProvider: MyDayHabitRecordProvider?) {
         configure(with: item)
-
+        configureColor(with: item)
+        
         self.recordProvider = recordProvider
         self.recordProvider?.addUpdaterDelegate(self)
         self.habitItem = item
         self.habitTask = item.event.sourceItem as? HabitTask
-        guard let task = habitTask else {
-            return
+        if let task = habitTask {
+            configureAppearance(for: task)
         }
-        
-        configureAppearance(for: task)
+    
         loadRecordAndUpdateDisplay()
         setNeedsLayout()
     }
     
     private func configureAppearance(for task: HabitTask) {
         iconNodeView.configure(icon: task.icon)
-        
-        /// 任务信息
         infoView.resetRecordButton()
-        infoView.configureColor(task.color)
         infoView.title = task.displayName
-        
         if let date = habitItem?.startDate {
             updateSubtitle(for: task, on: date, with: nil)
+        }
+    }
+    
+    func configureColor(with item: TimelineItem) {
+        infoView.configureColor(item.nodeColor)
+        iconNodeView.progressView.progressLineColor = item.nodeColor.lighterColor
+        if item.startDate.isFutureDay {
+            iconNodeView.progressView.backLineColor = .clear
+        } else {
+            iconNodeView.progressView.backLineColor = Color(0x000000, 0.4)
         }
     }
 
@@ -370,17 +376,17 @@ class HabitTimelineNodeView: TimelineNodeView {
     }()
 
     override func setupView() {
-        contentView.addSubview(iconView)
-        contentView.addSubview(progressView)
-        contentView.addSubview(statusView)
+        addSubview(iconView)
+        addSubview(progressView)
+        addSubview(statusView)
     }
 
     // MARK: 布局
     override func layoutSubviews() {
         super.layoutSubviews()
         iconView.frame = CGRect(
-            x: (contentView.width - iconSize.width) / 2,
-            y: (contentView.height - iconSize.height) / 2,
+            x: (width - iconSize.width) / 2,
+            y: contentView.centerY - iconSize.height / 2.0,
             width: iconSize.width,
             height: iconSize.height
         )
@@ -390,11 +396,6 @@ class HabitTimelineNodeView: TimelineNodeView {
         statusView.frame = iconView.frame
     }
 
-    override func configureBackgroundColor(_ color: UIColor) {
-        super.configureBackgroundColor(color)
-        progressView.progressLineColor = color.lighterColor
-    }
-    
     func configure(icon: TPIcon,
                    progress: CGFloat = 0.0,
                    status: HabitTaskStatus = .notStarted) {

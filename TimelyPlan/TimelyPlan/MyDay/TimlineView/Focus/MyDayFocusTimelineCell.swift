@@ -69,13 +69,24 @@ class MyDayFocusTimelineCell: TimelineIconCell {
         guard let timer = item.event.sourceItem as? FocusTimer else {
             return
         }
-        
+    
+        configureIcon(with: item, timer: timer)
         infoView.title = timer.displayName
         infoView.subtitle = timer.timerDescription
-        
-        let icon = timer.timerType.iconImage?.withTintColor(.white)
-        iconNodeView.configureIcon(icon)
         setNeedsLayout()
+    }
+    
+    /// 更新图标
+    private func configureIcon(with item: TimelineItem, timer: FocusTimer) {
+        let color: UIColor
+        if item.startDate.isFutureDay {
+            color = item.nodeColor
+        } else {
+            color = .white
+        }
+        
+        let icon = timer.timerType.iconImage?.withTintColor(color)
+        iconNodeView.configureIcon(icon)
     }
 
     @objc func clickStart(_ button: UIButton) {

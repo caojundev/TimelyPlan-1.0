@@ -54,7 +54,7 @@ class MyDayTodoTimelineCell: TimelineIconCell {
             return
         }
         
-        configureIcon(with: task)
+        configureIcon(with: item, task: task)
         infoView.isDetached = task.isDetached
         infoView.checkType = task.checkType
         infoView.priority = task.priority
@@ -75,12 +75,19 @@ class MyDayTodoTimelineCell: TimelineIconCell {
     }
     
     /// 更新图标
-    private func configureIcon(with task: TodoTask) {
+    private func configureIcon(with item: TimelineItem, task: TodoTask) {
+        let color: UIColor
+        if item.startDate.isFutureDay {
+            color = item.nodeColor
+        } else {
+            color = .white
+        }
+        
         let icon: UIImage?
         if task.isCompleted {
-            icon = resGetImage("myDay_todo_completed_24", color: .white)
+            icon = resGetImage("myDay_todo_completed_24", color: color)
         } else {
-            icon = resGetImage("myDay_todo_normal_24", color: .white)
+            icon = resGetImage("myDay_todo_normal_24", color: color)
         }
         
         iconNodeView.configureIcon(icon)

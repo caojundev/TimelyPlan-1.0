@@ -53,5 +53,11 @@ struct TimelineConfig {
     static let durationColor = Color(light: 0x000000, dark: 0xffffff, alpha: 0.8)
     static let durationBackgroundColor = Color(light: 0x000000, dark: 0xffffff, alpha: 0.1)
     static let durationCornerRadius: CGFloat = 4
+    
+    /// 未来日期节点颜色
+    static let futureNodeBackgroundColor = Color(light: 0xe9e9e9, dark: 0x262626)
+    
+    /// 今日节点颜色
+    static let todayNodeBackgroundColor = Color(light: 0x262626, dark: 0x262626)
 }
 

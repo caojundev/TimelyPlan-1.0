@@ -260,6 +260,7 @@
 		E5146C8B302DBC91007A8BCB /* TaskTimePlanRegularSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C84302DBC8B007A8BCB /* TaskTimePlanRegularSectionController.swift */; };
 		E5146C8C302DBC91007A8BCB /* TaskTimePlanRegularScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C86302DBC8D007A8BCB /* TaskTimePlanRegularScheduler.swift */; };
 		E5146C8F302DBC91007A8BCB /* TaskTimePlanRegularRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C89302DBC8F007A8BCB /* TaskTimePlanRegularRule.swift */; };
+		E5146C91302F0BF1007A8BCB /* TimelineIconNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5146C90302F0BF0007A8BCB /* TimelineIconNodeView.swift */; };
 		E51501942D477962008B2333 /* TPTableViewAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501932D477962008B2333 /* TPTableViewAdapter.swift */; };
 		E51501962D477A26008B2333 /* TPTableViewAdapterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */; };
 		E51501982D477A89008B2333 /* TPTableViewAdapterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51501972D477A89008B2333 /* TPTableViewAdapterDelegate.swift */; };
@@ -2406,6 +2407,7 @@
 		E5146C84302DBC8B007A8BCB /* TaskTimePlanRegularSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlanRegularSectionController.swift; sourceTree = "<group>"; };
 		E5146C86302DBC8D007A8BCB /* TaskTimePlanRegularScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlanRegularScheduler.swift; sourceTree = "<group>"; };
 		E5146C89302DBC8F007A8BCB /* TaskTimePlanRegularRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTimePlanRegularRule.swift; sourceTree = "<group>"; };
+		E5146C90302F0BF0007A8BCB /* TimelineIconNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineIconNodeView.swift; sourceTree = "<group>"; };
 		E51501932D477962008B2333 /* TPTableViewAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapter.swift; sourceTree = "<group>"; };
 		E51501952D477A26008B2333 /* TPTableViewAdapterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapterDataSource.swift; sourceTree = "<group>"; };
 		E51501972D477A89008B2333 /* TPTableViewAdapterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTableViewAdapterDelegate.swift; sourceTree = "<group>"; };
@@ -5153,6 +5155,15 @@
 			path = Scheduler;
 			sourceTree = "<group>";
 		};
+		E5146C92302F0C14007A8BCB /* NodeView */ = {
+			isa = PBXGroup;
+			children = (
+				E518505E300F0BA500112DFC /* TimelineNodeView.swift */,
+				E5146C90302F0BF0007A8BCB /* TimelineIconNodeView.swift */,
+			);
+			path = NodeView;
+			sourceTree = "<group>";
+		};
 		E515019A2D478773008B2333 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -5300,7 +5311,7 @@
 				E518506C300F152300112DFC /* TimelineConfig.swift */,
 				E5185062300F11E100112DFC /* TimelineItem.swift */,
 				E518506A300F138A00112DFC /* TimelineView.swift */,
-				E518505E300F0BA500112DFC /* TimelineNodeView.swift */,
+				E5146C92302F0C14007A8BCB /* NodeView */,
 				E5185060300F0C0500112DFC /* TimelineEventCell.swift */,
 				E5185068300F132200112DFC /* TimelineConnectionCell.swift */,
 				E5185066300F12B100112DFC /* TimelineEventConverter.swift */,
@@ -12870,6 +12881,7 @@
 				E5BB9E422D3BF0C70089667A /* TPStrikethroughTextView.swift in Sources */,
 				E5BB9ED62D3BF0C80089667A /* TPCheckmarkLayer.swift in Sources */,
 				E5BB9B3D2D3BEF920089667A /* UIColor+CIELAB.m in Sources */,
+				E5146C91302F0BF1007A8BCB /* TimelineIconNodeView.swift in Sources */,
 				E50DD7B42D71502C00A85E87 /* TPCalendarSingleWeekCell.swift in Sources */,
 				E51B29032FA77A07006B3352 /* TodoTaskPageCheckCell.swift in Sources */,
 				E5BB9DD62D3BF0C60089667A /* UIResponder+Extension.swift in Sources */,

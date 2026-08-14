@@ -61,12 +61,12 @@ class MyDayTodoTaskBindViewController: TPViewController,
     // MARK: - TodoTaskSelectViewDelegate
     func todoTaskSelectView(_ view: TodoTaskSelectView, didSelectTask task: TodoTask) {
         TPImpactFeedback.impactWithSoftStyle()
-        guard !task.isAddedToMyDay else {
+        
+        if task.isAddedToMyDay && task.schedule != nil {
             TodoRepository.updateTask(task, isAddedToMyDay: false)
             return
         }
         
-
         let schedule: TaskSchedule
         if let currentSchedule = task.schedule {
             schedule = currentSchedule
@@ -84,6 +84,7 @@ class MyDayTodoTaskBindViewController: TPViewController,
     }
     
     func todoTaskSelectView(_ view: TodoTaskSelectView, isSelectedTask task: TodoTask) -> Bool {
-        return task.isAddedToMyDay
+        return task.isAddedToMyDay && task.schedule != nil
     }
+    
 }

@@ -53,25 +53,17 @@ class TimelineConnectionCell: UICollectionViewCell {
     /// 配置连接线（子类可重写）
     func configure(with item: TimelineConnectionItem) {
         self.item = item
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        
-        gradientLayer.colors = [item.topColor.cgColor, item.bottomColor.cgColor]
-        
-        CATransaction.commit()
-        
         setNeedsLayout()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         CATransaction.begin()
         CATransaction.setDisableActions(true)
-        
         gradientLayer.frame = bounds
+        updateGradientColors()
         
-        let lineCenterX = TimelineConfig.leftTimeWidth + TimelineConfig.margin + 8 + TimelineConfig.centerNodeWidth / 2
+        let lineCenterX = TimelineConfig.leftTimeWidth + TimelineConfig.margin + 8.0 + TimelineConfig.centerNodeWidth / 2
         
         let path = UIBezierPath()
         path.move(to: CGPoint(x: lineCenterX, y: 0))
@@ -91,6 +83,19 @@ class TimelineConnectionCell: UICollectionViewCell {
         )
         
         layoutConnectionContentSubviews()
+    }
+    
+    func updateGradientColors() {
+        guard let item = item else {
+            return
+        }
+        
+        if item.topDate.isFutureDay {
+            gradientLayer.colors = [TimelineConfig.futureNodeBackgroundColor.cgColor,
+                                    TimelineConfig.futureNodeBackgroundColor.cgColor]
+        } else {
+            gradientLayer.colors = [item.topColor.cgColor, item.bottomColor.cgColor]
+        }
     }
     
     override func prepareForReuse() {
@@ -260,6 +265,39 @@ class TimelineOverlappingConnectionCell: TimelineConnectionCell {
         return view
     }()
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        shapeLayer.lineWidth = TimelineConfig.overlappingLineWidth
+        shapeLayer.lineDashPattern = nil
+        CATransaction.commit()
+    }
+    
+    override func updateGradientColors() {
+        guard let item = item else {
+            return
+        }
+        
+        let backColor: UIColor
+        if item.topDate.isFutureDay {
+            backColor = TimelineConfig.futureNodeBackgroundColor
+        } else {
+            backColor = TimelineConfig.todayNodeBackgroundColor
+        }
+        
+        let currentDate = Date()
+        if currentDate >= item.topDate && currentDate >= item.bottomDate {
+            gradientLayer.colors = [item.topColor.cgColor, item.bottomColor.cgColor]
+        } else if currentDate >= item.topDate {
+            gradientLayer.colors = [item.topColor.cgColor, backColor.cgColor]
+        } else if currentDate >= item.bottomDate {
+            gradientLayer.colors = [backColor.cgColor, item.bottomColor.cgColor]
+        } else {
+            gradientLayer.colors = [backColor.cgColor, backColor.cgColor]
+        }
+    }
+    
     override func setupConnectionContentSubviews() {
         super.setupConnectionContentSubviews()
         connectionContentView.addSubview(titleView)
@@ -270,15 +308,5 @@ class TimelineOverlappingConnectionCell: TimelineConnectionCell {
         titleView.width = connectionContentView.width
         titleView.height = 20.0
         titleView.alignVerticalCenter()
-    }
-    
-    override func configure(with item: TimelineConnectionItem) {
-        super.configure(with: item)
-        
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        shapeLayer.lineWidth = TimelineConfig.overlappingLineWidth
-        shapeLayer.lineDashPattern = nil
-        CATransaction.commit()
     }
 }
