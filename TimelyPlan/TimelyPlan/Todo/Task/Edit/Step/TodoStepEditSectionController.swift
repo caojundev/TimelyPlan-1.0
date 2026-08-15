@@ -152,6 +152,8 @@ class TodoStepEditSectionController: TPTableItemSectionController,
     // MARK: - 任务步骤菜单操作
     func performTaskStepMenuAction(with type: TodoTaskStepMenuActionType, for step: TodoStep) {
         switch type {
+        case .convertToTask:
+            convertStepToTask(step)
         case .addSubStep:
             addSubStep(of: step)
         case .addPreviousStep:
@@ -165,6 +167,10 @@ class TodoStepEditSectionController: TPTableItemSectionController,
         }
     }
 
+    func convertStepToTask(_ step: TodoStep) {
+        
+    }
+    
     private func copyStep(_ step: TodoStep) {
         UIPasteboard.general.string = step.content
         let message = resGetString("The step has been copied to the clipboard")

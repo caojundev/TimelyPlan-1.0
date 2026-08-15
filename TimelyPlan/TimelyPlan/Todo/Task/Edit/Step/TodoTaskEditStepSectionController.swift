@@ -33,7 +33,19 @@ class TodoTaskEditStepSectionController: TodoStepEditSectionController {
     }
 
     override func stepsDidChange() {
-        self.interactor.setSteps(steps)
+        interactor.setSteps(steps)
+    }
+    
+    override func convertStepToTask(_ step: TodoStep) {
+        /// 删除步骤
+        deleteStep(step)
+        
+        /// 创建新任务
+        let quickAddTask = TodoQuickAddTask()
+        quickAddTask.name = step.content
+        quickAddTask.steps = step.subSteps
+        quickAddTask.section = task.section
+        TodoRepository.createTask(with: quickAddTask)
     }
     
     // MARK: - 任务步骤菜单操作

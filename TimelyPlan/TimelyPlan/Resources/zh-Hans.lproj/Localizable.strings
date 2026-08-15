@@ -272,6 +272,7 @@
 /// 任务步骤
 "%ld of %ld" = "%ld/%ld";
 "Add Step" = "添加步骤";
+"Convert to Task" = "转为任务";
 "Add Previous Step" = "添加上一步";
 "Add Next Step" = "添加下一步";
 "Add step to top" = "添加步骤到顶部";
