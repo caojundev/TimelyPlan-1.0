@@ -92,13 +92,13 @@ class TimelineView: UIView,
     }
     
     // MARK: - 更新计时器
-    private func startUpdateTimer() {
+    func startUpdateTimer() {
         timerUpdater.start { [weak self] in
             self?.updateTimeProgress()
         }
     }
     
-    private func stopUpdateTimer() {
+    func stopUpdateTimer() {
         timerUpdater.stop()
     }
     

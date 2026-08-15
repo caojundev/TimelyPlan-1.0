@@ -183,7 +183,7 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     }
     
     func updateTimeProgress() {
-        self.nodeView.updateTimeProgress()
+        nodeView.updateTimeProgress()
     }
 }
 

@@ -97,6 +97,7 @@ class TimelineNodeView: UIView {
     }
     
     func updateTimeProgress() {
+        contentView.updateTimeProgress()
         updateLineVisibility()
         updateNodeColor()
     }
@@ -238,6 +239,14 @@ class TimelineNodeProgressView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutGradientLayer()
+    }
+    
+    func updateTimeProgress() {
+        layoutGradientLayer()
+    }
+    
+    private func layoutGradientLayer() {
         guard let item = self.item else {
             return
         }
@@ -250,7 +259,12 @@ class TimelineNodeProgressView: UIView {
         if progress == 0.0 {
             gradientFrame.origin.y = -gradientFrame.size.height
         } else {
-            gradientFrame.origin.y = (progress - 1.0) * bounds.height
+            var progressHeight = progress * bounds.height
+            if progressHeight < transitionHeight {
+                progressHeight = transitionHeight
+            }
+            
+            gradientFrame.origin.y = progressHeight - bounds.height
         }
         
         // 计算过渡区域在渐变中的位置
