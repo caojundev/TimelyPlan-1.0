@@ -110,9 +110,118 @@ class TimelineConnectionCell: UICollectionViewCell {
     }
 }
 
+// MARK: - 线性连接线基类（带进度效果）
+
+class TimelineLineConnectionCell: TimelineConnectionCell {
+    
+    let progressShapeLayer = CAShapeLayer() // 进度线条层
+    let progressGradientLayer = CAGradientLayer() // 进度渐变层
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        // 添加进度图层
+        progressGradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        progressGradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        layer.addSublayer(progressGradientLayer)
+        progressGradientLayer.mask = progressShapeLayer
+        progressShapeLayer.fillColor = UIColor.clear.cgColor
+        progressShapeLayer.strokeColor = UIColor.black.cgColor
+    }
+    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        progressGradientLayer.frame = bounds
+        updateProgressLayer()
+        
+        CATransaction.commit()
+    }
+    
+    override func updateGradientColors() {
+        guard let item = item else {
+            return
+        }
+        
+        let backColor: UIColor
+        if item.topDate.isFutureDay {
+            backColor = TimelineConfig.futureNodeBackgroundColor
+        } else {
+            backColor = TimelineConfig.todayNodeBackgroundColor
+        }
+        
+        gradientLayer.colors = [backColor.cgColor, backColor.cgColor]
+    }
+    
+    // 更新进度图层
+    func updateProgressLayer() {
+        guard let item = item else {
+            progressShapeLayer.path = nil
+            return
+        }
+        
+        let currentDate = Date()
+        let lineCenterX = TimelineConfig.leftTimeWidth + TimelineConfig.margin + 8.0 + TimelineConfig.centerNodeWidth / 2
+        
+        // 计算进度范围
+        let totalHeight = bounds.height
+        var progressStartY: CGFloat = 0
+        var progressEndY: CGFloat = 0
+        
+        // 确定进度条的位置和长度
+        if currentDate >= item.bottomDate {
+            // 已经完全过去，显示完整进度
+            progressStartY = 0
+            progressEndY = totalHeight
+        } else if currentDate <= item.topDate {
+            // 还未开始，不显示进度
+            progressShapeLayer.path = nil
+            return
+        } else {
+            // 进行中，计算进度位置
+            let totalDuration = item.bottomDate.timeIntervalSince(item.topDate)
+            let elapsedDuration = currentDate.timeIntervalSince(item.topDate)
+            let progress = CGFloat(elapsedDuration / totalDuration)
+            
+            progressStartY = 0
+            progressEndY = totalHeight * progress
+        }
+        
+        // 创建进度路径
+        let progressPath = UIBezierPath()
+        progressPath.move(to: CGPoint(x: lineCenterX, y: progressStartY))
+        progressPath.addLine(to: CGPoint(x: lineCenterX, y: progressEndY))
+        progressShapeLayer.path = progressPath.cgPath
+        
+        // 设置进度渐变色
+        if item.topDate.isFutureDay {
+            progressGradientLayer.colors = [TimelineConfig.futureNodeBackgroundColor.cgColor,
+                                           TimelineConfig.futureNodeBackgroundColor.cgColor]
+        } else {
+            progressGradientLayer.colors = [item.topColor.cgColor, item.bottomColor.cgColor]
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        progressShapeLayer.path = nil
+        
+        CATransaction.commit()
+    }
+}
+
 // MARK: - 实线连接线 Cell
 
-class TimelineSolidConnectionCell: TimelineConnectionCell {
+class TimelineSolidConnectionCell: TimelineLineConnectionCell {
     
     override func configure(with item: TimelineConnectionItem) {
         super.configure(with: item)
@@ -122,6 +231,8 @@ class TimelineSolidConnectionCell: TimelineConnectionCell {
         
         shapeLayer.lineWidth = TimelineConfig.solidLineWidth
         shapeLayer.lineDashPattern = nil
+        progressShapeLayer.lineWidth = TimelineConfig.solidLineWidth
+        progressShapeLayer.lineDashPattern = nil
         
         CATransaction.commit()
     }
@@ -135,7 +246,7 @@ protocol TimelineDashedConnectionCellDelegate: AnyObject {
     func timelineDashedConnectionCellDidClickBind(_ cell: TimelineDashedConnectionCell)
 }
 
-class TimelineDashedConnectionCell: TimelineConnectionCell {
+class TimelineDashedConnectionCell: TimelineLineConnectionCell {
     
     lazy var titleView: TPImageTitleView = {
         let view = TPImageTitleView()
@@ -201,6 +312,8 @@ class TimelineDashedConnectionCell: TimelineConnectionCell {
         
         shapeLayer.lineWidth = TimelineConfig.dashedLineWidth
         shapeLayer.lineDashPattern = TimelineConfig.dashedPattern
+        progressShapeLayer.lineWidth = TimelineConfig.dashedLineWidth
+        progressShapeLayer.lineDashPattern = TimelineConfig.dashedPattern
         
         CATransaction.commit()
     }

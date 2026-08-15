@@ -5311,10 +5311,10 @@
 				E518506C300F152300112DFC /* TimelineConfig.swift */,
 				E5185062300F11E100112DFC /* TimelineItem.swift */,
 				E518506A300F138A00112DFC /* TimelineView.swift */,
-				E5146C92302F0C14007A8BCB /* NodeView */,
+				E5185066300F12B100112DFC /* TimelineEventConverter.swift */,
 				E5185060300F0C0500112DFC /* TimelineEventCell.swift */,
 				E5185068300F132200112DFC /* TimelineConnectionCell.swift */,
-				E5185066300F12B100112DFC /* TimelineEventConverter.swift */,
+				E5146C92302F0C14007A8BCB /* NodeView */,
 			);
 			path = Base;
 			sourceTree = "<group>";

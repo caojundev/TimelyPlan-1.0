@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 // MARK: - 时间线节点容器组件
-
 /// 时间线节点视图组件（可复用的节点容器）
 class TimelineNodeView: UIView {
     
-    private let lineLayer = CALayer()
+    private let topLineLayer = CALayer()
+    private let bottomLineLayer = CALayer()
     
     private var style: TimeLineNodeStyle = .independent
     
@@ -26,7 +26,8 @@ class TimelineNodeView: UIView {
     // MARK: 初始化
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layer.addSublayer(lineLayer)
+        layer.addSublayer(topLineLayer)
+        layer.addSublayer(bottomLineLayer)
         addSubview(contentView)
         contentView.clipsToBounds = true
         setupView()
@@ -43,48 +44,46 @@ class TimelineNodeView: UIView {
         
         let margin = 10.0
         var contentFrame = bounds
-        var lineFrame = CGRect(x: (bounds.width - TimelineConfig.solidLineWidth) / 2.0,
-                               y: 0.0,
-                               width: TimelineConfig.solidLineWidth,
-                               height: bounds.height)
+        
+        // 设置线条的固定位置
+        let lineX = (bounds.width - TimelineConfig.solidLineWidth) / 2.0
+        let lineWidth = TimelineConfig.solidLineWidth
+        
+        // 上半部分线条（从顶部到中间）
+        let topLineFrame = CGRect(x: lineX,
+                                  y: 0.0,
+                                  width: lineWidth,
+                                  height: bounds.height / 2.0)
+        
+        // 下半部分线条（从中间到底部）
+        let bottomLineFrame = CGRect(x: lineX,
+                                     y: bounds.height / 2.0,
+                                     width: lineWidth,
+                                     height: bounds.height / 2.0)
+        
+        // 根据样式和位置调整内容区域
         switch style {
         case .independent:
             contentFrame.origin.y = margin
             contentFrame.size.height = bounds.height - 2 * margin
-            if position == .first {
-                lineFrame.origin.y = bounds.height / 2.0
-                lineFrame.size.height = bounds.height / 2.0
-            } else if position == .last {
-                lineFrame.size.height = bounds.height / 2.0
-            } else if position == .only {
-                lineFrame.size.height = .zero
-            }
         case .connectToPrevious:
             contentFrame.size.height = bounds.height - margin
-            if position == .last {
-                lineFrame.size.height = 0.0
-            } else {
-                lineFrame.origin.y = bounds.height / 2.0
-                lineFrame.size.height = bounds.height / 2.0
-            }
         case .connectToNext:
             contentFrame.origin.y = margin
             contentFrame.size.height = bounds.height - margin
-            if position == .first {
-                lineFrame.size.height = 0.0
-            } else {
-                lineFrame.size.height = bounds.height / 2.0
-            }
         case .connectToBoth:
-            lineFrame.size.height = 0.0
+            // 内容占据整个区域
+            break
         }
         
         contentView.frame = contentFrame
 
         executeWithoutAnimation {
-            self.lineLayer.frame = lineFrame
+            self.topLineLayer.frame = topLineFrame
+            self.bottomLineLayer.frame = bottomLineFrame
         }
         
+        updateLineVisibility()
         updateNodeColor()
     }
     
@@ -97,26 +96,89 @@ class TimelineNodeView: UIView {
         setNeedsLayout()
     }
     
+    /// 更新线条显示状态
+    private func updateLineVisibility() {
+        // 根据样式决定线条的显示
+        switch style {
+        case .independent:
+            // 独立节点：根据位置显示线条
+            switch position {
+            case .first:
+                topLineLayer.isHidden = true
+                bottomLineLayer.isHidden = false
+            case .last:
+                topLineLayer.isHidden = false
+                bottomLineLayer.isHidden = true
+            case .only:
+                topLineLayer.isHidden = true
+                bottomLineLayer.isHidden = true
+            case .middle:
+                topLineLayer.isHidden = false
+                bottomLineLayer.isHidden = false
+            }
+            
+        case .connectToPrevious:
+            // 连接到上一个节点：只显示下半部分线条
+            topLineLayer.isHidden = true
+            if position == .last {
+                bottomLineLayer.isHidden = true
+            } else {
+                bottomLineLayer.isHidden = false
+            }
+            
+        case .connectToNext:
+            // 连接到下一个节点：只显示上半部分线条
+            bottomLineLayer.isHidden = true
+            if position == .first {
+                topLineLayer.isHidden = true
+            } else {
+                topLineLayer.isHidden = false
+            }
+            
+        case .connectToBoth:
+            // 同时连接到上下节点：不显示线条
+            topLineLayer.isHidden = true
+            bottomLineLayer.isHidden = true
+        }
+    }
+    
     private func updateNodeColor() {
         guard let item = item else {
             return
         }
 
+        let backgroundColor: UIColor
         if item.startDate.isToday {
-            configureBackgroundColor(TimelineConfig.todayNodeBackgroundColor)
+            backgroundColor = TimelineConfig.todayNodeBackgroundColor
         } else if item.startDate.isFutureDay {
-            configureBackgroundColor(TimelineConfig.futureNodeBackgroundColor)
+            backgroundColor = TimelineConfig.futureNodeBackgroundColor
         } else {
-            configureBackgroundColor(item.nodeColor)
+            backgroundColor = item.nodeColor
+
+        }
+        
+        configureBackgroundColor(backgroundColor)
+        
+        var topLineColor = backgroundColor
+        var bottomLineColor = backgroundColor
+        let currentDate = Date()
+        if currentDate >= item.startDate {
+            topLineColor = item.nodeColor
+        }
+        
+        if currentDate >= item.endDate {
+            bottomLineColor = item.nodeColor
+        }
+        
+        executeWithoutAnimation {
+            self.topLineLayer.backgroundColor = topLineColor.cgColor
+            self.bottomLineLayer.backgroundColor = bottomLineColor.cgColor
         }
     }
     
     /// 配置背景颜色
     func configureBackgroundColor(_ color: UIColor) {
         contentView.backgroundColor = color
-        executeWithoutAnimation {
-            self.lineLayer.backgroundColor = color.cgColor
-        }
     }
     
     /// 应用节点样式（圆角配置）
@@ -180,7 +242,6 @@ class TimelineNodeProgressView: UIView {
                                          endDate: item.endDate)
         
         var gradientFrame = bounds
-        gradientFrame.size.height = bounds.height + transitionHeight
         if progress == 0.0 {
             gradientFrame.origin.y = -gradientFrame.size.height
         } else {
@@ -201,8 +262,13 @@ class TimelineNodeProgressView: UIView {
         // 从 (1 - transitionRatio) 到底部进行渐变过渡
         let startTransitionPoint = 1.0 - transitionRatio
         let fromColor = item.nodeColor
-        let toColor = fromColor.withAlphaComponent(0.0)
-    
+        let toColor: UIColor
+        if progress == 1.0 {
+            toColor = fromColor
+        } else {
+            toColor = fromColor.withAlphaComponent(0.0)
+        }
+        
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         gradientLayer.frame = gradientFrame
