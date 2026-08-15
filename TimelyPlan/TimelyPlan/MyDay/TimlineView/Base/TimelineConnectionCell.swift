@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - 连接线基类 Cell
 
-class TimelineConnectionCell: UICollectionViewCell {
+class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
     
     weak var delegate: AnyObject?
     
@@ -48,6 +48,11 @@ class TimelineConnectionCell: UICollectionViewCell {
     
     func layoutConnectionContentSubviews() {
         
+    }
+    
+    /// 更新时间进度
+    func updateTimeProgress() {
+        updateGradientColors()
     }
     
     /// 配置连接线（子类可重写）
@@ -141,6 +146,11 @@ class TimelineLineConnectionCell: TimelineConnectionCell {
         updateProgressLayer()
         
         CATransaction.commit()
+    }
+    
+    override func updateTimeProgress() {
+        updateGradientColors()
+        updateProgressLayer()
     }
     
     override func updateGradientColors() {
@@ -386,7 +396,7 @@ class TimelineOverlappingConnectionCell: TimelineConnectionCell {
         shapeLayer.lineDashPattern = nil
         CATransaction.commit()
     }
-    
+
     override func updateGradientColors() {
         guard let item = item else {
             return

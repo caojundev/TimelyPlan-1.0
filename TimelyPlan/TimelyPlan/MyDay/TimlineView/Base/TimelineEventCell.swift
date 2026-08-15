@@ -17,7 +17,7 @@ extension TimelineEventCellDelegate {
     func timelineEventCellDidClickStartTime(_ cell: TimelineEventCell) {}
 }
 
-class TimelineEventCell: UICollectionViewCell {
+class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     
     weak var delegate: AnyObject?
     
@@ -180,6 +180,10 @@ class TimelineEventCell: UICollectionViewCell {
         if let delegate = delegate as? TimelineEventCellDelegate {
             delegate.timelineEventCellDidClickStartTime(self)
         }
+    }
+    
+    func updateTimeProgress() {
+        self.nodeView.updateTimeProgress()
     }
 }
 

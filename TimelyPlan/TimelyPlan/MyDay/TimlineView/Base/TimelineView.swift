@@ -42,7 +42,8 @@ extension TimelineViewDelegate {
 class TimelineView: UIView,
                     UICollectionViewDataSource,
                     UICollectionViewDelegate,
-                    UICollectionViewDelegateFlowLayout {
+                    UICollectionViewDelegateFlowLayout,
+                    TimelineProgressUpdatable {
     
     // MARK: - Properties
     
@@ -54,6 +55,8 @@ class TimelineView: UIView,
     
     /// 已注册的 Cell 类名集合
     private var registeredCellClassNames: Set<String> = []
+    
+    private let timerUpdater = TPMinuteUpdater()
     
     // MARK: - Initialization
     
@@ -86,6 +89,17 @@ class TimelineView: UIView,
         collectionView.delegate = self
         collectionView.contentInset = UIEdgeInsets(bottom: 80.0)
         addSubview(collectionView)
+    }
+    
+    // MARK: - 更新计时器
+    private func startUpdateTimer() {
+        timerUpdater.start { [weak self] in
+            self?.updateTimeProgress()
+        }
+    }
+    
+    private func stopUpdateTimer() {
+        timerUpdater.stop()
     }
     
     // MARK: - Cell 注册
@@ -128,10 +142,20 @@ class TimelineView: UIView,
     }
     
     /// 配置连接线 Cell（子类可重写以进行额外配置）
-     func configureConnectionCell(_ cell: TimelineConnectionCell, with item: TimelineConnectionItem) {
-         cell.configure(with: item)
-     }
+    func configureConnectionCell(_ cell: TimelineConnectionCell, with item: TimelineConnectionItem) {
+        cell.configure(with: item)
+    }
      
+    // MARK: - TimelineProgressUpdatable
+    func updateTimeProgress() {
+        guard let cells = collectionView.visibleCells as? [TimelineProgressUpdatable] else {
+            return
+        }
+        
+        cells.forEach { cell in
+            cell.updateTimeProgress()
+        }
+    }
     
     // MARK: - Public Methods
     

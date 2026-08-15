@@ -65,9 +65,11 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     func loadEvents(on date: Date) {
         eventViewModel.startObserving()
         eventViewModel.loadEvents(on: date)
+        startUpdateTimer()
     }
     
     func clear() {
+        stopUpdateTimer()
         eventViewModel.stopObserving()
         eventViewModel.clear()
         reloadData()

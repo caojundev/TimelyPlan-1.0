@@ -96,6 +96,11 @@ class TimelineNodeView: UIView {
         setNeedsLayout()
     }
     
+    func updateTimeProgress() {
+        updateLineVisibility()
+        updateNodeColor()
+    }
+    
     /// 更新线条显示状态
     private func updateLineVisibility() {
         // 根据样式决定线条的显示
