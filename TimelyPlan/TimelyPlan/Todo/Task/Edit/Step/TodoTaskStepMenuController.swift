@@ -38,7 +38,7 @@ enum TodoTaskStepMenuActionType: String, TPMenuRepresentable {
         case .convertToTask:
             return "todo_task_step_convertToTask_24"
         case .addSubStep:
-            return "plus_24"
+            return "todo_task_step_addSubstep_24"
         case .addPreviousStep:
             return "todo_task_step_addPrevious_24"
         case .addNextStep:

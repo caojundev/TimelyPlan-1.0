@@ -19,7 +19,7 @@ class TodoTaskEditNoteSectionController: TodoTaskEditBaseSectionController {
         cellItem.isScrollEnabled = false
         cellItem.bounces = true
         cellItem.returnKeyType = .default
-        cellItem.shouldShowDismissToolbar = true
+        cellItem.showInputAccessoryView = true
         cellItem.minimumHeight = 240.0
         cellItem.maxCount = 960
         cellItem.didEndEditing = { textView in

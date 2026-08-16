@@ -29,7 +29,9 @@ class TPTextViewTableCellItem: TPBaseTableCellItem {
     var bounces: Bool = true
     
     /// 是否显示隐藏键盘按钮
-    var shouldShowDismissToolbar = true
+    var showInputAccessoryView = true
+    
+    var inputAccessoryView: UIView?
     
     /// 是否可滚动
     var isScrollEnabled: Bool = true
@@ -149,6 +151,9 @@ class TPAutoResizeTextViewTableCellItem: TPTextViewTableCellItem {
     /// 文本编辑改变
     @objc optional func textViewTableCell(_ cell: TPTextViewTableCell, editingChanged textView: UITextView)
     
+    /// 文本编辑开始
+    @objc optional func textViewTableCell(_ cell: TPTextViewTableCell, didBeginEditing textView: UITextView)
+    
     /// 文本输入结束
     @objc optional func textViewTableCell(_ cell: TPTextViewTableCell, didEndEditing textView: UITextView)
     
@@ -180,8 +185,8 @@ class TPTextViewTableCell: TPBaseTableCell, UITextViewDelegate  {
             textView.font = cellItem.font
             textView.textContainerInset = cellItem.textContainerInset
             textView.bounces = cellItem.bounces
-            if cellItem.shouldShowDismissToolbar {
-                textView.inputAccessoryView = textView.dismissToolbar
+            if cellItem.showInputAccessoryView {
+                textView.inputAccessoryView = cellItem.inputAccessoryView ?? textView.dismissToolbar
             } else {
                 textView.inputAccessoryView = nil
             }
@@ -252,6 +257,10 @@ class TPTextViewTableCell: TPBaseTableCell, UITextViewDelegate  {
             textView.perform(#selector(UITextView.selectAll(_:)),
                               with: textView,
                               afterDelay: 0.1)
+        }
+        
+        if let delegate = delegate as? TPTextViewTableCellDelegate {
+            delegate.textViewTableCell?(self, didBeginEditing: textView)
         }
     }
     

@@ -39,13 +39,39 @@ class TodoStepEditSectionController: TPTableItemSectionController,
     
     private let expansionState = TodoStepExpansionState()
     
+    lazy var inputToolbar: TodoStepInputToolbar = { [weak self] in
+        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44)
+        let toolbar = TodoStepInputToolbar(frame: frame)
+        toolbar.tintColor = resGetColor(.title)
+        toolbar.onAddPreviousStep = {
+            self?.addPreviousStepOfCurrent()
+        }
+        
+        toolbar.onAddNextStep = {
+            self?.addNextStepOfCurrent()
+        }
+        
+        toolbar.onAddSubstep = {
+            self?.addSubstepOfCurrent()
+        }
+        
+        toolbar.onDismiss = {
+            UIResponder.resignCurrentFirstResponder()
+        }
+        
+        return toolbar
+    }()
+    
     init(steps: [TodoStep]) {
         super.init()
         self.steps = steps
     }
 
     func newCellItem(with step: TodoStep) -> TodoTaskStepEditCellItem {
-        return TodoTaskStepEditCellItem(step: step)
+        let cellItem = TodoTaskStepEditCellItem(step: step)
+        cellItem.showInputAccessoryView = true
+        cellItem.inputAccessoryView = inputToolbar
+        return cellItem
     }
     
     func stepsDidChange() {
@@ -147,6 +173,74 @@ class TodoStepEditSectionController: TPTableItemSectionController,
         }
 
         insertStep(isNext: true, relativeTo: step)
+    }
+    
+    func textViewTableCell(_ cell: TPTextViewTableCell, didBeginEditing textView: UITextView) {
+        guard let cell = cell as? TodoTaskStepEditCell, let step = cell.step else {
+            return
+        }
+
+        updateInputToolbar(for: step)
+    }
+    
+    override func textViewTableCell(_ cell: TPTextViewTableCell, editingChanged textView: UITextView) {
+        super.textViewTableCell(cell, editingChanged: textView)
+        guard let cell = cell as? TodoTaskStepEditCell, let step = cell.step else {
+            return
+        }
+
+        updateInputToolbar(for: step)
+    }
+    
+    private func updateInputToolbar(for step: TodoStep) {
+        let menuController = TodoTaskStepMenuController(step: step)
+        let types = menuController.menuActionTypes()
+        
+        inputToolbar.addPreviousStepButton.isEnabled = types.contains(.addPreviousStep)
+        inputToolbar.addNextStepButton.isEnabled = types.contains(.addNextStep)
+        inputToolbar.addSubstepButton.isEnabled = types.contains(.addSubStep)
+    }
+    
+    /// 当前正在编辑的步骤
+    private func currentEditingStep() -> TodoStep? {
+        var responder = UIResponder.currentFirstResponder()
+        while responder != nil {
+            if let cell = responder as? TodoTaskStepEditCell {
+                return cell.step
+            }
+            
+            responder = responder?.next
+        }
+        
+        return nil
+    }
+    
+    
+    private func addPreviousStepOfCurrent() {
+        guard let step = currentEditingStep() else {
+            return
+        }
+    
+        UIResponder.resignCurrentFirstResponder()
+        insertStep(isNext: false, relativeTo: step)
+    }
+    
+    private func addNextStepOfCurrent() {
+        guard let step = currentEditingStep() else {
+            return
+        }
+        
+        UIResponder.resignCurrentFirstResponder()
+        insertStep(isNext: true, relativeTo: step)
+    }
+    
+    private func addSubstepOfCurrent() {
+        guard let step = currentEditingStep() else {
+            return
+        }
+        
+        UIResponder.resignCurrentFirstResponder()
+        addSubStep(of: step)
     }
     
     // MARK: - 任务步骤菜单操作

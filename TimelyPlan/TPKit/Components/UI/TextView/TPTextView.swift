@@ -59,14 +59,14 @@ class TPTextView: UITextView {
         let toolbar = UIToolbar(frame: frame)
         toolbar.tintColor = resGetColor(.title)
         let image = resGetImage("keyboard_dismiss_24")
-        let clearButton = UIBarButtonItem(image: image,
-                                          style: .done,
-                                          target: self,
-                                          action: #selector(clickDismiss(_:)))
+        let dismissButton = UIBarButtonItem(image: image,
+                                            style: .done,
+                                            target: self,
+                                            action: #selector(clickDismiss(_:)))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
                                             target: nil,
                                             action: nil)
-        toolbar.items = [flexibleSpace, clearButton]
+        toolbar.items = [flexibleSpace, dismissButton]
         return toolbar
     }()
 
