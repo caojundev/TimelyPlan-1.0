@@ -87,7 +87,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
 
 extension MyDayTimelineView: TimelineEventCellDelegate {
     
-    func timelineEventCellDidClickStartTime(_ cell: TimelineEventCell) {
+    func timelineEventCellDidClickTime(_ cell: TimelineEventCell) {
         guard let event = cell.currentItem?.event else {
             return
         }

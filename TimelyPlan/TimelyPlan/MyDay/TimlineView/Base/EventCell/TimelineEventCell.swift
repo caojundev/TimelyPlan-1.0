@@ -10,32 +10,24 @@ import UIKit
 
 protocol TimelineEventCellDelegate: AnyObject {
     /// 点击开始时间
-    func timelineEventCellDidClickStartTime(_ cell: TimelineEventCell)
+    func timelineEventCellDidClickTime(_ cell: TimelineEventCell)
 }
 
 extension TimelineEventCellDelegate {
-    func timelineEventCellDidClickStartTime(_ cell: TimelineEventCell) {}
+    func timelineEventCellDidClickTime(_ cell: TimelineEventCell) {}
 }
 
 class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     
     weak var delegate: AnyObject?
     
-    // MARK: 基类控件
-    private lazy var startTimeLabel: UILabel = {
-        let label = UILabel()
-        label.font = TimelineConfig.timeFont
-        label.textColor = TimelineConfig.timeColor
-        label.textAlignment = .center
-        label.isUserInteractionEnabled = false
-        return label
-    }()
-    
-    private lazy var startTimeButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .clear
-        button.addTarget(self, action: #selector(clickStartTime), for: .touchUpInside)
-        return button
+    private lazy var timeView: TimelineEventTimeView = {
+        let view = TimelineEventTimeView()
+        view.onClickTime = { [weak self] in
+            self?.clickTime()
+        }
+        
+        return view
     }()
     
     var nodeView: TimelineNodeView!
@@ -68,8 +60,7 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
         setupNodeView()
         backgroundColor = .clear
         eventContentView.backgroundColor = .clear
-        contentView.addSubview(startTimeButton)
-        contentView.addSubview(startTimeLabel)
+        contentView.addSubview(timeView)
         contentView.addSubview(nodeView)
         contentView.addSubview(durationLabel)
         contentView.addSubview(eventContentView)
@@ -88,12 +79,7 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     func configure(with item: TimelineItem) {
         currentItem = item
         nodeView.configure(with: item)
-        if item.event.isAllDay {
-            startTimeLabel.text = resGetString("All-Day")
-        } else {
-            startTimeLabel.text = item.startDate.timeString
-        }
-        
+        timeView.configure(with: item)
         configureDurationLabel(for: item.event)
         setNeedsLayout()
     }
@@ -114,19 +100,9 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     override func layoutSubviews() {
         super.layoutSubviews()
         let bounds = contentView.bounds
-        let verticalCenterY = bounds.height / 2
         let nodeX = TimelineConfig.leftTimeWidth + TimelineConfig.margin + 8
-        
-        // 时间标签
-        startTimeLabel.sizeToFit()
-        startTimeLabel.frame = CGRect(
-            x: (nodeX - startTimeLabel.width) / 2.0,
-            y: verticalCenterY - startTimeLabel.halfHeight,
-            width: TimelineConfig.leftTimeWidth,
-            height: startTimeLabel.bounds.height
-        )
-        
-        startTimeButton.frame = CGRect(
+
+        timeView.frame = CGRect(
             x: 0.0,
             y: 0.0,
             width: nodeX,
@@ -176,14 +152,15 @@ class TimelineEventCell: UICollectionViewCell, TimelineProgressUpdatable {
     }
     
     /// 点击开始时间
-    @objc func clickStartTime() {
+    @objc func clickTime() {
         if let delegate = delegate as? TimelineEventCellDelegate {
-            delegate.timelineEventCellDidClickStartTime(self)
+            delegate.timelineEventCellDidClickTime(self)
         }
     }
     
     func updateTimeProgress() {
         nodeView.updateTimeProgress()
+        timeView.updateCurrentTime()
     }
 }
 

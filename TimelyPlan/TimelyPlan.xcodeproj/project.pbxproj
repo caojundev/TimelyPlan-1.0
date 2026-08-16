@@ -701,6 +701,7 @@
 		E544106230314E7400E398BE /* TodoStepInputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E544106130314E7400E398BE /* TodoStepInputToolbar.swift */; };
 		E544106530317F9200E398BE /* todo_task_step_addSubstep_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E544106330317F9200E398BE /* todo_task_step_addSubstep_24@3x.png */; };
 		E544106630317F9200E398BE /* todo_task_step_addSubstep_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E544106430317F9200E398BE /* todo_task_step_addSubstep_24@2x.png */; };
+		E54410693031B61C00E398BE /* TimelineEventTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54410683031B61C00E398BE /* TimelineEventTimeView.swift */; };
 		E547C71E2F3D7ED40095918C /* focus_placeholder_noTimer_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C71C2F3D7ED30095918C /* focus_placeholder_noTimer_80@3x.png */; };
 		E547C71F2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C71D2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png */; };
 		E547C7242F3DA2F00095918C /* sort_order_ascending_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E547C7202F3DA2EF0095918C /* sort_order_ascending_24@3x.png */; };
@@ -2857,6 +2858,7 @@
 		E544106130314E7400E398BE /* TodoStepInputToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepInputToolbar.swift; sourceTree = "<group>"; };
 		E544106330317F9200E398BE /* todo_task_step_addSubstep_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_step_addSubstep_24@3x.png"; sourceTree = "<group>"; };
 		E544106430317F9200E398BE /* todo_task_step_addSubstep_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_step_addSubstep_24@2x.png"; sourceTree = "<group>"; };
+		E54410683031B61C00E398BE /* TimelineEventTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineEventTimeView.swift; sourceTree = "<group>"; };
 		E547C71C2F3D7ED30095918C /* focus_placeholder_noTimer_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_placeholder_noTimer_80@3x.png"; sourceTree = "<group>"; };
 		E547C71D2F3D7ED40095918C /* focus_placeholder_noTimer_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_placeholder_noTimer_80@2x.png"; sourceTree = "<group>"; };
 		E547C7202F3DA2EF0095918C /* sort_order_ascending_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sort_order_ascending_24@3x.png"; sourceTree = "<group>"; };
@@ -5324,7 +5326,7 @@
 				E5185062300F11E100112DFC /* TimelineItem.swift */,
 				E518506A300F138A00112DFC /* TimelineView.swift */,
 				E5185066300F12B100112DFC /* TimelineEventConverter.swift */,
-				E5185060300F0C0500112DFC /* TimelineEventCell.swift */,
+				E54410673031B5F300E398BE /* EventCell */,
 				E5185068300F132200112DFC /* TimelineConnectionCell.swift */,
 				E5146C9330300D58007A8BCB /* TimelineProgressUpdatable.swift */,
 				E5146C92302F0C14007A8BCB /* NodeView */,
@@ -6431,6 +6433,15 @@
 				E54155532F49A413000B2972 /* FocusRecordMenuController.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		E54410673031B5F300E398BE /* EventCell */ = {
+			isa = PBXGroup;
+			children = (
+				E5185060300F0C0500112DFC /* TimelineEventCell.swift */,
+				E54410683031B61C00E398BE /* TimelineEventTimeView.swift */,
+			);
+			path = EventCell;
 			sourceTree = "<group>";
 		};
 		E547C7172F3D6D680095918C /* placeholder */ = {
@@ -12308,6 +12319,7 @@
 				E5BB9EC82D3BF0C80089667A /* TPTextCarouselView.swift in Sources */,
 				E5BB9ED52D3BF0C80089667A /* TPSquareCheckbox.swift in Sources */,
 				E56643262FDE50EB00348C47 /* CalendarEvent+Preview.swift in Sources */,
+				E54410693031B61C00E398BE /* TimelineEventTimeView.swift in Sources */,
 				E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */,
 				E5B3BAB830136FBD00D908B6 /* FocusUserTimerMenuProcessor.swift in Sources */,
 				E5D7D9302D43933700EC877A /* FocusTimerSearchResultSectionController.swift in Sources */,

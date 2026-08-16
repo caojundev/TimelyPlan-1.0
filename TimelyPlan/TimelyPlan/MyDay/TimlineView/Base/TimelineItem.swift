@@ -43,6 +43,7 @@ struct TimelineConnectionItem {
     let bottomDate: Date /// 底部日期
     let topColor: UIColor
     let bottomColor: UIColor
+//    let previousItem: TimelineItem
     
     var timeInterval: TimeInterval {
         return bottomDate.timeIntervalSince(topDate)

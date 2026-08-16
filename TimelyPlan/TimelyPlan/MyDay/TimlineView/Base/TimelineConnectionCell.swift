@@ -20,6 +20,8 @@ class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
     // MARK: 连接线内容容器（子类在此添加内容）
     let connectionContentView = UIView()
     
+    let timeView = UIView()
+    
     var item: TimelineConnectionItem?
     
     override init(frame: CGRect) {
@@ -33,6 +35,8 @@ class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.black.cgColor
+        
+        contentView.addSubview(timeView)
         
         // 添加连接线内容容器
         connectionContentView.backgroundColor = .clear
@@ -76,6 +80,13 @@ class TimelineConnectionCell: UICollectionViewCell, TimelineProgressUpdatable {
         shapeLayer.path = path.cgPath
         
         CATransaction.commit()
+        
+        timeView.frame = CGRect(
+            x: 0.0,
+            y: 0.0,
+            width: lineCenterX - TimelineConfig.centerNodeWidth / 2.0,
+            height: bounds.height
+        )
         
         // 布局连接线内容容器
         let contentX = lineCenterX + TimelineConfig.centerNodeWidth / 2 + 12
