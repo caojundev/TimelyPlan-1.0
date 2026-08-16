@@ -168,9 +168,7 @@ class TodoTaskBoardGroupManager {
         }
         
         // 2. 获取关联的列表
-        guard let list = getAssociatedList() else {
-            return
-        }
+        let list = getAssociatedList()
         
         // 3. 执行排序操作
         TodoRepository.reorderTask(

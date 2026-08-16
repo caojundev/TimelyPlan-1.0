@@ -352,12 +352,7 @@ class TodoTaskBoardDragInsertReorder: NSObject,
             }
         } else {
             resetDraggingIndexPath()
-            UIView.animate(withDuration: 0.4) {
-                self.draggingView?.alpha = 0.0
-                self.draggingView?.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-            } completion: { _ in
-                self.removeDraggingView()
-            }
+            removeDraggingView()
         }
     }
     
