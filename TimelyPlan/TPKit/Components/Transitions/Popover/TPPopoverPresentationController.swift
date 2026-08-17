@@ -20,7 +20,6 @@ class TPPopoverPresentationController: UIPresentationController {
     /// 默认内容尺寸
     let defaultContentSize = AppLayout.Popover.preferredContentSize
 
-    
     /// 弹窗边界间距
     private var popoverLayoutMargins: UIEdgeInsets = .zero
     

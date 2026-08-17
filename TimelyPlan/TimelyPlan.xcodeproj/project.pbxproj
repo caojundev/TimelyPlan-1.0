@@ -363,6 +363,10 @@
 		E51DF2112F853FC700D6BCE3 /* TodoTask+Organizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51DF2102F853FC700D6BCE3 /* TodoTask+Organizer.swift */; };
 		E51E5F5B3032E32F00ACF30C /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F5A3032E32F00ACF30C /* AppState.swift */; };
 		E51E5F5E3032ED3700ACF30C /* CalendarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F5D3032ED3700ACF30C /* CalendarState.swift */; };
+		E51E5F613032F13600ACF30C /* todo_list_option_print_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51E5F5F3032F13600ACF30C /* todo_list_option_print_24@3x.png */; };
+		E51E5F623032F13600ACF30C /* todo_list_option_print_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51E5F603032F13600ACF30C /* todo_list_option_print_24@2x.png */; };
+		E51E5F653033008D00ACF30C /* TodoPDFRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F643033008C00ACF30C /* TodoPDFRenderer.swift */; };
+		E51E5F68303340E100ACF30C /* TPLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */; };
 		E51F94002FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */; };
 		E51F94032FFF582000734910 /* CalendarRangeEventsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */; };
 		E51F94062FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */; };
@@ -2522,6 +2526,10 @@
 		E51DF2102F853FC700D6BCE3 /* TodoTask+Organizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TodoTask+Organizer.swift"; sourceTree = "<group>"; };
 		E51E5F5A3032E32F00ACF30C /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E51E5F5D3032ED3700ACF30C /* CalendarState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarState.swift; sourceTree = "<group>"; };
+		E51E5F5F3032F13600ACF30C /* todo_list_option_print_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_print_24@3x.png"; sourceTree = "<group>"; };
+		E51E5F603032F13600ACF30C /* todo_list_option_print_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_print_24@2x.png"; sourceTree = "<group>"; };
+		E51E5F643033008C00ACF30C /* TodoPDFRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPDFRenderer.swift; sourceTree = "<group>"; };
+		E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLoadingIndicator.swift; sourceTree = "<group>"; };
 		E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCalendarDayEventIndicatorView.swift; sourceTree = "<group>"; };
 		E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfo.swift; sourceTree = "<group>"; };
 		E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfoFetcher.swift; sourceTree = "<group>"; };
@@ -5099,6 +5107,7 @@
 				E529ACF72F7E8C66000EA2F1 /* Detail */,
 				E5E9F7A12FC2B35E00717004 /* Search */,
 				E500E38A2FC5D45200252011 /* Statistic */,
+				E51E5F633033005C00ACF30C /* PDF */,
 				E56B94892F8CDDCC001E488B /* Setting */,
 			);
 			path = Todo;
@@ -5476,6 +5485,22 @@
 				E51E5F5D3032ED3700ACF30C /* CalendarState.swift */,
 			);
 			path = State;
+			sourceTree = "<group>";
+		};
+		E51E5F633033005C00ACF30C /* PDF */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5F643033008C00ACF30C /* TodoPDFRenderer.swift */,
+			);
+			path = PDF;
+			sourceTree = "<group>";
+		};
+		E51E5F66303340BF00ACF30C /* LoadingIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */,
+			);
+			path = LoadingIndicator;
 			sourceTree = "<group>";
 		};
 		E51F94012FFF57D500734910 /* EventInfo */ = {
@@ -8590,6 +8615,7 @@
 		E5BB9B6A2D3BF0C30089667A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E51E5F66303340BF00ACF30C /* LoadingIndicator */,
 				E5185053300CA91800112DFC /* DayPageView */,
 				E50FF8A52F789DF500B8F5BE /* PlaceholderProvider */,
 				E50027692F985C6900EF052D /* DateRangeSegmentedView */,
@@ -10747,6 +10773,8 @@
 				E56B94522F8CD6CF001E488B /* groupType */,
 				E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */,
 				E53966E32D671D66008CC13B /* todo_list_option_layout_24@3x.png */,
+				E51E5F603032F13600ACF30C /* todo_list_option_print_24@2x.png */,
+				E51E5F5F3032F13600ACF30C /* todo_list_option_print_24@3x.png */,
 				E5E277112D3E099C004EC522 /* todo_list_option_group_24@3x.png */,
 				E5E277122D3E099C004EC522 /* todo_list_option_group_24@2x.png */,
 				E5E277142D3E099C004EC522 /* todo_list_option_select_24@3x.png */,
@@ -11455,6 +11483,7 @@
 				E55E4BD82F9336170068E032 /* calendar_31_24@2x.png in Resources */,
 				E5BB9A902D3BEF0D0089667A /* todo_smartlist_upcoming_24@3x.png in Resources */,
 				E52B62A72F36121000673620 /* focus_main_timeline_24@2x.png in Resources */,
+				E51E5F623032F13600ACF30C /* todo_list_option_print_24@2x.png in Resources */,
 				E5DA03A12FA0A58A00A58ACC /* todo_sort_type_completionDate_24@3x.png in Resources */,
 				E500DE532DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png in Resources */,
 				E515AD512D3C0EFB00AA9AF2 /* InfoPlist.strings in Resources */,
@@ -12038,6 +12067,7 @@
 				E5BB9AC12D3BEF0D0089667A /* todo_task_action_undone_24@2x.png in Resources */,
 				E5168BD12F545B400000A760 /* dateRange_background_end@2x.png in Resources */,
 				E55A7B7E2D45F873000D224C /* timer_pause_24@2x.png in Resources */,
+				E51E5F613032F13600ACF30C /* todo_list_option_print_24@3x.png in Resources */,
 				E5BB9A7F2D3BEF0D0089667A /* schedule_repeat_24@3x.png in Resources */,
 				E5BB9AB32D3BEF0D0089667A /* todo_task_note_24@2x.png in Resources */,
 				E5FF4ED02FEBCBD500282416 /* setting_iCloud_32@3x.png in Resources */,
@@ -12386,6 +12416,7 @@
 				E5BB9EA92D3BF0C80089667A /* TPEmojiTextField.swift in Sources */,
 				E5BB9E5A2D3BF0C70089667A /* TPCalendarView.swift in Sources */,
 				E5D7D9272D43933700EC877A /* FocusUserTimerSelectCell.swift in Sources */,
+				E51E5F653033008D00ACF30C /* TodoPDFRenderer.swift in Sources */,
 				E5F078C62F95B22200F94BDF /* TodoFilterListInteractor.swift in Sources */,
 				E541555E2F49A415000B2972 /* FocusRecordMenuController.swift in Sources */,
 				E5BB9E132D3BF0C70089667A /* NSPredicate+Condition.swift in Sources */,
@@ -13363,6 +13394,7 @@
 				E56341FA2F947C2F00E120BF /* TodoFilterSectionController.swift in Sources */,
 				E5BB9DDB2D3BF0C60089667A /* UIView+Extensions.swift in Sources */,
 				E53632842FAB72C00095DFEC /* QuadrantSetting.swift in Sources */,
+				E51E5F68303340E100ACF30C /* TPLoadingIndicator.swift in Sources */,
 				E5BB9EF52D3BF0C80089667A /* TPContainerViewController.swift in Sources */,
 				E5BB9DCA2D3BF0C60089667A /* AttributedDescriptable.swift in Sources */,
 				E5BB9DB32D3BF0C60089667A /* TPValueValidator.swift in Sources */,

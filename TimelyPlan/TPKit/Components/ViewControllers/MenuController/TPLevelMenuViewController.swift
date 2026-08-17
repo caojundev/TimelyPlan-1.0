@@ -36,7 +36,7 @@ class TPLevelMenuViewController: TPViewController {
     
     /// 菜单内容最大高度
     private let minMenuContentHeight: CGFloat = 50.0
-    private let maxMenuContentHeight: CGFloat = 520.0
+    private let maxMenuContentHeight: CGFloat = 600.0
     
     private let topbarHeight = 50.0
     private lazy var topbar: TPLevelMenuTopbar = {

@@ -77,6 +77,7 @@ class TodoListOptionMenuController: TPBaseMenuController<TodoListOption> {
                  [.manageSection],
                  [.importTask],
                  [.edit],
+                 [.print],
                  [.emptyTrash]]
         return lists
     }

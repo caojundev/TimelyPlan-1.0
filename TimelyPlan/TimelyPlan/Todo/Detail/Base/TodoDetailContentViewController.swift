@@ -491,6 +491,8 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
             manageSection()
         case .importTask:
             importTask()
+        case .print:
+            printList()
         default:
             break
         }
@@ -544,5 +546,10 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     
     private func selectSortOrder(_ sortOrder: TodoSortOrder) {
         interactor.setSortOrder(sortOrder)
+    }
+    
+    /// 打印列表
+    private func printList() {
+        TodoPDFMananger.printMixedList()
     }
 }

@@ -20,6 +20,7 @@ enum TodoListOption: String, TPMenuRepresentable {
     case manageSection /// 管理分区
     case search     /// 搜索
     case importTask /// 导入任务
+    case print      /// 打印
     
     /// 图标名称
     var iconName: String? {
@@ -64,6 +65,8 @@ enum TodoListOption: String, TPMenuRepresentable {
             return resGetString("Import Task")
         case .search:
             return resGetString("Search")
+        case .print:
+            return resGetString("Print List")
         }
     }
 

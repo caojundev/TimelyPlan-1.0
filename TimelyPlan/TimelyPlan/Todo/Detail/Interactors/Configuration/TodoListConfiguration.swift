@@ -158,7 +158,7 @@ class TodoUserListConfiguration: TodoListConfiguration {
     
     override func allowListOptions() -> [TodoListOption]? {
         return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .edit,
-                .search, .manageSection, .importTask]
+                .search, .manageSection, .importTask, .print]
     }
     
     override func allowGroupTypes() -> [TodoGroupType] {
@@ -217,7 +217,7 @@ class TodoTagListConfiguration: TodoListConfiguration {
     }
     
     override func allowListOptions() -> [TodoListOption]? {
-        return [.select, .showCompleted, .showDetail, .group, .sort, .edit, .search]
+        return [.select, .showCompleted, .showDetail, .group, .sort, .edit, .search, .print]
     }
     
     override func allowGroupTypes() -> [TodoGroupType] {
@@ -264,7 +264,7 @@ class TodoFilterListConfiguration: TodoListConfiguration {
     }
     
     override func allowListOptions() -> [TodoListOption]? {
-        return [.select, .showCompleted, .showDetail, .group, .sort, .edit, .search]
+        return [.select, .showCompleted, .showDetail, .group, .sort, .edit, .search, .print]
     }
     
     override func allowGroupTypes() -> [TodoGroupType] {
