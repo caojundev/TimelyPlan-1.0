@@ -46,3 +46,28 @@ struct CloudStored<T: Codable> {
         }
     }
 }
+
+
+class ObservableLocalStore {
+    
+    func addObserver(_ observer: SettingAgentObserver, forKey name: String) {
+        SettingAgent.shared.addObserver(observer, forKey: name)
+    }
+    
+    func addObserver(_ observer: SettingAgentObserver, forKeys names: [String]) {
+        SettingAgent.shared.addObserver(observer, forKeys: names)
+    }
+}
+
+class ObservableCloudStore {
+    
+    func addObserver(_ observer: SettingAgentObserver, forKey name: String) {
+        KeyValueStorage.shared.addObserver(observer, forKey: name)
+    }
+
+    func addObserver(_ observer: SettingAgentObserver, forKeys names: [String]) {
+        KeyValueStorage.shared.addObserver(observer, forKeys: names)
+    }
+}
+
+

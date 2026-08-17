@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum CalendarMode: Int, TPMenuRepresentable {
-    case list
+enum CalendarMode: Int, Codable, TPMenuRepresentable {
+    case list = 0
     case day
     case week
     case month

@@ -145,10 +145,14 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     func sideMenuViewController(_ vc: SideMenuViewController, didSelect menuType: SideMenuType) {
         replaceViewController(with: menuType)
         sidebarController.hideSidebar()
+        
+        if menuType != .settings {
+            /// 保存选中侧边栏状态
+            AppState.shared.sideMenuType = menuType
+        }
     }
     
     func sideMenuViewControllerHideSideMenu(_ vc: SideMenuViewController) {
         sidebarController.hideSidebar()
     }
-
 }

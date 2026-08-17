@@ -99,6 +99,7 @@ class CalendarMainViewController: TPContainerViewController,
         
         self.mode = mode
         updateContentViewController()
+        CalendarState.shared.mode = mode
     }
     
     @objc private func clickMore() {
