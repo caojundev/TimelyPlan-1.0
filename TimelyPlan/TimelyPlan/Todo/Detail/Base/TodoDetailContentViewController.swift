@@ -550,6 +550,19 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
     
     /// 打印列表
     private func printList() {
-        TodoPDFMananger.printMixedList()
+        let title: String
+        let displayTitle = interactor.title()
+        if let attributedString = displayTitle as? ASAttributedString {
+            title = attributedString.value.string
+        } else if let string = displayTitle as? String {
+            title = string
+        } else {
+            title = resGetString("Untitled List")
+        }
+        
+        let groups = interactor.groups ?? []
+        let pdfGroups = groups.map { $0.toPDFGroup }
+        let list = PDFList(title: title, groups: pdfGroups)
+        TodoPDFMananger.printList(list)
     }
 }

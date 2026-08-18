@@ -207,6 +207,7 @@
 "%ld selected" = "选中%ld个";
 
 "Group" = "分组";
+"Untitled Group" = "未命名分组";
 "None Group" = "无分组";
 "Sort" = "排序";
 "Sort Type" = "排序";
@@ -215,7 +216,10 @@
 "Show Detail" = "显示详情";
 "Manage Section" = "管理板块";
 "Import Task" = "导入任务";
+
 "Print List" = "打印列表";
+"Generating PDF..." = "正在生成 PDF...";
+
 
 
 "Delete Task" = "删除任务";

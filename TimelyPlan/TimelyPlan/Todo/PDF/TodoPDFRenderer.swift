@@ -116,108 +116,7 @@ protocol PDFListConvertible {
     func asPDFGroups() -> [PDFGroup]
 }
 
-// MARK: - 业务模型示例（你的任意模型都可以这样扩展）
-
-// 示例 1：Todo 业务模型
-struct TodoItem {
-    let id: String
-    let content: String
-    let done: Bool
-    let children: [TodoItem]
-    let priorityLevel: Int // 0=无, 1=低, 2=中, 3=高
-    let dueDate: Date?
-    let progress: Double? // 0.0 - 1.0，nil 表示不显示进度
-    let note: String? // 可选备注
-
-    init(id: String, content: String, done: Bool, children: [TodoItem],
-         priorityLevel: Int, dueDate: Date?, progress: Double? = nil, note: String? = nil) {
-        self.id = id
-        self.content = content
-        self.done = done
-        self.children = children
-        self.priorityLevel = priorityLevel
-        self.dueDate = dueDate
-        self.progress = progress
-        self.note = note
-    }
-}
-
-extension TodoItem: PDFTaskConvertible {
-    func asPDFTask() -> PDFTask {
-        let p: PDFPriority?
-        switch priorityLevel {
-        case 1: p = .low
-        case 2: p = .medium
-        case 3: p = .high
-        default: p = nil
-        }
-        let tag = dueDate.map { date -> String in
-            let f = DateFormatter()
-            f.dateFormat = "MM/dd"
-            return f.string(from: date)
-        }
-        return PDFTask(
-            title: content,
-            isCompleted: done,
-            subSteps: children.map { $0.asPDFSubStep() },
-            priority: p,
-            tag: tag,
-            progress: progress,
-            note: note
-        )
-    }
-
-    private func asPDFSubStep() -> PDFSubStep {
-        // 如果有子步骤，递归转换
-        let subSubSteps = children.isEmpty ? nil : children.map { $0.asPDFSubStep() }
-        return PDFSubStep(title: content, isCompleted: done, note: note, progress: progress, subSteps: subSubSteps)
-    }
-}
-
-// 示例 2：备忘录 / 纯文本笔记
-struct Note {
-    let title: String
-    let body: String
-}
-
-extension Note: PDFTaskConvertible {
-    func asPDFTask() -> PDFTask {
-        // 把正文按换行拆成子步骤
-        let lines = body.components(separatedBy: .newlines)
-            .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
-            .map { PDFSubStep(title: $0, isCompleted: false) }
-        return PDFTask(title: title, isCompleted: false, subSteps: lines)
-    }
-}
-
-// 示例 3：分组模型
-struct TaskGroup {
-    let title: String
-    let items: [TodoItem]
-}
-
-extension TaskGroup: PDFGroupConvertible {
-    var pdfGroupTitle: String { title }
-    func asPDFTasks() -> [PDFTask] {
-        items.map { $0.asPDFTask() }
-    }
-}
-
-// 示例 4：整个清单模型
-struct TaskList {
-    let title: String
-    let groups: [TaskGroup]
-}
-
-extension TaskList: PDFListConvertible {
-    var pdfTitle: String { title }
-    func asPDFGroups() -> [PDFGroup] {
-        groups.map { PDFGroup(title: $0.pdfGroupTitle, tasks: $0.asPDFTasks()) }
-    }
-}
-
 // MARK: - PDF 渲染器
-
 final class TodoPDFRenderer {
 
     struct Config {
@@ -469,6 +368,7 @@ final class TodoPDFRenderer {
         var isFirstOnPage = true
         
         for group in groups {
+            
             // 分组标题高度
             let groupTitleH = heightForGroupTitle(group.title) + (isFirstOnPage ? 0 : config.groupTitleTopGap)
             if cursor + groupTitleH > contentBottomY {
@@ -801,132 +701,9 @@ final class TodoPDFRenderer {
 
 class TodoPDFMananger {
     
-    static func printMixedList() {
-        // 测试分组和嵌套子步骤
-        let groups = [
-            PDFGroup(title: "高优先级任务", tasks: [
-                TodoItem(id: "0",
-                         content: "完成项目需求文档",
-                         done: true,
-                         children: [],
-                         priorityLevel: 3,
-                         dueDate: Date(),
-                         progress: nil,
-                         note: "已完成并提交审核").asPDFTask(),
-                
-                TodoItem(id: "1",
-                         content: "开发计时器画中画功能",
-                         done: false,
-                         children: [],
-                         priorityLevel: 3,
-                         dueDate: Date().addingTimeInterval(86400 * 3),
-                         progress: 0.65,
-                         note: "核心功能已完成，正在优化性能").asPDFTask()
-            ]),
-            
-            PDFGroup(title: "开发任务", tasks: [
-                TodoItem(id: "3",
-                         content: "严格模式功能开发",
-                         done: false,
-                         children: [
-                            TodoItem(id: "3.1",
-                                     content: "实现无法暂停功能",
-                                     done: true,
-                                     children: [
-                                        TodoItem(id: "3.1.1",
-                                                 content: "添加暂停按钮拦截逻辑",
-                                                 done: true,
-                                                 children: [],
-                                                 priorityLevel: 0,
-                                                 dueDate: nil,
-                                                 progress: nil,
-                                                 note: "已完成"),
-                                        TodoItem(id: "3.1.2",
-                                                 content: "测试各种边界情况",
-                                                 done: false,
-                                                 children: [],
-                                                 priorityLevel: 0,
-                                                 dueDate: nil,
-                                                 progress: 0.5,
-                                                 note: nil)
-                                     ],
-                                     priorityLevel: 0,
-                                     dueDate: nil,
-                                     progress: nil,
-                                     note: "已完成核心逻辑"),
-                            TodoItem(id: "3.2",
-                                     content: "实现无法跳转下一步功能",
-                                     done: false,
-                                     children: [],
-                                     priorityLevel: 0,
-                                     dueDate: nil,
-                                     progress: 0.4,
-                                     note: "正在进行中")
-                         ],
-                         priorityLevel: 2,
-                         dueDate: Date().addingTimeInterval(86400 * 7),
-                         progress: 0.5,
-                         note: "整体进度50%").asPDFTask(),
-                
-                TodoItem(id: "4",
-                         content: "优化应用启动速度",
-                         done: false,
-                         children: [],
-                         priorityLevel: 1,
-                         dueDate: nil,
-                         progress: nil,
-                         note: nil).asPDFTask()
-            ]),
-            
-            PDFGroup(title: "测试和发布", tasks: [
-                TodoItem(id: "5",
-                         content: "编写单元测试",
-                         done: false,
-                         children: [],
-                         priorityLevel: 2,
-                         dueDate: Date().addingTimeInterval(86400),
-                         progress: 0.9,
-                         note: "已完成大部分测试用例").asPDFTask(),
-                
-                TodoItem(id: "6",
-                         content: "发布前准备",
-                         done: false,
-                         children: [
-                            TodoItem(id: "6.1",
-                                     content: "更新应用图标",
-                                     done: true,
-                                     children: [],
-                                     priorityLevel: 0,
-                                     dueDate: nil,
-                                     progress: nil,
-                                     note: nil),
-                            TodoItem(id: "6.2",
-                                     content: "准备截图和描述",
-                                     done: true,
-                                     children: [],
-                                     priorityLevel: 0,
-                                     dueDate: nil,
-                                     progress: nil,
-                                     note: "需要5张截图"),
-                            TodoItem(id: "6.3",
-                                     content: "提交审核",
-                                     done: false,
-                                     children: [],
-                                     priorityLevel: 0,
-                                     dueDate: Date().addingTimeInterval(86400 * 2),
-                                     progress: 0.2,
-                                     note: "等待最终确认")
-                         ],
-                         priorityLevel: 3,
-                         dueDate: Date().addingTimeInterval(86400 * 5),
-                         progress: 0.75,
-                         note: "发布前最后准备工作").asPDFTask()
-            ])
-        ]
-
-        let renderer = TodoPDFRenderer(title: "专注需求", groups: groups)
-        
-        TPLoadingIndicator.showLoading("正在生成 PDF...")
+    static func printList(_ list: PDFList) {
+        let renderer = TodoPDFRenderer(title: list.title, groups: list.groups)
+        TPLoadingIndicator.showLoading(resGetString("Generating PDF..."))
         // 2. 在后台线程渲染 PDF
         DispatchQueue.global(qos: .userInitiated).async {
             let url = FileManager.default.temporaryDirectory.appendingPathComponent("output.pdf")
@@ -935,7 +712,7 @@ class TodoPDFMananger {
             // 3. 回到主线程更新 UI
             DispatchQueue.main.async {
                 TPLoadingIndicator.hideLoading()
-                presentPrintPreview(for: url, jobTitle: "Print todo list")
+                presentPrintPreview(for: url, jobTitle: list.title)
             }
         }
     }
