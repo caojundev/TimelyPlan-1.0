@@ -16,11 +16,17 @@ struct PDFSubStep {
     let isCompleted: Bool
     /// 可选备注，显示在标题下方小字
     let note: String?
+    /// 可选进度（0.0 - 1.0）
+    let progress: Double?
+    /// 可选的子步骤（支持多级嵌套）
+    let subSteps: [PDFSubStep]?
 
-    init(title: String, isCompleted: Bool = false, note: String? = nil) {
+    init(title: String, isCompleted: Bool = false, note: String? = nil, progress: Double? = nil, subSteps: [PDFSubStep]? = nil) {
         self.title = title
         self.isCompleted = isCompleted
         self.note = note
+        self.progress = progress
+        self.subSteps = subSteps
     }
 }
 
@@ -45,26 +51,50 @@ struct PDFTask {
     let priority: PDFPriority?
     /// 可选标签，显示在标题右侧
     let tag: String?
+    /// 可选进度（0.0 - 1.0），如果设置则显示圆环进度条
+    let progress: Double?
+    /// 可选备注，显示在标题下方小字
+    let note: String?
 
     init(
         title: String,
         isCompleted: Bool = false,
         subSteps: [PDFSubStep] = [],
         priority: PDFPriority? = nil,
-        tag: String? = nil
+        tag: String? = nil,
+        progress: Double? = nil,
+        note: String? = nil
     ) {
         self.title = title
         self.isCompleted = isCompleted
         self.subSteps = subSteps
         self.priority = priority
         self.tag = tag
+        self.progress = progress
+        self.note = note
+    }
+}
+
+/// PDF 分组
+struct PDFGroup {
+    let title: String
+    let tasks: [PDFTask]
+    
+    init(title: String, tasks: [PDFTask]) {
+        self.title = title
+        self.tasks = tasks
     }
 }
 
 /// PDF 清单
 struct PDFList {
     let title: String
-    let tasks: [PDFTask]
+    let groups: [PDFGroup]
+    
+    init(title: String, groups: [PDFGroup]) {
+        self.title = title
+        self.groups = groups
+    }
 }
 
 // MARK: - 转换协议（核心：任何模型实现它就能打印）
@@ -74,10 +104,16 @@ protocol PDFTaskConvertible {
     func asPDFTask() -> PDFTask
 }
 
+/// 分组可转换协议
+protocol PDFGroupConvertible {
+    var pdfGroupTitle: String { get }
+    func asPDFTasks() -> [PDFTask]
+}
+
 /// 整个清单可转换协议
 protocol PDFListConvertible {
     var pdfTitle: String { get }
-    func asPDFTasks() -> [PDFTask]
+    func asPDFGroups() -> [PDFGroup]
 }
 
 // MARK: - 业务模型示例（你的任意模型都可以这样扩展）
@@ -90,6 +126,20 @@ struct TodoItem {
     let children: [TodoItem]
     let priorityLevel: Int // 0=无, 1=低, 2=中, 3=高
     let dueDate: Date?
+    let progress: Double? // 0.0 - 1.0，nil 表示不显示进度
+    let note: String? // 可选备注
+
+    init(id: String, content: String, done: Bool, children: [TodoItem],
+         priorityLevel: Int, dueDate: Date?, progress: Double? = nil, note: String? = nil) {
+        self.id = id
+        self.content = content
+        self.done = done
+        self.children = children
+        self.priorityLevel = priorityLevel
+        self.dueDate = dueDate
+        self.progress = progress
+        self.note = note
+    }
 }
 
 extension TodoItem: PDFTaskConvertible {
@@ -111,16 +161,20 @@ extension TodoItem: PDFTaskConvertible {
             isCompleted: done,
             subSteps: children.map { $0.asPDFSubStep() },
             priority: p,
-            tag: tag
+            tag: tag,
+            progress: progress,
+            note: note
         )
     }
 
     private func asPDFSubStep() -> PDFSubStep {
-        PDFSubStep(title: content, isCompleted: done)
+        // 如果有子步骤，递归转换
+        let subSubSteps = children.isEmpty ? nil : children.map { $0.asPDFSubStep() }
+        return PDFSubStep(title: content, isCompleted: done, note: note, progress: progress, subSteps: subSubSteps)
     }
 }
 
-// 示例 3：备忘录 / 纯文本笔记
+// 示例 2：备忘录 / 纯文本笔记
 struct Note {
     let title: String
     let body: String
@@ -136,10 +190,30 @@ extension Note: PDFTaskConvertible {
     }
 }
 
-// 示例 4：数组直接扩展，让 [PDFTaskConvertible] 可以整体转换
-extension Array: PDFListConvertible where Element: PDFTaskConvertible {
-    var pdfTitle: String { "待办清单" }
-    func asPDFTasks() -> [PDFTask] { map { $0.asPDFTask() } }
+// 示例 3：分组模型
+struct TaskGroup {
+    let title: String
+    let items: [TodoItem]
+}
+
+extension TaskGroup: PDFGroupConvertible {
+    var pdfGroupTitle: String { title }
+    func asPDFTasks() -> [PDFTask] {
+        items.map { $0.asPDFTask() }
+    }
+}
+
+// 示例 4：整个清单模型
+struct TaskList {
+    let title: String
+    let groups: [TaskGroup]
+}
+
+extension TaskList: PDFListConvertible {
+    var pdfTitle: String { title }
+    func asPDFGroups() -> [PDFGroup] {
+        groups.map { PDFGroup(title: $0.pdfGroupTitle, tasks: $0.asPDFTasks()) }
+    }
 }
 
 // MARK: - PDF 渲染器
@@ -150,12 +224,15 @@ final class TodoPDFRenderer {
         var pageSize = CGSize(width: 595.2, height: 841.8) // A4
         var pageMargins = UIEdgeInsets(top: 48, left: 56, bottom: 48, right: 56)
         var titleFont: UIFont = .systemFont(ofSize: 26, weight: .bold)
+        var groupTitleFont: UIFont = .systemFont(ofSize: 18, weight: .semibold)
         var taskFont: UIFont = .systemFont(ofSize: 15, weight: .regular)
         var subStepFont: UIFont = .systemFont(ofSize: 13, weight: .regular)
         var noteFont: UIFont = .systemFont(ofSize: 11, weight: .regular)
         var footerFont: UIFont = .systemFont(ofSize: 9, weight: .regular)
         var checkboxDiameter: CGFloat = 16
+        var checkboxCornerRadius: CGFloat = 4
         var checkboxTextGap: CGFloat = 10
+        var checkboxBorderWidth: CGFloat = 1.8
         var subStepIndent: CGFloat = 30
         var titleBottomGap: CGFloat = 14
         var dividerWidth: CGFloat = 1.2
@@ -163,32 +240,40 @@ final class TodoPDFRenderer {
         var subStepRowHeight: CGFloat = 22
         var noteRowHeight: CGFloat = 18
         var taskBlockGap: CGFloat = 6
+        var groupTitleTopGap: CGFloat = 20
+        var groupTitleBottomGap: CGFloat = 10
         var footerBrandText = "Printed with MyApp"
         var exportDate: Date = Date()
         /// 是否显示优先级圆点
         var showsPriority = true
         /// 是否显示标签
         var showsTag = true
+        /// 进度环线宽
+        var progressRingWidth: CGFloat = 2.5
+        /// 进度环直径（稍大于普通复选框）
+        var progressRingDiameter: CGFloat = 18
+        /// 主任务 note 与主任务底部间距
+        var taskNoteTopGap: CGFloat = 8.0
     }
 
-    private let tasks: [PDFTask]
     private let listTitle: String
+    private let groups: [PDFGroup]
     private let config: Config
-
-    /// 便捷初始化：直接传协议数组
-    convenience init(title: String, items: [PDFTaskConvertible], config: Config = Config()) {
-        self.init(title: title, tasks: items.map { $0.asPDFTask() }, config: config)
-    }
 
     /// 便捷初始化：传整个可转换清单
     convenience init(list: PDFListConvertible, config: Config = Config()) {
-        self.init(title: list.pdfTitle, tasks: list.asPDFTasks(), config: config)
+        self.init(title: list.pdfTitle, groups: list.asPDFGroups(), config: config)
     }
 
-    ///  designated 初始化
-    init(title: String, tasks: [PDFTask], config: Config = Config()) {
+    /// 便捷初始化：传 PDFList
+    convenience init(list: PDFList, config: Config = Config()) {
+        self.init(title: list.title, groups: list.groups, config: config)
+    }
+
+    /// designated 初始化
+    init(title: String, groups: [PDFGroup], config: Config = Config()) {
         self.listTitle = title
-        self.tasks = tasks
+        self.groups = groups
         self.config = config
     }
 
@@ -224,57 +309,189 @@ final class TodoPDFRenderer {
     private func renderPages(in context: UIGraphicsPDFRendererContext, totalPages: Int) {
         var currentPage = 1
         context.beginPage()
-        drawHeader(in: context.cgContext)
+        drawHeader(in: context.cgContext) // 第一页绘制标题
         drawFooter(pageIndex: currentPage, totalPages: totalPages, in: context.cgContext)
 
-        var cursor = contentTopY
+        var cursor = firstPageTopY // 第一页使用包含标题的顶部位置
         var isFirstOnPage = true
 
-        for task in tasks {
-            let h = height(for: task)
-            if cursor + h > contentBottomY {
+        for group in groups {
+            // 绘制分组标题
+            let groupTitleH = heightForGroupTitle(group.title)
+            if cursor + groupTitleH > contentBottomY {
                 context.beginPage()
                 currentPage += 1
-                drawHeader(in: context.cgContext)
                 drawFooter(pageIndex: currentPage, totalPages: totalPages, in: context.cgContext)
-                cursor = contentTopY
+                cursor = subsequentPageTopY // 后续页使用页面顶部
                 isFirstOnPage = true
             }
-            if !isFirstOnPage { cursor += config.taskBlockGap }
-            cursor = drawTask(task, at: cursor, in: context.cgContext)
+            
+            if !isFirstOnPage { cursor += config.groupTitleTopGap }
+            cursor = drawGroupTitle(group.title, at: cursor, in: context.cgContext)
             isFirstOnPage = false
+            
+            for task in group.tasks {
+                let h = height(for: task)
+                if cursor + h > contentBottomY {
+                    context.beginPage()
+                    currentPage += 1
+                    drawFooter(pageIndex: currentPage, totalPages: totalPages, in: context.cgContext)
+                    cursor = subsequentPageTopY // 后续页使用页面顶部
+                    isFirstOnPage = true
+                }
+                if !isFirstOnPage { cursor += config.taskBlockGap }
+                cursor = drawTask(task, at: cursor, in: context.cgContext)
+                isFirstOnPage = false
+            }
         }
     }
-
+    
     // MARK: 布局
+
+    // 第一页的顶部位置（包含标题）
+    private var firstPageTopY: CGFloat {
+        config.pageMargins.top + config.titleFont.lineHeight + config.titleBottomGap + config.dividerWidth + 20
+    }
+
+    // 后续页的顶部位置（没有标题）
+    private var subsequentPageTopY: CGFloat {
+        config.pageMargins.top
+    }
 
     private var contentLeftX: CGFloat { config.pageMargins.left }
     private var contentRightX: CGFloat { config.pageSize.width - config.pageMargins.right }
     private var contentTopY: CGFloat {
         config.pageMargins.top + config.titleFont.lineHeight + config.titleBottomGap + config.dividerWidth + 20
     }
+    
     private var contentBottomY: CGFloat {
         config.pageSize.height - config.pageMargins.bottom - config.footerFont.lineHeight - 8
     }
 
-    private func height(for task: PDFTask) -> CGFloat {
-        var h: CGFloat = config.taskRowHeight
-        for sub in task.subSteps {
-            h += config.subStepRowHeight
-            if sub.note != nil { h += config.noteRowHeight }
+    // 优先级圆点预留尺寸（无论是否绘制，都统一预留，保证主任务/子步骤对齐）
+    private var priorityDotD: CGFloat { 8 }
+    private var priorityDotGap: CGFloat { 6 }
+
+    /// 复选框/进度环实际直径（主任务）
+    private func indicatorDiameter(for task: PDFTask) -> CGFloat {
+        if task.progress != nil {
+            return config.progressRingDiameter
         }
-        h += 4 // 虚线
+        return config.checkboxDiameter
+    }
+
+    /// 复选框/进度环实际直径（子步骤）
+    private func indicatorDiameter(for subStep: PDFSubStep) -> CGFloat {
+        if subStep.progress != nil {
+            return config.progressRingDiameter * 0.8
+        }
+        return config.checkboxDiameter * 0.8
+    }
+
+    /// 文本起始 X（复选框之后、文字开始处）
+    private func textStartX(indentX: CGFloat, indicatorD: CGFloat) -> CGFloat {
+        indentX + priorityDotD + priorityDotGap + indicatorD + config.checkboxTextGap
+    }
+
+    /// 文本可用宽度（扣除右侧标签）
+    private func textAvailableWidth(indentX: CGFloat, indicatorD: CGFloat, tag: String?, font: UIFont) -> CGFloat {
+        var right = contentRightX
+        if config.showsTag, let tag = tag {
+            let tagSize = (tag as NSString).size(withAttributes: [.font: font])
+            right -= tagSize.width + 8
+        }
+        return right - textStartX(indentX: indentX, indicatorD: indicatorD)
+    }
+
+    /// 计算文本换行后的实际行高（最小保证单行高度）
+    private func textLineHeight(for text: String, font: UIFont, maxWidth: CGFloat, minHeight: CGFloat) -> CGFloat {
+        guard !text.isEmpty else { return minHeight }
+        let p = NSMutableParagraphStyle()
+        p.alignment = .left; p.lineBreakMode = .byWordWrapping
+        let attrs: [NSAttributedString.Key: Any] = [.font: font, .paragraphStyle: p]
+        let size = (text as NSString).boundingRect(
+            with: CGSize(width: maxWidth, height: .greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            attributes: attrs, context: nil
+        ).size
+        return max(minHeight, ceil(size.height))
+    }
+
+    private func heightForGroupTitle(_ title: String) -> CGFloat {
+        return config.groupTitleTopGap + config.groupTitleFont.lineHeight + config.groupTitleBottomGap
+    }
+
+    private func height(for task: PDFTask) -> CGFloat {
+        var h: CGFloat = 0
+        h += textLineHeight(
+            for: task.title, font: config.taskFont,
+            maxWidth: textAvailableWidth(indentX: contentLeftX, indicatorD: indicatorDiameter(for: task), tag: task.tag, font: config.taskFont),
+            minHeight: max(config.taskRowHeight, indicatorDiameter(for: task) + 2)
+        )
+        
+        // 添加主任务 note 高度（包含与主任务底部间距）
+        if task.note != nil {
+            h += config.taskNoteTopGap + config.noteRowHeight
+        }
+        
+        // 递归计算子步骤高度
+        for sub in task.subSteps {
+            h += heightForSubStep(sub, indentX: contentLeftX + config.subStepIndent)
+        }
+        
+        h += 4.0 // 虚线
+        return h
+    }
+    
+    private func heightForSubStep(_ subStep: PDFSubStep, indentX: CGFloat) -> CGFloat {
+        var h: CGFloat = 0
+        let subIndicatorD = indicatorDiameter(for: subStep)
+        h += textLineHeight(
+            for: subStep.title, font: config.subStepFont,
+            maxWidth: textAvailableWidth(indentX: indentX, indicatorD: subIndicatorD, tag: nil, font: config.subStepFont),
+            minHeight: max(config.subStepRowHeight, subIndicatorD + 2)
+        )
+        if subStep.note != nil { h += config.noteRowHeight }
+        
+        // 递归计算子步骤的子步骤
+        if let subSteps = subStep.subSteps {
+            for subSubStep in subSteps {
+                h += heightForSubStep(subSubStep, indentX: indentX + config.subStepIndent)
+            }
+        }
+        
         return h
     }
 
     private func calculateTotalPages() -> Int {
-        var pages = 1, cursor = contentTopY, first = true
-        for task in tasks {
-            let h = height(for: task)
-            if cursor + h > contentBottomY { pages += 1; cursor = contentTopY; first = true }
-            if !first { cursor += config.taskBlockGap }
-            cursor += h; first = false
+        var pages = 1
+        var cursor = firstPageTopY // 第一页使用包含标题的顶部位置
+        var isFirstOnPage = true
+        
+        for group in groups {
+            // 分组标题高度
+            let groupTitleH = heightForGroupTitle(group.title) + (isFirstOnPage ? 0 : config.groupTitleTopGap)
+            if cursor + groupTitleH > contentBottomY {
+                pages += 1
+                cursor = subsequentPageTopY // 后续页使用页面顶部
+                isFirstOnPage = true
+            }
+            cursor += groupTitleH
+            isFirstOnPage = false
+            
+            for task in group.tasks {
+                let h = height(for: task)
+                if cursor + h > contentBottomY {
+                    pages += 1
+                    cursor = subsequentPageTopY // 后续页使用页面顶部
+                    isFirstOnPage = true
+                }
+                if !isFirstOnPage { cursor += config.taskBlockGap }
+                cursor += h
+                isFirstOnPage = false
+            }
         }
+        
         return pages
     }
 
@@ -283,14 +500,9 @@ final class TodoPDFRenderer {
     private func drawHeader(in ctx: CGContext) {
         ctx.saveGState()
         let topY = config.pageMargins.top
-
-        // 列表图标
-        let iconSize: CGFloat = 22
-        let iconY = topY + (config.titleFont.lineHeight - iconSize) / 2 + 2
-        drawListIcon(at: CGPoint(x: contentLeftX, y: iconY), size: iconSize, in: ctx)
-
+        
         // 标题
-        let titleX = contentLeftX + iconSize + 14
+        let titleX = contentLeftX + 14.0
         let titleRect = CGRect(x: titleX, y: topY, width: contentRightX - titleX, height: config.titleFont.lineHeight)
         let p = NSMutableParagraphStyle()
         p.alignment = .left
@@ -307,40 +519,84 @@ final class TodoPDFRenderer {
         ctx.strokePath()
         ctx.restoreGState()
     }
-
-    private func drawListIcon(at origin: CGPoint, size: CGFloat, in ctx: CGContext) {
-        let lineH: CGFloat = 2.2
-        let gap = (size - lineH * 3) / 2
-        let w = size * 0.75
-        for i in 0..<3 {
-            let y = origin.y + CGFloat(i) * (lineH + gap)
-            UIBezierPath(roundedRect: CGRect(x: origin.x, y: y, width: w, height: lineH), cornerRadius: lineH / 2).fill()
-        }
+    
+    @discardableResult
+    private func drawGroupTitle(_ title: String, at y: CGFloat, in ctx: CGContext) -> CGFloat {
+        ctx.saveGState()
+        
+        var cur = y
+        let titleRect = CGRect(x: contentLeftX, y: cur, width: contentRightX - contentLeftX, height: config.groupTitleFont.lineHeight)
+        let p = NSMutableParagraphStyle()
+        p.alignment = .left
+        
+        // 绘制分组标题背景（浅灰色）
+        UIColor.lightGray.withAlphaComponent(0.15).setFill()
+        UIBezierPath(roundedRect: CGRect(x: contentLeftX - 8, y: cur - 4, width: contentRightX - contentLeftX + 16, height: config.groupTitleFont.lineHeight + 8), cornerRadius: 4).fill()
+        
+        // 绘制分组标题
+        (title as NSString).draw(in: titleRect, withAttributes: [
+            .font: config.groupTitleFont, .foregroundColor: UIColor.darkGray, .paragraphStyle: p
+        ])
+        
+        cur += config.groupTitleFont.lineHeight + config.groupTitleBottomGap
+        
+        ctx.restoreGState()
+        return cur
     }
-
+    
     @discardableResult
     private func drawTask(_ task: PDFTask, at y: CGFloat, in ctx: CGContext) -> CGFloat {
         var cur = y
         cur = drawRow(
             title: task.title, isCompleted: task.isCompleted,
-            font: config.taskFont, checkboxD: config.checkboxDiameter,
+            font: config.taskFont, indicatorD: indicatorDiameter(for: task),
             indentX: contentLeftX, at: cur, rowH: config.taskRowHeight,
-            priority: task.priority, tag: task.tag, in: ctx
+            priority: task.priority, tag: task.tag, isMainTask: true,
+            progress: task.progress, in: ctx
         )
-        for sub in task.subSteps {
-            cur = drawRow(
-                title: sub.title, isCompleted: sub.isCompleted,
-                font: config.subStepFont, checkboxD: config.checkboxDiameter * 0.8,
-                indentX: contentLeftX + config.subStepIndent, at: cur,
-                rowH: config.subStepRowHeight, priority: nil, tag: nil, in: ctx
-            )
-            if let note = sub.note {
-                cur = drawNote(note, at: cur, indentX: contentLeftX + config.subStepIndent + config.checkboxDiameter * 0.8 + config.checkboxTextGap, in: ctx)
-            }
+        
+        // 绘制主任务 note（与主任务文本开头对齐）
+        if let note = task.note {
+            let mainIndicatorD = indicatorDiameter(for: task)
+            let noteIndentX = textStartX(indentX: contentLeftX, indicatorD: mainIndicatorD)
+            cur += config.taskNoteTopGap // 添加间距
+            cur = drawNote(note, at: cur, indentX: noteIndentX, in: ctx)
         }
-        cur += 2
+        
+        // 递归绘制子步骤
+        for sub in task.subSteps {
+            cur = drawSubStep(sub, at: cur, indentX: contentLeftX + config.subStepIndent, in: ctx)
+        }
+        
+        cur += 15.0
         drawDashedLine(at: cur, in: ctx)
         cur += 2
+        return cur
+    }
+    
+    @discardableResult
+    private func drawSubStep(_ subStep: PDFSubStep, at y: CGFloat, indentX: CGFloat, in ctx: CGContext) -> CGFloat {
+        var cur = y
+        cur = drawRow(
+            title: subStep.title, isCompleted: subStep.isCompleted,
+            font: config.subStepFont, indicatorD: indicatorDiameter(for: subStep),
+            indentX: indentX, at: cur,
+            rowH: config.subStepRowHeight, priority: nil, tag: nil,
+            isMainTask: false, progress: subStep.progress, in: ctx
+        )
+        
+        if let note = subStep.note {
+            let subIndicatorD = indicatorDiameter(for: subStep)
+            cur = drawNote(note, at: cur, indentX: textStartX(indentX: indentX, indicatorD: subIndicatorD), in: ctx)
+        }
+        
+        // 递归绘制子步骤的子步骤
+        if let subSteps = subStep.subSteps {
+            for subSubStep in subSteps {
+                cur = drawSubStep(subSubStep, at: cur, indentX: indentX + config.subStepIndent, in: ctx)
+            }
+        }
+        
         return cur
     }
 
@@ -355,55 +611,54 @@ final class TodoPDFRenderer {
     }
 
     private func drawRow(
-        title: String, isCompleted: Bool, font: UIFont, checkboxD: CGFloat,
+        title: String, isCompleted: Bool, font: UIFont, indicatorD: CGFloat,
         indentX: CGFloat, at y: CGFloat, rowH: CGFloat,
-        priority: PDFPriority?, tag: String?, in ctx: CGContext
+        priority: PDFPriority?, tag: String?, isMainTask: Bool,
+        progress: Double?, in ctx: CGContext
     ) -> CGFloat {
         ctx.saveGState()
 
+        // 文本实际高度（支持多行换行）
+        let textX = textStartX(indentX: indentX, indicatorD: indicatorD)
+        let textWidth = textAvailableWidth(indentX: indentX, indicatorD: indicatorD, tag: tag, font: font)
+        let textH = textLineHeight(for: title, font: font, maxWidth: textWidth, minHeight: rowH)
+
+        // 指示器起始 X（优先级圆点之后）
+        let indicatorStartX = indentX + priorityDotD + priorityDotGap
+
         // 优先级圆点
-        var textStartX = indentX
         if config.showsPriority, let p = priority {
-            let dotD: CGFloat = 8
-            let dotY = y + (rowH - dotD) / 2
+            let dotY = y + (rowH - priorityDotD) / 2
             p.color.setFill()
-            UIBezierPath(ovalIn: CGRect(x: indentX, y: dotY, width: dotD, height: dotD)).fill()
-            textStartX += dotD + 6
+            UIBezierPath(ovalIn: CGRect(x: indentX, y: dotY, width: priorityDotD, height: priorityDotD)).fill()
         }
 
-        // 复选框
-        let cbY = y + (rowH - checkboxD) / 2
-        let cbRect = CGRect(x: textStartX, y: cbY, width: checkboxD, height: checkboxD)
-        if isCompleted {
-            UIColor.black.setFill()
-            UIBezierPath(ovalIn: cbRect).fill()
-            UIColor.white.setStroke()
-            ctx.setLineWidth(1.8); ctx.setLineCap(.round)
-            ctx.move(to: CGPoint(x: cbRect.minX + checkboxD * 0.25, y: cbRect.midY + checkboxD * 0.08))
-            ctx.addLine(to: CGPoint(x: cbRect.minX + checkboxD * 0.45, y: cbRect.midY + checkboxD * 0.28))
-            ctx.addLine(to: CGPoint(x: cbRect.minX + checkboxD * 0.75, y: cbRect.midY - checkboxD * 0.22))
-            ctx.strokePath()
+        // 绘制进度环或复选框
+        let indicatorY = y + (rowH - indicatorD) / 2
+        let indicatorRect = CGRect(x: indicatorStartX, y: indicatorY, width: indicatorD, height: indicatorD)
+        if let progress = progress {
+            // 绘制圆环进度条
+            drawProgressRing(in: indicatorRect, progress: progress, isCompleted: isCompleted, isMainTask: isMainTask, in: ctx)
         } else {
-            UIColor.black.setStroke()
-            ctx.setLineWidth(1.2)
-            UIBezierPath(ovalIn: cbRect.insetBy(dx: 0.6, dy: 0.6)).stroke()
+            // 绘制复选框
+            drawCheckbox(in: indicatorRect, isCompleted: isCompleted, isMainTask: isMainTask, in: ctx)
         }
 
-        // 标签（右侧）
-        var textRight = contentRightX
+        // 标签（右侧，首行垂直居中）
         if config.showsTag, let tag = tag {
             let tagAttrs: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: UIColor.gray]
             let tagSize = (tag as NSString).size(withAttributes: tagAttrs)
-            let tagRect = CGRect(x: contentRightX - tagSize.width, y: y, width: tagSize.width, height: rowH)
+            let tagY = y + (rowH - font.lineHeight) / 2
+            let tagRect = CGRect(x: contentRightX - tagSize.width, y: tagY, width: tagSize.width, height: font.lineHeight)
             (tag as NSString).draw(in: tagRect, withAttributes: tagAttrs)
-            textRight = contentRightX - tagSize.width - 8
         }
 
-        // 文字
-        let textX = textStartX + checkboxD + config.checkboxTextGap
-        let textRect = CGRect(x: textX, y: y, width: textRight - textX, height: rowH)
+        // 文字（多行换行，后续行与首行左对齐）
+        let firstLineH = font.lineHeight
+        let textY = y + (rowH - firstLineH) / 2
+        let textRect = CGRect(x: textX, y: textY, width: textWidth, height: textH)
         let p = NSMutableParagraphStyle()
-        p.alignment = .left; p.lineBreakMode = .byTruncatingTail
+        p.alignment = .left; p.lineBreakMode = .byWordWrapping
         var attrs: [NSAttributedString.Key: Any] = [
             .font: font, .foregroundColor: isCompleted ? UIColor.lightGray : UIColor.black, .paragraphStyle: p
         ]
@@ -414,7 +669,95 @@ final class TodoPDFRenderer {
         (title as NSString).draw(in: textRect, withAttributes: attrs)
 
         ctx.restoreGState()
-        return y + rowH
+        return y + textH
+    }
+
+    /// 绘制圆环进度条
+    private func drawProgressRing(in rect: CGRect, progress: Double, isCompleted: Bool, isMainTask: Bool, in ctx: CGContext) {
+        ctx.saveGState()
+        
+        let lineWidth = isMainTask ? config.progressRingWidth : config.progressRingWidth * 0.8
+        let clampedProgress = min(max(progress, 0.0), 1.0)
+        
+        // 背景圆环
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        let radius = (rect.width - lineWidth) / 2
+        
+        // 背景环
+        let bgPath = UIBezierPath(arcCenter: center, radius: radius,
+                                  startAngle: -CGFloat.pi / 2,
+                                  endAngle: CGFloat.pi * 1.5,
+                                  clockwise: true)
+        bgPath.lineWidth = lineWidth
+        UIColor.lightGray.withAlphaComponent(0.3).setStroke()
+        bgPath.stroke()
+        
+        // 进度环
+        if clampedProgress > 0 {
+            let progressPath = UIBezierPath(arcCenter: center, radius: radius,
+                                            startAngle: -CGFloat.pi / 2,
+                                            endAngle: -CGFloat.pi / 2 + CGFloat.pi * 2 * CGFloat(clampedProgress),
+                                            clockwise: true)
+            progressPath.lineWidth = lineWidth
+            progressPath.lineCapStyle = .round
+            
+            // 根据完成状态选择颜色
+            if isCompleted {
+                UIColor.black.setStroke()
+            } else if clampedProgress >= 1.0 {
+                UIColor.systemGreen.setStroke()
+            } else if clampedProgress > 0.7 {
+                UIColor.systemOrange.setStroke()
+            } else {
+                UIColor.systemBlue.setStroke()
+            }
+            
+            progressPath.stroke()
+        }
+        
+        ctx.restoreGState()
+    }
+    
+    /// 绘制复选框
+    private func drawCheckbox(in rect: CGRect, isCompleted: Bool, isMainTask: Bool, in ctx: CGContext) {
+        ctx.saveGState()
+        
+        if isMainTask {
+            // 主任务：圆角矩形
+            let path = UIBezierPath(roundedRect: rect, cornerRadius: config.checkboxCornerRadius)
+            if isCompleted {
+                UIColor.black.setFill()
+                path.fill()
+                UIColor.white.setStroke()
+                ctx.setLineWidth(config.checkboxBorderWidth); ctx.setLineCap(.round); ctx.setLineJoin(.round)
+                ctx.move(to: CGPoint(x: rect.minX + rect.width * 0.25, y: rect.midY + rect.height * 0.08))
+                ctx.addLine(to: CGPoint(x: rect.minX + rect.width * 0.46, y: rect.midY + rect.height * 0.24))
+                ctx.addLine(to: CGPoint(x: rect.minX + rect.width * 0.75, y: rect.midY - rect.height * 0.22))
+                ctx.strokePath()
+            } else {
+                UIColor.black.setStroke()
+                ctx.setLineWidth(config.checkboxBorderWidth)
+                UIBezierPath(roundedRect: rect.insetBy(dx: config.checkboxBorderWidth / 2.0, dy: config.checkboxBorderWidth / 2.0), cornerRadius: config.checkboxCornerRadius).stroke()
+            }
+        } else {
+            // 子步骤：圆圈
+            if isCompleted {
+                UIColor.black.setFill()
+                UIBezierPath(ovalIn: rect).fill()
+                UIColor.white.setStroke()
+                ctx.setLineWidth(config.checkboxBorderWidth); ctx.setLineCap(.round); ctx.setLineJoin(.round)
+                ctx.move(to: CGPoint(x: rect.minX + rect.width * 0.25, y: rect.midY + rect.height * 0.08))
+                ctx.addLine(to: CGPoint(x: rect.minX + rect.width * 0.45, y: rect.midY + rect.height * 0.28))
+                ctx.addLine(to: CGPoint(x: rect.minX + rect.width * 0.75, y: rect.midY - rect.height * 0.22))
+                ctx.strokePath()
+            } else {
+                UIColor.black.setStroke()
+                ctx.setLineWidth(config.checkboxBorderWidth)
+                UIBezierPath(ovalIn: rect.insetBy(dx: config.checkboxBorderWidth / 2.0, dy: config.checkboxBorderWidth / 2.0)).stroke()
+            }
+        }
+        
+        ctx.restoreGState()
     }
 
     private func drawDashedLine(at y: CGFloat, in ctx: CGContext) {
@@ -456,21 +799,132 @@ final class TodoPDFRenderer {
     }
 }
 
-
 class TodoPDFMananger {
     
     static func printMixedList() {
-        // 混合不同业务模型，只要都实现了 PDFTaskConvertible
-        let items: [PDFTaskConvertible] = [
-            TodoItem(id: "0", content: "无法暂停，无法跳转下一步", done: true, children: [], priorityLevel: 3, dueDate: Date()),
-            TodoItem(id: "1", content: "计时器画中画支持", done: false, children: [], priorityLevel: 3, dueDate: Date()),
-            TodoItem(id: "2", content: "严格模式", done: false,
-                     children: [TodoItem(id: "2.1", content: "无法暂停，无法跳转下一步", done: false, children: [], priorityLevel: 0, dueDate: nil)],
-                     priorityLevel: 2, dueDate: nil),
-            Note(title: "灵感记录", body: "试试 PDFKit 替代方案\n研究一下 UIPrintInteractionController"),
+        // 测试分组和嵌套子步骤
+        let groups = [
+            PDFGroup(title: "高优先级任务", tasks: [
+                TodoItem(id: "0",
+                         content: "完成项目需求文档",
+                         done: true,
+                         children: [],
+                         priorityLevel: 3,
+                         dueDate: Date(),
+                         progress: nil,
+                         note: "已完成并提交审核").asPDFTask(),
+                
+                TodoItem(id: "1",
+                         content: "开发计时器画中画功能",
+                         done: false,
+                         children: [],
+                         priorityLevel: 3,
+                         dueDate: Date().addingTimeInterval(86400 * 3),
+                         progress: 0.65,
+                         note: "核心功能已完成，正在优化性能").asPDFTask()
+            ]),
+            
+            PDFGroup(title: "开发任务", tasks: [
+                TodoItem(id: "3",
+                         content: "严格模式功能开发",
+                         done: false,
+                         children: [
+                            TodoItem(id: "3.1",
+                                     content: "实现无法暂停功能",
+                                     done: true,
+                                     children: [
+                                        TodoItem(id: "3.1.1",
+                                                 content: "添加暂停按钮拦截逻辑",
+                                                 done: true,
+                                                 children: [],
+                                                 priorityLevel: 0,
+                                                 dueDate: nil,
+                                                 progress: nil,
+                                                 note: "已完成"),
+                                        TodoItem(id: "3.1.2",
+                                                 content: "测试各种边界情况",
+                                                 done: false,
+                                                 children: [],
+                                                 priorityLevel: 0,
+                                                 dueDate: nil,
+                                                 progress: 0.5,
+                                                 note: nil)
+                                     ],
+                                     priorityLevel: 0,
+                                     dueDate: nil,
+                                     progress: nil,
+                                     note: "已完成核心逻辑"),
+                            TodoItem(id: "3.2",
+                                     content: "实现无法跳转下一步功能",
+                                     done: false,
+                                     children: [],
+                                     priorityLevel: 0,
+                                     dueDate: nil,
+                                     progress: 0.4,
+                                     note: "正在进行中")
+                         ],
+                         priorityLevel: 2,
+                         dueDate: Date().addingTimeInterval(86400 * 7),
+                         progress: 0.5,
+                         note: "整体进度50%").asPDFTask(),
+                
+                TodoItem(id: "4",
+                         content: "优化应用启动速度",
+                         done: false,
+                         children: [],
+                         priorityLevel: 1,
+                         dueDate: nil,
+                         progress: nil,
+                         note: nil).asPDFTask()
+            ]),
+            
+            PDFGroup(title: "测试和发布", tasks: [
+                TodoItem(id: "5",
+                         content: "编写单元测试",
+                         done: false,
+                         children: [],
+                         priorityLevel: 2,
+                         dueDate: Date().addingTimeInterval(86400),
+                         progress: 0.9,
+                         note: "已完成大部分测试用例").asPDFTask(),
+                
+                TodoItem(id: "6",
+                         content: "发布前准备",
+                         done: false,
+                         children: [
+                            TodoItem(id: "6.1",
+                                     content: "更新应用图标",
+                                     done: true,
+                                     children: [],
+                                     priorityLevel: 0,
+                                     dueDate: nil,
+                                     progress: nil,
+                                     note: nil),
+                            TodoItem(id: "6.2",
+                                     content: "准备截图和描述",
+                                     done: true,
+                                     children: [],
+                                     priorityLevel: 0,
+                                     dueDate: nil,
+                                     progress: nil,
+                                     note: "需要5张截图"),
+                            TodoItem(id: "6.3",
+                                     content: "提交审核",
+                                     done: false,
+                                     children: [],
+                                     priorityLevel: 0,
+                                     dueDate: Date().addingTimeInterval(86400 * 2),
+                                     progress: 0.2,
+                                     note: "等待最终确认")
+                         ],
+                         priorityLevel: 3,
+                         dueDate: Date().addingTimeInterval(86400 * 5),
+                         progress: 0.75,
+                         note: "发布前最后准备工作").asPDFTask()
+            ])
         ]
 
-        let renderer = TodoPDFRenderer(title: "专注需求", items: items)
+        let renderer = TodoPDFRenderer(title: "专注需求", groups: groups)
         
         TPLoadingIndicator.showLoading("正在生成 PDF...")
         // 2. 在后台线程渲染 PDF
@@ -500,7 +954,6 @@ class TodoPDFMananger {
         printInfo.jobName = jobTitle
         printInfo.orientation = .portrait
         printController.printInfo = printInfo
-        
         printController.printingItem = pdfURL
         
         if UIDevice.current.userInterfaceIdiom == .pad {
