@@ -236,7 +236,10 @@ class MyDayMainViewController: TPViewController,
     
     @objc private func clickMore() {
         TPImpactFeedback.impactWithSoftStyle()
-        MyDayPresenter.showSetting()
+//        MyDayPresenter.showSetting()
+        
+        let vc = IAPMainViewController()
+        vc.showAsNavigationRoot()
     }
     
     @objc private func clickDate(_ button: UIButton) {

@@ -141,7 +141,7 @@ final class TodoPDFRenderer {
         var taskBlockGap: CGFloat = 6
         var groupTitleTopGap: CGFloat = 20
         var groupTitleBottomGap: CGFloat = 10
-        var footerBrandText = "Printed with MyApp"
+        var footerBrandText = "Printed with TimelyPlan"
         var exportDate: Date = Date()
         /// 是否显示优先级圆点
         var showsPriority = true

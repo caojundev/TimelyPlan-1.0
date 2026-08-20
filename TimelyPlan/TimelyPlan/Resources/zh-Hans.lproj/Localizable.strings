@@ -220,8 +220,6 @@
 "Print List" = "打印列表";
 "Generating PDF..." = "正在生成 PDF...";
 
-
-
 "Delete Task" = "删除任务";
 "Empty Trash" = "清空废纸篓";
 "Are you sure to delete all tasks in trash?" = "确认删除废纸篓中的所有任务？";
@@ -1035,3 +1033,6 @@
 
 /* 分隔符 */
 ", " = "，";
+
+///********************** 内购 **********************///
+"Upgrade to Premium" = "升级到高级会员";

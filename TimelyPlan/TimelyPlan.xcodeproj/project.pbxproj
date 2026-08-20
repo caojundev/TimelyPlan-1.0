@@ -368,6 +368,18 @@
 		E51E5F653033008D00ACF30C /* TodoPDFRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F643033008C00ACF30C /* TodoPDFRenderer.swift */; };
 		E51E5F68303340E100ACF30C /* TPLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */; };
 		E51E5F6A3034860700ACF30C /* TodoPDFConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F693034860700ACF30C /* TodoPDFConvertible.swift */; };
+		E51E5F6D303543E600ACF30C /* MembershipBenefitsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F6C303543E600ACF30C /* MembershipBenefitsTableView.swift */; };
+		E51E5F70303561FD00ACF30C /* IAPFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F6F303561FD00ACF30C /* IAPFeature.swift */; };
+		E51E5F723035625F00ACF30C /* IAPProductSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */; };
+		E51E5F743035633700ACF30C /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F733035633700ACF30C /* IAPProduct.swift */; };
+		E51E5F76303592F500ACF30C /* IAPMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F75303592F500ACF30C /* IAPMainViewController.swift */; };
+		E51E5F793035952700ACF30C /* IAPDiscountBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F783035952700ACF30C /* IAPDiscountBadge.swift */; };
+		E51E5F7B3035960300ACF30C /* IAPProductCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F7A3035960300ACF30C /* IAPProductCardView.swift */; };
+		E51E5F7D303596A600ACF30C /* IAPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F7C303596A600ACF30C /* IAPConfig.swift */; };
+		E51E5F803035E42900ACF30C /* IAPContinueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F7F3035E42900ACF30C /* IAPContinueView.swift */; };
+		E51E5F823036BC4500ACF30C /* IAPReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F813036BC4400ACF30C /* IAPReminderView.swift */; };
+		E51E5F853036F0CB00ACF30C /* IAPActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */; };
+		E51E5F89303731F500ACF30C /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F88303731F500ACF30C /* SkeletonView.swift */; };
 		E51F94002FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */; };
 		E51F94032FFF582000734910 /* CalendarRangeEventsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */; };
 		E51F94062FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */; };
@@ -2532,6 +2544,18 @@
 		E51E5F643033008C00ACF30C /* TodoPDFRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPDFRenderer.swift; sourceTree = "<group>"; };
 		E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLoadingIndicator.swift; sourceTree = "<group>"; };
 		E51E5F693034860700ACF30C /* TodoPDFConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPDFConvertible.swift; sourceTree = "<group>"; };
+		E51E5F6C303543E600ACF30C /* MembershipBenefitsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBenefitsTableView.swift; sourceTree = "<group>"; };
+		E51E5F6F303561FD00ACF30C /* IAPFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPFeature.swift; sourceTree = "<group>"; };
+		E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPProductSelectorView.swift; sourceTree = "<group>"; };
+		E51E5F733035633700ACF30C /* IAPProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProduct.swift; sourceTree = "<group>"; };
+		E51E5F75303592F500ACF30C /* IAPMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPMainViewController.swift; sourceTree = "<group>"; };
+		E51E5F783035952700ACF30C /* IAPDiscountBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPDiscountBadge.swift; sourceTree = "<group>"; };
+		E51E5F7A3035960300ACF30C /* IAPProductCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProductCardView.swift; sourceTree = "<group>"; };
+		E51E5F7C303596A600ACF30C /* IAPConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPConfig.swift; sourceTree = "<group>"; };
+		E51E5F7F3035E42900ACF30C /* IAPContinueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPContinueView.swift; sourceTree = "<group>"; };
+		E51E5F813036BC4400ACF30C /* IAPReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPReminderView.swift; sourceTree = "<group>"; };
+		E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPActionsView.swift; sourceTree = "<group>"; };
+		E51E5F88303731F500ACF30C /* SkeletonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
 		E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCalendarDayEventIndicatorView.swift; sourceTree = "<group>"; };
 		E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfo.swift; sourceTree = "<group>"; };
 		E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfoFetcher.swift; sourceTree = "<group>"; };
@@ -5506,6 +5530,56 @@
 			path = LoadingIndicator;
 			sourceTree = "<group>";
 		};
+		E51E5F6B303543D100ACF30C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5F7C303596A600ACF30C /* IAPConfig.swift */,
+				E51E5F75303592F500ACF30C /* IAPMainViewController.swift */,
+				E51E5F813036BC4400ACF30C /* IAPReminderView.swift */,
+				E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */,
+				E51E5F833036BCA400ACF30C /* Membership */,
+				E51E5F7E3035E2B700ACF30C /* ContinueView */,
+				E51E5F77303594D700ACF30C /* ProductView */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E51E5F6E303561C000ACF30C /* IAPProduct */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5F6F303561FD00ACF30C /* IAPFeature.swift */,
+				E51E5F733035633700ACF30C /* IAPProduct.swift */,
+			);
+			path = IAPProduct;
+			sourceTree = "<group>";
+		};
+		E51E5F77303594D700ACF30C /* ProductView */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */,
+				E51E5F783035952700ACF30C /* IAPDiscountBadge.swift */,
+				E51E5F7A3035960300ACF30C /* IAPProductCardView.swift */,
+			);
+			path = ProductView;
+			sourceTree = "<group>";
+		};
+		E51E5F7E3035E2B700ACF30C /* ContinueView */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5F88303731F500ACF30C /* SkeletonView.swift */,
+				E51E5F7F3035E42900ACF30C /* IAPContinueView.swift */,
+			);
+			path = ContinueView;
+			sourceTree = "<group>";
+		};
+		E51E5F833036BCA400ACF30C /* Membership */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5F6C303543E600ACF30C /* MembershipBenefitsTableView.swift */,
+			);
+			path = Membership;
+			sourceTree = "<group>";
+		};
 		E51F94012FFF57D500734910 /* EventInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -7930,6 +8004,8 @@
 			isa = PBXGroup;
 			children = (
 				E5B499502FD9132C00F3A9BD /* IAPManager.swift */,
+				E51E5F6E303561C000ACF30C /* IAPProduct */,
+				E51E5F6B303543D100ACF30C /* ViewController */,
 			);
 			path = IAP;
 			sourceTree = "<group>";
@@ -12432,6 +12508,7 @@
 				E549B15C2F87CF820014BE85 /* TodoProgressEditViewController.swift in Sources */,
 				E5FC6BAC2F651CC800D5A5EA /* HabitStatsMainViewController.swift in Sources */,
 				E5371DD12FF0FCE500BA9DEF /* NotificationSound.swift in Sources */,
+				E51E5F89303731F500ACF30C /* SkeletonView.swift in Sources */,
 				E507E7B52F531A28003004C4 /* HabitUnitManageViewController.swift in Sources */,
 				E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */,
 				E54155612F49A415000B2972 /* FocusRecordListSectionController.swift in Sources */,
@@ -12577,11 +12654,13 @@
 				E51F941030028C8D00734910 /* CalendarYearDetailViewController.swift in Sources */,
 				E51A4C2D2DC26787005A0E3F /* CalendarWeekViewController.swift in Sources */,
 				E529ACC52F7E0100000EA2F1 /* TodoSmartListCell.swift in Sources */,
+				E51E5F76303592F500ACF30C /* IAPMainViewController.swift in Sources */,
 				E53632802FAB72C00095DFEC /* QuadrantLayoutEditView.swift in Sources */,
 				E5BB9E632D3BF0C70089667A /* TPCollectionCell.swift in Sources */,
 				E5BB9B372D3BEF920089667A /* IGListMoveIndex.m in Sources */,
 				E53F32982F68E88000B85B65 /* HabitReportYearlySectionController.swift in Sources */,
 				E5BB9DA92D3BF0C60089667A /* FlipClockCardElementView.swift in Sources */,
+				E51E5F803035E42900ACF30C /* IAPContinueView.swift in Sources */,
 				E5D7D8B62D43933600EC877A /* FocusRunningTimerNameView.swift in Sources */,
 				E5D7D9422D43933700EC877A /* FocusTimerStepNameCell.swift in Sources */,
 				E53E96B12D53B1B800EC4872 /* TPColorInfoTextValueTableCell.swift in Sources */,
@@ -12984,6 +13063,7 @@
 				E5D7D7DD2D43923800EC877A /* FocusScoreCalculator.swift in Sources */,
 				E5B3BABA3014B00800D908B6 /* MyDayTimelineConfig.swift in Sources */,
 				E55CE36A2D8BCCC20083316E /* TPCollectionDragExchangeReorder.swift in Sources */,
+				E51E5F823036BC4500ACF30C /* IAPReminderView.swift in Sources */,
 				E5D7D8DB2D43933600EC877A /* FocusFloatingEndView.swift in Sources */,
 				E5B3BABD3014F58300D908B6 /* MyDayHabitRecordProvider.swift in Sources */,
 				E5D7D8F12D43933600EC877A /* OpenCircleTitleView.swift in Sources */,
@@ -13026,6 +13106,7 @@
 				E53632A92FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift in Sources */,
 				E5BB9EAB2D3BF0C80089667A /* TPSegmentedMenuView.swift in Sources */,
 				E5BB9E0E2D3BF0C70089667A /* CALayer+Extensions.swift in Sources */,
+				E51E5F70303561FD00ACF30C /* IAPFeature.swift in Sources */,
 				E5BB9B422D3BEF920089667A /* CGPointExtension.swift in Sources */,
 				E50FF8AC2F78CFDF00B8F5BE /* TPGroupCollectionView.swift in Sources */,
 				E53632862FAB72C00095DFEC /* QuadrantFilterRuleEditViewController.swift in Sources */,
@@ -13044,6 +13125,7 @@
 				E5BB9E832D3BF0C80089667A /* PointElementView.swift in Sources */,
 				E5BB9E952D3BF0C80089667A /* PieLineView.swift in Sources */,
 				E518D69C2FBEAECE0045D456 /* CalendarTodoEventProvider.swift in Sources */,
+				E51E5F853036F0CB00ACF30C /* IAPActionsView.swift in Sources */,
 				E5BB9B462D3BEF920089667A /* UILabelLayoutManagerDelegate.swift in Sources */,
 				E549B19B2F89F6A70014BE85 /* TodoStepEditController.swift in Sources */,
 				E51B29062FA77A08006B3352 /* TodoTaskPageAddView.swift in Sources */,
@@ -13100,9 +13182,11 @@
 				E53F32BA2F69557500B85B65 /* HabitReportContentSectionController.swift in Sources */,
 				E5F078CF2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift in Sources */,
 				E5B499572FDAA00800F3A9BD /* CalendarMoreViewController.swift in Sources */,
+				E51E5F723035625F00ACF30C /* IAPProductSelectorView.swift in Sources */,
 				E5320C332FCAC443001DFE98 /* TodoTaskImporterViewController.swift in Sources */,
 				E5BB9D8D2D3BF0C60089667A /* TPNumberFieldTableCell.swift in Sources */,
 				E58C9E132F4AF0DC0096B842 /* FocusTimelineViewController.swift in Sources */,
+				E51E5F743035633700ACF30C /* IAPProduct.swift in Sources */,
 				E5BB9DEB2D3BF0C60089667A /* Date+Week.swift in Sources */,
 				E521E3552F6A355E0071DA12 /* HabitReportYearChartView.swift in Sources */,
 				E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */,
@@ -13270,6 +13354,7 @@
 				E5BB9D982D3BF0C60089667A /* TPRelativeTimePresetTableCell.swift in Sources */,
 				E534DAC62D59E75F0079AB08 /* TPLabelLayout.swift in Sources */,
 				E5BB9B512D3BEF920089667A /* ParagraphStyle.swift in Sources */,
+				E51E5F7B3035960300ACF30C /* IAPProductCardView.swift in Sources */,
 				E5D7D8C52D43933600EC877A /* FocusTimerInfo.swift in Sources */,
 				E56341FC2F947C6400E120BF /* TodoFilterHomeCell.swift in Sources */,
 				E5D7D9012D43933600EC877A /* FocusStartActionView.swift in Sources */,
@@ -13321,6 +13406,7 @@
 				E5FC6BC72F66A44D00D5A5EA /* HabitStatsCalendarMonthSectionController.swift in Sources */,
 				E507E7BB2F532DB2003004C4 /* HabitSystemUnitSectionController.swift in Sources */,
 				E507E7992F529369003004C4 /* HabitSettingViewController.swift in Sources */,
+				E51E5F7D303596A600ACF30C /* IAPConfig.swift in Sources */,
 				E5141F0C2F7CCD6E007A864B /* TodoListSearchResultsViewController.swift in Sources */,
 				E5BB9EB72D3BF0C80089667A /* TPDatePickerTableCell.swift in Sources */,
 				E50D60632F7A186F00D5E0A4 /* TodoListEmojiEditView.swift in Sources */,
@@ -13436,6 +13522,7 @@
 				E5BB9EB42D3BF0C80089667A /* TPYearMonthDatePickerViewController.swift in Sources */,
 				E5D7D8EF2D43933600EC877A /* FocusRecordEditBindSectionController.swift in Sources */,
 				E507E7AC2F52DEFA003004C4 /* HabitRecordTypeEditCell.swift in Sources */,
+				E51E5F793035952700ACF30C /* IAPDiscountBadge.swift in Sources */,
 				E5DA039D2FA03B7800A58ACC /* Sequence+Extensions.swift in Sources */,
 				E53ABEDC3008DA0200EB8632 /* MyDayUpdater.swift in Sources */,
 				E51B29022FA77A07006B3352 /* TodoTaskPageHeaderView.swift in Sources */,
@@ -13638,6 +13725,7 @@
 				E500E3A12FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift in Sources */,
 				E5BB9F132D3BF0C90089667A /* Language.swift in Sources */,
 				E58F46AD2F7AAD4B0046FA96 /* TodoUserListSelectSectionController.swift in Sources */,
+				E51E5F6D303543E600ACF30C /* MembershipBenefitsTableView.swift in Sources */,
 				E5F9E3E73021DDDB00EDC2A5 /* MyDayFocusTimerBindCell.swift in Sources */,
 				E57CC5F32F7FF13300ADDBA4 /* TodoTaskEditDetailView.swift in Sources */,
 				E5B33D642F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift in Sources */,
