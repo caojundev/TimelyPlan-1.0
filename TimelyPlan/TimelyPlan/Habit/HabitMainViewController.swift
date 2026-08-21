@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum HabitMainMenuType: Int, TPMenuRepresentable {
+enum HabitMainMenuType: Int, Codable, TPMenuRepresentable {
     case day = 0  /// 按日
     case week     /// 按周
     
@@ -112,12 +112,13 @@ class HabitMainViewController: TPContainerViewController, TPSidebarContent {
             return
         }
         
+        UIResponder.resignCurrentFirstResponder()
+        
         let slideStyle = SlideStyle.horizontalStyle(fromValue: self.menuType.rawValue,
                                                     toValue: menuType.rawValue)
         self.menuType = menuType
-    
-        UIResponder.resignCurrentFirstResponder()
         updateContentViewController(withAnimationStyle: slideStyle)
+        HabitState.shared.mainMenuType = menuType
     }
     
     private func updateContentViewController(withAnimationStyle style: SlideStyle = .none) {

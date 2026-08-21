@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum HabitTaskFilterType: Int, TPMenuRepresentable {
+enum HabitTaskFilterType: Int, Codable, TPMenuRepresentable {
     case all        /// 所有
     case todo       /// 待完成
     case completed  /// 完成

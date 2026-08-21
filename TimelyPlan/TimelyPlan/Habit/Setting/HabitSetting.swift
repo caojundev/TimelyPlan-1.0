@@ -28,7 +28,7 @@ class HabitSetting {
             return "HabitSetting"
         }
     }
-
+    
     /// 通知音
     @CloudStored(key: Key.sound.name, defaultValue: nil)
     var sound: NotificationSound?

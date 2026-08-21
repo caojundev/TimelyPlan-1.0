@@ -36,10 +36,9 @@ class HabitStatsCalendarMonthView: UIView {
 
     /// 周符号视图
     private lazy var symbolsView: TPWeekdaySymbolView = {
-        let view = TPWeekdaySymbolView(frame: .zero)
+        let view = TPWeekdaySymbolView(frame: .zero, style: .short)
         view.alpha = 0.8
         view.textColor = resGetColor(.title)
-        view.style = .short
         return view
     }()
 
