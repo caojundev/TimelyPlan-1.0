@@ -31,13 +31,30 @@ class MyDaySettingViewController: BaseSettingViewController {
         
         return cellItem
     }()
- 
-     lazy var generalSectionController: TPTableItemSectionController = {
-         let sectionController = TPTableItemSectionController()
-         sectionController.headerItem.height = 10.0
-         sectionController.cellItems = [firstWeekdayCellItem]
-         return sectionController
-     }()
+    
+    lazy var allDayEventsDisplayCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("All-Day Events Display")
+        cellItem.updater = {
+            let option = MyDaySetting.shared.allDayEventsDisplayOption
+            self?.allDayEventsDisplayCellItem.valueConfig = .valueText(option.title)
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editAllDayEventsDisplay()
+        }
+
+        return cellItem
+    }()
+    
+    lazy var generalSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 10.0
+        sectionController.cellItems = [firstWeekdayCellItem, allDayEventsDisplayCellItem]
+        return sectionController
+    }()
     
     // MARK: - 视图选项
     /// 显示农历
@@ -230,5 +247,20 @@ class MyDaySettingViewController: BaseSettingViewController {
         let vc = CalendarLocalEditViewController(style: .grouped)
         navigationController?.pushViewController(vc, animated: true)
     }
- }
+    
+    private func editAllDayEventsDisplay() {
+        let displayOption = MyDaySetting.shared.allDayEventsDisplayOption
+        let menuVC = TPMenuPickerViewController<TimelineAllDayEventsDisplayOption>()
+        menuVC.menuItems = TimelineAllDayEventsDisplayOption.allCases
+        menuVC.selectedItem = displayOption
+        menuVC.didPickItem = { selectedOption in
+            print("Selected: \(selectedOption.title)")
+            guard displayOption != selectedOption else { return }
+            MyDaySetting.shared.allDayEventsDisplayOption = selectedOption
+            self.adapter.reloadCell(forItem: self.allDayEventsDisplayCellItem, with: .none)
+        }
 
+        menuVC.popoverShow()
+    }
+    
+ }

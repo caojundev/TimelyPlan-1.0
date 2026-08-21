@@ -380,6 +380,10 @@
 		E51E5F823036BC4500ACF30C /* IAPReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F813036BC4400ACF30C /* IAPReminderView.swift */; };
 		E51E5F853036F0CB00ACF30C /* IAPActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */; };
 		E51E5F89303731F500ACF30C /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F88303731F500ACF30C /* SkeletonView.swift */; };
+		E51E5F8B3037FE3C00ACF30C /* TimelineAllDayFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8A3037FE3C00ACF30C /* TimelineAllDayFooterView.swift */; };
+		E51E5F8E3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8D3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift */; };
+		E51E5F9030384DAF00ACF30C /* TPMenuPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8F30384DAE00ACF30C /* TPMenuPickerViewController.swift */; };
+		E51E5F9230384E7100ACF30C /* TPMenuPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F9130384E7100ACF30C /* TPMenuPickerView.swift */; };
 		E51F94002FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */; };
 		E51F94032FFF582000734910 /* CalendarRangeEventsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */; };
 		E51F94062FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */; };
@@ -2556,6 +2560,10 @@
 		E51E5F813036BC4400ACF30C /* IAPReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPReminderView.swift; sourceTree = "<group>"; };
 		E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPActionsView.swift; sourceTree = "<group>"; };
 		E51E5F88303731F500ACF30C /* SkeletonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
+		E51E5F8A3037FE3C00ACF30C /* TimelineAllDayFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineAllDayFooterView.swift; sourceTree = "<group>"; };
+		E51E5F8D3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineAllDayEventsDisplayOption.swift; sourceTree = "<group>"; };
+		E51E5F8F30384DAE00ACF30C /* TPMenuPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMenuPickerViewController.swift; sourceTree = "<group>"; };
+		E51E5F9130384E7100ACF30C /* TPMenuPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMenuPickerView.swift; sourceTree = "<group>"; };
 		E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCalendarDayEventIndicatorView.swift; sourceTree = "<group>"; };
 		E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfo.swift; sourceTree = "<group>"; };
 		E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfoFetcher.swift; sourceTree = "<group>"; };
@@ -5364,6 +5372,7 @@
 				E518506C300F152300112DFC /* TimelineConfig.swift */,
 				E5185062300F11E100112DFC /* TimelineItem.swift */,
 				E518506A300F138A00112DFC /* TimelineView.swift */,
+				E51E5F8C303833C000ACF30C /* AllDay */,
 				E5185066300F12B100112DFC /* TimelineEventConverter.swift */,
 				E54410673031B5F300E398BE /* EventCell */,
 				E5185068300F132200112DFC /* TimelineConnectionCell.swift */,
@@ -5578,6 +5587,24 @@
 				E51E5F6C303543E600ACF30C /* MembershipBenefitsTableView.swift */,
 			);
 			path = Membership;
+			sourceTree = "<group>";
+		};
+		E51E5F8C303833C000ACF30C /* AllDay */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5F8A3037FE3C00ACF30C /* TimelineAllDayFooterView.swift */,
+				E51E5F8D3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift */,
+			);
+			path = AllDay;
+			sourceTree = "<group>";
+		};
+		E51E5F933038572100ACF30C /* MenuPicker */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5F8F30384DAE00ACF30C /* TPMenuPickerViewController.swift */,
+				E51E5F9130384E7100ACF30C /* TPMenuPickerView.swift */,
+			);
+			path = MenuPicker;
 			sourceTree = "<group>";
 		};
 		E51F94012FFF57D500734910 /* EventInfo */ = {
@@ -6329,6 +6356,7 @@
 				E53ABEE83009E35400EB8632 /* MyDaySetting.swift */,
 				E53ABEE43009D7D000EB8632 /* MyDaySettingViewController.swift */,
 				E5146C80302D6C80007A8BCB /* CalendarLocalEditViewController.swift */,
+				E51E5F933038572100ACF30C /* MenuPicker */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -12543,6 +12571,7 @@
 				E500E3A32FC7CD0400252011 /* TodoStatsDelayedTagDistribution.swift in Sources */,
 				E536329E2FAB84150095DFEC /* TodoDateInfoEditor.swift in Sources */,
 				E5320C492FCC667A001DFE98 /* CalendarEventListHeaderView.swift in Sources */,
+				E51E5F9230384E7100ACF30C /* TPMenuPickerView.swift in Sources */,
 				E5B9D08C2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift in Sources */,
 				E5BB9ED72D3BF0C80089667A /* TPEmojiView.swift in Sources */,
 				E5BB9D902D3BF0C60089667A /* TPImageInfoRightButtonTableCell.swift in Sources */,
@@ -13070,6 +13099,7 @@
 				E53B11392F94D1B300701410 /* TodoFilterProgressEditViewController.swift in Sources */,
 				E58F46C72F7B9DCC0046FA96 /* TodoUpdaterOption.swift in Sources */,
 				E55549612F76899B00C9460D /* SearchHighlightable.swift in Sources */,
+				E51E5F8B3037FE3C00ACF30C /* TimelineAllDayFooterView.swift in Sources */,
 				E53632912FAB73C50095DFEC /* TodoFilterRule+Quadrant.swift in Sources */,
 				E53735F12D9C1A7F00C5A001 /* TPSlider.swift in Sources */,
 				E50D60622F7A186F00D5E0A4 /* TodoListEditViewController.swift in Sources */,
@@ -13240,6 +13270,7 @@
 				E53480132F605B6300CFBF26 /* HabitTaskFilterButton.swift in Sources */,
 				E5FF4ED72FECCB1C00282416 /* TodoNotifiableTaskProvider.swift in Sources */,
 				E52F899C2D5B11B3001F18FA /* TPImageView.swift in Sources */,
+				E51E5F9030384DAF00ACF30C /* TPMenuPickerViewController.swift in Sources */,
 				E5BB9DF32D3BF0C60089667A /* DateComponents+Extensions.swift in Sources */,
 				E50D602A2F7A12B400D5E0A4 /* Date+RepeatScheduler.swift in Sources */,
 				E5D7D8CE2D43933600EC877A /* FocusEndDetailTimelineView.swift in Sources */,
@@ -13595,6 +13626,7 @@
 				E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */,
 				E5B33D3C2F80B15E00939C3E /* TodoBaseListSelectViewController.swift in Sources */,
 				E5C92F5A2FD273570051F355 /* TodoTaskSectionSelectViewController.swift in Sources */,
+				E51E5F8E3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift in Sources */,
 				E5FF4EDC2FED150C00282416 /* TodoTask+LocalNotifiable.swift in Sources */,
 				E5BB9EF32D3BF0C80089667A /* TPPageMenuRepresentable.swift in Sources */,
 				E5BB9EFA2D3BF0C80089667A /* TPSlideTransitioningDelegate.swift in Sources */,

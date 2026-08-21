@@ -28,7 +28,18 @@ class MyDayTimelinePageView: TPDayPageView {
         let timelineView = cell.timelineView
         timelineView.habitRecordProvider = habitRecordProvider
         timelineView.eventAddController = eventAddController
+        timelineView.allDayEventsDisplayOption = MyDaySetting.shared.allDayEventsDisplayOption
         timelineView.loadEvents(on: cell.date)
+    }
+    
+    func setAllDayEventsDisplayOption(_ option: TimelineAllDayEventsDisplayOption) {
+        guard let cells = adapter.visibleCells as? [MyDayTimelinePageCell] else {
+            return
+        }
+        
+        for cell in cells {
+            cell.timelineView.allDayEventsDisplayOption = option
+        }
     }
 }
 

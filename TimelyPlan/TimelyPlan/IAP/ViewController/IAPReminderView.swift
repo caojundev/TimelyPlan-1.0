@@ -82,6 +82,7 @@ The total amount for the subscription period will be charged to your iTunes acco
         button.titleConfig.font = .systemFont(ofSize: 13.0, weight: .medium)
         button.imageConfig.color = IAPColor.primary
         button.imageConfig.size = .size(4)
+        button.imageConfig.margins = UIEdgeInsets(right: 2.0)
         button.image = icon
     }
 

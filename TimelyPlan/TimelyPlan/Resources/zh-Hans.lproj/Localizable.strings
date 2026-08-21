@@ -24,9 +24,13 @@
 "Settings" = "设置";
 
 ///**********************我的一天*********************///
+"Collapse" = "收起";
+"%ld more all-day events" = "剩余%ld个全天事项";
+"Show All" = "显示全部";
 "Overlapping" = "重叠";
 
 "My Day Settings" = "我的一天设置";
+"All-Day Events Display" = "全天事项显示数量";
 "Show Calendar Event" = "显示日历事项";
 "Show Todo" = "显示待办事项";
 "Show Focus Timer" = "显示专注计时器";

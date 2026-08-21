@@ -21,6 +21,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.allDayEventsDisplayOption = MyDaySetting.shared.allDayEventsDisplayOption
         delegate = self
         setupBindings()
     }

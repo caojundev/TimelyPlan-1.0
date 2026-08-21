@@ -11,6 +11,7 @@ class MyDaySetting {
 
     enum Key: String, SettingKeyRepresentable {
         case firstWeekday
+        case allDayEventsDisplayOption
         case showLunar
         case showChineseHolidays
         case showCalendarEvent
@@ -25,6 +26,9 @@ class MyDaySetting {
 
     @CloudStored(key: Key.firstWeekday.name, defaultValue: .monday)
     var firstWeekday: Weekday
+    
+    @CloudStored(key: Key.allDayEventsDisplayOption.name, defaultValue: .show3)
+    var allDayEventsDisplayOption: TimelineAllDayEventsDisplayOption
     
     @CloudStored(key: Key.showLunar.name, defaultValue: true)
     var showLunar: Bool

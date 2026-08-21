@@ -236,13 +236,14 @@ class MyDayMainViewController: TPViewController,
     
     @objc private func clickMore() {
         TPImpactFeedback.impactWithSoftStyle()
-//        MyDayPresenter.showSetting()
-        
-        let vc = IAPMainViewController()
-        vc.showAsNavigationRoot()
+        MyDayPresenter.showSetting()
     }
     
     @objc private func clickDate(_ button: UIButton) {
+        let vc = IAPMainViewController()
+        vc.showAsNavigationRoot()
+        return
+        
         let datePickerVC = TPYearMonthDatePickerViewController()
         datePickerVC.date = visibleDate
         datePickerVC.didPickDate = { date in
@@ -320,8 +321,13 @@ extension MyDayMainViewController: SettingAgentObserver {
         case .showChineseHolidays:
             let showChineseHolidays = MyDaySetting.shared.showChineseHolidays
             calendarView.setShowChineseHolidays(showChineseHolidays)
+        case .allDayEventsDisplayOption:
+            let displayOption = MyDaySetting.shared.allDayEventsDisplayOption
+            pageView.setAllDayEventsDisplayOption(displayOption)
         default:
             break
         }
     }
+    
+
 }
