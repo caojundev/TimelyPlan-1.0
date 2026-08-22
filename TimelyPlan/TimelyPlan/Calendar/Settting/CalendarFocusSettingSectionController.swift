@@ -1,14 +1,14 @@
 //
-//  CalendarHabitSettingSectionController.swift
+//  CalendarFocusSettingSectionController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/7/1.
+//  Created by caojun on 2026/8/22.
 //
 
 import Foundation
 import UIKit
 
-class CalendarHabitSettingSectionController: TPTableItemSectionController {
+class CalendarFocusSettingSectionController: TPTableItemSectionController {
     
     let defaultCellHeight = 50.0
     
@@ -16,15 +16,15 @@ class CalendarHabitSettingSectionController: TPTableItemSectionController {
     lazy var showInCalendarCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
         cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Show in Calendar")
+        cellItem.title = resGetString("Show Focus Timer")
         cellItem.updater = {
             guard let self = self else { return }
-            let isOn = CalendarSetting.shared.showHabit
+            let isOn = CalendarSetting.shared.showFocus
             self.showInCalendarCellItem.isOn = isOn
         }
 
         cellItem.valueChanged = { isOn in
-            CalendarSetting.shared.showHabit = isOn
+            CalendarSetting.shared.showFocus = isOn
         }
 
         return cellItem
@@ -38,7 +38,7 @@ class CalendarHabitSettingSectionController: TPTableItemSectionController {
         cellItem.title = resGetString("Display Range")
         cellItem.updater = {
             guard let self = self else { return }
-            let range = CalendarSetting.shared.habitDisplayRange
+            let range = CalendarSetting.shared.focusDisplayRange
             self.displayRangeCellItem.valueConfig = .valueText(range.title)
         }
 
@@ -60,7 +60,7 @@ class CalendarHabitSettingSectionController: TPTableItemSectionController {
             return
         }
         
-        let displayRange = CalendarSetting.shared.habitDisplayRange
+        let displayRange = CalendarSetting.shared.focusDisplayRange
         let menuItem = TPMenuItem.item(with: CalendarEventDisplayRange.allCases,
                                        updater: { range, menuAction in
             menuAction.handleBeforeDismiss = true
@@ -74,8 +74,8 @@ class CalendarHabitSettingSectionController: TPTableItemSectionController {
                 return
             }
             
-            if CalendarSetting.shared.habitDisplayRange != range {
-                CalendarSetting.shared.habitDisplayRange = range
+            if CalendarSetting.shared.focusDisplayRange != range {
+                CalendarSetting.shared.focusDisplayRange = range
                 self.adapter?.reloadCell(forItem: self.displayRangeCellItem, with: .none)
             }
         }

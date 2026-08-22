@@ -66,20 +66,11 @@ class HabitHomeDayViewController: TPContainerViewController,
     private lazy var filterButton: HabitTaskFilterButton = {
         let button = HabitTaskFilterButton()
         button.didSelectFilterType = { [weak self] filterType in
-            self?.selectFilterType(filterType)
+            self?.viewModel.setFilterType(filterType)
         }
         
         return button
     }()
-    
-    private func selectFilterType(_ filterType: HabitTaskFilterType) {
-        guard viewModel.filterType != filterType else {
-            return
-        }
-        
-        viewModel.setFilterType(filterType)
-        HabitState.shared.dayTaskFilterType = filterType
-    }
     
     private(set) lazy var listView: HabitPeriodItemListView = {
         let view = HabitPeriodItemListView(frame: view.bounds)

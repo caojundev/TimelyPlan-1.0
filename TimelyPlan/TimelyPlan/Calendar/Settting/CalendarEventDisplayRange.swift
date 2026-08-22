@@ -1,5 +1,5 @@
 //
-//  CalendarHabitDisplayRange.swift
+//  CalendarEventDisplayRange.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/1.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// 日历中习惯任务的显示范围
-enum CalendarHabitDisplayRange: String, Codable, TPMenuRepresentable {
+enum CalendarEventDisplayRange: String, Codable, TPMenuRepresentable {
     case todayOnly
     case next3Days
     case next7Days

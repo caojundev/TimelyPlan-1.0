@@ -88,6 +88,10 @@ class FocusTimer: NSObject, SortableIdentifiable {
         return name ?? resGetString("Untitled Timer")
     }
     
+    var isAllDay: Bool {
+        return startTime < 0
+    }
+    
     /// 转换为 DateInterval
     var interval: DateInterval {
         let start = startDate ?? .distantPast

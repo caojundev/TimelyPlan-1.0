@@ -46,6 +46,12 @@ class CalendarSettingViewController: BaseSettingViewController {
         return sectionController
     }()
     
+    lazy var focusSectionController: CalendarFocusSettingSectionController = {
+        let sectionController = CalendarFocusSettingSectionController()
+        sectionController.headerItem.height = normalHeaderHeight
+        return sectionController
+    }()
+    
     // MARK: - 新事项
     lazy var defaultEventDurationCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
@@ -289,6 +295,7 @@ class CalendarSettingViewController: BaseSettingViewController {
          self.title = resGetString("Calendar Settings")
          self.sectionControllers = [generalSectionController,
                                     habitSectionController,
+                                    focusSectionController,
                                     newEventsSectionController,
                                     alertSectionController,
                                     viewOptionsSectionController,
@@ -330,7 +337,7 @@ class CalendarSettingViewController: BaseSettingViewController {
         let firstWeekday = CalendarSetting.shared.firstWeekday
         WeekdayPickerController.show(currentWeekday: firstWeekday,
                                      allowWeekdays: [.sunday, .monday],
-                                     from: cell.contentView,
+                                     from: cell,
                                      popoverPosition: .bottomLeft,
                                      permittedPositions: [.bottomLeft, .topLeft],
                                      isSourceViewCovered: false,

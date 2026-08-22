@@ -287,14 +287,21 @@ class FocusSettingViewController: BaseSettingViewController {
          sectionController.cellItems = [autoHideHourCellItem]
          return sectionController
      }()
-     
-     func sectionController(title: String) -> TPTableItemSectionController {
-         let sectionController = TPTableItemSectionController()
-         sectionController.headerItem.title = title
-         sectionController.headerItem.height = titleHeaderHeight
-         sectionController.headerItem.padding = titleHeaderPadding
-         return sectionController
-     }
+
+    lazy var showInCalendarSectionController: CalendarFocusSettingSectionController = {
+        let sectionController = CalendarFocusSettingSectionController()
+        sectionController.showInCalendarCellItem.title = resGetString("Show in Calendar")
+        sectionController.headerItem.height = normalHeaderHeight
+        return sectionController
+    }()
+    
+    func sectionController(title: String) -> TPTableItemSectionController {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.title = title
+        sectionController.headerItem.height = titleHeaderHeight
+        sectionController.headerItem.padding = titleHeaderPadding
+        return sectionController
+    }
      
      override func viewDidLoad() {
          super.viewDidLoad()
@@ -304,7 +311,8 @@ class FocusSettingViewController: BaseSettingViewController {
                                     pomodoroSectionController,
                                     steppedSectionController,
                                     stopwatchSectionController,
-                                    flipClockSectionController]
+                                    flipClockSectionController,
+                                    showInCalendarSectionController]
          self.reloadData()
      }
     

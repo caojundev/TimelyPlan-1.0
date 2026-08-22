@@ -22,7 +22,7 @@ class HabitMainViewController: TPContainerViewController, TPSidebarContent {
     var sidebarController: SidebarController?
     
     /// 菜单类型
-    private var menuType: HabitMainMenuType = .day
+    private var menuType = HabitState.shared.mainMenuType
     
     /// 选项菜单
     lazy var typeMenuView: TPSegmentedMenuView = {

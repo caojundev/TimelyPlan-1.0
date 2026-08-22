@@ -35,8 +35,12 @@ class CalendarSetting {
         case allDayEventReminder
         
         case hiddenCalendars
+        
         case showHabit /// 显示习惯
         case habitDisplayRange /// 习惯显示范围
+        
+        case showFocus /// 显示专注
+        case focusDisplayRange /// 专注显示范围
         
         static func keyPrefix() -> String? {
             return "CalendarSetting"
@@ -82,8 +86,15 @@ class CalendarSetting {
     @CloudStored(key: Key.showHabit.name, defaultValue: true)
     var showHabit: Bool
     
-    @CloudStored(key: Key.habitDisplayRange.name, defaultValue: CalendarHabitDisplayRange.todayOnly)
-    var habitDisplayRange: CalendarHabitDisplayRange
+    @CloudStored(key: Key.habitDisplayRange.name, defaultValue: CalendarEventDisplayRange.todayOnly)
+    var habitDisplayRange: CalendarEventDisplayRange
+    
+
+    @CloudStored(key: Key.showFocus.name, defaultValue: true)
+    var showFocus: Bool
+    
+    @CloudStored(key: Key.focusDisplayRange.name, defaultValue: CalendarEventDisplayRange.todayOnly)
+    var focusDisplayRange: CalendarEventDisplayRange
     
     static let shared = CalendarSetting()
     

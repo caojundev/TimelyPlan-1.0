@@ -11,6 +11,7 @@ class HabitDayPeriodItemViewModel: HabitPeriodItemViewModel {
     
     override init() {
         super.init()
+        self.filterType = HabitState.shared.dayTaskFilterType
         self.updatePlaceholder()
     }
     
@@ -22,6 +23,7 @@ class HabitDayPeriodItemViewModel: HabitPeriodItemViewModel {
         self.filterType = filterType
         self.updatePlaceholder()
         self.loadGroups()
+        HabitState.shared.dayTaskFilterType = filterType
     }
     
     /// 更新占位视图

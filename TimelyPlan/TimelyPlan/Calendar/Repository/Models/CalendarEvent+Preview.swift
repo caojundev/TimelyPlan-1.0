@@ -55,6 +55,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             return todoRepeatInfo
         case .habit:
             return habitRepeatInfo
+        case .focus:
+            return focusRepeatInfo
         }
     }
     
@@ -66,6 +68,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             return todoAlarmDescription
         case .habit:
             return habitAlarmDescription
+        case .focus:
+            return nil
         }
     }
     
@@ -77,6 +81,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             return todoSourceDescription
         case .habit:
             return habitSourceDescription
+        case .focus:
+            return focusSourceDescription
         }
     }
     
@@ -97,6 +103,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             }
         case .habit:
             return true
+        case .focus:
+            return false
         }
     }
     
@@ -111,6 +119,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         case .todo:
             return isEditable
         case .habit:
+            return false
+        case .focus:
             return false
         }
     }
@@ -134,25 +144,17 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             return nil
         }
         
-        let timePlan = task.timePlan
-        var repeatParts = [String]()
-        if let repeatTitle = timePlan.title {
-            repeatParts.append(repeatTitle)
-        }
-        
-        if let repeatSubtitle = timePlan.subtitle {
-            repeatParts.append(repeatSubtitle)
-        }
-    
-        let title = repeatParts.joined(separator: ", ")
-        var subtitle: String?
-        if let endDate = task.dateRange.endDate {
-            let format = resGetString("Until %@")
-            subtitle = String(format: format, endDate.yearMonthDayString(omitYear: true))
-        }
-        
-        return (title, subtitle)
+        return repeatInfo(for: task.timePlan, endDate: task.dateRange.endDate)
     }
+    
+    private var focusRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
+        guard let timer = sourceItem as? FocusTimer else {
+            return nil
+        }
+        
+        return repeatInfo(for: timer.timePlan, endDate: timer.endDate)
+    }
+    
     
     private var systemRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
         guard let event = sourceItem as? EKEvent, event.hasRecurrenceRules else {
@@ -214,6 +216,10 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         return resGetString("Habit")
     }
     
+    private var focusSourceDescription: String? {
+        return resGetString("Focus")
+    }
+
     private var systemSourceDescription: String? {
         guard let event = sourceItem as? EKEvent else {
             return nil
@@ -225,4 +231,26 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         
         return nil
     }
+    
+    private func repeatInfo(for timePlan: TaskTimePlanRegularRule,
+                            endDate: Date?) -> (ruleDescription: String?, endDescription: String?)? {
+        var repeatParts = [String]()
+        if let repeatTitle = timePlan.title {
+            repeatParts.append(repeatTitle)
+        }
+        
+        if let repeatSubtitle = timePlan.subtitle {
+            repeatParts.append(repeatSubtitle)
+        }
+    
+        let title = repeatParts.joined(separator: ", ")
+        var subtitle: String?
+        if let endDate = endDate {
+            let format = resGetString("Until %@")
+            subtitle = String(format: format, endDate.yearMonthDayString(omitYear: true))
+        }
+        
+        return (title, subtitle)
+    }
+    
 }

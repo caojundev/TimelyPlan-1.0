@@ -385,6 +385,9 @@
 		E51E5F9030384DAF00ACF30C /* TPMenuPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8F30384DAE00ACF30C /* TPMenuPickerViewController.swift */; };
 		E51E5F9230384E7100ACF30C /* TPMenuPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F9130384E7100ACF30C /* TPMenuPickerView.swift */; };
 		E51E5F953038865400ACF30C /* HabitState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F943038865400ACF30C /* HabitState.swift */; };
+		E51E5F97303944B000ACF30C /* CalendarFocusEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F96303944B000ACF30C /* CalendarFocusEventProvider.swift */; };
+		E51E5F99303945CE00ACF30C /* FocusTimer+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F98303945CE00ACF30C /* FocusTimer+Calendar.swift */; };
+		E51E5F9B303957D700ACF30C /* CalendarFocusSettingSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F9A303957D700ACF30C /* CalendarFocusSettingSectionController.swift */; };
 		E51F94002FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */; };
 		E51F94032FFF582000734910 /* CalendarRangeEventsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */; };
 		E51F94062FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */; };
@@ -615,7 +618,7 @@
 		E5371DDF2FF1FD1C00BA9DEF /* notification_sound_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5371DDD2FF1FD1C00BA9DEF /* notification_sound_24@3x.png */; };
 		E5371DE92FF36A9D00BA9DEF /* CalendarHabitEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DE82FF36A9C00BA9DEF /* CalendarHabitEventProvider.swift */; };
 		E5371DEB2FF372C300BA9DEF /* HabitTask+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DEA2FF372C300BA9DEF /* HabitTask+Calendar.swift */; };
-		E5371DED2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DEC2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift */; };
+		E5371DED2FF4A5CD00BA9DEF /* CalendarEventDisplayRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DEC2FF4A5CD00BA9DEF /* CalendarEventDisplayRange.swift */; };
 		E5371DEF2FF4C03100BA9DEF /* CalendarHabitSettingSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DEE2FF4C03000BA9DEF /* CalendarHabitSettingSectionController.swift */; };
 		E5371DF12FF4FA7300BA9DEF /* TaskNotificationDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DF02FF4FA7300BA9DEF /* TaskNotificationDispatcher.swift */; };
 		E5371DF32FF50E4B00BA9DEF /* TaskNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5371DF22FF50E4B00BA9DEF /* TaskNotificationHandler.swift */; };
@@ -2566,6 +2569,9 @@
 		E51E5F8F30384DAE00ACF30C /* TPMenuPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMenuPickerViewController.swift; sourceTree = "<group>"; };
 		E51E5F9130384E7100ACF30C /* TPMenuPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMenuPickerView.swift; sourceTree = "<group>"; };
 		E51E5F943038865400ACF30C /* HabitState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitState.swift; sourceTree = "<group>"; };
+		E51E5F96303944B000ACF30C /* CalendarFocusEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFocusEventProvider.swift; sourceTree = "<group>"; };
+		E51E5F98303945CE00ACF30C /* FocusTimer+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusTimer+Calendar.swift"; sourceTree = "<group>"; };
+		E51E5F9A303957D700ACF30C /* CalendarFocusSettingSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFocusSettingSectionController.swift; sourceTree = "<group>"; };
 		E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCalendarDayEventIndicatorView.swift; sourceTree = "<group>"; };
 		E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfo.swift; sourceTree = "<group>"; };
 		E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfoFetcher.swift; sourceTree = "<group>"; };
@@ -2796,7 +2802,7 @@
 		E5371DDD2FF1FD1C00BA9DEF /* notification_sound_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification_sound_24@3x.png"; sourceTree = "<group>"; };
 		E5371DE82FF36A9C00BA9DEF /* CalendarHabitEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHabitEventProvider.swift; sourceTree = "<group>"; };
 		E5371DEA2FF372C300BA9DEF /* HabitTask+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Calendar.swift"; sourceTree = "<group>"; };
-		E5371DEC2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHabitDisplayRange.swift; sourceTree = "<group>"; };
+		E5371DEC2FF4A5CD00BA9DEF /* CalendarEventDisplayRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventDisplayRange.swift; sourceTree = "<group>"; };
 		E5371DEE2FF4C03000BA9DEF /* CalendarHabitSettingSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHabitSettingSectionController.swift; sourceTree = "<group>"; };
 		E5371DF02FF4FA7300BA9DEF /* TaskNotificationDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNotificationDispatcher.swift; sourceTree = "<group>"; };
 		E5371DF22FF50E4B00BA9DEF /* TaskNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNotificationHandler.swift; sourceTree = "<group>"; };
@@ -5417,6 +5423,7 @@
 				E5B4995D2FDC271400F3A9BD /* CalendarSystemEventProvider.swift */,
 				E518D69B2FBEAECE0045D456 /* CalendarTodoEventProvider.swift */,
 				E5371DE82FF36A9C00BA9DEF /* CalendarHabitEventProvider.swift */,
+				E51E5F96303944B000ACF30C /* CalendarFocusEventProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -5600,13 +5607,13 @@
 			path = AllDay;
 			sourceTree = "<group>";
 		};
-		E51E5F933038572100ACF30C /* MenuPicker */ = {
+		E51E5F933038572100ACF30C /* Menu */ = {
 			isa = PBXGroup;
 			children = (
 				E51E5F8F30384DAE00ACF30C /* TPMenuPickerViewController.swift */,
 				E51E5F9130384E7100ACF30C /* TPMenuPickerView.swift */,
 			);
-			path = MenuPicker;
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		E51F94012FFF57D500734910 /* EventInfo */ = {
@@ -5949,6 +5956,7 @@
 				E518D6A02FBEC6610045D456 /* DateInterval+Calendar.swift */,
 				E5B499612FDC2ED800F3A9BD /* TodoTask+Calendar.swift */,
 				E5371DEA2FF372C300BA9DEF /* HabitTask+Calendar.swift */,
+				E51E5F98303945CE00ACF30C /* FocusTimer+Calendar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -6232,8 +6240,9 @@
 			children = (
 				E52EF6202FB211B8002CF355 /* CalendarSetting.swift */,
 				E53632AE2FAE14060095DFEC /* CalendarSettingViewController.swift */,
-				E5371DEC2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift */,
+				E5371DEC2FF4A5CD00BA9DEF /* CalendarEventDisplayRange.swift */,
 				E5371DEE2FF4C03000BA9DEF /* CalendarHabitSettingSectionController.swift */,
+				E51E5F9A303957D700ACF30C /* CalendarFocusSettingSectionController.swift */,
 				E52EF62B2FB4A417002CF355 /* CalendarEventDurationEditViewController.swift */,
 				E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */,
 			);
@@ -6358,7 +6367,6 @@
 				E53ABEE83009E35400EB8632 /* MyDaySetting.swift */,
 				E53ABEE43009D7D000EB8632 /* MyDaySettingViewController.swift */,
 				E5146C80302D6C80007A8BCB /* CalendarLocalEditViewController.swift */,
-				E51E5F933038572100ACF30C /* MenuPicker */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -7588,6 +7596,7 @@
 			isa = PBXGroup;
 			children = (
 				E5BB9D0C2D3BF0C50089667A /* TPLoopingPickerView.swift */,
+				E51E5F933038572100ACF30C /* Menu */,
 				E5BB9D032D3BF0C50089667A /* Count */,
 				E5BB9D0D2D3BF0C50089667A /* Duration */,
 				E5802C032D4F6C6D00BFFE05 /* Date */,
@@ -12374,6 +12383,7 @@
 				E5BB9E9F2D3BF0C80089667A /* HourHeatMapView.swift in Sources */,
 				E51E5F953038865400ACF30C /* HabitState.swift in Sources */,
 				E5D7D7EF2D43923800EC877A /* FocusRepository.swift in Sources */,
+				E51E5F97303944B000ACF30C /* CalendarFocusEventProvider.swift in Sources */,
 				E5D7D9192D43933700EC877A /* FocusPieChartSectionController.swift in Sources */,
 				E5141F0A2F7CCD61007A864B /* TodoListSearchResultCell.swift in Sources */,
 				E5BB9DC92D3BF0C60089667A /* Sortable.swift in Sources */,
@@ -12464,7 +12474,7 @@
 				E5F9E3BB301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift in Sources */,
 				E5BB9E202D3BF0C70089667A /* NSManagedObjectContext+Setup.swift in Sources */,
 				E5D7D9402D43933700EC877A /* FocusTimerStepMenuController.swift in Sources */,
-				E5371DED2FF4A5CD00BA9DEF /* CalendarHabitDisplayRange.swift in Sources */,
+				E5371DED2FF4A5CD00BA9DEF /* CalendarEventDisplayRange.swift in Sources */,
 				E53E96AD2D53A3E200EC4872 /* TPInfoTextValueView.swift in Sources */,
 				E57CC5BF2F7F9FA600ADDBA4 /* TodoTaskGroup.swift in Sources */,
 				E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */,
@@ -13322,6 +13332,7 @@
 				E5BB9F4A2D3BF45F0089667A /* SidebarController.swift in Sources */,
 				E57CC5D82F7FCED300ADDBA4 /* TodoTaskQuickAddSendView.swift in Sources */,
 				E5BB9DBF2D3BF0C60089667A /* String+Theme.swift in Sources */,
+				E51E5F9B303957D700ACF30C /* CalendarFocusSettingSectionController.swift in Sources */,
 				E5BB9EE42D3BF0C80089667A /* TPIcon.swift in Sources */,
 				E5168BDA2F547DBE0000A760 /* HabitReminder.swift in Sources */,
 				E55528532FB707560093DD7E /* CalendarDragDropMangeView.swift in Sources */,
@@ -13667,6 +13678,7 @@
 				E55528592FB89F410093DD7E /* CalendarAxisLayout.swift in Sources */,
 				E50DD7B22D714F3300A85E87 /* TPCalendarScrollableWeekView.swift in Sources */,
 				E500E3932FC5D7DD00252011 /* TodoStatsMonthlyViewController.swift in Sources */,
+				E51E5F99303945CE00ACF30C /* FocusTimer+Calendar.swift in Sources */,
 				E529ACF42F7E48AD000EA2F1 /* TodoTagProcessorUpdater.swift in Sources */,
 				E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */,
 				E5F9E3F03022258C00EDC2A5 /* MyDayTodoBindSearchResultSectionController.swift in Sources */,

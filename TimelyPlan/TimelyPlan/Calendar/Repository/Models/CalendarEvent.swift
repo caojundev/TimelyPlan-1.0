@@ -53,6 +53,7 @@ enum CalendarEventSource: Int, CaseIterable {
     case system // 系统日历
     case todo   // 待办任务
     case habit  // 习惯任务
+    case focus  // 专注计时器
 }
 
 class CalendarEvent: NSObject {

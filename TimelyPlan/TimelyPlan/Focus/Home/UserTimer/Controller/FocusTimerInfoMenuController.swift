@@ -30,6 +30,10 @@ class FocusTimerInfoMenuController: FocusUserTimerMenuController {
             self.didSelectMenuActionType?(type)
         }
         
+        menuVC.onClickStart = { timer in
+            FocusPresenter.startFocus(with: timer, forceAutoStart: true)
+        }
+        
         return menuVC
     }
     
@@ -50,11 +54,24 @@ class FocusTimerInfoMenuController: FocusUserTimerMenuController {
 
 class FocusTimerInfoSheetMenuViewController: TPSheetMenuViewController {
     
+    var onClickStart: ((FocusTimer) -> Void)?
+    
     private let infoViewHeight = 70.0
 
     private let indicatorSize = CGSize(width: 6.0, height: 36.0)
     
     private let infoView = TPColorInfoView()
+    
+    /// 开始按钮
+    private lazy var startButton: TPDefaultButton = {
+        let button = TPDefaultButton()
+        button.padding = UIEdgeInsets(value: 10.0)
+        button.hitTestEdgeInsets = UIEdgeInsets(value: -10.0)
+        button.image = resGetImage("triangle_right_32")
+        button.imageConfig.color = .label
+        button.addTarget(self, action: #selector(clickStart(_:)), for: .touchUpInside)
+        return button
+    }()
     
     /// 任务
     let timer: FocusTimer
@@ -70,7 +87,13 @@ class FocusTimerInfoSheetMenuViewController: TPSheetMenuViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        startButton.imageConfig.color = timer.color
+        startButton.imageConfig.shouldRenderImageWithColor = true
+        infoView.rightAccessoryView = startButton
+        infoView.rightAccessorySize = .size(8)
+        infoView.rightAccessoryMargins = UIEdgeInsets(left: 4.0, right: 4.0)
         view.addSubview(infoView)
+        
         updateInfo()
         actionsBarHeight = 80.0
         setupActionsBar(actions: [doneAction])
@@ -99,4 +122,12 @@ class FocusTimerInfoSheetMenuViewController: TPSheetMenuViewController {
         infoView.title = timer.displayName
         infoView.subtitle = timer.timerDescription
     }
+    
+    @objc func clickStart(_ button: UIButton) {
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.onClickStart?(self.timer)
+        }
+    }
+    
 }

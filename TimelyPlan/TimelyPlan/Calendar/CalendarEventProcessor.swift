@@ -21,6 +21,8 @@ class CalendarEventProcessor {
             clickTodoEvent(event)
         case .habit:
             clickHabitEvent(event)
+        case .focus:
+            clickFocusEvent(event)
         }
     }
     
@@ -51,6 +53,15 @@ class CalendarEventProcessor {
         CalendarPresenter.editHabitEvent(event)
     }
     
+    /// 点击专注计时器
+    private func clickFocusEvent(_ event: CalendarEvent) {
+        guard let timer = event.sourceItem as? FocusTimer else {
+            return
+        }
+        
+        FocusPresenter.showSheetMenu(for: timer)
+    }
+
     // MARK: - 更新事项
     
     /// 更新事项日期
@@ -62,6 +73,8 @@ class CalendarEventProcessor {
             updateTodoEvent(event, with: dateRange, completion: completion)
         case .habit:
             updateHabitEvent(event, with: dateRange, completion: completion)
+        case .focus:
+            break
         }
     }
     

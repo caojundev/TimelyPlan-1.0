@@ -105,6 +105,8 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
             title = resGetString("Todo Task")
         case .habit:
             title = resGetString("Habit")
+        case .focus:
+            title = resGetString("Focus")
         }
         
         var actions = [TPButtonAction]()

@@ -35,6 +35,12 @@ class CalendarEventChangeObserver: SettingAgentObserver {
             observeSettingKeys.append(contentsOf: [.showHabit, .habitDisplayRange])
         }
         
+        /// 专注计时器
+        if sources.contains(.focus) {
+            FocusRepository.addUpdater(self, for: [.timer])
+            observeSettingKeys.append(contentsOf: [.showFocus, .focusDisplayRange])
+        }
+        
         if observeSettingKeys.count > 0 {
             CalendarSetting.shared.addObserver(self, forKeys: observeSettingKeys)
         }
@@ -51,7 +57,7 @@ class CalendarEventChangeObserver: SettingAgentObserver {
         }
         
         switch key {
-        case .showCompletedTask, .showHabit, .habitDisplayRange:
+        case .showCompletedTask, .showHabit, .habitDisplayRange, .showFocus, .focusDisplayRange:
             updater.calendarEventsDidChange(in: [.infiniteInterval])
         default:
             break
@@ -184,17 +190,29 @@ extension CalendarEventChangeObserver: HabitTaskProcessorDelegate {
     
     /// 远程习惯任务改变
     func didChangeRemoteHabitTask(with results: EntityChangeResults<HabitTask>?) {
+        guard CalendarSetting.shared.showHabit else {
+            return
+        }
+        
         updater.calendarEventsDidChange(in: [.infiniteInterval])
     }
     
     /// 添加任务时通知
     func didCreateHabitTask(_ task: HabitTask) {
+        guard CalendarSetting.shared.showHabit else {
+            return
+        }
+        
         let interval = task.dateRange.interval
         updater.calendarEventsDidChange(in: [interval])
     }
     
     /// 更新任务通知
     func didUpdateHabitTask(_ task: HabitTask, with editingTask: HabitEditingTask) {
+        guard CalendarSetting.shared.showHabit else {
+            return
+        }
+        
         let oldInterval = task.dateRange.interval
         let newInterval = editingTask.dateRange.interval
         guard oldInterval != newInterval ||
@@ -210,13 +228,74 @@ extension CalendarEventChangeObserver: HabitTaskProcessorDelegate {
     
     /// 删除任务通知
     func didDeleteHabitTask(_ task: HabitTask) {
+        guard CalendarSetting.shared.showHabit else {
+            return
+        }
+        
         let interval = task.dateRange.interval
         updater.calendarEventsDidChange(in: [interval])
     }
     
     /// 改变了任务的归档状态
     func didChangeArchivedState(for task: HabitTask) {
+        guard CalendarSetting.shared.showHabit else {
+            return
+        }
+        
         let interval = task.dateRange.interval
         updater.calendarEventsDidChange(in: [interval])
     }
+}
+
+extension CalendarEventChangeObserver: FocusTimerProcessorDelegate {
+    
+    func didChangeRemoteFocusTimer(with results: EntityChangeResults<FocusTimer>?) {
+        guard CalendarSetting.shared.showFocus else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [.infiniteInterval])
+    }
+        
+    func didCreateFocusTimer(_ timer: FocusTimer) {
+        guard CalendarSetting.shared.showFocus else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [timer.interval])
+    }
+
+    func didChangeArchivedState(_ isArchived: Bool, for timer: FocusTimer) {
+        guard CalendarSetting.shared.showFocus else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [timer.interval])
+    }
+    
+    func didDeleteFocusTimer(_ timer: FocusTimer) {
+        guard CalendarSetting.shared.showFocus else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [timer.interval])
+    }
+    
+    func didUpdateFocusTimer(_ timer: FocusTimer, with editingTimer: FocusEditingTimer) {
+        guard CalendarSetting.shared.showFocus else {
+            return
+        }
+        
+        let oldInterval = timer.interval
+        let newInterval = editingTimer.dateRange.interval
+        guard oldInterval != newInterval ||
+                timer.timePlan != editingTimer.timePlan ||
+                timer.startTime != editingTimer.startTime ||
+                timer.config != editingTimer.config else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [oldInterval, newInterval])
+    }
+    
 }
