@@ -31,6 +31,13 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         return vc
     }()
     
+    /// 时间线
+    lazy var timelineViewController: UINavigationController = {
+        let vc = GanttChartViewController()
+//        vc.sidebarController = sidebarController
+        return UINavigationController(rootViewController: vc)
+    }()
+    
     /// 四象限
     lazy var quadrantViewController: UINavigationController = {
         let vc = QuadrantMainViewController()
@@ -126,6 +133,8 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
             vc = myDayViewController
         case .todo:
             vc = todoViewController
+        case .timeline:
+            vc = timelineViewController
         case .quadrants:
             vc = quadrantViewController
         case .calendar:

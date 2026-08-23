@@ -648,9 +648,9 @@ class TPMultiColumnViewController: UIViewController,
         return false
     }
     
+    private let triggerEdgeWidth = 25.0
     private func shouldReceiveTouch(_ touch: UITouch, on cell: UITableViewCell) -> Bool {
         let point = touch.location(in: cell)
-        let triggerEdgeWidth = 30.0
         if point.x < triggerEdgeWidth || point.x > cell.frame.maxX - triggerEdgeWidth {
             return true
         }

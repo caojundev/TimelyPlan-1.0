@@ -361,8 +361,14 @@ class TPSidebarViewController: UIViewController,
             return false
         }
 
+        if otherGestureRecognizer is UIPanGestureRecognizer {
+            return true
+        }
+        
         return true
     }
+    
+    private let triggerEdgeWidth = 25.0
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if self.isExpand {
@@ -370,24 +376,8 @@ class TPSidebarViewController: UIViewController,
         }
         
         /// 侧边栏未展开状态
-        let touchPoint = touch.location(in: self.view)
-        guard touchPoint.x < 20.0 else {
-            return false
-        }
-        
-        var bShouldReceive = true
-        var aView = touch.view
-        while aView != nil {
-            /// 触摸点在控件上
-            if aView is UIControl {
-                bShouldReceive = false
-                break
-            }
-            
-            aView = aView?.superview
-        }
-
-        return bShouldReceive
+        let touchPoint = touch.location(in: self.view)        
+        return touchPoint.x < triggerEdgeWidth
     }
     
     // MARK: - TPColumnContainerViewDelegate

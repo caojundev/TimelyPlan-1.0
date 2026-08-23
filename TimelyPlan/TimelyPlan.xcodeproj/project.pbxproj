@@ -388,6 +388,9 @@
 		E51E5F97303944B000ACF30C /* CalendarFocusEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F96303944B000ACF30C /* CalendarFocusEventProvider.swift */; };
 		E51E5F99303945CE00ACF30C /* FocusTimer+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F98303945CE00ACF30C /* FocusTimer+Calendar.swift */; };
 		E51E5F9B303957D700ACF30C /* CalendarFocusSettingSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F9A303957D700ACF30C /* CalendarFocusSettingSectionController.swift */; };
+		E51E5F9E303A8DBE00ACF30C /* sideMenu_timeline_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51E5F9C303A8DBD00ACF30C /* sideMenu_timeline_40@2x.png */; };
+		E51E5F9F303A8DBE00ACF30C /* sideMenu_timeline_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E51E5F9D303A8DBD00ACF30C /* sideMenu_timeline_40@3x.png */; };
+		E51E5FA2303A932000ACF30C /* GanttTimelineMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */; };
 		E51F94002FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */; };
 		E51F94032FFF582000734910 /* CalendarRangeEventsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */; };
 		E51F94062FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */; };
@@ -2572,6 +2575,9 @@
 		E51E5F96303944B000ACF30C /* CalendarFocusEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFocusEventProvider.swift; sourceTree = "<group>"; };
 		E51E5F98303945CE00ACF30C /* FocusTimer+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusTimer+Calendar.swift"; sourceTree = "<group>"; };
 		E51E5F9A303957D700ACF30C /* CalendarFocusSettingSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarFocusSettingSectionController.swift; sourceTree = "<group>"; };
+		E51E5F9C303A8DBD00ACF30C /* sideMenu_timeline_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_timeline_40@2x.png"; sourceTree = "<group>"; };
+		E51E5F9D303A8DBD00ACF30C /* sideMenu_timeline_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_timeline_40@3x.png"; sourceTree = "<group>"; };
+		E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineMainViewController.swift; sourceTree = "<group>"; };
 		E51F93FF2FFF44BD00734910 /* TPCalendarDayEventIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCalendarDayEventIndicatorView.swift; sourceTree = "<group>"; };
 		E51F94022FFF582000734910 /* CalendarRangeEventsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfo.swift; sourceTree = "<group>"; };
 		E51F94052FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRangeEventsInfoFetcher.swift; sourceTree = "<group>"; };
@@ -5616,6 +5622,14 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
+		E51E5FA0303A913000ACF30C /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
 		E51F94012FFF57D500734910 /* EventInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -7026,6 +7040,7 @@
 				E5BB9F3F2D3BF45F0089667A /* Main */,
 				E51F941630049A2C00734910 /* MyDay */,
 				E50DD7D02D72EF8F00A85E87 /* Todo */,
+				E51E5FA0303A913000ACF30C /* Timeline */,
 				E53632672FAB72BF0095DFEC /* Quadrant */,
 				E51A43802DB73A0400DC84C9 /* Calendar */,
 				E5D7D7B42D43922900EC877A /* Focus */,
@@ -10008,6 +10023,8 @@
 			children = (
 				E563F1AB2FE8082900DF86BB /* sideMenu_24@2x.png */,
 				E563F1AC2FE8082900DF86BB /* sideMenu_24@3x.png */,
+				E51E5F9C303A8DBD00ACF30C /* sideMenu_timeline_40@2x.png */,
+				E51E5F9D303A8DBD00ACF30C /* sideMenu_timeline_40@3x.png */,
 				E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */,
 				E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */,
 				E563F1B82FE8E42600DF86BB /* sideMenu_calendar_40@2x.png */,
@@ -11616,6 +11633,7 @@
 				E55CE3582D8BC2A60083316E /* quadrant_III_32@3x.png in Resources */,
 				E506B5C42F638B2E008B3321 /* habit_task_filter_todo_24@2x.png in Resources */,
 				E55E4BD62F9336170068E032 /* calendar_10_24@2x.png in Resources */,
+				E51E5F9F303A8DBE00ACF30C /* sideMenu_timeline_40@3x.png in Resources */,
 				E5BB9ABB2D3BEF0D0089667A /* todo_task_action_move_24@3x.png in Resources */,
 				E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */,
 				E5E9F7902FC03FCA00717004 /* todo_step_copyAsMarkdown_24@2x.png in Resources */,
@@ -11957,6 +11975,7 @@
 				E518505B300E1FD400112DFC /* myDay_overlapping_12@2x.png in Resources */,
 				E5D7D97D2D43E19700EC877A /* focus_timer_step_addNext_24@3x.png in Resources */,
 				E5DA03A42FA0A59800A58ACC /* todo_group_type_completionDate_24@3x.png in Resources */,
+				E51E5F9E303A8DBE00ACF30C /* sideMenu_timeline_40@2x.png in Resources */,
 				E50D94CE2D45248D00F57957 /* gear_24@2x.png in Resources */,
 				E500DE552DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@2x.png in Resources */,
 				E55E4BE52F9336170068E032 /* calendar_29_24@2x.png in Resources */,
@@ -13290,6 +13309,7 @@
 				E5D7D8CE2D43933600EC877A /* FocusEndDetailTimelineView.swift in Sources */,
 				E5D7D9052D43933600EC877A /* StopwatchTimerProgressView.swift in Sources */,
 				E524D2A02FD00753002791E5 /* TodoSectionManageViewController.swift in Sources */,
+				E51E5FA2303A932000ACF30C /* GanttTimelineMainViewController.swift in Sources */,
 				E5D7D8D72D43933600EC877A /* FocusFlipClockTopbar.swift in Sources */,
 				E5BB9EA32D3BF0C80089667A /* HeatMapCell.swift in Sources */,
 				E5320C472FCC3DAF001DFE98 /* CalendarEventListCell.swift in Sources */,
