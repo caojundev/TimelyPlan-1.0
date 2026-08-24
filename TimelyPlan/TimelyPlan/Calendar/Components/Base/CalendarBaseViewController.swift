@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CalendarBaseViewController: TPViewController,
                                   CalendarTitleViewProvider,

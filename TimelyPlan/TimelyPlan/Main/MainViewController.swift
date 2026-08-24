@@ -33,8 +33,8 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     
     /// 时间线
     lazy var timelineViewController: UINavigationController = {
-        let vc = GanttChartViewController()
-//        vc.sidebarController = sidebarController
+        let vc = GanttTimelineMainViewController()
+        vc.sidebarController = sidebarController
         return UINavigationController(rootViewController: vc)
     }()
     

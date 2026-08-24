@@ -1,22 +1,22 @@
 //
-//  CalendarModeBarButtonItem.swift
+//  GanttTimeScaleBarButtonItem.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2025/4/30.
+//  Created by caojun on 2026/8/24.
 //
 
 import Foundation
 import UIKit
 
-class CalendarModeBarButtonItem: UIBarButtonItem {
+class GanttTimeScaleBarButtonItem: UIBarButtonItem {
     
-    /// 选中菜单类型
-    var didSelectMode: ((CalendarMode) -> Void)?
+    /// 选中菜单
+    var didSelectScale: ((GanttTimeScale.Scale) -> Void)?
     
     /// 模式
-    var mode: CalendarMode = CalendarState.shared.mode {
+    var scale: GanttTimeScale.Scale = GanttTimelineState.shared.scale {
         didSet {
-            if mode != oldValue {
+            if scale != oldValue {
                 updateButton()
             }
         }
@@ -27,11 +27,15 @@ class CalendarModeBarButtonItem: UIBarButtonItem {
         button.padding = UIEdgeInsets(horizontal: 5.0)
         button.imageConfig.color = resGetColor(.title)
         button.didSelectMenuAction = { action in
-            guard let mode: CalendarMode = action.actionType() else {
+            guard let self = self else { return }
+            guard let scale: GanttTimeScale.Scale = action.actionType() else {
                 return
             }
             
-            self?.didSelectMode?(mode)
+            if self.scale != scale {
+                self.scale = scale
+                self.didSelectScale?(scale)
+            }
         }
         
         return button
@@ -48,14 +52,15 @@ class CalendarModeBarButtonItem: UIBarButtonItem {
     }
     
     private func updateButton() {
-        let currentMode = mode
-        let menuItem = TPMenuItem.item(with: CalendarMode.allCases) { mode, action in
+        let currentScale = scale
+        let menuItem = TPMenuItem.item(with: GanttTimeScale.Scale.allCases) { scale, action in
             action.handleBeforeDismiss = true
-            action.isChecked = mode == currentMode
+            action.isChecked = scale == currentScale
         }
         
         button.menuItems = [menuItem]
-        button.image = mode.iconImage
+        button.image = scale.iconImage
         button.sizeToFit()
     }
 }
+
