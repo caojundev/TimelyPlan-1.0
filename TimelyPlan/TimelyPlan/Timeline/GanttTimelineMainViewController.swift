@@ -36,24 +36,42 @@ class GanttTimelineMainViewController: TPViewController {
                                    action: #selector(clickMore))
         return item
     }()
-
+    
     private lazy var taskListView: GanttTaskListView = {
         let view = GanttTaskListView()
         return view
     }()
     
-    private lazy var timelineView: GanttTimelineView = {
+    private lazy var timeScale: GanttTimeScale = {
         // 创建时间尺度
         let calendar = Calendar.current
         let today = Date()
         let startDate = calendar.date(byAdding: .month, value: -2, to: today)!
         let endDate = calendar.date(byAdding: .month, value: 6, to: today)!
         let timeScale = GanttTimeScale(scale: .day, startDate: startDate, endDate: endDate)
+        return timeScale
+    }()
+    
+    
+    private let headerHeight = 60.0
+    
+    private lazy var headerView: TimelineHeaderView = {
+        let view = TimelineHeaderView(
+            frame: .zero,
+            headerHeight: headerHeight,
+            timeScale: timeScale
+        )
         
-        // 创建 GanttTimelineView
-        let view = GanttTimelineView(timeScale: timeScale)
         return view
     }()
+    
+    private lazy var timelineView: GanttTimelineView = {
+        let view = GanttTimelineView(timeScale: self.timeScale)
+        return view
+    }()
+    
+    // 横向滚动同步器
+    let horizontalSynchronizer = HorizontalScrollSynchronizer()
     
     /// 添加视图
     private var addView: TPAddView?
@@ -68,15 +86,29 @@ class GanttTimelineMainViewController: TPViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBarButtonItems()
+        view.addSubview(headerView)
         view.addSubview(timelineView)
-        view.addSubview(taskListView)
+//        view.addSubview(taskListView)
+//        taskListView.isHidden = true
         setupAddView()
         setupTestData()
+        
+        horizontalSynchronizer.addSyncableView(headerView)
+        horizontalSynchronizer.addSyncableView(timelineView)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        timelineView.frame = view.safeAreaFrame()
+        let layoutFrame = view.safeAreaFrame()
+        headerView.width = layoutFrame.width
+        headerView.height = layoutFrame.height
+        headerView.origin = layoutFrame.origin
+        
+        timelineView.frame = CGRect(x: layoutFrame.minX,
+                                    y: layoutFrame.minY + headerHeight,
+                                    width: layoutFrame.width,
+                                    height: layoutFrame.height - headerHeight)
+        
         taskListView.width = 180.0
         taskListView.height = timelineView.height
         taskListView.top = timelineView.top
@@ -132,6 +164,7 @@ class GanttTimelineMainViewController: TPViewController {
         var newTimeScale = timelineView.timeScale
         newTimeScale.scale = scale
         timelineView.timeScale = newTimeScale
+        headerView.configure(timeScale: newTimeScale)
     }
     
     
