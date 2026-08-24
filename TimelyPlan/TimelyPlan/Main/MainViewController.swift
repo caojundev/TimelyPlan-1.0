@@ -139,6 +139,8 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
             vc = quadrantViewController
         case .calendar:
             vc = calendarViewController
+        case .goal:
+            vc = UIViewController()
         case .focus:
             vc = focusViewController
         case .habit:

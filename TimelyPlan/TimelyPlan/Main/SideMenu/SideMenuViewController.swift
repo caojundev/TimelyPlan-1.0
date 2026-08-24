@@ -36,6 +36,9 @@ class SideMenuViewController: TPTableViewController,
         return menuItem
     }()
 
+    /// 目标
+    let goalMenuItem = TPMenuItem.item(with: [SideMenuType.goal])
+
     /// 专注
     let focusMenuItem = TPMenuItem.item(with: [SideMenuType.focus])
 
@@ -73,8 +76,9 @@ class SideMenuViewController: TPTableViewController,
     // MARK: - dataSource
     func sectionObjects(for adapter: TPTableViewAdapter) -> [ListDiffable]? {
         return [myDayMenuItem,
-                taskMenuItem,
                 calendarMenuItem,
+                taskMenuItem,
+                goalMenuItem,
                 focusMenuItem,
                 habitMenuItem,
                 settingMenuItem]

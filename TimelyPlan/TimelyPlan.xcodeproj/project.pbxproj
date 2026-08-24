@@ -768,6 +768,8 @@
 		E549B19B2F89F6A70014BE85 /* TodoStepEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B1962F89F6A70014BE85 /* TodoStepEditController.swift */; };
 		E549B19D2F89F7C20014BE85 /* TodoStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B19C2F89F7C20014BE85 /* TodoStep.swift */; };
 		E549B19F2F8A01AE0014BE85 /* TodoStepAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549B19E2F8A01AD0014BE85 /* TodoStepAddView.swift */; };
+		E54A067E303BDC69001FF4A1 /* sideMenu_goal_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A067C303BDC67001FF4A1 /* sideMenu_goal_40@2x.png */; };
+		E54A067F303BDC69001FF4A1 /* sideMenu_goal_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A067D303BDC69001FF4A1 /* sideMenu_goal_40@3x.png */; };
 		E54C7C7B2F5BADD300263B82 /* HabitRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */; };
 		E54C7C7D2F5BADE200263B82 /* HabitDatePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */; };
 		E54C7C7F2F5BB1EE00263B82 /* HabitPeriodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7E2F5BB1EE00263B82 /* HabitPeriodItem.swift */; };
@@ -2955,6 +2957,8 @@
 		E549B1962F89F6A70014BE85 /* TodoStepEditController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoStepEditController.swift; sourceTree = "<group>"; };
 		E549B19C2F89F7C20014BE85 /* TodoStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStep.swift; sourceTree = "<group>"; };
 		E549B19E2F8A01AD0014BE85 /* TodoStepAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepAddView.swift; sourceTree = "<group>"; };
+		E54A067C303BDC67001FF4A1 /* sideMenu_goal_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_goal_40@2x.png"; sourceTree = "<group>"; };
+		E54A067D303BDC69001FF4A1 /* sideMenu_goal_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_goal_40@3x.png"; sourceTree = "<group>"; };
 		E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecord.swift; sourceTree = "<group>"; };
 		E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDatePeriod.swift; sourceTree = "<group>"; };
 		E54C7C7E2F5BB1EE00263B82 /* HabitPeriodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPeriodItem.swift; sourceTree = "<group>"; };
@@ -6667,6 +6671,13 @@
 			path = Edit;
 			sourceTree = "<group>";
 		};
+		E54A0680303BDD3D001FF4A1 /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Goal;
+			sourceTree = "<group>";
+		};
 		E54E632C2F5AFE1500FCBCAE /* Task */ = {
 			isa = PBXGroup;
 			children = (
@@ -7039,10 +7050,11 @@
 				E5BB9F272D3BF4330089667A /* Common */,
 				E5BB9F3F2D3BF45F0089667A /* Main */,
 				E51F941630049A2C00734910 /* MyDay */,
+				E51A43802DB73A0400DC84C9 /* Calendar */,
 				E50DD7D02D72EF8F00A85E87 /* Todo */,
 				E51E5FA0303A913000ACF30C /* Timeline */,
 				E53632672FAB72BF0095DFEC /* Quadrant */,
-				E51A43802DB73A0400DC84C9 /* Calendar */,
+				E54A0680303BDD3D001FF4A1 /* Goal */,
 				E5D7D7B42D43922900EC877A /* Focus */,
 				E59243C62F4FFC6400CA2393 /* Habit */,
 				E55549632F76C0F700C9460D /* Setting */,
@@ -10025,6 +10037,8 @@
 				E563F1AC2FE8082900DF86BB /* sideMenu_24@3x.png */,
 				E51E5F9C303A8DBD00ACF30C /* sideMenu_timeline_40@2x.png */,
 				E51E5F9D303A8DBD00ACF30C /* sideMenu_timeline_40@3x.png */,
+				E54A067C303BDC67001FF4A1 /* sideMenu_goal_40@2x.png */,
+				E54A067D303BDC69001FF4A1 /* sideMenu_goal_40@3x.png */,
 				E51F94193004F20D00734910 /* sideMenu_myDay_40@2x.png */,
 				E51F941A3004F20E00734910 /* sideMenu_myDay_40@3x.png */,
 				E563F1B82FE8E42600DF86BB /* sideMenu_calendar_40@2x.png */,
@@ -11950,6 +11964,7 @@
 				E5D7D9882D43E35000EC877A /* focus_timer_stepMode_focus_24@3x.png in Resources */,
 				E56B94602F8CD6D0001E488B /* todo_group_type_default_24@3x.png in Resources */,
 				E500DE572DB09D4500EAEAF7 /* todo_filter_indicator_tag_12@2x.png in Resources */,
+				E54A067E303BDC69001FF4A1 /* sideMenu_goal_40@2x.png in Resources */,
 				E56B947E2F8CDB42001E488B /* todo_sort_order_descending_24@3x.png in Resources */,
 				E50D94F32D452DD700F57957 /* focus_record_timeline_paused_24@3x.png in Resources */,
 				E55CE3652D8BC4BB0083316E /* quadrant_circle_IV@3x.png in Resources */,
@@ -11974,6 +11989,7 @@
 				E55528392FB5CB2C0093DD7E /* todo_smartlist_today_80@3x.png in Resources */,
 				E518505B300E1FD400112DFC /* myDay_overlapping_12@2x.png in Resources */,
 				E5D7D97D2D43E19700EC877A /* focus_timer_step_addNext_24@3x.png in Resources */,
+				E54A067F303BDC69001FF4A1 /* sideMenu_goal_40@3x.png in Resources */,
 				E5DA03A42FA0A59800A58ACC /* todo_group_type_completionDate_24@3x.png in Resources */,
 				E51E5F9E303A8DBE00ACF30C /* sideMenu_timeline_40@2x.png in Resources */,
 				E50D94CE2D45248D00F57957 /* gear_24@2x.png in Resources */,
