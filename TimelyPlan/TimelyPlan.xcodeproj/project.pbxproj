@@ -781,6 +781,7 @@
 		E54A0696303C2C71001FF4A1 /* ganttTimeScale_month_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A0690303C2C71001FF4A1 /* ganttTimeScale_month_24@2x.png */; };
 		E54A0697303C2C71001FF4A1 /* ganttTimeScale_day_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A0691303C2C71001FF4A1 /* ganttTimeScale_day_24@2x.png */; };
 		E54A0698303C2C71001FF4A1 /* ganttTimeScale_day_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A0692303C2C71001FF4A1 /* ganttTimeScale_day_24@3x.png */; };
+		E54A069B303C48C8001FF4A1 /* GanttTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A069A303C48C8001FF4A1 /* GanttTaskListView.swift */; };
 		E54C7C7B2F5BADD300263B82 /* HabitRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */; };
 		E54C7C7D2F5BADE200263B82 /* HabitDatePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */; };
 		E54C7C7F2F5BB1EE00263B82 /* HabitPeriodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7E2F5BB1EE00263B82 /* HabitPeriodItem.swift */; };
@@ -2981,6 +2982,7 @@
 		E54A0690303C2C71001FF4A1 /* ganttTimeScale_month_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ganttTimeScale_month_24@2x.png"; sourceTree = "<group>"; };
 		E54A0691303C2C71001FF4A1 /* ganttTimeScale_day_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ganttTimeScale_day_24@2x.png"; sourceTree = "<group>"; };
 		E54A0692303C2C71001FF4A1 /* ganttTimeScale_day_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ganttTimeScale_day_24@3x.png"; sourceTree = "<group>"; };
+		E54A069A303C48C8001FF4A1 /* GanttTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTaskListView.swift; sourceTree = "<group>"; };
 		E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecord.swift; sourceTree = "<group>"; };
 		E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDatePeriod.swift; sourceTree = "<group>"; };
 		E54C7C7E2F5BB1EE00263B82 /* HabitPeriodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPeriodItem.swift; sourceTree = "<group>"; };
@@ -5653,8 +5655,9 @@
 			children = (
 				E54A0683303BFBED001FF4A1 /* Models */,
 				E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */,
-				E54A0688303C2AC0001FF4A1 /* GanttTimeScaleBarButtonItem.swift */,
 				E54A0681303BE5A9001FF4A1 /* GanttTimelineView.swift */,
+				E54A069A303C48C8001FF4A1 /* GanttTaskListView.swift */,
+				E54A0688303C2AC0001FF4A1 /* GanttTimeScaleBarButtonItem.swift */,
 				E54A0699303C36AD001FF4A1 /* State */,
 			);
 			path = Timeline;
@@ -13811,6 +13814,7 @@
 				E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */,
 				E5BB9E042D3BF0C70089667A /* String+Extensions.swift in Sources */,
 				E5BB9D972D3BF0C60089667A /* TPCircularCheckboxInfoTableCell.swift in Sources */,
+				E54A069B303C48C8001FF4A1 /* GanttTaskListView.swift in Sources */,
 				E51501A02D47BA34008B2333 /* TPBaseTableCellLayout.swift in Sources */,
 				E5BB9E6B2D3BF0C70089667A /* TPCollectionCellStyle.swift in Sources */,
 				E5BB9E802D3BF0C80089667A /* ChartHighlightEelement.swift in Sources */,

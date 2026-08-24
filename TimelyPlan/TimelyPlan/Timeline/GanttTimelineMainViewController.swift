@@ -37,6 +37,11 @@ class GanttTimelineMainViewController: TPViewController {
         return item
     }()
 
+    private lazy var taskListView: GanttTaskListView = {
+        let view = GanttTaskListView()
+        return view
+    }()
+    
     private lazy var timelineView: GanttTimelineView = {
         // 创建时间尺度
         let calendar = Calendar.current
@@ -64,6 +69,7 @@ class GanttTimelineMainViewController: TPViewController {
         super.viewDidLoad()
         setupBarButtonItems()
         view.addSubview(timelineView)
+        view.addSubview(taskListView)
         setupAddView()
         setupTestData()
     }
@@ -71,6 +77,10 @@ class GanttTimelineMainViewController: TPViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         timelineView.frame = view.safeAreaFrame()
+        taskListView.width = 180.0
+        taskListView.height = timelineView.height
+        taskListView.top = timelineView.top
+        
         layoutAddView()
     }
     
@@ -235,6 +245,7 @@ class GanttTimelineMainViewController: TPViewController {
         }
         
         timelineView.tasks = testTasks
+        taskListView.tasks = testTasks
     }
 
 }
