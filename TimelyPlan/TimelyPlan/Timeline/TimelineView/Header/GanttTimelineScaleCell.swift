@@ -33,18 +33,16 @@ class GanttTimelineScaleCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupViews() {
+    func setupViews() {
         backgroundColor = .clear
-
+        separatorLine.backgroundColor = GanttTimelineConfig.headerSeparatorColor
+        contentView.addSubview(separatorLine)
+        
         titleLabel.font = UIFont.boldSystemFont(ofSize: 11)
         titleLabel.textColor = .darkText
 
         subtitleLabel.font = UIFont.systemFont(ofSize: 9)
         subtitleLabel.textColor = .gray
-
-        separatorLine.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
-
-        contentView.addSubview(separatorLine)
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
     }
@@ -70,7 +68,8 @@ class GanttTimelineScaleCell: UICollectionViewCell {
         super.layoutSubviews()
 
         // 竖线在左侧边缘
-        separatorLine.frame = CGRect(x: 0, y: 0, width: 1, height: bounds.height)
+        separatorLine.backgroundColor = GanttTimelineConfig.headerSeparatorColor
+        separatorLine.frame = CGRect(x: 0, y: 0, width: 1.0, height: bounds.height)
 
         // 主标题在上，副标题在下
         titleLabel.frame = CGRect(x: 4, y: 4, width: bounds.width - 8, height: 14)
@@ -89,15 +88,24 @@ class GanttTimelineScaleCell: UICollectionViewCell {
 // MARK: - 日刻度 Cell
 
 final class GanttTimelineDayCell: GanttTimelineScaleCell {
+    
     static let dayReuseIdentifier = "GanttTimelineDayCell"
-
+    
+    private let infoView = CalendarWeekDayInfoView()
+    
+    override func setupViews() {
+        super.setupViews()
+        contentView.addSubview(infoView)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        infoView.frame = contentView.bounds
+    }
+    
     override func configure(with unit: GanttTimelineScaleUnit) {
-        // 日刻度：主标题只在月初显示月份，副标题显示日期
-        titleLabel.text = unit.title
-        subtitleLabel.text = unit.subtitle
-        subtitleLabel.isHidden = false
-        isMajorBoundary = unit.isMajorBoundary
-        setNeedsLayout()
+        let config = CalendarMonthDayConfig(date: unit.startDate)
+        infoView.update(with: config)
     }
 }
 

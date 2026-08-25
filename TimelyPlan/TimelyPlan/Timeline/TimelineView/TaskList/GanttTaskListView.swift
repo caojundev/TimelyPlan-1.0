@@ -13,10 +13,7 @@ class GanttTaskListCell: UICollectionViewCell {
     static let reuseIdentifier = "GanttTaskListCell"
     
     private let nameLabel = UILabel()
-    private let expandButton = UIButton(type: .system)
     private let separatorLine = UIView()
-    
-    var onExpandTapped: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,56 +27,32 @@ class GanttTaskListCell: UICollectionViewCell {
     private func setupViews() {
         backgroundColor = .white
         
-        expandButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
-        expandButton.tintColor = .gray
-        expandButton.addTarget(self, action: #selector(expandTapped), for: .touchUpInside)
-        expandButton.isHidden = true
-        
         nameLabel.font = UIFont.systemFont(ofSize: 13)
         nameLabel.textColor = .darkText
         nameLabel.numberOfLines = 2
         
         separatorLine.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
         
-        contentView.addSubview(expandButton)
         contentView.addSubview(nameLabel)
         contentView.addSubview(separatorLine)
     }
     
-    func configure(task: GanttTask, indent: Int) {
+    func configure(task: GanttTask) {
         nameLabel.text = task.name
         
-        let baseX: CGFloat = task.isGroup ? 28 : 8
-        let xPosition = baseX + CGFloat(indent) * 16
-        
         nameLabel.frame = CGRect(
-            x: xPosition,
+            x: 8,
             y: 0,
-            width: bounds.width - xPosition - 8,
+            width: bounds.width - 16,
             height: bounds.height
         )
         
-        expandButton.isHidden = !task.isGroup
-        expandButton.frame = CGRect(
-            x: 4 + CGFloat(indent) * 16,
-            y: (bounds.height - 20) / 2,
-            width: 20,
-            height: 20
-        )
-        let imageName = task.isExpanded ? "chevron.down" : "chevron.right"
-        expandButton.setImage(UIImage(systemName: imageName), for: .normal)
-        
         separatorLine.frame = CGRect(x: bounds.width - 1, y: 0, width: 1, height: bounds.height)
-    }
-    
-    @objc private func expandTapped() {
-        onExpandTapped?()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         nameLabel.text = nil
-        expandButton.isHidden = true
     }
 }
 
@@ -103,9 +76,6 @@ class GanttTaskListView: UIView {
     
     // 滚动同步回调
     var onVerticalScroll: ((CGFloat) -> Void)?
-    
-    // 展开/折叠回调
-    var onExpandTapped: ((Int) -> Void)?
     
     // 初始化
     override init(frame: CGRect) {
@@ -163,31 +133,6 @@ class GanttTaskListView: UIView {
     func scrollToRow(at indexPath: IndexPath, animated: Bool = false) {
         collectionView.scrollToItem(at: indexPath, at: .top, animated: animated)
     }
-    
-    // MARK: - 内部方法
-    
-    private func flattenTasks() -> [(task: GanttTask, indent: Int)] {
-        var result: [(task: GanttTask, indent: Int)] = []
-        
-        func addTask(_ task: GanttTask, indent: Int) {
-            result.append((task: task, indent: indent))
-            if task.isExpanded, let children = task.children {
-                for child in children {
-                    addTask(child, indent: indent + 1)
-                }
-            }
-        }
-        
-        for task in tasks {
-            addTask(task, indent: 0)
-        }
-        
-        return result
-    }
-    
-    private var flattenedTasks: [(task: GanttTask, indent: Int)] {
-        return flattenTasks()
-    }
 }
 
 // MARK: - UICollectionView DataSource & Delegate
@@ -198,7 +143,7 @@ extension GanttTaskListView: UICollectionViewDataSource, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return flattenedTasks.count
+        return tasks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -207,13 +152,8 @@ extension GanttTaskListView: UICollectionViewDataSource, UICollectionViewDelegat
             for: indexPath
         ) as! GanttTaskListCell
         
-        let items = flattenedTasks
-        if indexPath.item < items.count {
-            let item = items[indexPath.item]
-            cell.configure(task: item.task, indent: item.indent)
-            cell.onExpandTapped = { [weak self] in
-                self?.onExpandTapped?(indexPath.item)
-            }
+        if indexPath.item < tasks.count {
+            cell.configure(task: tasks[indexPath.item])
         }
         
         cell.backgroundColor = indexPath.item % 2 == 0 ? .white : UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1.0)

@@ -10,4 +10,6 @@ import UIKit
 
 struct GanttTimelineConfig {
     static let headerHeight = 80.0
+    static let headerBackgroundColor = UIColor.systemBackground
+    static let headerSeparatorColor = Color(0x888888, 0.2)
 }

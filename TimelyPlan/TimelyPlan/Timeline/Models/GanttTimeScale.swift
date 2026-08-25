@@ -16,9 +16,9 @@ struct GanttTimeScale {
         
         var pixelsPerUnit: CGFloat {
             switch self {
-            case .day: return 60
-            case .week: return 100
-            case .month: return 150
+            case .day: return 100
+            case .week: return 160
+            case .month: return 240
             }
         }
         

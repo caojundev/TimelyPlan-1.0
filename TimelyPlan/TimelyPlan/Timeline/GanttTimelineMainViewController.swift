@@ -36,12 +36,7 @@ class GanttTimelineMainViewController: TPViewController {
                                    action: #selector(clickMore))
         return item
     }()
-    
-    private lazy var taskListView: GanttTaskListView = {
-        let view = GanttTaskListView()
-        return view
-    }()
-    
+
     private lazy var timeScale: GanttTimeScale = {
         // 创建时间尺度
         let calendar = Calendar.current
@@ -129,7 +124,6 @@ class GanttTimelineMainViewController: TPViewController {
         timelineView.setScale(scale)
     }
     
-    
     @objc private func clickMore() {
         TPImpactFeedback.impactWithSoftStyle()
  
@@ -144,9 +138,6 @@ class GanttTimelineMainViewController: TPViewController {
         showQuickAddTask(on: date)
     }
 
-    
-    
-    
     func showQuickAddTask(on date: Date) {
         // 检查并清理过期的草稿任务
         if shouldClearDraftTask(with: date) {
@@ -240,7 +231,6 @@ class GanttTimelineMainViewController: TPViewController {
         }
         
         timelineView.tasks = testTasks
-        taskListView.tasks = testTasks
     }
 
 }

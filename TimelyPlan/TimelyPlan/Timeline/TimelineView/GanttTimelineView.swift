@@ -19,7 +19,7 @@ class GanttTimelineView: UIView {
             chartView.tasks = tasks
         }
     }
-
+    
     /// 顶部刻度视图（只读，供外部访问其内部 collectionView 等）
     var headerView: GanttTimelineHeaderView {
         return _headerView

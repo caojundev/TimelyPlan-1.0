@@ -5665,12 +5665,11 @@
 		E51E5FA0303A913000ACF30C /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */,
+				E54A0688303C2AC0001FF4A1 /* GanttTimeScaleBarButtonItem.swift */,
 				E54A0683303BFBED001FF4A1 /* Models */,
 				E54A0699303C36AD001FF4A1 /* State */,
 				E54A06A3303C899E001FF4A1 /* TimelineView */,
-				E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */,
-				E54A069A303C48C8001FF4A1 /* GanttTaskListView.swift */,
-				E54A0688303C2AC0001FF4A1 /* GanttTimeScaleBarButtonItem.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -6762,11 +6761,12 @@
 		E54A06A3303C899E001FF4A1 /* TimelineView */ = {
 			isa = PBXGroup;
 			children = (
-				E54A06A8303D2ACF001FF4A1 /* GanttTimelineConfig.swift */,
 				E54A06A6303C8A7A001FF4A1 /* ScrollSynchronizer.swift */,
+				E54A06A8303D2ACF001FF4A1 /* GanttTimelineConfig.swift */,
 				E54A06AB303D3385001FF4A1 /* GanttTimelineView.swift */,
 				E54A06AA303D32C2001FF4A1 /* Chart */,
 				E54A069C303C7F23001FF4A1 /* Header */,
+				E54A06AD303D448C001FF4A1 /* TaskList */,
 			);
 			path = TimelineView;
 			sourceTree = "<group>";
@@ -6777,6 +6777,14 @@
 				E54A0681303BE5A9001FF4A1 /* GanttTimelineChartView.swift */,
 			);
 			path = Chart;
+			sourceTree = "<group>";
+		};
+		E54A06AD303D448C001FF4A1 /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				E54A069A303C48C8001FF4A1 /* GanttTaskListView.swift */,
+			);
+			path = TaskList;
 			sourceTree = "<group>";
 		};
 		E54E632C2F5AFE1500FCBCAE /* Task */ = {

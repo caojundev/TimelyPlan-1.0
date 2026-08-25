@@ -15,7 +15,6 @@ class GanttTimelineLayout: UICollectionViewLayout {
     var timeScale: GanttTimeScale
     var tasks: [GanttTask] = []
     
-    private var flattenedTasks: [(task: GanttTask, indent: Int)] = []
     private var cachedAttributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
     private var cachedHeaderAttributes: UICollectionViewLayoutAttributes?
     private var totalWidth: CGFloat = 0
@@ -34,33 +33,16 @@ class GanttTimelineLayout: UICollectionViewLayout {
         super.prepare()
         
         cachedAttributes.removeAll()
-        flattenTasks()
         
         totalWidth = calculateTimeAxisWidth()
-        totalHeight = CGFloat(flattenedTasks.count) * rowHeight
+        totalHeight = CGFloat(tasks.count) * rowHeight
         
-        for (index, _) in flattenedTasks.enumerated() {
+        for (index, _) in tasks.enumerated() {
             let indexPath = IndexPath(item: index, section: 0)
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             let y = CGFloat(index) * rowHeight
             attributes.frame = CGRect(x: 0, y: y, width: totalWidth, height: rowHeight)
             cachedAttributes[indexPath] = attributes
-        }
-    }
-    
-    private func flattenTasks() {
-        flattenedTasks.removeAll()
-        for task in tasks {
-            addTask(task, indent: 0)
-        }
-    }
-    
-    private func addTask(_ task: GanttTask, indent: Int) {
-        flattenedTasks.append((task: task, indent: indent))
-        if task.isExpanded, let children = task.children {
-            for child in children {
-                addTask(child, indent: indent + 1)
-            }
         }
     }
     
@@ -81,12 +63,12 @@ class GanttTimelineLayout: UICollectionViewLayout {
     }
     
     func taskAtIndex(_ index: Int) -> GanttTask? {
-        guard index < flattenedTasks.count else { return nil }
-        return flattenedTasks[index].task
+        guard index < tasks.count else { return nil }
+        return tasks[index]
     }
     
     var visibleTaskCount: Int {
-        return flattenedTasks.count
+        return tasks.count
     }
     
     override var collectionViewContentSize: CGSize {
@@ -317,9 +299,6 @@ class GanttTimelineChartView: UIView {
     
     // 滚动同步回调
     var onVerticalScroll: ((CGFloat) -> Void)?
-    
-    // 展开/折叠回调
-    var onExpandTapped: ((Int) -> Void)?
     
     // 数据
     var tasks: [GanttTask] = [] {

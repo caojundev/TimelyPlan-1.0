@@ -116,17 +116,14 @@ final class GanttTimelineHeaderView: UIView {
         layout.headerHeight = headerHeight
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.0)
+        cv.backgroundColor = GanttTimelineConfig.headerBackgroundColor
         cv.showsHorizontalScrollIndicator = false
         cv.showsVerticalScrollIndicator = false
-        cv.bounces = false
         cv.contentInsetAdjustmentBehavior = .never
         cv.clipsToBounds = true
-        cv.isScrollEnabled = true
         cv.register(GanttTimelineDayCell.self, forCellWithReuseIdentifier: GanttTimelineDayCell.dayReuseIdentifier)
         cv.register(GanttTimelineWeekCell.self, forCellWithReuseIdentifier: GanttTimelineWeekCell.weekReuseIdentifier)
         cv.register(GanttTimelineMonthCell.self, forCellWithReuseIdentifier: GanttTimelineMonthCell.monthReuseIdentifier)
-        
         return cv
     }()
     
@@ -138,7 +135,13 @@ final class GanttTimelineHeaderView: UIView {
     
     /// header 高度
     private let headerHeight: CGFloat
-
+    
+    /// 顶部分割线
+    private lazy var topSeparator: UIView = makeSeparator()
+    
+    /// 底部分割线
+    private lazy var bottomSeparator: UIView = makeSeparator()
+    
     // MARK: - 公开属性
     
     /// 布局对象
@@ -169,18 +172,28 @@ final class GanttTimelineHeaderView: UIView {
     // MARK: - 私有设置方法
     
     private func setupUI() {
-        backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.0)
+        backgroundColor = GanttTimelineConfig.headerBackgroundColor
         clipsToBounds = true
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(collectionView)
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        addSubview(topSeparator)
+        addSubview(bottomSeparator)
+    }
+    
+    /// 创建分割线视图
+    private func makeSeparator() -> UIView {
+        let separator = UIView()
+        separator.backgroundColor = GanttTimelineConfig.headerSeparatorColor
+        separator.isUserInteractionEnabled = false
+        return separator
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        collectionView.frame = bounds
+
+        let separatorHeight: CGFloat = 1.0
+        topSeparator.frame = CGRect(x: 0, y: 0, width: bounds.width, height: separatorHeight)
+        bottomSeparator.frame = CGRect(x: 0, y: bounds.height - separatorHeight, width: bounds.width, height: separatorHeight)
     }
     
     private func setupDataSource() {
