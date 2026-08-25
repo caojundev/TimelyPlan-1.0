@@ -65,8 +65,8 @@ class GanttTimelineMainViewController: TPViewController {
         return view
     }()
     
-    private lazy var timelineView: GanttTimelineView = {
-        let view = GanttTimelineView(timeScale: self.timeScale)
+    private lazy var timelineView: GanttTimelineChartView = {
+        let view = GanttTimelineChartView(timeScale: self.timeScale)
         return view
     }()
     

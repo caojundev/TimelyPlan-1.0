@@ -1,5 +1,5 @@
 //
-//  GanttTimelineView.swift
+//  GanttTimelineChartView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/8/24.
@@ -290,11 +290,10 @@ class TimelineCell: UICollectionViewCell {
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
     }
-    
 }
 
 // MARK: - 右侧时间轴视图（修复指示器点击问题）
-class GanttTimelineView: UIView {
+class GanttTimelineChartView: UIView {
 
     /// 内部 collectionView（只读，供外部同步滚动等操作）
     var internalCollectionView: UICollectionView {
@@ -384,7 +383,7 @@ class GanttTimelineView: UIView {
         collectionView.alwaysBounceHorizontal = true
         collectionView.alwaysBounceVertical = true
         collectionView.contentInsetAdjustmentBehavior = .never
-        
+        collectionView.contentInset = UIEdgeInsets(bottom: 100.0)
         collectionView.register(TimelineCell.self, forCellWithReuseIdentifier: TimelineCell.reuseIdentifier)
         
         addSubview(collectionView)
@@ -440,51 +439,23 @@ class GanttTimelineView: UIView {
     private func performHorizontalScroll(to targetX: CGFloat, animated: Bool, syncToOthers: Bool = true) {
         isIndicatorScrolling = true
         
-        let currentY = collectionView.contentOffset.y
-        let targetOffset = CGPoint(x: targetX, y: currentY)
-        
         // 通知滚动开始
         if syncToOthers {
             notifyHorizontalScrollWillBegin()
         }
         
-        if animated {
-            UIView.animate(
-                withDuration: 0.35,
-                delay: 0,
-                options: [.curveEaseInOut],
-                animations: { [weak self] in
-                    guard let self = self else { return }
-                    self.collectionView.setContentOffset(targetOffset, animated: false)
-                    // 动画中通知偏移变化
-                    if syncToOthers {
-                        self.notifyHorizontalContentOffsetChanged()
-                    }
-                },
-                completion: { [weak self] _ in
-                    guard let self = self else { return }
-                    self.isIndicatorScrolling = false
-                    self.resetScrollLock()
-                    self.updateVisibleCellIndicators()
-                    // 通知滚动结束
-                    if syncToOthers {
-                        self.notifyHorizontalScrollDidEnd()
-                    }
-                }
-            )
-        } else {
-            collectionView.setContentOffset(targetOffset, animated: false)
-            // 立即通知偏移变化
-            if syncToOthers {
-                notifyHorizontalContentOffsetChanged()
-            }
-            isIndicatorScrolling = false
-            resetScrollLock()
-            updateVisibleCellIndicators()
-            // 通知滚动结束
-            if syncToOthers {
-                notifyHorizontalScrollDidEnd()
-            }
+        // 使用 setXOffset 设置偏移（会自动重置锁定状态）
+        setXOffset(targetX, animated: animated)
+        if syncToOthers {
+            notifyHorizontalContentOffsetChanged()
+        }
+        
+        isIndicatorScrolling = false
+        resetScrollLock()
+        updateVisibleCellIndicators()
+        
+        if syncToOthers {
+            notifyHorizontalScrollDidEnd()
         }
     }
    
@@ -525,7 +496,7 @@ class GanttTimelineView: UIView {
 }
 
 // MARK: - UICollectionView DataSource & Delegate
-extension GanttTimelineView: UICollectionViewDataSource, UICollectionViewDelegate {
+extension GanttTimelineChartView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -577,7 +548,7 @@ extension GanttTimelineView: UICollectionViewDataSource, UICollectionViewDelegat
 
 // MARK: - 修改后的 UIScrollViewDelegate 扩展
 
-extension GanttTimelineView: UIScrollViewDelegate {
+extension GanttTimelineChartView: UIScrollViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         // 用户手动拖动时重置状态
@@ -672,9 +643,9 @@ extension GanttTimelineView: UIScrollViewDelegate {
 }
 
 
-// MARK: - GanttTimelineView 滚动同步扩展
+// MARK: - GanttTimelineChartView 滚动同步扩展
 
-extension GanttTimelineView: HorizontalScrollSyncable, VerticalScrollSyncable {
+extension GanttTimelineChartView: HorizontalScrollSyncable, VerticalScrollSyncable {
     
     // MARK: - 横向滚动同步
     
@@ -683,6 +654,11 @@ extension GanttTimelineView: HorizontalScrollSyncable, VerticalScrollSyncable {
             return collectionView.contentOffset.x
         }
         set {
+            // 重置方向锁定
+            isHorizontalLocked = false
+            isVerticalLocked = false
+            initialOffset = CGPoint(x: newValue, y: collectionView.contentOffset.y)
+            
             collectionView.contentOffset = CGPoint(
                 x: newValue,
                 y: collectionView.contentOffset.y
@@ -691,6 +667,11 @@ extension GanttTimelineView: HorizontalScrollSyncable, VerticalScrollSyncable {
     }
     
     func setXOffset(_ xOffset: CGFloat, animated: Bool) {
+        // 重置方向锁定
+        isHorizontalLocked = false
+        isVerticalLocked = false
+        initialOffset = CGPoint(x: xOffset, y: collectionView.contentOffset.y)
+        
         collectionView.setContentOffset(
             CGPoint(x: xOffset, y: collectionView.contentOffset.y),
             animated: animated
@@ -725,6 +706,11 @@ extension GanttTimelineView: HorizontalScrollSyncable, VerticalScrollSyncable {
             return collectionView.contentOffset.y
         }
         set {
+            // 重置方向锁定
+            isHorizontalLocked = false
+            isVerticalLocked = false
+            initialOffset = CGPoint(x: collectionView.contentOffset.x, y: newValue)
+            
             collectionView.contentOffset = CGPoint(
                 x: collectionView.contentOffset.x,
                 y: newValue
@@ -733,6 +719,11 @@ extension GanttTimelineView: HorizontalScrollSyncable, VerticalScrollSyncable {
     }
     
     func setYOffset(_ yOffset: CGFloat, animated: Bool) {
+        // 重置方向锁定
+        isHorizontalLocked = false
+        isVerticalLocked = false
+        initialOffset = CGPoint(x: collectionView.contentOffset.x, y: yOffset)
+        
         collectionView.setContentOffset(
             CGPoint(x: collectionView.contentOffset.x, y: yOffset),
             animated: animated

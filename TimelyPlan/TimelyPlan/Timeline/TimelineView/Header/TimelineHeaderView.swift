@@ -122,7 +122,7 @@ final class TimelineHeaderView: UIView {
         cv.bounces = false
         cv.contentInsetAdjustmentBehavior = .never
         cv.clipsToBounds = true
-        cv.isScrollEnabled = false
+        cv.isScrollEnabled = true
         cv.register(TimelineDayCell.self, forCellWithReuseIdentifier: TimelineDayCell.dayReuseIdentifier)
         cv.register(TimelineWeekCell.self, forCellWithReuseIdentifier: TimelineWeekCell.weekReuseIdentifier)
         cv.register(TimelineMonthCell.self, forCellWithReuseIdentifier: TimelineMonthCell.monthReuseIdentifier)
