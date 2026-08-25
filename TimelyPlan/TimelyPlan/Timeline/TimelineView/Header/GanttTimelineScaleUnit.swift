@@ -1,5 +1,5 @@
 //
-//  TimelineScaleUnit.swift
+//  GanttTimelineScaleUnit.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/8/24.
@@ -11,7 +11,7 @@ import UIKit
 // MARK: - 时间轴刻度模型
 
 /// 时间轴刻度单元（一个 cell 对应的时间段）
-struct TimelineScaleUnit {
+struct GanttTimelineScaleUnit {
     /// 该单元在时间轴上的起始日期
     let startDate: Date
     /// 该单元在时间轴上的结束日期
@@ -25,13 +25,13 @@ struct TimelineScaleUnit {
 }
 
 /// 时间轴刻度的计算器，负责根据不同 scale 生成 header 所需的刻度单元数组
-struct TimelineScaleCalculator {
+struct GanttTimelineScaleCalculator {
     let scale: GanttTimeScale.Scale
     let startDate: Date
     let endDate: Date
 
     /// 生成所有刻度单元
-    func makeUnits() -> [TimelineScaleUnit] {
+    func makeUnits() -> [GanttTimelineScaleUnit] {
         switch scale {
         case .day: return makeDayUnits()
         case .week: return makeWeekUnits()
@@ -41,7 +41,7 @@ struct TimelineScaleCalculator {
 
     // MARK: - 日刻度
 
-    private func makeDayUnits() -> [TimelineScaleUnit] {
+    private func makeDayUnits() -> [GanttTimelineScaleUnit] {
         let calendar = Calendar.current
         let totalDays = calendar.dateComponents([.day], from: startDate, to: endDate).day ?? 30
 
@@ -51,14 +51,14 @@ struct TimelineScaleCalculator {
         let monthFormatter = DateFormatter()
         monthFormatter.dateFormat = "yyyy年M月"
 
-        var units: [TimelineScaleUnit] = []
+        var units: [GanttTimelineScaleUnit] = []
         var currentDate = startDate
 
         for day in 0...totalDays {
             let isMonthStart = calendar.component(.day, from: currentDate) == 1 || day == 0
             let nextDate = calendar.date(byAdding: .day, value: 1, to: currentDate) ?? currentDate
 
-            units.append(TimelineScaleUnit(
+            units.append(GanttTimelineScaleUnit(
                 startDate: currentDate,
                 endDate: nextDate,
                 title: isMonthStart ? monthFormatter.string(from: currentDate) : "",
@@ -74,7 +74,7 @@ struct TimelineScaleCalculator {
 
     // MARK: - 周刻度
 
-    private func makeWeekUnits() -> [TimelineScaleUnit] {
+    private func makeWeekUnits() -> [GanttTimelineScaleUnit] {
         let calendar = Calendar.current
         let totalDays = calendar.dateComponents([.day], from: startDate, to: endDate).day ?? 30
         let totalWeeks = Int(ceil(Double(totalDays) / 7.0))
@@ -82,12 +82,12 @@ struct TimelineScaleCalculator {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "M/d"
 
-        var units: [TimelineScaleUnit] = []
+        var units: [GanttTimelineScaleUnit] = []
         for week in 0...totalWeeks {
             guard let weekStart = calendar.date(byAdding: .weekOfYear, value: week, to: startDate) else { continue }
             let weekEnd = calendar.date(byAdding: .day, value: 7, to: weekStart) ?? weekStart
 
-            units.append(TimelineScaleUnit(
+            units.append(GanttTimelineScaleUnit(
                 startDate: weekStart,
                 endDate: weekEnd,
                 title: "W\(calendar.component(.weekOfYear, from: weekStart))",
@@ -101,19 +101,19 @@ struct TimelineScaleCalculator {
 
     // MARK: - 月刻度
 
-    private func makeMonthUnits() -> [TimelineScaleUnit] {
+    private func makeMonthUnits() -> [GanttTimelineScaleUnit] {
         let calendar = Calendar.current
         let totalMonths = (calendar.dateComponents([.month], from: startDate, to: endDate).month ?? 1) + 1
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy年M月"
 
-        var units: [TimelineScaleUnit] = []
+        var units: [GanttTimelineScaleUnit] = []
         for month in 0...totalMonths {
             guard let monthDate = calendar.date(byAdding: .month, value: month, to: startDate) else { continue }
             let monthEnd = calendar.date(byAdding: .month, value: 1, to: monthDate) ?? monthDate
 
-            units.append(TimelineScaleUnit(
+            units.append(GanttTimelineScaleUnit(
                 startDate: monthDate,
                 endDate: monthEnd,
                 title: dateFormatter.string(from: monthDate),

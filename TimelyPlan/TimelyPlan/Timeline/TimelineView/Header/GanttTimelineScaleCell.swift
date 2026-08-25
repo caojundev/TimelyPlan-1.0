@@ -1,5 +1,5 @@
 //
-//  TimelineScaleCell.swift
+//  GanttTimelineScaleCell.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/8/24.
@@ -10,7 +10,7 @@ import UIKit
 // MARK: - 刻度 Cell 基类
 
 /// 时间轴 header 的刻度单元 cell 基类
-class TimelineScaleCell: UICollectionViewCell {
+class GanttTimelineScaleCell: UICollectionViewCell {
 
     /// 主标题 label（如 "2026年8月" / "W35"）
     let titleLabel = UILabel()
@@ -49,7 +49,7 @@ class TimelineScaleCell: UICollectionViewCell {
         contentView.addSubview(subtitleLabel)
     }
 
-    func configure(with unit: TimelineScaleUnit) {
+    func configure(with unit: GanttTimelineScaleUnit) {
         titleLabel.text = unit.title
         subtitleLabel.text = unit.subtitle
         subtitleLabel.isHidden = (unit.subtitle == nil || unit.subtitle?.isEmpty == true)
@@ -88,10 +88,10 @@ class TimelineScaleCell: UICollectionViewCell {
 
 // MARK: - 日刻度 Cell
 
-final class TimelineDayCell: TimelineScaleCell {
-    static let dayReuseIdentifier = "TimelineDayCell"
+final class GanttTimelineDayCell: GanttTimelineScaleCell {
+    static let dayReuseIdentifier = "GanttTimelineDayCell"
 
-    override func configure(with unit: TimelineScaleUnit) {
+    override func configure(with unit: GanttTimelineScaleUnit) {
         // 日刻度：主标题只在月初显示月份，副标题显示日期
         titleLabel.text = unit.title
         subtitleLabel.text = unit.subtitle
@@ -103,10 +103,10 @@ final class TimelineDayCell: TimelineScaleCell {
 
 // MARK: - 周刻度 Cell
 
-final class TimelineWeekCell: TimelineScaleCell {
-    static let weekReuseIdentifier = "TimelineWeekCell"
+final class GanttTimelineWeekCell: GanttTimelineScaleCell {
+    static let weekReuseIdentifier = "GanttTimelineWeekCell"
 
-    override func configure(with unit: TimelineScaleUnit) {
+    override func configure(with unit: GanttTimelineScaleUnit) {
         // 周刻度：主标题显示周数，副标题显示起始日期
         titleLabel.text = unit.title
         subtitleLabel.text = unit.subtitle
@@ -118,8 +118,8 @@ final class TimelineWeekCell: TimelineScaleCell {
 
 // MARK: - 月刻度 Cell
 
-final class TimelineMonthCell: TimelineScaleCell {
-    static let monthReuseIdentifier = "TimelineMonthCell"
+final class GanttTimelineMonthCell: GanttTimelineScaleCell {
+    static let monthReuseIdentifier = "GanttTimelineMonthCell"
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -128,7 +128,7 @@ final class TimelineMonthCell: TimelineScaleCell {
         titleLabel.frame = CGRect(x: 4, y: (bounds.height - 16) / 2, width: bounds.width - 8, height: 16)
     }
 
-    override func configure(with unit: TimelineScaleUnit) {
+    override func configure(with unit: GanttTimelineScaleUnit) {
         titleLabel.text = unit.title
         subtitleLabel.text = nil
         subtitleLabel.isHidden = true

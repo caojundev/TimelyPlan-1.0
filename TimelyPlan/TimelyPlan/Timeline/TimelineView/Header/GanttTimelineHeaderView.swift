@@ -1,5 +1,5 @@
 //
-//  TimelineHeaderCollectionView.swift
+//  GanttTimelineHeaderView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/8/24.
@@ -10,14 +10,14 @@ import UIKit
 
 // MARK: - 时间轴 Header 的数据源
 
-final class TimelineHeaderDataSource: NSObject, UICollectionViewDataSource {
+final class GanttTimelineHeaderDataSource: NSObject, UICollectionViewDataSource {
 
     private let scaleProvider: () -> GanttTimeScale.Scale
-    private let unitsProvider: () -> [TimelineScaleUnit]
+    private let unitsProvider: () -> [GanttTimelineScaleUnit]
 
     init(
         scaleProvider: @escaping () -> GanttTimeScale.Scale,
-        unitsProvider: @escaping () -> [TimelineScaleUnit]
+        unitsProvider: @escaping () -> [GanttTimelineScaleUnit]
     ) {
         self.scaleProvider = scaleProvider
         self.unitsProvider = unitsProvider
@@ -36,23 +36,23 @@ final class TimelineHeaderDataSource: NSObject, UICollectionViewDataSource {
         let unit = units[indexPath.item]
         let scale = scaleProvider()
 
-        let cell: TimelineScaleCell
+        let cell: GanttTimelineScaleCell
         switch scale {
         case .day:
             cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: TimelineDayCell.dayReuseIdentifier,
+                withReuseIdentifier: GanttTimelineDayCell.dayReuseIdentifier,
                 for: indexPath
-            ) as! TimelineDayCell
+            ) as! GanttTimelineDayCell
         case .week:
             cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: TimelineWeekCell.weekReuseIdentifier,
+                withReuseIdentifier: GanttTimelineWeekCell.weekReuseIdentifier,
                 for: indexPath
-            ) as! TimelineWeekCell
+            ) as! GanttTimelineWeekCell
         case .month:
             cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: TimelineMonthCell.monthReuseIdentifier,
+                withReuseIdentifier: GanttTimelineMonthCell.monthReuseIdentifier,
                 for: indexPath
-            ) as! TimelineMonthCell
+            ) as! GanttTimelineMonthCell
         }
 
         cell.configure(with: unit)
@@ -65,10 +65,10 @@ final class TimelineHeaderDataSource: NSObject, UICollectionViewDataSource {
 
 /// 时间轴 header 的横向流式布局
 /// 每个 cell 的宽度 = 对应 scale 的 pixelsPerUnit，高度 = header 高度
-final class TimelineHeaderLayout: UICollectionViewLayout {
+final class GanttTimelineHeaderLayout: UICollectionViewLayout {
 
     var headerHeight: CGFloat = 60
-    var units: [TimelineScaleUnit] = []
+    var units: [GanttTimelineScaleUnit] = []
     var pixelsPerUnit: CGFloat = 60
 
     private var cachedAttributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
@@ -106,13 +106,13 @@ final class TimelineHeaderLayout: UICollectionViewLayout {
 // MARK: - 时间轴 Header 视图
 
 /// 封装横向滚动的 UICollectionView，用于渲染时间轴顶部刻度
-final class TimelineHeaderView: UIView {
+final class GanttTimelineHeaderView: UIView {
 
     // MARK: - 私有属性
     
     /// 内部横向滚动的 collectionView
     private lazy var collectionView: UICollectionView = {
-        let layout = TimelineHeaderLayout()
+        let layout = GanttTimelineHeaderLayout()
         layout.headerHeight = headerHeight
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -123,15 +123,15 @@ final class TimelineHeaderView: UIView {
         cv.contentInsetAdjustmentBehavior = .never
         cv.clipsToBounds = true
         cv.isScrollEnabled = true
-        cv.register(TimelineDayCell.self, forCellWithReuseIdentifier: TimelineDayCell.dayReuseIdentifier)
-        cv.register(TimelineWeekCell.self, forCellWithReuseIdentifier: TimelineWeekCell.weekReuseIdentifier)
-        cv.register(TimelineMonthCell.self, forCellWithReuseIdentifier: TimelineMonthCell.monthReuseIdentifier)
+        cv.register(GanttTimelineDayCell.self, forCellWithReuseIdentifier: GanttTimelineDayCell.dayReuseIdentifier)
+        cv.register(GanttTimelineWeekCell.self, forCellWithReuseIdentifier: GanttTimelineWeekCell.weekReuseIdentifier)
+        cv.register(GanttTimelineMonthCell.self, forCellWithReuseIdentifier: GanttTimelineMonthCell.monthReuseIdentifier)
         
         return cv
     }()
     
     /// 数据源（持有，避免被释放）
-    private var timelineDataSource: TimelineHeaderDataSource!
+    private var timelineDataSource: GanttTimelineHeaderDataSource!
     
     /// 当前时间刻度
     private var currentScale: GanttTimeScale.Scale = .day
@@ -142,8 +142,8 @@ final class TimelineHeaderView: UIView {
     // MARK: - 公开属性
     
     /// 布局对象
-    var headerLayout: TimelineHeaderLayout {
-        return collectionView.collectionViewLayout as! TimelineHeaderLayout
+    var headerLayout: GanttTimelineHeaderLayout {
+        return collectionView.collectionViewLayout as! GanttTimelineHeaderLayout
     }
     
     /// 内部 collectionView（只读，供外部同步滚动等操作）
@@ -184,7 +184,7 @@ final class TimelineHeaderView: UIView {
     }
     
     private func setupDataSource() {
-        timelineDataSource = TimelineHeaderDataSource(
+        timelineDataSource = GanttTimelineHeaderDataSource(
             scaleProvider: { [weak self] in self?.currentScale ?? .day },
             unitsProvider: { [weak self] in self?.headerLayout.units ?? [] }
         )
@@ -198,7 +198,7 @@ final class TimelineHeaderView: UIView {
     func configure(timeScale: GanttTimeScale) {
         currentScale = timeScale.scale
 
-        let calculator = TimelineScaleCalculator(
+        let calculator = GanttTimelineScaleCalculator(
             scale: timeScale.scale,
             startDate: timeScale.startDate,
             endDate: timeScale.endDate
@@ -222,7 +222,7 @@ final class TimelineHeaderView: UIView {
     }
 }
 
-extension TimelineHeaderView: UICollectionViewDelegate {
+extension GanttTimelineHeaderView: UICollectionViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         // 通知横向滚动开始
@@ -252,9 +252,9 @@ extension TimelineHeaderView: UICollectionViewDelegate {
     }
 }
 
-// MARK: - TimelineHeaderView 扩展（横向滚动）
+// MARK: - GanttTimelineHeaderView 扩展（横向滚动）
 
-extension TimelineHeaderView: HorizontalScrollSyncable {
+extension GanttTimelineHeaderView: HorizontalScrollSyncable {
     var xOffset: CGFloat {
         get {
             return internalCollectionView.contentOffset.x
