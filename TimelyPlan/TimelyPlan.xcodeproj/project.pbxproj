@@ -788,6 +788,12 @@
 		E54A06A7303C8A7A001FF4A1 /* ScrollSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A06A6303C8A7A001FF4A1 /* ScrollSynchronizer.swift */; };
 		E54A06A9303D2AD0001FF4A1 /* GanttTimelineConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A06A8303D2ACF001FF4A1 /* GanttTimelineConfig.swift */; };
 		E54A06AC303D3385001FF4A1 /* GanttTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A06AB303D3385001FF4A1 /* GanttTimelineView.swift */; };
+		E54A06B2303DCF19001FF4A1 /* gantt_taskList_toggle_normal_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06AE303DCF18001FF4A1 /* gantt_taskList_toggle_normal_24@2x.png */; };
+		E54A06B3303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06AF303DCF18001FF4A1 /* gantt_taskList_toggle_active_24@3x.png */; };
+		E54A06B4303DCF19001FF4A1 /* gantt_taskList_toggle_normal_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06B0303DCF18001FF4A1 /* gantt_taskList_toggle_normal_24@3x.png */; };
+		E54A06B5303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06B1303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@2x.png */; };
+		E54A06B8303DD0DD001FF4A1 /* gantt_backToday_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06B6303DD0DC001FF4A1 /* gantt_backToday_24@2x.png */; };
+		E54A06B9303DD0DD001FF4A1 /* gantt_backToday_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06B7303DD0DD001FF4A1 /* gantt_backToday_24@3x.png */; };
 		E54C7C7B2F5BADD300263B82 /* HabitRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */; };
 		E54C7C7D2F5BADE200263B82 /* HabitDatePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */; };
 		E54C7C7F2F5BB1EE00263B82 /* HabitPeriodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7E2F5BB1EE00263B82 /* HabitPeriodItem.swift */; };
@@ -2995,6 +3001,12 @@
 		E54A06A6303C8A7A001FF4A1 /* ScrollSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSynchronizer.swift; sourceTree = "<group>"; };
 		E54A06A8303D2ACF001FF4A1 /* GanttTimelineConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineConfig.swift; sourceTree = "<group>"; };
 		E54A06AB303D3385001FF4A1 /* GanttTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineView.swift; sourceTree = "<group>"; };
+		E54A06AE303DCF18001FF4A1 /* gantt_taskList_toggle_normal_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gantt_taskList_toggle_normal_24@2x.png"; sourceTree = "<group>"; };
+		E54A06AF303DCF18001FF4A1 /* gantt_taskList_toggle_active_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gantt_taskList_toggle_active_24@3x.png"; sourceTree = "<group>"; };
+		E54A06B0303DCF18001FF4A1 /* gantt_taskList_toggle_normal_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gantt_taskList_toggle_normal_24@3x.png"; sourceTree = "<group>"; };
+		E54A06B1303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gantt_taskList_toggle_active_24@2x.png"; sourceTree = "<group>"; };
+		E54A06B6303DD0DC001FF4A1 /* gantt_backToday_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gantt_backToday_24@2x.png"; sourceTree = "<group>"; };
+		E54A06B7303DD0DD001FF4A1 /* gantt_backToday_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gantt_backToday_24@3x.png"; sourceTree = "<group>"; };
 		E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecord.swift; sourceTree = "<group>"; };
 		E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDatePeriod.swift; sourceTree = "<group>"; };
 		E54C7C7E2F5BB1EE00263B82 /* HabitPeriodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPeriodItem.swift; sourceTree = "<group>"; };
@@ -6736,6 +6748,12 @@
 				E54A0690303C2C71001FF4A1 /* ganttTimeScale_month_24@2x.png */,
 				E54A0691303C2C71001FF4A1 /* ganttTimeScale_day_24@2x.png */,
 				E54A0692303C2C71001FF4A1 /* ganttTimeScale_day_24@3x.png */,
+				E54A06B1303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@2x.png */,
+				E54A06AF303DCF18001FF4A1 /* gantt_taskList_toggle_active_24@3x.png */,
+				E54A06AE303DCF18001FF4A1 /* gantt_taskList_toggle_normal_24@2x.png */,
+				E54A06B0303DCF18001FF4A1 /* gantt_taskList_toggle_normal_24@3x.png */,
+				E54A06B6303DD0DC001FF4A1 /* gantt_backToday_24@2x.png */,
+				E54A06B7303DD0DD001FF4A1 /* gantt_backToday_24@3x.png */,
 			);
 			path = gantt;
 			sourceTree = "<group>";
@@ -6764,8 +6782,8 @@
 				E54A06A6303C8A7A001FF4A1 /* ScrollSynchronizer.swift */,
 				E54A06A8303D2ACF001FF4A1 /* GanttTimelineConfig.swift */,
 				E54A06AB303D3385001FF4A1 /* GanttTimelineView.swift */,
-				E54A06AA303D32C2001FF4A1 /* Chart */,
 				E54A069C303C7F23001FF4A1 /* Header */,
+				E54A06AA303D32C2001FF4A1 /* Chart */,
 				E54A06AD303D448C001FF4A1 /* TaskList */,
 			);
 			path = TimelineView;
@@ -11844,6 +11862,7 @@
 				E56B94862F8CDB42001E488B /* todo_sort_type_manually_24@2x.png in Resources */,
 				E50D94BA2D451C1800F57957 /* focus_record_view_24@3x.png in Resources */,
 				E5E276F62D3DF2F3004EC522 /* todo_list_add_24@3x.png in Resources */,
+				E54A06B9303DD0DD001FF4A1 /* gantt_backToday_24@3x.png in Resources */,
 				E53ABEBC300746B200EB8632 /* myDay_24@3x.png in Resources */,
 				E56B94812F8CDB42001E488B /* todo_sort_type_startDate_24@2x.png in Resources */,
 				E5E2770E2D3E06F5004EC522 /* trash_empty_24@2x.png in Resources */,
@@ -11971,6 +11990,7 @@
 				E547C7272F3DA2F00095918C /* sort_order_descending_24@2x.png in Resources */,
 				E555283D2FB5D34C0093DD7E /* todo_filter_80@2x.png in Resources */,
 				E5BB9AED2D3BEF0D0089667A /* keyboard_dismiss_24@3x.png in Resources */,
+				E54A06B2303DCF19001FF4A1 /* gantt_taskList_toggle_normal_24@2x.png in Resources */,
 				E5E9F78F2FC03FCA00717004 /* todo_step_import_24@2x.png in Resources */,
 				E5320C2C2FCA87CE001DFE98 /* todo_list_option_manageSection_24@3x.png in Resources */,
 				E54E633D2F5B1BFD00FCBCAE /* habit_menu_reset_24@3x.png in Resources */,
@@ -12017,6 +12037,7 @@
 				E515AD5C2D3CBC3500AA9AF2 /* todo_task_step_addPosition_24@2x.png in Resources */,
 				E54A0695303C2C71001FF4A1 /* ganttTimeScale_month_24@3x.png in Resources */,
 				E563F1DE2FE9184300DF86BB /* setting_share_32@2x.png in Resources */,
+				E54A06B4303DCF19001FF4A1 /* gantt_taskList_toggle_normal_24@3x.png in Resources */,
 				E5D7D9862D43E35000EC877A /* focus_timer_stepMode_break_24@2x.png in Resources */,
 				E50D606F2F7A29D100D5E0A4 /* todo_list_parent_24@3x.png in Resources */,
 				E5135097302A0BD1000E9871 /* arrow_uturn_right_36@2x.png in Resources */,
@@ -12039,6 +12060,7 @@
 				E55A7B782D45F873000D224C /* timer_start_24@3x.png in Resources */,
 				E50D94F52D452DD700F57957 /* focus_record_timeline_ended_24@2x.png in Resources */,
 				E5BB9AE32D3BEF0D0089667A /* checkmark_24@3x.png in Resources */,
+				E54A06B8303DD0DD001FF4A1 /* gantt_backToday_24@2x.png in Resources */,
 				E5BB9A8A2D3BEF0D0089667A /* todo_smartlist_completed_24@3x.png in Resources */,
 				E56B94832F8CDB42001E488B /* todo_sort_type_dueDate_24@3x.png in Resources */,
 				E50D94D62D45268B00F57957 /* chart_pie_24@2x.png in Resources */,
@@ -12235,6 +12257,7 @@
 				E5C92F4B2FD124220051F355 /* todo_section_80@3x.png in Resources */,
 				E55E4BEF2F9336170068E032 /* calendar_27_24@3x.png in Resources */,
 				E56B94AF2F8FB56A001E488B /* todo_task_action_removeFromMyDay_24@2x.png in Resources */,
+				E54A06B3303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@3x.png in Resources */,
 				E55E4C012F9336170068E032 /* calendar_20_24@3x.png in Resources */,
 				E5BBA1212D3BFD150089667A /* RobotoMono-Bold.ttf in Resources */,
 				E563F1DC2FE9184300DF86BB /* setting_rate_32@2x.png in Resources */,
@@ -12374,6 +12397,7 @@
 				E5BB9A782D3BEF0D0089667A /* todo_home_setting_24@3x.png in Resources */,
 				E563F1D22FE8E97400DF86BB /* setting_hapticFeedback_32@2x.png in Resources */,
 				E5E277072D3DF8E3004EC522 /* edit_24@3x.png in Resources */,
+				E54A06B5303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@2x.png in Resources */,
 				E5BB9A9E2D3BEF0D0089667A /* todo_task_priority_fill_24@3x.png in Resources */,
 				E50D025A2F55860B00E93977 /* habit_time_evening_24@3x.png in Resources */,
 				E5BB9A7B2D3BEF0D0089667A /* schedule_time_24@3x.png in Resources */,

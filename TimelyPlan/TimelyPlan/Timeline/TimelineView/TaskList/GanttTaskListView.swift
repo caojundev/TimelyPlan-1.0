@@ -25,13 +25,13 @@ class GanttTaskListCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = GanttTimelineConfig.taskListOddRowColor
         
         nameLabel.font = UIFont.systemFont(ofSize: 13)
-        nameLabel.textColor = .darkText
+        nameLabel.textColor = .label
         nameLabel.numberOfLines = 2
         
-        separatorLine.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+        separatorLine.backgroundColor = GanttTimelineConfig.taskListSeparatorColor
         
         contentView.addSubview(nameLabel)
         contentView.addSubview(separatorLine)
@@ -88,7 +88,7 @@ class GanttTaskListView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = GanttTimelineConfig.taskListBackgroundColor
         clipsToBounds = true
         
         setupCollectionView()
@@ -102,7 +102,7 @@ class GanttTaskListView: UIView {
         flowLayout.headerReferenceSize = .zero
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = GanttTimelineConfig.taskListBackgroundColor
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsVerticalScrollIndicator = false
@@ -156,7 +156,9 @@ extension GanttTaskListView: UICollectionViewDataSource, UICollectionViewDelegat
             cell.configure(task: tasks[indexPath.item])
         }
         
-        cell.backgroundColor = indexPath.item % 2 == 0 ? .white : UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1.0)
+        cell.backgroundColor = indexPath.item % 2 == 0
+            ? GanttTimelineConfig.taskListOddRowColor
+            : GanttTimelineConfig.taskListEvenRowColor
         
         return cell
     }

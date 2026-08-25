@@ -20,4 +20,16 @@ struct GanttTimelineConfig {
     /// 左侧任务列表视图默认宽度
     static let taskListWidth = 180.0
     
+    /// 任务列表视图背景色
+    static let taskListBackgroundColor = UIColor.systemBackground
+    
+    /// 任务列表奇数行背景色
+    static let taskListOddRowColor = Color(light: 0xF8F8F8, dark: 0x1C1C1E)
+    
+    /// 任务列表偶数行背景色
+    static let taskListEvenRowColor = UIColor.systemBackground
+    
+    /// 任务列表行分隔线颜色
+    static let taskListSeparatorColor = Color(0x888888, 0.2)
+    
 }

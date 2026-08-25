@@ -341,7 +341,7 @@ class GanttTimelineChartView: UIView {
     // MARK: - 视图设置
     
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = GanttTimelineConfig.taskListBackgroundColor
         clipsToBounds = true
         
         setupCollectionView()
@@ -353,7 +353,7 @@ class GanttTimelineChartView: UIView {
         timelineLayout.rowHeight = rowHeight
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: timelineLayout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = GanttTimelineConfig.taskListBackgroundColor
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsVerticalScrollIndicator = true
@@ -519,7 +519,9 @@ extension GanttTimelineChartView: UICollectionViewDataSource, UICollectionViewDe
             }
         }
         
-        cell.backgroundColor = indexPath.item % 2 == 0 ? .white : UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1.0)
+        cell.backgroundColor = indexPath.item % 2 == 0
+            ? GanttTimelineConfig.taskListOddRowColor
+            : GanttTimelineConfig.taskListEvenRowColor
         
         return cell
     }

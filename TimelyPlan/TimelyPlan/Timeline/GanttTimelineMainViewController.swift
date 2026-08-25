@@ -20,6 +20,13 @@ class GanttTimelineMainViewController: TPViewController {
     /// 侧边栏管理器
     var sidebarController: SidebarController?
     
+    /// 日期按钮
+    lazy var dateButton: CalendarDateButton = {
+        let button = CalendarDateButton()
+        button.addTarget(self, action: #selector(clickDate(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var scaleBarButtonItem: GanttTimeScaleBarButtonItem = {
         let item = GanttTimeScaleBarButtonItem()
         item.didSelectScale = { [weak self] scale in
@@ -66,12 +73,19 @@ class GanttTimelineMainViewController: TPViewController {
         return manager
     }()
 
+    /// 当前显示日期
+    var date: Date = .now
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.titleView = dateButton
+        updateTitle()
+        
         setupBarButtonItems()
         view.addSubview(timelineView)
         setupAddView()
         setupTestData()
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -119,6 +133,12 @@ class GanttTimelineMainViewController: TPViewController {
         }
     }
     
+    // MARK: - Update
+    
+    private func updateTitle() {
+        dateButton.title = date.slashFormattedYearMonthString
+    }
+    
     // MARK: - Event Response
     private func selectScale(_ scale: GanttTimeScale.Scale) {
         timelineView.setScale(scale)
@@ -126,7 +146,6 @@ class GanttTimelineMainViewController: TPViewController {
     
     @objc private func clickMore() {
         TPImpactFeedback.impactWithSoftStyle()
- 
     }
     
     /// 点击添加
@@ -137,6 +156,25 @@ class GanttTimelineMainViewController: TPViewController {
         let date = quickAddTaskDate()
         showQuickAddTask(on: date)
     }
+    
+    @objc private func clickDate(_ button: UIButton) {
+        let datePickerVC = TPYearMonthDatePickerViewController()
+        datePickerVC.date = date
+        datePickerVC.yearRange = CalendarYearConfig.yearRange
+        datePickerVC.didPickDate = { date in
+            self.pickDate(date)
+        }
+        
+        datePickerVC.popoverShow(from: button, preferredPosition: .bottomCenter)
+    }
+    
+    private func pickDate(_ date: Date) {
+        self.date = date
+        updateTitle()
+    }
+    
+    
+    // MARK: - 待办任务操作
 
     func showQuickAddTask(on date: Date) {
         // 检查并清理过期的草稿任务
