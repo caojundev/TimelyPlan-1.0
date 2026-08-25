@@ -167,5 +167,65 @@ extension GanttTaskListView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         onVerticalScroll?(scrollView.contentOffset.y)
+        notifyVerticalContentOffsetChanged()
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        notifyVerticalScrollWillBegin()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        notifyVerticalScrollDidEnd()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            notifyVerticalScrollDidEnd()
+        }
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        notifyVerticalScrollDidEnd()
+    }
+}
+
+// MARK: - VerticalScrollSyncable
+extension GanttTaskListView: VerticalScrollSyncable {
+    
+    var yOffset: CGFloat {
+        get {
+            return collectionView.contentOffset.y
+        }
+        set {
+            collectionView.contentOffset = CGPoint(x: collectionView.contentOffset.x, y: newValue)
+        }
+    }
+    
+    func setYOffset(_ yOffset: CGFloat, animated: Bool) {
+        collectionView.setContentOffset(
+            CGPoint(x: collectionView.contentOffset.x, y: yOffset),
+            animated: animated
+        )
+    }
+    
+    var verticalScrollSyncDelegate: VerticalScrollSyncDelegate? {
+        get {
+            return collectionView.verticalScrollSyncDelegate
+        }
+        set {
+            collectionView.verticalScrollSyncDelegate = newValue
+        }
+    }
+    
+    func notifyVerticalScrollWillBegin() {
+        verticalScrollSyncDelegate?.verticalScrollSyncViewWillBeginScrolling(self)
+    }
+    
+    func notifyVerticalScrollDidEnd() {
+        verticalScrollSyncDelegate?.verticalScrollSyncViewDidEndScrolling(self)
+    }
+    
+    func notifyVerticalContentOffsetChanged() {
+        verticalScrollSyncDelegate?.verticalScrollSyncView(self, didChangeYOffset: yOffset)
     }
 }
