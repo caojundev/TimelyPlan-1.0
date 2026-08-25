@@ -108,7 +108,7 @@ class GanttTaskListView: UIView {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInsetAdjustmentBehavior = .never
-        
+        collectionView.contentInset = UIEdgeInsets(bottom: GanttTimelineConfig.insetBottom)
         collectionView.register(GanttTaskListCell.self, forCellWithReuseIdentifier: GanttTaskListCell.reuseIdentifier)
         
         addSubview(collectionView)

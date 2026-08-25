@@ -57,6 +57,9 @@ class GanttTimelineView: UIView {
     /// 显示任务列表的按钮（左下角）
     private let toggleButton: UIButton
 
+    /// 回到今天的按钮（左下角，toggleButton 右侧）
+    private let todayButton: UIButton
+
     /// 任务列表下方的遮罩视图
     private let overlayMaskView: UIControl
 
@@ -85,6 +88,7 @@ class GanttTimelineView: UIView {
         self._chartView = GanttTimelineChartView(timeScale: timeScale)
         self._taskListView = GanttTaskListView(frame: .zero)
         self.toggleButton = UIButton(type: .system)
+        self.todayButton = UIButton(type: .system)
         self.overlayMaskView = UIControl()
         super.init(frame: frame)
 
@@ -126,9 +130,20 @@ class GanttTimelineView: UIView {
         toggleButton.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
         toggleButton.addTarget(self, action: #selector(toggleTaskList), for: .touchUpInside)
 
+        // 回到今天按钮
+        todayButton.setTitle("今天", for: .normal)
+        todayButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        todayButton.tintColor = .label
+        todayButton.backgroundColor = .systemBackground
+        todayButton.layer.cornerRadius = 8
+        todayButton.layer.borderWidth = 1
+        todayButton.layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
+        todayButton.addTarget(self, action: #selector(scrollToTodayTapped), for: .touchUpInside)
+
         addSubview(overlayMaskView)
         addSubview(_taskListView)
         addSubview(toggleButton)
+        addSubview(todayButton)
 
         // 初始状态：隐藏在最左侧
         _taskListView.frame = CGRect(x: -taskListWidth,
@@ -145,6 +160,10 @@ class GanttTimelineView: UIView {
         hideTaskList()
     }
 
+    @objc private func scrollToTodayTapped() {
+        scrollToToday()
+    }
+
     /// 显示任务列表
     func showTaskList(animated: Bool = true) {
         guard !isTaskListVisible else { return }
@@ -152,6 +171,7 @@ class GanttTimelineView: UIView {
 
         overlayMaskView.isHidden = false
         overlayMaskView.alpha = 0
+        todayButton.isHidden = true
 
         let show = {
             self._taskListView.frame.origin.x = 0
@@ -175,6 +195,7 @@ class GanttTimelineView: UIView {
         let hide = {
             self._taskListView.frame.origin.x = -self.taskListWidth
             self.overlayMaskView.alpha = 0
+            self.todayButton.isHidden = false
         }
         let completion: (Bool) -> Void = { _ in
             self.overlayMaskView.isHidden = true
@@ -214,10 +235,15 @@ class GanttTimelineView: UIView {
 
         // 左下角按钮
         let buttonSize: CGFloat = 36
+        let buttonY = bounds.height - buttonSize - 12
         toggleButton.frame = CGRect(x: 12,
-                                    y: bounds.height - buttonSize - 12,
+                                    y: buttonY,
                                     width: buttonSize,
                                     height: buttonSize)
+        todayButton.frame = CGRect(x: 12 + buttonSize + 8,
+                                   y: buttonY,
+                                   width: 56,
+                                   height: buttonSize)
     }
 
     // MARK: - 公开方法

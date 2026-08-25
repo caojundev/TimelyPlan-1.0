@@ -362,7 +362,7 @@ class GanttTimelineChartView: UIView {
         collectionView.alwaysBounceHorizontal = true
         collectionView.alwaysBounceVertical = true
         collectionView.contentInsetAdjustmentBehavior = .never
-        collectionView.contentInset = UIEdgeInsets(bottom: 100.0)
+        collectionView.contentInset = UIEdgeInsets(bottom: GanttTimelineConfig.insetBottom)
         collectionView.register(TimelineCell.self, forCellWithReuseIdentifier: TimelineCell.reuseIdentifier)
         
         addSubview(collectionView)
