@@ -12,7 +12,9 @@ import UIKit
 class GanttTaskListCell: UICollectionViewCell {
     static let reuseIdentifier = "GanttTaskListCell"
     
-    private let nameLabel = UILabel()
+    private let indicatorSize = CGSize(width: 5.0, height: 18.0)
+    
+    private let infoView = TPColorInfoView()
     private let separatorLine = UIView()
     
     override init(frame: CGRect) {
@@ -26,33 +28,28 @@ class GanttTaskListCell: UICollectionViewCell {
     
     private func setupViews() {
         backgroundColor = GanttTimelineConfig.taskListOddRowColor
-        
-        nameLabel.font = UIFont.systemFont(ofSize: 13)
-        nameLabel.textColor = .label
-        nameLabel.numberOfLines = 2
+        infoView.titleConfig.font = .systemFont(ofSize: 13.0, weight: .medium)
+        contentView.addSubview(infoView)
         
         separatorLine.backgroundColor = GanttTimelineConfig.taskListSeparatorColor
-        
-        contentView.addSubview(nameLabel)
         contentView.addSubview(separatorLine)
     }
     
-    func configure(task: GanttTask) {
-        nameLabel.text = task.name
-        
-        nameLabel.frame = CGRect(
-            x: 8,
-            y: 0,
-            width: bounds.width - 16,
-            height: bounds.height
-        )
-        
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        infoView.frame = contentView.layoutFrame()
         separatorLine.frame = CGRect(x: bounds.width - 1, y: 0, width: 1, height: bounds.height)
+    }
+    
+    func configure(task: GanttTask) {
+        infoView.colorConfig = .withColor(task.color, size: indicatorSize)
+        infoView.title = task.name
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        nameLabel.text = nil
+        infoView.title = nil
+        infoView.colorConfig = nil
     }
 }
 
@@ -64,7 +61,7 @@ class GanttTaskListView: UIView {
     private var flowLayout: UICollectionViewFlowLayout!
     
     // 布局常量
-    private let rowHeight: CGFloat = 44
+    private let rowHeight: CGFloat = GanttTimelineConfig.taskListRowHeight
     private let columnWidth: CGFloat = 180
     
     // 数据

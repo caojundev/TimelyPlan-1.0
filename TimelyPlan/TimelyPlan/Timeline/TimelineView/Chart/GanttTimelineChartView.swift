@@ -317,7 +317,7 @@ class GanttTimelineChartView: UIView {
     private var timelineLayout: GanttTimelineLayout!
     
     // 布局常量
-    private let rowHeight: CGFloat = 44
+    private let rowHeight: CGFloat = GanttTimelineConfig.taskListRowHeight
     
     // 滚动方向锁定
     private var initialOffset: CGPoint = .zero
