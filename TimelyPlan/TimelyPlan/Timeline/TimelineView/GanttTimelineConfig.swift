@@ -17,7 +17,6 @@ struct GanttTimelineConfig {
     
     static let headerSeparatorColor = Color(0x888888, 0.2)
     
-    
     /// 左侧任务列表视图默认宽度
     static let taskListWidth = 180.0
     
@@ -34,6 +33,9 @@ struct GanttTimelineConfig {
     
     /// 任务列表行分隔线颜色
     static let taskListSeparatorColor = Color(0x888888, 0.2)
+    
+    /// 任务列表选中行背景色
+    static let taskListSelectedRowColor = Color(light: 0xE3F0FF, dark: 0x1E3A5F)
     
     static let edgeIndicatorBackgroundColor = Color(light: 0xeaeaea, dark: 0x1C1C1C)
     static let edgeIndicatorImageColor = Color(light: 0x3C3C3C, dark: 0xDEDEDE)

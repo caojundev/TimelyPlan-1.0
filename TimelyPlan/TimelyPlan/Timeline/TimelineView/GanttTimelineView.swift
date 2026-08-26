@@ -161,6 +161,12 @@ class GanttTimelineView: UIView {
         addSubview(toggleButton)
         addSubview(todayButton)
 
+        // 点击任务列表中的任务时，将对应任务滚动到可视位置
+        _taskListView.onTaskSelect = { [weak self] task in
+            self?.hideTaskList(animated: true)
+            self?.chartView.scrollToTaskStart(task)
+        }
+        
         // 初始状态：隐藏在最左侧
         _taskListView.frame = CGRect(x: -taskListWidth,
                                      y: headerHeight,

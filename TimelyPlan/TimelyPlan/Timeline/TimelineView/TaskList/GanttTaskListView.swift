@@ -27,7 +27,19 @@ class GanttTaskListCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        backgroundColor = GanttTimelineConfig.taskListOddRowColor
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+
+        // 自定义普通背景视图
+        let normalBackground = UIView()
+        normalBackground.backgroundColor = GanttTimelineConfig.taskListOddRowColor
+        backgroundView = normalBackground
+
+        // 自定义选中背景视图（选中高亮）
+        let selectedBackground = UIView()
+        selectedBackground.backgroundColor = GanttTimelineConfig.taskListSelectedRowColor
+        selectedBackgroundView = selectedBackground
+
         infoView.titleConfig.font = .systemFont(ofSize: 13.0, weight: .medium)
         contentView.addSubview(infoView)
         
@@ -44,6 +56,11 @@ class GanttTaskListCell: UICollectionViewCell {
     func configure(task: GanttTask) {
         infoView.colorConfig = .withColor(task.color, size: indicatorSize)
         infoView.title = task.name
+    }
+
+    /// 设置普通（未选中）背景色，用于区分奇偶行
+    func setRowBackgroundColor(_ color: UIColor) {
+        backgroundView?.backgroundColor = color
     }
     
     override func prepareForReuse() {
@@ -73,6 +90,9 @@ class GanttTaskListView: UIView {
     
     // 滚动同步回调
     var onVerticalScroll: ((CGFloat) -> Void)?
+
+    /// 点击某个任务时的回调
+    var onTaskSelect: ((GanttTask) -> Void)?
     
     // 初始化
     override init(frame: CGRect) {
@@ -153,11 +173,18 @@ extension GanttTaskListView: UICollectionViewDataSource, UICollectionViewDelegat
             cell.configure(task: tasks[indexPath.item])
         }
         
-        cell.backgroundColor = indexPath.item % 2 == 0
+        cell.setRowBackgroundColor(indexPath.item % 2 == 0
             ? GanttTimelineConfig.taskListOddRowColor
-            : GanttTimelineConfig.taskListEvenRowColor
+            : GanttTimelineConfig.taskListEvenRowColor)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard indexPath.item < tasks.count else { return }
+        
+        let task = tasks[indexPath.item]
+        onTaskSelect?(task)
     }
 }
 
