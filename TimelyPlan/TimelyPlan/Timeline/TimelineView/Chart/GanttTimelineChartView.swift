@@ -119,6 +119,34 @@ class GanttTimelineLayout: UICollectionViewLayout {
     func widthForDuration(from start: Date, to end: Date) -> CGFloat {
         return max(xPositionForDate(end) - xPositionForDate(start), 2)
     }
+    
+    /// 根据 X 坐标反推对应的日期（与 xPositionForDate 对称）
+    func dateForXPosition(_ x: CGFloat) -> Date {
+        let calendar = Calendar.current
+        let clampedX = max(0, x)
+        
+        switch timeScale.scale {
+        case .day:
+            let days = Int(round(clampedX / timeScale.scale.pixelsPerUnit))
+            return calendar.date(byAdding: .day, value: days, to: timeScale.startDate) ?? timeScale.startDate
+        case .week:
+            let weeks = clampedX / timeScale.scale.pixelsPerUnit
+            let days = Int(round(weeks * 7.0))
+            return calendar.date(byAdding: .day, value: days, to: timeScale.startDate) ?? timeScale.startDate
+        case .month:
+            let totalMonths = calendar.dateComponents([.month], from: timeScale.startDate, to: timeScale.endDate).month ?? 1
+            guard totalMonths > 0 else { return timeScale.startDate }
+            let unitIndex = clampedX / timeScale.scale.pixelsPerUnit
+            let monthIndex = Int(floor(unitIndex))
+            let clampedMonth = max(0, min(monthIndex, totalMonths))
+            let fraction = unitIndex - CGFloat(clampedMonth)
+            
+            let monthStart = calendar.date(byAdding: .month, value: clampedMonth, to: timeScale.startDate) ?? timeScale.startDate
+            let daysInMonth = calendar.range(of: .day, in: .month, for: monthStart)?.count ?? 30
+            let dayInMonth = Int(round(fraction * CGFloat(daysInMonth)))
+            return calendar.date(byAdding: .day, value: dayInMonth, to: monthStart) ?? monthStart
+        }
+    }
 }
 
 // MARK: - 右侧时间轴 Cell（完善指示器显示逻辑）
@@ -132,9 +160,10 @@ class TimelineCell: UICollectionViewCell {
     // 可视区域边缘指示器
     private lazy var leftEdgeIndicator: TPImageButton = {
         let button = TPImageButton()
-        button.cornerRadius = 8.0
-        button.normalBackgroundColor = .secondarySystemBackground
-        button.normalImage = resGetImage("chevron_left_24")
+        button.cornerRadius = 6.0
+        button.normalImage = resGetImage("triangle_left_12")
+        button.normalBackgroundColor = GanttTimelineConfig.edgeIndicatorBackgroundColor
+        button.normalImageColor = GanttTimelineConfig.edgeIndicatorImageColor
         button.hitTestEdgeInsets = UIEdgeInsets(value: -10.0)
         button.addTarget(self, action: #selector(leftIndicatorTapped), for: .touchUpInside)
         button.isHidden = true
@@ -143,9 +172,10 @@ class TimelineCell: UICollectionViewCell {
     
     private lazy var rightEdgeIndicator: TPImageButton = {
         let button = TPImageButton()
-        button.cornerRadius = 8.0
-        button.normalBackgroundColor = .secondarySystemBackground
-        button.normalImage = resGetImage("chevron_right_24")
+        button.cornerRadius = 6.0
+        button.normalImage = resGetImage("triangle_right_12")
+        button.normalBackgroundColor = GanttTimelineConfig.edgeIndicatorBackgroundColor
+        button.normalImageColor = GanttTimelineConfig.edgeIndicatorImageColor
         button.hitTestEdgeInsets = UIEdgeInsets(value: -10.0)
         button.addTarget(self, action: #selector(rightIndicatorTapped), for: .touchUpInside)
         button.isHidden = true
@@ -299,6 +329,12 @@ class GanttTimelineChartView: UIView {
     
     // 滚动同步回调
     var onVerticalScroll: ((CGFloat) -> Void)?
+
+    /// 最左侧（contentOffset.x）对应日期改变时回调（仅当「天」发生变化时触发）
+    var onDateChanged: ((Date) -> Void)?
+
+    /// 上次通知的日期（用于判断是否改变）
+    private var lastNotifiedDate: Date?
     
     // 数据
     var tasks: [GanttTask] = [] {
@@ -357,7 +393,7 @@ class GanttTimelineChartView: UIView {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsVerticalScrollIndicator = true
-        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.bounces = true
         collectionView.alwaysBounceHorizontal = true
         collectionView.alwaysBounceVertical = true
@@ -377,6 +413,10 @@ class GanttTimelineChartView: UIView {
     
     func xPositionForDate(_ date: Date) -> CGFloat {
         return timelineLayout.xPositionForDate(date)
+    }
+    
+    func dateForXPosition(_ x: CGFloat) -> Date {
+        return timelineLayout.dateForXPosition(x)
     }
     
     func widthForDuration(from start: Date, to end: Date) -> CGFloat {
@@ -399,6 +439,13 @@ class GanttTimelineChartView: UIView {
     func scrollToToday(animated: Bool = true) {
         let xPos = timelineLayout.xPositionForDate(Date())
         let targetX = max(0, xPos - 100)
+        performHorizontalScroll(to: targetX, animated: animated)
+    }
+
+    /// 滚动到指定日期位置（将该日期置于可视区域最左侧）
+    func scrollToDate(_ date: Date, animated: Bool = false) {
+        let xPos = timelineLayout.xPositionForDate(date)
+        let targetX = max(0, xPos)
         performHorizontalScroll(to: targetX, animated: animated)
     }
 
@@ -442,6 +489,19 @@ class GanttTimelineChartView: UIView {
         initialOffset = collectionView.contentOffset
         isHorizontalLocked = false
         isVerticalLocked = false
+    }
+
+    /// 检测最左侧日期是否改变，改变则回调 onDateChanged
+    private func checkAndNotifyDateChanged() {
+        let date = timelineLayout.dateForXPosition(collectionView.contentOffset.x)
+
+        // 仅当「天」发生变化时通知
+        if let last = lastNotifiedDate, Calendar.current.isDate(last, inSameDayAs: date) {
+            return
+        }
+
+        lastNotifiedDate = date
+        onDateChanged?(date)
     }
     
     // MARK: - 内部方法
@@ -548,6 +608,7 @@ extension GanttTimelineChartView: UIScrollViewDelegate {
         // 如果是指示器触发的滚动，跳过方向锁定
         if isIndicatorScrolling {
             updateVisibleCellIndicators()
+            checkAndNotifyDateChanged()
             return
         }
         
@@ -572,6 +633,9 @@ extension GanttTimelineChartView: UIScrollViewDelegate {
             
             // 通知横向滚动同步
             notifyHorizontalContentOffsetChanged()
+
+            // 检测最左侧日期是否改变
+            checkAndNotifyDateChanged()
         } else if isVerticalLocked {
             if scrollView.contentOffset.x != initialOffset.x {
                 scrollView.contentOffset = CGPoint(x: initialOffset.x, y: scrollView.contentOffset.y)

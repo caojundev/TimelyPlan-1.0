@@ -70,6 +70,12 @@ class GanttTimelineView: UIView {
         }
     }
 
+    /// 最左侧日期（天）改变时回调（转发自 chartView）
+    var onDateChanged: ((Date) -> Void)? {
+        get { return _chartView.onDateChanged }
+        set { _chartView.onDateChanged = newValue }
+    }
+
     // MARK: - 初始化
 
     /// - Parameters:
@@ -171,6 +177,7 @@ class GanttTimelineView: UIView {
     }
 
     @objc private func maskTapped() {
+        TPImpactFeedback.impactWithSoftStyle()
         hideTaskList()
     }
 
@@ -194,7 +201,11 @@ class GanttTimelineView: UIView {
         let completion: (Bool) -> Void = { _ in }
 
         if animated {
-            UIView.animate(withDuration: 0.25, animations: show, completion: completion)
+            UIView.animate(withDuration: 0.25,
+                           delay: 0.0,
+                           options: .beginFromCurrentState,
+                           animations: show,
+                           completion: completion)
         } else {
             show()
             completion(true)
@@ -212,11 +223,17 @@ class GanttTimelineView: UIView {
             self.todayButton.isHidden = false
         }
         let completion: (Bool) -> Void = { _ in
-            self.overlayMaskView.isHidden = true
+            if !self.isTaskListVisible {
+                self.overlayMaskView.isHidden = true
+            }
         }
 
         if animated {
-            UIView.animate(withDuration: 0.25, animations: hide, completion: completion)
+            UIView.animate(withDuration: 0.25,
+                           delay: 0.0,
+                           options: .beginFromCurrentState,
+                           animations: hide,
+                           completion: completion)
         } else {
             hide()
             completion(true)
@@ -278,6 +295,11 @@ class GanttTimelineView: UIView {
     /// 滚动到"今天"所在位置
     func scrollToToday(animated: Bool = true) {
         chartView.scrollToToday(animated: animated)
+    }
+
+    /// 滚动到指定日期位置
+    func scrollToDate(_ date: Date, animated: Bool = false) {
+        chartView.scrollToDate(date, animated: animated)
     }
 
     /// 滚动到任务开始位置

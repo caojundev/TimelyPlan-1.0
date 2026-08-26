@@ -60,6 +60,13 @@ class GanttTimelineMainViewController: TPViewController {
             timeScale: timeScale,
             headerHeight: GanttTimelineConfig.headerHeight
         )
+        
+        // 日期改变时更新标题
+        view.onDateChanged = { [weak self] date in
+            self?.date = date
+            self?.updateTitle()
+        }
+        
         return view
     }()
     
@@ -75,6 +82,9 @@ class GanttTimelineMainViewController: TPViewController {
 
     /// 当前显示日期
     var date: Date = .now
+
+    /// 是否已滚动到初始日期（仅首次进入时执行一次）
+    private var hasScrolledToInitialDate = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,13 +95,22 @@ class GanttTimelineMainViewController: TPViewController {
         view.addSubview(timelineView)
         setupAddView()
         setupTestData()
-        
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         timelineView.frame = view.safeAreaFrame()
         layoutAddView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // 首次布局完成后滚动到初始日期位置
+        if !hasScrolledToInitialDate {
+            hasScrolledToInitialDate = true
+            timelineView.scrollToDate(date, animated: false)
+        }
     }
      
     override var themeBackgroundColor: UIColor? {

@@ -461,7 +461,6 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
     
     func keyboardAwareController(controller: TPKeyboardAwareController, inputViewFrameDidChange fromFrame: CGRect) {
         guard let inputView = controller.inputView else {
-            tableView.contentInset = .zero
             return
         }
         

@@ -794,6 +794,8 @@
 		E54A06B5303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06B1303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@2x.png */; };
 		E54A06B8303DD0DD001FF4A1 /* gantt_backToday_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06B6303DD0DC001FF4A1 /* gantt_backToday_24@2x.png */; };
 		E54A06B9303DD0DD001FF4A1 /* gantt_backToday_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06B7303DD0DD001FF4A1 /* gantt_backToday_24@3x.png */; };
+		E54A06BC303EA549001FF4A1 /* triangle_left_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06BA303EA548001FF4A1 /* triangle_left_12@2x.png */; };
+		E54A06BD303EA549001FF4A1 /* triangle_left_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A06BB303EA549001FF4A1 /* triangle_left_12@3x.png */; };
 		E54C7C7B2F5BADD300263B82 /* HabitRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */; };
 		E54C7C7D2F5BADE200263B82 /* HabitDatePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */; };
 		E54C7C7F2F5BB1EE00263B82 /* HabitPeriodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C7E2F5BB1EE00263B82 /* HabitPeriodItem.swift */; };
@@ -3007,6 +3009,8 @@
 		E54A06B1303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gantt_taskList_toggle_active_24@2x.png"; sourceTree = "<group>"; };
 		E54A06B6303DD0DC001FF4A1 /* gantt_backToday_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gantt_backToday_24@2x.png"; sourceTree = "<group>"; };
 		E54A06B7303DD0DD001FF4A1 /* gantt_backToday_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gantt_backToday_24@3x.png"; sourceTree = "<group>"; };
+		E54A06BA303EA548001FF4A1 /* triangle_left_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle_left_12@2x.png"; sourceTree = "<group>"; };
+		E54A06BB303EA549001FF4A1 /* triangle_left_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle_left_12@3x.png"; sourceTree = "<group>"; };
 		E54C7C7A2F5BADD300263B82 /* HabitRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecord.swift; sourceTree = "<group>"; };
 		E54C7C7C2F5BADE100263B82 /* HabitDatePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDatePeriod.swift; sourceTree = "<group>"; };
 		E54C7C7E2F5BB1EE00263B82 /* HabitPeriodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPeriodItem.swift; sourceTree = "<group>"; };
@@ -5369,6 +5373,8 @@
 				E5259B20301A3CFE00A6D253 /* triangle_up_12@3x.png */,
 				E5E4B8CD2DBF875200EED889 /* triangle_down_12@2x.png */,
 				E5E4B8CE2DBF875200EED889 /* triangle_down_12@3x.png */,
+				E54A06BA303EA548001FF4A1 /* triangle_left_12@2x.png */,
+				E54A06BB303EA549001FF4A1 /* triangle_left_12@3x.png */,
 				E515AD7C2D3CF87F00AA9AF2 /* triangle_right_12@2x.png */,
 				E515AD7B2D3CF87F00AA9AF2 /* triangle_right_12@3x.png */,
 				E5D7D9672D43DCCE00EC877A /* triangle_right_32@2x.png */,
@@ -12230,6 +12236,7 @@
 				E55E78022D8ABB09005E3DED /* quadrant_option_showCompleted_24@3x.png in Resources */,
 				E5B926CE2D3F97F30065FA79 /* plus_32@2x.png in Resources */,
 				E5BB9A842D3BEF0D0089667A /* schedule_duration_24@2x.png in Resources */,
+				E54A06BD303EA549001FF4A1 /* triangle_left_12@3x.png in Resources */,
 				E5BB9AE92D3BEF0D0089667A /* copy_24@2x.png in Resources */,
 				E505D93D2F9A4EBA004469DC /* reorderControl_24@3x.png in Resources */,
 				E586DA772FE2D39F00758ED6 /* placeholder_calendar_80@2x.png in Resources */,
@@ -12355,6 +12362,7 @@
 				E55E4BEA2F9336170068E032 /* calendar_24_24@2x.png in Resources */,
 				E5E4D1472D92AF2C00813B6C /* todo_filter_priority_36@2x.png in Resources */,
 				E556BCD52F5D746400CA20D9 /* HabitRecordTypeCheckin@2x.png in Resources */,
+				E54A06BC303EA549001FF4A1 /* triangle_left_12@2x.png in Resources */,
 				E53ABEC43007C37600EB8632 /* myDay_add_24@2x.png in Resources */,
 				E5E277062D3DF8E3004EC522 /* edit_24@2x.png in Resources */,
 				E5BB9AC12D3BEF0D0089667A /* todo_task_action_undone_24@2x.png in Resources */,
