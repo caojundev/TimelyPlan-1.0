@@ -229,7 +229,7 @@ class TimelineCell: UICollectionViewCell {
                    width: CGFloat,
                    rowHeight: CGFloat,
                    visibleRect: CGRect) {
-        let barWidth = max(width, 2)
+        let barWidth = max(width, GanttTimelineConfig.barMinWidth)
         
         // 计算 bar 高度：默认 rowHeight - 上下间距，超过最大高度则以最大高度显示
         let defaultHeight = rowHeight - GanttTimelineConfig.barVerticalInset * 2
@@ -319,6 +319,8 @@ class TimelineCell: UICollectionViewCell {
                                       y: y,
                                       width: titleWidth,
                                       height: height)
+            // 标题显示在 bar 两侧，位于 bar 外侧，使用默认文字颜色
+            titleLabel.textColor = .label
             return
         }
         
@@ -334,39 +336,49 @@ class TimelineCell: UICollectionViewCell {
             titleWidth = titleMaxWidth
         }
         
+        // 统一设置标题 frame 的辅助闭包
+        func applyTitleFrame(_ labelX: CGFloat) {
+            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            // 标题区域与 bar 区域有交集视为在 bar 上显示，使用白色；否则在 bar 外侧使用默认色
+            let labelRight = labelX + titleWidth
+            let onBar = labelRight >= barLeft && labelX <= barRight
+            titleLabel.textColor = onBar ? .white : .label
+        }
+        
         // 标题能完整容纳在可见 bar 内，默认在可见区域居中
         if titleWidth <= visibleBarWidth {
-            let labelX = barVisibleLeft + (visibleBarWidth - titleWidth) / 2
-            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            applyTitleFrame(barVisibleLeft + (visibleBarWidth - titleWidth) / 2)
             return
         }
         
         let indicatorLength = indicatorSize + indicatorMargin
-        // bar 从左侧消失，标题固定在左侧
+        
+        // bar 从左侧消失，标题固定在左侧指示器右侧
         if barRight <= visibleLeft + indicatorLength {
-            let labelX = leftEdgeIndicator.right
-            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            applyTitleFrame(leftEdgeIndicator.right)
             return
         }
         
-        // bar 从右侧消失，标题固定在右侧
+        // bar 从右侧消失，标题固定在右侧指示器左侧
         if barLeft >= visibleRight - indicatorLength {
-            let labelX = rightEdgeIndicator.left - titleWidth
-            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            applyTitleFrame(rightEdgeIndicator.left - titleWidth)
             return
         }
         
+        // bar 左端越过可视区域左边缘附近，标题贴在 bar 右端
         if visibleLeft + indicatorLength > barLeft, visibleLeft + indicatorLength < barRight {
-            let labelX = barRight - titleWidth
-            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            applyTitleFrame(barRight - titleWidth)
             return
         }
         
+        // bar 右端越过可视区域右边缘附近，标题贴在 bar 左端
         if visibleRight - indicatorLength > barLeft, visibleRight - indicatorLength < barRight {
-            let labelX = barLeft
-            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            applyTitleFrame(barLeft)
             return
         }
+        
+        // 兜底：bar 整体可见但宽度不足以容纳标题，以 bar 整体居中
+        applyTitleFrame(barLeft + (barWidth - titleWidth) / 2)
         
     }
     

@@ -30,6 +30,9 @@ struct GanttTimelineConfig {
     /// bar 显示最大高度（默认 rowHeight - 上下间距，超过则以最大高度显示）
     static let barMaxHeight = 32.0
     
+    /// bar 显示最小宽度（时间宽度过短时至少显示该宽度，避免只剩一条细线）
+    static let barMinWidth = 20.0
+    
     /// 任务列表视图背景色
     static let taskListBackgroundColor = UIColor.systemBackground
     
