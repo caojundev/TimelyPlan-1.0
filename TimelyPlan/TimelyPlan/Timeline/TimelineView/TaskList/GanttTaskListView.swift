@@ -181,6 +181,7 @@ extension GanttTaskListView: UICollectionViewDataSource, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         guard indexPath.item < tasks.count else { return }
         
         let task = tasks[indexPath.item]

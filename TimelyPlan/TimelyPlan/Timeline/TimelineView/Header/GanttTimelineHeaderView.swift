@@ -211,11 +211,7 @@ final class GanttTimelineHeaderView: UIView {
     func configure(timeScale: GanttTimeScale) {
         currentScale = timeScale.scale
 
-        let calculator = GanttTimelineScaleCalculator(
-            scale: timeScale.scale,
-            startDate: timeScale.startDate,
-            endDate: timeScale.endDate
-        )
+        let calculator = GanttTimelineScaleCalculator(timeScale: timeScale)
         
         headerLayout.units = calculator.makeUnits()
         headerLayout.pixelsPerUnit = timeScale.scale.pixelsPerUnit

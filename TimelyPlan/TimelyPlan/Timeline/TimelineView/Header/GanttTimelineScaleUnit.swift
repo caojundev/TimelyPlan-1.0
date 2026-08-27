@@ -14,12 +14,10 @@ import UIKit
 struct GanttTimelineScaleUnit {
     /// 该单元在时间轴上的起始日期
     let startDate: Date
+    
     /// 该单元在时间轴上的结束日期
     let endDate: Date
-    /// 主标题（如 "2026年8月" / "W35" / "8月"）
-    let title: String
-    /// 副标题（如 "24" / "8/24"）
-    let subtitle: String?
+    
     /// 是否为「月」边界（day 模式下的每月第一天 / month 模式的每月）
     let isMajorBoundary: Bool
 }
@@ -30,6 +28,12 @@ struct GanttTimelineScaleCalculator {
     let startDate: Date
     let endDate: Date
 
+    init(timeScale: GanttTimeScale) {
+        self.scale = timeScale.scale
+        self.startDate = timeScale.startDate
+        self.endDate = timeScale.endDate
+    }
+    
     /// 生成所有刻度单元
     func makeUnits() -> [GanttTimelineScaleUnit] {
         switch scale {
@@ -44,13 +48,6 @@ struct GanttTimelineScaleCalculator {
     private func makeDayUnits() -> [GanttTimelineScaleUnit] {
         let calendar = Calendar.current
         let totalDays = calendar.dateComponents([.day], from: startDate, to: endDate).day ?? 30
-
-        let dayFormatter = DateFormatter()
-        dayFormatter.dateFormat = "d"
-
-        let monthFormatter = DateFormatter()
-        monthFormatter.dateFormat = "yyyy年M月"
-
         var units: [GanttTimelineScaleUnit] = []
         var currentDate = startDate
 
@@ -61,8 +58,6 @@ struct GanttTimelineScaleCalculator {
             units.append(GanttTimelineScaleUnit(
                 startDate: currentDate,
                 endDate: nextDate,
-                title: isMonthStart ? monthFormatter.string(from: currentDate) : "",
-                subtitle: dayFormatter.string(from: currentDate),
                 isMajorBoundary: isMonthStart
             ))
 
@@ -72,28 +67,19 @@ struct GanttTimelineScaleCalculator {
         return units
     }
 
-    // MARK: - 周刻度
-
-    private func makeWeekUnits() -> [GanttTimelineScaleUnit] {
+    // MARK: - 周刻度    
+    private func makeWeekUnits(firstWeekday: Int = 1) -> [GanttTimelineScaleUnit] {
         let calendar = Calendar.current
-        let totalDays = calendar.dateComponents([.day], from: startDate, to: endDate).day ?? 30
-        let totalWeeks = Int(ceil(Double(totalDays) / 7.0))
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "M/d"
-
         var units: [GanttTimelineScaleUnit] = []
-        for week in 0...totalWeeks {
-            guard let weekStart = calendar.date(byAdding: .weekOfYear, value: week, to: startDate) else { continue }
-            let weekEnd = calendar.date(byAdding: .day, value: 7, to: weekStart) ?? weekStart
-
+        var currentStart = startDate
+        while currentStart < endDate {
+            let currentEnd = calendar.date(byAdding: .day, value: 7, to: currentStart) ?? currentStart
             units.append(GanttTimelineScaleUnit(
-                startDate: weekStart,
-                endDate: weekEnd,
-                title: "W\(calendar.component(.weekOfYear, from: weekStart))",
-                subtitle: dateFormatter.string(from: weekStart),
+                startDate: currentStart,
+                endDate: currentEnd,
                 isMajorBoundary: true
             ))
+            currentStart = currentEnd
         }
 
         return units
@@ -104,20 +90,13 @@ struct GanttTimelineScaleCalculator {
     private func makeMonthUnits() -> [GanttTimelineScaleUnit] {
         let calendar = Calendar.current
         let totalMonths = (calendar.dateComponents([.month], from: startDate, to: endDate).month ?? 1) + 1
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy年M月"
-
         var units: [GanttTimelineScaleUnit] = []
         for month in 0...totalMonths {
             guard let monthDate = calendar.date(byAdding: .month, value: month, to: startDate) else { continue }
             let monthEnd = calendar.date(byAdding: .month, value: 1, to: monthDate) ?? monthDate
-
             units.append(GanttTimelineScaleUnit(
                 startDate: monthDate,
                 endDate: monthEnd,
-                title: dateFormatter.string(from: monthDate),
-                subtitle: nil,
                 isMajorBoundary: true
             ))
         }

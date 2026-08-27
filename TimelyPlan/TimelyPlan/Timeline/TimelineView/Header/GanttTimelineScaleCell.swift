@@ -11,18 +11,12 @@ import UIKit
 
 /// 时间轴 header 的刻度单元 cell 基类
 class GanttTimelineScaleCell: UICollectionViewCell {
-
-    /// 主标题 label（如 "2026年8月" / "W35"）
-    let titleLabel = UILabel()
-    /// 副标题 label（如 "24" / "8/24"）
-    let subtitleLabel = UILabel()
+    
     /// 左侧竖线（区分相邻单元）
     let separatorLine = UIView()
 
     /// 是否为主要边界（月首等），用于强调竖线与标题
-    var isMajorBoundary: Bool = false {
-        didSet { applyBoundaryStyle() }
-    }
+    private(set) var isMajorBoundary: Bool = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,50 +31,25 @@ class GanttTimelineScaleCell: UICollectionViewCell {
         backgroundColor = .clear
         separatorLine.backgroundColor = GanttTimelineConfig.headerSeparatorColor
         contentView.addSubview(separatorLine)
-        
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 11)
-        titleLabel.textColor = .darkText
-
-        subtitleLabel.font = UIFont.systemFont(ofSize: 9)
-        subtitleLabel.textColor = .gray
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(subtitleLabel)
     }
 
     func configure(with unit: GanttTimelineScaleUnit) {
-        titleLabel.text = unit.title
-        subtitleLabel.text = unit.subtitle
-        subtitleLabel.isHidden = (unit.subtitle == nil || unit.subtitle?.isEmpty == true)
         isMajorBoundary = unit.isMajorBoundary
         setNeedsLayout()
     }
 
     private func applyBoundaryStyle() {
-        separatorLine.backgroundColor = isMajorBoundary
-            ? UIColor.gray
-            : UIColor.lightGray.withAlphaComponent(0.3)
-        titleLabel.font = isMajorBoundary
-            ? UIFont.boldSystemFont(ofSize: 11)
-            : UIFont.systemFont(ofSize: 10)
+        separatorLine.backgroundColor = GanttTimelineConfig.headerSeparatorColor
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        // 竖线在左侧边缘
-        separatorLine.backgroundColor = GanttTimelineConfig.headerSeparatorColor
+        applyBoundaryStyle()
         separatorLine.frame = CGRect(x: 0, y: 0, width: 1.0, height: bounds.height)
-
-        // 主标题在上，副标题在下
-        titleLabel.frame = CGRect(x: 4, y: 4, width: bounds.width - 8, height: 14)
-        subtitleLabel.frame = CGRect(x: 4, y: 20, width: bounds.width - 8, height: 12)
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        titleLabel.text = nil
-        subtitleLabel.text = nil
-        subtitleLabel.isHidden = true
         isMajorBoundary = false
     }
 }
@@ -112,14 +81,50 @@ final class GanttTimelineDayCell: GanttTimelineScaleCell {
 // MARK: - 周刻度 Cell
 
 final class GanttTimelineWeekCell: GanttTimelineScaleCell {
+
     static let weekReuseIdentifier = "GanttTimelineWeekCell"
 
+    /// 周数标签
+    let numberLabel = TPLabel()
+    
+    /// 日期标签
+    let dateLabel = TPLabel()
+    
+    override func setupViews() {
+        super.setupViews()
+        numberLabel.edgeInsets = UIEdgeInsets(horizontal: 8.0)
+        numberLabel.textAlignment = .left
+        numberLabel.font = .boldSystemFont(ofSize: 12.0)
+        numberLabel.textColor = .secondaryLabel
+
+        dateLabel.edgeInsets = UIEdgeInsets(horizontal: 8.0)
+        dateLabel.textAlignment = .left
+        dateLabel.font = .boldSystemFont(ofSize: 16.0)
+        dateLabel.textColor = .label
+        contentView.addSubview(numberLabel)
+        contentView.addSubview(dateLabel)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        numberLabel.width = bounds.width
+        numberLabel.height = 20.0
+        numberLabel.bottom = bounds.height / 2.0
+        
+        dateLabel.width = bounds.width
+        dateLabel.height = 24.0
+        dateLabel.top = bounds.height / 2.0
+        
+    }
+    
     override func configure(with unit: GanttTimelineScaleUnit) {
-        // 周刻度：主标题显示周数，副标题显示起始日期
-        titleLabel.text = unit.title
-        subtitleLabel.text = unit.subtitle
-        subtitleLabel.isHidden = false
-        isMajorBoundary = true
+        super.configure(with: unit)
+        
+        let weekNumber = Calendar.weekNumber(for: unit.endDate, firstWeekday: .sunday)
+        let weekNumberFormat = resGetString("W%ld")
+        numberLabel.text = String(format: weekNumberFormat, weekNumber)
+        dateLabel.text = "\(unit.startDate.slashFormattedMonthDayString)"
         setNeedsLayout()
     }
 }
@@ -129,18 +134,27 @@ final class GanttTimelineWeekCell: GanttTimelineScaleCell {
 final class GanttTimelineMonthCell: GanttTimelineScaleCell {
     static let monthReuseIdentifier = "GanttTimelineMonthCell"
 
+    /// 日期标签
+    let dateLabel = TPLabel()
+    
+    override func setupViews() {
+        super.setupViews()
+        dateLabel.edgeInsets = UIEdgeInsets(horizontal: 8.0)
+        dateLabel.textAlignment = .center
+        dateLabel.font = .boldSystemFont(ofSize: 16.0)
+        dateLabel.textColor = .label
+        contentView.addSubview(dateLabel)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        // 月刻度：主标题垂直居中
-        titleLabel.frame = CGRect(x: 4, y: (bounds.height - 16) / 2, width: bounds.width - 8, height: 16)
+        dateLabel.frame = bounds
     }
-
+    
     override func configure(with unit: GanttTimelineScaleUnit) {
-        titleLabel.text = unit.title
-        subtitleLabel.text = nil
-        subtitleLabel.isHidden = true
-        isMajorBoundary = true
+        super.configure(with: unit)
+        
+        dateLabel.text = unit.startDate.shortMonthSymbol
         setNeedsLayout()
     }
 }

@@ -46,11 +46,7 @@ class GanttTimelineMainViewController: TPViewController {
 
     private lazy var timeScale: GanttTimeScale = {
         // 创建时间尺度
-        let calendar = Calendar.current
-        let today = Date()
-        let startDate = calendar.date(byAdding: .month, value: -2, to: today)!
-        let endDate = calendar.date(byAdding: .month, value: 6, to: today)!
-        let timeScale = GanttTimeScale(scale: .day, startDate: startDate, endDate: endDate)
+        let timeScale = GanttTimeScale(scale: .day, date: date)
         return timeScale
     }()
     
@@ -160,7 +156,14 @@ class GanttTimelineMainViewController: TPViewController {
     
     // MARK: - Event Response
     private func selectScale(_ scale: GanttTimeScale.Scale) {
-        timelineView.setScale(scale)
+        guard timelineView.timeScale.scale != scale else {
+            return
+        }
+        
+        
+        let newTimeScale = GanttTimeScale(scale: scale, date: date)
+        timelineView.setTimeScale(newTimeScale)
+        timelineView.scrollToDate(date, animated: false)
     }
     
     @objc private func clickMore() {

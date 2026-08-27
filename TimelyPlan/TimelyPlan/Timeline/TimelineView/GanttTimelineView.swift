@@ -163,6 +163,7 @@ class GanttTimelineView: UIView {
 
         // 点击任务列表中的任务时，将对应任务滚动到可视位置
         _taskListView.onTaskSelect = { [weak self] task in
+            TPImpactFeedback.impactWithSoftStyle()
             self?.hideTaskList(animated: true)
             self?.chartView.scrollToTaskStart(task)
         }
@@ -286,16 +287,14 @@ class GanttTimelineView: UIView {
     // MARK: - 公开方法
 
     /// 切换时间刻度
-    func setScale(_ scale: GanttTimeScale.Scale) {
-        guard timeScale.scale != scale else {
+    func setTimeScale(_ timeScale: GanttTimeScale) {
+        guard self.timeScale != timeScale else {
             return
         }
-
-        var newTimeScale = timeScale
-        newTimeScale.scale = scale
-        timeScale = newTimeScale
-        chartView.timeScale = newTimeScale
-        headerView.configure(timeScale: newTimeScale)
+        
+        self.timeScale = timeScale
+        chartView.timeScale = timeScale
+        headerView.configure(timeScale: timeScale)
     }
 
     /// 滚动到"今天"所在位置
