@@ -192,15 +192,25 @@ class GanttTimelineMainViewController: TPViewController {
         datePickerVC.date = date
         datePickerVC.yearRange = CalendarYearConfig.yearRange
         datePickerVC.didPickDate = { date in
-            self.pickDate(date)
+            self.pickDate(date.startOfMonth())
         }
         
         datePickerVC.popoverShow(from: button, preferredPosition: .bottomCenter)
     }
     
     private func pickDate(_ date: Date) {
+        if self.date.isInSameMonthAs(date) {
+            return
+        }
+        
+        let animated = self.date.isInSameYearAs(date)
         self.date = date
         updateTitle()
+        
+        let scale = timelineView.timeScale.scale
+        let timeScale = GanttTimeScale(scale: scale, date: date)
+        timelineView.setTimeScale(timeScale)
+        timelineView.scrollToDate(date, animated: animated)
     }
     
     
