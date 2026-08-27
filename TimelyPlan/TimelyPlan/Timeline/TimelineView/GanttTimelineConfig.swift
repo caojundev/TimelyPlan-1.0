@@ -17,6 +17,8 @@ struct GanttTimelineConfig {
     
     static let headerSeparatorColor = Color(0x888888, 0.2)
     
+    static let indicatorSize = 24.0
+    
     /// 左侧任务列表视图默认宽度
     static let taskListWidth = 180.0
     

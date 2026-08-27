@@ -154,7 +154,7 @@ class TimelineCell: UICollectionViewCell {
     
     private var barView: UIView!
     private var progressView: UIView!
-    private var titleLabel: UILabel!
+    private var titleLabel: TPLabel!
     
     // 可视区域边缘指示器
     private lazy var leftEdgeIndicator: TPImageButton = {
@@ -209,8 +209,9 @@ class TimelineCell: UICollectionViewCell {
         progressView = UIView()
         progressView.layer.cornerRadius = 8
         
-        titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 10)
+        titleLabel = TPLabel()
+        titleLabel.font = .boldSystemFont(ofSize: 12.0)
+        titleLabel.edgeInsets = UIEdgeInsets(horizontal: 8.0)
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
         
@@ -253,7 +254,8 @@ class TimelineCell: UICollectionViewCell {
         let visibleRight = visibleRect.maxX
         
         // 指示器
-        let indicatorSize: CGFloat = 24
+        let indicatorSize = GanttTimelineConfig.indicatorSize
+        let indicatorMargin = 10.0
         let indicatorY = (rowHeight - indicatorSize) / 2
         
         // 左侧指示器 - 直接显示/隐藏，无动画
@@ -261,7 +263,7 @@ class TimelineCell: UICollectionViewCell {
         if showLeftIndicator {
             leftEdgeIndicator.isHidden = false
             leftEdgeIndicator.frame = CGRect(
-                x: visibleLeft + 10.0,
+                x: visibleLeft + indicatorMargin,
                 y: indicatorY,
                 width: indicatorSize,
                 height: indicatorSize
@@ -277,7 +279,7 @@ class TimelineCell: UICollectionViewCell {
         if showRightIndicator {
             rightEdgeIndicator.isHidden = false
             rightEdgeIndicator.frame = CGRect(
-                x: visibleRight - indicatorSize - 10.0,
+                x: visibleRight - indicatorSize - indicatorMargin,
                 y: indicatorY,
                 width: indicatorSize,
                 height: indicatorSize
@@ -292,7 +294,6 @@ class TimelineCell: UICollectionViewCell {
         let minDisplayTitleInBarWidth = 240.0
         if barWidth < minDisplayTitleInBarWidth {
             let titleMaxWidth = 180.0
-            let titleMargin = 5.0
             /// 小于最小显示宽度，标题显示在 bar 的两侧
             var titleWidth = titleLabel.sizeThatFits(.unlimited).width
             if titleWidth > titleMaxWidth {
@@ -301,17 +302,16 @@ class TimelineCell: UICollectionViewCell {
             
             let labelX: CGFloat
             if visibleRight - barRight < titleWidth {
-                
                 if rightEdgeIndicator.isHidden {
-                    labelX = barLeft - titleMargin - titleWidth
+                    labelX = barLeft - titleWidth
                 } else {
-                    labelX = min(barLeft, rightEdgeIndicator.left) - titleMargin - titleWidth
+                    labelX = min(barLeft, rightEdgeIndicator.left) - titleWidth
                 }
             } else {
                 if leftEdgeIndicator.isHidden {
-                    labelX = barRight + titleMargin
+                    labelX = barRight
                 } else {
-                    labelX = max(barRight, leftEdgeIndicator.right) + titleMargin
+                    labelX = max(barRight, leftEdgeIndicator.right)
                 }
             }
             
@@ -323,49 +323,51 @@ class TimelineCell: UICollectionViewCell {
         }
         
         /// 标题可以显示在 bar 中
-        
         let barVisibleLeft = max(barLeft, visibleLeft)
         let barVisibleRight = min(barRight, visibleRight)
         let visibleBarWidth = max(barVisibleRight - barVisibleLeft, 0)
-        
-        
-        
-        
-        
-        
-        
-        
-//        1. 两个都不显示
-//        2. 仅显示左侧
-//        3. 仅显示右侧
-//        4. 两个都显示
     
-        /*
-        
-        let barVisibleLeft = max(barLeft, visibleLeft)
-        let barVisibleRight = min(barRight, visibleRight)
-        let visibleBarWidth = max(barVisibleRight - barVisibleLeft, 0)
-        var labelX: CGFloat
-        var labelWidth: CGFloat
-        if visibleBarWidth >= labelMinWidth {
-            // bar 的可见宽度足够显示标签
-            if barLeft < visibleLeft {
-                // bar 左侧已滚出可视区域，标签固定在可视区域左边缘
-                labelX = visibleLeft + labelHorizontalInset
-                labelWidth = visibleBarWidth - labelHorizontalInset * 2
-            } else {
-                // bar 左侧仍在可视区域内，标签跟随 bar 左边缘
-                labelX = barLeft + labelHorizontalInset
-                labelWidth = min(barWidth - labelHorizontalInset * 2, barRight - visibleLeft - labelHorizontalInset)
-            }
-        } else {
-            // bar 可见区域不足以显示标签，标签固定在 bar 最右侧（可视区域内）
-            labelX = barVisibleRight - labelHorizontalInset - labelMinWidth
-            labelWidth = labelMinWidth
+        // 计算标题宽度（限制最大宽度）
+        let titleMaxWidth = min((visibleRight - visibleLeft) / 2.0, barWidth)
+        var titleWidth = titleLabel.sizeThatFits(.unlimited).width
+        if titleWidth > titleMaxWidth {
+            titleWidth = titleMaxWidth
         }
         
-        titleLabel.frame = CGRect(x: labelX, y: y, width: max(labelWidth, 0), height: height)
-        */
+        // 标题能完整容纳在可见 bar 内，默认在可见区域居中
+        if titleWidth <= visibleBarWidth {
+            let labelX = barVisibleLeft + (visibleBarWidth - titleWidth) / 2
+            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            return
+        }
+        
+        let indicatorLength = indicatorSize + indicatorMargin
+        // bar 从左侧消失，标题固定在左侧
+        if barRight <= visibleLeft + indicatorLength {
+            let labelX = leftEdgeIndicator.right
+            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            return
+        }
+        
+        // bar 从右侧消失，标题固定在右侧
+        if barLeft >= visibleRight - indicatorLength {
+            let labelX = rightEdgeIndicator.left - titleWidth
+            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            return
+        }
+        
+        if visibleLeft + indicatorLength > barLeft, visibleLeft + indicatorLength < barRight {
+            let labelX = barRight - titleWidth
+            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            return
+        }
+        
+        if visibleRight - indicatorLength > barLeft, visibleRight - indicatorLength < barRight {
+            let labelX = barLeft
+            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
+            return
+        }
+        
     }
     
     @objc private func leftIndicatorTapped() {
