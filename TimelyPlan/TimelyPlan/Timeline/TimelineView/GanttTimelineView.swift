@@ -288,10 +288,6 @@ class GanttTimelineView: UIView {
 
     /// 切换时间刻度
     func setTimeScale(_ timeScale: GanttTimeScale) {
-        guard self.timeScale != timeScale else {
-            return
-        }
-        
         self.timeScale = timeScale
         chartView.timeScale = timeScale
         headerView.configure(timeScale: timeScale)

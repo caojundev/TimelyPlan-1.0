@@ -59,8 +59,7 @@ class GanttTimelineMainViewController: TPViewController {
         
         // 日期改变时更新标题
         view.onDateChanged = { [weak self] date in
-            self?.date = date
-            self?.updateTitle()
+            self?.timelineVisbleDateChanged(date)
         }
         
         return view
@@ -155,11 +154,20 @@ class GanttTimelineMainViewController: TPViewController {
     }
     
     // MARK: - Event Response
+    
+    private func timelineVisbleDateChanged(_ date: Date) {
+        guard self.date.isInSameYearAs(date) else {
+            return
+        }
+        
+        self.date = date
+        updateTitle()
+    }
+    
     private func selectScale(_ scale: GanttTimeScale.Scale) {
         guard timelineView.timeScale.scale != scale else {
             return
         }
-        
         
         let newTimeScale = GanttTimeScale(scale: scale, date: date)
         timelineView.setTimeScale(newTimeScale)

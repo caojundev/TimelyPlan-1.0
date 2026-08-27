@@ -22,6 +22,12 @@ struct GanttTimelineConfig {
     
     static let taskListRowHeight = 60.0
     
+    /// bar 上下间距
+    static let barVerticalInset = 5.0
+    
+    /// bar 显示最大高度（默认 rowHeight - 上下间距，超过则以最大高度显示）
+    static let barMaxHeight = 32.0
+    
     /// 任务列表视图背景色
     static let taskListBackgroundColor = UIColor.systemBackground
     

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GanttTimeScale {
+struct GanttTimeScale: Equatable {
     
     enum Scale: Int, Codable, TPMenuRepresentable {
         case day

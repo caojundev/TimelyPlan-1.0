@@ -79,6 +79,7 @@ struct GanttTimelineScaleCalculator {
                 endDate: currentEnd,
                 isMajorBoundary: true
             ))
+            
             currentStart = currentEnd
         }
 
@@ -91,7 +92,7 @@ struct GanttTimelineScaleCalculator {
         let calendar = Calendar.current
         let totalMonths = (calendar.dateComponents([.month], from: startDate, to: endDate).month ?? 1) + 1
         var units: [GanttTimelineScaleUnit] = []
-        for month in 0...totalMonths {
+        for month in 0..<totalMonths {
             guard let monthDate = calendar.date(byAdding: .month, value: month, to: startDate) else { continue }
             let monthEnd = calendar.date(byAdding: .month, value: 1, to: monthDate) ?? monthDate
             units.append(GanttTimelineScaleUnit(

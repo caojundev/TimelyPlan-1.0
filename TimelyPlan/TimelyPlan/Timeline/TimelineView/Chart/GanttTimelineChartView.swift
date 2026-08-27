@@ -49,12 +49,11 @@ class GanttTimelineLayout: UICollectionViewLayout {
     private func calculateTimeAxisWidth() -> CGFloat {
         let calendar = Calendar.current
         let days = calendar.dateComponents([.day], from: timeScale.startDate, to: timeScale.endDate).day ?? 30
-        
         switch timeScale.scale {
         case .day:
-            return CGFloat(days) * timeScale.scale.pixelsPerUnit
+            return CGFloat(days + 1) * timeScale.scale.pixelsPerUnit
         case .week:
-            let weeks = ceil(Double(days) / 7.0)
+            let weeks = ceil(Double(days + 1) / 7.0)
             return CGFloat(weeks) * timeScale.scale.pixelsPerUnit
         case .month:
             let months = calendar.dateComponents([.month], from: timeScale.startDate, to: timeScale.endDate).month ?? 1
@@ -217,7 +216,9 @@ class TimelineCell: UICollectionViewCell {
         
         contentView.addSubview(barView)
         barView.addSubview(progressView)
-        barView.addSubview(titleLabel)
+        // 标题标签作为 contentView 子视图，避免被 barView 的 masksToBounds 裁剪，
+        // 从而在滚动固定到可视区域左边缘时可以定位到 bar 之外
+        contentView.addSubview(titleLabel)
         contentView.addSubview(leftEdgeIndicator)
         contentView.addSubview(rightEdgeIndicator)
     }
@@ -227,22 +228,27 @@ class TimelineCell: UICollectionViewCell {
                    width: CGFloat,
                    rowHeight: CGFloat,
                    visibleRect: CGRect) {
-        let y: CGFloat = 6
-        let height: CGFloat = rowHeight - 12
+        let barWidth = max(width, 2)
+        
+        // 计算 bar 高度：默认 rowHeight - 上下间距，超过最大高度则以最大高度显示
+        let defaultHeight = rowHeight - GanttTimelineConfig.barVerticalInset * 2
+        let height = min(defaultHeight, GanttTimelineConfig.barMaxHeight)
+        let y = (rowHeight - height) / 2
         
         // 设置甘特条
-        barView.frame = CGRect(x: x, y: y, width: max(width, 2), height: height)
+        barView.frame = CGRect(x: x, y: y, width: barWidth, height: height)
         barView.backgroundColor = task.color.withAlphaComponent(0.3)
         
-        progressView.frame = CGRect(x: 0, y: 0, width: max(width, 2) * task.progress, height: height)
+        progressView.frame = CGRect(x: 0, y: 0, width: barWidth * task.progress, height: height)
         progressView.backgroundColor = task.color
         
-        titleLabel.frame = CGRect(x: 4, y: 0, width: max(width, 2) - 8, height: height)
         titleLabel.text = task.name
+        titleLabel.textAlignment = .left
+        titleLabel.lineBreakMode = .byTruncatingTail
         
         // 计算甘特条与可视区域的关系
         let barLeft = x
-        let barRight = x + max(width, 2)
+        let barRight = x + barWidth
         let visibleLeft = visibleRect.minX
         let visibleRight = visibleRect.maxX
         
@@ -281,6 +287,85 @@ class TimelineCell: UICollectionViewCell {
             rightEdgeIndicator.isHidden = true
             rightEdgeIndicator.alpha = 0.0 // 立即隐藏
         }
+        
+        /// 标题可以显示在 bar 中的最小宽度
+        let minDisplayTitleInBarWidth = 240.0
+        if barWidth < minDisplayTitleInBarWidth {
+            let titleMaxWidth = 180.0
+            let titleMargin = 5.0
+            /// 小于最小显示宽度，标题显示在 bar 的两侧
+            var titleWidth = titleLabel.sizeThatFits(.unlimited).width
+            if titleWidth > titleMaxWidth {
+                titleWidth = titleMaxWidth
+            }
+            
+            let labelX: CGFloat
+            if visibleRight - barRight < titleWidth {
+                
+                if rightEdgeIndicator.isHidden {
+                    labelX = barLeft - titleMargin - titleWidth
+                } else {
+                    labelX = min(barLeft, rightEdgeIndicator.left) - titleMargin - titleWidth
+                }
+            } else {
+                if leftEdgeIndicator.isHidden {
+                    labelX = barRight + titleMargin
+                } else {
+                    labelX = max(barRight, leftEdgeIndicator.right) + titleMargin
+                }
+            }
+            
+            titleLabel.frame = CGRect(x: labelX,
+                                      y: y,
+                                      width: titleWidth,
+                                      height: height)
+            return
+        }
+        
+        /// 标题可以显示在 bar 中
+        
+        let barVisibleLeft = max(barLeft, visibleLeft)
+        let barVisibleRight = min(barRight, visibleRight)
+        let visibleBarWidth = max(barVisibleRight - barVisibleLeft, 0)
+        
+        
+        
+        
+        
+        
+        
+        
+//        1. 两个都不显示
+//        2. 仅显示左侧
+//        3. 仅显示右侧
+//        4. 两个都显示
+    
+        /*
+        
+        let barVisibleLeft = max(barLeft, visibleLeft)
+        let barVisibleRight = min(barRight, visibleRight)
+        let visibleBarWidth = max(barVisibleRight - barVisibleLeft, 0)
+        var labelX: CGFloat
+        var labelWidth: CGFloat
+        if visibleBarWidth >= labelMinWidth {
+            // bar 的可见宽度足够显示标签
+            if barLeft < visibleLeft {
+                // bar 左侧已滚出可视区域，标签固定在可视区域左边缘
+                labelX = visibleLeft + labelHorizontalInset
+                labelWidth = visibleBarWidth - labelHorizontalInset * 2
+            } else {
+                // bar 左侧仍在可视区域内，标签跟随 bar 左边缘
+                labelX = barLeft + labelHorizontalInset
+                labelWidth = min(barWidth - labelHorizontalInset * 2, barRight - visibleLeft - labelHorizontalInset)
+            }
+        } else {
+            // bar 可见区域不足以显示标签，标签固定在 bar 最右侧（可视区域内）
+            labelX = barVisibleRight - labelHorizontalInset - labelMinWidth
+            labelWidth = labelMinWidth
+        }
+        
+        titleLabel.frame = CGRect(x: labelX, y: y, width: max(labelWidth, 0), height: height)
+        */
     }
     
     @objc private func leftIndicatorTapped() {
@@ -492,7 +577,7 @@ class GanttTimelineChartView: UIView {
     }
 
     /// 检测最左侧日期是否改变，改变则回调 onDateChanged
-    private func checkAndNotifyDateChanged() {
+    func checkAndNotifyDateChanged() {
         let date = timelineLayout.dateForXPosition(collectionView.contentOffset.x)
 
         // 仅当「天」发生变化时通知
@@ -708,6 +793,8 @@ extension GanttTimelineChartView: HorizontalScrollSyncable, VerticalScrollSyncab
                 x: newValue,
                 y: collectionView.contentOffset.y
             )
+            
+            checkAndNotifyDateChanged()
         }
     }
     

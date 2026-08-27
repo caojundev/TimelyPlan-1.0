@@ -121,7 +121,7 @@ final class GanttTimelineWeekCell: GanttTimelineScaleCell {
     override func configure(with unit: GanttTimelineScaleUnit) {
         super.configure(with: unit)
         
-        let weekNumber = Calendar.weekNumber(for: unit.endDate, firstWeekday: .sunday)
+        let weekNumber = Calendar.weekNumber(for: unit.startDate, firstWeekday: .sunday)
         let weekNumberFormat = resGetString("W%ld")
         numberLabel.text = String(format: weekNumberFormat, weekNumber)
         dateLabel.text = "\(unit.startDate.slashFormattedMonthDayString)"
@@ -132,29 +132,46 @@ final class GanttTimelineWeekCell: GanttTimelineScaleCell {
 // MARK: - 月刻度 Cell
 
 final class GanttTimelineMonthCell: GanttTimelineScaleCell {
+    
     static let monthReuseIdentifier = "GanttTimelineMonthCell"
 
-    /// 日期标签
+    let monthLabel = TPLabel()
+    
     let dateLabel = TPLabel()
     
     override func setupViews() {
         super.setupViews()
-        dateLabel.edgeInsets = UIEdgeInsets(horizontal: 8.0)
-        dateLabel.textAlignment = .center
-        dateLabel.font = .boldSystemFont(ofSize: 16.0)
-        dateLabel.textColor = .label
+        monthLabel.edgeInsets = UIEdgeInsets(horizontal: 8.0)
+        monthLabel.textAlignment = .left
+        monthLabel.font = .boldSystemFont(ofSize: 18.0)
+        monthLabel.textColor = .label
+
+        dateLabel.edgeInsets = UIEdgeInsets(horizontal: 10.0)
+        dateLabel.textAlignment = .left
+        dateLabel.font = .systemFont(ofSize: 12.0)
+        dateLabel.textColor = .secondaryLabel
+        contentView.addSubview(monthLabel)
         contentView.addSubview(dateLabel)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        dateLabel.frame = bounds
+        
+        monthLabel.width = bounds.width
+        monthLabel.height = 32.0
+        monthLabel.bottom = bounds.height / 2.0 + 8.0
+        
+        dateLabel.width = bounds.width
+        dateLabel.height = 16.0
+        dateLabel.top = monthLabel.bottom
     }
     
     override func configure(with unit: GanttTimelineScaleUnit) {
         super.configure(with: unit)
+        monthLabel.text = unit.startDate.shortMonthSymbol
         
-        dateLabel.text = unit.startDate.shortMonthSymbol
+        let endDayDate = unit.endDate.dateByAddingDays(-1) ?? unit.endDate
+        dateLabel.text = "\(unit.startDate.day)-\(endDayDate.day)"
         setNeedsLayout()
     }
 }
