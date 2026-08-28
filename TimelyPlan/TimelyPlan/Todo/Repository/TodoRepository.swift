@@ -213,6 +213,15 @@ extension TodoRepository {
         taskManager.fetchMyDayEventTasks(in: range, showCompleted: showCompleted, completion: completion)
     }
     
+    /// 获取甘特图任务
+    static func fetchGanttEventTasks(in range: DateInterval,
+                                     showCompleted: Bool = true,
+                                     completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchGanttEventTasks(in: range,
+                                         showCompleted: showCompleted,
+                                         completion: completion)
+    }
+    
     /// 获取通知任务
     static func fetchNotifiableTasks(completion: @escaping ([TodoTask]?) -> Void) {
         taskManager.fetchNotifiableTasks(completion: completion)

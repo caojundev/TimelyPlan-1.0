@@ -165,9 +165,7 @@ class GanttTimelineMainViewController: TPViewController {
     }
     
     private func selectScale(_ scale: GanttTimeScale.Scale) {
-        guard timelineView.timeScale.scale != scale else {
-            return
-        }
+        scaleBarButtonItem.scale = scale
         
         let newTimeScale = GanttTimeScale(scale: scale, date: date)
         timelineView.setTimeScale(newTimeScale)
@@ -176,6 +174,23 @@ class GanttTimelineMainViewController: TPViewController {
     
     @objc private func clickMore() {
         TPImpactFeedback.impactWithSoftStyle()
+        let scale = timelineView.timeScale.scale
+        let settingVC = GanttTimelineSettingViewController(scale: scale)
+        settingVC.didSelectScale = { newScale in
+            self.selectScale(newScale)
+        }
+
+        let navController = UINavigationController(rootViewController: settingVC)
+        let configure = TPSlidePresentationConfigure.rightSlideConfigure
+        configure.automaticallyAdjustsForKeyboard = false
+        configure.cornerRadius = 0.0
+        configure.contentSize = CGSize(width: 280.0, height: .greatestFiniteMagnitude)
+        configure.edgeInsets = .zero
+        slidePresent(navController,
+                     configure: configure,
+                     isInteractive: true,
+                     animated: true,
+                     completion: nil)
     }
     
     /// 点击添加

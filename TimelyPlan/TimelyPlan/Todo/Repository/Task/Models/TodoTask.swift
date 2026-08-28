@@ -148,6 +148,8 @@ import Foundation
     /// 进度的 JSON 字符串
     private let progressJSON: String?
     
+    private let progressFraction: Double
+    
     // MARK: - 计算属性
     
     /// 标签集合（用于快速查找和比较）
@@ -226,6 +228,15 @@ import Foundation
         return repeatTask
     }
     
+    /// 包含普通任务的完成进度
+    var completionProgress: CGFloat {
+        if progressJSON != nil {
+            return CGFloat(progressFraction)
+        } else {
+            return isCompleted ? 1.0 : 0.0
+        }
+    }
+
     // MARK: - 初始化方法
     
     /// 从 Core Data 实体初始化
@@ -249,6 +260,7 @@ import Foundation
         self.reminderJSON = content.reminderJSON
         self.repeatRuleJSON = content.repeatRuleJSON
         self.progressJSON = content.progressJSON
+        self.progressFraction = content.progressFraction
         self.tags = content.userTags
         
         self.stepMarkdown = content.stepMarkdown
@@ -286,6 +298,7 @@ import Foundation
         self.reminderJSON = masterTask.reminderJSON
         self.repeatRuleJSON = masterTask.repeatRuleJSON
         self.progressJSON = masterTask.progressJSON
+        self.progressFraction = masterTask.progressFraction
         self.tags = masterTask.tags
         self.stepMarkdown = masterTask.stepMarkdown
         self.stepCount = masterTask.stepCount

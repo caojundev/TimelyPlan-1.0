@@ -60,7 +60,7 @@ extension TodoTask {
         return false
     }
     
-    /// 完成进度（范围 0 ～ 1.0）
+    /// 已设置进度任务的完成进度（范围 0 ～ 1.0），普通任务返回 0
     var completionFraction: CGFloat {
         let rate = progress?.completionFraction ?? 0.0
         return validatedProgress(CGFloat(rate))

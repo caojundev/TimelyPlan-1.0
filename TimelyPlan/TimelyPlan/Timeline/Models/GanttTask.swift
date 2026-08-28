@@ -15,8 +15,4 @@ struct GanttTask {
     let endDate: Date
     let progress: CGFloat
     let color: UIColor
-    let level: Int
-    var isExpanded: Bool = true
-    var children: [GanttTask]? = nil
-    var isGroup: Bool { return children != nil && !children!.isEmpty }
 }

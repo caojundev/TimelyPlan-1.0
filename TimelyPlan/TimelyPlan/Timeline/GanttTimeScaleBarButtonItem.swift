@@ -33,7 +33,6 @@ class GanttTimeScaleBarButtonItem: UIBarButtonItem {
             }
             
             if self.scale != scale {
-                self.scale = scale
                 self.didSelectScale?(scale)
             }
         }

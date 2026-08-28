@@ -525,6 +525,14 @@ extension TodoTaskManager {
         }
     }
     
+    func fetchGanttEventTasks(in range: DateInterval,
+                              showCompleted: Bool = true,
+                              completion: @escaping([TodoTask]?) -> Void) {
+        CDTodoTask.fetchScheduledTasks(in: range, showCompleted: showCompleted) { results in
+            completion(results?.toTasks)
+        }
+    }
+    
     func fetchNotifiableTasks(completion: @escaping ([TodoTask]?) -> Void) {
         CDTodoTask.fetchNotifiableTasks { results in
             completion(results?.toTasks)

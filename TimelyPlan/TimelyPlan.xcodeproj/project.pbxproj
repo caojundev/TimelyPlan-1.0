@@ -509,6 +509,13 @@
 		E52F899A2D5B0903001F18FA /* TPImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F89992D5B0902001F18FA /* TPImageContent.swift */; };
 		E52F899C2D5B11B3001F18FA /* TPImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F899B2D5B11B3001F18FA /* TPImageView.swift */; };
 		E53032962DC0776B0040C75E /* CalendarSystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53032952DC0776B0040C75E /* CalendarSystemManager.swift */; };
+		E53114A8304072790022D8D7 /* GanttTimelineSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114A7304072790022D8D7 /* GanttTimelineSettingViewController.swift */; };
+		E53114AC30412BE70022D8D7 /* GanttRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114AB30412BE70022D8D7 /* GanttRepository.swift */; };
+		E53114AF30412C010022D8D7 /* GanttEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114AE30412C000022D8D7 /* GanttEventProvider.swift */; };
+		E53114B230412D610022D8D7 /* TodoTask+GanttEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114B130412D610022D8D7 /* TodoTask+GanttEvent.swift */; };
+		E53114B430412EFF0022D8D7 /* GanttEventChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114B330412EFF0022D8D7 /* GanttEventChangeObserver.swift */; };
+		E53114B630412F8A0022D8D7 /* GanttUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114B530412F890022D8D7 /* GanttUpdater.swift */; };
+		E53114B830413C6F0022D8D7 /* GanttSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114B730413C6F0022D8D7 /* GanttSetting.swift */; };
 		E531FDF12F7371B400067A0F /* PieHighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531FDF02F7371B300067A0F /* PieHighlightView.swift */; };
 		E531FDF52F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531FDF42F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift */; };
 		E531FDF82F73EB1900067A0F /* archived_show_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E531FDF62F73EB1800067A0F /* archived_show_24@3x.png */; };
@@ -2724,6 +2731,13 @@
 		E52F89992D5B0902001F18FA /* TPImageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageContent.swift; sourceTree = "<group>"; };
 		E52F899B2D5B11B3001F18FA /* TPImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageView.swift; sourceTree = "<group>"; };
 		E53032952DC0776B0040C75E /* CalendarSystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSystemManager.swift; sourceTree = "<group>"; };
+		E53114A7304072790022D8D7 /* GanttTimelineSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineSettingViewController.swift; sourceTree = "<group>"; };
+		E53114AB30412BE70022D8D7 /* GanttRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttRepository.swift; sourceTree = "<group>"; };
+		E53114AE30412C000022D8D7 /* GanttEventProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttEventProvider.swift; sourceTree = "<group>"; };
+		E53114B130412D610022D8D7 /* TodoTask+GanttEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TodoTask+GanttEvent.swift"; sourceTree = "<group>"; };
+		E53114B330412EFF0022D8D7 /* GanttEventChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttEventChangeObserver.swift; sourceTree = "<group>"; };
+		E53114B530412F890022D8D7 /* GanttUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttUpdater.swift; sourceTree = "<group>"; };
+		E53114B730413C6F0022D8D7 /* GanttSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttSetting.swift; sourceTree = "<group>"; };
 		E531FDF02F7371B300067A0F /* PieHighlightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieHighlightView.swift; sourceTree = "<group>"; };
 		E531FDF42F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusStatsOverallMoreBarButtonItem.swift; sourceTree = "<group>"; };
 		E531FDF62F73EB1800067A0F /* archived_show_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archived_show_24@3x.png"; sourceTree = "<group>"; };
@@ -5685,6 +5699,8 @@
 			children = (
 				E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */,
 				E54A0688303C2AC0001FF4A1 /* GanttTimeScaleBarButtonItem.swift */,
+				E53114AA30412BC50022D8D7 /* Repository */,
+				E53114A9304072820022D8D7 /* Setting */,
 				E54A0683303BFBED001FF4A1 /* Models */,
 				E54A0699303C36AD001FF4A1 /* State */,
 				E54A06A3303C899E001FF4A1 /* TimelineView */,
@@ -6076,6 +6092,43 @@
 				E552FBB32DBDDCA10072703F /* CalendarMonthWeekBackgroundLayer.swift */,
 			);
 			path = Week;
+			sourceTree = "<group>";
+		};
+		E53114A9304072820022D8D7 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E53114A7304072790022D8D7 /* GanttTimelineSettingViewController.swift */,
+				E53114B730413C6F0022D8D7 /* GanttSetting.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		E53114AA30412BC50022D8D7 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				E53114AB30412BE70022D8D7 /* GanttRepository.swift */,
+				E53114B330412EFF0022D8D7 /* GanttEventChangeObserver.swift */,
+				E53114B530412F890022D8D7 /* GanttUpdater.swift */,
+				E53114AD30412C000022D8D7 /* Provider */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		E53114AD30412C000022D8D7 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E53114B030412D600022D8D7 /* Converter */,
+				E53114AE30412C000022D8D7 /* GanttEventProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E53114B030412D600022D8D7 /* Converter */ = {
+			isa = PBXGroup;
+			children = (
+				E53114B130412D610022D8D7 /* TodoTask+GanttEvent.swift */,
+			);
+			path = Converter;
 			sourceTree = "<group>";
 		};
 		E531FDF22F73E08000067A0F /* Specific */ = {
@@ -13132,6 +13185,7 @@
 				E50A7CEF2F8A401D0074F1A3 /* TodoTaskEditStepSectionController.swift in Sources */,
 				E5BB9B4F2D3BEF920089667A /* WKInterfaceButtonExtension.swift in Sources */,
 				E5BB9D852D3BF0C50089667A /* LayoutConstants.swift in Sources */,
+				E53114B430412EFF0022D8D7 /* GanttEventChangeObserver.swift in Sources */,
 				E541555B2F49A415000B2972 /* FocusRecordListDetailCell.swift in Sources */,
 				E52E481B2F8A07EE00B8CD25 /* TPImageInfoButton.swift in Sources */,
 				E500E39A2FC69C6800252011 /* TodoStatsCompletionTrend.swift in Sources */,
@@ -13199,6 +13253,7 @@
 				E5BB9D922D3BF0C60089667A /* TPCalendarTableCell.swift in Sources */,
 				E50D60812F7A342F00D5E0A4 /* Array+Nestable.swift in Sources */,
 				E5BB9B4E2D3BEF920089667A /* WKInterfaceLabelExtension.swift in Sources */,
+				E53114A8304072790022D8D7 /* GanttTimelineSettingViewController.swift in Sources */,
 				E5BB9E412D3BF0C70089667A /* TPTextWrapperView.swift in Sources */,
 				E5B98CE72D5604F200E78261 /* TPImageInfoTextValueTableCell.swift in Sources */,
 				E50D60562F7A13F100D5E0A4 /* AlarmListTableViewCell.swift in Sources */,
@@ -13437,6 +13492,7 @@
 				E57CC5E82F7FEF7000ADDBA4 /* TaskSchedule.swift in Sources */,
 				E56342012F94811200E120BF /* TodoFilterController.swift in Sources */,
 				E51A4C432DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift in Sources */,
+				E53114B230412D610022D8D7 /* TodoTask+GanttEvent.swift in Sources */,
 				E53B11462F94D1B300701410 /* TimeOffsetPickerViewCell.swift in Sources */,
 				E529ACDC2F7E196C000EA2F1 /* TodoPresenter.swift in Sources */,
 				E5BB9DE02D3BF0C60089667A /* UIColor+Extensions.swift in Sources */,
@@ -13512,6 +13568,7 @@
 				E549B19D2F89F7C20014BE85 /* TodoStep.swift in Sources */,
 				E5E5BDB52FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift in Sources */,
 				E5BB9DC82D3BF0C60089667A /* FocusAnimatable.swift in Sources */,
+				E53114AF30412C010022D8D7 /* GanttEventProvider.swift in Sources */,
 				E53632882FAB72C00095DFEC /* QuadrantMainViewController.swift in Sources */,
 				E56B949B2F8DD61A001E488B /* TodoSmartTaskListViewController.swift in Sources */,
 				E521E35B2F6AB2800071DA12 /* HabitReportWeekRender.swift in Sources */,
@@ -13608,6 +13665,7 @@
 				E5BB9B3A2D3BEF920089667A /* IGListDiff.mm in Sources */,
 				E5D7D93B2D43933700EC877A /* FocusPomodoroConfigSectionController.swift in Sources */,
 				E5BB9B3C2D3BEF920089667A /* UIColor+Chameleon.m in Sources */,
+				E53114B830413C6F0022D8D7 /* GanttSetting.swift in Sources */,
 				E5B4995E2FDC271400F3A9BD /* CalendarSystemEventProvider.swift in Sources */,
 				E5E8C9EB2F701ED1006728C5 /* FocusTimer.swift in Sources */,
 				E53F32B82F69533A00B85B65 /* HabitReportMonthlySectionController.swift in Sources */,
@@ -13843,6 +13901,7 @@
 				E541554B2F499896000B2972 /* FocusRecordMoreBarButtonItem.swift in Sources */,
 				E5D7D8CC2D43933600EC877A /* FocusEndDetailSectionController.swift in Sources */,
 				E50D60692F7A193400D5E0A4 /* TodoEditingList.swift in Sources */,
+				E53114AC30412BE70022D8D7 /* GanttRepository.swift in Sources */,
 				E5BB9EA12D3BF0C80089667A /* DayHeatMapView.swift in Sources */,
 				E524D2A92FD05BB9002791E5 /* TodoSectionProcessorUpdater.swift in Sources */,
 				E5D7D9222D43933700EC877A /* FocusPresenter.swift in Sources */,
@@ -13939,6 +13998,7 @@
 				E5BB9EDA2D3BF0C80089667A /* TPAnimatedContainerView.swift in Sources */,
 				E524D2AD2FD063B0002791E5 /* CDTodoSection+Extensions.swift in Sources */,
 				E51B29012FA77A07006B3352 /* TodoTaskPageView.swift in Sources */,
+				E53114B630412F8A0022D8D7 /* GanttUpdater.swift in Sources */,
 				E5EFB1692F5971A6000FFDF4 /* HabitHomeWeekMenuController.swift in Sources */,
 				E53ABEE73009D8FE00EB8632 /* MyDayPresenter.swift in Sources */,
 				E58F46AF2F7AAD4B0046FA96 /* TodoParentListSelectViewController.swift in Sources */,

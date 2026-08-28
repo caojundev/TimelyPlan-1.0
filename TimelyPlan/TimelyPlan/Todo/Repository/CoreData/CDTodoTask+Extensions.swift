@@ -752,6 +752,19 @@ extension CDTodoTask {
         }
     }
     
+    static func fetchScheduledTasks(in range: DateInterval,
+                                    showCompleted: Bool = true,
+                                    completion: @escaping([CDTodoTask]?) -> Void) {
+        let predicate = activeScheduledTaskPredicate(
+            in: range,
+            showCompleted: showCompleted
+        )
+        
+        fetchAll(matching: predicate, sortBy: TodoTaskKey.startDate, ascending: true) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
+    
     static func fetchNotifiableTasks(completion: @escaping ([CDTodoTask]?) -> Void) {
         let predicate = activeReminderTaskPredicate()
         fetchAll(matching: predicate) { results in
