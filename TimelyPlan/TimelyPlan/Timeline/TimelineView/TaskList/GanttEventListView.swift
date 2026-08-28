@@ -15,7 +15,6 @@ class GanttEventListCell: UICollectionViewCell {
     private let indicatorSize = CGSize(width: 5.0, height: 18.0)
     
     private let infoView = TPColorInfoView()
-    private let separatorLine = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,15 +42,11 @@ class GanttEventListCell: UICollectionViewCell {
         infoView.padding = UIEdgeInsets(left: 8.0, right: 12.0)
         infoView.titleConfig.font = .systemFont(ofSize: 13.0, weight: .medium)
         contentView.addSubview(infoView)
-        
-        separatorLine.backgroundColor = GanttTimelineConfig.taskListSeparatorColor
-        contentView.addSubview(separatorLine)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         infoView.frame = contentView.layoutFrame()
-        separatorLine.frame = CGRect(x: bounds.width - 1, y: 0, width: 1, height: bounds.height)
     }
     
     func configure(task: GanttEvent) {
@@ -107,12 +102,17 @@ class GanttEventListView: UIView {
     
     private func setupViews() {
         backgroundColor = GanttTimelineConfig.taskListBackgroundColor
-        clipsToBounds = true
-        
+        clipsToBounds = false
         setupCollectionView()
+        addSeparator(position: .right, color: GanttTimelineConfig.taskListSeparatorColor)
     }
     
     private func setupCollectionView() {
+        let placeholderView = TPDefaultPlaceholderView()
+        placeholderView.title = resGetString("No Event")
+        placeholderView.titleColor = .label
+        placeholderView.titleLabel.alpha = 0.6
+        
         flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: columnWidth, height: rowHeight)
         flowLayout.minimumLineSpacing = 0
@@ -120,6 +120,7 @@ class GanttEventListView: UIView {
         flowLayout.headerReferenceSize = .zero
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.placeholderView = placeholderView
         collectionView.backgroundColor = GanttTimelineConfig.taskListBackgroundColor
         collectionView.delegate = self
         collectionView.dataSource = self

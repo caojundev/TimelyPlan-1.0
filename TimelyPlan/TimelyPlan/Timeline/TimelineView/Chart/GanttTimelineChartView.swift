@@ -35,15 +35,29 @@ class GanttTimelineLayout: UICollectionViewLayout {
         cachedAttributes.removeAll()
         
         totalWidth = calculateTimeAxisWidth()
-        totalHeight = CGFloat(tasks.count) * rowHeight
         
-        for (index, _) in tasks.enumerated() {
+        let count = itemCount()
+        totalHeight = CGFloat(count) * rowHeight
+        
+        for index in 0..<count {
             let indexPath = IndexPath(item: index, section: 0)
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             let y = CGFloat(index) * rowHeight
             attributes.frame = CGRect(x: 0, y: y, width: totalWidth, height: rowHeight)
             cachedAttributes[indexPath] = attributes
         }
+    }
+    
+    /// 无任务时生成的占位行数量（固定值，覆盖常见可视高度）
+    private static let placeholderRowCount = 20
+    
+    /// 实际 item 数量（与数据源 numberOfItems 保持一致）。
+    /// 无任务时返回固定占位行数量，填满可视区域，避免空白页。
+    func itemCount() -> Int {
+        guard tasks.isEmpty else {
+            return tasks.count
+        }
+        return Self.placeholderRowCount
     }
     
     private func calculateTimeAxisWidth() -> CGFloat {
@@ -67,7 +81,7 @@ class GanttTimelineLayout: UICollectionViewLayout {
     }
     
     var visibleTaskCount: Int {
-        return tasks.count
+        return itemCount()
     }
     
     override var collectionViewContentSize: CGSize {
@@ -458,6 +472,18 @@ class TimelineCell: UICollectionViewCell {
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
     }
+
+    /// 重置为占位行（无任务），仅显示背景色
+    func resetAsPlaceholder() {
+        barView.frame = .zero
+        progressView.frame = .zero
+        titleLabel.text = nil
+        titleLabel.frame = .zero
+        leftEdgeIndicator.isHidden = true
+        rightEdgeIndicator.isHidden = true
+        onLeftIndicatorTapped = nil
+        onRightIndicatorTapped = nil
+    }
     
     @objc private func leftIndicatorTapped() {
         TPImpactFeedback.impactWithSoftStyle()
@@ -780,6 +806,9 @@ extension GanttTimelineChartView: UICollectionViewDataSource, UICollectionViewDe
             cell.onRightIndicatorTapped = { [weak self] in
                 self?.scrollToTaskEnd(task)
             }
+        } else {
+            // 占位行：仅显示奇偶相间背景色
+            cell.resetAsPlaceholder()
         }
         
         cell.backgroundColor = indexPath.item % 2 == 0
