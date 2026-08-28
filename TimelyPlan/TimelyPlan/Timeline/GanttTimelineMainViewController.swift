@@ -80,6 +80,9 @@ class GanttTimelineMainViewController: TPViewController {
 
     /// 是否已滚动到初始日期（仅首次进入时执行一次）
     private var hasScrolledToInitialDate = false
+
+    /// 时间线视图模型
+    private let viewModel = GanttTimelineViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +92,8 @@ class GanttTimelineMainViewController: TPViewController {
         setupBarButtonItems()
         view.addSubview(timelineView)
         setupAddView()
-        setupTestData()
+        setupViewModel()
+        loadEvents()
     }
     
     override func viewWillLayoutSubviews() {
@@ -167,15 +171,17 @@ class GanttTimelineMainViewController: TPViewController {
     private func selectScale(_ scale: GanttTimeScale.Scale) {
         scaleBarButtonItem.scale = scale
         
-        let newTimeScale = GanttTimeScale(scale: scale, date: date)
-        timelineView.setTimeScale(newTimeScale)
+        self.timeScale = GanttTimeScale(scale: scale, date: date)
+        timelineView.setTimeScale(self.timeScale)
         timelineView.scrollToDate(date, animated: false)
+        
+        loadEvents()
     }
     
     @objc private func clickMore() {
         TPImpactFeedback.impactWithSoftStyle()
-        let scale = timelineView.timeScale.scale
-        let settingVC = GanttTimelineSettingViewController(scale: scale)
+        
+        let settingVC = GanttTimelineSettingViewController(scale: timeScale.scale)
         settingVC.didSelectScale = { newScale in
             self.selectScale(newScale)
         }
@@ -222,12 +228,34 @@ class GanttTimelineMainViewController: TPViewController {
         self.date = date
         updateTitle()
         
-        let scale = timelineView.timeScale.scale
-        let timeScale = GanttTimeScale(scale: scale, date: date)
-        timelineView.setTimeScale(timeScale)
+        let scale = self.timeScale.scale
+        self.timeScale = GanttTimeScale(scale: scale, date: date)
+        
+        timelineView.setTimeScale(self.timeScale)
         timelineView.scrollToDate(date, animated: animated)
+        
+        loadEvents()
     }
     
+    // MARK: - 数据加载
+    
+    /// 绑定视图模型回调
+    private func setupViewModel() {
+        viewModel.onEventsChanged = { [weak self] in
+            self?.updateTimelineTasks()
+        }
+    }
+    
+    /// 加载当前时间尺度覆盖范围内的事项
+    private func loadEvents() {
+        let range = DateInterval(start: timeScale.startDate, end: timeScale.endDate)
+        viewModel.loadEvents(in: range)
+    }
+    
+    /// 更新甘特图任务数据
+    private func updateTimelineTasks() {
+        timelineView.tasks = viewModel.events ?? []
+    }
     
     // MARK: - 待办任务操作
 
@@ -270,56 +298,4 @@ class GanttTimelineMainViewController: TPViewController {
     }
     
     
-    private func setupTestData() {
-        let calendar = Calendar.current
-        let today = Date()
-        
-        var testTasks: [GanttEvent] = []
-        
-        // 创建测试任务
-        for phase in 1...5 {
-            let phaseColor = UIColor(hue: CGFloat(phase) / 5.0, saturation: 0.6, brightness: 0.8, alpha: 1.0)
-            
-            // 创建子任务
-            var children: [GanttEvent] = []
-            for i in 1...3 {
-                let child = GanttEvent(
-                    id: "\(phase).\(i)",
-                    name: "任务 \(phase).\(i)",
-                    startDate: calendar.date(byAdding: .day, value: (phase - 1) * 20 + i * 2, to: today)!,
-                    endDate: calendar.date(byAdding: .day, value: (phase - 1) * 20 + i * 2 + 10, to: today)!,
-                    progress: CGFloat(i) / 3.0,
-                    color: phaseColor
-                )
-                children.append(child)
-            }
-            
-            // 创建组任务
-            let group = GanttEvent(
-                id: "\(phase)",
-                name: "阶段 \(phase)",
-                startDate: calendar.date(byAdding: .day, value: (phase - 1) * 20, to: today)!,
-                endDate: calendar.date(byAdding: .day, value: (phase - 1) * 20 + 18, to: today)!,
-                progress: CGFloat(phase % 4) / 4.0,
-                color: phaseColor
-            )
-            testTasks.append(group)
-        }
-        
-        // 添加一些独立任务
-        for i in 1...10 {
-            let task = GanttEvent(
-                id: "standalone_\(i)",
-                name: "独立任务 \(i)",
-                startDate: calendar.date(byAdding: .day, value: i * 5 - 10, to: today)!,
-                endDate: calendar.date(byAdding: .day, value: i * 5 + 5, to: today)!,
-                progress: CGFloat(i) / 10.0,
-                color: UIColor.systemBlue
-            )
-            testTasks.append(task)
-        }
-        
-        timelineView.tasks = testTasks
-    }
-
 }

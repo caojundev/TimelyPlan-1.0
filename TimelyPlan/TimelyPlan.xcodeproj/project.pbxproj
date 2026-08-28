@@ -516,6 +516,7 @@
 		E53114B430412EFF0022D8D7 /* GanttEventChangeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114B330412EFF0022D8D7 /* GanttEventChangeObserver.swift */; };
 		E53114B630412F8A0022D8D7 /* GanttUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114B530412F890022D8D7 /* GanttUpdater.swift */; };
 		E53114B830413C6F0022D8D7 /* GanttSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114B730413C6F0022D8D7 /* GanttSetting.swift */; };
+		E53114BA30414B360022D8D7 /* GanttTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53114B930414B360022D8D7 /* GanttTimelineViewModel.swift */; };
 		E531FDF12F7371B400067A0F /* PieHighlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531FDF02F7371B300067A0F /* PieHighlightView.swift */; };
 		E531FDF52F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E531FDF42F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift */; };
 		E531FDF82F73EB1900067A0F /* archived_show_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E531FDF62F73EB1800067A0F /* archived_show_24@3x.png */; };
@@ -2738,6 +2739,7 @@
 		E53114B330412EFF0022D8D7 /* GanttEventChangeObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttEventChangeObserver.swift; sourceTree = "<group>"; };
 		E53114B530412F890022D8D7 /* GanttUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttUpdater.swift; sourceTree = "<group>"; };
 		E53114B730413C6F0022D8D7 /* GanttSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttSetting.swift; sourceTree = "<group>"; };
+		E53114B930414B360022D8D7 /* GanttTimelineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttTimelineViewModel.swift; sourceTree = "<group>"; };
 		E531FDF02F7371B300067A0F /* PieHighlightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieHighlightView.swift; sourceTree = "<group>"; };
 		E531FDF42F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusStatsOverallMoreBarButtonItem.swift; sourceTree = "<group>"; };
 		E531FDF62F73EB1800067A0F /* archived_show_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archived_show_24@3x.png"; sourceTree = "<group>"; };
@@ -5698,6 +5700,7 @@
 			isa = PBXGroup;
 			children = (
 				E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */,
+				E53114B930414B360022D8D7 /* GanttTimelineViewModel.swift */,
 				E54A0688303C2AC0001FF4A1 /* GanttTimeScaleBarButtonItem.swift */,
 				E53114AA30412BC50022D8D7 /* Repository */,
 				E53114A9304072820022D8D7 /* Setting */,
@@ -12629,6 +12632,7 @@
 				E5371DCC2FF00A8800BA9DEF /* FocusEvent+LocalNotifiable.swift in Sources */,
 				E56643242FDE4D5F00348C47 /* CalendarEventPreviewInfoCell.swift in Sources */,
 				E5D7D91A2D43933700EC877A /* FocusStatsHistoryCell.swift in Sources */,
+				E53114BA30414B360022D8D7 /* GanttTimelineViewModel.swift in Sources */,
 				E51F94032FFF582000734910 /* CalendarRangeEventsInfo.swift in Sources */,
 				E5BB9B4A2D3BEF920089667A /* ArrayExtension.swift in Sources */,
 				E59244062F51585800CA2393 /* UIColor+Habit.swift in Sources */,

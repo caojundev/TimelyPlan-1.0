@@ -224,162 +224,239 @@ class TimelineCell: UICollectionViewCell {
         contentView.addSubview(rightEdgeIndicator)
     }
     
+    /// bar 布局所需的几何信息（裁剪到内容区域后）
+    private struct BarLayout {
+        let barLeft: CGFloat
+        let barRight: CGFloat
+        let barWidth: CGFloat
+        let barHeight: CGFloat
+        let barY: CGFloat
+        let visibleLeft: CGFloat
+        let visibleRight: CGFloat
+        let visibleBarWidth: CGFloat
+    }
+    
     func configure(task: GanttEvent,
                    x: CGFloat,
                    width: CGFloat,
                    rowHeight: CGFloat,
-                   visibleRect: CGRect) {
-        let barWidth = max(width, GanttTimelineConfig.barMinWidth)
+                   visibleRect: CGRect,
+                   contentMaxX: CGFloat) {
+        // 裁剪到内容区域；若完全越界则不绘制
+        guard let layout = makeBarLayout(x: x,
+                                         width: width,
+                                         rowHeight: rowHeight,
+                                         visibleRect: visibleRect,
+                                         contentMaxX: contentMaxX) else {
+            resetBarViews(taskName: task.name)
+            return
+        }
+        
+        layoutBar(task: task, layout: layout)
+        layoutIndicators(layout: layout)
+        layoutTitle(task: task, layout: layout)
+    }
+    
+    /// 计算并裁剪 bar 的几何信息；返回 nil 表示 bar 完全在内容区域之外
+    private func makeBarLayout(x: CGFloat,
+                               width: CGFloat,
+                               rowHeight: CGFloat,
+                               visibleRect: CGRect,
+                               contentMaxX: CGFloat) -> BarLayout? {
+        var barWidth = max(width, GanttTimelineConfig.barMinWidth)
+        var barLeft = x
+        var barRight = x + barWidth
+        
+        // 左边界越界（任务早于 startDate）：裁剪到 0
+        if barLeft < 0 {
+            barRight -= barLeft
+            barLeft = 0
+        }
+        // 右边界越界（任务晚于 endDate）：裁剪到 contentMaxX
+        if barRight > contentMaxX {
+            barRight = contentMaxX
+        }
+        barWidth = max(barRight - barLeft, 0)
+        guard barWidth > 0 else { return nil }
         
         // 计算 bar 高度：默认 rowHeight - 上下间距，超过最大高度则以最大高度显示
         let defaultHeight = rowHeight - GanttTimelineConfig.barVerticalInset * 2
-        let height = min(defaultHeight, GanttTimelineConfig.barMaxHeight)
-        let y = (rowHeight - height) / 2
+        let barHeight = min(defaultHeight, GanttTimelineConfig.barMaxHeight)
+        let barY = (rowHeight - barHeight) / 2
         
-        // 设置甘特条
-        barView.frame = CGRect(x: x, y: y, width: barWidth, height: height)
+        let visibleLeft = visibleRect.minX
+        let visibleRight = visibleRect.maxX
+        let barVisibleLeft = max(barLeft, visibleLeft)
+        let barVisibleRight = min(barRight, visibleRight)
+        let visibleBarWidth = max(barVisibleRight - barVisibleLeft, 0)
+        
+        return BarLayout(barLeft: barLeft,
+                         barRight: barRight,
+                         barWidth: barWidth,
+                         barHeight: barHeight,
+                         barY: barY,
+                         visibleLeft: visibleLeft,
+                         visibleRight: visibleRight,
+                         visibleBarWidth: visibleBarWidth)
+    }
+    
+    /// 设置甘特条及进度视图
+    private func layoutBar(task: GanttEvent, layout: BarLayout) {
+        barView.frame = CGRect(x: layout.barLeft,
+                               y: layout.barY,
+                               width: layout.barWidth,
+                               height: layout.barHeight)
         barView.backgroundColor = task.color.withAlphaComponent(0.3)
         
-        progressView.frame = CGRect(x: 0, y: 0, width: barWidth * task.progress, height: height)
+        progressView.frame = CGRect(x: 0,
+                                    y: 0,
+                                    width: layout.barWidth * task.progress,
+                                    height: layout.barHeight)
         progressView.backgroundColor = task.color
+    }
+    
+    /// 更新左右边缘指示器的显示与位置
+    private func layoutIndicators(layout: BarLayout) {
+        let indicatorSize = GanttTimelineConfig.indicatorSize
+        let indicatorMargin = 10.0
+        let indicatorY = (layout.barY * 2 + layout.barHeight - indicatorSize) / 2
         
+        // 左侧指示器
+        if layout.barLeft < layout.visibleLeft {
+            leftEdgeIndicator.isHidden = false
+            leftEdgeIndicator.frame = CGRect(
+                x: layout.visibleLeft + indicatorMargin,
+                y: indicatorY,
+                width: indicatorSize,
+                height: indicatorSize
+            )
+            leftEdgeIndicator.alpha = 1.0
+        } else {
+            leftEdgeIndicator.isHidden = true
+            leftEdgeIndicator.alpha = 0.0
+        }
+        
+        // 右侧指示器
+        if layout.barRight > layout.visibleRight {
+            rightEdgeIndicator.isHidden = false
+            rightEdgeIndicator.frame = CGRect(
+                x: layout.visibleRight - indicatorSize - indicatorMargin,
+                y: indicatorY,
+                width: indicatorSize,
+                height: indicatorSize
+            )
+            rightEdgeIndicator.alpha = 1.0
+        } else {
+            rightEdgeIndicator.isHidden = true
+            rightEdgeIndicator.alpha = 0.0
+        }
+    }
+    
+    /// 根据 bar 与可视区域的关系定位标题
+    private func layoutTitle(task: GanttEvent, layout: BarLayout) {
         titleLabel.text = task.name
         titleLabel.textAlignment = .left
         titleLabel.lineBreakMode = .byTruncatingTail
         
-        // 计算甘特条与可视区域的关系
-        let barLeft = x
-        let barRight = x + barWidth
-        let visibleLeft = visibleRect.minX
-        let visibleRight = visibleRect.maxX
-        
-        // 指示器
-        let indicatorSize = GanttTimelineConfig.indicatorSize
-        let indicatorMargin = 10.0
-        let indicatorY = (rowHeight - indicatorSize) / 2
-        
-        // 左侧指示器 - 直接显示/隐藏，无动画
-        let showLeftIndicator = barLeft < visibleLeft
-        if showLeftIndicator {
-            leftEdgeIndicator.isHidden = false
-            leftEdgeIndicator.frame = CGRect(
-                x: visibleLeft + indicatorMargin,
-                y: indicatorY,
-                width: indicatorSize,
-                height: indicatorSize
-            )
-            leftEdgeIndicator.alpha = 1.0 // 确保完全显示
-        } else {
-            leftEdgeIndicator.isHidden = true
-            leftEdgeIndicator.alpha = 0.0 // 立即隐藏
-        }
-        
-        // 右侧指示器 - 直接显示/隐藏，无动画
-        let showRightIndicator = barRight > visibleRight
-        if showRightIndicator {
-            rightEdgeIndicator.isHidden = false
-            rightEdgeIndicator.frame = CGRect(
-                x: visibleRight - indicatorSize - indicatorMargin,
-                y: indicatorY,
-                width: indicatorSize,
-                height: indicatorSize
-            )
-            rightEdgeIndicator.alpha = 1.0 // 确保完全显示
-        } else {
-            rightEdgeIndicator.isHidden = true
-            rightEdgeIndicator.alpha = 0.0 // 立即隐藏
-        }
-        
-        /// 标题可以显示在 bar 中的最小宽度
-        let minDisplayTitleInBarWidth = 240.0
-        if barWidth < minDisplayTitleInBarWidth {
-            let titleMaxWidth = 180.0
-            /// 小于最小显示宽度，标题显示在 bar 的两侧
-            var titleWidth = titleLabel.sizeThatFits(.unlimited).width
-            if titleWidth > titleMaxWidth {
-                titleWidth = titleMaxWidth
-            }
-            
-            let labelX: CGFloat
-            if visibleRight - barRight < titleWidth {
-                if rightEdgeIndicator.isHidden {
-                    labelX = barLeft - titleWidth
-                } else {
-                    labelX = min(barLeft, rightEdgeIndicator.left) - titleWidth
-                }
-            } else {
-                if leftEdgeIndicator.isHidden {
-                    labelX = barRight
-                } else {
-                    labelX = max(barRight, leftEdgeIndicator.right)
-                }
-            }
-            
-            titleLabel.frame = CGRect(x: labelX,
-                                      y: y,
-                                      width: titleWidth,
-                                      height: height)
-            // 标题显示在 bar 两侧，位于 bar 外侧，使用默认文字颜色
-            titleLabel.textColor = .label
+        // 标题可以显示在 bar 中的最小宽度
+        if layout.barWidth < 240.0 {
+            layoutTitleBesideBar(layout: layout)
             return
         }
-        
-        /// 标题可以显示在 bar 中
-        let barVisibleLeft = max(barLeft, visibleLeft)
-        let barVisibleRight = min(barRight, visibleRight)
-        let visibleBarWidth = max(barVisibleRight - barVisibleLeft, 0)
+        layoutTitleInBar(layout: layout)
+    }
     
-        // 计算标题宽度（限制最大宽度）
-        let titleMaxWidth = min((visibleRight - visibleLeft) / 2.0, barWidth)
+    /// 标题显示在 bar 两侧（bar 过窄时）
+    private func layoutTitleBesideBar(layout: BarLayout) {
+        let titleMaxWidth = 180.0
         var titleWidth = titleLabel.sizeThatFits(.unlimited).width
-        if titleWidth > titleMaxWidth {
-            titleWidth = titleMaxWidth
+        titleWidth = min(titleWidth, titleMaxWidth)
+        
+        let labelX: CGFloat
+        if layout.visibleRight - layout.barRight < titleWidth {
+            if rightEdgeIndicator.isHidden {
+                labelX = layout.barLeft - titleWidth
+            } else {
+                labelX = min(layout.barLeft, rightEdgeIndicator.left) - titleWidth
+            }
+        } else {
+            if leftEdgeIndicator.isHidden {
+                labelX = layout.barRight
+            } else {
+                labelX = max(layout.barRight, leftEdgeIndicator.right)
+            }
         }
         
-        // 统一设置标题 frame 的辅助闭包
-        func applyTitleFrame(_ labelX: CGFloat) {
-            titleLabel.frame = CGRect(x: labelX, y: y, width: titleWidth, height: height)
-            // 标题区域与 bar 区域有交集视为在 bar 上显示，使用白色；否则在 bar 外侧使用默认色
+        titleLabel.frame = CGRect(x: labelX,
+                                  y: layout.barY,
+                                  width: titleWidth,
+                                  height: layout.barHeight)
+        titleLabel.textColor = .label
+    }
+    
+    /// 标题显示在 bar 中
+    private func layoutTitleInBar(layout: BarLayout) {
+        let titleMaxWidth = min((layout.visibleRight - layout.visibleLeft) / 2.0, layout.barWidth)
+        var titleWidth = titleLabel.sizeThatFits(.unlimited).width
+        titleWidth = min(titleWidth, titleMaxWidth)
+        
+        let applyTitleFrame: (CGFloat) -> Void = { labelX in
+            self.titleLabel.frame = CGRect(x: labelX,
+                                           y: layout.barY,
+                                           width: titleWidth,
+                                           height: layout.barHeight)
             let labelRight = labelX + titleWidth
-            let onBar = labelRight >= barLeft && labelX <= barRight
-            titleLabel.textColor = onBar ? .white : .label
+            let onBar = labelRight >= layout.barLeft && labelX <= layout.barRight
+            self.titleLabel.textColor = onBar ? .white : .label
         }
         
         // 标题能完整容纳在可见 bar 内，默认在可见区域居中
-        if titleWidth <= visibleBarWidth {
-            applyTitleFrame(barVisibleLeft + (visibleBarWidth - titleWidth) / 2)
+        if titleWidth <= layout.visibleBarWidth {
+            let barVisibleLeft = max(layout.barLeft, layout.visibleLeft)
+            applyTitleFrame(barVisibleLeft + (layout.visibleBarWidth - titleWidth) / 2)
             return
         }
         
-        let indicatorLength = indicatorSize + indicatorMargin
+        let indicatorLength = GanttTimelineConfig.indicatorSize + 10.0
         
         // bar 从左侧消失，标题固定在左侧指示器右侧
-        if barRight <= visibleLeft + indicatorLength {
+        if layout.barRight <= layout.visibleLeft + indicatorLength {
             applyTitleFrame(leftEdgeIndicator.right)
             return
         }
         
         // bar 从右侧消失，标题固定在右侧指示器左侧
-        if barLeft >= visibleRight - indicatorLength {
+        if layout.barLeft >= layout.visibleRight - indicatorLength {
             applyTitleFrame(rightEdgeIndicator.left - titleWidth)
             return
         }
         
         // bar 左端越过可视区域左边缘附近，标题贴在 bar 右端
-        if visibleLeft + indicatorLength > barLeft, visibleLeft + indicatorLength < barRight {
-            applyTitleFrame(barRight - titleWidth)
+        if layout.visibleLeft + indicatorLength > layout.barLeft,
+           layout.visibleLeft + indicatorLength < layout.barRight {
+            applyTitleFrame(layout.barRight - titleWidth)
             return
         }
         
         // bar 右端越过可视区域右边缘附近，标题贴在 bar 左端
-        if visibleRight - indicatorLength > barLeft, visibleRight - indicatorLength < barRight {
-            applyTitleFrame(barLeft)
+        if layout.visibleRight - indicatorLength > layout.barLeft,
+           layout.visibleRight - indicatorLength < layout.barRight {
+            applyTitleFrame(layout.barLeft)
             return
         }
         
         // 兜底：bar 整体可见但宽度不足以容纳标题，以 bar 整体居中
-        applyTitleFrame(barLeft + (barWidth - titleWidth) / 2)
-        
+        applyTitleFrame(layout.barLeft + (layout.barWidth - titleWidth) / 2)
+    }
+    
+    /// bar 完全越界时重置子视图
+    private func resetBarViews(taskName: String) {
+        barView.frame = .zero
+        progressView.frame = .zero
+        titleLabel.text = taskName
+        titleLabel.frame = .zero
+        leftEdgeIndicator.isHidden = true
+        rightEdgeIndicator.isHidden = true
     }
     
     @objc private func leftIndicatorTapped() {
@@ -561,6 +638,12 @@ class GanttTimelineChartView: UIView {
         performHorizontalScroll(to: targetX, animated: true)
     }
 
+    /// 将目标 X 偏移限制在合法的滚动范围内，避免滚动到内容之外的空白位置
+    private func clampHorizontalOffset(_ x: CGFloat) -> CGFloat {
+        let maxOffsetX = max(0, collectionView.contentSize.width - collectionView.bounds.width)
+        return max(0, min(x, maxOffsetX))
+    }
+
     private func performHorizontalScroll(to targetX: CGFloat, animated: Bool, syncToOthers: Bool = true) {
         isIndicatorScrolling = true
         
@@ -569,8 +652,11 @@ class GanttTimelineChartView: UIView {
             notifyHorizontalScrollWillBegin()
         }
         
+        // 将偏移限制在内容范围内，避免任务日期超出 scale 范围时滚动到空白位置
+        let clampedX = clampHorizontalOffset(targetX)
+        
         // 使用 setXOffset 设置偏移（会自动重置锁定状态）
-        setXOffset(targetX, animated: animated)
+        setXOffset(clampedX, animated: animated)
         if syncToOthers {
             notifyHorizontalContentOffsetChanged()
         }
@@ -626,7 +712,8 @@ class GanttTimelineChartView: UIView {
                     x: x,
                     width: width,
                     rowHeight: rowHeight,
-                    visibleRect: visibleRect
+                    visibleRect: visibleRect,
+                    contentMaxX: collectionView.contentSize.width
                 )
             }
         }
@@ -666,7 +753,8 @@ extension GanttTimelineChartView: UICollectionViewDataSource, UICollectionViewDe
                 x: x,
                 width: width,
                 rowHeight: rowHeight,
-                visibleRect: visibleRect
+                visibleRect: visibleRect,
+                contentMaxX: collectionView.contentSize.width
             )
             
             // 使用 weak self 避免循环引用
