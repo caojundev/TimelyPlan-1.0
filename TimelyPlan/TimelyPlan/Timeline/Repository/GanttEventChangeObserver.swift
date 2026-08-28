@@ -7,11 +7,6 @@
 
 import Foundation
 
-// 甘特图事件来源
-enum GanttEventSource: Int, CaseIterable {
-    case todo   // 待办任务
-}
-
 class GanttEventChangeObserver {
     
     private let updater = GanttUpdater()

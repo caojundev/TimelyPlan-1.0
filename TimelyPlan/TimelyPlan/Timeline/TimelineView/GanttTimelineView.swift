@@ -286,6 +286,12 @@ class GanttTimelineView: UIView {
 
     // MARK: - 公开方法
 
+    /// 设置行高类型（宽松/中等/紧凑）
+    func setRowHeightType(_ type: GanttRowHeightType) {
+        chartView.setRowHeightType(type)
+        taskListView.setRowHeightType(type)
+    }
+
     /// 切换时间刻度
     func setTimeScale(_ timeScale: GanttTimeScale) {
         guard self.timeScale != timeScale else {

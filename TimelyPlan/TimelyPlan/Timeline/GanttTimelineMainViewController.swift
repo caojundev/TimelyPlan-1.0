@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GanttTimelineMainViewController: TPViewController {
+class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
 
     struct Config {
         /// 添加视图按钮
@@ -94,6 +94,10 @@ class GanttTimelineMainViewController: TPViewController {
         setupAddView()
         setupViewModel()
         loadEvents()
+
+        // 监听并应用行高设置
+        GanttSetting.shared.addObserver(self)
+        applyRowHeightType(GanttSetting.shared.rowHeightType)
     }
     
     override func viewWillLayoutSubviews() {
@@ -156,6 +160,30 @@ class GanttTimelineMainViewController: TPViewController {
     private func updateTitle() {
         dateButton.title = date.slashFormattedYearMonthString
     }
+
+    // MARK: - 行高设置
+
+    /// 应用行高类型到时间线视图
+    private func applyRowHeightType(_ type: GanttRowHeightType) {
+        timelineView.setRowHeightType(type)
+    }
+
+    // MARK: - SettingAgentObserver
+
+    func settingAgentDidChangeValue(for keyName: String) {
+        guard let key = GanttSetting.Key(name: keyName) else {
+            return
+        }
+
+        switch key {
+        case .rowHeightType:
+            applyRowHeightType(GanttSetting.shared.rowHeightType)
+        case .showCompleted, .showTodo:
+            loadEvents()
+        default:
+            break
+        }
+    }
     
     // MARK: - Event Response
     
@@ -170,10 +198,10 @@ class GanttTimelineMainViewController: TPViewController {
     
     private func selectScale(_ scale: GanttTimeScale.Scale) {
         scaleBarButtonItem.scale = scale
-        
-        self.timeScale = GanttTimeScale(scale: scale, date: date)
+        timeScale = GanttTimeScale(scale: scale, date: date)
         timelineView.setTimeScale(self.timeScale)
         timelineView.scrollToDate(date, animated: false)
+        updateTitle()
         
         loadEvents()
     }

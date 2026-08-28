@@ -10,6 +10,8 @@ import UIKit
 
 class GanttTimelineSettingViewController: TPTableSectionsViewController {
     
+    private let rowHeight = 60.0
+    
     var didSelectScale: ((GanttTimeScale.Scale) -> Void)?
     
     /// 返回
@@ -57,10 +59,68 @@ class GanttTimelineSettingViewController: TPTableSectionsViewController {
         return sectionController
     }()
 
-    lazy var settingSectionController: TPTableItemSectionController = {
+    /// 行高设置
+    lazy var rowHeightCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = rowHeight
+        cellItem.title = resGetString("Row Height")
+        cellItem.updater = {
+            let type = GanttSetting.shared.rowHeightType
+            self?.rowHeightCellItem.valueConfig = .valueText(type.title)
+        }
+
+        cellItem.didSelectHandler = {
+            self?.editRowHeight()
+        }
+
+        return cellItem
+    }()
+
+    /// 显示已完成事项
+    lazy var showCompletedCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = rowHeight
+        cellItem.title = resGetString("Show Completed")
+        cellItem.updater = {
+            self?.showCompletedCellItem.isOn = GanttSetting.shared.showCompleted
+        }
+
+        cellItem.valueChanged = { isOn in
+            GanttSetting.shared.showCompleted = isOn
+        }
+
+        return cellItem
+    }()
+    
+    lazy var generalSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = 15.0
-        sectionController.cellItems = []
+        sectionController.cellItems = [rowHeightCellItem,
+                                       showCompletedCellItem]
+        return sectionController
+    }()
+    
+    /// 显示待办
+    lazy var showTodoCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = rowHeight
+        cellItem.title = resGetString("Show Todo")
+        cellItem.updater = {
+            self?.showTodoCellItem.isOn = GanttSetting.shared.showTodo
+        }
+
+        cellItem.valueChanged = { isOn in
+            GanttSetting.shared.showTodo = isOn
+        }
+
+        return cellItem
+    }()
+    
+    lazy var todoSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 15.0
+        sectionController.cellItems = [showTodoCellItem]
         return sectionController
     }()
     
@@ -80,7 +140,9 @@ class GanttTimelineSettingViewController: TPTableSectionsViewController {
         navigationItem.leftBarButtonItem = dismissButtonItem
         wrapperView.tableHeaderView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.01))
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        sectionControllers = [modeSectionController, settingSectionController]
+        sectionControllers = [modeSectionController,
+                              generalSectionController,
+                              todoSectionController]
         reloadData()
     }
     
@@ -100,6 +162,34 @@ class GanttTimelineSettingViewController: TPTableSectionsViewController {
         self.scale = scale
         didSelectScale?(scale)
         dismiss(animated: true)
+    }
+
+    private func editRowHeight() {
+        guard let cell = adapter.cellForItem(rowHeightCellItem) else {
+            return
+        }
+        
+        let rowHeightType = GanttSetting.shared.rowHeightType
+        let menuVC = TPMenuListViewController()
+        let menuItem = TPMenuItem.item(with: GanttRowHeightType.allCases, updater: { type, menuAction in
+            menuAction.handleBeforeDismiss = true
+            menuAction.isChecked = rowHeightType == type
+        })
+        
+        menuVC.menuItems = [menuItem]
+        menuVC.didSelectMenuAction = { menuAction in
+            guard let type: GanttRowHeightType = menuAction.actionType(), rowHeightType != type else {
+                return
+            }
+            
+            GanttSetting.shared.rowHeightType = type
+            self.adapter.reloadCell(forItem: self.rowHeightCellItem, with: .none)
+        }
+        
+        menuVC.popoverShow(from: cell,
+                           sourceRect: cell.bounds,
+                           isSourceViewCovered: false,
+                           preferredPosition: .bottomLeft)
     }
     
     // MARK: - Event Response

@@ -493,7 +493,7 @@ class GanttTimelineChartView: UIView {
     private var timelineLayout: GanttTimelineLayout!
     
     // 布局常量
-    private let rowHeight: CGFloat = GanttTimelineConfig.taskListRowHeight
+    private var rowHeight: CGFloat = GanttRowHeightType.medium.rowHeight
     
     // 滚动方向锁定
     private var initialOffset: CGPoint = .zero
@@ -529,6 +529,22 @@ class GanttTimelineChartView: UIView {
         }
     }
     
+    // MARK: - 行高设置
+
+    /// 设置行高类型（宽松/中等/紧凑）
+    func setRowHeightType(_ type: GanttRowHeightType) {
+        setRowHeight(type.rowHeight)
+    }
+
+    /// 设置行高
+    func setRowHeight(_ height: CGFloat) {
+        guard rowHeight != height else { return }
+        rowHeight = height
+        timelineLayout.rowHeight = height
+        timelineLayout.invalidateLayout()
+        collectionView.reloadData()
+    }
+
     // 对外暴露的滚动方法
     var contentOffset: CGPoint {
         get { return collectionView.contentOffset }

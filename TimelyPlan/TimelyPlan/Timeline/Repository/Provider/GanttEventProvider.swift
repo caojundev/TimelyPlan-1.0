@@ -15,13 +15,13 @@ protocol GanttEventProvider {
 
 class GanttTodoEventProvider: GanttEventProvider {
     func fetchGanttEvents(in range: DateInterval, completion: @escaping ([GanttEvent]?) -> Void) {
-        guard MyDaySetting.shared.showTodo else {
+        guard GanttSetting.shared.showTodo else {
             completion(nil)
             return
         }
         
-        TodoRepository.fetchGanttEventTasks(in: range,
-                                            showCompleted: true) { tasks in
+        let showCompleted = GanttSetting.shared.showCompleted
+        TodoRepository.fetchGanttEventTasks(in: range, showCompleted: showCompleted) { tasks in
             completion(tasks?.toGanttEvents())
         }
     }

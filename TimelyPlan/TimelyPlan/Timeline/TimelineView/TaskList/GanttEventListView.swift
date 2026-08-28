@@ -40,6 +40,7 @@ class GanttEventListCell: UICollectionViewCell {
         selectedBackground.backgroundColor = GanttTimelineConfig.taskListSelectedRowColor
         selectedBackgroundView = selectedBackground
 
+        infoView.padding = UIEdgeInsets(left: 8.0, right: 12.0)
         infoView.titleConfig.font = .systemFont(ofSize: 13.0, weight: .medium)
         contentView.addSubview(infoView)
         
@@ -78,8 +79,8 @@ class GanttEventListView: UIView {
     private var flowLayout: UICollectionViewFlowLayout!
     
     // 布局常量
-    private let rowHeight: CGFloat = GanttTimelineConfig.taskListRowHeight
-    private let columnWidth: CGFloat = 180
+    private var rowHeight: CGFloat = GanttRowHeightType.medium.rowHeight
+    private let columnWidth: CGFloat = GanttTimelineConfig.taskListWidth
     
     // 数据
     var tasks: [GanttEvent] = [] {
@@ -136,6 +137,21 @@ class GanttEventListView: UIView {
         collectionView.frame = bounds
     }
     
+    // MARK: - 行高设置
+
+    /// 设置行高类型（宽松/中等/紧凑）
+    func setRowHeightType(_ type: GanttRowHeightType) {
+        setRowHeight(type.rowHeight)
+    }
+
+    /// 设置行高
+    func setRowHeight(_ height: CGFloat) {
+        guard rowHeight != height else { return }
+        rowHeight = height
+        flowLayout.itemSize = CGSize(width: columnWidth, height: height)
+        collectionView.reloadData()
+    }
+
     // MARK: - 公共方法
     
     var contentOffset: CGPoint {

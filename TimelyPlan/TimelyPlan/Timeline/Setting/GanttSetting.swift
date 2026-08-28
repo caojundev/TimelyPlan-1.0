@@ -11,6 +11,8 @@ class GanttSetting {
 
     enum Key: String, SettingKeyRepresentable {
         case firstWeekday
+        case rowHeightType
+        case showCompleted
         case showTodo
         case showGoal
         
@@ -22,11 +24,17 @@ class GanttSetting {
     @CloudStored(key: Key.firstWeekday.name, defaultValue: .sunday)
     var firstWeekday: Weekday
     
+    @CloudStored(key: Key.showCompleted.name, defaultValue: true)
+    var showCompleted: Bool
+    
     @CloudStored(key: Key.showTodo.name, defaultValue: true)
     var showTodo: Bool
 
     @CloudStored(key: Key.showGoal.name, defaultValue: true)
     var showGoal: Bool
+
+    @CloudStored(key: Key.rowHeightType.name, defaultValue: .medium)
+    var rowHeightType: GanttRowHeightType
     
     static let shared = GanttSetting()
     

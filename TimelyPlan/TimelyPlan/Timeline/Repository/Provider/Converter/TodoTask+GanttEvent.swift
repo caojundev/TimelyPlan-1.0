@@ -16,11 +16,13 @@ extension TodoTask {
 
         let color = priority.color
         let event = GanttEvent(id: identifier,
-                              name: displayName,
-                              startDate: dateInfo.startDate,
-                              endDate: dateInfo.endDate,
-                              progress: completionProgress,
-                              color: color)
+                               name: displayName,
+                               startDate: dateInfo.startDate,
+                               endDate: dateInfo.endDate,
+                               progress: completionProgress,
+                               color: color,
+                               source: .todo,
+                               sourceItem: self)
         return event
     }
 }

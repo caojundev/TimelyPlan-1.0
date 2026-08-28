@@ -20,10 +20,8 @@ struct GanttTimelineConfig {
     static let indicatorSize = 24.0
     
     /// 左侧任务列表视图默认宽度
-    static let taskListWidth = 180.0
-    
-    static let taskListRowHeight = 60.0
-    
+    static let taskListWidth = 240.0
+
     /// bar 上下间距
     static let barVerticalInset = 5.0
     

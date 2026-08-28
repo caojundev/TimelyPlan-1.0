@@ -41,7 +41,7 @@ class GanttRepository {
         }
         
         group.notify(queue: .main) {
-            completion(results)
+            completion(results.orderedEvents)
         }
     }
 }
