@@ -26,8 +26,8 @@ class GanttRepository {
         changeObserver.removeUpdaterDelegate(delegate)
     }
     
-    func fetchEvents(in range: DateInterval, completion: @escaping([GanttTask]) -> Void) {
-        var results = [GanttTask]()
+    func fetchEvents(in range: DateInterval, completion: @escaping([GanttEvent]) -> Void) {
+        var results = [GanttEvent]()
         let group = DispatchGroup()
         for provider in providers {
             group.enter()

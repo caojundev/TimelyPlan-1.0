@@ -1,5 +1,5 @@
 //
-//  GanttTaskListView.swift
+//  GanttEventListView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/8/24.
@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 // MARK: - 左侧任务名称 Cell
-class GanttTaskListCell: UICollectionViewCell {
-    static let reuseIdentifier = "GanttTaskListCell"
+class GanttEventListCell: UICollectionViewCell {
+    static let reuseIdentifier = "GanttEventListCell"
     
     private let indicatorSize = CGSize(width: 5.0, height: 18.0)
     
@@ -53,7 +53,7 @@ class GanttTaskListCell: UICollectionViewCell {
         separatorLine.frame = CGRect(x: bounds.width - 1, y: 0, width: 1, height: bounds.height)
     }
     
-    func configure(task: GanttTask) {
+    func configure(task: GanttEvent) {
         infoView.colorConfig = .withColor(task.color, size: indicatorSize)
         infoView.title = task.name
     }
@@ -71,7 +71,7 @@ class GanttTaskListCell: UICollectionViewCell {
 }
 
 // MARK: - 左侧任务列表视图
-class GanttTaskListView: UIView {
+class GanttEventListView: UIView {
     
     // 布局
     private var collectionView: UICollectionView!
@@ -82,7 +82,7 @@ class GanttTaskListView: UIView {
     private let columnWidth: CGFloat = 180
     
     // 数据
-    var tasks: [GanttTask] = [] {
+    var tasks: [GanttEvent] = [] {
         didSet {
             reloadData()
         }
@@ -92,7 +92,7 @@ class GanttTaskListView: UIView {
     var onVerticalScroll: ((CGFloat) -> Void)?
 
     /// 点击某个任务时的回调
-    var onTaskSelect: ((GanttTask) -> Void)?
+    var onTaskSelect: ((GanttEvent) -> Void)?
     
     // 初始化
     override init(frame: CGRect) {
@@ -126,7 +126,7 @@ class GanttTaskListView: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.contentInset = UIEdgeInsets(bottom: GanttTimelineConfig.insetBottom)
-        collectionView.register(GanttTaskListCell.self, forCellWithReuseIdentifier: GanttTaskListCell.reuseIdentifier)
+        collectionView.register(GanttEventListCell.self, forCellWithReuseIdentifier: GanttEventListCell.reuseIdentifier)
         
         addSubview(collectionView)
     }
@@ -153,7 +153,7 @@ class GanttTaskListView: UIView {
 }
 
 // MARK: - UICollectionView DataSource & Delegate
-extension GanttTaskListView: UICollectionViewDataSource, UICollectionViewDelegate {
+extension GanttEventListView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -165,9 +165,9 @@ extension GanttTaskListView: UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: GanttTaskListCell.reuseIdentifier,
+            withReuseIdentifier: GanttEventListCell.reuseIdentifier,
             for: indexPath
-        ) as! GanttTaskListCell
+        ) as! GanttEventListCell
         
         if indexPath.item < tasks.count {
             cell.configure(task: tasks[indexPath.item])
@@ -190,7 +190,7 @@ extension GanttTaskListView: UICollectionViewDataSource, UICollectionViewDelegat
 }
 
 // MARK: - UIScrollViewDelegate
-extension GanttTaskListView: UIScrollViewDelegate {
+extension GanttEventListView: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         onVerticalScroll?(scrollView.contentOffset.y)
@@ -217,7 +217,7 @@ extension GanttTaskListView: UIScrollViewDelegate {
 }
 
 // MARK: - VerticalScrollSyncable
-extension GanttTaskListView: VerticalScrollSyncable {
+extension GanttEventListView: VerticalScrollSyncable {
     
     var yOffset: CGFloat {
         get {

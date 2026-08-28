@@ -13,7 +13,7 @@ class GanttTimelineLayout: UICollectionViewLayout {
     
     var rowHeight: CGFloat = 44
     var timeScale: GanttTimeScale
-    var tasks: [GanttTask] = []
+    var tasks: [GanttEvent] = []
     
     private var cachedAttributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
     private var cachedHeaderAttributes: UICollectionViewLayoutAttributes?
@@ -61,7 +61,7 @@ class GanttTimelineLayout: UICollectionViewLayout {
         }
     }
     
-    func taskAtIndex(_ index: Int) -> GanttTask? {
+    func taskAtIndex(_ index: Int) -> GanttEvent? {
         guard index < tasks.count else { return nil }
         return tasks[index]
     }
@@ -224,7 +224,7 @@ class TimelineCell: UICollectionViewCell {
         contentView.addSubview(rightEdgeIndicator)
     }
     
-    func configure(task: GanttTask,
+    func configure(task: GanttEvent,
                    x: CGFloat,
                    width: CGFloat,
                    rowHeight: CGFloat,
@@ -436,7 +436,7 @@ class GanttTimelineChartView: UIView {
     private var lastNotifiedDate: Date?
     
     // 数据
-    var tasks: [GanttTask] = [] {
+    var tasks: [GanttEvent] = [] {
         didSet {
             timelineLayout.tasks = tasks
             timelineLayout.invalidateLayout()
@@ -522,7 +522,7 @@ class GanttTimelineChartView: UIView {
         return timelineLayout.widthForDuration(from: start, to: end)
     }
     
-    func taskAtIndex(_ index: Int) -> GanttTask? {
+    func taskAtIndex(_ index: Int) -> GanttEvent? {
         return timelineLayout.taskAtIndex(index)
     }
     
@@ -548,13 +548,13 @@ class GanttTimelineChartView: UIView {
         performHorizontalScroll(to: targetX, animated: animated)
     }
 
-    func scrollToTaskStart(_ task: GanttTask) {
+    func scrollToTaskStart(_ task: GanttEvent) {
         let xPos = timelineLayout.xPositionForDate(task.startDate)
         let targetX = max(0, xPos - 20)
         performHorizontalScroll(to: targetX, animated: true)
     }
 
-    func scrollToTaskEnd(_ task: GanttTask) {
+    func scrollToTaskEnd(_ task: GanttEvent) {
         let xPos = timelineLayout.xPositionForDate(task.endDate)
         let visibleWidth = collectionView.bounds.width
         let targetX = max(0, xPos - visibleWidth + 20)

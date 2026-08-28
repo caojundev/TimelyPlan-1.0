@@ -10,11 +10,11 @@ import Foundation
 protocol GanttEventProvider {
     
     /// 获取特定日期范围的事项
-    func fetchGanttEvents(in range: DateInterval, completion: @escaping([GanttTask]?) -> Void)
+    func fetchGanttEvents(in range: DateInterval, completion: @escaping([GanttEvent]?) -> Void)
 }
 
 class GanttTodoEventProvider: GanttEventProvider {
-    func fetchGanttEvents(in range: DateInterval, completion: @escaping ([GanttTask]?) -> Void) {
+    func fetchGanttEvents(in range: DateInterval, completion: @escaping ([GanttEvent]?) -> Void) {
         guard MyDaySetting.shared.showTodo else {
             completion(nil)
             return

@@ -274,51 +274,47 @@ class GanttTimelineMainViewController: TPViewController {
         let calendar = Calendar.current
         let today = Date()
         
-        var testTasks: [GanttTask] = []
+        var testTasks: [GanttEvent] = []
         
         // 创建测试任务
         for phase in 1...5 {
             let phaseColor = UIColor(hue: CGFloat(phase) / 5.0, saturation: 0.6, brightness: 0.8, alpha: 1.0)
             
             // 创建子任务
-            var children: [GanttTask] = []
+            var children: [GanttEvent] = []
             for i in 1...3 {
-                let child = GanttTask(
+                let child = GanttEvent(
                     id: "\(phase).\(i)",
                     name: "任务 \(phase).\(i)",
                     startDate: calendar.date(byAdding: .day, value: (phase - 1) * 20 + i * 2, to: today)!,
                     endDate: calendar.date(byAdding: .day, value: (phase - 1) * 20 + i * 2 + 10, to: today)!,
                     progress: CGFloat(i) / 3.0,
-                    color: phaseColor,
-                    level: 1
+                    color: phaseColor
                 )
                 children.append(child)
             }
             
             // 创建组任务
-            let group = GanttTask(
+            let group = GanttEvent(
                 id: "\(phase)",
                 name: "阶段 \(phase)",
                 startDate: calendar.date(byAdding: .day, value: (phase - 1) * 20, to: today)!,
                 endDate: calendar.date(byAdding: .day, value: (phase - 1) * 20 + 18, to: today)!,
                 progress: CGFloat(phase % 4) / 4.0,
-                color: phaseColor,
-                level: 0,
-                children: children
+                color: phaseColor
             )
             testTasks.append(group)
         }
         
         // 添加一些独立任务
         for i in 1...10 {
-            let task = GanttTask(
+            let task = GanttEvent(
                 id: "standalone_\(i)",
                 name: "独立任务 \(i)",
                 startDate: calendar.date(byAdding: .day, value: i * 5 - 10, to: today)!,
                 endDate: calendar.date(byAdding: .day, value: i * 5 + 5, to: today)!,
                 progress: CGFloat(i) / 10.0,
-                color: UIColor.systemBlue,
-                level: 0
+                color: UIColor.systemBlue
             )
             testTasks.append(task)
         }

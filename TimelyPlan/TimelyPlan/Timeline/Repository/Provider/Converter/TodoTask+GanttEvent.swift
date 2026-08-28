@@ -9,13 +9,13 @@ import Foundation
 
 extension TodoTask {
     
-    func toGanttEvent() -> GanttTask? {
+    func toGanttEvent() -> GanttEvent? {
         guard let dateInfo = schedule?.dateInfo else {
             return nil
         }
 
         let color = priority.color
-        let event = GanttTask(id: identifier,
+        let event = GanttEvent(id: identifier,
                               name: displayName,
                               startDate: dateInfo.startDate,
                               endDate: dateInfo.endDate,
@@ -28,7 +28,7 @@ extension TodoTask {
 // MARK: - Array 扩展
 extension Array where Element == TodoTask {
     
-    func toGanttEvents() -> [GanttTask] {
+    func toGanttEvents() -> [GanttEvent] {
         return compactMap { $0.toGanttEvent() }
     }
 }

@@ -131,7 +131,7 @@ extension HabitTask {
         task.startTime = startTime
         task.duration = duration
         task.isAddedToMyDay = isAddedToMyDay
-        task.timePlan = timePlan ?? TaskTimePlanRegularRule()
+        task.timePlan = timePlan
         task.shouldRemind = shouldRemind
         task.reminder = reminder?.copy() as? HabitReminder
         task.note = note

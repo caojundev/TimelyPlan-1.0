@@ -14,7 +14,7 @@ class GanttTimelineView: UIView {
     private(set) var timeScale: GanttTimeScale
 
     /// 任务数据
-    var tasks: [GanttTask] = [] {
+    var tasks: [GanttEvent] = [] {
         didSet {
             chartView.tasks = tasks
             taskListView.tasks = tasks
@@ -32,7 +32,7 @@ class GanttTimelineView: UIView {
     }
 
     /// 左侧任务列表视图（只读）
-    var taskListView: GanttTaskListView {
+    var taskListView: GanttEventListView {
         return _taskListView
     }
 
@@ -40,7 +40,7 @@ class GanttTimelineView: UIView {
 
     private let _headerView: GanttTimelineHeaderView
     private let _chartView: GanttTimelineChartView
-    private let _taskListView: GanttTaskListView
+    private let _taskListView: GanttEventListView
 
     /// 顶部刻度高度
     private let headerHeight: CGFloat
@@ -96,7 +96,7 @@ class GanttTimelineView: UIView {
             timeScale: timeScale
         )
         self._chartView = GanttTimelineChartView(timeScale: timeScale)
-        self._taskListView = GanttTaskListView(frame: .zero)
+        self._taskListView = GanttEventListView(frame: .zero)
         self.toggleButton = TPImageButton()
         self.todayButton = TPImageButton()
         self.overlayMaskView = UIControl()
@@ -308,12 +308,12 @@ class GanttTimelineView: UIView {
     }
 
     /// 滚动到任务开始位置
-    func scrollToTaskStart(_ task: GanttTask) {
+    func scrollToTaskStart(_ task: GanttEvent) {
         chartView.scrollToTaskStart(task)
     }
 
     /// 滚动到任务结束位置
-    func scrollToTaskEnd(_ task: GanttTask) {
+    func scrollToTaskEnd(_ task: GanttEvent) {
         chartView.scrollToTaskEnd(task)
     }
 }

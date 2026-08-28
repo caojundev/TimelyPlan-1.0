@@ -778,7 +778,7 @@
 		E54A067E303BDC69001FF4A1 /* sideMenu_goal_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A067C303BDC67001FF4A1 /* sideMenu_goal_40@2x.png */; };
 		E54A067F303BDC69001FF4A1 /* sideMenu_goal_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A067D303BDC69001FF4A1 /* sideMenu_goal_40@3x.png */; };
 		E54A0682303BE5A9001FF4A1 /* GanttTimelineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A0681303BE5A9001FF4A1 /* GanttTimelineChartView.swift */; };
-		E54A0685303BFBFB001FF4A1 /* GanttTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A0684303BFBFB001FF4A1 /* GanttTask.swift */; };
+		E54A0685303BFBFB001FF4A1 /* GanttEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A0684303BFBFB001FF4A1 /* GanttEvent.swift */; };
 		E54A0687303BFD7F001FF4A1 /* GanttTimeScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A0686303BFD7F001FF4A1 /* GanttTimeScale.swift */; };
 		E54A0689303C2AC0001FF4A1 /* GanttTimeScaleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A0688303C2AC0001FF4A1 /* GanttTimeScaleBarButtonItem.swift */; };
 		E54A068B303C2B98001FF4A1 /* GanttTimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A068A303C2B98001FF4A1 /* GanttTimelineState.swift */; };
@@ -788,7 +788,7 @@
 		E54A0696303C2C71001FF4A1 /* ganttTimeScale_month_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A0690303C2C71001FF4A1 /* ganttTimeScale_month_24@2x.png */; };
 		E54A0697303C2C71001FF4A1 /* ganttTimeScale_day_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A0691303C2C71001FF4A1 /* ganttTimeScale_day_24@2x.png */; };
 		E54A0698303C2C71001FF4A1 /* ganttTimeScale_day_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E54A0692303C2C71001FF4A1 /* ganttTimeScale_day_24@3x.png */; };
-		E54A069B303C48C8001FF4A1 /* GanttTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A069A303C48C8001FF4A1 /* GanttTaskListView.swift */; };
+		E54A069B303C48C8001FF4A1 /* GanttEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A069A303C48C8001FF4A1 /* GanttEventListView.swift */; };
 		E54A06A0303C7F23001FF4A1 /* GanttTimelineScaleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A069D303C7F23001FF4A1 /* GanttTimelineScaleCell.swift */; };
 		E54A06A1303C7F23001FF4A1 /* GanttTimelineScaleUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A069E303C7F23001FF4A1 /* GanttTimelineScaleUnit.swift */; };
 		E54A06A2303C7F23001FF4A1 /* GanttTimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A069F303C7F23001FF4A1 /* GanttTimelineHeaderView.swift */; };
@@ -3000,7 +3000,7 @@
 		E54A067C303BDC67001FF4A1 /* sideMenu_goal_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_goal_40@2x.png"; sourceTree = "<group>"; };
 		E54A067D303BDC69001FF4A1 /* sideMenu_goal_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_goal_40@3x.png"; sourceTree = "<group>"; };
 		E54A0681303BE5A9001FF4A1 /* GanttTimelineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineChartView.swift; sourceTree = "<group>"; };
-		E54A0684303BFBFB001FF4A1 /* GanttTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTask.swift; sourceTree = "<group>"; };
+		E54A0684303BFBFB001FF4A1 /* GanttEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttEvent.swift; sourceTree = "<group>"; };
 		E54A0686303BFD7F001FF4A1 /* GanttTimeScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimeScale.swift; sourceTree = "<group>"; };
 		E54A0688303C2AC0001FF4A1 /* GanttTimeScaleBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimeScaleBarButtonItem.swift; sourceTree = "<group>"; };
 		E54A068A303C2B98001FF4A1 /* GanttTimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineState.swift; sourceTree = "<group>"; };
@@ -3010,7 +3010,7 @@
 		E54A0690303C2C71001FF4A1 /* ganttTimeScale_month_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ganttTimeScale_month_24@2x.png"; sourceTree = "<group>"; };
 		E54A0691303C2C71001FF4A1 /* ganttTimeScale_day_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ganttTimeScale_day_24@2x.png"; sourceTree = "<group>"; };
 		E54A0692303C2C71001FF4A1 /* ganttTimeScale_day_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ganttTimeScale_day_24@3x.png"; sourceTree = "<group>"; };
-		E54A069A303C48C8001FF4A1 /* GanttTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTaskListView.swift; sourceTree = "<group>"; };
+		E54A069A303C48C8001FF4A1 /* GanttEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttEventListView.swift; sourceTree = "<group>"; };
 		E54A069D303C7F23001FF4A1 /* GanttTimelineScaleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttTimelineScaleCell.swift; sourceTree = "<group>"; };
 		E54A069E303C7F23001FF4A1 /* GanttTimelineScaleUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttTimelineScaleUnit.swift; sourceTree = "<group>"; };
 		E54A069F303C7F23001FF4A1 /* GanttTimelineHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttTimelineHeaderView.swift; sourceTree = "<group>"; };
@@ -6792,7 +6792,7 @@
 		E54A0683303BFBED001FF4A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E54A0684303BFBFB001FF4A1 /* GanttTask.swift */,
+				E54A0684303BFBFB001FF4A1 /* GanttEvent.swift */,
 				E54A0686303BFD7F001FF4A1 /* GanttTimeScale.swift */,
 			);
 			path = Models;
@@ -6859,7 +6859,7 @@
 		E54A06AD303D448C001FF4A1 /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
-				E54A069A303C48C8001FF4A1 /* GanttTaskListView.swift */,
+				E54A069A303C48C8001FF4A1 /* GanttEventListView.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -13637,7 +13637,7 @@
 				E5185067300F12B100112DFC /* TimelineEventConverter.swift in Sources */,
 				E500E3AA2FC7E66D00252011 /* BarRankListChartCell.swift in Sources */,
 				E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */,
-				E54A0685303BFBFB001FF4A1 /* GanttTask.swift in Sources */,
+				E54A0685303BFBFB001FF4A1 /* GanttEvent.swift in Sources */,
 				E5259B0C3017A75600A6D253 /* MyDayEventAddType.swift in Sources */,
 				E5F9E3EE3022235100EDC2A5 /* MyDayHabitBindSearchResultSectionController.swift in Sources */,
 				E5BB9EC72D3BF0C80089667A /* TPButtonActionsBar.swift in Sources */,
@@ -13961,7 +13961,7 @@
 				E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */,
 				E5BB9E042D3BF0C70089667A /* String+Extensions.swift in Sources */,
 				E5BB9D972D3BF0C60089667A /* TPCircularCheckboxInfoTableCell.swift in Sources */,
-				E54A069B303C48C8001FF4A1 /* GanttTaskListView.swift in Sources */,
+				E54A069B303C48C8001FF4A1 /* GanttEventListView.swift in Sources */,
 				E51501A02D47BA34008B2333 /* TPBaseTableCellLayout.swift in Sources */,
 				E5BB9E6B2D3BF0C70089667A /* TPCollectionCellStyle.swift in Sources */,
 				E5BB9E802D3BF0C80089667A /* ChartHighlightEelement.swift in Sources */,
