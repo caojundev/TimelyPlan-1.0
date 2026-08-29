@@ -106,6 +106,8 @@
 		E5087EAE3042884500DCD85C /* GanttState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EAD3042884500DCD85C /* GanttState.swift */; };
 		E5087EB03042C7D400DCD85C /* GanttEventProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EAF3042C7D300DCD85C /* GanttEventProcessor.swift */; };
 		E5087EB2304310BE00DCD85C /* TPMultiColumnEmptyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB1304310BE00DCD85C /* TPMultiColumnEmptyDetailViewController.swift */; };
+		E5087EB430431EA900DCD85C /* GanttTimelineNowIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB330431EA900DCD85C /* GanttTimelineNowIndicatorView.swift */; };
+		E5087EB630431F2000DCD85C /* GanttTimelineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB530431F2000DCD85C /* GanttTimelineGeometry.swift */; };
 		E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */; };
 		E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */; };
 		E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */; };
@@ -2330,6 +2332,8 @@
 		E5087EAD3042884500DCD85C /* GanttState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttState.swift; sourceTree = "<group>"; };
 		E5087EAF3042C7D300DCD85C /* GanttEventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttEventProcessor.swift; sourceTree = "<group>"; };
 		E5087EB1304310BE00DCD85C /* TPMultiColumnEmptyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMultiColumnEmptyDetailViewController.swift; sourceTree = "<group>"; };
+		E5087EB330431EA900DCD85C /* GanttTimelineNowIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineNowIndicatorView.swift; sourceTree = "<group>"; };
+		E5087EB530431F2000DCD85C /* GanttTimelineGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineGeometry.swift; sourceTree = "<group>"; };
 		E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCustomPopup.swift; sourceTree = "<group>"; };
 		E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultInfoView.swift; sourceTree = "<group>"; };
 		E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Extensions.swift"; sourceTree = "<group>"; };
@@ -6855,6 +6859,7 @@
 				E54A06A6303C8A7A001FF4A1 /* ScrollSynchronizer.swift */,
 				E54A06A8303D2ACF001FF4A1 /* GanttTimelineConfig.swift */,
 				E54A06AB303D3385001FF4A1 /* GanttTimelineView.swift */,
+				E5087EB530431F2000DCD85C /* GanttTimelineGeometry.swift */,
 				E54A069C303C7F23001FF4A1 /* Header */,
 				E54A06AA303D32C2001FF4A1 /* Chart */,
 				E54A06AD303D448C001FF4A1 /* TaskList */,
@@ -6866,6 +6871,7 @@
 			isa = PBXGroup;
 			children = (
 				E54A0681303BE5A9001FF4A1 /* GanttTimelineChartView.swift */,
+				E5087EB330431EA900DCD85C /* GanttTimelineNowIndicatorView.swift */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -14049,6 +14055,8 @@
 				E500E3A12FC737FF00252011 /* TodoStatsWorkloadHeatmap.swift in Sources */,
 				E5BB9F132D3BF0C90089667A /* Language.swift in Sources */,
 				E58F46AD2F7AAD4B0046FA96 /* TodoUserListSelectSectionController.swift in Sources */,
+				E5087EB430431EA900DCD85C /* GanttTimelineNowIndicatorView.swift in Sources */,
+				E5087EB630431F2000DCD85C /* GanttTimelineGeometry.swift in Sources */,
 				E51E5F6D303543E600ACF30C /* MembershipBenefitsTableView.swift in Sources */,
 				E5F9E3E73021DDDB00EDC2A5 /* MyDayFocusTimerBindCell.swift in Sources */,
 				E57CC5F32F7FF13300ADDBA4 /* TodoTaskEditDetailView.swift in Sources */,

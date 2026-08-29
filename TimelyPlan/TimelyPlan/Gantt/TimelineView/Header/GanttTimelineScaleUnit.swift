@@ -107,19 +107,6 @@ struct GanttTimelineScaleCalculator {
 
     /// 计算某个日期在时间轴上的 X 坐标（与 GanttTimelineLayout 保持一致）
     func xPosition(for date: Date) -> CGFloat {
-        let calendar = Calendar.current
-        let days = calendar.dateComponents([.day], from: startDate, to: date).day ?? 0
-
-        switch scale {
-        case .day:
-            return CGFloat(days) * scale.pixelsPerUnit
-        case .week:
-            return (CGFloat(days) / 7.0) * scale.pixelsPerUnit
-        case .month:
-            let months = calendar.dateComponents([.month], from: startDate, to: date).month ?? 0
-            let dayInMonth = calendar.component(.day, from: date) - 1
-            let daysInMonth = calendar.range(of: .day, in: .month, for: date)?.count ?? 30
-            return (CGFloat(months) + CGFloat(dayInMonth) / CGFloat(daysInMonth)) * scale.pixelsPerUnit
-        }
+        return GanttTimelineGeometry.xPositionForDate(date, scale: scale, startDate: startDate)
     }
 }

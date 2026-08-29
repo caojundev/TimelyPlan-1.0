@@ -42,6 +42,9 @@ class GanttTimelineView: UIView {
     private let _chartView: GanttTimelineChartView
     private let _eventListView: GanttEventListView
 
+    /// 今天当前时间指示器视图（覆盖在甘特图上方，随水平滚动同步）
+    private let _nowIndicatorView: GanttTimelineNowIndicatorView
+
     /// 顶部刻度高度
     private let headerHeight: CGFloat
 
@@ -103,6 +106,8 @@ class GanttTimelineView: UIView {
         )
         self._chartView = GanttTimelineChartView(timeScale: timeScale)
         self._eventListView = GanttEventListView(frame: .zero)
+        self._nowIndicatorView = GanttTimelineNowIndicatorView(frame: .zero)
+        self._nowIndicatorView.timeScale = timeScale
         self.toggleButton = TPImageButton()
         self.todayButton = TPImageButton()
         self.overlayMaskView = UIControl()
@@ -122,11 +127,14 @@ class GanttTimelineView: UIView {
     private func setupViews() {
         addSubview(_headerView)
         addSubview(_chartView)
+        // 指示器视图需要覆盖在 chartView 之上
+        addSubview(_nowIndicatorView)
     }
 
     private func setupScrollSynchronization() {
         horizontalSynchronizer.addSyncableView(_headerView)
         horizontalSynchronizer.addSyncableView(_chartView)
+        horizontalSynchronizer.addSyncableView(_nowIndicatorView)
         verticalSynchronizer.addSyncableView(_chartView)
         verticalSynchronizer.addSyncableView(_eventListView)
     }
@@ -265,6 +273,12 @@ class GanttTimelineView: UIView {
                                   width: bounds.width,
                                   height: bounds.height - headerHeight)
 
+        // 指示器视图：与 chartView 同区域，覆盖在其上方
+        _nowIndicatorView.frame = CGRect(x: 0,
+                                         y: headerHeight,
+                                         width: bounds.width,
+                                         height: bounds.height - headerHeight)
+
         // 任务列表
         _eventListView.frame = CGRect(x: isEventListVisible ? 0 : -eventListWidth,
                                      y: headerHeight,
@@ -307,6 +321,7 @@ class GanttTimelineView: UIView {
         self.timeScale = timeScale
         chartView.timeScale = timeScale
         headerView.configure(timeScale: timeScale)
+        _nowIndicatorView.timeScale = timeScale
     }
 
     /// 滚动到"今天"所在位置

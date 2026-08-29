@@ -34,7 +34,7 @@ class GanttTimelineLayout: UICollectionViewLayout {
         
         cachedAttributes.removeAll()
         
-        totalWidth = calculateTimeAxisWidth()
+        totalWidth = GanttTimelineGeometry.contentWidth(timeScale: timeScale)
         
         let count = itemCount()
         totalHeight = CGFloat(count) * rowHeight
@@ -58,21 +58,6 @@ class GanttTimelineLayout: UICollectionViewLayout {
             return events.count
         }
         return Self.placeholderRowCount
-    }
-    
-    private func calculateTimeAxisWidth() -> CGFloat {
-        let calendar = Calendar.current
-        let days = calendar.dateComponents([.day], from: timeScale.startDate, to: timeScale.endDate).day ?? 30
-        switch timeScale.scale {
-        case .day:
-            return CGFloat(days + 1) * timeScale.scale.pixelsPerUnit
-        case .week:
-            let weeks = ceil(Double(days + 1) / 7.0)
-            return CGFloat(weeks) * timeScale.scale.pixelsPerUnit
-        case .month:
-            let months = calendar.dateComponents([.month], from: timeScale.startDate, to: timeScale.endDate).month ?? 1
-            return CGFloat(months + 1) * timeScale.scale.pixelsPerUnit
-        }
     }
     
     func eventAtIndex(_ index: Int) -> GanttEvent? {
@@ -113,20 +98,7 @@ class GanttTimelineLayout: UICollectionViewLayout {
     }
     
     func xPositionForDate(_ date: Date) -> CGFloat {
-        let calendar = Calendar.current
-        let days = calendar.dateComponents([.day], from: timeScale.startDate, to: date).day ?? 0
-        
-        switch timeScale.scale {
-        case .day:
-            return CGFloat(days) * timeScale.scale.pixelsPerUnit
-        case .week:
-            return (CGFloat(days) / 7.0) * timeScale.scale.pixelsPerUnit
-        case .month:
-            let months = calendar.dateComponents([.month], from: timeScale.startDate, to: date).month ?? 0
-            let dayInMonth = calendar.component(.day, from: date) - 1
-            let daysInMonth = calendar.range(of: .day, in: .month, for: date)?.count ?? 30
-            return (CGFloat(months) + CGFloat(dayInMonth) / CGFloat(daysInMonth)) * timeScale.scale.pixelsPerUnit
-        }
+        return GanttTimelineGeometry.xPositionForDate(date, timeScale: timeScale)
     }
     
     func widthForDuration(from start: Date, to end: Date) -> CGFloat {
