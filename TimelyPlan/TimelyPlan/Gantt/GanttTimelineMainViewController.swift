@@ -277,7 +277,7 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
     /// 绑定视图模型回调
     private func setupViewModel() {
         viewModel.onEventsChanged = { [weak self] in
-            self?.updateTimelineTasks()
+            self?.updateTimelineEvents()
         }
     }
     
@@ -288,8 +288,8 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
     }
     
     /// 更新甘特图任务数据
-    private func updateTimelineTasks() {
-        timelineView.tasks = viewModel.events ?? []
+    private func updateTimelineEvents() {
+        timelineView.events = viewModel.events ?? []
     }
     
     // MARK: - 待办任务操作

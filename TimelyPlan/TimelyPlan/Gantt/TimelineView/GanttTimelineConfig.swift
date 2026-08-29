@@ -20,7 +20,7 @@ struct GanttTimelineConfig {
     static let indicatorSize = 24.0
     
     /// 左侧任务列表视图默认宽度
-    static let taskListWidth = 240.0
+    static let eventListWidth = 240.0
 
     /// bar 上下间距
     static let barVerticalInset = 5.0
@@ -32,19 +32,19 @@ struct GanttTimelineConfig {
     static let barMinWidth = 20.0
     
     /// 任务列表视图背景色
-    static let taskListBackgroundColor = UIColor.systemBackground
+    static let eventListBackgroundColor = UIColor.systemBackground
     
     /// 任务列表奇数行背景色
-    static let taskListOddRowColor = Color(light: 0xFafafa, dark: 0x0C0C0E)
+    static let eventListOddRowColor = Color(light: 0xFafafa, dark: 0x0C0C0E)
     
     /// 任务列表偶数行背景色
-    static let taskListEvenRowColor = UIColor.systemBackground
+    static let eventListEvenRowColor = UIColor.systemBackground
     
     /// 任务列表行分隔线颜色
-    static let taskListSeparatorColor = Color(0x88888, 0.25)
+    static let eventListSeparatorColor = Color(0x88888, 0.25)
     
     /// 任务列表选中行背景色
-    static let taskListSelectedRowColor = Color(light: 0xE3F0FF, dark: 0x1E3A5F)
+    static let eventListSelectedRowColor = Color(light: 0xE3F0FF, dark: 0x1E3A5F)
     
     static let edgeIndicatorBackgroundColor = Color(light: 0xeaeaea, dark: 0x1C1C1C)
     static let edgeIndicatorImageColor = Color(light: 0x3C3C3C, dark: 0xDEDEDE)

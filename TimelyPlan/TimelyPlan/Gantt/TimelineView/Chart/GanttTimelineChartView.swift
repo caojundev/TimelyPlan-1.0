@@ -13,7 +13,7 @@ class GanttTimelineLayout: UICollectionViewLayout {
     
     var rowHeight: CGFloat = 44
     var timeScale: GanttTimeScale
-    var tasks: [GanttEvent] = []
+    var events: [GanttEvent] = []
     
     private var cachedAttributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
     private var cachedHeaderAttributes: UICollectionViewLayoutAttributes?
@@ -54,8 +54,8 @@ class GanttTimelineLayout: UICollectionViewLayout {
     /// 实际 item 数量（与数据源 numberOfItems 保持一致）。
     /// 无任务时返回固定占位行数量，填满可视区域，避免空白页。
     func itemCount() -> Int {
-        guard tasks.isEmpty else {
-            return tasks.count
+        guard events.isEmpty else {
+            return events.count
         }
         return Self.placeholderRowCount
     }
@@ -75,12 +75,12 @@ class GanttTimelineLayout: UICollectionViewLayout {
         }
     }
     
-    func taskAtIndex(_ index: Int) -> GanttEvent? {
-        guard index < tasks.count else { return nil }
-        return tasks[index]
+    func eventAtIndex(_ index: Int) -> GanttEvent? {
+        guard index < events.count else { return nil }
+        return events[index]
     }
     
-    var visibleTaskCount: Int {
+    var visibleEventCount: Int {
         return itemCount()
     }
     
@@ -202,7 +202,7 @@ class TimelineCell: UICollectionViewCell {
     var onBarTapped: ((GanttEvent) -> Void)?
 
     /// 当前 cell 绑定的任务
-    private var currentTask: GanttEvent?
+    private var currentEvent: GanttEvent?
 
     private let insideTitleColor = Color(0xf2f2f2)
     private let outsideTitleColor = Color(light: 0x232323, dark: 0xf2f2f2)
@@ -262,13 +262,13 @@ class TimelineCell: UICollectionViewCell {
         let visibleBarWidth: CGFloat
     }
     
-    func configure(task: GanttEvent,
+    func configure(event: GanttEvent,
                    x: CGFloat,
                    width: CGFloat,
                    rowHeight: CGFloat,
                    visibleRect: CGRect,
                    contentMaxX: CGFloat) {
-        currentTask = task
+        currentEvent = event
 
         // 裁剪到内容区域；若完全越界则不绘制
         guard let layout = makeBarLayout(x: x,
@@ -276,13 +276,13 @@ class TimelineCell: UICollectionViewCell {
                                          rowHeight: rowHeight,
                                          visibleRect: visibleRect,
                                          contentMaxX: contentMaxX) else {
-            resetBarViews(taskName: task.name)
+            resetBarViews(eventName: event.name)
             return
         }
         
-        layoutBar(task: task, layout: layout)
+        layoutBar(event: event, layout: layout)
         layoutIndicators(layout: layout)
-        layoutTitle(task: task, layout: layout)
+        layoutTitle(event: event, layout: layout)
     }
     
     /// 计算并裁剪 bar 的几何信息；返回 nil 表示 bar 完全在内容区域之外
@@ -329,19 +329,19 @@ class TimelineCell: UICollectionViewCell {
     }
     
     /// 设置甘特条及进度视图
-    private func layoutBar(task: GanttEvent, layout: BarLayout) {
+    private func layoutBar(event: GanttEvent, layout: BarLayout) {
         barView.frame = CGRect(x: layout.barLeft,
                                y: layout.barY,
                                width: layout.barWidth,
                                height: layout.barHeight)
-        barView.backgroundColor = task.color.withBrightness(0.4)
-        barView.layer.borderColor = task.color.withAlphaComponent(0.4).cgColor
+        barView.backgroundColor = event.color.withBrightness(0.4)
+        barView.layer.borderColor = event.color.withAlphaComponent(0.4).cgColor
         
         progressView.frame = CGRect(x: 0,
                                     y: 0,
-                                    width: layout.barWidth * task.progress,
+                                    width: layout.barWidth * event.progress,
                                     height: layout.barHeight)
-        progressView.backgroundColor = task.color
+        progressView.backgroundColor = event.color
     }
     
     /// 更新左右边缘指示器的显示与位置
@@ -382,8 +382,8 @@ class TimelineCell: UICollectionViewCell {
     }
     
     /// 根据 bar 与可视区域的关系定位标题
-    private func layoutTitle(task: GanttEvent, layout: BarLayout) {
-        titleLabel.text = task.title
+    private func layoutTitle(event: GanttEvent, layout: BarLayout) {
+        titleLabel.text = event.title
         titleLabel.textAlignment = .left
         titleLabel.lineBreakMode = .byTruncatingMiddle
         
@@ -480,10 +480,10 @@ class TimelineCell: UICollectionViewCell {
     }
     
     /// bar 完全越界时重置子视图
-    private func resetBarViews(taskName: String) {
+    private func resetBarViews(eventName: String) {
         barView.frame = .zero
         progressView.frame = .zero
-        titleLabel.text = taskName
+        titleLabel.text = eventName
         titleLabel.frame = .zero
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
@@ -491,7 +491,7 @@ class TimelineCell: UICollectionViewCell {
 
     /// 重置为占位行（无任务），仅显示背景色
     func resetAsPlaceholder() {
-        currentTask = nil
+        currentEvent = nil
         barView.frame = .zero
         progressView.frame = .zero
         titleLabel.text = nil
@@ -515,8 +515,8 @@ class TimelineCell: UICollectionViewCell {
     
     @objc private func barTapped() {
         TPImpactFeedback.impactWithSoftStyle()
-        guard let task = currentTask else { return }
-        onBarTapped?(task)
+        guard let event = currentEvent else { return }
+        onBarTapped?(event)
     }
     
     override func prepareForReuse() {
@@ -566,9 +566,9 @@ class GanttTimelineChartView: UIView {
     private var lastNotifiedDate: Date?
     
     // 数据
-    var tasks: [GanttEvent] = [] {
+    var events: [GanttEvent] = [] {
         didSet {
-            timelineLayout.tasks = tasks
+            timelineLayout.events = events
             timelineLayout.invalidateLayout()
             collectionView.reloadData()
         }
@@ -622,7 +622,7 @@ class GanttTimelineChartView: UIView {
     // MARK: - 视图设置
     
     private func setupViews() {
-        backgroundColor = GanttTimelineConfig.taskListBackgroundColor
+        backgroundColor = GanttTimelineConfig.eventListBackgroundColor
         clipsToBounds = true
         
         setupCollectionView()
@@ -630,11 +630,11 @@ class GanttTimelineChartView: UIView {
     
     private func setupCollectionView() {
         timelineLayout = GanttTimelineLayout(timeScale: timeScale)
-        timelineLayout.tasks = []
+        timelineLayout.events = []
         timelineLayout.rowHeight = rowHeight
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: timelineLayout)
-        collectionView.backgroundColor = GanttTimelineConfig.taskListBackgroundColor
+        collectionView.backgroundColor = GanttTimelineConfig.eventListBackgroundColor
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsVerticalScrollIndicator = true
@@ -668,12 +668,12 @@ class GanttTimelineChartView: UIView {
         return timelineLayout.widthForDuration(from: start, to: end)
     }
     
-    func taskAtIndex(_ index: Int) -> GanttEvent? {
-        return timelineLayout.taskAtIndex(index)
+    func eventAtIndex(_ index: Int) -> GanttEvent? {
+        return timelineLayout.eventAtIndex(index)
     }
     
-    var visibleTaskCount: Int {
-        return timelineLayout.visibleTaskCount
+    var visibleEventCount: Int {
+        return timelineLayout.visibleEventCount
     }
     
     func reloadData() {
@@ -694,14 +694,14 @@ class GanttTimelineChartView: UIView {
         performHorizontalScroll(to: targetX, animated: animated)
     }
 
-    func scrollToTaskStart(_ task: GanttEvent) {
-        let xPos = timelineLayout.xPositionForDate(task.startDate)
+    func scrollToEventStart(_ event: GanttEvent) {
+        let xPos = timelineLayout.xPositionForDate(event.startDate)
         let targetX = max(0, xPos - 20)
         performHorizontalScroll(to: targetX, animated: true)
     }
 
-    func scrollToTaskEnd(_ task: GanttEvent) {
-        let xPos = timelineLayout.xPositionForDate(task.endDate)
+    func scrollToEventEnd(_ event: GanttEvent) {
+        let xPos = timelineLayout.xPositionForDate(event.endDate)
         let visibleWidth = collectionView.bounds.width
         let targetX = max(0, xPos - visibleWidth + 20)
         performHorizontalScroll(to: targetX, animated: true)
@@ -764,10 +764,10 @@ class GanttTimelineChartView: UIView {
         for cell in collectionView.visibleCells {
             if let timelineCell = cell as? TimelineCell,
                let indexPath = collectionView.indexPath(for: cell),
-               let task = timelineLayout.taskAtIndex(indexPath.item) {
+               let event = timelineLayout.eventAtIndex(indexPath.item) {
                 
-                let x = timelineLayout.xPositionForDate(task.startDate)
-                let width = timelineLayout.widthForDuration(from: task.startDate, to: task.endDate)
+                let x = timelineLayout.xPositionForDate(event.startDate)
+                let width = timelineLayout.widthForDuration(from: event.startDate, to: event.endDate)
                 
                 let visibleRect = CGRect(
                     x: collectionView.contentOffset.x,
@@ -777,7 +777,7 @@ class GanttTimelineChartView: UIView {
                 )
                 
                 timelineCell.configure(
-                    task: task,
+                    event: event,
                     x: x,
                     width: width,
                     rowHeight: rowHeight,
@@ -797,7 +797,7 @@ extension GanttTimelineChartView: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return timelineLayout.visibleTaskCount
+        return timelineLayout.visibleEventCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -806,9 +806,9 @@ extension GanttTimelineChartView: UICollectionViewDataSource, UICollectionViewDe
             for: indexPath
         ) as! TimelineCell
         
-        if let task = timelineLayout.taskAtIndex(indexPath.item) {
-            let x = timelineLayout.xPositionForDate(task.startDate)
-            let width = timelineLayout.widthForDuration(from: task.startDate, to: task.endDate)
+        if let event = timelineLayout.eventAtIndex(indexPath.item) {
+            let x = timelineLayout.xPositionForDate(event.startDate)
+            let width = timelineLayout.widthForDuration(from: event.startDate, to: event.endDate)
             
             let visibleRect = CGRect(
                 x: collectionView.contentOffset.x,
@@ -818,7 +818,7 @@ extension GanttTimelineChartView: UICollectionViewDataSource, UICollectionViewDe
             )
             
             cell.configure(
-                task: task,
+                event: event,
                 x: x,
                 width: width,
                 rowHeight: rowHeight,
@@ -828,13 +828,13 @@ extension GanttTimelineChartView: UICollectionViewDataSource, UICollectionViewDe
             
             // 使用 weak self 避免循环引用
             cell.onLeftIndicatorTapped = { [weak self] in
-                self?.scrollToTaskStart(task)
+                self?.scrollToEventStart(event)
             }
             cell.onRightIndicatorTapped = { [weak self] in
-                self?.scrollToTaskEnd(task)
+                self?.scrollToEventEnd(event)
             }
-            cell.onBarTapped = { [weak self] tappedTask in
-                self?.onBarTap?(tappedTask)
+            cell.onBarTapped = { [weak self] tappedEvent in
+                self?.onBarTap?(tappedEvent)
             }
         } else {
             // 占位行：仅显示奇偶相间背景色
@@ -842,8 +842,8 @@ extension GanttTimelineChartView: UICollectionViewDataSource, UICollectionViewDe
         }
         
         cell.backgroundColor = indexPath.item % 2 == 0
-            ? GanttTimelineConfig.taskListOddRowColor
-            : GanttTimelineConfig.taskListEvenRowColor
+            ? GanttTimelineConfig.eventListOddRowColor
+            : GanttTimelineConfig.eventListEvenRowColor
         
         return cell
     }

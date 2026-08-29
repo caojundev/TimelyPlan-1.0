@@ -5702,7 +5702,7 @@
 			path = Menu;
 			sourceTree = "<group>";
 		};
-		E51E5FA0303A913000ACF30C /* Timeline */ = {
+		E51E5FA0303A913000ACF30C /* Gantt */ = {
 			isa = PBXGroup;
 			children = (
 				E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */,
@@ -5715,7 +5715,7 @@
 				E53114A9304072820022D8D7 /* Setting */,
 				E54A0699303C36AD001FF4A1 /* State */,
 			);
-			path = Timeline;
+			path = Gantt;
 			sourceTree = "<group>";
 		};
 		E51F94012FFF57D500734910 /* EventInfo */ = {
@@ -7250,7 +7250,7 @@
 				E51F941630049A2C00734910 /* MyDay */,
 				E51A43802DB73A0400DC84C9 /* Calendar */,
 				E50DD7D02D72EF8F00A85E87 /* Todo */,
-				E51E5FA0303A913000ACF30C /* Timeline */,
+				E51E5FA0303A913000ACF30C /* Gantt */,
 				E53632672FAB72BF0095DFEC /* Quadrant */,
 				E54A0680303BDD3D001FF4A1 /* Goal */,
 				E5D7D7B42D43922900EC877A /* Focus */,

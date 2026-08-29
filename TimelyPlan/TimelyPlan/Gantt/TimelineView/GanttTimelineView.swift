@@ -14,10 +14,10 @@ class GanttTimelineView: UIView {
     private(set) var timeScale: GanttTimeScale
 
     /// 任务数据
-    var tasks: [GanttEvent] = [] {
+    var events: [GanttEvent] = [] {
         didSet {
-            chartView.tasks = tasks
-            taskListView.tasks = tasks
+            chartView.events = events
+            eventListView.events = events
         }
     }
     
@@ -32,21 +32,21 @@ class GanttTimelineView: UIView {
     }
 
     /// 左侧任务列表视图（只读）
-    var taskListView: GanttEventListView {
-        return _taskListView
+    var eventListView: GanttEventListView {
+        return _eventListView
     }
 
     // MARK: - 私有属性
 
     private let _headerView: GanttTimelineHeaderView
     private let _chartView: GanttTimelineChartView
-    private let _taskListView: GanttEventListView
+    private let _eventListView: GanttEventListView
 
     /// 顶部刻度高度
     private let headerHeight: CGFloat
 
     /// 左侧任务列表宽度
-    private let taskListWidth: CGFloat
+    private let eventListWidth: CGFloat
 
     /// 横向滚动同步器
     private let horizontalSynchronizer = HorizontalScrollSynchronizer()
@@ -64,9 +64,9 @@ class GanttTimelineView: UIView {
     private let overlayMaskView: UIControl
 
     /// 任务列表是否处于显示状态
-    private(set) var isTaskListVisible = false {
+    private(set) var isEventListVisible = false {
         didSet {
-            toggleButton.isSelected = isTaskListVisible
+            toggleButton.isSelected = isEventListVisible
         }
     }
 
@@ -88,21 +88,21 @@ class GanttTimelineView: UIView {
     ///   - frame: 初始 frame
     ///   - timeScale: 时间尺度
     ///   - headerHeight: 顶部刻度高度
-    ///   - taskListWidth: 左侧任务列表宽度
+    ///   - eventListWidth: 左侧任务列表宽度
     init(frame: CGRect,
          timeScale: GanttTimeScale,
          headerHeight: CGFloat = GanttTimelineConfig.headerHeight,
-         taskListWidth: CGFloat = GanttTimelineConfig.taskListWidth) {
+         eventListWidth: CGFloat = GanttTimelineConfig.eventListWidth) {
         self.timeScale = timeScale
         self.headerHeight = headerHeight
-        self.taskListWidth = taskListWidth
+        self.eventListWidth = eventListWidth
         self._headerView = GanttTimelineHeaderView(
             frame: .zero,
             headerHeight: headerHeight,
             timeScale: timeScale
         )
         self._chartView = GanttTimelineChartView(timeScale: timeScale)
-        self._taskListView = GanttEventListView(frame: .zero)
+        self._eventListView = GanttEventListView(frame: .zero)
         self.toggleButton = TPImageButton()
         self.todayButton = TPImageButton()
         self.overlayMaskView = UIControl()
@@ -110,7 +110,7 @@ class GanttTimelineView: UIView {
 
         setupViews()
         setupScrollSynchronization()
-        setupTaskList()
+        setupEventList()
     }
 
     required init?(coder: NSCoder) {
@@ -128,10 +128,10 @@ class GanttTimelineView: UIView {
         horizontalSynchronizer.addSyncableView(_headerView)
         horizontalSynchronizer.addSyncableView(_chartView)
         verticalSynchronizer.addSyncableView(_chartView)
-        verticalSynchronizer.addSyncableView(_taskListView)
+        verticalSynchronizer.addSyncableView(_eventListView)
     }
 
-    private func setupTaskList() {
+    private func setupEventList() {
         // 遮罩视图
         overlayMaskView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         overlayMaskView.addTarget(self, action: #selector(maskTapped), for: .touchUpInside)
@@ -149,8 +149,8 @@ class GanttTimelineView: UIView {
         toggleButton.normalImageColor = .label
         toggleButton.selectedImageColor = .white
         toggleButton.imageSize = .mini
-        toggleButton.addTarget(self, action: #selector(toggleTaskList), for: .touchUpInside)
-        toggleButton.isSelected = isTaskListVisible
+        toggleButton.addTarget(self, action: #selector(toggleEventList), for: .touchUpInside)
+        toggleButton.isSelected = isEventListVisible
         
         // 回到今天按钮
         todayButton.normalImage = resGetImage("gantt_backToday_24")
@@ -163,35 +163,35 @@ class GanttTimelineView: UIView {
         todayButton.addTarget(self, action: #selector(scrollToTodayTapped), for: .touchUpInside)
 
         addSubview(overlayMaskView)
-        addSubview(_taskListView)
+        addSubview(_eventListView)
         addSubview(toggleButton)
         addSubview(todayButton)
 
         // 点击任务列表中的任务时，将对应任务滚动到可视位置
-        _taskListView.onTaskSelect = { [weak self] task in
+        _eventListView.onEventSelect = { [weak self] event in
             TPImpactFeedback.impactWithSoftStyle()
-            self?.hideTaskList(animated: true)
-            self?.chartView.scrollToTaskStart(task)
+            self?.hideEventList(animated: true)
+            self?.chartView.scrollToEventStart(event)
         }
         
         // 初始状态：隐藏在最左侧
-        _taskListView.frame = CGRect(x: -taskListWidth,
+        _eventListView.frame = CGRect(x: -eventListWidth,
                                      y: headerHeight,
-                                     width: taskListWidth,
+                                     width: eventListWidth,
                                      height: bounds.height - headerHeight)
     }
 
-    @objc private func toggleTaskList() {
-        if isTaskListVisible {
-            hideTaskList()
+    @objc private func toggleEventList() {
+        if isEventListVisible {
+            hideEventList()
         } else {
-            showTaskList()
+            showEventList()
         }
     }
 
     @objc private func maskTapped() {
         TPImpactFeedback.impactWithSoftStyle()
-        hideTaskList()
+        hideEventList()
     }
 
     @objc private func scrollToTodayTapped() {
@@ -199,16 +199,16 @@ class GanttTimelineView: UIView {
     }
 
     /// 显示任务列表
-    func showTaskList(animated: Bool = true) {
-        guard !isTaskListVisible else { return }
-        isTaskListVisible = true
+    func showEventList(animated: Bool = true) {
+        guard !isEventListVisible else { return }
+        isEventListVisible = true
 
         overlayMaskView.isHidden = false
         overlayMaskView.alpha = 0
         todayButton.isHidden = true
 
         let show = {
-            self._taskListView.frame.origin.x = 0
+            self._eventListView.frame.origin.x = 0
             self.overlayMaskView.alpha = 1
         }
         let completion: (Bool) -> Void = { _ in }
@@ -226,17 +226,17 @@ class GanttTimelineView: UIView {
     }
 
     /// 隐藏任务列表
-    func hideTaskList(animated: Bool = true) {
-        guard isTaskListVisible else { return }
-        isTaskListVisible = false
+    func hideEventList(animated: Bool = true) {
+        guard isEventListVisible else { return }
+        isEventListVisible = false
         
         let hide = {
-            self._taskListView.frame.origin.x = -self.taskListWidth
+            self._eventListView.frame.origin.x = -self.eventListWidth
             self.overlayMaskView.alpha = 0
             self.todayButton.isHidden = false
         }
         let completion: (Bool) -> Void = { _ in
-            if !self.isTaskListVisible {
+            if !self.isEventListVisible {
                 self.overlayMaskView.isHidden = true
             }
         }
@@ -266,9 +266,9 @@ class GanttTimelineView: UIView {
                                   height: bounds.height - headerHeight)
 
         // 任务列表
-        _taskListView.frame = CGRect(x: isTaskListVisible ? 0 : -taskListWidth,
+        _eventListView.frame = CGRect(x: isEventListVisible ? 0 : -eventListWidth,
                                      y: headerHeight,
-                                     width: taskListWidth,
+                                     width: eventListWidth,
                                      height: bounds.height - headerHeight)
 
         // 遮罩视图（覆盖任务列表下方区域）
@@ -295,7 +295,7 @@ class GanttTimelineView: UIView {
     /// 设置行高类型（宽松/中等/紧凑）
     func setRowHeightType(_ type: GanttRowHeightType) {
         chartView.setRowHeightType(type)
-        taskListView.setRowHeightType(type)
+        eventListView.setRowHeightType(type)
     }
 
     /// 切换时间刻度
@@ -320,12 +320,12 @@ class GanttTimelineView: UIView {
     }
 
     /// 滚动到任务开始位置
-    func scrollToTaskStart(_ task: GanttEvent) {
-        chartView.scrollToTaskStart(task)
+    func scrollToEventStart(_ event: GanttEvent) {
+        chartView.scrollToEventStart(event)
     }
 
     /// 滚动到任务结束位置
-    func scrollToTaskEnd(_ task: GanttEvent) {
-        chartView.scrollToTaskEnd(task)
+    func scrollToEventEnd(_ event: GanttEvent) {
+        chartView.scrollToEventEnd(event)
     }
 }

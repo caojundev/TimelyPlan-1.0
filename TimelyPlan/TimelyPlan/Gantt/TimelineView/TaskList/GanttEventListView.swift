@@ -31,12 +31,12 @@ class GanttEventListCell: UICollectionViewCell {
 
         // 自定义普通背景视图
         let normalBackground = UIView()
-        normalBackground.backgroundColor = GanttTimelineConfig.taskListOddRowColor
+        normalBackground.backgroundColor = GanttTimelineConfig.eventListOddRowColor
         backgroundView = normalBackground
 
         // 自定义选中背景视图（选中高亮）
         let selectedBackground = UIView()
-        selectedBackground.backgroundColor = GanttTimelineConfig.taskListSelectedRowColor
+        selectedBackground.backgroundColor = GanttTimelineConfig.eventListSelectedRowColor
         selectedBackgroundView = selectedBackground
 
         infoView.padding = UIEdgeInsets(left: 8.0, right: 12.0)
@@ -49,9 +49,9 @@ class GanttEventListCell: UICollectionViewCell {
         infoView.frame = contentView.layoutFrame()
     }
     
-    func configure(task: GanttEvent) {
-        infoView.colorConfig = .withColor(task.color, size: indicatorSize)
-        infoView.title = task.name
+    func configure(event: GanttEvent) {
+        infoView.colorConfig = .withColor(event.color, size: indicatorSize)
+        infoView.title = event.name
     }
 
     /// 设置普通（未选中）背景色，用于区分奇偶行
@@ -75,10 +75,10 @@ class GanttEventListView: UIView {
     
     // 布局常量
     private var rowHeight: CGFloat = GanttRowHeightType.medium.rowHeight
-    private let columnWidth: CGFloat = GanttTimelineConfig.taskListWidth
+    private let columnWidth: CGFloat = GanttTimelineConfig.eventListWidth
     private let separatorLine = UIView()
     // 数据
-    var tasks: [GanttEvent] = [] {
+    var events: [GanttEvent] = [] {
         didSet {
             reloadData()
         }
@@ -88,7 +88,7 @@ class GanttEventListView: UIView {
     var onVerticalScroll: ((CGFloat) -> Void)?
 
     /// 点击某个任务时的回调
-    var onTaskSelect: ((GanttEvent) -> Void)?
+    var onEventSelect: ((GanttEvent) -> Void)?
     
     // 初始化
     override init(frame: CGRect) {
@@ -101,10 +101,10 @@ class GanttEventListView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = GanttTimelineConfig.taskListBackgroundColor
+        backgroundColor = GanttTimelineConfig.eventListBackgroundColor
         clipsToBounds = false
         setupCollectionView()
-        separatorLine.backgroundColor = GanttTimelineConfig.taskListSeparatorColor
+        separatorLine.backgroundColor = GanttTimelineConfig.eventListSeparatorColor
         addSubview(separatorLine)
     }
     
@@ -122,7 +122,7 @@ class GanttEventListView: UIView {
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.placeholderView = placeholderView
-        collectionView.backgroundColor = GanttTimelineConfig.taskListBackgroundColor
+        collectionView.backgroundColor = GanttTimelineConfig.eventListBackgroundColor
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.showsVerticalScrollIndicator = false
@@ -183,7 +183,7 @@ extension GanttEventListView: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tasks.count
+        return events.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -192,23 +192,23 @@ extension GanttEventListView: UICollectionViewDataSource, UICollectionViewDelega
             for: indexPath
         ) as! GanttEventListCell
         
-        if indexPath.item < tasks.count {
-            cell.configure(task: tasks[indexPath.item])
+        if indexPath.item < events.count {
+            cell.configure(event: events[indexPath.item])
         }
         
         cell.setRowBackgroundColor(indexPath.item % 2 == 0
-            ? GanttTimelineConfig.taskListOddRowColor
-            : GanttTimelineConfig.taskListEvenRowColor)
+            ? GanttTimelineConfig.eventListOddRowColor
+            : GanttTimelineConfig.eventListEvenRowColor)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        guard indexPath.item < tasks.count else { return }
+        guard indexPath.item < events.count else { return }
         
-        let task = tasks[indexPath.item]
-        onTaskSelect?(task)
+        let event = events[indexPath.item]
+        onEventSelect?(event)
     }
 }
 
