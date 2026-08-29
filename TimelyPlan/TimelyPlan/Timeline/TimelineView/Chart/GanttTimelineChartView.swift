@@ -197,6 +197,15 @@ class TimelineCell: UICollectionViewCell {
     
     var onLeftIndicatorTapped: (() -> Void)?
     var onRightIndicatorTapped: (() -> Void)?
+
+    /// 点击 bar 时的回调
+    var onBarTapped: ((GanttEvent) -> Void)?
+
+    /// 当前 cell 绑定的任务
+    private var currentTask: GanttEvent?
+
+    private let insideTitleColor = Color(0xf2f2f2)
+    private let outsideTitleColor = Color(light: 0x232323, dark: 0xf2f2f2)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -217,11 +226,14 @@ class TimelineCell: UICollectionViewCell {
         barView = UIView()
         barView.layer.cornerRadius = 8
         barView.layer.masksToBounds = true
-        barView.layer.borderWidth = 1
-        barView.layer.borderColor = UIColor.gray.withAlphaComponent(0.3).cgColor
+        barView.layer.borderWidth = 1.0
+        barView.isUserInteractionEnabled = true
+        let barTap = UITapGestureRecognizer(target: self, action: #selector(barTapped))
+        barView.addGestureRecognizer(barTap)
         
         progressView = UIView()
         progressView.layer.cornerRadius = 8
+        progressView.isUserInteractionEnabled = false
         
         titleLabel = TPLabel()
         titleLabel.font = .boldSystemFont(ofSize: 12.0)
@@ -256,6 +268,8 @@ class TimelineCell: UICollectionViewCell {
                    rowHeight: CGFloat,
                    visibleRect: CGRect,
                    contentMaxX: CGFloat) {
+        currentTask = task
+
         // 裁剪到内容区域；若完全越界则不绘制
         guard let layout = makeBarLayout(x: x,
                                          width: width,
@@ -320,7 +334,8 @@ class TimelineCell: UICollectionViewCell {
                                y: layout.barY,
                                width: layout.barWidth,
                                height: layout.barHeight)
-        barView.backgroundColor = task.color.withAlphaComponent(0.3)
+        barView.backgroundColor = task.color.withBrightness(0.4)
+        barView.layer.borderColor = task.color.withAlphaComponent(0.4).cgColor
         
         progressView.frame = CGRect(x: 0,
                                     y: 0,
@@ -368,9 +383,9 @@ class TimelineCell: UICollectionViewCell {
     
     /// 根据 bar 与可视区域的关系定位标题
     private func layoutTitle(task: GanttEvent, layout: BarLayout) {
-        titleLabel.text = task.name
+        titleLabel.text = task.title
         titleLabel.textAlignment = .left
-        titleLabel.lineBreakMode = .byTruncatingTail
+        titleLabel.lineBreakMode = .byTruncatingMiddle
         
         // 标题可以显示在 bar 中的最小宽度
         if layout.barWidth < 240.0 {
@@ -382,7 +397,7 @@ class TimelineCell: UICollectionViewCell {
     
     /// 标题显示在 bar 两侧（bar 过窄时）
     private func layoutTitleBesideBar(layout: BarLayout) {
-        let titleMaxWidth = 180.0
+        let titleMaxWidth = 240.0
         var titleWidth = titleLabel.sizeThatFits(.unlimited).width
         titleWidth = min(titleWidth, titleMaxWidth)
         
@@ -405,12 +420,13 @@ class TimelineCell: UICollectionViewCell {
                                   y: layout.barY,
                                   width: titleWidth,
                                   height: layout.barHeight)
-        titleLabel.textColor = .label
+        titleLabel.textColor = outsideTitleColor
     }
     
     /// 标题显示在 bar 中
     private func layoutTitleInBar(layout: BarLayout) {
-        let titleMaxWidth = min((layout.visibleRight - layout.visibleLeft) / 2.0, layout.barWidth)
+        let visibleWidth = layout.visibleRight - layout.visibleLeft
+        let titleMaxWidth = min( visibleWidth * 0.6, layout.barWidth)
         var titleWidth = titleLabel.sizeThatFits(.unlimited).width
         titleWidth = min(titleWidth, titleMaxWidth)
         
@@ -421,7 +437,7 @@ class TimelineCell: UICollectionViewCell {
                                            height: layout.barHeight)
             let labelRight = labelX + titleWidth
             let onBar = labelRight >= layout.barLeft && labelX <= layout.barRight
-            self.titleLabel.textColor = onBar ? .white : .label
+            self.titleLabel.textColor = onBar ? self.insideTitleColor : self.outsideTitleColor
         }
         
         // 标题能完整容纳在可见 bar 内，默认在可见区域居中
@@ -475,6 +491,7 @@ class TimelineCell: UICollectionViewCell {
 
     /// 重置为占位行（无任务），仅显示背景色
     func resetAsPlaceholder() {
+        currentTask = nil
         barView.frame = .zero
         progressView.frame = .zero
         titleLabel.text = nil
@@ -483,6 +500,7 @@ class TimelineCell: UICollectionViewCell {
         rightEdgeIndicator.isHidden = true
         onLeftIndicatorTapped = nil
         onRightIndicatorTapped = nil
+        onBarTapped = nil
     }
     
     @objc private func leftIndicatorTapped() {
@@ -493,6 +511,12 @@ class TimelineCell: UICollectionViewCell {
     @objc private func rightIndicatorTapped() {
         TPImpactFeedback.impactWithSoftStyle()
         onRightIndicatorTapped?()
+    }
+    
+    @objc private func barTapped() {
+        TPImpactFeedback.impactWithSoftStyle()
+        guard let task = currentTask else { return }
+        onBarTapped?(task)
     }
     
     override func prepareForReuse() {
@@ -534,6 +558,9 @@ class GanttTimelineChartView: UIView {
 
     /// 最左侧（contentOffset.x）对应日期改变时回调（仅当「天」发生变化时触发）
     var onDateChanged: ((Date) -> Void)?
+
+    /// 点击 bar 时的回调（参数为对应的 event）
+    var onBarTap: ((GanttEvent) -> Void)?
 
     /// 上次通知的日期（用于判断是否改变）
     private var lastNotifiedDate: Date?
@@ -805,6 +832,9 @@ extension GanttTimelineChartView: UICollectionViewDataSource, UICollectionViewDe
             }
             cell.onRightIndicatorTapped = { [weak self] in
                 self?.scrollToTaskEnd(task)
+            }
+            cell.onBarTapped = { [weak self] tappedTask in
+                self?.onBarTap?(tappedTask)
             }
         } else {
             // 占位行：仅显示奇偶相间背景色

@@ -76,6 +76,12 @@ class GanttTimelineView: UIView {
         set { _chartView.onDateChanged = newValue }
     }
 
+    /// 点击 bar 时的回调（转发自 chartView，参数为对应的 event）
+    var onBarTap: ((GanttEvent) -> Void)? {
+        get { return _chartView.onBarTap }
+        set { _chartView.onBarTap = newValue }
+    }
+
     // MARK: - 初始化
 
     /// - Parameters:

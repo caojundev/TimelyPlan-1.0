@@ -103,6 +103,8 @@
 		E507E7B92F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E507E7B82F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m */; };
 		E507E7BB2F532DB2003004C4 /* HabitSystemUnitSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7BA2F532DB2003004C4 /* HabitSystemUnitSectionController.swift */; };
 		E507E7BD2F532E21003004C4 /* HabitUserUnitSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */; };
+		E5087EAE3042884500DCD85C /* GanttState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EAD3042884500DCD85C /* GanttState.swift */; };
+		E5087EB03042C7D400DCD85C /* GanttEventProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EAF3042C7D300DCD85C /* GanttEventProcessor.swift */; };
 		E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */; };
 		E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */; };
 		E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */; };
@@ -2324,6 +2326,8 @@
 		E507E7B82F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICollectionViewLeftAlignedLayout.m; sourceTree = "<group>"; };
 		E507E7BA2F532DB2003004C4 /* HabitSystemUnitSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSystemUnitSectionController.swift; sourceTree = "<group>"; };
 		E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitUserUnitSectionController.swift; sourceTree = "<group>"; };
+		E5087EAD3042884500DCD85C /* GanttState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttState.swift; sourceTree = "<group>"; };
+		E5087EAF3042C7D300DCD85C /* GanttEventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttEventProcessor.swift; sourceTree = "<group>"; };
 		E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCustomPopup.swift; sourceTree = "<group>"; };
 		E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultInfoView.swift; sourceTree = "<group>"; };
 		E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Extensions.swift"; sourceTree = "<group>"; };
@@ -5704,6 +5708,7 @@
 				E51E5FA1303A932000ACF30C /* GanttTimelineMainViewController.swift */,
 				E53114B930414B360022D8D7 /* GanttTimelineViewModel.swift */,
 				E54A0688303C2AC0001FF4A1 /* GanttTimeScaleBarButtonItem.swift */,
+				E5087EAF3042C7D300DCD85C /* GanttEventProcessor.swift */,
 				E54A0683303BFBED001FF4A1 /* Models */,
 				E53114AA30412BC50022D8D7 /* Repository */,
 				E54A06A3303C899E001FF4A1 /* TimelineView */,
@@ -6104,6 +6109,7 @@
 			children = (
 				E53114A7304072790022D8D7 /* GanttTimelineSettingViewController.swift */,
 				E53114B730413C6F0022D8D7 /* GanttSetting.swift */,
+				E5087EAD3042884500DCD85C /* GanttState.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -13698,6 +13704,7 @@
 				E5146C9430300D59007A8BCB /* TimelineProgressUpdatable.swift in Sources */,
 				E5D7D8D82D43933600EC877A /* FocusFlipClockViewController.swift in Sources */,
 				E57CC5DB2F7FCED300ADDBA4 /* TodoTaskQuickAddEditView.swift in Sources */,
+				E5087EB03042C7D400DCD85C /* GanttEventProcessor.swift in Sources */,
 				E5BB9DA72D3BF0C60089667A /* FlipClockElementHalfView.swift in Sources */,
 				E549B1712F88DF550014BE85 /* TodoTaskEditScheduleSectionController.swift in Sources */,
 				E5BB9DEF2D3BF0C60089667A /* Date+Compare.swift in Sources */,
@@ -13725,6 +13732,7 @@
 				E52678542D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift in Sources */,
 				E5BB9EFE2D3BF0C80089667A /* TPPopoverPresentationController.swift in Sources */,
 				E515019C2D4787D5008B2333 /* TPBaseTableCell.swift in Sources */,
+				E5087EAE3042884500DCD85C /* GanttState.swift in Sources */,
 				E5BB9F162D3BF0C90089667A /* CoreGraphicsFunctions.swift in Sources */,
 				E5BB9E012D3BF0C60089667A /* Int+Duration.swift in Sources */,
 				E5BB9E5C2D3BF0C70089667A /* TPCalendarMonthView.swift in Sources */,

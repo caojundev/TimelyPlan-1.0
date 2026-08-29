@@ -41,7 +41,7 @@ struct GanttTimelineConfig {
     static let taskListEvenRowColor = UIColor.systemBackground
     
     /// 任务列表行分隔线颜色
-    static let taskListSeparatorColor = Color(0x888888, 0.2)
+    static let taskListSeparatorColor = Color(0x88888, 0.25)
     
     /// 任务列表选中行背景色
     static let taskListSelectedRowColor = Color(light: 0xE3F0FF, dark: 0x1E3A5F)

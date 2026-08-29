@@ -76,7 +76,7 @@ class GanttEventListView: UIView {
     // 布局常量
     private var rowHeight: CGFloat = GanttRowHeightType.medium.rowHeight
     private let columnWidth: CGFloat = GanttTimelineConfig.taskListWidth
-    
+    private let separatorLine = UIView()
     // 数据
     var tasks: [GanttEvent] = [] {
         didSet {
@@ -104,7 +104,8 @@ class GanttEventListView: UIView {
         backgroundColor = GanttTimelineConfig.taskListBackgroundColor
         clipsToBounds = false
         setupCollectionView()
-        addSeparator(position: .right, color: GanttTimelineConfig.taskListSeparatorColor)
+        separatorLine.backgroundColor = GanttTimelineConfig.taskListSeparatorColor
+        addSubview(separatorLine)
     }
     
     private func setupCollectionView() {
@@ -136,6 +137,11 @@ class GanttEventListView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = bounds
+        separatorLine.frame = CGRect(
+            x: bounds.width - 1,
+            y: 0,
+            width: 1,
+            height: bounds.height)
     }
     
     // MARK: - 行高设置

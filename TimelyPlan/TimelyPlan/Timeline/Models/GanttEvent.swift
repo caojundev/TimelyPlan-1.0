@@ -23,6 +23,13 @@ struct GanttEvent {
     let color: UIColor
     let source: GanttEventSource
     let sourceItem: Any
+    
+    var title: String {
+        var components = [name]
+        let progressString = Float(progress).percentageString(decimalPlaces: 1)
+        components.append(progressString)
+        return components.joined(separator: " • ")
+    }
 }
 
 extension Array where Element == GanttEvent {
