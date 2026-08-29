@@ -329,7 +329,7 @@ final class TodoPDFRenderer {
         )
         
         // 添加主任务 note 高度（包含与主任务底部间距）
-        if task.note != nil {
+        if let note = task.note, note.count > 0 {
             h += config.taskNoteTopGap + config.noteRowHeight
         }
         
@@ -350,7 +350,7 @@ final class TodoPDFRenderer {
             maxWidth: textAvailableWidth(indentX: indentX, indicatorD: subIndicatorD, tag: nil, font: config.subStepFont),
             minHeight: max(config.subStepRowHeight, subIndicatorD + 2)
         )
-        if subStep.note != nil { h += config.noteRowHeight }
+        if let note = subStep.note, note.count > 0 { h += config.noteRowHeight }
         
         // 递归计算子步骤的子步骤
         if let subSteps = subStep.subSteps {
@@ -456,7 +456,7 @@ final class TodoPDFRenderer {
         )
         
         // 绘制主任务 note（与主任务文本开头对齐）
-        if let note = task.note {
+        if let note = task.note, note.count > 0 {
             let mainIndicatorD = indicatorDiameter(for: task)
             let noteIndentX = textStartX(indentX: contentLeftX, indicatorD: mainIndicatorD)
             cur += config.taskNoteTopGap // 添加间距
@@ -485,7 +485,7 @@ final class TodoPDFRenderer {
             isMainTask: false, progress: subStep.progress, in: ctx
         )
         
-        if let note = subStep.note {
+        if let note = subStep.note, note.count > 0 {
             let subIndicatorD = indicatorDiameter(for: subStep)
             cur = drawNote(note, at: cur, indentX: textStartX(indentX: indentX, indicatorD: subIndicatorD), in: ctx)
         }

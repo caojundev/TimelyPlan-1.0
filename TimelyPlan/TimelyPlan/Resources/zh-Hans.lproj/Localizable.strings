@@ -187,6 +187,9 @@
 "Custom Section" = "自定义板块";
 "None Section" = "无板块";
 
+/// 详情页
+"Tap list to view details" = "点击列表查看详情";
+
 /// 标签
 "Search Tag" = "搜索标签";
 "Delete Tag" = "删除标签";

@@ -105,6 +105,7 @@
 		E507E7BD2F532E21003004C4 /* HabitUserUnitSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */; };
 		E5087EAE3042884500DCD85C /* GanttState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EAD3042884500DCD85C /* GanttState.swift */; };
 		E5087EB03042C7D400DCD85C /* GanttEventProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EAF3042C7D300DCD85C /* GanttEventProcessor.swift */; };
+		E5087EB2304310BE00DCD85C /* TPMultiColumnEmptyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB1304310BE00DCD85C /* TPMultiColumnEmptyDetailViewController.swift */; };
 		E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */; };
 		E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */; };
 		E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */; };
@@ -2328,6 +2329,7 @@
 		E507E7BC2F532E21003004C4 /* HabitUserUnitSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitUserUnitSectionController.swift; sourceTree = "<group>"; };
 		E5087EAD3042884500DCD85C /* GanttState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttState.swift; sourceTree = "<group>"; };
 		E5087EAF3042C7D300DCD85C /* GanttEventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttEventProcessor.swift; sourceTree = "<group>"; };
+		E5087EB1304310BE00DCD85C /* TPMultiColumnEmptyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMultiColumnEmptyDetailViewController.swift; sourceTree = "<group>"; };
 		E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCustomPopup.swift; sourceTree = "<group>"; };
 		E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultInfoView.swift; sourceTree = "<group>"; };
 		E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Extensions.swift"; sourceTree = "<group>"; };
@@ -10038,6 +10040,7 @@
 				E5BB9D4C2D3BF0C50089667A /* TPMultiColumnProtocol.swift */,
 				E5BB9D4D2D3BF0C50089667A /* TPMultiColumnViewController.swift */,
 				E5BB9D4B2D3BF0C50089667A /* TPMultiColumnDetailViewController.swift */,
+				E5087EB1304310BE00DCD85C /* TPMultiColumnEmptyDetailViewController.swift */,
 				E5BB9D4E2D3BF0C50089667A /* TPColumnContainerView.swift */,
 				E5BB9D4F2D3BF0C50089667A /* UIViewController+MultiColumn.swift */,
 			);
@@ -13882,6 +13885,7 @@
 				E58F46BB2F7B51200046FA96 /* TodoHomeUserListExpansionState.swift in Sources */,
 				E50D60532F7A13F100D5E0A4 /* AlarmRelativeOffsetEditViewController.swift in Sources */,
 				E5BB9EC32D3BF0C80089667A /* TPDurationPickerTableCell.swift in Sources */,
+				E5087EB2304310BE00DCD85C /* TPMultiColumnEmptyDetailViewController.swift in Sources */,
 				E5D7D7E92D43923800EC877A /* FocusSystemTimerManager.swift in Sources */,
 				E53F32BE2F6998F600B85B65 /* HabitReportMonthRender.swift in Sources */,
 				E58F46C92F7BF5580046FA96 /* NSSortDescriptor+CoreData.swift in Sources */,

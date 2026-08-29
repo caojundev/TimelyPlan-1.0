@@ -27,10 +27,21 @@ class TodoMainViewController: TPMultiColumnViewController,
         return viewController
     }()
     
+    private lazy var emptyDetailViewController: TPMultiColumnEmptyDetailViewController = {
+        let vc = TPMultiColumnEmptyDetailViewController()
+        vc.placeholderImage = resGetImage("todo_list_80")
+        vc.placeholderTitle = resGetString("Tap list to view details")
+        return vc
+    }()
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        let homeNavigationController = UINavigationController(rootViewController: self.homeViewController)
-        self.columnViewControllers = [homeNavigationController]
+        
+        let detailNavController = UINavigationController(rootViewController: self.emptyDetailViewController)
+        self.detailViewController = detailNavController
+        
+        let homeNavController = UINavigationController(rootViewController: self.homeViewController)
+        self.columnViewControllers = [homeNavController]
     }
     
     required init?(coder: NSCoder) {
