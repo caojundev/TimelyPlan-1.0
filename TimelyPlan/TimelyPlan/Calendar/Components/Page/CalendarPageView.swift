@@ -306,8 +306,12 @@ class CalendarPageView: TPCollectionWrapperView,
         timelineView.delegate = self
         timelineView.showLunar = showLunar
         timelineView.showChineseHolidays = showChineseHolidays
-        if timelineView.firstDate != firstDate {
-            timelineView.loadEvents(with: firstDate)
+        
+        /// 仅当该页面是当前可见页面时才加载事项，避免预加载非显示页面造成资源浪费
+        if isVisiblePageStartDate(firstDate) {
+            if timelineView.firstDate != firstDate {
+                timelineView.loadEvents(with: firstDate)
+            }
         }
         
         let eventsView = timelineView.eventsView
@@ -429,6 +433,46 @@ class CalendarPageView: TPCollectionWrapperView,
     }
     
     // MARK: -  Helpers
+    /// 判断页面起始日期对应的页面是否为当前需要显示的页面
+    /// - Parameter firstDate: 页面起始日期（周视图下为周开始日，一页包含 pageDaysCount 天）
+    func isVisiblePageStartDate(_ firstDate: Date) -> Bool {
+        /// 1. 当前可见日期是否落在该页覆盖的日期范围内
+        let days = Date.days(fromDate: firstDate, toDate: visibleDate)
+        if days >= 0 && days < pageDaysCount {
+            return true
+        }
+        
+        /// 2. 拖动过程中，contentOffset 可能停留在两个页面之间，需同时判断当前页与下一页
+        if collectionView.isDragging {
+            let dates = adapter.allItems() as! [Date]
+            let pageWidth = dayWidth * CGFloat(pageDaysCount)
+            guard pageWidth > 0 else {
+                return false
+            }
+            
+            let currentPageIndex = validatedIndex(Int(collectionView.contentOffset.x / pageWidth))
+            if dates[currentPageIndex] == firstDate {
+                return true
+            }
+            
+            let nextPageIndex = validatedIndex(currentPageIndex + 1)
+            if dates[nextPageIndex] == firstDate {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    /// 页面索引边界校验
+    private func validatedIndex(_ index: Int) -> Int {
+        let itemsCount = adapter.allItems().count
+        guard itemsCount > 0 else {
+            return 0
+        }
+        return min(itemsCount - 1, max(0, index))
+    }
+    
     /// 页面是否在移动中
     var isMoving: Bool {
         let offset = collectionView.contentOffset
