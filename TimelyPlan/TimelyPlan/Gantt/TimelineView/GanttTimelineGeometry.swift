@@ -40,7 +40,7 @@ enum GanttTimelineGeometry {
         return xPositionForDate(date, scale: timeScale.scale, startDate: timeScale.startDate)
     }
 
-    /// 计算指定日期在时间轴上的 X 坐标（低层实现）
+    /// 计算指定日期在时间轴上的 X 坐标，仅定位到某一天的开头
     /// - Parameters:
     ///   - date: 目标日期
     ///   - scale: 时间尺度类型

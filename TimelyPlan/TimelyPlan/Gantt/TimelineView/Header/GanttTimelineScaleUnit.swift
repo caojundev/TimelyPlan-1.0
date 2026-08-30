@@ -104,9 +104,4 @@ struct GanttTimelineScaleCalculator {
 
         return units
     }
-
-    /// 计算某个日期在时间轴上的 X 坐标（与 GanttTimelineLayout 保持一致）
-    func xPosition(for date: Date) -> CGFloat {
-        return GanttTimelineGeometry.xPositionForDate(date, scale: scale, startDate: startDate)
-    }
 }
