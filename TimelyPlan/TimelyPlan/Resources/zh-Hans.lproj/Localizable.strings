@@ -24,6 +24,13 @@
 "Habit" = "习惯";
 "Settings" = "设置";
 
+///**********************目标  *********************///
+"Tap goal to view details" = "点击目标查看详情";
+"Enter goal name" = "输入目标名称";
+"Create Goal" = "创建目标";
+"Edit Goal" = "编辑目标";
+"Goal Settings" = "目标设置";
+
 ///**********************我的一天*********************///
 "Collapse" = "收起";
 "%ld more all-day events" = "剩余%ld个全天事项";
