@@ -18,9 +18,13 @@ class GoalMainViewController: TPMultiColumnViewController,
         }
     }
     
+    private lazy var detailCoordinator: GoalDetailCoordinator = {
+        return GoalDetailCoordinator(multiColumnViewController: self)
+    }()
+    
     /// 主页视图控制器
     lazy var homeViewController: GoalHomeViewController = {
-        let viewController = GoalHomeViewController()
+        let viewController = GoalHomeViewController(detailCoordinator: self.detailCoordinator)
         return viewController
     }()
     

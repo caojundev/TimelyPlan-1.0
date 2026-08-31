@@ -10,6 +10,9 @@ import UIKit
 
 struct GoalConfig {
     
+    /// 目标计划列表内容最大宽度
+    static let goalPlanListContentMaxWidth = 560.0
+    
     /// 默认目标计划颜色
     static let goalPlanDefaultColor = Color(0xE84F01)
     

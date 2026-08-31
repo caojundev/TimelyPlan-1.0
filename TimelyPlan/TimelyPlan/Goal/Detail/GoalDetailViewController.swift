@@ -10,9 +10,21 @@ import UIKit
 
 class GoalDetailViewController: TPMultiColumnDetailViewController {
     
+    /// 当前目标计划
+    var goalPlan: GoalPlan?
+    
+    init(goalPlan: GoalPlan) {
+        self.goalPlan = goalPlan
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = resGetString("Goal Detail")
+        title = goalPlan?.displayName ?? resGetString("Goal Detail")
     }
     
     override var themeBackgroundColor: UIColor? {
