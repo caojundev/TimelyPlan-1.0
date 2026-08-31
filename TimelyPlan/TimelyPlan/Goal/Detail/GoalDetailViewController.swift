@@ -11,7 +11,7 @@ import UIKit
 class GoalDetailViewController: TPMultiColumnDetailViewController {
     
     /// 当前目标计划
-    var goalPlan: GoalPlan?
+    let goalPlan: GoalPlan
     
     init(goalPlan: GoalPlan) {
         self.goalPlan = goalPlan
@@ -24,7 +24,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = goalPlan?.displayName ?? resGetString("Goal Detail")
+        title = goalPlan.displayName
     }
     
     override var themeBackgroundColor: UIColor? {

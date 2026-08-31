@@ -10,7 +10,6 @@
 "Default" = "默认";
 "Unknown" = "未知";
 "Untitled" = "未命名";
-"Untitled Goal" = "未命名目标";
 "Clear" = "清除";
 "Move To" = "移动至";
 "Add" = "添加";
@@ -26,6 +25,7 @@
 "Settings" = "设置";
 
 ///**********************目标  *********************///
+"Untitled Goal" = "未命名目标";
 "Tap goal to view details" = "点击目标查看详情";
 "Enter goal name" = "输入目标名称";
 "Create Goal" = "创建目标";
@@ -407,6 +407,8 @@
 "No Focus Record" = "无专注记录";
 "No Archived Timer" = "无归档计时器";
 "No Timer" = "无计时器";
+"No Goal" = "无目标";
+"No Archived Goal" = "无归档目标";
 
 /// 计时器
 "Unknown Timer" = "未知计时器";

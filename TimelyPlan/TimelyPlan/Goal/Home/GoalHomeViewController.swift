@@ -25,6 +25,9 @@ class GoalHomeViewController: TPViewController,
     /// 详情协调器
     private let detailCoordinator: GoalDetailCoordinator?
     
+    /// 目标计划视图模型
+    private let viewModel = GoalPlanViewModel()
+    
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: GoalMoreBarButtonItem = {
         let item = GoalMoreBarButtonItem()
@@ -43,6 +46,7 @@ class GoalHomeViewController: TPViewController,
         let listView = GoalPlanListView(frame: .zero)
         listView.delegate = self
         listView.isReorderEnabled = true
+        listView.placeholderProvider = viewModel.placeholderProvider
         return listView
     }()
     
@@ -61,13 +65,13 @@ class GoalHomeViewController: TPViewController,
         title = resGetString("Goal")
         navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
         navigationItem.rightBarButtonItems = [moreBarButtonItem]
-        setupAddView()
         setupListView()
+        setupAddView()
         
-        GoalRepository.goalPlansDidChange = { [weak self] change in
+        self.viewModel.goalPlansDidChange = { [weak self] change in
             self?.goalPlansChanged(change)
         }
-        self.reloadGoalPlans()
+        self.viewModel.loadGoalPlans()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,7 +135,7 @@ class GoalHomeViewController: TPViewController,
     /// 加载并刷新目标计划
     private func reloadGoalPlans() {
         let group = GoalPlanGroup(identifier: "GoalPlanGroup")
-        group.goalPlans = GoalRepository.getActiveGoalPlans()
+        group.goalPlans = viewModel.goalPlans
         listView.groups = [group]
         listView.performUpdate()
     }
@@ -203,6 +207,7 @@ class GoalHomeViewController: TPViewController,
     }
     
     func goalPlanListViewHandleRefresh(_ listView: GoalPlanListView) {
-        self.reloadGoalPlans()
+        self.viewModel.setNeedsRefresh()
+        self.viewModel.loadGoalPlans()
     }
 }

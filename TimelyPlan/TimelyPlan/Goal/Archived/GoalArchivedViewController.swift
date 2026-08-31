@@ -11,10 +11,14 @@ import UIKit
 class GoalArchivedViewController: TPViewController,
                                   GoalPlanListViewDelegate {
     
+    /// 已归档目标计划视图模型
+    private let viewModel = GoalArchivedPlanViewModel()
+    
     /// 目标计划列表视图
     lazy var listView: GoalPlanListView = {
         let listView = GoalPlanListView(frame: .zero)
         listView.delegate = self
+        listView.placeholderProvider = viewModel.placeholderProvider
         return listView
     }()
     
@@ -23,11 +27,11 @@ class GoalArchivedViewController: TPViewController,
         self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         self.title = resGetString("Archived")
         self.view.addSubview(self.listView)
-        self.reloadGoalPlans()
         
-        GoalRepository.goalPlansDidChange = { [weak self] change in
-            self?.reloadGoalPlans()
+        self.viewModel.goalPlansDidChange = { [weak self] change in
+            self?.goalPlansChanged(change)
         }
+        self.viewModel.loadGoalPlans()
     }
     
     override func viewWillLayoutSubviews() {
@@ -46,9 +50,16 @@ class GoalArchivedViewController: TPViewController,
     /// 加载并刷新已归档目标计划
     private func reloadGoalPlans() {
         let group = GoalPlanGroup(identifier: "ArchivedGoalPlanGroup")
-        group.goalPlans = GoalRepository.getArchivedGoalPlans()
+        group.goalPlans = viewModel.goalPlans
         listView.groups = [group]
         listView.performUpdate()
+    }
+    
+    /// 处理目标计划变更
+    private func goalPlansChanged(_ change: GoalPlanChange?) {
+        DispatchQueue.main.async { [weak self] in
+            self?.reloadGoalPlans()
+        }
     }
     
     // MARK: - GoalPlanListViewDelegate
@@ -60,6 +71,7 @@ class GoalArchivedViewController: TPViewController,
     }
     
     func goalPlanListViewHandleRefresh(_ listView: GoalPlanListView) {
-        self.reloadGoalPlans()
+        self.viewModel.setNeedsRefresh()
+        self.viewModel.loadGoalPlans()
     }
 }
