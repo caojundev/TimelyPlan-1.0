@@ -31,6 +31,13 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         return vc
     }()
     
+    /// 目标
+    lazy var goalViewController: GoalMainViewController = {
+        let vc = GoalMainViewController()
+        vc.sidebarController = sidebarController
+        return vc
+    }()
+    
     /// 时间线
     lazy var timelineViewController: UINavigationController = {
         let vc = GanttTimelineMainViewController()
@@ -140,7 +147,7 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         case .calendar:
             vc = calendarViewController
         case .goal:
-            vc = UIViewController()
+            vc = goalViewController
         case .focus:
             vc = focusViewController
         case .habit:

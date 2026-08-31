@@ -1,15 +1,15 @@
 //
-//  TodoMainViewController.swift
+//  GoalMainViewController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2023/11/29.
+//  Created by caojun on 2026/8/30.
 //
 
 import Foundation
 import UIKit
 
-class TodoMainViewController: TPMultiColumnViewController,
-                                TPSidebarContent {
+class GoalMainViewController: TPMultiColumnViewController,
+                              TPSidebarContent {
     
     /// 侧边栏管理器
     var sidebarController: SidebarController? {
@@ -17,21 +17,17 @@ class TodoMainViewController: TPMultiColumnViewController,
             homeViewController.sidebarController = sidebarController
         }
     }
-
-    private lazy var detailCoordinator: TodoDetailCoordinator = {
-        return TodoDetailCoordinator(multiColumnViewController: self)
-    }()
     
     /// 主页视图控制器
-    lazy var homeViewController: TodoHomeViewController = {
-        let viewController = TodoHomeViewController(detailCoordinator: self.detailCoordinator)
+    lazy var homeViewController: GoalHomeViewController = {
+        let viewController = GoalHomeViewController()
         return viewController
     }()
     
     private lazy var emptyDetailViewController: TPMultiColumnEmptyDetailViewController = {
         let vc = TPMultiColumnEmptyDetailViewController()
-        vc.placeholderImage = resGetImage("todo_list_80")
-        vc.placeholderTitle = resGetString("Tap list to view details")
+        vc.placeholderImage = resGetImage("goal_list_80")
+        vc.placeholderTitle = resGetString("Tap goal to view details")
         return vc
     }()
     

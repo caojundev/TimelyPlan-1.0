@@ -1146,6 +1146,9 @@
 		E570FC012D62C14A0017F930 /* chevron_right_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E570FBFF2D62C1490017F930 /* chevron_right_16@3x.png */; };
 		E570FC022D62C14A0017F930 /* chevron_right_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E570FC002D62C14A0017F930 /* chevron_right_16@2x.png */; };
 		E57AA1182F92105200C4D346 /* TodoUserTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */; };
+		E57B2B2C3044599C00BA4D56 /* GoalMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B2B3044599C00BA4D56 /* GoalMainViewController.swift */; };
+		E57B2B31304470E700BA4D56 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */; };
+		E57B2B32304470E700BA4D56 /* GoalHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B30304470E700BA4D56 /* GoalHomeViewController.swift */; };
 		E57C05E62DD34421009E22F0 /* CalendarPageTimelineHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C05E52DD34421009E22F0 /* CalendarPageTimelineHoursView.swift */; };
 		E57CC5AA2F7F5A5300ADDBA4 /* TodoListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5A92F7F5A5300ADDBA4 /* TodoListInteractor.swift */; };
 		E57CC5AC2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5AB2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift */; };
@@ -3378,6 +3381,9 @@
 		E570FBFF2D62C1490017F930 /* chevron_right_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron_right_16@3x.png"; sourceTree = "<group>"; };
 		E570FC002D62C14A0017F930 /* chevron_right_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron_right_16@2x.png"; sourceTree = "<group>"; };
 		E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoUserTagViewModel.swift; sourceTree = "<group>"; };
+		E57B2B2B3044599C00BA4D56 /* GoalMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalMainViewController.swift; sourceTree = "<group>"; };
+		E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
+		E57B2B30304470E700BA4D56 /* GoalHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalHomeViewController.swift; sourceTree = "<group>"; };
 		E57C05E52DD34421009E22F0 /* CalendarPageTimelineHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageTimelineHoursView.swift; sourceTree = "<group>"; };
 		E57CC5A92F7F5A5300ADDBA4 /* TodoListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListInteractor.swift; sourceTree = "<group>"; };
 		E57CC5AB2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListConfiguration.swift; sourceTree = "<group>"; };
@@ -6804,6 +6810,9 @@
 		E54A0680303BDD3D001FF4A1 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				E57B2B2B3044599C00BA4D56 /* GoalMainViewController.swift */,
+				E57B2B2F304470E700BA4D56 /* Home */,
+				E57B2B2D304470E600BA4D56 /* Detail */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -7260,10 +7269,10 @@
 				E5BB9F3F2D3BF45F0089667A /* Main */,
 				E51F941630049A2C00734910 /* MyDay */,
 				E51A43802DB73A0400DC84C9 /* Calendar */,
+				E54A0680303BDD3D001FF4A1 /* Goal */,
 				E50DD7D02D72EF8F00A85E87 /* Todo */,
 				E51E5FA0303A913000ACF30C /* Gantt */,
 				E53632672FAB72BF0095DFEC /* Quadrant */,
-				E54A0680303BDD3D001FF4A1 /* Goal */,
 				E5D7D7B42D43922900EC877A /* Focus */,
 				E59243C62F4FFC6400CA2393 /* Habit */,
 				E55549632F76C0F700C9460D /* Setting */,
@@ -7700,6 +7709,22 @@
 				E52EF61D2FB1A96E002CF355 /* CalendarBaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		E57B2B2D304470E600BA4D56 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		E57B2B2F304470E700BA4D56 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E57B2B30304470E700BA4D56 /* GoalHomeViewController.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		E57CC5AD2F7F618800ADDBA4 /* Interactors */ = {
@@ -12763,6 +12788,7 @@
 				E50D60512F7A13F100D5E0A4 /* AlarmPresetListTableCell.swift in Sources */,
 				E5BB9DD52D3BF0C60089667A /* UIDevice+Extension.swift in Sources */,
 				E56B94A62F8F93F5001E488B /* TodoState.swift in Sources */,
+				E57B2B32304470E700BA4D56 /* GoalHomeViewController.swift in Sources */,
 				E5D7D9122D43933700EC877A /* FocusStatsOverallViewController.swift in Sources */,
 				E53F328E2F68D6D200B85B65 /* HabitReportWeeklyViewController.swift in Sources */,
 				E52EF61E2FB1A96E002CF355 /* CalendarBaseViewController.swift in Sources */,
@@ -12827,6 +12853,7 @@
 				E518D6942FBDEF8E0045D456 /* CalendarTimelineDotIndicator.swift in Sources */,
 				E50BB6782D5706FE00D316FD /* TPSeparatorSectionController.swift in Sources */,
 				E51FF6552F571EF1003CA953 /* TPFireworkLayer.swift in Sources */,
+				E57B2B2C3044599C00BA4D56 /* GoalMainViewController.swift in Sources */,
 				E5BB9EB02D3BF0C80089667A /* TPSheetMenuViewController.swift in Sources */,
 				E59E715C2DB7975E00744C68 /* CalendarMonthWeekView.swift in Sources */,
 				E57CC5EB2F7FEFAD00ADDBA4 /* TaskReminder.swift in Sources */,
@@ -13521,6 +13548,7 @@
 				E53114B230412D610022D8D7 /* TodoTask+GanttEvent.swift in Sources */,
 				E53B11462F94D1B300701410 /* TimeOffsetPickerViewCell.swift in Sources */,
 				E529ACDC2F7E196C000EA2F1 /* TodoPresenter.swift in Sources */,
+				E57B2B31304470E700BA4D56 /* GoalDetailViewController.swift in Sources */,
 				E5BB9DE02D3BF0C60089667A /* UIColor+Extensions.swift in Sources */,
 				E5BB9E902D3BF0C80089667A /* PieRankListCell.swift in Sources */,
 				E5BB9EF22D3BF0C80089667A /* TPPageController.swift in Sources */,
