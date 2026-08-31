@@ -7827,10 +7827,10 @@
 			isa = PBXGroup;
 			children = (
 				E57B2B4A3045896000BA4D56 /* GoalPlanListView.swift */,
-				E57B2C133046000000000003 /* GoalPlanGroup.swift */,
 				E57B2C143046000000000004 /* GoalPlanListCell.swift */,
 				E57B2C153046000000000005 /* GoalPlanMenuController.swift */,
 				E57B2C163046000000000006 /* GoalPlanMenuProcessor.swift */,
+				E57B2C133046000000000003 /* GoalPlanGroup.swift */,
 				E57B2C183046000000000008 /* GoalPlanViewModel.swift */,
 				E57B2C193046000000000009 /* GoalArchivedPlanViewModel.swift */,
 				E57B2B4C3045B78D00BA4D56 /* ViewModels */,

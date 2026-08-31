@@ -20,9 +20,6 @@ protocol GoalPlanProcessorDelegate: AnyObject {
     /// 删除目标计划
     func didDeleteGoalPlan(_ goalPlan: GoalPlan)
     
-    /// 移动目标计划（顶部/底部）
-    func didMoveGoalPlan(_ goalPlan: GoalPlan)
-    
     /// 归档目标计划
     func didArchiveGoalPlan(_ goalPlan: GoalPlan)
     
@@ -42,8 +39,6 @@ extension GoalPlanProcessorDelegate {
     func didUpdateGoalPlan(_ goalPlan: GoalPlan) {}
     
     func didDeleteGoalPlan(_ goalPlan: GoalPlan) {}
-    
-    func didMoveGoalPlan(_ goalPlan: GoalPlan) {}
     
     func didArchiveGoalPlan(_ goalPlan: GoalPlan) {}
     
@@ -72,12 +67,6 @@ class GoalPlanProcessorUpdater: NSObject,
     func didDeleteGoalPlan(_ goalPlan: GoalPlan) {
         notifyDelegates { (delegate: GoalPlanProcessorDelegate) in
             delegate.didDeleteGoalPlan(goalPlan)
-        }
-    }
-    
-    func didMoveGoalPlan(_ goalPlan: GoalPlan) {
-        notifyDelegates { (delegate: GoalPlanProcessorDelegate) in
-            delegate.didMoveGoalPlan(goalPlan)
         }
     }
     
@@ -214,30 +203,6 @@ class GoalRepository {
         if removed != nil {
             updater.didDeleteGoalPlan(goalPlan)
         }
-    }
-    
-    /// 移动到顶部
-    static func moveGoalPlanToTop(_ goalPlan: GoalPlan) {
-        guard let index = activeGoalPlans.firstIndex(of: goalPlan) else {
-            return
-        }
-        
-        activeGoalPlans.remove(at: index)
-        activeGoalPlans.insert(goalPlan, at: 0)
-        reorderOrders(in: activeGoalPlans)
-        updater.didMoveGoalPlan(goalPlan)
-    }
-    
-    /// 移动到底部
-    static func moveGoalPlanToBottom(_ goalPlan: GoalPlan) {
-        guard let index = activeGoalPlans.firstIndex(of: goalPlan) else {
-            return
-        }
-        
-        activeGoalPlans.remove(at: index)
-        activeGoalPlans.append(goalPlan)
-        reorderOrders(in: activeGoalPlans)
-        updater.didMoveGoalPlan(goalPlan)
     }
     
     /// 重排目标计划

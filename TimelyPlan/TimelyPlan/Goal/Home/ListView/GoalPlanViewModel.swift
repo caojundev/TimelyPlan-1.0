@@ -90,11 +90,6 @@ class GoalPlanViewModel: GoalPlanProcessorDelegate {
         loadGoalPlans()
     }
     
-    func didMoveGoalPlan(_ goalPlan: GoalPlan) {
-        setNeedsRefresh()
-        loadGoalPlans()
-    }
-    
     func didArchiveGoalPlan(_ goalPlan: GoalPlan) {
         setNeedsRefresh()
         loadGoalPlans(with: .update(goalPlan))

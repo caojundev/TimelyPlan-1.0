@@ -128,12 +128,7 @@ class GoalPlanListView: TPGroupCollectionView,
             return
         }
         
-        let index = indexPath.item
         let menuController = GoalPlanMenuController(goalPlan: goalPlan)
-        if !goalPlan.isArchived {
-            menuController.showMoveToTop = index > 0
-            menuController.showMoveToBottom = index < (goalPlans.count - 1)
-        }
         
         menuController.didSelectMenuActionType = { [weak self] type in
             self?.menuProcessor.performMenuAction(type, for: goalPlan)

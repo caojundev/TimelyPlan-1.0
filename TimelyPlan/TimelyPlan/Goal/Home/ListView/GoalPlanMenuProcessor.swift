@@ -11,10 +11,6 @@ class GoalPlanMenuProcessor {
     
     func performMenuAction(_ type: GoalPlanMenuType, for goalPlan: GoalPlan) {
         switch type {
-        case .moveToTop:
-            GoalRepository.moveGoalPlanToTop(goalPlan)
-        case .moveToBottom:
-            GoalRepository.moveGoalPlanToBottom(goalPlan)
         case .edit:
             GoalPresenter.editGoalPlan(goalPlan)
         case .archive:

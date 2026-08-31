@@ -32,6 +32,10 @@
 "Edit Goal" = "编辑目标";
 "Goal Settings" = "目标设置";
 
+"No Goal" = "无目标";
+"No Archived Goal" = "无归档目标";
+
+
 ///**********************我的一天*********************///
 "Collapse" = "收起";
 "%ld more all-day events" = "剩余%ld个全天事项";
@@ -407,8 +411,6 @@
 "No Focus Record" = "无专注记录";
 "No Archived Timer" = "无归档计时器";
 "No Timer" = "无计时器";
-"No Goal" = "无目标";
-"No Archived Goal" = "无归档目标";
 
 /// 计时器
 "Unknown Timer" = "未知计时器";
