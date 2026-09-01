@@ -15,22 +15,26 @@ class GoalDetailCoordinator {
     
     /// 空详情视图控制器
     var emptyDetailViewController: UIViewController?
+
+    private var configuration: GoalPlanConfiguration?
     
     init(multiColumnViewController: TPMultiColumnViewController) {
         self.multiColumnVC = multiColumnViewController
     }
-    
+
     /// 显示目标计划详情
     func showDetail(for goalPlan: GoalPlan) {
         guard let multiColumnVC = multiColumnVC else {
             return
         }
         
-        let vc = GoalDetailViewController(goalPlan: goalPlan)
-        vc.didDeleteGoalPlan = { [weak self] _ in
-            self?.showEmptyDetail()
+        let newConfiguration = GoalPlanConfiguration(goalPlan: goalPlan)
+        guard newConfiguration != self.configuration else {
+            return
         }
         
+        self.configuration = newConfiguration
+        let vc = GoalDetailViewController(configuration: newConfiguration)
         let navController = UINavigationController(rootViewController: vc)
         multiColumnVC.replaceDetail(with: navController)
         multiColumnVC.showDetailView()

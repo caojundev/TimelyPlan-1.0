@@ -1158,6 +1158,14 @@
 		E57B2B453045254400BA4D56 /* GoalConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B443045254400BA4D56 /* GoalConfig.swift */; };
 		E57B2B4830452BB300BA4D56 /* GoalArchivedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B4730452BB300BA4D56 /* GoalArchivedViewController.swift */; };
 		E57B2B4B3045896100BA4D56 /* GoalPlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B4A3045896000BA4D56 /* GoalPlanListView.swift */; };
+		E57B2B4F30467ADE00BA4D56 /* GoalPlanProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B4E30467ADE00BA4D56 /* GoalPlanProcessorUpdater.swift */; };
+		E57B2B5330467DB400BA4D56 /* CDGoalPlan+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B5230467DB400BA4D56 /* CDGoalPlan+Extensions.swift */; };
+		E57B2B5530467DEE00BA4D56 /* GoalPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B5430467DEE00BA4D56 /* GoalPlanManager.swift */; };
+		E57B2B593046CD2F00BA4D56 /* GoalPlanConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B583046CD2F00BA4D56 /* GoalPlanConfiguration.swift */; };
+		E57B2B5B3046CF5200BA4D56 /* GoalPlanInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B5A3046CF5200BA4D56 /* GoalPlanInteractor.swift */; };
+		E57B2B5D3046D00A00BA4D56 /* GoalPlanOptionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B5C3046D00A00BA4D56 /* GoalPlanOptionState.swift */; };
+		E57B2B5F3046D14100BA4D56 /* GoalPlanLayoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B5E3046D14100BA4D56 /* GoalPlanLayoutType.swift */; };
+		E57B2B61304707DB00BA4D56 /* GoalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B60304707DB00BA4D56 /* GoalState.swift */; };
 		E57B2C213046000000000001 /* GoalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C113046000000000001 /* GoalRepository.swift */; };
 		E57B2C223046000000000002 /* GoalDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C123046000000000002 /* GoalDateHelper.swift */; };
 		E57B2C233046000000000003 /* GoalPlanGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C133046000000000003 /* GoalPlanGroup.swift */; };
@@ -3412,6 +3420,14 @@
 		E57B2B443045254400BA4D56 /* GoalConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalConfig.swift; sourceTree = "<group>"; };
 		E57B2B4730452BB300BA4D56 /* GoalArchivedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalArchivedViewController.swift; sourceTree = "<group>"; };
 		E57B2B4A3045896000BA4D56 /* GoalPlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanListView.swift; sourceTree = "<group>"; };
+		E57B2B4E30467ADE00BA4D56 /* GoalPlanProcessorUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanProcessorUpdater.swift; sourceTree = "<group>"; };
+		E57B2B5230467DB400BA4D56 /* CDGoalPlan+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDGoalPlan+Extensions.swift"; sourceTree = "<group>"; };
+		E57B2B5430467DEE00BA4D56 /* GoalPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanManager.swift; sourceTree = "<group>"; };
+		E57B2B583046CD2F00BA4D56 /* GoalPlanConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanConfiguration.swift; sourceTree = "<group>"; };
+		E57B2B5A3046CF5200BA4D56 /* GoalPlanInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanInteractor.swift; sourceTree = "<group>"; };
+		E57B2B5C3046D00A00BA4D56 /* GoalPlanOptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanOptionState.swift; sourceTree = "<group>"; };
+		E57B2B5E3046D14100BA4D56 /* GoalPlanLayoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanLayoutType.swift; sourceTree = "<group>"; };
+		E57B2B60304707DB00BA4D56 /* GoalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalState.swift; sourceTree = "<group>"; };
 		E57B2C113046000000000001 /* GoalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRepository.swift; sourceTree = "<group>"; };
 		E57B2C123046000000000002 /* GoalDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDateHelper.swift; sourceTree = "<group>"; };
 		E57B2C133046000000000003 /* GoalPlanGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanGroup.swift; sourceTree = "<group>"; };
@@ -7757,9 +7773,10 @@
 		E57B2B2D304470E600BA4D56 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				E57B2B573046CD0600BA4D56 /* Interacter */,
+				E57B2B563046CC5D00BA4D56 /* Option */,
 				E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */,
 				E57B2C173046000000000007 /* GoalDetailCoordinator.swift */,
-				E57B2C1A304600000000000A /* GoalPlanOptionMenuController.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -7778,6 +7795,7 @@
 		E57B2B3530451F2F00BA4D56 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				E57B2B60304707DB00BA4D56 /* GoalState.swift */,
 				E57B2B3830451F5700BA4D56 /* GoalSetting.swift */,
 				E57B2B3630451F3E00BA4D56 /* GoalSettingViewController.swift */,
 			);
@@ -7796,8 +7814,10 @@
 		E57B2B3D304521BF00BA4D56 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				E57B2B3E304521CA00BA4D56 /* Models */,
 				E57B2C113046000000000001 /* GoalRepository.swift */,
+				E57B2B5030467D8B00BA4D56 /* Managers */,
+				E57B2B3E304521CA00BA4D56 /* Models */,
+				E57B2B4D30467AB700BA4D56 /* Updater */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -7806,6 +7826,7 @@
 			isa = PBXGroup;
 			children = (
 				E57B2B3F304521D600BA4D56 /* GoalPlan.swift */,
+				E57B2B5130467D9800BA4D56 /* CoreData */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -7846,6 +7867,49 @@
 			children = (
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E57B2B4D30467AB700BA4D56 /* Updater */ = {
+			isa = PBXGroup;
+			children = (
+				E57B2B4E30467ADE00BA4D56 /* GoalPlanProcessorUpdater.swift */,
+			);
+			path = Updater;
+			sourceTree = "<group>";
+		};
+		E57B2B5030467D8B00BA4D56 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E57B2B5430467DEE00BA4D56 /* GoalPlanManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		E57B2B5130467D9800BA4D56 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E57B2B5230467DB400BA4D56 /* CDGoalPlan+Extensions.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		E57B2B563046CC5D00BA4D56 /* Option */ = {
+			isa = PBXGroup;
+			children = (
+				E57B2C1A304600000000000A /* GoalPlanOptionMenuController.swift */,
+			);
+			path = Option;
+			sourceTree = "<group>";
+		};
+		E57B2B573046CD0600BA4D56 /* Interacter */ = {
+			isa = PBXGroup;
+			children = (
+				E57B2B5C3046D00A00BA4D56 /* GoalPlanOptionState.swift */,
+				E57B2B583046CD2F00BA4D56 /* GoalPlanConfiguration.swift */,
+				E57B2B5A3046CF5200BA4D56 /* GoalPlanInteractor.swift */,
+				E57B2B5E3046D14100BA4D56 /* GoalPlanLayoutType.swift */,
+			);
+			path = Interacter;
 			sourceTree = "<group>";
 		};
 		E57CC5AD2F7F618800ADDBA4 /* Interactors */ = {
@@ -12847,6 +12911,7 @@
 				E590CA962F4D677D00E66041 /* String+Highlight.swift in Sources */,
 				E5BB9E052D3BF0C70089667A /* String+Size.swift in Sources */,
 				E52F899A2D5B0903001F18FA /* TPImageContent.swift in Sources */,
+				E57B2B5B3046CF5200BA4D56 /* GoalPlanInteractor.swift in Sources */,
 				E5BB9D9F2D3BF0C60089667A /* TPToolbar.swift in Sources */,
 				E55528502FB6B6040093DD7E /* TPMoreBarButtonItem.swift in Sources */,
 				E53632832FAB72C00095DFEC /* QuadrantLayout.swift in Sources */,
@@ -12956,6 +13021,7 @@
 				E5BB9B492D3BEF920089667A /* UITextFieldExtension.swift in Sources */,
 				E5D7D7E42D43923800EC877A /* FocusTimerConfig.swift in Sources */,
 				E53352B72FFA640300546986 /* CalendarMonthViewFlowLayout.swift in Sources */,
+				E57B2B61304707DB00BA4D56 /* GoalState.swift in Sources */,
 				E5BB9F002D3BF0C80089667A /* UIViewController+PopoverPresent.swift in Sources */,
 				E549B15C2F87CF820014BE85 /* TodoProgressEditViewController.swift in Sources */,
 				E5FC6BAC2F651CC800D5A5EA /* HabitStatsMainViewController.swift in Sources */,
@@ -13056,6 +13122,7 @@
 				E5B4994C2FD8FD9F00F3A9BD /* TaskNotificationManager.swift in Sources */,
 				E5D7D8C72D43933600EC877A /* FocusTracker.swift in Sources */,
 				E50D60422F7A12B500D5E0A4 /* RepeatSpecificDateSectionController.swift in Sources */,
+				E57B2B5530467DEE00BA4D56 /* GoalPlanManager.swift in Sources */,
 				E5BB9EF92D3BF0C80089667A /* TPSlidePresentationController.swift in Sources */,
 				E55549542F76316500C9460D /* TaskBindSearchResultViewController.swift in Sources */,
 				E5D7D8CD2D43933600EC877A /* FocusEndDetailRecordCell.swift in Sources */,
@@ -13471,6 +13538,7 @@
 				E54A0687303BFD7F001FF4A1 /* GanttTimeScale.swift in Sources */,
 				E5BB9B542D3BEF920089667A /* Action.swift in Sources */,
 				E5E9F7B72FC3F69600717004 /* TodoSearchHistoryViewController.swift in Sources */,
+				E57B2B5D3046D00A00BA4D56 /* GoalPlanOptionState.swift in Sources */,
 				E549B1752F88E4C00014BE85 /* TodoTaskEditInteractor.swift in Sources */,
 				E5BB9E962D3BF0C80089667A /* PieLineDrawer.swift in Sources */,
 				E5BB9E932D3BF0C80089667A /* PieLabelsView.swift in Sources */,
@@ -13723,6 +13791,7 @@
 				E52F899C2D5B11B3001F18FA /* TPImageView.swift in Sources */,
 				E51E5F9030384DAF00ACF30C /* TPMenuPickerViewController.swift in Sources */,
 				E5BB9DF32D3BF0C60089667A /* DateComponents+Extensions.swift in Sources */,
+				E57B2B4F30467ADE00BA4D56 /* GoalPlanProcessorUpdater.swift in Sources */,
 				E50D602A2F7A12B400D5E0A4 /* Date+RepeatScheduler.swift in Sources */,
 				E5D7D8CE2D43933600EC877A /* FocusEndDetailTimelineView.swift in Sources */,
 				E5D7D9052D43933600EC877A /* StopwatchTimerProgressView.swift in Sources */,
@@ -13966,6 +14035,7 @@
 				E5F155262F83681E00116091 /* TodoGroupOverdueHeaderView.swift in Sources */,
 				E50D608A2F7A5A3900D5E0A4 /* TodoUserListViewModel.swift in Sources */,
 				E58C9E1A2F4AF0DC0096B842 /* FocusTimelineEvent.swift in Sources */,
+				E57B2B593046CD2F00BA4D56 /* GoalPlanConfiguration.swift in Sources */,
 				E53632852FAB72C00095DFEC /* QuadrantCustomRuleViewController.swift in Sources */,
 				E5BB9B4D2D3BEF920089667A /* WKInterfaceTextFieldExtension.swift in Sources */,
 				E57B2B433045233000BA4D56 /* GoalPlanEditViewController.swift in Sources */,
@@ -14151,10 +14221,12 @@
 				E5BB9DE52D3BF0C60089667A /* UIWindow+Extensions.swift in Sources */,
 				E5D7D7F42D43923800EC877A /* FocusSession+Array.swift in Sources */,
 				E5BB9E882D3BF0C80089667A /* RectangleChartMark.swift in Sources */,
+				E57B2B5F3046D14100BA4D56 /* GoalPlanLayoutType.swift in Sources */,
 				E55528572FB86E020093DD7E /* CalendarDragDropManager.swift in Sources */,
 				E59E71652DB892C400744C68 /* CalendarMonthDayConfig.swift in Sources */,
 				E5320C502FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift in Sources */,
 				E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */,
+				E57B2B5330467DB400BA4D56 /* CDGoalPlan+Extensions.swift in Sources */,
 				E57B2B3430451CBF00BA4D56 /* GoalMoreBarButtonItem.swift in Sources */,
 				E5BB9E042D3BF0C70089667A /* String+Extensions.swift in Sources */,
 				E5BB9D972D3BF0C60089667A /* TPCircularCheckboxInfoTableCell.swift in Sources */,

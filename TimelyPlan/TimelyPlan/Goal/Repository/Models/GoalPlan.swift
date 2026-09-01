@@ -124,6 +124,20 @@ struct GoalEditingPlan: Equatable {
     
     var note: String?
     
+    init() {
+        let current = Date()
+        let startDate = current.startOfDay()
+        self.startDate = startDate
+        
+        let endDate = current.dateByAddingMonths(1) ?? startDate
+        self.endDate = endDate.endOfDay()
+    }
+    
+    init(startDate: Date?, endDate: Date?) {
+        self.startDate = startDate
+        self.endDate = endDate
+    }
+    
     static func == (lhs: GoalEditingPlan, rhs: GoalEditingPlan) -> Bool {
         return lhs.name == rhs.name
             && lhs.color == rhs.color
@@ -134,16 +148,7 @@ struct GoalEditingPlan: Equatable {
     
     var dateRange: DateRange {
         get {
-            let start = startDate ?? .now.startOfDay()
-            let end: Date
-            if let date = endDate, date > start {
-                end = date
-            } else {
-                let date = start.dateByAddingMonths(1) ?? start
-                end = date.endOfDay()
-            }
-            
-            return DateRange(startDate: start, endDate: end)
+            return DateRange(startDate: startDate, endDate: endDate)
         }
         
         set {
@@ -158,11 +163,9 @@ extension GoalPlan {
     
     /// 编辑目标计划
     var editingPlan: GoalEditingPlan {
-        var plan = GoalEditingPlan()
+        var plan = GoalEditingPlan(startDate: startDate, endDate: endDate)
         plan.name = name
         plan.color = color
-        plan.startDate = startDate
-        plan.endDate = endDate
         plan.note = note
         return plan
     }

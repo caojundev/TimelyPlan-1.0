@@ -32,6 +32,18 @@
         <attribute name="startTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timePlanRuleJSON" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="CDGoalPlan" representedClassName="CDGoalPlan" syncable="YES" codeGenerationType="class">
+        <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
     <entity name="CDHabitRecord" representedClassName="CDHabitRecord" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="day" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -154,5 +166,6 @@
         <element name="CDTodoTag" positionX="45" positionY="261" width="128" height="119"/>
         <element name="CDTodoTask" positionX="54" positionY="270" width="128" height="389"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
+        <element name="CDGoalPlan" positionX="45" positionY="261" width="128" height="179"/>
     </elements>
 </model>

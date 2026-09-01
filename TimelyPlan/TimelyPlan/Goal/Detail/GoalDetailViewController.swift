@@ -31,7 +31,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
     
     /// 更多按钮
     private lazy var moreBarButtonItem: UIBarButtonItem = {
-        return UIBarButtonItem(customView: self.moreButton)
+        return UIBarButtonItem(customView: moreButton)
     }()
     
     private lazy var moreButton: TPDefaultButton = {
@@ -43,15 +43,12 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
         return button
     }()
     
+    // MARK: - Initialization
     
-    /// 当前目标计划
-    let goalPlan: GoalPlan
+    let interactor: GoalPlanInteractor
     
-    /// 目标计划被删除
-    var didDeleteGoalPlan: ((GoalPlan) -> Void)?
-    
-    init(goalPlan: GoalPlan) {
-        self.goalPlan = goalPlan
+    init(configuration: GoalPlanConfiguration) {
+        self.interactor = GoalPlanInteractor(configuration: configuration)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -106,31 +103,40 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
     // MARK: - Update
     /// 更新标题
     private func updateTitle() {
-        titleView.title = goalPlan.displayName
+        titleView.title = interactor.title()
         titleView.sizeToFit()
     }
     
     // MARK: - Event Response
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
-//        let config = GoalPlanOptionConfig.config(for: goalPlan)
-//        let menuController = GoalPlanOptionMenuController(config: config)
-//        menuController.didSelectOption = { [weak self] option in
-//            self?.performOption(option)
-//        }
-//
-//        menuController.showMenu(from: button)
-    }
-    
-    /// 处理选项
-    private func performOption(_ option: GoalPlanOption) {
-//        switch option {
-//        case .edit:
-//            GoalPresenter.editGoalPlan(goalPlan)
-//        case .delete:
-//            GoalRepository.deleteGoalPlan(goalPlan)
-//            didDeleteGoalPlan?(goalPlan)
-//        }
+        guard let config = self.interactor.planOptionConfig() else {
+            return
+        }
+
+        let optionMenuController = GoalPlanOptionMenuController(config: config)
+        optionMenuController.didSelectPlanOption = { [weak self] option in
+//            self?.selectListOption(option)
+        }
+        
+        optionMenuController.didSelectGroupType = { [weak self] groupType in
+//            self?.selectGroupType(groupType)
+        }
+        
+        optionMenuController.didSelectSortType = { [weak self] sortType in
+//            self?.selectSortType(sortType)
+        }
+        
+        optionMenuController.didSelectSortOrder = { [weak self] sortOrder in
+//            self?.selectSortOrder(sortOrder)
+        }
+        
+        let menuItems = optionMenuController.menuItems()
+        let menuController = TPLevelMenuViewController(menuItems: menuItems)
+        let sourceRect = CGRect(x: moreButton.bounds.maxX,
+                                y: moreButton.bounds.maxY,
+                                size: .zero)
+        menuController.show(from: moreButton, sourceRect: sourceRect, isCovered: false)
     }
     
     /// 点击添加目标
