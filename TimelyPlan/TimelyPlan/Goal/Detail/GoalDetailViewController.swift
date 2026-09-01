@@ -47,6 +47,9 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
     /// 当前目标计划
     let goalPlan: GoalPlan
     
+    /// 目标计划被删除
+    var didDeleteGoalPlan: ((GoalPlan) -> Void)?
+    
     init(goalPlan: GoalPlan) {
         self.goalPlan = goalPlan
         super.init(nibName: nil, bundle: nil)
@@ -110,8 +113,24 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
     // MARK: - Event Response
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
-        
-        
+//        let config = GoalPlanOptionConfig.config(for: goalPlan)
+//        let menuController = GoalPlanOptionMenuController(config: config)
+//        menuController.didSelectOption = { [weak self] option in
+//            self?.performOption(option)
+//        }
+//
+//        menuController.showMenu(from: button)
+    }
+    
+    /// 处理选项
+    private func performOption(_ option: GoalPlanOption) {
+//        switch option {
+//        case .edit:
+//            GoalPresenter.editGoalPlan(goalPlan)
+//        case .delete:
+//            GoalRepository.deleteGoalPlan(goalPlan)
+//            didDeleteGoalPlan?(goalPlan)
+//        }
     }
     
     /// 点击添加目标

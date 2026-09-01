@@ -1167,6 +1167,7 @@
 		E57B2C273046000000000007 /* GoalDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C173046000000000007 /* GoalDetailCoordinator.swift */; };
 		E57B2C283046000000000008 /* GoalPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C183046000000000008 /* GoalPlanViewModel.swift */; };
 		E57B2C293046000000000009 /* GoalArchivedPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C193046000000000009 /* GoalArchivedPlanViewModel.swift */; };
+		E57B2C2A304600000000000A /* GoalPlanOptionMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C1A304600000000000A /* GoalPlanOptionMenuController.swift */; };
 		E57C05E62DD34421009E22F0 /* CalendarPageTimelineHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C05E52DD34421009E22F0 /* CalendarPageTimelineHoursView.swift */; };
 		E57CC5AA2F7F5A5300ADDBA4 /* TodoListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5A92F7F5A5300ADDBA4 /* TodoListInteractor.swift */; };
 		E57CC5AC2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57CC5AB2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift */; };
@@ -3420,6 +3421,7 @@
 		E57B2C173046000000000007 /* GoalDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailCoordinator.swift; sourceTree = "<group>"; };
 		E57B2C183046000000000008 /* GoalPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanViewModel.swift; sourceTree = "<group>"; };
 		E57B2C193046000000000009 /* GoalArchivedPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalArchivedPlanViewModel.swift; sourceTree = "<group>"; };
+		E57B2C1A304600000000000A /* GoalPlanOptionMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanOptionMenuController.swift; sourceTree = "<group>"; };
 		E57C05E52DD34421009E22F0 /* CalendarPageTimelineHoursView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageTimelineHoursView.swift; sourceTree = "<group>"; };
 		E57CC5A92F7F5A5300ADDBA4 /* TodoListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListInteractor.swift; sourceTree = "<group>"; };
 		E57CC5AB2F7F5F1E00ADDBA4 /* TodoListConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListConfiguration.swift; sourceTree = "<group>"; };
@@ -7757,6 +7759,7 @@
 			children = (
 				E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */,
 				E57B2C173046000000000007 /* GoalDetailCoordinator.swift */,
+				E57B2C1A304600000000000A /* GoalPlanOptionMenuController.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -13118,6 +13121,7 @@
 				E57B2C273046000000000007 /* GoalDetailCoordinator.swift in Sources */,
 				E57B2C283046000000000008 /* GoalPlanViewModel.swift in Sources */,
 				E57B2C293046000000000009 /* GoalArchivedPlanViewModel.swift in Sources */,
+				E57B2C2A304600000000000A /* GoalPlanOptionMenuController.swift in Sources */,
 				E51E5F76303592F500ACF30C /* IAPMainViewController.swift in Sources */,
 				E53632802FAB72C00095DFEC /* QuadrantLayoutEditView.swift in Sources */,
 				E5BB9E632D3BF0C70089667A /* TPCollectionCell.swift in Sources */,

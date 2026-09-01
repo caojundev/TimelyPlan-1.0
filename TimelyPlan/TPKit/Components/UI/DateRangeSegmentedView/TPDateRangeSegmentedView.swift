@@ -24,12 +24,23 @@ class TPDateRangeSegmentedView: UIView {
         }
     }
     
+    var canDeleteStart: Bool = false {
+        didSet {
+            updateStartDateButton()
+        }
+    }
+    
+    var canDeleteEnd: Bool = true {
+        didSet {
+            updateEndDateButton()
+        }
+    }
+    
     /// 点击删除
     var didClickDelete: ((DateRangeEditType) -> Void)?
     
     /// 选中编辑类型回调
     var didSelectEditType: ((DateRangeEditType) -> Void)?
-    
     
     let segmentedHeight = 100.0
     
@@ -84,7 +95,7 @@ class TPDateRangeSegmentedView: UIView {
     }
     
     func canDeleteStartDate() -> Bool {
-        return false
+        return canDeleteStart && dateRange.startDate != nil
     }
     
     func startDateTitle() -> String? {
@@ -96,7 +107,7 @@ class TPDateRangeSegmentedView: UIView {
     }
     
     func canDeleteEndDate() -> Bool {
-        return dateRange.endDate != nil
+        return canDeleteEnd && dateRange.endDate != nil
     }
     
     func endDateTitle() -> String? {
@@ -115,10 +126,18 @@ class TPDateRangeSegmentedView: UIView {
     
     /// 更新日期
     func updateDate() {
+        updateStartDateButton()
+        updateEndDateButton()
+    }
+    
+    private func updateStartDateButton() {
         startDateButton.dateText = startDateTitle()
         startDateButton.dateDescription = startDateSubitle()
         startDateButton.showDelete = canDeleteStartDate()
-        
+        setNeedsLayout()
+    }
+    
+    private func updateEndDateButton() {
         endDateButton.dateText = endDateTitle()
         endDateButton.dateDescription = endDateSubitle()
         endDateButton.showDelete = canDeleteEndDate()

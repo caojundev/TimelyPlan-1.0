@@ -9,6 +9,16 @@ import Foundation
 import UIKit
 
 class GoalPlanEditViewController: TPTableSectionsViewController {
+
+    struct Config {
+        static let sectionHeaderPadding = UIEdgeInsets(top: 15.0,
+                                                        left: 0.0,
+                                                        bottom: 0.0,
+                                                        right: 16.0)
+        static let sectionTitleHeaderHeight = 50.0
+        
+        static let sectionNormalHeaderHeight = 20.0
+    }
     
     /// 结束编辑
     var didEndEditing: ((GoalEditingPlan) -> Void)?
@@ -19,15 +29,6 @@ class GoalPlanEditViewController: TPTableSectionsViewController {
     /// 当前编辑计时器
     var editingPlan: GoalEditingPlan
 
-    /// 名称和颜色编辑区块
-    lazy var nameColorSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 5.0
-        sectionController.footerItem.height = 0.0
-        sectionController.cellItems = [nameCellItem, colorSelectCellItem]
-        return sectionController
-    }()
-    
     /// 名称单元格条目
     lazy var nameCellItem: TPTextFieldTableCellItem = { [weak self] in
         let cellItem = TPTextFieldTableCellItem()
@@ -62,6 +63,55 @@ class GoalPlanEditViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
+    /// 名称和颜色编辑区块
+    lazy var nameColorSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 5.0
+        sectionController.footerItem.height = 0.0
+        sectionController.cellItems = [nameCellItem, colorSelectCellItem]
+        return sectionController
+    }()
+    
+    
+    /// 开始日期
+    lazy var dateRangeCellItem: TaskDateRangeEditTableCellItem = { [weak self] in
+        let cellItem = TaskDateRangeEditTableCellItem()
+        cellItem.canDeleteEnd = false
+        cellItem.updater = {
+            guard let self = self else { return}
+            self.dateRangeCellItem.dateRange = self.editingPlan.dateRange
+        }
+        
+        cellItem.didEndEditing = { dateRange in
+            self?.editingPlan.dateRange = dateRange
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var dateSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = Config.sectionNormalHeaderHeight
+        sectionController.footerItem.height = 0.0
+        sectionController.cellItems = [dateRangeCellItem]
+        return sectionController
+    }()
+    
+    /// 备注
+    lazy var noteSectionController: TPNoteTableSectionController = { [weak self] in
+        let sectionController = TPNoteTableSectionController()
+        sectionController.headerItem.padding = Config.sectionHeaderPadding
+        sectionController.noteCellItem.updater = {
+            self?.noteSectionController.note = self?.editingPlan.note
+        }
+
+        sectionController.noteEditingChanged = { note in
+            self?.editingPlan.note = note
+        }
+
+        return sectionController
+    }()
+    
     init(goalPlan: GoalEditingPlan? = nil) {
         if let goalPlan = goalPlan {
             self.editingPlan = goalPlan
@@ -86,7 +136,9 @@ class GoalPlanEditViewController: TPTableSectionsViewController {
         self.updateDoneButtonEnabled()
         self.updateTitle()
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        self.sectionControllers = [nameColorSectionController]
+        self.sectionControllers = [nameColorSectionController,
+                                   dateSectionController,
+                                   noteSectionController]
         self.adapter.reloadData()
     }
     

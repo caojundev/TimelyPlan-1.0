@@ -18,6 +18,9 @@ class TaskDateRangeView: UIView {
             updateInfo()
         }
     }
+    
+    var canDeleteStart: Bool = false
+    var canDeleteEnd: Bool = true
 
     /// 结束编辑回调
     var didEndEditing: ((DateRange) -> ())?
@@ -85,11 +88,13 @@ class TaskDateRangeView: UIView {
         TPImpactFeedback.impactWithLightStyle()
         editDateRangeWithType(.end)
     }
-
+    
     // MARK: - Edit
     func editDateRangeWithType(_ type: DateRangeEditType) {
         let vc = TaskDateRangeEditViewController(dateRange: dateRange,
                                                   editType: type)
+        vc.canDeleteStart = canDeleteStart
+        vc.canDeleteEnd = canDeleteEnd
         vc.didEndEditing = { dateRange in
             self.dateRange = dateRange
             self.didEndEditing?(dateRange)

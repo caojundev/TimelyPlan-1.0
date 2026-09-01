@@ -131,6 +131,26 @@ struct GoalEditingPlan: Equatable {
             && lhs.endDate == rhs.endDate
             && lhs.note == rhs.note
     }
+    
+    var dateRange: DateRange {
+        get {
+            let start = startDate ?? .now.startOfDay()
+            let end: Date
+            if let date = endDate, date > start {
+                end = date
+            } else {
+                let date = start.dateByAddingMonths(1) ?? start
+                end = date.endOfDay()
+            }
+            
+            return DateRange(startDate: start, endDate: end)
+        }
+        
+        set {
+            self.startDate = newValue.startDate
+            self.endDate = newValue.endDate
+        }
+    }
 }
 
 // MARK: - 编辑目标

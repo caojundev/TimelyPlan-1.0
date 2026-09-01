@@ -17,6 +17,17 @@ class TaskDateRangeEditViewController: TPTableSectionsViewController,
     /// 结束编辑
     var didEndEditing: ((DateRange) -> Void)?
     
+    
+    var canDeleteStart: Bool {
+        get { return dateRangeSegmentedView.canDeleteStart }
+        set { dateRangeSegmentedView.canDeleteStart = newValue }
+    }
+    
+    var canDeleteEnd: Bool {
+        get { return dateRangeSegmentedView.canDeleteEnd }
+        set { dateRangeSegmentedView.canDeleteEnd = newValue }
+    }
+    
     lazy var dateRangeSegmentedView: TPDateRangeSegmentedView = {
         let view = TPDateRangeSegmentedView()
         view.clipsToBounds = true

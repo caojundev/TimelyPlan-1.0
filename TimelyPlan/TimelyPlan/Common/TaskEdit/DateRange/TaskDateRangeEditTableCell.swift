@@ -15,6 +15,10 @@ class TaskDateRangeEditTableCellItem: TPBaseTableCellItem {
     
     var didEndEditing: ((DateRange) -> Void)?
     
+    var canDeleteStart: Bool = false
+    
+    var canDeleteEnd: Bool = true
+    
     override init() {
         super.init()
         self.selectionStyle = .none
@@ -37,6 +41,8 @@ class TaskDateRangeEditTableCell: TPBaseTableCell {
             }
             
             dateRange = cellItem.dateRange ?? DateRange()
+            rangeView.canDeleteStart = cellItem.canDeleteStart
+            rangeView.canDeleteEnd = cellItem.canDeleteEnd
         }
     }
     
