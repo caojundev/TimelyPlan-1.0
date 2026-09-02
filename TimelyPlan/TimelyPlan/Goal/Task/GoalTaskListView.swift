@@ -28,11 +28,12 @@ extension GoalTaskListViewDelegate {
 class GoalTaskListView: UIView,
                         TPCollectionViewAdapterDataSource,
                         TPCollectionViewAdapterDelegate,
-                        GoalTaskListCellDelegate {
+                        GoalTaskListCellDelegate,
+                        GoalTaskListHeaderViewDelegate {
     
     struct Config {
         /// 区块头高度
-        static let headerHeight = 36.0
+        static let headerHeight = 44.0
         /// 区块内间距
         static let sectionInset = UIEdgeInsets(top: 4.0, left: 15.0, bottom: 12.0, right: 15.0)
         /// 行间距
@@ -43,7 +44,14 @@ class GoalTaskListView: UIView,
     weak var delegate: GoalTaskListViewDelegate?
     
     /// 目标任务分组数组
-    var groups: [GoalTaskGroup]?
+    var groups: [GoalTaskGroup]? {
+        didSet {
+            resetExpandedStates()
+        }
+    }
+    
+    /// 分组是否展开的状态字典（键为分组标识）
+    private var expandedStates: [String: Bool] = [:]
     
     /// 内容间距
     var contentInset: UIEdgeInsets? {
@@ -199,6 +207,10 @@ class GoalTaskListView: UIView,
             return nil
         }
         
+        guard isExpanded(group: group) else {
+            return nil
+        }
+        
         return group.goalTasks
     }
     
@@ -258,11 +270,39 @@ class GoalTaskListView: UIView,
             return
         }
         
+        headerView.section = section
+        headerView.padding = UIEdgeInsets(horizontal: 16.0)
+        headerView.delegate = self
         headerView.title = group.title
+        headerView.count = group.goalTasks?.count ?? 0
+        let isExpanded = isExpanded(group: group)
+        headerView.setExpanded(isExpanded, animated: false)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForFooterInSection section: Int) -> CGSize {
         return .zero
+    }
+    
+    // MARK: - GoalTaskListHeaderViewDelegate
+    func isExpandedGoalTaskListHeaderView(_ headerView: GoalTaskListHeaderView) -> Bool {
+        guard let group = group(of: headerView) else {
+            return true
+        }
+        
+        return isExpanded(group: group)
+    }
+    
+    func goalTaskListHeaderView(_ headerView: GoalTaskListHeaderView, canToggleExpandStateTo isExpanded: Bool) -> Bool {
+        return true
+    }
+    
+    func goalTaskListHeaderView(_ headerView: GoalTaskListHeaderView, didToggleExpand isExpanded: Bool) {
+        guard let group = group(of: headerView) else {
+            return
+        }
+        
+        setExpanded(isExpanded, for: group)
+        adapter.performSectionUpdate(forSectionObject: group)
     }
     
     // MARK: - GoalTaskListCellDelegate
@@ -272,5 +312,38 @@ class GoalTaskListView: UIView,
         }
         
         delegate?.goalTaskListView(self, didClickMoreForGoalTask: goalTask)
+    }
+    
+    // MARK: - Helpers
+    /// 分组是否展开
+    func isExpanded(group: GoalTaskGroup) -> Bool {
+        return expandedStates[group.identifier] ?? true
+    }
+    
+    /// 设置分组的展开状态
+    func setExpanded(_ isExpanded: Bool, for group: GoalTaskGroup) {
+        expandedStates[group.identifier] = isExpanded
+    }
+    
+    /// 重置所有分组的展开状态
+    private func resetExpandedStates() {
+        expandedStates.removeAll()
+    }
+    
+    /// 获取区块头视图对应的分组
+    private func group(of headerView: GoalTaskListHeaderView) -> GoalTaskGroup? {
+        guard headerView.section >= 0 else {
+            return nil
+        }
+        
+        return group(in: headerView.section)
+    }
+}
+
+extension GoalTaskListView {
+    
+    /// 获取区块头视图对应的分区
+    var scrollView: UIScrollView {
+        return collectionView
     }
 }
