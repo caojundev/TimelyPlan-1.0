@@ -30,6 +30,7 @@ class GoalDetailCoordinator {
         
         let newConfiguration = GoalPlanConfiguration(goalPlan: goalPlan)
         guard newConfiguration != self.configuration else {
+            multiColumnVC.showDetailView()
             return
         }
         

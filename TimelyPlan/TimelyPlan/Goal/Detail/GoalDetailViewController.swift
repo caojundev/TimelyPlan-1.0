@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class GoalDetailViewController: TPMultiColumnDetailViewController {
+class GoalDetailViewController: TPMultiColumnDetailViewController,
+                                GoalTaskListViewDelegate {
     
     struct Config {
         /// 添加视图按钮
@@ -19,6 +20,13 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
 
     /// 添加视图
     private var addView: TPAddView?
+    
+    /// 目标任务列表视图
+    lazy var taskListView: GoalTaskListView = {
+        let listView = GoalTaskListView(frame: .zero)
+        listView.delegate = self
+        return listView
+    }()
     
     /// 标题视图
     private lazy var titleView: TPImageTitleView = {
@@ -61,11 +69,19 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
         navigationItem.titleView = titleView
         navigationItem.rightBarButtonItem = moreBarButtonItem
         updateTitle()
+        setupTaskListView()
         setupAddView()
+        loadTestTaskGroups()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        taskListView.reloadDataIfNeeded()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        layoutTaskListView()
         layoutAddView()
     }
     
@@ -75,6 +91,65 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
     
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemBackground
+    }
+    
+    // MARK: - 目标任务列表视图
+    private func setupTaskListView() {
+        containerView.addSubview(taskListView)
+        taskListView.addRefreshControl()
+    }
+    
+    private func layoutTaskListView() {
+        taskListView.frame = containerView.bounds
+        let layoutFrame = view.safeAreaFrame()
+        let insetBottom = layoutFrame.maxY - (addView?.top ?? layoutFrame.maxY)
+        taskListView.contentInset = UIEdgeInsets(top: 0.0,
+                                                 left: 0.0,
+                                                 bottom: max(insetBottom, 0.0),
+                                                 right: 0.0)
+    }
+    
+    /// 加载测试目标任务分组数据
+    func loadTestTaskGroups() {
+        var groups = [GoalTaskGroup]()
+        
+        /// 第一组：未完成任务
+        let uncompletedGroup = GoalTaskGroup(identifier: "Uncompleted")
+        uncompletedGroup.title = "未完成"
+        uncompletedGroup.goalTasks = makeTestTasks(count: 4, isCompleted: false)
+        groups.append(uncompletedGroup)
+        
+        /// 第二组：已完成任务
+        let completedGroup = GoalTaskGroup(identifier: "Completed")
+        completedGroup.title = "已完成"
+        completedGroup.goalTasks = makeTestTasks(count: 2, isCompleted: true)
+        groups.append(completedGroup)
+        
+        taskListView.groups = groups
+        taskListView.reloadData()
+    }
+    
+    /// 生成测试目标任务数组
+    private func makeTestTasks(count: Int, isCompleted: Bool) -> [GoalTask] {
+        let calculationValues: [GoalProgressCalculation] = [.sum, .update]
+        let recordTypes: [GoalProgressRecordType] = [.manual, .auto]
+        
+        var tasks = [GoalTask]()
+        for index in 0..<count {
+            let task = GoalTask()
+            task.isAddedToMyDay = index % 2 == 0
+            task.note = isCompleted ? "已完成的任务备注" : "任务备注 \(index + 1)"
+            task.initialValue = Int64(index * 10)
+            task.targetValue = 100
+            task.calculation = calculationValues[index % calculationValues.count]
+            task.recordType = recordTypes[index % recordTypes.count]
+            task.autoRecordValue = recordTypes[index % recordTypes.count] == .auto ? index + 1 : nil
+            task.presetRecordValues = [index, index * 2, index * 3]
+            task.weight = Int64((index % 10) + 1)
+            tasks.append(task)
+        }
+        
+        return tasks
     }
     
     // MARK: - 添加视图
@@ -147,5 +222,26 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
     
     func canAddGoal() -> Bool {
         return true
+    }
+    
+    // MARK: - GoalTaskListViewDelegate
+    func goalTaskListView(_ listView: GoalTaskListView, didSelectGoalTask goalTask: GoalTask) {
+        TPImpactFeedback.impactWithSoftStyle()
+        /// 测试：点击目标任务
+    }
+    
+    func goalTaskListView(_ listView: GoalTaskListView, didClickMoreForGoalTask goalTask: GoalTask) {
+        /// 测试：点击目标任务更多按钮
+    }
+    
+    func goalTaskListViewHandleRefresh(_ listView: GoalTaskListView) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.loadTestTaskGroups()
+            listView.endRefreshing()
+        }
     }
 }
