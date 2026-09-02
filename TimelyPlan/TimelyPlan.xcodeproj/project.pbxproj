@@ -1166,6 +1166,7 @@
 		E57B2B5D3046D00A00BA4D56 /* GoalPlanOptionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B5C3046D00A00BA4D56 /* GoalPlanOptionState.swift */; };
 		E57B2B5F3046D14100BA4D56 /* GoalPlanLayoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B5E3046D14100BA4D56 /* GoalPlanLayoutType.swift */; };
 		E57B2B61304707DB00BA4D56 /* GoalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B60304707DB00BA4D56 /* GoalState.swift */; };
+		E57B2B643047BBBE00BA4D56 /* GoalTaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B633047BBBE00BA4D56 /* GoalTaskEditViewController.swift */; };
 		E57B2C213046000000000001 /* GoalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C113046000000000001 /* GoalRepository.swift */; };
 		E57B2C223046000000000002 /* GoalDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C123046000000000002 /* GoalDateHelper.swift */; };
 		E57B2C233046000000000003 /* GoalPlanGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C133046000000000003 /* GoalPlanGroup.swift */; };
@@ -3428,6 +3429,7 @@
 		E57B2B5C3046D00A00BA4D56 /* GoalPlanOptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanOptionState.swift; sourceTree = "<group>"; };
 		E57B2B5E3046D14100BA4D56 /* GoalPlanLayoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanLayoutType.swift; sourceTree = "<group>"; };
 		E57B2B60304707DB00BA4D56 /* GoalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalState.swift; sourceTree = "<group>"; };
+		E57B2B633047BBBE00BA4D56 /* GoalTaskEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskEditViewController.swift; sourceTree = "<group>"; };
 		E57B2C113046000000000001 /* GoalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRepository.swift; sourceTree = "<group>"; };
 		E57B2C123046000000000002 /* GoalDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDateHelper.swift; sourceTree = "<group>"; };
 		E57B2C133046000000000003 /* GoalPlanGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanGroup.swift; sourceTree = "<group>"; };
@@ -6870,6 +6872,7 @@
 				E57B2B3A3045207200BA4D56 /* Helpers */,
 				E57B2B2F304470E700BA4D56 /* Home */,
 				E57B2B2D304470E600BA4D56 /* Detail */,
+				E57B2B623047BB9E00BA4D56 /* Task */,
 				E57B2B4630452B8D00BA4D56 /* Archived */,
 				E57B2B3530451F2F00BA4D56 /* Setting */,
 			);
@@ -7910,6 +7913,14 @@
 				E57B2B5E3046D14100BA4D56 /* GoalPlanLayoutType.swift */,
 			);
 			path = Interacter;
+			sourceTree = "<group>";
+		};
+		E57B2B623047BB9E00BA4D56 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				E57B2B633047BBBE00BA4D56 /* GoalTaskEditViewController.swift */,
+			);
+			path = Task;
 			sourceTree = "<group>";
 		};
 		E57CC5AD2F7F618800ADDBA4 /* Interactors */ = {
@@ -12961,6 +12972,7 @@
 				E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */,
 				E5B3BAB830136FBD00D908B6 /* FocusUserTimerMenuProcessor.swift in Sources */,
 				E5D7D9302D43933700EC877A /* FocusTimerSearchResultSectionController.swift in Sources */,
+				E57B2B643047BBBE00BA4D56 /* GoalTaskEditViewController.swift in Sources */,
 				E51B28F52FA77970006B3352 /* TodoTaskBoardCell.swift in Sources */,
 				E50D026E2F56D44500E93977 /* HabitTaskGroup.swift in Sources */,
 				E5BB9E492D3BF0C70089667A /* TPCalendarViewController.swift in Sources */,

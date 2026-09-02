@@ -43,7 +43,16 @@ class GoalPresenter {
     
     /// 显示已归档目标计划详情
     static func showArchivedGoalDetail(_ goalPlan: GoalPlan) {
-        let vc = GoalDetailViewController(goalPlan: goalPlan)
+        
+    }
+    
+    /// 创建新目标任务
+    static func createNewGoalTask(_ goalTask: Any? = nil) {
+        let vc = GoalTaskEditViewController()
+//        vc.didEndEditing = { editingTask in
+//
+//        }
+
         vc.showAsNavigationRoot()
     }
 }

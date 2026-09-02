@@ -24,7 +24,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
     private lazy var titleView: TPImageTitleView = {
         let view = TPImageTitleView()
         view.padding = .zero
-        view.titleConfig.font = BOLD_SYSTEM_FONT
+        view.titleConfig.font = BOLD_BODY_FONT
         view.titleConfig.textAlignment = .center
         return view
     }()
@@ -142,7 +142,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController {
     /// 点击添加目标
     private func clickAddGoal() {
         TPImpactFeedback.impactWithLightStyle()
-        GoalPresenter.createNewGoalPlan()
+        GoalPresenter.createNewGoalTask()
     }
     
     func canAddGoal() -> Bool {

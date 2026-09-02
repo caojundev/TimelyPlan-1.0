@@ -41,7 +41,7 @@ class GoalPlanConfiguration: Equatable, IdentifiableItem {
     
     /// 允许的分组类型
     func allowGroupTypes() -> [TodoGroupType] {
-        return []
+        return [.default, .none]
     }
     
     /// 首选排列顺序
