@@ -87,7 +87,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    // MARK: - 数值
+    // MARK: - 目标
     /// 开始数值
     lazy var initialValueCellItem: TPNumberFieldTableCellItem = { [weak self] in
         let cellItem = TPNumberFieldTableCellItem()
@@ -122,18 +122,6 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
-    /// 数值区块
-    lazy var valueSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = Config.sectionTitleHeaderHeight
-        sectionController.headerItem.padding = Config.sectionHeaderPadding
-        sectionController.headerItem.title = resGetString("Value")
-        sectionController.setupSeparatorFooterItem(backgroundColor: .systemBackground)
-        sectionController.cellItems = [initialValueCellItem, targetValueCellItem]
-        return sectionController
-    }()
-    
-    // MARK: - 计算方式
     /// 计算方式
     lazy var calculationCellItem: TPSegmentedMenuTableCellItem = { [weak self] in
         let cellItem = TPSegmentedMenuTableCellItem()
@@ -157,18 +145,6 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
-    /// 计算区块
-    lazy var calculationSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = Config.sectionTitleHeaderHeight
-        sectionController.headerItem.padding = Config.sectionHeaderPadding
-        sectionController.headerItem.title = resGetString("Progress")
-        sectionController.cellItems = [calculationCellItem]
-        sectionController.setupSeparatorFooterItem(backgroundColor: .systemBackground)
-        return sectionController
-    }()
-    
-    // MARK: - 记录方式
     /// 记录方式
     lazy var recordTypeCellItem: TPSegmentedMenuTableCellItem = { [weak self] in
         let cellItem = TPSegmentedMenuTableCellItem()
@@ -208,10 +184,13 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
-    /// 记录区块
-    lazy var recordSectionController: TPTableItemSectionController = {
+    /// 进度区块
+    lazy var progressSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 0.0
+        sectionController.headerItem.height = 15.0
+        sectionController.cellItems = [initialValueCellItem,
+                                        targetValueCellItem,
+                                        calculationCellItem]
         return sectionController
     }()
     
@@ -242,23 +221,6 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    // MARK: - 选项
-    /// 是否添加到我的一天
-    lazy var isAddedToMyDayCellItem: TPSwitchTableCellItem = { [weak self] in
-        let cellItem = TPSwitchTableCellItem()
-        cellItem.height = Config.defaultCellHeight
-        cellItem.title = resGetString("Add to My Day")
-        cellItem.updater = {
-            guard let self = self else { return }
-            self.isAddedToMyDayCellItem.isOn = self.editingTask.isAddedToMyDay
-        }
-        
-        cellItem.valueChanged = { [weak self] isOn in
-            self?.editingTask.isAddedToMyDay = isOn
-        }
-        
-        return cellItem
-    }()
     
     /// 权重
     lazy var weightCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
@@ -278,14 +240,11 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
-    /// 选项区块
-    lazy var optionSectionController: TPTableItemSectionController = {
+    /// 权重区块
+    lazy var weightSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = Config.sectionTitleHeaderHeight
-        sectionController.headerItem.padding = Config.sectionHeaderPadding
-        sectionController.headerItem.title = resGetString("Options")
-        sectionController.setupSeparatorFooterItem(backgroundColor: .systemBackground)
-        sectionController.cellItems = [isAddedToMyDayCellItem, weightCellItem]
+        sectionController.headerItem.height = Config.sectionNormalHeaderHeight
+        sectionController.cellItems = [weightCellItem]
         return sectionController
     }()
     
@@ -327,15 +286,12 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         self.wrapperView.isKeyboardAdjusterEnabled = true
         self.tableView.keyboardDismissMode = .onDrag
         self.updateTitle()
-        self.updateRecordSectionController()
+        self.updateProgressSectionController()
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.sectionControllers = [nameSectionController,
-                                   
-                                   valueSectionController,
-                                   calculationSectionController,
-                                   recordSectionController,
+                                   weightSectionController,
+                                   progressSectionController,
                                    dateSectionController,
-                                   optionSectionController,
                                    noteSectionController]
         self.adapter.reloadData()
         updateDoneButtonEnabled()
@@ -406,19 +362,22 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     
     // MARK: - Update
     /// 更新记录区块
-    private func updateRecordSectionController() {
+    private func updateProgressSectionController() {
+        var cellItems = [initialValueCellItem,
+                         targetValueCellItem,
+                         calculationCellItem]
         guard editingTask.calculation != .update else {
-            recordSectionController.cellItems = nil
+            progressSectionController.cellItems = cellItems
             return
         }
         
-        let recordType = editingTask.recordType
-        var recordCellItems: [TPBaseTableCellItem] = [recordTypeCellItem]
-        if recordType == .auto {
-            recordCellItems.append(autoRecordValueCellItem)
+        cellItems.append(recordTypeCellItem)
+        
+        if editingTask.recordType == .auto {
+            cellItems.append(autoRecordValueCellItem)
         }
         
-        recordSectionController.cellItems = recordCellItems
+        progressSectionController.cellItems = cellItems
     }
     
     /// 更新记录类型单元格
@@ -451,8 +410,8 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
             editingTask.recordType = .manual
         }
         
-        updateRecordSectionController()
-        adapter.performSectionUpdate(forSectionObject: recordSectionController, rowAnimation: .top)
+        updateProgressSectionController()
+        adapter.performSectionUpdate(forSectionObject: progressSectionController, rowAnimation: .fade)
     }
     
     /// 设置记录方式
@@ -466,8 +425,8 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
             editingTask.autoRecordValue = nil
         }
         
-        updateRecordSectionController()
-        adapter.performSectionUpdate(forSectionObject: recordSectionController, rowAnimation: .top)
+        updateProgressSectionController()
+        adapter.performSectionUpdate(forSectionObject: progressSectionController, rowAnimation: .fade)
     }
     
     /// 编辑权重
@@ -490,11 +449,6 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
             }
         }
         
-        menuVC.popoverShow(from: cell,
-                           sourceRect: cell.bounds,
-                           isSourceViewCovered: false,
-                           preferredPosition: .bottomLeft,
-                           animated: true,
-                           completion: nil)
+        menuVC.popoverShow()
     }
 }
