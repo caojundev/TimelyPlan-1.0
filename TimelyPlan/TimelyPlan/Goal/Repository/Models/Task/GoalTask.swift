@@ -11,6 +11,7 @@ import UIKit
 struct GoalTaskKey {
     static let identifier = "identifier"
     static let order = "order"
+    static let name = "name"
     static let isAddedToMyDay = "isAddedToMyDay"
     static let startDate = "startDate"
     static let endDate = "endDate"
@@ -70,6 +71,9 @@ class GoalTask: NSObject, SortableIdentifiable {
     /// 排序因子
     var order: Int64
     
+    /// 任务名称
+    var name: String?
+    
     /// 是否已添加到我的一天
     var isAddedToMyDay: Bool
     
@@ -108,6 +112,7 @@ class GoalTask: NSObject, SortableIdentifiable {
     
     init(identifier: String = UUID().uuidString,
          order: Int64 = 0,
+         name: String? = nil,
          isAddedToMyDay: Bool = false,
          startDate: Date? = nil,
          endDate: Date? = nil,
@@ -122,6 +127,7 @@ class GoalTask: NSObject, SortableIdentifiable {
          modificationDate: Date? = nil) {
         self.identifier = identifier
         self.order = order
+        self.name = name
         self.isAddedToMyDay = isAddedToMyDay
         self.startDate = startDate
         self.endDate = endDate
@@ -175,6 +181,7 @@ extension GoalTask {
     /// 编辑目标任务
     var editingTask: GoalEditingTask {
         var task = GoalEditingTask(startDate: startDate, endDate: endDate)
+        task.name = name
         task.isAddedToMyDay = isAddedToMyDay
         task.note = note
         task.initialValue = initialValue
@@ -205,6 +212,8 @@ extension Array where Element == GoalTask {
 
 /// 目标任务编辑模型
 struct GoalEditingTask: Equatable {
+    
+    var name: String?
     
     /// 是否已添加到我的一天
     var isAddedToMyDay: Bool
@@ -241,6 +250,7 @@ struct GoalEditingTask: Equatable {
     
     init() {
         let current = Date()
+        self.name = nil
         self.isAddedToMyDay = false
         self.startDate = current.startOfDay()
         self.endDate = current.dateByAddingMonths(1)?.endOfDay()
@@ -261,7 +271,8 @@ struct GoalEditingTask: Equatable {
     }
     
     static func == (lhs: GoalEditingTask, rhs: GoalEditingTask) -> Bool {
-        return lhs.isAddedToMyDay == rhs.isAddedToMyDay
+        return lhs.name == rhs.name
+            && lhs.isAddedToMyDay == rhs.isAddedToMyDay
             && lhs.startDate == rhs.startDate
             && lhs.endDate == rhs.endDate
             && lhs.note == rhs.note

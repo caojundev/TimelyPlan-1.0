@@ -72,7 +72,6 @@ class GoalPlanEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    
     /// 开始日期
     lazy var dateRangeCellItem: TaskDateRangeEditTableCellItem = { [weak self] in
         let cellItem = TaskDateRangeEditTableCellItem()
