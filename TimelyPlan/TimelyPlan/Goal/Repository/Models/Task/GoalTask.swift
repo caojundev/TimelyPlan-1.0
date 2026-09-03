@@ -77,6 +77,17 @@ class GoalTask: NSObject, SortableIdentifiable {
     /// 是否已添加到我的一天
     var isAddedToMyDay: Bool
     
+
+    var startTime: Int64 = -1
+    
+    var duration: Int64 = 60
+
+    /// 是否提醒
+    var shouldRemind: Bool = false
+
+    /// 提醒
+    var reminder: ScheduledReminder?
+
     /// 开始日期
     var startDate: Date?
     
@@ -109,6 +120,7 @@ class GoalTask: NSObject, SortableIdentifiable {
     
     /// 修改日期
     let modificationDate: Date?
+    
     
     init(identifier: String = UUID().uuidString,
          order: Int64 = 0,
@@ -191,6 +203,11 @@ extension GoalTask {
         task.autoRecordValue = autoRecordValue
         task.presetRecordValues = presetRecordValues
         task.weight = weight
+        task.startTime = startTime
+        task.duration = duration
+        task.shouldRemind = shouldRemind
+        task.reminder = reminder?.copy() as? ScheduledReminder
+        
         return task
     }
     
@@ -218,6 +235,16 @@ struct GoalEditingTask: Equatable {
     /// 是否已添加到我的一天
     var isAddedToMyDay: Bool
     
+    var startTime: Int64 = -1
+    
+    var duration: Int64 = 60
+
+    /// 是否提醒
+    var shouldRemind: Bool = false
+
+    /// 提醒
+    var reminder: ScheduledReminder?
+
     /// 开始日期
     var startDate: Date?
     
@@ -283,6 +310,10 @@ struct GoalEditingTask: Equatable {
             && lhs.autoRecordValue == rhs.autoRecordValue
             && lhs.presetRecordValues == rhs.presetRecordValues
             && lhs.weight == rhs.weight
+            && lhs.shouldRemind == rhs.shouldRemind
+            && lhs.reminder == rhs.reminder
+            && lhs.startTime == rhs.startTime
+            && lhs.duration == rhs.duration
     }
     
     var dateRange: DateRange {

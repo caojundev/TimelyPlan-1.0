@@ -1,5 +1,5 @@
 //
-//  HabitReminder.swift
+//  ScheduledReminder.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/1.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class HabitReminder: NSObject, NSCopying, Codable {
+public class ScheduledReminder: NSObject, NSCopying, Codable {
     
     /// 开始提醒
     var alarms: [TaskAlarm]?
@@ -52,7 +52,7 @@ public class HabitReminder: NSObject, NSCopying, Codable {
     }
     
     public override func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? HabitReminder else { return false }
+        guard let other = object as? ScheduledReminder else { return false }
         if self === other { return true }
         return alarms == other.alarms &&
                 ringtone == other.ringtone &&
@@ -61,7 +61,7 @@ public class HabitReminder: NSObject, NSCopying, Codable {
     
     // MARK: - NSCopying
     public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = HabitReminder()
+        let copy = ScheduledReminder()
         copy.alarms = alarms?.map{ $0.copy() as! TaskAlarm}
         copy.ringtone = ringtone
         copy.isConstant = isConstant

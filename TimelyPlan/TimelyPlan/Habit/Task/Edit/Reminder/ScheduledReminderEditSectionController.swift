@@ -1,5 +1,5 @@
 //
-//  HabitReminderEditSectionController.swift
+//  ScheduledReminderEditSectionController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/3/24.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HabitReminderEditSectionController: TPTableItemSectionController,
+class ScheduledReminderEditSectionController: TPTableItemSectionController,
                                           TPMultipleItemSelectionDelegate {
     
     /// 是否提醒
@@ -18,12 +18,12 @@ class HabitReminderEditSectionController: TPTableItemSectionController,
     var shouldRemindDidChange: ((Bool) -> Void)?
     
     /// 提醒改变
-    var reminderDidChange: ((HabitReminder) -> Void)?
+    var reminderDidChange: ((ScheduledReminder) -> Void)?
     
-    var reminder: HabitReminder {
+    var reminder: ScheduledReminder {
         get {
             let alarms = selection.selectedItems.sorted()
-            return HabitReminder(alarms: alarms)
+            return ScheduledReminder(alarms: alarms)
         }
         
         set {

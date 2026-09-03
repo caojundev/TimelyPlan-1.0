@@ -133,7 +133,7 @@ extension HabitTask {
         task.isAddedToMyDay = isAddedToMyDay
         task.timePlan = timePlan
         task.shouldRemind = shouldRemind
-        task.reminder = reminder?.copy() as? HabitReminder
+        task.reminder = reminder?.copy() as? ScheduledReminder
         task.note = note
         return task
     }

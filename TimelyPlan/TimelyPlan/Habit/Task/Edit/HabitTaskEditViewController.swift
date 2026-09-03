@@ -138,8 +138,8 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
     }()
     
     /// 提醒
-    lazy var reminderSectionController: HabitReminderEditSectionController = {
-        let sectionController = HabitReminderEditSectionController()
+    lazy var reminderSectionController: ScheduledReminderEditSectionController = {
+        let sectionController = ScheduledReminderEditSectionController()
         sectionController.headerItem.height = sectionHeaderHeight
         sectionController.headerItem.padding = sectionHeaderPadding
         sectionController.shouldRemind = editingTask.shouldRemind

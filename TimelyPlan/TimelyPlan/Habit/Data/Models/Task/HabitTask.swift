@@ -80,9 +80,9 @@ class HabitTask: NSObject, SortableIdentifiable {
     }()
     
     /// 习惯提醒
-    private(set) lazy var reminder: HabitReminder? = {
+    private(set) lazy var reminder: ScheduledReminder? = {
         if let json = reminderJSON {
-            return HabitReminder.model(with: json)
+            return ScheduledReminder.model(with: json)
         }
         
         return nil

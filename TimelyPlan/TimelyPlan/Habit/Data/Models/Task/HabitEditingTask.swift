@@ -45,7 +45,7 @@ struct HabitEditingTask: Equatable {
     var shouldRemind: Bool = false
     
     /// 习惯提醒
-    var reminder: HabitReminder?
+    var reminder: ScheduledReminder?
     
     /// 备注
     var note: String?

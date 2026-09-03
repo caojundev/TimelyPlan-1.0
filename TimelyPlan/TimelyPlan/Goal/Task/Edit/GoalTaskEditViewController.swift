@@ -38,8 +38,8 @@ enum GoalTaskWeightOption: Int, Codable, TPMenuRepresentable {
 class GoalTaskEditViewController: TPTableSectionsViewController {
     
     struct Config {
-        static let sectionHeaderPadding = UIEdgeInsets(top: 15.0,
-                                                       left: 0.0,
+        static let sectionHeaderPadding = UIEdgeInsets(top: 12.0,
+                                                       left: 12.0,
                                                        bottom: 0.0,
                                                        right: 16.0)
         static let sectionTitleHeaderHeight = 50.0
@@ -55,7 +55,6 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     
     /// 当前编辑的任务
     var editingTask: GoalEditingTask
-    
     
     // MARK: - 名称
     /// 名称单元格条目
@@ -84,6 +83,14 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         sectionController.headerItem.height = 5.0
         sectionController.footerItem.height = 0.0
         sectionController.cellItems = [nameCellItem]
+        return sectionController
+    }()
+    
+    // MARK: - 步骤
+    lazy var stepSectionController: GoalStepEditSectionController = {
+        let sectionController = GoalStepEditSectionController(steps: [])
+        sectionController.headerItem.height = 5.0
+        sectionController.footerItem.height = 0.0
         return sectionController
     }()
     
@@ -187,42 +194,72 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     /// 进度区块
     lazy var progressSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 15.0
+        sectionController.headerItem.height = Config.sectionNormalHeaderHeight
         sectionController.cellItems = [initialValueCellItem,
                                         targetValueCellItem,
                                         calculationCellItem]
         return sectionController
     }()
     
-    // MARK: - 时间
-    /// 日期区间
-    lazy var dateRangeCellItem: TaskDateRangeEditTableCellItem = { [weak self] in
-        let cellItem = TaskDateRangeEditTableCellItem()
-        cellItem.canDeleteEnd = false
-        cellItem.updater = {
-            guard let self = self else { return }
-            self.dateRangeCellItem.dateRange = self.editingTask.dateRange
-        }
-        
-        cellItem.didEndEditing = { [weak self] dateRange in
+    // MARK: - 计划
+    /// 计划区块
+    lazy var scheduleSectionController: GoalTaskScheduleEditSectionController = { [weak self] in
+        let sectionController = GoalTaskScheduleEditSectionController()
+        sectionController.dateRange = editingTask.dateRange
+        sectionController.startTime = editingTask.startTime
+        sectionController.duration = editingTask.duration
+        sectionController.headerItem.height = Config.sectionNormalHeaderHeight
+        sectionController.dateRangeDidChange = { dateRange in
             self?.editingTask.dateRange = dateRange
         }
         
-        return cellItem
-    }()
-    
-    /// 时间区块
-    lazy var dateSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = Config.sectionTitleHeaderHeight
-        sectionController.headerItem.padding = Config.sectionHeaderPadding
-        sectionController.headerItem.title = resGetString("Date Range")
-        sectionController.cellItems = [dateRangeCellItem]
+        sectionController.onStartTimeChanged = { startTime in
+            self?.editingTask.startTime = startTime
+        }
+        
+        sectionController.onDurationChanged = { duration in
+            self?.editingTask.duration = duration
+        }
+        
         return sectionController
     }()
     
+    /// 提醒
+    lazy var reminderSectionController: ScheduledReminderEditSectionController = {
+        let sectionController = ScheduledReminderEditSectionController()
+        sectionController.headerItem.title = nil
+        sectionController.headerItem.height = Config.sectionNormalHeaderHeight
+        sectionController.headerItem.padding = Config.sectionHeaderPadding
+        sectionController.shouldRemind = editingTask.shouldRemind
+        if let reminder = editingTask.reminder {
+            sectionController.reminder = reminder
+        }
+
+        sectionController.shouldRemindDidChange = { [weak self] shouldRemind in
+            self?.editingTask.shouldRemind = shouldRemind
+        }
+        
+        sectionController.reminderDidChange = { [weak self] reminder in
+            self?.editingTask.reminder = reminder
+        }
+        
+        return sectionController
+    }()
     
-    /// 权重
+    /// 我的一天
+    lazy var myDaySectionController: MyDayEditSectionController = { [weak self] in
+        let sectionController = MyDayEditSectionController()
+        sectionController.headerItem.height = 15.0
+        sectionController.myDayCellItem.imageName = nil
+        sectionController.isAddedToMyDay = editingTask.isAddedToMyDay
+        sectionController.onAddToMyDayValueChanged = { isAddedToMyDay in
+            self?.editingTask.isAddedToMyDay = isAddedToMyDay
+        }
+        
+        return sectionController
+    }()
+    
+    // MARK: - 权重
     lazy var weightCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
         cellItem.autoResizable = false
@@ -291,7 +328,9 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         self.sectionControllers = [nameSectionController,
                                    weightSectionController,
                                    progressSectionController,
-                                   dateSectionController,
+                                   scheduleSectionController,
+                                   reminderSectionController,
+                                   myDaySectionController,
                                    noteSectionController]
         self.adapter.reloadData()
         updateDoneButtonEnabled()
@@ -307,7 +346,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     
     func updateTitle() {
         if editType == .create {
-            self.title = resGetString("Create Goal Task")
+            self.title = resGetString("New Goal Task")
         } else {
             self.title = resGetString("Edit Goal Task")
         }
