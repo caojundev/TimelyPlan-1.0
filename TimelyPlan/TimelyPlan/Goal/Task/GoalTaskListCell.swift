@@ -24,24 +24,22 @@ class GoalTaskCellStyle: TPCollectionCellStyle {
     }
 }
 
-class GoalTaskListCell: TPDefaultInfoCollectionCell {
+class GoalTaskListCell: TPCollectionCell {
+    
+    /// 任务布局对象
+    var layout: GoalTaskInfoLayout?
     
     /// 目标任务
     var goalTask: GoalTask? {
-        didSet {
-            self.updateInfo()
-        }
+        return layout?.task
     }
     
-    let kInfoViewMargin = 10.0
-    
-    /// 权重指示器尺寸
-    let kIndicatorSize = CGSize(width: 6.0, height: 36.0)
+    /// 信息视图
+    let infoView = GoalTaskInfoView()
     
     /// 权重指示器
     lazy var indicatorView: UIView = {
         let view = UIView()
-        view.size = kIndicatorSize
         view.layer.cornerRadius = kIndicatorSize.width / 2.0
         return view
     }()
@@ -56,53 +54,52 @@ class GoalTaskListCell: TPDefaultInfoCollectionCell {
         return button
     }()
     
+    /// 权重指示器尺寸
+    let kIndicatorSize = CGSize(width: 6.0, height: 36.0)
+    
     override func setupContentSubviews() {
         super.setupContentSubviews()
-        self.contentView.padding = UIEdgeInsets(top: 5.0, left: 16.0, bottom: 5.0, right: 10.0)
         contentView.addSubview(indicatorView)
+        contentView.addSubview(infoView)
         contentView.addSubview(moreButton)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        guard let layout = layout else {
+            return
+        }
+        
+        let config = layout.config
+        contentView.padding = config.padding
         let layoutFrame = contentView.layoutFrame()
         
-        indicatorView.size = kIndicatorSize
-        indicatorView.left = layoutFrame.minX
-        indicatorView.alignVerticalCenter()
+        indicatorView.size = config.indicatorSize
+        indicatorView.left = layoutFrame.minX + config.indicatorMargins.left
+        indicatorView.centerY = layoutFrame.midY
         
-        moreButton.sizeToFit()
-        moreButton.right = layoutFrame.maxX
-        moreButton.alignVerticalCenter()
+        moreButton.size = config.moreButtonSize
+        moreButton.right = layoutFrame.maxX - config.moreButtonMargins.right
+        moreButton.centerY = layoutFrame.midY
         
-        infoView.width = layoutFrame.width - indicatorView.width - moreButton.width - kInfoViewMargin * 2
-        infoView.height = layoutFrame.height
-        infoView.left = indicatorView.right + kInfoViewMargin
-        infoView.top = layoutFrame.minY
+        let indicatorLength = config.indicatorSize.width + config.indicatorMargins.horizontalLength
+        let moreButtonLength = config.moreButtonSize.width + config.moreButtonMargins.horizontalLength
+        infoView.frame = CGRect(x: layoutFrame.minX + indicatorLength,
+                                y: layoutFrame.minY,
+                                width: layoutFrame.width - indicatorLength - moreButtonLength,
+                                height: layoutFrame.height)
     }
     
-    /// 更新信息
-    func updateInfo() {
-        guard let goalTask = goalTask else {
+    /// 重新加载数据
+    func reloadData(animated: Bool) {
+        guard let layout = layout else {
             return
         }
         
         indicatorView.backgroundColor = .primary
-        
-        /// 标题：目标任务数值进度
-        let title = "\(goalTask.initialValue)/\(goalTask.targetValue)"
-        infoView.title = title
-        
-        /// 副标题：记录方式、计算方式与权重
-        var subtitleComponents = [ASAttributedString]()
-        subtitleComponents.append(goalTask.recordType.title.attributedString)
-        subtitleComponents.append(goalTask.calculation.title.attributedString)
-        if goalTask.weight > 0 {
-            let weightText = String(format: resGetString("Weight %ld"), goalTask.weight)
-            subtitleComponents.append(weightText.attributedString)
-        }
-        
-        infoView.subtitle = subtitleComponents.joined(separator: " • ")
+        infoView.updateContent(with: layout, animated: animated)
+        setNeedsLayout()
     }
     
     /// 点击更多

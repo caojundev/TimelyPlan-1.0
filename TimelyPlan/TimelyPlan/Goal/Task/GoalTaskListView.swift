@@ -81,6 +81,9 @@ class GoalTaskListView: UIView,
     /// 单元格样式
     private let cellStyle = GoalTaskCellStyle()
     
+    /// 布局管理器
+    private let layoutManager = GoalTaskLayoutManager()
+    
     /// 适配器
     private let adapter = TPCollectionViewAdapter()
     
@@ -164,6 +167,7 @@ class GoalTaskListView: UIView,
     
     /// 重新加载数据
     func reloadData() {
+        layoutManager.removeAllLayouts()
         updatePlaceholderView()
         adapter.reloadData()
     }
@@ -176,6 +180,7 @@ class GoalTaskListView: UIView,
     
     /// 更新列表
     func performUpdate() {
+        layoutManager.removeAllLayouts()
         updatePlaceholderView()
         adapter.performUpdate()
     }
@@ -229,21 +234,22 @@ class GoalTaskListView: UIView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        guard let cell = cell as? GoalTaskListCell else {
+        guard let cell = cell as? GoalTaskListCell, let goalTask = goalTask(at: indexPath) else {
             return
         }
         
         cell.delegate = self
-        cell.cellStyle = cellStyle
-        cell.goalTask = goalTask(at: indexPath)
+        cell.layout = layout(for: goalTask)
+        cell.reloadData(animated: false)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let collectionSize = adapter.collectionViewSize()
-        let sectionInset = self.adapter(adapter, insetForSectionAt: indexPath.section)
-        let width = min(GoalConfig.goalPlanListContentMaxWidth,
-                        collectionSize.width - sectionInset.horizontalLength)
-        return CGSize(width: width, height: 70.0)
+        guard let goalTask = goalTask(at: indexPath) else {
+            return .zero
+        }
+        
+        let layout = layout(for: goalTask)
+        return layout.size
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -315,6 +321,15 @@ class GoalTaskListView: UIView,
     }
     
     // MARK: - Helpers
+    /// 获取目标任务对应的布局
+    private func layout(for goalTask: GoalTask) -> GoalTaskInfoLayout {
+        let collectionSize = adapter.collectionViewSize()
+        let sectionInset = Config.sectionInset
+        layoutManager.width = min(GoalConfig.goalPlanListContentMaxWidth,
+                                  collectionSize.width - sectionInset.horizontalLength)
+        return layoutManager.layout(for: goalTask)
+    }
+    
     /// 分组是否展开
     func isExpanded(group: GoalTaskGroup) -> Bool {
         return expandedStates[group.identifier] ?? true
