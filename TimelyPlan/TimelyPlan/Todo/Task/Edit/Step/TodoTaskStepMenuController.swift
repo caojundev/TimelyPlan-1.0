@@ -65,12 +65,18 @@ class TodoTaskStepMenuController: TPBaseMenuController<TodoTaskStepMenuActionTyp
     /// 是否显示移动到顶部
     var showMoveToTop = false
     
+    var allowTypes = TodoTaskStepMenuActionType.allCases
+    
     /// 菜单作用的列表
     let step: TodoStep
 
     init(step: TodoStep) {
         self.step = step
         super.init()
+    }
+    
+    override func allowMenuActionTypes() -> [TodoTaskStepMenuActionType] {
+        return allowTypes
     }
     
     override func orderedMenuActionTypeLists() -> [Array<TodoTaskStepMenuActionType>] {

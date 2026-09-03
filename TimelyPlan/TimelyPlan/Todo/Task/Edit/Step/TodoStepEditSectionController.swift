@@ -22,7 +22,11 @@ class TodoStepExpansionState: ExpansionStateProviding {
 }
 
 class TodoStepEditSectionController: TPTableItemSectionController,
-                                         TodoTaskStepEditCellDelegate {
+                                     TodoTaskStepEditCellDelegate,
+                                     TPTableDragInsertReorderDelegate {
+    
+    
+    var onStepsChanged: (([TodoStep]) -> Void)?
     
     var steps: [TodoStep] = []
     
@@ -75,7 +79,7 @@ class TodoStepEditSectionController: TPTableItemSectionController,
     }
     
     func stepsDidChange() {
-
+        onStepsChanged?(steps)
     }
     
     /// 开始或结束特定步骤的文本编辑
@@ -86,6 +90,7 @@ class TodoStepEditSectionController: TPTableItemSectionController,
     }
     
     override func didSelectRow(at index: Int) {
+        super.didSelectRow(at: index)
         if let cell = cellForRow(at: index) as? TodoTaskStepEditCell {
             cell.setTextEditing(true)
         }
@@ -125,6 +130,10 @@ class TodoStepEditSectionController: TPTableItemSectionController,
         }
     }
     
+    func allowMenuActionTypes() -> [TodoTaskStepMenuActionType] {
+        return TodoTaskStepMenuActionType.allCases
+    }
+    
     func stepEditCellDidClickMore(_ cell: TodoTaskStepEditCell) {
         UIResponder.resignCurrentFirstResponder()
         guard let step = cell.step else {
@@ -132,6 +141,7 @@ class TodoStepEditSectionController: TPTableItemSectionController,
         }
         
         let menuController = TodoTaskStepMenuController(step: step)
+        menuController.allowTypes = allowMenuActionTypes()
         menuController.didSelectMenuActionType = { type in
             self.performTaskStepMenuAction(with: type, for: step)
         }
@@ -241,6 +251,16 @@ class TodoStepEditSectionController: TPTableItemSectionController,
         
         UIResponder.resignCurrentFirstResponder()
         addSubStep(of: step)
+    }
+    
+    func createNewStep() {
+        UIResponder.resignCurrentFirstResponder()
+        
+        let insertIndex = steps.count
+        let newStep = TodoStep(content: "", isCompleted: false)
+        self.steps.insert(newStep, at: insertIndex)
+        self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .fade)
+        self.setTextEditing(true, for: newStep)
     }
     
     // MARK: - 任务步骤菜单操作
@@ -382,11 +402,15 @@ class TodoStepEditSectionController: TPTableItemSectionController,
     // MARK: - Helpers
     /// 获取 step 对应的单元格
     private func cellItem(for step: TodoStep) -> TodoTaskStepEditCellItem? {
-        guard let cellItems = adapter?.items(for: self) as? [TodoTaskStepEditCellItem] else {
+        guard let items = adapter?.items(for: self) else {
             return nil
         }
         
-        for cellItem in cellItems {
+        for item in items {
+            guard let cellItem = item as? TodoTaskStepEditCellItem else {
+                continue
+            }
+            
             if step.id == cellItem.step.id {
                 return cellItem
             }
@@ -421,18 +445,17 @@ class TodoStepEditSectionController: TPTableItemSectionController,
         return visibleStepCells
     }
     
-    private var displaySteps: [TodoStep] {
-        guard let cellItems = adapter?.items(for: self) as? [TodoTaskStepEditCellItem] else {
+    var displaySteps: [TodoStep] {
+        guard let items = adapter?.items(for: self) else {
             return []
         }
         
-        return cellItems.map { $0.step }
+        return items.compactMap { ($0 as? TodoTaskStepEditCellItem)?.step }
     }
 
     
     func step(at index: Int) -> TodoStep {
-        let cellItem = item(at: index) as! TodoTaskStepEditCellItem
-        return cellItem.step
+        return displaySteps[index]
     }
     
     /// 执行插入操作
@@ -491,10 +514,8 @@ class TodoStepEditSectionController: TPTableItemSectionController,
         self.steps = topSteps
         self.stepsDidChange()
     }
-}
-
-// MARK: - 列表排序
-extension TodoStepEditSectionController: TPTableDragInsertReorderDelegate {
+    
+    // MARK: - TPTableDragInsertReorderDelegate
     
     func tableDragReorder(_ reorder: TPTableDragReorder, canMoveRowAt indexPath: IndexPath) -> Bool {
         /// 仅在当前区块可移动

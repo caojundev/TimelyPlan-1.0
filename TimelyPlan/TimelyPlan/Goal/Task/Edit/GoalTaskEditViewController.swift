@@ -88,9 +88,14 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     
     // MARK: - 步骤
     lazy var stepSectionController: GoalStepEditSectionController = {
-        let sectionController = GoalStepEditSectionController(steps: [])
-        sectionController.headerItem.height = 5.0
+        let steps = editingTask.steps ?? []
+        let sectionController = GoalStepEditSectionController(steps: steps)
+        sectionController.headerItem.height = Config.sectionNormalHeaderHeight
         sectionController.footerItem.height = 0.0
+        sectionController.onStepsChanged = { [weak self] steps in
+            self?.editingTask.steps = steps
+        }
+        
         return sectionController
     }()
     
@@ -326,6 +331,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         self.updateProgressSectionController()
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.sectionControllers = [nameSectionController,
+                                   stepSectionController,
                                    weightSectionController,
                                    progressSectionController,
                                    scheduleSectionController,

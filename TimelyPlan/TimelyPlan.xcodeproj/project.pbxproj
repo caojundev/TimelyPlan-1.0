@@ -6855,10 +6855,10 @@
 		E549B1902F89F6A70014BE85 /* Step */ = {
 			isa = PBXGroup;
 			children = (
+				E5E9F7962FC056C900717004 /* TodoStepEditSectionController.swift */,
 				E518D6A22FBF2E850045D456 /* TodoTaskStepBulkMenuActionType.swift */,
 				E549B19E2F8A01AD0014BE85 /* TodoStepAddView.swift */,
 				E56B944F2F8CC8A9001E488B /* TodoTaskAddStepSectionController.swift */,
-				E5E9F7962FC056C900717004 /* TodoStepEditSectionController.swift */,
 				E50A7CEE2F8A401D0074F1A3 /* TodoTaskEditStepSectionController.swift */,
 				E549B1912F89F6A70014BE85 /* TodoTaskStepMenuController.swift */,
 				E549B1922F89F6A70014BE85 /* TodoTaskStepEditCell.swift */,

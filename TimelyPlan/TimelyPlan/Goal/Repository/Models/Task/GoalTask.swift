@@ -74,9 +74,11 @@ class GoalTask: NSObject, SortableIdentifiable {
     /// 任务名称
     var name: String?
     
+    /// 步骤
+    var steps: [TodoStep]?
+    
     /// 是否已添加到我的一天
     var isAddedToMyDay: Bool
-    
 
     var startTime: Int64 = -1
     
@@ -194,6 +196,11 @@ extension GoalTask {
     var editingTask: GoalEditingTask {
         var task = GoalEditingTask(startDate: startDate, endDate: endDate)
         task.name = name
+        if let markdown = steps?.markdown() {
+            let stepParser = TodoStepParser()
+            task.steps = stepParser.parse(markdown)
+        }
+        
         task.isAddedToMyDay = isAddedToMyDay
         task.note = note
         task.initialValue = initialValue
@@ -231,6 +238,9 @@ extension Array where Element == GoalTask {
 struct GoalEditingTask: Equatable {
     
     var name: String?
+    
+    /// 步骤
+    var steps: [TodoStep]?
     
     /// 是否已添加到我的一天
     var isAddedToMyDay: Bool
@@ -299,6 +309,7 @@ struct GoalEditingTask: Equatable {
     
     static func == (lhs: GoalEditingTask, rhs: GoalEditingTask) -> Bool {
         return lhs.name == rhs.name
+            && lhs.steps?.markdown() == rhs.steps?.markdown()
             && lhs.isAddedToMyDay == rhs.isAddedToMyDay
             && lhs.startDate == rhs.startDate
             && lhs.endDate == rhs.endDate
