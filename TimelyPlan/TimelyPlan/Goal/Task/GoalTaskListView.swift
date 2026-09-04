@@ -28,7 +28,7 @@ extension GoalTaskListViewDelegate {
 class GoalTaskListView: UIView,
                         TPCollectionViewAdapterDataSource,
                         TPCollectionViewAdapterDelegate,
-                        GoalTaskListCellDelegate,
+                        GoalTaskPageCheckCellDelegate,
                         GoalTaskListHeaderViewDelegate {
     
     struct Config {
@@ -78,9 +78,6 @@ class GoalTaskListView: UIView,
         }
     }
     
-    /// 单元格样式
-    private let cellStyle = GoalTaskCellStyle()
-    
     /// 布局管理器
     private let layoutManager = GoalTaskLayoutManager()
     
@@ -121,7 +118,6 @@ class GoalTaskListView: UIView,
     func setupSubviews() {
         adapter.dataSource = self
         adapter.delegate = self
-        adapter.cellStyle = cellStyle
         adapter.collectionView = collectionView
         addSubview(collectionView)
     }
@@ -230,11 +226,11 @@ class GoalTaskListView: UIView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        return GoalTaskListCell.self
+        return GoalTaskPageCheckCell.self
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        guard let cell = cell as? GoalTaskListCell, let goalTask = goalTask(at: indexPath) else {
+        guard let cell = cell as? GoalTaskPageCheckCell, let goalTask = goalTask(at: indexPath) else {
             return
         }
         
@@ -311,8 +307,12 @@ class GoalTaskListView: UIView,
         adapter.performSectionUpdate(forSectionObject: group)
     }
     
-    // MARK: - GoalTaskListCellDelegate
-    func goalTaskListCellDidClickMore(_ cell: GoalTaskListCell) {
+    // MARK: - GoalTaskPageCheckCellDelegate
+    func goalTaskPageCheckCellDidClickCheckbox(_ cell: GoalTaskPageCheckCell) {
+        /// 预留：点击复选框处理
+    }
+    
+    func goalTaskPageCheckCellDidClickMore(_ cell: GoalTaskPageCheckCell) {
         guard let goalTask = cell.goalTask else {
             return
         }

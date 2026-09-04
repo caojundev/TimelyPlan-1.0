@@ -7940,9 +7940,9 @@
 				E57B2B6B304908DE00BA4D56 /* Edit */,
 				E57B2B693047CF4200BA4D56 /* GoalTaskListView.swift */,
 				E57B2C1C304600000000000C /* GoalTaskListCell.swift */,
+				E57B2D21304800000000000E /* GoalTaskInfoView.swift */,
 				E57B2C1D304600000000000D /* GoalTaskListHeaderView.swift */,
 				E57B2D1F304800000000000E /* GoalTaskLayoutManager.swift */,
-				E57B2D21304800000000000E /* GoalTaskInfoView.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";

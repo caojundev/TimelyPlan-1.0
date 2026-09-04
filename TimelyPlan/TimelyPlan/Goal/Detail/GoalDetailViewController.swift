@@ -137,6 +137,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         var tasks = [GoalTask]()
         for index in 0..<count {
             let task = GoalTask()
+            task.name = isCompleted ? "已完成任务 \(index + 1)" : "目标任务 \(index + 1)"
             task.isAddedToMyDay = index % 2 == 0
             task.note = isCompleted ? "已完成的任务备注" : "任务备注 \(index + 1)"
             task.initialValue = Int64(index * 10)

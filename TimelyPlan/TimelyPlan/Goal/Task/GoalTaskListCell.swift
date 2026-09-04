@@ -8,23 +8,19 @@
 import Foundation
 import UIKit
 
-protocol GoalTaskListCellDelegate: AnyObject {
+protocol GoalTaskPageCheckCellDelegate: AnyObject {
+    
+    /// 点击复选框
+    func goalTaskPageCheckCellDidClickCheckbox(_ cell: GoalTaskPageCheckCell)
     
     /// 点击更多
-    func goalTaskListCellDidClickMore(_ cell: GoalTaskListCell)
+    func goalTaskPageCheckCellDidClickMore(_ cell: GoalTaskPageCheckCell)
 }
 
-class GoalTaskCellStyle: TPCollectionCellStyle {
+/// 目标任务页面单元格基类
+class GoalTaskPageBaseCell: UICollectionViewCell, Checkable {
     
-    override init() {
-        super.init()
-        self.backgroundColor = .secondarySystemGroupedBackground
-        self.selectedBackgroundColor = .tertiarySystemGroupedBackground
-        self.cornerRadius = 12.0
-    }
-}
-
-class GoalTaskListCell: TPCollectionCell {
+    weak var delegate: AnyObject?
     
     /// 任务布局对象
     var layout: GoalTaskInfoLayout?
@@ -35,12 +31,88 @@ class GoalTaskListCell: TPCollectionCell {
     }
     
     /// 信息视图
-    let infoView = GoalTaskInfoView()
+    var infoView: GoalTaskBaseInfoView!
     
-    /// 权重指示器
-    lazy var indicatorView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = kIndicatorSize.width / 2.0
+    /// 圆角半径
+    var cornerRadius: CGFloat = 12.0
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundView = UIView()
+        self.backgroundView?.clipsToBounds = true
+        self.backgroundView?.backgroundColor = .secondarySystemGroupedBackground
+        
+        self.selectedBackgroundView = UIView()
+        self.selectedBackgroundView?.clipsToBounds = true
+        self.selectedBackgroundView?.backgroundColor = .tertiarySystemGroupedBackground
+        
+        self.setupContentSubviews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        infoView.frame = bounds
+        backgroundView?.layer.cornerRadius = cornerRadius
+        selectedBackgroundView?.layer.cornerRadius = cornerRadius
+        self.tp_setBorderShadow(color: Color(0x666666, 0.1),
+                                offset: .zero,
+                                radius: 2.0,
+                                roundCorners: .allCorners,
+                                cornerRadius: cornerRadius)
+    }
+    
+    func setupContentSubviews() {
+        contentView.addSubview(infoView)
+    }
+    
+    /// 重新加载数据
+    func reloadData(animated: Bool) {
+        guard let layout = layout else {
+            return
+        }
+        
+        infoView.updateContent(with: layout, animated: animated)
+        setNeedsLayout()
+    }
+    
+    // MARK: - Progress
+    func setProgress(_ progress: CGFloat,
+                     animated: Bool = false,
+                     completion: (() -> Void)? = nil) {
+        infoView.setProgress(progress, animated: animated, completion: completion)
+    }
+    
+    // MARK: - Checkable
+    private var _isChecked: Bool = false
+    var isChecked: Bool {
+        get { return _isChecked }
+        set { setChecked(newValue, animated: false) }
+    }
+    
+    func setChecked(_ checked: Bool, animated: Bool) {
+        _isChecked = checked
+    }
+}
+
+/// 目标任务复选单元格（左侧复选框 + 右侧更多按钮）
+class GoalTaskPageCheckCell: GoalTaskPageBaseCell, FocusAnimatable {
+    
+    /// 复选框
+    var checkbox: TodoTaskCheckbox {
+        return checkInfoView.checkbox
+    }
+    
+    /// 复选信息视图
+    private lazy var checkInfoView: GoalTaskCheckInfoView = {
+        let view = GoalTaskCheckInfoView()
+        view.didClickCheckbox = { [weak self] _ in
+            self?.clickCheckbox()
+        }
+        
         return view
     }()
     
@@ -54,58 +126,45 @@ class GoalTaskListCell: TPCollectionCell {
         return button
     }()
     
-    /// 权重指示器尺寸
-    let kIndicatorSize = CGSize(width: 6.0, height: 36.0)
-    
     override func setupContentSubviews() {
+        self.infoView = checkInfoView
         super.setupContentSubviews()
-        contentView.addSubview(indicatorView)
-        contentView.addSubview(infoView)
-        contentView.addSubview(moreButton)
+        
+        /// 更多按钮作为右侧配件视图
+        checkInfoView.rightView = moreButton
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        guard let layout = layout else {
-            return
+    override func reloadData(animated: Bool) {
+        super.reloadData(animated: animated)
+        if let layout = layout {
+            let config = layout.config
+            checkInfoView.leftViewSize = config.checkboxConfig.size
+            checkInfoView.leftViewMargins = config.checkboxMargins
+            checkInfoView.rightViewSize = config.moreButtonSize
+            checkInfoView.rightViewMargins = config.moreButtonMargins
+            checkInfoView.checkbox.config = config.checkboxConfig
+            checkInfoView.setNeedsLayout()
         }
         
-        let config = layout.config
-        contentView.padding = config.padding
-        let layoutFrame = contentView.layoutFrame()
-        
-        indicatorView.size = config.indicatorSize
-        indicatorView.left = layoutFrame.minX + config.indicatorMargins.left
-        indicatorView.centerY = layoutFrame.midY
-        
-        moreButton.size = config.moreButtonSize
-        moreButton.right = layoutFrame.maxX - config.moreButtonMargins.right
-        moreButton.centerY = layoutFrame.midY
-        
-        let indicatorLength = config.indicatorSize.width + config.indicatorMargins.horizontalLength
-        let moreButtonLength = config.moreButtonSize.width + config.moreButtonMargins.horizontalLength
-        infoView.frame = CGRect(x: layoutFrame.minX + indicatorLength,
-                                y: layoutFrame.minY,
-                                width: layoutFrame.width - indicatorLength - moreButtonLength,
-                                height: layoutFrame.height)
-    }
-    
-    /// 重新加载数据
-    func reloadData(animated: Bool) {
-        guard let layout = layout else {
-            return
-        }
-        
-        indicatorView.backgroundColor = .primary
-        infoView.updateContent(with: layout, animated: animated)
         setNeedsLayout()
+    }
+    
+    /// 点击复选框
+    func clickCheckbox() {
+        if let delegate = delegate as? GoalTaskPageCheckCellDelegate {
+            delegate.goalTaskPageCheckCellDidClickCheckbox(self)
+        }
     }
     
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
-        if let delegate = delegate as? GoalTaskListCellDelegate {
-            delegate.goalTaskListCellDidClickMore(self)
+        if let delegate = delegate as? GoalTaskPageCheckCellDelegate {
+            delegate.goalTaskPageCheckCellDidClickMore(self)
         }
+    }
+    
+    // MARK: - FocusAnimatable
+    var focusCornerRadius: CGFloat {
+        self.cornerRadius
     }
 }

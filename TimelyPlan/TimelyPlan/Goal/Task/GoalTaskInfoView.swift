@@ -8,10 +8,33 @@
 import Foundation
 import UIKit
 
-/// 目标任务信息视图（名称 + 详情 + 进度条）
-class GoalTaskInfoView: UIView {
+/// 目标任务信息视图基类（名称 + 详情 + 进度条 + 左右配件视图）
+class GoalTaskBaseInfoView: UIView {
     
-    /// 名称高度
+    /// 任务名称
+    var name: String? {
+        get {
+            return nameLabel.text
+        }
+        
+        set {
+            nameLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
+    
+    /// 详情文本
+    var detailText: String? {
+        get {
+            return detailLabel.text
+        }
+        
+        set {
+            detailLabel.text = newValue
+            setNeedsLayout()
+        }
+    }
+    
     var nameHeight: CGFloat = 30.0 {
         didSet {
             if nameHeight != oldValue {
@@ -20,7 +43,6 @@ class GoalTaskInfoView: UIView {
         }
     }
     
-    /// 详情顶部间距
     var detailTopMargin: CGFloat = 5.0 {
         didSet {
             if detailTopMargin != oldValue {
@@ -29,7 +51,6 @@ class GoalTaskInfoView: UIView {
         }
     }
     
-    /// 详情高度
     var detailHeight: CGFloat = 20.0 {
         didSet {
             if detailHeight != oldValue {
@@ -38,28 +59,67 @@ class GoalTaskInfoView: UIView {
         }
     }
     
-    /// 进度条顶部间距
-    var progressTopMargin: CGFloat = 4.0 {
+    /// 左侧视图
+    var leftView: UIView? {
         didSet {
-            if progressTopMargin != oldValue {
+            if leftView !== oldValue {
+                oldValue?.removeFromSuperview()
+            }
+            
+            if let leftView = leftView {
+                addSubview(leftView)
+            }
+            
+            setNeedsLayout()
+        }
+    }
+    
+    /// 左侧视图尺寸
+    var leftViewSize: CGSize = .zero {
+        didSet {
+            if leftViewSize != oldValue {
                 setNeedsLayout()
             }
         }
     }
     
-    /// 进度条高度
-    var progressHeight: CGFloat = 2.0 {
+    /// 左侧视图外间距
+    var leftViewMargins: UIEdgeInsets = .zero {
         didSet {
-            if progressHeight != oldValue {
+            if leftViewMargins != oldValue {
                 setNeedsLayout()
             }
         }
     }
     
-    /// 进度条是否隐藏
-    var isProgressHidden: Bool = false {
+    /// 右侧视图
+    var rightView: UIView? {
         didSet {
-            if isProgressHidden != oldValue {
+            if rightView !== oldValue {
+                oldValue?.removeFromSuperview()
+            }
+            
+            if let rightView = rightView {
+                addSubview(rightView)
+            }
+            
+            setNeedsLayout()
+        }
+    }
+    
+    /// 右侧视图尺寸
+    var rightViewSize: CGSize = .zero {
+        didSet {
+            if rightViewSize != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
+    
+    /// 右侧视图外间距
+    var rightViewMargins: UIEdgeInsets = .zero {
+        didSet {
+            if rightViewMargins != oldValue {
                 setNeedsLayout()
             }
         }
@@ -85,6 +145,30 @@ class GoalTaskInfoView: UIView {
     }()
     
     /// 进度视图
+    var progressTopMargin: CGFloat = 4.0 {
+        didSet {
+            if progressTopMargin != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
+    
+    var progressHeight: CGFloat = 2.0 {
+        didSet {
+            if progressHeight != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
+    
+    var isProgressHidden: Bool = false {
+        didSet {
+            if isProgressHidden != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
+    
     private(set) lazy var progressView: TPBarProgressView = {
         let view = TPBarProgressView(frame: .zero, style: .horizontal)
         view.isUserInteractionEnabled = false
@@ -104,20 +188,29 @@ class GoalTaskInfoView: UIView {
     }
     
     func setupSubviews() {
+        addSubview(progressView)
         addSubview(nameLabel)
         addSubview(detailLabel)
-        addSubview(progressView)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        layoutLeftView()
+        layoutRightView()
         layoutContents()
     }
     
-    /// 布局内容
-    private func layoutContents() {
-        let layoutFrame = bounds
-        
+    /// 当前可用的标签布局区域
+    func labelLayoutFrame() -> CGRect {
+        let layoutFrame = layoutFrame()
+        let insets = UIEdgeInsets(left: leftViewSize.width + leftViewMargins.horizontalLength,
+                                  right: rightViewSize.width + rightViewMargins.horizontalLength)
+        return layoutFrame.inset(by: insets)
+    }
+    
+    /// 布局标签
+    func layoutContents() {
+        let layoutFrame = labelLayoutFrame()
         var contentHeight = nameHeight
         if detailHeight > 0 {
             contentHeight += detailTopMargin + detailHeight
@@ -127,8 +220,7 @@ class GoalTaskInfoView: UIView {
             contentHeight += progressTopMargin + progressHeight
         }
         
-        let topMargin = max((layoutFrame.height - contentHeight) / 2.0, 0.0)
-        
+        let topMargin = (layoutFrame.height - contentHeight) / 2.0
         nameLabel.width = layoutFrame.width
         nameLabel.height = nameHeight
         nameLabel.left = layoutFrame.minX
@@ -146,17 +238,46 @@ class GoalTaskInfoView: UIView {
         progressView.top = detailLabel.bottom + progressTopMargin
     }
     
+    /// 布局左视图
+    func layoutLeftView() {
+        guard let leftView = leftView else {
+            return
+        }
+        
+        let layoutFrame = layoutFrame()
+        leftView.size = leftViewSize
+        leftView.left = layoutFrame.minX + leftViewMargins.left
+        leftView.centerY = layoutFrame.midY
+    }
+    
+    /// 布局右视图
+    func layoutRightView() {
+        guard let rightView = rightView else {
+            return
+        }
+        
+        let layoutFrame = layoutFrame()
+        rightView.size = rightViewSize
+        rightView.right = layoutFrame.maxX - rightViewMargins.right
+        rightView.centerY = layoutFrame.midY
+    }
+    
     // MARK: - Public Methods
     /// 设置进度
-    func setProgress(_ progress: CGFloat, animated: Bool = false) {
-        progressView.setProgress(progress, animated: animated)
+    func setProgress(_ progress: CGFloat,
+                     animated: Bool = false,
+                     completion: (() -> Void)? = nil) {
+        progressView.setProgress(progress, animated: animated, completion: completion)
     }
     
     /// 更新内容
     func updateContent(with layout: GoalTaskInfoLayout, animated: Bool) {
         updateLayout(with: layout)
-        nameLabel.text = layout.task.name
-        detailLabel.text = layout.detailText
+        
+        let task = layout.task
+        name = task.name
+        detailText = layout.detailText
+        
         setProgress(layout.progress, animated: animated)
         setNeedsLayout()
     }
@@ -168,10 +289,53 @@ class GoalTaskInfoView: UIView {
         isProgressHidden = layout.isProgressHidden
         
         let config = layout.config
+        padding = config.padding
         nameLabel.font = config.nameFont
         detailTopMargin = config.detailTopMargin
         detailLabel.font = config.detailFont
         progressTopMargin = config.progressTopMargin
         progressHeight = config.progressHeight
+    }
+}
+
+/// 目标任务复选信息视图
+class GoalTaskCheckInfoView: GoalTaskBaseInfoView {
+    
+    /// 点击复选框
+    var didClickCheckbox: ((TodoTaskCheckbox) -> Void)?
+    
+    /// 复选框尺寸
+    let checkboxSize = CGSize(width: 20.0, height: 20.0)
+    
+    /// 复选框外间距
+    let checkboxMargins = UIEdgeInsets(right: 10.0)
+    
+    /// 复选框
+    private(set) lazy var checkbox: TodoTaskCheckbox = {
+        let checkbox = TodoTaskCheckbox()
+        checkbox.hitTestEdgeInsets = UIEdgeInsets(horizontal: -20.0, vertical: -20.0)
+        checkbox.padding = .zero
+        checkbox.addTarget(self,
+                           action: #selector(clickCheckbox(_:)),
+                           for: .touchUpInside)
+        return checkbox
+    }()
+    
+    override func setupSubviews() {
+        super.setupSubviews()
+        self.leftView = checkbox
+        self.leftViewSize = checkboxSize
+        self.leftViewMargins = checkboxMargins
+    }
+    
+    override func layoutLeftView() {
+        super.layoutLeftView()
+        let layoutFrame = layoutFrame()
+        checkbox.centerY = layoutFrame.midY
+    }
+    
+    /// 点击复选框
+    @objc func clickCheckbox(_ button: UIButton) {
+        didClickCheckbox?(checkbox)
     }
 }

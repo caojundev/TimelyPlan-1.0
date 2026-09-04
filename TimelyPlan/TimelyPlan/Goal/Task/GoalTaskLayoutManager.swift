@@ -12,16 +12,16 @@ import UIKit
 struct GoalTaskLayoutConfig: Equatable {
     
     /// 内间距
-    var padding: UIEdgeInsets = UIEdgeInsets(top: 5.0, left: 16.0, bottom: 5.0, right: 10.0)
+    var padding: UIEdgeInsets = UIEdgeInsets(horizontal: 15.0, vertical: 10.0)
     
     /// 最小高度
     var minimumHeight: CGFloat = 60.0
     
-    /// 权重指示器尺寸
-    var indicatorSize: CGSize = CGSize(width: 6.0, height: 36.0)
+    /// 复选框配置
+    var checkboxConfig: TodoTaskCheckboxConfig = .normal
     
-    /// 权重指示器外间距
-    var indicatorMargins: UIEdgeInsets = UIEdgeInsets(right: 10.0)
+    /// 复选框外间距
+    var checkboxMargins: UIEdgeInsets = UIEdgeInsets(right: 10.0)
     
     /// 更多按钮尺寸
     var moreButtonSize: CGSize = CGSize(width: 24.0, height: 24.0)
@@ -182,9 +182,9 @@ class GoalTaskInfoLayout {
     
     /// 计算布局
     func layout() {
-        let indicatorLength = config.indicatorSize.width + config.indicatorMargins.horizontalLength
+        let checkboxLength = config.checkboxConfig.size.width + config.checkboxMargins.horizontalLength
         let moreButtonLength = config.moreButtonSize.width + config.moreButtonMargins.horizontalLength
-        let labelWidth = width - config.padding.horizontalLength - indicatorLength - moreButtonLength
+        let labelWidth = width - config.padding.horizontalLength - checkboxLength - moreButtonLength
         guard labelWidth > 0 else {
             return
         }
