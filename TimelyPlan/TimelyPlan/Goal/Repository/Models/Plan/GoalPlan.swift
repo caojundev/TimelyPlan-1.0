@@ -16,6 +16,7 @@ struct GoalPlanKey {
     static let startDate = "startDate"
     static let endDate = "endDate"
     static let note = "note"
+    static let progress = "progress"
 }
 
 class GoalPlan: NSObject, SortableIdentifiable {
@@ -41,6 +42,9 @@ class GoalPlan: NSObject, SortableIdentifiable {
     /// 备注
     var note: String?
     
+    /// 进度（0.0 ~ 1.0）
+    var progress: Double
+    
     /// 是否已归档
     var isArchived: Bool
     
@@ -54,6 +58,7 @@ class GoalPlan: NSObject, SortableIdentifiable {
          startDate: Date? = nil,
          endDate: Date? = nil,
          note: String? = nil,
+         progress: Double = 0.0,
          isArchived: Bool = false,
          modificationDate: Date? = nil) {
         self.identifier = identifier
@@ -63,6 +68,7 @@ class GoalPlan: NSObject, SortableIdentifiable {
         self.startDate = startDate
         self.endDate = endDate
         self.note = note
+        self.progress = min(max(progress, 0.0), 1.0)
         self.isArchived = isArchived
         self.modificationDate = modificationDate
         super.init()
@@ -89,6 +95,7 @@ class GoalPlan: NSObject, SortableIdentifiable {
     override var hash: Int {
         var hasher = Hasher()
         hasher.combine(identifier)
+        hasher.combine(progress)
         return hasher.finalize()
     }
     
@@ -96,6 +103,7 @@ class GoalPlan: NSObject, SortableIdentifiable {
         guard let other = object as? GoalPlan else { return false }
         if self === other { return true }
         return editingPlan == other.editingPlan
+            && progress == other.progress
     }
     
     // MARK: - IGListDiffable
@@ -106,6 +114,7 @@ class GoalPlan: NSObject, SortableIdentifiable {
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if let other = object as? GoalPlan {
             return self.identifier == other.identifier
+                && self.progress == other.progress
         }
         
         return false

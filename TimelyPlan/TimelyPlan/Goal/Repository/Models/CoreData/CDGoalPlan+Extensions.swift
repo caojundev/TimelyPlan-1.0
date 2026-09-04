@@ -51,6 +51,7 @@ extension GoalPlan {
                   startDate: content.startDate,
                   endDate: content.endDate,
                   note: content.note,
+                  progress: content.progress,
                   isArchived: content.isArchived,
                   modificationDate: content.modificationDate)
     }

@@ -86,7 +86,7 @@ class GoalHomeViewController: TPViewController,
     }
     
     override var themeBackgroundColor: UIColor? {
-        return .systemBackground
+        return .systemGroupedBackground
     }
     
     override var themeNavigationBarBackgroundColor: UIColor? {

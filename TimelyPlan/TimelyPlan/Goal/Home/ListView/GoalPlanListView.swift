@@ -54,8 +54,9 @@ class GoalPlanListView: TPGroupCollectionView,
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.preferredItemWidth = GoalConfig.goalPlanListContentMaxWidth
-        self.preferredItemHeight = 70.0
+        self.preferredItemHeight = GoalPlanListCell.cellHeight
         self.setupReorder()
         self.addRefreshControl()
     }
