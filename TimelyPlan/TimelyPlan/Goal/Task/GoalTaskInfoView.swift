@@ -153,7 +153,7 @@ class GoalTaskBaseInfoView: UIView {
         }
     }
     
-    var progressHeight: CGFloat = 2.0 {
+    var progressHeight: CGFloat = 6.0 {
         didSet {
             if progressHeight != oldValue {
                 setNeedsLayout()
@@ -171,6 +171,7 @@ class GoalTaskBaseInfoView: UIView {
     
     private(set) lazy var progressView: TPBarProgressView = {
         let view = TPBarProgressView(frame: .zero, style: .horizontal)
+        view.cornerRadius = .greatestFiniteMagnitude
         view.isUserInteractionEnabled = false
         view.barForeColor = .primary
         view.isHidden = isProgressHidden
@@ -275,6 +276,7 @@ class GoalTaskBaseInfoView: UIView {
         updateLayout(with: layout)
         
         let task = layout.task
+        
         name = task.name
         detailText = layout.detailText
         
@@ -300,6 +302,15 @@ class GoalTaskBaseInfoView: UIView {
 
 /// 目标任务复选信息视图
 class GoalTaskCheckInfoView: GoalTaskBaseInfoView {
+    
+    /// 检查类型
+    var checkType: TodoTaskCheckType = .normal {
+        didSet {
+            if checkType != oldValue {
+                updateCheckbox()
+            }
+        }
+    }
     
     /// 点击复选框
     var didClickCheckbox: ((TodoTaskCheckbox) -> Void)?
@@ -337,5 +348,21 @@ class GoalTaskCheckInfoView: GoalTaskBaseInfoView {
     /// 点击复选框
     @objc func clickCheckbox(_ button: UIButton) {
         didClickCheckbox?(checkbox)
+    }
+    
+    func updateCheckbox() {
+        switch checkType {
+        case .normal:
+            checkbox.mode = .normal
+        case .increase:
+            checkbox.mode = .plus
+        case .decrease:
+            checkbox.mode = .minus
+        }
+    }
+    
+    override func updateContent(with layout: GoalTaskInfoLayout, animated: Bool) {
+        super.updateContent(with: layout, animated: animated)
+        self.checkType = layout.task.checkType
     }
 }

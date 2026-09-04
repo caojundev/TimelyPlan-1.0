@@ -2216,6 +2216,8 @@
 		E5F9E3F03022258C00EDC2A5 /* MyDayTodoBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3EF3022258B00EDC2A5 /* MyDayTodoBindSearchResultSectionController.swift */; };
 		E5F9E3F230261D6100EDC2A5 /* HabitRecordProgressInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3F130261D6100EDC2A5 /* HabitRecordProgressInfoView.swift */; };
 		E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */; };
+		E5FAA9C6304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9C5304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift */; };
+		E5FAA9C8304A608500C9CCD8 /* GoalTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9C7304A608500C9CCD8 /* GoalTaskManager.swift */; };
 		E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBD0F02DA9135200924EED /* SettingAgent.swift */; };
 		E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */; };
 		E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */; };
@@ -4503,6 +4505,8 @@
 		E5F9E3EF3022258B00EDC2A5 /* MyDayTodoBindSearchResultSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDayTodoBindSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E5F9E3F130261D6100EDC2A5 /* HabitRecordProgressInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordProgressInfoView.swift; sourceTree = "<group>"; };
 		E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventView.swift; sourceTree = "<group>"; };
+		E5FAA9C5304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskColorNameEditCell.swift; sourceTree = "<group>"; };
+		E5FAA9C7304A608500C9CCD8 /* GoalTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskManager.swift; sourceTree = "<group>"; };
 		E5FBD0F02DA9135200924EED /* SettingAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAgent.swift; sourceTree = "<group>"; };
 		E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@3x.png"; sourceTree = "<group>"; };
 		E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_completed_36@2x.png"; sourceTree = "<group>"; };
@@ -7903,6 +7907,7 @@
 			isa = PBXGroup;
 			children = (
 				E57B2B5430467DEE00BA4D56 /* GoalPlanManager.swift */,
+				E5FAA9C7304A608500C9CCD8 /* GoalTaskManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -7970,6 +7975,7 @@
 				E57B2B633047BBBE00BA4D56 /* GoalTaskEditViewController.swift */,
 				E57B2B6C3049093800BA4D56 /* GoalTaskScheduleEditSectionController.swift */,
 				E57B2B6E3049283D00BA4D56 /* GoalStepEditSectionController.swift */,
+				E5FAA9C5304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -13298,6 +13304,7 @@
 				E5FC918A2FBB05A000FC75C6 /* CalendarDayTimedEventsView.swift in Sources */,
 				E5BB9E852D3BF0C80089667A /* CurveChartView.swift in Sources */,
 				E51501962D477A26008B2333 /* TPTableViewAdapterDataSource.swift in Sources */,
+				E5FAA9C8304A608500C9CCD8 /* GoalTaskManager.swift in Sources */,
 				E5BB9EB12D3BF0C80089667A /* TPBorderLayer.swift in Sources */,
 				E57B2B6A3047CF4200BA4D56 /* GoalTaskListView.swift in Sources */,
 				E57B2C2B304600000000000B /* GoalTaskGroup.swift in Sources */,
@@ -14299,6 +14306,7 @@
 				E5926DD52D4CE4E3007D5A6A /* TPTableWrapperView.swift in Sources */,
 				E57B2B5330467DB400BA4D56 /* CDGoalPlan+Extensions.swift in Sources */,
 				E57B2B3430451CBF00BA4D56 /* GoalMoreBarButtonItem.swift in Sources */,
+				E5FAA9C6304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift in Sources */,
 				E5BB9E042D3BF0C70089667A /* String+Extensions.swift in Sources */,
 				E5BB9D972D3BF0C60089667A /* TPCircularCheckboxInfoTableCell.swift in Sources */,
 				E57B2B6F3049283D00BA4D56 /* GoalStepEditSectionController.swift in Sources */,

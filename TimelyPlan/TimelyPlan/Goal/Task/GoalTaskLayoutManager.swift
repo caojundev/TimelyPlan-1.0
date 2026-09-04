@@ -12,7 +12,7 @@ import UIKit
 struct GoalTaskLayoutConfig: Equatable {
     
     /// 内间距
-    var padding: UIEdgeInsets = UIEdgeInsets(horizontal: 15.0, vertical: 10.0)
+    var padding: UIEdgeInsets = UIEdgeInsets(horizontal: 15.0, vertical: 12.0)
     
     /// 最小高度
     var minimumHeight: CGFloat = 60.0
@@ -36,7 +36,7 @@ struct GoalTaskLayoutConfig: Equatable {
     var nameLinesCount: Int = 0
     
     /// 详情顶部间距
-    var detailTopMargin: CGFloat = 5.0
+    var detailTopMargin: CGFloat = 8.0
     
     /// 详情字体
     var detailFont: UIFont = UIFont.systemFont(ofSize: 11.0)
@@ -48,10 +48,10 @@ struct GoalTaskLayoutConfig: Equatable {
     var canShowProgress: Bool = true
     
     /// 进度条顶部间距
-    var progressTopMargin: CGFloat = 6.0
+    var progressTopMargin: CGFloat = 8.0
     
     /// 进度条高度
-    var progressHeight: CGFloat = 2.0
+    var progressHeight: CGFloat = 6.0
 }
 
 /// 目标任务布局管理器

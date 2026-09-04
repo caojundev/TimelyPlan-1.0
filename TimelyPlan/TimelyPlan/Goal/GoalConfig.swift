@@ -25,4 +25,16 @@ struct GoalConfig {
         Color(0x2E3BA3), Color(0x301A94), Color(0x7E22A3),
         Color(0x00CF85), Color(0x999DA8)
     ]
+    
+    /// 标签颜色数组
+    static let taskColors: [UIColor] = [.blue(5),
+                                        .red(5),
+                                        .orange(5),
+                                        .green(5),
+                                        .purple(5),
+                                        .pinkPurple(5),
+                                        .cyan(5),
+                                        .gray(5)]
+    
+    
 }

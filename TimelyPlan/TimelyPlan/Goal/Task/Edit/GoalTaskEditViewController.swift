@@ -58,8 +58,8 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     
     // MARK: - 名称
     /// 名称单元格条目
-    lazy var nameCellItem: TPTextFieldTableCellItem = { [weak self] in
-        let cellItem = TPTextFieldTableCellItem()
+    lazy var nameCellItem: GoalTaskColorNameEditCellItem = { [weak self] in
+        let cellItem = GoalTaskColorNameEditCellItem()
         cellItem.clearButtonMode = .whileEditing
         cellItem.textAlignment = .left
         cellItem.font = BOLD_BODY_FONT
@@ -67,8 +67,13 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         cellItem.placeholder = resGetString("Enter task name")
         cellItem.updater = {
             self?.nameCellItem.text = self?.editingTask.name
+            self?.nameCellItem.color = self?.editingTask.color
         }
 
+        cellItem.onSelectColor = { color in
+            self?.editingTask.color = color
+        }
+        
         cellItem.editingChanged = { textField in
             self?.editingTask.name = textField.text?.whitespacesAndNewlinesTrimmedString
             self?.updateDoneButtonEnabled()
@@ -104,7 +109,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     lazy var initialValueCellItem: TPNumberFieldTableCellItem = { [weak self] in
         let cellItem = TPNumberFieldTableCellItem()
         cellItem.title = resGetString("Initial Value")
-        cellItem.fieldCornerRadius = 12.0
+        cellItem.fieldCornerRadius = .greatestFiniteMagnitude
         cellItem.updater = {
             guard let self = self else { return }
             self.initialValueCellItem.number = NSNumber(value: self.editingTask.initialValue)
@@ -121,7 +126,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     lazy var targetValueCellItem: TPNumberFieldTableCellItem = { [weak self] in
         let cellItem = TPNumberFieldTableCellItem()
         cellItem.title = resGetString("Target Value")
-        cellItem.fieldCornerRadius = 12.0
+        cellItem.fieldCornerRadius = .greatestFiniteMagnitude
         cellItem.updater = {
             guard let self = self else { return }
             self.targetValueCellItem.number = NSNumber(value: self.editingTask.targetValue)
@@ -138,7 +143,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     lazy var calculationCellItem: TPSegmentedMenuTableCellItem = { [weak self] in
         let cellItem = TPSegmentedMenuTableCellItem()
         cellItem.title = resGetString("Calculation")
-        cellItem.cornerRadius = 12.0
+        cellItem.cornerRadius = .greatestFiniteMagnitude
         cellItem.menuPadding = UIEdgeInsets(value: 2.0)
         cellItem.menuItems = GoalProgressCalculation.segmentedMenuItems(style: .title)
         cellItem.updater = {
@@ -161,7 +166,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     lazy var recordTypeCellItem: TPSegmentedMenuTableCellItem = { [weak self] in
         let cellItem = TPSegmentedMenuTableCellItem()
         cellItem.title = resGetString("Record Type")
-        cellItem.cornerRadius = 12.0
+        cellItem.cornerRadius = .greatestFiniteMagnitude
         cellItem.menuPadding = UIEdgeInsets(value: 2.0)
         cellItem.menuItems = GoalProgressRecordType.segmentedMenuItems(style: .title)
         cellItem.updater = {
@@ -184,7 +189,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         let cellItem = TPNumberFieldLeftSymbolTableCellItem()
         cellItem.title = resGetString("Auto Record Value")
         cellItem.fieldPadding = UIEdgeInsets(left: 15.0, right: 10.0)
-        cellItem.fieldCornerRadius = 12.0
+        cellItem.fieldCornerRadius = .greatestFiniteMagnitude
         cellItem.updater = {
             self?.updateAutoRecordValueCellItem()
         }

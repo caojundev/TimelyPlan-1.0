@@ -63,7 +63,7 @@ enum GoalProgressRecordType: Int, Codable, TPMenuRepresentable {
     }
 }
 
-class GoalTask: NSObject, SortableIdentifiable {
+class GoalTask: NSObject, TPHexColorConvertible, SortableIdentifiable {
     
     /// 任务唯一标识
     var identifier: String
@@ -73,6 +73,9 @@ class GoalTask: NSObject, SortableIdentifiable {
     
     /// 任务名称
     var name: String?
+    
+    /// 十六进制颜色字符串
+    var colorHex: String?
     
     /// 步骤
     var steps: [TodoStep]?
@@ -104,6 +107,9 @@ class GoalTask: NSObject, SortableIdentifiable {
     
     /// 目标数值
     var targetValue: Int64
+    
+    /// 当前数值
+    var currentValue: Int64 = 0
     
     /// 计算方式
     var calculation: GoalProgressCalculation
@@ -172,7 +178,7 @@ class GoalTask: NSObject, SortableIdentifiable {
     override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? GoalTask else { return false }
         if self === other { return true }
-        return editingTask == other.editingTask
+        return currentValue == other.currentValue && editingTask == other.editingTask
     }
     
     // MARK: - ListDiffable
@@ -187,6 +193,30 @@ class GoalTask: NSObject, SortableIdentifiable {
         
         return false
     }
+    
+    // MARK: - Getters
+    /// 检查类型
+    var checkType: TodoTaskCheckType {
+        guard isValidProgress else {
+            return .normal
+        }
+        
+        if initialValue < targetValue {
+            return .increase
+        }
+        
+        return .decrease
+    }
+    
+    /// 是否有效进度
+    var isValidProgress: Bool {
+        if initialValue == targetValue {
+            return false
+        }
+        
+        return true
+    }
+    
 }
 
 // MARK: - 编辑任务
@@ -196,6 +226,8 @@ extension GoalTask {
     var editingTask: GoalEditingTask {
         var task = GoalEditingTask(startDate: startDate, endDate: endDate)
         task.name = name
+        task.color = color ?? Self.defaultColor
+        
         if let markdown = steps?.markdown() {
             let stepParser = TodoStepParser()
             task.steps = stepParser.parse(markdown)
@@ -236,6 +268,8 @@ extension Array where Element == GoalTask {
 
 /// 目标任务编辑模型
 struct GoalEditingTask: Equatable {
+    
+    var color: UIColor = .primary
     
     var name: String?
     
@@ -309,6 +343,7 @@ struct GoalEditingTask: Equatable {
     
     static func == (lhs: GoalEditingTask, rhs: GoalEditingTask) -> Bool {
         return lhs.name == rhs.name
+            && lhs.color == rhs.color
             && lhs.steps?.markdown() == rhs.steps?.markdown()
             && lhs.isAddedToMyDay == rhs.isAddedToMyDay
             && lhs.startDate == rhs.startDate
