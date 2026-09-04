@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GoalPlanInteractor: TodoTaskProcessorDelegate,
+class GoalPlanInteractor: GoalTaskProcessorDelegate,
                           GoalPlanProcessorDelegate {
 
     /// 布局改变
@@ -20,7 +20,7 @@ class GoalPlanInteractor: TodoTaskProcessorDelegate,
     var didChangeGroups: ((AnyObject?) -> Void)?
 
     /// 当前分组数组
-    var groups: [TodoGroup]?
+    var groups: [GoalTaskGroup]?
     
     /// 列表配置
     let configuration: GoalPlanConfiguration
@@ -37,7 +37,7 @@ class GoalPlanInteractor: TodoTaskProcessorDelegate,
         return self.planOptionState.showDetail
     }
     
-    private(set) var tasks: [TodoTask]?
+    private(set) var tasks: [GoalTask]?
     
     private(set) var planOptionState: GoalPlanOptionState
     
@@ -137,7 +137,7 @@ class GoalPlanInteractor: TodoTaskProcessorDelegate,
         }
     }
     
-    private func loadTasksIfNeeded(completion: @escaping ([TodoTask]?) -> Void) {
+    private func loadTasksIfNeeded(completion: @escaping ([GoalTask]?) -> Void) {
         guard self.needsRefresh else {
             completion(self.tasks)
             return
@@ -147,13 +147,13 @@ class GoalPlanInteractor: TodoTaskProcessorDelegate,
     }
     
     /// 获取任务方法
-    func fetchTasks(completion: @escaping ([TodoTask]?) -> Void) {
-        completion(nil)
+    func fetchTasks(completion: @escaping ([GoalTask]?) -> Void) {
+        GoalRepository.fetchActiveGoalTasks(completion: completion)
     }
     
     /// 将任务根据分组类型和排序方式分组
-    func groups(for tasks: [TodoTask]?, groupType: TodoGroupType, sort: TodoSort) -> [TodoGroup]? {
-        return nil
+    func groups(for tasks: [GoalTask]?, groupType: TodoGroupType, sort: TodoSort) -> [GoalTaskGroup]? {
+        return GoalPlanInteractor.groups(for: tasks, groupType: groupType, sort: sort)
     }
     
     func planOptionStateDidChange() {
@@ -205,5 +205,71 @@ class GoalPlanInteractor: TodoTaskProcessorDelegate,
         planOptionState.sort = sort
         planOptionStateDidChange()
         loadGroups()
+    }
+}
+
+extension GoalPlanInteractor {
+    
+    static func groups(for tasks: [GoalTask]?, groupType: TodoGroupType, sort: TodoSort) -> [GoalTaskGroup]? {
+        guard let tasks = tasks, tasks.count > 0 else {
+            return nil
+        }
+
+        let orderedTasks = sortedTasks(tasks, sort: sort)
+        let groups = groupTasks(orderedTasks, groupType: groupType)
+        return groups
+    }
+    
+    /// 任务排序
+    static func sortedTasks(_ tasks: [GoalTask], sort: TodoSort) -> [GoalTask] {
+        let sortDescriptors = sortDescriptors(for: sort)
+        return tasks.sorted(using: sortDescriptors)
+    }
+    
+    static func sortDescriptors(for sort: TodoSort) -> [SortDescriptor<GoalTask>] {
+        var results = [SortDescriptor<GoalTask>]()
+        if sort.type != .manually {
+            let completedSortDescriptor = SortDescriptor(\GoalTask.isCompleted, order: .forward)
+            results.append(completedSortDescriptor)
+        }
+        
+        results.append(sort.goalTaskSortDescriptor)
+        
+        /// 辅助排序
+        let types: [TodoSortType] = [.manually, .startDate, .dueDate]
+        guard types.contains(sort.type) else {
+            return results
+        }
+        
+        /// 以创建日期辅助排序
+        let creationDateSort = TodoSort(type: .creationDate, order: .ascending)
+        results.append(creationDateSort.goalTaskSortDescriptor)
+        return results
+    }
+    
+    /// 任务分组
+    static func groupTasks(_ tasks: [GoalTask]?, groupType: TodoGroupType) -> [GoalTaskGroup]? {
+        guard let tasks = tasks, tasks.count > 0 else {
+            return nil
+        }
+
+        switch groupType {
+        case .none:
+            return tasks.noneClassifiedTaskGroups()
+        case .default:
+            return tasks.statusClassifiedTaskGroups()
+        case .startDate:
+            return tasks.startDateClassifiedTaskGroups()
+        case .dueDate:
+            return tasks.dueDateClassifiedTaskGroups()
+        case .completionDate:
+            return tasks.completionDateClassifiedTaskGroups()
+        case .priority:
+            /// 目标任务无优先级概念，以权重替代
+            return tasks.weightClassifiedTaskGroups()
+        case .list, .custom:
+            /// 目标任务无列表与板块概念，退化为不分组
+            return tasks.noneClassifiedTaskGroups()
+        }
     }
 }
