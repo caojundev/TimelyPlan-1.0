@@ -41,23 +41,4 @@ class GoalDetailCoordinator {
         multiColumnVC.showDetailView()
     }
     
-    /// 显示空详情
-    func showEmptyDetail() {
-        guard let multiColumnVC = multiColumnVC else {
-            return
-        }
-        
-        let vc = emptyDetailViewController ?? makeEmptyDetailViewController()
-        let navController = UINavigationController(rootViewController: vc)
-        multiColumnVC.replaceDetail(with: navController)
-        multiColumnVC.showFirstColumn()
-    }
-    
-    /// 生成默认空详情视图控制器
-    private func makeEmptyDetailViewController() -> UIViewController {
-        let vc = TPMultiColumnEmptyDetailViewController()
-        vc.placeholderImage = resGetImage("goal_list_80")
-        vc.placeholderTitle = resGetString("Tap goal to view details")
-        return vc
-    }
 }

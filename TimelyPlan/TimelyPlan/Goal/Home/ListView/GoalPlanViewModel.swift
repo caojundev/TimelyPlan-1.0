@@ -34,7 +34,7 @@ class GoalPlanViewModel: GoalPlanProcessorDelegate {
     
     init() {
         self.placeholderProvider.state = self.state
-        self.placeholderProvider.emptyImage = resGetImage("goal_list_80")
+        self.placeholderProvider.emptyImage = resGetImage("goal_placeholder_80")
         self.placeholderProvider.emptyTitle = resGetString("No Goal")
         GoalRepository.addUpdater(self)
     }

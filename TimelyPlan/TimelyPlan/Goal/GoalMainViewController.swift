@@ -32,7 +32,7 @@ class GoalMainViewController: TPMultiColumnViewController,
     
     private lazy var emptyDetailViewController: TPMultiColumnEmptyDetailViewController = {
         let vc = TPMultiColumnEmptyDetailViewController()
-        vc.placeholderImage = resGetImage("goal_list_80")
+        vc.placeholderImage = resGetImage("goal_placeholder_80")
         vc.placeholderTitle = resGetString("Tap goal to view details")
         return vc
     }()

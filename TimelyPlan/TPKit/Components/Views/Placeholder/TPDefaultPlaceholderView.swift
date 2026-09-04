@@ -76,6 +76,7 @@ class TPDefaultPlaceholderView: UIView {
     
     private(set) lazy var imageView: UIImageView = {
         let view = UIImageView()
+        view.alpha = 0.6
         return view
     }()
     

@@ -82,11 +82,11 @@ class GoalPlanInteractor: TodoTaskProcessorDelegate,
     /// 标题
     func title() -> TextRepresentable? {
         let goalPlan = configuration.goalPlan
-        if let image = resGetImage("todo_list_24") {
+        if let image = resGetImage("goal_24") {
             let color = goalPlan.color
             let title: ASAttributedString
             title = .string(image: image,
-                            imageSize: .size(4),
+                            imageSize: .size(5),
                             imageColor: color,
                             trailingText: goalPlan.displayName,
                             separator: " ")

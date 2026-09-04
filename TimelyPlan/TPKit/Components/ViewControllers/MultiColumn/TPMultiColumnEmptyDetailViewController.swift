@@ -24,7 +24,7 @@ class TPMultiColumnEmptyDetailViewController: TPMultiColumnDetailViewController 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emptyView.titleColor = .secondaryLabel
+        emptyView.titleColor = .placeholderText
         view.addSubview(emptyView)
     }
     

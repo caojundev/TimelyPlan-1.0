@@ -2218,6 +2218,10 @@
 		E5F9F56E2DCF115F0049ECFB /* CalendarEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */; };
 		E5FAA9C6304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9C5304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift */; };
 		E5FAA9C8304A608500C9CCD8 /* GoalTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9C7304A608500C9CCD8 /* GoalTaskManager.swift */; };
+		E5FAA9CE304AA0C800C9CCD8 /* goal_placeholder_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FAA9CA304AA0C700C9CCD8 /* goal_placeholder_80@2x.png */; };
+		E5FAA9CF304AA0C800C9CCD8 /* goal_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FAA9CB304AA0C700C9CCD8 /* goal_24@2x.png */; };
+		E5FAA9D0304AA0C800C9CCD8 /* goal_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FAA9CC304AA0C700C9CCD8 /* goal_24@3x.png */; };
+		E5FAA9D1304AA0C800C9CCD8 /* goal_placeholder_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FAA9CD304AA0C700C9CCD8 /* goal_placeholder_80@3x.png */; };
 		E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBD0F02DA9135200924EED /* SettingAgent.swift */; };
 		E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */; };
 		E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */; };
@@ -4507,6 +4511,10 @@
 		E5F9F56D2DCF115F0049ECFB /* CalendarEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventView.swift; sourceTree = "<group>"; };
 		E5FAA9C5304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskColorNameEditCell.swift; sourceTree = "<group>"; };
 		E5FAA9C7304A608500C9CCD8 /* GoalTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskManager.swift; sourceTree = "<group>"; };
+		E5FAA9CA304AA0C700C9CCD8 /* goal_placeholder_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goal_placeholder_80@2x.png"; sourceTree = "<group>"; };
+		E5FAA9CB304AA0C700C9CCD8 /* goal_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goal_24@2x.png"; sourceTree = "<group>"; };
+		E5FAA9CC304AA0C700C9CCD8 /* goal_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goal_24@3x.png"; sourceTree = "<group>"; };
+		E5FAA9CD304AA0C700C9CCD8 /* goal_placeholder_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goal_placeholder_80@3x.png"; sourceTree = "<group>"; };
 		E5FBD0F02DA9135200924EED /* SettingAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAgent.swift; sourceTree = "<group>"; };
 		E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@3x.png"; sourceTree = "<group>"; };
 		E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_completed_36@2x.png"; sourceTree = "<group>"; };
@@ -8624,6 +8632,7 @@
 		E5BB99DC2D3BEF0D0089667A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				E5FAA9C9304AA0C700C9CCD8 /* goal */,
 				E54A068C303C2C71001FF4A1 /* gantt */,
 				E5185058300E1FC400112DFC /* myDay */,
 				E5BBA10D2D3BFB4D0089667A /* launch */,
@@ -11847,6 +11856,17 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		E5FAA9C9304AA0C700C9CCD8 /* goal */ = {
+			isa = PBXGroup;
+			children = (
+				E5FAA9CA304AA0C700C9CCD8 /* goal_placeholder_80@2x.png */,
+				E5FAA9CD304AA0C700C9CCD8 /* goal_placeholder_80@3x.png */,
+				E5FAA9CB304AA0C700C9CCD8 /* goal_24@2x.png */,
+				E5FAA9CC304AA0C700C9CCD8 /* goal_24@3x.png */,
+			);
+			path = goal;
+			sourceTree = "<group>";
+		};
 		E5FC6BA82F64F16A00D5A5EA /* Log */ = {
 			isa = PBXGroup;
 			children = (
@@ -12269,6 +12289,7 @@
 				E5320C2B2FCA87CE001DFE98 /* todo_list_option_importTask_24@3x.png in Resources */,
 				E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */,
 				E56B946A2F8CD822001E488B /* todo_group_type_list_24@2x.png in Resources */,
+				E5FAA9CF304AA0C800C9CCD8 /* goal_24@2x.png in Resources */,
 				E5259B1A3018732300A6D253 /* myDayEventAdd_todo_24@3x.png in Resources */,
 				E5BB9ADD2D3BEF0D0089667A /* xmark_circle_fill_24@2x.png in Resources */,
 				E5D8339B2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@3x.png in Resources */,
@@ -12593,6 +12614,7 @@
 				E5BB9A842D3BEF0D0089667A /* schedule_duration_24@2x.png in Resources */,
 				E54A06BD303EA549001FF4A1 /* triangle_left_12@3x.png in Resources */,
 				E5BB9AE92D3BEF0D0089667A /* copy_24@2x.png in Resources */,
+				E5FAA9CE304AA0C800C9CCD8 /* goal_placeholder_80@2x.png in Resources */,
 				E505D93D2F9A4EBA004469DC /* reorderControl_24@3x.png in Resources */,
 				E586DA772FE2D39F00758ED6 /* placeholder_calendar_80@2x.png in Resources */,
 				E55E78012D8ABB09005E3DED /* quadrant_option_edit_24@2x.png in Resources */,
@@ -12742,6 +12764,7 @@
 				E5BB9A852D3BEF0D0089667A /* schedule_repeatEnd_24@3x.png in Resources */,
 				E533529D2FF8C9CC00546986 /* calendar_quarter_24@2x.png in Resources */,
 				E56B94622F8CD6D0001E488B /* todo_group_type_startDate_24@3x.png in Resources */,
+				E5FAA9D1304AA0C800C9CCD8 /* goal_placeholder_80@3x.png in Resources */,
 				E515AD6E2D3CC49800AA9AF2 /* fullscreen_enter_24@3x.png in Resources */,
 				E50D025C2F55860B00E93977 /* habit_time_anytime_24@2x.png in Resources */,
 				E505D93E2F9A4EBA004469DC /* reorderControl_24@2x.png in Resources */,
@@ -12841,6 +12864,7 @@
 				E50D94E42D452DBF00F57957 /* checkmark_circle_fill_24@2x.png in Resources */,
 				E555493F2F75590100C9460D /* focus_timer_pomodoro_24@2x.png in Resources */,
 				E547C7252F3DA2F00095918C /* sort_order_descending_24@3x.png in Resources */,
+				E5FAA9D0304AA0C800C9CCD8 /* goal_24@3x.png in Resources */,
 				E5E9F7BF2FC50BD800717004 /* todo_search_history_24@2x.png in Resources */,
 				E53AC84C2D8C6DBC00814618 /* quadrant_option_detail_24@3x.png in Resources */,
 				E541553A2F48B541000B2972 /* focus_record_showDetail_24@2x.png in Resources */,

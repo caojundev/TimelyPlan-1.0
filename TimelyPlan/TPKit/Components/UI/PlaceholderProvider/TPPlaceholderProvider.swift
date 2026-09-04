@@ -54,7 +54,7 @@ class TPLoadableListPlaceholderProvider: TPPlaceholderProviding {
     
     var emptyTitle: String?
     
-    var emptyTitleColor: UIColor = .systemGray4
+    var emptyTitleColor: UIColor = .placeholderText
     
     var emptyTitleFont: UIFont = BOLD_BODY_FONT
 
