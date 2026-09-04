@@ -461,7 +461,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         }
         
         updateProgressSectionController()
-        adapter.performSectionUpdate(forSectionObject: progressSectionController, rowAnimation: .fade)
+        adapter.performSectionUpdate(forSectionObject: progressSectionController, rowAnimation: .top)
     }
     
     /// 设置记录方式
@@ -476,15 +476,11 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         }
         
         updateProgressSectionController()
-        adapter.performSectionUpdate(forSectionObject: progressSectionController, rowAnimation: .fade)
+        adapter.performSectionUpdate(forSectionObject: progressSectionController, rowAnimation: .top)
     }
     
     /// 编辑权重
     private func editWeight() {
-        guard let cell = adapter.cellForItem(weightCellItem) else {
-            return
-        }
-        
         let currentOption = GoalTaskWeightOption.option(for: editingTask.weight)
         let menuVC = TPMenuPickerViewController<GoalTaskWeightOption>(menuItems: GoalTaskWeightOption.allCases,
                                                                       selectedItem: currentOption)
