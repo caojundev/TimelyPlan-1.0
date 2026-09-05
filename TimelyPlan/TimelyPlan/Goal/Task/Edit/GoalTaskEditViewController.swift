@@ -124,7 +124,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         }
         
         cellItem.didEndEditing = { [weak self] number in
-            self?.editingTask.initialValue = number.int64Value
+            self?.didEndEditInitialValue(number.int64Value)
         }
         
         return cellItem
@@ -141,7 +141,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         }
         
         cellItem.didEndEditing = { [weak self] number in
-            self?.editingTask.targetValue = number.int64Value
+            self?.didEndEditTargetValue(number.int64Value)
         }
         
         return cellItem
@@ -542,6 +542,28 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         updateProgressSectionController()
         adapter.performSectionUpdate(forSectionObject: progressSectionController, rowAnimation: .top)
     }
+    
+    func didEndEditInitialValue(_ value: Int64) {
+        guard editingTask.targetValue != value else {
+            adapter.reloadCell(forItem: initialValueCellItem, with: .none)
+            return
+        }
+        
+        editingTask.initialValue = value
+        adapter.reloadCell(forItems: [initialValueCellItem, autoRecordValueCellItem], with: .none)
+    }
+    
+    func didEndEditTargetValue(_ value: Int64) {
+        guard editingTask.initialValue != value else {
+            adapter.reloadCell(forItem: targetValueCellItem, with: .none)
+            return
+        }
+        
+        editingTask.initialValue = value
+        adapter.reloadCell(forItems: [targetValueCellItem, autoRecordValueCellItem],
+                           with: .none)
+    }
+    
     
     /// 编辑权重
     private func editWeight() {

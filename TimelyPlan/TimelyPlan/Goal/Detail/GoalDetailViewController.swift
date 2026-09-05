@@ -28,6 +28,17 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         return listView
     }()
     
+    /// 进度条高度
+    let progressHeight = 8.0
+
+    /// 进度条
+    private(set) lazy var progressView: TPBarProgressView = {
+        let view = TPBarProgressView(frame: .zero, style: .horizontal)
+        view.isUserInteractionEnabled = false
+        view.cornerRadius = 0.0
+        return view
+    }()
+    
     /// 标题视图
     private lazy var titleView: TPImageTitleView = {
         let view = TPImageTitleView()
@@ -106,18 +117,30 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     private func setupTaskListView() {
         let goalPlan = interactor.configuration.goalPlan
         taskListView.expansionStates = GoalTaskGroupExpansionState(goalPlan: goalPlan)
-        containerView.addSubview(taskListView)
+        view.addSubview(taskListView)
         taskListView.addRefreshControl()
+        
+        /// 进度条颜色让用户感知目标颜色
+        progressView.barForeColor = goalPlan.color
+        progressView.barBackColor = goalPlan.color.withAlphaComponent(0.2)
+        view.addSubview(progressView)
     }
     
     private func layoutTaskListView() {
-        taskListView.frame = containerView.bounds
         let layoutFrame = view.safeAreaFrame()
+        
+        /// 进度条位于列表上方
+        progressView.width = view.width
+        progressView.height = progressHeight
+        progressView.left = 0.0
+        progressView.top = 0.0
+        
         let insetBottom = layoutFrame.maxY - (addView?.top ?? layoutFrame.maxY)
-        taskListView.contentInset = UIEdgeInsets(top: 0.0,
-                                                 left: 0.0,
-                                                 bottom: max(insetBottom, 0.0),
-                                                 right: 0.0)
+        taskListView.frame = CGRect(x: 0.0,
+                                    y: progressHeight,
+                                    width: view.width,
+                                    height: view.height - progressHeight)
+        taskListView.contentInset = UIEdgeInsets(bottom: max(insetBottom, 0.0))
     }
     
     /// 目标任务分组数据发生改变
