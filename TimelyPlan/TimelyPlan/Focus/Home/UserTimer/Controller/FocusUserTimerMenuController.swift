@@ -70,7 +70,7 @@ enum FocusUserTimerMenuType: String, TPMenuRepresentable {
 
 class FocusUserTimerMenuController: TPBaseMenuController<FocusUserTimerMenuType> {
     
-    /// 菜单作用的列表
+    /// 菜单作用的计时器
     let timer: FocusTimer
 
     /// 是否显示移动到顶部

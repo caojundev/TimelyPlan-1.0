@@ -51,9 +51,11 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         return button
     }()
     
-    // MARK: - Initialization
+    let taskController = GoalTaskController()
     
     let interactor: GoalPlanInteractor
+    
+    // MARK: - Initialization
     
     init(configuration: GoalPlanConfiguration) {
         self.interactor = GoalPlanInteractor(configuration: configuration)
@@ -168,19 +170,19 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
 
         let optionMenuController = GoalPlanOptionMenuController(config: config)
         optionMenuController.didSelectPlanOption = { [weak self] option in
-//            self?.selectListOption(option)
+            self?.selectGoalPlanOption(option)
         }
         
         optionMenuController.didSelectGroupType = { [weak self] groupType in
-//            self?.selectGroupType(groupType)
+            self?.selectGroupType(groupType)
         }
         
         optionMenuController.didSelectSortType = { [weak self] sortType in
-//            self?.selectSortType(sortType)
+            self?.selectSortType(sortType)
         }
         
         optionMenuController.didSelectSortOrder = { [weak self] sortOrder in
-//            self?.selectSortOrder(sortOrder)
+            self?.selectSortOrder(sortOrder)
         }
         
         let menuItems = optionMenuController.menuItems()
@@ -207,12 +209,52 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         /// 测试：点击目标任务
     }
     
-    func goalTaskListView(_ listView: GoalTaskListView, didClickMoreForGoalTask goalTask: GoalTask) {
-        /// 测试：点击目标任务更多按钮
+    func goalTaskListView(_ listView: GoalTaskListView, didClickMoreForTask goalTask: GoalTask, sourceView: UIView) {
+        let menuController = GoalTaskMenuController(task: goalTask)
+        menuController.didSelectMenuActionType = { [weak self] type in
+            self?.taskController.performMenuAction(type, for: goalTask)
+        }
+        
+        menuController.showMenu(from: sourceView)
     }
     
     func goalTaskListViewHandleRefresh(_ listView: GoalTaskListView) {
         interactor.setNeedsRefresh()
         interactor.loadGroups()
     }
+    
+    // MARK: - List Options
+    
+    var goalPlan: GoalPlan {
+        return interactor.configuration.goalPlan
+    }
+    
+    func selectGoalPlanOption(_ option: GoalPlanOption) {
+        switch option {
+        case .select:
+            break
+        case .showCompleted:
+            interactor.toggleShowCompleted()
+        case .edit:
+            GoalPresenter.editGoalPlan(goalPlan)
+        case .delete:
+            let processor = GoalPlanMenuProcessor()
+            processor.deleteGoalPlan(goalPlan)
+        default:
+            break
+        }
+    }
+    
+    private func selectGroupType(_ groupType: TodoGroupType) {
+        interactor.setGroupType(groupType)
+    }
+    
+    private func selectSortType(_ sortType: TodoSortType) {
+        interactor.setSortType(sortType)
+    }
+    
+    private func selectSortOrder(_ sortOrder: TodoSortOrder) {
+        interactor.setSortOrder(sortOrder)
+    }
+    
 }

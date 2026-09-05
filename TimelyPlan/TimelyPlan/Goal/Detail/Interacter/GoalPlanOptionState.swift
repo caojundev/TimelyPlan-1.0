@@ -12,17 +12,11 @@ struct GoalPlanOptionState: Codable {
     /// 显示已完成
     var showCompleted: Bool = true
     
-    /// 显示详情
-    var showDetail: Bool = true
-    
     /// 分组类型
     var groupType: TodoGroupType?
     
     /// 排序
     var sort: TodoSort?
-    
-    /// 布局方式
-    var layoutType: GoalPlanLayoutType?
     
     func validatedGroupType(for configuration: GoalPlanConfiguration) -> TodoGroupType {
         return configuration.validatedGroupType(self.groupType)

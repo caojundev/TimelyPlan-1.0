@@ -482,6 +482,13 @@ extension GoalTask {
     }
 }
 
+extension GoalTask: TaskRepresentable {
+    
+    var feature: TaskFeature {
+        return TaskFeature(type: .goal, identifier: identifier, snapshotName: name)
+    }
+}
+
 extension Array where Element == GoalTask {
     
     /// 所有标识
@@ -598,6 +605,7 @@ struct GoalEditingTask: Equatable, Hashable {
         }
     }
 }
+
 
 // MARK: - 目标任务变更
 

@@ -36,10 +36,6 @@ class GoalPlanInteractor {
         return self.planOptionState.showCompleted
     }
     
-    var showDetail: Bool {
-        return self.planOptionState.showDetail
-    }
-    
     private(set) var tasks: [GoalTask]?
     
     private(set) var planOptionState: GoalPlanOptionState
@@ -69,15 +65,7 @@ class GoalPlanInteractor {
         self.placeholderProvider.state = self.loadingState
         GoalRepository.addUpdater(self)
     }
-    
-    func layoutType() -> GoalPlanLayoutType {
-        return .list
-    }
-    
-    func setLayoutType(_ layoutType: GoalPlanLayoutType) {
-        
-    }
-    
+
     func setNeedsRefresh() {
         self.needsRefresh = true
     }
@@ -101,8 +89,7 @@ class GoalPlanInteractor {
     
     /// 选项菜单管理器
     func planOptionConfig() -> GoalPlanOptionConfig? {
-        var state = planOptionState
-        state.layoutType = layoutType() /// 设置布局类型
+        let state = planOptionState
         return GoalPlanOptionConfig.config(with: state, configuration: configuration)
     }
     
@@ -170,12 +157,7 @@ class GoalPlanInteractor {
         setNeedsRefresh()
         loadGroups()
     }
-    
-    func toggleShowDetail() {
-        planOptionState.showDetail = !planOptionState.showDetail
-        planOptionStateDidChange()
-    }
-    
+
     func setGroupType(_ groupType: TodoGroupType) {
         let groupType = configuration.validatedGroupType(groupType)
         guard planOptionState.groupType != groupType else {

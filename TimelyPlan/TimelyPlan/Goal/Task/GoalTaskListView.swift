@@ -14,7 +14,9 @@ protocol GoalTaskListViewDelegate: AnyObject {
     func goalTaskListView(_ listView: GoalTaskListView, didSelectGoalTask goalTask: GoalTask)
     
     /// 点击目标任务的更多按钮
-    func goalTaskListView(_ listView: GoalTaskListView, didClickMoreForGoalTask goalTask: GoalTask)
+    func goalTaskListView(_ listView: GoalTaskListView,
+                          didClickMoreForTask goalTask: GoalTask,
+                          sourceView: UIView)
     
     /// 处理下拉刷新
     func goalTaskListViewHandleRefresh(_ listView: GoalTaskListView)
@@ -22,7 +24,9 @@ protocol GoalTaskListViewDelegate: AnyObject {
 
 extension GoalTaskListViewDelegate {
     
-    func goalTaskListView(_ listView: GoalTaskListView, didClickMoreForGoalTask goalTask: GoalTask) {}
+    func goalTaskListView(_ listView: GoalTaskListView,
+                          didClickMoreForTask goalTask: GoalTask,
+                          sourceView: UIView) {}
 }
 
 class GoalTaskListView: UIView,
@@ -315,7 +319,9 @@ class GoalTaskListView: UIView,
             return
         }
         
-        delegate?.goalTaskListView(self, didClickMoreForGoalTask: goalTask)
+        delegate?.goalTaskListView(self,
+                                   didClickMoreForTask: goalTask,
+                                   sourceView: cell.moreButton)
     }
     
     // MARK: - Helpers

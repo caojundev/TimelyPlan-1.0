@@ -14,11 +14,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
     case todo  /// 待办
     case habit /// 习惯
     case focus /// 专注
-    
-//    static var allTypes: [TaskType] {
-//        return [.todo, .habit]
-//    }
-//    
+    case goal  /// 目标
+
     var identifier: String {
         switch self {
         case .none:
@@ -29,6 +26,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return "Habit"
         case .focus:
             return "Focus"
+        case .goal:
+            return "Goal"
         }
     }
     
@@ -42,6 +41,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return resGetString("Habit")
         case .focus:
             return resGetString("Focus")
+        case .goal:
+            return resGetString("Goal")
         }
     }
     
@@ -51,6 +52,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return "task_type_todo"
         case .habit:
             return "task_type_habit"
+        case .goal:
+            return "task_type_goal"
         default:
             return nil
         }
