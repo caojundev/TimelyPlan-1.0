@@ -75,6 +75,11 @@ class GoalPlanViewModel: GoalPlanProcessorDelegate {
     }
     
     // MARK: - GoalPlanProcessorDelegate
+    func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {
+        setNeedsRefresh()
+        loadGoalPlans()
+    }
+    
     func didCreateGoalPlan(_ goalPlan: GoalPlan) {
         setNeedsRefresh()
         loadGoalPlans(with: .create(goalPlan))

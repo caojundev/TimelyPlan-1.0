@@ -11,6 +11,8 @@ import Foundation
 
 protocol GoalPlanProcessorDelegate: AnyObject {
     
+    func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?)
+        
     /// 创建新目标计划
     func didCreateGoalPlan(_ goalPlan: GoalPlan)
     
@@ -34,6 +36,8 @@ protocol GoalPlanProcessorDelegate: AnyObject {
 
 extension GoalPlanProcessorDelegate {
     
+    func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {}
+    
     func didCreateGoalPlan(_ goalPlan: GoalPlan) {}
     
     func didUpdateGoalPlan(_ goalPlan: GoalPlan) {}
@@ -51,6 +55,12 @@ extension GoalPlanProcessorDelegate {
 
 class GoalPlanProcessorUpdater: NSObject,
                                 GoalPlanProcessorDelegate {
+    
+    func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {
+        notifyDelegates { (delegate: GoalPlanProcessorDelegate) in
+            delegate.didChangeRemoteGoalPlan(with: results)
+        }
+    }
     
     func didCreateGoalPlan(_ goalPlan: GoalPlan) {
         notifyDelegates { (delegate: GoalPlanProcessorDelegate) in

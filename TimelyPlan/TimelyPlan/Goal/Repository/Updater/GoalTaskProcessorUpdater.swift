@@ -10,6 +10,8 @@ import Foundation
 /// 目标任务处理器代理
 protocol GoalTaskProcessorDelegate: AnyObject {
     
+    func didChangeRemoteGoalTask(with results: EntityChangeResults<GoalTask>?)
+      
     /// 创建目标任务
     func didCreateGoalTask(_ goalTask: GoalTask)
     
@@ -28,6 +30,8 @@ protocol GoalTaskProcessorDelegate: AnyObject {
 
 extension GoalTaskProcessorDelegate {
     
+    func didChangeRemoteGoalTask(with results: EntityChangeResults<GoalTask>?) {}
+    
     func didCreateGoalTask(_ goalTask: GoalTask) {}
     
     func didUpdateGoalTask(_ goalTask: GoalTask, with change: GoalTaskChange) {}
@@ -41,6 +45,12 @@ extension GoalTaskProcessorDelegate {
 
 class GoalTaskProcessorUpdater: NSObject,
                                 GoalTaskProcessorDelegate {
+    
+    func didChangeRemoteGoalTask(with results: EntityChangeResults<GoalTask>?) {
+        notifyDelegates { (delegate: GoalTaskProcessorDelegate) in
+            delegate.didChangeRemoteGoalTask(with: results)
+        }
+    }
     
     func didCreateGoalTask(_ goalTask: GoalTask) {
         notifyDelegates { (delegate: GoalTaskProcessorDelegate) in

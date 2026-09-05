@@ -2226,6 +2226,7 @@
 		E5FAA9D5304AC4CF00C9CCD8 /* GoalTaskProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9D4304AC4CF00C9CCD8 /* GoalTaskProcessorUpdater.swift */; };
 		E5FAA9D7304AF4C700C9CCD8 /* GoalTask+Organizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9D6304AF4C700C9CCD8 /* GoalTask+Organizer.swift */; };
 		E5FAA9D9304B002E00C9CCD8 /* GoalTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9D8304B002E00C9CCD8 /* GoalTaskController.swift */; };
+		E5FAA9DB304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9DA304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift */; };
 		E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBD0F02DA9135200924EED /* SettingAgent.swift */; };
 		E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */; };
 		E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */; };
@@ -4523,6 +4524,7 @@
 		E5FAA9D4304AC4CF00C9CCD8 /* GoalTaskProcessorUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskProcessorUpdater.swift; sourceTree = "<group>"; };
 		E5FAA9D6304AF4C700C9CCD8 /* GoalTask+Organizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoalTask+Organizer.swift"; sourceTree = "<group>"; };
 		E5FAA9D8304B002E00C9CCD8 /* GoalTaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskController.swift; sourceTree = "<group>"; };
+		E5FAA9DA304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskGroupExpansionState.swift; sourceTree = "<group>"; };
 		E5FBD0F02DA9135200924EED /* SettingAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAgent.swift; sourceTree = "<group>"; };
 		E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@3x.png"; sourceTree = "<group>"; };
 		E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_completed_36@2x.png"; sourceTree = "<group>"; };
@@ -7963,6 +7965,7 @@
 				E5FAA9D8304B002E00C9CCD8 /* GoalTaskController.swift */,
 				E57B2B6B304908DE00BA4D56 /* Edit */,
 				E57B2B693047CF4200BA4D56 /* GoalTaskListView.swift */,
+				E5FAA9DA304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift */,
 				E57B2C1C304600000000000C /* GoalTaskListCell.swift */,
 				E57B2D21304800000000000E /* GoalTaskInfoView.swift */,
 				E57B2C1D304600000000000D /* GoalTaskListHeaderView.swift */,
@@ -13930,6 +13933,7 @@
 				E5BB9EB32D3BF0C80089667A /* TPDefaultPlaceholderView.swift in Sources */,
 				E5BB9F022D3BF0C80089667A /* TPTableDragReorder.swift in Sources */,
 				E5BB9E592D3BF0C70089667A /* TPCalendarDayBadgeView.swift in Sources */,
+				E5FAA9DB304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift in Sources */,
 				E5D7D8E02D43933600EC877A /* FocusFloatingTimerManager.swift in Sources */,
 				E534DAC42D58FCE30079AB08 /* TPLabel.swift in Sources */,
 				E56B94B12F8FCF27001E488B /* TodoCompletedTaskListViewController.swift in Sources */,

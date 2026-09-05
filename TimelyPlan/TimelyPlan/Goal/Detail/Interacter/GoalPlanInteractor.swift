@@ -7,8 +7,11 @@
 
 import Foundation
 
-class GoalPlanInteractor: GoalTaskProcessorDelegate,
-                          GoalPlanProcessorDelegate {
+enum GoalPlanTaskChange {
+    case create(GoalTask)
+}
+
+class GoalPlanInteractor {
 
     /// 布局改变
     var didChangeLayoutType: (() -> Void)?
@@ -17,7 +20,7 @@ class GoalPlanInteractor: GoalTaskProcessorDelegate,
     var didChangeListInfo: (() -> Void)?
     
     /// 分组改变
-    var didChangeGroups: ((AnyObject?) -> Void)?
+    var didChangeGroups: ((GoalPlanTaskChange?) -> Void)?
 
     /// 当前分组数组
     var groups: [GoalTaskGroup]?
@@ -109,7 +112,7 @@ class GoalPlanInteractor: GoalTaskProcessorDelegate,
         return groupType
     }
     
-    func loadGroups(with change: AnyObject? = nil) {
+    func loadGroups(with change: GoalPlanTaskChange? = nil) {
         self.loadingState = .loading
         let requestID = requestManager.executeRequest()
         let groupType = self.groupType
@@ -205,6 +208,38 @@ class GoalPlanInteractor: GoalTaskProcessorDelegate,
         planOptionState.sort = sort
         planOptionStateDidChange()
         loadGroups()
+    }
+}
+
+extension GoalPlanInteractor: GoalTaskProcessorDelegate {
+    
+    func didChangeRemoteGoalTask(with results: EntityChangeResults<GoalTask>?) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+      
+    func didCreateGoalTask(_ goalTask: GoalTask) {
+        setNeedsRefresh()
+        loadGroups(with: .create(goalTask))
+    }
+    
+    func didUpdateGoalTask(_ goalTask: GoalTask, with change: GoalTaskChange) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didUpdateGoalTasks(with changeInfos: [GoalTaskChangeInfo]) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didDeleteGoalTasks(_ goalTasks: [GoalTask]) {
+        setNeedsRefresh()
+        loadGroups()
+    }
+    
+    func didReorderGoalTask(in goalTasks: [GoalTask], fromIndex: Int, toIndex: Int) {
+
     }
 }
 

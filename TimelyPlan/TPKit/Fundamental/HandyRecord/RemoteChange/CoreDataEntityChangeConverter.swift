@@ -148,6 +148,22 @@ struct TodoTaskConverter: CoreDataEntityConvertible {
     static func fromCoreData(_ object: CDTodoTask) -> TodoTask? { TodoTask(content: object) }
 }
 
+// GoalPlan
+struct GoalPlanConverter: CoreDataEntityConvertible {
+    typealias CoreDataType = CDGoalPlan
+    typealias DomainType = GoalPlan
+    static var entityName: String { EntityName.goalPlan.rawValue }
+    static func fromCoreData(_ object: CDGoalPlan) -> GoalPlan? { GoalPlan(content: object) }
+}
+
+// GoalTask
+struct GoalTaskConverter: CoreDataEntityConvertible {
+    typealias CoreDataType = CDGoalTask
+    typealias DomainType = GoalTask
+    static var entityName: String { EntityName.goalTask.rawValue }
+    static func fromCoreData(_ object: CDGoalTask) -> GoalTask? { GoalTask(content: object) }
+}
+
 // KeyValueStore
 struct KeyValueStoreConverter: CoreDataEntityConvertible {
     typealias CoreDataType = KeyValueEntry
@@ -268,6 +284,16 @@ extension CoreDataRemoteChangeManager.ChangeInfo {
     func extractTodoTask() -> EntityChangeResults<TodoTask>? {
         guard let changes = changesByEntity[EntityName.todoTask.rawValue] else { return nil }
         return EntityChangeConverter.shared.convert(changes: changes, converterType: TodoTaskConverter.self)
+    }
+    
+    func extractGoalPlan() -> EntityChangeResults<GoalPlan>? {
+        guard let changes = changesByEntity[EntityName.goalPlan.rawValue] else { return nil }
+        return EntityChangeConverter.shared.convert(changes: changes, converterType: GoalPlanConverter.self)
+    }
+    
+    func extractGoalTask() -> EntityChangeResults<GoalTask>? {
+        guard let changes = changesByEntity[EntityName.goalTask.rawValue] else { return nil }
+        return EntityChangeConverter.shared.convert(changes: changes, converterType: GoalTaskConverter.self)
     }
     
     func extractKeyValueStore() -> EntityChangeResults<KeyValueEntry>? {

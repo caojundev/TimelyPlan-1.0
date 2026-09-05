@@ -13,22 +13,30 @@ enum EntityName: String, CaseIterable {
     case todoTask = "CDTodoTask"
     case todoTag = "CDTodoTag"
     case todoFilter = "CDTodoFilter"
+    
+    case goalPlan = "CDGoalPlan"
+    case goalTask = "CDGoalTask"
+    case goalRecord = "CDGoalRecord"
+    
     case focusSession = "CDFocusSession"
     case focusTimer = "CDFocusTimer"
+    
     case habitRecord = "CDHabitRecord"
     case habitSample = "CDHabitSample"
     case habitTask = "CDHabitTask"
+    
     case keyValueStore = "KeyValueStore"
 }
 
 // MARK: - 扩展：分组
 extension EntityName {
     enum Group {
-        case focus, habit, todo, storage
+        case focus, goal, habit, todo, storage
         
         var entities: Set<EntityName> {
             switch self {
             case .focus:  return [.focusSession, .focusTimer]
+            case .goal:   return [.goalPlan, .goalTask, .goalRecord]
             case .habit:  return [.habitRecord, .habitSample, .habitTask]
             case .todo:   return [.todoFilter, .todoList, .todoSection, .todoTag, .todoTask]
             case .storage: return [.keyValueStore]

@@ -13,7 +13,6 @@ class HabitGroupExpansionState: ExpansionStateProviding {
     private var collapsedStates: [String: Bool]
     
     init() {
-//        self.collapsedStates = TodoState.shared.collapsedListStates ?? [:]
         self.collapsedStates = [:]
     }
     

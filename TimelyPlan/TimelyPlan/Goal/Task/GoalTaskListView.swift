@@ -44,30 +44,15 @@ class GoalTaskListView: UIView,
     weak var delegate: GoalTaskListViewDelegate?
     
     /// 目标任务分组数组
-    var groups: [GoalTaskGroup]? {
-        didSet {
-            resetExpandedStates()
-        }
-    }
+    var groups: [GoalTaskGroup]?
     
-    /// 分组是否展开的状态字典（键为分组标识）
-    private var expandedStates: [String: Bool] = [:]
+    /// 分组是否展开的状态
+    var expansionStates: ExpansionStateProviding?
     
     /// 内容间距
     var contentInset: UIEdgeInsets? {
         didSet {
             collectionView.contentInset = contentInset ?? .zero
-        }
-    }
-    
-    /// 是否显示占位视图
-    var shouldShowPlaceholder: (() -> Bool)? {
-        get {
-            return collectionView.shouldShowPlaceholder
-        }
-        
-        set {
-            collectionView.shouldShowPlaceholder = newValue
         }
     }
     
@@ -102,6 +87,10 @@ class GoalTaskListView: UIView,
         collectionView.isPrefetchingEnabled = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceVertical = true
+        collectionView.shouldShowPlaceholder = { [weak self] in
+            return self?.shouldShowPlaceholder() ?? false
+        }
+        
         return collectionView
     }()
     
@@ -156,6 +145,15 @@ class GoalTaskListView: UIView,
     }
     
     // MARK: - Public Methods
+    /// 是否显示占位视图
+    func shouldShowPlaceholder() -> Bool {
+        guard adapter.objects.count > 0 else {
+            return true
+        }
+        
+        return false
+    }
+    
     /// 更新占位视图
     func updatePlaceholderView() {
         collectionView.placeholderView = placeholderProvider?.placeholderView()
@@ -332,19 +330,18 @@ class GoalTaskListView: UIView,
     
     /// 分组是否展开
     func isExpanded(group: GoalTaskGroup) -> Bool {
-        return expandedStates[group.identifier] ?? true
+        guard let expansionStates = expansionStates else {
+            return true
+        }
+
+        return expansionStates.isExpanded(group)
     }
     
     /// 设置分组的展开状态
     func setExpanded(_ isExpanded: Bool, for group: GoalTaskGroup) {
-        expandedStates[group.identifier] = isExpanded
+        expansionStates?.setExpended(isExpanded, for: group)
     }
-    
-    /// 重置所有分组的展开状态
-    private func resetExpandedStates() {
-        expandedStates.removeAll()
-    }
-    
+
     /// 获取区块头视图对应的分组
     private func group(of headerView: GoalTaskListHeaderView) -> GoalTaskGroup? {
         guard headerView.section >= 0 else {

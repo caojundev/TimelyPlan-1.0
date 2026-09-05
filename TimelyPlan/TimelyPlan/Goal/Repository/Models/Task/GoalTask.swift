@@ -78,7 +78,7 @@ enum GoalProgressRecordType: Int, Codable, TPMenuRepresentable {
     }
 }
 
-class GoalTask: NSObject, TPHexColorConvertible, SortableIdentifiable {
+@objcMembers class GoalTask: NSObject, TPHexColorConvertible, SortableIdentifiable {
     
     // MARK: - 基本属性
     

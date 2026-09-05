@@ -47,11 +47,21 @@ class GoalPresenter {
     }
     
     /// 创建新目标任务
-    static func createNewGoalTask(_ goalTask: Any? = nil) {
-        let vc = GoalTaskEditViewController()
-//        vc.didEndEditing = { editingTask in
-//
-//        }
+    static func createNewGoalTask(_ editingTask: GoalEditingTask? = nil) {
+        let vc = GoalTaskEditViewController(goalTask: editingTask)
+        vc.didEndEditing = { editingTask in
+            GoalRepository.createGoalTask(with: editingTask)
+        }
+
+        vc.showAsNavigationRoot()
+    }
+    
+    /// 编辑目标任务
+    static func editGoalTask(_ goalTask: GoalTask) {
+        let vc = GoalTaskEditViewController(goalTask: goalTask.editingTask)
+        vc.didEndEditing = { editingTask in
+            GoalRepository.updateGoalTask(goalTask, with: editingTask)
+        }
 
         vc.showAsNavigationRoot()
     }

@@ -71,7 +71,14 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         updateTitle()
         setupTaskListView()
         setupAddView()
-        loadTestTaskGroups()
+        taskListView.placeholderProvider = interactor.placeholderProvider
+        interactor.didChangeGroups = { [weak self] change in
+            self?.taskGroupsDidChange(change)
+        }
+        
+        /// 首次加载目标任务分组
+        interactor.setNeedsRefresh()
+        interactor.loadGroups()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +102,8 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     
     // MARK: - 目标任务列表视图
     private func setupTaskListView() {
+        let goalPlan = interactor.configuration.goalPlan
+        taskListView.expansionStates = GoalTaskGroupExpansionState(goalPlan: goalPlan)
         containerView.addSubview(taskListView)
         taskListView.addRefreshControl()
     }
@@ -109,48 +118,15 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
                                                  right: 0.0)
     }
     
-    /// 加载测试目标任务分组数据
-    func loadTestTaskGroups() {
-        var groups = [GoalTaskGroup]()
+    /// 目标任务分组数据发生改变
+    private func taskGroupsDidChange(_ change: GoalPlanTaskChange? = nil) {
+        taskListView.endRefreshing()
+        taskListView.groups = interactor.groups
+        taskListView.performUpdate()
         
-        /// 第一组：未完成任务
-        let uncompletedGroup = GoalTaskGroup(identifier: "Uncompleted")
-        uncompletedGroup.title = "未完成"
-        uncompletedGroup.goalTasks = makeTestTasks(count: 4, isCompleted: false)
-        groups.append(uncompletedGroup)
-        
-        /// 第二组：已完成任务
-        let completedGroup = GoalTaskGroup(identifier: "Completed")
-        completedGroup.title = "已完成"
-        completedGroup.goalTasks = makeTestTasks(count: 2, isCompleted: true)
-        groups.append(completedGroup)
-        
-        taskListView.groups = groups
-        taskListView.reloadData()
-    }
-    
-    /// 生成测试目标任务数组
-    private func makeTestTasks(count: Int, isCompleted: Bool) -> [GoalTask] {
-        let calculationValues: [GoalProgressCalculation] = [.sum, .update]
-        let recordTypes: [GoalProgressRecordType] = [.manual, .auto]
-        
-        var tasks = [GoalTask]()
-        for index in 0..<count {
-            let task = GoalTask()
-            task.name = isCompleted ? "已完成任务 \(index + 1)" : "目标任务 \(index + 1)"
-            task.isAddedToMyDay = index % 2 == 0
-            task.note = isCompleted ? "已完成的任务备注" : "任务备注 \(index + 1)"
-            task.initialValue = Int64(index * 10)
-            task.targetValue = 100
-            task.calculation = calculationValues[index % calculationValues.count]
-            task.recordType = recordTypes[index % recordTypes.count]
-            task.autoRecordValue = recordTypes[index % recordTypes.count] == .auto ? index + 1 : nil
-            task.presetRecordValues = [index, index * 2, index * 3]
-            task.weight = Int64((index % 10) + 1)
-            tasks.append(task)
+        if case let .create(task) = change {
+            taskListView.revealGoalTask(task)
         }
-        
-        return tasks
     }
     
     // MARK: - 添加视图
@@ -236,13 +212,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     }
     
     func goalTaskListViewHandleRefresh(_ listView: GoalTaskListView) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            self.loadTestTaskGroups()
-            listView.endRefreshing()
-        }
+        interactor.setNeedsRefresh()
+        interactor.loadGroups()
     }
 }
