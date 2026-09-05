@@ -512,6 +512,10 @@
 "%ld focus records added successfully" = "成功添加%ld条专注记录";
 "%ld focus record added successfully" = "成功添加%ld条专注记录";
 
+/// 放弃未保存的修改
+"Discard Changes" = "放弃修改";
+"Changes you made will not be saved." = "您所做的修改将不会被保存。";
+
 /// 专注设置
 "Focus Settings" = "专注设置";
 "Focus End Sound" = "专注结束提示音";

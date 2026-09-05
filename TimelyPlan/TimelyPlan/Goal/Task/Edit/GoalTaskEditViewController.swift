@@ -56,6 +56,14 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     /// 当前编辑的任务
     var editingTask: GoalEditingTask
     
+    /// 进入编辑页时的初始任务（用于判断是否发生了修改）
+    private let initialEditingTask: GoalEditingTask
+    
+    /// 是否存在未保存的修改
+    var hasUnsavedChanges: Bool {
+        return editingTask != initialEditingTask
+    }
+    
     // MARK: - 名称
     /// 名称单元格条目
     lazy var nameCellItem: GoalTaskColorNameEditCellItem = { [weak self] in
@@ -318,6 +326,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         } else {
             self.editingTask = GoalEditingTask()
         }
+        self.initialEditingTask = self.editingTask
         
         super.init(style: .insetGrouped)
     }
@@ -332,6 +341,8 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         self.navigationItem.rightBarButtonItem = doneBarButtonItem
         self.wrapperView.isKeyboardAdjusterEnabled = true
         self.tableView.keyboardDismissMode = .onDrag
+        /// 尽早尝试绑定 presentation controller；若此时尚未就绪，首次 viewDidAppear 时会再次绑定
+        configureDismissInterception()
         self.updateTitle()
         self.updateProgressSectionController()
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
@@ -369,9 +380,62 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    /// 点击导航栏左侧取消按钮（放弃并退出）
+    override func didClickCancel() {
+        TPImpactFeedback.impactWithSoftStyle()
+        UIResponder.resignCurrentFirstResponder()
+        requestDiscardIfNeeded()
+    }
+    
+    /// 判断是否需要弹窗提示，并放弃未保存的修改
+    private func requestDiscardIfNeeded() {
+        guard hasUnsavedChanges else {
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        
+        let cancelAction = TPAlertAction(type: .cancel,
+                                         title: resGetString("Cancel"))
+        let discardAction = TPAlertAction(type: .destructive,
+                                          title: resGetString("Discard"),
+                                          handleBeforeDismiss: false) { [weak self] _ in
+            self?.discardChanges()
+        }
+        
+        let alertController = TPAlertController(title: resGetString("Discard Changes"),
+                                                message: resGetString("Changes you made will not be saved."),
+                                                actions: [cancelAction, discardAction])
+        alertController.show()
+    }
+    
+    /// 放弃未保存的修改并退出编辑
+    private func discardChanges() {
+        UIResponder.resignCurrentFirstResponder()
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func handleFirstAppearance() {
+        /// 首次呈现完成后，presentation controller 已就绪，此时设置委托以拦截下拉 dismiss
+        configureDismissInterception()
         /// 当前目标名称为空，开始编辑名称
         beginNameEditingIfNeeded()
+    }
+    
+    /// 配置下拉交互式 dismiss 拦截。
+    /// 真正被 present 的是包含本页的 UINavigationController，因此：
+    /// 1. 将其 `isModalInPresentation` 设为 true，强制拦截所有交互式下拉 dismiss；
+    /// 2. 把 presentation controller 的委托绑定到自己，以便收到下拉尝试的回调。
+    /// 必须在本页被 present 之后调用（首次 viewDidAppear），否则 presentation controller 尚未建立。
+    private func configureDismissInterception() {
+        guard let navigationController = self.navigationController else {
+            return
+        }
+        navigationController.isModalInPresentation = true
+        if let presentationController = navigationController.presentationController {
+            presentationController.delegate = self
+        } else {
+            self.presentationController?.delegate = self
+        }
     }
     
     /// 任务名称是否为空
@@ -496,5 +560,18 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         }
         
         menuVC.popoverShow()
+    }
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+/// 拦截下拉手势 dismiss。配合 `isModalInPresentation = true`，
+/// 所有交互式下拉都会走到这里，由本方法决定是直接关闭还是弹窗确认。
+extension GoalTaskEditViewController: UIAdaptivePresentationControllerDelegate {
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        TPImpactFeedback.impactWithSoftStyle()
+        UIResponder.resignCurrentFirstResponder()
+        // 无修改直接关闭；有修改弹窗确认是否放弃
+        requestDiscardIfNeeded()
     }
 }
