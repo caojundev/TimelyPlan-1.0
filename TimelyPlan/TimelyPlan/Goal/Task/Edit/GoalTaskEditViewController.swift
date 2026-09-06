@@ -112,110 +112,32 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    // MARK: - 目标
-    /// 开始数值
-    lazy var initialValueCellItem: TPNumberFieldTableCellItem = { [weak self] in
-        let cellItem = TPNumberFieldTableCellItem()
-        cellItem.title = resGetString("Initial Value")
-        cellItem.fieldCornerRadius = .greatestFiniteMagnitude
-        cellItem.updater = {
-            guard let self = self else { return }
-            self.initialValueCellItem.number = NSNumber(value: self.editingTask.initialValue)
-        }
-        
-        cellItem.didEndEditing = { [weak self] number in
-            self?.didEndEditInitialValue(number.int64Value)
-        }
-        
-        return cellItem
-    }()
-    
-    /// 目标数值
-    lazy var targetValueCellItem: TPNumberFieldTableCellItem = { [weak self] in
-        let cellItem = TPNumberFieldTableCellItem()
-        cellItem.title = resGetString("Target Value")
-        cellItem.fieldCornerRadius = .greatestFiniteMagnitude
-        cellItem.updater = {
-            guard let self = self else { return }
-            self.targetValueCellItem.number = NSNumber(value: self.editingTask.targetValue)
-        }
-        
-        cellItem.didEndEditing = { [weak self] number in
-            self?.didEndEditTargetValue(number.int64Value)
-        }
-        
-        return cellItem
-    }()
-    
-    /// 计算方式
-    lazy var calculationCellItem: TPSegmentedMenuTableCellItem = { [weak self] in
-        let cellItem = TPSegmentedMenuTableCellItem()
-        cellItem.title = resGetString("Calculation")
-        cellItem.cornerRadius = .greatestFiniteMagnitude
-        cellItem.menuPadding = UIEdgeInsets(value: 2.0)
-        cellItem.menuItems = GoalProgressCalculation.segmentedMenuItems(style: .title)
-        cellItem.updater = {
-            guard let self = self else { return }
-            self.calculationCellItem.selectedMenuTag = self.editingTask.calculation.tag
-        }
-        
-        cellItem.didSelectMenuItem = { [weak self] menuItem in
-            guard let calculation = GoalProgressCalculation(rawValue: menuItem.tag) else {
-                return
-            }
-            
-            self?.setCalculation(calculation)
-        }
-        
-        return cellItem
-    }()
-    
-    /// 记录方式
-    lazy var recordTypeCellItem: TPSegmentedMenuTableCellItem = { [weak self] in
-        let cellItem = TPSegmentedMenuTableCellItem()
-        cellItem.title = resGetString("Record Type")
-        cellItem.cornerRadius = .greatestFiniteMagnitude
-        cellItem.menuPadding = UIEdgeInsets(value: 2.0)
-        cellItem.menuItems = GoalProgressRecordType.segmentedMenuItems(style: .title)
-        cellItem.updater = {
-            self?.updateRecordTypeCellItem()
-        }
-        
-        cellItem.didSelectMenuItem = { [weak self] menuItem in
-            guard let recordType = GoalProgressRecordType(rawValue: menuItem.tag) else {
-                return
-            }
-            
-            self?.setRecordType(recordType)
-        }
-        
-        return cellItem
-    }()
-    
-    /// 自动记录数值
-    lazy var autoRecordValueCellItem: TPNumberFieldLeftSymbolTableCellItem = { [weak self] in
-        let cellItem = TPNumberFieldLeftSymbolTableCellItem()
-        cellItem.title = resGetString("Auto Record Value")
-        cellItem.fieldPadding = UIEdgeInsets(left: 15.0, right: 10.0)
-        cellItem.fieldCornerRadius = .greatestFiniteMagnitude
-        cellItem.updater = {
-            self?.updateAutoRecordValueCellItem()
-        }
-        
-        cellItem.didEndEditing = { [weak self] number in
-            self?.editingTask.autoRecordValue = number.int64Value == 0 ? nil : Int(number.int64Value)
-        }
-        
-        return cellItem
-    }()
-    
+    // MARK: - 进度
     /// 进度区块
-    lazy var progressSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = Config.sectionNormalHeaderHeight
-        sectionController.cellItems = [initialValueCellItem,
-                                        targetValueCellItem,
-                                        calculationCellItem]
+    lazy var progressSectionController: GoalTaskProgressEditSectionController = { [weak self] in
+        let sectionController = GoalTaskProgressEditSectionController()
+        sectionController.initialValue = editingTask.initialValue
+        sectionController.targetValue = editingTask.targetValue
+        sectionController.calculation = editingTask.calculation
+        sectionController.recordType = editingTask.recordType
+        sectionController.autoRecordValue = editingTask.autoRecordValue
+        
+        sectionController.onInitialValueChanged = { [weak self] value in
+            self?.editingTask.initialValue = value
+        }
+        sectionController.onTargetValueChanged = { [weak self] value in
+            self?.editingTask.targetValue = value
+        }
+        sectionController.onCalculationChanged = { [weak self] calculation in
+            self?.editingTask.calculation = calculation
+        }
+        sectionController.onRecordTypeChanged = { [weak self] recordType in
+            self?.editingTask.recordType = recordType
+        }
+        sectionController.onAutoRecordValueChanged = { [weak self] autoRecordValue in
+            self?.editingTask.autoRecordValue = autoRecordValue
+        }
+        
         return sectionController
     }()
     
@@ -344,7 +266,6 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         /// 尽早尝试绑定 presentation controller；若此时尚未就绪，首次 viewDidAppear 时会再次绑定
         configureDismissInterception()
         self.updateTitle()
-        self.updateProgressSectionController()
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.sectionControllers = [nameSectionController,
                                    stepSectionController,
@@ -474,97 +395,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         }
     }
     
-    // MARK: - Update
-    /// 更新记录区块
-    private func updateProgressSectionController() {
-        var cellItems = [initialValueCellItem,
-                         targetValueCellItem,
-                         calculationCellItem]
-        guard editingTask.calculation != .update else {
-            progressSectionController.cellItems = cellItems
-            return
-        }
-        
-        cellItems.append(recordTypeCellItem)
-        
-        if editingTask.recordType == .auto {
-            cellItems.append(autoRecordValueCellItem)
-        }
-        
-        progressSectionController.cellItems = cellItems
-    }
-    
-    /// 更新记录类型单元格
-    func updateRecordTypeCellItem() {
-        recordTypeCellItem.selectedMenuTag = editingTask.recordType.tag
-        recordTypeCellItem.isDisabled = editingTask.calculation == .update
-    }
-    
-    /// 更新自动记录数值单元格
-    private func updateAutoRecordValueCellItem() {
-        autoRecordValueCellItem.leftSymbol = editingTask.targetValue >= editingTask.initialValue ? "+" : "-"
-        
-        var autoRecordValue = editingTask.autoRecordValue ?? 1
-        if autoRecordValue <= 0 {
-            autoRecordValue = 1
-        }
-        
-        autoRecordValueCellItem.number = NSNumber(value: autoRecordValue)
-    }
-    
     // MARK: - Event Response
-    /// 设置计算方式
-    func setCalculation(_ calculation: GoalProgressCalculation) {
-        guard editingTask.calculation != calculation else {
-            return
-        }
-        
-        editingTask.calculation = calculation
-        if calculation == .update {
-            editingTask.recordType = .manual
-        }
-        
-        updateProgressSectionController()
-        adapter.performSectionUpdate(forSectionObject: progressSectionController, rowAnimation: .top)
-    }
-    
-    /// 设置记录方式
-    func setRecordType(_ recordType: GoalProgressRecordType) {
-        guard editingTask.recordType != recordType else {
-            return
-        }
-        
-        editingTask.recordType = recordType
-        if recordType == .manual {
-            editingTask.autoRecordValue = nil
-        }
-        
-        updateProgressSectionController()
-        adapter.performSectionUpdate(forSectionObject: progressSectionController, rowAnimation: .top)
-    }
-    
-    func didEndEditInitialValue(_ value: Int64) {
-        guard editingTask.targetValue != value else {
-            adapter.reloadCell(forItem: initialValueCellItem, with: .none)
-            return
-        }
-        
-        editingTask.initialValue = value
-        adapter.reloadCell(forItems: [initialValueCellItem, autoRecordValueCellItem], with: .none)
-    }
-    
-    func didEndEditTargetValue(_ value: Int64) {
-        guard editingTask.initialValue != value else {
-            adapter.reloadCell(forItem: targetValueCellItem, with: .none)
-            return
-        }
-        
-        editingTask.initialValue = value
-        adapter.reloadCell(forItems: [targetValueCellItem, autoRecordValueCellItem],
-                           with: .none)
-    }
-    
-    
     /// 编辑权重
     private func editWeight() {
         let currentOption = GoalTaskWeightOption.option(for: editingTask.weight)

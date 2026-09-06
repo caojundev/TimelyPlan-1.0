@@ -2227,6 +2227,7 @@
 		E5FAA9D9304B002E00C9CCD8 /* GoalTaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9D8304B002E00C9CCD8 /* GoalTaskController.swift */; };
 		E5FAA9DB304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9DA304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift */; };
 		E5FAA9DD304C02A300C9CCD8 /* GoalTaskMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9DC304C02A200C9CCD8 /* GoalTaskMenuController.swift */; };
+		E5FAA9DF304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9DE304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift */; };
 		E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBD0F02DA9135200924EED /* SettingAgent.swift */; };
 		E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */; };
 		E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */; };
@@ -4525,6 +4526,7 @@
 		E5FAA9D8304B002E00C9CCD8 /* GoalTaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskController.swift; sourceTree = "<group>"; };
 		E5FAA9DA304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskGroupExpansionState.swift; sourceTree = "<group>"; };
 		E5FAA9DC304C02A200C9CCD8 /* GoalTaskMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskMenuController.swift; sourceTree = "<group>"; };
+		E5FAA9DE304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskProgressEditSectionController.swift; sourceTree = "<group>"; };
 		E5FBD0F02DA9135200924EED /* SettingAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAgent.swift; sourceTree = "<group>"; };
 		E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@3x.png"; sourceTree = "<group>"; };
 		E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_completed_36@2x.png"; sourceTree = "<group>"; };
@@ -7997,6 +7999,7 @@
 			children = (
 				E57B2B633047BBBE00BA4D56 /* GoalTaskEditViewController.swift */,
 				E57B2B6C3049093800BA4D56 /* GoalTaskScheduleEditSectionController.swift */,
+				E5FAA9DE304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift */,
 				E57B2B6E3049283D00BA4D56 /* GoalStepEditSectionController.swift */,
 				E5FAA9C5304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift */,
 			);
@@ -13114,6 +13117,7 @@
 				E53B11542F94D26C00701410 /* TodoFilterRuleListEditSectionController.swift in Sources */,
 				E5BB9E622D3BF0C70089667A /* TFImageInfoCollectionCell.swift in Sources */,
 				E53352A82FF9364100546986 /* CalendarYearMonthCell.swift in Sources */,
+				E5FAA9DF304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift in Sources */,
 				E5BB9E8A2D3BF0C80089667A /* BarChartView.swift in Sources */,
 				E5B499592FDBADBF00F3A9BD /* CalendarVisibilityManager.swift in Sources */,
 				E50D02472F55318200E93977 /* HabitTimeEditTableCell.swift in Sources */,
