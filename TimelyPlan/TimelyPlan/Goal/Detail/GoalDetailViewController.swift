@@ -121,6 +121,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     private func setupTaskListView() {
         let goalPlan = interactor.configuration.goalPlan
         taskListView.expansionStates = GoalTaskGroupExpansionState(goalPlan: goalPlan)
+        taskListView.placeholderProvider = interactor.placeholderProvider
         view.addSubview(taskListView)
         taskListView.addRefreshControl()
         view.addSubview(progressView)

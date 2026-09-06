@@ -55,6 +55,8 @@ class GoalPlanInteractor {
     init(configuration: GoalPlanConfiguration) {
         self.configuration = configuration
         self.planOptionState = GoalState.shared.planOptionState(for: configuration) ?? GoalPlanOptionState()
+        self.placeholderProvider.emptyImage = resGetImage("goal_placeholder_80")
+        self.placeholderProvider.emptyTitle = resGetString("No Goal")
         self.placeholderProvider.state = self.loadingState
         GoalRepository.addUpdater(self)
     }

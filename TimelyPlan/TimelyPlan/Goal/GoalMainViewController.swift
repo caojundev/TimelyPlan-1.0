@@ -30,18 +30,17 @@ class GoalMainViewController: TPMultiColumnViewController,
         return viewController
     }()
     
-    private lazy var emptyDetailViewController: TPMultiColumnEmptyDetailViewController = {
+    private lazy var emptyDetailViewController: UINavigationController = {
         let vc = TPMultiColumnEmptyDetailViewController()
         vc.placeholderImage = resGetImage("goal_placeholder_80")
         vc.placeholderTitle = resGetString("Tap goal to view details")
-        return vc
+        return UINavigationController(rootViewController: vc)
     }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        let detailNavController = UINavigationController(rootViewController: self.emptyDetailViewController)
-        self.detailViewController = detailNavController
+        self.detailViewController = emptyDetailViewController
         
         let homeNavController = UINavigationController(rootViewController: self.homeViewController)
         self.columnViewControllers = [homeNavController]
