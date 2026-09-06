@@ -2228,6 +2228,8 @@
 		E5FAA9DB304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9DA304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift */; };
 		E5FAA9DD304C02A300C9CCD8 /* GoalTaskMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9DC304C02A200C9CCD8 /* GoalTaskMenuController.swift */; };
 		E5FAA9DF304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9DE304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift */; };
+		E5FAA9E2304D09AF00C9CCD8 /* task_type_goal_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FAA9E0304D09AD00C9CCD8 /* task_type_goal_24@2x.png */; };
+		E5FAA9E3304D09AF00C9CCD8 /* task_type_goal_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FAA9E1304D09AE00C9CCD8 /* task_type_goal_24@3x.png */; };
 		E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBD0F02DA9135200924EED /* SettingAgent.swift */; };
 		E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */; };
 		E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */; };
@@ -4527,6 +4529,8 @@
 		E5FAA9DA304BCFF900C9CCD8 /* GoalTaskGroupExpansionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskGroupExpansionState.swift; sourceTree = "<group>"; };
 		E5FAA9DC304C02A200C9CCD8 /* GoalTaskMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskMenuController.swift; sourceTree = "<group>"; };
 		E5FAA9DE304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskProgressEditSectionController.swift; sourceTree = "<group>"; };
+		E5FAA9E0304D09AD00C9CCD8 /* task_type_goal_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_goal_24@2x.png"; sourceTree = "<group>"; };
+		E5FAA9E1304D09AE00C9CCD8 /* task_type_goal_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_goal_24@3x.png"; sourceTree = "<group>"; };
 		E5FBD0F02DA9135200924EED /* SettingAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAgent.swift; sourceTree = "<group>"; };
 		E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@3x.png"; sourceTree = "<group>"; };
 		E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_completed_36@2x.png"; sourceTree = "<group>"; };
@@ -8162,6 +8166,8 @@
 				E58D47922F911F0900CF8C9E /* task_type_todo_24@3x.png */,
 				E583896E2F774E5F003C30A4 /* task_type_habit_24@2x.png */,
 				E583896D2F774E5F003C30A4 /* task_type_habit_24@3x.png */,
+				E5FAA9E0304D09AD00C9CCD8 /* task_type_goal_24@2x.png */,
+				E5FAA9E1304D09AE00C9CCD8 /* task_type_goal_24@3x.png */,
 			);
 			path = task;
 			sourceTree = "<group>";
@@ -12355,6 +12361,7 @@
 				E5C18FB92DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png in Resources */,
 				E58F46A32F7AA0B50046FA96 /* todo_list_addSublist_24@3x.png in Resources */,
 				E515AD6C2D3CC49800AA9AF2 /* fullscreen_exit_24@2x.png in Resources */,
+				E5FAA9E2304D09AF00C9CCD8 /* task_type_goal_24@2x.png in Resources */,
 				E56B94612F8CD6D0001E488B /* todo_group_type_startDate_24@2x.png in Resources */,
 				E55528482FB5F3180093DD7E /* todo_board_80@2x.png in Resources */,
 				E50D02572F55860B00E93977 /* habit_time_evening_24@2x.png in Resources */,
@@ -12894,6 +12901,7 @@
 				E55549502F7629CA00C9460D /* focus_timer_bind_stopwatch_32@3x.png in Resources */,
 				E563F1C92FE8E42E00DF86BB /* sideMenu_focus_40@2x.png in Resources */,
 				E58D47982F91C4B100CF8C9E /* todo_task_quickAdd_continuously_24@2x.png in Resources */,
+				E5FAA9E3304D09AF00C9CCD8 /* task_type_goal_24@3x.png in Resources */,
 				E5C76BA72F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png in Resources */,
 				E55528382FB5CB2C0093DD7E /* todo_smartlist_today_80@2x.png in Resources */,
 				E515AD652D3CC36800AA9AF2 /* chevron_left_24@3x.png in Resources */,

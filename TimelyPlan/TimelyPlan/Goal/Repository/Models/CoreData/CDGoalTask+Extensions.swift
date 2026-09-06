@@ -334,6 +334,19 @@ extension CDGoalTask {
     }
     
     // MARK: - 异步获取
+    /// 获取指定目标对应任务
+    static func fetchGoalTasks(of goalPlan: GoalPlan,
+                               completion: @escaping ([CDGoalTask]?) -> Void) {
+        let predicate = taskPredicate(for: goalPlan, showCompleted: true)
+        fetchAll(matching: predicate, sortBy: orderKey, ascending: true) { results in
+            completion(results as? [CDGoalTask])
+        }
+    }
+    
+    
+    
+    
+    
     /// 获取所有目标任务
     static func fetchAllGoalTasks(showCompleted: Bool = true,
                                   completion: @escaping ([CDGoalTask]?) -> Void) {
@@ -416,6 +429,19 @@ extension CDGoalTask {
 
 // MARK: - 谓词
 extension CDGoalTask {
+    
+    static func taskPredicate(for goalPlan: GoalPlan,
+                              showCompleted: Bool = true) -> NSPredicate {
+        var conditions: [PredicateCondition] = [
+            (GoalTaskKey.goalPlanIdentifier, .equal(goalPlan.identifier)),
+        ]
+        
+        if !showCompleted {
+            conditions.append(notCompletedCondition)
+        }
+        
+        return conditions.andPredicate()
+    }
     
     /// 所有未完成目标任务
     static var activeGoalTaskPredicate: NSPredicate {

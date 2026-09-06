@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 struct GoalTaskKey {
+    static let goalPlan = "goalPlan"
+    static let goalPlanIdentifier = "goalPlan.identifier"
+    
     static let identifier = "identifier"
     static let order = "order"
     static let name = "name"

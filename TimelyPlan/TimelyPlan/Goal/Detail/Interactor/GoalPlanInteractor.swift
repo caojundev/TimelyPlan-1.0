@@ -134,7 +134,8 @@ class GoalPlanInteractor {
     
     /// 获取任务方法
     func fetchTasks(completion: @escaping ([GoalTask]?) -> Void) {
-        GoalRepository.fetchActiveGoalTasks(completion: completion)
+        let goalPlan = configuration.goalPlan
+        GoalRepository.fetchGoalTasks(of: goalPlan, completion: completion)
     }
     
     /// 将任务根据分组类型和排序方式分组

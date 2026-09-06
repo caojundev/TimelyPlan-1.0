@@ -126,37 +126,46 @@ class GoalRepository {
 extension GoalRepository {
     
     // MARK: - 获取目标任务
-    /// 同步获取所有目标任务
-    static func getAllGoalTasks() -> [GoalTask]? {
-        return taskManager.getAllGoalTasks()
-    }
-    
-    /// 同步获取所有未完成目标任务
-    static func getActiveGoalTasks() -> [GoalTask]? {
-        return taskManager.getActiveGoalTasks()
-    }
-    
+//    /// 同步获取所有目标任务
+//    static func getAllGoalTasks() -> [GoalTask]? {
+//        return taskManager.getAllGoalTasks()
+//    }
+//
+//    /// 同步获取所有未完成目标任务
+//    static func getActiveGoalTasks() -> [GoalTask]? {
+//        return taskManager.getActiveGoalTasks()
+//    }
+//
     /// 获取特定标识的目标任务
     static func getGoalTask(withIdentifier identifier: String) -> GoalTask? {
         return taskManager.getGoalTask(withIdentifier: identifier)
     }
     
-    /// 未完成目标任务数目
-    static func numberOfActiveGoalTasks() -> Int {
-        return taskManager.numberOfActiveGoalTasks()
-    }
-    
-    /// 异步获取所有目标任务
-    static func fetchAllGoalTasks(showCompleted: Bool = true,
-                                  completion: @escaping ([GoalTask]?) -> Void) {
-        taskManager.fetchAllGoalTasks(showCompleted: showCompleted, completion: completion)
-    }
     
     /// 异步获取所有未完成目标任务
-    static func fetchActiveGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
-        taskManager.fetchActiveGoalTasks(completion: completion)
+    static func fetchGoalTasks(of goalPlan: GoalPlan,
+                               completion: @escaping ([GoalTask]?) -> Void) {
+        taskManager.fetchGoalTasks(of: goalPlan, completion: completion)
     }
     
+    
+//    /// 未完成目标任务数目
+//    static func numberOfActiveGoalTasks() -> Int {
+//        return taskManager.numberOfActiveGoalTasks()
+//    }
+    
+//    /// 异步获取所有目标任务
+//    static func fetchAllGoalTasks(showCompleted: Bool = true,
+//                                  completion: @escaping ([GoalTask]?) -> Void) {
+//        taskManager.fetchAllGoalTasks(showCompleted: showCompleted, completion: completion)
+//    }
+//
+//
+//    /// 异步获取所有未完成目标任务
+//    static func fetchActiveGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
+//        taskManager.fetchActiveGoalTasks(completion: completion)
+//    }
+//
     /// 获取特定日期区间内的目标任务
     static func fetchCalendarEventGoalTasks(in range: DateInterval,
                                             completion: @escaping ([GoalTask]?) -> Void) {
@@ -174,12 +183,12 @@ extension GoalRepository {
         taskManager.fetchNotifiableGoalTasks(completion: completion)
     }
     
-    /// 获取特定区间内已完成的目标任务
-    static func fetchCompletedGoalTasks(in range: DateRange,
-                                        completion: @escaping ([GoalTask]?) -> Void) {
-        taskManager.fetchCompletedGoalTasks(in: range, completion: completion)
-    }
-    
+//    /// 获取特定区间内已完成的目标任务
+//    static func fetchCompletedGoalTasks(in range: DateRange,
+//                                        completion: @escaping ([GoalTask]?) -> Void) {
+//        taskManager.fetchCompletedGoalTasks(in: range, completion: completion)
+//    }
+//
     /// 搜索目标任务
     static func searchGoalTasks(containText text: String,
                                 showCompleted: Bool = true,

@@ -44,6 +44,21 @@ class GoalTaskManager {
     }
     
     // MARK: - 异步获取目标任务
+    func fetchGoalTasks(of goalPlan: GoalPlan,
+                        completion: @escaping ([GoalTask]?) -> Void) {
+        CDGoalTask.fetchGoalTasks(of: goalPlan) { results in
+            completion(results?.toGoalTasks)
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func fetchAllGoalTasks(showCompleted: Bool = true,
                            completion: @escaping ([GoalTask]?) -> Void) {
         CDGoalTask.fetchAllGoalTasks(showCompleted: showCompleted) { results in
