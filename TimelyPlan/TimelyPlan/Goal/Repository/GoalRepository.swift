@@ -7,6 +7,21 @@
 
 import Foundation
 
+struct GoalUpdaterOption: OptionSet {
+    
+    let rawValue: Int
+    
+    static let plan = GoalUpdaterOption(rawValue: 1 << 1)
+    
+    static let task = GoalUpdaterOption(rawValue: 2 << 1)
+    
+    static let record = GoalUpdaterOption(rawValue: 3 << 1)
+    
+    /// 所有
+    static let all: GoalUpdaterOption = [.plan, .task, .record]
+}
+
+
 class GoalRepository {
     
     // MARK: - 数据管理器
@@ -40,11 +55,20 @@ class GoalRepository {
     }
     
     /// 添加更新器代理对象
-    static func addUpdater(_ updater: AnyObject) {
+    static func addUpdater(_ updater: AnyObject, for option: GoalUpdaterOption = .all) {
         observeRemoteChangeIfNeeded()
+    
+        if option.contains(.plan) {
+            planManager.updater.addDelegate(updater)
+        }
         
-        planManager.updater.addDelegate(updater)
-        taskManager.updater.addDelegate(updater)
+        if option.contains(.task) {
+            taskManager.updater.addDelegate(updater)
+        }
+        
+        if option.contains(.record) {
+            
+        }
     }
     
     /// 移除更新器代理对象
@@ -201,8 +225,10 @@ extension GoalRepository {
     // MARK: - 处理目标任务
     /// 创建目标任务
     @discardableResult
-    static func createGoalTask(with editingTask: GoalEditingTask) -> GoalTask {
-        return taskManager.createGoalTask(with: editingTask)
+    static func createGoalTask(in goalPlan: GoalPlan,
+                               with editingTask: GoalEditingTask) -> GoalTask? {
+        return taskManager.createGoalTask(in: goalPlan,
+                                          with: editingTask)
     }
     
     /// 使用编辑模型整体更新目标任务

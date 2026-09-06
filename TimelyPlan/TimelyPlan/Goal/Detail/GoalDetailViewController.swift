@@ -81,7 +81,6 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         super.viewDidLoad()
         navigationItem.titleView = titleView
         navigationItem.rightBarButtonItem = moreBarButtonItem
-        updateTitle()
         setupTaskListView()
         setupAddView()
         taskListView.placeholderProvider = interactor.placeholderProvider
@@ -89,9 +88,14 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
             self?.taskGroupsDidChange(change)
         }
         
+        interactor.didChangeGoalInfo = { [weak self] in
+            self?.updateGoalInfo()
+        }
+        
         /// 首次加载目标任务分组
         interactor.setNeedsRefresh()
         interactor.loadGroups()
+        updateGoalInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,10 +123,6 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         taskListView.expansionStates = GoalTaskGroupExpansionState(goalPlan: goalPlan)
         view.addSubview(taskListView)
         taskListView.addRefreshControl()
-        
-        /// 进度条颜色让用户感知目标颜色
-        progressView.barForeColor = goalPlan.color
-        progressView.barBackColor = goalPlan.color.withAlphaComponent(0.2)
         view.addSubview(progressView)
     }
     
@@ -178,11 +178,23 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     }
     
     // MARK: - Update
+    private func updateGoalInfo() {
+        updateTitle()
+        updateProgressColor()
+    }
+    
     /// 更新标题
     private func updateTitle() {
         titleView.title = interactor.title()
         titleView.sizeToFit()
     }
+    
+    private func updateProgressColor() {
+        /// 进度条颜色让用户感知目标颜色
+        progressView.barForeColor = goalPlan.color
+        progressView.barBackColor = goalPlan.color.withAlphaComponent(0.2)
+    }
+    
     
     // MARK: - Event Response
     /// 点击更多
@@ -219,7 +231,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     /// 点击添加目标
     private func clickAddGoal() {
         TPImpactFeedback.impactWithLightStyle()
-        GoalPresenter.createNewGoalTask()
+        GoalPresenter.createNewGoalTask(in: goalPlan)
     }
     
     func canAddGoal() -> Bool {

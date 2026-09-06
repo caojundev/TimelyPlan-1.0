@@ -38,6 +38,23 @@ extension CDGoalPlan: TPHexColorConvertible, SortableIdentifiable {
         self.note = editingPlan.note
         self.modificationDate = .now
     }
+    
+    /// 添加任务到列表，自动设置排序因子
+    func addTask(_ task: CDGoalTask, onTop: Bool = false) {
+        let tasks = tasks?.allObjects as? [CDGoalTask]
+        let order: Int64
+        if onTop {
+            let minOrder = tasks?.minOrder ?? 0
+            order = minOrder - kOrderedStep
+        } else {
+            let maxOrder = tasks?.maxOrder ?? 0
+            order = maxOrder + kOrderedStep
+        }
+        
+        task.order = order
+        self.addToTasks(task)
+    }
+    
 }
 
 extension GoalPlan {

@@ -119,9 +119,10 @@ class GoalTaskManager {
     // MARK: - 创建目标任务
     /// 创建目标任务
     @discardableResult
-    func createGoalTask(with editingTask: GoalEditingTask) -> GoalTask {
-        let content = CDGoalTask.newGoalTask(with: editingTask)
-        content.order = CDGoalTask.maximumOrder + kOrderedStep
+    func createGoalTask(in goalPlan: GoalPlan, with editingTask: GoalEditingTask) -> GoalTask? {
+        guard let content = CDGoalTask.newGoalTask(in: goalPlan, with: editingTask) else {
+            return nil
+        }
         
         let goalTask = GoalTask(content: content)
         updater.didCreateGoalTask(goalTask)

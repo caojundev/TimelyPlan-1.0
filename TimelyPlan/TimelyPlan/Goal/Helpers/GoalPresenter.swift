@@ -47,10 +47,11 @@ class GoalPresenter {
     }
     
     /// 创建新目标任务
-    static func createNewGoalTask(_ editingTask: GoalEditingTask? = nil) {
+    static func createNewGoalTask(in goalPlan: GoalPlan,
+                                  editingTask: GoalEditingTask? = nil) {
         let vc = GoalTaskEditViewController(goalTask: editingTask)
         vc.didEndEditing = { editingTask in
-            GoalRepository.createGoalTask(with: editingTask)
+            GoalRepository.createGoalTask(in: goalPlan, with: editingTask)
         }
 
         vc.showAsNavigationRoot()

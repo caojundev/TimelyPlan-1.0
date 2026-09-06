@@ -20,6 +20,7 @@ class GoalDetailCoordinator {
     
     init(multiColumnViewController: TPMultiColumnViewController) {
         self.multiColumnVC = multiColumnViewController
+        GoalRepository.addUpdater(self, for: [.plan])
     }
 
     /// 显示目标计划详情
@@ -41,4 +42,37 @@ class GoalDetailCoordinator {
         multiColumnVC.showDetailView()
     }
     
+    func showEmptyDetail() {
+        guard let multiColumnVC = multiColumnVC else {
+            return
+        }
+        
+        self.configuration = nil
+        multiColumnVC.replaceDetail(with: emptyDetailViewController)
+    }
+    
+}
+
+extension GoalDetailCoordinator: GoalPlanProcessorDelegate {
+    
+    func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {
+        guard let identifier = configuration?.identifier else {
+            return
+        }
+        
+        if GoalRepository.getGoalPlan(withIdentifier: identifier) == nil {
+            /// 显示空白详情页
+            showEmptyDetail()
+        }
+    }
+    
+    func didDeleteGoalPlan(_ goalPlan: GoalPlan) {
+        guard let identifier = configuration?.identifier else {
+            return
+        }
+        
+        if goalPlan.identifier == identifier {
+            showEmptyDetail()
+        }
+    }
 }

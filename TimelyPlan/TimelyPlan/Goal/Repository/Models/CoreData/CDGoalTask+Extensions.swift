@@ -84,12 +84,18 @@ extension CDGoalTask: TPHexColorConvertible, SortableIdentifiable {
     
     // MARK: - 创建与更新
     /// 根据编辑任务创建目标任务
-    static func newGoalTask(with editingTask: GoalEditingTask) -> CDGoalTask {
+    static func newGoalTask(in goalPlan: GoalPlan,
+                            with editingTask: GoalEditingTask) -> CDGoalTask? {
+        guard let cdGoalPlan = CDGoalPlan.getGoalPlan(withIdentifier: goalPlan.identifier) else {
+            return nil
+        }
+        
         let task = CDGoalTask.createEntity(in: .defaultContext)
         task.identifier = UUID().uuidString /// 新创建目标任务设置标识
         task.creationDate = .now
         task.currentValue = editingTask.initialValue
         task.update(with: editingTask)
+        cdGoalPlan.addTask(task, onTop: false)
         return task
     }
     

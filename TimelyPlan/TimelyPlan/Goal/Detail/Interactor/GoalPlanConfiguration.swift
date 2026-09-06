@@ -24,6 +24,16 @@ class GoalPlanConfiguration: Equatable, IdentifiableItem {
         return lhs.identifier == rhs.identifier
     }
     
+    
+    // MARK: - Public Methods
+    func updateGoalPlan(_ goalPlan: GoalPlan) {
+        guard identifier == goalPlan.identifier else {
+            return
+        }
+        
+        self.goalPlan = goalPlan
+    }
+    
     /// 是否可以添加任务
     func canAddTask() -> Bool {
         return false

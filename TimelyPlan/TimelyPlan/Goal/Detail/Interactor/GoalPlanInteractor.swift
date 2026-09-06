@@ -13,21 +13,15 @@ enum GoalPlanTaskChange {
 
 class GoalPlanInteractor {
 
-    /// 布局改变
-    var didChangeLayoutType: (() -> Void)?
-    
-    /// 列表的信息改变
-    var didChangeListInfo: (() -> Void)?
+    /// 目标信息改变
+    var didChangeGoalInfo: (() -> Void)?
     
     /// 分组改变
     var didChangeGroups: ((GoalPlanTaskChange?) -> Void)?
 
     /// 当前分组数组
     var groups: [GoalTaskGroup]?
-    
-    /// 列表配置
-    let configuration: GoalPlanConfiguration
-    
+
     var sort: TodoSort {
         return planOptionState.validatedSort(for: configuration)
     }
@@ -51,8 +45,11 @@ class GoalPlanInteractor {
         }
     }
     
-    func resetLoadingState() {
-        self.loadingState = .initialLoading
+    /// 列表配置
+    let configuration: GoalPlanConfiguration
+    
+    var goalPlan: GoalPlan {
+        return configuration.goalPlan
     }
     
     init(configuration: GoalPlanConfiguration) {
@@ -62,6 +59,10 @@ class GoalPlanInteractor {
         GoalRepository.addUpdater(self)
     }
 
+    func resetLoadingState() {
+        self.loadingState = .initialLoading
+    }
+    
     func setNeedsRefresh() {
         self.needsRefresh = true
     }
@@ -134,7 +135,6 @@ class GoalPlanInteractor {
     
     /// 获取任务方法
     func fetchTasks(completion: @escaping ([GoalTask]?) -> Void) {
-        let goalPlan = configuration.goalPlan
         GoalRepository.fetchGoalTasks(of: goalPlan, completion: completion)
     }
     
@@ -212,6 +212,29 @@ extension GoalPlanInteractor: GoalTaskProcessorDelegate {
     
     func didReorderGoalTask(in goalTasks: [GoalTask], fromIndex: Int, toIndex: Int) {
 
+    }
+}
+
+
+extension GoalPlanInteractor: GoalPlanProcessorDelegate {
+    
+    func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {
+        guard let goalPlan = GoalRepository.getGoalPlan(withIdentifier: goalPlan.identifier) else {
+            return
+        }
+        
+        configuration.updateGoalPlan(goalPlan)
+        didChangeGoalInfo?()
+    }
+    
+    func didUpdateGoalPlan(_ goalPlan: GoalPlan) {
+        guard goalPlan.identifier == self.goalPlan.identifier,
+              let goalPlan = GoalRepository.getGoalPlan(withIdentifier: goalPlan.identifier) else {
+            return
+        }
+        
+        configuration.updateGoalPlan(goalPlan)
+        didChangeGoalInfo?()
     }
 }
 
