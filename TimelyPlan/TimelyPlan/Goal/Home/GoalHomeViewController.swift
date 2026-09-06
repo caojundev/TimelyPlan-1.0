@@ -17,6 +17,8 @@ class GoalHomeViewController: TPViewController,
         static let addViewSize = CGSize(width: 50.0, height: 50.0)
         /// 添加视图边界间距
         static let addViewMargins = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 20.0)
+        /// 筛选视图高度
+        static let filterViewHeight: CGFloat = 50.0
     }
     
     /// 侧边栏控制器
@@ -50,6 +52,15 @@ class GoalHomeViewController: TPViewController,
         return listView
     }()
     
+    /// 筛选视图
+    lazy var filterView: GoalPlanFilterView = {
+        let filterView = GoalPlanFilterView(frame: .zero)
+        filterView.didSelectFilterType = { [weak self] type in
+            self?.selectFilterType(type)
+        }
+        return filterView
+    }()
+    
     init(detailCoordinator: GoalDetailCoordinator? = nil) {
         self.detailCoordinator = detailCoordinator
         super.init(nibName: nil, bundle: nil)
@@ -65,11 +76,15 @@ class GoalHomeViewController: TPViewController,
         title = resGetString("Goal")
         navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
         navigationItem.rightBarButtonItems = [moreBarButtonItem]
+        setupFilterView()
         setupListView()
         setupAddView()
         
         self.viewModel.goalPlansDidChange = { [weak self] change in
             self?.goalPlansChanged(change)
+        }
+        self.viewModel.filterTypeDidChange = { [weak self] in
+            self?.reloadFilteredGoalPlans()
         }
         self.viewModel.loadGoalPlans()
     }
@@ -82,6 +97,7 @@ class GoalHomeViewController: TPViewController,
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         layoutAddView()
+        layoutFilterView()
         layoutListView()
     }
     
@@ -91,6 +107,19 @@ class GoalHomeViewController: TPViewController,
     
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemBackground
+    }
+    
+    // MARK: - 筛选视图
+    private func setupFilterView() {
+        view.addSubview(filterView)
+    }
+    
+    private func layoutFilterView() {
+        let layoutFrame = view.safeAreaFrame()
+        filterView.frame = CGRect(x: layoutFrame.minX,
+                                  y: layoutFrame.minY,
+                                  width: layoutFrame.width,
+                                  height: Config.filterViewHeight)
     }
     
     // MARK: - 添加视图
@@ -124,7 +153,11 @@ class GoalHomeViewController: TPViewController,
     
     private func layoutListView() {
         let layoutFrame = view.safeAreaFrame()
-        listView.frame = view.bounds
+        let top = filterView.frame.maxY
+        listView.frame = CGRect(x: layoutFrame.minX,
+                                y: top,
+                                width: layoutFrame.width,
+                                height: max(0.0, layoutFrame.maxY - top))
         let insetBottom = layoutFrame.maxY - (addView?.top ?? layoutFrame.maxY)
         listView.contentInset = UIEdgeInsets(top: 0.0,
                                              left: 0.0,
@@ -135,9 +168,21 @@ class GoalHomeViewController: TPViewController,
     /// 加载并刷新目标计划
     private func reloadGoalPlans() {
         let group = GoalPlanGroup(identifier: "GoalPlanGroup")
-        group.goalPlans = viewModel.goalPlans
+        group.goalPlans = viewModel.filteredGoalPlans()
         listView.groups = [group]
         listView.performUpdate()
+    }
+    
+    /// 按筛选结果刷新目标计划
+    private func reloadFilteredGoalPlans() {
+        /// 非“所有”状态下不允许拖拽排序，避免破坏原始顺序
+        listView.isReorderEnabled = viewModel.filterType == .all
+        reloadGoalPlans()
+    }
+    
+    /// 选择筛选类型
+    private func selectFilterType(_ filterType: GoalPlanFilterType) {
+        viewModel.updateFilterType(filterType)
     }
     
     /// 处理目标计划变更

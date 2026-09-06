@@ -31,8 +31,14 @@ enum GoalMoreMenuType: Int, TPMenuRepresentable {
 class GoalMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<GoalMoreMenuType> {
     
     override func menuItems() -> [TPMenuItem] {
+        let archivedCount = GoalRepository.numberOfArchivedGoalPlans()
         let typeLists: [Array<GoalMoreMenuType>] = [[.archived], [.settings]]
-        let items = TPMenuItem.items(with: typeLists)
+        let items = TPMenuItem.items(with: typeLists) { type, action in
+            if type == .archived {
+                action.valueText = "\(archivedCount)"
+            }
+        }
+        
         return items
     }
     

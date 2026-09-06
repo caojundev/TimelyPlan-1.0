@@ -14,3 +14,9 @@
 
 "By Day" = "Day";
 "By Week" = "Week";
+
+"All" = "All";
+"Not Started" = "Not Started";
+"In Progress" = "In Progress";
+"Completed" = "Completed";
+"Overdue" = "Overdue";

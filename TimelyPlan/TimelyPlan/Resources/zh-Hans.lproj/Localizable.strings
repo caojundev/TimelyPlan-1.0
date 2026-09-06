@@ -282,6 +282,7 @@
 /// 分组和排序
 "Overdue" = "已逾期";
 "Started" = "已开始";
+"Not Started" = "未开始";
 "Upcoming" = "即将到来";
 "Later" = "稍后";
 "Unassigned" = "未分配";

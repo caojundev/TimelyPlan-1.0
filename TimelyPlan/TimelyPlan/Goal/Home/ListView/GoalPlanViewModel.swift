@@ -20,6 +20,27 @@ class GoalPlanViewModel: GoalPlanProcessorDelegate {
     /// 目标计划改变
     var goalPlansDidChange: ((GoalPlanChange?) -> Void)?
     
+    /// 筛选类型改变
+    var filterTypeDidChange: (() -> Void)?
+    
+    /// 当前筛选类型
+    private(set) var filterType: GoalPlanFilterType = .all {
+        didSet {
+            guard filterType != oldValue else {
+                return
+            }
+            filterTypeDidChange?()
+        }
+    }
+    
+    /// 更新筛选类型
+    func updateFilterType(_ filterType: GoalPlanFilterType) {
+        guard self.filterType != filterType else {
+            return
+        }
+        self.filterType = filterType
+    }
+    
     private(set) var state: TPListLoadingState = .initialLoading {
         didSet {
             self.placeholderProvider.state = state
@@ -72,6 +93,26 @@ class GoalPlanViewModel: GoalPlanProcessorDelegate {
     
     func fetchGoalPlans(completion: @escaping ([GoalPlan]?) -> Void) {
         GoalRepository.fetchActiveGoalPlans(completion: completion)
+    }
+    
+    // MARK: - 筛选
+    
+    /// 按当前筛选类型过滤后的目标计划
+    func filteredGoalPlans() -> [GoalPlan]? {
+        return filteredGoalPlans(goalPlans, by: filterType)
+    }
+    
+    /// 按指定筛选类型过滤目标计划
+    /// - Parameters:
+    ///   - goalPlans: 目标计划数组
+    ///   - filterType: 筛选类型
+    /// - Returns: 过滤后的目标计划数组
+    func filteredGoalPlans(_ goalPlans: [GoalPlan]?, by filterType: GoalPlanFilterType) -> [GoalPlan]? {
+        guard let goalPlans = goalPlans else {
+            return nil
+        }
+        
+        return goalPlans.filter { filterType.matches($0) }
     }
     
     // MARK: - GoalPlanProcessorDelegate
