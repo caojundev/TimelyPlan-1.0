@@ -51,11 +51,15 @@ class GoalPlanConfiguration: Equatable, IdentifiableItem {
     
     /// 允许的排序类型
     func allowSortTypes() -> [TodoSortType] {
-        return TodoSortType.completionDateExcluded()
+        return [.manually, .creationDate, .modificationDate, .startDate, .dueDate]
     }
     
     /// 根据排序类型返回允许的排列顺序
     func allowSortOrders(for sortType: TodoSortType) -> [TodoSortOrder] {
+        if sortType == .manually {
+            return [.ascending] /// 手动排序仅支持升序
+        }
+        
         return TodoSortOrder.allCases
     }
     

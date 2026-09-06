@@ -7820,7 +7820,7 @@
 			children = (
 				E57B2C173046000000000007 /* GoalDetailCoordinator.swift */,
 				E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */,
-				E57B2B573046CD0600BA4D56 /* Interacter */,
+				E57B2B573046CD0600BA4D56 /* Interactor */,
 				E57B2B563046CC5D00BA4D56 /* Option */,
 			);
 			path = Detail;
@@ -7950,14 +7950,14 @@
 			path = Option;
 			sourceTree = "<group>";
 		};
-		E57B2B573046CD0600BA4D56 /* Interacter */ = {
+		E57B2B573046CD0600BA4D56 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
 				E57B2B5C3046D00A00BA4D56 /* GoalPlanOptionState.swift */,
 				E57B2B583046CD2F00BA4D56 /* GoalPlanConfiguration.swift */,
 				E57B2B5A3046CF5200BA4D56 /* GoalPlanInteractor.swift */,
 			);
-			path = Interacter;
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		E57B2B623047BB9E00BA4D56 /* Task */ = {

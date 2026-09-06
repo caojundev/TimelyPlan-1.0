@@ -253,16 +253,12 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     }
     
     func selectGoalPlanOption(_ option: GoalPlanOption) {
+        let processor = GoalPlanMenuProcessor()
         switch option {
-        case .select:
-            break
-        case .showCompleted:
-            interactor.toggleShowCompleted()
         case .edit:
-            GoalPresenter.editGoalPlan(goalPlan)
+            processor.performMenuAction(.edit, for: goalPlan)
         case .delete:
-            let processor = GoalPlanMenuProcessor()
-            processor.deleteGoalPlan(goalPlan)
+            processor.performMenuAction(.delete, for: goalPlan)
         default:
             break
         }

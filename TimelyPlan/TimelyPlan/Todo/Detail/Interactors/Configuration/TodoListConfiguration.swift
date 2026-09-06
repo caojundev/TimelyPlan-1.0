@@ -225,7 +225,10 @@ class TodoTagListConfiguration: TodoListConfiguration {
     }
     
     override func allowSortTypes() -> [TodoSortType] {
-        return TodoSortType.completionDateExcluded()
+        var types = TodoSortType.allCases
+        types.remove(.manually)
+        types.remove(.completionDate)
+        return types
     }
     
     override func canAddTask() -> Bool {
@@ -272,7 +275,10 @@ class TodoFilterListConfiguration: TodoListConfiguration {
     }
     
     override func allowSortTypes() -> [TodoSortType] {
-        return TodoSortType.completionDateExcluded()
+        var types = TodoSortType.allCases
+        types.remove(.manually)
+        types.remove(.completionDate)
+        return types
     }
     
     override func canAddTask() -> Bool {

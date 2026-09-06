@@ -32,10 +32,6 @@ class GoalPlanInteractor {
         return planOptionState.validatedSort(for: configuration)
     }
     
-    var showCompleted: Bool {
-        return self.planOptionState.showCompleted
-    }
-    
     private(set) var tasks: [GoalTask]?
     
     private(set) var planOptionState: GoalPlanOptionState
@@ -151,13 +147,6 @@ class GoalPlanInteractor {
     }
 
     // MARK: - 菜单操作
-    func toggleShowCompleted() {
-        planOptionState.showCompleted = !showCompleted
-        planOptionStateDidChange()
-        setNeedsRefresh()
-        loadGroups()
-    }
-
     func setGroupType(_ groupType: TodoGroupType) {
         let groupType = configuration.validatedGroupType(groupType)
         guard planOptionState.groupType != groupType else {

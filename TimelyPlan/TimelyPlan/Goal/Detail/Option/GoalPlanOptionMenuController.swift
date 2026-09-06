@@ -8,8 +8,6 @@
 import Foundation
 
 enum GoalPlanOption: String, TPMenuRepresentable {
-    case select    /// 选择
-    case showCompleted /// 显示已完成
     case group     /// 分组
     case sort      /// 排序
     case edit      /// 编辑列表
@@ -30,10 +28,6 @@ enum GoalPlanOption: String, TPMenuRepresentable {
     /// 标题
     var title: String {
         switch self {
-        case .select:
-            return resGetString("Select")
-        case .showCompleted:
-            return resGetString("Show Completed")
         case .group:
             return resGetString("Group")
         case .sort:
@@ -56,12 +50,7 @@ enum GoalPlanOption: String, TPMenuRepresentable {
     }
     
     var handleBeforeDismiss: Bool {
-        switch self {
-        case .select, .showCompleted:
-            return true
-        default:
-            return false
-        }
+        return false
     }
 }
 
@@ -74,8 +63,6 @@ struct GoalPlanOptionConfig {
     let groupType: TodoGroupType
     
     let sort: TodoSort
-
-    var showCompleted: Bool = true
 
     /// 允许的分组类型
     var allowGroupTypes: [TodoGroupType] = []
@@ -95,7 +82,6 @@ struct GoalPlanOptionConfig {
         let groupType = state.validatedGroupType(for: configuration)
         let sort = state.validatedSort(for: configuration)
         var config = GoalPlanOptionConfig(options: options, groupType: groupType, sort: sort)
-        config.showCompleted = state.showCompleted
         config.allowGroupTypes = configuration.allowGroupTypes()
         config.allowSortTypes = configuration.allowSortTypes()
         config.allowSortOrders = configuration.allowSortOrders(for: sort.type)
@@ -123,8 +109,7 @@ class GoalPlanOptionMenuController: TPBaseMenuController<GoalPlanOption> {
 
     override func orderedMenuActionTypeLists() -> [Array<GoalPlanOption>] {
         var lists: [Array<GoalPlanOption>]
-        lists = [[.showCompleted],
-                 [.group, .sort],
+        lists = [[.group, .sort],
                  [.edit],
                  [.delete]]
         return lists
@@ -156,8 +141,6 @@ class GoalPlanOptionMenuController: TPBaseMenuController<GoalPlanOption> {
         }
         
         switch type {
-        case .showCompleted:
-            action.isChecked = config.showCompleted
         case .group:
             updateGroupAction(action)
         case .sort:

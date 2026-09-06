@@ -44,6 +44,7 @@
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="progress" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDGoalTask" inverseName="goalPlan" inverseEntity="CDGoalTask"/>
     </entity>
     <entity name="CDGoalTask" representedClassName="CDGoalTask" syncable="YES" codeGenerationType="class">
         <attribute name="autoRecordValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -74,6 +75,7 @@
         <attribute name="targetValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timePlanRuleJSON" optional="YES" attributeType="String"/>
         <attribute name="weight" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="goalPlan" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDGoalPlan" inverseName="tasks" inverseEntity="CDGoalPlan"/>
     </entity>
     <entity name="CDHabitRecord" representedClassName="CDHabitRecord" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -188,7 +190,7 @@
     <elements>
         <element name="CDFocusSession" positionX="27" positionY="189" width="128" height="239"/>
         <element name="CDFocusTimer" positionX="18" positionY="180" width="128" height="239"/>
-        <element name="CDGoalPlan" positionX="45" positionY="261" width="128" height="194"/>
+        <element name="CDGoalPlan" positionX="45" positionY="261" width="128" height="209"/>
         <element name="CDHabitRecord" positionX="18" positionY="180" width="128" height="164"/>
         <element name="CDHabitSample" positionX="27" positionY="189" width="128" height="74"/>
         <element name="CDHabitTask" positionX="18" positionY="180" width="128" height="404"/>
@@ -198,6 +200,6 @@
         <element name="CDTodoTag" positionX="45" positionY="261" width="128" height="119"/>
         <element name="CDTodoTask" positionX="54" positionY="270" width="128" height="389"/>
         <element name="KeyValueStore" positionX="54" positionY="207" width="128" height="74"/>
-        <element name="CDGoalTask" positionX="45" positionY="261" width="128" height="449"/>
+        <element name="CDGoalTask" positionX="45" positionY="261" width="128" height="464"/>
     </elements>
 </model>

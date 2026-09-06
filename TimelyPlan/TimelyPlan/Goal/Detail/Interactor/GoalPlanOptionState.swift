@@ -9,9 +9,6 @@ import Foundation
 
 struct GoalPlanOptionState: Codable {
     
-    /// 显示已完成
-    var showCompleted: Bool = true
-    
     /// 分组类型
     var groupType: TodoGroupType?
     
