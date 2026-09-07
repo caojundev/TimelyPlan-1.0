@@ -2235,6 +2235,7 @@
 		E5FAA9EA304E47B900C9CCD8 /* GoalTaskGroupType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9E9304E47B900C9CCD8 /* GoalTaskGroupType.swift */; };
 		E5FAA9ED304E4B5D00C9CCD8 /* goal_task_completionStatus_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FAA9EB304E4B5C00C9CCD8 /* goal_task_completionStatus_24@2x.png */; };
 		E5FAA9EE304E4B5D00C9CCD8 /* goal_task_completionStatus_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FAA9EC304E4B5D00C9CCD8 /* goal_task_completionStatus_24@3x.png */; };
+		E5FAA9F1304E5B1E00C9CCD8 /* GoalRecordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9F0304E5B1E00C9CCD8 /* GoalRecordInputViewController.swift */; };
 		E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBD0F02DA9135200924EED /* SettingAgent.swift */; };
 		E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */; };
 		E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */; };
@@ -4541,6 +4542,7 @@
 		E5FAA9E9304E47B900C9CCD8 /* GoalTaskGroupType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskGroupType.swift; sourceTree = "<group>"; };
 		E5FAA9EB304E4B5C00C9CCD8 /* goal_task_completionStatus_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goal_task_completionStatus_24@2x.png"; sourceTree = "<group>"; };
 		E5FAA9EC304E4B5D00C9CCD8 /* goal_task_completionStatus_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goal_task_completionStatus_24@3x.png"; sourceTree = "<group>"; };
+		E5FAA9F0304E5B1E00C9CCD8 /* GoalRecordInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRecordInputViewController.swift; sourceTree = "<group>"; };
 		E5FBD0F02DA9135200924EED /* SettingAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAgent.swift; sourceTree = "<group>"; };
 		E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@3x.png"; sourceTree = "<group>"; };
 		E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_completed_36@2x.png"; sourceTree = "<group>"; };
@@ -6930,6 +6932,7 @@
 				E57B2B2F304470E700BA4D56 /* Home */,
 				E57B2B2D304470E600BA4D56 /* Detail */,
 				E57B2B623047BB9E00BA4D56 /* Task */,
+				E5FAA9EF304E5AEA00C9CCD8 /* Record */,
 				E57B2B4630452B8D00BA4D56 /* Archived */,
 				E57B2B3530451F2F00BA4D56 /* Setting */,
 			);
@@ -11914,6 +11917,14 @@
 			path = FilterView;
 			sourceTree = "<group>";
 		};
+		E5FAA9EF304E5AEA00C9CCD8 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				E5FAA9F0304E5B1E00C9CCD8 /* GoalRecordInputViewController.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
 		E5FC6BA82F64F16A00D5A5EA /* Log */ = {
 			isa = PBXGroup;
 			children = (
@@ -13261,6 +13272,7 @@
 				E51F940E300227D700734910 /* CalendarEventChangeObserver.swift in Sources */,
 				E51DF2112F853FC700D6BCE3 /* TodoTask+Organizer.swift in Sources */,
 				E555492F2F74DBB100C9460D /* FocusQuickStartSystemTimerViewController.swift in Sources */,
+				E5FAA9F1304E5B1E00C9CCD8 /* GoalRecordInputViewController.swift in Sources */,
 				E5BB9DC12D3BF0C60089667A /* Weekday.swift in Sources */,
 				E5BB9DDE2D3BF0C60089667A /* UIView+Animate.swift in Sources */,
 				E53352862FF775E100546986 /* CalendarYearViewController.swift in Sources */,

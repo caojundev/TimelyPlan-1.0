@@ -254,6 +254,70 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         menuController.showMenu(from: sourceView)
     }
     
+    func goalTaskListView(_ listView: GoalTaskListView, didClickCheckboxForTask goalTask: GoalTask) {
+        clickCheckbox(for: goalTask)
+    }
+    
+    /// 点击复选框记录进度或切换完成状态
+    private func clickCheckbox(for task: GoalTask) {
+        if task.isCompleted {
+            /// 已完成的任务：点击取消完成
+            TPImpactFeedback.impactWithSoftStyle()
+            GoalRepository.updateGoalTask(task, isCompleted: false)
+            return
+        }
+        
+        /// 无有效进度范围（开始值 == 目标值）的任务：点击直接完成
+        if task.checkType == .normal {
+            TPImpactFeedback.impactWithMediumStyle()
+            GoalRepository.updateGoalTask(task, isCompleted: true)
+            return
+        }
+        
+        /// 自动记录模式：直接累加一次预设数值
+        if let autoValue = task.autoRecordedCurrentValue() {
+            TPImpactFeedback.feedbackWithSuccessStyle()
+            GoalRepository.updateGoalTask(task, currentValue: autoValue)
+            return
+        }
+        
+        /// 手动输入记录
+        let inputVC = GoalRecordInputViewController.inputViewController(for: task)
+        inputVC.completion = { [weak self] value, inputType, remark in
+            guard let self = self else {
+                return
+            }
+            
+            let currentValue = self.currentValue(byEntering: value,
+                                                 inputType: inputType,
+                                                 for: task)
+            GoalRepository.updateGoalTask(task, currentValue: currentValue)
+            
+            if let remark = remark, remark != task.note {
+                GoalRepository.updateGoalTask(task, note: remark)
+            }
+        }
+        
+        inputVC.show()
+    }
+    
+    /// 根据输入数值与输入类型计算目标任务的最新当前数值
+    private func currentValue(byEntering inputValue: Int64,
+                              inputType: GoalRecordInputType,
+                              for task: GoalTask) -> Int64 {
+        switch inputType {
+        case .update:
+            /// 总量：直接将输入数值作为当前数值
+            return task.validatedCurrentValue(inputValue)
+        case .decrease:
+            /// 递减增量
+            return task.currentValue(byIncrementing: -inputValue)
+        case .increase:
+            /// 递增增量
+            return task.currentValue(byIncrementing: inputValue)
+        }
+    }
+    
     func goalTaskListViewHandleRefresh(_ listView: GoalTaskListView) {
         interactor.setNeedsRefresh()
         interactor.loadGroups()

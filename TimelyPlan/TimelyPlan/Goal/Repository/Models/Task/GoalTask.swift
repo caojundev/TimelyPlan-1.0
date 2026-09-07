@@ -81,6 +81,17 @@ enum GoalProgressRecordType: Int, Codable, TPMenuRepresentable {
     }
 }
 
+/// 记录输入类型
+enum GoalRecordInputType: Int, TPMenuRepresentable {
+    case increase = 0
+    case decrease
+    case update
+    
+    static func titles() -> [String] {
+        return ["Increase", "Decrease", "Update"]
+    }
+}
+
 @objcMembers class GoalTask: NSObject, TPHexColorConvertible, SortableIdentifiable {
     
     // MARK: - 基本属性

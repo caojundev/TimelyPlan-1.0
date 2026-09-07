@@ -18,6 +18,10 @@ protocol GoalTaskListViewDelegate: AnyObject {
                           didClickMoreForTask goalTask: GoalTask,
                           sourceView: UIView)
     
+    /// 点击目标任务复选框
+    func goalTaskListView(_ listView: GoalTaskListView,
+                          didClickCheckboxForTask goalTask: GoalTask)
+    
     /// 处理下拉刷新
     func goalTaskListViewHandleRefresh(_ listView: GoalTaskListView)
 }
@@ -27,6 +31,9 @@ extension GoalTaskListViewDelegate {
     func goalTaskListView(_ listView: GoalTaskListView,
                           didClickMoreForTask goalTask: GoalTask,
                           sourceView: UIView) {}
+    
+    func goalTaskListView(_ listView: GoalTaskListView,
+                          didClickCheckboxForTask goalTask: GoalTask) {}
 }
 
 class GoalTaskListView: UIView,
@@ -311,7 +318,11 @@ class GoalTaskListView: UIView,
     
     // MARK: - GoalTaskPageCheckCellDelegate
     func goalTaskPageCheckCellDidClickCheckbox(_ cell: GoalTaskPageCheckCell) {
-        /// 预留：点击复选框处理
+        guard let goalTask = cell.goalTask else {
+            return
+        }
+        
+        delegate?.goalTaskListView(self, didClickCheckboxForTask: goalTask)
     }
     
     func goalTaskPageCheckCellDidClickMore(_ cell: GoalTaskPageCheckCell) {

@@ -143,9 +143,6 @@ class GoalTaskInfoLayout {
     /// 详情高度
     private(set) var detailHeight: CGFloat = 30.0
     
-    /// 进度（0~1）
-    private(set) var progress: CGFloat = 0.0
-    
     /// 进度条是否隐藏
     var isProgressHidden: Bool {
         return !(config.canShowProgress && task.targetValue > 0)
@@ -203,15 +200,6 @@ class GoalTaskInfoLayout {
                                                constraintWidth: labelWidth,
                                                linesCount: config.detailLinesCount)
         self.detailHeight = detailSize.height
-        
-        /// 计算进度
-        let targetValue = task.targetValue
-        if targetValue > 0 {
-            let value = CGFloat(task.initialValue) / CGFloat(targetValue)
-            self.progress = min(max(value, 0.0), 1.0)
-        } else {
-            self.progress = 0.0
-        }
         
         var contentHeight = config.padding.verticalLength + nameHeight
         if detailHeight > 0.0 {

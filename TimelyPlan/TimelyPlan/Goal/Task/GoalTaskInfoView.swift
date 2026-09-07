@@ -279,8 +279,8 @@ class GoalTaskBaseInfoView: UIView {
         
         name = task.name
         detailText = layout.detailText
-        
-        setProgress(layout.progress, animated: animated)
+
+        setProgress(task.progressFraction, animated: animated)
         setNeedsLayout()
     }
     
