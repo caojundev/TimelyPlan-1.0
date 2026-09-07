@@ -101,24 +101,14 @@ class GoalPlanListCell: TPCollectionCell {
             return
         }
         
-        /// 进度条颜色让用户感知目标颜色
         progressView.barForeColor = goalPlan.color
         progressView.barBackColor = goalPlan.color.withAlphaComponent(0.2)
-        let progress = CGFloat(arc4random() % 100) / 100.0
-        progressView.setProgress(progress, animated: false)
-        
+        progressView.setProgress(goalPlan.progress, animated: false)
         infoView.color = goalPlan.color
         infoView.title = goalPlan.displayName
         
-        /// 副标题：日期区间
-        var subtitleComponents = [ASAttributedString]()
-        let intervalString = GoalDateHelper.intervalDescription(startDate: goalPlan.startDate,
-                                                                endDate: goalPlan.endDate)
-        if let intervalString = intervalString {
-            subtitleComponents.append(intervalString.attributedString)
-        }
-        
-        infoView.subtitle = subtitleComponents.joined(separator: " • ")
+        /// 副标题：由 GoalPlanDetailProvider 统一计算（日期区间 + 进度百分比）
+        infoView.subtitle = GoalPlanDetailProvider.detail(for: goalPlan)
     }
     
     /// 点击更多
@@ -156,6 +146,32 @@ class GoalPlanListInfoView: TPInfoView {
         super.layoutSubviews()
         colorView.layer.cornerRadius = colorView.halfWidth
         colorView.centerY = titleLabel.centerY
+    }
+    
+}
+
+class GoalPlanDetailProvider {
+    
+    /// 副标题组件：日期区间 + 进度百分比
+    static func subtitleComponents(for goalPlan: GoalPlan) -> [ASAttributedString] {
+        var components = [ASAttributedString]()
+        
+        /// 日期区间
+        let intervalString = GoalDateHelper.intervalDescription(startDate: goalPlan.startDate,
+                                                                endDate: goalPlan.endDate)
+        if let intervalString = intervalString {
+            components.append(intervalString.attributedString)
+        }
+        
+        /// 当前进度百分比（不保留小数位）
+        let progressString = Float(goalPlan.progress).percentageString(decimalPlaces: 0)
+        components.append(progressString.attributedString)
+        
+        return components
+    }
+    
+    static func detail(for goalPlan: GoalPlan) -> ASAttributedString {
+        return subtitleComponents(for: goalPlan).joined(separator: " • ")
     }
     
 }

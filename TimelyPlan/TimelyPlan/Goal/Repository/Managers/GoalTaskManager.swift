@@ -13,6 +13,9 @@ class GoalTaskManager {
     /// 目标任务处理更新器
     let updater = GoalTaskProcessorUpdater()
     
+    /// 目标计划更新器（目标任务变化后刷新目标进度时使用）
+    var planUpdater: GoalPlanProcessorUpdater?
+    
     /// 默认上下文对象
     var context: NSManagedObjectContext {
         return .defaultContext
@@ -127,6 +130,9 @@ class GoalTaskManager {
         let goalTask = GoalTask(content: content)
         updater.didCreateGoalTask(goalTask)
         HandyRecord.updateChangeCount()
+        
+        /// 新增任务后刷新目标整体进度
+        refreshGoalPlanProgress(in: goalPlan)
         return goalTask
     }
     
@@ -146,6 +152,9 @@ class GoalTaskManager {
         let change: GoalTaskChange = .content(oldValue: oldEditingTask, newValue: editingTask)
         updater.didUpdateGoalTask(updatedGoalTask, with: change)
         HandyRecord.updateChangeCount()
+        
+        /// 修改任务后刷新目标整体进度
+        refreshGoalPlanProgress(with: content.goalPlan)
         return updatedGoalTask
     }
     
@@ -200,6 +209,11 @@ class GoalTaskManager {
         }
         
         HandyRecord.updateChangeCount()
+        
+        /// 数值进度变化后刷新目标整体进度
+        if let content = CDGoalTask.getGoalTask(withIdentifier: goalTask.identifier) {
+            refreshGoalPlanProgress(with: content.goalPlan)
+        }
     }
     
     /// 自动记录一次进度
@@ -246,6 +260,13 @@ class GoalTaskManager {
         }
         
         HandyRecord.updateChangeCount()
+        
+        /// 完成状态变化后刷新目标整体进度
+        for goalTask in goalTasksToUpdate {
+            if let content = CDGoalTask.getGoalTask(withIdentifier: goalTask.identifier) {
+                refreshGoalPlanProgress(with: content.goalPlan)
+            }
+        }
     }
     
     // MARK: - 我的一天
@@ -291,12 +312,26 @@ class GoalTaskManager {
     }
     
     func deleteGoalTasks(_ goalTasks: [GoalTask]) {
+        /// 删除前记录任务所属目标，用于删除后刷新目标整体进度
+        var goalPlans = Set<CDGoalPlan>()
+        for goalTask in goalTasks {
+            if let content = CDGoalTask.getGoalTask(withIdentifier: goalTask.identifier),
+               let goalPlan = content.goalPlan {
+                goalPlans.insert(goalPlan)
+            }
+        }
+        
         guard CDGoalTask.deleteGoalTasks(goalTasks) else {
             return
         }
         
         updater.didDeleteGoalTasks(goalTasks)
         HandyRecord.updateChangeCount()
+        
+        /// 删除任务后刷新相关目标整体进度
+        for goalPlan in goalPlans {
+            refreshGoalPlanProgress(with: goalPlan)
+        }
     }
     
     // MARK: - 排序
@@ -308,6 +343,30 @@ class GoalTaskManager {
         }
         
         updater.didReorderGoalTask(in: goalTasks, fromIndex: fromIndex, toIndex: toIndex)
+        HandyRecord.updateChangeCount()
+    }
+    
+    // MARK: - 目标进度刷新
+    /// 按目标计划刷新整体进度
+    private func refreshGoalPlanProgress(in goalPlan: GoalPlan) {
+        guard let planContent = CDGoalPlan.getGoalPlan(withIdentifier: goalPlan.identifier) else {
+            return
+        }
+        
+        refreshGoalPlanProgress(with: planContent)
+    }
+    
+    /// 按 CoreData 目标计划对象刷新整体进度，进度变化时通知更新器
+    private func refreshGoalPlanProgress(with planContent: CDGoalPlan?) {
+        guard let planContent = planContent else {
+            return
+        }
+        
+        guard planContent.updateProgress() else {
+            return
+        }
+        
+        planUpdater?.didUpdateGoalPlan(GoalPlan(content: planContent))
         HandyRecord.updateChangeCount()
     }
 }

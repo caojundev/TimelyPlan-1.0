@@ -18,6 +18,9 @@ class GoalRecordManager {
     /// 目标任务管理器（记录进度时需要更新当前数值）
     let taskManager: GoalTaskManager
     
+    /// 目标计划更新器（记录变化后刷新目标整体进度时使用）
+    var planUpdater: GoalPlanProcessorUpdater?
+    
     /// 默认上下文对象
     var context: NSManagedObjectContext {
         return .defaultContext
@@ -50,6 +53,9 @@ class GoalRecordManager {
         let record = GoalRecord(content: content)
         updater.didCreateGoalRecord(record, for: goalTask)
         HandyRecord.updateChangeCount()
+        
+        /// 添加记录后刷新目标整体进度（记录通常伴随进度变化）
+        refreshGoalPlanProgress(for: goalTask)
         return record
     }
     
@@ -132,6 +138,28 @@ class GoalRecordManager {
         
         updater.didDeleteGoalRecords(for: goalTask, in: dateRange)
         HandyRecord.updateChangeCount()
+        
+        /// 删除指定任务的记录后刷新其所属目标整体进度
+        if let goalTask = goalTask {
+            refreshGoalPlanProgress(for: goalTask)
+        }
+        
         return true
+    }
+    
+    // MARK: - 目标进度刷新
+    /// 刷新目标任务所属目标的整体进度，进度变化时通知更新器
+    private func refreshGoalPlanProgress(for goalTask: GoalTask) {
+        guard let taskContent = CDGoalTask.getGoalTask(withIdentifier: goalTask.identifier),
+              let planContent = taskContent.goalPlan else {
+            return
+        }
+        
+        guard planContent.updateProgress() else {
+            return
+        }
+        
+        planUpdater?.didUpdateGoalPlan(GoalPlan(content: planContent))
+        HandyRecord.updateChangeCount()
     }
 }

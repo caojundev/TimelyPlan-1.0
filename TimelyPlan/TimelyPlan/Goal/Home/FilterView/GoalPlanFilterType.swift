@@ -33,20 +33,33 @@ enum GoalPlanFilterType: Int, TPMenuRepresentable {
     
     /// 目标计划是否匹配该筛选状态
     func matches(_ goalPlan: GoalPlan) -> Bool {
+        let isCompleted = goalPlan.progress >= 1.0
+        
         switch self {
         case .all:
             return true
-        case .notStarted:
-            return goalPlan.progress <= 0.0
-        case .inProgress:
-            return goalPlan.progress > 0.0 && goalPlan.progress < 1.0
         case .completed:
-            return goalPlan.progress >= 1.0
-        case .overdue:
-            guard let endDate = goalPlan.endDate else {
+            return isCompleted
+        case .notStarted:
+            guard !isCompleted, let startDate = goalPlan.startDate else {
                 return false
             }
-            return goalPlan.progress < 1.0 && endDate < Date()
+
+            return startDate > Date()
+        case .overdue:
+            guard !isCompleted, let endDate = goalPlan.endDate else {
+                return false
+            }
+            
+            return endDate < Date()
+        case .inProgress:
+            guard !isCompleted else {
+                return false
+            }
+            
+            let dateRange = DateRange(startDate: goalPlan.startDate, endDate: goalPlan.endDate)
+            return dateRange.contains(date: .now)
         }
     }
+    
 }

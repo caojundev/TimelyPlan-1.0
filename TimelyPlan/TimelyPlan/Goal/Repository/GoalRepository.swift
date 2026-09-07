@@ -28,10 +28,18 @@ class GoalRepository {
     private static let planManager = GoalPlanManager()
     
     /// 目标任务管理器
-    private static let taskManager = GoalTaskManager()
+    private static let taskManager: GoalTaskManager = {
+        let manager = GoalTaskManager()
+        manager.planUpdater = planManager.updater
+        return manager
+    }()
     
     /// 目标记录管理器
-    private static let recordManager = GoalRecordManager(taskManager: taskManager)
+    private static let recordManager: GoalRecordManager = {
+        let manager = GoalRecordManager(taskManager: taskManager)
+        manager.planUpdater = planManager.updater
+        return manager
+    }()
     
     // MARK: - 注册远程数据变更
     private static var isRemoteChangeObserved = false
@@ -55,7 +63,7 @@ class GoalRepository {
             
             if entityNames.contains(.goalRecord) {
                 let results = changeInfo.extractGoalRecord()
-                recordUpdater.didChangeRemoteGoalRecord(with: results)
+                recordManager.updater.didChangeRemoteGoalRecord(with: results)
             }
         }
     }
