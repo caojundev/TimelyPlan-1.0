@@ -90,7 +90,15 @@ class GoalRecordInputViewController: TPAlertController {
         super.handleFirstAppearance()
         recordInputView.textField.becomeFirstResponder()
     }
-
+    
+    override var themeBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         recordInputView.textField.resignFirstResponder()
@@ -254,20 +262,20 @@ class GoalRecordInputView: UIView, UITextViewDelegate {
         typeMenuView.height = 50.0
         typeMenuView.minButtonWidth = (width - typeMenuView.padding.horizontalLength) / CGFloat(typeMenuView.menuItems.count)
         typeMenuView.top = layoutFrame.minY
-        typeMenuView.normalBackgroundColor = .clear
+        typeMenuView.normalBackgroundColor = .secondarySystemGroupedBackground
 
         numberField.width = width
         numberField.height = 50.0
-        numberField.top = typeMenuView.bottom + 8.0
+        numberField.top = typeMenuView.bottom + 12.0
         numberField.layer.cornerRadius = 12.0
-        numberField.layer.backgroundColor = UIColor.secondarySystemBackground.cgColor
+        numberField.layer.backgroundColor = UIColor.secondarySystemGroupedBackground.cgColor
 
-        let remarkTop = numberField.bottom + 8.0
+        let remarkTop = numberField.bottom + 12.0
         remarkTextView.width = width
         remarkTextView.height = max(layoutFrame.maxY - remarkTop, 0.0)
         remarkTextView.top = remarkTop
         remarkTextView.layer.cornerRadius = 12.0
-        remarkTextView.layer.backgroundColor = UIColor.secondarySystemBackground.cgColor
+        remarkTextView.layer.backgroundColor = UIColor.secondarySystemGroupedBackground.cgColor
     }
 
     // MARK: - UITextViewDelegate

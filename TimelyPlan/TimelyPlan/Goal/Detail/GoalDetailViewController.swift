@@ -276,46 +276,24 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         
         /// 自动记录模式：直接累加一次预设数值
         if let autoValue = task.autoRecordedCurrentValue() {
+            let oldValue = task.currentValue
             TPImpactFeedback.feedbackWithSuccessStyle()
             GoalRepository.updateGoalTask(task, currentValue: autoValue)
+            GoalRepository.addRecord(amount: autoValue - oldValue, for: task)
             return
         }
         
         /// 手动输入记录
         let inputVC = GoalRecordInputViewController.inputViewController(for: task)
-        inputVC.completion = { [weak self] value, inputType, remark in
-            guard let self = self else {
-                return
-            }
-            
-            let currentValue = self.currentValue(byEntering: value,
-                                                 inputType: inputType,
-                                                 for: task)
-            GoalRepository.updateGoalTask(task, currentValue: currentValue)
-            
-            if let remark = remark, remark != task.note {
-                GoalRepository.updateGoalTask(task, note: remark)
-            }
+        inputVC.completion = { value, inputType, remark in
+            /// 更新当前数值并写入一条目标记录（备注保存到记录中）
+            GoalRepository.record(amount: value,
+                                  inputType: inputType,
+                                  note: remark,
+                                  for: task)
         }
         
         inputVC.show()
-    }
-    
-    /// 根据输入数值与输入类型计算目标任务的最新当前数值
-    private func currentValue(byEntering inputValue: Int64,
-                              inputType: GoalRecordInputType,
-                              for task: GoalTask) -> Int64 {
-        switch inputType {
-        case .update:
-            /// 总量：直接将输入数值作为当前数值
-            return task.validatedCurrentValue(inputValue)
-        case .decrease:
-            /// 递减增量
-            return task.currentValue(byIncrementing: -inputValue)
-        case .increase:
-            /// 递增增量
-            return task.currentValue(byIncrementing: inputValue)
-        }
     }
     
     func goalTaskListViewHandleRefresh(_ listView: GoalTaskListView) {

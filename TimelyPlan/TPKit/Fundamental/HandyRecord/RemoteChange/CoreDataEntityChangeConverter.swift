@@ -102,6 +102,14 @@ struct HabitTaskConverter: CoreDataEntityConvertible {
     static func fromCoreData(_ object: CDHabitTask) -> HabitTask? { HabitTask(content: object) }
 }
 
+// GoalRecord
+struct GoalRecordConverter: CoreDataEntityConvertible {
+    typealias CoreDataType = CDGoalRecord
+    typealias DomainType = GoalRecord
+    static var entityName: String { EntityName.goalRecord.rawValue }
+    static func fromCoreData(_ object: CDGoalRecord) -> GoalRecord? { GoalRecord(content: object) }
+}
+
 // TodoFilter
 struct TodoFilterConverter: CoreDataEntityConvertible {
     typealias CoreDataType = CDTodoFilter
@@ -294,6 +302,11 @@ extension CoreDataRemoteChangeManager.ChangeInfo {
     func extractGoalTask() -> EntityChangeResults<GoalTask>? {
         guard let changes = changesByEntity[EntityName.goalTask.rawValue] else { return nil }
         return EntityChangeConverter.shared.convert(changes: changes, converterType: GoalTaskConverter.self)
+    }
+    
+    func extractGoalRecord() -> EntityChangeResults<GoalRecord>? {
+        guard let changes = changesByEntity[EntityName.goalRecord.rawValue] else { return nil }
+        return EntityChangeConverter.shared.convert(changes: changes, converterType: GoalRecordConverter.self)
     }
     
     func extractKeyValueStore() -> EntityChangeResults<KeyValueEntry>? {

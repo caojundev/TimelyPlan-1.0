@@ -30,6 +30,9 @@ class GoalRepository {
     /// 目标任务管理器
     private static let taskManager = GoalTaskManager()
     
+    /// 目标记录管理器
+    private static let recordManager = GoalRecordManager(taskManager: taskManager)
+    
     // MARK: - 注册远程数据变更
     private static var isRemoteChangeObserved = false
     private static func observeRemoteChangeIfNeeded() {
@@ -50,7 +53,10 @@ class GoalRepository {
                 taskManager.updater.didChangeRemoteGoalTask(with: results)
             }
             
-            #warning("添加目标记录")
+            if entityNames.contains(.goalRecord) {
+                let results = changeInfo.extractGoalRecord()
+                recordUpdater.didChangeRemoteGoalRecord(with: results)
+            }
         }
     }
     
@@ -67,7 +73,7 @@ class GoalRepository {
         }
         
         if option.contains(.record) {
-            
+            recordManager.updater.addDelegate(updater)
         }
     }
     
@@ -75,6 +81,7 @@ class GoalRepository {
     static func removeUpdater(_ updater: AnyObject) {
         planManager.updater.removeDelegate(updater)
         taskManager.updater.removeDelegate(updater)
+        recordManager.updater.removeDelegate(updater)
     }
     
     // MARK: - 获取
@@ -150,16 +157,6 @@ class GoalRepository {
 extension GoalRepository {
     
     // MARK: - 获取目标任务
-//    /// 同步获取所有目标任务
-//    static func getAllGoalTasks() -> [GoalTask]? {
-//        return taskManager.getAllGoalTasks()
-//    }
-//
-//    /// 同步获取所有未完成目标任务
-//    static func getActiveGoalTasks() -> [GoalTask]? {
-//        return taskManager.getActiveGoalTasks()
-//    }
-//
     /// 获取特定标识的目标任务
     static func getGoalTask(withIdentifier identifier: String) -> GoalTask? {
         return taskManager.getGoalTask(withIdentifier: identifier)
@@ -172,24 +169,6 @@ extension GoalRepository {
         taskManager.fetchGoalTasks(of: goalPlan, completion: completion)
     }
     
-    
-//    /// 未完成目标任务数目
-//    static func numberOfActiveGoalTasks() -> Int {
-//        return taskManager.numberOfActiveGoalTasks()
-//    }
-    
-//    /// 异步获取所有目标任务
-//    static func fetchAllGoalTasks(showCompleted: Bool = true,
-//                                  completion: @escaping ([GoalTask]?) -> Void) {
-//        taskManager.fetchAllGoalTasks(showCompleted: showCompleted, completion: completion)
-//    }
-//
-//
-//    /// 异步获取所有未完成目标任务
-//    static func fetchActiveGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
-//        taskManager.fetchActiveGoalTasks(completion: completion)
-//    }
-//
     /// 获取特定日期区间内的目标任务
     static func fetchCalendarEventGoalTasks(in range: DateInterval,
                                             completion: @escaping ([GoalTask]?) -> Void) {
@@ -207,12 +186,6 @@ extension GoalRepository {
         taskManager.fetchNotifiableGoalTasks(completion: completion)
     }
     
-//    /// 获取特定区间内已完成的目标任务
-//    static func fetchCompletedGoalTasks(in range: DateRange,
-//                                        completion: @escaping ([GoalTask]?) -> Void) {
-//        taskManager.fetchCompletedGoalTasks(in: range, completion: completion)
-//    }
-//
     /// 搜索目标任务
     static func searchGoalTasks(containText text: String,
                                 showCompleted: Bool = true,
@@ -290,5 +263,66 @@ extension GoalRepository {
     /// 重排目标任务
     static func reorderGoalTask(in goalTasks: [GoalTask], fromIndex: Int, toIndex: Int) {
         taskManager.reorderGoalTask(in: goalTasks, fromIndex: fromIndex, toIndex: toIndex)
+    }
+}
+
+// MARK: - 目标记录
+extension GoalRepository {
+    
+    /// 添加一条记录（仅记录，不会更新目标任务的当前数值）
+    @discardableResult
+    static func addRecord(amount: Int64,
+                          note: String? = nil,
+                          for goalTask: GoalTask,
+                          on date: Date = .now) -> GoalRecord? {
+        return recordManager.addRecord(amount: amount,
+                                       note: note,
+                                       for: goalTask,
+                                       on: date)
+    }
+    
+    /// 记录进度：更新目标任务当前数值并添加一条记录
+    static func record(amount: Int64,
+                       inputType: GoalRecordInputType,
+                       note: String? = nil,
+                       for goalTask: GoalTask,
+                       on date: Date = .now) {
+        recordManager.record(amount: amount,
+                             inputType: inputType,
+                             note: note,
+                             for: goalTask,
+                             on: date)
+    }
+    
+    // MARK: - 获取
+    /// 同步获取目标记录
+    static func getRecords(for goalTask: GoalTask? = nil,
+                           fromDate: Date? = nil,
+                           toDate: Date? = nil) -> [GoalRecord] {
+        return recordManager.getRecords(for: goalTask,
+                                        fromDate: fromDate,
+                                        toDate: toDate)
+    }
+    
+    /// 异步获取目标记录
+    static func fetchRecords(for goalTask: GoalTask? = nil,
+                             fromDate: Date? = nil,
+                             toDate: Date? = nil,
+                             completion: @escaping ([GoalRecord]?) -> Void) {
+        recordManager.fetchRecords(for: goalTask,
+                                   fromDate: fromDate,
+                                   toDate: toDate,
+                                   completion: completion)
+    }
+    
+    // MARK: - 删除
+    /// 删除目标任务在指定日期区间内的记录（日期区间为 nil 表示不限制）
+    @discardableResult
+    static func deleteRecords(for goalTask: GoalTask? = nil,
+                              fromDate: Date? = nil,
+                              toDate: Date? = nil) -> Bool {
+        return recordManager.deleteRecords(for: goalTask,
+                                           fromDate: fromDate,
+                                           toDate: toDate)
     }
 }
