@@ -30,14 +30,12 @@ enum GoalTaskGroupType: String, Codable, TPMenuRepresentable {
         switch self {
         case .default:
             return "todo_group_type_default_24"
-        case .targetStatus:
-            /// 复用完成类图标表示目标达成状态
-            return "todo_group_type_completionDate_24"
         case .weight:
-            /// 复用优先级图标表示权重分组
             return "todo_group_type_priority_24"
         case .none:
             return "todo_group_type_none_24"
+        case .targetStatus:
+            return "goal_task_completionStatus_24"
         }
     }
     
