@@ -277,7 +277,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         }
     }
     
-    private func selectGroupType(_ groupType: TodoGroupType) {
+    private func selectGroupType(_ groupType: GoalTaskGroupType) {
         interactor.setGroupType(groupType)
     }
     

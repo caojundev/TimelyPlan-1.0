@@ -68,6 +68,12 @@
 "By Day" = "按日";
 "By Week" = "按周";
 "By Month" = "按月";
+"Target Status" = "目标达成状态";
+"Achieved" = "已达成";
+"Weight" = "权重";
+"High Weight" = "高权重";
+"Medium Weight" = "中权重";
+"Low Weight" = "低权重";
 
 ///**********************日历*********************///
 "Quarter" = "季";

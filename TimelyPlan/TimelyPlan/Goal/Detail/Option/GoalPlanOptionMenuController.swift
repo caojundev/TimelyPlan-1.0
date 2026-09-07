@@ -60,12 +60,12 @@ struct GoalPlanOptionConfig {
     
     let options: [GoalPlanOption]
     
-    let groupType: TodoGroupType
+    let groupType: GoalTaskGroupType
     
     let sort: TodoSort
 
     /// 允许的分组类型
-    var allowGroupTypes: [TodoGroupType] = []
+    var allowGroupTypes: [GoalTaskGroupType] = []
     
     /// 允许的排序类型
     var allowSortTypes: [TodoSortType] = []
@@ -94,7 +94,7 @@ class GoalPlanOptionMenuController: TPBaseMenuController<GoalPlanOption> {
     /// 选中选项
     var didSelectPlanOption: ((GoalPlanOption) -> Void)?
     
-    var didSelectGroupType: ((TodoGroupType) -> Void)?
+    var didSelectGroupType: ((GoalTaskGroupType) -> Void)?
     
     var didSelectSortType: ((TodoSortType) -> Void)?
     
@@ -153,11 +153,7 @@ class GoalPlanOptionMenuController: TPBaseMenuController<GoalPlanOption> {
     private func updateGroupAction(_ action: TPMenuAction) {
         action.subtitle = config.groupType.title
         
-        let controller = TodoGroupTypeMenuController(types: config.allowGroupTypes)
-        controller.selectedGroupType = config.groupType
-        controller.didSelectGroupType = didSelectGroupType
-        
-        let subMenuItems = controller.menuItems()
+        let subMenuItems = self.groupSubMenuItems()
         let menuItemsCount = subMenuItems.count
         
         // 只有当有多个菜单项，或者单个菜单项包含多个子动作时，才设置子菜单
@@ -165,6 +161,19 @@ class GoalPlanOptionMenuController: TPBaseMenuController<GoalPlanOption> {
         if shouldShowSubMenu {
             action.subMenuItems = subMenuItems
         }
+    }
+    
+    /// 分组子菜单
+    private func groupSubMenuItems() -> [TPMenuItem] {
+        let menuItem = TPMenuItem.item(with: config.allowGroupTypes) { type, action in
+            action.handleBeforeDismiss = true
+            action.isChecked = type == self.config.groupType
+            action.handler = { _ in
+                self.didSelectGroupType?(type)
+            }
+        }
+        
+        return [menuItem]
     }
     
     private func updateSortAction(_ action: TPMenuAction) {

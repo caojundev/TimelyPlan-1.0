@@ -9,11 +9,125 @@ import Foundation
 
 // MARK: - 目标任务分组归类
 
+/// 目标任务完成状态（按是否勾选完成分组的粗状态）
+enum GoalTaskCompletionStatus: String, CaseIterable {
+    /// 待办（未完成）
+    case todo
+    /// 已完成
+    case completed
+    
+    /// 分组标识
+    var identifier: String {
+        return String(describing: GoalTaskCompletionStatus.self) + self.rawValue.capitalized
+    }
+    
+    /// 分组标题
+    var title: String {
+        switch self {
+        case .todo:
+            return resGetString("Todo")
+        case .completed:
+            return resGetString("Completed")
+        }
+    }
+}
+
+/// 目标任务的目标达成状态（按数值目标是否达成及执行进度分组的 4 种状态）
+enum GoalTaskAchieveStatus: String, CaseIterable {
+    /// 进行中
+    case inProgress
+    /// 未开始
+    case notStarted
+    /// 已达成（目标数值已经达到）
+    case achieved
+    /// 已逾期
+    case overdue
+    
+    /// 分组标识
+    var identifier: String {
+        return String(describing: GoalTaskAchieveStatus.self) + self.rawValue.capitalized
+    }
+    
+    /// 分组标题
+    var title: String {
+        switch self {
+        case .inProgress:
+            return resGetString("In Progress")
+        case .notStarted:
+            return resGetString("Not Started")
+        case .achieved:
+            return resGetString("Achieved")
+        case .overdue:
+            return resGetString("Overdue")
+        }
+    }
+}
+
+/// 目标任务权重分组类型（按权重 1~10 归类为高/中/低三档）
+enum GoalTaskWeightGroupType: String, CaseIterable {
+    /// 高权重（8～10）
+    case high
+    /// 中权重（4～7）
+    case medium
+    /// 低权重（1～3）
+    case low
+    
+    /// 分组标识
+    var identifier: String {
+        return String(describing: GoalTaskWeightGroupType.self) + self.rawValue.capitalized
+    }
+    
+    /// 分组标题
+    var title: String {
+        switch self {
+        case .high:
+            return resGetString("High Weight")
+        case .medium:
+            return resGetString("Medium Weight")
+        case .low:
+            return resGetString("Low Weight")
+        }
+    }
+    
+    /// 根据权重数值返回所在档位（权重越界时返回 nil）
+    static func type(for weight: Int64) -> GoalTaskWeightGroupType? {
+        switch weight {
+        case 1...3:
+            return .low
+        case 4...7:
+            return .medium
+        case 8...10:
+            return .high
+        default:
+            return nil
+        }
+    }
+}
+
 extension GoalTask {
     
-    /// 任务状态
-    var status: TodoTaskStaus {
+    /// 完成状态（按是否勾选完成分组）
+    var completionStatus: GoalTaskCompletionStatus {
         return isCompleted ? .completed : .todo
+    }
+    
+    /// 目标达成状态（按数值目标是否达成及执行进度分组）
+    var achieveStatus: GoalTaskAchieveStatus {
+        if isProgressCompleted {
+            return .achieved
+        }
+        
+        /// 已过期且未达成目标视为逾期
+        if let endDate = endDate, endDate < Date() {
+            return .overdue
+        }
+        
+        /// 开始时间在未来视为未开始
+        if let startDate = startDate, startDate > Date() {
+            return .notStarted
+        }
+        
+        return .inProgress
     }
     
     /// 开始日期类型
@@ -39,13 +153,18 @@ extension GoalTask {
     var weightOption: GoalTaskWeightOption? {
         return GoalTaskWeightOption.option(for: weight)
     }
+    
+    /// 权重分组档位（权重越界时返回 nil）
+    var weightGroupType: GoalTaskWeightGroupType? {
+        return GoalTaskWeightGroupType.type(for: weight)
+    }
 }
 
 extension Array where Element == GoalTask {
     
     /// 未归类分组
     func noneClassifiedTaskGroups() -> [GoalTaskGroup] {
-        let type = TodoGroupType.none
+        let type = GoalTaskGroupType.none
         let group = GoalTaskGroup(identifier: type.identifier)
         group.title = type.title
         group.goalTasks = self
@@ -56,7 +175,7 @@ extension Array where Element == GoalTask {
     func statusClassifiedTaskGroups() -> [GoalTaskGroup] {
         let dic = statusClassifiedTasks()
         var groups = [GoalTaskGroup]()
-        TodoTaskStaus.allCases.forEach { status in
+        GoalTaskCompletionStatus.allCases.forEach { status in
             if let tasks = dic[status], tasks.count > 0 {
                 let group = GoalTaskGroup(identifier: status.identifier)
                 group.title = status.title
@@ -68,14 +187,14 @@ extension Array where Element == GoalTask {
         return groups
     }
     
-    /// 按开始日期归类分组
-    func startDateClassifiedTaskGroups() -> [GoalTaskGroup] {
-        let dic = startDateClassifiedTasks()
+    /// 按目标达成状态归类分组
+    func achievedClassifiedTaskGroups() -> [GoalTaskGroup] {
+        let dic = achievedClassifiedTasks()
         var groups = [GoalTaskGroup]()
-        TodoTaskStartDateType.allCases.forEach { type in
-            if let tasks = dic[type], tasks.count > 0 {
-                let group = GoalTaskGroup(identifier: type.identifier)
-                group.title = type.title
+        GoalTaskAchieveStatus.allCases.forEach { status in
+            if let tasks = dic[status], tasks.count > 0 {
+                let group = GoalTaskGroup(identifier: status.identifier)
+                group.title = status.title
                 group.goalTasks = tasks
                 groups.append(group)
             }
@@ -83,47 +202,15 @@ extension Array where Element == GoalTask {
         
         return groups
     }
-    
-    /// 按截止日期归类分组
-    func dueDateClassifiedTaskGroups() -> [GoalTaskGroup] {
-        let dic = dueDateClassifiedTasks()
-        var groups = [GoalTaskGroup]()
-        TodoTaskDueDateType.allCases.forEach { type in
-            if let tasks = dic[type], tasks.count > 0 {
-                let group = GoalTaskGroup(identifier: type.identifier)
-                group.title = type.title
-                group.goalTasks = tasks
-                groups.append(group)
-            }
-        }
-        
-        return groups
-    }
-    
-    /// 按完成日期归类分组
-    func completionDateClassifiedTaskGroups() -> [GoalTaskGroup] {
-        let dic = completionDateClassifiedTasks()
-        var groups = [GoalTaskGroup]()
-        TodoTaskCompletionDateType.allCases.forEach { type in
-            if let tasks = dic[type], tasks.count > 0 {
-                let group = GoalTaskGroup(identifier: type.identifier)
-                group.title = type.title
-                group.goalTasks = tasks
-                groups.append(group)
-            }
-        }
-        
-        return groups
-    }
-    
-    /// 按权重归类分组（目标任务无优先级概念，以权重替代）
+ 
+    /// 按权重档位归类分组（高/中/低，最多三组）
     func weightClassifiedTaskGroups() -> [GoalTaskGroup] {
         let dic = weightClassifiedTasks()
         var groups = [GoalTaskGroup]()
-        for option in GoalTaskWeightOption.allCases.reversed() {
-            if let tasks = dic[option], tasks.count > 0 {
-                let group = GoalTaskGroup(identifier: option.groupIdentifier)
-                group.title = option.groupTitle
+        GoalTaskWeightGroupType.allCases.forEach { type in
+            if let tasks = dic[type], tasks.count > 0 {
+                let group = GoalTaskGroup(identifier: type.identifier)
+                group.title = type.title
                 group.goalTasks = tasks
                 groups.append(group)
             }
@@ -135,90 +222,45 @@ extension Array where Element == GoalTask {
     // MARK: - 归类任务字典
     
     /// 按完成状态归类
-    func statusClassifiedTasks() -> [TodoTaskStaus: Array<Element>] {
-        var tasks: [TodoTaskStaus: Array<Element>] = [:]
-        TodoTaskStaus.allCases.forEach { status in
+    func statusClassifiedTasks() -> [GoalTaskCompletionStatus: Array<Element>] {
+        var tasks: [GoalTaskCompletionStatus: Array<Element>] = [:]
+        GoalTaskCompletionStatus.allCases.forEach { status in
             tasks[status] = []
         }
         
         for task in self {
-            tasks[task.status]?.append(task)
+            tasks[task.completionStatus]?.append(task)
         }
         
         return tasks
     }
     
-    /// 按开始日期类型归类
-    func startDateClassifiedTasks() -> [TodoTaskStartDateType: Array<Element>] {
-        var tasks: [TodoTaskStartDateType: Array<Element>] = [:]
-        TodoTaskStartDateType.allCases.forEach { type in
-            tasks[type] = []
+    /// 按目标达成状态归类
+    func achievedClassifiedTasks() -> [GoalTaskAchieveStatus: Array<Element>] {
+        var tasks: [GoalTaskAchieveStatus: Array<Element>] = [:]
+        GoalTaskAchieveStatus.allCases.forEach { status in
+            tasks[status] = []
         }
         
         for task in self {
-            tasks[task.startDateType]?.append(task)
+            tasks[task.achieveStatus]?.append(task)
         }
         
         return tasks
     }
     
-    /// 按截止日期类型归类
-    func dueDateClassifiedTasks() -> [TodoTaskDueDateType: Array<Element>] {
-        var tasks: [TodoTaskDueDateType: Array<Element>] = [:]
-        TodoTaskDueDateType.allCases.forEach { type in
-            tasks[type] = []
-        }
-        
+    /// 按权重档位归类
+    func weightClassifiedTasks() -> [GoalTaskWeightGroupType: Array<Element>] {
+        var tasks: [GoalTaskWeightGroupType: Array<Element>] = [:]
         for task in self {
-            tasks[task.dueDateType]?.append(task)
-        }
-        
-        return tasks
-    }
-    
-    /// 按完成日期类型归类
-    func completionDateClassifiedTasks() -> [TodoTaskCompletionDateType: Array<Element>] {
-        var tasks: [TodoTaskCompletionDateType: Array<Element>] = [:]
-        TodoTaskCompletionDateType.allCases.forEach { type in
-            tasks[type] = []
-        }
-        
-        for task in self {
-            if let dateType = task.completionDateType {
-                tasks[dateType]?.append(task)
-            }
-        }
-        
-        return tasks
-    }
-    
-    /// 按权重归类
-    func weightClassifiedTasks() -> [GoalTaskWeightOption: Array<Element>] {
-        var tasks: [GoalTaskWeightOption: Array<Element>] = [:]
-        for task in self {
-            guard let option = task.weightOption else {
+            guard let type = task.weightGroupType else {
                 continue
             }
             
-            tasks[option, default: []].append(task)
+            tasks[type, default: []].append(task)
         }
         
         return tasks
-    }
-}
-
-// MARK: - 权重分组信息
-
-extension GoalTaskWeightOption {
-    
-    /// 分组标识
-    var groupIdentifier: String {
-        return String(describing: GoalTaskWeightOption.self) + "\(rawValue)"
-    }
-    
-    /// 分组标题
-    var groupTitle: String {
-        return String(format: resGetString("Weight %ld"), rawValue)
     }
 }
 

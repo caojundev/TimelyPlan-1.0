@@ -50,8 +50,8 @@ class GoalPlanConfiguration: Equatable, IdentifiableItem {
     }
     
     /// 允许的分组类型
-    func allowGroupTypes() -> [TodoGroupType] {
-        return [.default, .none]
+    func allowGroupTypes() -> [GoalTaskGroupType] {
+        return [.default, .targetStatus, .weight, .none]
     }
     
     /// 首选排列顺序
@@ -73,7 +73,7 @@ class GoalPlanConfiguration: Equatable, IdentifiableItem {
         return TodoSortOrder.allCases
     }
     
-    func validatedGroupType(_ groupType: TodoGroupType?) -> TodoGroupType {
+    func validatedGroupType(_ groupType: GoalTaskGroupType?) -> GoalTaskGroupType {
         let allowTypes = allowGroupTypes()
         guard let groupType = groupType, allowTypes.contains(groupType) else {
             return allowTypes.first!

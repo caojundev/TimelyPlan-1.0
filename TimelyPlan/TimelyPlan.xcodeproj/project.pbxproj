@@ -2232,6 +2232,7 @@
 		E5FAA9E3304D09AF00C9CCD8 /* task_type_goal_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FAA9E1304D09AE00C9CCD8 /* task_type_goal_24@3x.png */; };
 		E5FAA9E6304D91B400C9CCD8 /* GoalPlanFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9E5304D91B300C9CCD8 /* GoalPlanFilterView.swift */; };
 		E5FAA9E8304D9A0C00C9CCD8 /* GoalPlanFilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9E7304D9A0C00C9CCD8 /* GoalPlanFilterType.swift */; };
+		E5FAA9EA304E47B900C9CCD8 /* GoalTaskGroupType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FAA9E9304E47B900C9CCD8 /* GoalTaskGroupType.swift */; };
 		E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FBD0F02DA9135200924EED /* SettingAgent.swift */; };
 		E5FC6BA22F64EFBC00D5A5EA /* habit_status_skipped_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */; };
 		E5FC6BA32F64EFBC00D5A5EA /* habit_status_completed_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */; };
@@ -4535,6 +4536,7 @@
 		E5FAA9E1304D09AE00C9CCD8 /* task_type_goal_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_goal_24@3x.png"; sourceTree = "<group>"; };
 		E5FAA9E5304D91B300C9CCD8 /* GoalPlanFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanFilterView.swift; sourceTree = "<group>"; };
 		E5FAA9E7304D9A0C00C9CCD8 /* GoalPlanFilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanFilterType.swift; sourceTree = "<group>"; };
+		E5FAA9E9304E47B900C9CCD8 /* GoalTaskGroupType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskGroupType.swift; sourceTree = "<group>"; };
 		E5FBD0F02DA9135200924EED /* SettingAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAgent.swift; sourceTree = "<group>"; };
 		E5FC6B9C2F64EFBB00D5A5EA /* habit_status_skipped_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_skipped_36@3x.png"; sourceTree = "<group>"; };
 		E5FC6B9D2F64EFBB00D5A5EA /* habit_status_completed_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_status_completed_36@2x.png"; sourceTree = "<group>"; };
@@ -7909,9 +7911,6 @@
 				E57B2C143046000000000004 /* GoalPlanListCell.swift */,
 				E57B2C153046000000000005 /* GoalPlanMenuController.swift */,
 				E57B2C163046000000000006 /* GoalPlanMenuProcessor.swift */,
-				E57B2C133046000000000003 /* GoalPlanGroup.swift */,
-				E57B2C183046000000000008 /* GoalPlanViewModel.swift */,
-				E57B2C193046000000000009 /* GoalArchivedPlanViewModel.swift */,
 				E57B2B4C3045B78D00BA4D56 /* ViewModels */,
 			);
 			path = ListView;
@@ -7920,6 +7919,9 @@
 		E57B2B4C3045B78D00BA4D56 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				E57B2C133046000000000003 /* GoalPlanGroup.swift */,
+				E57B2C183046000000000008 /* GoalPlanViewModel.swift */,
+				E57B2C193046000000000009 /* GoalArchivedPlanViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -7962,6 +7964,7 @@
 		E57B2B573046CD0600BA4D56 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
+				E5FAA9E9304E47B900C9CCD8 /* GoalTaskGroupType.swift */,
 				E57B2B5C3046D00A00BA4D56 /* GoalPlanOptionState.swift */,
 				E57B2B583046CD2F00BA4D56 /* GoalPlanConfiguration.swift */,
 				E57B2B5A3046CF5200BA4D56 /* GoalPlanInteractor.swift */,
@@ -13876,6 +13879,7 @@
 				E53F32BA2F69557500B85B65 /* HabitReportContentSectionController.swift in Sources */,
 				E5F078CF2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift in Sources */,
 				E5B499572FDAA00800F3A9BD /* CalendarMoreViewController.swift in Sources */,
+				E5FAA9EA304E47B900C9CCD8 /* GoalTaskGroupType.swift in Sources */,
 				E51E5F723035625F00ACF30C /* IAPProductSelectorView.swift in Sources */,
 				E5320C332FCAC443001DFE98 /* TodoTaskImporterViewController.swift in Sources */,
 				E5BB9D8D2D3BF0C60089667A /* TPNumberFieldTableCell.swift in Sources */,

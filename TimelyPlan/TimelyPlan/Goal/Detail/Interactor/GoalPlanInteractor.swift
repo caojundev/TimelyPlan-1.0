@@ -93,7 +93,7 @@ class GoalPlanInteractor {
     }
     
     // MARK: -
-    var groupType: TodoGroupType {
+    var groupType: GoalTaskGroupType {
         let groupType = planOptionState.validatedGroupType(for: configuration)
         return groupType
     }
@@ -141,7 +141,7 @@ class GoalPlanInteractor {
     }
     
     /// 将任务根据分组类型和排序方式分组
-    func groups(for tasks: [GoalTask]?, groupType: TodoGroupType, sort: TodoSort) -> [GoalTaskGroup]? {
+    func groups(for tasks: [GoalTask]?, groupType: GoalTaskGroupType, sort: TodoSort) -> [GoalTaskGroup]? {
         return GoalPlanInteractor.groups(for: tasks, groupType: groupType, sort: sort)
     }
     
@@ -150,7 +150,7 @@ class GoalPlanInteractor {
     }
 
     // MARK: - 菜单操作
-    func setGroupType(_ groupType: TodoGroupType) {
+    func setGroupType(_ groupType: GoalTaskGroupType) {
         let groupType = configuration.validatedGroupType(groupType)
         guard planOptionState.groupType != groupType else {
             return
@@ -242,7 +242,7 @@ extension GoalPlanInteractor: GoalPlanProcessorDelegate {
 
 extension GoalPlanInteractor {
     
-    static func groups(for tasks: [GoalTask]?, groupType: TodoGroupType, sort: TodoSort) -> [GoalTaskGroup]? {
+    static func groups(for tasks: [GoalTask]?, groupType: GoalTaskGroupType, sort: TodoSort) -> [GoalTaskGroup]? {
         guard let tasks = tasks, tasks.count > 0 else {
             return nil
         }
@@ -280,7 +280,7 @@ extension GoalPlanInteractor {
     }
     
     /// 任务分组
-    static func groupTasks(_ tasks: [GoalTask]?, groupType: TodoGroupType) -> [GoalTaskGroup]? {
+    static func groupTasks(_ tasks: [GoalTask]?, groupType: GoalTaskGroupType) -> [GoalTaskGroup]? {
         guard let tasks = tasks, tasks.count > 0 else {
             return nil
         }
@@ -290,18 +290,10 @@ extension GoalPlanInteractor {
             return tasks.noneClassifiedTaskGroups()
         case .default:
             return tasks.statusClassifiedTaskGroups()
-        case .startDate:
-            return tasks.startDateClassifiedTaskGroups()
-        case .dueDate:
-            return tasks.dueDateClassifiedTaskGroups()
-        case .completionDate:
-            return tasks.completionDateClassifiedTaskGroups()
-        case .priority:
-            /// 目标任务无优先级概念，以权重替代
+        case .targetStatus:
+            return tasks.achievedClassifiedTaskGroups()
+        case .weight:
             return tasks.weightClassifiedTaskGroups()
-        case .list, .custom:
-            /// 目标任务无列表与板块概念，退化为不分组
-            return tasks.noneClassifiedTaskGroups()
         }
     }
 }
