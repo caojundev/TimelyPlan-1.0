@@ -8,6 +8,10 @@
 import Foundation
 
 enum GoalTaskMenuType: String, TPMenuRepresentable {
+    case completeAll
+    case addRecord
+    case resetToday
+    
     case addToMyDay /// 添加到我的一天
     case removeFromMyDay /// 从我的一天移除
     case startFocus
@@ -16,6 +20,12 @@ enum GoalTaskMenuType: String, TPMenuRepresentable {
     
     var title: String {
         switch self {
+        case .completeAll:
+            return resGetString("Complete All")
+        case .addRecord:
+            return resGetString("Add Record")
+        case .resetToday:
+            return resGetString("Reset Today")
         case .addToMyDay:
             return resGetString("Add to My Day")
         case .removeFromMyDay:
@@ -26,9 +36,15 @@ enum GoalTaskMenuType: String, TPMenuRepresentable {
             return resGetString(rawValue.capitalized)
         }
     }
-    
+
     var iconName: String? {
         switch self {
+        case .completeAll:
+            return "habit_menu_completeAll_24"
+        case .resetToday:
+            return "habit_menu_reset_24"
+        case .addRecord:
+            return "plus_24"
         case .addToMyDay:
             return "myDay_add_24"
         case .removeFromMyDay:
@@ -62,14 +78,21 @@ class GoalTaskMenuController: TPBaseMenuController<GoalTaskMenuType> {
     
     override func orderedMenuActionTypeLists() -> [Array<GoalTaskMenuType>] {
         var lists: [Array<GoalTaskMenuType>]
-        lists = [[.addToMyDay, .removeFromMyDay],
+        lists = [[.completeAll, .addRecord, .resetToday],
+                 [.addToMyDay, .removeFromMyDay],
                  [.startFocus],
-                 [.edit, .delete]]
+                 [.edit],
+                 [.delete]]
         return lists
     }
     
     override func menuActionTypes() -> [GoalTaskMenuType] {
-        var types: [GoalTaskMenuType] = [.startFocus, .edit, .delete]
+        var types: [GoalTaskMenuType] = [.completeAll,
+                                         .addRecord,
+                                         .resetToday,
+                                         .startFocus,
+                                         .edit,
+                                         .delete]
         if task.isAddedToMyDay {
             types.append(.removeFromMyDay)
         } else {

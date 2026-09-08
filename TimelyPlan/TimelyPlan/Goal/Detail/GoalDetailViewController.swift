@@ -264,45 +264,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     }
     
     func goalTaskListView(_ listView: GoalTaskListView, didClickCheckboxForTask goalTask: GoalTask) {
-        clickCheckbox(for: goalTask)
-    }
-    
-    /// 点击复选框记录进度或切换完成状态
-    private func clickCheckbox(for task: GoalTask) {
-        if task.isCompleted {
-            /// 已完成的任务：点击取消完成
-            TPImpactFeedback.impactWithSoftStyle()
-            GoalRepository.updateGoalTask(task, isCompleted: false)
-            return
-        }
-        
-        /// 无有效进度范围（开始值 == 目标值）的任务：点击直接完成
-        if task.checkType == .normal {
-            TPImpactFeedback.impactWithMediumStyle()
-            GoalRepository.updateGoalTask(task, isCompleted: true)
-            return
-        }
-        
-        /// 自动记录模式：直接累加一次预设数值
-        if let autoValue = task.autoRecordedCurrentValue() {
-            let oldValue = task.currentValue
-            TPImpactFeedback.feedbackWithSuccessStyle()
-            GoalRepository.updateGoalTask(task, currentValue: autoValue)
-            GoalRepository.addRecord(amount: autoValue - oldValue, for: task)
-            return
-        }
-        
-        /// 手动输入记录
-        let inputVC = GoalRecordInputViewController.inputViewController(for: task)
-        inputVC.completion = { value, inputType, remark in
-            /// 更新当前数值并写入一条目标记录
-            GoalRepository.record(amount: value,
-                                  inputType: inputType,
-                                  note: remark,
-                                  for: task)
-        }
-        
-        inputVC.show()
+        taskController.clickCheckbox(for: goalTask)
     }
     
     func goalTaskListViewHandleRefresh(_ listView: GoalTaskListView) {

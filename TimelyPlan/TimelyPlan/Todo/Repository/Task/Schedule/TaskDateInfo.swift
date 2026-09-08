@@ -69,7 +69,8 @@ struct TaskDateInfo: Hashable, Equatable {
         self.isAllDay = isAllDay
     }
     
-    func attributedTitle(slashFormatted: Bool = true, textColor: UIColor = .primary) -> ASAttributedString {
+    func attributedTitle(slashFormatted: Bool = true,
+                         textColor: UIColor = .primary) -> ASAttributedString {
         var strings = [String]()
         let startDateString = startDateString(slashFormatted: slashFormatted)
         strings.append(startDateString)

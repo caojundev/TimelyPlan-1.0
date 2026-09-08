@@ -302,6 +302,19 @@ extension GoalRepository {
                              on: date)
     }
     
+    /// 完成所有：把目标任务进度推进到目标值（100%）并记录本次变化量
+    static func completeAll(for goalTask: GoalTask,
+                            on date: Date = .now) {
+        recordManager.completeAll(for: goalTask, on: date)
+    }
+    
+    /// 重置指定日期的记录：删除目标任务在该日期的所有记录并回退任务当前值
+    @discardableResult
+    static func resetToday(of date: Date = .now,
+                           for goalTask: GoalTask) -> Bool {
+        return recordManager.resetToday(for: goalTask, on: date)
+    }
+    
     // MARK: - 获取
     /// 同步获取目标记录
     static func getRecords(for goalTask: GoalTask? = nil,

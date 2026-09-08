@@ -224,6 +224,10 @@ class GoalTaskDetailProvider {
             infos.append(info)
         }
         
+        if let info = task.attributedDateInfo {
+            infos.append(info)
+        }
+        
         if let info = task.attributedProgressInfo {
             infos.append(info)
         }
@@ -241,10 +245,6 @@ class GoalTaskDetailProvider {
         }
 
         if let info = task.attributedNoteInfo {
-            infos.append(info)
-        }
-        
-        if let info = task.attributedCompletionInfo {
             infos.append(info)
         }
         

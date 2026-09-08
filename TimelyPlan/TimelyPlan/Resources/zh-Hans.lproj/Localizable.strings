@@ -75,6 +75,8 @@
 "Medium Weight" = "中权重";
 "Low Weight" = "低权重";
 
+"All records will be removed for today. Are you sure to reset?" = "今日的所有记录将会被删除。确定重置吗？";
+
 ///**********************日历*********************///
 "Quarter" = "季";
 "Local Calendars" = "本地日历";

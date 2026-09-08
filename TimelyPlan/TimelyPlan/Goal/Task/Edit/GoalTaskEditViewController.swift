@@ -114,6 +114,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         sectionController.headerItem.height = Config.sectionNormalHeaderHeight
         sectionController.footerItem.height = 0.0
         sectionController.onStepsChanged = { [weak self] steps in
+            print(steps.markdown())
             self?.editingTask.steps = steps
         }
         

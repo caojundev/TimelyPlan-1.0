@@ -356,7 +356,10 @@ class GoalTaskCheckInfoView: GoalTaskBaseInfoView {
         super.updateContent(with: layout, animated: animated)
         let task = layout.task
         checkType = task.checkType
-        checkbox.normalColor = task.color ?? .grayPrimary
         checkbox.setChecked(task.isCompleted, animated: animated)
+        
+        let color = task.color ?? .grayPrimary
+        checkbox.normalColor = color
+        checkbox.checkedColor = color
     }
 }

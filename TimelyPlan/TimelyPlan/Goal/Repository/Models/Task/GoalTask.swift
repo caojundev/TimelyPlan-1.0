@@ -471,7 +471,13 @@ extension GoalTask {
         var task = GoalEditingTask(startDate: startDate, endDate: endDate)
         task.name = name
         task.color = color ?? Self.defaultColor
-        task.steps = steps
+        
+        if let markdown = steps?.markdown() {
+            /// 步骤深拷贝
+            let parser = TodoStepParser()
+            task.steps = parser.parse(markdown)
+        }
+        
         task.isAddedToMyDay = isAddedToMyDay
         task.note = note
         task.initialValue = initialValue
@@ -485,7 +491,6 @@ extension GoalTask {
         task.duration = duration
         task.shouldRemind = shouldRemind
         task.reminder = reminder?.copy() as? ScheduledReminder
-        
         return task
     }
     
@@ -497,6 +502,29 @@ extension GoalTask {
 }
 
 extension GoalTask {
+    
+    /// 日期信息
+    var attributedDateInfo: ASAttributedString? {
+        guard let startDate = startDate, let endDate = endDate else {
+            return nil
+        }
+        
+        let startDateString = startDate.yearMonthDayString(omitYear: true,
+                                                           showRelativeDate: true,
+                                                           slashFormatted: true)
+        
+        let endDateString = endDate.yearMonthDayString(omitYear: true,
+                                                       showRelativeDate: true,
+                                                       slashFormatted: true)
+        let dateString = "\(startDateString) - \(endDateString)"
+        
+        var textColor: UIColor = .secondaryLabel
+        if !isCompleted, endDate < .now {
+            textColor = .danger6
+        }
+        
+        return dateString.attributedString(textColor: textColor)
+    }
     
     /// 权重
     var attributedWeightInfo: ASAttributedString? {
@@ -516,7 +544,7 @@ extension GoalTask {
         }
         
         if let image = resGetImage("bell_fill_16") {
-            return .string(image: image, imageSize: .size(4), imageColor: .secondaryLabel)
+            return .string(image: image, imageSize: .size(3), imageColor: .secondaryLabel)
         }
         
         return nil
@@ -525,8 +553,7 @@ extension GoalTask {
     /// 进度信息
     var attributedProgressInfo: ASAttributedString? {
         var components = [String]()
-        components.append("\(initialValue)→\(targetValue)")
-        components.append("\(currentValue)")
+        components.append("\(currentValue)→\(targetValue)")
         let percentageString = Float(progressFraction).percentageString(decimalPlaces: 0)
         components.append(percentageString)
         return components.joined(separator: " • ").attributedString
@@ -539,14 +566,7 @@ extension GoalTask {
         }
         
         if let image = resGetImage("todo_task_addToMyDay_24") {
-            let trailingText = resGetString("My Day")
-            let info: ASAttributedString = .string(image: image,
-                                                   imageSize: .size(3),
-                                                   imageColor: .primary,
-                                                   trailingText: trailingText,
-                                                   textColor: .primary,
-                                                   separator: "")
-            return info
+            return .string(image: image, imageSize: .size(3), imageColor: .secondaryLabel)
         }
         
         return nil
@@ -587,27 +607,6 @@ extension GoalTask {
         }
         
         return nil
-    }
-    
-    /// 完成信息
-    var attributedCompletionInfo: ASAttributedString? {
-        guard isCompleted, let completionDate = completionDate else {
-            return nil
-        }
-        
-        let dateString = completionDate.yearMonthDayTimeString(omitYear: true,
-                                                               showRelativeDate: true,
-                                                               slashFormatted: true)
-        guard let checkmarkImage = resGetImage("checkmark_12") else {
-            return dateString.attributedString
-        }
-        
-        let info: ASAttributedString = .string(image: checkmarkImage,
-                                               imageSize: .size(3),
-                                               imageColor: .secondaryLabel,
-                                               trailingText: dateString,
-                                               separator: nil)
-        return info
     }
 }
 
