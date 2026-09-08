@@ -89,7 +89,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         }
         
         interactor.didChangeGoalInfo = { [weak self] in
-            self?.updateGoalInfo()
+            self?.updateGoalInfo(animated: true)
         }
         
         /// 首次加载目标任务分组
@@ -148,12 +148,20 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     private func taskGroupsDidChange(_ change: GoalPlanTaskChange? = nil) {
         taskListView.endRefreshing()
         taskListView.groups = interactor.groups
-        taskListView.performUpdate()
+        taskListView.performUpdate(animated: true)
         
-        if case let .create(task) = change {
+        guard let change = change else {
+            return
+        }
+
+        switch change {
+        case .create(let task):
             taskListView.revealGoalTask(task)
+        case .update(let task, let change):
+            taskListView.updateProgressChange(change, for: task)
         }
     }
+
     
     // MARK: - 添加视图
     private func setupAddView() {
@@ -179,9 +187,9 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     }
     
     // MARK: - Update
-    private func updateGoalInfo() {
+    private func updateGoalInfo(animated: Bool = false) {
         updateTitle()
-        updateProgressColor()
+        updateProgressView(animated: animated)
     }
     
     /// 更新标题
@@ -190,10 +198,11 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         titleView.sizeToFit()
     }
     
-    private func updateProgressColor() {
+    private func updateProgressView(animated: Bool = false) {
         /// 进度条颜色让用户感知目标颜色
         progressView.barForeColor = goalPlan.color
         progressView.barBackColor = goalPlan.color.withAlphaComponent(0.2)
+        progressView.setProgress(goalPlan.progress, animated: animated)
     }
     
     
@@ -286,7 +295,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         /// 手动输入记录
         let inputVC = GoalRecordInputViewController.inputViewController(for: task)
         inputVC.completion = { value, inputType, remark in
-            /// 更新当前数值并写入一条目标记录（备注保存到记录中）
+            /// 更新当前数值并写入一条目标记录
             GoalRepository.record(amount: value,
                                   inputType: inputType,
                                   note: remark,

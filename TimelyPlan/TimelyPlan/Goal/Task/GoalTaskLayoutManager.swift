@@ -149,7 +149,7 @@ class GoalTaskInfoLayout {
     }
     
     /// 详情文本
-    private(set) var detailText: String = ""
+    private(set) var attributedDetail: ASAttributedString?
     
     /// 目标任务
     let task: GoalTask
@@ -194,8 +194,9 @@ class GoalTaskInfoLayout {
         self.nameHeight = nameSize.height
         
         /// 构建详情文本
-        self.detailText = GoalTaskInfoLayout.detailText(for: task)
-        let detailSize: CGSize = .boundingSize(string: detailText,
+
+        self.attributedDetail = GoalTaskDetailProvider.attributedDetail(for: task)
+        let detailSize: CGSize = .boundingSize(string: attributedDetail,
                                                font: config.detailFont,
                                                constraintWidth: labelWidth,
                                                linesCount: config.detailLinesCount)
@@ -213,25 +214,44 @@ class GoalTaskInfoLayout {
         self.height = max(contentHeight, config.minimumHeight)
         _shouldLayout = false
     }
+}
+
+class GoalTaskDetailProvider {
     
-    /// 构建详情文本
-    private static func detailText(for task: GoalTask) -> String {
-        var components = [String]()
-        
-        /// 数值进度
-        components.append("\(task.initialValue)/\(task.targetValue)")
-        
-        /// 记录方式
-        components.append(task.recordType.title)
-        
-        /// 计算方式
-        components.append(task.calculation.title)
-        
-        /// 权重
-        if task.weight > 0 {
-            components.append(String(format: resGetString("Weight %ld"), task.weight))
+    static func attributedDetail(for task: GoalTask) -> ASAttributedString? {
+        var infos = [ASAttributedString]()
+        if let info = task.attributedMyDayInfo {
+            infos.append(info)
         }
         
-        return components.joined(separator: " • ")
+        if let info = task.attributedProgressInfo {
+            infos.append(info)
+        }
+        
+        if let info = task.attributedStepInfo {
+            infos.append(info)
+        }
+        
+        if let info = task.attributedWeightInfo {
+            infos.append(info)
+        }
+        
+        if let info = task.attributedAlarmInfo {
+            infos.append(info)
+        }
+
+        if let info = task.attributedNoteInfo {
+            infos.append(info)
+        }
+        
+        if let info = task.attributedCompletionInfo {
+            infos.append(info)
+        }
+        
+        if infos.count > 0 {
+            return infos.joined(separator: " • ")
+        }
+        
+        return nil
     }
 }

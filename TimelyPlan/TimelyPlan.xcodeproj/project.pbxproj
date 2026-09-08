@@ -8002,7 +8002,7 @@
 				E57B2D21304800000000000E /* GoalTaskInfoView.swift */,
 				E57B2C1D304600000000000D /* GoalTaskListHeaderView.swift */,
 				E57B2D1F304800000000000E /* GoalTaskLayoutManager.swift */,
-				E5FAA9DC304C02A200C9CCD8 /* GoalTaskMenuController.swift */,
+				E5BA9A7B304F9EAD0044106F /* Menu */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -8678,6 +8678,14 @@
 				E53E96A92D53620700EC4872 /* Value */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		E5BA9A7B304F9EAD0044106F /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				E5FAA9DC304C02A200C9CCD8 /* GoalTaskMenuController.swift */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		E5BB99DC2D3BEF0D0089667A /* Icons */ = {

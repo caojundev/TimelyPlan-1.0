@@ -47,13 +47,11 @@ class GoalRecordInputViewController: TPAlertController {
 
     /// 根据目标任务创建记录输入控制器
     static func inputViewController(for task: GoalTask) -> GoalRecordInputViewController {
-        let inputTypes: [GoalRecordInputType]
+        let inputTypes = GoalRecordInputType.allCases
         let inputType: GoalRecordInputType
         if task.checkType == .decrease {
-            inputTypes = [.decrease, .update]
             inputType = task.calculation == .update ? .update : .decrease
         } else {
-            inputTypes = [.increase, .update]
             inputType = task.calculation == .update ? .update : .increase
         }
 

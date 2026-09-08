@@ -496,6 +496,121 @@ extension GoalTask {
     }
 }
 
+extension GoalTask {
+    
+    /// 权重
+    var attributedWeightInfo: ASAttributedString? {
+        guard GoalTaskWeightOption.isValidWeight(weight) else {
+            return nil
+        }
+        
+     
+        let string = "#\(weight)"
+        return string.attributedString
+    }
+    
+    /// 提醒
+    var attributedAlarmInfo: ASAttributedString? {
+        guard let reminder = reminder, reminder.hasAlarm else {
+            return nil
+        }
+        
+        if let image = resGetImage("bell_fill_16") {
+            return .string(image: image, imageSize: .size(4), imageColor: .secondaryLabel)
+        }
+        
+        return nil
+    }
+    
+    /// 进度信息
+    var attributedProgressInfo: ASAttributedString? {
+        var components = [String]()
+        components.append("\(initialValue)→\(targetValue)")
+        components.append("\(currentValue)")
+        let percentageString = Float(progressFraction).percentageString(decimalPlaces: 0)
+        components.append(percentageString)
+        return components.joined(separator: " • ").attributedString
+    }
+    
+    /// 我的一天信息
+    var attributedMyDayInfo: ASAttributedString? {
+        guard isAddedToMyDay else {
+            return nil
+        }
+        
+        if let image = resGetImage("todo_task_addToMyDay_24") {
+            let trailingText = resGetString("My Day")
+            let info: ASAttributedString = .string(image: image,
+                                                   imageSize: .size(3),
+                                                   imageColor: .primary,
+                                                   trailingText: trailingText,
+                                                   textColor: .primary,
+                                                   separator: "")
+            return info
+        }
+        
+        return nil
+    }
+    
+    /// 步骤信息
+    var attributedStepInfo: ASAttributedString? {
+        guard self.stepCount > 0 else {
+            return nil
+        }
+
+        let format = resGetString("%ld of %ld")
+        let trailingText = String(format: format, stepCompletedCount, self.stepCount)
+        
+        guard let checkmarkImage = resGetImage("checkmark_12") else {
+            return trailingText.attributedString
+        }
+        
+        let info: ASAttributedString = .string(image: checkmarkImage,
+                                               imageSize: .size(3),
+                                               imageColor: .secondaryLabel,
+                                               trailingText: trailingText,
+                                               separator: nil)
+        return info
+    }
+    
+    /// 备注信息
+    var attributedNoteInfo: ASAttributedString? {
+        guard let note = note, note.count > 0 else {
+            return nil
+        }
+        
+        if let image = resGetImage("todo_task_note_24") {
+            let info: ASAttributedString = .string(image: image,
+                                                   imageSize: .size(3),
+                                                   imageColor: .secondaryLabel)
+            return info
+        }
+        
+        return nil
+    }
+    
+    /// 完成信息
+    var attributedCompletionInfo: ASAttributedString? {
+        guard isCompleted, let completionDate = completionDate else {
+            return nil
+        }
+        
+        let dateString = completionDate.yearMonthDayTimeString(omitYear: true,
+                                                               showRelativeDate: true,
+                                                               slashFormatted: true)
+        guard let checkmarkImage = resGetImage("checkmark_12") else {
+            return dateString.attributedString
+        }
+        
+        let info: ASAttributedString = .string(image: checkmarkImage,
+                                               imageSize: .size(3),
+                                               imageColor: .secondaryLabel,
+                                               trailingText: dateString,
+                                               separator: nil)
+        return info
+    }
+}
+
 extension GoalTask: TaskRepresentable {
     
     var feature: TaskFeature {

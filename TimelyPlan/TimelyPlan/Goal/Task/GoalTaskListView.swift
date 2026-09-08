@@ -105,6 +105,8 @@ class GoalTaskListView: UIView,
         return collectionView
     }()
     
+    private var reloadCellWithAnimation = false
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -184,10 +186,12 @@ class GoalTaskListView: UIView,
     }
     
     /// 更新列表
-    func performUpdate() {
+    func performUpdate(animated: Bool = false) {
+        reloadCellWithAnimation = animated
         layoutManager.removeAllLayouts()
         updatePlaceholderView()
         adapter.performUpdate()
+        reloadCellWithAnimation = false
     }
     
     /// 获取指定索引处的目标任务
@@ -205,6 +209,22 @@ class GoalTaskListView: UIView,
                         at scrollPosition: UICollectionView.ScrollPosition = .top,
                         autoScroll: Bool = true) {
         adapter.revealItem(goalTask, at: scrollPosition, autoScroll: autoScroll)
+    }
+    
+    /// 目标任务数值进度变化时，在对应单元格的复选框上方展示差值浮层（+N / -N）
+    func updateProgressChange(_ change: GoalTaskChange, for task: GoalTask) {
+        guard case let .progress(oldValue, newValue) = change,
+              let cell = adapter.cellForItem(task) as? GoalTaskPageCheckCell else {
+            return
+        }
+        
+        let difference = newValue - oldValue
+        let message = (difference >= 0 ? "+" : "") + "\(difference)"
+        TPTextPopUp.showText(message,
+                             color: task.color ?? GoalTask.defaultColor,
+                             font: BOLD_SMALL_SYSTEM_FONT,
+                             fromView: cell.checkbox,
+                             containerView: self)
     }
     
     // MARK: - TPCollectionViewAdapterDataSource
@@ -245,7 +265,7 @@ class GoalTaskListView: UIView,
         
         cell.delegate = self
         cell.layout = layout(for: goalTask)
-        cell.reloadData(animated: false)
+        cell.reloadData(animated: reloadCellWithAnimation)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {

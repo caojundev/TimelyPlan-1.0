@@ -27,11 +27,19 @@ enum GoalTaskWeightOption: Int, Codable, TPMenuRepresentable {
     
     /// 根据权重数值获取选项
     static func option(for weight: Int64) -> GoalTaskWeightOption? {
-        guard weight >= 1, weight <= 10 else {
+        guard isValidWeight(weight) else {
             return nil
         }
         
         return GoalTaskWeightOption(rawValue: Int(weight))
+    }
+    
+    static func isValidWeight(_ weight: Int64) -> Bool {
+        guard weight >= 1, weight <= 10 else {
+            return false
+        }
+        
+        return true
     }
 }
 

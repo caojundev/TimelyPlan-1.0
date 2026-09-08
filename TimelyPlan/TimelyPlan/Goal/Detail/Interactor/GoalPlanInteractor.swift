@@ -9,6 +9,7 @@ import Foundation
 
 enum GoalPlanTaskChange {
     case create(GoalTask)
+    case update(GoalTask, GoalTaskChange)
 }
 
 class GoalPlanInteractor {
@@ -199,7 +200,7 @@ extension GoalPlanInteractor: GoalTaskProcessorDelegate {
     
     func didUpdateGoalTask(_ goalTask: GoalTask, with change: GoalTaskChange) {
         setNeedsRefresh()
-        loadGroups()
+        loadGroups(with: .update(goalTask, change))
     }
     
     func didUpdateGoalTasks(with changeInfos: [GoalTaskChangeInfo]) {

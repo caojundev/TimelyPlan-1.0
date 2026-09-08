@@ -23,18 +23,6 @@ class GoalTaskBaseInfoView: UIView {
         }
     }
     
-    /// 详情文本
-    var detailText: String? {
-        get {
-            return detailLabel.text
-        }
-        
-        set {
-            detailLabel.text = newValue
-            setNeedsLayout()
-        }
-    }
-    
     var nameHeight: CGFloat = 30.0 {
         didSet {
             if nameHeight != oldValue {
@@ -126,8 +114,8 @@ class GoalTaskBaseInfoView: UIView {
     }
     
     /// 名称标签
-    private(set) lazy var nameLabel: UILabel = {
-        let label = UILabel()
+    private(set) lazy var nameLabel: TPStrikethroughLabel = {
+        let label = TPStrikethroughLabel()
         label.font = UIFont.boldSystemFont(ofSize: 15.0)
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -135,8 +123,8 @@ class GoalTaskBaseInfoView: UIView {
     }()
     
     /// 详情标签
-    private(set) lazy var detailLabel: UILabel = {
-        let label = UILabel()
+    private(set) lazy var detailLabel: TPLabel = {
+        let label = TPLabel()
         label.font = UIFont.systemFont(ofSize: 11.0)
         label.textAlignment = .left
         label.textColor = .secondaryLabel
@@ -277,10 +265,13 @@ class GoalTaskBaseInfoView: UIView {
         
         let task = layout.task
         
-        name = task.name
-        detailText = layout.detailText
-
+        nameLabel.text = task.name
+        nameLabel.setStrikethrough(task.isCompleted, animated: animated)
+        
+        detailLabel.update(with: layout.attributedDetail)
         setProgress(task.progressFraction, animated: animated)
+        progressView.barForeColor = task.color ?? .primary
+        
         setNeedsLayout()
     }
     
@@ -363,6 +354,9 @@ class GoalTaskCheckInfoView: GoalTaskBaseInfoView {
     
     override func updateContent(with layout: GoalTaskInfoLayout, animated: Bool) {
         super.updateContent(with: layout, animated: animated)
-        self.checkType = layout.task.checkType
+        let task = layout.task
+        checkType = task.checkType
+        checkbox.normalColor = task.color ?? .grayPrimary
+        checkbox.setChecked(task.isCompleted, animated: animated)
     }
 }

@@ -14,9 +14,9 @@
             filePath = "TimelyPlan/Goal/Task/GoalTaskListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
-            landmarkName = "goalTaskListHeaderView(_:didToggleExpand:)"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "isExpandedGoalTaskListHeaderView(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -30,9 +30,9 @@
             filePath = "TimelyPlan/Goal/Task/GoalTaskListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
-            landmarkName = "goalTaskListHeaderView(_:canToggleExpandStateTo:)"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "isExpandedGoalTaskListHeaderView(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,10 +46,10 @@
             filePath = "TimelyPlan/Goal/Task/GoalTaskListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
-            landmarkName = "isExpandedGoalTaskListHeaderView(_:)"
-            landmarkType = "7">
+            startingLineNumber = "300"
+            endingLineNumber = "300"
+            landmarkName = "GoalTaskListView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
