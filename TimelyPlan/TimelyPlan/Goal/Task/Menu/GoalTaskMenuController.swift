@@ -78,7 +78,8 @@ class GoalTaskMenuController: TPBaseMenuController<GoalTaskMenuType> {
     
     override func orderedMenuActionTypeLists() -> [Array<GoalTaskMenuType>] {
         var lists: [Array<GoalTaskMenuType>]
-        lists = [[.completeAll, .addRecord, .resetToday],
+        lists = [[.completeAll, .addRecord],
+                 [.resetToday],
                  [.addToMyDay, .removeFromMyDay],
                  [.startFocus],
                  [.edit],
@@ -87,12 +88,17 @@ class GoalTaskMenuController: TPBaseMenuController<GoalTaskMenuType> {
     }
     
     override func menuActionTypes() -> [GoalTaskMenuType] {
-        var types: [GoalTaskMenuType] = [.completeAll,
-                                         .addRecord,
-                                         .resetToday,
+        var types: [GoalTaskMenuType] = [.resetToday,
                                          .startFocus,
                                          .edit,
                                          .delete]
+        
+        if !task.isCompleted {
+            types.append(.completeAll)
+            types.append(.addRecord)
+        }
+        
+        
         if task.isAddedToMyDay {
             types.append(.removeFromMyDay)
         } else {
