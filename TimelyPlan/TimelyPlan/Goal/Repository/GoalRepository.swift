@@ -268,10 +268,14 @@ extension GoalRepository {
         taskManager.deleteGoalTasks(goalTasks)
     }
     
-    /// 重排目标任务
-    static func reorderGoalTask(in goalTasks: [GoalTask], fromIndex: Int, toIndex: Int) {
-        taskManager.reorderGoalTask(in: goalTasks, fromIndex: fromIndex, toIndex: toIndex)
+    // MARK: - 排序任务
+    static func reorderGoalTask(_ sourceTask: GoalTask,
+                                postion: TodoTaskInsertPosition,
+                                targetTask: GoalTask,
+                                in goalPlan: GoalPlan) {
+        taskManager.reorderGoalTask(sourceTask, postion: postion, targetTask: targetTask, in: goalPlan)
     }
+    
 }
 
 // MARK: - 目标记录

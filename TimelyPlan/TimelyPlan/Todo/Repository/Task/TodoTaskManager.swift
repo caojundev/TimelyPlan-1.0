@@ -122,7 +122,6 @@ class TodoTaskManager {
                      postion: TodoTaskInsertPosition,
                      targetTask: TodoTask,
                      in list: TodoList?) {
-        
         guard CDTodoTask.reorderTask(sourceTask, postion: postion, targetTask: targetTask, in: list) else {
             return
         }

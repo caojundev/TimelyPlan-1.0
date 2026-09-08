@@ -335,14 +335,16 @@ class GoalTaskManager {
     }
     
     // MARK: - 排序
-    func reorderGoalTask(in goalTasks: [GoalTask], fromIndex: Int, toIndex: Int) {
-        var goalTasks = goalTasks
-        goalTasks.moveObject(fromIndex: fromIndex, toIndex: toIndex)
-        guard CDGoalTask.reorderGoalTask(in: goalTasks) else {
+    func reorderGoalTask(_ sourceTask: GoalTask,
+                        postion: TodoTaskInsertPosition,
+                        targetTask: GoalTask,
+                        in goalPlan: GoalPlan) {
+
+        guard CDGoalTask.reorderTask(sourceTask, postion: postion, targetTask: targetTask, in: goalPlan) else {
             return
         }
         
-        updater.didReorderGoalTask(in: goalTasks, fromIndex: fromIndex, toIndex: toIndex)
+        updater.didReorderGoalTask(sourceTask, in: goalPlan)
         HandyRecord.updateChangeCount()
     }
     

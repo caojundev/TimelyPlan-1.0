@@ -74,6 +74,11 @@ class GoalTaskListView: UIView,
         }
     }
     
+    /// 获取区块头视图对应的分区
+    var scrollView: UIScrollView {
+        return collectionView
+    }
+    
     /// 布局管理器
     private let layoutManager = GoalTaskLayoutManager()
     
@@ -107,10 +112,24 @@ class GoalTaskListView: UIView,
     
     private var reloadCellWithAnimation = false
     
+    
+    var reorderDelegate: TPCollectionDragInsertReorderDelegate? {
+        get {
+            return reorder?.delegate as? TPCollectionDragInsertReorderDelegate
+        }
+        
+        set {
+            reorder?.delegate = newValue
+        }
+    }
+    
+    private var reorder: TPCollectionDragInsertReorder?
+
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupSubviews()
+        self.setupReorder()
     }
     
     required init?(coder: NSCoder) {
@@ -122,6 +141,12 @@ class GoalTaskListView: UIView,
         adapter.delegate = self
         adapter.collectionView = collectionView
         addSubview(collectionView)
+    }
+    
+    private func setupReorder() {
+        let reorder = TPCollectionDragInsertReorder(collectionView: collectionView)
+        reorder.isEnabled = true
+        self.reorder = reorder
     }
     
     /// 添加下拉刷新控件
@@ -225,6 +250,10 @@ class GoalTaskListView: UIView,
                              font: BOLD_SMALL_SYSTEM_FONT,
                              fromView: cell.checkbox,
                              containerView: self)
+    }
+    
+    func moveItem(at fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
+        adapter.moveItem(at: fromIndexPath, to: toIndexPath)
     }
     
     // MARK: - TPCollectionViewAdapterDataSource
@@ -386,13 +415,5 @@ class GoalTaskListView: UIView,
         }
         
         return group(in: headerView.section)
-    }
-}
-
-extension GoalTaskListView {
-    
-    /// 获取区块头视图对应的分区
-    var scrollView: UIScrollView {
-        return collectionView
     }
 }

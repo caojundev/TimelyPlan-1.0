@@ -25,7 +25,7 @@ protocol GoalTaskProcessorDelegate: AnyObject {
     func didDeleteGoalTasks(_ goalTasks: [GoalTask])
     
     /// 目标任务在列表中的顺序发生改变
-    func didReorderGoalTask(in goalTasks: [GoalTask], fromIndex: Int, toIndex: Int)
+    func didReorderGoalTask(_ goalTask: GoalTask, in goalPlan: GoalPlan)
 }
 
 extension GoalTaskProcessorDelegate {
@@ -40,7 +40,7 @@ extension GoalTaskProcessorDelegate {
     
     func didDeleteGoalTasks(_ goalTasks: [GoalTask]) {}
     
-    func didReorderGoalTask(in goalTasks: [GoalTask], fromIndex: Int, toIndex: Int) {}
+    func didReorderGoalTask(_ goalTask: GoalTask, in goalPlan: GoalPlan) {}
 }
 
 class GoalTaskProcessorUpdater: NSObject,
@@ -76,9 +76,9 @@ class GoalTaskProcessorUpdater: NSObject,
         }
     }
     
-    func didReorderGoalTask(in goalTasks: [GoalTask], fromIndex: Int, toIndex: Int) {
+    func didReorderGoalTask(_ goalTask: GoalTask, in goalPlan: GoalPlan) {
         notifyDelegates { (delegate: GoalTaskProcessorDelegate) in
-            delegate.didReorderGoalTask(in: goalTasks, fromIndex: fromIndex, toIndex: toIndex)
+            delegate.didReorderGoalTask(goalTask, in: goalPlan)
         }
     }
 }

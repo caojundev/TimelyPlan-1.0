@@ -121,7 +121,10 @@ class TPCollectionDragReorder: NSObject, UIGestureRecognizerDelegate {
             }
             
             draggingCell.isHighlighted = false
-            let radius = draggingCell.contentView.layer.cornerRadius
+            let contentViewCornerRadius = draggingCell.contentView.layer.cornerRadius
+            let backgroundViewCornerRadius = draggingCell.backgroundView?.layer.cornerRadius ?? 0.0
+            let radius = max(contentViewCornerRadius, backgroundViewCornerRadius)
+            
             draggingView = draggingCell.tp_snapshotView(cornerRadius: radius)
             draggingView?.center = draggingCellSuperView.convert(draggingCell.center,
                                                                 toViewOrWindow: rootView)

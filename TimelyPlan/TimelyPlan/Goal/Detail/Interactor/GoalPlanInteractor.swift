@@ -212,10 +212,6 @@ extension GoalPlanInteractor: GoalTaskProcessorDelegate {
         setNeedsRefresh()
         loadGroups()
     }
-    
-    func didReorderGoalTask(in goalTasks: [GoalTask], fromIndex: Int, toIndex: Int) {
-
-    }
 }
 
 

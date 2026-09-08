@@ -296,14 +296,42 @@ extension CDGoalTask {
         return true
     }
     
-    /// 重排目标任务
-    static func reorderGoalTask(in goalTasks: [GoalTask]) -> Bool {
-        guard syncOrders(for: goalTasks) else {
+    // MARK: - 排序任务
+    static func reorderTask(_ sourceTask: GoalTask,
+                            postion: TodoTaskInsertPosition,
+                            targetTask: GoalTask,
+                            in goalPlan: GoalPlan) -> Bool {
+        guard let cdGoalPlan = CDGoalPlan.getGoalPlan(withIdentifier: goalPlan.identifier) else {
             return false
         }
         
+        let tasksSet = cdGoalPlan.tasks as? Set<CDGoalTask>
+        guard var tasks = tasksSet?.orderedElements(), tasks.count > 0 else {
+            return false
+        }
+
+        let sourceIndex = tasks.firstIndex { $0.identifier == sourceTask.identifier }
+        guard let sourceIndex = sourceIndex else {
+            return false
+        }
+        
+        let moveTask = tasks.remove(at: sourceIndex)
+
+        let targetIndex = tasks.firstIndex { $0.identifier == targetTask.identifier }
+        guard let targetIndex = targetIndex else {
+            return false
+        }
+        
+        var insertIndex = targetIndex
+        if postion == .after {
+            insertIndex = targetIndex < tasks.count ? targetIndex + 1 : tasks.count
+        }
+        
+        tasks.insert(moveTask, at: insertIndex)
+        tasks.updateOrders()
         return true
     }
+    
 }
 
 // MARK: - 获取目标任务

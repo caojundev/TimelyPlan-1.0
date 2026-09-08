@@ -25,6 +25,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     lazy var taskListView: GoalTaskListView = {
         let listView = GoalTaskListView(frame: .zero)
         listView.delegate = self
+        listView.reorderDelegate = self
         return listView
     }()
     
@@ -67,7 +68,6 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     let interactor: GoalPlanInteractor
     
     // MARK: - Initialization
-    
     init(configuration: GoalPlanConfiguration) {
         self.interactor = GoalPlanInteractor(configuration: configuration)
         super.init(nibName: nil, bundle: nil)
@@ -302,4 +302,46 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         interactor.setSortOrder(sortOrder)
     }
     
+}
+
+
+// MARK: - 任务排序
+extension GoalDetailViewController: TPCollectionDragInsertReorderDelegate {
+    
+    func collectionDragReorder(_ reorder: TPCollectionDragReorder, willBeginAt indexPath: IndexPath) {
+        
+    }
+    
+    func collectionDragReorder(_ reorder: TPCollectionDragReorder, canMoveItemAt indexPath: IndexPath) -> Bool {
+        return interactor.sort.type == .manually
+    }
+    
+    func collectionDragInsertReorder(_ reorder: TPCollectionDragInsertReorder, canInsertItemTo targetIndexPath: IndexPath, from sourceIndexPath: IndexPath) -> Bool {
+        guard sourceIndexPath.section == targetIndexPath.section else {
+            return false
+        }
+        
+        return true
+    }
+
+    func collectionDragInsertReorder(_ reorder: TPCollectionDragInsertReorder, inserItemTo targetIndexPath: IndexPath, from sourceIndexPath: IndexPath, depth: Int) -> IndexPath? {
+        guard targetIndexPath.row != sourceIndexPath.row,
+                let sourceTask = taskListView.goalTask(at: sourceIndexPath),
+                let targetTask = taskListView.goalTask(at: targetIndexPath) else {
+            return nil
+        }
+    
+        var insertPosition: TodoTaskInsertPosition = .after
+        if sourceIndexPath.row > targetIndexPath.row {
+            insertPosition = .before
+        }
+        
+        taskListView.moveItem(at: sourceIndexPath, to: targetIndexPath)
+        
+        GoalRepository.reorderGoalTask(sourceTask,
+                                       postion: insertPosition,
+                                       targetTask: targetTask,
+                                       in: goalPlan)
+        return targetIndexPath
+    }
 }
