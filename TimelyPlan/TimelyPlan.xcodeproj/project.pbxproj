@@ -1344,6 +1344,8 @@
 		E5B98CE72D5604F200E78261 /* TPImageInfoTextValueTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B98CE62D5604F200E78261 /* TPImageInfoTextValueTableCell.swift */; };
 		E5B98CE92D56064400E78261 /* TPImageInfoTextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B98CE82D56064400E78261 /* TPImageInfoTextValueView.swift */; };
 		E5B9D08C2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9D08B2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift */; };
+		E5BA9A7D305044CD0044106F /* GoalNotifiableTaskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A7C305044CD0044106F /* GoalNotifiableTaskProvider.swift */; };
+		E5BA9A7F305045100044106F /* GoalTask+LocalNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A7E305045100044106F /* GoalTask+LocalNotifiable.swift */; };
 		E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */; };
 		E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */; };
 		E5BB9A782D3BEF0D0089667A /* todo_home_setting_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E42D3BEF0D0089667A /* todo_home_setting_24@3x.png */; };
@@ -3640,6 +3642,8 @@
 		E5B98CE62D5604F200E78261 /* TPImageInfoTextValueTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoTextValueTableCell.swift; sourceTree = "<group>"; };
 		E5B98CE82D56064400E78261 /* TPImageInfoTextValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoTextValueView.swift; sourceTree = "<group>"; };
 		E5B9D08B2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekScrollSynchronizer.swift; sourceTree = "<group>"; };
+		E5BA9A7C305044CD0044106F /* GoalNotifiableTaskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotifiableTaskProvider.swift; sourceTree = "<group>"; };
+		E5BA9A7E305045100044106F /* GoalTask+LocalNotifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoalTask+LocalNotifiable.swift"; sourceTree = "<group>"; };
 		E5BB99DA2D3BEB320089667A /* TimelyPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimelyPlan.entitlements; sourceTree = "<group>"; };
 		E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@3x.png"; sourceTree = "<group>"; };
 		E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@2x.png"; sourceTree = "<group>"; };
@@ -12134,6 +12138,7 @@
 				E5FF4ED42FECB7AC00282416 /* LocalNotifiableTaskFetcher.swift */,
 				E5FF4ED62FECCB1C00282416 /* TodoNotifiableTaskProvider.swift */,
 				E5FF4ED82FECCB7400282416 /* HabitNotifiableTaskProvider.swift */,
+				E5BA9A7C305044CD0044106F /* GoalNotifiableTaskProvider.swift */,
 				E5371DCD2FF018D000BA9DEF /* FocusNotifiableEventProvider.swift */,
 				E5FF4EDA2FED148100282416 /* Extensions */,
 			);
@@ -12157,6 +12162,7 @@
 			children = (
 				E5FF4EDB2FED150B00282416 /* TodoTask+LocalNotifiable.swift */,
 				E5E552E92FEECEDB00072D3F /* HabitPeriodItem+LocalNotifiable.swift */,
+				E5BA9A7E305045100044106F /* GoalTask+LocalNotifiable.swift */,
 				E5371DCB2FF00A8800BA9DEF /* FocusEvent+LocalNotifiable.swift */,
 			);
 			path = Extensions;
@@ -13024,6 +13030,7 @@
 				E57B2B453045254400BA4D56 /* GoalConfig.swift in Sources */,
 				E5B33D592F80E66E00939C3E /* ReminderEditViewController.swift in Sources */,
 				E5F078D52F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift in Sources */,
+				E5BA9A7F305045100044106F /* GoalTask+LocalNotifiable.swift in Sources */,
 				E5E9F79C2FC1A67800717004 /* CalendarUpdater.swift in Sources */,
 				E5BB9DCC2D3BF0C60089667A /* TPFeedbackQueue.swift in Sources */,
 				E58F46C62F7B9DCC0046FA96 /* TodoUserListProcessorUpdater.swift in Sources */,
@@ -13999,6 +14006,7 @@
 				E5D7D8CE2D43933600EC877A /* FocusEndDetailTimelineView.swift in Sources */,
 				E5D7D9052D43933600EC877A /* StopwatchTimerProgressView.swift in Sources */,
 				E524D2A02FD00753002791E5 /* TodoSectionManageViewController.swift in Sources */,
+				E5BA9A7D305044CD0044106F /* GoalNotifiableTaskProvider.swift in Sources */,
 				E51E5FA2303A932000ACF30C /* GanttTimelineMainViewController.swift in Sources */,
 				E5D7D8D72D43933600EC877A /* FocusFlipClockTopbar.swift in Sources */,
 				E54A06AC303D3385001FF4A1 /* GanttTimelineView.swift in Sources */,

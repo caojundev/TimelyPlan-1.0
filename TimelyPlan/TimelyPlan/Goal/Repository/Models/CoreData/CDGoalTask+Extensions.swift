@@ -525,7 +525,9 @@ extension CDGoalTask {
         let conditions: [PredicateCondition] = [
             notCompletedCondition,
             (GoalTaskKey.shouldRemind, .isTrue),
-            (GoalTaskKey.reminderJSON, .isNotEmpty)
+            (GoalTaskKey.reminderJSON, .isNotEmpty),
+            /// 排除已归档目标计划下的任务
+            (GoalTaskKey.goalPlanIsArchived, .notEqual(true))
         ]
         
         return conditions.andPredicate()

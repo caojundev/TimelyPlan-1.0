@@ -37,13 +37,17 @@ class LocalNotifiableTaskFetcher: LocalNotifiableTaskProvider,
 
     private var focusEventProvider = FocusNotifiableEventProvider()
     
+    private var goalTaskProvider = GoalNotifiableTaskProvider()
+    
     init() {
         self.focusEventProvider.delegate = self
         self.todoTaskProvider.delegate = self
         self.habitTaskProvider.delegate = self
+        self.goalTaskProvider.delegate = self
         self.providers = [self.focusEventProvider,
                           self.todoTaskProvider,
-                          self.habitTaskProvider]
+                          self.habitTaskProvider,
+                          self.goalTaskProvider]
     }
     
     func fetchNotifiableTasks(completion: @escaping([LocalNotifiable]) -> Void) {

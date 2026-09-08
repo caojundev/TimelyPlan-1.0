@@ -23,6 +23,8 @@ class TaskNotificationHandler: NotificationClickProcessor {
             processHabitNotificationClick(info)
         case .focus:
             processFocusNotificationClick(info)
+        case .goal:
+            processGoalNotificationClick(info)
         }
     }
     
@@ -56,5 +58,16 @@ class TaskNotificationHandler: NotificationClickProcessor {
     
     func processFocusNotificationClick(_ info: NotificationClickInfo) {
         FocusTracker.shared.showTrackingViewControllerIfNeeded()
+    }
+    
+    func processGoalNotificationClick(_ info: NotificationClickInfo) {
+        guard let identifier = info.userInfo[TaskNotificationKey.taskIdentifier] as? String else {
+            return
+        }
+        
+        if let task = GoalRepository.getGoalTask(withIdentifier: identifier) {
+            #warning("弹出目标任务操作视图控制器")
+            GoalPresenter.editGoalTask(task)
+        }
     }
 }

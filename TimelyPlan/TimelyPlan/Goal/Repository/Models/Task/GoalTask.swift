@@ -11,6 +11,7 @@ import UIKit
 struct GoalTaskKey {
     static let goalPlan = "goalPlan"
     static let goalPlanIdentifier = "goalPlan.identifier"
+    static let goalPlanIsArchived = "goalPlan.isArchived"
     
     static let identifier = "identifier"
     static let order = "order"
