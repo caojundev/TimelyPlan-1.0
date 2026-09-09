@@ -350,4 +350,11 @@ extension GoalRepository {
                                            fromDate: fromDate,
                                            toDate: toDate)
     }
+    
+    /// 删除单条目标记录
+    @discardableResult
+    static func deleteRecord(_ record: GoalRecord,
+                             for goalTask: GoalTask) -> Bool {
+        return recordManager.deleteRecord(record, for: goalTask)
+    }
 }

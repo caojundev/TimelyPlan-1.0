@@ -1352,6 +1352,7 @@
 		E5BA9A893050F1540044106F /* GoalTaskRecordActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A883050F1540044106F /* GoalTaskRecordActionViewController.swift */; };
 		E5BA9A8B3050F1540044106F /* GoalRecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8A3050F1540044106F /* GoalRecordListViewModel.swift */; };
 		E5BA9A8D3050F1540044106F /* GoalTaskEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8C3050F1540044106F /* GoalTaskEditInteractor.swift */; };
+		E5BA9A8F3050F1540044106F /* GoalTaskRecordDaySectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8E3050F1540044106F /* GoalTaskRecordDaySectionController.swift */; };
 		E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */; };
 		E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */; };
 		E5BB9A782D3BEF0D0089667A /* todo_home_setting_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E42D3BEF0D0089667A /* todo_home_setting_24@3x.png */; };
@@ -3656,6 +3657,7 @@
 		E5BA9A883050F1540044106F /* GoalTaskRecordActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskRecordActionViewController.swift; sourceTree = "<group>"; };
 		E5BA9A8A3050F1540044106F /* GoalRecordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRecordListViewModel.swift; sourceTree = "<group>"; };
 		E5BA9A8C3050F1540044106F /* GoalTaskEditInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskEditInteractor.swift; sourceTree = "<group>"; };
+		E5BA9A8E3050F1540044106F /* GoalTaskRecordDaySectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskRecordDaySectionController.swift; sourceTree = "<group>"; };
 		E5BB99DA2D3BEB320089667A /* TimelyPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimelyPlan.entitlements; sourceTree = "<group>"; };
 		E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@3x.png"; sourceTree = "<group>"; };
 		E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@2x.png"; sourceTree = "<group>"; };
@@ -8722,6 +8724,7 @@
 			children = (
 				E5BA9A883050F1540044106F /* GoalTaskRecordActionViewController.swift */,
 				E5BA9A8A3050F1540044106F /* GoalRecordListViewModel.swift */,
+				E5BA9A8E3050F1540044106F /* GoalTaskRecordDaySectionController.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -13235,6 +13238,7 @@
 				E5BA9A893050F1540044106F /* GoalTaskRecordActionViewController.swift in Sources */,
 				E5BA9A8B3050F1540044106F /* GoalRecordListViewModel.swift in Sources */,
 				E5BA9A8D3050F1540044106F /* GoalTaskEditInteractor.swift in Sources */,
+				E5BA9A8F3050F1540044106F /* GoalTaskRecordDaySectionController.swift in Sources */,
 				E5BB9E622D3BF0C70089667A /* TFImageInfoCollectionCell.swift in Sources */,
 				E53352A82FF9364100546986 /* CalendarYearMonthCell.swift in Sources */,
 				E5FAA9DF304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift in Sources */,

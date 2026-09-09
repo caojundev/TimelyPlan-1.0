@@ -11,6 +11,9 @@ import UIKit
 /// 目标记录列表展示模型：用于渲染单条记录的一行。
 struct GoalRecordRowPresentation {
     
+    /// 记录唯一标识（用于删除等操作）
+    let identifier: String
+    
     /// 记录时间文本（如 "14:30"）
     let time: String
     
@@ -46,6 +49,9 @@ final class GoalRecordListViewModel: GoalRecordProcessorDelegate {
     /// 目标任务
     let task: GoalTask
     
+    /// 当前任务的全部记录（原始数据）
+    private var records: [GoalRecord] = []
+    
     /// 按天分组后的数据（倒序，最新的一天在前）
     private(set) var dayGroups: [GoalRecordDayGroup] = []
     
@@ -66,8 +72,22 @@ final class GoalRecordListViewModel: GoalRecordProcessorDelegate {
     /// 获取记录并按天分组
     func reload() {
         let records = GoalRepository.getRecords(for: task)
+        self.records = records
         self.dayGroups = GoalRecordListViewModel.dayGroups(from: records)
         self.didChangeRecords?()
+    }
+    
+    // MARK: - 删除
+    
+    /// 删除指定标识的单条记录
+    /// - Parameter identifier: 记录标识
+    func deleteRecord(withIdentifier identifier: String) {
+        guard let record = records.first(where: { $0.identifier == identifier }) else {
+            return
+        }
+        
+        GoalRepository.deleteRecord(record, for: task)
+        /// 删除成功后由更新器回调触发 reload
     }
     
     /// 将记录按天分组并排序
@@ -116,7 +136,8 @@ final class GoalRecordListViewModel: GoalRecordProcessorDelegate {
                 textColor = .primary
             }
             
-            return GoalRecordRowPresentation(time: record.date?.timeString ?? "",
+            return GoalRecordRowPresentation(identifier: record.identifier,
+                                             time: record.date?.timeString ?? "",
                                              amountText: amountText,
                                              amountTextColor: textColor,
                                              note: record.hasNote ? record.note : nil)

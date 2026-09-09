@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 struct GoalRecordKey {
+    static let identifier = "identifier"
     static let amount = "amount"
     static let date = "date"
     static let note = "note"
@@ -28,6 +29,7 @@ extension CDGoalRecord {
                           note: String? = nil,
                           task: CDGoalTask? = nil) -> CDGoalRecord {
         let record = CDGoalRecord.createEntity(in: .defaultContext)
+        record.identifier = UUID().uuidString /// 新创建记录设置稳定标识
         record.amount = amount
         record.date = date
         record.note = note
@@ -91,6 +93,13 @@ extension CDGoalRecord {
         return conditions
     }
     
+    /// 根据标识获取单条记录
+    static func getRecord(withIdentifier identifier: String) -> CDGoalRecord? {
+        let condition: PredicateCondition = (GoalRecordKey.identifier, .equal(identifier))
+        let predicate = NSPredicate.predicate(with: condition)
+        return getFirst(matching: predicate, in: .defaultContext)
+    }
+    
     /// 同步获取记录
     static func getRecords(for task: GoalTask? = nil,
                            fromDate: Date? = nil,
@@ -152,6 +161,16 @@ extension CDGoalRecord {
         }
         
         return deleteRecords(records)
+    }
+    
+    /// 根据标识删除单条记录
+    @discardableResult
+    static func deleteRecord(withIdentifier identifier: String) -> Bool {
+        guard let record = getRecord(withIdentifier: identifier) else {
+            return false
+        }
+        
+        return deleteRecords([record])
     }
 }
 

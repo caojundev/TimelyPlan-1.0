@@ -176,6 +176,26 @@ class GoalRecordManager {
         return true
     }
     
+    /// 删除单条目标记录
+    /// - Parameters:
+    ///   - record: 目标记录（需持有稳定标识）
+    ///   - goalTask: 记录所属目标任务
+    @discardableResult
+    func deleteRecord(_ record: GoalRecord,
+                      for goalTask: GoalTask) -> Bool {
+        guard CDGoalRecord.deleteRecord(withIdentifier: record.identifier) else {
+            return false
+        }
+        
+        let dateRange = record.date.map { DateRange(startDate: $0.startOfDay(), endDate: $0.endOfDay()) }
+        updater.didDeleteGoalRecords(for: goalTask, in: dateRange)
+        HandyRecord.updateChangeCount()
+        
+        /// 删除后刷新任务所属目标整体进度
+        refreshGoalPlanProgress(for: goalTask)
+        return true
+    }
+    
     // MARK: - 重置今日
     /// 重置指定日期：删除目标任务在该日期的所有记录，并按记录净变化回退任务当前值
     /// - Parameters:

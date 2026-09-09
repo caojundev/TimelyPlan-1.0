@@ -15,15 +15,6 @@ import UIKit
 /// 每个区块（section）显示某一天的记录。
 class GoalTaskRecordActionViewController: TPTableSectionsViewController {
     
-    /// 区块日期标题高度
-    private static let dayHeaderHeight = 34.0
-    
-    /// 区块日期标题内间距
-    private static let dayHeaderPadding = UIEdgeInsets(top: 8.0,
-                                                       left: 16.0,
-                                                       bottom: 0.0,
-                                                       right: 16.0)
-    
     /// 空记录占位图
     private static let emptyPlaceholder = resGetString("No Goal Record")
     
@@ -45,7 +36,9 @@ class GoalTaskRecordActionViewController: TPTableSectionsViewController {
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         
         self.viewModel.didChangeRecords = { [weak self] in
-            self?.rebuildSections()
+            DispatchQueue.main.async {
+                self?.rebuildSections()
+            }
         }
         /// 首次加载记录
         self.viewModel.reload()
@@ -70,47 +63,18 @@ class GoalTaskRecordActionViewController: TPTableSectionsViewController {
             return
         }
         
-        var controllers = [TPTableItemSectionController]()
-        for group in dayGroups {
-            controllers.append(sectionController(for: group))
+        let controllers: [TPTableBaseSectionController] = dayGroups.map { group in
+            let sectionController = GoalTaskRecordDaySectionController(date: group.date,
+                                                                       title: group.title,
+                                                                       rows: group.rows)
+            sectionController.onDeleteRecord = { [weak self] identifier in
+                self?.viewModel.deleteRecord(withIdentifier: identifier)
+            }
+            return sectionController as TPTableBaseSectionController
         }
         
         self.sectionControllers = controllers
-        self.reloadData()
-    }
-    
-    /// 为某一天的记录创建区块
-    private func sectionController(for group: GoalRecordDayGroup) -> TPTableItemSectionController {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = GoalTaskRecordActionViewController.dayHeaderHeight
-        sectionController.headerItem.padding = GoalTaskRecordActionViewController.dayHeaderPadding
-        sectionController.headerItem.titleConfig.font = .boldSystemFont(ofSize: 13.0)
-        sectionController.headerItem.titleConfig.textColor = resGetColor(.title)
-        sectionController.headerItem.title = group.title
-        sectionController.footerItem.height = 0.0
-        
-        sectionController.cellItems = group.rows.map { row in
-            return self.cellItem(for: row)
-        }
-        
-        return sectionController
-    }
-    
-    /// 创建记录单元格
-    private func cellItem(for row: GoalRecordRowPresentation) -> TPDefaultInfoTextValueTableCellItem {
-        let cellItem = TPDefaultInfoTextValueTableCellItem()
-        cellItem.selectionStyle = .none
-        cellItem.height = 55.0
-        cellItem.title = row.time
-        cellItem.subtitle = row.note
-        cellItem.subtitleConfig.textColor = .secondaryLabel
-        cellItem.updater = {
-            cellItem.title = row.time
-            cellItem.subtitle = row.note
-            cellItem.valueConfig = .valueText(row.amountText, textColor: row.amountTextColor)
-        }
-        
-        return cellItem
+        self.adapter.performUpdate(with: .fade)
     }
     
     /// 空记录占位区块
