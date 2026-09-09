@@ -262,21 +262,23 @@ class GoalTaskBaseInfoView: UIView {
     /// 更新内容
     func updateContent(with layout: GoalTaskInfoLayout, animated: Bool) {
         updateLayout(with: layout)
+        updateContent(with: layout.task, animated: animated)
         
-        let task = layout.task
-        
+        /// 更新详情信息
+        detailLabel.update(with: layout.attributedDetail)
+        setNeedsLayout()
+    }
+    
+    func updateContent(with task: GoalTask, animated: Bool) {
         nameLabel.text = task.name
         nameLabel.setStrikethrough(task.isCompleted, animated: animated)
-        
-        detailLabel.update(with: layout.attributedDetail)
         setProgress(task.progressFraction, animated: animated)
         progressView.barForeColor = task.color ?? .primary
-        
         setNeedsLayout()
     }
     
     /// 更新布局参数
-    func updateLayout(with layout: GoalTaskInfoLayout) {
+    private func updateLayout(with layout: GoalTaskInfoLayout) {
         nameHeight = layout.nameHeight
         detailHeight = layout.detailHeight
         isProgressHidden = layout.isProgressHidden
@@ -351,15 +353,16 @@ class GoalTaskCheckInfoView: GoalTaskBaseInfoView {
             checkbox.mode = .minus
         }
     }
-    
-    override func updateContent(with layout: GoalTaskInfoLayout, animated: Bool) {
-        super.updateContent(with: layout, animated: animated)
-        let task = layout.task
+
+    override func updateContent(with task: GoalTask, animated: Bool) {
+        super.updateContent(with: task, animated: animated)
         checkType = task.checkType
         checkbox.setChecked(task.isCompleted, animated: animated)
         
         let color = task.color ?? .grayPrimary
         checkbox.normalColor = color
         checkbox.checkedColor = color
+        setNeedsLayout()
     }
+    
 }

@@ -66,8 +66,7 @@ class TaskNotificationHandler: NotificationClickProcessor {
         }
         
         if let task = GoalRepository.getGoalTask(withIdentifier: identifier) {
-            #warning("弹出目标任务操作视图控制器")
-            GoalPresenter.editGoalTask(task)
+            GoalPresenter.showActionViewController(for: task)
         }
     }
 }

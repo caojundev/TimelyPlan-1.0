@@ -1346,6 +1346,12 @@
 		E5B9D08C2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9D08B2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift */; };
 		E5BA9A7D305044CD0044106F /* GoalNotifiableTaskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A7C305044CD0044106F /* GoalNotifiableTaskProvider.swift */; };
 		E5BA9A7F305045100044106F /* GoalTask+LocalNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A7E305045100044106F /* GoalTask+LocalNotifiable.swift */; };
+		E5BA9A823050F1540044106F /* GoalTaskActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A813050F1540044106F /* GoalTaskActionViewController.swift */; };
+		E5BA9A853050F1540044106F /* GoalTaskStepActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A843050F1540044106F /* GoalTaskStepActionViewController.swift */; };
+		E5BA9A873050F1540044106F /* GoalTaskNoteActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A863050F1540044106F /* GoalTaskNoteActionViewController.swift */; };
+		E5BA9A893050F1540044106F /* GoalTaskRecordActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A883050F1540044106F /* GoalTaskRecordActionViewController.swift */; };
+		E5BA9A8B3050F1540044106F /* GoalRecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8A3050F1540044106F /* GoalRecordListViewModel.swift */; };
+		E5BA9A8D3050F1540044106F /* GoalTaskEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8C3050F1540044106F /* GoalTaskEditInteractor.swift */; };
 		E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */; };
 		E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */; };
 		E5BB9A782D3BEF0D0089667A /* todo_home_setting_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E42D3BEF0D0089667A /* todo_home_setting_24@3x.png */; };
@@ -3644,6 +3650,12 @@
 		E5B9D08B2DD062FC009EA89B /* CalendarWeekScrollSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWeekScrollSynchronizer.swift; sourceTree = "<group>"; };
 		E5BA9A7C305044CD0044106F /* GoalNotifiableTaskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotifiableTaskProvider.swift; sourceTree = "<group>"; };
 		E5BA9A7E305045100044106F /* GoalTask+LocalNotifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoalTask+LocalNotifiable.swift"; sourceTree = "<group>"; };
+		E5BA9A813050F1540044106F /* GoalTaskActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskActionViewController.swift; sourceTree = "<group>"; };
+		E5BA9A843050F1540044106F /* GoalTaskStepActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskStepActionViewController.swift; sourceTree = "<group>"; };
+		E5BA9A863050F1540044106F /* GoalTaskNoteActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskNoteActionViewController.swift; sourceTree = "<group>"; };
+		E5BA9A883050F1540044106F /* GoalTaskRecordActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskRecordActionViewController.swift; sourceTree = "<group>"; };
+		E5BA9A8A3050F1540044106F /* GoalRecordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRecordListViewModel.swift; sourceTree = "<group>"; };
+		E5BA9A8C3050F1540044106F /* GoalTaskEditInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskEditInteractor.swift; sourceTree = "<group>"; };
 		E5BB99DA2D3BEB320089667A /* TimelyPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimelyPlan.entitlements; sourceTree = "<group>"; };
 		E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@3x.png"; sourceTree = "<group>"; };
 		E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@2x.png"; sourceTree = "<group>"; };
@@ -8006,6 +8018,7 @@
 				E57B2D21304800000000000E /* GoalTaskInfoView.swift */,
 				E57B2C1D304600000000000D /* GoalTaskListHeaderView.swift */,
 				E57B2D1F304800000000000E /* GoalTaskLayoutManager.swift */,
+				E5BA9A803050F1420044106F /* Action */,
 				E5BA9A7B304F9EAD0044106F /* Menu */,
 			);
 			path = Task;
@@ -8690,6 +8703,27 @@
 				E5FAA9DC304C02A200C9CCD8 /* GoalTaskMenuController.swift */,
 			);
 			path = Menu;
+			sourceTree = "<group>";
+		};
+		E5BA9A803050F1420044106F /* Action */ = {
+			isa = PBXGroup;
+			children = (
+				E5BA9A8C3050F1540044106F /* GoalTaskEditInteractor.swift */,
+				E5BA9A813050F1540044106F /* GoalTaskActionViewController.swift */,
+				E5BA9A843050F1540044106F /* GoalTaskStepActionViewController.swift */,
+				E5BA9A863050F1540044106F /* GoalTaskNoteActionViewController.swift */,
+				E5BA9A83305146AE0044106F /* Record */,
+			);
+			path = Action;
+			sourceTree = "<group>";
+		};
+		E5BA9A83305146AE0044106F /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				E5BA9A883050F1540044106F /* GoalTaskRecordActionViewController.swift */,
+				E5BA9A8A3050F1540044106F /* GoalRecordListViewModel.swift */,
+			);
+			path = Record;
 			sourceTree = "<group>";
 		};
 		E5BB99DC2D3BEF0D0089667A /* Icons */ = {
@@ -13195,6 +13229,12 @@
 				E5BB9E0F2D3BF0C70089667A /* TPNotificationService.swift in Sources */,
 				E527619F2D41F63000209019 /* TPImageCollectionCell.swift in Sources */,
 				E53B11542F94D26C00701410 /* TodoFilterRuleListEditSectionController.swift in Sources */,
+				E5BA9A823050F1540044106F /* GoalTaskActionViewController.swift in Sources */,
+				E5BA9A853050F1540044106F /* GoalTaskStepActionViewController.swift in Sources */,
+				E5BA9A873050F1540044106F /* GoalTaskNoteActionViewController.swift in Sources */,
+				E5BA9A893050F1540044106F /* GoalTaskRecordActionViewController.swift in Sources */,
+				E5BA9A8B3050F1540044106F /* GoalRecordListViewModel.swift in Sources */,
+				E5BA9A8D3050F1540044106F /* GoalTaskEditInteractor.swift in Sources */,
 				E5BB9E622D3BF0C70089667A /* TFImageInfoCollectionCell.swift in Sources */,
 				E53352A82FF9364100546986 /* CalendarYearMonthCell.swift in Sources */,
 				E5FAA9DF304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift in Sources */,

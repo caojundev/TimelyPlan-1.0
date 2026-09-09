@@ -251,7 +251,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     // MARK: - GoalTaskListViewDelegate
     func goalTaskListView(_ listView: GoalTaskListView, didSelectGoalTask goalTask: GoalTask) {
         TPImpactFeedback.impactWithSoftStyle()
-        /// 测试：点击目标任务
+        GoalPresenter.showActionViewController(for: goalTask)
     }
     
     func goalTaskListView(_ listView: GoalTaskListView, didClickMoreForTask goalTask: GoalTask, sourceView: UIView) {

@@ -66,4 +66,18 @@ class GoalPresenter {
 
         vc.showAsNavigationRoot()
     }
+    
+    /// 显示任务操作视图控制器
+    static func showActionViewController(for task: GoalTask) {
+        let vc = GoalTaskActionViewController(task: task)
+        let navController = UINavigationController(rootViewController: vc)
+        if let sheet = navController.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+        }
+        
+        navController.show()
+    }
+    
 }
