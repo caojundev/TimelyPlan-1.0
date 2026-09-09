@@ -155,6 +155,14 @@ class GoalTaskManager {
         
         /// 修改任务后刷新目标整体进度
         refreshGoalPlanProgress(with: content.goalPlan)
+        
+        if goalTask.name != editingTask.name {
+            /// 更新对应专注会话的任务快照
+            var feature = goalTask.feature
+            feature.snapshotName = editingTask.name
+            FocusRepository.updateSession(with: feature)
+        }
+        
         return updatedGoalTask
     }
     
@@ -166,6 +174,11 @@ class GoalTaskManager {
         let change: GoalTaskChange = .name(oldValue: goalTask.name, newValue: name)
         updater.didUpdateGoalTask(goalTask, with: change)
         HandyRecord.updateChangeCount()
+        
+        /// 更新对应专注会话的任务快照
+        var feature = goalTask.feature
+        feature.snapshotName = name
+        FocusRepository.updateSession(with: feature)
     }
     
     func updateGoalTask(_ goalTask: GoalTask, note: String?) {
