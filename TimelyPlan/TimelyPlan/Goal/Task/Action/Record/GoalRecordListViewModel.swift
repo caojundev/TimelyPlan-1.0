@@ -17,11 +17,11 @@ struct GoalRecordRowPresentation {
     /// 记录时间文本（如 "14:30"）
     let time: String
     
+    /// 记录原始数值（变化量，增加为正、减少为负）
+    let amount: Int64
+    
     /// 记录数值文本（带符号，如 "+5" / "-3" / "0"）
     let amountText: String
-    
-    /// 数值文本颜色
-    let amountTextColor: UIColor
     
     /// 备注（无备注时为 nil）
     let note: String?
@@ -90,6 +90,24 @@ final class GoalRecordListViewModel: GoalRecordProcessorDelegate {
         /// 删除成功后由更新器回调触发 reload
     }
     
+    // MARK: - 更新
+    
+    /// 更新指定标识记录的数值与备注
+    /// - Parameters:
+    ///   - identifier: 记录标识
+    ///   - amount: 新的数值（变化量，增加为正、减少为负）
+    ///   - note: 新的备注（传 nil 表示清空）
+    func updateRecord(withIdentifier identifier: String,
+                      amount: Int64,
+                      note: String?) {
+        guard let record = records.first(where: { $0.identifier == identifier }) else {
+            return
+        }
+        
+        GoalRepository.updateRecord(record, amount: amount, note: note, for: task)
+        /// 更新成功后由更新器回调触发 reload
+    }
+    
     /// 将记录按天分组并排序
     static func dayGroups(from records: [GoalRecord]) -> [GoalRecordDayGroup] {
         var grouped: [Int32: [GoalRecord]] = [:]
@@ -130,16 +148,14 @@ final class GoalRecordListViewModel: GoalRecordProcessorDelegate {
         return sorted.map { record in
             let amount = record.amount
             var amountText = "\(amount)"
-            var textColor: UIColor = .secondaryLabel
             if amount > 0 {
                 amountText = "+\(amount)"
-                textColor = .primary
             }
             
             return GoalRecordRowPresentation(identifier: record.identifier,
                                              time: record.date?.timeString ?? "",
+                                             amount: amount,
                                              amountText: amountText,
-                                             amountTextColor: textColor,
                                              note: record.hasNote ? record.note : nil)
         }
     }

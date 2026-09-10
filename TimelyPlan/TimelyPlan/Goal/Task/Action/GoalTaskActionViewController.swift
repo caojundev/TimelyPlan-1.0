@@ -18,25 +18,26 @@ enum GoalTaskActionType: Int, TPMenuRepresentable {
     }
 }
 
-class GoalTaskActionViewController: TPContainerViewController {
+class GoalTaskActionViewController: TPContainerViewController,
+                                    GoalTaskActionFooterViewDelegate {
     
-    private let infoViewHeight = 75.0
+    private let infoViewHeight = 82.0
     private let segmentedMenuTopMargin = 15.0
     private let segmentedMenuHeight = 46.0
     private let contentTopMargin = 10.0
+    private let footerViewHeight = 60.0
     
     private lazy var checkInfoView: GoalTaskCheckInfoView = {
         let view = GoalTaskCheckInfoView()
         view.backgroundColor = .secondarySystemGroupedBackground
         view.layer.cornerRadius = 12.0
         view.clipsToBounds = true
-        
-        view.padding = UIEdgeInsets(horizontal: 16.0, vertical: 5.0)
+        view.padding = UIEdgeInsets(horizontal: 16.0, vertical: 8.0)
         view.nameHeight = 24.0
         view.detailHeight = 16.0
         view.detailTopMargin = 4.0
         view.progressTopMargin = 8.0
-        
+        view.detailLabel.font = .boldSystemFont(ofSize: 11.0)
         view.didClickCheckbox = { [weak self] _ in
             self?.clickCheckbox()
         }
@@ -81,6 +82,16 @@ class GoalTaskActionViewController: TPContainerViewController {
         return GoalTaskNoteActionViewController(interactor: interactor)
     }()
     
+    /// 底部视图（中间日期 + 右侧更多按钮）
+    private lazy var footerView: GoalTaskActionFooterView = {
+        let view = GoalTaskActionFooterView()
+        view.delegate = self
+        return view
+    }()
+    
+    /// 目标任务控制器（执行更多菜单操作，与列表一致）
+    private let taskController = GoalTaskController()
+    
     init(task: GoalTask) {
         self.interactor = GoalTaskEditInteractor(task: task)
         super.init(nibName: nil, bundle: nil)
@@ -97,8 +108,8 @@ class GoalTaskActionViewController: TPContainerViewController {
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         view.addSubview(checkInfoView)
         view.addSubview(segmentedMenuView)
+        view.addSubview(footerView)
         updateCheckInfoView()
-        setupActionsBar(actions: [doneAction])
         updateContentViewController(with: .none)
         segmentedMenuView.selectMenu(withTag: 0)
     }
@@ -108,6 +119,14 @@ class GoalTaskActionViewController: TPContainerViewController {
         
         let attributedDetail = GoalTaskDetailProvider.attributedDetail(for: interactor.task)
         checkInfoView.detailLabel.update(with: attributedDetail)
+        
+        updateFooterView()
+    }
+    
+    /// 更新底部视图的日期信息
+    private func updateFooterView() {
+        footerView.task = interactor.task
+        footerView.updateDateInfo()
     }
     
     /// 配置交互器回调：任务改变刷新信息视图，任务删除则关闭当前视图
@@ -134,12 +153,18 @@ class GoalTaskActionViewController: TPContainerViewController {
         segmentedMenuView.height = segmentedMenuHeight
         segmentedMenuView.left = layoutFrame.minX
         segmentedMenuView.top = checkInfoView.bottom + segmentedMenuTopMargin
+        
+        /// 底部视图置于安全区域底部
+        footerView.width = view.width
+        footerView.height = footerViewHeight + view.safeAreaInsets.bottom
+        footerView.left = 0.0
+        footerView.bottom = view.height
     }
     
     override func contentViewFrame() -> CGRect {
         let layoutFrame = view.safeLayoutFrame()
         let y = infoViewHeight + segmentedMenuTopMargin + segmentedMenuHeight + contentTopMargin
-        let h = layoutFrame.height - y - actionsBarHeight
+        let h = layoutFrame.height - y - footerViewHeight
         return CGRect(x: 0.0, y: y, width: view.width, height: h)
     }
 
@@ -151,13 +176,29 @@ class GoalTaskActionViewController: TPContainerViewController {
         return .systemGroupedBackground
     }
     
-    override func clickDone() {
-        super.clickDone()
-        
-    }
-
     private func clickCheckbox() {
         interactor.toggleCheckbox()
+    }
+    
+    // MARK: - GoalTaskActionFooterViewDelegate
+    func goalTaskActionFooterViewDidClickFocus(_ view: GoalTaskActionFooterView) {
+        TPImpactFeedback.impactWithSoftStyle()
+        UIResponder.resignCurrentFirstResponder()
+        FocusPresenter.quickStartFocus(for: interactor.task)
+    }
+    
+    /// 点击更多按钮，弹出与任务列表一致的任务操作菜单
+    func goalTaskActionFooterViewDidClickMore(_ view: GoalTaskActionFooterView) {
+        TPImpactFeedback.impactWithSoftStyle()
+        UIResponder.resignCurrentFirstResponder()
+        
+        let task = interactor.task
+        let menuController = GoalTaskMenuController(task: task)
+        menuController.didSelectMenuActionType = { [weak self] type in
+            self?.taskController.performMenuAction(type, for: task)
+        }
+        
+        menuController.showMenu(from: view.moreButton)
     }
     
     /// 关闭当前展示的视图控制器（任务被删除时调用）

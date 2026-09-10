@@ -70,11 +70,36 @@ class GoalTaskRecordActionViewController: TPTableSectionsViewController {
             sectionController.onDeleteRecord = { [weak self] identifier in
                 self?.viewModel.deleteRecord(withIdentifier: identifier)
             }
+            sectionController.onEditRecord = { [weak self] row in
+                self?.presentRecordEditing(for: row)
+            }
             return sectionController as TPTableBaseSectionController
         }
         
         self.sectionControllers = controllers
         self.adapter.performUpdate(with: .fade)
+    }
+    
+    /// 点击某条记录，弹出编辑弹窗更新该记录的数值与备注
+    private func presentRecordEditing(for row: GoalRecordRowPresentation) {
+        let inputVC = GoalRecordInputViewController.editingViewController(amount: row.amount,
+                                                                          note: row.note)
+        inputVC.completion = { [weak self] number, inputType, remark in
+            guard let self = self else { return }
+            /// 按输入类型转成记录的变化量（增加为正、减少为负）
+            let signedAmount: Int64
+            switch inputType {
+            case .increase, .update:
+                signedAmount = number
+            case .decrease:
+                signedAmount = -number
+            }
+            
+            self.viewModel.updateRecord(withIdentifier: row.identifier,
+                                        amount: signedAmount,
+                                        note: remark)
+        }
+        inputVC.show()
     }
     
     /// 空记录占位区块

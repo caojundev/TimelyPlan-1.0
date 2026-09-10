@@ -32,6 +32,9 @@ class GoalTaskRecordDaySectionController: TPTableItemSectionController {
     /// 请求删除某条记录（参数为记录标识）
     var onDeleteRecord: ((String) -> Void)?
     
+    /// 点击某条记录请求编辑（用于更新记录数值与备注）
+    var onEditRecord: ((GoalRecordRowPresentation) -> Void)?
+    
     init(date: Date, title: String, rows: [GoalRecordRowPresentation]) {
         self.date = date
         self.rows = rows
@@ -94,7 +97,6 @@ class GoalTaskRecordDaySectionController: TPTableItemSectionController {
     /// 创建某条记录的单元格
     private func cellItem(for row: GoalRecordRowPresentation) -> TPDefaultInfoTextValueTableCellItem {
         let cellItem = TPDefaultInfoTextValueTableCellItem()
-        cellItem.selectionStyle = .none
         cellItem.height = 60.0
         cellItem.title = row.time
         cellItem.titleConfig.font = .boldSystemFont(ofSize: 14.0)
@@ -105,6 +107,9 @@ class GoalTaskRecordDaySectionController: TPTableItemSectionController {
         cellItem.valueConfig = .valueText(row.amountText,
                                           font: .boldSystemFont(ofSize: 16.0),
                                           textColor: .primary)
+        cellItem.didSelectHandler = { [weak self] in
+            self?.onEditRecord?(row)
+        }
         return cellItem
     }
 }

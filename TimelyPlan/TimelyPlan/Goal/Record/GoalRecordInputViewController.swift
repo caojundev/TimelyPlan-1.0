@@ -8,6 +8,16 @@
 import Foundation
 import UIKit
 
+/// 目标任务记录输入弹窗的编辑类型
+enum GoalRecordInputMode {
+    
+    /// 添加记录
+    case add
+    
+    /// 编辑既有记录
+    case edit
+}
+
 /// 目标任务记录输入弹窗
 class GoalRecordInputViewController: TPAlertController {
 
@@ -30,6 +40,9 @@ class GoalRecordInputViewController: TPAlertController {
 
     /// 可用记录输入类型
     let inputTypes: [GoalRecordInputType]
+
+    /// 编辑类型（添加 / 编辑）
+    let mode: GoalRecordInputMode
 
     /// 完成回调（输入数值、记录类型、备注）
     var completion: ((Int64, GoalRecordInputType, String?) -> Void)?
@@ -59,10 +72,33 @@ class GoalRecordInputViewController: TPAlertController {
         vc.inputType = inputType
         return vc
     }
+    
+    /// 创建编辑用输入控制器（仅 增加/减少，标题为 Edit Record，预填原数值与备注）
+    static func editingViewController(amount: Int64, note: String?) -> GoalRecordInputViewController {
+        let vc = GoalRecordInputViewController(inputTypes: [.increase, .decrease], mode: .edit)
+        vc.configureForEditing(amount: amount, note: note)
+        return vc
+    }
+    
+    /// 配置为编辑既有记录：预填数值与备注，并按原值正负确定默认类型
+    func configureForEditing(amount: Int64, note: String?) {
+        inputType = amount >= 0 ? .increase : .decrease
+        recordInputView.textField.text = "\(abs(amount))"
+        recordInputView.setRemark(note)
+        updateDoneActionEnabled()
+    }
 
-    init(inputTypes: [GoalRecordInputType]) {
+    init(inputTypes: [GoalRecordInputType],
+         mode: GoalRecordInputMode = .add) {
         self.inputTypes = inputTypes
-        let title = resGetString("Record")
+        self.mode = mode
+        let title: String
+        switch mode {
+        case .add:
+            title = resGetString("Add Record")
+        case .edit:
+            title = resGetString("Edit Record")
+        }
         super.init(title: title, message: nil, style: .alert, actions: nil)
         self.actionsCountPerRow = 1
         self.actions = [doneAlertAction]
@@ -173,6 +209,11 @@ class GoalRecordInputView: UIView, UITextViewDelegate {
 
     /// 输入类型变化回调
     var inputTypeDidChange: (() -> Void)?
+    
+    /// 设置备注文本（用于编辑既有记录时预填）
+    func setRemark(_ text: String?) {
+        remarkTextView.text = text
+    }
 
     /// 记录输入类型
     var inputType: GoalRecordInputType {
@@ -299,6 +340,6 @@ class GoalRecordInputView: UIView, UITextViewDelegate {
         }
 
         textField.placeholder = placeholder
-        textField.text = nil
+        /// 切换类型时保留用户已输入的数字，不清空输入框
     }
 }

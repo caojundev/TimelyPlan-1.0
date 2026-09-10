@@ -357,4 +357,16 @@ extension GoalRepository {
                              for goalTask: GoalTask) -> Bool {
         return recordManager.deleteRecord(record, for: goalTask)
     }
+    
+    /// 更新单条目标记录的数值与备注（数值变化后会按现有记录重算任务当前值）
+    @discardableResult
+    static func updateRecord(_ record: GoalRecord,
+                             amount: Int64,
+                             note: String?,
+                             for goalTask: GoalTask) -> Bool {
+        return recordManager.updateRecord(record,
+                                          amount: amount,
+                                          note: note,
+                                          for: goalTask)
+    }
 }
