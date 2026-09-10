@@ -82,6 +82,16 @@ class GoalTaskActionViewController: TPContainerViewController,
         return GoalTaskNoteActionViewController(interactor: interactor)
     }()
     
+    /// 标题视图
+    private lazy var titleView: GoalTaskActionTitleView = {
+        let view = GoalTaskActionTitleView()
+        view.onClickHandler = { [weak self] in
+            self?.clickTitleView()
+        }
+        
+        return view
+    }()
+    
     /// 底部视图（中间日期 + 右侧更多按钮）
     private lazy var footerView: GoalTaskActionFooterView = {
         let view = GoalTaskActionFooterView()
@@ -104,8 +114,9 @@ class GoalTaskActionViewController: TPContainerViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.padding = UIEdgeInsets(horizontal: 16.0)
+        navigationItem.titleView = titleView
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
+        view.padding = UIEdgeInsets(horizontal: 16.0)
         view.addSubview(checkInfoView)
         view.addSubview(segmentedMenuView)
         view.addSubview(footerView)
@@ -119,8 +130,14 @@ class GoalTaskActionViewController: TPContainerViewController,
         
         let attributedDetail = GoalTaskDetailProvider.attributedDetail(for: interactor.task)
         checkInfoView.detailLabel.update(with: attributedDetail)
-        
+        updateTitleView()
         updateFooterView()
+    }
+    
+    /// 更新标题视图
+    private func updateTitleView() {
+        titleView.goalPlan = interactor.task.goalPlan
+        titleView.sizeToFit()
     }
     
     /// 更新底部视图的日期信息
@@ -174,6 +191,11 @@ class GoalTaskActionViewController: TPContainerViewController,
 
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
+    }
+    
+    // MARK: - Event Response
+    private func clickTitleView() {
+        taskController.moveTask(interactor.task)
     }
     
     private func clickCheckbox() {

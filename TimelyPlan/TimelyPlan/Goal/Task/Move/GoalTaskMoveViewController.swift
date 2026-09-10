@@ -197,7 +197,7 @@ class GoalPlanSelectCell: TPDefaultInfoTableCell {
         }
         
         title = goalPlan.displayName
-        colorView.layer.backgroundColor = goalPlan.color
+        colorView.layer.backgroundColor = goalPlan.color?.cgColor
         setNeedsLayout()
     }
 }

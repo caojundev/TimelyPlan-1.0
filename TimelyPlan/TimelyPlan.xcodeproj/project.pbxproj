@@ -1358,6 +1358,7 @@
 		E5BA9A8D3050F1540044106F /* GoalTaskEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8C3050F1540044106F /* GoalTaskEditInteractor.swift */; };
 		E5BA9A8E30524E350044106F /* GoalTaskMoveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8D30524E350044106F /* GoalTaskMoveViewController.swift */; };
 		E5BA9A8F3050F1540044106F /* GoalTaskRecordDaySectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8E3050F1540044106F /* GoalTaskRecordDaySectionController.swift */; };
+		E5BA9A90305286350044106F /* GoalTaskActionTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8F305286350044106F /* GoalTaskActionTitleView.swift */; };
 		E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */; };
 		E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */; };
 		E5BB9A782D3BEF0D0089667A /* todo_home_setting_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E42D3BEF0D0089667A /* todo_home_setting_24@3x.png */; };
@@ -3668,6 +3669,7 @@
 		E5BA9A8C3050F1540044106F /* GoalTaskEditInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskEditInteractor.swift; sourceTree = "<group>"; };
 		E5BA9A8D30524E350044106F /* GoalTaskMoveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskMoveViewController.swift; sourceTree = "<group>"; };
 		E5BA9A8E3050F1540044106F /* GoalTaskRecordDaySectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskRecordDaySectionController.swift; sourceTree = "<group>"; };
+		E5BA9A8F305286350044106F /* GoalTaskActionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskActionTitleView.swift; sourceTree = "<group>"; };
 		E5BB99DA2D3BEB320089667A /* TimelyPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimelyPlan.entitlements; sourceTree = "<group>"; };
 		E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@3x.png"; sourceTree = "<group>"; };
 		E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@2x.png"; sourceTree = "<group>"; };
@@ -8726,6 +8728,7 @@
 				E5BA9A813050F1540044106F /* GoalTaskActionViewController.swift */,
 				E5BA9A843050F1540044106F /* GoalTaskStepActionViewController.swift */,
 				E5BA9A863050F1540044106F /* GoalTaskNoteActionViewController.swift */,
+				E5BA9A8F305286350044106F /* GoalTaskActionTitleView.swift */,
 				E5BA9A84305196CF0044106F /* GoalTaskActionFooterView.swift */,
 				E5BA9A83305146AE0044106F /* Record */,
 			);
@@ -14423,6 +14426,7 @@
 				E55549522F762E9800C9460D /* TaskBindViewController.swift in Sources */,
 				E5FAA9D5304AC4CF00C9CCD8 /* GoalTaskProcessorUpdater.swift in Sources */,
 				E5F9E3C8301F896D00EDC2A5 /* MyDayTimeEditSectionController.swift in Sources */,
+				E5BA9A90305286350044106F /* GoalTaskActionTitleView.swift in Sources */,
 				E5BB9DF52D3BF0C60089667A /* Date+Symbol.swift in Sources */,
 				E58F46B12F7AAD4B0046FA96 /* TodoParentListPickerViewController.swift in Sources */,
 				E58F46C02F7B9B620046FA96 /* CDTodoList+Extensions.swift in Sources */,
