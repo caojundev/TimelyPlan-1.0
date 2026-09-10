@@ -9,36 +9,26 @@ import Foundation
 import UIKit
 
 /// 移动目标任务：选择目标计划
-class GoalTaskMoveViewController: TPTableSectionsViewController,
-                                  TPTableSectionControllerDelegate {
+class GoalTaskMoveViewController: TPViewController,
+                                  TPGroupTableViewDelegate {
     
     /// 选中目标计划回调
     var didSelectGoalPlan: ((GoalPlan) -> Void)?
     
-    /// 当前选中的目标计划特征
-    let goalPlan: GoalPlanFeature?
+    /// 视图模型
+    let viewModel: GoalTaskMoveViewModel
     
-    /// 选中的目标计划
-    var selectedGoalPlan: GoalPlan? {
-        get {
-            return planSectionController.selectedGoalPlan
-        }
-        
-        set {
-            planSectionController.selectedGoalPlan = newValue
-        }
-    }
-    
-    /// 目标计划区块控制器
-    private(set) lazy var planSectionController: GoalPlanSelectSectionController = {
-        let sectionController = GoalPlanSelectSectionController()
-        sectionController.delegate = self
-        return sectionController
+    /// 目标计划列表视图
+    lazy var listView: TPGroupTableView = {
+        let view = TPGroupTableView(frame: view.bounds, style: .insetGrouped)
+        view.delegate = self
+        view.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
+        return view
     }()
     
     init(goalPlan: GoalPlanFeature?) {
-        self.goalPlan = goalPlan
-        super.init(style: .insetGrouped)
+        self.viewModel = GoalTaskMoveViewModel(goalPlan: goalPlan)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -49,15 +39,37 @@ class GoalTaskMoveViewController: TPTableSectionsViewController,
         super.viewDidLoad()
         title = resGetString("Move To")
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        setupSectionControllers()
-        adapter.reloadData()
+        view.addSubview(listView)
+        listView.placeholderProvider = viewModel.placeholderProvider
+        setupViewModel()
     }
     
-    func setupSectionControllers() {
-        sectionControllers = [planSectionController]
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        listView.frame = view.bounds
+    }
+    
+    /// 绑定视图模型
+    private func setupViewModel() {
+        viewModel.goalPlansDidChange = { [weak self] change in
+            self?.goalPlansChanged(change)
+        }
+        
+        viewModel.loadGoalPlans()
+    }
+    
+    /// 目标计划数据改变，刷新列表
+    private func goalPlansChanged(_ change: GoalPlanChange?) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            let group = GoalPlanGroup(identifier: "GoalPlanSelectGroup")
+            group.goalPlans = self.viewModel.goalPlans
+            self.listView.groups = [group]
+            self.listView.reloadData()
+        }
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -68,23 +80,37 @@ class GoalTaskMoveViewController: TPTableSectionsViewController,
         return .systemGroupedBackground
     }
     
-    // MARK: - TPTableSectionControllerDelegate
-    func tableSectionController(_ sectionController: TPTableBaseSectionController, didSelectRowAt index: Int) {
-        guard let goalPlan = sectionController.item(at: index) as? GoalPlan else {
+    // MARK: - TPGroupTableViewDelegate
+    func groupTableView(_ tableView: TPGroupTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 55.0
+    }
+    
+    func groupTableView(_ tableView: TPGroupTableView, classForCellAt indexPath: IndexPath) -> AnyClass? {
+        return GoalPlanSelectCell.self
+    }
+    
+    func groupTableView(_ tableView: TPGroupTableView, didDequeCell cell: UITableViewCell, at indexPath: IndexPath) {
+        guard let cell = cell as? GoalPlanSelectCell else {
             return
         }
         
-        selectedGoalPlan = goalPlan
-        adapter.updateCheckmarks()
-        selectGoalPlan(goalPlan)
+        cell.goalPlan = tableView.item(at: indexPath) as? GoalPlan
     }
     
-    func tableSectionController(_ sectionController: TPTableBaseSectionController, shouldShowCheckmarkForRowAt index: Int) -> Bool {
-        guard let goalPlan = sectionController.item(at: index) as? GoalPlan else {
+    func groupTableView(_ tableView: TPGroupTableView, shouldShowCheckmarkForRowAt indexPath: IndexPath) -> Bool {
+        guard let goalPlan = tableView.item(at: indexPath) as? GoalPlan else {
             return false
         }
         
-        return goalPlan.identifier == self.goalPlan?.identifier
+        return viewModel.isSelectedGoalPlan(goalPlan)
+    }
+    
+    func groupTableView(_ tableView: TPGroupTableView, didSelectRowAt indexPath: IndexPath) {
+        guard let goalPlan = tableView.item(at: indexPath) as? GoalPlan else {
+            return
+        }
+        
+        selectGoalPlan(goalPlan)
     }
     
     /// 选中目标计划并关闭
@@ -99,44 +125,20 @@ class GoalTaskMoveViewController: TPTableSectionsViewController,
     }
 }
 
-/// 目标计划选择区块控制器
-class GoalPlanSelectSectionController: TPTableBaseSectionController {
+/// 移动目标任务视图模型
+class GoalTaskMoveViewModel: GoalPlanViewModel {
     
-    /// 选中的目标计划
-    var selectedGoalPlan: GoalPlan?
+    /// 当前选中的目标计划特征（任务所属目标计划）
+    let goalPlan: GoalPlanFeature?
     
-    /// 目标计划数组（仅活动目标计划）
-    private(set) lazy var goalPlans: [GoalPlan] = {
-        return GoalRepository.getActiveGoalPlans()
-    }()
-    
-    override var items: [ListDiffable]? {
-        return goalPlans
+    init(goalPlan: GoalPlanFeature?) {
+        self.goalPlan = goalPlan
+        super.init()
     }
     
-    override func heightForHeader() -> CGFloat {
-        return 0.0
-    }
-    
-    override func heightForFooter() -> CGFloat {
-        return 0.0
-    }
-    
-    override func heightForRow(at index: Int) -> CGFloat {
-        return 55.0
-    }
-    
-    override func classForCell(at index: Int) -> AnyClass? {
-        return GoalPlanSelectCell.self
-    }
-    
-    override func didDequeCell(_ cell: UITableViewCell, forRowAt index: Int) {
-        super.didDequeCell(cell, forRowAt: index)
-        guard let cell = cell as? GoalPlanSelectCell else {
-            return
-        }
-        
-        cell.goalPlan = item(at: index) as? GoalPlan
+    /// 是否为当前选中的目标计划
+    func isSelectedGoalPlan(_ goalPlan: GoalPlan) -> Bool {
+        return goalPlan.identifier == self.goalPlan?.identifier
     }
 }
 
@@ -173,7 +175,6 @@ class GoalPlanSelectCell: TPDefaultInfoTableCell {
         infoView.leftAccessoryView = colorView
         infoView.leftAccessorySize = colorSize
         infoView.leftAccessoryMargins = UIEdgeInsets(left: 10.0, right: 12.0)
-        
         infoView.rightAccessoryView = checkmarkView
         infoView.rightAccessorySize = .mini
         infoView.rightAccessoryMargins = UIEdgeInsets(left: 10.0)
@@ -196,7 +197,7 @@ class GoalPlanSelectCell: TPDefaultInfoTableCell {
         }
         
         title = goalPlan.displayName
-        colorView.layer.backgroundColor = goalPlan.color?.cgColor
+        colorView.layer.backgroundColor = goalPlan.color
         setNeedsLayout()
     }
 }
