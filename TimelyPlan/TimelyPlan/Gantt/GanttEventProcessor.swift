@@ -16,7 +16,7 @@ class GanttEventProcessor {
         case .todo:
             clickTodoEvent(event)
         case .goal:
-            break
+            clickGoalEvent(event)
         }
     }
     
@@ -35,5 +35,14 @@ class GanttEventProcessor {
         }
         
         navController.show()
+    }
+    
+    /// 点击目标
+    private func clickGoalEvent(_ event: GanttEvent) {
+        guard let task = event.sourceItem as? GoalTask else {
+            return
+        }
+        
+        GoalPresenter.showActionViewController(for: task)
     }
 }

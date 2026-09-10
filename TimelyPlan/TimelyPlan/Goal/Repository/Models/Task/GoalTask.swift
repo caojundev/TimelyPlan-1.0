@@ -410,7 +410,9 @@ enum GoalRecordInputType: Int, TPMenuRepresentable {
         }
         
         let fraction = Double(currentValue - initialValue) / Double(total)
-        return max(0.0, min(fraction, 1.0))
+        let clamped = max(0.0, min(fraction, 1.0))
+        /// 避免负零（如 0 / 负数 = -0.0），否则百分比会格式化为 “-0%”
+        return clamped == 0 ? 0.0 : clamped
     }
     
     /// 限制在合法区间内的当前数值

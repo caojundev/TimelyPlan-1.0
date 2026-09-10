@@ -186,7 +186,7 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
         switch key {
         case .rowHeightType:
             applyRowHeightType(GanttSetting.shared.rowHeightType)
-        case .showCompleted, .showTodo:
+        case .showCompleted, .showTodo, .showGoal:
             loadEvents()
         default:
             break

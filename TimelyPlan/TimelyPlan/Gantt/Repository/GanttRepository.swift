@@ -12,10 +12,11 @@ class GanttRepository {
     // 可动态注册多个 Provider
     private var providers: [GanttEventProvider] = []
     private var todoProvider = GanttTodoEventProvider()
+    private var goalProvider = GanttGoalEventProvider()
     private let changeObserver = GanttEventChangeObserver()
     
     init() {
-        self.providers = [self.todoProvider]
+        self.providers = [self.todoProvider, self.goalProvider]
     }
     
     func addUpdaterDelegate(_ delegate: GanttEventChangeDelegate) {

@@ -89,6 +89,16 @@ class GoalTaskManager {
         }
     }
     
+    /// 获取甘特图目标任务
+    func fetchGanttEventGoalTasks(in range: DateInterval,
+                                  showCompleted: Bool = true,
+                                  completion: @escaping ([GoalTask]?) -> Void) {
+        CDGoalTask.fetchGanttEventGoalTasks(in: range,
+                                            showCompleted: showCompleted) { results in
+            completion(results?.toGoalTasks)
+        }
+    }
+    
     func fetchNotifiableGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
         CDGoalTask.fetchNotifiableGoalTasks { results in
             completion(results?.toGoalTasks)

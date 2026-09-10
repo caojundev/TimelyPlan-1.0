@@ -34,7 +34,6 @@ class FocusSetting {
         case focusEndSound /// 专注结束提示音
         case breakEndSound /// 休息结束提示音
         
-        
         static func keyPrefix() -> String? {
             return "FocusSetting"
         }

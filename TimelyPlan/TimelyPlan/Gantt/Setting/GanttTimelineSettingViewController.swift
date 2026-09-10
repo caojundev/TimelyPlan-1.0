@@ -124,6 +124,29 @@ class GanttTimelineSettingViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
+    // MARK: - 目标
+    lazy var showGoalCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = rowHeight
+        cellItem.title = resGetString("Show Goal")
+        cellItem.updater = {
+            self?.showGoalCellItem.isOn = GanttSetting.shared.showGoal
+        }
+
+        cellItem.valueChanged = { isOn in
+            GanttSetting.shared.showGoal = isOn
+        }
+
+        return cellItem
+    }()
+    
+    lazy var goalSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 15.0
+        sectionController.cellItems = [showGoalCellItem]
+        return sectionController
+    }()
+    
     private(set) var scale: GanttTimeScale.Scale
     
     init(scale: GanttTimeScale.Scale) {
@@ -142,7 +165,8 @@ class GanttTimelineSettingViewController: TPTableSectionsViewController {
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         sectionControllers = [modeSectionController,
                               generalSectionController,
-                              todoSectionController]
+                              todoSectionController,
+                              goalSectionController]
         reloadData()
     }
     

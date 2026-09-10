@@ -437,6 +437,17 @@ extension CDGoalTask {
         }
     }
     
+    /// 获取特定日期区间内需要展示的目标任务（甘特图）
+    static func fetchGanttEventGoalTasks(in range: DateInterval,
+                                         showCompleted: Bool = true,
+                                         completion: @escaping ([CDGoalTask]?) -> Void) {
+        fetchAll(matching: ganttGoalTaskPredicate(in: range, showCompleted: showCompleted),
+                 sortBy: GoalTaskKey.startDate,
+                 ascending: true) { results in
+            completion(results as? [CDGoalTask])
+        }
+    }
+    
     /// 获取包含提醒的目标任务
     static func fetchNotifiableGoalTasks(completion: @escaping ([CDGoalTask]?) -> Void) {
         fetchAll(matching: notifiableGoalTaskPredicate,
@@ -508,6 +519,34 @@ extension CDGoalTask {
     /// 我的一天中特定日期区间内未完成的目标任务
     static func activeMyDayGoalTaskPredicate(in range: DateInterval) -> NSPredicate {
         return activeGoalTaskPredicate(in: range, isAddedToMyDay: true)
+    }
+    
+    /// 特定日期区间内的目标任务（甘特图，可选包含已完成）
+    static func ganttGoalTaskPredicate(in range: DateInterval,
+                                       showCompleted: Bool) -> NSPredicate {
+        var conditions: [PredicateCondition] = [
+            (GoalTaskKey.startDate, .isNotEmpty),
+            (GoalTaskKey.startDate, .lessThanOrEqual(range.end))
+        ]
+        
+        if !showCompleted {
+            conditions.append(notCompletedCondition)
+        }
+        
+        /// 结束日期为空或者在区间起始之后
+        let emptyEndDateCondition: PredicateCondition = (GoalTaskKey.endDate, .isEmpty)
+        let withEndDateConditions: [PredicateCondition] = [
+            (GoalTaskKey.endDate, .isNotEmpty),
+            (GoalTaskKey.endDate, .greaterThanOrEqual(range.start))
+        ]
+        
+        let endDatePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
+            NSPredicate.predicate(with: emptyEndDateCondition),
+            withEndDateConditions.andPredicate()
+        ])
+        
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [conditions.andPredicate(),
+                                                                  endDatePredicate])
     }
     
     private static func activeGoalTaskPredicate(in range: DateInterval,

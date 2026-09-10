@@ -26,3 +26,17 @@ class GanttTodoEventProvider: GanttEventProvider {
         }
     }
 }
+
+class GanttGoalEventProvider: GanttEventProvider {
+    func fetchGanttEvents(in range: DateInterval, completion: @escaping ([GanttEvent]?) -> Void) {
+        guard GanttSetting.shared.showGoal else {
+            completion(nil)
+            return
+        }
+        
+        let showCompleted = GanttSetting.shared.showCompleted
+        GoalRepository.fetchGanttEventGoalTasks(in: range, showCompleted: showCompleted) { tasks in
+            completion(tasks?.toGanttEvents())
+        }
+    }
+}

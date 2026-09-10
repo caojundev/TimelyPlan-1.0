@@ -27,6 +27,12 @@ class GanttEventChangeObserver {
             observeSettingKeys.append(.showTodo)
         }
         
+        /// 目标任务
+        if sources.contains(.goal) {
+            GoalRepository.addUpdater(self, for: [.task])
+            observeSettingKeys.append(.showGoal)
+        }
+        
         if observeSettingKeys.count > 0 {
             GanttSetting.shared.addObserver(self, forKeys: observeSettingKeys)
         }
@@ -49,7 +55,7 @@ extension GanttEventChangeObserver: SettingAgentObserver {
         }
         
         switch key {
-        case .showTodo:
+        case .showTodo, .showGoal:
             updater.ganttEventsDidChange(in: [.infiniteInterval])
         default:
             break
@@ -168,6 +174,109 @@ extension GanttEventChangeObserver: TodoTaskProcessorDelegate {
         }
         
         return affectedRanges(for: [task])
+    }
+}
+
+extension GanttEventChangeObserver: GoalTaskProcessorDelegate {
+    
+    func didChangeRemoteGoalTask(with results: EntityChangeResults<GoalTask>?) {
+        updater.ganttEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    func didCreateGoalTask(_ goalTask: GoalTask) {
+        guard let ranges = affectedRanges(for: [goalTask]) else {
+            return
+        }
+        
+        updater.ganttEventsDidChange(in: ranges)
+    }
+    
+    func didUpdateGoalTask(_ goalTask: GoalTask, with change: GoalTaskChange) {
+        guard let ranges = ranges(for: goalTask, with: change) else {
+            return
+        }
+        
+        updater.ganttEventsDidChange(in: ranges)
+    }
+    
+    func didUpdateGoalTasks(with changeInfos: [GoalTaskChangeInfo]) {
+        var results = [DateInterval]()
+        for changeInfo in changeInfos {
+            if let ranges = ranges(for: changeInfo.goalTask, with: changeInfo.change) {
+                results.append(contentsOf: ranges)
+            }
+        }
+        
+        updater.ganttEventsDidChange(in: results)
+    }
+    
+    func didDeleteGoalTasks(_ goalTasks: [GoalTask]) {
+        guard let ranges = affectedRanges(for: goalTasks) else {
+            return
+        }
+        
+        updater.ganttEventsDidChange(in: ranges)
+    }
+    
+    func didReorderGoalTask(_ goalTask: GoalTask, in goalPlan: GoalPlan) {
+        guard let ranges = affectedRanges(for: [goalTask]) else {
+            return
+        }
+        
+        updater.ganttEventsDidChange(in: ranges)
+    }
+    
+    private func affectedRanges(for goalTasks: [GoalTask]) -> [DateInterval]? {
+        var ranges = [DateInterval]()
+        for goalTask in goalTasks {
+            if let range = dateInterval(for: goalTask) {
+                ranges.append(range)
+            }
+        }
+        
+        if ranges.count == 0 {
+            return nil
+        }
+        
+        return ranges
+    }
+    
+    private func ranges(for goalTask: GoalTask, with change: GoalTaskChange) -> [DateInterval]? {
+        if case let .content(oldValue, newValue) = change {
+            var ranges = [DateInterval]()
+            if let oldRange = dateInterval(startDate: oldValue.startDate, endDate: oldValue.endDate) {
+                ranges.append(oldRange)
+            }
+            
+            if let newRange = dateInterval(startDate: newValue.startDate, endDate: newValue.endDate) {
+                ranges.append(newRange)
+            }
+            
+            if ranges.count == 0 {
+                return nil
+            }
+            
+            return ranges
+        }
+        
+        return affectedRanges(for: [goalTask])
+    }
+    
+    private func dateInterval(for goalTask: GoalTask) -> DateInterval? {
+        return dateInterval(startDate: goalTask.startDate, endDate: goalTask.endDate)
+    }
+    
+    private func dateInterval(startDate: Date?, endDate: Date?) -> DateInterval? {
+        guard let startDate = startDate else {
+            return nil
+        }
+        
+        let endDate = endDate ?? startDate
+        guard endDate >= startDate else {
+            return nil
+        }
+        
+        return DateInterval(start: startDate, end: endDate)
     }
 }
 

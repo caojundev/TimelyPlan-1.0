@@ -189,6 +189,15 @@ extension GoalRepository {
         taskManager.fetchMyDayEventGoalTasks(in: range, completion: completion)
     }
     
+    /// 获取甘特图目标任务
+    static func fetchGanttEventGoalTasks(in range: DateInterval,
+                                         showCompleted: Bool = true,
+                                         completion: @escaping ([GoalTask]?) -> Void) {
+        taskManager.fetchGanttEventGoalTasks(in: range,
+                                             showCompleted: showCompleted,
+                                             completion: completion)
+    }
+    
     /// 获取包含提醒的目标任务
     static func fetchNotifiableGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
         taskManager.fetchNotifiableGoalTasks(completion: completion)
