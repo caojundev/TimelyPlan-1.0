@@ -210,6 +210,8 @@ enum GoalRecordInputType: Int, TPMenuRepresentable {
     /// 任务权重（1～10）
     var weight: Int64
     
+    var goalPlan: GoalPlanFeature?
+    
     // MARK: - Initialization
     init(identifier: String = UUID().uuidString,
          order: Int64 = 0,
@@ -238,7 +240,8 @@ enum GoalRecordInputType: Int, TPMenuRepresentable {
          isCompleted: Bool = false,
          creationDate: Date? = nil,
          completionDate: Date? = nil,
-         modificationDate: Date? = nil) {
+         modificationDate: Date? = nil,
+         goalPlan: GoalPlanFeature?) {
         self.identifier = identifier
         self.order = order
         self.name = name
@@ -267,6 +270,7 @@ enum GoalRecordInputType: Int, TPMenuRepresentable {
         self.creationDate = creationDate
         self.completionDate = completionDate
         self.modificationDate = modificationDate
+        self.goalPlan = goalPlan
         super.init()
     }
     
@@ -298,7 +302,8 @@ enum GoalRecordInputType: Int, TPMenuRepresentable {
                   isCompleted: content.isCompleted,
                   creationDate: content.creationDate,
                   completionDate: content.completionDate,
-                  modificationDate: content.modificationDate)
+                  modificationDate: content.modificationDate,
+                  goalPlan: content.goalPlan?.feature)
     }
     
     // MARK: - SortableIdentifiable
@@ -767,6 +772,9 @@ enum GoalTaskChange: Hashable {
     
     /// 当前数值
     case progress(oldValue: Int64, newValue: Int64)
+    
+    /// 所属目标计划
+    case move(oldValue: GoalPlanFeature?, newValue: GoalPlanFeature?)
     
     /// 内容（名称、颜色、步骤、数值、权重、计划、提醒等整体更新）
     case content(oldValue: GoalEditingTask, newValue: GoalEditingTask)

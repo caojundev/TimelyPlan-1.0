@@ -199,9 +199,9 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     }
     
     private func updateProgressView(animated: Bool = false) {
-        /// 进度条颜色让用户感知目标颜色
-        progressView.barForeColor = goalPlan.color
-        progressView.barBackColor = goalPlan.color.withAlphaComponent(0.2)
+        let color = goalPlan.color ?? GoalConfig.goalPlanDefaultColor
+        progressView.barForeColor = color
+        progressView.barBackColor = color.withAlphaComponent(0.2)
         progressView.setProgress(goalPlan.progress, animated: animated)
     }
     

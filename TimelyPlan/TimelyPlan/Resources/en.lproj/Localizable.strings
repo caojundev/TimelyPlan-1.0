@@ -19,3 +19,5 @@
 "No Goal Record" = "No Goal Record";
 "This record will be permanently deleted." = "This record will be permanently deleted.";
 "Edit Record" = "Edit Record";
+"Reset Progress" = "Reset Progress";
+"All records will be deleted and the progress will be reset. Are you sure?" = "All records will be deleted and the progress will be reset. Are you sure?";

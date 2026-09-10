@@ -113,6 +113,9 @@ extension GoalNotifiableTaskProvider: GoalPlanProcessorDelegate,
         case .progress:
             shouldRefresh = goalTask.hasReminder
             
+        case .move:
+            shouldRefresh = goalTask.hasReminder
+            
         case .note, .myDay, .step:
             break
         }
@@ -198,7 +201,7 @@ extension GoalNotifiableTaskProvider: GoalPlanProcessorDelegate,
             
             return false
             
-        case .name, .completed, .progress:
+        case .name, .completed, .progress, .move:
             return changeInfo.goalTask.hasReminder
             
         case .note, .myDay, .step:

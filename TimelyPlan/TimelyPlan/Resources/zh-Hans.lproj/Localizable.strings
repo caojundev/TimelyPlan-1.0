@@ -1091,3 +1091,5 @@
 "No Goal Record" = "暂无目标记录";
 "This record will be permanently deleted." = "该条记录将被永久删除。";
 "Edit Record" = "编辑记录";
+"Reset Progress" = "重置进度";
+"All records will be deleted and the progress will be reset. Are you sure?" = "所有记录都将被删除，进度将重置。确定重置吗？";

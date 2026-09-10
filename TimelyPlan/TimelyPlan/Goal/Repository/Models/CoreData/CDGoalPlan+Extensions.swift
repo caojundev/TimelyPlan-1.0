@@ -21,6 +21,13 @@ extension CDGoalPlan: TPHexColorConvertible, SortableIdentifiable {
         return GoalConfig.goalPlanDefaultColor
     }
     
+    var feature: GoalPlanFeature {
+        return GoalPlanFeature(identifier: identifiableKey,
+                               name: name,
+                               colorHex: colorHex)
+    }
+    
+    
     /// 根据编辑目标计划创建新目标计划
     static func newGoalPlan(with editingPlan: GoalEditingPlan) -> CDGoalPlan {
         let goalPlan = CDGoalPlan.createEntity(in: .defaultContext)
@@ -120,7 +127,7 @@ extension GoalPlan {
         self.init(identifier: content.identifier ?? UUID().uuidString,
                   order: content.order,
                   name: content.name,
-                  color: content.color ?? GoalConfig.goalPlanDefaultColor,
+                  colorHex: content.colorHex,
                   startDate: content.startDate,
                   endDate: content.endDate,
                   note: content.note,

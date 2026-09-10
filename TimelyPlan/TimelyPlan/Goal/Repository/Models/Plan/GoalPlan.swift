@@ -19,7 +19,7 @@ struct GoalPlanKey {
     static let progress = "progress"
 }
 
-class GoalPlan: NSObject, SortableIdentifiable {
+class GoalPlan: NSObject, TPHexColorConvertible, SortableIdentifiable {
     
     /// 目标唯一标识
     var identifier: String
@@ -31,7 +31,7 @@ class GoalPlan: NSObject, SortableIdentifiable {
     var name: String?
     
     /// 目标颜色
-    var color: UIColor
+    var colorHex: String?
     
     /// 开始日期
     var startDate: Date?
@@ -54,7 +54,7 @@ class GoalPlan: NSObject, SortableIdentifiable {
     init(identifier: String = UUID().uuidString,
          order: Int64 = 0,
          name: String? = nil,
-         color: UIColor = GoalConfig.goalPlanDefaultColor,
+         colorHex: String?,
          startDate: Date? = nil,
          endDate: Date? = nil,
          note: String? = nil,
@@ -64,7 +64,7 @@ class GoalPlan: NSObject, SortableIdentifiable {
         self.identifier = identifier
         self.order = order
         self.name = name
-        self.color = color
+        self.colorHex = colorHex
         self.startDate = startDate
         self.endDate = endDate
         self.note = note
@@ -90,6 +90,12 @@ class GoalPlan: NSObject, SortableIdentifiable {
         let end = endDate ?? .distantFuture
         return DateInterval(start: start, end: end)
     }
+    
+    var feature: GoalPlanFeature {
+         return GoalPlanFeature(identifier: identifiableKey,
+                                name: name,
+                                colorHex: colorHex)
+     }
     
     // MARK: - 等同性判断
     override var hash: Int {
@@ -174,7 +180,7 @@ extension GoalPlan {
     var editingPlan: GoalEditingPlan {
         var plan = GoalEditingPlan(startDate: startDate, endDate: endDate)
         plan.name = name
-        plan.color = color
+        plan.color = color ?? GoalConfig.goalPlanDefaultColor
         plan.note = note
         return plan
     }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class GoalTaskController {
     
@@ -15,14 +16,16 @@ class GoalTaskController {
             completeAll(for: task)
         case .addRecord:
             addRecordManually(for: task)
-        case .resetToday:
-            resetToday(for: task)
+        case .reset:
+            resetProgress(for: task)
         case .addToMyDay:
             GoalRepository.updateGoalTask(task, isAddedToMyDay: true)
         case .removeFromMyDay:
             GoalRepository.updateGoalTask(task, isAddedToMyDay: false)
         case .startFocus:
             FocusPresenter.quickStartFocus(for: task)
+        case .move:
+            moveTask(task)
         case .edit:
             GoalPresenter.editGoalTask(task)
         case .delete:
@@ -30,15 +33,28 @@ class GoalTaskController {
         }
     }
     
-    func resetToday(for task: GoalTask) {
+    /// 移动任务到其他目标计划
+    func moveTask(_ task: GoalTask) {
+        let vc = GoalTaskMoveViewController(goalPlan: task.goalPlan)
+        vc.didSelectGoalPlan = { goalPlan in
+            GoalRepository.moveGoalTask(task, to: goalPlan)
+        }
+        
+        let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .formSheet
+        navController.show()
+    }
+    
+    /// 重置进度：删除目标任务的全部记录（日期区间为 nil），并按剩余记录重算当前值回退到初始值
+    func resetProgress(for task: GoalTask) {
         let cancelAction = TPAlertAction.cancel
         let resetAction = TPAlertAction(type: .destructive, title: resGetString("Reset")) { action in
             TPImpactFeedback.feedbackWithWarningStyle()
-            GoalRepository.resetToday(for: task)
+            GoalRepository.deleteRecords(for: task, fromDate: nil, toDate: nil)
         }
     
-        let title = resGetString("Reset Today")
-        let message = resGetString("All records will be removed for today. Are you sure to reset?")
+        let title = resGetString("Reset Progress")
+        let message = resGetString("All records will be deleted and the progress will be reset. Are you sure?")
         let vc = TPAlertController(title: title, message: message)
         vc.actions = [cancelAction, resetAction]
         vc.show()

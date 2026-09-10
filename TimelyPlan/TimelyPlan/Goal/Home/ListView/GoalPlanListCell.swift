@@ -101,8 +101,9 @@ class GoalPlanListCell: TPCollectionCell {
             return
         }
         
-        progressView.barForeColor = goalPlan.color
-        progressView.barBackColor = goalPlan.color.withAlphaComponent(0.2)
+        let color = goalPlan.color ?? GoalConfig.goalPlanDefaultColor
+        progressView.barForeColor = color
+        progressView.barBackColor = color.withAlphaComponent(0.2)
         progressView.setProgress(goalPlan.progress, animated: false)
         infoView.color = goalPlan.color
         infoView.title = goalPlan.displayName

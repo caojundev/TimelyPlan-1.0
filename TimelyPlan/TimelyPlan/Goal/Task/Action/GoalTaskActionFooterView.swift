@@ -55,7 +55,8 @@ class GoalTaskActionFooterView: UIView {
     
     /// 更多按钮
     private(set) lazy var moreButton: TPDefaultButton = {
-        let button = TPDefaultButton.moreButton()
+        let image = resGetImage("ellipsis_circle_24")
+        let button = TPDefaultButton.button(with: image)
         button.imageConfig.color = resGetColor(.title)
         button.addTarget(self,
                          action: #selector(clickMore(_:)),

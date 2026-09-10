@@ -332,6 +332,24 @@ extension CDGoalTask {
         return true
     }
     
+    // MARK: - 移动任务
+    /// 将目标任务移动到新的目标计划（自动从原目标计划移除）
+    static func moveGoalTask(_ goalTask: GoalTask, to goalPlan: GoalPlan) -> Bool {
+        guard let cdTask = getGoalTask(withIdentifier: goalTask.identifier),
+              let cdGoalPlan = CDGoalPlan.getGoalPlan(withIdentifier: goalPlan.identifier) else {
+            return false
+        }
+        
+        /// 已属于目标计划，无需移动
+        guard cdTask.goalPlan?.identifier != cdGoalPlan.identifier else {
+            return false
+        }
+        
+        cdGoalPlan.addTask(cdTask, onTop: false)
+        cdTask.modificationDate = .now
+        return true
+    }
+    
 }
 
 // MARK: - 获取目标任务

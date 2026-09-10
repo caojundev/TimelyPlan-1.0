@@ -276,6 +276,12 @@ extension GoalRepository {
         taskManager.reorderGoalTask(sourceTask, postion: postion, targetTask: targetTask, in: goalPlan)
     }
     
+    // MARK: - 移动任务
+    /// 将目标任务移动到新的目标计划
+    static func moveGoalTask(_ goalTask: GoalTask, to goalPlan: GoalPlan) {
+        taskManager.moveGoalTask(goalTask, to: goalPlan)
+    }
+    
 }
 
 // MARK: - 目标记录

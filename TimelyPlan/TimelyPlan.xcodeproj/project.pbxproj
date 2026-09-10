@@ -1350,9 +1350,13 @@
 		E5BA9A853050F1540044106F /* GoalTaskStepActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A843050F1540044106F /* GoalTaskStepActionViewController.swift */; };
 		E5BA9A85305196D00044106F /* GoalTaskActionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A84305196CF0044106F /* GoalTaskActionFooterView.swift */; };
 		E5BA9A873050F1540044106F /* GoalTaskNoteActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A863050F1540044106F /* GoalTaskNoteActionViewController.swift */; };
+		E5BA9A8730523CF30044106F /* GoalPlanFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8630523CF30044106F /* GoalPlanFeature.swift */; };
 		E5BA9A893050F1540044106F /* GoalTaskRecordActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A883050F1540044106F /* GoalTaskRecordActionViewController.swift */; };
+		E5BA9A8A3052431C0044106F /* goal_task_action_move_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BA9A883052431C0044106F /* goal_task_action_move_24@2x.png */; };
 		E5BA9A8B3050F1540044106F /* GoalRecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8A3050F1540044106F /* GoalRecordListViewModel.swift */; };
+		E5BA9A8B3052431C0044106F /* goal_task_action_move_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BA9A893052431C0044106F /* goal_task_action_move_24@3x.png */; };
 		E5BA9A8D3050F1540044106F /* GoalTaskEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8C3050F1540044106F /* GoalTaskEditInteractor.swift */; };
+		E5BA9A8E30524E350044106F /* GoalTaskMoveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8D30524E350044106F /* GoalTaskMoveViewController.swift */; };
 		E5BA9A8F3050F1540044106F /* GoalTaskRecordDaySectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8E3050F1540044106F /* GoalTaskRecordDaySectionController.swift */; };
 		E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */; };
 		E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */; };
@@ -3656,9 +3660,13 @@
 		E5BA9A843050F1540044106F /* GoalTaskStepActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskStepActionViewController.swift; sourceTree = "<group>"; };
 		E5BA9A84305196CF0044106F /* GoalTaskActionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskActionFooterView.swift; sourceTree = "<group>"; };
 		E5BA9A863050F1540044106F /* GoalTaskNoteActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskNoteActionViewController.swift; sourceTree = "<group>"; };
+		E5BA9A8630523CF30044106F /* GoalPlanFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanFeature.swift; sourceTree = "<group>"; };
 		E5BA9A883050F1540044106F /* GoalTaskRecordActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskRecordActionViewController.swift; sourceTree = "<group>"; };
+		E5BA9A883052431C0044106F /* goal_task_action_move_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goal_task_action_move_24@2x.png"; sourceTree = "<group>"; };
+		E5BA9A893052431C0044106F /* goal_task_action_move_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goal_task_action_move_24@3x.png"; sourceTree = "<group>"; };
 		E5BA9A8A3050F1540044106F /* GoalRecordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRecordListViewModel.swift; sourceTree = "<group>"; };
 		E5BA9A8C3050F1540044106F /* GoalTaskEditInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskEditInteractor.swift; sourceTree = "<group>"; };
+		E5BA9A8D30524E350044106F /* GoalTaskMoveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskMoveViewController.swift; sourceTree = "<group>"; };
 		E5BA9A8E3050F1540044106F /* GoalTaskRecordDaySectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskRecordDaySectionController.swift; sourceTree = "<group>"; };
 		E5BB99DA2D3BEB320089667A /* TimelyPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimelyPlan.entitlements; sourceTree = "<group>"; };
 		E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@3x.png"; sourceTree = "<group>"; };
@@ -8022,6 +8030,7 @@
 				E57B2D21304800000000000E /* GoalTaskInfoView.swift */,
 				E57B2C1D304600000000000D /* GoalTaskListHeaderView.swift */,
 				E57B2D1F304800000000000E /* GoalTaskLayoutManager.swift */,
+				E5BA9A8C305247A50044106F /* Move */,
 				E5BA9A803050F1420044106F /* Action */,
 				E5BA9A7B304F9EAD0044106F /* Menu */,
 			);
@@ -8032,6 +8041,7 @@
 			isa = PBXGroup;
 			children = (
 				E57B2B3F304521D600BA4D56 /* GoalPlan.swift */,
+				E5BA9A8630523CF30044106F /* GoalPlanFeature.swift */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -8730,6 +8740,14 @@
 				E5BA9A8E3050F1540044106F /* GoalTaskRecordDaySectionController.swift */,
 			);
 			path = Record;
+			sourceTree = "<group>";
+		};
+		E5BA9A8C305247A50044106F /* Move */ = {
+			isa = PBXGroup;
+			children = (
+				E5BA9A8D30524E350044106F /* GoalTaskMoveViewController.swift */,
+			);
+			path = Move;
 			sourceTree = "<group>";
 		};
 		E5BB99DC2D3BEF0D0089667A /* Icons */ = {
@@ -11968,6 +11986,8 @@
 				E5FAA9CD304AA0C700C9CCD8 /* goal_placeholder_80@3x.png */,
 				E5FAA9EB304E4B5C00C9CCD8 /* goal_task_completionStatus_24@2x.png */,
 				E5FAA9EC304E4B5D00C9CCD8 /* goal_task_completionStatus_24@3x.png */,
+				E5BA9A883052431C0044106F /* goal_task_action_move_24@2x.png */,
+				E5BA9A893052431C0044106F /* goal_task_action_move_24@3x.png */,
 			);
 			path = goal;
 			sourceTree = "<group>";
@@ -12307,6 +12327,7 @@
 				E515AD592D3CB2F900AA9AF2 /* LaunchLogo@3x.png in Resources */,
 				E55E4BD32F9336170068E032 /* calendar_23_24@3x.png in Resources */,
 				E50D02592F55860B00E93977 /* habit_time_afternoon_24@3x.png in Resources */,
+				E5BA9A8A3052431C0044106F /* goal_task_action_move_24@2x.png in Resources */,
 				E555281C2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png in Resources */,
 				E5371DDE2FF1FD1C00BA9DEF /* notification_sound_24@2x.png in Resources */,
 				E56B94662F8CD6D0001E488B /* todo_group_type_dueDate_24@3x.png in Resources */,
@@ -13023,6 +13044,7 @@
 				E5CAA9682D700ABD00A0539C /* todo_task_quadrant_fill_24@2x.png in Resources */,
 				E55A7B9D2D463917000D224C /* bell_fill_16@2x.png in Resources */,
 				E5C92F4E2FD164FA0051F355 /* todo_section_24@2x.png in Resources */,
+				E5BA9A8B3052431C0044106F /* goal_task_action_move_24@3x.png in Resources */,
 				E500DE5C2DB09D4500EAEAF7 /* todo_filter_indicator_list_12@3x.png in Resources */,
 				E531FDF92F73EB1900067A0F /* archived_show_24@2x.png in Resources */,
 				E5BB9E482D3BF0C70089667A /* StepperNegative@2x.png in Resources */,
@@ -13597,6 +13619,7 @@
 				E5EFB1602F591120000FFDF4 /* HabitRepository.swift in Sources */,
 				E501794D2FD4045500DC544D /* TodoTaskSectionSelection.swift in Sources */,
 				E54155622F49A415000B2972 /* FocusRecordListCellDetailInfoView.swift in Sources */,
+				E5BA9A8E30524E350044106F /* GoalTaskMoveViewController.swift in Sources */,
 				E59E71632DB7DBBC00744C68 /* CalendarStripView.swift in Sources */,
 				E58C9E1B2F4AF0DC0096B842 /* FocusTimelineAddIndicatorView.swift in Sources */,
 				E55549652F76C10A00C9460D /* AppSettingsViewController.swift in Sources */,
@@ -14003,6 +14026,7 @@
 				E5BB9F102D3BF0C90089667A /* TPMenuAction.swift in Sources */,
 				E5BB9DE42D3BF0C60089667A /* UIImageView+ContentMode.swift in Sources */,
 				E5BB9DBD2D3BF0C60089667A /* UIViewController+Theme.swift in Sources */,
+				E5BA9A8730523CF30044106F /* GoalPlanFeature.swift in Sources */,
 				E5FAA9D7304AF4C700C9CCD8 /* GoalTask+Organizer.swift in Sources */,
 				E5BB9B3F2D3BEF920089667A /* Attachment.swift in Sources */,
 				E57CC5E82F7FEF7000ADDBA4 /* TaskSchedule.swift in Sources */,
