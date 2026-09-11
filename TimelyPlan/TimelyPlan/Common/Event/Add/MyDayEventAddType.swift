@@ -45,7 +45,6 @@ enum MyDayEventAddType: Int, TPMenuRepresentable {
     }
 }
 
-
 class MyDayEventAddMenuController: TPBaseMenuController<MyDayEventAddType> {
   
     let addTypes: [MyDayEventAddType]

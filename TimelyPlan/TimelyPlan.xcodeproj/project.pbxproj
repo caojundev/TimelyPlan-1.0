@@ -5928,7 +5928,6 @@
 				E5B3BAB3301254AE00D908B6 /* MyDayEventProcessor.swift */,
 				E53ABED83008D9CE00EB8632 /* Repository */,
 				E5F9E3CC3020C99C00EDC2A5 /* Bind */,
-				E5259B0A3017A72D00A6D253 /* Add */,
 				E5F9E3BC301DD1AA00EDC2A5 /* Schedule */,
 				E53ABEEA300A145E00EB8632 /* TimlineView */,
 				E53ABEE03009169500EB8632 /* Edit */,
@@ -7069,6 +7068,14 @@
 				E54A069A303C48C8001FF4A1 /* GanttEventListView.swift */,
 			);
 			path = TaskList;
+			sourceTree = "<group>";
+		};
+		E54A56B930542B880024896B /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				E5259B0A3017A72D00A6D253 /* Add */,
+			);
+			path = Event;
 			sourceTree = "<group>";
 		};
 		E54E632C2F5AFE1500FCBCAE /* Task */ = {
@@ -10618,6 +10625,7 @@
 		E5BB9F272D3BF4330089667A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E54A56B930542B880024896B /* Event */,
 				E50D5FFB2F7A124300D5E0A4 /* Alarm */,
 				E51F941F3005D85900734910 /* TaskEdit */,
 				E5BB9F282D3BF4330089667A /* TaskBind */,

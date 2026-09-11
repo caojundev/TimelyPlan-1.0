@@ -83,30 +83,18 @@ extension CDGoalTask: TPHexColorConvertible, SortableIdentifiable {
     }
     
     // MARK: - 创建与更新
-    /// 根据编辑任务创建目标任务
-    static func newGoalTask(in goalPlan: GoalPlan,
-                            with editingTask: GoalEditingTask) -> CDGoalTask? {
-        guard let cdGoalPlan = CDGoalPlan.getGoalPlan(withIdentifier: goalPlan.identifier) else {
-            return nil
-        }
+    /// 根据编辑任务创建目标任务（按 editingTask.goalPlan 归属目标计划，收件箱表示不属于任何目标计划）
+    static func newGoalTask(with editingTask: GoalEditingTask) -> CDGoalTask? {
+        let task = CDGoalTask.createEntity(in: .defaultContext)
+        task.identifier = UUID().uuidString /// 新创建目标任务设置标识
+        task.creationDate = .now
+        task.currentValue = editingTask.initialValue
+        task.update(with: editingTask)
         
-        let task = CDGoalTask.createEntity(in: .defaultContext)
-        task.identifier = UUID().uuidString /// 新创建目标任务设置标识
-        task.creationDate = .now
-        task.currentValue = editingTask.initialValue
-        task.update(with: editingTask)
-        cdGoalPlan.addTask(task, onTop: false)
-        return task
-    }
-    
-    /// 根据编辑任务创建收件箱目标任务（不归属任何目标计划）
-    static func newInboxGoalTask(with editingTask: GoalEditingTask) -> CDGoalTask? {
-        let task = CDGoalTask.createEntity(in: .defaultContext)
-        task.identifier = UUID().uuidString /// 新创建目标任务设置标识
-        task.creationDate = .now
-        task.order = inboxMaxOrder + kOrderedStep
-        task.currentValue = editingTask.initialValue
-        task.update(with: editingTask)
+        /// 未归属任何目标计划时使用收件箱顺序
+        if task.goalPlan == nil {
+            task.order = inboxMaxOrder + kOrderedStep
+        }
         return task
     }
     
@@ -136,6 +124,9 @@ extension CDGoalTask: TPHexColorConvertible, SortableIdentifiable {
         self.autoRecordNumber = editingTask.autoRecordValue
         self.weightNumber = editingTask.weight
         
+        /// 所属目标计划
+        updateGoalPlan(editingTask.goalPlan)
+        
         /// 当前数值需要限制在调整后的区间内
         self.currentValue = GoalTask.validatedCurrentValue(self.currentValue,
                                                            initialValue: self.initialValue,
@@ -144,6 +135,24 @@ extension CDGoalTask: TPHexColorConvertible, SortableIdentifiable {
         updateSteps(editingTask.steps)
         updateProgressFraction()
         self.modificationDate = .now
+    }
+    
+    /// 应用所属目标计划（收件箱表示不属于任何目标计划）
+    func updateGoalPlan(_ feature: GoalPlanFeature) {
+        let targetIdentifier: String? = feature.isInbox ? nil : feature.identifier
+        guard self.goalPlan?.identifier != targetIdentifier else {
+            return
+        }
+        
+        if let targetIdentifier = targetIdentifier,
+           let cdGoalPlan = CDGoalPlan.getGoalPlan(withIdentifier: targetIdentifier) {
+            /// 移动到新的目标计划（自动从原目标计划移除并设置顺序因子）
+            cdGoalPlan.addTask(self, onTop: false)
+        } else {
+            /// 移动到收件箱
+            self.goalPlan = nil
+            self.order = CDGoalTask.inboxMaxOrder + kOrderedStep
+        }
     }
     
     /// 更新步骤，返回是否发生改变

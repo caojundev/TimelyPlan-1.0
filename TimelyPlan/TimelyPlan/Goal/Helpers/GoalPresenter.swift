@@ -49,9 +49,9 @@ class GoalPresenter {
     /// 创建新目标任务
     static func createNewGoalTask(in goalPlan: GoalPlan,
                                   editingTask: GoalEditingTask? = nil) {
-        let vc = GoalTaskEditViewController(goalTask: editingTask)
+        let vc = GoalTaskEditViewController(goalTask: editingTask, goalPlan: goalPlan.feature)
         vc.didEndEditing = { editingTask in
-            GoalRepository.createGoalTask(in: goalPlan, with: editingTask)
+            GoalRepository.createGoalTask(with: editingTask)
         }
 
         vc.showAsNavigationRoot()
@@ -59,9 +59,9 @@ class GoalPresenter {
     
     /// 创建收件箱目标任务（不归属任何目标计划）
     static func createNewInboxGoalTask(editingTask: GoalEditingTask? = nil) {
-        let vc = GoalTaskEditViewController(goalTask: editingTask)
+        let vc = GoalTaskEditViewController(goalTask: editingTask, goalPlan: .inboxFeature)
         vc.didEndEditing = { editingTask in
-            GoalRepository.createInboxGoalTask(with: editingTask)
+            GoalRepository.createGoalTask(with: editingTask)
         }
 
         vc.showAsNavigationRoot()

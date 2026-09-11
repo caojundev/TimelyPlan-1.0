@@ -248,13 +248,36 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
+    // MARK: - 所属目标计划
+    struct PlanConfig {
+        /// 信息视图间距
+        static let infoViewEdgeMargins = UIEdgeInsets(horizontal: 16.0, vertical: 12.0)
+        /// 信息视图高度
+        static let infoViewHeight = 64.0
+        /// 信息视图圆角
+        static let infoViewCornerRadius = 12.0
+    }
+    
+    /// 所属目标计划信息视图
+    private lazy var planInfoView: GoalTaskPlanInfoView = {
+        let view = GoalTaskPlanInfoView()
+        view.backgroundColor = .secondarySystemGroupedBackground
+        view.goalPlan = editingTask.goalPlan
+        view.onClick = { [weak self] in
+            self?.selectGoalPlan()
+        }
+        return view
+    }()
+    
     // MARK: - Initialization
-    init(goalTask: GoalEditingTask? = nil) {
+    init(goalTask: GoalEditingTask? = nil, goalPlan: GoalPlanFeature? = nil) {
         if let goalTask = goalTask {
             self.editingTask = goalTask
             self.editType = .modify
         } else {
-            self.editingTask = GoalEditingTask()
+            var editingTask = GoalEditingTask()
+            editingTask.goalPlan = goalPlan ?? .inboxFeature
+            self.editingTask = editingTask
         }
         self.initialEditingTask = self.editingTask
         
@@ -285,6 +308,15 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
                                    noteSectionController]
         self.adapter.reloadData()
         updateDoneButtonEnabled()
+        /// 为底部浮层预留滚动间距
+        tableView.contentInset.bottom = PlanConfig.infoViewHeight + PlanConfig.infoViewEdgeMargins.verticalLength
+        /// 提前创建信息视图（此时不加入视图层级，避免首次布局闪烁）
+        _ = planInfoView
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        layoutPlanInfoView(planInfoView)
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -348,6 +380,56 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         configureDismissInterception()
         /// 当前目标名称为空，开始编辑名称
         beginNameEditingIfNeeded()
+        /// 底部弹出所属目标计划信息视图
+        showPlanInfoView()
+    }
+    
+    /// 底部弹出所属目标计划信息视图
+    private func showPlanInfoView() {
+        view.addSubview(planInfoView)
+        layoutPlanInfoView(planInfoView, isHidden: true)
+        UIView.animate(withDuration: 0.6,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0.5,
+                       options: .curveEaseInOut,
+                       animations: {
+            self.layoutPlanInfoView(self.planInfoView)
+        }, completion: nil)
+    }
+    
+    /// 布局所属目标计划信息视图
+    private func layoutPlanInfoView(_ infoView: UIView, isHidden: Bool = false) {
+        let layoutFrame = view.safeLayoutFrame().inset(by: PlanConfig.infoViewEdgeMargins)
+        infoView.width = min(640.0, layoutFrame.width)
+        infoView.height = PlanConfig.infoViewHeight
+        if isHidden {
+            infoView.top = view.height
+        } else {
+            infoView.bottom = layoutFrame.maxY
+        }
+        
+        infoView.centerX = layoutFrame.midX
+        infoView.layer.cornerRadius = PlanConfig.infoViewCornerRadius
+        infoView.layer.setLayerShadow(color: Color(0x000000, 0.1),
+                                      offset: CGSize(width: 0.0, height: -2.0),
+                                      radius: PlanConfig.infoViewCornerRadius)
+        infoView.layoutIfNeeded()
+    }
+    
+    /// 选择所属目标计划
+    private func selectGoalPlan() {
+        TPImpactFeedback.impactWithSoftStyle()
+        
+        let vc = GoalTaskMoveViewController(goalPlan: editingTask.goalPlan)
+        vc.didSelectGoalPlan = { [weak self] goalPlan in
+            self?.editingTask.goalPlan = goalPlan.feature
+            self?.planInfoView.goalPlan = goalPlan.feature
+        }
+        
+        let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .formSheet
+        navController.show()
     }
     
     /// 配置下拉交互式 dismiss 拦截。
@@ -436,3 +518,74 @@ extension GoalTaskEditViewController: UIAdaptivePresentationControllerDelegate {
         requestDiscardIfNeeded()
     }
 }
+
+
+// MARK: - 所属目标计划
+/// 目标任务所属目标计划信息视图
+class GoalTaskPlanInfoView: TPInfoView {
+    
+    /// 点击回调
+    var onClick: (() -> Void)?
+    
+    /// 所属目标计划（未归属任何目标计划时为收件箱）
+    var goalPlan: GoalPlanFeature? {
+        didSet {
+            updateGoalPlanInfo()
+        }
+    }
+    
+    /// 颜色圆点
+    private let colorView = UIView()
+    
+    /// 箭头图标
+    private lazy var chevronView: UIImageView = {
+        let view = UIImageView()
+        view.image = resGetImage("chevron_right_16")
+        view.contentMode = .center
+        return view
+    }()
+    
+    override func setupSubviews() {
+        super.setupSubviews()
+        colorView.clipsToBounds = true
+        leftAccessoryView = colorView
+        leftAccessorySize = .size(3)
+        leftAccessoryMargins = UIEdgeInsets(left: 14.0, right: 8.0)
+        rightAccessoryView = chevronView
+        rightAccessorySize = .mini
+        rightAccessoryMargins = UIEdgeInsets(left: 8.0, right: 16.0)
+        subtitleTopMargin = 3.0
+        titleConfig.font = BOLD_SMALL_SYSTEM_FONT
+        subtitleConfig.font = UIFont.systemFont(ofSize: 11.0)
+        
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(clickSelf(_:)))
+        addGestureRecognizer(tapGesture)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        colorView.layer.cornerRadius = colorView.halfWidth
+        chevronView.updateImage(withColor: .secondaryLabel)
+    }
+    
+    @objc private func clickSelf(_ gesture: UITapGestureRecognizer) {
+        onClick?()
+    }
+    
+    /// 更新目标计划信息
+    private func updateGoalPlanInfo() {
+        guard let goalPlan = goalPlan else {
+            title = nil
+            subtitle = nil
+            return
+        }
+        
+        title = goalPlan.displayName
+        subtitle = resGetString("Goal Plan")
+        colorView.backgroundColor = goalPlan.color ?? GoalConfig.goalPlanDefaultColor
+        setNeedsLayout()
+    }
+}
+
+

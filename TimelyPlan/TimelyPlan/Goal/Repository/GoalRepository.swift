@@ -218,18 +218,10 @@ extension GoalRepository {
     }
     
     // MARK: - 处理目标任务
-    /// 创建目标任务
+    /// 创建目标任务（按 editingTask.goalPlan 归属目标计划，收件箱表示不属于任何目标计划）
     @discardableResult
-    static func createGoalTask(in goalPlan: GoalPlan,
-                               with editingTask: GoalEditingTask) -> GoalTask? {
-        return taskManager.createGoalTask(in: goalPlan,
-                                          with: editingTask)
-    }
-    
-    /// 创建收件箱目标任务（不归属任何目标计划）
-    @discardableResult
-    static func createInboxGoalTask(with editingTask: GoalEditingTask) -> GoalTask? {
-        return taskManager.createInboxGoalTask(with: editingTask)
+    static func createGoalTask(with editingTask: GoalEditingTask) -> GoalTask? {
+        return taskManager.createGoalTask(with: editingTask)
     }
     
     /// 使用编辑模型整体更新目标任务

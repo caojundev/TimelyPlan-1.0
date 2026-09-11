@@ -488,6 +488,7 @@ extension GoalTask {
         var task = GoalEditingTask(startDate: startDate, endDate: endDate)
         task.name = name
         task.color = color ?? Self.defaultColor
+        task.goalPlan = planFeature
         
         if let markdown = steps?.markdown() {
             /// 步骤深拷贝
@@ -650,6 +651,9 @@ struct GoalEditingTask: Equatable, Hashable {
     
     var name: String?
     
+    /// 所属目标计划（未归属任何目标计划时为收件箱）
+    var goalPlan: GoalPlanFeature = .inboxFeature
+    
     /// 步骤
     var steps: [TodoStep]?
     
@@ -721,6 +725,7 @@ struct GoalEditingTask: Equatable, Hashable {
     static func == (lhs: GoalEditingTask, rhs: GoalEditingTask) -> Bool {
         return lhs.name == rhs.name
             && lhs.color == rhs.color
+            && lhs.goalPlan == rhs.goalPlan
             && lhs.steps?.markdown() == rhs.steps?.markdown()
             && lhs.isAddedToMyDay == rhs.isAddedToMyDay
             && lhs.startDate == rhs.startDate

@@ -137,10 +137,10 @@ class GoalTaskManager {
     }
     
     // MARK: - 创建目标任务
-    /// 创建目标任务
+    /// 创建目标任务（按 editingTask.goalPlan 归属目标计划，收件箱表示不属于任何目标计划）
     @discardableResult
-    func createGoalTask(in goalPlan: GoalPlan, with editingTask: GoalEditingTask) -> GoalTask? {
-        guard let content = CDGoalTask.newGoalTask(in: goalPlan, with: editingTask) else {
+    func createGoalTask(with editingTask: GoalEditingTask) -> GoalTask? {
+        guard let content = CDGoalTask.newGoalTask(with: editingTask) else {
             return nil
         }
         
@@ -148,21 +148,8 @@ class GoalTaskManager {
         updater.didCreateGoalTask(goalTask)
         HandyRecord.updateChangeCount()
         
-        /// 新增任务后刷新目标整体进度
-        refreshGoalPlanProgress(in: goalPlan)
-        return goalTask
-    }
-    
-    /// 创建收件箱目标任务（不归属任何目标计划）
-    @discardableResult
-    func createInboxGoalTask(with editingTask: GoalEditingTask) -> GoalTask? {
-        guard let content = CDGoalTask.newInboxGoalTask(with: editingTask) else {
-            return nil
-        }
-        
-        let goalTask = GoalTask(content: content)
-        updater.didCreateGoalTask(goalTask)
-        HandyRecord.updateChangeCount()
+        /// 新增任务后刷新所属目标整体进度
+        refreshGoalPlanProgress(with: content.goalPlan)
         return goalTask
     }
     
@@ -177,13 +164,16 @@ class GoalTaskManager {
         }
         
         let oldEditingTask = goalTask.editingTask
+        /// 记录修改前的所属目标计划，用于刷新原目标整体进度
+        let oldPlanContent = content.goalPlan
         content.update(with: editingTask)
         let updatedGoalTask = GoalTask(content: content)
         let change: GoalTaskChange = .content(oldValue: oldEditingTask, newValue: editingTask)
         updater.didUpdateGoalTask(updatedGoalTask, with: change)
         HandyRecord.updateChangeCount()
         
-        /// 修改任务后刷新目标整体进度
+        /// 修改任务后刷新原目标与新目标的整体进度
+        refreshGoalPlanProgress(with: oldPlanContent)
         refreshGoalPlanProgress(with: content.goalPlan)
         
         if goalTask.name != editingTask.name {
