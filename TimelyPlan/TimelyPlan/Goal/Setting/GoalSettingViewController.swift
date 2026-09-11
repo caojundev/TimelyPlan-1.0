@@ -18,8 +18,61 @@ class GoalSettingViewController: BaseSettingViewController {
      }()
     
     
-    // MARK: - 通知
+    // MARK: - 日历
     
+    lazy var calendarSectionController: CalendarGoalSettingSectionController = {
+        let sectionController = CalendarGoalSettingSectionController()
+        sectionController.headerItem.height = normalHeaderHeight
+        return sectionController
+    }()
+    
+    // MARK: - 时间线
+    lazy var timelineCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show in Timeline")
+        cellItem.updater = {
+            self?.timelineCellItem.isOn = GanttSetting.shared.showGoal
+        }
+
+        cellItem.valueChanged = { isOn in
+            GanttSetting.shared.showGoal = isOn
+        }
+
+        return cellItem
+    }()
+    
+    lazy var timelineSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 15.0
+        sectionController.cellItems = [timelineCellItem]
+        return sectionController
+    }()
+    
+    // MARK: - 我的一天
+    lazy var myDayCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show in My Day")
+        cellItem.updater = {
+            self?.myDayCellItem.isOn = MyDaySetting.shared.showGoal
+        }
+
+        cellItem.valueChanged = { isOn in
+            MyDaySetting.shared.showGoal = isOn
+        }
+
+        return cellItem
+    }()
+    
+    lazy var myDaySectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 15.0
+        sectionController.cellItems = [myDayCellItem]
+        return sectionController
+    }()
+    
+    // MARK: - 通知
     lazy var soundCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
         cellItem.autoResizable = false
@@ -47,7 +100,9 @@ class GoalSettingViewController: BaseSettingViewController {
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("Goal Settings")
-         self.sectionControllers = [generalSectionController,
+         self.sectionControllers = [calendarSectionController,
+                                    myDaySectionController,
+                                    timelineSectionController,
                                     notificationSectionController]
          self.reloadData()
      }

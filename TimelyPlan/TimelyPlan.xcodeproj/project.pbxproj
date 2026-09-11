@@ -1363,6 +1363,7 @@
 		E5BA9A973052F4830044106F /* CalendarGoalEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A963052F4800044106F /* CalendarGoalEventProvider.swift */; };
 		E5BA9A993052F4D50044106F /* GoalTask+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A983052F4D50044106F /* GoalTask+Calendar.swift */; };
 		E5BA9A9B3052F62A0044106F /* CalendarGoalSettingSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A9A3052F62A0044106F /* CalendarGoalSettingSectionController.swift */; };
+		E5BA9A9D3052F7000044106F /* CalendarDisplaySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A9C3052F7000044106F /* CalendarDisplaySettingViewController.swift */; };
 		E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */; };
 		E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */; };
 		E5BB9A782D3BEF0D0089667A /* todo_home_setting_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E42D3BEF0D0089667A /* todo_home_setting_24@3x.png */; };
@@ -3678,6 +3679,7 @@
 		E5BA9A963052F4800044106F /* CalendarGoalEventProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarGoalEventProvider.swift; sourceTree = "<group>"; };
 		E5BA9A983052F4D50044106F /* GoalTask+Calendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GoalTask+Calendar.swift"; sourceTree = "<group>"; };
 		E5BA9A9A3052F62A0044106F /* CalendarGoalSettingSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarGoalSettingSectionController.swift; sourceTree = "<group>"; };
+		E5BA9A9C3052F7000044106F /* CalendarDisplaySettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDisplaySettingViewController.swift; sourceTree = "<group>"; };
 		E5BB99DA2D3BEB320089667A /* TimelyPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimelyPlan.entitlements; sourceTree = "<group>"; };
 		E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@3x.png"; sourceTree = "<group>"; };
 		E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@2x.png"; sourceTree = "<group>"; };
@@ -6558,6 +6560,7 @@
 			children = (
 				E52EF6202FB211B8002CF355 /* CalendarSetting.swift */,
 				E53632AE2FAE14060095DFEC /* CalendarSettingViewController.swift */,
+				E5BA9A9C3052F7000044106F /* CalendarDisplaySettingViewController.swift */,
 				E5371DEC2FF4A5CD00BA9DEF /* CalendarEventDisplayRange.swift */,
 				E5371DEE2FF4C03000BA9DEF /* CalendarHabitSettingSectionController.swift */,
 				E51E5F9A303957D700ACF30C /* CalendarFocusSettingSectionController.swift */,
@@ -14378,6 +14381,7 @@
 				E53F32952F68E0C100B85B65 /* HabitReportWeeklySectionController.swift in Sources */,
 				E5926DD82D4D0166007D5A6A /* TPCheckmarkTableCell.swift in Sources */,
 				E5BA9A9B3052F62A0044106F /* CalendarGoalSettingSectionController.swift in Sources */,
+				E5BA9A9D3052F7000044106F /* CalendarDisplaySettingViewController.swift in Sources */,
 				E5D7D8E62D43933600EC877A /* FocusSettingViewController.swift in Sources */,
 				E5146C8F302DBC91007A8BCB /* TaskTimePlanRegularRule.swift in Sources */,
 				E56342042F94829900E120BF /* TodoFilterViewModel.swift in Sources */,

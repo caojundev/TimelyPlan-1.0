@@ -37,6 +37,8 @@
 
 "Delete Goal Plan" = "删除目标计划";
 "Delete Goal Task" = "删除目标任务";
+"Show in Timeline" = "在时间线显示";
+"Show in My Day" = "在我的一天显示";
 
 ///**********************我的一天*********************///
 "Collapse" = "收起";

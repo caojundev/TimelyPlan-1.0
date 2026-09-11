@@ -13,21 +13,7 @@ extension FocusTimer {
         guard let startDate = startDate else {
             return nil
         }
-        
-        if isAllDay, timePlan.isEveryDayRepeat {
-            let endDate = endDate ?? .distantFuture
-            let event = CalendarEvent(identifier: identifier,
-                                      source: .goal,
-                                      name: displayName,
-                                      color: color,
-                                      startDate: startDate,
-                                      endDate: endDate,
-                                      isAllDay: true,
-                                      isCompleted: false,
-                                      sourceItem: self)
-            return [event]
-        }
-        
+
         var events = [CalendarEvent]()
         var planDate = timePlan.nextPlanDate(from: range.start,
                                              startDate: startDate,

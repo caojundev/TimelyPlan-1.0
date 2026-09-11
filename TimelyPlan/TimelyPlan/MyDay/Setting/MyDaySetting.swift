@@ -18,6 +18,7 @@ class MyDaySetting {
         case showTodo
         case showFocus
         case showHabit
+        case showGoal
         
         static func keyPrefix() -> String? {
             return "MyDaySetting"
@@ -47,7 +48,10 @@ class MyDaySetting {
 
     @CloudStored(key: Key.showHabit.name, defaultValue: true)
     var showHabit: Bool
-
+    
+    @CloudStored(key: Key.showGoal.name, defaultValue: true)
+    var showGoal: Bool
+    
     static let shared = MyDaySetting()
     
     private init() {}

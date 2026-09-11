@@ -39,23 +39,39 @@ class CalendarSettingViewController: BaseSettingViewController {
          return sectionController
      }()
      
-    lazy var habitSectionController: CalendarHabitSettingSectionController = {
-        let sectionController = CalendarHabitSettingSectionController()
-        sectionController.showInCalendarCellItem.title = resGetString("Show Habit")
-        sectionController.headerItem.height = normalHeaderHeight
-        return sectionController
+    /// 事项显示（习惯、目标、专注）
+    lazy var displaySettingsCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.autoResizable = false
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show in Calendar")
+        cellItem.didSelectHandler = {
+            self?.editDisplaySettings()
+        }
+        
+        return cellItem
     }()
     
-    lazy var goalSectionController: CalendarGoalSettingSectionController = {
-        let sectionController = CalendarGoalSettingSectionController()
-        sectionController.showInCalendarCellItem.title = resGetString("Show Goal")
-        sectionController.headerItem.height = normalHeaderHeight
-        return sectionController
+    /// 显示已完成
+    lazy var showCompletedTaskCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show Completed")
+        cellItem.updater = {
+            self?.showCompletedTaskCellItem.isOn = CalendarSetting.shared.showCompletedTask
+        }
+
+        cellItem.valueChanged = { isOn in
+            CalendarSetting.shared.showCompletedTask = isOn
+        }
+        
+        return cellItem
     }()
     
-    lazy var focusSectionController: CalendarFocusSettingSectionController = {
-        let sectionController = CalendarFocusSettingSectionController()
+    lazy var displaySettingsSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = normalHeaderHeight
+        sectionController.cellItems = [displaySettingsCellItem, showCompletedTaskCellItem]
         return sectionController
     }()
     
@@ -146,31 +162,6 @@ class CalendarSettingViewController: BaseSettingViewController {
                                        showChineseHolidaysCellItem]
         return sectionController
     }()
-    
-    /// 显示已完成任务
-    lazy var showCompletedTaskCellItem: TPSwitchTableCellItem = { [weak self] in
-        let cellItem = TPSwitchTableCellItem()
-        cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Show Completed Task")
-        cellItem.updater = {
-            self?.showCompletedTaskCellItem.isOn = CalendarSetting.shared.showCompletedTask
-        }
-
-        cellItem.valueChanged = { isOn in
-            CalendarSetting.shared.showCompletedTask = isOn
-        }
-        
-        return cellItem
-    }()
-    
-    lazy var taskOptionsSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 20.0
-        sectionController.cellItems = [showCompletedTaskCellItem]
-        return sectionController
-    }()
-    
-    
     
     // MARK: - 周视图
     lazy var daysInWeekViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
@@ -301,13 +292,10 @@ class CalendarSettingViewController: BaseSettingViewController {
          super.viewDidLoad()
          self.title = resGetString("Calendar Settings")
          self.sectionControllers = [generalSectionController,
-                                    habitSectionController,
-                                    goalSectionController,
-                                    focusSectionController,
+                                    displaySettingsSectionController,
                                     newEventsSectionController,
                                     alertSectionController,
                                     viewOptionsSectionController,
-                                    taskOptionsSectionController,
                                     weekViewSectionController,
                                     monthViewSectionController,
                                     quarterViewSectionController]
@@ -337,6 +325,12 @@ class CalendarSettingViewController: BaseSettingViewController {
     
     
     // MARK: - Edit
+    private func editDisplaySettings() {
+        let vc = CalendarDisplaySettingViewController()
+        vc.isPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     private func editFirstWeekday() {
         guard let cell = adapter.cellForItem(firstWeekdayCellItem) else {
             return

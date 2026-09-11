@@ -14,19 +14,6 @@ extension GoalTask {
             return nil
         }
         
-        if isAllDay, timePlan.isEveryDayRepeat {
-            let event = CalendarEvent(identifier: identifier,
-                                      source: .goal,
-                                      name: displayName,
-                                      color: color ?? Self.defaultColor,
-                                      startDate: startDate,
-                                      endDate: endDate,
-                                      isAllDay: true,
-                                      isCompleted: isCompleted,
-                                      sourceItem: self)
-            return [event]
-        }
-        
         var events = [CalendarEvent]()
         var planDate = timePlan.nextPlanDate(from: range.start,
                                              startDate: startDate,
