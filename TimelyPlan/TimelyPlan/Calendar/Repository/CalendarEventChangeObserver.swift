@@ -35,6 +35,12 @@ class CalendarEventChangeObserver: SettingAgentObserver {
             observeSettingKeys.append(contentsOf: [.showHabit, .habitDisplayRange])
         }
         
+        /// 目标任务
+        if sources.contains(.goal) {
+            GoalRepository.addUpdater(self, for: [.task])
+            observeSettingKeys.append(contentsOf: [.showGoal, .goalDisplayRange])
+        }
+        
         /// 专注计时器
         if sources.contains(.focus) {
             FocusRepository.addUpdater(self, for: [.timer])
@@ -52,16 +58,11 @@ class CalendarEventChangeObserver: SettingAgentObserver {
     
     // MARK: - SettingAgentObserver
     func settingAgentDidChangeValue(for keyName: String) {
-        guard let key = CalendarSetting.Key(name: keyName) else {
+        guard let _ = CalendarSetting.Key(name: keyName) else {
             return
         }
         
-        switch key {
-        case .showCompletedTask, .showHabit, .habitDisplayRange, .showFocus, .focusDisplayRange:
-            updater.calendarEventsDidChange(in: [.infiniteInterval])
-        default:
-            break
-        }
+        updater.calendarEventsDidChange(in: [.infiniteInterval])
     }
 }
 
@@ -244,6 +245,84 @@ extension CalendarEventChangeObserver: HabitTaskProcessorDelegate {
         
         let interval = task.dateRange.interval
         updater.calendarEventsDidChange(in: [interval])
+    }
+}
+
+extension CalendarEventChangeObserver: GoalTaskProcessorDelegate {
+    
+    /// 远程目标任务改变
+    func didChangeRemoteGoalTask(with results: EntityChangeResults<GoalTask>?) {
+        guard CalendarSetting.shared.showGoal else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 添加任务时通知
+    func didCreateGoalTask(_ goalTask: GoalTask) {
+        guard CalendarSetting.shared.showGoal else {
+            return
+        }
+        
+        let interval = goalTask.dateRange.interval
+        updater.calendarEventsDidChange(in: [interval])
+    }
+    
+    /// 更新任务通知
+    func didUpdateGoalTask(_ goalTask: GoalTask, with change: GoalTaskChange) {
+        guard CalendarSetting.shared.showGoal,
+              let ranges = goalTaskRanges(for: goalTask, change: change) else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: ranges)
+    }
+    
+    /// 批量更新任务通知
+    func didUpdateGoalTasks(with changeInfos: [GoalTaskChangeInfo]) {
+        guard CalendarSetting.shared.showGoal else {
+            return
+        }
+        
+        var results = [DateInterval]()
+        for changeInfo in changeInfos {
+            if let ranges = goalTaskRanges(for: changeInfo.goalTask, change: changeInfo.change) {
+                results.append(contentsOf: ranges)
+            }
+        }
+        
+        guard results.count > 0 else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: results)
+    }
+    
+    /// 删除任务通知
+    func didDeleteGoalTasks(_ goalTasks: [GoalTask]) {
+        guard CalendarSetting.shared.showGoal else {
+            return
+        }
+        
+        let ranges = goalTasks.compactMap { $0.dateRange.interval }
+        guard ranges.count > 0 else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: ranges)
+    }
+    
+    /// 目标任务影响的日期区间
+    private func goalTaskRanges(for goalTask: GoalTask, change: GoalTaskChange?) -> [DateInterval]? {
+        /// 内容整体更新时，旧、新日期区间都需要刷新
+        if case let .content(oldValue, newValue)? = change {
+            let ranges = [oldValue.dateRange.interval,
+                          newValue.dateRange.interval]
+            return ranges
+        }
+        
+        return [goalTask.dateRange.interval]
     }
 }
 

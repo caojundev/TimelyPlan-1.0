@@ -46,6 +46,13 @@ class CalendarSettingViewController: BaseSettingViewController {
         return sectionController
     }()
     
+    lazy var goalSectionController: CalendarGoalSettingSectionController = {
+        let sectionController = CalendarGoalSettingSectionController()
+        sectionController.showInCalendarCellItem.title = resGetString("Show Goal")
+        sectionController.headerItem.height = normalHeaderHeight
+        return sectionController
+    }()
+    
     lazy var focusSectionController: CalendarFocusSettingSectionController = {
         let sectionController = CalendarFocusSettingSectionController()
         sectionController.headerItem.height = normalHeaderHeight
@@ -295,6 +302,7 @@ class CalendarSettingViewController: BaseSettingViewController {
          self.title = resGetString("Calendar Settings")
          self.sectionControllers = [generalSectionController,
                                     habitSectionController,
+                                    goalSectionController,
                                     focusSectionController,
                                     newEventsSectionController,
                                     alertSectionController,

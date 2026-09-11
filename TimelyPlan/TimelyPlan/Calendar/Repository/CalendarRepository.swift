@@ -14,6 +14,7 @@ class CalendarRepository {
     
     private var todoProvider = CalendarTodoEventProvider()
     private var habitProvider = CalendarHabitEventProvider()
+    private var goalProvider = CalendarGoalEventProvider()
     private var focusProvider = CalendarFocusEventProvider()
     private var systemProvider = CalendarSystemEventProvider()
     
@@ -22,6 +23,7 @@ class CalendarRepository {
     init() {
         self.providers = [self.todoProvider,
                           self.habitProvider,
+                          self.goalProvider,
                           self.focusProvider,
                           self.systemProvider]
     }
@@ -65,6 +67,20 @@ class CalendarRepository {
             editingTask.startTime = Int64(dateRange.start.offset())
             editingTask.duration = Int64(dateRange.duration)
             HabitRepository.updateTask(task, with: editingTask)
+        }
+    }
+    
+    func updateGoalEvent(_ event: CalendarEvent, with dateRange: DateInterval) {
+        if let task = event.sourceItem as? GoalTask {
+            var editingTask = task.editingTask
+            if event.isAllDay {
+                editingTask.startTime = -1
+            } else {
+                editingTask.startTime = Int64(dateRange.start.offset())
+                editingTask.duration = Int64(dateRange.duration)
+            }
+            
+            GoalRepository.updateGoalTask(task, with: editingTask)
         }
     }
 }

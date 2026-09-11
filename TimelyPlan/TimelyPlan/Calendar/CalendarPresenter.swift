@@ -21,6 +21,15 @@ class CalendarPresenter {
         HabitDayMenuPresenter.showSheetMenu(for: periodItem, on: date)
     }
     
+    /// 编辑目标事项
+    static func editGoalEvent(_ event: CalendarEvent) {
+        guard let task = event.sourceItem as? GoalTask else {
+            return
+        }
+        
+        GoalPresenter.showActionViewController(for: task)
+    }
+    
     /// 编辑待办事项
     static func editTodoEvent(_ event: CalendarEvent) {
         guard let task = event.sourceItem as? TodoTask else {

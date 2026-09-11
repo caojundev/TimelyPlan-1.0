@@ -39,6 +39,11 @@ struct TaskTimePlanRegularRule: Hashable, Codable, Equatable {
             break
         }
     }
+    
+    /// 是否每天重复
+    var isEveryDayRepeat: Bool {
+        return frequency == .daily && interval <= 1
+    }
 }
 
 /// 定期规则描述

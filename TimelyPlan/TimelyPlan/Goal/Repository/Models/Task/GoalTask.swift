@@ -387,6 +387,10 @@ enum GoalRecordInputType: Int, TPMenuRepresentable {
         }
     }
     
+    var isAllDay: Bool {
+        return startTime < 0
+    }
+    
     // MARK: - 进度
     /// 进度（0.0 ~ 1.0）
     var progressFraction: Double {

@@ -111,6 +111,10 @@ class HabitTask: NSObject, SortableIdentifiable {
         return true
     }
     
+    var isAllDay: Bool {
+        return startTime < 0
+    }
+    
     /// 任务所处阶段
     var phase: HabitPhase {
         guard let startDate = dateRange.startDate else {

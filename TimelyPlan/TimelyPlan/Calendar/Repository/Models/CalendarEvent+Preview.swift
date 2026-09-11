@@ -55,6 +55,9 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             return todoRepeatInfo
         case .habit:
             return habitRepeatInfo
+        case .goal:
+            /// 目标任务没有重复规则，仅展示日期区间
+            return nil
         case .focus:
             return focusRepeatInfo
         }
@@ -68,6 +71,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             return todoAlarmDescription
         case .habit:
             return habitAlarmDescription
+        case .goal:
+            return goalAlarmDescription
         case .focus:
             return nil
         }
@@ -81,6 +86,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             return todoSourceDescription
         case .habit:
             return habitSourceDescription
+        case .goal:
+            return goalSourceDescription
         case .focus:
             return focusSourceDescription
         }
@@ -101,7 +108,7 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             } else {
                 return false
             }
-        case .habit:
+        case .habit, .goal:
             return true
         case .focus:
             return false
@@ -118,7 +125,7 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             }
         case .todo:
             return isEditable
-        case .habit:
+        case .habit, .goal:
             return false
         case .focus:
             return false
@@ -199,6 +206,21 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         return event.alarmDescription
     }
     
+    private var goalAlarmDescription: String? {
+        guard let task = sourceItem as? GoalTask, task.hasReminder,
+              let date = task.startDate,
+              let alarmDates = task.reminder?.alarmDates(for: date) else {
+            return nil
+        }
+        
+        let timeStrings = alarmDates.map { $0.timeString }
+        if timeStrings.count > 0 {
+            return timeStrings.joined(separator: ", ")
+        }
+        
+        return nil
+    }
+    
     private var todoSourceDescription: String? {
         guard let task = sourceItem as? TodoTask else {
             return nil
@@ -214,6 +236,10 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
     
     private var habitSourceDescription: String? {
         return resGetString("Habit")
+    }
+    
+    private var goalSourceDescription: String? {
+        return resGetString("Goal")
     }
     
     private var focusSourceDescription: String? {

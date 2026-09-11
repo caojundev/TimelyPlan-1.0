@@ -21,6 +21,8 @@ class CalendarEventProcessor {
             clickTodoEvent(event)
         case .habit:
             clickHabitEvent(event)
+        case .goal:
+            clickGoalEvent(event)
         case .focus:
             clickFocusEvent(event)
         }
@@ -53,6 +55,11 @@ class CalendarEventProcessor {
         CalendarPresenter.editHabitEvent(event)
     }
     
+    /// 点击目标
+    private func clickGoalEvent(_ event: CalendarEvent) {
+        CalendarPresenter.editGoalEvent(event)
+    }
+    
     /// 点击专注计时器
     private func clickFocusEvent(_ event: CalendarEvent) {
         guard let timer = event.sourceItem as? FocusTimer else {
@@ -73,6 +80,8 @@ class CalendarEventProcessor {
             updateTodoEvent(event, with: dateRange, completion: completion)
         case .habit:
             updateHabitEvent(event, with: dateRange, completion: completion)
+        case .goal:
+            updateGoalEvent(event, with: dateRange, completion: completion)
         case .focus:
             break
         }
@@ -85,6 +94,11 @@ class CalendarEventProcessor {
     
     private func updateHabitEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
         repository.updateHabitEvent(event, with: dateRange)
+        completion(true)
+    }
+    
+    private func updateGoalEvent(_ event: CalendarEvent, with dateRange: DateInterval, completion: @escaping ((Bool) -> Void)) {
+        repository.updateGoalEvent(event, with: dateRange)
         completion(true)
     }
     

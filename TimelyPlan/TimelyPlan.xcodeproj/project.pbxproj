@@ -1360,6 +1360,9 @@
 		E5BA9A8F3050F1540044106F /* GoalTaskRecordDaySectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8E3050F1540044106F /* GoalTaskRecordDaySectionController.swift */; };
 		E5BA9A90305286350044106F /* GoalTaskActionTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A8F305286350044106F /* GoalTaskActionTitleView.swift */; };
 		E5BA9A92305298F30044106F /* GoalTask+GanttEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A91305298F30044106F /* GoalTask+GanttEvent.swift */; };
+		E5BA9A973052F4830044106F /* CalendarGoalEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A963052F4800044106F /* CalendarGoalEventProvider.swift */; };
+		E5BA9A993052F4D50044106F /* GoalTask+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A983052F4D50044106F /* GoalTask+Calendar.swift */; };
+		E5BA9A9B3052F62A0044106F /* CalendarGoalSettingSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA9A9A3052F62A0044106F /* CalendarGoalSettingSectionController.swift */; };
 		E5BB9A742D3BEF0D0089667A /* todo_home_tag_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */; };
 		E5BB9A752D3BEF0D0089667A /* todo_home_tag_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */; };
 		E5BB9A782D3BEF0D0089667A /* todo_home_setting_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BB99E42D3BEF0D0089667A /* todo_home_setting_24@3x.png */; };
@@ -3672,6 +3675,9 @@
 		E5BA9A8E3050F1540044106F /* GoalTaskRecordDaySectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskRecordDaySectionController.swift; sourceTree = "<group>"; };
 		E5BA9A8F305286350044106F /* GoalTaskActionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskActionTitleView.swift; sourceTree = "<group>"; };
 		E5BA9A91305298F30044106F /* GoalTask+GanttEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoalTask+GanttEvent.swift"; sourceTree = "<group>"; };
+		E5BA9A963052F4800044106F /* CalendarGoalEventProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarGoalEventProvider.swift; sourceTree = "<group>"; };
+		E5BA9A983052F4D50044106F /* GoalTask+Calendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GoalTask+Calendar.swift"; sourceTree = "<group>"; };
+		E5BA9A9A3052F62A0044106F /* CalendarGoalSettingSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarGoalSettingSectionController.swift; sourceTree = "<group>"; };
 		E5BB99DA2D3BEB320089667A /* TimelyPlan.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimelyPlan.entitlements; sourceTree = "<group>"; };
 		E5BB99E02D3BEF0D0089667A /* todo_home_tag_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@3x.png"; sourceTree = "<group>"; };
 		E5BB99E12D3BEF0D0089667A /* todo_home_tag_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_home_tag_24@2x.png"; sourceTree = "<group>"; };
@@ -5679,6 +5685,7 @@
 				E518D69B2FBEAECE0045D456 /* CalendarTodoEventProvider.swift */,
 				E5371DE82FF36A9C00BA9DEF /* CalendarHabitEventProvider.swift */,
 				E51E5F96303944B000ACF30C /* CalendarFocusEventProvider.swift */,
+				E5BA9A963052F4800044106F /* CalendarGoalEventProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -6228,6 +6235,7 @@
 				E5B499612FDC2ED800F3A9BD /* TodoTask+Calendar.swift */,
 				E5371DEA2FF372C300BA9DEF /* HabitTask+Calendar.swift */,
 				E51E5F98303945CE00ACF30C /* FocusTimer+Calendar.swift */,
+				E5BA9A983052F4D50044106F /* GoalTask+Calendar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -6553,6 +6561,7 @@
 				E5371DEC2FF4A5CD00BA9DEF /* CalendarEventDisplayRange.swift */,
 				E5371DEE2FF4C03000BA9DEF /* CalendarHabitSettingSectionController.swift */,
 				E51E5F9A303957D700ACF30C /* CalendarFocusSettingSectionController.swift */,
+				E5BA9A9A3052F62A0044106F /* CalendarGoalSettingSectionController.swift */,
 				E52EF62B2FB4A417002CF355 /* CalendarEventDurationEditViewController.swift */,
 				E55528172FB55D230093DD7E /* CalendarEventAlertEditViewController.swift */,
 			);
@@ -13915,6 +13924,7 @@
 				E5D7D8FC2D43933600EC877A /* FocusRecordEditTimelineSectionController.swift in Sources */,
 				E5BB9E7F2D3BF0C70089667A /* ChartMark.swift in Sources */,
 				E50D602D2F7A12B400D5E0A4 /* RecurrenceRule+Descriptable.swift in Sources */,
+				E5BA9A973052F4830044106F /* CalendarGoalEventProvider.swift in Sources */,
 				E5BB9DB72D3BF0C60089667A /* UIView+Theme.swift in Sources */,
 				E500E3BC2FC9C6C700252011 /* TPGroupTableView.swift in Sources */,
 				E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */,
@@ -13973,6 +13983,7 @@
 				E5BB9E642D3BF0C70089667A /* TPDefaultInfoCollectionCell.swift in Sources */,
 				E5BB9DD92D3BF0C60089667A /* UIView+Idenfifier.swift in Sources */,
 				E5BB9E792D3BF0C70089667A /* StatsBaseChartCell.swift in Sources */,
+				E5BA9A993052F4D50044106F /* GoalTask+Calendar.swift in Sources */,
 				E53B113B2F94D1B300701410 /* TodoFilterProgressSpecificSectionController.swift in Sources */,
 				E5BB9DE82D3BF0C60089667A /* UICollectionView+Extension.swift in Sources */,
 				E51F94062FFF5F1300734910 /* CalendarRangeEventsInfoFetcher.swift in Sources */,
@@ -14366,6 +14377,7 @@
 				E5BB9E762D3BF0C70089667A /* TPColorSelectView.swift in Sources */,
 				E53F32952F68E0C100B85B65 /* HabitReportWeeklySectionController.swift in Sources */,
 				E5926DD82D4D0166007D5A6A /* TPCheckmarkTableCell.swift in Sources */,
+				E5BA9A9B3052F62A0044106F /* CalendarGoalSettingSectionController.swift in Sources */,
 				E5D7D8E62D43933600EC877A /* FocusSettingViewController.swift in Sources */,
 				E5146C8F302DBC91007A8BCB /* TaskTimePlanRegularRule.swift in Sources */,
 				E56342042F94829900E120BF /* TodoFilterViewModel.swift in Sources */,

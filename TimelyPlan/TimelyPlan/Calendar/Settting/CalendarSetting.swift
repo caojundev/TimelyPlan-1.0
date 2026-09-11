@@ -39,6 +39,9 @@ class CalendarSetting {
         case showHabit /// 显示习惯
         case habitDisplayRange /// 习惯显示范围
         
+        case showGoal /// 显示目标
+        case goalDisplayRange /// 目标显示范围
+        
         case showFocus /// 显示专注
         case focusDisplayRange /// 专注显示范围
         
@@ -90,6 +93,12 @@ class CalendarSetting {
     var habitDisplayRange: CalendarEventDisplayRange
     
 
+    @CloudStored(key: Key.showGoal.name, defaultValue: true)
+    var showGoal: Bool
+    
+    @CloudStored(key: Key.goalDisplayRange.name, defaultValue: CalendarEventDisplayRange.todayOnly)
+    var goalDisplayRange: CalendarEventDisplayRange
+    
     @CloudStored(key: Key.showFocus.name, defaultValue: true)
     var showFocus: Bool
     
