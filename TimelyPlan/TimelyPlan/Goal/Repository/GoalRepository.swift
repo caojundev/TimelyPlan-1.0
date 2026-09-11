@@ -177,6 +177,11 @@ extension GoalRepository {
         taskManager.fetchGoalTasks(of: goalPlan, completion: completion)
     }
     
+    /// 异步获取所有收件箱目标任务（未归属任何目标计划）
+    static func fetchInboxGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
+        taskManager.fetchInboxGoalTasks(completion: completion)
+    }
+    
     /// 获取特定日期区间内的目标任务
     static func fetchCalendarEventGoalTasks(in range: DateInterval,
                                             completion: @escaping ([GoalTask]?) -> Void) {
@@ -219,6 +224,12 @@ extension GoalRepository {
                                with editingTask: GoalEditingTask) -> GoalTask? {
         return taskManager.createGoalTask(in: goalPlan,
                                           with: editingTask)
+    }
+    
+    /// 创建收件箱目标任务（不归属任何目标计划）
+    @discardableResult
+    static func createInboxGoalTask(with editingTask: GoalEditingTask) -> GoalTask? {
+        return taskManager.createInboxGoalTask(with: editingTask)
     }
     
     /// 使用编辑模型整体更新目标任务

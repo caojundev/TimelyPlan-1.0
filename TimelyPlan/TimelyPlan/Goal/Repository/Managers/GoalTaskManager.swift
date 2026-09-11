@@ -54,6 +54,13 @@ class GoalTaskManager {
         }
     }
     
+    /// 异步获取所有收件箱目标任务（未归属任何目标计划）
+    func fetchInboxGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
+        CDGoalTask.fetchInboxGoalTasks { results in
+            completion(results?.toGoalTasks)
+        }
+    }
+    
     
     
     
@@ -143,6 +150,19 @@ class GoalTaskManager {
         
         /// 新增任务后刷新目标整体进度
         refreshGoalPlanProgress(in: goalPlan)
+        return goalTask
+    }
+    
+    /// 创建收件箱目标任务（不归属任何目标计划）
+    @discardableResult
+    func createInboxGoalTask(with editingTask: GoalEditingTask) -> GoalTask? {
+        guard let content = CDGoalTask.newInboxGoalTask(with: editingTask) else {
+            return nil
+        }
+        
+        let goalTask = GoalTask(content: content)
+        updater.didCreateGoalTask(goalTask)
+        HandyRecord.updateChangeCount()
         return goalTask
     }
     

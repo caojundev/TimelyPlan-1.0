@@ -17,6 +17,10 @@ class GoalHomeViewController: TPViewController,
         static let addViewSize = CGSize(width: 50.0, height: 50.0)
         /// 添加视图边界间距
         static let addViewMargins = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 20.0)
+        /// 收件箱按钮尺寸
+        static let inboxViewSize = CGSize(width: 50.0, height: 50.0)
+        /// 收件箱按钮边界间距
+        static let inboxViewMargins = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 0.0)
         /// 筛选视图高度
         static let filterViewHeight: CGFloat = 50.0
     }
@@ -42,6 +46,17 @@ class GoalHomeViewController: TPViewController,
     
     /// 添加视图
     private var addView: TPAddView?
+    
+    /// 收件箱按钮
+    private lazy var inboxButton: TPImageButton = {
+        let button = TPImageButton()
+        button.normalImage = resGetImage("todo_list_inbox_24")
+        button.normalImageColor = .white
+        button.normalBackgroundColor = GoalPlanFeature.inboxFeature.color ?? .primary
+        button.cornerRadius = .greatestFiniteMagnitude
+        button.addTarget(self, action: #selector(clickInbox(_:)), for: .touchUpInside)
+        return button
+    }()
     
     /// 目标计划列表视图
     lazy var listView: GoalPlanListView = {
@@ -79,6 +94,7 @@ class GoalHomeViewController: TPViewController,
         setupFilterView()
         setupListView()
         setupAddView()
+        setupInboxButton()
         
         self.viewModel.goalPlansDidChange = { [weak self] change in
             self?.goalPlansChanged(change)
@@ -97,6 +113,7 @@ class GoalHomeViewController: TPViewController,
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         layoutAddView()
+        layoutInboxButton()
         layoutFilterView()
         layoutListView()
     }
@@ -143,6 +160,18 @@ class GoalHomeViewController: TPViewController,
             addView.bottom = layoutFrame.maxY - Config.addViewMargins.bottom
             addView.right = layoutFrame.maxX - Config.addViewMargins.right
         }
+    }
+    
+    // MARK: - 收件箱视图
+    private func setupInboxButton() {
+        view.addSubview(inboxButton)
+    }
+    
+    private func layoutInboxButton() {
+        let layoutFrame = view.safeAreaFrame()
+        inboxButton.size = Config.inboxViewSize
+        inboxButton.left = layoutFrame.minX + Config.inboxViewMargins.left
+        inboxButton.bottom = layoutFrame.maxY - Config.inboxViewMargins.bottom
     }
     
     // MARK: - 列表视图
@@ -227,6 +256,12 @@ class GoalHomeViewController: TPViewController,
     private func clickAddGoal() {
         TPImpactFeedback.impactWithLightStyle()
         GoalPresenter.createNewGoalPlan()
+    }
+    
+    /// 点击收件箱
+    @objc private func clickInbox(_ button: UIButton) {
+        TPImpactFeedback.impactWithSoftStyle()
+        detailCoordinator?.showInboxDetail()
     }
     
     func canAddGoal() -> Bool {

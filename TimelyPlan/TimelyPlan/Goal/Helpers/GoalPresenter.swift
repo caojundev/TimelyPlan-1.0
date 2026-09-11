@@ -57,6 +57,16 @@ class GoalPresenter {
         vc.showAsNavigationRoot()
     }
     
+    /// 创建收件箱目标任务（不归属任何目标计划）
+    static func createNewInboxGoalTask(editingTask: GoalEditingTask? = nil) {
+        let vc = GoalTaskEditViewController(goalTask: editingTask)
+        vc.didEndEditing = { editingTask in
+            GoalRepository.createInboxGoalTask(with: editingTask)
+        }
+
+        vc.showAsNavigationRoot()
+    }
+    
     /// 编辑目标任务
     static func editGoalTask(_ goalTask: GoalTask) {
         let vc = GoalTaskEditViewController(goalTask: goalTask.editingTask)

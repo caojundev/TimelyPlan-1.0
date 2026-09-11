@@ -212,6 +212,11 @@ enum GoalRecordInputType: Int, TPMenuRepresentable {
     
     var goalPlan: GoalPlanFeature?
     
+    /// 所属目标特征（未归属任何目标计划时为收件箱）
+    var planFeature: GoalPlanFeature {
+        return goalPlan ?? .inboxFeature
+    }
+    
     // MARK: - Initialization
     init(identifier: String = UUID().uuidString,
          order: Int64 = 0,

@@ -54,7 +54,6 @@ enum GoalPlanOption: String, TPMenuRepresentable {
     }
 }
 
-
 /// 目标计划选项配置
 struct GoalPlanOptionConfig {
     
@@ -74,7 +73,7 @@ struct GoalPlanOptionConfig {
     var allowSortOrders: [TodoSortOrder] = []
     
     static func config(with state: GoalPlanOptionState,
-                       configuration: GoalPlanConfiguration) -> GoalPlanOptionConfig? {
+                       configuration: GoalListConfiguration) -> GoalPlanOptionConfig? {
         guard let options = configuration.allowOptions(), options.count > 0 else {
             return nil
         }

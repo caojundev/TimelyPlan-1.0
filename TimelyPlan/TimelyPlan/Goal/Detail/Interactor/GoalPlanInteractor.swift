@@ -47,13 +47,14 @@ class GoalPlanInteractor {
     }
     
     /// 列表配置
-    let configuration: GoalPlanConfiguration
+    let configuration: GoalListConfiguration
     
-    var goalPlan: GoalPlan {
-        return configuration.goalPlan
+    /// 所属目标计划（收件箱配置下为 nil）
+    var goalPlan: GoalPlan? {
+        return (configuration as? GoalPlanConfiguration)?.goalPlan
     }
     
-    init(configuration: GoalPlanConfiguration) {
+    init(configuration: GoalListConfiguration) {
         self.configuration = configuration
         self.planOptionState = GoalState.shared.planOptionState(for: configuration) ?? GoalPlanOptionState()
         self.placeholderProvider.emptyImage = resGetImage("goal_placeholder_80")
@@ -72,19 +73,20 @@ class GoalPlanInteractor {
     
     /// 标题
     func title() -> TextRepresentable? {
-        let goalPlan = configuration.goalPlan
-        if let image = resGetImage("goal_24") {
-            let color = goalPlan.color
+        let feature = configuration.feature
+        if let iconName = configuration.iconName,
+           let image = resGetImage(iconName) {
+            let color = feature.color
             let title: ASAttributedString
             title = .string(image: image,
                             imageSize: .size(5),
                             imageColor: color,
-                            trailingText: goalPlan.displayName,
+                            trailingText: feature.displayName,
                             separator: " ")
             return title
         }
         
-        return goalPlan.displayName
+        return feature.displayName
     }
     
     /// 选项菜单管理器
@@ -138,7 +140,7 @@ class GoalPlanInteractor {
     
     /// 获取任务方法
     func fetchTasks(completion: @escaping ([GoalTask]?) -> Void) {
-        GoalRepository.fetchGoalTasks(of: goalPlan, completion: completion)
+        configuration.fetchTasks(completion: completion)
     }
     
     /// 将任务根据分组类型和排序方式分组
@@ -214,11 +216,11 @@ extension GoalPlanInteractor: GoalTaskProcessorDelegate {
     }
 }
 
-
 extension GoalPlanInteractor: GoalPlanProcessorDelegate {
     
     func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {
-        guard let goalPlan = GoalRepository.getGoalPlan(withIdentifier: goalPlan.identifier) else {
+        guard let configuration = configuration as? GoalPlanConfiguration,
+              let goalPlan = GoalRepository.getGoalPlan(withIdentifier: configuration.identifier) else {
             return
         }
         
@@ -227,7 +229,8 @@ extension GoalPlanInteractor: GoalPlanProcessorDelegate {
     }
     
     func didUpdateGoalPlan(_ goalPlan: GoalPlan) {
-        guard goalPlan.identifier == self.goalPlan.identifier,
+        guard let configuration = configuration as? GoalPlanConfiguration,
+              goalPlan.identifier == configuration.identifier,
               let goalPlan = GoalRepository.getGoalPlan(withIdentifier: goalPlan.identifier) else {
             return
         }

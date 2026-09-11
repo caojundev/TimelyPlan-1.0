@@ -13,9 +13,9 @@ class GoalTaskGroupExpansionState: ExpansionStateProviding {
     
     let identifier: String
     
-    init(goalPlan: GoalPlan) {
-        self.identifier = goalPlan.identifier
-        self.collapsedStates = GoalState.shared.groupStates(for: goalPlan.identifier) ?? [:]
+    init(identifier: String) {
+        self.identifier = identifier
+        self.collapsedStates = GoalState.shared.groupStates(for: identifier) ?? [:]
     }
 
     func isExpanded(_ item: Any) -> Bool {

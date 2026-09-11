@@ -35,7 +35,7 @@ class GoalTaskController {
     
     /// 移动任务到其他目标计划
     func moveTask(_ task: GoalTask) {
-        let vc = GoalTaskMoveViewController(goalPlan: task.goalPlan)
+        let vc = GoalTaskMoveViewController(goalPlan: task.planFeature)
         vc.didSelectGoalPlan = { goalPlan in
             GoalRepository.moveGoalTask(task, to: goalPlan)
         }

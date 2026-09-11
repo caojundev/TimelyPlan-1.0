@@ -16,7 +16,7 @@ class GoalDetailCoordinator {
     /// 空详情视图控制器
     var emptyDetailViewController: UIViewController?
 
-    private var configuration: GoalPlanConfiguration?
+    private var configuration: GoalListConfiguration?
     
     init(multiColumnViewController: TPMultiColumnViewController) {
         self.multiColumnVC = multiColumnViewController
@@ -42,6 +42,25 @@ class GoalDetailCoordinator {
         multiColumnVC.showDetailView()
     }
     
+    /// 显示收件箱详情（未归属任何目标计划的目标任务）
+    func showInboxDetail() {
+        guard let multiColumnVC = multiColumnVC else {
+            return
+        }
+        
+        let newConfiguration = GoalInboxConfiguration()
+        guard newConfiguration != self.configuration else {
+            multiColumnVC.showDetailView()
+            return
+        }
+        
+        self.configuration = newConfiguration
+        let vc = GoalInboxViewController(configuration: newConfiguration)
+        let navController = UINavigationController(rootViewController: vc)
+        multiColumnVC.replaceDetail(with: navController)
+        multiColumnVC.showDetailView()
+    }
+    
     func showEmptyDetail() {
         guard let multiColumnVC = multiColumnVC else {
             return
@@ -56,22 +75,22 @@ class GoalDetailCoordinator {
 extension GoalDetailCoordinator: GoalPlanProcessorDelegate {
     
     func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {
-        guard let identifier = configuration?.identifier else {
+        guard let configuration = configuration as? GoalPlanConfiguration else {
             return
         }
         
-        if GoalRepository.getGoalPlan(withIdentifier: identifier) == nil {
+        if GoalRepository.getGoalPlan(withIdentifier: configuration.identifier) == nil {
             /// 显示空白详情页
             showEmptyDetail()
         }
     }
     
     func didDeleteGoalPlan(_ goalPlan: GoalPlan) {
-        guard let identifier = configuration?.identifier else {
+        guard let configuration = configuration as? GoalPlanConfiguration else {
             return
         }
         
-        if goalPlan.identifier == identifier {
+        if goalPlan.identifier == configuration.identifier {
             showEmptyDetail()
         }
     }

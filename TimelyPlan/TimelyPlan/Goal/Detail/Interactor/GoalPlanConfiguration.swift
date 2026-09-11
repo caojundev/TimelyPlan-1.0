@@ -8,30 +8,28 @@
 import Foundation
 import UIKit
 
-class GoalPlanConfiguration: Equatable, IdentifiableItem {
+/// 目标列表配置基类（目标计划 / 收件箱等共用）
+class GoalListConfiguration: Equatable, IdentifiableItem {
     
     var identifier: String
     
-    private(set) var goalPlan: GoalPlan
+    /// 列表特征信息（名称、颜色）
+    private(set) var feature: GoalPlanFeature
     
-    init(goalPlan: GoalPlan) {
-        self.identifier = goalPlan.identifier
-        self.goalPlan = goalPlan
+    init(feature: GoalPlanFeature) {
+        self.identifier = feature.identifier
+        self.feature = feature
     }
     
     // MARK: - Equatable
-    static func == (lhs: GoalPlanConfiguration, rhs: GoalPlanConfiguration) -> Bool {
+    static func == (lhs: GoalListConfiguration, rhs: GoalListConfiguration) -> Bool {
         return lhs.identifier == rhs.identifier
     }
     
-    
     // MARK: - Public Methods
-    func updateGoalPlan(_ goalPlan: GoalPlan) {
-        guard identifier == goalPlan.identifier else {
-            return
-        }
-        
-        self.goalPlan = goalPlan
+    /// 列表标题图标名称
+    var iconName: String? {
+        return "goal_24"
     }
     
     /// 是否可以添加任务
@@ -110,5 +108,71 @@ class GoalPlanConfiguration: Equatable, IdentifiableItem {
         let sortType = validatedSortType(sort.type)
         let sortOrder = validatedSortOrder(sort.order, for: sortType)
         return TodoSort(type: sortType, order: sortOrder)
+    }
+    
+    /// 获取目标任务（子类重写）
+    func fetchTasks(completion: @escaping ([GoalTask]?) -> Void) {
+        completion(nil)
+    }
+    
+    /// 更新特征信息
+    func updateFeature(_ feature: GoalPlanFeature) {
+        self.identifier = feature.identifier
+        self.feature = feature
+    }
+}
+
+/// 目标计划配置
+class GoalPlanConfiguration: GoalListConfiguration {
+    
+    private(set) var goalPlan: GoalPlan
+    
+    init(goalPlan: GoalPlan) {
+        self.goalPlan = goalPlan
+        super.init(feature: goalPlan.feature)
+    }
+    
+    // MARK: - Public Methods
+    func updateGoalPlan(_ goalPlan: GoalPlan) {
+        guard identifier == goalPlan.identifier else {
+            return
+        }
+        
+        self.goalPlan = goalPlan
+        self.updateFeature(goalPlan.feature)
+    }
+    
+    override func fetchTasks(completion: @escaping ([GoalTask]?) -> Void) {
+        GoalRepository.fetchGoalTasks(of: goalPlan, completion: completion)
+    }
+}
+
+/// 收件箱配置（未归属任何目标计划的目标任务）
+class GoalInboxConfiguration: GoalListConfiguration {
+    
+    init() {
+        super.init(feature: .inboxFeature)
+    }
+    
+    override var iconName: String? {
+        return "todo_list_inbox_24"
+    }
+    
+    override func canAddTask() -> Bool {
+        return true
+    }
+    
+    /// 收件箱仅支持分组与排序
+    override func allowOptions() -> [GoalPlanOption]? {
+        return [.group, .sort]
+    }
+    
+    /// 不支持手动排序，默认按创建时间排序
+    override func allowSortTypes() -> [TodoSortType] {
+        return [.creationDate, .modificationDate, .startDate, .dueDate]
+    }
+    
+    override func fetchTasks(completion: @escaping ([GoalTask]?) -> Void) {
+        GoalRepository.fetchInboxGoalTasks(completion: completion)
     }
 }

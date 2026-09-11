@@ -136,7 +136,7 @@ class GoalTaskActionViewController: TPContainerViewController,
     
     /// 更新标题视图
     private func updateTitleView() {
-        titleView.goalPlan = interactor.task.goalPlan
+        titleView.goalPlan = interactor.task.planFeature
         titleView.sizeToFit()
     }
     

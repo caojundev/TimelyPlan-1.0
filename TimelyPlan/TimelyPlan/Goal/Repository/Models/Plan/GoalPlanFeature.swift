@@ -12,6 +12,16 @@ class GoalPlanFeature: NSObject,
                        TPHexColorConvertible,
                         IdentifiableItem {
 
+    /// 收件箱标识
+    static let inboxIdentifier = "inbox"
+    
+    /// 收件箱特征信息（未归属任何目标计划的目标任务）
+    static var inboxFeature: GoalPlanFeature {
+        return GoalPlanFeature(identifier: inboxIdentifier,
+                               name: resGetString("Inbox"),
+                               colorHex: Color(0x237DFF).hexString)
+    }
+    
     /// 标识
     var identifier: String
   
@@ -24,6 +34,11 @@ class GoalPlanFeature: NSObject,
     /// 显示名称
     var displayName: String {
         return name ?? resGetString("Untitled Goal")
+    }
+    
+    /// 是否收件箱
+    var isInbox: Bool {
+        return identifier == GoalPlanFeature.inboxIdentifier
     }
     
     init(identifier: String,

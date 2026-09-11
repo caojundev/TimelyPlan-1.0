@@ -99,6 +99,17 @@ extension CDGoalTask: TPHexColorConvertible, SortableIdentifiable {
         return task
     }
     
+    /// 根据编辑任务创建收件箱目标任务（不归属任何目标计划）
+    static func newInboxGoalTask(with editingTask: GoalEditingTask) -> CDGoalTask? {
+        let task = CDGoalTask.createEntity(in: .defaultContext)
+        task.identifier = UUID().uuidString /// 新创建目标任务设置标识
+        task.creationDate = .now
+        task.order = inboxMaxOrder + kOrderedStep
+        task.currentValue = editingTask.initialValue
+        task.update(with: editingTask)
+        return task
+    }
+    
     /// 使用编辑任务更新目标任务内容
     func update(with editingTask: GoalEditingTask) {
         self.name = editingTask.name
@@ -395,6 +406,15 @@ extension CDGoalTask {
         }
     }
     
+    /// 获取所有收件箱任务（未归属任何目标计划）
+    static func fetchInboxGoalTasks(completion: @escaping ([CDGoalTask]?) -> Void) {
+        fetchAll(matching: inboxGoalTaskPredicate,
+                 sortBy: orderKey,
+                 ascending: true) { results in
+            completion(results as? [CDGoalTask])
+        }
+    }
+    
     
     
     
@@ -509,6 +529,17 @@ extension CDGoalTask {
     /// 所有未完成目标任务
     static var activeGoalTaskPredicate: NSPredicate {
         return NSPredicate.predicate(with: notCompletedCondition)
+    }
+    
+    /// 所有收件箱任务（未归属任何目标计划）
+    static var inboxGoalTaskPredicate: NSPredicate {
+        let condition: PredicateCondition = (GoalTaskKey.goalPlan, .isEmpty)
+        return NSPredicate.predicate(with: condition)
+    }
+    
+    /// 收件箱任务最大排序因子
+    static var inboxMaxOrder: Int64 {
+        return maximumOrder(with: inboxGoalTaskPredicate)
     }
     
     /// 特定日期区间内未完成的目标任务

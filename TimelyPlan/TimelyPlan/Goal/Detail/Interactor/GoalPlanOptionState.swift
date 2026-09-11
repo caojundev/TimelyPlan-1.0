@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct GoalPlanOptionState: Codable {
     
     /// 分组类型
@@ -16,11 +15,11 @@ struct GoalPlanOptionState: Codable {
     /// 排序
     var sort: TodoSort?
     
-    func validatedGroupType(for configuration: GoalPlanConfiguration) -> GoalTaskGroupType {
+    func validatedGroupType(for configuration: GoalListConfiguration) -> GoalTaskGroupType {
         return configuration.validatedGroupType(self.groupType)
     }
     
-    func validatedSort(for configuration: GoalPlanConfiguration) -> TodoSort {
+    func validatedSort(for configuration: GoalListConfiguration) -> TodoSort {
         return configuration.validatedSort(self.sort ?? TodoSort())
     }
 }

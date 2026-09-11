@@ -68,9 +68,14 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     let interactor: GoalPlanInteractor
     
     // MARK: - Initialization
-    init(configuration: GoalPlanConfiguration) {
+    init(configuration: GoalListConfiguration) {
         self.interactor = GoalPlanInteractor(configuration: configuration)
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    /// 是否显示顶部进度条
+    var showsProgressView: Bool {
+        return true
     }
     
     required init?(coder: NSCoder) {
@@ -119,28 +124,33 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     
     // MARK: - 目标任务列表视图
     private func setupTaskListView() {
-        let goalPlan = interactor.configuration.goalPlan
-        taskListView.expansionStates = GoalTaskGroupExpansionState(goalPlan: goalPlan)
+        taskListView.expansionStates = GoalTaskGroupExpansionState(identifier: interactor.configuration.identifier)
         taskListView.placeholderProvider = interactor.placeholderProvider
         view.addSubview(taskListView)
         taskListView.addRefreshControl()
-        view.addSubview(progressView)
+        if showsProgressView {
+            view.addSubview(progressView)
+        }
     }
-    
+
     private func layoutTaskListView() {
         let layoutFrame = view.safeAreaFrame()
         
-        /// 进度条位于列表上方
-        progressView.width = view.width
-        progressView.height = progressHeight
-        progressView.left = 0.0
-        progressView.top = 0.0
+        /// 顶部偏移：有进度条时为其预留高度
+        let topInset = showsProgressView ? progressHeight : 0.0
+        if showsProgressView {
+            /// 进度条位于列表上方
+            progressView.width = view.width
+            progressView.height = progressHeight
+            progressView.left = 0.0
+            progressView.top = 0.0
+        }
         
         let insetBottom = layoutFrame.maxY - (addView?.top ?? layoutFrame.maxY)
         taskListView.frame = CGRect(x: 0.0,
-                                    y: progressHeight,
+                                    y: topInset,
                                     width: view.width,
-                                    height: view.height - progressHeight)
+                                    height: view.height - topInset)
         taskListView.contentInset = UIEdgeInsets(bottom: max(insetBottom, 0.0))
     }
     
@@ -167,9 +177,9 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     private func setupAddView() {
         if canAddGoal() {
             let addView = TPAddView()
-            addView.normalBackgroundColor = .primary
+            addView.normalBackgroundColor = interactor.configuration.addButtonBackColor()
             addView.didClickAdd = { [weak self] _ in
-                self?.clickAddGoal()
+                self?.handleAddTask()
             }
             
             self.addView = addView
@@ -199,6 +209,10 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     }
     
     private func updateProgressView(animated: Bool = false) {
+        guard showsProgressView, let goalPlan = goalPlan else {
+            return
+        }
+        
         let color = goalPlan.color ?? GoalConfig.goalPlanDefaultColor
         progressView.barForeColor = color
         progressView.barBackColor = color.withAlphaComponent(0.2)
@@ -238,9 +252,13 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         menuController.show(from: moreButton, sourceRect: sourceRect, isCovered: false)
     }
     
-    /// 点击添加目标
-    private func clickAddGoal() {
+    /// 点击添加目标任务（子类可重写以适配收件箱等场景）
+    func handleAddTask() {
         TPImpactFeedback.impactWithLightStyle()
+        guard let goalPlan = goalPlan else {
+            return
+        }
+        
         GoalPresenter.createNewGoalTask(in: goalPlan)
     }
     
@@ -274,11 +292,16 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     
     // MARK: - List Options
     
-    var goalPlan: GoalPlan {
-        return interactor.configuration.goalPlan
+    /// 所属目标计划（收件箱配置下为 nil）
+    var goalPlan: GoalPlan? {
+        return (interactor.configuration as? GoalPlanConfiguration)?.goalPlan
     }
     
     func selectGoalPlanOption(_ option: GoalPlanOption) {
+        guard let goalPlan = goalPlan else {
+            return
+        }
+        
         let processor = GoalPlanMenuProcessor()
         switch option {
         case .edit:
@@ -326,6 +349,7 @@ extension GoalDetailViewController: TPCollectionDragInsertReorderDelegate {
 
     func collectionDragInsertReorder(_ reorder: TPCollectionDragInsertReorder, inserItemTo targetIndexPath: IndexPath, from sourceIndexPath: IndexPath, depth: Int) -> IndexPath? {
         guard targetIndexPath.row != sourceIndexPath.row,
+              let goalPlan = self.goalPlan,
                 let sourceTask = taskListView.goalTask(at: sourceIndexPath),
                 let targetTask = taskListView.goalTask(at: targetIndexPath) else {
             return nil
@@ -343,5 +367,22 @@ extension GoalDetailViewController: TPCollectionDragInsertReorderDelegate {
                                        targetTask: targetTask,
                                        in: goalPlan)
         return targetIndexPath
+    }
+}
+
+
+// MARK: - 收件箱
+/// 收件箱详情视图控制器（展示未归属任何目标计划的目标任务）
+class GoalInboxViewController: GoalDetailViewController {
+    
+    /// 收件箱不显示顶部进度条
+    override var showsProgressView: Bool {
+        return false
+    }
+    
+    /// 在收件箱中创建目标任务
+    override func handleAddTask() {
+        TPImpactFeedback.impactWithLightStyle()
+        GoalPresenter.createNewInboxGoalTask()
     }
 }
