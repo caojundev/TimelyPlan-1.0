@@ -112,8 +112,8 @@ class MyDayMainViewController: TPViewController,
         return manager
     }()
     
-    private lazy var addController: MyDayEventAddController = {
-        let controller = MyDayEventAddController()
+    private lazy var addController: EventAddController = {
+        let controller = EventAddController()
         controller.quickAddManager = quickAddManager
         return controller
     }()

@@ -1,5 +1,5 @@
 //
-//  MyDayEventAddType.swift
+//  EventAddType.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/27.
@@ -7,12 +7,13 @@
 
 import Foundation
 
-enum MyDayEventAddType: Int, TPMenuRepresentable {
+enum EventAddType: Int, TPMenuRepresentable {
     case bind
     case calendar
     case todo
     case habit
     case focus
+    case goal
     
     var title: String {
         switch self {
@@ -26,6 +27,8 @@ enum MyDayEventAddType: Int, TPMenuRepresentable {
             return resGetString("Habit Task")
         case .focus:
             return resGetString("Focus Timer")
+        case .goal:
+            return resGetString("Goal Task")
         }
     }
     
@@ -41,24 +44,26 @@ enum MyDayEventAddType: Int, TPMenuRepresentable {
             return "myDayEventAdd_habit_24"
         case .focus:
             return "myDayEventAdd_focus_24"
+        case .goal:
+            return "goal_24"
         }
     }
 }
 
-class MyDayEventAddMenuController: TPBaseMenuController<MyDayEventAddType> {
+class MyDayEventAddMenuController: TPBaseMenuController<EventAddType> {
   
-    let addTypes: [MyDayEventAddType]
+    let addTypes: [EventAddType]
     
-    init(addTypes: [MyDayEventAddType] = MyDayEventAddType.allCases) {
+    init(addTypes: [EventAddType] = EventAddType.allCases) {
         self.addTypes = addTypes
         super.init()
     }
     
-    override func orderedMenuActionTypeLists() -> [Array<MyDayEventAddType>] {
-        return [[.bind], [.calendar], [.todo, .habit], [.focus]]
+    override func orderedMenuActionTypeLists() -> [Array<EventAddType>] {
+        return [[.bind], [.calendar], [.todo, .goal, .habit], [.focus]]
     }
     
-    override func menuActionTypes() -> [MyDayEventAddType] {
+    override func menuActionTypes() -> [EventAddType] {
         return addTypes
     }
 }

@@ -13,7 +13,7 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     /// 习惯记录供应器
     weak var habitRecordProvider: MyDayHabitRecordProvider?
     
-    weak var eventAddController: MyDayEventAddController?
+    weak var eventAddController: EventAddController?
     
     private let eventViewModel = MyDayTimelineViewModel()
     
@@ -101,7 +101,7 @@ extension MyDayTimelineView: TimelineDashedConnectionCellDelegate {
     
     func timelineDashedConnectionCellDidClickAdd(_ cell: TimelineDashedConnectionCell) {
         TPImpactFeedback.impactWithSoftStyle()
-        let addTypes: [MyDayEventAddType] = [.calendar, .todo, .habit, .focus]
+        let addTypes: [EventAddType] = [.calendar, .todo, .habit, .focus]
         let menuController = MyDayEventAddMenuController(addTypes: addTypes)
         menuController.didSelectMenuActionType = { [weak self] type in
             self?.selectAddType(type, with: cell.item)
@@ -119,7 +119,7 @@ extension MyDayTimelineView: TimelineDashedConnectionCellDelegate {
         selectAddType(.bind, with: cell.item)
     }
     
-    private func selectAddType(_ addType: MyDayEventAddType, with connectionItem: TimelineConnectionItem?) {
+    private func selectAddType(_ addType: EventAddType, with connectionItem: TimelineConnectionItem?) {
         guard let eventAddController = eventAddController else {
             return
         }

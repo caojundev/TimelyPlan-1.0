@@ -72,13 +72,28 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
     }()
     
     /// 添加视图
-    private var addView: TPAddView?
+    private lazy var addView: TPAddView = {
+        let view = TPAddView()
+        view.normalBackgroundColor = .primary
+        view.didClickAdd = { [weak self] _ in
+            self?.clickAddTask()
+        }
+        
+        return view
+    }()
 
     /// 任务快速添加控制器
     private(set) lazy var quickAddManager: TodoTaskQuickAddManager = {
         let options = TodoQuickAddOptions(showMoreSetting: false, forbidContinuousAdd: true)
         let manager = TodoTaskQuickAddManager(containerViewController: self, options: options)
         return manager
+    }()
+
+    /// 事项添加控制器
+    private lazy var addController: EventAddController = {
+        let controller = EventAddController()
+        controller.quickAddManager = quickAddManager
+        return controller
     }()
 
     /// 当前显示日期
@@ -134,7 +149,7 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
     
     private func layoutAddView() {
         let layoutFrame = view.safeAreaFrame()
-        if let addView = addView {
+        if addView.superview != nil {
             addView.size = Config.addViewSize
             addView.bottom = layoutFrame.maxY - Config.addViewMargins.bottom
             addView.right = layoutFrame.maxX - Config.addViewMargins.right
@@ -152,13 +167,6 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
     
     private func setupAddView() {
         if canAddTask() {
-            let addView = TPAddView()
-            addView.normalBackgroundColor = .primary
-            addView.didClickAdd = { [weak self] _ in
-                self?.clickAddTask()
-            }
-           
-            self.addView = addView
             self.view.insertSubview(addView, at: 999)
         }
     }
@@ -236,11 +244,38 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
     
     /// 点击添加
     private func clickAddTask() {
-        TPImpactFeedback.impactWithLightStyle()
+        TPImpactFeedback.impactWithSoftStyle()
         
-        // 检查并清理过期的草稿任务
+        // 弹出菜单选择事项类型（待办 / 目标）
+        let menuController = MyDayEventAddMenuController(addTypes: [.todo, .goal])
+        menuController.didSelectMenuActionType = { [weak self] type in
+            guard let self = self else { return }
+            let dateInfo = self.addTaskDateInfo(for: type)
+            self.addController.performAddMenuAction(with: type, with: dateInfo)
+        }
+        
+        let sourceRect = addView.bounds.insetBy(dx: -5.0, dy: -5.0)
+        menuController.showMenu(from: addView,
+                                sourceRect: sourceRect,
+                                isCovered: true)
+    }
+    
+    /// 计算添加事项的日期信息
+    private func addTaskDateInfo(for type: EventAddType) -> TaskDateInfo {
         let date = quickAddTaskDate()
-        showQuickAddTask(on: date)
+        
+        switch type {
+        case .goal:
+            // 目标：今天开始，一周之后结束（全天）
+            let startDate = date.startOfDay()
+            let endDate = (date.dateByAddingWeeks(1) ?? date).endOfDay()
+            return TaskDateInfo(startDate: startDate, endDate: endDate, isAllDay: true)
+        default:
+            // 其他事项：以当前小时为开始时间，持续一小时
+            let startDate = date.dateByReplacingHour(with: Date().hour)
+            let endDate = startDate.dateByAddingHours(1) ?? startDate
+            return TaskDateInfo(startDate: startDate, endDate: endDate, isAllDay: false)
+        }
     }
     
     @objc private func clickDate(_ button: UIButton) {

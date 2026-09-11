@@ -1,5 +1,5 @@
 //
-//  MyDayEventAddController.swift
+//  EventAddController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/7/28.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-class MyDayEventAddController {
+class EventAddController {
     
     weak var quickAddManager: TodoTaskQuickAddManager?
  
-    func performAddMenuAction(with type: MyDayEventAddType, on date: Date) {
+    func performAddMenuAction(with type: EventAddType, on date: Date) {
         let currentDate = Date()
         let startDate = date.dateByReplacingHour(with: currentDate.hour)
         guard let endDate = startDate.dateByAddingHours(1) else {
@@ -22,7 +22,7 @@ class MyDayEventAddController {
         performAddMenuAction(with: type, with: dateInfo)
     }
     
-    func performAddMenuAction(with type: MyDayEventAddType, with dateInfo: TaskDateInfo) {
+    func performAddMenuAction(with type: EventAddType, with dateInfo: TaskDateInfo) {
         switch type {
         case .bind:
             bindTask(with: dateInfo)
@@ -34,6 +34,8 @@ class MyDayEventAddController {
             createNewHabit(with: dateInfo)
         case .focus:
             createNewTimer(with: dateInfo)
+        case .goal:
+            createNewGoalTask(with: dateInfo)
         }
     }
     
@@ -72,6 +74,13 @@ class MyDayEventAddController {
         timer.dateRange = DateRange(startDate: startDate, endDate: nil)
         timer.isAddedToMyDay = true
         FocusPresenter.createNewTimer(with: timer)
+    }
+
+    private func createNewGoalTask(with dateInfo: TaskDateInfo) {
+        var editingTask = GoalEditingTask()
+        editingTask.startDate = dateInfo.startDate.startOfDay()
+        editingTask.endDate = dateInfo.endDate.endOfDay()
+        GoalPresenter.createNewInboxGoalTask(editingTask: editingTask)
     }
     
     // MARK: - 添加待办任务
