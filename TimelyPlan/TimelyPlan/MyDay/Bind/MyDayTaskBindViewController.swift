@@ -15,7 +15,7 @@ class MyDayTaskBindViewController: TPContainerViewController,
     private(set) var taskType: TaskType
     
     /// 允许选择的任务类型
-    private(set) var allowTypes: [TaskType] = [.todo, .habit, .focus]
+    private(set) var allowTypes: [TaskType] = [.todo, .habit, .goal, .focus]
 
     /// 当前任务列表视图控制器
     var listViewController: UIViewController!
@@ -111,6 +111,8 @@ class MyDayTaskBindViewController: TPContainerViewController,
             return MyDayTodoTaskBindViewController(dateInfo: dateInfo)
         case .habit:
             return MyDayHabitTaskBindViewController()
+        case .goal:
+            return MyDayGoalTaskBindViewController()
         case .focus:
             return MyDayFocusTimerBindViewController()
         default:

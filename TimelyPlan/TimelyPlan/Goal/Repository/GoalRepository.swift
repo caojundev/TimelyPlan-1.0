@@ -177,6 +177,11 @@ extension GoalRepository {
         taskManager.fetchGoalTasks(of: goalPlan, completion: completion)
     }
     
+    /// 异步获取所有未完成目标任务
+    static func fetchActiveGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
+        taskManager.fetchActiveGoalTasks(completion: completion)
+    }
+    
     /// 异步获取所有收件箱目标任务（未归属任何目标计划）
     static func fetchInboxGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
         taskManager.fetchInboxGoalTasks(completion: completion)

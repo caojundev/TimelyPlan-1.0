@@ -41,7 +41,7 @@ class MyDayEventChangeObserver {
         
         /// 目标任务
         if sources.contains(.goal) {
-            GoalRepository.addUpdater(self, for: [.task])
+            GoalRepository.addUpdater(self, for: [.plan, .task])
             observeSettingKeys.append(.showGoal)
         }
         
@@ -320,7 +320,29 @@ extension MyDayEventChangeObserver: FocusTimerProcessorDelegate {
     
 }
 
-extension MyDayEventChangeObserver: GoalTaskProcessorDelegate {
+extension MyDayEventChangeObserver: GoalPlanProcessorDelegate,
+                                    GoalTaskProcessorDelegate {
+    
+    // MARK: - GoalPlanProcessorDelegate
+    /// 远程目标计划改变
+    func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 删除目标计划：计划下的目标任务会从“我的一天”移除
+    func didDeleteGoalPlan(_ goalPlan: GoalPlan) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 归档目标计划：归档后其目标任务不再在“我的一天”展示
+    func didArchiveGoalPlan(_ goalPlan: GoalPlan) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 取消归档目标计划：取消归档后其目标任务重新展示
+    func didUnarchiveGoalPlan(_ goalPlan: GoalPlan) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
     
     /// 远程目标任务改变
     func didChangeRemoteGoalTask(with results: EntityChangeResults<GoalTask>?) {

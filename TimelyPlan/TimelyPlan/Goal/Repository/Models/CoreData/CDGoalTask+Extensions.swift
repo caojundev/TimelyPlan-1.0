@@ -535,9 +535,10 @@ extension CDGoalTask {
         return conditions.andPredicate()
     }
     
-    /// 所有未完成目标任务
+    /// 所有未归档目标任务
     static var activeGoalTaskPredicate: NSPredicate {
-        return NSPredicate.predicate(with: notCompletedCondition)
+        let condition: PredicateCondition = (GoalTaskKey.goalPlanIsArchived, .notEqual(true))
+        return NSPredicate.predicate(with: condition)
     }
     
     /// 所有收件箱任务（未归属任何目标计划）
@@ -593,6 +594,7 @@ extension CDGoalTask {
                                                 isAddedToMyDay: Bool?) -> NSPredicate {
         /// 开始日期与结束日期均不为空，直接按区间过滤
         var conditions: [PredicateCondition] = [
+            (GoalTaskKey.goalPlanIsArchived, .notEqual(true)),
             (GoalTaskKey.startDate, .isNotEmpty),
             (GoalTaskKey.endDate, .isNotEmpty),
             (GoalTaskKey.startDate, .lessThanOrEqual(range.end)),

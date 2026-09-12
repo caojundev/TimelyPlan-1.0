@@ -21,6 +21,11 @@ class MyDayTaskBindSearchResultViewController: TPTableSectionsViewController,
         return sectionController
     }()
     
+    lazy var goalResultSectionController: MyDayGoalBindSearchResultSectionController = {
+        let sectionController = MyDayGoalBindSearchResultSectionController()
+        return sectionController
+    }()
+    
     lazy var focusResultSectionController: MyDayFocusBindSearchResultSectionController = {
         let sectionController = MyDayFocusBindSearchResultSectionController()
         return sectionController
@@ -40,6 +45,7 @@ class MyDayTaskBindSearchResultViewController: TPTableSectionsViewController,
         wrapperView.keyboardDismissMode = .onDrag
         sectionControllers = [todoResultSectionController,
                               habitResultSectionController,
+                              goalResultSectionController,
                               focusResultSectionController]
         reloadData()
     }

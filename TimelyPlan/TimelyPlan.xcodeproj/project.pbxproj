@@ -926,6 +926,9 @@
 		E558977A3054D632001F8F22 /* GoalTask+MyDayEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897793054D632001F8F22 /* GoalTask+MyDayEvent.swift */; };
 		E558977C3054E025001F8F22 /* GoalTaskDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558977B3054E024001F8F22 /* GoalTaskDetailProvider.swift */; };
 		E558977F305539C0001F8F22 /* MyDayGoalScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558977E305539C0001F8F22 /* MyDayGoalScheduleEditViewController.swift */; };
+		E558978230554BC7001F8F22 /* MyDayGoalBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558978130554BC7001F8F22 /* MyDayGoalBindSearchResultSectionController.swift */; };
+		E558978430554BD9001F8F22 /* MyDayGoalTaskBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558978330554BD9001F8F22 /* MyDayGoalTaskBindViewController.swift */; };
+		E558978630554C10001F8F22 /* MyDayGoalTaskBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558978530554C10001F8F22 /* MyDayGoalTaskBindCell.swift */; };
 		E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */; };
 		E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */; };
 		E55A7B762D45F873000D224C /* timer_start_circle_fill_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */; };
@@ -3245,6 +3248,9 @@
 		E55897793054D632001F8F22 /* GoalTask+MyDayEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoalTask+MyDayEvent.swift"; sourceTree = "<group>"; };
 		E558977B3054E024001F8F22 /* GoalTaskDetailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskDetailProvider.swift; sourceTree = "<group>"; };
 		E558977E305539C0001F8F22 /* MyDayGoalScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalScheduleEditViewController.swift; sourceTree = "<group>"; };
+		E558978130554BC7001F8F22 /* MyDayGoalBindSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalBindSearchResultSectionController.swift; sourceTree = "<group>"; };
+		E558978330554BD9001F8F22 /* MyDayGoalTaskBindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalTaskBindViewController.swift; sourceTree = "<group>"; };
+		E558978530554C10001F8F22 /* MyDayGoalTaskBindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalTaskBindCell.swift; sourceTree = "<group>"; };
 		E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_pause_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@2x.png"; sourceTree = "<group>"; };
@@ -7398,6 +7404,15 @@
 			isa = PBXGroup;
 			children = (
 				E558977E305539C0001F8F22 /* MyDayGoalScheduleEditViewController.swift */,
+			);
+			path = Goal;
+			sourceTree = "<group>";
+		};
+		E558978030554B9E001F8F22 /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				E558978330554BD9001F8F22 /* MyDayGoalTaskBindViewController.swift */,
+				E558978530554C10001F8F22 /* MyDayGoalTaskBindCell.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -11990,6 +12005,7 @@
 			children = (
 				E5F9E3CF3021983900EDC2A5 /* MyDayTaskBindViewController.swift */,
 				E5F9E3EA3021EFC400EDC2A5 /* Search */,
+				E558978030554B9E001F8F22 /* Goal */,
 				E5F9E3DA3021D17E00EDC2A5 /* Todo */,
 				E5F9E3D130219D6000EDC2A5 /* Habit */,
 				E5F9E3E33021D88F00EDC2A5 /* Focus */,
@@ -12030,6 +12046,7 @@
 				E5F9E3EF3022258B00EDC2A5 /* MyDayTodoBindSearchResultSectionController.swift */,
 				E5F9E3ED3022235100EDC2A5 /* MyDayHabitBindSearchResultSectionController.swift */,
 				E5F9E3EB3021EFEE00EDC2A5 /* MyDayFocusBindSearchResultSectionController.swift */,
+				E558978130554BC7001F8F22 /* MyDayGoalBindSearchResultSectionController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -13400,6 +13417,8 @@
 				E500E3A82FC7E39100252011 /* BarRankListCell.swift in Sources */,
 				E53B11442F94D1B300701410 /* TimeOffsetPickerView.swift in Sources */,
 				E5FC91882FBAFE8A00FC75C6 /* CalendarPageTimedEventsView.swift in Sources */,
+				E558978430554BD9001F8F22 /* MyDayGoalTaskBindViewController.swift in Sources */,
+				E558978630554C10001F8F22 /* MyDayGoalTaskBindCell.swift in Sources */,
 				E53B11552F94D26C00701410 /* TodoFilterRuleEditBaseSectionController.swift in Sources */,
 				E58C9E192F4AF0DC0096B842 /* FocusTimelineLayout.swift in Sources */,
 				E58F469B2F7A9C120046FA96 /* TodoListMenuActionType.swift in Sources */,
@@ -14070,6 +14089,7 @@
 				E53F32BA2F69557500B85B65 /* HabitReportContentSectionController.swift in Sources */,
 				E5F078CF2F972A3400F94BDF /* TodoSingleScheduleEditViewController.swift in Sources */,
 				E5B499572FDAA00800F3A9BD /* CalendarMoreViewController.swift in Sources */,
+				E558978230554BC7001F8F22 /* MyDayGoalBindSearchResultSectionController.swift in Sources */,
 				E5FAA9EA304E47B900C9CCD8 /* GoalTaskGroupType.swift in Sources */,
 				E51E5F723035625F00ACF30C /* IAPProductSelectorView.swift in Sources */,
 				E5320C332FCAC443001DFE98 /* TodoTaskImporterViewController.swift in Sources */,
