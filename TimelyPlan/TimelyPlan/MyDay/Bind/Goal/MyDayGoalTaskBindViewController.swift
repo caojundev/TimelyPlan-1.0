@@ -37,7 +37,7 @@ class MyDayGoalTaskBindViewController: TPViewController,
         placeholderProvider.emptyTitle = resGetString("No Goal")
         listView.placeholderProvider = placeholderProvider
         
-        GoalRepository.addUpdater(self, for: [.task])
+        GoalRepository.addUpdater(self, for: [.plan, .task])
         loadTasks()
     }
     
@@ -64,17 +64,67 @@ class MyDayGoalTaskBindViewController: TPViewController,
             
             DispatchQueue.main.async {
                 self.tasks = tasks ?? []
-                let group = GoalTaskGroup(identifier: "Tasks")
-                group.goalTasks = self.tasks
-                self.listView.groups = [group]
+                self.listView.groups = self.goalTaskGroups(with: self.tasks)
                 self.listView.reloadData()
             }
         }
     }
     
+    /// 按目标任务所属的目标计划分组（收件箱置顶）
+    private func goalTaskGroups(with tasks: [GoalTask]) -> [GoalTaskGroup] {
+        var orderedPlans = [GoalPlanFeature]()
+        var tasksByPlan = [String: [GoalTask]]()
+        
+        for task in tasks {
+            let plan = task.planFeature
+            if tasksByPlan[plan.identifier] == nil {
+                orderedPlans.append(plan)
+                tasksByPlan[plan.identifier] = []
+            }
+            tasksByPlan[plan.identifier]?.append(task)
+        }
+        
+        /// 收件箱置顶，其余目标计划保持任务原有的出现顺序
+        let plans = orderedPlans.filter { $0.isInbox } + orderedPlans.filter { !$0.isInbox }
+        
+        return plans.compactMap { plan in
+            guard let tasks = tasksByPlan[plan.identifier], tasks.count > 0 else {
+                return nil
+            }
+            
+            let group = GoalTaskGroup(identifier: plan.identifier)
+            group.title = plan.displayName
+            group.goalTasks = tasks
+            return group
+        }
+    }
+    
+    /// 获取指定区块对应的分组
+    private func group(at section: Int) -> GoalTaskGroup? {
+        return listView.sectionObject(at: section) as? GoalTaskGroup
+    }
+    
     // MARK: - TPGroupTableViewDelegate
     func groupTableView(_ tableView: TPGroupTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 76.0
+    }
+    
+    func groupTableView(_ tableView: TPGroupTableView, classForHeaderInSection section: Int) -> AnyClass? {
+        return TPDefaultInfoTableHeaderFooterView.self
+    }
+    
+    func groupTableView(_ tableView: TPGroupTableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return group(at: section) == nil ? 0.0 : 50.0
+    }
+    
+    func groupTableView(_ tableView: TPGroupTableView, didDequeHeader headerView: UITableViewHeaderFooterView, inSection section: Int) {
+        guard let headerView = headerView as? TPDefaultInfoTableHeaderFooterView,
+              let group = group(at: section) else {
+            return
+        }
+        
+        headerView.contentPadding = UIEdgeInsets(top: 12.0, left: 12.0, bottom: 0.0, right: 0.0)
+        headerView.title = group.title
     }
     
     func groupTableView(_ tableView: TPGroupTableView, classForCellAt indexPath: IndexPath) -> AnyClass? {
@@ -103,6 +153,26 @@ class MyDayGoalTaskBindViewController: TPViewController,
         TPImpactFeedback.impactWithSoftStyle()
         let isAddedToMyDay = !task.isAddedToMyDay
         GoalRepository.updateGoalTask(task, isAddedToMyDay: isAddedToMyDay)
+    }
+}
+
+// MARK: - GoalPlanProcessorDelegate
+extension MyDayGoalTaskBindViewController: GoalPlanProcessorDelegate {
+    
+    func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {
+        loadTasks()
+    }
+    
+    func didDeleteGoalPlan(_ goalPlan: GoalPlan) {
+        loadTasks()
+    }
+    
+    func didArchiveGoalPlan(_ goalPlan: GoalPlan) {
+        loadTasks()
+    }
+    
+    func didUnarchiveGoalPlan(_ goalPlan: GoalPlan) {
+        loadTasks()
     }
 }
 

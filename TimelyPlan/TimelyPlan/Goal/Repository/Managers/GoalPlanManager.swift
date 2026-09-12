@@ -102,8 +102,11 @@ class GoalPlanManager {
     func deleteGoalPlan(_ goalPlan: GoalPlan) {
         if let content = CDGoalPlan.getGoalPlan(withIdentifier: goalPlan.identifier) {
             context.delete(content)
+            
+            /// 同归档：先同步落库再通知，保证删除后基于关系谓词的查询立即生效
+            HandyRecord.saveSynchronously()
+            
             updater.didDeleteGoalPlan(goalPlan)
-            HandyRecord.updateChangeCount()
         }
     }
     
@@ -116,13 +119,16 @@ class GoalPlanManager {
         if let content = CDGoalPlan.getGoalPlan(withIdentifier: goalPlan.identifier) {
             content.isArchived = isArchived
             
+            /// 关系键路径谓词（如 goalPlan.isArchived）按存储层求值，
+            /// 需先同步落库再通知，保证归档后相关查询（我的一天/日历/绑定等）立即生效
+            HandyRecord.saveSynchronously()
+            
             let updatedGoalPlan = GoalPlan(content: content)
             if isArchived {
                 updater.didArchiveGoalPlan(updatedGoalPlan)
             } else {
                 updater.didUnarchiveGoalPlan(updatedGoalPlan)
             }
-            HandyRecord.updateChangeCount()
         }
     }
     

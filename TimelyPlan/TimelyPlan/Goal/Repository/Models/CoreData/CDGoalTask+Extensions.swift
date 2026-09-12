@@ -511,7 +511,9 @@ extension CDGoalTask {
         }
         
         conditions.append((GoalTaskKey.name, .contains(text)))
-        fetchAll(matching: conditions.andPredicate(),
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [conditions.andPredicate(),
+                                                                           activePlanPredicate])
+        fetchAll(matching: predicate,
                  sortBy: orderKey,
                  ascending: true) { results in
             completion(results as? [CDGoalTask])
@@ -535,10 +537,22 @@ extension CDGoalTask {
         return conditions.andPredicate()
     }
     
-    /// 所有未归档目标任务
+    /// 未归档目标计划（含收件箱）下的任务
+    /// - Note: 关系键路径 `goalPlan.isArchived` 对收件箱任务（无目标计划）求值为 NULL，
+    ///         直接使用 `!= true` 时 SQL 会把这些行排除（首次按存储层抓取即丢失收件箱任务），
+    ///         因此显式补充「无目标计划」分支
+    static var activePlanPredicate: NSPredicate {
+        let inboxCondition: PredicateCondition = (GoalTaskKey.goalPlan, .isEmpty)
+        let notArchivedCondition: PredicateCondition = (GoalTaskKey.goalPlanIsArchived, .isFalse)
+        return NSCompoundPredicate(orPredicateWithSubpredicates: [
+            NSPredicate.predicate(with: inboxCondition),
+            NSPredicate.predicate(with: notArchivedCondition)
+        ])
+    }
+    
+    /// 所有未归档目标任务（含收件箱）
     static var activeGoalTaskPredicate: NSPredicate {
-        let condition: PredicateCondition = (GoalTaskKey.goalPlanIsArchived, .notEqual(true))
-        return NSPredicate.predicate(with: condition)
+        return activePlanPredicate
     }
     
     /// 所有收件箱任务（未归属任何目标计划）
@@ -587,14 +601,14 @@ extension CDGoalTask {
         ])
         
         return NSCompoundPredicate(andPredicateWithSubpredicates: [conditions.andPredicate(),
-                                                                  endDatePredicate])
+                                                                  endDatePredicate,
+                                                                  activePlanPredicate])
     }
     
     private static func activeGoalTaskPredicate(in range: DateInterval,
                                                 isAddedToMyDay: Bool?) -> NSPredicate {
         /// 开始日期与结束日期均不为空，直接按区间过滤
         var conditions: [PredicateCondition] = [
-            (GoalTaskKey.goalPlanIsArchived, .notEqual(true)),
             (GoalTaskKey.startDate, .isNotEmpty),
             (GoalTaskKey.endDate, .isNotEmpty),
             (GoalTaskKey.startDate, .lessThanOrEqual(range.end)),
@@ -605,7 +619,8 @@ extension CDGoalTask {
             conditions.append((GoalTaskKey.isAddedToMyDay, isAddedToMyDay ? .isTrue : .isFalse))
         }
         
-        return conditions.andPredicate()
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [conditions.andPredicate(),
+                                                                  activePlanPredicate])
     }
     
     /// 包含提醒的目标任务
@@ -613,12 +628,11 @@ extension CDGoalTask {
         let conditions: [PredicateCondition] = [
             notCompletedCondition,
             (GoalTaskKey.shouldRemind, .isTrue),
-            (GoalTaskKey.reminderJSON, .isNotEmpty),
-            /// 排除已归档目标计划下的任务
-            (GoalTaskKey.goalPlanIsArchived, .notEqual(true))
+            (GoalTaskKey.reminderJSON, .isNotEmpty)
         ]
         
-        return conditions.andPredicate()
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [conditions.andPredicate(),
+                                                                  activePlanPredicate])
     }
     
     static var completedCondition: PredicateCondition {

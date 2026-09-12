@@ -9,11 +9,12 @@ import Foundation
 import UIKit
 
 class MyDayGoalBindSearchResultSectionController: TPTableSearchResultSectionController,
+                                                   GoalPlanProcessorDelegate,
                                                    GoalTaskProcessorDelegate {
     
     override init() {
         super.init()
-        GoalRepository.addUpdater(self, for: [.task])
+        GoalRepository.addUpdater(self, for: [.plan, .task])
     }
     
     override func didDequeHeader(_ headerView: UITableViewHeaderFooterView) {
@@ -63,6 +64,23 @@ class MyDayGoalBindSearchResultSectionController: TPTableSearchResultSectionCont
         
         let isAddedToMyDay = !task.isAddedToMyDay
         GoalRepository.updateGoalTask(task, isAddedToMyDay: isAddedToMyDay)
+    }
+    
+    // MARK: - GoalPlanProcessorDelegate
+    func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {
+        refreshSearchResults()
+    }
+    
+    func didDeleteGoalPlan(_ goalPlan: GoalPlan) {
+        refreshSearchResults()
+    }
+    
+    func didArchiveGoalPlan(_ goalPlan: GoalPlan) {
+        refreshSearchResults()
+    }
+    
+    func didUnarchiveGoalPlan(_ goalPlan: GoalPlan) {
+        refreshSearchResults()
     }
     
     // MARK: - GoalTaskProcessorDelegate

@@ -202,6 +202,15 @@ class HandyRecord {
         defaultContext.saveWithOptions([.parentContexts], completion: completion)
     }
     
+    /// 同步保存默认上下文
+    /// - Note: 阻塞当前线程，直到变更级联写入持久化存储
+    /// - Note: 适用于「先落库、后通知」的场景，例如关系键路径谓词在变更后立即查询时需要按存储层求值
+    static func saveSynchronously() {
+        resetChangeCountAndTimer()
+        let defaultContext = NSManagedObjectContext.defaultContext
+        defaultContext.saveWithOptions([.parentContexts, .synchronously], completion: nil)
+    }
+    
     // MARK: - CoreData 堆栈初始化
     
     /// 初始化 CoreData 持久化容器和上下文堆栈
