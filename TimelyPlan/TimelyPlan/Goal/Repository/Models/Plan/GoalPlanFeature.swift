@@ -50,6 +50,12 @@ class GoalPlanFeature: NSObject,
         super.init()
     }
     
+    var attributedTitle: ASAttributedString {
+        let name = displayName
+        let color = color ?? GoalConfig.goalPlanDefaultColor
+        return "\("●", .foreground(color)) \(name)"
+    }
+    
     // MARK: - 等同性判断
     override var hash: Int {
         var hasher = Hasher()

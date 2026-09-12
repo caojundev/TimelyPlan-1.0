@@ -24,6 +24,10 @@ class MyDayEventScheduleEditor {
             if let task = event.sourceItem as? HabitTask {
                 openScheduleEditor(for: task)
             }
+        case .goal:
+            if let task = event.sourceItem as? GoalTask {
+                openScheduleEditor(for: task)
+            }
         case .focus:
             if let timer = event.sourceItem as? FocusTimer {
                 openScheduleEditor(for: timer)
@@ -84,6 +88,11 @@ class MyDayEventScheduleEditor {
             FocusRepository.updateTimer(timer, with: editingTimer)
         }
         presentAsSheet(vc)
+    }
+    
+    /// 目标计划编辑
+    private static func openScheduleEditor(for task: GoalTask) {
+        GoalPresenter.editGoalTask(task)
     }
     
     /// 以 sheet 形式展示 ViewController

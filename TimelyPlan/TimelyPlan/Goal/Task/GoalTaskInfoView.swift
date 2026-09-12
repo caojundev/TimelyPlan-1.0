@@ -23,6 +23,16 @@ class GoalTaskBaseInfoView: UIView {
         }
     }
     
+    /// 详情富文本信息
+    var attributedDetail: ASAttributedString? {
+        didSet {
+            if attributedDetail != oldValue {
+                detailLabel.attributed.text = attributedDetail
+                setNeedsLayout()
+            }
+        }
+    }
+    
     var nameHeight: CGFloat = 30.0 {
         didSet {
             if nameHeight != oldValue {
@@ -364,5 +374,4 @@ class GoalTaskCheckInfoView: GoalTaskBaseInfoView {
         checkbox.checkedColor = color
         setNeedsLayout()
     }
-    
 }

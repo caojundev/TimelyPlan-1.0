@@ -128,7 +128,7 @@ class GoalTaskActionViewController: TPContainerViewController,
     private func updateCheckInfoView() {
         checkInfoView.updateContent(with: interactor.task, animated: false)
         
-        let attributedDetail = GoalTaskDetailProvider.attributedDetail(for: interactor.task)
+        let attributedDetail = GoalTaskDetailProvider(task: interactor.task).attributedInfo()
         checkInfoView.detailLabel.update(with: attributedDetail)
         updateTitleView()
         updateFooterView()

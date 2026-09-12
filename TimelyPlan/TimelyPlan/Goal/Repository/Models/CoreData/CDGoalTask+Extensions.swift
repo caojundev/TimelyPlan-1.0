@@ -591,30 +591,19 @@ extension CDGoalTask {
     
     private static func activeGoalTaskPredicate(in range: DateInterval,
                                                 isAddedToMyDay: Bool?) -> NSPredicate {
+        /// 开始日期与结束日期均不为空，直接按区间过滤
         var conditions: [PredicateCondition] = [
-            notCompletedCondition,
             (GoalTaskKey.startDate, .isNotEmpty),
-            (GoalTaskKey.startDate, .lessThanOrEqual(range.end))
+            (GoalTaskKey.endDate, .isNotEmpty),
+            (GoalTaskKey.startDate, .lessThanOrEqual(range.end)),
+            (GoalTaskKey.endDate, .greaterThanOrEqual(range.start))
         ]
         
         if let isAddedToMyDay = isAddedToMyDay {
             conditions.append((GoalTaskKey.isAddedToMyDay, isAddedToMyDay ? .isTrue : .isFalse))
         }
         
-        /// 结束日期为空或者在区间起始之后
-        let emptyEndDateCondition: PredicateCondition = (GoalTaskKey.endDate, .isEmpty)
-        let withEndDateConditions: [PredicateCondition] = [
-            (GoalTaskKey.endDate, .isNotEmpty),
-            (GoalTaskKey.endDate, .greaterThanOrEqual(range.start))
-        ]
-        
-        let endDatePredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [
-            NSPredicate.predicate(with: emptyEndDateCondition),
-            withEndDateConditions.andPredicate()
-        ])
-        
-        return NSCompoundPredicate(andPredicateWithSubpredicates: [conditions.andPredicate(),
-                                                                  endDatePredicate])
+        return conditions.andPredicate()
     }
     
     /// 包含提醒的目标任务

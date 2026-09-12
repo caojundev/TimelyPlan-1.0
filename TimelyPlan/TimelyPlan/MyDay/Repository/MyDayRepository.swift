@@ -14,6 +14,7 @@ class MyDayRepository {
     private var calendarProvider = MyDayCalendarEventProvider()
     private var todoProvider = MyDayTodoEventProvider()
     private var habitProvider = MyDayHabitEventProvider()
+    private var goalProvider = MyDayGoalEventProvider()
     private var focusProvider = MyDayFocusEventProvider()
 
     private let changeObserver = MyDayEventChangeObserver()
@@ -22,6 +23,7 @@ class MyDayRepository {
         self.providers = [self.calendarProvider,
                           self.todoProvider,
                           self.habitProvider,
+                          self.goalProvider,
                           self.focusProvider]
     }
     

@@ -12,6 +12,7 @@ enum MyDayEventSource: Int, CaseIterable {
     case calendar // 系统日历
     case todo   // 待办任务
     case habit  // 习惯任务
+    case goal   // 目标任务
     case focus  // 专注计时器
 }
 

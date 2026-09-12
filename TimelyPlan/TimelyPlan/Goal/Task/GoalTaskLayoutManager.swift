@@ -195,7 +195,7 @@ class GoalTaskInfoLayout {
         
         /// 构建详情文本
 
-        self.attributedDetail = GoalTaskDetailProvider.attributedDetail(for: task)
+        self.attributedDetail = GoalTaskDetailProvider(task: task).attributedInfo()
         let detailSize: CGSize = .boundingSize(string: attributedDetail,
                                                font: config.detailFont,
                                                constraintWidth: labelWidth,
@@ -213,45 +213,5 @@ class GoalTaskInfoLayout {
         
         self.height = max(contentHeight, config.minimumHeight)
         _shouldLayout = false
-    }
-}
-
-class GoalTaskDetailProvider {
-    
-    static func attributedDetail(for task: GoalTask) -> ASAttributedString? {
-        var infos = [ASAttributedString]()
-        if let info = task.attributedMyDayInfo {
-            infos.append(info)
-        }
-        
-        if let info = task.attributedDateInfo {
-            infos.append(info)
-        }
-        
-        if let info = task.attributedProgressInfo {
-            infos.append(info)
-        }
-        
-        if let info = task.attributedStepInfo {
-            infos.append(info)
-        }
-        
-        if let info = task.attributedWeightInfo {
-            infos.append(info)
-        }
-        
-        if let info = task.attributedAlarmInfo {
-            infos.append(info)
-        }
-
-        if let info = task.attributedNoteInfo {
-            infos.append(info)
-        }
-        
-        if infos.count > 0 {
-            return infos.joined(separator: " • ")
-        }
-        
-        return nil
     }
 }

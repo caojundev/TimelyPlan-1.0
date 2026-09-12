@@ -29,6 +29,15 @@ class MyDayPresenter {
         FocusPresenter.showSheetMenu(for: timer)
     }
     
+    /// 编辑目标事项
+    static func editGoalEvent(_ event: MyDayEvent) {
+        guard let task = event.sourceItem as? GoalTask else {
+            return
+        }
+        
+        GoalPresenter.editGoalTask(task)
+    }
+    
     /// 编辑待办事项
     static func editTodoEvent(_ event: MyDayEvent) {
         guard let task = event.sourceItem as? TodoTask else {

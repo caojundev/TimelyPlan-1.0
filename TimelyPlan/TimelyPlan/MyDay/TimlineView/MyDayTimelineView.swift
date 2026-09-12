@@ -53,6 +53,8 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
             return MyDayFocusTimelineCell.self
         case .habit:
             return MyDayHabitTimelineCell.self
+        case .goal:
+            return MyDayGoalTimelineCell.self
         }
     }
     

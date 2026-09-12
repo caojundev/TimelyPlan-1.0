@@ -47,6 +47,26 @@ class MyDayHabitEventProvider: MyDayEventProvider {
     }
 }
 
+class MyDayGoalEventProvider: MyDayEventProvider {
+    
+    func fetchMyDayEvents(in range: DateInterval, completion: @escaping ([MyDayEvent]?) -> Void) {
+        guard MyDaySetting.shared.showGoal else {
+            completion(nil)
+            return
+        }
+        
+        GoalRepository.fetchMyDayEventGoalTasks(in: range) { tasks in
+            guard let tasks = tasks else {
+                completion(nil)
+                return
+            }
+            
+            let events = tasks.toMyDayEvents(in: range)
+            completion(events)
+        }
+    }
+}
+
 class MyDayFocusEventProvider: MyDayEventProvider {
     
     func fetchMyDayEvents(in range: DateInterval, completion: @escaping ([MyDayEvent]?) -> Void) {

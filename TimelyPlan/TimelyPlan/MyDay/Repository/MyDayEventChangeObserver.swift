@@ -39,6 +39,12 @@ class MyDayEventChangeObserver {
             observeSettingKeys.append(.showHabit)
         }
         
+        /// 目标任务
+        if sources.contains(.goal) {
+            GoalRepository.addUpdater(self, for: [.task])
+            observeSettingKeys.append(.showGoal)
+        }
+        
         /// 专注计时器
         if sources.contains(.focus) {
             FocusRepository.addUpdater(self, for: [.timer])
@@ -67,7 +73,7 @@ extension MyDayEventChangeObserver: SettingAgentObserver {
         }
         
         switch key {
-        case .showTodo, .showHabit, .showFocus, .showCalendarEvent:
+        case .showTodo, .showHabit, .showGoal, .showFocus, .showCalendarEvent:
             updater.myDayEventsDidChange(in: [.infiniteInterval])
         default:
             break
@@ -312,4 +318,74 @@ extension MyDayEventChangeObserver: FocusTimerProcessorDelegate {
         updater.myDayEventsDidChange(in: [oldInterval, newInterval])
     }
     
+}
+
+extension MyDayEventChangeObserver: GoalTaskProcessorDelegate {
+    
+    /// 远程目标任务改变
+    func didChangeRemoteGoalTask(with results: EntityChangeResults<GoalTask>?) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 创建目标任务
+    func didCreateGoalTask(_ goalTask: GoalTask) {
+        guard goalTask.isAddedToMyDay else {
+            return
+        }
+        
+        updater.myDayEventsDidChange(in: [goalTask.dateRange.interval])
+    }
+    
+    /// 更新单个目标任务
+    func didUpdateGoalTask(_ goalTask: GoalTask, with change: GoalTaskChange) {
+        guard let ranges = ranges(for: goalTask, with: change) else {
+            return
+        }
+        
+        updater.myDayEventsDidChange(in: ranges)
+    }
+    
+    /// 批量更新目标任务
+    func didUpdateGoalTasks(with changeInfos: [GoalTaskChangeInfo]) {
+        var results = [DateInterval]()
+        for changeInfo in changeInfos {
+            if let ranges = ranges(for: changeInfo.goalTask, with: changeInfo.change) {
+                results.append(contentsOf: ranges)
+            }
+        }
+        
+        updater.myDayEventsDidChange(in: results)
+    }
+    
+    /// 目标任务彻底删除
+    func didDeleteGoalTasks(_ goalTasks: [GoalTask]) {
+        guard let ranges = affectedRanges(for: goalTasks) else {
+            return
+        }
+        
+        updater.myDayEventsDidChange(in: ranges)
+    }
+    
+    private func affectedRanges(for goalTasks: [GoalTask]) -> [DateInterval]? {
+        let myDayTasks = goalTasks.filter { $0.isAddedToMyDay }
+        guard myDayTasks.count > 0 else {
+            return nil
+        }
+        
+        return myDayTasks.map { $0.dateRange.interval }
+    }
+    
+    private func ranges(for goalTask: GoalTask, with change: GoalTaskChange) -> [DateInterval]? {
+        switch change {
+        case .myDay(_, _), .completed(_, _):
+            /// 我的一天归属或完成状态变化（包含移除），都需要刷新对应日期范围
+            return [goalTask.dateRange.interval]
+            
+        case let .content(oldValue, newValue):
+            return [oldValue.dateRange.interval, newValue.dateRange.interval]
+            
+        default:
+            return affectedRanges(for: [goalTask])
+        }
+    }
 }

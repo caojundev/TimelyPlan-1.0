@@ -60,12 +60,7 @@ class GoalTaskActionTitleView: UIView {
         }
 
         titleButton.isHidden = false
-        titleButton.title = goalPlan.displayName
-        
-        let name = goalPlan.displayName
-        let color = goalPlan.color ?? GoalConfig.goalPlanDefaultColor
-        let attributedTitle: ASAttributedString = "\("●", .foreground(color)) \(name)"
-        titleButton.title = attributedTitle
+        titleButton.title = goalPlan.attributedTitle
     }
 
     // MARK: - Event Response

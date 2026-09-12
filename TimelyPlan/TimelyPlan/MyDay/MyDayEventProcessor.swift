@@ -32,6 +32,8 @@ class MyDayEventProcessor {
             clickTodoEvent(event)
         case .habit:
             clickHabitEvent(event)
+        case .goal:
+            clickGoalEvent(event)
         case .focus:
             clickFocusEvent(event)
         }
@@ -75,6 +77,12 @@ class MyDayEventProcessor {
     private func clickHabitEvent(_ event: MyDayEvent) {
         TPImpactFeedback.impactWithSoftStyle()
         MyDayPresenter.editHabitEvent(event)
+    }
+    
+    /// 点击目标
+    private func clickGoalEvent(_ event: MyDayEvent) {
+        TPImpactFeedback.impactWithSoftStyle()
+        MyDayPresenter.editGoalEvent(event)
     }
     
 }
