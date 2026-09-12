@@ -193,9 +193,7 @@ class TimelineView: UIView,
         let events = delegate.timelineViewEvents(self) ?? []
         dataSource = TimelineDataSource(events: events)
         
-        // 重置展开状态
-        isAllDayExpanded = false
-        
+        /// 数据更新（如添加记录）时保持全天区块的展开状态
         collectionView.reloadData()
     }
     

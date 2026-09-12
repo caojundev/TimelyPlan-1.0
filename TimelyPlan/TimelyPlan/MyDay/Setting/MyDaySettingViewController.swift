@@ -117,6 +117,22 @@ class MyDaySettingViewController: BaseSettingViewController {
         return cellItem
     }()
     
+    /// 显示目标
+    lazy var showGoalCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show Goal")
+        cellItem.updater = {
+            self?.showGoalCellItem.isOn = MyDaySetting.shared.showGoal
+        }
+
+        cellItem.valueChanged = { isOn in
+            MyDaySetting.shared.showGoal = isOn
+        }
+
+        return cellItem
+    }()
+    
     /// 显示习惯
     lazy var showHabitCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
@@ -153,8 +169,9 @@ class MyDaySettingViewController: BaseSettingViewController {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = normalHeaderHeight
         sectionController.cellItems = [showTodoCellItem,
-                                       showFocusCellItem,
-                                       showHabitCellItem]
+                                       showGoalCellItem,
+                                       showHabitCellItem,
+                                       showFocusCellItem]
         return sectionController
     }()
     

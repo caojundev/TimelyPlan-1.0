@@ -104,47 +104,50 @@ class TimelineNodeView: UIView {
     
     /// 更新线条显示状态
     private func updateLineVisibility() {
-        // 根据样式决定线条的显示
-        switch style {
-        case .independent:
-            // 独立节点：根据位置显示线条
-            switch position {
-            case .first:
+        /// 独立 CALayer 的属性变化默认带有隐式动画，列表刷新时会造成线条闪烁，因此禁用动画
+        executeWithoutAnimation {
+            // 根据样式决定线条的显示
+            switch style {
+            case .independent:
+                // 独立节点：根据位置显示线条
+                switch position {
+                case .first:
+                    topLineLayer.isHidden = true
+                    bottomLineLayer.isHidden = false
+                case .last:
+                    topLineLayer.isHidden = false
+                    bottomLineLayer.isHidden = true
+                case .only:
+                    topLineLayer.isHidden = true
+                    bottomLineLayer.isHidden = true
+                case .middle:
+                    topLineLayer.isHidden = false
+                    bottomLineLayer.isHidden = false
+                }
+                
+            case .connectToPrevious:
+                // 连接到上一个节点：只显示下半部分线条
                 topLineLayer.isHidden = true
-                bottomLineLayer.isHidden = false
-            case .last:
-                topLineLayer.isHidden = false
+                if position == .last {
+                    bottomLineLayer.isHidden = true
+                } else {
+                    bottomLineLayer.isHidden = false
+                }
+                
+            case .connectToNext:
+                // 连接到下一个节点：只显示上半部分线条
                 bottomLineLayer.isHidden = true
-            case .only:
+                if position == .first {
+                    topLineLayer.isHidden = true
+                } else {
+                    topLineLayer.isHidden = false
+                }
+                
+            case .connectToBoth:
+                // 同时连接到上下节点：不显示线条
                 topLineLayer.isHidden = true
                 bottomLineLayer.isHidden = true
-            case .middle:
-                topLineLayer.isHidden = false
-                bottomLineLayer.isHidden = false
             }
-            
-        case .connectToPrevious:
-            // 连接到上一个节点：只显示下半部分线条
-            topLineLayer.isHidden = true
-            if position == .last {
-                bottomLineLayer.isHidden = true
-            } else {
-                bottomLineLayer.isHidden = false
-            }
-            
-        case .connectToNext:
-            // 连接到下一个节点：只显示上半部分线条
-            bottomLineLayer.isHidden = true
-            if position == .first {
-                topLineLayer.isHidden = true
-            } else {
-                topLineLayer.isHidden = false
-            }
-            
-        case .connectToBoth:
-            // 同时连接到上下节点：不显示线条
-            topLineLayer.isHidden = true
-            bottomLineLayer.isHidden = true
         }
     }
     

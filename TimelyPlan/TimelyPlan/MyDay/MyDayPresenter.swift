@@ -35,7 +35,7 @@ class MyDayPresenter {
             return
         }
         
-        GoalPresenter.editGoalTask(task)
+        GoalPresenter.showActionViewController(for: task)
     }
     
     /// 编辑待办事项

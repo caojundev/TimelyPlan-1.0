@@ -103,7 +103,7 @@ extension MyDayTimelineView: TimelineDashedConnectionCellDelegate {
     
     func timelineDashedConnectionCellDidClickAdd(_ cell: TimelineDashedConnectionCell) {
         TPImpactFeedback.impactWithSoftStyle()
-        let addTypes: [EventAddType] = [.calendar, .todo, .habit, .focus]
+        let addTypes: [EventAddType] = [.calendar, .todo, .goal, .habit, .focus]
         let menuController = MyDayEventAddMenuController(addTypes: addTypes)
         menuController.didSelectMenuActionType = { [weak self] type in
             self?.selectAddType(type, with: cell.item)
