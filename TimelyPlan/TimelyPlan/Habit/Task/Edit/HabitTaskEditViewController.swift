@@ -186,13 +186,16 @@ class HabitTaskEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
-    init(task: HabitEditingTask? = nil) {
+    init(task: HabitEditingTask? = nil,
+         editType: EditType? = nil) {
         if let task = task {
             self.editingTask = task
-            self.editType = .modify
         } else {
             self.editingTask = HabitEditingTask()
         }
+        
+        /// 外部未指定时，仍根据是否传入任务判断编辑类型
+        self.editType = editType ?? (task != nil ? .modify : .create)
         
         super.init(style: .insetGrouped)
     }

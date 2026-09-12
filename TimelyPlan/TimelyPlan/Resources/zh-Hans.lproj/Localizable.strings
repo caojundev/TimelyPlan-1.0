@@ -30,8 +30,11 @@
 "Enter goal name" = "输入目标名称";
 "Create Goal" = "创建目标";
 "Edit Goal" = "编辑目标";
-"Goal Settings" = "目标设置";
 
+"New Goal Task" = "新建目标任务";
+"Enter task name" = "输入任务名称";
+
+"Goal Settings" = "目标设置";
 "No Goal" = "无目标";
 "No Archived Goal" = "无归档目标";
 

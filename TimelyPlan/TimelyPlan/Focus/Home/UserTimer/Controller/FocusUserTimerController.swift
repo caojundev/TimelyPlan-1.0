@@ -21,7 +21,7 @@ class FocusUserTimerController {
     }
     
     func createNewTimer(with editingTimer: FocusEditingTimer? = nil) {
-        let vc = FocusTimerEditViewController(timer: editingTimer)
+        let vc = FocusTimerEditViewController(timer: editingTimer, editType: .create)
         vc.didEndEditing = { editingTimer in
             FocusRepository.createTimer(with: editingTimer)
         }

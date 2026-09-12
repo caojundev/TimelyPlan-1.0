@@ -92,7 +92,11 @@ class MyDayEventScheduleEditor {
     
     /// 目标计划编辑
     private static func openScheduleEditor(for task: GoalTask) {
-        GoalPresenter.editGoalTask(task)
+        let vc = MyDayGoalScheduleEditViewController(goalTask: task.editingTask)
+        vc.didEndEditing = { editingTask in
+            GoalRepository.updateGoalTask(task, with: editingTask)
+        }
+        presentAsSheet(vc)
     }
     
     /// 以 sheet 形式展示 ViewController

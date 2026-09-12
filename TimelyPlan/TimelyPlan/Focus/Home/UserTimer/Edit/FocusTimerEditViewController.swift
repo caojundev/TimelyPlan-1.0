@@ -173,13 +173,16 @@ class FocusTimerEditViewController: TPTableSectionsViewController {
         set {}
     }
     
-    init(timer: FocusEditingTimer? = nil) {
+    init(timer: FocusEditingTimer? = nil,
+         editType: EditType? = nil) {
         if let timer = timer {
             self.editingTimer = timer
-            self.editType = .modify
         } else {
             self.editingTimer = FocusEditingTimer()
         }
+        
+        /// 外部未指定时，仍根据是否传入计时器判断编辑类型
+        self.editType = editType ?? (timer != nil ? .modify : .create)
         
         super.init(style: .insetGrouped)
     }

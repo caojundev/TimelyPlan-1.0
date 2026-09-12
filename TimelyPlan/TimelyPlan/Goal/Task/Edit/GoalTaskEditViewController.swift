@@ -270,16 +270,20 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     }()
     
     // MARK: - Initialization
-    init(goalTask: GoalEditingTask? = nil, goalPlan: GoalPlanFeature? = nil) {
+    init(goalTask: GoalEditingTask? = nil,
+         goalPlan: GoalPlanFeature? = nil,
+         editType: EditType? = nil) {
         if let goalTask = goalTask {
             self.editingTask = goalTask
-            self.editType = .modify
         } else {
             var editingTask = GoalEditingTask()
             editingTask.goalPlan = goalPlan ?? .inboxFeature
             self.editingTask = editingTask
         }
         self.initialEditingTask = self.editingTask
+        
+        /// 外部未指定时，仍根据是否传入任务判断编辑类型
+        self.editType = editType ?? (goalTask != nil ? .modify : .create)
         
         super.init(style: .insetGrouped)
     }

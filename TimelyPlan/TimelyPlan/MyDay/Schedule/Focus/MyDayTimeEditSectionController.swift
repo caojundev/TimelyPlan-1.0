@@ -26,7 +26,16 @@ class MyDayTimeEditSectionController: TPTableItemSectionController {
     
     var onStartTimeChanged: ((Int64) -> Void)?
     
+    /// 持续时长变化（仅在允许编辑时长时生效）
+    var onDurationChanged: ((Int64) -> Void)?
+    
     private(set) var startTime: Int64
+    
+    /// 持续时长（秒）
+    var duration: Int64
+    
+    /// 是否允许编辑持续时长（目标任务可编辑，专注计时器不可编辑）
+    let isDurationEditable: Bool
     
     /// 日期
     var date: Date? {
@@ -35,6 +44,20 @@ class MyDayTimeEditSectionController: TPTableItemSectionController {
         }
         
         return nil
+    }
+    
+    /// 结束日期（根据开始时间与持续时长计算）
+    private var endDate: Date? {
+        guard let startDate = date else {
+            return nil
+        }
+        
+        let seconds = Int(duration)
+        guard let endDate = startDate.dateByAddingSeconds(seconds) else {
+            return startDate
+        }
+        
+        return endDate
     }
     
     var timeType: TimeType {
@@ -76,11 +99,30 @@ class MyDayTimeEditSectionController: TPTableItemSectionController {
         return cellItem
     }()
     
+    /// 持续时长
+    lazy var durationCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.imageName = "schedule_duration_24"
+        cellItem.title = resGetString("Duration")
+        cellItem.updater = {
+            self?.updateDurationCellItem()
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editDuration()
+        }
+        
+        return cellItem
+    }()
+    
     override var cellItems: [TPBaseTableCellItem]? {
         get {
             var items: [TPBaseTableCellItem] = [timeTypeCellItem]
             if timeType == .specificTime {
                 items.append(timePickerCellItem)
+                if isDurationEditable {
+                    items.append(durationCellItem)
+                }
             }
             
             return items
@@ -88,9 +130,13 @@ class MyDayTimeEditSectionController: TPTableItemSectionController {
         
         set {}
     }
-
-    init(startTime: Int64) {
+    
+    init(startTime: Int64,
+         duration: Int64 = 60,
+         isDurationEditable: Bool = false) {
         self.startTime = startTime
+        self.duration = duration
+        self.isDurationEditable = isDurationEditable
         super.init()
     }
     
@@ -120,6 +166,53 @@ class MyDayTimeEditSectionController: TPTableItemSectionController {
             startTime = offset
             onStartTimeChanged?(startTime)
         }
+    }
+    
+    // MARK: - 持续时长
+    /// 更新时长单元格
+    private func updateDurationCellItem() {
+        guard let startDate = date, let endDate = endDate else {
+            durationCellItem.valueConfig = .valueText(nil)
+            return
+        }
+        
+        let title = "\(Duration(duration).localizedTitle) → \(endDate.timeString)"
+        let daysCount = startDate.daysBetween(endDate)
+        let valueText: TextRepresentable
+        if daysCount > 0 {
+            let badgeString = "+\(daysCount)"
+            valueText = title.byAppend(badge: badgeString,
+                                       baselineOffset: 6.0,
+                                       font: .boldSystemFont(ofSize: 8.0),
+                                       color: .secondaryLabel)
+        } else {
+            valueText = title
+        }
+        
+        durationCellItem.valueConfig = .valueText(valueText)
+    }
+    
+    /// 编辑持续时长
+    private func editDuration() {
+        let pickerVC = TPDurationPickerViewController()
+        pickerVC.minimumDuration = SECONDS_PER_MINUTE
+        pickerVC.duration = Int(duration)
+        pickerVC.didPickDuration = { [weak self] duration in
+            self?.selectDuration(duration)
+        }
+        
+        pickerVC.popoverShow()
+    }
+    
+    /// 选中持续时长
+    private func selectDuration(_ duration: Duration) {
+        guard self.duration != Int64(duration) else {
+            return
+        }
+        
+        self.duration = Int64(duration)
+        onDurationChanged?(self.duration)
+        adapter?.reloadCell(forItems: [durationCellItem], with: .none)
     }
 }
 
