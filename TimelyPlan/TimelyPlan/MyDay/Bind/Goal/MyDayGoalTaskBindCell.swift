@@ -94,9 +94,12 @@ class MyDayGoalTaskBindCell: TPBaseTableCell, SearchHighlightable {
     var highlightedText: String?
     
     /// 获取默认的正常文本属性
+    /// - Note: 不能使用 nameLabel.textColor（`UIColor(.dm, ...)` 构造的自定义动态色），
+    ///         其放入 NSAttributedString 后不会随 trait 正确解析，暗黑模式下会错误地显示为浅色值；
+    ///         这里统一使用系统动态色 .label（与习惯/专注绑定单元一致）
     var normalAttributes: [NSAttributedString.Key: Any] {
         return [
-            .foregroundColor: infoView.nameLabel.textColor ?? UIColor.label,
+            .foregroundColor: UIColor.label,
             .font: infoView.nameLabel.font ?? .boldSystemFont(ofSize: 14.0)
         ]
     }

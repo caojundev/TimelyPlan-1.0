@@ -114,7 +114,7 @@ class MyDayGoalTaskBindViewController: TPViewController,
     }
     
     func groupTableView(_ tableView: TPGroupTableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return group(at: section) == nil ? 0.0 : 50.0
+        return group(at: section) == nil ? 0.0 : 40.0
     }
     
     func groupTableView(_ tableView: TPGroupTableView, didDequeHeader headerView: UITableViewHeaderFooterView, inSection section: Int) {
@@ -123,7 +123,7 @@ class MyDayGoalTaskBindViewController: TPViewController,
             return
         }
         
-        headerView.contentPadding = UIEdgeInsets(top: 12.0, left: 12.0, bottom: 0.0, right: 0.0)
+        headerView.contentPadding = UIEdgeInsets(top: 10.0, left: 12.0, bottom: 0.0, right: 0.0)
         headerView.title = group.title
     }
     
