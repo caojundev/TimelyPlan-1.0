@@ -63,6 +63,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         HandyRecord.applicationDidEnterBackground()
     }
     
+    // MARK: - 屏幕方向
+    
+    /// 默认支持的界面方向（与应用 Info.plist 中的配置保持一致）
+    private lazy var defaultSupportedInterfaceOrientations: UIInterfaceOrientationMask = {
+        let suffix: String
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            suffix = "~ipad"
+        case .phone:
+            suffix = "~iphone"
+        default:
+            suffix = ""
+        }
+        
+        let info = Bundle.main.infoDictionary
+        let orientations = (info?["UISupportedInterfaceOrientations\(suffix)"] as? [String])
+            ?? (info?["UISupportedInterfaceOrientations"] as? [String])
+            ?? []
+        
+        let mask = orientations.reduce(into: UIInterfaceOrientationMask()) { mask, orientation in
+            switch orientation {
+            case "UIInterfaceOrientationPortrait":
+                mask.insert(.portrait)
+            case "UIInterfaceOrientationPortraitUpsideDown":
+                mask.insert(.portraitUpsideDown)
+            case "UIInterfaceOrientationLandscapeLeft":
+                mask.insert(.landscapeLeft)
+            case "UIInterfaceOrientationLandscapeRight":
+                mask.insert(.landscapeRight)
+            default:
+                break
+            }
+        }
+        
+        return mask.isEmpty ? .portrait : mask
+    }()
+    
+    /// 仅允许翻页时钟等特殊页面自定义支持的屏幕方向，其余页面跟随应用默认配置
+    func application(_ application: UIApplication,
+                     supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if let viewController = topViewController(from: window?.rootViewController),
+           viewController is FlipClockMainViewController {
+            return viewController.supportedInterfaceOrientations
+        }
+        
+        return defaultSupportedInterfaceOrientations
+    }
+    
+    /// 获取当前最顶层的视图控制器
+    private func topViewController(from viewController: UIViewController?) -> UIViewController? {
+        guard let viewController = viewController else {
+            return nil
+        }
+        
+        if let presentedViewController = viewController.presentedViewController {
+            return topViewController(from: presentedViewController)
+        }
+        
+        if let navigationController = viewController as? UINavigationController {
+            return topViewController(from: navigationController.visibleViewController)
+        }
+        
+        if let tabBarController = viewController as? UITabBarController {
+            return topViewController(from: tabBarController.selectedViewController)
+        }
+        
+        return viewController
+    }
+    
     // MARK: - 加载数据
     func setup() {
         AppInitializer.initialize { success in

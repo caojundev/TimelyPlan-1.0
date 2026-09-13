@@ -14,6 +14,7 @@
 		E500276D2F985EB900EF052D /* TPDateRangeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500276C2F985EB900EF052D /* TPDateRangeInfoView.swift */; };
 		E5007F7B2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7A2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift */; };
 		E5007F802DCA0981006AD311 /* TPMinuteUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */; };
+		E5EC0DE100000000000000A1 /* TPSecondUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */; };
 		E500DE522DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE462DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png */; };
 		E500DE532DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE472DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png */; };
 		E500DE542DB09D4500EAEAF7 /* todo_filter_indicator_date_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE482DB09D4500EAEAF7 /* todo_filter_indicator_date_12@3x.png */; };
@@ -2338,6 +2339,7 @@
 		E500276C2F985EB900EF052D /* TPDateRangeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDateRangeInfoView.swift; sourceTree = "<group>"; };
 		E5007F7A2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineLabelIndicator.swift; sourceTree = "<group>"; };
 		E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMinuteUpdater.swift; sourceTree = "<group>"; };
+		E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSecondUpdater.swift; sourceTree = "<group>"; };
 		E500DE462DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_progress_12@3x.png"; sourceTree = "<group>"; };
 		E500DE472DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_date_12@2x.png"; sourceTree = "<group>"; };
 		E500DE482DB09D4500EAEAF7 /* todo_filter_indicator_date_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_date_12@3x.png"; sourceTree = "<group>"; };
@@ -9633,6 +9635,7 @@
 			children = (
 				E54C7C862F5C53E000263B82 /* TPRequestManager.swift */,
 				E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */,
+				E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */,
 				E5BB9D722D3BF0C50089667A /* TPMultipleItemSelection.swift */,
 				E5BB9D712D3BF0C50089667A /* TPWeakProxy.swift */,
 				E5BB9BA02D3BF0C30089667A /* TPWeakDelegateCollection.swift */,
@@ -14023,6 +14026,7 @@
 				E54C7C7F2F5BB1EE00263B82 /* HabitPeriodItem.swift in Sources */,
 				E5BB9D862D3BF0C50089667A /* CGSize+Size.swift in Sources */,
 				E5007F802DCA0981006AD311 /* TPMinuteUpdater.swift in Sources */,
+				E5EC0DE100000000000000A1 /* TPSecondUpdater.swift in Sources */,
 				E5CFD2592F5838E300A898CB /* HabitTaskListGroupHeaderView.swift in Sources */,
 				E5D7D8FC2D43933600EC877A /* FocusRecordEditTimelineSectionController.swift in Sources */,
 				E5BB9E7F2D3BF0C70089667A /* ChartMark.swift in Sources */,
