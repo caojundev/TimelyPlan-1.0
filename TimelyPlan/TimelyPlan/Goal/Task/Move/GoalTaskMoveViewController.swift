@@ -12,8 +12,18 @@ import UIKit
 class GoalTaskMoveViewController: TPViewController,
                                   TPGroupTableViewDelegate {
     
+    struct Config {
+        /// 收件箱分组标识
+        static let inboxGroupIdentifier = "GoalTaskMoveInboxGroup"
+        /// 目标计划分组标识
+        static let goalPlanGroupIdentifier = "GoalTaskMoveGoalPlanGroup"
+    }
+    
     /// 选中目标计划回调
     var didSelectGoalPlan: ((GoalPlan) -> Void)?
+    
+    /// 选中收件箱回调
+    var didSelectInbox: (() -> Void)?
     
     /// 视图模型
     let viewModel: GoalTaskMoveViewModel
@@ -65,9 +75,15 @@ class GoalTaskMoveViewController: TPViewController,
                 return
             }
             
-            let group = GoalPlanGroup(identifier: "GoalPlanSelectGroup")
-            group.goalPlans = self.viewModel.goalPlans
-            self.listView.groups = [group]
+            /// 区块0：收件箱
+            let inboxGroup = GoalPlanGroup(identifier: Config.inboxGroupIdentifier)
+            inboxGroup.goalPlans = [GoalPlan.inboxPlan]
+            
+            /// 区块1：自定义目标计划
+            let goalPlanGroup = GoalPlanGroup(identifier: Config.goalPlanGroupIdentifier)
+            goalPlanGroup.goalPlans = self.viewModel.goalPlans
+            
+            self.listView.groups = [inboxGroup, goalPlanGroup]
             self.listView.reloadData()
         }
     }
@@ -81,6 +97,10 @@ class GoalTaskMoveViewController: TPViewController,
     }
     
     // MARK: - TPGroupTableViewDelegate
+    func groupTableView(_ tableView: TPGroupTableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 1 ? 15.0 : 5.0
+    }
+    
     func groupTableView(_ tableView: TPGroupTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55.0
     }
@@ -102,6 +122,10 @@ class GoalTaskMoveViewController: TPViewController,
             return false
         }
         
+        if goalPlan.identifier == GoalPlanFeature.inboxIdentifier {
+            return viewModel.isSelectedInbox
+        }
+        
         return viewModel.isSelectedGoalPlan(goalPlan)
     }
     
@@ -110,13 +134,29 @@ class GoalTaskMoveViewController: TPViewController,
             return
         }
         
-        selectGoalPlan(goalPlan)
+        if goalPlan.identifier == GoalPlanFeature.inboxIdentifier {
+            selectInbox()
+        } else {
+            selectGoalPlan(goalPlan)
+        }
+    }
+    
+    /// 选中收件箱并关闭
+    private func selectInbox() {
+        TPImpactFeedback.impactWithSoftStyle()
+        didSelectInbox?()
+        dismissSelf()
     }
     
     /// 选中目标计划并关闭
     private func selectGoalPlan(_ goalPlan: GoalPlan) {
         TPImpactFeedback.impactWithSoftStyle()
         didSelectGoalPlan?(goalPlan)
+        dismissSelf()
+    }
+    
+    /// 关闭选择视图
+    private func dismissSelf() {
         if let presentingVC = self.presentingViewController {
             presentingVC.dismiss(animated: true, completion: nil)
         } else {
@@ -139,6 +179,11 @@ class GoalTaskMoveViewModel: GoalPlanViewModel {
     /// 是否为当前选中的目标计划
     func isSelectedGoalPlan(_ goalPlan: GoalPlan) -> Bool {
         return goalPlan.identifier == self.goalPlan?.identifier
+    }
+    
+    /// 是否收件箱（未归属任何目标计划）
+    var isSelectedInbox: Bool {
+        return goalPlan?.isInbox ?? true
     }
 }
 

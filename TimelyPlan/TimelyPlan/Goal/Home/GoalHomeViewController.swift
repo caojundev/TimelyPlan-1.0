@@ -51,9 +51,12 @@ class GoalHomeViewController: TPViewController,
     private lazy var inboxButton: TPImageButton = {
         let button = TPImageButton()
         button.normalImage = resGetImage("todo_list_inbox_24")
-        button.normalImageColor = .white
-        button.normalBackgroundColor = GoalPlanFeature.inboxFeature.color ?? .primary
         button.cornerRadius = .greatestFiniteMagnitude
+        button.borderWidth = 1.0
+        button.imageSize = .mini
+        button.normalBackgroundColor = .secondarySystemGroupedBackground
+        button.normalBorderColor = UIColor.lightGray.withAlphaComponent(0.25)
+        button.normalImageColor = .label
         button.addTarget(self, action: #selector(clickInbox(_:)), for: .touchUpInside)
         return button
     }()

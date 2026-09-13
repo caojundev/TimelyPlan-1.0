@@ -149,10 +149,10 @@ class GanttTimelineView: UIView {
         toggleButton.normalImage = resGetImage("gantt_taskList_toggle_normal_24")
         toggleButton.selectedImage = resGetImage("gantt_taskList_toggle_active_24")
         toggleButton.cornerRadius = .greatestFiniteMagnitude
-        toggleButton.normalBackgroundColor = .systemBackground
+        toggleButton.normalBackgroundColor = .secondarySystemGroupedBackground
         toggleButton.selectedBackgroundColor = .primary
         toggleButton.borderWidth = 1.0
-        toggleButton.normalBorderColor = UIColor.lightGray.withAlphaComponent(0.5)
+        toggleButton.normalBorderColor = UIColor.lightGray.withAlphaComponent(0.25)
         toggleButton.selectedBorderColor = .clear
         toggleButton.normalImageColor = .label
         toggleButton.selectedImageColor = .white
@@ -163,9 +163,9 @@ class GanttTimelineView: UIView {
         // 回到今天按钮
         todayButton.normalImage = resGetImage("gantt_backToday_24")
         todayButton.cornerRadius = .greatestFiniteMagnitude
-        todayButton.normalBackgroundColor = .systemBackground
+        todayButton.normalBackgroundColor = .secondarySystemGroupedBackground
         todayButton.borderWidth = 1.0
-        todayButton.normalBorderColor = UIColor.lightGray.withAlphaComponent(0.5)
+        todayButton.normalBorderColor = UIColor.lightGray.withAlphaComponent(0.25)
         todayButton.normalImageColor = .label
         todayButton.imageSize = .mini
         todayButton.addTarget(self, action: #selector(scrollToTodayTapped), for: .touchUpInside)

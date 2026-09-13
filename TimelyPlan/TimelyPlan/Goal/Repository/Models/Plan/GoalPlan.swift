@@ -125,6 +125,12 @@ class GoalPlan: NSObject, TPHexColorConvertible, SortableIdentifiable {
         
         return false
     }
+    
+    static var inboxPlan: GoalPlan {
+        return GoalPlan(identifier: GoalPlanFeature.inboxIdentifier,
+                        name: resGetString("Inbox"),
+                        colorHex: GoalPlanFeature.inboxFeature.colorHex)
+    }
 }
 
 struct GoalEditingPlan: Equatable {

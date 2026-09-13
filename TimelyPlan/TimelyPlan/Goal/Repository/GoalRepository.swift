@@ -299,6 +299,11 @@ extension GoalRepository {
         taskManager.moveGoalTask(goalTask, to: goalPlan)
     }
     
+    /// 将目标任务移动到收件箱（不归属任何目标计划）
+    static func moveGoalTaskToInbox(_ goalTask: GoalTask) {
+        taskManager.moveGoalTaskToInbox(goalTask)
+    }
+    
 }
 
 // MARK: - 目标记录

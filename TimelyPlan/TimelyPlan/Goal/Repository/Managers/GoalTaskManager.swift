@@ -393,6 +393,29 @@ class GoalTaskManager {
         refreshGoalPlanProgress(in: goalPlan)
     }
     
+    /// 将目标任务移动到收件箱（不归属任何目标计划）
+    func moveGoalTaskToInbox(_ goalTask: GoalTask) {
+        guard !goalTask.planFeature.isInbox,
+              let cdTask = CDGoalTask.getGoalTask(withIdentifier: goalTask.identifier) else {
+            return
+        }
+        
+        /// 记录移动前的目标计划，用于移动后刷新进度
+        let oldPlanContent = cdTask.goalPlan
+        
+        cdTask.updateGoalPlan(.inboxFeature)
+        cdTask.modificationDate = .now
+        
+        let updatedGoalTask = GoalTask(content: cdTask)
+        let change: GoalTaskChange = .move(oldValue: goalTask.goalPlan,
+                                           newValue: updatedGoalTask.goalPlan)
+        updater.didUpdateGoalTask(updatedGoalTask, with: change)
+        HandyRecord.updateChangeCount()
+        
+        /// 移动后刷新原目标整体进度
+        refreshGoalPlanProgress(with: oldPlanContent)
+    }
+    
     // MARK: - 排序
     func reorderGoalTask(_ sourceTask: GoalTask,
                         postion: TodoTaskInsertPosition,

@@ -430,6 +430,10 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
             self?.editingTask.goalPlan = goalPlan.feature
             self?.planInfoView.goalPlan = goalPlan.feature
         }
+        vc.didSelectInbox = { [weak self] in
+            self?.editingTask.goalPlan = .inboxFeature
+            self?.planInfoView.goalPlan = .inboxFeature
+        }
         
         let navController = UINavigationController(rootViewController: vc)
         navController.modalPresentationStyle = .formSheet

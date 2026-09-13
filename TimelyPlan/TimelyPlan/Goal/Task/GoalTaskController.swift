@@ -39,6 +39,9 @@ class GoalTaskController {
         vc.didSelectGoalPlan = { goalPlan in
             GoalRepository.moveGoalTask(task, to: goalPlan)
         }
+        vc.didSelectInbox = {
+            GoalRepository.moveGoalTaskToInbox(task)
+        }
         
         let navController = UINavigationController(rootViewController: vc)
         navController.modalPresentationStyle = .formSheet
