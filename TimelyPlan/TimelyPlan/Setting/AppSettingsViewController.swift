@@ -168,6 +168,26 @@ class AppSettingsViewController: BaseSettingViewController,
     
     private let cloudStatusViewModel = iCloudStatusViewModel()
     
+    // MARK: - 翻页时钟
+    lazy var flipClockCellItem: TPImageInfoTableCellItem = {
+        let cellItem = TPImageInfoTableCellItem()
+        cellItem.imageConfig = imageConfig
+        cellItem.imageName = "setting_flipClock_32"
+        cellItem.title = resGetString("Flip Clock")
+        cellItem.didSelectHandler = { [weak self] in
+            self?.clickFlipClock()
+        }
+        
+        return cellItem
+    }()
+
+    lazy var flipClockSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = normalHeaderHeight
+        sectionController.cellItems = [flipClockCellItem]
+        return sectionController
+    }()
+    
     deinit {
         cloudStatusViewModel.stopObserving()
     }
@@ -179,7 +199,8 @@ class AppSettingsViewController: BaseSettingViewController,
             navigationItem.leftBarButtonItems = [sidebarButtonItem]
         }
     
-        sectionControllers = [generalSectionController,
+        sectionControllers = [flipClockSectionController,
+                              generalSectionController,
                               dataSectionController,
                               moduleSectionController,
                               supportUsSectionController,
@@ -276,4 +297,11 @@ class AppSettingsViewController: BaseSettingViewController,
         navigationController?.pushViewController(previewVC, animated: true)
     #endif
     }
+    
+    private func clickFlipClock() {
+        let vc = FlipClockMainViewController()
+        vc.modalPresentationStyle = .fullScreen
+        vc.show()
+    }
+    
 }

@@ -151,7 +151,7 @@ class GoalTaskBaseInfoView: UIView {
         }
     }
     
-    var progressHeight: CGFloat = 6.0 {
+    var progressHeight: CGFloat = 4.0 {
         didSet {
             if progressHeight != oldValue {
                 setNeedsLayout()

@@ -932,6 +932,9 @@
 		E558978B3055933D001F8F22 /* GoalTaskBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897883055933C001F8F22 /* GoalTaskBindViewController.swift */; };
 		E558978C3055933D001F8F22 /* GoalTaskBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897893055933C001F8F22 /* GoalTaskBindCell.swift */; };
 		E558978D3055933D001F8F22 /* GoalTaskBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558978A3055933C001F8F22 /* GoalTaskBindSearchResultSectionController.swift */; };
+		E558979030569BAD001F8F22 /* setting_flipClock_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E558978E30569BAB001F8F22 /* setting_flipClock_32@2x.png */; };
+		E558979130569BAD001F8F22 /* setting_flipClock_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E558978F30569BAD001F8F22 /* setting_flipClock_32@3x.png */; };
+		E55897943056A382001F8F22 /* FlipClockMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897933056A382001F8F22 /* FlipClockMainViewController.swift */; };
 		E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */; };
 		E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */; };
 		E55A7B762D45F873000D224C /* timer_start_circle_fill_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */; };
@@ -3257,6 +3260,9 @@
 		E55897883055933C001F8F22 /* GoalTaskBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTaskBindViewController.swift; sourceTree = "<group>"; };
 		E55897893055933C001F8F22 /* GoalTaskBindCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTaskBindCell.swift; sourceTree = "<group>"; };
 		E558978A3055933C001F8F22 /* GoalTaskBindSearchResultSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTaskBindSearchResultSectionController.swift; sourceTree = "<group>"; };
+		E558978E30569BAB001F8F22 /* setting_flipClock_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_flipClock_32@2x.png"; sourceTree = "<group>"; };
+		E558978F30569BAD001F8F22 /* setting_flipClock_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_flipClock_32@3x.png"; sourceTree = "<group>"; };
+		E55897933056A382001F8F22 /* FlipClockMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipClockMainViewController.swift; sourceTree = "<group>"; };
 		E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_pause_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@2x.png"; sourceTree = "<group>"; };
@@ -7433,6 +7439,14 @@
 			path = Goal;
 			sourceTree = "<group>";
 		};
+		E55897923056A34A001F8F22 /* FlipClock */ = {
+			isa = PBXGroup;
+			children = (
+				E55897933056A382001F8F22 /* FlipClockMainViewController.swift */,
+			);
+			path = FlipClock;
+			sourceTree = "<group>";
+		};
 		E55A7B672D45F873000D224C /* timer */ = {
 			isa = PBXGroup;
 			children = (
@@ -7516,6 +7530,7 @@
 				E53632672FAB72BF0095DFEC /* Quadrant */,
 				E5D7D7B42D43922900EC877A /* Focus */,
 				E59243C62F4FFC6400CA2393 /* Habit */,
+				E55897923056A34A001F8F22 /* FlipClock */,
 				E55549632F76C0F700C9460D /* Setting */,
 				E5BBA1122D3BFC380089667A /* Resources */,
 			);
@@ -7738,6 +7753,8 @@
 		E563F1882FE7CEB200DF86BB /* settting */ = {
 			isa = PBXGroup;
 			children = (
+				E558978E30569BAB001F8F22 /* setting_flipClock_32@2x.png */,
+				E558978F30569BAD001F8F22 /* setting_flipClock_32@3x.png */,
 				E563F1D02FE8E97400DF86BB /* setting_hapticFeedback_32@2x.png */,
 				E563F1CF2FE8E97300DF86BB /* setting_hapticFeedback_32@3x.png */,
 				E5FF4EC82FEB70B100282416 /* setting_language_32@2x.png */,
@@ -12428,6 +12445,7 @@
 				E56B945F2F8CD6D0001E488B /* todo_group_type_priority_24@2x.png in Resources */,
 				E5168BD02F545B400000A760 /* dateRange_background_end@3x.png in Resources */,
 				E500E3832FC59BE600252011 /* todo_search_option_note_16@3x.png in Resources */,
+				E558979130569BAD001F8F22 /* setting_flipClock_32@3x.png in Resources */,
 				E5BB9A8B2D3BEF0D0089667A /* todo_smartlist_completed_24@2x.png in Resources */,
 				E555281D2FB5C3200093DD7E /* todo_smartlist_inbox_80@2x.png in Resources */,
 				E56B94AE2F8FB56A001E488B /* todo_task_action_addToMyDay_24@2x.png in Resources */,
@@ -12897,6 +12915,7 @@
 				E51350A4302B1A8B000E9871 /* myDay_calendar_24@2x.png in Resources */,
 				E5259B1B3018732300A6D253 /* myDayEventAdd_habit_24@3x.png in Resources */,
 				E56B94842F8CDB42001E488B /* todo_sort_type_dueDate_24@2x.png in Resources */,
+				E558979030569BAD001F8F22 /* setting_flipClock_32@2x.png in Resources */,
 				E5FAA9EE304E4B5D00C9CCD8 /* goal_task_completionStatus_24@3x.png in Resources */,
 				E55A7B942D46361D000D224C /* chevron_upDown_16@2x.png in Resources */,
 				E51F940A3000993300734910 /* calendar_list_24@2x.png in Resources */,
@@ -13452,6 +13471,7 @@
 				E5D7D9232D43933700EC877A /* FocusTimerStartCell.swift in Sources */,
 				E53F329B2F68EB5600B85B65 /* HabitReportWeeklyCell.swift in Sources */,
 				E5E9F7A72FC2E81A00717004 /* TodoTaskSearchViewModel.swift in Sources */,
+				E55897943056A382001F8F22 /* FlipClockMainViewController.swift in Sources */,
 				E51DF20B2F84965100D6BCE3 /* TodoTrashTaskListViewController.swift in Sources */,
 				E5BB9DED2D3BF0C60089667A /* Date+Month.swift in Sources */,
 				E5D7D7F02D43923800EC877A /* FocusSession+Extensions.swift in Sources */,

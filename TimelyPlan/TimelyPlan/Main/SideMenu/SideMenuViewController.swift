@@ -143,7 +143,6 @@ class SideMenuViewController: TPTableViewController,
             delegate?.sideMenuViewController(self, didSelect: menuType)
             adapter.updateCheckmarks(animated: true)
         } else {
-            
             /// 关闭侧边栏
             delegate?.sideMenuViewControllerHideSideMenu(self)
         }

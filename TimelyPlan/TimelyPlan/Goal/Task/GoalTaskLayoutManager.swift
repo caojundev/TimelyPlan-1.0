@@ -51,7 +51,7 @@ struct GoalTaskLayoutConfig: Equatable {
     var progressTopMargin: CGFloat = 8.0
     
     /// 进度条高度
-    var progressHeight: CGFloat = 6.0
+    var progressHeight: CGFloat = 4.0
 }
 
 /// 目标任务布局管理器
