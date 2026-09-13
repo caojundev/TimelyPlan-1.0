@@ -28,6 +28,12 @@ class TaskBindSearchResultViewController: TPTableSectionsViewController,
         return sectionController
     }()
     
+    lazy var goalResultSectionController: GoalTaskBindSearchResultSectionController = {
+        let sectionController = GoalTaskBindSearchResultSectionController()
+        sectionController.delegate = self
+        return sectionController
+    }()
+    
     init(selectedTaskFeature: TaskFeature?) {
         self.selectedTaskFeature = selectedTaskFeature
         super.init(style: .insetGrouped)
@@ -50,7 +56,8 @@ class TaskBindSearchResultViewController: TPTableSectionsViewController,
         wrapperView.isKeyboardAdjusterEnabled = true
         wrapperView.keyboardDismissMode = .onDrag
         sectionControllers = [todoResultSectionController,
-                              habitResultSectionController]
+                              habitResultSectionController,
+                              goalResultSectionController]
         reloadData()
     }
     

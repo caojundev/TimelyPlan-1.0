@@ -21,7 +21,7 @@ class TaskBindViewController: TPContainerViewController,
     private(set) var taskType: TaskType
     
     /// 允许选择的任务类型
-    private(set) var allowTypes: [TaskType] = [.todo, .habit]
+    private(set) var allowTypes: [TaskType] = [.todo, .habit, .goal]
 
     /// 当前选中任务
     private(set) var task: TaskFeature?
@@ -82,7 +82,7 @@ class TaskBindViewController: TPContainerViewController,
     
     init(task: TaskFeature?,
          type: TaskType,
-         allowTypes: [TaskType] = [.todo, .habit]) {
+         allowTypes: [TaskType] = [.todo, .habit, .goal]) {
         self.taskType = type
         self.allowTypes = allowTypes
         self.task = task
@@ -148,6 +148,8 @@ class TaskBindViewController: TPContainerViewController,
             return newTodoTaskBindViewController()
         case .habit:
             return newHabitTaskBindViewController()
+        case .goal:
+            return newGoalTaskBindViewController()
         default:
             return UIViewController()
         }
@@ -163,6 +165,13 @@ class TaskBindViewController: TPContainerViewController,
     /// 创建习惯绑定视图控制器
     private func newHabitTaskBindViewController() -> HabitTaskBindViewController {
         let vc = HabitTaskBindViewController(selectedFeature: task)
+        vc.delegate = self
+        return vc
+    }
+    
+    /// 创建目标绑定视图控制器
+    private func newGoalTaskBindViewController() -> GoalTaskBindViewController {
+        let vc = GoalTaskBindViewController(selectedFeature: task)
         vc.delegate = self
         return vc
     }

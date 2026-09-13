@@ -929,6 +929,9 @@
 		E558978230554BC7001F8F22 /* MyDayGoalBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558978130554BC7001F8F22 /* MyDayGoalBindSearchResultSectionController.swift */; };
 		E558978430554BD9001F8F22 /* MyDayGoalTaskBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558978330554BD9001F8F22 /* MyDayGoalTaskBindViewController.swift */; };
 		E558978630554C10001F8F22 /* MyDayGoalTaskBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558978530554C10001F8F22 /* MyDayGoalTaskBindCell.swift */; };
+		E558978B3055933D001F8F22 /* GoalTaskBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897883055933C001F8F22 /* GoalTaskBindViewController.swift */; };
+		E558978C3055933D001F8F22 /* GoalTaskBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897893055933C001F8F22 /* GoalTaskBindCell.swift */; };
+		E558978D3055933D001F8F22 /* GoalTaskBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558978A3055933C001F8F22 /* GoalTaskBindSearchResultSectionController.swift */; };
 		E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */; };
 		E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */; };
 		E55A7B762D45F873000D224C /* timer_start_circle_fill_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */; };
@@ -3251,6 +3254,9 @@
 		E558978130554BC7001F8F22 /* MyDayGoalBindSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalBindSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E558978330554BD9001F8F22 /* MyDayGoalTaskBindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalTaskBindViewController.swift; sourceTree = "<group>"; };
 		E558978530554C10001F8F22 /* MyDayGoalTaskBindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalTaskBindCell.swift; sourceTree = "<group>"; };
+		E55897883055933C001F8F22 /* GoalTaskBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTaskBindViewController.swift; sourceTree = "<group>"; };
+		E55897893055933C001F8F22 /* GoalTaskBindCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTaskBindCell.swift; sourceTree = "<group>"; };
+		E558978A3055933C001F8F22 /* GoalTaskBindSearchResultSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTaskBindSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_pause_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@2x.png"; sourceTree = "<group>"; };
@@ -7417,6 +7423,16 @@
 			path = Goal;
 			sourceTree = "<group>";
 		};
+		E55897873055933C001F8F22 /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				E55897883055933C001F8F22 /* GoalTaskBindViewController.swift */,
+				E55897893055933C001F8F22 /* GoalTaskBindCell.swift */,
+				E558978A3055933C001F8F22 /* GoalTaskBindSearchResultSectionController.swift */,
+			);
+			path = Goal;
+			sourceTree = "<group>";
+		};
 		E55A7B672D45F873000D224C /* timer */ = {
 			isa = PBXGroup;
 			children = (
@@ -10715,6 +10731,7 @@
 				E55549512F762E9700C9460D /* TaskBindViewController.swift */,
 				E555495D2F76867800C9460D /* SearchResult */,
 				E500E3B02FC9197500252011 /* Todo */,
+				E55897873055933C001F8F22 /* Goal */,
 				E55549572F7666F200C9460D /* Habit */,
 			);
 			path = Bind;
@@ -13557,6 +13574,7 @@
 				E5E8C9EE2F702163006728C5 /* CDFocusTimer+Extensions.swift in Sources */,
 				E529ACFC2F7E94C8000EA2F1 /* TodoListDetailViewController.swift in Sources */,
 				E51F941E3005252900734910 /* MyDayEditSectionController.swift in Sources */,
+				E558978B3055933D001F8F22 /* GoalTaskBindViewController.swift in Sources */,
 				E50D025F2F55A8C100E93977 /* TaskDateRangeView.swift in Sources */,
 				E5EFB1622F591312000FFDF4 /* HabitTaskManager.swift in Sources */,
 				E50BB67F2D5751FC00D316FD /* TPImageAccessoryConfig.swift in Sources */,
@@ -13797,6 +13815,7 @@
 				E50A7CEF2F8A401D0074F1A3 /* TodoTaskEditStepSectionController.swift in Sources */,
 				E5BB9B4F2D3BEF920089667A /* WKInterfaceButtonExtension.swift in Sources */,
 				E5BB9D852D3BF0C50089667A /* LayoutConstants.swift in Sources */,
+				E558978D3055933D001F8F22 /* GoalTaskBindSearchResultSectionController.swift in Sources */,
 				E53114B430412EFF0022D8D7 /* GanttEventChangeObserver.swift in Sources */,
 				E541555B2F49A415000B2972 /* FocusRecordListDetailCell.swift in Sources */,
 				E52E481B2F8A07EE00B8CD25 /* TPImageInfoButton.swift in Sources */,
@@ -14685,6 +14704,7 @@
 				E56A7BEB2FFD01630068410D /* CalendarExpandWeekView.swift in Sources */,
 				E5BB9EE82D3BF0C80089667A /* TFPopoverPosition.swift in Sources */,
 				E57CC5C12F7F9FE700ADDBA4 /* TodoSort.swift in Sources */,
+				E558978C3055933D001F8F22 /* GoalTaskBindCell.swift in Sources */,
 				E5D7D91B2D43933700EC877A /* FocusStatsHistoryDaySectionController.swift in Sources */,
 				E5D7D7E52D43923800EC877A /* FocusCountdownConfig.swift in Sources */,
 				E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */,
