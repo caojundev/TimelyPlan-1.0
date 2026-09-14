@@ -15,6 +15,8 @@ struct BubbleMenuItem {
 
 class BubbleMenuView: UIView {
     
+    var onSelectMenuItem: ((BubbleMenuItem) -> Void)?
+    
     // MARK: - 配置
     private let buttonSize: CGFloat = 56.0
     private let menuItemHeight: CGFloat = 50.0
@@ -279,7 +281,8 @@ class BubbleMenuView: UIView {
     
     @objc private func menuItemTapped(_ sender: UITapGestureRecognizer) {
         guard let index = sender.view?.tag else { return }
-        print("点击了: \(menuItems[index].title)")
+        let menuItem = menuItems[index]
+        onSelectMenuItem?(menuItem)
         closeMenu()
     }
 }

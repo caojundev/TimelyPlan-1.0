@@ -26,6 +26,14 @@
 "Settings" = "设置";
 
 ///**********************倒数日*********************///
+"Untitled Countdown" = "未命名倒数日";
+"New Countdown" = "新建倒数日";
+"Edit Countdown" = "编辑倒数日";
+"Fill in the countdown name" = "输入倒数日名称";
+"Target Date" = "目标日期";
+"Anniversary" = "纪念日";
+"Birthday" = "生日";
+"Age" = "年龄";
 
 
 ///**********************目标*********************///

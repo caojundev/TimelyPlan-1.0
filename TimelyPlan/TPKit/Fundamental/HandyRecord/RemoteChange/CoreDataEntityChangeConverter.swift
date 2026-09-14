@@ -172,6 +172,14 @@ struct GoalTaskConverter: CoreDataEntityConvertible {
     static func fromCoreData(_ object: CDGoalTask) -> GoalTask? { GoalTask(content: object) }
 }
 
+// CountdownEvent
+struct CountdownEventConverter: CoreDataEntityConvertible {
+    typealias CoreDataType = CDCountdownEvent
+    typealias DomainType = CountdownEvent
+    static var entityName: String { EntityName.countdownEvent.rawValue }
+    static func fromCoreData(_ object: CDCountdownEvent) -> CountdownEvent? { CountdownEvent(content: object) }
+}
+
 // KeyValueStore
 struct KeyValueStoreConverter: CoreDataEntityConvertible {
     typealias CoreDataType = KeyValueEntry
@@ -312,5 +320,10 @@ extension CoreDataRemoteChangeManager.ChangeInfo {
     func extractKeyValueStore() -> EntityChangeResults<KeyValueEntry>? {
         guard let changes = changesByEntity[EntityName.keyValueStore.rawValue] else { return nil }
         return EntityChangeConverter.shared.convert(changes: changes, converterType: KeyValueStoreConverter.self)
+    }
+    
+    func extractCountdownEvent() -> EntityChangeResults<CountdownEvent>? {
+        guard let changes = changesByEntity[EntityName.countdownEvent.rawValue] else { return nil }
+        return EntityChangeConverter.shared.convert(changes: changes, converterType: CountdownEventConverter.self)
     }
 }

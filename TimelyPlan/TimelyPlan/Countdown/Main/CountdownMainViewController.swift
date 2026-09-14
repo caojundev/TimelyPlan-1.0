@@ -73,8 +73,6 @@ class CountdownMainViewController: TPViewController,
         }
 
         TPImpactFeedback.impactWithLightStyle()
-        // 隐藏主控制器上的加号按钮（视觉上交给 BubbleMenuView 里的关闭按钮接管）
-        addView.isHidden = true
         
         // 创建气泡菜单视图（frame 传主视图的 bounds，triggerButtonFrame 传加号按钮的 frame）
         let bubbleMenu = BubbleMenuView(
@@ -83,9 +81,8 @@ class CountdownMainViewController: TPViewController,
             menuItems: menuItems
         )
         
-        // 菜单关闭后的回调：恢复加号按钮
-        bubbleMenu.onDismiss = { [weak self] in
-            addView.isHidden = false
+        bubbleMenu.onSelectMenuItem = { [weak self] menuItem in
+            CountdownPresenter.createNewEvent()
         }
         
         // 添加到主视图并展示
