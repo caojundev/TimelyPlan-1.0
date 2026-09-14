@@ -22,9 +22,13 @@
 "Calendar" = "日历";
 "Focus" = "专注";
 "Habit" = "习惯";
+"Countdown" = "倒数日";
 "Settings" = "设置";
 
-///**********************目标  *********************///
+///**********************倒数日*********************///
+
+
+///**********************目标*********************///
 "Untitled Goal" = "未命名目标";
 "Tap goal to view details" = "点击目标查看详情";
 "Enter goal name" = "输入目标名称";
@@ -414,7 +418,7 @@
 "Pomodoro" = "番茄钟";
 "Short Break" = "短休息";
 "Long Break" = "长休息";
-"Countdown" = "倒计时";
+"Countdown Timer" = "倒计时";
 "Stopwatch" = "正计时";
 "Counting from zero" = "从零累加";
 "Start Focus" = "开始专注";

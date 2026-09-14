@@ -72,7 +72,13 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         vc.sidebarController = sidebarController
         return UINavigationController(rootViewController: vc)
     }()
-    
+        
+    var countdownViewController: UIViewController {
+        let vc = CountdownMainViewController()
+        vc.sidebarController = sidebarController
+        return UINavigationController(rootViewController: vc)
+    }
+
     var settingsViewController: UIViewController {
         let vc = AppSettingsViewController()
         vc.sidebarController = sidebarController
@@ -152,6 +158,8 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
             vc = focusViewController
         case .habit:
             vc = habitViewController
+        case .countdown:
+            vc = countdownViewController
         case .settings:
             vc = settingsViewController
         }

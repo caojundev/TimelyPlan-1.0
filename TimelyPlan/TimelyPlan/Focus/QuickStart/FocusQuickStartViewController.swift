@@ -16,7 +16,7 @@ enum FocusQuickStartEditType: Int, Comparable, TPMenuRepresentable {
     
     static func titles() -> [String] {
         return ["Pomodoro",
-                "Countdown",
+                "Countdown Timer",
                 "Stopwatch",
                 "Custom Timer"]
     }

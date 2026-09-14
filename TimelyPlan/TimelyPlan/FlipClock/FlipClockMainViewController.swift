@@ -24,7 +24,7 @@ class FlipClockMainViewController: TPViewController {
     
     /// 时钟视图
     lazy var clockView: FlipClockView = {
-        let view = FlipClockView()
+        let view = FlipClockView(frame: view.bounds)
         view.autoHideHour = false
         return view
     }()
@@ -39,18 +39,9 @@ class FlipClockMainViewController: TPViewController {
         super.viewDidLoad()
         view.addSubview(topbar)
         view.addSubview(clockView)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         updater.start { [weak self] in
             self?.updateClock()
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        updater.stop()
     }
     
     override func viewWillLayoutSubviews() {
@@ -71,7 +62,6 @@ class FlipClockMainViewController: TPViewController {
         return .black
     }
     
-    
     // MARK: - Clock
     
     /// 当前时间对应的当天已过秒数
@@ -90,38 +80,19 @@ class FlipClockMainViewController: TPViewController {
     
     
     // MARK: - Event Response
-    
     func clickClose() {
-        let windowScene = view.window?.windowScene
-        dismiss(animated: true) {
-            FlipClockMainViewController.restorePortraitOrientation(in: windowScene)
-        }
+        dismiss(animated: true)
     }
-    
-    /// 关闭翻页时钟后恢复竖屏，避免外部页面停留在横屏
-    private static func restorePortraitOrientation(in windowScene: UIWindowScene?) {
-        guard let windowScene = windowScene else {
-            return
-        }
-        
-        if #available(iOS 16.0, *) {
-            #warning("iOS 16.0 打开注释")
-//            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
-        } else {
-            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-            UIViewController.attemptRotationToDeviceOrientation()
-        }
-    }
-    
-    
-    // MARK: - Interface Orientation
     
     override var shouldAutorotate: Bool {
-        return true
+        return false
     }
     
-    /// 仅本视图控制器支持横屏和竖屏
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .landscapeRight
+    }
+
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .allButUpsideDown
+        return [.landscapeRight]
     }
 }

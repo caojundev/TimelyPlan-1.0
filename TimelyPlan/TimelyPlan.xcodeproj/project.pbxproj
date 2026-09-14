@@ -14,7 +14,6 @@
 		E500276D2F985EB900EF052D /* TPDateRangeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E500276C2F985EB900EF052D /* TPDateRangeInfoView.swift */; };
 		E5007F7B2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7A2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift */; };
 		E5007F802DCA0981006AD311 /* TPMinuteUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */; };
-		E5EC0DE100000000000000A1 /* TPSecondUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */; };
 		E500DE522DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE462DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png */; };
 		E500DE532DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE472DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png */; };
 		E500DE542DB09D4500EAEAF7 /* todo_filter_indicator_date_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E500DE482DB09D4500EAEAF7 /* todo_filter_indicator_date_12@3x.png */; };
@@ -936,6 +935,10 @@
 		E558979030569BAD001F8F22 /* setting_flipClock_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E558978E30569BAB001F8F22 /* setting_flipClock_32@2x.png */; };
 		E558979130569BAD001F8F22 /* setting_flipClock_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E558978F30569BAD001F8F22 /* setting_flipClock_32@3x.png */; };
 		E55897943056A382001F8F22 /* FlipClockMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897933056A382001F8F22 /* FlipClockMainViewController.swift */; };
+		E55897983056D5AE001F8F22 /* sideMenu_countdown_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55897963056D5AE001F8F22 /* sideMenu_countdown_40@2x.png */; };
+		E55897993056D5AE001F8F22 /* sideMenu_countdown_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55897973056D5AE001F8F22 /* sideMenu_countdown_40@3x.png */; };
+		E558979C3056DF11001F8F22 /* CountdownMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558979B3056DF10001F8F22 /* CountdownMainViewController.swift */; };
+		E558979E3056E124001F8F22 /* BubbleMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558979D3056E124001F8F22 /* BubbleMenuView.swift */; };
 		E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */; };
 		E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */; };
 		E55A7B762D45F873000D224C /* timer_start_circle_fill_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */; };
@@ -2189,6 +2192,7 @@
 		E5E9F7C02FC50BD800717004 /* todo_search_history_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E9F7BE2FC50BD700717004 /* todo_search_history_24@3x.png */; };
 		E5EAD1E62D5C477B00894A92 /* TPAccessoryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EAD1E52D5C477B00894A92 /* TPAccessoryTitleView.swift */; };
 		E5EAD1E82D5C5EDD00894A92 /* TPImageTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EAD1E72D5C5EDD00894A92 /* TPImageTitleView.swift */; };
+		E5EC0DE100000000000000A1 /* TPSecondUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */; };
 		E5EFB1602F591120000FFDF4 /* HabitRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB15F2F591120000FFDF4 /* HabitRepository.swift */; };
 		E5EFB1622F591312000FFDF4 /* HabitTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB1612F591312000FFDF4 /* HabitTaskManager.swift */; };
 		E5EFB1642F591354000FFDF4 /* HabitTaskProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB1632F591354000FFDF4 /* HabitTaskProcessorUpdater.swift */; };
@@ -2339,7 +2343,6 @@
 		E500276C2F985EB900EF052D /* TPDateRangeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDateRangeInfoView.swift; sourceTree = "<group>"; };
 		E5007F7A2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineLabelIndicator.swift; sourceTree = "<group>"; };
 		E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMinuteUpdater.swift; sourceTree = "<group>"; };
-		E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSecondUpdater.swift; sourceTree = "<group>"; };
 		E500DE462DB09D4500EAEAF7 /* todo_filter_indicator_progress_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_progress_12@3x.png"; sourceTree = "<group>"; };
 		E500DE472DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_date_12@2x.png"; sourceTree = "<group>"; };
 		E500DE482DB09D4500EAEAF7 /* todo_filter_indicator_date_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_indicator_date_12@3x.png"; sourceTree = "<group>"; };
@@ -3265,6 +3268,10 @@
 		E558978E30569BAB001F8F22 /* setting_flipClock_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_flipClock_32@2x.png"; sourceTree = "<group>"; };
 		E558978F30569BAD001F8F22 /* setting_flipClock_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting_flipClock_32@3x.png"; sourceTree = "<group>"; };
 		E55897933056A382001F8F22 /* FlipClockMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipClockMainViewController.swift; sourceTree = "<group>"; };
+		E55897963056D5AE001F8F22 /* sideMenu_countdown_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_countdown_40@2x.png"; sourceTree = "<group>"; };
+		E55897973056D5AE001F8F22 /* sideMenu_countdown_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_countdown_40@3x.png"; sourceTree = "<group>"; };
+		E558979B3056DF10001F8F22 /* CountdownMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMainViewController.swift; sourceTree = "<group>"; };
+		E558979D3056E124001F8F22 /* BubbleMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleMenuView.swift; sourceTree = "<group>"; };
 		E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_pause_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@2x.png"; sourceTree = "<group>"; };
@@ -4535,6 +4542,7 @@
 		E5E9F7BE2FC50BD700717004 /* todo_search_history_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_search_history_24@3x.png"; sourceTree = "<group>"; };
 		E5EAD1E52D5C477B00894A92 /* TPAccessoryTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAccessoryTitleView.swift; sourceTree = "<group>"; };
 		E5EAD1E72D5C5EDD00894A92 /* TPImageTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageTitleView.swift; sourceTree = "<group>"; };
+		E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSecondUpdater.swift; sourceTree = "<group>"; };
 		E5EFB15F2F591120000FFDF4 /* HabitRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRepository.swift; sourceTree = "<group>"; };
 		E5EFB1612F591312000FFDF4 /* HabitTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskManager.swift; sourceTree = "<group>"; };
 		E5EFB1632F591354000FFDF4 /* HabitTaskProcessorUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskProcessorUpdater.swift; sourceTree = "<group>"; };
@@ -7449,6 +7457,15 @@
 			path = FlipClock;
 			sourceTree = "<group>";
 		};
+		E558979A3056DE27001F8F22 /* Countdown */ = {
+			isa = PBXGroup;
+			children = (
+				E558979B3056DF10001F8F22 /* CountdownMainViewController.swift */,
+				E558979D3056E124001F8F22 /* BubbleMenuView.swift */,
+			);
+			path = Countdown;
+			sourceTree = "<group>";
+		};
 		E55A7B672D45F873000D224C /* timer */ = {
 			isa = PBXGroup;
 			children = (
@@ -7532,6 +7549,7 @@
 				E53632672FAB72BF0095DFEC /* Quadrant */,
 				E5D7D7B42D43922900EC877A /* Focus */,
 				E59243C62F4FFC6400CA2393 /* Habit */,
+				E558979A3056DE27001F8F22 /* Countdown */,
 				E55897923056A34A001F8F22 /* FlipClock */,
 				E55549632F76C0F700C9460D /* Setting */,
 				E5BBA1122D3BFC380089667A /* Resources */,
@@ -10762,6 +10780,8 @@
 			children = (
 				E563F1AB2FE8082900DF86BB /* sideMenu_24@2x.png */,
 				E563F1AC2FE8082900DF86BB /* sideMenu_24@3x.png */,
+				E55897963056D5AE001F8F22 /* sideMenu_countdown_40@2x.png */,
+				E55897973056D5AE001F8F22 /* sideMenu_countdown_40@3x.png */,
 				E51E5F9C303A8DBD00ACF30C /* sideMenu_timeline_40@2x.png */,
 				E51E5F9D303A8DBD00ACF30C /* sideMenu_timeline_40@3x.png */,
 				E54A067C303BDC67001FF4A1 /* sideMenu_goal_40@2x.png */,
@@ -12436,6 +12456,7 @@
 				E56B94882F8CDB42001E488B /* todo_sort_type_modificationDate_24@3x.png in Resources */,
 				E515AD722D3CC5E600AA9AF2 /* ellipsis_24@3x.png in Resources */,
 				E515AD592D3CB2F900AA9AF2 /* LaunchLogo@3x.png in Resources */,
+				E55897993056D5AE001F8F22 /* sideMenu_countdown_40@3x.png in Resources */,
 				E55E4BD32F9336170068E032 /* calendar_23_24@3x.png in Resources */,
 				E50D02592F55860B00E93977 /* habit_time_afternoon_24@3x.png in Resources */,
 				E5BA9A8A3052431C0044106F /* goal_task_action_move_24@2x.png in Resources */,
@@ -12578,6 +12599,7 @@
 				E55E4BFE2F9336170068E032 /* calendar_20_24@2x.png in Resources */,
 				E5F2BAD22D532316007DDCD4 /* xmark_circle_fill_12@2x.png in Resources */,
 				E50D94CA2D45224500F57957 /* archive_24@3x.png in Resources */,
+				E55897983056D5AE001F8F22 /* sideMenu_countdown_40@2x.png in Resources */,
 				E5BB9A932D3BEF0D0089667A /* todo_smartlist_upcoming_24@2x.png in Resources */,
 				E526D4072F6D7479005C1DED /* habit_menu_editLog_24@2x.png in Resources */,
 				E5E276F12D3DF0B4004EC522 /* todo_list_inbox_24@2x.png in Resources */,
@@ -13533,6 +13555,7 @@
 				E5BB9D882D3BF0C60089667A /* UITableViewCell+Extension.swift in Sources */,
 				E5D7D9162D43933700EC877A /* FocusStatsYearlyViewController.swift in Sources */,
 				E53B11562F94D26C00701410 /* TodoFilterRuleProgressEditSectionController.swift in Sources */,
+				E558979E3056E124001F8F22 /* BubbleMenuView.swift in Sources */,
 				E5BB9DCD2D3BF0C60089667A /* TPMidnightScheduler.swift in Sources */,
 				E50BB6762D57043000D316FD /* TPSeparatorTableCell.swift in Sources */,
 				E5BB9E1B2D3BF0C70089667A /* NSManagedObject+Finder.swift in Sources */,
@@ -13920,6 +13943,7 @@
 				E5B2BC882F6E7CCD00DC1721 /* HabitRecordListSectionController.swift in Sources */,
 				E51FF64D2F570CD8003CA953 /* HabitTaskDefaultInfoView.swift in Sources */,
 				E5D7D8DA2D43933600EC877A /* FocusFloatingTrackingView.swift in Sources */,
+				E558979C3056DF11001F8F22 /* CountdownMainViewController.swift in Sources */,
 				E5D7D8DF2D43933600EC877A /* FocusFloatingStopwatchProgressView.swift in Sources */,
 				E5BB9E4C2D3BF0C70089667A /* Date+Holiday.swift in Sources */,
 				E5BB9E8B2D3BF0C80089667A /* ChartItem.swift in Sources */,

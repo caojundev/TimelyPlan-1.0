@@ -26,7 +26,7 @@ enum FocusTimerType: Int, Codable, TPMenuRepresentable {
     
     static func titles() -> [String] {
         return ["Pomodoro",
-                "Countdown",
+                "Countdown Timer",
                 "Stopwatch",
                 "Stepped"]
     }

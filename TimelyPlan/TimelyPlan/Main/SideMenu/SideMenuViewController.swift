@@ -31,11 +31,14 @@ class SideMenuViewController: TPTableViewController,
 
     /// 待办任务模块
     lazy var taskMenuItem: TPMenuItem = {
-        let types: [SideMenuType] = [.todo, .timeline, .quadrants]
+        let types: [SideMenuType] = [.todo, .quadrants]
         let menuItem = TPMenuItem.item(with: types)
         return menuItem
     }()
 
+    /// 时间线
+    let timelineMenuItem = TPMenuItem.item(with: [SideMenuType.timeline])
+    
     /// 目标
     let goalMenuItem = TPMenuItem.item(with: [SideMenuType.goal])
 
@@ -48,6 +51,9 @@ class SideMenuViewController: TPTableViewController,
     /// 日历
     let calendarMenuItem = TPMenuItem.item(with: [SideMenuType.calendar])
 
+    /// 倒数日
+    let countdownMenuItem = TPMenuItem.item(with: [SideMenuType.countdown])
+    
     /// 设置
     let settingMenuItem = TPMenuItem.item(with: [SideMenuType.settings])
 
@@ -78,9 +84,11 @@ class SideMenuViewController: TPTableViewController,
         return [myDayMenuItem,
                 calendarMenuItem,
                 taskMenuItem,
+                timelineMenuItem,
                 goalMenuItem,
                 focusMenuItem,
                 habitMenuItem,
+                countdownMenuItem,
                 settingMenuItem]
     }
     
