@@ -73,10 +73,6 @@ class BubbleMenuView: UIView {
         addSubview(overlayView)
         addSubview(bubbleBackgroundView)
         addSubview(closeButton)
-        
-        closeButton.alpha = 0
-        closeButton.isHidden = true
-        
         for (index, item) in menuItems.enumerated() {
             let itemView = createMenuItemView(item: item, tag: index)
             addSubview(itemView)
@@ -192,14 +188,23 @@ class BubbleMenuView: UIView {
             self.overlayView.alpha = 1
         }
         
-        // 2. 关闭按钮旋转
-        closeButton.isHidden = false
-        closeButton.alpha = 1
-        closeButton.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 4)
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
-            self.closeButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2 + CGFloat.pi / 4)
-        }
-        
+        // 2. 关闭按钮：淡入 + 旋转
+        // 关键：旋转必须「结束在 identity 对应的角度」（即 2π 的整数倍），
+        // 否则「×」会被转成「+」，看起来就像关闭按钮没显示出来。
+        // 这里用 layer 的 transform.rotation.z 做角度插值，
+        // 避免 UIView 的 transform 矩阵插值导致中途缩放/角度不连续。
+        bringSubviewToFront(closeButton)
+        closeButton.layer.removeAllAnimations()
+        closeButton.transform = .identity
+
+        let showSpin = CABasicAnimation(keyPath: "transform.rotation.z")
+        showSpin.fromValue = -CGFloat.pi / 4.0
+        showSpin.toValue = CGFloat.pi / 2.0
+        showSpin.duration = 0.45
+        showSpin.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        showSpin.isRemovedOnCompletion = false
+        closeButton.layer.add(showSpin, forKey: "bubbleMenu.showSpin")
+
         // 3. 泡泡圆形扩散（半径由 calculateBubbleRadius() 决定）
         let radius = calculateBubbleRadius()
         
@@ -240,18 +245,23 @@ class BubbleMenuView: UIView {
     @objc func closeMenu() {
         for (index, itemView) in menuItemViews.enumerated() {
             UIView.animate(withDuration: 0.2, delay: Double(menuItemViews.count - 1 - index) * 0.03, options: .curveEaseIn) {
-                itemView.transform = CGAffineTransform(translationX: -30.0, y: 0)
-                itemView.alpha = 0
+                itemView.alpha = 0.0
             } completion: { _ in
                 itemView.isHidden = true
-                itemView.transform = .identity
             }
         }
         
-        UIView.animate(withDuration: 0.4, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
-            self.closeButton.transform = .identity
-        }
-        
+        // 2. 关闭按钮
+        let hiddenAngle = CGFloat.pi * 0.75
+        let hideSpin = CABasicAnimation(keyPath: "transform.rotation.z")
+        hideSpin.fromValue = 0
+        hideSpin.toValue = hiddenAngle
+        hideSpin.duration = 0.4
+        hideSpin.timingFunction = CAMediaTimingFunction(name: .easeIn)
+        hideSpin.fillMode = .forwards
+        hideSpin.isRemovedOnCompletion = false
+        closeButton.layer.add(hideSpin, forKey: "bubbleMenu.hideSpin")
+
         // 泡泡收缩
         UIView.animate(withDuration: 0.35, delay: 0.1, options: .curveEaseIn) {
             self.bubbleBackgroundView.bounds = CGRect(x: 0, y: 0, width: self.buttonSize, height: self.buttonSize)
