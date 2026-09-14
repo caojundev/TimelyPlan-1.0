@@ -69,4 +69,9 @@ extension CountdownEventType {
     static var bubbleMenuItems: [BubbleMenuItem] {
         return allCases.map { $0.bubbleMenuItem }
     }
+    
+    /// 根据气泡菜单项获取事项类型（以表情作为唯一标识）
+    static func type(for menuItem: BubbleMenuItem) -> CountdownEventType? {
+        return allCases.first { $0.emoji == menuItem.icon }
+    }
 }
