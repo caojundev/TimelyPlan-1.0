@@ -763,6 +763,8 @@
 		E541DC5B3058F144008BFAE0 /* CountdownDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC5A3058F144008BFAE0 /* CountdownDatePickerViewController.swift */; };
 		E541DC5D3058F3F3008BFAE0 /* CountdownDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC5C3058F3F3008BFAE0 /* CountdownDate.swift */; };
 		E541DC5F30591F73008BFAE0 /* TPLunarDatePickerTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC5E30591F73008BFAE0 /* TPLunarDatePickerTableCellItem.swift */; };
+		E541DC6130597763008BFAE0 /* CountdownRepeatEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC6030597763008BFAE0 /* CountdownRepeatEditViewController.swift */; };
+		E541DC6330598831008BFAE0 /* CountdownLunarRepeatCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC6230598831008BFAE0 /* CountdownLunarRepeatCustomViewController.swift */; };
 		E544106230314E7400E398BE /* TodoStepInputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E544106130314E7400E398BE /* TodoStepInputToolbar.swift */; };
 		E544106530317F9200E398BE /* todo_task_step_addSubstep_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E544106330317F9200E398BE /* todo_task_step_addSubstep_24@3x.png */; };
 		E544106630317F9200E398BE /* todo_task_step_addSubstep_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E544106430317F9200E398BE /* todo_task_step_addSubstep_24@2x.png */; };
@@ -3116,6 +3118,8 @@
 		E541DC5A3058F144008BFAE0 /* CountdownDatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDatePickerViewController.swift; sourceTree = "<group>"; };
 		E541DC5C3058F3F3008BFAE0 /* CountdownDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDate.swift; sourceTree = "<group>"; };
 		E541DC5E30591F73008BFAE0 /* TPLunarDatePickerTableCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLunarDatePickerTableCellItem.swift; sourceTree = "<group>"; };
+		E541DC6030597763008BFAE0 /* CountdownRepeatEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownRepeatEditViewController.swift; sourceTree = "<group>"; };
+		E541DC6230598831008BFAE0 /* CountdownLunarRepeatCustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLunarRepeatCustomViewController.swift; sourceTree = "<group>"; };
 		E544106130314E7400E398BE /* TodoStepInputToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepInputToolbar.swift; sourceTree = "<group>"; };
 		E544106330317F9200E398BE /* todo_task_step_addSubstep_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_step_addSubstep_24@3x.png"; sourceTree = "<group>"; };
 		E544106430317F9200E398BE /* todo_task_step_addSubstep_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_step_addSubstep_24@2x.png"; sourceTree = "<group>"; };
@@ -7015,6 +7019,8 @@
 			children = (
 				E541DC3C3057E0CC008BFAE0 /* CountdownEventEditViewController.swift */,
 				E541DC5A3058F144008BFAE0 /* CountdownDatePickerViewController.swift */,
+				E541DC6030597763008BFAE0 /* CountdownRepeatEditViewController.swift */,
+				E541DC6230598831008BFAE0 /* CountdownLunarRepeatCustomViewController.swift */,
 				E541DC5E30591F73008BFAE0 /* TPLunarDatePickerTableCellItem.swift */,
 				E541DC413057FB42008BFAE0 /* TPEmojiTextEditTableCellItem.swift */,
 			);
@@ -13773,6 +13779,7 @@
 				E50D60412F7A12B500D5E0A4 /* RepeatSpecificDateListView.swift in Sources */,
 				E57CC5E22F7FCED300ADDBA4 /* TodoTaskQuickAddController.swift in Sources */,
 				E5BB9F232D3BF2C20089667A /* AppNotificationName.swift in Sources */,
+				E541DC6330598831008BFAE0 /* CountdownLunarRepeatCustomViewController.swift in Sources */,
 				E549B1992F89F6A70014BE85 /* TodoStepEditView.swift in Sources */,
 				E53B115C2F94F62900701410 /* CDTodoFilter+Extensions.swift in Sources */,
 				E5FC918C2FBB0E7000FC75C6 /* CalendarPageAllDayEventsView.swift in Sources */,
@@ -14286,6 +14293,7 @@
 				E524C7942F9E1619005CCEBD /* TodoTaskEditMenuView.swift in Sources */,
 				E58C9E1C2F4AF0DC0096B842 /* FocusTimelinePauseView.swift in Sources */,
 				E552FBB22DBD20A40072703F /* CalendarStripMoreTextLayer.swift in Sources */,
+				E541DC6130597763008BFAE0 /* CountdownRepeatEditViewController.swift in Sources */,
 				E5F155222F83681E00116091 /* TodoTaskCheckInfoView.swift in Sources */,
 				E5BB9DD22D3BF0C60089667A /* CGFloat+Extensions.swift in Sources */,
 				E5F1551D2F83681E00116091 /* TodoTaskCheckTableCell.swift in Sources */,

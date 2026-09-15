@@ -15,6 +15,9 @@ class RepeatCustomViewController: TPTableSectionsViewController {
     
     /// 规则类型
     var ruleType: RecurrenceRuleType = .regularly
+
+    /// 是否可以改变规则类型
+    var allowChangeRuleType: Bool = true
     
     /// 描述信息区块
     lazy var infoSectionController: TPTableItemSectionController = {
@@ -141,8 +144,11 @@ class RepeatCustomViewController: TPTableSectionsViewController {
      
     override var sectionControllers: [TPTableBaseSectionController]? {
         get {
-            var sectionControllers = [infoSectionController,
-                                      typeSectionController]
+            var sectionControllers = [infoSectionController]
+            if allowChangeRuleType {
+                sectionControllers.append(typeSectionController)
+            }
+            
             switch ruleType {
             case .regularly:
                 sectionControllers.append(frequencySectionController)

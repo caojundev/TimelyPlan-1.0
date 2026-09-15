@@ -12,6 +12,8 @@ import UIKit
 struct CountdownEventKey {
     static let identifier = "identifier"
     static let eventType = "eventType"
+    static let dateType = "dateType"
+    static let isLeapMonth = "isLeapMonth"
     static let order = "order"
     static let name = "name"
     static let emoji = "emoji"
@@ -44,8 +46,8 @@ class CountdownEvent: NSObject,
     /// 事件颜色
     var colorHex: String?
     
-    /// 目标日期
-    var targetDate: Date
+    /// 倒数日日期（日期类型 + 日期 + 闰月）
+    var date: CountdownDate
     
     /// 备注
     var note: String?
@@ -59,7 +61,7 @@ class CountdownEvent: NSObject,
          name: String? = nil,
          emoji: String? = nil,
          colorHex: String? = nil,
-         targetDate: Date = Date().endOfDay(),
+         date: CountdownDate = CountdownDate(),
          note: String? = nil,
          isArchived: Bool = false) {
         self.identifier = identifier
@@ -68,7 +70,7 @@ class CountdownEvent: NSObject,
         self.name = name
         self.emoji = emoji
         self.colorHex = colorHex
-        self.targetDate = targetDate
+        self.date = date
         self.note = note
         self.isArchived = isArchived
         super.init()
@@ -80,6 +82,17 @@ class CountdownEvent: NSObject,
     }
     
     // MARK: - Getters
+    /// 目标日期（公历）
+    var targetDate: Date {
+        get {
+            return date.targetDate
+        }
+        
+        set {
+            date.targetDate = newValue
+        }
+    }
+    
     /// 显示名称
     var displayName: String {
         return name ?? resGetString("Untitled Countdown")
@@ -147,16 +160,27 @@ struct CountdownEditingEvent: Equatable {
     /// 事件颜色
     var color: UIColor = CountdownConfig.countdownEventDefaultColor
     
-    /// 目标日期
-    var targetDate: Date
+    /// 倒数日日期（日期类型 + 日期 + 闰月）
+    var date: CountdownDate
     
     /// 备注
     var note: String?
     
     init(type: CountdownEventType = .countdown,
-         targetDate: Date = Date().endOfDay()) {
+         date: CountdownDate = CountdownDate()) {
         self.type = type
-        self.targetDate = targetDate
+        self.date = date
+    }
+    
+    /// 目标日期（公历）
+    var targetDate: Date {
+        get {
+            return date.targetDate
+        }
+        
+        set {
+            date.targetDate = newValue
+        }
     }
     
     // MARK: - Equatable
@@ -165,7 +189,7 @@ struct CountdownEditingEvent: Equatable {
             && lhs.name == rhs.name
             && lhs.emoji == rhs.emoji
             && lhs.color == rhs.color
-            && lhs.targetDate == rhs.targetDate
+            && lhs.date == rhs.date
             && lhs.note == rhs.note
     }
 }
@@ -175,7 +199,7 @@ extension CountdownEvent {
     
     /// 编辑事件
     var editingEvent: CountdownEditingEvent {
-        var event = CountdownEditingEvent(type: type, targetDate: targetDate)
+        var event = CountdownEditingEvent(type: type, date: date)
         event.name = name
         event.emoji = emoji ?? CountdownConfig.defaultEmoji
         event.color = color ?? CountdownConfig.countdownEventDefaultColor

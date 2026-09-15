@@ -38,10 +38,12 @@ extension CDCountdownEvent: TPHexColorConvertible, SortableIdentifiable {
     /// 使用编辑事项更新倒数日事项内容
     func update(with editingEvent: CountdownEditingEvent) {
         self.eventType = Int16(editingEvent.type.rawValue)
+        self.dateType = Int16(editingEvent.date.type.rawValue)
+        self.targetDate = editingEvent.date.targetDate
+        self.isLeapMonth = editingEvent.date.isLeapMonth
         self.name = editingEvent.name
         self.emoji = editingEvent.emoji
         self.colorHex = editingEvent.color.hexString
-        self.targetDate = editingEvent.targetDate
         self.note = editingEvent.note
     }
 }
@@ -126,13 +128,16 @@ extension CountdownEvent {
         /// targetDate 在实体中为非可选属性，这里做一次可选提升以兼容不同版本的代码生成结果
         let targetDate = content.targetDate as Date? ?? Date().endOfDay()
         let eventType = CountdownEventType(rawValue: Int(content.eventType)) ?? .countdown
+        let dateType = CountdownDateType(rawValue: Int(content.dateType)) ?? .gregorian
         self.init(identifier: content.identifier ?? UUID().uuidString,
                   type: eventType,
                   order: content.order,
                   name: content.name,
                   emoji: content.emoji,
                   colorHex: content.colorHex,
-                  targetDate: targetDate,
+                  date: CountdownDate(type: dateType,
+                                      targetDate: targetDate,
+                                      isLeapMonth: content.isLeapMonth),
                   note: content.note,
                   isArchived: content.isArchived)
     }

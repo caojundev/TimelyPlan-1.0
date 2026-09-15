@@ -43,16 +43,16 @@ struct CountdownDate: Equatable {
     var type: CountdownDateType
     
     /// 日期（统一以公历日期存储）
-    var date: Date
+    var targetDate: Date
     
     /// 是否为农历闰月（仅农历类型有效）
     var isLeapMonth: Bool
     
     init(type: CountdownDateType = .gregorian,
-         date: Date = .now,
+         targetDate: Date = .now,
          isLeapMonth: Bool = false) {
         self.type = type
-        self.date = date.startOfDay()
+        self.targetDate = targetDate.startOfDay()
         self.isLeapMonth = isLeapMonth
     }
     
@@ -64,17 +64,17 @@ struct CountdownDate: Equatable {
     
     /// 农历日期（农历年以对应公历年份表示）
     var lunarComponents: (year: Int, month: Int, day: Int, isLeapMonth: Bool)? {
-        return TPLunarDateHelper.lunarComponents(from: date)
+        return TPLunarDateHelper.lunarComponents(from: targetDate)
     }
     
     /// 显示文本（公历显示公历日期，农历显示干支年月日）
     var displayText: String {
         switch type {
         case .gregorian:
-            return date.yearMonthDayString
+            return targetDate.yearMonthDayString
         case .lunar:
             guard let lunar = lunarComponents else {
-                return date.yearMonthDayString
+                return targetDate.yearMonthDayString
             }
             
             /// 如：甲辰年(2024)闰二月廿九

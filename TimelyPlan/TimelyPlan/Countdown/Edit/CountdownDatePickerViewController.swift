@@ -54,7 +54,7 @@ class CountdownDatePickerViewController: TPTableSectionsViewController {
         cellItem.datePickerMode = .date
         cellItem.height = dateCellHeight
         cellItem.updater = {
-            self?.gregorianDateCellItem.date = self?.countdownDate.date ?? Date()
+            self?.gregorianDateCellItem.date = self?.countdownDate.targetDate ?? Date()
         }
 
         cellItem.dateChanged = { date in
@@ -68,7 +68,7 @@ class CountdownDatePickerViewController: TPTableSectionsViewController {
         let cellItem = TPLunarDatePickerTableCellItem()
         cellItem.height = dateCellHeight
         cellItem.updater = {
-            self?.lunarDateCellItem.date = self?.countdownDate.date ?? Date()
+            self?.lunarDateCellItem.date = self?.countdownDate.targetDate ?? Date()
         }
         
         cellItem.dateChanged = { date in
@@ -135,11 +135,11 @@ class CountdownDatePickerViewController: TPTableSectionsViewController {
     
     /// 选择日期
     func selectDate(_ date: Date) {
-        guard countdownDate.date != date else {
+        guard countdownDate.targetDate != date else {
             return
         }
         
-        countdownDate.date = date
+        countdownDate.targetDate = date
         updateLeapMonth()
     }
     

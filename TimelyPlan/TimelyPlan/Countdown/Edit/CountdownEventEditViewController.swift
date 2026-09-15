@@ -18,6 +18,8 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         static let sectionTitleHeaderHeight = 50.0
         
         static let sectionNormalHeaderHeight = 20.0
+        
+        static let defaultCellHeight = 55.0
     }
     
     /// 编辑事件
@@ -87,7 +89,8 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         sectionController.headerItem.height = Config.sectionTitleHeaderHeight
         sectionController.headerItem.padding = Config.sectionHeaderPadding
         sectionController.footerItem.height = 0.0
-        sectionController.cellItems = [targetDateCellItem]
+        sectionController.cellItems = [targetDateCellItem,
+                                       repeatRuleCellItem]
         return sectionController
     }()
   
@@ -99,6 +102,27 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         
         cellItem.didSelectHandler = {
             self?.editTargetDate()
+        }
+        
+        return cellItem
+    }()
+    
+    /// 重复
+    lazy var repeatRuleCellItem: TPImageInfoTableCellItem = {  [weak self] in
+        let cellItem = TPImageInfoTableCellItem()
+        cellItem.autoResizable = true
+        cellItem.minimumHeight = Config.defaultCellHeight
+        cellItem.subtitleConfig.numberOfLines = 0
+        cellItem.accessoryType = .disclosureIndicator
+        cellItem.title = resGetString("Repeat")
+        cellItem.updater = {
+            guard let self = self else { return }
+//            self.frequencyCellItem.title = self.timePlan.title
+//            self.frequencyCellItem.subtitle = self.timePlan.title
+        }
+    
+        cellItem.didSelectHandler = {
+            self?.editRepeatRule()
         }
         
         return cellItem
@@ -242,20 +266,40 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         updateDoneButtonEnabled()
     }
     
-    var date = CountdownDate()
-    
     private func updateTargetDateCellItem() {
-        targetDateCellItem.title = date.displayText
+        targetDateCellItem.title = editingEvent.date.displayText
     }
     
     private func editTargetDate() {
-        let vc = CountdownDatePickerViewController(countdownDate: date)
+        let vc = CountdownDatePickerViewController(countdownDate: editingEvent.date)
         vc.didPickDate = { date in
-            self.date = date
+            self.editingEvent.date = date
             self.adapter.reloadCell(forItem: self.targetDateCellItem, with: .none)
         }
         
         vc.popoverShow()
+    }
+  
+    // MARK: - Edit
+//    private func editRepeatRule() {
+//        guard let cell = adapter.cellForItem(repeatRuleCellItem) else {
+//            return
+//        }
+//
+//        let menuVC = CountdownRepeatMenuController(date: editingEvent.date)
+//        menuVC.showMenu(from: cell,
+//                        sourceRect: cell.bounds,
+//                        isCovered: false)
+//    }
+    
+    private func editRepeatRule() {
+        let editVC = CountdownRepeatEditViewController(repeatRule: nil, date: editingEvent.date)
+        editVC.didEndEditing = { repeatRule in
+
+        }
+
+        let navController = UINavigationController(rootViewController: editVC)
+        navController.popoverShow()
     }
     
 }
