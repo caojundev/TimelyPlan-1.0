@@ -26,11 +26,22 @@ struct LunarCalendar {
         return components.month == 1 && components.day == 1
     }
     
-    // 获取农历年份的干支生肖描述
-    static func getChineseYearDescription(year: Int) -> String {
+    // 获取农历年份的干支（如：甲辰）
+    static func getChineseYearStemBranch(year: Int) -> String {
         let stemIndex = (year - 4) % 10
         let branchIndex = (year - 4) % 12
-        return "\(heavenlyStems[stemIndex])\(earthlyBranches[branchIndex])\(zodiac[branchIndex])年"
+        return "\(heavenlyStems[stemIndex])\(earthlyBranches[branchIndex])"
+    }
+    
+    // 获取农历年份的生肖（如：龙）
+    static func getChineseYearZodiac(year: Int) -> String {
+        let branchIndex = (year - 4) % 12
+        return zodiac[branchIndex]
+    }
+    
+    // 获取农历年份的干支生肖描述
+    static func getChineseYearDescription(year: Int) -> String {
+        return "\(getChineseYearStemBranch(year: year))\(getChineseYearZodiac(year: year))年"
     }
     
     // 获取某月的所有农历初一日

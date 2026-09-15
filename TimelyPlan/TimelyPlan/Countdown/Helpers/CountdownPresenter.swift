@@ -37,6 +37,12 @@ class CountdownPresenter {
         vc.showAsNavigationRoot()
     }
     
+    /// 显示已归档倒数日事项
+    static func showArchived() {
+        let vc = CountdownArchivedViewController()
+        vc.showAsNavigationRoot()
+    }
+    
     // MARK: - 默认值
     /// 按事项类型生成默认编辑信息（默认表情取类型表情）
     private static func defaultEditingEvent(for type: CountdownEventType) -> CountdownEditingEvent {

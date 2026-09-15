@@ -41,7 +41,7 @@ class TPEmojiTextEditTableCell: TPTextFieldTableCell {
     /// 图标视图
     lazy var emojiEditView: TPEmojiEditView = {
         let view = TPEmojiEditView()
-        view.font = .boldSystemFont(ofSize: 32.0)
+        view.font = .boldSystemFont(ofSize: 36.0)
         view.backgroundColor = Color(light: 0x252847, dark: 0xFFFFFF, alpha: 0.1)
         view.emojiDidChange = { [weak self] emoji in
             self?.changeEmoji(emoji)

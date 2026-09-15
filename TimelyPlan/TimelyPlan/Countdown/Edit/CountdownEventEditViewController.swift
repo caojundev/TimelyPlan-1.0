@@ -90,17 +90,15 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         sectionController.cellItems = [targetDateCellItem]
         return sectionController
     }()
-    
-    lazy var targetDateCellItem: TPDatePickerTableCellItem = { [weak self] in
-        let cellItem = TPDatePickerTableCellItem()
-        cellItem.datePickerMode = .date
+  
+    lazy var targetDateCellItem: TPDefaultInfoTableCellItem = { [weak self] in
+        let cellItem = TPDefaultInfoTableCellItem()
         cellItem.updater = {
-            self?.targetDateCellItem.date = self?.editingEvent.targetDate ?? Date()
+            self?.updateTargetDateCellItem()
         }
         
-        cellItem.dateChanged = { date in
-            self?.targetDateCellItem.date = date
-            self?.editingEvent.targetDate = date
+        cellItem.didSelectHandler = {
+            self?.editTargetDate()
         }
         
         return cellItem
@@ -243,4 +241,21 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         self.editingEvent.name = name
         updateDoneButtonEnabled()
     }
+    
+    var date = CountdownDate()
+    
+    private func updateTargetDateCellItem() {
+        targetDateCellItem.title = date.displayText
+    }
+    
+    private func editTargetDate() {
+        let vc = CountdownDatePickerViewController(countdownDate: date)
+        vc.didPickDate = { date in
+            self.date = date
+            self.adapter.reloadCell(forItem: self.targetDateCellItem, with: .none)
+        }
+        
+        vc.popoverShow()
+    }
+    
 }

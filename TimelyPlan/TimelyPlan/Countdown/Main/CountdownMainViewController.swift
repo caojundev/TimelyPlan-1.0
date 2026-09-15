@@ -25,6 +25,16 @@ class CountdownMainViewController: TPViewController,
     /// 倒数日事项视图模型
     private let viewModel = CountdownEventViewModel()
     
+    /// 更多菜单按钮
+    private lazy var moreBarButtonItem: CountdownMoreBarButtonItem = {
+        let item = CountdownMoreBarButtonItem()
+        item.didSelectType = { [weak self] type in
+            self?.performMoreMenuAction(type)
+        }
+        
+        return item
+    }()
+    
     /// 添加视图
     private var addView: TPAddView?
     
@@ -41,6 +51,7 @@ class CountdownMainViewController: TPViewController,
         super.viewDidLoad()
         title = resGetString("Countdown")
         navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
+        navigationItem.rightBarButtonItems = [moreBarButtonItem]
         setupListView()
         setupAddView()
         
@@ -173,6 +184,16 @@ class CountdownMainViewController: TPViewController,
     
     func canAddCountdown() -> Bool {
         return true
+    }
+    
+    // MARK: - Event Response
+    /// 执行更多菜单操作
+    func performMoreMenuAction(_ type: CountdownMoreMenuType) {
+        switch type {
+        case .archived:
+            CountdownPresenter.showArchived()
+            break
+        }
     }
     
     // MARK: - CountdownEventListViewDelegate

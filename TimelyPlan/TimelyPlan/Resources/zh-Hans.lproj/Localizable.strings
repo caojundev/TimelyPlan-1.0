@@ -33,10 +33,13 @@
 "Fill in the countdown name" = "输入倒数日名称";
 "Target Date" = "目标日期";
 "No Countdown" = "无倒数日";
+"No Archived Countdown" = "无归档倒数日";
 "Anniversary" = "纪念日";
 "Birthday" = "生日";
 "Age" = "年龄";
 
+"Gregorian" = "公历";
+"Lunar" = "阴历";
 
 ///**********************目标*********************///
 "Untitled Goal" = "未命名目标";
