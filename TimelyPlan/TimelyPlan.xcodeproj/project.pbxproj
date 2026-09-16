@@ -766,6 +766,7 @@
 		E541DC6130597763008BFAE0 /* CountdownRepeatMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC6030597763008BFAE0 /* CountdownRepeatMenuController.swift */; };
 		E541DC65305A1AAA008BFAE0 /* CountdownTimePlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC64305A1AAA008BFAE0 /* CountdownTimePlan.swift */; };
 		E541DC67305A33CC008BFAE0 /* CountdownRepeatCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC66305A33CB008BFAE0 /* CountdownRepeatCustomViewController.swift */; };
+		E541DC69305A801F008BFAE0 /* CountdownDateEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC68305A801F008BFAE0 /* CountdownDateEditSectionController.swift */; };
 		E544106230314E7400E398BE /* TodoStepInputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E544106130314E7400E398BE /* TodoStepInputToolbar.swift */; };
 		E544106530317F9200E398BE /* todo_task_step_addSubstep_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E544106330317F9200E398BE /* todo_task_step_addSubstep_24@3x.png */; };
 		E544106630317F9200E398BE /* todo_task_step_addSubstep_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E544106430317F9200E398BE /* todo_task_step_addSubstep_24@2x.png */; };
@@ -3122,6 +3123,7 @@
 		E541DC6030597763008BFAE0 /* CountdownRepeatMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownRepeatMenuController.swift; sourceTree = "<group>"; };
 		E541DC64305A1AAA008BFAE0 /* CountdownTimePlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimePlan.swift; sourceTree = "<group>"; };
 		E541DC66305A33CB008BFAE0 /* CountdownRepeatCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownRepeatCustomViewController.swift; sourceTree = "<group>"; };
+		E541DC68305A801F008BFAE0 /* CountdownDateEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDateEditSectionController.swift; sourceTree = "<group>"; };
 		E544106130314E7400E398BE /* TodoStepInputToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepInputToolbar.swift; sourceTree = "<group>"; };
 		E544106330317F9200E398BE /* todo_task_step_addSubstep_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_step_addSubstep_24@3x.png"; sourceTree = "<group>"; };
 		E544106430317F9200E398BE /* todo_task_step_addSubstep_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_step_addSubstep_24@2x.png"; sourceTree = "<group>"; };
@@ -7019,12 +7021,13 @@
 		E541DC323057D525008BFAE0 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				E541DC5E30591F73008BFAE0 /* TPLunarDatePickerTableCellItem.swift */,
+				E541DC413057FB42008BFAE0 /* TPEmojiTextEditTableCellItem.swift */,
 				E541DC3C3057E0CC008BFAE0 /* CountdownEventEditViewController.swift */,
+				E541DC68305A801F008BFAE0 /* CountdownDateEditSectionController.swift */,
 				E541DC5A3058F144008BFAE0 /* CountdownDatePickerViewController.swift */,
 				E541DC6030597763008BFAE0 /* CountdownRepeatMenuController.swift */,
 				E541DC66305A33CB008BFAE0 /* CountdownRepeatCustomViewController.swift */,
-				E541DC5E30591F73008BFAE0 /* TPLunarDatePickerTableCellItem.swift */,
-				E541DC413057FB42008BFAE0 /* TPEmojiTextEditTableCellItem.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -14182,6 +14185,7 @@
 				E5BB9EC52D3BF0C80089667A /* TPButtonActionsView.swift in Sources */,
 				E552FBB62DBE30630072703F /* CalendarMonthViewController.swift in Sources */,
 				E5DA03A82FA1957700A58ACC /* FocusUserTimerViewModel.swift in Sources */,
+				E541DC69305A801F008BFAE0 /* CountdownDateEditSectionController.swift in Sources */,
 				E5BB9DBC2D3BF0C60089667A /* UIColor+Gradient.swift in Sources */,
 				E5BB9E4E2D3BF0C70089667A /* Date+Lunar.swift in Sources */,
 				E552FBAD2DBB24730072703F /* CalendarStripLayoutProvider.swift in Sources */,

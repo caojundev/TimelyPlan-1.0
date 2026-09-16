@@ -15,11 +15,6 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
                                                         left: 0.0,
                                                         bottom: 0.0,
                                                         right: 16.0)
-        static let sectionTitleHeaderHeight = 50.0
-        
-        static let sectionNormalHeaderHeight = 20.0
-        
-        static let defaultCellHeight = 55.0
     }
     
     /// 编辑事件
@@ -83,68 +78,25 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
     }()
     
     // MARK: - 目标日期
-    lazy var targetDateSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.title = resGetString("Target Date")
-        sectionController.headerItem.height = Config.sectionTitleHeaderHeight
-        sectionController.headerItem.padding = Config.sectionHeaderPadding
-        sectionController.footerItem.height = 0.0
-        sectionController.cellItems = [targetDateCellItem,
-                                       repeatRuleCellItem,
-                                       reminderCellItem]
+    lazy var targetDateSectionController: CountdownDateEditSectionController = {
+        let sectionController = CountdownDateEditSectionController()
+        sectionController.date = self.editingEvent.date
+        sectionController.timePlan = self.editingEvent.timePlan
+        sectionController.reminder = self.editingEvent.reminder
+        
+        sectionController.onDateChanged = { [weak self] date in
+            self?.editingEvent.date = date
+        }
+        
+        sectionController.onTimePlanChanged = { [weak self] timePlan in
+            self?.editingEvent.timePlan = timePlan
+        }
+        
+        sectionController.onReminderChanged = { [weak self] reminder in
+            self?.editingEvent.reminder = reminder
+        }
+        
         return sectionController
-    }()
-  
-    lazy var targetDateCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPImageInfoTextValueTableCellItem()
-        cellItem.height = Config.defaultCellHeight
-        cellItem.accessoryType = .disclosureIndicator
-        cellItem.imageName = "calendar_24"
-        cellItem.updater = {
-            self?.updateTargetDateCellItem()
-        }
-        
-        cellItem.didSelectHandler = {
-            self?.editTargetDate()
-        }
-        
-        return cellItem
-    }()
-    
-    /// 重复
-    lazy var repeatRuleCellItem: TPImageInfoTextValueTableCellItem = {  [weak self] in
-        let cellItem = TPImageInfoTextValueTableCellItem()
-        cellItem.height = Config.defaultCellHeight
-        cellItem.accessoryType = .disclosureIndicator
-        cellItem.imageName = "schedule_repeat_24"
-        cellItem.title = resGetString("Repeat")
-        cellItem.updater = {
-            self?.updateRepeatRuleCellItem()
-        }
-    
-        cellItem.didSelectHandler = {
-            self?.editRepeatRule()
-        }
-        
-        return cellItem
-    }()
-    
-    /// 提醒
-    lazy var reminderCellItem: TPImageInfoTextValueTableCellItem = {  [weak self] in
-        let cellItem = TPImageInfoTextValueTableCellItem()
-        cellItem.height = Config.defaultCellHeight
-        cellItem.accessoryType = .disclosureIndicator
-        cellItem.imageName = "schedule_alarm_24"
-        cellItem.title = resGetString("Reminder")
-        cellItem.updater = {
-            self?.updateReminderCellItem()
-        }
-    
-        cellItem.didSelectHandler = {
-            self?.editReminder()
-        }
-        
-        return cellItem
     }()
     
     // MARK: - 备注
@@ -283,107 +235,5 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
     func nameEditingChanged(_ name: String?) {
         self.editingEvent.name = name
         updateDoneButtonEnabled()
-    }
-    
-    // MARK: - 日期
-    private func updateTargetDateCellItem() {
-        targetDateCellItem.title = editingEvent.date.displayText
-    }
-    
-    private func editTargetDate() {
-        let vc = CountdownDatePickerViewController(countdownDate: editingEvent.date)
-        vc.didPickDate = { date in
-            self.editingEvent.date = date
-            self.adapter.reloadCell(forItem: self.targetDateCellItem, with: .none)
-        }
-        
-        vc.popoverShow()
-    }
-    
-    // MARK: - 重复规则
-    private func updateRepeatRuleCellItem() {
-        guard let timePlan = editingEvent.timePlan, let title = timePlan.descriptionTitle else {
-            repeatRuleCellItem.valueConfig = .valueText(nil)
-            return
-        }
-
-        repeatRuleCellItem.valueConfig = .valueText(title)
-    }
-    
-    private func editRepeatRule() {
-        guard let cell = adapter.cellForItem(repeatRuleCellItem) else {
-            return
-        }
-
-        let menuVC = CountdownRepeatMenuController(date: editingEvent.date,
-                                                   timePlan: editingEvent.timePlan)
-        menuVC.didSelectMenuActionType = { menuType in
-            self.selectTimePlanType(menuType)
-        }
-        
-        menuVC.showMenu(from: cell,
-                        sourceRect: cell.bounds,
-                        isCovered: false)
-    }
-    
-    private func selectTimePlanType(_ type: CountdownTimePlanType) {
-        switch type {
-        case .none:
-            changeTimePlan(nil)
-        case .daily, .weekly, .monthly, .yearly:
-            changeTimePlan(CountdownTimePlan(type: type))
-        case .custom:
-            customRepeatRule()
-        }
-    }
-    
-    private func customRepeatRule() {
-        let rule = editingEvent.timePlan?.recurrenceRule ?? TaskTimePlanRegularRule()
-        let vc = CountdownRepeatCustomViewController(rule: rule)
-        vc.didEndEditing = { rule in
-            let timePlan = CountdownTimePlan(type: .custom, recurrenceRule: rule)
-            self.changeTimePlan(timePlan)
-        }
-        
-        let navController = UINavigationController(rootViewController: vc)
-        navController.show()
-    }
-    
-    private func changeTimePlan(_ timePlan: CountdownTimePlan?) {
-        editingEvent.timePlan = timePlan
-        adapter.reloadCell(forItem: repeatRuleCellItem, with: .none)
-    }
-    
-    // MARK: - 提醒
-    private func updateReminderCellItem() {
-        guard let reminder = editingEvent.reminder else {
-            reminderCellItem.subtitle = nil
-            return
-        }
-        
-        reminderCellItem.subtitle = reminder.startAlarmsInfo(with: nil)
-    }
-    
-    private func editReminder() {
-        let editVC = ReminderEditViewController(reminder: editingEvent.reminder,
-                                                isAllDay: true,
-                                                startDate: editingEvent.targetDate,
-                                                endDate: nil)
-        editVC.didEndEditing = { reminder in
-            self.selectReminder(reminder)
-        }
-        
-        let navController = UINavigationController(rootViewController: editVC)
-        navController.popoverShow()
-    }
-    
-    private func selectReminder(_ reminder: TaskReminder?) {
-        if let reminder = reminder, reminder.hasAlarm {
-            editingEvent.reminder = reminder
-        } else {
-            editingEvent.reminder = nil
-        }
-        
-        adapter.reloadCell(forItem: reminderCellItem, with: .none)
     }
 }
