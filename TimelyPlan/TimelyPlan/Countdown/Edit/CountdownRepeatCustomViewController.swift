@@ -1,5 +1,5 @@
 //
-//  CountdownLunarRepeatCustomViewController.swift
+//  CountdownRepeatCustomViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/9/15.
@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-class CountdownLunarRepeatCustomViewController: TPTableSectionsViewController {
+class CountdownRepeatCustomViewController: TPTableSectionsViewController {
     
     /// 结束编辑规则回调
-    var didEndEditing: ((RecurrenceRule) -> Void)?
+    var didEndEditing: ((TaskTimePlanRegularRule) -> Void)?
     
     /// 描述信息区块
     lazy var infoSectionController: TPTableItemSectionController = {
@@ -34,7 +34,6 @@ class CountdownLunarRepeatCustomViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
-
     lazy var frequencySectionController: RepeatFrequencySectionController = { [weak self] in
         let sectionItem = RepeatFrequencySectionController()
         sectionItem.frequencyDidChange = { _ in
@@ -48,14 +47,14 @@ class CountdownLunarRepeatCustomViewController: TPTableSectionsViewController {
         return sectionItem
     }()
     
-    init(rule: RecurrenceRule?) {
+    init(rule: TaskTimePlanRegularRule?) {
         super.init(style: .insetGrouped)
         guard let rule = rule else {
             return
         }
         
-        self.frequencySectionController.frequency = rule.getFrequency()
-        self.frequencySectionController.interval = rule.getInterval()
+        self.frequencySectionController.frequency = rule.frequency
+        self.frequencySectionController.interval = rule.interval
     }
     
     required init?(coder: NSCoder) {
@@ -99,11 +98,10 @@ class CountdownLunarRepeatCustomViewController: TPTableSectionsViewController {
     }
     
     // MARK: - Edit
-    var recurrenceRule: RecurrenceRule {
-        var rule = RecurrenceRule()
-        rule.frequency = frequencySectionController.frequency
-        rule.interval = frequencySectionController.interval
-        return rule
+    var recurrenceRule: TaskTimePlanRegularRule {
+        let frequency = frequencySectionController.frequency
+        let interval = frequencySectionController.interval
+        return TaskTimePlanRegularRule(frequency: frequency, interval: interval)
     }
     
     func ruleEditingChanged() {

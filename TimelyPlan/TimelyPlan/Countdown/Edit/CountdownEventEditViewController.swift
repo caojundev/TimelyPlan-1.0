@@ -22,6 +22,8 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         static let defaultCellHeight = 55.0
     }
     
+    var timePlan: TaskTimePlan?
+    
     /// 编辑事件
     var editingEvent: CountdownEditingEvent
     
@@ -96,6 +98,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
   
     lazy var targetDateCellItem: TPDefaultInfoTableCellItem = { [weak self] in
         let cellItem = TPDefaultInfoTableCellItem()
+        cellItem.accessoryType = .disclosureIndicator
         cellItem.updater = {
             self?.updateTargetDateCellItem()
         }
@@ -108,17 +111,13 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
     }()
     
     /// 重复
-    lazy var repeatRuleCellItem: TPImageInfoTableCellItem = {  [weak self] in
-        let cellItem = TPImageInfoTableCellItem()
-        cellItem.autoResizable = true
-        cellItem.minimumHeight = Config.defaultCellHeight
-        cellItem.subtitleConfig.numberOfLines = 0
+    lazy var repeatRuleCellItem: TPImageInfoTextValueTableCellItem = {  [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem()
+        cellItem.height = Config.defaultCellHeight
         cellItem.accessoryType = .disclosureIndicator
         cellItem.title = resGetString("Repeat")
         cellItem.updater = {
-            guard let self = self else { return }
-//            self.frequencyCellItem.title = self.timePlan.title
-//            self.frequencyCellItem.subtitle = self.timePlan.title
+            self?.updateRepeatRuleCellItem()
         }
     
         cellItem.didSelectHandler = {
@@ -127,6 +126,15 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         
         return cellItem
     }()
+    
+    private func updateRepeatRuleCellItem() {
+        guard let timePlan = timePlan, let title = timePlan.descriptionTitle else {
+            repeatRuleCellItem.valueConfig = .valueText(nil)
+            return
+        }
+
+        repeatRuleCellItem.valueConfig = .valueText(title)
+    }
     
     // MARK: - 备注
     lazy var noteSectionController: TPNoteTableSectionController = { [weak self] in
@@ -279,27 +287,50 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         
         vc.popoverShow()
     }
-  
-    // MARK: - Edit
-//    private func editRepeatRule() {
-//        guard let cell = adapter.cellForItem(repeatRuleCellItem) else {
-//            return
-//        }
-//
-//        let menuVC = CountdownRepeatMenuController(date: editingEvent.date)
-//        menuVC.showMenu(from: cell,
-//                        sourceRect: cell.bounds,
-//                        isCovered: false)
-//    }
     
+    // MARK: - Edit
     private func editRepeatRule() {
-        let editVC = CountdownRepeatEditViewController(repeatRule: nil, date: editingEvent.date)
-        editVC.didEndEditing = { repeatRule in
-
+        guard let cell = adapter.cellForItem(repeatRuleCellItem) else {
+            return
         }
 
-        let navController = UINavigationController(rootViewController: editVC)
-        navController.popoverShow()
+        let menuVC = CountdownRepeatMenuController(date: editingEvent.date,
+                                                   timePlan: timePlan)
+        menuVC.didSelectMenuActionType = { menuType in
+            self.selectTimePlanType(menuType)
+        }
+        
+        menuVC.showMenu(from: cell,
+                        sourceRect: cell.bounds,
+                        isCovered: false)
     }
     
+    private func selectTimePlanType(_ type: TaskTimePlanType) {
+        switch type {
+        case .none:
+            changeTimePlan(nil)
+        case .daily, .weekly, .monthly, .yearly:
+            changeTimePlan(TaskTimePlan(type: type))
+        case .custom:
+            customRepeatRule()
+        }
+    }
+    
+    private func customRepeatRule() {
+        let rule = timePlan?.recurrenceRule ?? TaskTimePlanRegularRule()
+        let vc = CountdownRepeatCustomViewController(rule: rule)
+        vc.didEndEditing = { rule in
+            let timePlan = TaskTimePlan(type: .custom, recurrenceRule: rule)
+            self.changeTimePlan(timePlan)
+        }
+        
+        let navController = UINavigationController(rootViewController: vc)
+        navController.show()
+    }
+    
+    private func changeTimePlan(_ timePlan: TaskTimePlan?) {
+        self.timePlan = timePlan
+        adapter.reloadCell(forItem: repeatRuleCellItem, with: .none)
+    }
+
 }

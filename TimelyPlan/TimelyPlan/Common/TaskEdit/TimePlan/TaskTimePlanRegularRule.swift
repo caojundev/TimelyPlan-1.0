@@ -25,9 +25,9 @@ struct TaskTimePlanRegularRule: Hashable, Codable, Equatable {
     init() {}
     
     init(frequency: RepeatFrequency,
-         interval: Int,
-         daysOfTheWeek: [Weekday]?,
-         daysOfTheMonth: [Int]?) {
+         interval: Int = 1,
+         daysOfTheWeek: [Weekday]? = nil,
+         daysOfTheMonth: [Int]? = nil) {
         self.frequency = frequency
         self.interval = interval
         switch frequency {
