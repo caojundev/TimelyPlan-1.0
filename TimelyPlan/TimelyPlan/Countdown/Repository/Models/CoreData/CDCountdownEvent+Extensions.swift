@@ -45,6 +45,30 @@ extension CDCountdownEvent: TPHexColorConvertible, SortableIdentifiable {
         self.emoji = editingEvent.emoji
         self.colorHex = editingEvent.color.hexString
         self.note = editingEvent.note
+        
+        /// 时间计划与提醒
+        updateTimePlan(editingEvent.timePlan)
+        updateReminder(editingEvent.reminder)
+    }
+    
+    /// 更新时间计划（nil 表示不重复）
+    func updateTimePlan(_ timePlan: CountdownTimePlan?) {
+        guard let timePlan = timePlan, let type = timePlan.type , type != .none else {
+            self.timePlanJSON = nil
+            return
+        }
+        
+        self.timePlanJSON = timePlan.jsonString()
+    }
+    
+    /// 更新提醒（nil 表示无提醒）
+    func updateReminder(_ reminder: TaskReminder?) {
+        guard let reminder = reminder, reminder.hasAlarm else {
+            self.reminderJSON = nil
+            return
+        }
+        
+        self.reminderJSON = reminder.jsonString()
     }
 }
 
@@ -139,6 +163,8 @@ extension CountdownEvent {
                                       targetDate: targetDate,
                                       isLeapMonth: content.isLeapMonth),
                   note: content.note,
+                  reminderJSON: content.reminderJSON,
+                  timePlanJSON: content.timePlanJSON,
                   isArchived: content.isArchived)
     }
 }

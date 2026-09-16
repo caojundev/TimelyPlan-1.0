@@ -20,6 +20,8 @@ struct CountdownEventKey {
     static let colorHex = "colorHex"
     static let targetDate = "targetDate"
     static let note = "note"
+    static let reminderJSON = "reminderJSON"
+    static let timePlanJSON = "timePlanJSON"
     static let isArchived = "isArchived"
 }
 
@@ -52,6 +54,30 @@ class CountdownEvent: NSObject,
     /// 备注
     var note: String?
     
+    /// 提醒 JSON 字符串
+    private let reminderJSON: String?
+    
+    /// 提醒（懒加载，从 JSON 反序列化）
+    private(set) lazy var reminder: TaskReminder? = {
+        guard let json = reminderJSON else {
+            return nil
+        }
+        
+        return TaskReminder.model(with: json)
+    }()
+    
+    /// 时间计划 JSON 字符串
+    private let timePlanJSON: String?
+    
+    /// 时间计划（懒加载，从 JSON 反序列化，默认不重复）
+    private(set) lazy var timePlan: CountdownTimePlan = {
+        if let json = timePlanJSON, let timePlan = CountdownTimePlan.model(with: json) {
+            return timePlan
+        }
+        
+        return CountdownTimePlan(type: .none)
+    }()
+    
     /// 是否已归档
     var isArchived: Bool
     
@@ -63,6 +89,8 @@ class CountdownEvent: NSObject,
          colorHex: String? = nil,
          date: CountdownDate = CountdownDate(),
          note: String? = nil,
+         reminderJSON: String? = nil,
+         timePlanJSON: String? = nil,
          isArchived: Bool = false) {
         self.identifier = identifier
         self.type = type
@@ -72,6 +100,8 @@ class CountdownEvent: NSObject,
         self.colorHex = colorHex
         self.date = date
         self.note = note
+        self.reminderJSON = reminderJSON
+        self.timePlanJSON = timePlanJSON
         self.isArchived = isArchived
         super.init()
     }
@@ -106,6 +136,15 @@ class CountdownEvent: NSObject,
     /// 目标日期是否已经过去
     var isExpired: Bool {
         return remainingDays < 0
+    }
+    
+    /// 是否有提醒
+    var hasReminder: Bool {
+        guard let reminder = reminder, reminder.hasAlarm else {
+            return false
+        }
+        
+        return true
     }
     
     // MARK: - 等同性判断
@@ -166,6 +205,12 @@ struct CountdownEditingEvent: Equatable {
     /// 备注
     var note: String?
     
+    /// 提醒
+    var reminder: TaskReminder?
+    
+    /// 时间计划（nil 表示不重复）
+    var timePlan: CountdownTimePlan?
+    
     init(type: CountdownEventType = .countdown,
          date: CountdownDate = CountdownDate()) {
         self.type = type
@@ -191,6 +236,8 @@ struct CountdownEditingEvent: Equatable {
             && lhs.color == rhs.color
             && lhs.date == rhs.date
             && lhs.note == rhs.note
+            && lhs.reminder == rhs.reminder
+            && lhs.timePlan == rhs.timePlan
     }
 }
 
@@ -204,6 +251,13 @@ extension CountdownEvent {
         event.emoji = emoji ?? CountdownConfig.defaultEmoji
         event.color = color ?? CountdownConfig.countdownEventDefaultColor
         event.note = note
+        /// 提醒深拷贝，避免编辑过程中修改原事件
+        event.reminder = reminder?.copy() as? TaskReminder
+        /// 不重复时不携带时间计划
+        if let planType = timePlan.type, planType != .none {
+            event.timePlan = timePlan
+        }
+        
         return event
     }
     

@@ -22,8 +22,6 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         static let defaultCellHeight = 55.0
     }
     
-    var timePlan: CountdownTimePlan?
-    
     /// 编辑事件
     var editingEvent: CountdownEditingEvent
     
@@ -304,7 +302,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
     
     // MARK: - 重复规则
     private func updateRepeatRuleCellItem() {
-        guard let timePlan = timePlan, let title = timePlan.descriptionTitle else {
+        guard let timePlan = editingEvent.timePlan, let title = timePlan.descriptionTitle else {
             repeatRuleCellItem.valueConfig = .valueText(nil)
             return
         }
@@ -318,7 +316,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         }
 
         let menuVC = CountdownRepeatMenuController(date: editingEvent.date,
-                                                   timePlan: timePlan)
+                                                   timePlan: editingEvent.timePlan)
         menuVC.didSelectMenuActionType = { menuType in
             self.selectTimePlanType(menuType)
         }
@@ -340,7 +338,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
     }
     
     private func customRepeatRule() {
-        let rule = timePlan?.recurrenceRule ?? TaskTimePlanRegularRule()
+        let rule = editingEvent.timePlan?.recurrenceRule ?? TaskTimePlanRegularRule()
         let vc = CountdownRepeatCustomViewController(rule: rule)
         vc.didEndEditing = { rule in
             let timePlan = CountdownTimePlan(type: .custom, recurrenceRule: rule)
@@ -352,19 +350,22 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
     }
     
     private func changeTimePlan(_ timePlan: CountdownTimePlan?) {
-        self.timePlan = timePlan
+        editingEvent.timePlan = timePlan
         adapter.reloadCell(forItem: repeatRuleCellItem, with: .none)
     }
     
     // MARK: - 提醒
     private func updateReminderCellItem() {
+        guard let reminder = editingEvent.reminder else {
+            reminderCellItem.subtitle = nil
+            return
+        }
         
+        reminderCellItem.subtitle = reminder.startAlarmsInfo(with: nil)
     }
     
-    var reminder: TaskReminder?
-    
     private func editReminder() {
-        let editVC = ReminderEditViewController(reminder: reminder,
+        let editVC = ReminderEditViewController(reminder: editingEvent.reminder,
                                                 isAllDay: true,
                                                 startDate: editingEvent.targetDate,
                                                 endDate: nil)
@@ -377,6 +378,12 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
     }
     
     private func selectReminder(_ reminder: TaskReminder?) {
+        if let reminder = reminder, reminder.hasAlarm {
+            editingEvent.reminder = reminder
+        } else {
+            editingEvent.reminder = nil
+        }
         
+        adapter.reloadCell(forItem: reminderCellItem, with: .none)
     }
 }

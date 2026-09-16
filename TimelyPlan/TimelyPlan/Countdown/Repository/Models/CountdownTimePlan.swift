@@ -37,7 +37,7 @@ enum CountdownTimePlanType: String, Codable, TPMenuRepresentable {
 }
 
 /// 重复规则
-struct CountdownTimePlan: Codable {
+struct CountdownTimePlan: Codable, Equatable {
     
     /// 类型
     var type: CountdownTimePlanType?
