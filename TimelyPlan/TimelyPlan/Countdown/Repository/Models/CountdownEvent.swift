@@ -128,9 +128,19 @@ class CountdownEvent: NSObject,
         return name ?? resGetString("Untitled Countdown")
     }
     
-    /// 距离目标日期的天数（正数为剩余天数，负数为已经过去的天数）
+    /// 相对于当前日期的下一个发生日（不重复时即为目标日期）
+    var occuranceDate: CountdownDate {
+        guard let rule = timePlan.regularRule,
+              let nextDate = rule.nextPlanDate(from: Date(), startDate: date) else {
+            return date
+        }
+        
+        return nextDate
+    }
+    
+    /// 距离下一个发生日的天数（正数为剩余天数，负数为已经过去的天数）
     var remainingDays: Int {
-        return Date.days(fromDate: Date(), toDate: targetDate)
+        return Date.days(fromDate: Date(), toDate: occuranceDate.targetDate)
     }
     
     /// 目标日期是否已经过去
@@ -202,14 +212,14 @@ struct CountdownEditingEvent: Equatable {
     /// 倒数日日期（日期类型 + 日期 + 闰月）
     var date: CountdownDate
     
-    /// 备注
-    var note: String?
-    
     /// 提醒
     var reminder: TaskReminder?
     
     /// 时间计划（nil 表示不重复）
     var timePlan: CountdownTimePlan?
+    
+    /// 备注
+    var note: String?
     
     init(type: CountdownEventType = .countdown,
          date: CountdownDate = CountdownDate()) {
@@ -238,6 +248,16 @@ struct CountdownEditingEvent: Equatable {
             && lhs.note == rhs.note
             && lhs.reminder == rhs.reminder
             && lhs.timePlan == rhs.timePlan
+    }
+    
+    /// 相对于当前日期的下一个发生日（不重复时即为目标日期）
+    var occuranceDate: CountdownDate {
+        guard let rule = timePlan?.regularRule,
+              let nextDate = rule.nextPlanDate(from: Date(), startDate: date) else {
+            return date
+        }
+        
+        return nextDate
     }
 }
 

@@ -132,8 +132,8 @@ class CountdownEventDetailProvider {
     static func subtitleComponents(for event: CountdownEvent) -> [ASAttributedString] {
         var components = [ASAttributedString]()
         
-        /// 目标日期（本年度省略年份）
-        let dateString = event.targetDate.yearMonthDayString(omitYear: true, showRelativeDate: false)
+        /// 下一个发生日（本年度省略年份）
+        let dateString = event.occuranceDate.targetDate.yearMonthDayString(omitYear: true, showRelativeDate: false)
         components.append(dateString.attributedString)
         
         /// 剩余天数

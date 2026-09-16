@@ -7000,9 +7000,10 @@
 		E541DC2E3057D4D3008BFAE0 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				E541DC363057D724008BFAE0 /* Models */,
+				E541DC4530581CF8008BFAE0 /* CountdownRepository.swift */,
 				E541DC3F3057EDFA008BFAE0 /* CountdownEventManager.swift */,
 				E541DC4330581CC3008BFAE0 /* CountdownEventProcessorUpdater.swift */,
+				E541DC363057D724008BFAE0 /* Models */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -7043,11 +7044,10 @@
 		E541DC363057D724008BFAE0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E541DC4530581CF8008BFAE0 /* CountdownRepository.swift */,
 				E541DC393057D7B1008BFAE0 /* CoreData */,
-				E541DC4730582311008BFAE0 /* CountdownEventType.swift */,
 				E541DC5C3058F3F3008BFAE0 /* CountdownDate.swift */,
 				E541DC64305A1AAA008BFAE0 /* CountdownTimePlan.swift */,
+				E541DC4730582311008BFAE0 /* CountdownEventType.swift */,
 				E541DC373057D73B008BFAE0 /* CountdownEvent.swift */,
 			);
 			path = Models;

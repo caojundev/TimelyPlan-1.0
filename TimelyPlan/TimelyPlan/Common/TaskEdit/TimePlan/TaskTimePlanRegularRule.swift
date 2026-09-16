@@ -151,8 +151,8 @@ extension TaskTimePlanRegularRule {
     /// 获取特定日期之后（包括当天）最近的一个计划日
     /// - Parameters:
     ///   - date: 参考日期
-    ///   - startDate: 习惯开始日期
-    ///   - endDate: 习惯结束日期（nil表示永不结束）
+    ///   - startDate: 任务开始日期
+    ///   - endDate: 任务结束日期（nil表示永不结束）
     /// - Returns: 最近的下一个计划日，如果找不到返回nil
     func nextPlanDate(from date: Date, startDate: Date, endDate: Date? = nil) -> Date? {
         let rule = self
@@ -171,7 +171,7 @@ extension TaskTimePlanRegularRule {
             nextDate = nextMonthlyDate(from: referenceDate, daysOfMonth: rule.daysOfTheMonth, startDate: startDate, calendar: calendar)
             
         case .yearly:
-            nextDate = nil
+            nextDate = nextYearlyDate(from: referenceDate, interval: max(1, rule.interval), startDate: startDate, calendar: calendar)
         }
         
         guard let nextDate = nextDate else { return nil }
@@ -282,5 +282,31 @@ extension TaskTimePlanRegularRule {
     private func resolveDay(_ day: Int, daysInMonth: Int) -> Int {
         if day == -1 { return daysInMonth }
         return min(day, daysInMonth)
+    }
+    
+    // MARK: - Yearly (O(1))
+    
+    private func nextYearlyDate(from date: Date, interval: Int, startDate: Date, calendar: Calendar) -> Date? {
+        // 每年的重复日为期始日期的月-日，不考虑其它规则
+        let startComponents = calendar.dateComponents([.month, .day], from: startDate)
+        let startYear = calendar.component(.year, from: startDate)
+        let currentYear = calendar.component(.year, from: date)
+        
+        // 按间隔定位到参考日期所在的年份附近
+        let yearsFromStart = max(0, currentYear - startYear)
+        var cycles = yearsFromStart / interval
+        
+        // 最多再顺延一个间隔，即可覆盖同年月-日已过去的情况
+        for _ in 0..<2 {
+            var components = startComponents
+            components.year = startYear + cycles * interval
+            if let candidate = calendar.date(from: components),
+               candidate >= calendar.startOfDay(for: date) {
+                return candidate
+            }
+            cycles += 1
+        }
+        
+        return nil
     }
 }
