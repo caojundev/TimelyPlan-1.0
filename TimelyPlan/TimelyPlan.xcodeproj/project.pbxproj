@@ -109,6 +109,7 @@
 		E5087EB430431EA900DCD85C /* GanttTimelineNowIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB330431EA900DCD85C /* GanttTimelineNowIndicatorView.swift */; };
 		E5087EB630431F2000DCD85C /* GanttTimelineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB530431F2000DCD85C /* GanttTimelineGeometry.swift */; };
 		E5087EB8304320A000DCD85C /* GanttTimelineNowLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB7304320A000DCD85C /* GanttTimelineNowLineView.swift */; };
+		E5091C54305AC630009CFD17 /* CountdownValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C53305AC630009CFD17 /* CountdownValueView.swift */; };
 		E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */; };
 		E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */; };
 		E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */; };
@@ -2463,6 +2464,7 @@
 		E5087EB330431EA900DCD85C /* GanttTimelineNowIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineNowIndicatorView.swift; sourceTree = "<group>"; };
 		E5087EB530431F2000DCD85C /* GanttTimelineGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineGeometry.swift; sourceTree = "<group>"; };
 		E5087EB7304320A000DCD85C /* GanttTimelineNowLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineNowLineView.swift; sourceTree = "<group>"; };
+		E5091C53305AC630009CFD17 /* CountdownValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownValueView.swift; sourceTree = "<group>"; };
 		E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCustomPopup.swift; sourceTree = "<group>"; };
 		E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultInfoView.swift; sourceTree = "<group>"; };
 		E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Extensions.swift"; sourceTree = "<group>"; };
@@ -5059,6 +5061,15 @@
 			path = UICollectionViewLeftAlignedLayout;
 			sourceTree = "<group>";
 		};
+		E5091C52305AC609009CFD17 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				E541DC4F30582ED1008BFAE0 /* CountdownEventListCell.swift */,
+				E5091C53305AC630009CFD17 /* CountdownValueView.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
 		E509B50F2F6431D90045F11E /* Popup */ = {
 			isa = PBXGroup;
 			children = (
@@ -7072,8 +7083,8 @@
 			isa = PBXGroup;
 			children = (
 				E541DC4A30582A7E008BFAE0 /* CountdownEventListView.swift */,
-				E541DC4F30582ED1008BFAE0 /* CountdownEventListCell.swift */,
 				E541DC4C30582ECF008BFAE0 /* CountdownEventMenu.swift */,
+				E5091C52305AC609009CFD17 /* List */,
 				E541DC4D30582ECF008BFAE0 /* ViewModels */,
 			);
 			path = ListView;
@@ -14695,6 +14706,7 @@
 				E5D7D9042D43933600EC877A /* WatchTickView.swift in Sources */,
 				E5FF4EC22FE95E8500282416 /* TaskNotificationConfig.swift in Sources */,
 				E5BB9B502D3BEF920089667A /* ObjectExtension.swift in Sources */,
+				E5091C54305AC630009CFD17 /* CountdownValueView.swift in Sources */,
 				E5FC6BD32F67BBDB00D5A5EA /* HabitStatsYearlyHistorySectionController.swift in Sources */,
 				E5BB9EB42D3BF0C80089667A /* TPYearMonthDatePickerViewController.swift in Sources */,
 				E5D7D8EF2D43933600EC877A /* FocusRecordEditBindSectionController.swift in Sources */,

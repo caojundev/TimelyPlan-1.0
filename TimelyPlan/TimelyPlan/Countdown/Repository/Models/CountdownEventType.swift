@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// 倒数日事项类型
 enum CountdownEventType: Int, CaseIterable {
@@ -48,11 +49,29 @@ enum CountdownEventType: Int, CaseIterable {
         case .countdown:
             return "⏳"
         case .anniversary:
-            return "🕐"
+            eturn "🕐"
         case .birthday:
             return "🎂"
         case .age:
             return "👶"
+        }
+    }
+    
+    /// 类型专属颜色（取自 CountdownConfig.countdownEventColors 调色板）
+    var color: UIColor {
+        switch self {
+        case .countdown:
+            /// 橙红：倒数日默认色
+            return Color(0xE84F01)
+        case .anniversary:
+            /// 紫色
+            return Color(0x8C36FF)
+        case .birthday:
+            /// 蓝色
+            return Color(0x09AFFF)
+        case .age:
+            /// 绿色
+            return Color(0x26B450)
         }
     }
 }
