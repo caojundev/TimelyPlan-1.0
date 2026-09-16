@@ -8,20 +8,20 @@
 import Foundation
 import UIKit
 
-class CountdownRepeatMenuController: TPBaseMenuController<TaskTimePlanType> {
+class CountdownRepeatMenuController: TPBaseMenuController<CountdownTimePlanType> {
     
     let date: CountdownDate
     
-    let timePlan: TaskTimePlan?
+    let timePlan: CountdownTimePlan?
     
-    init(date: CountdownDate, timePlan: TaskTimePlan? = nil) {
+    init(date: CountdownDate, timePlan: CountdownTimePlan? = nil) {
         self.date = date
         self.timePlan = timePlan
         super.init()
     }
 
-    override func orderedMenuActionTypeLists() -> [Array<TaskTimePlanType>] {
-        var lists: [Array<TaskTimePlanType>]
+    override func orderedMenuActionTypeLists() -> [Array<CountdownTimePlanType>] {
+        var lists: [Array<CountdownTimePlanType>]
         lists = [[.none],
                  [.daily,
                   .weekly,
@@ -31,11 +31,11 @@ class CountdownRepeatMenuController: TPBaseMenuController<TaskTimePlanType> {
         return lists
     }
      
-    override func menuActionTypes() -> [TaskTimePlanType] {
+    override func menuActionTypes() -> [CountdownTimePlanType] {
         return [.none, .daily, .weekly, .monthly, .yearly, .custom]
     }
     
-    override func updateMenuAction(_ action: TPMenuAction, for type: TaskTimePlanType) {
+    override func updateMenuAction(_ action: TPMenuAction, for type: CountdownTimePlanType) {
         super.updateMenuAction(action, for: type)
         action.subtitle = subtitle(for: type)
         action.handleBeforeDismiss = type != .custom
@@ -48,7 +48,7 @@ class CountdownRepeatMenuController: TPBaseMenuController<TaskTimePlanType> {
         action.isChecked = selectedType == type
     }
     
-    private func subtitle(for type: TaskTimePlanType) -> String? {
+    private func subtitle(for type: CountdownTimePlanType) -> String? {
         let targetDate = date.targetDate
         if date.type == .gregorian {
             /// 公历日期

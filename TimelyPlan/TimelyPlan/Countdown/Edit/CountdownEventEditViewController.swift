@@ -22,7 +22,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         static let defaultCellHeight = 55.0
     }
     
-    var timePlan: TaskTimePlan?
+    var timePlan: CountdownTimePlan?
     
     /// 编辑事件
     var editingEvent: CountdownEditingEvent
@@ -92,13 +92,16 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         sectionController.headerItem.padding = Config.sectionHeaderPadding
         sectionController.footerItem.height = 0.0
         sectionController.cellItems = [targetDateCellItem,
-                                       repeatRuleCellItem]
+                                       repeatRuleCellItem,
+                                       reminderCellItem]
         return sectionController
     }()
   
-    lazy var targetDateCellItem: TPDefaultInfoTableCellItem = { [weak self] in
-        let cellItem = TPDefaultInfoTableCellItem()
+    lazy var targetDateCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem()
+        cellItem.height = Config.defaultCellHeight
         cellItem.accessoryType = .disclosureIndicator
+        cellItem.imageName = "calendar_24"
         cellItem.updater = {
             self?.updateTargetDateCellItem()
         }
@@ -115,6 +118,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         let cellItem = TPImageInfoTextValueTableCellItem()
         cellItem.height = Config.defaultCellHeight
         cellItem.accessoryType = .disclosureIndicator
+        cellItem.imageName = "schedule_repeat_24"
         cellItem.title = resGetString("Repeat")
         cellItem.updater = {
             self?.updateRepeatRuleCellItem()
@@ -127,14 +131,23 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
-    private func updateRepeatRuleCellItem() {
-        guard let timePlan = timePlan, let title = timePlan.descriptionTitle else {
-            repeatRuleCellItem.valueConfig = .valueText(nil)
-            return
+    /// 提醒
+    lazy var reminderCellItem: TPImageInfoTextValueTableCellItem = {  [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem()
+        cellItem.height = Config.defaultCellHeight
+        cellItem.accessoryType = .disclosureIndicator
+        cellItem.imageName = "schedule_alarm_24"
+        cellItem.title = resGetString("Reminder")
+        cellItem.updater = {
+            self?.updateReminderCellItem()
         }
-
-        repeatRuleCellItem.valueConfig = .valueText(title)
-    }
+    
+        cellItem.didSelectHandler = {
+            self?.editReminder()
+        }
+        
+        return cellItem
+    }()
     
     // MARK: - 备注
     lazy var noteSectionController: TPNoteTableSectionController = { [weak self] in
@@ -274,6 +287,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         updateDoneButtonEnabled()
     }
     
+    // MARK: - 日期
     private func updateTargetDateCellItem() {
         targetDateCellItem.title = editingEvent.date.displayText
     }
@@ -288,7 +302,16 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         vc.popoverShow()
     }
     
-    // MARK: - Edit
+    // MARK: - 重复规则
+    private func updateRepeatRuleCellItem() {
+        guard let timePlan = timePlan, let title = timePlan.descriptionTitle else {
+            repeatRuleCellItem.valueConfig = .valueText(nil)
+            return
+        }
+
+        repeatRuleCellItem.valueConfig = .valueText(title)
+    }
+    
     private func editRepeatRule() {
         guard let cell = adapter.cellForItem(repeatRuleCellItem) else {
             return
@@ -305,12 +328,12 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
                         isCovered: false)
     }
     
-    private func selectTimePlanType(_ type: TaskTimePlanType) {
+    private func selectTimePlanType(_ type: CountdownTimePlanType) {
         switch type {
         case .none:
             changeTimePlan(nil)
         case .daily, .weekly, .monthly, .yearly:
-            changeTimePlan(TaskTimePlan(type: type))
+            changeTimePlan(CountdownTimePlan(type: type))
         case .custom:
             customRepeatRule()
         }
@@ -320,7 +343,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         let rule = timePlan?.recurrenceRule ?? TaskTimePlanRegularRule()
         let vc = CountdownRepeatCustomViewController(rule: rule)
         vc.didEndEditing = { rule in
-            let timePlan = TaskTimePlan(type: .custom, recurrenceRule: rule)
+            let timePlan = CountdownTimePlan(type: .custom, recurrenceRule: rule)
             self.changeTimePlan(timePlan)
         }
         
@@ -328,9 +351,32 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         navController.show()
     }
     
-    private func changeTimePlan(_ timePlan: TaskTimePlan?) {
+    private func changeTimePlan(_ timePlan: CountdownTimePlan?) {
         self.timePlan = timePlan
         adapter.reloadCell(forItem: repeatRuleCellItem, with: .none)
     }
-
+    
+    // MARK: - 提醒
+    private func updateReminderCellItem() {
+        
+    }
+    
+    var reminder: TaskReminder?
+    
+    private func editReminder() {
+        let editVC = ReminderEditViewController(reminder: reminder,
+                                                isAllDay: true,
+                                                startDate: editingEvent.targetDate,
+                                                endDate: nil)
+        editVC.didEndEditing = { reminder in
+            self.selectReminder(reminder)
+        }
+        
+        let navController = UINavigationController(rootViewController: editVC)
+        navController.popoverShow()
+    }
+    
+    private func selectReminder(_ reminder: TaskReminder?) {
+        
+    }
 }

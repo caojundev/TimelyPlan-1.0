@@ -1,5 +1,5 @@
 //
-//  TaskTimePlan.swift
+//  CountdownTimePlan.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/9/16.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// 重复类型
-enum TaskTimePlanType: String, Codable, TPMenuRepresentable {
+enum CountdownTimePlanType: String, Codable, TPMenuRepresentable {
     case none    /// 不重复
     case daily   /// 每天
     case weekly  /// 每周
@@ -37,15 +37,15 @@ enum TaskTimePlanType: String, Codable, TPMenuRepresentable {
 }
 
 /// 重复规则
-struct TaskTimePlan: Codable {
+struct CountdownTimePlan: Codable {
     
     /// 类型
-    var type: TaskTimePlanType?
+    var type: CountdownTimePlanType?
     
     /// 重复规则
     var recurrenceRule: TaskTimePlanRegularRule?
     
-    init(type: TaskTimePlanType, recurrenceRule: TaskTimePlanRegularRule? = nil) {
+    init(type: CountdownTimePlanType, recurrenceRule: TaskTimePlanRegularRule? = nil) {
         self.type = type
         self.recurrenceRule = recurrenceRule
     }
