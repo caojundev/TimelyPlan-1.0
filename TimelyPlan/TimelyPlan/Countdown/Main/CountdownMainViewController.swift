@@ -8,22 +8,19 @@
 import Foundation
 import UIKit
 
-class CountdownMainViewController: TPViewController,
+class CountdownMainViewController: TPContainerViewController,
                                     TPSidebarContent,
-                                    CountdownEventListViewDelegate {
+                                    UISearchBarDelegate {
     
     struct Config {
-        /// 添加视图按钮
-        static let addViewSize = CGSize(width: 50.0, height: 50.0)
-        /// 添加视图边界间距
-        static let addViewMargins = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 20.0)
+        /// 搜索栏高度
+        static let searchBarHeight = 60.0
+        /// 搜索栏边界间距
+        static let searchBarEdgeMargin = 10.0
     }
     
     /// 侧边栏控制器
     var sidebarController: SidebarController?
-    
-    /// 倒数日事项视图模型
-    private let viewModel = CountdownEventViewModel()
     
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: CountdownMoreBarButtonItem = {
@@ -47,17 +44,26 @@ class CountdownMainViewController: TPViewController,
         return item
     }()
     
-    /// 添加视图
-    private var addView: TPAddView?
-    
-    /// 倒数日事项列表视图
-    lazy var listView: CountdownEventListView = {
-        let listView = CountdownEventListView(frame: .zero)
-        listView.delegate = self
-        listView.isReorderEnabled = true
-        listView.placeholderProvider = viewModel.placeholderProvider
-        return listView
+    /// 搜索栏
+    lazy var searchBar: UISearchBar = {
+        let bar = UISearchBar()
+        bar.delegate = self
+        bar.placeholder = resGetString("Search Countdown")
+        bar.barTintColor = .clear
+        bar.tintColor = resGetColor(.title)
+        bar.backgroundImage = UIImage()
+        return bar
     }()
+    
+    /// 倒数日事项列表内容
+    lazy var listContentViewController: CountdownEventListViewController = {
+        let viewController = CountdownEventListViewController()
+        viewController.layoutType = layoutType
+        return viewController
+    }()
+    
+    /// 搜索结果视图控制器
+    private var searchResultViewController: CountdownEventSearchResultViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,24 +71,20 @@ class CountdownMainViewController: TPViewController,
         navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
         navigationItem.rightBarButtonItems = [moreBarButtonItem,
                                               layoutBarButtonItem]
-        setupListView()
-        setupAddView()
-        
-        self.viewModel.eventsDidChange = { [weak self] change in
-            self?.eventsChanged(change)
-        }
-        self.viewModel.loadEvents()
+        view.addSubview(searchBar)
+        setContentViewController(listContentViewController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        listView.reloadDataIfNeeded()
+        listContentViewController.reloadDataIfNeeded()
+        /// 编辑 / 删除事项后返回时刷新搜索结果
+        searchResultViewController?.reloadSearchResults()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        layoutAddView()
-        layoutListView()
+        layoutSearchBar()
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -93,110 +95,72 @@ class CountdownMainViewController: TPViewController,
         return .systemBackground
     }
     
-    // MARK: - 列表视图
-    private func setupListView() {
-        view.addSubview(listView)
-        listView.reloadData()
+    /// 内容视图区域（搜索栏下方）
+    override func contentViewFrame() -> CGRect {
+        var frame = view.safeAreaFrame()
+        frame.origin.y += Config.searchBarHeight
+        frame.size.height -= Config.searchBarHeight
+        
+        return frame
     }
     
-    private func layoutListView() {
+    // MARK: - 搜索栏
+    private func layoutSearchBar() {
         let layoutFrame = view.safeAreaFrame()
-        listView.frame = CGRect(x: layoutFrame.minX,
-                                y: layoutFrame.minY,
-                                width: layoutFrame.width,
-                                height: layoutFrame.height)
+        let searchBarWidth = view.width - 2 * Config.searchBarEdgeMargin
+        self.searchBar.width = min(CountdownConfig.eventListContentMaxWidth, searchBarWidth)
+        self.searchBar.height = Config.searchBarHeight
+        self.searchBar.top = layoutFrame.minY
+        self.searchBar.alignHorizontalCenter()
+    }
+    
+    // MARK: - 搜索
+    /// 展示搜索结果
+    private func showSearchResults(with searchText: String?) {
+        if searchResultViewController == nil {
+            let viewController = CountdownEventSearchResultViewController()
+            viewController.layoutType = layoutType
+            self.searchResultViewController = viewController
+        }
         
-        /// 底部留出添加按钮的空间
-        let insetBottom = layoutFrame.maxY - (addView?.top ?? layoutFrame.maxY)
-        listView.contentInset = UIEdgeInsets(top: 0.0,
-                                             left: 0.0,
-                                             bottom: max(insetBottom, 0.0),
-                                             right: 0.0)
-    }
-    
-    /// 加载并刷新倒数日事项
-    private func reloadEvents() {
-        let group = CountdownEventGroup(identifier: "CountdownEventGroup")
-        group.events = viewModel.events
-        listView.groups = [group]
-        listView.performUpdate()
-    }
-    
-    /// 处理倒数日事项变更
-    private func eventsChanged(_ change: CountdownEventChange?) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            self.reloadEvents()
-            
-            var revealEvent: CountdownEvent?
-            if let change = change {
-                switch change {
-                case .create(let event), .update(let event):
-                    revealEvent = event
-                }
-            }
-            
-            if let revealEvent = revealEvent {
-                self.listView.revealItem(revealEvent, autoScroll: true)
-            }
+        if let searchResultViewController = searchResultViewController {
+            setContentViewController(searchResultViewController)
+            searchResultViewController.updateSearchResults(with: searchText)
         }
     }
     
-    // MARK: - 添加视图
-    private func setupAddView() {
-        if canAddCountdown() {
-            let addView = TPAddView()
-            addView.normalBackgroundColor = .primary
-            addView.didClickAdd = { [weak self] _ in
-                self?.clickAddCountdown()
-            }
-            
-            self.addView = addView
-            self.view.insertSubview(addView, at: 999)
+    /// 结束搜索，回到事项列表
+    private func endSearchResults() {
+        searchResultViewController = nil
+        setContentViewController(listContentViewController)
+    }
+    
+    // MARK: - UISearchBarDelegate
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+        showSearchResults(with: searchBar.text)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        let searchTextCount = searchBar.text?.count ?? 0
+        if searchTextCount == 0 {
+            searchBarCancelButtonClicked(searchBar)
         }
     }
     
-    private func layoutAddView() {
-        let layoutFrame = view.safeAreaFrame()
-        if let addView = addView {
-            addView.size = Config.addViewSize
-            addView.bottom = layoutFrame.maxY - Config.addViewMargins.bottom
-            addView.right = layoutFrame.maxX - Config.addViewMargins.right
-        }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchBar.text = nil
+        searchBar.setShowsCancelButton(false, animated: true)
+        endSearchResults()
     }
     
-    /// 点击添加倒数日
-    private func clickAddCountdown() {
-        guard let addView = addView else {
-            return
-        }
-        
-        TPImpactFeedback.impactWithLightStyle()
-        
-        // 创建气泡菜单视图（frame 传主视图的 bounds，triggerButtonFrame 传加号按钮的 frame）
-        let bubbleMenu = BubbleMenuView(
-            frame: view.bounds,
-            triggerButtonFrame: addView.frame,
-            menuItems: CountdownEventType.bubbleMenuItems
-        )
-        
-        bubbleMenu.onSelectMenuItem = { menuItem in
-            guard let type = CountdownEventType.type(for: menuItem) else {
-                return
-            }
-            
-            CountdownPresenter.createNewEvent(type: type)
-        }
-        
-        // 添加到主视图并展示
-        bubbleMenu.show(in: self.view)
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
     
-    func canAddCountdown() -> Bool {
-        return true
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchResultViewController?.updateSearchResults(with: searchText)
     }
     
     // MARK: - Event Response
@@ -205,8 +169,9 @@ class CountdownMainViewController: TPViewController,
         TPImpactFeedback.impactWithLightStyle()
         
         layoutType = layoutType.toggled
-        listView.layoutType = layoutType
         sender.image = UIImage(systemName: layoutType.iconName)
+        listContentViewController.layoutType = layoutType
+        searchResultViewController?.layoutType = layoutType
     }
     
     /// 执行更多菜单操作
@@ -216,30 +181,5 @@ class CountdownMainViewController: TPViewController,
             CountdownPresenter.showArchived()
             break
         }
-    }
-    
-    // MARK: - CountdownEventListViewDelegate
-    func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
-        TPImpactFeedback.impactWithSoftStyle()
-        if let event = collectionView.item(at: indexPath) as? CountdownEvent {
-            CountdownPresenter.editEvent(event)
-        }
-    }
-    
-    func countdownEventListView(_ listView: CountdownEventListView,
-                                moveItemAt sourceIndexPath: IndexPath,
-                                to targetIndexPath: IndexPath) {
-        guard let events = listView.items(for: targetIndexPath.section) as? [CountdownEvent] else {
-            return
-        }
-        
-        CountdownRepository.reorderEvent(in: events,
-                                         fromIndex: sourceIndexPath.item,
-                                         toIndex: targetIndexPath.item)
-    }
-    
-    func countdownEventListViewHandleRefresh(_ listView: CountdownEventListView) {
-        self.viewModel.setNeedsRefresh()
-        self.viewModel.loadEvents()
     }
 }
