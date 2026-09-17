@@ -35,6 +35,9 @@ class GoalTaskStepActionViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
+    /// 排序管理器
+    private var reorder: TPTableDragInsertReorder?
+    
     init(interactor: GoalTaskEditInteractor) {
         self.interactor = interactor
         self.steps = interactor.task.steps ?? []
@@ -47,11 +50,21 @@ class GoalTaskStepActionViewController: TPTableSectionsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.wrapperView.isKeyboardAdjusterEnabled = true
-        self.tableView.keyboardDismissMode = .onDrag
-        self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        self.sectionControllers = [stepSectionController]
-        self.adapter.reloadData()
+        wrapperView.isKeyboardAdjusterEnabled = true
+        tableView.keyboardDismissMode = .onDrag
+        adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
+        sectionControllers = [stepSectionController]
+        adapter.reloadData()
+        setupReorder()
+    }
+    
+    /// 初始化排序管理器
+    private func setupReorder() {
+        let reorder = TPTableDragInsertReorder(tableView: adapter.tableView)
+        reorder.indicatorBackColor = Color(0xFFFFFF, 0.1)
+        reorder.isEnabled = true
+        reorder.delegate = stepSectionController
+        self.reorder = reorder
     }
     
     override var themeBackgroundColor: UIColor? {
