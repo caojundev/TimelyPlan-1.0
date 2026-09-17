@@ -96,12 +96,18 @@ class CountdownEventListView: TPGroupCollectionView,
         super.init(frame: frame)
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         self.setupReorder()
-        self.addRefreshControl()
         self.updateSectionLayout()
+        if shouldAddRefreshControl() {
+            self.addRefreshControl()
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func shouldAddRefreshControl() -> Bool {
+        return true
     }
     
     /// 根据布局类型更新区块布局配置

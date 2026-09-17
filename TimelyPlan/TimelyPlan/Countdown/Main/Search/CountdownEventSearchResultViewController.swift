@@ -26,15 +26,19 @@ class CountdownEventSearchResultViewController: TPViewController,
     private let placeholderProvider = TPDefaultPlaceholderProvider()
     
     /// 搜索结果列表视图
-    lazy var listView: CountdownEventListView = {
-        let listView = CountdownEventListView(frame: .zero)
+    lazy var listView: CountdownEventSearchResultListView = {
+        let listView = CountdownEventSearchResultListView(frame: .zero)
         listView.delegate = self
         listView.layoutType = layoutType
-        listView.placeholderProvider = placeholderProvider
+        listView.collectionView.addKeyboardNotification()
         listView.collectionView.keyboardAutoAdjustContentInset = true
-        listView.collectionView.keyboardDismissMode = .interactive
+        listView.placeholderProvider = placeholderProvider
         return listView
     }()
+    
+    deinit {
+        listView.collectionView.removeKeyboardNotification()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +77,7 @@ class CountdownEventSearchResultViewController: TPViewController,
         }
         
         self.searchText = searchText
+        listView.searchText = searchText
         
         let group = CountdownEventGroup(identifier: "CountdownSearchResultGroup")
         group.events = searchEvents(containText: searchText)

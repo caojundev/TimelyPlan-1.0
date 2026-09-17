@@ -26,7 +26,7 @@ class CountdownEventCellStyle: TPCollectionCellStyle {
 class CountdownEventListCell: TPCollectionCell {
     
     /// 单元格默认高度
-    static let cellHeight = 100.0
+    static let cellHeight = 90.0
     
     /// 数值视图最大宽度
     private let valueViewMaximumWidth: CGFloat = 80.0
@@ -51,10 +51,13 @@ class CountdownEventListCell: TPCollectionCell {
     let valueView: CountdownVerticalValueView = {
         let view = CountdownVerticalValueView()
         /// 列表行高有限，使用较小字号
-        view.valueLabel.font = UIFont.systemFont(ofSize: 30.0, weight: .bold)
+        view.valueLabel.font = UIFont.systemFont(ofSize: 24.0, weight: .bold)
         view.valueLabel.adjustsFontSizeToFitWidth = true
         view.valueLabel.minimumScaleFactor = 0.5
+        view.valueLabel.textAlignment = .right
+        
         view.unitLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .medium)
+        view.unitLabel.textAlignment = .right
         return view
     }()
     

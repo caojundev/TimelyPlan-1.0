@@ -115,6 +115,7 @@
 		E5091C5D305B863A009CFD17 /* CountdownHorizontalValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C5C305B863A009CFD17 /* CountdownHorizontalValueView.swift */; };
 		E5091C61305BC6DD009CFD17 /* CountdownEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C60305BC6DD009CFD17 /* CountdownEventListViewController.swift */; };
 		E5091C64305BC742009CFD17 /* CountdownEventSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C63305BC741009CFD17 /* CountdownEventSearchResultViewController.swift */; };
+		E5091C66305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C65305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift */; };
 		E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */; };
 		E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */; };
 		E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */; };
@@ -2475,6 +2476,7 @@
 		E5091C5C305B863A009CFD17 /* CountdownHorizontalValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownHorizontalValueView.swift; sourceTree = "<group>"; };
 		E5091C60305BC6DD009CFD17 /* CountdownEventListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventListViewController.swift; sourceTree = "<group>"; };
 		E5091C63305BC741009CFD17 /* CountdownEventSearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchResultViewController.swift; sourceTree = "<group>"; };
+		E5091C65305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchResultListView.swift; sourceTree = "<group>"; };
 		E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCustomPopup.swift; sourceTree = "<group>"; };
 		E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultInfoView.swift; sourceTree = "<group>"; };
 		E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Extensions.swift"; sourceTree = "<group>"; };
@@ -5074,7 +5076,6 @@
 		E5091C52305AC609009CFD17 /* ListView */ = {
 			isa = PBXGroup;
 			children = (
-				E5091C5A305B85C7009CFD17 /* CountdownEventDetailProvider.swift */,
 				E541DC4A30582A7E008BFAE0 /* CountdownEventListView.swift */,
 				E541DC4F30582ED1008BFAE0 /* CountdownEventListCell.swift */,
 				E5091C58305B8341009CFD17 /* CountdownEventGridCell.swift */,
@@ -5096,6 +5097,7 @@
 			isa = PBXGroup;
 			children = (
 				E5091C63305BC741009CFD17 /* CountdownEventSearchResultViewController.swift */,
+				E5091C65305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -7115,6 +7117,7 @@
 			children = (
 				E5091C60305BC6DD009CFD17 /* CountdownEventListViewController.swift */,
 				E541DC4C30582ECF008BFAE0 /* CountdownEventMenu.swift */,
+				E5091C5A305B85C7009CFD17 /* CountdownEventDetailProvider.swift */,
 				E5091C52305AC609009CFD17 /* ListView */,
 				E541DC4D30582ECF008BFAE0 /* ViewModels */,
 			);
@@ -14120,6 +14123,7 @@
 				E5B33D582F80E66E00939C3E /* TaskScheduleEditDateSectionController.swift in Sources */,
 				E5BB9ED42D3BF0C80089667A /* TPCircularCheckbox.swift in Sources */,
 				E53B11482F94D20800701410 /* TodoFilterEditViewController.swift in Sources */,
+				E5091C66305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift in Sources */,
 				E51FF6612F583312003CA953 /* HabitTaskListBaseCell.swift in Sources */,
 				E50D608C2F7A7B1500D5E0A4 /* HabitSample.swift in Sources */,
 				E56B94932F8DC52A001E488B /* TodoFilter.swift in Sources */,

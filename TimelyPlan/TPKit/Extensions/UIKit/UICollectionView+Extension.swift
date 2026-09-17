@@ -243,8 +243,7 @@ extension UICollectionView {
     }
 
     @objc func keyboardWillShow(_ notification: Notification) {
-        guard let collectionSuperview = self.superview,
-              let userInfo = notification.userInfo,
+        guard let userInfo = notification.userInfo,
                 let frameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
@@ -255,9 +254,7 @@ extension UICollectionView {
         keyboardFrame.origin.y -= offsetY
         keyboardFrame.size.height += offsetY
         
-        let convertedKeyboardFrame = collectionSuperview.convert(keyboardFrame, fromViewOrWindow: nil)
-        let intersectionFrame = convertedKeyboardFrame.intersection(self.frame)
-        self.keyboardIntersectionBottom = intersectionFrame.height
+        self.keyboardIntersectionBottom = keyboardFrame.height
         tp_animateUpdateFrameOfPlaceholder()
         tp_updateContentInset()
     }
