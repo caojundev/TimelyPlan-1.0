@@ -109,7 +109,10 @@
 		E5087EB430431EA900DCD85C /* GanttTimelineNowIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB330431EA900DCD85C /* GanttTimelineNowIndicatorView.swift */; };
 		E5087EB630431F2000DCD85C /* GanttTimelineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB530431F2000DCD85C /* GanttTimelineGeometry.swift */; };
 		E5087EB8304320A000DCD85C /* GanttTimelineNowLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB7304320A000DCD85C /* GanttTimelineNowLineView.swift */; };
-		E5091C54305AC630009CFD17 /* CountdownValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C53305AC630009CFD17 /* CountdownValueView.swift */; };
+		E5091C54305AC630009CFD17 /* CountdownVerticalValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C53305AC630009CFD17 /* CountdownVerticalValueView.swift */; };
+		E5091C59305B8341009CFD17 /* CountdownEventGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C58305B8341009CFD17 /* CountdownEventGridCell.swift */; };
+		E5091C5B305B85C7009CFD17 /* CountdownEventDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C5A305B85C7009CFD17 /* CountdownEventDetailProvider.swift */; };
+		E5091C5D305B863A009CFD17 /* CountdownHorizontalValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C5C305B863A009CFD17 /* CountdownHorizontalValueView.swift */; };
 		E509B50C2F63F9E50045F11E /* TPCustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */; };
 		E509B50E2F6431A10045F11E /* HabitRecordResultInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */; };
 		E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */; };
@@ -2464,7 +2467,10 @@
 		E5087EB330431EA900DCD85C /* GanttTimelineNowIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineNowIndicatorView.swift; sourceTree = "<group>"; };
 		E5087EB530431F2000DCD85C /* GanttTimelineGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineGeometry.swift; sourceTree = "<group>"; };
 		E5087EB7304320A000DCD85C /* GanttTimelineNowLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineNowLineView.swift; sourceTree = "<group>"; };
-		E5091C53305AC630009CFD17 /* CountdownValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownValueView.swift; sourceTree = "<group>"; };
+		E5091C53305AC630009CFD17 /* CountdownVerticalValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownVerticalValueView.swift; sourceTree = "<group>"; };
+		E5091C58305B8341009CFD17 /* CountdownEventGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventGridCell.swift; sourceTree = "<group>"; };
+		E5091C5A305B85C7009CFD17 /* CountdownEventDetailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventDetailProvider.swift; sourceTree = "<group>"; };
+		E5091C5C305B863A009CFD17 /* CountdownHorizontalValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownHorizontalValueView.swift; sourceTree = "<group>"; };
 		E509B50B2F63F9E50045F11E /* TPCustomPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCustomPopup.swift; sourceTree = "<group>"; };
 		E509B50D2F6431A10045F11E /* HabitRecordResultInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordResultInfoView.swift; sourceTree = "<group>"; };
 		E509CA052F6F9EDC00F53FDD /* HabitTask+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitTask+Extensions.swift"; sourceTree = "<group>"; };
@@ -5064,10 +5070,22 @@
 		E5091C52305AC609009CFD17 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				E5091C5A305B85C7009CFD17 /* CountdownEventDetailProvider.swift */,
+				E541DC4A30582A7E008BFAE0 /* CountdownEventListView.swift */,
 				E541DC4F30582ED1008BFAE0 /* CountdownEventListCell.swift */,
-				E5091C53305AC630009CFD17 /* CountdownValueView.swift */,
+				E5091C58305B8341009CFD17 /* CountdownEventGridCell.swift */,
+				E5091C5E305B8671009CFD17 /* ValueView */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		E5091C5E305B8671009CFD17 /* ValueView */ = {
+			isa = PBXGroup;
+			children = (
+				E5091C53305AC630009CFD17 /* CountdownVerticalValueView.swift */,
+				E5091C5C305B863A009CFD17 /* CountdownHorizontalValueView.swift */,
+			);
+			path = ValueView;
 			sourceTree = "<group>";
 		};
 		E509B50F2F6431D90045F11E /* Popup */ = {
@@ -7082,7 +7100,6 @@
 		E541DC49305828D8008BFAE0 /* ListView */ = {
 			isa = PBXGroup;
 			children = (
-				E541DC4A30582A7E008BFAE0 /* CountdownEventListView.swift */,
 				E541DC4C30582ECF008BFAE0 /* CountdownEventMenu.swift */,
 				E5091C52305AC609009CFD17 /* List */,
 				E541DC4D30582ECF008BFAE0 /* ViewModels */,
@@ -13963,6 +13980,7 @@
 				E5D7D93A2D43933700EC877A /* FocusStopwatchConfigCell.swift in Sources */,
 				E5BB9DE32D3BF0C60089667A /* UIImageView+Color.swift in Sources */,
 				E51501A72D47D9F6008B2333 /* TPTableSectionControllersList.swift in Sources */,
+				E5091C5B305B85C7009CFD17 /* CountdownEventDetailProvider.swift in Sources */,
 				E5BB9B522D3BEF920089667A /* AttributedString.swift in Sources */,
 				E55AD81C2CB29135006BCF8C /* TimelyPlan.xcdatamodeld in Sources */,
 				E5BB9F172D3BF0C90089667A /* Macros.swift in Sources */,
@@ -14393,6 +14411,7 @@
 				E5BB9F252D3BF2C20089667A /* AppDelegate.swift in Sources */,
 				E5BB9F3B2D3BF4330089667A /* TaskFeature.swift in Sources */,
 				E5BB9DF92D3BF0C60089667A /* NSString+Diffable.swift in Sources */,
+				E5091C59305B8341009CFD17 /* CountdownEventGridCell.swift in Sources */,
 				E536328C2FAB72C00095DFEC /* QuadrantView.swift in Sources */,
 				E5F1552B2F8368FB00116091 /* TodoTask.swift in Sources */,
 				E5B33D752F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift in Sources */,
@@ -14706,7 +14725,7 @@
 				E5D7D9042D43933600EC877A /* WatchTickView.swift in Sources */,
 				E5FF4EC22FE95E8500282416 /* TaskNotificationConfig.swift in Sources */,
 				E5BB9B502D3BEF920089667A /* ObjectExtension.swift in Sources */,
-				E5091C54305AC630009CFD17 /* CountdownValueView.swift in Sources */,
+				E5091C54305AC630009CFD17 /* CountdownVerticalValueView.swift in Sources */,
 				E5FC6BD32F67BBDB00D5A5EA /* HabitStatsYearlyHistorySectionController.swift in Sources */,
 				E5BB9EB42D3BF0C80089667A /* TPYearMonthDatePickerViewController.swift in Sources */,
 				E5D7D8EF2D43933600EC877A /* FocusRecordEditBindSectionController.swift in Sources */,
@@ -14745,6 +14764,7 @@
 				E50D60772F7A2E2D00D5E0A4 /* TodoUserListSelectCell.swift in Sources */,
 				E5F9E3C2301F261800EDC2A5 /* MyDayHabitTimeEditSectionController.swift in Sources */,
 				E54E63272F5A731300FCBCAE /* HabitManageArchivedListViewController.swift in Sources */,
+				E5091C5D305B863A009CFD17 /* CountdownHorizontalValueView.swift in Sources */,
 				E5FF4ED52FECB7AC00282416 /* LocalNotifiableTaskFetcher.swift in Sources */,
 				E5BB9F142D3BF0C90089667A /* CocoaHook.swift in Sources */,
 				E5D7D7E62D43923800EC877A /* FocusStopwatchConfig.swift in Sources */,

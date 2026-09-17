@@ -35,6 +35,18 @@ class CountdownMainViewController: TPViewController,
         return item
     }()
     
+    /// 当前布局类型
+    private var layoutType: CountdownEventLayoutType = .list
+    
+    /// 列表 / 网格布局切换按钮
+    private lazy var layoutBarButtonItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(image: UIImage(systemName: layoutType.iconName),
+                                   style: .plain,
+                                   target: self,
+                                   action: #selector(clickLayout(_:)))
+        return item
+    }()
+    
     /// 添加视图
     private var addView: TPAddView?
     
@@ -51,7 +63,8 @@ class CountdownMainViewController: TPViewController,
         super.viewDidLoad()
         title = resGetString("Countdown")
         navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
-        navigationItem.rightBarButtonItems = [moreBarButtonItem]
+        navigationItem.rightBarButtonItems = [moreBarButtonItem,
+                                              layoutBarButtonItem]
         setupListView()
         setupAddView()
         
@@ -187,6 +200,15 @@ class CountdownMainViewController: TPViewController,
     }
     
     // MARK: - Event Response
+    /// 点击切换列表 / 网格布局
+    @objc private func clickLayout(_ sender: UIBarButtonItem) {
+        TPImpactFeedback.impactWithLightStyle()
+        
+        layoutType = layoutType.toggled
+        listView.layoutType = layoutType
+        sender.image = UIImage(systemName: layoutType.iconName)
+    }
+    
     /// 执行更多菜单操作
     func performMoreMenuAction(_ type: CountdownMoreMenuType) {
         switch type {

@@ -1,5 +1,5 @@
 //
-//  CountdownValueView.swift
+//  CountdownVerticalValueView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/9/16.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// 倒计时数值视图：上方大数字，下方单位
-class CountdownValueView: UIView {
+class CountdownVerticalValueView: UIView {
     
     // MARK: 子视图
     let valueLabel = UILabel()

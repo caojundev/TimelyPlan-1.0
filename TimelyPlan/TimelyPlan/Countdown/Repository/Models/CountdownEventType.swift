@@ -49,7 +49,7 @@ enum CountdownEventType: Int, CaseIterable {
         case .countdown:
             return "⏳"
         case .anniversary:
-            eturn "🕐"
+            return "🕐"
         case .birthday:
             return "🎂"
         case .age:

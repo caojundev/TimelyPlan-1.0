@@ -48,8 +48,8 @@ class CountdownEventListCell: TPCollectionCell {
     let infoView = CountdownEventListInfoView()
     
     /// 数值视图（显示剩余数目）
-    let valueView: CountdownValueView = {
-        let view = CountdownValueView()
+    let valueView: CountdownVerticalValueView = {
+        let view = CountdownVerticalValueView()
         /// 列表行高有限，使用较小字号
         view.valueLabel.font = UIFont.systemFont(ofSize: 30.0, weight: .bold)
         view.valueLabel.adjustsFontSizeToFitWidth = true
@@ -184,22 +184,5 @@ class CountdownEventListInfoView: TPInfoView {
     override func layoutSubviews() {
         super.layoutSubviews()
         iconView.cornerRadius = iconSize.height / 2.0
-    }
-}
-
-class CountdownEventDetailProvider {
-    
-    /// 副标题组件：目标日期 + 剩余天数
-    static func subtitleComponents(for event: CountdownEvent) -> [ASAttributedString] {
-        var components = [ASAttributedString]()
-        /// 日期字符串
-        let dateString = event.occuranceDate.displayText
-        components.append(dateString.attributedString)
-        return components
-    }
-    
-    /// 副标题
-    static func detail(for event: CountdownEvent) -> ASAttributedString {
-        return subtitleComponents(for: event).joined(separator: " • ")
     }
 }

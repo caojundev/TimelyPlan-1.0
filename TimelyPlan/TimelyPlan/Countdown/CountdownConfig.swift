@@ -13,6 +13,9 @@ struct CountdownConfig {
     /// 倒数日事项列表内容最大宽度
     static let eventListContentMaxWidth = 560.0
     
+    /// 倒数日事项网格条目首选宽度
+    static let eventGridItemWidth = 200.0
+    
     /// 倒数日默认颜色
     static let countdownEventDefaultColor = Color(0xE84F01)
     

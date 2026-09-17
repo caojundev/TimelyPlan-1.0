@@ -97,7 +97,7 @@ class TPGroupCollectionView: TPCollectionWrapperView,
     }
     
     /// 区块布局
-    private(set) lazy var sectionLayout: TPCollectionSectionLayout = {
+    lazy var sectionLayout: TPCollectionSectionLayout = {
         let layout = TPCollectionSectionLayout()
         layout.edgeMargins = UIEdgeInsets(horizontal: 15.0, vertical: 10.0)
         layout.minimumItemsCountPerRow = 1

@@ -8,6 +8,36 @@
 import Foundation
 import UIKit
 
+/// 倒数日事项布局类型
+enum CountdownEventLayoutType: Int, CaseIterable {
+    
+    /// 列表
+    case list = 0
+    
+    /// 网格
+    case grid
+    
+    /// 切换后的布局类型
+    var toggled: CountdownEventLayoutType {
+        switch self {
+        case .list:
+            return .grid
+        case .grid:
+            return .list
+        }
+    }
+    
+    /// 图标（SF Symbol 名称）
+    var iconName: String {
+        switch self {
+        case .list:
+            return "list.bullet"
+        case .grid:
+            return "square.grid.2x2"
+        }
+    }
+}
+
 protocol CountdownEventListViewDelegate: TPGroupCollectionViewDelegate {
     
     /// 通知外部数据源移动数据条目
@@ -29,6 +59,7 @@ extension CountdownEventListViewDelegate {
 
 class CountdownEventListView: TPGroupCollectionView,
                               CountdownEventListCellDelegate,
+                              CountdownEventGridCellDelegate,
                               TPCollectionDragInsertReorderDelegate {
     
     /// 当前列表所有的倒数日事项
@@ -52,17 +83,46 @@ class CountdownEventListView: TPGroupCollectionView,
     
     private let menuProcessor = CountdownEventMenuProcessor()
     
+    /// 布局类型（默认为列表）
+    var layoutType: CountdownEventLayoutType = .list {
+        didSet {
+            if layoutType != oldValue {
+                updateSectionLayout()
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        self.preferredItemWidth = CountdownConfig.eventListContentMaxWidth
-        self.preferredItemHeight = CountdownEventListCell.cellHeight
         self.setupReorder()
         self.addRefreshControl()
+        self.updateSectionLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    /// 根据布局类型更新区块布局配置
+    private func updateSectionLayout() {
+        switch layoutType {
+        case .list:
+            sectionLayout.minimumItemsCountPerRow = 1
+            sectionLayout.maximumItemsCountPerRow = 1
+            sectionLayout.preferredItemWidth = CountdownConfig.eventListContentMaxWidth
+            sectionLayout.preferredItemHeight = CountdownEventListCell.cellHeight
+        case .grid:
+            sectionLayout.minimumItemsCountPerRow = 2
+            sectionLayout.maximumItemsCountPerRow = 2
+            sectionLayout.preferredItemWidth = CountdownConfig.eventGridItemWidth
+            sectionLayout.preferredItemHeight = CountdownEventGridCell.Config.cellHeight
+        }
+        
+        sectionLayout.setNeedsLayout()
+        collectionViewLayout.invalidateLayout()
+        /// 布局类型变化时单元格类型也会变化，需要重新加载
+        reloadData()
     }
     
     /// 初始化排序管理器
@@ -84,18 +144,26 @@ class CountdownEventListView: TPGroupCollectionView,
     
     // MARK: - AdapterDelegate
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        return CountdownEventListCell.self
+        switch layoutType {
+        case .list:
+            return CountdownEventListCell.self
+        case .grid:
+            return CountdownEventGridCell.self
+        }
     }
     
     override func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        guard let cell = cell as? CountdownEventListCell else {
-            return
-        }
-        
         let event = adapter.item(at: indexPath) as? CountdownEvent
-        cell.delegate = self
-        cell.cellStyle = cellStyle
-        cell.event = event
+        
+        if let cell = cell as? CountdownEventListCell {
+            cell.delegate = self
+            cell.cellStyle = cellStyle
+            cell.event = event
+        } else if let cell = cell as? CountdownEventGridCell {
+            cell.delegate = self
+            cell.cellStyle = cellStyle
+            cell.event = event
+        }
     }
     
     // MARK: - TPCollectionDragInsertReorderDelegate
@@ -128,12 +196,26 @@ class CountdownEventListView: TPGroupCollectionView,
             return
         }
         
+        showEventMenu(for: event, from: cell.moreButton)
+    }
+    
+    // MARK: - CountdownEventGridCellDelegate
+    func countdownEventGridCellDidClickMore(_ cell: CountdownEventGridCell) {
+        guard let event = cell.event else {
+            return
+        }
+        
+        showEventMenu(for: event, from: cell.moreButton)
+    }
+    
+    /// 弹出事项操作菜单
+    private func showEventMenu(for event: CountdownEvent, from view: UIView) {
         let menuController = CountdownEventMenuController(event: event)
         
         menuController.didSelectMenuActionType = { [weak self] type in
             self?.menuProcessor.performMenuAction(type, for: event)
         }
         
-        menuController.showMenu(from: cell.moreButton)
+        menuController.showMenu(from: view)
     }
 }
