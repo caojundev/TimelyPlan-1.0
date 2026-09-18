@@ -42,6 +42,13 @@
 "Age" = "年龄";
 "Holiday" = "节日";
 
+/// 在我的一天与日历中的显示方式
+"Do Not Show" = "不显示";
+"On the Day" = "当日显示";
+"Always Show" = "一直显示";
+"%ld Days Early" = "提前%ld天";
+"%ld Day Early" = "提前%ld天";
+
 "Gregorian" = "公历";
 "Lunar" = "阴历";
 

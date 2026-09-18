@@ -46,6 +46,10 @@ extension CDCountdownEvent: TPHexColorConvertible, SortableIdentifiable {
         self.colorHex = editingEvent.color.hexString
         self.note = editingEvent.note
         
+        /// 显示方式：仅使用一个 Int16 字段承载全部模式
+        self.myDayDisplayMode = editingEvent.myDayDisplayMode.code
+        self.calendarDisplayMode = editingEvent.calendarDisplayMode.code
+        
         /// 时间计划与提醒
         updateTimePlan(editingEvent.timePlan)
         updateReminder(editingEvent.reminder)
@@ -163,6 +167,8 @@ extension CountdownEvent {
                                       targetDate: targetDate,
                                       isLeapMonth: content.isLeapMonth),
                   note: content.note,
+                  myDayDisplayMode: CountdownDisplayMode(code: content.myDayDisplayMode),
+                  calendarDisplayMode: CountdownDisplayMode(code: content.calendarDisplayMode),
                   reminderJSON: content.reminderJSON,
                   timePlanJSON: content.timePlanJSON,
                   isArchived: content.isArchived)

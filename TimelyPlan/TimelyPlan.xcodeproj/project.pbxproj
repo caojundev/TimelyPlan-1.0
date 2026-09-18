@@ -248,6 +248,7 @@
 		E50FF8B12F7922A400B8F5BE /* HabitTaskBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FF8B02F7922A400B8F5BE /* HabitTaskBindCell.swift */; };
 		E50FF8B42F79291100B8F5BE /* FocusDefaultTimerSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FF8B32F79291100B8F5BE /* FocusDefaultTimerSelectCell.swift */; };
 		E50FF8B62F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FF8B52F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift */; };
+		E511E4FE305D29F000292511 /* CountdownDisplayEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E4FD305D29F000292511 /* CountdownDisplayEditSectionController.swift */; };
 		E5135094302A0BD1000E9871 /* arrow_uturn_left_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135090302A0BCF000E9871 /* arrow_uturn_left_36@3x.png */; };
 		E5135095302A0BD1000E9871 /* arrow_uturn_right_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */; };
 		E5135096302A0BD1000E9871 /* arrow_uturn_left_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135092302A0BD0000E9871 /* arrow_uturn_left_36@2x.png */; };
@@ -2609,6 +2610,7 @@
 		E50FF8B02F7922A400B8F5BE /* HabitTaskBindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskBindCell.swift; sourceTree = "<group>"; };
 		E50FF8B32F79291100B8F5BE /* FocusDefaultTimerSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDefaultTimerSelectCell.swift; sourceTree = "<group>"; };
 		E50FF8B52F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCollectionSearchResultSectionController.swift; sourceTree = "<group>"; };
+		E511E4FD305D29F000292511 /* CountdownDisplayEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDisplayEditSectionController.swift; sourceTree = "<group>"; };
 		E5135090302A0BCF000E9871 /* arrow_uturn_left_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_left_36@3x.png"; sourceTree = "<group>"; };
 		E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_right_36@3x.png"; sourceTree = "<group>"; };
 		E5135092302A0BD0000E9871 /* arrow_uturn_left_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_left_36@2x.png"; sourceTree = "<group>"; };
@@ -7070,6 +7072,7 @@
 				E541DC413057FB42008BFAE0 /* TPEmojiTextEditTableCellItem.swift */,
 				E541DC3C3057E0CC008BFAE0 /* CountdownEventEditViewController.swift */,
 				E541DC68305A801F008BFAE0 /* CountdownDateEditSectionController.swift */,
+				E511E4FD305D29F000292511 /* CountdownDisplayEditSectionController.swift */,
 				E541DC5A3058F144008BFAE0 /* CountdownDatePickerViewController.swift */,
 				E541DC6030597763008BFAE0 /* CountdownRepeatMenuController.swift */,
 				E541DC66305A33CB008BFAE0 /* CountdownRepeatCustomViewController.swift */,
@@ -14553,6 +14556,7 @@
 				E5D7D8D02D43933600EC877A /* FocusEndScoreCell.swift in Sources */,
 				E5185067300F12B100112DFC /* TimelineEventConverter.swift in Sources */,
 				E500E3AA2FC7E66D00252011 /* BarRankListChartCell.swift in Sources */,
+				E511E4FE305D29F000292511 /* CountdownDisplayEditSectionController.swift in Sources */,
 				E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */,
 				E54A0685303BFBFB001FF4A1 /* GanttEvent.swift in Sources */,
 				E5259B0C3017A75600A6D253 /* EventAddType.swift in Sources */,

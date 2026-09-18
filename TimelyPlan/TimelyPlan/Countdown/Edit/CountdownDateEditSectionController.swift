@@ -48,9 +48,9 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
         let cellItem = TPImageInfoTextValueTableCellItem()
         cellItem.height = Config.defaultCellHeight
         cellItem.accessoryType = .disclosureIndicator
-        cellItem.imageName = "calendar_24"
         cellItem.updater = {
             guard let self = self else { return }
+            self.targetDateCellItem.imageName = "calendar_\(self.date.day)_24"
             self.targetDateCellItem.title = self.date.displayText
         }
         

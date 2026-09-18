@@ -85,6 +85,15 @@ struct CountdownDate: Equatable {
             return "\(yearText)年(\(lunar.year))\(monthText)\(dayText)"
         }
     }
+    
+    var day: Int {
+        switch type {
+        case .gregorian:
+            return targetDate.day
+        case .lunar:
+            return lunarComponents?.day ?? targetDate.day
+        }
+    }
 }
 
 /// 农历月份

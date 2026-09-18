@@ -107,6 +107,23 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
+    // MARK: - 显示方式
+    lazy var displaySectionController: CountdownDisplayEditSectionController = {
+        let sectionController = CountdownDisplayEditSectionController()
+        sectionController.myDayDisplayMode = self.editingEvent.myDayDisplayMode
+        sectionController.calendarDisplayMode = self.editingEvent.calendarDisplayMode
+        
+        sectionController.onMyDayDisplayModeChanged = { [weak self] mode in
+            self?.editingEvent.myDayDisplayMode = mode
+        }
+        
+        sectionController.onCalendarDisplayModeChanged = { [weak self] mode in
+            self?.editingEvent.calendarDisplayMode = mode
+        }
+        
+        return sectionController
+    }()
+    
     // MARK: - 目标日期
     lazy var targetDateSectionController: CountdownDateEditSectionController = {
         let sectionController = CountdownDateEditSectionController()
@@ -167,8 +184,9 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         tableView.keyboardDismissMode = .onDrag
         let sectionControllers = [iconNameSectionController,
                                   colorSectionController,
-                                  typeSectionController,
                                   targetDateSectionController,
+                                  typeSectionController,
+                                  displaySectionController,
                                   noteSectionController]
         self.sectionControllers = sectionControllers
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground

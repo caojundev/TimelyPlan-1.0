@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G1427" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="CDCountdownEvent" representedClassName="CDCountdownEvent" syncable="YES" codeGenerationType="class">
+        <attribute name="calendarDisplayMode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="colorHex" optional="YES" attributeType="String"/>
         <attribute name="dateType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="emoji" optional="YES" attributeType="String"/>
@@ -8,6 +9,7 @@
         <attribute name="identifier" optional="YES" attributeType="String"/>
         <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isLeapMonth" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="myDayDisplayMode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -211,7 +213,7 @@
         <attribute name="value" optional="YES" attributeType="String" valueTransformerName="FocusTaskContentTransformer" customClassName="FocusTaskContent"/>
     </entity>
     <elements>
-        <element name="CDCountdownEvent" positionX="45" positionY="261" width="128" height="224"/>
+        <element name="CDCountdownEvent" positionX="45" positionY="261" width="128" height="254"/>
         <element name="CDFocusSession" positionX="27" positionY="189" width="128" height="239"/>
         <element name="CDFocusTimer" positionX="18" positionY="180" width="128" height="239"/>
         <element name="CDGoalPlan" positionX="45" positionY="261" width="128" height="209"/>
