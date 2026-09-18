@@ -85,9 +85,7 @@ class CountdownEventListViewController: TPViewController,
     
     /// 加载并刷新倒数日事项
     private func reloadEvents() {
-        let group = CountdownEventGroup(identifier: "CountdownEventGroup")
-        group.events = viewModel.events
-        listView.groups = [group]
+        listView.groups = viewModel.groups
         listView.performUpdate()
     }
     
@@ -182,18 +180,16 @@ class CountdownEventListViewController: TPViewController,
     
     func countdownEventListView(_ listView: CountdownEventListView,
                                 moveItemAt sourceIndexPath: IndexPath,
-                                to targetIndexPath: IndexPath) {
-        guard let events = listView.items(for: targetIndexPath.section) as? [CountdownEvent] else {
-            return
-        }
-        
-        CountdownRepository.reorderEvent(in: events,
-                                         fromIndex: sourceIndexPath.item,
-                                         toIndex: targetIndexPath.item)
+                                to targetIndexPath: IndexPath) -> Bool {
+        return viewModel.moveEvent(at: sourceIndexPath, to: targetIndexPath)
+    }
+    
+    func countdownEventListViewDidEndReordering(_ listView: CountdownEventListView) {
+        viewModel.didEndReorderEvents(with: listView.events)
     }
     
     func countdownEventListViewHandleRefresh(_ listView: CountdownEventListView) {
-        self.viewModel.setNeedsRefresh()
-        self.viewModel.loadEvents()
+        viewModel.setNeedsRefresh()
+        viewModel.loadEvents()
     }
 }

@@ -113,6 +113,7 @@ extension HabitUserUnitSectionController: TPCollectionDragExchangeReorderDelegat
     func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder, moveItemFrom fromIndexPath: IndexPath, to toIndexPath: IndexPath) -> Bool {
         TPImpactFeedback.impactWithSoftStyle()
         userUnits.moveObject(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item)
+        adapter?.moveItem(at: fromIndexPath, to: toIndexPath)
         return true
     }
 }

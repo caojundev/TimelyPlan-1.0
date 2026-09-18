@@ -143,6 +143,7 @@ class QuadrantLayoutEditView: TPCollectionWrapperView,
     
     func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder, moveItemFrom fromIndexPath: IndexPath, to toIndexPath: IndexPath) -> Bool {
         quadrants.moveObject(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item)
+        adapter.moveItem(at: fromIndexPath, to: toIndexPath)
         didChangeQuadrants?(quadrants)
         return true
     }

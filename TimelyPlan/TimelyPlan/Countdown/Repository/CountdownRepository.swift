@@ -120,7 +120,7 @@ class CountdownRepository {
     }
     
     /// 重排倒数日事项
-    static func reorderEvent(in events: [CountdownEvent], fromIndex: Int, toIndex: Int) {
-        eventManager.reorderEvent(in: events, fromIndex: fromIndex, toIndex: toIndex)
+    static func didEndReorderEvents(with orderedEvents: [CountdownEvent]) {
+        eventManager.didEndReorderEvents(with: orderedEvents)
     }
 }

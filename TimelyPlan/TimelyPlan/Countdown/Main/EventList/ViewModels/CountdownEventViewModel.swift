@@ -38,6 +38,16 @@ class CountdownEventGroup: NSObject, GroupRepresentable {
         return self.events
     }
     
+    func moveEvent(fromIndex:Int, toIndex:Int) -> Bool {
+        guard var events = events else {
+            return false
+        }
+        
+        let bMoved = events.moveObject(fromIndex: fromIndex, toIndex: toIndex)
+        self.events = events
+        return bMoved
+    }
+    
     // MARK: - 等同性判断
     override var hash: Int {
         var hasher = Hasher()
@@ -63,6 +73,8 @@ class CountdownEventGroup: NSObject, GroupRepresentable {
 
 class CountdownEventViewModel: CountdownEventProcessorDelegate {
     
+    private(set) var groups: [CountdownEventGroup]?
+
     private(set) var events: [CountdownEvent]?
     
     /// 倒数日事项改变
@@ -101,6 +113,12 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate {
             }
             
             self.events = events
+            
+            /// 分组
+            let group = CountdownEventGroup(identifier: "CountdownEventGroup")
+            group.events = events
+            self.groups = [group]
+            
             self.needsRefresh = false
             self.state = .loaded
             self.eventsDidChange?(change)
@@ -119,6 +137,27 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate {
     
     func fetchEvents(completion: @escaping ([CountdownEvent]?) -> Void) {
         CountdownRepository.fetchActiveEvents(completion: completion)
+    }
+    
+    // MARK: - 排序
+    func moveEvent(at sourceIndexPath: IndexPath,
+                   to targetIndexPath: IndexPath) -> Bool {
+        guard let groups = groups, sourceIndexPath.section == targetIndexPath.section else {
+            return false
+        }
+        
+        let section = sourceIndexPath.section
+        guard section < groups.count else {
+            return false
+        }
+        
+        let group = groups[section]
+        return group.moveEvent(fromIndex: sourceIndexPath.item, toIndex: targetIndexPath.item)
+    }
+    
+    /// 保存有序事项
+    func didEndReorderEvents(with orderedEvents: [CountdownEvent]) {
+        CountdownRepository.didEndReorderEvents(with: orderedEvents)
     }
     
     // MARK: - CountdownEventProcessorDelegate

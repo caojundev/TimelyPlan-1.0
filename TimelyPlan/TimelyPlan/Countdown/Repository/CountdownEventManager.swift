@@ -128,10 +128,8 @@ class CountdownEventManager {
     }
     
     /// 重排倒数日事项
-    func reorderEvent(in events: [CountdownEvent], fromIndex: Int, toIndex: Int) {
-        var events = events
-        events.moveObject(fromIndex: fromIndex, toIndex: toIndex)
-        CDCountdownEvent.syncOrders(for: events)
+    func didEndReorderEvents(with orderedEvents: [CountdownEvent]) {
+        CDCountdownEvent.syncOrders(for: orderedEvents)
         HandyRecord.updateChangeCount()
     }
 }

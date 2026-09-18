@@ -23,6 +23,9 @@ enum CountdownEventType: Int, TPMenuRepresentable {
     /// 年龄
     case age
     
+    /// 节日
+    case holiday
+    
     // MARK: - Getters
     /// 标题本地化键
     var titleKey: String {
@@ -35,6 +38,8 @@ enum CountdownEventType: Int, TPMenuRepresentable {
             return "Birthday"
         case .age:
             return "Age"
+        case .holiday:
+            return "Holiday"
         }
     }
     
@@ -54,6 +59,8 @@ enum CountdownEventType: Int, TPMenuRepresentable {
             return "🎂"
         case .age:
             return "👶"
+        case .holiday:
+            return "🎈"
         }
     }
     
@@ -76,6 +83,9 @@ enum CountdownEventType: Int, TPMenuRepresentable {
         case .age:
             /// 绿色
             return Color(0x26B450)
+        case .holiday:
+            /// 正红
+            return Color(0xFD2504)
         }
     }
 }
