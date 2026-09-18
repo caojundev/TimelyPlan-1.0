@@ -46,7 +46,7 @@ class DateFrequencySectionController: TPTableItemSectionController {
         cellItem.updater = {
             guard let self = self else { return }
             self.frequencyCellItem.title = self.timePlan.title
-            self.frequencyCellItem.subtitle = self.timePlan.title
+            self.frequencyCellItem.subtitle = self.timePlan.subtitle
         }
     
         cellItem.didSelectHandler = {

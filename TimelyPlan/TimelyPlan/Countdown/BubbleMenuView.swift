@@ -57,10 +57,16 @@ class BubbleMenuView: UIView {
     var onDismiss: (() -> Void)?
     
     // MARK: - Init
-    init(frame: CGRect, triggerButtonFrame: CGRect, menuItems: [BubbleMenuItem]) {
-        self.triggerButtonFrame = triggerButtonFrame
+    let sourceView: UIView
+    
+    let containerView: UIView
+    
+    init(menuItems: [BubbleMenuItem], containerView: UIView, sourceView: UIView) {
         self.menuItems = menuItems
-        super.init(frame: frame)
+        self.containerView = containerView
+        self.sourceView = sourceView
+        super.init(frame: containerView.bounds)
+        self.triggerButtonFrame = sourceView.convert(sourceView.bounds, toViewOrWindow: containerView)
         setupUI()
     }
     
@@ -179,7 +185,8 @@ class BubbleMenuView: UIView {
     }
     
     // MARK: - 显示
-    func show(in parentView: UIView) {
+    func show() {
+        let parentView = containerView
         parentView.addSubview(self)
         self.frame = parentView.bounds
         self.layoutSubviewsManually()

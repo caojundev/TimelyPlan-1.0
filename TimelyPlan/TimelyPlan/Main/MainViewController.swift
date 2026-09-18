@@ -73,11 +73,11 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         return UINavigationController(rootViewController: vc)
     }()
         
-    var countdownViewController: UIViewController {
+    lazy var countdownViewController: UIViewController = {
         let vc = CountdownMainViewController()
         vc.sidebarController = sidebarController
         return UINavigationController(rootViewController: vc)
-    }
+    }()
 
     var settingsViewController: UIViewController {
         let vc = AppSettingsViewController()

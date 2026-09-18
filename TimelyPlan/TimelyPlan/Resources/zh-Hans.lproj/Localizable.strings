@@ -6,6 +6,7 @@
   
 */
 
+"Type" = "类型";
 "Loading......" = "加载中......";
 "Default" = "默认";
 "Unknown" = "未知";
@@ -31,6 +32,7 @@
 "Edit Countdown" = "编辑倒数日";
 "Delete Countdown" = "删除倒数日";
 "Fill in the countdown name" = "输入倒数日名称";
+
 "Target Date" = "目标日期";
 "No Countdown" = "无倒数日";
 "No Archived Countdown" = "无归档倒数日";

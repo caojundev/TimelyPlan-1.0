@@ -52,11 +52,6 @@ class CountdownEventListViewController: TPViewController,
         self.viewModel.loadEvents()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        listView.reloadDataIfNeeded()
-    }
-    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         layoutAddView()
@@ -125,11 +120,6 @@ class CountdownEventListViewController: TPViewController,
         listView.revealItem(event, autoScroll: true)
     }
     
-    /// 重新加载列表
-    func reloadDataIfNeeded() {
-        listView.reloadDataIfNeeded()
-    }
-    
     // MARK: - 添加视图
     private func setupAddView() {
         if canAddCountdown() {
@@ -155,19 +145,17 @@ class CountdownEventListViewController: TPViewController,
     
     /// 点击添加倒数日
     private func clickAddCountdown() {
-        guard let addView = addView else {
+        guard let addView = addView, let keyWindow = UIWindow.keyWindow else {
             return
         }
         
         TPImpactFeedback.impactWithLightStyle()
-                
-        // 创建气泡菜单视图（frame 传主视图的 bounds，triggerButtonFrame 传加号按钮的 frame）
+        
         let bubbleMenu = BubbleMenuView(
-            frame: view.bounds,
-            triggerButtonFrame: addView.frame,
-            menuItems: CountdownEventType.bubbleMenuItems
+            menuItems: CountdownEventType.bubbleMenuItems,
+            containerView: keyWindow,
+            sourceView: addView
         )
-            
         
         bubbleMenu.onSelectMenuItem = { menuItem in
             guard let type = CountdownEventType.type(for: menuItem) else {
@@ -177,8 +165,7 @@ class CountdownEventListViewController: TPViewController,
             CountdownPresenter.createNewEvent(type: type)
         }
         
-        // 添加到主视图并展示
-        bubbleMenu.show(in: self.view)
+        bubbleMenu.show()
     }
     
     func canAddCountdown() -> Bool {

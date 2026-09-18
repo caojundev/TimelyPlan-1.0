@@ -15,6 +15,9 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
                                                         left: 0.0,
                                                         bottom: 0.0,
                                                         right: 16.0)
+        
+        
+        static let defaultCellHeight = 55.0
     }
     
     /// 编辑事件
@@ -72,6 +75,33 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         
         cellItem.didSelectColor = { color in
             self?.editingEvent.color = color
+        }
+        
+        return cellItem
+    }()
+    
+    // MARK: - 类型
+    lazy var typeSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 15.0
+        sectionController.cellItems = [eventTypeCellItem]
+        return sectionController
+    }()
+    
+    /// 类型
+    lazy var eventTypeCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem()
+        cellItem.height = Config.defaultCellHeight
+        cellItem.accessoryType = .disclosureIndicator
+        cellItem.title = resGetString("Type")
+        cellItem.updater = {
+            guard let self = self else { return }
+            let text = self.editingEvent.type.title
+            self.eventTypeCellItem.valueConfig = .valueText(text)
+        }
+        
+        cellItem.didSelectHandler = { [weak self] in
+            self?.editEventType()
         }
         
         return cellItem
@@ -137,6 +167,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         tableView.keyboardDismissMode = .onDrag
         let sectionControllers = [iconNameSectionController,
                                   colorSectionController,
+                                  typeSectionController,
                                   targetDateSectionController,
                                   noteSectionController]
         self.sectionControllers = sectionControllers
@@ -235,5 +266,43 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
     func nameEditingChanged(_ name: String?) {
         self.editingEvent.name = name
         updateDoneButtonEnabled()
+    }
+    
+    private func editEventType() {
+        guard let cell = adapter.cellForItem(eventTypeCellItem) else {
+            return
+        }
+        
+        let menuList = TPMenuListViewController()
+        menuList.menuContentWidth = 180.0
+        let menuItem = TPMenuItem.item(with: CountdownEventType.allCases,
+                                       updater: { type, action in
+            action.title = type.emojiTitle
+            action.handleBeforeDismiss = true
+            action.isChecked = type == self.editingEvent.type
+        })
+        
+        menuList.didSelectMenuAction = { action in
+            guard let type: CountdownEventType = action.actionType() else {
+                return
+            }
+            
+            self.selectEventType(type)
+        }
+        
+        menuList.menuItems = [menuItem]
+        menuList.popoverShow(from: cell,
+                             sourceRect: cell.bounds,
+                             isSourceViewCovered: false,
+                             preferredPosition: .bottomLeft)
+    }
+    
+    private func selectEventType(_ type: CountdownEventType) {
+        guard editingEvent.type != type else {
+            return
+        }
+        
+        editingEvent.type = type
+        adapter.reloadCell(forItem: eventTypeCellItem, with: .none)
     }
 }

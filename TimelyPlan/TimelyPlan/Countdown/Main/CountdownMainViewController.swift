@@ -75,13 +75,6 @@ class CountdownMainViewController: TPContainerViewController,
         setContentViewController(listContentViewController)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        listContentViewController.reloadDataIfNeeded()
-        /// 编辑 / 删除事项后返回时刷新搜索结果
-        searchResultViewController?.reloadSearchResults()
-    }
-    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         layoutSearchBar()

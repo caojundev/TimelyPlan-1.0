@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// 倒数日事项类型
-enum CountdownEventType: Int, CaseIterable {
+enum CountdownEventType: Int, TPMenuRepresentable {
     
     /// 倒数日
     case countdown = 0
@@ -55,6 +55,10 @@ enum CountdownEventType: Int, CaseIterable {
         case .age:
             return "👶"
         }
+    }
+    
+    var emojiTitle: String {
+        return emoji + " " + title
     }
     
     /// 类型专属颜色（取自 CountdownConfig.countdownEventColors 调色板）
