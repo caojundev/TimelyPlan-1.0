@@ -25,6 +25,7 @@ class CountdownMainViewController: TPContainerViewController,
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: CountdownMoreBarButtonItem = {
         let item = CountdownMoreBarButtonItem()
+        item.layoutType = layoutType
         item.didSelectType = { [weak self] type in
             self?.performMoreMenuAction(type)
         }
@@ -33,16 +34,7 @@ class CountdownMainViewController: TPContainerViewController,
     }()
     
     /// 当前布局类型
-    private var layoutType: CountdownEventLayoutType = .list
-    
-    /// 列表 / 网格布局切换按钮
-    private lazy var layoutBarButtonItem: UIBarButtonItem = {
-        let item = UIBarButtonItem(image: UIImage(systemName: layoutType.iconName),
-                                   style: .plain,
-                                   target: self,
-                                   action: #selector(clickLayout(_:)))
-        return item
-    }()
+    private var layoutType: CountdownLayoutType = .list
     
     /// 搜索栏
     lazy var searchBar: UISearchBar = {
@@ -69,8 +61,7 @@ class CountdownMainViewController: TPContainerViewController,
         super.viewDidLoad()
         title = resGetString("Countdown")
         navigationItem.leftBarButtonItem = sidebarController?.newMenuButtonItem()
-        navigationItem.rightBarButtonItems = [moreBarButtonItem,
-                                              layoutBarButtonItem]
+        navigationItem.rightBarButtonItems = [moreBarButtonItem]
         view.addSubview(searchBar)
         setContentViewController(listContentViewController)
     }
@@ -156,13 +147,13 @@ class CountdownMainViewController: TPContainerViewController,
         searchResultViewController?.updateSearchResults(with: searchText)
     }
     
-    // MARK: - Event Response
-    /// 点击切换列表 / 网格布局
-    @objc private func clickLayout(_ sender: UIBarButtonItem) {
+        // MARK: - Event Response
+    /// 切换列表 / 网格布局
+    private func toggleLayout() {
         TPImpactFeedback.impactWithLightStyle()
         
         layoutType = layoutType.toggled
-        sender.image = UIImage(systemName: layoutType.iconName)
+        moreBarButtonItem.layoutType = layoutType
         listContentViewController.layoutType = layoutType
         searchResultViewController?.layoutType = layoutType
     }
@@ -170,6 +161,8 @@ class CountdownMainViewController: TPContainerViewController,
     /// 执行更多菜单操作
     func performMoreMenuAction(_ type: CountdownMoreMenuType) {
         switch type {
+        case .layout:
+            toggleLayout()
         case .archived:
             CountdownPresenter.showArchived()
             break

@@ -23,7 +23,7 @@ class CountdownEventListViewController: TPViewController,
     private let viewModel = CountdownEventViewModel()
     
     /// 布局类型（默认为列表）
-    var layoutType: CountdownEventLayoutType = .list {
+    var layoutType: CountdownLayoutType = .list {
         didSet {
             listView.layoutType = layoutType
         }

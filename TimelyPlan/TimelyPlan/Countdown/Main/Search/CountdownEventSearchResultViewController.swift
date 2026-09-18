@@ -13,7 +13,7 @@ class CountdownEventSearchResultViewController: TPViewController,
                                                 CountdownEventListViewDelegate {
     
     /// 布局类型（跟随主页当前布局）
-    var layoutType: CountdownEventLayoutType = .list {
+    var layoutType: CountdownLayoutType = .list {
         didSet {
             listView.layoutType = layoutType
         }

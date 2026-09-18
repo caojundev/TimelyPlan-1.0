@@ -125,7 +125,7 @@ enum CountdownDisplayMode: Equatable, Hashable {
         case .daysBefore(let days):
             let format: String
             if days > 1 {
-                format = resGetString("%ld Days Early") 
+                format = resGetString("%ld Days Early")
             } else {
                 format = resGetString("%ld Day Early")
             }

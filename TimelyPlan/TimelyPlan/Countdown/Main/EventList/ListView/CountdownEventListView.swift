@@ -8,36 +8,6 @@
 import Foundation
 import UIKit
 
-/// 倒数日事项布局类型
-enum CountdownEventLayoutType: Int, CaseIterable {
-    
-    /// 列表
-    case list = 0
-    
-    /// 网格
-    case grid
-    
-    /// 切换后的布局类型
-    var toggled: CountdownEventLayoutType {
-        switch self {
-        case .list:
-            return .grid
-        case .grid:
-            return .list
-        }
-    }
-    
-    /// 图标（SF Symbol 名称）
-    var iconName: String {
-        switch self {
-        case .list:
-            return "list.bullet"
-        case .grid:
-            return "square.grid.2x2"
-        }
-    }
-}
-
 protocol CountdownEventListViewDelegate: TPGroupCollectionViewDelegate {
     
     /// 通知外部数据源移动数据条目
@@ -85,7 +55,7 @@ class CountdownEventListView: TPGroupCollectionView,
     private let menuProcessor = CountdownEventMenuProcessor()
     
     /// 布局类型（默认为列表）
-    var layoutType: CountdownEventLayoutType = .list {
+    var layoutType: CountdownLayoutType = .list {
         didSet {
             if layoutType != oldValue {
                 setupReorder()
