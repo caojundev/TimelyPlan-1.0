@@ -41,6 +41,7 @@ extension CDCountdownEvent: TPHexColorConvertible, SortableIdentifiable {
         self.dateType = Int16(editingEvent.date.type.rawValue)
         self.targetDate = editingEvent.date.targetDate
         self.isLeapMonth = editingEvent.date.isLeapMonth
+        self.includesStartDate = editingEvent.includesStartDate
         self.name = editingEvent.name
         self.emoji = editingEvent.emoji
         self.colorHex = editingEvent.color.hexString
@@ -180,6 +181,7 @@ extension CountdownEvent {
                   date: CountdownDate(type: dateType,
                                       targetDate: targetDate,
                                       isLeapMonth: content.isLeapMonth),
+                  includesStartDate: content.includesStartDate,
                   note: content.note,
                   myDayDisplayMode: CountdownDisplayMode(code: content.myDayDisplayMode),
                   calendarDisplayMode: CountdownDisplayMode(code: content.calendarDisplayMode),

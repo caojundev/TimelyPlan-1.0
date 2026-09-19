@@ -24,6 +24,7 @@ struct CountdownEventKey {
     static let timePlanJSON = "timePlanJSON"
     static let myDayDisplayMode = "myDayDisplayMode"
     static let calendarDisplayMode = "calendarDisplayMode"
+    static let includesStartDate = "includesStartDate"
     static let isArchived = "isArchived"
 }
 
@@ -170,6 +171,9 @@ class CountdownEvent: NSObject,
     /// 倒数日日期（日期类型 + 日期 + 闰月）
     var date: CountdownDate
     
+    /// 正数计数是否包含选中日期当天（+1）
+    var includesStartDate: Bool
+    
     /// 备注
     var note: String?
     
@@ -213,6 +217,7 @@ class CountdownEvent: NSObject,
          emoji: String? = nil,
          colorHex: String? = nil,
          date: CountdownDate = CountdownDate(),
+         includesStartDate: Bool = false,
          note: String? = nil,
          myDayDisplayMode: CountdownDisplayMode = .none,
          calendarDisplayMode: CountdownDisplayMode = .none,
@@ -226,6 +231,7 @@ class CountdownEvent: NSObject,
         self.emoji = emoji
         self.colorHex = colorHex
         self.date = date
+        self.includesStartDate = includesStartDate
         self.note = note
         self.myDayDisplayMode = myDayDisplayMode
         self.calendarDisplayMode = calendarDisplayMode
@@ -341,6 +347,9 @@ struct CountdownEditingEvent: Equatable {
     /// 倒数日日期（日期类型 + 日期 + 闰月）
     var date: CountdownDate
     
+    /// 正数计数是否包含选中日期当天（+1）
+    var includesStartDate: Bool = false
+    
     /// 提醒
     var reminder: TaskReminder?
     
@@ -358,10 +367,12 @@ struct CountdownEditingEvent: Equatable {
     
     init(type: CountdownEventType = .countdown,
          date: CountdownDate = CountdownDate(),
+         includesStartDate: Bool = false,
          myDayDisplayMode: CountdownDisplayMode = .none,
          calendarDisplayMode: CountdownDisplayMode = .none) {
         self.type = type
         self.date = date
+        self.includesStartDate = includesStartDate
         self.myDayDisplayMode = myDayDisplayMode
         self.calendarDisplayMode = calendarDisplayMode
     }
@@ -384,6 +395,7 @@ struct CountdownEditingEvent: Equatable {
             && lhs.emoji == rhs.emoji
             && lhs.color == rhs.color
             && lhs.date == rhs.date
+            && lhs.includesStartDate == rhs.includesStartDate
             && lhs.note == rhs.note
             && lhs.myDayDisplayMode == rhs.myDayDisplayMode
             && lhs.calendarDisplayMode == rhs.calendarDisplayMode
@@ -409,6 +421,7 @@ extension CountdownEvent {
     var editingEvent: CountdownEditingEvent {
         var event = CountdownEditingEvent(type: type,
                                           date: date,
+                                          includesStartDate: includesStartDate,
                                           myDayDisplayMode: myDayDisplayMode,
                                           calendarDisplayMode: calendarDisplayMode)
         event.name = name

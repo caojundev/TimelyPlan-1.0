@@ -80,11 +80,12 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         return cellItem
     }()
     
-    // MARK: - 类型
-    lazy var typeSectionController: TPTableItemSectionController = {
+    // MARK: - 通用
+    lazy var generalSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = 15.0
-        sectionController.cellItems = [eventTypeCellItem]
+        sectionController.cellItems = [eventTypeCellItem,
+                                       includesStartDateCellItem]
         return sectionController
     }()
     
@@ -102,6 +103,25 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         
         cellItem.didSelectHandler = { [weak self] in
             self?.editEventType()
+        }
+        
+        return cellItem
+    }()
+    
+    /// 正数计数是否包含选中日期当天（+1）
+    lazy var includesStartDateCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = Config.defaultCellHeight
+        cellItem.title = resGetString("Include Start Date")
+        cellItem.subtitle = resGetString("Count start date as Day 1")
+        cellItem.subtitleConfig.font = .boldSystemFont(ofSize: 11.0)
+        cellItem.updater = {
+            guard let self = self else { return }
+            self.includesStartDateCellItem.isOn = self.editingEvent.includesStartDate
+        }
+        
+        cellItem.valueChanged = { [weak self] isOn in
+            self?.editingEvent.includesStartDate = isOn
         }
         
         return cellItem
@@ -185,7 +205,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         let sectionControllers = [iconNameSectionController,
                                   colorSectionController,
                                   targetDateSectionController,
-                                  typeSectionController,
+                                  generalSectionController,
                                   displaySectionController,
                                   noteSectionController]
         self.sectionControllers = sectionControllers
