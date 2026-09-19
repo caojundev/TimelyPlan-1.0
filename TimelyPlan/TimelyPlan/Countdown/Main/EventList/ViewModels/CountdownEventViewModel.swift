@@ -183,21 +183,20 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate {
     // MARK: - 排序
     func moveEvent(at sourceIndexPath: IndexPath,
                    to targetIndexPath: IndexPath) -> Bool {
-        guard let groups = groups, sourceIndexPath.section == targetIndexPath.section else {
+        guard var events = events, sourceIndexPath.section == targetIndexPath.section else {
             return false
         }
-        
-        let section = sourceIndexPath.section
-        guard section < groups.count else {
-            return false
-        }
-        
-        let group = groups[section]
-        return group.moveEvent(fromIndex: sourceIndexPath.item, toIndex: targetIndexPath.item)
+
+        let bMoved = events.moveObject(fromIndex: sourceIndexPath.item,
+                                       toIndex: targetIndexPath.item)
+        self.events = events
+        return bMoved
     }
     
     /// 保存有序事项
     func didEndReorderEvents(with orderedEvents: [CountdownEvent]) {
+        /// 排序结束，分组内事项顺序会改变，需更新分组
+        updateGroups()
         CountdownRepository.didEndReorderEvents(with: orderedEvents)
     }
     

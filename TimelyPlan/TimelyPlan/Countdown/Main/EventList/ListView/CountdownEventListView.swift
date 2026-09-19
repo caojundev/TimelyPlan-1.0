@@ -84,7 +84,6 @@ class CountdownEventListView: TPGroupCollectionView,
         super.performUpdate(with: completion)
     }
     
-    
     func shouldAddRefreshControl() -> Bool {
         return true
     }
