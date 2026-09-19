@@ -25,124 +25,8 @@ struct CountdownEventKey {
     static let myDayDisplayMode = "myDayDisplayMode"
     static let calendarDisplayMode = "calendarDisplayMode"
     static let includesStartDate = "includesStartDate"
+    static let timeUnit = "timeUnit"
     static let isArchived = "isArchived"
-}
-
-/// 倒数日事项在“我的一天”与日历中的显示方式
-///
-/// 全部模式仅使用一个 `Int16` 字段（`code`）落库解析：
-/// - `0`：不显示（默认值）
-/// - `-1`：当日显示
-/// - `-2`：一直显示
-/// - `> 0`：提前 N 天显示（N 即编码值，由用户自定义，取值 1...99）
-/// - 其它负值：按默认的不显示处理
-enum CountdownDisplayMode: Equatable, Hashable {
-    
-    /// 不显示
-    case none
-    
-    /// 当日显示
-    case onTheDay
-    
-    /// 提前 N 天显示（取值限制在 1...99）
-    case daysBefore(Int)
-    
-    /// 一直显示
-    case always
-    
-    // MARK: - 编码
-    /// 不显示的编码值（默认值）
-    static let noneCode: Int16 = 0
-    
-    /// 当日显示的编码值
-    static let onTheDayCode: Int16 = -1
-    
-    /// 一直显示的编码值
-    static let alwaysCode: Int16 = -2
-    
-    /// 可自定义的提前天数范围
-    static let daysRange: ClosedRange<Int> = 1...99
-    
-    /// 将提前天数限制在可自定义范围内
-    static func validDays(_ days: Int) -> Int {
-        return min(max(days, daysRange.lowerBound), daysRange.upperBound)
-    }
-    
-    /// 是否一直显示
-    var isAlwaysVisible: Bool {
-        return self == .always
-    }
-    
-    /// 提前显示的天数（不显示与一直显示时无提前天数）
-    var advanceDays: Int? {
-        switch self {
-        case .none, .always:
-            return nil
-        case .onTheDay:
-            return 0
-        case .daysBefore(let days):
-            return Self.validDays(days)
-        }
-    }
-    
-    /// 落库编码值
-    var code: Int16 {
-        switch self {
-        case .none:
-            return Self.noneCode
-        case .onTheDay:
-            return Self.onTheDayCode
-        case .daysBefore(let days):
-            return Int16(Self.validDays(days))
-        case .always:
-            return Self.alwaysCode
-        }
-    }
-    
-    /// 由落库编码值解析（提前天数越界时收敛到 1...99，其它非法负值按不显示处理）
-    init(code: Int16) {
-        switch code {
-        case Self.noneCode:
-            self = .none
-        case Self.onTheDayCode:
-            self = .onTheDay
-        case Self.alwaysCode:
-            self = .always
-        case 1...:
-            self = .daysBefore(Self.validDays(Int(code)))
-        default:
-            self = .none
-        }
-    }
-    
-    // MARK: - Getters
-    /// 标题
-    var title: String {
-        switch self {
-        case .none:
-            return resGetString("Do Not Show")
-        case .onTheDay:
-            return resGetString("On the Day")
-        case .daysBefore(let days):
-            let format: String
-            if days > 1 {
-                format = resGetString("%ld Days Early")
-            } else {
-                format = resGetString("%ld Day Early")
-            }
-            
-            return String(format: format, Self.validDays(days))
-        case .always:
-            return resGetString("Always Show")
-        }
-    }
-    
-    /// 预设模式（菜单选项，自定义天数由用户输入）
-    static let presetModes: [CountdownDisplayMode] = [.none,
-                                                      .onTheDay,
-                                                      .daysBefore(3),
-                                                      .daysBefore(7),
-                                                      .always]
 }
 
 /// 倒数日事件
@@ -173,6 +57,9 @@ class CountdownEvent: NSObject,
     
     /// 正数计数是否包含选中日期当天（+1）
     var includesStartDate: Bool
+    
+    /// 时间单位
+    var timeUnit: CountdownTimeUnit
     
     /// 备注
     var note: String?
@@ -218,6 +105,7 @@ class CountdownEvent: NSObject,
          colorHex: String? = nil,
          date: CountdownDate = CountdownDate(),
          includesStartDate: Bool = false,
+         timeUnit: CountdownTimeUnit = .days,
          note: String? = nil,
          myDayDisplayMode: CountdownDisplayMode = .none,
          calendarDisplayMode: CountdownDisplayMode = .none,
@@ -232,6 +120,7 @@ class CountdownEvent: NSObject,
         self.colorHex = colorHex
         self.date = date
         self.includesStartDate = includesStartDate
+        self.timeUnit = timeUnit
         self.note = note
         self.myDayDisplayMode = myDayDisplayMode
         self.calendarDisplayMode = calendarDisplayMode
@@ -350,6 +239,9 @@ struct CountdownEditingEvent: Equatable {
     /// 正数计数是否包含选中日期当天（+1）
     var includesStartDate: Bool = false
     
+    /// 时间单位
+    var timeUnit: CountdownTimeUnit = .days
+    
     /// 提醒
     var reminder: TaskReminder?
     
@@ -368,11 +260,13 @@ struct CountdownEditingEvent: Equatable {
     init(type: CountdownEventType = .countdown,
          date: CountdownDate = CountdownDate(),
          includesStartDate: Bool = false,
+         timeUnit: CountdownTimeUnit = .days,
          myDayDisplayMode: CountdownDisplayMode = .none,
          calendarDisplayMode: CountdownDisplayMode = .none) {
         self.type = type
         self.date = date
         self.includesStartDate = includesStartDate
+        self.timeUnit = timeUnit
         self.myDayDisplayMode = myDayDisplayMode
         self.calendarDisplayMode = calendarDisplayMode
     }
@@ -396,6 +290,7 @@ struct CountdownEditingEvent: Equatable {
             && lhs.color == rhs.color
             && lhs.date == rhs.date
             && lhs.includesStartDate == rhs.includesStartDate
+            && lhs.timeUnit == rhs.timeUnit
             && lhs.note == rhs.note
             && lhs.myDayDisplayMode == rhs.myDayDisplayMode
             && lhs.calendarDisplayMode == rhs.calendarDisplayMode
@@ -422,6 +317,7 @@ extension CountdownEvent {
         var event = CountdownEditingEvent(type: type,
                                           date: date,
                                           includesStartDate: includesStartDate,
+                                          timeUnit: timeUnit,
                                           myDayDisplayMode: myDayDisplayMode,
                                           calendarDisplayMode: calendarDisplayMode)
         event.name = name

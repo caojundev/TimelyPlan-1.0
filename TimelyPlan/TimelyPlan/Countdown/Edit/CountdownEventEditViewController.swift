@@ -85,6 +85,7 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = 15.0
         sectionController.cellItems = [eventTypeCellItem,
+                                       timeUnitCellItem,
                                        includesStartDateCellItem]
         return sectionController
     }()
@@ -103,6 +104,25 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         
         cellItem.didSelectHandler = { [weak self] in
             self?.editEventType()
+        }
+        
+        return cellItem
+    }()
+    
+    /// 时间单位
+    lazy var timeUnitCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTextValueTableCellItem()
+        cellItem.height = Config.defaultCellHeight
+        cellItem.accessoryType = .disclosureIndicator
+        cellItem.title = resGetString("Time Unit")
+        cellItem.updater = {
+            guard let self = self else { return }
+            let text = self.editingEvent.timeUnit.title
+            self.timeUnitCellItem.valueConfig = .valueText(text)
+        }
+        
+        cellItem.didSelectHandler = { [weak self] in
+            self?.editTimeUnit()
         }
         
         return cellItem
@@ -343,5 +363,44 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         
         editingEvent.type = type
         adapter.reloadCell(forItem: eventTypeCellItem, with: .none)
+    }
+    
+    private func editTimeUnit() {
+        guard let cell = adapter.cellForItem(timeUnitCellItem) else {
+            return
+        }
+        
+        let menuList = TPMenuListViewController()
+        menuList.menuContentWidth = 180.0
+        let menuItem = TPMenuItem.item(with: CountdownTimeUnit.allCases,
+                                       updater: { unit, action in
+            action.title = unit.title
+            action.handleBeforeDismiss = true
+            action.isChecked = unit == self.editingEvent.timeUnit
+        })
+        
+        menuList.didSelectMenuAction = { action in
+            guard let unit: CountdownTimeUnit = action.actionType() else {
+                return
+            }
+            
+            self.selectTimeUnit(unit)
+        }
+        
+        menuList.menuItems = [menuItem]
+        menuList.popoverShow(from: cell,
+                             sourceRect: cell.bounds,
+                             isSourceViewCovered: false,
+                             preferredPosition: .bottomLeft,
+                             permittedPositions: [.bottomLeft, .topLeft])
+    }
+    
+    private func selectTimeUnit(_ unit: CountdownTimeUnit) {
+        guard editingEvent.timeUnit != unit else {
+            return
+        }
+        
+        editingEvent.timeUnit = unit
+        adapter.reloadCell(forItem: timeUnitCellItem, with: .none)
     }
 }

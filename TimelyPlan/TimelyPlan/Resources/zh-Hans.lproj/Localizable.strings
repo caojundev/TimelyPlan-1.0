@@ -45,6 +45,17 @@
 "Include Start Date" = "包含起始日";
 "Count start date as Day 1" = "起始日计为第 1 天";
 
+// 时间单位
+"countdown.unit.days"      = "天";
+"countdown.unit.weekDay"   = "周 + 天";
+"countdown.unit.monthDay"  = "月 + 天";
+"countdown.unit.monthWeek" = "月 + 周";
+"countdown.unit.yearDay"   = "年 + 天";
+"countdown.unit.yearWeek"  = "年 + 周";
+"countdown.unit.yearMonth" = "年 + 月";
+
+"Time Unit" = "时间单位";
+
 /// 在我的一天与日历中的显示方式
 "Do Not Show" = "不显示";
 "On the Day" = "当日显示";

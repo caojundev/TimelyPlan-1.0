@@ -8,6 +8,15 @@
 
 "Countdown Timer" = "Countdown";
 
+// 时间单位
+"countdown.unit.days"      = "Days";
+"countdown.unit.weekDay"   = "Week + Day";
+"countdown.unit.monthDay"  = "Month + Day";
+"countdown.unit.monthWeek" = "Month + Week";
+"countdown.unit.yearDay"   = "Year + Day";
+"countdown.unit.yearWeek"  = "Year + Week";
+"countdown.unit.yearMonth" = "Year + Month";
+
 /// 次数
 "Time(count)" = "Time";
 "Times(count)" = "Times";

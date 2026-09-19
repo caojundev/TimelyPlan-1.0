@@ -249,7 +249,6 @@
 		E50FF8B42F79291100B8F5BE /* FocusDefaultTimerSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FF8B32F79291100B8F5BE /* FocusDefaultTimerSelectCell.swift */; };
 		E50FF8B62F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FF8B52F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift */; };
 		E511E4FE305D29F000292511 /* CountdownDisplayEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E4FD305D29F000292511 /* CountdownDisplayEditSectionController.swift */; };
-		E511E500305E05B500292511 /* CountdownLayoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E4FF305E05B500292511 /* CountdownLayoutType.swift */; };
 		E511E506305E0A9300292511 /* countdown_layout_list_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E502305E0A9200292511 /* countdown_layout_list_24@3x.png */; };
 		E511E507305E0A9300292511 /* countdown_layout_list_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E503305E0A9200292511 /* countdown_layout_list_24@2x.png */; };
 		E511E508305E0A9300292511 /* countdown_layout_grid_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */; };
@@ -766,7 +765,7 @@
 		E541DC423057FB42008BFAE0 /* TPEmojiTextEditTableCellItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC413057FB42008BFAE0 /* TPEmojiTextEditTableCellItem.swift */; };
 		E541DC4430581CC3008BFAE0 /* CountdownEventProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC4330581CC3008BFAE0 /* CountdownEventProcessorUpdater.swift */; };
 		E541DC4630581CF8008BFAE0 /* CountdownRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC4530581CF8008BFAE0 /* CountdownRepository.swift */; };
-		E541DC4830582311008BFAE0 /* CountdownEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC4730582311008BFAE0 /* CountdownEventType.swift */; };
+		E541DC4830582311008BFAE0 /* CountdownEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC4730582311008BFAE0 /* CountdownEnums.swift */; };
 		E541DC4B30582A7F008BFAE0 /* CountdownEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC4A30582A7E008BFAE0 /* CountdownEventListView.swift */; };
 		E541DC5030582ED1008BFAE0 /* CountdownEventMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC4C30582ECF008BFAE0 /* CountdownEventMenu.swift */; };
 		E541DC5130582ED1008BFAE0 /* CountdownEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC4E30582ECF008BFAE0 /* CountdownEventViewModel.swift */; };
@@ -2617,7 +2616,6 @@
 		E50FF8B32F79291100B8F5BE /* FocusDefaultTimerSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDefaultTimerSelectCell.swift; sourceTree = "<group>"; };
 		E50FF8B52F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCollectionSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E511E4FD305D29F000292511 /* CountdownDisplayEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDisplayEditSectionController.swift; sourceTree = "<group>"; };
-		E511E4FF305E05B500292511 /* CountdownLayoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLayoutType.swift; sourceTree = "<group>"; };
 		E511E502305E0A9200292511 /* countdown_layout_list_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_list_24@3x.png"; sourceTree = "<group>"; };
 		E511E503305E0A9200292511 /* countdown_layout_list_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_list_24@2x.png"; sourceTree = "<group>"; };
 		E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_grid_24@2x.png"; sourceTree = "<group>"; };
@@ -3137,7 +3135,7 @@
 		E541DC413057FB42008BFAE0 /* TPEmojiTextEditTableCellItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPEmojiTextEditTableCellItem.swift; sourceTree = "<group>"; };
 		E541DC4330581CC3008BFAE0 /* CountdownEventProcessorUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventProcessorUpdater.swift; sourceTree = "<group>"; };
 		E541DC4530581CF8008BFAE0 /* CountdownRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownRepository.swift; sourceTree = "<group>"; };
-		E541DC4730582311008BFAE0 /* CountdownEventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventType.swift; sourceTree = "<group>"; };
+		E541DC4730582311008BFAE0 /* CountdownEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEnums.swift; sourceTree = "<group>"; };
 		E541DC4A30582A7E008BFAE0 /* CountdownEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventListView.swift; sourceTree = "<group>"; };
 		E541DC4C30582ECF008BFAE0 /* CountdownEventMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventMenu.swift; sourceTree = "<group>"; };
 		E541DC4E30582ECF008BFAE0 /* CountdownEventViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventViewModel.swift; sourceTree = "<group>"; };
@@ -7118,8 +7116,7 @@
 				E541DC393057D7B1008BFAE0 /* CoreData */,
 				E541DC5C3058F3F3008BFAE0 /* CountdownDate.swift */,
 				E541DC64305A1AAA008BFAE0 /* CountdownTimePlan.swift */,
-				E541DC4730582311008BFAE0 /* CountdownEventType.swift */,
-				E511E4FF305E05B500292511 /* CountdownLayoutType.swift */,
+				E541DC4730582311008BFAE0 /* CountdownEnums.swift */,
 				E541DC373057D73B008BFAE0 /* CountdownEvent.swift */,
 			);
 			path = Models;
@@ -14432,7 +14429,6 @@
 				E5BB9B3F2D3BEF920089667A /* Attachment.swift in Sources */,
 				E57CC5E82F7FEF7000ADDBA4 /* TaskSchedule.swift in Sources */,
 				E56342012F94811200E120BF /* TodoFilterController.swift in Sources */,
-				E511E500305E05B500292511 /* CountdownLayoutType.swift in Sources */,
 				E51A4C432DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift in Sources */,
 				E53114B230412D610022D8D7 /* TodoTask+GanttEvent.swift in Sources */,
 				E53B11462F94D1B300701410 /* TimeOffsetPickerViewCell.swift in Sources */,
@@ -14689,7 +14685,7 @@
 				E5D7D8B82D43933600EC877A /* FocusRunningTopbar.swift in Sources */,
 				E5BB9E942D3BF0C80089667A /* PieVisual.swift in Sources */,
 				E5F9E3D03021983900EDC2A5 /* MyDayTaskBindViewController.swift in Sources */,
-				E541DC4830582311008BFAE0 /* CountdownEventType.swift in Sources */,
+				E541DC4830582311008BFAE0 /* CountdownEnums.swift in Sources */,
 				E524D29D2FCEB330002791E5 /* TodoTaskBoardGroupManager.swift in Sources */,
 				E56342142F94C2E300E120BF /* TodoFilterValue.swift in Sources */,
 				E5168BBA2F53EA430000A760 /* HabitUserUnitCell.swift in Sources */,
