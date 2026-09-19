@@ -17,6 +17,8 @@ class CountdownEventListViewController: TPViewController,
         static let addViewSize = CGSize(width: 50.0, height: 50.0)
         /// 添加视图边界间距
         static let addViewMargins = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 20.0)
+        /// 筛选视图高度
+        static let filterViewHeight: CGFloat = 40.0
     }
     
     /// 倒数日事项视图模型
@@ -41,13 +43,26 @@ class CountdownEventListViewController: TPViewController,
         return listView
     }()
     
+    /// 筛选视图
+    lazy var filterView: CountdownTypeFilterView = {
+        let filterView = CountdownTypeFilterView(frame: .zero)
+        filterView.didSelectFilterType = { [weak self] type in
+            self?.selectFilterType(type)
+        }
+        return filterView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupFilterView()
         setupListView()
         setupAddView()
         
         self.viewModel.eventsDidChange = { [weak self] change in
             self?.eventsChanged(change)
+        }
+        self.viewModel.filterTypeDidChange = { [weak self] in
+            self?.reloadFilteredEvents()
         }
         self.viewModel.loadEvents()
     }
@@ -60,11 +75,37 @@ class CountdownEventListViewController: TPViewController,
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         layoutAddView()
+        layoutFilterView()
         layoutListView()
     }
     
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
+    }
+    
+    // MARK: - 筛选视图
+    private func setupFilterView() {
+        view.addSubview(filterView)
+    }
+    
+    private func layoutFilterView() {
+        let layoutFrame = view.safeAreaFrame()
+        filterView.frame = CGRect(x: layoutFrame.minX,
+                                  y: layoutFrame.minY,
+                                  width: layoutFrame.width,
+                                  height: Config.filterViewHeight)
+    }
+    
+    /// 选择筛选类型
+    private func selectFilterType(_ filterType: CountdownTypeFilterType) {
+        viewModel.updateFilterType(filterType)
+    }
+    
+    /// 按筛选结果刷新倒数日事项
+    private func reloadFilteredEvents() {
+        /// 非“所有”状态下不允许拖拽排序，避免破坏原始顺序
+        listView.isReorderEnabled = viewModel.filterType == .all
+        reloadEvents()
     }
     
     // MARK: - 列表视图
@@ -75,10 +116,11 @@ class CountdownEventListViewController: TPViewController,
     
     private func layoutListView() {
         let layoutFrame = view.safeAreaFrame()
+        let top = filterView.frame.maxY
         listView.frame = CGRect(x: layoutFrame.minX,
-                                y: layoutFrame.minY,
+                                y: top,
                                 width: layoutFrame.width,
-                                height: layoutFrame.height)
+                                height: max(0.0, layoutFrame.maxY - top))
         
         /// 底部留出添加按钮的空间
         let insetBottom = layoutFrame.maxY - (addView?.top ?? layoutFrame.maxY)

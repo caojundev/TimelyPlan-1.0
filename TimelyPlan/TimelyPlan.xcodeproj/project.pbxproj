@@ -254,6 +254,7 @@
 		E511E508305E0A9300292511 /* countdown_layout_grid_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */; };
 		E511E509305E0A9300292511 /* countdown_layout_grid_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */; };
 		E511E50B305E122700292511 /* CountdownEventSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E50A305E122700292511 /* CountdownEventSearchViewModel.swift */; };
+		E511E50D305E770E00292511 /* CountdownTypeFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E50C305E770E00292511 /* CountdownTypeFilterView.swift */; };
 		E5135094302A0BD1000E9871 /* arrow_uturn_left_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135090302A0BCF000E9871 /* arrow_uturn_left_36@3x.png */; };
 		E5135095302A0BD1000E9871 /* arrow_uturn_right_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */; };
 		E5135096302A0BD1000E9871 /* arrow_uturn_left_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135092302A0BD0000E9871 /* arrow_uturn_left_36@2x.png */; };
@@ -2621,6 +2622,7 @@
 		E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_grid_24@2x.png"; sourceTree = "<group>"; };
 		E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_grid_24@3x.png"; sourceTree = "<group>"; };
 		E511E50A305E122700292511 /* CountdownEventSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchViewModel.swift; sourceTree = "<group>"; };
+		E511E50C305E770E00292511 /* CountdownTypeFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTypeFilterView.swift; sourceTree = "<group>"; };
 		E5135090302A0BCF000E9871 /* arrow_uturn_left_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_left_36@3x.png"; sourceTree = "<group>"; };
 		E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_right_36@3x.png"; sourceTree = "<group>"; };
 		E5135092302A0BD0000E9871 /* arrow_uturn_left_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_left_36@2x.png"; sourceTree = "<group>"; };
@@ -7141,6 +7143,7 @@
 			isa = PBXGroup;
 			children = (
 				E5091C60305BC6DD009CFD17 /* CountdownEventListViewController.swift */,
+				E511E50C305E770E00292511 /* CountdownTypeFilterView.swift */,
 				E541DC4C30582ECF008BFAE0 /* CountdownEventMenu.swift */,
 				E5091C5A305B85C7009CFD17 /* CountdownEventDetailProvider.swift */,
 				E5091C52305AC609009CFD17 /* ListView */,
@@ -13713,6 +13716,7 @@
 				E558978430554BD9001F8F22 /* MyDayGoalTaskBindViewController.swift in Sources */,
 				E558978630554C10001F8F22 /* MyDayGoalTaskBindCell.swift in Sources */,
 				E53B11552F94D26C00701410 /* TodoFilterRuleEditBaseSectionController.swift in Sources */,
+				E511E50D305E770E00292511 /* CountdownTypeFilterView.swift in Sources */,
 				E58C9E192F4AF0DC0096B842 /* FocusTimelineLayout.swift in Sources */,
 				E58F469B2F7A9C120046FA96 /* TodoListMenuActionType.swift in Sources */,
 				E51F94213006178F00734910 /* FocusTimerScheduleEditSectionController.swift in Sources */,

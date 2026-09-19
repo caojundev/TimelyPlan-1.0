@@ -22,7 +22,7 @@ class GoalHomeViewController: TPViewController,
         /// 收件箱按钮边界间距
         static let inboxViewMargins = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 0.0)
         /// 筛选视图高度
-        static let filterViewHeight: CGFloat = 50.0
+        static let filterViewHeight: CGFloat = 40.0
     }
     
     /// 侧边栏控制器

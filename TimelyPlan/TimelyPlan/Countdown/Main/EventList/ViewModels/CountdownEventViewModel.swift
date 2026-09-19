@@ -85,6 +85,12 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate {
     /// 倒数日事项改变
     var eventsDidChange: ((CountdownEventChange?) -> Void)?
     
+    /// 筛选类型
+    var filterType: CountdownTypeFilterType = .all
+    
+    /// 筛选类型改变回调
+    var filterTypeDidChange: (() -> Void)?
+    
     private(set) var state: TPListLoadingState = .initialLoading {
         didSet {
             self.placeholderProvider.state = state
@@ -120,15 +126,45 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate {
             self.events = events
             
             /// 分组
-            let group = CountdownEventGroup(identifier: self.groupIdentifier)
-            group.events = events
-            self.groups = [group]
+            self.updateGroups()
             
             self.needsRefresh = false
             self.state = .loaded
             self.eventsDidChange?(change)
             completion?()
         }
+    }
+    
+    /// 按筛选类型过滤后的事项
+    var filteredEvents: [CountdownEvent]? {
+        guard let events = events else {
+            return nil
+        }
+        
+        return events.filter { filterType.matches($0) }
+    }
+    
+    /// 更新筛选类型
+    func updateFilterType(_ filterType: CountdownTypeFilterType) {
+        guard self.filterType != filterType else {
+            return
+        }
+        
+        self.filterType = filterType
+        updateGroups()
+        filterTypeDidChange?()
+    }
+    
+    /// 更新分组
+    private func updateGroups() {
+        guard events != nil else {
+            groups = nil
+            return
+        }
+        
+        let group = CountdownEventGroup(identifier: groupIdentifier)
+        group.events = filteredEvents
+        groups = [group]
     }
     
     private func loadEventsIfNeeded(completion: @escaping ([CountdownEvent]?) -> Void) {
