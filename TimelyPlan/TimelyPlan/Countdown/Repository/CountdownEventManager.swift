@@ -31,6 +31,14 @@ class CountdownEventManager {
         }
     }
     
+    /// 按名称搜索活动倒数日事项
+    func searchActiveEvents(containText text: String,
+                            completion: @escaping([CountdownEvent]?) -> Void) {
+        CDCountdownEvent.searchActiveEvents(containText: text) { results in
+            completion(results?.toEvents)
+        }
+    }
+    
     // MARK: - 同步获取倒数日事项
     /// 获取所有倒数日事项
     func getAllEvents() -> [CountdownEvent]? {

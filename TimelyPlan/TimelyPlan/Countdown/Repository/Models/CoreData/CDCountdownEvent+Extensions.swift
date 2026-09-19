@@ -107,6 +107,20 @@ extension CDCountdownEvent {
         }
     }
     
+    // MARK: - 异步搜索
+    /// 按名称搜索活动倒数日事项（不区分大小写）
+    static func searchActiveEvents(containText text: String,
+                                   completion: @escaping([CDCountdownEvent]?) -> Void) {
+        let conditions: [PredicateCondition] = [activeEventsPredicateCondition,
+                                                (CountdownEventKey.name, .contains(text))]
+        let predicate = conditions.andPredicate()
+        CDCountdownEvent.fetchAll(matching: predicate,
+                                  sortBy: ElementOrderKey,
+                                  ascending: true) { results in
+            completion(results as? [CDCountdownEvent])
+        }
+    }
+    
     // MARK: - 同步获取
     /// 获取特定标识的倒数日事项
     static func getEvent(withIdentifier identifier: String) -> CDCountdownEvent? {

@@ -74,8 +74,13 @@ class CountdownEventGroup: NSObject, GroupRepresentable {
 class CountdownEventViewModel: CountdownEventProcessorDelegate {
     
     private(set) var groups: [CountdownEventGroup]?
-
+    
     private(set) var events: [CountdownEvent]?
+    
+    /// 分组唯一标识
+    var groupIdentifier: String {
+        return "CountdownEventGroup"
+    }
     
     /// 倒数日事项改变
     var eventsDidChange: ((CountdownEventChange?) -> Void)?
@@ -115,7 +120,7 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate {
             self.events = events
             
             /// 分组
-            let group = CountdownEventGroup(identifier: "CountdownEventGroup")
+            let group = CountdownEventGroup(identifier: self.groupIdentifier)
             group.events = events
             self.groups = [group]
             

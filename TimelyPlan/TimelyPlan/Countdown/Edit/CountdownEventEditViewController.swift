@@ -312,7 +312,8 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         menuList.popoverShow(from: cell,
                              sourceRect: cell.bounds,
                              isSourceViewCovered: false,
-                             preferredPosition: .bottomLeft)
+                             preferredPosition: .bottomLeft,
+                             permittedPositions: [.bottomLeft, .topLeft])
     }
     
     private func selectEventType(_ type: CountdownEventType) {

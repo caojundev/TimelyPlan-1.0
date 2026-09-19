@@ -52,6 +52,11 @@ class CountdownEventListViewController: TPViewController,
         self.viewModel.loadEvents()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        listView.reloadDataIfNeeded()
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         layoutAddView()

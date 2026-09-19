@@ -147,7 +147,7 @@ class CountdownMainViewController: TPContainerViewController,
         searchResultViewController?.updateSearchResults(with: searchText)
     }
     
-        // MARK: - Event Response
+    // MARK: - Event Response
     /// 切换列表 / 网格布局
     private func toggleLayout() {
         TPImpactFeedback.impactWithLightStyle()

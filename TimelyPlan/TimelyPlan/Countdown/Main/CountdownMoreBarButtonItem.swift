@@ -56,7 +56,7 @@ class CountdownMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<CountdownMoreMenuT
             /// 展示当前布局，点击切换
             action.handleBeforeDismiss = true
             action.subtitle = layoutType.title
-            action.image = UIImage(systemName: layoutType.iconName)
+            action.image = resGetImage(layoutType.iconName)
         }
     }
     

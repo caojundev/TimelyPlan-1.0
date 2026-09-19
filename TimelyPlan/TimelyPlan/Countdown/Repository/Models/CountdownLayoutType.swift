@@ -26,13 +26,12 @@ enum CountdownLayoutType: Int, CaseIterable {
         }
     }
     
-    /// 图标（SF Symbol 名称）
     var iconName: String {
         switch self {
         case .list:
-            return "list.bullet"
+            return "countdown_layout_list_24"
         case .grid:
-            return "square.grid.2x2"
+            return "countdown_layout_grid_24"
         }
     }
     

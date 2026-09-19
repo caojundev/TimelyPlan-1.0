@@ -250,6 +250,11 @@
 		E50FF8B62F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FF8B52F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift */; };
 		E511E4FE305D29F000292511 /* CountdownDisplayEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E4FD305D29F000292511 /* CountdownDisplayEditSectionController.swift */; };
 		E511E500305E05B500292511 /* CountdownLayoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E4FF305E05B500292511 /* CountdownLayoutType.swift */; };
+		E511E506305E0A9300292511 /* countdown_layout_list_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E502305E0A9200292511 /* countdown_layout_list_24@3x.png */; };
+		E511E507305E0A9300292511 /* countdown_layout_list_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E503305E0A9200292511 /* countdown_layout_list_24@2x.png */; };
+		E511E508305E0A9300292511 /* countdown_layout_grid_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */; };
+		E511E509305E0A9300292511 /* countdown_layout_grid_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */; };
+		E511E50B305E122700292511 /* CountdownEventSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E50A305E122700292511 /* CountdownEventSearchViewModel.swift */; };
 		E5135094302A0BD1000E9871 /* arrow_uturn_left_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135090302A0BCF000E9871 /* arrow_uturn_left_36@3x.png */; };
 		E5135095302A0BD1000E9871 /* arrow_uturn_right_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */; };
 		E5135096302A0BD1000E9871 /* arrow_uturn_left_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135092302A0BD0000E9871 /* arrow_uturn_left_36@2x.png */; };
@@ -2613,6 +2618,11 @@
 		E50FF8B52F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCollectionSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E511E4FD305D29F000292511 /* CountdownDisplayEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDisplayEditSectionController.swift; sourceTree = "<group>"; };
 		E511E4FF305E05B500292511 /* CountdownLayoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLayoutType.swift; sourceTree = "<group>"; };
+		E511E502305E0A9200292511 /* countdown_layout_list_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_list_24@3x.png"; sourceTree = "<group>"; };
+		E511E503305E0A9200292511 /* countdown_layout_list_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_list_24@2x.png"; sourceTree = "<group>"; };
+		E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_grid_24@2x.png"; sourceTree = "<group>"; };
+		E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_grid_24@3x.png"; sourceTree = "<group>"; };
+		E511E50A305E122700292511 /* CountdownEventSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchViewModel.swift; sourceTree = "<group>"; };
 		E5135090302A0BCF000E9871 /* arrow_uturn_left_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_left_36@3x.png"; sourceTree = "<group>"; };
 		E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_right_36@3x.png"; sourceTree = "<group>"; };
 		E5135092302A0BD0000E9871 /* arrow_uturn_left_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_left_36@2x.png"; sourceTree = "<group>"; };
@@ -5101,6 +5111,7 @@
 			isa = PBXGroup;
 			children = (
 				E5091C63305BC741009CFD17 /* CountdownEventSearchResultViewController.swift */,
+				E511E50A305E122700292511 /* CountdownEventSearchViewModel.swift */,
 				E5091C65305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift */,
 			);
 			path = Search;
@@ -5580,6 +5591,17 @@
 				E50FF8AB2F78CFDF00B8F5BE /* TPGroupCollectionView.swift */,
 			);
 			path = Wrapper;
+			sourceTree = "<group>";
+		};
+		E511E501305E0A9200292511 /* countdown */ = {
+			isa = PBXGroup;
+			children = (
+				E511E502305E0A9200292511 /* countdown_layout_list_24@3x.png */,
+				E511E503305E0A9200292511 /* countdown_layout_list_24@2x.png */,
+				E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */,
+				E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */,
+			);
+			path = countdown;
 			sourceTree = "<group>";
 		};
 		E513509A302ACF85000E9871 /* Calendar */ = {
@@ -9079,6 +9101,7 @@
 		E5BB99DC2D3BEF0D0089667A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				E511E501305E0A9200292511 /* countdown */,
 				E5FAA9C9304AA0C700C9CCD8 /* goal */,
 				E54A068C303C2C71001FF4A1 /* gantt */,
 				E5185058300E1FC400112DFC /* myDay */,
@@ -12836,6 +12859,7 @@
 				E56B947F2F8CDB42001E488B /* todo_sort_type_creationDate_24@3x.png in Resources */,
 				E50DD7CE2D72BE5A00A85E87 /* todo_folder_24@2x.png in Resources */,
 				E5BB9ECA2D3BF0C80089667A /* Wheat01@3x.png in Resources */,
+				E511E507305E0A9300292511 /* countdown_layout_list_24@2x.png in Resources */,
 				E5F078C92F95DEB300F94BDF /* todo_filter_tag_none_24@2x.png in Resources */,
 				E5D833922DAB64D60012ABF3 /* todo_task_progress_targetValue_24@2x.png in Resources */,
 				E58389742F776404003C30A4 /* focus_quickStart_record_24@3x.png in Resources */,
@@ -13024,6 +13048,7 @@
 				E56B94AD2F8FB56A001E488B /* todo_task_action_addToMyDay_24@3x.png in Resources */,
 				E5D833942DAB64D60012ABF3 /* todo_task_progress_autoRecordValue_24@2x.png in Resources */,
 				E556BCC02F5D6C7000CA20D9 /* habit_indicator_log_16@3x.png in Resources */,
+				E511E509305E0A9300292511 /* countdown_layout_grid_24@3x.png in Resources */,
 				E53966E52D671D66008CC13B /* todo_list_option_layout_24@3x.png in Resources */,
 				E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */,
 				E58F46A12F7AA0B50046FA96 /* todo_list_ungroup_24@3x.png in Resources */,
@@ -13151,6 +13176,7 @@
 				E53480082F604ACF00CFBF26 /* habit_status_skipped_24@2x.png in Resources */,
 				E5BBA1142D3BFC520089667A /* Assets.xcassets in Resources */,
 				E5BB9A8E2D3BEF0D0089667A /* todo_smartlist_trash_24@2x.png in Resources */,
+				E511E506305E0A9300292511 /* countdown_layout_list_24@3x.png in Resources */,
 				E5BB9A952D3BEF0D0089667A /* todo_list_layout_board_96@2x.png in Resources */,
 				E5BB9A862D3BEF0D0089667A /* schedule_repeatEnd_24@2x.png in Resources */,
 				E55E4BF42F9336170068E032 /* calendar_6_24@2x.png in Resources */,
@@ -13182,6 +13208,7 @@
 				E5E4D1482D92AF2C00813B6C /* todo_filter_priority_36@3x.png in Resources */,
 				E54E63422F5B1BFD00FCBCAE /* habit_menu_cancel_24@2x.png in Resources */,
 				E5BB9ABD2D3BEF0D0089667A /* todo_task_action_date_24@2x.png in Resources */,
+				E511E508305E0A9300292511 /* countdown_layout_grid_24@2x.png in Resources */,
 				E515AD732D3CC5E600AA9AF2 /* ellipsis_24@2x.png in Resources */,
 				E55E4BE82F9336170068E032 /* calendar_11_24@2x.png in Resources */,
 				E555282D2FB5C81E0093DD7E /* todo_smartlist_completed_80@2x.png in Resources */,
@@ -14424,6 +14451,7 @@
 				E58C9E142F4AF0DC0096B842 /* FocusTimelineDayPageView.swift in Sources */,
 				E526D3FB2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift in Sources */,
 				E53632892FAB72C00095DFEC /* QuadrantMoreBarButtonItem.swift in Sources */,
+				E511E50B305E122700292511 /* CountdownEventSearchViewModel.swift in Sources */,
 				E52EF6262FB2DDBC002CF355 /* CalendarWeekNumberView.swift in Sources */,
 				E500276B2F985C9600EF052D /* TPDateRangeSegmentedView.swift in Sources */,
 				E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */,

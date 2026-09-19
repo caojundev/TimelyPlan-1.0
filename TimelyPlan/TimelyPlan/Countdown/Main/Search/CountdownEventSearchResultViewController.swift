@@ -12,15 +12,15 @@ import UIKit
 class CountdownEventSearchResultViewController: TPViewController,
                                                 CountdownEventListViewDelegate {
     
+    /// 倒数日事项搜索视图模型
+    private let viewModel = CountdownEventSearchViewModel()
+    
     /// 布局类型（跟随主页当前布局）
     var layoutType: CountdownLayoutType = .list {
         didSet {
             listView.layoutType = layoutType
         }
     }
-    
-    /// 当前搜索文本
-    private(set) var searchText: String?
     
     /// 无搜索结果占位视图提供者
     private let placeholderProvider = TPDefaultPlaceholderProvider()
@@ -45,6 +45,10 @@ class CountdownEventSearchResultViewController: TPViewController,
         placeholderProvider.emptyImage = resGetImage("placeholder_noSearchResult_80")
         view.addSubview(listView)
         listView.reloadData()
+        
+        viewModel.eventsDidChange = { [weak self] _ in
+            self?.updateListView()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -57,46 +61,27 @@ class CountdownEventSearchResultViewController: TPViewController,
     }
     
     // MARK: - 搜索
-    /// 重新执行当前搜索
-    func reloadSearchResults() {
-        let searchText = self.searchText
-        self.searchText = nil
-        updateSearchResults(with: searchText)
-    }
-    
     /// 更新搜索结果
     func updateSearchResults(with searchText: String?) {
-        /// 空文本视为无搜索条件
-        var searchText = searchText?.whitespacesAndNewlinesTrimmedString
-        if searchText?.count == 0 {
-            searchText = nil
-        }
-        
-        if self.searchText == searchText {
-            return
-        }
-        
-        self.searchText = searchText
-        listView.searchText = searchText
-        
-        let group = CountdownEventGroup(identifier: "CountdownSearchResultGroup")
-        group.events = searchEvents(containText: searchText)
-        listView.groups = [group]
-        listView.performUpdate()
+        viewModel.updateSearchText(searchText)
     }
     
-    /// 按名称搜索活动倒数日事项
-    private func searchEvents(containText text: String?) -> [CountdownEvent] {
-        guard let text = text, text.count > 0 else {
-            return []
-        }
-        
-        return CountdownRepository.getActiveEvents().filter { event in
-            guard let name = event.name, name.count > 0 else {
-                return false
+    /// 重新执行当前搜索
+    func reloadSearchResults() {
+        viewModel.setNeedsRefresh()
+        viewModel.loadEvents()
+    }
+    
+    /// 更新列表视图
+    private func updateListView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
             }
             
-            return name.range(of: text, options: .caseInsensitive) != nil
+            self.listView.searchText = self.viewModel.searchText
+            self.listView.groups = self.viewModel.groups
+            self.listView.performUpdate()
         }
     }
     
