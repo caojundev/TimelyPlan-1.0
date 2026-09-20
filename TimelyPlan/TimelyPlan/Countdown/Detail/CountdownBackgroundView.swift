@@ -8,197 +8,157 @@
 import Foundation
 import UIKit
 
+/// 倒数日详情背景视图
+/// 根据主题色（事项颜色）静态渲染渐变与光线
 class CountdownBackgroundView: UIView {
-
+    
+    struct Config {
+        /// 默认主题色（紫色）
+        static let defaultThemeColor = Color(0x6B38AD)
+        /// 渐变阶梯亮度比例（相对于主题色亮度，由深到浅）
+        static let gradientBrightnessRatios: [CGFloat] = [0.18, 0.40, 0.70, 1.00]
+        /// 渐变阶梯位置
+        static let gradientLocations: [NSNumber] = [0.0, 0.35, 0.70, 1.00]
+        /// 光线颜色与白色的混合比例
+        static let lightBeamWhiteMixRatio: CGFloat = 0.45
+        /// 光线颜色透明度
+        static let lightBeamColorAlpha: CGFloat = 0.25
+        /// 光线层透明度
+        static let lightBeamOpacity: Float = 0.55
+        /// 光线宽度
+        static let lightBeamLineWidth: CGFloat = 180.0
+    }
+    
+    // MARK: - 主题色
+    /// 主题色（决定渐变与光线颜色）
+    private(set) var themeColor: UIColor = Config.defaultThemeColor
+    
+    /// 应用主题色
+    /// - Note: 初始化器中赋值不会触发属性观察器，颜色变更统一由此方法处理
+    func apply(themeColor: UIColor) {
+        self.themeColor = themeColor
+        updateThemeColors()
+    }
+    
     // MARK: - 渐变层
     private let gradientLayer = CAGradientLayer()
-
-    // MARK: - 粒子容器
-    private let particleEmitter = CAEmitterLayer()
-
+    
     // MARK: - 光线层
     private let lightBeamLayer = CAShapeLayer()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupGradient()
-        setupLightBeam()
-        setupParticles()
-        startAnimations()
+        setupLayers()
     }
-
+    
+    /// 以指定主题色创建背景视图
+    /// - Parameters:
+    ///   - frame: 视图尺寸
+    ///   - themeColor: 主题色（一般取倒数日事项颜色）
+    convenience init(frame: CGRect, themeColor: UIColor) {
+        self.init(frame: frame)
+        apply(themeColor: themeColor)
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupGradient()
-        setupLightBeam()
-        setupParticles()
-        startAnimations()
+        setupLayers()
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         gradientLayer.frame = bounds
         lightBeamLayer.frame = bounds
-        particleEmitter.frame = bounds
+        /// 光束路径依赖当前尺寸
+        updateLightBeamPath()
     }
-}
-
-// MARK: - 背景渐变
-extension CountdownBackgroundView {
-
+    
+    // MARK: - 图层
+    private func setupLayers() {
+        clipsToBounds = true
+        setupGradient()
+        setupLightBeam()
+    }
+    
+    // MARK: - 主题色
+    /// 依据主题色更新渐变与光线颜色
+    private func updateThemeColors() {
+        updateGradientColors()
+        updateLightBeamColor()
+    }
+    
+    // MARK: - 渐变
     private func setupGradient() {
-        gradientLayer.colors = [
-            UIColor(red: 0.06, green: 0.04, blue: 0.12, alpha: 1.0).cgColor,
-            UIColor(red: 0.12, green: 0.08, blue: 0.28, alpha: 1.0).cgColor,
-            UIColor(red: 0.24, green: 0.12, blue: 0.48, alpha: 1.0).cgColor,
-            UIColor(red: 0.42, green: 0.22, blue: 0.68, alpha: 1.0).cgColor
-        ]
-
-        gradientLayer.locations = [0.0, 0.35, 0.7, 1.0]
+        gradientLayer.locations = Config.gradientLocations
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
-
+        updateGradientColors()
+        
         layer.insertSublayer(gradientLayer, at: 0)
     }
-}
-
-// MARK: - 光线效果
-extension CountdownBackgroundView {
-
-    private func setupLightBeam() {
-        let beamPath = UIBezierPath()
-        beamPath.move(to: CGPoint(x: bounds.width * 0.2, y: 0))
-        beamPath.addCurve(
-            to: CGPoint(x: bounds.width * 0.8, y: bounds.height),
-            controlPoint1: CGPoint(x: bounds.width * 0.6, y: bounds.height * 0.3),
-            controlPoint2: CGPoint(x: bounds.width * 0.35, y: bounds.height * 0.7)
-        )
-
-        lightBeamLayer.path = beamPath.cgPath
-        lightBeamLayer.strokeColor = UIColor(red: 0.7, green: 0.5, blue: 1.0, alpha: 0.25).cgColor
-        lightBeamLayer.lineWidth = 180
-        lightBeamLayer.lineCap = .round
-        lightBeamLayer.fillColor = nil
-        lightBeamLayer.opacity = 0.55
-
-        layer.insertSublayer(lightBeamLayer, above: gradientLayer)
-    }
-}
-
-// MARK: - 粒子效果
-extension CountdownBackgroundView {
-
-    private func setupParticles() {
-        let cell = CAEmitterCell()
-        cell.name = "lightParticle"
-        cell.birthRate = 2.5
-        cell.lifetime = 14.0
-        cell.lifetimeRange = 6.0
-        cell.velocity = 55
-        cell.velocityRange = 40
-        cell.emissionLongitude = CGFloat.pi / 2.2
-        cell.emissionRange = CGFloat.pi / 3.5
-        cell.scale = 0.12
-        cell.scaleRange = 0.1
-        cell.scaleSpeed = 0.008
-        cell.alphaSpeed = 0.015
-        cell.color = UIColor(red: 0.85, green: 0.75, blue: 1.0, alpha: 0.6).cgColor
-        cell.contents = createParticleImage()
-
-        particleEmitter.emitterPosition = CGPoint(x: bounds.width / 2.0, y: -40)
-        particleEmitter.emitterSize = CGSize(width: bounds.width * 0.7, height: 12)
-        particleEmitter.emitterMode = .surface
-        particleEmitter.renderMode = .backToFront
-        particleEmitter.shadowColor = UIColor(red: 0.6, green: 0.4, blue: 1.0, alpha: 0.8).cgColor
-        particleEmitter.shadowRadius = 12
-        particleEmitter.shadowOpacity = 0.35
-        particleEmitter.emitterCells = [cell]
-        layer.insertSublayer(particleEmitter, above: lightBeamLayer)
-    }
-
-    private func createParticleImage() -> UIImage {
-        let size = CGSize(width: 22, height: 22)
-        let renderer = UIGraphicsImageRenderer(size: size)
-
-        return renderer.image { context in
-            let center = CGPoint(x: size.width / 2, y: size.height / 2)
-            let glow = CGGradient(
-                colorsSpace: CGColorSpaceCreateDeviceRGB(),
-                colors: [
-                    UIColor.white.cgColor,
-                    UIColor(red: 0.9, green: 0.85, blue: 1.0, alpha: 0.35).cgColor,
-                    UIColor(red: 0.7, green: 0.5, blue: 1.0, alpha: 0.0).cgColor
-                ] as CFArray,
-                locations: [0, 0.4, 1]
-            )
-
-            context.cgContext.drawRadialGradient(
-                glow!,
-                startCenter: center,
-                startRadius: 2,
-                endCenter: center,
-                endRadius: 11,
-                options: .drawsAfterEndLocation
-            )
+    
+    /// 依据主题色更新渐变颜色
+    private func updateGradientColors() {
+        let brightness = themeColor.brightnessValue
+        gradientLayer.colors = Config.gradientBrightnessRatios.map { ratio in
+            return themeColor.withBrightness(min(1.0, brightness * ratio)).cgColor
         }
     }
+    
+    // MARK: - 光线
+    private func setupLightBeam() {
+        lightBeamLayer.lineWidth = Config.lightBeamLineWidth
+        lightBeamLayer.lineCap = .round
+        lightBeamLayer.fillColor = nil
+        lightBeamLayer.opacity = Config.lightBeamOpacity
+        updateLightBeamPath()
+        updateLightBeamColor()
+        
+        layer.insertSublayer(lightBeamLayer, above: gradientLayer)
+    }
+    
+    /// 更新光束路径（依赖当前尺寸）
+    private func updateLightBeamPath() {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: bounds.width * 0.2, y: 0.0))
+        path.addCurve(to: CGPoint(x: bounds.width * 0.8, y: bounds.height),
+                      controlPoint1: CGPoint(x: bounds.width * 0.6, y: bounds.height * 0.3),
+                      controlPoint2: CGPoint(x: bounds.width * 0.35, y: bounds.height * 0.7))
+        
+        lightBeamLayer.path = path.cgPath
+    }
+    
+    /// 依据主题色更新光束颜色
+    private func updateLightBeamColor() {
+        lightBeamLayer.strokeColor = themeColor.mixed(with: .white,
+                                                      ratio: Config.lightBeamWhiteMixRatio)
+            .withAlphaComponent(Config.lightBeamColorAlpha).cgColor
+    }
 }
 
-// MARK: - 动画启动
-extension CountdownBackgroundView {
-
-    private func startAnimations() {
-        startGradientShift()
-        startLightBeamMove()
-        startParticleDrift()
+// MARK: - 颜色计算
+private extension UIColor {
+    
+    /// 亮度（HSB 的 brightness）
+    var brightnessValue: CGFloat {
+        var brightness: CGFloat = 0.0
+        getHue(nil, saturation: nil, brightness: &brightness, alpha: nil)
+        return brightness
     }
-
-    private func startGradientShift() {
-        let colorShift = CABasicAnimation(keyPath: "colors")
-        colorShift.duration = 14
-        colorShift.repeatCount = .infinity
-        colorShift.autoreverses = true
-        colorShift.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-
-        colorShift.fromValue = [
-            UIColor(red: 0.06, green: 0.04, blue: 0.12, alpha: 1.0).cgColor,
-            UIColor(red: 0.12, green: 0.08, blue: 0.28, alpha: 1.0).cgColor,
-            UIColor(red: 0.24, green: 0.12, blue: 0.48, alpha: 1.0).cgColor,
-            UIColor(red: 0.42, green: 0.22, blue: 0.68, alpha: 1.0).cgColor
-        ]
-
-        colorShift.toValue = [
-            UIColor(red: 0.08, green: 0.06, blue: 0.22, alpha: 1.0).cgColor,
-            UIColor(red: 0.16, green: 0.1, blue: 0.38, alpha: 1.0).cgColor,
-            UIColor(red: 0.32, green: 0.18, blue: 0.58, alpha: 1.0).cgColor,
-            UIColor(red: 0.52, green: 0.32, blue: 0.78, alpha: 1.0).cgColor
-        ]
-
-        gradientLayer.add(colorShift, forKey: "gradientShift")
-    }
-
-    private func startLightBeamMove() {
-        let beamMove = CABasicAnimation(keyPath: "opacity")
-        beamMove.duration = 5
-        beamMove.fromValue = 0.4
-        beamMove.toValue = 0.8
-        beamMove.repeatCount = .infinity
-        beamMove.autoreverses = true
-        beamMove.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-
-        lightBeamLayer.add(beamMove, forKey: "lightBeamPulse")
-    }
-
-    private func startParticleDrift() {
-        let drift = CABasicAnimation(keyPath: "emitterPosition.x")
-        drift.duration = 9
-        drift.fromValue = bounds.width * 0.25
-        drift.toValue = bounds.width * 0.75
-        drift.repeatCount = .infinity
-        drift.autoreverses = true
-        drift.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-
-        particleEmitter.add(drift, forKey: "particleDrift")
+    
+    /// 与指定颜色按比例混合（ratio 为 0 时返回自身，为 1 时返回目标色）
+    func mixed(with color: UIColor, ratio: CGFloat) -> UIColor {
+        let ratio = min(max(0.0, ratio), 1.0)
+        
+        var red1: CGFloat = 0.0, green1: CGFloat = 0.0, blue1: CGFloat = 0.0, alpha1: CGFloat = 0.0
+        var red2: CGFloat = 0.0, green2: CGFloat = 0.0, blue2: CGFloat = 0.0, alpha2: CGFloat = 0.0
+        getRed(&red1, green: &green1, blue: &blue1, alpha: &alpha1)
+        color.getRed(&red2, green: &green2, blue: &blue2, alpha: &alpha2)
+        
+        return UIColor(red: red1 + (red2 - red1) * ratio,
+                       green: green1 + (green2 - green1) * ratio,
+                       blue: blue1 + (blue2 - blue1) * ratio,
+                       alpha: alpha1 + (alpha2 - alpha1) * ratio)
     }
 }

@@ -24,14 +24,25 @@ class CountdownDetailViewController: UIViewController {
         static let draggingMinimumAlpha: CGFloat = 0.5
         /// 天数默认字号
         static let daysFontSize: CGFloat = 120.0
-        /// 天数自适应最小字号
-        static let daysMinimumFontSize: CGFloat = 40.0
+        /// 天数单位字号
+        static let daysUnitFont = UIFont.systemFont(ofSize: 20.0, weight: .medium)
         /// 天数区域与屏幕两侧最小间距
         static let daysHorizontalMargin: CGFloat = 24.0
-        /// 天数与单位间距
-        static let daysUnitSpacing: CGFloat = 8.0
-        /// 天数与单位底部对齐偏移比例（相对于天数字号）
-        static let daysUnitBottomOffsetRatio: CGFloat = 0.25
+        /// 天数自适应最小缩放比例
+        static let daysMinimumScaleFactor: CGFloat = 0.34
+        /// 天数光晕呼吸动画的透明度范围
+        static let daysGlowMinOpacity: CGFloat = 0.3
+        static let daysGlowMaxOpacity: CGFloat = 0.7
+        /// 天数光晕呼吸周期
+        static let daysGlowAnimationDuration: CFTimeInterval = 1.5
+        /// 入场动画时长与逐项延迟
+        static let entryAnimationDuration: TimeInterval = 0.6
+        static let entryAnimationDelayStep: TimeInterval = 0.05
+    }
+    
+    /// 动画键
+    private enum AnimationKey {
+        static let daysGlow = "daysGlowPulse"
     }
     
     // MARK: - 数据
@@ -43,9 +54,8 @@ class CountdownDetailViewController: UIViewController {
     private let tipLabel = UILabel()
     private let dateLabel = UILabel()
     private let daysLabel = UILabel()
-    private let daysUnitLabel = UILabel()
     
-    /// 天数基础字体（按可用宽度自适应缩放）
+    /// 天数基础字体（宽度不足时由 adjustsFontSizeToFitWidth 缩放）
     private let daysBaseFont = UIFont.monospacedDigitSystemFont(ofSize: Config.daysFontSize,
                                                               weight: .black)
     
@@ -61,7 +71,9 @@ class CountdownDetailViewController: UIViewController {
     }()
     
     private lazy var backgroundView: CountdownBackgroundView = {
-        return CountdownBackgroundView(frame: view.bounds)
+        /// 背景渐变色根据事项颜色动态计算
+        return CountdownBackgroundView(frame: view.bounds,
+                                       themeColor: event.color ?? event.type.color)
     }()
     
     /// 下滑关闭手势
@@ -70,6 +82,9 @@ class CountdownDetailViewController: UIViewController {
                                              action: #selector(handleDismissPanGesture(_:)))
         return gesture
     }()
+    
+    /// 是否已播放入场动画
+    private var hasPlayedEntryAnimation = false
     
     // MARK: - 初始化
     init(event: CountdownEvent) {
@@ -85,11 +100,40 @@ class CountdownDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        addNotifications()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        animateEntry()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if hasPlayedEntryAnimation {
+            /// 重新开始光晕呼吸，保证后台返回后动画仍在播放
+            startDaysGlowPulse()
+        } else {
+            /// 转场结束后再播放入场动画，避免被弹出转场覆盖
+            animateEntryIfNeeded()
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - 通知
+    private func addNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(appWillEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
+    }
+    
+    /// 回到前台：系统会移除后台期间的动画，需重新开始光晕呼吸
+    @objc private func appWillEnterForeground() {
+        guard hasPlayedEntryAnimation else {
+            return
+        }
+        
+        startDaysGlowPulse()
     }
     
     override func viewDidLayoutSubviews() {
@@ -105,7 +149,6 @@ class CountdownDetailViewController: UIViewController {
         view.addSubview(tipLabel)
         view.addSubview(dateLabel)
         view.addSubview(daysLabel)
-        view.addSubview(daysUnitLabel)
         view.addSubview(closeButton)
         
         /// 事件颜色：用于天数光晕与单位文本
@@ -129,33 +172,37 @@ class CountdownDetailViewController: UIViewController {
         dateLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .regular)
         dateLabel.textAlignment = .center
         
-        /// 天数
+        /// 天数：数值 + 单位组合为富文本，宽度不足时自动缩小字号
         let days = abs(event.remainingDays)
-        daysLabel.text = "\(days)"
-        daysLabel.textColor = .white
-        daysLabel.font = daysBaseFont
+        daysLabel.attributedText = daysText(days: days, unitColor: color)
         daysLabel.textAlignment = .center
-        /// 数字过大时自动缩小字号（布局阶段会按宽度精确计算）
+        daysLabel.numberOfLines = 1
         daysLabel.adjustsFontSizeToFitWidth = true
-        daysLabel.minimumScaleFactor = Config.daysMinimumFontSize / Config.daysFontSize
+        daysLabel.minimumScaleFactor = Config.daysMinimumScaleFactor
         daysLabel.layer.shadowColor = color.cgColor
         daysLabel.layer.shadowRadius = 20.0
         daysLabel.layer.shadowOpacity = 0.5
         daysLabel.layer.shadowOffset = .zero
         
-        /// 天数单位
-        daysUnitLabel.text = resGetString(days == 1 ? "Day" : "Days")
-        daysUnitLabel.textColor = color.withAlphaComponent(0.8)
-        daysUnitLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .medium)
-        daysUnitLabel.textAlignment = .center
-        
         /// 入场前隐藏，由入场动画显示
-        [titleLabel, tipLabel, dateLabel, daysLabel, daysUnitLabel, closeButton].forEach {
+        [titleLabel, tipLabel, dateLabel, daysLabel, closeButton].forEach {
             $0.alpha = 0.0
         }
         
         /// 下滑关闭手势
         view.addGestureRecognizer(dismissPanGesture)
+    }
+    
+    /// 天数文本（数值大字号 + 单位小字号，同一基线）
+    private func daysText(days: Int, unitColor: UIColor) -> NSAttributedString {
+        let text = NSMutableAttributedString(string: "\(days)",
+                                             attributes: [.font: daysBaseFont,
+                                                          .foregroundColor: UIColor.white])
+        let unit = " " + resGetString(days == 1 ? "Day" : "Days")
+        text.append(NSAttributedString(string: unit,
+                                       attributes: [.font: Config.daysUnitFont,
+                                                    .foregroundColor: unitColor.withAlphaComponent(0.8)]))
+        return text
     }
     
     // MARK: - 布局
@@ -168,45 +215,17 @@ class CountdownDetailViewController: UIViewController {
         closeButton.left = safeFrame.minX + Config.closeButtonMargins.left
         closeButton.top = safeFrame.minY + Config.closeButtonMargins.top
         
-        /// 天数：整体垂直居中，超出可用宽度时自动缩小字号
-        let daysCenterY = view.bounds.midY
-        
-        let unitText = daysUnitLabel.text ?? ""
-        let unitFont = daysUnitLabel.font ?? .systemFont(ofSize: 20.0, weight: .medium)
-        let unitWidth = ceil(unitText.width(with: unitFont))
-        let unitHeight = ceil(unitFont.lineHeight)
-        /// 数字可用宽度：屏幕宽度去掉两侧间距与单位占用宽度
-        let availableWidth = max(0.0, width - Config.daysHorizontalMargin * 2.0)
-        let numberMaxWidth = max(0.0, availableWidth - unitWidth - Config.daysUnitSpacing)
-        
-        let numberText = daysLabel.text ?? ""
-        let numberFont = daysBaseFont.fittingFont(for: numberText,
-                                                  maxWidth: numberMaxWidth,
-                                                  minimumSize: Config.daysMinimumFontSize)
-        daysLabel.font = numberFont
-        let numberWidth = min(ceil(numberText.width(with: numberFont)), numberMaxWidth)
-        let numberHeight = ceil(numberFont.lineHeight)
-        let numberTop = daysCenterY - numberHeight / 2.0
-        
-        /// 数字与单位作为整体水平居中
-        let contentWidth = numberWidth + Config.daysUnitSpacing + unitWidth
-        let contentLeft = max(Config.daysHorizontalMargin, (width - contentWidth) / 2.0)
-        
-        daysLabel.frame = CGRect(x: contentLeft,
-                                 y: numberTop,
-                                 width: numberWidth,
-                                 height: numberHeight)
-        
-        /// 单位：紧贴数字右侧，底部与数字基线对齐
-        let unitBottomOffset = numberFont.pointSize * Config.daysUnitBottomOffsetRatio
-        daysUnitLabel.frame = CGRect(x: daysLabel.frame.maxX + Config.daysUnitSpacing,
-                                     y: daysLabel.frame.maxY - unitBottomOffset - unitHeight,
-                                     width: unitWidth,
-                                     height: unitHeight)
+        /// 天数：整体垂直居中，左右保留间距，超出宽度由 adjustsFontSizeToFitWidth 缩放
+        let daysHeight = ceil(daysBaseFont.lineHeight)
+        let daysTop = view.bounds.midY - daysHeight / 2.0
+        daysLabel.frame = CGRect(x: Config.daysHorizontalMargin,
+                                 y: daysTop,
+                                 width: max(0.0, width - Config.daysHorizontalMargin * 2.0),
+                                 height: daysHeight)
         
         /// 提示：位于天数上方
         tipLabel.frame = CGRect(x: 0.0,
-                                y: numberTop - 30.0,
+                                y: daysTop - 30.0,
                                 width: width,
                                 height: 20.0)
         
@@ -223,19 +242,47 @@ class CountdownDetailViewController: UIViewController {
                                  height: 20.0)
     }
     
-    // MARK: - 入场动画
-    private func animateEntry() {
-        let elements = [titleLabel, tipLabel, daysLabel, daysUnitLabel, dateLabel, closeButton]
+    // MARK: - 动画
+    /// 播放入场动画（仅首次）
+    private func animateEntryIfNeeded() {
+        guard !hasPlayedEntryAnimation else {
+            return
+        }
+        
+        hasPlayedEntryAnimation = true
+        
+        /// 元素：自下而上淡入（天数最后出现）
+        let elements: [UIView] = [titleLabel, tipLabel, dateLabel, closeButton, daysLabel]
         for (index, element) in elements.enumerated() {
             element.transform = CGAffineTransform(translationX: 0.0, y: 20.0)
-            UIView.animate(withDuration: 0.6,
-                           delay: 0.05 * Double(index),
+            UIView.animate(withDuration: Config.entryAnimationDuration,
+                           delay: Config.entryAnimationDelayStep * Double(index),
                            usingSpringWithDamping: 0.8,
-                           initialSpringVelocity: 0.5) {
+                           initialSpringVelocity: 0.5,
+                           options: [.allowUserInteraction]) {
                 element.alpha = 1.0
                 element.transform = .identity
             }
         }
+        
+        /// 天数光晕呼吸
+        startDaysGlowPulse(delay: Config.entryAnimationDuration)
+    }
+    
+    /// 天数光晕呼吸动画
+    private func startDaysGlowPulse(delay: TimeInterval = 0.0) {
+        daysLabel.layer.removeAnimation(forKey: AnimationKey.daysGlow)
+        
+        let pulse = CABasicAnimation(keyPath: "shadowOpacity")
+        pulse.fromValue = Config.daysGlowMinOpacity
+        pulse.toValue = Config.daysGlowMaxOpacity
+        pulse.duration = Config.daysGlowAnimationDuration
+        pulse.autoreverses = true
+        pulse.repeatCount = .infinity
+        pulse.beginTime = CACurrentMediaTime() + delay
+        pulse.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        
+        daysLabel.layer.add(pulse, forKey: AnimationKey.daysGlow)
     }
     
     // MARK: - Event Response
@@ -292,43 +339,5 @@ class CountdownDetailViewController: UIViewController {
             self.view.transform = .identity
             self.view.alpha = 1.0
         })
-    }
-}
-
-// MARK: - 字号自适应
-private extension UIFont {
-    
-    /// 使用相同字形特征创建指定字号的字体
-    func sameStyleFont(ofSize size: CGFloat) -> UIFont {
-        return UIFont(descriptor: fontDescriptor.withSize(size), size: size)
-    }
-    
-    /// 计算能容纳指定文本的最大字号（不低于最小字号）
-    /// - Parameters:
-    ///   - text: 文本
-    ///   - maxWidth: 可用宽度
-    ///   - minimumSize: 最小字号
-    /// - Returns: 适配后的字体
-    func fittingFont(for text: String, maxWidth: CGFloat, minimumSize: CGFloat) -> UIFont {
-        guard maxWidth > 0.0, text.count > 0 else {
-            return self
-        }
-        
-        /// 二分查找最大可用字号
-        var minimum = min(minimumSize, pointSize)
-        var maximum = pointSize
-        var fittedSize = minimum
-        
-        while maximum - minimum > 0.5 {
-            let size = (minimum + maximum) / 2.0
-            if text.width(with: sameStyleFont(ofSize: size)) <= maxWidth {
-                fittedSize = size
-                minimum = size
-            } else {
-                maximum = size
-            }
-        }
-        
-        return sameStyleFont(ofSize: fittedSize)
     }
 }
