@@ -74,12 +74,12 @@ class CountdownEvent: NSObject,
     private let reminderJSON: String?
     
     /// 提醒（懒加载，从 JSON 反序列化）
-    private(set) lazy var reminder: TaskReminder? = {
+    private(set) lazy var reminder: CountdownReminder? = {
         guard let json = reminderJSON else {
             return nil
         }
         
-        return TaskReminder.model(with: json)
+        return CountdownReminder.model(with: json)
     }()
     
     /// 时间计划 JSON 字符串
@@ -243,7 +243,7 @@ struct CountdownEditingEvent: Equatable {
     var timeUnit: CountdownTimeUnit = .days
     
     /// 提醒
-    var reminder: TaskReminder?
+    var reminder: CountdownReminder?
     
     /// 时间计划（nil 表示不重复）
     var timePlan: CountdownTimePlan?
@@ -325,7 +325,7 @@ extension CountdownEvent {
         event.color = color ?? CountdownConfig.countdownEventDefaultColor
         event.note = note
         /// 提醒深拷贝，避免编辑过程中修改原事件
-        event.reminder = reminder?.copy() as? TaskReminder
+        event.reminder = reminder?.copy() as? CountdownReminder
         /// 不重复时不携带时间计划
         if let planType = timePlan.type, planType != .none {
             event.timePlan = timePlan

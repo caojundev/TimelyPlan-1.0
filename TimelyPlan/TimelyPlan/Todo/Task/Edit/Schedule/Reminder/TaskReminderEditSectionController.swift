@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ReminderEditSectionController: TPTableItemSectionController,
-                                       TPMultipleItemSelectionDelegate {
+class TaskReminderEditSectionController: TPTableItemSectionController,
+                                         TPMultipleItemSelectionDelegate {
     
     /// 日期
     let eventDate: Date?

@@ -222,7 +222,7 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate,
         loadEvents(with: .create(event))
     }
     
-    func didUpdateCountdownEvent(_ event: CountdownEvent) {
+    func didUpdateCountdownEvent(_ event: CountdownEvent, with editingEvent: CountdownEditingEvent) {
         setNeedsRefresh()
         loadEvents(with: .update(event))
     }

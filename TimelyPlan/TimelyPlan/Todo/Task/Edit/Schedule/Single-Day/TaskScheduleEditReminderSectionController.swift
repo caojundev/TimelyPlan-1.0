@@ -101,7 +101,7 @@ extension ScheduleReminderEditSectionControllerProtocol {
             return
         }
         
-        let editVC = ReminderEditViewController(reminder: reminder, dateInfo: dateInfo)
+        let editVC = TaskReminderEditViewController(reminder: reminder, dateInfo: dateInfo)
         editVC.didEndEditing = { reminder in
             self.selectReminder(reminder)
         }

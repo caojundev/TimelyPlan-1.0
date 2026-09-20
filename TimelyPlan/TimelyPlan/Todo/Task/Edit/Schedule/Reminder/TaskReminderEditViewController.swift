@@ -1,5 +1,5 @@
 //
-//  ReminderEditViewController.swift
+//  TaskReminderEditViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2024/1/14.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ReminderEditViewController: TPTableSectionsViewController {
+class TaskReminderEditViewController: TPTableSectionsViewController {
 
     /// 结束编辑提醒
     var didEndEditing: ((TaskReminder?) -> Void)?
@@ -17,10 +17,10 @@ class ReminderEditViewController: TPTableSectionsViewController {
     var reminderChanged: ((TaskReminder?) -> Void)?
     
     /// 开始提醒区块
-    private var startAlarmSectionController: ReminderEditSectionController?
+    private var startAlarmSectionController: TaskReminderEditSectionController?
     
     /// 结束提醒区块
-    private var endAlarmSectionController: ReminderEditSectionController?
+    private var endAlarmSectionController: TaskReminderEditSectionController?
     
     /// 任务提醒对象
     private(set) var reminder: TaskReminder
@@ -196,8 +196,8 @@ class ReminderEditViewController: TPTableSectionsViewController {
     }
     
     // MARK: - Helpers
-    private func sectionController(date: Date?, isAllDay: Bool, alarms: [TaskAlarm]?) -> ReminderEditSectionController {
-        let sectionController = ReminderEditSectionController(date: date,
+    private func sectionController(date: Date?, isAllDay: Bool, alarms: [TaskAlarm]?) -> TaskReminderEditSectionController {
+        let sectionController = TaskReminderEditSectionController(date: date,
                                                               isAllDay: isAllDay,
                                                               alarms: alarms)
         sectionController.canAddAlarm = { [weak self] in

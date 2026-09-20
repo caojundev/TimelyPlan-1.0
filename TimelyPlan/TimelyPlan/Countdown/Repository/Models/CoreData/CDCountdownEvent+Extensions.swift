@@ -68,7 +68,7 @@ extension CDCountdownEvent: TPHexColorConvertible, SortableIdentifiable {
     }
     
     /// 更新提醒（nil 表示无提醒）
-    func updateReminder(_ reminder: TaskReminder?) {
+    func updateReminder(_ reminder: CountdownReminder?) {
         guard let reminder = reminder, reminder.hasAlarm else {
             self.reminderJSON = nil
             return

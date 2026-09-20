@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CalendarEventAlertEditViewController: ReminderEditViewController {
+class CalendarEventAlertEditViewController: TaskReminderEditViewController {
 
     init(reminder: TaskReminder?, isAllDay: Bool) {
         super.init(reminder: reminder, isAllDay: isAllDay, startDate: nil, endDate: nil)

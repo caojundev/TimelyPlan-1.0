@@ -18,7 +18,7 @@ protocol CountdownEventProcessorDelegate: AnyObject {
     func didCreateCountdownEvent(_ event: CountdownEvent)
     
     /// 更新倒数日事项
-    func didUpdateCountdownEvent(_ event: CountdownEvent)
+    func didUpdateCountdownEvent(_ event: CountdownEvent, with editingEvent: CountdownEditingEvent)
     
     /// 删除倒数日事项
     func didDeleteCountdownEvent(_ event: CountdownEvent)
@@ -41,7 +41,7 @@ extension CountdownEventProcessorDelegate {
     
     func didCreateCountdownEvent(_ event: CountdownEvent) {}
     
-    func didUpdateCountdownEvent(_ event: CountdownEvent) {}
+    func didUpdateCountdownEvent(_ event: CountdownEvent, with editingEvent: CountdownEditingEvent) {}
     
     func didDeleteCountdownEvent(_ event: CountdownEvent) {}
     
@@ -69,9 +69,9 @@ class CountdownEventProcessorUpdater: NSObject,
         }
     }
     
-    func didUpdateCountdownEvent(_ event: CountdownEvent) {
+    func didUpdateCountdownEvent(_ event: CountdownEvent, with editingEvent: CountdownEditingEvent) {
         notifyDelegates { (delegate: CountdownEventProcessorDelegate) in
-            delegate.didUpdateCountdownEvent(event)
+            delegate.didUpdateCountdownEvent(event, with: editingEvent)
         }
     }
     

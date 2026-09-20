@@ -94,7 +94,7 @@ class CountdownEventManager {
             content.update(with: editingEvent)
             
             let updatedEvent = CountdownEvent(content: content)
-            updater.didUpdateCountdownEvent(updatedEvent)
+            updater.didUpdateCountdownEvent(updatedEvent, with: editingEvent)
             HandyRecord.updateChangeCount()
             return updatedEvent
         }

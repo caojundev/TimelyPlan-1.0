@@ -31,7 +31,7 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     var onTimePlanChanged: ((CountdownTimePlan?) -> Void)?
     
     /// 提醒改变回调（nil 表示无提醒）
-    var onReminderChanged: ((TaskReminder?) -> Void)?
+    var onReminderChanged: ((CountdownReminder?) -> Void)?
     
     /// 目标日期
     var date: CountdownDate = CountdownDate()
@@ -40,7 +40,7 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     var timePlan: CountdownTimePlan?
     
     /// 提醒
-    var reminder: TaskReminder?
+    var reminder: CountdownReminder?
     
     // MARK: - 单元格
     /// 目标日期
@@ -201,10 +201,10 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     
     /// 编辑提醒
     private func editReminder() {
-        let editVC = ReminderEditViewController(reminder: reminder,
-                                                isAllDay: true,
-                                                startDate: date.targetDate,
-                                                endDate: nil)
+        /// 无提醒时使用 CountdownReminder，保证编辑过程中（copy）不丢失里程碑等子类信息
+        let reminder = self.reminder ?? CountdownReminder()
+        let editVC = CountdownReminderEditViewController(reminder: reminder,
+                                                         targetDate: date.targetDate)
         editVC.didEndEditing = { [weak self] reminder in
             self?.selectReminder(reminder)
         }
@@ -214,7 +214,7 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     }
     
     /// 选择提醒（无提醒时置为 nil）
-    func selectReminder(_ reminder: TaskReminder?) {
+    func selectReminder(_ reminder: CountdownReminder?) {
         if let reminder = reminder, reminder.hasAlarm {
             self.reminder = reminder
         } else {
