@@ -71,7 +71,8 @@ class CountdownEventGroup: NSObject, GroupRepresentable {
     }
 }
 
-class CountdownEventViewModel: CountdownEventProcessorDelegate {
+class CountdownEventViewModel: CountdownEventProcessorDelegate,
+                                TPMidnightUpdatable {
     
     private(set) var groups: [CountdownEventGroup]?
     
@@ -107,6 +108,7 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate {
         self.placeholderProvider.state = self.state
         self.placeholderProvider.emptyTitle = resGetString("No Countdown")
         CountdownRepository.addUpdater(self)
+        TPMidnightScheduler.shared.addUpdater(self)
     }
     
     func setNeedsRefresh(_ refresh: Bool = true) {
@@ -241,6 +243,12 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate {
     }
     
     func didReorderCountdownEvent(in events: [CountdownEvent], fromIndex: Int, toIndex: Int) {
+        setNeedsRefresh()
+        loadEvents()
+    }
+    
+    // MARK: - TPMidnightUpdatable
+    func updateAtMidnight() {
         setNeedsRefresh()
         loadEvents()
     }
