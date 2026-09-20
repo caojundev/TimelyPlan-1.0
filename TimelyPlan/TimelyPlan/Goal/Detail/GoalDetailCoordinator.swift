@@ -79,13 +79,27 @@ extension GoalDetailCoordinator: GoalPlanProcessorDelegate {
             return
         }
         
-        if GoalRepository.getGoalPlan(withIdentifier: configuration.identifier) == nil {
-            /// 显示空白详情页
-            showEmptyDetail()
+        
+        guard let goalPlan = GoalRepository.getGoalPlan(withIdentifier: configuration.identifier),
+              !goalPlan.isArchived else {
+                /// 显示空白详情页
+                showEmptyDetail()
+                  return
         }
     }
     
     func didDeleteGoalPlan(_ goalPlan: GoalPlan) {
+        guard let configuration = configuration as? GoalPlanConfiguration else {
+            return
+        }
+        
+        if goalPlan.identifier == configuration.identifier {
+            showEmptyDetail()
+        }
+    }
+    
+    func didArchiveGoalPlan(_ goalPlan: GoalPlan) {
+        /// 当前目标计划已归档，显示空白详情页
         guard let configuration = configuration as? GoalPlanConfiguration else {
             return
         }

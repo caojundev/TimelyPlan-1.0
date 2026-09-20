@@ -255,6 +255,8 @@
 		E511E509305E0A9300292511 /* countdown_layout_grid_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */; };
 		E511E50B305E122700292511 /* CountdownEventSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E50A305E122700292511 /* CountdownEventSearchViewModel.swift */; };
 		E511E50D305E770E00292511 /* CountdownTypeFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E50C305E770E00292511 /* CountdownTypeFilterView.swift */; };
+		E511E510305F750100292511 /* CountdownDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E50F305F750000292511 /* CountdownDetailViewController.swift */; };
+		E511E512305F7B6000292511 /* CountdownBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E511305F7B6000292511 /* CountdownBackgroundView.swift */; };
 		E5135094302A0BD1000E9871 /* arrow_uturn_left_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135090302A0BCF000E9871 /* arrow_uturn_left_36@3x.png */; };
 		E5135095302A0BD1000E9871 /* arrow_uturn_right_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */; };
 		E5135096302A0BD1000E9871 /* arrow_uturn_left_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5135092302A0BD0000E9871 /* arrow_uturn_left_36@2x.png */; };
@@ -2623,6 +2625,8 @@
 		E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_grid_24@3x.png"; sourceTree = "<group>"; };
 		E511E50A305E122700292511 /* CountdownEventSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchViewModel.swift; sourceTree = "<group>"; };
 		E511E50C305E770E00292511 /* CountdownTypeFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTypeFilterView.swift; sourceTree = "<group>"; };
+		E511E50F305F750000292511 /* CountdownDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDetailViewController.swift; sourceTree = "<group>"; };
+		E511E511305F7B6000292511 /* CountdownBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownBackgroundView.swift; sourceTree = "<group>"; };
 		E5135090302A0BCF000E9871 /* arrow_uturn_left_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_left_36@3x.png"; sourceTree = "<group>"; };
 		E5135091302A0BD0000E9871 /* arrow_uturn_right_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_right_36@3x.png"; sourceTree = "<group>"; };
 		E5135092302A0BD0000E9871 /* arrow_uturn_left_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_uturn_left_36@2x.png"; sourceTree = "<group>"; };
@@ -5604,6 +5608,15 @@
 			path = countdown;
 			sourceTree = "<group>";
 		};
+		E511E50E305F741200292511 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E511E50F305F750000292511 /* CountdownDetailViewController.swift */,
+				E511E511305F7B6000292511 /* CountdownBackgroundView.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		E513509A302ACF85000E9871 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -7681,6 +7694,7 @@
 			children = (
 				E558979D3056E124001F8F22 /* BubbleMenuView.swift */,
 				E541DC2F3057D507008BFAE0 /* CountdownConfig.swift */,
+				E511E50E305F741200292511 /* Detail */,
 				E541DC333057D70C008BFAE0 /* Helpers */,
 				E541DC2E3057D4D3008BFAE0 /* Repository */,
 				E541DC313057D511008BFAE0 /* Main */,
@@ -13580,6 +13594,7 @@
 				E509CA062F6F9EDC00F53FDD /* HabitTask+Extensions.swift in Sources */,
 				E5B3BAB830136FBD00D908B6 /* FocusUserTimerMenuProcessor.swift in Sources */,
 				E5D7D9302D43933700EC877A /* FocusTimerSearchResultSectionController.swift in Sources */,
+				E511E510305F750100292511 /* CountdownDetailViewController.swift in Sources */,
 				E57B2B643047BBBE00BA4D56 /* GoalTaskEditViewController.swift in Sources */,
 				E51B28F52FA77970006B3352 /* TodoTaskBoardCell.swift in Sources */,
 				E50D026E2F56D44500E93977 /* HabitTaskGroup.swift in Sources */,
@@ -14081,6 +14096,7 @@
 				E5BB9E002D3BF0C60089667A /* Array+ListDiffable.swift in Sources */,
 				E5BB9DFA2D3BF0C60089667A /* Int+Extensions.swift in Sources */,
 				E5D7D9002D43933600EC877A /* FocusMoreBarButtonItem.swift in Sources */,
+				E511E512305F7B6000292511 /* CountdownBackgroundView.swift in Sources */,
 				E50179492FD3B17500DC544D /* TPImageInfoRightExpandCell.swift in Sources */,
 				E57CC5E02F7FCED300ADDBA4 /* TodoQuickAddTask.swift in Sources */,
 				E526D3F62F6B8EDF005C1DED /* HabitReportImageCacher.swift in Sources */,

@@ -10,6 +10,12 @@ import UIKit
 
 class CountdownPresenter {
     
+    static func showDetail(for event: CountdownEvent) {
+        let vc = CountdownDetailViewController()
+        vc.modalPresentationStyle = .fullScreen
+        vc.show()
+    }
+    
     /// 创建新倒数日事项
     /// - Parameters:
     ///   - type: 事项类型，决定默认表情
