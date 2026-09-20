@@ -56,6 +56,10 @@
 
 "Time Unit" = "时间单位";
 
+/// 详情
+"Days Remaining" = "距离目标还有";
+"Days Passed" = "已经过去";
+
 /// 在我的一天与日历中的显示方式
 "Do Not Show" = "不显示";
 "On the Day" = "当日显示";

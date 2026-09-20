@@ -10,8 +10,9 @@ import UIKit
 
 class CountdownPresenter {
     
+    /// 显示倒数日事项详情
     static func showDetail(for event: CountdownEvent) {
-        let vc = CountdownDetailViewController()
+        let vc = CountdownDetailViewController(event: event)
         vc.modalPresentationStyle = .fullScreen
         vc.show()
     }
