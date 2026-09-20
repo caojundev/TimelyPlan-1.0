@@ -49,6 +49,12 @@ class CountdownEventListViewController: TPViewController,
         filterView.didSelectFilterType = { [weak self] type in
             self?.selectFilterType(type)
         }
+        
+        /// 展示各筛选类型的事项数目
+        filterView.countProvider = { [weak self] filterType in
+            return self?.viewModel.numberOfEvents(for: filterType) ?? 0
+        }
+        
         return filterView
     }()
     
@@ -144,6 +150,8 @@ class CountdownEventListViewController: TPViewController,
             }
             
             self.reloadEvents()
+            /// 事项数目随数据变化，刷新筛选视图
+            self.filterView.reloadData()
             
             var revealEvent: CountdownEvent?
             if let change = change {

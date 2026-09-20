@@ -11,7 +11,6 @@ import UIKit
 class GoalHomeViewController: TPViewController,
                               TPSidebarContent,
                               GoalPlanListViewDelegate {
-    
     struct Config {
         /// 添加视图按钮
         static let addViewSize = CGSize(width: 50.0, height: 50.0)
@@ -76,6 +75,12 @@ class GoalHomeViewController: TPViewController,
         filterView.didSelectFilterType = { [weak self] type in
             self?.selectFilterType(type)
         }
+        
+        /// 展示各筛选类型的目标计划数目
+        filterView.countProvider = { [weak self] filterType in
+            return self?.viewModel.numberOfGoalPlans(for: filterType) ?? 0
+        }
+        
         return filterView
     }()
     
@@ -225,6 +230,8 @@ class GoalHomeViewController: TPViewController,
             }
             
             self.reloadGoalPlans()
+            /// 目标计划数目随数据变化，刷新筛选视图
+            self.filterView.reloadData()
             
             var revealGoalPlan: GoalPlan?
             if let change = change {

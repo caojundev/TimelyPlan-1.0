@@ -61,10 +61,23 @@ class CountdownTypeFilterAction: NSObject {
         return filterType.title
     }
     
+    /// 该筛选类型对应的事项数目（nil 表示不展示）
+    var count: Int?
+    
+    /// 数目文本
+    var countText: String? {
+        guard let count = count else {
+            return nil
+        }
+        
+        return "(\(count))"
+    }
+    
     let filterType: CountdownTypeFilterType
     
-    init(filterType: CountdownTypeFilterType) {
+    init(filterType: CountdownTypeFilterType, count: Int? = nil) {
         self.filterType = filterType
+        self.count = count
         super.init()
     }
     
@@ -77,7 +90,7 @@ class CountdownTypeFilterAction: NSObject {
         guard let other = object as? CountdownTypeFilterAction else {
             return false
         }
-        return other.filterType == filterType
+        return other.filterType == filterType && other.count == count
     }
 }
 
@@ -107,6 +120,19 @@ class CountdownTypeFilterView: TPCollectionWrapperView,
     
     /// 标题字体
     let font: UIFont = BOLD_SMALL_SYSTEM_FONT
+    
+    /// 数目字体
+    let countFont: UIFont = .systemFont(ofSize: 10.0, weight: .medium)
+    
+    /// 标题与数目间距
+    var countSpacing: CGFloat = 6.0
+    
+    /// 事项数目提供者（按筛选类型返回对应事项数目，返回 nil 表示不展示数目）
+    var countProvider: ((CountdownTypeFilterType) -> Int?)? {
+        didSet {
+            adapter.reloadData()
+        }
+    }
     
     /// 边界间距
     var edgeMargin: CGFloat = 16.0
@@ -163,7 +189,10 @@ class CountdownTypeFilterView: TPCollectionWrapperView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
-        return filterTypes.map { CountdownTypeFilterAction(filterType: $0) }
+        return filterTypes.map { filterType in
+            CountdownTypeFilterAction(filterType: filterType,
+                                      count: countProvider?(filterType))
+        }
     }
     
     // MARK: - TPCollectionViewAdapterDelegate
@@ -183,6 +212,9 @@ class CountdownTypeFilterView: TPCollectionWrapperView,
         let action = adapter.item(at: indexPath) as! CountdownTypeFilterAction
         var itemWidth = cellContentPadding.horizontalLength
         itemWidth += action.title.width(with: self.font)
+        if let countText = action.countText {
+            itemWidth += countSpacing + countText.width(with: self.countFont)
+        }
         return CGSize(width: itemWidth, height: itemHeight)
     }
     
@@ -190,6 +222,8 @@ class CountdownTypeFilterView: TPCollectionWrapperView,
         let cell = cell as! CountdownTypeFilterCell
         cell.contentPadding = self.cellContentPadding
         cell.font = self.font
+        cell.countFont = self.countFont
+        cell.countSpacing = self.countSpacing
         cell.cellStyle = self.cellStyle
         cell.action = adapter.item(at: indexPath) as? CountdownTypeFilterAction
     }
@@ -222,6 +256,21 @@ class CountdownTypeFilterCell: TPImageTitleCollectionCell {
         }
     }
     
+    /// 数目字体
+    var countFont: UIFont = .systemFont(ofSize: 10.0, weight: .medium) {
+        didSet {
+            countLabel.font = countFont
+            setNeedsLayout()
+        }
+    }
+    
+    /// 标题与数目间距
+    var countSpacing: CGFloat = 6.0 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     var contentPadding: UIEdgeInsets = .zero {
         didSet {
             setNeedsLayout()
@@ -231,9 +280,20 @@ class CountdownTypeFilterCell: TPImageTitleCollectionCell {
     var action: CountdownTypeFilterAction? {
         didSet {
             imageTitleView.title = action?.title
+            countLabel.text = action?.countText
             setNeedsLayout()
         }
     }
+    
+    /// 事项数目
+    private(set) lazy var countLabel: UILabel = {
+        let label = UILabel()
+        label.font = countFont
+        label.textColor = .secondaryLabel
+        label.textAlignment = .center
+        label.alpha = 0.8
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -251,9 +311,32 @@ class CountdownTypeFilterCell: TPImageTitleCollectionCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func setupContentSubviews() {
+        super.setupContentSubviews()
+        contentView.addSubview(countLabel)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.contentView.padding = self.contentPadding
-        self.imageTitleView.frame = self.contentView.layoutFrame()
+        
+        let layoutFrame = self.contentView.layoutFrame()
+        countLabel.isHidden = (action?.countText == nil)
+        
+        /// 标题与数目整体在条目内居中
+        imageTitleView.sizeToFit()
+        countLabel.sizeToFit()
+        let spacing = countLabel.isHidden ? 0.0 : countSpacing
+        let totalWidth = imageTitleView.width + spacing + (countLabel.isHidden ? 0.0 : countLabel.width)
+        let left = layoutFrame.minX + max(0.0, (layoutFrame.width - totalWidth) / 2.0)
+        
+        imageTitleView.left = left
+        imageTitleView.centerY = layoutFrame.midY
+        countLabel.left = imageTitleView.right + spacing
+        countLabel.centerY = layoutFrame.midY
+        
+        /// 高亮 / 选中状态下的文本颜色
+        let isActive = isHighlighted || isSelected || isChecked
+        countLabel.textColor = isActive ? .white : .secondaryLabel
     }
 }

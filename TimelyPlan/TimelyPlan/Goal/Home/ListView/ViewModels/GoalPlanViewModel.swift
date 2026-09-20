@@ -115,6 +115,15 @@ class GoalPlanViewModel: GoalPlanProcessorDelegate {
         return goalPlans.filter { filterType.matches($0) }
     }
     
+    /// 指定筛选类型对应的目标计划数目
+    func numberOfGoalPlans(for filterType: GoalPlanFilterType) -> Int {
+        guard let goalPlans = goalPlans else {
+            return 0
+        }
+        
+        return goalPlans.filter { filterType.matches($0) }.count
+    }
+    
     // MARK: - GoalPlanProcessorDelegate
     func didChangeRemoteGoalPlan(with results: EntityChangeResults<GoalPlan>?) {
         setNeedsRefresh()

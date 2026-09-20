@@ -144,6 +144,15 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate {
         return events.filter { filterType.matches($0) }
     }
     
+    /// 指定筛选类型对应的事项数目
+    func numberOfEvents(for filterType: CountdownTypeFilterType) -> Int {
+        guard let events = events else {
+            return 0
+        }
+        
+        return events.filter { filterType.matches($0) }.count
+    }
+    
     /// 更新筛选类型
     func updateFilterType(_ filterType: CountdownTypeFilterType) {
         guard self.filterType != filterType else {
