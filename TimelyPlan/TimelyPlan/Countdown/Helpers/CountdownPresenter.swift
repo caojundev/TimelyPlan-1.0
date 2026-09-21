@@ -51,10 +51,8 @@ class CountdownPresenter {
     }
     
     // MARK: - 默认值
-    /// 按事项类型生成默认编辑信息（默认表情取类型表情）
+    /// 按事项类型生成默认编辑信息（默认表情、重复与提醒取类型预设）
     private static func defaultEditingEvent(for type: CountdownEventType) -> CountdownEditingEvent {
-        var editingEvent = CountdownEditingEvent(type: type)
-        editingEvent.emoji = type.emoji
-        return editingEvent
+        return CountdownEditingEvent.preset(for: type)
     }
 }

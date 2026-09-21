@@ -345,6 +345,51 @@ struct CountdownEditingEvent: Equatable {
     }
 }
 
+// MARK: - 类型预设
+extension CountdownEditingEvent {
+    
+    /// 按事项类型生成预设编辑信息
+    /// - 生日 / 纪念日 / 年龄 / 节日：默认按年重复
+    /// - 生日 / 纪念日：默认当天 9:00 提醒
+    /// - 倒数日：不预设重复与提醒
+    /// - Parameter type: 事项类型
+    /// - Returns: 携带类型预设的编辑信息
+    static func preset(for type: CountdownEventType) -> CountdownEditingEvent {
+        var event = CountdownEditingEvent(type: type)
+        event.emoji = type.emoji
+        event.timePlan = presetTimePlan(for: type)
+        event.reminder = presetReminder(for: type)
+        return event
+    }
+    
+    /// 事项类型对应的预设重复规则（nil 表示不重复）
+    /// - Parameter type: 事项类型
+    static func presetTimePlan(for type: CountdownEventType) -> CountdownTimePlan? {
+        switch type {
+        case .countdown:
+            /// 倒数日按所选日期单次计算
+            return nil
+        case .anniversary, .birthday, .age, .holiday:
+            /// 纪念日 / 生日 / 年龄 / 节日均按年重复
+            return CountdownTimePlan(type: .yearly)
+        }
+    }
+    
+    /// 事项类型对应的预设提醒（nil 表示无提醒）
+    /// - Parameter type: 事项类型
+    static func presetReminder(for type: CountdownEventType) -> TaskReminder? {
+        switch type {
+        case .birthday, .anniversary:
+            /// 生日 / 纪念日默认当天 9:00 提醒
+            let reminder = TaskReminder()
+            reminder.startAlarms = [TaskAlarm(daysAbsolute: (0, 9 * SECONDS_PER_HOUR))]
+            return reminder
+        case .countdown, .age, .holiday:
+            return nil
+        }
+    }
+}
+
 // MARK: - 编辑倒数日
 extension CountdownEvent {
     
