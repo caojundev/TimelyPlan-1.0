@@ -45,10 +45,11 @@ class BubbleMenuView: UIView {
         return view
     }()
     
-    private lazy var closeButton: UIButton = {
-        let btn = UIButton(type: .custom)
-        btn.setImage(UIImage(systemName: "xmark"), for: .normal)
-        btn.tintColor = .white
+    private lazy var closeButton: TPImageButton = {
+        let btn = TPImageButton()
+        btn.scaleMaxLength = 0.0
+        btn.normalImage = resGetImage("xmark_32")
+        btn.normalImageColor = .white
         btn.addTarget(self, action: #selector(closeMenu), for: .touchUpInside)
         return btn
     }()

@@ -38,6 +38,7 @@ class CountdownEventGroup: NSObject, GroupRepresentable {
         return self.events
     }
     
+    @discardableResult
     func moveEvent(fromIndex:Int, toIndex:Int) -> Bool {
         guard var events = events else {
             return false

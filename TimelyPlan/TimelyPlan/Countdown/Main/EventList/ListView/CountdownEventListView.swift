@@ -216,7 +216,7 @@ extension CountdownEventListView: TPCollectionDragInsertReorderDelegate,
         
         let bMoved = delegate.countdownEventListView(self, moveItemAt: fromIndexPath, to: toIndexPath)
         if bMoved {
-            adapter.moveItem(at: fromIndexPath, to: toIndexPath)
+            moveEvent(at: fromIndexPath, to: toIndexPath)
             return true
         }
     
@@ -240,10 +240,20 @@ extension CountdownEventListView: TPCollectionDragInsertReorderDelegate,
         
         let bMoved = delegate.countdownEventListView(self, moveItemAt: sourceIndexPath, to: targetIndexPath)
         if bMoved {
-            adapter.moveItem(at: sourceIndexPath, to: targetIndexPath)
+            moveEvent(at: sourceIndexPath, to: targetIndexPath)
             return targetIndexPath
         }
         
         return sourceIndexPath
+    }
+    
+    private func moveEvent(at fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
+        guard fromIndexPath.section == toIndexPath.section,
+              let group = adapter.object(at: fromIndexPath.section) as? CountdownEventGroup else {
+            return
+        }
+        
+        group.moveEvent(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item)
+        adapter.moveItem(at: fromIndexPath, to: toIndexPath)
     }
 }

@@ -1208,6 +1208,8 @@
 		E572C6A330611FFB00624F65 /* CountdownMilestonePresetListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572C6A230611FFB00624F65 /* CountdownMilestonePresetListView.swift */; };
 		E572C6A53061205E00624F65 /* CountdownMilestoneCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572C6A43061205E00624F65 /* CountdownMilestoneCollectionCell.swift */; };
 		E572C6A7306120B300624F65 /* CountdownMilestoneItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572C6A6306120B300624F65 /* CountdownMilestoneItem.swift */; };
+		E572C6AA30613AFF00624F65 /* xmark_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E572C6A830613AFE00624F65 /* xmark_32@3x.png */; };
+		E572C6AB30613AFF00624F65 /* xmark_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E572C6A930613AFE00624F65 /* xmark_32@2x.png */; };
 		E57AA1182F92105200C4D346 /* TodoUserTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */; };
 		E57B2B2C3044599C00BA4D56 /* GoalMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B2B3044599C00BA4D56 /* GoalMainViewController.swift */; };
 		E57B2B31304470E700BA4D56 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */; };
@@ -3592,6 +3594,8 @@
 		E572C6A230611FFB00624F65 /* CountdownMilestonePresetListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMilestonePresetListView.swift; sourceTree = "<group>"; };
 		E572C6A43061205E00624F65 /* CountdownMilestoneCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMilestoneCollectionCell.swift; sourceTree = "<group>"; };
 		E572C6A6306120B300624F65 /* CountdownMilestoneItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMilestoneItem.swift; sourceTree = "<group>"; };
+		E572C6A830613AFE00624F65 /* xmark_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_32@3x.png"; sourceTree = "<group>"; };
+		E572C6A930613AFE00624F65 /* xmark_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_32@2x.png"; sourceTree = "<group>"; };
 		E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoUserTagViewModel.swift; sourceTree = "<group>"; };
 		E57B2B2B3044599C00BA4D56 /* GoalMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalMainViewController.swift; sourceTree = "<group>"; };
 		E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
@@ -9433,6 +9437,8 @@
 				E5BB9A512D3BEF0D0089667A /* xmark_24@2x.png */,
 				E5BB9A532D3BEF0D0089667A /* xmark_16@2x.png */,
 				E5BB9A542D3BEF0D0089667A /* xmark_16@3x.png */,
+				E572C6A930613AFE00624F65 /* xmark_32@2x.png */,
+				E572C6A830613AFE00624F65 /* xmark_32@3x.png */,
 				E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */,
 				E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */,
 				E5BB9A552D3BEF0D0089667A /* xmark_circle_fill_24@2x.png */,
@@ -13257,6 +13263,7 @@
 				E55E4BE02F9336170068E032 /* calendar_22_24@2x.png in Resources */,
 				E5BB9A802D3BEF0D0089667A /* schedule_reminder_24@3x.png in Resources */,
 				E5E277032D3DF6EA004EC522 /* shred_24@2x.png in Resources */,
+				E572C6AB30613AFF00624F65 /* xmark_32@2x.png in Resources */,
 				E58F46A22F7AA0B50046FA96 /* todo_list_ungroup_24@2x.png in Resources */,
 				E515AD612D3CC04A00AA9AF2 /* chevron_down_24@2x.png in Resources */,
 				E50D02582F55860B00E93977 /* habit_time_afternoon_24@2x.png in Resources */,
@@ -13348,6 +13355,7 @@
 				E505D93E2F9A4EBA004469DC /* reorderControl_24@2x.png in Resources */,
 				E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */,
 				E5168BDE2F5481660000A760 /* bell_add_20@2x.png in Resources */,
+				E572C6AA30613AFF00624F65 /* xmark_32@3x.png in Resources */,
 				E55E4BDE2F9336170068E032 /* calendar_8_24@3x.png in Resources */,
 				E555494D2F7629CA00C9460D /* focus_timer_bind_countdown_32@3x.png in Resources */,
 				E5FC6BA42F64EFBC00D5A5EA /* habit_status_failed_36@2x.png in Resources */,
