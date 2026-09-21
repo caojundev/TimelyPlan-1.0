@@ -31,7 +31,7 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     var onTimePlanChanged: ((CountdownTimePlan?) -> Void)?
     
     /// 提醒改变回调（nil 表示无提醒）
-    var onReminderChanged: ((CountdownReminder?) -> Void)?
+    var onReminderChanged: ((TaskReminder?) -> Void)?
     
     /// 目标日期
     var date: CountdownDate = CountdownDate()
@@ -40,7 +40,7 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     var timePlan: CountdownTimePlan?
     
     /// 提醒
-    var reminder: CountdownReminder?
+    var reminder: TaskReminder?
     
     // MARK: - 单元格
     /// 目标日期
@@ -166,6 +166,8 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
             changeTimePlan(CountdownTimePlan(type: type))
         case .custom:
             customRepeatRule()
+        case .milestone:
+            milestonePlan()
         }
     }
     
@@ -179,6 +181,25 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
         
         let navController = UINavigationController(rootViewController: vc)
         navController.show()
+    }
+    
+    /// 编辑里程碑
+    private func milestonePlan() {
+        let milestones = timePlan?.milestones ?? []
+        let vc = CountdownMilestoneEditViewController(milestones: milestones, date: date)
+        vc.didEndEditing = { [weak self] milestones in
+            guard milestones.count > 0 else {
+                /// 未设置里程碑时视为不重复
+                self?.changeTimePlan(nil)
+                return
+            }
+            
+            let timePlan = CountdownTimePlan(type: .milestone, milestones: milestones)
+            self?.changeTimePlan(timePlan)
+        }
+        
+        let navController = UINavigationController(rootViewController: vc)
+        navController.popoverShow()
     }
     
     /// 变更重复规则（nil 表示不重复）
@@ -201,8 +222,7 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     
     /// 编辑提醒
     private func editReminder() {
-        /// 无提醒时使用 CountdownReminder，保证编辑过程中（copy）不丢失里程碑等子类信息
-        let reminder = self.reminder ?? CountdownReminder()
+        let reminder = self.reminder ?? TaskReminder()
         let editVC = CountdownReminderEditViewController(reminder: reminder,
                                                          targetDate: date.targetDate)
         editVC.didEndEditing = { [weak self] reminder in
@@ -214,7 +234,7 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     }
     
     /// 选择提醒（无提醒时置为 nil）
-    func selectReminder(_ reminder: CountdownReminder?) {
+    func selectReminder(_ reminder: TaskReminder?) {
         if let reminder = reminder, reminder.hasAlarm {
             self.reminder = reminder
         } else {

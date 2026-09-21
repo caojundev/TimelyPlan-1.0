@@ -27,21 +27,26 @@ class CountdownRepeatMenuController: TPBaseMenuController<CountdownTimePlanType>
                   .weekly,
                   .monthly,
                   .yearly],
-                 [.custom]]
+                 [.custom],
+                 [.milestone]]
         return lists
     }
      
     override func menuActionTypes() -> [CountdownTimePlanType] {
-        return [.none, .daily, .weekly, .monthly, .yearly, .custom]
+        return [.none, .daily, .weekly, .monthly, .yearly, .custom, .milestone]
     }
     
     override func updateMenuAction(_ action: TPMenuAction, for type: CountdownTimePlanType) {
         super.updateMenuAction(action, for: type)
         action.subtitle = subtitle(for: type)
-        action.handleBeforeDismiss = type != .custom
+        action.handleBeforeDismiss = type != .custom && type != .milestone
         
         var selectedType = timePlan?.type ?? .none
         if selectedType == .custom, timePlan?.recurrenceRule == nil {
+            selectedType = .none
+        }
+        
+        if selectedType == .milestone, !(timePlan?.hasMilestone ?? false) {
             selectedType = .none
         }
         
@@ -49,6 +54,16 @@ class CountdownRepeatMenuController: TPBaseMenuController<CountdownTimePlanType>
     }
     
     private func subtitle(for type: CountdownTimePlanType) -> String? {
+        /// 与日期类型无关的描述
+        switch type {
+        case .custom:
+            return timePlan?.recurrenceRule?.title
+        case .milestone:
+            return timePlan?.milestonesDescription
+        default:
+            break
+        }
+        
         let targetDate = date.targetDate
         if date.type == .gregorian {
             /// 公历日期
@@ -59,8 +74,6 @@ class CountdownRepeatMenuController: TPBaseMenuController<CountdownTimePlanType>
                 return targetDate.dayOfTheMonthOrdinalSymbol(prefix: "the ", suffix: " day")
             case .yearly:
                 return targetDate.monthDayString
-            case .custom:
-                return timePlan?.recurrenceRule?.title
             default:
                 return nil
             }
@@ -73,8 +86,6 @@ class CountdownRepeatMenuController: TPBaseMenuController<CountdownTimePlanType>
                 return targetDate.lunarDayString
             case .yearly:
                 return targetDate.lunarMonthDayString
-            case .custom:
-                return timePlan?.recurrenceRule?.title
             default:
                 return nil
             }

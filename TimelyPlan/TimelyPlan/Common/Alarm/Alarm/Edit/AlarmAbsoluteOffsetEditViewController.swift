@@ -32,6 +32,10 @@ class AlarmAbsoluteOffsetEditViewController: TPViewController {
         pickerView.origin = layoutFrame.origin
     }
     
+    override var themeBackgroundColor: UIColor? {
+        return .secondarySystemBackground
+    }
+    
     override var popoverContentSize: CGSize {
         return .Popover.mini
     }

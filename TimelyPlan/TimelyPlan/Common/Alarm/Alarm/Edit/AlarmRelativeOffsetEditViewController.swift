@@ -24,6 +24,10 @@ class AlarmRelativeOffsetEditViewController: TPViewController {
         reloadData()
     }
     
+    override var themeBackgroundColor: UIColor? {
+        return .secondarySystemBackground
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let layoutFrame = view.layoutFrame()

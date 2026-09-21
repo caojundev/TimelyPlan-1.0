@@ -82,11 +82,8 @@ class CountdownMilestoneEditSectionController: TPTableItemSectionController,
         
         super.init()
         let headerItem = TPDefaultInfoTableHeaderFooterItem()
-        headerItem.padding = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 0.0, right: 15.0)
-        headerItem.height = 40.0
-        headerItem.titleConfig.font = BOLD_SYSTEM_FONT
+        headerItem.height = 0.0
         self.headerItem = headerItem
-        self.footerItem.height = 10.0
         
         self.selection.delegate = self
         self.milestonesCellItem.selection = self.selection

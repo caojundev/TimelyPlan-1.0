@@ -74,12 +74,12 @@ class CountdownEvent: NSObject,
     private let reminderJSON: String?
     
     /// 提醒（懒加载，从 JSON 反序列化）
-    private(set) lazy var reminder: CountdownReminder? = {
+    private(set) lazy var reminder: TaskReminder? = {
         guard let json = reminderJSON else {
             return nil
         }
         
-        return CountdownReminder.model(with: json)
+        return TaskReminder.model(with: json)
     }()
     
     /// 时间计划 JSON 字符串
@@ -154,8 +154,7 @@ class CountdownEvent: NSObject,
     
     /// 相对于当前日期的下一个发生日（不重复时即为目标日期）
     var occuranceDate: CountdownDate {
-        guard let rule = timePlan.regularRule,
-              let nextDate = rule.nextPlanDate(from: Date(), startDate: date) else {
+        guard let nextDate = timePlan.nextPlanDate(from: Date(), startDate: date) else {
             return date
         }
         
@@ -243,7 +242,7 @@ struct CountdownEditingEvent: Equatable {
     var timeUnit: CountdownTimeUnit = .days
     
     /// 提醒
-    var reminder: CountdownReminder?
+    var reminder: TaskReminder?
     
     /// 时间计划（nil 表示不重复）
     var timePlan: CountdownTimePlan?
@@ -300,8 +299,8 @@ struct CountdownEditingEvent: Equatable {
     
     /// 相对于当前日期的下一个发生日（不重复时即为目标日期）
     var occuranceDate: CountdownDate {
-        guard let rule = timePlan?.regularRule,
-              let nextDate = rule.nextPlanDate(from: Date(), startDate: date) else {
+        guard let timePlan = timePlan,
+              let nextDate = timePlan.nextPlanDate(from: Date(), startDate: date) else {
             return date
         }
         
@@ -325,7 +324,7 @@ extension CountdownEvent {
         event.color = color ?? CountdownConfig.countdownEventDefaultColor
         event.note = note
         /// 提醒深拷贝，避免编辑过程中修改原事件
-        event.reminder = reminder?.copy() as? CountdownReminder
+        event.reminder = reminder?.copy() as? TaskReminder
         /// 不重复时不携带时间计划
         if let planType = timePlan.type, planType != .none {
             event.timePlan = timePlan

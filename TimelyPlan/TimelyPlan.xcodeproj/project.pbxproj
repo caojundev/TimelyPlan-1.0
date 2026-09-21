@@ -1203,6 +1203,7 @@
 		E56E7FF02DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56E7FEF2DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift */; };
 		E570FC012D62C14A0017F930 /* chevron_right_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E570FBFF2D62C1490017F930 /* chevron_right_16@3x.png */; };
 		E570FC022D62C14A0017F930 /* chevron_right_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E570FC002D62C14A0017F930 /* chevron_right_16@2x.png */; };
+		E572C69F3060B74400624F65 /* CountdownMilestoneEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572C69E3060B74300624F65 /* CountdownMilestoneEditViewController.swift */; };
 		E57AA1182F92105200C4D346 /* TodoUserTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */; };
 		E57B2B2C3044599C00BA4D56 /* GoalMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B2B3044599C00BA4D56 /* GoalMainViewController.swift */; };
 		E57B2B31304470E700BA4D56 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */; };
@@ -2149,7 +2150,7 @@
 		E5D8339B2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8338D2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@3x.png */; };
 		E5D8339C2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8338E2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@2x.png */; };
 		E5D8339D2DAB64D60012ABF3 /* todo_task_progress_reset_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8338F2DAB64D60012ABF3 /* todo_task_progress_reset_24@3x.png */; };
-		E5D955FC305FFC5900D5CAB0 /* CountdownReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D955FB305FFC5900D5CAB0 /* CountdownReminder.swift */; };
+		E5D955FC305FFC5900D5CAB0 /* CountdownMilestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D955FB305FFC5900D5CAB0 /* CountdownMilestone.swift */; };
 		E5D955FF3060143E00D5CAB0 /* CountdownReminderEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D955FE3060143E00D5CAB0 /* CountdownReminderEditViewController.swift */; };
 		E5D9560130601AFE00D5CAB0 /* CountdownMilestoneEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9560030601AFE00D5CAB0 /* CountdownMilestoneEditSectionController.swift */; };
 		E5D9560330601C8300D5CAB0 /* CountdownMilestonePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9560230601C8300D5CAB0 /* CountdownMilestonePickerViewController.swift */; };
@@ -3582,6 +3583,7 @@
 		E56E7FEF2DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoCircularCheckboxTableCell.swift; sourceTree = "<group>"; };
 		E570FBFF2D62C1490017F930 /* chevron_right_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron_right_16@3x.png"; sourceTree = "<group>"; };
 		E570FC002D62C14A0017F930 /* chevron_right_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chevron_right_16@2x.png"; sourceTree = "<group>"; };
+		E572C69E3060B74300624F65 /* CountdownMilestoneEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMilestoneEditViewController.swift; sourceTree = "<group>"; };
 		E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoUserTagViewModel.swift; sourceTree = "<group>"; };
 		E57B2B2B3044599C00BA4D56 /* GoalMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalMainViewController.swift; sourceTree = "<group>"; };
 		E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
@@ -4543,7 +4545,7 @@
 		E5D8338D2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_progress_initialValue_24@3x.png"; sourceTree = "<group>"; };
 		E5D8338E2DAB64D60012ABF3 /* todo_task_progress_initialValue_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_progress_initialValue_24@2x.png"; sourceTree = "<group>"; };
 		E5D8338F2DAB64D60012ABF3 /* todo_task_progress_reset_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_progress_reset_24@3x.png"; sourceTree = "<group>"; };
-		E5D955FB305FFC5900D5CAB0 /* CountdownReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownReminder.swift; sourceTree = "<group>"; };
+		E5D955FB305FFC5900D5CAB0 /* CountdownMilestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMilestone.swift; sourceTree = "<group>"; };
 		E5D955FE3060143E00D5CAB0 /* CountdownReminderEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownReminderEditViewController.swift; sourceTree = "<group>"; };
 		E5D9560030601AFE00D5CAB0 /* CountdownMilestoneEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMilestoneEditSectionController.swift; sourceTree = "<group>"; };
 		E5D9560230601C8300D5CAB0 /* CountdownMilestonePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMilestonePickerViewController.swift; sourceTree = "<group>"; };
@@ -7113,6 +7115,7 @@
 		E541DC323057D525008BFAE0 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				E572C69D3060B6E600624F65 /* Milestone */,
 				E5D955FD3060142D00D5CAB0 /* Reminder */,
 				E541DC5E30591F73008BFAE0 /* TPLunarDatePickerTableCellItem.swift */,
 				E541DC413057FB42008BFAE0 /* TPEmojiTextEditTableCellItem.swift */,
@@ -7139,10 +7142,10 @@
 			children = (
 				E541DC393057D7B1008BFAE0 /* CoreData */,
 				E541DC5C3058F3F3008BFAE0 /* CountdownDate.swift */,
+				E5D955FB305FFC5900D5CAB0 /* CountdownMilestone.swift */,
 				E541DC64305A1AAA008BFAE0 /* CountdownTimePlan.swift */,
 				E541DC4730582311008BFAE0 /* CountdownEnums.swift */,
 				E541DC373057D73B008BFAE0 /* CountdownEvent.swift */,
-				E5D955FB305FFC5900D5CAB0 /* CountdownReminder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -8235,6 +8238,16 @@
 				E52EF61D2FB1A96E002CF355 /* CalendarBaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		E572C69D3060B6E600624F65 /* Milestone */ = {
+			isa = PBXGroup;
+			children = (
+				E572C69E3060B74300624F65 /* CountdownMilestoneEditViewController.swift */,
+				E5D9560030601AFE00D5CAB0 /* CountdownMilestoneEditSectionController.swift */,
+				E5D9560230601C8300D5CAB0 /* CountdownMilestonePickerViewController.swift */,
+			);
+			path = Milestone;
 			sourceTree = "<group>";
 		};
 		E57B2B2D304470E600BA4D56 /* Detail */ = {
@@ -11868,8 +11881,6 @@
 			isa = PBXGroup;
 			children = (
 				E5D955FE3060143E00D5CAB0 /* CountdownReminderEditViewController.swift */,
-				E5D9560030601AFE00D5CAB0 /* CountdownMilestoneEditSectionController.swift */,
-				E5D9560230601C8300D5CAB0 /* CountdownMilestonePickerViewController.swift */,
 			);
 			path = Reminder;
 			sourceTree = "<group>";
@@ -13802,6 +13813,7 @@
 				E5BB9F482D3BF45F0089667A /* SideMenuCell.swift in Sources */,
 				E5141F122F7D49C7007A864B /* TPDragPreviewViewProviding.swift in Sources */,
 				E51A43822DB73A7400DC84C9 /* CalendarMainViewController.swift in Sources */,
+				E572C69F3060B74400624F65 /* CountdownMilestoneEditViewController.swift in Sources */,
 				E56341FF2F9480C100E120BF /* TodoFilterMenuActionController.swift in Sources */,
 				E5FC91942FBB61E400FC75C6 /* CalendarDayPageView.swift in Sources */,
 				E5D7D8E32D43933600EC877A /* FocusConstant.swift in Sources */,
@@ -14312,7 +14324,7 @@
 				E5BB9E862D3BF0C80089667A /* RectangleElementView.swift in Sources */,
 				E5FC91862FBAFBBA00FC75C6 /* CalendarPageEventsView.swift in Sources */,
 				E5BB9F262D3BF2C20089667A /* SceneDelegate.swift in Sources */,
-				E5D955FC305FFC5900D5CAB0 /* CountdownReminder.swift in Sources */,
+				E5D955FC305FFC5900D5CAB0 /* CountdownMilestone.swift in Sources */,
 				E50179542FD44DAD00DC544D /* TodoTaskSectionSelectView.swift in Sources */,
 				E5FC6BBC2F666F1900D5A5EA /* HabitStatsCalendarWeekSectionController.swift in Sources */,
 				E50D60832F7A360700D5E0A4 /* TodoList+Extensions.swift in Sources */,

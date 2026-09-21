@@ -27,8 +27,8 @@ class CountdownMilestonePickerViewController: TPTableSectionsViewController {
     
     lazy var milestoneSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 12.0
-        sectionController.footerItem.height = 12.0
+        sectionController.headerItem.height = 5.0
+        sectionController.footerItem.height = 5.0
         return sectionController
     }()
     
@@ -127,16 +127,12 @@ class CountdownMilestonePickerViewController: TPTableSectionsViewController {
     
     /// 更新间隔单元格
     private func updateIntervalCellItem() {
-        intervalCellItem.leadingTextForCount = { _ in
-            return resGetString("Every")
-        }
-        
         intervalCellItem.tailingTextForCount = { [weak self] count in
             return self?.milestone.unit?.localizedUnit(for: count)
         }
         
         intervalCellItem.minimumCount = 1
-        intervalCellItem.maximumCount = 100
+        intervalCellItem.maximumCount = 999
         intervalCellItem.count = milestone.interval ?? 1
     }
 }
