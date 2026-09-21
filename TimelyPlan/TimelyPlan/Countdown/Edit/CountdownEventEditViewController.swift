@@ -15,9 +15,6 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
                                                         left: 0.0,
                                                         bottom: 0.0,
                                                         right: 16.0)
-        
-        
-        static let defaultCellHeight = 55.0
     }
     
     /// 编辑事件
@@ -81,70 +78,35 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
     }()
     
     // MARK: - 通用
-    lazy var generalSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = 15.0
-        sectionController.cellItems = [eventTypeCellItem,
-                                       timeUnitCellItem,
-                                       includesStartDateCellItem]
-        return sectionController
-    }()
-    
-    /// 类型
-    lazy var eventTypeCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPImageInfoTextValueTableCellItem()
-        cellItem.height = Config.defaultCellHeight
-        cellItem.accessoryType = .disclosureIndicator
-        cellItem.title = resGetString("Type")
-        cellItem.updater = {
-            guard let self = self else { return }
-            let text = self.editingEvent.type.title
-            self.eventTypeCellItem.valueConfig = .valueText(text)
+    lazy var generalSectionController: CountdownGeneralEditSectionController = { [weak self] in
+        let sectionController = CountdownGeneralEditSectionController()
+        guard let self = self else { return sectionController }
+        
+        sectionController.eventType = self.editingEvent.type
+        sectionController.timeUnit = self.editingEvent.timeUnit
+        sectionController.countingType = self.editingEvent.countingType
+        sectionController.includesStartDate = self.editingEvent.includesStartDate
+        sectionController.date = self.editingEvent.date
+        sectionController.timePlan = self.editingEvent.timePlan
+        
+        sectionController.onEventTypeChanged = { [weak self] type in
+            self?.editingEvent.type = type
         }
         
-        cellItem.didSelectHandler = { [weak self] in
-            self?.editEventType()
+        sectionController.onTimeUnitChanged = { [weak self] unit in
+            self?.editingEvent.timeUnit = unit
         }
         
-        return cellItem
-    }()
-    
-    /// 时间单位
-    lazy var timeUnitCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPImageInfoTextValueTableCellItem()
-        cellItem.height = Config.defaultCellHeight
-        cellItem.accessoryType = .disclosureIndicator
-        cellItem.title = resGetString("Time Unit")
-        cellItem.updater = {
-            guard let self = self else { return }
-            let text = self.editingEvent.timeUnit.title
-            self.timeUnitCellItem.valueConfig = .valueText(text)
+        sectionController.onCountingTypeChanged = { [weak self] countingType in
+            self?.editingEvent.countingType = countingType
         }
         
-        cellItem.didSelectHandler = { [weak self] in
-            self?.editTimeUnit()
-        }
-        
-        return cellItem
-    }()
-    
-    /// 正数计数是否包含选中日期当天（+1）
-    lazy var includesStartDateCellItem: TPSwitchTableCellItem = { [weak self] in
-        let cellItem = TPSwitchTableCellItem()
-        cellItem.height = Config.defaultCellHeight
-        cellItem.title = resGetString("Include Start Date")
-        cellItem.subtitle = resGetString("Count start date as Day 1")
-        cellItem.subtitleConfig.font = .boldSystemFont(ofSize: 11.0)
-        cellItem.updater = {
-            guard let self = self else { return }
-            self.includesStartDateCellItem.isOn = self.editingEvent.includesStartDate
-        }
-        
-        cellItem.valueChanged = { [weak self] isOn in
+        sectionController.onIncludesStartDateChanged = { [weak self] isOn in
             self?.editingEvent.includesStartDate = isOn
         }
         
-        return cellItem
+        sectionController.updateCellItems()
+        return sectionController
     }()
     
     // MARK: - 显示方式
@@ -172,11 +134,15 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         sectionController.reminder = self.editingEvent.reminder
         
         sectionController.onDateChanged = { [weak self] date in
-            self?.editingEvent.date = date
+            guard let self = self else { return }
+            self.editingEvent.date = date
+            self.updateGeneralSectionController()
         }
         
         sectionController.onTimePlanChanged = { [weak self] timePlan in
-            self?.editingEvent.timePlan = timePlan
+            guard let self = self else { return }
+            self.editingEvent.timePlan = timePlan
+            self.updateGeneralSectionController()
         }
         
         sectionController.onReminderChanged = { [weak self] reminder in
@@ -326,81 +292,10 @@ class CountdownEventEditViewController: TPTableSectionsViewController {
         updateDoneButtonEnabled()
     }
     
-    private func editEventType() {
-        guard let cell = adapter.cellForItem(eventTypeCellItem) else {
-            return
-        }
-        
-        let menuList = TPMenuListViewController()
-        menuList.menuContentWidth = 180.0
-        let menuItem = TPMenuItem.item(with: CountdownEventType.allCases,
-                                       updater: { type, action in
-            action.title = type.emojiTitle
-            action.handleBeforeDismiss = true
-            action.isChecked = type == self.editingEvent.type
-        })
-        
-        menuList.didSelectMenuAction = { action in
-            guard let type: CountdownEventType = action.actionType() else {
-                return
-            }
-            
-            self.selectEventType(type)
-        }
-        
-        menuList.menuItems = [menuItem]
-        menuList.popoverShow(from: cell,
-                             sourceRect: cell.bounds,
-                             isSourceViewCovered: false,
-                             preferredPosition: .bottomLeft,
-                             permittedPositions: [.bottomLeft, .topLeft])
-    }
-    
-    private func selectEventType(_ type: CountdownEventType) {
-        guard editingEvent.type != type else {
-            return
-        }
-        
-        editingEvent.type = type
-        adapter.reloadCell(forItem: eventTypeCellItem, with: .none)
-    }
-    
-    private func editTimeUnit() {
-        guard let cell = adapter.cellForItem(timeUnitCellItem) else {
-            return
-        }
-        
-        let menuList = TPMenuListViewController()
-        menuList.menuContentWidth = 180.0
-        let menuItem = TPMenuItem.item(with: CountdownTimeUnit.allCases,
-                                       updater: { unit, action in
-            action.title = unit.title
-            action.handleBeforeDismiss = true
-            action.isChecked = unit == self.editingEvent.timeUnit
-        })
-        
-        menuList.didSelectMenuAction = { action in
-            guard let unit: CountdownTimeUnit = action.actionType() else {
-                return
-            }
-            
-            self.selectTimeUnit(unit)
-        }
-        
-        menuList.menuItems = [menuItem]
-        menuList.popoverShow(from: cell,
-                             sourceRect: cell.bounds,
-                             isSourceViewCovered: false,
-                             preferredPosition: .bottomLeft,
-                             permittedPositions: [.bottomLeft, .topLeft])
-    }
-    
-    private func selectTimeUnit(_ unit: CountdownTimeUnit) {
-        guard editingEvent.timeUnit != unit else {
-            return
-        }
-        
-        editingEvent.timeUnit = unit
-        adapter.reloadCell(forItem: timeUnitCellItem, with: .none)
+    /// 同步日期与重复规则到通用区块并刷新单元格
+    func updateGeneralSectionController() {
+        generalSectionController.date = editingEvent.date
+        generalSectionController.timePlan = editingEvent.timePlan
+        generalSectionController.updateCellItems()
     }
 }

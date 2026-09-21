@@ -12,6 +12,7 @@ import UIKit
 struct CountdownEventKey {
     static let identifier = "identifier"
     static let eventType = "eventType"
+    static let countingType = "countingType"
     static let dateType = "dateType"
     static let isLeapMonth = "isLeapMonth"
     static let order = "order"
@@ -34,11 +35,39 @@ class CountdownEvent: NSObject,
                       TPHexColorConvertible,
                       SortableIdentifiable {
     
+    /// 倒数日计数类型
+    ///
+    /// 用于描述事件的计数方向：
+    /// - `countdown`：倒数（距离目标日期还剩多少天）
+    /// - `countUp`：正数（从起始日期已经过去多少天）
+    enum CountingType: Int, TPMenuRepresentable {
+        
+        /// 倒数
+        case countdown = 0
+        
+        /// 正数
+        case countUp
+        
+        // MARK: - Getters
+        /// 标题本地化键
+        var titleKey: String {
+            return "countdown.counting.\(String(describing: self))"
+        }
+        
+        /// 标题
+        var title: String {
+            return resGetString(titleKey)
+        }
+    }
+    
     /// 事件唯一标识
     var identifier: String
     
     /// 事件类型
     var type: CountdownEventType
+    
+    /// 计数类型（倒数 / 正数）
+    var countingType: CountingType
     
     /// 排序因子
     var order: Int64
@@ -99,6 +128,7 @@ class CountdownEvent: NSObject,
     
     init(identifier: String = UUID().uuidString,
          type: CountdownEventType = .countdown,
+         countingType: CountingType = .countdown,
          order: Int64 = 0,
          name: String? = nil,
          emoji: String? = nil,
@@ -114,6 +144,7 @@ class CountdownEvent: NSObject,
          isArchived: Bool = false) {
         self.identifier = identifier
         self.type = type
+        self.countingType = countingType
         self.order = order
         self.name = name
         self.emoji = emoji
@@ -223,6 +254,9 @@ struct CountdownEditingEvent: Equatable {
     /// 事件类型
     var type: CountdownEventType = .countdown
     
+    /// 计数类型（倒数 / 正数）
+    var countingType: CountdownEvent.CountingType = .countdown
+    
     /// 事件名称
     var name: String?
     
@@ -257,12 +291,14 @@ struct CountdownEditingEvent: Equatable {
     var calendarDisplayMode: CountdownDisplayMode = .none
     
     init(type: CountdownEventType = .countdown,
+         countingType: CountdownEvent.CountingType = .countdown,
          date: CountdownDate = CountdownDate(),
          includesStartDate: Bool = false,
          timeUnit: CountdownTimeUnit = .days,
          myDayDisplayMode: CountdownDisplayMode = .none,
          calendarDisplayMode: CountdownDisplayMode = .none) {
         self.type = type
+        self.countingType = countingType
         self.date = date
         self.includesStartDate = includesStartDate
         self.timeUnit = timeUnit
@@ -284,6 +320,7 @@ struct CountdownEditingEvent: Equatable {
     // MARK: - Equatable
     static func == (lhs: CountdownEditingEvent, rhs: CountdownEditingEvent) -> Bool {
         return lhs.type == rhs.type
+            && lhs.countingType == rhs.countingType
             && lhs.name == rhs.name
             && lhs.emoji == rhs.emoji
             && lhs.color == rhs.color
@@ -314,6 +351,7 @@ extension CountdownEvent {
     /// 编辑事件
     var editingEvent: CountdownEditingEvent {
         var event = CountdownEditingEvent(type: type,
+                                          countingType: countingType,
                                           date: date,
                                           includesStartDate: includesStartDate,
                                           timeUnit: timeUnit,

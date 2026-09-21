@@ -17,6 +17,10 @@
 "countdown.unit.yearWeek"  = "Year + Week";
 "countdown.unit.yearMonth" = "Year + Month";
 
+// 计数类型
+"countdown.counting.countdown" = "Countdown";
+"countdown.counting.countUp" = "Count Up";
+
 /// 次数
 "Time(count)" = "Time";
 "Times(count)" = "Times";

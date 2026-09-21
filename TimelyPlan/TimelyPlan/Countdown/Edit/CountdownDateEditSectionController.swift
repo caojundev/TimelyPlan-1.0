@@ -132,7 +132,7 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
         self.date = date
         onDateChanged?(date)
         adapter?.reloadCell(forItems: [targetDateCellItem,
-                                       repeatRuleCellItem], with: .none)
+                                       repeatRuleCellItem], with: .fade)
     }
     
     // MARK: - 重复规则
@@ -140,6 +140,7 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     private func updateRepeatRuleCellItem() {
         guard let timePlan = timePlan, let title = timePlan.descriptionTitle else {
             repeatRuleCellItem.title = resGetString("Repeat")
+            repeatRuleCellItem.subtitle = nil
             return
         }
         
@@ -218,7 +219,7 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     func changeTimePlan(_ timePlan: CountdownTimePlan?) {
         self.timePlan = timePlan
         onTimePlanChanged?(timePlan)
-        adapter?.reloadCell(forItem: repeatRuleCellItem, with: .none)
+        adapter?.reloadCell(forItem: repeatRuleCellItem, with: .fade)
     }
     
     // MARK: - 提醒
@@ -254,6 +255,6 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
         }
         
         onReminderChanged?(self.reminder)
-        adapter?.reloadCell(forItem: reminderCellItem, with: .none)
+        adapter?.reloadCell(forItem: reminderCellItem, with: .fade)
     }
 }

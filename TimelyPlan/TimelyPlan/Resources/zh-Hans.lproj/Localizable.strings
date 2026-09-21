@@ -60,6 +60,10 @@
 
 "Time Unit" = "时间单位";
 
+// 计数类型
+"countdown.counting.countdown" = "倒数";
+"countdown.counting.countUp" = "正数";
+
 /// 详情
 "Days Remaining" = "距离目标还有";
 "Days Passed" = "已经过去";

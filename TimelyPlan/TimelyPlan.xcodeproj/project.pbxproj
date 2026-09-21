@@ -1210,6 +1210,7 @@
 		E572C6A7306120B300624F65 /* CountdownMilestoneItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572C6A6306120B300624F65 /* CountdownMilestoneItem.swift */; };
 		E572C6AA30613AFF00624F65 /* xmark_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E572C6A830613AFE00624F65 /* xmark_32@3x.png */; };
 		E572C6AB30613AFF00624F65 /* xmark_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E572C6A930613AFE00624F65 /* xmark_32@2x.png */; };
+		E572C6AD306156FF00624F65 /* CountdownGeneralEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572C6AC306156FF00624F65 /* CountdownGeneralEditSectionController.swift */; };
 		E57AA1182F92105200C4D346 /* TodoUserTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */; };
 		E57B2B2C3044599C00BA4D56 /* GoalMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B2B3044599C00BA4D56 /* GoalMainViewController.swift */; };
 		E57B2B31304470E700BA4D56 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */; };
@@ -3596,6 +3597,7 @@
 		E572C6A6306120B300624F65 /* CountdownMilestoneItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMilestoneItem.swift; sourceTree = "<group>"; };
 		E572C6A830613AFE00624F65 /* xmark_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_32@3x.png"; sourceTree = "<group>"; };
 		E572C6A930613AFE00624F65 /* xmark_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_32@2x.png"; sourceTree = "<group>"; };
+		E572C6AC306156FF00624F65 /* CountdownGeneralEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownGeneralEditSectionController.swift; sourceTree = "<group>"; };
 		E57AA1172F92105200C4D346 /* TodoUserTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoUserTagViewModel.swift; sourceTree = "<group>"; };
 		E57B2B2B3044599C00BA4D56 /* GoalMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalMainViewController.swift; sourceTree = "<group>"; };
 		E57B2B2E304470E600BA4D56 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
@@ -7132,6 +7134,7 @@
 				E541DC5E30591F73008BFAE0 /* TPLunarDatePickerTableCellItem.swift */,
 				E541DC413057FB42008BFAE0 /* TPEmojiTextEditTableCellItem.swift */,
 				E541DC3C3057E0CC008BFAE0 /* CountdownEventEditViewController.swift */,
+				E572C6AC306156FF00624F65 /* CountdownGeneralEditSectionController.swift */,
 				E541DC68305A801F008BFAE0 /* CountdownDateEditSectionController.swift */,
 				E511E4FD305D29F000292511 /* CountdownDisplayEditSectionController.swift */,
 				E541DC5A3058F144008BFAE0 /* CountdownDatePickerViewController.swift */,
@@ -14455,6 +14458,7 @@
 				E5D7D8FB2D43933600EC877A /* OpenCircleSlider.swift in Sources */,
 				E524C7942F9E1619005CCEBD /* TodoTaskEditMenuView.swift in Sources */,
 				E58C9E1C2F4AF0DC0096B842 /* FocusTimelinePauseView.swift in Sources */,
+				E572C6AD306156FF00624F65 /* CountdownGeneralEditSectionController.swift in Sources */,
 				E552FBB22DBD20A40072703F /* CalendarStripMoreTextLayer.swift in Sources */,
 				E5091C64305BC742009CFD17 /* CountdownEventSearchResultViewController.swift in Sources */,
 				E541DC6130597763008BFAE0 /* CountdownRepeatMenuController.swift in Sources */,

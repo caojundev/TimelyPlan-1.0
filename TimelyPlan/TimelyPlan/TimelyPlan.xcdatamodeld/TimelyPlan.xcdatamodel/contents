@@ -3,6 +3,7 @@
     <entity name="CDCountdownEvent" representedClassName="CDCountdownEvent" syncable="YES" codeGenerationType="class">
         <attribute name="calendarDisplayMode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="colorHex" optional="YES" attributeType="String"/>
+        <attribute name="countingType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="dateType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="emoji" optional="YES" attributeType="String"/>
         <attribute name="eventType" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -215,7 +216,7 @@
         <attribute name="value" optional="YES" attributeType="String" valueTransformerName="FocusTaskContentTransformer" customClassName="FocusTaskContent"/>
     </entity>
     <elements>
-        <element name="CDCountdownEvent" positionX="45" positionY="261" width="128" height="284"/>
+        <element name="CDCountdownEvent" positionX="45" positionY="261" width="128" height="299"/>
         <element name="CDFocusSession" positionX="27" positionY="189" width="128" height="239"/>
         <element name="CDFocusTimer" positionX="18" positionY="180" width="128" height="239"/>
         <element name="CDGoalPlan" positionX="45" positionY="261" width="128" height="209"/>
