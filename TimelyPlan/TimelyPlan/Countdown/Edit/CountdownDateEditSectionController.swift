@@ -62,12 +62,11 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     }()
     
     /// 重复
-    lazy var repeatRuleCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPImageInfoTextValueTableCellItem()
+    lazy var repeatRuleCellItem: TPImageInfoTableCellItem = { [weak self] in
+        let cellItem = TPImageInfoTableCellItem()
         cellItem.height = Config.defaultCellHeight
         cellItem.accessoryType = .disclosureIndicator
         cellItem.imageName = "schedule_repeat_24"
-        cellItem.title = resGetString("Repeat")
         cellItem.updater = {
             guard let self = self else { return }
             self.updateRepeatRuleCellItem()
@@ -83,11 +82,13 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     /// 提醒
     lazy var reminderCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPImageInfoTextValueTableCellItem()
-        cellItem.height = Config.defaultCellHeight
+        cellItem.autoResizable = true
+        cellItem.minimumHeight = Config.defaultCellHeight
+        cellItem.subtitleConfig.numberOfLines = 0
+        cellItem.subtitleConfig.font = .boldSystemFont(ofSize: 11.0)
         cellItem.accessoryType = .disclosureIndicator
         cellItem.imageName = "schedule_alarm_24"
         cellItem.title = resGetString("Reminder")
-        cellItem.subtitleConfig.font = .boldSystemFont(ofSize: 11.0)
         cellItem.updater = {
             guard let self = self else { return }
             self.updateReminderCellItem()
@@ -121,24 +122,35 @@ class CountdownDateEditSectionController: TPTableItemSectionController {
     func editTargetDate() {
         let vc = CountdownDatePickerViewController(countdownDate: date)
         vc.didPickDate = { [weak self] date in
-            guard let self = self else { return }
-            self.date = date
-            self.onDateChanged?(date)
-            self.adapter?.reloadCell(forItem: self.targetDateCellItem, with: .none)
+            self?.selectTargetDate(date)
         }
         
         vc.popoverShow()
     }
     
+    private func selectTargetDate(_ date: CountdownDate) {
+        self.date = date
+        onDateChanged?(date)
+        adapter?.reloadCell(forItems: [targetDateCellItem,
+                                       repeatRuleCellItem], with: .none)
+    }
+    
     // MARK: - 重复规则
     /// 更新重复规则单元格
     private func updateRepeatRuleCellItem() {
-        guard let title = timePlan?.descriptionTitle else {
-            repeatRuleCellItem.valueConfig = .valueText(nil)
+        guard let timePlan = timePlan, let title = timePlan.descriptionTitle else {
+            repeatRuleCellItem.title = resGetString("Repeat")
             return
         }
         
-        repeatRuleCellItem.valueConfig = .valueText(title)
+        repeatRuleCellItem.title = title
+        
+        let type = timePlan.type ?? .none
+        if type != .custom, type != .milestone {
+            repeatRuleCellItem.subtitle = timePlan.subtitle(for: date)
+        } else {
+            repeatRuleCellItem.subtitle = nil
+        }
     }
     
     /// 编辑重复规则

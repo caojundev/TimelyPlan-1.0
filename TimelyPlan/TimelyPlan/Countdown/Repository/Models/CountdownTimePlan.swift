@@ -67,6 +67,15 @@ struct CountdownTimePlan: Codable, Equatable {
         return milestones?.isEmpty == false
     }
     
+    /// 里程碑描述文本（按单位与间隔排序后拼接）
+    var milestonesDescription: String? {
+        guard let milestones = milestones, milestones.count > 0 else {
+            return nil
+        }
+        
+        return milestones.sorted().map { $0.title }.joined(separator: ", ")
+    }
+    
     /// 描述文本（展示于重复规则条目）
     var descriptionTitle: String? {
         guard let type = type else {
@@ -84,15 +93,46 @@ struct CountdownTimePlan: Codable, Equatable {
             return milestonesDescription ?? type.title
         }
     }
-    
-    /// 里程碑描述文本（按单位与间隔排序后拼接）
-    var milestonesDescription: String? {
-        guard let milestones = milestones, milestones.count > 0 else {
-            return nil
+
+    func subtitle(for date: CountdownDate) -> String? {
+        let type = type ?? .none
+        switch type {
+        case .custom:
+            return recurrenceRule?.title
+        case .milestone:
+            return milestonesDescription
+        default:
+            break
         }
         
-        return milestones.sorted().map { $0.title }.joined(separator: ", ")
+        let targetDate = date.targetDate
+        if date.type == .gregorian {
+            /// 公历日期
+            switch type {
+            case .weekly:
+                return targetDate.weekdaySymbol()
+            case .monthly:
+                return targetDate.dayOfTheMonthOrdinalSymbol(prefix: "the ", suffix: " day")
+            case .yearly:
+                return targetDate.monthDayString
+            default:
+                return nil
+            }
+        } else {
+            /// 农历日期
+            switch type {
+            case .weekly:
+                return targetDate.weekdaySymbol()
+            case .monthly:
+                return targetDate.lunarDayString
+            case .yearly:
+                return targetDate.lunarMonthDayString
+            default:
+                return nil
+            }
+        }
     }
+    
 }
 
 // MARK: - 计划日
