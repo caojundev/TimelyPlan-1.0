@@ -36,11 +36,33 @@ class CountdownReminderEditViewController: TPTableSectionsViewController {
         return sectionController
     }()
     
+    /// 里程碑区块
+    private lazy var milestoneSectionController: CountdownMilestoneEditSectionController = {
+        let sectionController = CountdownMilestoneEditSectionController(milestones: self.reminder.milestones)
+        sectionController.headerTitle = resGetString("Milestones")
+        sectionController.canAddMilestone = { [weak self] in
+            return self?.canAddNewMilestone() ?? false
+        }
+        
+        sectionController.didClickCustom = { [weak self] in
+            self?.createCustomMilestone()
+        }
+        
+        sectionController.milestonesDidChange = { [weak self] milestones in
+            self?.milestonesDidChange(milestones)
+        }
+        
+        return sectionController
+    }()
+    
     /// 提醒对象
     private(set) var reminder: CountdownReminder
     
     /// 最多提醒数目
     private let maximumAlarmsCount = 5
+    
+    /// 最多里程碑数目
+    private let maximumMilestonesCount = 5
 
     let targetDate: Date
     
@@ -68,7 +90,7 @@ class CountdownReminderEditViewController: TPTableSectionsViewController {
         tableView.separatorColor = Color(0xaaaaaa, 0.1)
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
         
-        sectionControllers = [alarmSectionController]
+        sectionControllers = [alarmSectionController, milestoneSectionController]
         adapter.reloadData()
     }
     
@@ -96,6 +118,17 @@ class CountdownReminderEditViewController: TPTableSectionsViewController {
         navController.popoverShow()
     }
     
+    // MARK: - 自定义里程碑
+    private func createCustomMilestone() {
+        let vc = CountdownMilestonePickerViewController(milestone: CountdownMilestone(interval: 1, unit: .week))
+        vc.didPickMilestone = { [weak self] milestone in
+            self?.milestoneSectionController.didCreateMilestone(milestone)
+        }
+        
+        let navController = UINavigationController(rootViewController: vc)
+        navController.popoverShow()
+    }
+    
     // MARK: - 提醒改变
     func startAlarmsDidChange(_ alarms: [TaskAlarm]) {
         reminder.startAlarms = alarms
@@ -105,6 +138,17 @@ class CountdownReminderEditViewController: TPTableSectionsViewController {
     /// 是否可以添加新提醒
     private func canAddNewAlarm() -> Bool {
         return alarmSectionController.alarmsCount < maximumAlarmsCount
+    }
+    
+    // MARK: - 里程碑改变
+    func milestonesDidChange(_ milestones: [CountdownMilestone]) {
+        reminder.milestones = milestones
+        reminderChanged?(reminder)
+    }
+    
+    /// 是否可以添加新里程碑
+    private func canAddNewMilestone() -> Bool {
+        return milestoneSectionController.milestonesCount < maximumMilestonesCount
     }
     
 }

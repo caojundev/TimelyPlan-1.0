@@ -42,6 +42,9 @@
 "Age" = "年龄";
 "Holiday" = "节日";
 
+"Milestones" = "里程碑";
+"No Milestone" = "无里程碑";
+
 "Include Start Date" = "包含起始日";
 "Count start date as Day 1" = "起始日计为第 1 天";
 
@@ -73,16 +76,16 @@
 ///**********************目标*********************///
 "Untitled Goal" = "未命名目标";
 "Tap goal to view details" = "点击目标查看详情";
+"Goal Settings" = "目标设置";
+"No Goal" = "无目标";
+"No Archived Goal" = "无归档目标";
+
 "Enter goal name" = "输入目标名称";
 "Create Goal" = "创建目标";
 "Edit Goal" = "编辑目标";
 
 "New Goal Task" = "新建目标任务";
 "Enter task name" = "输入任务名称";
-
-"Goal Settings" = "目标设置";
-"No Goal" = "无目标";
-"No Archived Goal" = "无归档目标";
 
 "Delete Goal Plan" = "删除目标计划";
 "Delete Goal Task" = "删除目标任务";
