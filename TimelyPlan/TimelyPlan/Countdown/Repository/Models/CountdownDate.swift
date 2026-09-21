@@ -47,7 +47,7 @@ struct CountdownDate: Equatable {
     
     /// 是否为农历闰月（仅农历类型有效）
     var isLeapMonth: Bool
-    
+
     init(type: CountdownDateType = .gregorian,
          targetDate: Date = .now,
          isLeapMonth: Bool = false) {
@@ -93,6 +93,42 @@ struct CountdownDate: Equatable {
         case .lunar:
             return lunarComponents?.day ?? targetDate.day
         }
+    }
+    
+    // MARK: - 里程碑
+    /// 根据传入的里程碑获取对应的新日期（里程碑日期位于目标日期之前）
+    /// - Parameter milestone: 里程碑（包含间隔数值与单位）
+    /// - Returns: 里程碑对应的日期（沿用当前日期类型），间隔或单位缺失时返回 nil
+    func date(for milestone: CountdownMilestone) -> CountdownDate? {
+        guard let interval = milestone.interval, interval > 0, let unit = milestone.unit else {
+            return nil
+        }
+        
+        let component: Calendar.Component
+        switch unit {
+        case .hour:
+            component = .hour
+        case .day:
+            component = .day
+        case .week:
+            component = .weekOfYear
+        case .month:
+            component = .month
+        case .year:
+            component = .year
+        }
+        
+        /// 农历目标日期按农历日历偏移，公历目标日期按公历日历偏移
+        guard let date = type.calendar.date(byAdding: component,
+                                            value: interval,
+                                            to: targetDate) else {
+            return nil
+        }
+        
+        let isLeapMonth = isLunar
+            ? (TPLunarDateHelper.lunarComponents(from: date)?.isLeapMonth ?? false)
+            : false
+        return CountdownDate(type: type, targetDate: date, isLeapMonth: isLeapMonth)
     }
 }
 

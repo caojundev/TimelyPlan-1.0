@@ -25,6 +25,7 @@ class CountdownReminderEditViewController: TPTableSectionsViewController {
         let sectionController = TaskReminderEditSectionController(date: self.targetDate,
                                                                   isAllDay: true,
                                                                   alarms: self.reminder.startAlarms)
+        sectionController.absolutePresetAlarmsCellItem.alarms = self.presetAlarms
         sectionController.headerItem.height = 0.0
         sectionController.canAddAlarm = { [weak self] in
             return self?.canAddNewAlarm() ?? false
@@ -40,6 +41,30 @@ class CountdownReminderEditViewController: TPTableSectionsViewController {
         
         return sectionController
     }()
+    
+    private var presetAlarms: [TaskAlarm] {
+        let alarmRawValues: [(daysBefore: Int, duration: Int)]
+        alarmRawValues = [(0, 9 * SECONDS_PER_HOUR),
+                          (0, 13 * SECONDS_PER_HOUR),
+                          (0, 18 * SECONDS_PER_HOUR),
+                          (1, 9 * SECONDS_PER_HOUR),
+                          (1, 18 * SECONDS_PER_HOUR),
+                          (1, 20 * SECONDS_PER_HOUR),
+                          (2, 9 * SECONDS_PER_HOUR),
+                          (3, 9 * SECONDS_PER_HOUR),
+                          (5, 9 * SECONDS_PER_HOUR),
+                          (7, 9 * SECONDS_PER_HOUR),
+                          (10,9 * SECONDS_PER_HOUR),
+                          (30,9 * SECONDS_PER_HOUR)]
+        
+        var alarms: [TaskAlarm] = []
+        for alarmRawValue in alarmRawValues {
+            let alarm = TaskAlarm(daysAbsolute: alarmRawValue)
+            alarms.append(alarm)
+        }
+        
+        return alarms
+    }
     
     /// 提醒对象
     private(set) var reminder: TaskReminder

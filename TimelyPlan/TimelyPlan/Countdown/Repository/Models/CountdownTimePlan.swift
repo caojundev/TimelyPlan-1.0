@@ -157,33 +157,7 @@ extension CountdownMilestone {
     /// - Parameter targetDate: 目标日期（包含日期类型：公历 / 农历）
     /// - Returns: 里程碑对应的公历日期，间隔或单位缺失时返回nil
     func date(before targetDate: CountdownDate) -> Date? {
-        guard let interval = interval, interval > 0, let unit = unit else {
-            return nil
-        }
-        
-        let component: Calendar.Component
-        switch unit {
-        case .hour:
-            component = .hour
-        case .day:
-            component = .day
-        case .week:
-            component = .weekOfYear
-        case .month:
-            component = .month
-        case .year:
-            component = .year
-        }
-        
-        /// 农历目标日期按农历日历偏移，公历目标日期按公历日历偏移
-        let calendar = targetDate.type.calendar
-        guard let date = calendar.date(byAdding: component,
-                                       value: -interval,
-                                       to: targetDate.targetDate) else {
-            return nil
-        }
-        
-        return TPLunarDateHelper.gregorianCalendar.startOfDay(for: date)
+        return targetDate.date(for: self)?.targetDate
     }
 }
 

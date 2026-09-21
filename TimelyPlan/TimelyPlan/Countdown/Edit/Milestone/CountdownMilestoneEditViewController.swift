@@ -19,7 +19,7 @@ class CountdownMilestoneEditViewController: TPTableSectionsViewController {
     
     /// 里程碑区块
     private lazy var milestoneSectionController: CountdownMilestoneEditSectionController = {
-        let sectionController = CountdownMilestoneEditSectionController(milestones: self.milestones)
+        let sectionController = CountdownMilestoneEditSectionController(milestones: self.milestones, date: self.date)
         sectionController.canAddMilestone = { [weak self] in
             return self?.canAddNewMilestone() ?? false
         }

@@ -28,12 +28,15 @@ extension CountdownMilestone {
     }
     
     /// 预设里程碑（按单位与间隔升序排列）
-    static let presets: [CountdownMilestone] = [CountdownMilestone(interval: 1, unit: .week),
+    static let presets: [CountdownMilestone] = [CountdownMilestone(interval: 100, unit: .day),
+                                                CountdownMilestone(interval: 1000, unit: .day),
+                                                CountdownMilestone(interval: 1, unit: .week),
                                                 CountdownMilestone(interval: 1, unit: .month),
                                                 CountdownMilestone(interval: 3, unit: .month),
                                                 CountdownMilestone(interval: 6, unit: .month),
                                                 CountdownMilestone(interval: 1, unit: .year),
-                                                CountdownMilestone(interval: 2, unit: .year)]
+                                                CountdownMilestone(interval: 2, unit: .year),
+                                                CountdownMilestone(interval: 3, unit: .year)]
 }
 
 // MARK: - 排序

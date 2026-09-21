@@ -46,7 +46,7 @@ class CountdownMilestoneEditSectionController: TPTableItemSectionController,
     
     /// 预设里程碑
     lazy var presetMilestonesCellItem: CountdownMilestonePresetListTableCellItem = {
-        let cellItem = CountdownMilestonePresetListTableCellItem()
+        let cellItem = CountdownMilestonePresetListTableCellItem(date: date)
         cellItem.milestones = CountdownMilestone.presets
         return cellItem
     }()
@@ -77,9 +77,11 @@ class CountdownMilestoneEditSectionController: TPTableItemSectionController,
         }
     }
     
-    init(milestones: [CountdownMilestone]?) {
+    let date: CountdownDate
+    
+    init(milestones: [CountdownMilestone]?, date: CountdownDate) {
         self.selection = TPMultipleItemSelection(items: milestones ?? [])
-        
+        self.date = date
         super.init()
         let headerItem = TPDefaultInfoTableHeaderFooterItem()
         headerItem.height = 0.0
@@ -88,7 +90,6 @@ class CountdownMilestoneEditSectionController: TPTableItemSectionController,
         self.selection.delegate = self
         self.milestonesCellItem.selection = self.selection
         self.presetMilestonesCellItem.selection = self.selection
-        
         self.cellItems = [self.milestonesCellItem,
                           self.presetMilestonesCellItem,
                           self.customCellItem]
@@ -134,8 +135,11 @@ class CountdownMilestoneItem: NSObject {
     /// 里程碑
     let milestone: CountdownMilestone
     
-    init(_ milestone: CountdownMilestone) {
+    var date: CountdownDate?
+    
+    init(_ milestone: CountdownMilestone, date: CountdownDate?) {
         self.milestone = milestone
+        self.date = date
         super.init()
     }
     
@@ -176,8 +180,10 @@ class CountdownMilestoneItem: NSObject {
 /// 里程碑集合视图单元格
 class CountdownMilestoneCollectionCell: TPDefaultInfoCollectionCell {
     
+    static let titleFont = UIFont.boldSystemFont(ofSize: 14.0)
+    
     /// 里程碑
-    var milestone: CountdownMilestone? {
+    var milestoneItem: CountdownMilestoneItem? {
         didSet {
             setNeedsLayout()
         }
@@ -185,10 +191,10 @@ class CountdownMilestoneCollectionCell: TPDefaultInfoCollectionCell {
     
     override func setupContentSubviews() {
         super.setupContentSubviews()
-        titleConfig.font = BOLD_SYSTEM_FONT
+        titleConfig.font = Self.titleFont
         titleConfig.textAlignment = .center
         titleConfig.selectedTextColor = .white
-        subtitleConfig.font = UIFont.boldSystemFont(ofSize: 10.0)
+        subtitleConfig.font = .systemFont(ofSize: 12.0, weight: .medium)
         subtitleConfig.textAlignment = .center
         subtitleConfig.selectedTextColor = .white
         scaleWhenHighlighted = false
@@ -206,8 +212,17 @@ class CountdownMilestoneCollectionCell: TPDefaultInfoCollectionCell {
     
     /// 更新标题
     func updateTitle() {
-        infoView.title = milestone?.title
-        infoView.subtitle = nil
+        guard let milestoneItem = milestoneItem else {
+            infoView.title = nil
+            infoView.subtitle = nil
+            return
+        }
+        
+        let milestone = milestoneItem.milestone
+        infoView.title = milestone.title
+        
+        let targetDate = milestoneItem.date?.date(for: milestone)
+        infoView.subtitle = targetDate?.displayText
     }
 }
 
@@ -248,6 +263,8 @@ class CountdownMilestoneListView: TPCollectionWrapperView,
         return style
     }()
     
+    var date: CountdownDate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         hideScrollIndicator()
@@ -274,13 +291,16 @@ class CountdownMilestoneListView: TPCollectionWrapperView,
             return nil
         }
         
-        return selection.selectedItems.sorted().map { CountdownMilestoneItem($0) }
+        return selection.selectedItems.sorted().map {
+            CountdownMilestoneItem($0, date: date)
+        }
     }
     
     // MARK: - CollectionListDelegate
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let titleFont = CountdownMilestoneCollectionCell.titleFont
         let item = adapter.item(at: indexPath) as! CountdownMilestoneItem
-        let titleWidth = item.milestone.title.width(with: BOLD_SYSTEM_FONT)
+        let titleWidth = item.milestone.title.width(with: titleFont)
         let width = titleWidth + itemPadding.horizontalLength
         return CGSize(width: max(width, minimumItemWidth), height: itemHeight)
     }
@@ -290,7 +310,7 @@ class CountdownMilestoneListView: TPCollectionWrapperView,
         cell.delegate = self
         cell.contentView.padding = itemPadding
         cell.cellStyle = cellStyle
-        cell.milestone = (adapter.item(at: indexPath) as? CountdownMilestoneItem)?.milestone
+        cell.milestoneItem = adapter.item(at: indexPath) as? CountdownMilestoneItem
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -323,6 +343,34 @@ class CountdownMilestoneListView: TPCollectionWrapperView,
     // MARK: - TPMultipleItemSelectionUpdater
     func multipleItemSelectionDidChange<T>(inserts: Set<T>?, deletes: Set<T>?) where T : Hashable {
         adapter.performUpdate()
+        
+        guard let selection = selection,
+              let milestones = inserts as? Set<CountdownMilestone>,
+              milestones.count == 1,
+              let milestone = milestones.first,
+              selection.isSelectedItem(mileStone) else {
+            return
+        }
+        
+        if let item = milestoneItem(for: milestone) {
+            adapter.scrollToItem(item,
+                                 at: .centeredHorizontally,
+                                 animated: true) { [weak self] _ in
+                self?.adapter.commitFocusAnimation(for: item)
+            }
+        }
+    }
+    
+    private func milestoneItem(for milestone: CountdownMilestone) -> CountdownMilestoneItem? {
+        guard let items = adapter.visibleItems as? [CountdownMilestoneItem] else {
+            return nil
+        }
+        
+        let result = items.first { item in
+            return item.milestone == milestone
+        }
+        
+        return result
     }
 }
 
@@ -476,7 +524,7 @@ class CountdownMilestonePresetListView: TPCollectionWrapperView,
             return
         }
         
-        cell.milestone = item.milestone
+        cell.milestoneItem = item
         cell.isDisabled = !isMilestoneEnabled(item.milestone)
     }
     
@@ -513,11 +561,11 @@ class CountdownMilestonePresetListView: TPCollectionWrapperView,
         
         if let cells = adapter.visibleCells as? [CountdownMilestoneCollectionCell] {
             for cell in cells {
-                guard let milestone = cell.milestone else {
+                guard let milestoneItem = cell.milestoneItem else {
                     continue
                 }
                 
-                cell.isDisabled = !isMilestoneEnabled(milestone)
+                cell.isDisabled = !isMilestoneEnabled(milestoneItem.milestone)
             }
         }
     }
@@ -550,11 +598,11 @@ class CountdownMilestonePresetListView: TPCollectionWrapperView,
 // MARK: - 预设里程碑单元格
 /// 预设里程碑单元格条目
 class CountdownMilestonePresetListTableCellItem: TPBaseTableCellItem {
-    
+
     /// 预设里程碑
     var milestones: [CountdownMilestone] = [] {
         didSet {
-            items = milestones.map { CountdownMilestoneItem($0) }
+            items = milestones.map { CountdownMilestoneItem($0, date: date) }
         }
     }
     
@@ -580,7 +628,10 @@ class CountdownMilestonePresetListTableCellItem: TPBaseTableCellItem {
         set { }
     }
     
-    override init() {
+    let date: CountdownDate
+    
+    init(date: CountdownDate) {
+        self.date = date
         super.init()
         registerClass = CountdownMilestonePresetListTableViewCell.self
         selectionStyle = .none
