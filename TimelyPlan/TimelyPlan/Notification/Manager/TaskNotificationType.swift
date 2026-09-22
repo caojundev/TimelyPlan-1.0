@@ -17,4 +17,5 @@ enum TaskNotificationType: String, Codable {
     case habit
     case focus
     case goal
+    case countdown
 }

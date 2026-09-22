@@ -235,7 +235,6 @@ extension NSManagedObject {
     ) {
         // 创建后台上下文执行查询，避免阻塞主线程
         let context = NSManagedObjectContext.context(withParent: .defaultContext)
-        
         context.perform {
             // 执行查询（可添加延迟用于测试异步行为）
             // Thread.sleep(forTimeInterval: 0.2)

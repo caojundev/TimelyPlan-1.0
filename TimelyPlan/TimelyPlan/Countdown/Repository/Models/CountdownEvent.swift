@@ -429,3 +429,12 @@ extension Array where Element == CountdownEvent {
         return self.map { $0.identifier }
     }
 }
+
+// MARK: - 倒数日事项变更
+
+/// 倒数日事项改变
+enum CountdownEventChange: Equatable {
+    
+    /// 内容（名称、日期、提醒、重复、显示方式等整体更新）
+    case content(oldValue: CountdownEditingEvent, newValue: CountdownEditingEvent)
+}

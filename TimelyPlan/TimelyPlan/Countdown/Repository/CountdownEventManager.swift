@@ -31,6 +31,13 @@ class CountdownEventManager {
         }
     }
     
+    /// 异步获取包含提醒的活动倒数日事项
+    func fetchNotifiableEvents(completion: @escaping([CountdownEvent]?) -> Void) {
+        CDCountdownEvent.fetchNotifiableEvents { results in
+            completion(results?.toEvents)
+        }
+    }
+    
     /// 按名称搜索活动倒数日事项
     func searchActiveEvents(containText text: String,
                             completion: @escaping([CountdownEvent]?) -> Void) {
@@ -91,10 +98,14 @@ class CountdownEventManager {
         }
         
         if let content = CDCountdownEvent.getEvent(withIdentifier: event.identifier) {
+            /// 更新前记录旧值，用于生成改变内容
+            let oldEditingEvent = event.editingEvent
             content.update(with: editingEvent)
             
             let updatedEvent = CountdownEvent(content: content)
-            updater.didUpdateCountdownEvent(updatedEvent, with: editingEvent)
+            let change: CountdownEventChange = .content(oldValue: oldEditingEvent,
+                                                        newValue: editingEvent)
+            updater.didUpdateCountdownEvent(updatedEvent, with: change)
             HandyRecord.updateChangeCount()
             return updatedEvent
         }

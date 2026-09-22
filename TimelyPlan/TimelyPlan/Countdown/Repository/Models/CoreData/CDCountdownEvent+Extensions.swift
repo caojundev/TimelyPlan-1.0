@@ -84,11 +84,18 @@ extension CDCountdownEvent {
     
     // MARK: - Predicate
     static var activeEventsPredicateCondition: PredicateCondition {
-        return (CountdownEventKey.isArchived, .notEqual(true))
+        return (CountdownEventKey.isArchived, .isFalse)
     }
     
     static var archivedEventsPredicateCondition: PredicateCondition {
         return (CountdownEventKey.isArchived, .isTrue)
+    }
+    
+    /// 包含提醒的活动倒数日事项
+    static var notifiableEventsPredicate: NSPredicate {
+        let conditions: [PredicateCondition] = [activeEventsPredicateCondition,
+                                                (CountdownEventKey.reminderJSON, .isNotEmpty)]
+        return conditions.andPredicate()
     }
     
     // MARK: - 异步获取
@@ -104,6 +111,15 @@ extension CDCountdownEvent {
     static func fetchArchivedEvents(completion: @escaping([CDCountdownEvent]?) -> Void) {
         let predicate = NSPredicate.predicate(with: archivedEventsPredicateCondition)
         CDCountdownEvent.fetchAll(matching: predicate,
+                                  sortBy: ElementOrderKey,
+                                  ascending: true) { results in
+            completion(results as? [CDCountdownEvent])
+        }
+    }
+    
+    /// 获取包含提醒的活动倒数日事项
+    static func fetchNotifiableEvents(completion: @escaping([CDCountdownEvent]?) -> Void) {
+        CDCountdownEvent.fetchAll(matching: notifiableEventsPredicate,
                                   sortBy: ElementOrderKey,
                                   ascending: true) { results in
             completion(results as? [CDCountdownEvent])

@@ -7,8 +7,8 @@
 
 import Foundation
 
-/// 倒数日事项变更
-enum CountdownEventChange {
+/// 倒数日事项列表变更（用于列表刷新时定位变化的事项）
+enum CountdownEventListChange {
     case create(CountdownEvent)
     case update(CountdownEvent)
 }
@@ -85,7 +85,7 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate,
     }
     
     /// 倒数日事项改变
-    var eventsDidChange: ((CountdownEventChange?) -> Void)?
+    var eventsDidChange: ((CountdownEventListChange?) -> Void)?
     
     /// 筛选类型
     var filterType: CountdownTypeFilterType = .all
@@ -117,7 +117,7 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate,
     }
     
     // MARK: - 加载数据
-    func loadEvents(with change: CountdownEventChange? = nil, completion: (() -> Void)? = nil) {
+    func loadEvents(with change: CountdownEventListChange? = nil, completion: (() -> Void)? = nil) {
         let change = change
         let requestID = requestManager.executeRequest()
         loadEventsIfNeeded { [weak self] events in
@@ -140,20 +140,22 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate,
     
     /// 按筛选类型过滤后的事项
     var filteredEvents: [CountdownEvent]? {
-        guard let events = events else {
-            return nil
-        }
-        
-        return events.filter { filterType.matches($0) }
+        return events
+//        guard let events = events else {
+//            return nil
+//        }
+//
+//        return events.filter { filterType.matches($0) }
     }
     
     /// 指定筛选类型对应的事项数目
     func numberOfEvents(for filterType: CountdownTypeFilterType) -> Int {
-        guard let events = events else {
-            return 0
-        }
-        
-        return events.filter { filterType.matches($0) }.count
+        return 0
+//        guard let events = events else {
+//            return 0
+//        }
+//
+//        return events.filter { filterType.matches($0) }.count
     }
     
     /// 更新筛选类型
@@ -223,7 +225,7 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate,
         loadEvents(with: .create(event))
     }
     
-    func didUpdateCountdownEvent(_ event: CountdownEvent, with editingEvent: CountdownEditingEvent) {
+    func didUpdateCountdownEvent(_ event: CountdownEvent, with change: CountdownEventChange) {
         setNeedsRefresh()
         loadEvents(with: .update(event))
     }

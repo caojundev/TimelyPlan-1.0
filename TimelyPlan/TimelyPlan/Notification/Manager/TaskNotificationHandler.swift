@@ -25,6 +25,8 @@ class TaskNotificationHandler: NotificationClickProcessor {
             processFocusNotificationClick(info)
         case .goal:
             processGoalNotificationClick(info)
+        case .countdown:
+            processCountdownNotificationClick(info)
         }
     }
     
@@ -67,6 +69,16 @@ class TaskNotificationHandler: NotificationClickProcessor {
         
         if let task = GoalRepository.getGoalTask(withIdentifier: identifier) {
             GoalPresenter.showActionViewController(for: task)
+        }
+    }
+    
+    func processCountdownNotificationClick(_ info: NotificationClickInfo) {
+        guard let identifier = info.userInfo[TaskNotificationKey.taskIdentifier] as? String else {
+            return
+        }
+        
+        if let event = CountdownRepository.getEvent(withIdentifier: identifier) {
+            CountdownPresenter.showDetail(for: event)
         }
     }
 }

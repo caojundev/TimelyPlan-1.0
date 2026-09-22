@@ -143,7 +143,7 @@ class CountdownEventListViewController: TPViewController,
     }
     
     /// 处理倒数日事项变更
-    private func eventsChanged(_ change: CountdownEventChange?) {
+    private func eventsChanged(_ change: CountdownEventListChange?) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return

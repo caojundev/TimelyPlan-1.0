@@ -90,6 +90,11 @@ class CountdownRepository {
         eventManager.fetchArchivedEvents(completion: completion)
     }
     
+    /// 异步获取包含提醒的活动倒数日事项
+    static func fetchNotifiableEvents(completion: @escaping ([CountdownEvent]?) -> Void) {
+        eventManager.fetchNotifiableEvents(completion: completion)
+    }
+    
     /// 异步搜索活动倒数日事项（按名称，不区分大小写）
     static func searchActiveEvents(containText text: String,
                                    completion: @escaping ([CountdownEvent]?) -> Void) {
