@@ -16,48 +16,34 @@ class CountdownDetailViewController: UIViewController {
         static let closeButtonSize = CGSize(width: 36.0, height: 36.0)
         /// 关闭按钮边界间距
         static let closeButtonMargins = UIEdgeInsets(top: 8.0, left: 16.0, bottom: 0.0, right: 0.0)
+        /// 更多按钮尺寸
+        static let moreButtonSize = CGSize(width: 36.0, height: 36.0)
+        /// 更多按钮边界间距
+        static let moreButtonMargins = UIEdgeInsets(top: 8.0, left: 0.0, bottom: 0.0, right: 16.0)
         /// 触发下滑关闭的最小距离
         static let dismissTranslationThreshold: CGFloat = 120.0
         /// 触发下滑关闭的最小速度
         static let dismissVelocityThreshold: CGFloat = 800.0
         /// 下滑过程中的最小透明度
         static let draggingMinimumAlpha: CGFloat = 0.5
-        /// 天数默认字号
-        static let daysFontSize: CGFloat = 120.0
-        /// 天数单位字号
-        static let daysUnitFont = UIFont.systemFont(ofSize: 20.0, weight: .medium)
-        /// 天数区域与屏幕两侧最小间距
-        static let daysHorizontalMargin: CGFloat = 24.0
-        /// 天数自适应最小缩放比例
-        static let daysMinimumScaleFactor: CGFloat = 0.34
-        /// 天数光晕呼吸动画的透明度范围
-        static let daysGlowMinOpacity: CGFloat = 0.3
-        static let daysGlowMaxOpacity: CGFloat = 0.7
-        /// 天数光晕呼吸周期
-        static let daysGlowAnimationDuration: CFTimeInterval = 1.5
         /// 入场动画时长与逐项延迟
         static let entryAnimationDuration: TimeInterval = 0.6
         static let entryAnimationDelayStep: TimeInterval = 0.05
     }
     
-    /// 动画键
-    private enum AnimationKey {
-        static let daysGlow = "daysGlowPulse"
-    }
-    
-    // MARK: - 数据
-    /// 倒数日事项
-    let event: CountdownEvent
+    // MARK: - 交互器
+    /// 倒数日事项交互器（提供最新事项并通知事项变更）
+    private let interactor: CountdownEventInteractor
     
     // MARK: - 视图
-    private let titleLabel = UILabel()
-    private let tipLabel = UILabel()
-    private let dateLabel = UILabel()
-    private let daysLabel = UILabel()
+    /// 内容视图（标题 / 提示 / 日期 / 天数）
+    private let contentView = CountdownDetailContentView()
     
-    /// 天数基础字体（宽度不足时由 adjustsFontSizeToFitWidth 缩放）
-    private let daysBaseFont = UIFont.monospacedDigitSystemFont(ofSize: Config.daysFontSize,
-                                                              weight: .black)
+    /// 入场动画元素（依次淡入，天数最后出现）
+    private var entryAnimationElements: [UIView] {
+        return [contentView.titleLabel, contentView.tipLabel, contentView.dateLabel,
+                closeButton, moreButton, contentView.daysLabel]
+    }
     
     private lazy var closeButton: TPImageButton = {
         let button = TPImageButton()
@@ -70,10 +56,21 @@ class CountdownDetailViewController: UIViewController {
         return button
     }()
     
+    private lazy var moreButton: TPImageButton = {
+        let button = TPImageButton()
+        button.normalImage = resGetImage("ellipsis_24")
+        button.imageSize = .mini
+        button.cornerRadius = .greatestFiniteMagnitude
+        button.normalImageColor = .white
+        button.normalBackgroundColor = UIColor.white.withAlphaComponent(0.15)
+        button.addTarget(self, action: #selector(clickMore(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var backgroundView: CountdownBackgroundView = {
         /// 背景渐变色根据事项颜色动态计算
         return CountdownBackgroundView(frame: view.bounds,
-                                       themeColor: event.color ?? event.type.color)
+                                       themeColor: interactor.event.color ?? interactor.event.type.color)
     }()
     
     /// 下滑关闭手势
@@ -88,8 +85,9 @@ class CountdownDetailViewController: UIViewController {
     
     // MARK: - 初始化
     init(event: CountdownEvent) {
-        self.event = event
+        self.interactor = CountdownEventInteractor(event: event)
         super.init(nibName: nil, bundle: nil)
+        configureInteractor()
     }
     
     required init?(coder: NSCoder) {
@@ -108,7 +106,7 @@ class CountdownDetailViewController: UIViewController {
         
         if hasPlayedEntryAnimation {
             /// 重新开始光晕呼吸，保证后台返回后动画仍在播放
-            startDaysGlowPulse()
+            contentView.startDaysGlowPulse()
         } else {
             /// 转场结束后再播放入场动画，避免被弹出转场覆盖
             animateEntryIfNeeded()
@@ -133,59 +131,28 @@ class CountdownDetailViewController: UIViewController {
             return
         }
         
-        startDaysGlowPulse()
+        contentView.startDaysGlowPulse()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         backgroundView.frame = view.bounds
-        layoutElements()
+        contentView.frame = view.bounds
+        layoutButtons()
     }
     
     // MARK: - UI
     private func setupUI() {
         view.addSubview(backgroundView)
-        view.addSubview(titleLabel)
-        view.addSubview(tipLabel)
-        view.addSubview(dateLabel)
-        view.addSubview(daysLabel)
+        view.addSubview(contentView)
         view.addSubview(closeButton)
+        view.addSubview(moreButton)
         
-        /// 事件颜色：用于天数光晕与单位文本
-        let color = event.color ?? event.type.color
-        
-        /// 标题：表情 + 名称
-        titleLabel.text = "\(event.emoji ?? event.type.emoji) \(event.displayName)"
-        titleLabel.textColor = .white
-        titleLabel.font = UIFont.systemFont(ofSize: 28.0, weight: .bold)
-        titleLabel.textAlignment = .center
-        
-        /// 提示：未到期为“距离目标还有”，已过期为“已经过去”
-        tipLabel.text = event.isExpired ? resGetString("Days Passed") : resGetString("Days Remaining")
-        tipLabel.textColor = .white
-        tipLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .medium)
-        tipLabel.textAlignment = .center
-        
-        /// 目标日期
-        dateLabel.text = event.occuranceDate.displayText
-        dateLabel.textColor = UIColor.white.withAlphaComponent(0.7)
-        dateLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .regular)
-        dateLabel.textAlignment = .center
-        
-        /// 天数：数值 + 单位组合为富文本，宽度不足时自动缩小字号
-        let days = abs(event.remainingDays)
-        daysLabel.attributedText = daysText(days: days, unitColor: color)
-        daysLabel.textAlignment = .center
-        daysLabel.numberOfLines = 1
-        daysLabel.adjustsFontSizeToFitWidth = true
-        daysLabel.minimumScaleFactor = Config.daysMinimumScaleFactor
-        daysLabel.layer.shadowColor = color.cgColor
-        daysLabel.layer.shadowRadius = 20.0
-        daysLabel.layer.shadowOpacity = 0.5
-        daysLabel.layer.shadowOffset = .zero
+        /// 内容：标题 / 提示 / 目标日期 / 天数
+        updateContent()
         
         /// 入场前隐藏，由入场动画显示
-        [titleLabel, tipLabel, dateLabel, daysLabel, closeButton].forEach {
+        entryAnimationElements.forEach {
             $0.alpha = 0.0
         }
         
@@ -193,21 +160,28 @@ class CountdownDetailViewController: UIViewController {
         view.addGestureRecognizer(dismissPanGesture)
     }
     
-    /// 天数文本（数值大字号 + 单位小字号，同一基线）
-    private func daysText(days: Int, unitColor: UIColor) -> NSAttributedString {
-        let text = NSMutableAttributedString(string: "\(days)",
-                                             attributes: [.font: daysBaseFont,
-                                                          .foregroundColor: UIColor.white])
-        let unit = " " + resGetString(days == 1 ? "Day" : "Days")
-        text.append(NSAttributedString(string: unit,
-                                       attributes: [.font: Config.daysUnitFont,
-                                                    .foregroundColor: unitColor.withAlphaComponent(0.8)]))
-        return text
+    // MARK: - 交互器
+    /// 配置交互器回调：事项改变刷新内容，事项删除则关闭当前视图
+    private func configureInteractor() {
+        interactor.onEventChange = { [weak self] _ in
+            self?.updateContent()
+        }
+        
+        interactor.onEventDeleted = { [weak self] in
+            self?.dismissDetail()
+        }
+    }
+    
+    /// 刷新内容视图与背景
+    private func updateContent() {
+        let event = interactor.event
+        contentView.apply(event: event)
+        backgroundView.apply(themeColor: event.color ?? event.type.color)
     }
     
     // MARK: - 布局
-    private func layoutElements() {
-        let width = view.bounds.width
+    /// 布局顶部按钮（内容视图内部自行布局标签）
+    private func layoutButtons() {
         let safeFrame = view.safeAreaLayoutGuide.layoutFrame
         
         /// 关闭按钮：左上角
@@ -215,31 +189,10 @@ class CountdownDetailViewController: UIViewController {
         closeButton.left = safeFrame.minX + Config.closeButtonMargins.left
         closeButton.top = safeFrame.minY + Config.closeButtonMargins.top
         
-        /// 天数：整体垂直居中，左右保留间距，超出宽度由 adjustsFontSizeToFitWidth 缩放
-        let daysHeight = ceil(daysBaseFont.lineHeight)
-        let daysTop = view.bounds.midY - daysHeight / 2.0
-        daysLabel.frame = CGRect(x: Config.daysHorizontalMargin,
-                                 y: daysTop,
-                                 width: max(0.0, width - Config.daysHorizontalMargin * 2.0),
-                                 height: daysHeight)
-        
-        /// 提示：位于天数上方
-        tipLabel.frame = CGRect(x: 0.0,
-                                y: daysTop - 30.0,
-                                width: width,
-                                height: 20.0)
-        
-        /// 标题：位于提示上方
-        titleLabel.frame = CGRect(x: 0.0,
-                                  y: tipLabel.frame.minY - 46.0,
-                                  width: width,
-                                  height: 34.0)
-        
-        /// 日期：位于天数下方
-        dateLabel.frame = CGRect(x: 0.0,
-                                 y: daysLabel.frame.maxY + 10.0,
-                                 width: width,
-                                 height: 20.0)
+        /// 更多按钮：右上角
+        moreButton.size = Config.moreButtonSize
+        moreButton.right = safeFrame.maxX - Config.moreButtonMargins.right
+        moreButton.top = safeFrame.minY + Config.moreButtonMargins.top
     }
     
     // MARK: - 动画
@@ -252,8 +205,7 @@ class CountdownDetailViewController: UIViewController {
         hasPlayedEntryAnimation = true
         
         /// 元素：自下而上淡入（天数最后出现）
-        let elements: [UIView] = [titleLabel, tipLabel, dateLabel, closeButton, daysLabel]
-        for (index, element) in elements.enumerated() {
+        for (index, element) in entryAnimationElements.enumerated() {
             element.transform = CGAffineTransform(translationX: 0.0, y: 20.0)
             UIView.animate(withDuration: Config.entryAnimationDuration,
                            delay: Config.entryAnimationDelayStep * Double(index),
@@ -266,23 +218,7 @@ class CountdownDetailViewController: UIViewController {
         }
         
         /// 天数光晕呼吸
-        startDaysGlowPulse(delay: Config.entryAnimationDuration)
-    }
-    
-    /// 天数光晕呼吸动画
-    private func startDaysGlowPulse(delay: TimeInterval = 0.0) {
-        daysLabel.layer.removeAnimation(forKey: AnimationKey.daysGlow)
-        
-        let pulse = CABasicAnimation(keyPath: "shadowOpacity")
-        pulse.fromValue = Config.daysGlowMinOpacity
-        pulse.toValue = Config.daysGlowMaxOpacity
-        pulse.duration = Config.daysGlowAnimationDuration
-        pulse.autoreverses = true
-        pulse.repeatCount = .infinity
-        pulse.beginTime = CACurrentMediaTime() + delay
-        pulse.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        
-        daysLabel.layer.add(pulse, forKey: AnimationKey.daysGlow)
+        contentView.startDaysGlowPulse(delay: Config.entryAnimationDuration)
     }
     
     // MARK: - Event Response
@@ -290,6 +226,28 @@ class CountdownDetailViewController: UIViewController {
     @objc private func clickClose(_ sender: UIButton) {
         TPImpactFeedback.impactWithSoftStyle()
         dismiss(animated: true, completion: nil)
+    }
+    
+    /// 更多操作：弹出事项菜单
+    @objc private func clickMore(_ sender: UIButton) {
+        TPImpactFeedback.impactWithSoftStyle()
+        
+        let menuController = CountdownEventMenuController(event: interactor.event)
+        menuController.didSelectMenuActionType = { [weak self] type in
+            self?.interactor.performMenuAction(type)
+        }
+        
+        let sourceRect = sender.bounds.insetBy(dx: -5.0, dy: -5.0)
+        menuController.showMenu(from: sender,
+                                sourceRect: sourceRect,
+                                isCovered: false)
+    }
+    
+    /// 关闭当前详情页（事项被删除时调用）
+    /// - Note: 删除确认弹窗等可能仍在显示，统一由其逐层关闭后再关闭详情页
+    private func dismissDetail() {
+        TPImpactFeedback.impactWithSoftStyle()
+        dismissAll(animated: true)
     }
     
     // MARK: - 下滑关闭手势

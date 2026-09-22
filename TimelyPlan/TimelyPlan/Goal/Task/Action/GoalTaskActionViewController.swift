@@ -153,7 +153,7 @@ class GoalTaskActionViewController: TPContainerViewController,
         }
         
         interactor.onTaskDeleted = { [weak self] in
-            self?.dismissIfPresented()
+            self?.dismissActionViewController()
         }
     }
     
@@ -224,19 +224,10 @@ class GoalTaskActionViewController: TPContainerViewController,
     }
     
     /// 关闭当前展示的视图控制器（任务被删除时调用）
-    private func dismissIfPresented() {
+    /// - Note: 删除确认弹窗等可能仍在显示，统一由其逐层关闭后再关闭详情页
+    private func dismissActionViewController() {
         TPImpactFeedback.impactWithSoftStyle()
-        guard presentedViewController == nil else {
-            dismiss(animated: true, completion: nil)
-            return
-        }
-        
-        guard let navigationController = self.navigationController,
-              navigationController.isBeingPresented || navigationController.presentingViewController != nil else {
-            return
-        }
-        
-        navigationController.dismiss(animated: true, completion: nil)
+        dismissAll(animated: true)
     }
 
     private func selectActionType(_ actionType: GoalTaskActionType) {
