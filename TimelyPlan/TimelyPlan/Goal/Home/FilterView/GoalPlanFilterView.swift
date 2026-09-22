@@ -95,7 +95,7 @@ class GoalPlanFilterView: TPCollectionWrapperView,
     var itemMargin: CGFloat = 10.0
     
     /// 条目高度
-    var itemHeight: CGFloat = 32.0
+    var itemHeight: CGFloat = 36.0
     
     private lazy var cellStyle: TPCollectionCellStyle = {
         let style = TPCollectionCellStyle()

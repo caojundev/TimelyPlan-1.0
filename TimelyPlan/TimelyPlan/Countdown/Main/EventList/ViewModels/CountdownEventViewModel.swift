@@ -140,22 +140,20 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate,
     
     /// 按筛选类型过滤后的事项
     var filteredEvents: [CountdownEvent]? {
-        return events
-//        guard let events = events else {
-//            return nil
-//        }
-//
-//        return events.filter { filterType.matches($0) }
+        guard let events = events else {
+            return nil
+        }
+
+        return events.filter { filterType.matches($0) }
     }
     
     /// 指定筛选类型对应的事项数目
     func numberOfEvents(for filterType: CountdownTypeFilterType) -> Int {
-        return 0
-//        guard let events = events else {
-//            return 0
-//        }
-//
-//        return events.filter { filterType.matches($0) }.count
+        guard let events = events else {
+            return 0
+        }
+
+        return events.filter { filterType.matches($0) }.count
     }
     
     /// 更新筛选类型

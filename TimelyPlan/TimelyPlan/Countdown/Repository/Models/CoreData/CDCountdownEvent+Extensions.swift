@@ -21,11 +21,6 @@ extension CDCountdownEvent: TPHexColorConvertible, SortableIdentifiable {
         return CountdownConfig.countdownEventDefaultColor
     }
     
-    /// 倒数日事项模型
-    var event: CountdownEvent {
-        return CountdownEvent(content: self)
-    }
-    
     // MARK: - 创建与更新
     /// 根据编辑事项创建新倒数日事项
     static func newEvent(with editingEvent: CountdownEditingEvent) -> CDCountdownEvent {
@@ -185,23 +180,26 @@ extension CDCountdownEvent {
 extension CountdownEvent {
     
     /// 根据 CoreData 倒数日事项创建模型
-    convenience init(content: CDCountdownEvent) {
-        /// targetDate 在实体中为非可选属性，这里做一次可选提升以兼容不同版本的代码生成结果
-        let targetDate = content.targetDate as Date? ?? Date().endOfDay()
+    convenience init?(content: CDCountdownEvent) {
+        guard let identifier = content.identifier, let targetDate = content.targetDate else {
+            return nil
+        }
+
         let eventType = CountdownEventType(rawValue: Int(content.eventType)) ?? .countdown
         let countingType = CountdownEvent.CountingType(rawValue: Int(content.countingType)) ?? .countdown
         let dateType = CountdownDateType(rawValue: Int(content.dateType)) ?? .gregorian
         let timeUnit = CountdownTimeUnit(rawValue: Int(content.timeUnit)) ?? .days
-        self.init(identifier: content.identifier ?? UUID().uuidString,
+        let date = CountdownDate(type: dateType,
+                                  targetDate: targetDate,
+                                  isLeapMonth: content.isLeapMonth)
+        self.init(identifier: identifier,
                   type: eventType,
                   countingType: countingType,
                   order: content.order,
                   name: content.name,
                   emoji: content.emoji,
                   colorHex: content.colorHex,
-                  date: CountdownDate(type: dateType,
-                                      targetDate: targetDate,
-                                      isLeapMonth: content.isLeapMonth),
+                  date: date,
                   includesStartDate: content.includesStartDate,
                   timeUnit: timeUnit,
                   note: content.note,
@@ -228,6 +226,6 @@ extension Array where Element == CDCountdownEvent {
     }
     
     var toEvents: [CountdownEvent] {
-        return self.map { CountdownEvent(content: $0) }
+        return self.compactMap { CountdownEvent(content: $0) }
     }
 }

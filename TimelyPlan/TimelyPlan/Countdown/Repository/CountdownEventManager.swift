@@ -83,7 +83,10 @@ class CountdownEventManager {
         let content = CDCountdownEvent.newEvent(with: editingEvent)
         content.order = CDCountdownEvent.maximumOrder + kOrderedStep
         
-        let event = CountdownEvent(content: content)
+        guard let event = CountdownEvent(content: content) else {
+            return nil
+        }
+        
         updater.didCreateCountdownEvent(event)
         HandyRecord.updateChangeCount()
         return event
@@ -102,12 +105,13 @@ class CountdownEventManager {
             let oldEditingEvent = event.editingEvent
             content.update(with: editingEvent)
             
-            let updatedEvent = CountdownEvent(content: content)
-            let change: CountdownEventChange = .content(oldValue: oldEditingEvent,
-                                                        newValue: editingEvent)
-            updater.didUpdateCountdownEvent(updatedEvent, with: change)
-            HandyRecord.updateChangeCount()
-            return updatedEvent
+            if let updatedEvent = CountdownEvent(content: content) {
+                let change: CountdownEventChange = .content(oldValue: oldEditingEvent,
+                                                            newValue: editingEvent)
+                updater.didUpdateCountdownEvent(updatedEvent, with: change)
+                HandyRecord.updateChangeCount()
+                return updatedEvent
+            }
         }
         
         return nil
@@ -137,11 +141,12 @@ class CountdownEventManager {
             /// 先同步落库再通知，保证归档后相关查询立即生效
             HandyRecord.saveSynchronously()
             
-            let updatedEvent = CountdownEvent(content: content)
-            if isArchived {
-                updater.didArchiveCountdownEvent(updatedEvent)
-            } else {
-                updater.didUnarchiveCountdownEvent(updatedEvent)
+            if let updatedEvent = CountdownEvent(content: content) {
+                if isArchived {
+                    updater.didArchiveCountdownEvent(updatedEvent)
+                } else {
+                    updater.didUnarchiveCountdownEvent(updatedEvent)
+                }
             }
         }
     }

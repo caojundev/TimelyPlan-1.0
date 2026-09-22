@@ -107,7 +107,7 @@ class CountdownEvent: NSObject,
         guard let json = reminderJSON else {
             return nil
         }
-        
+
         return TaskReminder.model(with: json)
     }()
     
@@ -119,7 +119,7 @@ class CountdownEvent: NSObject,
         if let json = timePlanJSON, let timePlan = CountdownTimePlan.model(with: json) {
             return timePlan
         }
-        
+
         return CountdownTimePlan(type: .none)
     }()
     
@@ -215,7 +215,6 @@ class CountdownEvent: NSObject,
     override var hash: Int {
         var hasher = Hasher()
         hasher.combine(identifier)
-        hasher.combine(targetDate)
         return hasher.finalize()
     }
     
@@ -233,7 +232,6 @@ class CountdownEvent: NSObject,
     override func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if let other = object as? CountdownEvent {
             return self.identifier == other.identifier
-                && self.targetDate == other.targetDate
         }
         
         return false
