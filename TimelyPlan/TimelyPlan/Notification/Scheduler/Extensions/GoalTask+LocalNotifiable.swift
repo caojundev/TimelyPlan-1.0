@@ -27,6 +27,8 @@ extension GoalTask: LocalNotifiable {
         let bodyFormat = resGetString("Goal Reminder at %@")
         let userInfo: [String: Any] = [TaskNotificationKey.taskType: TaskNotificationType.goal.rawValue,
                                        TaskNotificationKey.taskIdentifier: taskIdentifier]
+        let sound = GoalSetting.shared.sound?.toUNNotificationSound
+        
         var configs = [TaskNotificationConfig]()
         let planDates = nextPlanDates()
         for planDate in planDates {
@@ -45,7 +47,7 @@ extension GoalTask: LocalNotifiable {
                     title: title,
                     body: body,
                     triggerDate: alarmDate,
-                    sound: .default,
+                    sound: sound,
                     userInfo: userInfo
                 )
                 

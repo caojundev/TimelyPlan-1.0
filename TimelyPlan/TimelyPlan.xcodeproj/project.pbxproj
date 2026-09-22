@@ -501,6 +501,9 @@
 		E5291A9B30620DBA00017150 /* CountdownNotifiableEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9A30620DBA00017150 /* CountdownNotifiableEventProvider.swift */; };
 		E5291A9D30627CAE00017150 /* CountdownEventInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */; };
 		E5291A9F30627CE500017150 /* CountdownDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9E30627CE500017150 /* CountdownDetailContentView.swift */; };
+		E5291AA13062B6D000017150 /* CountdownState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291AA03062B6D000017150 /* CountdownState.swift */; };
+		E5291AA33062B6DF00017150 /* CountdownSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291AA23062B6DF00017150 /* CountdownSetting.swift */; };
+		E5291AA53062B6ED00017150 /* CountdownSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291AA43062B6ED00017150 /* CountdownSettingViewController.swift */; };
 		E529ACC52F7E0100000EA2F1 /* TodoSmartListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E529ACC32F7E00FF000EA2F1 /* TodoSmartListCell.swift */; };
 		E529ACC62F7E0100000EA2F1 /* TodoSmartListSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E529ACC42F7E00FF000EA2F1 /* TodoSmartListSectionController.swift */; };
 		E529ACCA2F7E0184000EA2F1 /* TodoSmartList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E529ACC92F7E0184000EA2F1 /* TodoSmartList.swift */; };
@@ -2890,6 +2893,9 @@
 		E5291A9A30620DBA00017150 /* CountdownNotifiableEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownNotifiableEventProvider.swift; sourceTree = "<group>"; };
 		E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventInteractor.swift; sourceTree = "<group>"; };
 		E5291A9E30627CE500017150 /* CountdownDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDetailContentView.swift; sourceTree = "<group>"; };
+		E5291AA03062B6D000017150 /* CountdownState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownState.swift; sourceTree = "<group>"; };
+		E5291AA23062B6DF00017150 /* CountdownSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownSetting.swift; sourceTree = "<group>"; };
+		E5291AA43062B6ED00017150 /* CountdownSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownSettingViewController.swift; sourceTree = "<group>"; };
 		E529ACC32F7E00FF000EA2F1 /* TodoSmartListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoSmartListCell.swift; sourceTree = "<group>"; };
 		E529ACC42F7E00FF000EA2F1 /* TodoSmartListSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoSmartListSectionController.swift; sourceTree = "<group>"; };
 		E529ACC92F7E0184000EA2F1 /* TodoSmartList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoSmartList.swift; sourceTree = "<group>"; };
@@ -7186,6 +7192,9 @@
 		E541DC3E3057E0D3008BFAE0 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				E5291AA03062B6D000017150 /* CountdownState.swift */,
+				E5291AA23062B6DF00017150 /* CountdownSetting.swift */,
+				E5291AA43062B6ED00017150 /* CountdownSettingViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -14099,6 +14108,7 @@
 				E5CFD25F2F585A4300A898CB /* HabitDatePeriodsView.swift in Sources */,
 				E5D7D9282D43933700EC877A /* FocusHomeUserTimerContentViewController.swift in Sources */,
 				E518507C300F9F7C00112DFC /* MyDayHabitTimelineCell.swift in Sources */,
+				E5291AA13062B6D000017150 /* CountdownState.swift in Sources */,
 				E5F155232F83681E00116091 /* TodoTaskSelectInfoView.swift in Sources */,
 				E541DC4B30582A7F008BFAE0 /* CountdownEventListView.swift in Sources */,
 				E5BB9E0A2D3BF0C70089667A /* String+Emoji.swift in Sources */,
@@ -14419,6 +14429,7 @@
 				E5BB9E0E2D3BF0C70089667A /* CALayer+Extensions.swift in Sources */,
 				E51E5F70303561FD00ACF30C /* IAPFeature.swift in Sources */,
 				E5BB9B422D3BEF920089667A /* CGPointExtension.swift in Sources */,
+				E5291AA53062B6ED00017150 /* CountdownSettingViewController.swift in Sources */,
 				E50FF8AC2F78CFDF00B8F5BE /* TPGroupCollectionView.swift in Sources */,
 				E53632862FAB72C00095DFEC /* QuadrantFilterRuleEditViewController.swift in Sources */,
 				E53DCEED2F61AD7600ADA526 /* HabitDaySheetMenuViewController.swift in Sources */,
@@ -15085,6 +15096,7 @@
 				E5BB9DD32D3BF0C60089667A /* UIImage+Extensions.swift in Sources */,
 				E56A7BE92FFCE9400068410D /* CalendarWeekMonthExpandView.swift in Sources */,
 				E505A14E2DA7717F00595B5D /* Date+Year.swift in Sources */,
+				E5291AA33062B6DF00017150 /* CountdownSetting.swift in Sources */,
 				E57AA1182F92105200C4D346 /* TodoUserTagViewModel.swift in Sources */,
 				E51F940C3000D0C200734910 /* CalendarEventListView.swift in Sources */,
 				E51A4C292DC25B24005A0E3F /* CalendarMode.swift in Sources */,

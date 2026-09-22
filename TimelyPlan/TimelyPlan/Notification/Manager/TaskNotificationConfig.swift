@@ -29,7 +29,7 @@ class TaskNotificationConfig {
         self.title = title
         self.body = body
         self.triggerDate = triggerDate
-        self.sound = sound
+        self.sound = sound ?? .default
         self.badge = badge
         self.userInfo = userInfo
     }

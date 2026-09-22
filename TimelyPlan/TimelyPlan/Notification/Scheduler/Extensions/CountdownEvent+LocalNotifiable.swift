@@ -26,6 +26,8 @@ extension CountdownEvent: LocalNotifiable {
         let title = displayName
         let userInfo: [String: Any] = [TaskNotificationKey.taskType: TaskNotificationType.countdown.rawValue,
                                        TaskNotificationKey.taskIdentifier: taskIdentifier]
+        let sound = CountdownSetting.shared.sound?.toUNNotificationSound
+
         var configs = [TaskNotificationConfig]()
         let planDates = nextOccurrenceDates()
         for planDate in planDates {
@@ -44,7 +46,7 @@ extension CountdownEvent: LocalNotifiable {
                     title: title,
                     body: body,
                     triggerDate: alarmDate,
-                    sound: .default,
+                    sound: sound,
                     userInfo: userInfo
                 )
                 

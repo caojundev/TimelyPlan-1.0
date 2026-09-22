@@ -12,15 +12,18 @@ import UIKit
 enum CountdownMoreMenuType: Int, TPMenuRepresentable {
     case layout   /// 切换布局
     case archived /// 已归档
+    case settings /// 设置
     
     static func titles() -> [String] {
-        return ["Layout", "Archived"]
+        return ["Layout", "Archived", "Settings"]
     }
     
     var iconName: String? {
         switch self {
         case .archived:
             return "archivedList_24"
+        case .settings:
+            return "gear_24"
         case .layout:
             return nil
         }
@@ -35,7 +38,8 @@ class CountdownMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<CountdownMoreMenuT
     override func menuItems() -> [TPMenuItem] {
         let archivedCount = CountdownRepository.numberOfArchivedEvents()
         let typeLists: [Array<CountdownMoreMenuType>] = [[.layout],
-                                                         [.archived]]
+                                                         [.archived],
+                                                         [.settings]]
         let items = TPMenuItem.items(with: typeLists) { [weak self] type, action in
             self?.updateMenuAction(action,
                                    for: type,
@@ -57,6 +61,8 @@ class CountdownMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<CountdownMoreMenuT
             action.handleBeforeDismiss = true
             action.subtitle = layoutType.title
             action.image = resGetImage(layoutType.iconName)
+        case .settings:
+            break
         }
     }
     

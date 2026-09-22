@@ -13,7 +13,7 @@ class CountdownPresenter {
     /// 显示倒数日事项详情
     static func showDetail(for event: CountdownEvent) {
         let vc = CountdownDetailViewController(event: event)
-        vc.modalPresentationStyle = .fullScreen
+        vc.modalPresentationStyle = .overFullScreen
         vc.show()
     }
     
@@ -47,6 +47,12 @@ class CountdownPresenter {
     /// 显示已归档倒数日事项
     static func showArchived() {
         let vc = CountdownArchivedViewController()
+        vc.showAsNavigationRoot()
+    }
+    
+    /// 显示设置
+    static func showSetting() {
+        let vc = CountdownSettingViewController()
         vc.showAsNavigationRoot()
     }
     

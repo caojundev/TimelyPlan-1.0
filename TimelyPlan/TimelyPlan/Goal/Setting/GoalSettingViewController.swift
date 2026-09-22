@@ -17,7 +17,6 @@ class GoalSettingViewController: BaseSettingViewController {
          return sectionController
      }()
     
-    
     // MARK: - 日历
     
     lazy var calendarSectionController: CalendarGoalSettingSectionController = {
@@ -79,7 +78,7 @@ class GoalSettingViewController: BaseSettingViewController {
         cellItem.height = defaultCellHeight
         cellItem.title = resGetString("Notification Sound")
         cellItem.updater = {
-            let name = NotificationSound.displayName(of: HabitSetting.shared.sound)
+            let name = NotificationSound.displayName(of: GoalSetting.shared.sound)
             self?.soundCellItem.valueConfig = .valueText(name)
         }
         
@@ -108,10 +107,10 @@ class GoalSettingViewController: BaseSettingViewController {
      }
     
     private func editSound() {
-        let vc = NotificationSoundSelectViewController(sound: HabitSetting.shared.sound)
+        let vc = NotificationSoundSelectViewController(sound: GoalSetting.shared.sound)
         vc.completion = { sound in
-            if HabitSetting.shared.sound != sound {
-                HabitSetting.shared.sound = sound
+            if GoalSetting.shared.sound != sound {
+                GoalSetting.shared.sound = sound
                 self.adapter.reloadCell(forItem: self.soundCellItem, with: .none)
             }
         }

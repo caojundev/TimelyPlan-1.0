@@ -110,7 +110,7 @@ extension CountdownEventType {
 }
 
 /// 倒数日事项布局类型
-enum CountdownLayoutType: Int, CaseIterable {
+enum CountdownLayoutType: Int, Codable, CaseIterable {
     
     /// 列表
     case list = 0

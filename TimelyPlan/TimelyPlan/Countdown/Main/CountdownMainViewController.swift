@@ -33,8 +33,16 @@ class CountdownMainViewController: TPContainerViewController,
         return item
     }()
     
-    /// 当前布局类型
-    private var layoutType: CountdownLayoutType = .list
+    /// 当前布局类型（存储于 CountdownState）
+    private var layoutType: CountdownLayoutType {
+        get {
+            return CountdownState.shared.layoutType
+        }
+        
+        set {
+            CountdownState.shared.layoutType = newValue
+        }
+    }
     
     /// 搜索栏
     lazy var searchBar: UISearchBar = {
@@ -165,6 +173,9 @@ class CountdownMainViewController: TPContainerViewController,
             toggleLayout()
         case .archived:
             CountdownPresenter.showArchived()
+            break
+        case .settings:
+            CountdownPresenter.showSetting()
             break
         }
     }
