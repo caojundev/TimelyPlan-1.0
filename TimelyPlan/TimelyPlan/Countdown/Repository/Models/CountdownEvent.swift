@@ -82,7 +82,12 @@ class CountdownEvent: NSObject,
     var colorHex: String?
     
     /// 倒数日日期（日期类型 + 日期 + 闰月）
-    var date: CountdownDate
+    var date: CountdownDate {
+        didSet {
+            /// 日期变化后需重新推算下一个发生日
+            cachedOccuranceDate = nil
+        }
+    }
     
     /// 正数计数是否包含选中日期当天（+1）
     var includesStartDate: Bool
@@ -184,13 +189,27 @@ class CountdownEvent: NSObject,
     }
     
     /// 相对于当前日期的下一个发生日（不重复时即为目标日期）
+    ///
+    /// 交叉历法（尤其农历按年 / 按月重复）的推算是高开销计算（内部会遍历整个农历年），
+    /// 而列表在渲染、单元格复用与多次刷新时会重复读取同一事项，因此这里对结果做一次缓存，
+    /// 避免重复推算；`date` 变化时会自动失效。
     var occuranceDate: CountdownDate {
-        guard let nextDate = timePlan.nextPlanDate(from: Date(), startDate: date) else {
-            return date
+        let today = Date().startOfDay()
+        if let cachedOccuranceDate = cachedOccuranceDate, cachedOccuranceDay == today {
+            return cachedOccuranceDate
         }
         
-        return nextDate
+        let occuranceDate = timePlan.nextPlanDate(from: Date(), startDate: date) ?? date
+        cachedOccuranceDate = occuranceDate
+        cachedOccuranceDay = today
+        return occuranceDate
     }
+    
+    /// 下一个发生日缓存（`date` 变化时失效）
+    private var cachedOccuranceDate: CountdownDate?
+    
+    /// 发生日缓存对应的日期（跨天时失效）
+    private var cachedOccuranceDay: Date?
     
     /// 距离下一个发生日的天数（正数为剩余天数，负数为已经过去的天数）
     var remainingDays: Int {

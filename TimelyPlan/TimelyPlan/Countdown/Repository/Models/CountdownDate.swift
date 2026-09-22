@@ -159,6 +159,12 @@ enum TPLunarDateHelper {
     /// 公历日历
     static let gregorianCalendar = Calendar(identifier: .gregorian)
     
+    /// 农历新年缓存（key：公历年份）
+    private static let lunarNewYearCache = TPLunarValueCache<Date>()
+    
+    /// 农历年月份缓存（key：公历年份）
+    private static let lunarMonthsCache = TPLunarValueCache<[TPLunarMonth]>()
+    
     /// 农历日名称
     static let lunarDayNames = ["初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十",
                                 "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十",
@@ -183,6 +189,10 @@ enum TPLunarDateHelper {
     /// 农历新年（正月初一）对应的公历日期
     /// - Parameter gregorianYear: 农历年所在的公历年份
     static func lunarNewYear(gregorianYear: Int) -> Date? {
+        if let cached = lunarNewYearCache.value(forKey: gregorianYear) {
+            return cached
+        }
+        
         var components = DateComponents()
         components.year = gregorianYear
         components.month = 1
@@ -195,6 +205,7 @@ enum TPLunarDateHelper {
         var date = gregorianCalendar.startOfDay(for: firstDay)
         for _ in 0..<60 {
             if isLunarNewYear(date) {
+                lunarNewYearCache.setValue(date, forKey: gregorianYear)
                 return date
             }
             
@@ -217,46 +228,69 @@ enum TPLunarDateHelper {
     
     /// 指定农历年（以对应公历年份表示）的月份列表（包含闰月）
     static func months(ofLunarYear year: Int) -> [TPLunarMonth] {
+        if let cached = lunarMonthsCache.value(forKey: year) {
+            return cached
+        }
+        
         guard let startDate = lunarNewYear(gregorianYear: year),
               let endDate = lunarNewYear(gregorianYear: year + 1) else {
             return []
         }
         
+        /// 农历月只有 29（小月）或 30（大月）天，因此按「月」推进即可，
+        /// 无需逐日遍历整年（约 354 次历法换算 → 约 13 次）。
         var results = [TPLunarMonth]()
-        var currentMonth: Int?
-        var currentIsLeapMonth = false
-        var numberOfDays = 0
-        
-        var date: Date? = startDate
-        while let day = date, day < endDate {
-            let components = chineseCalendar.dateComponents([.month, .day], from: day)
-            let month = components.month ?? 1
-            let isLeapMonth = components.isLeapMonth ?? false
-            
-            if currentMonth == month, currentIsLeapMonth == isLeapMonth {
-                numberOfDays += 1
-            } else {
-                if let currentMonth = currentMonth {
-                    results.append(TPLunarMonth(month: currentMonth,
-                                                isLeapMonth: currentIsLeapMonth,
-                                                numberOfDays: numberOfDays))
-                }
-                
-                currentMonth = month
-                currentIsLeapMonth = isLeapMonth
-                numberOfDays = 1
+        var monthStart = startDate
+        while monthStart < endDate {
+            let components = chineseCalendar.dateComponents([.month, .day], from: monthStart)
+            guard let numberOfDays = lunarMonthLength(from: monthStart) else {
+                break
             }
             
-            date = day.dateByAddingDays(1)
+            results.append(TPLunarMonth(month: components.month ?? 1,
+                                        isLeapMonth: components.isLeapMonth ?? false,
+                                        numberOfDays: numberOfDays))
+            
+            guard let nextMonthStart = monthStart.dateByAddingDays(numberOfDays) else {
+                break
+            }
+            
+            monthStart = nextMonthStart
         }
         
-        if let currentMonth = currentMonth {
-            results.append(TPLunarMonth(month: currentMonth,
-                                        isLeapMonth: currentIsLeapMonth,
-                                        numberOfDays: numberOfDays))
+        if results.count > 0 {
+            lunarMonthsCache.setValue(results, forKey: year)
         }
         
         return results
+    }
+    
+    /// 农历月的天数（29 或 30）
+    /// - Parameter monthStart: 该农历月的初一
+    /// - Note: 小月的第 29 天、大月的第 30 天即为下月初一，最多两次历法换算即可确定
+    static func lunarMonthLength(from monthStart: Date) -> Int? {
+        for numberOfDays in [29, 30] {
+            guard let nextMonthStart = monthStart.dateByAddingDays(numberOfDays) else {
+                continue
+            }
+            
+            if chineseCalendar.dateComponents([.day], from: nextMonthStart).day == 1 {
+                return numberOfDays
+            }
+        }
+        
+        return nil
+    }
+    
+    /// 指定日期所在农历月的天数（29 或 30）
+    static func lunarMonthLength(containing date: Date) -> Int? {
+        guard let components = lunarComponents(from: date) else {
+            return nil
+        }
+        
+        return months(ofLunarYear: components.year).first {
+            $0.month == components.month && $0.isLeapMonth == components.isLeapMonth
+        }?.numberOfDays
     }
     
     /// 农历日期转公历日期
@@ -302,5 +336,27 @@ enum TPLunarDateHelper {
         }
         
         return (lunarYear, month, day, components.isLeapMonth ?? false)
+    }
+}
+
+/// 农历换算结果缓存（按公历年份缓存，线程安全）
+///
+/// 农历换算需要逐日遍历历法（如推算农历新年最多遍历 60 天、统计某农历年各月天数需遍历约 354 天），
+/// 列表里同一批事项通常落在少数几个年份上，缓存后可将「每事项一次」的遍历降为「每年份一次」。
+private final class TPLunarValueCache<Value> {
+    
+    private let lock = NSLock()
+    private var storage: [Int: Value] = [:]
+    
+    func value(forKey key: Int) -> Value? {
+        lock.lock()
+        defer { lock.unlock() }
+        return storage[key]
+    }
+    
+    func setValue(_ value: Value, forKey key: Int) {
+        lock.lock()
+        defer { lock.unlock() }
+        storage[key] = value
     }
 }

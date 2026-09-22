@@ -273,31 +273,37 @@ extension TaskTimePlanRegularRule {
         let targetDays = (daysOfTheMonth?.isEmpty ?? true) ? [targetComponents.day] : daysOfTheMonth!
         
         let calendar = TPLunarDateHelper.gregorianCalendar
-        let chineseCalendar = TPLunarDateHelper.chineseCalendar
         
-        /// 农历一个月最多 30 天，最多向后遍历两个月即可覆盖
+        /// 农历月只有 29 / 30 天，直接由「当前农历日 + 当月天数」定位目标日，
+        /// 最多看「当月 + 次月」即可覆盖（原先需逐日扫描最多 70 天）。
         var candidate = calendar.startOfDay(for: date)
-        for _ in 0..<70 {
-            guard let lunarDay = chineseCalendar.dateComponents([.day], from: candidate).day else {
+        for _ in 0..<2 {
+            guard let current = TPLunarDateHelper.lunarComponents(from: candidate),
+                  let daysInMonth = TPLunarDateHelper.lunarMonthLength(containing: candidate) else {
                 return nil
             }
             
-            if targetDays.contains(lunarDay) {
-                return candidate
-            }
+            /// 目标农历日：-1 取当月最后一天，超出当月天数时收敛到当月最后一天
+            let resolvedDays = targetDays.map { $0 == -1 ? daysInMonth : min($0, daysInMonth) }.sorted()
             
-            guard let nextDay = calendar.date(byAdding: .day, value: 1, to: candidate) else {
-                return nil
+            /// 当月仍有不早于当前农历日的目标日（含当天）
+            if let targetDay = resolvedDays.first(where: { $0 >= current.day }) {
+                return calendar.date(byAdding: .day, value: targetDay - current.day, to: candidate)
             }
             
             /// 当月不存在目标日时，与公历逻辑保持一致，落在当月最后一天
-            let isLastDayOfLunarMonth = chineseCalendar.dateComponents([.day], from: nextDay).day == 1
-            if isLastDayOfLunarMonth,
-               targetDays.contains(-1) || targetDays.contains(where: { $0 > lunarDay }) {
-                return candidate
+            if targetDays.contains(-1) || targetDays.contains(where: { $0 > current.day }) {
+                return calendar.date(byAdding: .day, value: daysInMonth - current.day, to: candidate)
             }
             
-            candidate = nextDay
+            /// 进入下一个月
+            guard let nextMonthStart = calendar.date(byAdding: .day,
+                                                     value: daysInMonth - current.day + 1,
+                                                     to: candidate) else {
+                return nil
+            }
+            
+            candidate = nextMonthStart
         }
         
         return nil
