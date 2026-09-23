@@ -26,24 +26,21 @@ extension CountdownEvent {
         }
         
         /// 过滤基准日期
-        /// - 正数事项：目标日期在过去，丢弃目标日期之前和今天之后的日期
+        /// - 正数事项：目标日期在过去，今天显示
         /// - 倒数事项：目标日期在未来，丢弃今天之前的日期
-        var referenceRange: DateInterval?
+        let referenceRange: DateInterval
         switch effectiveCountingType {
         case .countUp:
-            let start = date.targetDate.startOfDay()
-            let end = Date().endOfDay()
-            if start < end {
-                referenceRange = DateInterval(start: start, end: end)
-            }
+            let start = Date().startOfDay()
+            let end = start.endOfDay()
+            referenceRange = DateInterval(start: start, end: end)
         case .countdown:
             referenceRange = DateInterval(start: Date().startOfDay(),
                                           end: .distantFuture)
         }
         
         /// 先按基准日期收缩查询区间，避免对基准日之前的日期做无效的窗口计算
-        guard let referenceRange = referenceRange,
-                let displayRange = referenceRange.intersection(with: range) else {
+        guard let displayRange = referenceRange.intersection(with: range) else {
             return nil
         }
 
@@ -74,21 +71,6 @@ extension CountdownEvent {
         return dayOccurrences.sorted { $0.key < $1.key }.map {
             calendarEvent(on: $0.key, occurrence: $0.value)
         }
-    }
-    
-    /// 动态计算的生效计数类型
-    ///
-    /// 与编辑页的显隐条件保持一致（`CountdownGeneralEditSectionController.showsCountingTypeCellItem`）：
-    /// 仅「目标日期已过去 + 存在重复规则」时，用户设置的 `countingType` 才有效；
-    /// 其余情况（未来日期、或不重复）该属性会被忽略，统一按倒数（`countdown`）处理。
-    var effectiveCountingType: CountingType {
-        let isPastDate = date.targetDate < Date().startOfDay()
-        let hasRepeat = timePlan.type != nil && timePlan.type != CountdownTimePlanType.none
-        guard isPastDate, hasRepeat else {
-            return isPastDate ? .countUp : .countdown
-        }
-        
-        return countingType
     }
     
     // MARK: - Helpers
@@ -232,10 +214,15 @@ extension CountdownEvent {
     /// - 正数事项：`已过x天`
     /// - Returns: 无有效差值时返回 `nil`
     private func relativeDateDescription(on day: Date, occurrence: Date) -> String? {
-        switch effectiveCountingType {
+        let countingType = effectiveCountingType
+        let days = CountdownCalculator.days(referenceDate: day,
+                                            targetDate: occurrence,
+                                            countingType: countingType,
+                                            includeStartDate: includesStartDate)
+
+        switch countingType {
         case .countdown:
             /// 距离发生日的剩余天数
-            let days = Date.days(fromDate: day, toDate: occurrence)
             guard days >= 0 else {
                 return nil
             }
@@ -250,13 +237,7 @@ extension CountdownEvent {
             
             return String(format: resGetString("%@ later"), days.dayCountString)
         case .countUp:
-            /// 距离起始日已经过去的天数
-            let days = Date.days(fromDate: occurrence, toDate: day)
-            guard days >= 0 else {
-                return nil
-            }
-            
-            if days == 0 {
+            if day.isInSameDayAs(occurrence) {
                 return resGetString("Today")
             }
             

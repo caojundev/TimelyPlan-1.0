@@ -213,7 +213,10 @@ class CountdownEvent: NSObject,
     
     /// 距离下一个发生日的天数（正数为剩余天数，负数为已经过去的天数）
     var remainingDays: Int {
-        return Date.days(fromDate: Date(), toDate: occuranceDate.targetDate)
+        return CountdownCalculator.days(referenceDate: .now,
+                                        targetDate: occuranceDate.targetDate,
+                                        countingType: effectiveCountingType,
+                                        includeStartDate: includesStartDate)
     }
     
     /// 目标日期是否已经过去
@@ -255,6 +258,24 @@ class CountdownEvent: NSObject,
         
         return false
     }
+    
+    // MARK: - Getters
+    
+    /// 动态计算的生效计数类型
+    ///
+    /// 与编辑页的显隐条件保持一致（`CountdownGeneralEditSectionController.showsCountingTypeCellItem`）：
+    /// 仅「目标日期已过去 + 存在重复规则」时，用户设置的 `countingType` 才有效；
+    /// 其余情况（未来日期、或不重复）该属性会被忽略，统一按倒数（`countdown`）处理。
+    var effectiveCountingType: CountingType {
+        let isPastDate = date.targetDate < Date().startOfDay()
+        let hasRepeat = timePlan.type != nil && timePlan.type != CountdownTimePlanType.none
+        guard isPastDate, hasRepeat else {
+            return isPastDate ? .countUp : .countdown
+        }
+        
+        return countingType
+    }
+    
 }
 
 extension CountdownEvent {
