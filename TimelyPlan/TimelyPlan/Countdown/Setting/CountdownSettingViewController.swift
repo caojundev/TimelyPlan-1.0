@@ -33,11 +33,11 @@ class CountdownSettingViewController: BaseSettingViewController {
         cellItem.height = defaultCellHeight
         cellItem.title = resGetString("Show in My Day")
         cellItem.updater = {
-            self?.showInMyDayCellItem.isOn = CountdownSetting.shared.showInMyDay
+            self?.showInMyDayCellItem.isOn = MyDaySetting.shared.showCountdown
         }
         
         cellItem.valueChanged = { isOn in
-            CountdownSetting.shared.showInMyDay = isOn
+            MyDaySetting.shared.showCountdown = isOn
         }
         
         return cellItem

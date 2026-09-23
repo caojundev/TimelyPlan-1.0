@@ -10,17 +10,12 @@ import Foundation
 class CountdownSetting {
     
     enum Key: String, SettingKeyRepresentable {
-        case showInMyDay    /// 在我的一天显示
         case sound          /// 通知声音
         
         static func keyPrefix() -> String? {
             return "CountdownSetting"
         }
     }
-    
-    /// 在我的一天显示
-    @CloudStored(key: Key.showInMyDay.name, defaultValue: true)
-    var showInMyDay: Bool
     
     /// 通知声音
     @CloudStored(key: Key.sound.name, defaultValue: nil)

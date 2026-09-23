@@ -165,13 +165,30 @@ class MyDaySettingViewController: BaseSettingViewController {
         return cellItem
     }()
     
+    /// 显示倒数日
+    lazy var showCountdownCellItem: TPSwitchTableCellItem = { [weak self] in
+        let cellItem = TPSwitchTableCellItem()
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Show Countdown")
+        cellItem.updater = {
+            self?.showCountdownCellItem.isOn = MyDaySetting.shared.showCountdown
+        }
+
+        cellItem.valueChanged = { isOn in
+            MyDaySetting.shared.showCountdown = isOn
+        }
+
+        return cellItem
+    }()
+    
     lazy var showSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = normalHeaderHeight
         sectionController.cellItems = [showTodoCellItem,
                                        showGoalCellItem,
                                        showHabitCellItem,
-                                       showFocusCellItem]
+                                       showFocusCellItem,
+                                       showCountdownCellItem]
         return sectionController
     }()
     
