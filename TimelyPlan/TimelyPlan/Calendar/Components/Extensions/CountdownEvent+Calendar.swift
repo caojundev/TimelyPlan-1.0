@@ -9,6 +9,16 @@ import Foundation
 
 extension CountdownEvent {
 
+    /// 日历显示窗口及其对应的发生日
+    private struct DisplayWindow {
+        
+        /// 窗口日期区间
+        let interval: DateInterval
+        
+        /// 标题参考日期（倒数取发生日、正数取起始日）
+        let occurrence: Date
+    }
+
     /// 日历事件（按 `calendarDisplayMode` 决定在区间内需要显示的天数）
     func calendarEvents(in range: DateInterval) -> [CalendarEvent]? {
         guard calendarDisplayMode != .none else {
@@ -34,24 +44,33 @@ extension CountdownEvent {
         
         let displayRange = DateInterval(start: startDate, end: range.end)
         
-        /// 汇总显示窗口与收缩后区间相交的每一天（均不早于基准日期）
-        var days = Set<Date>()
+        /// 汇总每一天及其对应的发生日（均不早于基准日期），后续直接用两者计算标题
+        var dayOccurrences = [Date: Date]()
         for window in displayWindows(in: displayRange) {
-            guard let clipped = window.intersection(with: displayRange) else {
+            guard let clipped = window.interval.intersection(with: displayRange) else {
                 continue
             }
             
             clipped.enumerateDays { date in
-                days.insert(date.startOfDay())
+                let day = date.startOfDay()
+                /// 同一天可能落在多个窗口内，取最近（最早）的发生日
+                if let occurrence = dayOccurrences[day] {
+                    dayOccurrences[day] = min(occurrence, window.occurrence)
+                } else {
+                    dayOccurrences[day] = window.occurrence
+                }
+                
                 return true
             }
         }
         
-        guard days.count > 0 else {
+        guard dayOccurrences.count > 0 else {
             return nil
         }
         
-        return days.sorted().map { calendarEvent(on: $0) }
+        return dayOccurrences.sorted { $0.key < $1.key }.map {
+            calendarEvent(on: $0.key, occurrence: $0.value)
+        }
     }
     
     /// 动态计算的生效计数类型
@@ -63,7 +82,7 @@ extension CountdownEvent {
         let isPastDate = date.targetDate < Date().startOfDay()
         let hasRepeat = timePlan.type != nil && timePlan.type != CountdownTimePlanType.none
         guard isPastDate, hasRepeat else {
-            return .countdown
+            return isPastDate ? .countUp : .countdown
         }
         
         return countingType
@@ -71,16 +90,17 @@ extension CountdownEvent {
     
     // MARK: - Helpers
     /// 日历显示窗口
-    private func displayWindows(in range: DateInterval) -> [DateInterval] {
+    private func displayWindows(in range: DateInterval) -> [DisplayWindow] {
         switch calendarDisplayMode {
         case .none:
             return []
         case .always:
             /// 一直显示：覆盖整个查询区间
-            return [range]
+            return alwaysVisibleWindows(in: range)
         case .onTheDay:
-            return occurrenceDates(from: range.start, to: range.end).map {
-                DateInterval.rangeOfDay($0)
+            return occurrenceDates(from: range.start, to: range.end).map { occurrence in
+                DisplayWindow(interval: .rangeOfDay(occurrence),
+                              occurrence: windowTitleDate(for: occurrence))
             }
         case .daysBefore(let days):
             let advanceDays = CountdownDisplayMode.validDays(days)
@@ -91,8 +111,53 @@ extension CountdownEvent {
                     return nil
                 }
                 
-                return DateInterval(start: startDate.startOfDay(), end: occurrence.endOfDay())
+                return DisplayWindow(interval: DateInterval(start: startDate.startOfDay(),
+                                                           end: occurrence.endOfDay()),
+                                     occurrence: windowTitleDate(for: occurrence))
             }
+        }
+    }
+    
+    /// 一直显示的窗口：按天推进对应的发生日，避免逐日重复推算
+    private func alwaysVisibleWindows(in range: DateInterval) -> [DisplayWindow] {
+        var windows = [DisplayWindow]()
+        var day = range.start.startOfDay()
+        var occurrence = nextTitleDate(on: day)
+        while day <= range.end {
+            windows.append(DisplayWindow(interval: .rangeOfDay(day), occurrence: occurrence))
+            
+            guard let nextDay = day.dateByAddingDays(1) else {
+                break
+            }
+            
+            /// 越过当前发生日时推进到下一个发生日
+            if nextDay > occurrence {
+                occurrence = nextTitleDate(on: nextDay)
+            }
+            
+            day = nextDay
+        }
+        
+        return windows
+    }
+    
+    /// 特定显示日对应的标题参考日期（倒数取不早于该日的下一个发生日，正数取起始日）
+    private func nextTitleDate(on day: Date) -> Date {
+        switch effectiveCountingType {
+        case .countdown:
+            return timePlan.nextPlanDate(from: day, startDate: date)?.targetDate ?? date.targetDate
+        case .countUp:
+            return date.targetDate
+        }
+    }
+    
+    /// 窗口发生日对应的标题参考日期（倒数取该发生日，正数取起始日）
+    private func windowTitleDate(for occurrence: Date) -> Date {
+        switch effectiveCountingType {
+        case .countdown:
+            return occurrence
+        case .countUp:
+            return date.targetDate
         }
     }
     
@@ -134,11 +199,11 @@ extension CountdownEvent {
     }
     
     /// 单个日历事件（倒数日为全天事项）
-    private func calendarEvent(on date: Date) -> CalendarEvent {
-        let interval = DateInterval.rangeOfDay(date)
+    private func calendarEvent(on day: Date, occurrence: Date) -> CalendarEvent {
+        let interval = DateInterval.rangeOfDay(day)
         let event = CalendarEvent(identifier: identifier,
                                   source: .countdown,
-                                  name: calendarDisplayTitle(on: date),
+                                  name: calendarDisplayTitle(on: day, occurrence: occurrence),
                                   color: color ?? type.color,
                                   startDate: interval.start,
                                   endDate: interval.end,
@@ -149,10 +214,9 @@ extension CountdownEvent {
     }
     
     /// 日历中显示的名称（表情 + 名称 + 相对发生日期的说明）
-    /// - Parameter date: 日历事项所在的日期
-    func calendarDisplayTitle(on date: Date) -> String {
+    private func calendarDisplayTitle(on day: Date, occurrence: Date) -> String {
         let title = (emoji ?? type.emoji) + displayName
-        guard let description = relativeDateDescription(on: date) else {
+        guard let description = relativeDateDescription(on: day, occurrence: occurrence) else {
             return title
         }
         
@@ -163,15 +227,12 @@ extension CountdownEvent {
     ///
     /// - 倒数事项：`x天后` / `明天` / `今天`
     /// - 正数事项：`已过x天`
-    /// - Parameter date: 日历事项所在的日期
     /// - Returns: 无有效差值时返回 `nil`
-    private func relativeDateDescription(on date: Date) -> String? {
+    private func relativeDateDescription(on day: Date, occurrence: Date) -> String? {
         switch effectiveCountingType {
         case .countdown:
-            /// 显示日对应的下一个发生日（不重复时为目标日期本身）
-            let occurrence = timePlan.nextPlanDate(from: date, startDate: self.date)?.targetDate
-                ?? self.date.targetDate
-            let days = Date.days(fromDate: date, toDate: occurrence)
+            /// 距离发生日的剩余天数
+            let days = Date.days(fromDate: day, toDate: occurrence)
             guard days >= 0 else {
                 return nil
             }
@@ -187,7 +248,7 @@ extension CountdownEvent {
             return String(format: resGetString("%@ later"), days.dayCountString)
         case .countUp:
             /// 距离起始日已经过去的天数
-            let days = Date.days(fromDate: self.date.targetDate, toDate: date)
+            let days = Date.days(fromDate: occurrence, toDate: day)
             guard days >= 0 else {
                 return nil
             }
