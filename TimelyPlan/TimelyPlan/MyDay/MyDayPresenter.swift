@@ -38,6 +38,15 @@ class MyDayPresenter {
         GoalPresenter.showActionViewController(for: task)
     }
     
+    /// 编辑倒数日事项
+    static func editCountdownEvent(_ event: MyDayEvent) {
+        guard let countdownEvent = event.sourceItem as? CountdownEvent else {
+            return
+        }
+        
+        CountdownPresenter.showDetail(for: countdownEvent)
+    }
+    
     /// 编辑待办事项
     static func editTodoEvent(_ event: MyDayEvent) {
         guard let task = event.sourceItem as? TodoTask else {

@@ -16,6 +16,7 @@ class MyDayRepository {
     private var habitProvider = MyDayHabitEventProvider()
     private var goalProvider = MyDayGoalEventProvider()
     private var focusProvider = MyDayFocusEventProvider()
+    private var countdownProvider = MyDayCountdownEventProvider()
 
     private let changeObserver = MyDayEventChangeObserver()
     
@@ -24,7 +25,8 @@ class MyDayRepository {
                           self.todoProvider,
                           self.habitProvider,
                           self.goalProvider,
-                          self.focusProvider]
+                          self.focusProvider,
+                          self.countdownProvider]
     }
     
     func addUpdaterDelegate(_ delegate: MyDayEventChangeDelegate) {

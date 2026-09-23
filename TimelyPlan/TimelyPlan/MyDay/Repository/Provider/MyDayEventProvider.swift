@@ -88,6 +88,26 @@ class MyDayFocusEventProvider: MyDayEventProvider {
 }
 
 
+class MyDayCountdownEventProvider: MyDayEventProvider {
+    
+    func fetchMyDayEvents(in range: DateInterval, completion: @escaping ([MyDayEvent]?) -> Void) {
+        guard MyDaySetting.shared.showCountdown else {
+            completion(nil)
+            return
+        }
+        
+        CountdownRepository.fetchActiveEvents { events in
+            guard let events = events else {
+                completion(nil)
+                return
+            }
+            
+            let myDayEvents = events.toMyDayEvents(in: range)
+            completion(myDayEvents)
+        }
+    }
+}
+
 class MyDayCalendarEventProvider: MyDayEventProvider {
     
     func fetchMyDayEvents(in range: DateInterval, completion: @escaping ([MyDayEvent]?) -> Void) {

@@ -32,6 +32,10 @@ class MyDayEventScheduleEditor {
             if let timer = event.sourceItem as? FocusTimer {
                 openScheduleEditor(for: timer)
             }
+        case .countdown:
+            if let countdownEvent = event.sourceItem as? CountdownEvent {
+                openScheduleEditor(for: countdownEvent)
+            }
         }
     }
     
@@ -97,6 +101,11 @@ class MyDayEventScheduleEditor {
             GoalRepository.updateGoalTask(task, with: editingTask)
         }
         presentAsSheet(vc)
+    }
+    
+    /// 倒数日事项（全天事项，无时间计划编辑，直接展示详情）
+    private static func openScheduleEditor(for event: CountdownEvent) {
+        CountdownPresenter.showDetail(for: event)
     }
     
     /// 以 sheet 形式展示 ViewController

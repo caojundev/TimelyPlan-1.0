@@ -51,6 +51,12 @@ class MyDayEventChangeObserver {
             observeSettingKeys.append(.showFocus)
         }
         
+        /// 倒数日事项
+        if sources.contains(.countdown) {
+            CountdownRepository.addUpdater(self, for: [.event])
+            observeSettingKeys.append(.showCountdown)
+        }
+        
         if observeSettingKeys.count > 0 {
             MyDaySetting.shared.addObserver(self, forKeys: observeSettingKeys)
         }
@@ -73,7 +79,7 @@ extension MyDayEventChangeObserver: SettingAgentObserver {
         }
         
         switch key {
-        case .showTodo, .showHabit, .showGoal, .showFocus, .showCalendarEvent:
+        case .showTodo, .showHabit, .showGoal, .showFocus, .showCountdown, .showCalendarEvent:
             updater.myDayEventsDidChange(in: [.infiniteInterval])
         default:
             break
@@ -409,5 +415,38 @@ extension MyDayEventChangeObserver: GoalPlanProcessorDelegate,
         default:
             return affectedRanges(for: [goalTask])
         }
+    }
+}
+
+extension MyDayEventChangeObserver: CountdownEventProcessorDelegate {
+    
+    /// 远程倒数日事项改变
+    func didChangeRemoteCountdownEvent(with results: EntityChangeResults<CountdownEvent>?) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 创建倒数日事项
+    func didCreateCountdownEvent(_ event: CountdownEvent) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 更新倒数日事项（日期、显示方式等变化都可能影响任意日期，故整体刷新）
+    func didUpdateCountdownEvent(_ event: CountdownEvent, with change: CountdownEventChange) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 删除倒数日事项
+    func didDeleteCountdownEvent(_ event: CountdownEvent) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 归档倒数日事项
+    func didArchiveCountdownEvent(_ event: CountdownEvent) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 取消归档倒数日事项
+    func didUnarchiveCountdownEvent(_ event: CountdownEvent) {
+        updater.myDayEventsDidChange(in: [.infiniteInterval])
     }
 }

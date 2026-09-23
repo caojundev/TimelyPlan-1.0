@@ -9,11 +9,12 @@ import Foundation
 
 // 我的一天事件来源
 enum MyDayEventSource: Int, CaseIterable {
-    case calendar // 系统日历
-    case todo   // 待办任务
-    case habit  // 习惯任务
-    case goal   // 目标任务
-    case focus  // 专注计时器
+    case calendar  // 系统日历
+    case todo      // 待办任务
+    case habit     // 习惯任务
+    case goal      // 目标任务
+    case focus     // 专注计时器
+    case countdown // 倒数日事项
 }
 
 class MyDayEvent: NSObject {

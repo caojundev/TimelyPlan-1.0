@@ -36,6 +36,8 @@ class MyDayEventProcessor {
             clickGoalEvent(event)
         case .focus:
             clickFocusEvent(event)
+        case .countdown:
+            clickCountdownEvent(event)
         }
     }
     
@@ -83,6 +85,12 @@ class MyDayEventProcessor {
     private func clickGoalEvent(_ event: MyDayEvent) {
         TPImpactFeedback.impactWithSoftStyle()
         MyDayPresenter.editGoalEvent(event)
+    }
+    
+    /// 点击倒数日
+    private func clickCountdownEvent(_ event: MyDayEvent) {
+        TPImpactFeedback.impactWithSoftStyle()
+        MyDayPresenter.editCountdownEvent(event)
     }
     
 }

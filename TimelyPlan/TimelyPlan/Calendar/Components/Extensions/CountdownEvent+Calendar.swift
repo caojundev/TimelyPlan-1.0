@@ -46,7 +46,7 @@ extension CountdownEvent {
 
         /// 汇总每一天及其对应的发生日（均不早于基准日期），后续直接用两者计算标题
         var dayOccurrences = [Date: Date]()
-        for window in displayWindows(in: displayRange) {
+        for window in displayWindows(in: displayRange, mode: calendarDisplayMode) {
             guard let clipped = window.interval.intersection(with: displayRange) else {
                 continue
             }
@@ -74,9 +74,27 @@ extension CountdownEvent {
     }
     
     // MARK: - Helpers
-    /// 日历显示窗口
-    private func displayWindows(in range: DateInterval) -> [DisplayWindow] {
-        switch calendarDisplayMode {
+    /// 指定显示方式下，区间内需要显示的日期（按天、升序、去重）
+    func displayDays(in range: DateInterval, mode: CountdownDisplayMode) -> [Date] {
+        var days = Set<Date>()
+        for window in displayWindows(in: range, mode: mode) {
+            guard let clipped = window.interval.intersection(with: range) else {
+                continue
+            }
+            
+            clipped.enumerateDays { date in
+                days.insert(date.startOfDay())
+                return true
+            }
+        }
+        
+        return days.sorted()
+    }
+    
+    /// 显示窗口
+    private func displayWindows(in range: DateInterval,
+                                mode: CountdownDisplayMode) -> [DisplayWindow] {
+        switch mode {
         case .none:
             return []
         case .always:
