@@ -17,11 +17,11 @@ class CountdownSettingViewController: BaseSettingViewController {
         cellItem.height = defaultCellHeight
         cellItem.title = resGetString("Show in Calendar")
         cellItem.updater = {
-            self?.showInCalendarCellItem.isOn = CountdownSetting.shared.showInCalendar
+            self?.showInCalendarCellItem.isOn = CalendarSetting.shared.showInCountdown
         }
         
         cellItem.valueChanged = { isOn in
-            CountdownSetting.shared.showInCalendar = isOn
+            CalendarSetting.shared.showInCountdown = isOn
         }
         
         return cellItem

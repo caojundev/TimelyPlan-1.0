@@ -23,6 +23,8 @@ class CalendarEventProcessor {
             clickHabitEvent(event)
         case .goal:
             clickGoalEvent(event)
+        case .countdown:
+            clickCountdownEvent(event)
         case .focus:
             clickFocusEvent(event)
         }
@@ -60,6 +62,11 @@ class CalendarEventProcessor {
         CalendarPresenter.editGoalEvent(event)
     }
     
+    /// 点击倒数日
+    private func clickCountdownEvent(_ event: CalendarEvent) {
+        CalendarPresenter.showCountdownEvent(event)
+    }
+    
     /// 点击专注计时器
     private func clickFocusEvent(_ event: CalendarEvent) {
         guard let timer = event.sourceItem as? FocusTimer else {
@@ -82,6 +89,8 @@ class CalendarEventProcessor {
             updateHabitEvent(event, with: dateRange, completion: completion)
         case .goal:
             updateGoalEvent(event, with: dateRange, completion: completion)
+        case .countdown:
+            break
         case .focus:
             break
         }

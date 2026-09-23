@@ -10,7 +10,6 @@ import UIKit
 
 /// 倒数日常规编辑区块
 /// 负责事件类型、时间单位、计数类型与“包含起始日”的编辑与显隐，
-/// 数据变更时通过回调通知外部（由外部同步到数据模型）。
 class CountdownGeneralEditSectionController: TPTableItemSectionController {
     
     struct Config {

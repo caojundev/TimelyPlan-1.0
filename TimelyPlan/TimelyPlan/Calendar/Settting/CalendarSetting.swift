@@ -45,6 +45,8 @@ class CalendarSetting {
         case showFocus /// 显示专注
         case focusDisplayRange /// 专注显示范围
         
+        case showInCountdown /// 显示倒数日
+        
         static func keyPrefix() -> String? {
             return "CalendarSetting"
         }
@@ -104,6 +106,9 @@ class CalendarSetting {
     
     @CloudStored(key: Key.focusDisplayRange.name, defaultValue: CalendarEventDisplayRange.todayOnly)
     var focusDisplayRange: CalendarEventDisplayRange
+    
+    @CloudStored(key: Key.showInCountdown.name, defaultValue: true)
+    var showInCountdown: Bool
     
     static let shared = CalendarSetting()
     

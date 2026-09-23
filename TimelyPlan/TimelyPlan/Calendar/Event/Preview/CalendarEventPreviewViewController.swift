@@ -107,6 +107,8 @@ class CalendarEventPreviewViewController: TPTableSectionsViewController {
             title = resGetString("Habit")
         case .goal:
             title = resGetString("Goal")
+        case .countdown:
+            title = resGetString("Countdown")
         case .focus:
             title = resGetString("Focus")
         }

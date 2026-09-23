@@ -114,6 +114,7 @@
 "Show Calendar Event" = "显示日历事项";
 "Show Todo" = "显示待办事项";
 "Show Goal" = "显示目标事项";
+"Show Countdown" = "显示倒数日";
 "Show Focus Timer" = "显示专注计时器";
 
 "Bind" = "绑定";
@@ -1026,6 +1027,7 @@
 "%ld day before" = "%ld天前";
 "%ld days later" = "%ld天后";
 "%ld day later" = "%ld天后";
+"%@ passed" = "已过%@";
 "%ld weeks before" = "%ld周前";
 "%ld week before" = "%ld周前";
 

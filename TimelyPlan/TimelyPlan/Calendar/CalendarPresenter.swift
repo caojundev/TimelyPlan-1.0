@@ -30,6 +30,15 @@ class CalendarPresenter {
         GoalPresenter.showActionViewController(for: task)
     }
     
+    /// 显示倒数日事项
+    static func showCountdownEvent(_ event: CalendarEvent) {
+        guard let countdownEvent = event.sourceItem as? CountdownEvent else {
+            return
+        }
+        
+        CountdownPresenter.showDetail(for: countdownEvent)
+    }
+    
     /// 编辑待办事项
     static func editTodoEvent(_ event: CalendarEvent) {
         guard let task = event.sourceItem as? TodoTask else {

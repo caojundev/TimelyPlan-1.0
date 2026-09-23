@@ -10,7 +10,6 @@ import Foundation
 class CountdownSetting {
     
     enum Key: String, SettingKeyRepresentable {
-        case showInCalendar /// 在日历显示
         case showInMyDay    /// 在我的一天显示
         case sound          /// 通知声音
         
@@ -18,10 +17,6 @@ class CountdownSetting {
             return "CountdownSetting"
         }
     }
-    
-    /// 在日历显示
-    @CloudStored(key: Key.showInCalendar.name, defaultValue: true)
-    var showInCalendar: Bool
     
     /// 在我的一天显示
     @CloudStored(key: Key.showInMyDay.name, defaultValue: true)

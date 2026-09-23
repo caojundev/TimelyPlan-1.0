@@ -41,6 +41,12 @@ class CalendarEventChangeObserver: SettingAgentObserver {
             observeSettingKeys.append(contentsOf: [.showGoal, .goalDisplayRange])
         }
         
+        /// 倒数日事项
+        if sources.contains(.countdown) {
+            CountdownRepository.addUpdater(self, for: [.event])
+            observeSettingKeys.append(.showInCountdown)
+        }
+        
         /// 专注计时器
         if sources.contains(.focus) {
             FocusRepository.addUpdater(self, for: [.timer])
@@ -58,7 +64,7 @@ class CalendarEventChangeObserver: SettingAgentObserver {
     
     // MARK: - SettingAgentObserver
     func settingAgentDidChangeValue(for keyName: String) {
-        guard let _ = CalendarSetting.Key(name: keyName) else {
+        guard CalendarSetting.Key(name: keyName) != nil else {
             return
         }
         
@@ -323,6 +329,63 @@ extension CalendarEventChangeObserver: GoalTaskProcessorDelegate {
         }
         
         return [goalTask.dateRange.interval]
+    }
+}
+
+extension CalendarEventChangeObserver: CountdownEventProcessorDelegate {
+    
+    /// 远程倒数日事项改变
+    func didChangeRemoteCountdownEvent(with results: EntityChangeResults<CountdownEvent>?) {
+        guard CalendarSetting.shared.showInCountdown else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 添加倒数日事项时通知
+    func didCreateCountdownEvent(_ event: CountdownEvent) {
+        guard CalendarSetting.shared.showInCountdown else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 更新倒数日事项时通知
+    func didUpdateCountdownEvent(_ event: CountdownEvent, with change: CountdownEventChange) {
+        guard CalendarSetting.shared.showInCountdown else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 删除倒数日事项时通知
+    func didDeleteCountdownEvent(_ event: CountdownEvent) {
+        guard CalendarSetting.shared.showInCountdown else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 归档倒数日事项时通知
+    func didArchiveCountdownEvent(_ event: CountdownEvent) {
+        guard CalendarSetting.shared.showInCountdown else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [.infiniteInterval])
+    }
+    
+    /// 取消归档倒数日事项时通知
+    func didUnarchiveCountdownEvent(_ event: CountdownEvent) {
+        guard CalendarSetting.shared.showInCountdown else {
+            return
+        }
+        
+        updater.calendarEventsDidChange(in: [.infiniteInterval])
     }
 }
 

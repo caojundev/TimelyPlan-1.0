@@ -58,6 +58,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         case .goal:
             /// 目标任务没有重复规则，仅展示日期区间
             return nil
+        case .countdown:
+            return countdownRepeatInfo
         case .focus:
             return focusRepeatInfo
         }
@@ -73,6 +75,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             return habitAlarmDescription
         case .goal:
             return goalAlarmDescription
+        case .countdown:
+            return countdownAlarmDescription
         case .focus:
             return nil
         }
@@ -88,6 +92,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             return habitSourceDescription
         case .goal:
             return goalSourceDescription
+        case .countdown:
+            return countdownSourceDescription
         case .focus:
             return focusSourceDescription
         }
@@ -110,6 +116,8 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             }
         case .habit, .goal:
             return true
+        case .countdown:
+            return false
         case .focus:
             return false
         }
@@ -125,7 +133,7 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
             }
         case .todo:
             return isEditable
-        case .habit, .goal:
+        case .habit, .goal, .countdown:
             return false
         case .focus:
             return false
@@ -160,6 +168,15 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         }
         
         return repeatInfo(for: timer.timePlan, endDate: timer.endDate)
+    }
+    
+    private var countdownRepeatInfo: (ruleDescription: String?, endDescription: String?)? {
+        guard let event = sourceItem as? CountdownEvent,
+              let type = event.timePlan.type, type != .none else {
+            return nil
+        }
+        
+        return (event.timePlan.descriptionTitle, event.timePlan.subtitle(for: event.date))
     }
     
     
@@ -221,6 +238,19 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         return nil
     }
     
+    private var countdownAlarmDescription: String? {
+        guard let event = sourceItem as? CountdownEvent,
+              event.hasReminder,
+              let reminder = event.reminder else {
+            return nil
+        }
+        
+        let dateInfo = TaskDateInfo(startDate: event.date.targetDate,
+                                    endDate: event.date.targetDate,
+                                    isAllDay: true)
+        return reminder.info(with: dateInfo)
+    }
+    
     private var todoSourceDescription: String? {
         guard let task = sourceItem as? TodoTask else {
             return nil
@@ -240,6 +270,10 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
     
     private var goalSourceDescription: String? {
         return resGetString("Goal")
+    }
+    
+    private var countdownSourceDescription: String? {
+        return resGetString("Countdown")
     }
     
     private var focusSourceDescription: String? {

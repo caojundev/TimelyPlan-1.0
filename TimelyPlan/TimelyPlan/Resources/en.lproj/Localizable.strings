@@ -7,6 +7,8 @@
 */
 
 "Countdown Timer" = "Countdown";
+"Show Countdown" = "Show Countdown";
+"%@ passed" = "%@ passed";
 
 // 时间单位
 "countdown.unit.days"      = "Days";

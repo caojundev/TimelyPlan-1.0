@@ -15,6 +15,7 @@ class CalendarRepository {
     private var todoProvider = CalendarTodoEventProvider()
     private var habitProvider = CalendarHabitEventProvider()
     private var goalProvider = CalendarGoalEventProvider()
+    private var countdownProvider = CalendarCountdownEventProvider()
     private var focusProvider = CalendarFocusEventProvider()
     private var systemProvider = CalendarSystemEventProvider()
     
@@ -24,6 +25,7 @@ class CalendarRepository {
         self.providers = [self.todoProvider,
                           self.habitProvider,
                           self.goalProvider,
+                          self.countdownProvider,
                           self.focusProvider,
                           self.systemProvider]
     }
