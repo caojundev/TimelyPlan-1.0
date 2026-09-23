@@ -25,25 +25,28 @@ extension CountdownEvent {
             return nil
         }
         
-        /// 过滤基准日期：
-        /// - 正数事项：目标日期在过去，丢弃目标日期之前的日期（否则会因目标日已过而永不显示）
+        /// 过滤基准日期
+        /// - 正数事项：目标日期在过去，丢弃目标日期之前和今天之后的日期
         /// - 倒数事项：目标日期在未来，丢弃今天之前的日期
-        let referenceDate: Date
+        var referenceRange: DateInterval?
         switch effectiveCountingType {
         case .countUp:
-            referenceDate = date.targetDate.startOfDay()
+            let start = date.targetDate.startOfDay()
+            let end = Date().endOfDay()
+            if start < end {
+                referenceRange = DateInterval(start: start, end: end)
+            }
         case .countdown:
-            referenceDate = Date().startOfDay()
+            referenceRange = DateInterval(start: Date().startOfDay(),
+                                          end: .distantFuture)
         }
         
         /// 先按基准日期收缩查询区间，避免对基准日之前的日期做无效的窗口计算
-        let startDate = max(range.start, referenceDate)
-        guard startDate <= range.end else {
+        guard let referenceRange = referenceRange,
+                let displayRange = referenceRange.intersection(with: range) else {
             return nil
         }
-        
-        let displayRange = DateInterval(start: startDate, end: range.end)
-        
+
         /// 汇总每一天及其对应的发生日（均不早于基准日期），后续直接用两者计算标题
         var dayOccurrences = [Date: Date]()
         for window in displayWindows(in: displayRange) {
