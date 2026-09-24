@@ -18,7 +18,7 @@ extension CountdownEvent {
         /// 过滤基准日期
         /// - 正数事项：目标日期在过去，今天显示
         /// - 倒数事项：目标日期在未来，丢弃今天之前的日期
-        let referenceRange: DateInterval
+        let referenceRange: DateInterval?
         switch effectiveCountingType {
         case .countUp:
             let start = Date().startOfDay()
@@ -28,8 +28,10 @@ extension CountdownEvent {
                                           end: .distantFuture)
         }
         
+        referenceRange = referenceRange?.intersection(with: range)
+        let occuranceRange = DateInterval(start: .distantPast, end: occuranceDate.targetDate)
         /// 先按基准日期收缩查询区间，避免对基准日之前的日期做无效的窗口计算
-        guard let displayRange = referenceRange.intersection(with: range) else {
+        guard let displayRange = referenceRange?.intersection(with: occuranceRange) else {
             return nil
         }
         
@@ -59,54 +61,11 @@ extension CountdownEvent {
     
     /// 我的一天详情副标题（发生日期 + 相对说明），按显示日期计算
     func myDayDetail(on day: Date) -> ASAttributedString? {
-        let occurrence = myDayOccurrenceDate(on: day)
-        let days = CountdownCalculator.days(referenceDate: day,
-                                            targetDate: occurrence.targetDate,
-                                            countingType: effectiveCountingType,
-                                            includeStartDate: includesStartDate)
-        
-        var components = [ASAttributedString]()
-        components.append(occurrence.displayText.attributedString)
-        if let description = myDayRelativeDescription(days: days) {
-            components.append(description.attributedString)
-        }
-        
-        return components.joined(separator: " • ")
-    }
-    
-    /// 显示日期对应的发生日（倒数取不早于该日的下一个发生日，正数取目标日期）
-    private func myDayOccurrenceDate(on day: Date) -> CountdownDate {
-        switch effectiveCountingType {
-        case .countUp:
-            return date
-        case .countdown:
-            return timePlan.nextPlanDate(from: day, startDate: date) ?? date
-        }
-    }
-    
-    /// 相对显示日期的说明
-    ///
-    /// - 倒数事项：`x天后` / `明天` / `今天`
-    /// - 正数事项：`已过x天`
-    private func myDayRelativeDescription(days: Int) -> String? {
-        switch effectiveCountingType {
-        case .countdown:
-            if days == 0 {
-                return resGetString("Today")
-            }
-            
-            if days == 1 {
-                return resGetString("Tomorrow")
-            }
-            
-            return String(format: resGetString("%@ later"), days.dayCountString)
-        case .countUp:
-            if days == 0 {
-                return resGetString("Today")
-            }
-            
-            return String(format: resGetString("%@ passed"), days.dayCountString)
-        }
+        let option = CountdownEventDetailOption.allExceptMyDay
+        let detailProvider = CountdownEventDetailProvider(event: self,
+                                                          option: option,
+                                                          day: day)
+        return detailProvider.attributedInfo()
     }
 }
 

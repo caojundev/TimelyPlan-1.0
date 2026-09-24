@@ -26,21 +26,20 @@ extension CountdownEvent {
         }
         
         /// 过滤基准日期
-        /// - 正数事项：目标日期在过去，今天显示
-        /// - 倒数事项：目标日期在未来，丢弃今天之前的日期
-        let referenceRange: DateInterval
+        var referenceRange: DateInterval?
         switch effectiveCountingType {
         case .countUp:
             let start = Date().startOfDay()
             let end = start.endOfDay()
             referenceRange = DateInterval(start: start, end: end)
         case .countdown:
-            referenceRange = DateInterval(start: Date().startOfDay(),
-                                          end: .distantFuture)
+            referenceRange = DateInterval(start: Date().startOfDay(), end: .distantFuture)
         }
         
+        referenceRange = referenceRange?.intersection(with: range)
+        let occuranceRange = DateInterval(start: .distantPast, end: occuranceDate.targetDate)
         /// 先按基准日期收缩查询区间，避免对基准日之前的日期做无效的窗口计算
-        guard let displayRange = referenceRange.intersection(with: range) else {
+        guard let displayRange = referenceRange?.intersection(with: occuranceRange) else {
             return nil
         }
 
@@ -240,11 +239,6 @@ extension CountdownEvent {
 
         switch countingType {
         case .countdown:
-            /// 距离发生日的剩余天数
-            guard days >= 0 else {
-                return nil
-            }
-            
             if days == 0 {
                 return resGetString("Today")
             }

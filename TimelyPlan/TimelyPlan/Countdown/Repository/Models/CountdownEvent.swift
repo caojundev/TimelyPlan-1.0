@@ -280,6 +280,21 @@ class CountdownEvent: NSObject,
         return countingType
     }
     
+    /// 显示日期对应的发生日（倒数取不早于该日的下一个发生日，正数取目标日期）
+    func occurrenceDate(on day: Date) -> CountdownDate {
+        switch effectiveCountingType {
+        case .countUp:
+            return date
+        case .countdown:
+            if day.isToday {
+                /// 今天直接返回发生日
+                return occuranceDate
+            } else {
+                /// 计算 day 对应的下一个发生日
+                return timePlan.nextPlanDate(from: day, startDate: date) ?? date
+            }
+        }
+    }
 }
 
 extension CountdownEvent {

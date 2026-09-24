@@ -131,8 +131,9 @@ class CountdownEventGridCell: TPCollectionCell {
         iconView.backColor = event.color ?? event.type.color
         infoView.title = event.displayName
         
-        /// 副标题：由 CountdownEventDetailProvider 统一计算
-        infoView.subtitle = CountdownEventDetailProvider.detail(for: event)
+        /// 副标题：由 CountdownEventDetailProvider 统一计算（发生日期 + 我的一天 + 日历 + 备注）
+        let detailProvider = CountdownEventDetailProvider(event: event)
+        infoView.subtitle = detailProvider.attributedInfo()
         
         /// 剩余数目：由 CountdownCalculator 按事项的时间单位换算为结构化结果后展示
         valueView.result = event.remainingTimeResult
