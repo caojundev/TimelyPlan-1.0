@@ -57,8 +57,9 @@ class CountdownMoreBarButtonItem: TPBaseMoreMenuBarButtonItem<CountdownMoreMenuT
         case .archived:
             action.valueText = "\(archivedCount)"
         case .layout:
-            /// 展示当前布局，点击切换
+            /// 展示切换布局，点击切换
             action.handleBeforeDismiss = true
+            let layoutType = layoutType.toggled
             action.subtitle = layoutType.title
             action.image = resGetImage(layoutType.iconName)
         case .settings:

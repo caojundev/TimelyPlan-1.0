@@ -19,6 +19,12 @@
 "countdown.unit.yearWeek"  = "Year + Week";
 "countdown.unit.yearMonth" = "Year + Month";
 
+// 计数结果中的时间单位（显示空间有限，使用简写）
+"countdown.unitShort.day"   = "D";
+"countdown.unitShort.week"  = "W";
+"countdown.unitShort.month" = "MO";
+"countdown.unitShort.year"  = "Y";
+
 // 计数类型
 "countdown.counting.countdown" = "Countdown";
 "countdown.counting.countUp" = "Count Up";

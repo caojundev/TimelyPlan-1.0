@@ -50,14 +50,6 @@ class CountdownEventListCell: TPCollectionCell {
     /// 数值视图（显示剩余数目）
     let valueView: CountdownVerticalValueView = {
         let view = CountdownVerticalValueView()
-        /// 列表行高有限，使用较小字号
-        view.valueLabel.font = UIFont.systemFont(ofSize: 24.0, weight: .bold)
-        view.valueLabel.adjustsFontSizeToFitWidth = true
-        view.valueLabel.minimumScaleFactor = 0.5
-        view.valueLabel.textAlignment = .right
-        
-        view.unitLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .medium)
-        view.unitLabel.textAlignment = .right
         return view
     }()
     
@@ -124,9 +116,8 @@ class CountdownEventListCell: TPCollectionCell {
         /// 副标题：由 CountdownEventDetailProvider 统一计算（目标日期 + 剩余天数）
         infoView.subtitle = CountdownEventDetailProvider.detail(for: event)
         
-        /// 剩余数目
-        let days = abs(event.remainingDays)
-        valueView.setValue(number: days, unit: resGetString(days == 1 ? "Day" : "Days"))
+        /// 剩余数目：由 CountdownCalculator 按事项的时间单位换算为结构化结果后展示
+        valueView.setResult(event.remainingTimeResult)
         
         /// 数值视图宽度随内容变化，需重新布局
         setNeedsLayout()

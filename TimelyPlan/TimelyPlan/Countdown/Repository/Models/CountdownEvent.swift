@@ -219,6 +219,20 @@ class CountdownEvent: NSObject,
                                         includeStartDate: includesStartDate)
     }
     
+    /// 距离下一个发生日的剩余时间（按事项的时间单位换算后的结构化结果）
+    ///
+    /// 正数计数且包含起始日时，起始日计为第 1 天，等价于把参照日期（今天）后移一天后再换算。
+    var remainingTimeResult: CountdownCalculator.TimeResult {
+        var referenceDate = Date()
+        if effectiveCountingType == .countUp, includesStartDate {
+            referenceDate = referenceDate.dateByAddingDays(1) ?? referenceDate
+        }
+        
+        return CountdownCalculator.timeResult(fromDate: referenceDate,
+                                              toDate: occuranceDate.targetDate,
+                                              timeUnit: timeUnit)
+    }
+    
     /// 目标日期是否已经过去
     var isExpired: Bool {
         return remainingDays < 0
