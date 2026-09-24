@@ -64,8 +64,17 @@ class CountdownEventGridCell: TPCollectionCell {
         return view
     }()
     
-    /// 数值视图（左右布局）
-    let valueView = CountdownHorizontalValueView()
+    /// 剩余时间视图：数值 + 单位角标，靠左显示
+    let valueView: CountdownTimeValueView = {
+        let view = CountdownTimeValueView()
+        view.textAlignment = .left
+        view.textColor = .label
+        view.unitColor = .label
+        /// 网格单元格空间有限，字号小于详情页
+        view.valueFont = .monospacedDigitSystemFont(ofSize: 28.0, weight: .bold)
+        view.unitFont = .systemFont(ofSize: 13.0, weight: .medium)
+        return view
+    }()
     
     override func setupContentSubviews() {
         super.setupContentSubviews()
@@ -77,6 +86,7 @@ class CountdownEventGridCell: TPCollectionCell {
         contentView.addSubview(iconView)
         contentView.addSubview(moreButton)
         contentView.addSubview(infoView)
+        
         contentView.addSubview(valueView)
     }
     
@@ -124,9 +134,8 @@ class CountdownEventGridCell: TPCollectionCell {
         /// 副标题：由 CountdownEventDetailProvider 统一计算
         infoView.subtitle = CountdownEventDetailProvider.detail(for: event)
         
-        /// 剩余数目
-        let days = abs(event.remainingDays)
-        valueView.setValue(number: days, unit: resGetString(days == 1 ? "Day" : "Days"))
+        /// 剩余数目：由 CountdownCalculator 按事项的时间单位换算为结构化结果后展示
+        valueView.result = event.remainingTimeResult
         setNeedsLayout()
     }
     
@@ -136,5 +145,5 @@ class CountdownEventGridCell: TPCollectionCell {
             delegate.countdownEventGridCellDidClickMore(self)
         }
     }
+    
 }
-

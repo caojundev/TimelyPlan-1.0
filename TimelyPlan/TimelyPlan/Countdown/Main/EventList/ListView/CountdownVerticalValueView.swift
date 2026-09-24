@@ -14,7 +14,7 @@ class CountdownVerticalValueView: TPInfoView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.titleConfig.textAlignment = .right
-        self.titleConfig.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        self.titleConfig.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         self.titleConfig.adjustsFontSizeToFitWidth = true
         
         self.subtitleConfig.adjustsFontSizeToFitWidth = true

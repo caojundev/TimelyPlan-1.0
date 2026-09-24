@@ -67,7 +67,7 @@
 // 计数结果中的时间单位（中文单字已足够紧凑，与完整单位一致）
 "countdown.unitShort.day"   = "天";
 "countdown.unitShort.week"  = "周";
-"countdown.unitShort.month" = "月";
+"countdown.unitShort.month" = "个月";
 "countdown.unitShort.year"  = "年";
 
 "Time Unit" = "时间单位";

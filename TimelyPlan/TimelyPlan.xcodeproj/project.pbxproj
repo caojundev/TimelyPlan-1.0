@@ -112,7 +112,6 @@
 		E5091C54305AC630009CFD17 /* CountdownVerticalValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C53305AC630009CFD17 /* CountdownVerticalValueView.swift */; };
 		E5091C59305B8341009CFD17 /* CountdownEventGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C58305B8341009CFD17 /* CountdownEventGridCell.swift */; };
 		E5091C5B305B85C7009CFD17 /* CountdownEventDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C5A305B85C7009CFD17 /* CountdownEventDetailProvider.swift */; };
-		E5091C5D305B863A009CFD17 /* CountdownHorizontalValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C5C305B863A009CFD17 /* CountdownHorizontalValueView.swift */; };
 		E5091C61305BC6DD009CFD17 /* CountdownEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C60305BC6DD009CFD17 /* CountdownEventListViewController.swift */; };
 		E5091C64305BC742009CFD17 /* CountdownEventSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C63305BC741009CFD17 /* CountdownEventSearchResultViewController.swift */; };
 		E5091C66305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C65305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift */; };
@@ -2508,7 +2507,6 @@
 		E5091C53305AC630009CFD17 /* CountdownVerticalValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownVerticalValueView.swift; sourceTree = "<group>"; };
 		E5091C58305B8341009CFD17 /* CountdownEventGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventGridCell.swift; sourceTree = "<group>"; };
 		E5091C5A305B85C7009CFD17 /* CountdownEventDetailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventDetailProvider.swift; sourceTree = "<group>"; };
-		E5091C5C305B863A009CFD17 /* CountdownHorizontalValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownHorizontalValueView.swift; sourceTree = "<group>"; };
 		E5091C60305BC6DD009CFD17 /* CountdownEventListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventListViewController.swift; sourceTree = "<group>"; };
 		E5091C63305BC741009CFD17 /* CountdownEventSearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchResultViewController.swift; sourceTree = "<group>"; };
 		E5091C65305BCDAC009CFD17 /* CountdownEventSearchResultListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchResultListView.swift; sourceTree = "<group>"; };
@@ -5149,18 +5147,9 @@
 				E541DC4A30582A7E008BFAE0 /* CountdownEventListView.swift */,
 				E541DC4F30582ED1008BFAE0 /* CountdownEventListCell.swift */,
 				E5091C58305B8341009CFD17 /* CountdownEventGridCell.swift */,
-				E5091C5E305B8671009CFD17 /* ValueView */,
+				E5091C53305AC630009CFD17 /* CountdownVerticalValueView.swift */,
 			);
 			path = ListView;
-			sourceTree = "<group>";
-		};
-		E5091C5E305B8671009CFD17 /* ValueView */ = {
-			isa = PBXGroup;
-			children = (
-				E5091C53305AC630009CFD17 /* CountdownVerticalValueView.swift */,
-				E5091C5C305B863A009CFD17 /* CountdownHorizontalValueView.swift */,
-			);
-			path = ValueView;
 			sourceTree = "<group>";
 		};
 		E5091C62305BC70F009CFD17 /* Search */ = {
@@ -14969,7 +14958,6 @@
 				E50D60772F7A2E2D00D5E0A4 /* TodoUserListSelectCell.swift in Sources */,
 				E5F9E3C2301F261800EDC2A5 /* MyDayHabitTimeEditSectionController.swift in Sources */,
 				E54E63272F5A731300FCBCAE /* HabitManageArchivedListViewController.swift in Sources */,
-				E5091C5D305B863A009CFD17 /* CountdownHorizontalValueView.swift in Sources */,
 				E5FF4ED52FECB7AC00282416 /* LocalNotifiableTaskFetcher.swift in Sources */,
 				E5BB9F142D3BF0C90089667A /* CocoaHook.swift in Sources */,
 				E5D7D7E62D43923800EC877A /* FocusStopwatchConfig.swift in Sources */,

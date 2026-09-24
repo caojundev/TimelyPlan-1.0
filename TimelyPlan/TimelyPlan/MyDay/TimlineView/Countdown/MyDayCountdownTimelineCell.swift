@@ -16,8 +16,22 @@ class MyDayCountdownTimelineCell: TimelineEventCell {
     
     private let infoViewHeight = 50.0
     
+    /// 数值视图最大宽度
+    private let valueViewMaximumWidth: CGFloat = 80.0
+    
+    /// 信息视图与数值视图的间距
+    private let infoValueMargin: CGFloat = 8.0
+    
     private lazy var infoView: MyDayCountdownEventInfoView = {
         let view = MyDayCountdownEventInfoView()
+        return view
+    }()
+    
+    /// 数值视图（显示剩余数目）
+    private let valueView: CountdownVerticalValueView = {
+        let view = CountdownVerticalValueView()
+        view.titleConfig.font = .boldSystemFont(ofSize: 16.0)
+        view.subtitleConfig.font = .boldSystemFont(ofSize: 14.0)
         return view
     }()
     
@@ -27,11 +41,35 @@ class MyDayCountdownTimelineCell: TimelineEventCell {
     
     override func setupEventContentSubviews() {
         eventContentView.addSubview(infoView)
+        eventContentView.addSubview(valueView)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        infoView.frame = eventContentView.bounds
+        
+        let contentBounds = eventContentView.bounds
+        
+        /// 数值视图：靠右、宽度按内容自适应并限制最大宽度，高度撑满内容区
+        let availableValueWidth = max(0.0, contentBounds.width - infoValueMargin)
+        let valueFitSize = valueView.sizeThatFits(CGSize(width: availableValueWidth,
+                                                        height: contentBounds.height))
+        let valueWidth = min(valueFitSize.width, valueViewMaximumWidth, availableValueWidth)
+        valueView.frame = CGRect(x: contentBounds.maxX - valueWidth,
+                                 y: contentBounds.minY,
+                                 width: valueWidth,
+                                 height: contentBounds.height)
+        
+        /// 信息视图：占据左侧剩余空间（无数值时占满整行）
+        let infoWidth: CGFloat
+        if valueWidth > 0.0 {
+            infoWidth = max(0.0, valueView.left - infoValueMargin - contentBounds.minX)
+        } else {
+            infoWidth = contentBounds.width
+        }
+        infoView.frame = CGRect(x: contentBounds.minX,
+                                y: contentBounds.minY,
+                                width: infoWidth,
+                                height: contentBounds.height)
     }
     
     override func eventContentHeight() -> CGFloat {
@@ -43,12 +81,16 @@ class MyDayCountdownTimelineCell: TimelineEventCell {
         countdownItem = item
         
         guard let event = item.event.sourceItem as? CountdownEvent else {
+            /// 复用时清空数值，避免残留上一次的内容
+            valueView.title = nil
+            valueView.subtitle = nil
             return
         }
         
         configureNode(with: item, event: event)
         infoView.title = item.event.title
         infoView.subtitle = event.myDayDetail(on: item.startDate)
+        valueView.setResult(event.remainingTimeResult)
         setNeedsLayout()
     }
     

@@ -98,40 +98,13 @@ class CountdownDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        addNotifications()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if hasPlayedEntryAnimation {
-            /// 重新开始光晕呼吸，保证后台返回后动画仍在播放
-            contentView.startDaysGlowPulse()
-        } else {
-            /// 转场结束后再播放入场动画，避免被弹出转场覆盖
-            animateEntryIfNeeded()
-        }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    // MARK: - 通知
-    private func addNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(appWillEnterForeground),
-                                               name: UIApplication.willEnterForegroundNotification,
-                                               object: nil)
-    }
-    
-    /// 回到前台：系统会移除后台期间的动画，需重新开始光晕呼吸
-    @objc private func appWillEnterForeground() {
-        guard hasPlayedEntryAnimation else {
-            return
-        }
-        
-        contentView.startDaysGlowPulse()
+        /// 转场结束后再播放入场动画，避免被弹出转场覆盖
+        animateEntryIfNeeded()
     }
     
     override func viewDidLayoutSubviews() {
@@ -216,9 +189,6 @@ class CountdownDetailViewController: UIViewController {
                 element.transform = .identity
             }
         }
-        
-        /// 天数光晕呼吸
-        contentView.startDaysGlowPulse(delay: Config.entryAnimationDuration)
     }
     
     // MARK: - Event Response

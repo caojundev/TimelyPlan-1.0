@@ -66,7 +66,10 @@ class CountdownCalculator {
     /// 换算顺序为「先换算大粒度，再用剩余天数换算小粒度」，年与月按日历真实长度推算：
     /// 例如 1 月 15 日 → 3 月 20 日，先得到 2 个月（即 3 月 15 日），
     /// 再用剩余 5 天得到「2 个月 5 天」，而不是把总天数按固定 30 天 / 365 天折算。
-    /// 末级粒度不足一个单位的余数会被忽略（如「月 + 周」中的零散天数）。
+    ///
+    /// 末级粒度不足一个单位时，若该粒度数值为 0 且仍有余数天数，会用天数补齐：
+    /// 例如「年 + 月」下 2026/09/20 → 2026/09/24 得到「4 天」而非「0 天」，
+    /// 「年 + 月」下 1 年零 0 个月再余 5 天得到「1 年 5 天」；末级粒度不为 0 时余数忽略（如「月 + 周」中的零散天数）。
     ///
     /// - Parameters:
     ///   - fromDate: 起始日期
@@ -80,20 +83,31 @@ class CountdownCalculator {
                            calendar: Calendar = .current) -> TimeResult {
         let startDate = min(fromDate, toDate).startOfDay()
         let endDate = max(fromDate, toDate).startOfDay()
+        let granularities = timeUnit.granularities
         var anchorDate = startDate
         var components: [TimeResult.Component] = []
+        /// 末级粒度的数值，用于判断是否需要补天数
+        var lowestValue = 0
         
-        for granularity in timeUnit.granularities {
+        for granularity in granularities {
             let result = valueAndAnchorDate(for: granularity,
                                             from: anchorDate,
                                             to: endDate,
                                             calendar: calendar)
             anchorDate = result.anchorDate
+            lowestValue = result.value
             
             if result.value > 0 {
                 components.append(TimeResult.Component(value: result.value,
                                                        granularity: granularity))
             }
+        }
+        
+        /// 低位粒度不足一个单位时补上天数：如「年 + 月」跨度为 4 天时补成「4 天」，
+        /// 避免低位为 0 时剩余天数被忽略（显示为「0 天」或丢掉零散天数）
+        let remainingDays = abs(Date.days(fromDate: anchorDate, toDate: endDate))
+        if lowestValue == 0, remainingDays > 0, granularities.last != .day {
+            components.append(TimeResult.Component(value: remainingDays, granularity: .day))
         }
         
         /// 所有粒度均为 0 时保留“0 天”，保证结果始终可展示
@@ -211,13 +225,27 @@ extension CountdownCalculator {
             }
         }
         
+        /// 主数值文本：最大粒度的数值（如 "13"）
+        var primaryValueText: String {
+            guard let first = components.first else {
+                return ""
+            }
+            
+            return "\(first.value)"
+        }
+        
+        /// 主单位文本：最大粒度的单位（如 "月"、"mo"）
+        var primaryUnitText: String {
+            return components.first?.unitTitle ?? ""
+        }
+        
         /// 主文本：最大粒度的「数值 + 单位」（如 "13月"、"13mo"）
         var primaryText: String {
             guard let first = components.first else {
                 return ""
             }
             
-            return text(for: first)
+            return joinedText("\(first.value)", first.unitTitle)
         }
         
         /// 次文本：第二个粒度的「数值 + 单位」（不存在第二个粒度时为 nil，如 "5天"、"5d"）
@@ -227,6 +255,24 @@ extension CountdownCalculator {
             }
             
             return text(for: components[1])
+        }
+        
+        /// 次数值文本：第二个粒度的数值（不存在第二个粒度时为 nil，如 "5"）
+        var secondaryValueText: String? {
+            guard components.count > 1 else {
+                return nil
+            }
+            
+            return "\(components[1].value)"
+        }
+        
+        /// 次单位文本：第二个粒度的单位（不存在第二个粒度时为 nil，如 "天"、"d"）
+        var secondaryUnitText: String? {
+            guard components.count > 1 else {
+                return nil
+            }
+            
+            return components[1].unitTitle
         }
         
         /// 指定粒度在结果中的数值（未包含该粒度时为 0）

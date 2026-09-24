@@ -82,12 +82,7 @@ class CountdownEvent: NSObject,
     var colorHex: String?
     
     /// 倒数日日期（日期类型 + 日期 + 闰月）
-    var date: CountdownDate {
-        didSet {
-            /// 日期变化后需重新推算下一个发生日
-            cachedOccuranceDate = nil
-        }
-    }
+    let date: CountdownDate
     
     /// 正数计数是否包含选中日期当天（+1）
     var includesStartDate: Bool
@@ -174,13 +169,7 @@ class CountdownEvent: NSObject,
     // MARK: - Getters
     /// 目标日期（公历）
     var targetDate: Date {
-        get {
-            return date.targetDate
-        }
-        
-        set {
-            date.targetDate = newValue
-        }
+        return date.targetDate
     }
     
     /// 显示名称
@@ -199,7 +188,13 @@ class CountdownEvent: NSObject,
             return cachedOccuranceDate
         }
         
-        let occuranceDate = timePlan.nextPlanDate(from: Date(), startDate: date) ?? date
+        let occuranceDate: CountdownDate
+        if effectiveCountingType == .countdown {
+            occuranceDate = timePlan.nextPlanDate(from: Date(), startDate: date) ?? date
+        } else {
+            occuranceDate = date
+        }
+        
         cachedOccuranceDate = occuranceDate
         cachedOccuranceDay = today
         return occuranceDate
@@ -211,7 +206,7 @@ class CountdownEvent: NSObject,
     /// 发生日缓存对应的日期（跨天时失效）
     private var cachedOccuranceDay: Date?
     
-    /// 距离下一个发生日的天数（正数为剩余天数，负数为已经过去的天数）
+    /// 距离下一个发生日的天数
     var remainingDays: Int {
         return CountdownCalculator.days(referenceDate: .now,
                                         targetDate: occuranceDate.targetDate,
@@ -232,12 +227,7 @@ class CountdownEvent: NSObject,
                                               toDate: occuranceDate.targetDate,
                                               timeUnit: timeUnit)
     }
-    
-    /// 目标日期是否已经过去
-    var isExpired: Bool {
-        return remainingDays < 0
-    }
-    
+
     /// 是否有提醒
     var hasReminder: Bool {
         guard let reminder = reminder, reminder.hasAlarm else {
