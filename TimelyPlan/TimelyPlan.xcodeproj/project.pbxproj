@@ -130,6 +130,9 @@
 		E50CC6083066120100D1BD3E /* MyDayCountdownEventBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50CC6073066120100D1BD3E /* MyDayCountdownEventBindCell.swift */; };
 		E50CC60A3066125600D1BD3E /* MyDayCountdownBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50CC6093066125600D1BD3E /* MyDayCountdownBindSearchResultSectionController.swift */; };
 		E50CC60C30661A4700D1BD3E /* CountdownDisplayModeMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50CC60B30661A4700D1BD3E /* CountdownDisplayModeMenuController.swift */; };
+		E50CC61030666EDA00D1BD3E /* countdown_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50CC60E30666ED800D1BD3E /* countdown_24@3x.png */; };
+		E50CC61130666EDA00D1BD3E /* countdown_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50CC60F30666ED900D1BD3E /* countdown_24@2x.png */; };
+		E50CC61330669EF300D1BD3E /* MyDayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50CC61230669EF300D1BD3E /* MyDayState.swift */; };
 		E50D02452F552FAF00E93977 /* HabitTimeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D02442F552FAF00E93977 /* HabitTimeSelectView.swift */; };
 		E50D02472F55318200E93977 /* HabitTimeEditTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D02462F55318200E93977 /* HabitTimeEditTableCell.swift */; };
 		E50D024B2F557BF800E93977 /* DateFrequencySectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D024A2F557BF800E93977 /* DateFrequencySectionController.swift */; };
@@ -2528,6 +2531,9 @@
 		E50CC6073066120100D1BD3E /* MyDayCountdownEventBindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayCountdownEventBindCell.swift; sourceTree = "<group>"; };
 		E50CC6093066125600D1BD3E /* MyDayCountdownBindSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayCountdownBindSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E50CC60B30661A4700D1BD3E /* CountdownDisplayModeMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDisplayModeMenuController.swift; sourceTree = "<group>"; };
+		E50CC60E30666ED800D1BD3E /* countdown_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_24@3x.png"; sourceTree = "<group>"; };
+		E50CC60F30666ED900D1BD3E /* countdown_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_24@2x.png"; sourceTree = "<group>"; };
+		E50CC61230669EF300D1BD3E /* MyDayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayState.swift; sourceTree = "<group>"; };
 		E50D02442F552FAF00E93977 /* HabitTimeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTimeSelectView.swift; sourceTree = "<group>"; };
 		E50D02462F55318200E93977 /* HabitTimeEditTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTimeEditTableCell.swift; sourceTree = "<group>"; };
 		E50D024A2F557BF800E93977 /* DateFrequencySectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFrequencySectionController.swift; sourceTree = "<group>"; };
@@ -5656,6 +5662,8 @@
 		E511E501305E0A9200292511 /* countdown */ = {
 			isa = PBXGroup;
 			children = (
+				E50CC60F30666ED900D1BD3E /* countdown_24@2x.png */,
+				E50CC60E30666ED800D1BD3E /* countdown_24@3x.png */,
 				E511E502305E0A9200292511 /* countdown_layout_list_24@3x.png */,
 				E511E503305E0A9200292511 /* countdown_layout_list_24@2x.png */,
 				E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */,
@@ -6916,6 +6924,7 @@
 			isa = PBXGroup;
 			children = (
 				E53ABEE83009E35400EB8632 /* MyDaySetting.swift */,
+				E50CC61230669EF300D1BD3E /* MyDayState.swift */,
 				E53ABEE43009D7D000EB8632 /* MyDaySettingViewController.swift */,
 				E5146C80302D6C80007A8BCB /* CalendarLocalEditViewController.swift */,
 			);
@@ -12890,6 +12899,7 @@
 				E56B94812F8CDB42001E488B /* todo_sort_type_startDate_24@2x.png in Resources */,
 				E5E2770E2D3E06F5004EC522 /* trash_empty_24@2x.png in Resources */,
 				E55528302FB5C81E0093DD7E /* todo_smartlist_overdue_80@3x.png in Resources */,
+				E50CC61030666EDA00D1BD3E /* countdown_24@3x.png in Resources */,
 				E5C92F532FD17B8C0051F355 /* todo_group_type_custom_24@2x.png in Resources */,
 				E5259B1E3018732300A6D253 /* myDayEventAdd_habit_24@2x.png in Resources */,
 				E54E63412F5B1BFD00FCBCAE /* habit_menu_completeAll_24@3x.png in Resources */,
@@ -13350,6 +13360,7 @@
 				E506B5C52F638B2E008B3321 /* habit_task_filter_all_24@3x.png in Resources */,
 				E563420C2F948BCC00E120BF /* todo_home_filter_24@3x.png in Resources */,
 				E50D94DE2D4528E500F57957 /* ellipsis_circle_24@2x.png in Resources */,
+				E50CC61130666EDA00D1BD3E /* countdown_24@2x.png in Resources */,
 				E55E4BFB2F9336170068E032 /* calendar_1_24@2x.png in Resources */,
 				E55E4BD02F9336170068E032 /* calendar_23_24@2x.png in Resources */,
 				E555494B2F7629CA00C9460D /* focus_timer_bind_pomodoro_32@3x.png in Resources */,
@@ -14867,6 +14878,7 @@
 				E521E3572F6A4F2F0071DA12 /* HabitReportYearlyMonthCell.swift in Sources */,
 				E5BB9E1D2D3BF0C70089667A /* NSManagedObject+Aggregation.swift in Sources */,
 				E558977F305539C0001F8F22 /* MyDayGoalScheduleEditViewController.swift in Sources */,
+				E50CC61330669EF300D1BD3E /* MyDayState.swift in Sources */,
 				E52EF6212FB211B9002CF355 /* CalendarSetting.swift in Sources */,
 				E5D7D7E32D43923800EC877A /* FocusTimerRepresentable.swift in Sources */,
 				E5BB9DA32D3BF0C60089667A /* TPChevronExpandButton.swift in Sources */,

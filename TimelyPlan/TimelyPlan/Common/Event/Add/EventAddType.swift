@@ -50,7 +50,7 @@ enum EventAddType: Int, TPMenuRepresentable {
         case .goal:
             return "goal_24"
         case .countdown:
-            return "goal_24"
+            return "countdown_24"
         }
     }
     

@@ -72,9 +72,7 @@ class MyDayCountdownEventBindCell: TPBaseTableCell, SearchHighlightable {
             infoView.title = event.displayName
         }
         
-        /// 详情：发生日期（「我的一天」显示方式由右侧选中状态表达，此处不重复展示）
-        let detailProvider = CountdownEventDetailProvider(event: event,
-                                                          option: .allExceptMyDay)
+        let detailProvider = CountdownEventDetailProvider(event: event)
         infoView.subtitle = detailProvider.attributedInfo()
         setNeedsLayout()
     }

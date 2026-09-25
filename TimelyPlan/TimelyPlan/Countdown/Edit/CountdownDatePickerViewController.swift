@@ -12,6 +12,12 @@ class CountdownDatePickerViewController: TPTableSectionsViewController {
 
     private let dateCellHeight: CGFloat = 220.0
     
+    /// 今天按钮高度
+    private let todayButtonHeight: CGFloat = 32.0
+    
+    /// 今天按钮与操作栏、内容区域之间的间距
+    private let todayButtonSpacing: CGFloat = 10.0
+    
     /// 编辑中的倒数日日期
     var countdownDate: CountdownDate = CountdownDate()
     
@@ -88,6 +94,24 @@ class CountdownDatePickerViewController: TPTableSectionsViewController {
         }
     }
     
+    // MARK: - 今天按钮
+    /// 回到今天按钮（日期为今天时隐藏）
+    lazy var todayButton: TPDefaultButton = {
+        let button = TPDefaultButton()
+        button.title = resGetString("Today")
+        button.titleConfig.font = UIFont.boldSystemFont(ofSize: 15.0)
+        button.titleConfig.textColor = resGetColor(.tint)
+        button.titleConfig.highlightedTextColor = resGetColor(.tint).withAlphaComponent(0.6)
+        button.normalBackgroundColor = resGetColor(.tint).withAlphaComponent(0.12)
+        button.cornerRadius = todayButtonHeight / 2.0
+        button.padding = UIEdgeInsets(horizontal: 16.0)
+        button.didClickHandler = { [weak self] in
+            self?.clickToday()
+        }
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         actionsBarHeight = 75.0
@@ -96,11 +120,27 @@ class CountdownDatePickerViewController: TPTableSectionsViewController {
         sectionControllers = [dateSectionController]
         adapter.cellStyle.backgroundColor = .secondarySystemBackground
         adapter.reloadData()
+        setupTodayButton()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         updatePopoverContentSize()
+    }
+    
+    override func layoutActionsBar() {
+        super.layoutActionsBar()
+        
+        /// 今天按钮：位于操作栏上方居中
+        guard let actionsBar = actionsBar, !todayButton.isHidden else {
+            return
+        }
+        
+        let fitSize = todayButton.sizeThatFits(CGSize(width: view.bounds.width,
+                                                      height: todayButtonHeight))
+        todayButton.size = CGSize(width: fitSize.width, height: todayButtonHeight)
+        todayButton.centerX = view.halfWidth
+        todayButton.bottom = actionsBar.top - todayButtonSpacing
     }
     
     override var popoverContentSize: CGSize {
@@ -141,9 +181,30 @@ class CountdownDatePickerViewController: TPTableSectionsViewController {
         
         countdownDate.targetDate = date
         updateLeapMonth()
+        updateTodayButton()
+    }
+    
+    /// 回到今天
+    @objc func clickToday() {
+        selectDate(Date().startOfDay())
+        /// 同步日期选择器到当前日期
+        adapter.reloadCell(forItem: currentDateCellItem, with: .none)
+        updateTodayButton()
     }
     
     // MARK: - Update
+    /// 添加今天按钮
+    private func setupTodayButton() {
+        view.addSubview(todayButton)
+        updateTodayButton()
+    }
+    
+    /// 刷新今天按钮显隐（日期为今天时隐藏）
+    private func updateTodayButton() {
+        todayButton.isHidden = countdownDate.targetDate.isToday
+        view.setNeedsLayout()
+    }
+    
     /// 同步闰月标记（仅农历有效）
     private func updateLeapMonth() {
         guard countdownDate.isLunar else {

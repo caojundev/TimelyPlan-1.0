@@ -24,6 +24,8 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.allDayEventsDisplayOption = MyDaySetting.shared.allDayEventsDisplayOption
+        /// 全天区块展开状态保存在 `MyDayState` 中
+        self.isAllDayExpanded = MyDayState.shared.isAllDayExpanded
         delegate = self
         setupBindings()
     }
@@ -43,6 +45,11 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
             guard let self = self else { return }
             self.reloadData()
         }
+    }
+    
+    /// 全天区块展开状态变化时保存到状态（分页单元格出队时会同步该值）
+    override func allDayExpandedStateDidChange() {
+        MyDayState.shared.isAllDayExpanded = isAllDayExpanded
     }
     
     override func eventCellClass(for item: TimelineItem) -> AnyClass {
