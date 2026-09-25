@@ -92,6 +92,7 @@ class CountdownGeneralEditSectionController: TPTableItemSectionController {
         let cellItem = TPImageInfoTextValueTableCellItem()
         cellItem.height = Config.defaultCellHeight
         cellItem.accessoryType = .disclosureIndicator
+        cellItem.imageName = "countdown_type_24"
         cellItem.title = resGetString("Type")
         cellItem.updater = {
             guard let self = self else { return }
@@ -110,6 +111,7 @@ class CountdownGeneralEditSectionController: TPTableItemSectionController {
         let cellItem = TPImageInfoTextValueTableCellItem()
         cellItem.height = Config.defaultCellHeight
         cellItem.accessoryType = .disclosureIndicator
+        cellItem.imageName = "countdown_unit_24"
         cellItem.title = resGetString("Time Unit")
         cellItem.updater = {
             guard let self = self else { return }
@@ -146,6 +148,7 @@ class CountdownGeneralEditSectionController: TPTableItemSectionController {
     lazy var includesStartDateCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
         cellItem.height = Config.defaultCellHeight
+        cellItem.imageName = "countdown_includesStartDate_24"
         cellItem.title = resGetString("Include Start Date")
         cellItem.subtitle = resGetString("Count start date as Day 1")
         cellItem.subtitleConfig.font = .boldSystemFont(ofSize: 11.0)

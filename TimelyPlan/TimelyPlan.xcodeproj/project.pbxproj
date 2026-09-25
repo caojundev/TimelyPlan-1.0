@@ -133,6 +133,12 @@
 		E50CC61030666EDA00D1BD3E /* countdown_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50CC60E30666ED800D1BD3E /* countdown_24@3x.png */; };
 		E50CC61130666EDA00D1BD3E /* countdown_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50CC60F30666ED900D1BD3E /* countdown_24@2x.png */; };
 		E50CC61330669EF300D1BD3E /* MyDayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50CC61230669EF300D1BD3E /* MyDayState.swift */; };
+		E50CC61A3066B4C000D1BD3E /* countdown_type_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50CC6143066B4BE00D1BD3E /* countdown_type_24@2x.png */; };
+		E50CC61B3066B4C000D1BD3E /* countdown_unit_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50CC6153066B4BE00D1BD3E /* countdown_unit_24@2x.png */; };
+		E50CC61C3066B4C000D1BD3E /* countdown_includesStartDate_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50CC6163066B4BF00D1BD3E /* countdown_includesStartDate_24@2x.png */; };
+		E50CC61D3066B4C000D1BD3E /* countdown_type_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50CC6173066B4BF00D1BD3E /* countdown_type_24@3x.png */; };
+		E50CC61E3066B4C000D1BD3E /* countdown_unit_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50CC6183066B4BF00D1BD3E /* countdown_unit_24@3x.png */; };
+		E50CC61F3066B4C000D1BD3E /* countdown_includesStartDate_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E50CC6193066B4C000D1BD3E /* countdown_includesStartDate_24@3x.png */; };
 		E50D02452F552FAF00E93977 /* HabitTimeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D02442F552FAF00E93977 /* HabitTimeSelectView.swift */; };
 		E50D02472F55318200E93977 /* HabitTimeEditTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D02462F55318200E93977 /* HabitTimeEditTableCell.swift */; };
 		E50D024B2F557BF800E93977 /* DateFrequencySectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50D024A2F557BF800E93977 /* DateFrequencySectionController.swift */; };
@@ -2534,6 +2540,12 @@
 		E50CC60E30666ED800D1BD3E /* countdown_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_24@3x.png"; sourceTree = "<group>"; };
 		E50CC60F30666ED900D1BD3E /* countdown_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_24@2x.png"; sourceTree = "<group>"; };
 		E50CC61230669EF300D1BD3E /* MyDayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayState.swift; sourceTree = "<group>"; };
+		E50CC6143066B4BE00D1BD3E /* countdown_type_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_type_24@2x.png"; sourceTree = "<group>"; };
+		E50CC6153066B4BE00D1BD3E /* countdown_unit_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_unit_24@2x.png"; sourceTree = "<group>"; };
+		E50CC6163066B4BF00D1BD3E /* countdown_includesStartDate_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_includesStartDate_24@2x.png"; sourceTree = "<group>"; };
+		E50CC6173066B4BF00D1BD3E /* countdown_type_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_type_24@3x.png"; sourceTree = "<group>"; };
+		E50CC6183066B4BF00D1BD3E /* countdown_unit_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_unit_24@3x.png"; sourceTree = "<group>"; };
+		E50CC6193066B4C000D1BD3E /* countdown_includesStartDate_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_includesStartDate_24@3x.png"; sourceTree = "<group>"; };
 		E50D02442F552FAF00E93977 /* HabitTimeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTimeSelectView.swift; sourceTree = "<group>"; };
 		E50D02462F55318200E93977 /* HabitTimeEditTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTimeEditTableCell.swift; sourceTree = "<group>"; };
 		E50D024A2F557BF800E93977 /* DateFrequencySectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFrequencySectionController.swift; sourceTree = "<group>"; };
@@ -5668,6 +5680,12 @@
 				E511E503305E0A9200292511 /* countdown_layout_list_24@2x.png */,
 				E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */,
 				E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */,
+				E50CC6163066B4BF00D1BD3E /* countdown_includesStartDate_24@2x.png */,
+				E50CC6193066B4C000D1BD3E /* countdown_includesStartDate_24@3x.png */,
+				E50CC6143066B4BE00D1BD3E /* countdown_type_24@2x.png */,
+				E50CC6173066B4BF00D1BD3E /* countdown_type_24@3x.png */,
+				E50CC6153066B4BE00D1BD3E /* countdown_unit_24@2x.png */,
+				E50CC6183066B4BF00D1BD3E /* countdown_unit_24@3x.png */,
 			);
 			path = countdown;
 			sourceTree = "<group>";
@@ -12795,6 +12813,7 @@
 				E500DE532DB09D4500EAEAF7 /* todo_filter_indicator_date_12@2x.png in Resources */,
 				E515AD512D3C0EFB00AA9AF2 /* InfoPlist.strings in Resources */,
 				E5D7D9692D43DCCE00EC877A /* triangle_right_32@2x.png in Resources */,
+				E50CC61F3066B4C000D1BD3E /* countdown_includesStartDate_24@3x.png in Resources */,
 				E53352982FF8C9CC00546986 /* calendar_month_24@3x.png in Resources */,
 				E56B947B2F8CDB42001E488B /* todo_sort_order_ascending_24@3x.png in Resources */,
 				E5E9F7912FC03FCA00717004 /* todo_step_import_24@3x.png in Resources */,
@@ -12825,6 +12844,7 @@
 				E55E4BD32F9336170068E032 /* calendar_23_24@3x.png in Resources */,
 				E50D02592F55860B00E93977 /* habit_time_afternoon_24@3x.png in Resources */,
 				E5BA9A8A3052431C0044106F /* goal_task_action_move_24@2x.png in Resources */,
+				E50CC61C3066B4C000D1BD3E /* countdown_includesStartDate_24@2x.png in Resources */,
 				E555281C2FB5C3200093DD7E /* todo_smartlist_inbox_80@3x.png in Resources */,
 				E5371DDE2FF1FD1C00BA9DEF /* notification_sound_24@2x.png in Resources */,
 				E56B94662F8CD6D0001E488B /* todo_group_type_dueDate_24@3x.png in Resources */,
@@ -12898,6 +12918,7 @@
 				E53ABEBC300746B200EB8632 /* myDay_24@3x.png in Resources */,
 				E56B94812F8CDB42001E488B /* todo_sort_type_startDate_24@2x.png in Resources */,
 				E5E2770E2D3E06F5004EC522 /* trash_empty_24@2x.png in Resources */,
+				E50CC61B3066B4C000D1BD3E /* countdown_unit_24@2x.png in Resources */,
 				E55528302FB5C81E0093DD7E /* todo_smartlist_overdue_80@3x.png in Resources */,
 				E50CC61030666EDA00D1BD3E /* countdown_24@3x.png in Resources */,
 				E5C92F532FD17B8C0051F355 /* todo_group_type_custom_24@2x.png in Resources */,
@@ -12968,6 +12989,7 @@
 				E55897983056D5AE001F8F22 /* sideMenu_countdown_40@2x.png in Resources */,
 				E5BB9A932D3BEF0D0089667A /* todo_smartlist_upcoming_24@2x.png in Resources */,
 				E526D4072F6D7479005C1DED /* habit_menu_editLog_24@2x.png in Resources */,
+				E50CC61E3066B4C000D1BD3E /* countdown_unit_24@3x.png in Resources */,
 				E5E276F12D3DF0B4004EC522 /* todo_list_inbox_24@2x.png in Resources */,
 				E55A7B792D45F873000D224C /* timer_next_24@3x.png in Resources */,
 				E555493C2F75590100C9460D /* focus_timer_pomodoro_24@3x.png in Resources */,
@@ -13081,6 +13103,7 @@
 				E5135097302A0BD1000E9871 /* arrow_uturn_right_36@2x.png in Resources */,
 				E55CE3462D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png in Resources */,
 				E555494E2F7629CA00C9460D /* focus_timer_bind_pomodoro_32@2x.png in Resources */,
+				E50CC61A3066B4C000D1BD3E /* countdown_type_24@2x.png in Resources */,
 				E5185077300F6DFD00112DFC /* myDay_todo_normal_24@3x.png in Resources */,
 				E5E277202D3E099C004EC522 /* todo_list_option_showCompleted_24@2x.png in Resources */,
 				E55E4BDF2F9336170068E032 /* calendar_11_24@3x.png in Resources */,
@@ -13444,6 +13467,7 @@
 				E55CE34B2D8BBFE50083316E /* quadrant_I_32@2x.png in Resources */,
 				E50DD7CF2D72BE5A00A85E87 /* todo_folder_24@3x.png in Resources */,
 				E524C7892F9B6855005CCEBD /* todo_smartlist_myDay_24@3x.png in Resources */,
+				E50CC61D3066B4C000D1BD3E /* countdown_type_24@3x.png in Resources */,
 				E5BB9A782D3BEF0D0089667A /* todo_home_setting_24@3x.png in Resources */,
 				E563F1D22FE8E97400DF86BB /* setting_hapticFeedback_32@2x.png in Resources */,
 				E5E277072D3DF8E3004EC522 /* edit_24@3x.png in Resources */,
