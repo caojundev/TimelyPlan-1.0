@@ -62,11 +62,15 @@ class CountdownDetailContentView: UIView {
         titleLabel.text = "\(event.emoji ?? event.type.emoji) \(event.displayName)"
         dateLabel.text = event.occuranceDate.displayText
         
-        let countingType = event.effectiveCountingType
-        tipLabel.text = countingType == .countUp ? resGetString("Days Passed") : resGetString("Days Remaining")
+        let result = event.remainingTimeResult
+        if result.isToday {
+            tipLabel.text = nil
+        } else {
+            let countingType = event.effectiveCountingType
+            tipLabel.text = countingType == .countUp ? resGetString("Days Passed") : resGetString("Days Remaining")
+        }
         
-        /// 剩余时间：由 CountdownCalculator 按事项的时间单位换算后配置
-        daysLabel.result = event.remainingTimeResult
+        daysLabel.result = result
         daysLabel.glowColor = color
     }
     
@@ -137,6 +141,9 @@ class CountdownTimeValueView: UILabel {
         static let valueFontSize: CGFloat = 80.0
         /// 单位默认字号
         static let unitFontSize: CGFloat = 20.0
+        /// 今天默认字号
+        static let todayFontSize: CGFloat = 36.0
+        
         /// 数值宽度不足时的最小缩放比例
         static let minimumScaleFactor: CGFloat = 0.34
         /// 光晕半径与初始透明度
@@ -153,6 +160,12 @@ class CountdownTimeValueView: UILabel {
     
     /// 单位字体
     var unitFont: UIFont = .systemFont(ofSize: Config.unitFontSize, weight: .medium) {
+        didSet {
+            updateText()
+        }
+    }
+    
+    var todayFont: UIFont = .systemFont(ofSize: Config.todayFontSize, weight: .bold) {
         didSet {
             updateText()
         }
@@ -211,6 +224,15 @@ class CountdownTimeValueView: UILabel {
     private func updateText() {
         guard let result = result else {
             attributedText = nil
+            return
+        }
+        
+        /// 今天：直接显示“今天”文本，字体与数值保持一致
+        if result.isToday {
+            let attributes: [NSAttributedString.Key: Any] = [.font: todayFont,
+                                                             .foregroundColor: textColor ?? .white]
+            attributedText = NSAttributedString(string: resGetString("Today"),
+                                                attributes: attributes)
             return
         }
         

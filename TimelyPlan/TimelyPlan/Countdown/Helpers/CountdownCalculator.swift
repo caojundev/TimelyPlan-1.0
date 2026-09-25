@@ -213,11 +213,23 @@ extension CountdownCalculator {
             return abs(Date.days(fromDate: fromDate, toDate: toDate))
         }
         
+        /// 该结果是否是“今天”
+        ///
+        /// 起止日期为同一天（即总天数为 0）时，说明到期日与参照日为同一天，
+        /// 结果表示的就是“今天”，如「当日显示」的事项。
+        var isToday: Bool {
+            return totalDays == 0 && fromDate.isToday
+        }
+        
         /// 完整文本（各组成部分以「数值 + 单位」拼接，如 "1 年 2 月 3 天"）
         /// 数值与单位、组成部分之间均按本地化格式拼接，中文为 "1年2月3天"，英文为 "1y 2mo 3d"
         var text: String {
             guard let first = components.first else {
                 return ""
+            }
+            
+            if isToday {
+                return resGetString("Today")
             }
             
             return components.dropFirst().reduce(text(for: first)) { result, component in
@@ -245,12 +257,20 @@ extension CountdownCalculator {
                 return ""
             }
             
+            if isToday {
+                return resGetString("Today")
+            }
+            
             return joinedText("\(first.value)", first.unitTitle)
         }
         
         /// 次文本：第二个粒度的「数值 + 单位」（不存在第二个粒度时为 nil，如 "5天"、"5d"）
         var secondaryText: String? {
             guard components.count > 1 else {
+                return nil
+            }
+            
+            if isToday {
                 return nil
             }
             

@@ -17,8 +17,8 @@ extension CountdownEvent {
         
         /// 过滤基准日期
         /// - 正数事项：目标日期在过去，今天显示
-        /// - 倒数事项：目标日期在未来，丢弃今天之前的日期
-        let referenceRange: DateInterval?
+        /// - 倒数事项：目标日期在未来，丢弃今天·之前的日期
+        var referenceRange: DateInterval?
         switch effectiveCountingType {
         case .countUp:
             let start = Date().startOfDay()

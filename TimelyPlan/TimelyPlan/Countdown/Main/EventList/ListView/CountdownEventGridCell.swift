@@ -73,6 +73,7 @@ class CountdownEventGridCell: TPCollectionCell {
         /// 网格单元格空间有限，字号小于详情页
         view.valueFont = .monospacedDigitSystemFont(ofSize: 28.0, weight: .bold)
         view.unitFont = .systemFont(ofSize: 13.0, weight: .medium)
+        view.todayFont = .systemFont(ofSize: 20.0, weight: .bold)
         return view
     }()
     

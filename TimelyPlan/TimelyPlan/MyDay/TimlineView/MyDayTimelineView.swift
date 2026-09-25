@@ -19,6 +19,8 @@ class MyDayTimelineView: TimelineView, TimelineViewDelegate {
     
     private let eventProcessor = MyDayEventProcessor()
     
+    let eventAddTypes: [EventAddType] = EventAddType.allExceptBind
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.allDayEventsDisplayOption = MyDaySetting.shared.allDayEventsDisplayOption
@@ -105,8 +107,7 @@ extension MyDayTimelineView: TimelineDashedConnectionCellDelegate {
     
     func timelineDashedConnectionCellDidClickAdd(_ cell: TimelineDashedConnectionCell) {
         TPImpactFeedback.impactWithSoftStyle()
-        let addTypes: [EventAddType] = [.calendar, .todo, .goal, .habit, .focus]
-        let menuController = MyDayEventAddMenuController(addTypes: addTypes)
+        let menuController = MyDayEventAddMenuController(addTypes: eventAddTypes)
         menuController.didSelectMenuActionType = { [weak self] type in
             self?.selectAddType(type, with: cell.item)
         }

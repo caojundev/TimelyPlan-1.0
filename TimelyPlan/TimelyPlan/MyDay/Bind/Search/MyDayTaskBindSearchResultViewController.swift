@@ -31,6 +31,11 @@ class MyDayTaskBindSearchResultViewController: TPTableSectionsViewController,
         return sectionController
     }()
     
+    lazy var countdownResultSectionController: MyDayCountdownBindSearchResultSectionController = {
+        let sectionController = MyDayCountdownBindSearchResultSectionController()
+        return sectionController
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let provider = TPDefaultPlaceholderProvider()
@@ -46,7 +51,8 @@ class MyDayTaskBindSearchResultViewController: TPTableSectionsViewController,
         sectionControllers = [todoResultSectionController,
                               habitResultSectionController,
                               goalResultSectionController,
-                              focusResultSectionController]
+                              focusResultSectionController,
+                              countdownResultSectionController]
         reloadData()
     }
     

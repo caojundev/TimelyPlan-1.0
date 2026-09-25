@@ -14,6 +14,7 @@ enum EventAddType: Int, TPMenuRepresentable {
     case habit
     case focus
     case goal
+    case countdown
     
     var title: String {
         switch self {
@@ -29,6 +30,8 @@ enum EventAddType: Int, TPMenuRepresentable {
             return resGetString("Focus Timer")
         case .goal:
             return resGetString("Goal Task")
+        case .countdown:
+            return resGetString("Countdown")
         }
     }
     
@@ -46,7 +49,15 @@ enum EventAddType: Int, TPMenuRepresentable {
             return "myDayEventAdd_focus_24"
         case .goal:
             return "goal_24"
+        case .countdown:
+            return "goal_24"
         }
+    }
+    
+    static var allExceptBind: [EventAddType] {
+        var types = EventAddType.allCases
+        types.remove(.bind)
+        return types
     }
 }
 
@@ -60,7 +71,11 @@ class MyDayEventAddMenuController: TPBaseMenuController<EventAddType> {
     }
     
     override func orderedMenuActionTypeLists() -> [Array<EventAddType>] {
-        return [[.bind], [.calendar], [.todo, .goal, .habit], [.focus]]
+        return [[.bind],
+                [.calendar],
+                [.todo, .goal, .habit],
+                [.focus],
+                [.countdown]]
     }
     
     override func menuActionTypes() -> [EventAddType] {

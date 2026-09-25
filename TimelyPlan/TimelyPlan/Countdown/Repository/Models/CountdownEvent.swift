@@ -218,14 +218,7 @@ class CountdownEvent: NSObject,
     ///
     /// 正数计数且包含起始日时，起始日计为第 1 天，等价于把参照日期（今天）后移一天后再换算。
     var remainingTimeResult: CountdownCalculator.TimeResult {
-        var referenceDate = Date()
-        if effectiveCountingType == .countUp, includesStartDate {
-            referenceDate = referenceDate.dateByAddingDays(1) ?? referenceDate
-        }
-        
-        return CountdownCalculator.timeResult(fromDate: referenceDate,
-                                              toDate: occuranceDate.targetDate,
-                                              timeUnit: timeUnit)
+        return remainingTimeResult(with: .now)
     }
 
     /// 是否有提醒
@@ -268,13 +261,13 @@ class CountdownEvent: NSObject,
     /// 动态计算的生效计数类型
     ///
     /// 与编辑页的显隐条件保持一致（`CountdownGeneralEditSectionController.showsCountingTypeCellItem`）：
-    /// 仅「目标日期已过去 + 存在重复规则」时，用户设置的 `countingType` 才有效；
+    /// 仅「目标日期在今天或已过去 + 存在重复规则」时，用户设置的 `countingType` 才有效；
     /// 其余情况（未来日期、或不重复）该属性会被忽略，统一按倒数（`countdown`）处理。
     var effectiveCountingType: CountingType {
-        let isPastDate = date.targetDate < Date().startOfDay()
+        let isTodayOrPastDate = date.targetDate < Date().endOfDay()
         let hasRepeat = timePlan.type != nil && timePlan.type != CountdownTimePlanType.none
-        guard isPastDate, hasRepeat else {
-            return isPastDate ? .countUp : .countdown
+        guard isTodayOrPastDate, hasRepeat else {
+            return isTodayOrPastDate ? .countUp : .countdown
         }
         
         return countingType
@@ -295,6 +288,18 @@ class CountdownEvent: NSObject,
             }
         }
     }
+    
+    func remainingTimeResult(with referenceDate: Date = .now) -> CountdownCalculator.TimeResult {
+        var referenceDate = referenceDate
+        if effectiveCountingType == .countUp, includesStartDate {
+            referenceDate = referenceDate.dateByAddingDays(1) ?? referenceDate
+        }
+        
+        return CountdownCalculator.timeResult(fromDate: referenceDate,
+                                              toDate: occuranceDate.targetDate,
+                                              timeUnit: timeUnit)
+    }
+
 }
 
 extension CountdownEvent {

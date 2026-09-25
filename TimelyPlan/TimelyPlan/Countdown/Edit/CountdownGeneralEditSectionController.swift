@@ -54,8 +54,8 @@ class CountdownGeneralEditSectionController: TPTableItemSectionController {
     
     // MARK: - 显隐条件
     /// 目标日期是否已过去
-    var isPastDate: Bool {
-        return date.targetDate < Date().startOfDay()
+    var isTodayOrPastDate: Bool {
+        return date.targetDate < Date().endOfDay()
     }
     
     /// 是否存在重复规则
@@ -69,13 +69,13 @@ class CountdownGeneralEditSectionController: TPTableItemSectionController {
     
     /// 是否显示计数类型（过去日期 + 重复）
     var showsCountingTypeCellItem: Bool {
-        return isPastDate && hasRepeat
+        return isTodayOrPastDate && hasRepeat
     }
     
     /// 是否显示包含起始日
     /// 过去日期 + 重复 + 正数，或过去日期但无重复
     var showsIncludesStartDateCellItem: Bool {
-        guard isPastDate else {
+        guard isTodayOrPastDate else {
             return false
         }
         

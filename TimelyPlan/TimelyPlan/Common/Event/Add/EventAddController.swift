@@ -36,6 +36,8 @@ class EventAddController {
             createNewTimer(with: dateInfo)
         case .goal:
             createNewGoalTask(with: dateInfo)
+        case .countdown:
+            createNewCountdown(with: dateInfo)
         }
     }
     
@@ -81,6 +83,15 @@ class EventAddController {
         editingTask.startDate = dateInfo.startDate.startOfDay()
         editingTask.endDate = dateInfo.endDate.endOfDay()
         GoalPresenter.createNewInboxGoalTask(editingTask: editingTask)
+    }
+    
+    private func createNewCountdown(with dateInfo: TaskDateInfo) {
+        var editingEvent = CountdownEditingEvent.preset(for: .countdown)
+        /// 倒数日为全天事项，所选日期即目标日期
+        editingEvent.targetDate = dateInfo.startDate.startOfDay()
+        /// 从「我的一天」添加，默认在目标日期当天于我的一天中显示
+        editingEvent.myDayDisplayMode = .onTheDay
+        CountdownPresenter.createNewEvent(type: .countdown, editingEvent: editingEvent)
     }
     
     // MARK: - 添加待办任务

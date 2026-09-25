@@ -15,6 +15,7 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
     case habit /// 习惯
     case focus /// 专注
     case goal  /// 目标
+    case countdown /// 倒数日
 
     var identifier: String {
         switch self {
@@ -28,6 +29,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return "Focus"
         case .goal:
             return "Goal"
+        case .countdown:
+            return "Countdown"
         }
     }
     
@@ -43,6 +46,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return resGetString("Focus")
         case .goal:
             return resGetString("Goal")
+        case .countdown:
+            return resGetString("Countdown")
         }
     }
     

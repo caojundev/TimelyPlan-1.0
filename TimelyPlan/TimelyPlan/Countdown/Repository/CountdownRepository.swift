@@ -115,6 +115,19 @@ class CountdownRepository {
         return eventManager.updateEvent(event, with: editingEvent)
     }
     
+    /// 更新倒数日事项在「我的一天」中的显示方式
+    @discardableResult
+    static func updateEvent(_ event: CountdownEvent,
+                            myDayDisplayMode: CountdownDisplayMode) -> CountdownEvent? {
+        guard event.myDayDisplayMode != myDayDisplayMode else {
+            return nil
+        }
+        
+        var editingEvent = event.editingEvent
+        editingEvent.myDayDisplayMode = myDayDisplayMode
+        return updateEvent(event, with: editingEvent)
+    }
+    
     /// 归档倒数日事项
     static func archiveEvent(_ event: CountdownEvent) {
         eventManager.setArchived(true, for: event)

@@ -90,7 +90,9 @@ class MyDayCountdownTimelineCell: TimelineEventCell {
         configureNode(with: item, event: event)
         infoView.title = item.event.title
         infoView.subtitle = event.myDayDetail(on: item.startDate)
-        valueView.setResult(event.remainingTimeResult)
+        
+        let timeResult = event.remainingTimeResult(with: item.startDate)
+        valueView.setResult(timeResult)
         setNeedsLayout()
     }
     
