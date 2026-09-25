@@ -1884,7 +1884,7 @@
 		E5BB9EE62D3BF0C80089667A /* TPBasePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9D402D3BF0C50089667A /* TPBasePopoverView.swift */; };
 		E5BB9EE72D3BF0C80089667A /* TPMenuListPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9D412D3BF0C50089667A /* TPMenuListPopoverView.swift */; };
 		E5BB9EE82D3BF0C80089667A /* TFPopoverPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9D422D3BF0C50089667A /* TFPopoverPosition.swift */; };
-		E5BB9EE92D3BF0C80089667A /* TFSidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9D452D3BF0C50089667A /* TFSidebarViewController.swift */; };
+		E5BB9EE92D3BF0C80089667A /* TPSidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9D452D3BF0C50089667A /* TPSidebarViewController.swift */; };
 		E5BB9EEA2D3BF0C80089667A /* TPAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9D472D3BF0C50089667A /* TPAlertAction.swift */; };
 		E5BB9EEB2D3BF0C80089667A /* TPAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9D482D3BF0C50089667A /* TPAlertController.swift */; };
 		E5BB9EEC2D3BF0C80089667A /* TPTextFieldAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB9D492D3BF0C50089667A /* TPTextFieldAlertController.swift */; };
@@ -4305,7 +4305,7 @@
 		E5BB9D402D3BF0C50089667A /* TPBasePopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPBasePopoverView.swift; sourceTree = "<group>"; };
 		E5BB9D412D3BF0C50089667A /* TPMenuListPopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPMenuListPopoverView.swift; sourceTree = "<group>"; };
 		E5BB9D422D3BF0C50089667A /* TFPopoverPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFPopoverPosition.swift; sourceTree = "<group>"; };
-		E5BB9D452D3BF0C50089667A /* TFSidebarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFSidebarViewController.swift; sourceTree = "<group>"; };
+		E5BB9D452D3BF0C50089667A /* TPSidebarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSidebarViewController.swift; sourceTree = "<group>"; };
 		E5BB9D472D3BF0C50089667A /* TPAlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPAlertAction.swift; sourceTree = "<group>"; };
 		E5BB9D482D3BF0C50089667A /* TPAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPAlertController.swift; sourceTree = "<group>"; };
 		E5BB9D492D3BF0C50089667A /* TPTextFieldAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPTextFieldAlertController.swift; sourceTree = "<group>"; };
@@ -9967,7 +9967,7 @@
 			children = (
 				E5BB9D532D3BF0C50089667A /* TPViewController.swift */,
 				E5BB9D542D3BF0C50089667A /* TPContainerViewController.swift */,
-				E5BB9D452D3BF0C50089667A /* TFSidebarViewController.swift */,
+				E5BB9D452D3BF0C50089667A /* TPSidebarViewController.swift */,
 				E5BB9B952D3BF0C30089667A /* TPTextEditViewController.swift */,
 				E5BB9D4A2D3BF0C50089667A /* MultiColumn */,
 				E5BB9D732D3BF0C50089667A /* MenuController */,
@@ -14052,7 +14052,7 @@
 				E53632AF2FAE14070095DFEC /* CalendarSettingViewController.swift in Sources */,
 				E5D7D8CA2D43933600EC877A /* FocusEndSectionController.swift in Sources */,
 				E5BB9EB62D3BF0C80089667A /* TPDatePickerViewController.swift in Sources */,
-				E5BB9EE92D3BF0C80089667A /* TFSidebarViewController.swift in Sources */,
+				E5BB9EE92D3BF0C80089667A /* TPSidebarViewController.swift in Sources */,
 				E524D2A62FD0183A002791E5 /* TodoSectionManageSectionController.swift in Sources */,
 				E5BA9A85305196D00044106F /* GoalTaskActionFooterView.swift in Sources */,
 				E541DC543058E17E008BFAE0 /* CountdownArchivedEventViewModel.swift in Sources */,

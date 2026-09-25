@@ -38,6 +38,10 @@ class TPColumnContainerView: UIView {
 
     var coverMaskAlpha: CGFloat = 0.0 {
         didSet {
+            /// 拖拽/交互驱动的透明度需要立即生效，先取消进行中的遮罩动画
+            /// （例如收起时的淡出动画，否则其完成回调会在遮罩重新显示后把它移除）
+            self.coverMaskView.layer.removeAllAnimations()
+            
             if coverMaskAlpha > 0.0, !self.coverMaskView.isDescendant(of: self) {
                 self.addCoverMaskView(with: coverMaskAlpha)
             } else if coverMaskAlpha == 0.0 {
@@ -95,7 +99,12 @@ class TPColumnContainerView: UIView {
         self.coverMaskView.layer.removeAllAnimations()
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .beginFromCurrentState) {
             self.coverMaskView.alpha = 0.0
-        } completion: { _ in
+        } completion: { finished in
+            /// 动画被后续操作打断（如快速反向拖拽、重新展开）时不移除遮罩
+            guard finished else {
+                return
+            }
+            
             self.coverMaskView.removeFromSuperview()
         }
     }
