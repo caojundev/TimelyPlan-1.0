@@ -212,6 +212,10 @@ class TimelineCell: UICollectionViewCell {
         titleLabel.edgeInsets = UIEdgeInsets(horizontal: 8.0)
         titleLabel.textColor = .white
         titleLabel.textAlignment = .center
+        // bar 不可见时点击标题可将事项滚动到可视位置，因此标题需要可交互；
+        // 默认关闭，仅在 bar 完全不可见时开启，避免遮挡 bar 本身的点击
+        titleLabel.isUserInteractionEnabled = false
+        titleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(titleTapped)))
         
         contentView.addSubview(barView)
         barView.addSubview(progressView)
@@ -255,6 +259,10 @@ class TimelineCell: UICollectionViewCell {
         layoutBar(event: event, layout: layout)
         layoutIndicators(layout: layout)
         layoutTitle(event: event, layout: layout)
+        
+        // bar 在可视区域内完全不可见时（此时标题贴在对应的边缘指示器旁），
+        // 标题才响应点击，避免遮挡 bar 自身的点击
+        titleLabel.isUserInteractionEnabled = layout.visibleBarWidth <= 0
     }
     
     /// 计算并裁剪 bar 的几何信息；返回 nil 表示 bar 完全在内容区域之外
@@ -366,7 +374,7 @@ class TimelineCell: UICollectionViewCell {
         }
         layoutTitleInBar(layout: layout)
     }
-    
+
     /// 标题显示在 bar 两侧（bar 过窄时）
     private func layoutTitleBesideBar(layout: BarLayout) {
         let titleMaxWidth = 240.0
@@ -459,6 +467,7 @@ class TimelineCell: UICollectionViewCell {
         titleLabel.frame = .zero
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
+        titleLabel.isUserInteractionEnabled = false
     }
 
     /// 重置为占位行（无任务），仅显示背景色
@@ -470,6 +479,7 @@ class TimelineCell: UICollectionViewCell {
         titleLabel.frame = .zero
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
+        titleLabel.isUserInteractionEnabled = false
         onLeftIndicatorTapped = nil
         onRightIndicatorTapped = nil
         onBarTapped = nil
@@ -491,6 +501,23 @@ class TimelineCell: UICollectionViewCell {
         onBarTapped?(event)
     }
     
+    /// 点击标题：bar 不可见时会显示对应侧的边缘指示器，
+    /// 此时点击标题与其保持一致，将事项滚动到可视位置
+    @objc private func titleTapped() {
+        let trigger: (() -> Void)?
+        if !leftEdgeIndicator.isHidden {
+            trigger = onLeftIndicatorTapped
+        } else if !rightEdgeIndicator.isHidden {
+            trigger = onRightIndicatorTapped
+        } else {
+            trigger = nil
+        }
+        
+        guard let trigger = trigger else { return }
+        TPImpactFeedback.impactWithSoftStyle()
+        trigger()
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         barView.frame = .zero
@@ -499,6 +526,7 @@ class TimelineCell: UICollectionViewCell {
         titleLabel.text = nil
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
+        titleLabel.isUserInteractionEnabled = false
     }
 }
 
