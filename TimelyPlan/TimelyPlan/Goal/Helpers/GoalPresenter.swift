@@ -36,6 +36,12 @@ class GoalPresenter {
         vc.showAsNavigationRoot()
     }
     
+    /// 显示目标计划时间线
+    static func showTimeline(for configuration: GoalListConfiguration) {
+        let vc = GoalTimelineViewController(configuration: configuration)
+        vc.showAsNavigationRoot()
+    }
+    
     /// 显示已归档目标计划
     static func showArchived() {
         let vc = GoalArchivedViewController()

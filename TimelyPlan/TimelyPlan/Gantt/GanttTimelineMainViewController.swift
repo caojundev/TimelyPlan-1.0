@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
+class GanttTimelineMainViewController: GanttTimelineListViewController, SettingAgentObserver {
 
     struct Config {
         /// 添加视图按钮
@@ -20,55 +20,12 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
     /// 侧边栏管理器
     var sidebarController: SidebarController?
     
-    /// 日期按钮
-    lazy var dateButton: CalendarDateButton = {
-        let button = CalendarDateButton()
-        button.addTarget(self, action: #selector(clickDate(_:)), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var scaleBarButtonItem: GanttTimeScaleBarButtonItem = {
-        let item = GanttTimeScaleBarButtonItem()
-        item.scale = GanttState.shared.scale
-        item.didSelectScale = { [weak self] scale in
-            self?.selectScale(scale)
-        }
-        
-        return item
-    }()
-    
     private lazy var moreBarButtonItem: UIBarButtonItem = {
         let item = UIBarButtonItem(image: resGetImage("ellipsis_24"),
                                    style: .done,
                                    target: self,
                                    action: #selector(clickMore))
         return item
-    }()
-
-    private lazy var timeScale: GanttTimeScale = {
-        // 创建时间尺度
-        let scale = GanttState.shared.scale
-        let timeScale = GanttTimeScale(scale: scale, date: date)
-        return timeScale
-    }()
-    
-    private lazy var timelineView: GanttTimelineView = { [weak self] in
-        let view = GanttTimelineView(
-            frame: .zero,
-            timeScale: timeScale,
-            headerHeight: GanttTimelineConfig.headerHeight
-        )
-        
-        // 日期改变时更新标题
-        view.onDateChanged = { date in
-            self?.timelineVisbleDateChanged(date)
-        }
-        
-        view.onBarTap = { event in
-            self?.eventProcessor.clickEvent(event)
-        }
-        
-        return view
     }()
     
     /// 添加视图
@@ -96,47 +53,52 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
         return controller
     }()
 
-    /// 当前显示日期
-    var date: Date = .now
-
-    /// 是否已滚动到初始日期（仅首次进入时执行一次）
-    private var hasScrolledToInitialDate = false
-
     private let eventProcessor = GanttEventProcessor()
 
     /// 时间线视图模型
     private let viewModel = GanttTimelineViewModel()
     
+    // MARK: - GanttTimelineListViewController
+
+    override var scale: GanttTimeScale.Scale {
+        return GanttState.shared.scale
+    }
+    
+    override func additionalRightBarButtonItems() -> [UIBarButtonItem] {
+        return [moreBarButtonItem]
+    }
+    
+    override func didSelectScale(_ scale: GanttTimeScale.Scale) {
+        GanttState.shared.scale = scale
+    }
+    
+    /// 加载当前时间尺度覆盖范围内的事项
+    override func reloadEvents() {
+        let range = DateInterval(start: timeScale.startDate, end: timeScale.endDate)
+        viewModel.loadEvents(in: range)
+    }
+    
+    override func clickEvent(_ event: GanttEvent) {
+        eventProcessor.clickEvent(event)
+    }
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleView = dateButton
-        updateTitle()
-        
-        setupBarButtonItems()
-        view.addSubview(timelineView)
+        setupSidebarButtonItem()
         setupAddView()
         setupViewModel()
-        loadEvents()
+        reloadEvents()
 
         // 监听并应用行高设置
         GanttSetting.shared.addObserver(self)
-        applyRowHeightType(GanttSetting.shared.rowHeightType)
+        setRowHeightType(GanttSetting.shared.rowHeightType)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        timelineView.frame = view.safeAreaFrame()
         layoutAddView()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        // 首次布局完成后滚动到初始日期位置
-        if !hasScrolledToInitialDate {
-            hasScrolledToInitialDate = true
-            timelineView.scrollToDate(date, animated: false)
-        }
     }
      
     override var themeBackgroundColor: UIColor? {
@@ -156,32 +118,16 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
         }
     }
     
-    private func setupBarButtonItems() {
+    private func setupSidebarButtonItem() {
         if let sidebarButtonItem = sidebarController?.newMenuButtonItem() {
             navigationItem.leftBarButtonItems = [sidebarButtonItem]
         }
-    
-        navigationItem.rightBarButtonItems = [moreBarButtonItem,
-                                              scaleBarButtonItem]
     }
     
     private func setupAddView() {
         if canAddTask() {
             self.view.insertSubview(addView, at: 999)
         }
-    }
-    
-    // MARK: - Update
-    
-    private func updateTitle() {
-        dateButton.title = date.slashFormattedYearMonthString
-    }
-
-    // MARK: - 行高设置
-
-    /// 应用行高类型到时间线视图
-    private func applyRowHeightType(_ type: GanttRowHeightType) {
-        timelineView.setRowHeightType(type)
     }
 
     // MARK: - SettingAgentObserver
@@ -193,32 +139,12 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
 
         switch key {
         case .rowHeightType:
-            applyRowHeightType(GanttSetting.shared.rowHeightType)
+            setRowHeightType(GanttSetting.shared.rowHeightType)
         case .showCompleted, .showTodo, .showGoal:
-            loadEvents()
+            reloadEvents()
         default:
             break
         }
-    }
-    
-    private func timelineVisbleDateChanged(_ date: Date) {
-        guard self.date.isInSameYearAs(date) else {
-            return
-        }
-        
-        self.date = date
-        updateTitle()
-    }
-    
-    private func selectScale(_ scale: GanttTimeScale.Scale) {
-        GanttState.shared.scale = scale
-        
-        scaleBarButtonItem.scale = scale
-        timeScale = GanttTimeScale(scale: scale, date: date)
-        timelineView.setTimeScale(self.timeScale)
-        timelineView.scrollToDate(date, animated: false)
-        updateTitle()
-        loadEvents()
     }
     
     @objc private func clickMore() {
@@ -278,35 +204,6 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
         }
     }
     
-    @objc private func clickDate(_ button: UIButton) {
-        let datePickerVC = TPYearMonthDatePickerViewController()
-        datePickerVC.date = date
-        datePickerVC.yearRange = CalendarYearConfig.yearRange
-        datePickerVC.didPickDate = { date in
-            self.pickDate(date.startOfMonth())
-        }
-        
-        datePickerVC.popoverShow(from: button, preferredPosition: .bottomCenter)
-    }
-    
-    private func pickDate(_ date: Date) {
-        if self.date.isInSameMonthAs(date) {
-            return
-        }
-        
-        let animated = self.date.isInSameYearAs(date)
-        self.date = date
-        updateTitle()
-        
-        let scale = self.timeScale.scale
-        self.timeScale = GanttTimeScale(scale: scale, date: date)
-        
-        timelineView.setTimeScale(self.timeScale)
-        timelineView.scrollToDate(date, animated: animated)
-        
-        loadEvents()
-    }
-    
     // MARK: - 数据加载
     
     /// 绑定视图模型回调
@@ -314,12 +211,6 @@ class GanttTimelineMainViewController: TPViewController, SettingAgentObserver {
         viewModel.onEventsChanged = { [weak self] in
             self?.updateTimelineEvents()
         }
-    }
-    
-    /// 加载当前时间尺度覆盖范围内的事项
-    private func loadEvents() {
-        let range = DateInterval(start: timeScale.startDate, end: timeScale.endDate)
-        viewModel.loadEvents(in: range)
     }
     
     /// 更新甘特图任务数据

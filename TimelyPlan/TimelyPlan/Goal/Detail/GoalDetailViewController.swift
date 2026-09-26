@@ -16,10 +16,28 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         static let addViewSize = CGSize(width: 50.0, height: 50.0)
         /// 添加视图边界间距
         static let addViewMargins = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 20.0)
+        /// 时间线按钮尺寸
+        static let timelineViewSize = CGSize(width: 50.0, height: 50.0)
+        /// 时间线按钮边界间距
+        static let timelineViewMargins = UIEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 0.0)
     }
 
     /// 添加视图
     private var addView: TPAddView?
+    
+    /// 时间线按钮
+    private lazy var timelineButton: TPImageButton = {
+        let button = TPImageButton()
+        button.normalImage = resGetImage("gantt_timeline_24")
+        button.cornerRadius = .greatestFiniteMagnitude
+        button.borderWidth = 1.0
+        button.imageSize = .mini
+        button.normalBackgroundColor = .secondarySystemGroupedBackground
+        button.normalBorderColor = UIColor.lightGray.withAlphaComponent(0.25)
+        button.normalImageColor = .label
+        button.addTarget(self, action: #selector(clickTimeline(_:)), for: .touchUpInside)
+        return button
+    }()
     
     /// 目标任务列表视图
     lazy var taskListView: GoalTaskListView = {
@@ -88,6 +106,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         navigationItem.rightBarButtonItem = moreBarButtonItem
         setupTaskListView()
         setupAddView()
+        setupTimelineButton()
         taskListView.placeholderProvider = interactor.placeholderProvider
         interactor.didChangeGroups = { [weak self] change in
             self?.taskGroupsDidChange(change)
@@ -112,6 +131,7 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         super.viewWillLayoutSubviews()
         layoutTaskListView()
         layoutAddView()
+        layoutTimelineButton()
     }
     
     override var themeBackgroundColor: UIColor? {
@@ -196,6 +216,18 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
         }
     }
     
+    // MARK: - 时间线视图
+    private func setupTimelineButton() {
+        view.addSubview(timelineButton)
+    }
+    
+    private func layoutTimelineButton() {
+        let layoutFrame = view.safeAreaFrame()
+        timelineButton.size = Config.timelineViewSize
+        timelineButton.left = layoutFrame.minX + Config.timelineViewMargins.left
+        timelineButton.bottom = layoutFrame.maxY - Config.timelineViewMargins.bottom
+    }
+    
     // MARK: - Update
     private func updateGoalInfo(animated: Bool = false) {
         updateTitle()
@@ -221,6 +253,12 @@ class GoalDetailViewController: TPMultiColumnDetailViewController,
     
     
     // MARK: - Event Response
+    /// 点击时间线
+    @objc func clickTimeline(_ button: UIButton) {
+        TPImpactFeedback.impactWithSoftStyle()
+        GoalPresenter.showTimeline(for: interactor.configuration)
+    }
+    
     /// 点击更多
     @objc func clickMore(_ button: UIButton) {
         guard let config = self.interactor.planOptionConfig() else {

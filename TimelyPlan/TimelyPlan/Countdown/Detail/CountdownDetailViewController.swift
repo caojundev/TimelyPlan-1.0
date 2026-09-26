@@ -80,7 +80,7 @@ class CountdownDetailViewController: UIViewController {
     /// 步骤按钮
     private lazy var stepButton: TPImageButton = {
         let button = TPImageButton()
-        button.normalImage = resGetImage("todo_task_step_addSubstep_24")
+        button.normalImage = resGetImage("todo_step_24")
         button.imageSize = .mini
         button.cornerRadius = .greatestFiniteMagnitude
         button.normalImageColor = .white
