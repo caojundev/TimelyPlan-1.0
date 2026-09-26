@@ -117,6 +117,28 @@ class CountdownEventManager {
         return nil
     }
     
+    /// 更新倒数日事项备注
+    func updateEvent(_ event: CountdownEvent, note: String?) {
+        guard event.note != note, CDCountdownEvent.updateEvent(event, note: note) else {
+            return
+        }
+        
+        let change: CountdownEventChange = .note(oldValue: event.note, newValue: note)
+        updater.didUpdateCountdownEvent(event, with: change)
+        HandyRecord.updateChangeCount()
+    }
+    
+    /// 更新倒数日事项步骤
+    func updateEvent(_ event: CountdownEvent, steps: [TodoStep]?) {
+        guard CDCountdownEvent.updateEvent(event, steps: steps) else {
+            return
+        }
+        
+        let change: CountdownEventChange = .step(oldValue: event.steps, newValue: steps)
+        updater.didUpdateCountdownEvent(event, with: change)
+        HandyRecord.updateChangeCount()
+    }
+    
     /// 删除倒数日事项
     func deleteEvent(_ event: CountdownEvent) {
         if let content = CDCountdownEvent.getEvent(withIdentifier: event.identifier) {

@@ -27,7 +27,7 @@ class TPTextEditViewController: TPViewController, UITextViewDelegate {
         textView.layer.cornerRadius = 16.0
         textView.textContainerInset = UIEdgeInsets(value: 15.0)
         textView.showsVerticalScrollIndicator = false
-        textView.backgroundColor = Color(light: 0xFAFAFA, dark: 0x23252E, alpha: 0.4)
+        textView.backgroundColor = .secondarySystemGroupedBackground
         textView.textColor = resGetColor(.title)
         
         textView.placeholderPosition = .topLeft
@@ -61,7 +61,7 @@ class TPTextEditViewController: TPViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.padding = UIEdgeInsets(top: 5.0, left: 15.0, bottom: 5.0, right: 15.0)
-        preferredContentSize = CGSize(width: 420.0, height: 360.0)
+        preferredContentSize = CGSize(width: 420.0, height: 280.0)
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         if let text = text, text.count > 0 {
             /// 显示清除按钮
@@ -91,6 +91,14 @@ class TPTextEditViewController: TPViewController, UITextViewDelegate {
         }
 
         textView.origin = layoutFrame.origin
+    }
+    
+    override var themeBackgroundColor: UIColor? {
+        return .systemGroupedBackground
+    }
+    
+    override var themeNavigationBarBackgroundColor: UIColor? {
+        return .systemGroupedBackground
     }
     
     override var navigationBarTitleFont: UIFont? {

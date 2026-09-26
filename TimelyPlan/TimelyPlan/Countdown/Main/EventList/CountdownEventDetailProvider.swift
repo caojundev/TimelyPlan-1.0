@@ -15,17 +15,21 @@ struct CountdownEventDetailOption: OptionSet {
     /// 发生日期
     static let occuranceDate = CountdownEventDetailOption(rawValue: 1 << 0)
     
+    /// 步骤
+    static let step = CountdownEventDetailOption(rawValue: 1 << 1)
+    
     /// 我的一天
-    static let myDay = CountdownEventDetailOption(rawValue: 1 << 1)
+    static let myDay = CountdownEventDetailOption(rawValue: 1 << 2)
     
     /// 日历（是否添加到日历）
-    static let calendar = CountdownEventDetailOption(rawValue: 1 << 2)
+    static let calendar = CountdownEventDetailOption(rawValue: 1 << 3)
     
     /// 备注
-    static let note = CountdownEventDetailOption(rawValue: 1 << 3)
+    static let note = CountdownEventDetailOption(rawValue: 1 << 4)
     
     /// 所有选项
     static let all: CountdownEventDetailOption = [occuranceDate,
+                                                  .step,
                                                   .myDay,
                                                   .calendar,
                                                   .note]
@@ -62,6 +66,10 @@ class CountdownEventDetailProvider {
             infos.append(info)
         }
         
+        if option.contains(.step), let info = event.attributedStepInfo {
+            infos.append(info)
+        }
+        
         if option.contains(.myDay), let info = event.attributedMyDayInfo {
             infos.append(info)
         }
@@ -69,13 +77,13 @@ class CountdownEventDetailProvider {
         if option.contains(.calendar), let info = event.attributedCalendarInfo {
             infos.append(info)
         }
-        
+    
         if option.contains(.note), let info = event.attributedNoteInfo {
             infos.append(info)
         }
         
         if infos.count > 0 {
-            return infos.joined(separator: " • ")
+            return infos.joined(separator: "•")
         }
         
         return nil
@@ -115,6 +123,27 @@ extension CountdownEvent {
         }
         
         return nil
+    }
+    
+    /// 步骤信息
+    var attributedStepInfo: ASAttributedString? {
+        guard self.stepCount > 0 else {
+            return nil
+        }
+        
+        let format = resGetString("%ld of %ld")
+        let trailingText = String(format: format, stepCompletedCount, self.stepCount)
+        
+        guard let checkmarkImage = resGetImage("checkmark_12") else {
+            return trailingText.attributedString
+        }
+        
+        let info: ASAttributedString = .string(image: checkmarkImage,
+                                               imageSize: .size(3),
+                                               imageColor: .secondaryLabel,
+                                               trailingText: trailingText,
+                                               separator: nil)
+        return info
     }
     
     /// 备注信息

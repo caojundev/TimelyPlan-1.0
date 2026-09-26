@@ -1,5 +1,5 @@
 //
-//  GoalStepEditSectionController.swift
+//  TodoStepInlineEditSectionController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/9/3.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GoalStepEditSectionController: TodoStepEditSectionController {
+class TodoStepInlineEditSectionController: TodoStepEditSectionController {
     
     override var items: [ListDiffable]? {
         var cellItems = super.items ?? []

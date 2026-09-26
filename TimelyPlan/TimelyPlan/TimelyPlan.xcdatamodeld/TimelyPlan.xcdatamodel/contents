@@ -16,6 +16,9 @@
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="reminderJSON" optional="YES" attributeType="String"/>
+        <attribute name="stepCompletedCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="stepCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="stepMarkdown" optional="YES" attributeType="String"/>
         <attribute name="targetDate" attributeType="Date" defaultDateTimeInterval="788889600" usesScalarValueType="NO"/>
         <attribute name="timePlanJSON" optional="YES" attributeType="String"/>
         <attribute name="timeUnit" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -216,7 +219,7 @@
         <attribute name="value" optional="YES" attributeType="String" valueTransformerName="FocusTaskContentTransformer" customClassName="FocusTaskContent"/>
     </entity>
     <elements>
-        <element name="CDCountdownEvent" positionX="45" positionY="261" width="128" height="299"/>
+        <element name="CDCountdownEvent" positionX="45" positionY="261" width="128" height="344"/>
         <element name="CDFocusSession" positionX="27" positionY="189" width="128" height="239"/>
         <element name="CDFocusTimer" positionX="18" positionY="180" width="128" height="239"/>
         <element name="CDGoalPlan" positionX="45" positionY="261" width="128" height="209"/>

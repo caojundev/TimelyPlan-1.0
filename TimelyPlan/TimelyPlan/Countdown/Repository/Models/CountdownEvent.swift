@@ -28,6 +28,9 @@ struct CountdownEventKey {
     static let includesStartDate = "includesStartDate"
     static let timeUnit = "timeUnit"
     static let isArchived = "isArchived"
+    static let stepMarkdown = "stepMarkdown"
+    static let stepCount = "stepCount"
+    static let stepCompletedCount = "stepCompletedCount"
 }
 
 /// 倒数日事件
@@ -126,6 +129,23 @@ class CountdownEvent: NSObject,
     /// 是否已归档
     var isArchived: Bool
     
+    // MARK: - 步骤
+    /// 步骤总数
+    private(set) var stepCount: Int64 = 0
+    
+    /// 已完成步骤数
+    private(set) var stepCompletedCount: Int64 = 0
+    
+    /// 步骤的 Markdown 文本
+    private var stepMarkdown: String?
+    
+    /// 步骤列表（懒加载，从 Markdown 解析）
+    private(set) lazy var steps: [TodoStep]? = {
+        guard let markdown = stepMarkdown else { return nil }
+        let parser = TodoStepParser()
+        return parser.parse(markdown)
+    }()
+    
     init(identifier: String = UUID().uuidString,
          type: CountdownEventType = .countdown,
          countingType: CountingType = .countdown,
@@ -141,6 +161,9 @@ class CountdownEvent: NSObject,
          calendarDisplayMode: CountdownDisplayMode = .none,
          reminderJSON: String? = nil,
          timePlanJSON: String? = nil,
+         stepMarkdown: String? = nil,
+         stepCount: Int64 = 0,
+         stepCompletedCount: Int64 = 0,
          isArchived: Bool = false) {
         self.identifier = identifier
         self.type = type
@@ -157,6 +180,9 @@ class CountdownEvent: NSObject,
         self.calendarDisplayMode = calendarDisplayMode
         self.reminderJSON = reminderJSON
         self.timePlanJSON = timePlanJSON
+        self.stepMarkdown = stepMarkdown
+        self.stepCount = stepCount
+        self.stepCompletedCount = stepCompletedCount
         self.isArchived = isArchived
         super.init()
     }
@@ -343,6 +369,9 @@ struct CountdownEditingEvent: Equatable {
     /// 时间计划（nil 表示不重复）
     var timePlan: CountdownTimePlan?
     
+    /// 步骤
+    var steps: [TodoStep]?
+    
     /// 备注
     var note: String?
     
@@ -390,6 +419,7 @@ struct CountdownEditingEvent: Equatable {
             && lhs.includesStartDate == rhs.includesStartDate
             && lhs.timeUnit == rhs.timeUnit
             && lhs.note == rhs.note
+            && lhs.steps?.markdown() == rhs.steps?.markdown()
             && lhs.myDayDisplayMode == rhs.myDayDisplayMode
             && lhs.calendarDisplayMode == rhs.calendarDisplayMode
             && lhs.reminder == rhs.reminder
@@ -468,6 +498,12 @@ extension CountdownEvent {
         event.emoji = emoji ?? CountdownConfig.defaultEmoji
         event.color = color ?? CountdownConfig.countdownEventDefaultColor
         event.note = note
+        /// 步骤深拷贝，避免编辑过程中修改原事件
+        if let markdown = steps?.markdown() {
+            let parser = TodoStepParser()
+            event.steps = parser.parse(markdown)
+        }
+        
         /// 提醒深拷贝，避免编辑过程中修改原事件
         event.reminder = reminder?.copy() as? TaskReminder
         /// 不重复时不携带时间计划
@@ -496,6 +532,12 @@ extension Array where Element == CountdownEvent {
 
 /// 倒数日事项改变
 enum CountdownEventChange: Equatable {
+    
+    /// 备注
+    case note(oldValue: String?, newValue: String?)
+    
+    /// 步骤
+    case step(oldValue: [TodoStep]?, newValue: [TodoStep]?)
     
     /// 内容（名称、日期、提醒、重复、显示方式等整体更新）
     case content(oldValue: CountdownEditingEvent, newValue: CountdownEditingEvent)

@@ -60,7 +60,8 @@ class CountdownEventGridCell: TPCollectionCell {
     let infoView: TPInfoView = {
         let view = TPInfoView()
         view.titleConfig.font = .boldSystemFont(ofSize: 16.0)
-        view.subtitleTopMargin = 6.0
+        view.subtitleTopMargin = 4.0
+        view.subtitleConfig.numberOfLines = 2
         return view
     }()
     

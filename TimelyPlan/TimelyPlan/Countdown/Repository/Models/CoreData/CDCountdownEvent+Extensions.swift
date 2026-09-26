@@ -51,6 +51,23 @@ extension CDCountdownEvent: TPHexColorConvertible, SortableIdentifiable {
         /// 时间计划与提醒
         updateTimePlan(editingEvent.timePlan)
         updateReminder(editingEvent.reminder)
+        
+        /// 步骤
+        updateSteps(editingEvent.steps)
+    }
+    
+    /// 更新步骤，返回是否发生改变
+    @discardableResult
+    func updateSteps(_ steps: [TodoStep]?) -> Bool {
+        let markdown = steps?.markdown()
+        guard self.stepMarkdown != markdown else {
+            return false
+        }
+        
+        self.stepMarkdown = markdown
+        self.stepCount = Int64(steps?.totalCount() ?? 0)
+        self.stepCompletedCount = Int64(steps?.completedCount() ?? 0)
+        return true
     }
     
     /// 更新时间计划（nil 表示不重复）
@@ -71,6 +88,29 @@ extension CDCountdownEvent: TPHexColorConvertible, SortableIdentifiable {
         }
         
         self.reminderJSON = reminder.jsonString()
+    }
+}
+
+// MARK: - 处理倒数日事项
+extension CDCountdownEvent {
+    
+    /// 更新倒数日事项备注
+    static func updateEvent(_ event: CountdownEvent, note: String?) -> Bool {
+        guard let cdEvent = getEvent(withIdentifier: event.identifier) else {
+            return false
+        }
+        
+        cdEvent.note = note
+        return true
+    }
+    
+    /// 更新倒数日事项步骤
+    static func updateEvent(_ event: CountdownEvent, steps: [TodoStep]?) -> Bool {
+        guard let cdEvent = getEvent(withIdentifier: event.identifier) else {
+            return false
+        }
+        
+        return cdEvent.updateSteps(steps)
     }
 }
 
@@ -207,6 +247,9 @@ extension CountdownEvent {
                   calendarDisplayMode: CountdownDisplayMode(code: content.calendarDisplayMode),
                   reminderJSON: content.reminderJSON,
                   timePlanJSON: content.timePlanJSON,
+                  stepMarkdown: content.stepMarkdown,
+                  stepCount: content.stepCount,
+                  stepCompletedCount: content.stepCompletedCount,
                   isArchived: content.isArchived)
     }
 }

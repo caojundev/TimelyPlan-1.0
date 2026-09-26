@@ -37,6 +37,16 @@ class CountdownEventInteractor: CountdownEventProcessorDelegate {
         menuProcessor.performMenuAction(type, for: event)
     }
     
+    /// 更新步骤
+    func setSteps(_ steps: [TodoStep]?) {
+        CountdownRepository.updateEvent(event, steps: steps)
+    }
+    
+    /// 更新备注
+    func setNote(_ note: String?) {
+        CountdownRepository.updateEvent(event, note: note)
+    }
+    
     /// 归档事项
     func archiveEvent() {
         CountdownRepository.archiveEvent(event)

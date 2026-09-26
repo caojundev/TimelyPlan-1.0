@@ -29,6 +29,16 @@ class CountdownDetailViewController: UIViewController {
         /// 入场动画时长与逐项延迟
         static let entryAnimationDuration: TimeInterval = 0.6
         static let entryAnimationDelayStep: TimeInterval = 0.05
+        /// 底部按钮尺寸
+        static let bottomButtonSize = CGSize(width: 36.0, height: 36.0)
+        /// 底部按钮之间的间距
+        static let bottomButtonSpacing: CGFloat = 20.0
+        /// 底部按钮与安全区域底部的间距
+        static let bottomButtonMargin: CGFloat = 20.0
+        /// 步骤信息标签高度
+        static let stepInfoLabelHeight: CGFloat = 16.0
+        /// 步骤信息标签与步骤按钮的间距
+        static let stepInfoLabelSpacing: CGFloat = 2.0
     }
     
     // MARK: - 交互器
@@ -42,7 +52,7 @@ class CountdownDetailViewController: UIViewController {
     /// 入场动画元素（依次淡入，天数最后出现）
     private var entryAnimationElements: [UIView] {
         return [contentView.titleLabel, contentView.tipLabel, contentView.dateLabel,
-                closeButton, moreButton, contentView.daysLabel]
+                closeButton, moreButton, stepButton, stepInfoLabel, noteButton, contentView.daysLabel]
     }
     
     private lazy var closeButton: TPImageButton = {
@@ -67,10 +77,47 @@ class CountdownDetailViewController: UIViewController {
         return button
     }()
     
+    /// 步骤按钮
+    private lazy var stepButton: TPImageButton = {
+        let button = TPImageButton()
+        button.normalImage = resGetImage("todo_task_step_addSubstep_24")
+        button.imageSize = .mini
+        button.cornerRadius = .greatestFiniteMagnitude
+        button.normalImageColor = .white
+        button.normalBackgroundColor = UIColor.white.withAlphaComponent(0.15)
+        button.addTarget(self, action: #selector(clickSteps(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    /// 步骤信息标签（位于步骤按钮正下方，显示进度）
+    private lazy var stepInfoLabel: TPLabel = {
+        let label = TPLabel()
+        label.font = .systemFont(ofSize: 10.0, weight: .medium)
+        label.textColor = UIColor.white.withAlphaComponent(0.6)
+        label.textAlignment = .center
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    /// 备注按钮
+    private lazy var noteButton: TPImageButton = {
+        let button = TPImageButton()
+        button.normalImage = resGetImage("todo_task_note_24")
+        button.imageSize = .mini
+        button.cornerRadius = .greatestFiniteMagnitude
+        button.normalImageColor = .white
+        button.normalBackgroundColor = UIColor.white.withAlphaComponent(0.15)
+        button.addTarget(self, action: #selector(clickNote(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var backgroundView: CountdownBackgroundView = {
-        /// 背景渐变色根据事项颜色动态计算
-        return CountdownBackgroundView(frame: view.bounds,
-                                       themeColor: interactor.event.color ?? interactor.event.type.color)
+        let backgroundView = CountdownBackgroundView(frame: view.bounds)
+        /// 背景主色根据事项颜色动态计算
+        backgroundView.mainColor = interactor.event.color ?? interactor.event.type.color
+        /// 随机选用一种背景样式
+        backgroundView.style = CountdownBackgroundView.BackgroundStyle.allCases.randomElement() ?? .diagonalLight
+        return backgroundView
     }()
     
     /// 下滑关闭手势
@@ -87,11 +134,19 @@ class CountdownDetailViewController: UIViewController {
     init(event: CountdownEvent) {
         self.interactor = CountdownEventInteractor(event: event)
         super.init(nibName: nil, bundle: nil)
+        /// 详情为「全屏覆盖」弹出，需由其自身接管状态栏样式
+        modalPresentationCapturesStatusBarAppearance = true
         configureInteractor()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - 状态栏
+    /// 详情始终为暗色背景，状态栏内容固定为浅色
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     // MARK: - 生命周期
@@ -120,6 +175,9 @@ class CountdownDetailViewController: UIViewController {
         view.addSubview(contentView)
         view.addSubview(closeButton)
         view.addSubview(moreButton)
+        view.addSubview(stepButton)
+        view.addSubview(stepInfoLabel)
+        view.addSubview(noteButton)
         
         /// 内容：标题 / 提示 / 目标日期 / 天数
         updateContent()
@@ -149,11 +207,33 @@ class CountdownDetailViewController: UIViewController {
     private func updateContent() {
         let event = interactor.event
         contentView.apply(event: event)
-        backgroundView.apply(themeColor: event.color ?? event.type.color)
+        backgroundView.mainColor = event.color ?? event.type.color
+        updateStepInfo()
+    }
+    
+    /// 刷新步骤信息标签（无步骤时不显示）
+    private func updateStepInfo() {
+        let event = interactor.event
+        if event.stepCount > 0 {
+            stepInfoLabel.text = "\(event.stepCompletedCount)/\(event.stepCount)"
+            stepInfoLabel.isHidden = false
+        } else {
+            stepInfoLabel.text = nil
+            stepInfoLabel.isHidden = true
+        }
+        
+        /// 标签显隐会影响底部按钮位置，需重新布局
+        view.setNeedsLayout()
+    }
+    
+    /// 步骤信息标签尺寸（高度固定，宽度自适应文本）
+    private var stepInfoLabelSize: CGSize {
+        let fitSize = stepInfoLabel.sizeThatFits(.unlimited)
+        return CGSize(width: ceil(fitSize.width), height: Config.stepInfoLabelHeight)
     }
     
     // MARK: - 布局
-    /// 布局顶部按钮（内容视图内部自行布局标签）
+    /// 布局顶部与底部按钮（内容视图内部自行布局标签）
     private func layoutButtons() {
         let safeFrame = view.safeAreaLayoutGuide.layoutFrame
         
@@ -166,6 +246,30 @@ class CountdownDetailViewController: UIViewController {
         moreButton.size = Config.moreButtonSize
         moreButton.right = safeFrame.maxX - Config.moreButtonMargins.right
         moreButton.top = safeFrame.minY + Config.moreButtonMargins.top
+        
+        /// 步骤与备注按钮：底部居中排列（步骤按钮正下方为步骤信息标签）
+        let buttonSize = Config.bottomButtonSize
+        let labelSize = stepInfoLabelSize
+        let hasStepInfo = !stepInfoLabel.isHidden && labelSize.width > 0.0
+        
+        /// 有步骤信息时，为按钮下方的标签预留空间，按钮组整体上移
+        let labelReservedHeight = hasStepInfo ? (labelSize.height + Config.stepInfoLabelSpacing) : 0.0
+        let buttonsBottom = safeFrame.maxY - Config.bottomButtonMargin - labelReservedHeight
+        let buttonsWidth = buttonSize.width * 2.0 + Config.bottomButtonSpacing
+        let buttonsLeft = safeFrame.midX - buttonsWidth / 2.0
+        
+        stepButton.size = buttonSize
+        stepButton.left = buttonsLeft
+        stepButton.bottom = buttonsBottom
+        
+        noteButton.size = buttonSize
+        noteButton.left = stepButton.right + Config.bottomButtonSpacing
+        noteButton.centerY = stepButton.centerY
+        
+        /// 步骤信息标签：居中于步骤按钮正下方
+        stepInfoLabel.size = labelSize
+        stepInfoLabel.centerX = stepButton.centerX
+        stepInfoLabel.top = stepButton.bottom + Config.stepInfoLabelSpacing
     }
     
     // MARK: - 动画
@@ -211,6 +315,34 @@ class CountdownDetailViewController: UIViewController {
         menuController.showMenu(from: sender,
                                 sourceRect: sourceRect,
                                 isCovered: false)
+    }
+    
+    /// 步骤操作：弹出步骤视图控制器
+    @objc private func clickSteps(_ sender: UIButton) {
+        TPImpactFeedback.impactWithSoftStyle()
+        
+        let viewController = CountdownStepViewController(interactor: interactor)
+        let navController = UINavigationController(rootViewController: viewController)
+        if let sheet = navController.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+        }
+        
+        present(navController, animated: true, completion: nil)
+    }
+    
+    /// 备注操作：编辑倒数事项备注
+    @objc private func clickNote(_ sender: UIButton) {
+        TPImpactFeedback.impactWithSoftStyle()
+        
+        let editViewController = TPTextEditViewController(text: interactor.event.note)
+        editViewController.didEndEditing = { [weak self] note in
+            self?.interactor.setNote(note)
+        }
+        
+        let navController = UINavigationController(rootViewController: editViewController)
+        navController.popoverShow()
     }
     
     /// 关闭当前详情页（事项被删除时调用）

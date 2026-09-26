@@ -108,9 +108,9 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     }()
     
     // MARK: - 步骤
-    lazy var stepSectionController: GoalStepEditSectionController = {
+    lazy var stepSectionController: TodoStepInlineEditSectionController = {
         let steps = editingTask.steps ?? []
-        let sectionController = GoalStepEditSectionController(steps: steps)
+        let sectionController = TodoStepInlineEditSectionController(steps: steps)
         sectionController.headerItem.height = Config.sectionNormalHeaderHeight
         sectionController.footerItem.height = 0.0
         sectionController.onStepsChanged = { [weak self] steps in

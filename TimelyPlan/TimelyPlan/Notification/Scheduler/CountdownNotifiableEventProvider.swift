@@ -77,6 +77,8 @@ extension CountdownNotifiableEventProvider: CountdownEventProcessorDelegate {
                     || oldValue.timePlan != newValue.timePlan
                     || oldValue.name != newValue.name
             }
+        default:
+            break
         }
         
         if shouldRefresh {

@@ -1,30 +1,30 @@
 //
-//  GoalTaskStepActionViewController.swift
+//  CountdownStepViewController.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/9/9.
+//  Created by caojun on 2026/9/26.
 //
 
 import Foundation
 import UIKit
 
-/// 目标任务「步骤」操作内容视图控制器
-class GoalTaskStepActionViewController: TPTableSectionsViewController {
+/// 倒数日事项「步骤」内容视图控制器
+class CountdownStepViewController: TPTableSectionsViewController {
     
     /// 区块上方普通间距高度
     private static let normalHeaderHeight = 5.0
     
-    /// 目标任务操作交互器
-    private let interactor: GoalTaskEditInteractor
+    /// 倒数日事项交互器
+    private let interactor: CountdownEventInteractor
     
-    /// 当前步骤列表（与编辑页保持一致）
+    /// 当前步骤列表（与详情页保持一致）
     private var steps: [TodoStep]
     
     /// 步骤编辑区块
     lazy var stepSectionController: TodoStepInlineEditSectionController = { [weak self] in
         let steps = self?.steps ?? []
         let sectionController = TodoStepInlineEditSectionController(steps: steps)
-        sectionController.headerItem.height = GoalTaskStepActionViewController.normalHeaderHeight
+        sectionController.headerItem.height = CountdownStepViewController.normalHeaderHeight
         sectionController.footerItem.height = 0.0
         sectionController.onStepsChanged = { [weak self] steps in
             guard let self = self else { return }
@@ -38,9 +38,9 @@ class GoalTaskStepActionViewController: TPTableSectionsViewController {
     /// 排序管理器
     private var reorder: TPTableDragInsertReorder?
     
-    init(interactor: GoalTaskEditInteractor) {
+    init(interactor: CountdownEventInteractor) {
         self.interactor = interactor
-        self.steps = interactor.task.steps ?? []
+        self.steps = interactor.event.steps ?? []
         super.init(style: .insetGrouped)
     }
     
@@ -50,6 +50,7 @@ class GoalTaskStepActionViewController: TPTableSectionsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = resGetString("Step")
         wrapperView.isKeyboardAdjusterEnabled = true
         tableView.keyboardDismissMode = .onDrag
         adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground

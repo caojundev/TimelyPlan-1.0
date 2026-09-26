@@ -456,6 +456,7 @@
 		E521E3592F6A50110071DA12 /* HabitReportYearlyMonthRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521E3582F6A50110071DA12 /* HabitReportYearlyMonthRender.swift */; };
 		E521E35B2F6AB2800071DA12 /* HabitReportWeekRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521E35A2F6AB2800071DA12 /* HabitReportWeekRender.swift */; };
 		E521E35D2F6AC38E0071DA12 /* HabitReportChartRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521E35C2F6AC38E0071DA12 /* HabitReportChartRender.swift */; };
+		E522FE2C30674DED00C6B581 /* CountdownStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E522FE2B30674DED00C6B581 /* CountdownStepViewController.swift */; };
 		E524C7802F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C77E2F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@2x.png */; };
 		E524C7812F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C77F2F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png */; };
 		E524C7862F9B6855005CCEBD /* todo_smartlist_tomorrow_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E524C7822F9B6854005CCEBD /* todo_smartlist_tomorrow_24@3x.png */; };
@@ -1253,7 +1254,7 @@
 		E57B2B683047C05500BA4D56 /* GoalTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B673047C05500BA4D56 /* GoalTask.swift */; };
 		E57B2B6A3047CF4200BA4D56 /* GoalTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B693047CF4200BA4D56 /* GoalTaskListView.swift */; };
 		E57B2B6D3049093800BA4D56 /* GoalTaskScheduleEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B6C3049093800BA4D56 /* GoalTaskScheduleEditSectionController.swift */; };
-		E57B2B6F3049283D00BA4D56 /* GoalStepEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B6E3049283D00BA4D56 /* GoalStepEditSectionController.swift */; };
+		E57B2B6F3049283D00BA4D56 /* TodoStepInlineEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2B6E3049283D00BA4D56 /* TodoStepInlineEditSectionController.swift */; };
 		E57B2C213046000000000001 /* GoalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C113046000000000001 /* GoalRepository.swift */; };
 		E57B2C223046000000000002 /* GoalDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C123046000000000002 /* GoalDateHelper.swift */; };
 		E57B2C233046000000000003 /* GoalPlanGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57B2C133046000000000003 /* GoalPlanGroup.swift */; };
@@ -2866,6 +2867,7 @@
 		E521E3582F6A50110071DA12 /* HabitReportYearlyMonthRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportYearlyMonthRender.swift; sourceTree = "<group>"; };
 		E521E35A2F6AB2800071DA12 /* HabitReportWeekRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportWeekRender.swift; sourceTree = "<group>"; };
 		E521E35C2F6AC38E0071DA12 /* HabitReportChartRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReportChartRender.swift; sourceTree = "<group>"; };
+		E522FE2B30674DED00C6B581 /* CountdownStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownStepViewController.swift; sourceTree = "<group>"; };
 		E524C77E2F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quickadd_keepContent_24@2x.png"; sourceTree = "<group>"; };
 		E524C77F2F9B09FB005CCEBD /* todo_task_quickadd_keepContent_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_quickadd_keepContent_24@3x.png"; sourceTree = "<group>"; };
 		E524C7822F9B6854005CCEBD /* todo_smartlist_tomorrow_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_smartlist_tomorrow_24@3x.png"; sourceTree = "<group>"; };
@@ -3665,7 +3667,7 @@
 		E57B2B673047C05500BA4D56 /* GoalTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTask.swift; sourceTree = "<group>"; };
 		E57B2B693047CF4200BA4D56 /* GoalTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskListView.swift; sourceTree = "<group>"; };
 		E57B2B6C3049093800BA4D56 /* GoalTaskScheduleEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskScheduleEditSectionController.swift; sourceTree = "<group>"; };
-		E57B2B6E3049283D00BA4D56 /* GoalStepEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalStepEditSectionController.swift; sourceTree = "<group>"; };
+		E57B2B6E3049283D00BA4D56 /* TodoStepInlineEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepInlineEditSectionController.swift; sourceTree = "<group>"; };
 		E57B2C113046000000000001 /* GoalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRepository.swift; sourceTree = "<group>"; };
 		E57B2C123046000000000002 /* GoalDateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDateHelper.swift; sourceTree = "<group>"; };
 		E57B2C133046000000000003 /* GoalPlanGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanGroup.swift; sourceTree = "<group>"; };
@@ -5697,6 +5699,7 @@
 				E5291A9E30627CE500017150 /* CountdownDetailContentView.swift */,
 				E511E511305F7B6000292511 /* CountdownBackgroundView.swift */,
 				E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */,
+				E522FE2B30674DED00C6B581 /* CountdownStepViewController.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -7322,6 +7325,7 @@
 			isa = PBXGroup;
 			children = (
 				E5E9F7962FC056C900717004 /* TodoStepEditSectionController.swift */,
+				E57B2B6E3049283D00BA4D56 /* TodoStepInlineEditSectionController.swift */,
 				E518D6A22FBF2E850045D456 /* TodoTaskStepBulkMenuActionType.swift */,
 				E549B19E2F8A01AD0014BE85 /* TodoStepAddView.swift */,
 				E56B944F2F8CC8A9001E488B /* TodoTaskAddStepSectionController.swift */,
@@ -8534,7 +8538,6 @@
 				E57B2B633047BBBE00BA4D56 /* GoalTaskEditViewController.swift */,
 				E57B2B6C3049093800BA4D56 /* GoalTaskScheduleEditSectionController.swift */,
 				E5FAA9DE304C571A00C9CCD8 /* GoalTaskProgressEditSectionController.swift */,
-				E57B2B6E3049283D00BA4D56 /* GoalStepEditSectionController.swift */,
 				E5FAA9C5304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift */,
 			);
 			path = Edit;
@@ -14701,6 +14704,7 @@
 				E5D7D8DC2D43933600EC877A /* FocusFloatingTimerInfoView.swift in Sources */,
 				E50D603D2F7A12B500D5E0A4 /* RepeatDayOfWeekTableViewCell.swift in Sources */,
 				E526D3FD2F6C2C8E005C1DED /* HabitRecordsViewController.swift in Sources */,
+				E522FE2C30674DED00C6B581 /* CountdownStepViewController.swift in Sources */,
 				E57CC5B12F7F61F000ADDBA4 /* TodoSmartListInteractor.swift in Sources */,
 				E50D02452F552FAF00E93977 /* HabitTimeSelectView.swift in Sources */,
 				E549B19D2F89F7C20014BE85 /* TodoStep.swift in Sources */,
@@ -15129,7 +15133,7 @@
 				E5FAA9C6304A564500C9CCD8 /* GoalTaskColorNameEditCell.swift in Sources */,
 				E5BB9E042D3BF0C70089667A /* String+Extensions.swift in Sources */,
 				E5BB9D972D3BF0C60089667A /* TPCircularCheckboxInfoTableCell.swift in Sources */,
-				E57B2B6F3049283D00BA4D56 /* GoalStepEditSectionController.swift in Sources */,
+				E57B2B6F3049283D00BA4D56 /* TodoStepInlineEditSectionController.swift in Sources */,
 				E54A069B303C48C8001FF4A1 /* GanttEventListView.swift in Sources */,
 				E51501A02D47BA34008B2333 /* TPBaseTableCellLayout.swift in Sources */,
 				E5BB9E6B2D3BF0C70089667A /* TPCollectionCellStyle.swift in Sources */,

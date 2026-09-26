@@ -128,6 +128,16 @@ class CountdownRepository {
         return updateEvent(event, with: editingEvent)
     }
     
+    /// 更新倒数日事项备注
+    static func updateEvent(_ event: CountdownEvent, note: String?) {
+        eventManager.updateEvent(event, note: note)
+    }
+    
+    /// 更新倒数日事项步骤
+    static func updateEvent(_ event: CountdownEvent, steps: [TodoStep]?) {
+        eventManager.updateEvent(event, steps: steps)
+    }
+    
     /// 归档倒数日事项
     static func archiveEvent(_ event: CountdownEvent) {
         eventManager.setArchived(true, for: event)
