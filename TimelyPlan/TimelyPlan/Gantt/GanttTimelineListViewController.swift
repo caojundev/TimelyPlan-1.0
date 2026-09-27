@@ -19,7 +19,7 @@ class GanttTimelineListViewController: TPViewController {
 
     /// 当前时间刻度（子类可重写以读取持久化状态）
     var scale: GanttTimeScale.Scale {
-        return scaleBarButtonItem.scale
+        return .day
     }
 
     // MARK: - 视图

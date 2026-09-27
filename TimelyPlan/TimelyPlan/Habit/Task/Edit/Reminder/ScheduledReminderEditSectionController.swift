@@ -62,6 +62,7 @@ class ScheduledReminderEditSectionController: TPTableItemSectionController,
     /// 提醒我
     lazy var remindMeCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
+        cellItem.imageName = "schedule_reminder_24"
         cellItem.title = resGetString("Remind Me")
         cellItem.updater = {
             guard let self = self else {

@@ -107,6 +107,7 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate,
     
     init() {
         self.placeholderProvider.state = self.state
+        self.placeholderProvider.emptyImage = resGetImage("countdown_placeholder_80")
         self.placeholderProvider.emptyTitle = resGetString("No Countdown")
         CountdownRepository.addUpdater(self)
         TPMidnightScheduler.shared.addUpdater(self)

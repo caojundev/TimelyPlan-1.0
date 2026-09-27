@@ -17,14 +17,16 @@ class TodoStepInlineEditSectionController: TodoStepEditSectionController {
     }
     
     /// 添加单元格条目
-    lazy var addCellItem: TPImageInfoRightButtonTableCellItem = {
-        let cellItem = TPImageInfoRightButtonTableCellItem()
+    lazy var addCellItem: TodoTaskEditTableCellItem = {
+        let cellItem = TodoTaskEditTableCellItem()
         cellItem.imageName = "plus_24"
+        cellItem.rightButtonImageName = "ellipsis_vertical_24"
         cellItem.title = resGetString("Add Step")
         cellItem.titleConfig.textColor = .primary
         cellItem.imageConfig.color = .primary
-        cellItem.didSelectHandler = { [weak self] in
-            self?.createNewStep()
+        cellItem.isActive = true
+        cellItem.didClickRightButton = { [weak self] button in
+            self?.showMoreMenu(from: button)
         }
         
         return cellItem
@@ -70,5 +72,17 @@ class TodoStepInlineEditSectionController: TodoStepEditSectionController {
         }
         
         return super.tableDragInsertReorder(reorder, canFlashRowAt: indexPath, from: sourceIndexPath)
+    }
+    
+    func showMoreMenu(from sourceView: UIView) {
+        let menuController = TodoTaskStepBulkMenuController(steps: steps)
+        menuController.permittedPositions = [.topLeft, .bottomLeft]
+        menuController.didSelectMenuActionType = { type in
+            self.performTaskStepBulkMenuAction(with: type)
+        }
+        
+        menuController.showMenu(from: sourceView,
+                                sourceRect: sourceView.bounds,
+                                isCovered: true)
     }
 }

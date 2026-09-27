@@ -198,7 +198,6 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
     lazy var myDaySectionController: MyDayEditSectionController = { [weak self] in
         let sectionController = MyDayEditSectionController()
         sectionController.headerItem.height = 15.0
-        sectionController.myDayCellItem.imageName = nil
         sectionController.isAddedToMyDay = editingTask.isAddedToMyDay
         sectionController.onAddToMyDayValueChanged = { isAddedToMyDay in
             self?.editingTask.isAddedToMyDay = isAddedToMyDay

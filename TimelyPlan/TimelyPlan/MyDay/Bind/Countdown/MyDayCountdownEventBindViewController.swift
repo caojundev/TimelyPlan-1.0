@@ -36,6 +36,7 @@ class MyDayCountdownEventBindViewController: TPViewController,
         super.viewDidLoad()
         self.view.addSubview(self.listView)
         let placeholderProvider = TPDefaultPlaceholderProvider()
+        placeholderProvider.emptyImage = resGetImage("countdown_placeholder_80")
         placeholderProvider.emptyTitle = resGetString("No Countdown")
         listView.placeholderProvider = placeholderProvider
         

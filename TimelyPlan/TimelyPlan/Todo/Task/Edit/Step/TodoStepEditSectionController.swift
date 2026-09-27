@@ -264,6 +264,28 @@ class TodoStepEditSectionController: TPTableItemSectionController,
     }
     
     // MARK: - 任务步骤菜单操作
+    func performTaskStepBulkMenuAction(with type: TodoTaskStepBulkMenuActionType) {
+        let processor = TodoTaskStepBulkMenuProcessor(steps: steps)
+        processor.didEndImporting = { [weak self] steps in
+            // 导入处理
+            guard let self = self else { return }
+            self.steps.append(contentsOf: steps)
+            self.adapter?.performSectionUpdate(forSectionObject: self,
+                                               rowAnimation: .top)
+            self.stepsDidChange()
+        }
+        
+        processor.didEndDeletingCompletedSteps = { [weak self] remainingSteps in
+            guard let self = self else { return }
+            self.steps = remainingSteps
+            self.adapter?.performSectionUpdate(forSectionObject: self, rowAnimation: .top)
+            self.stepsDidChange()
+        }
+        
+        processor.performMenuAction(with: type)
+    }
+    
+    // MARK: - 任务步骤菜单操作
     func performTaskStepMenuAction(with type: TodoTaskStepMenuActionType, for step: TodoStep) {
         switch type {
         case .convertToTask:

@@ -27,6 +27,16 @@ class GoalTaskActionViewController: TPContainerViewController,
     private let contentTopMargin = 10.0
     private let footerViewHeight = 60.0
     
+    /// 编辑按钮
+     lazy var editBarButtonItem: UIBarButtonItem = {
+         let image = resGetImage("edit_24")
+         let buttonItem = UIBarButtonItem(image: image,
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(clickEdit))
+         return buttonItem
+     }()
+     
     private lazy var checkInfoView: GoalTaskCheckInfoView = {
         let view = GoalTaskCheckInfoView()
         view.backgroundColor = .secondarySystemGroupedBackground
@@ -116,6 +126,7 @@ class GoalTaskActionViewController: TPContainerViewController,
         super.viewDidLoad()
         navigationItem.titleView = titleView
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
+        navigationItem.rightBarButtonItem = editBarButtonItem
         view.padding = UIEdgeInsets(horizontal: 16.0)
         view.addSubview(checkInfoView)
         view.addSubview(segmentedMenuView)
@@ -194,6 +205,12 @@ class GoalTaskActionViewController: TPContainerViewController,
     }
     
     // MARK: - Event Response
+    @objc private func clickEdit() {
+        TPImpactFeedback.impactWithSoftStyle()
+        UIResponder.resignCurrentFirstResponder()
+        GoalPresenter.editGoalTask(interactor.task)
+    }
+    
     private func clickTitleView() {
         taskController.moveTask(interactor.task)
     }

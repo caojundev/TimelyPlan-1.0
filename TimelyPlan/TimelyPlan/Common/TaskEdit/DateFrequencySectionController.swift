@@ -42,6 +42,8 @@ class DateFrequencySectionController: TPTableItemSectionController {
         cellItem.minimumHeight = defaultCellHeight
         cellItem.subtitleConfig.numberOfLines = 0
         cellItem.accessoryType = .disclosureIndicator
+        cellItem.imageConfig.size = .mini
+        cellItem.imageName = "schedule_repeat_24"
         cellItem.title = resGetString("Frequency")
         cellItem.updater = {
             guard let self = self else { return }
