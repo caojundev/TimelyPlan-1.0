@@ -11,7 +11,7 @@ import UIKit
 class FocusStatsMonthlyViewController: FocusStatsContentViewController {
     
     init(date: Date = .now) {
-        super.init(type: .month, date: date)
+        super.init(type: .month, date: date, firstWeekday: FocusSetting.shared.firstWeekday)
     }
     
     required init?(coder: NSCoder) {
@@ -33,6 +33,10 @@ class FocusStatsMonthlyViewController: FocusStatsContentViewController {
         let summarySectionController = dataItem.summarySectionController(type: type)
         sectionControllers.append(summarySectionController)
         
+        /// 月日历
+        let calendarMonthSectionController = calendarMonthSectionController(with: dataItem)
+        sectionControllers.append(calendarMonthSectionController)
+        
         /// 详情
         let detailSectionController = detailSectionController(with: dataItem)
         sectionControllers.append(detailSectionController)
@@ -48,6 +52,14 @@ class FocusStatsMonthlyViewController: FocusStatsContentViewController {
                                                timelineSectionController,
                                                historyDaySectionController])
         return sectionControllers
+    }
+    
+    // MARK: - 月日历
+    func calendarMonthSectionController(with dataItem: FocusStatsDataItem) -> TPCollectionItemSectionController {
+        let sectionController = FocusStatsCalendarMonthSectionController(dataItem: dataItem,
+                                                                         date: date,
+                                                                         firstWeekday: firstWeekday)
+        return sectionController
     }
     
     // MARK: - 专注时长

@@ -618,11 +618,12 @@ extension TPCollectionViewAdapter {
             return
         }
         
-//        if !hasItem {
-//            reloadData()
-//            completion?(true)
-//            return
-//        }
+        if !hasItem {
+            /// 空白列表，直接重新加载数据，直接 performBatchUpdates 可能会 crash
+            reloadData()
+            completion?(true)
+            return
+        }
         
         let oldObjects = self.objects
         let newObjects = fetchSectionObjects()

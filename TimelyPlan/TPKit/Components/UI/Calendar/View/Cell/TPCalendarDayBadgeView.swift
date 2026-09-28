@@ -10,7 +10,7 @@ import UIKit
 
 class TPCalendarDayBadgeView: UIView {
 
-    var state: TPDateState = .onHoliday {
+    var state: TPDateState = .inNormal {
         didSet {
             setNeedsLayout()
         }
