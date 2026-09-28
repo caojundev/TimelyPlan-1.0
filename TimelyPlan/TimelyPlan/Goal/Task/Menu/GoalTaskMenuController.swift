@@ -17,6 +17,7 @@ enum GoalTaskMenuType: String, TPMenuRepresentable {
     
     case startFocus /// 开始专注
     
+    case statistics  /// 统计
     case move
     case edit       /// 编辑
     case delete     /// 删除
@@ -35,6 +36,8 @@ enum GoalTaskMenuType: String, TPMenuRepresentable {
             return resGetString("Remove from My Day")
         case .startFocus:
             return resGetString("Start Focus")
+        case .statistics:
+            return resGetString("Statistics")
         default:
             return resGetString(rawValue.capitalized)
         }
@@ -54,6 +57,8 @@ enum GoalTaskMenuType: String, TPMenuRepresentable {
             return "myDay_remove_24"
         case .startFocus:
             return "focus_24"
+        case .statistics:
+            return "chart_bar_24"
         case .move:
             return "goal_task_action_move_24"
         case .delete:
@@ -87,6 +92,7 @@ class GoalTaskMenuController: TPBaseMenuController<GoalTaskMenuType> {
                  [.reset],
                  [.addToMyDay, .removeFromMyDay],
                  [.startFocus],
+                 [.statistics],
                  [.move],
                  [.edit],
                  [.delete]]
@@ -96,6 +102,7 @@ class GoalTaskMenuController: TPBaseMenuController<GoalTaskMenuType> {
     override func menuActionTypes() -> [GoalTaskMenuType] {
         var types: [GoalTaskMenuType] = [.reset,
                                          .startFocus,
+                                         .statistics,
                                          .move,
                                          .edit,
                                          .delete]

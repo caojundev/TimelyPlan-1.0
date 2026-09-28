@@ -17,6 +17,13 @@ class PointElementView: UIView, ChartHighlightEelement {
         return mark.highlightText
     }
     
+    /// 坐标点颜色
+    var pointColor: UIColor = Color(0x5856D6) {
+        didSet {
+            shapeLayer.fillColor = pointColor.cgColor
+        }
+    }
+    
     private var shapeLayer = CAShapeLayer()
     
     convenience init(mark: ChartMark) {

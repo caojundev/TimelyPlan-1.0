@@ -27,6 +27,16 @@ class GoalTaskActionViewController: TPContainerViewController,
     private let contentTopMargin = 10.0
     private let footerViewHeight = 60.0
     
+    /// 统计按钮
+    lazy var statisticBarButtonItem: UIBarButtonItem = {
+        let image = resGetImage("chart_bar_24")
+        let buttonItem = UIBarButtonItem(image: image,
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(clickStatistic))
+        return buttonItem
+    }()
+    
     /// 编辑按钮
      lazy var editBarButtonItem: UIBarButtonItem = {
          let image = resGetImage("edit_24")
@@ -126,7 +136,8 @@ class GoalTaskActionViewController: TPContainerViewController,
         super.viewDidLoad()
         navigationItem.titleView = titleView
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
-        navigationItem.rightBarButtonItem = editBarButtonItem
+        /// 数组内首项位于最右侧：统计按钮位于编辑按钮左侧
+        navigationItem.rightBarButtonItems = [editBarButtonItem, statisticBarButtonItem]
         view.padding = UIEdgeInsets(horizontal: 16.0)
         view.addSubview(checkInfoView)
         view.addSubview(segmentedMenuView)
@@ -209,6 +220,13 @@ class GoalTaskActionViewController: TPContainerViewController,
         TPImpactFeedback.impactWithSoftStyle()
         UIResponder.resignCurrentFirstResponder()
         GoalPresenter.editGoalTask(interactor.task)
+    }
+    
+    /// 点击统计按钮，弹出当前目标任务的统计视图控制器
+    @objc private func clickStatistic() {
+        TPImpactFeedback.impactWithSoftStyle()
+        UIResponder.resignCurrentFirstResponder()
+        GoalPresenter.showStats(for: interactor.task)
     }
     
     private func clickTitleView() {

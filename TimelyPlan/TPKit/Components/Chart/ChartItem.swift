@@ -62,6 +62,9 @@ class PointChartItem: ChartItem {
     
     /// 坐标点标记数组
     var pointMarks: [ChartMark] = []
+    
+    /// 坐标点颜色
+    var pointColor: UIColor = Color(0x5856D6)
 }
 
 class RectangleChartItem: ChartItem {

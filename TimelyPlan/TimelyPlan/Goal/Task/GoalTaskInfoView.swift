@@ -329,6 +329,7 @@ class GoalTaskCheckInfoView: GoalTaskBaseInfoView {
         let checkbox = TodoTaskCheckbox()
         checkbox.hitTestEdgeInsets = UIEdgeInsets(horizontal: -20.0, vertical: -20.0)
         checkbox.padding = .zero
+        checkbox.cornerRadius = .greatestFiniteMagnitude
         checkbox.addTarget(self,
                            action: #selector(clickCheckbox(_:)),
                            for: .touchUpInside)

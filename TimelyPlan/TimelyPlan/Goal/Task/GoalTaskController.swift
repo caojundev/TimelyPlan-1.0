@@ -24,6 +24,8 @@ class GoalTaskController {
             GoalRepository.updateGoalTask(task, isAddedToMyDay: false)
         case .startFocus:
             FocusPresenter.quickStartFocus(for: task)
+        case .statistics:
+            GoalPresenter.showStats(for: task)
         case .move:
             moveTask(task)
         case .edit:

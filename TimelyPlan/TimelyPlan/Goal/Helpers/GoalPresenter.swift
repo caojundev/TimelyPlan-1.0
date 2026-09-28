@@ -88,6 +88,12 @@ class GoalPresenter {
         vc.showAsNavigationRoot()
     }
     
+    /// 显示统计
+    static func showStats(for task: GoalTask, date: Date = .now) {
+        let vc = GoalStatsMainViewController(task: task, type: .month, date: date)
+        vc.showAsNavigationRoot()
+    }
+    
     /// 显示任务操作视图控制器
     static func showActionViewController(for task: GoalTask) {
         let vc = GoalTaskActionViewController(task: task)

@@ -142,7 +142,9 @@ class GoalTaskPageCheckCell: GoalTaskPageBaseCell, FocusAnimatable {
             checkInfoView.leftViewMargins = config.checkboxMargins
             checkInfoView.rightViewSize = config.moreButtonSize
             checkInfoView.rightViewMargins = config.moreButtonMargins
-            checkInfoView.checkbox.config = config.checkboxConfig
+            var checkboxConfig = config.checkboxConfig
+            checkboxConfig.cornerRadius = .greatestFiniteMagnitude
+            checkInfoView.checkbox.config = checkboxConfig
             checkInfoView.setNeedsLayout()
         }
         

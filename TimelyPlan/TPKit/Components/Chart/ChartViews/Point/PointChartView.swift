@@ -14,6 +14,9 @@ class PointChartView: BaseChartView {
     
     var pointMarks: [ChartMark] = []
     
+    /// 坐标点颜色
+    var pointColor: UIColor = Color(0x5856D6)
+    
     private var elementViews = [PointElementView]()
     
     /// 圆点视图
@@ -41,6 +44,7 @@ class PointChartView: BaseChartView {
         super.strokeChart(with: chartItem)
         let chartItem = chartItem as! PointChartItem
         self.pointMarks = chartItem.pointMarks
+        self.pointColor = chartItem.pointColor
         self.isEmpty = pointMarks.count == 0
         self.setupElementViews()
         self.setNeedsLayout()
@@ -67,6 +71,7 @@ class PointChartView: BaseChartView {
     func layoutElementViews() {
         super.layoutSubviews()
         for elementView in elementViews {
+            elementView.pointColor = pointColor
             elementView.size = dotSize
             elementView.center = positionForChartMark(elementView.mark)
         }
