@@ -10,8 +10,7 @@ import UIKit
 
 class TodoTaskEditViewController: TPTableSectionsViewController,
                                   TodoTaskEditInfoViewDelegate,
-                                  TodoTaskEditFooterViewDelegate,
-                                  TodoStepEditControllerDelegate {
+                                  TodoTaskEditFooterViewDelegate {
     
     /// 优先级按钮
     lazy var priorityBarButtonItem: TodoTaskPriorityBarButtonItem = {
@@ -24,22 +23,9 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         return buttonItem
     }()
     
-    /// 步骤区块
-    lazy var stepAddSectionController: TodoTaskAddStepSectionController = { [weak self] in
-        let sectionController = TodoTaskAddStepSectionController()
-        sectionController.didClickAdd = {
-            self?.clickAddStep()
-        }
-        
-        sectionController.didSelectActionType = { actionType in
-            self?.stepEditSectionController.performTaskStepBulkMenuAction(with: actionType)
-        }
-
-        return sectionController
-    }()
-    
     lazy var stepEditSectionController: TodoTaskEditStepSectionController = {
         let sectionController = TodoTaskEditStepSectionController(interactor: self.interactor)
+        sectionController.setupSeparatorFooterItem()
         return sectionController
     }()
 
@@ -99,19 +85,6 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         return view
     }()
     
-    /// 步骤编辑控制器
-    private lazy var stepEditController: TodoStepEditController = {
-        var viewController: UIViewController = self
-        if let navigationController = self.navigationController {
-            viewController = navigationController
-        }
-        
-        let stepEditController = TodoStepEditController(containerViewController : viewController)
-        stepEditController.maskBackgroundColor = .clear
-        stepEditController.delegate = self
-        return stepEditController
-    }()
-    
     private lazy var sectionTitleView: TodoTaskEditSectionTitleView = {
         let titleView = TodoTaskEditSectionTitleView()
         titleView.didClickSection = { [weak self] in
@@ -161,7 +134,6 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         self.wrapperView.isKeyboardAdjusterEnabled = true
         self.adapter.cellStyle.backgroundColor = .systemBackground
         self.sectionControllers = [stepEditSectionController,
-                                   stepAddSectionController,
                                    myDaySectionController,
                                    scheduleSectionController,
                                    progressSectionController,
@@ -391,10 +363,6 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         interactor.setPriority(priority)
     }
     
-    func clickAddStep() {
-        stepEditController.beginEditing()
-    }
-    
     // MARK: - 设置完成状态和进度
     private func setCompleted(_ isCompleted: Bool, completion: (@escaping() -> Void)) {
         infoView.setCompleted(isCompleted, animated: true) {
@@ -435,43 +403,6 @@ class TodoTaskEditViewController: TPTableSectionsViewController,
         view.setNeedsLayout()
     }
     
-    // MARK: - TodoStepEditControllerDelegate
-    func stepEditControllerDidEnterReturn(_ controller: TodoStepEditController) {
-        guard let name = controller.text?.whitespacesAndNewlinesTrimmedString, name.count > 0 else {
-            controller.clearText()
-            controller.endEditing()
-            return
-        }
-        
-        controller.clearText()
-        
-        let onTop = controller.position == .top
-        let isCompleted = controller.isCompleted
-        let step = TodoStep(content: name, isCompleted: isCompleted)
-        stepEditSectionController.addStep(step, onTop: onTop)
-    }
-    
-    func keyboardAwareControllerWillShowInputView(controller: TPKeyboardAwareController) {
-        stepAddSectionController.setEditing(true)
-    }
-    
-    func keyboardAwareControllerWillHideInputView(controller: TPKeyboardAwareController) {
-        stepAddSectionController.setEditing(false)
-    }
-    
-    func keyboardAwareController(controller: TPKeyboardAwareController, inputViewFrameDidChange fromFrame: CGRect) {
-        guard let inputView = controller.inputView else {
-            return
-        }
-        
-        var insetBottom = self.view.bounds.height - inputView.top
-        if insetBottom < 0.0 {
-            insetBottom = 0.0
-        }
-        
-        tableView.contentInset = UIEdgeInsets(bottom: insetBottom)
-    }
-
     // MARK: - TodoTaskEditFooterViewDelegate
     func todoTaskEditFooterViewDidClickFocus(_ view: TodoTaskEditFooterView) {
         UIResponder.resignCurrentFirstResponder()

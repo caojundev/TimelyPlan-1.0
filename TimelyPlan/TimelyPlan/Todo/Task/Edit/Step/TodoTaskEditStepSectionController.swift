@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TodoTaskEditStepSectionController: TodoStepEditSectionController {
+class TodoTaskEditStepSectionController: TodoStepInlineEditSectionController {
     
     let interactor: TodoTaskEditInteractor
     

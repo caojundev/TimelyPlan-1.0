@@ -29,6 +29,10 @@ class TodoStepInlineEditSectionController: TodoStepEditSectionController {
             self?.showMoreMenu(from: button)
         }
         
+        cellItem.didSelectHandler = { [weak self] in
+            self?.createNewStep()
+        }
+        
         return cellItem
     }()
     
