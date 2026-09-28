@@ -140,7 +140,9 @@ class TimelineCell: UICollectionViewCell {
     
     private var barView: UIView!
     private var progressView: UIView!
-    private var titleLabel: TPLabel!
+    
+    /// bar 信息视图（图标 + 标题）
+    private var infoView: GanttTimelineChartBarInfoView!
     
     // 可视区域边缘指示器
     private lazy var leftEdgeIndicator: TPImageButton = {
@@ -176,6 +178,10 @@ class TimelineCell: UICollectionViewCell {
     /// 当前 cell 绑定的任务
     private var currentEvent: GanttEvent?
 
+    /// bar 在当前可视区域内是否完全不可见
+    /// （用于区分信息视图点击的语义：不可见时等同点击边缘指示器，可见时等同点击 bar）
+    private var isBarInvisible = false
+
     private let insideTitleColor = Color(0xf2f2f2)
     private let outsideTitleColor = Color(light: 0x232323, dark: 0xf2f2f2)
     
@@ -207,21 +213,16 @@ class TimelineCell: UICollectionViewCell {
         progressView.layer.cornerRadius = 8
         progressView.isUserInteractionEnabled = false
         
-        titleLabel = TPLabel()
-        titleLabel.font = .boldSystemFont(ofSize: 12.0)
-        titleLabel.edgeInsets = UIEdgeInsets(horizontal: 8.0)
-        titleLabel.textColor = .white
-        titleLabel.textAlignment = .center
-        // bar 不可见时点击标题可将事项滚动到可视位置，因此标题需要可交互；
-        // 默认关闭，仅在 bar 完全不可见时开启，避免遮挡 bar 本身的点击
-        titleLabel.isUserInteractionEnabled = false
-        titleLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(titleTapped)))
+        infoView = GanttTimelineChartBarInfoView()
+        // 信息视图需要响应点击：bar 不可见时等同点击边缘指示器，bar 可见时等同点击 bar
+        infoView.isUserInteractionEnabled = false
+        infoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(titleTapped)))
         
         contentView.addSubview(barView)
         barView.addSubview(progressView)
-        // 标题标签作为 contentView 子视图，避免被 barView 的 masksToBounds 裁剪，
+        // 信息视图作为 contentView 子视图，避免被 barView 的 masksToBounds 裁剪，
         // 从而在滚动固定到可视区域左边缘时可以定位到 bar 之外
-        contentView.addSubview(titleLabel)
+        contentView.addSubview(infoView)
         contentView.addSubview(leftEdgeIndicator)
         contentView.addSubview(rightEdgeIndicator)
     }
@@ -258,11 +259,11 @@ class TimelineCell: UICollectionViewCell {
         
         layoutBar(event: event, layout: layout)
         layoutIndicators(layout: layout)
-        layoutTitle(event: event, layout: layout)
+        layoutInfo(event: event, layout: layout)
         
-        // bar 在可视区域内完全不可见时（此时标题贴在对应的边缘指示器旁），
-        // 标题才响应点击，避免遮挡 bar 自身的点击
-        titleLabel.isUserInteractionEnabled = layout.visibleBarWidth <= 0
+        // 信息视图始终响应点击，具体行为由 bar 是否可见决定
+        isBarInvisible = layout.visibleBarWidth <= 0
+        infoView.isUserInteractionEnabled = true
     }
     
     /// 计算并裁剪 bar 的几何信息；返回 nil 表示 bar 完全在内容区域之外
@@ -361,113 +362,111 @@ class TimelineCell: UICollectionViewCell {
         }
     }
     
-    /// 根据 bar 与可视区域的关系定位标题
-    private func layoutTitle(event: GanttEvent, layout: BarLayout) {
-        titleLabel.text = event.title
-        titleLabel.textAlignment = .left
-        titleLabel.lineBreakMode = .byTruncatingMiddle
+    /// 根据 bar 与可视区域的关系定位信息视图
+    private func layoutInfo(event: GanttEvent, layout: BarLayout) {
+        infoView.update(with: event)
+        infoView.titleAlignment = .left
+        infoView.titleLineBreakMode = .byTruncatingMiddle
         
-        // 标题可以显示在 bar 中的最小宽度
+        // 信息视图可以显示在 bar 中的最小宽度
         if layout.barWidth < 240.0 {
-            layoutTitleBesideBar(layout: layout)
+            layoutInfoBesideBar(layout: layout)
             return
         }
-        layoutTitleInBar(layout: layout)
+        layoutInfoInBar(layout: layout)
     }
 
-    /// 标题显示在 bar 两侧（bar 过窄时）
-    private func layoutTitleBesideBar(layout: BarLayout) {
-        let titleMaxWidth = 240.0
-        var titleWidth = titleLabel.sizeThatFits(.unlimited).width
-        titleWidth = min(titleWidth, titleMaxWidth)
+    /// 信息视图显示在 bar 两侧（bar 过窄时）
+    private func layoutInfoBesideBar(layout: BarLayout) {
+        let infoMaxWidth = 240.0
+        let infoWidth = infoView.contentWidth(limitedTo: infoMaxWidth)
         
-        let labelX: CGFloat
-        if layout.visibleRight - layout.barRight < titleWidth {
+        let infoX: CGFloat
+        if layout.visibleRight - layout.barRight < infoWidth {
             if rightEdgeIndicator.isHidden {
-                labelX = layout.barLeft - titleWidth
+                infoX = layout.barLeft - infoWidth
             } else {
-                labelX = min(layout.barLeft, rightEdgeIndicator.left) - titleWidth
+                infoX = min(layout.barLeft, rightEdgeIndicator.left) - infoWidth
             }
         } else {
             if leftEdgeIndicator.isHidden {
-                labelX = layout.barRight
+                infoX = layout.barRight
             } else {
-                labelX = max(layout.barRight, leftEdgeIndicator.right)
+                infoX = max(layout.barRight, leftEdgeIndicator.right)
             }
         }
         
-        titleLabel.frame = CGRect(x: labelX,
-                                  y: layout.barY,
-                                  width: titleWidth,
-                                  height: layout.barHeight)
-        titleLabel.textColor = outsideTitleColor
+        infoView.frame = CGRect(x: infoX,
+                                y: layout.barY,
+                                width: infoWidth,
+                                height: layout.barHeight)
+        infoView.titleColor = outsideTitleColor
     }
     
-    /// 标题显示在 bar 中
-    private func layoutTitleInBar(layout: BarLayout) {
+    /// 信息视图显示在 bar 中
+    private func layoutInfoInBar(layout: BarLayout) {
         let visibleWidth = layout.visibleRight - layout.visibleLeft
-        let titleMaxWidth = min( visibleWidth * 0.6, layout.barWidth)
-        var titleWidth = titleLabel.sizeThatFits(.unlimited).width
-        titleWidth = min(titleWidth, titleMaxWidth)
+        let infoMaxWidth = min( visibleWidth * 0.6, layout.barWidth)
+        let infoWidth = infoView.contentWidth(limitedTo: infoMaxWidth)
         
-        let applyTitleFrame: (CGFloat) -> Void = { labelX in
-            self.titleLabel.frame = CGRect(x: labelX,
-                                           y: layout.barY,
-                                           width: titleWidth,
-                                           height: layout.barHeight)
-            let labelRight = labelX + titleWidth
-            let onBar = labelRight >= layout.barLeft && labelX <= layout.barRight
-            self.titleLabel.textColor = onBar ? self.insideTitleColor : self.outsideTitleColor
+        let applyInfoFrame: (CGFloat) -> Void = { infoX in
+            self.infoView.frame = CGRect(x: infoX,
+                                         y: layout.barY,
+                                         width: infoWidth,
+                                         height: layout.barHeight)
+            let infoRight = infoX + infoWidth
+            let onBar = infoRight >= layout.barLeft && infoX <= layout.barRight
+            self.infoView.titleColor = onBar ? self.insideTitleColor : self.outsideTitleColor
         }
         
-        // 标题能完整容纳在可见 bar 内，默认在可见区域居中
-        if titleWidth <= layout.visibleBarWidth {
+        // 信息视图能完整容纳在可见 bar 内，默认在可见区域居中
+        if infoWidth <= layout.visibleBarWidth {
             let barVisibleLeft = max(layout.barLeft, layout.visibleLeft)
-            applyTitleFrame(barVisibleLeft + (layout.visibleBarWidth - titleWidth) / 2)
+            applyInfoFrame(barVisibleLeft + (layout.visibleBarWidth - infoWidth) / 2)
             return
         }
         
         let indicatorLength = GanttTimelineConfig.indicatorSize + 10.0
         
-        // bar 从左侧消失，标题固定在左侧指示器右侧
+        // bar 从左侧消失，信息视图固定在左侧指示器右侧
         if layout.barRight <= layout.visibleLeft + indicatorLength {
-            applyTitleFrame(leftEdgeIndicator.right)
+            applyInfoFrame(leftEdgeIndicator.right)
             return
         }
         
-        // bar 从右侧消失，标题固定在右侧指示器左侧
+        // bar 从右侧消失，信息视图固定在右侧指示器左侧
         if layout.barLeft >= layout.visibleRight - indicatorLength {
-            applyTitleFrame(rightEdgeIndicator.left - titleWidth)
+            applyInfoFrame(rightEdgeIndicator.left - infoWidth)
             return
         }
         
-        // bar 左端越过可视区域左边缘附近，标题贴在 bar 右端
+        // bar 左端越过可视区域左边缘附近，信息视图贴在 bar 右端
         if layout.visibleLeft + indicatorLength > layout.barLeft,
            layout.visibleLeft + indicatorLength < layout.barRight {
-            applyTitleFrame(layout.barRight - titleWidth)
+            applyInfoFrame(layout.barRight - infoWidth)
             return
         }
         
-        // bar 右端越过可视区域右边缘附近，标题贴在 bar 左端
+        // bar 右端越过可视区域右边缘附近，信息视图贴在 bar 左端
         if layout.visibleRight - indicatorLength > layout.barLeft,
            layout.visibleRight - indicatorLength < layout.barRight {
-            applyTitleFrame(layout.barLeft)
+            applyInfoFrame(layout.barLeft)
             return
         }
         
-        // 兜底：bar 整体可见但宽度不足以容纳标题，以 bar 整体居中
-        applyTitleFrame(layout.barLeft + (layout.barWidth - titleWidth) / 2)
+        // 兜底：bar 整体可见但宽度不足以容纳信息视图，以 bar 整体居中
+        applyInfoFrame(layout.barLeft + (layout.barWidth - infoWidth) / 2)
     }
     
     /// bar 完全越界时重置子视图
     private func resetBarViews(eventName: String) {
         barView.frame = .zero
         progressView.frame = .zero
-        titleLabel.text = eventName
-        titleLabel.frame = .zero
+        infoView.title = eventName
+        infoView.frame = .zero
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
-        titleLabel.isUserInteractionEnabled = false
+        resetInfoViewTap()
     }
 
     /// 重置为占位行（无任务），仅显示背景色
@@ -475,11 +474,11 @@ class TimelineCell: UICollectionViewCell {
         currentEvent = nil
         barView.frame = .zero
         progressView.frame = .zero
-        titleLabel.text = nil
-        titleLabel.frame = .zero
+        infoView.title = nil
+        infoView.frame = .zero
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
-        titleLabel.isUserInteractionEnabled = false
+        resetInfoViewTap()
         onLeftIndicatorTapped = nil
         onRightIndicatorTapped = nil
         onBarTapped = nil
@@ -501,32 +500,40 @@ class TimelineCell: UICollectionViewCell {
         onBarTapped?(event)
     }
     
-    /// 点击标题：bar 不可见时会显示对应侧的边缘指示器，
-    /// 此时点击标题与其保持一致，将事项滚动到可视位置
+    /// 复位信息视图的点击状态（无有效事项时不响应点击）
+    private func resetInfoViewTap() {
+        isBarInvisible = false
+        infoView.isUserInteractionEnabled = false
+    }
+    
+    /// 点击信息视图：
+    /// - bar 不可见时，等同点击对应侧的边缘指示器，将事项滚动到可视位置
+    /// - bar 可见时，等同点击 bar
     @objc private func titleTapped() {
-        let trigger: (() -> Void)?
-        if !leftEdgeIndicator.isHidden {
-            trigger = onLeftIndicatorTapped
-        } else if !rightEdgeIndicator.isHidden {
-            trigger = onRightIndicatorTapped
-        } else {
-            trigger = nil
+        guard let event = currentEvent else { return }
+        TPImpactFeedback.impactWithSoftStyle()
+        
+        guard isBarInvisible else {
+            onBarTapped?(event)
+            return
         }
         
-        guard let trigger = trigger else { return }
-        TPImpactFeedback.impactWithSoftStyle()
-        trigger()
+        if !leftEdgeIndicator.isHidden {
+            onLeftIndicatorTapped?()
+        } else if !rightEdgeIndicator.isHidden {
+            onRightIndicatorTapped?()
+        }
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         barView.frame = .zero
         progressView.frame = .zero
-        titleLabel.frame = .zero
-        titleLabel.text = nil
+        infoView.frame = .zero
+        infoView.title = nil
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
-        titleLabel.isUserInteractionEnabled = false
+        resetInfoViewTap()
     }
 }
 

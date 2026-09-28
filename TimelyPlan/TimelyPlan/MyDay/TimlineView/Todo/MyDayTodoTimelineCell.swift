@@ -85,9 +85,9 @@ class MyDayTodoTimelineCell: TimelineIconCell {
         
         let icon: UIImage?
         if task.isCompleted {
-            icon = resGetImage("myDay_todo_completed_24", color: color)
+            icon = resGetImage("todo_circle_completed_24", color: color)
         } else {
-            icon = resGetImage("myDay_todo_normal_24", color: color)
+            icon = resGetImage("todo_circle_normal_24", color: color)
         }
         
         iconNodeView.configureIcon(icon)
