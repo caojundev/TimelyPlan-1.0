@@ -72,6 +72,15 @@ extension DateInterval {
         return range
     }
     
+    /// 指定天数范围（firstDate 起 dayCount 天，00:00 ~ 23:59:59）
+    static func rangeOfDays(firstDate: Date, dayCount: Int) -> DateInterval {
+        let addingDays = max(0, dayCount - 1)
+        let start = firstDate.startOfDay()
+        let end = start.dateByAddingDays(addingDays)!.endOfDay()
+        let range = DateInterval(start: start, end: end)
+        return range
+    }
+    
     static func range(with firstDate: Date, mode: CalendarPageMode) -> DateInterval {
         let addingDays = mode.days - 1
         let start = firstDate.startOfDay()

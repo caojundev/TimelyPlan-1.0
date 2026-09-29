@@ -66,7 +66,7 @@ class CalendarDayTimedEventsView: UIView {
         self.padding = UIEdgeInsets(top: axisLayout.topMargin, bottom: axisLayout.bottomMargin)
         let layoutFrame = layoutFrame()
         contentView.frame = layoutFrame
-        
+        updateIndicator() /// 更新指示器
         guard let layout = layout else {
             return
         }

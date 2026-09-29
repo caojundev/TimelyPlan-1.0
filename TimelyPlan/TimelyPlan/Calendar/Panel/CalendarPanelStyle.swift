@@ -1,0 +1,118 @@
+//
+//  CalendarPanelStyle.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/9/29.
+//
+
+import Foundation
+import UIKit
+
+/// 日历面板布局样式
+enum CalendarPanelStyle: String, CaseIterable {
+    case threePlusFourVertical
+//    case threePlusFourHorizontal = "3 + 4 (水平)"
+//    case fourPlusThree = "4 + 3"
+//    case fourPlusFourVertical = "4 + 4 (垂直)"
+//    case fourPlusFourHorizontal = "4 + 4 (水平)"
+//    case fivePlusTwoSingleColumn = "5 + 2 (1栏)"
+//    case fivePlusTwoTwoColumns = "5 + 2 (2栏)"
+    
+    /// UI 上显示的名称 (直接使用 rawValue 即可)
+    var displayName: String {
+        return self.rawValue
+    }
+}
+
+// MARK: - 布局配置
+
+/// 页面的网格划分：把页面按行、列各分成若干块，天元素视图按块坐标定位
+struct CalendarPanelGrid {
+    /// 行块数
+    let rows: Int
+    /// 列块数
+    let columns: Int
+}
+
+/// 天元素视图的配置：一个元素视图可以只显示一天，也可以显示连续的若干天
+struct CalendarPanelDayItemConfig {
+    /// 起始天在页面中的偏移（相对页面第一天，从 0 开始）
+    let dayOffset: Int
+    /// 显示的天数：1 为单天视图，大于 1 为多天视图
+    let dayCount: Int
+    /// 在网格中的位置（块坐标）
+    let row: Int
+    let column: Int
+    /// 占用的网格块数
+    let rowSpan: Int
+    let columnSpan: Int
+}
+
+/// 天条目配置元组
+/// - dayOffset: 起始天在页面中的偏移（相对页面第一天，从 0 开始）
+/// - dayCount: 显示的天数，1 为单天视图，大于 1 为多天视图
+/// - row / column: 在网格中的起始块坐标
+/// - rowSpan / columnSpan: 占用的网格块数
+typealias CalendarPanelDayItemTuple = (dayOffset: Int,
+                                       dayCount: Int,
+                                       row: Int,
+                                       column: Int,
+                                       rowSpan: Int,
+                                       columnSpan: Int)
+
+/// 单个样式的布局配置
+struct CalendarPanelLayoutConfig {
+    
+    /// 网格划分
+    let grid: CalendarPanelGrid
+    
+    /// 页面中的所有天元素视图
+    let dayItems: [CalendarPanelDayItemConfig]
+    
+    /// 页面显示的总天数
+    var daysInPage: Int {
+        return dayItems.reduce(0) { max($0, $1.dayOffset + $1.dayCount) }
+    }
+    
+    // MARK: - Init
+    
+    /// 根据样式初始化布局配置
+    /// 每个样式只需列出所有天条目的配置元组，顺序即为天元素视图的顺序
+    init(style: CalendarPanelStyle) {
+        // (天偏移, 天数, 行, 列, 行块数, 列块数)
+        let tuples: [CalendarPanelDayItemTuple]
+        
+        switch style {
+        case .threePlusFourVertical:
+            // 2 列 12 行：左列从上到下为第 1~3 天（每天占 4 行），右列从上到下为第 4~7 天（每天占 3 行）
+            tuples = [(0, 1, 0, 0, 4, 1),
+                      (1, 1, 4, 0, 4, 1),
+                      (2, 1, 8, 0, 4, 1),
+                      (3, 1, 0, 1, 3, 1),
+                      (4, 1, 3, 1, 3, 1),
+                      (5, 1, 6, 1, 3, 1),
+                      (6, 1, 9, 1, 3, 1)]
+        }
+        
+        self.init(tuples: tuples)
+    }
+    
+    // MARK: - 天条目元组
+    
+    /// 根据天条目配置元组生成布局配置
+    /// - Parameter tuples: 天条目元组数组，顺序即为天元素视图的顺序
+    ///                     网格尺寸由元组占用的最大行数、列数自动推导
+    private init(tuples: [CalendarPanelDayItemTuple]) {
+        self.dayItems = tuples.map {
+            CalendarPanelDayItemConfig(dayOffset: $0.dayOffset,
+                                       dayCount: $0.dayCount,
+                                       row: $0.row,
+                                       column: $0.column,
+                                       rowSpan: $0.rowSpan,
+                                       columnSpan: $0.columnSpan)
+        }
+        
+        self.grid = CalendarPanelGrid(rows: tuples.map { $0.row + $0.rowSpan }.max() ?? 0,
+                                      columns: tuples.map { $0.column + $0.columnSpan }.max() ?? 0)
+    }
+}

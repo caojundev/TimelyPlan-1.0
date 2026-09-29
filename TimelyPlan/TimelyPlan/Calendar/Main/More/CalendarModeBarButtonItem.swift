@@ -49,12 +49,19 @@ class CalendarModeBarButtonItem: UIBarButtonItem {
     
     private func updateButton() {
         let currentMode = mode
-        let menuItem = TPMenuItem.item(with: CalendarMode.allCases) { mode, action in
+        
+        let modesLists: [[CalendarMode]] = [
+            [.list],
+            [.day, .week, .month, .quarter, .year],
+            [.panel],
+        ]
+    
+        let menuItems = TPMenuItem.items(with: modesLists) { mode, action in
             action.handleBeforeDismiss = true
             action.isChecked = mode == currentMode
         }
         
-        button.menuItems = [menuItem]
+        button.menuItems = menuItems
         button.image = mode.iconImage
         button.sizeToFit()
     }

@@ -79,6 +79,8 @@ class CalendarMainViewController: TPContainerViewController,
             contentViewController = CalendarQuarterViewController()
         case .year:
             contentViewController = CalendarYearViewController()
+        case .panel:
+            contentViewController = CalendarPanelViewController()
         }
 
         setContentViewController(contentViewController)

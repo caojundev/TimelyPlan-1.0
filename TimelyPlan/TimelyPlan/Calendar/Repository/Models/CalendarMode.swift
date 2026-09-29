@@ -14,6 +14,7 @@ enum CalendarMode: Int, Codable, TPMenuRepresentable {
     case month
     case quarter
     case year
+    case panel
     
     var title: String {
         switch self {
@@ -29,6 +30,8 @@ enum CalendarMode: Int, Codable, TPMenuRepresentable {
             return resGetString("Quarter")
         case .year:
             return resGetString("Year")
+        case .panel:
+            return resGetString("Panel")
         }
     }
 
@@ -47,6 +50,8 @@ enum CalendarMode: Int, Codable, TPMenuRepresentable {
             name = "calendar_quarter"
         case .year:
             name = "calendar_year"
+        case .panel:
+            name = "calendar_panel"
         }
         
         return resGetShotName(name, size: .mini)

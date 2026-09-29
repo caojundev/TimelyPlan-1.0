@@ -44,16 +44,16 @@ class CalendarStripView: UIView, UIGestureRecognizerDelegate {
     /// 横跨天数
     private let days: Int
     
-    init(mode: Mode = .week) {
-        if mode == .day {
-            self.days = 1
-        } else {
-            self.days = DAYS_PER_WEEK
-        }
-        
+    /// 指定横跨天数
+    init(days: Int) {
+        self.days = max(1, days)
         self.layoutManager = CalendarStripLayoutManager(days: self.days)
         super.init(frame: .zero)
         setupGesture()
+    }
+    
+    convenience init(mode: Mode = .week) {
+        self.init(days: mode == .day ? 1 : DAYS_PER_WEEK)
     }
     
     required init?(coder: NSCoder) {
