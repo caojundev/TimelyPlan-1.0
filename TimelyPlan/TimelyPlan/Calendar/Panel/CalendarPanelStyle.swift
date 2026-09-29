@@ -11,6 +11,7 @@ import UIKit
 /// 日历面板布局样式
 enum CalendarPanelStyle: String, CaseIterable {
     case threePlusFourVertical
+    case fourPlusFourHorizontal
 //    case threePlusFourHorizontal = "3 + 4 (水平)"
 //    case fourPlusThree = "4 + 3"
 //    case fourPlusFourVertical = "4 + 4 (垂直)"
@@ -92,6 +93,13 @@ struct CalendarPanelLayoutConfig {
                       (4, 1, 3, 1, 3, 1),
                       (5, 1, 6, 1, 3, 1),
                       (6, 1, 9, 1, 3, 1)]
+            
+        case .fourPlusFourHorizontal:
+            // 2 列 4 行：第一行第一列为空、第二列显示第 1 天；第二至四行每行一个元素视图、各显示 2 天
+            tuples = [(0, 1, 0, 1, 1, 1),
+                      (1, 2, 1, 0, 1, 2),
+                      (3, 2, 2, 0, 1, 2),
+                      (5, 2, 3, 0, 1, 2)]
         }
         
         self.init(tuples: tuples)

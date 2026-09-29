@@ -38,8 +38,69 @@ class CalendarSettingViewController: BaseSettingViewController {
          sectionController.cellItems = [firstWeekdayCellItem]
          return sectionController
      }()
-     
-    /// 事项显示（习惯、目标、专注）
+
+    // MARK: - 视图
+    /// 周视图天数
+    lazy var daysInWeekViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Days in Week View")
+        cellItem.updater = {
+            let days = CalendarSetting.shared.getDaysInWeek()
+            self?.daysInWeekViewCellItem.valueConfig = .valueText("\(days)")
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editDaysInWeek()
+        }
+        
+        return cellItem
+    }()
+    
+    /// 月视图周数
+    lazy var weeksInMonthViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Weeks in Month View")
+        cellItem.updater = {
+            let weeks = CalendarSetting.shared.getWeeksInMonth()
+            self?.weeksInMonthViewCellItem.valueConfig = .valueText("\(weeks)")
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editWeeksInMonth()
+        }
+        
+        return cellItem
+    }()
+    
+    /// 季度视图周数
+    lazy var weeksInQuarterViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
+        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.height = defaultCellHeight
+        cellItem.title = resGetString("Weeks in Quarter View")
+        cellItem.updater = {
+            let weeks = CalendarSetting.shared.getWeeksInQuarter()
+            self?.weeksInQuarterViewCellItem.valueConfig = .valueText("\(weeks)")
+        }
+        
+        cellItem.didSelectHandler = {
+            self?.editWeeksInQuarter()
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var viewSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = 10.0
+        sectionController.cellItems = [daysInWeekViewCellItem,
+                                       weeksInMonthViewCellItem,
+                                       weeksInQuarterViewCellItem]
+        return sectionController
+    }()
+
+   /// 事项显示（习惯、目标、专注）
     lazy var displaySettingsCellItem: TPImageInfoTextValueTableCellItem = { [weak self] in
         let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
         cellItem.autoResizable = false
@@ -163,84 +224,6 @@ class CalendarSettingViewController: BaseSettingViewController {
         return sectionController
     }()
     
-    // MARK: - 周视图
-    lazy var daysInWeekViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Days in Week View")
-        cellItem.updater = {
-            let days = CalendarSetting.shared.getDaysInWeek()
-            self?.daysInWeekViewCellItem.valueConfig = .valueText("\(days)")
-        }
-        
-        cellItem.didSelectHandler = {
-            self?.editDaysInWeek()
-        }
-        
-        return cellItem
-    }()
-    
-    lazy var weekViewSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = headerHeight
-        sectionController.headerItem.padding = headerPadding
-        sectionController.headerItem.title = resGetString("Week View")
-        sectionController.cellItems = [daysInWeekViewCellItem]
-        return sectionController
-    }()
-    
-    // MARK: - 月视图
-    lazy var weeksInMonthViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Weeks in Month View")
-        cellItem.updater = {
-            let weeks = CalendarSetting.shared.getWeeksInMonth()
-            self?.weeksInMonthViewCellItem.valueConfig = .valueText("\(weeks)")
-        }
-        
-        cellItem.didSelectHandler = {
-            self?.editWeeksInMonth()
-        }
-        
-        return cellItem
-    }()
-    
-    lazy var monthViewSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = headerHeight
-        sectionController.headerItem.padding = headerPadding
-        sectionController.headerItem.title = resGetString("Month View")
-        sectionController.cellItems = [weeksInMonthViewCellItem]
-        return sectionController
-    }()
-
-    // MARK: - 季度视图
-    lazy var weeksInQuarterViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Weeks in Quarter View")
-        cellItem.updater = {
-            let weeks = CalendarSetting.shared.getWeeksInQuarter()
-            self?.weeksInQuarterViewCellItem.valueConfig = .valueText("\(weeks)")
-        }
-        
-        cellItem.didSelectHandler = {
-            self?.editWeeksInQuarter()
-        }
-        
-        return cellItem
-    }()
-    
-    lazy var quarterViewSectionController: TPTableItemSectionController = {
-        let sectionController = TPTableItemSectionController()
-        sectionController.headerItem.height = headerHeight
-        sectionController.headerItem.padding = headerPadding
-        sectionController.headerItem.title = resGetString("Quarter View")
-        sectionController.cellItems = [weeksInQuarterViewCellItem]
-        return sectionController
-    }()
-    
     // MARK: - 提醒
     lazy var timedEventAlertCellItem: TPDefaultInfoTableCellItem = { [weak self] in
         let cellItem = TPDefaultInfoTableCellItem(accessoryType: .disclosureIndicator)
@@ -292,13 +275,11 @@ class CalendarSettingViewController: BaseSettingViewController {
          super.viewDidLoad()
          self.title = resGetString("Calendar Settings")
          self.sectionControllers = [generalSectionController,
+                                    viewSectionController,
                                     displaySettingsSectionController,
                                     newEventsSectionController,
                                     alertSectionController,
-                                    viewOptionsSectionController,
-                                    weekViewSectionController,
-                                    monthViewSectionController,
-                                    quarterViewSectionController]
+                                    viewOptionsSectionController]
          self.reloadData()
      }
     

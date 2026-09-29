@@ -39,7 +39,7 @@ class CalendarMonthViewController: CalendarBaseViewController,
         guard let key = CalendarSetting.Key(name: keyName) else {
             return
         }
-        
+    
         switch key {
         case .firstWeekday:
             monthView.firstWeekday = CalendarSetting.shared.firstWeekday

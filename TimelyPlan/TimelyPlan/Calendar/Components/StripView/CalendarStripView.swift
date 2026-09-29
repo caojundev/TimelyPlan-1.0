@@ -256,7 +256,8 @@ class CalendarStripView: UIView, UIGestureRecognizerDelegate {
     
     private func stripeEventView(at point: CGPoint) -> CalendarStripEventView? {
         for eventView in eventViews {
-            if eventView.frame.contains(point) {
+            let frame = eventView.frame.insetBy(dx: 0.0, dy: -layoutManager.lineSpacing / 2.0)
+            if frame.contains(point) {
                 return eventView
             }
         }

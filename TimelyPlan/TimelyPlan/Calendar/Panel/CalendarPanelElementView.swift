@@ -73,16 +73,19 @@ class CalendarPanelElementView: UIView, CalendarStripViewDelegate {
         return layer
     }()
     
-    /// 事项供应者
-    private let eventsViewModel = CalendarEventsViewModel()
+    /// 事项数据（由页面统一加载后共享，避免每个天元素视图都请求一次）
+    var events: [CalendarEvent]? {
+        didSet {
+            if events != oldValue {
+                reloadEvents()
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.addSublayer(backgroundLayer)
         setupGesture()
-        eventsViewModel.onEventsChanged = { [weak self] in
-            self?.eventsChanged()
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -128,7 +131,7 @@ class CalendarPanelElementView: UIView, CalendarStripViewDelegate {
     /// 重新加载天配置与事项
     func reloadData() {
         reloadDayConfigs()
-        loadEvents()
+        reloadEvents()
         setNeedsLayout()
     }
     
@@ -182,33 +185,16 @@ class CalendarPanelElementView: UIView, CalendarStripViewDelegate {
     
     // MARK: - Events
     
-    private func loadEvents() {
-        guard let firstDay = firstDay else {
+    /// 用页面共享的事项刷新事项视图
+    /// 事项跨越本视图显示的天时由 CalendarStripLayoutProvider 按本视图的起始天与天数换算位置
+    private func reloadEvents() {
+        guard let events = events, !events.isEmpty else {
             eventsView?.reset()
             return
         }
         
-        let range = DateInterval.rangeOfDays(firstDate: firstDay, dayCount: dayCount)
-        
-        /// 区间未变直接使用已加载的事项
-        if eventsViewModel.range == range {
-            eventsChanged()
-            return
-        }
-        
-        eventsViewModel.loadEvents(in: range)
-    }
-    
-    private func eventsChanged() {
-        guard let firstDay = firstDay,
-              eventsViewModel.range == .rangeOfDays(firstDate: firstDay, dayCount: dayCount) else {
-            return
-        }
-        
-        DispatchQueue.main.async {
-            self.eventsView?.events = self.eventsViewModel.events
-            self.eventsView?.reloadData()
-        }
+        eventsView?.events = events
+        eventsView?.reloadData()
     }
     
     // MARK: - Day Configs

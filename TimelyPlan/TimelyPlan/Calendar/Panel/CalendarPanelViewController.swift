@@ -10,6 +10,7 @@ import UIKit
 
 class CalendarPanelViewController: CalendarBaseViewController,
                                    TPDayPageViewDelegate,
+                                   CalendarPanelPageViewDelegate,
                                    SettingAgentObserver {
     
     private lazy var pageView: CalendarPanelPageView = {
@@ -18,6 +19,7 @@ class CalendarPanelViewController: CalendarBaseViewController,
         view.showLunar = CalendarSetting.shared.showLunar
         view.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
         view.delegate = self
+        view.panelDelegate = self
         return view
     }()
 
@@ -39,23 +41,20 @@ class CalendarPanelViewController: CalendarBaseViewController,
             return
         }
         
-//        switch key {
-//        case .firstWeekday:
-//            pageView.firstWeekday = CalendarSetting.shared.firstWeekday
-//            pageView.reloadData()
-//        case .showWeekNumber:
-//            pageView.showWeekNumber = CalendarSetting.shared.showWeekNumber
-//        case .showLunar:
-//            pageView.showLunar = CalendarSetting.shared.showLunar
-//            pageView.reloadWeekDays()
-//        case .showChineseHolidays:
-//            pageView.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
-//            pageView.reloadWeekDays()
-//        case .daysInWeek:
-//            pageView.displayDays = CalendarSetting.shared.getDaysInWeek()
-//        default:
-//            break
-//        }
+        switch key {
+        case .firstWeekday:
+            pageView.firstWeekday = CalendarSetting.shared.firstWeekday
+            pageView.reloadData()
+            updateTitle(with: pageView.visibleDate)
+        case .showLunar:
+            pageView.showLunar = CalendarSetting.shared.showLunar
+            pageView.reloadWeekDays()
+        case .showChineseHolidays:
+            pageView.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
+            pageView.reloadWeekDays()
+        default:
+            break
+        }
     }
     
     override func clickDate(_ button: UIButton) {
@@ -92,4 +91,24 @@ class CalendarPanelViewController: CalendarBaseViewController,
         print(targetDate.yearMonthDayString)
     }
 
+    // MARK: - CalendarPanelPageViewDelegate
+    func calendarPanelPageView(_ pageView: CalendarPanelPageView, didLongPressDate date: Date) {
+        TPImpactFeedback.impactWithLightStyle()
+        showQuickAddTask(on: date)
+    }
+    
+    func calendarPanelPageView(_ pageView: CalendarPanelPageView, didTapEvent event: CalendarEvent) {
+        TPImpactFeedback.impactWithLightStyle()
+        eventProcessor.clickEvent(event)
+    }
+    
+    func calendarPanelPageView(_ pageView: CalendarPanelPageView, didTapMoreOnDate date: Date) {
+        TPImpactFeedback.impactWithLightStyle()
+        showEventList(on: date)
+    }
+    
+    func calendarPanelPageView(_ pageView: CalendarPanelPageView, didTapDate date: Date) {
+        TPImpactFeedback.impactWithLightStyle()
+        showEventList(on: date)
+    }
 }
