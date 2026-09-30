@@ -68,6 +68,45 @@ class CalendarMoreViewController: TPTableSectionsViewController,
         sectionController.cellItems = [modeCellItem]
         return sectionController
     }()
+    
+    /// 模式配置单元格高度
+    private let modeSettingCellHeight = 60.0
+    
+    /// 模式配置区块头部高度
+    private let modeSettingHeaderHeight = 20.0
+    
+    /// 周视图配置
+    lazy var weekViewSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = modeSettingHeaderHeight
+        sectionController.cellItems = [CalendarViewSettingItem.daysInWeek(from: self,
+                                                                          height: modeSettingCellHeight)]
+        return sectionController
+    }()
+    
+    /// 面板视图配置
+    lazy var panelViewSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.height = modeSettingHeaderHeight
+        sectionController.cellItems = [CalendarViewSettingItem.panelStyle(from: self,
+                                                                          height: modeSettingCellHeight)]
+        return sectionController
+    }()
+    
+    /// 当前模式对应的配置区块（周视图显示周视图配置，面板显示面板样式配置，其它模式不显示）
+    private var modeSettingSectionControllers: [TPTableBaseSectionController] {
+        switch mode {
+        case .week:
+            return [weekViewSectionController]
+        case .panel:
+            return [panelViewSectionController]
+        default:
+            return []
+        }
+    }
+    
+    
+    
 
     lazy var permissionDeniedSectionController: TPTableItemSectionController = {
         let cellItem = TPPermissionDeniedTableCellItem()
@@ -134,14 +173,19 @@ class CalendarMoreViewController: TPTableSectionsViewController,
     }
     
     func reloadPermissionDeniedData() {
-        sectionControllers = [modeSectionController,
-                                   permissionDeniedSectionController]
+        var sectionControllers = [TPTableBaseSectionController]()
+        sectionControllers.append(modeSectionController)
+        sectionControllers.append(contentsOf: modeSettingSectionControllers)
+        sectionControllers.append(permissionDeniedSectionController)
+        
+        self.sectionControllers = sectionControllers
         reloadData()
     }
     
     func reloadData(with result: [(EKSource, [EKCalendar])]) {
         var sectionControllers = [TPTableBaseSectionController]()
         sectionControllers.append(modeSectionController)
+        sectionControllers.append(contentsOf: modeSettingSectionControllers)
         
         for (source, calendars) in result {
             let sectionController = CalendarSourceSectionController(source: source,

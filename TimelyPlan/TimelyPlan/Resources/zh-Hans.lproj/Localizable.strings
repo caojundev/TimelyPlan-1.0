@@ -154,6 +154,7 @@
 ///**********************日历*********************///
 "Quarter" = "季";
 "Panel" = "面板";
+"Panel Style" = "面板样式";
 
 "Local Calendars" = "本地日历";
 "Subscribed Calendars" = "订阅日历";
@@ -179,6 +180,10 @@
 "Weeks in Month View" = "月视图中周数目";
 "Quarter View" = "季度视图";
 "Weeks in Quarter View" = "季度视图中周数目";
+
+/* 面板样式 */
+"3 + 4 (Vertical)" = "3 + 4 (垂直)";
+"4 + 4 (Horizontal)" = "4 + 4 (水平)";
 
 
 "Default Alert" = "默认提醒";

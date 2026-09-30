@@ -75,7 +75,7 @@ class CalendarPanelSingleView: UIView {
     }
     
     /// 布局对象：负责所有位置计算
-    private let layout = CalendarPanelLayout(style: .fourPlusFourHorizontal)
+    private let layout: CalendarPanelLayout
     
     /// 事项供应者：按页面（一周）加载事项，页面中的所有天元素视图共享该数据
     private let eventsViewModel = CalendarEventsViewModel()
@@ -83,8 +83,20 @@ class CalendarPanelSingleView: UIView {
     /// 当前页面中的天元素视图
     private var elementViews: [CalendarPanelElementView] = []
     
+    /// 根据样式创建页面视图
+    init(style: CalendarPanelStyle) {
+        self.layout = CalendarPanelLayout(style: style)
+        super.init(frame: .zero)
+        setupViews()
+    }
+    
     override init(frame: CGRect) {
+        self.layout = CalendarPanelLayout()
         super.init(frame: frame)
+        setupViews()
+    }
+    
+    private func setupViews() {
         self.backgroundColor = .clear
         eventsViewModel.onEventsChanged = { [weak self] in
             DispatchQueue.main.async {

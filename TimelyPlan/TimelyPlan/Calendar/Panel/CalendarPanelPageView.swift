@@ -28,6 +28,18 @@ class CalendarPanelPageView: TPDayPageView {
     /// 手势代理对象
     weak var panelDelegate: CalendarPanelPageViewDelegate?
     
+    /// 面板布局样式：决定页面 cell 与页面内天元素视图的布局
+    var panelStyle: CalendarPanelStyle = .threePlusFourVertical {
+        didSet {
+            guard panelStyle != oldValue else {
+                return
+            }
+            
+            /// 样式变化后使用对应样式的 cell 重新加载
+            reloadData()
+        }
+    }
+    
     /// 周开始日
     var firstWeekday: Weekday {
         didSet {
@@ -51,8 +63,11 @@ class CalendarPanelPageView: TPDayPageView {
         static let nearItemsCount = 6
     }
     
-    init(visibleDate: Date = .now, firstWeekday: Weekday = .sunday) {
+    init(visibleDate: Date = .now,
+         firstWeekday: Weekday = .sunday,
+         panelStyle: CalendarPanelStyle = .threePlusFourVertical) {
         self.firstWeekday = firstWeekday
+        self.panelStyle = panelStyle
         let visibleDate = visibleDate.startOfWeek(firstWeekday: firstWeekday)
         super.init(frame: .zero, visibleDate: visibleDate)
     }
@@ -66,7 +81,7 @@ class CalendarPanelPageView: TPDayPageView {
     }
     
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        return CalendarPanelPageCell.self
+        return panelStyle.pageCellClass
     }
     
     override func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
@@ -128,6 +143,11 @@ extension CalendarPanelPageView: CalendarPanelSingleViewDelegate {
 }
 
 class CalendarPanelPageCell: UICollectionViewCell {
+    
+    /// 面板布局样式（子类重写，用于创建对应样式的页面视图）
+    var panelStyle: CalendarPanelStyle {
+        return .threePlusFourVertical
+    }
 
     var date: Date? {
         get {
@@ -139,7 +159,7 @@ class CalendarPanelPageCell: UICollectionViewCell {
         }
     }
     
-    private(set) lazy var panelView = CalendarPanelSingleView()
+    private(set) lazy var panelView = CalendarPanelSingleView(style: panelStyle)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -163,4 +183,34 @@ class CalendarPanelPageCell: UICollectionViewCell {
         panelView.reloadData()
     }
     
+}
+
+/// 「3 + 4 (垂直)」样式的页面 cell
+class CalendarPanelThreePlusFourVerticalCell: CalendarPanelPageCell {
+    
+    override var panelStyle: CalendarPanelStyle {
+        return .threePlusFourVertical
+    }
+}
+
+/// 「4 + 4 (水平)」样式的页面 cell
+class CalendarPanelFourPlusFourHorizontalCell: CalendarPanelPageCell {
+    
+    override var panelStyle: CalendarPanelStyle {
+        return .fourPlusFourHorizontal
+    }
+}
+
+// MARK: - 样式对应的页面 cell
+extension CalendarPanelStyle {
+    
+    /// 样式对应的页面 cell
+    var pageCellClass: AnyClass {
+        switch self {
+        case .threePlusFourVertical:
+            return CalendarPanelThreePlusFourVerticalCell.self
+        case .fourPlusFourHorizontal:
+            return CalendarPanelFourPlusFourHorizontalCell.self
+        }
+    }
 }

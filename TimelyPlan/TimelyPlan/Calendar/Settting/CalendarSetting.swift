@@ -31,6 +31,8 @@ class CalendarSetting {
         case weeksInMonth
         case weeksInQuarter
         
+        case panelStyle
+        
         case timedEventReminder
         case allDayEventReminder
         
@@ -84,6 +86,10 @@ class CalendarSetting {
     
     @CloudStored(key: Key.weeksInQuarter.name, defaultValue: 12)
     private var weeksInQuarter: Int
+    
+    /// 面板样式
+    @CloudStored(key: Key.panelStyle.name, defaultValue: CalendarPanelStyle.fourPlusFourHorizontal)
+    var panelStyle: CalendarPanelStyle
     
     @CloudStored(key: Key.hiddenCalendars.name, defaultValue: [])
     var hiddenCalendars: [CalendarSnapshot]

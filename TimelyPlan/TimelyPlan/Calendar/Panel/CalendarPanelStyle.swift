@@ -9,19 +9,18 @@ import Foundation
 import UIKit
 
 /// 日历面板布局样式
-enum CalendarPanelStyle: String, CaseIterable {
-    case threePlusFourVertical
+enum CalendarPanelStyle: String, CaseIterable, Codable {
     case fourPlusFourHorizontal
-//    case threePlusFourHorizontal = "3 + 4 (水平)"
-//    case fourPlusThree = "4 + 3"
-//    case fourPlusFourVertical = "4 + 4 (垂直)"
-//    case fourPlusFourHorizontal = "4 + 4 (水平)"
-//    case fivePlusTwoSingleColumn = "5 + 2 (1栏)"
-//    case fivePlusTwoTwoColumns = "5 + 2 (2栏)"
+    case threePlusFourVertical
     
-    /// UI 上显示的名称 (直接使用 rawValue 即可)
+    /// UI 上显示的名称
     var displayName: String {
-        return self.rawValue
+        switch self {
+        case .fourPlusFourHorizontal:
+            return resGetString("4 + 4 (Horizontal)")
+        case .threePlusFourVertical:
+            return resGetString("3 + 4 (Vertical)")
+        }
     }
 }
 

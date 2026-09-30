@@ -15,7 +15,8 @@ class CalendarPanelViewController: CalendarBaseViewController,
     
     private lazy var pageView: CalendarPanelPageView = {
         let firstWeekday = CalendarSetting.shared.firstWeekday
-        let view = CalendarPanelPageView(firstWeekday: firstWeekday)
+        let view = CalendarPanelPageView(firstWeekday: firstWeekday,
+                                         panelStyle: CalendarSetting.shared.panelStyle)
         view.showLunar = CalendarSetting.shared.showLunar
         view.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
         view.delegate = self
@@ -52,6 +53,8 @@ class CalendarPanelViewController: CalendarBaseViewController,
         case .showChineseHolidays:
             pageView.showChineseHolidays = CalendarSetting.shared.showChineseHolidays
             pageView.reloadWeekDays()
+        case .panelStyle:
+            pageView.panelStyle = CalendarSetting.shared.panelStyle
         default:
             break
         }

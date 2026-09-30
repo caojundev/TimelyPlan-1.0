@@ -41,20 +41,8 @@ class CalendarSettingViewController: BaseSettingViewController {
 
     // MARK: - 视图
     /// 周视图天数
-    lazy var daysInWeekViewCellItem: TPDefaultInfoTextValueTableCellItem = { [weak self] in
-        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
-        cellItem.height = defaultCellHeight
-        cellItem.title = resGetString("Days in Week View")
-        cellItem.updater = {
-            let days = CalendarSetting.shared.getDaysInWeek()
-            self?.daysInWeekViewCellItem.valueConfig = .valueText("\(days)")
-        }
-        
-        cellItem.didSelectHandler = {
-            self?.editDaysInWeek()
-        }
-        
-        return cellItem
+    lazy var daysInWeekViewCellItem: TPDefaultInfoTextValueTableCellItem = {
+        return CalendarViewSettingItem.daysInWeek(from: self, height: defaultCellHeight)
     }()
     
     /// 月视图周数
@@ -91,12 +79,18 @@ class CalendarSettingViewController: BaseSettingViewController {
         return cellItem
     }()
     
+    /// 面板样式
+    lazy var panelStyleCellItem: TPDefaultInfoTextValueTableCellItem = {
+        return CalendarViewSettingItem.panelStyle(from: self, height: defaultCellHeight)
+    }()
+    
     lazy var viewSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = 10.0
         sectionController.cellItems = [daysInWeekViewCellItem,
                                        weeksInMonthViewCellItem,
-                                       weeksInQuarterViewCellItem]
+                                       weeksInQuarterViewCellItem,
+                                       panelStyleCellItem]
         return sectionController
     }()
 
@@ -332,20 +326,6 @@ class CalendarSettingViewController: BaseSettingViewController {
         }
     }
     
-    private func editDaysInWeek() {
-        let pickerVC = TPCountPickerViewController()
-        pickerVC.minimumCount = CalendarSetting.minDaysInWeek
-        pickerVC.maximumCount = CalendarSetting.maxDaysInWeek
-        pickerVC.count = CalendarSetting.shared.getDaysInWeek()
-        pickerVC.didPickCount = { count in
-            CalendarSetting.shared.setDaysInWeek(count)
-            self.adapter.reloadCell(forItem: self.daysInWeekViewCellItem,
-                                    with: .none)
-        }
-        
-        pickerVC.popoverShow()
-    }
-    
     private func editWeeksInMonth() {
         let pickerVC = TPCountPickerViewController()
         pickerVC.minimumCount = CalendarSetting.minWeeksInMonth
@@ -405,4 +385,83 @@ class CalendarSettingViewController: BaseSettingViewController {
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
- }
+}
+
+// MARK: - 视图设置项
+/// 日历视图设置项（日历设置页面、更多页面共用）
+enum CalendarViewSettingItem {
+    
+    /// 周视图天数
+    static func daysInWeek(from viewController: TPTableSectionsViewController,
+                           height: CGFloat) -> TPDefaultInfoTextValueTableCellItem {
+        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.height = height
+        cellItem.title = resGetString("Days in Week View")
+        cellItem.updater = { [weak cellItem] in
+            let days = CalendarSetting.shared.getDaysInWeek()
+            cellItem?.valueConfig = .valueText("\(days)")
+        }
+        
+        cellItem.didSelectHandler = { [weak viewController, weak cellItem] in
+            guard let viewController = viewController, let cellItem = cellItem else {
+                return
+            }
+            
+            editDaysInWeek {
+                viewController.adapter.reloadCell(forItem: cellItem, with: .none)
+            }
+        }
+        
+        return cellItem
+    }
+    
+    /// 面板样式
+    static func panelStyle(from viewController: TPTableSectionsViewController,
+                           height: CGFloat) -> TPDefaultInfoTextValueTableCellItem {
+        let cellItem = TPDefaultInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.height = height
+        cellItem.title = resGetString("Panel Style")
+        cellItem.updater = { [weak cellItem] in
+            let style = CalendarSetting.shared.panelStyle
+            cellItem?.valueConfig = .valueText(style.displayName)
+        }
+        
+        cellItem.didSelectHandler = { [weak viewController, weak cellItem] in
+            guard let viewController = viewController, let cellItem = cellItem else {
+                return
+            }
+            
+            editPanelStyle(from: viewController) {
+                viewController.adapter.reloadCell(forItem: cellItem, with: .none)
+            }
+        }
+        
+        return cellItem
+    }
+    
+    // MARK: - Edit
+    
+    private static func editDaysInWeek(reloadCell: @escaping () -> Void) {
+        let pickerVC = TPCountPickerViewController()
+        pickerVC.minimumCount = CalendarSetting.minDaysInWeek
+        pickerVC.maximumCount = CalendarSetting.maxDaysInWeek
+        pickerVC.count = CalendarSetting.shared.getDaysInWeek()
+        pickerVC.didPickCount = { count in
+            CalendarSetting.shared.setDaysInWeek(count)
+            reloadCell()
+        }
+        
+        pickerVC.popoverShow()
+    }
+    
+    private static func editPanelStyle(from viewController: UIViewController,
+                                       reloadCell: @escaping () -> Void) {
+        let vc = CalendarPanelStyleSelectViewController(panelStyle: CalendarSetting.shared.panelStyle)
+        vc.didEndEditing = { style in
+            CalendarSetting.shared.panelStyle = style
+            reloadCell()
+        }
+        
+        vc.showAsNavigationRoot()
+    }
+}
