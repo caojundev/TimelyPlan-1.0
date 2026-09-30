@@ -38,6 +38,16 @@ class CalendarPanelSingleView: UIView {
             
             reloadDayData()
             loadEvents()
+            reloadWidgets()
+        }
+    }
+    
+    /// 周开始日（挂件等使用）
+    var firstWeekday: Weekday = .sunday {
+        didSet {
+            if firstWeekday != oldValue {
+                reloadWidgets()
+            }
         }
     }
     
@@ -122,7 +132,17 @@ class CalendarPanelSingleView: UIView {
         reloadElementViews()
         reloadDayData()
         loadEvents()
+        reloadWidgets()
         setNeedsLayout()
+    }
+    
+    /// 刷新挂件（非天元素视图，子类可重写）
+    func reloadWidgets() {
+    }
+    
+    /// 挂件位置：由布局对象按样式的挂件配置计算
+    func widgetFrame(at index: Int) -> CGRect? {
+        return layout.widgetFrame(at: index, in: bounds)
     }
     
     /// 根据样式创建 / 复用天元素视图（个数是动态的）

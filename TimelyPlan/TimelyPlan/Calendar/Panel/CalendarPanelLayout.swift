@@ -80,6 +80,47 @@ final class CalendarPanelLayout {
                              in: pageBounds.inset(by: contentInsets))
     }
     
+    // MARK: - 挂件
+    
+    /// 页面中挂件的个数（由样式决定）
+    var numberOfWidgets: Int {
+        return config.widgets.count
+    }
+    
+    /// 计算页面中所有挂件的位置
+    /// - Parameter pageBounds: 页面尺寸
+    /// - Returns: 与 `config.widgets` 顺序一致的挂件位置
+    func widgetFrames(in pageBounds: CGRect) -> [CGRect] {
+        guard let unitSize = unitSize(in: pageBounds) else {
+            return []
+        }
+        
+        let contentFrame = pageBounds.inset(by: contentInsets)
+        return config.widgets.map {
+            return frame(row: $0.row,
+                         column: $0.column,
+                         rowSpan: $0.rowSpan,
+                         columnSpan: $0.columnSpan,
+                         unitSize: unitSize,
+                         in: contentFrame)
+        }
+    }
+    
+    /// 计算指定挂件的位置
+    func widgetFrame(at index: Int, in pageBounds: CGRect) -> CGRect? {
+        guard index >= 0, index < numberOfWidgets, let unitSize = unitSize(in: pageBounds) else {
+            return nil
+        }
+        
+        let widget = config.widgets[index]
+        return frame(row: widget.row,
+                     column: widget.column,
+                     rowSpan: widget.rowSpan,
+                     columnSpan: widget.columnSpan,
+                     unitSize: unitSize,
+                     in: pageBounds.inset(by: contentInsets))
+    }
+    
     // MARK: - Private
     
     /// 单位长宽：把页面按行、列分块后每一块的大小
@@ -102,14 +143,31 @@ final class CalendarPanelLayout {
     private func dayItemLayout(for item: CalendarPanelDayItemConfig,
                                unitSize: CGSize,
                                in contentFrame: CGRect) -> CalendarPanelDayItemLayout {
-        let frame = CGRect(x: contentFrame.minX + CGFloat(item.column) * unitSize.width,
-                           y: contentFrame.minY + CGFloat(item.row) * unitSize.height,
-                           width: CGFloat(item.columnSpan) * unitSize.width,
-                           height: CGFloat(item.rowSpan) * unitSize.height)
+        let frame = frame(row: item.row,
+                          column: item.column,
+                          rowSpan: item.rowSpan,
+                          columnSpan: item.columnSpan,
+                          unitSize: unitSize,
+                          in: contentFrame)
         
-        return CalendarPanelDayItemLayout(frame: applyingSpacing(to: frame, in: contentFrame),
+        return CalendarPanelDayItemLayout(frame: frame,
                                           dayOffset: item.dayOffset,
                                           dayCount: item.dayCount)
+    }
+    
+    /// 根据单位长宽和块坐标计算 frame
+    private func frame(row: Int,
+                       column: Int,
+                       rowSpan: Int,
+                       columnSpan: Int,
+                       unitSize: CGSize,
+                       in contentFrame: CGRect) -> CGRect {
+        let frame = CGRect(x: contentFrame.minX + CGFloat(column) * unitSize.width,
+                           y: contentFrame.minY + CGFloat(row) * unitSize.height,
+                           width: CGFloat(columnSpan) * unitSize.width,
+                           height: CGFloat(rowSpan) * unitSize.height)
+        
+        return applyingSpacing(to: frame, in: contentFrame)
     }
     
     /// 根据间距内缩元素视图：只内缩与页面内部相邻的边

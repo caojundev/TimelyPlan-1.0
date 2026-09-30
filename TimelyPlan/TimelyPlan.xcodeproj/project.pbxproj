@@ -743,6 +743,8 @@
 		E53B115F2F94F66300701410 /* TodoFilterProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B115E2F94F66300701410 /* TodoFilterProcessorUpdater.swift */; };
 		E53B11612F94F68700701410 /* TodoFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B11602F94F68700701410 /* TodoFilterManager.swift */; };
 		E53B6C6E306C818C003683E3 /* CalendarPanelStyleSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B6C6D306C818C003683E3 /* CalendarPanelStyleSelectViewController.swift */; };
+		E53B6C72306C9FB8003683E3 /* CalendarPanelFourPlusFourSingleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B6C71306C9FB8003683E3 /* CalendarPanelFourPlusFourSingleView.swift */; };
+		E53B6C74306C9FF5003683E3 /* CalendarPanelMiniMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B6C73306C9FF4003683E3 /* CalendarPanelMiniMonthView.swift */; };
 		E53DCEED2F61AD7600ADA526 /* HabitDaySheetMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DCEEC2F61AD7500ADA526 /* HabitDaySheetMenuViewController.swift */; };
 		E53E96AB2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53E96AA2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift */; };
 		E53E96AD2D53A3E200EC4872 /* TPInfoTextValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53E96AC2D53A3E200EC4872 /* TPInfoTextValueView.swift */; };
@@ -3181,6 +3183,8 @@
 		E53B115E2F94F66300701410 /* TodoFilterProcessorUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterProcessorUpdater.swift; sourceTree = "<group>"; };
 		E53B11602F94F68700701410 /* TodoFilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterManager.swift; sourceTree = "<group>"; };
 		E53B6C6D306C818C003683E3 /* CalendarPanelStyleSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPanelStyleSelectViewController.swift; sourceTree = "<group>"; };
+		E53B6C71306C9FB8003683E3 /* CalendarPanelFourPlusFourSingleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPanelFourPlusFourSingleView.swift; sourceTree = "<group>"; };
+		E53B6C73306C9FF4003683E3 /* CalendarPanelMiniMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPanelMiniMonthView.swift; sourceTree = "<group>"; };
 		E53DCEEC2F61AD7500ADA526 /* HabitDaySheetMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitDaySheetMenuViewController.swift; sourceTree = "<group>"; };
 		E53E96AA2D53623000EC4872 /* TPDefaultInfoTextValueTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDefaultInfoTextValueTableCell.swift; sourceTree = "<group>"; };
 		E53E96AC2D53A3E200EC4872 /* TPInfoTextValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPInfoTextValueView.swift; sourceTree = "<group>"; };
@@ -7141,6 +7145,15 @@
 			path = ElementView;
 			sourceTree = "<group>";
 		};
+		E53B6C70306C9FA2003683E3 /* FourPlusFour */ = {
+			isa = PBXGroup;
+			children = (
+				E53B6C71306C9FB8003683E3 /* CalendarPanelFourPlusFourSingleView.swift */,
+				E53B6C73306C9FF4003683E3 /* CalendarPanelMiniMonthView.swift */,
+			);
+			path = FourPlusFour;
+			sourceTree = "<group>";
+		};
 		E53E96A92D53620700EC4872 /* Value */ = {
 			isa = PBXGroup;
 			children = (
@@ -9265,6 +9278,7 @@
 				E5B8C4D4306B4B8A0056CB04 /* CalendarPanelSingleView.swift */,
 				E5B8C4D6306B50110056CB04 /* CalendarPanelStyle.swift */,
 				E5B8C4D8306B51C90056CB04 /* CalendarPanelLayout.swift */,
+				E53B6C70306C9FA2003683E3 /* FourPlusFour */,
 				E53B6C6F306C921D003683E3 /* ElementView */,
 				E53B6C6D306C818C003683E3 /* CalendarPanelStyleSelectViewController.swift */,
 			);
@@ -14785,6 +14799,7 @@
 				E526D3FB2F6BAACA005C1DED /* HabitSettingScoreEditViewController.swift in Sources */,
 				E53632892FAB72C00095DFEC /* QuadrantMoreBarButtonItem.swift in Sources */,
 				E511E50B305E122700292511 /* CountdownEventSearchViewModel.swift in Sources */,
+				E53B6C74306C9FF5003683E3 /* CalendarPanelMiniMonthView.swift in Sources */,
 				E52EF6262FB2DDBC002CF355 /* CalendarWeekNumberView.swift in Sources */,
 				E500276B2F985C9600EF052D /* TPDateRangeSegmentedView.swift in Sources */,
 				E5FBD0F12DA9135200924EED /* SettingAgent.swift in Sources */,
@@ -14852,6 +14867,7 @@
 				E57CC5B12F7F61F000ADDBA4 /* TodoSmartListInteractor.swift in Sources */,
 				E50D02452F552FAF00E93977 /* HabitTimeSelectView.swift in Sources */,
 				E549B19D2F89F7C20014BE85 /* TodoStep.swift in Sources */,
+				E53B6C72306C9FB8003683E3 /* CalendarPanelFourPlusFourSingleView.swift in Sources */,
 				E5E5BDB52FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift in Sources */,
 				E5BB9DC82D3BF0C60089667A /* FocusAnimatable.swift in Sources */,
 				E53114AF30412C010022D8D7 /* GanttEventProvider.swift in Sources */,

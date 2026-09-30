@@ -93,6 +93,7 @@ class CalendarPanelPageView: TPDayPageView {
         let panelView = cell.panelView
         panelView.showLunar = showLunar
         panelView.showChineseHolidays = showChineseHolidays
+        panelView.firstWeekday = firstWeekday
         panelView.delegate = self
         cell.date = date
         cell.reloadData()
@@ -159,7 +160,12 @@ class CalendarPanelPageCell: UICollectionViewCell {
         }
     }
     
-    private(set) lazy var panelView = CalendarPanelSingleView(style: panelStyle)
+    private(set) lazy var panelView = makePanelView()
+    
+    /// 创建页面视图（子类按样式重写，返回对应样式的页面视图）
+    func makePanelView() -> CalendarPanelSingleView {
+        return CalendarPanelSingleView(style: panelStyle)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -198,6 +204,10 @@ class CalendarPanelFourPlusFourHorizontalCell: CalendarPanelPageCell {
     
     override var panelStyle: CalendarPanelStyle {
         return .fourPlusFourHorizontal
+    }
+    
+    override func makePanelView() -> CalendarPanelSingleView {
+        return CalendarPanelFourPlusFourSingleView(style: panelStyle)
     }
 }
 
