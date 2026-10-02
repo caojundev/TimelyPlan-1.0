@@ -2253,6 +2253,11 @@
 		E5E2771E2D3E099C004EC522 /* todo_list_option_sort_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E277162D3E099C004EC522 /* todo_list_option_sort_24@2x.png */; };
 		E5E2771F2D3E099C004EC522 /* todo_list_option_select_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E277172D3E099C004EC522 /* todo_list_option_select_24@2x.png */; };
 		E5E277202D3E099C004EC522 /* todo_list_option_showCompleted_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E277182D3E099C004EC522 /* todo_list_option_showCompleted_24@2x.png */; };
+		E5E4070F306FE01600673727 /* AppSideMenuSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E4070E306FE01500673727 /* AppSideMenuSettingViewController.swift */; };
+		E5E40715306FE02900673727 /* calnedar_panelStyle_4_4_horizontal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E40711306FE02700673727 /* calnedar_panelStyle_4_4_horizontal@3x.png */; };
+		E5E40716306FE02900673727 /* calnedar_panelStyle_4_4_horizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E40712306FE02700673727 /* calnedar_panelStyle_4_4_horizontal@2x.png */; };
+		E5E40717306FE02900673727 /* calendar_panelStyle_3_4_vertical@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E40713306FE02700673727 /* calendar_panelStyle_3_4_vertical@3x.png */; };
+		E5E40718306FE02900673727 /* calendar_panelStyle_3_4_vertical@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E40714306FE02700673727 /* calendar_panelStyle_3_4_vertical@2x.png */; };
 		E5E4B8CF2DBF875200EED889 /* triangle_down_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4B8CD2DBF875200EED889 /* triangle_down_12@2x.png */; };
 		E5E4B8D02DBF875200EED889 /* triangle_down_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4B8CE2DBF875200EED889 /* triangle_down_12@3x.png */; };
 		E5E4D1472D92AF2C00813B6C /* todo_filter_priority_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E4D1412D92AF2700813B6C /* todo_filter_priority_36@2x.png */; };
@@ -4710,6 +4715,11 @@
 		E5E277162D3E099C004EC522 /* todo_list_option_sort_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_sort_24@2x.png"; sourceTree = "<group>"; };
 		E5E277172D3E099C004EC522 /* todo_list_option_select_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_select_24@2x.png"; sourceTree = "<group>"; };
 		E5E277182D3E099C004EC522 /* todo_list_option_showCompleted_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_showCompleted_24@2x.png"; sourceTree = "<group>"; };
+		E5E4070E306FE01500673727 /* AppSideMenuSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSideMenuSettingViewController.swift; sourceTree = "<group>"; };
+		E5E40711306FE02700673727 /* calnedar_panelStyle_4_4_horizontal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calnedar_panelStyle_4_4_horizontal@3x.png"; sourceTree = "<group>"; };
+		E5E40712306FE02700673727 /* calnedar_panelStyle_4_4_horizontal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calnedar_panelStyle_4_4_horizontal@2x.png"; sourceTree = "<group>"; };
+		E5E40713306FE02700673727 /* calendar_panelStyle_3_4_vertical@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_panelStyle_3_4_vertical@3x.png"; sourceTree = "<group>"; };
+		E5E40714306FE02700673727 /* calendar_panelStyle_3_4_vertical@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_panelStyle_3_4_vertical@2x.png"; sourceTree = "<group>"; };
 		E5E4B8CD2DBF875200EED889 /* triangle_down_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle_down_12@2x.png"; sourceTree = "<group>"; };
 		E5E4B8CE2DBF875200EED889 /* triangle_down_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangle_down_12@3x.png"; sourceTree = "<group>"; };
 		E5E4D1412D92AF2700813B6C /* todo_filter_priority_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_priority_36@2x.png"; sourceTree = "<group>"; };
@@ -6040,6 +6050,7 @@
 		E51A4C302DC31C68005A0E3F /* calendar */ = {
 			isa = PBXGroup;
 			children = (
+				E5E40710306FE02700673727 /* panel */,
 				E51F94083000993200734910 /* calendar_list_24@2x.png */,
 				E51F94073000993100734910 /* calendar_list_24@3x.png */,
 				E53352932FF8C9CB00546986 /* calendar_quarter_24@2x.png */,
@@ -7730,9 +7741,10 @@
 		E55549632F76C0F700C9460D /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				E583896A2F7749DF003C30A4 /* AppSetting.swift */,
 				E5FF4EC52FEB6C7400282416 /* AppSettingUtil.swift */,
 				E55549642F76C10A00C9460D /* AppSettingsViewController.swift */,
-				E583896A2F7749DF003C30A4 /* AppSetting.swift */,
+				E5E4070E306FE01500673727 /* AppSideMenuSettingViewController.swift */,
 				E5B499542FDA5BD100F3A9BD /* BaseSettingViewController.swift */,
 			);
 			path = Setting;
@@ -12205,6 +12217,17 @@
 			path = option;
 			sourceTree = "<group>";
 		};
+		E5E40710306FE02700673727 /* panel */ = {
+			isa = PBXGroup;
+			children = (
+				E5E40711306FE02700673727 /* calnedar_panelStyle_4_4_horizontal@3x.png */,
+				E5E40712306FE02700673727 /* calnedar_panelStyle_4_4_horizontal@2x.png */,
+				E5E40713306FE02700673727 /* calendar_panelStyle_3_4_vertical@3x.png */,
+				E5E40714306FE02700673727 /* calendar_panelStyle_3_4_vertical@2x.png */,
+			);
+			path = panel;
+			sourceTree = "<group>";
+		};
 		E5E5BDB82FE3E868008D3F64 /* HandyRecord */ = {
 			isa = PBXGroup;
 			children = (
@@ -13067,6 +13090,7 @@
 				E55E4C042F9336170068E032 /* calendar_1_24@3x.png in Resources */,
 				E55E4BF62F9336170068E032 /* calendar_27_24@2x.png in Resources */,
 				E5BB9AB62D3BEF0D0089667A /* todo_task_action_done_24@2x.png in Resources */,
+				E5E40717306FE02900673727 /* calendar_panelStyle_3_4_vertical@3x.png in Resources */,
 				E56B94652F8CD6D0001E488B /* todo_group_type_dueDate_24@2x.png in Resources */,
 				E5D7D9632D43DBE000EC877A /* focus_timer_stepped_32@3x.png in Resources */,
 				E5D8339A2DAB64D60012ABF3 /* todo_task_progress_reset_24@2x.png in Resources */,
@@ -13619,6 +13643,7 @@
 				E5E277072D3DF8E3004EC522 /* edit_24@3x.png in Resources */,
 				E54A06B5303DCF19001FF4A1 /* gantt_taskList_toggle_active_24@2x.png in Resources */,
 				E5BB9A9E2D3BEF0D0089667A /* todo_task_priority_fill_24@3x.png in Resources */,
+				E5E40715306FE02900673727 /* calnedar_panelStyle_4_4_horizontal@3x.png in Resources */,
 				E50D025A2F55860B00E93977 /* habit_time_evening_24@3x.png in Resources */,
 				E5BB9A7B2D3BEF0D0089667A /* schedule_time_24@3x.png in Resources */,
 				E5BB9AD82D3BEF0D0089667A /* xmark_24@3x.png in Resources */,
@@ -13634,6 +13659,7 @@
 				E518507A300F6DFD00112DFC /* todo_circle_completed_24@3x.png in Resources */,
 				E55A7B982D463779000D224C /* bell_badge_fill_80@3x.png in Resources */,
 				E50DD7D92D72FD7600A85E87 /* todo_folder_opened_24@3x.png in Resources */,
+				E5E40716306FE02900673727 /* calnedar_panelStyle_4_4_horizontal@2x.png in Resources */,
 				E5BB9AC22D3BEF0D0089667A /* todo_task_action_trash_24@2x.png in Resources */,
 				E53352A02FF8C9CC00546986 /* calendar_year_24@2x.png in Resources */,
 				E54E63402F5B1BFD00FCBCAE /* habit_menu_completeAll_24@2x.png in Resources */,
@@ -13641,6 +13667,7 @@
 				E53632D52FAF63480095DFEC /* quadrant_II_60@2x.png in Resources */,
 				E5186E442D93B141007AA074 /* todo_filter_myDay_36@3x.png in Resources */,
 				E55E4BE72F9336170068E032 /* calendar_22_24@3x.png in Resources */,
+				E5E40718306FE02900673727 /* calendar_panelStyle_3_4_vertical@2x.png in Resources */,
 				E5BB9A9A2D3BEF0D0089667A /* todo_list_layout_list_96@2x.png in Resources */,
 				E526D4062F6D7479005C1DED /* habit_menu_editLog_24@3x.png in Resources */,
 				E55E4BE92F9336170068E032 /* calendar_8_24@2x.png in Resources */,
@@ -14838,6 +14865,7 @@
 				E5BB9EA32D3BF0C80089667A /* HeatMapCell.swift in Sources */,
 				E5320C472FCC3DAF001DFE98 /* CalendarEventListCell.swift in Sources */,
 				E51501AB2D47DBC9008B2333 /* TPTableItemSectionController.swift in Sources */,
+				E5E4070F306FE01600673727 /* AppSideMenuSettingViewController.swift in Sources */,
 				E5D7D9322D43933700EC877A /* FocusTimerSelectViewController.swift in Sources */,
 				E529ACCA2F7E0184000EA2F1 /* TodoSmartList.swift in Sources */,
 				E5DE23E7306A6D7E000BBE3F /* GoalStatsContentViewController.swift in Sources */,

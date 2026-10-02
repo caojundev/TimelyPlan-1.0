@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// 侧边栏菜单类型
 enum SideMenuType: String, Codable, TPMenuRepresentable {
@@ -36,5 +37,75 @@ enum SideMenuType: String, Codable, TPMenuRepresentable {
     
     var iconName: String? {
         return "sideMenu_\(rawValue)_40"
+    }
+}
+
+extension SideMenuType {
+    
+    /// 侧边栏菜单默认顺序
+    static var defaultSideMenuOrder: [SideMenuType] {
+        return [.myDay,
+                .calendar,
+                .todo,
+                .quadrants,
+                .timeline,
+                .goal,
+                .focus,
+                .habit,
+                .countdown,
+                .settings]
+    }
+    
+    /// 是否内置固定显示（不可隐藏，顺序不可调整）
+    var isFixedOnSideMenu: Bool {
+        switch self {
+        case .settings:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    /// 可自定义显示与顺序的菜单类型
+    static var customizableSideMenuTypes: [SideMenuType] {
+        return defaultSideMenuOrder.filter { !$0.isFixedOnSideMenu }
+    }
+    
+    /// 侧边栏区块分组标识（相同标识的菜单显示在同一个区块）
+    var sideMenuGroupKey: String {
+        switch self {
+        case .todo, .quadrants:
+            return "task"
+        default:
+            return rawValue
+        }
+    }
+    
+    /// 根据菜单类型创建侧边栏区块菜单
+    static func sideMenuItems(with types: [SideMenuType]) -> [TPMenuItem] {
+        var menuItems = [TPMenuItem]()
+        var currentGroupKey: String?
+        var currentTypes = [SideMenuType]()
+        
+        func appendCurrentGroup() {
+            guard !currentTypes.isEmpty else {
+                return
+            }
+            
+            menuItems.append(TPMenuItem.item(with: currentTypes))
+            currentTypes = []
+        }
+        
+        for type in types {
+            if let groupKey = currentGroupKey, groupKey != type.sideMenuGroupKey {
+                appendCurrentGroup()
+            }
+            
+            currentGroupKey = type.sideMenuGroupKey
+            currentTypes.append(type)
+        }
+        appendCurrentGroup()
+        
+        return menuItems
     }
 }

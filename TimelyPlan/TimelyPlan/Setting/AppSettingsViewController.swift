@@ -21,6 +21,19 @@ class AppSettingsViewController: BaseSettingViewController,
         return config
     }()
     
+    /// 侧边栏菜单
+    lazy var sideMenuCellItem: TPImageInfoTableCellItem = {
+        let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.imageConfig = imageConfig
+        cellItem.imageName = "sideMenu_24"
+        cellItem.title = resGetString("Side Menu")
+        cellItem.didSelectHandler = { [weak self] in
+            self?.clickSideMenu()
+        }
+        
+        return cellItem
+    }()
+    
     /// 震动反馈
     lazy var hapticFeedbackCellItem: TPSwitchTableCellItem = { [weak self] in
         let cellItem = TPSwitchTableCellItem()
@@ -58,7 +71,8 @@ class AppSettingsViewController: BaseSettingViewController,
     lazy var generalSectionController: TPTableItemSectionController = {
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = normalHeaderHeight
-        sectionController.cellItems = [hapticFeedbackCellItem,
+        sectionController.cellItems = [sideMenuCellItem,
+                                       hapticFeedbackCellItem,
                                        languageCellItem]
         return sectionController
     }()
@@ -91,7 +105,13 @@ class AppSettingsViewController: BaseSettingViewController,
         let sectionController = TPTableItemSectionController()
         sectionController.headerItem.height = normalHeaderHeight
         
-        let menuTypes: [SideMenuType] = [.todo, .calendar, .focus, .habit]
+        let menuTypes: [SideMenuType] = [.myDay,
+                                         .calendar,
+                                         .todo,
+                                         .goal,
+                                         .focus,
+                                         .habit,
+                                         .countdown]
         var cellItems = [TPImageInfoTableCellItem]()
         for menuType in menuTypes {
             let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
@@ -248,6 +268,12 @@ class AppSettingsViewController: BaseSettingViewController,
             vc = FocusSettingViewController()
         case .habit:
             vc = HabitSettingViewController()
+        case .myDay:
+            vc = MyDaySettingViewController()
+        case .goal:
+            vc = GoalSettingViewController()
+        case .countdown:
+            vc = CountdownSettingViewController()
         default:
             break
         }
@@ -256,6 +282,11 @@ class AppSettingsViewController: BaseSettingViewController,
             vc.isPushed = true
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    private func clickSideMenu() {
+        let vc = AppSideMenuSettingViewController(style: .insetGrouped)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func writeReview() {

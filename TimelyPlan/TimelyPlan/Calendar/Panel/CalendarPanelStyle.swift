@@ -22,6 +22,15 @@ enum CalendarPanelStyle: String, CaseIterable, Codable {
             return resGetString("3 + 4 (Vertical)")
         }
     }
+    
+    var iconName: String {
+        switch self {
+        case .fourPlusFourHorizontal:
+            return "calnedar_panelStyle_4_4_horizontal"
+        case .threePlusFourVertical:
+            return "calendar_panelStyle_3_4_vertical"
+        }
+    }
 }
 
 // MARK: - 布局配置

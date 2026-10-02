@@ -92,7 +92,9 @@ class CalendarPanelStyleCellItem: TPCheckmarkTableCellItem {
     init(panelStyle: CalendarPanelStyle) {
         self.panelStyle = panelStyle
         super.init()
+        self.height = 90.0
+        self.imageConfig.size = CGSize(width: 60.0, height: 64.0)
+        self.imageName = panelStyle.iconName
         self.title = panelStyle.displayName
-        /// 图标后续添加：self.imageName = panelStyle.iconName
     }
 }

@@ -869,6 +869,9 @@
 "General" = "常规";
 "Language" = "语言";
 
+"Side Menu" = "侧边栏";
+"Side Menu Display" = "侧边栏显示";
+
 "Haptic Feedback" = "触感反馈";
 "iCloud Sync" = "iCloud 数据同步";
 "Support Us" = "支持我们";

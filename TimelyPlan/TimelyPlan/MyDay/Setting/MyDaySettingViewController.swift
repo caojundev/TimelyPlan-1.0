@@ -242,7 +242,10 @@ class MyDaySettingViewController: BaseSettingViewController {
      override func viewDidLoad() {
          super.viewDidLoad()
          self.title = resGetString("My Day Settings")
-         self.navigationItem.leftBarButtonItem = dismissButtonItem
+         if !isPushed {
+             self.navigationItem.leftBarButtonItem = dismissButtonItem
+         }
+         
          self.sectionControllers = [generalSectionController,
                                     viewOptionsSectionController,
                                     showSectionController,

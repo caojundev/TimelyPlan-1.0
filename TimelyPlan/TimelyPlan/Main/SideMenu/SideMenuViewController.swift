@@ -19,43 +19,19 @@ protocol SideMenuViewControllerDelegate: AnyObject {
 
 class SideMenuViewController: TPTableViewController,
                                 TPTableViewAdapterDataSource,
-                                TPTableViewAdapterDelegate {
+                                TPTableViewAdapterDelegate,
+                                SettingAgentObserver {
     
     weak var delegate: SideMenuViewControllerDelegate?
     
     /// 当前选中菜单类型
-    var selectedMenuType: SideMenuType = AppState.shared.sideMenuType
-
-    /// 我的一天
-    let myDayMenuItem = TPMenuItem.item(with: [SideMenuType.myDay])
-
-    /// 待办任务模块
-    lazy var taskMenuItem: TPMenuItem = {
-        let types: [SideMenuType] = [.todo, .quadrants]
-        let menuItem = TPMenuItem.item(with: types)
-        return menuItem
-    }()
-
-    /// 时间线
-    let timelineMenuItem = TPMenuItem.item(with: [SideMenuType.timeline])
+    var selectedMenuType: SideMenuType = AppState.shared.validatedSideMenuType
     
-    /// 目标
-    let goalMenuItem = TPMenuItem.item(with: [SideMenuType.goal])
-
-    /// 专注
-    let focusMenuItem = TPMenuItem.item(with: [SideMenuType.focus])
-
-    /// 习惯
-    let habitMenuItem = TPMenuItem.item(with: [SideMenuType.habit])
-
-    /// 日历
-    let calendarMenuItem = TPMenuItem.item(with: [SideMenuType.calendar])
-
-    /// 倒数日
-    let countdownMenuItem = TPMenuItem.item(with: [SideMenuType.countdown])
+    /// 侧边栏显示的菜单类型
+    private(set) var displayedMenuTypes: [SideMenuType] = AppState.shared.displayedSideMenuTypes
     
-    /// 设置
-    let settingMenuItem = TPMenuItem.item(with: [SideMenuType.settings])
+    /// 侧边栏区块菜单
+    private var menuItems: [TPMenuItem] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +39,30 @@ class SideMenuViewController: TPTableViewController,
         adapter.cellStyle.selectedBackgroundColor = resGetColor(.sidebar, .cell, .background, .selected)
         adapter.dataSource = self
         adapter.delegate = self
+        AppState.shared.addObserver(self, forKey: .sideMenuTypeOrder)
+        AppState.shared.addObserver(self, forKey: .hiddenSideMenuTypes)
+        reloadMenus()
+    }
+    
+    /// 重新加载侧边栏菜单
+    func reloadMenus() {
+        displayedMenuTypes = AppState.shared.displayedSideMenuTypes
+        menuItems = SideMenuType.sideMenuItems(with: displayedMenuTypes)
+        
+        /// 当前选中菜单已被隐藏时，切换到第一个显示的菜单
+        if !displayedMenuTypes.contains(selectedMenuType) {
+            selectedMenuType = displayedMenuTypes.first ?? .myDay
+        }
+        
         adapter.reloadData()
+    }
+    
+    // MARK: - SettingAgentObserver
+    func settingAgentDidChangeValue(for keyName: String) {
+        if keyName == AppState.SettingKey.sideMenuTypeOrder.name ||
+            keyName == AppState.SettingKey.hiddenSideMenuTypes.name {
+            reloadMenus()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -81,15 +80,7 @@ class SideMenuViewController: TPTableViewController,
 
     // MARK: - dataSource
     func sectionObjects(for adapter: TPTableViewAdapter) -> [ListDiffable]? {
-        return [myDayMenuItem,
-                calendarMenuItem,
-                taskMenuItem,
-                timelineMenuItem,
-                goalMenuItem,
-                focusMenuItem,
-                habitMenuItem,
-                countdownMenuItem,
-                settingMenuItem]
+        return menuItems
     }
     
     func adapter(_ adapter: TPTableViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
