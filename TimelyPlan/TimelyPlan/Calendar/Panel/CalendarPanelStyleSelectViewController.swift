@@ -35,6 +35,7 @@ class CalendarPanelStyleSelectViewController: TPTableSectionsViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         title = resGetString("Panel Style")
+        self.navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         setupActionsBar(actions: [saveAction])
         setupCellItems()
         sectionControllers = [sectionController]
@@ -52,12 +53,10 @@ class CalendarPanelStyleSelectViewController: TPTableSectionsViewController,
     }
     
     override func clickSave() {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
         if CalendarSetting.shared.panelStyle != panelStyle {
             CalendarSetting.shared.panelStyle = panelStyle
-            callback(after: 0.1) {
-                self.didEndEditing?(self.panelStyle)
-            }
+            didEndEditing?(panelStyle)
         }
     }
     

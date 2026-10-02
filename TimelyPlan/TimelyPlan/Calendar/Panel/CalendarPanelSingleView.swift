@@ -19,6 +19,9 @@ protocol CalendarPanelSingleViewDelegate: AnyObject {
     /// 点击日期
     func calendarPanelSingleView(_ singleView: CalendarPanelSingleView, didTapDate date: Date)
     
+    /// 选中日期（月历挂件等跳转用）
+    func calendarPanelSingleView(_ singleView: CalendarPanelSingleView, didSelectDate date: Date)
+    
     /// 长按日期
     func calendarPanelSingleView(_ singleView: CalendarPanelSingleView, didLongPressDate date: Date)
 }

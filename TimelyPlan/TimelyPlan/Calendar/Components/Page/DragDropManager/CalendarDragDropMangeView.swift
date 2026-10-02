@@ -106,6 +106,26 @@ class CalendarDragDropManageView: UIView,
     var minHeight: CGFloat {
         return CalendarConstant.minimumTimedEventViewHeight
     }
+    
+    /// 是否允许拖动到其它天
+    private var canDragToAnotherDay: Bool {
+        guard let event = event else {
+            /// 新增事项不受限制
+            return true
+        }
+        
+        return event.canDragToAnotherDay
+    }
+    
+    /// 不允许跨天时锁定的列（相对当前显示首日），nil 表示可自由跨天
+    private var lockedColumn: Int? {
+        guard !canDragToAnotherDay,
+              let pageView = pageView else {
+            return nil
+        }
+        
+        return pageView.column(of: dayDate)
+    }
 
     private var panGesture: UIPanGestureRecognizer?
     
@@ -288,6 +308,10 @@ class CalendarDragDropManageView: UIView,
         
         if dragMode != .none {
             pageView?.dragDropPanBegan()
+            if lockedColumn != nil {
+                /// 不可跨天时不支持翻页
+                pageAutoScroller.stopAutoScroll()
+            }
         }
     }
     
@@ -298,10 +322,17 @@ class CalendarDragDropManageView: UIView,
         case .none:
             shouldUpdateAutoScroller = false
         case .move:
-            scheduleView.center = CGPoint(
+            var center = CGPoint(
                 x: contentPoint.x - touchOffset.x,
                 y: contentPoint.y - touchOffset.y
             )
+            
+            if lockedColumn != nil {
+                /// 不可跨天时锁定水平位置，仅能在当天所在列上下移动
+                center.x = snappedX(of: center) + scheduleView.bounds.width / 2.0
+            }
+            
+            scheduleView.center = center
         case .resizeTopRight:
             var frame = scheduleView.frame
             var originY = contentPoint.y - touchOffset.y
@@ -333,8 +364,8 @@ class CalendarDragDropManageView: UIView,
         }
         
         let touchInfo = (touchPoint, self)
-        if dragMode == .move {
-            /// 仅移动模式下允许翻页
+        if dragMode == .move, lockedColumn == nil {
+            /// 仅移动模式且允许跨天时允许翻页
             pageAutoScroller.updateTouchInfo(touchInfo)
         }
         
@@ -394,6 +425,11 @@ class CalendarDragDropManageView: UIView,
     }
     
     private func snappedColumn(of point: CGPoint) -> Int {
+        /// 不可跨天时始终停留在当天所在列
+        if let lockedColumn = lockedColumn {
+            return lockedColumn
+        }
+        
         let columnWidth = columnWidth
         guard columnWidth > 0 else {
             return 0

@@ -19,6 +19,9 @@ protocol CalendarPanelPageViewDelegate: AnyObject {
     /// 点击日期
     func calendarPanelPageView(_ pageView: CalendarPanelPageView, didTapDate date: Date)
     
+    /// 选中日期（月历挂件等跳转用）
+    func calendarPanelPageView(_ pageView: CalendarPanelPageView, didSelectDate date: Date)
+    
     /// 长按日期
     func calendarPanelPageView(_ pageView: CalendarPanelPageView, didLongPressDate date: Date)
 }
@@ -136,6 +139,10 @@ extension CalendarPanelPageView: CalendarPanelSingleViewDelegate {
     
     func calendarPanelSingleView(_ singleView: CalendarPanelSingleView, didTapDate date: Date) {
         panelDelegate?.calendarPanelPageView(self, didTapDate: date)
+    }
+    
+    func calendarPanelSingleView(_ singleView: CalendarPanelSingleView, didSelectDate date: Date) {
+        panelDelegate?.calendarPanelPageView(self, didSelectDate: date)
     }
     
     func calendarPanelSingleView(_ singleView: CalendarPanelSingleView, didLongPressDate date: Date) {

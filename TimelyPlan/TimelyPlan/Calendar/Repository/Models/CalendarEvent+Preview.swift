@@ -123,6 +123,17 @@ extension CalendarEvent: CalendarEventPreviewDisplayable {
         }
     }
     
+    /// 在可编辑的前提下，长按事项调整时间时是否允许拖动到不同的天
+    var canDragToAnotherDay: Bool {
+        switch source {
+        case .habit, .goal:
+            /// 习惯与目标只支持当天调整
+            return false
+        case .system, .todo, .countdown, .focus:
+            return isEditable
+        }
+    }
+    
     var isDeletable: Bool {
         switch source {
         case .system:

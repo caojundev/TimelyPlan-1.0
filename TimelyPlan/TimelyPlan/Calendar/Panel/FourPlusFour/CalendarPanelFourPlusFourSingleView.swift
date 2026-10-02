@@ -16,7 +16,7 @@ class CalendarPanelFourPlusFourSingleView: CalendarPanelSingleView {
     
     override init(style: CalendarPanelStyle) {
         super.init(style: style)
-        addSubview(miniMonthView)
+        setupMiniMonthView()
     }
     
     required init?(coder: NSCoder) {
@@ -33,6 +33,21 @@ class CalendarPanelFourPlusFourSingleView: CalendarPanelSingleView {
         super.reloadWidgets()
         miniMonthView.firstWeekday = firstWeekday
         miniMonthView.firstDay = firstDay
+    }
+    
+    // MARK: - Setup
+    
+    private func setupMiniMonthView() {
+        miniMonthView.didSelectDate = { [weak self] date in
+            guard let self = self else {
+                return
+            }
+            
+            /// 月历挂件选中日期：交给上层跳转到该日期
+            self.delegate?.calendarPanelSingleView(self, didSelectDate: date)
+        }
+        
+        addSubview(miniMonthView)
     }
     
     // MARK: - Layout

@@ -80,6 +80,17 @@ class CalendarPanelViewController: CalendarBaseViewController,
         updateTitle(with: date)
     }
     
+    /// 跳转到指定日期所在页面（选中日期）
+    private func selectDate(_ date: Date) {
+        let date = pageView.validatedDate(date)
+        if date.isInSameDayAs(pageView.visibleDate) {
+            return
+        }
+        
+        pageView.setVisibleDate(date, animated: true)
+        updateTitle(with: date)
+    }
+    
     // MARK: - Update
     private func updateTitle(with date: Date) {
         dateButton.title = date.slashFormattedYearMonthString
@@ -113,5 +124,10 @@ class CalendarPanelViewController: CalendarBaseViewController,
     func calendarPanelPageView(_ pageView: CalendarPanelPageView, didTapDate date: Date) {
         TPImpactFeedback.impactWithLightStyle()
         showEventList(on: date)
+    }
+    
+    func calendarPanelPageView(_ pageView: CalendarPanelPageView, didSelectDate date: Date) {
+        TPImpactFeedback.impactWithLightStyle()
+        selectDate(date)
     }
 }
