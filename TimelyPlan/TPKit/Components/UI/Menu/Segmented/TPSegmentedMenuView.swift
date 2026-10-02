@@ -295,7 +295,7 @@ class TPSegmentedMenuView: UIView, TPPageMenuRepresentable {
             let handler = {
                 currActiveButton.alpha = 1.0
                 self.activeLayer.frame = currActiveButton.frame
-                self.contentView.scrollRectToVisibleCenter(currActiveButton.frame, animated: false)
+                self.scrollSelectedMenuToVisible(animated: false)
             }
             
             guard animated else {
@@ -311,6 +311,18 @@ class TPSegmentedMenuView: UIView, TPPageMenuRepresentable {
                 handler()
             }, completion: nil)
         }
+    }
+    
+    /// 将选中菜单滚动到可视位置
+    func scrollSelectedMenuToVisible(animated: Bool = false) {
+        /// 布局尚未完成，不做滚动，避免滚动到错误位置
+        guard let activeButton = activeButton,
+              contentView.width > 0.0,
+              contentView.contentSize.width > 0.0 else {
+            return
+        }
+        
+        contentView.scrollRectToVisibleCenter(activeButton.frame, animated: animated)
     }
     
     private func scaleAnimateButton(_ button: TPDefaultButton) {

@@ -154,12 +154,34 @@ class CalendarMoreViewController: TPTableSectionsViewController,
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        /// 转场结束后将选中模式滚动到可视位置
+        guard animated else {
+            scrollSelectedModeToVisible(animated: false)
+            return
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.scrollSelectedModeToVisible(animated: true)
+        }
+    }
+    
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
     
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemGroupedBackground
+    }
+    
+    /// 将模式单元格中选中项滚动到可视位置
+    private func scrollSelectedModeToVisible(animated: Bool) {
+        guard let cell = adapter.cellForItem(modeCellItem) as? TPFullSizeSegmentedMenuTableCell else {
+            return
+        }
+        
+        cell.menuView.scrollSelectedMenuToVisible(animated: animated)
     }
     
     private func selectMode(_ mode: CalendarMode) {
