@@ -218,7 +218,7 @@ extension TodoTaskBoardViewController: TodoTaskBoardDragInsertReorderDelegate {
               let toGroup = boardView.group(at: targetIndexPath.page) else {
                 return false
         }
-        
+
         return groupManager.canInsert(task, from: fromGroup, to: toGroup, at: targetIndexPath.row)
     }
     

@@ -32,6 +32,16 @@ class TodoTaskBoardFlowLayout: UICollectionViewFlowLayout {
     /// iPad regular 模式下条目宽度
     private let regularItemWidth: CGFloat = 300.0
     
+    /// 当前显示的页码
+    var currentPage: Int {
+        guard itemSize.width > 0, let collectionView = collectionView else {
+            return 0
+        }
+        
+        let offsetX = collectionView.contentOffset.x + itemSpacing
+        return max(0, Int(round(offsetX / pageWidth)))
+    }
+    
     /// 滚动到指定页
     /// - Parameters:
     ///   - page: 目标页码（从0开始）
@@ -44,6 +54,25 @@ class TodoTaskBoardFlowLayout: UICollectionViewFlowLayout {
         let maxPage = max(0, Int(ceil(collectionView.contentSize.width / pageWidth)) - 1)
         let targetPage = max(0, min(page, maxPage))
         let targetOffsetX = CGFloat(targetPage) * pageWidth - itemSpacing
+        collectionView.setContentOffset(CGPoint(x: targetOffsetX, y: collectionView.contentOffset.y), animated: animated)
+    }
+    
+    /// 修正内容偏移，确保当前页有效
+    /// 页数减少后集合视图可能仍停留在已不存在的页面，此时内容尺寸变小但偏移量超出有效范围，
+    /// 会导致当前页空白且无法滚动回有效页面，因此需要将偏移量拉回最后一页
+    /// - Parameter pageCount: 有效页数
+    func adjustContentOffset(forPageCount pageCount: Int, animated: Bool) {
+        guard itemSize.width > 0, pageCount > 0, let collectionView = collectionView else {
+            return
+        }
+        
+        let lastPage = pageCount - 1
+        guard currentPage > lastPage else {
+            return
+        }
+        
+        /// 参照 scrollToPage 计算目标偏移，最终由滚动视图约束到有效范围内
+        let targetOffsetX = CGFloat(lastPage) * pageWidth - itemSpacing
         collectionView.setContentOffset(CGPoint(x: targetOffsetX, y: collectionView.contentOffset.y), animated: animated)
     }
     

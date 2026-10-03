@@ -286,7 +286,19 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         adapter.performUpdate(updateVisibleItems: false) {[weak self] _ in
             guard let self = self else { return }
             self.performUpdateForVisiblePages()
+            self.adjustContentOffsetIfNeeded()
         }
+    }
+    
+    /// 页数减少后修正内容偏移，避免停留在已不存在的页面导致内容空白且无法滚动回来
+    private func adjustContentOffsetIfNeeded() {
+        let pageCount = groups?.count ?? 0
+        guard pageCount > 0 else {
+            return
+        }
+        
+        collectionViewLayout.adjustContentOffset(forPageCount: pageCount,
+                                                 animated: true)
     }
     
     func didUpdate(with infos: [TodoTaskChangeInfo]) {
@@ -396,10 +408,12 @@ class TodoTaskBoardView: UIView, TPMultipleItemSelectionUpdater {
         for visibleIndexPath in visibleIndexPaths {
             guard let cell = adapter.cellForItem(at: visibleIndexPath) as? TodoTaskBoardCell,
                   let group = adapter.item(at: visibleIndexPath) as? TodoGroup else {
-                return
+                continue
             }
             
             let pageView = cell.pageView
+            /// 分组增删后 cell 会被复用，索引可能已变化，需要同步更新页码，否则插入排序会定位到错误分组
+            pageView.indexPath = visibleIndexPath
             pageView.group = group
             pageView.performUpdate()
         }
