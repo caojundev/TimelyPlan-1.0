@@ -55,6 +55,9 @@ class SideMenuViewController: TPTableViewController,
         }
         
         adapter.reloadData()
+        
+        /// 菜单数量或顺序变化后，需要重新计算内容间距
+        updateTableViewContentInset()
     }
     
     // MARK: - SettingAgentObserver
@@ -65,12 +68,29 @@ class SideMenuViewController: TPTableViewController,
         }
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateTableViewContentInset()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        /// 首次显示时列表内容尺寸才准确，此处再校准一次内容间距
+        updateTableViewContentInset()
+    }
+    
+    /// 更新列表内容间距（菜单内容较少时贴近底部显示）
+    private func updateTableViewContentInset() {
+        /// 先确保列表按当前数据完成布局，否则 contentSize 为旧值会导致间距计算错误
+        tableView.layoutIfNeeded()
         
         var inset = UIEdgeInsets.zero
         inset.top = max(view.safeHeight - tableView.contentSize.height, 0.0)
-        self.tableView.contentInset = inset
+        guard tableView.contentInset != inset else {
+            return
+        }
+        
+        tableView.contentInset = inset
     }
 
     override func themeDidChange() {

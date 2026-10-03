@@ -25,7 +25,7 @@ class AppSettingsViewController: BaseSettingViewController,
     lazy var sideMenuCellItem: TPImageInfoTableCellItem = {
         let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
         cellItem.imageConfig = imageConfig
-        cellItem.imageName = "sideMenu_24"
+        cellItem.imageName = "setting_sideMenu_32"
         cellItem.title = resGetString("Side Menu")
         cellItem.didSelectHandler = { [weak self] in
             self?.clickSideMenu()

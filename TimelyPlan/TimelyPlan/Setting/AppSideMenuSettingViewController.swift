@@ -52,14 +52,14 @@ class AppSideMenuSettingViewController: TPTableSectionsViewController {
 class AppSideMenuSettingSectionController: TPTableItemSectionController,
                                            TPTableDragInsertReorderDelegate {
     
-    /// 可自定义的菜单类型顺序
+    /// 可调整顺序的菜单类型
     private(set) var menuTypes: [SideMenuType]
     
     /// 隐藏的菜单类型
     private(set) var hiddenTypes: Set<SideMenuType>
     
     override init() {
-        self.menuTypes = AppState.shared.customizableSideMenuOrder
+        self.menuTypes = AppState.shared.sideMenuSettingTypes
         self.hiddenTypes = Set(AppState.shared.hiddenSideMenuTypes)
         super.init()
         self.headerItem.height = 10.0
@@ -90,7 +90,8 @@ class AppSideMenuSettingSectionController: TPTableItemSectionController,
             return
         }
         
-        cellItem.isOn = !hiddenTypes.contains(menuType)
+        /// 固定显示的菜单始终开启
+        cellItem.isOn = menuType.isFixedOnSideMenu || !hiddenTypes.contains(menuType)
     }
     
     private func cellItem(for menuType: SideMenuType) -> AppSideMenuSettingCellItem? {
@@ -106,6 +107,11 @@ class AppSideMenuSettingSectionController: TPTableItemSectionController,
     }
     
     private func switchValueChanged(for menuType: SideMenuType, isOn: Bool) {
+        /// 固定显示的菜单不可关闭
+        guard !menuType.isFixedOnSideMenu else {
+            return
+        }
+        
         if isOn {
             hiddenTypes.remove(menuType)
         } else {
@@ -156,10 +162,19 @@ class AppSideMenuSettingCellItem: TPSwitchTableCellItem {
     /// 菜单类型
     let menuType: SideMenuType
     
+    /// 是否显示开关按钮（固定显示的菜单不可关闭，不显示开关）
+    var showsSwitch: Bool {
+        return !menuType.isFixedOnSideMenu
+    }
+    
     /// 右侧视图尺寸（开关按钮 + 拖动排序控件）
     override var switchButtonSize: CGSize {
         let size = super.switchButtonSize
-        let width = size.width + Self.reorderControlWidth + Self.reorderControlMargin
+        var width = Self.reorderControlWidth
+        if showsSwitch {
+            width += size.width + Self.reorderControlMargin
+        }
+        
         return CGSize(width: width, height: size.height)
     }
     
@@ -174,7 +189,7 @@ class AppSideMenuSettingCellItem: TPSwitchTableCellItem {
         self.identifier = menuType.rawValue
         self.imageName = menuType.iconName
         self.title = menuType.title
-        self.isOn = !AppState.shared.hiddenSideMenuTypes.contains(menuType)
+        self.isOn = menuType.isFixedOnSideMenu || !AppState.shared.hiddenSideMenuTypes.contains(menuType)
         self.registerClass = AppSideMenuSettingCell.self
         self.rightViewMargins = UIEdgeInsets(right: 8.0)
     }
@@ -199,6 +214,13 @@ class AppSideMenuSettingCell: TPSwitchTableCell {
         rightContentView.addSubview(reorderControl)
     }
     
+    override func updateCellStyle() {
+        super.updateCellStyle()
+        if let cellItem = cellItem as? AppSideMenuSettingCellItem {
+            switchButton.isHidden = !cellItem.showsSwitch
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         let handleWidth = AppSideMenuSettingCellItem.reorderControlWidth
@@ -208,6 +230,10 @@ class AppSideMenuSettingCell: TPSwitchTableCell {
         reorderControl.left = rightViewSize.width - handleWidth
         reorderControl.centerY = rightViewSize.halfHeight
         reorderControl.updateImage(withColor: resGetColor(.title))
+        
+        guard let cellItem = cellItem as? AppSideMenuSettingCellItem, cellItem.showsSwitch else {
+            return
+        }
         
         switchButton.centerY = rightViewSize.halfHeight
         switchButton.right = rightViewSize.width - handleWidth - margin

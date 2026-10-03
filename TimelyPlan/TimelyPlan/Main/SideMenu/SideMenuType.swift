@@ -56,8 +56,18 @@ extension SideMenuType {
                 .settings]
     }
     
-    /// 是否内置固定显示（不可隐藏，顺序不可调整）
+    /// 是否内置固定显示（不可关闭）
     var isFixedOnSideMenu: Bool {
+        switch self {
+        case .myDay, .todo, .settings:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    /// 是否固定显示在侧边栏底部（不可关闭且顺序不可调整）
+    var isFixedAtBottomOnSideMenu: Bool {
         switch self {
         case .settings:
             return true
@@ -66,9 +76,9 @@ extension SideMenuType {
         }
     }
     
-    /// 可自定义显示与顺序的菜单类型
+    /// 侧边栏显示设置中可调整的菜单类型（顺序可调整）
     static var customizableSideMenuTypes: [SideMenuType] {
-        return defaultSideMenuOrder.filter { !$0.isFixedOnSideMenu }
+        return defaultSideMenuOrder.filter { !$0.isFixedAtBottomOnSideMenu }
     }
     
     /// 侧边栏区块分组标识（相同标识的菜单显示在同一个区块）

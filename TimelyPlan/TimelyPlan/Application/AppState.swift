@@ -34,7 +34,7 @@ class AppState {
     private init() {}
     
     // MARK: - 侧边栏菜单
-    /// 排序后的侧边栏菜单（包含固定显示的菜单，固定菜单始终显示在末尾）
+    /// 排序后的侧边栏菜单（包含固定显示的菜单，固定到底部的菜单始终显示在末尾）
     var orderedSideMenuTypes: [SideMenuType] {
         let customizableTypes = SideMenuType.customizableSideMenuTypes
         var types = [SideMenuType]()
@@ -49,14 +49,14 @@ class AppState {
             types.append(type)
         }
         
-        /// 固定显示的菜单始终显示在末尾
-        types.append(contentsOf: SideMenuType.defaultSideMenuOrder.filter { $0.isFixedOnSideMenu })
+        /// 固定到底部的菜单始终显示在末尾
+        types.append(contentsOf: SideMenuType.defaultSideMenuOrder.filter { $0.isFixedAtBottomOnSideMenu })
         return types
     }
     
-    /// 可自定义显示与顺序的侧边栏菜单
-    var customizableSideMenuOrder: [SideMenuType] {
-        return orderedSideMenuTypes.filter { !$0.isFixedOnSideMenu }
+    /// 侧边栏显示设置中展示的菜单（顺序可调整）
+    var sideMenuSettingTypes: [SideMenuType] {
+        return orderedSideMenuTypes.filter { !$0.isFixedAtBottomOnSideMenu }
     }
     
     /// 侧边栏显示的菜单
@@ -81,8 +81,10 @@ class AppState {
             sideMenuTypeOrder = order
         }
         
-        if Set(hiddenSideMenuTypes) != Set(hiddenTypes) {
-            hiddenSideMenuTypes = hiddenTypes
+        /// 固定显示的菜单不可隐藏
+        let validatedHiddenTypes = hiddenTypes.filter { !$0.isFixedOnSideMenu }
+        if Set(hiddenSideMenuTypes) != Set(validatedHiddenTypes) {
+            hiddenSideMenuTypes = validatedHiddenTypes
         }
     }
     
