@@ -11,7 +11,10 @@ import UIKit
 class CalendarEventAlertEditViewController: TaskReminderEditViewController {
 
     init(reminder: TaskReminder?, isAllDay: Bool) {
-        super.init(reminder: reminder, isAllDay: isAllDay, startDate: nil, endDate: nil)
+        super.init(reminder: reminder,
+                   isAllDay: isAllDay,
+                   startDate: nil,
+                   endDate: nil)
     }
     
     required init?(coder: NSCoder) {

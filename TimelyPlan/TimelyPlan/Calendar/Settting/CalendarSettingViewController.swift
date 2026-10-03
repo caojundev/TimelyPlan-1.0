@@ -366,7 +366,8 @@ class CalendarSettingViewController: BaseSettingViewController {
     
     private func editTimedEventAlert() {
         let reminder = CalendarSetting.shared.timedEventReminder
-        let vc = CalendarEventAlertEditViewController(reminder: reminder, isAllDay: false)
+        let vc = CalendarEventAlertEditViewController(reminder: reminder,
+                                                      isAllDay: false)
         vc.didEndEditing = { reminder in
             CalendarSetting.shared.timedEventReminder = reminder
             self.adapter.reloadCell(forItem: self.timedEventAlertCellItem, with: .none)
@@ -377,7 +378,8 @@ class CalendarSettingViewController: BaseSettingViewController {
     
     private func editAllDayEventAlert() {
         let reminder = CalendarSetting.shared.allDayEventReminder
-        let vc = CalendarEventAlertEditViewController(reminder: reminder, isAllDay: true)
+        let vc = CalendarEventAlertEditViewController(reminder: reminder,
+                                                      isAllDay: true)
         vc.didEndEditing = { reminder in
             CalendarSetting.shared.allDayEventReminder = reminder
             self.adapter.reloadCell(forItem: self.allDayEventAlertCellItem, with: .none)

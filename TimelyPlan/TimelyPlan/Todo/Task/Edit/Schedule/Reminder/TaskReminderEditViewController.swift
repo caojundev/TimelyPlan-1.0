@@ -79,10 +79,6 @@ class TaskReminderEditViewController: TPTableSectionsViewController {
     }
     
     private func setupStartAlarmSectionController() {
-        guard let startDate = startDate else {
-            return
-        }
-
         let sectionController = sectionController(date: startDate,
                                                   isAllDay: isAllDay,
                                                   alarms: reminder.startAlarms)
@@ -99,10 +95,6 @@ class TaskReminderEditViewController: TPTableSectionsViewController {
     }
     
     private func setupEndAlarmSectionController() {
-        guard let endDate = endDate else {
-            return
-        }
-
         let sectionController = sectionController(date: endDate,
                                                   isAllDay: isAllDay,
                                                   alarms: reminder.endAlarms)
