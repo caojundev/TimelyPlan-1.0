@@ -37,11 +37,3 @@
 
 "By Day" = "Day";
 "By Week" = "Week";
-
-/// Goal statistics chart titles
-"Weekly Record" = "Weekly Record";
-"Monthly Record" = "Monthly Record";
-"Yearly Record" = "Yearly Record";
-"Weekly Record Time" = "Weekly Time of Day";
-"Monthly Record Time" = "Monthly Time of Day";
-"Record Times Distribution" = "Record Times Distribution";

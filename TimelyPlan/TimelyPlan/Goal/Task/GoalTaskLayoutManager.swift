@@ -145,7 +145,7 @@ class GoalTaskInfoLayout {
     
     /// 进度条是否隐藏
     var isProgressHidden: Bool {
-        return !(config.canShowProgress && task.targetValue > 0)
+        return !(config.canShowProgress && task.isValidProgress)
     }
     
     /// 详情文本

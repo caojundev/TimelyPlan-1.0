@@ -47,7 +47,10 @@ class GoalStatsYearlyViewController: GoalStatsContentViewController {
         /// 热力图
         let heatMapSection = heatMapSectionController(for: dataItem)
 
-        return [checkinSection, checkinTimeSection, heatMapSection]
+        /// 概览
+        let summarySection = summarySectionController(for: dataItem)
+
+        return [summarySection, checkinSection, checkinTimeSection, heatMapSection]
     }
 
     /// 打卡热力图区块（按天记录数值分级）

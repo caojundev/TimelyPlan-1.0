@@ -57,6 +57,9 @@ class GoalStatsMonthlyViewController: GoalStatsContentViewController {
             })
         checkinTimeOfDaySection.chartItem?.xAxis.guideline?.style = .solid
 
-        return [checkinSection, checkinTimeSection, checkinTimeOfDaySection]
+        /// 概览
+        let summarySection = summarySectionController(for: dataItem)
+
+        return [summarySection, checkinSection, checkinTimeSection, checkinTimeOfDaySection]
     }
 }

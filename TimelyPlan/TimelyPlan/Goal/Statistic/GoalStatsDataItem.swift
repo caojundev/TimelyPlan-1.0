@@ -49,6 +49,48 @@ final class GoalStatsDataItem {
         return records.isEmpty
     }
 
+    // MARK: - 概览
+    /// 记录总次数
+    var totalRecordCount: Int {
+        return records.count
+    }
+
+    /// 记录总量（记录数值合计）
+    var totalRecordAmount: Int64 {
+        return records.reduce(0) { $0 + $1.amount }
+    }
+
+    /// 概览统计项（记录总量、记录总次数）
+    func summaries() -> [StatsSummary] {
+        return [totalRecordAmountSummary(), totalRecordCountSummary()]
+    }
+
+    /// 记录总量
+    private func totalRecordAmountSummary() -> StatsSummary {
+        var summary = StatsSummary()
+        summary.title = resGetString("Total Record Amount")
+        if totalRecordCount > 0 {
+            summary.value = "\(totalRecordAmount)"
+        }
+
+        return summary
+    }
+
+    /// 记录总次数
+    private func totalRecordCountSummary() -> StatsSummary {
+        var summary = StatsSummary()
+        summary.title = resGetString("Total Record Times")
+
+        let count = totalRecordCount
+        if count > 0 {
+            let badge: String = resGetString(count > 1 ? "Times(count)" : "Time(count)")
+            summary.attributedValue = StatsSummary.attributedValue(text: "\(count)",
+                                                                   badge: badge)
+        }
+
+        return summary
+    }
+
     // MARK: - 打卡分布（按天 / 按月）
     /// 每天的打卡次数
     private var dailyCheckinCounts: [DayIntegerKey: Int] {
@@ -76,20 +118,6 @@ final class GoalStatsDataItem {
         }
 
         return counts
-    }
-
-    /// 每月的记录量合计
-    private var monthlyRecordAmounts: [Int: Int64] {
-        var amounts = [Int: Int64]()
-        for record in records {
-            guard let date = record.date else {
-                continue
-            }
-
-            amounts[date.month, default: 0] += record.amount
-        }
-
-        return amounts
     }
 
     /// 按天打卡分布图表标记（周、月）
@@ -126,49 +154,6 @@ final class GoalStatsDataItem {
             var mark = ChartMark(x: CGFloat(month), y: CGFloat(count))
             let symbol = Date.monthSymbol(ofMonth: month)
             mark.highlightText = "\(symbol) • \(countText(count))"
-            marks.append(mark)
-        }
-
-        return marks
-    }
-
-    // MARK: - 记录量趋势（按天 / 按月）
-    /// 按天记录量趋势图表标记（周、月）
-    func dailyRecordAmountChartMarks(xValueForDate: (Date) -> CGFloat) -> [ChartMark] {
-        guard let startDate = dateRange.startDate else {
-            return []
-        }
-
-        let daysCount = dateRange.lastsCount()
-        guard daysCount > 0 else {
-            return []
-        }
-
-        let amounts = dailyRecordAmounts
-        var marks = [ChartMark]()
-        for index in 0..<daysCount {
-            guard let date = startDate.dateByAddingDays(index),
-                  let amount = amounts[date.dayIntegerKey], amount != 0 else {
-                continue
-            }
-
-            /// 记录量取绝对值（与热力图一致，展示记录变化的量级）
-            var mark = ChartMark(x: xValueForDate(date), y: CGFloat(abs(amount)))
-            mark.highlightText = "\(date.monthDayString), \(amountText(amount))"
-            marks.append(mark)
-        }
-
-        return marks
-    }
-
-    /// 按月记录量趋势图表标记（年）
-    func monthlyRecordAmountChartMarks() -> [ChartMark] {
-        var marks = [ChartMark]()
-        for (month, amount) in monthlyRecordAmounts where amount != 0 {
-            /// 记录量取绝对值（与热力图一致，展示记录变化的量级）
-            var mark = ChartMark(x: CGFloat(month), y: CGFloat(abs(amount)))
-            let symbol = Date.monthSymbol(ofMonth: month)
-            mark.highlightText = "\(symbol) • \(amountText(amount))"
             marks.append(mark)
         }
 
@@ -258,10 +243,5 @@ final class GoalStatsDataItem {
     private func countText(_ count: Int) -> String {
         let unit: String = resGetString(count > 1 ? "times(count)" : "time(count)")
         return "\(count) \(unit)"
-    }
-
-    /// 记录量文本（增加为正、减少为负）
-    private func amountText(_ amount: Int64) -> String {
-        return amount > 0 ? "+\(amount)" : "\(amount)"
     }
 }

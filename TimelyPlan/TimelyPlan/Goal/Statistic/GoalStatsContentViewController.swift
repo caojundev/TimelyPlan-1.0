@@ -52,6 +52,14 @@ class GoalStatsContentViewController: StatsContentViewController {
         }
     }
 
+    // MARK: - 概览区块
+    /// 概览区块（记录总量、记录总次数）
+    func summarySectionController(for dataItem: GoalStatsDataItem) -> TPCollectionItemSectionController {
+        let sectionController = StatsSummarySectionController()
+        sectionController.summaries = dataItem.summaries()
+        return sectionController
+    }
+
     // MARK: - 图表区块
     /// 打卡分布区块（柱状图）
     func checkinDistributionSectionController(title: String,

@@ -55,6 +55,9 @@ class GoalStatsWeeklyViewController: GoalStatsContentViewController {
                 return CGFloat(date.weekIndex(firstWeekday: self.firstWeekday))
             })
 
-        return [checkinSection, checkinTimeSection, checkinTimeOfDaySection]
+        /// 概览
+        let summarySection = summarySectionController(for: dataItem)
+
+        return [summarySection, checkinSection, checkinTimeSection, checkinTimeOfDaySection]
     }
 }

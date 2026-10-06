@@ -110,6 +110,27 @@
 "Show in Timeline" = "在时间线显示";
 "Show in My Day" = "在我的一天显示";
 
+/// 目标任务操作页
+"Steps" = "步骤";
+"Records" = "记录";
+"No Goal Record" = "暂无目标记录";
+"This record will be permanently deleted." = "该条记录将被永久删除。";
+"Edit Record" = "编辑记录";
+"Reset Progress" = "重置进度";
+"All records will be deleted and the progress will be reset. Are you sure?" = "所有记录都将被删除，进度将重置。确定重置吗？";
+
+/// 目标统计图表标题
+"Weekly Record" = "周记录次数";
+"Monthly Record" = "月记录次数";
+"Yearly Record" = "年记录次数";
+"Weekly Record Time" = "周记录时间";
+"Monthly Record Time" = "月记录时间";
+"Record Times Distribution" = "记录时间段分布";
+
+/// 目标统计概览
+"Total Record Amount" = "记录总量";
+"Total Record Times" = "记录总次数";
+
 ///**********************我的一天*********************///
 "Collapse" = "收起";
 "%ld more all-day events" = "剩余%ld个全天事项";
@@ -1182,19 +1203,3 @@
 ///********************** 内购 **********************///
 "Upgrade to Premium" = "升级到高级会员";
 
-/// 目标任务操作页
-"Steps" = "步骤";
-"Records" = "记录";
-"No Goal Record" = "暂无目标记录";
-"This record will be permanently deleted." = "该条记录将被永久删除。";
-"Edit Record" = "编辑记录";
-"Reset Progress" = "重置进度";
-"All records will be deleted and the progress will be reset. Are you sure?" = "所有记录都将被删除，进度将重置。确定重置吗？";
-
-/// 目标统计图表标题
-"Weekly Record" = "周记录次数";
-"Monthly Record" = "月记录次数";
-"Yearly Record" = "年记录次数";
-"Weekly Record Time" = "周记录时间";
-"Monthly Record Time" = "月记录时间";
-"Record Times Distribution" = "记录时间段分布";

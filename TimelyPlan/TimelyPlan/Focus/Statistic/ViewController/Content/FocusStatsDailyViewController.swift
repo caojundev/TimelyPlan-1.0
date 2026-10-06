@@ -26,7 +26,7 @@ class FocusStatsDailyViewController: FocusStatsContentViewController {
             completion(sectionControllers)
         }
     }
-    
+
     func sectionControllers(with dataItem: FocusStatsDataItem) -> [TPCollectionItemSectionController] {
         let summarySectionController = dataItem.summarySectionController(type: type)
         
