@@ -81,6 +81,12 @@ class SideMenuViewController: TPTableViewController,
     
     /// 更新列表内容间距（菜单内容较少时贴近底部显示）
     private func updateTableViewContentInset() {
+        /// 列表尚未加入视图层级时强制布局会触发 UITableView 警告，且此时 contentSize 不准确，
+        /// 因此延迟到列表加入窗口后的布局回调中处理
+        guard tableView.window != nil else {
+            return
+        }
+        
         /// 先确保列表按当前数据完成布局，否则 contentSize 为旧值会导致间距计算错误
         tableView.layoutIfNeeded()
         

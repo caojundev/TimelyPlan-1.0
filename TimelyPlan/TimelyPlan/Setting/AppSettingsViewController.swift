@@ -77,6 +77,45 @@ class AppSettingsViewController: BaseSettingViewController,
         return sectionController
     }()
     
+    // MARK: - 会员
+    /// 解锁高级会员
+    lazy var unlockPremiumCellItem: TPImageInfoTextValueTableCellItem = {
+        let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.imageConfig = imageConfig
+        cellItem.imageName = "setting_unlockPro_32"
+        cellItem.title = resGetString("Unlock Premium")
+        var valueConfig: TPTextAccessoryConfig = .valueText(resGetString("Free Plan"))
+        cellItem.valueConfig = valueConfig
+        cellItem.didSelectHandler = { [weak self] in
+            self?.clickUnlockPremium()
+        }
+        
+        return cellItem
+    }()
+    
+    /// 恢复购买
+    lazy var restorePurchasesCellItem: TPImageInfoTableCellItem = {
+        let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
+        cellItem.imageConfig = imageConfig
+        cellItem.imageName = "setting_restorePurchases_32"
+        cellItem.title = resGetString("Restore Purchases")
+        cellItem.didSelectHandler = { [weak self] in
+            self?.restorePurchases()
+        }
+        
+        return cellItem
+    }()
+    
+    lazy var membershipSectionController: TPTableItemSectionController = {
+        let sectionController = TPTableItemSectionController()
+        sectionController.headerItem.title = resGetString("Membership")
+        sectionController.headerItem.height = titleHeaderHeight
+        sectionController.headerItem.padding = titleHeaderPadding
+        sectionController.cellItems = [unlockPremiumCellItem,
+                                       restorePurchasesCellItem]
+        return sectionController
+    }()
+    
     // MARK: - 数据
     // iCloud 数据同步
     lazy var cloudCellItem: TPImageInfoTextValueTableCellItem = {
@@ -219,7 +258,8 @@ class AppSettingsViewController: BaseSettingViewController,
             navigationItem.leftBarButtonItems = [sidebarButtonItem]
         }
     
-        sectionControllers = [flipClockSectionController,
+        sectionControllers = [membershipSectionController,
+                              flipClockSectionController,
                               generalSectionController,
                               dataSectionController,
                               moduleSectionController,
@@ -282,6 +322,14 @@ class AppSettingsViewController: BaseSettingViewController,
             vc.isPushed = true
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    private func clickUnlockPremium() {
+        /// TODO: 对接内购管理器，展示会员购买页面
+    }
+    
+    private func restorePurchases() {
+        /// TODO: 对接内购管理器，恢复购买
     }
     
     private func clickSideMenu() {

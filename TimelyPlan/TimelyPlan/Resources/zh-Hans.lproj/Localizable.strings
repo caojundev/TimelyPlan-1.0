@@ -869,6 +869,12 @@
 "General" = "常规";
 "Language" = "语言";
 
+/// 会员
+"Membership" = "会员";
+"Unlock Premium" = "解锁高级会员";
+"Free Plan" = "免费用户";
+"Restore Purchases" = "恢复购买";
+
 "Side Menu" = "侧边栏";
 "Side Menu Display" = "侧边栏显示";
 
