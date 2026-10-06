@@ -84,7 +84,7 @@ class GoalStatsContentViewController: StatsContentViewController {
         chartItem.yAxis = .yAxisWithGuideline(chartMarks: barMarks, titleOfValue: nil)
 
         let sectionController = StatsBarChartSectionController()
-        sectionController.cellItem.headerTitle = resGetString("Check-in Times Distribution")
+        sectionController.cellItem.headerTitle = resGetString("Record Times Distribution")
         sectionController.chartItem = chartItem
         return sectionController
     }

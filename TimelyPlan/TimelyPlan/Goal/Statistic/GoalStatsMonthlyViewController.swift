@@ -39,7 +39,7 @@ class GoalStatsMonthlyViewController: GoalStatsContentViewController {
             return CGFloat(date.day)
         }
         let checkinSection = checkinDistributionSectionController(
-            title: resGetString("Monthly Check-in"),
+            title: resGetString("Monthly Record"),
             barMarks: barMarks,
             xAxis: .monthDaysAxis(date: self.date))
         checkinSection.chartItem?.xAxis.guideline?.style = .solid
@@ -49,7 +49,7 @@ class GoalStatsMonthlyViewController: GoalStatsContentViewController {
 
         /// 打卡时间分布
         let checkinTimeOfDaySection = checkinTimeOfDaySectionController(
-            title: resGetString("Monthly Time of Day"),
+            title: resGetString("Monthly Record Time"),
             xAxis: .monthDaysAxis(date: self.date),
             xValueForDate: { date in
                 /// 日期对应的数值为当月第几天

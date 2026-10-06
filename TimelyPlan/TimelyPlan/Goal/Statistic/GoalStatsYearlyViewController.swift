@@ -36,7 +36,7 @@ class GoalStatsYearlyViewController: GoalStatsContentViewController {
         /// 打卡分布
         let barMarks = dataItem.monthlyCheckinCountChartMarks()
         let checkinSection = checkinDistributionSectionController(
-            title: resGetString("Yearly Check-in"),
+            title: resGetString("Yearly Record"),
             barMarks: barMarks,
             xAxis: .monthsAxis())
         checkinSection.chartItem?.minimumBarMargin = 8.0
