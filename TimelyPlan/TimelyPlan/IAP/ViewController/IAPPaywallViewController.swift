@@ -1,5 +1,5 @@
 //
-//  IAPMainViewController.swift
+//  IAPPaywallViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/8/19.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class IAPMainViewController: TPViewController {
+class IAPPaywallViewController: TPViewController {
     
     private let contentView = UIScrollView()
     private let continueView = IAPContinueView()

@@ -21,6 +21,23 @@ class AppSettingsViewController: BaseSettingViewController,
         return config
     }()
     
+    // MARK: - 会员升级横幅
+    /// 会员升级横幅
+    private lazy var promoCard: AppProUpgradeBannerView = {
+        let promoCard = AppProUpgradeBannerView()
+        /// 内容内间距，用于制造卡片四周的空白
+        promoCard.contentPadding = UIEdgeInsets(top: 8.0, left: 20.0, bottom: 5.0, right: 20.0)
+        promoCard.configure(title: resGetString("Go Premium"),
+                            badgeText: resGetString("Limited Time Offer"),
+                            badgeEmoji: "🔥",
+                            badgeColor: UIColor(red: 0.96, green: 0.58, blue: 0.22, alpha: 1.0),
+                            subtitle: resGetString("Unlock all premium features, enjoy an enhanced experience, and exclusive perks"))
+        /// 点击横幅弹出会员购买页
+        promoCard.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                             action: #selector(clickUnlockPremium)))
+        return promoCard
+    }()
+   
     /// 侧边栏菜单
     lazy var sideMenuCellItem: TPImageInfoTableCellItem = {
         let cellItem = TPImageInfoTableCellItem(accessoryType: .disclosureIndicator)
@@ -267,10 +284,34 @@ class AppSettingsViewController: BaseSettingViewController,
                               aboutSectionController]
         reloadData()
         
+        /// 添加会员升级横幅
+        updatePromoCardLayout()
+        
         cloudStatusViewModel.startObserving()
         cloudStatusViewModel.onStatusChanged = { [weak self] _ in
             self?.reloadCloudCell()
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updatePromoCardLayout()
+    }
+    
+    /// 更新会员升级横幅布局（作为列表头部视图，宽度变化后需要重新设置）
+    private func updatePromoCardLayout() {
+        let width = tableView.width
+        guard width > 0 else {
+            return
+        }
+        
+        let headerSize = CGSize(width: width, height: promoCard.intrinsicContentSize.height)
+        guard promoCard.size != headerSize else {
+            return
+        }
+        
+        promoCard.frame = CGRect(origin: .zero, size: headerSize)
+        tableView.tableHeaderView = promoCard
     }
 
     private func updateCloudCellItem() {
@@ -324,8 +365,9 @@ class AppSettingsViewController: BaseSettingViewController,
         }
     }
     
-    private func clickUnlockPremium() {
-        /// TODO: 对接内购管理器，展示会员购买页面
+    @objc private func clickUnlockPremium() {
+        let vc = IAPPaywallViewController()
+        vc.showAsNavigationRoot()
     }
     
     private func restorePurchases() {

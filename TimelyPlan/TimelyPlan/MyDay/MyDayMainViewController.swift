@@ -240,10 +240,6 @@ class MyDayMainViewController: TPViewController,
     }
     
     @objc private func clickDate(_ button: UIButton) {
-        let vc = IAPMainViewController()
-        vc.showAsNavigationRoot()
-        return
-        
         let datePickerVC = TPYearMonthDatePickerViewController()
         datePickerVC.date = visibleDate
         datePickerVC.didPickDate = { date in
