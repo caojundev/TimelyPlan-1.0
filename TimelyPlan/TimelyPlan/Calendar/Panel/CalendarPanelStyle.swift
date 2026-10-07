@@ -11,15 +11,27 @@ import UIKit
 /// 日历面板布局样式
 enum CalendarPanelStyle: String, CaseIterable, Codable {
     case fourPlusFourHorizontal
+    case fourPlusFourVertical
     case threePlusFourVertical
+    case fivePlusTwoTwoColumn
+    case onePlusSixTwoColumn
+    case sixPlusOneTwoColumn
     
     /// UI 上显示的名称
     var displayName: String {
         switch self {
         case .fourPlusFourHorizontal:
             return resGetString("4 + 4 (Horizontal)")
+        case .fourPlusFourVertical:
+            return resGetString("4 + 4 (Vertical)")
         case .threePlusFourVertical:
             return resGetString("3 + 4 (Vertical)")
+        case .fivePlusTwoTwoColumn:
+            return resGetString("5 + 2 (Two Columns)")
+        case .onePlusSixTwoColumn:
+            return resGetString("1 + 6")
+        case .sixPlusOneTwoColumn:
+            return resGetString("6 + 1")
         }
     }
     
@@ -27,8 +39,16 @@ enum CalendarPanelStyle: String, CaseIterable, Codable {
         switch self {
         case .fourPlusFourHorizontal:
             return "calnedar_panelStyle_4_4_horizontal"
+        case .fourPlusFourVertical:
+            return "calnedar_panelStyle_4_4_vertical"
         case .threePlusFourVertical:
             return "calendar_panelStyle_3_4_vertical"
+        case .fivePlusTwoTwoColumn:
+            return "calnedar_panelStyle_5_2_twoColumn"
+        case .onePlusSixTwoColumn:
+            return "calnedar_panelStyle_1_6"
+        case .sixPlusOneTwoColumn:
+            return "calnedar_panelStyle_6_1"
         }
     }
 }
@@ -133,6 +153,43 @@ struct CalendarPanelLayoutConfig {
                       (3, 2, 2, 0, 1, 2),
                       (5, 2, 3, 0, 1, 2)]
             widgetTuples = [(0, 0, 1, 1)]
+            
+        case .fourPlusFourVertical:
+            // 2 列 4 行：左上角为月历挂件（1 x 1 块），左列自上而下为第 1~3 天，右列自上而下为第 4~7 天
+            tuples = [(0, 1, 1, 0, 1, 1),
+                      (1, 1, 2, 0, 1, 1),
+                      (2, 1, 3, 0, 1, 1),
+                      (3, 1, 0, 1, 1, 1),
+                      (4, 1, 1, 1, 1, 1),
+                      (5, 1, 2, 1, 1, 1),
+                      (6, 1, 3, 1, 1, 1)]
+            widgetTuples = [(0, 0, 1, 1)]
+
+        case .fivePlusTwoTwoColumn:
+            // 2 列 10 行：左列从上到下为第 1~5 天（每天占 2 行），右列从上到下为第 6~7 天（每天占 5 行）
+            tuples = [(0, 1, 0, 0, 2, 1),
+                      (1, 1, 2, 0, 2, 1),
+                      (2, 1, 4, 0, 2, 1),
+                      (3, 1, 6, 0, 2, 1),
+                      (4, 1, 8, 0, 2, 1),
+                      (5, 1, 0, 1, 5, 1),
+                      (6, 1, 5, 1, 5, 1)]
+            widgetTuples = []
+            
+        case .onePlusSixTwoColumn:
+            tuples = [(0, 1, 0, 0, 1, 2),
+                      (1, 2, 1, 0, 1, 2),
+                      (3, 2, 2, 0, 1, 2),
+                      (5, 2, 3, 0, 1, 2)]
+            widgetTuples = []
+            
+        case .sixPlusOneTwoColumn:
+            // 2 列 4 行：前三行每行 2 天（第 1~6 天），最后一行为第 7 天、占满整行
+            tuples = [(0, 2, 0, 0, 1, 2),
+                      (2, 2, 1, 0, 1, 2),
+                      (4, 2, 2, 0, 1, 2),
+                      (6, 1, 3, 0, 1, 2)]
+            widgetTuples = []
         }
         
         self.init(tuples: tuples, widgetTuples: widgetTuples)

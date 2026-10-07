@@ -205,7 +205,8 @@
 /* 面板样式 */
 "3 + 4 (Vertical)" = "3 + 4 (垂直)";
 "4 + 4 (Horizontal)" = "4 + 4 (水平)";
-
+"4 + 4 (Vertical)" = "4 + 4 (垂直)";
+"5 + 2 (Two Columns)" = "5 + 2 (两列)";
 
 "Default Alert" = "默认提醒";
 "All-Day Event Alert" = "全天事项提醒";

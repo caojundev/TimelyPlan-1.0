@@ -59,7 +59,7 @@ class CalendarPanelElementView: UIView, CalendarStripViewDelegate {
     }
     
     /// 头视图高度（日期区域）
-    private let headerHeight = 36.0
+    private let headerHeight = 32.0
     
     /// 事项视图
     private var eventsView: CalendarStripView?

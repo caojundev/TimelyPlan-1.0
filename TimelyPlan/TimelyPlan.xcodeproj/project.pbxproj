@@ -2205,6 +2205,14 @@
 		E5D955FF3060143E00D5CAB0 /* CountdownReminderEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D955FE3060143E00D5CAB0 /* CountdownReminderEditViewController.swift */; };
 		E5D9560130601AFE00D5CAB0 /* CountdownMilestoneEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9560030601AFE00D5CAB0 /* CountdownMilestoneEditSectionController.swift */; };
 		E5D9560330601C8300D5CAB0 /* CountdownMilestonePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9560230601C8300D5CAB0 /* CountdownMilestonePickerViewController.swift */; };
+		E5D9D59230769BC000479B2E /* calnedar_panelStyle_4_4_vertical@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D9D59030769BBF00479B2E /* calnedar_panelStyle_4_4_vertical@3x.png */; };
+		E5D9D59330769BC000479B2E /* calnedar_panelStyle_4_4_vertical@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D9D59130769BC000479B2E /* calnedar_panelStyle_4_4_vertical@2x.png */; };
+		E5D9D59830769E9A00479B2E /* calnedar_panelStyle_1_6@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D9D59430769E9700479B2E /* calnedar_panelStyle_1_6@3x.png */; };
+		E5D9D59930769E9A00479B2E /* calnedar_panelStyle_1_6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D9D59530769E9800479B2E /* calnedar_panelStyle_1_6@2x.png */; };
+		E5D9D59A30769E9A00479B2E /* calnedar_panelStyle_6_1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D9D59630769E9800479B2E /* calnedar_panelStyle_6_1@3x.png */; };
+		E5D9D59B30769E9A00479B2E /* calnedar_panelStyle_6_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D9D59730769E9900479B2E /* calnedar_panelStyle_6_1@2x.png */; };
+		E5D9D59E3076A17E00479B2E /* calnedar_panelStyle_5_2_twoColumn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D9D59C3076A17D00479B2E /* calnedar_panelStyle_5_2_twoColumn@3x.png */; };
+		E5D9D59F3076A17E00479B2E /* calnedar_panelStyle_5_2_twoColumn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D9D59D3076A17E00479B2E /* calnedar_panelStyle_5_2_twoColumn@2x.png */; };
 		E5DA039D2FA03B7800A58ACC /* Sequence+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DA039C2FA03B7800A58ACC /* Sequence+Extensions.swift */; };
 		E5DA03A02FA0A58A00A58ACC /* todo_sort_type_completionDate_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DA039E2FA0A58900A58ACC /* todo_sort_type_completionDate_24@2x.png */; };
 		E5DA03A12FA0A58A00A58ACC /* todo_sort_type_completionDate_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DA039F2FA0A58A00A58ACC /* todo_sort_type_completionDate_24@3x.png */; };
@@ -4668,6 +4676,14 @@
 		E5D955FE3060143E00D5CAB0 /* CountdownReminderEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownReminderEditViewController.swift; sourceTree = "<group>"; };
 		E5D9560030601AFE00D5CAB0 /* CountdownMilestoneEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMilestoneEditSectionController.swift; sourceTree = "<group>"; };
 		E5D9560230601C8300D5CAB0 /* CountdownMilestonePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMilestonePickerViewController.swift; sourceTree = "<group>"; };
+		E5D9D59030769BBF00479B2E /* calnedar_panelStyle_4_4_vertical@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calnedar_panelStyle_4_4_vertical@3x.png"; sourceTree = "<group>"; };
+		E5D9D59130769BC000479B2E /* calnedar_panelStyle_4_4_vertical@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calnedar_panelStyle_4_4_vertical@2x.png"; sourceTree = "<group>"; };
+		E5D9D59430769E9700479B2E /* calnedar_panelStyle_1_6@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calnedar_panelStyle_1_6@3x.png"; sourceTree = "<group>"; };
+		E5D9D59530769E9800479B2E /* calnedar_panelStyle_1_6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calnedar_panelStyle_1_6@2x.png"; sourceTree = "<group>"; };
+		E5D9D59630769E9800479B2E /* calnedar_panelStyle_6_1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calnedar_panelStyle_6_1@3x.png"; sourceTree = "<group>"; };
+		E5D9D59730769E9900479B2E /* calnedar_panelStyle_6_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calnedar_panelStyle_6_1@2x.png"; sourceTree = "<group>"; };
+		E5D9D59C3076A17D00479B2E /* calnedar_panelStyle_5_2_twoColumn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calnedar_panelStyle_5_2_twoColumn@3x.png"; sourceTree = "<group>"; };
+		E5D9D59D3076A17E00479B2E /* calnedar_panelStyle_5_2_twoColumn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calnedar_panelStyle_5_2_twoColumn@2x.png"; sourceTree = "<group>"; };
 		E5DA039C2FA03B7800A58ACC /* Sequence+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extensions.swift"; sourceTree = "<group>"; };
 		E5DA039E2FA0A58900A58ACC /* todo_sort_type_completionDate_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_sort_type_completionDate_24@2x.png"; sourceTree = "<group>"; };
 		E5DA039F2FA0A58A00A58ACC /* todo_sort_type_completionDate_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_sort_type_completionDate_24@3x.png"; sourceTree = "<group>"; };
@@ -12223,6 +12239,14 @@
 		E5E40710306FE02700673727 /* panel */ = {
 			isa = PBXGroup;
 			children = (
+				E5D9D59530769E9800479B2E /* calnedar_panelStyle_1_6@2x.png */,
+				E5D9D59430769E9700479B2E /* calnedar_panelStyle_1_6@3x.png */,
+				E5D9D59730769E9900479B2E /* calnedar_panelStyle_6_1@2x.png */,
+				E5D9D59630769E9800479B2E /* calnedar_panelStyle_6_1@3x.png */,
+				E5D9D59D3076A17E00479B2E /* calnedar_panelStyle_5_2_twoColumn@2x.png */,
+				E5D9D59C3076A17D00479B2E /* calnedar_panelStyle_5_2_twoColumn@3x.png */,
+				E5D9D59130769BC000479B2E /* calnedar_panelStyle_4_4_vertical@2x.png */,
+				E5D9D59030769BBF00479B2E /* calnedar_panelStyle_4_4_vertical@3x.png */,
 				E5E40711306FE02700673727 /* calnedar_panelStyle_4_4_horizontal@3x.png */,
 				E5E40712306FE02700673727 /* calnedar_panelStyle_4_4_horizontal@2x.png */,
 				E5E40713306FE02700673727 /* calendar_panelStyle_3_4_vertical@3x.png */,
@@ -13207,6 +13231,7 @@
 				E5BB9AAE2D3BEF0D0089667A /* todo_task_step_addPrevious_24@3x.png in Resources */,
 				E55E4BCD2F9336170068E032 /* calendar_10_24@3x.png in Resources */,
 				E526D40F2F6D76EA005C1DED /* habit_report_24@2x.png in Resources */,
+				E5D9D59F3076A17E00479B2E /* calnedar_panelStyle_5_2_twoColumn@2x.png in Resources */,
 				E500DE582DB09D4500EAEAF7 /* todo_filter_indicator_priority_12@2x.png in Resources */,
 				E54155392F48B541000B2972 /* focus_record_showDetail_24@3x.png in Resources */,
 				E563F1DD2FE9184300DF86BB /* setting_abount_32@2x.png in Resources */,
@@ -13252,6 +13277,7 @@
 				E5D815C82F729C3700A4822D /* focus_record_bind_task_24@2x.png in Resources */,
 				E5D7D9872D43E35000EC877A /* focus_timer_stepMode_focus_24@2x.png in Resources */,
 				E53F32C62F699AC900B85B65 /* habit_report_notScheduled_20@2x.png in Resources */,
+				E5D9D59B30769E9A00479B2E /* calnedar_panelStyle_6_1@2x.png in Resources */,
 				E500E3852FC59BE600252011 /* todo_search_option_step_16@3x.png in Resources */,
 				E55E4BD72F9336170068E032 /* calendar_2_24@3x.png in Resources */,
 				E526D4102F6D76EA005C1DED /* habit_report_24@3x.png in Resources */,
@@ -13316,6 +13342,7 @@
 				E55E4BDC2F9336170068E032 /* calendar_3_24@2x.png in Resources */,
 				E56B94822F8CDB42001E488B /* todo_sort_type_startDate_24@3x.png in Resources */,
 				E5E4D1522D93033800813B6C /* todo_filter_date_36@3x.png in Resources */,
+				E5D9D59A30769E9A00479B2E /* calnedar_panelStyle_6_1@3x.png in Resources */,
 				E5BB9ADF2D3BEF0D0089667A /* moveToBottom_24@3x.png in Resources */,
 				E55E4BF02F9336170068E032 /* calendar_14_24@2x.png in Resources */,
 				E522FE2F3067B64100C6B581 /* todo_step_24@2x.png in Resources */,
@@ -13419,6 +13446,7 @@
 				E56B947C2F8CDB42001E488B /* todo_sort_order_ascending_24@2x.png in Resources */,
 				E526D40A2F6D748C005C1DED /* habit_record_24@3x.png in Resources */,
 				E5BB9AC32D3BEF0D0089667A /* todo_task_action_priority_24@3x.png in Resources */,
+				E5D9D59830769E9A00479B2E /* calnedar_panelStyle_1_6@3x.png in Resources */,
 				E5E2770F2D3E06F5004EC522 /* trash_empty_24@3x.png in Resources */,
 				E5E2770B2D3DFC23004EC522 /* todo_folder_addList_24@3x.png in Resources */,
 				E5BB9ECF2D3BF0C80089667A /* Wheat02@3x.png in Resources */,
@@ -13517,6 +13545,8 @@
 				E5BB9A862D3BEF0D0089667A /* schedule_repeatEnd_24@2x.png in Resources */,
 				E55E4BF42F9336170068E032 /* calendar_6_24@2x.png in Resources */,
 				E5BB9ED12D3BF0C80089667A /* Wheat04@3x.png in Resources */,
+				E5D9D59930769E9A00479B2E /* calnedar_panelStyle_1_6@2x.png in Resources */,
+				E5D9D59E3076A17E00479B2E /* calnedar_panelStyle_5_2_twoColumn@3x.png in Resources */,
 				E55CE3572D8BC2A60083316E /* quadrant_III_32@2x.png in Resources */,
 				E5E276FD2D3DF58B004EC522 /* todo_folder_ungroup_24@2x.png in Resources */,
 				E563F1D12FE8E97400DF86BB /* setting_hapticFeedback_32@3x.png in Resources */,
@@ -13702,6 +13732,7 @@
 				E5E4D14A2D92AF2C00813B6C /* todo_filter_tag_36@3x.png in Resources */,
 				E5E277192D3E099C004EC522 /* todo_list_option_group_24@3x.png in Resources */,
 				E55A7B772D45F873000D224C /* timer_pause_circle_fill_32@2x.png in Resources */,
+				E5D9D59230769BC000479B2E /* calnedar_panelStyle_4_4_vertical@3x.png in Resources */,
 				E565BE543072912400E851DB /* setting_restorePurchases_32@2x.png in Resources */,
 				E506B5C62F638B2E008B3321 /* habit_task_filter_todo_24@3x.png in Resources */,
 				E5C92F542FD17B8C0051F355 /* todo_group_type_custom_24@3x.png in Resources */,
@@ -13730,6 +13761,7 @@
 				E50D94E42D452DBF00F57957 /* checkmark_circle_fill_24@2x.png in Resources */,
 				E555493F2F75590100C9460D /* focus_timer_pomodoro_24@2x.png in Resources */,
 				E547C7252F3DA2F00095918C /* sort_order_descending_24@3x.png in Resources */,
+				E5D9D59330769BC000479B2E /* calnedar_panelStyle_4_4_vertical@2x.png in Resources */,
 				E5FAA9D0304AA0C800C9CCD8 /* goal_24@3x.png in Resources */,
 				E5E9F7BF2FC50BD800717004 /* todo_search_history_24@2x.png in Resources */,
 				E53AC84C2D8C6DBC00814618 /* quadrant_option_detail_24@3x.png in Resources */,

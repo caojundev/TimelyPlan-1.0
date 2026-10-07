@@ -218,6 +218,43 @@ class CalendarPanelFourPlusFourHorizontalCell: CalendarPanelPageCell {
     }
 }
 
+/// 「4 + 4 (垂直)」样式的页面 cell
+class CalendarPanelFourPlusFourVerticalCell: CalendarPanelPageCell {
+    
+    override var panelStyle: CalendarPanelStyle {
+        return .fourPlusFourVertical
+    }
+    
+    /// 同样使用月历挂件的页面视图
+    override func makePanelView() -> CalendarPanelSingleView {
+        return CalendarPanelFourPlusFourSingleView(style: panelStyle)
+    }
+}
+
+/// 「5 + 2 (两列)」样式的页面 cell
+class CalendarPanelFivePlusTwoTwoColumnCell: CalendarPanelPageCell {
+    
+    override var panelStyle: CalendarPanelStyle {
+        return .fivePlusTwoTwoColumn
+    }
+}
+
+/// 「1 + 6」样式的页面 cell
+class CalendarPanelOnePlusSixTwoColumnCell: CalendarPanelPageCell {
+    
+    override var panelStyle: CalendarPanelStyle {
+        return .onePlusSixTwoColumn
+    }
+}
+
+/// 「6 + 1」样式的页面 cell
+class CalendarPanelSixPlusOneTwoColumnCell: CalendarPanelPageCell {
+    
+    override var panelStyle: CalendarPanelStyle {
+        return .sixPlusOneTwoColumn
+    }
+}
+
 // MARK: - 样式对应的页面 cell
 extension CalendarPanelStyle {
     
@@ -228,6 +265,14 @@ extension CalendarPanelStyle {
             return CalendarPanelThreePlusFourVerticalCell.self
         case .fourPlusFourHorizontal:
             return CalendarPanelFourPlusFourHorizontalCell.self
+        case .fourPlusFourVertical:
+            return CalendarPanelFourPlusFourVerticalCell.self
+        case .fivePlusTwoTwoColumn:
+            return CalendarPanelFivePlusTwoTwoColumnCell.self
+        case .onePlusSixTwoColumn:
+            return CalendarPanelOnePlusSixTwoColumnCell.self
+        case .sixPlusOneTwoColumn:
+            return CalendarPanelSixPlusOneTwoColumnCell.self
         }
     }
 }
