@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class CalendarEventListHeaderView: UIView {
-  
+ 
     /// 点击添加
     var didClickAdd: (() -> Void)?
     
@@ -18,6 +18,19 @@ class CalendarEventListHeaderView: UIView {
             updateDateInfo()
         }
     }
+    
+    // MARK: - AddButton
+    /// 添加按钮尺寸
+    private let addButtonSize = CGSize(width: 40.0, height: 40.0)
+    
+    /// 添加按钮
+    private lazy var addButton: TPImageButton = {
+        let button = TPImageButton()
+        button.normalImage = resGetImage("plus_24")
+        button.normalImageColor = .label
+        button.addTarget(self, action: #selector(clickAdd(_:)), for: .touchUpInside)
+        return button
+    }()
     
     /// 日期标签
     private lazy var dateInfoView: TPInfoView = {
@@ -38,6 +51,7 @@ class CalendarEventListHeaderView: UIView {
         self.backgroundColor = .systemBackground
         self.padding = UIEdgeInsets(horizontal: 16.0)
         addSubview(dateInfoView)
+        addSubview(addButton)
         addSeparator(position: .bottom)
     }
     
@@ -53,10 +67,20 @@ class CalendarEventListHeaderView: UIView {
         dateInfoView.height = layoutFrame.height
         dateInfoView.left = layoutFrame.minX
         dateInfoView.top = layoutFrame.minY
+        
+        /// 添加按钮位于右侧，垂直居中
+        addButton.size = addButtonSize
+        addButton.right = layoutFrame.maxX
+        addButton.centerY = layoutFrame.midY
     }
     
     func updateDateInfo() {
         dateInfoView.title = date?.yearMonthDayString(omitYear: true, showRelativeDate: false)
         dateInfoView.subtitle = date?.weekdaySymbol(style: .full)
+    }
+    
+    // MARK: - Event Response
+    @objc private func clickAdd(_ button: UIButton) {
+        didClickAdd?()
     }
 }

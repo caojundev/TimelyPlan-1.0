@@ -69,8 +69,14 @@ class CalendarPresenter {
         navController.show()
     }
     
-    static func showEventList(with listOptions: CalendarEventListOptions) {
+    /// 显示事项列表
+    /// - Parameters:
+    ///   - listOptions: 列表配置
+    ///   - completion: 点击添加按钮的回调（列表已关闭）
+    static func showEventList(with listOptions: CalendarEventListOptions,
+                              completion: (() -> Void)? = nil) {
         let vc = CalendarEventListViewController(options: listOptions)
+        vc.didClickAdd = completion
         if let sheet = vc.sheetPresentationController {
             // 设置展示模式为自动，允许在不同高度间切换
             sheet.prefersGrabberVisible = true // 显示顶部的小横条抓手

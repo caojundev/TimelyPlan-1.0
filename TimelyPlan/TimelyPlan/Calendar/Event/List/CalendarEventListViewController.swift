@@ -10,6 +10,9 @@ import UIKit
 
 class CalendarEventListViewController: TPViewController {
     
+    /// 点击添加按钮回调（列表已关闭）
+    var didClickAdd: (() -> Void)?
+    
     let headerViewHeight: CGFloat = 50.0
     
     private lazy var headerView: CalendarEventListHeaderView = {
@@ -38,6 +41,10 @@ class CalendarEventListViewController: TPViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         headerView.date = options.date
+        headerView.didClickAdd = { [weak self] in
+            self?.clickAdd()
+        }
+        
         view.addSubview(headerView)
         view.addSubview(eventListView)
         
@@ -70,5 +77,16 @@ class CalendarEventListViewController: TPViewController {
     private func selectEvent(_ event: CalendarEvent) {
         TPImpactFeedback.impactWithSoftStyle()
         eventProcessor.clickEvent(event)
+    }
+    
+    // MARK: - Event Response
+    override func clickAdd() {
+        super.clickAdd()
+        
+        /// 先关闭列表，再执行回调
+        let completion = didClickAdd
+        dismiss(animated: true) {
+            completion?()
+        }
     }
 }

@@ -131,7 +131,10 @@ class CalendarBaseViewController: TPViewController,
     /// 显示事项列表
     func showEventList(on date: Date) {
         let options = CalendarEventListOptions(date: date)
-        CalendarPresenter.showEventList(with: options)
+        /// 列表内点击添加按钮，关闭列表后执行添加
+        CalendarPresenter.showEventList(with: options) { [weak self] in
+            self?.clickAddTask()
+        }
     }
     
     // MARK: - CalendarPageViewDelegate
