@@ -21,6 +21,16 @@ extension GanttEvent {
             return TPIcon(name: isCompleted ? "todo_circle_completed_24" : "todo_circle_normal_24")
         }
     }
+    
+    /// 事项是否已完成
+    var isCompleted: Bool {
+        switch source {
+        case .goal:
+            return (sourceItem as? GoalTask)?.isCompleted ?? false
+        case .todo:
+            return (sourceItem as? TodoTask)?.isCompleted ?? false
+        }
+    }
 }
 
 // MARK: - 甘特图 bar 信息视图
@@ -78,7 +88,7 @@ class GanttTimelineChartBarInfoView: UIView {
         }
         
         set {
-            titleLabel.text = newValue
+             titleLabel.text = newValue
             setNeedsLayout()
         }
     }
@@ -86,11 +96,27 @@ class GanttTimelineChartBarInfoView: UIView {
     /// 标题颜色
     var titleColor: UIColor? {
         get {
-            return titleLabel.textColor
+            return titleLabel.normalTextColor
         }
         
         set {
-            titleLabel.textColor = newValue
+            guard let titleColor = newValue else { return }
+            titleLabel.normalTextColor = titleColor
+            /// 已完成（删除线）时使用同样的颜色，仅降低不透明度
+            titleLabel.strikethroughTextColor = titleColor.withAlphaComponent(0.6)
+        }
+    }
+    
+    /// 标题是否显示删除线（事项已完成）
+    var isStrikethrough: Bool {
+        get {
+            return titleLabel.isStrikethrough
+        }
+        
+        set {
+            guard titleLabel.isStrikethrough != newValue else { return }
+            titleLabel.isStrikethrough = newValue
+            titleLabel.setNeedsLayout()
         }
     }
     
@@ -106,8 +132,9 @@ class GanttTimelineChartBarInfoView: UIView {
     }()
     
     /// 标题标签
-    private(set) lazy var titleLabel: TPLabel = {
-        let label = TPLabel()
+    private(set) lazy var titleLabel: TPStrikethroughLabel = {
+        let label = TPStrikethroughLabel()
+        label.numberOfLines = 1
         label.font = .boldSystemFont(ofSize: 12.0)
         label.textAlignment = titleAlignment
         label.lineBreakMode = titleLineBreakMode
@@ -162,6 +189,7 @@ class GanttTimelineChartBarInfoView: UIView {
         iconView.backColor = event.color
         iconView.foreColor = .white
         title = event.title
+        isStrikethrough = event.isCompleted
     }
     
     // MARK: - Layout

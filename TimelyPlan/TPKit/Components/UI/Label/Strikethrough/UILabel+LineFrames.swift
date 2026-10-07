@@ -21,8 +21,15 @@ extension UILabel {
             NSAttributedString.Key.font: self.font!
         ])
         
-        // 计算最大行数
-        let maxNumberOfLines = Int(bounds.height / self.font.lineHeight)
+        // 计算最大行数：先按高度限制，再受 label 自身行数限制
+        // （否则单行 label 的高度较大时会被判定为多行，导致文本被换行并绘制多条删除线）
+        let heightLimitedLines = max(Int(bounds.height / self.font.lineHeight), 1)
+        let maxNumberOfLines: Int
+        if self.numberOfLines > 0 {
+            maxNumberOfLines = min(self.numberOfLines, heightLimitedLines)
+        } else {
+            maxNumberOfLines = heightLimitedLines
+        }
 
         // 创建布局管理器和文本存储
         let layoutManager = NSLayoutManager()
