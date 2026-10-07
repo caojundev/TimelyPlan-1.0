@@ -110,7 +110,6 @@
 		E5087EB630431F2000DCD85C /* GanttTimelineGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB530431F2000DCD85C /* GanttTimelineGeometry.swift */; };
 		E5087EB8304320A000DCD85C /* GanttTimelineNowLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5087EB7304320A000DCD85C /* GanttTimelineNowLineView.swift */; };
 		E5091C54305AC630009CFD17 /* CountdownVerticalValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C53305AC630009CFD17 /* CountdownVerticalValueView.swift */; };
-		E5091C59305B8341009CFD17 /* CountdownEventGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C58305B8341009CFD17 /* CountdownEventGridCell.swift */; };
 		E5091C5B305B85C7009CFD17 /* CountdownEventDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C5A305B85C7009CFD17 /* CountdownEventDetailProvider.swift */; };
 		E5091C61305BC6DD009CFD17 /* CountdownEventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C60305BC6DD009CFD17 /* CountdownEventListViewController.swift */; };
 		E5091C64305BC742009CFD17 /* CountdownEventSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5091C63305BC741009CFD17 /* CountdownEventSearchResultViewController.swift */; };
@@ -260,10 +259,6 @@
 		E50FF8B42F79291100B8F5BE /* FocusDefaultTimerSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FF8B32F79291100B8F5BE /* FocusDefaultTimerSelectCell.swift */; };
 		E50FF8B62F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50FF8B52F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift */; };
 		E511E4FE305D29F000292511 /* CountdownDisplayEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E4FD305D29F000292511 /* CountdownDisplayEditSectionController.swift */; };
-		E511E506305E0A9300292511 /* countdown_layout_list_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E502305E0A9200292511 /* countdown_layout_list_24@3x.png */; };
-		E511E507305E0A9300292511 /* countdown_layout_list_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E503305E0A9200292511 /* countdown_layout_list_24@2x.png */; };
-		E511E508305E0A9300292511 /* countdown_layout_grid_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */; };
-		E511E509305E0A9300292511 /* countdown_layout_grid_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */; };
 		E511E50B305E122700292511 /* CountdownEventSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E50A305E122700292511 /* CountdownEventSearchViewModel.swift */; };
 		E511E50D305E770E00292511 /* CountdownTypeFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E50C305E770E00292511 /* CountdownTypeFilterView.swift */; };
 		E511E510305F750100292511 /* CountdownDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511E50F305F750000292511 /* CountdownDetailViewController.swift */; };
@@ -519,7 +514,6 @@
 		E5291A9B30620DBA00017150 /* CountdownNotifiableEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9A30620DBA00017150 /* CountdownNotifiableEventProvider.swift */; };
 		E5291A9D30627CAE00017150 /* CountdownEventInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */; };
 		E5291A9F30627CE500017150 /* CountdownDetailContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9E30627CE500017150 /* CountdownDetailContentView.swift */; };
-		E5291AA13062B6D000017150 /* CountdownState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291AA03062B6D000017150 /* CountdownState.swift */; };
 		E5291AA33062B6DF00017150 /* CountdownSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291AA23062B6DF00017150 /* CountdownSetting.swift */; };
 		E5291AA53062B6ED00017150 /* CountdownSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291AA43062B6ED00017150 /* CountdownSettingViewController.swift */; };
 		E529ACC52F7E0100000EA2F1 /* TodoSmartListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E529ACC32F7E00FF000EA2F1 /* TodoSmartListCell.swift */; };
@@ -2559,7 +2553,6 @@
 		E5087EB530431F2000DCD85C /* GanttTimelineGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineGeometry.swift; sourceTree = "<group>"; };
 		E5087EB7304320A000DCD85C /* GanttTimelineNowLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GanttTimelineNowLineView.swift; sourceTree = "<group>"; };
 		E5091C53305AC630009CFD17 /* CountdownVerticalValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownVerticalValueView.swift; sourceTree = "<group>"; };
-		E5091C58305B8341009CFD17 /* CountdownEventGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventGridCell.swift; sourceTree = "<group>"; };
 		E5091C5A305B85C7009CFD17 /* CountdownEventDetailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventDetailProvider.swift; sourceTree = "<group>"; };
 		E5091C60305BC6DD009CFD17 /* CountdownEventListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventListViewController.swift; sourceTree = "<group>"; };
 		E5091C63305BC741009CFD17 /* CountdownEventSearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchResultViewController.swift; sourceTree = "<group>"; };
@@ -2709,10 +2702,6 @@
 		E50FF8B32F79291100B8F5BE /* FocusDefaultTimerSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDefaultTimerSelectCell.swift; sourceTree = "<group>"; };
 		E50FF8B52F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPCollectionSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E511E4FD305D29F000292511 /* CountdownDisplayEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDisplayEditSectionController.swift; sourceTree = "<group>"; };
-		E511E502305E0A9200292511 /* countdown_layout_list_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_list_24@3x.png"; sourceTree = "<group>"; };
-		E511E503305E0A9200292511 /* countdown_layout_list_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_list_24@2x.png"; sourceTree = "<group>"; };
-		E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_grid_24@2x.png"; sourceTree = "<group>"; };
-		E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_layout_grid_24@3x.png"; sourceTree = "<group>"; };
 		E511E50A305E122700292511 /* CountdownEventSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventSearchViewModel.swift; sourceTree = "<group>"; };
 		E511E50C305E770E00292511 /* CountdownTypeFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTypeFilterView.swift; sourceTree = "<group>"; };
 		E511E50F305F750000292511 /* CountdownDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDetailViewController.swift; sourceTree = "<group>"; };
@@ -2971,7 +2960,6 @@
 		E5291A9A30620DBA00017150 /* CountdownNotifiableEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownNotifiableEventProvider.swift; sourceTree = "<group>"; };
 		E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventInteractor.swift; sourceTree = "<group>"; };
 		E5291A9E30627CE500017150 /* CountdownDetailContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDetailContentView.swift; sourceTree = "<group>"; };
-		E5291AA03062B6D000017150 /* CountdownState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownState.swift; sourceTree = "<group>"; };
 		E5291AA23062B6DF00017150 /* CountdownSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownSetting.swift; sourceTree = "<group>"; };
 		E5291AA43062B6ED00017150 /* CountdownSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownSettingViewController.swift; sourceTree = "<group>"; };
 		E529ACC32F7E00FF000EA2F1 /* TodoSmartListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoSmartListCell.swift; sourceTree = "<group>"; };
@@ -5254,7 +5242,6 @@
 			children = (
 				E541DC4A30582A7E008BFAE0 /* CountdownEventListView.swift */,
 				E541DC4F30582ED1008BFAE0 /* CountdownEventListCell.swift */,
-				E5091C58305B8341009CFD17 /* CountdownEventGridCell.swift */,
 				E5091C53305AC630009CFD17 /* CountdownVerticalValueView.swift */,
 			);
 			path = ListView;
@@ -5760,10 +5747,6 @@
 			children = (
 				E50CC60F30666ED900D1BD3E /* countdown_24@2x.png */,
 				E50CC60E30666ED800D1BD3E /* countdown_24@3x.png */,
-				E511E502305E0A9200292511 /* countdown_layout_list_24@3x.png */,
-				E511E503305E0A9200292511 /* countdown_layout_list_24@2x.png */,
-				E511E504305E0A9200292511 /* countdown_layout_grid_24@2x.png */,
-				E511E505305E0A9200292511 /* countdown_layout_grid_24@3x.png */,
 				E50CC6163066B4BF00D1BD3E /* countdown_includesStartDate_24@2x.png */,
 				E50CC6193066B4C000D1BD3E /* countdown_includesStartDate_24@3x.png */,
 				E50CC6143066B4BE00D1BD3E /* countdown_type_24@2x.png */,
@@ -7357,7 +7340,6 @@
 		E541DC3E3057E0D3008BFAE0 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				E5291AA03062B6D000017150 /* CountdownState.swift */,
 				E5291AA23062B6DF00017150 /* CountdownSetting.swift */,
 				E5291AA43062B6ED00017150 /* CountdownSettingViewController.swift */,
 			);
@@ -13207,7 +13189,6 @@
 				E56B947F2F8CDB42001E488B /* todo_sort_type_creationDate_24@3x.png in Resources */,
 				E50DD7CE2D72BE5A00A85E87 /* todo_folder_24@2x.png in Resources */,
 				E5BB9ECA2D3BF0C80089667A /* Wheat01@3x.png in Resources */,
-				E511E507305E0A9300292511 /* countdown_layout_list_24@2x.png in Resources */,
 				E5F078C92F95DEB300F94BDF /* todo_filter_tag_none_24@2x.png in Resources */,
 				E5D833922DAB64D60012ABF3 /* todo_task_progress_targetValue_24@2x.png in Resources */,
 				E58389742F776404003C30A4 /* focus_quickStart_record_24@3x.png in Resources */,
@@ -13403,7 +13384,6 @@
 				E56B94AD2F8FB56A001E488B /* todo_task_action_addToMyDay_24@3x.png in Resources */,
 				E5D833942DAB64D60012ABF3 /* todo_task_progress_autoRecordValue_24@2x.png in Resources */,
 				E556BCC02F5D6C7000CA20D9 /* habit_indicator_log_16@3x.png in Resources */,
-				E511E509305E0A9300292511 /* countdown_layout_grid_24@3x.png in Resources */,
 				E53966E52D671D66008CC13B /* todo_list_option_layout_24@3x.png in Resources */,
 				E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */,
 				E58F46A12F7AA0B50046FA96 /* todo_list_ungroup_24@3x.png in Resources */,
@@ -13533,7 +13513,6 @@
 				E53480082F604ACF00CFBF26 /* habit_status_skipped_24@2x.png in Resources */,
 				E5BBA1142D3BFC520089667A /* Assets.xcassets in Resources */,
 				E5BB9A8E2D3BEF0D0089667A /* todo_smartlist_trash_24@2x.png in Resources */,
-				E511E506305E0A9300292511 /* countdown_layout_list_24@3x.png in Resources */,
 				E5BB9A952D3BEF0D0089667A /* todo_list_layout_board_96@2x.png in Resources */,
 				E5BB9A862D3BEF0D0089667A /* schedule_repeatEnd_24@2x.png in Resources */,
 				E55E4BF42F9336170068E032 /* calendar_6_24@2x.png in Resources */,
@@ -13566,7 +13545,6 @@
 				E5E4D1482D92AF2C00813B6C /* todo_filter_priority_36@3x.png in Resources */,
 				E54E63422F5B1BFD00FCBCAE /* habit_menu_cancel_24@2x.png in Resources */,
 				E5BB9ABD2D3BEF0D0089667A /* todo_task_action_date_24@2x.png in Resources */,
-				E511E508305E0A9300292511 /* countdown_layout_grid_24@2x.png in Resources */,
 				E515AD732D3CC5E600AA9AF2 /* ellipsis_24@2x.png in Resources */,
 				E55E4BE82F9336170068E032 /* calendar_11_24@2x.png in Resources */,
 				E555282D2FB5C81E0093DD7E /* todo_smartlist_completed_80@2x.png in Resources */,
@@ -14399,7 +14377,6 @@
 				E5CFD25F2F585A4300A898CB /* HabitDatePeriodsView.swift in Sources */,
 				E5D7D9282D43933700EC877A /* FocusHomeUserTimerContentViewController.swift in Sources */,
 				E518507C300F9F7C00112DFC /* MyDayHabitTimelineCell.swift in Sources */,
-				E5291AA13062B6D000017150 /* CountdownState.swift in Sources */,
 				E5F155232F83681E00116091 /* TodoTaskSelectInfoView.swift in Sources */,
 				E541DC4B30582A7F008BFAE0 /* CountdownEventListView.swift in Sources */,
 				E5BB9E0A2D3BF0C70089667A /* String+Emoji.swift in Sources */,
@@ -14869,7 +14846,6 @@
 				E5BB9F252D3BF2C20089667A /* AppDelegate.swift in Sources */,
 				E5BB9F3B2D3BF4330089667A /* TaskFeature.swift in Sources */,
 				E5BB9DF92D3BF0C60089667A /* NSString+Diffable.swift in Sources */,
-				E5091C59305B8341009CFD17 /* CountdownEventGridCell.swift in Sources */,
 				E536328C2FAB72C00095DFEC /* QuadrantView.swift in Sources */,
 				E5F1552B2F8368FB00116091 /* TodoTask.swift in Sources */,
 				E5B33D752F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift in Sources */,

@@ -38,17 +38,6 @@ class CountdownEventGroup: NSObject, GroupRepresentable {
         return self.events
     }
     
-    @discardableResult
-    func moveEvent(fromIndex:Int, toIndex:Int) -> Bool {
-        guard var events = events else {
-            return false
-        }
-        
-        let bMoved = events.moveObject(fromIndex: fromIndex, toIndex: toIndex)
-        self.events = events
-        return bMoved
-    }
-    
     // MARK: - 等同性判断
     override var hash: Int {
         var hasher = Hasher()
@@ -193,24 +182,20 @@ class CountdownEventViewModel: CountdownEventProcessorDelegate,
         CountdownRepository.fetchActiveEvents(completion: completion)
     }
     
-    // MARK: - 排序
+//    // MARK: - 排序
     func moveEvent(at sourceIndexPath: IndexPath,
                    to targetIndexPath: IndexPath) -> Bool {
-        guard var events = events, sourceIndexPath.section == targetIndexPath.section else {
+        guard var events = events,
+              sourceIndexPath.section == targetIndexPath.section else {
             return false
         }
-
+        
         let bMoved = events.moveObject(fromIndex: sourceIndexPath.item,
                                        toIndex: targetIndexPath.item)
         self.events = events
-        return bMoved
-    }
-    
-    /// 保存有序事项
-    func didEndReorderEvents(with orderedEvents: [CountdownEvent]) {
-        /// 排序结束，分组内事项顺序会改变，需更新分组
         updateGroups()
-        CountdownRepository.didEndReorderEvents(with: orderedEvents)
+        CountdownRepository.didEndReorderEvents(with: events)
+        return bMoved
     }
     
     // MARK: - CountdownEventProcessorDelegate

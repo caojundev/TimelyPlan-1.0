@@ -15,8 +15,6 @@ protocol CountdownEventListViewDelegate: TPGroupCollectionViewDelegate {
                                 moveItemAt sourceIndexPath: IndexPath,
                                 to targetIndexPath: IndexPath) -> Bool
     
-    func countdownEventListViewDidEndReordering(_ listView: CountdownEventListView)
-    
     /// 处理下拉刷新
     func countdownEventListViewHandleRefresh(_ listView: CountdownEventListView)
     
@@ -29,13 +27,10 @@ extension CountdownEventListViewDelegate {
                                 to targetIndexPath: IndexPath) -> Bool {
         return false
     }
-    
-    func countdownEventListViewDidEndReordering(_ listView: CountdownEventListView) {}
 }
 
 class CountdownEventListView: TPGroupCollectionView,
-                              CountdownEventListCellDelegate,
-                              CountdownEventGridCellDelegate {
+                              CountdownEventListCellDelegate {
     
     /// 当前列表所有的倒数日事项
     var events: [CountdownEvent] {
@@ -53,16 +48,6 @@ class CountdownEventListView: TPGroupCollectionView,
     private let cellStyle = CountdownEventCellStyle()
     
     private let menuProcessor = CountdownEventMenuProcessor()
-    
-    /// 布局类型（默认为列表）
-    var layoutType: CountdownLayoutType = .list {
-        didSet {
-            if layoutType != oldValue {
-                setupReorder()
-                updateSectionLayout()
-            }
-        }
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -88,24 +73,15 @@ class CountdownEventListView: TPGroupCollectionView,
         return true
     }
     
-    /// 根据布局类型更新区块布局配置
+    /// 更新区块布局配置
     private func updateSectionLayout() {
-        switch layoutType {
-        case .list:
-            sectionLayout.minimumItemsCountPerRow = 1
-            sectionLayout.maximumItemsCountPerRow = 1
-            sectionLayout.preferredItemWidth = CountdownConfig.eventListContentMaxWidth
-            sectionLayout.preferredItemHeight = CountdownEventListCell.cellHeight
-        case .grid:
-            sectionLayout.minimumItemsCountPerRow = 2
-            sectionLayout.maximumItemsCountPerRow = 4
-            sectionLayout.preferredItemWidth = CountdownConfig.eventGridItemWidth
-            sectionLayout.preferredItemHeight = CountdownEventGridCell.Config.cellHeight
-        }
+        sectionLayout.minimumItemsCountPerRow = 1
+        sectionLayout.maximumItemsCountPerRow = 1
+        sectionLayout.preferredItemWidth = CountdownConfig.eventListContentMaxWidth
+        sectionLayout.preferredItemHeight = CountdownEventListCell.cellHeight
         
         sectionLayout.setNeedsLayout()
         collectionViewLayout.invalidateLayout()
-        /// 布局类型变化时单元格类型也会变化，需要重新加载
         reloadData()
     }
     
@@ -113,20 +89,12 @@ class CountdownEventListView: TPGroupCollectionView,
     private func setupReorder() {
         self.reorder?.clear()
         self.reorder = nil
-
-        let reorder: TPCollectionDragReorder
-        if layoutType == .list {
-            let insertReorder = TPCollectionDragInsertReorder(collectionView: collectionView)
-            insertReorder.indicatorBackColor = Color(0xFFFFFF, 0.1)
-            reorder = insertReorder
-        } else {
-            let exchangeReorder = TPCollectionDragExchangeReorder(collectionView: collectionView)
-            reorder = exchangeReorder
-        }
         
-        reorder.isEnabled = isReorderEnabled
-        reorder.delegate = self
-        self.reorder = reorder
+        let insertReorder = TPCollectionDragInsertReorder(collectionView: collectionView)
+        insertReorder.indicatorBackColor = Color(0xFFFFFF, 0.1)
+        insertReorder.isEnabled = isReorderEnabled
+        insertReorder.delegate = self
+        self.reorder = insertReorder
     }
     
     override func handleRefresh() {
@@ -139,12 +107,7 @@ class CountdownEventListView: TPGroupCollectionView,
     
     // MARK: - AdapterDelegate
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        switch layoutType {
-        case .list:
-            return CountdownEventListCell.self
-        case .grid:
-            return CountdownEventGridCell.self
-        }
+        return CountdownEventListCell.self
     }
     
     override func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
@@ -154,24 +117,11 @@ class CountdownEventListView: TPGroupCollectionView,
             cell.delegate = self
             cell.cellStyle = cellStyle
             cell.event = event
-        } else if let cell = cell as? CountdownEventGridCell {
-            cell.delegate = self
-            cell.cellStyle = cellStyle
-            cell.event = event
         }
     }
     
     // MARK: - CountdownEventListCellDelegate
     func countdownEventListCellDidClickMore(_ cell: CountdownEventListCell) {
-        guard let event = cell.event else {
-            return
-        }
-        
-        showEventMenu(for: event, from: cell.moreButton)
-    }
-    
-    // MARK: - CountdownEventGridCellDelegate
-    func countdownEventGridCellDidClickMore(_ cell: CountdownEventGridCell) {
         guard let event = cell.event else {
             return
         }
@@ -191,36 +141,10 @@ class CountdownEventListView: TPGroupCollectionView,
     }
 }
 
-extension CountdownEventListView: TPCollectionDragInsertReorderDelegate,
-                                  TPCollectionDragExchangeReorderDelegate {
+extension CountdownEventListView: TPCollectionDragInsertReorderDelegate {
     
     func collectionDragReorder(_ reorder: TPCollectionDragReorder, canMoveItemAt indexPath: IndexPath) -> Bool {
         return isReorderEnabled
-    }
-    
-    func collectionDragReorderDidEnd(_ reorder: TPCollectionDragReorder) {
-        if let delegate = self.delegate as? CountdownEventListViewDelegate {
-            delegate.countdownEventListViewDidEndReordering(self)
-        }
-    }
-    
-    // MARK: - TPCollectionDragExchangeReorderDelegate
-    func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder, canMoveItemFrom fromIndexPath: IndexPath, to toIndexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder, moveItemFrom fromIndexPath: IndexPath, to toIndexPath: IndexPath) -> Bool {
-        guard let delegate = self.delegate as? CountdownEventListViewDelegate else {
-            return false
-        }
-        
-        let bMoved = delegate.countdownEventListView(self, moveItemAt: fromIndexPath, to: toIndexPath)
-        if bMoved {
-            moveEvent(at: fromIndexPath, to: toIndexPath)
-            return true
-        }
-    
-        return false
     }
     
     // MARK: - TPCollectionDragInsertReorderDelegate
@@ -240,20 +164,11 @@ extension CountdownEventListView: TPCollectionDragInsertReorderDelegate,
         
         let bMoved = delegate.countdownEventListView(self, moveItemAt: sourceIndexPath, to: targetIndexPath)
         if bMoved {
-            moveEvent(at: sourceIndexPath, to: targetIndexPath)
+            adapter.moveItem(at: sourceIndexPath, to: targetIndexPath)
             return targetIndexPath
         }
         
         return sourceIndexPath
     }
     
-    private func moveEvent(at fromIndexPath: IndexPath, to toIndexPath: IndexPath) {
-        guard fromIndexPath.section == toIndexPath.section,
-              let group = adapter.object(at: fromIndexPath.section) as? CountdownEventGroup else {
-            return
-        }
-        
-        group.moveEvent(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item)
-        adapter.moveItem(at: fromIndexPath, to: toIndexPath)
-    }
 }

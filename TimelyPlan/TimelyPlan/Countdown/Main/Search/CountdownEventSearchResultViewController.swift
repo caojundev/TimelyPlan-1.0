@@ -15,13 +15,6 @@ class CountdownEventSearchResultViewController: TPViewController,
     /// 倒数日事项搜索视图模型
     private let viewModel = CountdownEventSearchViewModel()
     
-    /// 布局类型（跟随主页当前布局）
-    var layoutType: CountdownLayoutType = .list {
-        didSet {
-            listView.layoutType = layoutType
-        }
-    }
-    
     /// 无搜索结果占位视图提供者
     private let placeholderProvider = TPDefaultPlaceholderProvider()
     
@@ -29,7 +22,6 @@ class CountdownEventSearchResultViewController: TPViewController,
     lazy var listView: CountdownEventSearchResultListView = {
         let listView = CountdownEventSearchResultListView(frame: .zero)
         listView.delegate = self
-        listView.layoutType = layoutType
         listView.collectionView.addKeyboardNotification()
         listView.collectionView.keyboardAutoAdjustContentInset = true
         listView.placeholderProvider = placeholderProvider

@@ -24,13 +24,6 @@ class CountdownEventListViewController: TPViewController,
     /// 倒数日事项视图模型
     private let viewModel = CountdownEventViewModel()
     
-    /// 布局类型（默认为列表）
-    var layoutType: CountdownLayoutType = .list {
-        didSet {
-            listView.layoutType = layoutType
-        }
-    }
-    
     /// 添加视图
     private var addView: TPAddView?
     
@@ -237,10 +230,6 @@ class CountdownEventListViewController: TPViewController,
                                 moveItemAt sourceIndexPath: IndexPath,
                                 to targetIndexPath: IndexPath) -> Bool {
         return viewModel.moveEvent(at: sourceIndexPath, to: targetIndexPath)
-    }
-    
-    func countdownEventListViewDidEndReordering(_ listView: CountdownEventListView) {
-        viewModel.didEndReorderEvents(with: listView.events)
     }
     
     func countdownEventListViewHandleRefresh(_ listView: CountdownEventListView) {

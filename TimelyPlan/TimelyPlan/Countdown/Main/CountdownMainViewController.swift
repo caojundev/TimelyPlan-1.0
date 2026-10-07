@@ -25,24 +25,12 @@ class CountdownMainViewController: TPContainerViewController,
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: CountdownMoreBarButtonItem = {
         let item = CountdownMoreBarButtonItem()
-        item.layoutType = layoutType
         item.didSelectType = { [weak self] type in
             self?.performMoreMenuAction(type)
         }
         
         return item
     }()
-    
-    /// 当前布局类型（存储于 CountdownState）
-    private var layoutType: CountdownLayoutType {
-        get {
-            return CountdownState.shared.layoutType
-        }
-        
-        set {
-            CountdownState.shared.layoutType = newValue
-        }
-    }
     
     /// 搜索栏
     lazy var searchBar: UISearchBar = {
@@ -57,9 +45,7 @@ class CountdownMainViewController: TPContainerViewController,
     
     /// 倒数日事项列表内容
     lazy var listContentViewController: CountdownEventListViewController = {
-        let viewController = CountdownEventListViewController()
-        viewController.layoutType = layoutType
-        return viewController
+        return CountdownEventListViewController()
     }()
     
     /// 搜索结果视图控制器
@@ -111,7 +97,6 @@ class CountdownMainViewController: TPContainerViewController,
     private func showSearchResults(with searchText: String?) {
         if searchResultViewController == nil {
             let viewController = CountdownEventSearchResultViewController()
-            viewController.layoutType = layoutType
             self.searchResultViewController = viewController
         }
         
@@ -156,21 +141,9 @@ class CountdownMainViewController: TPContainerViewController,
     }
     
     // MARK: - Event Response
-    /// 切换列表 / 网格布局
-    private func toggleLayout() {
-        TPImpactFeedback.impactWithLightStyle()
-        
-        layoutType = layoutType.toggled
-        moreBarButtonItem.layoutType = layoutType
-        listContentViewController.layoutType = layoutType
-        searchResultViewController?.layoutType = layoutType
-    }
-    
     /// 执行更多菜单操作
     func performMoreMenuAction(_ type: CountdownMoreMenuType) {
         switch type {
-        case .layout:
-            toggleLayout()
         case .archived:
             CountdownPresenter.showArchived()
             break

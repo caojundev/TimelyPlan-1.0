@@ -109,45 +109,6 @@ extension CountdownEventType {
     }
 }
 
-/// 倒数日事项布局类型
-enum CountdownLayoutType: Int, Codable, CaseIterable {
-    
-    /// 列表
-    case list = 0
-    
-    /// 网格
-    case grid
-    
-    /// 切换后的布局类型
-    var toggled: CountdownLayoutType {
-        switch self {
-        case .list:
-            return .grid
-        case .grid:
-            return .list
-        }
-    }
-    
-    var iconName: String {
-        switch self {
-        case .list:
-            return "countdown_layout_list_24"
-        case .grid:
-            return "countdown_layout_grid_24"
-        }
-    }
-    
-    /// 标题
-    var title: String {
-        switch self {
-        case .list:
-            return resGetString("List")
-        case .grid:
-            return resGetString("Grid")
-        }
-    }
-}
-
 /// 倒数日事项在“我的一天”与日历中的显示方式
 ///
 /// 全部模式仅使用一个 `Int16` 字段（`code`）落库解析：
