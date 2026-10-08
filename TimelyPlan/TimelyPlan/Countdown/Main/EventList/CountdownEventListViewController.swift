@@ -203,6 +203,7 @@ class CountdownEventListViewController: TPViewController,
             sourceView: addView
         )
         
+        bubbleMenu.bubbleColor = .primary
         bubbleMenu.onSelectMenuItem = { menuItem in
             guard let type = CountdownEventType.type(for: menuItem) else {
                 return

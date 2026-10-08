@@ -81,7 +81,7 @@ class CountdownEventSearchResultViewController: TPViewController,
     func groupCollectionView(_ collectionView: TPGroupCollectionView, didSelectItemAt indexPath: IndexPath) {
         TPImpactFeedback.impactWithSoftStyle()
         if let event = collectionView.item(at: indexPath) as? CountdownEvent {
-            CountdownPresenter.editEvent(event)
+            CountdownPresenter.showDetail(for: event)
         }
     }
     
