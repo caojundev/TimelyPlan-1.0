@@ -11,7 +11,7 @@ class TodoUserListController {
 
     /// 列表导图预览
     public func previewMindMap(for list: TodoList? = nil) {
-        let vc = MindMapDemoViewController()
+        let vc = MindMapMainViewController()
         vc.modalPresentationStyle = .fullScreen
         vc.show()
     }

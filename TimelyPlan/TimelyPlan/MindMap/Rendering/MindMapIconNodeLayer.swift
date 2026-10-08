@@ -6,11 +6,12 @@
 //  图标来源与颜色从节点的 `content` 读取；颜色缺省时跟随分支色。
 //
 
+import Foundation
 import UIKit
 import QuartzCore
 
 open class MindMapIconNodeLayer: MindMapTextNodeLayer {
-
+    
     public override class var kind: MindMapNodeKind { .icon }
 
     // MARK: 样式（该类型自己的可调参数）

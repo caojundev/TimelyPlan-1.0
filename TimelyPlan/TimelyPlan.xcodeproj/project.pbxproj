@@ -1026,7 +1026,7 @@
 		E55AD82A2CB291CC006BCF8C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55AD8292CB291CC006BCF8C /* CloudKit.framework */; };
 		E55B893930774F1F00ADCED5 /* mindMap_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55B893730774F1E00ADCED5 /* mindMap_24@3x.png */; };
 		E55B893A30774F1F00ADCED5 /* mindMap_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55B893830774F1F00ADCED5 /* mindMap_24@2x.png */; };
-		E55B894F3077907000ADCED5 /* MindMapDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B893D3077906E00ADCED5 /* MindMapDemoViewController.swift */; };
+		E55B894F3077907000ADCED5 /* MindMapMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B893D3077906E00ADCED5 /* MindMapMainViewController.swift */; };
 		E55B89503077907000ADCED5 /* MindMapCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B893E3077906E00ADCED5 /* MindMapCanvasView.swift */; };
 		E55B89513077907000ADCED5 /* MindMapZoomIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B893F3077906E00ADCED5 /* MindMapZoomIndicatorView.swift */; };
 		E55B89523077907000ADCED5 /* MindMapContentLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89413077906F00ADCED5 /* MindMapContentLayer.swift */; };
@@ -3498,7 +3498,7 @@
 		E55AD82B2CB29550006BCF8C /* TimelyPlan-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TimelyPlan-Bridging-Header.h"; sourceTree = "<group>"; };
 		E55B893730774F1E00ADCED5 /* mindMap_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mindMap_24@3x.png"; sourceTree = "<group>"; };
 		E55B893830774F1F00ADCED5 /* mindMap_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mindMap_24@2x.png"; sourceTree = "<group>"; };
-		E55B893D3077906E00ADCED5 /* MindMapDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapDemoViewController.swift; sourceTree = "<group>"; };
+		E55B893D3077906E00ADCED5 /* MindMapMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapMainViewController.swift; sourceTree = "<group>"; };
 		E55B893E3077906E00ADCED5 /* MindMapCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapCanvasView.swift; sourceTree = "<group>"; };
 		E55B893F3077906E00ADCED5 /* MindMapZoomIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapZoomIndicatorView.swift; sourceTree = "<group>"; };
 		E55B89413077906F00ADCED5 /* MindMapContentLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapContentLayer.swift; sourceTree = "<group>"; };
@@ -8066,7 +8066,7 @@
 		E55B893C3077906E00ADCED5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E55B893D3077906E00ADCED5 /* MindMapDemoViewController.swift */,
+				E55B893D3077906E00ADCED5 /* MindMapMainViewController.swift */,
 				E55B893E3077906E00ADCED5 /* MindMapCanvasView.swift */,
 				E55B893F3077906E00ADCED5 /* MindMapZoomIndicatorView.swift */,
 			);
@@ -8081,6 +8081,7 @@
 				E55B89433077906F00ADCED5 /* MindMapNodeLayer.swift */,
 				E55B89443077906F00ADCED5 /* MindMapTodoNodeLayer.swift */,
 				E55B89453077906F00ADCED5 /* MindMapIconNodeLayer.swift */,
+				E55B895D3077B08700ADCED5 /* Layers */,
 			);
 			path = Rendering;
 			sourceTree = "<group>";
@@ -8110,6 +8111,13 @@
 				E55B894E3077906F00ADCED5 /* MindMapNodeKind.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E55B895D3077B08700ADCED5 /* Layers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Layers;
 			sourceTree = "<group>";
 		};
 		E55CE33F2D8BBE040083316E /* layout */ = {
@@ -14726,7 +14734,7 @@
 				E55E4B892F9326D20068E032 /* TodoSmartListViewModel.swift in Sources */,
 				E507E7AF2F530CF0003004C4 /* HabitUnitButtonView.swift in Sources */,
 				E5BB9DFB2D3BF0C60089667A /* CaseIterable+Extensions.swift in Sources */,
-				E55B894F3077907000ADCED5 /* MindMapDemoViewController.swift in Sources */,
+				E55B894F3077907000ADCED5 /* MindMapMainViewController.swift in Sources */,
 				E549B1552F863E230014BE85 /* TodoListFeature.swift in Sources */,
 				E5BB9F112D3BF0C90089667A /* TPKeyboardAdjuster.swift in Sources */,
 				E5BB9DAF2D3BF0C60089667A /* TPWaveIndicatorView.swift in Sources */,
