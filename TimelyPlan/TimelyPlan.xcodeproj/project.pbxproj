@@ -1040,6 +1040,8 @@
 		E55B895A3077907000ADCED5 /* MindMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894C3077906F00ADCED5 /* MindMapNode.swift */; };
 		E55B895B3077907000ADCED5 /* MindMapStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894D3077906F00ADCED5 /* MindMapStyle.swift */; };
 		E55B895C3077907000ADCED5 /* MindMapNodeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894E3077906F00ADCED5 /* MindMapNodeKind.swift */; };
+		E55B89603077BA6900ADCED5 /* TodoMindMapPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B895F3077BA6900ADCED5 /* TodoMindMapPreviewer.swift */; };
+		E55B89623077BDB800ADCED5 /* TodoMindMapConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89613077BDB800ADCED5 /* TodoMindMapConverter.swift */; };
 		E55CE3442D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3402D8BBE0D0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png */; };
 		E55CE3452D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3412D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png */; };
 		E55CE3462D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3422D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png */; };
@@ -3512,6 +3514,8 @@
 		E55B894C3077906F00ADCED5 /* MindMapNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapNode.swift; sourceTree = "<group>"; };
 		E55B894D3077906F00ADCED5 /* MindMapStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapStyle.swift; sourceTree = "<group>"; };
 		E55B894E3077906F00ADCED5 /* MindMapNodeKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapNodeKind.swift; sourceTree = "<group>"; };
+		E55B895F3077BA6900ADCED5 /* TodoMindMapPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMindMapPreviewer.swift; sourceTree = "<group>"; };
+		E55B89613077BDB800ADCED5 /* TodoMindMapConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMindMapConverter.swift; sourceTree = "<group>"; };
 		E55CE3402D8BBE0D0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_bottom_24@2x.png"; sourceTree = "<group>"; };
 		E55CE3412D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_bottom_24@3x.png"; sourceTree = "<group>"; };
 		E55CE3422D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_top_24@3x.png"; sourceTree = "<group>"; };
@@ -5741,6 +5745,7 @@
 			children = (
 				E50D607A2F7A2EE400D5E0A4 /* TodoConstant.swift */,
 				E5BB9FCF2D3BF4A40089667A /* TodoMainViewController.swift */,
+				E55B895E3077B9FA00ADCED5 /* MindMap */,
 				E50D5FE82F7A0F4200D5E0A4 /* Repository */,
 				E50D607C2F7A342000D5E0A4 /* Protocols */,
 				E529ACDA2F7E196B000EA2F1 /* Helpers */,
@@ -8054,6 +8059,8 @@
 		E55B893B3077904B00ADCED5 /* MindMap */ = {
 			isa = PBXGroup;
 			children = (
+				E55B895F3077BA6900ADCED5 /* TodoMindMapPreviewer.swift */,
+				E55B89613077BDB800ADCED5 /* TodoMindMapConverter.swift */,
 				E55B89483077906F00ADCED5 /* Data */,
 				E55B89463077906F00ADCED5 /* Layout */,
 				E55B894A3077906F00ADCED5 /* Model */,
@@ -8118,6 +8125,13 @@
 			children = (
 			);
 			path = Layers;
+			sourceTree = "<group>";
+		};
+		E55B895E3077B9FA00ADCED5 /* MindMap */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MindMap;
 			sourceTree = "<group>";
 		};
 		E55CE33F2D8BBE040083316E /* layout */ = {
@@ -14683,6 +14697,7 @@
 				E5BB9DE12D3BF0C60089667A /* UIControl+Extension.swift in Sources */,
 				E5FC6BD52F67BE8C00D5A5EA /* HabitStatsHistoryMonthCell.swift in Sources */,
 				E524D2A22FD012E6002791E5 /* TodoSection.swift in Sources */,
+				E55B89603077BA6900ADCED5 /* TodoMindMapPreviewer.swift in Sources */,
 				E58C9E182F4AF0DC0096B842 /* FocusTimelineTimeUtils.swift in Sources */,
 				E556BCF82F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift in Sources */,
 				E5B33D6C2F80E7E400939C3E /* TodoTaskEditTableCellItem.swift in Sources */,
@@ -15001,6 +15016,7 @@
 				E55B895C3077907000ADCED5 /* MindMapNodeKind.swift in Sources */,
 				E5BB9F3B2D3BF4330089667A /* TaskFeature.swift in Sources */,
 				E5BB9DF92D3BF0C60089667A /* NSString+Diffable.swift in Sources */,
+				E55B89623077BDB800ADCED5 /* TodoMindMapConverter.swift in Sources */,
 				E536328C2FAB72C00095DFEC /* QuadrantView.swift in Sources */,
 				E5F1552B2F8368FB00116091 /* TodoTask.swift in Sources */,
 				E5B33D752F81188A00939C3E /* TodoQuickAddProgressEditContentView.swift in Sources */,

@@ -32,9 +32,9 @@ public struct MindMapNodeKind: Hashable, RawRepresentable, ExpressibleByStringLi
 
     /// 文本节点：只有文本。也是所有未注册类型的回退类型。
     public static let text = MindMapNodeKind("text")
-    /// 待办节点：文本左侧一个勾选框，随节点携带「是否完成」。
+    /// 待办节点：文本左侧一个勾选框，随节点携带「是否完成」与勾选框样式。
     public static let todo = MindMapNodeKind("todo")
-    /// 图标节点：文本左侧一个图标，随节点携带图标来源与颜色。
+    /// 图标节点：文本左侧一个图标，随节点携带 `TPIcon` 与颜色。
     public static let icon = MindMapNodeKind("icon")
 }
 
@@ -52,43 +52,56 @@ public protocol MindMapNodeContent: AnyObject {
 
 // MARK: - 内置载荷
 
-/// 待办节点的载荷：是否完成。
+/// 待办勾选框样式。
+public enum MindMapTodoCheckboxStyle {
+    /// 圆角矩形。
+    case roundedRect
+    /// 圆形。
+    case circle
+}
+
+/// 待办节点的载荷：是否完成 + 勾选框样式。
 public final class MindMapTodoContent: MindMapNodeContent {
 
     public var kind: MindMapNodeKind { .todo }
 
     public var isDone: Bool
 
-    public init(isDone: Bool = false) {
+    /// 勾选框样式，默认圆角矩形。
+    public var style: MindMapTodoCheckboxStyle
+
+    public init(isDone: Bool = false,
+                style: MindMapTodoCheckboxStyle = .roundedRect) {
         self.isDone = isDone
+        self.style = style
     }
 }
 
-/// 图标来源。
-public enum MindMapIconSource: Equatable {
-    /// SF Symbols 名称，如 "paintbrush"。
-    case system(String)
-    /// 资源目录（Assets.xcassets）里的图片名。
-    case asset(String)
-}
-
-/// 图标节点的载荷：图标来源 + 颜色。
+/// 图标节点的载荷：图标 + 颜色。
+///
+/// 图标直接复用业务侧的 `TPIcon`（图片 / Emoji 文本），由 `MindMapIconNodeLayer`
+/// 交给 `TPIconView` 渲染，因此图片图标与 Emoji 图标走同一套逻辑。
 ///
 /// `tint` 为 nil 表示跟随节点当前的分支色 —— 换主题时图标不会「格格不入」。
 public final class MindMapIconContent: MindMapNodeContent {
 
     public var kind: MindMapNodeKind { .icon }
 
-    public var source: MindMapIconSource
+    public var icon: TPIcon
     public var tint: UIColor?
 
-    public init(source: MindMapIconSource, tint: UIColor? = nil) {
-        self.source = source
+    public init(icon: TPIcon, tint: UIColor? = nil) {
+        self.icon = icon
         self.tint = tint
     }
 
-    /// 便捷构造：SF Symbols 名称。
-    public convenience init(systemImageName: String, tint: UIColor? = nil) {
-        self.init(source: .system(systemImageName), tint: tint)
+    /// 便捷构造：资源图片名（如 "checkmark_circle_fill_24"）。
+    public convenience init(imageName: String, tint: UIColor? = nil) {
+        self.init(icon: TPIcon(name: imageName), tint: tint)
+    }
+
+    /// 便捷构造：Emoji / 文本。
+    public convenience init(text: String, tint: UIColor? = nil) {
+        self.init(icon: TPIcon(text: text), tint: tint)
     }
 }

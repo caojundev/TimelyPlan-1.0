@@ -159,7 +159,7 @@ class TodoUserListHomeSectionController: TodoUserListBaseSectionController,
     func performMenuActionType(_ type: TodoListMenuActionType, for list: TodoList) {
         switch type {
         case .mindMapPreview:
-            listController.previewMindMap(for: list)
+            TodoMindMapPreviewer.preview(list)
         case .addSublist:
             listController.createList(parent: list)
         case .ungroup:

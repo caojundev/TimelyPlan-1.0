@@ -30,6 +30,14 @@ open class MindMapNodeLayer: CALayer {
     /// 该图层负责的节点类型。子类重写。
     open class var kind: MindMapNodeKind { .text }
 
+    // MARK: 根节点外观
+
+    /// 根节点线框宽度
+    open class var rootBorderWidth: CGFloat { 3.2 }
+
+    /// 根节点线框圆角（较原有 7 更大）。
+    open class var rootCornerRadius: CGFloat { 12 }
+
     // MARK: 依赖
 
     /// 度量参数（全局样式）。由内容图层在每次 `apply` 时下发。
@@ -167,15 +175,16 @@ open class MindMapNodeLayer: CALayer {
 
         case .box:
             // 线框：把内容块框起来，连线接在左右两条边的中点。
-            // 根节点沿用原有外观（中性描边、2.2pt、圆角 7），不随 nodeStyle 变化。
-            decorationLayer.strokeColor = node.isRoot ? palette.rootBorder.cgColor
+            // 根节点用主色描边，比下层更粗、圆角更大；不随 nodeStyle 变化。
+            decorationLayer.strokeColor = node.isRoot ? UIColor.primary.cgColor
                                                       : node.color.cgColor
-            let borderWidth: CGFloat = node.isRoot ? 2.2 : metrics.edgeLineWidth(isRoot: false)
+            let borderWidth: CGFloat = node.isRoot ? Self.rootBorderWidth
+                                                   : metrics.edgeLineWidth(isRoot: false)
             decorationLayer.lineWidth = borderWidth
             // 描边居中于路径，内缩半个线宽才能让线框完整落在内容块内。
             decorationLayer.path = UIBezierPath(roundedRect: bounds.insetBy(dx: borderWidth / 2,
                                                                             dy: borderWidth / 2),
-                                                cornerRadius: node.isRoot ? 7
+                                                cornerRadius: node.isRoot ? Self.rootCornerRadius
                                                                           : metrics.cornerRadius).cgPath
         }
     }
@@ -188,7 +197,8 @@ open class MindMapNodeLayer: CALayer {
             return
         }
         markerLayer.isHidden = false
-        markerLayer.strokeColor = node.color.cgColor
+        // 根节点的 +/- 指示器与线框同色（主色），其余跟随所属分支色。
+        markerLayer.strokeColor = (node.isRoot ? UIColor.primary : node.color).cgColor
 
         let size = metrics.collapseMarkerSize
         // 标记位于节点内容块右边缘的**外侧**，纵向与连线对齐；用距填充把节点引出的

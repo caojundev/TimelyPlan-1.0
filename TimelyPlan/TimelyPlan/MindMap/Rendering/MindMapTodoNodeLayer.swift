@@ -2,7 +2,7 @@
 //  MindMapTodoNodeLayer.swift
 //  MindMapKit
 //
-//  待办节点图层：文本 + 左侧勾选框，勾选状态从节点的 `content` 读取。
+//  待办节点图层：文本 + 左侧勾选框，勾选状态与样式从节点的 `content` 读取。
 //
 //  尺寸计算（重写）与文本摆放（继承）都基于同一个 `leadingTextInset`，
 //  因此「左侧让出的空间」在测量和绘制两处必然一致。
@@ -84,12 +84,14 @@ open class MindMapTodoNodeLayer: MindMapTextNodeLayer {
     open override func updateContent(_ node: MindMapNodeLayout, bounds: CGRect) {
         super.updateContent(node, bounds: bounds)
 
-        let isDone = (node.content as? MindMapTodoContent)?.isDone ?? false
+        let content = node.content as? MindMapTodoContent
+        let isDone = content?.isDone ?? false
+        let style = content?.style ?? .roundedRect
         let side = min(Self.checkboxSize, bounds.height)
         let insets = metrics.contentInsets(isRoot: node.isRoot)
         let origin = CGPoint(x: insets.left, y: (bounds.height - side) / 2)
 
-        draw(isDone: isDone, side: side, origin: origin, color: node.color)
+        draw(isDone: isDone, style: style, side: side, origin: origin, color: node.color)
     }
 
     open override func contentColor(_ node: MindMapNodeLayout, default color: UIColor) -> UIColor {
@@ -99,7 +101,11 @@ open class MindMapTodoNodeLayer: MindMapTextNodeLayer {
 
     // MARK: 勾选框
 
-    private func draw(isDone: Bool, side: CGFloat, origin: CGPoint, color: UIColor) {
+    private func draw(isDone: Bool,
+                      style: MindMapTodoCheckboxStyle,
+                      side: CGFloat,
+                      origin: CGPoint,
+                      color: UIColor) {
         guard side > 0 else {
             boxLayer.path = nil
             checkLayer.path = nil
@@ -108,15 +114,21 @@ open class MindMapTodoNodeLayer: MindMapTextNodeLayer {
         let lineWidth = Self.checkboxLineWidth
         // 描边居中于路径，内缩半个线宽才能让外框完整落在 bounds 内。
         let inset = lineWidth / 2
+        let rect = CGRect(x: origin.x + inset, y: origin.y + inset,
+                          width: side - lineWidth, height: side - lineWidth)
+
+        // 圆角矩形按固定比例收角，圆形取半宽（即内切圆）。
+        let cornerRadius: CGFloat
+        switch style {
+        case .roundedRect: cornerRadius = max(2, side * 0.28)
+        case .circle:      cornerRadius = rect.width / 2
+        }
 
         boxLayer.frame = bounds
         boxLayer.lineWidth = lineWidth
         boxLayer.strokeColor = color.cgColor
         boxLayer.fillColor = isDone ? color.cgColor : UIColor.clear.cgColor
-        boxLayer.path = UIBezierPath(
-            roundedRect: CGRect(x: origin.x + inset, y: origin.y + inset,
-                                width: side - lineWidth, height: side - lineWidth),
-            cornerRadius: max(2, side * 0.28)).cgPath
+        boxLayer.path = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius).cgPath
 
         // 勾用背景色，正好从填充的框里「挖」出来。
         checkLayer.frame = bounds

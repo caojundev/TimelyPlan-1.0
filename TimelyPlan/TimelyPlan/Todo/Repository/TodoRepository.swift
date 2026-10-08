@@ -109,6 +109,12 @@ extension TodoRepository {
         userListManager.fetchLists(containText: text, completion: completion)
     }
     
+    /// 根据列表异步获取对应的导图快照；未找到时回调 nil
+    static func fetchMindMapList(for list: TodoList,
+                                 completion: @escaping (TodoMindMapList?) -> Void) {
+        userListManager.fetchMindMapList(for: list, completion: completion)
+    }
+    
     // MARK: - 列表处理
     /// 新建列表
     static func createList(with editingList: TodoEditingList, parent: TodoList?) {

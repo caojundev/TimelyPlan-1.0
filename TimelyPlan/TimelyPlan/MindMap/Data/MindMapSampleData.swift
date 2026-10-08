@@ -6,7 +6,7 @@
 //
 //  其中混入了两种非文本节点，用来演示节点类型机制：
 //    · 待办节点 —— `MindMapTodoContent`，左侧勾选框，勾选状态在数据里；
-//    · 图标节点 —— `MindMapIconContent`，左侧一个 SF Symbols 图标。
+//    · 图标节点 —— `MindMapIconContent`，左侧一个 `TPIcon`：图片图标与 Emoji 图标各一个。
 //
 //  ⚠️ nodeID 在整棵树内必须唯一。这里用文本作为 id 只是为了让示例可读；
 //     真实接入时请使用业务侧的稳定唯一标识（如数据库主键、UUID），
@@ -14,6 +14,7 @@
 //
 
 import Foundation
+import UIKit
 
 public enum MindMapSampleData {
 
@@ -38,7 +39,9 @@ public enum MindMapSampleData {
                 node("技术可行性评估")
             ]),
             node("上线", [
-                node("数据分析", content: MindMapIconContent(systemImageName: "chart.bar", tint: .systemOrange),
+                // 图标节点：资源图片（TPIcon.image）
+                node("数据分析", content: MindMapIconContent(imageName: "checkmark_circle_fill_24",
+                                                          tint: .systemOrange),
                      [node("集成 Flurry SDK")]),
                 node("反馈优化", content: MindMapTodoContent()),
                 node("需求提取", [node("隐性需求的深度挖掘")])
@@ -63,7 +66,8 @@ public enum MindMapSampleData {
                         node("页面流程图", [node("各个页面的连接和跳转")]),
                         node("原型图", [node("真机 app 界面")])
                     ]),
-                    node("UI 设计", content: MindMapIconContent(systemImageName: "paintbrush", tint: .systemBlue))
+                    // 图标节点：Emoji（TPIcon.text）
+                    node("UI 设计", content: MindMapIconContent(text: "😄", tint: .systemBlue))
                 ]),
                 node("编码实现", content: MindMapTodoContent(isDone: true)),
                 node("测试", [

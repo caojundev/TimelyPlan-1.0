@@ -78,6 +78,14 @@ class TodoUserListManager {
         }
     }
     
+    /// 异步获取列表的导图快照（含未删除的任务与子列表）
+    func fetchMindMapList(for list: TodoList,
+                          completion: @escaping (TodoMindMapList?) -> Void) {
+        CDTodoList.fetchList(for: list) { cdList in
+            completion(cdList?.mindMapList)
+        }
+    }
+    
     // MARK: - 列表操作
     /// 新建列表
     func createList(with editList: TodoEditingList, parent: TodoList?) {

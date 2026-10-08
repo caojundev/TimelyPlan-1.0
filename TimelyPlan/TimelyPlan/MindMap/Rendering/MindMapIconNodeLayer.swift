@@ -2,8 +2,9 @@
 //  MindMapIconNodeLayer.swift
 //  MindMapKit
 //
-//  图标节点图层：文本 + 左侧图标（SF Symbols 或资源图）。
-//  图标来源与颜色从节点的 `content` 读取；颜色缺省时跟随分支色。
+//  图标节点图层：文本 + 左侧图标（资源图片或 Emoji）。
+//  图标数据（`TPIcon`）与颜色从节点的 `content` 读取，统一交给 `TPIconView` 渲染；
+//  颜色缺省时跟随分支色。
 //
 
 import Foundation
@@ -11,24 +12,31 @@ import UIKit
 import QuartzCore
 
 open class MindMapIconNodeLayer: MindMapTextNodeLayer {
-    
+
     public override class var kind: MindMapNodeKind { .icon }
 
     // MARK: 样式（该类型自己的可调参数）
 
     /// 图标边长。
-    open class var iconSize: CGFloat { 16 }
+    open class var iconSize: CGFloat { 18 }
     /// 图标与文本之间的间距。
-    open class var accessorySpacing: CGFloat { 6 }
+    open class var accessorySpacing: CGFloat { 4.0 }
 
-    private let iconLayer = CALayer()
+    /// 图标视图：统一渲染「资源图片」与「Emoji 文本」两种 `TPIcon`。
+    ///
+    /// 图层树是 `CALayer` 体系（不为每个节点建 UIView），这里把 `TPIconView`
+    /// 自身的 layer 挂进来，既复用了它的渲染逻辑，又不额外引入视图层级。
+    private let iconView = TPIconView()
 
     // MARK: 初始化
 
     public required init(palette: MindMapPalette) {
         super.init(palette: palette)
-        iconLayer.contentsGravity = .resizeAspect
-        addSublayer(iconLayer)
+        iconView.font = .boldSystemFont(ofSize: 18.0)
+        iconView.cornerRadius = 0.0
+        iconView.isUserInteractionEnabled = false
+        iconView.backColor = .clear
+        addSublayer(iconView.layer)
     }
 
     public override init(layer: Any) {
@@ -71,48 +79,25 @@ open class MindMapIconNodeLayer: MindMapTextNodeLayer {
     open override func updateContent(_ node: MindMapNodeLayout, bounds: CGRect) {
         super.updateContent(node, bounds: bounds)
 
-        guard let icon = node.content as? MindMapIconContent,
-              let image = Self.image(for: icon.source) else {
-            iconLayer.contents = nil
+        guard let content = node.content as? MindMapIconContent else {
+            iconView.isHidden = true
             return
         }
+        iconView.isHidden = false
 
         // 取整到整点，配合 contentsScale 让图标落到整像素上，避免虚边。
         let side = min(Self.iconSize, bounds.height).rounded()
         let insets = metrics.contentInsets(isRoot: node.isRoot)
-        iconLayer.bounds = CGRect(x: 0, y: 0, width: side, height: side)
-        iconLayer.position = CGPoint(x: insets.left + side / 2, y: bounds.height / 2)
+        iconView.frame = CGRect(x: insets.left,
+                                y: (bounds.height - side) / 2,
+                                width: side,
+                                height: side)
 
-        let tint = icon.tint ?? node.color
-        iconLayer.contents = Self.tintedImage(image, tint: tint,
-                                              size: iconLayer.bounds.size)
-    }
-
-    private static func image(for source: MindMapIconSource) -> UIImage? {
-        switch source {
-        case .system(let name): return UIImage(systemName: name)
-        case .asset(let name): return UIImage(named: name)
-        }
-    }
-
-    /// 把图标按指定颜色光栅化成位图。
-    ///
-    /// 不能直接把 `image.withTintColor(...).cgImage` 交给图层：着色对（模板）图片是
-    /// **绘制时**生效的，`cgImage` 取到的始终是未着色的原始位图 —— 落到 CALayer 上
-    /// 就会画成默认的黑色。所以这里显式绘制一次，把颜色烤进位图。
-    ///
-    /// - Note: 一律按模板方式绘制，即用图片的 alpha 形状填色。因此资源图也会被
-    ///   着色成单色，这正是「图标节点」想要的效果（颜色由载荷或分支色决定）。
-    private static func tintedImage(_ image: UIImage,
-                                    tint: UIColor,
-                                    size: CGSize) -> CGImage? {
-        guard size.width > 0, size.height > 0 else { return nil }
-        let format = UIGraphicsImageRendererFormat.default()
-        format.opaque = false
-        return UIGraphicsImageRenderer(size: size, format: format).image { _ in
-            tint.setFill()
-            image.withRenderingMode(.alwaysTemplate)
-                .draw(in: CGRect(origin: .zero, size: size))
-        }.cgImage
+        // 数据即 `TPIcon`：图片走资源图、Emoji 走文本，颜色缺省跟随分支色。
+        iconView.font = .systemFont(ofSize: side)
+        iconView.foreColor = content.tint ?? node.color
+        iconView.icon = content.icon
+        // 图标视图不在 window 中，布局不会自动触发，这里显式唤醒一次。
+        iconView.layoutIfNeeded()
     }
 }

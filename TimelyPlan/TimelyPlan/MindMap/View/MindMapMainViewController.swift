@@ -14,6 +14,17 @@ public class MindMapMainViewController: UIViewController {
     /// 想切内置主题：`themes.apply(.paper)`；想强制深色：`themes.appearanceOverride = .dark`。
     private let themes = MindMapThemeManager(theme: .classic)
 
+    // MARK: - 内容
+
+    /// 要展示的根节点。默认是示例数据；展示前替换即可渲染自定义导图
+    /// （例如 `TodoMindMapPreviewer` 转换出来的列表导图）。
+    public var rootNode: MindMapNodeType = MindMapSampleData.projectFlow() {
+        didSet {
+            guard isViewLoaded else { return }
+            canvas.setRoot(rootNode)
+        }
+    }
+
     // MARK: - 顶部工具栏
 
     /// 工具栏内容高度（不含安全区）。
@@ -43,7 +54,7 @@ public class MindMapMainViewController: UIViewController {
 
         setupToolbar()
 
-        canvas.setRoot(MindMapSampleData.projectFlow())
+        canvas.setRoot(rootNode)
 
         // 可选：监听展开 / 收起
         canvas.onNodeToggled = { node in

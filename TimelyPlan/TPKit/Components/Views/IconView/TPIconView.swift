@@ -177,7 +177,12 @@ class TPIconView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let layoutFrame = self.bounds.middleCircleInnerSquareRect
+        let layoutFrame: CGRect
+        if cornerRadius > 0 {
+            layoutFrame = bounds.middleCircleInnerSquareRect
+        } else {
+            layoutFrame = bounds
+        }
         
         let r = min(bounds.shortSideLength / 2.0, cornerRadius)
         layer.cornerRadius = r

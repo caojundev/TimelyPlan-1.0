@@ -351,6 +351,15 @@ extension CDTodoList {
         return getItem(with: list.identifier)
     }
     
+    /// 异步获取清单
+    static func fetchList(for list: TodoList, completion: @escaping (CDTodoList?) -> Void) {
+        let condition: PredicateCondition = (TodoListKey.identifier, .equal(list.identifier))
+        let predicate = NSPredicate.predicate(with: condition)
+        fetchFirst(matching: predicate) { result in
+            completion(result as? CDTodoList)
+        }
+    }
+    
     /// 搜索清单
     static func fetchLists(containText text: String, completion:(@escaping([CDTodoList]?) -> Void)) {
         let condition: PredicateCondition = (TodoListKey.name, .contains(text))
@@ -384,5 +393,35 @@ extension Array where Element == CDTodoList {
     
     var toLists: [TodoList] {
         return compactMap { TodoList(content: $0) }
+    }
+}
+
+// MARK: - 导图快照
+
+extension CDTodoList {
+    
+    /// 列表导图快照：递归包含未删除的任务与子列表，用于 `MindMapNode` 转换与预览。
+    var mindMapList: TodoMindMapList {
+        return TodoMindMapList(identifier: identifiableKey,
+                               name: name ?? resGetString("Untitled List"),
+                               colorHex: colorHex,
+                               emoji: emoji,
+                               layoutType: TodoListLayoutType(rawValue: Int(layoutRawValue)) ?? .list,
+                               tasks: orderedActiveTasks,
+                               sublists: orderedCoreDataSublists()?.map { $0.mindMapList })
+    }
+    
+    /// 未删除的任务，按排序因子升序；没有任务时为 nil。
+    private var orderedActiveTasks: [TodoTask]? {
+        guard let cdTasks = tasks as? Set<CDTodoTask> else {
+            return nil
+        }
+        
+        let activeTasks = cdTasks.filter { !$0.isRemoved }
+        guard activeTasks.count > 0 else {
+            return nil
+        }
+        
+        return activeTasks.orderedElements().map { TodoTask(content: $0) }
     }
 }
