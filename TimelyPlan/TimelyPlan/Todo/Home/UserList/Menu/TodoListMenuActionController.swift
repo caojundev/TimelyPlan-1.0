@@ -19,7 +19,8 @@ class TodoListMenuActionController: TPBaseMenuController<TodoListMenuActionType>
     
     override func orderedMenuActionTypeLists() -> [Array<TodoListMenuActionType>] {
         var lists: [Array<TodoListMenuActionType>]
-        lists = [[.addSublist],
+        lists = [[.mindMapPreview],
+                 [.addSublist],
                  [.move, .ungroup],
                  [.edit],
                  [.delete]]
@@ -27,7 +28,7 @@ class TodoListMenuActionController: TPBaseMenuController<TodoListMenuActionType>
     }
     
     override func menuActionTypes() -> [TodoListMenuActionType] {
-        var types: [TodoListMenuActionType] = [.edit]
+        var types: [TodoListMenuActionType] = [.mindMapPreview, .edit]
         
         if list.depth < TodoConstant.listMaxDepth {
             types.append(.addSublist)

@@ -9,7 +9,7 @@ import Foundation
 
 /// 待办列表操作菜单
 enum TodoListMenuActionType: String, TPMenuRepresentable {
-    
+    case mindMapPreview    /// 思维导图
     case addSublist /// 添加子列表
     case ungroup    /// 解散子列表
     case move       /// 移动列表
@@ -18,6 +18,8 @@ enum TodoListMenuActionType: String, TPMenuRepresentable {
     
     var title: String {
         switch self {
+        case .mindMapPreview:
+            return resGetString("Mind Map Preview")
         case .addSublist:
             return resGetString("Add Sublist")
         case .move:
@@ -33,6 +35,8 @@ enum TodoListMenuActionType: String, TPMenuRepresentable {
     
     var iconName: String? {
         switch self {
+        case .mindMapPreview:
+            return "mindMap_24"
         case .addSublist:
             return "todo_list_addSublist_24"
         case .ungroup:

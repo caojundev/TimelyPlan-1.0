@@ -1024,6 +1024,22 @@
 		E55A7B9D2D463917000D224C /* bell_fill_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B9B2D463916000D224C /* bell_fill_16@2x.png */; };
 		E55AD81C2CB29135006BCF8C /* TimelyPlan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E55AD81A2CB29135006BCF8C /* TimelyPlan.xcdatamodeld */; };
 		E55AD82A2CB291CC006BCF8C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E55AD8292CB291CC006BCF8C /* CloudKit.framework */; };
+		E55B893930774F1F00ADCED5 /* mindMap_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55B893730774F1E00ADCED5 /* mindMap_24@3x.png */; };
+		E55B893A30774F1F00ADCED5 /* mindMap_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55B893830774F1F00ADCED5 /* mindMap_24@2x.png */; };
+		E55B894F3077907000ADCED5 /* MindMapDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B893D3077906E00ADCED5 /* MindMapDemoViewController.swift */; };
+		E55B89503077907000ADCED5 /* MindMapCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B893E3077906E00ADCED5 /* MindMapCanvasView.swift */; };
+		E55B89513077907000ADCED5 /* MindMapZoomIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B893F3077906E00ADCED5 /* MindMapZoomIndicatorView.swift */; };
+		E55B89523077907000ADCED5 /* MindMapContentLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89413077906F00ADCED5 /* MindMapContentLayer.swift */; };
+		E55B89533077907000ADCED5 /* MindMapTextNodeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89423077906F00ADCED5 /* MindMapTextNodeLayer.swift */; };
+		E55B89543077907000ADCED5 /* MindMapNodeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89433077906F00ADCED5 /* MindMapNodeLayer.swift */; };
+		E55B89553077907000ADCED5 /* MindMapTodoNodeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89443077906F00ADCED5 /* MindMapTodoNodeLayer.swift */; };
+		E55B89563077907000ADCED5 /* MindMapIconNodeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89453077906F00ADCED5 /* MindMapIconNodeLayer.swift */; };
+		E55B89573077907000ADCED5 /* MindMapLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89473077906F00ADCED5 /* MindMapLayout.swift */; };
+		E55B89583077907000ADCED5 /* MindMapSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89493077906F00ADCED5 /* MindMapSampleData.swift */; };
+		E55B89593077907000ADCED5 /* MindMapTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894B3077906F00ADCED5 /* MindMapTheme.swift */; };
+		E55B895A3077907000ADCED5 /* MindMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894C3077906F00ADCED5 /* MindMapNode.swift */; };
+		E55B895B3077907000ADCED5 /* MindMapStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894D3077906F00ADCED5 /* MindMapStyle.swift */; };
+		E55B895C3077907000ADCED5 /* MindMapNodeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894E3077906F00ADCED5 /* MindMapNodeKind.swift */; };
 		E55CE3442D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3402D8BBE0D0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png */; };
 		E55CE3452D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3412D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png */; };
 		E55CE3462D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3422D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png */; };
@@ -3480,6 +3496,22 @@
 		E55AD81B2CB29135006BCF8C /* TimelyPlan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimelyPlan.xcdatamodel; sourceTree = "<group>"; };
 		E55AD8292CB291CC006BCF8C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E55AD82B2CB29550006BCF8C /* TimelyPlan-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TimelyPlan-Bridging-Header.h"; sourceTree = "<group>"; };
+		E55B893730774F1E00ADCED5 /* mindMap_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mindMap_24@3x.png"; sourceTree = "<group>"; };
+		E55B893830774F1F00ADCED5 /* mindMap_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mindMap_24@2x.png"; sourceTree = "<group>"; };
+		E55B893D3077906E00ADCED5 /* MindMapDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapDemoViewController.swift; sourceTree = "<group>"; };
+		E55B893E3077906E00ADCED5 /* MindMapCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapCanvasView.swift; sourceTree = "<group>"; };
+		E55B893F3077906E00ADCED5 /* MindMapZoomIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapZoomIndicatorView.swift; sourceTree = "<group>"; };
+		E55B89413077906F00ADCED5 /* MindMapContentLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapContentLayer.swift; sourceTree = "<group>"; };
+		E55B89423077906F00ADCED5 /* MindMapTextNodeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapTextNodeLayer.swift; sourceTree = "<group>"; };
+		E55B89433077906F00ADCED5 /* MindMapNodeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapNodeLayer.swift; sourceTree = "<group>"; };
+		E55B89443077906F00ADCED5 /* MindMapTodoNodeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapTodoNodeLayer.swift; sourceTree = "<group>"; };
+		E55B89453077906F00ADCED5 /* MindMapIconNodeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapIconNodeLayer.swift; sourceTree = "<group>"; };
+		E55B89473077906F00ADCED5 /* MindMapLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapLayout.swift; sourceTree = "<group>"; };
+		E55B89493077906F00ADCED5 /* MindMapSampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapSampleData.swift; sourceTree = "<group>"; };
+		E55B894B3077906F00ADCED5 /* MindMapTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapTheme.swift; sourceTree = "<group>"; };
+		E55B894C3077906F00ADCED5 /* MindMapNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapNode.swift; sourceTree = "<group>"; };
+		E55B894D3077906F00ADCED5 /* MindMapStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapStyle.swift; sourceTree = "<group>"; };
+		E55B894E3077906F00ADCED5 /* MindMapNodeKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapNodeKind.swift; sourceTree = "<group>"; };
 		E55CE3402D8BBE0D0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_bottom_24@2x.png"; sourceTree = "<group>"; };
 		E55CE3412D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_bottom_24@3x.png"; sourceTree = "<group>"; };
 		E55CE3422D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_top_24@3x.png"; sourceTree = "<group>"; };
@@ -7993,6 +8025,7 @@
 				E5D7D7B42D43922900EC877A /* Focus */,
 				E59243C62F4FFC6400CA2393 /* Habit */,
 				E558979A3056DE27001F8F22 /* Countdown */,
+				E55B893B3077904B00ADCED5 /* MindMap */,
 				E55897923056A34A001F8F22 /* FlipClock */,
 				E55549632F76C0F700C9460D /* Setting */,
 				E5BBA1122D3BFC380089667A /* Resources */,
@@ -8007,6 +8040,76 @@
 				2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E55B893630774F0B00ADCED5 /* mindmap */ = {
+			isa = PBXGroup;
+			children = (
+				E55B893830774F1F00ADCED5 /* mindMap_24@2x.png */,
+				E55B893730774F1E00ADCED5 /* mindMap_24@3x.png */,
+			);
+			path = mindmap;
+			sourceTree = "<group>";
+		};
+		E55B893B3077904B00ADCED5 /* MindMap */ = {
+			isa = PBXGroup;
+			children = (
+				E55B89483077906F00ADCED5 /* Data */,
+				E55B89463077906F00ADCED5 /* Layout */,
+				E55B894A3077906F00ADCED5 /* Model */,
+				E55B89403077906F00ADCED5 /* Rendering */,
+				E55B893C3077906E00ADCED5 /* View */,
+			);
+			path = MindMap;
+			sourceTree = "<group>";
+		};
+		E55B893C3077906E00ADCED5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E55B893D3077906E00ADCED5 /* MindMapDemoViewController.swift */,
+				E55B893E3077906E00ADCED5 /* MindMapCanvasView.swift */,
+				E55B893F3077906E00ADCED5 /* MindMapZoomIndicatorView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E55B89403077906F00ADCED5 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				E55B89413077906F00ADCED5 /* MindMapContentLayer.swift */,
+				E55B89423077906F00ADCED5 /* MindMapTextNodeLayer.swift */,
+				E55B89433077906F00ADCED5 /* MindMapNodeLayer.swift */,
+				E55B89443077906F00ADCED5 /* MindMapTodoNodeLayer.swift */,
+				E55B89453077906F00ADCED5 /* MindMapIconNodeLayer.swift */,
+			);
+			path = Rendering;
+			sourceTree = "<group>";
+		};
+		E55B89463077906F00ADCED5 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				E55B89473077906F00ADCED5 /* MindMapLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		E55B89483077906F00ADCED5 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E55B89493077906F00ADCED5 /* MindMapSampleData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E55B894A3077906F00ADCED5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E55B894B3077906F00ADCED5 /* MindMapTheme.swift */,
+				E55B894C3077906F00ADCED5 /* MindMapNode.swift */,
+				E55B894D3077906F00ADCED5 /* MindMapStyle.swift */,
+				E55B894E3077906F00ADCED5 /* MindMapNodeKind.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		E55CE33F2D8BBE040083316E /* layout */ = {
@@ -9383,6 +9486,7 @@
 		E5BB99DC2D3BEF0D0089667A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				E55B893630774F0B00ADCED5 /* mindmap */,
 				E511E501305E0A9200292511 /* countdown */,
 				E5FAA9C9304AA0C700C9CCD8 /* goal */,
 				E54A068C303C2C71001FF4A1 /* gantt */,
@@ -13004,6 +13108,7 @@
 				E50CC61F3066B4C000D1BD3E /* countdown_includesStartDate_24@3x.png in Resources */,
 				E53352982FF8C9CC00546986 /* calendar_month_24@3x.png in Resources */,
 				E56B947B2F8CDB42001E488B /* todo_sort_order_ascending_24@3x.png in Resources */,
+				E55B893930774F1F00ADCED5 /* mindMap_24@3x.png in Resources */,
 				E5E9F7912FC03FCA00717004 /* todo_step_import_24@3x.png in Resources */,
 				E56B94692F8CD822001E488B /* todo_group_type_list_24@3x.png in Resources */,
 				E556BCBF2F5D6C7000CA20D9 /* habit_indicator_log_16@2x.png in Resources */,
@@ -13422,6 +13527,7 @@
 				E5D7D9602D43DBE000EC877A /* focus_timer_pomodoro_32@3x.png in Resources */,
 				E5D7D9762D43E05700EC877A /* focus_running_screenAlwaysOnEnabled_24@2x.png in Resources */,
 				E5D833962DAB64D60012ABF3 /* todo_task_progress_recordType_24@3x.png in Resources */,
+				E55B893A30774F1F00ADCED5 /* mindMap_24@2x.png in Resources */,
 				E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */,
 				E53632D22FAF63480095DFEC /* quadrant_IV_60@2x.png in Resources */,
 				E55549412F75590100C9460D /* focus_timer_stopwatch_24@2x.png in Resources */,
@@ -13888,6 +13994,7 @@
 				E5B8C4D3306B3D410056CB04 /* CalendarPanelPageView.swift in Sources */,
 				E5DA03B72FA3A3A700A58ACC /* HabitDayPeriodItemViewModel.swift in Sources */,
 				E50BB6832D57557600D316FD /* TPIconAccessoryConfig.swift in Sources */,
+				E55B89583077907000ADCED5 /* MindMapSampleData.swift in Sources */,
 				E555492B2F74D24C00C9460D /* FocusQuickStartViewController.swift in Sources */,
 				E5BB9E8F2D3BF0C80089667A /* PieChartCell.swift in Sources */,
 				E5BB9EAC2D3BF0C80089667A /* TPMenuListViewController.swift in Sources */,
@@ -13946,6 +14053,7 @@
 				E5BB9E202D3BF0C70089667A /* NSManagedObjectContext+Setup.swift in Sources */,
 				E5D7D9402D43933700EC877A /* FocusTimerStepMenuController.swift in Sources */,
 				E5371DED2FF4A5CD00BA9DEF /* CalendarEventDisplayRange.swift in Sources */,
+				E55B89523077907000ADCED5 /* MindMapContentLayer.swift in Sources */,
 				E53E96AD2D53A3E200EC4872 /* TPInfoTextValueView.swift in Sources */,
 				E57CC5BF2F7F9FA600ADDBA4 /* TodoTaskGroup.swift in Sources */,
 				E5347FF92F5FC31600CFBF26 /* HabitReasonTagEditViewController.swift in Sources */,
@@ -14213,6 +14321,7 @@
 				E5C30988306B6794001E5880 /* CalendarPanelElementView.swift in Sources */,
 				E57B2C213046000000000001 /* GoalRepository.swift in Sources */,
 				E57B2C223046000000000002 /* GoalDateHelper.swift in Sources */,
+				E55B895B3077907000ADCED5 /* MindMapStyle.swift in Sources */,
 				E588F89A3068AE750022461A /* TodoTaskStepBulkMenuController.swift in Sources */,
 				E57B2C233046000000000003 /* GoalPlanGroup.swift in Sources */,
 				E57B2C243046000000000004 /* GoalPlanListCell.swift in Sources */,
@@ -14245,6 +14354,7 @@
 				E56A7BED2FFD019E0068410D /* CalendarExpandMonthView.swift in Sources */,
 				E5141F082F7CCAF2007A864B /* TPTableSearchResultSectionController.swift in Sources */,
 				E5B499552FDA5BD100F3A9BD /* BaseSettingViewController.swift in Sources */,
+				E55B89563077907000ADCED5 /* MindMapIconNodeLayer.swift in Sources */,
 				E51501942D477962008B2333 /* TPTableViewAdapter.swift in Sources */,
 				E57CC5D92F7FCED300ADDBA4 /* TodoTaskQuickAddSectionPicker.swift in Sources */,
 				E5E8C9EE2F702163006728C5 /* CDFocusTimer+Extensions.swift in Sources */,
@@ -14314,6 +14424,7 @@
 				E50D60362F7A12B500D5E0A4 /* RepeatFrequencySectionController.swift in Sources */,
 				E53632A32FAC26E20095DFEC /* QuadrantListConfiguration.swift in Sources */,
 				E53632932FAB76150095DFEC /* TodoFilterTaskUpdater.swift in Sources */,
+				E55B89593077907000ADCED5 /* MindMapTheme.swift in Sources */,
 				E5BB9DC62D3BF0C60089667A /* DateRange.swift in Sources */,
 				E5FC91832FBAFAD000FC75C6 /* CalendarPageTimelineCell.swift in Sources */,
 				E55897783054D60E001F8F22 /* MyDayGoalEventInfoView.swift in Sources */,
@@ -14615,6 +14726,7 @@
 				E55E4B892F9326D20068E032 /* TodoSmartListViewModel.swift in Sources */,
 				E507E7AF2F530CF0003004C4 /* HabitUnitButtonView.swift in Sources */,
 				E5BB9DFB2D3BF0C60089667A /* CaseIterable+Extensions.swift in Sources */,
+				E55B894F3077907000ADCED5 /* MindMapDemoViewController.swift in Sources */,
 				E549B1552F863E230014BE85 /* TodoListFeature.swift in Sources */,
 				E5BB9F112D3BF0C90089667A /* TPKeyboardAdjuster.swift in Sources */,
 				E5BB9DAF2D3BF0C60089667A /* TPWaveIndicatorView.swift in Sources */,
@@ -14724,6 +14836,7 @@
 				E5B33D892F82584D00939C3E /* TodoTagSelectInfoView.swift in Sources */,
 				E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */,
 				E518D6992FBEAC450045D456 /* CalendarRepository.swift in Sources */,
+				E55B89503077907000ADCED5 /* MindMapCanvasView.swift in Sources */,
 				E5B499642FDC4A8100F3A9BD /* CalendarEventMonitor.swift in Sources */,
 				E5FF4ED92FECCB7400282416 /* HabitNotifiableTaskProvider.swift in Sources */,
 				E53352AD2FF9FF3200546986 /* CalendarYearEventsFetcher.swift in Sources */,
@@ -14836,6 +14949,7 @@
 				E59E716A2DB921E600744C68 /* CalendarEvent.swift in Sources */,
 				E5BB9EBA2D3BF0C80089667A /* TPCountPickerViewController.swift in Sources */,
 				E5BB9F102D3BF0C90089667A /* TPMenuAction.swift in Sources */,
+				E55B89553077907000ADCED5 /* MindMapTodoNodeLayer.swift in Sources */,
 				E5BB9DE42D3BF0C60089667A /* UIImageView+ContentMode.swift in Sources */,
 				E5BB9DBD2D3BF0C60089667A /* UIViewController+Theme.swift in Sources */,
 				E5BA9A8730523CF30044106F /* GoalPlanFeature.swift in Sources */,
@@ -14876,6 +14990,7 @@
 				E5BB9EB92D3BF0C80089667A /* TPCountPickerView.swift in Sources */,
 				E5FC6BDB2F6828AA00D5A5EA /* HabitStatusPieChartSectionController.swift in Sources */,
 				E5BB9F252D3BF2C20089667A /* AppDelegate.swift in Sources */,
+				E55B895C3077907000ADCED5 /* MindMapNodeKind.swift in Sources */,
 				E5BB9F3B2D3BF4330089667A /* TaskFeature.swift in Sources */,
 				E5BB9DF92D3BF0C60089667A /* NSString+Diffable.swift in Sources */,
 				E536328C2FAB72C00095DFEC /* QuadrantView.swift in Sources */,
@@ -15097,6 +15212,7 @@
 				E5087EAE3042884500DCD85C /* GanttState.swift in Sources */,
 				E5BB9F162D3BF0C90089667A /* CoreGraphicsFunctions.swift in Sources */,
 				E5BB9E012D3BF0C60089667A /* Int+Duration.swift in Sources */,
+				E55B89513077907000ADCED5 /* MindMapZoomIndicatorView.swift in Sources */,
 				E5BB9E5C2D3BF0C70089667A /* TPCalendarMonthView.swift in Sources */,
 				E5146C8C302DBC91007A8BCB /* TaskTimePlanRegularScheduler.swift in Sources */,
 				E5E9F7A92FC30E9F00717004 /* TPTableKeyboardAdjuster.swift in Sources */,
@@ -15150,6 +15266,7 @@
 				E50D02602F55A8C100E93977 /* TaskDateRangeEditTableCell.swift in Sources */,
 				E5BB9E4B2D3BF0C70089667A /* TPHolidayScheduler.swift in Sources */,
 				E5BB9DA82D3BF0C60089667A /* FlipClockView.swift in Sources */,
+				E55B89543077907000ADCED5 /* MindMapNodeLayer.swift in Sources */,
 				E5F155262F83681E00116091 /* TodoGroupOverdueHeaderView.swift in Sources */,
 				E50D608A2F7A5A3900D5E0A4 /* TodoUserListViewModel.swift in Sources */,
 				E58C9E1A2F4AF0DC0096B842 /* FocusTimelineEvent.swift in Sources */,
@@ -15200,6 +15317,7 @@
 				E5146C8F302DBC91007A8BCB /* TaskTimePlanRegularRule.swift in Sources */,
 				E56342042F94829900E120BF /* TodoFilterViewModel.swift in Sources */,
 				E57CC5B32F7F621C00ADDBA4 /* TodoTagListInteractor.swift in Sources */,
+				E55B89573077907000ADCED5 /* MindMapLayout.swift in Sources */,
 				E5BB9E772D3BF0C70089667A /* StatsDotChartSectionController.swift in Sources */,
 				E5D7D9042D43933600EC877A /* WatchTickView.swift in Sources */,
 				E5FF4EC22FE95E8500282416 /* TaskNotificationConfig.swift in Sources */,
@@ -15224,6 +15342,7 @@
 				E529ACD12F7E11E4000EA2F1 /* TodoUserTagCell.swift in Sources */,
 				E5BB9E782D3BF0C70089667A /* StatsDotChartCell.swift in Sources */,
 				E50D602F2F7A12B400D5E0A4 /* RepeatDayOfWeek+Extensions.swift in Sources */,
+				E55B89533077907000ADCED5 /* MindMapTextNodeLayer.swift in Sources */,
 				E5F9E3D830219D6000EDC2A5 /* MyDayHabitTaskBindCell.swift in Sources */,
 				E505D9392F9A1DC8004469DC /* TodoHomeSectionType.swift in Sources */,
 				E5BB9DA52D3BF0C60089667A /* TPBaseButton.swift in Sources */,
@@ -15280,6 +15399,7 @@
 				E5D7D8BA2D43933600EC877A /* CountdownProgressInfoView.swift in Sources */,
 				E544106230314E7400E398BE /* TodoStepInputToolbar.swift in Sources */,
 				E51B28EB2FA5BEC3006B3352 /* HabitListPlaceholderProvider.swift in Sources */,
+				E55B895A3077907000ADCED5 /* MindMapNode.swift in Sources */,
 				E5BB9F0A2D3BF0C90089667A /* TPWeakProxy.swift in Sources */,
 				E5BB9EBD2D3BF0C80089667A /* TPTimePickerView.swift in Sources */,
 				E5BB9F042D3BF0C90089667A /* TPDragInsertFlashMonitor.swift in Sources */,

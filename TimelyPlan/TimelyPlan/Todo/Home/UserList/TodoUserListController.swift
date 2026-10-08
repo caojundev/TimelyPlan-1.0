@@ -8,6 +8,13 @@
 import Foundation
 
 class TodoUserListController {
+
+    /// 列表导图预览
+    public func previewMindMap(for list: TodoList? = nil) {
+        let vc = MindMapDemoViewController()
+        vc.modalPresentationStyle = .fullScreen
+        vc.show()
+    }
     
     // MARK: - 编辑
     /// 新建列表

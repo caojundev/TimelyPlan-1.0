@@ -39,6 +39,9 @@ class CountdownDetailViewController: UIViewController {
         static let stepInfoLabelHeight: CGFloat = 16.0
         /// 步骤信息标签与步骤按钮的间距
         static let stepInfoLabelSpacing: CGFloat = 2.0
+        
+        static let noteIndicatorSize: CGSize = CGSize(width: 6.0, height: 6.0)
+        static let noteIndicatorSpacing = 4.0
     }
     
     // MARK: - 交互器
@@ -52,7 +55,8 @@ class CountdownDetailViewController: UIViewController {
     /// 入场动画元素（依次淡入，天数最后出现）
     private var entryAnimationElements: [UIView] {
         return [contentView.titleLabel, contentView.tipLabel, contentView.dateLabel,
-                closeButton, moreButton, stepButton, stepInfoLabel, noteButton, contentView.daysLabel]
+                closeButton, moreButton, stepButton, stepInfoLabel, noteButton,
+                noteIndicatorView, contentView.daysLabel]
     }
     
     private lazy var closeButton: TPImageButton = {
@@ -109,6 +113,16 @@ class CountdownDetailViewController: UIViewController {
         button.normalBackgroundColor = UIColor.white.withAlphaComponent(0.15)
         button.addTarget(self, action: #selector(clickNote(_:)), for: .touchUpInside)
         return button
+    }()
+    
+    /// 备注指示器（位于备注按钮正下方，有备注时显示）
+    private lazy var noteIndicatorView: UIView = {
+        let indicatorView = UIView()
+        indicatorView.backgroundColor = .white
+        indicatorView.layer.cornerRadius = Config.noteIndicatorSize.height / 2.0
+        indicatorView.alpha = 0.8
+        indicatorView.isHidden = true
+        return indicatorView
     }()
     
     private lazy var backgroundView: CountdownBackgroundView = {
@@ -178,6 +192,7 @@ class CountdownDetailViewController: UIViewController {
         view.addSubview(stepButton)
         view.addSubview(stepInfoLabel)
         view.addSubview(noteButton)
+        view.addSubview(noteIndicatorView)
         
         /// 内容：标题 / 提示 / 目标日期 / 天数
         updateContent()
@@ -208,12 +223,14 @@ class CountdownDetailViewController: UIViewController {
         let event = interactor.event
         contentView.apply(event: event)
         backgroundView.mainColor = event.color ?? event.type.color
-        updateStepInfo()
+        updateBottomInfo()
     }
     
-    /// 刷新步骤信息标签（无步骤时不显示）
-    private func updateStepInfo() {
+    /// 刷新底部信息（步骤信息标签 / 备注指示器）
+    private func updateBottomInfo() {
         let event = interactor.event
+        
+        /// 步骤信息标签：无步骤时不显示
         if event.stepCount > 0 {
             stepInfoLabel.text = "\(event.stepCompletedCount)/\(event.stepCount)"
             stepInfoLabel.isHidden = false
@@ -222,7 +239,10 @@ class CountdownDetailViewController: UIViewController {
             stepInfoLabel.isHidden = true
         }
         
-        /// 标签显隐会影响底部按钮位置，需重新布局
+        /// 备注指示器：仅有备注内容时显示
+        noteIndicatorView.isHidden = (event.note?.isEmpty ?? true)
+        
+        /// 显隐会影响底部按钮位置，需重新布局
         view.setNeedsLayout()
     }
     
@@ -247,13 +267,16 @@ class CountdownDetailViewController: UIViewController {
         moreButton.right = safeFrame.maxX - Config.moreButtonMargins.right
         moreButton.top = safeFrame.minY + Config.moreButtonMargins.top
         
-        /// 步骤与备注按钮：底部居中排列（步骤按钮正下方为步骤信息标签）
+        /// 步骤与备注按钮：底部居中排列（步骤按钮正下方为步骤信息标签，备注按钮正下方为备注指示器）
         let buttonSize = Config.bottomButtonSize
         let labelSize = stepInfoLabelSize
         let hasStepInfo = !stepInfoLabel.isHidden && labelSize.width > 0.0
         
-        /// 有步骤信息时，为按钮下方的标签预留空间，按钮组整体上移
-        let labelReservedHeight = hasStepInfo ? (labelSize.height + Config.stepInfoLabelSpacing) : 0.0
+        /// 按钮下方有标签或指示器时预留空间，按钮组整体上移（取两者较大值）
+        let stepInfoReservedHeight = hasStepInfo ? (labelSize.height + Config.stepInfoLabelSpacing) : 0.0
+        let noteIndicatorReservedHeight = noteIndicatorView.isHidden
+            ? 0.0 : (Config.noteIndicatorSize.height + Config.noteIndicatorSpacing)
+        let labelReservedHeight = max(stepInfoReservedHeight, noteIndicatorReservedHeight)
         let buttonsBottom = safeFrame.maxY - Config.bottomButtonMargin - labelReservedHeight
         let buttonsWidth = buttonSize.width * 2.0 + Config.bottomButtonSpacing
         let buttonsLeft = safeFrame.midX - buttonsWidth / 2.0
@@ -270,6 +293,11 @@ class CountdownDetailViewController: UIViewController {
         stepInfoLabel.size = labelSize
         stepInfoLabel.centerX = stepButton.centerX
         stepInfoLabel.top = stepButton.bottom + Config.stepInfoLabelSpacing
+        
+        /// 备注指示器：居中于备注按钮正下方
+        noteIndicatorView.size = Config.noteIndicatorSize
+        noteIndicatorView.centerX = noteButton.centerX
+        noteIndicatorView.top = noteButton.bottom + Config.noteIndicatorSpacing
     }
     
     // MARK: - 动画
