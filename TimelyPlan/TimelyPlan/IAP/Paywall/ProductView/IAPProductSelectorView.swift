@@ -37,10 +37,10 @@ final class IAPProductSelectorView: UIView {
 
     // MARK: 回调
     /// 选中商品变更时回调（index, 商品配置）
-    var onProductSelected: ((Int, IAPProduct) -> Void)?
+    var onProductSelected: ((Int, StoreProduct) -> Void)?
     
     // MARK: 私有
-    private(set) var products: [IAPProduct] = []
+    private(set) var products: [StoreProduct] = []
     private var cardViews: [IAPProductCardView] = []
     private let scrollView = UIScrollView()
     private let contentView = UIView()   // scrollView 的内容容器，卡片和指示器都在里面
@@ -74,7 +74,7 @@ final class IAPProductSelectorView: UIView {
     }
 
     // MARK: 配置入口 —— 传入商品数组自动创建布局
-    func configure(products: [IAPProduct], defaultSelectedIndex: Int = 0) {
+    func configure(products: [StoreProduct], defaultSelectedIndex: Int = 0) {
         guard !products.isEmpty else { return }
 
         self.products = products
@@ -175,7 +175,7 @@ final class IAPProductSelectorView: UIView {
     }
     
     // MARK: 计算推荐高度（取所有卡片中最高的）
-    static func recommendedHeight(for products: [IAPProduct]) -> CGFloat {
+    static func recommendedHeight(for products: [StoreProduct]) -> CGFloat {
         guard !products.isEmpty else { return 0 }
         return products.map { IAPProductCardView.desiredHeight(for: $0) + contentPadding.verticalLength }.max() ?? 0
     }
@@ -186,8 +186,8 @@ final class IAPProductSelectorView: UIView {
 enum IAPTestData {
 
     /// 和设计图一致的 3 个商品
-    static let standardProducts: [IAPProduct] = [
-        IAPProduct(
+    static let standardProducts: [StoreProduct] = [
+        StoreProduct(
             id: "annual.subscription",
             title: "Annual",
             discountText: "23% OFF",
@@ -199,7 +199,7 @@ enum IAPTestData {
             originalPriceText: "Original ¥128/yr",
             priceNote: nil
         ),
-        IAPProduct(
+        StoreProduct(
             id: "monthly.subscription",
             title: "Monthly",
             discountText: nil,
@@ -210,7 +210,7 @@ enum IAPTestData {
             originalPriceText: nil,
             priceNote: "Billed monthly"
         ),
-        IAPProduct(
+        StoreProduct(
             id: "lifetime.purchase",
             title: "Lifetime",
             discountText: "43% OFF",
@@ -224,8 +224,8 @@ enum IAPTestData {
     ]
 
     /// 2 个商品的测试数据
-    static let twoProducts: [IAPProduct] = [
-        IAPProduct(
+    static let twoProducts: [StoreProduct] = [
+        StoreProduct(
             id: "pro.monthly",
             title: "Monthly",
             discountText: nil,
@@ -236,7 +236,7 @@ enum IAPTestData {
             originalPriceText: nil,
             priceNote: "Billed monthly"
         ),
-        IAPProduct(
+        StoreProduct(
             id: "pro.yearly",
             title: "Yearly",
             discountText: "40% OFF",
@@ -251,18 +251,18 @@ enum IAPTestData {
     ]
 
     /// 4 个商品的测试数据
-    static let fourProducts: [IAPProduct] = [
-        IAPProduct(id: "p1", title: "Weekly", discountText: nil,
+    static let fourProducts: [StoreProduct] = [
+        StoreProduct(id: "p1", title: "Weekly", discountText: nil,
                    features: [IAPFeature(icon: .checkmark, text: "Basic access", highlighted: false)],
                    priceText: "¥5/wk", originalPriceText: nil, priceNote: "Billed weekly"),
-        IAPProduct(id: "p2", title: "Monthly", discountText: "10% OFF",
+        StoreProduct(id: "p2", title: "Monthly", discountText: "10% OFF",
                    features: [IAPFeature(icon: .checkmark, text: "All features", highlighted: true)],
                    priceText: "¥18/mo", originalPriceText: "Original ¥20/mo", priceNote: nil),
-        IAPProduct(id: "p3", title: "Quarterly", discountText: "25% OFF",
+        StoreProduct(id: "p3", title: "Quarterly", discountText: "25% OFF",
                    features: [IAPFeature(icon: .checkmark, text: "All features", highlighted: true),
                               IAPFeature(icon: .family, text: "Family sharing", highlighted: false)],
                    priceText: "¥45/3mo", originalPriceText: "Original ¥60/3mo", priceNote: nil),
-        IAPProduct(id: "p4", title: "Lifetime", discountText: "50% OFF",
+        StoreProduct(id: "p4", title: "Lifetime", discountText: "50% OFF",
                    features: [IAPFeature(icon: .none, text: "Pay once, own forever", highlighted: true)],
                    priceText: "¥199", originalPriceText: "Original ¥398", priceNote: nil)
     ]

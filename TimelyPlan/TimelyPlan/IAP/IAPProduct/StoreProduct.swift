@@ -1,5 +1,5 @@
 //
-//  IAPProduct.swift
+//  StoreProduct.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/8/19.
@@ -23,7 +23,7 @@ struct IAPFeature {
 }
 
 /// 内购商品完整配置
-struct IAPProduct {
+struct StoreProduct {
     let id: String
     let title: String               // "Annual" / "Monthly" / "Lifetime"
     let discountText: String?       // "23% OFF", nil 则不显示

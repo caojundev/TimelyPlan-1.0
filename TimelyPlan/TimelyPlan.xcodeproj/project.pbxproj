@@ -397,9 +397,8 @@
 		E51E5F68303340E100ACF30C /* TPLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */; };
 		E51E5F6A3034860700ACF30C /* TodoPDFConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F693034860700ACF30C /* TodoPDFConvertible.swift */; };
 		E51E5F6D303543E600ACF30C /* MembershipBenefitsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F6C303543E600ACF30C /* MembershipBenefitsTableView.swift */; };
-		E51E5F70303561FD00ACF30C /* IAPFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F6F303561FD00ACF30C /* IAPFeature.swift */; };
 		E51E5F723035625F00ACF30C /* IAPProductSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */; };
-		E51E5F743035633700ACF30C /* IAPProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F733035633700ACF30C /* IAPProduct.swift */; };
+		E51E5F743035633700ACF30C /* StoreProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F733035633700ACF30C /* StoreProduct.swift */; };
 		E51E5F76303592F500ACF30C /* IAPPaywallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */; };
 		E51E5F793035952700ACF30C /* IAPDiscountBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F783035952700ACF30C /* IAPDiscountBadge.swift */; };
 		E51E5F7B3035960300ACF30C /* IAPProductCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F7A3035960300ACF30C /* IAPProductCardView.swift */; };
@@ -407,7 +406,7 @@
 		E51E5F803035E42900ACF30C /* IAPContinueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F7F3035E42900ACF30C /* IAPContinueView.swift */; };
 		E51E5F823036BC4500ACF30C /* IAPReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F813036BC4400ACF30C /* IAPReminderView.swift */; };
 		E51E5F853036F0CB00ACF30C /* IAPActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */; };
-		E51E5F89303731F500ACF30C /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F88303731F500ACF30C /* SkeletonView.swift */; };
+		E51E5F89303731F500ACF30C /* TPSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F88303731F500ACF30C /* TPSkeletonView.swift */; };
 		E51E5F8B3037FE3C00ACF30C /* TimelineAllDayFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8A3037FE3C00ACF30C /* TimelineAllDayFooterView.swift */; };
 		E51E5F8E3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8D3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift */; };
 		E51E5F9030384DAF00ACF30C /* TPMenuPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F8F30384DAE00ACF30C /* TPMenuPickerViewController.swift */; };
@@ -1438,7 +1437,6 @@
 		E5B3BABD3014F58300D908B6 /* MyDayHabitRecordProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3BABC3014F58300D908B6 /* MyDayHabitRecordProvider.swift */; };
 		E5B499472FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499462FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift */; };
 		E5B4994C2FD8FD9F00F3A9BD /* TaskNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B4994B2FD8FD9F00F3A9BD /* TaskNotificationManager.swift */; };
-		E5B499512FD9132C00F3A9BD /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499502FD9132C00F3A9BD /* IAPManager.swift */; };
 		E5B499532FDA3DD400F3A9BD /* TodoHomeSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499522FDA3DD400F3A9BD /* TodoHomeSearchView.swift */; };
 		E5B499552FDA5BD100F3A9BD /* BaseSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499542FDA5BD100F3A9BD /* BaseSettingViewController.swift */; };
 		E5B499572FDAA00800F3A9BD /* CalendarMoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B499562FDAA00800F3A9BD /* CalendarMoreViewController.swift */; };
@@ -2869,9 +2867,8 @@
 		E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLoadingIndicator.swift; sourceTree = "<group>"; };
 		E51E5F693034860700ACF30C /* TodoPDFConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPDFConvertible.swift; sourceTree = "<group>"; };
 		E51E5F6C303543E600ACF30C /* MembershipBenefitsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBenefitsTableView.swift; sourceTree = "<group>"; };
-		E51E5F6F303561FD00ACF30C /* IAPFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPFeature.swift; sourceTree = "<group>"; };
 		E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPProductSelectorView.swift; sourceTree = "<group>"; };
-		E51E5F733035633700ACF30C /* IAPProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProduct.swift; sourceTree = "<group>"; };
+		E51E5F733035633700ACF30C /* StoreProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreProduct.swift; sourceTree = "<group>"; };
 		E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPPaywallViewController.swift; sourceTree = "<group>"; };
 		E51E5F783035952700ACF30C /* IAPDiscountBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPDiscountBadge.swift; sourceTree = "<group>"; };
 		E51E5F7A3035960300ACF30C /* IAPProductCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProductCardView.swift; sourceTree = "<group>"; };
@@ -2879,7 +2876,7 @@
 		E51E5F7F3035E42900ACF30C /* IAPContinueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPContinueView.swift; sourceTree = "<group>"; };
 		E51E5F813036BC4400ACF30C /* IAPReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPReminderView.swift; sourceTree = "<group>"; };
 		E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPActionsView.swift; sourceTree = "<group>"; };
-		E51E5F88303731F500ACF30C /* SkeletonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
+		E51E5F88303731F500ACF30C /* TPSkeletonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPSkeletonView.swift; sourceTree = "<group>"; };
 		E51E5F8A3037FE3C00ACF30C /* TimelineAllDayFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineAllDayFooterView.swift; sourceTree = "<group>"; };
 		E51E5F8D3038341F00ACF30C /* TimelineAllDayEventsDisplayOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineAllDayEventsDisplayOption.swift; sourceTree = "<group>"; };
 		E51E5F8F30384DAE00ACF30C /* TPMenuPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPMenuPickerViewController.swift; sourceTree = "<group>"; };
@@ -3912,7 +3909,6 @@
 		E5B3BABC3014F58300D908B6 /* MyDayHabitRecordProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayHabitRecordProvider.swift; sourceTree = "<group>"; };
 		E5B499462FD7AAF200F3A9BD /* TodoTaskEditSectionTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskEditSectionTitleView.swift; sourceTree = "<group>"; };
 		E5B4994B2FD8FD9F00F3A9BD /* TaskNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNotificationManager.swift; sourceTree = "<group>"; };
-		E5B499502FD9132C00F3A9BD /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		E5B499522FDA3DD400F3A9BD /* TodoHomeSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHomeSearchView.swift; sourceTree = "<group>"; };
 		E5B499542FDA5BD100F3A9BD /* BaseSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSettingViewController.swift; sourceTree = "<group>"; };
 		E5B499562FDAA00800F3A9BD /* CalendarMoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMoreViewController.swift; sourceTree = "<group>"; };
@@ -6188,7 +6184,7 @@
 			path = LoadingIndicator;
 			sourceTree = "<group>";
 		};
-		E51E5F6B303543D100ACF30C /* ViewController */ = {
+		E51E5F6B303543D100ACF30C /* Paywall */ = {
 			isa = PBXGroup;
 			children = (
 				E51E5F7C303596A600ACF30C /* IAPConfig.swift */,
@@ -6199,14 +6195,13 @@
 				E51E5F7E3035E2B700ACF30C /* ContinueView */,
 				E51E5F77303594D700ACF30C /* ProductView */,
 			);
-			path = ViewController;
+			path = Paywall;
 			sourceTree = "<group>";
 		};
 		E51E5F6E303561C000ACF30C /* IAPProduct */ = {
 			isa = PBXGroup;
 			children = (
-				E51E5F6F303561FD00ACF30C /* IAPFeature.swift */,
-				E51E5F733035633700ACF30C /* IAPProduct.swift */,
+				E51E5F733035633700ACF30C /* StoreProduct.swift */,
 			);
 			path = IAPProduct;
 			sourceTree = "<group>";
@@ -6224,7 +6219,6 @@
 		E51E5F7E3035E2B700ACF30C /* ContinueView */ = {
 			isa = PBXGroup;
 			children = (
-				E51E5F88303731F500ACF30C /* SkeletonView.swift */,
 				E51E5F7F3035E42900ACF30C /* IAPContinueView.swift */,
 			);
 			path = ContinueView;
@@ -7794,8 +7788,8 @@
 				E5FF4EC52FEB6C7400282416 /* AppSettingUtil.swift */,
 				E55549642F76C10A00C9460D /* AppSettingsViewController.swift */,
 				E5E4070E306FE01500673727 /* AppSideMenuSettingViewController.swift */,
-				E5B499542FDA5BD100F3A9BD /* BaseSettingViewController.swift */,
 				E5A1EC8D307495A700FCE0A3 /* AppProUpgradeBannerView.swift */,
+				E5B499542FDA5BD100F3A9BD /* BaseSettingViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -8059,8 +8053,6 @@
 		E55B893B3077904B00ADCED5 /* MindMap */ = {
 			isa = PBXGroup;
 			children = (
-				E55B895F3077BA6900ADCED5 /* TodoMindMapPreviewer.swift */,
-				E55B89613077BDB800ADCED5 /* TodoMindMapConverter.swift */,
 				E55B89463077906F00ADCED5 /* Layout */,
 				E55B894A3077906F00ADCED5 /* Model */,
 				E55B89403077906F00ADCED5 /* Rendering */,
@@ -8114,6 +8106,8 @@
 		E55B895E3077B9FA00ADCED5 /* MindMap */ = {
 			isa = PBXGroup;
 			children = (
+				E55B895F3077BA6900ADCED5 /* TodoMindMapPreviewer.swift */,
+				E55B89613077BDB800ADCED5 /* TodoMindMapConverter.swift */,
 			);
 			path = MindMap;
 			sourceTree = "<group>";
@@ -8953,6 +8947,14 @@
 			path = BulkMenu;
 			sourceTree = "<group>";
 		};
+		E5892FCD307922D9009BDE81 /* Skeleton */ = {
+			isa = PBXGroup;
+			children = (
+				E51E5F88303731F500ACF30C /* TPSkeletonView.swift */,
+			);
+			path = Skeleton;
+			sourceTree = "<group>";
+		};
 		E58C9E042F4AF0DB0096B842 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
@@ -9370,9 +9372,8 @@
 		E5B4994F2FD9128700F3A9BD /* IAP */ = {
 			isa = PBXGroup;
 			children = (
-				E5B499502FD9132C00F3A9BD /* IAPManager.swift */,
 				E51E5F6E303561C000ACF30C /* IAPProduct */,
-				E51E5F6B303543D100ACF30C /* ViewController */,
+				E51E5F6B303543D100ACF30C /* Paywall */,
 			);
 			path = IAP;
 			sourceTree = "<group>";
@@ -10126,6 +10127,7 @@
 		E5BB9B6A2D3BF0C30089667A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E5892FCD307922D9009BDE81 /* Skeleton */,
 				E51E5F66303340BF00ACF30C /* LoadingIndicator */,
 				E5185053300CA91800112DFC /* DayPageView */,
 				E50FF8A52F789DF500B8F5BE /* PlaceholderProvider */,
@@ -14151,7 +14153,7 @@
 				E549B15C2F87CF820014BE85 /* TodoProgressEditViewController.swift in Sources */,
 				E5FC6BAC2F651CC800D5A5EA /* HabitStatsMainViewController.swift in Sources */,
 				E5371DD12FF0FCE500BA9DEF /* NotificationSound.swift in Sources */,
-				E51E5F89303731F500ACF30C /* SkeletonView.swift in Sources */,
+				E51E5F89303731F500ACF30C /* TPSkeletonView.swift in Sources */,
 				E507E7B52F531A28003004C4 /* HabitUnitManageViewController.swift in Sources */,
 				E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */,
 				E54155612F49A415000B2972 /* FocusRecordListSectionController.swift in Sources */,
@@ -14737,7 +14739,6 @@
 				E549B1552F863E230014BE85 /* TodoListFeature.swift in Sources */,
 				E5BB9F112D3BF0C90089667A /* TPKeyboardAdjuster.swift in Sources */,
 				E5BB9DAF2D3BF0C60089667A /* TPWaveIndicatorView.swift in Sources */,
-				E5B499512FD9132C00F3A9BD /* IAPManager.swift in Sources */,
 				E5BB9E232D3BF0C70089667A /* NSPersistentStoreCoordinator+Setup.swift in Sources */,
 				E549B1602F88D2940014BE85 /* TodoTaskPriorityBarButtonItem.swift in Sources */,
 				E5BB9E892D3BF0C80089667A /* BarElementView.swift in Sources */,
@@ -14852,7 +14853,6 @@
 				E53632A92FAD7E9E0095DFEC /* QuadrantHomeListInteractor.swift in Sources */,
 				E5BB9EAB2D3BF0C80089667A /* TPSegmentedMenuView.swift in Sources */,
 				E5BB9E0E2D3BF0C70089667A /* CALayer+Extensions.swift in Sources */,
-				E51E5F70303561FD00ACF30C /* IAPFeature.swift in Sources */,
 				E5BB9B422D3BEF920089667A /* CGPointExtension.swift in Sources */,
 				E58D750430635A81002C6D1A /* CountdownEvent+Calendar.swift in Sources */,
 				E5291AA53062B6ED00017150 /* CountdownSettingViewController.swift in Sources */,
@@ -14944,7 +14944,7 @@
 				E5320C332FCAC443001DFE98 /* TodoTaskImporterViewController.swift in Sources */,
 				E5BB9D8D2D3BF0C60089667A /* TPNumberFieldTableCell.swift in Sources */,
 				E58C9E132F4AF0DC0096B842 /* FocusTimelineViewController.swift in Sources */,
-				E51E5F743035633700ACF30C /* IAPProduct.swift in Sources */,
+				E51E5F743035633700ACF30C /* StoreProduct.swift in Sources */,
 				E541DC383057D73B008BFAE0 /* CountdownEvent.swift in Sources */,
 				E5BB9DEB2D3BF0C60089667A /* Date+Week.swift in Sources */,
 				E521E3552F6A355E0071DA12 /* HabitReportYearChartView.swift in Sources */,

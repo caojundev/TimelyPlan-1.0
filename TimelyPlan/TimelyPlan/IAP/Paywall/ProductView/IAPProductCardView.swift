@@ -21,7 +21,7 @@ final class IAPProductCardView: UIControl {
     private let priceNoteLabel = UILabel()
 
     // MARK: 数据
-    private(set) var product: IAPProduct?
+    private(set) var product: StoreProduct?
 
     // MARK: 布局常量
     private struct Layout {
@@ -76,7 +76,7 @@ final class IAPProductCardView: UIControl {
     }
 
     // MARK: 配置数据
-    func configure(with product: IAPProduct) {
+    func configure(with product: StoreProduct) {
         self.product = product
 
         titleLabel.text = product.title
@@ -204,7 +204,7 @@ final class IAPProductCardView: UIControl {
     }
 
     // MARK: 计算卡片所需高度
-    static func desiredHeight(for product: IAPProduct) -> CGFloat {
+    static func desiredHeight(for product: StoreProduct) -> CGFloat {
         var height: CGFloat = Layout.padding * 2  // 上下 padding
         height += Layout.titleHeight              // 标题
         height += Layout.titleToFeatures          // 标题到特性

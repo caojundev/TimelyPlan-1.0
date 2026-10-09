@@ -245,7 +245,7 @@ class IAPContinueView: UIView {
 
 private final class IAPContinueButton: TPDefaultButton {
     
-    private let skeleton = SkeletonView(frame: .zero)
+    private let skeleton = TPSkeletonView(frame: .zero)
     
     override func setupContentSubviews() {
         super.setupContentSubviews()

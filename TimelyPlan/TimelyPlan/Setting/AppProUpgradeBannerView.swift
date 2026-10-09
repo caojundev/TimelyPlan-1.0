@@ -11,6 +11,8 @@ import UIKit
 /// 会员升级横幅
 class AppProUpgradeBannerView: UIView {
 
+    private let skeleton = TPSkeletonView(frame: .zero)
+    
     /// 内容视图（圆角与渐变背景作用于此，所有子视图都添加在内容视图上）
     private let contentView = UIView()
     
@@ -81,6 +83,8 @@ class AppProUpgradeBannerView: UIView {
     /// 卡片内部间距
     private let cardPadding: CGFloat = 20.0
 
+    private let cornerRadius = 16.0
+    
     // MARK: - Initialization
     
     override init(frame: CGRect) {
@@ -94,7 +98,7 @@ class AppProUpgradeBannerView: UIView {
     
     private func setupView() {
         /// 圆角作用在内容视图上
-        contentView.layer.cornerRadius = 16.0
+        contentView.layer.cornerRadius = cornerRadius
         contentView.layer.masksToBounds = true
         
         /// 渐变背景配置
@@ -112,6 +116,11 @@ class AppProUpgradeBannerView: UIView {
         contentView.addSubview(badgeContainer)
         badgeContainer.addSubview(badgeLabel)
         contentView.addSubview(subtitleLabel)
+        
+        skeleton.clipsToBounds = true
+        skeleton.layer.cornerRadius = cornerRadius
+        skeleton.alpha = 0.2
+        addSubview(skeleton)
     }
     
     // MARK: - Public Configuration Method
@@ -144,7 +153,9 @@ class AppProUpgradeBannerView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        contentView.frame = bounds.inset(by: contentPadding)
+        let contentFrame = bounds.inset(by: contentPadding)
+        skeleton.frame = contentFrame
+        contentView.frame = contentFrame
         gradientLayer.frame = contentView.bounds
         
         let contentBounds = contentView.bounds

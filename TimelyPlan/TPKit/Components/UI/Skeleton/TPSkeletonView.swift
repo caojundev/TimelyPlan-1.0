@@ -1,5 +1,5 @@
 //
-//  SkeletonView.swift
+//  TPSkeletonView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/23.
@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 
-class SkeletonView: UIView {
-    
+class TPSkeletonView: UIView {
     private let gradientLayer = CAGradientLayer()
     private var isAnimating = false
     
@@ -29,7 +28,7 @@ class SkeletonView: UIView {
         gradientLayer.colors = [
             UIColor.white.withAlphaComponent(0.0).cgColor,
             UIColor.white.withAlphaComponent(0.2).cgColor,
-            UIColor.white.withAlphaComponent(0.6).cgColor,
+            UIColor.white.withAlphaComponent(0.5).cgColor,
             UIColor.white.withAlphaComponent(0.2).cgColor,
             UIColor.white.withAlphaComponent(0.0).cgColor
         ]
@@ -65,7 +64,7 @@ class SkeletonView: UIView {
         let animation = CABasicAnimation(keyPath: "transform.translation.x")
         animation.fromValue = -bounds.width
         animation.toValue = bounds.width
-        animation.duration = 1.8
+        animation.duration = 2.0
         animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
         animation.fillMode = .forwards
@@ -89,7 +88,7 @@ class SkeletonView: UIView {
 class DemoViewController: UIViewController {
     
     private let contentView = UIView() // 假设这是要显示内容的视图
-    private let skeleton = SkeletonView(frame: .zero)
+    private let skeleton = TPSkeletonView(frame: .zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
