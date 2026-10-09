@@ -11,7 +11,7 @@ struct AppConfig {
     
     /// 应用id
     static let appId = "6736433478"
-    
+        
     static var detailLink: String {
         return String(format: AppStoreLinks.appDetailFormat, appId)
     }
@@ -22,6 +22,23 @@ struct AppConfig {
     
     static var subscriptionLink: String {
         return String(format: AppStoreLinks.manageSubscriptions, appId)
+    }
+    
+    // MARK: - 内购
+    /// 内购商品配置
+    struct IAP {
+        
+        /// 订阅分组：月/年同组才会互斥，任一生效即视为开通 `premium`
+        static let group = "premium"
+        
+        /// 月订阅 Product ID
+        static let monthly = "com.caojun.TimelyPlan.monthly"
+        
+        /// 年订阅 Product ID
+        static let yearly = "com.caojun.TimelyPlan.yearly"
+        
+        /// 永久买断 Product ID
+        static let lifetime = "com.caojun.TimelyPlan.lifetime"
     }
 }
 

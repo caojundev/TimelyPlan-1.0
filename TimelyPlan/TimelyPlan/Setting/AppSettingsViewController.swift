@@ -101,8 +101,10 @@ class AppSettingsViewController: BaseSettingViewController,
         cellItem.imageConfig = imageConfig
         cellItem.imageName = "setting_unlockPro_32"
         cellItem.title = resGetString("Unlock Premium")
-        var valueConfig: TPTextAccessoryConfig = .valueText(resGetString("Free Plan"))
-        cellItem.valueConfig = valueConfig
+        /// 显示会员状态（每次展示单元格时刷新）
+        cellItem.updater = { [weak self] in
+            self?.updateUnlockPremiumCellItem()
+        }
         cellItem.didSelectHandler = { [weak self] in
             self?.clickUnlockPremium()
         }
@@ -366,8 +368,37 @@ class AppSettingsViewController: BaseSettingViewController,
     }
     
     @objc private func clickUnlockPremium() {
-        let vc = PaywallViewController()
-        vc.showAsNavigationRoot()
+        /// 弹出内置付费页（IAPUIKit 中的 UIViewController 扩展），
+        /// 商品加载、购买、恢复购买与错误提示都由付费页内部处理
+        presentPaywall { [weak self] _ in
+            /// 购买/恢复流程结束，刷新会员状态（回调不保证在主线程）
+            DispatchQueue.main.async {
+                self?.reloadUnlockPremiumCell()
+            }
+        }
+    }
+    
+    /// 会员状态文案：未开通显示 Free Plan；订阅显示到期日期；买断制显示已开通
+    private func updateUnlockPremiumCellItem() {
+        let entitlement = IAPManager.shared.entitlement
+        let text: String
+        if !entitlement.isActive {
+            text = resGetString("Free Plan")
+        } else if let expiry = entitlement.subscriptionExpiryDate {
+            text = expiry.yearMonthDayString
+        } else {
+            text = "✓"
+        }
+        
+        var valueConfig: TPTextAccessoryConfig = .valueText(text)
+        valueConfig.valueMargins = UIEdgeInsets(right: 16.0)
+        unlockPremiumCellItem.valueConfig = valueConfig
+    }
+    
+    /// 刷新会员单元格
+    private func reloadUnlockPremiumCell() {
+        updateUnlockPremiumCellItem()
+        adapter.reloadCell(forItem: unlockPremiumCellItem, with: .none)
     }
     
     private func restorePurchases() {
