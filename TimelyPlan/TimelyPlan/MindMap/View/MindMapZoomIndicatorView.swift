@@ -1,6 +1,8 @@
 //
 //  MindMapZoomIndicatorView.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  缩放百分比指示器：一个圆角矩形，显示当前缩放比例。
 //

@@ -1,6 +1,8 @@
 //
 //  MindMapNodeLayer.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  节点图层**基类**：把「一种节点类型」封装成一个图层子类。
 //

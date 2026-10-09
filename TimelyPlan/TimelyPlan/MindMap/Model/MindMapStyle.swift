@@ -1,6 +1,8 @@
 //
 //  MindMapStyle.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  样式层：所有可调参数集中于此，改风格不用碰布局或渲染代码。
 //

@@ -1,28 +1,37 @@
 //
 //  MindMapMainViewController.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 
 import Foundation
 import UIKit
 
+/// 思维导图预览：顶部工具栏 + 可拖拽 / 缩放的画布，跟随系统明暗自动换肤。
 public class MindMapMainViewController: UIViewController {
 
     private lazy var canvas = MindMapCanvasView(metrics: .init(), palette: .init())
 
-    /// 可选：主题管理器。默认跟随系统深 / 浅色自动换肤。
+    /// 主题管理器。默认跟随系统深 / 浅色自动换肤。
     /// 想切内置主题：`themes.apply(.paper)`；想强制深色：`themes.appearanceOverride = .dark`。
     private let themes = MindMapThemeManager(theme: .classic)
 
     // MARK: - 内容
 
-    /// 要展示的根节点。默认是示例数据；展示前替换即可渲染自定义导图
+    /// 要展示的根节点。为 nil 时画布为空；赋值即可渲染一张导图
     /// （例如 `TodoMindMapPreviewer` 转换出来的列表导图）。
-    public var rootNode: MindMapNodeType = MindMapSampleData.projectFlow() {
+    public var rootNode: MindMapNodeType? {
         didSet {
-            guard isViewLoaded else { return }
+            guard isViewLoaded, let rootNode = rootNode else { return }
             canvas.setRoot(rootNode)
         }
+    }
+
+    /// 便捷构造：直接指定要展示的根节点。
+    public convenience init(root: MindMapNodeType) {
+        self.init(nibName: nil, bundle: nil)
+        self.rootNode = root
     }
 
     // MARK: - 顶部工具栏
@@ -54,14 +63,12 @@ public class MindMapMainViewController: UIViewController {
 
         setupToolbar()
 
-        canvas.setRoot(rootNode)
-
-        // 可选：监听展开 / 收起
-        canvas.onNodeToggled = { node in
-            print("toggled: \(node.text) expanded=\(node.isExpanded)")
+        // 画布内容：未指定根节点时保持空白。
+        if let rootNode = rootNode {
+            canvas.setRoot(rootNode)
         }
 
-        // 可选：接入主题。管理器只依赖 MindMapThemeHost 协议，画布不需要知道主题的
+        // 接入主题。管理器只依赖 MindMapThemeHost 协议，画布不需要知道主题的
         // 存在；系统深浅色切换时会自动套用对应配色并回调下面的 onChange。
         // 注意先装回调再 attach，这样接入时的首次套用也能收到。
         themes.onChange = { [weak self] palette, appearance in

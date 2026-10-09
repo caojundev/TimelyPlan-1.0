@@ -1,6 +1,8 @@
 //
 //  MindMapNode.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  数据模型层：与 UI / 布局 / 渲染完全解耦，可自由替换为 JSON / 网络数据源。
 //

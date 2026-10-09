@@ -1,6 +1,8 @@
 //
 //  MindMapTodoNodeLayer.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  待办节点图层：文本 + 左侧勾选框，勾选状态、样式与颜色从节点的 `content` 读取。
 //

@@ -1,6 +1,8 @@
 //
 //  MindMapContentLayer.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  渲染层：把布局结果画到一组 CALayer 上。
 //

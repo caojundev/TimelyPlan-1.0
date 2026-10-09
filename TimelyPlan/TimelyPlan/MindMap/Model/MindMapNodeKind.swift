@@ -1,6 +1,8 @@
 //
 //  MindMapNodeKind.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  节点类型层：一个节点「是什么」（文本 / 待办 / 图标 / 自定义），以及每种类型
 //  随节点携带的额外数据（`content`）。

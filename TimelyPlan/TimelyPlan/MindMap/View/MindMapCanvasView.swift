@@ -1,6 +1,8 @@
 //
 //  MindMapCanvasView.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  视图层：可拖动、可缩放的画布。所有尺寸均由手工计算得出，未使用 Auto Layout。
 //

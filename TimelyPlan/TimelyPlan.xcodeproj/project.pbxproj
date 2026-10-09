@@ -1035,7 +1035,6 @@
 		E55B89553077907000ADCED5 /* MindMapTodoNodeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89443077906F00ADCED5 /* MindMapTodoNodeLayer.swift */; };
 		E55B89563077907000ADCED5 /* MindMapIconNodeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89453077906F00ADCED5 /* MindMapIconNodeLayer.swift */; };
 		E55B89573077907000ADCED5 /* MindMapLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89473077906F00ADCED5 /* MindMapLayout.swift */; };
-		E55B89583077907000ADCED5 /* MindMapSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89493077906F00ADCED5 /* MindMapSampleData.swift */; };
 		E55B89593077907000ADCED5 /* MindMapTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894B3077906F00ADCED5 /* MindMapTheme.swift */; };
 		E55B895A3077907000ADCED5 /* MindMapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894C3077906F00ADCED5 /* MindMapNode.swift */; };
 		E55B895B3077907000ADCED5 /* MindMapStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894D3077906F00ADCED5 /* MindMapStyle.swift */; };
@@ -3510,7 +3509,6 @@
 		E55B89443077906F00ADCED5 /* MindMapTodoNodeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapTodoNodeLayer.swift; sourceTree = "<group>"; };
 		E55B89453077906F00ADCED5 /* MindMapIconNodeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapIconNodeLayer.swift; sourceTree = "<group>"; };
 		E55B89473077906F00ADCED5 /* MindMapLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapLayout.swift; sourceTree = "<group>"; };
-		E55B89493077906F00ADCED5 /* MindMapSampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapSampleData.swift; sourceTree = "<group>"; };
 		E55B894B3077906F00ADCED5 /* MindMapTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapTheme.swift; sourceTree = "<group>"; };
 		E55B894C3077906F00ADCED5 /* MindMapNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapNode.swift; sourceTree = "<group>"; };
 		E55B894D3077906F00ADCED5 /* MindMapStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapStyle.swift; sourceTree = "<group>"; };
@@ -8063,7 +8061,6 @@
 			children = (
 				E55B895F3077BA6900ADCED5 /* TodoMindMapPreviewer.swift */,
 				E55B89613077BDB800ADCED5 /* TodoMindMapConverter.swift */,
-				E55B89483077906F00ADCED5 /* Data */,
 				E55B89463077906F00ADCED5 /* Layout */,
 				E55B894A3077906F00ADCED5 /* Model */,
 				E55B89403077906F00ADCED5 /* Rendering */,
@@ -8101,14 +8098,6 @@
 				E55B89473077906F00ADCED5 /* MindMapLayout.swift */,
 			);
 			path = Layout;
-			sourceTree = "<group>";
-		};
-		E55B89483077906F00ADCED5 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				E55B89493077906F00ADCED5 /* MindMapSampleData.swift */,
-			);
-			path = Data;
 			sourceTree = "<group>";
 		};
 		E55B894A3077906F00ADCED5 /* Model */ = {
@@ -14011,7 +14000,6 @@
 				E5B8C4D3306B3D410056CB04 /* CalendarPanelPageView.swift in Sources */,
 				E5DA03B72FA3A3A700A58ACC /* HabitDayPeriodItemViewModel.swift in Sources */,
 				E50BB6832D57557600D316FD /* TPIconAccessoryConfig.swift in Sources */,
-				E55B89583077907000ADCED5 /* MindMapSampleData.swift in Sources */,
 				E555492B2F74D24C00C9460D /* FocusQuickStartViewController.swift in Sources */,
 				E5BB9E8F2D3BF0C80089667A /* PieChartCell.swift in Sources */,
 				E5BB9EAC2D3BF0C80089667A /* TPMenuListViewController.swift in Sources */,

@@ -70,8 +70,7 @@ enum TodoMindMapPreviewer {
     
     /// 预览一个列表导图快照（含其任务与子列表）。
     static func preview(_ list: TodoMindMapList) {
-        let viewController = MindMapMainViewController()
-        viewController.rootNode = TodoMindMapConverter.node(from: list)
+        let viewController = MindMapMainViewController(root: TodoMindMapConverter.node(from: list))
         viewController.modalPresentationStyle = .fullScreen
         viewController.show()
     }

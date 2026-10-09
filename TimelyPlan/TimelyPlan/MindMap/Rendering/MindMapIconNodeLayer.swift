@@ -1,6 +1,8 @@
 //
 //  MindMapIconNodeLayer.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  图标节点图层：文本 + 左侧图标（资源图片或 Emoji）。
 //  图标数据（`TPIcon`）与颜色从节点的 `content` 读取，统一交给 `TPIconView` 渲染；

@@ -1,6 +1,8 @@
 //
 //  MindMapLayout.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  布局层：纯几何计算，不创建视图 / 图层，可独立单元测试。
 //

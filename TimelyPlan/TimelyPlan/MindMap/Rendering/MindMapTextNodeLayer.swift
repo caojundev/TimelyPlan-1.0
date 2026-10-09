@@ -1,6 +1,8 @@
 //
 //  MindMapTextNodeLayer.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  文本节点图层：内容就是一行（或多行）文本。
 //

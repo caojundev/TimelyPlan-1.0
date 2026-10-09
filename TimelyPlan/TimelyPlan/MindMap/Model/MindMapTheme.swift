@@ -1,6 +1,8 @@
 //
 //  MindMapTheme.swift
-//  MindMapKit
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/8.
 //
 //  主题层：主题定义、内置主题、以及跟随系统明暗的主题管理器。
 //
