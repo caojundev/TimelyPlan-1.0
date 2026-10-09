@@ -366,7 +366,7 @@ class AppSettingsViewController: BaseSettingViewController,
     }
     
     @objc private func clickUnlockPremium() {
-        let vc = IAPPaywallViewController()
+        let vc = PaywallViewController()
         vc.showAsNavigationRoot()
     }
     

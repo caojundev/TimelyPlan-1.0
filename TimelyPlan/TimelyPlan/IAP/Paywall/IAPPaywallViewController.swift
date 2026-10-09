@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class IAPPaywallViewController: TPViewController {
+class PaywallViewController: TPViewController {
     
     private let contentView = UIScrollView()
     private let continueView = IAPContinueView()
