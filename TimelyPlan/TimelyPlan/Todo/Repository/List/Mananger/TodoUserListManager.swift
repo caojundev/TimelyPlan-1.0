@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class TodoUserListManager {
     
@@ -79,11 +80,39 @@ class TodoUserListManager {
     }
     
     /// 异步获取列表的导图快照（含未删除的任务与子列表）
-    func fetchMindMapList(for list: TodoList,
+    /// - Parameter list: 目标列表；nil 表示收件箱。
+    func fetchMindMapList(for list: TodoList?,
                           completion: @escaping (TodoMindMapList?) -> Void) {
+        guard let list = list else {
+            fetchInboxMindMapList(completion: completion)
+            return
+        }
+        
         CDTodoList.fetchList(for: list) { cdList in
             completion(cdList?.mindMapList)
         }
+    }
+    
+    // MARK: - 收件箱导图
+    
+    /// 异步获取收件箱的导图快照。收件箱不是 CoreData 列表，其任务直接以 `list == nil` 归属。
+    private func fetchInboxMindMapList(completion: @escaping (TodoMindMapList?) -> Void) {
+        CDTodoTask.fetchSmartListTasks(in: .inbox, showCompleted: true) { results in
+            completion(Self.inboxMindMapList(tasks: (results ?? []).toTasks))
+        }
+    }
+    
+    /// 收件箱导图快照：沿用智能清单（`TodoSmartList.inbox`）的标识 / 名称 / 颜色 / 图标。
+    private static func inboxMindMapList(tasks: [TodoTask]) -> TodoMindMapList {
+        let inbox = TodoSmartList.inbox
+        return TodoMindMapList(identifier: inbox.identifier,
+                               name: inbox.title,
+                               colorHex: inbox.color.hexString,
+                               emoji: nil,
+                               layoutType: .list,
+                               tasks: tasks,
+                               sublists: nil,
+                               iconName: inbox.iconName)
     }
     
     // MARK: - 列表操作

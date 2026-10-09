@@ -30,7 +30,7 @@ class TPCircleOutlineProgressView: UIView {
             setProgress(newValue, animated: false)
         }
     }
-
+    
     /// 背景圆环线条宽度
     var backLineWidth: CGFloat = 0.0 {
         didSet {

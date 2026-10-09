@@ -158,7 +158,7 @@ class TodoUserListConfiguration: TodoListConfiguration {
     
     override func allowListOptions() -> [TodoListOption]? {
         return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .edit,
-                .search, .manageSection, .importTask, .print]
+                .search, .manageSection, .importTask, .print, .mindMapPreview]
     }
     
     override func allowGroupTypes() -> [TodoGroupType] {

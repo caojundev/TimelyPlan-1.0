@@ -493,8 +493,19 @@ class TodoDetailContentViewController: UIViewController, TodoDetailContent {
             importTask()
         case .print:
             printList()
+        case .mindMapPreview:
+            previewMindMap()
         default:
             break
+        }
+    }
+    
+    func previewMindMap() {
+        let configuration = interactor.configuration
+        if let configuration = configuration as? TodoUserListConfiguration {
+            TodoMindMapPreviewer.preview(configuration.list)
+        } else if configuration is TodoInboxListConfiguration {
+            TodoMindMapPreviewer.preview(nil)
         }
     }
     

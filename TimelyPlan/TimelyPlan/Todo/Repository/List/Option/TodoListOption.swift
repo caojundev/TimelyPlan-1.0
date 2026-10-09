@@ -20,6 +20,7 @@ enum TodoListOption: String, TPMenuRepresentable {
     case manageSection /// 管理分区
     case search     /// 搜索
     case importTask /// 导入任务
+    case mindMapPreview /// 导图预览
     case print      /// 打印
     
     /// 图标名称
@@ -33,6 +34,8 @@ enum TodoListOption: String, TPMenuRepresentable {
             return "shred_24"
         case .emptyTrash:
             return "trash_empty_24"
+        case .mindMapPreview:
+            return "mindMap_24"
         default:
             return "todo_list_option_" + rawValue + "_24"
         }
@@ -65,6 +68,8 @@ enum TodoListOption: String, TPMenuRepresentable {
             return resGetString("Import Task")
         case .search:
             return resGetString("Search")
+        case .mindMapPreview:
+            return resGetString("Mind Map Preview")
         case .print:
             return resGetString("Print List")
         }

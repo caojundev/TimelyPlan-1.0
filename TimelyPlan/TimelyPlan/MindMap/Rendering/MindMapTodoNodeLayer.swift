@@ -2,7 +2,7 @@
 //  MindMapTodoNodeLayer.swift
 //  MindMapKit
 //
-//  待办节点图层：文本 + 左侧勾选框，勾选状态与样式从节点的 `content` 读取。
+//  待办节点图层：文本 + 左侧勾选框，勾选状态、样式与颜色从节点的 `content` 读取。
 //
 //  尺寸计算（重写）与文本摆放（继承）都基于同一个 `leadingTextInset`，
 //  因此「左侧让出的空间」在测量和绘制两处必然一致。
@@ -90,8 +90,10 @@ open class MindMapTodoNodeLayer: MindMapTextNodeLayer {
         let side = min(Self.checkboxSize, bounds.height)
         let insets = metrics.contentInsets(isRoot: node.isRoot)
         let origin = CGPoint(x: insets.left, y: (bounds.height - side) / 2)
+        // 勾选框颜色：优先取载荷里的 tint（如任务优先级色），否则跟随分支色。
+        let color = content?.tint ?? node.color
 
-        draw(isDone: isDone, style: style, side: side, origin: origin, color: node.color)
+        draw(isDone: isDone, style: style, side: side, origin: origin, color: color)
     }
 
     open override func contentColor(_ node: MindMapNodeLayout, default color: UIColor) -> UIColor {

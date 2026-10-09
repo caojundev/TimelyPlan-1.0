@@ -18,6 +18,12 @@
 
 import UIKit
 
+// MARK: - 连接线 / 边框颜色
+
+/// 连接线与边框颜色：浅色模式用深灰、深色模式用浅灰，比纯黑 / 纯白柔和一些。
+private let kMindMapLineColorLight = gray(0.25)
+private let kMindMapLineColorDark = gray(0.85)
+
 // MARK: - 主题
 
 /// 一套主题 = 同一设计语言下的浅色 / 深色两份配色。
@@ -54,7 +60,7 @@ public extension MindMapTheme {
     /// 内置主题清单，可直接喂给设置界面。
     static let builtIn: [MindMapTheme] = [.classic, .paper, .mono]
 
-    /// 经典：中性深灰 / 浅白底，饱和的五色分支。
+    /// 经典：中性深灰 / 浅白底，连接线与边框用柔和的灰。
     static let classic = MindMapTheme(
         id: "classic",
         name: "经典",
@@ -62,20 +68,16 @@ public extension MindMapTheme {
             background: gray(0.98),
             text: gray(0.13),
             rootText: gray(0.10),
-            rootBorder: gray(0.62),
-            branchColors: [rgb(0.13, 0.55, 0.27), rgb(0.78, 0.15, 0.20),
-                           rgb(0.11, 0.42, 0.87), rgb(0.85, 0.50, 0.08),
-                           rgb(0.48, 0.35, 0.82)]),
+            rootBorder: kMindMapLineColorLight,
+            branchColors: [kMindMapLineColorLight]),
         dark: MindMapPalette(
-            background: gray(0.17),
+            background: gray(0.1),
             text: .white,
             rootText: .white,
-            rootBorder: gray(0.55),
-            branchColors: [rgb(0.23, 0.69, 0.35), rgb(0.90, 0.22, 0.27),
-                           rgb(0.18, 0.50, 0.98), rgb(0.95, 0.61, 0.22),
-                           rgb(0.61, 0.50, 0.91)]))
+            rootBorder: kMindMapLineColorDark,
+            branchColors: [kMindMapLineColorDark]))
 
-    /// 纸感：米色纸面 / 暖墨底，低饱和的暖色分支。
+    /// 纸感：米色纸面 / 暖墨底，连接线与边框用柔和的灰。
     static let paper = MindMapTheme(
         id: "paper",
         name: "纸感",
@@ -83,20 +85,16 @@ public extension MindMapTheme {
             background: rgb(0.965, 0.949, 0.914),
             text: rgb(0.20, 0.18, 0.15),
             rootText: rgb(0.16, 0.14, 0.12),
-            rootBorder: rgb(0.65, 0.61, 0.55),
-            branchColors: [rgb(0.72, 0.28, 0.20), rgb(0.45, 0.50, 0.20),
-                           rgb(0.16, 0.48, 0.48), rgb(0.80, 0.58, 0.16),
-                           rgb(0.52, 0.32, 0.48)]),
+            rootBorder: kMindMapLineColorLight,
+            branchColors: [kMindMapLineColorLight]),
         dark: MindMapPalette(
             background: rgb(0.145, 0.137, 0.125),
             text: rgb(0.92, 0.90, 0.86),
             rootText: rgb(0.95, 0.93, 0.89),
-            rootBorder: rgb(0.55, 0.52, 0.47),
-            branchColors: [rgb(0.87, 0.45, 0.36), rgb(0.66, 0.72, 0.38),
-                           rgb(0.35, 0.72, 0.70), rgb(0.93, 0.74, 0.34),
-                           rgb(0.74, 0.55, 0.72)]))
+            rootBorder: kMindMapLineColorDark,
+            branchColors: [kMindMapLineColorDark]))
 
-    /// 单色：纯白 / 纯黑，分支只用灰阶区分。
+    /// 单色：纯白 / 纯黑，连接线与边框用柔和的灰。
     static let mono = MindMapTheme(
         id: "mono",
         name: "单色",
@@ -104,16 +102,14 @@ public extension MindMapTheme {
             background: .white,
             text: gray(0.11),
             rootText: gray(0.08),
-            rootBorder: gray(0.70),
-            branchColors: [gray(0.20), gray(0.42), gray(0.62),
-                           gray(0.32), gray(0.52)]),
+            rootBorder: kMindMapLineColorLight,
+            branchColors: [kMindMapLineColorLight]),
         dark: MindMapPalette(
             background: gray(0.07),
             text: gray(0.95),
             rootText: gray(0.97),
-            rootBorder: gray(0.45),
-            branchColors: [gray(0.88), gray(0.68), gray(0.50),
-                           gray(0.78), gray(0.60)]))
+            rootBorder: kMindMapLineColorDark,
+            branchColors: [kMindMapLineColorDark]))
 }
 
 // MARK: - 宿主

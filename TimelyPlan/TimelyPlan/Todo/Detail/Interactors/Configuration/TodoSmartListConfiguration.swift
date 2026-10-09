@@ -75,7 +75,7 @@ class TodoSmartListConfiguration: TodoListConfiguration {
         case .myDay:
             return [.select, .showCompleted, .showDetail, .group, .sort, .search]
         case .inbox:
-            return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .search, .manageSection, .importTask, .print]
+            return [.select, .showCompleted, .showDetail, .layout, .group, .sort, .search, .manageSection, .importTask, .print, .mindMapPreview]
         case .completed:
             return [.select, .group, .sort, .search]
         case .overdue, .today, .tomorrow, .upcoming:

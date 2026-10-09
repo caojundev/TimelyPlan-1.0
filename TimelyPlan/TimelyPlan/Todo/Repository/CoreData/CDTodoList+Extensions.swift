@@ -408,7 +408,8 @@ extension CDTodoList {
                                emoji: emoji,
                                layoutType: TodoListLayoutType(rawValue: Int(layoutRawValue)) ?? .list,
                                tasks: orderedActiveTasks,
-                               sublists: orderedCoreDataSublists()?.map { $0.mindMapList })
+                               sublists: orderedCoreDataSublists()?.map { $0.mindMapList },
+                               iconName: nil)
     }
     
     /// 未删除的任务，按排序因子升序；没有任务时为 nil。

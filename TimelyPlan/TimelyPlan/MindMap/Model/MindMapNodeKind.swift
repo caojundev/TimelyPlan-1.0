@@ -36,6 +36,8 @@ public struct MindMapNodeKind: Hashable, RawRepresentable, ExpressibleByStringLi
     public static let todo = MindMapNodeKind("todo")
     /// 图标节点：文本左侧一个图标，随节点携带 `TPIcon` 与颜色。
     public static let icon = MindMapNodeKind("icon")
+    /// 进度节点：文本左侧一个圆形进度环，随节点携带进度与颜色。
+    public static let progress = MindMapNodeKind("progress")
 }
 
 // MARK: - 载荷
@@ -60,7 +62,7 @@ public enum MindMapTodoCheckboxStyle {
     case circle
 }
 
-/// 待办节点的载荷：是否完成 + 勾选框样式。
+/// 待办节点的载荷：是否完成 + 勾选框样式 + 勾选框颜色。
 public final class MindMapTodoContent: MindMapNodeContent {
 
     public var kind: MindMapNodeKind { .todo }
@@ -70,10 +72,15 @@ public final class MindMapTodoContent: MindMapNodeContent {
     /// 勾选框样式，默认圆角矩形。
     public var style: MindMapTodoCheckboxStyle
 
+    /// 勾选框颜色；nil 时跟随节点所属分支色。
+    public var tint: UIColor?
+
     public init(isDone: Bool = false,
-                style: MindMapTodoCheckboxStyle = .roundedRect) {
+                style: MindMapTodoCheckboxStyle = .roundedRect,
+                tint: UIColor? = nil) {
         self.isDone = isDone
         self.style = style
+        self.tint = tint
     }
 }
 
@@ -103,5 +110,26 @@ public final class MindMapIconContent: MindMapNodeContent {
     /// 便捷构造：Emoji / 文本。
     public convenience init(text: String, tint: UIColor? = nil) {
         self.init(icon: TPIcon(text: text), tint: tint)
+    }
+}
+
+/// 进度节点的载荷：进度值 + 进度环颜色。
+///
+/// 由 `MindMapProgressNodeLayer` 交给 `TPCircleOutlineProgressView` 渲染。
+///
+/// `tint` 为 nil 表示跟随节点当前的分支色 —— 换主题时进度环不会「格格不入」。
+public final class MindMapProgressContent: MindMapNodeContent {
+
+    public var kind: MindMapNodeKind { .progress }
+
+    /// 进度，范围 0～1（超出会被夹取）。
+    public var progress: CGFloat
+
+    /// 进度环颜色；nil 时跟随节点所属分支色。
+    public var tint: UIColor?
+
+    public init(progress: CGFloat, tint: UIColor? = nil) {
+        self.progress = min(max(progress, 0), 1)
+        self.tint = tint
     }
 }

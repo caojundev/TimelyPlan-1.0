@@ -32,10 +32,17 @@ struct TodoMindMapList: TPHexColorConvertible {
     /// 子列表
     let sublists: [TodoMindMapList]?
     
+    /// 指定图标名称；为 nil 时按 emoji / 布局类型推导（收件箱等智能清单用）。
+    let iconName: String?
+    
     /// 列表图标
     var icon: TPIcon? {
         if let emoji = emoji {
             return TPIcon(text: emoji)
+        }
+        
+        if let iconName = iconName {
+            return TPIcon(name: iconName)
         }
         
         return TPIcon(name: layoutType.miniIconName)
@@ -47,7 +54,8 @@ struct TodoMindMapList: TPHexColorConvertible {
 enum TodoMindMapPreviewer {
     
     /// 预览一个列表：从仓库异步取导图快照（加载期间显示加载指示器），取到后弹出导图。
-    static func preview(_ list: TodoList) {
+    /// - Parameter list: 目标列表；nil 表示收件箱。
+    static func preview(_ list: TodoList?) {
         TPLoadingIndicator.showLoading(resGetString("Loading......"))
         TodoRepository.fetchMindMapList(for: list) { mindMapList in
             TPLoadingIndicator.hideLoading()

@@ -175,8 +175,8 @@ open class MindMapNodeLayer: CALayer {
 
         case .box:
             // 线框：把内容块框起来，连线接在左右两条边的中点。
-            // 根节点用主色描边，比下层更粗、圆角更大；不随 nodeStyle 变化。
-            decorationLayer.strokeColor = node.isRoot ? UIColor.primary.cgColor
+            // 根节点用主题的 rootBorder 描边，比下层更粗、圆角更大；不随 nodeStyle 变化。
+            decorationLayer.strokeColor = node.isRoot ? palette.rootBorder.cgColor
                                                       : node.color.cgColor
             let borderWidth: CGFloat = node.isRoot ? Self.rootBorderWidth
                                                    : metrics.edgeLineWidth(isRoot: false)
@@ -197,8 +197,8 @@ open class MindMapNodeLayer: CALayer {
             return
         }
         markerLayer.isHidden = false
-        // 根节点的 +/- 指示器与线框同色（主色），其余跟随所属分支色。
-        markerLayer.strokeColor = (node.isRoot ? UIColor.primary : node.color).cgColor
+        // 根节点的 +/- 指示器与线框同色（主题 rootBorder），其余跟随所属分支色。
+        markerLayer.strokeColor = (node.isRoot ? palette.rootBorder : node.color).cgColor
 
         let size = metrics.collapseMarkerSize
         // 标记位于节点内容块右边缘的**外侧**，纵向与连线对齐；用距填充把节点引出的
@@ -222,13 +222,14 @@ open class MindMapNodeLayer: CALayer {
 
     // MARK: 类型 → 图层子类
 
-    /// 类型 → 图层子类。内置三种；用 `register(_:)` 追加自定义类型。
+    /// 类型 → 图层子类。内置四种；用 `register(_:)` 追加自定义类型。
     ///
     /// 全局可变注册表，约定在主线程读写（与图层操作同一线程）。
     private static var registry: [MindMapNodeKind: MindMapNodeLayer.Type] = [
         .text: MindMapTextNodeLayer.self,
         .todo: MindMapTodoNodeLayer.self,
-        .icon: MindMapIconNodeLayer.self
+        .icon: MindMapIconNodeLayer.self,
+        .progress: MindMapProgressNodeLayer.self
     ]
 
     /// 注册（或替换）一种节点类型对应的图层子类。
