@@ -89,15 +89,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     // MARK: - 内购初始化
-    
-    /// 配置商品并启动内购模块。商品 ID 与订阅分组统一维护在 `AppConfig.IAP`。
-    /// - `configure` 默认 `autoStart: true`：立即开始监听 `Transaction.updates` 并刷新一次权益，
-    ///   断网冷启动时会先用本地缓存点亮 UI（缓存仅兜底，不作为验权依据）
     private func setupIAP() {
         let config = IAPConfiguration(products: [
-            .monthly (AppConfig.IAP.monthly,  group: AppConfig.IAP.group, order: 0),
-            .yearly  (AppConfig.IAP.yearly,   group: AppConfig.IAP.group, order: 1),
-            .lifetime(AppConfig.IAP.lifetime,                             order: 0)
+            .monthly(AppConfig.IAP.monthly, group: AppConfig.IAP.group, order: 0),
+            .yearly(AppConfig.IAP.yearly, group: AppConfig.IAP.group, order: 1),
+            .lifetime(AppConfig.IAP.lifetime, order: 2)
         ])
         
         IAPManager.shared.configure(config)

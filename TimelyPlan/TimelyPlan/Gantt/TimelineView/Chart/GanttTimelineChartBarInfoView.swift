@@ -102,8 +102,8 @@ class GanttTimelineChartBarInfoView: UIView {
         set {
             guard let titleColor = newValue else { return }
             titleLabel.normalTextColor = titleColor
-            /// 已完成（删除线）时使用同样的颜色，仅降低不透明度
-            titleLabel.strikethroughTextColor = titleColor.withAlphaComponent(0.6)
+            titleLabel.strikethroughTextColor = titleColor.withAlphaComponent(0.5)
+            titleLabel.strikethroughColor = titleColor.withAlphaComponent(0.6)
         }
     }
     

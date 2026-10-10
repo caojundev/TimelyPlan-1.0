@@ -1,29 +1,7 @@
 import Foundation
 import StoreKit
-import Combine   // ObservableObject / @Published（SwiftUI 会自动桥接，UIKit 下也能用）
+import Combine
 
-/// 内购管理模块的主入口（门面 / Facade）。
-///
-/// ## 接入方式
-/// ```swift
-/// // 1) 配置产品 ID（唯一必填步骤）
-/// let config = IAPConfiguration(products: [
-///     .monthly("com.app.premium.month"),
-///     .yearly ("com.app.premium.year"),
-///     .lifetime("com.app.premium.lifetime")
-/// ])
-///
-/// // 2) 创建并启动
-/// let iap = IAPManager(configuration: config)
-/// iap.start()
-///
-/// // 3) 使用
-/// await iap.loadProducts()
-/// let result = await iap.purchase("com.app.premium.year")
-/// if iap.entitlement.isActive { /* 解锁 */ }
-/// ```
-///
-/// 标记 `@MainActor`：`@Published` 状态只在主线程变更，SwiftUI 绑定天然安全。
 @MainActor
 public final class IAPManager: ObservableObject {
 
@@ -52,7 +30,8 @@ public final class IAPManager: ObservableObject {
 
     // MARK: - 内部
 
-    private nonisolated let observer: TransactionObserver
+    /// `Transaction.updates` 监听器。回调在 `start()` 中配置（见该方法注释）
+    private nonisolated let observer = TransactionObserver()
     private nonisolated let storage: IAPStorage
 
     private var config: IAPConfiguration?
@@ -127,11 +106,6 @@ public final class IAPManager: ObservableObject {
     public init(configuration: IAPConfiguration, storage: IAPStorage = IAPStorage()) {
         self.config = configuration
         self.storage = storage
-        // 注意：不能在 init 里让回调闭包捕获 self（即使只捕获 weak self 也可能被并发检查拦下）。
-        // 这里改为捕获一个先于 self 存在的转发器，初始化完成后再把 self 装进去。
-        let relay = ManagerRelay()
-        self.observer = Self.makeObserver(relay: relay)
-        relay.manager = self
         // 先用缓存点亮 UI，随后 start() 会用线上权威值覆盖
         if enableCache { self.entitlement = storage.load() }
     }
@@ -139,25 +113,6 @@ public final class IAPManager: ObservableObject {
     /// 单例用空初始化
     private init() {
         self.storage = IAPStorage()
-        let relay = ManagerRelay()
-        self.observer = Self.makeObserver(relay: relay)
-        relay.manager = self
-    }
-
-    /// 构造交易监听器。抽成静态方法给两个 init 复用，
-    /// 同时保证闭包只捕获 `relay`，不接触尚未初始化完成的 `self`。
-    private static func makeObserver(relay: ManagerRelay) -> TransactionObserver {
-        TransactionObserver(
-            onTransaction: { _ in
-                // 交易回调来自后台线程，交给转发器回主 actor 刷新权益
-                Task { await relay.refreshEntitlement() }
-            },
-            onUnverified: { message in
-                #if DEBUG
-                print("[IAPManager] 未验签交易：\(message)")
-                #endif
-            }
-        )
     }
 
     deinit { observer.stop() }
@@ -167,9 +122,26 @@ public final class IAPManager: ObservableObject {
     /// 启动模块：开启交易监听并刷新一次权益。
     /// 建议在 App 启动时调用（或依赖 `configure(autoStart: true)`）。
     public func start() {
-        guard !started, config != nil else { return }
+        guard !started, let config = config else { return }
         started = true
-        if config?.autoStartObserving == true { observer.start() }
+
+        if config.autoStartObserving {
+            // 回调在这里（而非 init）接线：init 里创建的逃逸闭包若捕获 self，
+            // 会触发 “self used before being initialized”
+            observer.configure(
+                onTransaction: { [weak self] _ in
+                    guard let self = self else { return }
+                    Task { await self.refreshEntitlement() }
+                },
+                onUnverified: { message in
+                    #if DEBUG
+                    print("[IAPManager] 未验签交易：\(message)")
+                    #endif
+                }
+            )
+            observer.start()
+        }
+
         Task { await refreshEntitlement() }
     }
 
@@ -290,26 +262,5 @@ public final class IAPManager: ObservableObject {
         } catch {
             return .failed(error.localizedDescription)
         }
-    }
-}
-
-// MARK: - 内部辅助
-
-/// `IAPManager` 与交易回调之间的弱引用转发器。
-///
-/// 存在的唯一理由：`TransactionObserver` 的回调是逃逸闭包，而它是在 `IAPManager.init`
-/// 里接线的。若闭包直接引用 `self`，会触发 “self used before being initialized”
-/// （`observer` 此刻还没赋值）；只捕获 `weak self` 又会在跨隔离域时触发
-/// “reference to captured var 'self'”。因此把弱引用装进这个先于 `self` 诞生的盒子里，
-/// 等 init 结束后再赋值，两个问题都不复存在。
-@MainActor
-private final class ManagerRelay {
-
-    /// 由 `IAPManager.init` 在自身初始化完成后写入
-    weak var manager: IAPManager?
-
-    /// 供后台事务回调调用：回主 actor 刷新权益
-    func refreshEntitlement() {
-        Task { await manager?.refreshEntitlement() }
     }
 }
