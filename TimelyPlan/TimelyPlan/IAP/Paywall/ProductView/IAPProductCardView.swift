@@ -10,173 +10,168 @@
 import Foundation
 import UIKit
 
-final class IAPProductCardView: UIControl {
+final class IAPProductCardView: TPBaseButton {
 
     // MARK: 子视图
-    private let titleLabel = UILabel()
-    private let discountBadge = IAPDiscountBadge()
-    /// 一行特性文案
-    private let featureLabel = UILabel()
+    private let productTitleLabel = UILabel()
+    private let productSubtitleLabel = UILabel()
     private let priceLabel = UILabel()
-    private let originalPriceLabel = UILabel()
-    private let priceNoteLabel = UILabel()
+    private let discountBadge = IAPDiscountBadge()
 
     // MARK: 数据
     private(set) var product: IAPPaywallProduct?
 
     // MARK: 布局常量
     private struct Layout {
-        static let padding: CGFloat = 12.0
+        /// 卡片固定高度
+        static let height: CGFloat = 70.0
+        static let padding = UIEdgeInsets(horizontal: 16.0, vertical: 8.0)
+        static let cornerRadius: CGFloat = 16.0
+
         static let titleHeight: CGFloat = 24.0
-        static let titleToFeatures: CGFloat = 4.0
-        static let featureRowHeight: CGFloat = 32.0
-        static let featuresToPrice: CGFloat = 4.0
-        static let priceHeight: CGFloat = 24.0
-        static let secondLineHeight: CGFloat = 20
-        static let priceLineSpacing: CGFloat = 4
-        static let cornerRadius: CGFloat = 16
+        static let titleToSubtitle: CGFloat = 2.0
+        static let subtitleHeight: CGFloat = 18.0
+
+        static let priceHeight: CGFloat = 28.0
+        /// 左右内容之间的最小间距
+        static let contentGap: CGFloat = 10.0
+        /// 折扣标签与标题之间的间距
+        static let badgeGap: CGFloat = 6.0
+
         static let borderWidth: CGFloat = 1.2
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-    }
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    // MARK: - 搭建
 
-    private func setupUI() {
-        backgroundColor = IAPColor.cardBackground
-        layer.borderColor = IAPColor.cardBorder.cgColor
-        layer.borderWidth = Layout.borderWidth
-        layer.cornerRadius = Layout.cornerRadius
+    override func setupContentSubviews() {
+        super.setupContentSubviews()
 
-        titleLabel.font = .systemFont(ofSize: 18.0, weight: .bold)
-        titleLabel.textColor = IAPColor.titleWhite
-        titleLabel.isUserInteractionEnabled = false
-        addSubview(titleLabel)
+        // 卡片外观：背景 / 圆角 / 边框交给 TPBaseButton 的背景层统一绘制
+        cornerRadius = Layout.cornerRadius
+        borderWidth = Layout.borderWidth
+        normalBackgroundColor = IAPColor.cardBackground
+        normalBorderColor = IAPColor.cardBorder
+        selectedBackgroundColor = IAPColor.cardBackground
+        selectedBorderColor = IAPColor.indicatorBlue
+        preferredTappedScale = 0.97
 
-        discountBadge.isUserInteractionEnabled = false
-        addSubview(discountBadge)
+        // 标题
+        productTitleLabel.font = .systemFont(ofSize: 14.0, weight: .bold)
+        productTitleLabel.textColor = IAPColor.titleWhite
+        productTitleLabel.lineBreakMode = .byTruncatingTail
+        productTitleLabel.isUserInteractionEnabled = false
+        contentView.addSubview(productTitleLabel)
 
-        featureLabel.font = .systemFont(ofSize: 13, weight: .medium)
-        featureLabel.numberOfLines = 2
-        featureLabel.isUserInteractionEnabled = false
-        addSubview(featureLabel)
+        // 副标题（商品描述）
+        productSubtitleLabel.font = .systemFont(ofSize: 12.0, weight: .medium)
+        productSubtitleLabel.textColor = IAPColor.subtitleGray
+        productSubtitleLabel.numberOfLines = 1
+        productSubtitleLabel.lineBreakMode = .byTruncatingTail
+        productSubtitleLabel.isUserInteractionEnabled = false
+        contentView.addSubview(productSubtitleLabel)
 
-        priceLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
+        // 价格（最右侧）
+        priceLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
         priceLabel.textColor = IAPColor.indicatorBlue
+        priceLabel.textAlignment = .right
         priceLabel.isUserInteractionEnabled = false
-        addSubview(priceLabel)
+        contentView.addSubview(priceLabel)
 
-        originalPriceLabel.font = .systemFont(ofSize: 13, weight: .medium)
-        originalPriceLabel.isUserInteractionEnabled = false
-        addSubview(originalPriceLabel)
-
-        priceNoteLabel.font = .systemFont(ofSize: 13, weight: .medium)
-        priceNoteLabel.isUserInteractionEnabled = false
-        priceNoteLabel.textColor = IAPColor.subtitleGray
-        addSubview(priceNoteLabel)
+        // 折扣标签（右上角）
+        discountBadge.isUserInteractionEnabled = false
+        contentView.addSubview(discountBadge)
     }
 
-    // MARK: 配置数据
-    func configure(with product: IAPPaywallProduct) {
-        self.product = product
+    // MARK: - 选中样式
 
-        titleLabel.text = product.title
-        discountBadge.text = product.discountText
-        priceLabel.text = product.priceText
-
-        // 原价带删除线
-        if let orig = product.originalPriceText {
-            let attr = NSAttributedString(
-                string: orig,
-                attributes: [
-                    .strikethroughStyle: NSUnderlineStyle.single.rawValue,
-                    .strikethroughColor: IAPColor.subtitleGray,
-                    .foregroundColor: IAPColor.subtitleGray
-                ]
-            )
-            originalPriceLabel.attributedText = attr
-            originalPriceLabel.isHidden = false
-        } else {
-            originalPriceLabel.attributedText = nil
-            originalPriceLabel.isHidden = true
-        }
-
-        priceNoteLabel.text = product.priceNote
-        priceNoteLabel.isHidden = product.priceNote == nil
-
-        // 配置特性文案
-        let feature = product.feature
-        featureLabel.text = feature.text
-        featureLabel.textColor = feature.highlighted ? IAPColor.indicatorBlue : IAPColor.subtitleGray
-
+    /// 设置选中外观：仅改变边框宽度与颜色，不影响内部布局
+    /// - Parameters:
+    ///   - selected: 是否选中
+    ///   - borderWidth: 选中时的边框宽度（比普通态更宽）
+    ///   - borderColor: 选中时的边框颜色（高亮）
+    func setSelectedAppearance(_ selected: Bool,
+                               borderWidth: CGFloat,
+                               borderColor: UIColor) {
+        isSelected = selected
+        self.borderWidth = selected ? borderWidth : Layout.borderWidth
+        selectedBorderColor = borderColor
         setNeedsLayout()
     }
 
-    // MARK: 手动布局
+    // MARK: - 配置数据
+
+    func configure(with product: IAPPaywallProduct) {
+        self.product = product
+
+        productTitleLabel.text = product.title
+        productSubtitleLabel.text = product.subtitle
+        priceLabel.text = product.priceText
+        discountBadge.text = product.discountText
+        setNeedsLayout()
+    }
+
+    // MARK: - 手动布局
+
     override func layoutSubviews() {
         super.layoutSubviews()
+
+        let layoutFrame = bounds.inset(by: Layout.padding)
         
-        let contentWidth = bounds.width - Layout.padding * 2
+        // —— 最右侧：价格 ——
+        let priceSize = priceLabel.sizeThatFits(
+            CGSize(width: layoutFrame.width, height: .greatestFiniteMagnitude)
+        )
+        let priceWidth = min(ceil(priceSize.width), layoutFrame.width * 0.5)
+        priceLabel.frame = CGRect(x: layoutFrame.maxX - priceWidth,
+                                  y: layoutFrame.minY + (layoutFrame.height - Layout.priceHeight) / 2.0,
+                                  width: priceWidth,
+                                  height: Layout.priceHeight)
 
-        // —— 顶部：标题 + 折扣标签 ——
-        titleLabel.frame = CGRect(x: Layout.padding, y: Layout.padding, width: contentWidth, height: Layout.titleHeight)
+        // 左侧内容可用宽度（避开价格）
+        let leftMaxWidth = max(0, priceLabel.frame.minX - layoutFrame.minX - Layout.contentGap)
 
-        if !discountBadge.isHidden {
-            let badgeSize = discountBadge.fittingSize
-            let badgeX = bounds.width - Layout.padding - badgeSize.width
-            let badgeY = Layout.padding + (Layout.titleHeight - badgeSize.height) / 2
-            discountBadge.frame = CGRect(origin: CGPoint(x: badgeX, y: badgeY), size: badgeSize)
+        // —— 折扣标签尺寸 ——
+        let badgeSize = discountBadge.isHidden ? CGSize.zero : discountBadge.fittingSize
+
+        // —— 标题：按文本实际宽度布局，并为折扣标签预留空间 ——
+        let badgeOccupied = badgeSize.width > 0 ? badgeSize.width + Layout.badgeGap : 0
+        let titleMaxWidth = max(0, leftMaxWidth - badgeOccupied)
+        let titleSize = productTitleLabel.sizeThatFits(
+            CGSize(width: titleMaxWidth, height: .greatestFiniteMagnitude)
+        )
+        let titleWidth = min(ceil(titleSize.width), titleMaxWidth)
+
+        let textBlockHeight = Layout.titleHeight + Layout.titleToSubtitle + Layout.subtitleHeight
+        let textTop = layoutFrame.minY + (layoutFrame.height - textBlockHeight) / 2
+
+        productTitleLabel.frame = CGRect(x: layoutFrame.minX,
+                                         y: textTop,
+                                         width: titleWidth,
+                                         height: Layout.titleHeight)
+
+        // —— 折扣标签：紧随标题之后，与标题垂直中心对齐 ——
+        if badgeSize.width > 0 {
+            discountBadge.frame = CGRect(x: productTitleLabel.frame.maxX + Layout.badgeGap,
+                                         y: productTitleLabel.frame.midY - badgeSize.height / 2,
+                                         width: badgeSize.width,
+                                         height: badgeSize.height)
         }
 
-        // —— 中部：特性文案（一行） ——
-        let featureY = Layout.padding + Layout.titleHeight + Layout.titleToFeatures
-        featureLabel.frame = CGRect(x: Layout.padding, y: featureY,
-                                    width: contentWidth, height: Layout.featureRowHeight)
-
-        // —— 价格区（从顶部固定偏移，保证不因第二行有无而改变价格标签位置） ——
-        let priceAreaY = Layout.padding
-            + Layout.titleHeight
-            + Layout.titleToFeatures
-            + Layout.featureRowHeight
-            + Layout.featuresToPrice
-
-        priceLabel.frame = CGRect(x: Layout.padding, y: priceAreaY, width: contentWidth, height: Layout.priceHeight)
-
-        let secondY = priceAreaY + Layout.priceHeight + Layout.priceLineSpacing
-        if !originalPriceLabel.isHidden {
-            originalPriceLabel.frame = CGRect(x: Layout.padding, y: secondY, width: contentWidth, height: Layout.secondLineHeight)
-        }
-        if !priceNoteLabel.isHidden {
-            priceNoteLabel.frame = CGRect(x: Layout.padding, y: secondY, width: contentWidth, height: Layout.secondLineHeight)
-        }
+        // —— 副标题（描述） ——
+        productSubtitleLabel.frame = CGRect(x: layoutFrame.minX,
+                                            y: productTitleLabel.frame.maxY + Layout.titleToSubtitle,
+                                            width: leftMaxWidth,
+                                            height: Layout.subtitleHeight)
     }
 
-    // MARK: 点击缩放动画
-    override var isHighlighted: Bool {
-        didSet {
-            UIView.animate(withDuration: 0.12, delay: 0,
-                           options: [.allowUserInteraction, .curveEaseOut]) {
-                self.transform = self.isHighlighted
-                    ? CGAffineTransform(scaleX: 0.96, y: 0.96)
-                    : .identity
-            }
-        }
+    override func contentSizeThatFits(_ size: CGSize) -> CGSize {
+        // 高度固定，宽度由外部给定（选择器直接赋值 frame）
+        let width = size.width.isFinite ? size.width : bounds.width
+        return CGSize(width: width, height: Layout.height)
     }
 
-    // MARK: 计算卡片所需高度
-    /// 所有卡片高度一致（只展示一行特性），`product` 参数保留以便后续按商品差异化
+    // MARK: - 固定高度
     static func desiredHeight(for product: IAPPaywallProduct) -> CGFloat {
-        var height: CGFloat = Layout.padding * 2  // 上下 padding
-        height += Layout.titleHeight              // 标题
-        height += Layout.titleToFeatures          // 标题到特性
-        height += Layout.featureRowHeight         // 一行特性
-        height += Layout.featuresToPrice          // 特性到价格
-        height += Layout.priceHeight              // 价格
-        if product.originalPriceText != nil || product.priceNote != nil {
-            height += Layout.priceLineSpacing + Layout.secondLineHeight  // 第二行
-        }
-        return height
+        return Layout.height
     }
 }

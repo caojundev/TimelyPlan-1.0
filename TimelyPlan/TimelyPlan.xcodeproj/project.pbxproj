@@ -1134,6 +1134,7 @@
 		E55E78032D8ABB09005E3DED /* quadrant_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55E77FD2D8ABB08005E3DED /* quadrant_option_layout_24@2x.png */; };
 		E55E78042D8ABB09005E3DED /* quadrant_option_edit_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55E77FE2D8ABB08005E3DED /* quadrant_option_edit_24@3x.png */; };
 		E55E78052D8ABB09005E3DED /* quadrant_option_showCompleted_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55E77FF2D8ABB09005E3DED /* quadrant_option_showCompleted_24@2x.png */; };
+		E562D3BA307A8A0B0029441C /* TPDotLoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E562D3B9307A8A0B0029441C /* TPDotLoadingIndicatorView.swift */; };
 		E56341FA2F947C2F00E120BF /* TodoFilterSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56341F92F947C2F00E120BF /* TodoFilterSectionController.swift */; };
 		E56341FC2F947C6400E120BF /* TodoFilterHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56341FB2F947C6400E120BF /* TodoFilterHomeCell.swift */; };
 		E56341FF2F9480C100E120BF /* TodoFilterMenuActionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56341FE2F9480C100E120BF /* TodoFilterMenuActionController.swift */; };
@@ -3617,6 +3618,7 @@
 		E55E77FD2D8ABB08005E3DED /* quadrant_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_layout_24@2x.png"; sourceTree = "<group>"; };
 		E55E77FE2D8ABB08005E3DED /* quadrant_option_edit_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_edit_24@3x.png"; sourceTree = "<group>"; };
 		E55E77FF2D8ABB09005E3DED /* quadrant_option_showCompleted_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_option_showCompleted_24@2x.png"; sourceTree = "<group>"; };
+		E562D3B9307A8A0B0029441C /* TPDotLoadingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDotLoadingIndicatorView.swift; sourceTree = "<group>"; };
 		E56341F92F947C2F00E120BF /* TodoFilterSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterSectionController.swift; sourceTree = "<group>"; };
 		E56341FB2F947C6400E120BF /* TodoFilterHomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterHomeCell.swift; sourceTree = "<group>"; };
 		E56341FE2F9480C100E120BF /* TodoFilterMenuActionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoFilterMenuActionController.swift; sourceTree = "<group>"; };
@@ -6234,6 +6236,7 @@
 			isa = PBXGroup;
 			children = (
 				E51E5F7F3035E42900ACF30C /* IAPContinueView.swift */,
+				E562D3B9307A8A0B0029441C /* TPDotLoadingIndicatorView.swift */,
 			);
 			path = ContinueView;
 			sourceTree = "<group>";
@@ -14382,6 +14385,7 @@
 				E5320C452FCC37E8001DFE98 /* CalendarEventGroup.swift in Sources */,
 				E50FF8A72F789E1F00B8F5BE /* TPPlaceholderProvider.swift in Sources */,
 				E507E7B92F5321B2003004C4 /* UICollectionViewLeftAlignedLayout.m in Sources */,
+				E562D3BA307A8A0B0029441C /* TPDotLoadingIndicatorView.swift in Sources */,
 				E53B11402F94D1B300701410 /* TodoFilterSpecificDateRangeSegmentedView.swift in Sources */,
 				E5BB9F472D3BF45F0089667A /* SideMenuViewController.swift in Sources */,
 				E50D60432F7A12B500D5E0A4 /* RepeatSpecificDateTableCell.swift in Sources */,

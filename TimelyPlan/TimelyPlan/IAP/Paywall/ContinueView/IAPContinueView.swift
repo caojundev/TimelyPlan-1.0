@@ -16,9 +16,10 @@ class IAPContinueView: UIView {
                                           bottom: 8.0,
                                           right: 20.0)
         static let transitionHeight = 20.0
-        static let noteLabelTopMargin = 8.0
+        static let noteLabelTopMargin = 4.0
+        static let noteLabelHeight = 40.0
         static let buttonHeight = 50.0
-        static let buttonTopMargin = 12.0
+        static let buttonTopMargin = 8.0
         static let noteLabelMaxLines = 2
     }
     
@@ -47,9 +48,8 @@ class IAPContinueView: UIView {
     /// 提示标签
     let noteLabel: UILabel = {
         let label = UILabel()
-        label.text = "¥16 per month, billed monthly\n Cancel anytime"
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textColor = .darkGray
         label.numberOfLines = Config.noteLabelMaxLines
         label.lineBreakMode = .byWordWrapping
@@ -152,44 +152,15 @@ class IAPContinueView: UIView {
         )
     }
     
-    // MARK: - 计算 noteLabel 高度
-    
-    private func calculateNoteLabelHeight(width: CGFloat) -> CGFloat {
-        guard let text = noteLabel.text, !text.isEmpty else { return 0 }
-        
-        let maxSize = CGSize(
-            width: width,
-            height: CGFloat.greatestFiniteMagnitude
-        )
-        
-        let textRect = (text as NSString).boundingRect(
-            with: maxSize,
-            options: [.usesLineFragmentOrigin, .usesFontLeading],
-            attributes: [.font: noteLabel.font ?? UIFont.systemFont(ofSize: 15)],
-            context: nil
-        )
-        
-        // 计算单行高度
-        let singleLineHeight = noteLabel.font.lineHeight
-        
-        // 限制最大行数
-        let maxHeight = singleLineHeight * CGFloat(Config.noteLabelMaxLines)
-        
-        return min(ceil(textRect.height), maxHeight)
-    }
-    
     // MARK: - sizeThatFits
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         var padding = Config.padding
         padding.bottom = max(padding.bottom, layoutMargins.bottom)
         
-        let availableWidth = size.width - padding.left - padding.right
-        let noteLabelHeight = calculateNoteLabelHeight(width: availableWidth)
-        
         let totalHeight = transitionHeight +
                          Config.noteLabelTopMargin +
-                         noteLabelHeight +
+                         Config.noteLabelHeight +
                          Config.buttonTopMargin +
                          Config.buttonHeight +
                          padding.bottom
@@ -210,13 +181,12 @@ class IAPContinueView: UIView {
         // 更新渐变颜色位置（因为视图高度可能改变）
         updateGradientColors()
         
-        // noteLabel 布局 - 距离顶部为过渡高度
-        let noteLabelHeight = calculateNoteLabelHeight(width: layoutFrame.width)
+        // noteLabel 布局 - 距离顶部为过渡高度（高度固定，continueButton 位置不随行数变化）
         noteLabel.frame = CGRect(
             x: layoutFrame.minX,
             y: transitionHeight + Config.noteLabelTopMargin,
             width: layoutFrame.width,
-            height: noteLabelHeight
+            height: Config.noteLabelHeight
         )
         
         // continueButton 布局
@@ -255,6 +225,11 @@ class IAPContinueView: UIView {
         continueButton.isEnabled = enabled
     }
     
+    /// 设置继续按钮加载态（加载中隐藏骨架与标题，居中显示三点指示器，并且不可点击）
+    func setLoading(_ loading: Bool) {
+        continueButton.isLoading = loading
+    }
+    
     // MARK: - intrinsicContentSize
     
     override var intrinsicContentSize: CGSize {
@@ -267,11 +242,25 @@ class IAPContinueView: UIView {
 private final class IAPContinueButton: TPDefaultButton {
     
     private let skeleton = TPSkeletonView(frame: .zero)
+    /// 加载态指示器（三点依次闪烁）
+    private let dotIndicator = TPDotLoadingIndicatorView()
+    
+    /// 是否处于加载态：隐藏骨架与标题，居中显示圆点指示器，并且不可点击
+    var isLoading: Bool = false {
+        didSet {
+            guard isLoading != oldValue else { return }
+            updateLoadingState()
+        }
+    }
     
     override func setupContentSubviews() {
         super.setupContentSubviews()
         skeleton.clipsToBounds = true
         contentView.addSubview(skeleton)
+        
+        dotIndicator.isHidden = true
+        contentView.addSubview(dotIndicator)
+        
         self.preferredTappedScale = 0.9
         self.scaleMaxLength = 8.0
         self.title = resGetString("Continue")
@@ -281,10 +270,32 @@ private final class IAPContinueButton: TPDefaultButton {
         self.normalBackgroundColor = IAPColor.primary
     }
     
+    private func updateLoadingState() {
+        imageTitleView.isHidden = isLoading
+        skeleton.isHidden = isLoading
+        // 加载中禁止点击（用 isUserInteractionEnabled 而非 isEnabled，避免整体变透明）
+        isUserInteractionEnabled = !isLoading
+        
+        if isLoading {
+            dotIndicator.startAnimating()
+        } else {
+            dotIndicator.stopAnimating()
+        }
+        setNeedsLayout()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         skeleton.frame = contentView.bounds
         skeleton.layer.cornerRadius = contentView.halfHeight
+        
+        // 圆点指示器居中
+        let dotSize = dotIndicator.intrinsicContentSize
+        dotIndicator.frame = CGRect(x: (contentView.bounds.width - dotSize.width) / 2,
+                                    y: (contentView.bounds.height - dotSize.height) / 2,
+                                    width: dotSize.width,
+                                    height: dotSize.height)
     }
     
 }
+

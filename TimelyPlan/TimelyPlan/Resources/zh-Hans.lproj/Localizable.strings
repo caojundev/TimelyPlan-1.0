@@ -1223,3 +1223,14 @@
 "Billed weekly"  = "按周计费";
 "Billed monthly" = "按月计费";
 "Billed yearly"  = "按年计费";
+
+/* 折扣（%d 为节省百分比整数） */
+"Save %d%%" = "节省 %d%%";
+"Best Value" = "最划算";
+
+/* 续费按钮与说明 */
+"Activated" = "已开通";
+"You already own this item" = "你已拥有该商品";
+"One-time Purchase" = "一次性购买";
+"Cancel anytime" = "随时可取消";
+"No subscription" = "无需订阅";

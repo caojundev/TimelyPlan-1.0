@@ -31,7 +31,7 @@ struct AppConfig {
         /// 订阅分组：月/年同组才会互斥，任一生效即视为开通 `premium`
         static let group = "premium"
         
-        /// 月订阅 Product ID
+        /// 月订阅和 Product ID
         static let monthly = "com.caojun.TimelyPlan.monthly"
         
         /// 年订阅 Product ID

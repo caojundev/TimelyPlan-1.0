@@ -43,20 +43,15 @@ class PaywallViewController: TPViewController {
     private let continueView = IAPContinueView()
     
     private let productSelectorView = IAPProductSelectorView()
-    /// 商品加载指示器：加载期间占据 productSelectorView 的位置
-    private let productLoadingIndicator = UIActivityIndicatorView(style: .medium)
     
     private let benefitsHeaderLabel = UILabel()
     private let benefitsTableView = IAPMembershipBenefitsTableView()
     private let actionsView = IAPActionsView()
     private let reminderView = IAPReminderView()
     
-    /// 商品加载完成前的占位高度，避免布局在数据未就绪时抖动
-    private static let productAreaPlaceholderHeight: CGFloat = 170.0
-    /// 商品区域高度：有数据时按卡片实际高度，否则使用占位高度
+    /// 商品区域高度（加载态固定 40，加载完成后为全部商品内容高度）
     private var productAreaHeight: CGFloat {
-        let height = IAPProductSelectorView.recommendedHeight(for: products)
-        return height > 0 ? height : Self.productAreaPlaceholderHeight
+        productSelectorView.recommendedHeight()
     }
     
     // MARK: - 生命周期
@@ -80,18 +75,12 @@ class PaywallViewController: TPViewController {
     // MARK: - 商品
     
     private func setupProductSelectorView() {
-        // 商品未就绪前不展示选择器，改由指示器占位
-        productSelectorView.isHidden = true
+        // 选择器内部自带加载态（加载中只显示指示器，高度 40）
         productSelectorView.onProductSelected = { [weak self] _, product in
             self?.selectedProduct = product
             self?.refreshContinueState()
         }
         contentView.addSubview(productSelectorView)
-        
-        productLoadingIndicator.hidesWhenStopped = true
-        productLoadingIndicator.color = IAPColor.subtitleGray
-        contentView.addSubview(productLoadingIndicator)
-        productLoadingIndicator.startAnimating()
     }
     
     private func loadProducts() {
@@ -107,34 +96,41 @@ class PaywallViewController: TPViewController {
     
     private func retryLoadProducts() {
         guard !manager.isLoadingProducts else { return }
-        productSelectorView.isHidden = true
-        productLoadingIndicator.startAnimating()
+        productSelectorView.setLoading(true)
+        relayoutProductArea()
         loadProducts()
     }
     
-    /// 商品就绪：隐藏指示器，展示选择器
+    /// 商品就绪：结束加载态并创建卡片
     private func apply(storeProducts: [IAPStoreProduct]) {
         guard !storeProducts.isEmpty else { return }
         
         products = IAPPaywallProduct.convert(storeProducts)
         selectedProduct = products.first
         
+        // configure 内部会结束加载态并创建卡片
         productSelectorView.configure(products: products, defaultSelectedIndex: 0)
-        // 先在隐藏状态下完成布局，再显示选择器，
-        // 避免卡片/选择器出现时产生从左上角展开的动画观感
-        view.layoutIfNeeded()
-        
-        productLoadingIndicator.stopAnimating()
-        productSelectorView.isHidden = false
+        relayoutProductArea()
         
         refreshContinueState()
     }
     
+    /// 商品区域高度变化后重排整页（下方视图需跟随移动）
+    ///
+    /// 注意：只调用 `layoutIfNeeded()` 不会重跑 `viewWillLayoutSubviews()`——
+    /// 选择器内部 `setNeedsLayout()` 只标记了它自身。这里必须先让 `view`
+    /// 自身进入待布局，整体布局才会重新计算。
+    private func relayoutProductArea() {
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+    }
+    
     private func handleProductsLoadFailure() {
         // 已有商品（缓存）时不打扰用户
-        guard products.isEmpty, productSelectorView.isHidden else { return }
+        guard products.isEmpty else { return }
         
-        productLoadingIndicator.stopAnimating()
+        productSelectorView.setLoading(false)
+        relayoutProductArea()
         let alert = UIAlertController(
             title: "无法加载商品",
             message: "请检查网络连接后重试。",
@@ -167,9 +163,11 @@ class PaywallViewController: TPViewController {
     // MARK: - 继续按钮
     
     private func setupContinueView() {
-        continueView.setEnabled(false)
+        continueView.setLoading(false)
         continueView.onContinueTapped = { [weak self] in
             guard let self = self, let product = self.selectedProduct else { return }
+            // 已拥有该商品时不做处理（按钮标题为「已开通」）
+            guard !self.entitlement.hasAccess(to: product.id) else { return }
             self.purchase(product)
         }
     }
@@ -177,27 +175,39 @@ class PaywallViewController: TPViewController {
     /// 根据选中商品与当前权益刷新底部按钮状态与说明文案
     private func refreshContinueState() {
         guard let product = selectedProduct else {
-            continueView.setEnabled(false)
+            continueView.setLoading(false)
             continueView.setNoteText("")
             return
         }
         
         let owned = entitlement.hasAccess(to: product.id)
-        continueView.setEnabled(!owned && !isProcessing)
-        continueView.setTitle(owned ? "已开通" : resGetString("Continue"))
+        // 购买/恢复进行中显示加载指示器（此状态下按钮不可点击）
+        continueView.setLoading(isProcessing)
+        continueView.setTitle(owned ? resGetString("Activated") : resGetString("Continue"))
         
         if owned {
-            continueView.setNoteText("你已拥有该商品")
+            continueView.setNoteText(resGetString("You already own this item"))
             return
         }
         
+        let isSubscription = product.storeProduct?.isSubscription == true
+        
+        // 价格 + 计费说明："¥98/yr Billed yearly" / "¥168 One-time Purchase"
         var note = product.priceText
-        if let priceNote = product.priceNote {
-            note += " · \(priceNote)"
+        if let storeProduct = product.storeProduct,
+           let priceNote = IAPPaywallProduct.priceNote(for: storeProduct) {
+            note += " • " + priceNote
+            
         }
-        if product.storeProduct?.isSubscription == true {
-            note += "\nCancel anytime"
+        
+        // 订阅换行提示可随时取消，买断提示无需订阅
+        note += "\n"
+        if isSubscription {
+            note += resGetString("Cancel anytime")
+        } else {
+            note += resGetString("No subscription")
         }
+        
         continueView.setNoteText(note)
     }
     
@@ -307,7 +317,7 @@ class PaywallViewController: TPViewController {
     
     private func alert(_ message: String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "好的", style: .default) { _ in completion?() })
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in completion?() })
         present(alert, animated: true)
     }
     
@@ -324,16 +334,14 @@ class PaywallViewController: TPViewController {
         let margin = 16.0
         let layoutWidth = view.width - 2 * margin
         
-        // 商品区域：加载中显示指示器，加载完成显示选择器（两者位置一致）
+        // 商品区域：加载完成后为全部商品内容高度
         let productAreaFrame = CGRect(
             x: margin,
-            y: 20,
+            y: 0.0,
             width: layoutWidth,
             height: productAreaHeight
         )
         productSelectorView.frame = productAreaFrame
-        productLoadingIndicator.center = CGPoint(x: productAreaFrame.midX,
-                                                 y: productAreaFrame.midY)
         
         benefitsHeaderLabel.frame = CGRect(
             x: margin,
