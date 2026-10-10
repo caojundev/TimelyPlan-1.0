@@ -22,6 +22,11 @@ class IAPContinueView: UIView {
         static let noteLabelMaxLines = 2
     }
     
+    // MARK: - 回调
+    
+    /// 继续按钮点击回调
+    var onContinueTapped: (() -> Void)?
+    
     // MARK: - 属性定义
     
     /// 背景颜色（可自定义）
@@ -87,6 +92,11 @@ class IAPContinueView: UIView {
         // 添加子视图
         addSubview(noteLabel)
         addSubview(continueButton)
+        
+        // 点击回调
+        continueButton.didClickHandler = { [weak self] in
+            self?.onContinueTapped?()
+        }
         
         // 初始布局
         updateGradientColors()
@@ -232,6 +242,17 @@ class IAPContinueView: UIView {
         noteLabel.numberOfLines = lines
         setNeedsLayout()
         invalidateIntrinsicContentSize()
+    }
+    
+    /// 设置继续按钮标题
+    func setTitle(_ title: String?) {
+        continueButton.title = title
+        continueButton.setNeedsLayout()
+    }
+    
+    /// 设置继续按钮可用状态
+    func setEnabled(_ enabled: Bool) {
+        continueButton.isEnabled = enabled
     }
     
     // MARK: - intrinsicContentSize

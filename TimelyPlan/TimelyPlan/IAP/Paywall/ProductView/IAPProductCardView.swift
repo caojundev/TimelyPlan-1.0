@@ -27,15 +27,15 @@ final class IAPProductCardView: UIControl {
     // MARK: 布局常量
     private struct Layout {
         static let padding: CGFloat = 12.0
-        static let titleHeight: CGFloat = 28
+        static let titleHeight: CGFloat = 24.0
         static let titleToFeatures: CGFloat = 4.0
-        static let featureRowHeight: CGFloat = 36.0
-        static let featuresToPrice: CGFloat = 8.0
-        static let priceHeight: CGFloat = 28
+        static let featureRowHeight: CGFloat = 32.0
+        static let featuresToPrice: CGFloat = 4.0
+        static let priceHeight: CGFloat = 24.0
         static let secondLineHeight: CGFloat = 20
         static let priceLineSpacing: CGFloat = 4
         static let cornerRadius: CGFloat = 16
-        static let borderWidth: CGFloat = 1
+        static let borderWidth: CGFloat = 1.2
     }
 
     override init(frame: CGRect) {
@@ -50,7 +50,7 @@ final class IAPProductCardView: UIControl {
         layer.borderWidth = Layout.borderWidth
         layer.cornerRadius = Layout.cornerRadius
 
-        titleLabel.font = .systemFont(ofSize: 22, weight: .semibold)
+        titleLabel.font = .systemFont(ofSize: 18.0, weight: .bold)
         titleLabel.textColor = IAPColor.titleWhite
         titleLabel.isUserInteractionEnabled = false
         addSubview(titleLabel)
@@ -63,16 +63,16 @@ final class IAPProductCardView: UIControl {
         featureLabel.isUserInteractionEnabled = false
         addSubview(featureLabel)
 
-        priceLabel.font = .systemFont(ofSize: 24, weight: .bold)
+        priceLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
         priceLabel.textColor = IAPColor.indicatorBlue
         priceLabel.isUserInteractionEnabled = false
         addSubview(priceLabel)
 
-        originalPriceLabel.font = .systemFont(ofSize: 15)
+        originalPriceLabel.font = .systemFont(ofSize: 13, weight: .medium)
         originalPriceLabel.isUserInteractionEnabled = false
         addSubview(originalPriceLabel)
 
-        priceNoteLabel.font = .systemFont(ofSize: 15)
+        priceNoteLabel.font = .systemFont(ofSize: 13, weight: .medium)
         priceNoteLabel.isUserInteractionEnabled = false
         priceNoteLabel.textColor = IAPColor.subtitleGray
         addSubview(priceNoteLabel)
@@ -135,14 +135,12 @@ final class IAPProductCardView: UIControl {
         featureLabel.frame = CGRect(x: Layout.padding, y: featureY,
                                     width: contentWidth, height: Layout.featureRowHeight)
 
-        // —— 底部：价格区（从底往上对齐） ——
-        var priceAreaHeight = Layout.priceHeight
-        let hasSecondLine = !originalPriceLabel.isHidden || !priceNoteLabel.isHidden
-        if hasSecondLine {
-            priceAreaHeight += Layout.priceLineSpacing + Layout.secondLineHeight
-        }
-
-        let priceAreaY = bounds.height - Layout.padding - priceAreaHeight
+        // —— 价格区（从顶部固定偏移，保证不因第二行有无而改变价格标签位置） ——
+        let priceAreaY = Layout.padding
+            + Layout.titleHeight
+            + Layout.titleToFeatures
+            + Layout.featureRowHeight
+            + Layout.featuresToPrice
 
         priceLabel.frame = CGRect(x: Layout.padding, y: priceAreaY, width: contentWidth, height: Layout.priceHeight)
 

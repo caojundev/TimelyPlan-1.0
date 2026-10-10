@@ -180,39 +180,3 @@ final class IAPProductSelectorView: UIView {
         return products.map { IAPProductCardView.desiredHeight(for: $0) + contentPadding.verticalLength }.max() ?? 0
     }
 }
-
-// MARK: - ========== 7. 测试数据 ==========
-
-enum IAPTestData {
-
-    /// 和设计图一致的 3 个商品
-    static let standardProducts: [IAPPaywallProduct] = [
-        IAPPaywallProduct(
-            id: "annual.subscription",
-            title: "Annual",
-            discountText: "23% OFF",
-            feature: IAPFeature(text: "7-Days Free Trial", highlighted: true),
-            priceText: "¥98/yr",
-            originalPriceText: "Original ¥128/yr",
-            priceNote: nil
-        ),
-        IAPPaywallProduct(
-            id: "monthly.subscription",
-            title: "Monthly",
-            discountText: nil,
-            feature: IAPFeature(text: "Support family sharing", highlighted: false),
-            priceText: "¥16/mo",
-            originalPriceText: nil,
-            priceNote: "Billed monthly"
-        ),
-        IAPPaywallProduct(
-            id: "lifetime.purchase",
-            title: "Lifetime",
-            discountText: "43% OFF",
-            feature: IAPFeature(text: "One-time purchase, no subscription", highlighted: false),
-            priceText: "¥168",
-            originalPriceText: "Original ¥298",
-            priceNote: nil
-        )
-    ]
-}
