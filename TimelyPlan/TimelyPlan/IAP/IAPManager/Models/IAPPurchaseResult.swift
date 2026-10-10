@@ -1,3 +1,10 @@
+//
+//  IAPPurchaseResult.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/05.
+//
+
 import Foundation
 
 /// 购买流程的结果。用枚举而非 throw，方便 UI 直接分支处理。

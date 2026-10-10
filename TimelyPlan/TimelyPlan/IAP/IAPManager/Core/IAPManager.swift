@@ -1,3 +1,10 @@
+//
+//  IAPManager.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/05.
+//
+
 import Foundation
 import StoreKit
 import Combine

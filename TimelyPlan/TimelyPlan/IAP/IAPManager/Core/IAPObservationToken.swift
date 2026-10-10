@@ -1,3 +1,10 @@
+//
+//  IAPObservationToken.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/05.
+//
+
 import Foundation
 
 /// 观察者句柄。持有期间订阅有效，`deinit` 时自动取消订阅。

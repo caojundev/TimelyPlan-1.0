@@ -15,27 +15,25 @@ final class IAPProductCardView: UIControl {
     // MARK: 子视图
     private let titleLabel = UILabel()
     private let discountBadge = IAPDiscountBadge()
-    private var featureRows: [FeatureRowView] = []
+    /// 一行特性文案
+    private let featureLabel = UILabel()
     private let priceLabel = UILabel()
     private let originalPriceLabel = UILabel()
     private let priceNoteLabel = UILabel()
 
     // MARK: 数据
-    private(set) var product: StoreProduct?
+    private(set) var product: IAPPaywallProduct?
 
     // MARK: 布局常量
     private struct Layout {
-        static let padding: CGFloat = 16
+        static let padding: CGFloat = 12.0
         static let titleHeight: CGFloat = 28
-        static let titleToFeatures: CGFloat = 14
-        static let featureRowHeight: CGFloat = 22
-        static let featureRowSpacing: CGFloat = 4
-        static let featuresToPrice: CGFloat = 12
+        static let titleToFeatures: CGFloat = 4.0
+        static let featureRowHeight: CGFloat = 36.0
+        static let featuresToPrice: CGFloat = 8.0
         static let priceHeight: CGFloat = 28
         static let secondLineHeight: CGFloat = 20
         static let priceLineSpacing: CGFloat = 4
-        static let iconSize: CGFloat = 18
-        static let iconToText: CGFloat = 6
         static let cornerRadius: CGFloat = 16
         static let borderWidth: CGFloat = 1
     }
@@ -60,6 +58,11 @@ final class IAPProductCardView: UIControl {
         discountBadge.isUserInteractionEnabled = false
         addSubview(discountBadge)
 
+        featureLabel.font = .systemFont(ofSize: 13, weight: .medium)
+        featureLabel.numberOfLines = 2
+        featureLabel.isUserInteractionEnabled = false
+        addSubview(featureLabel)
+
         priceLabel.font = .systemFont(ofSize: 24, weight: .bold)
         priceLabel.textColor = IAPColor.indicatorBlue
         priceLabel.isUserInteractionEnabled = false
@@ -76,7 +79,7 @@ final class IAPProductCardView: UIControl {
     }
 
     // MARK: 配置数据
-    func configure(with product: StoreProduct) {
+    func configure(with product: IAPPaywallProduct) {
         self.product = product
 
         titleLabel.text = product.title
@@ -103,35 +106,10 @@ final class IAPProductCardView: UIControl {
         priceNoteLabel.text = product.priceNote
         priceNoteLabel.isHidden = product.priceNote == nil
 
-        // 重建特性行
-        featureRows.forEach { $0.removeFromSuperview() }
-        featureRows.removeAll()
-
-        for feature in product.features {
-            let row = FeatureRowView()
-            let color = feature.highlighted ? IAPColor.indicatorBlue : IAPColor.subtitleGray
-
-            row.iconView.tintColor = color
-            switch feature.icon {
-            case .checkmark:
-                row.iconView.image = UIImage(systemName: "checkmark")?
-                    .withConfiguration(UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))
-            case .family:
-                row.iconView.image = UIImage(systemName: "person.2")?
-                    .withConfiguration(UIImage.SymbolConfiguration(pointSize: 16, weight: .medium))
-            case .custom(let img):
-                row.iconView.image = img
-            case .none:
-                row.iconView.isHidden = true
-            }
-
-            row.label.text = feature.text
-            row.label.textColor = color
-            row.label.font = .systemFont(ofSize: 15, weight: feature.highlighted ? .medium : .regular)
-
-            addSubview(row)
-            featureRows.append(row)
-        }
+        // 配置特性文案
+        let feature = product.feature
+        featureLabel.text = feature.text
+        featureLabel.textColor = feature.highlighted ? IAPColor.indicatorBlue : IAPColor.subtitleGray
 
         setNeedsLayout()
     }
@@ -152,24 +130,10 @@ final class IAPProductCardView: UIControl {
             discountBadge.frame = CGRect(origin: CGPoint(x: badgeX, y: badgeY), size: badgeSize)
         }
 
-        // —— 中部：特性列表（从上往下） ——
-        var currentY = Layout.padding + Layout.titleHeight + Layout.titleToFeatures
-
-        for row in featureRows {
-            row.frame = CGRect(x: Layout.padding, y: currentY, width: contentWidth, height: Layout.featureRowHeight)
-
-            if !row.iconView.isHidden {
-                row.iconView.frame = CGRect(x: 0, y: (Layout.featureRowHeight - Layout.iconSize) / 2,
-                                            width: Layout.iconSize, height: Layout.iconSize)
-                row.label.frame = CGRect(x: Layout.iconSize + Layout.iconToText, y: 0,
-                                         width: contentWidth - Layout.iconSize - Layout.iconToText,
-                                         height: Layout.featureRowHeight)
-            } else {
-                row.label.frame = CGRect(x: 0, y: 0, width: contentWidth, height: Layout.featureRowHeight)
-            }
-
-            currentY += Layout.featureRowHeight + Layout.featureRowSpacing
-        }
+        // —— 中部：特性文案（一行） ——
+        let featureY = Layout.padding + Layout.titleHeight + Layout.titleToFeatures
+        featureLabel.frame = CGRect(x: Layout.padding, y: featureY,
+                                    width: contentWidth, height: Layout.featureRowHeight)
 
         // —— 底部：价格区（从底往上对齐） ——
         var priceAreaHeight = Layout.priceHeight
@@ -204,13 +168,12 @@ final class IAPProductCardView: UIControl {
     }
 
     // MARK: 计算卡片所需高度
-    static func desiredHeight(for product: StoreProduct) -> CGFloat {
+    /// 所有卡片高度一致（只展示一行特性），`product` 参数保留以便后续按商品差异化
+    static func desiredHeight(for product: IAPPaywallProduct) -> CGFloat {
         var height: CGFloat = Layout.padding * 2  // 上下 padding
         height += Layout.titleHeight              // 标题
         height += Layout.titleToFeatures          // 标题到特性
-        let count = product.features.count
-        height += CGFloat(count) * Layout.featureRowHeight
-        height += CGFloat(max(0, count - 1)) * Layout.featureRowSpacing
+        height += Layout.featureRowHeight         // 一行特性
         height += Layout.featuresToPrice          // 特性到价格
         height += Layout.priceHeight              // 价格
         if product.originalPriceText != nil || product.priceNote != nil {
@@ -218,18 +181,4 @@ final class IAPProductCardView: UIControl {
         }
         return height
     }
-}
-
-private final class FeatureRowView: UIView {
-    let iconView = UIImageView()
-    let label = UILabel()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.isUserInteractionEnabled = false
-        iconView.contentMode = .scaleAspectFit
-        addSubview(iconView)
-        addSubview(label)
-    }
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }

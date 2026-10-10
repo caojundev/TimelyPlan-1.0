@@ -1,3 +1,10 @@
+//
+//  IAPPaywallView.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/05.
+//
+
 import SwiftUI
 
 /// 一键可用的付费墙视图。业务侧可零成本接入，也可参照它自建 UI。

@@ -398,7 +398,7 @@
 		E51E5F6A3034860700ACF30C /* TodoPDFConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F693034860700ACF30C /* TodoPDFConvertible.swift */; };
 		E51E5F6D303543E600ACF30C /* IAPMembershipBenefitsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsTableView.swift */; };
 		E51E5F723035625F00ACF30C /* IAPProductSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */; };
-		E51E5F743035633700ACF30C /* StoreProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F733035633700ACF30C /* StoreProduct.swift */; };
+		E51E5F743035633700ACF30C /* IAPPaywallProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F733035633700ACF30C /* IAPPaywallProduct.swift */; };
 		E51E5F76303592F500ACF30C /* IAPPaywallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */; };
 		E51E5F793035952700ACF30C /* IAPDiscountBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F783035952700ACF30C /* IAPDiscountBadge.swift */; };
 		E51E5F7B3035960300ACF30C /* IAPProductCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F7A3035960300ACF30C /* IAPProductCardView.swift */; };
@@ -2879,7 +2879,7 @@
 		E51E5F693034860700ACF30C /* TodoPDFConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPDFConvertible.swift; sourceTree = "<group>"; };
 		E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPMembershipBenefitsTableView.swift; sourceTree = "<group>"; };
 		E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPProductSelectorView.swift; sourceTree = "<group>"; };
-		E51E5F733035633700ACF30C /* StoreProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreProduct.swift; sourceTree = "<group>"; };
+		E51E5F733035633700ACF30C /* IAPPaywallProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPPaywallProduct.swift; sourceTree = "<group>"; };
 		E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPPaywallViewController.swift; sourceTree = "<group>"; };
 		E51E5F783035952700ACF30C /* IAPDiscountBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPDiscountBadge.swift; sourceTree = "<group>"; };
 		E51E5F7A3035960300ACF30C /* IAPProductCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProductCardView.swift; sourceTree = "<group>"; };
@@ -6209,6 +6209,7 @@
 		E51E5F6B303543D100ACF30C /* Paywall */ = {
 			isa = PBXGroup;
 			children = (
+				E51E5F733035633700ACF30C /* IAPPaywallProduct.swift */,
 				E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */,
 				E51E5F813036BC4400ACF30C /* IAPReminderView.swift */,
 				E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */,
@@ -9437,7 +9438,6 @@
 			isa = PBXGroup;
 			children = (
 				E5892FCE307926E0009BDE81 /* IAPManager */,
-				E51E5F733035633700ACF30C /* StoreProduct.swift */,
 				E51E5F6B303543D100ACF30C /* Paywall */,
 			);
 			path = IAP;
@@ -15013,7 +15013,7 @@
 				E5320C332FCAC443001DFE98 /* TodoTaskImporterViewController.swift in Sources */,
 				E5BB9D8D2D3BF0C60089667A /* TPNumberFieldTableCell.swift in Sources */,
 				E58C9E132F4AF0DC0096B842 /* FocusTimelineViewController.swift in Sources */,
-				E51E5F743035633700ACF30C /* StoreProduct.swift in Sources */,
+				E51E5F743035633700ACF30C /* IAPPaywallProduct.swift in Sources */,
 				E541DC383057D73B008BFAE0 /* CountdownEvent.swift in Sources */,
 				E5BB9DEB2D3BF0C60089667A /* Date+Week.swift in Sources */,
 				E521E3552F6A355E0071DA12 /* HabitReportYearChartView.swift in Sources */,

@@ -37,10 +37,10 @@ final class IAPProductSelectorView: UIView {
 
     // MARK: 回调
     /// 选中商品变更时回调（index, 商品配置）
-    var onProductSelected: ((Int, StoreProduct) -> Void)?
+    var onProductSelected: ((Int, IAPPaywallProduct) -> Void)?
     
     // MARK: 私有
-    private(set) var products: [StoreProduct] = []
+    private(set) var products: [IAPPaywallProduct] = []
     private var cardViews: [IAPProductCardView] = []
     private let scrollView = UIScrollView()
     private let contentView = UIView()   // scrollView 的内容容器，卡片和指示器都在里面
@@ -74,7 +74,7 @@ final class IAPProductSelectorView: UIView {
     }
 
     // MARK: 配置入口 —— 传入商品数组自动创建布局
-    func configure(products: [StoreProduct], defaultSelectedIndex: Int = 0) {
+    func configure(products: [IAPPaywallProduct], defaultSelectedIndex: Int = 0) {
         guard !products.isEmpty else { return }
 
         self.products = products
@@ -175,7 +175,7 @@ final class IAPProductSelectorView: UIView {
     }
     
     // MARK: 计算推荐高度（取所有卡片中最高的）
-    static func recommendedHeight(for products: [StoreProduct]) -> CGFloat {
+    static func recommendedHeight(for products: [IAPPaywallProduct]) -> CGFloat {
         guard !products.isEmpty else { return 0 }
         return products.map { IAPProductCardView.desiredHeight(for: $0) + contentPadding.verticalLength }.max() ?? 0
     }
@@ -186,84 +186,33 @@ final class IAPProductSelectorView: UIView {
 enum IAPTestData {
 
     /// 和设计图一致的 3 个商品
-    static let standardProducts: [StoreProduct] = [
-        StoreProduct(
+    static let standardProducts: [IAPPaywallProduct] = [
+        IAPPaywallProduct(
             id: "annual.subscription",
             title: "Annual",
             discountText: "23% OFF",
-            features: [
-                IAPFeature(icon: .checkmark, text: "7-Days Free Trial", highlighted: true),
-                IAPFeature(icon: .family, text: "Support family sharing", highlighted: false)
-            ],
+            feature: IAPFeature(text: "7-Days Free Trial", highlighted: true),
             priceText: "¥98/yr",
             originalPriceText: "Original ¥128/yr",
             priceNote: nil
         ),
-        StoreProduct(
+        IAPPaywallProduct(
             id: "monthly.subscription",
             title: "Monthly",
             discountText: nil,
-            features: [
-                IAPFeature(icon: .family, text: "Support family sharing", highlighted: false)
-            ],
+            feature: IAPFeature(text: "Support family sharing", highlighted: false),
             priceText: "¥16/mo",
             originalPriceText: nil,
             priceNote: "Billed monthly"
         ),
-        StoreProduct(
+        IAPPaywallProduct(
             id: "lifetime.purchase",
             title: "Lifetime",
             discountText: "43% OFF",
-            features: [
-                IAPFeature(icon: .none, text: "One-time purchase, no subscription", highlighted: false)
-            ],
+            feature: IAPFeature(text: "One-time purchase, no subscription", highlighted: false),
             priceText: "¥168",
             originalPriceText: "Original ¥298",
             priceNote: nil
         )
-    ]
-
-    /// 2 个商品的测试数据
-    static let twoProducts: [StoreProduct] = [
-        StoreProduct(
-            id: "pro.monthly",
-            title: "Monthly",
-            discountText: nil,
-            features: [
-                IAPFeature(icon: .checkmark, text: "All features unlocked", highlighted: true)
-            ],
-            priceText: "¥12/mo",
-            originalPriceText: nil,
-            priceNote: "Billed monthly"
-        ),
-        StoreProduct(
-            id: "pro.yearly",
-            title: "Yearly",
-            discountText: "40% OFF",
-            features: [
-                IAPFeature(icon: .checkmark, text: "All features unlocked", highlighted: true),
-                IAPFeature(icon: .checkmark, text: "3-Days Free Trial", highlighted: true)
-            ],
-            priceText: "¥88/yr",
-            originalPriceText: "Original ¥144/yr",
-            priceNote: nil
-        )
-    ]
-
-    /// 4 个商品的测试数据
-    static let fourProducts: [StoreProduct] = [
-        StoreProduct(id: "p1", title: "Weekly", discountText: nil,
-                   features: [IAPFeature(icon: .checkmark, text: "Basic access", highlighted: false)],
-                   priceText: "¥5/wk", originalPriceText: nil, priceNote: "Billed weekly"),
-        StoreProduct(id: "p2", title: "Monthly", discountText: "10% OFF",
-                   features: [IAPFeature(icon: .checkmark, text: "All features", highlighted: true)],
-                   priceText: "¥18/mo", originalPriceText: "Original ¥20/mo", priceNote: nil),
-        StoreProduct(id: "p3", title: "Quarterly", discountText: "25% OFF",
-                   features: [IAPFeature(icon: .checkmark, text: "All features", highlighted: true),
-                              IAPFeature(icon: .family, text: "Family sharing", highlighted: false)],
-                   priceText: "¥45/3mo", originalPriceText: "Original ¥60/3mo", priceNote: nil),
-        StoreProduct(id: "p4", title: "Lifetime", discountText: "50% OFF",
-                   features: [IAPFeature(icon: .none, text: "Pay once, own forever", highlighted: true)],
-                   priceText: "¥199", originalPriceText: "Original ¥398", priceNote: nil)
     ]
 }

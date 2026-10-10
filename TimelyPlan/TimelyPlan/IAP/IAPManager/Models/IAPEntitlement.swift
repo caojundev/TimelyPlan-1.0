@@ -1,3 +1,10 @@
+//
+//  IAPEntitlement.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/05.
+//
+
 import Foundation
 
 /// 当前用户的会员权益快照。

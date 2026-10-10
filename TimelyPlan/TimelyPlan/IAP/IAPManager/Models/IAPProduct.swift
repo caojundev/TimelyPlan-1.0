@@ -1,3 +1,10 @@
+//
+//  IAPProduct.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/05.
+//
+
 import Foundation
 
 /// 商品类型。决定了权益的有效性判定方式。

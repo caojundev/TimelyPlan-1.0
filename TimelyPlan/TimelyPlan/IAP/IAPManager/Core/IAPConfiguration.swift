@@ -1,3 +1,10 @@
+//
+//  IAPConfiguration.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/05.
+//
+
 import Foundation
 
 /// 模块的全部可调参数。**接入时通常只需要填 `products`。**
