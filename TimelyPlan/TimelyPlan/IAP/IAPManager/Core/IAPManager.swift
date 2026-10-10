@@ -31,7 +31,7 @@ public final class IAPManager: ObservableObject {
     // MARK: - 内部
 
     /// `Transaction.updates` 监听器。回调在 `start()` 中配置（见该方法注释）
-    private nonisolated let observer = TransactionObserver()
+    private nonisolated let observer = IAPTransactionObserver()
     private nonisolated let storage: IAPStorage
 
     private var config: IAPConfiguration?
@@ -213,7 +213,7 @@ public final class IAPManager: ObservableObject {
                 transactions.append(tx)
             }
         }
-        let snapshot = EntitlementBuilder.build(from: transactions, config: config)
+        let snapshot = IAPEntitlementBuilder.build(from: transactions, config: config)
         if enableCache { storage.save(snapshot) }
         self.entitlement = snapshot
         return snapshot

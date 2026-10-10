@@ -1,5 +1,5 @@
 //
-//  MembershipBenefitsTableView.swift
+//  IAPMembershipBenefitsTableView.swift
 //  会员权益对比表格 — UIKit 手动布局实现
 //
 //  Created by caojun on 2026/8/19.
@@ -64,7 +64,7 @@ private enum Metric {
 
 // MARK: - 主表格视图
 
-final class MembershipBenefitsTableView: UIView {
+final class IAPMembershipBenefitsTableView: UIView {
 
     // MARK: 公开属性
 

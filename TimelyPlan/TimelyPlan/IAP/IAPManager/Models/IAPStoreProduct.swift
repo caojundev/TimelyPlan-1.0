@@ -32,7 +32,7 @@ public struct IAPStoreProduct: Identifiable, @unchecked Sendable {
     /// 本地化描述
     public var description: String { product.description }
 
-    /// 是否为订阅（用于 UI 上做"订阅"标记）
+    /// 是否为订阅
     public var isSubscription: Bool { kind == .subscription }
 
     /// 订阅周期文案，如 "每月" / "每年"；买断制返回 nil。

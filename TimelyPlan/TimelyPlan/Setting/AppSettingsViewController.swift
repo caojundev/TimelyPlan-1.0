@@ -25,7 +25,6 @@ class AppSettingsViewController: BaseSettingViewController,
     /// 会员升级横幅
     private lazy var promoCard: AppProUpgradeBannerView = {
         let promoCard = AppProUpgradeBannerView()
-        /// 内容内间距，用于制造卡片四周的空白
         promoCard.contentPadding = UIEdgeInsets(top: 8.0, left: 20.0, bottom: 5.0, right: 20.0)
         promoCard.configure(title: resGetString("Go Premium"),
                             badgeText: resGetString("Limited Time Offer"),
@@ -390,9 +389,7 @@ class AppSettingsViewController: BaseSettingViewController,
             text = "✓"
         }
         
-        var valueConfig: TPTextAccessoryConfig = .valueText(text)
-        valueConfig.valueMargins = UIEdgeInsets(right: 16.0)
-        unlockPremiumCellItem.valueConfig = valueConfig
+        unlockPremiumCellItem.valueConfig = .valueText(text)
     }
     
     /// 刷新会员单元格
@@ -403,6 +400,8 @@ class AppSettingsViewController: BaseSettingViewController,
     
     private func restorePurchases() {
         /// TODO: 对接内购管理器，恢复购买
+        let vc = PaywallViewController()
+        vc.showAsNavigationRoot()
     }
     
     private func clickSideMenu() {

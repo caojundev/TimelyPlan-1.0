@@ -2,8 +2,8 @@ import Foundation
 import StoreKit
 
 /// 把 StoreKit 的 `Transaction` / `currentEntitlements` 结果翻译成业务侧的 `IAPEntitlement`。
-/// 纯函数集合，无状态，便于测试。
-enum EntitlementBuilder {
+/// 纯函数集合，无状态
+enum IAPEntitlementBuilder {
 
     /// 从一批已验签的交易推导权益快照。
     /// - Parameters:

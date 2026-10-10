@@ -78,6 +78,7 @@ class CalendarBaseViewController: TPViewController,
             let addView = TPAddView()
             addView.normalBackgroundColor = .primary
             addView.didClickAdd = { [weak self] _ in
+                TPImpactFeedback.impactWithLightStyle()
                 self?.clickAddTask()
             }
            
@@ -105,8 +106,6 @@ class CalendarBaseViewController: TPViewController,
     
     /// 点击添加
     func clickAddTask() {
-        TPImpactFeedback.impactWithLightStyle()
-        
         // 检查并清理过期的草稿任务
         let date = quickAddTaskDate()
         showQuickAddTask(on: date)

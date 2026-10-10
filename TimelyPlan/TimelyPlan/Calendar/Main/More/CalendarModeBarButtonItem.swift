@@ -51,9 +51,9 @@ class CalendarModeBarButtonItem: UIBarButtonItem {
         let currentMode = mode
         
         let modesLists: [[CalendarMode]] = [
-            [.list],
-            [.day, .week, .month, .quarter, .year],
             [.panel],
+            [.list],
+            [.day, .week, .month, .quarter, .year]
         ]
     
         let menuItems = TPMenuItem.items(with: modesLists) { mode, action in

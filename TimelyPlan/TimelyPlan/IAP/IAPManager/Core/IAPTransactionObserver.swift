@@ -5,7 +5,7 @@ import StoreKit
 ///
 /// 用法：先 `configure(onTransaction:onUnverified:)` 配置回调，再 `start()`。
 /// 回调会在 `start()` 时被拷贝进后台任务，因此配置必须在 `start()` 之前完成。
-final class TransactionObserver: @unchecked Sendable {
+final class IAPTransactionObserver: @unchecked Sendable {
 
     private var task: Task<Void, Never>?
     private let lock = NSLock()

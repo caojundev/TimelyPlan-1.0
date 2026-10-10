@@ -396,13 +396,12 @@
 		E51E5F653033008D00ACF30C /* TodoPDFRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F643033008C00ACF30C /* TodoPDFRenderer.swift */; };
 		E51E5F68303340E100ACF30C /* TPLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */; };
 		E51E5F6A3034860700ACF30C /* TodoPDFConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F693034860700ACF30C /* TodoPDFConvertible.swift */; };
-		E51E5F6D303543E600ACF30C /* MembershipBenefitsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F6C303543E600ACF30C /* MembershipBenefitsTableView.swift */; };
+		E51E5F6D303543E600ACF30C /* IAPMembershipBenefitsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsTableView.swift */; };
 		E51E5F723035625F00ACF30C /* IAPProductSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */; };
 		E51E5F743035633700ACF30C /* StoreProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F733035633700ACF30C /* StoreProduct.swift */; };
 		E51E5F76303592F500ACF30C /* IAPPaywallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */; };
 		E51E5F793035952700ACF30C /* IAPDiscountBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F783035952700ACF30C /* IAPDiscountBadge.swift */; };
 		E51E5F7B3035960300ACF30C /* IAPProductCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F7A3035960300ACF30C /* IAPProductCardView.swift */; };
-		E51E5F7D303596A600ACF30C /* IAPConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F7C303596A600ACF30C /* IAPConfig.swift */; };
 		E51E5F803035E42900ACF30C /* IAPContinueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F7F3035E42900ACF30C /* IAPContinueView.swift */; };
 		E51E5F823036BC4500ACF30C /* IAPReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F813036BC4400ACF30C /* IAPReminderView.swift */; };
 		E51E5F853036F0CB00ACF30C /* IAPActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */; };
@@ -1338,9 +1337,9 @@
 		E5892FDF307926E1009BDE81 /* IAPPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD0307926E0009BDE81 /* IAPPaywallView.swift */; };
 		E5892FE0307926E1009BDE81 /* IAPUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD1307926E0009BDE81 /* IAPUIKit.swift */; };
 		E5892FE1307926E1009BDE81 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD3307926E0009BDE81 /* IAPManager.swift */; };
-		E5892FE2307926E1009BDE81 /* EntitlementBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD4307926E0009BDE81 /* EntitlementBuilder.swift */; };
+		E5892FE2307926E1009BDE81 /* IAPEntitlementBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD4307926E0009BDE81 /* IAPEntitlementBuilder.swift */; };
 		E5892FE3307926E1009BDE81 /* IAPConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD5307926E0009BDE81 /* IAPConfiguration.swift */; };
-		E5892FE4307926E1009BDE81 /* TransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD6307926E0009BDE81 /* TransactionObserver.swift */; };
+		E5892FE4307926E1009BDE81 /* IAPTransactionObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD6307926E0009BDE81 /* IAPTransactionObserver.swift */; };
 		E5892FE5307926E1009BDE81 /* IAPObservationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD7307926E0009BDE81 /* IAPObservationToken.swift */; };
 		E5892FE6307926E1009BDE81 /* IAPEntitlement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD9307926E0009BDE81 /* IAPEntitlement.swift */; };
 		E5892FE7307926E1009BDE81 /* IAPStoreProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FDA307926E0009BDE81 /* IAPStoreProduct.swift */; };
@@ -2878,13 +2877,12 @@
 		E51E5F643033008C00ACF30C /* TodoPDFRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPDFRenderer.swift; sourceTree = "<group>"; };
 		E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLoadingIndicator.swift; sourceTree = "<group>"; };
 		E51E5F693034860700ACF30C /* TodoPDFConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPDFConvertible.swift; sourceTree = "<group>"; };
-		E51E5F6C303543E600ACF30C /* MembershipBenefitsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBenefitsTableView.swift; sourceTree = "<group>"; };
+		E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPMembershipBenefitsTableView.swift; sourceTree = "<group>"; };
 		E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPProductSelectorView.swift; sourceTree = "<group>"; };
 		E51E5F733035633700ACF30C /* StoreProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreProduct.swift; sourceTree = "<group>"; };
 		E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPPaywallViewController.swift; sourceTree = "<group>"; };
 		E51E5F783035952700ACF30C /* IAPDiscountBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPDiscountBadge.swift; sourceTree = "<group>"; };
 		E51E5F7A3035960300ACF30C /* IAPProductCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProductCardView.swift; sourceTree = "<group>"; };
-		E51E5F7C303596A600ACF30C /* IAPConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPConfig.swift; sourceTree = "<group>"; };
 		E51E5F7F3035E42900ACF30C /* IAPContinueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPContinueView.swift; sourceTree = "<group>"; };
 		E51E5F813036BC4400ACF30C /* IAPReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPReminderView.swift; sourceTree = "<group>"; };
 		E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPActionsView.swift; sourceTree = "<group>"; };
@@ -3822,9 +3820,9 @@
 		E5892FD0307926E0009BDE81 /* IAPPaywallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPPaywallView.swift; sourceTree = "<group>"; };
 		E5892FD1307926E0009BDE81 /* IAPUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPUIKit.swift; sourceTree = "<group>"; };
 		E5892FD3307926E0009BDE81 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
-		E5892FD4307926E0009BDE81 /* EntitlementBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntitlementBuilder.swift; sourceTree = "<group>"; };
+		E5892FD4307926E0009BDE81 /* IAPEntitlementBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPEntitlementBuilder.swift; sourceTree = "<group>"; };
 		E5892FD5307926E0009BDE81 /* IAPConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPConfiguration.swift; sourceTree = "<group>"; };
-		E5892FD6307926E0009BDE81 /* TransactionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionObserver.swift; sourceTree = "<group>"; };
+		E5892FD6307926E0009BDE81 /* IAPTransactionObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPTransactionObserver.swift; sourceTree = "<group>"; };
 		E5892FD7307926E0009BDE81 /* IAPObservationToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPObservationToken.swift; sourceTree = "<group>"; };
 		E5892FD9307926E0009BDE81 /* IAPEntitlement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPEntitlement.swift; sourceTree = "<group>"; };
 		E5892FDA307926E0009BDE81 /* IAPStoreProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPStoreProduct.swift; sourceTree = "<group>"; };
@@ -6211,13 +6209,12 @@
 		E51E5F6B303543D100ACF30C /* Paywall */ = {
 			isa = PBXGroup;
 			children = (
-				E51E5F7C303596A600ACF30C /* IAPConfig.swift */,
 				E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */,
 				E51E5F813036BC4400ACF30C /* IAPReminderView.swift */,
 				E51E5F843036F0CB00ACF30C /* IAPActionsView.swift */,
+				E51E5F77303594D700ACF30C /* ProductView */,
 				E51E5F833036BCA400ACF30C /* Membership */,
 				E51E5F7E3035E2B700ACF30C /* ContinueView */,
-				E51E5F77303594D700ACF30C /* ProductView */,
 			);
 			path = Paywall;
 			sourceTree = "<group>";
@@ -6243,7 +6240,7 @@
 		E51E5F833036BCA400ACF30C /* Membership */ = {
 			isa = PBXGroup;
 			children = (
-				E51E5F6C303543E600ACF30C /* MembershipBenefitsTableView.swift */,
+				E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsTableView.swift */,
 			);
 			path = Membership;
 			sourceTree = "<group>";
@@ -8994,10 +8991,10 @@
 		E5892FD2307926E0009BDE81 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				E5892FD3307926E0009BDE81 /* IAPManager.swift */,
-				E5892FD4307926E0009BDE81 /* EntitlementBuilder.swift */,
 				E5892FD5307926E0009BDE81 /* IAPConfiguration.swift */,
-				E5892FD6307926E0009BDE81 /* TransactionObserver.swift */,
+				E5892FD3307926E0009BDE81 /* IAPManager.swift */,
+				E5892FD4307926E0009BDE81 /* IAPEntitlementBuilder.swift */,
+				E5892FD6307926E0009BDE81 /* IAPTransactionObserver.swift */,
 				E5892FD7307926E0009BDE81 /* IAPObservationToken.swift */,
 			);
 			path = Core;
@@ -14102,7 +14099,7 @@
 				E5B499622FDC2ED800F3A9BD /* TodoTask+Calendar.swift in Sources */,
 				E5BB9E9A2D3BF0C80089667A /* ChartAxisView.swift in Sources */,
 				E50D607B2F7A2EE500D5E0A4 /* TodoConstant.swift in Sources */,
-				E5892FE4307926E1009BDE81 /* TransactionObserver.swift in Sources */,
+				E5892FE4307926E1009BDE81 /* IAPTransactionObserver.swift in Sources */,
 				E5BB9E092D3BF0C70089667A /* String+DaysCount.swift in Sources */,
 				E5BB9E032D3BF0C60089667A /* TimeInterval+Extensions.swift in Sources */,
 				E5371DCE2FF018D000BA9DEF /* FocusNotifiableEventProvider.swift in Sources */,
@@ -14496,7 +14493,7 @@
 				E5BB9E5E2D3BF0C70089667A /* TPCalendarScrollableMonthView.swift in Sources */,
 				E501795E2FD6AAF500DC544D /* TodoTaskMoveSearchResultsSectionController.swift in Sources */,
 				E57B2B40304521D600BA4D56 /* GoalPlan.swift in Sources */,
-				E5892FE2307926E1009BDE81 /* EntitlementBuilder.swift in Sources */,
+				E5892FE2307926E1009BDE81 /* IAPEntitlementBuilder.swift in Sources */,
 				E5FC6BAA2F64F19500D5A5EA /* HabitLogTaskInfoTableCell.swift in Sources */,
 				E50D60362F7A12B500D5E0A4 /* RepeatFrequencySectionController.swift in Sources */,
 				E53632A32FAC26E20095DFEC /* QuadrantListConfiguration.swift in Sources */,
@@ -15279,7 +15276,6 @@
 				E5892FE8307926E1009BDE81 /* IAPPurchaseResult.swift in Sources */,
 				E507E7BB2F532DB2003004C4 /* HabitSystemUnitSectionController.swift in Sources */,
 				E507E7992F529369003004C4 /* HabitSettingViewController.swift in Sources */,
-				E51E5F7D303596A600ACF30C /* IAPConfig.swift in Sources */,
 				E5BA9A92305298F30044106F /* GoalTask+GanttEvent.swift in Sources */,
 				E5141F0C2F7CCD6E007A864B /* TodoListSearchResultsViewController.swift in Sources */,
 				E5BB9EB72D3BF0C80089667A /* TPDatePickerTableCell.swift in Sources */,
@@ -15644,7 +15640,7 @@
 				E5087EB430431EA900DCD85C /* GanttTimelineNowIndicatorView.swift in Sources */,
 				E5087EB630431F2000DCD85C /* GanttTimelineGeometry.swift in Sources */,
 				E5087EB8304320A000DCD85C /* GanttTimelineNowLineView.swift in Sources */,
-				E51E5F6D303543E600ACF30C /* MembershipBenefitsTableView.swift in Sources */,
+				E51E5F6D303543E600ACF30C /* IAPMembershipBenefitsTableView.swift in Sources */,
 				E5F9E3E73021DDDB00EDC2A5 /* MyDayFocusTimerBindCell.swift in Sources */,
 				E57CC5F32F7FF13300ADDBA4 /* TodoTaskEditDetailView.swift in Sources */,
 				E5B33D642F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift in Sources */,

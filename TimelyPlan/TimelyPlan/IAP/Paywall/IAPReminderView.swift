@@ -10,8 +10,7 @@ import UIKit
 
 // MARK: - 内购订阅提醒视图（手动布局）
 final class IAPReminderView: UIView {
- 
-    
+
     // MARK: - 回调
     var onTapPrivacy: (() -> Void)?
     var onTapTerms: (() -> Void)?

@@ -17,7 +17,7 @@ class CalendarState {
         }
     }
     
-    @LocalStored(key: SettingKey.mode.name, defaultValue: CalendarMode.day)
+    @LocalStored(key: SettingKey.mode.name, defaultValue: CalendarMode.panel)
     var mode: CalendarMode
     
     static let shared = CalendarState()
