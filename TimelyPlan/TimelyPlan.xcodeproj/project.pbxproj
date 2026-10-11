@@ -396,7 +396,7 @@
 		E51E5F653033008D00ACF30C /* TodoPDFRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F643033008C00ACF30C /* TodoPDFRenderer.swift */; };
 		E51E5F68303340E100ACF30C /* TPLoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */; };
 		E51E5F6A3034860700ACF30C /* TodoPDFConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F693034860700ACF30C /* TodoPDFConvertible.swift */; };
-		E51E5F6D303543E600ACF30C /* IAPMembershipBenefitsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsTableView.swift */; };
+		E51E5F6D303543E600ACF30C /* IAPMembershipBenefitsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsListView.swift */; };
 		E51E5F723035625F00ACF30C /* IAPProductSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */; };
 		E51E5F743035633700ACF30C /* IAPPaywallProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F733035633700ACF30C /* IAPPaywallProduct.swift */; };
 		E51E5F76303592F500ACF30C /* IAPPaywallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */; };
@@ -2006,6 +2006,10 @@
 		E5BBA1212D3BFD150089667A /* RobotoMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA11D2D3BFD120089667A /* RobotoMono-Bold.ttf */; };
 		E5BBA1222D3BFD150089667A /* Akrobat-Extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA11E2D3BFD120089667A /* Akrobat-Extrabold.ttf */; };
 		E5BBA1242D3BFD610089667A /* Themes in Resources */ = {isa = PBXBuildFile; fileRef = E5BBA1232D3BFD610089667A /* Themes */; };
+		E5BEC284307B3E770050E01B /* upgrade_service_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BEC280307B3E770050E01B /* upgrade_service_16@2x.png */; };
+		E5BEC285307B3E770050E01B /* upgrade_service_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BEC281307B3E770050E01B /* upgrade_service_16@3x.png */; };
+		E5BEC286307B3E770050E01B /* upgrade_privacy_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BEC282307B3E770050E01B /* upgrade_privacy_16@3x.png */; };
+		E5BEC287307B3E770050E01B /* upgrade_privacy_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BEC283307B3E770050E01B /* upgrade_privacy_16@2x.png */; };
 		E5C18FB92DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB32DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png */; };
 		E5C18FBA2DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB42DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png */; };
 		E5C18FBB2DB4FE1F008FAA13 /* todo_task_change_new_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB52DB4FE1F008FAA13 /* todo_task_change_new_16@2x.png */; };
@@ -2878,7 +2882,7 @@
 		E51E5F643033008C00ACF30C /* TodoPDFRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPDFRenderer.swift; sourceTree = "<group>"; };
 		E51E5F67303340E100ACF30C /* TPLoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPLoadingIndicator.swift; sourceTree = "<group>"; };
 		E51E5F693034860700ACF30C /* TodoPDFConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPDFConvertible.swift; sourceTree = "<group>"; };
-		E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPMembershipBenefitsTableView.swift; sourceTree = "<group>"; };
+		E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPMembershipBenefitsListView.swift; sourceTree = "<group>"; };
 		E51E5F713035625F00ACF30C /* IAPProductSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPProductSelectorView.swift; sourceTree = "<group>"; };
 		E51E5F733035633700ACF30C /* IAPPaywallProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPPaywallProduct.swift; sourceTree = "<group>"; };
 		E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPPaywallViewController.swift; sourceTree = "<group>"; };
@@ -4505,6 +4509,10 @@
 		E5BBA11D2D3BFD120089667A /* RobotoMono-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Bold.ttf"; sourceTree = "<group>"; };
 		E5BBA11E2D3BFD120089667A /* Akrobat-Extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Akrobat-Extrabold.ttf"; sourceTree = "<group>"; };
 		E5BBA1232D3BFD610089667A /* Themes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Themes; sourceTree = "<group>"; };
+		E5BEC280307B3E770050E01B /* upgrade_service_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upgrade_service_16@2x.png"; sourceTree = "<group>"; };
+		E5BEC281307B3E770050E01B /* upgrade_service_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upgrade_service_16@3x.png"; sourceTree = "<group>"; };
+		E5BEC282307B3E770050E01B /* upgrade_privacy_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upgrade_privacy_16@3x.png"; sourceTree = "<group>"; };
+		E5BEC283307B3E770050E01B /* upgrade_privacy_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upgrade_privacy_16@2x.png"; sourceTree = "<group>"; };
 		E5C18FB32DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_deleted_16@3x.png"; sourceTree = "<group>"; };
 		E5C18FB42DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_deleted_16@2x.png"; sourceTree = "<group>"; };
 		E5C18FB52DB4FE1F008FAA13 /* todo_task_change_new_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_new_16@2x.png"; sourceTree = "<group>"; };
@@ -6244,7 +6252,7 @@
 		E51E5F833036BCA400ACF30C /* Membership */ = {
 			isa = PBXGroup;
 			children = (
-				E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsTableView.swift */,
+				E51E5F6C303543E600ACF30C /* IAPMembershipBenefitsListView.swift */,
 			);
 			path = Membership;
 			sourceTree = "<group>";
@@ -9561,6 +9569,7 @@
 		E5BB99DC2D3BEF0D0089667A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				E5BEC27F307B3E770050E01B /* upgrade */,
 				E55B893630774F0B00ADCED5 /* mindmap */,
 				E511E501305E0A9200292511 /* countdown */,
 				E5FAA9C9304AA0C700C9CCD8 /* goal */,
@@ -11532,6 +11541,17 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		E5BEC27F307B3E770050E01B /* upgrade */ = {
+			isa = PBXGroup;
+			children = (
+				E5BEC280307B3E770050E01B /* upgrade_service_16@2x.png */,
+				E5BEC281307B3E770050E01B /* upgrade_service_16@3x.png */,
+				E5BEC282307B3E770050E01B /* upgrade_privacy_16@3x.png */,
+				E5BEC283307B3E770050E01B /* upgrade_privacy_16@2x.png */,
+			);
+			path = upgrade;
+			sourceTree = "<group>";
+		};
 		E5C18FB22DB4FE1F008FAA13 /* change */ = {
 			isa = PBXGroup;
 			children = (
@@ -13295,6 +13315,7 @@
 				E5259B1E3018732300A6D253 /* myDayEventAdd_habit_24@2x.png in Resources */,
 				E522FE303067B64100C6B581 /* todo_step_24@3x.png in Resources */,
 				E54E63412F5B1BFD00FCBCAE /* habit_menu_completeAll_24@3x.png in Resources */,
+				E5BEC284307B3E770050E01B /* upgrade_service_16@2x.png in Resources */,
 				E55E4C042F9336170068E032 /* calendar_1_24@3x.png in Resources */,
 				E55E4BF62F9336170068E032 /* calendar_27_24@2x.png in Resources */,
 				E5BB9AB62D3BEF0D0089667A /* todo_task_action_done_24@2x.png in Resources */,
@@ -13390,6 +13411,7 @@
 				E55528482FB5F3180093DD7E /* todo_board_80@2x.png in Resources */,
 				E50D02572F55860B00E93977 /* habit_time_evening_24@2x.png in Resources */,
 				E55E4BE32F9336170068E032 /* calendar_17_24@2x.png in Resources */,
+				E5BEC285307B3E770050E01B /* upgrade_service_16@3x.png in Resources */,
 				E55E78052D8ABB09005E3DED /* quadrant_option_showCompleted_24@2x.png in Resources */,
 				E56B947F2F8CDB42001E488B /* todo_sort_type_creationDate_24@3x.png in Resources */,
 				E50DD7CE2D72BE5A00A85E87 /* todo_folder_24@2x.png in Resources */,
@@ -13473,6 +13495,7 @@
 				E54A0695303C2C71001FF4A1 /* ganttTimeScale_month_24@3x.png in Resources */,
 				E563F1DE2FE9184300DF86BB /* setting_share_32@2x.png in Resources */,
 				E54A06B4303DCF19001FF4A1 /* gantt_taskList_toggle_normal_24@3x.png in Resources */,
+				E5BEC287307B3E770050E01B /* upgrade_privacy_16@2x.png in Resources */,
 				E5D7D9862D43E35000EC877A /* focus_timer_stepMode_break_24@2x.png in Resources */,
 				E50D606F2F7A29D100D5E0A4 /* todo_list_parent_24@3x.png in Resources */,
 				E5135097302A0BD1000E9871 /* arrow_uturn_right_36@2x.png in Resources */,
@@ -13724,6 +13747,7 @@
 				E5BBA1142D3BFC520089667A /* Assets.xcassets in Resources */,
 				E5BB9A8E2D3BEF0D0089667A /* todo_smartlist_trash_24@2x.png in Resources */,
 				E5BB9A952D3BEF0D0089667A /* todo_list_layout_board_96@2x.png in Resources */,
+				E5BEC286307B3E770050E01B /* upgrade_privacy_16@3x.png in Resources */,
 				E5BB9A862D3BEF0D0089667A /* schedule_repeatEnd_24@2x.png in Resources */,
 				E55E4BF42F9336170068E032 /* calendar_6_24@2x.png in Resources */,
 				E5BB9ED12D3BF0C80089667A /* Wheat04@3x.png in Resources */,
@@ -15644,7 +15668,7 @@
 				E5087EB430431EA900DCD85C /* GanttTimelineNowIndicatorView.swift in Sources */,
 				E5087EB630431F2000DCD85C /* GanttTimelineGeometry.swift in Sources */,
 				E5087EB8304320A000DCD85C /* GanttTimelineNowLineView.swift in Sources */,
-				E51E5F6D303543E600ACF30C /* IAPMembershipBenefitsTableView.swift in Sources */,
+				E51E5F6D303543E600ACF30C /* IAPMembershipBenefitsListView.swift in Sources */,
 				E5F9E3E73021DDDB00EDC2A5 /* MyDayFocusTimerBindCell.swift in Sources */,
 				E57CC5F32F7FF13300ADDBA4 /* TodoTaskEditDetailView.swift in Sources */,
 				E5B33D642F80E66E00939C3E /* TaskScheduleEditReminderSectionController.swift in Sources */,

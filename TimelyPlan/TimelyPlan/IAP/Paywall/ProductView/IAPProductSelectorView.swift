@@ -137,6 +137,15 @@ final class IAPProductSelectorView: UIView {
         }
     }
 
+    /// 明暗外观变化时刷新卡片
+    ///
+    /// 卡片背景/边框画在 CALayer 上（CGColor 不会自动跟随外观），
+    /// 需要重新走一遍布局按新外观取值。
+    func refreshAppearance() {
+        cardViews.forEach { $0.setNeedsLayout() }
+        updateSelection()
+    }
+
     // MARK: 手动布局
     override func layoutSubviews() {
         super.layoutSubviews()

@@ -9,14 +9,22 @@ import Foundation
 import UIKit
 import StoreKit
 
+/// 付费页配色（全部支持明暗模式）
 enum IAPColor {
-    static let primary = UIColor(red: 0.30, green: 0.55, blue: 0.85, alpha: 1.0)
-    
-    static let cardBackground = UIColor(red: 0.11, green: 0.11, blue: 0.13, alpha: 1)
-    static let cardBorder     = UIColor(red: 0.18, green: 0.18, blue: 0.21, alpha: 1)
-    static let indicatorBlue  = UIColor(red: 0.35, green: 0.60, blue: 0.98, alpha: 1)
-    static let titleWhite     = UIColor(red: 0.92, green: 0.92, blue: 0.94, alpha: 1)
-    static let subtitleGray   = UIColor(red: 0.50, green: 0.50, blue: 0.55, alpha: 1)
+    /// 页面背景
+    static let background = Color(light: 0xF7F8FA, dark: 0x121214)
+    /// 主色：Continue 按钮背景，也是整个页面的高亮色
+    static let primary = Color(light: 0x2F6FDB, dark: 0x4C8CD9)
+    /// 卡片背景
+    static let cardBackground = Color(light: 0xFFFFFF, dark: 0x1C1C21)
+    /// 卡片边框
+    static let cardBorder = Color(light: 0xE5E6EB, dark: 0x2E2E36)
+    /// 强调蓝：价格文案、选中边框
+    static let indicatorBlue = Color(light: 0x2B6FE0, dark: 0x5999FA)
+    /// 主文字
+    static let title = Color(light: 0x1D2129, dark: 0xEBEBF0)
+    /// 次要文字
+    static let subtitleGray = Color(light: 0x86909C, dark: 0x80808C)
 }
 
 class PaywallViewController: TPViewController {
@@ -44,8 +52,8 @@ class PaywallViewController: TPViewController {
     
     private let productSelectorView = IAPProductSelectorView()
     
-    private let benefitsHeaderLabel = UILabel()
-    private let benefitsTableView = IAPMembershipBenefitsTableView()
+    private let benefitsHeaderLabel = TPLabel()
+    private let benefitsTableView = IAPMembershipBenefitsListView()
     private let actionsView = IAPActionsView()
     private let reminderView = IAPReminderView()
     
@@ -59,7 +67,14 @@ class PaywallViewController: TPViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = resGetString("Upgrade to Premium")
+        // 左上角关闭按钮（系统样式）
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close,
+                                                           target: self,
+                                                           action: #selector(didClickCancel))
+        contentView.showsVerticalScrollIndicator = false
         view.addSubview(contentView)
+        // 底部渐变过渡到页面背景色（明暗模式一致）
+        continueView.backgroundColorValue = IAPColor.background
         view.addSubview(continueView)
         
         setupProductSelectorView()
@@ -101,25 +116,46 @@ class PaywallViewController: TPViewController {
         loadProducts()
     }
     
-    /// 商品就绪：结束加载态并创建卡片
+    /// 商品就绪：结束加载态并创建卡片；选择器淡入显示，下方视图动画下移
     private func apply(storeProducts: [IAPStoreProduct]) {
         guard !storeProducts.isEmpty else { return }
         
         products = IAPPaywallProduct.convert(storeProducts)
         selectedProduct = products.first
         
+        let wasLoading = productSelectorView.isLoading
+        
         // configure 内部会结束加载态并创建卡片
         productSelectorView.configure(products: products, defaultSelectedIndex: 0)
-        relayoutProductArea()
+        
+        // 首次展示尚未完成（商品在弹出动画期间就绪），或非首次收到商品回调：
+        // 直接完成布局、不做动画，避免与弹出动画叠加成「内容从 0 展开」
+        guard wasLoading, !isFirstAppearance else {
+            UIView.performWithoutAnimation {
+                self.productSelectorView.alpha = 1
+                self.relayoutProductArea()
+            }
+            refreshContinueState()
+            return
+        }
+        
+        // 先保持透明，并让选择器直接落到最终高度（尺寸不参与动画，避免看起来在「展开」）
+        productSelectorView.alpha = 0
+        productSelectorView.frame.size.height = productSelectorView.recommendedHeight()
+        productSelectorView.layoutIfNeeded()
+        
+        // 选择器淡入，同时下方视图动画移动到新位置
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       options: [.curveEaseOut, .beginFromCurrentState]) {
+            self.productSelectorView.alpha = 1.0
+            self.relayoutProductArea()
+        }
         
         refreshContinueState()
     }
     
     /// 商品区域高度变化后重排整页（下方视图需跟随移动）
-    ///
-    /// 注意：只调用 `layoutIfNeeded()` 不会重跑 `viewWillLayoutSubviews()`——
-    /// 选择器内部 `setNeedsLayout()` 只标记了它自身。这里必须先让 `view`
-    /// 自身进入待布局，整体布局才会重新计算。
     private func relayoutProductArea() {
         view.setNeedsLayout()
         view.layoutIfNeeded()
@@ -132,14 +168,14 @@ class PaywallViewController: TPViewController {
         productSelectorView.setLoading(false)
         relayoutProductArea()
         let alert = UIAlertController(
-            title: "无法加载商品",
-            message: "请检查网络连接后重试。",
+            title: resGetString("Unable to Load Products"),
+            message: resGetString("Please check your network connection and try again."),
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "重试", style: .default) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: resGetString("Retry"), style: .default) { [weak self] _ in
             self?.retryLoadProducts()
         })
-        alert.addAction(UIAlertAction(title: "取消", style: .cancel))
+        alert.addAction(UIAlertAction(title: resGetString("Cancel"), style: .cancel))
         present(alert, animated: true)
     }
     
@@ -214,29 +250,36 @@ class PaywallViewController: TPViewController {
     // MARK: - 权益对比
     
     private func setupBenefitsView() {
-        // 分组小标题
-        benefitsHeaderLabel.text = "功能畅享特权"
-        benefitsHeaderLabel.textColor = MembershipColor.sectionOrange
+        benefitsHeaderLabel.textAlignment = .center
+        benefitsHeaderLabel.textColor = resGetColor(.title)
         benefitsHeaderLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         contentView.addSubview(benefitsHeaderLabel)
         
+        let format = resGetString("Enjoy %@ Pro Features")
+        let attributedString: ASAttributedString = .string(format: format,
+                                                           stringParameters: ["10+"],
+                                                           highlightedColor: MembershipColor.highlight)
+        benefitsHeaderLabel.update(with: attributedString)
+        
         benefitsTableView.rows = [
-            BenefitRow(title: "日历视图",     freeValue: "基础",   proValue: "月/周/日/3日"),
-            BenefitRow(title: "时间段",       freeValue: nil,      proValue: nil),
-            BenefitRow(title: "持续提醒",     freeValue: nil,      proValue: nil),
-            BenefitRow(title: "关联 Notion",  freeValue: nil,      proValue: nil),
-            BenefitRow(title: "关联微信",     freeValue: nil,      proValue: nil),
-            BenefitRow(title: "AI 语音添加",  freeValue: nil,      proValue: nil),
-            BenefitRow(title: "AI 录音总结",  freeValue: nil,      proValue: nil),
-            BenefitRow(title: "小组件",       freeValue: "基础",   proValue: "无限制"),
-            BenefitRow(title: "外观主题",     freeValue: "基础",   proValue: "无限制"),
-            BenefitRow(title: "数据统计",     freeValue: "基础",   proValue: "无限制"),
-            BenefitRow(title: "更多功能",     freeValue: nil,      proValue: nil),
+            IAPMembershipBenefitRow(title: "日历视图", freeValue: "基础", proValue: "月/周/日/3日"),
+            IAPMembershipBenefitRow(title: "时间段",       freeValue: nil,      proValue: nil),
+            IAPMembershipBenefitRow(title: "持续提醒",     freeValue: nil,      proValue: nil),
+            IAPMembershipBenefitRow(title: "关联 Notion",  freeValue: nil,      proValue: nil),
+            IAPMembershipBenefitRow(title: "关联微信",     freeValue: nil,      proValue: nil),
+            IAPMembershipBenefitRow(title: "AI 语音添加",  freeValue: nil,      proValue: nil),
+            IAPMembershipBenefitRow(title: "AI 录音总结",  freeValue: nil,      proValue: nil),
+            IAPMembershipBenefitRow(title: "小组件",       freeValue: "基础",   proValue: "无限制"),
+            IAPMembershipBenefitRow(title: "外观主题",     freeValue: "基础",   proValue: "无限制"),
+            IAPMembershipBenefitRow(title: "数据统计",     freeValue: "基础",   proValue: "无限制"),
+            IAPMembershipBenefitRow(title: "更多功能",     freeValue: nil,      proValue: nil),
         ]
         
         benefitsTableView.onContentHeightChanged = { [weak self] _ in
             guard let self = self else { return }
-            self.view.animateLayout(withDuration: 0.4)
+            // 与表格内部展开/收起的动画时长保持一致，
+            // 让外层高度与下方视图和表格内容同步移动
+            self.view.animateLayout(withDuration: IAPMembershipBenefitsListView.expansionDuration)
         }
         
         contentView.addSubview(benefitsTableView)
@@ -257,8 +300,13 @@ class PaywallViewController: TPViewController {
     }
     
     private func setupReminderView() {
-        reminderView.onTapPrivacy = { print("打开隐私政策") }
-        reminderView.onTapTerms   = { print("打开服务条款") }
+        reminderView.onTapPrivacy = {
+            #warning("打开隐私政策")
+        }
+        reminderView.onTapTerms = {
+            #warning("打开服务条款")
+        }
+        
         contentView.addSubview(reminderView)
     }
     
@@ -295,11 +343,11 @@ class PaywallViewController: TPViewController {
             self.setProcessing(false)
             
             if snapshot.isActive {
-                self.alert("已恢复购买") { [weak self] in
+                self.alert(resGetString("Purchases Restored")) { [weak self] in
                     self?.dismiss(animated: true)
                 }
             } else {
-                self.alert("未找到可恢复的购买记录。")
+                self.alert(resGetString("No purchases to restore were found."))
             }
         }
     }
@@ -317,14 +365,33 @@ class PaywallViewController: TPViewController {
     
     private func alert(_ message: String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in completion?() })
+        alert.addAction(UIAlertAction(title: resGetString("OK"), style: .default) { _ in completion?() })
         present(alert, animated: true)
     }
     
     // MARK: - 布局
     
+    /// 首次有效布局是否已完成
+    private var hasFinishedInitialLayout = false
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
+        // 弹窗期间 bounds 可能尚未确定，此时不布局，避免算出无效 frame
+        guard view.width > 0, view.height > 0 else { return }
+        
+        if hasFinishedInitialLayout {
+            layoutContent()
+        } else {
+            // 首次布局直接完成、不带任何动画：
+            // 保证弹出时就是最终布局，而不是内容从零尺寸「展开」
+            hasFinishedInitialLayout = true
+            UIView.performWithoutAnimation { layoutContent() }
+        }
+    }
+    
+    /// 内容布局（动画与非动画共用）
+    private func layoutContent() {
         contentView.frame = view.bounds
         
         continueView.width = view.width
@@ -381,7 +448,17 @@ class PaywallViewController: TPViewController {
     }
     
     override var themeBackgroundColor: UIColor? {
-        return UIColor(red: 0.07, green: 0.07, blue: 0.08, alpha: 1)
+        return IAPColor.background
+    }
+    
+    override func themeDidChange() {
+        super.themeDidChange()
+        // 部分颜色写在 CALayer 上（CGColor 不会自动跟随明暗外观），
+        // 主动刷新这些视图，让它们按新的明暗外观重新取值
+        continueView.backgroundColorValue = IAPColor.background
+        continueView.setNeedsLayout()
+        productSelectorView.refreshAppearance()
+        benefitsTableView.setNeedsLayout()
     }
     
     override var themeNavigationBarBackgroundColor: UIColor? {

@@ -57,7 +57,7 @@ final class IAPProductCardView: TPBaseButton {
 
         // 标题
         productTitleLabel.font = .systemFont(ofSize: 14.0, weight: .bold)
-        productTitleLabel.textColor = IAPColor.titleWhite
+        productTitleLabel.textColor = IAPColor.title
         productTitleLabel.lineBreakMode = .byTruncatingTail
         productTitleLabel.isUserInteractionEnabled = false
         contentView.addSubview(productTitleLabel)

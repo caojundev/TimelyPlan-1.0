@@ -31,9 +31,7 @@ final class IAPReminderView: UIView {
     private let termsButton = TPDefaultButton()
 
     // MARK: - 文案
-    private let messageText = """
-The total amount for the subscription period will be charged to your iTunes account. Unless you turn off auto-renewal at least 24 hours before the end of the subscription period, the subscription will renew automatically for the same period, and your iTunes Account will be charged accordingly. You can manage the subscription and turn off automatic renewal in the Account Settings for your Apple ID at any time.
-"""
+    private let messageText = resGetString("upgrade.notice")
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -60,15 +58,15 @@ The total amount for the subscription period will be charged to your iTunes acco
 
         // 隐私政策按钮（图标 + 文字）
         configButton(privacyButton,
-                     title: "Privacy Policy",
-                     icon: UIImage(systemName: "lock.shield"))
+                     title: resGetString("Privacy Policy"),
+                     icon: resGetImage("upgrade_privacy_16"))
         privacyButton.addTarget(self, action: #selector(privacyTapped), for: .touchUpInside)
         addSubview(privacyButton)
 
         // 服务条款按钮
         configButton(termsButton,
-                     title: "Terms of Service",
-                     icon: UIImage(systemName: "doc.text"))
+                     title: resGetString("Terms of Service"),
+                     icon: resGetImage("upgrade_service_16"))
         termsButton.addTarget(self, action: #selector(termsTapped), for: .touchUpInside)
         addSubview(termsButton)
     }

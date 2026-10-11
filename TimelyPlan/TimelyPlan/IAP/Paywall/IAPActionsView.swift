@@ -52,7 +52,8 @@ class IAPActionsView: UIView {
     // MARK: - Setup
     
     private func setupDefaultButtons() {
-        let restoreButton = createButton(title: "Restore Purchases", action: #selector(restorePurchasesTapped))
+        let title = resGetString("Restore Purchases")
+        let restoreButton = createButton(title: title, action: #selector(restorePurchasesTapped))
         actionButtons = [restoreButton]
     }
     

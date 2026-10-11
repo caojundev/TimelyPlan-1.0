@@ -37,3 +37,5 @@
 
 "By Day" = "Day";
 "By Week" = "Week";
+
+"upgrade.notice" = "The total amount for the subscription period will be charged to your iTunes account. Unless you turn off auto-renewal at least 24 hours before the end of the subscription period, the subscription will renew automatically for the same period, and your iTunes Account will be charged accordingly. You can manage the subscription and turn off automatic renewal in the Account Settings for your Apple ID at any time.";

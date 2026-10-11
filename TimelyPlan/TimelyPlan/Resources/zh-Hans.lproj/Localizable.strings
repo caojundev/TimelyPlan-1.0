@@ -1234,3 +1234,23 @@
 "One-time Purchase" = "一次性购买";
 "Cancel anytime" = "随时可取消";
 "No subscription" = "无需订阅";
+
+"Enjoy %@ Pro Features" = "畅享 %@ 高级会员功能";
+"Features" = "功能";
+"Free" = "免费";
+"Premium" = "高级会员";
+"View more pro features" = "查看更多高级功能";
+
+/* 订阅说明与法务入口 */
+"Privacy Policy" = "隐私政策";
+"Terms of Service" = "服务条款";
+
+/* 弹窗 */
+"OK" = "好的";
+"Retry" = "重试";
+"Unable to Load Products" = "无法加载商品";
+"Please check your network connection and try again." = "请检查网络连接后重试。";
+"Purchases Restored" = "已恢复购买";
+"No purchases to restore were found." = "未找到可恢复的购买记录。";
+
+"upgrade.notice" = "确认购买并支付后，将通过您的 iTunes 账号自动续订。苹果 iTunes 账户会在到期前 24 小时内扣费，扣费成功后订阅周期顺延一个订阅周期。如需取消续订，请在当前订阅周期到期前 24 小时以前，手动在 iTunes/AppleID 设置管理中关闭自动续费功能。试用期内，iTunes 账户如不取消订阅，则会在试用期结束时自动开通订阅并扣款，未使用的试用时长在购买订阅之后将会自动作废。本服务由您自主选择是否取消，若您选择不取消，将为您开通下一个计费周期的续费服务。";

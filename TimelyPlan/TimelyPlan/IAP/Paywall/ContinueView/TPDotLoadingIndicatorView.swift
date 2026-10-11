@@ -42,7 +42,7 @@ final class TPDotLoadingIndicatorView: UIView {
     }
 
     /// 圆点颜色
-    var dotColor: UIColor = IAPColor.subtitleGray {
+    var dotColor: UIColor = .white {
         didSet { updateDotAppearance() }
     }
 
