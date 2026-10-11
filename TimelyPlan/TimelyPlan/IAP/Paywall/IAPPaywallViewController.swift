@@ -252,28 +252,17 @@ class PaywallViewController: TPViewController {
     private func setupBenefitsView() {
         benefitsHeaderLabel.textAlignment = .center
         benefitsHeaderLabel.textColor = resGetColor(.title)
-        benefitsHeaderLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        benefitsHeaderLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         contentView.addSubview(benefitsHeaderLabel)
         
-        let format = resGetString("Enjoy %@ Pro Features")
+        let format = resGetString(IAPPaywallConfig.benefitsTitleFormat)
         let attributedString: ASAttributedString = .string(format: format,
-                                                           stringParameters: ["10+"],
+                                                           stringParameters: [IAPPaywallConfig.benefitsTitleHighlight],
                                                            highlightedColor: MembershipColor.highlight)
         benefitsHeaderLabel.update(with: attributedString)
         
-        benefitsTableView.rows = [
-            IAPMembershipBenefitRow(title: "日历视图", freeValue: "基础", proValue: "月/周/日/3日"),
-            IAPMembershipBenefitRow(title: "时间段",       freeValue: nil,      proValue: nil),
-            IAPMembershipBenefitRow(title: "持续提醒",     freeValue: nil,      proValue: nil),
-            IAPMembershipBenefitRow(title: "关联 Notion",  freeValue: nil,      proValue: nil),
-            IAPMembershipBenefitRow(title: "关联微信",     freeValue: nil,      proValue: nil),
-            IAPMembershipBenefitRow(title: "AI 语音添加",  freeValue: nil,      proValue: nil),
-            IAPMembershipBenefitRow(title: "AI 录音总结",  freeValue: nil,      proValue: nil),
-            IAPMembershipBenefitRow(title: "小组件",       freeValue: "基础",   proValue: "无限制"),
-            IAPMembershipBenefitRow(title: "外观主题",     freeValue: "基础",   proValue: "无限制"),
-            IAPMembershipBenefitRow(title: "数据统计",     freeValue: "基础",   proValue: "无限制"),
-            IAPMembershipBenefitRow(title: "更多功能",     freeValue: nil,      proValue: nil),
-        ]
+        // 权益对比数据见 IAPPaywallConfig.benefitRows
+        benefitsTableView.rows = IAPPaywallConfig.benefitRows.map(IAPMembershipBenefitRow.init(tuple:))
         
         benefitsTableView.onContentHeightChanged = { [weak self] _ in
             guard let self = self else { return }

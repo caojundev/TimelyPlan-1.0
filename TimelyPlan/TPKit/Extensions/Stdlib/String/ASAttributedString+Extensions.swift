@@ -24,7 +24,7 @@ extension ASAttributedString {
         var attributedParameters = [ASAttributedString]()
         for stringParameter in stringParameters {
             let attributedParameter = ASAttributedString.string(with: stringParameter,
-                                                                textColor: .primary)
+                                                                textColor: highlightedColor)
             attributedParameters.append(attributedParameter)
         }
         

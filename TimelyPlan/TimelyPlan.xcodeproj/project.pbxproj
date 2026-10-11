@@ -2010,6 +2010,7 @@
 		E5BEC285307B3E770050E01B /* upgrade_service_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BEC281307B3E770050E01B /* upgrade_service_16@3x.png */; };
 		E5BEC286307B3E770050E01B /* upgrade_privacy_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BEC282307B3E770050E01B /* upgrade_privacy_16@3x.png */; };
 		E5BEC287307B3E770050E01B /* upgrade_privacy_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BEC283307B3E770050E01B /* upgrade_privacy_16@2x.png */; };
+		E5BEC289307B8EE90050E01B /* IAPPaywallConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BEC288307B8EE90050E01B /* IAPPaywallConfig.swift */; };
 		E5C18FB92DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB32DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png */; };
 		E5C18FBA2DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB42DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png */; };
 		E5C18FBB2DB4FE1F008FAA13 /* todo_task_change_new_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB52DB4FE1F008FAA13 /* todo_task_change_new_16@2x.png */; };
@@ -4513,6 +4514,7 @@
 		E5BEC281307B3E770050E01B /* upgrade_service_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upgrade_service_16@3x.png"; sourceTree = "<group>"; };
 		E5BEC282307B3E770050E01B /* upgrade_privacy_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upgrade_privacy_16@3x.png"; sourceTree = "<group>"; };
 		E5BEC283307B3E770050E01B /* upgrade_privacy_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upgrade_privacy_16@2x.png"; sourceTree = "<group>"; };
+		E5BEC288307B8EE90050E01B /* IAPPaywallConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPPaywallConfig.swift; sourceTree = "<group>"; };
 		E5C18FB32DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_deleted_16@3x.png"; sourceTree = "<group>"; };
 		E5C18FB42DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_deleted_16@2x.png"; sourceTree = "<group>"; };
 		E5C18FB52DB4FE1F008FAA13 /* todo_task_change_new_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_new_16@2x.png"; sourceTree = "<group>"; };
@@ -6219,6 +6221,7 @@
 		E51E5F6B303543D100ACF30C /* Paywall */ = {
 			isa = PBXGroup;
 			children = (
+				E5BEC288307B8EE90050E01B /* IAPPaywallConfig.swift */,
 				E51E5F733035633700ACF30C /* IAPPaywallProduct.swift */,
 				E51E5F75303592F500ACF30C /* IAPPaywallViewController.swift */,
 				E51E5F813036BC4400ACF30C /* IAPReminderView.swift */,
@@ -15089,6 +15092,7 @@
 				E50D602C2F7A12B400D5E0A4 /* RepeatEndEditViewController.swift in Sources */,
 				E5E552EA2FEECEDB00072D3F /* HabitPeriodItem+LocalNotifiable.swift in Sources */,
 				E5BB9D8C2D3BF0C60089667A /* UIViewController+Swizzler.swift in Sources */,
+				E5BEC289307B8EE90050E01B /* IAPPaywallConfig.swift in Sources */,
 				E5BB9DD42D3BF0C60089667A /* UIImage+Color.swift in Sources */,
 				E53480112F6059F600CFBF26 /* HabitTaskFilterType.swift in Sources */,
 				E5347FFE2F5FCD5A00CFBF26 /* TPEmojiTitleEditAlertController.swift in Sources */,

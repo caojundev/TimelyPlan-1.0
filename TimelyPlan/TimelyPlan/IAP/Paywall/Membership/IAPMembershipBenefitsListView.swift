@@ -1,6 +1,6 @@
 //
 //  IAPMembershipBenefitsListView.swift
-//  会员权益对比表格 — UIKit 手动布局实现
+//  会员权益对比表格
 //
 //  Created by caojun on 2026/8/19.
 //
@@ -10,14 +10,55 @@ import UIKit
 
 // MARK: - 数据模型
 
+/// 权益列的取值：文本或图标
+enum IAPMembershipBenefitValue: ExpressibleByStringLiteral {
+    /// 文本内容，`color` 为 nil 时使用所在列的默认颜色
+    case text(String, color: UIColor?)
+    /// 图标名称，`color` 为 nil 时使用所在列的默认颜色
+    case icon(String, color: UIColor?)
+
+    /// 文本（使用所在列的默认颜色）
+    static func text(_ value: String) -> IAPMembershipBenefitValue {
+        .text(value, color: nil)
+    }
+
+    /// 图标（使用所在列的默认颜色）
+    static func icon(_ name: String) -> IAPMembershipBenefitValue {
+        .icon(name, color: nil)
+    }
+
+    /// 字符串字面量按文本处理，便于直接书写 `freeValue: "基础"`
+    init(stringLiteral value: String) {
+        self = .text(value, color: nil)
+    }
+}
+
+/// 权益行配置元组
+/// - title: 权益名称（首列，决定行高）
+/// - freeValue: 普通用户列内容（nil 显示横杠 "—"）
+/// - proValue: 高级会员列内容（nil 显示对勾 "✓"）
+typealias IAPMembershipBenefitRowTuple = (title: String,
+                                          freeValue: IAPMembershipBenefitValue?,
+                                          proValue: IAPMembershipBenefitValue?)
+
 /// 单行权益数据
 struct IAPMembershipBenefitRow {
     /// 权益名称（首列，决定行高）
     let title: String
     /// 普通用户列内容（传 nil 显示横杠 "—"）
-    let freeValue: String?
+    let freeValue: IAPMembershipBenefitValue?
     /// 高级会员列内容（传 nil 显示对勾 "✓"）
-    let proValue: String?
+    let proValue: IAPMembershipBenefitValue?
+}
+
+extension IAPMembershipBenefitRow {
+
+    /// 由配置元组创建，便于用简洁的元组数组配置行数据
+    init(tuple: IAPMembershipBenefitRowTuple) {
+        self.title = tuple.title
+        self.freeValue = tuple.freeValue
+        self.proValue = tuple.proValue
+    }
 }
 
 // MARK: - 颜色常量
@@ -60,6 +101,9 @@ private enum Metric {
     static let cellHorizontalPadding: CGFloat = 12
     /// 单元格上下内边距
     static let cellVerticalPadding: CGFloat = 12
+    /// 单元格内图标尺寸
+    static let iconSize: CGFloat = 16.0
+    
     /// 三列宽度占比（首列 0.40，后两列各 0.30）
     static let columnWeights: [CGFloat] = [0.40, 0.30, 0.30]
     /// 权益名称字体
@@ -99,7 +143,7 @@ final class IAPMembershipBenefitsListView: UIView {
 
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    private let headerView = BenefitHeaderView()
+    private let headerView = IAPMembershipBenefitHeaderView()
     private let footerView = IAPMembershipExpandFooterView()
     private var rowViews: [IAPMembershipBenefitRowView] = []
     /// 覆盖表头 / 行 / footer 整块卡片的圆角边框
@@ -321,7 +365,7 @@ final class IAPMembershipBenefitsListView: UIView {
 
 // MARK: - 表头视图
 
-private final class BenefitHeaderView: UIView {
+private final class IAPMembershipBenefitHeaderView: UIView {
 
     private let titleLabel = TPLabel()
     private let freeLabel = TPLabel()
@@ -395,14 +439,12 @@ private final class IAPMembershipBenefitRowView: UIView {
     private let titleLabel = UILabel()
     private let freeLabel = UILabel()
     private let proLabel = UILabel()
-    private let underlineView = DashedUnderlineView()
+    private let freeIcon = UIImageView()
+    private let proIcon = UIImageView()
+    
     private let topSeparator = UIView()
     private var columnWidths: [CGFloat] = []
 
-    /// 内容布局所使用的高度（默认取 `bounds.height`）。
-    ///
-    /// 收起状态下本行自身高度是 0，但内容仍按自然高度预先摆好位置，
-    /// 展开时就只有行高在动画，不会出现文字/数值从左上角「长出来」的观感。
     var contentHeight: CGFloat = 0 {
         didSet {
             if contentHeight != oldValue { setNeedsLayout() }
@@ -426,14 +468,13 @@ private final class IAPMembershipBenefitRowView: UIView {
         freeLabel.textColor = MembershipColor.freeGray
         freeLabel.textAlignment = .center
         addSubview(freeLabel)
+        configIcon(freeIcon, color: MembershipColor.freeGray)
 
         proLabel.font = Metric.valueFont
         proLabel.textColor = MembershipColor.highlight
         proLabel.textAlignment = .center
         addSubview(proLabel)
-
-        // 权益名称下方的虚线下划线
-        addSubview(underlineView)
+        configIcon(proIcon, color: MembershipColor.highlight)
 
         // 顶部分隔线
         topSeparator.backgroundColor = MembershipColor.separator
@@ -446,21 +487,54 @@ private final class IAPMembershipBenefitRowView: UIView {
         self.columnWidths = columnWidths
         titleLabel.text = row.title
 
-        // 普通用户列：有值显示值，无值显示横杠
-        if let free = row.freeValue, !free.isEmpty {
-            freeLabel.text = free
-        } else {
-            freeLabel.text = "—"
-        }
-
-        // 高级会员列：有值显示值，无值显示对勾
-        if let pro = row.proValue, !pro.isEmpty {
-            proLabel.text = pro
-        } else {
-            proLabel.text = "✓"
-        }
-
+        // 普通用户列：无值显示横杠（图标默认用普通列颜色）
+        apply(row.freeValue,
+              placeholder: "—",
+              label: freeLabel,
+              icon: freeIcon,
+              defaultColor: MembershipColor.freeGray)
+        
+        // 高级会员列：无值显示对勾（图标默认用高亮色）
+        apply(row.proValue,
+              placeholder: "✓",
+              label: proLabel,
+              icon: proIcon,
+              defaultColor: MembershipColor.highlight)
+        
         setNeedsLayout()
+    }
+
+    /// 按取值显示文本或图标
+    /// - Parameter defaultColor: 未指定自定义颜色时使用的列默认色
+    private func apply(_ value: IAPMembershipBenefitValue?,
+                       placeholder: String,
+                       label: UILabel,
+                       icon: UIImageView,
+                       defaultColor: UIColor) {
+        switch value {
+        case .text(let text, let color) where !text.isEmpty:
+            label.text = text
+            label.textColor = color ?? defaultColor
+            label.isHidden = false
+            icon.isHidden = true
+        case .icon(let name, let color):
+            icon.image = resGetImage(name, color: color ?? defaultColor)
+            icon.isHidden = false
+            label.isHidden = true
+        case .text, .none:
+            // 空文本或未配置：显示占位符
+            label.text = placeholder
+            label.textColor = defaultColor
+            label.isHidden = false
+            icon.isHidden = true
+        }
+    }
+
+    private func configIcon(_ icon: UIImageView, color: UIColor) {
+        icon.contentMode = .scaleAspectFit
+        icon.tintColor = color
+        icon.isHidden = true
+        addSubview(icon)
     }
 
     override func layoutSubviews() {
@@ -487,32 +561,18 @@ private final class IAPMembershipBenefitRowView: UIView {
             height: titleHeight
         )
 
-        // 虚线下划线（紧贴文字底部，宽度与文字一致）
-        let textWidth = (titleLabel.text as NSString?)?
-            .size(withAttributes: [.font: Metric.titleFont]).width ?? titleWidth
-        let underlineW = min(textWidth, titleWidth)
-        underlineView.frame = CGRect(
-            x: titleX,
-            y: titleLabel.frame.maxY + 2,
-            width: underlineW,
-            height: 2
-        )
+        // 第二列：普通用户（居中，文本或图标）
+        layout(freeLabel, icon: freeIcon, in: CGRect(
+            x: columnWidths[0], y: 0,
+            width: columnWidths[1], height: layoutHeight
+        ))
 
-        // 第二列：普通用户（居中）
-        freeLabel.frame = CGRect(
-            x: columnWidths[0],
-            y: 0,
-            width: columnWidths[1],
-            height: layoutHeight
-        )
+        // 第三列：高级会员（居中，文本或图标）
+        layout(proLabel, icon: proIcon, in: CGRect(
+            x: columnWidths[0] + columnWidths[1], y: 0,
+            width: columnWidths[2], height: layoutHeight
+        ))
 
-        // 第三列：高级会员（居中）
-        proLabel.frame = CGRect(
-            x: columnWidths[0] + columnWidths[1],
-            y: 0,
-            width: columnWidths[2],
-            height: layoutHeight
-        )
 
         // 顶部分隔线（横跨整个表格宽度）
         topSeparator.frame = CGRect(
@@ -520,24 +580,18 @@ private final class IAPMembershipBenefitRowView: UIView {
             width: bounds.width, height: 0.5
         )
     }
-}
 
-// MARK: - 虚线下划线
+    /// 在给定列区域内居中排布文本或图标
+    private func layout(_ label: UILabel, icon: UIImageView, in columnFrame: CGRect) {
+        label.frame = columnFrame
 
-private final class DashedUnderlineView: UIView {
-    override class var layerClass: AnyClass { CAShapeLayer.self }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        guard let shapeLayer = layer as? CAShapeLayer else { return }
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 0, y: bounds.midY))
-        path.addLine(to: CGPoint(x: bounds.width, y: bounds.midY))
-        shapeLayer.path = path.cgPath
-        shapeLayer.strokeColor = MembershipColor.title.withAlphaComponent(0.4).cgColor
-        shapeLayer.lineWidth = 1
-        shapeLayer.lineDashPattern = [3, 3]
-        shapeLayer.fillColor = nil
+        guard !icon.isHidden else { return }
+        icon.frame = CGRect(
+            x: columnFrame.midX - Metric.iconSize / 2,
+            y: columnFrame.midY - Metric.iconSize / 2,
+            width: Metric.iconSize,
+            height: Metric.iconSize
+        )
     }
 }
 
