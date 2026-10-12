@@ -1241,6 +1241,8 @@
 "Premium" = "高级会员";
 "View more pro features" = "查看更多高级功能";
 
+"Unlimited" = "无限制";
+
 /* 订阅说明与法务入口 */
 "Privacy Policy" = "隐私政策";
 "Terms of Service" = "服务条款";
@@ -1250,6 +1252,7 @@
 "Retry" = "重试";
 "Unable to Load Products" = "无法加载商品";
 "Please check your network connection and try again." = "请检查网络连接后重试。";
+"Processing..." = "处理中...";
 "Purchases Restored" = "已恢复购买";
 "No purchases to restore were found." = "未找到可恢复的购买记录。";
 

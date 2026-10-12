@@ -22,30 +22,39 @@ class AppSettingsViewController: BaseSettingViewController,
     }()
     
     // MARK: - 高级会员横幅
-    /// 会员横幅（测试用，当前展示的横幅）
+    let bannerPadding = UIEdgeInsets(top: 8.0, left: 20.0, bottom: 5.0, right: 20.0)
+    
+    /// 当前显示的横幅（未开通会员显示升级横幅，已开通显示会员横幅）
+    private var bannerView: AppBannerRepresentable?
+    
+    /// 横幅作为表头时的尺寸（避免重复设置引起布局循环）
+    private var bannerHeaderSize: CGSize = .zero
+    
+    /// 会员权益订阅
+    private var entitlementToken: IAPObservationToken?
+    
+    /// 会员横幅
     private lazy var memberBannerView: MemberBannerView = {
         let bannerView = MemberBannerView()
-        /// 内容内间距，用于制造卡片四周的空白
-        bannerView.contentPadding = UIEdgeInsets(top: 8.0, left: 20.0, bottom: 5.0, right: 20.0)
-        /// 测试数据
+        bannerView.contentPadding = bannerPadding
         bannerView.status = .sample()
         bannerView.cardView.delegate = self
         return bannerView
     }()
     
-    /// 会员升级横幅（暂时不展示，保留用于对比测试）
-    private lazy var promoCard: AppProUpgradeBannerView = {
-        let promoCard = AppProUpgradeBannerView()
-        promoCard.contentPadding = UIEdgeInsets(top: 8.0, left: 20.0, bottom: 5.0, right: 20.0)
-        promoCard.configure(title: resGetString("Go Premium"),
-                            badgeText: resGetString("Limited Time Offer"),
-                            badgeEmoji: "🔥",
-                            badgeColor: UIColor(red: 0.96, green: 0.58, blue: 0.22, alpha: 1.0),
-                            subtitle: resGetString("Unlock all premium features, enjoy an enhanced experience, and exclusive perks"))
+    /// 升级横幅
+    private lazy var upgradeBannerView: AppProUpgradeBannerView = {
+        let bannerView = AppProUpgradeBannerView()
+        bannerView.contentPadding = bannerPadding
+        bannerView.configure(title: resGetString("Go Premium"),
+                             badgeText: resGetString("Limited Time Offer"),
+                             badgeEmoji: "🔥",
+                             badgeColor: UIColor(red: 0.96, green: 0.58, blue: 0.22, alpha: 1.0),
+                             subtitle: resGetString("Unlock all premium features, enjoy an enhanced experience, and exclusive perks"))
         /// 点击横幅弹出会员购买页
-        promoCard.addGestureRecognizer(UITapGestureRecognizer(target: self,
-                                                             action: #selector(clickUnlockPremium)))
-        return promoCard
+        bannerView.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                              action: #selector(clickUnlockPremium)))
+        return bannerView
     }()
    
     /// 侧边栏菜单
@@ -111,10 +120,7 @@ class AppSettingsViewController: BaseSettingViewController,
         cellItem.imageConfig = imageConfig
         cellItem.imageName = "setting_unlockPro_32"
         cellItem.title = resGetString("Unlock Premium")
-        /// 显示会员状态（每次展示单元格时刷新）
-        cellItem.updater = { [weak self] in
-            self?.updateUnlockPremiumCellItem()
-        }
+        cellItem.valueConfig = .valueText(resGetString("Free Plan"))
         cellItem.didSelectHandler = { [weak self] in
             self?.clickUnlockPremium()
         }
@@ -166,7 +172,6 @@ class AppSettingsViewController: BaseSettingViewController,
         sectionController.cellItems = [cloudCellItem]
         return sectionController
     }()
-    
     
     // 模块设置区块
     lazy var moduleSectionController: TPTableItemSectionController = {
@@ -287,17 +292,11 @@ class AppSettingsViewController: BaseSettingViewController,
             navigationItem.leftBarButtonItems = [sidebarButtonItem]
         }
     
-        sectionControllers = [membershipSectionController,
-                              flipClockSectionController,
-                              generalSectionController,
-                              dataSectionController,
-                              moduleSectionController,
-                              supportUsSectionController,
-                              aboutSectionController]
+        setupSectionControllers()
         reloadData()
         
-        /// 添加会员横幅
-        updateBannerLayout()
+        /// 添加会员横幅（根据会员状态动态切换）
+        setupBannerView()
         
         cloudStatusViewModel.startObserving()
         cloudStatusViewModel.onStatusChanged = { [weak self] _ in
@@ -310,20 +309,66 @@ class AppSettingsViewController: BaseSettingViewController,
         updateBannerLayout()
     }
     
-    /// 更新会员横幅布局（作为列表头部视图，宽度变化后需要重新设置）
+    private func setupSectionControllers() {
+        var sectionControllers = [flipClockSectionController,
+                                  generalSectionController,
+                                  dataSectionController,
+                                  moduleSectionController,
+                                  supportUsSectionController,
+                                  aboutSectionController]
+        let entitlement = IAPManager.shared.entitlement
+        if !entitlement.isActive {
+            sectionControllers.insert(membershipSectionController, at: 0)
+        }
+
+        self.sectionControllers = sectionControllers
+    }
+    
+    // MARK: - 会员横幅
+    /// 监听会员权益变化，动态更新表头横幅
+    private func setupBannerView() {
+        entitlementToken = IAPManager.shared.observeEntitlement { [weak self] entitlement in
+            self?.update(with: entitlement)
+        }
+    }
+    
+    private func update(with entitlement: IAPEntitlement) {
+        TPLoadingIndicator.hideAllLoading() /// 防止升级视图控制器关闭，购买仍在进行中
+        updateBannerView(isMember: entitlement.isActive)
+        setupSectionControllers()
+        adapter.performUpdate()
+    }
+    
+    /// 更新表头横幅：未开通会员显示升级横幅，已开通显示会员横幅
+    private func updateBannerView(isMember: Bool) {
+        let bannerView: AppBannerRepresentable = isMember ? memberBannerView : upgradeBannerView
+        guard self.bannerView !== bannerView else {
+            return
+        }
+        
+        self.bannerView = bannerView
+        updateBannerLayout()
+    }
+    
+    /// 更新横幅布局（作为列表头部视图，宽度变化后需要重新设置）
     private func updateBannerLayout() {
+        guard let bannerView = bannerView else {
+            return
+        }
+        
         let width = tableView.width
         guard width > 0 else {
             return
         }
         
-        let headerSize = CGSize(width: width, height: memberBannerView.recommendedHeight(forWidth: width))
-        guard memberBannerView.size != headerSize else {
+        let headerSize = CGSize(width: width, height: bannerView.bannerHeight(forWidth: width))
+        guard tableView.tableHeaderView !== bannerView || bannerHeaderSize != headerSize else {
             return
         }
         
-        memberBannerView.frame = CGRect(origin: .zero, size: headerSize)
-        tableView.tableHeaderView = memberBannerView
+        bannerView.frame = CGRect(origin: .zero, size: headerSize)
+        tableView.tableHeaderView = bannerView
+        bannerHeaderSize = headerSize
     }
 
     private func updateCloudCellItem() {
@@ -378,41 +423,24 @@ class AppSettingsViewController: BaseSettingViewController,
     }
     
     @objc private func clickUnlockPremium() {
-        /// 弹出内置付费页（IAPUIKit 中的 UIViewController 扩展），
-        /// 商品加载、购买、恢复购买与错误提示都由付费页内部处理
-        presentPaywall { [weak self] _ in
-            /// 购买/恢复流程结束，刷新会员状态（回调不保证在主线程）
-            DispatchQueue.main.async {
-                self?.reloadUnlockPremiumCell()
-            }
-        }
-    }
-    
-    /// 会员状态文案：未开通显示 Free Plan；订阅显示到期日期；买断制显示已开通
-    private func updateUnlockPremiumCellItem() {
-        let entitlement = IAPManager.shared.entitlement
-        let text: String
-        if !entitlement.isActive {
-            text = resGetString("Free Plan")
-        } else if let expiry = entitlement.subscriptionExpiryDate {
-            text = expiry.yearMonthDayString
-        } else {
-            text = "✓"
-        }
-        
-        unlockPremiumCellItem.valueConfig = .valueText(text)
-    }
-    
-    /// 刷新会员单元格
-    private func reloadUnlockPremiumCell() {
-        updateUnlockPremiumCellItem()
-        adapter.reloadCell(forItem: unlockPremiumCellItem, with: .none)
+        let vc = PaywallViewController()
+        vc.showAsNavigationRoot()
     }
     
     private func restorePurchases() {
-        /// TODO: 对接内购管理器，恢复购买
-        let vc = PaywallViewController()
-        vc.showAsNavigationRoot()
+        TPLoadingIndicator.showLoading(resGetString("Processing..."))
+        view.isUserInteractionEnabled = false
+        Task {
+            let entitlement = await IAPManager.shared.restore()
+            TPLoadingIndicator.hideAllLoading()
+            view.isUserInteractionEnabled = true
+            update(with: entitlement)
+            if entitlement.isActive {
+                PaywallViewController.alertPurchasesRestored()
+            } else {
+                PaywallViewController.alertNoPurchasesFound()
+            }
+        }
     }
     
     private func clickSideMenu() {

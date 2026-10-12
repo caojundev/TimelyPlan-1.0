@@ -1335,8 +1335,6 @@
 		E588F89F3068C56A0022461A /* countdown_placeholder_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E588F89D3068C56A0022461A /* countdown_placeholder_80@3x.png */; };
 		E588F8A33068D9A30022461A /* GanttTimelineChartBarInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588F8A23068D9A30022461A /* GanttTimelineChartBarInfoView.swift */; };
 		E5892FAF30788CA3009BDE81 /* MindMapProgressNodeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FAE30788CA3009BDE81 /* MindMapProgressNodeLayer.swift */; };
-		E5892FDF307926E1009BDE81 /* IAPPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD0307926E0009BDE81 /* IAPPaywallView.swift */; };
-		E5892FE0307926E1009BDE81 /* IAPUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD1307926E0009BDE81 /* IAPUIKit.swift */; };
 		E5892FE1307926E1009BDE81 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD3307926E0009BDE81 /* IAPManager.swift */; };
 		E5892FE2307926E1009BDE81 /* IAPEntitlementBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD4307926E0009BDE81 /* IAPEntitlementBuilder.swift */; };
 		E5892FE3307926E1009BDE81 /* IAPConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5892FD5307926E0009BDE81 /* IAPConfiguration.swift */; };
@@ -2319,6 +2317,8 @@
 		E5E58CE7307BC6E300121283 /* MemberBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E58CE6307BC6E300121283 /* MemberBannerView.swift */; };
 		E5E58CEC307C780E00121283 /* memberBanner_crown_46@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E58CEA307C780D00121283 /* memberBanner_crown_46@3x.png */; };
 		E5E58CED307C780E00121283 /* memberBanner_crown_46@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E58CEB307C780D00121283 /* memberBanner_crown_46@2x.png */; };
+		E5E58CEF307C8C3C00121283 /* AppBannerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E58CEE307C8C3C00121283 /* AppBannerRepresentable.swift */; };
+		E5E58CF1307C990500121283 /* IAPStorefront.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E58CF0307C990500121283 /* IAPStorefront.swift */; };
 		E5E5BDB52FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDB42FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift */; };
 		E5E5BDB72FE3E698008D3F64 /* CoreDataEntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */; };
 		E5E5BDBB2FE3E9EF008D3F64 /* PredicateCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5BDBA2FE3E9EF008D3F64 /* PredicateCondition.swift */; };
@@ -3832,8 +3832,6 @@
 		E588F89D3068C56A0022461A /* countdown_placeholder_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "countdown_placeholder_80@3x.png"; sourceTree = "<group>"; };
 		E588F8A23068D9A30022461A /* GanttTimelineChartBarInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GanttTimelineChartBarInfoView.swift; sourceTree = "<group>"; };
 		E5892FAE30788CA3009BDE81 /* MindMapProgressNodeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MindMapProgressNodeLayer.swift; sourceTree = "<group>"; };
-		E5892FD0307926E0009BDE81 /* IAPPaywallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPPaywallView.swift; sourceTree = "<group>"; };
-		E5892FD1307926E0009BDE81 /* IAPUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPUIKit.swift; sourceTree = "<group>"; };
 		E5892FD3307926E0009BDE81 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		E5892FD4307926E0009BDE81 /* IAPEntitlementBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPEntitlementBuilder.swift; sourceTree = "<group>"; };
 		E5892FD5307926E0009BDE81 /* IAPConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPConfiguration.swift; sourceTree = "<group>"; };
@@ -4831,6 +4829,8 @@
 		E5E58CE6307BC6E300121283 /* MemberBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberBannerView.swift; sourceTree = "<group>"; };
 		E5E58CEA307C780D00121283 /* memberBanner_crown_46@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "memberBanner_crown_46@3x.png"; sourceTree = "<group>"; };
 		E5E58CEB307C780D00121283 /* memberBanner_crown_46@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "memberBanner_crown_46@2x.png"; sourceTree = "<group>"; };
+		E5E58CEE307C8C3C00121283 /* AppBannerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBannerRepresentable.swift; sourceTree = "<group>"; };
+		E5E58CF0307C990500121283 /* IAPStorefront.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPStorefront.swift; sourceTree = "<group>"; };
 		E5E5BDB42FE3820B008D3F64 /* CoreDataRemoteChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRemoteChangeManager.swift; sourceTree = "<group>"; };
 		E5E5BDB62FE3E698008D3F64 /* CoreDataEntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataEntityName.swift; sourceTree = "<group>"; };
 		E5E5BDBA2FE3E9EF008D3F64 /* PredicateCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredicateCondition.swift; sourceTree = "<group>"; };
@@ -7835,6 +7835,7 @@
 				E55549642F76C10A00C9460D /* AppSettingsViewController.swift */,
 				E5E4070E306FE01500673727 /* AppSideMenuSettingViewController.swift */,
 				E5A1EC8D307495A700FCE0A3 /* AppProUpgradeBannerView.swift */,
+				E5E58CEE307C8C3C00121283 /* AppBannerRepresentable.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -9004,21 +9005,11 @@
 		E5892FCE307926E0009BDE81 /* IAPManager */ = {
 			isa = PBXGroup;
 			children = (
-				E5892FCF307926E0009BDE81 /* UI */,
 				E5892FD2307926E0009BDE81 /* Core */,
 				E5892FD8307926E0009BDE81 /* Models */,
 				E5892FDD307926E0009BDE81 /* Storage */,
 			);
 			path = IAPManager;
-			sourceTree = "<group>";
-		};
-		E5892FCF307926E0009BDE81 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				E5892FD0307926E0009BDE81 /* IAPPaywallView.swift */,
-				E5892FD1307926E0009BDE81 /* IAPUIKit.swift */,
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		E5892FD2307926E0009BDE81 /* Core */ = {
@@ -9040,6 +9031,7 @@
 				E5892FDA307926E0009BDE81 /* IAPStoreProduct.swift */,
 				E5892FDB307926E0009BDE81 /* IAPPurchaseResult.swift */,
 				E5892FDC307926E0009BDE81 /* IAPProduct.swift */,
+				E5E58CF0307C990500121283 /* IAPStorefront.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -14634,7 +14626,6 @@
 				E53632812FAB72C00095DFEC /* QuadrantLayoutEditCell.swift in Sources */,
 				E5D7D9202D43933700EC877A /* StatsSummarySectionController.swift in Sources */,
 				E5F9E3D630219D6000EDC2A5 /* MyDayHabitTaskBindViewController.swift in Sources */,
-				E5892FE0307926E1009BDE81 /* IAPUIKit.swift in Sources */,
 				E5FC6BC52F66A44D00D5A5EA /* HabitStatsCalendarMonthCell.swift in Sources */,
 				E53352B12FFA528A00546986 /* CalendarQuarterViewController.swift in Sources */,
 				E5D7D93F2D43933700EC877A /* FocusSteppedConfigSectionController.swift in Sources */,
@@ -14888,6 +14879,7 @@
 				E51B29052FA77A07006B3352 /* TodoTaskPageBaseCell.swift in Sources */,
 				E58D750A3063F6C2002C6D1A /* CountdownEvent+MyDayEvent.swift in Sources */,
 				E5CFD2752F58619300A898CB /* HabitTaskStatusSymbolProgressValueCell.swift in Sources */,
+				E5E58CF1307C990500121283 /* IAPStorefront.swift in Sources */,
 				E5BB9F212D3BF2C20089667A /* AppLaunchViewContrtoller.swift in Sources */,
 				E556BCD92F5D9D3700CA20D9 /* CDHabitSample+Extensions.swift in Sources */,
 				E549B1612F88D2940014BE85 /* TodoTaskPriorityButton.swift in Sources */,
@@ -15280,7 +15272,6 @@
 				E555285C2FB9664C0093DD7E /* CalendarScheduleDragAddView.swift in Sources */,
 				E5FC6BB92F657F3700D5A5EA /* HabitPeriodItem+Stats.swift in Sources */,
 				E50D603A2F7A12B500D5E0A4 /* RepeatDaysOfMonthSectionController.swift in Sources */,
-				E5892FDF307926E1009BDE81 /* IAPPaywallView.swift in Sources */,
 				E5B8C4D9306B51CA0056CB04 /* CalendarPanelLayout.swift in Sources */,
 				E549B16F2F88DF550014BE85 /* TodoTaskEditNoteSectionController.swift in Sources */,
 				E5BB9E0C2D3BF0C70089667A /* CAAnimationGroup+Extensions.swift in Sources */,
@@ -15321,6 +15312,7 @@
 				E534DAC62D59E75F0079AB08 /* TPLabelLayout.swift in Sources */,
 				E5BB9B512D3BEF920089667A /* ParagraphStyle.swift in Sources */,
 				E51E5F7B3035960300ACF30C /* IAPProductCardView.swift in Sources */,
+				E5E58CEF307C8C3C00121283 /* AppBannerRepresentable.swift in Sources */,
 				E5D7D8C52D43933600EC877A /* FocusTimerInfo.swift in Sources */,
 				E56341FC2F947C6400E120BF /* TodoFilterHomeCell.swift in Sources */,
 				E5D7D9012D43933600EC877A /* FocusStartActionView.swift in Sources */,

@@ -16,7 +16,7 @@ enum IAPMembershipBenefitValue: ExpressibleByStringLiteral {
     case text(String, color: UIColor?)
     /// 图标名称，`color` 为 nil 时使用所在列的默认颜色
     case icon(String, color: UIColor?)
-
+    
     /// 文本（使用所在列的默认颜色）
     static func text(_ value: String) -> IAPMembershipBenefitValue {
         .text(value, color: nil)
@@ -27,7 +27,19 @@ enum IAPMembershipBenefitValue: ExpressibleByStringLiteral {
         .icon(name, color: nil)
     }
 
-    /// 字符串字面量按文本处理，便于直接书写 `freeValue: "基础"`
+    static var basicText: IAPMembershipBenefitValue {
+        return .text("Basic")
+    }
+    
+    static var unlimitedText: IAPMembershipBenefitValue {
+        return .text("")
+    }
+    
+    static var checkmark: IAPMembershipBenefitValue {
+        return .icon("checkmark_circle_fill_24")
+    }
+    
+    /// 字符串字面量按文本处理，便于直接书写
     init(stringLiteral value: String) {
         self = .text(value, color: nil)
     }

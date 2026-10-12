@@ -21,37 +21,22 @@ struct IAPPaywallConfig {
 
     /// 权益对比行
     ///
-    /// 元组顺序：(权益名称, 普通用户列, 高级会员列)；
-    /// 取值可用 `.text("基础", color: .systemRed)` 或 `.icon("checkmark", color: .systemGreen)`，
-    /// 不传 color（或用 `nil`）时使用所在列的默认颜色。
+    /// 元组顺序：(权益名称, 普通用户列, 高级会员列)
     static let benefitRows: [IAPMembershipBenefitRowTuple] = [
-        // 文本 + 文本
-        ("日历视图", .text("基础"), .text("月/周/日/3日")),
-        // 文本 + 文本（自定义颜色）
-        ("文本颜色（红/绿）", .text("基础", color: .systemRed), .text("无限制", color: .systemGreen)),
-        // 文本自定义色 + 默认色
-        ("文本颜色（橙/默认）", .text("基础", color: .systemOrange), .text("无限制")),
-        // 占位符 + 图标
-        ("时间段", nil, .icon("checkmark")),
-        ("持续提醒", nil, .icon("checkmark")),
-        // 图标 + 图标（使用列默认颜色）
-        ("关联 Notion", .icon("xmark_16"), .icon("checkmark")),
-        ("关联微信", .icon("xmark_16"), .icon("checkmark")),
-        ("AI 语音添加", .icon("xmark_16"), .icon("checkmark")),
-        // 图标 + 图标（自定义颜色）
-        ("颜色测试（红/绿）",
-         .icon("xmark_16", color: .systemRed),
-         .icon("checkmark_circle_fill_24", color: .systemGreen)),
-        // 图标自定义色 + 默认色
-        ("颜色测试（橙/默认）", .icon("xmark", color: .systemOrange), .icon("checkmark")),
-        // 图标 + 文本
-        ("AI 录音总结", .icon("xmark"), .text("无限制")),
-        // 文本 + 图标
-        ("小组件", .text("基础"), .icon("checkmark")),
-        ("外观主题", .text("基础"), .text("无限制")),
-        // 文本 + 文本
-        ("数据统计", .text("基础"), .text("无限制")),
-        // 占位符 + 图标
-        ("更多功能", nil, .icon("checkmark_circle_fill_24")),
+        ("日历视图", .basicText, .text("月/周/日/3日")),
+        ("文本颜色（红/绿）", nil, .unlimitedText),
+        ("文本颜色（橙/默认）", nil, .unlimitedText),
+        ("时间段", nil, .checkmark),
+        ("持续提醒", nil, .checkmark),
+        ("关联 Notion", nil, .checkmark),
+        ("关联微信", nil, .checkmark),
+        ("AI 语音添加", nil, .checkmark),
+        ("颜色测试（红/绿）", nil, .checkmark),
+        ("颜色测试（橙/默认）", .basicText, .checkmark),
+        ("AI 录音总结", nil, .unlimitedText),
+        ("小组件", .basicText, .checkmark),
+        ("外观主题", .basicText, .unlimitedText),
+        ("数据统计", .basicText, .unlimitedText),
+        ("更多功能", nil, .checkmark),
     ]
 }

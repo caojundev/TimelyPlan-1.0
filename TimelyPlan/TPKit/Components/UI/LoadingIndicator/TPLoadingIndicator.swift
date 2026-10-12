@@ -165,7 +165,7 @@ class TPLoadingIndicator {
 extension TPLoadingIndicator {
     
     /// 显示带默认消息的加载指示器
-    static func showLoading(_ message: String = "加载中...") {
+    static func showLoading(_ message: String = resGetString("Loading...")) {
         shared.show(message: message)
     }
     

@@ -330,17 +330,16 @@ class PaywallViewController: TPViewController {
             let snapshot = await self.manager.restore()
             self.entitlement = snapshot
             self.setProcessing(false)
-            
             if snapshot.isActive {
-                self.alert(resGetString("Purchases Restored")) { [weak self] in
+                Self.alertPurchasesRestored { [weak self] in
                     self?.dismiss(animated: true)
                 }
             } else {
-                self.alert(resGetString("No purchases to restore were found."))
+                Self.alertNoPurchasesFound()
             }
         }
     }
-    
+
     private func redeemCode() {
         SKPaymentQueue.default().presentCodeRedemptionSheet()
     }
@@ -349,13 +348,30 @@ class PaywallViewController: TPViewController {
     private func setProcessing(_ processing: Bool) {
         isProcessing = processing
         view.isUserInteractionEnabled = !processing
+        if processing {
+            let message = resGetString("Processing...")
+            TPLoadingIndicator.showLoading(message)
+        } else {
+            TPLoadingIndicator.hideAllLoading()
+        }
+        
         refreshContinueState()
     }
     
-    private func alert(_ message: String, completion: (() -> Void)? = nil) {
+    public static func alertPurchasesRestored(completion: (() -> Void)? = nil) {
+        alert(resGetString("Purchases Restored"), completion: completion)
+    }
+    
+    public static func alertNoPurchasesFound() {
+        alert(resGetString("No purchases to restore were found."))
+    }
+    
+    public static func alert(_ message: String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: resGetString("OK"), style: .default) { _ in completion?() })
-        present(alert, animated: true)
+        if let topVC = UIViewController.topPresented {
+            topVC.present(alert, animated: true)
+        }
     }
     
     // MARK: - 布局
