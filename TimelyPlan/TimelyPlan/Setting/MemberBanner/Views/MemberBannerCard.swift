@@ -2,23 +2,12 @@
 //  MemberBannerCard.swift
 //  MemberBanner
 //
-//  方案二核心组件：浅色主题下的「已开通会员」紧凑金卡。
-//
-//  设计要点（对应设计稿）：
-//  - 深色黑金卡片，落在浅色页面上形成视觉焦点
-//  - 双描边（外描边 + 内细线）营造徽章/证书质感
-//  - 皇冠徽标 + 金色渐变标题 + 有效期副文案
-//  - 底部一行：金色对勾「权益已全部解锁」 + 右侧「查看权益 ›」
-//
-//  布局策略：完全 frame 手动布局，尺寸由外部给定宽度、内部按设计比例算高。
-//  组件本身不关心内容来源，只认 MemberStatus。
-//
 
 import Foundation
 import UIKit
 
 protocol MemberBannerCardDelegate: AnyObject {
-    /// 点击「查看权益」，由外部决定跳转逻辑（解耦）
+    /// 点击「查看权益」
     func memberBannerCardDidTapDetail(_ card: MemberBannerCard)
 }
 
@@ -106,7 +95,10 @@ final class MemberBannerCard: UIView {
         crownBadge.image = resGetImage("memberBanner_crown_46")
         addSubview(crownBadge)
         
+        titleLabel.text = "---"
         addSubview(titleLabel)
+        
+        subtitleLabel.text = "---"
         addSubview(subtitleLabel)
         addSubview(checkBadge)
         addSubview(unlockLabel)
@@ -116,20 +108,15 @@ final class MemberBannerCard: UIView {
     }
 
     private func setupStyles() {
-        titleLabel.configure(text: "尊享会员 · 年度", font: MemberBannerTheme.Font.serif(16.5))
+        titleLabel.font = MemberBannerTheme.Font.serif(16.5)
         titleLabel.gradientColors = [MemberBannerTheme.Color.cardTitle, MemberBannerTheme.Color.cardTitleEnd]
-
         subtitleLabel.font = MemberBannerTheme.Font.sans(11.5)
         subtitleLabel.textColor = MemberBannerTheme.Color.cardSubtitle
-        subtitleLabel.text = "有效期至 2027.03.15 · 剩余 519 天"
 
         unlockLabel.font = MemberBannerTheme.Font.sans(11.5)
         unlockLabel.textColor = MemberBannerTheme.Color.cardBodyText
-        unlockLabel.text = "权益已全部解锁"
-
-
         
-        detailButton.title = "查看权益"
+        detailButton.title = resGetString("View Benefits")
         detailButton.padding = .zero
         detailButton.imagePosition = .right
         detailButton.titleConfig.font = MemberBannerTheme.Font.sans(11.5, .medium)

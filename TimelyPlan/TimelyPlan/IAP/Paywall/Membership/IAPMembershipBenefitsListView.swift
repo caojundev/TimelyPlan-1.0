@@ -32,7 +32,7 @@ enum IAPMembershipBenefitValue: ExpressibleByStringLiteral {
     }
     
     static var unlimitedText: IAPMembershipBenefitValue {
-        return .text("")
+        return .text("Unlimited")
     }
     
     static var checkmark: IAPMembershipBenefitValue {
@@ -404,7 +404,7 @@ private final class IAPMembershipBenefitHeaderView: UIView {
         addSubview(freeLabel)
 
         proLabel.edgeInsets = edgeInsets
-        proLabel.text = resGetString("Premium")
+        proLabel.text = resGetString("Pro")
         proLabel.textColor = MembershipColor.highlight
         proLabel.font = Metric.headerFont
         proLabel.textAlignment = .center

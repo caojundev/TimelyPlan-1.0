@@ -320,7 +320,7 @@ class PaywallViewController: TPViewController {
         case .userCancelled:
             break
         case .pending, .unverified, .failed:
-            alert(result.message)
+            Self.alert(result.message)
         }
     }
     

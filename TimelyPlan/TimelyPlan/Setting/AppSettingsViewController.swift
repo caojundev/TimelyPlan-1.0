@@ -37,7 +37,6 @@ class AppSettingsViewController: BaseSettingViewController,
     private lazy var memberBannerView: MemberBannerView = {
         let bannerView = MemberBannerView()
         bannerView.contentPadding = bannerPadding
-        bannerView.status = .sample()
         bannerView.cardView.delegate = self
         return bannerView
     }()
@@ -334,14 +333,18 @@ class AppSettingsViewController: BaseSettingViewController,
     
     private func update(with entitlement: IAPEntitlement) {
         TPLoadingIndicator.hideAllLoading() /// 防止升级视图控制器关闭，购买仍在进行中
-        updateBannerView(isMember: entitlement.isActive)
+        updateBannerView(with: entitlement)
         setupSectionControllers()
         adapter.performUpdate()
     }
     
     /// 更新表头横幅：未开通会员显示升级横幅，已开通显示会员横幅
-    private func updateBannerView(isMember: Bool) {
-        let bannerView: AppBannerRepresentable = isMember ? memberBannerView : upgradeBannerView
+    private func updateBannerView(with entitlement: IAPEntitlement) {
+        /// 已开通会员时，把当前权益转换为会员卡数据
+        memberBannerView.status = MemberStatus.make(from: entitlement,
+                                                    products: IAPManager.shared.products)
+        
+        let bannerView: AppBannerRepresentable = entitlement.isActive ? memberBannerView : upgradeBannerView
         guard self.bannerView !== bannerView else {
             return
         }

@@ -42,17 +42,19 @@ public struct IAPStoreProduct: Identifiable, @unchecked Sendable {
     /// 是否为订阅
     public var isSubscription: Bool { kind == .subscription }
 
-    /// 订阅周期文案，如 "每月" / "每年"；买断制返回 nil。
+    /// 订阅周期是否为「年」
+    var isYearlySubscription: Bool {
+        guard let period = product.subscription?.subscriptionPeriod else {
+            return false
+        }
+        
+        return period.unit == .year
+    }
+    
+    /// 订阅周期文案，如 "每月" / "3 个月"；买断制返回 nil。
     public var subscriptionPeriodText: String? {
         guard let period = product.subscription?.subscriptionPeriod else { return nil }
-        // iOS 15 上 unit 枚举仅有 day/week/month/year 四类（不含 nil-unit case）
-        switch period.unit {
-        case .day:   return period.value == 1 ? "每天" : "\(period.value) 天"
-        case .week:  return period.value == 1 ? "每周" : "\(period.value) 周"
-        case .month: return period.value == 1 ? "每月" : "\(period.value) 个月"
-        case .year:  return period.value == 1 ? "每年" : "\(period.value) 年"
-        @unknown default: return nil
-        }
+        return Self.periodText(value: period.value, unit: period.unit)
     }
 
     /// 是否提供免费试用（有 introductory offer 且为免费试用）
@@ -64,16 +66,28 @@ public struct IAPStoreProduct: Identifiable, @unchecked Sendable {
     /// 免费试用周期文案，如 "7 天免费试用"；无试用返回 nil。
     public var freeTrialText: String? {
         guard let intro = product.subscription?.introductoryOffer,
-              intro.paymentMode == .freeTrial else { return nil }
-        let p = intro.period
-        let unitText: String
-        switch p.unit {
-        case .day:   unitText = "天"
-        case .week:  unitText = "周"
-        case .month: unitText = "个月"
-        case .year:  unitText = "年"
-        @unknown default: unitText = ""
+              intro.paymentMode == .freeTrial,
+              let periodText = Self.periodText(value: intro.period.value, unit: intro.period.unit) else {
+            return nil
         }
-        return "\(p.value) \(unitText)免费试用"
+        
+        return String(format: resGetString("%@ free trial"), periodText)
+    }
+    
+    // MARK: - 周期文案
+    /// 周期文案：单数取「每日 / 每周 / 每月 / 每年」，复数拼接数量（如 "3 个月"）
+    private static func periodText(value: Int, unit: Product.SubscriptionPeriod.Unit) -> String? {
+        switch unit {
+        case .day:
+            return value == 1 ? resGetString("Daily") : String(format: resGetString("%ld days"), value)
+        case .week:
+            return value == 1 ? resGetString("Weekly") : String(format: resGetString("%ld weeks"), value)
+        case .month:
+            return value == 1 ? resGetString("Monthly") : String(format: resGetString("%ld months"), value)
+        case .year:
+            return value == 1 ? resGetString("Yearly") : String(format: resGetString("%ld years"), value)
+        @unknown default:
+            return nil
+        }
     }
 }

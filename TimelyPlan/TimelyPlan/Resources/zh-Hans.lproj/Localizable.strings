@@ -902,6 +902,18 @@
 "Restore Purchases" = "恢复购买";
 "Go Premium" = "升级会员";
 "Limited Time Offer" = "限时优惠";
+"View Benefits" = "查看权益";
+"%@ free trial" = "%@免费试用";
+
+/// 会员状态卡片
+"Monthly Plan" = "月度";
+"Yearly Plan" = "年度";
+"Lifetime Plan" = "永久";
+"Valid until %@" = "有效期至 %@";
+"%ld days left" = "剩余 %ld 天";
+"%ld day left" = "剩余 %ld 天";
+"Lifetime access · Permanent benefits" = "终身有效 · 永久权益";
+"All benefits unlocked" = "权益已全部解锁";
 "Unlock all premium features, enjoy an enhanced experience, and exclusive perks" = "解锁全部高级功能，畅享进阶体验，以及专属特权";
 
 "Side Menu" = "侧边栏";
@@ -1153,7 +1165,7 @@
 "%ld week" = "%ld周";
 "%ld weeks" = "%ld周";
 "%ld month" = "%ld月";
-"%ld months" = "%ld月";
+"%ld months" = "%ld个月";
 "%ld year" = "%ld年";
 "%ld years" = "%ld年";
 "on the %@" = "于%@";
@@ -1240,12 +1252,15 @@
 "Free" = "免费";
 "Premium" = "高级会员";
 "View more pro features" = "查看更多高级功能";
-
+"Basic" = "基础";
 "Unlimited" = "无限制";
+"Redeem Code" = "兑换码";
+
 
 /* 订阅说明与法务入口 */
 "Privacy Policy" = "隐私政策";
 "Terms of Service" = "服务条款";
+"upgrade.notice" = "确认购买并支付后，将通过您的 iTunes 账号自动续订。苹果 iTunes 账户会在到期前 24 小时内扣费，扣费成功后订阅周期顺延一个订阅周期。如需取消续订，请在当前订阅周期到期前 24 小时以前，手动在 iTunes/AppleID 设置管理中关闭自动续费功能。试用期内，iTunes 账户如不取消订阅，则会在试用期结束时自动开通订阅并扣款，未使用的试用时长在购买订阅之后将会自动作废。本服务由您自主选择是否取消，若您选择不取消，将为您开通下一个计费周期的续费服务。";
 
 /* 弹窗 */
 "OK" = "好的";
@@ -1255,5 +1270,3 @@
 "Processing..." = "处理中...";
 "Purchases Restored" = "已恢复购买";
 "No purchases to restore were found." = "未找到可恢复的购买记录。";
-
-"upgrade.notice" = "确认购买并支付后，将通过您的 iTunes 账号自动续订。苹果 iTunes 账户会在到期前 24 小时内扣费，扣费成功后订阅周期顺延一个订阅周期。如需取消续订，请在当前订阅周期到期前 24 小时以前，手动在 iTunes/AppleID 设置管理中关闭自动续费功能。试用期内，iTunes 账户如不取消订阅，则会在试用期结束时自动开通订阅并扣款，未使用的试用时长在购买订阅之后将会自动作废。本服务由您自主选择是否取消，若您选择不取消，将为您开通下一个计费周期的续费服务。";
