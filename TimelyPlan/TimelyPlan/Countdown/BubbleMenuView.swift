@@ -31,6 +31,18 @@ class BubbleMenuView: UIView {
     private let menuRightPadding: CGFloat = 24.0   // 菜单距屏幕右边距
     private let bubblePadding: CGFloat = 24.0      // 泡泡边缘超出菜单的留白
     
+    // MARK: - 动画时长
+    /// 遮罩淡入淡出时长
+    private let overlayAnimationDuration: TimeInterval = 0.3
+    /// 关闭按钮旋转时长
+    private let closeButtonAnimationDuration: TimeInterval = 0.35
+    /// 泡泡扩散 / 收缩时长
+    private let bubbleAnimationDuration: TimeInterval = 0.4
+    /// 菜单项滑入 / 淡出时长
+    private let menuItemAnimationDuration: TimeInterval = 0.4
+    /// 菜单项之间的错峰间隔
+    private let menuItemAnimationDelayStep: TimeInterval = 0.05
+    
     private let menuItems: [BubbleMenuItem]
     private var triggerButtonFrame: CGRect = .zero
     private var bubbleCenter: CGPoint = .zero
@@ -316,7 +328,7 @@ class BubbleMenuView: UIView {
         
         // 1. 遮罩淡入
         overlayView.isHidden = false
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: overlayAnimationDuration) {
             self.overlayView.alpha = 1
         }
         
@@ -332,7 +344,7 @@ class BubbleMenuView: UIView {
         let showSpin = CABasicAnimation(keyPath: "transform.rotation.z")
         showSpin.fromValue = -CGFloat.pi / 4.0
         showSpin.toValue = CGFloat.pi / 2.0
-        showSpin.duration = 0.45
+        showSpin.duration = closeButtonAnimationDuration
         showSpin.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         showSpin.isRemovedOnCompletion = false
         closeButton.layer.add(showSpin, forKey: "bubbleMenu.showSpin")
@@ -344,7 +356,7 @@ class BubbleMenuView: UIView {
         /// 曲线为轻微回弹的 spring 感（结尾约 0.7% 过冲），保证遮罩与泡泡逐帧重合
         syncBubbleAndMask(radius: radius,
                           fromRadius: buttonSize / 2,
-                          duration: 0.6,
+                          duration: bubbleAnimationDuration,
                           delay: 0,
                           timingFunction: CAMediaTimingFunction(controlPoints: 0.2, 0.1, 0.5, 1.1))
         
@@ -354,9 +366,9 @@ class BubbleMenuView: UIView {
             itemView.transform = CGAffineTransform(translationX: 60, y: 0)
             itemView.alpha = 0
             
-            UIView.animate(withDuration: 0.6,
-                           delay: 0.2 + Double(index) * 0.05,
-                           usingSpringWithDamping: 0.75,
+            UIView.animate(withDuration: menuItemAnimationDuration,
+                           delay: 0.1 + Double(index) * menuItemAnimationDelayStep,
+                           usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 0.5,
                            options: .curveEaseOut) {
                 itemView.transform = .identity
@@ -371,7 +383,9 @@ class BubbleMenuView: UIView {
         let currentRadius = currentBubbleRadius
         
         for (index, itemView) in menuItemViews.enumerated() {
-            UIView.animate(withDuration: 0.2, delay: Double(menuItemViews.count - 1 - index) * 0.03, options: .curveEaseIn) {
+            UIView.animate(withDuration: menuItemAnimationDuration,
+                           delay: Double(menuItemViews.count - 1 - index) * menuItemAnimationDelayStep,
+                           options: .curveEaseIn) {
                 itemView.alpha = 0.0
             } completion: { _ in
                 itemView.isHidden = true
@@ -383,7 +397,7 @@ class BubbleMenuView: UIView {
         let hideSpin = CABasicAnimation(keyPath: "transform.rotation.z")
         hideSpin.fromValue = 0
         hideSpin.toValue = hiddenAngle
-        hideSpin.duration = 0.4
+        hideSpin.duration = closeButtonAnimationDuration
         hideSpin.timingFunction = CAMediaTimingFunction(name: .easeIn)
         hideSpin.fillMode = .forwards
         hideSpin.isRemovedOnCompletion = false
@@ -393,11 +407,12 @@ class BubbleMenuView: UIView {
         /// 遮罩与泡泡逐帧重合，因此收缩过程中菜单内容不会露在泡泡外面
         syncBubbleAndMask(radius: buttonSize / 2,
                           fromRadius: currentRadius,
-                          duration: 0.35,
-                          delay: 0.1,
+                          duration: bubbleAnimationDuration,
+                          delay: 0.05,
                           timingFunction: CAMediaTimingFunction(name: .easeIn))
         
-        UIView.animate(withDuration: 0.3, delay: 0.15) {
+        /// 遮罩淡出时长与泡泡收缩一致，保证收缩动画播完后才移除视图
+        UIView.animate(withDuration: bubbleAnimationDuration, delay: 0.05) {
             self.overlayView.alpha = 0
         } completion: { _ in
             self.onDismiss?()

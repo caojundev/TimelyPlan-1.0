@@ -28,11 +28,11 @@ enum IAPMembershipBenefitValue: ExpressibleByStringLiteral {
     }
 
     static var basicText: IAPMembershipBenefitValue {
-        return .text("Basic")
+        return .text(resGetString("Basic"))
     }
     
     static var unlimitedText: IAPMembershipBenefitValue {
-        return .text("Unlimited")
+        return .text(resGetString("Unlimited"))
     }
     
     static var checkmark: IAPMembershipBenefitValue {

@@ -803,6 +803,8 @@
 		E541DC65305A1AAA008BFAE0 /* CountdownTimePlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC64305A1AAA008BFAE0 /* CountdownTimePlan.swift */; };
 		E541DC67305A33CC008BFAE0 /* CountdownRepeatCustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC66305A33CB008BFAE0 /* CountdownRepeatCustomViewController.swift */; };
 		E541DC69305A801F008BFAE0 /* CountdownDateEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E541DC68305A801F008BFAE0 /* CountdownDateEditSectionController.swift */; };
+		E5423C4E307D204700B1DB3E /* goal_task_progress_weight_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5423C4C307D204600B1DB3E /* goal_task_progress_weight_24@3x.png */; };
+		E5423C4F307D204700B1DB3E /* goal_task_progress_weight_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5423C4D307D204700B1DB3E /* goal_task_progress_weight_24@2x.png */; };
 		E544106230314E7400E398BE /* TodoStepInputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E544106130314E7400E398BE /* TodoStepInputToolbar.swift */; };
 		E544106530317F9200E398BE /* todo_task_step_addSubstep_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E544106330317F9200E398BE /* todo_task_step_addSubstep_24@3x.png */; };
 		E544106630317F9200E398BE /* todo_task_step_addSubstep_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E544106430317F9200E398BE /* todo_task_step_addSubstep_24@2x.png */; };
@@ -3298,6 +3300,8 @@
 		E541DC64305A1AAA008BFAE0 /* CountdownTimePlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimePlan.swift; sourceTree = "<group>"; };
 		E541DC66305A33CB008BFAE0 /* CountdownRepeatCustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownRepeatCustomViewController.swift; sourceTree = "<group>"; };
 		E541DC68305A801F008BFAE0 /* CountdownDateEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownDateEditSectionController.swift; sourceTree = "<group>"; };
+		E5423C4C307D204600B1DB3E /* goal_task_progress_weight_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goal_task_progress_weight_24@3x.png"; sourceTree = "<group>"; };
+		E5423C4D307D204700B1DB3E /* goal_task_progress_weight_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goal_task_progress_weight_24@2x.png"; sourceTree = "<group>"; };
 		E544106130314E7400E398BE /* TodoStepInputToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStepInputToolbar.swift; sourceTree = "<group>"; };
 		E544106330317F9200E398BE /* todo_task_step_addSubstep_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_step_addSubstep_24@3x.png"; sourceTree = "<group>"; };
 		E544106430317F9200E398BE /* todo_task_step_addSubstep_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_step_addSubstep_24@2x.png"; sourceTree = "<group>"; };
@@ -12947,6 +12951,8 @@
 				E5FAA9EC304E4B5D00C9CCD8 /* goal_task_completionStatus_24@3x.png */,
 				E5BA9A883052431C0044106F /* goal_task_action_move_24@2x.png */,
 				E5BA9A893052431C0044106F /* goal_task_action_move_24@3x.png */,
+				E5423C4D307D204700B1DB3E /* goal_task_progress_weight_24@2x.png */,
+				E5423C4C307D204600B1DB3E /* goal_task_progress_weight_24@3x.png */,
 			);
 			path = goal;
 			sourceTree = "<group>";
@@ -13312,6 +13318,7 @@
 				E5E277022D3DF6EA004EC522 /* shred_24@3x.png in Resources */,
 				E563F1CC2FE8E42E00DF86BB /* sideMenu_calendar_40@3x.png in Resources */,
 				E5CAA9672D700ABD00A0539C /* todo_task_quadrant_24@2x.png in Resources */,
+				E5423C4E307D204700B1DB3E /* goal_task_progress_weight_24@3x.png in Resources */,
 				E5259B22301A3CFE00A6D253 /* triangle_up_12@3x.png in Resources */,
 				E50D94DF2D4528E500F57957 /* ellipsis_circle_fill_24@3x.png in Resources */,
 				E5D7D9772D43E05700EC877A /* focus_running_screenAlwaysOnEnabled_24@3x.png in Resources */,
@@ -13469,6 +13476,7 @@
 				E56B94612F8CD6D0001E488B /* todo_group_type_startDate_24@2x.png in Resources */,
 				E55528482FB5F3180093DD7E /* todo_board_80@2x.png in Resources */,
 				E50D02572F55860B00E93977 /* habit_time_evening_24@2x.png in Resources */,
+				E5423C4F307D204700B1DB3E /* goal_task_progress_weight_24@2x.png in Resources */,
 				E55E4BE32F9336170068E032 /* calendar_17_24@2x.png in Resources */,
 				E5BEC285307B3E770050E01B /* upgrade_service_16@3x.png in Resources */,
 				E55E78052D8ABB09005E3DED /* quadrant_option_showCompleted_24@2x.png in Resources */,

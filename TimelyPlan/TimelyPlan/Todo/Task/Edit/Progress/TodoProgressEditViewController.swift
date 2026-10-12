@@ -13,12 +13,14 @@ class TodoProgressEditViewController: TPTableSectionsViewController {
     /// 量化对象结束编辑回调
     var didEndEditing: ((TodoEditProgress?) -> Void)?
     
+    private let cornerRadius: CGFloat = .greatestFiniteMagnitude
+    
     /// 初始值
     lazy var initialValueCellItem: TPNumberFieldTableCellItem = { [weak self] in
         let cellItem = TPNumberFieldTableCellItem()
         cellItem.imageName = "todo_task_progress_initialValue_24"
         cellItem.title = resGetString("Initial Value")
-        cellItem.fieldCornerRadius = 12.0
+        cellItem.fieldCornerRadius = cornerRadius
         cellItem.updater = {
             guard let self = self else { return }
             let value = self.progress.initialValue
@@ -37,7 +39,7 @@ class TodoProgressEditViewController: TPTableSectionsViewController {
         let cellItem = TPNumberFieldTableCellItem()
         cellItem.imageName = "todo_task_progress_targetValue_24"
         cellItem.title = resGetString("Target Value")
-        cellItem.fieldCornerRadius = 12.0
+        cellItem.fieldCornerRadius = cornerRadius
         cellItem.updater = {
             guard let self = self else { return }
             let value = self.progress.targetValue
@@ -66,7 +68,7 @@ class TodoProgressEditViewController: TPTableSectionsViewController {
         let cellItem = TPNumberFieldTableCellItem()
         cellItem.imageName = "todo_task_progress_currentValue_24"
         cellItem.title = resGetString("Current Value")
-        cellItem.fieldCornerRadius = 12.0
+        cellItem.fieldCornerRadius = cornerRadius
         cellItem.updater = {
             guard let self = self else { return }
             let value = self.progress.currentValue
@@ -95,7 +97,7 @@ class TodoProgressEditViewController: TPTableSectionsViewController {
         let cellItem = TPSegmentedMenuTableCellItem()
         cellItem.imageName = "todo_task_progress_calculation_24"
         cellItem.title = resGetString("Calculation")
-        cellItem.cornerRadius = 12.0
+        cellItem.cornerRadius = cornerRadius
         cellItem.menuPadding = UIEdgeInsets(value: 2.0)
         cellItem.menuItems = TodoProgressCalculation.segmentedMenuItems()
         cellItem.updater = {
@@ -131,7 +133,7 @@ class TodoProgressEditViewController: TPTableSectionsViewController {
         let cellItem = TPSegmentedMenuTableCellItem()
         cellItem.imageName = "todo_task_progress_recordType_24"
         cellItem.title = resGetString("Record Type")
-        cellItem.cornerRadius = 12.0
+        cellItem.cornerRadius = cornerRadius
         cellItem.menuPadding = UIEdgeInsets(value: 2.0)
         cellItem.menuItems = TodoProgressRecordType.segmentedMenuItems()
         cellItem.updater = {
@@ -155,7 +157,7 @@ class TodoProgressEditViewController: TPTableSectionsViewController {
         cellItem.imageName = "todo_task_progress_autoRecordValue_24"
         cellItem.title = resGetString("Auto Record Value")
         cellItem.fieldPadding = UIEdgeInsets(left: 15.0, right: 10.0)
-        cellItem.fieldCornerRadius = 12.0
+        cellItem.fieldCornerRadius = cornerRadius
         cellItem.updater = {
             self?.updateAutoRecordValueCellItem()
         }

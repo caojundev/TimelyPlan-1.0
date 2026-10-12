@@ -77,7 +77,7 @@ class MyDayGoalTaskBindCell: TPBaseTableCell, SearchHighlightable {
         }
         
         /// 进度
-        infoView.isProgressHidden = goalTask.targetValue <= 0
+        infoView.isProgressHidden = !goalTask.isValidProgress
         infoView.setProgress(goalTask.progressFraction)
         infoView.progressView.barForeColor = goalTask.color ?? GoalTask.defaultColor
         

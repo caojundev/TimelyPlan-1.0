@@ -79,14 +79,13 @@ class TPBarProgressView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let cornerRadius = min(cornerRadius, bounds.boundingCornerRadius)
+        let backCornerRadius = min(cornerRadius, bounds.boundingCornerRadius)
         backLayer.backgroundColor = barBackColor.cgColor
         backLayer.frame = bounds
-        backLayer.cornerRadius = cornerRadius
+        backLayer.cornerRadius = backCornerRadius
         
         progressLayer.backgroundColor = barForeColor.cgColor
         updateProgress()
-        progressLayer.cornerRadius = cornerRadius
     }
     
     private func updateProgress(animated: Bool = false, completion: (() -> Void)? = nil) {
@@ -102,6 +101,13 @@ class TPBarProgressView: UIView {
             let y = height - h
             progressLayer.frame = CGRect(x: 0, y: y, width: width, height: h)
         }
+        
+        /// 进度图层的圆角半径不能超过其自身尺寸的一半：
+        /// 进度为 0 时长度为 0，若仍按视图尺寸取圆角，圆角路径会向左溢出，
+        /// 在进度条最左端绘制出一小块进度颜色（拖动排序生成快照时尤为明显）
+        progressLayer.cornerRadius = min(cornerRadius, progressLayer.bounds.boundingCornerRadius)
+        /// 进度为 0 时完全透明，避免快照渲染出现残留色块
+        progressLayer.opacity = progress <= 0.0 ? 0.0 : 1.0
         
         CATransaction.commit()
     }

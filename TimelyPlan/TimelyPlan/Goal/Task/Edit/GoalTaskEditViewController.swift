@@ -212,6 +212,7 @@ class GoalTaskEditViewController: TPTableSectionsViewController {
         cellItem.autoResizable = false
         cellItem.height = Config.defaultCellHeight
         cellItem.title = resGetString("Weight")
+        cellItem.imageName = "goal_task_progress_weight_24"
         cellItem.updater = {
             guard let self = self else { return }
             self.weightCellItem.valueConfig = .valueText("\(self.editingTask.weight)")

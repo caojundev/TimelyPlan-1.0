@@ -48,6 +48,7 @@ class GoalTaskProgressEditSectionController: TPTableItemSectionController {
     lazy var initialValueCellItem: TPNumberFieldTableCellItem = { [weak self] in
         let cellItem = TPNumberFieldTableCellItem()
         cellItem.title = resGetString("Initial Value")
+        cellItem.imageName = "todo_task_progress_initialValue_24"
         cellItem.fieldCornerRadius = .greatestFiniteMagnitude
         cellItem.updater = {
             guard let self = self else { return }
@@ -65,6 +66,7 @@ class GoalTaskProgressEditSectionController: TPTableItemSectionController {
     lazy var targetValueCellItem: TPNumberFieldTableCellItem = { [weak self] in
         let cellItem = TPNumberFieldTableCellItem()
         cellItem.title = resGetString("Target Value")
+        cellItem.imageName = "todo_task_progress_targetValue_24"
         cellItem.fieldCornerRadius = .greatestFiniteMagnitude
         cellItem.updater = {
             guard let self = self else { return }
@@ -82,6 +84,7 @@ class GoalTaskProgressEditSectionController: TPTableItemSectionController {
     lazy var calculationCellItem: TPSegmentedMenuTableCellItem = { [weak self] in
         let cellItem = TPSegmentedMenuTableCellItem()
         cellItem.title = resGetString("Calculation")
+        cellItem.imageName = "todo_task_progress_calculation_24"
         cellItem.cornerRadius = .greatestFiniteMagnitude
         cellItem.menuPadding = UIEdgeInsets(value: 2.0)
         cellItem.menuItems = GoalProgressCalculation.segmentedMenuItems(style: .title)
@@ -105,6 +108,7 @@ class GoalTaskProgressEditSectionController: TPTableItemSectionController {
     lazy var recordTypeCellItem: TPSegmentedMenuTableCellItem = { [weak self] in
         let cellItem = TPSegmentedMenuTableCellItem()
         cellItem.title = resGetString("Record Type")
+        cellItem.imageName = "todo_task_progress_recordType_24"
         cellItem.cornerRadius = .greatestFiniteMagnitude
         cellItem.menuPadding = UIEdgeInsets(value: 2.0)
         cellItem.menuItems = GoalProgressRecordType.segmentedMenuItems(style: .title)
@@ -128,6 +132,7 @@ class GoalTaskProgressEditSectionController: TPTableItemSectionController {
     lazy var autoRecordValueCellItem: TPNumberFieldLeftSymbolTableCellItem = { [weak self] in
         let cellItem = TPNumberFieldLeftSymbolTableCellItem()
         cellItem.title = resGetString("Auto Record Value")
+        cellItem.imageName = "todo_task_progress_autoRecordValue_24"
         cellItem.fieldPadding = UIEdgeInsets(left: 15.0, right: 10.0)
         cellItem.fieldCornerRadius = .greatestFiniteMagnitude
         cellItem.updater = {
