@@ -21,8 +21,19 @@ class AppSettingsViewController: BaseSettingViewController,
         return config
     }()
     
-    // MARK: - 会员升级横幅
-    /// 会员升级横幅
+    // MARK: - 高级会员横幅
+    /// 会员横幅（测试用，当前展示的横幅）
+    private lazy var memberBannerView: MemberBannerView = {
+        let bannerView = MemberBannerView()
+        /// 内容内间距，用于制造卡片四周的空白
+        bannerView.contentPadding = UIEdgeInsets(top: 8.0, left: 20.0, bottom: 5.0, right: 20.0)
+        /// 测试数据
+        bannerView.status = .sample()
+        bannerView.cardView.delegate = self
+        return bannerView
+    }()
+    
+    /// 会员升级横幅（暂时不展示，保留用于对比测试）
     private lazy var promoCard: AppProUpgradeBannerView = {
         let promoCard = AppProUpgradeBannerView()
         promoCard.contentPadding = UIEdgeInsets(top: 8.0, left: 20.0, bottom: 5.0, right: 20.0)
@@ -285,8 +296,8 @@ class AppSettingsViewController: BaseSettingViewController,
                               aboutSectionController]
         reloadData()
         
-        /// 添加会员升级横幅
-        updatePromoCardLayout()
+        /// 添加会员横幅
+        updateBannerLayout()
         
         cloudStatusViewModel.startObserving()
         cloudStatusViewModel.onStatusChanged = { [weak self] _ in
@@ -296,23 +307,23 @@ class AppSettingsViewController: BaseSettingViewController,
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        updatePromoCardLayout()
+        updateBannerLayout()
     }
     
-    /// 更新会员升级横幅布局（作为列表头部视图，宽度变化后需要重新设置）
-    private func updatePromoCardLayout() {
+    /// 更新会员横幅布局（作为列表头部视图，宽度变化后需要重新设置）
+    private func updateBannerLayout() {
         let width = tableView.width
         guard width > 0 else {
             return
         }
         
-        let headerSize = CGSize(width: width, height: promoCard.intrinsicContentSize.height)
-        guard promoCard.size != headerSize else {
+        let headerSize = CGSize(width: width, height: memberBannerView.recommendedHeight(forWidth: width))
+        guard memberBannerView.size != headerSize else {
             return
         }
         
-        promoCard.frame = CGRect(origin: .zero, size: headerSize)
-        tableView.tableHeaderView = promoCard
+        memberBannerView.frame = CGRect(origin: .zero, size: headerSize)
+        tableView.tableHeaderView = memberBannerView
     }
 
     private func updateCloudCellItem() {
@@ -455,4 +466,13 @@ class AppSettingsViewController: BaseSettingViewController,
         vc.show()
     }
     
+}
+
+// MARK: - MemberBannerCardDelegate
+extension AppSettingsViewController: MemberBannerCardDelegate {
+    
+    func memberBannerCardDidTapDetail(_ card: MemberBannerCard) {
+        /// 查看权益
+        clickUnlockPremium()
+    }
 }
