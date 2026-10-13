@@ -1041,20 +1041,20 @@
 		E55B895C3077907000ADCED5 /* MindMapNodeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B894E3077906F00ADCED5 /* MindMapNodeKind.swift */; };
 		E55B89603077BA6900ADCED5 /* TodoMindMapPreviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B895F3077BA6900ADCED5 /* TodoMindMapPreviewer.swift */; };
 		E55B89623077BDB800ADCED5 /* TodoMindMapConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B89613077BDB800ADCED5 /* TodoMindMapConverter.swift */; };
-		E55BDEB4307DD5A7002A9986 /* GoalTaskSummaryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEB3307DD5A7002A9986 /* GoalTaskSummaryActionViewController.swift */; };
-		E55BDEC6307DDFA7002A9986 /* ProgressTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEB7307DDFA7002A9986 /* ProgressTheme.swift */; };
-		E55BDEC7307DDFA7002A9986 /* ProgressRingMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEB8307DDFA7002A9986 /* ProgressRingMetrics.swift */; };
-		E55BDEC8307DDFA7002A9986 /* TaskProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEBA307DDFA7002A9986 /* TaskProgress.swift */; };
-		E55BDEC9307DDFA7002A9986 /* ProgressSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEBB307DDFA7002A9986 /* ProgressSnapshot.swift */; };
-		E55BDECA307DDFA7002A9986 /* ProgressCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEBC307DDFA7002A9986 /* ProgressCalculator.swift */; };
-		E55BDECB307DDFA7002A9986 /* ProgressStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEBD307DDFA7002A9986 /* ProgressStatus.swift */; };
-		E55BDECC307DDFA7002A9986 /* ProgressLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEBF307DDFA7002A9986 /* ProgressLegendView.swift */; };
-		E55BDECD307DDFA7002A9986 /* ProgressNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC0307DDFA7002A9986 /* ProgressNoteView.swift */; };
-		E55BDECF307DDFA7002A9986 /* RingCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC2307DDFA7002A9986 /* RingCenterView.swift */; };
-		E55BDED0307DDFA7002A9986 /* TaskProgressCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC3307DDFA7002A9986 /* TaskProgressCardView.swift */; };
-		E55BDED1307DDFA7002A9986 /* ProgressMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC4307DDFA7002A9986 /* ProgressMetricsView.swift */; };
-		E55BDED2307DDFA7002A9986 /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC5307DDFA7002A9986 /* ProgressRingView.swift */; };
-		E55BDED4307DDFC3002A9986 /* ProgressDemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDED3307DDFC2002A9986 /* ProgressDemoData.swift */; };
+		E55BDEB4307DD5A7002A9986 /* GoalSummaryActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEB3307DD5A7002A9986 /* GoalSummaryActionViewController.swift */; };
+		E55BDEC6307DDFA7002A9986 /* GoalSummaryTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEB7307DDFA7002A9986 /* GoalSummaryTheme.swift */; };
+		E55BDEC7307DDFA7002A9986 /* GoalSummaryRingMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEB8307DDFA7002A9986 /* GoalSummaryRingMetrics.swift */; };
+		E55BDEC8307DDFA7002A9986 /* GoalSummaryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEBA307DDFA7002A9986 /* GoalSummaryTask.swift */; };
+		E55BDEC9307DDFA7002A9986 /* GoalSummarySnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEBB307DDFA7002A9986 /* GoalSummarySnapshot.swift */; };
+		E55BDECA307DDFA7002A9986 /* GoalSummaryCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEBC307DDFA7002A9986 /* GoalSummaryCalculator.swift */; };
+		E55BDECB307DDFA7002A9986 /* GoalSummaryStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEBD307DDFA7002A9986 /* GoalSummaryStatus.swift */; };
+		E55BDECC307DDFA7002A9986 /* GoalSummaryLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEBF307DDFA7002A9986 /* GoalSummaryLegendView.swift */; };
+		E55BDECD307DDFA7002A9986 /* GoalSummaryNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC0307DDFA7002A9986 /* GoalSummaryNoteView.swift */; };
+		E55BDECF307DDFA7002A9986 /* GoalSummaryRingCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC2307DDFA7002A9986 /* GoalSummaryRingCenterView.swift */; };
+		E55BDED0307DDFA7002A9986 /* GoalSummaryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC3307DDFA7002A9986 /* GoalSummaryCardView.swift */; };
+		E55BDED1307DDFA7002A9986 /* GoalSummaryMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC4307DDFA7002A9986 /* GoalSummaryMetricsView.swift */; };
+		E55BDED2307DDFA7002A9986 /* GoalSummaryRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC5307DDFA7002A9986 /* GoalSummaryRingView.swift */; };
+		E55BDED4307DDFC3002A9986 /* GoalSummaryDemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDED3307DDFC2002A9986 /* GoalSummaryDemoData.swift */; };
 		E55CE3442D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3402D8BBE0D0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png */; };
 		E55CE3452D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3412D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png */; };
 		E55CE3462D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3422D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png */; };
@@ -3554,20 +3554,20 @@
 		E55B894E3077906F00ADCED5 /* MindMapNodeKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MindMapNodeKind.swift; sourceTree = "<group>"; };
 		E55B895F3077BA6900ADCED5 /* TodoMindMapPreviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMindMapPreviewer.swift; sourceTree = "<group>"; };
 		E55B89613077BDB800ADCED5 /* TodoMindMapConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMindMapConverter.swift; sourceTree = "<group>"; };
-		E55BDEB3307DD5A7002A9986 /* GoalTaskSummaryActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTaskSummaryActionViewController.swift; sourceTree = "<group>"; };
-		E55BDEB7307DDFA7002A9986 /* ProgressTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressTheme.swift; sourceTree = "<group>"; };
-		E55BDEB8307DDFA7002A9986 /* ProgressRingMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressRingMetrics.swift; sourceTree = "<group>"; };
-		E55BDEBA307DDFA7002A9986 /* TaskProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskProgress.swift; sourceTree = "<group>"; };
-		E55BDEBB307DDFA7002A9986 /* ProgressSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressSnapshot.swift; sourceTree = "<group>"; };
-		E55BDEBC307DDFA7002A9986 /* ProgressCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressCalculator.swift; sourceTree = "<group>"; };
-		E55BDEBD307DDFA7002A9986 /* ProgressStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressStatus.swift; sourceTree = "<group>"; };
-		E55BDEBF307DDFA7002A9986 /* ProgressLegendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressLegendView.swift; sourceTree = "<group>"; };
-		E55BDEC0307DDFA7002A9986 /* ProgressNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressNoteView.swift; sourceTree = "<group>"; };
-		E55BDEC2307DDFA7002A9986 /* RingCenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingCenterView.swift; sourceTree = "<group>"; };
-		E55BDEC3307DDFA7002A9986 /* TaskProgressCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskProgressCardView.swift; sourceTree = "<group>"; };
-		E55BDEC4307DDFA7002A9986 /* ProgressMetricsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressMetricsView.swift; sourceTree = "<group>"; };
-		E55BDEC5307DDFA7002A9986 /* ProgressRingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
-		E55BDED3307DDFC2002A9986 /* ProgressDemoData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressDemoData.swift; sourceTree = "<group>"; };
+		E55BDEB3307DD5A7002A9986 /* GoalSummaryActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSummaryActionViewController.swift; sourceTree = "<group>"; };
+		E55BDEB7307DDFA7002A9986 /* GoalSummaryTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryTheme.swift; sourceTree = "<group>"; };
+		E55BDEB8307DDFA7002A9986 /* GoalSummaryRingMetrics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryRingMetrics.swift; sourceTree = "<group>"; };
+		E55BDEBA307DDFA7002A9986 /* GoalSummaryTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryTask.swift; sourceTree = "<group>"; };
+		E55BDEBB307DDFA7002A9986 /* GoalSummarySnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummarySnapshot.swift; sourceTree = "<group>"; };
+		E55BDEBC307DDFA7002A9986 /* GoalSummaryCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryCalculator.swift; sourceTree = "<group>"; };
+		E55BDEBD307DDFA7002A9986 /* GoalSummaryStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryStatus.swift; sourceTree = "<group>"; };
+		E55BDEBF307DDFA7002A9986 /* GoalSummaryLegendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryLegendView.swift; sourceTree = "<group>"; };
+		E55BDEC0307DDFA7002A9986 /* GoalSummaryNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryNoteView.swift; sourceTree = "<group>"; };
+		E55BDEC2307DDFA7002A9986 /* GoalSummaryRingCenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryRingCenterView.swift; sourceTree = "<group>"; };
+		E55BDEC3307DDFA7002A9986 /* GoalSummaryCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryCardView.swift; sourceTree = "<group>"; };
+		E55BDEC4307DDFA7002A9986 /* GoalSummaryMetricsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryMetricsView.swift; sourceTree = "<group>"; };
+		E55BDEC5307DDFA7002A9986 /* GoalSummaryRingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryRingView.swift; sourceTree = "<group>"; };
+		E55BDED3307DDFC2002A9986 /* GoalSummaryDemoData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryDemoData.swift; sourceTree = "<group>"; };
 		E55CE3402D8BBE0D0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_bottom_24@2x.png"; sourceTree = "<group>"; };
 		E55CE3412D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_bottom_24@3x.png"; sourceTree = "<group>"; };
 		E55CE3422D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_top_24@3x.png"; sourceTree = "<group>"; };
@@ -8193,7 +8193,7 @@
 		E55BDEB2307DD528002A9986 /* Summary */ = {
 			isa = PBXGroup;
 			children = (
-				E55BDEB3307DD5A7002A9986 /* GoalTaskSummaryActionViewController.swift */,
+				E55BDEB3307DD5A7002A9986 /* GoalSummaryActionViewController.swift */,
 				E55BDEB5307DDFA7002A9986 /* Sources */,
 			);
 			path = Summary;
@@ -8202,7 +8202,7 @@
 		E55BDEB5307DDFA7002A9986 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E55BDED3307DDFC2002A9986 /* ProgressDemoData.swift */,
+				E55BDED3307DDFC2002A9986 /* GoalSummaryDemoData.swift */,
 				E55BDEB6307DDFA7002A9986 /* Theme */,
 				E55BDEB9307DDFA7002A9986 /* Model */,
 				E55BDEBE307DDFA7002A9986 /* Views */,
@@ -8213,8 +8213,8 @@
 		E55BDEB6307DDFA7002A9986 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
-				E55BDEB7307DDFA7002A9986 /* ProgressTheme.swift */,
-				E55BDEB8307DDFA7002A9986 /* ProgressRingMetrics.swift */,
+				E55BDEB7307DDFA7002A9986 /* GoalSummaryTheme.swift */,
+				E55BDEB8307DDFA7002A9986 /* GoalSummaryRingMetrics.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -8222,10 +8222,10 @@
 		E55BDEB9307DDFA7002A9986 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E55BDEBA307DDFA7002A9986 /* TaskProgress.swift */,
-				E55BDEBB307DDFA7002A9986 /* ProgressSnapshot.swift */,
-				E55BDEBC307DDFA7002A9986 /* ProgressCalculator.swift */,
-				E55BDEBD307DDFA7002A9986 /* ProgressStatus.swift */,
+				E55BDEBA307DDFA7002A9986 /* GoalSummaryTask.swift */,
+				E55BDEBB307DDFA7002A9986 /* GoalSummarySnapshot.swift */,
+				E55BDEBC307DDFA7002A9986 /* GoalSummaryCalculator.swift */,
+				E55BDEBD307DDFA7002A9986 /* GoalSummaryStatus.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -8233,12 +8233,12 @@
 		E55BDEBE307DDFA7002A9986 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E55BDEC3307DDFA7002A9986 /* TaskProgressCardView.swift */,
-				E55BDEC5307DDFA7002A9986 /* ProgressRingView.swift */,
-				E55BDEC2307DDFA7002A9986 /* RingCenterView.swift */,
-				E55BDEC0307DDFA7002A9986 /* ProgressNoteView.swift */,
-				E55BDEBF307DDFA7002A9986 /* ProgressLegendView.swift */,
-				E55BDEC4307DDFA7002A9986 /* ProgressMetricsView.swift */,
+				E55BDEC3307DDFA7002A9986 /* GoalSummaryCardView.swift */,
+				E55BDEC5307DDFA7002A9986 /* GoalSummaryRingView.swift */,
+				E55BDEC2307DDFA7002A9986 /* GoalSummaryRingCenterView.swift */,
+				E55BDEC0307DDFA7002A9986 /* GoalSummaryNoteView.swift */,
+				E55BDEBF307DDFA7002A9986 /* GoalSummaryLegendView.swift */,
+				E55BDEC4307DDFA7002A9986 /* GoalSummaryMetricsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -14352,7 +14352,7 @@
 				E5BB9D872D3BF0C60089667A /* UIViewController+Show.swift in Sources */,
 				E5BB9E572D3BF0C70089667A /* TPPreviousNextDayView.swift in Sources */,
 				E5BB9ED32D3BF0C80089667A /* TPAutoRemoveView.swift in Sources */,
-				E55BDEB4307DD5A7002A9986 /* GoalTaskSummaryActionViewController.swift in Sources */,
+				E55BDEB4307DD5A7002A9986 /* GoalSummaryActionViewController.swift in Sources */,
 				E5526AC72DD0ACB600B96A9D /* CalendarWeekDaysView.swift in Sources */,
 				E50D60572F7A13F100D5E0A4 /* AlarmListView.swift in Sources */,
 				E5BB9E5D2D3BF0C70089667A /* TPCalendarSpanningView.swift in Sources */,
@@ -14410,7 +14410,7 @@
 				E5185055300CA94B00112DFC /* TPDayPageView.swift in Sources */,
 				E5E9F7B32FC3E5EB00717004 /* TodoSearchOptions.swift in Sources */,
 				E5FC6BCF2F66E25500D5A5EA /* HabitStatsLogSectionController.swift in Sources */,
-				E55BDED0307DDFA7002A9986 /* TaskProgressCardView.swift in Sources */,
+				E55BDED0307DDFA7002A9986 /* GoalSummaryCardView.swift in Sources */,
 				E5BB9EE72D3BF0C80089667A /* TPMenuListPopoverView.swift in Sources */,
 				E518D6942FBDEF8E0045D456 /* CalendarTimelineDotIndicator.swift in Sources */,
 				E50BB6782D5706FE00D316FD /* TPSeparatorSectionController.swift in Sources */,
@@ -14682,7 +14682,7 @@
 				E55B89593077907000ADCED5 /* MindMapTheme.swift in Sources */,
 				E5BB9DC62D3BF0C60089667A /* DateRange.swift in Sources */,
 				E5FC91832FBAFAD000FC75C6 /* CalendarPageTimelineCell.swift in Sources */,
-				E55BDEC8307DDFA7002A9986 /* TaskProgress.swift in Sources */,
+				E55BDEC8307DDFA7002A9986 /* GoalSummaryTask.swift in Sources */,
 				E55897783054D60E001F8F22 /* MyDayGoalEventInfoView.swift in Sources */,
 				E5BB9B4C2D3BEF920089667A /* NSTextFieldExtension.swift in Sources */,
 				E5D7D9392D43933700EC877A /* FocusStopwatchConfigSectionController.swift in Sources */,
@@ -14698,7 +14698,7 @@
 				E50D605B2F7A173300D5E0A4 /* TodoUserListController.swift in Sources */,
 				E5BB9E402D3BF0C70089667A /* TPTextView.swift in Sources */,
 				E5BB9EC42D3BF0C80089667A /* TPButtonActionCell.swift in Sources */,
-				E55BDECF307DDFA7002A9986 /* RingCenterView.swift in Sources */,
+				E55BDECF307DDFA7002A9986 /* GoalSummaryRingCenterView.swift in Sources */,
 				E5D7D8BD2D43933600EC877A /* FocusTimerAdjustView.swift in Sources */,
 				E53B113C2F94D1B300701410 /* TodoFilterListEditViewController.swift in Sources */,
 				E5BB9E4D2D3BF0C70089667A /* Date+SolarTerm.swift in Sources */,
@@ -14723,7 +14723,7 @@
 				E5FC6BC52F66A44D00D5A5EA /* HabitStatsCalendarMonthCell.swift in Sources */,
 				E53352B12FFA528A00546986 /* CalendarQuarterViewController.swift in Sources */,
 				E5D7D93F2D43933700EC877A /* FocusSteppedConfigSectionController.swift in Sources */,
-				E55BDEC7307DDFA7002A9986 /* ProgressRingMetrics.swift in Sources */,
+				E55BDEC7307DDFA7002A9986 /* GoalSummaryRingMetrics.swift in Sources */,
 				E5185072300F5D3200112DFC /* MyDayTodoTimelineCell.swift in Sources */,
 				E5320C3B2FCB010D001DFE98 /* TodoImporterStepEditSectionController.swift in Sources */,
 				E5BB9E742D3BF0C70089667A /* TPSlashLayer.swift in Sources */,
@@ -14874,7 +14874,7 @@
 				E541555B2F49A415000B2972 /* FocusRecordListDetailCell.swift in Sources */,
 				E52E481B2F8A07EE00B8CD25 /* TPImageInfoButton.swift in Sources */,
 				E500E39A2FC69C6800252011 /* TodoStatsCompletionTrend.swift in Sources */,
-				E55BDED1307DDFA7002A9986 /* ProgressMetricsView.swift in Sources */,
+				E55BDED1307DDFA7002A9986 /* GoalSummaryMetricsView.swift in Sources */,
 				E531FDF52F73E0A600067A0F /* FocusStatsOverallMoreBarButtonItem.swift in Sources */,
 				E5320C352FCACA67001DFE98 /* TodoTaskImporterPreviewViewController.swift in Sources */,
 				E5320C4D2FCD6914001DFE98 /* TodoBoardPageFlowLayout.swift in Sources */,
@@ -14945,7 +14945,7 @@
 				E5168BD52F5474F50000A760 /* DateRange+Habit.swift in Sources */,
 				E5BB9EAD2D3BF0C80089667A /* TPMenuListActionCell.swift in Sources */,
 				E57B2B3C3045213200BA4D56 /* GoalPresenter.swift in Sources */,
-				E55BDECD307DDFA7002A9986 /* ProgressNoteView.swift in Sources */,
+				E55BDECD307DDFA7002A9986 /* GoalSummaryNoteView.swift in Sources */,
 				E53F32902F68D6D200B85B65 /* HabitReportMonthlyViewController.swift in Sources */,
 				E5BB9D922D3BF0C60089667A /* TPCalendarTableCell.swift in Sources */,
 				E50D60812F7A342F00D5E0A4 /* Array+Nestable.swift in Sources */,
@@ -15304,7 +15304,7 @@
 				E5D7D8E02D43933600EC877A /* FocusFloatingTimerManager.swift in Sources */,
 				E534DAC42D58FCE30079AB08 /* TPLabel.swift in Sources */,
 				E56B94B12F8FCF27001E488B /* TodoCompletedTaskListViewController.swift in Sources */,
-				E55BDEC6307DDFA7002A9986 /* ProgressTheme.swift in Sources */,
+				E55BDEC6307DDFA7002A9986 /* GoalSummaryTheme.swift in Sources */,
 				E58F469C2F7A9C120046FA96 /* TodoListMenuActionController.swift in Sources */,
 				E50D60782F7A2E2D00D5E0A4 /* TodoUserListBaseCell.swift in Sources */,
 				E563F1AA2FE7E9D200DF86BB /* Bundle+Extension.swift in Sources */,
@@ -15336,7 +15336,7 @@
 				E51E5F9B303957D700ACF30C /* CalendarFocusSettingSectionController.swift in Sources */,
 				E5BB9EE42D3BF0C80089667A /* TPIcon.swift in Sources */,
 				E5168BDA2F547DBE0000A760 /* ScheduledReminder.swift in Sources */,
-				E55BDED2307DDFA7002A9986 /* ProgressRingView.swift in Sources */,
+				E55BDED2307DDFA7002A9986 /* GoalSummaryRingView.swift in Sources */,
 				E55528532FB707560093DD7E /* CalendarDragDropMangeView.swift in Sources */,
 				E5D7D8D22D43933600EC877A /* FocusEndTimelineCell.swift in Sources */,
 				E5BB9E872D3BF0C80089667A /* RectangleChartView.swift in Sources */,
@@ -15381,7 +15381,7 @@
 				E500276D2F985EB900EF052D /* TPDateRangeInfoView.swift in Sources */,
 				E5FAA9FA304EAA7200C9CCD8 /* GoalRecordManager.swift in Sources */,
 				E5BB9EC92D3BF0C80089667A /* TPWheatView.swift in Sources */,
-				E55BDED4307DDFC3002A9986 /* ProgressDemoData.swift in Sources */,
+				E55BDED4307DDFC3002A9986 /* GoalSummaryDemoData.swift in Sources */,
 				E521E35D2F6AC38E0071DA12 /* HabitReportChartRender.swift in Sources */,
 				E5B499672FDCEF7F00F3A9BD /* CalendarEventPreviewViewController.swift in Sources */,
 				E5D7D8BB2D43933600EC877A /* FocusTimerInfoView.swift in Sources */,
@@ -15522,7 +15522,7 @@
 				E521E3572F6A4F2F0071DA12 /* HabitReportYearlyMonthCell.swift in Sources */,
 				E5BB9E1D2D3BF0C70089667A /* NSManagedObject+Aggregation.swift in Sources */,
 				E558977F305539C0001F8F22 /* MyDayGoalScheduleEditViewController.swift in Sources */,
-				E55BDECB307DDFA7002A9986 /* ProgressStatus.swift in Sources */,
+				E55BDECB307DDFA7002A9986 /* GoalSummaryStatus.swift in Sources */,
 				E50CC61330669EF300D1BD3E /* MyDayState.swift in Sources */,
 				E5892FE9307926E1009BDE81 /* IAPProduct.swift in Sources */,
 				E52EF6212FB211B9002CF355 /* CalendarSetting.swift in Sources */,
@@ -15581,7 +15581,7 @@
 				E59244082F515A3700CA2393 /* HabitTaskEditViewController.swift in Sources */,
 				E5D7D8EC2D43933600EC877A /* FocusRecordEditViewController.swift in Sources */,
 				E51350AB302B5419000E9871 /* TaskMultipleDateInfoEditViewController.swift in Sources */,
-				E55BDECA307DDFA7002A9986 /* ProgressCalculator.swift in Sources */,
+				E55BDECA307DDFA7002A9986 /* GoalSummaryCalculator.swift in Sources */,
 				E51F941830049A8500734910 /* MyDayMainViewController.swift in Sources */,
 				E5D7D7DC2D43923800EC877A /* FocusRecord.swift in Sources */,
 				E5007F7B2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift in Sources */,
@@ -15764,7 +15764,7 @@
 				E51501A02D47BA34008B2333 /* TPBaseTableCellLayout.swift in Sources */,
 				E5BB9E6B2D3BF0C70089667A /* TPCollectionCellStyle.swift in Sources */,
 				E5BB9E802D3BF0C80089667A /* ChartHighlightEelement.swift in Sources */,
-				E55BDECC307DDFA7002A9986 /* ProgressLegendView.swift in Sources */,
+				E55BDECC307DDFA7002A9986 /* GoalSummaryLegendView.swift in Sources */,
 				E50D02642F56803800E93977 /* HabitTask.swift in Sources */,
 				E5BB9D832D3BF0C50089667A /* TPHexColorConvertible.swift in Sources */,
 				E56E7FF02DB3928300AC3DC4 /* TPImageInfoCircularCheckboxTableCell.swift in Sources */,
@@ -15799,7 +15799,7 @@
 				E507E7A82F52D25C003004C4 /* HabitGoalSectionController.swift in Sources */,
 				E5291A9930620D9700017150 /* CountdownEvent+LocalNotifiable.swift in Sources */,
 				E500E39D2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift in Sources */,
-				E55BDEC9307DDFA7002A9986 /* ProgressSnapshot.swift in Sources */,
+				E55BDEC9307DDFA7002A9986 /* GoalSummarySnapshot.swift in Sources */,
 				E5BB9EDA2D3BF0C80089667A /* TPAnimatedContainerView.swift in Sources */,
 				E524D2AD2FD063B0002791E5 /* CDTodoSection+Extensions.swift in Sources */,
 				E51B29012FA77A07006B3352 /* TodoTaskPageView.swift in Sources */,
