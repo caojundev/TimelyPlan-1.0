@@ -9,12 +9,13 @@ import Foundation
 import UIKit
 
 enum GoalTaskActionType: Int, TPMenuRepresentable {
-    case steps = 0   /// 步骤
-    case records     /// 记录
-    case note        /// 备注
+    case summary /// 概览
+    case steps   /// 步骤
+    case records /// 记录
+    case note    /// 备注
     
     static func titles() -> [String] {
-        return ["Steps", "Records", "Note"]
+        return ["Summary", "Steps", "Records", "Note"]
     }
 }
 
@@ -85,7 +86,13 @@ class GoalTaskActionViewController: TPContainerViewController,
     private let interactor: GoalTaskEditInteractor
     
     /// 当前选中的操作类型
-    private var currentActionType: GoalTaskActionType = .steps
+    private var currentActionType: GoalTaskActionType = .summary
+    
+    /// 概览视图控制器
+    private lazy var summaryActionViewController: GoalTaskSummaryActionViewController = {
+        return GoalTaskSummaryActionViewController()
+//        return GoalTaskSummaryActionViewController(interactor: interactor)
+    }()
     
     /// 步骤内容视图控制器
     private lazy var stepActionViewController: GoalTaskStepActionViewController = {
@@ -144,7 +151,7 @@ class GoalTaskActionViewController: TPContainerViewController,
         view.addSubview(footerView)
         updateCheckInfoView()
         updateContentViewController(with: .none)
-        segmentedMenuView.selectMenu(withTag: 0)
+        segmentedMenuView.selectMenu(withTag: currentActionType.tag)
     }
 
     private func updateCheckInfoView() {
@@ -279,6 +286,8 @@ class GoalTaskActionViewController: TPContainerViewController,
     private func updateContentViewController(with style: SlideStyle) {
         let vc: UIViewController
         switch self.currentActionType {
+        case .summary:
+            vc = summaryActionViewController
         case .steps:
             vc = stepActionViewController
         case .records:
@@ -287,6 +296,6 @@ class GoalTaskActionViewController: TPContainerViewController,
             vc = noteActionViewController
         }
         
-        self.setContentViewController(vc, withAnimationStyle: style)
+        setContentViewController(vc, withAnimationStyle: style)
     }
 }
