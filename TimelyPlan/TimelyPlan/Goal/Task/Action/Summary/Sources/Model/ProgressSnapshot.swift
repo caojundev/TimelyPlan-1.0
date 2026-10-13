@@ -4,7 +4,7 @@ import Foundation
 ///
 /// 视图层只从这个结构体读值、做格式化，不参与任何业务计算 ——
 /// 这是「数据」与「展示」之间唯一的契约。
-struct ProgressSnapshot {
+struct GoalSummarySnapshot {
 
     // MARK: - 原始输入（回传给视图做日期轴等展示）
 
@@ -38,7 +38,7 @@ struct ProgressSnapshot {
     let totalDays: Int
 
     /// 由 `gap` 判定出的状态。
-    let status: ProgressStatus
+    let status: GoalSummaryStatus
 
     // MARK: - 便捷判定
 
@@ -49,7 +49,7 @@ struct ProgressSnapshot {
 
 // MARK: - 展示格式化
 
-extension ProgressSnapshot {
+extension GoalSummarySnapshot {
 
     /// 任务完成度文案，如「38%」。
     var taskPercentText: String { Self.percent(taskProgress) }

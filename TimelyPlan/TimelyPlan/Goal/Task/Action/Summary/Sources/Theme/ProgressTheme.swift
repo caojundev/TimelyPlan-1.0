@@ -4,7 +4,7 @@ import UIKit
 ///
 /// 颜色全部使用动态色（`Color(light:dark:)`），因此深浅色模式切换是自动的，
 /// 视图层无需关心当前外观。
-struct ProgressTheme {
+struct GoalSummaryTheme {
 
     // MARK: - 基础色
 
@@ -23,7 +23,7 @@ struct ProgressTheme {
 
     // MARK: - 预设
 
-    static let standard = ProgressTheme(
+    static let standard = GoalSummaryTheme(
         canvasBackground: Color(light: 0xF2F2F7, dark: 0x000000),
         cardBackground: Color(light: 0xFFFFFF, dark: 0x1C1C1E),
         primaryText: Color(light: 0x121212, dark: 0xfafafa),
@@ -37,7 +37,7 @@ struct ProgressTheme {
     // MARK: - 状态色
 
     /// 状态主色，用于外环、圆心、状态胶囊。
-    func accent(for status: ProgressStatus) -> UIColor {
+    func accent(for status: GoalSummaryStatus) -> UIColor {
         switch status {
         case .ahead:    return UIColor(hex: 0x34C759)
         case .normal:   return UIColor(hex: 0x007AFF)
@@ -48,7 +48,7 @@ struct ProgressTheme {
     }
 
     /// 状态色的浅底（12% 透明），用于状态胶囊与提示条背景。
-    func accentFill(for status: ProgressStatus) -> UIColor {
+    func accentFill(for status: GoalSummaryStatus) -> UIColor {
         accent(for: status).withAlphaComponent(0.12)
     }
 }

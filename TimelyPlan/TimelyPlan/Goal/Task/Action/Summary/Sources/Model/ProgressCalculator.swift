@@ -1,9 +1,9 @@
 import Foundation
 
-/// 纯函数式计算器：`TaskProgress` + 当前时间 → `ProgressSnapshot`。
+/// 纯函数式计算器：`GoalSummaryTask` + 当前时间 → `GoalSummarySnapshot`。
 ///
 /// 无状态、无依赖，方便单元测试，也让视图层完全不需要知道计算规则。
-enum ProgressCalculator {
+enum GoalSummaryCalculator {
 
     private static let secondsPerDay: TimeInterval = 86_400
 
@@ -11,7 +11,7 @@ enum ProgressCalculator {
     /// - Parameters:
     ///   - task: 任务原始数据。
     ///   - now: 参照时间，默认当前。显式传入便于测试与预览。
-    static func snapshot(for task: TaskProgress, now: Date = Date()) -> ProgressSnapshot {
+    static func snapshot(for task: GoalSummaryTask, now: Date = Date()) -> GoalSummarySnapshot {
 
         // 任务完成度：钳制在有效区间，避免脏数据导致负值或超过 100%。
         let total = max(task.totalCount, 0)
@@ -34,7 +34,7 @@ enum ProgressCalculator {
         let remainingDays = Int(ceil(task.endDate.timeIntervalSince(now) / secondsPerDay))
         let totalDays = max(Int((span / secondsPerDay).rounded()), 0)
 
-        return ProgressSnapshot(
+        return GoalSummarySnapshot(
             startDate: task.startDate,
             endDate: task.endDate,
             initialValue: initial,
@@ -45,7 +45,7 @@ enum ProgressCalculator {
             gap: gap,
             remainingDays: remainingDays,
             totalDays: totalDays,
-            status: ProgressStatus(gap: gap,
+            status: GoalSummaryStatus(gap: gap,
                                    isOverdue: remainingDays < 0,
                                    isCompleted: total > 0 && completed >= total)
         )

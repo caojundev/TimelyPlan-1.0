@@ -2,9 +2,9 @@ import CoreGraphics
 
 /// 双环的几何规格。
 ///
-/// 与 `ProgressTheme` 分开，是因为这里是「尺寸」、那边是「颜色」，
+/// 与 `GoalSummaryTheme` 分开，是因为这里是「尺寸」、那边是「颜色」，
 /// 两个维度的变化原因不同，拆开后互不影响。
-struct ProgressRingMetrics {
+struct GoalSummaryRingMetrics {
 
     /// 整体边长（正方形）。
     let side: CGFloat
@@ -25,7 +25,7 @@ struct ProgressRingMetrics {
 
     /// 大尺寸，用于详情页或卡片主视觉。
     /// - Note: 内环线宽与外环保持一致；两环之间留 4pt 间隙。
-    static let regular = ProgressRingMetrics(
+    static let regular = GoalSummaryRingMetrics(
         side: 184,
         outerRadius: 72,
         outerLineWidth: 14,
@@ -35,7 +35,7 @@ struct ProgressRingMetrics {
     
     /// 紧凑尺寸，用于列表行。
     /// - Note: 内环线宽与外环保持一致；两环之间留 4pt 间隙。
-    static let compact = ProgressRingMetrics(
+    static let compact = GoalSummaryRingMetrics(
         side: 148,
         outerRadius: 62,
         outerLineWidth: 10,

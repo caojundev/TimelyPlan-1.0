@@ -4,7 +4,7 @@ import UIKit
 ///
 /// 刻意不显示百分比与副文案 —— 圆心承担「一眼判断状态」的职责，
 /// 具体数值交给下方图例与指标区。
-final class RingCenterView: UIView {
+final class GoalSummaryRingCenterView: UIView {
 
     // MARK: - 布局常量
 
@@ -54,7 +54,7 @@ final class RingCenterView: UIView {
     // MARK: - 配置
 
     /// 配置状态。图标与文案统一使用 `accent`。
-    func configure(status: ProgressStatus, accent: UIColor) {
+    func configure(status: GoalSummaryStatus, accent: UIColor) {
         infoView.image = UIImage(systemName: status.symbolName)?
             .withConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold))
         infoView.imageConfig.color = accent

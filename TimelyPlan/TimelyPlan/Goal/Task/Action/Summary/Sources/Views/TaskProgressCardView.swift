@@ -5,7 +5,7 @@ import UIKit
 /// 布局全部在 `layoutSubviews` 里用 frame 手动完成，不依赖 AutoLayout。
 /// 高度的唯一来源是 `makeFrames(forWidth:)`，`sizeThatFits` 与 `layoutSubviews`
 /// 共用同一份计算，避免两处逻辑漂移。
-final class TaskProgressCardView: UIView {
+final class GoalSummaryCardView: UIView {
  
     // MARK: - 布局常量
 
@@ -21,18 +21,18 @@ final class TaskProgressCardView: UIView {
 
     // MARK: - 子视图
 
-    private let theme: ProgressTheme
+    private let theme: GoalSummaryTheme
 
-    private let ringView = ProgressRingView()
-    private let centerView = RingCenterView()
-    private let legendView = ProgressLegendView()
-    private let noteView = ProgressNoteView()
+    private let ringView = GoalSummaryRingView()
+    private let centerView = GoalSummaryRingCenterView()
+    private let legendView = GoalSummaryLegendView()
+    private let noteView = GoalSummaryNoteView()
     private let lineSeparatorView = UIView()
-    private let metricsView = ProgressMetricsView()
+    private let metricsView = GoalSummaryMetricsView()
 
     // MARK: - 初始化
 
-    init(theme: ProgressTheme = .standard, ringMetrics: ProgressRingMetrics = .regular) {
+    init(theme: GoalSummaryTheme = .standard, ringMetrics: GoalSummaryRingMetrics = .regular) {
         self.theme = theme
         super.init(frame: .zero)
 
@@ -71,17 +71,17 @@ final class TaskProgressCardView: UIView {
     // MARK: - 配置
 
     /// 使用计算好的快照刷新卡片。
-    func configure(with snapshot: ProgressSnapshot) {
+    func configure(with snapshot: GoalSummarySnapshot) {
         let accent = theme.accent(for: snapshot.status)
         let metrics = ringView.metrics
 
         // 外环 = 任务完成进度；内环 = 日期时间进度
         ringView.rings = [
-            ProgressRingView.Ring(radius: metrics.outerRadius,
+            GoalSummaryRingView.Ring(radius: metrics.outerRadius,
                                   lineWidth: metrics.outerLineWidth,
                                   progress: CGFloat(snapshot.taskProgress),
                                   color: accent),
-            ProgressRingView.Ring(radius: metrics.innerRadius,
+            GoalSummaryRingView.Ring(radius: metrics.innerRadius,
                                   lineWidth: metrics.innerLineWidth,
                                   progress: CGFloat(snapshot.timeProgress),
                                   color: theme.timeAccent)

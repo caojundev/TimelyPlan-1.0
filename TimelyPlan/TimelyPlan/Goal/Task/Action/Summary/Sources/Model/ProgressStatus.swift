@@ -4,7 +4,7 @@ import Foundation
 ///
 /// 判定阈值集中在这里，视图层只需要读取 `title` / `symbolName` / `hint` 即可渲染，
 /// 不需要知道任何数值边界。
-enum ProgressStatus {
+enum GoalSummaryStatus {
 
     /// 任务进度明显快于时间进度。
     case ahead

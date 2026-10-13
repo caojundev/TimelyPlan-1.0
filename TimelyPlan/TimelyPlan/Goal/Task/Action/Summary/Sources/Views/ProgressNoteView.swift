@@ -4,7 +4,7 @@ import UIKit
 ///
 /// 布局交给 `TPImageInfoView`：图标由左配件承担，文案由 `titleLabel` 承担，
 /// 因此这里只负责规格与内容配置。
-final class ProgressNoteView: TPImageInfoView {
+final class GoalSummaryNoteView: TPImageInfoView {
 
     // MARK: - 布局常量
 

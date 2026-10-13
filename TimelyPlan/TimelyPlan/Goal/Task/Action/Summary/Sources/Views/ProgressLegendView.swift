@@ -3,7 +3,7 @@ import UIKit
 /// 图例：色环 + 名称（含一行副文案）+ 数值，逐行排列。
 ///
 /// 百分比数值放在这里（而非圆心），让圆心专注表达状态。
-final class ProgressLegendView: UIView {
+final class GoalSummaryLegendView: UIView {
 
     struct Item {
         /// 色环颜色。
@@ -16,7 +16,7 @@ final class ProgressLegendView: UIView {
         let value: String
     }
 
-    var theme: ProgressTheme = .standard {
+    var theme: GoalSummaryTheme = .standard {
         didSet { applyTheme() }
     }
 
@@ -90,7 +90,7 @@ private final class RowView: UIView {
     /// 行内上下留白
     static let rowPadding: CGFloat = 4
 
-    /// 单行高度：名称行 + 间距 + 副文案行 + 上下留白，供 `ProgressLegendView` 排版使用。
+    /// 单行高度：名称行 + 间距 + 副文案行 + 上下留白，供 `GoalSummaryLegendView` 排版使用。
     static var rowHeight: CGFloat {
         ceil(titleFont.lineHeight) + subtitleSpacing + ceil(subtitleFont.lineHeight) + rowPadding * 2
     }
@@ -131,7 +131,7 @@ private final class RowView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with item: ProgressLegendView.Item, theme: ProgressTheme) {
+    func configure(with item: GoalSummaryLegendView.Item, theme: GoalSummaryTheme) {
         dotColor = item.color
         dot.layer.borderColor = item.color.cgColor
 

@@ -1,5 +1,5 @@
 //
-//  GoalTaskSummaryActionViewController.swift
+//  GoalSummaryActionViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/13.
@@ -11,15 +11,15 @@ import UIKit
 /// 演示页：纵向滚动展示多张进度卡片。
 ///
 /// 滚动容器内容高度同样手动计算 —— 依次调用每张卡片的 `sizeThatFits` 累加。
-final class GoalTaskSummaryActionViewController: UIViewController {
+final class GoalSummaryActionViewController: UIViewController {
 
-    private let theme = ProgressTheme.standard
+    private let theme = GoalSummaryTheme.standard
 
     private let scrollView = UIScrollView()
     private let contentView = UIView()
 
-    private let tasks: [TaskProgress]
-    private let cards: [TaskProgressCardView]
+    private let tasks: [GoalSummaryTask]
+    private let cards: [GoalSummaryCardView]
 
     private let horizontalPadding: CGFloat = 20
     private let topPadding: CGFloat = 20
@@ -27,9 +27,9 @@ final class GoalTaskSummaryActionViewController: UIViewController {
 
     init() {
         /// 末尾追加一项「已逾期但未完成」的测试数据
-        let tasks = ProgressDemoData.samples() + [GoalTaskSummaryActionViewController.overdueTask]
+        let tasks = GoalSummaryDemoData.samples() + [GoalSummaryActionViewController.overdueTask]
         self.tasks = tasks
-        self.cards = tasks.map { _ in TaskProgressCardView() }
+        self.cards = tasks.map { _ in GoalSummaryCardView() }
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -38,10 +38,10 @@ final class GoalTaskSummaryActionViewController: UIViewController {
     }
 
     /// 测试数据：已过截止日期且未完成，用于验证「逾期」状态。
-    private static var overdueTask: TaskProgress {
+    private static var overdueTask: GoalSummaryTask {
         let day: TimeInterval = 86_400
         let now = Date()
-        return TaskProgress(initialValue: 0,
+        return GoalSummaryTask(initialValue: 0,
                             startDate: now.addingTimeInterval(-30 * day),
                             endDate: now.addingTimeInterval(-5 * day),
                             completedCount: 4,
@@ -66,7 +66,7 @@ final class GoalTaskSummaryActionViewController: UIViewController {
         scrollView.addSubview(contentView)
 
         for (card, task) in zip(cards, tasks) {
-            let snapshot = ProgressCalculator.snapshot(for: task)
+            let snapshot = GoalSummaryCalculator.snapshot(for: task)
             card.configure(with: snapshot)
             contentView.addSubview(card)
         }
@@ -97,7 +97,7 @@ final class GoalTaskSummaryActionViewController: UIViewController {
 }
 
 /*
-class GoalTaskSummaryActionViewController: TPTableSectionsViewController {
+class GoalSummaryActionViewController: TPTableSectionsViewController {
     
     /// 区块上方普通间距高度
     private static let normalHeaderHeight = 5.0

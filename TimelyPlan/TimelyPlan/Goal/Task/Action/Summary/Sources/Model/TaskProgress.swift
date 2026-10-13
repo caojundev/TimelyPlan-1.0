@@ -2,9 +2,9 @@ import Foundation
 
 /// 一个目标任务的原始数据。
 ///
-/// 只承载数据，不做任何进度计算 —— 所有推导逻辑都放在 `ProgressCalculator`，
+/// 只承载数据，不做任何进度计算 —— 所有推导逻辑都放在 `GoalSummaryCalculator`，
 /// 因此本类型可以脱离 UIKit 单独测试。
-struct TaskProgress {
+struct GoalSummaryTask {
 
     /// 起始值，即计划开始时的已完成数量。
     let initialValue: Int

@@ -4,7 +4,7 @@ import UIKit
 ///
 /// 只接受「几何 + 进度 + 颜色」三要素，不含任何任务语义 ——
 /// 因此可以复用到任何需要多层环形的场景。
-final class ProgressRingView: UIView {
+final class GoalSummaryRingView: UIView {
 
     /// 单层环的绘制描述。
     struct Ring {
@@ -30,11 +30,11 @@ final class ProgressRingView: UIView {
 
     // MARK: - 配置
 
-    var theme: ProgressTheme = .standard {
+    var theme: GoalSummaryTheme = .standard {
         didSet { applyTheme() }
     }
 
-    var metrics: ProgressRingMetrics = .regular {
+    var metrics: GoalSummaryRingMetrics = .regular {
         didSet {
             invalidateIntrinsicContentSize()
             setNeedsLayout()

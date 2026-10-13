@@ -1,7 +1,7 @@
 import UIKit
 
 /// 指标区：三列等宽，每列「数值 + 单位」与「说明文字」。
-final class ProgressMetricsView: UIView {
+final class GoalSummaryMetricsView: UIView {
 
     struct Item {
         /// 主数值，如「6」。
@@ -21,7 +21,7 @@ final class ProgressMetricsView: UIView {
         }
     }
 
-    var theme: ProgressTheme = .standard {
+    var theme: GoalSummaryTheme = .standard {
         didSet { applyTheme() }
     }
 
