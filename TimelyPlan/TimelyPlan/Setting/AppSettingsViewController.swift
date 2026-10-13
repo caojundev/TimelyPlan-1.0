@@ -335,7 +335,7 @@ class AppSettingsViewController: BaseSettingViewController,
         TPLoadingIndicator.hideAllLoading() /// 防止升级视图控制器关闭，购买仍在进行中
         updateBannerView(with: entitlement)
         setupSectionControllers()
-        adapter.performUpdate()
+        adapter.performUpdate(with: .fade, updateVisibleItems: false)
     }
     
     /// 更新表头横幅：未开通会员显示升级横幅，已开通显示会员横幅

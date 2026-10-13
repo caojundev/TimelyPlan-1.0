@@ -17,26 +17,34 @@ struct IAPPaywallConfig {
     static let benefitsTitleFormat = "Enjoy %@ Pro Features"
 
     /// 标题中高亮展示的参数
-    static let benefitsTitleHighlight = "10+"
+    static let benefitsTitleHighlight = "15+"
 
     /// 权益对比行
     ///
     /// 元组顺序：(权益名称, 普通用户列, 高级会员列)
     static let benefitRows: [IAPMembershipBenefitRowTuple] = [
-        ("日历视图", .basicText, .text("月/周/日/3日")),
-        ("文本颜色（红/绿）", nil, .unlimitedText),
-        ("文本颜色（橙/默认）", nil, .unlimitedText),
-        ("时间段", nil, .checkmark),
-        ("持续提醒", nil, .checkmark),
-        ("关联 Notion", nil, .checkmark),
-        ("关联微信", nil, .checkmark),
-        ("AI 语音添加", nil, .checkmark),
-        ("颜色测试（红/绿）", nil, .checkmark),
-        ("颜色测试（橙/默认）", .basicText, .checkmark),
-        ("AI 录音总结", nil, .unlimitedText),
-        ("小组件", .basicText, .checkmark),
-        ("外观主题", .basicText, .unlimitedText),
-        ("数据统计", .basicText, .unlimitedText),
-        ("更多功能", nil, .checkmark),
+        // 清单
+        (resGetString("List Limit"), .text("5"), .unlimitedText),
+        (resGetString("Sub-lists"), .basicText, .checkmark),
+        (resGetString("Sub-tasks"), .basicText, .checkmark),
+        (resGetString("Filters"), nil, .checkmark),
+        (resGetString("Task Progress"), nil, .checkmark),
+        (resGetString("Custom Recurrence"), nil, .checkmark),
+        (resGetString("Batch Import"), nil, .checkmark),
+        (resGetString("Calendar View"), .basicText, .text(resGetString("Week/Month/Quarter/Year"))),
+        (resGetString("Custom Quadrants"), nil, .checkmark),
+
+        // 计时器
+        (resGetString("Timer Limit"), .text("3"), .unlimitedText),
+        (resGetString("Step Timers"), nil, .checkmark),
+        (resGetString("Focus Timeline"), nil, .checkmark),
+
+        // 习惯
+        (resGetString("Habit Limit"), .text("3"), .unlimitedText),
+        (resGetString("Skip/Fail Tags"), nil, .checkmark),
+        (resGetString("Habit Report"), nil, .checkmark),
+
+        // 数据统计
+        (resGetString("Statistics"), .basicText, .unlimitedText),
     ]
 }

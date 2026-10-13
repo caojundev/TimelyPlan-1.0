@@ -955,7 +955,7 @@
 "Reset" = "重置";
 "Input" = "输入";
 "Task" = "任务";
-"Statistics" = "统计";
+"Statistics" = "数据统计";
 "Custom" = "自定义";
 "None" = "无";
 "Less" = "更少";
@@ -1255,6 +1255,24 @@
 "Basic" = "基础";
 "Unlimited" = "无限制";
 "Redeem Code" = "兑换码";
+
+/* 权益对比 */
+"List Limit" = "清单数量";
+"Sub-lists" = "多层级清单";
+"Sub-tasks" = "多层级步骤";
+"Filters" = "过滤器";
+"Task Progress" = "任务进度";
+"Custom Recurrence" = "自定义重复";
+"Batch Import" = "批量导入";
+"Calendar View" = "日历视图";
+"Week/Month/Quarter/Year" = "周/月/季/年";
+"Custom Quadrants" = "四象限自定义";
+"Timer Limit" = "计时器数量";
+"Step Timers" = "步骤计时器";
+"Focus Timeline" = "专注时间轴";
+"Habit Limit" = "习惯数量";
+"Skip/Fail Tags" = "跳过/失败标签";
+"Habit Report" = "习惯报告";
 
 
 /* 订阅说明与法务入口 */

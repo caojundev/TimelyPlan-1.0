@@ -404,7 +404,7 @@ private final class IAPMembershipBenefitHeaderView: UIView {
         addSubview(freeLabel)
 
         proLabel.edgeInsets = edgeInsets
-        proLabel.text = resGetString("Pro")
+        proLabel.text = resGetString("Premium")
         proLabel.textColor = MembershipColor.highlight
         proLabel.font = Metric.headerFont
         proLabel.textAlignment = .center
