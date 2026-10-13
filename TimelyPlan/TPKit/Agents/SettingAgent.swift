@@ -50,13 +50,33 @@ protocol SettingAgentObserver: AnyObject {
 class SettingAgent {
     
     /// 存储已获取数值字典
+    /// - Note: 主线程与后台线程会同时访问，必须加锁保护；并发读写非线程安全的
+    ///         Swift Dictionary 会导致其内部存储被提前释放，读到已释放内存时会抛出
+    ///         `unrecognized selector` 异常并崩溃。
     private var valueDic: [String: Codable] = [:]
+    
+    /// 保护 valueDic 的锁（仅用于纯内存读写，禁止在持锁期间做耗时操作）
+    private let lock = NSLock()
     
     private var observerMananger = SettingObserverManager()
     
     static let shared = SettingAgent()
     
     private init() {}
+    
+    /// 读取缓存值（线程安全）
+    private func cachedValue(forKey key: String) -> Codable? {
+        lock.lock()
+        defer { lock.unlock() }
+        return valueDic[key]
+    }
+    
+    /// 写入/移除缓存值（线程安全）
+    private func setCachedValue(_ value: Codable?, forKey key: String) {
+        lock.lock()
+        defer { lock.unlock() }
+        valueDic[key] = value
+    }
     
     func jsonString(forKey key: String) -> String? {
         return UserDefaults.standard.value(forKey: key) as? String
@@ -72,12 +92,12 @@ class SettingAgent {
         }
         
         let defaultValue = defaultValue()
-        valueDic[key] = defaultValue
+        setCachedValue(defaultValue, forKey: key)
         return defaultValue
     }
     
     func value<T: Codable>(forKey key: String) -> T? {
-        let value = valueDic[key]
+        let value = cachedValue(forKey: key)
         if value != nil, let result = value as? T {
             return result
         }
@@ -90,7 +110,7 @@ class SettingAgent {
             /// 对象类型为String类型时直接返回
             let result = stringValue as? T
             if let result = result {
-                valueDic[key] = result
+                setCachedValue(result, forKey: key)
             }
             
             return result
@@ -99,7 +119,7 @@ class SettingAgent {
         /// 解析对象
         let result = T.model(with: stringValue)
         if let result = result {
-            valueDic[key] = result
+            setCachedValue(result, forKey: key)
         }
         
         return result
@@ -107,7 +127,7 @@ class SettingAgent {
     
     func setValue(_ value: Codable?, forKey key: String, synchronizeImediately: Bool = false) {
         guard let value = value else {
-            valueDic[key] = nil
+            setCachedValue(nil, forKey: key)
             setJsonString(nil, forKey: key)
             if synchronizeImediately {
                 synchronize()
@@ -116,7 +136,7 @@ class SettingAgent {
             return
         }
 
-        valueDic[key] = value
+        setCachedValue(value, forKey: key)
         
         let newJsonString = value.jsonString()
         setJsonString(newJsonString, forKey: key)
@@ -162,13 +182,22 @@ class SettingObserverManager {
     
     // Use a hash table to hold observers for all keys
     private var observersForAllKeysTable: NSHashTable<AnyObject> = NSHashTable<AnyObject>.weakObjects()
-
+    
+    /// 观察者注册与通知可能发生在不同线程，必须加锁保护
+    private let lock = NSLock()
+    
     func valueDidChange(forKey key: String) {
-        observersForKeyDic[key]?.allObjects.forEach { observer in
+        lock.lock()
+        let keyedObservers = observersForKeyDic[key]?.allObjects ?? []
+        let allKeysObservers = observersForAllKeysTable.allObjects
+        lock.unlock()
+        
+        /// 先取快照再回调，避免回调中增删观察者造成死锁
+        keyedObservers.forEach { observer in
             (observer as? SettingAgentObserver)?.settingAgentDidChangeValue(for: key)
         }
 
-        observersForAllKeysTable.allObjects.forEach { observer in
+        allKeysObservers.forEach { observer in
             (observer as? SettingAgentObserver)?.settingAgentDidChangeValue(for: key)
         }
     }
@@ -184,12 +213,19 @@ class SettingObserverManager {
             addObserverForAllKeys(observer)
             return
         }
+        
+        lock.lock()
+        defer { lock.unlock() }
 
-        if observersForKeyDic[key] == nil {
-            observersForKeyDic[key] = NSHashTable<AnyObject>.weakObjects()
+        let table: NSHashTable<AnyObject>
+        if let exist = observersForKeyDic[key] {
+            table = exist
+        } else {
+            table = NSHashTable<AnyObject>.weakObjects()
+            observersForKeyDic[key] = table
         }
         
-        observersForKeyDic[key]?.add(observer)
+        table.add(observer)
     }
 
     func removeObserver(_ observer: SettingAgentObserver, forKeys keys: [String]) {
@@ -203,18 +239,26 @@ class SettingObserverManager {
             removeObserverForAllKeys(observer)
             return
         }
+        
+        lock.lock()
+        defer { lock.unlock() }
   
-        observersForKeyDic[key]?.remove(observer)
-        if observersForKeyDic[key]?.count == 0 {
+        let table = observersForKeyDic[key]
+        table?.remove(observer)
+        if table?.count == 0 {
             observersForKeyDic.removeValue(forKey: key)
         }
     }
 
     func addObserverForAllKeys(_ observer: SettingAgentObserver) {
+        lock.lock()
+        defer { lock.unlock() }
         observersForAllKeysTable.add(observer)
     }
 
     func removeObserverForAllKeys(_ observer: SettingAgentObserver) {
+        lock.lock()
+        defer { lock.unlock() }
         observersForAllKeysTable.remove(observer)
     }
 }

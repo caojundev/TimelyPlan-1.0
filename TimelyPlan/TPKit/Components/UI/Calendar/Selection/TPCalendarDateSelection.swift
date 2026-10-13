@@ -16,7 +16,7 @@ protocol TPCalendarDateSelectionUpdater: AnyObject {
 class TPCalendarDateSelection: NSObject {
     
     var updaters: [TPCalendarDateSelectionUpdater]? {
-        return weakDelegates.allObjects as? [TPCalendarDateSelectionUpdater]
+        return delegatesSnapshot() as? [TPCalendarDateSelectionUpdater]
     }
     
     /// 添加更新对象
