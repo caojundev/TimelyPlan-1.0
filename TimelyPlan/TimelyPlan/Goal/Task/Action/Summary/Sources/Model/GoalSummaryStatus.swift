@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// 由「任务完成进度」与「时间进度」的差值判定出的状态。
 ///
@@ -87,5 +88,13 @@ enum GoalSummaryStatus {
         case .critical: return resGetString("Significantly behind time progress, needs attention")
         case .overdue:  return resGetString("Past the end date but not finished, handle it as soon as possible")
         }
+    }
+
+    // MARK: - 展示色
+
+    /// 状态标签的背景色（实色底，配白色文字）。
+    /// - Note: 颜色统一由 `GoalSummaryTheme` 提供，保证列表标签与进度概览卡片的状态色一致。
+    var backgroundColor: UIColor {
+        return GoalSummaryTheme.standard.accent(for: self)
     }
 }

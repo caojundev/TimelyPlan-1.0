@@ -63,7 +63,7 @@ final class GoalSummaryCardView: UIView {
 
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.08
-        layer.shadowRadius = 24
+        layer.shadowRadius = 8.0
         layer.shadowOffset = CGSize(width: 0, height: 8)
 
         lineSeparatorView.backgroundColor = theme.separator

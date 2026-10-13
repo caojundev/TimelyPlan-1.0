@@ -43,6 +43,9 @@ class GoalPlanListCell: TPCollectionCell {
                                        bottom: 0.0,
                                        right: 24.0)
     
+    /// 状态标签与更多按钮的间距
+    let statusMoreSpacing = 8.0
+    
     /// 信息视图
     let infoView = GoalPlanListInfoView()
     
@@ -54,6 +57,16 @@ class GoalPlanListCell: TPCollectionCell {
                          action: #selector(clickMore(_:)),
                          for: .touchUpInside)
         return button
+    }()
+    
+    /// 状态标签（圆角胶囊，标题与背景色取自目标计划状态）
+    lazy var statusLabel: TPLabel = {
+        let label = TPLabel()
+        label.font = .systemFont(ofSize: 10.0, weight: .medium)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.edgeInsets = UIEdgeInsets(horizontal: 6.0, vertical: 5.0)
+        return label
     }()
     
     /// 进度视图
@@ -71,10 +84,9 @@ class GoalPlanListCell: TPCollectionCell {
                                            left: 16.0,
                                            bottom: 15.0,
                                            right: 12.0)
-        infoView.rightAccessoryView = moreButton
-        infoView.rightAccessorySize = .mini
-        infoView.rightAccessoryMargins = UIEdgeInsets(left: 4.0)
         contentView.addSubview(infoView)
+        contentView.addSubview(statusLabel)
+        contentView.addSubview(moreButton)
     
         contentView.addSubview(progressView)
     }
@@ -83,10 +95,22 @@ class GoalPlanListCell: TPCollectionCell {
         super.layoutSubviews()
         let layoutFrame = contentView.layoutFrame()
     
-        infoView.width = layoutFrame.width
+        /// 状态标签与更多按钮贴右排布，其宽度从信息视图中扣除，避免标题被遮挡
+        statusLabel.sizeToFit()
+        moreButton.size = .mini
+        let accessoryWidth = statusLabel.width + statusMoreSpacing + moreButton.width
+        
+        infoView.width = max(0.0, layoutFrame.width - accessoryWidth)
         infoView.height = layoutFrame.height - progressHeight - progressMargins.verticalLength
         infoView.left = layoutFrame.minX
         infoView.top = layoutFrame.minY
+        
+        /// 更多按钮贴右，状态标签紧随其左侧，二者与信息视图垂直居中
+        moreButton.right = layoutFrame.maxX
+        moreButton.centerY = infoView.centerY
+        statusLabel.right = moreButton.left - statusMoreSpacing
+        statusLabel.centerY = moreButton.centerY
+        statusLabel.layer.cornerRadius = statusLabel.halfHeight
 
         /// 进度条位于底部
         progressView.width = layoutFrame.width - progressMargins.horizontalLength
@@ -108,8 +132,23 @@ class GoalPlanListCell: TPCollectionCell {
         infoView.color = goalPlan.color
         infoView.title = goalPlan.displayName
         
+        /// 状态标签：标题与背景色取自目标计划状态；
+        /// 进行中时改用进度总结状态（领先 / 正常 / 落后…），比「进行中」更有信息量
+        let status = goalPlan.status
+        if status == .inProgress {
+            let summaryStatus = goalPlan.summaryStatus
+            statusLabel.text = summaryStatus.title
+            statusLabel.layer.backgroundColor = summaryStatus.backgroundColor.cgColor
+        } else {
+            statusLabel.text = status.title
+            statusLabel.layer.backgroundColor = status.backgroundColor.cgColor
+        }
+        
         /// 副标题：由 GoalPlanDetailProvider 统一计算（日期区间 + 进度百分比）
         infoView.subtitle = GoalPlanDetailProvider.detail(for: goalPlan)
+        
+        /// 标签宽度随状态文案变化，需要重新布局
+        setNeedsLayout()
     }
     
     /// 点击更多

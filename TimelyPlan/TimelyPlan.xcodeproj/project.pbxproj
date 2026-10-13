@@ -1054,6 +1054,7 @@
 		E55BDED0307DDFA7002A9986 /* GoalSummaryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC3307DDFA7002A9986 /* GoalSummaryCardView.swift */; };
 		E55BDED1307DDFA7002A9986 /* GoalSummaryMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC4307DDFA7002A9986 /* GoalSummaryMetricsView.swift */; };
 		E55BDED2307DDFA7002A9986 /* GoalSummaryRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDEC5307DDFA7002A9986 /* GoalSummaryRingView.swift */; };
+		E55BDED6307E6F5E002A9986 /* GoalPlanStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55BDED5307E6F5E002A9986 /* GoalPlanStatus.swift */; };
 		E55CE3442D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3402D8BBE0D0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png */; };
 		E55CE3452D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3412D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png */; };
 		E55CE3462D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55CE3422D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png */; };
@@ -3566,6 +3567,7 @@
 		E55BDEC3307DDFA7002A9986 /* GoalSummaryCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryCardView.swift; sourceTree = "<group>"; };
 		E55BDEC4307DDFA7002A9986 /* GoalSummaryMetricsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryMetricsView.swift; sourceTree = "<group>"; };
 		E55BDEC5307DDFA7002A9986 /* GoalSummaryRingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalSummaryRingView.swift; sourceTree = "<group>"; };
+		E55BDED5307E6F5E002A9986 /* GoalPlanStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalPlanStatus.swift; sourceTree = "<group>"; };
 		E55CE3402D8BBE0D0083316E /* quadrant_layout_titlePosition_bottom_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_bottom_24@2x.png"; sourceTree = "<group>"; };
 		E55CE3412D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_bottom_24@3x.png"; sourceTree = "<group>"; };
 		E55CE3422D8BBE0E0083316E /* quadrant_layout_titlePosition_top_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quadrant_layout_titlePosition_top_24@3x.png"; sourceTree = "<group>"; };
@@ -8860,6 +8862,7 @@
 			isa = PBXGroup;
 			children = (
 				E57B2B3F304521D600BA4D56 /* GoalPlan.swift */,
+				E55BDED5307E6F5E002A9986 /* GoalPlanStatus.swift */,
 				E5BA9A8630523CF30044106F /* GoalPlanFeature.swift */,
 			);
 			path = Plan;
@@ -14630,6 +14633,7 @@
 				E5D7D8DE2D43933600EC877A /* FocusFloatingTimerActionView.swift in Sources */,
 				E5FC918A2FBB05A000FC75C6 /* CalendarDayTimedEventsView.swift in Sources */,
 				E5BB9E852D3BF0C80089667A /* CurveChartView.swift in Sources */,
+				E55BDED6307E6F5E002A9986 /* GoalPlanStatus.swift in Sources */,
 				E51501962D477A26008B2333 /* TPTableViewAdapterDataSource.swift in Sources */,
 				E5FAA9C8304A608500C9CCD8 /* GoalTaskManager.swift in Sources */,
 				E5BB9EB12D3BF0C80089667A /* TPBorderLayer.swift in Sources */,

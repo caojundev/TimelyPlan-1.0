@@ -91,6 +91,13 @@ class GoalPlan: NSObject, TPHexColorConvertible, SortableIdentifiable {
         return DateInterval(start: start, end: end)
     }
     
+    /// 计划状态（只读，依据进度与起止日期实时判定）
+    var status: GoalPlanStatus {
+        return GoalPlanStatus(progress: progress,
+                              startDate: startDate,
+                              endDate: endDate)
+    }
+    
     var feature: GoalPlanFeature {
          return GoalPlanFeature(identifier: identifiableKey,
                                 name: name,
@@ -195,6 +202,38 @@ extension GoalPlan {
     func isSamePlan(as editingPlan: GoalEditingPlan) -> Bool {
         let current = self.editingPlan
         return current == editingPlan
+    }
+}
+
+// MARK: - 进度总结状态
+extension GoalPlan {
+    
+    /// 进度总结状态（只读，依据计划进度与起止日期实时判定）。
+    ///
+    /// 进度差 = 计划进度 − 时间进度，因此除逾期外还能区分领先 / 同步 / 落后 / 严重落后；
+    /// 已完成与逾期直接复用 `status`，保证两处判定口径一致。
+    var summaryStatus: GoalSummaryStatus {
+        return GoalSummaryStatus(gap: progress - timeProgress,
+                                 isOverdue: status == .overdue,
+                                 isCompleted: status == .completed)
+    }
+    
+    /// 时间进度：已流逝时间占整体计划时长的比例，算法与 `GoalSummaryCalculator` 保持一致。
+    /// - Note: 起止日期缺失时无法计算，按 0 计（等价于时间尚未推进）；
+    ///         起止日期相同或倒置时视为已到期。
+    private var timeProgress: Double {
+        guard let startDate = startDate, let endDate = endDate else {
+            return 0
+        }
+        
+        let span = endDate.timeIntervalSince(startDate)
+        let elapsed = Date().timeIntervalSince(startDate)
+        if span > 0 {
+            return min(max(elapsed / span, 0), 1)
+        }
+        
+        // 起止日期相同或倒置：视为已到期。
+        return elapsed >= 0 ? 1 : 0
     }
 }
 
