@@ -132,5 +132,21 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C5FA666A-5C02-44AC-B7F7-70289A2C4812"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TimelyPlan/Goal/Task/Action/Summary/Sources/Views/GoalSummaryMetricsView.swift"
+            startingColumnNumber = "36"
+            endingColumnNumber = "44"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "attributedValue(of:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

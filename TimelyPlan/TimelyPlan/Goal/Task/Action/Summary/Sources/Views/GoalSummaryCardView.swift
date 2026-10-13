@@ -16,7 +16,7 @@ final class GoalSummaryCardView: UIView {
         static let noteToSeparator: CGFloat = 16
         static let separatorHeight: CGFloat = 1
         static let separatorToMetrics: CGFloat = 16
-        static let cornerRadius: CGFloat = 20
+        static let cornerRadius: CGFloat = 12.0
     }
 
     // MARK: - 子视图
@@ -75,16 +75,16 @@ final class GoalSummaryCardView: UIView {
         let accent = theme.accent(for: snapshot.status)
         let metrics = ringView.metrics
 
-        // 外环 = 任务完成进度；内环 = 日期时间进度
+        // 外环 = 时间进度；内环 = 任务完成进度
         ringView.rings = [
             GoalSummaryRingView.Ring(radius: metrics.outerRadius,
-                                  lineWidth: metrics.outerLineWidth,
-                                  progress: CGFloat(snapshot.taskProgress),
-                                  color: accent),
+                                     lineWidth: metrics.outerLineWidth,
+                                     progress: CGFloat(snapshot.timeProgress),
+                                     color: theme.timeAccent),
             GoalSummaryRingView.Ring(radius: metrics.innerRadius,
-                                  lineWidth: metrics.innerLineWidth,
-                                  progress: CGFloat(snapshot.timeProgress),
-                                  color: theme.timeAccent)
+                                     lineWidth: metrics.innerLineWidth,
+                                     progress: CGFloat(snapshot.taskProgress),
+                                     color: accent)
         ]
 
         // 圆心只表达状态，不显示百分比
@@ -92,12 +92,12 @@ final class GoalSummaryCardView: UIView {
 
         legendView.items = [
             .init(color: accent,
-                  title: "任务完成进度",
+                  title: resGetString("Task Completion Progress"),
                   subtitle: "\(snapshot.initialValue)→\(snapshot.targetValue) • \(snapshot.currentValue)",
                   value: snapshot.taskPercentText),
             .init(color: theme.timeAccent,
-                  title: "日期时间进度",
-                  subtitle: "\(snapshot.startDateText) - \(snapshot.endDateText) • \(snapshot.totalDays) 天",
+                  title: resGetString("Time Progress"),
+                  subtitle: "\(snapshot.startDateText) - \(snapshot.endDateText) • \(snapshot.totalDaysText)",
                   value: snapshot.timePercentText)
         ]
 
@@ -105,16 +105,17 @@ final class GoalSummaryCardView: UIView {
                            symbolName: snapshot.status.symbolName,
                            tint: accent)
 
+        let timeMetric = snapshot.timeMetric
         metricsView.items = [
-            .init(value: "\(snapshot.targetValue - snapshot.currentValue)",
+            .init(value: "\(snapshot.remainingValue)",
                   unit: "",
-                  caption: "剩余量"),
-            .init(value: snapshot.remainingValueText,
-                  unit: " 天",
-                  caption: snapshot.remainingCaptionText),
+                  caption: resGetString("Remaining")),
+            .init(value: timeMetric.value,
+                  unit: timeMetric.unit,
+                  caption: timeMetric.caption),
             .init(value: snapshot.gapValueText,
                   unit: "",
-                  caption: "进度差",
+                  caption: resGetString("Progress Gap"),
                   valueColor: accent)
         ]
 

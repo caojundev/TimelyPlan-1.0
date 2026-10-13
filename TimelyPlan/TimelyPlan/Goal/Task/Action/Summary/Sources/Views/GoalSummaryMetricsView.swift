@@ -33,7 +33,7 @@ final class GoalSummaryMetricsView: UIView {
 
     private enum Metrics {
         /// 数值字号
-        static let valueFont = UIFont.systemFont(ofSize: 19, weight: .bold)
+        static let valueFont = UIFont.systemFont(ofSize: 16.0, weight: .bold)
         /// 单位字号
         static let unitFont = UIFont.systemFont(ofSize: 12, weight: .semibold)
         /// 说明文字字号

@@ -7,8 +7,6 @@ import UIKit
 struct GoalSummaryTheme {
 
     // MARK: - 基础色
-
-    let canvasBackground: UIColor
     let cardBackground: UIColor
     let primaryText: UIColor
     let secondaryText: UIColor
@@ -16,6 +14,8 @@ struct GoalSummaryTheme {
     let separator: UIColor
 
     /// 时间环基准色（恒定，不随状态变化）。
+    /// - Note: 状态色覆盖绿（领先）/ 蓝（正常）/ 橙（落后）/ 红（严重、逾期），
+    ///         因此时间环取紫色系，保证任何一种状态下两环都不同色系、可一眼区分。
     let timeAccent: UIColor
 
     /// 危险色，用于「已逾期未完成」，取自项目语义色 danger。
@@ -24,13 +24,12 @@ struct GoalSummaryTheme {
     // MARK: - 预设
 
     static let standard = GoalSummaryTheme(
-        canvasBackground: Color(light: 0xF2F2F7, dark: 0x000000),
-        cardBackground: Color(light: 0xFFFFFF, dark: 0x1C1C1E),
+        cardBackground: .secondarySystemGroupedBackground,
         primaryText: Color(light: 0x121212, dark: 0xfafafa),
         secondaryText: Color(light: 0x3C3C43, dark: 0xEBEBF5, alpha: 0.6),
         track: Color(light: 0x787880, 0.14, dark: 0x787880, 0.24),
         separator: Color(light: 0x3C3C43, 0.12, dark: 0xEBEBF5, 0.14),
-        timeAccent: Color(0x5AC8FA),
+        timeAccent: Color(0x5856D6),
         danger: UIColor.danger6
     )
 

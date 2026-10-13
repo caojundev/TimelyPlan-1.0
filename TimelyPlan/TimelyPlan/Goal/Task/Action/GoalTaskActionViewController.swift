@@ -90,8 +90,7 @@ class GoalTaskActionViewController: TPContainerViewController,
     
     /// 概览视图控制器
     private lazy var summaryActionViewController: GoalSummaryActionViewController = {
-        return GoalSummaryActionViewController()
-//        return GoalSummaryActionViewController(interactor: interactor)
+        return GoalSummaryActionViewController(interactor: interactor)
     }()
     
     /// 步骤内容视图控制器

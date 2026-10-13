@@ -131,6 +131,26 @@
 "Total Record Amount" = "记录总量";
 "Total Record Times" = "记录总次数";
 
+/// 目标进度概览卡片
+"Ahead" = "领先";
+"Normal" = "正常";
+"Behind" = "落后";
+"Past Due" = "逾期";
+
+"Task progress is ahead of time progress, good pace" = "任务进度快于时间进度，节奏良好";
+"Task progress is in sync with time progress" = "任务进度与时间进度基本同步";
+"Task progress is behind time progress, consider speeding up" = "任务进度慢于时间进度，建议加快";
+"Significantly behind time progress, needs attention" = "严重落后于时间进度，需要重点关注";
+"Past the end date but not finished, handle it as soon as possible" = "已过截止日期但任务尚未完成，需要尽快处理";
+
+"Task Completion Progress" = "任务完成进度";
+"Time Progress" = "时间进度";
+
+"Remaining" = "剩余量";
+"Progress Gap" = "进度差";
+"Remaining Time" = "剩余时间";
+"Status" = "状态";
+
 ///**********************我的一天*********************///
 "Collapse" = "收起";
 "%ld more all-day events" = "剩余%ld个全天事项";

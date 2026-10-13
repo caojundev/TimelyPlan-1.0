@@ -13,11 +13,28 @@ enum GoalSummaryCalculator {
     ///   - now: 参照时间，默认当前。显式传入便于测试与预览。
     static func snapshot(for task: GoalSummaryTask, now: Date = Date()) -> GoalSummarySnapshot {
 
-        // 任务完成度：钳制在有效区间，避免脏数据导致负值或超过 100%。
-        let total = max(task.totalCount, 0)
-        let initial = min(max(task.initialValue, 0), total)
-        let completed = min(max(task.completedCount, 0), total)
-        let taskProgress = total == 0 ? 0 : Double(completed) / Double(total)
+        // 取值：起始值可能大于目标值（递减型目标，如「100 → 20」），
+        // 因此不能按 0...目标值 钳制，只把当前值收在「起始值 ⇄ 目标值」构成的区间内。
+        let initial = task.initialValue
+        let target = task.targetValue
+        let current: Int
+        if initial == target {
+            // 区间为零：保持原值，不把当前值改写成目标值。
+            current = task.currentValue
+        } else {
+            current = min(max(task.currentValue, min(initial, target)), max(initial, target))
+        }
+
+        // 任务完成度 =（当前值 − 起始值）/（目标值 − 起始值）。
+        // 递减型目标的分子与分母同为负，比值依然落在 0...1，无需按方向分支处理。
+        let valueSpan = target - initial
+        let taskProgress: Double
+        if valueSpan == 0 {
+            // 起始值与目标值相同：没有可推进的区间，视为未开始。
+            taskProgress = 0
+        } else {
+            taskProgress = min(max(Double(current - initial) / Double(valueSpan), 0), 1)
+        }
 
         // 时间进度：按已流逝时间占整体计划时长的比例，钳制到 0...1。
         let span = task.endDate.timeIntervalSince(task.startDate)
@@ -38,16 +55,17 @@ enum GoalSummaryCalculator {
             startDate: task.startDate,
             endDate: task.endDate,
             initialValue: initial,
-            currentValue: completed,
-            targetValue: total,
+            currentValue: current,
+            targetValue: target,
             taskProgress: taskProgress,
             timeProgress: timeProgress,
             gap: gap,
+            remainingValue: abs(target - current),
             remainingDays: remainingDays,
             totalDays: totalDays,
             status: GoalSummaryStatus(gap: gap,
-                                   isOverdue: remainingDays < 0,
-                                   isCompleted: total > 0 && completed >= total)
+                                      isOverdue: remainingDays < 0,
+                                      isCompleted: valueSpan != 0 && current == target)
         )
     }
 }

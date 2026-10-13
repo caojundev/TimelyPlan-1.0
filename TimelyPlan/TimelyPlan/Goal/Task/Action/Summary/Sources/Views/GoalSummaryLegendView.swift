@@ -82,9 +82,9 @@ final class GoalSummaryLegendView: UIView {
 private final class RowView: UIView {
 
     /// 名称字号
-    static let titleFont = UIFont.systemFont(ofSize: 14, weight: .regular)
+    static let titleFont = UIFont.systemFont(ofSize: 13, weight: .bold)
     /// 副文案字号
-    static let subtitleFont = UIFont.systemFont(ofSize: 11, weight: .regular)
+    static let subtitleFont = UIFont.systemFont(ofSize: 10, weight: .medium)
     /// 名称与副文案的间距
     static let subtitleSpacing: CGFloat = 2
     /// 行内上下留白

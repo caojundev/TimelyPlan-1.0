@@ -12,9 +12,9 @@ final class GoalSummaryRingCenterView: UIView {
         /// 图标与文案的间距。
         static let iconToTitle: CGFloat = 7
         /// 图标尺寸。
-        static let iconSize: CGSize = .mini
+        static let iconSize: CGSize = .size(4)
         /// 状态文案字号。
-        static let titleFont: UIFont = .boldSystemFont(ofSize: 14.0)
+        static let titleFont: UIFont = .boldSystemFont(ofSize: 13.0)
     }
 
     private let infoView: TPImageTitleView = {
@@ -56,7 +56,7 @@ final class GoalSummaryRingCenterView: UIView {
     /// 配置状态。图标与文案统一使用 `accent`。
     func configure(status: GoalSummaryStatus, accent: UIColor) {
         infoView.image = UIImage(systemName: status.symbolName)?
-            .withConfiguration(UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold))
+            .withConfiguration(UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold))
         infoView.imageConfig.color = accent
 
         infoView.title = status.title

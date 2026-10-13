@@ -8,73 +8,59 @@
 import Foundation
 import UIKit
 
-/// 演示页：纵向滚动展示多张进度卡片。
+/// 目标任务「概览」操作内容视图控制器
 ///
-/// 滚动容器内容高度同样手动计算 —— 依次调用每张卡片的 `sizeThatFits` 累加。
-final class GoalSummaryActionViewController: UIViewController {
+/// 用一张 `GoalSummaryCardView` 展示传入目标任务（`GoalTaskEditInteractor.task`）的进度概况。
+/// 卡片高度按宽度算出（`sizeThatFits`），因此外层用滚动视图承载。
+class GoalSummaryActionViewController: TPTableSectionsViewController {
 
-    private let theme = GoalSummaryTheme.standard
+    /// 区块上方普通间距高度
+    private static let normalHeaderHeight = 5.0
+
+    /// 目标任务操作交互器
+    private let interactor: GoalTaskEditInteractor
+
+    /// 概览卡片（只有一张）
+    private let card = GoalSummaryCardView()
 
     private let scrollView = UIScrollView()
     private let contentView = UIView()
 
-    private let tasks: [GoalSummaryTask]
-    private let cards: [GoalSummaryCardView]
-
     private let horizontalPadding: CGFloat = 20
-    private let topPadding: CGFloat = 20
-    private let cardSpacing: CGFloat = 20
+    private let topPadding: CGFloat = 5.0
 
-    init() {
-        /// 末尾追加一项「已逾期但未完成」的测试数据
-        let tasks = GoalSummaryDemoData.samples() + [GoalSummaryActionViewController.overdueTask]
-        self.tasks = tasks
-        self.cards = tasks.map { _ in GoalSummaryCardView() }
-        super.init(nibName: nil, bundle: nil)
+    init(interactor: GoalTaskEditInteractor) {
+        self.interactor = interactor
+        super.init(style: .insetGrouped)
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /// 测试数据：已过截止日期且未完成，用于验证「逾期」状态。
-    private static var overdueTask: GoalSummaryTask {
-        let day: TimeInterval = 86_400
-        let now = Date()
-        return GoalSummaryTask(initialValue: 0,
-                            startDate: now.addingTimeInterval(-30 * day),
-                            endDate: now.addingTimeInterval(-5 * day),
-                            completedCount: 4,
-                            totalCount: 10)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "目标任务进度"
-        view.backgroundColor = theme.canvasBackground
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "切换外观",
-            style: .plain,
-            target: self,
-            action: #selector(toggleAppearance)
-        )
+        adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
+        adapter.reloadData()
 
         scrollView.alwaysBounceVertical = true
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-
-        for (card, task) in zip(cards, tasks) {
-            let snapshot = GoalSummaryCalculator.snapshot(for: task)
-            card.configure(with: snapshot)
-            contentView.addSubview(card)
-        }
+        contentView.addSubview(card)
     }
 
-    @objc private func toggleAppearance() {
-        let next: UIUserInterfaceStyle = traitCollection.userInterfaceStyle == .dark ? .light : .dark
-        overrideUserInterfaceStyle = next
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        /// 每次展示都按最新任务刷新（进度可能在别的页签里被记录）
+        reloadCard()
+    }
+
+    /// 用最新任务刷新卡片
+    private func reloadCard() {
+        let task = GoalSummaryTask(task: interactor.task)
+        card.configure(with: GoalSummaryCalculator.snapshot(for: task))
     }
 
     override func viewDidLayoutSubviews() {
@@ -83,49 +69,37 @@ final class GoalSummaryActionViewController: UIViewController {
         scrollView.frame = view.bounds
 
         let cardWidth = view.bounds.width - horizontalPadding * 2
-        var y = topPadding
+        let cardHeight = card.sizeThatFits(CGSize(width: cardWidth, height: .greatestFiniteMagnitude)).height
+        card.frame = CGRect(x: horizontalPadding, y: topPadding, width: cardWidth, height: cardHeight)
 
-        for card in cards {
-            let height = card.sizeThatFits(CGSize(width: cardWidth, height: .greatestFiniteMagnitude)).height
-            card.frame = CGRect(x: horizontalPadding, y: y, width: cardWidth, height: height)
-            y = card.frame.maxY + cardSpacing
-        }
-
-        contentView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: y)
+        contentView.frame = CGRect(x: 0.0,
+                                   y: 0.0,
+                                   width: view.bounds.width,
+                                   height: card.frame.maxY + topPadding)
         scrollView.contentSize = contentView.bounds.size
     }
-}
 
-/*
-class GoalSummaryActionViewController: TPTableSectionsViewController {
-    
-    /// 区块上方普通间距高度
-    private static let normalHeaderHeight = 5.0
-    
-    /// 目标任务操作交互器
-    private let interactor: GoalTaskEditInteractor
-
-    init(interactor: GoalTaskEditInteractor) {
-        self.interactor = interactor
-        super.init(style: .insetGrouped)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        adapter.cellStyle.backgroundColor = .secondarySystemGroupedBackground
-        adapter.reloadData()
-    }
+    // MARK: - 外观
 
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
-    
+
     override var themeNavigationBarBackgroundColor: UIColor? {
         return .systemGroupedBackground
     }
 }
-*/
+
+// MARK: - GoalTask 转换 GoalSummaryTask
+
+private extension GoalSummaryTask {
+    
+    init(task: GoalTask) {
+        let now = Date()
+        self.init(initialValue: Int(task.initialValue),
+                  startDate: task.startDate ?? now.startOfDay(),
+                  endDate: task.endDate ?? now.dateByAddingMonths(1)?.endOfDay() ?? now,
+                  currentValue: Int(task.currentValue),
+                  targetValue: Int(task.targetValue))
+    }
+}

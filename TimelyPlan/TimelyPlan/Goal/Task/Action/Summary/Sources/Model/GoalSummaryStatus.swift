@@ -53,32 +53,32 @@ enum GoalSummaryStatus {
     /// 圆心的状态主文案。
     var title: String {
         switch self {
-        case .ahead:              return "领先"
-        case .normal:             return "正常"
-        case .behind, .critical:  return "落后"
-        case .overdue:            return "逾期"
+        case .ahead:              return resGetString("Ahead")
+        case .normal:             return resGetString("Normal")
+        case .behind, .critical:  return resGetString("Behind")
+        case .overdue:            return resGetString("Past Due")
         }
     }
 
     /// 对应 SF Symbol 名称，保证不依赖颜色也能识别状态。
     var symbolName: String {
         switch self {
+        case .normal:   return "equal.circle"
         case .ahead:    return "arrow.up.right"
-        case .normal:   return "equal"
-        case .behind:   return "clock"
+        case .behind:   return "arrow.down.forward"
         case .critical: return "exclamationmark.triangle"
-        case .overdue:  return "exclamationmark.octagon"
+        case .overdue:  return "exclamationmark.circle"
         }
     }
 
     /// 卡片底部的解释性提示。
     var hint: String {
         switch self {
-        case .ahead:    return "任务进度快于时间进度，节奏良好"
-        case .normal:   return "任务进度与时间进度基本同步"
-        case .behind:   return "任务进度慢于时间进度，建议加快"
-        case .critical: return "严重落后于时间进度，需要重点关注"
-        case .overdue:  return "已过截止日期但任务尚未完成，需要尽快处理"
+        case .ahead:    return resGetString("Task progress is ahead of time progress, good pace")
+        case .normal:   return resGetString("Task progress is in sync with time progress")
+        case .behind:   return resGetString("Task progress is behind time progress, consider speeding up")
+        case .critical: return resGetString("Significantly behind time progress, needs attention")
+        case .overdue:  return resGetString("Past the end date but not finished, handle it as soon as possible")
         }
     }
 }
