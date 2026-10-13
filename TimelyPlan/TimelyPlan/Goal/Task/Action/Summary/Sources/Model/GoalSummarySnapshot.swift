@@ -1,3 +1,10 @@
+//
+//  GoalSummarySnapshot.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
 import Foundation
 
 /// 计算产出的、可直接用于渲染的进度快照。

@@ -1,3 +1,11 @@
+//
+//  GoalSummaryLegendView.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
+import Foundation
 import UIKit
 
 /// 图例：色环 + 名称（含一行副文案）+ 数值，逐行排列。

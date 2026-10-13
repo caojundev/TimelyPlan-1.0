@@ -1,3 +1,11 @@
+//
+//  GoalSummaryMetricsView.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
+import Foundation
 import UIKit
 
 /// 指标区：三列等宽，每列「数值 + 单位」与「说明文字」。

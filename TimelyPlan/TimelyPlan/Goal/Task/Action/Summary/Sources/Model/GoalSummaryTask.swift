@@ -1,3 +1,10 @@
+//
+//  GoalSummaryTask.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
 import Foundation
 
 /// 一个目标任务的原始数据。

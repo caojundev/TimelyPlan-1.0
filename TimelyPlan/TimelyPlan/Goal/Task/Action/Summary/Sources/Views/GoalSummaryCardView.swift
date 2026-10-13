@@ -1,3 +1,11 @@
+//
+//  GoalSummaryCardView.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
+import Foundation
 import UIKit
 
 /// 目标任务进度卡片：把双环、圆心状态、图例、提示、指标组合在一起。

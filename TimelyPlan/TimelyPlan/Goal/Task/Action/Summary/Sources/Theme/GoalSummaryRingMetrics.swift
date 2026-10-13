@@ -1,4 +1,12 @@
+//
+//  GoalSummaryRingMetrics.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
 import CoreGraphics
+import Foundation
 
 /// 双环的几何规格。
 ///

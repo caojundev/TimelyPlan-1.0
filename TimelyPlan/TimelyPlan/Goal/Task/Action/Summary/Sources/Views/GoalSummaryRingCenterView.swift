@@ -1,3 +1,11 @@
+//
+//  GoalSummaryRingCenterView.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
+import Foundation
 import UIKit
 
 /// 圆心的状态展示：状态图标 + 状态主文案，整体在环心居中。

@@ -1,3 +1,11 @@
+//
+//  GoalSummaryNoteView.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
+import Foundation
 import UIKit
 
 /// 卡片底部的状态提示条：图标 + 说明文字，整体使用状态色浅底。

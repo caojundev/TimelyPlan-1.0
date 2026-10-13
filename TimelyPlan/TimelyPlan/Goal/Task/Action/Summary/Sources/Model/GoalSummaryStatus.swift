@@ -1,3 +1,10 @@
+//
+//  GoalSummaryStatus.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
 import Foundation
 
 /// 由「任务完成进度」与「时间进度」的差值判定出的状态。

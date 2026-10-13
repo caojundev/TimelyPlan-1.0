@@ -1,3 +1,11 @@
+//
+//  GoalSummaryRingView.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
+import Foundation
 import UIKit
 
 /// 双环绘制视图（纯渲染组件）。

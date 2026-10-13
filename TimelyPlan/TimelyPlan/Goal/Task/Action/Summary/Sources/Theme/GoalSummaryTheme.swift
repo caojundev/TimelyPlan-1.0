@@ -1,3 +1,11 @@
+//
+//  GoalSummaryTheme.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
+import Foundation
 import UIKit
 
 /// 视觉主题：把颜色集中在一处，视图只消费语义化色值。

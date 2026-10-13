@@ -1,3 +1,10 @@
+//
+//  GoalSummaryCalculator.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/10/13.
+//
+
 import Foundation
 
 /// 纯函数式计算器：`GoalSummaryTask` + 当前时间 → `GoalSummarySnapshot`。
