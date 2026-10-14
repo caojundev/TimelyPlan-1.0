@@ -2500,6 +2500,9 @@
 		E5FC91942FBB61E400FC75C6 /* CalendarDayPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC91932FBB61E400FC75C6 /* CalendarDayPageView.swift */; };
 		E5FC91962FBB643800FC75C6 /* CalendarDayPageTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC91952FBB643800FC75C6 /* CalendarDayPageTimelineCell.swift */; };
 		E5FC919A2FBB65C200FC75C6 /* FocusTimelineBackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FC91992FBB65C200FC75C6 /* FocusTimelineBackLayer.swift */; };
+		E5FD1920307FC2E900E87402 /* sideMenu_workspace_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FD191E307FC2E800E87402 /* sideMenu_workspace_40@2x.png */; };
+		E5FD1921307FC2E900E87402 /* sideMenu_workspace_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5FD191F307FC2E900E87402 /* sideMenu_workspace_40@3x.png */; };
+		E5FD1924307FC4B800E87402 /* WorkspaceMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FD1923307FC4B800E87402 /* WorkspaceMainViewController.swift */; };
 		E5FF12EB2D5DF6D600340DCC /* TPEmojiEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF12EA2D5DF6D600340DCC /* TPEmojiEditView.swift */; };
 		E5FF4EC02FE9360300282416 /* LocalNotificationPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4EBF2FE9360300282416 /* LocalNotificationPreviewViewController.swift */; };
 		E5FF4EC22FE95E8500282416 /* TaskNotificationConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF4EC12FE95E8500282416 /* TaskNotificationConfig.swift */; };
@@ -5033,6 +5036,9 @@
 		E5FC91932FBB61E400FC75C6 /* CalendarDayPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayPageView.swift; sourceTree = "<group>"; };
 		E5FC91952FBB643800FC75C6 /* CalendarDayPageTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayPageTimelineCell.swift; sourceTree = "<group>"; };
 		E5FC91992FBB65C200FC75C6 /* FocusTimelineBackLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusTimelineBackLayer.swift; sourceTree = "<group>"; };
+		E5FD191E307FC2E800E87402 /* sideMenu_workspace_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_workspace_40@2x.png"; sourceTree = "<group>"; };
+		E5FD191F307FC2E900E87402 /* sideMenu_workspace_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_workspace_40@3x.png"; sourceTree = "<group>"; };
+		E5FD1923307FC4B800E87402 /* WorkspaceMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceMainViewController.swift; sourceTree = "<group>"; };
 		E5FF12EA2D5DF6D600340DCC /* TPEmojiEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPEmojiEditView.swift; sourceTree = "<group>"; };
 		E5FF4EBF2FE9360300282416 /* LocalNotificationPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationPreviewViewController.swift; sourceTree = "<group>"; };
 		E5FF4EC12FE95E8500282416 /* TaskNotificationConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNotificationConfig.swift; sourceTree = "<group>"; };
@@ -8103,6 +8109,7 @@
 				E5B4994A2FD8FCB200F3A9BD /* Notification */,
 				E5BB9F272D3BF4330089667A /* Common */,
 				E5BB9F3F2D3BF45F0089667A /* Main */,
+				E5FD1922307FC47E00E87402 /* Workspace */,
 				E51F941630049A2C00734910 /* MyDay */,
 				E51A43802DB73A0400DC84C9 /* Calendar */,
 				E54A0680303BDD3D001FF4A1 /* Goal */,
@@ -11593,6 +11600,8 @@
 			children = (
 				E563F1AB2FE8082900DF86BB /* sideMenu_24@2x.png */,
 				E563F1AC2FE8082900DF86BB /* sideMenu_24@3x.png */,
+				E5FD191E307FC2E800E87402 /* sideMenu_workspace_40@2x.png */,
+				E5FD191F307FC2E900E87402 /* sideMenu_workspace_40@3x.png */,
 				E55897963056D5AE001F8F22 /* sideMenu_countdown_40@2x.png */,
 				E55897973056D5AE001F8F22 /* sideMenu_countdown_40@3x.png */,
 				E51E5F9C303A8DBD00ACF30C /* sideMenu_timeline_40@2x.png */,
@@ -13201,6 +13210,14 @@
 			path = EventsView;
 			sourceTree = "<group>";
 		};
+		E5FD1922307FC47E00E87402 /* Workspace */ = {
+			isa = PBXGroup;
+			children = (
+				E5FD1923307FC4B800E87402 /* WorkspaceMainViewController.swift */,
+			);
+			path = Workspace;
+			sourceTree = "<group>";
+		};
 		E5FF12E82D5DE78800340DCC /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -13537,6 +13554,7 @@
 				E53F32C92F699AC900B85B65 /* habit_report_failed_20@2x.png in Resources */,
 				E500E3862FC59BE600252011 /* todo_search_option_completed_16@3x.png in Resources */,
 				E570FC012D62C14A0017F930 /* chevron_right_16@3x.png in Resources */,
+				E5FD1921307FC2E900E87402 /* sideMenu_workspace_40@3x.png in Resources */,
 				E563F1C72FE8E42E00DF86BB /* sideMenu_quadrants_40@2x.png in Resources */,
 				E5168BD32F545B400000A760 /* dateRange_background_start@3x.png in Resources */,
 				E524C79B2F9F499F005CCEBD /* todo_home_list_24@2x.png in Resources */,
@@ -13937,6 +13955,7 @@
 				E55CE3452D8BBE0E0083316E /* quadrant_layout_titlePosition_bottom_24@3x.png in Resources */,
 				E51350A3302B1A8B000E9871 /* myDay_calendar_24@3x.png in Resources */,
 				E53F32C52F699AC900B85B65 /* habit_report_failed_20@3x.png in Resources */,
+				E5FD1920307FC2E900E87402 /* sideMenu_workspace_40@2x.png in Resources */,
 				E55E4BF72F9336170068E032 /* calendar_19_24@3x.png in Resources */,
 				E5259B0F30184EA600A6D253 /* myDay_repeat_24@3x.png in Resources */,
 				E5E4D14B2D92AF2C00813B6C /* todo_filter_tag_36@2x.png in Resources */,
@@ -15646,6 +15665,7 @@
 				E53632D82FAF77BC0095DFEC /* CalendarConstant.swift in Sources */,
 				E529ACD12F7E11E4000EA2F1 /* TodoUserTagCell.swift in Sources */,
 				E5BB9E782D3BF0C70089667A /* StatsDotChartCell.swift in Sources */,
+				E5FD1924307FC4B800E87402 /* WorkspaceMainViewController.swift in Sources */,
 				E50D602F2F7A12B400D5E0A4 /* RepeatDayOfWeek+Extensions.swift in Sources */,
 				E55B89533077907000ADCED5 /* MindMapTextNodeLayer.swift in Sources */,
 				E5F9E3D830219D6000EDC2A5 /* MyDayHabitTaskBindCell.swift in Sources */,

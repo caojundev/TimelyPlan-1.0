@@ -22,6 +22,7 @@ final class GoalFocusStatsDataProvider: FocusDurationDataProvider,
 
     init(task: GoalTask) {
         self.task = task
+        FocusRepository.addUpdater(self, for: [.session])
     }
 
     // MARK: - FocusDurationDataProvider

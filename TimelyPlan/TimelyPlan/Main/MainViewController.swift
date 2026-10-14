@@ -17,6 +17,13 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         return controller
     }()
     
+    /// 工作台
+    lazy var workspaceViewController: UINavigationController = {
+        let vc = WorkspaceMainViewController()
+        vc.sidebarController = sidebarController
+        return UINavigationController(rootViewController: vc)
+    }()
+    
     /// 我的一天
     lazy var myDayViewController: UINavigationController = {
         let vc = MyDayMainViewController()
@@ -73,17 +80,11 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
         return UINavigationController(rootViewController: vc)
     }()
         
-//    lazy var countdownViewController: UIViewController = {
-//        let vc = CountdownMainViewController()
-//        vc.sidebarController = sidebarController
-//        return UINavigationController(rootViewController: vc)
-//    }()
-    
-    var countdownViewController: UIViewController {
+    lazy var countdownViewController: UIViewController = {
         let vc = CountdownMainViewController()
         vc.sidebarController = sidebarController
         return UINavigationController(rootViewController: vc)
-    }
+    }()
 
     var settingsViewController: UIViewController {
         let vc = AppSettingsViewController()
@@ -148,6 +149,8 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     private func replaceViewController(with menuType: SideMenuType) {
         var vc: UIViewController
         switch menuType {
+        case .workspace:
+            vc = workspaceViewController
         case .myDay:
             vc = myDayViewController
         case .todo:

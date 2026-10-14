@@ -10,7 +10,7 @@ import UIKit
 
 /// 侧边栏菜单类型
 enum SideMenuType: String, Codable, TPMenuRepresentable {
-    
+    case workspace /// 工作台
     case myDay     /// 我的一天
     case calendar  /// 日历
     case todo      /// 待办
@@ -23,7 +23,8 @@ enum SideMenuType: String, Codable, TPMenuRepresentable {
     case settings  /// 设置
     
     static func titles() -> [String] {
-        return ["My Day",
+        return ["Workspace",
+                "My Day",
                 "Calendar",
                 "Todo",
                 "Timeline",
@@ -44,7 +45,8 @@ extension SideMenuType {
     
     /// 侧边栏菜单默认顺序
     static var defaultSideMenuOrder: [SideMenuType] {
-        return [.myDay,
+        return [.workspace,
+                .myDay,
                 .calendar,
                 .todo,
                 .quadrants,
@@ -59,7 +61,7 @@ extension SideMenuType {
     /// 是否内置固定显示（不可关闭）
     var isFixedOnSideMenu: Bool {
         switch self {
-        case .myDay, .todo, .settings:
+        case .workspace, .myDay, .todo, .settings:
             return true
         default:
             return false
