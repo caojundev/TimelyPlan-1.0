@@ -9,10 +9,6 @@ import Foundation
 import UIKit
 
 /// 目标任务「概览」操作内容视图控制器
-///
-/// 上方用一张 `GoalSummaryCardView` 展示传入目标任务（`GoalTaskEditInteractor.task`）的进度概况，
-/// 下方展示一张 `FocusDurationCardView`（专注时长的周 / 月 / 年图表）。
-/// 卡片高度按宽度算出（`sizeThatFits` / `preferredHeight`），因此外层用滚动视图承载。
 class GoalSummaryActionViewController: TPTableSectionsViewController {
 
     /// 区块上方普通间距高度
@@ -24,8 +20,11 @@ class GoalSummaryActionViewController: TPTableSectionsViewController {
     /// 进度概览卡片
     private let summaryCardView = GoalSummaryCardView()
 
+    /// 专注时长数据提供者
+    private lazy var focusDurationProvider = GoalFocusStatsDataProvider(task: interactor.task)
+
     /// 专注时长卡片
-    private let focusDurationCardView = FocusDurationCardView()
+    private lazy var focusDurationCardView = FocusDurationCardView(provider: focusDurationProvider)
 
     private let scrollView = UIScrollView()
     private let contentView = UIView()

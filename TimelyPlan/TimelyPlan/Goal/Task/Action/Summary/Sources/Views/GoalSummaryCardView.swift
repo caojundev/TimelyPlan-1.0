@@ -59,12 +59,7 @@ final class GoalSummaryCardView: UIView {
     private func commonInit() {
         backgroundColor = theme.cardBackground
         layer.cornerRadius = Metrics.cornerRadius
-        layer.masksToBounds = false
-
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.08
-        layer.shadowRadius = 8.0
-        layer.shadowOffset = CGSize(width: 0, height: 8)
+        layer.masksToBounds = true
 
         lineSeparatorView.backgroundColor = theme.separator
 

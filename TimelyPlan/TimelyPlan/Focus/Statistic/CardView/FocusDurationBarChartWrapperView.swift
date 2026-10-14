@@ -46,8 +46,12 @@ class FocusDurationBarChartWrapperView: UIView, TPAnimatedContainerViewDelegate 
 
     func setupSubviews() {
         containerView.delegate = self
+        containerView.clipsToBounds = false
         addSubview(containerView)
-        containerView.setContentView(makeBarChartView())
+
+        let chartView = makeBarChartView()
+        barChartView = chartView
+        containerView.setContentView(chartView)
     }
 
     override func layoutSubviews() {

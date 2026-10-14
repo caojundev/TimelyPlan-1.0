@@ -35,6 +35,13 @@ class FocusDurationCardView: UIView {
     /// 统计类型切换回调
     var didSelectType: ((StatsType) -> Void)?
 
+    /// 数据提供者
+    var provider: FocusDurationDataProvider {
+        didSet {
+            (chartContainerView.contentView as? FocusDurationChartContainerView)?.provider = provider
+        }
+    }
+
     // MARK: - 子视图
 
     /// 周/月/年分段菜单
@@ -71,7 +78,9 @@ class FocusDurationCardView: UIView {
 
     // MARK: - 初始化
 
-    override init(frame: CGRect) {
+    /// 使用数据提供者初始化
+    init(provider: FocusDurationDataProvider, frame: CGRect = .zero) {
+        self.provider = provider
         super.init(frame: frame)
         commonInit()
     }
@@ -118,7 +127,9 @@ class FocusDurationCardView: UIView {
     }
 
     private func chartView(for type: StatsType) -> UIView {
-        return FocusDurationChartContainerView(type: type)
+        let view = FocusDurationChartContainerView(type: type)
+        view.provider = provider
+        return view
     }
 
     // MARK: - 布局

@@ -313,7 +313,7 @@ extension FocusRepository {
                    completion: completion)
     }
     
-    private static func fetchStats(forTask task: TaskRepresentable? = nil,
+    static func fetchStats(forTask task: TaskRepresentable? = nil,
                             timer: FocusTimer? = nil,
                             dateRange: DateRange,
                             includeArchivedTimer: Bool,

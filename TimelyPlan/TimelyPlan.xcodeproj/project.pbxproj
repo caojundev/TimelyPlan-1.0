@@ -2372,6 +2372,8 @@
 		E5EB66B2307F1E6300F435E3 /* FocusDurationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB66B1307F1E6300F435E3 /* FocusDurationCardView.swift */; };
 		E5EB66BA307F2FD200F435E3 /* FocusDurationChartContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB66B9307F2FD200F435E3 /* FocusDurationChartContainerView.swift */; };
 		E5EB66BC307F356B00F435E3 /* FocusDurationBarChartWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB66BB307F356B00F435E3 /* FocusDurationBarChartWrapperView.swift */; };
+		E5EB66BE307F68F600F435E3 /* FocusDurationDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB66BD307F68F500F435E3 /* FocusDurationDataProvider.swift */; };
+		E5EB66C0307F70AA00F435E3 /* GoalFocusStatsDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB66BF307F70AA00F435E3 /* GoalFocusStatsDataProvider.swift */; };
 		E5EB8C303067EA2E00C208E1 /* GoalTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB8C2F3067EA2E00C208E1 /* GoalTimelineViewModel.swift */; };
 		E5EC0DE100000000000000A1 /* TPSecondUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */; };
 		E5EFB1602F591120000FFDF4 /* HabitRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB15F2F591120000FFDF4 /* HabitRepository.swift */; };
@@ -4903,6 +4905,8 @@
 		E5EB66B1307F1E6300F435E3 /* FocusDurationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDurationCardView.swift; sourceTree = "<group>"; };
 		E5EB66B9307F2FD200F435E3 /* FocusDurationChartContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDurationChartContainerView.swift; sourceTree = "<group>"; };
 		E5EB66BB307F356B00F435E3 /* FocusDurationBarChartWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDurationBarChartWrapperView.swift; sourceTree = "<group>"; };
+		E5EB66BD307F68F500F435E3 /* FocusDurationDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDurationDataProvider.swift; sourceTree = "<group>"; };
+		E5EB66BF307F70AA00F435E3 /* GoalFocusStatsDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalFocusStatsDataProvider.swift; sourceTree = "<group>"; };
 		E5EB8C2F3067EA2E00C208E1 /* GoalTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimelineViewModel.swift; sourceTree = "<group>"; };
 		E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSecondUpdater.swift; sourceTree = "<group>"; };
 		E5EFB15F2F591120000FFDF4 /* HabitRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRepository.swift; sourceTree = "<group>"; };
@@ -8200,6 +8204,7 @@
 			isa = PBXGroup;
 			children = (
 				E55BDEB3307DD5A7002A9986 /* GoalSummaryActionViewController.swift */,
+				E5EB66BF307F70AA00F435E3 /* GoalFocusStatsDataProvider.swift */,
 				E55BDEB5307DDFA7002A9986 /* Sources */,
 			);
 			path = Summary;
@@ -12789,6 +12794,7 @@
 		E5EB66B0307F1D1500F435E3 /* CardView */ = {
 			isa = PBXGroup;
 			children = (
+				E5EB66BD307F68F500F435E3 /* FocusDurationDataProvider.swift */,
 				E5EB66B1307F1E6300F435E3 /* FocusDurationCardView.swift */,
 				E5EB66B9307F2FD200F435E3 /* FocusDurationChartContainerView.swift */,
 				E5EB66BB307F356B00F435E3 /* FocusDurationBarChartWrapperView.swift */,
@@ -14565,6 +14571,7 @@
 				E5BB9E1B2D3BF0C70089667A /* NSManagedObject+Finder.swift in Sources */,
 				E5168BC92F5452B10000A760 /* TaskDateRangeEditViewController.swift in Sources */,
 				E5B2BC8A2F6E7DA400DC1721 /* HabitRecordMenuController.swift in Sources */,
+				E5EB66C0307F70AA00F435E3 /* GoalFocusStatsDataProvider.swift in Sources */,
 				E5C92F602FD2B0000051F355 /* TodoTaskMoveSectionCell.swift in Sources */,
 				E57CC5C62F7FA44300ADDBA4 /* TPLevelMenuViewController.swift in Sources */,
 				E552FBA72DBA23570072703F /* CalendarStripLayoutManager.swift in Sources */,
@@ -14698,6 +14705,7 @@
 				E53632A32FAC26E20095DFEC /* QuadrantListConfiguration.swift in Sources */,
 				E53632932FAB76150095DFEC /* TodoFilterTaskUpdater.swift in Sources */,
 				E55B89593077907000ADCED5 /* MindMapTheme.swift in Sources */,
+				E5EB66BE307F68F600F435E3 /* FocusDurationDataProvider.swift in Sources */,
 				E5BB9DC62D3BF0C60089667A /* DateRange.swift in Sources */,
 				E5FC91832FBAFAD000FC75C6 /* CalendarPageTimelineCell.swift in Sources */,
 				E55BDEC8307DDFA7002A9986 /* GoalSummaryTask.swift in Sources */,

@@ -152,7 +152,7 @@ class FocusRecordsViewController: StatsMainViewController {
     
     private func addRecordManually() {
         let timerController = FocusUserTimerController()
-        timerController.addRecordManually(forTimer: timer)
+        timerController.addRecordManually(forTimer: timer, task: task)
     }
    
     private func toggleShowDetail() {

@@ -67,7 +67,6 @@ class GoalStatsContentViewController: StatsContentViewController {
                                    xAxis: ChartAxis) -> StatsBarChartSectionController {
         let chartItem = BarChartItem()
         chartItem.barMarks = barMarks
-        chartItem.barColor = task.color ?? .primary
         chartItem.xAxis = xAxis
         if barMarks.count > 0 {
             chartItem.yAxis = .yAxisWithGuideline(chartMarks: barMarks)
@@ -86,7 +85,6 @@ class GoalStatsContentViewController: StatsContentViewController {
         let barMarks = dataItem?.hourlyCheckinCountChartMarks() ?? []
         let chartItem = BarChartItem()
         chartItem.barMarks = barMarks
-        chartItem.barColor = task.color ?? .primary
         chartItem.xAxis = .timelineXAxis()
         chartItem.xAxis.guideline?.style = .solid
         chartItem.yAxis = .yAxisWithGuideline(chartMarks: barMarks, titleOfValue: nil)

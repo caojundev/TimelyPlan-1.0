@@ -31,6 +31,24 @@ class FocusDurationChartContainerView: UIView, TPPreviousNextDateViewDelegate {
     /// 前后日期视图
     private(set) var dateView: TPPreviousNextDateView
     
+    /// 数据提供者
+    weak var provider: FocusDurationDataProvider? {
+        didSet {
+            guard provider !== oldValue else {
+                return
+            }
+            
+            /// 监听专注会话变化
+            oldValue?.onSessionChanged = nil
+            provider?.onSessionChanged = { [weak self] intervals in
+                self?.sessionDidChange(intervals)
+            }
+            
+            /// 数据源变化后重新获取数据
+            reloadChartItem()
+        }
+    }
+    
     /// 柱状图视图
     lazy var barChartWrapperView = FocusDurationBarChartWrapperView(type: type,
                                                             date: date,
@@ -96,12 +114,12 @@ class FocusDurationChartContainerView: UIView, TPPreviousNextDateViewDelegate {
     
     /// 异步获取并绘制当前日期范围对应的柱状图数据
     func reloadChartItem() {
-        let date = self.date
+        let dateRange = self.dateRange
         fetchBarChartItem { [weak self] chartItem in
             guard let self = self,
-                  date == self.date,
+                  dateRange == self.dateRange,
                   let chartItem = chartItem else {
-                /// 日期已变化或暂无数据，保留占位图表
+                /// 日期范围已变化或暂无数据，保留占位图表
                 return
             }
             
@@ -109,9 +127,73 @@ class FocusDurationChartContainerView: UIView, TPPreviousNextDateViewDelegate {
         }
     }
     
-    /// 子类重写：异步获取当前日期范围对应的柱状图数据，返回 `nil` 时保留占位图表
+    /// 专注会话发生变化：与当前统计范围有交集时重新加载数据
+    private func sessionDidChange(_ intervals: [DateInterval]) {
+        guard intervals.count > 0 else {
+            return
+        }
+        
+        let range = dateRange.interval
+        let intersects = intervals.contains { interval in
+            return interval.intersects(range)
+        }
+        guard intersects else {
+            return
+        }
+        
+        reloadChartItem()
+    }
+    
+    /// 通过数据提供者异步获取柱状图数据，无数据时返回 `nil` 以保留占位图表
     func fetchBarChartItem(completion: @escaping (BarChartItem?) -> Void) {
-        completion(nil)
+        guard let provider = provider else {
+            completion(nil)
+            return
+        }
+        
+        provider.fetchFocusStatsDataItem(dateRange: dateRange) { [weak self] dataItem in
+            guard let self = self else {
+                completion(nil)
+                return
+            }
+            
+            completion(self.barChartItem(with: dataItem))
+        }
+    }
+    
+    /// 将统计数据解析为时长柱状图数据
+    func barChartItem(with dataItem: FocusStatsDataItem) -> BarChartItem {
+        let chartItem = BarChartItem()
+        let barMarks: [ChartMark]
+        switch type {
+        case .day, .week:
+            /// 日暂无时长图表，暂与周保持一致
+            barMarks = dataItem.durationChartMarks(xValueForDate: { date in
+                return CGFloat(date.weekIndex(firstWeekday: self.firstWeekday))
+            })
+            chartItem.xAxis = .weekDaysAxis(date: date, firstWeekday: firstWeekday)
+        case .month:
+            barMarks = dataItem.durationChartMarks(xValueForDate: { date in
+                return CGFloat(date.day)
+            })
+            chartItem.xAxis = .monthDaysAxis(date: date)
+            chartItem.xAxis.guideline?.style = .solid
+        case .year:
+            barMarks = dataItem.monthDurationChartMarks()
+            chartItem.minimumBarMargin = 8.0
+            chartItem.xAxis = .monthsAxis()
+        }
+        
+        chartItem.barMarks = barMarks
+        if barMarks.count > 0 {
+            chartItem.yAxis = .yAxisWithGuideline(chartMarks: barMarks) { value in
+                return Duration(value).title
+            }
+        } else {
+            chartItem.yAxis = .defaultDurationYAxis
+        }
+        
+        return chartItem
     }
     
     // MARK: - TPPreviousNextDateViewDelegate
