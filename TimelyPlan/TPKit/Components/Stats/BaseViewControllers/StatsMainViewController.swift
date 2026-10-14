@@ -32,7 +32,7 @@ class StatsMainViewController: TPContainerViewController {
     
     /// 当前日期
     private(set) var date: Date
-    
+
     /// 统计类型菜单
     lazy var menuView: TPSegmentedMenuView = {
         let view = TPSegmentedMenuView()

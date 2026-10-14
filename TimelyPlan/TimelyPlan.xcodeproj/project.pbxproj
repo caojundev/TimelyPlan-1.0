@@ -2370,6 +2370,8 @@
 		E5EAD1E62D5C477B00894A92 /* TPAccessoryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EAD1E52D5C477B00894A92 /* TPAccessoryTitleView.swift */; };
 		E5EAD1E82D5C5EDD00894A92 /* TPImageTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EAD1E72D5C5EDD00894A92 /* TPImageTitleView.swift */; };
 		E5EB66B2307F1E6300F435E3 /* FocusDurationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB66B1307F1E6300F435E3 /* FocusDurationCardView.swift */; };
+		E5EB66BA307F2FD200F435E3 /* FocusDurationChartContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB66B9307F2FD200F435E3 /* FocusDurationChartContainerView.swift */; };
+		E5EB66BC307F356B00F435E3 /* FocusDurationBarChartWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB66BB307F356B00F435E3 /* FocusDurationBarChartWrapperView.swift */; };
 		E5EB8C303067EA2E00C208E1 /* GoalTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB8C2F3067EA2E00C208E1 /* GoalTimelineViewModel.swift */; };
 		E5EC0DE100000000000000A1 /* TPSecondUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */; };
 		E5EFB1602F591120000FFDF4 /* HabitRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB15F2F591120000FFDF4 /* HabitRepository.swift */; };
@@ -4899,6 +4901,8 @@
 		E5EAD1E52D5C477B00894A92 /* TPAccessoryTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAccessoryTitleView.swift; sourceTree = "<group>"; };
 		E5EAD1E72D5C5EDD00894A92 /* TPImageTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageTitleView.swift; sourceTree = "<group>"; };
 		E5EB66B1307F1E6300F435E3 /* FocusDurationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDurationCardView.swift; sourceTree = "<group>"; };
+		E5EB66B9307F2FD200F435E3 /* FocusDurationChartContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDurationChartContainerView.swift; sourceTree = "<group>"; };
+		E5EB66BB307F356B00F435E3 /* FocusDurationBarChartWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDurationBarChartWrapperView.swift; sourceTree = "<group>"; };
 		E5EB8C2F3067EA2E00C208E1 /* GoalTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimelineViewModel.swift; sourceTree = "<group>"; };
 		E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSecondUpdater.swift; sourceTree = "<group>"; };
 		E5EFB15F2F591120000FFDF4 /* HabitRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRepository.swift; sourceTree = "<group>"; };
@@ -12786,6 +12790,8 @@
 			isa = PBXGroup;
 			children = (
 				E5EB66B1307F1E6300F435E3 /* FocusDurationCardView.swift */,
+				E5EB66B9307F2FD200F435E3 /* FocusDurationChartContainerView.swift */,
+				E5EB66BB307F356B00F435E3 /* FocusDurationBarChartWrapperView.swift */,
 			);
 			path = CardView;
 			sourceTree = "<group>";
@@ -15073,6 +15079,7 @@
 				E5D7D7DD2D43923800EC877A /* FocusScoreCalculator.swift in Sources */,
 				E5B3BABA3014B00800D908B6 /* MyDayTimelineConfig.swift in Sources */,
 				E55CE36A2D8BCCC20083316E /* TPCollectionDragExchangeReorder.swift in Sources */,
+				E5EB66BA307F2FD200F435E3 /* FocusDurationChartContainerView.swift in Sources */,
 				E51E5F823036BC4500ACF30C /* IAPReminderView.swift in Sources */,
 				E5D7D8DB2D43933600EC877A /* FocusFloatingEndView.swift in Sources */,
 				E5B3BABD3014F58300D908B6 /* MyDayHabitRecordProvider.swift in Sources */,
@@ -15809,6 +15816,7 @@
 				E56B94952F8DCA32001E488B /* TodoUserTaskListViewController.swift in Sources */,
 				E5135099302A1BB9000E9871 /* EKEvent+MyDayEvent.swift in Sources */,
 				E507E7A82F52D25C003004C4 /* HabitGoalSectionController.swift in Sources */,
+				E5EB66BC307F356B00F435E3 /* FocusDurationBarChartWrapperView.swift in Sources */,
 				E5291A9930620D9700017150 /* CountdownEvent+LocalNotifiable.swift in Sources */,
 				E500E39D2FC6E86F00252011 /* TodoStatsPriorityDistribution.swift in Sources */,
 				E55BDEC9307DDFA7002A9986 /* GoalSummarySnapshot.swift in Sources */,

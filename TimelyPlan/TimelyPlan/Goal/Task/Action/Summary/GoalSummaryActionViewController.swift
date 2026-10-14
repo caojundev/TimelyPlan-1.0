@@ -10,8 +10,9 @@ import UIKit
 
 /// 目标任务「概览」操作内容视图控制器
 ///
-/// 用一张 `GoalSummaryCardView` 展示传入目标任务（`GoalTaskEditInteractor.task`）的进度概况。
-/// 卡片高度按宽度算出（`sizeThatFits`），因此外层用滚动视图承载。
+/// 上方用一张 `GoalSummaryCardView` 展示传入目标任务（`GoalTaskEditInteractor.task`）的进度概况，
+/// 下方展示一张 `FocusDurationCardView`（专注时长的周 / 月 / 年图表）。
+/// 卡片高度按宽度算出（`sizeThatFits` / `preferredHeight`），因此外层用滚动视图承载。
 class GoalSummaryActionViewController: TPTableSectionsViewController {
 
     /// 区块上方普通间距高度
@@ -20,14 +21,20 @@ class GoalSummaryActionViewController: TPTableSectionsViewController {
     /// 目标任务操作交互器
     private let interactor: GoalTaskEditInteractor
 
-    /// 概览卡片（只有一张）
-    private let card = GoalSummaryCardView()
+    /// 进度概览卡片
+    private let summaryCardView = GoalSummaryCardView()
+
+    /// 专注时长卡片
+    private let focusDurationCardView = FocusDurationCardView()
 
     private let scrollView = UIScrollView()
     private let contentView = UIView()
 
     private let horizontalPadding: CGFloat = 20
     private let topPadding: CGFloat = 5.0
+
+    /// 卡片之间的间距
+    private let cardSpacing: CGFloat = 12.0
 
     init(interactor: GoalTaskEditInteractor) {
         self.interactor = interactor
@@ -47,20 +54,21 @@ class GoalSummaryActionViewController: TPTableSectionsViewController {
         scrollView.alwaysBounceVertical = true
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(card)
+        contentView.addSubview(summaryCardView)
+        contentView.addSubview(focusDurationCardView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         /// 每次展示都按最新任务刷新（进度可能在别的页签里被记录）
-        reloadCard()
+        reloadSummaryCard()
     }
 
-    /// 用最新任务刷新卡片
-    private func reloadCard() {
+    /// 用最新任务刷新进度概览卡片
+    private func reloadSummaryCard() {
         let task = GoalSummaryTask(task: interactor.task)
-        card.configure(with: GoalSummaryCalculator.snapshot(for: task))
+        summaryCardView.configure(with: GoalSummaryCalculator.snapshot(for: task))
     }
 
     override func viewDidLayoutSubviews() {
@@ -69,13 +77,25 @@ class GoalSummaryActionViewController: TPTableSectionsViewController {
         scrollView.frame = view.bounds
 
         let cardWidth = view.bounds.width - horizontalPadding * 2
-        let cardHeight = card.sizeThatFits(CGSize(width: cardWidth, height: .greatestFiniteMagnitude)).height
-        card.frame = CGRect(x: horizontalPadding, y: topPadding, width: cardWidth, height: cardHeight)
+        let cardSize = CGSize(width: cardWidth, height: .greatestFiniteMagnitude)
+
+        /// 进度概览卡片
+        let summaryCardHeight = summaryCardView.sizeThatFits(cardSize).height
+        summaryCardView.frame = CGRect(x: horizontalPadding,
+                                       y: topPadding,
+                                       width: cardWidth,
+                                       height: summaryCardHeight)
+
+        /// 专注时长卡片
+        focusDurationCardView.frame = CGRect(x: horizontalPadding,
+                                             y: summaryCardView.frame.maxY + cardSpacing,
+                                             width: cardWidth,
+                                             height: focusDurationCardView.preferredHeight)
 
         contentView.frame = CGRect(x: 0.0,
                                    y: 0.0,
                                    width: view.bounds.width,
-                                   height: card.frame.maxY + topPadding)
+                                   height: focusDurationCardView.frame.maxY + topPadding)
         scrollView.contentSize = contentView.bounds.size
     }
 

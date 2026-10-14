@@ -46,7 +46,7 @@ class TPPreviousNextDateView: UIView, TPAnimatedContainerViewDelegate {
     private var containerView: TPAnimatedContainerView!
     
     // 当前日期按钮
-    private var currentButton: TPDefaultButton!
+    private(set) var currentButton: TPDefaultButton!
 
     // 上一天按钮
     private lazy var previousButton: TPDefaultButton = {

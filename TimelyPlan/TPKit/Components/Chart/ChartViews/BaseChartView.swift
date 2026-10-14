@@ -89,12 +89,12 @@ class BaseChartView: UIView, UIGestureRecognizerDelegate {
     }
     
     /// 空白占位视图
-    private lazy var placeholderView: TPDefaultPlaceholderView = {
+    private(set) lazy var placeholderView: TPDefaultPlaceholderView = {
         let view = TPDefaultPlaceholderView(frame: bounds)
         view.isUserInteractionEnabled = false
         view.isHidden = true
-        view.titleLabel.font = UIFont.boldSystemFont(ofSize: 24.0)
-        view.titleLabel.textColor = .secondaryLabel
+        view.titleFont = UIFont.boldSystemFont(ofSize: 24.0)
+        view.titleColor = .secondaryLabel
         view.title = resGetString("NO DATA")
         return view
     }()
