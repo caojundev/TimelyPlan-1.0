@@ -123,6 +123,9 @@
 "Weekly Record" = "周记录次数";
 "Monthly Record" = "月记录次数";
 "Yearly Record" = "年记录次数";
+"Weekly Record Amount" = "周记录量";
+"Monthly Record Amount" = "月记录量";
+"Yearly Record Amount" = "年记录量";
 "Weekly Record Time" = "周记录时间";
 "Monthly Record Time" = "月记录时间";
 "Record Times Distribution" = "记录时间段分布";

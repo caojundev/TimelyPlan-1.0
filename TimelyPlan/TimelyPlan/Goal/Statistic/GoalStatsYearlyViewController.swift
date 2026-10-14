@@ -35,11 +35,19 @@ class GoalStatsYearlyViewController: GoalStatsContentViewController {
     func sectionControllers(for dataItem: GoalStatsDataItem) -> [TPCollectionItemSectionController] {
         /// 打卡分布
         let barMarks = dataItem.monthlyCheckinCountChartMarks()
-        let checkinSection = checkinDistributionSectionController(
+        let checkinSection = barChartSectionController(
             title: resGetString("Yearly Record"),
             barMarks: barMarks,
             xAxis: .monthsAxis())
         checkinSection.chartItem?.minimumBarMargin = 8.0
+
+        /// 记录量分布
+        let amountMarks = dataItem.monthlyRecordAmountChartMarks()
+        let recordAmountSection = barChartSectionController(
+            title: resGetString("Yearly Record Amount"),
+            barMarks: amountMarks,
+            xAxis: .monthsAxis())
+        recordAmountSection.chartItem?.minimumBarMargin = 8.0
 
         /// 打卡时间段分布
         let checkinTimeSection = checkinTimeDistributionSectionController()
@@ -50,7 +58,11 @@ class GoalStatsYearlyViewController: GoalStatsContentViewController {
         /// 概览
         let summarySection = summarySectionController(for: dataItem)
 
-        return [summarySection, checkinSection, checkinTimeSection, heatMapSection]
+        return [summarySection,
+                recordAmountSection,
+                checkinSection,
+                checkinTimeSection,
+                heatMapSection]
     }
 
     /// 打卡热力图区块（按天记录数值分级）

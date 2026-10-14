@@ -29,7 +29,8 @@ extension GoalPlanListViewDelegate {
 
 class GoalPlanListView: TPGroupCollectionView,
                         GoalPlanListCellDelegate,
-                        TPCollectionDragInsertReorderDelegate {
+                        TPCollectionDragInsertReorderDelegate,
+                        TPMidnightUpdatable {
     
     /// 当前列表所有的目标计划
     var goalPlans: [GoalPlan] {
@@ -59,6 +60,8 @@ class GoalPlanListView: TPGroupCollectionView,
         self.preferredItemHeight = GoalPlanListCell.cellHeight
         self.setupReorder()
         self.addRefreshControl()
+        /// 添加至凌晨更新对象
+        TPMidnightScheduler.shared.addUpdater(self)
     }
     
     required init?(coder: NSCoder) {
@@ -80,6 +83,21 @@ class GoalPlanListView: TPGroupCollectionView,
         }
         
         delegate.goalPlanListViewHandleRefresh(self)
+    }
+    
+    // MARK: - TPMidnightUpdatable
+    /// 零点更新可见单元格的状态内容
+    ///
+    /// 状态标签与副标题依据当前日期实时判定（领先 / 正常 / 落后 / 逾期），
+    /// 跨天后需要刷新已展示的单元格。
+    func updateAtMidnight() {
+        for cell in self.visibleCells {
+            guard let cell = cell as? GoalPlanListCell else {
+                continue
+            }
+            
+            cell.updateInfo()
+        }
     }
     
     // MARK: - AdapterDelegate

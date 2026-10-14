@@ -26,7 +26,7 @@ struct FocusDurationLevel {
     
     /// 标签文本颜色：深色背景使用白色，浅色背景跟随标题色
     var textColor: UIColor {
-        return isDark ? .white : resGetColor(.title)
+        return isDark ? .white.withAlphaComponent(0.8) : resGetColor(.title)
     }
 }
 

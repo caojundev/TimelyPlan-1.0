@@ -61,10 +61,10 @@ class GoalStatsContentViewController: StatsContentViewController {
     }
 
     // MARK: - 图表区块
-    /// 打卡分布区块（柱状图）
-    func checkinDistributionSectionController(title: String,
-                                              barMarks: [ChartMark],
-                                              xAxis: ChartAxis) -> StatsBarChartSectionController {
+    /// 分布区块（柱状图）
+    func barChartSectionController(title: String,
+                                   barMarks: [ChartMark],
+                                   xAxis: ChartAxis) -> StatsBarChartSectionController {
         let chartItem = BarChartItem()
         chartItem.barMarks = barMarks
         chartItem.barColor = task.color ?? .primary

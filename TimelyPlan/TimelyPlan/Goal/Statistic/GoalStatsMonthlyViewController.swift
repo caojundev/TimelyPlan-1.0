@@ -38,11 +38,22 @@ class GoalStatsMonthlyViewController: GoalStatsContentViewController {
             /// 日期对应的数值为当月第几天
             return CGFloat(date.day)
         }
-        let checkinSection = checkinDistributionSectionController(
+        let checkinSection = barChartSectionController(
             title: resGetString("Monthly Record"),
             barMarks: barMarks,
             xAxis: .monthDaysAxis(date: self.date))
         checkinSection.chartItem?.xAxis.guideline?.style = .solid
+
+        /// 记录量分布
+        let amountMarks = dataItem.dailyRecordAmountChartMarks { date in
+            /// 日期对应的数值为当月第几天
+            return CGFloat(date.day)
+        }
+        let recordAmountSection = barChartSectionController(
+            title: resGetString("Monthly Record Amount"),
+            barMarks: amountMarks,
+            xAxis: .monthDaysAxis(date: self.date))
+        recordAmountSection.chartItem?.xAxis.guideline?.style = .solid
 
         /// 打卡时间段分布
         let checkinTimeSection = checkinTimeDistributionSectionController()
@@ -60,6 +71,10 @@ class GoalStatsMonthlyViewController: GoalStatsContentViewController {
         /// 概览
         let summarySection = summarySectionController(for: dataItem)
 
-        return [summarySection, checkinSection, checkinTimeSection, checkinTimeOfDaySection]
+        return [summarySection,
+                recordAmountSection,
+                checkinSection,
+                checkinTimeSection,
+                checkinTimeOfDaySection]
     }
 }

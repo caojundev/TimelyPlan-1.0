@@ -2369,6 +2369,7 @@
 		E5E9F7C02FC50BD800717004 /* todo_search_history_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5E9F7BE2FC50BD700717004 /* todo_search_history_24@3x.png */; };
 		E5EAD1E62D5C477B00894A92 /* TPAccessoryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EAD1E52D5C477B00894A92 /* TPAccessoryTitleView.swift */; };
 		E5EAD1E82D5C5EDD00894A92 /* TPImageTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EAD1E72D5C5EDD00894A92 /* TPImageTitleView.swift */; };
+		E5EB66B2307F1E6300F435E3 /* FocusDurationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB66B1307F1E6300F435E3 /* FocusDurationCardView.swift */; };
 		E5EB8C303067EA2E00C208E1 /* GoalTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EB8C2F3067EA2E00C208E1 /* GoalTimelineViewModel.swift */; };
 		E5EC0DE100000000000000A1 /* TPSecondUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */; };
 		E5EFB1602F591120000FFDF4 /* HabitRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB15F2F591120000FFDF4 /* HabitRepository.swift */; };
@@ -4897,6 +4898,7 @@
 		E5E9F7BE2FC50BD700717004 /* todo_search_history_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_search_history_24@3x.png"; sourceTree = "<group>"; };
 		E5EAD1E52D5C477B00894A92 /* TPAccessoryTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPAccessoryTitleView.swift; sourceTree = "<group>"; };
 		E5EAD1E72D5C5EDD00894A92 /* TPImageTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageTitleView.swift; sourceTree = "<group>"; };
+		E5EB66B1307F1E6300F435E3 /* FocusDurationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDurationCardView.swift; sourceTree = "<group>"; };
 		E5EB8C2F3067EA2E00C208E1 /* GoalTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimelineViewModel.swift; sourceTree = "<group>"; };
 		E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSecondUpdater.swift; sourceTree = "<group>"; };
 		E5EFB15F2F591120000FFDF4 /* HabitRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRepository.swift; sourceTree = "<group>"; };
@@ -12105,6 +12107,7 @@
 				E5D7D8642D43933500EC877A /* Extensions */,
 				E5D7D86B2D43933500EC877A /* ViewController */,
 				E5D7D8802D43933500EC877A /* Summary */,
+				E5EB66B0307F1D1500F435E3 /* CardView */,
 			);
 			path = Statistic;
 			sourceTree = "<group>";
@@ -12777,6 +12780,14 @@
 				E521540A2D5CE9F900FF8116 /* TPIconTitleView.swift */,
 			);
 			path = TitleView;
+			sourceTree = "<group>";
+		};
+		E5EB66B0307F1D1500F435E3 /* CardView */ = {
+			isa = PBXGroup;
+			children = (
+				E5EB66B1307F1E6300F435E3 /* FocusDurationCardView.swift */,
+			);
+			path = CardView;
 			sourceTree = "<group>";
 		};
 		E5EFB15E2F590FAC000FFDF4 /* Data */ = {
@@ -14959,6 +14970,7 @@
 				E50D60522F7A13F100D5E0A4 /* AlarmRelativeOffsetPickerView.swift in Sources */,
 				E5D7D91C2D43933700EC877A /* FocusHourlyActivityView.swift in Sources */,
 				E5D7D90D2D43933600EC877A /* StatsMainViewController.swift in Sources */,
+				E5EB66B2307F1E6300F435E3 /* FocusDurationCardView.swift in Sources */,
 				E5C3098A306B6CEF001E5880 /* CalendarPanelDayView.swift in Sources */,
 				E5BB9E602D3BF0C70089667A /* TPCollectionViewController.swift in Sources */,
 				E5BB9DC02D3BF0C60089667A /* TimePeriod.swift in Sources */,

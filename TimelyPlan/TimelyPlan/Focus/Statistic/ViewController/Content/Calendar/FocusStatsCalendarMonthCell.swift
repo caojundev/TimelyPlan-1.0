@@ -222,7 +222,7 @@ class FocusStatsCalendarMonthDayCell: TPCollectionCell {
     private lazy var dayLabel: UILabel = {
         let label = TPLabel()
         label.edgeInsets = UIEdgeInsets(horizontal: 2.0)
-        label.font = UIFont.boldSystemFont(ofSize: 18.0)
+        label.font = .boldSystemFont(ofSize: 15.0)
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.8
@@ -233,7 +233,7 @@ class FocusStatsCalendarMonthDayCell: TPCollectionCell {
     private lazy var durationLabel: UILabel = {
         let label = TPLabel()
         label.edgeInsets = UIEdgeInsets(horizontal: 2.0)
-        label.font = UIFont.boldSystemFont(ofSize: 14.0)
+        label.font = .systemFont(ofSize: 12.0, weight: .medium)
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5

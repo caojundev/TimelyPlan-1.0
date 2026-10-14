@@ -160,6 +160,66 @@ final class GoalStatsDataItem {
         return marks
     }
 
+    // MARK: - 记录量分布（按天 / 按月）
+    /// 每月的记录量合计
+    private var monthlyRecordAmounts: [Int: Int64] {
+        var amounts = [Int: Int64]()
+        for record in records {
+            guard let date = record.date else {
+                continue
+            }
+
+            amounts[date.month, default: 0] += record.amount
+        }
+
+        return amounts
+    }
+
+    /// 按天记录量分布图表标记（周、月）
+    func dailyRecordAmountChartMarks(xValueForDate: (Date) -> CGFloat) -> [ChartMark] {
+        guard let startDate = dateRange.startDate else {
+            return []
+        }
+
+        let daysCount = dateRange.lastsCount()
+        guard daysCount > 0 else {
+            return []
+        }
+
+        let amounts = dailyRecordAmounts
+        var marks = [ChartMark]()
+        for index in 0..<daysCount {
+            guard let date = startDate.dateByAddingDays(index),
+                  let amount = amounts[date.dayIntegerKey],
+                  let value = chartAmount(amount) else {
+                continue
+            }
+
+            var mark = ChartMark(x: xValueForDate(date), y: CGFloat(value))
+            mark.highlightText = "\(date.monthDayString), \(value)"
+            marks.append(mark)
+        }
+
+        return marks
+    }
+
+    /// 按月记录量分布图表标记（年）
+    func monthlyRecordAmountChartMarks() -> [ChartMark] {
+        var marks = [ChartMark]()
+        for (month, amount) in monthlyRecordAmounts {
+            guard let value = chartAmount(amount) else {
+                continue
+            }
+
+            var mark = ChartMark(x: CGFloat(month), y: CGFloat(value))
+            let symbol = Date.monthSymbol(ofMonth: month)
+            mark.highlightText = "\(symbol) • \(value)"
+            marks.append(mark)
+        }
+
+        return marks
+    }
+
     // MARK: - 打卡时间段分布
     /// 按小时的打卡次数
     private var hourlyCheckinCounts: [Int: Int] {
@@ -243,5 +303,14 @@ final class GoalStatsDataItem {
     private func countText(_ count: Int) -> String {
         let unit: String = resGetString(count > 1 ? "times(count)" : "time(count)")
         return "\(count) \(unit)"
+    }
+
+    /// 记录量的图表数值
+    ///
+    /// 递减型目标（初始值 > 目标值）的记录数值为负数，取相反数转换为进度增量；
+    /// 转换后不大于 0 的数值视为无效（返回 nil），图表中不绘制柱形。
+    private func chartAmount(_ amount: Int64) -> Int64? {
+        let value = goalTask.initialValue > goalTask.targetValue ? -amount : amount
+        return value > 0 ? value : nil
     }
 }

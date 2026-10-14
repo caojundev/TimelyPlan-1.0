@@ -37,7 +37,7 @@ struct GoalSummaryTheme {
         secondaryText: Color(light: 0x3C3C43, dark: 0xEBEBF5, alpha: 0.6),
         track: Color(light: 0x787880, 0.14, dark: 0x787880, 0.24),
         separator: Color(light: 0x3C3C43, 0.12, dark: 0xEBEBF5, 0.14),
-        timeAccent: Color(0x5856D6),
+        timeAccent: .primary,
         danger: UIColor.danger6
     )
 
@@ -47,7 +47,7 @@ struct GoalSummaryTheme {
     func accent(for status: GoalSummaryStatus) -> UIColor {
         switch status {
         case .ahead:    return UIColor(hex: 0x34C759)
-        case .normal:   return UIColor(hex: 0x007AFF)
+        case .normal:   return UIColor(hex: 0x27D3FF)
         case .behind:   return UIColor(hex: 0xFF9500)
         case .critical: return UIColor(hex: 0xFF3B30)
         case .overdue:  return danger

@@ -38,9 +38,19 @@ class GoalStatsWeeklyViewController: GoalStatsContentViewController {
             /// 日期对应的数值为周索引
             return CGFloat(date.weekIndex(firstWeekday: self.firstWeekday))
         }
-        let checkinSection = checkinDistributionSectionController(
+        let checkinSection = barChartSectionController(
             title: resGetString("Weekly Record"),
             barMarks: barMarks,
+            xAxis: .weekDaysAxis(date: self.date, firstWeekday: self.firstWeekday))
+
+        /// 记录量分布
+        let amountMarks = dataItem.dailyRecordAmountChartMarks { date in
+            /// 日期对应的数值为周索引
+            return CGFloat(date.weekIndex(firstWeekday: self.firstWeekday))
+        }
+        let recordAmountSection = barChartSectionController(
+            title: resGetString("Weekly Record Amount"),
+            barMarks: amountMarks,
             xAxis: .weekDaysAxis(date: self.date, firstWeekday: self.firstWeekday))
 
         /// 打卡时间段分布
@@ -58,6 +68,10 @@ class GoalStatsWeeklyViewController: GoalStatsContentViewController {
         /// 概览
         let summarySection = summarySectionController(for: dataItem)
 
-        return [summarySection, checkinSection, checkinTimeSection, checkinTimeOfDaySection]
+        return [summarySection,
+                recordAmountSection,
+                checkinSection,
+                checkinTimeSection,
+                checkinTimeOfDaySection]
     }
 }
