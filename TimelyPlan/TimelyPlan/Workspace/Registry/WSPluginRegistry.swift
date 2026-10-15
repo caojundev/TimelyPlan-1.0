@@ -10,6 +10,9 @@ protocol WSPluginProvider: AnyObject {
     
     /// 显示名称
     var displayName: String { get set}
+    
+    /// 该组件注册的单元格类
+    var cellClass: WorkspacePluginCell.Type { get }
 
 }
 

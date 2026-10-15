@@ -23,7 +23,7 @@ class WorkspaceDashboardView: UIView,
     /// 代理对象
     weak var delegate: WorkspaceDashboardViewDelegate?
     
-    var elements: [WorkspacePluginElement]?
+    var elements: [WSPluginElement]?
     
     /// 内容间距
     var contentInset: UIEdgeInsets? {
@@ -90,6 +90,7 @@ class WorkspaceDashboardView: UIView,
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .systemGroupedBackground
         self.setupSubviews()
         self.setupReorder()
     }
@@ -177,6 +178,16 @@ class WorkspaceDashboardView: UIView,
         adapter.performUpdate()
     }
     
+    // MARK: - Elements
+    /// 索引位置对应的组件
+    private func element(at indexPath: IndexPath) -> WSPluginElement? {
+        guard let elements = elements, indexPath.item < elements.count else {
+            return nil
+        }
+        
+        return elements[indexPath.item]
+    }
+    
     // MARK: - TPCollectionViewAdapterDataSource
     func sectionObjects(for adapter: TPCollectionViewAdapter) -> [ListDiffable]? {
         return [String(describing: type(of: self)) as NSString]
@@ -192,20 +203,31 @@ class WorkspaceDashboardView: UIView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
-        return TPCollectionCell.self
+        /// 单元格类型由组件注册的提供者决定
+        guard let element = element(at: indexPath) else {
+            return WorkspacePluginCell.self
+        }
+        
+        return WSPluginRegistry.shared.provider(for: element.type)?.cellClass ?? WorkspacePluginCell.self
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        cell.contentView.backgroundColor = .random
+        guard let cell = cell as? WorkspacePluginCell,
+              let element = element(at: indexPath),
+              let provider = WSPluginRegistry.shared.provider(for: element.type) else {
+            return
+        }
+        
+        cell.configure(element: element, provider: provider)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
         dashboardLayout.updateLayoutIfNeeded(containerSize: adapter.collectionViewSize())
-        guard let elements = elements, indexPath.item < elements.count else {
+        guard let element = element(at: indexPath) else {
             return .zero
         }
         
-        return dashboardLayout.itemSize(for: elements[indexPath.item])
+        return dashboardLayout.itemSize(for: element)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -220,5 +242,9 @@ class WorkspaceDashboardView: UIView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, interitemSpacingForSectionAt section: Int) -> CGFloat {
         return dashboardLayout.interitemSpacing
+    }
+    
+    func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return false
     }
 }

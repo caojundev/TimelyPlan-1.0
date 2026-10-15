@@ -156,7 +156,9 @@ class TPCollectionViewAdapter: NSObject,
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cls: AnyClass = delegate?.adapter(self, classForCellAt: indexPath) ?? UICollectionViewCell.self
-        let cell = dequeueReusableCell(cellClass: cls, identifier: nil, at: indexPath)
+        let identifier = delegate?.adapter(self, reusableIdentifierForCellAt: indexPath)
+        let cell = dequeueReusableCell(cellClass: cls, identifier: identifier, at: indexPath)
+        
         cell.isHidden = false  /// 拖拽排序时Cell可能被隐藏
         
         if let cell = cell as? Checkable {

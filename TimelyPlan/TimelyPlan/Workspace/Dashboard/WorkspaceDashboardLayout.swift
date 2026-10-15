@@ -101,7 +101,7 @@ class WorkspaceDashboardLayout {
     }
     
     /// 指定组件的条目尺寸。尺寸取自注册的组件提供者。
-    func itemSize(for element: WorkspacePluginElement) -> CGSize {
+    func itemSize(for element: WSPluginElement) -> CGSize {
         return itemSize(for: element.type.size)
     }
     

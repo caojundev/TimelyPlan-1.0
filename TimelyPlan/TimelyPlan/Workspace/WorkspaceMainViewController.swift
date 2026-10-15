@@ -16,7 +16,7 @@ class WorkspaceMainViewController: TPViewController,
     /// 仪表盘视图
     private lazy var dashboardView: WorkspaceDashboardView = {
         let dashboardView = WorkspaceDashboardView(frame: .zero)
-        dashboardView.elements = WorkspacePluginElement.mockElements()
+        dashboardView.elements = WSPluginElement.mockElements()
         return dashboardView
     }()
     

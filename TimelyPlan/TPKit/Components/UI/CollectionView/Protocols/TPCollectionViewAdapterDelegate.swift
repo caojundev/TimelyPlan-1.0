@@ -14,6 +14,7 @@ protocol TPCollectionViewAdapterDelegate: UIScrollViewDelegate {
     func adapter(_ adapter: TPCollectionViewAdapter, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass?
+    func adapter(_ adapter: TPCollectionViewAdapter, reusableIdentifierForCellAt indexPath: IndexPath) -> String?
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath)
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool
     func adapter(_ adapter: TPCollectionViewAdapter, shouldShowCheckmarkForItemAt indexPath: IndexPath) -> Bool
@@ -65,6 +66,10 @@ extension TPCollectionViewAdapterDelegate {
     // MARK: - Cell
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return adapter.cellClass
+    }
+    
+    func adapter(_ adapter: TPCollectionViewAdapter, reusableIdentifierForCellAt indexPath: IndexPath) -> String? {
+        return nil
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
