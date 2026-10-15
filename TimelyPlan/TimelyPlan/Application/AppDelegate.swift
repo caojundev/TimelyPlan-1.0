@@ -18,27 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         super.init()
         /// 扩展方法交换初始化
         ExtensionSwizzler.setup()
-        
         /// 初始化暗黑模式
         DarkModeManager.setup(with: DMEnvironmentConfiguration())
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        setupWorkspace()
         setupIAP()
-        
-        // 设置通知代理
-        UNUserNotificationCenter.current().delegate = TaskNotificationManager.shared
-
-        // 检查是否通过通知冷启动
-        if let notification = launchOptions?[.remoteNotification] as? [AnyHashable: Any] {
-            let info = NotificationClickInfo(
-                userInfo: notification,
-                isAppLaunchedFromKilled: true
-            )
-            
-            TaskNotificationDispatcher.shared.handleNotificationClick(info)
-        }
-
+        setupNotification(with: launchOptions)
         return true
     }
     
@@ -75,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
+    /// 主视图控制器初始化
     private func setupMainViewController() {
         /// 管理视图控制器的生命周期，并设置主视图控制器，
         self.window?.rootViewController?.beginAppearanceTransition(false,
@@ -98,5 +86,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         IAPManager.shared.configure(config)
     }
+    
+    // MARK: - 工作台初始化
+    func setupWorkspace() {
+        WSPluginBootstrap.registerAll()
+    }
+    
+    // MARK: - 通知初始化
+    private func setupNotification(with launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+        // 设置通知代理
+        UNUserNotificationCenter.current().delegate = TaskNotificationManager.shared
+        
+        // 检查是否通过通知冷启动
+        if let notification = launchOptions?[.remoteNotification] as? [AnyHashable: Any] {
+            let info = NotificationClickInfo(
+                userInfo: notification,
+                isAppLaunchedFromKilled: true
+            )
+            
+            TaskNotificationDispatcher.shared.handleNotificationClick(info)
+        }
+    }
+    
 }
 

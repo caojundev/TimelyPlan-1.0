@@ -44,9 +44,21 @@ class AppState {
             }
         }
         
-        /// 补充未包含的菜单类型
+        /// 补充未包含的菜单类型（如新增类型），按默认顺序插入到对应位置，而非追加到末尾
         for type in customizableTypes where !types.contains(type) {
-            types.append(type)
+            let defaultOrder = SideMenuType.defaultSideMenuOrder
+            guard let defaultIndex = defaultOrder.firstIndex(of: type),
+                  let insertIndex = types.firstIndex(where: { existing in
+                      guard let existingIndex = defaultOrder.firstIndex(of: existing) else {
+                          return false
+                      }
+                      return existingIndex > defaultIndex
+                  }) else {
+                types.append(type)
+                continue
+            }
+            
+            types.insert(type, at: insertIndex)
         }
         
         /// 固定到底部的菜单始终显示在末尾
