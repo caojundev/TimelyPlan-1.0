@@ -995,6 +995,10 @@
 		E5585C8A30812022007D1BB9 /* WSPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C8930812022007D1BB9 /* WSPluginContentInteractor.swift */; };
 		E5585C8D3081A002007D1BB9 /* WSCountdownPluginContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C8C3081A002007D1BB9 /* WSCountdownPluginContentView.swift */; };
 		E5585C8E3081D2E7007D1BB9 /* WSPluginPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C8D3081D2E7007D1BB9 /* WSPluginPickerViewController.swift */; };
+		E5585C903081DD6B007D1BB9 /* WSPluginModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C8F3081DD6B007D1BB9 /* WSPluginModule.swift */; };
+		E5585C9230820F4F007D1BB9 /* WSPluginGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C9130820F4E007D1BB9 /* WSPluginGalleryViewController.swift */; };
+		E5585C9830821849007D1BB9 /* WSPluginGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C9730821849007D1BB9 /* WSPluginGalleryView.swift */; };
+		E5585C9A30824100007D1BB9 /* WSPluginGalleryFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C9930824100007D1BB9 /* WSPluginGalleryFlowLayout.swift */; };
 		E55897763054D54D001F8F22 /* MyDayGoalTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897753054D54D001F8F22 /* MyDayGoalTimelineCell.swift */; };
 		E55897783054D60E001F8F22 /* MyDayGoalEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897773054D60E001F8F22 /* MyDayGoalEventInfoView.swift */; };
 		E558977A3054D632001F8F22 /* GoalTask+MyDayEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897793054D632001F8F22 /* GoalTask+MyDayEvent.swift */; };
@@ -3529,6 +3533,10 @@
 		E5585C8930812022007D1BB9 /* WSPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginContentInteractor.swift; sourceTree = "<group>"; };
 		E5585C8C3081A002007D1BB9 /* WSCountdownPluginContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountdownPluginContentView.swift; sourceTree = "<group>"; };
 		E5585C8D3081D2E7007D1BB9 /* WSPluginPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginPickerViewController.swift; sourceTree = "<group>"; };
+		E5585C8F3081DD6B007D1BB9 /* WSPluginModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginModule.swift; sourceTree = "<group>"; };
+		E5585C9130820F4E007D1BB9 /* WSPluginGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginGalleryViewController.swift; sourceTree = "<group>"; };
+		E5585C9730821849007D1BB9 /* WSPluginGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginGalleryView.swift; sourceTree = "<group>"; };
+		E5585C9930824100007D1BB9 /* WSPluginGalleryFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginGalleryFlowLayout.swift; sourceTree = "<group>"; };
 		E55897753054D54D001F8F22 /* MyDayGoalTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalTimelineCell.swift; sourceTree = "<group>"; };
 		E55897773054D60E001F8F22 /* MyDayGoalEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalEventInfoView.swift; sourceTree = "<group>"; };
 		E55897793054D632001F8F22 /* GoalTask+MyDayEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoalTask+MyDayEvent.swift"; sourceTree = "<group>"; };
@@ -8008,8 +8016,9 @@
 		E5585C6A30809230007D1BB9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E5585C703080AB7E007D1BB9 /* WSPluginSize.swift */,
 				E5585C723080ABB5007D1BB9 /* WSPluginType.swift */,
+				E5585C8F3081DD6B007D1BB9 /* WSPluginModule.swift */,
+				E5585C703080AB7E007D1BB9 /* WSPluginSize.swift */,
 				E5585C6B30809230007D1BB9 /* WSPluginElement.swift */,
 			);
 			path = Models;
@@ -8064,10 +8073,21 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
+		E5585C9B30824100007D1BB9 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				E5585C9930824100007D1BB9 /* WSPluginGalleryFlowLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
 		E5585C8C3081D2D2007D1BB9 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
+				E5585C9B30824100007D1BB9 /* Layout */,
 				E5585C8D3081D2E7007D1BB9 /* WSPluginPickerViewController.swift */,
+				E5585C9130820F4E007D1BB9 /* WSPluginGalleryViewController.swift */,
+				E5585C9730821849007D1BB9 /* WSPluginGalleryView.swift */,
 			);
 			path = Picker;
 			sourceTree = "<group>";
@@ -14533,6 +14553,7 @@
 				E51A43862DB740ED00DC84C9 /* CalendarMonthView.swift in Sources */,
 				E57CC5DF2F7FCED300ADDBA4 /* TodoTaskQuickAddMenuCell.swift in Sources */,
 				E5BB9B492D3BEF920089667A /* UITextFieldExtension.swift in Sources */,
+				E5585C903081DD6B007D1BB9 /* WSPluginModule.swift in Sources */,
 				E5D7D7E42D43923800EC877A /* FocusTimerConfig.swift in Sources */,
 				E5DE23E5306A6D6F000BBE3F /* GoalStatsWeeklyViewController.swift in Sources */,
 				E53352B72FFA640300546986 /* CalendarMonthViewFlowLayout.swift in Sources */,
@@ -14678,6 +14699,8 @@
 				E549B1692F88D3800014BE85 /* TodoTaskEditNameView.swift in Sources */,
 				E5BB9B412D3BEF920089667A /* CGSizeExtension.swift in Sources */,
 				E5BB9E0D2D3BF0C70089667A /* CAKeyframeAnimation+Extensions.swift in Sources */,
+				E5585C9830821849007D1BB9 /* WSPluginGalleryView.swift in Sources */,
+				E5585C9A30824100007D1BB9 /* WSPluginGalleryFlowLayout.swift in Sources */,
 				E55897763054D54D001F8F22 /* MyDayGoalTimelineCell.swift in Sources */,
 				E5F1551F2F83681E00116091 /* TodoTaskSelectTableCell.swift in Sources */,
 				E5BB9F082D3BF0C90089667A /* TPDragFocusIndicatorView.swift in Sources */,
@@ -15729,6 +15752,7 @@
 				E541DC5D3058F3F3008BFAE0 /* CountdownDate.swift in Sources */,
 				E5BB9B552D3BEF920089667A /* Attribute.swift in Sources */,
 				E5BB9E9C2D3BF0C80089667A /* ChartAxisLabel.swift in Sources */,
+				E5585C9230820F4F007D1BB9 /* WSPluginGalleryViewController.swift in Sources */,
 				E5BB9EC12D3BF0C80089667A /* TPDurationPresetTableCell.swift in Sources */,
 				E5BB9D9E2D3BF0C60089667A /* TPBarButtonItem.swift in Sources */,
 				E59E715F2DB7D06100744C68 /* CalendarMonthWeekCell.swift in Sources */,

@@ -112,6 +112,9 @@ class WSPluginCell: UICollectionViewCell {
     }
     
     // MARK: - 长按菜单
+    /// 是否支持长按弹出菜单
+    var isContextMenuEnabled: Bool = true
+    
     /// 长按菜单显示的动作。默认全部显示，子类可重写裁剪
     var menuActionTypes: [MenuActionType] {
         return MenuActionType.allCases
@@ -189,8 +192,8 @@ extension WSPluginCell: UIContextMenuInteractionDelegate {
     
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
                                 configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        /// 未配置组件或无可用动作时不响应长按
-        guard element != nil, !menuActionTypes.isEmpty else {
+        /// 未开启长按菜单、未配置组件或无可用动作时不响应长按
+        guard isContextMenuEnabled, element != nil, !menuActionTypes.isEmpty else {
             return nil
         }
         

@@ -26,6 +26,7 @@ class WorkspaceMainViewController: TPViewController,
         if let sidebarButtonItem = sidebarController?.newMenuButtonItem() {
             navigationItem.leftBarButtonItems = [sidebarButtonItem]
         }
+        navigationItem.rightBarButtonItem = addBarButtonItem
         self.setupSubviews()
     }
 
@@ -40,6 +41,30 @@ class WorkspaceMainViewController: TPViewController,
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         dashboardView.frame = view.bounds
+    }
+    
+    // MARK: - Event Response
+    override func clickAdd() {
+        super.clickAdd()
+        showPluginPicker()
+    }
+    
+    // MARK: - 组件选择
+    /// 显示组件选择器
+    private func showPluginPicker() {
+        let pickerViewController = WSPluginPickerViewController()
+        pickerViewController.didSelectModule = { [weak self] module in
+            self?.addPlugin(for: module)
+        }
+        
+        let navController = UINavigationController(rootViewController: pickerViewController)
+        navController.modalPresentationStyle = .formSheet
+        navController.show()
+    }
+    
+    /// 添加组件到工作台
+    private func addPlugin(for module: WSPluginModule) {
+        /// TODO: 待模块下的插件列表与组件增删能力就绪后补全
     }
     
     // MARK: - Setup
