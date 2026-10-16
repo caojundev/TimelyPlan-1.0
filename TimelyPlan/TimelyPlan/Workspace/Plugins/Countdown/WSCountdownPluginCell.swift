@@ -8,11 +8,36 @@
 import Foundation
 import UIKit
 
-/// 倒数日单元格。注册于倒数日组件提供者，由工作台按组件类型取用。
-class WSCountdownPluginCell: WorkspacePluginCell {
+class WSCountdownSmallPluginCell: WorkspacePluginCell {
 
     override var pluginBackgroundColor: UIColor {
-        return .random
+        return .primary
+    }
+    
+    override func makePluginContentView() -> WorkspacePluginContentView! {
+        return WSCountdownPluginContentView()
+    }
+}
+
+class WSCountdownMediumPluginCell: WorkspacePluginCell {
+
+    override var pluginBackgroundColor: UIColor {
+        return .orangePrimary
+    }
+    
+    override func makePluginContentView() -> WorkspacePluginContentView! {
+        return WSCountdownPluginContentView()
+    }
+}
+
+class WSCountdownLargePluginCell: WorkspacePluginCell {
+
+    override var pluginBackgroundColor: UIColor {
+        return .purplePrimary
+    }
+    
+    override func makePluginContentView() -> WorkspacePluginContentView! {
+        return WSCountdownPluginContentView()
     }
     
 }

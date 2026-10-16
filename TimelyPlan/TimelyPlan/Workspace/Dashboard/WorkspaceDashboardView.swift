@@ -80,7 +80,7 @@ class WorkspaceDashboardView: UIView,
         }
     }
     
-    private var reorder: TPCollectionDragInsertReorder?
+    private var reorder: TPCollectionDragExchangeReorder?
 
     /// 区块布局。小 / 中 / 大组件尺寸均由容器宽度推导
     private lazy var dashboardLayout: WorkspaceDashboardLayout = {
@@ -107,8 +107,8 @@ class WorkspaceDashboardView: UIView,
     }
     
     private func setupReorder() {
-        let reorder = TPCollectionDragInsertReorder(collectionView: collectionView)
-        reorder.isEnabled = true
+        let reorder = TPCollectionDragExchangeReorder(collectionView: collectionView)
+        reorder.isEnabled = false
         self.reorder = reorder
     }
     

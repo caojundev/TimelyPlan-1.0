@@ -8,7 +8,7 @@
 import Foundation
 
 class WSCountdownSmallPluginProvider: WSPluginProvider {
-
+    
     /// 插件类型
     var type: WSPluginType {
         return .countdownSmall
@@ -19,12 +19,13 @@ class WSCountdownSmallPluginProvider: WSPluginProvider {
         return .small
     }
     
-    /// 显示名称
-    var displayName: String = "倒数日（小尺寸）"
-    
     /// 该组件注册的单元格类
     var cellClass: WorkspacePluginCell.Type {
-        return WSCountdownPluginCell.self
+        return WSCountdownSmallPluginCell.self
+    }
+    
+    func makeContentInteractor(element: WSPluginElement) -> WSPluginContentInteractor {
+        return WSCountdownContentInteractor(element: element)
     }
 }
 
@@ -41,14 +42,14 @@ class WSCountdownMediumPluginProvider: WSPluginProvider {
         return .medium
     }
     
-    /// 显示名称
-    var displayName: String = "倒数日（中尺寸）"
-    
     /// 该组件注册的单元格类
     var cellClass: WorkspacePluginCell.Type {
-        return WSCountdownPluginCell.self
+        return WSCountdownMediumPluginCell.self
     }
 
+    func makeContentInteractor(element: WSPluginElement) -> WSPluginContentInteractor {
+        return WSCountdownContentInteractor(element: element)
+    }
 }
 
 class WSCountdownLargePluginProvider: WSPluginProvider {
@@ -62,13 +63,21 @@ class WSCountdownLargePluginProvider: WSPluginProvider {
     var size: WSPluginSize {
         return .large
     }
-    
-    /// 显示名称
-    var displayName: String = "倒数日（大尺寸）"
-    
+
     /// 该组件注册的单元格类
     var cellClass: WorkspacePluginCell.Type {
-        return WSCountdownPluginCell.self
+        return WSCountdownLargePluginCell.self
     }
 
+    func makeContentInteractor(element: WSPluginElement) -> WSPluginContentInteractor {
+        return WSCountdownContentInteractor(element: element)
+    }
+}
+
+class WSCountdownContentInteractor: WSPluginContentInteractor {
+    
+    override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
+        let dataItem = WSCountdownDataItem(title: self.element.type.displayName)
+        completion(dataItem)
+    }
 }

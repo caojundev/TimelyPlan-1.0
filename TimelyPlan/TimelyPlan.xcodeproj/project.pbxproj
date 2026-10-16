@@ -990,6 +990,10 @@
 		E5585C7E3080B91F007D1BB9 /* WorkspaceDashboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C7D3080B91F007D1BB9 /* WorkspaceDashboardLayout.swift */; };
 		E5585C823080D279007D1BB9 /* WSCountdownPluginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C813080D279007D1BB9 /* WSCountdownPluginCell.swift */; };
 		E5585C843080D288007D1BB9 /* WorkspacePluginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C833080D286007D1BB9 /* WorkspacePluginCell.swift */; };
+		E5585C86308109BE007D1BB9 /* WSPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C85308109BE007D1BB9 /* WSPluginProvider.swift */; };
+		E5585C8830810A56007D1BB9 /* WorkspacePluginContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C8730810A56007D1BB9 /* WorkspacePluginContentView.swift */; };
+		E5585C8A30812022007D1BB9 /* WSPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C8930812022007D1BB9 /* WSPluginContentInteractor.swift */; };
+		E5585C8D3081A002007D1BB9 /* WSCountdownPluginContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C8C3081A002007D1BB9 /* WSCountdownPluginContentView.swift */; };
 		E55897763054D54D001F8F22 /* MyDayGoalTimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897753054D54D001F8F22 /* MyDayGoalTimelineCell.swift */; };
 		E55897783054D60E001F8F22 /* MyDayGoalEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897773054D60E001F8F22 /* MyDayGoalEventInfoView.swift */; };
 		E558977A3054D632001F8F22 /* GoalTask+MyDayEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55897793054D632001F8F22 /* GoalTask+MyDayEvent.swift */; };
@@ -3519,6 +3523,10 @@
 		E5585C7D3080B91F007D1BB9 /* WorkspaceDashboardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceDashboardLayout.swift; sourceTree = "<group>"; };
 		E5585C813080D279007D1BB9 /* WSCountdownPluginCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownPluginCell.swift; sourceTree = "<group>"; };
 		E5585C833080D286007D1BB9 /* WorkspacePluginCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspacePluginCell.swift; sourceTree = "<group>"; };
+		E5585C85308109BE007D1BB9 /* WSPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginProvider.swift; sourceTree = "<group>"; };
+		E5585C8730810A56007D1BB9 /* WorkspacePluginContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacePluginContentView.swift; sourceTree = "<group>"; };
+		E5585C8930812022007D1BB9 /* WSPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginContentInteractor.swift; sourceTree = "<group>"; };
+		E5585C8C3081A002007D1BB9 /* WSCountdownPluginContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountdownPluginContentView.swift; sourceTree = "<group>"; };
 		E55897753054D54D001F8F22 /* MyDayGoalTimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalTimelineCell.swift; sourceTree = "<group>"; };
 		E55897773054D60E001F8F22 /* MyDayGoalEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayGoalEventInfoView.swift; sourceTree = "<group>"; };
 		E55897793054D632001F8F22 /* GoalTask+MyDayEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoalTask+MyDayEvent.swift"; sourceTree = "<group>"; };
@@ -8008,9 +8016,11 @@
 		E5585C6C30809230007D1BB9 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				E5585C8B3081217C007D1BB9 /* Layout */,
 				E5585C6D30809230007D1BB9 /* WorkspaceDashboardView.swift */,
 				E5585C833080D286007D1BB9 /* WorkspacePluginCell.swift */,
-				E5585C7D3080B91F007D1BB9 /* WorkspaceDashboardLayout.swift */,
+				E5585C8730810A56007D1BB9 /* WorkspacePluginContentView.swift */,
+				E5585C8930812022007D1BB9 /* WSPluginContentInteractor.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -8018,6 +8028,7 @@
 		E5585C743080ACAC007D1BB9 /* Registry */ = {
 			isa = PBXGroup;
 			children = (
+				E5585C85308109BE007D1BB9 /* WSPluginProvider.swift */,
 				E5585C753080ACAC007D1BB9 /* WSPluginRegistry.swift */,
 				E5585C773080B116007D1BB9 /* WSPluginBootstrap.swift */,
 			);
@@ -8037,8 +8048,17 @@
 			children = (
 				E5585C7B3080B419007D1BB9 /* WSCountdownSmallPluginProvider.swift */,
 				E5585C813080D279007D1BB9 /* WSCountdownPluginCell.swift */,
+				E5585C8C3081A002007D1BB9 /* WSCountdownPluginContentView.swift */,
 			);
 			path = Countdown;
+			sourceTree = "<group>";
+		};
+		E5585C8B3081217C007D1BB9 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				E5585C7D3080B91F007D1BB9 /* WorkspaceDashboardLayout.swift */,
+			);
+			path = Layout;
 			sourceTree = "<group>";
 		};
 		E55897743054D51E001F8F22 /* Goal */ = {
@@ -15532,6 +15552,8 @@
 				E5C92F582FD26F4F0051F355 /* TodoTaskMoveViewController.swift in Sources */,
 				E500E3782FC5954000252011 /* TodoSearchFilterRuleEditViewController.swift in Sources */,
 				E5BB9DCE2D3BF0C60089667A /* TPImpactFeedback.swift in Sources */,
+				E5585C8830810A56007D1BB9 /* WorkspacePluginContentView.swift in Sources */,
+				E5585C8D3081A002007D1BB9 /* WSCountdownPluginContentView.swift in Sources */,
 				E5BB9D982D3BF0C60089667A /* TPRelativeTimePresetTableCell.swift in Sources */,
 				E534DAC62D59E75F0079AB08 /* TPLabelLayout.swift in Sources */,
 				E5BB9B512D3BEF920089667A /* ParagraphStyle.swift in Sources */,
@@ -15577,6 +15599,7 @@
 				E56A7BF12FFE8A290068410D /* TPGrabberView.swift in Sources */,
 				E5146C9430300D59007A8BCB /* TimelineProgressUpdatable.swift in Sources */,
 				E5D7D8D82D43933600EC877A /* FocusFlipClockViewController.swift in Sources */,
+				E5585C8A30812022007D1BB9 /* WSPluginContentInteractor.swift in Sources */,
 				E57CC5DB2F7FCED300ADDBA4 /* TodoTaskQuickAddEditView.swift in Sources */,
 				E5087EB03042C7D400DCD85C /* GanttEventProcessor.swift in Sources */,
 				E5BB9DA72D3BF0C60089667A /* FlipClockElementHalfView.swift in Sources */,
@@ -15987,6 +16010,7 @@
 				E5BB9E502D3BF0C70089667A /* TPCalendarMultipleDateSelection.swift in Sources */,
 				E51A4C2F2DC26795005A0E3F /* CalendarDayViewController.swift in Sources */,
 				E5D7D7E72D43923800EC877A /* FocusSteppedConfig.swift in Sources */,
+				E5585C86308109BE007D1BB9 /* WSPluginProvider.swift in Sources */,
 				E58C9E032F49E1870096B842 /* FocusRecordEnums.swift in Sources */,
 				E5BB9E8E2D3BF0C80089667A /* ChartGuidelineView.swift in Sources */,
 				E586DA732FE2A74A00758ED6 /* TPPermissionDeniedTableCell.swift in Sources */,

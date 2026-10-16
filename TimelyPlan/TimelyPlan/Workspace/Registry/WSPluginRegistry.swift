@@ -2,20 +2,6 @@
 import Foundation
 import UIKit
 
-/// 组件提供者。
-protocol WSPluginProvider: AnyObject {
-    
-    /// 插件类型
-    var type: WSPluginType { get }
-    
-    /// 显示名称
-    var displayName: String { get set}
-    
-    /// 该组件注册的单元格类
-    var cellClass: WorkspacePluginCell.Type { get }
-
-}
-
 public final class WSPluginRegistry {
 
     public static let shared = WSPluginRegistry()

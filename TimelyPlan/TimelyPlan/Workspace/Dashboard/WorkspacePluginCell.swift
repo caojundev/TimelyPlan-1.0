@@ -8,12 +8,18 @@
 import Foundation
 import UIKit
 
+/// 工作台组件单元格
 class WorkspacePluginCell: UICollectionViewCell {
     
     /// 当前配置的组件
     private(set) var element: WSPluginElement?
     
     private(set) var provider: WSPluginProvider?
+    
+    /// 组件内容视图
+    private(set) var pluginContentView: WorkspacePluginContentView!
+    
+    private(set) var interactor: WSPluginContentInteractor?
     
     // MARK: - 外观
     /// 组件背景色
@@ -37,26 +43,37 @@ class WorkspacePluginCell: UICollectionViewCell {
         self.backgroundView?.clipsToBounds = true
         self.selectedBackgroundView = UIView()
         self.selectedBackgroundView?.clipsToBounds = true
-        self.setupContentSubviews()
+        
+        self.pluginContentView = makePluginContentView()
+        contentView.addSubview(pluginContentView)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        /// 单元格样式会在 super 中被重置，这里重新应用组件外观
+        pluginContentView.frame = contentView.bounds
         updateAppearance()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        resetPluginContent()
         element = nil
+        provider = nil
+        interactor = nil
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - 子类重写
+    func makePluginContentView() -> WorkspacePluginContentView! {
+        return WorkspacePluginContentView()
+    }
     
-    func setupContentSubviews() {
-        
+    /// 重置插件内容
+    func resetPluginContent() {
+
     }
     
     // MARK: - 配置
@@ -64,7 +81,20 @@ class WorkspacePluginCell: UICollectionViewCell {
     func configure(element: WSPluginElement, provider: WSPluginProvider) {
         self.element = element
         self.provider = provider
+        setupInteractor()
+        interactor?.loadData()
         updateAppearance()
+    }
+    
+    private func setupInteractor() {
+        guard let element = element, let provider = provider else {
+            return
+        }
+    
+        interactor = provider.makeContentInteractor(element: element)
+        interactor?.dataItemDidChange = { [weak self] dataItem in
+            self?.pluginContentView?.update(with: dataItem)
+        }
     }
     
     /// 应用组件外观：背景色、圆角
