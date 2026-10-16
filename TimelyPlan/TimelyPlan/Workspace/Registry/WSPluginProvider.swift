@@ -22,4 +22,17 @@ protocol WSPluginProvider: AnyObject {
     
     /// 创建该组件内容交互器
     func makeContentInteractor(element: WSPluginElement) -> WSPluginContentInteractor
+    
+    /// 创建该组件的占位视图，用于数据加载完成前的占位展示。
+    ///
+    /// 返回 nil 时，单元格使用默认占位视图 `WSPluginDefaultPlaceholderView`。
+    func makePlaceholderView() -> UIView?
+}
+
+extension WSPluginProvider {
+    
+    /// 默认不提供占位视图，由单元格使用默认占位视图
+    func makePlaceholderView() -> UIView? {
+        return nil
+    }
 }

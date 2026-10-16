@@ -8073,14 +8073,6 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
-		E5585C9B30824100007D1BB9 /* Layout */ = {
-			isa = PBXGroup;
-			children = (
-				E5585C9930824100007D1BB9 /* WSPluginGalleryFlowLayout.swift */,
-			);
-			path = Layout;
-			sourceTree = "<group>";
-		};
 		E5585C8C3081D2D2007D1BB9 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
@@ -8090,6 +8082,14 @@
 				E5585C9730821849007D1BB9 /* WSPluginGalleryView.swift */,
 			);
 			path = Picker;
+			sourceTree = "<group>";
+		};
+		E5585C9B30824100007D1BB9 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				E5585C9930824100007D1BB9 /* WSPluginGalleryFlowLayout.swift */,
+			);
+			path = Layout;
 			sourceTree = "<group>";
 		};
 		E55897743054D51E001F8F22 /* Goal */ = {

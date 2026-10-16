@@ -39,4 +39,21 @@ public extension WSPluginType {
     var displayName: String {
         "\(module.displayName)·\(size.displayName)"
     }
+
+    /// 组件标题。画廊等「一页一个组件」的入口作为主标题展示，只体现组件本身，不含尺寸后缀。
+    var title: String {
+        return module.displayName
+    }
+
+    /// 组件描述。画廊等入口作为副标题展示，说明该尺寸组件展示的内容。
+    var subtitle: String {
+        switch self {
+        case .countdownSmall:
+            return "小尺寸，只展示最近的一个倒数日"
+        case .countdownMedium:
+            return "中尺寸，展示倒数日与剩余天数"
+        case .countdownLarge:
+            return "大尺寸，展示倒数日、剩余天数与进度"
+        }
+    }
 }

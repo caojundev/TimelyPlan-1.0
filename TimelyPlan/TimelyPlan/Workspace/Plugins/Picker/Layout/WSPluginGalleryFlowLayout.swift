@@ -17,6 +17,8 @@ import UIKit
 ///
 /// 页宽与集合视图宽度一致，所以不要在集合视图上设置左右方向的 `contentInset`，
 /// 否则内容偏移与页码的换算会与翻页栅格错位。
+///
+/// 滚动时条目会按偏离视口中心的距离缩放：当前页为原始大小，邻页过渡到 `minimumScale`。
 class WSPluginGalleryFlowLayout: UICollectionViewFlowLayout {
     
     /// 条目尺寸提供者。布局阶段按索引查询条目尺寸。
@@ -24,6 +26,9 @@ class WSPluginGalleryFlowLayout: UICollectionViewFlowLayout {
     
     /// 页数
     private(set) var pageCount: Int = 0
+    
+    /// 条目偏离视口中心时的最小缩放比例。当前页为 1.0，邻页线性过渡到该比例
+    var minimumScale: CGFloat = 0.85
     
     /// 页宽。与集合视图宽度保持一致，用于整页翻动与页码换算。
     var pageWidth: CGFloat {
@@ -56,9 +61,6 @@ class WSPluginGalleryFlowLayout: UICollectionViewFlowLayout {
     /// 内容尺寸
     private var contentSize: CGSize = .zero
     
-    /// 上一次布局使用的集合视图尺寸。滚动只改变 bounds 的原点，尺寸变化才需要重新布局
-    private var lastLayoutSize: CGSize = .zero
-    
     override var collectionViewContentSize: CGSize {
         return contentSize
     }
@@ -73,6 +75,7 @@ class WSPluginGalleryFlowLayout: UICollectionViewFlowLayout {
         sectionInset = .zero
         
         updateAttributes()
+        updateItemTransforms()
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -84,8 +87,8 @@ class WSPluginGalleryFlowLayout: UICollectionViewFlowLayout {
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        /// 滚动只改变 bounds 的原点，只有尺寸变化才重新布局
-        return newBounds.size != lastLayoutSize
+        /// 滚动改变 bounds 的原点，条目相对视口中心的距离随之变化，需要重新布局以刷新缩放
+        return true
     }
     
     // MARK: - 翻页
@@ -113,11 +116,8 @@ class WSPluginGalleryFlowLayout: UICollectionViewFlowLayout {
         guard let collectionView = collectionView else {
             pageCount = 0
             contentSize = .zero
-            lastLayoutSize = .zero
             return
         }
-        
-        lastLayoutSize = collectionView.bounds.size
         
         let pageWidth = collectionView.bounds.width
         let pageHeight = self.pageHeight
@@ -160,6 +160,27 @@ class WSPluginGalleryFlowLayout: UICollectionViewFlowLayout {
         attributes.frame = frame
         
         return attributes
+    }
+    
+    /// 逐条目刷新滚动缩放
+    ///
+    /// 每个条目独占一页且在页内居中，因此条目中心与视口中心的水平距离即它偏离「居中」的程度：
+    /// 当前页居中时距离为 0，邻页整页居中时距离恰为一页宽，据此归一化后线性映射到 `minimumScale`。
+    /// 缩放围绕条目中心进行，不改变条目的中心位置，因此可以逐帧重复计算。
+    private func updateItemTransforms() {
+        guard let collectionView = collectionView, pageWidth > 0.0 else {
+            return
+        }
+        
+        let scale = min(max(minimumScale, 0.0), 1.0)
+        let width = pageWidth
+        let viewportCenterX = collectionView.contentOffset.x + collectionView.bounds.width / 2.0
+        
+        for attributes in attributesList {
+            let progress = min(abs(attributes.center.x - viewportCenterX) / width, 1.0)
+            let currentScale = 1.0 - (1.0 - scale) * progress
+            attributes.transform = CGAffineTransform(scaleX: currentScale, y: currentScale)
+        }
     }
     
     /// 索引处条目的尺寸。未提供或超出页内容区域时收敛到可用范围内

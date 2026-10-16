@@ -50,6 +50,10 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
     /// 模块对应的单元格条目
     private func makeCellItem(for module: WSPluginModule) -> TPImageInfoTableCellItem? {
         let typesCount = module.types.count
+        guard typesCount > 0 else {
+            return nil
+        }
+        
         let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
         cellItem.imageConfig.size = .default
         cellItem.imageConfig.shouldRenderImageWithColor = false

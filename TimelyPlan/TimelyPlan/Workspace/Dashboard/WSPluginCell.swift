@@ -19,6 +19,9 @@ class WSPluginCell: UICollectionViewCell {
     /// 组件内容视图
     private(set) var pluginContentView: WSPluginContentView!
     
+    /// 数据加载期间的占位视图
+    private(set) var placeholderView: UIView?
+    
     private(set) var interactor: WSPluginContentInteractor?
     
     // MARK: - 外观
@@ -47,12 +50,15 @@ class WSPluginCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         pluginContentView.frame = contentView.bounds
+        placeholderView?.frame = contentView.bounds
         updateAppearance()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         resetPluginContent()
+        /// 复用前先回到占位态，等待重新加载数据
+        showPlaceholderView()
         element = nil
         provider = nil
         interactor = nil
@@ -77,6 +83,8 @@ class WSPluginCell: UICollectionViewCell {
     func configure(element: WSPluginElement, provider: WSPluginProvider) {
         self.element = element
         self.provider = provider
+        /// 先展示占位视图，数据加载完成后再展示内容视图
+        showPlaceholderView()
         setupInteractor()
         interactor?.loadData()
         updateAppearance()
@@ -89,8 +97,38 @@ class WSPluginCell: UICollectionViewCell {
     
         interactor = provider.makeContentInteractor(element: element)
         interactor?.dataItemDidChange = { [weak self] dataItem in
-            self?.pluginContentView?.update(with: dataItem)
+            guard let self = self else {
+                return
+            }
+            
+            /// 数据加载完成，隐藏占位视图并展示内容
+            self.hidePlaceholderView()
+            self.pluginContentView?.update(with: dataItem)
         }
+    }
+    
+    // MARK: - 占位视图
+    /// 创建占位视图。默认取 provider 提供的占位视图，未提供时使用默认占位视图。
+    func makePlaceholderView() -> UIView {
+        return provider?.makePlaceholderView() ?? WSPluginDefaultPlaceholderView()
+    }
+    
+    /// 展示占位视图并隐藏内容视图
+    func showPlaceholderView() {
+        pluginContentView?.isHidden = true
+        
+        let view = makePlaceholderView()
+        placeholderView?.removeFromSuperview()
+        placeholderView = view
+        contentView.addSubview(view)
+        setNeedsLayout()
+    }
+    
+    /// 移除占位视图并展示内容视图
+    func hidePlaceholderView() {
+        placeholderView?.removeFromSuperview()
+        placeholderView = nil
+        pluginContentView?.isHidden = false
     }
     
     /// 应用组件外观：圆角
@@ -199,6 +237,74 @@ extension WSPluginCell: UIContextMenuInteractionDelegate {
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
             return self?.makeContextMenu()
+        }
+    }
+}
+
+// MARK: - 默认占位视图
+
+/// 工作台组件默认占位视图。
+///
+/// 三行宽度不等、带圆角的灰色横条，整体靠左上角对齐，用于数据加载完成前的占位展示。
+class WSPluginDefaultPlaceholderView: UIView {
+    
+    /// 横条高度
+    private let barHeight: CGFloat = 12.0
+    
+    /// 横条间距
+    private let barSpacing: CGFloat = 8.0
+    
+    /// 横条圆角半径
+    private let barCornerRadius: CGFloat = 6.0
+    
+    /// 横条距视图边缘的内边距
+    private let contentInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+    
+    /// 三行横条的宽度占比（占可用宽度）
+    private let barWidthRatios: [CGFloat] = [0.6, 0.9, 0.4]
+    
+    /// 横条
+    private lazy var barViews: [UIView] = {
+        return barWidthRatios.map { _ in
+            let barView = UIView()
+            barView.backgroundColor = .systemGray5
+            barView.layer.masksToBounds = true
+            return barView
+        }
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = .clear
+        self.isUserInteractionEnabled = false
+        barViews.forEach { addSubview($0) }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        /// 可用宽度
+        let availableWidth = max(bounds.width - contentInsets.left - contentInsets.right, 0.0)
+        
+        /// 横条高度，受可用高度限制，避免小尺寸组件中横条溢出
+        let availableHeight = bounds.height - contentInsets.top - contentInsets.bottom
+        let spacingHeight = barSpacing * CGFloat(max(barViews.count - 1, 0))
+        let barHeight = min(self.barHeight,
+                            max((availableHeight - spacingHeight) / CGFloat(max(barViews.count, 1)), 0.0))
+        
+        /// 圆角半径不超过横条高度的一半
+        let cornerRadius = min(barCornerRadius, barHeight / 2.0)
+        
+        var originY = contentInsets.top
+        for (index, barView) in barViews.enumerated() {
+            let width = availableWidth * barWidthRatios[index]
+            barView.frame = CGRect(x: contentInsets.left, y: originY, width: width, height: barHeight)
+            barView.layer.cornerRadius = cornerRadius
+            originY = barView.frame.maxY + barSpacing
         }
     }
 }
