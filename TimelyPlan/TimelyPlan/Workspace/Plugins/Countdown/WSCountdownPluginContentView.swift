@@ -22,7 +22,7 @@ class WSCountdownDataItem: NSObject, WSPluginDataItem {
 }
 
 // MARK: - 内容视图
-class WSCountdownPluginContentView: WorkspacePluginContentView {
+class WSCountdownPluginContentView: WSPluginContentView {
     
     private let titleLabel = UILabel()
     

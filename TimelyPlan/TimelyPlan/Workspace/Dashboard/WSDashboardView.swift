@@ -1,5 +1,5 @@
 //
-//  WorkspaceDashboardView.swift
+//  WSDashboardView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/15.
@@ -8,20 +8,20 @@
 import Foundation
 import UIKit
 
-protocol WorkspaceDashboardViewDelegate: AnyObject {
+protocol WSDashboardViewDelegate: AnyObject {
     
 }
 
-extension WorkspaceDashboardViewDelegate {
+extension WSDashboardViewDelegate {
     
 }
 
-class WorkspaceDashboardView: UIView,
+class WSDashboardView: UIView,
                               TPCollectionViewAdapterDataSource,
                               TPCollectionViewAdapterDelegate {
     
     /// 代理对象
-    weak var delegate: WorkspaceDashboardViewDelegate?
+    weak var delegate: WSDashboardViewDelegate?
     
     var elements: [WSPluginElement]?
     
@@ -83,8 +83,8 @@ class WorkspaceDashboardView: UIView,
     private var reorder: TPCollectionDragExchangeReorder?
 
     /// 区块布局。小 / 中 / 大组件尺寸均由容器宽度推导
-    private lazy var dashboardLayout: WorkspaceDashboardLayout = {
-        return WorkspaceDashboardLayout()
+    private lazy var dashboardLayout: WSDashboardLayout = {
+        return WSDashboardLayout()
     }()
     
     // MARK: - Initialization
@@ -205,14 +205,14 @@ class WorkspaceDashboardView: UIView,
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         /// 单元格类型由组件注册的提供者决定
         guard let element = element(at: indexPath) else {
-            return WorkspacePluginCell.self
+            return WSPluginCell.self
         }
         
-        return WSPluginRegistry.shared.provider(for: element.type)?.cellClass ?? WorkspacePluginCell.self
+        return WSPluginRegistry.shared.provider(for: element.type)?.cellClass ?? WSPluginCell.self
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        guard let cell = cell as? WorkspacePluginCell,
+        guard let cell = cell as? WSPluginCell,
               let element = element(at: indexPath),
               let provider = WSPluginRegistry.shared.provider(for: element.type) else {
             return

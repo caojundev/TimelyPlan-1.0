@@ -8,35 +8,23 @@
 import Foundation
 import UIKit
 
-class WSCountdownSmallPluginCell: WorkspacePluginCell {
+class WSCountdownSmallPluginCell: WSPluginCell {
 
-    override var pluginBackgroundColor: UIColor {
-        return .primary
-    }
-    
-    override func makePluginContentView() -> WorkspacePluginContentView! {
+    override func makePluginContentView() -> WSPluginContentView! {
         return WSCountdownPluginContentView()
     }
 }
 
-class WSCountdownMediumPluginCell: WorkspacePluginCell {
+class WSCountdownMediumPluginCell: WSPluginCell {
 
-    override var pluginBackgroundColor: UIColor {
-        return .orangePrimary
-    }
-    
-    override func makePluginContentView() -> WorkspacePluginContentView! {
+    override func makePluginContentView() -> WSPluginContentView! {
         return WSCountdownPluginContentView()
     }
 }
 
-class WSCountdownLargePluginCell: WorkspacePluginCell {
+class WSCountdownLargePluginCell: WSPluginCell {
 
-    override var pluginBackgroundColor: UIColor {
-        return .purplePrimary
-    }
-    
-    override func makePluginContentView() -> WorkspacePluginContentView! {
+    override func makePluginContentView() -> WSPluginContentView! {
         return WSCountdownPluginContentView()
     }
     

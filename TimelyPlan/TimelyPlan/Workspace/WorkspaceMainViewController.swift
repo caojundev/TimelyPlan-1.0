@@ -14,8 +14,8 @@ class WorkspaceMainViewController: TPViewController,
     var sidebarController: SidebarController?
     
     /// 仪表盘视图
-    private lazy var dashboardView: WorkspaceDashboardView = {
-        let dashboardView = WorkspaceDashboardView(frame: .zero)
+    private lazy var dashboardView: WSDashboardView = {
+        let dashboardView = WSDashboardView(frame: .zero)
         dashboardView.elements = WSPluginElement.mockElements()
         return dashboardView
     }()

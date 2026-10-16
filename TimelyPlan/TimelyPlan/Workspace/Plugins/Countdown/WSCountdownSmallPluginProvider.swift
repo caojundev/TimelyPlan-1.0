@@ -20,7 +20,7 @@ class WSCountdownSmallPluginProvider: WSPluginProvider {
     }
     
     /// 该组件注册的单元格类
-    var cellClass: WorkspacePluginCell.Type {
+    var cellClass: WSPluginCell.Type {
         return WSCountdownSmallPluginCell.self
     }
     
@@ -43,7 +43,7 @@ class WSCountdownMediumPluginProvider: WSPluginProvider {
     }
     
     /// 该组件注册的单元格类
-    var cellClass: WorkspacePluginCell.Type {
+    var cellClass: WSPluginCell.Type {
         return WSCountdownMediumPluginCell.self
     }
 
@@ -65,7 +65,7 @@ class WSCountdownLargePluginProvider: WSPluginProvider {
     }
 
     /// 该组件注册的单元格类
-    var cellClass: WorkspacePluginCell.Type {
+    var cellClass: WSPluginCell.Type {
         return WSCountdownLargePluginCell.self
     }
 

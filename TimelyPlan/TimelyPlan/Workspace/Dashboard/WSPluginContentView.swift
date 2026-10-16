@@ -1,5 +1,5 @@
 //
-//  WorkspacePluginContentView.swift
+//  WSPluginContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/15.
@@ -12,7 +12,7 @@ import UIKit
 ///
 /// 只负责渲染数据：数据由对应的 `WSPluginContentViewModel` 异步获取完成后，
 /// 通过 `update(with:)` 下发；视图不关心数据从哪来、何时刷新。
-class WorkspacePluginContentView: UIView {
+class WSPluginContentView: UIView {
     
     /// 当前数据条目
     private(set) var dataItem: WSPluginDataItem?

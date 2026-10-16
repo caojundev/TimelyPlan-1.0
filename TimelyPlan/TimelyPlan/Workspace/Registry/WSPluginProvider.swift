@@ -18,7 +18,7 @@ protocol WSPluginProvider: AnyObject {
     var type: WSPluginType { get }
     
     /// 该组件注册的单元格类
-    var cellClass: WorkspacePluginCell.Type { get }
+    var cellClass: WSPluginCell.Type { get }
     
     /// 创建该组件内容交互器
     func makeContentInteractor(element: WSPluginElement) -> WSPluginContentInteractor

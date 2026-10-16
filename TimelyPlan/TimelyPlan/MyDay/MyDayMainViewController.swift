@@ -324,6 +324,4 @@ extension MyDayMainViewController: SettingAgentObserver {
             break
         }
     }
-    
-
 }
