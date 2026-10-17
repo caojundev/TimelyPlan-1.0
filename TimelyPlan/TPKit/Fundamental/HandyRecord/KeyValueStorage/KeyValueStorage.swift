@@ -137,7 +137,7 @@ class KeyValueStorage {
         DispatchQueue.main.async {
             for key in observedKeys {
                 self.setCachedValue(nil, forKey: key)
-                self.observerMananger.valueDidChange(forKey: key)
+                self.observerMananger.remoteValueDidChange(forKey: key)
             }
         }
     }
@@ -229,7 +229,6 @@ class KeyValueStorage {
     /// 移除key对应的值
     func removeValue(forKey key: String) {
         setCachedValue(nil, forKey: key)
-        
         performPersistOnMain {
             if let store = self.store(forKey: key) {
                 self.context.delete(store)

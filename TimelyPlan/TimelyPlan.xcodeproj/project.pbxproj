@@ -509,6 +509,12 @@
 		E526D4152F6D7AE0005C1DED /* habit_plceholder_task_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E526D4132F6D7ADF005C1DED /* habit_plceholder_task_80@2x.png */; };
 		E527619F2D41F63000209019 /* TPImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527619E2D41F63000209019 /* TPImageCollectionCell.swift */; };
 		E528E8FE3083016300DD4242 /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E8FD3083016300DD4242 /* WorkspaceRepository.swift */; };
+		E528E9023083125C00DD4242 /* WorkspaceDashboardProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E9013083125C00DD4242 /* WorkspaceDashboardProcessorUpdater.swift */; };
+		E528E9053083144800DD4242 /* WSDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E9043083144800DD4242 /* WSDashboard.swift */; };
+		E528E907308317EA00DD4242 /* WSPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E906308317EA00DD4242 /* WSPlugin.swift */; };
+		E528E9093083238600DD4242 /* WorkspaceDashboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E9083083238600DD4242 /* WorkspaceDashboardManager.swift */; };
+		E528E90B3083541A00DD4242 /* WorkspacePluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E90A3083541A00DD4242 /* WorkspacePluginManager.swift */; };
+		E528E90D3083543100DD4242 /* WorkspacePluginProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E90C3083543100DD4242 /* WorkspacePluginProcessorUpdater.swift */; };
 		E5291A9930620D9700017150 /* CountdownEvent+LocalNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9830620D9700017150 /* CountdownEvent+LocalNotifiable.swift */; };
 		E5291A9B30620DBA00017150 /* CountdownNotifiableEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9A30620DBA00017150 /* CountdownNotifiableEventProvider.swift */; };
 		E5291A9D30627CAE00017150 /* CountdownEventInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */; };
@@ -3048,6 +3054,12 @@
 		E526D4132F6D7ADF005C1DED /* habit_plceholder_task_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_plceholder_task_80@2x.png"; sourceTree = "<group>"; };
 		E527619E2D41F63000209019 /* TPImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageCollectionCell.swift; sourceTree = "<group>"; };
 		E528E8FD3083016300DD4242 /* WorkspaceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
+		E528E9013083125C00DD4242 /* WorkspaceDashboardProcessorUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceDashboardProcessorUpdater.swift; sourceTree = "<group>"; };
+		E528E9043083144800DD4242 /* WSDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSDashboard.swift; sourceTree = "<group>"; };
+		E528E906308317EA00DD4242 /* WSPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPlugin.swift; sourceTree = "<group>"; };
+		E528E9083083238600DD4242 /* WorkspaceDashboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceDashboardManager.swift; sourceTree = "<group>"; };
+		E528E90A3083541A00DD4242 /* WorkspacePluginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacePluginManager.swift; sourceTree = "<group>"; };
+		E528E90C3083543100DD4242 /* WorkspacePluginProcessorUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacePluginProcessorUpdater.swift; sourceTree = "<group>"; };
 		E5291A9830620D9700017150 /* CountdownEvent+LocalNotifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CountdownEvent+LocalNotifiable.swift"; sourceTree = "<group>"; };
 		E5291A9A30620DBA00017150 /* CountdownNotifiableEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownNotifiableEventProvider.swift; sourceTree = "<group>"; };
 		E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventInteractor.swift; sourceTree = "<group>"; };
@@ -6577,6 +6589,11 @@
 			isa = PBXGroup;
 			children = (
 				E528E8FD3083016300DD4242 /* WorkspaceRepository.swift */,
+				E528E9083083238600DD4242 /* WorkspaceDashboardManager.swift */,
+				E528E9013083125C00DD4242 /* WorkspaceDashboardProcessorUpdater.swift */,
+				E528E90A3083541A00DD4242 /* WorkspacePluginManager.swift */,
+				E528E90C3083543100DD4242 /* WorkspacePluginProcessorUpdater.swift */,
+				E528E9033083133600DD4242 /* Models */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -6597,6 +6614,15 @@
 				E558979D3056E124001F8F22 /* TPBubbleMenuView.swift */,
 			);
 			path = BubbleMenuView;
+			sourceTree = "<group>";
+		};
+		E528E9033083133600DD4242 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E528E9043083144800DD4242 /* WSDashboard.swift */,
+				E528E906308317EA00DD4242 /* WSPlugin.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E529ACC22F7E00FF000EA2F1 /* SmartList */ = {
@@ -14409,6 +14435,7 @@
 				E5D7D8ED2D43933600EC877A /* FocusRecordEditScoreSectionController.swift in Sources */,
 				E5BB9DFD2D3BF0C60089667A /* Array+Elements.swift in Sources */,
 				E536328B2FAB72C00095DFEC /* QuadrantDragDropController.swift in Sources */,
+				E528E90D3083543100DD4242 /* WorkspacePluginProcessorUpdater.swift in Sources */,
 				E56342152F94C2E300E120BF /* TodoDateFilterValue.swift in Sources */,
 				E500E3AF2FC8690C00252011 /* CalendarEventListViewController.swift in Sources */,
 				E5B8C4D7306B50110056CB04 /* CalendarPanelStyle.swift in Sources */,
@@ -14578,6 +14605,7 @@
 				E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */,
 				E54155612F49A415000B2972 /* FocusRecordListSectionController.swift in Sources */,
 				E57CC5BC2F7F9E0000ADDBA4 /* TodoListOptionMenuController.swift in Sources */,
+				E528E9023083125C00DD4242 /* WorkspaceDashboardProcessorUpdater.swift in Sources */,
 				E549B1682F88D3800014BE85 /* TodoTaskEditInfoView.swift in Sources */,
 				E541DC353057D71D008BFAE0 /* CountdownPresenter.swift in Sources */,
 				E5BB9E3D2D3BF0C70089667A /* TPDefaultInfoTableHeaderFooterView.swift in Sources */,
@@ -14697,6 +14725,7 @@
 				E5FC91942FBB61E400FC75C6 /* CalendarDayPageView.swift in Sources */,
 				E5D7D8E32D43933600EC877A /* FocusConstant.swift in Sources */,
 				E541555C2F49A415000B2972 /* FocusRecordListViewController.swift in Sources */,
+				E528E9093083238600DD4242 /* WorkspaceDashboardManager.swift in Sources */,
 				E5D7D8C22D43933600EC877A /* FocusRunningDayFlipView.swift in Sources */,
 				E5BB9EBB2D3BF0C80089667A /* TPTimePickerViewController.swift in Sources */,
 				E5FC6BB22F6553B100D5A5EA /* HabitStatsMonthlyViewController.swift in Sources */,
@@ -14822,6 +14851,7 @@
 				E57B2C2C304600000000000C /* GoalTaskListCell.swift in Sources */,
 				E57B2C2D304600000000000D /* GoalTaskListHeaderView.swift in Sources */,
 				E5DE23DF306A6B77000BBE3F /* FocusStatsCalendarMonthCell.swift in Sources */,
+				E528E90B3083541A00DD4242 /* WorkspacePluginManager.swift in Sources */,
 				E57B2D1E304800000000000E /* GoalTaskLayoutManager.swift in Sources */,
 				E57B2D20304800000000000E /* GoalTaskInfoView.swift in Sources */,
 				E5185070300F5CE800112DFC /* MyDayFocusTimelineCell.swift in Sources */,
@@ -15415,6 +15445,7 @@
 				E56342012F94811200E120BF /* TodoFilterController.swift in Sources */,
 				E51A4C432DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift in Sources */,
 				E53114B230412D610022D8D7 /* TodoTask+GanttEvent.swift in Sources */,
+				E528E9053083144800DD4242 /* WSDashboard.swift in Sources */,
 				E53B11462F94D1B300701410 /* TimeOffsetPickerViewCell.swift in Sources */,
 				E588F8983068AB400022461A /* TodoTaskStepBulkMenuProcessor.swift in Sources */,
 				E529ACDC2F7E196C000EA2F1 /* TodoPresenter.swift in Sources */,
@@ -15741,6 +15772,7 @@
 				E5F155262F83681E00116091 /* TodoGroupOverdueHeaderView.swift in Sources */,
 				E50D608A2F7A5A3900D5E0A4 /* TodoUserListViewModel.swift in Sources */,
 				E5E58CE7307BC6E300121283 /* MemberBannerView.swift in Sources */,
+				E528E907308317EA00DD4242 /* WSPlugin.swift in Sources */,
 				E58C9E1A2F4AF0DC0096B842 /* FocusTimelineEvent.swift in Sources */,
 				E57B2B593046CD2F00BA4D56 /* GoalPlanConfiguration.swift in Sources */,
 				E53632852FAB72C00095DFEC /* QuadrantCustomRuleViewController.swift in Sources */,

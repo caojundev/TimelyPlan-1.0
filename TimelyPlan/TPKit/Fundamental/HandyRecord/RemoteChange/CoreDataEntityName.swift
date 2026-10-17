@@ -24,9 +24,8 @@ enum EntityName: String, CaseIterable {
     case habitRecord = "CDHabitRecord"
     case habitSample = "CDHabitSample"
     case habitTask = "CDHabitTask"
-    
+
     case countdownEvent = "CDCountdownEvent"
-    
     case keyValueStore = "KeyValueStore"
 }
 

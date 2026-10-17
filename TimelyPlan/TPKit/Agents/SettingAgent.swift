@@ -44,7 +44,18 @@ extension SettingKeyRepresentable where RawValue == String {
 
 // Define the protocol for observers
 protocol SettingAgentObserver: AnyObject {
+    
     func settingAgentDidChangeValue(for keyName: String)
+    
+    /// 远程数值改变
+    func settingAgentDidChangeRemoteValue(for keyName: String)
+}
+
+extension SettingAgentObserver {
+    
+    func settingAgentDidChangeValue(for keyName: String) {}
+    
+    func settingAgentDidChangeRemoteValue(for keyName: String) {}
 }
 
 class SettingAgent {
@@ -200,6 +211,24 @@ class SettingObserverManager {
         allKeysObservers.forEach { observer in
             (observer as? SettingAgentObserver)?.settingAgentDidChangeValue(for: key)
         }
+    }
+    
+    func remoteValueDidChange(forKey key: String) {
+        lock.lock()
+        let keyedObservers = observersForKeyDic[key]?.allObjects ?? []
+        let allKeysObservers = observersForAllKeysTable.allObjects
+        lock.unlock()
+        
+
+        keyedObservers.forEach { observer in
+            (observer as? SettingAgentObserver)?.settingAgentDidChangeRemoteValue(for: key)
+        }
+
+        allKeysObservers.forEach { observer in
+            (observer as? SettingAgentObserver)?.settingAgentDidChangeRemoteValue(for: key)
+        }
+        
+        valueDidChange(forKey: key)
     }
     
     func addObserver(_ observer: SettingAgentObserver, forKeys keys: [String]) {
