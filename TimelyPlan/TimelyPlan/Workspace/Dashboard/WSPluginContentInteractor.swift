@@ -24,7 +24,7 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
     /// 数据条目变化回调。单元格把它绑定到内容视图的 `update(with:)`。
     var dataItemDidChange: ((WSPluginDataItem?) -> Void)?
     
-    let element: WSPluginElement
+    let plugin: WSPlugin
     
     /// 数据是否已过期，需要重新获取
     private var needsReload = true
@@ -32,8 +32,8 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
     /// 请求管理，用于丢弃过期请求的结果
     private let requestManager = TPRequestManager()
     
-    init(element: WSPluginElement) {
-        self.element = element
+    init(plugin: WSPlugin) {
+        self.plugin = plugin
         super.init()
     }
     

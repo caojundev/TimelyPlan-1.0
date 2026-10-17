@@ -16,7 +16,7 @@ protocol WSDashboardViewDelegate: AnyObject {
     /// 选中组件的菜单动作
     func dashboardView(_ dashboardView: WSDashboardView,
                        didSelectMenuAction action: WSPluginCell.MenuActionType,
-                       for element: WSPluginElement)
+                       for plugin: WSPlugin)
 }
 
 extension WSDashboardViewDelegate {
@@ -27,7 +27,7 @@ extension WSDashboardViewDelegate {
     
     func dashboardView(_ dashboardView: WSDashboardView,
                        didSelectMenuAction action: WSPluginCell.MenuActionType,
-                       for element: WSPluginElement) {
+                       for plugin: WSPlugin) {
         
     }
 }
@@ -39,7 +39,7 @@ class WSDashboardView: UIView,
     /// 代理对象
     weak var delegate: WSDashboardViewDelegate?
     
-    var elements: [WSPluginElement]?
+    var plugins: [WSPlugin]?
     
     /// 内容间距
     var contentInset: UIEdgeInsets? {
@@ -224,14 +224,14 @@ class WSDashboardView: UIView,
         cell.setJiggling(isReordering)
     }
     
-    // MARK: - Elements
+    // MARK: - Plugins
     /// 索引位置对应的组件
-    private func element(at indexPath: IndexPath) -> WSPluginElement? {
-        guard let elements = elements, indexPath.item < elements.count else {
+    private func plugin(at indexPath: IndexPath) -> WSPlugin? {
+        guard let plugins = plugins, indexPath.item < plugins.count else {
             return nil
         }
         
-        return elements[indexPath.item]
+        return plugins[indexPath.item]
     }
     
     // MARK: - TPCollectionViewAdapterDataSource
@@ -240,7 +240,7 @@ class WSDashboardView: UIView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
-        return elements
+        return plugins
     }
     
     // MARK: - TPCollectionViewAdapterDelegate
@@ -255,40 +255,40 @@ class WSDashboardView: UIView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         /// 单元格类型由组件注册的提供者决定
-        guard let element = element(at: indexPath) else {
+        guard let plugin = self.plugin(at: indexPath) else {
             return WSPluginCell.self
         }
         
-        return WSPluginRegistry.shared.provider(for: element.type)?.cellClass ?? WSPluginCell.self
+        return WSPluginRegistry.shared.provider(for: plugin.type)?.cellClass ?? WSPluginCell.self
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         guard let cell = cell as? WSPluginCell,
-              let element = element(at: indexPath),
-              let provider = WSPluginRegistry.shared.provider(for: element.type) else {
+              let plugin = self.plugin(at: indexPath),
+              let provider = WSPluginRegistry.shared.provider(for: plugin.type) else {
             return
         }
         
-        cell.configure(element: element, provider: provider)
+        cell.configure(plugin: plugin, provider: provider)
         cell.menuActionHandler = { [weak self] cell, actionType in
-            guard let self = self, let element = cell.element else {
+            guard let self = self, let plugin = cell.plugin else {
                 return
             }
             
             self.delegate?.dashboardView(self,
                                          didSelectMenuAction: actionType,
-                                         for: element)
+                                         for: plugin)
         }
         updateCellForReordering(cell)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
         dashboardLayout.updateLayoutIfNeeded(containerSize: adapter.collectionViewSize())
-        guard let element = element(at: indexPath) else {
+        guard let plugin = self.plugin(at: indexPath) else {
             return .zero
         }
         
-        return dashboardLayout.itemSize(for: element)
+        return dashboardLayout.itemSize(for: plugin)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -336,15 +336,15 @@ extension WSDashboardView: TPCollectionDragExchangeReorderDelegate {
     func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder,
                                        moveItemFrom fromIndexPath: IndexPath,
                                        to toIndexPath: IndexPath) -> Bool {
-        guard var newElements = elements else {
+        guard var newPlugins = plugins else {
             return false
         }
         
-        guard newElements.moveObject(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item) else {
+        guard newPlugins.moveObject(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item) else {
             return false
         }
         
-        self.elements = newElements
+        self.plugins = newPlugins
         adapter.moveItem(at: fromIndexPath, to: toIndexPath)
         return true
     }

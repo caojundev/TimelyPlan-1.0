@@ -33,7 +33,7 @@ class WSPluginGalleryView: UIView,
     weak var delegate: WSPluginGalleryViewDelegate?
     
     /// 画廊条目
-    var elements: [WSPluginElement]?
+    var plugins: [WSPlugin]?
     
     /// 占位视图提供者
     var placeholderProvider: TPPlaceholderProviding? {
@@ -152,14 +152,14 @@ class WSPluginGalleryView: UIView,
         notifyPageDidChangeIfNeeded()
     }
     
-    // MARK: - Elements
+    // MARK: - Plugins
     /// 索引位置对应的组件
-    private func element(at indexPath: IndexPath) -> WSPluginElement? {
-        guard let elements = elements, indexPath.item < elements.count else {
+    private func plugin(at indexPath: IndexPath) -> WSPlugin? {
+        guard let plugins = plugins, indexPath.item < plugins.count else {
             return nil
         }
         
-        return elements[indexPath.item]
+        return plugins[indexPath.item]
     }
     
     /// 索引位置条目的尺寸
@@ -167,13 +167,13 @@ class WSPluginGalleryView: UIView,
     /// 尺寸基准边长取页面宽高中的较小值：横向布局时页面很宽但很矮，
     /// 若只按宽度推导尺寸，大号组件会超出页面而被裁掉。
     private func itemSize(at indexPath: IndexPath) -> CGSize {
-        guard let element = element(at: indexPath) else {
+        guard let plugin = self.plugin(at: indexPath) else {
             return .zero
         }
         
         let baseLength = layoutBaseLength()
         galleryLayout.updateLayoutIfNeeded(containerSize: CGSize(width: baseLength, height: baseLength))
-        return galleryLayout.itemSize(for: element)
+        return galleryLayout.itemSize(for: plugin)
     }
     
     /// 尺寸计算的基准边长
@@ -202,7 +202,7 @@ class WSPluginGalleryView: UIView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, itemsForSectionObject sectionObject: ListDiffable) -> [ListDiffable]? {
-        return elements
+        return plugins
     }
     
     // MARK: - TPCollectionViewAdapterDelegate
@@ -213,23 +213,23 @@ class WSPluginGalleryView: UIView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         /// 单元格类型由组件注册的提供者决定
-        guard let element = element(at: indexPath) else {
+        guard let plugin = self.plugin(at: indexPath) else {
             return WSPluginCell.self
         }
         
-        return WSPluginRegistry.shared.provider(for: element.type)?.cellClass ?? WSPluginCell.self
+        return WSPluginRegistry.shared.provider(for: plugin.type)?.cellClass ?? WSPluginCell.self
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         guard let cell = cell as? WSPluginCell,
-              let element = element(at: indexPath),
-              let provider = WSPluginRegistry.shared.provider(for: element.type) else {
+              let plugin = self.plugin(at: indexPath),
+              let provider = WSPluginRegistry.shared.provider(for: plugin.type) else {
             return
         }
         
         /// 画廊里不显示长按菜单
         cell.isContextMenuEnabled = false
-        cell.configure(element: element, provider: provider)
+        cell.configure(plugin: plugin, provider: provider)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {

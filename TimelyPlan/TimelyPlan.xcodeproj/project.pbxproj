@@ -987,7 +987,6 @@
 		E556BCEA2F5E5EB500CA20D9 /* HabitRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556BCE92F5E5EB400CA20D9 /* HabitRecordController.swift */; };
 		E556BCEC2F5E610900CA20D9 /* HabitTaskMenuActionProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556BCEB2F5E610900CA20D9 /* HabitTaskMenuActionProcessor.swift */; };
 		E556BCF82F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E556BCF72F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift */; };
-		E5585C6E30809232007D1BB9 /* WSPluginElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C6B30809230007D1BB9 /* WSPluginElement.swift */; };
 		E5585C6F30809232007D1BB9 /* WSDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C6D30809230007D1BB9 /* WSDashboardView.swift */; };
 		E5585C713080AB7E007D1BB9 /* WSPluginSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C703080AB7E007D1BB9 /* WSPluginSize.swift */; };
 		E5585C733080ABB5007D1BB9 /* WSPluginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5585C723080ABB5007D1BB9 /* WSPluginType.swift */; };
@@ -3532,7 +3531,6 @@
 		E556BCE92F5E5EB400CA20D9 /* HabitRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitRecordController.swift; sourceTree = "<group>"; };
 		E556BCEB2F5E610900CA20D9 /* HabitTaskMenuActionProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskMenuActionProcessor.swift; sourceTree = "<group>"; };
 		E556BCF72F5EBFCC00CA20D9 /* HabitRecordInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitRecordInputViewController.swift; sourceTree = "<group>"; };
-		E5585C6B30809230007D1BB9 /* WSPluginElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginElement.swift; sourceTree = "<group>"; };
 		E5585C6D30809230007D1BB9 /* WSDashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDashboardView.swift; sourceTree = "<group>"; };
 		E5585C703080AB7E007D1BB9 /* WSPluginSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginSize.swift; sourceTree = "<group>"; };
 		E5585C723080ABB5007D1BB9 /* WSPluginType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginType.swift; sourceTree = "<group>"; };
@@ -8073,7 +8071,6 @@
 				E5585C723080ABB5007D1BB9 /* WSPluginType.swift */,
 				E5585C8F3081DD6B007D1BB9 /* WSPluginModule.swift */,
 				E5585C703080AB7E007D1BB9 /* WSPluginSize.swift */,
-				E5585C6B30809230007D1BB9 /* WSPluginElement.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -15740,7 +15737,6 @@
 				E5FF4EC62FEB6C7400282416 /* AppSettingUtil.swift in Sources */,
 				E5BB9DEA2D3BF0C60089667A /* UITableView+Extension.swift in Sources */,
 				E507E7922F528121003004C4 /* HabitMoreBarButtonItem.swift in Sources */,
-				E5585C6E30809232007D1BB9 /* WSPluginElement.swift in Sources */,
 				E5BB9E722D3BF0C70089667A /* TPCollectionViewAdapter.swift in Sources */,
 				E5FC919A2FBB65C200FC75C6 /* FocusTimelineBackLayer.swift in Sources */,
 				E5BB9DDA2D3BF0C60089667A /* UIView+FrameLayout.swift in Sources */,

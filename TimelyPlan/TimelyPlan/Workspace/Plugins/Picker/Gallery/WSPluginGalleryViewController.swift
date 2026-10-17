@@ -36,20 +36,20 @@ class WSPluginGalleryViewController: TPViewController {
     }
     
     /// 画廊展示的组件。默认使用测试数据，一页展示一个组件
-    var elements: [WSPluginElement] = WSPluginElement.mockElements() {
+    var plugins: [WSPlugin] = WSPlugin.mockPlugins() {
         didSet {
             guard isViewLoaded else {
                 return
             }
             
-            galleryView.elements = elements
+            galleryView.plugins = plugins
             galleryView.reloadData()
             updatePageContent()
         }
     }
     
     /// 点击「添加插件」按钮，参数为当前页展示的组件
-    var didClickAdd: ((WSPluginElement) -> Void)?
+    var didClickAdd: ((WSPlugin) -> Void)?
     
     /// 页内标题
     private lazy var titleLabel: TPLabel = {
@@ -101,18 +101,18 @@ class WSPluginGalleryViewController: TPViewController {
     private lazy var galleryView: WSPluginGalleryView = {
         let galleryView = WSPluginGalleryView(frame: .zero)
         galleryView.delegate = self
-        galleryView.elements = elements
+        galleryView.plugins = plugins
         return galleryView
     }()
     
     /// 当前页展示的组件
-    private var currentElement: WSPluginElement? {
+    private var currentPlugin: WSPlugin? {
         let page = galleryView.currentPage
-        guard page >= 0, page < elements.count else {
+        guard page >= 0, page < plugins.count else {
             return nil
         }
         
-        return elements[page]
+        return plugins[page]
     }
     
     let module: WSPluginModule
@@ -201,10 +201,10 @@ class WSPluginGalleryViewController: TPViewController {
     /// 同步当前页的标题、副标题、页码指示器与导航栏标题
     private func updatePageContent() {
         let page = galleryView.currentPage
-        pageIndicator.numberOfPages = elements.count
+        pageIndicator.numberOfPages = plugins.count
         pageIndicator.currentPage = page
         
-        guard let element = currentElement else {
+        guard let plugin = currentPlugin else {
             titleLabel.text = nil
             subtitleLabel.text = nil
             self.title = nil
@@ -212,8 +212,8 @@ class WSPluginGalleryViewController: TPViewController {
             return
         }
         
-        titleLabel.text = element.type.title
-        subtitleLabel.text = element.type.subtitle
+        titleLabel.text = plugin.type.title
+        subtitleLabel.text = plugin.type.subtitle
         self.view.setNeedsLayout()
     }
     
@@ -224,11 +224,11 @@ class WSPluginGalleryViewController: TPViewController {
     }
     
     @objc private func clickAddPlugin() {
-        guard let element = currentElement else {
+        guard let plugin = currentPlugin else {
             return
         }
         
-        didClickAdd?(element)
+        didClickAdd?(plugin)
     }
 }
 

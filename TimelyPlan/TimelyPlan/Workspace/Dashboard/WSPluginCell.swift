@@ -12,7 +12,7 @@ import UIKit
 class WSPluginCell: UICollectionViewCell {
     
     /// 当前配置的组件
-    private(set) var element: WSPluginElement?
+    private(set) var plugin: WSPlugin?
     
     private(set) var provider: WSPluginProvider?
     
@@ -27,7 +27,7 @@ class WSPluginCell: UICollectionViewCell {
     // MARK: - 外观
     /// 组件圆角半径
     var pluginCornerRadius: CGFloat {
-        guard let size = element?.type.size else {
+        guard let size = plugin?.type.size else {
             return 16.0
         }
         
@@ -59,7 +59,7 @@ class WSPluginCell: UICollectionViewCell {
         resetPluginContent()
         /// 复用前先回到占位态，等待重新加载数据
         showPlaceholderView()
-        element = nil
+        plugin = nil
         provider = nil
         interactor = nil
         setJiggling(false)
@@ -81,8 +81,8 @@ class WSPluginCell: UICollectionViewCell {
     
     // MARK: - 配置
     /// 通过组件配置单元格
-    func configure(element: WSPluginElement, provider: WSPluginProvider) {
-        self.element = element
+    func configure(plugin: WSPlugin, provider: WSPluginProvider) {
+        self.plugin = plugin
         self.provider = provider
         /// 先展示占位视图，数据加载完成后再展示内容视图
         showPlaceholderView()
@@ -92,11 +92,11 @@ class WSPluginCell: UICollectionViewCell {
     }
     
     private func setupInteractor() {
-        guard let element = element, let provider = provider else {
+        guard let plugin = plugin, let provider = provider else {
             return
         }
     
-        interactor = provider.makeContentInteractor(element: element)
+        interactor = provider.makeContentInteractor(plugin: plugin)
         interactor?.dataItemDidChange = { [weak self] dataItem in
             guard let self = self else {
                 return
@@ -276,7 +276,7 @@ extension WSPluginCell: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
                                 configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         /// 未开启长按菜单、未配置组件或无可用动作时不响应长按
-        guard isContextMenuEnabled, element != nil, !menuActionTypes.isEmpty else {
+        guard isContextMenuEnabled, plugin != nil, !menuActionTypes.isEmpty else {
             return nil
         }
         

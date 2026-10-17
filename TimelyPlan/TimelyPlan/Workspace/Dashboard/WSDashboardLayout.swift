@@ -101,8 +101,8 @@ class WSDashboardLayout {
     }
     
     /// 指定组件的条目尺寸。尺寸取自注册的组件提供者。
-    func itemSize(for element: WSPluginElement) -> CGSize {
-        return itemSize(for: element.type.size)
+    func itemSize(for plugin: WSPlugin) -> CGSize {
+        return itemSize(for: plugin.type.size)
     }
     
     /// 占满整行的长度（中号 / 大号的宽度）

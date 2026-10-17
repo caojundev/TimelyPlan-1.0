@@ -24,8 +24,8 @@ class WSCountdownSmallPluginProvider: WSPluginProvider {
         return WSCountdownSmallPluginCell.self
     }
     
-    func makeContentInteractor(element: WSPluginElement) -> WSPluginContentInteractor {
-        return WSCountdownContentInteractor(element: element)
+    func makeContentInteractor(plugin: WSPlugin) -> WSPluginContentInteractor {
+        return WSCountdownContentInteractor(plugin: plugin)
     }
 }
 
@@ -47,8 +47,8 @@ class WSCountdownMediumPluginProvider: WSPluginProvider {
         return WSCountdownMediumPluginCell.self
     }
 
-    func makeContentInteractor(element: WSPluginElement) -> WSPluginContentInteractor {
-        return WSCountdownContentInteractor(element: element)
+    func makeContentInteractor(plugin: WSPlugin) -> WSPluginContentInteractor {
+        return WSCountdownContentInteractor(plugin: plugin)
     }
 }
 
@@ -69,15 +69,15 @@ class WSCountdownLargePluginProvider: WSPluginProvider {
         return WSCountdownLargePluginCell.self
     }
 
-    func makeContentInteractor(element: WSPluginElement) -> WSPluginContentInteractor {
-        return WSCountdownContentInteractor(element: element)
+    func makeContentInteractor(plugin: WSPlugin) -> WSPluginContentInteractor {
+        return WSCountdownContentInteractor(plugin: plugin)
     }
 }
 
 class WSCountdownContentInteractor: WSPluginContentInteractor {
     
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
-        let dataItem = WSCountdownDataItem(title: self.element.type.displayName)
+        let dataItem = WSCountdownDataItem(title: self.plugin.type.displayName)
         completion(dataItem)
     }
 }

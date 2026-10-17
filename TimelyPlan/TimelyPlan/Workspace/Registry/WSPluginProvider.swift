@@ -21,7 +21,7 @@ protocol WSPluginProvider: AnyObject {
     var cellClass: WSPluginCell.Type { get }
     
     /// 创建该组件内容交互器
-    func makeContentInteractor(element: WSPluginElement) -> WSPluginContentInteractor
+    func makeContentInteractor(plugin: WSPlugin) -> WSPluginContentInteractor
     
     /// 创建该组件的占位视图，用于数据加载完成前的占位展示。
     ///

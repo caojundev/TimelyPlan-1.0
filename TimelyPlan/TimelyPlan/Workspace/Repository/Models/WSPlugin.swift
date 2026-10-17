@@ -29,6 +29,7 @@ class WSPlugin: NSObject, Sortable {
 
     init(identifier: String, type: WSPluginType) {
         self.identifier = identifier
+        self.type = type
         super.init()
     }
     
@@ -57,5 +58,22 @@ class WSPlugin: NSObject, Sortable {
             && order == plugin.order
             && creationDate == plugin.creationDate
             && modificationDate == plugin.modificationDate
+    }
+}
+
+// MARK: - Mock
+extension WSPlugin {
+    
+    /// 生成测试数据。小 / 中 / 大三种尺寸循环出现，便于验证网格布局。
+    static func mockPlugins(count: Int = 10) -> [WSPlugin] {
+        let types: [WSPluginType] = [.countdownSmall,
+                                     .countdownSmall,
+                                     .countdownMedium,
+                                     .countdownLarge]
+        
+        return (0 ..< count).map { index in
+            let type = types[index % types.count]
+            return WSPlugin(identifier: UUID().uuidString, type: type)
+        }
     }
 }

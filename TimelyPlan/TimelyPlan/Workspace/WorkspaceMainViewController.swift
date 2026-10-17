@@ -30,7 +30,7 @@ class WorkspaceMainViewController: TPViewController,
     private lazy var dashboardView: WSDashboardView = {
         let dashboardView = WSDashboardView(frame: .zero)
         dashboardView.delegate = self
-        dashboardView.elements = WSPluginElement.mockElements()
+        dashboardView.plugins = WSPlugin.mockPlugins()
         return dashboardView
     }()
     
@@ -139,7 +139,7 @@ extension WorkspaceMainViewController {
     
     func dashboardView(_ dashboardView: WSDashboardView,
                        didSelectMenuAction action: WSPluginCell.MenuActionType,
-                       for element: WSPluginElement) {
+                       for plugin: WSPlugin) {
         switch action {
         case .addPlugin:
             showPluginPicker()
