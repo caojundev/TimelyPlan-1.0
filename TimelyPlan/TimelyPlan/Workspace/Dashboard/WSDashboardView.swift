@@ -17,6 +17,9 @@ protocol WSDashboardViewDelegate: AnyObject {
     func dashboardView(_ dashboardView: WSDashboardView,
                        didSelectMenuAction action: WSPluginCell.MenuActionType,
                        for plugin: WSPlugin)
+    
+    /// 组件顺序发生改变
+    func dashboardView(_ dashboardView: WSDashboardView, didReorderPlugins plugins: [WSPlugin])
 }
 
 extension WSDashboardViewDelegate {
@@ -28,6 +31,10 @@ extension WSDashboardViewDelegate {
     func dashboardView(_ dashboardView: WSDashboardView,
                        didSelectMenuAction action: WSPluginCell.MenuActionType,
                        for plugin: WSPlugin) {
+        
+    }
+    
+    func dashboardView(_ dashboardView: WSDashboardView, didReorderPlugins plugins: [WSPlugin]) {
         
     }
 }
@@ -186,7 +193,7 @@ class WSDashboardView: UIView,
     }
     
     /// 更新列表
-    func performUpdate(animated: Bool = false) {
+    func performUpdate() {
         updatePlaceholderView()
         adapter.performUpdate()
     }
@@ -325,6 +332,9 @@ extension WSDashboardView: TPCollectionDragExchangeReorderDelegate {
     func collectionDragReorderDidEnd(_ reorder: TPCollectionDragReorder) {
         /// 拖动结束后恢复抖动
         collectionView.visibleCells.forEach { updateCellForReordering($0) }
+        
+        /// 通知外部保存最新的组件顺序
+        delegate?.dashboardView(self, didReorderPlugins: plugins ?? [])
     }
     
     func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder,

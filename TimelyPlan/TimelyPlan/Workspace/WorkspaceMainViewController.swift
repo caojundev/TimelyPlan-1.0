@@ -30,8 +30,19 @@ class WorkspaceMainViewController: TPViewController,
     private lazy var dashboardView: WSDashboardView = {
         let dashboardView = WSDashboardView(frame: .zero)
         dashboardView.delegate = self
-        dashboardView.plugins = WSPlugin.mockPlugins()
         return dashboardView
+    }()
+    
+    /// 面板交互器
+    private lazy var interactor: WSDashboardInteractor = {
+        /// 暂无面板切换能力，先取第一个面板作为测试
+        let dashboard = WorkspaceRepository.getDashboards().first ?? WorkspaceRepository.createDashboard()
+        let interactor = WSDashboardInteractor(dashboard: dashboard)
+        interactor.didChangePlugins = { [weak self] in
+            self?.didChangePlugins()
+        }
+        
+        return interactor
     }()
     
     /// 完成编辑按钮。仅排序模式下显示在底部中间
@@ -84,6 +95,13 @@ class WorkspaceMainViewController: TPViewController,
         doneEditingButton.alignHorizontalCenter()
     }
     
+    private func didChangePlugins() {
+        DispatchQueue.main.async {
+            self.dashboardView.plugins = self.interactor.plugins
+            self.dashboardView.performUpdate()
+        }
+    }
+    
     // MARK: - Event Response
     override func clickAdd() {
         super.clickAdd()
@@ -99,18 +117,22 @@ class WorkspaceMainViewController: TPViewController,
     /// 显示组件选择器
     private func showPluginPicker() {
         let pickerViewController = WSPluginPickerViewController()
-        pickerViewController.didSelectModule = { [weak self] module in
-            self?.addPlugin(for: module)
-        }
         
         let navController = UINavigationController(rootViewController: pickerViewController)
         navController.modalPresentationStyle = .formSheet
+        
+        pickerViewController.didAddPlugin = { [weak self, weak navController] plugin in
+            self?.addPlugin(plugin)
+            /// 添加完成后关闭选择器
+            navController?.dismiss(animated: true)
+        }
+        
         navController.show()
     }
     
-    /// 添加组件到工作台
-    private func addPlugin(for module: WSPluginModule) {
-        /// TODO: 待模块下的插件列表与组件增删能力就绪后补全
+    /// 添加组件到当前面板
+    private func addPlugin(_ plugin: WSPlugin) {
+        interactor.createPlugin(type: plugin.type, configJSON: plugin.configJSON)
     }
     
     // MARK: - Setup
@@ -118,7 +140,7 @@ class WorkspaceMainViewController: TPViewController,
         view.addSubview(dashboardView)
         /// 按钮浮在仪表盘之上，排序模式下显示
         view.addSubview(doneEditingButton)
-        dashboardView.reloadData()
+        interactor.loadPlugins()
     }
 }
 
@@ -147,8 +169,11 @@ extension WorkspaceMainViewController {
             /// 进入排序模式，组件抖动并支持长按拖动排序
             dashboardView.beginReordering()
         case .remove:
-            /// TODO: 待组件增删能力就绪后补全
-            break
+            interactor.deletePlugin(plugin)
         }
+    }
+    
+    func dashboardView(_ dashboardView: WSDashboardView, didReorderPlugins plugins: [WSPlugin]) {
+        interactor.didEndReorderPlugins(with: plugins)
     }
 }

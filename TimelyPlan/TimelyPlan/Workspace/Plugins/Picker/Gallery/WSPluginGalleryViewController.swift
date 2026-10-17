@@ -224,6 +224,11 @@ class WSPluginGalleryViewController: TPViewController {
     }
     
     @objc private func clickAddPlugin() {
+        addCurrentPlugin()
+    }
+    
+    /// 添加当前页展示的插件
+    private func addCurrentPlugin() {
         guard let plugin = currentPlugin else {
             return
         }
@@ -240,6 +245,7 @@ extension WSPluginGalleryViewController: WSPluginGalleryViewDelegate {
     }
     
     func galleryView(_ galleryView: WSPluginGalleryView, didSelectItemAt indexPath: IndexPath) {
-        /// TODO: 待工作台的组件添加能力就绪后，在此把选中的组件添加到工作台并关闭画廊
+        /// 点击组件同样视为添加当前页展示的组件
+        addCurrentPlugin()
     }
 }

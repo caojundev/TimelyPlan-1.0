@@ -515,6 +515,7 @@
 		E528E9093083238600DD4242 /* WorkspaceDashboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E9083083238600DD4242 /* WorkspaceDashboardManager.swift */; };
 		E528E90B3083541A00DD4242 /* WorkspacePluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E90A3083541A00DD4242 /* WorkspacePluginManager.swift */; };
 		E528E90D3083543100DD4242 /* WorkspacePluginProcessorUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E90C3083543100DD4242 /* WorkspacePluginProcessorUpdater.swift */; };
+		E528E90F308389B200DD4242 /* WSDashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E90E308389B200DD4242 /* WSDashboardInteractor.swift */; };
 		E5291A9930620D9700017150 /* CountdownEvent+LocalNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9830620D9700017150 /* CountdownEvent+LocalNotifiable.swift */; };
 		E5291A9B30620DBA00017150 /* CountdownNotifiableEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9A30620DBA00017150 /* CountdownNotifiableEventProvider.swift */; };
 		E5291A9D30627CAE00017150 /* CountdownEventInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */; };
@@ -3059,6 +3060,7 @@
 		E528E9083083238600DD4242 /* WorkspaceDashboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceDashboardManager.swift; sourceTree = "<group>"; };
 		E528E90A3083541A00DD4242 /* WorkspacePluginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacePluginManager.swift; sourceTree = "<group>"; };
 		E528E90C3083543100DD4242 /* WorkspacePluginProcessorUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacePluginProcessorUpdater.swift; sourceTree = "<group>"; };
+		E528E90E308389B200DD4242 /* WSDashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSDashboardInteractor.swift; sourceTree = "<group>"; };
 		E5291A9830620D9700017150 /* CountdownEvent+LocalNotifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CountdownEvent+LocalNotifiable.swift"; sourceTree = "<group>"; };
 		E5291A9A30620DBA00017150 /* CountdownNotifiableEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownNotifiableEventProvider.swift; sourceTree = "<group>"; };
 		E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventInteractor.swift; sourceTree = "<group>"; };
@@ -13364,6 +13366,7 @@
 			isa = PBXGroup;
 			children = (
 				E5FD1923307FC4B800E87402 /* WorkspaceMainViewController.swift */,
+				E528E90E308389B200DD4242 /* WSDashboardInteractor.swift */,
 				E528E8FC3083013A00DD4242 /* Repository */,
 				E5585C6A30809230007D1BB9 /* Models */,
 				E5585C743080ACAC007D1BB9 /* Registry */,
@@ -15316,6 +15319,7 @@
 				E5B33D892F82584D00939C3E /* TodoTagSelectInfoView.swift in Sources */,
 				E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */,
 				E518D6992FBEAC450045D456 /* CalendarRepository.swift in Sources */,
+				E528E90F308389B200DD4242 /* WSDashboardInteractor.swift in Sources */,
 				E5585C7C3080B419007D1BB9 /* WSCountdownSmallPluginProvider.swift in Sources */,
 				E55B89503077907000ADCED5 /* MindMapCanvasView.swift in Sources */,
 				E5B499642FDC4A8100F3A9BD /* CalendarEventMonitor.swift in Sources */,
