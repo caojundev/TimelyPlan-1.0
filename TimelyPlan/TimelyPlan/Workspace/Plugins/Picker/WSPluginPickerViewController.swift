@@ -70,7 +70,7 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
     
     // MARK: - 选择
     private func pick(_ module: WSPluginModule) {
-        let vc = WSPluginGalleryViewController()
+        let vc = WSPluginGalleryViewController(module: module)
         navigationItem.backButtonDisplayMode = .minimal
         navigationController?.pushViewController(vc, animated: true)
     }

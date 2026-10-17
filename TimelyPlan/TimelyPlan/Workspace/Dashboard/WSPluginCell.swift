@@ -62,6 +62,7 @@ class WSPluginCell: UICollectionViewCell {
         element = nil
         provider = nil
         interactor = nil
+        setJiggling(false)
     }
     
     required init?(coder: NSCoder) {
@@ -147,6 +148,50 @@ class WSPluginCell: UICollectionViewCell {
         contentView.layer.cornerRadius = cornerRadius
         contentView.backgroundColor = backColor
         contentView.clipsToBounds = true
+    }
+    
+    // MARK: - 排序抖动
+    /// 抖动动画的标识
+    private static let jiggleAnimationKey = "jiggle"
+    
+    /// 是否处于抖动状态
+    private(set) var isJiggling: Bool = false
+    
+    /// 设置抖动状态。排序模式下开启，用于提示组件可拖动排序。
+    func setJiggling(_ isJiggling: Bool) {
+        guard self.isJiggling != isJiggling else {
+            return
+        }
+        
+        self.isJiggling = isJiggling
+        if isJiggling {
+            startJiggling()
+        } else {
+            stopJiggling()
+        }
+    }
+    
+    /// 开始抖动
+    private func startJiggling() {
+        guard layer.animation(forKey: Self.jiggleAnimationKey) == nil else {
+            return
+        }
+        
+        /// 左右各轻微旋转，形成与系统小组件一致的抖动效果
+        let angle = CGFloat.pi / 180.0
+        let animation = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+        animation.values = [-angle, angle, -angle]
+        animation.keyTimes = [0.0, 0.5, 1.0]
+        animation.duration = 0.3
+        animation.repeatCount = .greatestFiniteMagnitude
+        animation.isRemovedOnCompletion = false
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        layer.add(animation, forKey: Self.jiggleAnimationKey)
+    }
+    
+    /// 结束抖动
+    private func stopJiggling() {
+        layer.removeAnimation(forKey: Self.jiggleAnimationKey)
     }
     
     // MARK: - 长按菜单

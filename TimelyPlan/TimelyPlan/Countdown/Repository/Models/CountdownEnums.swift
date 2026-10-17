@@ -94,17 +94,17 @@ enum CountdownEventType: Int, TPMenuRepresentable {
 extension CountdownEventType {
     
     /// 气泡菜单项
-    var bubbleMenuItem: BubbleMenuItem {
-        return BubbleMenuItem(title: title, icon: emoji)
+    var bubbleMenuItem: TPBubbleMenuItem {
+        return TPBubbleMenuItem(title: title, icon: emoji)
     }
     
     /// 气泡菜单项列表
-    static var bubbleMenuItems: [BubbleMenuItem] {
+    static var bubbleMenuItems: [TPBubbleMenuItem] {
         return allCases.map { $0.bubbleMenuItem }
     }
     
     /// 根据气泡菜单项获取事项类型（以表情作为唯一标识）
-    static func type(for menuItem: BubbleMenuItem) -> CountdownEventType? {
+    static func type(for menuItem: TPBubbleMenuItem) -> CountdownEventType? {
         return allCases.first { $0.emoji == menuItem.icon }
     }
 }

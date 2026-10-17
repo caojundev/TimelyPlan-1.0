@@ -197,7 +197,7 @@ class CountdownEventListViewController: TPViewController,
         
         TPImpactFeedback.impactWithLightStyle()
         
-        let bubbleMenu = BubbleMenuView(
+        let bubbleMenu = TPBubbleMenuView(
             menuItems: CountdownEventType.bubbleMenuItems,
             containerView: keyWindow,
             sourceView: addView

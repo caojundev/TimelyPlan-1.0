@@ -10,10 +10,26 @@ import UIKit
 
 protocol WSDashboardViewDelegate: AnyObject {
     
+    /// 排序模式发生变化
+    func dashboardView(_ dashboardView: WSDashboardView, didChangeReordering isReordering: Bool)
+    
+    /// 选中组件的菜单动作
+    func dashboardView(_ dashboardView: WSDashboardView,
+                       didSelectMenuAction action: WSPluginCell.MenuActionType,
+                       for element: WSPluginElement)
 }
 
 extension WSDashboardViewDelegate {
     
+    func dashboardView(_ dashboardView: WSDashboardView, didChangeReordering isReordering: Bool) {
+        
+    }
+    
+    func dashboardView(_ dashboardView: WSDashboardView,
+                       didSelectMenuAction action: WSPluginCell.MenuActionType,
+                       for element: WSPluginElement) {
+        
+    }
 }
 
 class WSDashboardView: UIView,
@@ -51,8 +67,9 @@ class WSDashboardView: UIView,
     private(set) var refreshControl: UIRefreshControl?
     
     /// 布局对象
-    private lazy var collectionViewLayout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
+    private lazy var collectionViewLayout:
+    UICollectionViewLeftAlignedLayout = {
+        let layout = UICollectionViewLeftAlignedLayout()
         layout.scrollDirection = .vertical
         return layout
     }()
@@ -70,16 +87,10 @@ class WSDashboardView: UIView,
         return collectionView
     }()
     
-    var reorderDelegate: TPCollectionDragInsertReorderDelegate? {
-        get {
-            return reorder?.delegate as? TPCollectionDragInsertReorderDelegate
-        }
-        
-        set {
-            reorder?.delegate = newValue
-        }
-    }
+    /// 是否处于排序模式。进入后组件抖动并支持拖动排序，同时关闭长按菜单避免冲突。
+    private(set) var isReordering: Bool = false
     
+    /// 拖动排序器
     private var reorder: TPCollectionDragExchangeReorder?
 
     /// 区块布局。小 / 中 / 大组件尺寸均由容器宽度推导
@@ -108,6 +119,8 @@ class WSDashboardView: UIView,
     
     private func setupReorder() {
         let reorder = TPCollectionDragExchangeReorder(collectionView: collectionView)
+        reorder.delegate = self
+        /// 默认关闭，进入排序模式后再开启
         reorder.isEnabled = false
         self.reorder = reorder
     }
@@ -178,6 +191,39 @@ class WSDashboardView: UIView,
         adapter.performUpdate()
     }
     
+    // MARK: - 排序模式
+    /// 进入排序模式。组件抖动并支持长按拖动排序，同时关闭长按菜单避免与拖动冲突。
+    func beginReordering() {
+        setReordering(true)
+    }
+    
+    /// 退出排序模式
+    func endReordering() {
+        setReordering(false)
+    }
+    
+    private func setReordering(_ isReordering: Bool) {
+        guard self.isReordering != isReordering else {
+            return
+        }
+        
+        self.isReordering = isReordering
+        /// 仅在排序模式下开启拖动排序
+        reorder?.isEnabled = isReordering
+        collectionView.visibleCells.forEach { updateCellForReordering($0) }
+        delegate?.dashboardView(self, didChangeReordering: isReordering)
+    }
+    
+    /// 应用排序模式到单元格
+    private func updateCellForReordering(_ cell: UICollectionViewCell) {
+        guard let cell = cell as? WSPluginCell else {
+            return
+        }
+        
+        cell.isContextMenuEnabled = !isReordering
+        cell.setJiggling(isReordering)
+    }
+    
     // MARK: - Elements
     /// 索引位置对应的组件
     private func element(at indexPath: IndexPath) -> WSPluginElement? {
@@ -199,6 +245,11 @@ class WSDashboardView: UIView,
     
     // MARK: - TPCollectionViewAdapterDelegate
     func adapter(_ adapter: TPCollectionViewAdapter, didSelectItemAt indexPath: IndexPath) {
+        /// 排序模式下不响应选中，避免误触
+        guard !isReordering else {
+            return
+        }
+        
         TPImpactFeedback.impactWithSoftStyle()
     }
     
@@ -219,6 +270,16 @@ class WSDashboardView: UIView,
         }
         
         cell.configure(element: element, provider: provider)
+        cell.menuActionHandler = { [weak self] cell, actionType in
+            guard let self = self, let element = cell.element else {
+                return
+            }
+            
+            self.delegate?.dashboardView(self,
+                                         didSelectMenuAction: actionType,
+                                         for: element)
+        }
+        updateCellForReordering(cell)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -246,5 +307,45 @@ class WSDashboardView: UIView,
     
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         return false
+    }
+}
+
+// MARK: - TPCollectionDragExchangeReorderDelegate
+extension WSDashboardView: TPCollectionDragExchangeReorderDelegate {
+    
+    func collectionDragReorder(_ reorder: TPCollectionDragReorder, canMoveItemAt indexPath: IndexPath) -> Bool {
+        return isReordering
+    }
+    
+    func collectionDragReorder(_ reorder: TPCollectionDragReorder, willBeginAt indexPath: IndexPath) {
+        /// 拖动期间暂停被拖动项的抖动，避免拖拽快照带上旋转
+        (collectionView.cellForItem(at: indexPath) as? WSPluginCell)?.setJiggling(false)
+    }
+    
+    func collectionDragReorderDidEnd(_ reorder: TPCollectionDragReorder) {
+        /// 拖动结束后恢复抖动
+        collectionView.visibleCells.forEach { updateCellForReordering($0) }
+    }
+    
+    func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder,
+                                       canMoveItemFrom fromIndexPath: IndexPath,
+                                       to toIndexPath: IndexPath) -> Bool {
+        return isReordering && fromIndexPath.section == toIndexPath.section
+    }
+    
+    func collectionDragExchangeReorder(_ reorder: TPCollectionDragExchangeReorder,
+                                       moveItemFrom fromIndexPath: IndexPath,
+                                       to toIndexPath: IndexPath) -> Bool {
+        guard var newElements = elements else {
+            return false
+        }
+        
+        guard newElements.moveObject(fromIndex: fromIndexPath.item, toIndex: toIndexPath.item) else {
+            return false
+        }
+        
+        self.elements = newElements
+        adapter.moveItem(at: fromIndexPath, to: toIndexPath)
+        return true
     }
 }

@@ -508,6 +508,7 @@
 		E526D4142F6D7AE0005C1DED /* habit_plceholder_task_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E526D4122F6D7ADF005C1DED /* habit_plceholder_task_80@3x.png */; };
 		E526D4152F6D7AE0005C1DED /* habit_plceholder_task_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E526D4132F6D7ADF005C1DED /* habit_plceholder_task_80@2x.png */; };
 		E527619F2D41F63000209019 /* TPImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E527619E2D41F63000209019 /* TPImageCollectionCell.swift */; };
+		E528E8FE3083016300DD4242 /* WorkspaceRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528E8FD3083016300DD4242 /* WorkspaceRepository.swift */; };
 		E5291A9930620D9700017150 /* CountdownEvent+LocalNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9830620D9700017150 /* CountdownEvent+LocalNotifiable.swift */; };
 		E5291A9B30620DBA00017150 /* CountdownNotifiableEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9A30620DBA00017150 /* CountdownNotifiableEventProvider.swift */; };
 		E5291A9D30627CAE00017150 /* CountdownEventInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */; };
@@ -1016,7 +1017,7 @@
 		E55897983056D5AE001F8F22 /* sideMenu_countdown_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55897963056D5AE001F8F22 /* sideMenu_countdown_40@2x.png */; };
 		E55897993056D5AE001F8F22 /* sideMenu_countdown_40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55897973056D5AE001F8F22 /* sideMenu_countdown_40@3x.png */; };
 		E558979C3056DF11001F8F22 /* CountdownMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558979B3056DF10001F8F22 /* CountdownMainViewController.swift */; };
-		E558979E3056E124001F8F22 /* BubbleMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558979D3056E124001F8F22 /* BubbleMenuView.swift */; };
+		E558979E3056E124001F8F22 /* TPBubbleMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558979D3056E124001F8F22 /* TPBubbleMenuView.swift */; };
 		E55A7B742D45F873000D224C /* timer_pause_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */; };
 		E55A7B752D45F873000D224C /* timer_start_circle_fill_32@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */; };
 		E55A7B762D45F873000D224C /* timer_start_circle_fill_32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */; };
@@ -3046,6 +3047,7 @@
 		E526D4122F6D7ADF005C1DED /* habit_plceholder_task_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_plceholder_task_80@3x.png"; sourceTree = "<group>"; };
 		E526D4132F6D7ADF005C1DED /* habit_plceholder_task_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_plceholder_task_80@2x.png"; sourceTree = "<group>"; };
 		E527619E2D41F63000209019 /* TPImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageCollectionCell.swift; sourceTree = "<group>"; };
+		E528E8FD3083016300DD4242 /* WorkspaceRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceRepository.swift; sourceTree = "<group>"; };
 		E5291A9830620D9700017150 /* CountdownEvent+LocalNotifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CountdownEvent+LocalNotifiable.swift"; sourceTree = "<group>"; };
 		E5291A9A30620DBA00017150 /* CountdownNotifiableEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownNotifiableEventProvider.swift; sourceTree = "<group>"; };
 		E5291A9C30627CAE00017150 /* CountdownEventInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownEventInteractor.swift; sourceTree = "<group>"; };
@@ -3554,7 +3556,7 @@
 		E55897963056D5AE001F8F22 /* sideMenu_countdown_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_countdown_40@2x.png"; sourceTree = "<group>"; };
 		E55897973056D5AE001F8F22 /* sideMenu_countdown_40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sideMenu_countdown_40@3x.png"; sourceTree = "<group>"; };
 		E558979B3056DF10001F8F22 /* CountdownMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownMainViewController.swift; sourceTree = "<group>"; };
-		E558979D3056E124001F8F22 /* BubbleMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleMenuView.swift; sourceTree = "<group>"; };
+		E558979D3056E124001F8F22 /* TPBubbleMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPBubbleMenuView.swift; sourceTree = "<group>"; };
 		E55A7B682D45F873000D224C /* timer_pause_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_pause_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B692D45F873000D224C /* timer_start_circle_fill_32@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@3x.png"; sourceTree = "<group>"; };
 		E55A7B6A2D45F873000D224C /* timer_start_circle_fill_32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timer_start_circle_fill_32@2x.png"; sourceTree = "<group>"; };
@@ -6571,6 +6573,32 @@
 			path = placeholder;
 			sourceTree = "<group>";
 		};
+		E528E8FC3083013A00DD4242 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				E528E8FD3083016300DD4242 /* WorkspaceRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		E528E8FF3083019200DD4242 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				E5585C9130820F4E007D1BB9 /* WSPluginGalleryViewController.swift */,
+				E5585C9930824100007D1BB9 /* WSPluginGalleryFlowLayout.swift */,
+				E5585C9730821849007D1BB9 /* WSPluginGalleryView.swift */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		E528E9003083031200DD4242 /* BubbleMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				E558979D3056E124001F8F22 /* TPBubbleMenuView.swift */,
+			);
+			path = BubbleMenuView;
+			sourceTree = "<group>";
+		};
 		E529ACC22F7E00FF000EA2F1 /* SmartList */ = {
 			isa = PBXGroup;
 			children = (
@@ -8027,8 +8055,8 @@
 		E5585C6C30809230007D1BB9 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				E5585C8B3081217C007D1BB9 /* Layout */,
 				E5585C6D30809230007D1BB9 /* WSDashboardView.swift */,
+				E5585C7D3080B91F007D1BB9 /* WSDashboardLayout.swift */,
 				E5585C833080D286007D1BB9 /* WSPluginCell.swift */,
 				E5585C8730810A56007D1BB9 /* WSPluginContentView.swift */,
 				E5585C8930812022007D1BB9 /* WSPluginContentInteractor.swift */,
@@ -8065,31 +8093,13 @@
 			path = Countdown;
 			sourceTree = "<group>";
 		};
-		E5585C8B3081217C007D1BB9 /* Layout */ = {
-			isa = PBXGroup;
-			children = (
-				E5585C7D3080B91F007D1BB9 /* WSDashboardLayout.swift */,
-			);
-			path = Layout;
-			sourceTree = "<group>";
-		};
 		E5585C8C3081D2D2007D1BB9 /* Picker */ = {
 			isa = PBXGroup;
 			children = (
-				E5585C9B30824100007D1BB9 /* Layout */,
 				E5585C8D3081D2E7007D1BB9 /* WSPluginPickerViewController.swift */,
-				E5585C9130820F4E007D1BB9 /* WSPluginGalleryViewController.swift */,
-				E5585C9730821849007D1BB9 /* WSPluginGalleryView.swift */,
+				E528E8FF3083019200DD4242 /* Gallery */,
 			);
 			path = Picker;
-			sourceTree = "<group>";
-		};
-		E5585C9B30824100007D1BB9 /* Layout */ = {
-			isa = PBXGroup;
-			children = (
-				E5585C9930824100007D1BB9 /* WSPluginGalleryFlowLayout.swift */,
-			);
-			path = Layout;
 			sourceTree = "<group>";
 		};
 		E55897743054D51E001F8F22 /* Goal */ = {
@@ -8139,11 +8149,10 @@
 		E558979A3056DE27001F8F22 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
-				E558979D3056E124001F8F22 /* BubbleMenuView.swift */,
 				E541DC2F3057D507008BFAE0 /* CountdownConfig.swift */,
+				E541DC2E3057D4D3008BFAE0 /* Repository */,
 				E511E50E305F741200292511 /* Detail */,
 				E541DC333057D70C008BFAE0 /* Helpers */,
-				E541DC2E3057D4D3008BFAE0 /* Repository */,
 				E541DC313057D511008BFAE0 /* Main */,
 				E541DC323057D525008BFAE0 /* Edit */,
 				E541DC3E3057E0D3008BFAE0 /* Setting */,
@@ -10564,6 +10573,7 @@
 		E5BB9B962D3BF0C30089667A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E528E9003083031200DD4242 /* BubbleMenuView */,
 				E53735F22D9C1AA000C5A001 /* Slider */,
 				E5BB9CF82D3BF0C50089667A /* Placeholder */,
 				E5BB9D3C2D3BF0C50089667A /* IconView */,
@@ -13331,10 +13341,11 @@
 			isa = PBXGroup;
 			children = (
 				E5FD1923307FC4B800E87402 /* WorkspaceMainViewController.swift */,
-				E5585C793080B3F1007D1BB9 /* Plugins */,
+				E528E8FC3083013A00DD4242 /* Repository */,
 				E5585C6A30809230007D1BB9 /* Models */,
-				E5585C6C30809230007D1BB9 /* Dashboard */,
 				E5585C743080ACAC007D1BB9 /* Registry */,
+				E5585C6C30809230007D1BB9 /* Dashboard */,
+				E5585C793080B3F1007D1BB9 /* Plugins */,
 			);
 			path = Workspace;
 			sourceTree = "<group>";
@@ -14624,6 +14635,7 @@
 				E58D750D3063F70C002C6D1A /* MyDayCountdownEventBindViewController.swift in Sources */,
 				E53B6C6E306C818C003683E3 /* CalendarPanelStyleSelectViewController.swift in Sources */,
 				E5FC91882FBAFE8A00FC75C6 /* CalendarPageTimedEventsView.swift in Sources */,
+				E528E8FE3083016300DD4242 /* WorkspaceRepository.swift in Sources */,
 				E558978430554BD9001F8F22 /* MyDayGoalTaskBindViewController.swift in Sources */,
 				E558978630554C10001F8F22 /* MyDayGoalTaskBindCell.swift in Sources */,
 				E53B11552F94D26C00701410 /* TodoFilterRuleEditBaseSectionController.swift in Sources */,
@@ -14708,7 +14720,7 @@
 				E5D7D9162D43933700EC877A /* FocusStatsYearlyViewController.swift in Sources */,
 				E53B11562F94D26C00701410 /* TodoFilterRuleProgressEditSectionController.swift in Sources */,
 				E58D75103063F76D002C6D1A /* MyDayCountdownTimelineCell.swift in Sources */,
-				E558979E3056E124001F8F22 /* BubbleMenuView.swift in Sources */,
+				E558979E3056E124001F8F22 /* TPBubbleMenuView.swift in Sources */,
 				E5BB9DCD2D3BF0C60089667A /* TPMidnightScheduler.swift in Sources */,
 				E50BB6762D57043000D316FD /* TPSeparatorTableCell.swift in Sources */,
 				E5BB9E1B2D3BF0C70089667A /* NSManagedObject+Finder.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  BubbleMenuView.swift
+//  TPBubbleMenuView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/9/13.
@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-struct BubbleMenuItem {
+struct TPBubbleMenuItem {
     let title: String
     let icon: String
 }
 
-class BubbleMenuView: UIView {
+class TPBubbleMenuView: UIView {
     
-    var onSelectMenuItem: ((BubbleMenuItem) -> Void)?
+    var onSelectMenuItem: ((TPBubbleMenuItem) -> Void)?
     
     var bubbleColor: UIColor = .primary {
         didSet {
@@ -43,7 +43,7 @@ class BubbleMenuView: UIView {
     /// 菜单项之间的错峰间隔
     private let menuItemAnimationDelayStep: TimeInterval = 0.05
     
-    private let menuItems: [BubbleMenuItem]
+    private let menuItems: [TPBubbleMenuItem]
     private var triggerButtonFrame: CGRect = .zero
     private var bubbleCenter: CGPoint = .zero
     
@@ -76,8 +76,8 @@ class BubbleMenuView: UIView {
     
     /// 菜单内容容器：所有菜单项都添加在这里，
     /// 通过圆形遮罩跟随 bubbleBackgroundView 一起扩散 / 收缩
-    private lazy var menuContentView: BubbleMenuContentView = {
-        let view = BubbleMenuContentView()
+    private lazy var menuContentView: TPBubbleMenuContentView = {
+        let view = TPBubbleMenuContentView()
         view.backgroundColor = .clear
         return view
     }()
@@ -96,7 +96,7 @@ class BubbleMenuView: UIView {
     
     let containerView: UIView
     
-    init(menuItems: [BubbleMenuItem], containerView: UIView, sourceView: UIView) {
+    init(menuItems: [TPBubbleMenuItem], containerView: UIView, sourceView: UIView) {
         self.menuItems = menuItems
         self.containerView = containerView
         self.sourceView = sourceView
@@ -290,7 +290,7 @@ class BubbleMenuView: UIView {
                                  forKey: "bubbleMenu.mask")
     }
     
-    private func createMenuItemView(item: BubbleMenuItem, tag: Int) -> UIView {
+    private func createMenuItemView(item: TPBubbleMenuItem, tag: Int) -> UIView {
         let container = UIView()
         container.backgroundColor = .clear
         
@@ -430,7 +430,7 @@ class BubbleMenuView: UIView {
 
 /// 菜单内容容器
 /// 仅菜单项本身响应点击，容器空白区域的点击透传给下层的 overlayView（用于点击空白关闭菜单）
-private class BubbleMenuContentView: UIView {
+private class TPBubbleMenuContentView: UIView {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let view = super.hitTest(point, with: event)
