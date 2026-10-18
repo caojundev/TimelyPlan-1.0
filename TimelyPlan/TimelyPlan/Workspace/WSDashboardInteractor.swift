@@ -21,13 +21,30 @@ class WSDashboardInteractor {
     /// 是否需要重新获取插件
     private var needsReload = true
     
+    /// 占位视图
+    private(set) var placeholderProvider = TPLoadableListPlaceholderProvider()
+    
+    /// 加载状态
+    private(set) var loadingState: TPListLoadingState = .initialLoading {
+        didSet {
+            placeholderProvider.state = loadingState
+        }
+    }
+    
     init(dashboard: WSDashboard) {
         self.dashboard = dashboard
+        self.placeholderProvider.emptyTitle = resGetString("No Plugin")
+        self.placeholderProvider.state = self.loadingState
         WorkspaceRepository.addUpdater(self, for: [.plugin])
     }
     
     deinit {
         WorkspaceRepository.removeUpdater(self)
+    }
+    
+    /// 重置加载状态
+    func resetLoadingState() {
+        self.loadingState = .initialLoading
     }
     
     // MARK: - 加载
@@ -43,8 +60,10 @@ class WSDashboardInteractor {
     
     /// 重新加载插件
     func loadPlugins() {
+        loadingState = .loading
         plugins = WorkspaceRepository.getPlugins(in: dashboard)
         needsReload = false
+        loadingState = .loaded
         didChangePlugins?()
     }
     
@@ -55,11 +74,15 @@ class WSDashboardInteractor {
     
     // MARK: - 处理插件
     /// 创建插件
+    /// - Parameter index: 插入位置。为 nil 时追加到末尾
     @discardableResult
-    func createPlugin(type: WSPluginType, configJSON: String? = nil) -> WSPlugin {
+    func createPlugin(type: WSPluginType,
+                      configJSON: String? = nil,
+                      at index: Int? = nil) -> WSPlugin {
         return WorkspaceRepository.createPlugin(type: type,
                                                 in: dashboard,
-                                                configJSON: configJSON)
+                                                configJSON: configJSON,
+                                                at: index)
     }
     
     /// 更新插件配置

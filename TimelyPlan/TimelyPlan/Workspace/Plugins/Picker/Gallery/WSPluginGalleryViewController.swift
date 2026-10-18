@@ -35,19 +35,6 @@ class WSPluginGalleryViewController: TPViewController {
         static let buttonHeight = 50.0
     }
     
-    /// 画廊展示的组件。默认使用测试数据，一页展示一个组件
-    var plugins: [WSPlugin] = WSPlugin.mockPlugins() {
-        didSet {
-            guard isViewLoaded else {
-                return
-            }
-            
-            galleryView.plugins = plugins
-            galleryView.reloadData()
-            updatePageContent()
-        }
-    }
-    
     /// 点击「添加插件」按钮，参数为当前页展示的组件
     var didClickAdd: ((WSPlugin) -> Void)?
     
@@ -117,8 +104,15 @@ class WSPluginGalleryViewController: TPViewController {
     
     let module: WSPluginModule
     
+    /// 画廊展示的组件
+    var plugins: [WSPlugin]
+    
     init(module: WSPluginModule) {
         self.module = module
+        self.plugins = module.types.map { type in
+            WSPlugin(identifier: type.rawValue, type: type)
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
     

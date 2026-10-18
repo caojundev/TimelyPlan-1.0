@@ -14,17 +14,24 @@ class WorkspaceMainViewController: TPViewController,
     
     struct Constants {
         
-        /// 「完成编辑」按钮高度
-        static let doneEditingButtonHeight = 50.0
+        /// 「完成」按钮高度
+        static let doneBarButtonHeight = 32.0
         
-        /// 「完成编辑」按钮内容左右内边距
-        static let doneEditingButtonHorizontalPadding = 28.0
-        
-        /// 「完成编辑」按钮与底部安全区的间距
-        static let doneEditingButtonBottomMargin = 16.0
+        /// 「完成」按钮内容左右内边距
+        static let doneBarButtonHorizontalPadding = 12.0
     }
     
     var sidebarController: SidebarController?
+    
+    /// 更多菜单按钮
+    private lazy var moreBarButtonItem: WorkspaceMoreBarButtonItem = {
+        let item = WorkspaceMoreBarButtonItem()
+        item.didSelectType = { [weak self] type in
+            self?.performMoreMenuAction(type)
+        }
+        
+        return item
+    }()
     
     /// 仪表盘视图
     private lazy var dashboardView: WSDashboardView = {
@@ -45,19 +52,27 @@ class WorkspaceMainViewController: TPViewController,
         return interactor
     }()
     
-    /// 完成编辑按钮。仅排序模式下显示在底部中间
-    private lazy var doneEditingButton: TPDefaultButton = {
+    /// 新插件的待插入位置。nil 表示追加到末尾
+    private var pendingInsertionIndex: Int?
+    
+    /// 完成编辑按钮。仅编辑模式下显示在导航栏右侧
+    private lazy var doneEditingBarButtonItem: UIBarButtonItem = {
         let button = TPDefaultButton()
-        button.title = resGetString("Done Editing")
-        button.titleConfig.font = BOLD_SYSTEM_FONT
+        button.title = resGetString("Done")
+        button.titleConfig.font = .boldSystemFont(ofSize: 14.0)
         button.titleConfig.textColor = .white
         button.normalBackgroundColor = .primary
         button.selectedBackgroundColor = .primary.darkerColor
         button.cornerRadius = .greatestFiniteMagnitude
-        button.padding = UIEdgeInsets(horizontal: Constants.doneEditingButtonHorizontalPadding)
-        button.isHidden = true
+        button.padding = UIEdgeInsets(horizontal: Constants.doneBarButtonHorizontalPadding)
         button.addTarget(self, action: #selector(clickDoneEditing), for: .touchUpInside)
-        return button
+        
+        /// 自定义视图需给出尺寸，否则导航栏无法正确布局
+        let height = Constants.doneBarButtonHeight
+        let fitSize = button.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: height))
+        button.size = CGSize(width: fitSize.width, height: height)
+        
+        return UIBarButtonItem(customView: button)
     }()
     
     override func viewDidLoad() {
@@ -66,7 +81,8 @@ class WorkspaceMainViewController: TPViewController,
         if let sidebarButtonItem = sidebarController?.newMenuButtonItem() {
             navigationItem.leftBarButtonItems = [sidebarButtonItem]
         }
-        navigationItem.rightBarButtonItem = addBarButtonItem
+
+        navigationItem.rightBarButtonItems = [moreBarButtonItem, addBarButtonItem]
         self.setupSubviews()
     }
 
@@ -81,18 +97,6 @@ class WorkspaceMainViewController: TPViewController,
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         dashboardView.frame = view.bounds
-        layoutDoneEditingButton()
-    }
-    
-    /// 布局底部中间的「完成编辑」按钮
-    private func layoutDoneEditingButton() {
-        let layoutFrame = view.safeLayoutFrame()
-        let fitSize = doneEditingButton.sizeThatFits(CGSize(width: layoutFrame.width,
-                                                            height: .greatestFiniteMagnitude))
-        doneEditingButton.width = min(fitSize.width, layoutFrame.width)
-        doneEditingButton.height = Constants.doneEditingButtonHeight
-        doneEditingButton.bottom = layoutFrame.maxY - Constants.doneEditingButtonBottomMargin
-        doneEditingButton.alignHorizontalCenter()
     }
     
     private func didChangePlugins() {
@@ -108,21 +112,39 @@ class WorkspaceMainViewController: TPViewController,
         showPluginPicker()
     }
     
-    /// 点击「完成编辑」，退出排序模式
+    /// 点击「完成」，退出编辑模式
     @objc private func clickDoneEditing() {
         dashboardView.endReordering()
     }
     
+    // MARK: - 更多菜单
+    /// 处理更多菜单动作
+    private func performMoreMenuAction(_ type: WorkspaceMoreMenuType) {
+        switch type {
+        case .editDashboard:
+            /// 进入编辑模式，组件抖动并支持拖动排序
+            dashboardView.beginReordering()
+        }
+    }
+    
     // MARK: - 组件选择
     /// 显示组件选择器
-    private func showPluginPicker() {
+    /// - Parameter insertionIndex: 新插件的插入位置。为 nil 时追加到末尾
+    private func showPluginPicker(insertionIndex: Int? = nil) {
+        pendingInsertionIndex = insertionIndex
+        
         let pickerViewController = WSPluginPickerViewController()
         
         let navController = UINavigationController(rootViewController: pickerViewController)
         navController.modalPresentationStyle = .formSheet
         
         pickerViewController.didAddPlugin = { [weak self, weak navController] plugin in
-            self?.addPlugin(plugin)
+            guard let self = self else {
+                return
+            }
+            
+            self.addPlugin(plugin, at: self.pendingInsertionIndex)
+            self.pendingInsertionIndex = nil
             /// 添加完成后关闭选择器
             navController?.dismiss(animated: true)
         }
@@ -130,16 +152,27 @@ class WorkspaceMainViewController: TPViewController,
         navController.show()
     }
     
+    /// 在指定插件前 / 后添加插件
+    private func insertPlugin(around plugin: WSPlugin, isNext: Bool) {
+        guard let index = interactor.plugins?.firstIndex(where: { $0.identifier == plugin.identifier }) else {
+            /// 找不到对应插件时追加到末尾
+            showPluginPicker()
+            return
+        }
+        
+        showPluginPicker(insertionIndex: isNext ? index + 1 : index)
+    }
+    
     /// 添加组件到当前面板
-    private func addPlugin(_ plugin: WSPlugin) {
-        interactor.createPlugin(type: plugin.type, configJSON: plugin.configJSON)
+    /// - Parameter index: 插入位置。为 nil 时追加到末尾
+    private func addPlugin(_ plugin: WSPlugin, at index: Int? = nil) {
+        interactor.createPlugin(type: plugin.type, configJSON: plugin.configJSON, at: index)
     }
     
     // MARK: - Setup
     private func setupSubviews() {
         view.addSubview(dashboardView)
-        /// 按钮浮在仪表盘之上，排序模式下显示
-        view.addSubview(doneEditingButton)
+        dashboardView.placeholderProvider = interactor.placeholderProvider
         interactor.loadPlugins()
     }
 }
@@ -148,25 +181,22 @@ class WorkspaceMainViewController: TPViewController,
 extension WorkspaceMainViewController {
     
     func dashboardView(_ dashboardView: WSDashboardView, didChangeReordering isReordering: Bool) {
-        /// 排序模式下在底部中间显示「完成编辑」
-        doneEditingButton.isHidden = !isReordering
-        if isReordering {
-            view.bringSubviewToFront(doneEditingButton)
-        }
-        
-        /// 让内容让出按钮高度，避免最后一行被按钮遮挡
-        let bottomInset = Constants.doneEditingButtonHeight + Constants.doneEditingButtonBottomMargin * 2.0
-        dashboardView.contentInset = isReordering ? UIEdgeInsets(bottom: bottomInset) : .zero
+        /// 编辑模式下右侧仅显示「完成」按钮，添加与更多按钮不显示
+        navigationItem.rightBarButtonItems = isReordering ? [doneEditingBarButtonItem]
+                                                          : [moreBarButtonItem,
+                                                             addBarButtonItem]
     }
     
     func dashboardView(_ dashboardView: WSDashboardView,
                        didSelectMenuAction action: WSPluginCell.MenuActionType,
                        for plugin: WSPlugin) {
         switch action {
-        case .addPlugin:
-            showPluginPicker()
-        case .edit:
-            /// 进入排序模式，组件抖动并支持长按拖动排序
+        case .addPreviousPlugin:
+            insertPlugin(around: plugin, isNext: false)
+        case .addNextPlugin:
+            insertPlugin(around: plugin, isNext: true)
+        case .editDashboard:
+            /// 进入编辑模式，组件抖动并支持长按拖动排序
             dashboardView.beginReordering()
         case .remove:
             interactor.deletePlugin(plugin)

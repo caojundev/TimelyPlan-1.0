@@ -94,13 +94,16 @@ class WorkspaceRepository {
     
     // MARK: - 处理插件
     /// 创建插件
+    /// - Parameter index: 插入位置。为 nil 时追加到末尾
     @discardableResult
     static func createPlugin(type: WSPluginType,
                              in dashboard: WSDashboard,
-                             configJSON: String? = nil) -> WSPlugin {
+                             configJSON: String? = nil,
+                             at index: Int? = nil) -> WSPlugin {
         return pluginManager.createPlugin(type: type,
                                           in: dashboard,
-                                          configJSON: configJSON)
+                                          configJSON: configJSON,
+                                          at: index)
     }
     
     /// 更新插件配置

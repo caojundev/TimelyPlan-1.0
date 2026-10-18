@@ -168,7 +168,8 @@ class WSDashboardView: UIView,
     // MARK: - Public Methods
     /// 是否显示占位视图
     func shouldShowPlaceholder() -> Bool {
-        guard adapter.objects.count > 0 else {
+        /// 区块对象始终存在一个，是否显示占位取决于组件数量
+        guard let plugins = plugins, plugins.count > 0 else {
             return true
         }
         
@@ -277,6 +278,13 @@ class WSDashboardView: UIView,
         }
         
         cell.configure(plugin: plugin, provider: provider)
+        cell.deleteActionHandler = { [weak self] cell in
+            guard let self = self, let plugin = cell.plugin else {
+                return
+            }
+            
+            self.delegate?.dashboardView(self, didSelectMenuAction: .remove, for: plugin)
+        }
         cell.menuActionHandler = { [weak self] cell, actionType in
             guard let self = self, let plugin = cell.plugin else {
                 return

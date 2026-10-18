@@ -24,6 +24,28 @@ class WSPluginCell: UICollectionViewCell {
     
     private(set) var interactor: WSPluginContentInteractor?
     
+    /// 点击删除按钮回调。仅在编辑模式下显示删除按钮
+    var deleteActionHandler: ((WSPluginCell) -> Void)?
+    
+    /// 删除按钮尺寸
+    private let deleteButtonSize = CGSize(width: 24.0, height: 24.0)
+    
+    /// 删除按钮与右上角的间距
+    private let deleteButtonMargin: CGFloat = 6.0
+    
+    /// 编辑模式下的删除按钮
+    private lazy var deleteButton: TPImageButton = {
+        let button = TPImageButton()
+        button.normalImage = resGetImage("xmark_circle_fill_24")
+        button.normalImageColor = .danger6
+        button.imageSize = deleteButtonSize
+        button.padding = .zero
+        button.hitTestEdgeInsets = UIEdgeInsets(value: -deleteButtonMargin)
+        button.isHidden = true
+        button.addTarget(self, action: #selector(clickDelete(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - 外观
     /// 组件圆角半径
     var pluginCornerRadius: CGFloat {
@@ -44,6 +66,7 @@ class WSPluginCell: UICollectionViewCell {
         
         self.pluginContentView = makePluginContentView()
         contentView.addSubview(pluginContentView)
+        addSubview(deleteButton)
         contentView.addInteraction(contextMenuInteraction)
     }
 
@@ -51,7 +74,19 @@ class WSPluginCell: UICollectionViewCell {
         super.layoutSubviews()
         pluginContentView.frame = contentView.bounds
         placeholderView?.frame = contentView.bounds
+        layoutDeleteButton()
         updateAppearance()
+    }
+    
+    /// 布局右上角的删除按钮
+    private func layoutDeleteButton() {
+        deleteButton.size = deleteButtonSize
+        deleteButton.right = contentView.width - deleteButtonMargin
+        deleteButton.top = deleteButtonMargin
+        
+        if !deleteButton.isHidden {
+            bringSubviewToFront(deleteButton)
+        }
     }
     
     override func prepareForReuse() {
@@ -164,11 +199,20 @@ class WSPluginCell: UICollectionViewCell {
         }
         
         self.isJiggling = isJiggling
+        /// 删除按钮仅在编辑（抖动）模式下显示
+        deleteButton.isHidden = !isJiggling
+        pluginContentView.isUserInteractionEnabled = !isJiggling
         if isJiggling {
+            bringSubviewToFront(deleteButton)
             startJiggling()
         } else {
             stopJiggling()
         }
+    }
+    
+    /// 点击删除按钮
+    @objc private func clickDelete(_ sender: TPImageButton) {
+        deleteActionHandler?(self)
     }
     
     /// 开始抖动
@@ -198,9 +242,16 @@ class WSPluginCell: UICollectionViewCell {
     /// 是否支持长按弹出菜单
     var isContextMenuEnabled: Bool = true
     
-    /// 长按菜单显示的动作。默认全部显示，子类可重写裁剪
+    /// 长按菜单动作分组
+    var menuActionTypeGroups: [[MenuActionType]] {
+        return [[.editDashboard],
+                [.addPreviousPlugin, .addNextPlugin],
+                [.remove]]
+    }
+    
+    /// 长按菜单显示的动作。默认全部分组内的动作，子类可重写裁剪
     var menuActionTypes: [MenuActionType] {
-        return MenuActionType.allCases
+        return menuActionTypeGroups.flatMap { $0 }
     }
     
     /// 长按菜单动作回调
@@ -208,17 +259,20 @@ class WSPluginCell: UICollectionViewCell {
     
     /// 菜单动作类型
     enum MenuActionType: Int, CaseIterable {
-        case addPlugin /// 添加插件
-        case edit      /// 编辑
-        case remove    /// 移除
+        case addPreviousPlugin /// 添加上一个插件
+        case addNextPlugin     /// 添加下一个插件
+        case editDashboard     /// 编辑面板
+        case remove            /// 移除
         
         /// 菜单标题
         var title: String {
             switch self {
-            case .addPlugin:
-                return resGetString("Add Plugin")
-            case .edit:
-                return resGetString("Edit Plugin")
+            case .addPreviousPlugin:
+                return resGetString("Add Previous Plugin")
+            case .addNextPlugin:
+                return resGetString("Add Next Plugin")
+            case .editDashboard:
+                return resGetString("Edit Dashboard")
             case .remove:
                 return resGetString("Remove Plugin")
             }
@@ -227,9 +281,11 @@ class WSPluginCell: UICollectionViewCell {
         /// 菜单图标
         var image: UIImage? {
             switch self {
-            case .addPlugin:
-                return UIImage(systemName: "plus.square.on.square")
-            case .edit:
+            case .addPreviousPlugin:
+                return UIImage(systemName: "arrow.up.square")
+            case .addNextPlugin:
+                return UIImage(systemName: "arrow.down.square")
+            case .editDashboard:
                 return UIImage(systemName: "square.and.pencil")
             case .remove:
                 return UIImage(systemName: "trash")
@@ -254,19 +310,28 @@ class WSPluginCell: UICollectionViewCell {
     
     /// 构建长按菜单
     private func makeContextMenu() -> UIMenu {
-        let actions = menuActionTypes.map { actionType in
-            return UIAction(title: actionType.title,
-                            image: actionType.image,
-                            attributes: actionType.attributes) { [weak self] _ in
-                guard let self = self else {
-                    return
+        /// 每个分组使用内联子菜单，分组之间由系统绘制分割线
+        let groups = menuActionTypeGroups.compactMap { actionTypes -> UIMenu? in
+            let actions = actionTypes.map { actionType in
+                return UIAction(title: actionType.title,
+                                image: actionType.image,
+                                attributes: actionType.attributes) { [weak self] _ in
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    self.menuActionHandler?(self, actionType)
                 }
-                
-                self.menuActionHandler?(self, actionType)
             }
+            
+            guard actions.count > 0 else {
+                return nil
+            }
+            
+            return UIMenu(title: "", options: .displayInline, children: actions)
         }
         
-        return UIMenu(title: "", children: actions)
+        return UIMenu(title: "", children: groups)
     }
 }
 
@@ -282,74 +347,6 @@ extension WSPluginCell: UIContextMenuInteractionDelegate {
         
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] _ in
             return self?.makeContextMenu()
-        }
-    }
-}
-
-// MARK: - 默认占位视图
-
-/// 工作台组件默认占位视图。
-///
-/// 三行宽度不等、带圆角的灰色横条，整体靠左上角对齐，用于数据加载完成前的占位展示。
-class WSPluginDefaultPlaceholderView: UIView {
-    
-    /// 横条高度
-    private let barHeight: CGFloat = 12.0
-    
-    /// 横条间距
-    private let barSpacing: CGFloat = 8.0
-    
-    /// 横条圆角半径
-    private let barCornerRadius: CGFloat = 6.0
-    
-    /// 横条距视图边缘的内边距
-    private let contentInsets = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
-    
-    /// 三行横条的宽度占比（占可用宽度）
-    private let barWidthRatios: [CGFloat] = [0.6, 0.9, 0.4]
-    
-    /// 横条
-    private lazy var barViews: [UIView] = {
-        return barWidthRatios.map { _ in
-            let barView = UIView()
-            barView.backgroundColor = .systemGray5
-            barView.layer.masksToBounds = true
-            return barView
-        }
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .clear
-        self.isUserInteractionEnabled = false
-        barViews.forEach { addSubview($0) }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        /// 可用宽度
-        let availableWidth = max(bounds.width - contentInsets.left - contentInsets.right, 0.0)
-        
-        /// 横条高度，受可用高度限制，避免小尺寸组件中横条溢出
-        let availableHeight = bounds.height - contentInsets.top - contentInsets.bottom
-        let spacingHeight = barSpacing * CGFloat(max(barViews.count - 1, 0))
-        let barHeight = min(self.barHeight,
-                            max((availableHeight - spacingHeight) / CGFloat(max(barViews.count, 1)), 0.0))
-        
-        /// 圆角半径不超过横条高度的一半
-        let cornerRadius = min(barCornerRadius, barHeight / 2.0)
-        
-        var originY = contentInsets.top
-        for (index, barView) in barViews.enumerated() {
-            let width = availableWidth * barWidthRatios[index]
-            barView.frame = CGRect(x: contentInsets.left, y: originY, width: width, height: barHeight)
-            barView.layer.cornerRadius = cornerRadius
-            originY = barView.frame.maxY + barSpacing
         }
     }
 }

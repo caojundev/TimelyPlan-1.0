@@ -39,17 +39,25 @@ class WorkspacePluginManager: SettingAgentObserver {
     
     // MARK: - 处理插件
     /// 创建插件
+    /// - Parameter index: 插入位置。为 nil 时追加到末尾
     @discardableResult
     func createPlugin(type: WSPluginType,
                       in dashboard: WSDashboard,
-                      configJSON: String? = nil) -> WSPlugin {
+                      configJSON: String? = nil,
+                      at index: Int? = nil) -> WSPlugin {
         let plugin = WSPlugin(identifier: UUID().uuidString, type: type)
         plugin.configJSON = configJSON
         plugin.order = (plugins[dashboard.identifier] ?? []).insertOrder()
         plugin.creationDate = .now
         plugin.modificationDate = .now
         
-        plugins[dashboard.identifier, default: []].append(plugin)
+        var list = plugins[dashboard.identifier] ?? []
+        let insertionIndex = min(max(index ?? list.count, 0), list.count)
+        list.insert(plugin, at: insertionIndex)
+        /// 按插入位置修正顺序因子，保证插件顺序与展示顺序一致
+        list.updateOrders()
+        
+        plugins[dashboard.identifier] = list
         updater.didCreateWorkspacePlugin(plugin)
         return plugin
     }

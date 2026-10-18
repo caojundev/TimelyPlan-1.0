@@ -21,6 +21,10 @@
 "Edit Plugin" = "编辑";
 "Remove Plugin" = "移除";
 "Done Editing" = "完成编辑";
+"Edit Dashboard" = "编辑面板";
+"No Plugin" = "暂无插件";
+"Add Previous Plugin" = "添加上一个插件";
+"Add Next Plugin" = "添加下一个插件";
 
 ///**************************侧边栏**************************///
 "My Day" = "我的一天";
