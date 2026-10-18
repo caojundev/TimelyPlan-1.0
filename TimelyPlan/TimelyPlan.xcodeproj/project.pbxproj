@@ -967,6 +967,8 @@
 		E555A96E2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */; };
 		E55664CE30845D2A005A82A7 /* WSPluginDefaultPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55664CD30845D2A005A82A7 /* WSPluginDefaultPlaceholderView.swift */; };
 		E55664D030846010005A82A7 /* WorkspaceMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55664CF30846010005A82A7 /* WorkspaceMoreBarButtonItem.swift */; };
+		E55664D73084C57D005A82A7 /* WSDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55664D53084C57C005A82A7 /* WSDashboardViewController.swift */; };
+		E55664D83084C57D005A82A7 /* WorkspaceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55664D63084C57D005A82A7 /* WorkspaceCoordinator.swift */; };
 		E556BCBD2F5D6C7000CA20D9 /* habit_indicator_status_checked_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */; };
 		E556BCBE2F5D6C7000CA20D9 /* habit_indicator_status_skipped_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */; };
 		E556BCBF2F5D6C7000CA20D9 /* habit_indicator_log_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E556BCB72F5D6C6E00CA20D9 /* habit_indicator_log_16@2x.png */; };
@@ -3514,6 +3516,8 @@
 		E555A96D2F454F2100EEDB2E /* FocusTimerStepEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerStepEditViewController.swift; sourceTree = "<group>"; };
 		E55664CD30845D2A005A82A7 /* WSPluginDefaultPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginDefaultPlaceholderView.swift; sourceTree = "<group>"; };
 		E55664CF30846010005A82A7 /* WorkspaceMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceMoreBarButtonItem.swift; sourceTree = "<group>"; };
+		E55664D53084C57C005A82A7 /* WSDashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDashboardViewController.swift; sourceTree = "<group>"; };
+		E55664D63084C57D005A82A7 /* WorkspaceCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspaceCoordinator.swift; sourceTree = "<group>"; };
 		E556BCB52F5D6C6E00CA20D9 /* habit_indicator_status_checked_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_checked_16@2x.png"; sourceTree = "<group>"; };
 		E556BCB62F5D6C6E00CA20D9 /* habit_indicator_status_skipped_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_status_skipped_16@2x.png"; sourceTree = "<group>"; };
 		E556BCB72F5D6C6E00CA20D9 /* habit_indicator_log_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_indicator_log_16@2x.png"; sourceTree = "<group>"; };
@@ -13372,6 +13376,8 @@
 			children = (
 				E5FD1923307FC4B800E87402 /* WorkspaceMainViewController.swift */,
 				E55664CF30846010005A82A7 /* WorkspaceMoreBarButtonItem.swift */,
+				E55664D63084C57D005A82A7 /* WorkspaceCoordinator.swift */,
+				E55664D53084C57C005A82A7 /* WSDashboardViewController.swift */,
 				E528E90E308389B200DD4242 /* WSDashboardInteractor.swift */,
 				E528E8FC3083013A00DD4242 /* Repository */,
 				E5585C6A30809230007D1BB9 /* Models */,
@@ -14690,6 +14696,7 @@
 				E53F329B2F68EB5600B85B65 /* HabitReportWeeklyCell.swift in Sources */,
 				E5E9F7A72FC2E81A00717004 /* TodoTaskSearchViewModel.swift in Sources */,
 				E55897943056A382001F8F22 /* FlipClockMainViewController.swift in Sources */,
+				E55664D83084C57D005A82A7 /* WorkspaceCoordinator.swift in Sources */,
 				E51DF20B2F84965100D6BCE3 /* TodoTrashTaskListViewController.swift in Sources */,
 				E5BB9DED2D3BF0C60089667A /* Date+Month.swift in Sources */,
 				E5D7D7F02D43923800EC877A /* FocusSession+Extensions.swift in Sources */,
@@ -15775,6 +15782,7 @@
 				E50D60582F7A13F100D5E0A4 /* AlarmPresetListView.swift in Sources */,
 				E50D02602F55A8C100E93977 /* TaskDateRangeEditTableCell.swift in Sources */,
 				E5BB9E4B2D3BF0C70089667A /* TPHolidayScheduler.swift in Sources */,
+				E55664D73084C57D005A82A7 /* WSDashboardViewController.swift in Sources */,
 				E5BB9DA82D3BF0C60089667A /* FlipClockView.swift in Sources */,
 				E55B89543077907000ADCED5 /* MindMapNodeLayer.swift in Sources */,
 				E5F155262F83681E00116091 /* TodoGroupOverdueHeaderView.swift in Sources */,
