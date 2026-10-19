@@ -26,6 +26,13 @@
 "Add Previous Plugin" = "添加上一个插件";
 "Add Next Plugin" = "添加下一个插件";
 
+"My Dashboard" = "我的面板";
+"Dashboard" = "面板";
+"Add Dashboard" = "添加面板";
+"New Dashboard" = "新建面板";
+"Delete Dashboard" = "删除面板";
+"No Dashboard" = "暂无面板";
+
 ///**************************侧边栏**************************///
 "My Day" = "我的一天";
 "Todo" = "待办";

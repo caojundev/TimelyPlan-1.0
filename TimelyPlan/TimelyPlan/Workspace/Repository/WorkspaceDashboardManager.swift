@@ -96,6 +96,6 @@ class WorkspaceDashboardManager: SettingAgentObserver {
             return
         }
         
-        createDashboard()
+        createDashboard(name: WSDashboard.defaultName)
     }
 }

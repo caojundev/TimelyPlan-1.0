@@ -28,6 +28,10 @@ class WSDashboard: NSObject, Sortable, TPHexColorConvertible {
     /// 修改日期
     var modificationDate: Date?
     
+    static var defaultName: String {
+        return resGetString("My Dashboard")
+    }
+    
     init(identifier: String) {
         self.identifier = identifier
         super.init()

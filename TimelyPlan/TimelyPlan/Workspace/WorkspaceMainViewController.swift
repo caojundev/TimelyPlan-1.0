@@ -36,6 +36,16 @@ class WorkspaceMainViewController: TPContainerViewController,
         return WorkspaceCoordinator(containerViewController: self)
     }()
     
+    /// 导航栏标题视图。显示当前面板，点击后管理所有面板
+    private lazy var titleView: WorkspaceTitleView = {
+        let titleView = WorkspaceTitleView()
+        titleView.didClickTitle = { [weak self] in
+            self?.showDashboardManage()
+        }
+        
+        return titleView
+    }()
+    
     /// 更多菜单按钮
     private lazy var moreBarButtonItem: WorkspaceMoreBarButtonItem = {
         let item = WorkspaceMoreBarButtonItem()
@@ -68,6 +78,7 @@ class WorkspaceMainViewController: TPContainerViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.titleView = titleView
         coordinator.start()
     }
     
@@ -82,9 +93,8 @@ class WorkspaceMainViewController: TPContainerViewController,
     // MARK: - 导航栏
     /// 根据当前面板状态更新导航栏显示
     func updateNavigationBarItems() {
-        /// 标题取当前面板名称，面板未命名时使用默认标题
-        title = coordinator.dashboard?.name ?? resGetString("Workspace")
-        
+        /// 标题视图展示当前面板，面板未命名时使用默认标题
+        titleView.dashboard = coordinator.dashboard
         /// 侧边栏按钮
         if let sidebarButtonItem = sidebarController?.newMenuButtonItem() {
             navigationItem.leftBarButtonItems = [sidebarButtonItem]
@@ -107,6 +117,16 @@ class WorkspaceMainViewController: TPContainerViewController,
     @objc private func clickDoneEditing() {
         TPImpactFeedback.impactWithSoftStyle()
         coordinator.endReordering()
+    }
+    
+    // MARK: - 面板管理
+    /// 显示面板管理。点击标题时触发
+    private func showDashboardManage() {
+        TPImpactFeedback.impactWithSoftStyle()
+        WSDashboardManageViewController.show(currentDashboard: coordinator.dashboard) { [weak self] dashboard in
+            /// 选中面板后切换工作台展示的面板
+            self?.coordinator.showDashboard(dashboard)
+        }
     }
     
     // MARK: - 更多菜单

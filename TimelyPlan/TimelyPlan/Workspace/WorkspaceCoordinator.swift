@@ -8,10 +8,7 @@
 import Foundation
 import UIKit
 
-/// 工作台协调器。
-///
-/// 负责创建并切换当前选中的面板视图控制器（`WSDashboardViewController`），
-/// 并将面板的状态变化同步给容器视图控制器，由其更新导航栏显示。
+/// 工作台协调器
 class WorkspaceCoordinator {
     
     /// 工作台容器视图控制器
