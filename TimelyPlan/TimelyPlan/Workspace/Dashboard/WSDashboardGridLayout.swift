@@ -1,5 +1,5 @@
 //
-//  WSDashboardLayout.swift
+//  WSDashboardGridLayout.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/15.
@@ -17,7 +17,7 @@ import UIKit
 ///
 /// 所有组件尺寸都由容器宽度推导，`interitemSpacing` 与 `lineSpacing` 保持固定值，
 /// 不随容器宽度变化；`sectionInset` 则由内容宽度在容器内居中反推得出。
-class WSDashboardLayout {
+class WSDashboardGridLayout {
     
     /// 网格列数。小号组件占 1 列，中号 / 大号组件占满 2 列。
     static let columnCount: CGFloat = 2

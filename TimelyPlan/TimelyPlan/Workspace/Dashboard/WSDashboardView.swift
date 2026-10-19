@@ -20,6 +20,9 @@ protocol WSDashboardViewDelegate: AnyObject {
     
     /// 组件顺序发生改变
     func dashboardView(_ dashboardView: WSDashboardView, didReorderPlugins plugins: [WSPlugin])
+    
+    /// 点击了指定插件之后的空白占位区域
+    func dashboardView(_ dashboardView: WSDashboardView, didSelectGapAfter plugin: WSPlugin)
 }
 
 extension WSDashboardViewDelegate {
@@ -35,6 +38,10 @@ extension WSDashboardViewDelegate {
     }
     
     func dashboardView(_ dashboardView: WSDashboardView, didReorderPlugins plugins: [WSPlugin]) {
+        
+    }
+    
+    func dashboardView(_ dashboardView: WSDashboardView, didSelectGapAfter plugin: WSPlugin) {
         
     }
 }
@@ -73,10 +80,9 @@ class WSDashboardView: UIView,
     /// 下拉刷新控件
     private(set) var refreshControl: UIRefreshControl?
     
-    /// 布局对象
-    private lazy var collectionViewLayout:
-    UICollectionViewLeftAlignedLayout = {
-        let layout = UICollectionViewLeftAlignedLayout()
+    /// 布局对象。在左对齐布局的基础上补齐行内空白网格
+    private lazy var collectionViewLayout: WSDashboardCollectionViewLayout = {
+        let layout = WSDashboardCollectionViewLayout()
         layout.scrollDirection = .vertical
         return layout
     }()
@@ -101,8 +107,8 @@ class WSDashboardView: UIView,
     private var reorder: TPCollectionDragExchangeReorder?
 
     /// 区块布局。小 / 中 / 大组件尺寸均由容器宽度推导
-    private lazy var dashboardLayout: WSDashboardLayout = {
-        return WSDashboardLayout()
+    private lazy var dashboardLayout: WSDashboardGridLayout = {
+        return WSDashboardGridLayout()
     }()
     
     // MARK: - Initialization
@@ -122,6 +128,11 @@ class WSDashboardView: UIView,
         adapter.delegate = self
         adapter.collectionView = collectionView
         addSubview(collectionView)
+        
+        /// 点击空白占位视图时，转发为「在该空白前一个插件之后添加组件」
+        collectionViewLayout.gapDecorationTapHandler = { [weak self] indexPath in
+            self?.handleGapDecorationTap(after: indexPath)
+        }
     }
     
     private func setupReorder() {
@@ -219,6 +230,12 @@ class WSDashboardView: UIView,
         /// 仅在排序模式下开启拖动排序
         reorder?.isEnabled = isReordering
         collectionView.visibleCells.forEach { updateCellForReordering($0) }
+        
+        /// 退出排序模式时兜底恢复空白占位视图
+        if !isReordering {
+            setGapDecorationsHidden(false)
+        }
+        
         delegate?.dashboardView(self, didChangeReordering: isReordering)
     }
     
@@ -230,6 +247,60 @@ class WSDashboardView: UIView,
         
         cell.isContextMenuEnabled = !isReordering
         cell.setJiggling(isReordering)
+    }
+    
+    // MARK: - 空白占位视图
+    /// 设置空白占位装饰视图的显隐
+    private func setGapDecorationsHidden(_ isHidden: Bool) {
+        guard collectionViewLayout.isGapDecorationHidden != isHidden else {
+            return
+        }
+        
+        collectionViewLayout.setGapDecorationsHidden(isHidden)
+        /// 已经展示的装饰视图直接操作子视图显隐，避免整体失效布局导致单元格重新应用布局属性
+        gapDecorationViews(in: collectionView).forEach { $0.isHidden = isHidden }
+        
+        /// 恢复显示时重新计算空白占位，由布局重新创建装饰视图
+        if !isHidden {
+            collectionViewLayout.invalidateLayout()
+        }
+    }
+    
+    /// 拖动排序结束后恢复隐藏，拖动结束后等待快照归位动画结束，避免与拖动单元格出现重影
+    private func showGapDecorationsAfterDragging() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+            guard let self = self, self.reorder?.isMoving != true else {
+                return
+            }
+            
+            self.setGapDecorationsHidden(false)
+        }
+    }
+    
+    /// 递归查找空白占位装饰视图
+    private func gapDecorationViews(in view: UIView) -> [WSDashboardGapDecorationView] {
+        var gapViews: [WSDashboardGapDecorationView] = []
+        for subview in view.subviews {
+            if let gapView = subview as? WSDashboardGapDecorationView {
+                gapViews.append(gapView)
+            } else {
+                gapViews.append(contentsOf: gapDecorationViews(in: subview))
+            }
+        }
+        
+        return gapViews
+    }
+    
+    /// 点击空白占位视图。回调参数为该空白前一个插件的索引
+    private func handleGapDecorationTap(after indexPath: IndexPath) {
+        /// 排序模式下不响应，避免与拖动排序冲突
+        guard !isReordering, let plugin = plugin(at: indexPath) else {
+            return
+        }
+        
+        TPImpactFeedback.impactWithSoftStyle()
+        /// 由外部决定组件选择器的展示与新组件的插入位置
+        delegate?.dashboardView(self, didSelectGapAfter: plugin)
     }
     
     // MARK: - Plugins
@@ -333,6 +404,8 @@ extension WSDashboardView: TPCollectionDragExchangeReorderDelegate {
     }
     
     func collectionDragReorder(_ reorder: TPCollectionDragReorder, willBeginAt indexPath: IndexPath) {
+        /// 拖动期间隐藏空白占位视图，避免占位视图参与拖拽视觉
+        setGapDecorationsHidden(true)
         /// 拖动期间暂停被拖动项的抖动，避免拖拽快照带上旋转
         (collectionView.cellForItem(at: indexPath) as? WSPluginCell)?.setJiggling(false)
     }
@@ -340,6 +413,8 @@ extension WSDashboardView: TPCollectionDragExchangeReorderDelegate {
     func collectionDragReorderDidEnd(_ reorder: TPCollectionDragReorder) {
         /// 拖动结束后恢复抖动
         collectionView.visibleCells.forEach { updateCellForReordering($0) }
+        /// 拖动结束后恢复空白占位视图
+        setGapDecorationsHidden(false)
         
         /// 通知外部保存最新的组件顺序
         delegate?.dashboardView(self, didReorderPlugins: plugins ?? [])

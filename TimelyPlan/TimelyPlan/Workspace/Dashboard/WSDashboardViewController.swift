@@ -202,4 +202,9 @@ extension WSDashboardViewController {
     func dashboardView(_ dashboardView: WSDashboardView, didReorderPlugins plugins: [WSPlugin]) {
         interactor.didEndReorderPlugins(with: plugins)
     }
+    
+    func dashboardView(_ dashboardView: WSDashboardView, didSelectGapAfter plugin: WSPlugin) {
+        /// 选择器展示后，新组件插入到点击空白的前一个组件之后
+        insertPlugin(around: plugin, isNext: true)
+    }
 }
