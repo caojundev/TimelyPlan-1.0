@@ -7,8 +7,6 @@ enum WSPluginBootstrap {
         let registry = WSPluginRegistry.shared
         
         // 倒数日
-        registry.register(WSCountdownSmallPluginProvider())
-        registry.register(WSCountdownMediumPluginProvider())
-        registry.register(WSCountdownLargePluginProvider())
+        registry.register(WSCountdownSmallSelectedPluginProvider())
     }
 }

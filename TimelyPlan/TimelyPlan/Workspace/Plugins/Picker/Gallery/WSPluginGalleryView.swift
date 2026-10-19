@@ -64,7 +64,7 @@ class WSPluginGalleryView: UIView,
     private let collectionViewLayout = WSPluginGalleryFlowLayout()
     
     /// 尺寸规则。复用仪表盘的小 / 中 / 大尺寸计算，保证两个页面里同一组件尺寸观感一致
-    private lazy var galleryLayout = WSDashboardLayout()
+    private lazy var galleryLayout = WSDashboardGridLayout()
     
     /// 上一次通知的页码，用于避免重复通知
     private var notifiedPage: Int = 0
