@@ -283,7 +283,7 @@ class WSDashboardView: UIView,
                 return
             }
             
-            self.delegate?.dashboardView(self, didSelectMenuAction: .remove, for: plugin)
+            self.delegate?.dashboardView(self, didSelectMenuAction: .removePlugin, for: plugin)
         }
         cell.menuActionHandler = { [weak self] cell, actionType in
             guard let self = self, let plugin = cell.plugin else {

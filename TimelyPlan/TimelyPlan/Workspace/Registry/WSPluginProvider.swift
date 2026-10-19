@@ -27,12 +27,23 @@ protocol WSPluginProvider: AnyObject {
     ///
     /// 返回 nil 时，单元格使用默认占位视图 `WSPluginDefaultPlaceholderView`。
     func makePlaceholderView() -> UIView?
+    
+    /// 创建该组件的配置视图控制器。
+    ///
+    /// 组件可返回自定义的 `WSPluginConfigViewController` 子类以提供各自的配置界面；
+    /// 返回 nil 表示该组件不支持配置，长按菜单中不显示「配置」项。
+    func makeConfigViewController(plugin: WSPlugin) -> WSPluginConfigViewController?
 }
 
 extension WSPluginProvider {
     
     /// 默认不提供占位视图，由单元格使用默认占位视图
     func makePlaceholderView() -> UIView? {
+        return nil
+    }
+    
+    /// 默认不支持配置
+    func makeConfigViewController(plugin: WSPlugin) -> WSPluginConfigViewController? {
         return nil
     }
 }

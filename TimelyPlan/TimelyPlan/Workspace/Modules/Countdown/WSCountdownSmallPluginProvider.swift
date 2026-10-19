@@ -27,6 +27,10 @@ class WSCountdownSmallPluginProvider: WSPluginProvider {
     func makeContentInteractor(plugin: WSPlugin) -> WSPluginContentInteractor {
         return WSCountdownContentInteractor(plugin: plugin)
     }
+    
+    func makeConfigViewController(plugin: WSPlugin) -> WSPluginConfigViewController? {
+        return WSCountdownSmalConfigViewController(plugin: plugin)
+    }
 }
 
 

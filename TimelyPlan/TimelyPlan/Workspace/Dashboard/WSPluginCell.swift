@@ -244,9 +244,26 @@ class WSPluginCell: UICollectionViewCell {
     
     /// 长按菜单动作分组
     var menuActionTypeGroups: [[MenuActionType]] {
-        return [[.editDashboard],
-                [.addPreviousPlugin, .addNextPlugin],
-                [.remove]]
+        var groups: [[MenuActionType]] = [[.editDashboard],
+                                          [.addPreviousPlugin, .addNextPlugin]]
+        
+        /// 组件不支持配置时，插件操作分组中不显示配置项
+        if isConfigurable {
+            groups.append([.configPlugin, .removePlugin])
+        } else {
+            groups.append([.removePlugin])
+        }
+        
+        return groups
+    }
+    
+    /// 组件是否支持配置。由组件提供者决定
+    var isConfigurable: Bool {
+        guard let plugin = plugin, let provider = provider else {
+            return false
+        }
+        
+        return provider.makeConfigViewController(plugin: plugin) != nil
     }
     
     /// 长按菜单显示的动作。默认全部分组内的动作，子类可重写裁剪
@@ -259,10 +276,11 @@ class WSPluginCell: UICollectionViewCell {
     
     /// 菜单动作类型
     enum MenuActionType: Int, CaseIterable {
+        case editDashboard     /// 编辑面板
         case addPreviousPlugin /// 添加上一个插件
         case addNextPlugin     /// 添加下一个插件
-        case editDashboard     /// 编辑面板
-        case remove            /// 移除
+        case configPlugin      /// 配置插件
+        case removePlugin      /// 移除插件
         
         /// 菜单标题
         var title: String {
@@ -273,7 +291,9 @@ class WSPluginCell: UICollectionViewCell {
                 return resGetString("Add Next Plugin")
             case .editDashboard:
                 return resGetString("Edit Dashboard")
-            case .remove:
+            case .configPlugin:
+                return resGetString("Config Plugin")
+            case .removePlugin:
                 return resGetString("Remove Plugin")
             }
         }
@@ -287,7 +307,9 @@ class WSPluginCell: UICollectionViewCell {
                 return UIImage(systemName: "arrow.down.square")
             case .editDashboard:
                 return UIImage(systemName: "square.and.pencil")
-            case .remove:
+            case .configPlugin:
+                return UIImage(systemName: "slider.horizontal.3")
+            case .removePlugin:
                 return UIImage(systemName: "trash")
             }
         }
@@ -295,7 +317,7 @@ class WSPluginCell: UICollectionViewCell {
         /// 菜单属性
         var attributes: UIMenuElement.Attributes {
             switch self {
-            case .remove:
+            case .removePlugin:
                 return .destructive
             default:
                 return []

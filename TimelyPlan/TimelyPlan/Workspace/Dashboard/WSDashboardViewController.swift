@@ -142,6 +142,22 @@ class WSDashboardViewController: TPViewController,
         interactor.createPlugin(type: plugin.type, configJSON: plugin.configJSON, at: index)
     }
     
+    // MARK: - 组件配置
+    /// 显示组件配置界面。配置界面由组件提供者决定，未提供时不做任何处理
+    private func showPluginConfig(for plugin: WSPlugin) {
+        guard let provider = WSPluginRegistry.shared.provider(for: plugin.type),
+              let configViewController = provider.makeConfigViewController(plugin: plugin) else {
+            return
+        }
+        
+        configViewController.didChangeConfigJSON = { [weak self] configJSON in
+            self?.interactor.updatePlugin(plugin, configJSON: configJSON)
+        }
+        
+        let navController = UINavigationController(rootViewController: configViewController)
+        navController.popoverShow()
+    }
+    
     // MARK: - Setup
     private func setupSubviews() {
         view.addSubview(dashboardView)
@@ -176,7 +192,9 @@ extension WSDashboardViewController {
         case .editDashboard:
             /// 进入编辑模式，组件抖动并支持长按拖动排序
             dashboardView.beginReordering()
-        case .remove:
+        case .configPlugin:
+            showPluginConfig(for: plugin)
+        case .removePlugin:
             interactor.deletePlugin(plugin)
         }
     }
