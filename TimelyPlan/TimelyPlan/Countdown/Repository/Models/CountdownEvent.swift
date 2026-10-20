@@ -528,6 +528,14 @@ extension Array where Element == CountdownEvent {
     }
 }
 
+// MARK: - 任务绑定
+extension CountdownEvent: TaskRepresentable {
+    
+    var feature: TaskFeature {
+        return TaskFeature(type: .countdown, identifier: identifier, snapshotName: name)
+    }
+}
+
 // MARK: - 倒数日事项变更
 
 /// 倒数日事项改变

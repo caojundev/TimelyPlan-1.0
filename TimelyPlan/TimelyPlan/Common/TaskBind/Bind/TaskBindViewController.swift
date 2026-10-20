@@ -150,6 +150,8 @@ class TaskBindViewController: TPContainerViewController,
             return newHabitTaskBindViewController()
         case .goal:
             return newGoalTaskBindViewController()
+        case .countdown:
+            return newCountdownEventBindViewController()
         default:
             return UIViewController()
         }
@@ -172,6 +174,13 @@ class TaskBindViewController: TPContainerViewController,
     /// 创建目标绑定视图控制器
     private func newGoalTaskBindViewController() -> GoalTaskBindViewController {
         let vc = GoalTaskBindViewController(selectedFeature: task)
+        vc.delegate = self
+        return vc
+    }
+    
+    /// 创建倒数日绑定视图控制器
+    private func newCountdownEventBindViewController() -> CountdownEventBindViewController {
+        let vc = CountdownEventBindViewController(selectedFeature: task)
         vc.delegate = self
         return vc
     }

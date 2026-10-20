@@ -34,6 +34,12 @@ class TaskBindSearchResultViewController: TPTableSectionsViewController,
         return sectionController
     }()
     
+    lazy var countdownResultSectionController: CountdownEventBindSearchResultSectionController = {
+        let sectionController = CountdownEventBindSearchResultSectionController()
+        sectionController.delegate = self
+        return sectionController
+    }()
+    
     init(selectedTaskFeature: TaskFeature?) {
         self.selectedTaskFeature = selectedTaskFeature
         super.init(style: .insetGrouped)
@@ -57,7 +63,8 @@ class TaskBindSearchResultViewController: TPTableSectionsViewController,
         wrapperView.keyboardDismissMode = .onDrag
         sectionControllers = [todoResultSectionController,
                               habitResultSectionController,
-                              goalResultSectionController]
+                              goalResultSectionController,
+                              countdownResultSectionController]
         reloadData()
     }
     

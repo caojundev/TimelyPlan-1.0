@@ -8,26 +8,34 @@
 import Foundation
 import UIKit
 
+/// 组件配置界面。
+///
+/// 任意视图控制器实现该协议即可作为组件配置界面，无需继承 `WSPluginConfigViewController`。
+/// 由 `WSPluginProvider.makeConfigViewController(plugin:)` 返回实例，返回 nil 表示不支持配置。
+protocol WSPluginConfigurable: AnyObject {
+    
+    /// 正在配置的组件
+    var plugin: WSPlugin { get }
+    
+    /// 配置变化回调。由外部在展示前设置，配置界面在用户修改配置后调用
+    var didChangeConfigJSON: ((String?) -> Void)? { get set }
+}
+
 /// 组件配置视图控制器基类。
 ///
-/// 每个组件可以有自己的配置界面：由 `WSPluginProvider.makeConfigViewController(plugin:)`
-/// 返回具体的子类实例，返回 nil 表示该组件不支持配置。
-///
-/// 子类通过重写 `setupConfigSubviews()` 向 `contentView` 添加配置项，
+/// 提供统一的界面外壳：关闭 / 完成按钮、弹出尺寸与内容容器。
+/// 子类在 `viewDidLoad` 中设置 `contentViewController` 提供配置内容，
 /// 配置变化后调用 `updateConfigJSON(_:)`，由外部负责保存。
-class WSPluginConfigViewController: TPViewController {
+class WSPluginConfigViewController: TPContainerViewController, WSPluginConfigurable {
     
     /// 正在配置的组件
     let plugin: WSPlugin
     
-    /// 配置 JSON 变化回调
+    /// 配置变化回调
     var didChangeConfigJSON: ((String?) -> Void)?
     
-    /// 当前配置 JSON
+    /// 当前配置 JSON 字符串
     private(set) var configJSON: String?
-    
-    /// 配置项容器。子类将具体配置项添加到该视图
-    let contentView = UIView()
     
     /// 系统关闭按钮
     private lazy var closeBarButtonItem: UIBarButtonItem = {
@@ -52,8 +60,6 @@ class WSPluginConfigViewController: TPViewController {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = closeBarButtonItem
         preferredContentSize = AppLayout.Popover.extraLarge
-        view.addSubview(contentView)
-        setupConfigSubviews()
         setupActionsBar(actions: [doneAction])
     }
     
@@ -65,15 +71,11 @@ class WSPluginConfigViewController: TPViewController {
         return .systemGroupedBackground
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        contentView.frame = view.safeLayoutFrame()
-    }
-    
-    // MARK: - 子类重写
-    /// 添加具体的配置项。子类重写该方法，将配置视图添加到 `contentView`
-    func setupConfigSubviews() {
-        
+    /// 内容区域避开底部操作栏
+    override func contentViewFrame() -> CGRect {
+        var frame = view.safeLayoutFrame()
+        frame.size.height = max(frame.height - actionsBarHeight, 0.0)
+        return frame
     }
     
     // MARK: - 配置
@@ -85,5 +87,24 @@ class WSPluginConfigViewController: TPViewController {
         
         self.configJSON = configJSON
         didChangeConfigJSON?(configJSON)
+    }
+}
+
+// MARK: - 类型化配置
+
+extension WSPluginConfigViewController {
+    
+    /// 把当前配置解码为具体的配置模型
+    func configuration<T: Decodable>(as type: T.Type) -> T? {
+        guard let configJSON = configJSON else {
+            return nil
+        }
+        
+        return T.model(with: configJSON)
+    }
+    
+    /// 用配置模型更新配置。变化时回调外部保存
+    func updateConfiguration<T: Encodable>(_ configuration: T?) {
+        updateConfigJSON(configuration?.jsonString())
     }
 }

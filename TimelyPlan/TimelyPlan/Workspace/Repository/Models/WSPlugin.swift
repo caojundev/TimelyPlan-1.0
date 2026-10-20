@@ -60,3 +60,17 @@ class WSPlugin: NSObject, Sortable {
             && modificationDate == plugin.modificationDate
     }
 }
+
+// MARK: - 类型化配置
+
+extension WSPlugin {
+    
+    /// 把插件配置解码为具体的配置模型
+    func configuration<T: Decodable>(as type: T.Type) -> T? {
+        guard let configJSON = configJSON else {
+            return nil
+        }
+        
+        return T.model(with: configJSON)
+    }
+}

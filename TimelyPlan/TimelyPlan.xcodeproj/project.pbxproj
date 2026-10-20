@@ -361,6 +361,9 @@
 		E518AAF73085C1490018987D /* WSCountdownSmallSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAF63085C1490018987D /* WSCountdownSmallSelectedConfigViewController.swift */; };
 		E518AAF9308612B10018987D /* WSDashboardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAF8308612B10018987D /* WSDashboardCollectionViewLayout.swift */; };
 		E518AAFB308658CF0018987D /* WSPluginEmptyPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAFA308658CF0018987D /* WSPluginEmptyPlaceholderView.swift */; };
+		E518AB013087ADD50018987D /* CountdownEventBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAFE3087ADD50018987D /* CountdownEventBindViewController.swift */; };
+		E518AB023087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAFF3087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift */; };
+		E518AB033087ADD50018987D /* CountdownEventBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AB003087ADD50018987D /* CountdownEventBindCell.swift */; };
 		E518D6942FBDEF8E0045D456 /* CalendarTimelineDotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */; };
 		E518D6972FBEAB870045D456 /* CalendarEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6962FBEAB870045D456 /* CalendarEventProvider.swift */; };
 		E518D6992FBEAC450045D456 /* CalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6982FBEAC450045D456 /* CalendarRepository.swift */; };
@@ -2916,6 +2919,9 @@
 		E518AAF63085C1490018987D /* WSCountdownSmallSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallSelectedConfigViewController.swift; sourceTree = "<group>"; };
 		E518AAF8308612B10018987D /* WSDashboardCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSDashboardCollectionViewLayout.swift; sourceTree = "<group>"; };
 		E518AAFA308658CF0018987D /* WSPluginEmptyPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginEmptyPlaceholderView.swift; sourceTree = "<group>"; };
+		E518AAFE3087ADD50018987D /* CountdownEventBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventBindViewController.swift; sourceTree = "<group>"; };
+		E518AAFF3087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventBindSearchResultSectionController.swift; sourceTree = "<group>"; };
+		E518AB003087ADD50018987D /* CountdownEventBindCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventBindCell.swift; sourceTree = "<group>"; };
 		E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineDotIndicator.swift; sourceTree = "<group>"; };
 		E518D6962FBEAB870045D456 /* CalendarEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventProvider.swift; sourceTree = "<group>"; };
 		E518D6982FBEAC450045D456 /* CalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRepository.swift; sourceTree = "<group>"; };
@@ -6213,6 +6219,16 @@
 				E5585C7A3080B400007D1BB9 /* Countdown */,
 			);
 			path = Modules;
+			sourceTree = "<group>";
+		};
+		E518AAFD3087ADD50018987D /* Countdown */ = {
+			isa = PBXGroup;
+			children = (
+				E518AAFE3087ADD50018987D /* CountdownEventBindViewController.swift */,
+				E518AAFF3087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift */,
+				E518AB003087ADD50018987D /* CountdownEventBindCell.swift */,
+			);
+			path = Countdown;
 			sourceTree = "<group>";
 		};
 		E518D6922FBDEF4F0045D456 /* Indicator */ = {
@@ -11801,6 +11817,7 @@
 				E500E3B02FC9197500252011 /* Todo */,
 				E55897873055933C001F8F22 /* Goal */,
 				E55549572F7666F200C9460D /* Habit */,
+				E518AAFD3087ADD50018987D /* Countdown */,
 			);
 			path = Bind;
 			sourceTree = "<group>";
@@ -14608,6 +14625,7 @@
 				E5B33D812F81FD0200939C3E /* TodoTagSearchResultsViewController.swift in Sources */,
 				E5BB9E172D3BF0C70089667A /* KeyValueStorage.swift in Sources */,
 				E5F155202F83681E00116091 /* TodoTaskListView.swift in Sources */,
+				E518AB023087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift in Sources */,
 				E5B2AB0C2F4C7E6D003F024E /* FocusPauseInfo.swift in Sources */,
 				E54A06A2303C7F23001FF4A1 /* GanttTimelineHeaderView.swift in Sources */,
 				E50179442FD39B3300DC544D /* TodoSectionBranchLayer.swift in Sources */,
@@ -15113,6 +15131,7 @@
 				E54E632B2F5AFE0200FCBCAE /* CDHabitRecord+Extensions.swift in Sources */,
 				E5E9F7BB2FC44AC400717004 /* TodoSearchHistory.swift in Sources */,
 				E5D7D8F22D43933600EC877A /* OpenCircleAdjustButtonView.swift in Sources */,
+				E518AB033087ADD50018987D /* CountdownEventBindCell.swift in Sources */,
 				E50D60802F7A342F00D5E0A4 /* Nestable.swift in Sources */,
 				E5FC6BD92F67EFF800D5A5EA /* HabitDayMenuPresenter.swift in Sources */,
 				E53ABED73008D96B00EB8632 /* MyDayEventProvider.swift in Sources */,
@@ -15632,6 +15651,7 @@
 				E5BB9E872D3BF0C80089667A /* RectangleChartView.swift in Sources */,
 				E50D602E2F7A12B400D5E0A4 /* RecurrenceRule.swift in Sources */,
 				E5BB9DC52D3BF0C60089667A /* TimeFragment.swift in Sources */,
+				E518AB013087ADD50018987D /* CountdownEventBindViewController.swift in Sources */,
 				E57CC5BD2F7F9E0000ADDBA4 /* TodoGroupTypeMenuController.swift in Sources */,
 				E57CC5DD2F7FCED300ADDBA4 /* TodoTaskQuickAddMenuSectionController.swift in Sources */,
 				E56A7BE72FFCE92A0068410D /* CalendarListViewController.swift in Sources */,

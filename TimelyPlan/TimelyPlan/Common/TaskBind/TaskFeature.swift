@@ -59,6 +59,8 @@ enum TaskType: Int, Codable, TPMenuRepresentable {
             return "task_type_habit"
         case .goal:
             return "task_type_goal"
+        case .countdown:
+            return "countdown"
         default:
             return nil
         }

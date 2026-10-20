@@ -46,11 +46,12 @@ protocol WSPluginProvider: AnyObject {
     /// 返回 nil 时，单元格使用默认空白内容视图 `WSPluginEmptyPlaceholderView`。
     func makeEmptyPlaceholderView() -> UIView?
     
-    /// 创建该组件的配置视图控制器。
+    /// 创建该组件的配置界面。
     ///
-    /// 组件可返回自定义的 `WSPluginConfigViewController` 子类以提供各自的配置界面；
-    /// 返回 nil 表示该组件不支持配置，长按菜单中不显示「配置」项。
-    func makeConfigViewController(plugin: WSPlugin) -> WSPluginConfigViewController?
+    /// 组件可返回 `WSPluginConfigViewController` 子类，也可返回任意实现
+    /// `WSPluginConfigurable` 的视图控制器；返回 nil 表示该组件不支持配置，
+    /// 长按菜单中不显示「配置」项。
+    func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)?
 }
 
 extension WSPluginProvider {
@@ -66,7 +67,7 @@ extension WSPluginProvider {
     }
     
     /// 默认不支持配置
-    func makeConfigViewController(plugin: WSPlugin) -> WSPluginConfigViewController? {
+    func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)? {
         return nil
     }
 }

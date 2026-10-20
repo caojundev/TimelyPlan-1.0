@@ -8,6 +8,17 @@
 import Foundation
 import UIKit
 
+// MARK: - 配置
+
+/// 倒数日·小·自选的配置
+struct WSCountdownSelectedConfiguration: Codable {
+    
+    /// 用户选择的倒数日事项标识
+    var eventIdentifier: String?
+}
+
+// MARK: - 组件提供者
+
 /// 倒数日·小·自选。展示用户自己选择的一个倒数日事件。
 class WSCountdownSmallSelectedPluginProvider: WSPluginProvider {
     
@@ -30,10 +41,12 @@ class WSCountdownSmallSelectedPluginProvider: WSPluginProvider {
         return WSCountdownContentInteractor(plugin: plugin, context: context)
     }
     
-    func makeConfigViewController(plugin: WSPlugin) -> WSPluginConfigViewController? {
+    func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)? {
         return WSCountdownSmallSelectedConfigViewController(plugin: plugin)
     }
 }
+
+// MARK: - 内容交互器
 
 class WSCountdownContentInteractor: WSPluginContentInteractor {
     
@@ -42,7 +55,9 @@ class WSCountdownContentInteractor: WSPluginContentInteractor {
     
     // MARK: - 取数
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
-        guard let event = makeSelectedEvent() else {
+        guard let configuration = plugin.configuration(as: WSCountdownSelectedConfiguration.self),
+              let eventIdentifier = configuration.eventIdentifier,
+              let event = CountdownRepository.getEvent(withIdentifier: eventIdentifier) else {
             selectedEvent = nil
             completion(nil)
             return
@@ -54,14 +69,12 @@ class WSCountdownContentInteractor: WSPluginContentInteractor {
     
     // MARK: - 主操作
     override func performPrimaryAction() {
-        guard let selectedEvent = selectedEvent else {
+        guard let selectedEvent = selectedEvent,
+              let event = CountdownRepository.getEvent(withIdentifier: selectedEvent.identifier) else {
             return
         }
         
-//        /// TODO: 接入配置后应只使用仓库中的事项（事项已删除时不响应）；
-//        /// 当前测试数据尚未落库，取不到时回退到本地事项以便验证点击效果
-//        let event = CountdownRepository.getEvent(withIdentifier: selectedEvent.identifier) ?? selectedEvent
-//        CountdownPresenter.showDetail(for: event)
+        CountdownPresenter.showDetail(for: event)
     }
     
     // MARK: - 预览数据
@@ -74,21 +87,5 @@ class WSCountdownContentInteractor: WSPluginContentInteractor {
                                    date: CountdownDate(targetDate: Date().dateByAddingDays(26) ?? Date()),
                                    timeUnit: .days)
         return WSCountdownDataItem(event: event)
-    }
-    
-    // MARK: - 事项
-    /// 用户选中的倒数日事项
-    ///
-    /// TODO: 从 `plugin.configJSON` 解析用户选择的事项标识，目前使用测试数据验证展示与点击
-    private func makeSelectedEvent() -> CountdownEvent? {
-        return nil
-        
-//        
-//        CountdownEvent(type: .countdown,
-//                              name: "出发去旅行",
-//                              emoji: "✈️",
-//                              colorHex: Color(0x09AFFF).hexString,
-//                              date: CountdownDate(targetDate: Date().dateByAddingDays(26) ?? Date()),
-//                              timeUnit: .days)
     }
 }
