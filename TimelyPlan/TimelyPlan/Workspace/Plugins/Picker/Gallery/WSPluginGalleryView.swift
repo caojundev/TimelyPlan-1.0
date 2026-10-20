@@ -227,9 +227,9 @@ class WSPluginGalleryView: UIView,
             return
         }
         
-        /// 画廊里不显示长按菜单
+        /// 画廊里不显示长按菜单，展示固定预览数据
         cell.isContextMenuEnabled = false
-        cell.configure(plugin: plugin, provider: provider)
+        cell.configure(plugin: plugin, provider: provider, context: .gallery)
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, sizeForItemAt indexPath: IndexPath) -> CGSize {

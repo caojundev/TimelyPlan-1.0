@@ -8,6 +8,19 @@
 import Foundation
 import UIKit
 
+/// 组件的展示上下文。
+///
+/// 同一组件会同时出现在仪表盘与画廊中：仪表盘展示用户真实数据，
+/// 画廊只展示固定预览数据，由上下文决定交互器的取数来源。
+enum WSPluginContext {
+    
+    /// 仪表盘：读取用户真实数据
+    case dashboard
+    
+    /// 画廊：展示固定预览数据，不访问数据仓库
+    case gallery
+}
+
 /// 组件提供者。
 ///
 /// 提供者决定组件的「外观与数据来源」：用哪个单元格承载、用哪个内容视图渲染，
@@ -21,7 +34,7 @@ protocol WSPluginProvider: AnyObject {
     var cellClass: WSPluginCell.Type { get }
     
     /// 创建该组件内容交互器
-    func makeContentInteractor(plugin: WSPlugin) -> WSPluginContentInteractor
+    func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor
     
     /// 创建该组件的占位视图，用于数据加载完成前的占位展示。
     ///

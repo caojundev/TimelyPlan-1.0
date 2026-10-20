@@ -26,14 +26,18 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
     
     let plugin: WSPlugin
     
+    /// 展示上下文。画廊下只提供预览数据，不访问数据仓库
+    let context: WSPluginContext
+    
     /// 数据是否已过期，需要重新获取
     private var needsReload = true
     
     /// 请求管理，用于丢弃过期请求的结果
     private let requestManager = TPRequestManager()
     
-    init(plugin: WSPlugin) {
+    init(plugin: WSPlugin, context: WSPluginContext) {
         self.plugin = plugin
+        self.context = context
         super.init()
     }
     
@@ -60,6 +64,13 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
     /// 重新加载数据
     func loadData() {
         let requestID = requestManager.executeRequest()
+        
+        /// 画廊只渲染固定的预览数据，不读取用户数据
+        guard context == .dashboard else {
+            handleLoadedDataItem(previewDataItem(), requestID: requestID)
+            return
+        }
+        
         fetchDataItem { [weak self] dataItem in
             self?.handleLoadedDataItem(dataItem, requestID: requestID)
         }
@@ -88,6 +99,13 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
         completion(nil)
     }
     
+    /// 画廊预览数据。默认 nil，此时画廊展示空白占位视图。
+    ///
+    /// 由各模块提供一份固定的、具有代表性的内容，避免画廊因用户尚未配置而显示空白。
+    func previewDataItem() -> WSPluginDataItem? {
+        return nil
+    }
+    
     // MARK: - 数据回调
     private func handleLoadedDataItem(_ dataItem: WSPluginDataItem?, requestID: UUID) {
         dispatchToMain { [weak self] in
@@ -112,6 +130,11 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
     
     // MARK: - WSPluginDataChangeObserver
     func pluginDataDidChange() {
+        /// 画廊使用固定预览数据，无需响应数据变化
+        guard context == .dashboard else {
+            return
+        }
+        
         dispatchToMain { [weak self] in
             self?.setNeedsReload()
         }
@@ -119,6 +142,11 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
     
     // MARK: - TPMidnightUpdatable
     func updateAtMidnight() {
+        /// 画廊使用固定预览数据，无需跨天刷新
+        guard context == .dashboard else {
+            return
+        }
+        
         dispatchToMain { [weak self] in
             self?.setNeedsReload()
         }

@@ -16,6 +16,9 @@ class WSPluginCell: UICollectionViewCell {
     
     private(set) var provider: WSPluginProvider?
     
+    /// 展示上下文。决定交互器读取真实数据还是画廊预览数据
+    private var context: WSPluginContext = .dashboard
+    
     /// 组件内容视图
     private(set) var pluginContentView: WSPluginContentView!
     
@@ -101,6 +104,7 @@ class WSPluginCell: UICollectionViewCell {
         showLoadingPlaceholderView()
         plugin = nil
         provider = nil
+        context = .dashboard
         interactor = nil
         setJiggling(false)
     }
@@ -121,9 +125,15 @@ class WSPluginCell: UICollectionViewCell {
     
     // MARK: - 配置
     /// 通过组件配置单元格
-    func configure(plugin: WSPlugin, provider: WSPluginProvider) {
+    ///
+    /// - Parameter context: 展示上下文。仪表盘传 `.dashboard` 读取真实数据，
+    ///   画廊传 `.gallery` 展示固定预览数据。
+    func configure(plugin: WSPlugin,
+                   provider: WSPluginProvider,
+                   context: WSPluginContext = .dashboard) {
         self.plugin = plugin
         self.provider = provider
+        self.context = context
         /// 先展示占位视图，数据加载完成后再展示内容视图
         showLoadingPlaceholderView()
         setupInteractor()
@@ -146,7 +156,7 @@ class WSPluginCell: UICollectionViewCell {
             return
         }
     
-        interactor = provider.makeContentInteractor(plugin: plugin)
+        interactor = provider.makeContentInteractor(plugin: plugin, context: context)
         interactor?.dataItemDidChange = { [weak self] dataItem in
             guard let self = self else {
                 return
