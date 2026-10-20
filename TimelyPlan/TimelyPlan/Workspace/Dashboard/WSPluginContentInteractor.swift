@@ -71,6 +71,14 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
         loadData()
     }
     
+    // MARK: - 交互
+    /// 执行组件的主操作（点击组件主体时触发）。
+    ///
+    /// 默认不响应，由各模块按需覆写，以便直接使用交互器持有的插件配置与取数结果。
+    func performPrimaryAction() {
+        
+    }
+    
     // MARK: - 子类实现
     /// 异步获取数据条目。
     ///

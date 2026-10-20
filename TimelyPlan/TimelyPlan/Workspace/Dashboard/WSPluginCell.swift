@@ -131,6 +131,16 @@ class WSPluginCell: UICollectionViewCell {
         updateAppearance()
     }
     
+    // MARK: - 主操作
+    /// 执行组件的主操作。转发给内容交互器处理，单元格不关心具体业务。
+    func performPrimaryAction() {
+        guard !isJiggling else {
+            return
+        }
+        
+        interactor?.performPrimaryAction()
+    }
+    
     private func setupInteractor() {
         guard let plugin = plugin, let provider = provider else {
             return
@@ -194,6 +204,17 @@ class WSPluginCell: UICollectionViewCell {
         }
         
         let view = makeEmptyPlaceholderView()
+        if let emptyView = view as? WSPluginEmptyPlaceholderView {
+            /// 支持配置的组件在空白态直接提供配置入口，与长按菜单的「配置」项一致
+            emptyView.configActionHandler = isConfigurable ? { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                
+                self.menuActionHandler?(self, .configPlugin)
+            } : nil
+        }
+        view.isUserInteractionEnabled = !isJiggling
         emptyPlaceholderView = view
         contentView.addSubview(view)
         setNeedsLayout()
@@ -240,6 +261,7 @@ class WSPluginCell: UICollectionViewCell {
         /// 删除按钮仅在编辑（抖动）模式下显示
         deleteButton.isHidden = !isJiggling
         pluginContentView.isUserInteractionEnabled = !isJiggling
+        emptyPlaceholderView?.isUserInteractionEnabled = !isJiggling
         if isJiggling {
             bringSubviewToFront(deleteButton)
             startJiggling()

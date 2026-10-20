@@ -37,14 +37,46 @@ class WSCountdownSmallSelectedPluginProvider: WSPluginProvider {
 
 class WSCountdownContentInteractor: WSPluginContentInteractor {
     
+    /// 当前展示的倒数日事项
+    private var selectedEvent: CountdownEvent?
+    
+    // MARK: - 取数
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
-        /// TODO: 接入用户选中的倒数日事项，目前使用测试数据验证组件展示效果
-        let event = CountdownEvent(type: .countdown,
-                                   name: "出发去旅行",
-                                   emoji: "✈️",
-                                   colorHex: Color(0x09AFFF).hexString,
-                                   date: CountdownDate(targetDate: Date().dateByAddingDays(26) ?? Date()),
-                                   timeUnit: .days)
+        guard let event = makeSelectedEvent() else {
+            selectedEvent = nil
+            completion(nil)
+            return
+        }
+        
+        selectedEvent = event
         completion(WSCountdownDataItem(event: event))
+    }
+    
+    // MARK: - 主操作
+    override func performPrimaryAction() {
+        guard let selectedEvent = selectedEvent else {
+            return
+        }
+        
+//        /// TODO: 接入配置后应只使用仓库中的事项（事项已删除时不响应）；
+//        /// 当前测试数据尚未落库，取不到时回退到本地事项以便验证点击效果
+//        let event = CountdownRepository.getEvent(withIdentifier: selectedEvent.identifier) ?? selectedEvent
+//        CountdownPresenter.showDetail(for: event)
+    }
+    
+    // MARK: - 事项
+    /// 用户选中的倒数日事项
+    ///
+    /// TODO: 从 `plugin.configJSON` 解析用户选择的事项标识，目前使用测试数据验证展示与点击
+    private func makeSelectedEvent() -> CountdownEvent? {
+        return nil
+        
+//        
+//        CountdownEvent(type: .countdown,
+//                              name: "出发去旅行",
+//                              emoji: "✈️",
+//                              colorHex: Color(0x09AFFF).hexString,
+//                              date: CountdownDate(targetDate: Date().dateByAddingDays(26) ?? Date()),
+//                              timeUnit: .days)
     }
 }

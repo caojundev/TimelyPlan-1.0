@@ -330,6 +330,9 @@ class WSDashboardView: UIView,
         }
         
         TPImpactFeedback.impactWithSoftStyle()
+        
+        /// 主操作交由组件内容交互器处理，单元格与面板不关心具体业务
+        (collectionView.cellForItem(at: indexPath) as? WSPluginCell)?.performPrimaryAction()
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
@@ -392,7 +395,7 @@ class WSDashboardView: UIView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return false
+        return true
     }
 }
 
