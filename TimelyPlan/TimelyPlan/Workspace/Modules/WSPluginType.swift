@@ -37,15 +37,15 @@ public extension WSPluginType {
     var title: String {
         switch self {
         case .countdownSmallSelected:
-            return "自选事项"
+            return resGetString("Selected Countdown")
         }
     }
 
-    /// 组件描述。画廊等入口作为副标题展示，说明该尺寸组件展示的内容。
+    /// 组件描述。画廊等入口作为副标题展示，一句话说明展示内容。
     var subtitle: String {
         switch self {
         case .countdownSmallSelected:
-            return "展示您选择的一个倒数日"
+            return resGetString("Shows the selected countdown")
         }
     }
 }

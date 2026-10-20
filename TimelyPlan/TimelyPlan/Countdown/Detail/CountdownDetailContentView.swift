@@ -184,9 +184,9 @@ class CountdownTimeValueView: UILabel {
     }
     
     /// 光晕颜色（一般取事件颜色）
-    var glowColor: UIColor = .white {
+    var glowColor: UIColor? = .white {
         didSet {
-            layer.shadowColor = glowColor.cgColor
+            layer.shadowColor = glowColor?.cgColor
         }
     }
     

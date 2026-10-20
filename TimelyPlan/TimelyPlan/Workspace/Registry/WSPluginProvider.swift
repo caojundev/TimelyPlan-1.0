@@ -25,8 +25,13 @@ protocol WSPluginProvider: AnyObject {
     
     /// 创建该组件的占位视图，用于数据加载完成前的占位展示。
     ///
-    /// 返回 nil 时，单元格使用默认占位视图 `WSPluginDefaultPlaceholderView`。
-    func makePlaceholderView() -> UIView?
+    /// 返回 nil 时，单元格使用默认加载占位视图 `WSPluginLoadingPlaceholderView`。
+    func makeLoadingPlaceholderView() -> UIView?
+    
+    /// 创建该组件的空白内容视图，用于数据加载完成但没有内容（`dataItem` 为 nil）时的展示。
+    ///
+    /// 返回 nil 时，单元格使用默认空白内容视图 `WSPluginEmptyPlaceholderView`。
+    func makeEmptyPlaceholderView() -> UIView?
     
     /// 创建该组件的配置视图控制器。
     ///
@@ -37,8 +42,13 @@ protocol WSPluginProvider: AnyObject {
 
 extension WSPluginProvider {
     
-    /// 默认不提供占位视图，由单元格使用默认占位视图
-    func makePlaceholderView() -> UIView? {
+    /// 默认不提供占位视图，由单元格使用默认加载占位视图
+    func makeLoadingPlaceholderView() -> UIView? {
+        return nil
+    }
+    
+    /// 默认不提供空白内容视图，由单元格使用默认空白内容视图
+    func makeEmptyPlaceholderView() -> UIView? {
         return nil
     }
     

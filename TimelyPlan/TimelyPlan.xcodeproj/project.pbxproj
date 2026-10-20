@@ -360,6 +360,7 @@
 		E518AAF43085B5C40018987D /* WSPluginConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAF33085B5C40018987D /* WSPluginConfigViewController.swift */; };
 		E518AAF73085C1490018987D /* WSCountdownSmallSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAF63085C1490018987D /* WSCountdownSmallSelectedConfigViewController.swift */; };
 		E518AAF9308612B10018987D /* WSDashboardCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAF8308612B10018987D /* WSDashboardCollectionViewLayout.swift */; };
+		E518AAFB308658CF0018987D /* WSPluginEmptyPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAFA308658CF0018987D /* WSPluginEmptyPlaceholderView.swift */; };
 		E518D6942FBDEF8E0045D456 /* CalendarTimelineDotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */; };
 		E518D6972FBEAB870045D456 /* CalendarEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6962FBEAB870045D456 /* CalendarEventProvider.swift */; };
 		E518D6992FBEAC450045D456 /* CalendarRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6982FBEAC450045D456 /* CalendarRepository.swift */; };
@@ -2914,6 +2915,7 @@
 		E518AAF33085B5C40018987D /* WSPluginConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginConfigViewController.swift; sourceTree = "<group>"; };
 		E518AAF63085C1490018987D /* WSCountdownSmallSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallSelectedConfigViewController.swift; sourceTree = "<group>"; };
 		E518AAF8308612B10018987D /* WSDashboardCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSDashboardCollectionViewLayout.swift; sourceTree = "<group>"; };
+		E518AAFA308658CF0018987D /* WSPluginEmptyPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSPluginEmptyPlaceholderView.swift; sourceTree = "<group>"; };
 		E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineDotIndicator.swift; sourceTree = "<group>"; };
 		E518D6962FBEAB870045D456 /* CalendarEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventProvider.swift; sourceTree = "<group>"; };
 		E518D6982FBEAC450045D456 /* CalendarRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarRepository.swift; sourceTree = "<group>"; };
@@ -8021,6 +8023,7 @@
 				E5585C833080D286007D1BB9 /* WSPluginCell.swift */,
 				E5585C8730810A56007D1BB9 /* WSPluginContentView.swift */,
 				E55664CD30845D2A005A82A7 /* WSPluginDefaultPlaceholderView.swift */,
+				E518AAFA308658CF0018987D /* WSPluginEmptyPlaceholderView.swift */,
 				E5585C8930812022007D1BB9 /* WSPluginContentInteractor.swift */,
 			);
 			name = Plugin;
@@ -14850,6 +14853,7 @@
 				E57B2C243046000000000004 /* GoalPlanListCell.swift in Sources */,
 				E57B2C253046000000000005 /* GoalPlanMenuController.swift in Sources */,
 				E57B2C263046000000000006 /* GoalPlanMenuProcessor.swift in Sources */,
+				E518AAFB308658CF0018987D /* WSPluginEmptyPlaceholderView.swift in Sources */,
 				E57B2C273046000000000007 /* GoalDetailCoordinator.swift in Sources */,
 				E57B2C283046000000000008 /* GoalPlanViewModel.swift in Sources */,
 				E57B2C293046000000000009 /* GoalArchivedPlanViewModel.swift in Sources */,

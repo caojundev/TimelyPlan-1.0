@@ -1,5 +1,5 @@
 //
-//  WSPluginDefaultPlaceholderView.swift
+//  WSPluginLoadingPlaceholderView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/18.
@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-// MARK: - 默认占位视图
+// MARK: - 默认加载占位视图
 
-/// 工作台组件默认占位视图。
+/// 工作台组件默认加载占位视图。
 ///
 /// 三行宽度不等、带圆角的灰色横条，整体靠左上角对齐，用于数据加载完成前的占位展示。
-class WSPluginDefaultPlaceholderView: UIView {
+class WSPluginLoadingPlaceholderView: UIView {
     
     /// 横条高度
     private let barHeight: CGFloat = 12.0

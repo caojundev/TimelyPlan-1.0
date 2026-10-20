@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// 倒数日·小·自选。展示用户自己选择的一个倒数日事件。
 class WSCountdownSmallSelectedPluginProvider: WSPluginProvider {
@@ -37,7 +38,13 @@ class WSCountdownSmallSelectedPluginProvider: WSPluginProvider {
 class WSCountdownContentInteractor: WSPluginContentInteractor {
     
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
-        let dataItem = WSCountdownDataItem(title: self.plugin.type.title)
-        completion(dataItem)
+        /// TODO: 接入用户选中的倒数日事项，目前使用测试数据验证组件展示效果
+        let event = CountdownEvent(type: .countdown,
+                                   name: "出发去旅行",
+                                   emoji: "✈️",
+                                   colorHex: Color(0x09AFFF).hexString,
+                                   date: CountdownDate(targetDate: Date().dateByAddingDays(26) ?? Date()),
+                                   timeUnit: .days)
+        completion(WSCountdownDataItem(event: event))
     }
 }

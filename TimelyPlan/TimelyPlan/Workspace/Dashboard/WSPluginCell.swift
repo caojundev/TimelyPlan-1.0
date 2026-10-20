@@ -22,6 +22,9 @@ class WSPluginCell: UICollectionViewCell {
     /// 数据加载期间的占位视图
     private(set) var placeholderView: UIView?
     
+    /// 数据为空时展示的空白内容视图
+    private(set) var emptyPlaceholderView: UIView?
+    
     private(set) var interactor: WSPluginContentInteractor?
     
     /// 点击删除按钮回调。仅在编辑模式下显示删除按钮
@@ -74,6 +77,7 @@ class WSPluginCell: UICollectionViewCell {
         super.layoutSubviews()
         pluginContentView.frame = contentView.bounds
         placeholderView?.frame = contentView.bounds
+        emptyPlaceholderView?.frame = contentView.bounds
         layoutDeleteButton()
         updateAppearance()
     }
@@ -92,8 +96,9 @@ class WSPluginCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         resetPluginContent()
+        hideEmptyPlaceholderView()
         /// 复用前先回到占位态，等待重新加载数据
-        showPlaceholderView()
+        showLoadingPlaceholderView()
         plugin = nil
         provider = nil
         interactor = nil
@@ -120,7 +125,7 @@ class WSPluginCell: UICollectionViewCell {
         self.plugin = plugin
         self.provider = provider
         /// 先展示占位视图，数据加载完成后再展示内容视图
-        showPlaceholderView()
+        showLoadingPlaceholderView()
         setupInteractor()
         interactor?.loadData()
         updateAppearance()
@@ -137,34 +142,67 @@ class WSPluginCell: UICollectionViewCell {
                 return
             }
             
-            /// 数据加载完成，隐藏占位视图并展示内容
-            self.hidePlaceholderView()
+            /// 数据加载完成，隐藏加载占位视图
+            self.hideLoadingPlaceholderView()
+            
+            /// 有数据时渲染内容，没有数据时展示空白内容视图
             self.pluginContentView?.update(with: dataItem)
+            if dataItem == nil {
+                self.showEmptyPlaceholderView()
+            } else {
+                self.hideEmptyPlaceholderView()
+            }
         }
     }
     
     // MARK: - 占位视图
-    /// 创建占位视图。默认取 provider 提供的占位视图，未提供时使用默认占位视图。
-    func makePlaceholderView() -> UIView {
-        return provider?.makePlaceholderView() ?? WSPluginDefaultPlaceholderView()
+    /// 创建加载占位视图。默认取 provider 提供的占位视图，未提供时使用默认加载占位视图。
+    func makeLoadingPlaceholderView() -> UIView {
+        return provider?.makeLoadingPlaceholderView() ?? WSPluginLoadingPlaceholderView()
     }
     
-    /// 展示占位视图并隐藏内容视图
-    func showPlaceholderView() {
+    /// 创建空白内容视图。默认取 provider 提供的视图，未提供时使用默认空白内容视图。
+    func makeEmptyPlaceholderView() -> UIView {
+        return provider?.makeEmptyPlaceholderView() ?? WSPluginEmptyPlaceholderView()
+    }
+    
+    /// 展示加载占位视图并隐藏内容视图
+    func showLoadingPlaceholderView() {
+        hideEmptyPlaceholderView()
         pluginContentView?.isHidden = true
         
-        let view = makePlaceholderView()
+        let view = makeLoadingPlaceholderView()
         placeholderView?.removeFromSuperview()
         placeholderView = view
         contentView.addSubview(view)
         setNeedsLayout()
     }
     
-    /// 移除占位视图并展示内容视图
-    func hidePlaceholderView() {
+    /// 移除加载占位视图并展示内容视图
+    func hideLoadingPlaceholderView() {
         placeholderView?.removeFromSuperview()
         placeholderView = nil
         pluginContentView?.isHidden = false
+    }
+    
+    /// 展示空白内容视图并隐藏内容视图
+    func showEmptyPlaceholderView() {
+        pluginContentView?.isHidden = true
+        
+        guard emptyPlaceholderView == nil else {
+            return
+        }
+        
+        let view = makeEmptyPlaceholderView()
+        emptyPlaceholderView = view
+        contentView.addSubview(view)
+        setNeedsLayout()
+    }
+    
+    /// 移除空白内容视图
+    func hideEmptyPlaceholderView() {
+        emptyPlaceholderView?.removeFromSuperview()
+        emptyPlaceholderView = nil
     }
     
     /// 应用组件外观：圆角
