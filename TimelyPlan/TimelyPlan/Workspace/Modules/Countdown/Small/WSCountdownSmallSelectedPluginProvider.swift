@@ -48,10 +48,19 @@ class WSCountdownSmallSelectedPluginProvider: WSPluginProvider {
 
 // MARK: - 内容交互器
 
-class WSCountdownContentInteractor: WSPluginContentInteractor {
+class WSCountdownContentInteractor: WSPluginContentInteractor, CountdownEventProcessorDelegate {
     
     /// 当前展示的倒数日事项
     private var selectedEvent: CountdownEvent?
+    
+    override init(plugin: WSPlugin, context: WSPluginContext) {
+        super.init(plugin: plugin, context: context)
+        CountdownRepository.addUpdater(self)
+    }
+    
+    deinit {
+        CountdownRepository.removeUpdater(self)
+    }
     
     // MARK: - 取数
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
@@ -87,5 +96,63 @@ class WSCountdownContentInteractor: WSPluginContentInteractor {
                                    date: CountdownDate(targetDate: Date().dateByAddingDays(26) ?? Date()),
                                    timeUnit: .days)
         return WSCountdownDataItem(event: event)
+    }
+    
+    // MARK: - CountdownEventProcessorDelegate
+    /// 远程变更：只关心当前展示的事项
+    func didChangeRemoteCountdownEvent(with results: EntityChangeResults<CountdownEvent>?) {
+        guard let results = results, isSelectedEventAffected(by: results) else {
+            return
+        }
+        
+        pluginDataDidChange()
+    }
+    
+    func didUpdateCountdownEvent(_ event: CountdownEvent, with change: CountdownEventChange) {
+        guard event.identifier == selectedEvent?.identifier else {
+            return
+        }
+        
+        pluginDataDidChange()
+    }
+    
+    func didDeleteCountdownEvent(_ event: CountdownEvent) {
+        guard event.identifier == selectedEvent?.identifier else {
+            return
+        }
+        
+        pluginDataDidChange()
+    }
+    
+    func didArchiveCountdownEvent(_ event: CountdownEvent) {
+        guard event.identifier == selectedEvent?.identifier else {
+            return
+        }
+        
+        pluginDataDidChange()
+    }
+    
+    func didUnarchiveCountdownEvent(_ event: CountdownEvent) {
+        guard event.identifier == selectedEvent?.identifier else {
+            return
+        }
+        
+        pluginDataDidChange()
+    }
+    
+    // MARK: - 变更判断
+    /// 远程变更是否影响当前展示的事项
+    private func isSelectedEventAffected(by results: EntityChangeResults<CountdownEvent>) -> Bool {
+        guard let selectedIdentifier = selectedEvent?.identifier else {
+            return false
+        }
+        
+        let changedEvents = results.inserted + results.updated
+        if changedEvents.contains(where: { $0.identifier == selectedIdentifier }) {
+            return true
+        }
+        
+        /// 删除结果只提供对象标识，无法比对事项标识，保守地重新取数
+        return !results.deletedObjectIDs.isEmpty
     }
 }

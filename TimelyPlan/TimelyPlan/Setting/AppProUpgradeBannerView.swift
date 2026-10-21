@@ -11,7 +11,7 @@ import UIKit
 /// 会员升级横幅
 class AppProUpgradeBannerView: UIView {
 
-    private let skeleton = TPSkeletonView(frame: .zero)
+    private let skeleton = TPShimmerView(frame: .zero)
     
     /// 内容视图（圆角与渐变背景作用于此，所有子视图都添加在内容视图上）
     private let contentView = UIView()

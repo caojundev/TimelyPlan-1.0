@@ -65,6 +65,24 @@ class TPInfoView: UIView {
             }
         }
     }
+    
+    /// 标题最小高度。无文案时仍保留占位高度，供骨架屏等场景使用
+    var titleMinimumHeight: CGFloat = 0.0 {
+        didSet {
+            if titleMinimumHeight != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
+    
+    /// 副标题最小高度。无文案时仍保留占位高度，供骨架屏等场景使用
+    var subtitleMinimumHeight: CGFloat = 0.0 {
+        didSet {
+            if subtitleMinimumHeight != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
 
     /// 左配件视图外间距
     var leftAccessoryMargins: UIEdgeInsets = .zero {
@@ -205,9 +223,11 @@ class TPInfoView: UIView {
         let limitSize = CGSize(width: labelLayoutFrame.width, height: CGFloat.greatestFiniteMagnitude)
         var titleSize = titleLabel.sizeThatFits(limitSize)
         titleSize.width = labelLayoutFrame.width
+        titleSize.height = max(titleSize.height, titleMinimumHeight)
         
         var subtitleSize = subtitleLabel.sizeThatFits(limitSize)
         subtitleSize.width = labelLayoutFrame.width
+        subtitleSize.height = max(subtitleSize.height, subtitleMinimumHeight)
         
         var labelHeight = titleSize.height + subtitleSize.height
         if subtitleSize.height > 0 {

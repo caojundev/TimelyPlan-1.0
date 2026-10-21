@@ -173,6 +173,9 @@ class WSPluginCell: UICollectionViewCell {
                 self.hideEmptyPlaceholderView()
             }
         }
+        
+        /// 交互器注入内容视图，内容内的点击、按钮等交互由内容视图直接调用
+        pluginContentView?.interactor = interactor
     }
     
     // MARK: - 占位视图

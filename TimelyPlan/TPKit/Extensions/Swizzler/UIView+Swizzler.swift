@@ -23,5 +23,8 @@ extension UIView {
         
         /// 更新主题
         themeDidChange()
+        
+        /// 布局骨架
+        sk_layoutSubviews()
     }
 }

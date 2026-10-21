@@ -241,7 +241,7 @@ class IAPContinueView: UIView {
 
 private final class IAPContinueButton: TPDefaultButton {
     
-    private let skeleton = TPSkeletonView(frame: .zero)
+    private let skeleton = TPShimmerView(frame: .zero)
     /// 加载态指示器（三点依次闪烁）
     private let dotIndicator = TPDotLoadingIndicatorView()
     

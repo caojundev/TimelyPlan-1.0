@@ -11,6 +11,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     // MARK: 倒数日
     /// 倒数日·小·自选：展示用户自己选择的一个倒数日事件。
     case countdownSmallSelected
+    
+    /// 倒数日·中·最近：展示距离当前日期最近的三个倒数日事项。
+    case countdownMediumRecent
 }
 
 // MARK: - 固有属性
@@ -22,13 +25,15 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return .small
+        case .countdownMediumRecent:
+            return .medium
         }
     }
 
     /// 所属模块。用于组件选择器分组，以及同模块三个尺寸之间的归类。
     var module: WSPluginModule {
         switch self {
-        case .countdownSmallSelected:
+        case .countdownSmallSelected, .countdownMediumRecent:
             return .countdown
         }
     }
@@ -38,6 +43,8 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return resGetString("Selected Countdown")
+        case .countdownMediumRecent:
+            return resGetString("Recent Countdowns")
         }
     }
 
@@ -46,6 +53,8 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return resGetString("Shows the selected countdown")
+        case .countdownMediumRecent:
+            return resGetString("Shows the most recent countdowns")
         }
     }
 }

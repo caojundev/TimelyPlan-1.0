@@ -8,58 +8,9 @@
 import Foundation
 import UIKit
 
-// MARK: - 数据条目
-
-/// 倒数日组件数据。
-///
-/// 承载单个倒数日事项展示所需的全部信息。内容视图只依赖该数据渲染，
-/// 不直接访问事项模型，也不做取数与换算。
-class WSCountdownDataItem: NSObject, WSPluginDataItem {
-    
-    /// 事项名称
-    let title: String
-    
-    /// 事项图标（emoji）
-    let emoji: String
-    
-    /// 事项主题色
-    let color: UIColor
-    
-    /// 发生日期文本，如「2026年10月25日」
-    let dateText: String
-    
-    /// 剩余时间换算结果，交给 `CountdownTimeValueView` 直接渲染
-    let timeResult: CountdownCalculator.TimeResult
-    
-    init(title: String,
-         emoji: String,
-         color: UIColor,
-         dateText: String,
-         timeResult: CountdownCalculator.TimeResult) {
-        self.title = title
-        self.emoji = emoji
-        self.color = color
-        self.dateText = dateText
-        self.timeResult = timeResult
-        super.init()
-    }
-    
-    /// 由倒数日事项生成展示数据
-    convenience init(event: CountdownEvent) {
-        self.init(title: event.displayName,
-                  emoji: event.emoji ?? event.type.emoji,
-                  color: event.color ?? event.type.color,
-                  dateText: event.occuranceDate.displayText,
-                  timeResult: event.remainingTimeResult)
-    }
-}
-
 // MARK: - 内容视图
 
-/// 倒数日组件内容视图。
-///
-/// 自上而下依次为：图标、名称、日期、剩余时间。全部使用 frame 布局，
-/// 间距与字号以组件短边为基准换算，适配不同设备上的组件尺寸。
+/// 倒数日组件内容视图
 class WSCountdownPluginContentView: WSPluginContentView {
     
     /// 布局比例。均以组件短边为基准，避免固定尺寸在不同设备上错位。

@@ -1,5 +1,5 @@
 //
-//  TPSkeletonView.swift
+//  TPShimmerView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/3/23.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TPSkeletonView: UIView {
+class TPShimmerView: UIView {
     private let gradientLayer = CAGradientLayer()
     private var isAnimating = false
     
@@ -81,20 +81,5 @@ class TPSkeletonView: UIView {
     func stopAnimating() {
         gradientLayer.removeAnimation(forKey: "skeletonAnimation")
         isAnimating = false
-    }
-}
-
-// MARK: - 使用示例：在 UIViewController 中集成
-class DemoViewController: UIViewController {
-    
-    private let contentView = UIView() // 假设这是要显示内容的视图
-    private let skeleton = TPSkeletonView(frame: .zero)
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        
-        skeleton.frame = CGRect(x: 10.0, y: 100.0, width: 400.0, height: 120.0)
-        view.addSubview(skeleton)
     }
 }

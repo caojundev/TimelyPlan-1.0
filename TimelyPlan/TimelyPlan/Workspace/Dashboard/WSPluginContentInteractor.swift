@@ -39,6 +39,12 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
         self.plugin = plugin
         self.context = context
         super.init()
+        /// 跨天后剩余时间需要重新换算，所有组件统一监听零点更新
+        startMidnightObserving()
+    }
+    
+    deinit {
+        stopMidnightObserving()
     }
     
     // MARK: - 监听
@@ -47,7 +53,7 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
     }
     
     func stopMidnightObserving() {
-        TPMidnightScheduler.shared.addUpdater(self)
+        TPMidnightScheduler.shared.removeUpdater(self)
     }
     
     // MARK: - 加载
@@ -87,6 +93,14 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
     ///
     /// 默认不响应，由各模块按需覆写，以便直接使用交互器持有的插件配置与取数结果。
     func performPrimaryAction() {
+        
+    }
+    
+    /// 执行内容内某个条目的操作（点击条目等）。
+    ///
+    /// 内容视图通过注入的 `interactor` 直接调用这里，单元格无需关心具体是点击还是其它操作；
+    /// 默认不响应，由各模块按需覆写，以便按条目数据打开对应详情。
+    func performAction(with dataItem: WSPluginDataItem) {
         
     }
     

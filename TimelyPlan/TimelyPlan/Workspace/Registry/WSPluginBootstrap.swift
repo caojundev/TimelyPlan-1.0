@@ -8,5 +8,6 @@ enum WSPluginBootstrap {
         
         // 倒数日
         registry.register(WSCountdownSmallSelectedPluginProvider())
+        registry.register(WSCountdownMediumRecentPluginProvider())
     }
 }
