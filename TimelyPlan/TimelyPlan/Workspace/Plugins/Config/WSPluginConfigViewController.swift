@@ -58,7 +58,7 @@ class WSPluginConfigViewController: TPContainerViewController, WSPluginConfigura
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = closeBarButtonItem
+        navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
         preferredContentSize = AppLayout.Popover.extraLarge
         setupActionsBar(actions: [doneAction])
     }

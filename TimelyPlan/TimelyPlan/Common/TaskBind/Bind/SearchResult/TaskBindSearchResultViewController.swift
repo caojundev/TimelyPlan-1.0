@@ -15,6 +15,9 @@ class TaskBindSearchResultViewController: TPTableSectionsViewController,
     
     /// 当前选中任务特征值
     private(set) var selectedTaskFeature: TaskFeature?
+    
+    /// 允许搜索的任务类型
+    private(set) var allowTypes: [TaskType]
  
     lazy var todoResultSectionController: TodoTaskBindSearchResultSectionController = {
         let sectionController = TodoTaskBindSearchResultSectionController()
@@ -40,8 +43,10 @@ class TaskBindSearchResultViewController: TPTableSectionsViewController,
         return sectionController
     }()
     
-    init(selectedTaskFeature: TaskFeature?) {
+    init(selectedTaskFeature: TaskFeature?,
+         allowTypes: [TaskType] = [.todo, .habit, .goal, .countdown]) {
         self.selectedTaskFeature = selectedTaskFeature
+        self.allowTypes = allowTypes
         super.init(style: .insetGrouped)
     }
     
@@ -61,15 +66,34 @@ class TaskBindSearchResultViewController: TPTableSectionsViewController,
     
         wrapperView.isKeyboardAdjusterEnabled = true
         wrapperView.keyboardDismissMode = .onDrag
-        sectionControllers = [todoResultSectionController,
-                              habitResultSectionController,
-                              goalResultSectionController,
-                              countdownResultSectionController]
+        sectionControllers = makeSectionControllers()
         reloadData()
     }
     
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
+    }
+    
+    /// 按允许的任务类型组装搜索分组
+    private func makeSectionControllers() -> [TPTableBaseSectionController] {
+        var sectionControllers: [TPTableBaseSectionController] = []
+        if allowTypes.contains(.todo) {
+            sectionControllers.append(todoResultSectionController)
+        }
+        
+        if allowTypes.contains(.habit) {
+            sectionControllers.append(habitResultSectionController)
+        }
+        
+        if allowTypes.contains(.goal) {
+            sectionControllers.append(goalResultSectionController)
+        }
+        
+        if allowTypes.contains(.countdown) {
+            sectionControllers.append(countdownResultSectionController)
+        }
+        
+        return sectionControllers
     }
     
     // MARK: - UISearchResultsUpdating
@@ -90,6 +114,8 @@ class TaskBindSearchResultViewController: TPTableSectionsViewController,
             return
         }
 
+        self.selectedTaskFeature = task.feature
+        adapter.updateCheckmarks(animated: true)
         delegate?.taskBindViewController(self, didSelectTask: task)
     }
     
