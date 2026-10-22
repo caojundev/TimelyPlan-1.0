@@ -12,6 +12,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 倒数日·小·自选：展示用户自己选择的一个倒数日事件。
     case countdownSmallSelected
     
+    /// 倒数日·小·最近：展示距离当前日期最近的两个倒数日事项。
+    case countdownSmallRecent
+    
     /// 倒数日·中·最近：展示距离当前日期最近的三个倒数日事项。
     case countdownMediumRecent
     
@@ -26,7 +29,7 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .countdownSmallSelected:
+        case .countdownSmallSelected, .countdownSmallRecent:
             return .small
         case .countdownMediumRecent:
             return .medium
@@ -38,7 +41,7 @@ public extension WSPluginType {
     /// 所属模块。用于组件选择器分组，以及同模块三个尺寸之间的归类。
     var module: WSPluginModule {
         switch self {
-        case .countdownSmallSelected, .countdownMediumRecent, .countdownLargeRecent:
+        case .countdownSmallSelected, .countdownSmallRecent, .countdownMediumRecent, .countdownLargeRecent:
             return .countdown
         }
     }
@@ -48,7 +51,7 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return resGetString("Selected Countdown")
-        case .countdownMediumRecent, .countdownLargeRecent:
+        case .countdownSmallRecent, .countdownMediumRecent, .countdownLargeRecent:
             return resGetString("Recent Countdowns")
         }
     }
@@ -58,7 +61,7 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return resGetString("Shows the selected countdown")
-        case .countdownMediumRecent, .countdownLargeRecent:
+        case .countdownSmallRecent, .countdownMediumRecent, .countdownLargeRecent:
             return resGetString("Shows the most recent countdowns")
         }
     }

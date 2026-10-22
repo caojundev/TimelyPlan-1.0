@@ -8,6 +8,7 @@ enum WSPluginBootstrap {
     static let providers: [WSPluginProvider] = [
         // 倒数日
         WSCountdownSmallSelectedPluginProvider(),
+        WSCountdownSmallRecentPluginProvider(),
         WSCountdownMediumRecentPluginProvider(),
         WSCountdownLargeRecentPluginProvider(),
     ]

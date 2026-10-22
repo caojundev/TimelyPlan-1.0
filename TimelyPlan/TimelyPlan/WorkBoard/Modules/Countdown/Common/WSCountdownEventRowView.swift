@@ -15,7 +15,7 @@ import UIKit
 /// 展示单个倒数日事项：左侧图标，中间名称与日期，右侧剩余时间，
 /// 与倒数日列表单元格的排布一致。尺寸完全由外部决定，
 /// 由 `WSCountdownRecentContentView` 在各尺寸的组件中复用。
-class WSCountdownEventRowView: UIView {
+class WSCountdownEventRowView: WSCountdownEventRowBaseView {
     
     /// 布局参数。均按行高换算，保证不同尺寸下比例一致
     private enum Metrics {
@@ -80,26 +80,9 @@ class WSCountdownEventRowView: UIView {
     /// 剩余时间视图
     private let valueView = CountdownTimeValueView()
     
-    /// 上一次布局的尺寸，仅在尺寸变化时重新换算字号
-    private var laidOutSize: CGSize = .zero
-    
-    /// 点击回调，参数为当前行展示的事项
-    var didSelectHandler: ((WSCountdownDataItem) -> Void)?
-    
-    /// 当前展示的事项
-    private var dataItem: WSCountdownDataItem?
-    
-    /// 点击手势
-    private lazy var tapGesture: UITapGestureRecognizer = {
-        return UITapGestureRecognizer(target: self, action: #selector(clickRow(_:)))
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.padding = Metrics.padding
-        
-        /// 点击行展示该行的倒数日事项
-        addGestureRecognizer(tapGesture)
         
         addSubview(iconView)
         
@@ -136,18 +119,13 @@ class WSCountdownEventRowView: UIView {
     }
     
     // MARK: - 布局
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let layoutFrame = layoutFrame()
-        let isSizeChanged = laidOutSize != layoutFrame.size
-        if isSizeChanged {
-            laidOutSize = layoutFrame.size
-            updateFonts()
+    override func layoutContent(in layoutFrame: CGRect) {
+        if isLayoutSizeChanged {
+            updateFonts(for: layoutFrame)
         }
         
         /// 图标：靠左、垂直居中
-        let iconSide = iconViewSide()
+        let iconSide = iconViewSide(for: layoutFrame)
         iconView.size = CGSize(width: iconSide, height: iconSide)
         iconView.left = layoutFrame.minX
         iconView.centerY = layoutFrame.midY
@@ -177,28 +155,25 @@ class WSCountdownEventRowView: UIView {
         infoView.titleMinimumHeight = isSkeleton ? ceil(infoView.titleConfig.font.lineHeight) : 0.0
         infoView.subtitleMinimumHeight = isSkeleton ? ceil(infoView.subtitleConfig.font.lineHeight) : 0.0
         
-        /// 骨架已展示时按最新布局重算，覆盖首次在零尺寸下创建的情况
-        if isSizeChanged, sk.isShowing {
+        /// 骨架已展示时先完成内部布局，再由基类在本次布局结束后重算骨架
+        if isLayoutSizeChanged, sk.isShowing {
             infoView.layoutIfNeeded()
-            sk.reload()
         }
     }
     
     /// 图标边长
-    private func iconViewSide() -> CGFloat {
-        let layoutFrame = layoutFrame()
+    private func iconViewSide(for layoutFrame: CGRect) -> CGFloat {
         let side = floor(layoutFrame.height * Metrics.iconHeightRatio)
         return min(max(side, Metrics.iconMinSide), Metrics.iconMaxSide)
     }
     
     /// 按行高换算字号
-    private func updateFonts() {
-        let layoutFrame = layoutFrame()
+    private func updateFonts(for layoutFrame: CGRect) {
         guard layoutFrame.height > 0.0 else {
             return
         }
         
-        iconView.font = .systemFont(ofSize: floor(iconViewSide() * Metrics.iconFontRatio))
+        iconView.font = .systemFont(ofSize: floor(iconViewSide(for: layoutFrame) * Metrics.iconFontRatio))
         
         let titleFontSize = min(max(floor(layoutFrame.height * Metrics.titleFontRatio), Metrics.titleMinFontSize),
                                 Metrics.titleMaxFontSize)
@@ -218,70 +193,19 @@ class WSCountdownEventRowView: UIView {
     }
     
     // MARK: - 渲染
-    /// 更新展示的事项。传 nil 时清空内容并展示骨架
-    func update(with dataItem: WSCountdownDataItem?) {
-        self.dataItem = dataItem
-        
-        guard let dataItem = dataItem else {
-            iconView.icon = nil
-            iconView.backColor = .clear
-            infoView.title = nil
-            infoView.subtitle = nil
-            valueView.result = nil
-            
-            /// 清空内容后再展示骨架，避免旧内容短暂透出；
-            /// 子视图不能隐藏，否则 Skeleton 遍历时会直接跳过
-            setNeedsLayout()
-            sk.show()
-            return
-        }
-        
-        sk.hide()
-        
+    override func reloadContent(with dataItem: WSCountdownDataItem) {
         iconView.icon = TPIcon(text: dataItem.emoji)
         iconView.backColor = dataItem.color
         infoView.title = dataItem.title
         infoView.subtitle = dataItem.dateText
         valueView.result = dataItem.timeResult
-        
-        setNeedsLayout()
     }
     
-    // MARK: - 点击
-    /// 点击行，回调当前行展示的事项
-    @objc private func clickRow(_ gesture: UITapGestureRecognizer) {
-        guard let dataItem = dataItem else {
-            return
-        }
-        
-        TPImpactFeedback.impactWithSoftStyle()
-        didSelectHandler?(dataItem)
-    }
-    
-    // MARK: - 高亮
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        guard dataItem != nil else {
-            return
-        }
-        
-        setHighlighted(true)
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        setHighlighted(false)
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-        setHighlighted(false)
-    }
-    
-    /// 设置高亮背景，提示行可点击
-    private func setHighlighted(_ isHighlighted: Bool) {
-        UIView.animate(withDuration: 0.15) {
-            self.backgroundColor = isHighlighted ? Color(0x888888, 0.1) : .clear
-        }
+    override func clearContent() {
+        iconView.icon = nil
+        iconView.backColor = .clear
+        infoView.title = nil
+        infoView.subtitle = nil
+        valueView.result = nil
     }
 }
