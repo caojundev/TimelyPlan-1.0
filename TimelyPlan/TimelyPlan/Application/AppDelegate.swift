@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     // MARK: - 工作台初始化
     func setupWorkspace() {
-        WSPluginBootstrap.registerAll()
+//        WSPluginBootstrap.registerAll()
     }
     
     // MARK: - 通知初始化
