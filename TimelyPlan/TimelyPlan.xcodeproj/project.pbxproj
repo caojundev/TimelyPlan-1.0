@@ -879,6 +879,11 @@
 		E54C7C832F5C233900263B82 /* HabitPeriodItemFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C822F5C233900263B82 /* HabitPeriodItemFetcher.swift */; };
 		E54C7C852F5C4F5D00263B82 /* HabitPeriodItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C842F5C4F5D00263B82 /* HabitPeriodItemListView.swift */; };
 		E54C7C872F5C53E000263B82 /* TPRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7C862F5C53E000263B82 /* TPRequestManager.swift */; };
+		E54CE5233089F94500039277 /* WSCountdownLargeRecentPluginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CE5223089F94500039277 /* WSCountdownLargeRecentPluginCell.swift */; };
+		E54CE52E3089FA5800039277 /* WSCountdownEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CE52A3089FA5800039277 /* WSCountdownEventRowView.swift */; };
+		E54CE52F3089FA5800039277 /* WSCountdownRecentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CE52B3089FA5800039277 /* WSCountdownRecentContentView.swift */; };
+		E54CE5303089FA5800039277 /* WSCountdownRecentContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CE52C3089FA5800039277 /* WSCountdownRecentContentInteractor.swift */; };
+		E54CE5313089FA5800039277 /* WSCountdownLargeRecentPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CE52D3089FA5800039277 /* WSCountdownLargeRecentPluginProvider.swift */; };
 		E54E63252F5A705300FCBCAE /* HabitManageActiveListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E63242F5A705300FCBCAE /* HabitManageActiveListViewController.swift */; };
 		E54E63272F5A731300FCBCAE /* HabitManageArchivedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E63262F5A731300FCBCAE /* HabitManageArchivedListViewController.swift */; };
 		E54E63292F5A742600FCBCAE /* HabitManageTaskMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E63282F5A742600FCBCAE /* HabitManageTaskMenuController.swift */; };
@@ -1468,7 +1473,6 @@
 		E5A625D43089B3CE003EB8BC /* WSCountdownDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625A13089B3CD003EB8BC /* WSCountdownDataItem.swift */; };
 		E5A625D53089B3CE003EB8BC /* WSCountdownMediumRecentPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625A33089B3CD003EB8BC /* WSCountdownMediumRecentPluginProvider.swift */; };
 		E5A625D63089B3CE003EB8BC /* WSCountdownMediumRecentPluginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625A43089B3CD003EB8BC /* WSCountdownMediumRecentPluginCell.swift */; };
-		E5A625D73089B3CE003EB8BC /* WSCountdownMediumRecentContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625A53089B3CD003EB8BC /* WSCountdownMediumRecentContentView.swift */; };
 		E5A625D83089B3CE003EB8BC /* WSCountdownSmallSelectedPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625A73089B3CD003EB8BC /* WSCountdownSmallSelectedPluginProvider.swift */; };
 		E5A625D93089B3CE003EB8BC /* WSCountdownSmallSelectedPluginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625A83089B3CD003EB8BC /* WSCountdownSmallSelectedPluginCell.swift */; };
 		E5A625DA3089B3CE003EB8BC /* WSCountdownSmallSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625A93089B3CD003EB8BC /* WSCountdownSmallSelectedConfigViewController.swift */; };
@@ -3449,6 +3453,11 @@
 		E54C7C822F5C233900263B82 /* HabitPeriodItemFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPeriodItemFetcher.swift; sourceTree = "<group>"; };
 		E54C7C842F5C4F5D00263B82 /* HabitPeriodItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPeriodItemListView.swift; sourceTree = "<group>"; };
 		E54C7C862F5C53E000263B82 /* TPRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPRequestManager.swift; sourceTree = "<group>"; };
+		E54CE5223089F94500039277 /* WSCountdownLargeRecentPluginCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountdownLargeRecentPluginCell.swift; sourceTree = "<group>"; };
+		E54CE52A3089FA5800039277 /* WSCountdownEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountdownEventRowView.swift; sourceTree = "<group>"; };
+		E54CE52B3089FA5800039277 /* WSCountdownRecentContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountdownRecentContentView.swift; sourceTree = "<group>"; };
+		E54CE52C3089FA5800039277 /* WSCountdownRecentContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountdownRecentContentInteractor.swift; sourceTree = "<group>"; };
+		E54CE52D3089FA5800039277 /* WSCountdownLargeRecentPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountdownLargeRecentPluginProvider.swift; sourceTree = "<group>"; };
 		E54E63242F5A705300FCBCAE /* HabitManageActiveListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitManageActiveListViewController.swift; sourceTree = "<group>"; };
 		E54E63262F5A731300FCBCAE /* HabitManageArchivedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitManageArchivedListViewController.swift; sourceTree = "<group>"; };
 		E54E63282F5A742600FCBCAE /* HabitManageTaskMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitManageTaskMenuController.swift; sourceTree = "<group>"; };
@@ -4040,7 +4049,6 @@
 		E5A625A13089B3CD003EB8BC /* WSCountdownDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownDataItem.swift; sourceTree = "<group>"; };
 		E5A625A33089B3CD003EB8BC /* WSCountdownMediumRecentPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownMediumRecentPluginProvider.swift; sourceTree = "<group>"; };
 		E5A625A43089B3CD003EB8BC /* WSCountdownMediumRecentPluginCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownMediumRecentPluginCell.swift; sourceTree = "<group>"; };
-		E5A625A53089B3CD003EB8BC /* WSCountdownMediumRecentContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownMediumRecentContentView.swift; sourceTree = "<group>"; };
 		E5A625A73089B3CD003EB8BC /* WSCountdownSmallSelectedPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallSelectedPluginProvider.swift; sourceTree = "<group>"; };
 		E5A625A83089B3CD003EB8BC /* WSCountdownSmallSelectedPluginCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallSelectedPluginCell.swift; sourceTree = "<group>"; };
 		E5A625A93089B3CD003EB8BC /* WSCountdownSmallSelectedConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallSelectedConfigViewController.swift; sourceTree = "<group>"; };
@@ -7796,6 +7804,33 @@
 			path = Event;
 			sourceTree = "<group>";
 		};
+		E54CE5203089F8A300039277 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E54CE5213089F8B700039277 /* Recent */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
+		E54CE5213089F8B700039277 /* Recent */ = {
+			isa = PBXGroup;
+			children = (
+				E54CE5223089F94500039277 /* WSCountdownLargeRecentPluginCell.swift */,
+				E54CE52D3089FA5800039277 /* WSCountdownLargeRecentPluginProvider.swift */,
+			);
+			path = Recent;
+			sourceTree = "<group>";
+		};
+		E54CE5243089FA5800039277 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E54CE52A3089FA5800039277 /* WSCountdownEventRowView.swift */,
+				E54CE52B3089FA5800039277 /* WSCountdownRecentContentView.swift */,
+				E54CE52C3089FA5800039277 /* WSCountdownRecentContentInteractor.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		E54E632C2F5AFE1500FCBCAE /* Task */ = {
 			isa = PBXGroup;
 			children = (
@@ -8221,7 +8256,6 @@
 		E55AD8102CB29135006BCF8C /* TimelyPlan */ = {
 			isa = PBXGroup;
 			children = (
-				E5A625723089AD59003EB8BC /* Workspace */,
 				E5BB99DA2D3BEB320089667A /* TimelyPlan.entitlements */,
 				E55AD81A2CB29135006BCF8C /* TimelyPlan.xcdatamodeld */,
 				E5BB9F182D3BF2C10089667A /* Application */,
@@ -9576,13 +9610,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		E5A625723089AD59003EB8BC /* Workspace */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Workspace;
-			sourceTree = "<group>";
-		};
 		E5A625733089B3CD003EB8BC /* WorkBoard */ = {
 			isa = PBXGroup;
 			children = (
@@ -9717,6 +9744,8 @@
 			isa = PBXGroup;
 			children = (
 				E5A625A13089B3CD003EB8BC /* WSCountdownDataItem.swift */,
+				E54CE5243089FA5800039277 /* Common */,
+				E54CE5203089F8A300039277 /* Large */,
 				E5A625A23089B3CD003EB8BC /* Medium */,
 				E5A625A63089B3CD003EB8BC /* Small */,
 			);
@@ -9728,7 +9757,6 @@
 			children = (
 				E5A625A33089B3CD003EB8BC /* WSCountdownMediumRecentPluginProvider.swift */,
 				E5A625A43089B3CD003EB8BC /* WSCountdownMediumRecentPluginCell.swift */,
-				E5A625A53089B3CD003EB8BC /* WSCountdownMediumRecentContentView.swift */,
 			);
 			path = Medium;
 			sourceTree = "<group>";
@@ -14776,6 +14804,11 @@
 				E5BB9DBE2D3BF0C60089667A /* UIColorFunctions.swift in Sources */,
 				E51F94233006357B00734910 /* HabitTimeEditSectionController.swift in Sources */,
 				E5E9F7A52FC2B58300717004 /* TodoSearchResultViewController.swift in Sources */,
+				E54CE5233089F94500039277 /* WSCountdownLargeRecentPluginCell.swift in Sources */,
+				E54CE52E3089FA5800039277 /* WSCountdownEventRowView.swift in Sources */,
+				E54CE52F3089FA5800039277 /* WSCountdownRecentContentView.swift in Sources */,
+				E54CE5303089FA5800039277 /* WSCountdownRecentContentInteractor.swift in Sources */,
+				E54CE5313089FA5800039277 /* WSCountdownLargeRecentPluginProvider.swift in Sources */,
 				E541DC65305A1AAA008BFAE0 /* CountdownTimePlan.swift in Sources */,
 				E5BB9DF72D3BF0C60089667A /* NSObject+WeakDelegates.swift in Sources */,
 				E5FF4EC02FE9360300282416 /* LocalNotificationPreviewViewController.swift in Sources */,
@@ -15776,7 +15809,6 @@
 				E5D7D8D02D43933600EC877A /* FocusEndScoreCell.swift in Sources */,
 				E5185067300F12B100112DFC /* TimelineEventConverter.swift in Sources */,
 				E500E3AA2FC7E66D00252011 /* BarRankListChartCell.swift in Sources */,
-				E5A625D73089B3CE003EB8BC /* WSCountdownMediumRecentContentView.swift in Sources */,
 				E511E4FE305D29F000292511 /* CountdownDisplayEditSectionController.swift in Sources */,
 				E51FF6512F571978003CA953 /* HabitTaskStatusView.swift in Sources */,
 				E54A0685303BFBFB001FF4A1 /* GanttEvent.swift in Sources */,

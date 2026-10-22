@@ -134,6 +134,8 @@ class WSPluginCell: UICollectionViewCell {
         self.plugin = plugin
         self.provider = provider
         self.context = context
+        updatePluginContentEnabled()
+        
         /// 先展示占位视图，数据加载完成后再展示内容视图
         showLoadingPlaceholderView()
         setupInteractor()
@@ -273,7 +275,7 @@ class WSPluginCell: UICollectionViewCell {
         self.isJiggling = isJiggling
         /// 删除按钮仅在编辑（抖动）模式下显示
         deleteButton.isHidden = !isJiggling
-        pluginContentView.isUserInteractionEnabled = !isJiggling
+        updatePluginContentEnabled()
         emptyPlaceholderView?.isUserInteractionEnabled = !isJiggling
         if isJiggling {
             bringSubviewToFront(deleteButton)
@@ -281,6 +283,15 @@ class WSPluginCell: UICollectionViewCell {
         } else {
             stopJiggling()
         }
+    }
+    
+    private func updatePluginContentEnabled() {
+        guard context != .gallery else {
+            pluginContentView.isUserInteractionEnabled = false
+            return
+        }
+        
+        pluginContentView.isUserInteractionEnabled = !isJiggling
     }
     
     /// 点击删除按钮

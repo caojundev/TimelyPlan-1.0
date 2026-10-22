@@ -32,8 +32,6 @@
 "Shows the selected countdown" = "展示选中的倒数日";
 "Recent Countdowns" = "最近倒数日";
 "Shows the most recent countdowns" = "展示最近的倒数日";
-"Add Previous Plugin" = "添加上一个插件";
-"Add Next Plugin" = "添加下一个插件";
 
 "My Dashboard" = "我的面板";
 "Dashboard" = "面板";
@@ -41,6 +39,14 @@
 "New Dashboard" = "新建面板";
 "Delete Dashboard" = "删除面板";
 "No Dashboard" = "暂无面板";
+
+/// 组件画廊预览事项
+"Trip Departure" = "出发去旅行";
+"Project Launch" = "项目上线";
+"Mom's Birthday" = "妈妈生日";
+"Driving Test" = "驾照考试";
+"Add Previous Plugin" = "添加上一个插件";
+"Add Next Plugin" = "添加下一个插件";
 
 ///**************************侧边栏**************************///
 "My Day" = "我的一天";

@@ -1,89 +1,20 @@
 //
-//  WSCountdownMediumRecentContentView.swift
+//  WSCountdownEventRowView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/10/21.
+//  Created by caojun on 2026/10/22.
 //
 
 import Foundation
 import UIKit
-
-// MARK: - 内容视图
-
-/// 倒数日·中·最近内容视图。
-///
-/// 纵向排列三行倒数日事项，每行由 `WSCountdownEventRowView` 渲染，
-/// 视觉与倒数日列表单元格一致。
-class WSCountdownMediumRecentContentView: WSPluginContentView {
-    
-    /// 布局参数
-    private enum Metrics {
-        
-        /// 行数
-        static let rowCount = 3
-    }
-    
-    /// 行视图
-    private let rowViews: [WSCountdownEventRowView] = (0..<Metrics.rowCount).map { _ in
-        return WSCountdownEventRowView()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        rowViews.forEach { rowView in
-            /// 行内点击直接交给交互器处理
-            rowView.didSelectHandler = { [weak self] dataItem in
-                self?.interactor?.performAction(with: dataItem)
-            }
-            
-            addSubview(rowView)
-        }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - 布局
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let layoutFrame = bounds
-        let rowCount = CGFloat(rowViews.count)
-        guard layoutFrame.height > 0.0, rowCount > 0.0 else {
-            return
-        }
-        
-        let rowHeight = layoutFrame.height / rowCount
-        for (index, rowView) in rowViews.enumerated() where !rowView.isHidden {
-            rowView.frame = CGRect(x: layoutFrame.minX,
-                                   y: layoutFrame.minY + CGFloat(index) * rowHeight,
-                                   width: layoutFrame.width,
-                                   height: rowHeight)
-        }
-    }
-    
-    // MARK: - 渲染
-    override func update(with dataItem: WSPluginDataItem?) {
-        super.update(with: dataItem)
-        
-        /// 按顺序展示事项，超出行数的部分忽略，不足的行展示占位横条
-        let dataItems = (dataItem as? WSCountdownRecentDataItem)?.items ?? []
-        for (index, rowView) in rowViews.enumerated() {
-            rowView.update(with: dataItems[safe: index])
-        }
-        
-        setNeedsLayout()
-    }
-}
 
 // MARK: - 行视图
 
 /// 倒数日事项行视图。
 ///
 /// 展示单个倒数日事项：左侧图标，中间名称与日期，右侧剩余时间，
-/// 与倒数日列表单元格的排布一致。尺寸完全由外部决定，可在不同尺寸的组件中复用。
+/// 与倒数日列表单元格的排布一致。尺寸完全由外部决定，
+/// 由 `WSCountdownRecentContentView` 在各尺寸的组件中复用。
 class WSCountdownEventRowView: UIView {
     
     /// 布局参数。均按行高换算，保证不同尺寸下比例一致

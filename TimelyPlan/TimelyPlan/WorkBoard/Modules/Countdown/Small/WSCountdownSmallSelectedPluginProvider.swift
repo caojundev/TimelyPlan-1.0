@@ -90,7 +90,7 @@ class WSCountdownContentInteractor: WSPluginContentInteractor, CountdownEventPro
     /// 画廊预览数据：固定展示一个示例事项，不受用户配置影响
     override func previewDataItem() -> WSPluginDataItem? {
         let event = CountdownEvent(type: .countdown,
-                                   name: "出发去旅行",
+                                   name: resGetString("Trip Departure"),
                                    emoji: "✈️",
                                    colorHex: Color(0x09AFFF).hexString,
                                    date: CountdownDate(targetDate: Date().dateByAddingDays(26) ?? Date()),

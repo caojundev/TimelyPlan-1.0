@@ -9,6 +9,7 @@ enum WSPluginBootstrap {
         // 倒数日
         WSCountdownSmallSelectedPluginProvider(),
         WSCountdownMediumRecentPluginProvider(),
+        WSCountdownLargeRecentPluginProvider(),
     ]
 
     /// 注册所有组件 Provider。必须在 App 启动时调用一次。
