@@ -104,7 +104,15 @@ extension WSPluginConfigViewController {
     }
     
     /// 用配置模型更新配置。变化时回调外部保存
+    ///
+    /// 以当前配置为基准做字段级合并，仅覆盖模型认识的字段，
+    /// 更高版本写入的字段会原样保留，避免低版本保存时丢失配置
     func updateConfiguration<T: Encodable>(_ configuration: T?) {
-        updateConfigJSON(configuration?.jsonString())
+        guard let configuration = configuration else {
+            updateConfigJSON(nil)
+            return
+        }
+        
+        updateConfigJSON(WSPluginConfigJSONMerger.merging(base: configJSON, model: configuration))
     }
 }

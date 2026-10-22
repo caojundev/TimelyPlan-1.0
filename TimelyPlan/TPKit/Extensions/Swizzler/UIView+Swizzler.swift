@@ -26,6 +26,6 @@ extension UIView {
         themeDidChange()
         
         /// 布局骨架
-//        sk_layoutSubviews()
+        sk_layoutSubviews()
     }
 }

@@ -2076,6 +2076,7 @@
 		E5BEC286307B3E770050E01B /* upgrade_privacy_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BEC282307B3E770050E01B /* upgrade_privacy_16@3x.png */; };
 		E5BEC287307B3E770050E01B /* upgrade_privacy_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BEC283307B3E770050E01B /* upgrade_privacy_16@2x.png */; };
 		E5BEC289307B8EE90050E01B /* IAPPaywallConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BEC288307B8EE90050E01B /* IAPPaywallConfig.swift */; };
+		E5C0FFEE3089B3CE003EB8BC /* WSPluginConfigJSONMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0FFEF3089B3CE003EB8BC /* WSPluginConfigJSONMerger.swift */; };
 		E5C18FB92DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB32DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png */; };
 		E5C18FBA2DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB42DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png */; };
 		E5C18FBB2DB4FE1F008FAA13 /* todo_task_change_new_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB52DB4FE1F008FAA13 /* todo_task_change_new_16@2x.png */; };
@@ -4662,6 +4663,7 @@
 		E5BEC282307B3E770050E01B /* upgrade_privacy_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upgrade_privacy_16@3x.png"; sourceTree = "<group>"; };
 		E5BEC283307B3E770050E01B /* upgrade_privacy_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upgrade_privacy_16@2x.png"; sourceTree = "<group>"; };
 		E5BEC288307B8EE90050E01B /* IAPPaywallConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPPaywallConfig.swift; sourceTree = "<group>"; };
+		E5C0FFEF3089B3CE003EB8BC /* WSPluginConfigJSONMerger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginConfigJSONMerger.swift; sourceTree = "<group>"; };
 		E5C18FB32DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_deleted_16@3x.png"; sourceTree = "<group>"; };
 		E5C18FB42DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_deleted_16@2x.png"; sourceTree = "<group>"; };
 		E5C18FB52DB4FE1F008FAA13 /* todo_task_change_new_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_new_16@2x.png"; sourceTree = "<group>"; };
@@ -9584,16 +9586,16 @@
 		E5A625733089B3CD003EB8BC /* WorkBoard */ = {
 			isa = PBXGroup;
 			children = (
-				E5A625743089B3CD003EB8BC /* Repository */,
-				E5A6257D3089B3CD003EB8BC /* Plugins */,
-				E5A625863089B3CD003EB8BC /* Models */,
 				E5A625893089B3CD003EB8BC /* WorkspaceMainViewController.swift */,
-				E5A6258A3089B3CD003EB8BC /* Dashboard */,
 				E5A625953089B3CD003EB8BC /* WorkspaceMoreBarButtonItem.swift */,
 				E5A625963089B3CD003EB8BC /* WorkspaceTitleView.swift */,
-				E5A625973089B3CD003EB8BC /* Registry */,
 				E5A6259B3089B3CD003EB8BC /* WorkspaceCoordinator.swift */,
+				E5A625973089B3CD003EB8BC /* Registry */,
+				E5A625743089B3CD003EB8BC /* Repository */,
 				E5A6259C3089B3CD003EB8BC /* Manage */,
+				E5A6257D3089B3CD003EB8BC /* Plugins */,
+				E5A625863089B3CD003EB8BC /* Models */,
+				E5A6258A3089B3CD003EB8BC /* Dashboard */,
 				E5A6259E3089B3CD003EB8BC /* Modules */,
 			);
 			path = WorkBoard;
@@ -9653,6 +9655,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A625853089B3CD003EB8BC /* WSPluginConfigViewController.swift */,
+				E5C0FFEF3089B3CE003EB8BC /* WSPluginConfigJSONMerger.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -9706,7 +9709,6 @@
 			children = (
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
 				E5A625A03089B3CD003EB8BC /* Countdown */,
-				E5A625AB3089B3CD003EB8BC /* Skeleton */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -10778,6 +10780,7 @@
 				E5BB9D722D3BF0C50089667A /* TPMultipleItemSelection.swift */,
 				E5BB9D712D3BF0C50089667A /* TPWeakProxy.swift */,
 				E5BB9BA02D3BF0C30089667A /* TPWeakDelegateCollection.swift */,
+				E5A625AB3089B3CD003EB8BC /* Skeleton */,
 				E5BB9D652D3BF0C50089667A /* DragReorder */,
 			);
 			path = Functional;
@@ -15205,6 +15208,7 @@
 				E533528A2FF7C36600546986 /* CalendarYearHeaderView.swift in Sources */,
 				E5DCC4062DC49BA2004DE7A5 /* CalendarTimelineLayout.swift in Sources */,
 				E5A625BE3089B3CE003EB8BC /* WSPluginConfigViewController.swift in Sources */,
+				E5C0FFEE3089B3CE003EB8BC /* WSPluginConfigJSONMerger.swift in Sources */,
 				E5BB9E002D3BF0C60089667A /* Array+ListDiffable.swift in Sources */,
 				E5BB9DFA2D3BF0C60089667A /* Int+Extensions.swift in Sources */,
 				E5D7D9002D43933600EC877A /* FocusMoreBarButtonItem.swift in Sources */,

@@ -19,9 +19,8 @@ class MainViewController : TPSidebarViewController, SideMenuViewControllerDelega
     
     /// 工作台
     lazy var workspaceViewController: UINavigationController = {
-//        let vc = WorkspaceMainViewController()
-//        vc.sidebarController = sidebarController
-        let vc = UIViewController()
+        let vc = WorkspaceMainViewController()
+        vc.sidebarController = sidebarController
         return UINavigationController(rootViewController: vc)
     }()
     

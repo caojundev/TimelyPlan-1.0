@@ -73,4 +73,9 @@ extension WSPlugin {
         
         return T.model(with: configJSON)
     }
+    
+    /// 用配置模型更新配置 JSON，保留更高版本写入的字段
+    func configurationJSON<T: Encodable>(updatingWith configuration: T) -> String? {
+        return WSPluginConfigJSONMerger.merging(base: configJSON, model: configuration)
+    }
 }
