@@ -14,7 +14,7 @@ import UIKit
 class WSCountdownSmallRecentPluginCell: WSPluginCell {
     
     override func makePluginContentView() -> WSPluginContentView! {
-        return WSCountdownSmallRecentContentView(itemCount: WSCountdownRecentItemCount.small)
+        return WSCountdownSmallRecentContentView()
     }
     
 }

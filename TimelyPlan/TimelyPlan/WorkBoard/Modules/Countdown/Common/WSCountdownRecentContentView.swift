@@ -12,15 +12,18 @@ import UIKit
 
 /// 倒数日「最近」类组件的展示条数。
 ///
-/// 各尺寸组件唯一的差异是展示条数：小号 2 条、中号 3 条、大号 5 条。
+/// 各组件唯一的差异是展示条数：小号 2 条、中号列表 3 条、中号网格 4 条、大号 5 条。
 /// 交互器取数与内容视图行数共用这里的常量，避免两处分别硬编码。
 enum WSCountdownRecentItemCount {
     
     /// 小号组件的展示条数
     static let small = 2
     
-    /// 中号组件的展示条数
-    static let medium = 3
+    /// 中号·列表组件的展示条数
+    static let mediumList = 3
+    
+    /// 中号·网格组件的展示条数
+    static let mediumGrid = 4
     
     /// 大号组件的展示条数
     static let large = 5

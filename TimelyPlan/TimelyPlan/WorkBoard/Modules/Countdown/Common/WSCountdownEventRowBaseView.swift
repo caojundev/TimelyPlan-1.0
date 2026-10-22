@@ -43,6 +43,9 @@ class WSCountdownEventRowBaseView: UIView {
     /// 当前是否处于按下高亮状态
     private(set) var isRowHighlighted: Bool = false
     
+    /// 骨架配置。行自带底色时可由外部覆盖，避免骨架块与行底色对比过低
+    var skeletonConfig: SkeletonConfig = Skeleton.config
+    
     /// 本次布局的可用区域尺寸是否发生变化
     private(set) var isLayoutSizeChanged: Bool = false
     
@@ -77,7 +80,7 @@ class WSCountdownEventRowBaseView: UIView {
             /// 清空内容后再展示骨架，避免旧内容短暂透出；
             /// 子视图不能隐藏，否则 Skeleton 遍历时会直接跳过
             setNeedsLayout()
-            sk.show()
+            sk.show(config: skeletonConfig)
             return
         }
         

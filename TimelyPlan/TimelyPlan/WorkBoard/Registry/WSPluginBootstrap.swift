@@ -9,7 +9,8 @@ enum WSPluginBootstrap {
         // 倒数日
         WSCountdownSmallSelectedPluginProvider(),
         WSCountdownSmallRecentPluginProvider(),
-        WSCountdownMediumRecentPluginProvider(),
+        WSCountdownMediumRecentListPluginProvider(),
+        WSCountdownMediumRecentGridPluginProvider(),
         WSCountdownLargeRecentPluginProvider(),
     ]
 

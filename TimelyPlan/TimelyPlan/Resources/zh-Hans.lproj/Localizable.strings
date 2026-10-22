@@ -32,6 +32,8 @@
 "Shows the selected countdown" = "展示选中的倒数日";
 "Recent Countdowns" = "最近倒数日";
 "Shows the most recent countdowns" = "展示最近的倒数日";
+"Shows the most recent countdowns in a list" = "以列表展示最近的倒数日";
+"Shows the most recent countdowns in a grid" = "以网格展示最近的倒数日";
 
 "My Dashboard" = "我的面板";
 "Dashboard" = "面板";

@@ -15,8 +15,11 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 倒数日·小·最近：展示距离当前日期最近的两个倒数日事项。
     case countdownSmallRecent
     
-    /// 倒数日·中·最近：展示距离当前日期最近的三个倒数日事项。
-    case countdownMediumRecent
+    /// 倒数日·中·最近（列表）：逐行展示距离当前日期最近的三个倒数日事项。
+    case countdownMediumRecentList
+    
+    /// 倒数日·中·最近（网格）：以两列两行的网格展示距离当前日期最近的四个倒数日事项。
+    case countdownMediumRecentGrid
     
     /// 倒数日·大·最近：展示距离当前日期最近的五个倒数日事项。
     case countdownLargeRecent
@@ -31,7 +34,7 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected, .countdownSmallRecent:
             return .small
-        case .countdownMediumRecent:
+        case .countdownMediumRecentList, .countdownMediumRecentGrid:
             return .medium
         case .countdownLargeRecent:
             return .large
@@ -41,7 +44,9 @@ public extension WSPluginType {
     /// 所属模块。用于组件选择器分组，以及同模块三个尺寸之间的归类。
     var module: WSPluginModule {
         switch self {
-        case .countdownSmallSelected, .countdownSmallRecent, .countdownMediumRecent, .countdownLargeRecent:
+        case .countdownSmallSelected, .countdownSmallRecent,
+             .countdownMediumRecentList, .countdownMediumRecentGrid,
+             .countdownLargeRecent:
             return .countdown
         }
     }
@@ -51,7 +56,7 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return resGetString("Selected Countdown")
-        case .countdownSmallRecent, .countdownMediumRecent, .countdownLargeRecent:
+        case .countdownSmallRecent, .countdownMediumRecentList, .countdownMediumRecentGrid, .countdownLargeRecent:
             return resGetString("Recent Countdowns")
         }
     }
@@ -61,7 +66,11 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return resGetString("Shows the selected countdown")
-        case .countdownSmallRecent, .countdownMediumRecent, .countdownLargeRecent:
+        case .countdownMediumRecentList:
+            return resGetString("Shows the most recent countdowns in a list")
+        case .countdownMediumRecentGrid:
+            return resGetString("Shows the most recent countdowns in a grid")
+        case .countdownSmallRecent, .countdownLargeRecent:
             return resGetString("Shows the most recent countdowns")
         }
     }
