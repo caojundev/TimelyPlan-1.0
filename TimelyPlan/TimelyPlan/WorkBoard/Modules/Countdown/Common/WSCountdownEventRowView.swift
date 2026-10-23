@@ -17,25 +17,13 @@ import UIKit
 /// 由 `WSCountdownRecentContentView` 在各尺寸的组件中复用。
 class WSCountdownEventRowView: WSCountdownEventRowBaseView {
     
-    /// 布局参数。均按行高换算，保证不同尺寸下比例一致
+    /// 信息区与数值的布局参数。均按行高换算，保证不同尺寸下比例一致
     private enum Metrics {
-        static let padding = UIEdgeInsets(horizontal: 12.0, vertical: 4.0)
-        
         /// 图标与信息的间距
         static let iconInfoSpacing: CGFloat = 8.0
         
         /// 信息与剩余时间的间距
         static let infoValueSpacing: CGFloat = 8.0
-        
-        /// 图标边长占行高的比例
-        static let iconHeightRatio: CGFloat = 0.78
-        
-        /// 图标边长范围
-        static let iconMinSide: CGFloat = 20.0
-        static let iconMaxSide: CGFloat = 36.0
-        
-        /// emoji 字号占图标边长的比例
-        static let iconFontRatio: CGFloat = 0.5
         
         /// 标题字号占行高的比例及范围
         static let titleFontRatio: CGFloat = 0.3
@@ -50,57 +38,37 @@ class WSCountdownEventRowView: WSCountdownEventRowBaseView {
         /// 副标题与标题的间距占行高的比例
         static let subtitleSpacingRatio: CGFloat = 0.08
         
-        /// 数值字号占行高的比例及范围
-        static let valueFontRatio: CGFloat = 0.46
-        static let valueMinFontSize: CGFloat = 12.0
-        static let valueMaxFontSize: CGFloat = 24.0
-        
-        /// 单位字号占数值字号的比例
-        static let unitFontRatio: CGFloat = 0.5
-        
-        /// 「今天」字号占数值字号的比例
-        static let todayFontRatio: CGFloat = 0.7
-        
         /// 剩余时间最大宽度占行宽的比例
         static let valueWidthRatio: CGFloat = 0.45
         
-        /// 骨架数值块宽度占行宽的比例
+        /// 骨架数值块宽度占行宽的比例及最大宽度
         static let skeletonValueWidthRatio: CGFloat = 0.22
-        
-        /// 骨架数值块最大宽度
         static let skeletonValueMaximumWidth: CGFloat = 52.0
     }
-    
-    /// 图标视图
-    private let iconView = TPIconView()
     
     /// 信息视图
     private let infoView = TPInfoView()
     
-    /// 剩余时间视图
-    private let valueView = CountdownTimeValueView()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.padding = Metrics.padding
+        self.padding = UIEdgeInsets(horizontal: 12.0, vertical: 4.0)
         
-        addSubview(iconView)
+        /// 与倒数日列表单元格一致：图标偏大、数值靠右
+        iconHeightRatio = 0.78
+        iconMinSide = 20.0
+        iconMaxSide = 36.0
+        iconFontRatio = 0.5
+        valueFontRatio = 0.46
+        valueMinFontSize = 12.0
+        valueMaxFontSize = 24.0
+        unitFontRatio = 0.5
+        todayFontRatio = 0.7
+        valueView.textAlignment = .right
         
         infoView.titleConfig.textColor = .label
         infoView.subtitleConfig.textColor = .secondaryLabel
         infoView.subtitleConfig.alpha = 1.0
         addSubview(infoView)
-        
-        /// 组件为浅色背景，剩余时间使用常规文本色，单位弱化，不绘制光晕
-        valueView.textAlignment = .right
-        valueView.textColor = .label
-        valueView.unitColor = .secondaryLabel
-        valueView.glowColor = .clear
-        addSubview(valueView)
-        
-        /// 骨架标记：与 Demo 一致，直接标记真实子视图，由 Skeleton 统一绘制
-        iconView.isSkeletonable = true
-        iconView.skeletonShape = .circle
         
         infoView.titleLabel.isSkeletonable = true
         infoView.titleLabel.skeletonShape = .capsule
@@ -109,9 +77,6 @@ class WSCountdownEventRowView: WSCountdownEventRowBaseView {
         infoView.subtitleLabel.isSkeletonable = true
         infoView.subtitleLabel.skeletonShape = .capsule
         infoView.subtitleLabel.skeletonWidthRatio = 0.38
-        
-        valueView.isSkeletonable = true
-        valueView.skeletonShape = .capsule
     }
     
     required init?(coder: NSCoder) {
@@ -120,16 +85,7 @@ class WSCountdownEventRowView: WSCountdownEventRowBaseView {
     
     // MARK: - 布局
     override func layoutContent(in layoutFrame: CGRect) {
-        if isLayoutSizeChanged {
-            updateFonts(for: layoutFrame)
-        }
-        
-        /// 图标：靠左、垂直居中
-        let iconSide = iconViewSide(for: layoutFrame)
-        iconView.size = CGSize(width: iconSide, height: iconSide)
-        iconView.left = layoutFrame.minX
-        iconView.centerY = layoutFrame.midY
-        iconView.cornerRadius = iconSide / 2.0
+        layoutIconAtLeadingCenter(in: layoutFrame)
         
         /// 剩余时间：靠右，宽度按内容自适应并限制最大宽度，超出时由数值视图自行缩放
         let valueFitSize = valueView.sizeThatFits(CGSize(width: .greatestFiniteMagnitude,
@@ -139,7 +95,7 @@ class WSCountdownEventRowView: WSCountdownEventRowBaseView {
             ? min(layoutFrame.width * Metrics.skeletonValueWidthRatio, Metrics.skeletonValueMaximumWidth)
             : min(ceil(valueFitSize.width), layoutFrame.width * Metrics.valueWidthRatio)
         valueView.size = CGSize(width: valueWidth, height: layoutFrame.height)
-        valueView.left = layoutFrame.maxX - valueWidth
+        valueView.right = layoutFrame.maxX
         valueView.top = layoutFrame.minY
         
         /// 信息：占据中间的剩余空间
@@ -161,19 +117,8 @@ class WSCountdownEventRowView: WSCountdownEventRowBaseView {
         }
     }
     
-    /// 图标边长
-    private func iconViewSide(for layoutFrame: CGRect) -> CGFloat {
-        let side = floor(layoutFrame.height * Metrics.iconHeightRatio)
-        return min(max(side, Metrics.iconMinSide), Metrics.iconMaxSide)
-    }
-    
-    /// 按行高换算字号
-    private func updateFonts(for layoutFrame: CGRect) {
-        guard layoutFrame.height > 0.0 else {
-            return
-        }
-        
-        iconView.font = .systemFont(ofSize: floor(iconViewSide(for: layoutFrame) * Metrics.iconFontRatio))
+    override func updateFonts(in layoutFrame: CGRect) {
+        super.updateFonts(in: layoutFrame)
         
         let titleFontSize = min(max(floor(layoutFrame.height * Metrics.titleFontRatio), Metrics.titleMinFontSize),
                                 Metrics.titleMaxFontSize)
@@ -184,28 +129,16 @@ class WSCountdownEventRowView: WSCountdownEventRowBaseView {
         infoView.subtitleConfig.font = .systemFont(ofSize: subtitleFontSize, weight: .regular)
         infoView.subtitleTopMargin = max(2.0, floor(layoutFrame.height * Metrics.subtitleSpacingRatio))
         infoView.setNeedsLayout()
-        
-        let valueFontSize = min(max(floor(layoutFrame.height * Metrics.valueFontRatio), Metrics.valueMinFontSize),
-                                Metrics.valueMaxFontSize)
-        valueView.valueFont = .monospacedDigitSystemFont(ofSize: valueFontSize, weight: .heavy)
-        valueView.unitFont = .systemFont(ofSize: max(floor(valueFontSize * Metrics.unitFontRatio), 11.0), weight: .medium)
-        valueView.todayFont = .systemFont(ofSize: max(floor(valueFontSize * Metrics.todayFontRatio), 11.0), weight: .bold)
     }
     
     // MARK: - 渲染
-    override func reloadContent(with dataItem: WSCountdownDataItem) {
-        iconView.icon = TPIcon(text: dataItem.emoji)
-        iconView.backColor = dataItem.color
+    override func reloadInfo(with dataItem: WSCountdownDataItem) {
         infoView.title = dataItem.title
         infoView.subtitle = dataItem.dateText
-        valueView.result = dataItem.timeResult
     }
     
-    override func clearContent() {
-        iconView.icon = nil
-        iconView.backColor = .clear
+    override func clearInfo() {
         infoView.title = nil
         infoView.subtitle = nil
-        valueView.result = nil
     }
 }

@@ -11,26 +11,11 @@ import UIKit
 // MARK: - 组件提供者
 
 /// 倒数日·中·最近（网格）。以两列两行的网格展示距离当前日期最近的四个倒数日事项。
-class WSCountdownMediumRecentGridPluginProvider: WSPluginProvider {
+class WSCountdownMediumRecentGridPluginProvider: WSCountdownRecentPluginProvider {
     
-    /// 插件类型
-    var type: WSPluginType {
-        return .countdownMediumRecentGrid
-    }
-    
-    /// 该组件尺寸
-    var size: WSPluginSize {
-        return .medium
-    }
-    
-    /// 该组件注册的单元格类
-    var cellClass: WSPluginCell.Type {
-        return WSCountdownMediumRecentGridPluginCell.self
-    }
-    
-    func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {
-        return WSCountdownRecentContentInteractor(plugin: plugin,
-                                                  context: context,
-                                                  maximumItemCount: WSCountdownRecentItemCount.mediumGrid)
+    init() {
+        super.init(type: .countdownMediumRecentGrid,
+                   cellClass: WSCountdownMediumRecentGridPluginCell.self,
+                   itemCount: WSCountdownRecentItemCount.mediumGrid)
     }
 }

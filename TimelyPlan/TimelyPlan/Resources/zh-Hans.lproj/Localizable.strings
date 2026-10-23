@@ -34,6 +34,7 @@
 "Shows the most recent countdowns" = "展示最近的倒数日";
 "Shows the most recent countdowns in a list" = "以列表展示最近的倒数日";
 "Shows the most recent countdowns in a grid" = "以网格展示最近的倒数日";
+"Shows the most recent countdowns in columns" = "以三列展示最近的倒数日";
 
 "My Dashboard" = "我的面板";
 "Dashboard" = "面板";
@@ -47,6 +48,9 @@
 "Project Launch" = "项目上线";
 "Mom's Birthday" = "妈妈生日";
 "Driving Test" = "驾照考试";
+"Family Trip" = "家庭旅行";
+"New Semester" = "新学期";
+"Graduation" = "毕业";
 "Add Previous Plugin" = "添加上一个插件";
 "Add Next Plugin" = "添加下一个插件";
 

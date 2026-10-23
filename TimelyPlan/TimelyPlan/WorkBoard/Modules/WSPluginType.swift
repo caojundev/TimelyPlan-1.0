@@ -21,8 +21,14 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 倒数日·中·最近（网格）：以两列两行的网格展示距离当前日期最近的四个倒数日事项。
     case countdownMediumRecentGrid
     
-    /// 倒数日·大·最近：展示距离当前日期最近的五个倒数日事项。
-    case countdownLargeRecent
+    /// 倒数日·中·最近（三列）：以一行三列的竖排卡片展示距离当前日期最近的三个倒数日事项。
+    case countdownMediumRecentColumns
+    
+    /// 倒数日·大·最近（列表）：逐行展示距离当前日期最近的五个倒数日事项。
+    case countdownLargeRecentList
+    
+    /// 倒数日·大·最近（网格）：以两列四行的网格展示距离当前日期最近的八个倒数日事项。
+    case countdownLargeRecentGrid
 }
 
 // MARK: - 固有属性
@@ -34,9 +40,9 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected, .countdownSmallRecent:
             return .small
-        case .countdownMediumRecentList, .countdownMediumRecentGrid:
+        case .countdownMediumRecentList, .countdownMediumRecentGrid, .countdownMediumRecentColumns:
             return .medium
-        case .countdownLargeRecent:
+        case .countdownLargeRecentList, .countdownLargeRecentGrid:
             return .large
         }
     }
@@ -45,8 +51,8 @@ public extension WSPluginType {
     var module: WSPluginModule {
         switch self {
         case .countdownSmallSelected, .countdownSmallRecent,
-             .countdownMediumRecentList, .countdownMediumRecentGrid,
-             .countdownLargeRecent:
+             .countdownMediumRecentList, .countdownMediumRecentGrid, .countdownMediumRecentColumns,
+             .countdownLargeRecentList, .countdownLargeRecentGrid:
             return .countdown
         }
     }
@@ -56,7 +62,8 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return resGetString("Selected Countdown")
-        case .countdownSmallRecent, .countdownMediumRecentList, .countdownMediumRecentGrid, .countdownLargeRecent:
+        case .countdownSmallRecent, .countdownMediumRecentList, .countdownMediumRecentGrid,
+             .countdownMediumRecentColumns, .countdownLargeRecentList, .countdownLargeRecentGrid:
             return resGetString("Recent Countdowns")
         }
     }
@@ -66,11 +73,13 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return resGetString("Shows the selected countdown")
-        case .countdownMediumRecentList:
+        case .countdownMediumRecentList, .countdownLargeRecentList:
             return resGetString("Shows the most recent countdowns in a list")
-        case .countdownMediumRecentGrid:
+        case .countdownMediumRecentGrid, .countdownLargeRecentGrid:
             return resGetString("Shows the most recent countdowns in a grid")
-        case .countdownSmallRecent, .countdownLargeRecent:
+        case .countdownMediumRecentColumns:
+            return resGetString("Shows the most recent countdowns in columns")
+        case .countdownSmallRecent:
             return resGetString("Shows the most recent countdowns")
         }
     }

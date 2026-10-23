@@ -10,7 +10,7 @@ import UIKit
 
 /// 倒数日·中·最近（列表）的单元格。
 ///
-/// 内容视图与大号·最近一致，仅在展示条数上不同：中号列表展示三个事项。
+/// 逐行展示最近三个倒数日事项，视觉与倒数日列表单元格一致。
 class WSCountdownMediumRecentListPluginCell: WSPluginCell {
     
     override func makePluginContentView() -> WSPluginContentView! {

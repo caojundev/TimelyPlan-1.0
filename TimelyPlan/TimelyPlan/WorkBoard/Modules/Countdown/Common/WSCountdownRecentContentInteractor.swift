@@ -93,7 +93,10 @@ class WSCountdownRecentContentInteractor: WSPluginContentInteractor, CountdownEv
             (resGetString("Project Launch"), "🚀", 0xFF9F0A, 12),
             (resGetString("Mom's Birthday"), "🎂", 0xFF375F, 26),
             (resGetString("Anniversary"), "💍", 0xAF52DE, 42),
-            (resGetString("Driving Test"), "🚗", 0x30D158, 68)
+            (resGetString("Driving Test"), "🚗", 0x30D158, 68),
+            (resGetString("Family Trip"), "🏖️", 0xFF6482, 95),
+            (resGetString("New Semester"), "📚", 0x64D2FF, 120),
+            (resGetString("Graduation"), "🎓", 0xBF5AF2, 180)
         ]
         
         let events = examples.prefix(maximumItemCount).compactMap { example -> CountdownEvent? in
