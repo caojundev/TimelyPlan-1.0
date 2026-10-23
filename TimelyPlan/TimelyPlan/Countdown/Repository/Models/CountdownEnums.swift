@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 /// 倒数日事项类型
-enum CountdownEventType: Int, TPMenuRepresentable {
+enum CountdownEventType: Int, TPMenuRepresentable, Codable {
     
     /// 倒数日
     case countdown = 0

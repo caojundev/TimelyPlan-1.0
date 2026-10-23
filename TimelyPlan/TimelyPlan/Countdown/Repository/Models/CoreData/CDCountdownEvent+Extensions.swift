@@ -183,6 +183,21 @@ extension CDCountdownEvent {
         return CDCountdownEvent.getFirst(matching: predicate, in: .defaultContext)
     }
     
+    /// 同步获取指定标识的倒数日事项，一次查询完成
+    static func getEvents(withIdentifiers identifiers: [String]) -> [CDCountdownEvent]? {
+        guard !identifiers.isEmpty else {
+            return []
+        }
+        
+        let condition: PredicateCondition = (CountdownEventKey.identifier, .belongsTo(identifiers))
+        let predicate = NSPredicate.predicate(with: condition)
+        let events: [CDCountdownEvent]? = CDCountdownEvent.getAll(matching: predicate,
+                                                                  sortBy: ElementOrderKey,
+                                                                  ascending: true,
+                                                                  in: .defaultContext)
+        return events
+    }
+    
     /// 同步获取所有倒数日事项
     static func getAllEvents() -> [CDCountdownEvent]? {
         let events: [CDCountdownEvent]? = CDCountdownEvent.getAll(sortBy: ElementOrderKey,

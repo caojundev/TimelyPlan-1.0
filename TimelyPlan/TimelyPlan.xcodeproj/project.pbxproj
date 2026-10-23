@@ -358,6 +358,7 @@
 		E5186E452D93B141007AA074 /* todo_filter_progress_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E412D93B140007AA074 /* todo_filter_progress_36@2x.png */; };
 		E5186E462D93B141007AA074 /* todo_filter_progress_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E422D93B141007AA074 /* todo_filter_progress_36@3x.png */; };
 		E518AB013087ADD50018987D /* CountdownEventBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAFE3087ADD50018987D /* CountdownEventBindViewController.swift */; };
+		E537BCC6308B4B5900C308E3 /* CountdownEventSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */; };
 		E518AB023087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAFF3087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift */; };
 		E518AB033087ADD50018987D /* CountdownEventBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AB003087ADD50018987D /* CountdownEventBindCell.swift */; };
 		E518D6942FBDEF8E0045D456 /* CalendarTimelineDotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */; };
@@ -699,6 +700,7 @@
 		E537BCB2308B4B5900C308E3 /* WSCountdownSmallEventsPluginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC96308B4B5800C308E3 /* WSCountdownSmallEventsPluginCell.swift */; };
 		E537BCB3308B4B5900C308E3 /* WSCountdownSmallEventsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC97308B4B5800C308E3 /* WSCountdownSmallEventsPluginProvider.swift */; };
 		E537BCB4308B4B5900C308E3 /* WSCountdownEventsConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC99308B4B5800C308E3 /* WSCountdownEventsConfigViewController.swift */; };
+		E537BCC4308B4B5900C308E3 /* WSCountdownEventsSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */; };
 		E537BCB5308B4B5900C308E3 /* WSCountdownCompactEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC9A308B4B5800C308E3 /* WSCountdownCompactEventRowView.swift */; };
 		E537BCB6308B4B5900C308E3 /* WSCountdownEventsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC9B308B4B5800C308E3 /* WSCountdownEventsPluginProvider.swift */; };
 		E537BCB7308B4B5900C308E3 /* WSCountdownEventRowBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC9C308B4B5800C308E3 /* WSCountdownEventRowBaseView.swift */; };
@@ -2947,6 +2949,7 @@
 		E5186E412D93B140007AA074 /* todo_filter_progress_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_progress_36@2x.png"; sourceTree = "<group>"; };
 		E5186E422D93B141007AA074 /* todo_filter_progress_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_progress_36@3x.png"; sourceTree = "<group>"; };
 		E518AAFE3087ADD50018987D /* CountdownEventBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventBindViewController.swift; sourceTree = "<group>"; };
+		E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventSelectionViewModel.swift; sourceTree = "<group>"; };
 		E518AAFF3087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventBindSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E518AB003087ADD50018987D /* CountdownEventBindCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventBindCell.swift; sourceTree = "<group>"; };
 		E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineDotIndicator.swift; sourceTree = "<group>"; };
@@ -3288,6 +3291,7 @@
 		E537BC96308B4B5800C308E3 /* WSCountdownSmallEventsPluginCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallEventsPluginCell.swift; sourceTree = "<group>"; };
 		E537BC97308B4B5800C308E3 /* WSCountdownSmallEventsPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallEventsPluginProvider.swift; sourceTree = "<group>"; };
 		E537BC99308B4B5800C308E3 /* WSCountdownEventsConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsConfigViewController.swift; sourceTree = "<group>"; };
+		E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsSelectionViewController.swift; sourceTree = "<group>"; };
 		E537BC9A308B4B5800C308E3 /* WSCountdownCompactEventRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownCompactEventRowView.swift; sourceTree = "<group>"; };
 		E537BC9B308B4B5800C308E3 /* WSCountdownEventsPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsPluginProvider.swift; sourceTree = "<group>"; };
 		E537BC9C308B4B5800C308E3 /* WSCountdownEventRowBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventRowBaseView.swift; sourceTree = "<group>"; };
@@ -6270,6 +6274,7 @@
 			isa = PBXGroup;
 			children = (
 				E518AAFE3087ADD50018987D /* CountdownEventBindViewController.swift */,
+				E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */,
 				E518AAFF3087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift */,
 				E518AB003087ADD50018987D /* CountdownEventBindCell.swift */,
 			);
@@ -7252,11 +7257,11 @@
 		E537BC7C308B4B5800C308E3 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
-				E537BC7D308B4B5800C308E3 /* Large */,
 				E537BC84308B4B5800C308E3 /* WSCountdownDataItem.swift */,
+				E537BC98308B4B5800C308E3 /* Common */,
+				E537BC7D308B4B5800C308E3 /* Large */,
 				E537BC85308B4B5800C308E3 /* Medium */,
 				E537BC8F308B4B5800C308E3 /* Small */,
-				E537BC98308B4B5800C308E3 /* Common */,
 			);
 			path = Countdown;
 			sourceTree = "<group>";
@@ -7358,6 +7363,9 @@
 			isa = PBXGroup;
 			children = (
 				E537BC99308B4B5800C308E3 /* WSCountdownEventsConfigViewController.swift */,
+				E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */,
+				E537BCA1308B4B5800C308E3 /* WSCountdownEventsConfiguration.swift */,
+				E537BCBE308B4EC500C308E3 /* EventsConfig */,
 				E537BC9A308B4B5800C308E3 /* WSCountdownCompactEventRowView.swift */,
 				E537BC9B308B4B5800C308E3 /* WSCountdownEventsPluginProvider.swift */,
 				E537BC9C308B4B5800C308E3 /* WSCountdownEventRowBaseView.swift */,
@@ -7365,10 +7373,16 @@
 				E537BC9E308B4B5800C308E3 /* WSCountdownEventsContentView.swift */,
 				E537BC9F308B4B5800C308E3 /* WSCountdownEventsCardContentView.swift */,
 				E537BCA0308B4B5800C308E3 /* WSCountdownColumnEventRowView.swift */,
-				E537BCA1308B4B5800C308E3 /* WSCountdownEventsConfiguration.swift */,
 				E537BCA2308B4B5800C308E3 /* WSCountdownEventsContentInteractor.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		E537BCBE308B4EC500C308E3 /* EventsConfig */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EventsConfig;
 			sourceTree = "<group>";
 		};
 		E53ABEBD3007C36800EB8632 /* myDay */ = {
@@ -15807,6 +15821,7 @@
 				E515019E2D47B8FA008B2333 /* TPTableCellStyle.swift in Sources */,
 				E55E4B852F93088E0068E032 /* TodoListCounter.swift in Sources */,
 				E537BCB4308B4B5900C308E3 /* WSCountdownEventsConfigViewController.swift in Sources */,
+				E537BCC4308B4B5900C308E3 /* WSCountdownEventsSelectionViewController.swift in Sources */,
 				E5BB9E692D3BF0C70089667A /* TPSectionTitleFlowLayout.swift in Sources */,
 				E5B8C4D5306B4B8A0056CB04 /* CalendarPanelSingleView.swift in Sources */,
 				E56342162F94C2E300E120BF /* TodoFilterType.swift in Sources */,
@@ -15856,6 +15871,7 @@
 				E50D602E2F7A12B400D5E0A4 /* RecurrenceRule.swift in Sources */,
 				E5BB9DC52D3BF0C60089667A /* TimeFragment.swift in Sources */,
 				E518AB013087ADD50018987D /* CountdownEventBindViewController.swift in Sources */,
+				E537BCC6308B4B5900C308E3 /* CountdownEventSelectionViewModel.swift in Sources */,
 				E57CC5BD2F7F9E0000ADDBA4 /* TodoGroupTypeMenuController.swift in Sources */,
 				E57CC5DD2F7FCED300ADDBA4 /* TodoTaskQuickAddMenuSectionController.swift in Sources */,
 				E56A7BE72FFCE92A0068410D /* CalendarListViewController.swift in Sources */,

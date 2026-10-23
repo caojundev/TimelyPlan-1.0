@@ -76,6 +76,11 @@ class CountdownEventManager {
         return nil
     }
     
+    /// 获取指定标识的倒数日事项，一次查询完成
+    func getEvents(withIdentifiers identifiers: [String]) -> [CountdownEvent]? {
+        return CDCountdownEvent.getEvents(withIdentifiers: identifiers)?.toEvents
+    }
+    
     // MARK: - 处理倒数日事项
     /// 创建倒数日事项
     @discardableResult

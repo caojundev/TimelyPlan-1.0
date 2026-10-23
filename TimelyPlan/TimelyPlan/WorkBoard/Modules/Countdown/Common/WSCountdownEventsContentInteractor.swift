@@ -128,16 +128,25 @@ class WSCountdownEventsContentInteractor: WSPluginContentInteractor, CountdownEv
         
         switch configuration?.source ?? .recent {
         case .recent:
-            return recentEvents()
+            return recentEvents(eventType: configuration?.eventType)
         case .selected:
             return selectedEvents(identifiers: configuration?.eventIdentifiers ?? [])
         }
     }
     
     /// 最近的倒数日事项：按与当前日期的天数差升序，最多取 `maximumItemCount` 条
-    private func recentEvents() -> [CountdownEvent] {
+    /// - Parameter eventType: 事项类型。为 nil 时不限类型
+    private func recentEvents(eventType: CountdownEventType?) -> [CountdownEvent] {
         let events = CountdownRepository.getActiveEvents()
-        let sortedEvents = events.sorted { lhs, rhs in
+        let filteredEvents = events.filter { event in
+            guard let eventType = eventType else {
+                return true
+            }
+            
+            return event.type == eventType
+        }
+        
+        let sortedEvents = filteredEvents.sorted { lhs, rhs in
             return lhs.remainingDays < rhs.remainingDays
         }
         
@@ -146,8 +155,7 @@ class WSCountdownEventsContentInteractor: WSPluginContentInteractor, CountdownEv
     
     /// 用户自选的事项：按用户选择的顺序展示，最多取 `maximumItemCount` 条
     private func selectedEvents(identifiers: [String]) -> [CountdownEvent] {
-        return identifiers.prefix(maximumItemCount).compactMap { identifier in
-            return CountdownRepository.getEvent(withIdentifier: identifier)
-        }
+        let events = CountdownRepository.getEvents(withIdentifiers: identifiers)
+        return Array(events.prefix(maximumItemCount))
     }
 }

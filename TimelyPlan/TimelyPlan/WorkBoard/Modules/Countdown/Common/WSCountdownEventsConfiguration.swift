@@ -13,13 +13,23 @@ import Foundation
 ///
 /// 组件的展示内容由这里决定：默认按远近自动取最近若干项，
 /// 也可切换为用户手动选择的事项。后续扩展（如全部、已归档）在此追加即可。
-enum WSCountdownEventsSource: String, Codable {
+enum WSCountdownEventsSource: String, Codable, CaseIterable {
     
     /// 最近事项：按与当前日期的远近自动取前若干条
     case recent
     
     /// 自选事项：展示用户手动选中的事项
     case selected
+}
+
+// MARK: - 菜单展示
+
+extension WSCountdownEventsSource: TPMenuRepresentable {
+    
+    /// 菜单标题本地化键，顺序与 `allCases` 一致
+    static func titles() -> [String] {
+        return ["Recent", "Selected"]
+    }
 }
 
 // MARK: - 配置
@@ -30,17 +40,23 @@ struct WSCountdownEventsConfiguration: Codable {
     /// 数据来源。默认为最近事项
     var source: WSCountdownEventsSource = .recent
     
+    /// 最近事项的筛选类型。为 nil 表示不限类型（全部）。仅在 `source == .recent` 时生效
+    var eventType: CountdownEventType?
+    
     /// 用户选中的事项标识，按展示顺序排列。仅在 `source == .selected` 时生效
     var eventIdentifiers: [String] = []
     
     private enum CodingKeys: String, CodingKey {
         case source
+        case eventType
         case eventIdentifiers
     }
     
     init(source: WSCountdownEventsSource = .recent,
+         eventType: CountdownEventType? = nil,
          eventIdentifiers: [String] = []) {
         self.source = source
+        self.eventType = eventType
         self.eventIdentifiers = eventIdentifiers
     }
     
@@ -48,6 +64,7 @@ struct WSCountdownEventsConfiguration: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         source = try container.decodeIfPresent(WSCountdownEventsSource.self, forKey: .source) ?? .recent
+        eventType = try container.decodeIfPresent(CountdownEventType.self, forKey: .eventType)
         eventIdentifiers = try container.decodeIfPresent([String].self, forKey: .eventIdentifiers) ?? []
     }
 }

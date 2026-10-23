@@ -37,7 +37,7 @@ class CountdownEventBindCell: TPBaseTableCell, SearchHighlightable {
         rightView = checkbox
         rightViewSize = checkboxSize
         rightViewMargins = checkboxMargins
-        contentView.padding = UIEdgeInsets(top: 8.0, left: 12.0, bottom: 8.0, right: 8.0)
+        contentView.padding = UIEdgeInsets(top: 4.0, left: 16.0, bottom: 4.0, right: 8.0)
         contentView.addSubview(infoView)
     }
     

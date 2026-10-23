@@ -80,6 +80,21 @@ class CountdownRepository {
         return eventManager.getEvent(withIdentifier: identifier)
     }
     
+    /// 获取指定标识的倒数日事项，按传入顺序返回。不存在或已删除的标识会被忽略
+    static func getEvents(withIdentifiers identifiers: [String]) -> [CountdownEvent] {
+        guard !identifiers.isEmpty else {
+            return []
+        }
+        
+        let events = eventManager.getEvents(withIdentifiers: identifiers) ?? []
+        var eventMap = [String: CountdownEvent]()
+        for event in events {
+            eventMap[event.identifier] = event
+        }
+        
+        return identifiers.compactMap { eventMap[$0] }
+    }
+    
     /// 异步获取所有活动倒数日事项
     static func fetchActiveEvents(completion: @escaping ([CountdownEvent]?) -> Void) {
         eventManager.fetchActiveEvents(completion: completion)

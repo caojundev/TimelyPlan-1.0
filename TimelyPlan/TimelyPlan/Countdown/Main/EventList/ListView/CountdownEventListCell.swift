@@ -136,7 +136,7 @@ class CountdownEventListCell: TPCollectionCell {
 class CountdownEventListInfoView: TPInfoView {
     
     /// 图标尺寸
-    let iconSize = CGSize(width: 50.0, height: 50.0)
+    let iconSize = CGSize(width: 40.0, height: 40.0)
     
     /// 图标
     var icon: TPIcon? {
@@ -162,18 +162,18 @@ class CountdownEventListInfoView: TPInfoView {
     /// 图标视图
     private lazy var iconView: TPIconView = {
         let view = TPIconView()
-        view.font = UIFont.systemFont(ofSize: 32.0)
+        view.font = UIFont.systemFont(ofSize: 24.0)
         view.backColor = .secondarySystemFill
         return view
     }()
     
     override func setupSubviews() {
         super.setupSubviews()
-        titleConfig.font = .boldSystemFont(ofSize: 16.0)
+        titleConfig.font = .boldSystemFont(ofSize: 14.0)
         subtitleTopMargin = 8.0
         leftAccessoryView = iconView
         leftAccessorySize = iconSize
-        leftAccessoryMargins = UIEdgeInsets(right: 12.0)
+        leftAccessoryMargins = UIEdgeInsets(right: 11.0)
     }
     
     override func layoutSubviews() {

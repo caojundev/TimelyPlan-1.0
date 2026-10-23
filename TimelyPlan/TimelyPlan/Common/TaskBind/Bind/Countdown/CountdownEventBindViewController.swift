@@ -29,13 +29,11 @@ class CountdownEventBindViewController: TPViewController,
         return style
     }()
     
-    /// 当前展示的倒数日事项
-    private(set) var events: [CountdownEvent] = []
-    
     /// 分组标识
     private let groupIdentifier = "CountdownBindGroup"
     
-    private let requestManager = TPRequestManager()
+    /// 数据源
+    private let viewModel = CountdownEventSelectionViewModel()
     
     init(selectedFeature: TaskFeature?) {
         self.selectedFeature = selectedFeature
@@ -47,7 +45,7 @@ class CountdownEventBindViewController: TPViewController,
     }
     
     deinit {
-        CountdownRepository.removeUpdater(self)
+        viewModel.stopObserving()
     }
     
     override func viewDidLoad() {
@@ -58,8 +56,11 @@ class CountdownEventBindViewController: TPViewController,
         placeholderProvider.emptyTitle = resGetString("No Countdown")
         listView.placeholderProvider = placeholderProvider
         
-        CountdownRepository.addUpdater(self, for: [.event])
-        loadEvents()
+        viewModel.didChangeEvents = { [weak self] _ in
+            self?.reloadList()
+        }
+        
+        viewModel.startObserving()
     }
     
     override func viewWillLayoutSubviews() {
@@ -71,33 +72,17 @@ class CountdownEventBindViewController: TPViewController,
         return .systemGroupedBackground
     }
     
-    /// 加载倒数日事项
-    private func loadEvents() {
-        let requestID = requestManager.executeRequest()
-        CountdownRepository.fetchActiveEvents { [weak self] events in
-            guard let self = self,
-                  self.requestManager.shouldProceed(with: requestID) else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.events = events ?? []
-                self.reloadList()
-            }
-        }
-    }
-    
     /// 刷新列表
     private func reloadList() {
         let group = CountdownEventGroup(identifier: groupIdentifier)
-        group.events = self.events
+        group.events = viewModel.events
         listView.groups = [group]
         listView.reloadData()
     }
     
     // MARK: - TPGroupTableViewDelegate
     func groupTableView(_ tableView: TPGroupTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 76.0
+        return 68.0
     }
     
     func groupTableView(_ tableView: TPGroupTableView, classForCellAt indexPath: IndexPath) -> AnyClass? {
@@ -127,33 +112,5 @@ class CountdownEventBindViewController: TPViewController,
         selectedFeature = event.feature
         delegate?.taskBindViewController(self, didSelectTask: event)
         tableView.updateCheckmarks()
-    }
-}
-
-// MARK: - CountdownEventProcessorDelegate
-extension CountdownEventBindViewController: CountdownEventProcessorDelegate {
-    
-    func didChangeRemoteCountdownEvent(with results: EntityChangeResults<CountdownEvent>?) {
-        loadEvents()
-    }
-    
-    func didCreateCountdownEvent(_ event: CountdownEvent) {
-        loadEvents()
-    }
-    
-    func didUpdateCountdownEvent(_ event: CountdownEvent, with change: CountdownEventChange) {
-        loadEvents()
-    }
-    
-    func didDeleteCountdownEvent(_ event: CountdownEvent) {
-        loadEvents()
-    }
-    
-    func didArchiveCountdownEvent(_ event: CountdownEvent) {
-        loadEvents()
-    }
-    
-    func didUnarchiveCountdownEvent(_ event: CountdownEvent) {
-        loadEvents()
     }
 }

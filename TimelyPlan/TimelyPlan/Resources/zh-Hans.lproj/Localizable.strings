@@ -32,6 +32,12 @@
 "Shows the selected countdown" = "展示选中的倒数日";
 "Countdowns" = "倒数日";
 "Countdown Options" = "倒数日选项";
+"Source" = "来源";
+"Recent" = "最近";
+"Event Type" = "事项类型";
+"Selected" = "自选";
+"Selected Event" = "自选事项";
+"Not Selected" = "未选择";
 "Shows recent or selected countdowns" = "展示最近或自选的倒数日";
 "Shows recent or selected countdowns in a list" = "以列表展示最近或自选的倒数日";
 "Shows recent or selected countdowns in a grid" = "以网格展示最近或自选的倒数日";

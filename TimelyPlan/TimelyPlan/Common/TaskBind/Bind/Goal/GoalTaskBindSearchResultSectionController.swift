@@ -31,7 +31,7 @@ class GoalTaskBindSearchResultSectionController: TPTableSearchResultSectionContr
     }
     
     override func heightForRow(at index: Int) -> CGFloat {
-        return 76.0
+        return 68.0
     }
     
     override func classForCell(at index: Int) -> AnyClass? {
