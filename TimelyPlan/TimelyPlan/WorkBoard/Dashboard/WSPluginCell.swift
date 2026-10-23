@@ -186,9 +186,16 @@ class WSPluginCell: UICollectionViewCell {
         return provider?.makeLoadingPlaceholderView() ?? WSPluginLoadingPlaceholderView()
     }
     
-    /// 创建空白内容视图。默认取 provider 提供的视图，未提供时使用默认空白内容视图。
+    /// 创建空白内容视图。
+    ///
+    /// 优先使用 provider 提供的自定义视图；未提供时使用默认空白内容视图，
+    /// 并把 provider 的自定义配置项应用上去（未提供配置时使用默认配置）。
     func makeEmptyPlaceholderView() -> UIView {
-        return provider?.makeEmptyPlaceholderView() ?? WSPluginEmptyPlaceholderView()
+        if let view = provider?.makeEmptyPlaceholderView() {
+            return view
+        }
+        
+        return WSPluginDefaultEmptyPlaceholderView(configuration: provider?.makeEmptyPlaceholderConfiguration())
     }
     
     /// 展示加载占位视图并隐藏内容视图
@@ -220,6 +227,9 @@ class WSPluginCell: UICollectionViewCell {
         
         let view = makeEmptyPlaceholderView()
         if let emptyView = view as? WSPluginEmptyPlaceholderView {
+            /// 与内容视图一致，空白视图也拿到交互器，内部的自定义操作直接交给它处理
+            emptyView.interactor = interactor
+            
             /// 支持配置的组件在空白态直接提供配置入口，与长按菜单的「配置」项一致
             emptyView.configActionHandler = isConfigurable ? { [weak self] in
                 guard let self = self else {
@@ -229,6 +239,7 @@ class WSPluginCell: UICollectionViewCell {
                 self.menuActionHandler?(self, .configPlugin)
             } : nil
         }
+        
         view.isUserInteractionEnabled = !isJiggling
         emptyPlaceholderView = view
         contentView.addSubview(view)

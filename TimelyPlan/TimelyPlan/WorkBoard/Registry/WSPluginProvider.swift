@@ -43,8 +43,16 @@ protocol WSPluginProvider: AnyObject {
     
     /// 创建该组件的空白内容视图，用于数据加载完成但没有内容（`dataItem` 为 nil）时的展示。
     ///
-    /// 返回 nil 时，单元格使用默认空白内容视图 `WSPluginEmptyPlaceholderView`。
+    /// 返回 nil 时，单元格使用默认空白内容视图 `WSPluginDefaultEmptyPlaceholderView`。
+    ///
+    /// 自定义视图继承 `WSPluginEmptyPlaceholderView` 即可复用交互器注入与配置入口。
     func makeEmptyPlaceholderView() -> UIView?
+    
+    /// 创建默认空白内容视图的配置项。
+    ///
+    /// 仅在未提供 `makeEmptyPlaceholderView()` 时生效，用于定制默认空白视图的图标、
+    /// 描述与「配置插件」按钮样式。返回 nil 时使用默认配置。
+    func makeEmptyPlaceholderConfiguration() -> WSPluginEmptyPlaceholderConfiguration?
     
     /// 创建该组件的配置界面。
     ///
@@ -63,6 +71,11 @@ extension WSPluginProvider {
     
     /// 默认不提供空白内容视图，由单元格使用默认空白内容视图
     func makeEmptyPlaceholderView() -> UIView? {
+        return nil
+    }
+    
+    /// 默认不提供空白内容配置，由默认空白内容视图使用内置配置
+    func makeEmptyPlaceholderConfiguration() -> WSPluginEmptyPlaceholderConfiguration? {
         return nil
     }
     

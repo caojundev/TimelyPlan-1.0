@@ -17,7 +17,7 @@ enum TodoTaskStepBulkMenuActionType: String, TPMenuRepresentable {
         case .importSteps:
             return resGetString("Import Steps")
         case .copyStepsAsMarkdown:
-            return resGetString("Copy Steps As Markdown")
+            return resGetString("Copy As Markdown")
         case .deleteCompletedSteps:
             return resGetString("Delete Completed Steps")
         }

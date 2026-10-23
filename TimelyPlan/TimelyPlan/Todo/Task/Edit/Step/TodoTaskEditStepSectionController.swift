@@ -32,6 +32,11 @@ class TodoTaskEditStepSectionController: TodoStepInlineEditSectionController {
         self.steps = interactor.task.steps ?? []
     }
 
+    override func allowMenuActionTypes() -> [TodoTaskStepMenuActionType] {
+        /// 待办步骤对所有菜单项都支持
+        return TodoTaskStepMenuActionType.allCases
+    }
+    
     override func stepsDidChange() {
         interactor.setSteps(steps)
     }
