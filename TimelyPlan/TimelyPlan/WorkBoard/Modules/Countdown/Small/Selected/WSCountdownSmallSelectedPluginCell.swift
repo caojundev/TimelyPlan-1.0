@@ -12,7 +12,7 @@ import UIKit
 class WSCountdownSmallSelectedPluginCell: WSPluginCell {
 
     override func makePluginContentView() -> WSPluginContentView! {
-        return WSCountdownPluginContentView()
+        return WSCountdownSmallCardContentView()
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  WSCountdownRecentContentInteractor.swift
+//  WSCountdownEventsContentInteractor.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/22.
@@ -10,11 +10,11 @@ import UIKit
 
 // MARK: - 内容交互器
 
-/// 倒数日「最近」的内容交互器。
+/// 倒数日「事项」的内容交互器。
 ///
-/// 从活动事项中按与当前日期的远近取前若干个，交给内容视图按行渲染。
-/// 取数条数由初始化时传入，供中号、大号组件按尺寸复用。
-class WSCountdownRecentContentInteractor: WSPluginContentInteractor, CountdownEventProcessorDelegate {
+/// 展示内容由插件配置决定：默认取距离当前日期最近的若干个事项，
+/// 也可展示用户在配置中选择的事项。取数条数由初始化时传入，供各尺寸组件复用。
+class WSCountdownEventsContentInteractor: WSPluginContentInteractor, CountdownEventProcessorDelegate {
     
     /// 最多展示的事项数目，与内容视图的行数保持一致
     private let maximumItemCount: Int
@@ -33,13 +33,13 @@ class WSCountdownRecentContentInteractor: WSPluginContentInteractor, CountdownEv
     
     // MARK: - 取数
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
-        let events = recentEvents()
+        let events = displayedEvents()
         guard !events.isEmpty else {
             completion(nil)
             return
         }
         
-        completion(WSCountdownRecentDataItem(events: events))
+        completion(WSCountdownEventsDataItem(events: events))
     }
     
     // MARK: - 条目操作
@@ -62,7 +62,7 @@ class WSCountdownRecentContentInteractor: WSPluginContentInteractor, CountdownEv
     }
     
     // MARK: - CountdownEventProcessorDelegate
-    /// 任意事项的变更都可能改变「最近若干项」的组成与内容，统一重新取数
+    /// 任意事项的变更都可能改变展示内容，统一重新取数
     func didChangeRemoteCountdownEvent(with results: EntityChangeResults<CountdownEvent>?) {
         guard results?.hasChanges == true else {
             return
@@ -92,7 +92,7 @@ class WSCountdownRecentContentInteractor: WSPluginContentInteractor, CountdownEv
     }
     
     // MARK: - 预览数据
-    /// 画廊预览数据：固定展示示例事项，不受用户数据影响，条数与真实展示一致
+    /// 画廊预览数据：固定展示示例事项，不受用户数据与配置影响，条数与真实展示一致
     override func previewDataItem() -> WSPluginDataItem? {
         let examples: [(name: String, emoji: String, colorHex: UInt64, days: Int)] = [
             (resGetString("Trip Departure"), "✈️", 0x09AFFF, 3),
@@ -118,10 +118,22 @@ class WSCountdownRecentContentInteractor: WSPluginContentInteractor, CountdownEv
                                   timeUnit: .days)
         }
         
-        return WSCountdownRecentDataItem(events: events)
+        return WSCountdownEventsDataItem(events: events)
     }
     
-    // MARK: - 最近事项
+    // MARK: - 展示事项
+    /// 按配置决定展示内容。未写入配置时默认展示最近事项
+    private func displayedEvents() -> [CountdownEvent] {
+        let configuration = plugin.configuration(as: WSCountdownEventsConfiguration.self)
+        
+        switch configuration?.source ?? .recent {
+        case .recent:
+            return recentEvents()
+        case .selected:
+            return selectedEvents(identifiers: configuration?.eventIdentifiers ?? [])
+        }
+    }
+    
     /// 最近的倒数日事项：按与当前日期的天数差升序，最多取 `maximumItemCount` 条
     private func recentEvents() -> [CountdownEvent] {
         let events = CountdownRepository.getActiveEvents()
@@ -130,5 +142,12 @@ class WSCountdownRecentContentInteractor: WSPluginContentInteractor, CountdownEv
         }
         
         return Array(sortedEvents.prefix(maximumItemCount))
+    }
+    
+    /// 用户自选的事项：按用户选择的顺序展示，最多取 `maximumItemCount` 条
+    private func selectedEvents(identifiers: [String]) -> [CountdownEvent] {
+        return identifiers.prefix(maximumItemCount).compactMap { identifier in
+            return CountdownRepository.getEvent(withIdentifier: identifier)
+        }
     }
 }

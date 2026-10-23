@@ -61,8 +61,8 @@ class WSCountdownDataItem: NSObject, WSPluginDataItem {
 
 /// 倒数日多行组件数据。
 ///
-/// 承载多个倒数日事项，供需要同时展示多行的组件（如中号·最近、大号·最近）使用。
-class WSCountdownRecentDataItem: NSObject, WSPluginDataItem {
+/// 承载多个倒数日事项，供需要同时展示多行的组件（如中号、大号的事项组件）使用。
+class WSCountdownEventsDataItem: NSObject, WSPluginDataItem {
     
     /// 待展示的事项，按展示顺序排列
     let items: [WSCountdownDataItem]

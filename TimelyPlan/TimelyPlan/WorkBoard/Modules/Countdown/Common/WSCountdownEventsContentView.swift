@@ -1,5 +1,5 @@
 //
-//  WSCountdownRecentContentView.swift
+//  WSCountdownEventsContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/22.
@@ -10,11 +10,11 @@ import UIKit
 
 // MARK: - 展示条数
 
-/// 倒数日「最近」类组件的展示条数。
+/// 倒数日「事项」类组件的展示条数。
 ///
 /// 各组件唯一的差异是展示条数：小号 2 条、中号列表 3 条、中号网格 4 条、中号三列 3 条、
 /// 大号列表 5 条、大号网格 8 条。交互器取数与内容视图行数共用这里的常量，避免两处分别硬编码。
-enum WSCountdownRecentItemCount {
+enum WSCountdownEventsItemCount {
     
     /// 小号组件的展示条数
     static let small = 2
@@ -37,12 +37,12 @@ enum WSCountdownRecentItemCount {
 
 // MARK: - 内容视图
 
-/// 倒数日「最近」内容视图。
+/// 倒数日「事项」内容视图。
 ///
 /// 把若干行视图按列数等分排列：列表为单列逐行（无内边距、无间隔），
 /// 卡片网格为多列（带内边距与间隔，并给行视图应用卡片风格）。
 /// 行视图的类型、数量与排列方式全部由初始化参数决定，各尺寸组件共用同一套排列算法。
-class WSCountdownRecentContentView: WSPluginContentView {
+class WSCountdownEventsContentView: WSPluginContentView {
     
     /// 每行个数
     private let columnCount: Int
@@ -54,7 +54,7 @@ class WSCountdownRecentContentView: WSPluginContentView {
     private let spacing: CGFloat
     
     /// 卡片风格。为 nil 表示纯列表，不给行视图加底色
-    private let cardStyle: WSCountdownRecentCardStyle?
+    private let cardStyle: WSCountdownEventsCardStyle?
     
     /// 行视图，按展示顺序排列
     private var rowViews: [WSCountdownEventRowBaseView] = []
@@ -71,7 +71,7 @@ class WSCountdownRecentContentView: WSPluginContentView {
          columnCount: Int = 1,
          contentInsets: UIEdgeInsets = .zero,
          spacing: CGFloat = 0.0,
-         cardStyle: WSCountdownRecentCardStyle? = nil,
+         cardStyle: WSCountdownEventsCardStyle? = nil,
          makeRowView: () -> WSCountdownEventRowBaseView = { WSCountdownEventRowView() }) {
         self.columnCount = max(columnCount, 1)
         self.contentInsets = contentInsets
@@ -151,7 +151,7 @@ class WSCountdownRecentContentView: WSPluginContentView {
         super.update(with: dataItem)
         
         /// 按顺序展示事项，超出行数的部分忽略，不足的行展示骨架
-        let dataItems = (dataItem as? WSCountdownRecentDataItem)?.items ?? []
+        let dataItems = (dataItem as? WSCountdownEventsDataItem)?.items ?? []
         for (index, rowView) in rowViews.enumerated() {
             rowView.update(with: dataItems[safe: index])
         }

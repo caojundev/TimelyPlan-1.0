@@ -1,5 +1,5 @@
 //
-//  WSCountdownRecentCardContentView.swift
+//  WSCountdownEventsCardContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/22.
@@ -10,11 +10,11 @@ import UIKit
 
 // MARK: - 卡片风格
 
-/// 倒数日「最近」类组件的卡片风格。
+/// 倒数日「事项」类组件的卡片风格。
 ///
 /// 卡片底色很淡，只比组件背景略亮一点；骨架块颜色比全局默认更明显，
 /// 保证在淡底色卡片上仍能看出层次。字段均有默认值，按需覆盖即可。
-struct WSCountdownRecentCardStyle {
+struct WSCountdownEventsCardStyle {
     
     /// 卡片底色
     var backColor: UIColor = Color(light: 0x000000, 0.05, dark: 0xFFFFFF, 0.10)
@@ -35,11 +35,11 @@ struct WSCountdownRecentCardStyle {
 
 // MARK: - 内容视图
 
-/// 倒数日「最近」卡片内容视图。
+/// 倒数日「事项」卡片内容视图。
 ///
 /// 多列等分的卡片网格，行视图默认使用横排简略样式（图标 + 名称 + 剩余时间），
 /// 窄列场景可传入竖排样式等其它行视图。
-class WSCountdownRecentCardContentView: WSCountdownRecentContentView {
+class WSCountdownEventsCardContentView: WSCountdownEventsContentView {
     
     /// 卡片内边距
     private static let contentInsets = UIEdgeInsets(value: 8.0)
@@ -55,12 +55,12 @@ class WSCountdownRecentCardContentView: WSCountdownRecentContentView {
     ///   - makeRowView: 卡片视图的构建闭包
     init(itemCount: Int,
          columnCount: Int,
-         cardStyle: WSCountdownRecentCardStyle = WSCountdownRecentCardStyle(),
+         cardStyle: WSCountdownEventsCardStyle = WSCountdownEventsCardStyle(),
          makeRowView: () -> WSCountdownEventRowBaseView = { WSCountdownCompactEventRowView() }) {
         super.init(itemCount: itemCount,
                    columnCount: columnCount,
-                   contentInsets: WSCountdownRecentCardContentView.contentInsets,
-                   spacing: WSCountdownRecentCardContentView.spacing,
+                   contentInsets: WSCountdownEventsCardContentView.contentInsets,
+                   spacing: WSCountdownEventsCardContentView.spacing,
                    cardStyle: cardStyle,
                    makeRowView: makeRowView)
     }

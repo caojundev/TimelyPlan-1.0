@@ -1,5 +1,5 @@
 //
-//  WSCountdownPluginContentView.swift
+//  WSCountdownSmallCardContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/15.
@@ -11,7 +11,7 @@ import UIKit
 // MARK: - 内容视图
 
 /// 倒数日组件内容视图
-class WSCountdownPluginContentView: WSPluginContentView {
+class WSCountdownSmallCardContentView: WSPluginContentView {
     
     /// 布局比例。均以组件短边为基准，避免固定尺寸在不同设备上错位。
     private enum Metrics {

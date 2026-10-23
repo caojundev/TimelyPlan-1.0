@@ -1,5 +1,5 @@
 //
-//  WSCountdownRecentPluginProvider.swift
+//  WSCountdownEventsPluginProvider.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/23.
@@ -10,10 +10,11 @@ import UIKit
 
 // MARK: - 组件提供者基类
 
-/// 倒数日「最近」类组件提供者基类。
+/// 倒数日「事项」类组件提供者基类。
 ///
-/// 各尺寸组件只需声明「类型 + 单元格 + 展示条数」，取数与行内点击详情等行为由基类统一提供。
-class WSCountdownRecentPluginProvider: WSPluginProvider {
+/// 各尺寸组件只需声明「类型 + 单元格 + 展示条数」，取数、行内点击详情与配置入口
+/// 等行为由基类统一提供。展示内容由配置决定：默认最近事项，也可切换为自选事项。
+class WSCountdownEventsPluginProvider: WSPluginProvider {
     
     /// 插件类型
     let type: WSPluginType
@@ -41,8 +42,13 @@ class WSCountdownRecentPluginProvider: WSPluginProvider {
     }
     
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {
-        return WSCountdownRecentContentInteractor(plugin: plugin,
+        return WSCountdownEventsContentInteractor(plugin: plugin,
                                                   context: context,
                                                   maximumItemCount: itemCount)
+    }
+    
+    /// 所有尺寸共用同一套配置界面，展示内容由配置中的来源决定
+    func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)? {
+        return WSCountdownEventsConfigViewController(plugin: plugin)
     }
 }

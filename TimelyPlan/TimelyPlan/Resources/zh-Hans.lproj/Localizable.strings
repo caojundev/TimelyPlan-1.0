@@ -30,11 +30,12 @@
 "Selected Countdown" = "自选倒数日";
 "Select Countdown" = "选择倒数日";
 "Shows the selected countdown" = "展示选中的倒数日";
-"Recent Countdowns" = "最近倒数日";
-"Shows the most recent countdowns" = "展示最近的倒数日";
-"Shows the most recent countdowns in a list" = "以列表展示最近的倒数日";
-"Shows the most recent countdowns in a grid" = "以网格展示最近的倒数日";
-"Shows the most recent countdowns in columns" = "以三列展示最近的倒数日";
+"Countdowns" = "倒数日";
+"Countdown Options" = "倒数日选项";
+"Shows recent or selected countdowns" = "展示最近或自选的倒数日";
+"Shows recent or selected countdowns in a list" = "以列表展示最近或自选的倒数日";
+"Shows recent or selected countdowns in a grid" = "以网格展示最近或自选的倒数日";
+"Shows recent or selected countdowns in columns" = "以三列展示最近或自选的倒数日";
 
 "My Dashboard" = "我的面板";
 "Dashboard" = "面板";

@@ -14,7 +14,7 @@ import UIKit
 ///
 /// 展示单个倒数日事项：左侧图标，中间名称与日期，右侧剩余时间，
 /// 与倒数日列表单元格的排布一致。尺寸完全由外部决定，
-/// 由 `WSCountdownRecentContentView` 在各尺寸的组件中复用。
+/// 由 `WSCountdownEventsContentView` 在各尺寸的组件中复用。
 class WSCountdownEventRowView: WSCountdownEventRowBaseView {
     
     /// 信息区与数值的布局参数。均按行高换算，保证不同尺寸下比例一致

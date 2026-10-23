@@ -12,23 +12,23 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 倒数日·小·自选：展示用户自己选择的一个倒数日事件。
     case countdownSmallSelected
     
-    /// 倒数日·小·最近：展示距离当前日期最近的两个倒数日事项。
-    case countdownSmallRecent
+    /// 倒数日·小·事项：展示最近或用户自选的两个倒数日事项。
+    case countdownSmallEvents
     
-    /// 倒数日·中·最近（列表）：逐行展示距离当前日期最近的三个倒数日事项。
-    case countdownMediumRecentList
+    /// 倒数日·中·事项（列表）：逐行展示最近或用户自选的三个倒数日事项。
+    case countdownMediumEventsList
     
-    /// 倒数日·中·最近（网格）：以两列两行的网格展示距离当前日期最近的四个倒数日事项。
-    case countdownMediumRecentGrid
+    /// 倒数日·中·事项（网格）：以两列两行的网格展示最近或用户自选的四个倒数日事项。
+    case countdownMediumEventsGrid
     
-    /// 倒数日·中·最近（三列）：以一行三列的竖排卡片展示距离当前日期最近的三个倒数日事项。
-    case countdownMediumRecentColumns
+    /// 倒数日·中·事项（三列）：以一行三列的竖排卡片展示最近或用户自选的三个倒数日事项。
+    case countdownMediumEventsColumns
     
-    /// 倒数日·大·最近（列表）：逐行展示距离当前日期最近的五个倒数日事项。
-    case countdownLargeRecentList
+    /// 倒数日·大·事项（列表）：逐行展示最近或用户自选的五个倒数日事项。
+    case countdownLargeEventsList
     
-    /// 倒数日·大·最近（网格）：以两列四行的网格展示距离当前日期最近的八个倒数日事项。
-    case countdownLargeRecentGrid
+    /// 倒数日·大·事项（网格）：以两列四行的网格展示最近或用户自选的八个倒数日事项。
+    case countdownLargeEventsGrid
 }
 
 // MARK: - 固有属性
@@ -38,11 +38,11 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .countdownSmallSelected, .countdownSmallRecent:
+        case .countdownSmallSelected, .countdownSmallEvents:
             return .small
-        case .countdownMediumRecentList, .countdownMediumRecentGrid, .countdownMediumRecentColumns:
+        case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns:
             return .medium
-        case .countdownLargeRecentList, .countdownLargeRecentGrid:
+        case .countdownLargeEventsList, .countdownLargeEventsGrid:
             return .large
         }
     }
@@ -50,9 +50,9 @@ public extension WSPluginType {
     /// 所属模块。用于组件选择器分组，以及同模块三个尺寸之间的归类。
     var module: WSPluginModule {
         switch self {
-        case .countdownSmallSelected, .countdownSmallRecent,
-             .countdownMediumRecentList, .countdownMediumRecentGrid, .countdownMediumRecentColumns,
-             .countdownLargeRecentList, .countdownLargeRecentGrid:
+        case .countdownSmallSelected, .countdownSmallEvents,
+             .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
+             .countdownLargeEventsList, .countdownLargeEventsGrid:
             return .countdown
         }
     }
@@ -62,9 +62,9 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return resGetString("Selected Countdown")
-        case .countdownSmallRecent, .countdownMediumRecentList, .countdownMediumRecentGrid,
-             .countdownMediumRecentColumns, .countdownLargeRecentList, .countdownLargeRecentGrid:
-            return resGetString("Recent Countdowns")
+        case .countdownSmallEvents, .countdownMediumEventsList, .countdownMediumEventsGrid,
+             .countdownMediumEventsColumns, .countdownLargeEventsList, .countdownLargeEventsGrid:
+            return resGetString("Countdowns")
         }
     }
 
@@ -73,14 +73,14 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected:
             return resGetString("Shows the selected countdown")
-        case .countdownMediumRecentList, .countdownLargeRecentList:
-            return resGetString("Shows the most recent countdowns in a list")
-        case .countdownMediumRecentGrid, .countdownLargeRecentGrid:
-            return resGetString("Shows the most recent countdowns in a grid")
-        case .countdownMediumRecentColumns:
-            return resGetString("Shows the most recent countdowns in columns")
-        case .countdownSmallRecent:
-            return resGetString("Shows the most recent countdowns")
+        case .countdownMediumEventsList, .countdownLargeEventsList:
+            return resGetString("Shows recent or selected countdowns in a list")
+        case .countdownMediumEventsGrid, .countdownLargeEventsGrid:
+            return resGetString("Shows recent or selected countdowns in a grid")
+        case .countdownMediumEventsColumns:
+            return resGetString("Shows recent or selected countdowns in columns")
+        case .countdownSmallEvents:
+            return resGetString("Shows recent or selected countdowns")
         }
     }
 }
