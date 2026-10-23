@@ -83,9 +83,18 @@ class WSCountdownRecentContentView: WSPluginContentView {
             let rowView = makeRowView()
             applyCardStyle(to: rowView)
             
-            /// 行内点击直接交给交互器处理
+            /// 行内点击直接交给交互器处理；空白行没有对应事项，交给组件主操作响应
             rowView.didSelectHandler = { [weak self] dataItem in
-                self?.interactor?.performAction(with: dataItem)
+                guard let self = self else {
+                    return
+                }
+                
+                guard let dataItem = dataItem else {
+                    self.interactor?.performEmptyRowAction()
+                    return
+                }
+                
+                self.interactor?.performAction(with: dataItem)
             }
             
             addSubview(rowView)

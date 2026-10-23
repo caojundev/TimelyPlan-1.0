@@ -104,6 +104,14 @@ class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
         
     }
     
+    /// 执行空白行的操作（点击没有对应条目的行时触发）。
+    ///
+    /// 内容视图只负责告知「点击了空白行」，是否响应以及如何响应完全由各模块决定；
+    /// 默认不响应，由各模块按需覆写，例如打开列表页、进入新增流程等。
+    func performEmptyRowAction() {
+        
+    }
+    
     // MARK: - 子类实现
     /// 异步获取数据条目。
     ///

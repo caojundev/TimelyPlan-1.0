@@ -20,8 +20,8 @@ class WSCountdownEventRowBaseView: UIView {
     /// 当前展示的事项
     private(set) var dataItem: WSCountdownDataItem?
     
-    /// 点击回调，参数为当前行展示的事项
-    var didSelectHandler: ((WSCountdownDataItem) -> Void)?
+    /// 点击回调。空白行（没有事项）同样回调，此时参数为 nil，由组件决定如何响应
+    var didSelectHandler: ((WSCountdownDataItem?) -> Void)?
     
     // MARK: - 外观
     /// 常规背景色
@@ -252,12 +252,8 @@ class WSCountdownEventRowBaseView: UIView {
     }
     
     // MARK: - 点击
-    /// 点击行，回调当前行展示的事项
+    /// 点击行，回调当前行展示的事项；空白行同样回调，交由组件统一响应
     @objc private func clickRow(_ gesture: UITapGestureRecognizer) {
-        guard let dataItem = dataItem else {
-            return
-        }
-        
         TPImpactFeedback.impactWithSoftStyle()
         didSelectHandler?(dataItem)
     }
@@ -265,10 +261,6 @@ class WSCountdownEventRowBaseView: UIView {
     // MARK: - 高亮
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        guard dataItem != nil else {
-            return
-        }
-        
         updateHighlightedState(true)
     }
     

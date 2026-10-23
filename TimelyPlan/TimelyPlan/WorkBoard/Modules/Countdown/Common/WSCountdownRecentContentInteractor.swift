@@ -55,6 +55,12 @@ class WSCountdownRecentContentInteractor: WSPluginContentInteractor, CountdownEv
         CountdownPresenter.showDetail(for: event)
     }
     
+    /// 点击空白行
+    override func performEmptyRowAction() {
+        /// 创建新事项
+        CountdownPresenter.createNewEvent()
+    }
+    
     // MARK: - CountdownEventProcessorDelegate
     /// 任意事项的变更都可能改变「最近若干项」的组成与内容，统一重新取数
     func didChangeRemoteCountdownEvent(with results: EntityChangeResults<CountdownEvent>?) {
