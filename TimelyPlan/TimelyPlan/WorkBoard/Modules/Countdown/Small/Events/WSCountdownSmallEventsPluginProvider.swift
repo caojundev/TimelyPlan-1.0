@@ -15,7 +15,10 @@ class WSCountdownSmallEventsPluginProvider: WSCountdownEventsPluginProvider {
     
     init() {
         super.init(type: .countdownSmallEvents,
-                   cellClass: WSCountdownSmallEventsPluginCell.self,
                    itemCount: WSCountdownEventsItemCount.small)
+    }
+    
+    override func makeContentView() -> WSPluginContentView {
+        return WSCountdownEventsCardContentView(itemCount: itemCount, columnCount: 1)
     }
 }

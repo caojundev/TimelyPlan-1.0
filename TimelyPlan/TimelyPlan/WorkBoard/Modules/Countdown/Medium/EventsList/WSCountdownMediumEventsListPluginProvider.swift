@@ -15,7 +15,10 @@ class WSCountdownMediumEventsListPluginProvider: WSCountdownEventsPluginProvider
     
     init() {
         super.init(type: .countdownMediumEventsList,
-                   cellClass: WSCountdownMediumEventsListPluginCell.self,
                    itemCount: WSCountdownEventsItemCount.mediumList)
+    }
+    
+    override func makeContentView() -> WSPluginContentView {
+        return WSCountdownEventsContentView(itemCount: itemCount)
     }
 }

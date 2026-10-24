@@ -344,6 +344,11 @@ class WSDashboardView: UIView,
         return WSPluginRegistry.shared.provider(for: plugin.type)?.cellClass ?? WSPluginCell.self
     }
     
+    func adapter(_ adapter: TPCollectionViewAdapter, reusableIdentifierForCellAt indexPath: IndexPath) -> String? {
+        /// 每种插件使用独立的复用池，避免不同类型共用单元格时反复重建内容视图
+        return plugin(at: indexPath)?.type.rawValue
+    }
+    
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
         guard let cell = cell as? WSPluginCell,
               let plugin = self.plugin(at: indexPath),

@@ -32,9 +32,9 @@ class WSCountdownSmallSelectedPluginProvider: WSPluginProvider {
         return .small
     }
     
-    /// 该组件注册的单元格类
-    var cellClass: WSPluginCell.Type {
-        return WSCountdownSmallSelectedPluginCell.self
+    /// 创建该组件内容视图
+    func makeContentView() -> WSPluginContentView {
+        return WSCountdownSmallCardContentView()
     }
     
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {

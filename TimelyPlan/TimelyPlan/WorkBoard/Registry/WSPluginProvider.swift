@@ -30,8 +30,16 @@ protocol WSPluginProvider: AnyObject {
     /// 插件类型
     var type: WSPluginType { get }
     
-    /// 该组件注册的单元格类
+    /// 该组件注册的单元格类。
+    ///
+    /// 默认使用通用的 `WSPluginCell`，展示内容由 `makeContentView()` 决定；
+    /// 仅当组件需要定制单元格行为（自定义布局、裁剪长按菜单等）时才重写。
     var cellClass: WSPluginCell.Type { get }
+    
+    /// 创建该组件的内容视图。
+    ///
+    /// 提供者决定组件的展示内容，单元格只负责承载与交互转发。
+    func makeContentView() -> WSPluginContentView
     
     /// 创建该组件内容交互器
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor
@@ -63,6 +71,11 @@ protocol WSPluginProvider: AnyObject {
 }
 
 extension WSPluginProvider {
+    
+    /// 默认使用通用单元格，展示内容由 `makeContentView()` 提供
+    var cellClass: WSPluginCell.Type {
+        return WSPluginCell.self
+    }
     
     /// 默认不提供占位视图，由单元格使用默认加载占位视图
     func makeLoadingPlaceholderView() -> UIView? {

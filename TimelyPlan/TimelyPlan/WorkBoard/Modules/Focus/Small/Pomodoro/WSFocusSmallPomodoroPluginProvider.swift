@@ -18,9 +18,9 @@ class WSFocusSmallPomodoroPluginProvider: WSPluginProvider {
         return .focusSmallPomodoro
     }
     
-    /// 该组件注册的单元格类
-    var cellClass: WSPluginCell.Type {
-        return WSFocusSmallPomodoroPluginCell.self
+    /// 创建该组件内容视图
+    func makeContentView() -> WSPluginContentView {
+        return WSFocusSmallPomodoroContentView()
     }
     
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {

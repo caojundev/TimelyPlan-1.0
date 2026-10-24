@@ -22,6 +22,9 @@ class WSPluginCell: UICollectionViewCell {
     /// 组件内容视图
     private(set) var pluginContentView: WSPluginContentView!
     
+    /// 当前内容视图对应的提供者类型。用于跨类型复用时判断是否需要替换内容视图
+    private var contentProviderType: ObjectIdentifier?
+    
     /// 数据加载期间的占位视图
     private(set) var placeholderView: UIView?
     
@@ -70,7 +73,7 @@ class WSPluginCell: UICollectionViewCell {
         self.selectedBackgroundView = UIView()
         self.selectedBackgroundView?.clipsToBounds = true
         
-        self.pluginContentView = makePluginContentView()
+        self.pluginContentView = WSPluginContentView()
         contentView.addSubview(pluginContentView)
         addSubview(deleteButton)
         contentView.addInteraction(contextMenuInteraction)
@@ -114,13 +117,32 @@ class WSPluginCell: UICollectionViewCell {
     }
 
     // MARK: - 子类重写
-    func makePluginContentView() -> WSPluginContentView! {
-        return WSPluginContentView()
-    }
-    
     /// 重置插件内容
     func resetPluginContent() {
 
+    }
+    
+    // MARK: - 内容视图
+    /// 按提供者更新内容视图。同一类型复用时不重复创建，跨类型复用时替换。
+    private func updatePluginContentViewIfNeeded(with provider: WSPluginProvider) {
+        let providerType = ObjectIdentifier(type(of: provider))
+        guard contentProviderType != providerType else {
+            return
+        }
+        
+        contentProviderType = providerType
+        replacePluginContentView(with: provider.makeContentView())
+    }
+    
+    /// 替换组件内容视图。内容视图置于最底层，占位视图始终覆盖在其上方
+    private func replacePluginContentView(with contentView: WSPluginContentView) {
+        pluginContentView?.removeFromSuperview()
+        
+        self.pluginContentView = contentView
+        contentView.frame = self.contentView.bounds
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.contentView.insertSubview(contentView, at: 0)
+        setNeedsLayout()
     }
     
     // MARK: - 配置
@@ -136,7 +158,8 @@ class WSPluginCell: UICollectionViewCell {
         self.context = context
         updatePluginContentEnabled()
         
-        /// 先展示占位视图，数据加载完成后再展示内容视图
+        /// 内容视图由提供者决定；先替换内容视图，再展示占位视图
+        updatePluginContentViewIfNeeded(with: provider)
         showLoadingPlaceholderView()
         setupInteractor()
         interactor?.loadData()
