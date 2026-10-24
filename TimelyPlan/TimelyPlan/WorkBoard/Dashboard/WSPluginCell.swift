@@ -176,6 +176,11 @@ class WSPluginCell: UICollectionViewCell {
             }
         }
         
+        interactor?.configActionHandler = isConfigurable ? { [weak self] in
+            guard let self = self else { return }
+            self.menuActionHandler?(self, .configPlugin)
+        } : nil
+        
         /// 交互器注入内容视图，内容内的点击、按钮等交互由内容视图直接调用
         pluginContentView?.interactor = interactor
     }
@@ -232,10 +237,7 @@ class WSPluginCell: UICollectionViewCell {
             
             /// 支持配置的组件在空白态直接提供配置入口，与长按菜单的「配置」项一致
             emptyView.configActionHandler = isConfigurable ? { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                
+                guard let self = self else { return }
                 self.menuActionHandler?(self, .configPlugin)
             } : nil
         }

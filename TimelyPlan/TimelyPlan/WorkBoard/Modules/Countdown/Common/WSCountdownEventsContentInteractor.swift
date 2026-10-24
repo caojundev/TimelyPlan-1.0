@@ -14,10 +14,15 @@ import UIKit
 ///
 /// 展示内容由插件配置决定：默认取距离当前日期最近的若干个事项，
 /// 也可展示用户在配置中选择的事项。取数条数由初始化时传入，供各尺寸组件复用。
-class WSCountdownEventsContentInteractor: WSPluginContentInteractor, CountdownEventProcessorDelegate {
+class WSCountdownEventsContentInteractor: WSPluginContentInteractor,
+                                            CountdownEventProcessorDelegate {
     
     /// 最多展示的事项数目，与内容视图的行数保持一致
     private let maximumItemCount: Int
+    
+    var configuration: WSCountdownEventsConfiguration? {
+        return plugin.configuration(as: WSCountdownEventsConfiguration.self)
+    }
     
     /// 初始化交互器
     /// - Parameter maximumItemCount: 最多展示的事项数目
@@ -57,8 +62,17 @@ class WSCountdownEventsContentInteractor: WSPluginContentInteractor, CountdownEv
     
     /// 点击空白行
     override func performEmptyRowAction() {
-        /// 创建新事项
-        CountdownPresenter.createNewEvent()
+        let config = configuration
+        let source = config?.source ?? .recent
+        switch source {
+        case .recent:
+            /// 创建新事项
+            let eventType = config?.eventType ?? .countdown
+            CountdownPresenter.createNewEvent(type: eventType, editingEvent: nil)
+        case .selected:
+            /// 显示配置
+            configActionHandler?()
+        }
     }
     
     // MARK: - CountdownEventProcessorDelegate
@@ -124,8 +138,7 @@ class WSCountdownEventsContentInteractor: WSPluginContentInteractor, CountdownEv
     // MARK: - 展示事项
     /// 按配置决定展示内容。未写入配置时默认展示最近事项
     private func displayedEvents() -> [CountdownEvent] {
-        let configuration = plugin.configuration(as: WSCountdownEventsConfiguration.self)
-        
+        let configuration = configuration
         switch configuration?.source ?? .recent {
         case .recent:
             return recentEvents(eventType: configuration?.eventType)

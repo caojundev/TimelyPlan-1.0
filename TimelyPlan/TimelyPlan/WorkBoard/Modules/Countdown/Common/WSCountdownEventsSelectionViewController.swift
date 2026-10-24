@@ -34,16 +34,17 @@ class WSCountdownEventsSelectionViewController: TPViewController, TPGroupTableVi
     private let groupIdentifier = "CountdownEventsSelectionGroup"
     
     /// 选中数量标签高度
-    private let selectionCountLabelHeight: CGFloat = 32.0
+    private let selectionCountLabelHeight: CGFloat = 36.0
     
     /// 选中数量标签
     lazy var selectionCountLabel: TPLabel = {
         let label = TPLabel()
         label.font = .boldSystemFont(ofSize: 12.0)
+        label.numberOfLines = 2
         label.textColor = .secondaryLabel
         label.textAlignment = .center
         label.backgroundColor = themeBackgroundColor
-        label.edgeInsets = UIEdgeInsets(horizontal: 16.0, top: 8.0)
+        label.edgeInsets = UIEdgeInsets(horizontal: 16.0, top: 4.0)
         return label
     }()
     
@@ -134,7 +135,7 @@ class WSCountdownEventsSelectionViewController: TPViewController, TPGroupTableVi
     
     // MARK: - TPGroupTableViewDelegate
     func groupTableView(_ tableView: TPGroupTableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10.0
+        return 5.0
     }
     
     func groupTableView(_ tableView: TPGroupTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -185,6 +186,6 @@ class WSCountdownEventsSelectionViewController: TPViewController, TPGroupTableVi
         
         let names = selectedIdentifiers.compactMap { eventMap[$0]?.displayName }.joined(separator: ", ")
         let countText = String(format: resGetString("%ld selected"), selectedIdentifiers.count)
-        selectionCountLabel.text = names.isEmpty ? countText : "\(countText) \(names)"
+        selectionCountLabel.text = names.isEmpty ? countText : "\(countText)\n\(names)"
     }
 }

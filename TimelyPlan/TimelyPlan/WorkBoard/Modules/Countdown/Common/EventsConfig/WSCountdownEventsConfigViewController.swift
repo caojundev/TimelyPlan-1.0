@@ -104,6 +104,7 @@ class WSCountdownEventsConfigViewController: TPTableSectionsViewController, WSPl
         cellItem.height = Config.defaultCellHeight
         cellItem.accessoryType = .disclosureIndicator
         cellItem.title = resGetString("Selected Event")
+        cellItem.subtitleConfig.font = .systemFont(ofSize: 10.0, weight: .medium)
         cellItem.updater = { [weak self] in
             guard let self = self else { return }
             let events = self.selectedEvents
@@ -188,35 +189,30 @@ class WSCountdownEventsConfigViewController: TPTableSectionsViewController, WSPl
         
         let menuList = TPMenuListViewController()
         menuList.menuContentWidth = Config.menuContentWidth
-        let menuItem = TPMenuItem.item(with: CountdownEventType.allCases,
-                                       updater: { [weak self] type, action in
-            action.title = type.emojiTitle
-            action.handleBeforeDismiss = true
-            action.isChecked = type == self?.configuration.eventType
-        })
-        
+
         /// 「所有」不在事项类型枚举内，以 nil 表示
         let allAction = TPMenuAction()
-        allAction.identifier = "all"
         allAction.title = resGetString("All")
         allAction.handleBeforeDismiss = true
         allAction.isChecked = configuration.eventType == nil
-        menuItem.actions = [allAction] + (menuItem.actions ?? [])
-        
-        menuList.didSelectMenuAction = { [weak self] action in
-            if action.identifier == "all" {
-                self?.selectEventType(nil)
-                return
-            }
-            
-            guard let type: CountdownEventType = action.actionType() else {
-                return
-            }
-            
-            self?.selectEventType(type)
+        allAction.handler = { [weak self] _ in
+            self?.selectEventType(nil)
         }
         
-        menuList.menuItems = [menuItem]
+        let allMenuItem = TPMenuItem(actions: [allAction])
+        
+        /// 类型菜单条目
+        let typeMenuItem = TPMenuItem.item(with: CountdownEventType.allCases,
+                                       updater: { [weak self] type, action in
+            action.title = type.title + " " + type.emoji
+            action.handleBeforeDismiss = true
+            action.isChecked = type == self?.configuration.eventType
+            action.handler = { _ in
+                self?.selectEventType(type)
+            }
+        })
+        
+        menuList.menuItems = [allMenuItem, typeMenuItem]
         menuList.popoverShow(from: cell,
                              sourceRect: cell.bounds,
                              isSourceViewCovered: false,

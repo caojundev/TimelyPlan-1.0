@@ -81,6 +81,10 @@ class CountdownEventBindViewController: TPViewController,
     }
     
     // MARK: - TPGroupTableViewDelegate
+    func groupTableView(_ tableView: TPGroupTableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5.0
+    }
+    
     func groupTableView(_ tableView: TPGroupTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68.0
     }

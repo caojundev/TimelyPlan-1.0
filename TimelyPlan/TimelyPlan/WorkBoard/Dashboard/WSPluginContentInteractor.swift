@@ -18,6 +18,9 @@ protocol WSPluginDataItem {
 
 class WSPluginContentInteractor: NSObject, TPMidnightUpdatable {
     
+    /// 点击「配置插件」回调
+    var configActionHandler: (() -> Void)?
+    
     /// 当前数据条目
     private(set) var dataItem: WSPluginDataItem?
     

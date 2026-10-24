@@ -17,6 +17,11 @@ class TPMenuItem: NSObject {
 
     /// 菜单动作对象数组
     var actions: [TPMenuAction]?
+    
+    convenience init(actions: [TPMenuAction]) {
+        self.init()
+        self.actions = actions
+    }
 }
 
 extension TPMenuItem {

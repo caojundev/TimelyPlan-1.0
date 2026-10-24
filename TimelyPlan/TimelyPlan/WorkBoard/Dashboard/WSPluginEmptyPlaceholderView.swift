@@ -75,7 +75,7 @@ class WSPluginEmptyPlaceholderView: UIView {
     /// 内容交互器。由单元格注入，空白视图内的操作可直接交给它处理
     weak var interactor: WSPluginContentInteractor?
     
-    /// 点击「配置插件」回调。为 nil 时不展示配置入口
+    /// 点击「配置插件」回调
     var configActionHandler: (() -> Void)? {
         didSet {
             setNeedsLayout()

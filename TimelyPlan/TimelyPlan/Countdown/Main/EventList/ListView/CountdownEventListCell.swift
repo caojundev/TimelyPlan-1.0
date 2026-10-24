@@ -170,6 +170,7 @@ class CountdownEventListInfoView: TPInfoView {
     override func setupSubviews() {
         super.setupSubviews()
         titleConfig.font = .boldSystemFont(ofSize: 14.0)
+        subtitleConfig.numberOfLines = 2
         subtitleTopMargin = 8.0
         leftAccessoryView = iconView
         leftAccessorySize = iconSize

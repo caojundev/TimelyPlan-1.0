@@ -358,7 +358,6 @@
 		E5186E452D93B141007AA074 /* todo_filter_progress_36@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E412D93B140007AA074 /* todo_filter_progress_36@2x.png */; };
 		E5186E462D93B141007AA074 /* todo_filter_progress_36@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5186E422D93B141007AA074 /* todo_filter_progress_36@3x.png */; };
 		E518AB013087ADD50018987D /* CountdownEventBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAFE3087ADD50018987D /* CountdownEventBindViewController.swift */; };
-		E537BCC6308B4B5900C308E3 /* CountdownEventSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */; };
 		E518AB023087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AAFF3087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift */; };
 		E518AB033087ADD50018987D /* CountdownEventBindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518AB003087ADD50018987D /* CountdownEventBindCell.swift */; };
 		E518D6942FBDEF8E0045D456 /* CalendarTimelineDotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */; };
@@ -700,7 +699,6 @@
 		E537BCB2308B4B5900C308E3 /* WSCountdownSmallEventsPluginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC96308B4B5800C308E3 /* WSCountdownSmallEventsPluginCell.swift */; };
 		E537BCB3308B4B5900C308E3 /* WSCountdownSmallEventsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC97308B4B5800C308E3 /* WSCountdownSmallEventsPluginProvider.swift */; };
 		E537BCB4308B4B5900C308E3 /* WSCountdownEventsConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC99308B4B5800C308E3 /* WSCountdownEventsConfigViewController.swift */; };
-		E537BCC4308B4B5900C308E3 /* WSCountdownEventsSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */; };
 		E537BCB5308B4B5900C308E3 /* WSCountdownCompactEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC9A308B4B5800C308E3 /* WSCountdownCompactEventRowView.swift */; };
 		E537BCB6308B4B5900C308E3 /* WSCountdownEventsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC9B308B4B5800C308E3 /* WSCountdownEventsPluginProvider.swift */; };
 		E537BCB7308B4B5900C308E3 /* WSCountdownEventRowBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BC9C308B4B5800C308E3 /* WSCountdownEventRowBaseView.swift */; };
@@ -710,6 +708,8 @@
 		E537BCBB308B4B5900C308E3 /* WSCountdownColumnEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCA0308B4B5800C308E3 /* WSCountdownColumnEventRowView.swift */; };
 		E537BCBC308B4B5900C308E3 /* WSCountdownEventsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCA1308B4B5800C308E3 /* WSCountdownEventsConfiguration.swift */; };
 		E537BCBD308B4B5900C308E3 /* WSCountdownEventsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCA2308B4B5800C308E3 /* WSCountdownEventsContentInteractor.swift */; };
+		E537BCC4308B4B5900C308E3 /* WSCountdownEventsSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */; };
+		E537BCC6308B4B5900C308E3 /* CountdownEventSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
 		E53966E52D671D66008CC13B /* todo_list_option_layout_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E32D671D66008CC13B /* todo_list_option_layout_24@3x.png */; };
 		E53A15E12D45DF0300474F94 /* archivedList_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53A15DD2D45DF0200474F94 /* archivedList_80@2x.png */; };
@@ -2949,7 +2949,6 @@
 		E5186E412D93B140007AA074 /* todo_filter_progress_36@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_progress_36@2x.png"; sourceTree = "<group>"; };
 		E5186E422D93B141007AA074 /* todo_filter_progress_36@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_progress_36@3x.png"; sourceTree = "<group>"; };
 		E518AAFE3087ADD50018987D /* CountdownEventBindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventBindViewController.swift; sourceTree = "<group>"; };
-		E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventSelectionViewModel.swift; sourceTree = "<group>"; };
 		E518AAFF3087ADD50018987D /* CountdownEventBindSearchResultSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventBindSearchResultSectionController.swift; sourceTree = "<group>"; };
 		E518AB003087ADD50018987D /* CountdownEventBindCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventBindCell.swift; sourceTree = "<group>"; };
 		E518D6932FBDEF8D0045D456 /* CalendarTimelineDotIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTimelineDotIndicator.swift; sourceTree = "<group>"; };
@@ -3291,7 +3290,6 @@
 		E537BC96308B4B5800C308E3 /* WSCountdownSmallEventsPluginCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallEventsPluginCell.swift; sourceTree = "<group>"; };
 		E537BC97308B4B5800C308E3 /* WSCountdownSmallEventsPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownSmallEventsPluginProvider.swift; sourceTree = "<group>"; };
 		E537BC99308B4B5800C308E3 /* WSCountdownEventsConfigViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsConfigViewController.swift; sourceTree = "<group>"; };
-		E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsSelectionViewController.swift; sourceTree = "<group>"; };
 		E537BC9A308B4B5800C308E3 /* WSCountdownCompactEventRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownCompactEventRowView.swift; sourceTree = "<group>"; };
 		E537BC9B308B4B5800C308E3 /* WSCountdownEventsPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsPluginProvider.swift; sourceTree = "<group>"; };
 		E537BC9C308B4B5800C308E3 /* WSCountdownEventRowBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventRowBaseView.swift; sourceTree = "<group>"; };
@@ -3301,6 +3299,8 @@
 		E537BCA0308B4B5800C308E3 /* WSCountdownColumnEventRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownColumnEventRowView.swift; sourceTree = "<group>"; };
 		E537BCA1308B4B5800C308E3 /* WSCountdownEventsConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsConfiguration.swift; sourceTree = "<group>"; };
 		E537BCA2308B4B5800C308E3 /* WSCountdownEventsContentInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsContentInteractor.swift; sourceTree = "<group>"; };
+		E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownEventsSelectionViewController.swift; sourceTree = "<group>"; };
+		E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventSelectionViewModel.swift; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
 		E53966E32D671D66008CC13B /* todo_list_option_layout_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@3x.png"; sourceTree = "<group>"; };
 		E53A15DD2D45DF0200474F94 /* archivedList_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archivedList_80@2x.png"; sourceTree = "<group>"; };
@@ -7362,9 +7362,7 @@
 		E537BC98308B4B5800C308E3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E537BC99308B4B5800C308E3 /* WSCountdownEventsConfigViewController.swift */,
 				E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */,
-				E537BCA1308B4B5800C308E3 /* WSCountdownEventsConfiguration.swift */,
 				E537BCBE308B4EC500C308E3 /* EventsConfig */,
 				E537BC9A308B4B5800C308E3 /* WSCountdownCompactEventRowView.swift */,
 				E537BC9B308B4B5800C308E3 /* WSCountdownEventsPluginProvider.swift */,
@@ -7381,6 +7379,8 @@
 		E537BCBE308B4EC500C308E3 /* EventsConfig */ = {
 			isa = PBXGroup;
 			children = (
+				E537BC99308B4B5800C308E3 /* WSCountdownEventsConfigViewController.swift */,
+				E537BCA1308B4B5800C308E3 /* WSCountdownEventsConfiguration.swift */,
 			);
 			path = EventsConfig;
 			sourceTree = "<group>";
