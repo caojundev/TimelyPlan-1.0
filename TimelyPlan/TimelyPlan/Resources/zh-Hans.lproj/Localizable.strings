@@ -41,6 +41,8 @@
 "Shows recent or selected countdowns in a list" = "以列表展示最近或自选的倒数日";
 "Shows recent or selected countdowns in a grid" = "以网格展示最近或自选的倒数日";
 "Shows recent or selected countdowns in columns" = "以三列展示最近或自选的倒数日";
+"Quickly starts the default pomodoro" = "快速开始默认番茄钟";
+"Tap to start focus" = "点击开始专注";
 
 "My Dashboard" = "我的面板";
 "Dashboard" = "面板";

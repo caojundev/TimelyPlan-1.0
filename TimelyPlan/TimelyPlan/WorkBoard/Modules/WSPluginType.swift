@@ -1,4 +1,3 @@
-// 文件：Workspace/Sources/Workspace/Core/Models/WSPluginType.swift
 
 import Foundation
 
@@ -29,6 +28,10 @@ public enum WSPluginType: String, Codable, CaseIterable {
     
     /// 倒数日·大·事项（网格）：以两列四行的网格展示最近或用户自选的八个倒数日事项。
     case countdownLargeEventsGrid
+    
+    // MARK: 专注
+    /// 专注·小·番茄钟：展示番茄钟专注状态的入口。
+    case focusSmallPomodoro
 }
 
 // MARK: - 固有属性
@@ -38,7 +41,7 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .countdownSmallSelected, .countdownSmallEvents:
+        case .countdownSmallSelected, .countdownSmallEvents, .focusSmallPomodoro:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns:
             return .medium
@@ -54,6 +57,8 @@ public extension WSPluginType {
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .countdownLargeEventsList, .countdownLargeEventsGrid:
             return .countdown
+        case .focusSmallPomodoro:
+            return .focus
         }
     }
 
@@ -65,6 +70,8 @@ public extension WSPluginType {
         case .countdownSmallEvents, .countdownMediumEventsList, .countdownMediumEventsGrid,
              .countdownMediumEventsColumns, .countdownLargeEventsList, .countdownLargeEventsGrid:
             return resGetString("Countdowns")
+        case .focusSmallPomodoro:
+            return resGetString("Pomodoro")
         }
     }
 
@@ -81,6 +88,9 @@ public extension WSPluginType {
             return resGetString("Shows recent or selected countdowns in columns")
         case .countdownSmallEvents:
             return resGetString("Shows recent or selected countdowns")
+            
+        case .focusSmallPomodoro:
+            return resGetString("Quickly starts the default pomodoro")
         }
     }
 }

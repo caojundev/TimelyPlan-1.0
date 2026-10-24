@@ -20,7 +20,7 @@ enum FocusPomodoroPhase: Int, Codable, TPMenuRepresentable {
 }
 
 struct FocusPomodoroConfig: Hashable, Equatable, Codable {
-    static let defaultFocusDuration: TimeInterval = 1 * 60
+    static let defaultFocusDuration: TimeInterval = 25 * 60
     static let minimumFocusDuration: TimeInterval = 1 * 60
     static let maximumFocusDuration: TimeInterval = 180 * 60
 
@@ -129,7 +129,7 @@ struct FocusPomodoroConfig: Hashable, Equatable, Codable {
         var infos = [String]()
         let format = resGetString("%ldm")
         var focusString = String(format: format, focusDuration.minutes)
-        focusString = "\(pomosCountPerCycle)×\(focusString)"
+        focusString = "\(pomosCountPerCycle)•\(focusString)"
         infos.append(focusString)
         let shortBreakString = String(format: format, shortBreakDuration.minutes)
         infos.append(shortBreakString)

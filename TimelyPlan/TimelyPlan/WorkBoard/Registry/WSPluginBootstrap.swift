@@ -23,6 +23,9 @@ enum WSPluginBootstrap {
         WSCountdownMediumEventsColumnsPluginProvider(),
         WSCountdownLargeEventsListPluginProvider(),
         WSCountdownLargeEventsGridPluginProvider(),
+        
+        // 专注
+        WSFocusSmallPomodoroPluginProvider(),
     ]
 
     /// 注册所有组件 Provider。必须在 App 启动时调用一次。

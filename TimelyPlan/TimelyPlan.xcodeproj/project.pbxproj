@@ -1372,6 +1372,10 @@
 		E58389702F774E5F003C30A4 /* task_type_habit_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E583896E2F774E5F003C30A4 /* task_type_habit_24@2x.png */; };
 		E58389732F776404003C30A4 /* focus_quickStart_record_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58389712F776403003C30A4 /* focus_quickStart_record_24@2x.png */; };
 		E58389742F776404003C30A4 /* focus_quickStart_record_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E58389722F776404003C30A4 /* focus_quickStart_record_24@3x.png */; };
+		E584C7EB308C460400A38690 /* WSFocusSmallPomodoroPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584C7EA308C460400A38690 /* WSFocusSmallPomodoroPluginProvider.swift */; };
+		E5F0C102308E4F0000A00001 /* WSFocusPomodoroDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00001 /* WSFocusPomodoroDataItem.swift */; };
+		E5F0C102308E4F0000A00002 /* WSFocusSmallPomodoroContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00002 /* WSFocusSmallPomodoroContentView.swift */; };
+		E5F0C102308E4F0000A00003 /* WSFocusSmallPomodoroPluginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00003 /* WSFocusSmallPomodoroPluginCell.swift */; };
 		E586DA6C2FE23DAE00758ED6 /* CalendarEvent+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DA6B2FE23DAE00758ED6 /* CalendarEvent+Layout.swift */; };
 		E586DA702FE2A1A500758ED6 /* TPPermissionDeniedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DA6F2FE2A1A500758ED6 /* TPPermissionDeniedView.swift */; };
 		E586DA732FE2A74A00758ED6 /* TPPermissionDeniedTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586DA722FE2A74A00758ED6 /* TPPermissionDeniedTableCell.swift */; };
@@ -3965,6 +3969,10 @@
 		E583896E2F774E5F003C30A4 /* task_type_habit_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "task_type_habit_24@2x.png"; sourceTree = "<group>"; };
 		E58389712F776403003C30A4 /* focus_quickStart_record_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_quickStart_record_24@2x.png"; sourceTree = "<group>"; };
 		E58389722F776404003C30A4 /* focus_quickStart_record_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_quickStart_record_24@3x.png"; sourceTree = "<group>"; };
+		E584C7EA308C460400A38690 /* WSFocusSmallPomodoroPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallPomodoroPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00001 /* WSFocusPomodoroDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusPomodoroDataItem.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00002 /* WSFocusSmallPomodoroContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallPomodoroContentView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00003 /* WSFocusSmallPomodoroPluginCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallPomodoroPluginCell.swift; sourceTree = "<group>"; };
 		E586DA6B2FE23DAE00758ED6 /* CalendarEvent+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CalendarEvent+Layout.swift"; sourceTree = "<group>"; };
 		E586DA6F2FE2A1A500758ED6 /* TPPermissionDeniedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPermissionDeniedView.swift; sourceTree = "<group>"; };
 		E586DA722FE2A74A00758ED6 /* TPPermissionDeniedTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPermissionDeniedTableCell.swift; sourceTree = "<group>"; };
@@ -9411,6 +9419,25 @@
 			path = quickStart;
 			sourceTree = "<group>";
 		};
+		E584C7E8308C459A00A38690 /* Focus */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A00001 /* WSFocusPomodoroDataItem.swift */,
+				E584C7E9308C45C200A38690 /* Small */,
+			);
+			path = Focus;
+			sourceTree = "<group>";
+		};
+		E584C7E9308C45C200A38690 /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E584C7EA308C460400A38690 /* WSFocusSmallPomodoroPluginProvider.swift */,
+				E5F0C101308E4F0000A00002 /* WSFocusSmallPomodoroContentView.swift */,
+				E5F0C101308E4F0000A00003 /* WSFocusSmallPomodoroPluginCell.swift */,
+			);
+			path = Small;
+			sourceTree = "<group>";
+		};
 		E586DA712FE2A72D00758ED6 /* PermissionDenied */ = {
 			isa = PBXGroup;
 			children = (
@@ -9914,6 +9941,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
+				E584C7E8308C459A00A38690 /* Focus */,
 				E537BC7C308B4B5800C308E3 /* Countdown */,
 			);
 			path = Modules;
@@ -16114,6 +16142,10 @@
 				E552FBB42DBDDCA70072703F /* CalendarMonthWeekBackgroundLayer.swift in Sources */,
 				E5BB9DB52D3BF0C60089667A /* TPWeakDelegateCollection.swift in Sources */,
 				E59244032F51578F00CA2393 /* HabitConstant.swift in Sources */,
+				E584C7EB308C460400A38690 /* WSFocusSmallPomodoroPluginProvider.swift in Sources */,
+				E5F0C102308E4F0000A00001 /* WSFocusPomodoroDataItem.swift in Sources */,
+				E5F0C102308E4F0000A00002 /* WSFocusSmallPomodoroContentView.swift in Sources */,
+				E5F0C102308E4F0000A00003 /* WSFocusSmallPomodoroPluginCell.swift in Sources */,
 				E5DA03AE2FA1F49000A58ACC /* FocusTimelineViewModel.swift in Sources */,
 				E50D60582F7A13F100D5E0A4 /* AlarmPresetListView.swift in Sources */,
 				E50D02602F55A8C100E93977 /* TaskDateRangeEditTableCell.swift in Sources */,

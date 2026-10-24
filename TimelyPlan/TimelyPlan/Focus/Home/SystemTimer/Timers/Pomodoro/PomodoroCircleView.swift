@@ -10,8 +10,23 @@ import UIKit
 
 class PomodoroCircleView: UIView {
     
-    let borderLineWidth = 3.0
-    let circleWidth = 30.0
+    var borderLineWidth: CGFloat = 3.0 {
+        didSet {
+            if borderLineWidth != oldValue {
+                configureUI()
+                setNeedsLayout()
+            }
+        }
+    }
+    
+    var circleWidth: CGFloat = 30.0 {
+        didSet {
+            if circleWidth != oldValue {
+                configureUI()
+                setNeedsLayout()
+            }
+        }
+    }
     
     var config: FocusPomodoroConfig = FocusPomodoroConfig() {
         didSet {
