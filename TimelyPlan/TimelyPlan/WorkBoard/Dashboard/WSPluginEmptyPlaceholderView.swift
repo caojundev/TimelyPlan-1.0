@@ -37,7 +37,7 @@ struct WSPluginEmptyPlaceholderConfiguration {
     
     // MARK: 配置按钮
     /// 按钮标题
-    var buttonTitle: String = resGetString("Configure Plugin")
+    var buttonTitle: String = resGetString("Config Plugin")
     
     /// 按钮标题字体
     var buttonTitleFont: UIFont = .systemFont(ofSize: 14.0, weight: .medium)

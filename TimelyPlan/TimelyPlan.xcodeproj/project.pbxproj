@@ -7362,16 +7362,11 @@
 		E537BC98308B4B5800C308E3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */,
 				E537BCBE308B4EC500C308E3 /* EventsConfig */,
-				E537BC9A308B4B5800C308E3 /* WSCountdownCompactEventRowView.swift */,
-				E537BC9B308B4B5800C308E3 /* WSCountdownEventsPluginProvider.swift */,
-				E537BC9C308B4B5800C308E3 /* WSCountdownEventRowBaseView.swift */,
-				E537BC9D308B4B5800C308E3 /* WSCountdownEventRowView.swift */,
-				E537BC9E308B4B5800C308E3 /* WSCountdownEventsContentView.swift */,
-				E537BC9F308B4B5800C308E3 /* WSCountdownEventsCardContentView.swift */,
-				E537BCA0308B4B5800C308E3 /* WSCountdownColumnEventRowView.swift */,
-				E537BCA2308B4B5800C308E3 /* WSCountdownEventsContentInteractor.swift */,
+				E537BCBF308B4ED000C308E3 /* Content */,
+				E537BCC9308B4ED000C308E3 /* Interactor */,
+				E537BCCA308B4ED000C308E3 /* Provider */,
+				E537BCCB308B4ED000C308E3 /* Selection */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -7383,6 +7378,51 @@
 				E537BCA1308B4B5800C308E3 /* WSCountdownEventsConfiguration.swift */,
 			);
 			path = EventsConfig;
+			sourceTree = "<group>";
+		};
+		E537BCBF308B4ED000C308E3 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E537BC9F308B4B5800C308E3 /* WSCountdownEventsCardContentView.swift */,
+				E537BC9E308B4B5800C308E3 /* WSCountdownEventsContentView.swift */,
+				E537BCC8308B4ED000C308E3 /* Rows */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E537BCC8308B4ED000C308E3 /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				E537BC9A308B4B5800C308E3 /* WSCountdownCompactEventRowView.swift */,
+				E537BC9C308B4B5800C308E3 /* WSCountdownEventRowBaseView.swift */,
+				E537BC9D308B4B5800C308E3 /* WSCountdownEventRowView.swift */,
+				E537BCA0308B4B5800C308E3 /* WSCountdownColumnEventRowView.swift */,
+			);
+			path = Rows;
+			sourceTree = "<group>";
+		};
+		E537BCC9308B4ED000C308E3 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E537BCA2308B4B5800C308E3 /* WSCountdownEventsContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E537BCCA308B4ED000C308E3 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E537BC9B308B4B5800C308E3 /* WSCountdownEventsPluginProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E537BCCB308B4ED000C308E3 /* Selection */ = {
+			isa = PBXGroup;
+			children = (
+				E537BCC5308B4B5800C308E3 /* WSCountdownEventsSelectionViewController.swift */,
+			);
+			path = Selection;
 			sourceTree = "<group>";
 		};
 		E53ABEBD3007C36800EB8632 /* myDay */ = {

@@ -341,16 +341,14 @@ class WSPluginCell: UICollectionViewCell {
     
     /// 长按菜单动作分组
     var menuActionTypeGroups: [[MenuActionType]] {
-        var groups: [[MenuActionType]] = [[.editDashboard],
-                                          [.addPreviousPlugin, .addNextPlugin]]
-        
-        /// 组件不支持配置时，插件操作分组中不显示配置项
+        var groups: [[MenuActionType]] = [[.editDashboard]]
         if isConfigurable {
-            groups.append([.configPlugin, .removePlugin])
-        } else {
-            groups.append([.removePlugin])
+            /// 配置插件分组
+            groups.append([.configPlugin])
         }
         
+        groups.append([.addPreviousPlugin, .addNextPlugin])
+        groups.append([.removePlugin])
         return groups
     }
     
