@@ -32,6 +32,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     // MARK: 专注
     /// 专注·小·番茄钟：展示番茄钟专注状态的入口。
     case focusSmallPomodoro
+    
+    /// 专注·小·倒计时：展示倒计时专注状态的入口。
+    case focusSmallCountdown
 }
 
 // MARK: - 固有属性
@@ -41,7 +44,8 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .countdownSmallSelected, .countdownSmallEvents, .focusSmallPomodoro:
+        case .countdownSmallSelected, .countdownSmallEvents,
+             .focusSmallPomodoro, .focusSmallCountdown:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns:
             return .medium
@@ -57,7 +61,7 @@ public extension WSPluginType {
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .countdownLargeEventsList, .countdownLargeEventsGrid:
             return .countdown
-        case .focusSmallPomodoro:
+        case .focusSmallPomodoro, .focusSmallCountdown:
             return .focus
         }
     }
@@ -72,6 +76,8 @@ public extension WSPluginType {
             return resGetString("Countdowns")
         case .focusSmallPomodoro:
             return resGetString("Pomodoro")
+        case .focusSmallCountdown:
+            return resGetString("Countdown Timer")
         }
     }
 
@@ -91,6 +97,8 @@ public extension WSPluginType {
             
         case .focusSmallPomodoro:
             return resGetString("Quickly starts the default pomodoro")
+        case .focusSmallCountdown:
+            return resGetString("Quickly starts the default countdown")
         }
     }
 }

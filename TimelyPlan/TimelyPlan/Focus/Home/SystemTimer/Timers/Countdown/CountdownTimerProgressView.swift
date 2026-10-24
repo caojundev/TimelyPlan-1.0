@@ -29,11 +29,38 @@ class CountdownTimerProgressView: UIView {
     /// 最大分钟数
     let maxDuration: TimeInterval = TimeInterval(3 * SECONDS_PER_HOUR)
 
-    /// 最小线条宽度
-    let minLineWidth = 2.0
+    /// 最小线条宽度。对应一小时以内倒计时的圆环线宽
+    var minLineWidth: CGFloat = 2.0 {
+        didSet {
+            guard minLineWidth != oldValue else {
+                return
+            }
+            
+            updateCircleLayerLineWidths()
+        }
+    }
     
-    /// 线条宽度步长
-    let lineWidthStep = 4.0
+    /// 线条宽度步长。每多一小时，圆环加粗一个步长
+    var lineWidthStep: CGFloat = 4.0 {
+        didSet {
+            guard lineWidthStep != oldValue else {
+                return
+            }
+            
+            updateCircleLayerLineWidths()
+        }
+    }
+    
+    /// 刻度线条宽度。直接透传给刻度视图
+    var scaleLineWidth: CGFloat {
+        get {
+            return tickView.scaleLineWidth
+        }
+        
+        set {
+            tickView.scaleLineWidth = newValue
+        }
+    }
 
     /// 虚线圆环图层
     lazy var dashCircleLayer: CAShapeLayer = {
@@ -59,14 +86,35 @@ class CountdownTimerProgressView: UIView {
         return layer
     }()
     
+    /// 指示视图尺寸
+    var indicatorSize = CGSize(width: 12.0, height: 12.0) {
+        didSet {
+            guard indicatorSize != oldValue else {
+                return
+            }
+            
+            updateIndicatorViewAppearance()
+        }
+    }
+    
+    /// 指示视图边框宽度
+    var indicatorBorderWidth: CGFloat = 4.0 {
+        didSet {
+            guard indicatorBorderWidth != oldValue else {
+                return
+            }
+            
+            updateIndicatorViewAppearance()
+        }
+    }
+    
     /// 指示视图
     lazy var indicatorView: UIView = {
-        let indicatorSize = CGSize(width: 12.0, height: 12.0)
         let view = UIView()
+        view.layer.borderColor = Color(0xFFFFFF, 0.8).cgColor
         view.size = indicatorSize
         view.layer.cornerRadius = indicatorSize.width / 2.0
-        view.layer.borderWidth = 4.0
-        view.layer.borderColor = Color(0xFFFFFF, 0.8).cgColor
+        view.layer.borderWidth = indicatorBorderWidth
         return view
     }()
     
@@ -101,6 +149,7 @@ class CountdownTimerProgressView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.isMultipleTouchEnabled = false
+        self.padding = UIEdgeInsets(value: 10.0)
         tickView.alpha = 0.6
         tickView.scaleLineWidth = 3.0
         addSubview(tickView)
@@ -120,8 +169,6 @@ class CountdownTimerProgressView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        self.padding = UIEdgeInsets(value: 10.0)
         tickView.frame = layoutFrame()
 
         indicatorView.layer.backgroundColor = UIColor.label.cgColor
@@ -155,13 +202,25 @@ class CountdownTimerProgressView: UIView {
             layer.lineCap = CAShapeLayerLineCap.round
             layer.fillColor = UIColor.clear.cgColor
             layer.strokeColor = lineColor.cgColor
-            layer.lineWidth = minLineWidth + Double(i) * lineWidthStep
+            layer.lineWidth = lineWidth(ofLayerAt: i)
             layers.append(layer)
             self.layer.addSublayer(layer)
         }
         
         circleLayers = layers
         setNeedsLayout()
+    }
+    
+    /// 更新所有圆环图层的线宽
+    private func updateCircleLayerLineWidths() {
+        for (index, circleLayer) in circleLayers.enumerated() {
+            circleLayer.lineWidth = lineWidth(ofLayerAt: index)
+        }
+    }
+    
+    /// 指定索引圆环图层的线宽
+    private func lineWidth(ofLayerAt index: Int) -> CGFloat {
+        return minLineWidth + CGFloat(index) * lineWidthStep
     }
     
     /// 移除所有图层
@@ -245,6 +304,13 @@ class CountdownTimerProgressView: UIView {
         
         /// 更新指示视图
         indicatorView.center = indicatorCenter(strokeEnd: strokeEnd)
+    }
+    
+    /// 更新指示视图的外观
+    private func updateIndicatorViewAppearance() {
+        indicatorView.size = indicatorSize
+        indicatorView.layer.cornerRadius = indicatorSize.width / 2.0
+        indicatorView.layer.borderWidth = indicatorBorderWidth
     }
 
     // MARK: - DisplayLink

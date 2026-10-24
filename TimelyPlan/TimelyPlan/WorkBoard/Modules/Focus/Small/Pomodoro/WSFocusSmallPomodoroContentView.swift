@@ -17,7 +17,7 @@ class WSFocusSmallPomodoroContentView: WSPluginContentView {
     private enum Metrics {
         
         /// 内容与组件边缘的间距
-        static let padding = UIEdgeInsets(value: 12.0)
+        static let padding = UIEdgeInsets(top: 12.0, left: 12.0, bottom: 8.0, right: 12.0) 
         
         /// 底部说明文本高度
         static let tipLabelHeight: CGFloat = 16.0

@@ -2464,6 +2464,9 @@
 		E5F078D52F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078D42F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift */; };
 		E5F0C102308E4F0000A00001 /* WSFocusPomodoroDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00001 /* WSFocusPomodoroDataItem.swift */; };
 		E5F0C102308E4F0000A00002 /* WSFocusSmallPomodoroContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00002 /* WSFocusSmallPomodoroContentView.swift */; };
+		E5F0C102308E4F0000A00005 /* WSFocusCountdownDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00005 /* WSFocusCountdownDataItem.swift */; };
+		E5F0C102308E4F0000A00006 /* WSFocusSmallCountdownPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00006 /* WSFocusSmallCountdownPluginProvider.swift */; };
+		E5F0C102308E4F0000A00007 /* WSFocusSmallCountdownContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00007 /* WSFocusSmallCountdownContentView.swift */; };
 		E5F1551B2F83681E00116091 /* TodoTaskDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */; };
 		E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */; };
 		E5F1551D2F83681E00116091 /* TodoTaskCheckTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */; };
@@ -5068,6 +5071,9 @@
 		E5F078D42F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoMultiDayScheduleEditSectionController.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A00001 /* WSFocusPomodoroDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusPomodoroDataItem.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A00002 /* WSFocusSmallPomodoroContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallPomodoroContentView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00005 /* WSFocusCountdownDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusCountdownDataItem.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00006 /* WSFocusSmallCountdownPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallCountdownPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00007 /* WSFocusSmallCountdownContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallCountdownContentView.swift; sourceTree = "<group>"; };
 		E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskDetailProvider.swift; sourceTree = "<group>"; };
 		E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskLayoutManager.swift; sourceTree = "<group>"; };
 		E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskCheckTableCell.swift; sourceTree = "<group>"; };
@@ -7413,6 +7419,7 @@
 		E539C86C308C953C0077FE8A /* Pomodoro */ = {
 			isa = PBXGroup;
 			children = (
+				E5F0C101308E4F0000A00001 /* WSFocusPomodoroDataItem.swift */,
 				E584C7EA308C460400A38690 /* WSFocusSmallPomodoroPluginProvider.swift */,
 				E5F0C101308E4F0000A00002 /* WSFocusSmallPomodoroContentView.swift */,
 			);
@@ -7422,8 +7429,18 @@
 		E539C86D308C95680077FE8A /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
+				E5F0C101308E4F0000A00005 /* WSFocusCountdownDataItem.swift */,
+				E5F0C101308E4F0000A00006 /* WSFocusSmallCountdownPluginProvider.swift */,
+				E5F0C101308E4F0000A00007 /* WSFocusSmallCountdownContentView.swift */,
 			);
 			path = Countdown;
+			sourceTree = "<group>";
+		};
+		E539C86E308CA9110077FE8A /* QuickStart */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = QuickStart;
 			sourceTree = "<group>";
 		};
 		E53ABEBD3007C36800EB8632 /* myDay */ = {
@@ -9415,7 +9432,6 @@
 		E584C7E8308C459A00A38690 /* Focus */ = {
 			isa = PBXGroup;
 			children = (
-				E5F0C101308E4F0000A00001 /* WSFocusPomodoroDataItem.swift */,
 				E584C7E9308C45C200A38690 /* Small */,
 			);
 			path = Focus;
@@ -9424,6 +9440,7 @@
 		E584C7E9308C45C200A38690 /* Small */ = {
 			isa = PBXGroup;
 			children = (
+				E539C86E308CA9110077FE8A /* QuickStart */,
 				E539C86D308C95680077FE8A /* Countdown */,
 				E539C86C308C953C0077FE8A /* Pomodoro */,
 			);
@@ -16132,6 +16149,9 @@
 				E584C7EB308C460400A38690 /* WSFocusSmallPomodoroPluginProvider.swift in Sources */,
 				E5F0C102308E4F0000A00001 /* WSFocusPomodoroDataItem.swift in Sources */,
 				E5F0C102308E4F0000A00002 /* WSFocusSmallPomodoroContentView.swift in Sources */,
+				E5F0C102308E4F0000A00005 /* WSFocusCountdownDataItem.swift in Sources */,
+				E5F0C102308E4F0000A00006 /* WSFocusSmallCountdownPluginProvider.swift in Sources */,
+				E5F0C102308E4F0000A00007 /* WSFocusSmallCountdownContentView.swift in Sources */,
 				E5DA03AE2FA1F49000A58ACC /* FocusTimelineViewModel.swift in Sources */,
 				E50D60582F7A13F100D5E0A4 /* AlarmPresetListView.swift in Sources */,
 				E50D02602F55A8C100E93977 /* TaskDateRangeEditTableCell.swift in Sources */,
