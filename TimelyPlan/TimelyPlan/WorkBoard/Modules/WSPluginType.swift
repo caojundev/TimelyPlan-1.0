@@ -30,12 +30,6 @@ public enum WSPluginType: String, Codable, CaseIterable {
     case countdownLargeEventsGrid
     
     // MARK: 专注
-    /// 专注·小·番茄钟：展示番茄钟专注状态的入口。
-    case focusSmallPomodoro
-    
-    /// 专注·小·倒计时：展示倒计时专注状态的入口。
-    case focusSmallCountdown
-    
     /// 专注·小·默认计时器：展示默认的系统计时器。
     case focusSmallSystemTimer
     
@@ -50,8 +44,7 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .countdownSmallSelected, .countdownSmallEvents,
-             .focusSmallPomodoro, .focusSmallCountdown, .focusSmallSystemTimer:
+        case .countdownSmallSelected, .countdownSmallEvents, .focusSmallSystemTimer:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumSystemTimer:
@@ -68,8 +61,7 @@ public extension WSPluginType {
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .countdownLargeEventsList, .countdownLargeEventsGrid:
             return .countdown
-        case .focusSmallPomodoro, .focusSmallCountdown, .focusSmallSystemTimer,
-             .focusMediumSystemTimer:
+        case .focusSmallSystemTimer, .focusMediumSystemTimer:
             return .focus
         }
     }
@@ -82,10 +74,6 @@ public extension WSPluginType {
         case .countdownSmallEvents, .countdownMediumEventsList, .countdownMediumEventsGrid,
              .countdownMediumEventsColumns, .countdownLargeEventsList, .countdownLargeEventsGrid:
             return resGetString("Countdowns")
-        case .focusSmallPomodoro:
-            return resGetString("Pomodoro")
-        case .focusSmallCountdown:
-            return resGetString("Countdown Timer")
         case .focusSmallSystemTimer, .focusMediumSystemTimer:
             return resGetString("Default Timer")
         }
@@ -105,10 +93,6 @@ public extension WSPluginType {
         case .countdownSmallEvents:
             return resGetString("Shows recent or selected countdowns")
             
-        case .focusSmallPomodoro:
-            return resGetString("Quickly starts the default pomodoro")
-        case .focusSmallCountdown:
-            return resGetString("Quickly starts the default countdown")
         case .focusSmallSystemTimer:
             return resGetString("Quickly starts the default timer")
         case .focusMediumSystemTimer:

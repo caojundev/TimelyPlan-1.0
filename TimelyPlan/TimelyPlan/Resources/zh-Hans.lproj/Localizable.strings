@@ -41,8 +41,6 @@
 "Shows recent or selected countdowns in a list" = "以列表展示最近或自选的倒数日";
 "Shows recent or selected countdowns in a grid" = "以网格展示最近或自选的倒数日";
 "Shows recent or selected countdowns in columns" = "以三列展示最近或自选的倒数日";
-"Quickly starts the default pomodoro" = "快速开始默认番茄钟";
-"Quickly starts the default countdown" = "快速开始默认倒计时";
 "Default Timer" = "默认计时器";
 "Quickly starts the default timer" = "快速开始默认计时器";
 "Shows the default timers in columns" = "以三列展示默认计时器";

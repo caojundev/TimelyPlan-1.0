@@ -25,8 +25,6 @@ enum WSPluginBootstrap {
         WSCountdownLargeEventsGridPluginProvider(),
         
         // 专注
-        WSFocusSmallPomodoroPluginProvider(),
-        WSFocusSmallCountdownPluginProvider(),
         WSFocusSmallSystemTimerPluginProvider(),
         WSFocusMediumSystemTimerPluginProvider(),
     ]
