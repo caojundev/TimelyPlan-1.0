@@ -32,7 +32,6 @@ protocol FocusTimerRepresentable: AnyObject {
     
     /// 计时器特征
     var feature: TimerFeature?  { get }
-    
 }
 
 extension FocusTimerRepresentable {

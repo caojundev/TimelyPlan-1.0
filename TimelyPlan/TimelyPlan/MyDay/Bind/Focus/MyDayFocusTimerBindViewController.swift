@@ -64,7 +64,7 @@ class MyDayFocusTimerBindViewController: TPViewController,
     
     // MARK: - TPGroupTableViewDelegate
     func groupTableView(_ tableView: TPGroupTableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return 64.0
     }
     
     func groupTableView(_ tableView: TPGroupTableView, classForCellAt indexPath: IndexPath) -> AnyClass? {

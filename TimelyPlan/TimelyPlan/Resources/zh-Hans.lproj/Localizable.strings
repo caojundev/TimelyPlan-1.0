@@ -44,6 +44,19 @@
 "Default Timer" = "默认计时器";
 "Quickly starts the default timer" = "快速开始默认计时器";
 "Shows the default timers in columns" = "以三列展示默认计时器";
+"Custom Timers" = "自定义计时器";
+"Shows selected custom timers" = "展示选中的自定义计时器";
+"Select Timers" = "选择计时器";
+"Timer Options" = "计时器选项";
+"Selected Timers" = "已选计时器";
+"Deep Work" = "深度工作";
+"Reading" = "阅读";
+"Study" = "学习";
+"Workout" = "健身";
+"Meditation" = "冥想";
+"Coffee Break" = "咖啡休息";
+"Warm Up" = "热身";
+"Free Focus" = "自由专注";
 
 "My Dashboard" = "我的面板";
 "Dashboard" = "面板";

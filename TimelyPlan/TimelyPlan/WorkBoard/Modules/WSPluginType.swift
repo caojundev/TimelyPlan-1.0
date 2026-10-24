@@ -30,6 +30,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     case countdownLargeEventsGrid
     
     // MARK: 专注
+    /// 专注·小·用户计时器：展示用户自选的计时器。
+    case focusSmallUserTimer
+    
     /// 专注·小·默认计时器：展示默认的系统计时器。
     case focusSmallSystemTimer
     
@@ -44,7 +47,8 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .countdownSmallSelected, .countdownSmallEvents, .focusSmallSystemTimer:
+        case .countdownSmallSelected, .countdownSmallEvents,
+             .focusSmallUserTimer, .focusSmallSystemTimer:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumSystemTimer:
@@ -61,7 +65,7 @@ public extension WSPluginType {
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .countdownLargeEventsList, .countdownLargeEventsGrid:
             return .countdown
-        case .focusSmallSystemTimer, .focusMediumSystemTimer:
+        case .focusSmallUserTimer, .focusSmallSystemTimer, .focusMediumSystemTimer:
             return .focus
         }
     }
@@ -74,6 +78,8 @@ public extension WSPluginType {
         case .countdownSmallEvents, .countdownMediumEventsList, .countdownMediumEventsGrid,
              .countdownMediumEventsColumns, .countdownLargeEventsList, .countdownLargeEventsGrid:
             return resGetString("Countdowns")
+        case .focusSmallUserTimer:
+            return resGetString("Custom Timers")
         case .focusSmallSystemTimer, .focusMediumSystemTimer:
             return resGetString("Default Timer")
         }
@@ -93,6 +99,8 @@ public extension WSPluginType {
         case .countdownSmallEvents:
             return resGetString("Shows recent or selected countdowns")
             
+        case .focusSmallUserTimer:
+            return resGetString("Shows selected custom timers")
         case .focusSmallSystemTimer:
             return resGetString("Quickly starts the default timer")
         case .focusMediumSystemTimer:

@@ -705,6 +705,7 @@
 		E537BCC6308B4B5900C308E3 /* CountdownEventSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */; };
 		E53966E42D671D66008CC13B /* todo_list_option_layout_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */; };
 		E53966E52D671D66008CC13B /* todo_list_option_layout_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53966E32D671D66008CC13B /* todo_list_option_layout_24@3x.png */; };
+		E539C878308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E539C877308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift */; };
 		E53A15E12D45DF0300474F94 /* archivedList_80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53A15DD2D45DF0200474F94 /* archivedList_80@2x.png */; };
 		E53A15E22D45DF0300474F94 /* archivedList_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53A15DE2D45DF0300474F94 /* archivedList_24@2x.png */; };
 		E53A15E32D45DF0300474F94 /* archivedList_80@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E53A15DF2D45DF0300474F94 /* archivedList_80@3x.png */; };
@@ -2471,6 +2472,15 @@
 		E5F0C102308E4F0000A00010 /* WSFocusMediumSystemTimerPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00010 /* WSFocusMediumSystemTimerPluginProvider.swift */; };
 		E5F0C102308E4F0000A00011 /* WSFocusMediumSystemTimerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00011 /* WSFocusMediumSystemTimerContentView.swift */; };
 		E5F0C102308E4F0000A00012 /* WSFocusSystemTimerColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00012 /* WSFocusSystemTimerColumnView.swift */; };
+		E5F0C102308E4F0000A00016 /* WSColorInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00016 /* WSColorInfoView.swift */; };
+		E5F0C102308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift */; };
+		E5F0C102308E4F0000A00018 /* WSFocusUserTimerDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00018 /* WSFocusUserTimerDataItem.swift */; };
+		E5F0C102308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift */; };
+		E5F0C102308E4F0000A0001B /* WSFocusUserTimerConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001B /* WSFocusUserTimerConfigViewController.swift */; };
+		E5F0C102308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift */; };
+		E5F0C102308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift */; };
+		E5F0C102308E4F0000A0001E /* WSFocusUserTimerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001E /* WSFocusUserTimerRowView.swift */; };
+		E5F0C102308E4F0000A0001F /* WSFocusSmallUserTimerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001F /* WSFocusSmallUserTimerContentView.swift */; };
 		E5F1551B2F83681E00116091 /* TodoTaskDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */; };
 		E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */; };
 		E5F1551D2F83681E00116091 /* TodoTaskCheckTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */; };
@@ -3299,6 +3309,7 @@
 		E537BCC7308B4B5800C308E3 /* CountdownEventSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownEventSelectionViewModel.swift; sourceTree = "<group>"; };
 		E53966E22D671D65008CC13B /* todo_list_option_layout_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@2x.png"; sourceTree = "<group>"; };
 		E53966E32D671D66008CC13B /* todo_list_option_layout_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_list_option_layout_24@3x.png"; sourceTree = "<group>"; };
+		E539C877308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimersPluginProvider.swift; sourceTree = "<group>"; };
 		E53A15DD2D45DF0200474F94 /* archivedList_80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archivedList_80@2x.png"; sourceTree = "<group>"; };
 		E53A15DE2D45DF0300474F94 /* archivedList_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archivedList_24@2x.png"; sourceTree = "<group>"; };
 		E53A15DF2D45DF0300474F94 /* archivedList_80@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archivedList_80@3x.png"; sourceTree = "<group>"; };
@@ -5082,6 +5093,15 @@
 		E5F0C101308E4F0000A00010 /* WSFocusMediumSystemTimerPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusMediumSystemTimerPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A00011 /* WSFocusMediumSystemTimerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusMediumSystemTimerContentView.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A00012 /* WSFocusSystemTimerColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSystemTimerColumnView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00016 /* WSColorInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSColorInfoView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerConfiguration.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00018 /* WSFocusUserTimerDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerDataItem.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerContentInteractor.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0001B /* WSFocusUserTimerConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerConfigViewController.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerSelectionViewController.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallUserTimerPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0001E /* WSFocusUserTimerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerRowView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0001F /* WSFocusSmallUserTimerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallUserTimerContentView.swift; sourceTree = "<group>"; };
 		E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskDetailProvider.swift; sourceTree = "<group>"; };
 		E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskLayoutManager.swift; sourceTree = "<group>"; };
 		E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskCheckTableCell.swift; sourceTree = "<group>"; };
@@ -7434,28 +7454,12 @@
 			path = SystemTimer;
 			sourceTree = "<group>";
 		};
-		E5F0C100308E4F0000A00013 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				E5F0C100308E4F0000A00014 /* SystemTimer */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		E5F0C100308E4F0000A00014 /* SystemTimer */ = {
-			isa = PBXGroup;
-			children = (
-				E5F0C101308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift */,
-				E5F0C101308E4F0000A0000E /* WSFocusSystemTimerContentInteractor.swift */,
-			);
-			path = SystemTimer;
-			sourceTree = "<group>";
-		};
 		E539C86F308CAE6C0077FE8A /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
 				E5F0C101308E4F0000A0000C /* WSIconInfoView.swift */,
 				E5F0C101308E4F0000A0000F /* WSColumnIconInfoView.swift */,
+				E5F0C101308E4F0000A00016 /* WSColorInfoView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -7463,6 +7467,7 @@
 		E539C870308CC1830077FE8A /* Medium */ = {
 			isa = PBXGroup;
 			children = (
+				E539C874308CE5330077FE8A /* UserTimer */,
 				E539C871308CC1AB0077FE8A /* SystemTimer */,
 			);
 			path = Medium;
@@ -7476,6 +7481,31 @@
 				E5F0C101308E4F0000A00012 /* WSFocusSystemTimerColumnView.swift */,
 			);
 			path = SystemTimer;
+			sourceTree = "<group>";
+		};
+		E539C874308CE5330077FE8A /* UserTimer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UserTimer;
+			sourceTree = "<group>";
+		};
+		E539C875308CE54C0077FE8A /* UserTimer */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift */,
+				E5F0C101308E4F0000A0001F /* WSFocusSmallUserTimerContentView.swift */,
+				E5F0C101308E4F0000A0001E /* WSFocusUserTimerRowView.swift */,
+			);
+			path = UserTimer;
+			sourceTree = "<group>";
+		};
+		E539C876308CE5980077FE8A /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E539C877308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift */,
+			);
+			path = Provider;
 			sourceTree = "<group>";
 		};
 		E53ABEBD3007C36800EB8632 /* myDay */ = {
@@ -9477,6 +9507,7 @@
 		E584C7E9308C45C200A38690 /* Small */ = {
 			isa = PBXGroup;
 			children = (
+				E539C875308CE54C0077FE8A /* UserTimer */,
 				E539C86E308CA9110077FE8A /* SystemTimer */,
 			);
 			path = Small;
@@ -13421,6 +13452,37 @@
 			path = "Multi-Day";
 			sourceTree = "<group>";
 		};
+		E5F0C100308E4F0000A00013 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E539C876308CE5980077FE8A /* Provider */,
+				E5F0C100308E4F0000A00015 /* UserTimer */,
+				E5F0C100308E4F0000A00014 /* SystemTimer */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E5F0C100308E4F0000A00015 /* UserTimer */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift */,
+				E5F0C101308E4F0000A00018 /* WSFocusUserTimerDataItem.swift */,
+				E5F0C101308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift */,
+				E5F0C101308E4F0000A0001B /* WSFocusUserTimerConfigViewController.swift */,
+				E5F0C101308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift */,
+			);
+			path = UserTimer;
+			sourceTree = "<group>";
+		};
+		E5F0C100308E4F0000A00014 /* SystemTimer */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift */,
+				E5F0C101308E4F0000A0000E /* WSFocusSystemTimerContentInteractor.swift */,
+			);
+			path = SystemTimer;
+			sourceTree = "<group>";
+		};
 		E5F155092F83681D00116091 /* ListView */ = {
 			isa = PBXGroup;
 			children = (
@@ -15296,6 +15358,7 @@
 				E5BB9B4C2D3BEF920089667A /* NSTextFieldExtension.swift in Sources */,
 				E5D7D9392D43933700EC877A /* FocusStopwatchConfigSectionController.swift in Sources */,
 				E5BB9F032D3BF0C80089667A /* UITableViewCell+Flashable.swift in Sources */,
+				E539C878308CE5B40077FE8A /* WSFocusUserTimersPluginProvider.swift in Sources */,
 				E5BB9DB92D3BF0C60089667A /* UIColor+Theme.swift in Sources */,
 				E500E3952FC5D82F00252011 /* TodoStatsYearlyViewController.swift in Sources */,
 				E506B5CF2F63C16D008B3321 /* HabitRecordPopupManager.swift in Sources */,
@@ -16192,6 +16255,15 @@
 				E5F0C102308E4F0000A00010 /* WSFocusMediumSystemTimerPluginProvider.swift in Sources */,
 				E5F0C102308E4F0000A00011 /* WSFocusMediumSystemTimerContentView.swift in Sources */,
 				E5F0C102308E4F0000A00012 /* WSFocusSystemTimerColumnView.swift in Sources */,
+				E5F0C102308E4F0000A00016 /* WSColorInfoView.swift in Sources */,
+				E5F0C102308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift in Sources */,
+				E5F0C102308E4F0000A00018 /* WSFocusUserTimerDataItem.swift in Sources */,
+				E5F0C102308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift in Sources */,
+				E5F0C102308E4F0000A0001B /* WSFocusUserTimerConfigViewController.swift in Sources */,
+				E5F0C102308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift in Sources */,
+				E5F0C102308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift in Sources */,
+				E5F0C102308E4F0000A0001E /* WSFocusUserTimerRowView.swift in Sources */,
+				E5F0C102308E4F0000A0001F /* WSFocusSmallUserTimerContentView.swift in Sources */,
 				E5DA03AE2FA1F49000A58ACC /* FocusTimelineViewModel.swift in Sources */,
 				E50D60582F7A13F100D5E0A4 /* AlarmPresetListView.swift in Sources */,
 				E50D02602F55A8C100E93977 /* TaskDateRangeEditTableCell.swift in Sources */,

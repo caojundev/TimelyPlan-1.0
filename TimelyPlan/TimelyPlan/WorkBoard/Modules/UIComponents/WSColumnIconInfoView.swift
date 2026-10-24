@@ -36,7 +36,7 @@ class WSColumnIconInfoView: UIView {
     
     /// 副标题字号占列宽的比例及范围
     var subtitleFontRatio: CGFloat = 0.12
-    var subtitleMinFontSize: CGFloat = 10.0
+    var subtitleMinFontSize: CGFloat = 9.0
     var subtitleMaxFontSize: CGFloat = 13.0
     
     /// 副标题与标题的间距
