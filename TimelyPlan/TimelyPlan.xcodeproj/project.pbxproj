@@ -2467,6 +2467,16 @@
 		E5F0C102308E4F0000A00005 /* WSFocusCountdownDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00005 /* WSFocusCountdownDataItem.swift */; };
 		E5F0C102308E4F0000A00006 /* WSFocusSmallCountdownPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00006 /* WSFocusSmallCountdownPluginProvider.swift */; };
 		E5F0C102308E4F0000A00007 /* WSFocusSmallCountdownContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00007 /* WSFocusSmallCountdownContentView.swift */; };
+		E5F0C102308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift */; };
+		E5F0C102308E4F0000A00009 /* WSFocusSmallSystemTimerPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00009 /* WSFocusSmallSystemTimerPluginProvider.swift */; };
+		E5F0C102308E4F0000A0000A /* WSFocusSmallSystemTimerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0000A /* WSFocusSmallSystemTimerContentView.swift */; };
+		E5F0C102308E4F0000A0000C /* WSIconInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0000C /* WSIconInfoView.swift */; };
+		E5F0C102308E4F0000A0000D /* WSFocusSystemTimerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0000D /* WSFocusSystemTimerRowView.swift */; };
+		E5F0C102308E4F0000A0000E /* WSFocusSystemTimerContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0000E /* WSFocusSystemTimerContentInteractor.swift */; };
+		E5F0C102308E4F0000A0000F /* WSColumnIconInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0000F /* WSColumnIconInfoView.swift */; };
+		E5F0C102308E4F0000A00010 /* WSFocusMediumSystemTimerPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00010 /* WSFocusMediumSystemTimerPluginProvider.swift */; };
+		E5F0C102308E4F0000A00011 /* WSFocusMediumSystemTimerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00011 /* WSFocusMediumSystemTimerContentView.swift */; };
+		E5F0C102308E4F0000A00012 /* WSFocusSystemTimerColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00012 /* WSFocusSystemTimerColumnView.swift */; };
 		E5F1551B2F83681E00116091 /* TodoTaskDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */; };
 		E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */; };
 		E5F1551D2F83681E00116091 /* TodoTaskCheckTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */; };
@@ -5074,6 +5084,16 @@
 		E5F0C101308E4F0000A00005 /* WSFocusCountdownDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusCountdownDataItem.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A00006 /* WSFocusSmallCountdownPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallCountdownPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A00007 /* WSFocusSmallCountdownContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallCountdownContentView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSystemTimerDataItem.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00009 /* WSFocusSmallSystemTimerPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallSystemTimerPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0000A /* WSFocusSmallSystemTimerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallSystemTimerContentView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0000C /* WSIconInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSIconInfoView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0000D /* WSFocusSystemTimerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSystemTimerRowView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0000E /* WSFocusSystemTimerContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSystemTimerContentInteractor.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0000F /* WSColumnIconInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSColumnIconInfoView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00010 /* WSFocusMediumSystemTimerPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusMediumSystemTimerPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00011 /* WSFocusMediumSystemTimerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusMediumSystemTimerContentView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00012 /* WSFocusSystemTimerColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSystemTimerColumnView.swift; sourceTree = "<group>"; };
 		E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskDetailProvider.swift; sourceTree = "<group>"; };
 		E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskLayoutManager.swift; sourceTree = "<group>"; };
 		E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskCheckTableCell.swift; sourceTree = "<group>"; };
@@ -7436,11 +7456,58 @@
 			path = Countdown;
 			sourceTree = "<group>";
 		};
-		E539C86E308CA9110077FE8A /* QuickStart */ = {
+		E539C86E308CA9110077FE8A /* SystemTimer */ = {
 			isa = PBXGroup;
 			children = (
+				E5F0C101308E4F0000A00009 /* WSFocusSmallSystemTimerPluginProvider.swift */,
+				E5F0C101308E4F0000A0000A /* WSFocusSmallSystemTimerContentView.swift */,
+				E5F0C101308E4F0000A0000D /* WSFocusSystemTimerRowView.swift */,
 			);
-			path = QuickStart;
+			path = SystemTimer;
+			sourceTree = "<group>";
+		};
+		E5F0C100308E4F0000A00013 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C100308E4F0000A00014 /* SystemTimer */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E5F0C100308E4F0000A00014 /* SystemTimer */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift */,
+				E5F0C101308E4F0000A0000E /* WSFocusSystemTimerContentInteractor.swift */,
+			);
+			path = SystemTimer;
+			sourceTree = "<group>";
+		};
+		E539C86F308CAE6C0077FE8A /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A0000C /* WSIconInfoView.swift */,
+				E5F0C101308E4F0000A0000F /* WSColumnIconInfoView.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		E539C870308CC1830077FE8A /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+				E539C871308CC1AB0077FE8A /* SystemTimer */,
+			);
+			path = Medium;
+			sourceTree = "<group>";
+		};
+		E539C871308CC1AB0077FE8A /* SystemTimer */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A00010 /* WSFocusMediumSystemTimerPluginProvider.swift */,
+				E5F0C101308E4F0000A00011 /* WSFocusMediumSystemTimerContentView.swift */,
+				E5F0C101308E4F0000A00012 /* WSFocusSystemTimerColumnView.swift */,
+			);
+			path = SystemTimer;
 			sourceTree = "<group>";
 		};
 		E53ABEBD3007C36800EB8632 /* myDay */ = {
@@ -9432,6 +9499,8 @@
 		E584C7E8308C459A00A38690 /* Focus */ = {
 			isa = PBXGroup;
 			children = (
+				E5F0C100308E4F0000A00013 /* Common */,
+				E539C870308CC1830077FE8A /* Medium */,
 				E584C7E9308C45C200A38690 /* Small */,
 			);
 			path = Focus;
@@ -9440,7 +9509,7 @@
 		E584C7E9308C45C200A38690 /* Small */ = {
 			isa = PBXGroup;
 			children = (
-				E539C86E308CA9110077FE8A /* QuickStart */,
+				E539C86E308CA9110077FE8A /* SystemTimer */,
 				E539C86D308C95680077FE8A /* Countdown */,
 				E539C86C308C953C0077FE8A /* Pomodoro */,
 			);
@@ -9950,6 +10019,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
+				E539C86F308CAE6C0077FE8A /* UIComponents */,
 				E584C7E8308C459A00A38690 /* Focus */,
 				E537BC7C308B4B5800C308E3 /* Countdown */,
 			);
@@ -16152,6 +16222,16 @@
 				E5F0C102308E4F0000A00005 /* WSFocusCountdownDataItem.swift in Sources */,
 				E5F0C102308E4F0000A00006 /* WSFocusSmallCountdownPluginProvider.swift in Sources */,
 				E5F0C102308E4F0000A00007 /* WSFocusSmallCountdownContentView.swift in Sources */,
+				E5F0C102308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift in Sources */,
+				E5F0C102308E4F0000A00009 /* WSFocusSmallSystemTimerPluginProvider.swift in Sources */,
+				E5F0C102308E4F0000A0000A /* WSFocusSmallSystemTimerContentView.swift in Sources */,
+				E5F0C102308E4F0000A0000C /* WSIconInfoView.swift in Sources */,
+				E5F0C102308E4F0000A0000D /* WSFocusSystemTimerRowView.swift in Sources */,
+				E5F0C102308E4F0000A0000E /* WSFocusSystemTimerContentInteractor.swift in Sources */,
+				E5F0C102308E4F0000A0000F /* WSColumnIconInfoView.swift in Sources */,
+				E5F0C102308E4F0000A00010 /* WSFocusMediumSystemTimerPluginProvider.swift in Sources */,
+				E5F0C102308E4F0000A00011 /* WSFocusMediumSystemTimerContentView.swift in Sources */,
+				E5F0C102308E4F0000A00012 /* WSFocusSystemTimerColumnView.swift in Sources */,
 				E5DA03AE2FA1F49000A58ACC /* FocusTimelineViewModel.swift in Sources */,
 				E50D60582F7A13F100D5E0A4 /* AlarmPresetListView.swift in Sources */,
 				E50D02602F55A8C100E93977 /* TaskDateRangeEditTableCell.swift in Sources */,

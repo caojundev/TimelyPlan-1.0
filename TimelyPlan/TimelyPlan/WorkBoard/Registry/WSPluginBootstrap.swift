@@ -27,6 +27,8 @@ enum WSPluginBootstrap {
         // 专注
         WSFocusSmallPomodoroPluginProvider(),
         WSFocusSmallCountdownPluginProvider(),
+        WSFocusSmallSystemTimerPluginProvider(),
+        WSFocusMediumSystemTimerPluginProvider(),
     ]
 
     /// 注册所有组件 Provider。必须在 App 启动时调用一次。

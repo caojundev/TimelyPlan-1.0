@@ -35,6 +35,12 @@ public enum WSPluginType: String, Codable, CaseIterable {
     
     /// 专注·小·倒计时：展示倒计时专注状态的入口。
     case focusSmallCountdown
+    
+    /// 专注·小·默认计时器：展示默认的系统计时器。
+    case focusSmallSystemTimer
+    
+    /// 专注·中·默认计时器：以三列展示默认的系统计时器。
+    case focusMediumSystemTimer
 }
 
 // MARK: - 固有属性
@@ -45,9 +51,10 @@ public extension WSPluginType {
     var size: WSPluginSize {
         switch self {
         case .countdownSmallSelected, .countdownSmallEvents,
-             .focusSmallPomodoro, .focusSmallCountdown:
+             .focusSmallPomodoro, .focusSmallCountdown, .focusSmallSystemTimer:
             return .small
-        case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns:
+        case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
+             .focusMediumSystemTimer:
             return .medium
         case .countdownLargeEventsList, .countdownLargeEventsGrid:
             return .large
@@ -61,7 +68,8 @@ public extension WSPluginType {
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .countdownLargeEventsList, .countdownLargeEventsGrid:
             return .countdown
-        case .focusSmallPomodoro, .focusSmallCountdown:
+        case .focusSmallPomodoro, .focusSmallCountdown, .focusSmallSystemTimer,
+             .focusMediumSystemTimer:
             return .focus
         }
     }
@@ -78,6 +86,8 @@ public extension WSPluginType {
             return resGetString("Pomodoro")
         case .focusSmallCountdown:
             return resGetString("Countdown Timer")
+        case .focusSmallSystemTimer, .focusMediumSystemTimer:
+            return resGetString("Default Timer")
         }
     }
 
@@ -99,6 +109,10 @@ public extension WSPluginType {
             return resGetString("Quickly starts the default pomodoro")
         case .focusSmallCountdown:
             return resGetString("Quickly starts the default countdown")
+        case .focusSmallSystemTimer:
+            return resGetString("Quickly starts the default timer")
+        case .focusMediumSystemTimer:
+            return resGetString("Shows the default timers in columns")
         }
     }
 }
