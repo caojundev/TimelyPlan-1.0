@@ -48,6 +48,11 @@
 "Shows selected custom timers" = "展示选中的自定义计时器";
 "Shows selected custom timers in a grid" = "以网格展示选中的自定义计时器";
 "Shows selected custom timers in a list" = "以列表展示选中的自定义计时器";
+"Today's Focus" = "今日专注";
+"Shows today's focus duration and hourly activity" = "展示今日专注时长与每小时活动";
+"Focus Comparison" = "专注对比";
+"Compares today's focus time with yesterday" = "对比今日与昨日的专注时长";
+"Yesterday's Focus" = "昨天专注";
 "Timer Options" = "计时器选项";
 "Deep Work" = "深度工作";
 "Reading" = "阅读";

@@ -2456,6 +2456,14 @@
 		E5EFB1732F59C986000FFDF4 /* HabitManageMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB1722F59C986000FFDF4 /* HabitManageMainViewController.swift */; };
 		E5EFB1752F59D36D000FFDF4 /* HabitManageBaseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB1742F59D36D000FFDF4 /* HabitManageBaseListViewController.swift */; };
 		E5EFB1792F59D703000FFDF4 /* HabitTaskListDefaultInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EFB1782F59D703000FFDF4 /* HabitTaskListDefaultInfoCell.swift */; };
+		E5F002A4308DF26B00D70600 /* WSFocusSmallTodayActivityPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F002A0308DF26B00D70600 /* WSFocusSmallTodayActivityPluginProvider.swift */; };
+		E5F002A5308DF26B00D70600 /* WSFocusTodayActivityDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F002A1308DF26B00D70600 /* WSFocusTodayActivityDataItem.swift */; };
+		E5F002A6308DF26B00D70600 /* WSFocusSmallTodayActivityContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F002A2308DF26B00D70600 /* WSFocusSmallTodayActivityContentView.swift */; };
+		E5F002A7308DF26B00D70600 /* WSFocusTodayActivityContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F002A3308DF26B00D70600 /* WSFocusTodayActivityContentInteractor.swift */; };
+		E5F10002309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift */; };
+		E5F10002309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */; };
+		E5F10002309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */; };
+		E5F10002309000000000B004 /* WSFocusTodayComparisonDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B004 /* WSFocusTodayComparisonDataItem.swift */; };
 		E5F078C62F95B22200F94BDF /* TodoFilterListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F078C52F95B22200F94BDF /* TodoFilterListInteractor.swift */; };
 		E5F078C92F95DEB300F94BDF /* todo_filter_tag_none_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F078C72F95DEB200F94BDF /* todo_filter_tag_none_24@2x.png */; };
 		E5F078CA2F95DEB300F94BDF /* todo_filter_tag_none_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F078C82F95DEB200F94BDF /* todo_filter_tag_none_24@3x.png */; };
@@ -5083,6 +5091,14 @@
 		E5EFB1722F59C986000FFDF4 /* HabitManageMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitManageMainViewController.swift; sourceTree = "<group>"; };
 		E5EFB1742F59D36D000FFDF4 /* HabitManageBaseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitManageBaseListViewController.swift; sourceTree = "<group>"; };
 		E5EFB1782F59D703000FFDF4 /* HabitTaskListDefaultInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskListDefaultInfoCell.swift; sourceTree = "<group>"; };
+		E5F002A0308DF26B00D70600 /* WSFocusSmallTodayActivityPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayActivityPluginProvider.swift; sourceTree = "<group>"; };
+		E5F002A1308DF26B00D70600 /* WSFocusTodayActivityDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSFocusTodayActivityDataItem.swift; sourceTree = "<group>"; };
+		E5F002A2308DF26B00D70600 /* WSFocusSmallTodayActivityContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayActivityContentView.swift; sourceTree = "<group>"; };
+		E5F002A3308DF26B00D70600 /* WSFocusTodayActivityContentInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSFocusTodayActivityContentInteractor.swift; sourceTree = "<group>"; };
+		E5F10001309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayComparisonPluginProvider.swift; sourceTree = "<group>"; };
+		E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayComparisonContentView.swift; sourceTree = "<group>"; };
+		E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusTodayComparisonContentInteractor.swift; sourceTree = "<group>"; };
+		E5F10001309000000000B004 /* WSFocusTodayComparisonDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusTodayComparisonDataItem.swift; sourceTree = "<group>"; };
 		E5F078C52F95B22200F94BDF /* TodoFilterListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFilterListInteractor.swift; sourceTree = "<group>"; };
 		E5F078C72F95DEB200F94BDF /* todo_filter_tag_none_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_tag_none_24@2x.png"; sourceTree = "<group>"; };
 		E5F078C82F95DEB200F94BDF /* todo_filter_tag_none_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_filter_tag_none_24@3x.png"; sourceTree = "<group>"; };
@@ -9521,6 +9537,8 @@
 		E584C7E9308C45C200A38690 /* Small */ = {
 			isa = PBXGroup;
 			children = (
+				E5F002A8308E312D00D70600 /* TodayComparison */,
+				E5F0029F308DF26B00D70600 /* TodayActivity */,
 				E539C875308CE54C0077FE8A /* UserTimer */,
 				E539C86E308CA9110077FE8A /* SystemTimer */,
 			);
@@ -13498,6 +13516,28 @@
 			path = Manage;
 			sourceTree = "<group>";
 		};
+		E5F0029F308DF26B00D70600 /* TodayActivity */ = {
+			isa = PBXGroup;
+			children = (
+				E5F002A0308DF26B00D70600 /* WSFocusSmallTodayActivityPluginProvider.swift */,
+				E5F002A1308DF26B00D70600 /* WSFocusTodayActivityDataItem.swift */,
+				E5F002A2308DF26B00D70600 /* WSFocusSmallTodayActivityContentView.swift */,
+				E5F002A3308DF26B00D70600 /* WSFocusTodayActivityContentInteractor.swift */,
+			);
+			path = TodayActivity;
+			sourceTree = "<group>";
+		};
+		E5F002A8308E312D00D70600 /* TodayComparison */ = {
+			isa = PBXGroup;
+			children = (
+				E5F10001309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift */,
+				E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */,
+				E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */,
+				E5F10001309000000000B004 /* WSFocusTodayComparisonDataItem.swift */,
+			);
+			path = TodayComparison;
+			sourceTree = "<group>";
+		};
 		E5F078D82F97790400F94BDF /* Multi-Day */ = {
 			isa = PBXGroup;
 			children = (
@@ -15227,6 +15267,7 @@
 				E5F155252F83681E00116091 /* TodoGroupSelectingHeaderView.swift in Sources */,
 				E5D7D91E2D43933700EC877A /* FocusStatsHistorySessionSectionController.swift in Sources */,
 				E590CA992F4DD02900E66041 /* FocusState.swift in Sources */,
+				E5F002A5308DF26B00D70600 /* WSFocusTodayActivityDataItem.swift in Sources */,
 				E5BB9E5F2D3BF0C70089667A /* TPCalendarSingleWeekView.swift in Sources */,
 				E5BB9B442D3BEF920089667A /* UIButtonExtension.swift in Sources */,
 				E50D603E2F7A12B500D5E0A4 /* RepeatDayOfWeekSelectView.swift in Sources */,
@@ -15993,6 +16034,7 @@
 				E56342012F94811200E120BF /* TodoFilterController.swift in Sources */,
 				E51A4C432DC3BBD8005A0E3F /* CalendarDayTimelineHoursView.swift in Sources */,
 				E53114B230412D610022D8D7 /* TodoTask+GanttEvent.swift in Sources */,
+				E5F002A7308DF26B00D70600 /* WSFocusTodayActivityContentInteractor.swift in Sources */,
 				E53B11462F94D1B300701410 /* TimeOffsetPickerViewCell.swift in Sources */,
 				E588F8983068AB400022461A /* TodoTaskStepBulkMenuProcessor.swift in Sources */,
 				E529ACDC2F7E196C000EA2F1 /* TodoPresenter.swift in Sources */,
@@ -16253,6 +16295,7 @@
 				E507E7992F529369003004C4 /* HabitSettingViewController.swift in Sources */,
 				E5BA9A92305298F30044106F /* GoalTask+GanttEvent.swift in Sources */,
 				E5141F0C2F7CCD6E007A864B /* TodoListSearchResultsViewController.swift in Sources */,
+				E5F002A4308DF26B00D70600 /* WSFocusSmallTodayActivityPluginProvider.swift in Sources */,
 				E5BB9EB72D3BF0C80089667A /* TPDatePickerTableCell.swift in Sources */,
 				E50D60632F7A186F00D5E0A4 /* TodoListEmojiEditView.swift in Sources */,
 				E55549312F7505F900C9460D /* FocusQuickStartUserTimerViewController.swift in Sources */,
@@ -16264,6 +16307,11 @@
 				E50A7CED2F8A36C70074F1A3 /* TodoStepParser.swift in Sources */,
 				E52678542D4BC9DB00428500 /* TPFullSizeSegmentedTableCell.swift in Sources */,
 				E5BB9EFE2D3BF0C80089667A /* TPPopoverPresentationController.swift in Sources */,
+				E5F002A6308DF26B00D70600 /* WSFocusSmallTodayActivityContentView.swift in Sources */,
+				E5F10002309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift in Sources */,
+				E5F10002309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift in Sources */,
+				E5F10002309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift in Sources */,
+				E5F10002309000000000B004 /* WSFocusTodayComparisonDataItem.swift in Sources */,
 				E515019C2D4787D5008B2333 /* TPBaseTableCell.swift in Sources */,
 				E5087EAE3042884500DCD85C /* GanttState.swift in Sources */,
 				E5BB9F162D3BF0C90089667A /* CoreGraphicsFunctions.swift in Sources */,

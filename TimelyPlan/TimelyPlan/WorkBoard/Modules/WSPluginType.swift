@@ -36,6 +36,12 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 专注·小·默认计时器：展示默认的系统计时器。
     case focusSmallSystemTimer
     
+    /// 专注·小·今日活动：展示今日专注时长与每小时活动分布。
+    case focusSmallTodayActivity
+    
+    /// 专注·小·今日对比：展示今日时长、与昨日的增减以及昨日时长。
+    case focusSmallTodayComparison
+    
     /// 专注·中·用户计时器（列表）：纵向展示用户自选的计时器。
     case focusMediumUserTimerList
     
@@ -60,7 +66,8 @@ public extension WSPluginType {
     var size: WSPluginSize {
         switch self {
         case .countdownSmallSelected, .countdownSmallEvents,
-             .focusSmallUserTimer, .focusSmallSystemTimer:
+             .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
+             .focusSmallTodayComparison:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer:
@@ -80,7 +87,8 @@ public extension WSPluginType {
             return .countdown
         case .focusSmallUserTimer, .focusMediumUserTimerList, .focusMediumUserTimerGrid,
              .focusLargeUserTimerList, .focusLargeUserTimerGrid,
-             .focusSmallSystemTimer, .focusMediumSystemTimer:
+             .focusSmallSystemTimer, .focusMediumSystemTimer, .focusSmallTodayActivity,
+             .focusSmallTodayComparison:
             return .focus
         }
     }
@@ -98,6 +106,10 @@ public extension WSPluginType {
             return resGetString("Custom Timers")
         case .focusSmallSystemTimer, .focusMediumSystemTimer:
             return resGetString("Default Timer")
+        case .focusSmallTodayActivity:
+            return resGetString("Today's Focus")
+        case .focusSmallTodayComparison:
+            return resGetString("Focus Comparison")
         }
     }
 
@@ -125,6 +137,10 @@ public extension WSPluginType {
             return resGetString("Quickly starts the default timer")
         case .focusMediumSystemTimer:
             return resGetString("Shows the default timers in columns")
+        case .focusSmallTodayActivity:
+            return resGetString("Shows today's focus duration and hourly activity")
+        case .focusSmallTodayComparison:
+            return resGetString("Compares today's focus time with yesterday")
         }
     }
 }

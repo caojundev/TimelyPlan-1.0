@@ -32,6 +32,8 @@ enum WSPluginBootstrap {
         WSFocusLargeUserTimerGridPluginProvider(),
         WSFocusSmallSystemTimerPluginProvider(),
         WSFocusMediumSystemTimerPluginProvider(),
+        WSFocusSmallTodayActivityPluginProvider(),
+        WSFocusSmallTodayComparisonPluginProvider(),
     ]
 
     /// 注册所有组件 Provider。必须在 App 启动时调用一次。
