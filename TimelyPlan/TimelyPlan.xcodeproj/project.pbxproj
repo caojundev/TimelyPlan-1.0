@@ -2476,7 +2476,6 @@
 		E5F0C102308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift */; };
 		E5F0C102308E4F0000A00018 /* WSFocusUserTimerDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00018 /* WSFocusUserTimerDataItem.swift */; };
 		E5F0C102308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift */; };
-		E5F0C102308E4F0000A0001B /* WSFocusUserTimerConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001B /* WSFocusUserTimerConfigViewController.swift */; };
 		E5F0C102308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift */; };
 		E5F0C102308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift */; };
 		E5F0C102308E4F0000A0001E /* WSFocusUserTimerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001E /* WSFocusUserTimerRowView.swift */; };
@@ -5097,7 +5096,6 @@
 		E5F0C101308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerConfiguration.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A00018 /* WSFocusUserTimerDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerDataItem.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerContentInteractor.swift; sourceTree = "<group>"; };
-		E5F0C101308E4F0000A0001B /* WSFocusUserTimerConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerConfigViewController.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerSelectionViewController.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallUserTimerPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A0001E /* WSFocusUserTimerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerRowView.swift; sourceTree = "<group>"; };
@@ -13468,7 +13466,6 @@
 				E5F0C101308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift */,
 				E5F0C101308E4F0000A00018 /* WSFocusUserTimerDataItem.swift */,
 				E5F0C101308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift */,
-				E5F0C101308E4F0000A0001B /* WSFocusUserTimerConfigViewController.swift */,
 				E5F0C101308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift */,
 			);
 			path = UserTimer;
@@ -16259,7 +16256,6 @@
 				E5F0C102308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift in Sources */,
 				E5F0C102308E4F0000A00018 /* WSFocusUserTimerDataItem.swift in Sources */,
 				E5F0C102308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift in Sources */,
-				E5F0C102308E4F0000A0001B /* WSFocusUserTimerConfigViewController.swift in Sources */,
 				E5F0C102308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift in Sources */,
 				E5F0C102308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift in Sources */,
 				E5F0C102308E4F0000A0001E /* WSFocusUserTimerRowView.swift in Sources */,

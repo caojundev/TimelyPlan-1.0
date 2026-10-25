@@ -59,6 +59,6 @@ class WSFocusUserTimersPluginProvider: WSPluginProvider {
     
     /// 各尺寸共用同一套配置界面，展示内容由配置中选择的计时器决定
     func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)? {
-        return WSFocusUserTimerConfigViewController(plugin: plugin)
+        return WSFocusUserTimerSelectionViewController(plugin: plugin)
     }
 }

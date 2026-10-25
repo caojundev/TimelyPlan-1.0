@@ -8,18 +8,31 @@
 import Foundation
 import UIKit
 
-/// 用户计时器选择视图控制器。
+/// 用户计时器组件的配置界面。
 ///
 /// 列表展示全部活动计时器，点击切换选中状态；底部标签展示已选数量与名称。
-/// 点击完成回调按选择顺序排列的计时器标识。
-class WSFocusUserTimerSelectionViewController: TPViewController, TPGroupTableViewDelegate {
+/// 配置在用户操作后即时保存，点击完成关闭即可。
+class WSFocusUserTimerSelectionViewController: TPViewController,
+                                              TPGroupTableViewDelegate,
+                                              WSPluginConfigurable {
     
-    /// 选择完成回调，参数为按选择顺序排列的计时器标识
-    var didFinishSelection: (([String]) -> Void)?
+    // MARK: - WSPluginConfigurable
+    /// 正在配置的组件
+    let plugin: WSPlugin
+    
+    /// 配置变化回调。由外部在展示前设置
+    var didChangeConfigJSON: ((String?) -> Void)?
+    
+    /// 当前配置 JSON 字符串
+    private(set) var configJSON: String?
+    
+    /// 当前配置
+    private var configuration: WSFocusUserTimerConfiguration
     
     /// 已选计时器标识，保持用户选择的顺序
-    private(set) var selectedIdentifiers: [String]
+    private var selectedIdentifiers: [String]
     
+    // MARK: - 子视图
     /// 计时器列表
     lazy var listView: TPGroupTableView = {
         let view = TPGroupTableView(frame: view.bounds, style: .insetGrouped)
@@ -57,8 +70,14 @@ class WSFocusUserTimerSelectionViewController: TPViewController, TPGroupTableVie
     private let viewModel = FocusUserTimerViewModel()
     
     // MARK: - 初始化
-    init(selectedIdentifiers: [String]) {
-        self.selectedIdentifiers = selectedIdentifiers
+    init(plugin: WSPlugin) {
+        let configuration = plugin.configuration(as: WSFocusUserTimerConfiguration.self)
+            ?? WSFocusUserTimerConfiguration()
+        
+        self.plugin = plugin
+        self.configJSON = plugin.configJSON
+        self.configuration = configuration
+        self.selectedIdentifiers = configuration.timerIdentifiers
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -69,7 +88,7 @@ class WSFocusUserTimerSelectionViewController: TPViewController, TPGroupTableVie
     // MARK: - 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = resGetString("Select Timers")
+        self.title = resGetString("Timer Options")
         self.preferredContentSize = AppLayout.Popover.extraLarge
         
         navigationItem.leftBarButtonItem = chevronDownCancelButtonItem
@@ -107,25 +126,17 @@ class WSFocusUserTimerSelectionViewController: TPViewController, TPGroupTableVie
         return .systemGroupedBackground
     }
     
-    /// 完成选择，回传当前选中内容并返回配置页
-    override func clickDone() {
-        didFinishSelection?(selectedIdentifiers)
-        
-        if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
-            navigationController.popViewController(animated: true)
-        } else {
-            dismiss(animated: true, completion: nil)
-        }
-    }
-    
     // MARK: - 数据
     /// 计时器数据变化
     private func timersChanged() {
         DispatchQueue.main.async {
             /// 已删除的计时器不再保留在选中列表中
-            let timers = self.viewModel.timers ?? []
-            let validIdentifiers = Set(timers.map { $0.identifier })
-            self.selectedIdentifiers = self.selectedIdentifiers.filter { validIdentifiers.contains($0) }
+            let validIdentifiers = Set(self.viewModel.timers.map { $0.identifier })
+            let filteredIdentifiers = self.selectedIdentifiers.filter { validIdentifiers.contains($0) }
+            if filteredIdentifiers != self.selectedIdentifiers {
+                self.selectedIdentifiers = filteredIdentifiers
+                self.saveConfiguration()
+            }
             
             self.updateSelectionCount()
             self.reloadList()
@@ -179,6 +190,7 @@ class WSFocusUserTimerSelectionViewController: TPViewController, TPGroupTableVie
             selectedIdentifiers.append(timer.identifier)
         }
         
+        saveConfiguration()
         tableView.updateCheckmarks()
         updateSelectionCount()
     }
@@ -187,13 +199,26 @@ class WSFocusUserTimerSelectionViewController: TPViewController, TPGroupTableVie
     /// 更新选中数量与计时器名称。名称按选择顺序拼接在数量之后
     private func updateSelectionCount() {
         var timerMap = [String: FocusTimer]()
-        let timers = viewModel.timers ?? []
-        for timer in timers {
+        for timer in viewModel.timers {
             timerMap[timer.identifier] = timer
         }
         
         let names = selectedIdentifiers.compactMap { timerMap[$0]?.displayName }.joined(separator: ", ")
         let countText = String(format: resGetString("%ld selected"), selectedIdentifiers.count)
         selectionCountLabel.text = names.isEmpty ? countText : "\(countText)\n\(names)"
+    }
+    
+    // MARK: - 配置保存
+    /// 合并并回调最新配置，由外部负责保存与刷新组件
+    private func saveConfiguration() {
+        configuration.timerIdentifiers = selectedIdentifiers
+        
+        let configJSON = WSPluginConfigJSONMerger.merging(base: configJSON, model: configuration)
+        guard self.configJSON != configJSON else {
+            return
+        }
+        
+        self.configJSON = configJSON
+        didChangeConfigJSON?(configJSON)
     }
 }
