@@ -93,54 +93,91 @@ public extension WSPluginType {
         }
     }
 
-    /// 组件标题
+    /// 组件标题，取自组件清单
     var title: String {
-        switch self {
-        case .countdownSmallSelected:
-            return resGetString("Selected Countdown")
-        case .countdownSmallEvents, .countdownMediumEventsList, .countdownMediumEventsGrid,
-             .countdownMediumEventsColumns, .countdownLargeEventsList, .countdownLargeEventsGrid:
-            return resGetString("Countdowns")
-        case .focusSmallUserTimer, .focusMediumUserTimerList, .focusMediumUserTimerGrid,
-             .focusLargeUserTimerList, .focusLargeUserTimerGrid:
-            return resGetString("Custom Timers")
-        case .focusSmallSystemTimer, .focusMediumSystemTimer:
-            return resGetString("Default Timer")
-        case .focusSmallTodayActivity:
-            return resGetString("Today's Focus")
-        case .focusSmallTodayComparison:
-            return resGetString("Focus Comparison")
-        }
+        return WSPluginCatalog.configuration(for: self)?.title ?? rawValue
     }
 
-    /// 组件描述。画廊等入口作为副标题展示，一句话说明展示内容。
+    /// 组件描述，取自组件清单。画廊等入口作为副标题展示，一句话说明展示内容。
     var subtitle: String {
-        switch self {
-        case .countdownSmallSelected:
-            return resGetString("Shows the selected countdown")
-        case .countdownMediumEventsList, .countdownLargeEventsList:
-            return resGetString("Shows recent or selected countdowns in a list")
-        case .countdownMediumEventsGrid, .countdownLargeEventsGrid:
-            return resGetString("Shows recent or selected countdowns in a grid")
-        case .countdownMediumEventsColumns:
-            return resGetString("Shows recent or selected countdowns in columns")
-        case .countdownSmallEvents:
-            return resGetString("Shows recent or selected countdowns")
-            
-        case .focusSmallUserTimer:
-            return resGetString("Shows selected custom timers")
-        case .focusMediumUserTimerList, .focusLargeUserTimerList:
-            return resGetString("Shows selected custom timers in a list")
-        case .focusMediumUserTimerGrid, .focusLargeUserTimerGrid:
-            return resGetString("Shows selected custom timers in a grid")
-        case .focusSmallSystemTimer:
-            return resGetString("Quickly starts the default timer")
-        case .focusMediumSystemTimer:
-            return resGetString("Shows the default timers in columns")
-        case .focusSmallTodayActivity:
-            return resGetString("Shows today's focus duration and hourly activity")
-        case .focusSmallTodayComparison:
-            return resGetString("Compares today's focus time with yesterday")
-        }
+        return WSPluginCatalog.configuration(for: self)?.subtitle ?? ""
     }
+}
+
+// MARK: - 组件配置
+
+/// 单个组件的配置。
+///
+/// 组件类型取自提供者，标题与描述只存本地化 key，展示时再取值。
+struct WSPluginConfiguration {
+
+    /// 组件提供者
+    let provider: WSPluginProvider
+
+    /// 标题本地化 key
+    let titleKey: String
+
+    /// 描述本地化 key
+    let subtitleKey: String
+
+    /// 组件类型
+    var type: WSPluginType {
+        return provider.type
+    }
+
+    /// 组件标题
+    var title: String {
+        return resGetString(titleKey)
+    }
+
+    /// 组件描述
+    var subtitle: String {
+        return resGetString(subtitleKey)
+    }
+
+    init(_ provider: WSPluginProvider, title titleKey: String, subtitle subtitleKey: String) {
+        self.provider = provider
+        self.titleKey = titleKey
+        self.subtitleKey = subtitleKey
+    }
+}
+
+/// 组件清单。
+///
+/// 新增组件时只需在 `all` 中追加一行配置，组件注册与选择器、画廊的文案会自动生效；
+/// 尺寸与模块属于组件固有属性，仍需在 `WSPluginType` 中归类。
+enum WSPluginCatalog {
+
+    /// 全部组件配置
+    static let all: [WSPluginConfiguration] = [
+        // 倒数日
+        .init(WSCountdownSmallSelectedPluginProvider(), title: "Selected Countdown", subtitle: "Shows the selected countdown"),
+        .init(WSCountdownSmallEventsPluginProvider(), title: "Countdowns", subtitle: "Shows recent or selected countdowns"),
+        .init(WSCountdownMediumEventsListPluginProvider(), title: "Countdowns", subtitle: "Shows recent or selected countdowns in a list"),
+        .init(WSCountdownMediumEventsGridPluginProvider(), title: "Countdowns", subtitle: "Shows recent or selected countdowns in a grid"),
+        .init(WSCountdownMediumEventsColumnsPluginProvider(), title: "Countdowns", subtitle: "Shows recent or selected countdowns in columns"),
+        .init(WSCountdownLargeEventsListPluginProvider(), title: "Countdowns", subtitle: "Shows recent or selected countdowns in a list"),
+        .init(WSCountdownLargeEventsGridPluginProvider(), title: "Countdowns", subtitle: "Shows recent or selected countdowns in a grid"),
+        
+        // 专注
+        .init(WSFocusSmallUserTimerPluginProvider(), title: "Custom Timers", subtitle: "Shows selected custom timers"),
+        .init(WSFocusMediumUserTimerListPluginProvider(), title: "Custom Timers", subtitle: "Shows selected custom timers in a list"),
+        .init(WSFocusMediumUserTimerGridPluginProvider(), title: "Custom Timers", subtitle: "Shows selected custom timers in a grid"),
+        .init(WSFocusLargeUserTimerListPluginProvider(), title: "Custom Timers", subtitle: "Shows selected custom timers in a list"),
+        .init(WSFocusLargeUserTimerGridPluginProvider(), title: "Custom Timers", subtitle: "Shows selected custom timers in a grid"),
+        .init(WSFocusSmallSystemTimerPluginProvider(), title: "Default Timer", subtitle: "Quickly starts the default timer"),
+        .init(WSFocusMediumSystemTimerPluginProvider(), title: "Default Timer", subtitle: "Shows the default timers in columns"),
+        .init(WSFocusSmallTodayActivityPluginProvider(), title: "Today's Focus", subtitle: "Shows today's focus duration and hourly activity"),
+        .init(WSFocusSmallTodayComparisonPluginProvider(), title: "Focus Comparison", subtitle: "Compares today's focus time with yesterday"),
+    ]
+
+    /// 按类型取回组件配置
+    static func configuration(for type: WSPluginType) -> WSPluginConfiguration? {
+        return configurations[type]
+    }
+
+    /// 类型索引，避免每次按类型查找都遍历数组
+    private static let configurations: [WSPluginType: WSPluginConfiguration] = {
+        return Dictionary(all.map { ($0.type, $0) }, uniquingKeysWith: { first, _ in first })
+    }()
 }
