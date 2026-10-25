@@ -12,38 +12,17 @@ import UIKit
 
 /// 倒数日事项行视图基类。
 ///
-/// 收拢各行共有的部分：点击与高亮、图标与剩余时间视图、字号换算、骨架切换与内容渲染模板；
-/// 子类只需搭建并布局信息区（名称、日期等），再按需调整尺寸参数。
-class WSCountdownEventRowBaseView: UIView {
+/// 在 `WSRowView` 的基础上收拢倒数日行共有的部分：图标与剩余时间视图、字号换算、
+/// 骨架切换与内容渲染模板；子类只需搭建并布局信息区（名称、日期等），
+/// 再按需调整尺寸参数。点击高亮、背景色与圆角由 `WSRowView` 统一提供。
+class WSCountdownEventRowBaseView: WSRowView {
     
     // MARK: - 事项
     /// 当前展示的事项
     private(set) var dataItem: WSCountdownDataItem?
     
     /// 点击回调。空白行（没有事项）同样回调，此时参数为 nil，由组件决定如何响应
-    var didSelectHandler: ((WSCountdownDataItem?) -> Void)?
-    
-    // MARK: - 外观
-    /// 常规背景色
-    var normalBackColor: UIColor = .clear {
-        didSet {
-            updateBackColor()
-        }
-    }
-    
-    /// 按下时的背景色
-    var highlightedBackColor: UIColor = Color(0x888888, 0.1)
-    
-    /// 圆角半径。大于 0 时内容随圆角裁剪
-    var contentCornerRadius: CGFloat = 0.0 {
-        didSet {
-            layer.cornerRadius = contentCornerRadius
-            clipsToBounds = contentCornerRadius > 0.0
-        }
-    }
-    
-    /// 骨架配置。行自带底色时可由外部覆盖，避免骨架块与行底色对比过低
-    var skeletonConfig: SkeletonConfig = Skeleton.config
+    var didSelectItemHandler: ((WSCountdownDataItem?) -> Void)?
     
     // MARK: - 尺寸参数。均按行高换算，子类按需调整
     /// 图标边长占行高的比例及范围
@@ -71,26 +50,14 @@ class WSCountdownEventRowBaseView: UIView {
     let valueView = CountdownTimeValueView()
     
     // MARK: - 状态
-    /// 当前是否处于按下高亮状态
-    private(set) var isRowHighlighted: Bool = false
-    
     /// 本次布局的可用区域尺寸是否发生变化
     private(set) var isLayoutSizeChanged: Bool = false
     
     /// 上一次布局的可用区域尺寸
     private var laidOutSize: CGSize = .zero
     
-    /// 点击手势
-    private lazy var tapGesture: UITapGestureRecognizer = {
-        return UITapGestureRecognizer(target: self, action: #selector(clickRow(_:)))
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = normalBackColor
-        
-        /// 点击行展示该行的倒数日事项
-        addGestureRecognizer(tapGesture)
         setupSubviews()
     }
     
@@ -253,45 +220,7 @@ class WSCountdownEventRowBaseView: UIView {
     
     // MARK: - 点击
     /// 点击行，回调当前行展示的事项；空白行同样回调，交由组件统一响应
-    @objc private func clickRow(_ gesture: UITapGestureRecognizer) {
-        TPImpactFeedback.impactWithSoftStyle()
-        didSelectHandler?(dataItem)
-    }
-    
-    // MARK: - 高亮
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        updateHighlightedState(true)
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        updateHighlightedState(false)
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesCancelled(touches, with: event)
-        updateHighlightedState(false)
-    }
-    
-    /// 设置高亮背景，提示行可点击
-    private func updateHighlightedState(_ isHighlighted: Bool) {
-        guard isRowHighlighted != isHighlighted else {
-            return
-        }
-        
-        isRowHighlighted = isHighlighted
-        UIView.animate(withDuration: 0.15) { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            self.backgroundColor = isHighlighted ? self.highlightedBackColor : self.normalBackColor
-        }
-    }
-    
-    /// 刷新背景色：未按下时使用常规背景色
-    private func updateBackColor() {
-        backgroundColor = isRowHighlighted ? highlightedBackColor : normalBackColor
+    override func didSelectRow() {
+        didSelectItemHandler?(dataItem)
     }
 }

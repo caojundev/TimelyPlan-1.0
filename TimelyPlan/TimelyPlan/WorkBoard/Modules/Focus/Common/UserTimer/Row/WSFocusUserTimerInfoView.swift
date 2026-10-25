@@ -1,5 +1,5 @@
 //
-//  WSFocusUserTimerRowView.swift
+//  WSFocusUserTimerInfoView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/24.
@@ -14,7 +14,7 @@ import UIKit
 ///
 /// 展示单个用户计时器：左侧颜色条，中间名称与类型，右侧开始专注按钮。
 /// 行本身不响应点击，仅按钮响应；尺寸由外部决定。
-class WSFocusUserTimerRowView: WSColorInfoView {
+class WSFocusUserTimerInfoView: WSColorInfoView {
     
     /// 布局尺寸
     private enum Metrics {

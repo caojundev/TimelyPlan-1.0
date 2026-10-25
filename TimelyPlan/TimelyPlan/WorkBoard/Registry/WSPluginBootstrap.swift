@@ -26,6 +26,10 @@ enum WSPluginBootstrap {
         
         // 专注
         WSFocusSmallUserTimerPluginProvider(),
+        WSFocusMediumUserTimerListPluginProvider(),
+        WSFocusMediumUserTimerGridPluginProvider(),
+        WSFocusLargeUserTimerListPluginProvider(),
+        WSFocusLargeUserTimerGridPluginProvider(),
         WSFocusSmallSystemTimerPluginProvider(),
         WSFocusMediumSystemTimerPluginProvider(),
     ]

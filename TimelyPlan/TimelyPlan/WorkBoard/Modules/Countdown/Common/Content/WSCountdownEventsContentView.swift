@@ -84,7 +84,7 @@ class WSCountdownEventsContentView: WSPluginContentView {
             applyCardStyle(to: rowView)
             
             /// 行内点击直接交给交互器处理；空白行没有对应事项，交给组件主操作响应
-            rowView.didSelectHandler = { [weak self] dataItem in
+            rowView.didSelectItemHandler = { [weak self] dataItem in
                 guard let self = self else {
                     return
                 }

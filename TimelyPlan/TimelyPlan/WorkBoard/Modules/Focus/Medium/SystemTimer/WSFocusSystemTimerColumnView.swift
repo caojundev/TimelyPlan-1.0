@@ -20,7 +20,7 @@ class WSFocusSystemTimerColumnView: WSColumnIconInfoView {
     private enum Metrics {
         
         /// 开始按钮尺寸
-        static let startButtonSize = CGSize(width: 42.0, height: 42.0)
+        static let startButtonSize = CGSize(width: 36.0, height: 36.0)
         
         /// 按钮命中区域外扩
         static let startButtonHitMargin: CGFloat = 8.0

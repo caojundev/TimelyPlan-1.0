@@ -46,6 +46,8 @@
 "Shows the default timers in columns" = "以三列展示默认计时器";
 "Custom Timers" = "自定义计时器";
 "Shows selected custom timers" = "展示选中的自定义计时器";
+"Shows selected custom timers in a grid" = "以网格展示选中的自定义计时器";
+"Shows selected custom timers in a list" = "以列表展示选中的自定义计时器";
 "Timer Options" = "计时器选项";
 "Deep Work" = "深度工作";
 "Reading" = "阅读";

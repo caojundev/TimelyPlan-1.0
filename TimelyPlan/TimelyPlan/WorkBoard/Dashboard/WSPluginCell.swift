@@ -139,6 +139,7 @@ class WSPluginCell: UICollectionViewCell {
         pluginContentView?.removeFromSuperview()
         
         self.pluginContentView = contentView
+        updatePluginContentEnabled()
         contentView.frame = self.contentView.bounds
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.contentView.insertSubview(contentView, at: 0)
@@ -156,7 +157,6 @@ class WSPluginCell: UICollectionViewCell {
         self.plugin = plugin
         self.provider = provider
         self.context = context
-        updatePluginContentEnabled()
         
         /// 内容视图由提供者决定；先替换内容视图，再展示占位视图
         updatePluginContentViewIfNeeded(with: provider)

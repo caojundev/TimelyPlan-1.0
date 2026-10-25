@@ -57,7 +57,7 @@ class WSFocusUserTimerSelectionViewController: TPViewController,
     /// 选中数量标签
     lazy var selectionCountLabel: TPLabel = {
         let label = TPLabel()
-        label.font = .boldSystemFont(ofSize: 13.0)
+        label.font = .boldSystemFont(ofSize: 11.0)
         label.numberOfLines = 2
         label.textColor = .secondaryLabel
         label.textAlignment = .center
@@ -131,7 +131,8 @@ class WSFocusUserTimerSelectionViewController: TPViewController,
     private func timersChanged() {
         DispatchQueue.main.async {
             /// 已删除的计时器不再保留在选中列表中
-            let validIdentifiers = Set(self.viewModel.timers.map { $0.identifier })
+            let timers = self.viewModel.timers ?? []
+            let validIdentifiers = Set(timers.map { $0.identifier })
             let filteredIdentifiers = self.selectedIdentifiers.filter { validIdentifiers.contains($0) }
             if filteredIdentifiers != self.selectedIdentifiers {
                 self.selectedIdentifiers = filteredIdentifiers
@@ -199,13 +200,14 @@ class WSFocusUserTimerSelectionViewController: TPViewController,
     /// 更新选中数量与计时器名称。名称按选择顺序拼接在数量之后
     private func updateSelectionCount() {
         var timerMap = [String: FocusTimer]()
-        for timer in viewModel.timers {
+        let timers = viewModel.timers ?? []
+        for timer in timers {
             timerMap[timer.identifier] = timer
         }
         
         let names = selectedIdentifiers.compactMap { timerMap[$0]?.displayName }.joined(separator: ", ")
         let countText = String(format: resGetString("%ld selected"), selectedIdentifiers.count)
-        selectionCountLabel.text = names.isEmpty ? countText : "\(countText)\n\(names)"
+        selectionCountLabel.text = names.isEmpty ? countText : "\(countText) \(names)"
     }
     
     // MARK: - 配置保存

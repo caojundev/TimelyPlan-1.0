@@ -2100,6 +2100,8 @@
 		E5C18FBE2DB4FE1F008FAA13 /* todo_task_change_modified_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB82DB4FE1F008FAA13 /* todo_task_change_modified_16@2x.png */; };
 		E5C30988306B6794001E5880 /* CalendarPanelElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C30987306B6793001E5880 /* CalendarPanelElementView.swift */; };
 		E5C3098A306B6CEF001E5880 /* CalendarPanelDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C30989306B6CEF001E5880 /* CalendarPanelDayView.swift */; };
+		E5C74358308D9BFC00D396A3 /* WSRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C74357308D9BFC00D396A3 /* WSRowView.swift */; };
+		E5C7435B308DA17C00D396A3 /* WSFocusUserTimerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7435A308DA17C00D396A3 /* WSFocusUserTimerRowView.swift */; };
 		E5C76BA62F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C76BA22F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png */; };
 		E5C76BA72F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C76BA32F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png */; };
 		E5C76BA82F74C0DD003FCCE3 /* focus_stats_group_timer_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C76BA42F74C0DD003FCCE3 /* focus_stats_group_timer_24@2x.png */; };
@@ -2478,8 +2480,13 @@
 		E5F0C102308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift */; };
 		E5F0C102308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift */; };
 		E5F0C102308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift */; };
-		E5F0C102308E4F0000A0001E /* WSFocusUserTimerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001E /* WSFocusUserTimerRowView.swift */; };
-		E5F0C102308E4F0000A0001F /* WSFocusSmallUserTimerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001F /* WSFocusSmallUserTimerContentView.swift */; };
+		E5F0C102308E4F0000A0001E /* WSFocusUserTimerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001E /* WSFocusUserTimerInfoView.swift */; };
+		E5F0C102308E4F0000A0001F /* WSFocusUserTimerListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A0001F /* WSFocusUserTimerListContentView.swift */; };
+		E5F0C102308E4F0000A00020 /* WSFocusMediumUserTimerGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00020 /* WSFocusMediumUserTimerGridPluginProvider.swift */; };
+		E5F0C102308E4F0000A00021 /* WSFocusUserTimerGridContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00021 /* WSFocusUserTimerGridContentView.swift */; };
+		E5F0C102308E4F0000A00024 /* WSFocusMediumUserTimerListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00024 /* WSFocusMediumUserTimerListPluginProvider.swift */; };
+		E5F0C102308E4F0000A00025 /* WSFocusLargeUserTimerListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00025 /* WSFocusLargeUserTimerListPluginProvider.swift */; };
+		E5F0C102308E4F0000A00026 /* WSFocusLargeUserTimerGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0C101308E4F0000A00026 /* WSFocusLargeUserTimerGridPluginProvider.swift */; };
 		E5F1551B2F83681E00116091 /* TodoTaskDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */; };
 		E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */; };
 		E5F1551D2F83681E00116091 /* TodoTaskCheckTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */; };
@@ -4720,6 +4727,8 @@
 		E5C18FB82DB4FE1F008FAA13 /* todo_task_change_modified_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_modified_16@2x.png"; sourceTree = "<group>"; };
 		E5C30987306B6793001E5880 /* CalendarPanelElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPanelElementView.swift; sourceTree = "<group>"; };
 		E5C30989306B6CEF001E5880 /* CalendarPanelDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPanelDayView.swift; sourceTree = "<group>"; };
+		E5C74357308D9BFC00D396A3 /* WSRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSRowView.swift; sourceTree = "<group>"; };
+		E5C7435A308DA17C00D396A3 /* WSFocusUserTimerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerRowView.swift; sourceTree = "<group>"; };
 		E5C76BA22F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_stats_group_task_24@2x.png"; sourceTree = "<group>"; };
 		E5C76BA32F74C0DD003FCCE3 /* focus_stats_group_task_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_stats_group_task_24@3x.png"; sourceTree = "<group>"; };
 		E5C76BA42F74C0DD003FCCE3 /* focus_stats_group_timer_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_stats_group_timer_24@2x.png"; sourceTree = "<group>"; };
@@ -5098,8 +5107,13 @@
 		E5F0C101308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerContentInteractor.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerSelectionViewController.swift; sourceTree = "<group>"; };
 		E5F0C101308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallUserTimerPluginProvider.swift; sourceTree = "<group>"; };
-		E5F0C101308E4F0000A0001E /* WSFocusUserTimerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerRowView.swift; sourceTree = "<group>"; };
-		E5F0C101308E4F0000A0001F /* WSFocusSmallUserTimerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallUserTimerContentView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0001E /* WSFocusUserTimerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerInfoView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A0001F /* WSFocusUserTimerListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerListContentView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00020 /* WSFocusMediumUserTimerGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusMediumUserTimerGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00021 /* WSFocusUserTimerGridContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerGridContentView.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00024 /* WSFocusMediumUserTimerListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusMediumUserTimerListPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00025 /* WSFocusLargeUserTimerListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusLargeUserTimerListPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0C101308E4F0000A00026 /* WSFocusLargeUserTimerGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusLargeUserTimerGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskDetailProvider.swift; sourceTree = "<group>"; };
 		E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskLayoutManager.swift; sourceTree = "<group>"; };
 		E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskCheckTableCell.swift; sourceTree = "<group>"; };
@@ -7455,9 +7469,10 @@
 		E539C86F308CAE6C0077FE8A /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				E5C74357308D9BFC00D396A3 /* WSRowView.swift */,
+				E5F0C101308E4F0000A00016 /* WSColorInfoView.swift */,
 				E5F0C101308E4F0000A0000C /* WSIconInfoView.swift */,
 				E5F0C101308E4F0000A0000F /* WSColumnIconInfoView.swift */,
-				E5F0C101308E4F0000A00016 /* WSColorInfoView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -7484,6 +7499,8 @@
 		E539C874308CE5330077FE8A /* UserTimer */ = {
 			isa = PBXGroup;
 			children = (
+				E5F0C100308E4F0000A00022 /* Grid */,
+				E5F0C100308E4F0000A00023 /* List */,
 			);
 			path = UserTimer;
 			sourceTree = "<group>";
@@ -7492,8 +7509,6 @@
 			isa = PBXGroup;
 			children = (
 				E5F0C101308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift */,
-				E5F0C101308E4F0000A0001F /* WSFocusSmallUserTimerContentView.swift */,
-				E5F0C101308E4F0000A0001E /* WSFocusUserTimerRowView.swift */,
 			);
 			path = UserTimer;
 			sourceTree = "<group>";
@@ -9496,6 +9511,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F0C100308E4F0000A00013 /* Common */,
+				E5C7435C308DA4F500D396A3 /* Large */,
 				E539C870308CC1830077FE8A /* Medium */,
 				E584C7E9308C45C200A38690 /* Small */,
 			);
@@ -12266,6 +12282,48 @@
 			path = change;
 			sourceTree = "<group>";
 		};
+		E5C74359308DA10000D396A3 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A0001E /* WSFocusUserTimerInfoView.swift */,
+				E5C7435A308DA17C00D396A3 /* WSFocusUserTimerRowView.swift */,
+			);
+			path = Row;
+			sourceTree = "<group>";
+		};
+		E5C7435C308DA4F500D396A3 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E5C7435E308DBBAA00D396A3 /* UserTimer */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
+		E5C7435E308DBBAA00D396A3 /* UserTimer */ = {
+			isa = PBXGroup;
+			children = (
+				E5C74360308DBFB400D396A3 /* Grid */,
+				E5C7435F308DBBC900D396A3 /* List */,
+			);
+			path = UserTimer;
+			sourceTree = "<group>";
+		};
+		E5C7435F308DBBC900D396A3 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A00025 /* WSFocusLargeUserTimerListPluginProvider.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		E5C74360308DBFB400D396A3 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A00026 /* WSFocusLargeUserTimerGridPluginProvider.swift */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
 		E5C76BA12F74C0DC003FCCE3 /* stats */ = {
 			isa = PBXGroup;
 			children = (
@@ -13460,9 +13518,21 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		E5F0C100308E4F0000A00014 /* SystemTimer */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift */,
+				E5F0C101308E4F0000A0000E /* WSFocusSystemTimerContentInteractor.swift */,
+			);
+			path = SystemTimer;
+			sourceTree = "<group>";
+		};
 		E5F0C100308E4F0000A00015 /* UserTimer */ = {
 			isa = PBXGroup;
 			children = (
+				E5C74359308DA10000D396A3 /* Row */,
+				E5F0C101308E4F0000A0001F /* WSFocusUserTimerListContentView.swift */,
+				E5F0C101308E4F0000A00021 /* WSFocusUserTimerGridContentView.swift */,
 				E5F0C101308E4F0000A00017 /* WSFocusUserTimerConfiguration.swift */,
 				E5F0C101308E4F0000A00018 /* WSFocusUserTimerDataItem.swift */,
 				E5F0C101308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift */,
@@ -13471,13 +13541,20 @@
 			path = UserTimer;
 			sourceTree = "<group>";
 		};
-		E5F0C100308E4F0000A00014 /* SystemTimer */ = {
+		E5F0C100308E4F0000A00022 /* Grid */ = {
 			isa = PBXGroup;
 			children = (
-				E5F0C101308E4F0000A00008 /* WSFocusSystemTimerDataItem.swift */,
-				E5F0C101308E4F0000A0000E /* WSFocusSystemTimerContentInteractor.swift */,
+				E5F0C101308E4F0000A00020 /* WSFocusMediumUserTimerGridPluginProvider.swift */,
 			);
-			path = SystemTimer;
+			path = Grid;
+			sourceTree = "<group>";
+		};
+		E5F0C100308E4F0000A00023 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0C101308E4F0000A00024 /* WSFocusMediumUserTimerListPluginProvider.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		E5F155092F83681D00116091 /* ListView */ = {
@@ -15077,6 +15154,7 @@
 				E58D750630635AB5002C6D1A /* CalendarCountdownEventProvider.swift in Sources */,
 				E55E4B872F9318710068E032 /* TodoBaseListViewModel.swift in Sources */,
 				E50C0F772D82AA2400AFF908 /* TPExpandImageInfoRightButtonTableCell.swift in Sources */,
+				E5C7435B308DA17C00D396A3 /* WSFocusUserTimerRowView.swift in Sources */,
 				E5E9F7862FC001EA00717004 /* TodoStepImporter.swift in Sources */,
 				E5D7D9352D43933700EC877A /* FocusHomeSearchResultViewController.swift in Sources */,
 				E5F9E3E23021D17E00EDC2A5 /* MyDayTodoTaskBindViewController.swift in Sources */,
@@ -15186,6 +15264,7 @@
 				E50D60322F7A12B500D5E0A4 /* RepeatEnd.swift in Sources */,
 				E51E5F6A3034860700ACF30C /* TodoPDFConvertible.swift in Sources */,
 				E5320C4B2FCD122E001DFE98 /* CalendarEventInfoView.swift in Sources */,
+				E5C74358308D9BFC00D396A3 /* WSRowView.swift in Sources */,
 				E5A625E13089B3CF003EB8BC /* Skeleton.swift in Sources */,
 				E50FF8B62F7958B900B8F5BE /* TPCollectionSearchResultSectionController.swift in Sources */,
 				E5D7D8D12D43933600EC877A /* FocusRecordTimelineBar.swift in Sources */,
@@ -16258,8 +16337,13 @@
 				E5F0C102308E4F0000A0001A /* WSFocusUserTimerContentInteractor.swift in Sources */,
 				E5F0C102308E4F0000A0001C /* WSFocusUserTimerSelectionViewController.swift in Sources */,
 				E5F0C102308E4F0000A0001D /* WSFocusSmallUserTimerPluginProvider.swift in Sources */,
-				E5F0C102308E4F0000A0001E /* WSFocusUserTimerRowView.swift in Sources */,
-				E5F0C102308E4F0000A0001F /* WSFocusSmallUserTimerContentView.swift in Sources */,
+				E5F0C102308E4F0000A0001E /* WSFocusUserTimerInfoView.swift in Sources */,
+				E5F0C102308E4F0000A0001F /* WSFocusUserTimerListContentView.swift in Sources */,
+				E5F0C102308E4F0000A00020 /* WSFocusMediumUserTimerGridPluginProvider.swift in Sources */,
+				E5F0C102308E4F0000A00021 /* WSFocusUserTimerGridContentView.swift in Sources */,
+				E5F0C102308E4F0000A00024 /* WSFocusMediumUserTimerListPluginProvider.swift in Sources */,
+				E5F0C102308E4F0000A00025 /* WSFocusLargeUserTimerListPluginProvider.swift in Sources */,
+				E5F0C102308E4F0000A00026 /* WSFocusLargeUserTimerGridPluginProvider.swift in Sources */,
 				E5DA03AE2FA1F49000A58ACC /* FocusTimelineViewModel.swift in Sources */,
 				E50D60582F7A13F100D5E0A4 /* AlarmPresetListView.swift in Sources */,
 				E50D02602F55A8C100E93977 /* TaskDateRangeEditTableCell.swift in Sources */,

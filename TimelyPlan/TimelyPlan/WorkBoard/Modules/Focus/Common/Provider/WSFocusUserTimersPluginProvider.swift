@@ -15,6 +15,18 @@ enum WSFocusUserTimerItemCount {
     
     /// 小号组件的展示条数
     static let small = 3
+    
+    /// 中号网格组件的展示条数
+    static let mediumGrid = 4
+    
+    /// 中号列表组件的展示条数
+    static let mediumList = 3
+    
+    /// 大号列表组件的展示条数
+    static let largeList = 6
+    
+    /// 大号网格组件的展示条数
+    static let largeGrid = 8
 }
 
 // MARK: - 组件提供者基类

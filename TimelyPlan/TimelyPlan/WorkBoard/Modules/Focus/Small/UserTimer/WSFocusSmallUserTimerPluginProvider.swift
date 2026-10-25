@@ -19,6 +19,6 @@ class WSFocusSmallUserTimerPluginProvider: WSFocusUserTimersPluginProvider {
     }
     
     override func makeContentView() -> WSPluginContentView {
-        return WSFocusSmallUserTimerContentView(itemCount: itemCount)
+        return WSFocusUserTimerListContentView(itemCount: itemCount)
     }
 }

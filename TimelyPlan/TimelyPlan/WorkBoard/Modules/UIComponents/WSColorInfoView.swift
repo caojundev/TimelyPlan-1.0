@@ -36,12 +36,12 @@ class WSColorInfoView: UIView {
     var titleMaxFontSize: CGFloat = 15.0
     
     /// 副标题字号占行高的比例及范围
-    var subtitleFontRatio: CGFloat = 0.22
+    var subtitleFontRatio: CGFloat = 0.24
     var subtitleMinFontSize: CGFloat = 8.0
-    var subtitleMaxFontSize: CGFloat = 13.0
+    var subtitleMaxFontSize: CGFloat = 12.0
     
     /// 副标题与标题的间距占行高的比例
-    var subtitleSpacingRatio: CGFloat = 0.05
+    var subtitleSpacingRatio: CGFloat = 0.03
     
     /// 骨架配置
     var skeletonConfig: SkeletonConfig = Skeleton.config
@@ -88,7 +88,7 @@ class WSColorInfoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.padding = UIEdgeInsets(vertical: 2.0)
+        self.padding = .zero
         self.backgroundColor = .clear
         
         colorView.clipsToBounds = true

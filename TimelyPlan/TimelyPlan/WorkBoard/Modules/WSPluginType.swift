@@ -36,6 +36,18 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 专注·小·默认计时器：展示默认的系统计时器。
     case focusSmallSystemTimer
     
+    /// 专注·中·用户计时器（列表）：纵向展示用户自选的计时器。
+    case focusMediumUserTimerList
+    
+    /// 专注·中·用户计时器（网格）：以两列网格展示用户自选的计时器。
+    case focusMediumUserTimerGrid
+    
+    /// 专注·大·用户计时器（列表）：纵向展示用户自选的计时器。
+    case focusLargeUserTimerList
+    
+    /// 专注·大·用户计时器（网格）：以两列网格展示用户自选的计时器。
+    case focusLargeUserTimerGrid
+    
     /// 专注·中·默认计时器：以三列展示默认的系统计时器。
     case focusMediumSystemTimer
 }
@@ -51,9 +63,10 @@ public extension WSPluginType {
              .focusSmallUserTimer, .focusSmallSystemTimer:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
-             .focusMediumSystemTimer:
+             .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer:
             return .medium
-        case .countdownLargeEventsList, .countdownLargeEventsGrid:
+        case .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
+             .focusLargeUserTimerGrid:
             return .large
         }
     }
@@ -65,7 +78,9 @@ public extension WSPluginType {
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .countdownLargeEventsList, .countdownLargeEventsGrid:
             return .countdown
-        case .focusSmallUserTimer, .focusSmallSystemTimer, .focusMediumSystemTimer:
+        case .focusSmallUserTimer, .focusMediumUserTimerList, .focusMediumUserTimerGrid,
+             .focusLargeUserTimerList, .focusLargeUserTimerGrid,
+             .focusSmallSystemTimer, .focusMediumSystemTimer:
             return .focus
         }
     }
@@ -78,7 +93,8 @@ public extension WSPluginType {
         case .countdownSmallEvents, .countdownMediumEventsList, .countdownMediumEventsGrid,
              .countdownMediumEventsColumns, .countdownLargeEventsList, .countdownLargeEventsGrid:
             return resGetString("Countdowns")
-        case .focusSmallUserTimer:
+        case .focusSmallUserTimer, .focusMediumUserTimerList, .focusMediumUserTimerGrid,
+             .focusLargeUserTimerList, .focusLargeUserTimerGrid:
             return resGetString("Custom Timers")
         case .focusSmallSystemTimer, .focusMediumSystemTimer:
             return resGetString("Default Timer")
@@ -101,6 +117,10 @@ public extension WSPluginType {
             
         case .focusSmallUserTimer:
             return resGetString("Shows selected custom timers")
+        case .focusMediumUserTimerList, .focusLargeUserTimerList:
+            return resGetString("Shows selected custom timers in a list")
+        case .focusMediumUserTimerGrid, .focusLargeUserTimerGrid:
+            return resGetString("Shows selected custom timers in a grid")
         case .focusSmallSystemTimer:
             return resGetString("Quickly starts the default timer")
         case .focusMediumSystemTimer:

@@ -1,28 +1,29 @@
 //
-//  WSFocusSmallUserTimerContentView.swift
+//  WSFocusUserTimerListContentView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/10/24.
+//  Created by caojun on 2026/10/25.
 //
 
 import Foundation
 import UIKit
 
-// MARK: - 内容视图
+// MARK: - 列表内容视图
 
-/// 专注·小·用户计时器的内容视图。
+/// 用户计时器列表内容视图，各尺寸共用。
 ///
-/// 纵向排列若干用户计时器行，条数与交互器最多展示的数目保持一致。
-class WSFocusSmallUserTimerContentView: WSPluginContentView {
+/// 纵向排列若干用户计时器行，条数与交互器最多展示的数目保持一致；
+/// 空缺行展示骨架，保持与真实展示一致的排布。
+class WSFocusUserTimerListContentView: WSPluginContentView {
     
     /// 布局尺寸
     private enum Metrics {
         
         /// 内容与组件边缘的间距
-        static let padding = UIEdgeInsets(value: 12.0)
+        static let padding = UIEdgeInsets(horizontal: 4.0, vertical: 8.0)
         
         /// 行间距
-        static let rowSpacing: CGFloat = 4.0
+        static let rowSpacing: CGFloat = 0.0
     }
     
     /// 行视图，数量与展示条数一致
@@ -36,6 +37,8 @@ class WSFocusSmallUserTimerContentView: WSPluginContentView {
         self.padding = Metrics.padding
         
         for rowView in rowViews {
+            rowView.normalBackColor = .clear
+            rowView.highlightedBackColor = .clear
             rowView.didClickStartHandler = { [weak self] dataItem in
                 self?.startFocus(with: dataItem.timerIdentifier)
             }
@@ -82,7 +85,6 @@ class WSFocusSmallUserTimerContentView: WSPluginContentView {
         
         let items = (dataItem as? WSFocusUserTimersDataItem)?.items ?? []
         for (index, rowView) in rowViews.enumerated() {
-            /// 空缺行展示骨架，保持与真实展示一致的排布
             rowView.update(with: items[safe: index])
         }
         

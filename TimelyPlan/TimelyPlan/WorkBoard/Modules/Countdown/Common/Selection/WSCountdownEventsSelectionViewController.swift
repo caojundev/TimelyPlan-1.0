@@ -39,7 +39,7 @@ class WSCountdownEventsSelectionViewController: TPViewController, TPGroupTableVi
     /// 选中数量标签
     lazy var selectionCountLabel: TPLabel = {
         let label = TPLabel()
-        label.font = .boldSystemFont(ofSize: 13.0)
+        label.font = .boldSystemFont(ofSize: 11.0)
         label.numberOfLines = 2
         label.textColor = .secondaryLabel
         label.textAlignment = .center
@@ -186,6 +186,6 @@ class WSCountdownEventsSelectionViewController: TPViewController, TPGroupTableVi
         
         let names = selectedIdentifiers.compactMap { eventMap[$0]?.displayName }.joined(separator: ", ")
         let countText = String(format: resGetString("%ld selected"), selectedIdentifiers.count)
-        selectionCountLabel.text = names.isEmpty ? countText : "\(countText)\n\(names)"
+        selectionCountLabel.text = names.isEmpty ? countText : "\(countText) \(names)"
     }
 }
