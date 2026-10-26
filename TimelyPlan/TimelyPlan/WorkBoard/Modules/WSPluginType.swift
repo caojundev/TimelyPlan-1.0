@@ -67,6 +67,18 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 习惯·小·任务：逐行展示今日排期的习惯任务。
     case habitSmallTasks
     
+    /// 习惯·中·任务列表：以列表展示今日排期的习惯任务。
+    case habitMediumTasksList
+    
+    /// 习惯·中·任务网格：以网格卡片展示今日排期的习惯任务。
+    case habitMediumTasksGrid
+    
+    /// 习惯·大·任务列表：以列表展示今日排期的习惯任务。
+    case habitLargeTasksList
+    
+    /// 习惯·大·任务网格：以网格卡片展示今日排期的习惯任务。
+    case habitLargeTasksGrid
+    
 }
 
 // MARK: - 固有属性
@@ -82,10 +94,11 @@ public extension WSPluginType {
              .habitSmallTasks:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
-             .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer:
+             .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
+             .habitMediumTasksList, .habitMediumTasksGrid:
             return .medium
         case .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
-             .focusLargeUserTimerGrid:
+             .focusLargeUserTimerGrid, .habitLargeTasksList, .habitLargeTasksGrid:
             return .large
         }
     }
@@ -102,7 +115,8 @@ public extension WSPluginType {
              .focusSmallSystemTimer, .focusMediumSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap:
             return .focus
-        case .habitSmallTasks:
+        case .habitSmallTasks, .habitMediumTasksList, .habitMediumTasksGrid,
+             .habitLargeTasksList, .habitLargeTasksGrid:
             return .habit
         }
     }
@@ -187,7 +201,11 @@ enum WSPluginCatalog {
         .init(WSFocusSmallMonthHeatMapPluginProvider(), title: "Month Heatmap", subtitle: "Shows this month's focus heatmap"),
         
         // 习惯
-        .init(WSHabitSmallTasksPluginProvider(), title: "Habits", subtitle: "Shows today's habits and progress"),
+        .init(WSHabitSmallTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits and progress"),
+        .init(WSHabitMediumTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a list"),
+        .init(WSHabitMediumTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
+        .init(WSHabitLargeTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a list"),
+        .init(WSHabitLargeTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
     ]
 
     /// 按类型取回组件配置

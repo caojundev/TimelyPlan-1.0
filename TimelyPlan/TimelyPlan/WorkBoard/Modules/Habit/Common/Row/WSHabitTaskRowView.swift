@@ -53,6 +53,13 @@ class WSHabitTaskRowView: WSRowView {
     /// 当前展示的习惯任务
     private(set) var dataItem: WSHabitTaskDataItem?
     
+    /// 内容与行边缘的间距
+    var contentInsets: UIEdgeInsets = Metrics.contentInsets {
+        didSet {
+            infoView.padding = contentInsets
+        }
+    }
+    
     /// 点击行的回调
     var didSelectTaskHandler: ((WSHabitTaskDataItem) -> Void)?
     
@@ -60,7 +67,7 @@ class WSHabitTaskRowView: WSRowView {
         super.init(frame: frame)
         
         contentCornerRadius = Metrics.cornerRadius
-        infoView.padding = Metrics.contentInsets
+        infoView.padding = contentInsets
         
         infoView.iconSize = Metrics.iconSize
         /// 进度圆环跟随图标一起缩小，否则线宽会盖住图标
