@@ -83,8 +83,7 @@ class MyDayHabitTaskBindCell: TPBaseTableCell, SearchHighlightable {
         let subtitle = detailProvider.detail(for: habitTask,
                                                 on: .distantFuture,
                                                 with: nil,
-                                                color: .secondaryLabel,
-                                                addToMyDayIncluded: true)
+                                                color: .secondaryLabel)
         titleView.subtitle = subtitle
     }
     

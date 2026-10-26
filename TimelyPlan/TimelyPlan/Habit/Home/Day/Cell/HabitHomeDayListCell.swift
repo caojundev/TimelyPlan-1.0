@@ -123,7 +123,77 @@ class HabitHomeDayListCell: HabitTaskListDefaultInfoCell {
     }
 }
 
+
+struct HabitTaskDetailOption: OptionSet {
+    
+    let rawValue: Int
+    
+    /// 进度
+    static let progress = HabitTaskDetailOption(rawValue: 1 << 0)
+    
+    /// 我的一天
+    static let myDay = HabitTaskDetailOption(rawValue: 1 << 1)
+    
+    /// 备注
+    static let log = HabitTaskDetailOption(rawValue: 1 << 2)
+    
+    /// 所有选项
+    static let all: HabitTaskDetailOption = [.progress, .myDay, .log]
+}
+
+
 class HabitTaskDetailProvider {
+    
+    /// 详情显示选项
+    var option: HabitTaskDetailOption
+    
+    init(option: HabitTaskDetailOption = .all) {
+        self.option = option
+    }
+
+    /// 更新详细文本
+    func detail(for periodItem: HabitPeriodItem,
+                on date: Date? = nil,
+                color: UIColor = .white) -> TextRepresentable {
+        let task = periodItem.habitTask
+        let date = date ?? periodItem.period.date
+        let record = periodItem.record(on: date)
+        return detail(for: task,
+                         on: date,
+                         with: record,
+                         color: color)
+    }
+    
+    func detail(for task: HabitTask,
+                on date: Date,
+                with record: HabitRecord?,
+                color: UIColor = .white) -> TextRepresentable {
+        var details = [ASAttributedString]()
+        if option.contains(.myDay), task.isAddedToMyDay {
+            if let myDayIndicator = task.myDayIndicator(color: color) {
+                details.insert(myDayIndicator, at: 0)
+            }
+        }
+        
+        if option.contains(.progress), date.isFutureDay {
+            details.insert(task.goal.targetDescription.attributedString, at: 0)
+            return details.joined(separator: " • ")
+        }
+        
+        /// 备注
+        if option.contains(.log), let record = record, record.hasLog {
+            let logIndicator = task.logIndicator(color: color)
+            details.insert(logIndicator, at: 0)
+        }
+    
+        /// 进度详情
+        if option.contains(.progress) {
+            let progressDetail = Self.completedAmountDetail(for: task, with: record)
+            details.insert(progressDetail, at: 0)
+        }
+   
+        return details.joined(separator: " • ")
+    }
     
     /// 完成数目详情文本
     static func completedAmountDetail(for task: HabitTask, with record: HabitRecord?) -> ASAttributedString {
@@ -140,50 +210,6 @@ class HabitTaskDetailProvider {
         return completedAmountDetail
     }
     
-    /// 更新详细文本
-    func detail(for periodItem: HabitPeriodItem,
-                on date: Date? = nil,
-                color: UIColor = .white,
-                addToMyDayIncluded: Bool = true) -> TextRepresentable {
-        let task = periodItem.habitTask
-        let date = date ?? periodItem.period.date
-        let record = periodItem.record(on: date)
-        return detail(for: task,
-                         on: date,
-                         with: record,
-                         color: color,
-                         addToMyDayIncluded: addToMyDayIncluded)
-    }
-    
-    func detail(for task: HabitTask,
-                on date: Date,
-                with record: HabitRecord?,
-                color: UIColor = .white,
-                addToMyDayIncluded: Bool = true) -> TextRepresentable {
-        
-        var details = [ASAttributedString]()
-        if addToMyDayIncluded, task.isAddedToMyDay {
-            if let myDayIndicator = task.myDayIndicator(color: color) {
-                details.insert(myDayIndicator, at: 0)
-            }
-        }
-        
-        if date.isFutureDay {
-            details.insert(task.goal.targetDescription.attributedString, at: 0)
-            return details.joined(separator: " • ")
-        }
-        
-        /// 备注
-        if let record = record, record.hasLog {
-            let logIndicator = task.logIndicator(color: color)
-            details.insert(logIndicator, at: 0)
-        }
-    
-        /// 进度详情
-        let progressDetail = Self.completedAmountDetail(for: task, with: record)
-        details.insert(progressDetail, at: 0)
-        return details.joined(separator: " • ")
-    }
 }
 
 

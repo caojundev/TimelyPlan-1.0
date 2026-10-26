@@ -12,12 +12,15 @@ import UIKit
 
 /// 可点击行视图基类。
 ///
-/// 收拢行共有的外观与交互：常规 / 按下底色、圆角裁剪、骨架配置，
+/// 收拢行共有的外观与交互：常规 / 按下底色、圆角背景、骨架配置，
 /// 以及点击时的反馈与高亮动画。子类只需搭建并布局内容，
 /// 需要把行内数据一并回调时覆写 `didSelectRow()`。
 class WSRowView: UIView {
     
     // MARK: - 外观
+    /// 背景视图。常规 / 按下底色与圆角都作用在它上面，行本身不裁剪内容
+    private let backgroundView = UIView()
+    
     /// 常规背景色
     var normalBackColor: UIColor = .clear {
         didSet {
@@ -35,11 +38,10 @@ class WSRowView: UIView {
         }
     }
     
-    /// 圆角半径。大于 0 时内容随圆角裁剪
+    /// 背景视图的圆角半径。行本身不裁剪，内容可以超出边界
     var contentCornerRadius: CGFloat = 0.0 {
         didSet {
-            layer.cornerRadius = contentCornerRadius
-            clipsToBounds = contentCornerRadius > 0.0
+            backgroundView.layer.cornerRadius = contentCornerRadius
         }
     }
     
@@ -60,7 +62,12 @@ class WSRowView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = normalBackColor
+        backgroundColor = .clear
+        
+        /// 背景置于最底层，行内内容始终在它上面
+        backgroundView.isUserInteractionEnabled = false
+        backgroundView.backgroundColor = normalBackColor
+        insertSubview(backgroundView, at: 0)
         
         /// 点击行触发回调
         addGestureRecognizer(tapGesture)
@@ -68,6 +75,13 @@ class WSRowView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - 布局
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        backgroundView.frame = bounds
     }
     
     // MARK: - 子类实现
@@ -112,12 +126,12 @@ class WSRowView: UIView {
                 return
             }
             
-            self.backgroundColor = shouldHighlight ? self.highlightedBackColor : self.normalBackColor
+            self.backgroundView.backgroundColor = shouldHighlight ? self.highlightedBackColor : self.normalBackColor
         }
     }
     
     /// 刷新背景色：未按下时使用常规背景色
     private func updateBackColor() {
-        backgroundColor = isRowHighlighted ? highlightedBackColor : normalBackColor
+        backgroundView.backgroundColor = isRowHighlighted ? highlightedBackColor : normalBackColor
     }
 }

@@ -11,15 +11,17 @@ import UIKit
 class HabitTaskDefaultInfoView: UIView {
     
     /// 图标尺寸
-    var iconSize = CGSize.size(12)
+    var iconSize = CGSize.size(12) {
+        didSet {
+            setNeedsLayout()
+        }
+    }
 
     /// 任务图标视图
     lazy var iconView: TPIconView = {
         let view = TPIconView()
         view.borderWidth = 0.0
         view.placeholderCharacter = "C"
-        view.size = iconSize
-        view.cornerRadius = iconSize.halfHeight
         return view
     }()
     
@@ -51,8 +53,10 @@ class HabitTaskDefaultInfoView: UIView {
         super.layoutSubviews()
         
         let layoutFrame = layoutFrame()
+        iconView.size = iconSize
         iconView.left = layoutFrame.minX
         iconView.centerY = layoutFrame.midY
+        iconView.cornerRadius = iconSize.halfHeight
         
         titleView.width = layoutFrame.width - iconSize.width
         titleView.height = layoutFrame.height

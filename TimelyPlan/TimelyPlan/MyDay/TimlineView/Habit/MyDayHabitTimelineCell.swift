@@ -33,7 +33,7 @@ class MyDayHabitTimelineCell: TimelineEventCell {
     
     private let processor = HabitTaskMenuActionProcessor()
     
-    let detailProvider = HabitTaskDetailProvider()
+    let detailProvider = HabitTaskDetailProvider(option: [.progress, .log])
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -150,8 +150,7 @@ class MyDayHabitTimelineCell: TimelineEventCell {
         let detail = detailProvider.detail(for: task,
                                               on: date,
                                               with: record,
-                                              color: .secondaryLabel,
-                                              addToMyDayIncluded: false)
+                                              color: .secondaryLabel)
         infoView.subtitle = detail
     }
     

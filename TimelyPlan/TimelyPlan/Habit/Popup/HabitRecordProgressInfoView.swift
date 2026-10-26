@@ -18,7 +18,7 @@ class HabitRecordProgressInfoView: UIView, TPCustomPopupContent {
     
     let date: Date
     
-    private let detailProvider = HabitTaskDetailProvider()
+    private let detailProvider = HabitTaskDetailProvider(option: [.progress, .log])
     private let infoView = HabitTaskProgressInfoView()
     private lazy var valueLabel: TPLabel = {
         let label = TPLabel()
@@ -76,16 +76,15 @@ class HabitRecordProgressInfoView: UIView, TPCustomPopupContent {
     }
     
     private func updateInfo() {
+        infoView.iconView.backColor = task.color
         infoView.iconView.icon = task.icon
         infoView.iconView.font = .boldSystemFont(ofSize: 24.0)
         infoView.titleView.title = task.displayName
         
-        
         let subtitle = detailProvider.detail(for: task,
                                                 on: date,
                                                 with: record,
-                                                color: .secondaryLabel,
-                                                addToMyDayIncluded: false)
+                                                color: .secondaryLabel)
         infoView.titleView.subtitle = subtitle
         
         let status = task.status(with: record)
@@ -93,8 +92,8 @@ class HabitRecordProgressInfoView: UIView, TPCustomPopupContent {
     
         /// 更新进度
         let progressView = infoView.progressView
-        progressView.backLineColor = Color(0x000000, 0.4)
-        progressView.progressLineColor = task.color
+        progressView.backLineColor = Color(0x000000, 0.2)
+        progressView.progressLineColor = task.color.lighterColor
         progressView.progress = task.progress(with: record)
     }
     

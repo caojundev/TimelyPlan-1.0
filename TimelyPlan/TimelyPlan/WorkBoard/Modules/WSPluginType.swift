@@ -63,6 +63,10 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 专注·小·本月热力图：展示本月专注时长与每天的热力分布。
     case focusSmallMonthHeatMap
     
+    // MARK: 习惯
+    /// 习惯·小·任务：逐行展示今日排期的习惯任务。
+    case habitSmallTasks
+    
 }
 
 // MARK: - 固有属性
@@ -74,7 +78,8 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
-             .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap:
+             .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
+             .habitSmallTasks:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer:
@@ -97,6 +102,8 @@ public extension WSPluginType {
              .focusSmallSystemTimer, .focusMediumSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap:
             return .focus
+        case .habitSmallTasks:
+            return .habit
         }
     }
 
@@ -178,6 +185,9 @@ enum WSPluginCatalog {
         .init(WSFocusSmallTodayComparisonPluginProvider(), title: "Focus Comparison", subtitle: "Compares today's focus time with yesterday"),
         .init(WSFocusSmallWeekActivityPluginProvider(), title: "Week's Focus", subtitle: "Shows this week's focus duration and daily activity"),
         .init(WSFocusSmallMonthHeatMapPluginProvider(), title: "Month Heatmap", subtitle: "Shows this month's focus heatmap"),
+        
+        // 习惯
+        .init(WSHabitSmallTasksPluginProvider(), title: "Habits", subtitle: "Shows today's habits and progress"),
     ]
 
     /// 按类型取回组件配置

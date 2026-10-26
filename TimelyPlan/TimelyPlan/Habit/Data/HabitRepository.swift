@@ -213,6 +213,10 @@ final class HabitRepository {
         taskManager.fetchArchivedTasks(completion: completion)
     }
 
+    static func getTask(with identifier: String) -> HabitTask? {
+        return taskManager.getTask(with: identifier)
+    }
+        
     static func activeTasks() -> [HabitTask] {
         taskManager.getActiveTasks()
     }

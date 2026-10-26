@@ -37,7 +37,7 @@ struct GoalTaskDetailOption: OptionSet {
     static let goalPlan = GoalTaskDetailOption(rawValue: 1 << 7)
     
     /// 所有选项
-    static let all: GoalTaskDetailOption = [myDay,
+    static let all: GoalTaskDetailOption = [.myDay,
                                             .schedule,
                                             .progress,
                                             .step,

@@ -55,6 +55,8 @@ class HabitDayInfoMenuViewController: HabitDaySheetMenuViewController {
     }
     
     private func updateInfo() {
+        let taskColor = task.color
+        infoView.iconView.backColor = taskColor
         infoView.iconView.icon = task.icon
         infoView.iconView.font = .boldSystemFont(ofSize: 24.0)
         infoView.titleView.title = task.displayName
@@ -68,8 +70,8 @@ class HabitDayInfoMenuViewController: HabitDaySheetMenuViewController {
         
         /// 更新进度
         let progressView = infoView.progressView
-        progressView.backLineColor = Color(0x000000, 0.4)
-        progressView.progressLineColor = task.color
+        progressView.backLineColor = Color(0x000000, 0.2)
+        progressView.progressLineColor = taskColor.lighterColor
         progressView.progress = periodItem.progress(on: date)
     }
 }
