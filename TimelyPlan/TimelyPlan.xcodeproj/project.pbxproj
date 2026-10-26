@@ -2495,6 +2495,11 @@
 		E5F10002309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */; };
 		E5F10002309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */; };
 		E5F10002309000000000B004 /* WSFocusTodayComparisonDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B004 /* WSFocusTodayComparisonDataItem.swift */; };
+		E5F10002309000000000C001 /* WSFocusSmallWeekActivityPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000C001 /* WSFocusSmallWeekActivityPluginProvider.swift */; };
+		E5F10002309000000000C002 /* WSFocusSmallWeekActivityContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000C002 /* WSFocusSmallWeekActivityContentView.swift */; };
+		E5F10002309000000000C003 /* WSFocusWeekActivityContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000C003 /* WSFocusWeekActivityContentInteractor.swift */; };
+		E5F10002309000000000C004 /* WSFocusWeekActivityDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000C004 /* WSFocusWeekActivityDataItem.swift */; };
+		E5F10002309000000000C005 /* WSFocusWeekActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000C005 /* WSFocusWeekActivityView.swift */; };
 		E5F1551B2F83681E00116091 /* TodoTaskDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */; };
 		E5F1551C2F83681E00116091 /* TodoTaskLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */; };
 		E5F1551D2F83681E00116091 /* TodoTaskCheckTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */; };
@@ -5130,6 +5135,11 @@
 		E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayComparisonContentView.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusTodayComparisonContentInteractor.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B004 /* WSFocusTodayComparisonDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusTodayComparisonDataItem.swift; sourceTree = "<group>"; };
+		E5F10001309000000000C001 /* WSFocusSmallWeekActivityPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallWeekActivityPluginProvider.swift; sourceTree = "<group>"; };
+		E5F10001309000000000C002 /* WSFocusSmallWeekActivityContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallWeekActivityContentView.swift; sourceTree = "<group>"; };
+		E5F10001309000000000C003 /* WSFocusWeekActivityContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusWeekActivityContentInteractor.swift; sourceTree = "<group>"; };
+		E5F10001309000000000C004 /* WSFocusWeekActivityDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusWeekActivityDataItem.swift; sourceTree = "<group>"; };
+		E5F10001309000000000C005 /* WSFocusWeekActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusWeekActivityView.swift; sourceTree = "<group>"; };
 		E5F1550B2F83681D00116091 /* TodoTaskDetailProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskDetailProvider.swift; sourceTree = "<group>"; };
 		E5F1550C2F83681D00116091 /* TodoTaskLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskLayoutManager.swift; sourceTree = "<group>"; };
 		E5F1550E2F83681D00116091 /* TodoTaskCheckTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTaskCheckTableCell.swift; sourceTree = "<group>"; };
@@ -13542,6 +13552,11 @@
 		E5F002A9308E46DE00D70600 /* WeekActivity */ = {
 			isa = PBXGroup;
 			children = (
+				E5F10001309000000000C001 /* WSFocusSmallWeekActivityPluginProvider.swift */,
+				E5F10001309000000000C002 /* WSFocusSmallWeekActivityContentView.swift */,
+				E5F10001309000000000C003 /* WSFocusWeekActivityContentInteractor.swift */,
+				E5F10001309000000000C004 /* WSFocusWeekActivityDataItem.swift */,
+				E5F10001309000000000C005 /* WSFocusWeekActivityView.swift */,
 			);
 			path = WeekActivity;
 			sourceTree = "<group>";
@@ -16320,6 +16335,11 @@
 				E5F10002309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift in Sources */,
 				E5F10002309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift in Sources */,
 				E5F10002309000000000B004 /* WSFocusTodayComparisonDataItem.swift in Sources */,
+				E5F10002309000000000C001 /* WSFocusSmallWeekActivityPluginProvider.swift in Sources */,
+				E5F10002309000000000C002 /* WSFocusSmallWeekActivityContentView.swift in Sources */,
+				E5F10002309000000000C003 /* WSFocusWeekActivityContentInteractor.swift in Sources */,
+				E5F10002309000000000C004 /* WSFocusWeekActivityDataItem.swift in Sources */,
+				E5F10002309000000000C005 /* WSFocusWeekActivityView.swift in Sources */,
 				E515019C2D4787D5008B2333 /* TPBaseTableCell.swift in Sources */,
 				E5087EAE3042884500DCD85C /* GanttState.swift in Sources */,
 				E5BB9F162D3BF0C90089667A /* CoreGraphicsFunctions.swift in Sources */,

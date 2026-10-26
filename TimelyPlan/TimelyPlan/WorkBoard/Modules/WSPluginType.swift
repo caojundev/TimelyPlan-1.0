@@ -42,6 +42,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 专注·小·今日对比：展示今日时长、与昨日的增减以及昨日时长。
     case focusSmallTodayComparison
     
+    /// 专注·小·本周活动：展示本周专注时长与每天的活动分布。
+    case focusSmallWeekActivity
+    
     /// 专注·中·用户计时器（列表）：纵向展示用户自选的计时器。
     case focusMediumUserTimerList
     
@@ -67,7 +70,7 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
-             .focusSmallTodayComparison:
+             .focusSmallTodayComparison, .focusSmallWeekActivity:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer:
@@ -88,7 +91,7 @@ public extension WSPluginType {
         case .focusSmallUserTimer, .focusMediumUserTimerList, .focusMediumUserTimerGrid,
              .focusLargeUserTimerList, .focusLargeUserTimerGrid,
              .focusSmallSystemTimer, .focusMediumSystemTimer, .focusSmallTodayActivity,
-             .focusSmallTodayComparison:
+             .focusSmallTodayComparison, .focusSmallWeekActivity:
             return .focus
         }
     }
@@ -169,6 +172,7 @@ enum WSPluginCatalog {
         .init(WSFocusMediumSystemTimerPluginProvider(), title: "Default Timer", subtitle: "Shows the default timers in columns"),
         .init(WSFocusSmallTodayActivityPluginProvider(), title: "Today's Focus", subtitle: "Shows today's focus duration and hourly activity"),
         .init(WSFocusSmallTodayComparisonPluginProvider(), title: "Focus Comparison", subtitle: "Compares today's focus time with yesterday"),
+        .init(WSFocusSmallWeekActivityPluginProvider(), title: "Week's Focus", subtitle: "Shows this week's focus duration and daily activity"),
     ]
 
     /// 按类型取回组件配置

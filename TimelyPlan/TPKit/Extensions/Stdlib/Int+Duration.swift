@@ -78,7 +78,7 @@ extension Duration {
     
     func attributedTitle(symbolFont: UIFont = BOLD_SMALL_SYSTEM_FONT,
                          symbolColor: UIColor? = nil) -> ASAttributedString {
-        let symbolColor = symbolColor ?? Color(light: 0x19225B, dark: 0xC0E3F4, alpha: 0.6)
+        let symbolColor = symbolColor ?? Color(light: 0x000000, dark: 0xFFFFFF, alpha: 0.6)
         let h = hour
         let m = minute
         let hourString: ASAttributedString = "\(h)\(resGetString("H"), .font(symbolFont), .foreground(symbolColor))"

@@ -53,6 +53,8 @@
 "Focus Comparison" = "专注对比";
 "Compares today's focus time with yesterday" = "对比今日与昨日的专注时长";
 "Yesterday's Focus" = "昨天专注";
+"Week's Focus" = "本周专注";
+"Shows this week's focus duration and daily activity" = "展示本周专注时长与每天的活动";
 "Timer Options" = "计时器选项";
 "Deep Work" = "深度工作";
 "Reading" = "阅读";
