@@ -59,6 +59,10 @@
 "Shows this month's focus heatmap" = "展示本月专注热力图";
 "Habits" = "习惯";
 "Shows today's habits and progress" = "展示今日习惯与完成进度";
+"Selected Habit" = "自选习惯";
+"Shows the selected habit" = "展示选中的习惯";
+"Select Habit" = "选择习惯";
+"No Habit Selected" = "未选择习惯";
 "Shows today's habits in a list" = "以列表展示今日习惯";
 "Shows today's habits in a grid" = "以网格展示今日习惯";
 "Timer Options" = "计时器选项";

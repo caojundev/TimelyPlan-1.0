@@ -64,6 +64,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     case focusSmallMonthHeatMap
     
     // MARK: 习惯
+    /// 习惯·小·自选：展示用户选择的一个习惯任务。
+    case habitSmallSelected
+    
     /// 习惯·小·任务：逐行展示今日排期的习惯任务。
     case habitSmallTasks
     
@@ -91,7 +94,7 @@ public extension WSPluginType {
         case .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
-             .habitSmallTasks:
+             .habitSmallSelected, .habitSmallTasks:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
@@ -115,7 +118,7 @@ public extension WSPluginType {
              .focusSmallSystemTimer, .focusMediumSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap:
             return .focus
-        case .habitSmallTasks, .habitMediumTasksList, .habitMediumTasksGrid,
+        case .habitSmallSelected, .habitSmallTasks, .habitMediumTasksList, .habitMediumTasksGrid,
              .habitLargeTasksList, .habitLargeTasksGrid:
             return .habit
         }
@@ -201,6 +204,7 @@ enum WSPluginCatalog {
         .init(WSFocusSmallMonthHeatMapPluginProvider(), title: "Month Heatmap", subtitle: "Shows this month's focus heatmap"),
         
         // 习惯
+        .init(WSHabitSmallSelectedPluginProvider(), title: "Selected Habit", subtitle: "Shows the selected habit"),
         .init(WSHabitSmallTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits and progress"),
         .init(WSHabitMediumTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a list"),
         .init(WSHabitMediumTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),

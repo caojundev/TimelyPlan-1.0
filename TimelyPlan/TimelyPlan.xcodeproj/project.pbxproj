@@ -2496,6 +2496,10 @@
 		E5F0D0A1268A0000D000A006 /* WSHabitTaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A005 /* WSHabitTaskRowView.swift */; };
 		E5F0D0A1268A0000D000A008 /* WSHabitTaskListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A007 /* WSHabitTaskListContentView.swift */; };
 		E5F0D0A1268A0000D000A00A /* WSHabitSmallTasksListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A009 /* WSHabitSmallTasksListPluginProvider.swift */; };
+		E5F0D0A1268A0000D000A026 /* WSHabitTaskIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A025 /* WSHabitTaskIconView.swift */; };
+		E5F0D0A1268A0000D000A028 /* WSHabitSmallSelectedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A027 /* WSHabitSmallSelectedContentView.swift */; };
+		E5F0D0A1268A0000D000A02A /* WSHabitSmallSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A029 /* WSHabitSmallSelectedConfigViewController.swift */; };
+		E5F0D0A1268A0000D000A02C /* WSHabitSmallSelectedPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A02B /* WSHabitSmallSelectedPluginProvider.swift */; };
 		E5F0D0A1268A0000D000A012 /* WSHabitTasksPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A011 /* WSHabitTasksPluginProvider.swift */; };
 		E5F0D0A1268A0000D000A014 /* WSHabitTaskGridContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A013 /* WSHabitTaskGridContentView.swift */; };
 		E5F0D0A1268A0000D000A016 /* WSHabitMediumTasksListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A015 /* WSHabitMediumTasksListPluginProvider.swift */; };
@@ -5154,6 +5158,10 @@
 		E5F0D0A1268A0000D000A005 /* WSHabitTaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTaskRowView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A007 /* WSHabitTaskListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTaskListContentView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A009 /* WSHabitSmallTasksListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallTasksListPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A025 /* WSHabitTaskIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTaskIconView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A027 /* WSHabitSmallSelectedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallSelectedContentView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A029 /* WSHabitSmallSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallSelectedConfigViewController.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A02B /* WSHabitSmallSelectedPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallSelectedPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A011 /* WSHabitTasksPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTasksPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A013 /* WSHabitTaskGridContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTaskGridContentView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A015 /* WSHabitMediumTasksListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMediumTasksListPluginProvider.swift; sourceTree = "<group>"; };
@@ -6786,6 +6794,9 @@
 		E5261148308F9956002428BB /* Selected */ = {
 			isa = PBXGroup;
 			children = (
+				E5F0D0A1268A0000D000A02B /* WSHabitSmallSelectedPluginProvider.swift */,
+				E5F0D0A1268A0000D000A027 /* WSHabitSmallSelectedContentView.swift */,
+				E5F0D0A1268A0000D000A029 /* WSHabitSmallSelectedConfigViewController.swift */,
 			);
 			path = Selected;
 			sourceTree = "<group>";
@@ -13742,6 +13753,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F0D0A1268A0000D000A005 /* WSHabitTaskRowView.swift */,
+				E5F0D0A1268A0000D000A025 /* WSHabitTaskIconView.swift */,
 			);
 			path = Row;
 			sourceTree = "<group>";
@@ -16591,6 +16603,10 @@
 				E5F0D0A1268A0000D000A006 /* WSHabitTaskRowView.swift in Sources */,
 				E5F0D0A1268A0000D000A008 /* WSHabitTaskListContentView.swift in Sources */,
 				E5F0D0A1268A0000D000A00A /* WSHabitSmallTasksListPluginProvider.swift in Sources */,
+				E5F0D0A1268A0000D000A026 /* WSHabitTaskIconView.swift in Sources */,
+				E5F0D0A1268A0000D000A028 /* WSHabitSmallSelectedContentView.swift in Sources */,
+				E5F0D0A1268A0000D000A02A /* WSHabitSmallSelectedConfigViewController.swift in Sources */,
+				E5F0D0A1268A0000D000A02C /* WSHabitSmallSelectedPluginProvider.swift in Sources */,
 				E5F0D0A1268A0000D000A012 /* WSHabitTasksPluginProvider.swift in Sources */,
 				E5F0D0A1268A0000D000A014 /* WSHabitTaskGridContentView.swift in Sources */,
 				E5F0D0A1268A0000D000A016 /* WSHabitMediumTasksListPluginProvider.swift in Sources */,
