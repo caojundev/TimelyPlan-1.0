@@ -30,22 +30,15 @@ public enum WSPluginType: String, Codable, CaseIterable {
     case countdownLargeEventsGrid
     
     // MARK: 专注
-    /// 专注·小·用户计时器：展示用户自选的计时器。
-    case focusSmallUserTimer
-    
     /// 专注·小·默认计时器：展示默认的系统计时器。
     case focusSmallSystemTimer
     
-    /// 专注·小·今日活动：展示今日专注时长与每小时活动分布。
-    case focusSmallTodayActivity
+    /// 专注·中·默认计时器：以三列展示默认的系统计时器。
+    case focusMediumSystemTimer
     
-    /// 专注·小·今日对比：展示今日时长、与昨日的增减以及昨日时长。
-    case focusSmallTodayComparison
+    /// 专注·小·用户计时器：展示用户自选的计时器。
+    case focusSmallUserTimer
     
-    /// 专注·小·本周活动：展示本周专注时长与每天的活动分布。
-    case focusSmallWeekActivity
-    
-
     /// 专注·中·用户计时器（列表）：纵向展示用户自选的计时器。
     case focusMediumUserTimerList
     
@@ -58,9 +51,15 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 专注·大·用户计时器（网格）：以两列网格展示用户自选的计时器。
     case focusLargeUserTimerGrid
     
-    /// 专注·中·默认计时器：以三列展示默认的系统计时器。
-    case focusMediumSystemTimer
+    /// 专注·小·今日活动：展示今日专注时长与每小时活动分布。
+    case focusSmallTodayActivity
     
+    /// 专注·小·今日对比：展示今日时长、与昨日的增减以及昨日时长。
+    case focusSmallTodayComparison
+    
+    /// 专注·小·本周活动：展示本周专注时长与每天的活动分布。
+    case focusSmallWeekActivity
+
     /// 专注·小·本月热力图：展示本月专注时长与每天的热力分布。
     case focusSmallMonthHeatMap
     

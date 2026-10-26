@@ -56,7 +56,7 @@ class WSCountdownEventsCardContentView: WSCountdownEventsContentView {
     init(itemCount: Int,
          columnCount: Int,
          cardStyle: WSCountdownEventsCardStyle = WSCountdownEventsCardStyle(),
-         makeRowView: () -> WSCountdownEventRowBaseView = { WSCountdownCompactEventRowView() }) {
+         makeRowView: @escaping () -> WSCountdownEventRowBaseView = { WSCountdownCompactEventRowView() }) {
         super.init(itemCount: itemCount,
                    columnCount: columnCount,
                    contentInsets: WSCountdownEventsCardContentView.contentInsets,

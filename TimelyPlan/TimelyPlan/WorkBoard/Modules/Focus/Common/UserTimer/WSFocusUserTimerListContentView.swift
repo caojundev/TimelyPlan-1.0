@@ -12,9 +12,9 @@ import UIKit
 
 /// 用户计时器列表内容视图，各尺寸共用。
 ///
-/// 纵向排列若干用户计时器行，条数与交互器最多展示的数目保持一致；
+/// 单列纵向排列若干用户计时器行，条数与交互器最多展示的数目保持一致；
 /// 空缺行展示骨架，保持与真实展示一致的排布。
-class WSFocusUserTimerListContentView: WSPluginContentView {
+class WSFocusUserTimerListContentView: WSRowListView {
     
     /// 布局尺寸
     private enum Metrics {
@@ -26,50 +26,35 @@ class WSFocusUserTimerListContentView: WSPluginContentView {
         static let rowSpacing: CGFloat = 0.0
     }
     
-    /// 行视图，数量与展示条数一致
-    private let rowViews: [WSFocusUserTimerRowView]
-    
     // MARK: - 初始化
     init(itemCount: Int) {
-        self.rowViews = (0..<max(itemCount, 0)).map { _ in WSFocusUserTimerRowView() }
         super.init(frame: .zero)
         
         self.padding = Metrics.padding
-        
-        for rowView in rowViews {
-            rowView.normalBackColor = .clear
-            rowView.highlightedBackColor = .clear
-            rowView.didClickStartHandler = { [weak self] dataItem in
-                self?.startFocus(with: dataItem.timerIdentifier)
-            }
-            
-            addSubview(rowView)
-        }
+        self.columnCount = 1
+        self.rowCount = max(itemCount, 0)
+        self.rowSpacing = Metrics.rowSpacing
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - 布局
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let contentFrame = layoutFrame()
-        guard rowViews.count > 0 else {
+    // MARK: - 行视图
+    override func makeRowView(at index: Int) -> WSRowView {
+        return WSFocusUserTimerRowView()
+    }
+    
+    override func didAddRowView(_ rowView: WSRowView, at index: Int) {
+        guard let rowView = rowView as? WSFocusUserTimerRowView else {
             return
         }
         
-        /// 行等分可用高度
-        let totalSpacing = Metrics.rowSpacing * CGFloat(rowViews.count - 1)
-        let rowHeight = max((contentFrame.height - totalSpacing) / CGFloat(rowViews.count), 0.0)
-        
-        var top = contentFrame.minY
-        for rowView in rowViews {
-            rowView.size = CGSize(width: contentFrame.width, height: rowHeight)
-            rowView.left = contentFrame.minX
-            rowView.top = top
-            top = rowView.bottom + Metrics.rowSpacing
+        /// 列表不展示卡片底色，行内只有开始按钮响应点击
+        rowView.normalBackColor = .clear
+        rowView.highlightedBackColor = .clear
+        rowView.didClickStartHandler = { [weak self] dataItem in
+            self?.startFocus(with: dataItem.timerIdentifier)
         }
     }
     
@@ -85,9 +70,7 @@ class WSFocusUserTimerListContentView: WSPluginContentView {
         
         let items = (dataItem as? WSFocusUserTimersDataItem)?.items ?? []
         for (index, rowView) in rowViews.enumerated() {
-            rowView.update(with: items[safe: index])
+            (rowView as? WSFocusUserTimerRowView)?.update(with: items[safe: index])
         }
-        
-        setNeedsLayout()
     }
 }

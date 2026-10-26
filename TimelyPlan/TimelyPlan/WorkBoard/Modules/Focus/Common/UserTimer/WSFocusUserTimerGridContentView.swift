@@ -13,7 +13,7 @@ import UIKit
 /// 用户计时器网格内容视图，各尺寸共用。
 ///
 /// 按列数等分排列行视图，空缺位置展示骨架；行视图自带卡片底色与圆角。
-class WSFocusUserTimerGridContentView: WSPluginContentView {
+class WSFocusUserTimerGridContentView: WSRowListView {
     
     /// 布局尺寸
     private enum Metrics {
@@ -25,60 +25,39 @@ class WSFocusUserTimerGridContentView: WSPluginContentView {
         static let spacing: CGFloat = 8.0
     }
     
-    /// 每行卡片数
-    private let columnCount: Int
-    
-    /// 行视图，数量与展示条数一致
-    private let rowViews: [WSFocusUserTimerRowView]
-    
     // MARK: - 初始化
     /// 初始化内容视图
     /// - Parameters:
     ///   - itemCount: 卡片数量，与交互器最多展示的计时器数目保持一致
     ///   - columnCount: 每行卡片数
     init(itemCount: Int, columnCount: Int) {
-        self.columnCount = max(columnCount, 1)
-        self.rowViews = (0..<max(itemCount, 0)).map { _ in WSFocusUserTimerRowView() }
         super.init(frame: .zero)
         
+        /// 列数不超过条数，避免出现空列
+        let columns = min(max(columnCount, 1), max(itemCount, 1))
         self.padding = Metrics.padding
-        
-        for rowView in rowViews {
-            rowView.didClickStartHandler = { [weak self] dataItem in
-                self?.startFocus(with: dataItem.timerIdentifier)
-            }
-            
-            addSubview(rowView)
-        }
+        self.columnCount = columns
+        self.rowCount = itemCount > 0 ? Int(ceil(Double(itemCount) / Double(columns))) : 0
+        self.rowSpacing = Metrics.spacing
+        self.columnSpacing = Metrics.spacing
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - 布局
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let contentFrame = layoutFrame()
-        guard rowViews.count > 0 else {
+    // MARK: - 行视图
+    override func makeRowView(at index: Int) -> WSRowView {
+        return WSFocusUserTimerRowView()
+    }
+    
+    override func didAddRowView(_ rowView: WSRowView, at index: Int) {
+        guard let rowView = rowView as? WSFocusUserTimerRowView else {
             return
         }
         
-        /// 卡片按列数等分可用区域
-        let rowCount = Int(ceil(Double(rowViews.count) / Double(columnCount)))
-        let totalColumnSpacing = Metrics.spacing * CGFloat(columnCount - 1)
-        let totalRowSpacing = Metrics.spacing * CGFloat(max(rowCount - 1, 0))
-        let cardWidth = max((contentFrame.width - totalColumnSpacing) / CGFloat(columnCount), 0.0)
-        let cardHeight = max((contentFrame.height - totalRowSpacing) / CGFloat(rowCount), 0.0)
-        
-        for (index, rowView) in rowViews.enumerated() {
-            let column = index % columnCount
-            let row = index / columnCount
-            
-            rowView.size = CGSize(width: cardWidth, height: cardHeight)
-            rowView.left = contentFrame.minX + CGFloat(column) * (cardWidth + Metrics.spacing)
-            rowView.top = contentFrame.minY + CGFloat(row) * (cardHeight + Metrics.spacing)
+        rowView.didClickStartHandler = { [weak self] dataItem in
+            self?.startFocus(with: dataItem.timerIdentifier)
         }
     }
     
@@ -94,10 +73,7 @@ class WSFocusUserTimerGridContentView: WSPluginContentView {
         
         let items = (dataItem as? WSFocusUserTimersDataItem)?.items ?? []
         for (index, rowView) in rowViews.enumerated() {
-            /// 空缺位置展示骨架，保持与真实展示一致的排布
-            rowView.update(with: items[safe: index])
+            (rowView as? WSFocusUserTimerRowView)?.update(with: items[safe: index])
         }
-        
-        setNeedsLayout()
     }
 }
