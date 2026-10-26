@@ -41,17 +41,25 @@ public final class WSPluginRegistry {
         return providers[type]
     }
 
-    /// 全部已注册的提供者，按模块顺序、尺寸由小到大排列。
+    /// 全部已注册的提供者，按 `WSPluginType` 中的声明顺序排列。
     var allProviders: [WSPluginProvider] {
         lock.lock()
         defer { lock.unlock() }
         return providers.values.sorted { lhs, rhs in
-            let lhsModule = WSPluginModule.allCases.firstIndex(of: lhs.type.module) ?? 0
-            let rhsModule = WSPluginModule.allCases.firstIndex(of: rhs.type.module) ?? 0
-            if lhsModule != rhsModule { return lhsModule < rhsModule }
-            return lhs.type.size.order < rhs.type.size.order
+            let lhsIndex = Self.typeOrder[lhs.type] ?? 0
+            let rhsIndex = Self.typeOrder[rhs.type] ?? 0
+            return lhsIndex < rhsIndex
         }
     }
+
+    /// 组件类型的声明顺序，用于稳定排序
+    private static let typeOrder: [WSPluginType: Int] = {
+        var result = [WSPluginType: Int]()
+        for (index, type) in WSPluginType.allCases.enumerated() {
+            result[type] = index
+        }
+        return result
+    }()
 
     /// 按模块分组后的提供者，供组件选择器分 section 展示。
     /// 仅返回已注册组件的模块。

@@ -40,10 +40,8 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         return title
     }
 
-    /// 该模块下的全部组件类型，按尺寸由小到大排列。
+    /// 该模块下的全部组件类型，按 `WSPluginType` 中的声明顺序排列。
     var types: [WSPluginType] {
-        WSPluginType.allCases
-            .filter { $0.module == self }
-            .sorted { $0.size.order < $1.size.order }
+        return WSPluginType.allCases.filter { $0.module == self }
     }
 }

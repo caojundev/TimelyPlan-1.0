@@ -19,19 +19,19 @@ class WSFocusSmallWeekActivityContentView: WSPluginContentView {
     private enum Metrics {
         
         /// 内容与组件边缘的间距
-        static let padding = UIEdgeInsets(value: 16.0)
+        static let padding = UIEdgeInsets(value: 12.0)
         
-        /// 活动视图的最大高度
-        static let maximumActivityHeight: CGFloat = 46.0
+        /// 活动视图的最大高度，含底部的星期符号
+        static let maximumActivityHeight: CGFloat = 64.0
         
         /// 日期字体
         static let dateFont = UIFont.boldSystemFont(ofSize: 13.0)
         
         /// 时长字体
-        static let titleFont = UIFont.boldSystemFont(ofSize: 30.0)
+        static let titleFont = UIFont.boldSystemFont(ofSize: 24.0)
         
         /// 时长单位字体
-        static let titleUnitFont = UIFont.boldSystemFont(ofSize: 14.0)
+        static let titleUnitFont = UIFont.boldSystemFont(ofSize: 13.0)
         
         /// 次数字体
         static let subtitleFont = UIFont.boldSystemFont(ofSize: 13.0)
@@ -106,6 +106,7 @@ class WSFocusSmallWeekActivityContentView: WSPluginContentView {
             infoView.title = nil
             infoView.subtitle = nil
             activityView.dailyActivity = nil
+            activityView.startDate = nil
             setNeedsLayout()
             return
         }
@@ -120,6 +121,7 @@ class WSFocusSmallWeekActivityContentView: WSPluginContentView {
             infoView.subtitle = "--"
         }
         
+        activityView.startDate = dataItem.startDate
         activityView.dailyActivity = dataItem.dailyActivity
         
         setNeedsLayout()

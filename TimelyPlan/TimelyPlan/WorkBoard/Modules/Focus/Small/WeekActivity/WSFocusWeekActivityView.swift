@@ -10,7 +10,7 @@ import UIKit
 
 /// 一周活动视图。
 ///
-/// 按天展示 7 根圆角柱条，柱条高度由当天的活动进度决定；
+/// 按天展示 7 根圆角柱条，柱条下方展示对应的星期符号；
 /// 背景柱条保持满高，用于提示没有活动的日期。
 class WSFocusWeekActivityView: UIView {
     
@@ -18,6 +18,13 @@ class WSFocusWeekActivityView: UIView {
     var dailyActivity: [Float]? {
         didSet {
             setNeedsLayout()
+        }
+    }
+    
+    /// 本周第一天，用于推算每根柱条对应的星期符号
+    var startDate: Date? {
+        didSet {
+            setNeedsDisplay()
         }
     }
     
@@ -42,6 +49,29 @@ class WSFocusWeekActivityView: UIView {
         }
     }
     
+    /// 星期符号字体
+    var labelFont: UIFont = .systemFont(ofSize: 10.0) {
+        didSet {
+            setNeedsLayout()
+            setNeedsDisplay()
+        }
+    }
+    
+    /// 星期符号颜色
+    var labelColor: UIColor = .secondaryLabel {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    /// 柱条与星期符号的间距
+    var labelSpacing: CGFloat = 4.0 {
+        didSet {
+            setNeedsLayout()
+            setNeedsDisplay()
+        }
+    }
+    
     /// 单根柱条的最小宽度
     var minimumBarWidth: CGFloat = 8.0
     
@@ -61,6 +91,10 @@ class WSFocusWeekActivityView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .clear
+        self.isOpaque = false
+        self.contentMode = .redraw
+        
         layer.addSublayer(backLayer)
         layer.addSublayer(activityLayer)
     }
@@ -72,15 +106,60 @@ class WSFocusWeekActivityView: UIView {
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         let width = minimumBarWidth * CGFloat(DAYS_PER_WEEK)
             + barSpacing * CGFloat(DAYS_PER_WEEK - 1)
-        return CGSize(width: width + padding.horizontalLength, height: 60.0)
+        let height = 60.0 + labelSpacing + ceil(labelFont.lineHeight)
+        return CGSize(width: width + padding.horizontalLength, height: height)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        backLayer.frame = layoutFrame()
+        backLayer.fillColor = trackColor.cgColor
+        backLayer.frame = barFrame()
+        activityLayer.fillColor = progressColor.cgColor
         activityLayer.frame = backLayer.frame
         updateBackLayer()
         updateActivityLayer()
+        setNeedsDisplay()
+    }
+    
+    override func draw(_ rect: CGRect) {
+        guard let startDate = startDate else {
+            return
+        }
+        
+        let barsFrame = barFrame()
+        let barWidth = barWidth(in: barsFrame.width)
+        guard barWidth > 0.0 else {
+            return
+        }
+        
+        let labelHeight = ceil(labelFont.lineHeight)
+        let labelTop = barsFrame.maxY + labelSpacing
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: labelFont,
+            .foregroundColor: labelColor
+        ]
+        
+        for index in 0..<DAYS_PER_WEEK {
+            guard let date = startDate.dateByAddingDays(index) else {
+                continue
+            }
+            
+            let title = date.veryShortWeekdaySymbol() as NSString
+            let titleSize = title.size(withAttributes: attributes)
+            let centerX = barsFrame.minX + originX(for: index, barWidth: barWidth) + barWidth / 2.0
+            let titleRect = CGRect(x: centerX - titleSize.width / 2.0,
+                                   y: labelTop + (labelHeight - titleSize.height) / 2.0,
+                                   width: titleSize.width,
+                                   height: titleSize.height)
+            title.draw(in: titleRect, withAttributes: attributes)
+        }
+    }
+    
+    /// 柱条区域，底部预留星期符号的高度
+    private func barFrame() -> CGRect {
+        var frame = layoutFrame()
+        frame.size.height = max(frame.height - labelSpacing - ceil(labelFont.lineHeight), 0.0)
+        return frame
     }
     
     private func updateBackLayer() {

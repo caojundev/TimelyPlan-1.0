@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - 组件提供者
 
-/// 专注·大·用户计时器（网格）。以两列四行的网格展示用户自选的八个计时器。
+/// 专注·大·用户计时器（网格）。以两列六行的网格展示用户自选的十二个计时器。
 class WSFocusLargeUserTimerGridPluginProvider: WSFocusUserTimersPluginProvider {
     
     private enum Metrics {

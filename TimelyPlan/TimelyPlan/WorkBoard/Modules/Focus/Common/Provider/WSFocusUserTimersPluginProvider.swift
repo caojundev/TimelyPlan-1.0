@@ -26,7 +26,7 @@ enum WSFocusUserTimerItemCount {
     static let largeList = 6
     
     /// 大号网格组件的展示条数
-    static let largeGrid = 8
+    static let largeGrid = 12
 }
 
 // MARK: - 组件提供者基类

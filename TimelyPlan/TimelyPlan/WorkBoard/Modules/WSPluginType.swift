@@ -45,6 +45,7 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 专注·小·本周活动：展示本周专注时长与每天的活动分布。
     case focusSmallWeekActivity
     
+
     /// 专注·中·用户计时器（列表）：纵向展示用户自选的计时器。
     case focusMediumUserTimerList
     
@@ -59,6 +60,10 @@ public enum WSPluginType: String, Codable, CaseIterable {
     
     /// 专注·中·默认计时器：以三列展示默认的系统计时器。
     case focusMediumSystemTimer
+    
+    /// 专注·小·本月热力图：展示本月专注时长与每天的热力分布。
+    case focusSmallMonthHeatMap
+    
 }
 
 // MARK: - 固有属性
@@ -70,7 +75,7 @@ public extension WSPluginType {
         switch self {
         case .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
-             .focusSmallTodayComparison, .focusSmallWeekActivity:
+             .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer:
@@ -91,7 +96,7 @@ public extension WSPluginType {
         case .focusSmallUserTimer, .focusMediumUserTimerList, .focusMediumUserTimerGrid,
              .focusLargeUserTimerList, .focusLargeUserTimerGrid,
              .focusSmallSystemTimer, .focusMediumSystemTimer, .focusSmallTodayActivity,
-             .focusSmallTodayComparison, .focusSmallWeekActivity:
+             .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap:
             return .focus
         }
     }
@@ -173,6 +178,7 @@ enum WSPluginCatalog {
         .init(WSFocusSmallTodayActivityPluginProvider(), title: "Today's Focus", subtitle: "Shows today's focus duration and hourly activity"),
         .init(WSFocusSmallTodayComparisonPluginProvider(), title: "Focus Comparison", subtitle: "Compares today's focus time with yesterday"),
         .init(WSFocusSmallWeekActivityPluginProvider(), title: "Week's Focus", subtitle: "Shows this week's focus duration and daily activity"),
+        .init(WSFocusSmallMonthHeatMapPluginProvider(), title: "Month Heatmap", subtitle: "Shows this month's focus heatmap"),
     ]
 
     /// 按类型取回组件配置

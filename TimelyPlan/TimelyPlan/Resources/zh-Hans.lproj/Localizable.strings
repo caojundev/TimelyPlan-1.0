@@ -55,6 +55,8 @@
 "Yesterday's Focus" = "昨天专注";
 "Week's Focus" = "本周专注";
 "Shows this week's focus duration and daily activity" = "展示本周专注时长与每天的活动";
+"Month Heatmap" = "本月热力图";
+"Shows this month's focus heatmap" = "展示本月专注热力图";
 "Timer Options" = "计时器选项";
 "Deep Work" = "深度工作";
 "Reading" = "阅读";
@@ -64,6 +66,10 @@
 "Coffee Break" = "咖啡休息";
 "Warm Up" = "热身";
 "Free Focus" = "自由专注";
+"Writing" = "写作";
+"Planning" = "规划";
+"Review" = "复盘";
+"Coding" = "编码";
 
 "My Dashboard" = "我的面板";
 "Dashboard" = "面板";
