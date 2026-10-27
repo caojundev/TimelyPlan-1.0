@@ -234,4 +234,12 @@ class HabitTask: NSObject, SortableIdentifiable {
                                      startDate: startDate,
                                      endDate: endDate)
     }
+    
+    /// 判断某特定日期是否为计划日
+    func isScheduled(on date: Date) -> Bool {
+        let scheduler = TaskTimePlanRegularScheduler()
+        return scheduler.isScheduledDate(date,
+                                         timePlan: timePlan,
+                                         dateRange: dateRange)
+    }
 }

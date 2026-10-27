@@ -31,12 +31,12 @@ class WSHabitSmallSelectedContentView: WSPluginContentView {
         static let contentSpacing: CGFloat = 4.0
         
         /// 图标边长占图标区域短边的比例及范围
-        static let iconSideRatio: CGFloat = 0.84
+        static let iconSideRatio: CGFloat = 0.8
         static let iconMinSide: CGFloat = 36.0
-        static let iconMaxSide: CGFloat = 78.0
+        static let iconMaxSide: CGFloat = 72.0
         
         /// 进度圆环线宽占图标边长的比例及最小值
-        static let progressLineWidthRatio: CGFloat = 0.09
+        static let progressLineWidthRatio: CGFloat = 0.1
         static let progressLineMinWidth: CGFloat = 3.0
     }
     

@@ -60,10 +60,16 @@ class HabitDayInfoMenuViewController: HabitDaySheetMenuViewController {
         infoView.iconView.icon = task.icon
         infoView.iconView.font = .boldSystemFont(ofSize: 24.0)
         infoView.titleView.title = task.displayName
-        let subtitle = detailProvider.detail(for: periodItem,
-                                                on: date,
-                                                color: .secondaryLabel)
-        infoView.titleView.subtitle = subtitle
+        
+        
+        if let subtitle = HabitTaskDetailProvider.notScheduledInfo(for: task, on: date) {
+            infoView.titleView.subtitle = subtitle
+        } else {
+            let subtitle = detailProvider.detail(for: periodItem,
+                                                    on: date,
+                                                    color: .secondaryLabel)
+            infoView.titleView.subtitle = subtitle
+        }
         
         let status = periodItem.status(on: date)
         infoView.statusView.setStatus(status)

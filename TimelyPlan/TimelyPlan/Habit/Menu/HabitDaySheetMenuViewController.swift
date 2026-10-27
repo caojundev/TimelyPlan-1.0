@@ -55,23 +55,31 @@ class HabitDaySheetMenuViewController: TPSheetMenuViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var actions = [doneAction]
-        if !date.isFutureDay {
-            if status == .notStarted || status == .inProgress {
-                if task.goal.mode == .amount, task.goal.recordType == .automatically {
-                    actions = [recordAction, doneAction]
-                }
-            }
-        }
-
         actionsBarHeight = 80.0
-        setupActionsBar(actions: actions)
+        setupBarActions()
         actionsBar?.backgroundColor = themeBackgroundColor
         actionsBar?.padding = UIEdgeInsets(top: 10.0,
                                            left: 20.0,
                                            bottom: 15.0,
                                            right: 20.0)
         
+    }
+    
+    private func setupBarActions() {
+        var actions = [doneAction]
+        guard task.isScheduled(on: date), !date.isFutureDay else {
+            setupActionsBar(actions: actions)
+            return
+        }
+        
+        
+        if status == .notStarted || status == .inProgress {
+            if task.goal.mode == .amount, task.goal.recordType == .automatically {
+                actions = [recordAction, doneAction]
+            }
+        }
+        
+        setupActionsBar(actions: actions)
     }
     
     private func clickRecord() {

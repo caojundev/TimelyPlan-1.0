@@ -44,7 +44,7 @@ class HabitDayInfoMenuController: HabitHomeDayMenuController {
                       .editLog]
         return allowTypes
     }
-    
+
     private func menuViewController() -> HabitDayInfoMenuViewController? {
         let menuItems = menuItems()
         guard menuItems.count > 0 else {

@@ -44,6 +44,10 @@ class HabitHomeDayMenuController: HabitTaskBaseMenuController {
         return actionTypes
     }
     
+    override func isScheduledDay() -> Bool {
+        return task.isScheduled(on: date)
+    }
+    
     override func isAddedToMyDay() -> Bool {
         return task.isAddedToMyDay
     }

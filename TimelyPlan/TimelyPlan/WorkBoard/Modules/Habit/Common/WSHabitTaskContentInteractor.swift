@@ -28,48 +28,6 @@ class WSHabitTaskContentInteractor: WSPluginContentInteractor,
         HabitRepository.addUpdater(self, for: .all)
     }
     
-    // MARK: - HabitTaskProcessorDelegate
-    /// 习惯任务数据发生变化，重新取数并通知内容视图刷新
-    func didChangeRemoteHabitTask(with results: EntityChangeResults<HabitTask>?) {
-        pluginDataDidChange()
-    }
-    
-    func didCreateHabitTask(_ task: HabitTask) {
-        pluginDataDidChange()
-    }
-    
-    func didUpdateHabitTask(_ task: HabitTask, with editingTask: HabitEditingTask) {
-        pluginDataDidChange()
-    }
-    
-    func didDeleteHabitTask(_ task: HabitTask) {
-        pluginDataDidChange()
-    }
-    
-    func didChangeArchivedState(for task: HabitTask) {
-        pluginDataDidChange()
-    }
-    
-    func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
-        pluginDataDidChange()
-    }
-    
-    // MARK: - HabitRecordProcessorDelegate
-    func didChangeRemoteHabitRecord(with results: EntityChangeResults<HabitRecord>?) {
-        pluginDataDidChange()
-    }
-    
-    func didUpdateHabitRecord(_ record: HabitRecord,
-                              for task: HabitTask,
-                              on date: Date,
-                              with change: HabitRecordChange) {
-        pluginDataDidChange()
-    }
-    
-    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
-        pluginDataDidChange()
-    }
-    
     // MARK: - 取数
     /// 读取今日排期的习惯任务，未完成的优先，取前若干个
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
@@ -90,6 +48,43 @@ class WSHabitTaskContentInteractor: WSPluginContentInteractor,
             let items = periodItems.prefix(self.maximumItemCount).map { WSHabitTaskDataItem(periodItem: $0) }
             completion(WSHabitTasksDataItem(items: items))
         }
+    }
+    
+    // MARK: - 主操作
+    /// 点击习惯任务：打开该习惯动作菜单
+    override func performAction(with dataItem: WSPluginDataItem) {
+        guard let dataItem = dataItem as? WSHabitTaskDataItem,
+              let task = HabitRepository.getTask(with: dataItem.taskIdentifier) else {
+            return
+        }
+        
+        let date = dataItem.date
+        let periodItem = HabitRepository.getPeriodItem(for: task, on: date)
+        HabitDayMenuPresenter.showSheetMenu(for: periodItem, on: date)
+    }
+    
+    // MARK: - 数据
+    /// 排列规则：未完成的任务排在前面，其余按任务顺序排列
+    private func sortedPeriodItems(from periodItems: [HabitPeriodItem]) -> [HabitPeriodItem] {
+        return periodItems.sorted { lhs, rhs in
+            let lhsCompleted = isCompleted(lhs)
+            let rhsCompleted = isCompleted(rhs)
+            if lhsCompleted != rhsCompleted {
+                /// 未完成的排在前面
+                return !lhsCompleted
+            }
+            
+            return lhs.habitTask.order < rhs.habitTask.order
+        }
+    }
+    
+    /// 当日是否已完成
+    private func isCompleted(_ periodItem: HabitPeriodItem) -> Bool {
+        if case .completed = periodItem.status(on: periodItem.period.date) {
+            return true
+        }
+        
+        return false
     }
     
     // MARK: - 预览数据
@@ -162,41 +157,46 @@ class WSHabitTaskContentInteractor: WSPluginContentInteractor,
         return WSHabitTasksDataItem(items: items)
     }
     
-    // MARK: - 主操作
-    /// 点击习惯任务：打开该习惯动作菜单
-    override func performAction(with dataItem: WSPluginDataItem) {
-        guard let dataItem = dataItem as? WSHabitTaskDataItem,
-              let task = HabitRepository.getTask(with: dataItem.taskIdentifier) else {
-            return
-        }
-        
-        let date = dataItem.date
-        let periodItem = HabitRepository.getPeriodItem(for: task, on: date)
-        HabitDayMenuPresenter.showSheetMenu(for: periodItem, on: date)
+    // MARK: - HabitTaskProcessorDelegate
+    /// 习惯任务数据发生变化，重新取数并通知内容视图刷新
+    func didChangeRemoteHabitTask(with results: EntityChangeResults<HabitTask>?) {
+        pluginDataDidChange()
     }
     
-    // MARK: - 数据
-    /// 排列规则：未完成的任务排在前面，其余按任务顺序排列
-    private func sortedPeriodItems(from periodItems: [HabitPeriodItem]) -> [HabitPeriodItem] {
-        return periodItems.sorted { lhs, rhs in
-            let lhsCompleted = isCompleted(lhs)
-            let rhsCompleted = isCompleted(rhs)
-            if lhsCompleted != rhsCompleted {
-                /// 未完成的排在前面
-                return !lhsCompleted
-            }
-            
-            return lhs.habitTask.order < rhs.habitTask.order
-        }
+    func didCreateHabitTask(_ task: HabitTask) {
+        pluginDataDidChange()
     }
     
-    /// 当日是否已完成
-    private func isCompleted(_ periodItem: HabitPeriodItem) -> Bool {
-        if case .completed = periodItem.status(on: periodItem.period.date) {
-            return true
-        }
-        
-        return false
+    func didUpdateHabitTask(_ task: HabitTask, with editingTask: HabitEditingTask) {
+        pluginDataDidChange()
+    }
+    
+    func didDeleteHabitTask(_ task: HabitTask) {
+        pluginDataDidChange()
+    }
+    
+    func didChangeArchivedState(for task: HabitTask) {
+        pluginDataDidChange()
+    }
+    
+    func didReorderTask(in tasks: [HabitTask], fromIndex: Int, toIndex: Int) {
+        pluginDataDidChange()
+    }
+    
+    // MARK: - HabitRecordProcessorDelegate
+    func didChangeRemoteHabitRecord(with results: EntityChangeResults<HabitRecord>?) {
+        pluginDataDidChange()
+    }
+    
+    func didUpdateHabitRecord(_ record: HabitRecord,
+                              for task: HabitTask,
+                              on date: Date,
+                              with change: HabitRecordChange) {
+        pluginDataDidChange()
+    }
+    
+    func didDeleteHabitRecords(for task: HabitTask?, in dateRange: DateRange) {
+        pluginDataDidChange()
     }
 }
 

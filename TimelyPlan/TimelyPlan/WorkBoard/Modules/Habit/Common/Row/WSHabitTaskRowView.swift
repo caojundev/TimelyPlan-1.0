@@ -83,6 +83,7 @@ class WSHabitTaskRowView: WSRowView {
                                           minimumScaleFactor: 0.7)
         
         let subtitleConfig = TPLabelConfig.withFont(Metrics.subtitleFont,
+                                                    numberOfLines: 2,
                                                     textColor: .secondaryLabel,
                                                     adjustsFontSizeToFitWidth: true,
                                                     minimumScaleFactor: 0.7)

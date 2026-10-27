@@ -210,6 +210,21 @@ class HabitTaskDetailProvider {
         return completedAmountDetail
     }
     
+    /// 非计划日信息
+    static func notScheduledInfo(for task: HabitTask, on date: Date) -> String? {
+        if task.isScheduled(on: date) {
+            return nil
+        }
+        
+        /// 非计划日：优先提示下一计划日，日期换行展示
+        if let nextDate = task.nextPlanDate(from: date) {
+            let nextDateString = nextDate.yearMonthDayString(omitYear: true)
+            return String(format: resGetString("Next Planned Date %@"), nextDateString)
+        }
+        
+        return resGetString("Not a Scheduled Day")
+    }
+
 }
 
 

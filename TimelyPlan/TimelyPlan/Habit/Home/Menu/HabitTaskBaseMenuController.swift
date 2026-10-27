@@ -30,11 +30,14 @@ class HabitTaskBaseMenuController: TPBaseMenuController<HabitTaskMenuActionType>
  
     override func menuActionTypes() -> [HabitTaskMenuActionType] {
         var types: [HabitTaskMenuActionType] = [.statistics, .edit, .archive, .delete]
-        
         if isAddedToMyDay() {
             types.append(.removeFromMyDay)
         } else {
             types.append(.addToMyDay)
+        }
+        
+        guard isScheduledDay() else {
+            return  types
         }
         
         let status = taskStatus()
@@ -77,6 +80,10 @@ class HabitTaskBaseMenuController: TPBaseMenuController<HabitTaskMenuActionType>
     }
     
     // MARK: - 子类重写
+    func isScheduledDay() -> Bool {
+        return true
+    }
+    
     func isAddedToMyDay() -> Bool {
         return false
     }
