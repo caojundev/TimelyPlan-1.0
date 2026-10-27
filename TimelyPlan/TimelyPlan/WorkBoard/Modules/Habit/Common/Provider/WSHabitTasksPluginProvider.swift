@@ -16,6 +16,9 @@ enum WSHabitTaskItemCount {
     /// 小号组件的展示条数
     static let small = 3
     
+    /// 小号网格组件的展示条数
+    static let smallGrid = 4
+    
     /// 中号列表组件的展示条数
     static let mediumList = 3
     
@@ -69,5 +72,10 @@ class WSHabitTasksPluginProvider: WSPluginProvider {
         configuration.iconName = "checklist"
         configuration.title = resGetString("No Habit Today")
         return configuration
+    }
+    
+    /// 默认不支持配置，需要配置的组件在子类中覆写
+    func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)? {
+        return nil
     }
 }

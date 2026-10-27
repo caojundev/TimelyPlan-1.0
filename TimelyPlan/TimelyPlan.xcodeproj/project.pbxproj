@@ -2496,16 +2496,26 @@
 		E5F0D0A1268A0000D000A006 /* WSHabitTaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A005 /* WSHabitTaskRowView.swift */; };
 		E5F0D0A1268A0000D000A008 /* WSHabitTaskListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A007 /* WSHabitTaskListContentView.swift */; };
 		E5F0D0A1268A0000D000A00A /* WSHabitSmallTasksListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A009 /* WSHabitSmallTasksListPluginProvider.swift */; };
-		E5F0D0A1268A0000D000A026 /* WSHabitTaskIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A025 /* WSHabitTaskIconView.swift */; };
-		E5F0D0A1268A0000D000A028 /* WSHabitSmallSelectedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A027 /* WSHabitSmallSelectedContentView.swift */; };
-		E5F0D0A1268A0000D000A02A /* WSHabitSmallSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A029 /* WSHabitSmallSelectedConfigViewController.swift */; };
-		E5F0D0A1268A0000D000A02C /* WSHabitSmallSelectedPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A02B /* WSHabitSmallSelectedPluginProvider.swift */; };
 		E5F0D0A1268A0000D000A012 /* WSHabitTasksPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A011 /* WSHabitTasksPluginProvider.swift */; };
 		E5F0D0A1268A0000D000A014 /* WSHabitTaskGridContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A013 /* WSHabitTaskGridContentView.swift */; };
 		E5F0D0A1268A0000D000A016 /* WSHabitMediumTasksListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A015 /* WSHabitMediumTasksListPluginProvider.swift */; };
 		E5F0D0A1268A0000D000A018 /* WSHabitMediumTasksGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A017 /* WSHabitMediumTasksGridPluginProvider.swift */; };
 		E5F0D0A1268A0000D000A01E /* WSHabitLargeTasksListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A01D /* WSHabitLargeTasksListPluginProvider.swift */; };
 		E5F0D0A1268A0000D000A020 /* WSHabitLargeTasksGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A01F /* WSHabitLargeTasksGridPluginProvider.swift */; };
+		E5F0D0A1268A0000D000A026 /* WSHabitTaskIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A025 /* WSHabitTaskIconView.swift */; };
+		E5F0D0A1268A0000D000A028 /* WSHabitSmallSelectedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A027 /* WSHabitSmallSelectedContentView.swift */; };
+		E5F0D0A1268A0000D000A02A /* WSHabitSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A029 /* WSHabitSelectedConfigViewController.swift */; };
+		E5F0D0A1268A0000D000A02C /* WSHabitSmallSelectedPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A02B /* WSHabitSmallSelectedPluginProvider.swift */; };
+		E5F0D0A1268A0000D000A02E /* WSHabitSmallTasksGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A02D /* WSHabitSmallTasksGridPluginProvider.swift */; };
+		E5F0D0A1268A0000D000A030 /* WSHabitSmallGridContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A02F /* WSHabitSmallGridContentView.swift */; };
+		E5F0D0A1268A0000D000A032 /* WSHabitSmallGridRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A031 /* WSHabitSmallGridRowView.swift */; };
+		E5F0D0A1268A0000D000A034 /* WSHabitWeekPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A033 /* WSHabitWeekPluginProvider.swift */; };
+		E5F0D0A1268A0000D000A036 /* WSHabitWeekContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A035 /* WSHabitWeekContentView.swift */; };
+		E5F0D0A1268A0000D000A038 /* WSHabitWeekContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A037 /* WSHabitWeekContentInteractor.swift */; };
+		E5F0D0A1268A0000D000A03A /* WSHabitPeriodDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A039 /* WSHabitPeriodDataItem.swift */; };
+		E5F0D0A1268A0000D000A03E /* WSHabitDayDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A03D /* WSHabitDayDataItem.swift */; };
+		E5F0D0A1268A0000D000A040 /* WSHabitDayProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A03F /* WSHabitDayProgressView.swift */; };
+		E5F0D0A1268A0000D000A042 /* WSHabitDayContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A041 /* WSHabitDayContainerView.swift */; };
 		E5F10002309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift */; };
 		E5F10002309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */; };
 		E5F10002309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */; };
@@ -5158,16 +5168,26 @@
 		E5F0D0A1268A0000D000A005 /* WSHabitTaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTaskRowView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A007 /* WSHabitTaskListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTaskListContentView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A009 /* WSHabitSmallTasksListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallTasksListPluginProvider.swift; sourceTree = "<group>"; };
-		E5F0D0A1268A0000D000A025 /* WSHabitTaskIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTaskIconView.swift; sourceTree = "<group>"; };
-		E5F0D0A1268A0000D000A027 /* WSHabitSmallSelectedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallSelectedContentView.swift; sourceTree = "<group>"; };
-		E5F0D0A1268A0000D000A029 /* WSHabitSmallSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallSelectedConfigViewController.swift; sourceTree = "<group>"; };
-		E5F0D0A1268A0000D000A02B /* WSHabitSmallSelectedPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallSelectedPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A011 /* WSHabitTasksPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTasksPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A013 /* WSHabitTaskGridContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTaskGridContentView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A015 /* WSHabitMediumTasksListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMediumTasksListPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A017 /* WSHabitMediumTasksGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMediumTasksGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A01D /* WSHabitLargeTasksListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitLargeTasksListPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A01F /* WSHabitLargeTasksGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitLargeTasksGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A025 /* WSHabitTaskIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitTaskIconView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A027 /* WSHabitSmallSelectedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallSelectedContentView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A029 /* WSHabitSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSelectedConfigViewController.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A02B /* WSHabitSmallSelectedPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallSelectedPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A02D /* WSHabitSmallTasksGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallTasksGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A02F /* WSHabitSmallGridContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallGridContentView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A031 /* WSHabitSmallGridRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallGridRowView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A033 /* WSHabitWeekPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A035 /* WSHabitWeekContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekContentView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A037 /* WSHabitWeekContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekContentInteractor.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A039 /* WSHabitPeriodDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodDataItem.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A03D /* WSHabitDayDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitDayDataItem.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A03F /* WSHabitDayProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitDayProgressView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A041 /* WSHabitDayContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitDayContainerView.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayComparisonPluginProvider.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayComparisonContentView.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusTodayComparisonContentInteractor.swift; sourceTree = "<group>"; };
@@ -6768,6 +6788,7 @@
 		E5261145308F8AD9002428BB /* Medium */ = {
 			isa = PBXGroup;
 			children = (
+				E5FFDBFC30905C0600E839B6 /* Week */,
 				E5F0D0A1268A0000D000A01B /* List */,
 				E5F0D0A1268A0000D000A01C /* Grid */,
 			);
@@ -6796,7 +6817,7 @@
 			children = (
 				E5F0D0A1268A0000D000A02B /* WSHabitSmallSelectedPluginProvider.swift */,
 				E5F0D0A1268A0000D000A027 /* WSHabitSmallSelectedContentView.swift */,
-				E5F0D0A1268A0000D000A029 /* WSHabitSmallSelectedConfigViewController.swift */,
+				E5F0D0A1268A0000D000A029 /* WSHabitSelectedConfigViewController.swift */,
 			);
 			path = Selected;
 			sourceTree = "<group>";
@@ -13684,6 +13705,7 @@
 		E5F002AD308F39CB00D70600 /* Small */ = {
 			isa = PBXGroup;
 			children = (
+				E5FFDBFA3090428C00E839B6 /* Grid */,
 				E5261148308F9956002428BB /* Selected */,
 				E5261147308F98EC002428BB /* List */,
 			);
@@ -14237,6 +14259,38 @@
 				E5291A9830620D9700017150 /* CountdownEvent+LocalNotifiable.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E5FFDBFA3090428C00E839B6 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0D0A1268A0000D000A02D /* WSHabitSmallTasksGridPluginProvider.swift */,
+				E5F0D0A1268A0000D000A02F /* WSHabitSmallGridContentView.swift */,
+				E5F0D0A1268A0000D000A031 /* WSHabitSmallGridRowView.swift */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
+		E5FFDBFC30905C0600E839B6 /* Week */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0D0A1268A0000D000A033 /* WSHabitWeekPluginProvider.swift */,
+				E5F0D0A1268A0000D000A035 /* WSHabitWeekContentView.swift */,
+				E5F0D0A1268A0000D000A037 /* WSHabitWeekContentInteractor.swift */,
+				E5FFDBFD30909EAD00E839B6 /* DayContainer */,
+			);
+			path = Week;
+			sourceTree = "<group>";
+		};
+		E5FFDBFD30909EAD00E839B6 /* DayContainer */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0D0A1268A0000D000A03D /* WSHabitDayDataItem.swift */,
+				E5F0D0A1268A0000D000A039 /* WSHabitPeriodDataItem.swift */,
+				E5F0D0A1268A0000D000A03F /* WSHabitDayProgressView.swift */,
+				E5F0D0A1268A0000D000A041 /* WSHabitDayContainerView.swift */,
+			);
+			path = DayContainer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -16603,9 +16657,19 @@
 				E5F0D0A1268A0000D000A006 /* WSHabitTaskRowView.swift in Sources */,
 				E5F0D0A1268A0000D000A008 /* WSHabitTaskListContentView.swift in Sources */,
 				E5F0D0A1268A0000D000A00A /* WSHabitSmallTasksListPluginProvider.swift in Sources */,
+				E5F0D0A1268A0000D000A034 /* WSHabitWeekPluginProvider.swift in Sources */,
+				E5F0D0A1268A0000D000A036 /* WSHabitWeekContentView.swift in Sources */,
+				E5F0D0A1268A0000D000A03E /* WSHabitDayDataItem.swift in Sources */,
+				E5F0D0A1268A0000D000A040 /* WSHabitDayProgressView.swift in Sources */,
+				E5F0D0A1268A0000D000A042 /* WSHabitDayContainerView.swift in Sources */,
+				E5F0D0A1268A0000D000A038 /* WSHabitWeekContentInteractor.swift in Sources */,
+				E5F0D0A1268A0000D000A03A /* WSHabitPeriodDataItem.swift in Sources */,
+				E5F0D0A1268A0000D000A02E /* WSHabitSmallTasksGridPluginProvider.swift in Sources */,
+				E5F0D0A1268A0000D000A030 /* WSHabitSmallGridContentView.swift in Sources */,
+				E5F0D0A1268A0000D000A032 /* WSHabitSmallGridRowView.swift in Sources */,
 				E5F0D0A1268A0000D000A026 /* WSHabitTaskIconView.swift in Sources */,
 				E5F0D0A1268A0000D000A028 /* WSHabitSmallSelectedContentView.swift in Sources */,
-				E5F0D0A1268A0000D000A02A /* WSHabitSmallSelectedConfigViewController.swift in Sources */,
+				E5F0D0A1268A0000D000A02A /* WSHabitSelectedConfigViewController.swift in Sources */,
 				E5F0D0A1268A0000D000A02C /* WSHabitSmallSelectedPluginProvider.swift in Sources */,
 				E5F0D0A1268A0000D000A012 /* WSHabitTasksPluginProvider.swift in Sources */,
 				E5F0D0A1268A0000D000A014 /* WSHabitTaskGridContentView.swift in Sources */,

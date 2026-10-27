@@ -8,15 +8,6 @@
 import Foundation
 import UIKit
 
-// MARK: - 配置
-
-/// 习惯·小·自选的配置
-struct WSHabitSelectedConfiguration: Codable {
-    
-    /// 用户选择的习惯任务标识
-    var taskIdentifier: String?
-}
-
 // MARK: - 组件提供者
 
 /// 习惯·小·自选。展示用户自己选择的一个习惯任务。
@@ -42,7 +33,7 @@ class WSHabitSmallSelectedPluginProvider: WSPluginProvider {
     }
     
     func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)? {
-        return WSHabitSmallSelectedConfigViewController(plugin: plugin)
+        return WSHabitSelectedConfigViewController(plugin: plugin)
     }
     
     /// 未选择习惯时提示配置

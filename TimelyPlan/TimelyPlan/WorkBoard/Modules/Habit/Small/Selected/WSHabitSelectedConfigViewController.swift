@@ -1,5 +1,5 @@
 //
-//  WSHabitSmallSelectedConfigViewController.swift
+//  WSHabitSelectedConfigViewController.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/26.
@@ -8,10 +8,18 @@
 import Foundation
 import UIKit
 
-/// 习惯·小·自选的配置界面，用于选择要展示的习惯任务
-class WSHabitSmallSelectedConfigViewController: WSPluginConfigViewController,
-                                                TaskBindViewControllerDelegate {
+// MARK: - 配置
+
+/// 习惯·小·自选的配置
+struct WSHabitSelectedConfiguration: Codable {
     
+    /// 用户选择的习惯任务标识
+    var taskIdentifier: String?
+}
+
+/// 习惯·小·自选的配置界面，用于选择要展示的习惯任务
+class WSHabitSelectedConfigViewController: WSPluginConfigViewController,
+                                                TaskBindViewControllerDelegate {
     /// 当前配置
     private lazy var config: WSHabitSelectedConfiguration = {
         return configuration(as: WSHabitSelectedConfiguration.self)

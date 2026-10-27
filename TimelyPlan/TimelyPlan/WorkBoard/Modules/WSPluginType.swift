@@ -70,11 +70,17 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 习惯·小·任务：逐行展示今日排期的习惯任务。
     case habitSmallTasks
     
+    /// 习惯·小·任务网格：以两列两行的图标展示今日排期的习惯任务。
+    case habitSmallTasksGrid
+    
     /// 习惯·中·任务列表：以列表展示今日排期的习惯任务。
     case habitMediumTasksList
     
     /// 习惯·中·任务网格：以网格卡片展示今日排期的习惯任务。
     case habitMediumTasksGrid
+    
+    /// 习惯·中·周进度：展示今日首个习惯本周七天的状态与进度。
+    case habitMediumWeek
     
     /// 习惯·大·任务列表：以列表展示今日排期的习惯任务。
     case habitLargeTasksList
@@ -94,11 +100,11 @@ public extension WSPluginType {
         case .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
-             .habitSmallSelected, .habitSmallTasks:
+             .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
-             .habitMediumTasksList, .habitMediumTasksGrid:
+             .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek:
             return .medium
         case .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
              .focusLargeUserTimerGrid, .habitLargeTasksList, .habitLargeTasksGrid:
@@ -118,7 +124,8 @@ public extension WSPluginType {
              .focusSmallSystemTimer, .focusMediumSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap:
             return .focus
-        case .habitSmallSelected, .habitSmallTasks, .habitMediumTasksList, .habitMediumTasksGrid,
+        case .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid,
+             .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
              .habitLargeTasksList, .habitLargeTasksGrid:
             return .habit
         }
@@ -206,8 +213,10 @@ enum WSPluginCatalog {
         // 习惯
         .init(WSHabitSmallSelectedPluginProvider(), title: "Selected Habit", subtitle: "Shows the selected habit"),
         .init(WSHabitSmallTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits and progress"),
+        .init(WSHabitSmallTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
         .init(WSHabitMediumTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a list"),
         .init(WSHabitMediumTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
+        .init(WSHabitWeekPluginProvider(), title: "Habit Week", subtitle: "Shows this week's progress of a habit"),
         .init(WSHabitLargeTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a list"),
         .init(WSHabitLargeTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
     ]

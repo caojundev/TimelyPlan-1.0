@@ -79,14 +79,8 @@ class WSHabitTaskDataItem: NSObject, WSPluginDataItem {
     private static func detail(for task: HabitTask,
                                on date: Date,
                                with record: HabitRecord?) -> TextRepresentable {
-        guard task.isScheduled(on: date) else {
-            /// 非计划日：优先提示下一计划日，日期换行展示
-            if let nextDate = task.nextPlanDate(from: date) {
-                let nextDateString = nextDate.yearMonthDayString(omitYear: true)
-                return String(format: resGetString("Next Planned Date %@"), nextDateString)
-            }
-            
-            return resGetString("Not a Scheduled Day")
+        if let notScheduledInfo = HabitTaskDetailProvider.notScheduledInfo(for: task, on: date) {
+            return notScheduledInfo
         }
         
         /// 返回进度
