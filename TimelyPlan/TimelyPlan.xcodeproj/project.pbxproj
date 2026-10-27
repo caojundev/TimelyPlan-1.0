@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E5F0D0A1268A0000D000A044 /* WSHabitPeriodContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A043 /* WSHabitPeriodContentInteractor.swift */; };
+		E5F0D0A1268A0000D000A046 /* WSHabitPeriodContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A045 /* WSHabitPeriodContentView.swift */; };
+		E5F0D0A1268A0000D000A048 /* WSHabitPeriodPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A047 /* WSHabitPeriodPluginProvider.swift */; };
+		E5F0D0A1268A0000D000A04A /* WSHabitRecentContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A049 /* WSHabitRecentContentInteractor.swift */; };
+		E5F0D0A1268A0000D000A04C /* WSHabitRecentPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A04B /* WSHabitRecentPluginProvider.swift */; };
 		930B47C98BEE5C4915C191FA /* libPods-TimelyPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */; };
 		E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */; };
 		E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */; };
@@ -2510,7 +2515,6 @@
 		E5F0D0A1268A0000D000A030 /* WSHabitSmallGridContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A02F /* WSHabitSmallGridContentView.swift */; };
 		E5F0D0A1268A0000D000A032 /* WSHabitSmallGridRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A031 /* WSHabitSmallGridRowView.swift */; };
 		E5F0D0A1268A0000D000A034 /* WSHabitWeekPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A033 /* WSHabitWeekPluginProvider.swift */; };
-		E5F0D0A1268A0000D000A036 /* WSHabitWeekContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A035 /* WSHabitWeekContentView.swift */; };
 		E5F0D0A1268A0000D000A038 /* WSHabitWeekContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A037 /* WSHabitWeekContentInteractor.swift */; };
 		E5F0D0A1268A0000D000A03A /* WSHabitPeriodDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A039 /* WSHabitPeriodDataItem.swift */; };
 		E5F0D0A1268A0000D000A03E /* WSHabitDayDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A03D /* WSHabitDayDataItem.swift */; };
@@ -2656,6 +2660,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E5F0D0A1268A0000D000A043 /* WSHabitPeriodContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodContentInteractor.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A045 /* WSHabitPeriodContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodContentView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A047 /* WSHabitPeriodPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A049 /* WSHabitRecentContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitRecentContentInteractor.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A04B /* WSHabitRecentPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitRecentPluginProvider.swift; sourceTree = "<group>"; };
 		1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.release.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.release.xcconfig"; sourceTree = "<group>"; };
 		2197CCF3E13F7B7E5DA987DD /* Pods-TimelyPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.debug.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimelyPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5182,7 +5191,6 @@
 		E5F0D0A1268A0000D000A02F /* WSHabitSmallGridContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallGridContentView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A031 /* WSHabitSmallGridRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallGridRowView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A033 /* WSHabitWeekPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekPluginProvider.swift; sourceTree = "<group>"; };
-		E5F0D0A1268A0000D000A035 /* WSHabitWeekContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekContentView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A037 /* WSHabitWeekContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekContentInteractor.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A039 /* WSHabitPeriodDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodDataItem.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A03D /* WSHabitDayDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitDayDataItem.swift; sourceTree = "<group>"; };
@@ -13705,6 +13713,7 @@
 		E5F002AD308F39CB00D70600 /* Small */ = {
 			isa = PBXGroup;
 			children = (
+				E5FFDBFE3090A45400E839B6 /* Recent */,
 				E5FFDBFA3090428C00E839B6 /* Grid */,
 				E5261148308F9956002428BB /* Selected */,
 				E5261147308F98EC002428BB /* List */,
@@ -14275,7 +14284,6 @@
 			isa = PBXGroup;
 			children = (
 				E5F0D0A1268A0000D000A033 /* WSHabitWeekPluginProvider.swift */,
-				E5F0D0A1268A0000D000A035 /* WSHabitWeekContentView.swift */,
 				E5F0D0A1268A0000D000A037 /* WSHabitWeekContentInteractor.swift */,
 				E5FFDBFD30909EAD00E839B6 /* DayContainer */,
 			);
@@ -14289,8 +14297,20 @@
 				E5F0D0A1268A0000D000A039 /* WSHabitPeriodDataItem.swift */,
 				E5F0D0A1268A0000D000A03F /* WSHabitDayProgressView.swift */,
 				E5F0D0A1268A0000D000A041 /* WSHabitDayContainerView.swift */,
+				E5F0D0A1268A0000D000A043 /* WSHabitPeriodContentInteractor.swift */,
+				E5F0D0A1268A0000D000A045 /* WSHabitPeriodContentView.swift */,
+				E5F0D0A1268A0000D000A047 /* WSHabitPeriodPluginProvider.swift */,
 			);
 			path = DayContainer;
+			sourceTree = "<group>";
+		};
+		E5FFDBFE3090A45400E839B6 /* Recent */ = {
+			isa = PBXGroup;
+			children = (
+				E5F0D0A1268A0000D000A049 /* WSHabitRecentContentInteractor.swift */,
+				E5F0D0A1268A0000D000A04B /* WSHabitRecentPluginProvider.swift */,
+			);
+			path = Recent;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -15206,6 +15226,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5F0D0A1268A0000D000A044 /* WSHabitPeriodContentInteractor.swift in Sources */,
+				E5F0D0A1268A0000D000A046 /* WSHabitPeriodContentView.swift in Sources */,
+				E5F0D0A1268A0000D000A048 /* WSHabitPeriodPluginProvider.swift in Sources */,
+				E5F0D0A1268A0000D000A04A /* WSHabitRecentContentInteractor.swift in Sources */,
+				E5F0D0A1268A0000D000A04C /* WSHabitRecentPluginProvider.swift in Sources */,
 				E57B2B453045254400BA4D56 /* GoalConfig.swift in Sources */,
 				E5B33D592F80E66E00939C3E /* TaskReminderEditViewController.swift in Sources */,
 				E5F078D52F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift in Sources */,
@@ -16658,7 +16683,6 @@
 				E5F0D0A1268A0000D000A008 /* WSHabitTaskListContentView.swift in Sources */,
 				E5F0D0A1268A0000D000A00A /* WSHabitSmallTasksListPluginProvider.swift in Sources */,
 				E5F0D0A1268A0000D000A034 /* WSHabitWeekPluginProvider.swift in Sources */,
-				E5F0D0A1268A0000D000A036 /* WSHabitWeekContentView.swift in Sources */,
 				E5F0D0A1268A0000D000A03E /* WSHabitDayDataItem.swift in Sources */,
 				E5F0D0A1268A0000D000A040 /* WSHabitDayProgressView.swift in Sources */,
 				E5F0D0A1268A0000D000A042 /* WSHabitDayContainerView.swift in Sources */,

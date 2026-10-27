@@ -64,10 +64,9 @@ class WSHabitDayDataItem: NSObject {
 extension WSHabitDayDataItem {
     
     /// 由时间段条目生成每天的展示数据
-    static func items(from periodItem: HabitPeriodItem) -> [WSHabitDayDataItem] {
+    static func items(from periodItem: HabitPeriodItem, dates: [Date]) -> [WSHabitDayDataItem] {
         let color = periodItem.habitTask.color
-        return periodItem.period.weekDaysPeriods().map { dayPeriod in
-            let date = dayPeriod.date
+        return dates.map { date in
             let status = periodItem.status(on: date)
             
             return WSHabitDayDataItem(date: date,

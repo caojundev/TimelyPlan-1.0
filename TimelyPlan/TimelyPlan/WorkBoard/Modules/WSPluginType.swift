@@ -73,6 +73,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 习惯·小·任务网格：以两列两行的图标展示今日排期的习惯任务。
     case habitSmallTasksGrid
     
+    /// 习惯·小·最近三天：展示所选习惯最近三天的状态与进度。
+    case habitSmallRecent
+    
     /// 习惯·中·任务列表：以列表展示今日排期的习惯任务。
     case habitMediumTasksList
     
@@ -100,7 +103,7 @@ public extension WSPluginType {
         case .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
-             .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid:
+             .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
@@ -124,7 +127,7 @@ public extension WSPluginType {
              .focusSmallSystemTimer, .focusMediumSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap:
             return .focus
-        case .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid,
+        case .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
              .habitLargeTasksList, .habitLargeTasksGrid:
             return .habit
@@ -217,6 +220,7 @@ enum WSPluginCatalog {
         .init(WSHabitMediumTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a list"),
         .init(WSHabitMediumTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
         .init(WSHabitWeekPluginProvider(), title: "Habit Week", subtitle: "Shows this week's progress of a habit"),
+        .init(WSHabitRecentPluginProvider(), title: "Recent Days", subtitle: "Shows the last 3 days of a habit"),
         .init(WSHabitLargeTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a list"),
         .init(WSHabitLargeTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
     ]

@@ -62,6 +62,8 @@
 "Selected Habit" = "自选习惯";
 "Habit Week" = "本周习惯";
 "Shows this week's progress of a habit" = "展示习惯本周的进度";
+"Recent Days" = "最近三天";
+"Shows the last 3 days of a habit" = "展示习惯最近三天的进度";
 "Next Planned Date %@" = "下一计划日于%@";
 "Not a Scheduled Day" = "非计划日";
 "Shows the selected habit" = "展示选中的习惯";

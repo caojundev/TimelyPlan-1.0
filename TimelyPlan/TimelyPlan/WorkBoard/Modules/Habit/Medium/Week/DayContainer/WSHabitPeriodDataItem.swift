@@ -48,14 +48,14 @@ class WSHabitPeriodDataItem: NSObject, WSPluginDataItem {
         super.init()
     }
     
-    /// 由本周的习惯时间段条目生成展示数据
-    convenience init(periodItem: HabitPeriodItem) {
+    /// 由习惯时间段条目与要展示的天生成展示数据
+    convenience init(periodItem: HabitPeriodItem, days: [WSHabitDayDataItem]) {
         let task = periodItem.habitTask
         self.init(taskIdentifier: task.identifier,
                   title: task.displayName,
                   subtitle: task.goal.targetDescription,
                   icon: task.icon,
                   color: task.color,
-                  days: WSHabitDayDataItem.items(from: periodItem))
+                  days: days)
     }
 }
