@@ -141,6 +141,13 @@ class WSHabitPeriodContentInteractor: WSPluginContentInteractor,
 
          return HabitRepository.getTask(with: identifier)
      }
+     
+    /// 日期所在周的时间段
+    func weekPeriod(containing date: Date) -> HabitDatePeriod {
+        return HabitDatePeriod(date: date,
+                               mode: .week,
+                               firstWeekday: HabitSetting.shared.firstWeekday)
+    }
     
     /// 按标识取回当前的活动任务
     func habitTask(with identifier: String) -> HabitTask? {

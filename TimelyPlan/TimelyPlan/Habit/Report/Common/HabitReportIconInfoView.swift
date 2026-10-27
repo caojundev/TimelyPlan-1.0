@@ -42,6 +42,7 @@ class HabitReportIconInfoView: UIView {
     private(set) lazy var iconView: TPIconView = {
         let view = TPIconView()
         view.borderWidth = 0.0
+        view.cornerRadius = 0.0
         view.placeholderCharacter = "C"
         return view
     }()

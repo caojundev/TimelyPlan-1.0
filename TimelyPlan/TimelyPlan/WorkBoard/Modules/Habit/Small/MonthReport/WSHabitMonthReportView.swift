@@ -25,19 +25,7 @@ class WSHabitMonthReportView: UIView {
         
         /// 行间距
         static let lineSpacing: CGFloat = 3.0
-        
-        /// 色块圆角
-        static let cornerRadius: CGFloat = 4.0
-        
-        /// 进度色块透明度的上下限
-        static let minProgressAlpha: CGFloat = 0.2
-        static let maxProgressAlpha: CGFloat = 1.0
     }
-    
-    /// 报告图标，与习惯报告页共用
-    private static let notScheduledImage = resGetImage("habit_report_notScheduled_20")
-    private static let skippedImage = resGetImage("habit_report_skipped_20")
-    private static let failedImage = resGetImage("habit_report_failed_20")
     
     /// 当月每天的数据，按日期顺序排列
     var dayItems: [WSHabitDayDataItem] = [] {
@@ -98,41 +86,8 @@ class WSHabitMonthReportView: UIView {
                                   y: originY + CGFloat(position / DAYS_PER_WEEK) * (side + Metrics.lineSpacing),
                                   width: side,
                                   height: side)
-            drawDay(dayItem, in: dayFrame)
+            WSHabitReportDayPainter.draw(dayItem, in: dayFrame)
         }
-    }
-    
-    /// 绘制一天。非计划日、跳过、失败与报告页保持一致，使用报告图标
-    private func drawDay(_ dayItem: WSHabitDayDataItem, in rect: CGRect) {
-        guard dayItem.isScheduled else {
-            WSHabitMonthReportView.notScheduledImage?.draw(in: rect)
-            return
-        }
-        
-        switch dayItem.status {
-        case .notStarted, .inProgress, .completed:
-            drawProgressDay(dayItem, in: rect)
-        case .skipped(_):
-            WSHabitMonthReportView.skippedImage?.withTintColor(dayItem.color).draw(in: rect)
-        case .failed(_):
-            WSHabitMonthReportView.failedImage?.draw(in: rect)
-        }
-    }
-    
-    /// 进度日：无进度时使用占位底色，有进度时按完成比例叠加任务颜色
-    private func drawProgressDay(_ dayItem: WSHabitDayDataItem, in rect: CGRect) {
-        let color: UIColor
-        if dayItem.progress <= 0.0 {
-            color = .secondarySystemFill
-        } else {
-            let alpha = min(max(dayItem.progress, Metrics.minProgressAlpha), Metrics.maxProgressAlpha)
-            color = dayItem.color.withAlphaComponent(alpha)
-        }
-        
-        let path = UIBezierPath(roundedRect: rect,
-                                cornerRadius: min(Metrics.cornerRadius, rect.width / 2.0))
-        color.setFill()
-        path.fill()
     }
     
     /// 当月首日在日历网格中的前导空格数

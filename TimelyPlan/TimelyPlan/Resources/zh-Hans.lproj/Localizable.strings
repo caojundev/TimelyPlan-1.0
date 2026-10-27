@@ -66,6 +66,8 @@
 "Shows the last 3 days of a habit" = "展示习惯最近三天的进度";
 "Month Report" = "本月报告";
 "Shows this month's progress of a habit" = "展示习惯本月的完成情况";
+"Weekly Report" = "周报告";
+"Shows this week's progress of habits" = "展示习惯本周的完成情况";
 "Next Planned Date %@" = "下一计划日于%@";
 "Not a Scheduled Day" = "非计划日";
 "Shows the selected habit" = "展示选中的习惯";

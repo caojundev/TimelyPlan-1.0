@@ -538,6 +538,17 @@
 		E52A4FE02F62B9BF009EC01B /* habit_week_day_checkmark_40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52A4FDE2F62B9BF009EC01B /* habit_week_day_checkmark_40@2x.png */; };
 		E52A4FE72F62C5D7009EC01B /* habit_week_day_notscheduled_42@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52A4FE52F62C5D6009EC01B /* habit_week_day_notscheduled_42@2x.png */; };
 		E52A4FE82F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52A4FE62F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png */; };
+		E52B07BB3090CF1800D7376F /* WSHabitMonthReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07B83090CF1800D7376F /* WSHabitMonthReportView.swift */; };
+		E52B07BC3090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07B93090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift */; };
+		E52B07BD3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07BA3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift */; };
+		E52B07D03090F00000D7376F /* WSHabitReportDayPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C03090F00000D7376F /* WSHabitReportDayPainter.swift */; };
+		E52B07D13090F00000D7376F /* WSHabitPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C13090F00000D7376F /* WSHabitPluginContentInteractor.swift */; };
+		E52B07D23090F00000D7376F /* WSHabitWeekReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C23090F00000D7376F /* WSHabitWeekReportView.swift */; };
+		E52B07D33090F00000D7376F /* WSHabitWeekReportRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C33090F00000D7376F /* WSHabitWeekReportRowView.swift */; };
+		E52B07D43090F00000D7376F /* WSHabitWeekReportListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C43090F00000D7376F /* WSHabitWeekReportListContentView.swift */; };
+		E52B07D53090F00000D7376F /* WSHabitWeekReportListContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C53090F00000D7376F /* WSHabitWeekReportListContentInteractor.swift */; };
+		E52B07D63090F00000D7376F /* WSHabitMediumWeekReportListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C63090F00000D7376F /* WSHabitMediumWeekReportListPluginProvider.swift */; };
+		E52B07D73090F00000D7376F /* WSHabitLargeWeekReportListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C73090F00000D7376F /* WSHabitLargeWeekReportListPluginProvider.swift */; };
 		E52B62A72F36121000673620 /* focus_main_timeline_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */; };
 		E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */; };
 		E52E481B2F8A07EE00B8CD25 /* TPImageInfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52E481A2F8A07EE00B8CD25 /* TPImageInfoButton.swift */; };
@@ -2520,9 +2531,6 @@
 		E5F0D0A1268A0000D000A048 /* WSHabitPeriodPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A047 /* WSHabitPeriodPluginProvider.swift */; };
 		E5F0D0A1268A0000D000A04A /* WSHabitRecentContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A049 /* WSHabitRecentContentInteractor.swift */; };
 		E5F0D0A1268A0000D000A04C /* WSHabitRecentPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A04B /* WSHabitRecentPluginProvider.swift */; };
-		E52B07BB3090CF1800D7376F /* WSHabitMonthReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07B83090CF1800D7376F /* WSHabitMonthReportView.swift */; };
-		E52B07BC3090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07B93090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift */; };
-		E52B07BD3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07BA3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift */; };
 		E5F10002309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift */; };
 		E5F10002309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */; };
 		E5F10002309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */; };
@@ -3200,6 +3208,17 @@
 		E52A4FDE2F62B9BF009EC01B /* habit_week_day_checkmark_40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_week_day_checkmark_40@2x.png"; sourceTree = "<group>"; };
 		E52A4FE52F62C5D6009EC01B /* habit_week_day_notscheduled_42@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_week_day_notscheduled_42@2x.png"; sourceTree = "<group>"; };
 		E52A4FE62F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "habit_week_day_notscheduled_42@3x.png"; sourceTree = "<group>"; };
+		E52B07B83090CF1800D7376F /* WSHabitMonthReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMonthReportView.swift; sourceTree = "<group>"; };
+		E52B07B93090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallMonthReportContentView.swift; sourceTree = "<group>"; };
+		E52B07BA3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallMonthReportPluginProvider.swift; sourceTree = "<group>"; };
+		E52B07C03090F00000D7376F /* WSHabitReportDayPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitReportDayPainter.swift; sourceTree = "<group>"; };
+		E52B07C13090F00000D7376F /* WSHabitPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPluginContentInteractor.swift; sourceTree = "<group>"; };
+		E52B07C23090F00000D7376F /* WSHabitWeekReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekReportView.swift; sourceTree = "<group>"; };
+		E52B07C33090F00000D7376F /* WSHabitWeekReportRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekReportRowView.swift; sourceTree = "<group>"; };
+		E52B07C43090F00000D7376F /* WSHabitWeekReportListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekReportListContentView.swift; sourceTree = "<group>"; };
+		E52B07C53090F00000D7376F /* WSHabitWeekReportListContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekReportListContentInteractor.swift; sourceTree = "<group>"; };
+		E52B07C63090F00000D7376F /* WSHabitMediumWeekReportListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMediumWeekReportListPluginProvider.swift; sourceTree = "<group>"; };
+		E52B07C73090F00000D7376F /* WSHabitLargeWeekReportListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitLargeWeekReportListPluginProvider.swift; sourceTree = "<group>"; };
 		E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_main_timeline_24@2x.png"; sourceTree = "<group>"; };
 		E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_main_timeline_24@3x.png"; sourceTree = "<group>"; };
 		E52E481A2F8A07EE00B8CD25 /* TPImageInfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoButton.swift; sourceTree = "<group>"; };
@@ -5199,9 +5218,6 @@
 		E5F0D0A1268A0000D000A047 /* WSHabitPeriodPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A049 /* WSHabitRecentContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitRecentContentInteractor.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A04B /* WSHabitRecentPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitRecentPluginProvider.swift; sourceTree = "<group>"; };
-		E52B07B83090CF1800D7376F /* WSHabitMonthReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMonthReportView.swift; sourceTree = "<group>"; };
-		E52B07B93090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallMonthReportContentView.swift; sourceTree = "<group>"; };
-		E52B07BA3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallMonthReportPluginProvider.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayComparisonPluginProvider.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayComparisonContentView.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusTodayComparisonContentInteractor.swift; sourceTree = "<group>"; };
@@ -6802,6 +6818,8 @@
 		E5261145308F8AD9002428BB /* Medium */ = {
 			isa = PBXGroup;
 			children = (
+				E52B07BB3090EF4A00D7376F /* MonthHeatBarList */,
+				E52B07B93090E4FD00D7376F /* WeekReportList */,
 				E5FFDBFC30905C0600E839B6 /* Week */,
 				E5F0D0A1268A0000D000A01B /* List */,
 				E5F0D0A1268A0000D000A01C /* Grid */,
@@ -6812,6 +6830,7 @@
 		E5261146308F9086002428BB /* Large */ = {
 			isa = PBXGroup;
 			children = (
+				E52B07BA3090E53200D7376F /* WeekReportList */,
 				E5F0D0A1268A0000D000A022 /* List */,
 				E5F0D0A1268A0000D000A023 /* Grid */,
 			);
@@ -7031,6 +7050,33 @@
 				E52B07B83090CF1800D7376F /* WSHabitMonthReportView.swift */,
 			);
 			path = MonthReport;
+			sourceTree = "<group>";
+		};
+		E52B07B93090E4FD00D7376F /* WeekReportList */ = {
+			isa = PBXGroup;
+			children = (
+				E52B07C63090F00000D7376F /* WSHabitMediumWeekReportListPluginProvider.swift */,
+				E52B07C53090F00000D7376F /* WSHabitWeekReportListContentInteractor.swift */,
+				E52B07C43090F00000D7376F /* WSHabitWeekReportListContentView.swift */,
+				E52B07C33090F00000D7376F /* WSHabitWeekReportRowView.swift */,
+				E52B07C23090F00000D7376F /* WSHabitWeekReportView.swift */,
+			);
+			path = WeekReportList;
+			sourceTree = "<group>";
+		};
+		E52B07BA3090E53200D7376F /* WeekReportList */ = {
+			isa = PBXGroup;
+			children = (
+				E52B07C73090F00000D7376F /* WSHabitLargeWeekReportListPluginProvider.swift */,
+			);
+			path = WeekReportList;
+			sourceTree = "<group>";
+		};
+		E52B07BB3090EF4A00D7376F /* MonthHeatBarList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MonthHeatBarList;
 			sourceTree = "<group>";
 		};
 		E52B62A42F3611FC00673620 /* main */ = {
@@ -13720,6 +13766,8 @@
 				E5F0D0A1268A0000D000A00B /* Row */,
 				E5F0D0A1268A0000D000A001 /* WSHabitTaskDataItem.swift */,
 				E5F0D0A1268A0000D000A003 /* WSHabitTaskContentInteractor.swift */,
+				E52B07C13090F00000D7376F /* WSHabitPluginContentInteractor.swift */,
+				E52B07C03090F00000D7376F /* WSHabitReportDayPainter.swift */,
 				E5F0D0A1268A0000D000A007 /* WSHabitTaskListContentView.swift */,
 				E5F0D0A1268A0000D000A013 /* WSHabitTaskGridContentView.swift */,
 			);
@@ -15251,6 +15299,14 @@
 				E52B07BB3090CF1800D7376F /* WSHabitMonthReportView.swift in Sources */,
 				E52B07BC3090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift in Sources */,
 				E52B07BD3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift in Sources */,
+				E52B07D03090F00000D7376F /* WSHabitReportDayPainter.swift in Sources */,
+				E52B07D13090F00000D7376F /* WSHabitPluginContentInteractor.swift in Sources */,
+				E52B07D23090F00000D7376F /* WSHabitWeekReportView.swift in Sources */,
+				E52B07D33090F00000D7376F /* WSHabitWeekReportRowView.swift in Sources */,
+				E52B07D43090F00000D7376F /* WSHabitWeekReportListContentView.swift in Sources */,
+				E52B07D53090F00000D7376F /* WSHabitWeekReportListContentInteractor.swift in Sources */,
+				E52B07D63090F00000D7376F /* WSHabitMediumWeekReportListPluginProvider.swift in Sources */,
+				E52B07D73090F00000D7376F /* WSHabitLargeWeekReportListPluginProvider.swift in Sources */,
 				E57B2B453045254400BA4D56 /* GoalConfig.swift in Sources */,
 				E5B33D592F80E66E00939C3E /* TaskReminderEditViewController.swift in Sources */,
 				E5F078D52F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift in Sources */,

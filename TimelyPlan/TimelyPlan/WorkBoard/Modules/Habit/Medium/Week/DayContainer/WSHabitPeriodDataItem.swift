@@ -59,3 +59,17 @@ class WSHabitPeriodDataItem: NSObject, WSPluginDataItem {
                   days: days)
     }
 }
+
+// MARK: - 列表数据条目
+
+/// 习惯时间段组件的列表数据：每个时间段代表一行。
+class WSHabitPeriodsDataItem: NSObject, WSPluginDataItem {
+    
+    /// 待展示的时间段数据，按展示顺序排列
+    let items: [WSHabitPeriodDataItem]
+    
+    init(items: [WSHabitPeriodDataItem]) {
+        self.items = items
+        super.init()
+    }
+}

@@ -28,7 +28,7 @@ class WSHabitSmallMonthReportContentView: WSPluginContentView {
         static let infoReportSpacing: CGFloat = 4.0
         
         /// 图标边长
-        static let iconSize = CGSize(value: 36.0)
+        static let iconSize = CGSize(value: 32.0)
         
         /// 标题字号
         static let titleFont = UIFont.boldSystemFont(ofSize: 14.0)
@@ -38,6 +38,7 @@ class WSHabitSmallMonthReportContentView: WSPluginContentView {
     private(set) lazy var infoView: HabitReportIconInfoView = {
         let view = HabitReportIconInfoView()
         view.iconSize = Metrics.iconSize
+        view.iconView.font = .boldSystemFont(ofSize: 24.0)
         view.titleView.titleConfig = .withFont(Metrics.titleFont,
                                                numberOfLines: 1,
                                                textColor: .label,

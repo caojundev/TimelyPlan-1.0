@@ -88,11 +88,17 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 习惯·中·周进度：展示今日首个习惯本周七天的状态与进度。
     case habitMediumWeek
     
+    /// 习惯·中·周报告列表：逐行展示今日排期习惯本周的完成情况。
+    case habitMediumWeekReportList
+    
     /// 习惯·大·任务列表：以列表展示今日排期的习惯任务。
     case habitLargeTasksList
     
     /// 习惯·大·任务网格：以网格卡片展示今日排期的习惯任务。
     case habitLargeTasksGrid
+    
+    /// 习惯·大·周报告列表：逐行展示今日排期习惯本周的完成情况。
+    case habitLargeWeekReportList
     
 }
 
@@ -111,10 +117,12 @@ public extension WSPluginType {
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
-             .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek:
+             .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
+             .habitMediumWeekReportList:
             return .medium
         case .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
-             .focusLargeUserTimerGrid, .habitLargeTasksList, .habitLargeTasksGrid:
+             .focusLargeUserTimerGrid,
+             .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList:
             return .large
         }
     }
@@ -134,7 +142,8 @@ public extension WSPluginType {
         case .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
              .habitSmallMonthReport,
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
-             .habitLargeTasksList, .habitLargeTasksGrid:
+             .habitMediumWeekReportList,
+             .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList:
             return .habit
         }
     }
@@ -227,8 +236,10 @@ enum WSPluginCatalog {
         .init(WSHabitWeekPluginProvider(), title: "Habit Week", subtitle: "Shows this week's progress of a habit"),
         .init(WSHabitRecentPluginProvider(), title: "Recent Days", subtitle: "Shows the last 3 days of a habit"),
         .init(WSHabitSmallMonthReportPluginProvider(), title: "Month Report", subtitle: "Shows this month's progress of a habit"),
+        .init(WSHabitMediumWeekReportListPluginProvider(), title: "Weekly Report", subtitle: "Shows this week's progress of habits"),
         .init(WSHabitLargeTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a list"),
         .init(WSHabitLargeTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
+        .init(WSHabitLargeWeekReportListPluginProvider(), title: "Weekly Report", subtitle: "Shows this week's progress of habits"),
     ]
 
     /// 按类型取回组件配置
