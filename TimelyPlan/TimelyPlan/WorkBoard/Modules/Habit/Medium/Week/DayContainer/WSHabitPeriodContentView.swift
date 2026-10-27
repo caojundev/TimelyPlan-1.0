@@ -24,6 +24,8 @@ class WSHabitPeriodContentView: WSPluginContentView {
         /// 图标与信息视图高度
         static let infoHeight: CGFloat = 50.0
         
+        static let iconLength: CGFloat = 42.0
+        
         /// 信息视图与天视图的间距
         static let infoDaysSpacing: CGFloat = 6.0
         
@@ -40,9 +42,7 @@ class WSHabitPeriodContentView: WSPluginContentView {
     /// 任务图标与名称
     private let infoView: HabitTaskDefaultInfoView = {
         let view = HabitTaskDefaultInfoView()
-        view.iconSize = CGSize(value: Metrics.infoHeight)
-        view.iconView.size = CGSize(value: Metrics.infoHeight)
-        view.iconView.cornerRadius = Metrics.infoHeight / 2.0
+        view.iconSize = CGSize(value: Metrics.iconLength)
         return view
     }()
     

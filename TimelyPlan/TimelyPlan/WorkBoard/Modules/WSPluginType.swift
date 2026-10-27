@@ -76,6 +76,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 习惯·小·最近三天：展示所选习惯最近三天的状态与进度。
     case habitSmallRecent
     
+    /// 习惯·小·月报告：以热力图展示所选习惯本月的完成情况。
+    case habitSmallMonthReport
+    
     /// 习惯·中·任务列表：以列表展示今日排期的习惯任务。
     case habitMediumTasksList
     
@@ -103,7 +106,8 @@ public extension WSPluginType {
         case .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
-             .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent:
+             .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
+             .habitSmallMonthReport:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
@@ -128,6 +132,7 @@ public extension WSPluginType {
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap:
             return .focus
         case .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
+             .habitSmallMonthReport,
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
              .habitLargeTasksList, .habitLargeTasksGrid:
             return .habit
@@ -221,6 +226,7 @@ enum WSPluginCatalog {
         .init(WSHabitMediumTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
         .init(WSHabitWeekPluginProvider(), title: "Habit Week", subtitle: "Shows this week's progress of a habit"),
         .init(WSHabitRecentPluginProvider(), title: "Recent Days", subtitle: "Shows the last 3 days of a habit"),
+        .init(WSHabitSmallMonthReportPluginProvider(), title: "Month Report", subtitle: "Shows this month's progress of a habit"),
         .init(WSHabitLargeTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a list"),
         .init(WSHabitLargeTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
     ]

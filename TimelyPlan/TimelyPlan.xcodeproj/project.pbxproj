@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E5F0D0A1268A0000D000A044 /* WSHabitPeriodContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A043 /* WSHabitPeriodContentInteractor.swift */; };
-		E5F0D0A1268A0000D000A046 /* WSHabitPeriodContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A045 /* WSHabitPeriodContentView.swift */; };
-		E5F0D0A1268A0000D000A048 /* WSHabitPeriodPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A047 /* WSHabitPeriodPluginProvider.swift */; };
-		E5F0D0A1268A0000D000A04A /* WSHabitRecentContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A049 /* WSHabitRecentContentInteractor.swift */; };
-		E5F0D0A1268A0000D000A04C /* WSHabitRecentPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A04B /* WSHabitRecentPluginProvider.swift */; };
 		930B47C98BEE5C4915C191FA /* libPods-TimelyPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */; };
 		E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */; };
 		E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */; };
@@ -2520,6 +2515,14 @@
 		E5F0D0A1268A0000D000A03E /* WSHabitDayDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A03D /* WSHabitDayDataItem.swift */; };
 		E5F0D0A1268A0000D000A040 /* WSHabitDayProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A03F /* WSHabitDayProgressView.swift */; };
 		E5F0D0A1268A0000D000A042 /* WSHabitDayContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A041 /* WSHabitDayContainerView.swift */; };
+		E5F0D0A1268A0000D000A044 /* WSHabitPeriodContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A043 /* WSHabitPeriodContentInteractor.swift */; };
+		E5F0D0A1268A0000D000A046 /* WSHabitPeriodContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A045 /* WSHabitPeriodContentView.swift */; };
+		E5F0D0A1268A0000D000A048 /* WSHabitPeriodPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A047 /* WSHabitPeriodPluginProvider.swift */; };
+		E5F0D0A1268A0000D000A04A /* WSHabitRecentContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A049 /* WSHabitRecentContentInteractor.swift */; };
+		E5F0D0A1268A0000D000A04C /* WSHabitRecentPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A04B /* WSHabitRecentPluginProvider.swift */; };
+		E52B07BB3090CF1800D7376F /* WSHabitMonthReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07B83090CF1800D7376F /* WSHabitMonthReportView.swift */; };
+		E52B07BC3090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07B93090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift */; };
+		E52B07BD3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07BA3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift */; };
 		E5F10002309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift */; };
 		E5F10002309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */; };
 		E5F10002309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */; };
@@ -2660,11 +2663,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E5F0D0A1268A0000D000A043 /* WSHabitPeriodContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodContentInteractor.swift; sourceTree = "<group>"; };
-		E5F0D0A1268A0000D000A045 /* WSHabitPeriodContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodContentView.swift; sourceTree = "<group>"; };
-		E5F0D0A1268A0000D000A047 /* WSHabitPeriodPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodPluginProvider.swift; sourceTree = "<group>"; };
-		E5F0D0A1268A0000D000A049 /* WSHabitRecentContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitRecentContentInteractor.swift; sourceTree = "<group>"; };
-		E5F0D0A1268A0000D000A04B /* WSHabitRecentPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitRecentPluginProvider.swift; sourceTree = "<group>"; };
 		1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.release.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.release.xcconfig"; sourceTree = "<group>"; };
 		2197CCF3E13F7B7E5DA987DD /* Pods-TimelyPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.debug.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimelyPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5196,6 +5194,14 @@
 		E5F0D0A1268A0000D000A03D /* WSHabitDayDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitDayDataItem.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A03F /* WSHabitDayProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitDayProgressView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A041 /* WSHabitDayContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitDayContainerView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A043 /* WSHabitPeriodContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodContentInteractor.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A045 /* WSHabitPeriodContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodContentView.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A047 /* WSHabitPeriodPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitPeriodPluginProvider.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A049 /* WSHabitRecentContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitRecentContentInteractor.swift; sourceTree = "<group>"; };
+		E5F0D0A1268A0000D000A04B /* WSHabitRecentPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitRecentPluginProvider.swift; sourceTree = "<group>"; };
+		E52B07B83090CF1800D7376F /* WSHabitMonthReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMonthReportView.swift; sourceTree = "<group>"; };
+		E52B07B93090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallMonthReportContentView.swift; sourceTree = "<group>"; };
+		E52B07BA3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallMonthReportPluginProvider.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B001 /* WSFocusSmallTodayComparisonPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayComparisonPluginProvider.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B002 /* WSFocusSmallTodayComparisonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallTodayComparisonContentView.swift; sourceTree = "<group>"; };
 		E5F10001309000000000B003 /* WSFocusTodayComparisonContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusTodayComparisonContentInteractor.swift; sourceTree = "<group>"; };
@@ -7015,6 +7021,16 @@
 				E52A4FE62F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png */,
 			);
 			path = week;
+			sourceTree = "<group>";
+		};
+		E52B07B73090CF1800D7376F /* MonthReport */ = {
+			isa = PBXGroup;
+			children = (
+				E52B07BA3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift */,
+				E52B07B93090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift */,
+				E52B07B83090CF1800D7376F /* WSHabitMonthReportView.swift */,
+			);
+			path = MonthReport;
 			sourceTree = "<group>";
 		};
 		E52B62A42F3611FC00673620 /* main */ = {
@@ -13713,6 +13729,7 @@
 		E5F002AD308F39CB00D70600 /* Small */ = {
 			isa = PBXGroup;
 			children = (
+				E52B07B73090CF1800D7376F /* MonthReport */,
 				E5FFDBFE3090A45400E839B6 /* Recent */,
 				E5FFDBFA3090428C00E839B6 /* Grid */,
 				E5261148308F9956002428BB /* Selected */,
@@ -15231,6 +15248,9 @@
 				E5F0D0A1268A0000D000A048 /* WSHabitPeriodPluginProvider.swift in Sources */,
 				E5F0D0A1268A0000D000A04A /* WSHabitRecentContentInteractor.swift in Sources */,
 				E5F0D0A1268A0000D000A04C /* WSHabitRecentPluginProvider.swift in Sources */,
+				E52B07BB3090CF1800D7376F /* WSHabitMonthReportView.swift in Sources */,
+				E52B07BC3090CF1800D7376F /* WSHabitSmallMonthReportContentView.swift in Sources */,
+				E52B07BD3090CF1800D7376F /* WSHabitSmallMonthReportPluginProvider.swift in Sources */,
 				E57B2B453045254400BA4D56 /* GoalConfig.swift in Sources */,
 				E5B33D592F80E66E00939C3E /* TaskReminderEditViewController.swift in Sources */,
 				E5F078D52F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift in Sources */,
