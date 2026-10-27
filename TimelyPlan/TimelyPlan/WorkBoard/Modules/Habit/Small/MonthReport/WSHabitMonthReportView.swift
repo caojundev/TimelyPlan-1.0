@@ -58,17 +58,13 @@ class WSHabitMonthReportView: UIView {
         
         backgroundColor = .clear
         isOpaque = false
+        /// 尺寸变化时由 contentMode 触发重绘，布局过程中的位置变化不必重复重绘
         contentMode = .redraw
         isUserInteractionEnabled = false
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setNeedsDisplay()
     }
     
     // MARK: - 绘制

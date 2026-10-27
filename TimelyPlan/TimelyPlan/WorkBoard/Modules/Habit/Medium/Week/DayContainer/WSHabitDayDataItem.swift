@@ -16,11 +16,11 @@ class WSHabitDayDataItem: NSObject {
     /// 对应日期
     let date: Date
     
-    /// 星期文案
-    let weekdayText: String
+    /// 星期文案。仅在展示需要时取值，不需要展示的用途不必为此做一次格式化
+    lazy var weekdayText: String = date.shortWeekdaySymbol()
     
     /// 日期数字
-    let dayNumberText: String
+    lazy var dayNumberText: String = "\(date.day)"
     
     /// 是否计划日
     let isScheduled: Bool
@@ -47,8 +47,6 @@ class WSHabitDayDataItem: NSObject {
          color: UIColor,
          reasonEmoji: String?) {
         self.date = date
-        self.weekdayText = date.shortWeekdaySymbol()
-        self.dayNumberText = "\(date.day)"
         self.isScheduled = isScheduled
         self.isFuture = date.isFutureDay
         self.status = status

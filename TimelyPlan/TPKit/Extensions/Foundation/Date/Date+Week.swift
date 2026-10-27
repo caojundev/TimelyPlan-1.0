@@ -147,17 +147,7 @@ extension Date {
     
     /// 根据样式和周开始日返回一周符号数组
     static func weekdaySymbols(style: WeekdaySymbolStyle, firstWeekday: Int) -> [String] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .none
-        var symbols: [String]
-        switch style {
-        case .full:
-            symbols = dateFormatter.weekdaySymbols
-        case .short:
-            symbols = dateFormatter.shortWeekdaySymbols
-        case .veryShort:
-            symbols = dateFormatter.veryShortWeekdaySymbols
-        }
+        let symbols = WeekdaySymbolsCache.shared.symbols(for: style)
     
         let firstWeekday = max(1, min(firstWeekday, 7))
         let index = firstWeekday - 1
@@ -216,6 +206,65 @@ extension Date {
     
     func veryShortWeekdaySymbol() -> String {
         return weekdaySymbol(style: .veryShort)
+    }
+}
+
+// MARK: - 周符号缓存
+
+/// 周符号缓存。
+///
+/// 周符号由 `DateFormatter` 提供，创建开销较大且内容固定；
+/// 这里按样式缓存一份，语言或地区变化时清空重取。
+private final class WeekdaySymbolsCache: NSObject {
+    
+    static let shared = WeekdaySymbolsCache()
+    
+    /// 已缓存的周符号，星期日在前
+    private var cachedSymbols: [WeekdaySymbolStyle: [String]] = [:]
+    
+    private let lock = NSLock()
+    
+    private override init() {
+        super.init()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(localeDidChange),
+                                               name: NSLocale.currentLocaleDidChangeNotification,
+                                               object: nil)
+    }
+    
+    /// 指定样式的周符号
+    func symbols(for style: WeekdaySymbolStyle) -> [String] {
+        lock.lock()
+        defer { lock.unlock() }
+        
+        if let symbols = cachedSymbols[style] {
+            return symbols
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .none
+        
+        let symbols: [String]
+        switch style {
+        case .full:
+            symbols = dateFormatter.weekdaySymbols
+        case .short:
+            symbols = dateFormatter.shortWeekdaySymbols
+        case .veryShort:
+            symbols = dateFormatter.veryShortWeekdaySymbols
+        }
+        
+        cachedSymbols[style] = symbols
+        return symbols
+    }
+    
+    /// 语言或地区变化后清空缓存
+    @objc private func localeDidChange() {
+        lock.lock()
+        defer { lock.unlock() }
+        
+        cachedSymbols.removeAll()
     }
 }
     

@@ -103,7 +103,13 @@ class WSHabitPeriodContentInteractor: WSPluginContentInteractor,
     
     // MARK: - 条目操作
     override func performPrimaryAction() {
-        showDayMenu(on: .now)
+        guard let task = selectedTask() else {
+            return
+        }
+        
+        let date = Date()
+        let periodItem = HabitRepository.getPeriodItem(for: task, on: date)
+        HabitDayMenuPresenter.showSheetMenu(for: periodItem, on: date)
     }
     
     /// 点击某一天：与习惯首页周视图一致，计划日打开只处理记录的菜单
@@ -116,24 +122,16 @@ class WSHabitPeriodContentInteractor: WSPluginContentInteractor,
             return
         }
         
-        showDayMenu(on: date)
-    }
-    
-    
-    private func showDayMenu(on date: Date) {
         guard let task = selectedTask() else {
             return
         }
         
-        let fetcher = HabitPeriodItemFetcher()
-        let period = weekPeriod(containing: date)
-        let periodItem = fetcher.getPeriodItem(for: task,
-                                                  in: period,
-                                                  includeSamples: false)
+        let periodItem = HabitRepository.getPeriodItem(for: task, on: date)
         HabitDayMenuPresenter.showPopoverMenu(for: periodItem,
                                               on: date,
                                               menuType: .recordOnly)
     }
+    
     
     // MARK: - 数据
      private func selectedTask() -> HabitTask? {
@@ -143,13 +141,6 @@ class WSHabitPeriodContentInteractor: WSPluginContentInteractor,
 
          return HabitRepository.getTask(with: identifier)
      }
-     
-    /// 日期所在周的时间段
-    func weekPeriod(containing date: Date) -> HabitDatePeriod {
-        return HabitDatePeriod(date: date,
-                               mode: .week,
-                               firstWeekday: HabitSetting.shared.firstWeekday)
-    }
     
     /// 按标识取回当前的活动任务
     func habitTask(with identifier: String) -> HabitTask? {
