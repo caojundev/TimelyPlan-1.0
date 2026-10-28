@@ -10259,6 +10259,7 @@
 			children = (
 				E539C86F308CAE6C0077FE8A /* UIComponents */,
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
+				E5BBCAD030919CF700E35B41 /* Goal */,
 				E5F002AB308F089100D70600 /* Habit */,
 				E584C7E8308C459A00A38690 /* Focus */,
 				E537BC7C308B4B5800C308E3 /* Countdown */,
@@ -12487,6 +12488,37 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		E5BBCAD030919CF700E35B41 /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				E5BBCAD330919DD100E35B41 /* Common */,
+				E5BBCAD130919D1900E35B41 /* Small */,
+			);
+			path = Goal;
+			sourceTree = "<group>";
+		};
+		E5BBCAD130919D1900E35B41 /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E5BBCAD230919D2000E35B41 /* Selected */,
+			);
+			path = Small;
+			sourceTree = "<group>";
+		};
+		E5BBCAD230919D2000E35B41 /* Selected */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Selected;
+			sourceTree = "<group>";
+		};
+		E5BBCAD330919DD100E35B41 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		E5BEC27F307B3E770050E01B /* upgrade */ = {
 			isa = PBXGroup;
 			children = (
@@ -13790,6 +13822,7 @@
 			children = (
 				E5F0D0A1268A0000D000A019 /* Provider */,
 				E5F0D0A1268A0000D000A00B /* Row */,
+				E5FFDBFD30909EAD00E839B6 /* Period */,
 				E5F0D0A1268A0000D000A001 /* WSHabitTaskDataItem.swift */,
 				E5F0D0A1268A0000D000A003 /* WSHabitTaskContentInteractor.swift */,
 				E52B07C13090F00000D7376F /* WSHabitPluginContentInteractor.swift */,
@@ -13806,8 +13839,8 @@
 				E52B07B73090CF1800D7376F /* MonthReport */,
 				E5FFDBFE3090A45400E839B6 /* Recent */,
 				E5FFDBFA3090428C00E839B6 /* Grid */,
-				E5261148308F9956002428BB /* Selected */,
 				E5261147308F98EC002428BB /* List */,
+				E5261148308F9956002428BB /* Selected */,
 			);
 			path = Small;
 			sourceTree = "<group>";
@@ -14376,12 +14409,11 @@
 			children = (
 				E5F0D0A1268A0000D000A033 /* WSHabitWeekPluginProvider.swift */,
 				E5F0D0A1268A0000D000A037 /* WSHabitWeekContentInteractor.swift */,
-				E5FFDBFD30909EAD00E839B6 /* DayContainer */,
 			);
 			path = Week;
 			sourceTree = "<group>";
 		};
-		E5FFDBFD30909EAD00E839B6 /* DayContainer */ = {
+		E5FFDBFD30909EAD00E839B6 /* Period */ = {
 			isa = PBXGroup;
 			children = (
 				E5F0D0A1268A0000D000A03D /* WSHabitDayDataItem.swift */,
@@ -14392,7 +14424,7 @@
 				E5F0D0A1268A0000D000A045 /* WSHabitPeriodContentView.swift */,
 				E5F0D0A1268A0000D000A047 /* WSHabitPeriodPluginProvider.swift */,
 			);
-			path = DayContainer;
+			path = Period;
 			sourceTree = "<group>";
 		};
 		E5FFDBFE3090A45400E839B6 /* Recent */ = {
