@@ -48,6 +48,17 @@ class WSHabitPeriodDataItem: NSObject, WSPluginDataItem {
         super.init()
     }
     
+    /// 已完成的天数
+    var completedDaysCount: Int {
+        return days.reduce(0) { count, dayItem in
+            if case .completed = dayItem.status {
+                return count + 1
+            }
+            
+            return count
+        }
+    }
+    
     /// 由习惯时间段条目与要展示的天生成展示数据
     convenience init(periodItem: HabitPeriodItem, days: [WSHabitDayDataItem]) {
         let task = periodItem.habitTask

@@ -91,6 +91,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 习惯·中·周报告列表：逐行展示今日排期习惯本周的完成情况。
     case habitMediumWeekReportList
     
+    /// 习惯·中·本月活动列表：逐行展示今日排期习惯本月每天的活动。
+    case habitMediumMonthActivityList
+    
     /// 习惯·大·任务列表：以列表展示今日排期的习惯任务。
     case habitLargeTasksList
     
@@ -99,6 +102,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     
     /// 习惯·大·周报告列表：逐行展示今日排期习惯本周的完成情况。
     case habitLargeWeekReportList
+    
+    /// 习惯·大·本月活动列表：逐行展示今日排期习惯本月每天的活动。
+    case habitLargeMonthActivityList
     
 }
 
@@ -118,11 +124,12 @@ public extension WSPluginType {
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
-             .habitMediumWeekReportList:
+             .habitMediumWeekReportList, .habitMediumMonthActivityList:
             return .medium
         case .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
              .focusLargeUserTimerGrid,
-             .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList:
+             .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList,
+             .habitLargeMonthActivityList:
             return .large
         }
     }
@@ -142,8 +149,9 @@ public extension WSPluginType {
         case .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
              .habitSmallMonthReport,
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
-             .habitMediumWeekReportList,
-             .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList:
+             .habitMediumWeekReportList, .habitMediumMonthActivityList,
+             .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList,
+             .habitLargeMonthActivityList:
             return .habit
         }
     }
@@ -237,9 +245,11 @@ enum WSPluginCatalog {
         .init(WSHabitRecentPluginProvider(), title: "Recent Days", subtitle: "Shows the last 3 days of a habit"),
         .init(WSHabitSmallMonthReportPluginProvider(), title: "Month Report", subtitle: "Shows this month's progress of a habit"),
         .init(WSHabitMediumWeekReportListPluginProvider(), title: "Weekly Report", subtitle: "Shows this week's progress of habits"),
+        .init(WSHabitMediumMonthActivityListPluginProvider(), title: "Monthly Activity", subtitle: "Shows this month's activity of habits"),
         .init(WSHabitLargeTasksListPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a list"),
         .init(WSHabitLargeTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
         .init(WSHabitLargeWeekReportListPluginProvider(), title: "Weekly Report", subtitle: "Shows this week's progress of habits"),
+        .init(WSHabitLargeMonthActivityListPluginProvider(), title: "Monthly Activity", subtitle: "Shows this month's activity of habits"),
     ]
 
     /// 按类型取回组件配置

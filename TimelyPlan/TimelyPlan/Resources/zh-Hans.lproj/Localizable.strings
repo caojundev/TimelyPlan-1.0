@@ -68,6 +68,8 @@
 "Shows this month's progress of a habit" = "展示习惯本月的完成情况";
 "Weekly Report" = "周报告";
 "Shows this week's progress of habits" = "展示习惯本周的完成情况";
+"Monthly Activity" = "本月活动";
+"Shows this month's activity of habits" = "展示习惯本月每天的活动";
 "Next Planned Date %@" = "下一计划日于%@";
 "Not a Scheduled Day" = "非计划日";
 "Shows the selected habit" = "展示选中的习惯";

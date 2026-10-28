@@ -22,11 +22,17 @@ enum WSHabitTaskItemCount {
     /// 中号列表组件的展示条数
     static let mediumList = 3
     
+    /// 中号月活动状态列表组件
+    static let mediumMonthActivityList = 2
+    
     /// 中号网格组件的展示条数
     static let mediumGrid = 4
     
     /// 大号列表组件的展示条数
     static let largeList = 6
+    
+    /// 大号月活动状态列表组件
+    static let largeMonthActivityList = 4
     
     /// 大号网格组件的展示条数
     static let largeGrid = 8

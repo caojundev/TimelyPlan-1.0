@@ -549,6 +549,12 @@
 		E52B07D53090F00000D7376F /* WSHabitWeekReportListContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C53090F00000D7376F /* WSHabitWeekReportListContentInteractor.swift */; };
 		E52B07D63090F00000D7376F /* WSHabitMediumWeekReportListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C63090F00000D7376F /* WSHabitMediumWeekReportListPluginProvider.swift */; };
 		E52B07D73090F00000D7376F /* WSHabitLargeWeekReportListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07C73090F00000D7376F /* WSHabitLargeWeekReportListPluginProvider.swift */; };
+		E52B07F03090F80000D7376F /* WSHabitMonthActivityBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07E03090F80000D7376F /* WSHabitMonthActivityBarView.swift */; };
+		E52B07F13090F80000D7376F /* WSHabitMonthActivityRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07E13090F80000D7376F /* WSHabitMonthActivityRowView.swift */; };
+		E52B07F23090F80000D7376F /* WSHabitMonthActivityListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07E23090F80000D7376F /* WSHabitMonthActivityListContentView.swift */; };
+		E52B07F33090F80000D7376F /* WSHabitMonthActivityListContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07E33090F80000D7376F /* WSHabitMonthActivityListContentInteractor.swift */; };
+		E52B07F43090F80000D7376F /* WSHabitMediumMonthActivityListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07E43090F80000D7376F /* WSHabitMediumMonthActivityListPluginProvider.swift */; };
+		E52B07F53090F80000D7376F /* WSHabitLargeMonthActivityListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B07E53090F80000D7376F /* WSHabitLargeMonthActivityListPluginProvider.swift */; };
 		E52B62A72F36121000673620 /* focus_main_timeline_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */; };
 		E52B62A82F36121000673620 /* focus_main_timeline_24@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */; };
 		E52E481B2F8A07EE00B8CD25 /* TPImageInfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52E481A2F8A07EE00B8CD25 /* TPImageInfoButton.swift */; };
@@ -3219,6 +3225,12 @@
 		E52B07C53090F00000D7376F /* WSHabitWeekReportListContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitWeekReportListContentInteractor.swift; sourceTree = "<group>"; };
 		E52B07C63090F00000D7376F /* WSHabitMediumWeekReportListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMediumWeekReportListPluginProvider.swift; sourceTree = "<group>"; };
 		E52B07C73090F00000D7376F /* WSHabitLargeWeekReportListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitLargeWeekReportListPluginProvider.swift; sourceTree = "<group>"; };
+		E52B07E03090F80000D7376F /* WSHabitMonthActivityBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMonthActivityBarView.swift; sourceTree = "<group>"; };
+		E52B07E13090F80000D7376F /* WSHabitMonthActivityRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMonthActivityRowView.swift; sourceTree = "<group>"; };
+		E52B07E23090F80000D7376F /* WSHabitMonthActivityListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMonthActivityListContentView.swift; sourceTree = "<group>"; };
+		E52B07E33090F80000D7376F /* WSHabitMonthActivityListContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMonthActivityListContentInteractor.swift; sourceTree = "<group>"; };
+		E52B07E43090F80000D7376F /* WSHabitMediumMonthActivityListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitMediumMonthActivityListPluginProvider.swift; sourceTree = "<group>"; };
+		E52B07E53090F80000D7376F /* WSHabitLargeMonthActivityListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitLargeMonthActivityListPluginProvider.swift; sourceTree = "<group>"; };
 		E52B62A52F36120F00673620 /* focus_main_timeline_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_main_timeline_24@2x.png"; sourceTree = "<group>"; };
 		E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_main_timeline_24@3x.png"; sourceTree = "<group>"; };
 		E52E481A2F8A07EE00B8CD25 /* TPImageInfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPImageInfoButton.swift; sourceTree = "<group>"; };
@@ -6818,7 +6830,7 @@
 		E5261145308F8AD9002428BB /* Medium */ = {
 			isa = PBXGroup;
 			children = (
-				E52B07BB3090EF4A00D7376F /* MonthHeatBarList */,
+				E52B07BB3090EF4A00D7376F /* MonthActivityList */,
 				E52B07B93090E4FD00D7376F /* WeekReportList */,
 				E5FFDBFC30905C0600E839B6 /* Week */,
 				E5F0D0A1268A0000D000A01B /* List */,
@@ -6830,6 +6842,7 @@
 		E5261146308F9086002428BB /* Large */ = {
 			isa = PBXGroup;
 			children = (
+				E52B07BC3090F52F00D7376F /* MonthActivityList */,
 				E52B07BA3090E53200D7376F /* WeekReportList */,
 				E5F0D0A1268A0000D000A022 /* List */,
 				E5F0D0A1268A0000D000A023 /* Grid */,
@@ -7072,11 +7085,24 @@
 			path = WeekReportList;
 			sourceTree = "<group>";
 		};
-		E52B07BB3090EF4A00D7376F /* MonthHeatBarList */ = {
+		E52B07BB3090EF4A00D7376F /* MonthActivityList */ = {
 			isa = PBXGroup;
 			children = (
+				E52B07E43090F80000D7376F /* WSHabitMediumMonthActivityListPluginProvider.swift */,
+				E52B07E33090F80000D7376F /* WSHabitMonthActivityListContentInteractor.swift */,
+				E52B07E23090F80000D7376F /* WSHabitMonthActivityListContentView.swift */,
+				E52B07E13090F80000D7376F /* WSHabitMonthActivityRowView.swift */,
+				E52B07E03090F80000D7376F /* WSHabitMonthActivityBarView.swift */,
 			);
-			path = MonthHeatBarList;
+			path = MonthActivityList;
+			sourceTree = "<group>";
+		};
+		E52B07BC3090F52F00D7376F /* MonthActivityList */ = {
+			isa = PBXGroup;
+			children = (
+				E52B07E53090F80000D7376F /* WSHabitLargeMonthActivityListPluginProvider.swift */,
+			);
+			path = MonthActivityList;
 			sourceTree = "<group>";
 		};
 		E52B62A42F3611FC00673620 /* main */ = {
@@ -15307,6 +15333,12 @@
 				E52B07D53090F00000D7376F /* WSHabitWeekReportListContentInteractor.swift in Sources */,
 				E52B07D63090F00000D7376F /* WSHabitMediumWeekReportListPluginProvider.swift in Sources */,
 				E52B07D73090F00000D7376F /* WSHabitLargeWeekReportListPluginProvider.swift in Sources */,
+				E52B07F03090F80000D7376F /* WSHabitMonthActivityBarView.swift in Sources */,
+				E52B07F13090F80000D7376F /* WSHabitMonthActivityRowView.swift in Sources */,
+				E52B07F23090F80000D7376F /* WSHabitMonthActivityListContentView.swift in Sources */,
+				E52B07F33090F80000D7376F /* WSHabitMonthActivityListContentInteractor.swift in Sources */,
+				E52B07F43090F80000D7376F /* WSHabitMediumMonthActivityListPluginProvider.swift in Sources */,
+				E52B07F53090F80000D7376F /* WSHabitLargeMonthActivityListPluginProvider.swift in Sources */,
 				E57B2B453045254400BA4D56 /* GoalConfig.swift in Sources */,
 				E5B33D592F80E66E00939C3E /* TaskReminderEditViewController.swift in Sources */,
 				E5F078D52F97603800F94BDF /* TodoMultiDayScheduleEditSectionController.swift in Sources */,
