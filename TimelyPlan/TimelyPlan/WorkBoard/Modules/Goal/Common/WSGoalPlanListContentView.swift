@@ -14,7 +14,7 @@ import UIKit
 ///
 /// 单列纵向排列若干目标计划行，条数与交互器最多展示的数目保持一致；
 /// 计划不足时，剩余的行展示骨架，与其它组件行的空位保持一致。
-class WSGoalPlanListContentView: WSRowListView {
+class WSGoalPlanListContentView: WSGoalPlanRowsContentView {
     
     /// 布局尺寸
     private enum Metrics {
@@ -26,8 +26,8 @@ class WSGoalPlanListContentView: WSRowListView {
         static let rowSpacing: CGFloat = 4.0
     }
     
-    init(itemCount: Int) {
-        super.init(frame: .zero)
+    init(itemCount: Int, rowViewFactory: @escaping () -> WSGoalPlanRowView) {
+        super.init(rowViewFactory: rowViewFactory)
         
         self.padding = Metrics.padding
         self.columnCount = 1
@@ -40,30 +40,10 @@ class WSGoalPlanListContentView: WSRowListView {
     }
     
     // MARK: - 行视图
-    override func makeRowView(at index: Int) -> WSRowView {
-        return WSGoalPlanBriefRowView()
-    }
-    
     override func didAddRowView(_ rowView: WSRowView, at index: Int) {
-        guard let rowView = rowView as? WSGoalPlanRowView else {
-            return
-        }
+        super.didAddRowView(rowView, at: index)
         
-        /// 列表不展示卡片底色，行本身响应点击
+        /// 列表不展示卡片底色
         rowView.normalBackColor = .clear
-        rowView.didSelectPlanHandler = { [weak self] dataItem in
-            self?.interactor?.performAction(with: dataItem)
-        }
-    }
-    
-    // MARK: - 渲染
-    override func update(with dataItem: WSPluginDataItem?) {
-        super.update(with: dataItem)
-        
-        let items = (dataItem as? WSGoalPlanListDataItem)?.items ?? []
-        for (index, rowView) in rowViews.enumerated() {
-            /// 空位传 nil，行视图内部会切换为骨架展示
-            (rowView as? WSGoalPlanRowView)?.update(with: items[safe: index])
-        }
     }
 }

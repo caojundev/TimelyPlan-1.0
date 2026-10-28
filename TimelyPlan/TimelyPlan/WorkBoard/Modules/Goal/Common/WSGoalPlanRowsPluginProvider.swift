@@ -1,5 +1,5 @@
 //
-//  WSGoalPlanListPluginProvider.swift
+//  WSGoalPlanRowsPluginProvider.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/28.
@@ -15,14 +15,23 @@ enum WSGoalPlanItemCount {
     
     /// 小号列表组件的展示条数
     static let smallPlanList = 2
+    
+    /// 中号网格组件的展示条数
+    static let mediumPlanGrid = 4
+    
+    /// 大号网格组件的展示条数
+    static let largePlanGrid = 8
+    
+    /// 网格组件的列数
+    static let gridColumnCount = 2
 }
 
 // MARK: - 组件提供者基类
 
-/// 目标计划列表组件提供者基类。
+/// 目标计划行组件提供者基类。
 ///
-/// 各尺寸组件只需声明「类型 + 展示条数 + 内容视图」，取数与交互由基类统一提供。
-class WSGoalPlanListPluginProvider: WSPluginProvider {
+/// 各尺寸列表 / 网格组件只需声明「类型 + 展示条数 + 内容视图」，取数与交互由基类统一提供。
+class WSGoalPlanRowsPluginProvider: WSPluginProvider {
     
     /// 插件类型
     let type: WSPluginType
@@ -46,7 +55,7 @@ class WSGoalPlanListPluginProvider: WSPluginProvider {
     }
     
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {
-        return WSGoalPlanListContentInteractor(plugin: plugin,
+        return WSGoalPlanRowsContentInteractor(plugin: plugin,
                                                context: context,
                                                maximumItemCount: itemCount)
     }

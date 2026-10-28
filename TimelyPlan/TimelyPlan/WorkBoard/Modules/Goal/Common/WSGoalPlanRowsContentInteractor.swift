@@ -1,5 +1,5 @@
 //
-//  WSGoalPlanListContentInteractor.swift
+//  WSGoalPlanRowsContentInteractor.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/28.
@@ -9,11 +9,11 @@ import Foundation
 
 // MARK: - 内容交互器
 
-/// 目标计划列表组件的内容交互器，各列表尺寸共用。
+/// 目标计划行组件的内容交互器，各尺寸列表与网格共用。
 ///
 /// 按目标计划列表的顺序读取进行中的计划，换算成行数据后下发；
 /// 计划增删改或进度变化时重新取数。
-class WSGoalPlanListContentInteractor: WSGoalPlanPluginContentInteractor {
+class WSGoalPlanRowsContentInteractor: WSGoalPlanPluginContentInteractor {
     
     /// 最多展示的目标计划数目
     private let maximumItemCount: Int
@@ -40,7 +40,7 @@ class WSGoalPlanListContentInteractor: WSGoalPlanPluginContentInteractor {
             }
             
             let items = goalPlans.map { WSGoalPlanDataItem(goalPlan: $0) }
-            completion(WSGoalPlanListDataItem(items: items))
+            completion(WSGoalPlanRowsDataItem(items: items))
         }
     }
     
@@ -56,7 +56,7 @@ class WSGoalPlanListContentInteractor: WSGoalPlanPluginContentInteractor {
     }
     
     // MARK: - 预览数据
-    /// 画廊预览数据：固定展示几个示例计划，不受用户数据影响，条数与真实展示一致
+    /// 画廊预览数据：固定展示一组示例计划，不受用户数据影响，条数与真实展示一致
     override func previewDataItem() -> WSPluginDataItem? {
         let now = Date()
         let examples: [WSGoalPlanPreview] = [
@@ -74,7 +74,32 @@ class WSGoalPlanListContentInteractor: WSGoalPlanPluginContentInteractor {
                               progress: 0.0,
                               startDays: 5,
                               endDays: 40,
-                              colorHex: 0x26B450)
+                              colorHex: 0x26B450),
+            WSGoalPlanPreview(title: resGetString("Reading"),
+                              progress: 0.7,
+                              startDays: -30,
+                              endDays: 10,
+                              colorHex: 0x8C36FF),
+            WSGoalPlanPreview(title: resGetString("Workout"),
+                              progress: 0.25,
+                              startDays: -10,
+                              endDays: 80,
+                              colorHex: 0xFCB100),
+            WSGoalPlanPreview(title: resGetString("Family Trip"),
+                              progress: 1.0,
+                              startDays: -40,
+                              endDays: 0,
+                              colorHex: 0xFD2504),
+            WSGoalPlanPreview(title: resGetString("Graduation"),
+                              progress: 0.85,
+                              startDays: -120,
+                              endDays: -5,
+                              colorHex: 0x00786C),
+            WSGoalPlanPreview(title: resGetString("Driving Test"),
+                              progress: 0.1,
+                              startDays: -5,
+                              endDays: 14,
+                              colorHex: 0x7E22A3)
         ]
         
         let items = examples.prefix(maximumItemCount).map { example -> WSGoalPlanDataItem in
@@ -89,7 +114,7 @@ class WSGoalPlanListContentInteractor: WSGoalPlanPluginContentInteractor {
             return WSGoalPlanDataItem(goalPlan: goalPlan)
         }
         
-        return WSGoalPlanListDataItem(items: items)
+        return WSGoalPlanRowsDataItem(items: items)
     }
 }
 

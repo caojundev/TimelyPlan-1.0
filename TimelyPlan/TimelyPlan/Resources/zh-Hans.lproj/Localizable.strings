@@ -207,6 +207,7 @@
 "Shows the number of inbox tasks" = "展示收件箱任务数量";
 "Goals" = "目标";
 "Shows active goals in a list" = "以列表展示进行中的目标";
+"Shows active goals in a grid" = "以网格展示进行中的目标";
 
 /// 目标任务操作页
 "Steps" = "步骤";
