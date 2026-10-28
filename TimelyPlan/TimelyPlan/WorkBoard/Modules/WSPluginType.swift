@@ -116,6 +116,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 目标·小·计划列表：逐行展示进行中的目标计划。
     case goalSmallPlanList
     
+    /// 目标·小·计划双环：以内环任务进度、外环时间进度展示所选目标计划。
+    case goalSmallPlanRing
+    
     /// 目标·中·计划网格：以两列网格展示进行中的目标计划。
     case goalMediumPlanGrid
     
@@ -142,7 +145,7 @@ public extension WSPluginType {
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
              .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
              .habitSmallMonthReport,
-             .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList:
+             .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
@@ -178,7 +181,7 @@ public extension WSPluginType {
              .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList,
              .habitLargeMonthActivityList:
             return .habit
-        case .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList,
+        case .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing,
              .goalMediumPlanGrid, .goalLargePlanGrid,
              .goalMediumPlanList, .goalLargePlanList:
             return .goal
@@ -284,6 +287,7 @@ enum WSPluginCatalog {
         .init(WSGoalPlanSmallSelectedPluginProvider(), title: "Selected Goal", subtitle: "Shows the selected goal"),
         .init(WSGoalPlanSmallInboxPluginProvider(), title: "Inbox", subtitle: "Shows the number of inbox tasks"),
         .init(WSGoalPlanSmallPlanListPluginProvider(), title: "Goals", subtitle: "Shows active goals in a list"),
+        .init(WSGoalPlanSmallPlanRingPluginProvider(), title: "Goal Progress", subtitle: "Shows the selected goal's progress rings"),
         .init(WSGoalPlanMediumPlanGridPluginProvider(), title: "Goals", subtitle: "Shows active goals in a grid"),
         .init(WSGoalPlanLargePlanGridPluginProvider(), title: "Goals", subtitle: "Shows active goals in a grid"),
         .init(WSGoalPlanMediumPlanListPluginProvider(), title: "Goals", subtitle: "Shows active goals in a list"),

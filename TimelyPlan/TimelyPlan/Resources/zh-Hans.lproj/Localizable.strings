@@ -208,6 +208,8 @@
 "Goals" = "目标";
 "Shows active goals in a list" = "以列表展示进行中的目标";
 "Shows active goals in a grid" = "以网格展示进行中的目标";
+"Goal Progress" = "目标进度";
+"Shows the selected goal's progress rings" = "展示所选目标的进度双环";
 
 /// 目标任务操作页
 "Steps" = "步骤";

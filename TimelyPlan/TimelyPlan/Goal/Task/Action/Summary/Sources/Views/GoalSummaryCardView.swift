@@ -14,7 +14,6 @@ import UIKit
 /// 高度的唯一来源是 `makeFrames(forWidth:)`，`sizeThatFits` 与 `layoutSubviews`
 /// 共用同一份计算，避免两处逻辑漂移。
 final class GoalSummaryCardView: UIView {
- 
     // MARK: - 布局常量
 
     private enum Metrics {
@@ -92,7 +91,6 @@ final class GoalSummaryCardView: UIView {
 
         // 圆心只表达状态，不显示百分比
         centerView.configure(status: snapshot.status, accent: accent)
-
         legendView.items = [
             .init(color: accent,
                   title: resGetString("Task Completion Progress"),

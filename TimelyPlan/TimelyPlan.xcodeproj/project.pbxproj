@@ -2164,6 +2164,8 @@
 		E5CBA0B13092000100E35B41 /* WSGoalPlanDetailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0A13092000100E35B41 /* WSGoalPlanDetailRowView.swift */; };
 		E5CBA0B23092000100E35B41 /* WSGoalPlanMediumPlanListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0A23092000100E35B41 /* WSGoalPlanMediumPlanListPluginProvider.swift */; };
 		E5CBA0B33092000100E35B41 /* WSGoalPlanLargePlanListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0A33092000100E35B41 /* WSGoalPlanLargePlanListPluginProvider.swift */; };
+		E5CBA0D13092000100E35B41 /* WSGoalPlanSmallPlanRingPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0C13092000100E35B41 /* WSGoalPlanSmallPlanRingPluginProvider.swift */; };
+		E5CBA0D23092000100E35B41 /* WSGoalPlanSmallPlanRingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0C23092000100E35B41 /* WSGoalPlanSmallPlanRingContentView.swift */; };
 		E5CFD2592F5838E300A898CB /* HabitTaskListGroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2582F5838E300A898CB /* HabitTaskListGroupHeaderView.swift */; };
 		E5CFD25F2F585A4300A898CB /* HabitDatePeriodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD25C2F585A4200A898CB /* HabitDatePeriodsView.swift */; };
 		E5CFD2632F585DAF00A898CB /* HabitHomeWeekDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2622F585DAF00A898CB /* HabitHomeWeekDayCell.swift */; };
@@ -4882,6 +4884,8 @@
 		E5CBA0A13092000100E35B41 /* WSGoalPlanDetailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanDetailRowView.swift; sourceTree = "<group>"; };
 		E5CBA0A23092000100E35B41 /* WSGoalPlanMediumPlanListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanMediumPlanListPluginProvider.swift; sourceTree = "<group>"; };
 		E5CBA0A33092000100E35B41 /* WSGoalPlanLargePlanListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanLargePlanListPluginProvider.swift; sourceTree = "<group>"; };
+		E5CBA0C13092000100E35B41 /* WSGoalPlanSmallPlanRingPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanSmallPlanRingPluginProvider.swift; sourceTree = "<group>"; };
+		E5CBA0C23092000100E35B41 /* WSGoalPlanSmallPlanRingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanSmallPlanRingContentView.swift; sourceTree = "<group>"; };
 		E5CFD2582F5838E300A898CB /* HabitTaskListGroupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskListGroupHeaderView.swift; sourceTree = "<group>"; };
 		E5CFD25C2F585A4200A898CB /* HabitDatePeriodsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitDatePeriodsView.swift; sourceTree = "<group>"; };
 		E5CFD2622F585DAF00A898CB /* HabitHomeWeekDayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitHomeWeekDayCell.swift; sourceTree = "<group>"; };
@@ -12570,11 +12574,21 @@
 		E5BBCAD130919D1900E35B41 /* Small */ = {
 			isa = PBXGroup;
 			children = (
+				E5CBA0C03092000100E35B41 /* PlanRing */,
 				E5BBCADB3091E19000E35B41 /* PlanList */,
 				E5BBCAD53091A8AB00E35B41 /* Inbox */,
 				E5BBCAD230919D2000E35B41 /* Selected */,
 			);
 			path = Small;
+			sourceTree = "<group>";
+		};
+		E5CBA0C03092000100E35B41 /* PlanRing */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA0C13092000100E35B41 /* WSGoalPlanSmallPlanRingPluginProvider.swift */,
+				E5CBA0C23092000100E35B41 /* WSGoalPlanSmallPlanRingContentView.swift */,
+			);
+			path = PlanRing;
 			sourceTree = "<group>";
 		};
 		E5BBCAD230919D2000E35B41 /* Selected */ = {
@@ -16994,6 +17008,8 @@
 				E5CBA0B13092000100E35B41 /* WSGoalPlanDetailRowView.swift in Sources */,
 				E5CBA0B23092000100E35B41 /* WSGoalPlanMediumPlanListPluginProvider.swift in Sources */,
 				E5CBA0B33092000100E35B41 /* WSGoalPlanLargePlanListPluginProvider.swift in Sources */,
+				E5CBA0D13092000100E35B41 /* WSGoalPlanSmallPlanRingPluginProvider.swift in Sources */,
+				E5CBA0D23092000100E35B41 /* WSGoalPlanSmallPlanRingContentView.swift in Sources */,
 				E5CBA0513092000100E35B41 /* WSGoalPlanBriefRowView.swift in Sources */,
 				E5CBA0523092000100E35B41 /* WSGoalPlanListContentView.swift in Sources */,
 				E5CBA0533092000100E35B41 /* WSGoalPlanRowsContentInteractor.swift in Sources */,
