@@ -110,6 +110,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 目标·小·自选：展示用户选择的一个目标计划。
     case goalSmallSelected
     
+    /// 目标·小·收件箱：展示收件箱中的任务数目。
+    case goalSmallInbox
+    
 }
 
 // MARK: - 固有属性
@@ -124,7 +127,7 @@ public extension WSPluginType {
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
              .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
              .habitSmallMonthReport,
-             .goalSmallSelected:
+             .goalSmallSelected, .goalSmallInbox:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
@@ -158,7 +161,7 @@ public extension WSPluginType {
              .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList,
              .habitLargeMonthActivityList:
             return .habit
-        case .goalSmallSelected:
+        case .goalSmallSelected, .goalSmallInbox:
             return .goal
         }
     }
@@ -260,6 +263,7 @@ enum WSPluginCatalog {
         
         // 目标
         .init(WSGoalPlanSmallSelectedPluginProvider(), title: "Selected Goal", subtitle: "Shows the selected goal"),
+        .init(WSGoalPlanSmallInboxPluginProvider(), title: "Inbox", subtitle: "Shows the number of inbox tasks"),
     ]
 
     /// 按类型取回组件配置

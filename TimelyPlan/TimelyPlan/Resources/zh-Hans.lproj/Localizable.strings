@@ -203,6 +203,8 @@
 "Shows the selected goal" = "展示选中的目标";
 "Select Goal" = "选择目标";
 "No Goal Selected" = "未选择目标";
+"Goal Inbox" = "目标收件箱";
+"Shows the number of inbox tasks" = "展示收件箱任务数量";
 
 /// 目标任务操作页
 "Steps" = "步骤";

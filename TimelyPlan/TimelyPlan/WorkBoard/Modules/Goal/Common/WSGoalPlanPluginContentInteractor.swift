@@ -21,12 +21,17 @@ class WSGoalPlanPluginContentInteractor: WSPluginContentInteractor,
         return nil
     }
     
+    /// 需要观察的数据类型
+    var observedUpdaterOptions: GoalUpdaterOption {
+        return .plan
+    }
+    
     override init(plugin: WSPlugin, context: WSPluginContext) {
         super.init(plugin: plugin, context: context)
         
         /// 目标任务与记录变化会重新计算计划进度，观察计划即可覆盖
         /// 观察者由数据仓库弱引用持有，无需手动移除
-        GoalRepository.addUpdater(self, for: .plan)
+        GoalRepository.addUpdater(self, for: observedUpdaterOptions)
     }
     
     /// 变更是否影响当前展示内容

@@ -415,12 +415,36 @@ extension CDGoalTask {
         }
     }
     
+    /// 获取指定目标计划对应任务数目
+    /// - Note: 直接在存储层执行计数查询，不抓取托管对象；结果在主线程回调
+    static func fetchNumberOfGoalTasks(withPlanIdentifier identifier: String,
+                                       showCompleted: Bool = true,
+                                       completion: @escaping (Int) -> Void) {
+        let predicate = taskPredicate(forPlanIdentifier: identifier,
+                                      showCompleted: showCompleted)
+        fetchCount(withPredicate: predicate) { count in
+            DispatchQueue.main.async {
+                completion(count)
+            }
+        }
+    }
+    
     /// 获取所有收件箱任务（未归属任何目标计划）
     static func fetchInboxGoalTasks(completion: @escaping ([CDGoalTask]?) -> Void) {
         fetchAll(matching: inboxGoalTaskPredicate,
                  sortBy: orderKey,
                  ascending: true) { results in
             completion(results as? [CDGoalTask])
+        }
+    }
+    
+    /// 获取收件箱任务数目
+    /// - Note: 直接在存储层执行计数查询，不抓取托管对象；结果在主线程回调
+    static func fetchNumberOfInboxGoalTasks(completion: @escaping (Int) -> Void) {
+        fetchCount(withPredicate: inboxGoalTaskPredicate) { count in
+            DispatchQueue.main.async {
+                completion(count)
+            }
         }
     }
     
@@ -526,8 +550,15 @@ extension CDGoalTask {
     
     static func taskPredicate(for goalPlan: GoalPlan,
                               showCompleted: Bool = true) -> NSPredicate {
+        return taskPredicate(forPlanIdentifier: goalPlan.identifier,
+                             showCompleted: showCompleted)
+    }
+    
+    /// 指定标识目标计划下的任务
+    static func taskPredicate(forPlanIdentifier identifier: String,
+                              showCompleted: Bool = true) -> NSPredicate {
         var conditions: [PredicateCondition] = [
-            (GoalTaskKey.goalPlanIdentifier, .equal(goalPlan.identifier)),
+            (GoalTaskKey.goalPlanIdentifier, .equal(identifier)),
         ]
         
         if !showCompleted {

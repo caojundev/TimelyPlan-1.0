@@ -21,7 +21,6 @@ struct GoalUpdaterOption: OptionSet {
     static let all: GoalUpdaterOption = [.plan, .task, .record]
 }
 
-
 class GoalRepository {
     
     // MARK: - 数据管理器
@@ -170,7 +169,6 @@ extension GoalRepository {
         return taskManager.getGoalTask(withIdentifier: identifier)
     }
     
-    
     /// 异步获取所有未完成目标任务
     static func fetchGoalTasks(of goalPlan: GoalPlan,
                                completion: @escaping ([GoalTask]?) -> Void) {
@@ -182,9 +180,28 @@ extension GoalRepository {
         taskManager.fetchActiveGoalTasks(completion: completion)
     }
     
+    /// 异步获取指定标识目标计划的任务数目
+    /// - Parameters:
+    ///   - identifier: 目标计划标识
+    ///   - showCompleted: 是否包含已完成任务
+    ///   - completion: 完成回调，返回任务数目（查询失败时为 0）
+    static func fetchNumberOfGoalTasks(withPlanIdentifier identifier: String,
+                                       showCompleted: Bool = true,
+                                       completion: @escaping (Int) -> Void) {
+        taskManager.fetchNumberOfGoalTasks(withPlanIdentifier: identifier,
+                                           showCompleted: showCompleted,
+                                           completion: completion)
+    }
+    
     /// 异步获取所有收件箱目标任务（未归属任何目标计划）
     static func fetchInboxGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
         taskManager.fetchInboxGoalTasks(completion: completion)
+    }
+    
+    /// 异步获取收件箱目标任务数目
+    /// - Parameter completion: 完成回调，返回任务数目（查询失败时为 0）
+    static func fetchNumberOfInboxGoalTasks(completion: @escaping (Int) -> Void) {
+        taskManager.fetchNumberOfInboxGoalTasks(completion: completion)
     }
     
     /// 获取特定日期区间内的目标任务

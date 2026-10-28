@@ -54,6 +54,15 @@ class GoalTaskManager {
         }
     }
     
+    /// 异步获取指定标识目标计划的任务数目
+    func fetchNumberOfGoalTasks(withPlanIdentifier identifier: String,
+                                showCompleted: Bool = true,
+                                completion: @escaping (Int) -> Void) {
+        CDGoalTask.fetchNumberOfGoalTasks(withPlanIdentifier: identifier,
+                                          showCompleted: showCompleted,
+                                          completion: completion)
+    }
+    
     /// 异步获取所有收件箱目标任务（未归属任何目标计划）
     func fetchInboxGoalTasks(completion: @escaping ([GoalTask]?) -> Void) {
         CDGoalTask.fetchInboxGoalTasks { results in
@@ -61,12 +70,10 @@ class GoalTaskManager {
         }
     }
     
-    
-    
-    
-    
-    
-    
+    /// 异步获取收件箱目标任务数目
+    func fetchNumberOfInboxGoalTasks(completion: @escaping (Int) -> Void) {
+        CDGoalTask.fetchNumberOfInboxGoalTasks(completion: completion)
+    }
     
     
     func fetchAllGoalTasks(showCompleted: Bool = true,

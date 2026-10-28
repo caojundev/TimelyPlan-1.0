@@ -20,10 +20,23 @@ enum WSGoalPlanDetailPresenter {
         let viewController = WSGoalPlanDetailSheetViewController(configuration: configuration)
         viewController.showAsNavigationRoot()
     }
+    
+    static func showInboxDetail() {
+        let viewController = WSGoalInboxDetailSheetViewController(configuration: GoalInboxConfiguration())
+        viewController.showAsNavigationRoot()
+    }
 }
 
 /// 弹窗形态的目标计划详情
 private class WSGoalPlanDetailSheetViewController: GoalDetailViewController {
+    
+    override func leftBarButtonItems() -> [UIBarButtonItem]? {
+        return [chevronDownCancelButtonItem]
+    }
+}
+
+/// 弹窗形态的收件箱详情
+private class WSGoalInboxDetailSheetViewController: GoalInboxViewController {
     
     override func leftBarButtonItems() -> [UIBarButtonItem]? {
         return [chevronDownCancelButtonItem]
