@@ -122,6 +122,12 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 目标·大·计划网格：以两列网格展示进行中的目标计划。
     case goalLargePlanGrid
     
+    /// 目标·中·计划列表：逐行展示进行中的目标计划。
+    case goalMediumPlanList
+    
+    /// 目标·大·计划列表：逐行展示进行中的目标计划。
+    case goalLargePlanList
+    
 }
 
 // MARK: - 固有属性
@@ -142,13 +148,13 @@ public extension WSPluginType {
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
              .habitMediumWeekReportList, .habitMediumMonthActivityList,
-             .goalMediumPlanGrid:
+             .goalMediumPlanGrid, .goalMediumPlanList:
             return .medium
         case .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
              .focusLargeUserTimerGrid,
              .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList,
              .habitLargeMonthActivityList,
-             .goalLargePlanGrid:
+             .goalLargePlanGrid, .goalLargePlanList:
             return .large
         }
     }
@@ -173,7 +179,8 @@ public extension WSPluginType {
              .habitLargeMonthActivityList:
             return .habit
         case .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList,
-             .goalMediumPlanGrid, .goalLargePlanGrid:
+             .goalMediumPlanGrid, .goalLargePlanGrid,
+             .goalMediumPlanList, .goalLargePlanList:
             return .goal
         }
     }
@@ -279,6 +286,8 @@ enum WSPluginCatalog {
         .init(WSGoalPlanSmallPlanListPluginProvider(), title: "Goals", subtitle: "Shows active goals in a list"),
         .init(WSGoalPlanMediumPlanGridPluginProvider(), title: "Goals", subtitle: "Shows active goals in a grid"),
         .init(WSGoalPlanLargePlanGridPluginProvider(), title: "Goals", subtitle: "Shows active goals in a grid"),
+        .init(WSGoalPlanMediumPlanListPluginProvider(), title: "Goals", subtitle: "Shows active goals in a list"),
+        .init(WSGoalPlanLargePlanListPluginProvider(), title: "Goals", subtitle: "Shows active goals in a list"),
     ]
 
     /// 按类型取回组件配置

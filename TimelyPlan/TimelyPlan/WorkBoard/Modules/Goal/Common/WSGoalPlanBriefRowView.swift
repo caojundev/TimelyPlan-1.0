@@ -37,11 +37,11 @@ class WSGoalPlanBriefRowView: WSGoalPlanRowView {
         static let contentSpacing: CGFloat = 10.0
     }
     
-    /// 信息视图（色条 + 名称 + 日期）
-    private let infoView = GoalPlanListInfoView()
+    /// 信息视图（色条 + 名称 + 日期）。供子类补充配件与排版
+    let infoView = GoalPlanListInfoView()
     
     /// 进度条
-    private lazy var progressView: TPBarProgressView = {
+    private(set) lazy var progressView: TPBarProgressView = {
         let view = TPBarProgressView(frame: .zero, style: .horizontal)
         view.isUserInteractionEnabled = false
         view.cornerRadius = .greatestFiniteMagnitude

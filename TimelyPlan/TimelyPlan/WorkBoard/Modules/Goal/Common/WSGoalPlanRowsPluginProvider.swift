@@ -16,6 +16,12 @@ enum WSGoalPlanItemCount {
     /// 小号列表组件的展示条数
     static let smallPlanList = 2
     
+    /// 中号列表组件的展示条数
+    static let mediumPlanList = 2
+    
+    /// 大号列表组件的展示条数
+    static let largePlanList = 5
+    
     /// 中号网格组件的展示条数
     static let mediumPlanGrid = 4
     
