@@ -2523,6 +2523,13 @@
 		E5F0D0A1268A0000D000A028 /* WSHabitSmallSelectedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A027 /* WSHabitSmallSelectedContentView.swift */; };
 		E5F0D0A1268A0000D000A02A /* WSHabitSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A029 /* WSHabitSelectedConfigViewController.swift */; };
 		E5F0D0A1268A0000D000A02C /* WSHabitSmallSelectedPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A02B /* WSHabitSmallSelectedPluginProvider.swift */; };
+		E5CBA0113092000100E35B41 /* WSGoalPlanDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0013092000100E35B41 /* WSGoalPlanDataItem.swift */; };
+		E5CBA0123092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0023092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift */; };
+		E5CBA0133092000100E35B41 /* WSGoalPlanBindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0033092000100E35B41 /* WSGoalPlanBindViewController.swift */; };
+		E5CBA0143092000100E35B41 /* WSGoalPlanDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0043092000100E35B41 /* WSGoalPlanDetailPresenter.swift */; };
+		E5CBA0153092000100E35B41 /* WSGoalPlanSmallSelectedPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0053092000100E35B41 /* WSGoalPlanSmallSelectedPluginProvider.swift */; };
+		E5CBA0163092000100E35B41 /* WSGoalPlanSmallSelectedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0063092000100E35B41 /* WSGoalPlanSmallSelectedContentView.swift */; };
+		E5CBA0173092000100E35B41 /* WSGoalPlanSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA0073092000100E35B41 /* WSGoalPlanSelectedConfigViewController.swift */; };
 		E5F0D0A1268A0000D000A02E /* WSHabitSmallTasksGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A02D /* WSHabitSmallTasksGridPluginProvider.swift */; };
 		E5F0D0A1268A0000D000A030 /* WSHabitSmallGridContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A02F /* WSHabitSmallGridContentView.swift */; };
 		E5F0D0A1268A0000D000A032 /* WSHabitSmallGridRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F0D0A1268A0000D000A031 /* WSHabitSmallGridRowView.swift */; };
@@ -5216,6 +5223,13 @@
 		E5F0D0A1268A0000D000A027 /* WSHabitSmallSelectedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallSelectedContentView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A029 /* WSHabitSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSelectedConfigViewController.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A02B /* WSHabitSmallSelectedPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallSelectedPluginProvider.swift; sourceTree = "<group>"; };
+		E5CBA0013092000100E35B41 /* WSGoalPlanDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanDataItem.swift; sourceTree = "<group>"; };
+		E5CBA0023092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanPluginContentInteractor.swift; sourceTree = "<group>"; };
+		E5CBA0033092000100E35B41 /* WSGoalPlanBindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanBindViewController.swift; sourceTree = "<group>"; };
+		E5CBA0043092000100E35B41 /* WSGoalPlanDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanDetailPresenter.swift; sourceTree = "<group>"; };
+		E5CBA0053092000100E35B41 /* WSGoalPlanSmallSelectedPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanSmallSelectedPluginProvider.swift; sourceTree = "<group>"; };
+		E5CBA0063092000100E35B41 /* WSGoalPlanSmallSelectedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanSmallSelectedContentView.swift; sourceTree = "<group>"; };
+		E5CBA0073092000100E35B41 /* WSGoalPlanSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalPlanSelectedConfigViewController.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A02D /* WSHabitSmallTasksGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallTasksGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A02F /* WSHabitSmallGridContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallGridContentView.swift; sourceTree = "<group>"; };
 		E5F0D0A1268A0000D000A031 /* WSHabitSmallGridRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSHabitSmallGridRowView.swift; sourceTree = "<group>"; };
@@ -12508,6 +12522,9 @@
 		E5BBCAD230919D2000E35B41 /* Selected */ = {
 			isa = PBXGroup;
 			children = (
+				E5CBA0053092000100E35B41 /* WSGoalPlanSmallSelectedPluginProvider.swift */,
+				E5CBA0063092000100E35B41 /* WSGoalPlanSmallSelectedContentView.swift */,
+				E5CBA0073092000100E35B41 /* WSGoalPlanSelectedConfigViewController.swift */,
 			);
 			path = Selected;
 			sourceTree = "<group>";
@@ -12515,6 +12532,10 @@
 		E5BBCAD330919DD100E35B41 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E5CBA0013092000100E35B41 /* WSGoalPlanDataItem.swift */,
+				E5CBA0023092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift */,
+				E5CBA0033092000100E35B41 /* WSGoalPlanBindViewController.swift */,
+				E5CBA0043092000100E35B41 /* WSGoalPlanDetailPresenter.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -16835,6 +16856,13 @@
 				E5F0D0A1268A0000D000A028 /* WSHabitSmallSelectedContentView.swift in Sources */,
 				E5F0D0A1268A0000D000A02A /* WSHabitSelectedConfigViewController.swift in Sources */,
 				E5F0D0A1268A0000D000A02C /* WSHabitSmallSelectedPluginProvider.swift in Sources */,
+				E5CBA0113092000100E35B41 /* WSGoalPlanDataItem.swift in Sources */,
+				E5CBA0123092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift in Sources */,
+				E5CBA0133092000100E35B41 /* WSGoalPlanBindViewController.swift in Sources */,
+				E5CBA0143092000100E35B41 /* WSGoalPlanDetailPresenter.swift in Sources */,
+				E5CBA0153092000100E35B41 /* WSGoalPlanSmallSelectedPluginProvider.swift in Sources */,
+				E5CBA0163092000100E35B41 /* WSGoalPlanSmallSelectedContentView.swift in Sources */,
+				E5CBA0173092000100E35B41 /* WSGoalPlanSelectedConfigViewController.swift in Sources */,
 				E5F0D0A1268A0000D000A012 /* WSHabitTasksPluginProvider.swift in Sources */,
 				E5F0D0A1268A0000D000A014 /* WSHabitTaskGridContentView.swift in Sources */,
 				E5F0D0A1268A0000D000A016 /* WSHabitMediumTasksListPluginProvider.swift in Sources */,

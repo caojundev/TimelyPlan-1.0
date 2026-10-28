@@ -106,6 +106,7 @@
 "Family Trip" = "家庭旅行";
 "New Semester" = "新学期";
 "Graduation" = "毕业";
+"Annual Plan" = "年度计划";
 "Add Previous Plugin" = "添加上一个插件";
 "Add Next Plugin" = "添加下一个插件";
 
@@ -198,6 +199,10 @@
 "Delete Goal Task" = "删除目标任务";
 "Show in Timeline" = "在时间线显示";
 "Show in My Day" = "在我的一天显示";
+"Selected Goal" = "自选目标";
+"Shows the selected goal" = "展示选中的目标";
+"Select Goal" = "选择目标";
+"No Goal Selected" = "未选择目标";
 
 /// 目标任务操作页
 "Steps" = "步骤";

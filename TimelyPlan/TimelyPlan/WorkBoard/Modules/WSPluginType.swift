@@ -106,6 +106,10 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 习惯·大·本月活动列表：逐行展示今日排期习惯本月每天的活动。
     case habitLargeMonthActivityList
     
+    // MARK: 目标
+    /// 目标·小·自选：展示用户选择的一个目标计划。
+    case goalSmallSelected
+    
 }
 
 // MARK: - 固有属性
@@ -119,7 +123,8 @@ public extension WSPluginType {
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
              .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
-             .habitSmallMonthReport:
+             .habitSmallMonthReport,
+             .goalSmallSelected:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
@@ -153,6 +158,8 @@ public extension WSPluginType {
              .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList,
              .habitLargeMonthActivityList:
             return .habit
+        case .goalSmallSelected:
+            return .goal
         }
     }
 
@@ -250,6 +257,9 @@ enum WSPluginCatalog {
         .init(WSHabitLargeTasksGridPluginProvider(), title: "Habits", subtitle: "Shows today's habits in a grid"),
         .init(WSHabitLargeWeekReportListPluginProvider(), title: "Weekly Report", subtitle: "Shows this week's progress of habits"),
         .init(WSHabitLargeMonthActivityListPluginProvider(), title: "Monthly Activity", subtitle: "Shows this month's activity of habits"),
+        
+        // 目标
+        .init(WSGoalPlanSmallSelectedPluginProvider(), title: "Selected Goal", subtitle: "Shows the selected goal"),
     ]
 
     /// 按类型取回组件配置
