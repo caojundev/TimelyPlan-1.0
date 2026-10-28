@@ -87,3 +87,17 @@ class WSGoalPlanDataItem: NSObject, WSPluginDataItem {
         return status == .inProgress ? summaryStatus.backgroundColor : status.backgroundColor
     }
 }
+
+// MARK: - 列表数据条目
+
+/// 目标计划列表组件的数据。
+class WSGoalPlanListDataItem: NSObject, WSPluginDataItem {
+    
+    /// 待展示的目标计划，按展示顺序排列
+    let items: [WSGoalPlanDataItem]
+    
+    init(items: [WSGoalPlanDataItem]) {
+        self.items = items
+        super.init()
+    }
+}
