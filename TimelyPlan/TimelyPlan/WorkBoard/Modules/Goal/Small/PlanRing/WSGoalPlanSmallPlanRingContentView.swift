@@ -36,9 +36,6 @@ class WSGoalPlanSmallPlanRingContentView: WSPluginContentView {
         
         /// 百分比与计划状态的间距
         static let statusTopMargin: CGFloat = 1.0
-        
-        /// 百分号字号相对标题字号的比例
-        static let titlePercentRatio: CGFloat = 0.6
     }
     
     /// 标题
@@ -64,7 +61,7 @@ class WSGoalPlanSmallPlanRingContentView: WSPluginContentView {
     /// 内环中心：任务完成百分比与计划状态
     private lazy var infoView: TPInfoView = {
         let view = TPInfoView()
-        view.titleConfig = .withFont(UIFont.monospacedDigitSystemFont(ofSize: 14.0, weight: .semibold),
+        view.titleConfig = .withFont(UIFont.monospacedDigitSystemFont(ofSize: 15.0, weight: .semibold),
                                      textColor: .label,
                                      textAlignment: .center,
                                      adjustsFontSizeToFitWidth: true,
@@ -96,9 +93,6 @@ class WSGoalPlanSmallPlanRingContentView: WSPluginContentView {
     private var appliedTaskProgress: CGFloat = -1.0
     private var appliedTimeProgress: CGFloat = -1.0
     private var appliedTaskColor: UIColor?
-    
-    /// 已应用到中心标题的字号，避免重复重建富文本
-    private var appliedTitleFontSize: CGFloat = 0.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -156,13 +150,6 @@ class WSGoalPlanSmallPlanRingContentView: WSPluginContentView {
         let metrics = ringMetrics(for: side)
         
         let innerSide = max((metrics.innerRadius - metrics.innerLineWidth / 2.0) * 2.0, 0.0)
-        let titleFontSize = min(max(floor(innerSide * 0.32), 12.0), 24.0)
-        if appliedTitleFontSize != titleFontSize {
-            appliedTitleFontSize = titleFontSize
-            infoView.titleConfig.font = UIFont.monospacedDigitSystemFont(ofSize: titleFontSize, weight: .semibold)
-            applyTitle()
-        }
-        
         /// 中心信息按内容高度居中，宽度与内环内径一致
         let infoHeight = infoView.sizeThatFits(CGSize(width: innerSide, height: .greatestFiniteMagnitude)).height
         infoView.frame = CGRect(x: ringView.centerX - innerSide / 2.0,
@@ -170,21 +157,11 @@ class WSGoalPlanSmallPlanRingContentView: WSPluginContentView {
                                 width: innerSide,
                                 height: infoHeight)
         
-        /// 环的路径与进度在布局中设置，关闭隐式动画，避免每次布局都被补间
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        
         if ringView.metrics.side != side {
             ringView.metrics = metrics
         }
         
         applyRingsIfNeeded()
-        
-        /// 立即完成环的布局并移除出场动画，保证进度直接呈现
-        ringView.layoutIfNeeded()
-        ringView.layer.sublayers?.forEach { $0.removeAllAnimations() }
-        
-        CATransaction.commit()
     }
     
     /// 依据可用边长换算双环几何
@@ -193,7 +170,6 @@ class WSGoalPlanSmallPlanRingContentView: WSPluginContentView {
         let gap = max(floor(side * 0.035), 2.0)
         let outerRadius = max(side / 2.0 - lineWidth / 2.0 - 1.0, 0.0)
         let innerRadius = max(outerRadius - lineWidth - gap, 0.0)
-        
         return GoalSummaryRingMetrics(side: side,
                                       outerRadius: outerRadius,
                                       outerLineWidth: lineWidth,
@@ -233,8 +209,7 @@ class WSGoalPlanSmallPlanRingContentView: WSPluginContentView {
             return
         }
         
-        let percentFont = UIFont.monospacedDigitSystemFont(ofSize: max(floor(infoView.titleConfig.font.pointSize * Metrics.titlePercentRatio), 8.0),
-                                                           weight: .medium)
+        let percentFont = UIFont.monospacedDigitSystemFont(ofSize: 8.0, weight: .medium)
         infoView.title = Float(dataItem.progress).attributedPercentageString(decimalPlaces: 0,
                                                                              percentSignFont: percentFont)
     }

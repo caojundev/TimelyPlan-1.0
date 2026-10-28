@@ -210,6 +210,9 @@
 "Shows active goals in a grid" = "以网格展示进行中的目标";
 "Goal Progress" = "目标进度";
 "Shows the selected goal's progress rings" = "展示所选目标的进度双环";
+"Goal Rings" = "目标圆环";
+"Shows progress rings of selected goals" = "展示所选目标的进度圆环";
+"Up to %ld" = "最多%ld个";
 
 /// 目标任务操作页
 "Steps" = "步骤";

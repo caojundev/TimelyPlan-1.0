@@ -103,7 +103,7 @@ final class GoalSummaryRingView: UIView {
             progressLayers.append(progress)
         }
 
-        hasRevealed = false
+        /// 出场动效只在首次绘制时播放，重建图层（数据刷新）不再重复播放
         applyTheme()
     }
 
@@ -115,29 +115,40 @@ final class GoalSummaryRingView: UIView {
 
         let center = CGPoint(x: bounds.midX, y: bounds.midY)
 
-        for (index, ring) in rings.enumerated() where index < trackLayers.count {
-            let circlePath = UIBezierPath(arcCenter: center,
-                                          radius: ring.radius,
-                                          startAngle: -CGFloat.pi / 2,
-                                          endAngle: CGFloat.pi * 1.5,
-                                          clockwise: true).cgPath
+        /// 环的几何与进度由布局驱动，关闭隐式动画，避免图层属性变化被补间
+        withoutAnimations {
+            for (index, ring) in rings.enumerated() where index < trackLayers.count {
+                let circlePath = UIBezierPath(arcCenter: center,
+                                              radius: ring.radius,
+                                              startAngle: -CGFloat.pi / 2,
+                                              endAngle: CGFloat.pi * 1.5,
+                                              clockwise: true).cgPath
 
-            let track = trackLayers[index]
-            track.frame = bounds
-            track.path = circlePath
-            track.lineWidth = ring.lineWidth
-            track.strokeColor = theme.track.cgColor
+                let track = trackLayers[index]
+                track.frame = bounds
+                track.path = circlePath
+                track.lineWidth = ring.lineWidth
+                track.strokeColor = theme.track.cgColor
 
-            let progress = progressLayers[index]
-            progress.frame = bounds
-            progress.path = circlePath
-            progress.lineWidth = ring.lineWidth
-            progress.strokeColor = ring.color.cgColor
-            progress.strokeEnd = ring.progress
-            progress.isHidden = ring.progress <= 0
+                let progress = progressLayers[index]
+                progress.frame = bounds
+                progress.path = circlePath
+                progress.lineWidth = ring.lineWidth
+                progress.strokeColor = ring.color.cgColor
+                progress.strokeEnd = ring.progress
+                progress.isHidden = ring.progress <= 0
+            }
         }
 
         revealIfNeeded()
+    }
+
+    /// 以关闭隐式动画的事务执行图层更新
+    private func withoutAnimations(_ updates: () -> Void) {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        updates()
+        CATransaction.commit()
     }
 
     // MARK: - 出场动效
@@ -159,7 +170,9 @@ final class GoalSummaryRingView: UIView {
     // MARK: - 外观
 
     private func applyTheme() {
-        trackLayers.forEach { $0.strokeColor = theme.track.cgColor }
+        withoutAnimations {
+            trackLayers.forEach { $0.strokeColor = theme.track.cgColor }
+        }
         setNeedsLayout()
     }
 
