@@ -12618,23 +12618,79 @@
 		E5BBCAD330919DD100E35B41 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E5CBA0013092000100E35B41 /* WSGoalPlanDataItem.swift */,
-				E5CBA0023092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift */,
-				E5CBA0033092000100E35B41 /* WSGoalPlanBindViewController.swift */,
-				E5CBA0043092000100E35B41 /* WSGoalPlanDetailPresenter.swift */,
-				E5CBA0233092000100E35B41 /* WSGoalPlanInboxDataItem.swift */,
-				E5CBA0443092000100E35B41 /* WSGoalPlanRowsPluginProvider.swift */,
-				E5CBA0433092000100E35B41 /* WSGoalPlanRowsContentInteractor.swift */,
-				E5CBA0423092000100E35B41 /* WSGoalPlanListContentView.swift */,
-				E5CBA0613092000100E35B41 /* WSGoalPlanRowView.swift */,
-				E5CBA0813092000100E35B41 /* WSGoalPlanRowsContentView.swift */,
-				E5CBA0823092000100E35B41 /* WSGoalPlanGridContentView.swift */,
-				E5CBA0A13092000100E35B41 /* WSGoalPlanDetailRowView.swift */,
-				E5CBA0413092000100E35B41 /* WSGoalPlanBriefRowView.swift */,
-				E5CBA1013092000100E35B41 /* WSGoalPlanSelectedPlansConfiguration.swift */,
-				E5CBA1023092000100E35B41 /* WSGoalPlanMultiSelectionViewController.swift */,
+				E5CBA1413092000100E35B41 /* Data */,
+				E5CBA1423092000100E35B41 /* Interactor */,
+				E5CBA1433092000100E35B41 /* Provider */,
+				E5CBA1443092000100E35B41 /* Content */,
+				E5CBA1453092000100E35B41 /* Row */,
+				E5CBA1463092000100E35B41 /* Config */,
+				E5CBA1473092000100E35B41 /* Detail */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		E5CBA1413092000100E35B41 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA0013092000100E35B41 /* WSGoalPlanDataItem.swift */,
+				E5CBA0233092000100E35B41 /* WSGoalPlanInboxDataItem.swift */,
+				E5CBA1013092000100E35B41 /* WSGoalPlanSelectedPlansConfiguration.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5CBA1423092000100E35B41 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA0023092000100E35B41 /* WSGoalPlanPluginContentInteractor.swift */,
+				E5CBA0433092000100E35B41 /* WSGoalPlanRowsContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E5CBA1433092000100E35B41 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA0443092000100E35B41 /* WSGoalPlanRowsPluginProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E5CBA1443092000100E35B41 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA0813092000100E35B41 /* WSGoalPlanRowsContentView.swift */,
+				E5CBA0423092000100E35B41 /* WSGoalPlanListContentView.swift */,
+				E5CBA0823092000100E35B41 /* WSGoalPlanGridContentView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E5CBA1453092000100E35B41 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA0613092000100E35B41 /* WSGoalPlanRowView.swift */,
+				E5CBA0413092000100E35B41 /* WSGoalPlanBriefRowView.swift */,
+				E5CBA0A13092000100E35B41 /* WSGoalPlanDetailRowView.swift */,
+			);
+			path = Row;
+			sourceTree = "<group>";
+		};
+		E5CBA1463092000100E35B41 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA0033092000100E35B41 /* WSGoalPlanBindViewController.swift */,
+				E5CBA1023092000100E35B41 /* WSGoalPlanMultiSelectionViewController.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		E5CBA1473092000100E35B41 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA0043092000100E35B41 /* WSGoalPlanDetailPresenter.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		E5BBCAD53091A8AB00E35B41 /* Inbox */ = {
