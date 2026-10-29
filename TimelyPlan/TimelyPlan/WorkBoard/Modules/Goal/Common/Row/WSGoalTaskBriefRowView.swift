@@ -39,8 +39,8 @@ class WSGoalTaskBriefRowView: WSGoalTaskRowView {
         static let progressHeight: CGFloat = 3.0
     }
     
-    /// 信息视图（完成状态 + 名称 + 日期 + 进度条）
-    private let infoView = GoalTaskCheckInfoView()
+    /// 信息视图（完成状态 + 名称 + 日期 + 进度条）。供子类调整尺寸与详情
+    let infoView = GoalTaskCheckInfoView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

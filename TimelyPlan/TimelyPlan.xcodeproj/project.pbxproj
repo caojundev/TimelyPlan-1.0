@@ -2184,6 +2184,12 @@
 		E5CBA16A3092000100E35B41 /* WSGoalTaskMultiSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA15A3092000100E35B41 /* WSGoalTaskMultiSelectionViewController.swift */; };
 		E5CBA16B3092000100E35B41 /* WSGoalTaskSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA15B3092000100E35B41 /* WSGoalTaskSelectedConfigViewController.swift */; };
 		E5CBA16C3092000100E35B41 /* WSGoalTaskSmallTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA15C3092000100E35B41 /* WSGoalTaskSmallTaskListPluginProvider.swift */; };
+		E5CBA1813092000100E35B41 /* WSGoalTaskGridContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA1713092000100E35B41 /* WSGoalTaskGridContentView.swift */; };
+		E5CBA1823092000100E35B41 /* WSGoalTaskMediumTaskGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA1723092000100E35B41 /* WSGoalTaskMediumTaskGridPluginProvider.swift */; };
+		E5CBA1833092000100E35B41 /* WSGoalTaskLargeTaskGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA1733092000100E35B41 /* WSGoalTaskLargeTaskGridPluginProvider.swift */; };
+		E5CBA1A13092000100E35B41 /* WSGoalTaskDetailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA1913092000100E35B41 /* WSGoalTaskDetailRowView.swift */; };
+		E5CBA1A23092000100E35B41 /* WSGoalTaskMediumTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA1923092000100E35B41 /* WSGoalTaskMediumTaskListPluginProvider.swift */; };
+		E5CBA1A33092000100E35B41 /* WSGoalTaskLargeTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CBA1933092000100E35B41 /* WSGoalTaskLargeTaskListPluginProvider.swift */; };
 		E5CFD2592F5838E300A898CB /* HabitTaskListGroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2582F5838E300A898CB /* HabitTaskListGroupHeaderView.swift */; };
 		E5CFD25F2F585A4300A898CB /* HabitDatePeriodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD25C2F585A4200A898CB /* HabitDatePeriodsView.swift */; };
 		E5CFD2632F585DAF00A898CB /* HabitHomeWeekDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2622F585DAF00A898CB /* HabitHomeWeekDayCell.swift */; };
@@ -4922,6 +4928,12 @@
 		E5CBA15A3092000100E35B41 /* WSGoalTaskMultiSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalTaskMultiSelectionViewController.swift; sourceTree = "<group>"; };
 		E5CBA15B3092000100E35B41 /* WSGoalTaskSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalTaskSelectedConfigViewController.swift; sourceTree = "<group>"; };
 		E5CBA15C3092000100E35B41 /* WSGoalTaskSmallTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalTaskSmallTaskListPluginProvider.swift; sourceTree = "<group>"; };
+		E5CBA1713092000100E35B41 /* WSGoalTaskGridContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalTaskGridContentView.swift; sourceTree = "<group>"; };
+		E5CBA1723092000100E35B41 /* WSGoalTaskMediumTaskGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalTaskMediumTaskGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5CBA1733092000100E35B41 /* WSGoalTaskLargeTaskGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalTaskLargeTaskGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5CBA1913092000100E35B41 /* WSGoalTaskDetailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalTaskDetailRowView.swift; sourceTree = "<group>"; };
+		E5CBA1923092000100E35B41 /* WSGoalTaskMediumTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalTaskMediumTaskListPluginProvider.swift; sourceTree = "<group>"; };
+		E5CBA1933092000100E35B41 /* WSGoalTaskLargeTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGoalTaskLargeTaskListPluginProvider.swift; sourceTree = "<group>"; };
 		E5CFD2582F5838E300A898CB /* HabitTaskListGroupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskListGroupHeaderView.swift; sourceTree = "<group>"; };
 		E5CFD25C2F585A4200A898CB /* HabitDatePeriodsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitDatePeriodsView.swift; sourceTree = "<group>"; };
 		E5CFD2622F585DAF00A898CB /* HabitHomeWeekDayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitHomeWeekDayCell.swift; sourceTree = "<group>"; };
@@ -12682,6 +12694,8 @@
 		E5BBCADD3091F29400E35B41 /* Medium */ = {
 			isa = PBXGroup;
 			children = (
+				E5C0AEA83093289600E487FC /* TaskList */,
+				E5C0AEA63093287C00E487FC /* TaskGrid */,
 				E55889B2309244CA006EB1B0 /* PlanRing */,
 				E55889AF30922782006EB1B0 /* PlanList */,
 				E5BBCADC3091F28300E35B41 /* PlanGrid */,
@@ -12692,6 +12706,8 @@
 		E5BBCADE3091F2CB00E35B41 /* Large */ = {
 			isa = PBXGroup;
 			children = (
+				E5C0AEA9309328A000E487FC /* TaskGrid */,
+				E5C0AEA73093288700E487FC /* TaskList */,
 				E55889B030922789006EB1B0 /* PlanList */,
 				E5BBCADF3091F2D300E35B41 /* PlanGrid */,
 			);
@@ -12723,6 +12739,38 @@
 				E5CBA15C3092000100E35B41 /* WSGoalTaskSmallTaskListPluginProvider.swift */,
 			);
 			path = TaskList;
+			sourceTree = "<group>";
+		};
+		E5C0AEA63093287C00E487FC /* TaskGrid */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA1723092000100E35B41 /* WSGoalTaskMediumTaskGridPluginProvider.swift */,
+			);
+			path = TaskGrid;
+			sourceTree = "<group>";
+		};
+		E5C0AEA73093288700E487FC /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA1933092000100E35B41 /* WSGoalTaskLargeTaskListPluginProvider.swift */,
+			);
+			path = TaskList;
+			sourceTree = "<group>";
+		};
+		E5C0AEA83093289600E487FC /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA1923092000100E35B41 /* WSGoalTaskMediumTaskListPluginProvider.swift */,
+			);
+			path = TaskList;
+			sourceTree = "<group>";
+		};
+		E5C0AEA9309328A000E487FC /* TaskGrid */ = {
+			isa = PBXGroup;
+			children = (
+				E5CBA1733092000100E35B41 /* WSGoalTaskLargeTaskGridPluginProvider.swift */,
+			);
+			path = TaskGrid;
 			sourceTree = "<group>";
 		};
 		E5C18FB22DB4FE1F008FAA13 /* change */ = {
@@ -12875,6 +12923,7 @@
 		E5CBA1443092000100E35B41 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				E5CBA1713092000100E35B41 /* WSGoalTaskGridContentView.swift */,
 				E5CBA1583092000100E35B41 /* WSGoalTaskRowsContentView.swift */,
 				E5CBA1593092000100E35B41 /* WSGoalTaskListContentView.swift */,
 				E5CBA0813092000100E35B41 /* WSGoalPlanRowsContentView.swift */,
@@ -12887,6 +12936,7 @@
 		E5CBA1453092000100E35B41 /* Row */ = {
 			isa = PBXGroup;
 			children = (
+				E5CBA1913092000100E35B41 /* WSGoalTaskDetailRowView.swift */,
 				E5CBA1563092000100E35B41 /* WSGoalTaskRowView.swift */,
 				E5CBA1573092000100E35B41 /* WSGoalTaskBriefRowView.swift */,
 				E5CBA0613092000100E35B41 /* WSGoalPlanRowView.swift */,
@@ -17154,6 +17204,12 @@
 				E5CBA16A3092000100E35B41 /* WSGoalTaskMultiSelectionViewController.swift in Sources */,
 				E5CBA16B3092000100E35B41 /* WSGoalTaskSelectedConfigViewController.swift in Sources */,
 				E5CBA16C3092000100E35B41 /* WSGoalTaskSmallTaskListPluginProvider.swift in Sources */,
+				E5CBA1813092000100E35B41 /* WSGoalTaskGridContentView.swift in Sources */,
+				E5CBA1823092000100E35B41 /* WSGoalTaskMediumTaskGridPluginProvider.swift in Sources */,
+				E5CBA1833092000100E35B41 /* WSGoalTaskLargeTaskGridPluginProvider.swift in Sources */,
+				E5CBA1A13092000100E35B41 /* WSGoalTaskDetailRowView.swift in Sources */,
+				E5CBA1A23092000100E35B41 /* WSGoalTaskMediumTaskListPluginProvider.swift in Sources */,
+				E5CBA1A33092000100E35B41 /* WSGoalTaskLargeTaskListPluginProvider.swift in Sources */,
 				E5CBA0513092000100E35B41 /* WSGoalPlanBriefRowView.swift in Sources */,
 				E5CBA0523092000100E35B41 /* WSGoalPlanListContentView.swift in Sources */,
 				E5CBA0533092000100E35B41 /* WSGoalPlanRowsContentInteractor.swift in Sources */,

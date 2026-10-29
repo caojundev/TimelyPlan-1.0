@@ -39,6 +39,15 @@ class WSGoalTaskDataItem: NSObject, WSPluginDataItem {
     /// 任务日期范围
     let dateRange: DateRange
     
+    /// 当前数值
+    let currentValue: Int64
+    
+    /// 目标数值
+    let targetValue: Int64
+    
+    /// 任务权重
+    let weight: Int64
+    
     init(taskIdentifier: String,
          title: String,
          color: UIColor,
@@ -46,7 +55,10 @@ class WSGoalTaskDataItem: NSObject, WSPluginDataItem {
          hasValidProgress: Bool,
          isCompleted: Bool,
          checkType: TodoTaskCheckType,
-         dateRange: DateRange) {
+         dateRange: DateRange,
+         currentValue: Int64,
+         targetValue: Int64,
+         weight: Int64) {
         self.taskIdentifier = taskIdentifier
         self.title = title
         self.color = color
@@ -55,6 +67,9 @@ class WSGoalTaskDataItem: NSObject, WSPluginDataItem {
         self.isCompleted = isCompleted
         self.checkType = checkType
         self.dateRange = dateRange
+        self.currentValue = currentValue
+        self.targetValue = targetValue
+        self.weight = weight
         super.init()
     }
     
@@ -67,13 +82,41 @@ class WSGoalTaskDataItem: NSObject, WSPluginDataItem {
                   hasValidProgress: goalTask.isValidProgress,
                   isCompleted: goalTask.isCompleted,
                   checkType: goalTask.checkType,
-                  dateRange: goalTask.dateRange)
+                  dateRange: goalTask.dateRange,
+                  currentValue: goalTask.currentValue,
+                  targetValue: goalTask.targetValue,
+                  weight: goalTask.weight)
     }
     
     /// 日期区间文案
     var intervalText: String? {
         return GoalDateHelper.intervalDescription(startDate: dateRange.startDate,
                                                   endDate: dateRange.endDate)
+    }
+    
+    /// 详情文案：日期区间 • 进度 • 权重，与目标任务列表的详情一致
+    var attributedDetail: ASAttributedString? {
+        var components = [String]()
+        
+        if let intervalText = intervalText {
+            components.append(intervalText)
+        }
+        
+        if hasValidProgress {
+            let percentText = Float(progress).percentageString(decimalPlaces: 0)
+            components.append("\(currentValue)→\(targetValue)")
+            components.append(percentText)
+        }
+        
+        if GoalTaskWeightOption.isValidWeight(weight) {
+            components.append("#\(weight)")
+        }
+        
+        guard !components.isEmpty else {
+            return nil
+        }
+        
+        return components.joined(separator: " • ").attributedString
     }
 }
 

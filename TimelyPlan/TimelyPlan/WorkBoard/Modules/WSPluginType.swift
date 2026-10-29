@@ -122,6 +122,18 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 目标·小·自选任务列表：逐行展示所选目标任务。
     case goalSmallTaskList
     
+    /// 目标·中·自选任务列表：逐行展示所选目标任务。
+    case goalMediumTaskList
+    
+    /// 目标·大·自选任务列表：逐行展示所选目标任务。
+    case goalLargeTaskList
+    
+    /// 目标·中·自选任务网格：以两列网格展示所选目标任务。
+    case goalMediumTaskGrid
+    
+    /// 目标·大·自选任务网格：以两列网格展示所选目标任务。
+    case goalLargeTaskGrid
+    
     /// 目标·中·计划三环：以三个环展示所选目标计划的任务进度。
     case goalMediumPlanRings
     
@@ -158,13 +170,15 @@ public extension WSPluginType {
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
              .habitMediumWeekReportList, .habitMediumMonthActivityList,
-             .goalMediumPlanGrid, .goalMediumPlanList, .goalMediumPlanRings:
+             .goalMediumPlanGrid, .goalMediumPlanList, .goalMediumPlanRings,
+             .goalMediumTaskGrid, .goalMediumTaskList:
             return .medium
         case .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
              .focusLargeUserTimerGrid,
              .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList,
              .habitLargeMonthActivityList,
-             .goalLargePlanGrid, .goalLargePlanList:
+             .goalLargePlanGrid, .goalLargePlanList,
+             .goalLargeTaskGrid, .goalLargeTaskList:
             return .large
         }
     }
@@ -191,7 +205,8 @@ public extension WSPluginType {
         case .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing,
              .goalMediumPlanGrid, .goalLargePlanGrid,
              .goalMediumPlanList, .goalLargePlanList, .goalMediumPlanRings,
-             .goalSmallTaskList:
+             .goalSmallTaskList, .goalMediumTaskList, .goalLargeTaskList,
+             .goalMediumTaskGrid, .goalLargeTaskGrid:
             return .goal
         }
     }
@@ -302,6 +317,10 @@ enum WSPluginCatalog {
         .init(WSGoalPlanMediumPlanListPluginProvider(), title: "Goals", subtitle: "Shows active goals in a list"),
         .init(WSGoalPlanLargePlanListPluginProvider(), title: "Goals", subtitle: "Shows active goals in a list"),
         .init(WSGoalTaskSmallTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected goal tasks in a list"),
+        .init(WSGoalTaskMediumTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected goal tasks in a list"),
+        .init(WSGoalTaskLargeTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected goal tasks in a list"),
+        .init(WSGoalTaskMediumTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected goal tasks in a grid"),
+        .init(WSGoalTaskLargeTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected goal tasks in a grid"),
     ]
 
     /// 按类型取回组件配置

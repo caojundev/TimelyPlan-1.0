@@ -215,6 +215,7 @@
 "Up to %ld" = "最多%ld个";
 "Tasks" = "任务";
 "Shows selected goal tasks in a list" = "以列表展示所选目标任务";
+"Shows selected goal tasks in a grid" = "以网格展示所选目标任务";
 "Select Tasks" = "选择任务";
 "No Task Selected" = "未选择任务";
 "No Task" = "无任务";

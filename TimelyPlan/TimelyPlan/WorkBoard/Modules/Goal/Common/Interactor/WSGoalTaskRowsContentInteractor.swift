@@ -65,13 +65,20 @@ class WSGoalTaskRowsContentInteractor: WSGoalTaskPluginContentInteractor {
                         colorHex: UInt64)] = [
             (resGetString("Reading"), 0.6, false, .increase, 0x8C36FF),
             (resGetString("Workout"), 1.0, true, .increase, 0xFCB100),
-            (resGetString("Writing"), 0.2, false, .decrease, 0x09AFFF)
+            (resGetString("Writing"), 0.2, false, .decrease, 0x09AFFF),
+            (resGetString("Planning"), 0.35, false, .increase, 0xE84F01),
+            (resGetString("Review"), 0.8, false, .increase, 0x26B450),
+            (resGetString("Deep Work"), 0.5, false, .decrease, 0xFD2504),
+            (resGetString("Coding"), 1.0, true, .increase, 0x00786C),
+            (resGetString("Study"), 0.15, false, .decrease, 0x7E22A3)
         ]
         
         let now = Date()
+        let targetValue: Int64 = 10
         let items = examples.prefix(maximumItemCount).enumerated().map { index, example -> WSGoalTaskDataItem in
             let startDate = now.dateByAddingDays(-3 - index) ?? now
             let endDate = now.dateByAddingDays(4 - index) ?? now
+            let currentValue = Int64((example.progress * CGFloat(targetValue)).rounded())
             return WSGoalTaskDataItem(taskIdentifier: "preview.\(index)",
                                       title: example.title,
                                       color: Color(example.colorHex),
@@ -79,7 +86,10 @@ class WSGoalTaskRowsContentInteractor: WSGoalTaskPluginContentInteractor {
                                       hasValidProgress: true,
                                       isCompleted: example.isCompleted,
                                       checkType: example.checkType,
-                                      dateRange: DateRange(startDate: startDate, endDate: endDate))
+                                      dateRange: DateRange(startDate: startDate, endDate: endDate),
+                                      currentValue: currentValue,
+                                      targetValue: targetValue,
+                                      weight: 3)
         }
         
         return WSGoalTaskRowsDataItem(items: items)
