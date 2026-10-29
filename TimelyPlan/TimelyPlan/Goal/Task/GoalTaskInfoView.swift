@@ -319,10 +319,20 @@ class GoalTaskCheckInfoView: GoalTaskBaseInfoView {
     var didClickCheckbox: ((TodoTaskCheckbox) -> Void)?
     
     /// 复选框尺寸
-    let checkboxSize = CGSize(width: 20.0, height: 20.0)
+    var checkboxSize = CGSize(width: 20.0, height: 20.0) {
+        didSet {
+            self.leftViewSize = checkboxSize
+            setNeedsLayout()
+        }
+    }
     
     /// 复选框外间距
-    let checkboxMargins = UIEdgeInsets(right: 10.0)
+    var checkboxMargins = UIEdgeInsets(right: 10.0) {
+        didSet {
+            self.leftViewMargins = checkboxMargins
+            setNeedsLayout()
+        }
+    }
     
     /// 复选框
     private(set) lazy var checkbox: TodoTaskCheckbox = {

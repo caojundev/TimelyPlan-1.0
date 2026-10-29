@@ -119,6 +119,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 目标·小·计划双环：以内环任务进度、外环时间进度展示所选目标计划。
     case goalSmallPlanRing
     
+    /// 目标·小·自选任务列表：逐行展示所选目标任务。
+    case goalSmallTaskList
+    
     /// 目标·中·计划三环：以三个环展示所选目标计划的任务进度。
     case goalMediumPlanRings
     
@@ -148,7 +151,8 @@ public extension WSPluginType {
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
              .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
              .habitSmallMonthReport,
-             .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing:
+             .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing,
+             .goalSmallTaskList:
             return .small
         case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
@@ -186,7 +190,8 @@ public extension WSPluginType {
             return .habit
         case .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing,
              .goalMediumPlanGrid, .goalLargePlanGrid,
-             .goalMediumPlanList, .goalLargePlanList, .goalMediumPlanRings:
+             .goalMediumPlanList, .goalLargePlanList, .goalMediumPlanRings,
+             .goalSmallTaskList:
             return .goal
         }
     }
@@ -296,6 +301,7 @@ enum WSPluginCatalog {
         .init(WSGoalPlanLargePlanGridPluginProvider(), title: "Goals", subtitle: "Shows active goals in a grid"),
         .init(WSGoalPlanMediumPlanListPluginProvider(), title: "Goals", subtitle: "Shows active goals in a list"),
         .init(WSGoalPlanLargePlanListPluginProvider(), title: "Goals", subtitle: "Shows active goals in a list"),
+        .init(WSGoalTaskSmallTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected goal tasks in a list"),
     ]
 
     /// 按类型取回组件配置

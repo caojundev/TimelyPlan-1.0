@@ -24,13 +24,16 @@ struct GoalDateHelper {
     static func intervalDescription(startDate: Date?, endDate: Date?) -> String? {
         let start = startDate ?? endDate
         let end = endDate ?? startDate
-        
         guard let start = start, let end = end else {
             return nil
         }
         
-        let startString = intervalFormatter.string(from: start)
-        let endString = intervalFormatter.string(from: end)
+        let startString = start.yearMonthDayString(omitYear: true,
+                                                   showRelativeDate: false,
+                                                   slashFormatted: true)
+        let endString = end.yearMonthDayString(omitYear: true,
+                                               showRelativeDate: false,
+                                               slashFormatted: true)
         
         if startString == endString {
             return startString

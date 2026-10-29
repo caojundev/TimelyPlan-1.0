@@ -61,6 +61,13 @@ class TodoTaskCheckbox: TPImageButton {
         }
     }
     
+    /// 加减号线条宽度
+    var signLineWidth: CGFloat = 2.0 {
+        didSet {
+            signLayer.signLineWidth = signLineWidth
+        }
+    }
+    
     var config: TodoTaskCheckboxConfig = .normal {
         didSet {
             updateCheckboxConfig()
@@ -72,9 +79,17 @@ class TodoTaskCheckbox: TPImageButton {
         return layer
     }()
     
+    /// 加减号图层
+    private lazy var signLayer: TodoTaskPlusMinusLayer = {
+        let layer = TodoTaskPlusMinusLayer()
+        layer.signLineWidth = signLineWidth
+        return layer
+    }()
+    
     override func setupContentSubviews() {
         super.setupContentSubviews()
         contentView.layer.addSublayer(checkmarkLayer)
+        contentView.layer.addSublayer(signLayer)
         normalBackgroundColor = .clear
         updateCheckboxConfig()
     }
@@ -82,9 +97,13 @@ class TodoTaskCheckbox: TPImageButton {
     override func layoutSubviews() {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
+        updateScaledLineWidths()
         super.layoutSubviews()
         updateCheckBoxStyle()
         checkmarkLayer.frame = bounds.middleCircleInnerSquareRect
+        signLayer.frame = bounds
+        signLayer.strokeColor = normalColor.cgColor
+        updateSignLayer()
         CATransaction.commit()
     }
     
@@ -92,13 +111,34 @@ class TodoTaskCheckbox: TPImageButton {
         super.setChecked(isChecked, animated: animated)
         updateCheckBoxStyle()
         checkmarkLayer.setChecked(isChecked, animated: animated)
+        updateSignLayer()
     }
     
     private func updateCheckboxConfig() {
-        imageSize = config.size
-        borderWidth = config.borderWidth
         cornerRadius = config.cornerRadius
-        checkmarkLayer.lineWidth = config.checkmarkLineWidth
+        updateScaledLineWidths()
+        setNeedsLayout()
+    }
+    
+    /// 按实际尺寸等比缩放配置中的线宽，避免小尺寸时线条过粗
+    private func updateScaledLineWidths() {
+        let designLength = config.size.shortSideLength
+        let length = bounds.size.shortSideLength
+        guard designLength > 0.0, length > 0.0 else {
+            return
+        }
+        
+        let scale = length / designLength
+        let scaledBorderWidth = config.borderWidth * scale
+        let scaledCheckmarkLineWidth = config.checkmarkLineWidth * scale
+        
+        if borderWidth != scaledBorderWidth {
+            borderWidth = scaledBorderWidth
+        }
+        
+        if checkmarkLayer.lineWidth != scaledCheckmarkLineWidth {
+            checkmarkLayer.lineWidth = scaledCheckmarkLineWidth
+        }
     }
     
     private func updateCheckBoxStyle() {
@@ -117,18 +157,101 @@ class TodoTaskCheckbox: TPImageButton {
         }
     }
     
-    override var currentImage: UIImage? {
-        if isChecked  {
-            return nil
-        }
-        
+    /// 更新加减号图层
+    private func updateSignLayer() {
         switch mode {
         case .plus:
-            return resGetImage("todo_task_checkbox_plus_20")
+            signLayer.mode = .plus
+            signLayer.isHidden = isChecked
         case .minus:
-            return resGetImage("todo_task_checkbox_minus_20")
-        default:
-            return nil
+            signLayer.mode = .minus
+            signLayer.isHidden = isChecked
+        case .normal:
+            signLayer.isHidden = true
         }
+    }
+}
+
+/// 加减号图层
+private final class TodoTaskPlusMinusLayer: CAShapeLayer {
+    
+    enum Mode {
+        case plus   /// 加号
+        case minus  /// 减号
+    }
+    
+    /// 默认线条宽度
+    static let kDefaultLineWidth: CGFloat = 2.0
+    
+    /// 符号长度占图层较短边的比例
+    static let kSignLengthRatio: CGFloat = 0.4
+    
+    /// 符号样式
+    var mode: Mode = .plus {
+        didSet {
+            if mode != oldValue {
+                setNeedsLayout()
+            }
+        }
+    }
+    
+    /// 线条宽度
+    var signLineWidth: CGFloat = TodoTaskPlusMinusLayer.kDefaultLineWidth {
+        didSet {
+            if signLineWidth != oldValue {
+                lineWidth = signLineWidth
+                setNeedsLayout()
+            }
+        }
+    }
+    
+    override init(layer: Any) {
+        super.init(layer: layer)
+        setupLayer()
+    }
+    
+    override init() {
+        super.init()
+        setupLayer()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupLayer() {
+        fillColor = UIColor.clear.cgColor
+        strokeColor = UIColor.white.cgColor
+        lineCap = .round
+        lineJoin = .round
+        lineWidth = TodoTaskPlusMinusLayer.kDefaultLineWidth
+    }
+    
+    override func layoutSublayers() {
+        super.layoutSublayers()
+        updateSignPath()
+    }
+    
+    /// 根据图层尺寸更新符号路径
+    private func updateSignPath() {
+        let length = bounds.size.shortSideLength
+        guard length > 0 else {
+            path = nil
+            return
+        }
+        
+        let halfLength = length * TodoTaskPlusMinusLayer.kSignLengthRatio / 2.0
+        let center = CGPoint(x: bounds.midX, y: bounds.midY)
+        
+        let bezierPath = UIBezierPath()
+        bezierPath.move(to: CGPoint(x: center.x - halfLength, y: center.y))
+        bezierPath.addLine(to: CGPoint(x: center.x + halfLength, y: center.y))
+        
+        if mode == .plus {
+            bezierPath.move(to: CGPoint(x: center.x, y: center.y - halfLength))
+            bezierPath.addLine(to: CGPoint(x: center.x, y: center.y + halfLength))
+        }
+        
+        path = bezierPath.cgPath
     }
 }
