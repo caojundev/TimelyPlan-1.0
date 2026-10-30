@@ -21,8 +21,20 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 四象限·小·数量：以两列网格展示四个象限的未完成任务数。
     case quadrantSmallCounts
     
+    /// 四象限·小·圆环：以环形展示四个象限未完成任务的占比。
+    case quadrantSmallDonut
+    
+    /// 四象限·小·比例条：以圆角堆叠比例条展示四个象限未完成任务的占比。
+    case quadrantSmallStackedBar
+    
     /// 四象限·中·数量：以一行四列横向展示四个象限的未完成任务数。
     case quadrantMediumCounts
+    
+    /// 四象限·中·圆环：左侧以环形展示占比，右侧以列表展示各象限的未完成任务数。
+    case quadrantMediumDonut
+    
+    /// 四象限·中·比例条：以圆角堆叠比例条展示占比，并以网格列出各象限详情。
+    case quadrantMediumStackedBar
     
     // MARK: 倒数日
     /// 倒数日·小·自选：展示用户自己选择的一个倒数日事件。
@@ -175,7 +187,7 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .quadrantSmallCounts,
+        case .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar,
              .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
@@ -184,7 +196,7 @@ public extension WSPluginType {
              .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing,
              .goalSmallTaskList:
             return .small
-        case .quadrantMediumCounts,
+        case .quadrantMediumCounts, .quadrantMediumDonut, .quadrantMediumStackedBar,
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
@@ -208,7 +220,8 @@ public extension WSPluginType {
         switch self {
         case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart:
             return .timeline
-        case .quadrantSmallCounts, .quadrantMediumCounts:
+        case .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar,
+             .quadrantMediumCounts, .quadrantMediumDonut, .quadrantMediumStackedBar:
             return .quadrants
         case .countdownSmallSelected, .countdownSmallEvents,
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
@@ -299,7 +312,11 @@ enum WSPluginCatalog {
         
         // 四象限
         .init(WSQuadrantSmallCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant"),
+        .init(WSQuadrantSmallDonutPluginProvider(), title: "Quadrant Ring", subtitle: "Shows the share of unfinished tasks in a ring"),
+        .init(WSQuadrantSmallStackedBarPluginProvider(), title: "Quadrant Bar", subtitle: "Shows the share of unfinished tasks as a stacked bar"),
         .init(WSQuadrantMediumCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant in a row"),
+        .init(WSQuadrantMediumDonutPluginProvider(), title: "Quadrant Ring", subtitle: "Shows the share of unfinished tasks in a ring with a list"),
+        .init(WSQuadrantMediumStackedBarPluginProvider(), title: "Quadrant Bar", subtitle: "Shows the share of unfinished tasks as a stacked bar with details"),
         
         // 倒数日
         .init(WSCountdownSmallSelectedPluginProvider(), title: "Selected Countdown", subtitle: "Shows the selected countdown"),

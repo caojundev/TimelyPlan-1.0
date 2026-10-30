@@ -2647,6 +2647,18 @@
 		E5F1A2093092000100E35C42 /* WSQuadrantCountsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1093092000100E35C42 /* WSQuadrantCountsRowView.swift */; };
 		E5F1A20A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A10A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift */; };
 		E5F1A20B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A10B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift */; };
+		E5F1A20C3092000100E35C42 /* WSQuadrantSmallDonutPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A10C3092000100E35C42 /* WSQuadrantSmallDonutPluginProvider.swift */; };
+		E5F1A20D3092000100E35C42 /* WSQuadrantSmallDonutContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A10D3092000100E35C42 /* WSQuadrantSmallDonutContentView.swift */; };
+		E5F1A20E3092000100E35C42 /* WSQuadrantDonutRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A10E3092000100E35C42 /* WSQuadrantDonutRingView.swift */; };
+		E5F1A20F3092000100E35C42 /* WSQuadrantDetailLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A10F3092000100E35C42 /* WSQuadrantDetailLegendView.swift */; };
+		E5F1A2103092000100E35C42 /* WSQuadrantMediumDonutPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1103092000100E35C42 /* WSQuadrantMediumDonutPluginProvider.swift */; };
+		E5F1A2113092000100E35C42 /* WSQuadrantMediumDonutContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1113092000100E35C42 /* WSQuadrantMediumDonutContentView.swift */; };
+		E5F1A2123092000100E35C42 /* WSQuadrantStackedBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1123092000100E35C42 /* WSQuadrantStackedBarView.swift */; };
+		E5F1A2133092000100E35C42 /* WSQuadrantBriefLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1133092000100E35C42 /* WSQuadrantBriefLegendView.swift */; };
+		E5F1A2143092000100E35C42 /* WSQuadrantSmallStackedBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1143092000100E35C42 /* WSQuadrantSmallStackedBarContentView.swift */; };
+		E5F1A2153092000100E35C42 /* WSQuadrantSmallStackedBarPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1153092000100E35C42 /* WSQuadrantSmallStackedBarPluginProvider.swift */; };
+		E5F1A2163092000100E35C42 /* WSQuadrantMediumStackedBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1163092000100E35C42 /* WSQuadrantMediumStackedBarContentView.swift */; };
+		E5F1A2173092000100E35C42 /* WSQuadrantMediumStackedBarPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1173092000100E35C42 /* WSQuadrantMediumStackedBarPluginProvider.swift */; };
 		E5F2BAD12D532316007DDCD4 /* xmark_circle_fill_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */; };
 		E5F2BAD22D532316007DDCD4 /* xmark_circle_fill_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */; };
 		E5F9E3BB301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */; };
@@ -5414,6 +5426,18 @@
 		E5F1A1093092000100E35C42 /* WSQuadrantCountsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantCountsRowView.swift; sourceTree = "<group>"; };
 		E5F1A10A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallCountsRowView.swift; sourceTree = "<group>"; };
 		E5F1A10B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumCountsRowView.swift; sourceTree = "<group>"; };
+		E5F1A10C3092000100E35C42 /* WSQuadrantSmallDonutPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallDonutPluginProvider.swift; sourceTree = "<group>"; };
+		E5F1A10D3092000100E35C42 /* WSQuadrantSmallDonutContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallDonutContentView.swift; sourceTree = "<group>"; };
+		E5F1A10E3092000100E35C42 /* WSQuadrantDonutRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantDonutRingView.swift; sourceTree = "<group>"; };
+		E5F1A10F3092000100E35C42 /* WSQuadrantDetailLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantDetailLegendView.swift; sourceTree = "<group>"; };
+		E5F1A1103092000100E35C42 /* WSQuadrantMediumDonutPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumDonutPluginProvider.swift; sourceTree = "<group>"; };
+		E5F1A1113092000100E35C42 /* WSQuadrantMediumDonutContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumDonutContentView.swift; sourceTree = "<group>"; };
+		E5F1A1123092000100E35C42 /* WSQuadrantStackedBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantStackedBarView.swift; sourceTree = "<group>"; };
+		E5F1A1133092000100E35C42 /* WSQuadrantBriefLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantBriefLegendView.swift; sourceTree = "<group>"; };
+		E5F1A1143092000100E35C42 /* WSQuadrantSmallStackedBarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallStackedBarContentView.swift; sourceTree = "<group>"; };
+		E5F1A1153092000100E35C42 /* WSQuadrantSmallStackedBarPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallStackedBarPluginProvider.swift; sourceTree = "<group>"; };
+		E5F1A1163092000100E35C42 /* WSQuadrantMediumStackedBarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumStackedBarContentView.swift; sourceTree = "<group>"; };
+		E5F1A1173092000100E35C42 /* WSQuadrantMediumStackedBarPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumStackedBarPluginProvider.swift; sourceTree = "<group>"; };
 		E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@3x.png"; sourceTree = "<group>"; };
 		E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@2x.png"; sourceTree = "<group>"; };
 		E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTodoEventInfoView.swift; sourceTree = "<group>"; };
@@ -7401,6 +7425,43 @@
 				E5320C4F2FCD7445001DFE98 /* TodoTaskPageAddFooterView.swift */,
 			);
 			path = Footer;
+			sourceTree = "<group>";
+		};
+		E533251E3094C28F00AD8F74 /* Counts */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1073092000100E35C42 /* WSQuadrantMediumCountsPluginProvider.swift */,
+				E5F1A1083092000100E35C42 /* WSQuadrantMediumCountsContentView.swift */,
+				E5F1A10B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift */,
+			);
+			path = Counts;
+			sourceTree = "<group>";
+		};
+		E533251F3094C2F400AD8F74 /* Donut */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1103092000100E35C42 /* WSQuadrantMediumDonutPluginProvider.swift */,
+				E5F1A1113092000100E35C42 /* WSQuadrantMediumDonutContentView.swift */,
+			);
+			path = Donut;
+			sourceTree = "<group>";
+		};
+		E53325203094D6FF00AD8F74 /* StackedBar */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1163092000100E35C42 /* WSQuadrantMediumStackedBarContentView.swift */,
+				E5F1A1173092000100E35C42 /* WSQuadrantMediumStackedBarPluginProvider.swift */,
+			);
+			path = StackedBar;
+			sourceTree = "<group>";
+		};
+		E53325213094D70A00AD8F74 /* StackedBar */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1143092000100E35C42 /* WSQuadrantSmallStackedBarContentView.swift */,
+				E5F1A1153092000100E35C42 /* WSQuadrantSmallStackedBarPluginProvider.swift */,
+			);
+			path = StackedBar;
 			sourceTree = "<group>";
 		};
 		E53352842FF7759900546986 /* Year */ = {
@@ -13965,21 +14026,81 @@
 		E5E5380230946E250096EBAC /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E5F1A1043092000100E35C42 /* WSQuadrantDetailPresenter.swift */,
-				E5F1A1013092000100E35C42 /* WSQuadrantCountsDataItem.swift */,
-				E5F1A1053092000100E35C42 /* WSQuadrantCountsContentInteractor.swift */,
-				E5F1A1063092000100E35C42 /* WSQuadrantCountsContentView.swift */,
-				E5F1A1093092000100E35C42 /* WSQuadrantCountsRowView.swift */,
+				E5F1A3A13092000100E35C42 /* Chart */,
+				E5F1A3A23092000100E35C42 /* Content */,
+				E5F1A3A33092000100E35C42 /* Data */,
+				E5F1A3A43092000100E35C42 /* Detail */,
+				E5F1A3A53092000100E35C42 /* Interactor */,
+				E5F1A3A63092000100E35C42 /* Legend */,
+				E5F1A3A73092000100E35C42 /* Row */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		E5F1A3A13092000100E35C42 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A10E3092000100E35C42 /* WSQuadrantDonutRingView.swift */,
+				E5F1A1123092000100E35C42 /* WSQuadrantStackedBarView.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		E5F1A3A23092000100E35C42 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1063092000100E35C42 /* WSQuadrantCountsContentView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E5F1A3A33092000100E35C42 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1013092000100E35C42 /* WSQuadrantCountsDataItem.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5F1A3A43092000100E35C42 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1043092000100E35C42 /* WSQuadrantDetailPresenter.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		E5F1A3A53092000100E35C42 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1053092000100E35C42 /* WSQuadrantCountsContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E5F1A3A63092000100E35C42 /* Legend */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1133092000100E35C42 /* WSQuadrantBriefLegendView.swift */,
+				E5F1A10F3092000100E35C42 /* WSQuadrantDetailLegendView.swift */,
+			);
+			path = Legend;
+			sourceTree = "<group>";
+		};
+		E5F1A3A73092000100E35C42 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1093092000100E35C42 /* WSQuadrantCountsRowView.swift */,
+			);
+			path = Row;
 			sourceTree = "<group>";
 		};
 		E5E5380330946E2E0096EBAC /* Small */ = {
 			isa = PBXGroup;
 			children = (
-				E5F1A1023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift */,
-				E5F1A1033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift */,
-				E5F1A10A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift */,
+				E53325213094D70A00AD8F74 /* StackedBar */,
+				E5E53808309496060096EBAC /* Donut */,
+				E5E53807309495E60096EBAC /* Counts */,
 			);
 			path = Small;
 			sourceTree = "<group>";
@@ -13987,11 +14108,30 @@
 		E5E5380630947D5A0096EBAC /* Medium */ = {
 			isa = PBXGroup;
 			children = (
-				E5F1A1073092000100E35C42 /* WSQuadrantMediumCountsPluginProvider.swift */,
-				E5F1A1083092000100E35C42 /* WSQuadrantMediumCountsContentView.swift */,
-				E5F1A10B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift */,
+				E53325203094D6FF00AD8F74 /* StackedBar */,
+				E533251F3094C2F400AD8F74 /* Donut */,
+				E533251E3094C28F00AD8F74 /* Counts */,
 			);
 			path = Medium;
+			sourceTree = "<group>";
+		};
+		E5E53807309495E60096EBAC /* Counts */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift */,
+				E5F1A1033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift */,
+				E5F1A10A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift */,
+			);
+			path = Counts;
+			sourceTree = "<group>";
+		};
+		E5E53808309496060096EBAC /* Donut */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A10C3092000100E35C42 /* WSQuadrantSmallDonutPluginProvider.swift */,
+				E5F1A10D3092000100E35C42 /* WSQuadrantSmallDonutContentView.swift */,
+			);
+			path = Donut;
 			sourceTree = "<group>";
 		};
 		E5E58CCF307BB54B00121283 /* MemberBanner */ = {
@@ -17388,6 +17528,18 @@
 				E5F1A2093092000100E35C42 /* WSQuadrantCountsRowView.swift in Sources */,
 				E5F1A20A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift in Sources */,
 				E5F1A20B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift in Sources */,
+				E5F1A20C3092000100E35C42 /* WSQuadrantSmallDonutPluginProvider.swift in Sources */,
+				E5F1A20D3092000100E35C42 /* WSQuadrantSmallDonutContentView.swift in Sources */,
+				E5F1A20E3092000100E35C42 /* WSQuadrantDonutRingView.swift in Sources */,
+				E5F1A20F3092000100E35C42 /* WSQuadrantDetailLegendView.swift in Sources */,
+				E5F1A2103092000100E35C42 /* WSQuadrantMediumDonutPluginProvider.swift in Sources */,
+				E5F1A2113092000100E35C42 /* WSQuadrantMediumDonutContentView.swift in Sources */,
+				E5F1A2123092000100E35C42 /* WSQuadrantStackedBarView.swift in Sources */,
+				E5F1A2133092000100E35C42 /* WSQuadrantBriefLegendView.swift in Sources */,
+				E5F1A2143092000100E35C42 /* WSQuadrantSmallStackedBarContentView.swift in Sources */,
+				E5F1A2153092000100E35C42 /* WSQuadrantSmallStackedBarPluginProvider.swift in Sources */,
+				E5F1A2163092000100E35C42 /* WSQuadrantMediumStackedBarContentView.swift in Sources */,
+				E5F1A2173092000100E35C42 /* WSQuadrantMediumStackedBarPluginProvider.swift in Sources */,
 				E5CBA0713092000100E35B41 /* WSGoalPlanRowView.swift in Sources */,
 				E5CBA0913092000100E35B41 /* WSGoalPlanRowsContentView.swift in Sources */,
 				E5CBA0923092000100E35B41 /* WSGoalPlanGridContentView.swift in Sources */,

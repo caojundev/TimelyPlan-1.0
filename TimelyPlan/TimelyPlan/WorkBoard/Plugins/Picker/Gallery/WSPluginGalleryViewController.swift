@@ -19,6 +19,9 @@ class WSPluginGalleryViewController: TPViewController {
         /// 内容与页面边缘的间距
         static let padding = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 20.0, right: 16.0)
         
+        /// 标题区域高度
+        static let titleAreaHeight = 90.0
+        
         /// 标题与副标题的间距
         static let subtitleSpacing = 6.0
         
@@ -44,7 +47,7 @@ class WSPluginGalleryViewController: TPViewController {
         label.font = UIFont.boldSystemFont(ofSize: 22.0)
         label.textColor = .label
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         return label
     }()
     
@@ -54,7 +57,7 @@ class WSPluginGalleryViewController: TPViewController {
         label.font = .systemFont(ofSize: 14.0)
         label.textColor = .secondaryLabel
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         return label
     }()
     
@@ -183,7 +186,7 @@ class WSPluginGalleryViewController: TPViewController {
         pageIndicator.bottom = addButton.top - Constants.indicatorMargin
         
         /// 画廊占据副标题与指示器之间的剩余空间，条目尺寸会随画廊高度自适应
-        let galleryTop = subtitleLabel.bottom + Constants.gallerySpacing
+        let galleryTop = layoutFrame.minY + Constants.titleAreaHeight + Constants.gallerySpacing
         let galleryBottom = pageIndicator.top - Constants.indicatorSpacing
         galleryView.frame = CGRect(x: 0.0,
                                    y: galleryTop,

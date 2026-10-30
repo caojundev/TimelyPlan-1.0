@@ -20,10 +20,10 @@ class WSQuadrantCountsContentView: WSRowListView {
     private enum Metrics {
         
         /// 内容与组件边缘的间距
-        static let padding = UIEdgeInsets(value: 10.0)
+        static let padding = UIEdgeInsets(value: 6.0)
         
         /// 象限之间的间距
-        static let spacing: CGFloat = 6.0
+        static let spacing: CGFloat = 4.0
     }
     
     init(rowCount: Int, columnCount: Int) {

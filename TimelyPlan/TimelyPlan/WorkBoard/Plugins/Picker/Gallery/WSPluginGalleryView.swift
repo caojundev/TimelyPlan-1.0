@@ -74,6 +74,7 @@ class WSPluginGalleryView: UIView,
         collectionView.backgroundColor = .clear
         collectionView.isPrefetchingEnabled = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.decelerationRate = .fast
         /// 页宽与集合视图宽度一致，开启整页翻动
         collectionView.isPagingEnabled = true

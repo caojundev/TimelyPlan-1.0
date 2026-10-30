@@ -124,6 +124,12 @@
 ///**********************四象限*********************///
 "Shows the number of unfinished tasks in each quadrant" = "展示四个象限未完成的任务数量";
 "Shows the number of unfinished tasks in each quadrant in a row" = "横向展示四个象限未完成的任务数量";
+"Quadrant Ring" = "象限圆环";
+"Quadrant Bar" = "象限比例条";
+"Shows the share of unfinished tasks as a stacked bar" = "以圆角比例条展示四个象限未完成任务的占比";
+"Shows the share of unfinished tasks as a stacked bar with details" = "以圆角比例条展示四个象限未完成任务的占比，并列出各象限详情";
+"Shows the share of unfinished tasks in a ring" = "以环形展示四个象限未完成任务的占比";
+"Shows the share of unfinished tasks in a ring with a list" = "以环形展示四个象限未完成任务的占比，并列出各象限数量";
 
 ///**********************倒数日*********************///
 "Untitled Countdown" = "未命名倒数日";
