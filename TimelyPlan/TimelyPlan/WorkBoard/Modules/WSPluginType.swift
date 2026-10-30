@@ -17,6 +17,10 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 时间线·大·按月甘特图：以甘特时间线按月展示事项排期。
     case timelineLargeMonthChart
     
+    // MARK: 四象限
+    /// 四象限·小·数量：以两列网格展示四个象限的未完成任务数。
+    case quadrantSmallCounts
+    
     // MARK: 倒数日
     /// 倒数日·小·自选：展示用户自己选择的一个倒数日事件。
     case countdownSmallSelected
@@ -168,7 +172,8 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .countdownSmallSelected, .countdownSmallEvents,
+        case .quadrantSmallCounts,
+             .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
              .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
@@ -199,6 +204,8 @@ public extension WSPluginType {
         switch self {
         case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart:
             return .timeline
+        case .quadrantSmallCounts:
+            return .quadrants
         case .countdownSmallSelected, .countdownSmallEvents,
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .countdownLargeEventsList, .countdownLargeEventsGrid:
@@ -285,6 +292,9 @@ enum WSPluginCatalog {
         .init(WSTimelineLargeDayChartPluginProvider(), title: "Daily Gantt", subtitle: "Shows tasks on a timeline by day"),
         .init(WSTimelineLargeWeekChartPluginProvider(), title: "Weekly Gantt", subtitle: "Shows tasks on a timeline by week"),
         .init(WSTimelineLargeMonthChartPluginProvider(), title: "Monthly Gantt", subtitle: "Shows tasks on a timeline by month"),
+        
+        // 四象限
+        .init(WSQuadrantSmallCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant"),
         
         // 倒数日
         .init(WSCountdownSmallSelectedPluginProvider(), title: "Selected Countdown", subtitle: "Shows the selected countdown"),

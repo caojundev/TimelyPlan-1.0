@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E5C0AF513094400000E487FC /* WSTimelineLargeWeekChartPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF503094400000E487FC /* WSTimelineLargeWeekChartPluginProvider.swift */; };
-		E5C0AF543094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF533094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift */; };
 		930B47C98BEE5C4915C191FA /* libPods-TimelyPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */; };
 		E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */; };
 		E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */; };
@@ -2122,6 +2120,8 @@
 		E5C0AF123094400000E487FC /* WSTimelineChartContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF113094400000E487FC /* WSTimelineChartContentView.swift */; };
 		E5C0AF143094400000E487FC /* WSTimelineLargeDayChartPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF133094400000E487FC /* WSTimelineLargeDayChartPluginProvider.swift */; };
 		E5C0AF163094400000E487FC /* WSTimelineChartState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF153094400000E487FC /* WSTimelineChartState.swift */; };
+		E5C0AF513094400000E487FC /* WSTimelineLargeWeekChartPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF503094400000E487FC /* WSTimelineLargeWeekChartPluginProvider.swift */; };
+		E5C0AF543094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF533094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift */; };
 		E5C0FFEE3089B3CE003EB8BC /* WSPluginConfigJSONMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0FFEF3089B3CE003EB8BC /* WSPluginConfigJSONMerger.swift */; };
 		E5C18FB92DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB32DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png */; };
 		E5C18FBA2DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C18FB42DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png */; };
@@ -2636,6 +2636,10 @@
 		E5F155322F83B6B000116091 /* TodoGroupBaseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F155312F83B6B000116091 /* TodoGroupBaseHeaderView.swift */; };
 		E5F155352F83D12B00116091 /* TodoTaskGroupExpansionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F155342F83D12B00116091 /* TodoTaskGroupExpansionState.swift */; };
 		E5F155372F83E1C700116091 /* TodoTaskActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F155362F83E1C600116091 /* TodoTaskActionType.swift */; };
+		E5F1A2013092000100E35C42 /* WSQuadrantSmallCountsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1013092000100E35C42 /* WSQuadrantSmallCountsDataItem.swift */; };
+		E5F1A2023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift */; };
+		E5F1A2033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift */; };
+		E5F1A2043092000100E35C42 /* WSQuadrantDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1043092000100E35C42 /* WSQuadrantDetailPresenter.swift */; };
 		E5F2BAD12D532316007DDCD4 /* xmark_circle_fill_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */; };
 		E5F2BAD22D532316007DDCD4 /* xmark_circle_fill_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */; };
 		E5F9E3BB301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */; };
@@ -2740,8 +2744,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E5C0AF503094400000E487FC /* WSTimelineLargeWeekChartPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineLargeWeekChartPluginProvider.swift; sourceTree = "<group>"; };
-		E5C0AF533094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineLargeMonthChartPluginProvider.swift; sourceTree = "<group>"; };
 		1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.release.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.release.xcconfig"; sourceTree = "<group>"; };
 		2197CCF3E13F7B7E5DA987DD /* Pods-TimelyPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.debug.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimelyPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4878,6 +4880,8 @@
 		E5C0AF113094400000E487FC /* WSTimelineChartContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineChartContentView.swift; sourceTree = "<group>"; };
 		E5C0AF133094400000E487FC /* WSTimelineLargeDayChartPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineLargeDayChartPluginProvider.swift; sourceTree = "<group>"; };
 		E5C0AF153094400000E487FC /* WSTimelineChartState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineChartState.swift; sourceTree = "<group>"; };
+		E5C0AF503094400000E487FC /* WSTimelineLargeWeekChartPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineLargeWeekChartPluginProvider.swift; sourceTree = "<group>"; };
+		E5C0AF533094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineLargeMonthChartPluginProvider.swift; sourceTree = "<group>"; };
 		E5C0FFEF3089B3CE003EB8BC /* WSPluginConfigJSONMerger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSPluginConfigJSONMerger.swift; sourceTree = "<group>"; };
 		E5C18FB32DB4FE1F008FAA13 /* todo_task_change_deleted_16@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_deleted_16@3x.png"; sourceTree = "<group>"; };
 		E5C18FB42DB4FE1F008FAA13 /* todo_task_change_deleted_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "todo_task_change_deleted_16@2x.png"; sourceTree = "<group>"; };
@@ -5392,6 +5396,10 @@
 		E5F155312F83B6B000116091 /* TodoGroupBaseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoGroupBaseHeaderView.swift; sourceTree = "<group>"; };
 		E5F155342F83D12B00116091 /* TodoTaskGroupExpansionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskGroupExpansionState.swift; sourceTree = "<group>"; };
 		E5F155362F83E1C600116091 /* TodoTaskActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskActionType.swift; sourceTree = "<group>"; };
+		E5F1A1013092000100E35C42 /* WSQuadrantSmallCountsDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallCountsDataItem.swift; sourceTree = "<group>"; };
+		E5F1A1023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallCountsPluginProvider.swift; sourceTree = "<group>"; };
+		E5F1A1033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallCountsContentView.swift; sourceTree = "<group>"; };
+		E5F1A1043092000100E35C42 /* WSQuadrantDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantDetailPresenter.swift; sourceTree = "<group>"; };
 		E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@3x.png"; sourceTree = "<group>"; };
 		E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@2x.png"; sourceTree = "<group>"; };
 		E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTodoEventInfoView.swift; sourceTree = "<group>"; };
@@ -9508,50 +9516,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		E5C0AF343094400000E487FC /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				E5C0AF013094400000E487FC /* WSTimelineChartConfig.swift */,
-			);
-			path = Config;
-			sourceTree = "<group>";
-		};
-		E5C0AF333094400000E487FC /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				E5C0AF0D3094400000E487FC /* WSTimelineChartDataItem.swift */,
-				E5C0AF153094400000E487FC /* WSTimelineChartState.swift */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		E5C0AF323094400000E487FC /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				E5C0AF0F3094400000E487FC /* WSTimelineChartContentInteractor.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		E5C0AF303094400000E487FC /* Content */ = {
-			isa = PBXGroup;
-			children = (
-				E5C0AF113094400000E487FC /* WSTimelineChartContentView.swift */,
-			);
-			path = Content;
-			sourceTree = "<group>";
-		};
-		E5C0AF313094400000E487FC /* Chart */ = {
-			isa = PBXGroup;
-			children = (
-				E5C0AF0B3094400000E487FC /* WSTimelineChartView.swift */,
-				E5C0AF073094400000E487FC /* WSTimelineChartLayout.swift */,
-				E5C0AF033094400000E487FC /* WSTimelineChartGeometry.swift */,
-				E5C0AF053094400000E487FC /* WSTimelineChartHeaderView.swift */,
-			);
-			path = Chart;
-			sourceTree = "<group>";
-		};
 		E572C69D3060B6E600624F65 /* Milestone */ = {
 			isa = PBXGroup;
 			children = (
@@ -10467,6 +10431,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
+				E5E5380130946DF00096EBAC /* Quadrant */,
 				E5C0AEAA30933D3B00E487FC /* Gantt */,
 				E539C86F308CAE6C0077FE8A /* UIComponents */,
 				E5BBCAD030919CF700E35B41 /* Goal */,
@@ -12873,6 +12838,58 @@
 			path = Large;
 			sourceTree = "<group>";
 		};
+		E5C0AEAC3093404900E487FC /* Day */ = {
+			isa = PBXGroup;
+			children = (
+				E5C0AF133094400000E487FC /* WSTimelineLargeDayChartPluginProvider.swift */,
+			);
+			path = Day;
+			sourceTree = "<group>";
+		};
+		E5C0AF303094400000E487FC /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E5C0AF113094400000E487FC /* WSTimelineChartContentView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E5C0AF313094400000E487FC /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				E5C0AF0B3094400000E487FC /* WSTimelineChartView.swift */,
+				E5C0AF073094400000E487FC /* WSTimelineChartLayout.swift */,
+				E5C0AF033094400000E487FC /* WSTimelineChartGeometry.swift */,
+				E5C0AF053094400000E487FC /* WSTimelineChartHeaderView.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		E5C0AF323094400000E487FC /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5C0AF0F3094400000E487FC /* WSTimelineChartContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E5C0AF333094400000E487FC /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5C0AF0D3094400000E487FC /* WSTimelineChartDataItem.swift */,
+				E5C0AF153094400000E487FC /* WSTimelineChartState.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5C0AF343094400000E487FC /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E5C0AF013094400000E487FC /* WSTimelineChartConfig.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		E5C0AF523094400000E487FC /* Week */ = {
 			isa = PBXGroup;
 			children = (
@@ -12887,14 +12904,6 @@
 				E5C0AF533094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift */,
 			);
 			path = Month;
-			sourceTree = "<group>";
-		};
-		E5C0AEAC3093404900E487FC /* Day */ = {
-			isa = PBXGroup;
-			children = (
-				E5C0AF133094400000E487FC /* WSTimelineLargeDayChartPluginProvider.swift */,
-			);
-			path = Day;
 			sourceTree = "<group>";
 		};
 		E5C18FB22DB4FE1F008FAA13 /* change */ = {
@@ -13927,6 +13936,33 @@
 				E5E40714306FE02700673727 /* calendar_panelStyle_3_4_vertical@2x.png */,
 			);
 			path = panel;
+			sourceTree = "<group>";
+		};
+		E5E5380130946DF00096EBAC /* Quadrant */ = {
+			isa = PBXGroup;
+			children = (
+				E5E5380230946E250096EBAC /* Common */,
+				E5E5380330946E2E0096EBAC /* Small */,
+			);
+			path = Quadrant;
+			sourceTree = "<group>";
+		};
+		E5E5380230946E250096EBAC /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1043092000100E35C42 /* WSQuadrantDetailPresenter.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E5E5380330946E2E0096EBAC /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1013092000100E35C42 /* WSQuadrantSmallCountsDataItem.swift */,
+				E5F1A1023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift */,
+				E5F1A1033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift */,
+			);
+			path = Small;
 			sourceTree = "<group>";
 		};
 		E5E58CCF307BB54B00121283 /* MemberBanner */ = {
@@ -17312,6 +17348,10 @@
 				E5CBA0313092000100E35B41 /* WSGoalPlanInboxDataItem.swift in Sources */,
 				E5CBA0323092000100E35B41 /* WSGoalPlanSmallInboxPluginProvider.swift in Sources */,
 				E5CBA0333092000100E35B41 /* WSGoalPlanSmallInboxContentView.swift in Sources */,
+				E5F1A2013092000100E35C42 /* WSQuadrantSmallCountsDataItem.swift in Sources */,
+				E5F1A2023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift in Sources */,
+				E5F1A2033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift in Sources */,
+				E5F1A2043092000100E35C42 /* WSQuadrantDetailPresenter.swift in Sources */,
 				E5CBA0713092000100E35B41 /* WSGoalPlanRowView.swift in Sources */,
 				E5CBA0913092000100E35B41 /* WSGoalPlanRowsContentView.swift in Sources */,
 				E5CBA0923092000100E35B41 /* WSGoalPlanGridContentView.swift in Sources */,

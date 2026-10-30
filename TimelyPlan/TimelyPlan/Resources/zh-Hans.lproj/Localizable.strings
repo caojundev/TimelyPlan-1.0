@@ -121,6 +121,9 @@
 "Countdown" = "倒数日";
 "Settings" = "设置";
 
+///**********************四象限*********************///
+"Shows the number of unfinished tasks in each quadrant" = "展示四个象限未完成的任务数量";
+
 ///**********************倒数日*********************///
 "Untitled Countdown" = "未命名倒数日";
 "New Countdown" = "新建倒数日";

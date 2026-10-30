@@ -203,6 +203,12 @@ extension TodoRepository {
     static func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
         taskManager.fetchUncompletedTaskCount(for: item, completion: completion)
     }
+
+    /// 获取符合过滤规则的未完成任务数目
+    static func fetchUncompletedTaskCount(filterRule: TodoFilterRule,
+                                          completion: @escaping(Int) -> Void) {
+        taskManager.fetchUncompletedTaskCount(filterRule: filterRule, completion: completion)
+    }
     
     /// 根据标识获取任务
     static func getTask(with identifier: String) -> TodoTask? {

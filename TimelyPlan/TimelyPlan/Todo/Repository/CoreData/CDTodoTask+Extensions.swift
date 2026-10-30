@@ -813,6 +813,19 @@ extension CDTodoTask {
             completion(0)
         }
     }
+    
+    static func fetchUncompletedTaskCount(filterRule: TodoFilterRule, completion: @escaping(Int) -> Void) {
+        guard let predicate = filterActiveTaskPredicate(for: filterRule, showCompleted: false) else {
+            completion(0)
+            return
+        }
+        
+        fetchCount(withPredicate: predicate) { count in
+            DispatchQueue.main.async {
+                completion(count)
+            }
+        }
+    }
 }
 
 // MARK: - 谓词

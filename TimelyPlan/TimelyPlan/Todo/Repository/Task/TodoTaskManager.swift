@@ -480,6 +480,10 @@ extension TodoTaskManager {
         CDTodoTask.fetchUncompletedTaskCount(for: item, completion: completion)
     }
     
+    func fetchUncompletedTaskCount(filterRule: TodoFilterRule, completion: @escaping(Int) -> Void) {
+        CDTodoTask.fetchUncompletedTaskCount(filterRule: filterRule, completion: completion)
+    }
+    
     /// 获取已完成任务
     func fetchCompletedTasks(in range: DateRange, completion: @escaping([TodoTask]?) -> Void) {
         guard let start = range.startDate, let end = range.endDate else {
