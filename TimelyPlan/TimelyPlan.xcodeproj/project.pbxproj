@@ -2636,10 +2636,17 @@
 		E5F155322F83B6B000116091 /* TodoGroupBaseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F155312F83B6B000116091 /* TodoGroupBaseHeaderView.swift */; };
 		E5F155352F83D12B00116091 /* TodoTaskGroupExpansionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F155342F83D12B00116091 /* TodoTaskGroupExpansionState.swift */; };
 		E5F155372F83E1C700116091 /* TodoTaskActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F155362F83E1C600116091 /* TodoTaskActionType.swift */; };
-		E5F1A2013092000100E35C42 /* WSQuadrantSmallCountsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1013092000100E35C42 /* WSQuadrantSmallCountsDataItem.swift */; };
+		E5F1A2013092000100E35C42 /* WSQuadrantCountsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1013092000100E35C42 /* WSQuadrantCountsDataItem.swift */; };
 		E5F1A2023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift */; };
 		E5F1A2033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift */; };
 		E5F1A2043092000100E35C42 /* WSQuadrantDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1043092000100E35C42 /* WSQuadrantDetailPresenter.swift */; };
+		E5F1A2053092000100E35C42 /* WSQuadrantCountsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1053092000100E35C42 /* WSQuadrantCountsContentInteractor.swift */; };
+		E5F1A2063092000100E35C42 /* WSQuadrantCountsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1063092000100E35C42 /* WSQuadrantCountsContentView.swift */; };
+		E5F1A2073092000100E35C42 /* WSQuadrantMediumCountsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1073092000100E35C42 /* WSQuadrantMediumCountsPluginProvider.swift */; };
+		E5F1A2083092000100E35C42 /* WSQuadrantMediumCountsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1083092000100E35C42 /* WSQuadrantMediumCountsContentView.swift */; };
+		E5F1A2093092000100E35C42 /* WSQuadrantCountsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1093092000100E35C42 /* WSQuadrantCountsRowView.swift */; };
+		E5F1A20A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A10A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift */; };
+		E5F1A20B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A10B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift */; };
 		E5F2BAD12D532316007DDCD4 /* xmark_circle_fill_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */; };
 		E5F2BAD22D532316007DDCD4 /* xmark_circle_fill_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */; };
 		E5F9E3BB301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */; };
@@ -5396,10 +5403,17 @@
 		E5F155312F83B6B000116091 /* TodoGroupBaseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoGroupBaseHeaderView.swift; sourceTree = "<group>"; };
 		E5F155342F83D12B00116091 /* TodoTaskGroupExpansionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskGroupExpansionState.swift; sourceTree = "<group>"; };
 		E5F155362F83E1C600116091 /* TodoTaskActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTaskActionType.swift; sourceTree = "<group>"; };
-		E5F1A1013092000100E35C42 /* WSQuadrantSmallCountsDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallCountsDataItem.swift; sourceTree = "<group>"; };
+		E5F1A1013092000100E35C42 /* WSQuadrantCountsDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantCountsDataItem.swift; sourceTree = "<group>"; };
 		E5F1A1023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallCountsPluginProvider.swift; sourceTree = "<group>"; };
 		E5F1A1033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallCountsContentView.swift; sourceTree = "<group>"; };
 		E5F1A1043092000100E35C42 /* WSQuadrantDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantDetailPresenter.swift; sourceTree = "<group>"; };
+		E5F1A1053092000100E35C42 /* WSQuadrantCountsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantCountsContentInteractor.swift; sourceTree = "<group>"; };
+		E5F1A1063092000100E35C42 /* WSQuadrantCountsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantCountsContentView.swift; sourceTree = "<group>"; };
+		E5F1A1073092000100E35C42 /* WSQuadrantMediumCountsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumCountsPluginProvider.swift; sourceTree = "<group>"; };
+		E5F1A1083092000100E35C42 /* WSQuadrantMediumCountsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumCountsContentView.swift; sourceTree = "<group>"; };
+		E5F1A1093092000100E35C42 /* WSQuadrantCountsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantCountsRowView.swift; sourceTree = "<group>"; };
+		E5F1A10A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallCountsRowView.swift; sourceTree = "<group>"; };
+		E5F1A10B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumCountsRowView.swift; sourceTree = "<group>"; };
 		E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@3x.png"; sourceTree = "<group>"; };
 		E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@2x.png"; sourceTree = "<group>"; };
 		E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTodoEventInfoView.swift; sourceTree = "<group>"; };
@@ -13942,6 +13956,7 @@
 			isa = PBXGroup;
 			children = (
 				E5E5380230946E250096EBAC /* Common */,
+				E5E5380630947D5A0096EBAC /* Medium */,
 				E5E5380330946E2E0096EBAC /* Small */,
 			);
 			path = Quadrant;
@@ -13951,6 +13966,10 @@
 			isa = PBXGroup;
 			children = (
 				E5F1A1043092000100E35C42 /* WSQuadrantDetailPresenter.swift */,
+				E5F1A1013092000100E35C42 /* WSQuadrantCountsDataItem.swift */,
+				E5F1A1053092000100E35C42 /* WSQuadrantCountsContentInteractor.swift */,
+				E5F1A1063092000100E35C42 /* WSQuadrantCountsContentView.swift */,
+				E5F1A1093092000100E35C42 /* WSQuadrantCountsRowView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -13958,11 +13977,21 @@
 		E5E5380330946E2E0096EBAC /* Small */ = {
 			isa = PBXGroup;
 			children = (
-				E5F1A1013092000100E35C42 /* WSQuadrantSmallCountsDataItem.swift */,
 				E5F1A1023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift */,
 				E5F1A1033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift */,
+				E5F1A10A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift */,
 			);
 			path = Small;
+			sourceTree = "<group>";
+		};
+		E5E5380630947D5A0096EBAC /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1073092000100E35C42 /* WSQuadrantMediumCountsPluginProvider.swift */,
+				E5F1A1083092000100E35C42 /* WSQuadrantMediumCountsContentView.swift */,
+				E5F1A10B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift */,
+			);
+			path = Medium;
 			sourceTree = "<group>";
 		};
 		E5E58CCF307BB54B00121283 /* MemberBanner */ = {
@@ -17348,10 +17377,17 @@
 				E5CBA0313092000100E35B41 /* WSGoalPlanInboxDataItem.swift in Sources */,
 				E5CBA0323092000100E35B41 /* WSGoalPlanSmallInboxPluginProvider.swift in Sources */,
 				E5CBA0333092000100E35B41 /* WSGoalPlanSmallInboxContentView.swift in Sources */,
-				E5F1A2013092000100E35C42 /* WSQuadrantSmallCountsDataItem.swift in Sources */,
+				E5F1A2013092000100E35C42 /* WSQuadrantCountsDataItem.swift in Sources */,
 				E5F1A2023092000100E35C42 /* WSQuadrantSmallCountsPluginProvider.swift in Sources */,
 				E5F1A2033092000100E35C42 /* WSQuadrantSmallCountsContentView.swift in Sources */,
 				E5F1A2043092000100E35C42 /* WSQuadrantDetailPresenter.swift in Sources */,
+				E5F1A2053092000100E35C42 /* WSQuadrantCountsContentInteractor.swift in Sources */,
+				E5F1A2063092000100E35C42 /* WSQuadrantCountsContentView.swift in Sources */,
+				E5F1A2073092000100E35C42 /* WSQuadrantMediumCountsPluginProvider.swift in Sources */,
+				E5F1A2083092000100E35C42 /* WSQuadrantMediumCountsContentView.swift in Sources */,
+				E5F1A2093092000100E35C42 /* WSQuadrantCountsRowView.swift in Sources */,
+				E5F1A20A3092000100E35C42 /* WSQuadrantSmallCountsRowView.swift in Sources */,
+				E5F1A20B3092000100E35C42 /* WSQuadrantMediumCountsRowView.swift in Sources */,
 				E5CBA0713092000100E35B41 /* WSGoalPlanRowView.swift in Sources */,
 				E5CBA0913092000100E35B41 /* WSGoalPlanRowsContentView.swift in Sources */,
 				E5CBA0923092000100E35B41 /* WSGoalPlanGridContentView.swift in Sources */,

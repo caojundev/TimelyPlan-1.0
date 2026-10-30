@@ -123,6 +123,7 @@
 
 ///**********************四象限*********************///
 "Shows the number of unfinished tasks in each quadrant" = "展示四个象限未完成的任务数量";
+"Shows the number of unfinished tasks in each quadrant in a row" = "横向展示四个象限未完成的任务数量";
 
 ///**********************倒数日*********************///
 "Untitled Countdown" = "未命名倒数日";

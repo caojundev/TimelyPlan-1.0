@@ -21,6 +21,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 四象限·小·数量：以两列网格展示四个象限的未完成任务数。
     case quadrantSmallCounts
     
+    /// 四象限·中·数量：以一行四列横向展示四个象限的未完成任务数。
+    case quadrantMediumCounts
+    
     // MARK: 倒数日
     /// 倒数日·小·自选：展示用户自己选择的一个倒数日事件。
     case countdownSmallSelected
@@ -181,7 +184,8 @@ public extension WSPluginType {
              .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing,
              .goalSmallTaskList:
             return .small
-        case .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
+        case .quadrantMediumCounts,
+             .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
              .habitMediumWeekReportList, .habitMediumMonthActivityList,
@@ -204,7 +208,7 @@ public extension WSPluginType {
         switch self {
         case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart:
             return .timeline
-        case .quadrantSmallCounts:
+        case .quadrantSmallCounts, .quadrantMediumCounts:
             return .quadrants
         case .countdownSmallSelected, .countdownSmallEvents,
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
@@ -295,6 +299,7 @@ enum WSPluginCatalog {
         
         // 四象限
         .init(WSQuadrantSmallCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant"),
+        .init(WSQuadrantMediumCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant in a row"),
         
         // 倒数日
         .init(WSCountdownSmallSelectedPluginProvider(), title: "Selected Countdown", subtitle: "Shows the selected countdown"),
