@@ -7,6 +7,16 @@ import Foundation
 /// 用于区分同模块、同尺寸下的多种组件。
 public enum WSPluginType: String, Codable, CaseIterable {
     
+    // MARK: 时间线
+    /// 时间线·大·按天甘特图：以甘特时间线按天展示事项排期。
+    case timelineLargeDayChart
+
+    /// 时间线·大·按周甘特图：以甘特时间线按周展示事项排期。
+    case timelineLargeWeekChart
+
+    /// 时间线·大·按月甘特图：以甘特时间线按月展示事项排期。
+    case timelineLargeMonthChart
+    
     // MARK: 倒数日
     /// 倒数日·小·自选：展示用户自己选择的一个倒数日事件。
     case countdownSmallSelected
@@ -173,7 +183,8 @@ public extension WSPluginType {
              .goalMediumPlanGrid, .goalMediumPlanList, .goalMediumPlanRings,
              .goalMediumTaskGrid, .goalMediumTaskList:
             return .medium
-        case .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
+        case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart,
+             .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
              .focusLargeUserTimerGrid,
              .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList,
              .habitLargeMonthActivityList,
@@ -186,6 +197,8 @@ public extension WSPluginType {
     /// 所属模块。用于组件选择器分组，以及同模块三个尺寸之间的归类。
     var module: WSPluginModule {
         switch self {
+        case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart:
+            return .timeline
         case .countdownSmallSelected, .countdownSmallEvents,
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .countdownLargeEventsList, .countdownLargeEventsGrid:
@@ -268,6 +281,11 @@ enum WSPluginCatalog {
 
     /// 全部组件配置
     static let all: [WSPluginConfiguration] = [
+        // 时间线
+        .init(WSTimelineLargeDayChartPluginProvider(), title: "Daily Gantt", subtitle: "Shows tasks on a timeline by day"),
+        .init(WSTimelineLargeWeekChartPluginProvider(), title: "Weekly Gantt", subtitle: "Shows tasks on a timeline by week"),
+        .init(WSTimelineLargeMonthChartPluginProvider(), title: "Monthly Gantt", subtitle: "Shows tasks on a timeline by month"),
+        
         // 倒数日
         .init(WSCountdownSmallSelectedPluginProvider(), title: "Selected Countdown", subtitle: "Shows the selected countdown"),
         .init(WSCountdownSmallEventsPluginProvider(), title: "Countdowns", subtitle: "Shows recent or selected countdowns"),

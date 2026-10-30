@@ -30,7 +30,7 @@ class GanttTimelineListViewController: TPViewController {
         button.addTarget(self, action: #selector(clickDate(_:)), for: .touchUpInside)
         return button
     }()
-
+    
     /// 时间刻度按钮
     lazy var scaleBarButtonItem: GanttTimeScaleBarButtonItem = {
         let item = GanttTimeScaleBarButtonItem()
@@ -63,6 +63,11 @@ class GanttTimelineListViewController: TPViewController {
         // 点击事项
         view.onBarTap = { event in
             self?.clickEvent(event)
+        }
+
+        // 点击回到今天
+        view.onTodayTapped = { [weak self] in
+            self?.scrollToToday()
         }
 
         return view
@@ -149,6 +154,20 @@ class GanttTimelineListViewController: TPViewController {
         updateTitle()
     }
 
+    /// 回到今天。
+    ///
+    /// 当前就是今天所在年份时直接滚动；否则按日期选择逻辑切换到今天所在年份并刷新事项。
+    func scrollToToday() {
+        let today = Date()
+
+        guard !date.isInSameYearAs(today) else {
+            timelineView.scrollToToday()
+            return
+        }
+
+        pickDate(today.startOfMonth(), scrollTo: today)
+    }
+
     /// 选择时间刻度
     func selectScale(_ scale: GanttTimeScale.Scale) {
         didSelectScale(scale)
@@ -176,8 +195,17 @@ class GanttTimelineListViewController: TPViewController {
     }
 
     /// 选择日期
-    private func pickDate(_ date: Date) {
+    /// - Parameters:
+    ///   - date: 目标日期，用于确定时间刻度所在年份与按钮标题
+    ///   - scrollDate: 需要滚动到的日期，默认与 `date` 相同
+    private func pickDate(_ date: Date, scrollTo scrollDate: Date? = nil) {
+        let targetDate = scrollDate ?? date
+
         if self.date.isInSameMonthAs(date) {
+            if scrollDate != nil {
+                timelineView.scrollToDate(targetDate, animated: true)
+            }
+
             return
         }
 
@@ -189,7 +217,7 @@ class GanttTimelineListViewController: TPViewController {
         self.timeScale = GanttTimeScale(scale: scale, date: date)
 
         timelineView.setTimeScale(self.timeScale)
-        timelineView.scrollToDate(date, animated: animated)
+        timelineView.scrollToDate(targetDate, animated: animated)
 
         reloadEvents()
     }

@@ -85,6 +85,9 @@ class GanttTimelineView: UIView {
         set { _chartView.onBarTap = newValue }
     }
 
+    /// 点击回到今天时的回调。未设置时直接滚动到今天
+    var onTodayTapped: (() -> Void)?
+
     // MARK: - 初始化
 
     /// - Parameters:
@@ -203,7 +206,12 @@ class GanttTimelineView: UIView {
     }
 
     @objc private func scrollToTodayTapped() {
-        scrollToToday()
+        guard let onTodayTapped = onTodayTapped else {
+            scrollToToday()
+            return
+        }
+
+        onTodayTapped()
     }
 
     /// 显示任务列表

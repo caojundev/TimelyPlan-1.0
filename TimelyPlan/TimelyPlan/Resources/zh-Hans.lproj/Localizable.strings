@@ -286,6 +286,13 @@
 ///**********************时间线*********************///
 "W%ld" = "第%ld周";
 
+"Daily Gantt" = "每日甘特图";
+"Shows tasks on a timeline by day" = "按天展示事项排期";
+"Weekly Gantt" = "每周甘特图";
+"Shows tasks on a timeline by week" = "按周展示事项排期";
+"Monthly Gantt" = "每月甘特图";
+"Shows tasks on a timeline by month" = "按月展示事项排期";
+
 "Row Height" = "行高";
 "Loose" = "宽松";
 "Medium" = "中等";

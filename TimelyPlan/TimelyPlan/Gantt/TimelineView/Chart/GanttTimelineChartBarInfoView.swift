@@ -171,6 +171,19 @@ class GanttTimelineChartBarInfoView: UIView {
         return max(limitedWidth, iconOccupiedWidth)
     }
     
+    // MARK: - 内容重置
+    
+    /// 清空内容并隐藏自己
+    /// 本视图 `clipsToBounds = false`，若仅把 frame 置零而不清空内容，
+    /// 残留的图标/标题仍会绘制在父视图左上角（图标中心落在行顶部）
+    func resetContent() {
+        iconView.icon = nil
+        iconView.isHidden = true
+        titleLabel.text = nil
+        titleLabel.isHidden = true
+        isHidden = true
+    }
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -205,11 +218,19 @@ class GanttTimelineChartBarInfoView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        // 尺寸无效（未参与布局）时隐藏子视图，避免残留内容绘制在父视图左上角
+        guard bounds.width > 0.0, bounds.height > 0.0 else {
+            iconView.isHidden = true
+            titleLabel.isHidden = true
+            return
+        }
+        
         let layoutFrame = layoutFrame()
         let iconVisible = isIconVisible
         let iconWidth = iconOccupiedWidth
         
         iconView.isHidden = !iconVisible
+        titleLabel.isHidden = false
         iconView.size = iconSize
         iconView.left = layoutFrame.minX
         iconView.centerY = layoutFrame.midY

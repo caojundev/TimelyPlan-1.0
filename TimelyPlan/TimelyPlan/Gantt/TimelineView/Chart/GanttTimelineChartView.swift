@@ -175,6 +175,12 @@ class TimelineCell: UICollectionViewCell {
     /// 点击 bar 时的回调
     var onBarTapped: ((GanttEvent) -> Void)?
 
+    /// bar 是否使用全圆角。默认 false，宽度不足时按宽度取半径
+    var isBarFullyRounded = false
+
+    /// 左右边缘指示器是否使用全圆角（圆形）。默认 false
+    var isIndicatorFullyRounded = false
+
     /// 当前 cell 绑定的任务
     private var currentEvent: GanttEvent?
 
@@ -183,7 +189,7 @@ class TimelineCell: UICollectionViewCell {
     private var isBarInvisible = false
 
     private let insideTitleColor = Color(0xf2f2f2)
-    private let outsideTitleColor = Color(light: 0x232323, dark: 0xf2f2f2)
+    private let outsideTitleColor = Color(light: 0x121212, dark: 0xf2f2f2)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -217,6 +223,8 @@ class TimelineCell: UICollectionViewCell {
         // 信息视图需要响应点击：bar 不可见时等同点击边缘指示器，bar 可见时等同点击 bar
         infoView.isUserInteractionEnabled = false
         infoView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(titleTapped)))
+        // 未配置有效 bar 前不显示，避免残留图标绘制在 cell 左上角
+        infoView.isHidden = true
         
         contentView.addSubview(barView)
         barView.addSubview(progressView)
@@ -253,10 +261,12 @@ class TimelineCell: UICollectionViewCell {
                                          rowHeight: rowHeight,
                                          visibleRect: visibleRect,
                                          contentMaxX: contentMaxX) else {
-            resetBarViews(eventName: event.name)
+            resetBarViews()
             return
         }
         
+        // bar 有效时才显示信息视图
+        infoView.isHidden = false
         layoutBar(event: event, layout: layout)
         layoutIndicators(layout: layout)
         layoutInfo(event: event, layout: layout)
@@ -317,12 +327,18 @@ class TimelineCell: UICollectionViewCell {
                                height: layout.barHeight)
         barView.backgroundColor = event.color.withBrightness(0.4)
         barView.layer.borderColor = event.color.withAlphaComponent(0.4).cgColor
-        
+
+        let cornerRadius = isBarFullyRounded
+            ? min(layout.barHeight / 2.0, layout.barWidth / 2.0)
+            : 8.0
+        barView.layer.cornerRadius = cornerRadius
+
         progressView.frame = CGRect(x: 0,
                                     y: 0,
                                     width: layout.barWidth * event.progress,
                                     height: layout.barHeight)
         progressView.backgroundColor = event.color
+        progressView.layer.cornerRadius = cornerRadius
     }
     
     /// 更新左右边缘指示器的显示与位置
@@ -330,6 +346,10 @@ class TimelineCell: UICollectionViewCell {
         let indicatorSize = GanttTimelineConfig.indicatorSize
         let indicatorMargin = 10.0
         let indicatorY = (layout.barY * 2 + layout.barHeight - indicatorSize) / 2
+
+        let indicatorCornerRadius = isIndicatorFullyRounded ? indicatorSize / 2.0 : 6.0
+        leftEdgeIndicator.cornerRadius = indicatorCornerRadius
+        rightEdgeIndicator.cornerRadius = indicatorCornerRadius
         
         // 左侧指示器
         if layout.barLeft < layout.visibleLeft {
@@ -459,11 +479,11 @@ class TimelineCell: UICollectionViewCell {
     }
     
     /// bar 完全越界时重置子视图
-    private func resetBarViews(eventName: String) {
+    private func resetBarViews() {
         barView.frame = .zero
         progressView.frame = .zero
-        infoView.title = eventName
         infoView.frame = .zero
+        infoView.resetContent()
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
         resetInfoViewTap()
@@ -474,8 +494,8 @@ class TimelineCell: UICollectionViewCell {
         currentEvent = nil
         barView.frame = .zero
         progressView.frame = .zero
-        infoView.title = nil
         infoView.frame = .zero
+        infoView.resetContent()
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
         resetInfoViewTap()
@@ -530,7 +550,7 @@ class TimelineCell: UICollectionViewCell {
         barView.frame = .zero
         progressView.frame = .zero
         infoView.frame = .zero
-        infoView.title = nil
+        infoView.resetContent()
         leftEdgeIndicator.isHidden = true
         rightEdgeIndicator.isHidden = true
         resetInfoViewTap()
