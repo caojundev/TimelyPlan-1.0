@@ -2111,9 +2111,9 @@
 		E5BEC287307B3E770050E01B /* upgrade_privacy_16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BEC283307B3E770050E01B /* upgrade_privacy_16@2x.png */; };
 		E5BEC289307B8EE90050E01B /* IAPPaywallConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BEC288307B8EE90050E01B /* IAPPaywallConfig.swift */; };
 		E5C0AF023094400000E487FC /* WSTimelineChartConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF013094400000E487FC /* WSTimelineChartConfig.swift */; };
-		E5C0AF043094400000E487FC /* WSTimelineChartGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF033094400000E487FC /* WSTimelineChartGeometry.swift */; };
+		E5C0AF043094400000E487FC /* WSTimelineChartTimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF033094400000E487FC /* WSTimelineChartTimeRange.swift */; };
 		E5C0AF063094400000E487FC /* WSTimelineChartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF053094400000E487FC /* WSTimelineChartHeaderView.swift */; };
-		E5C0AF083094400000E487FC /* WSTimelineChartLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF073094400000E487FC /* WSTimelineChartLayout.swift */; };
+		E5C0AF083094400000E487FC /* WSGanttChartEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF073094400000E487FC /* WSGanttChartEventRowView.swift */; };
 		E5C0AF0C3094400000E487FC /* WSTimelineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF0B3094400000E487FC /* WSTimelineChartView.swift */; };
 		E5C0AF0E3094400000E487FC /* WSTimelineChartDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF0D3094400000E487FC /* WSTimelineChartDataItem.swift */; };
 		E5C0AF103094400000E487FC /* WSTimelineChartContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0AF0F3094400000E487FC /* WSTimelineChartContentInteractor.swift */; };
@@ -4890,9 +4890,9 @@
 		E5BEC283307B3E770050E01B /* upgrade_privacy_16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upgrade_privacy_16@2x.png"; sourceTree = "<group>"; };
 		E5BEC288307B8EE90050E01B /* IAPPaywallConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPPaywallConfig.swift; sourceTree = "<group>"; };
 		E5C0AF013094400000E487FC /* WSTimelineChartConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineChartConfig.swift; sourceTree = "<group>"; };
-		E5C0AF033094400000E487FC /* WSTimelineChartGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineChartGeometry.swift; sourceTree = "<group>"; };
+		E5C0AF033094400000E487FC /* WSTimelineChartTimeRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineChartTimeRange.swift; sourceTree = "<group>"; };
 		E5C0AF053094400000E487FC /* WSTimelineChartHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineChartHeaderView.swift; sourceTree = "<group>"; };
-		E5C0AF073094400000E487FC /* WSTimelineChartLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineChartLayout.swift; sourceTree = "<group>"; };
+		E5C0AF073094400000E487FC /* WSGanttChartEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSGanttChartEventRowView.swift; sourceTree = "<group>"; };
 		E5C0AF0B3094400000E487FC /* WSTimelineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineChartView.swift; sourceTree = "<group>"; };
 		E5C0AF0D3094400000E487FC /* WSTimelineChartDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineChartDataItem.swift; sourceTree = "<group>"; };
 		E5C0AF0F3094400000E487FC /* WSTimelineChartContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTimelineChartContentInteractor.swift; sourceTree = "<group>"; };
@@ -12933,9 +12933,9 @@
 			isa = PBXGroup;
 			children = (
 				E5C0AF0B3094400000E487FC /* WSTimelineChartView.swift */,
-				E5C0AF073094400000E487FC /* WSTimelineChartLayout.swift */,
-				E5C0AF033094400000E487FC /* WSTimelineChartGeometry.swift */,
 				E5C0AF053094400000E487FC /* WSTimelineChartHeaderView.swift */,
+				E5C0AF033094400000E487FC /* WSTimelineChartTimeRange.swift */,
+				E5C0AF073094400000E487FC /* WSGanttChartEventRowView.swift */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -16012,9 +16012,9 @@
 				E5C0AF513094400000E487FC /* WSTimelineLargeWeekChartPluginProvider.swift in Sources */,
 				E5C0AF543094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift in Sources */,
 				E5C0AF023094400000E487FC /* WSTimelineChartConfig.swift in Sources */,
-				E5C0AF043094400000E487FC /* WSTimelineChartGeometry.swift in Sources */,
+				E5C0AF043094400000E487FC /* WSTimelineChartTimeRange.swift in Sources */,
 				E5C0AF063094400000E487FC /* WSTimelineChartHeaderView.swift in Sources */,
-				E5C0AF083094400000E487FC /* WSTimelineChartLayout.swift in Sources */,
+				E5C0AF083094400000E487FC /* WSGanttChartEventRowView.swift in Sources */,
 				E5C0AF0C3094400000E487FC /* WSTimelineChartView.swift in Sources */,
 				E5C0AF0E3094400000E487FC /* WSTimelineChartDataItem.swift in Sources */,
 				E5C0AF163094400000E487FC /* WSTimelineChartState.swift in Sources */,

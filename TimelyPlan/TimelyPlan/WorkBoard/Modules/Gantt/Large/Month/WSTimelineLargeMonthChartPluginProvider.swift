@@ -16,7 +16,7 @@ final class WSTimelineLargeMonthChartPluginProvider: WSPluginProvider {
     let type: WSPluginType = .timelineLargeMonthChart
 
     func makeContentView() -> WSPluginContentView {
-        return WSTimelineChartContentView(timeScale: GanttTimeScale(scale: .month, date: Date()))
+        return WSTimelineChartContentView(scale: .month)
     }
 
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {

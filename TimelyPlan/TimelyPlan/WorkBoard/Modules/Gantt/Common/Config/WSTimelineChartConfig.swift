@@ -11,26 +11,14 @@ import UIKit
 /// 甘特图组件的布局配置
 enum WSTimelineChartConfig {
 
-    /// 刻度视图距离顶部的间距
-    static let headerTopInset: CGFloat = 45.0
+    /// 顶部刻度距离组件顶部的间距
+    static let headerTopInset: CGFloat = 16.0
 
     /// 顶部刻度高度（尽量压缩，把空间留给事项）
     static let headerHeight: CGFloat = 50.0
 
-    /// 事项行高
-    static let rowHeight: CGFloat = 50.0
-
-    /// 单位宽度。组件尺寸有限，三种刻度的密度均小于主视图
-    static func pixelsPerUnit(for scale: GanttTimeScale.Scale) -> CGFloat {
-        switch scale {
-        case .day:
-            return 80.0
-        case .week:
-            return 120.0
-        case .month:
-            return 240.0
-        }
-    }
+    /// 事项行数量。事项区域高度平均分为该数量，每行显示一个事项
+    static let eventRowCount: Int = 6
 
     /// 刻度背景色
     static let headerBackgroundColor: UIColor = .secondarySystemGroupedBackground

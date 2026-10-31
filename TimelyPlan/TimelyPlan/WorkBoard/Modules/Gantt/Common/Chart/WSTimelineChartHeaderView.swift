@@ -10,21 +10,12 @@ import UIKit
 
 /// 甘特图组件的顶部刻度视图
 ///
-/// 组件尺寸有限，只绘制可视范围内的刻度，且不响应滚动，由甘特图同步水平偏移。
+/// 组件不滚动，刻度直接从左向右按范围依次绘制，宽度按刻度数量等分。
 final class WSTimelineChartHeaderView: UIView {
 
-    /// 当前时间刻度
-    var timeScale: GanttTimeScale? {
+    /// 当前展示的时间范围
+    var timeRange: WSTimelineChartTimeRange? {
         didSet {
-            setNeedsLayout()
-            setNeedsDisplay()
-        }
-    }
-
-    /// 与甘特图同步的水平偏移
-    var contentOffsetX: CGFloat = 0.0 {
-        didSet {
-            guard contentOffsetX != oldValue else { return }
             setNeedsLayout()
             setNeedsDisplay()
         }
@@ -38,7 +29,7 @@ final class WSTimelineChartHeaderView: UIView {
     private let unitFont = UIFont.boldSystemFont(ofSize: 13.0)
     private let subFont = UIFont.systemFont(ofSize: 12.0, weight: .medium)
 
-    /// 刻度分隔线与底部分隔线
+    /// 刻度分隔线与上下分隔线
     private let separatorLayer = CAShapeLayer()
 
     override init(frame: CGRect) {
@@ -74,29 +65,19 @@ final class WSTimelineChartHeaderView: UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        guard let timeScale = timeScale,
+        guard let timeRange = timeRange,
               let context = UIGraphicsGetCurrentContext() else {
             return
         }
 
-        let unitWidth = WSTimelineChartConfig.pixelsPerUnit(for: timeScale.scale)
-        let unitCount = WSTimelineChartGeometry.unitCount(timeScale: timeScale)
-        guard unitWidth > 0, unitCount > 0 else { return }
-
-        let visibleWidth = bounds.width
-        let firstIndex = min(max(0, Int(floor(contentOffsetX / unitWidth))), unitCount - 1)
-        let lastIndex = min(unitCount - 1, Int(ceil((contentOffsetX + visibleWidth) / unitWidth)))
-        guard firstIndex <= lastIndex else { return }
+        let units = timeRange.headerUnits(width: bounds.width)
+        guard !units.isEmpty else { return }
 
         context.saveGState()
-        context.clip(to: CGRect(x: 0.0, y: 0.0, width: visibleWidth, height: bounds.height))
+        context.clip(to: bounds)
 
-        for index in firstIndex...lastIndex {
-            let x = CGFloat(index) * unitWidth - contentOffsetX
-            guard x < visibleWidth, x + unitWidth > 0 else { continue }
-
-            let date = WSTimelineChartGeometry.unitStartDate(at: index, timeScale: timeScale)
-            drawUnit(at: x, width: unitWidth, date: date, scale: timeScale.scale, isLast: index == unitCount - 1)
+        for unit in units {
+            draw(unit: unit, scale: timeRange.scale)
         }
 
         context.restoreGState()
@@ -104,38 +85,38 @@ final class WSTimelineChartHeaderView: UIView {
 
     // MARK: - 分割线
 
-    /// 统一用一条路径绘制所有竖线与底部横线
+    /// 统一用一条路径绘制所有竖线与上下横线
     private func updateSeparatorLayer() {
         separatorLayer.frame = bounds
         separatorLayer.strokeColor = WSTimelineChartConfig.separatorColor
             .resolvedColor(with: traitCollection)
             .cgColor
 
-        guard let timeScale = timeScale, bounds.width > 0.0 else {
+        guard let timeRange = timeRange, bounds.width > 0.0 else {
             separatorLayer.path = nil
             return
         }
 
-        let unitWidth = WSTimelineChartConfig.pixelsPerUnit(for: timeScale.scale)
-        let unitCount = WSTimelineChartGeometry.unitCount(timeScale: timeScale)
-        guard unitWidth > 0, unitCount > 0 else {
+        let units = timeRange.headerUnits(width: bounds.width)
+        guard !units.isEmpty else {
             separatorLayer.path = nil
             return
         }
-
-        let visibleWidth = bounds.width
-        let firstIndex = min(max(0, Int(floor(contentOffsetX / unitWidth))), unitCount - 1)
-        let lastIndex = min(unitCount - 1, Int(ceil((contentOffsetX + visibleWidth) / unitWidth)))
 
         let path = CGMutablePath()
+        for unit in units {
+            guard unit.minX > 0.0, unit.minX < bounds.width else { continue }
 
-        if firstIndex <= lastIndex {
-            for index in firstIndex...lastIndex {
-                let x = CGFloat(index) * unitWidth - contentOffsetX
-                guard x >= 0.0, x < visibleWidth else { continue }
+            path.move(to: CGPoint(x: unit.minX + 0.5, y: 0.0))
+            path.addLine(to: CGPoint(x: unit.minX + 0.5, y: bounds.height))
+        }
 
-                path.move(to: CGPoint(x: x + 0.5, y: 0.0))
-                path.addLine(to: CGPoint(x: x + 0.5, y: bounds.height))
+        /// 最后一个刻度的右边界
+        if let last = units.last {
+            let right = last.minX + last.width
+            if right > 0.0, right < bounds.width {
+                path.move(to: CGPoint(x: right + 0.5, y: 0.0))
+                path.addLine(to: CGPoint(x: right + 0.5, y: bounds.height))
             }
         }
 
@@ -150,12 +131,17 @@ final class WSTimelineChartHeaderView: UIView {
 
     // MARK: - 刻度绘制
 
-    private func drawUnit(at x: CGFloat, width: CGFloat, date: Date, scale: GanttTimeScale.Scale, isLast: Bool) {
-        let contentX = x + 12.0
-        let contentWidth = width - 16.0
-        let primaryTextColor: UIColor = date.isToday ? .primary : Color(light: 0x232323,
-                                                                        dark: 0xf0f0f0)
-        let secondaryTextColor: UIColor = date.isToday ? .primary : .secondaryLabel
+    private func draw(unit: WSTimelineChartTimeRange.Unit, scale: GanttTimeScale.Scale) {
+        /// 左右留出等宽间距，文本以刻度中心水平居中
+        let contentX = unit.minX + 8.0
+        let contentWidth = unit.width - 16.0
+        guard contentWidth > 0.0 else { return }
+
+        let date = unit.date
+        let primaryTextColor: UIColor = unit.containsToday ? .primary : Color(light: 0x232323,
+                                                                            dark: 0xf0f0f0)
+        let secondaryTextColor: UIColor = unit.containsToday ? .primary : .secondaryLabel
+
         switch scale {
         case .day:
             let isMonthStart = Calendar.current.component(.day, from: date) == 1
@@ -213,7 +199,7 @@ final class WSTimelineChartHeaderView: UIView {
 
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byTruncatingTail
-        paragraph.alignment = .left
+        paragraph.alignment = .center
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
             .foregroundColor: color,

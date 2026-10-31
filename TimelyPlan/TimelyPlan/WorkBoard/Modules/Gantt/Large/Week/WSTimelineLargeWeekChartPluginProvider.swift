@@ -16,7 +16,7 @@ final class WSTimelineLargeWeekChartPluginProvider: WSPluginProvider {
     let type: WSPluginType = .timelineLargeWeekChart
 
     func makeContentView() -> WSPluginContentView {
-        return WSTimelineChartContentView(timeScale: GanttTimeScale(scale: .week, date: Date()))
+        return WSTimelineChartContentView(scale: .week)
     }
 
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {
