@@ -27,6 +27,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 四象限·小·比例条：以圆角堆叠比例条展示四个象限未完成任务的占比。
     case quadrantSmallStackedBar
     
+    /// 四象限·小·任务列表：展示配置中选择的一个象限的未完成任务。
+    case quadrantSmallTaskList
+    
     /// 四象限·中·数量：以一行四列横向展示四个象限的未完成任务数。
     case quadrantMediumCounts
     
@@ -190,7 +193,7 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar,
+        case .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar, .quadrantSmallTaskList,
              .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
@@ -224,7 +227,7 @@ public extension WSPluginType {
         switch self {
         case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart:
             return .timeline
-        case .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar,
+        case .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar, .quadrantSmallTaskList,
              .quadrantMediumCounts, .quadrantMediumDonut, .quadrantMediumStackedBar,
              .quadrantLargeTasks:
             return .quadrants
@@ -319,6 +322,7 @@ enum WSPluginCatalog {
         .init(WSQuadrantSmallCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant"),
         .init(WSQuadrantSmallDonutPluginProvider(), title: "Quadrant Ring", subtitle: "Shows the share of unfinished tasks in a ring"),
         .init(WSQuadrantSmallStackedBarPluginProvider(), title: "Quadrant Bar", subtitle: "Shows the share of unfinished tasks as a stacked bar"),
+        .init(WSQuadrantSmallTaskListPluginProvider(), title: "Quadrant Tasks", subtitle: "Shows unfinished tasks in a selected quadrant"),
         .init(WSQuadrantMediumCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant in a row"),
         .init(WSQuadrantMediumDonutPluginProvider(), title: "Quadrant Ring", subtitle: "Shows the share of unfinished tasks in a ring with a list"),
         .init(WSQuadrantMediumStackedBarPluginProvider(), title: "Quadrant Bar", subtitle: "Shows the share of unfinished tasks as a stacked bar with details"),

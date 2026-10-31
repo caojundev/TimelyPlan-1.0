@@ -39,9 +39,6 @@ class WSQuadrantTasksContentView: WSPluginContentView {
     /// 象限的展示顺序
     private var order: [Quadrant] = Quadrant.allCases
     
-    /// 任务快速添加管理器，首次添加时创建
-    private var quickAddManager: TodoTaskQuickAddManager?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -56,7 +53,7 @@ class WSQuadrantTasksContentView: WSPluginContentView {
                 self?.showDetail(for: quadrant)
             }
             quadrantView.didClickAddHandler = { [weak self] quadrant in
-                self?.showQuickAdd(for: quadrant)
+                (self?.interactor as? WSQuadrantTasksContentInteractor)?.quickAddTask(for: quadrant, from: self)
             }
             quadrantView.didSelectMoreHandler = { [weak self] quadrant in
                 self?.showDetail(for: quadrant)
@@ -106,20 +103,6 @@ class WSQuadrantTasksContentView: WSPluginContentView {
     /// 进入象限详情，与四象限主页面点击象限标题的行为一致
     private func showDetail(for quadrant: Quadrant) {
         WSQuadrantDetailPresenter.showDetail(for: quadrant, from: self)
-    }
-    
-    /// 快速添加任务，与四象限主页面点击添加按钮的行为一致
-    private func showQuickAdd(for quadrant: Quadrant) {
-        guard let viewController = parentViewController else {
-            return
-        }
-        
-        if quickAddManager == nil {
-            quickAddManager = TodoTaskQuickAddManager(containerViewController: viewController)
-        }
-        
-        let filterRule = QuadrantSetting.shared.filterRule(for: quadrant)
-        quickAddManager?.show(with: filterRule.matchingQuickAddTask)
     }
     
     // MARK: - 渲染

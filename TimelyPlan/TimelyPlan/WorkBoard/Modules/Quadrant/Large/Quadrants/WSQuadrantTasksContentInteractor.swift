@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - 内容交互器
 
@@ -23,6 +24,14 @@ class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
     /// 任务操作
     private let taskController = TodoTaskController()
     
+    /// 任务快速添加管理器，首次添加时创建
+    private var quickAddManager: TodoTaskQuickAddManager?
+    
+    /// 需要取数与展示的象限。单象限组件可覆写为配置中选择的象限
+    var targetQuadrants: [Quadrant] {
+        return QuadrantSetting.shared.layout.getQuadrants()
+    }
+    
     override init(plugin: WSPlugin, context: WSPluginContext) {
         super.init(plugin: plugin, context: context)
         
@@ -33,7 +42,7 @@ class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
     
     // MARK: - 取数
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
-        let quadrants = QuadrantSetting.shared.layout.getQuadrants()
+        let quadrants = targetQuadrants
         var results = [Quadrant: [TodoTask]]()
         let group = DispatchGroup()
         
@@ -89,7 +98,7 @@ class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
                       resGetString("Deep Work"),
                       resGetString("Coding")]
         let totalCounts = [8, 5, 3, 6]
-        let quadrants = Quadrant.allCases.enumerated().map { index, quadrant -> WSQuadrantTaskGroup in
+        let quadrants = targetQuadrants.enumerated().map { index, quadrant -> WSQuadrantTaskGroup in
             let totalCount = totalCounts[index % totalCounts.count]
             let tasks = (0..<Self.visibleTaskCount(for: totalCount)).map { taskIndex -> WSQuadrantTaskItem in
                 let titleIndex = (index + taskIndex) % titles.count
@@ -128,6 +137,20 @@ class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
         }
         
         taskController.clickCheckbox(for: task, completedHandler: nil, progressHandler: nil)
+    }
+    
+    /// 添加任务：按该象限的过滤规则快速添加，与四象限主页面点击添加按钮一致
+    func quickAddTask(for quadrant: Quadrant, from view: UIView?) {
+        guard let viewController = view?.parentViewController else {
+            return
+        }
+        
+        if quickAddManager == nil {
+            quickAddManager = TodoTaskQuickAddManager(containerViewController: viewController)
+        }
+        
+        let filterRule = QuadrantSetting.shared.filterRule(for: quadrant)
+        quickAddManager?.show(with: filterRule.matchingQuickAddTask)
     }
     
     // MARK: - SettingAgentObserver

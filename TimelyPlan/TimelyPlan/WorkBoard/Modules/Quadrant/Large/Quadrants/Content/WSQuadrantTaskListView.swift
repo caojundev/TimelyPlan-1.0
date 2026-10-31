@@ -35,8 +35,18 @@ class WSQuadrantTaskListView: UIView, QuadrantTitleViewDelegate {
         static let moreFont = UIFont.boldSystemFont(ofSize: 11.0)
     }
     
-    /// 所属象限
-    let quadrant: Quadrant
+    /// 所属象限。单象限组件在数据到达后更新
+    private(set) var quadrant: Quadrant {
+        didSet {
+            guard quadrant != oldValue else {
+                return
+            }
+            
+            titleView.quadrant = quadrant
+            moreButton.setTitleColor(quadrant.color, for: .normal)
+            setNeedsLayout()
+        }
+    }
     
     /// 点击头视图回调
     var didSelectHeaderHandler: ((Quadrant) -> Void)?
@@ -145,6 +155,9 @@ class WSQuadrantTaskListView: UIView, QuadrantTitleViewDelegate {
     /// 更新象限任务。传 nil 时清空内容
     func update(with dataItem: WSQuadrantTaskGroup?) {
         self.dataItem = dataItem
+        if let dataItem = dataItem {
+            self.quadrant = dataItem.quadrant
+        }
         
         let tasks = dataItem?.tasks ?? []
         let taskCount = min(tasks.count, Metrics.maximumTaskCount)

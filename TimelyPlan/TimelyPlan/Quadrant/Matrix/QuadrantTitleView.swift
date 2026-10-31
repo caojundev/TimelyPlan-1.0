@@ -111,7 +111,11 @@ class QuadrantTitleView: UIView {
         infoView.imageConfig.color = color
         infoView.titleConfig.textColor = color
         infoView.title = quadrant.title
-        addButton.imageConfig.color = color
+        
+        /// 更新添加按钮颜色
+        let imageConfig = addButton.imageConfig
+        imageConfig.color = color
+        addButton.imageConfig = imageConfig
     }
     
     private func updateSeparatorPosition() {

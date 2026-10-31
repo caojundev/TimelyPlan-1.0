@@ -129,6 +129,9 @@
 "Shows the share of unfinished tasks as a stacked bar" = "以圆角比例条展示四个象限未完成任务的占比";
 "Shows the share of unfinished tasks as a stacked bar with details" = "以圆角比例条展示四个象限未完成任务的占比，并列出各象限详情";
 "Shows unfinished tasks in each quadrant" = "展示四个象限的未完成任务";
+"Quadrant Tasks" = "象限任务";
+"Shows unfinished tasks in a selected quadrant" = "展示所选象限的未完成任务";
+"Select Quadrant" = "选择象限";
 "And %ld More" = "还有 %ld 项";
 "Shows the share of unfinished tasks in a ring" = "以环形展示四个象限未完成任务的占比";
 "Shows the share of unfinished tasks in a ring with a list" = "以环形展示四个象限未完成任务的占比，并列出各象限数量";
