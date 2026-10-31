@@ -20,7 +20,7 @@ class WSQuadrantLargePluginContentView: WSPluginContentView {
     private enum Metrics {
         
         /// 内容与组件边缘的间距
-        static let padding = UIEdgeInsets(value: 10.0)
+        static let padding = UIEdgeInsets(value: 8.0)
         
         /// 象限之间的间距
         static let spacing: CGFloat = 6.0
@@ -60,6 +60,12 @@ class WSQuadrantLargePluginContentView: WSPluginContentView {
             }
             quadrantView.didSelectMoreHandler = { [weak self] quadrant in
                 self?.showDetail(for: quadrant)
+            }
+            quadrantView.didSelectTaskHandler = { [weak self] dataItem in
+                self?.interactor?.performAction(with: dataItem)
+            }
+            quadrantView.didClickCheckboxHandler = { [weak self] dataItem in
+                (self?.interactor as? WSQuadrantLargeContentInteractor)?.clickCheckbox(for: dataItem)
             }
             
             addSubview(quadrantView)

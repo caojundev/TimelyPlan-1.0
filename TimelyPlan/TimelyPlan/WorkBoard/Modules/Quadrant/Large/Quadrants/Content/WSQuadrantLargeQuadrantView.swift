@@ -17,7 +17,7 @@ class WSQuadrantLargeQuadrantView: UIView, QuadrantTitleViewDelegate {
     private enum Metrics {
         
         /// 卡片圆角
-        static let cornerRadius: CGFloat = 8.0
+        static let cornerRadius: CGFloat = 12.0
         
         /// 头视图高度
         static let headerHeight: CGFloat = 32.0
@@ -29,7 +29,7 @@ class WSQuadrantLargeQuadrantView: UIView, QuadrantTitleViewDelegate {
         static let maximumTaskCount = WSQuadrantLargeContentInteractor.maximumTaskCount
         
         /// 卡片底色
-        static let backgroundColor = Color(light: 0x000000, 0.04, dark: 0xFFFFFF, 0.08)
+        static let backgroundColor = Color(light: 0x232323, 0.04, dark: 0xFFFFFF, 0.04)
         
         /// 更多入口字体
         static let moreFont = UIFont.boldSystemFont(ofSize: 11.0)
@@ -46,6 +46,12 @@ class WSQuadrantLargeQuadrantView: UIView, QuadrantTitleViewDelegate {
     
     /// 点击更多入口回调
     var didSelectMoreHandler: ((Quadrant) -> Void)?
+    
+    /// 点击任务回调
+    var didSelectTaskHandler: ((WSQuadrantLargeTaskItem) -> Void)?
+    
+    /// 点击完成状态回调
+    var didClickCheckboxHandler: ((WSQuadrantLargeTaskItem) -> Void)?
     
     /// 当前展示的象限数据
     private(set) var dataItem: WSQuadrantLargeQuadrantItem?
@@ -82,7 +88,18 @@ class WSQuadrantLargeQuadrantView: UIView, QuadrantTitleViewDelegate {
         self.clipsToBounds = true
         
         addSubview(titleView)
-        taskRowViews.forEach { addSubview($0) }
+        
+        for rowView in taskRowViews {
+            rowView.didSelectTaskHandler = { [weak self] dataItem in
+                self?.didSelectTaskHandler?(dataItem)
+            }
+            rowView.didClickCheckboxHandler = { [weak self] dataItem in
+                self?.didClickCheckboxHandler?(dataItem)
+            }
+            
+            addSubview(rowView)
+        }
+        
         addSubview(moreButton)
     }
     

@@ -20,6 +20,9 @@ class WSQuadrantLargeContentInteractor: WSPluginContentInteractor,
     /// 每个象限最多展示的任务数
     static let maximumTaskCount = 4
     
+    /// 任务操作
+    private let taskController = TodoTaskController()
+    
     override init(plugin: WSPlugin, context: WSPluginContext) {
         super.init(plugin: plugin, context: context)
         
@@ -105,6 +108,26 @@ class WSQuadrantLargeContentInteractor: WSPluginContentInteractor,
         }
         
         return WSQuadrantLargeDataItem(quadrants: quadrants)
+    }
+    
+    // MARK: - 交互
+    /// 点击任务：进入任务编辑，与四象限主页面一致
+    override func performAction(with dataItem: WSPluginDataItem) {
+        guard let item = dataItem as? WSQuadrantLargeTaskItem,
+              let task = TodoRepository.getTask(with: item.identifier) else {
+            return
+        }
+        
+        taskController.editTask(task)
+    }
+    
+    /// 点击完成状态：完成或记录进度，与四象限主页面一致
+    func clickCheckbox(for dataItem: WSQuadrantLargeTaskItem) {
+        guard let task = TodoRepository.getTask(with: dataItem.identifier) else {
+            return
+        }
+        
+        taskController.clickCheckbox(for: task, completedHandler: nil, progressHandler: nil)
     }
     
     // MARK: - SettingAgentObserver

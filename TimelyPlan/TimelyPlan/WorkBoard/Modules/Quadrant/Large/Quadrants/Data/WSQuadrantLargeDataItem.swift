@@ -10,8 +10,8 @@ import UIKit
 
 // MARK: - 任务数据
 
-/// 象限中单个任务的展示数据
-struct WSQuadrantLargeTaskItem {
+/// 象限中单个任务的展示数据。作为点击回调的数据条目传给交互器
+struct WSQuadrantLargeTaskItem: WSPluginDataItem {
     
     /// 任务标识
     let identifier: String

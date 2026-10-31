@@ -57,8 +57,14 @@ class WSQuadrantLargeTaskRowView: WSRowView {
     private lazy var checkbox: TodoTaskCheckbox = {
         let checkbox = TodoTaskCheckbox()
         checkbox.padding = .zero
-        checkbox.isUserInteractionEnabled = false
+        checkbox.hitTestEdgeInsets = UIEdgeInsets(horizontal: -4.0, vertical: -4.0)
+        checkbox.addGestureRecognizer(checkboxTapGesture)
         return checkbox
+    }()
+    
+    /// 完成状态的点击手势
+    private lazy var checkboxTapGesture: UITapGestureRecognizer = {
+        return UITapGestureRecognizer(target: self, action: #selector(clickCheckbox(_:)))
     }()
     
     /// 任务名称
@@ -92,6 +98,12 @@ class WSQuadrantLargeTaskRowView: WSRowView {
     /// 当前展示的任务
     private(set) var dataItem: WSQuadrantLargeTaskItem?
     
+    /// 点击任务回调
+    var didSelectTaskHandler: ((WSQuadrantLargeTaskItem) -> Void)?
+    
+    /// 点击完成状态回调
+    var didClickCheckboxHandler: ((WSQuadrantLargeTaskItem) -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -102,6 +114,11 @@ class WSQuadrantLargeTaskRowView: WSRowView {
         addSubview(nameLabel)
         addSubview(detailLabel)
         addSubview(progressView)
+        
+        /// 点击完成状态时不触发行点击
+        gestureRecognizers?.compactMap { $0 as? UITapGestureRecognizer }.forEach {
+            $0.require(toFail: checkboxTapGesture)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -200,6 +217,24 @@ class WSQuadrantLargeTaskRowView: WSRowView {
         highlightedBackColor = color.withAlphaComponent(Metrics.highlightedBackgroundColorAlpha)
         
         setNeedsLayout()
+    }
+    
+    // MARK: - 交互
+    override func didSelectRow() {
+        guard let dataItem = dataItem else {
+            return
+        }
+        
+        didSelectTaskHandler?(dataItem)
+    }
+    
+    @objc private func clickCheckbox(_ gesture: UITapGestureRecognizer) {
+        guard let dataItem = dataItem else {
+            return
+        }
+        
+        TPImpactFeedback.impactWithSoftStyle()
+        didClickCheckboxHandler?(dataItem)
     }
     
     /// 完成状态样式与任务本身一致
