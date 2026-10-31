@@ -122,6 +122,10 @@ final class WSGanttChartEventRowView: UIView {
             return
         }
 
+        /// 开始或结束日期超出展示范围时，甘特条在可视端应呈现为矩形
+        let isStartClamped = startX < 0.0
+        let isEndClamped = endX > bounds.width
+
         let barLeft = max(startX, 0.0)
         let barRight = min(max(endX, barLeft + GanttTimelineConfig.barMinWidth), bounds.width)
         let barWidth = barRight - barLeft
@@ -134,6 +138,8 @@ final class WSGanttChartEventRowView: UIView {
         layoutBar(event: event,
                   barLeft: barLeft,
                   barWidth: barWidth,
+                  isStartClamped: isStartClamped,
+                  isEndClamped: isEndClamped,
                   barY: barY,
                   barHeight: barHeight)
         layoutInfo(event: event,
@@ -145,14 +151,27 @@ final class WSGanttChartEventRowView: UIView {
     }
 
     /// 设置甘特条及进度视图
+    ///
+    /// 超出展示范围的端点不再需要圆角：把该端的圆角整体延伸到可视区域之外，
+    /// 由行视图的裁剪得到矩形端点，避免额外维护圆角遮罩。
     private func layoutBar(event: GanttEvent,
                            barLeft: CGFloat,
                            barWidth: CGFloat,
+                           isStartClamped: Bool,
+                           isEndClamped: Bool,
                            barY: CGFloat,
                            barHeight: CGFloat) {
         let cornerRadius = min(barHeight / 2.0, barWidth / 2.0)
+        /// 多延伸 1pt 保证描边也落在可视区域之外
+        let overflow = cornerRadius + 1.0
+        let leadingOverflow = isStartClamped ? overflow : 0.0
+        let trailingOverflow = isEndClamped ? overflow : 0.0
+        let drawWidth = barWidth + leadingOverflow + trailingOverflow
 
-        barView.frame = CGRect(x: barLeft, y: barY, width: barWidth, height: barHeight)
+        barView.frame = CGRect(x: barLeft - leadingOverflow,
+                               y: barY,
+                               width: drawWidth,
+                               height: barHeight)
         barView.backgroundColor = event.color.withBrightness(0.4)
         barView.layer.borderColor = event.color.withAlphaComponent(0.4).cgColor
         barView.layer.cornerRadius = cornerRadius
@@ -160,7 +179,7 @@ final class WSGanttChartEventRowView: UIView {
         let progress = min(max(event.progress, 0.0), 1.0)
         progressView.frame = CGRect(x: 0.0,
                                     y: 0.0,
-                                    width: barWidth * progress,
+                                    width: drawWidth * progress,
                                     height: barHeight)
         progressView.backgroundColor = event.color
         progressView.layer.cornerRadius = cornerRadius
