@@ -2659,6 +2659,12 @@
 		E5F1A2153092000100E35C42 /* WSQuadrantSmallStackedBarPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1153092000100E35C42 /* WSQuadrantSmallStackedBarPluginProvider.swift */; };
 		E5F1A2163092000100E35C42 /* WSQuadrantMediumStackedBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1163092000100E35C42 /* WSQuadrantMediumStackedBarContentView.swift */; };
 		E5F1A2173092000100E35C42 /* WSQuadrantMediumStackedBarPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1173092000100E35C42 /* WSQuadrantMediumStackedBarPluginProvider.swift */; };
+		E5F1A2203092000100E35C42 /* WSQuadrantLargePluginContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1203092000100E35C42 /* WSQuadrantLargePluginContentView.swift */; };
+		E5F1A2213092000100E35C42 /* WSQuadrantLargeQuadrantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1213092000100E35C42 /* WSQuadrantLargeQuadrantView.swift */; };
+		E5F1A2223092000100E35C42 /* WSQuadrantLargeDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1223092000100E35C42 /* WSQuadrantLargeDataItem.swift */; };
+		E5F1A2233092000100E35C42 /* WSQuadrantLargeContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1233092000100E35C42 /* WSQuadrantLargeContentInteractor.swift */; };
+		E5F1A2243092000100E35C42 /* WSQuadrantLargePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1243092000100E35C42 /* WSQuadrantLargePluginProvider.swift */; };
+		E5F1A2253092000100E35C42 /* WSQuadrantLargeTaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1253092000100E35C42 /* WSQuadrantLargeTaskRowView.swift */; };
 		E5F2BAD12D532316007DDCD4 /* xmark_circle_fill_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */; };
 		E5F2BAD22D532316007DDCD4 /* xmark_circle_fill_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */; };
 		E5F9E3BB301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */; };
@@ -5438,6 +5444,12 @@
 		E5F1A1153092000100E35C42 /* WSQuadrantSmallStackedBarPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallStackedBarPluginProvider.swift; sourceTree = "<group>"; };
 		E5F1A1163092000100E35C42 /* WSQuadrantMediumStackedBarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumStackedBarContentView.swift; sourceTree = "<group>"; };
 		E5F1A1173092000100E35C42 /* WSQuadrantMediumStackedBarPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumStackedBarPluginProvider.swift; sourceTree = "<group>"; };
+		E5F1A1203092000100E35C42 /* WSQuadrantLargePluginContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantLargePluginContentView.swift; sourceTree = "<group>"; };
+		E5F1A1213092000100E35C42 /* WSQuadrantLargeQuadrantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantLargeQuadrantView.swift; sourceTree = "<group>"; };
+		E5F1A1223092000100E35C42 /* WSQuadrantLargeDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantLargeDataItem.swift; sourceTree = "<group>"; };
+		E5F1A1233092000100E35C42 /* WSQuadrantLargeContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantLargeContentInteractor.swift; sourceTree = "<group>"; };
+		E5F1A1243092000100E35C42 /* WSQuadrantLargePluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantLargePluginProvider.swift; sourceTree = "<group>"; };
+		E5F1A1253092000100E35C42 /* WSQuadrantLargeTaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantLargeTaskRowView.swift; sourceTree = "<group>"; };
 		E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@3x.png"; sourceTree = "<group>"; };
 		E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@2x.png"; sourceTree = "<group>"; };
 		E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTodoEventInfoView.swift; sourceTree = "<group>"; };
@@ -6356,6 +6368,67 @@
 				E56341F82F947C1300E120BF /* Filter */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		E50F0F013095C49900C7997A /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A3B13092000100E35C42 /* Quadrants */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
+		E5F1A3B13092000100E35C42 /* Quadrants */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A3B23092000100E35C42 /* Content */,
+				E5F1A3B33092000100E35C42 /* Data */,
+				E5F1A3B43092000100E35C42 /* Interactor */,
+				E5F1A3B53092000100E35C42 /* Provider */,
+				E5F1A3B63092000100E35C42 /* Row */,
+			);
+			path = Quadrants;
+			sourceTree = "<group>";
+		};
+		E5F1A3B23092000100E35C42 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1203092000100E35C42 /* WSQuadrantLargePluginContentView.swift */,
+				E5F1A1213092000100E35C42 /* WSQuadrantLargeQuadrantView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E5F1A3B33092000100E35C42 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1223092000100E35C42 /* WSQuadrantLargeDataItem.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5F1A3B43092000100E35C42 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1233092000100E35C42 /* WSQuadrantLargeContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E5F1A3B53092000100E35C42 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1243092000100E35C42 /* WSQuadrantLargePluginProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E5F1A3B63092000100E35C42 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1253092000100E35C42 /* WSQuadrantLargeTaskRowView.swift */,
+			);
+			path = Row;
 			sourceTree = "<group>";
 		};
 		E50FF8A52F789DF500B8F5BE /* PlaceholderProvider */ = {
@@ -14017,6 +14090,7 @@
 			isa = PBXGroup;
 			children = (
 				E5E5380230946E250096EBAC /* Common */,
+				E50F0F013095C49900C7997A /* Large */,
 				E5E5380630947D5A0096EBAC /* Medium */,
 				E5E5380330946E2E0096EBAC /* Small */,
 			);
@@ -14035,64 +14109,6 @@
 				E5F1A3A73092000100E35C42 /* Row */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		E5F1A3A13092000100E35C42 /* Chart */ = {
-			isa = PBXGroup;
-			children = (
-				E5F1A10E3092000100E35C42 /* WSQuadrantDonutRingView.swift */,
-				E5F1A1123092000100E35C42 /* WSQuadrantStackedBarView.swift */,
-			);
-			path = Chart;
-			sourceTree = "<group>";
-		};
-		E5F1A3A23092000100E35C42 /* Content */ = {
-			isa = PBXGroup;
-			children = (
-				E5F1A1063092000100E35C42 /* WSQuadrantCountsContentView.swift */,
-			);
-			path = Content;
-			sourceTree = "<group>";
-		};
-		E5F1A3A33092000100E35C42 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				E5F1A1013092000100E35C42 /* WSQuadrantCountsDataItem.swift */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		E5F1A3A43092000100E35C42 /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-				E5F1A1043092000100E35C42 /* WSQuadrantDetailPresenter.swift */,
-			);
-			path = Detail;
-			sourceTree = "<group>";
-		};
-		E5F1A3A53092000100E35C42 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				E5F1A1053092000100E35C42 /* WSQuadrantCountsContentInteractor.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		E5F1A3A63092000100E35C42 /* Legend */ = {
-			isa = PBXGroup;
-			children = (
-				E5F1A1133092000100E35C42 /* WSQuadrantBriefLegendView.swift */,
-				E5F1A10F3092000100E35C42 /* WSQuadrantDetailLegendView.swift */,
-			);
-			path = Legend;
-			sourceTree = "<group>";
-		};
-		E5F1A3A73092000100E35C42 /* Row */ = {
-			isa = PBXGroup;
-			children = (
-				E5F1A1093092000100E35C42 /* WSQuadrantCountsRowView.swift */,
-			);
-			path = Row;
 			sourceTree = "<group>";
 		};
 		E5E5380330946E2E0096EBAC /* Small */ = {
@@ -14670,6 +14686,64 @@
 				E5F155182F83681D00116091 /* TodoGroupSelectingHeaderView.swift */,
 			);
 			path = Selecting;
+			sourceTree = "<group>";
+		};
+		E5F1A3A13092000100E35C42 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A10E3092000100E35C42 /* WSQuadrantDonutRingView.swift */,
+				E5F1A1123092000100E35C42 /* WSQuadrantStackedBarView.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		E5F1A3A23092000100E35C42 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1063092000100E35C42 /* WSQuadrantCountsContentView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E5F1A3A33092000100E35C42 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1013092000100E35C42 /* WSQuadrantCountsDataItem.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5F1A3A43092000100E35C42 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1043092000100E35C42 /* WSQuadrantDetailPresenter.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		E5F1A3A53092000100E35C42 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1053092000100E35C42 /* WSQuadrantCountsContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E5F1A3A63092000100E35C42 /* Legend */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1133092000100E35C42 /* WSQuadrantBriefLegendView.swift */,
+				E5F1A10F3092000100E35C42 /* WSQuadrantDetailLegendView.swift */,
+			);
+			path = Legend;
+			sourceTree = "<group>";
+		};
+		E5F1A3A73092000100E35C42 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1093092000100E35C42 /* WSQuadrantCountsRowView.swift */,
+			);
+			path = Row;
 			sourceTree = "<group>";
 		};
 		E5F473232D9269B5002D4A86 /* filter */ = {
@@ -17540,6 +17614,12 @@
 				E5F1A2153092000100E35C42 /* WSQuadrantSmallStackedBarPluginProvider.swift in Sources */,
 				E5F1A2163092000100E35C42 /* WSQuadrantMediumStackedBarContentView.swift in Sources */,
 				E5F1A2173092000100E35C42 /* WSQuadrantMediumStackedBarPluginProvider.swift in Sources */,
+				E5F1A2203092000100E35C42 /* WSQuadrantLargePluginContentView.swift in Sources */,
+				E5F1A2213092000100E35C42 /* WSQuadrantLargeQuadrantView.swift in Sources */,
+				E5F1A2223092000100E35C42 /* WSQuadrantLargeDataItem.swift in Sources */,
+				E5F1A2233092000100E35C42 /* WSQuadrantLargeContentInteractor.swift in Sources */,
+				E5F1A2243092000100E35C42 /* WSQuadrantLargePluginProvider.swift in Sources */,
+				E5F1A2253092000100E35C42 /* WSQuadrantLargeTaskRowView.swift in Sources */,
 				E5CBA0713092000100E35B41 /* WSGoalPlanRowView.swift in Sources */,
 				E5CBA0913092000100E35B41 /* WSGoalPlanRowsContentView.swift in Sources */,
 				E5CBA0923092000100E35B41 /* WSGoalPlanGridContentView.swift in Sources */,

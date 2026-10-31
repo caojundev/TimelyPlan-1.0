@@ -36,6 +36,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 四象限·中·比例条：以圆角堆叠比例条展示占比，并以网格列出各象限详情。
     case quadrantMediumStackedBar
     
+    /// 四象限·大·任务：以两列两行的网格展示四个象限的未完成任务列表。
+    case quadrantLargeTasks
+    
     // MARK: 倒数日
     /// 倒数日·小·自选：展示用户自己选择的一个倒数日事件。
     case countdownSmallSelected
@@ -205,6 +208,7 @@ public extension WSPluginType {
              .goalMediumTaskGrid, .goalMediumTaskList:
             return .medium
         case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart,
+             .quadrantLargeTasks,
              .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
              .focusLargeUserTimerGrid,
              .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList,
@@ -221,7 +225,8 @@ public extension WSPluginType {
         case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart:
             return .timeline
         case .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar,
-             .quadrantMediumCounts, .quadrantMediumDonut, .quadrantMediumStackedBar:
+             .quadrantMediumCounts, .quadrantMediumDonut, .quadrantMediumStackedBar,
+             .quadrantLargeTasks:
             return .quadrants
         case .countdownSmallSelected, .countdownSmallEvents,
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
@@ -317,6 +322,7 @@ enum WSPluginCatalog {
         .init(WSQuadrantMediumCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant in a row"),
         .init(WSQuadrantMediumDonutPluginProvider(), title: "Quadrant Ring", subtitle: "Shows the share of unfinished tasks in a ring with a list"),
         .init(WSQuadrantMediumStackedBarPluginProvider(), title: "Quadrant Bar", subtitle: "Shows the share of unfinished tasks as a stacked bar with details"),
+        .init(WSQuadrantLargePluginProvider(), title: "Quadrants", subtitle: "Shows unfinished tasks in each quadrant"),
         
         // 倒数日
         .init(WSCountdownSmallSelectedPluginProvider(), title: "Selected Countdown", subtitle: "Shows the selected countdown"),
