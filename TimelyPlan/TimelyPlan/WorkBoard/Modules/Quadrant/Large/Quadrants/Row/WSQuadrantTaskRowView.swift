@@ -1,5 +1,5 @@
 //
-//  WSQuadrantLargeTaskRowView.swift
+//  WSQuadrantTaskRowView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/31.
@@ -10,11 +10,11 @@ import UIKit
 
 // MARK: - 任务行视图
 
-/// 四象限·大·任务的任务行视图。
+/// 四象限任务行视图，各尺寸组件共用。
 ///
 /// 与目标任务详情行展示内容一致：完成状态、名称、日期与进度条；
 /// 未设置进度的任务不展示进度条，行高不足时依次省略详情与进度条。
-class WSQuadrantLargeTaskRowView: WSRowView {
+class WSQuadrantTaskRowView: WSRowView {
     
     /// 布局尺寸
     private enum Metrics {
@@ -96,13 +96,13 @@ class WSQuadrantLargeTaskRowView: WSRowView {
     }()
     
     /// 当前展示的任务
-    private(set) var dataItem: WSQuadrantLargeTaskItem?
+    private(set) var dataItem: WSQuadrantTaskItem?
     
     /// 点击任务回调
-    var didSelectTaskHandler: ((WSQuadrantLargeTaskItem) -> Void)?
+    var didSelectTaskHandler: ((WSQuadrantTaskItem) -> Void)?
     
     /// 点击完成状态回调
-    var didClickCheckboxHandler: ((WSQuadrantLargeTaskItem) -> Void)?
+    var didClickCheckboxHandler: ((WSQuadrantTaskItem) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -185,7 +185,7 @@ class WSQuadrantLargeTaskRowView: WSRowView {
     
     // MARK: - 渲染
     /// 更新展示的任务。传 nil 时清空内容
-    func update(with dataItem: WSQuadrantLargeTaskItem?, color: UIColor) {
+    func update(with dataItem: WSQuadrantTaskItem?, color: UIColor) {
         self.dataItem = dataItem
         
         guard let dataItem = dataItem else {

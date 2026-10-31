@@ -322,7 +322,7 @@ enum WSPluginCatalog {
         .init(WSQuadrantMediumCountsPluginProvider(), title: "Quadrants", subtitle: "Shows the number of unfinished tasks in each quadrant in a row"),
         .init(WSQuadrantMediumDonutPluginProvider(), title: "Quadrant Ring", subtitle: "Shows the share of unfinished tasks in a ring with a list"),
         .init(WSQuadrantMediumStackedBarPluginProvider(), title: "Quadrant Bar", subtitle: "Shows the share of unfinished tasks as a stacked bar with details"),
-        .init(WSQuadrantLargePluginProvider(), title: "Quadrants", subtitle: "Shows unfinished tasks in each quadrant"),
+        .init(WSQuadrantTasksPluginProvider(), title: "Quadrants", subtitle: "Shows unfinished tasks in each quadrant"),
         
         // 倒数日
         .init(WSCountdownSmallSelectedPluginProvider(), title: "Selected Countdown", subtitle: "Shows the selected countdown"),

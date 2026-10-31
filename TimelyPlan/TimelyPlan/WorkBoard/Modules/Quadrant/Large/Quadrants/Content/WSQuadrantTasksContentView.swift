@@ -1,5 +1,5 @@
 //
-//  WSQuadrantLargePluginContentView.swift
+//  WSQuadrantTasksContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/31.
@@ -14,7 +14,7 @@ import UIKit
 ///
 /// 以两列两行的网格展示四个象限，每个象限为一张卡片：头视图可进入象限详情、可快速添加任务，
 /// 卡片内为未完成任务列表，任务超出 4 条时展示更多入口。
-class WSQuadrantLargePluginContentView: WSPluginContentView {
+class WSQuadrantTasksContentView: WSPluginContentView {
     
     /// 布局尺寸
     private enum Metrics {
@@ -27,10 +27,10 @@ class WSQuadrantLargePluginContentView: WSPluginContentView {
     }
     
     /// 象限卡片
-    private lazy var quadrantViews: [Quadrant: WSQuadrantLargeQuadrantView] = {
-        var views = [Quadrant: WSQuadrantLargeQuadrantView]()
+    private lazy var quadrantViews: [Quadrant: WSQuadrantTaskListView] = {
+        var views = [Quadrant: WSQuadrantTaskListView]()
         for quadrant in Quadrant.allCases {
-            views[quadrant] = WSQuadrantLargeQuadrantView(quadrant: quadrant)
+            views[quadrant] = WSQuadrantTaskListView(quadrant: quadrant)
         }
         
         return views
@@ -65,7 +65,7 @@ class WSQuadrantLargePluginContentView: WSPluginContentView {
                 self?.interactor?.performAction(with: dataItem)
             }
             quadrantView.didClickCheckboxHandler = { [weak self] dataItem in
-                (self?.interactor as? WSQuadrantLargeContentInteractor)?.clickCheckbox(for: dataItem)
+                (self?.interactor as? WSQuadrantTasksContentInteractor)?.clickCheckbox(for: dataItem)
             }
             
             addSubview(quadrantView)
@@ -126,7 +126,7 @@ class WSQuadrantLargePluginContentView: WSPluginContentView {
     override func update(with dataItem: WSPluginDataItem?) {
         super.update(with: dataItem)
         
-        guard let dataItem = dataItem as? WSQuadrantLargeDataItem else {
+        guard let dataItem = dataItem as? WSQuadrantTasksDataItem else {
             for quadrantView in quadrantViews.values {
                 quadrantView.update(with: nil)
             }

@@ -1,5 +1,5 @@
 //
-//  WSQuadrantLargeQuadrantView.swift
+//  WSQuadrantTaskListView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/31.
@@ -10,8 +10,8 @@ import UIKit
 
 // MARK: - 象限卡片
 
-/// 四象限·大·任务的象限卡片。顶部为象限头视图，下方为未完成任务列表与更多入口。
-class WSQuadrantLargeQuadrantView: UIView, QuadrantTitleViewDelegate {
+/// 四象限任务列表视图（单个象限卡片）。顶部为象限头视图，下方为未完成任务列表与更多入口，各尺寸组件共用。
+class WSQuadrantTaskListView: UIView, QuadrantTitleViewDelegate {
     
     /// 布局尺寸
     private enum Metrics {
@@ -26,7 +26,7 @@ class WSQuadrantLargeQuadrantView: UIView, QuadrantTitleViewDelegate {
         static let contentInset = UIEdgeInsets(value: 4.0)
         
         /// 最多展示的任务数
-        static let maximumTaskCount = WSQuadrantLargeContentInteractor.maximumTaskCount
+        static let maximumTaskCount = WSQuadrantTasksContentInteractor.maximumTaskCount
         
         /// 卡片底色
         static let backgroundColor = Color(light: 0x232323, 0.04, dark: 0xFFFFFF, 0.04)
@@ -48,13 +48,13 @@ class WSQuadrantLargeQuadrantView: UIView, QuadrantTitleViewDelegate {
     var didSelectMoreHandler: ((Quadrant) -> Void)?
     
     /// 点击任务回调
-    var didSelectTaskHandler: ((WSQuadrantLargeTaskItem) -> Void)?
+    var didSelectTaskHandler: ((WSQuadrantTaskItem) -> Void)?
     
     /// 点击完成状态回调
-    var didClickCheckboxHandler: ((WSQuadrantLargeTaskItem) -> Void)?
+    var didClickCheckboxHandler: ((WSQuadrantTaskItem) -> Void)?
     
     /// 当前展示的象限数据
-    private(set) var dataItem: WSQuadrantLargeQuadrantItem?
+    private(set) var dataItem: WSQuadrantTaskGroup?
     
     /// 头视图
     private lazy var titleView: QuadrantTitleView = {
@@ -65,8 +65,8 @@ class WSQuadrantLargeQuadrantView: UIView, QuadrantTitleViewDelegate {
     }()
     
     /// 任务行视图
-    private lazy var taskRowViews: [WSQuadrantLargeTaskRowView] = {
-        return (0..<Metrics.maximumTaskCount).map { _ in WSQuadrantLargeTaskRowView() }
+    private lazy var taskRowViews: [WSQuadrantTaskRowView] = {
+        return (0..<Metrics.maximumTaskCount).map { _ in WSQuadrantTaskRowView() }
     }()
     
     /// 更多入口
@@ -143,7 +143,7 @@ class WSQuadrantLargeQuadrantView: UIView, QuadrantTitleViewDelegate {
     
     // MARK: - 渲染
     /// 更新象限任务。传 nil 时清空内容
-    func update(with dataItem: WSQuadrantLargeQuadrantItem?) {
+    func update(with dataItem: WSQuadrantTaskGroup?) {
         self.dataItem = dataItem
         
         let tasks = dataItem?.tasks ?? []

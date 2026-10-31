@@ -1,5 +1,5 @@
 //
-//  WSQuadrantLargeContentInteractor.swift
+//  WSQuadrantTasksContentInteractor.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/31.
@@ -9,11 +9,11 @@ import Foundation
 
 // MARK: - 内容交互器
 
-/// 四象限·大·任务的内容交互器。
+/// 四象限任务的内容交互器。
 ///
-/// 按象限布局顺序读取各象限的未完成任务，每个象限最多下发 4 条；
-/// 超出上限时只下发 3 条，为更多入口预留最后一个位置。任务或象限设置变化后重新取数。
-class WSQuadrantLargeContentInteractor: WSPluginContentInteractor,
+/// 按象限布局顺序读取各象限的未完成任务，下发条数由 `maximumTaskCount` 控制，
+/// 超出上限时少下发一条，为更多入口预留最后一个位置。任务或象限设置变化后重新取数。
+class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
                                         TodoTaskProcessorDelegate,
                                         SettingAgentObserver {
     
@@ -49,17 +49,17 @@ class WSQuadrantLargeContentInteractor: WSPluginContentInteractor,
         }
         
         group.notify(queue: .main) {
-            let items = quadrants.map { quadrant -> WSQuadrantLargeQuadrantItem in
+            let items = quadrants.map { quadrant -> WSQuadrantTaskGroup in
                 return Self.makeQuadrantItem(quadrant: quadrant, tasks: results[quadrant] ?? [])
             }
             
-            completion(WSQuadrantLargeDataItem(quadrants: items))
+            completion(WSQuadrantTasksDataItem(quadrants: items))
         }
     }
     
     /// 按创建时间倒序取前若干条任务，与四象限主页面的排序一致
     private static func makeQuadrantItem(quadrant: Quadrant,
-                                         tasks: [TodoTask]) -> WSQuadrantLargeQuadrantItem {
+                                         tasks: [TodoTask]) -> WSQuadrantTaskGroup {
         let sortedTasks = tasks.sorted { lhs, rhs in
             let lhsDate = lhs.creationDate ?? .distantPast
             let rhsDate = rhs.creationDate ?? .distantPast
@@ -67,8 +67,8 @@ class WSQuadrantLargeContentInteractor: WSPluginContentInteractor,
         }
         
         let visibleTasks = sortedTasks.prefix(visibleTaskCount(for: sortedTasks.count))
-            .map { WSQuadrantLargeTaskItem(task: $0) }
-        return WSQuadrantLargeQuadrantItem(quadrant: quadrant,
+            .map { WSQuadrantTaskItem(task: $0) }
+        return WSQuadrantTaskGroup(quadrant: quadrant,
                                            tasks: visibleTasks,
                                            totalCount: sortedTasks.count)
     }
@@ -89,11 +89,11 @@ class WSQuadrantLargeContentInteractor: WSPluginContentInteractor,
                       resGetString("Deep Work"),
                       resGetString("Coding")]
         let totalCounts = [8, 5, 3, 6]
-        let quadrants = Quadrant.allCases.enumerated().map { index, quadrant -> WSQuadrantLargeQuadrantItem in
+        let quadrants = Quadrant.allCases.enumerated().map { index, quadrant -> WSQuadrantTaskGroup in
             let totalCount = totalCounts[index % totalCounts.count]
-            let tasks = (0..<Self.visibleTaskCount(for: totalCount)).map { taskIndex -> WSQuadrantLargeTaskItem in
+            let tasks = (0..<Self.visibleTaskCount(for: totalCount)).map { taskIndex -> WSQuadrantTaskItem in
                 let titleIndex = (index + taskIndex) % titles.count
-                return WSQuadrantLargeTaskItem(identifier: "preview.\(index).\(taskIndex)",
+                return WSQuadrantTaskItem(identifier: "preview.\(index).\(taskIndex)",
                                                name: titles[titleIndex],
                                                isCompleted: taskIndex == 1,
                                                checkType: titleIndex % 3 == 0 ? .decrease : .increase,
@@ -102,18 +102,18 @@ class WSQuadrantLargeContentInteractor: WSPluginContentInteractor,
                                                detail: nil)
             }
             
-            return WSQuadrantLargeQuadrantItem(quadrant: quadrant,
+            return WSQuadrantTaskGroup(quadrant: quadrant,
                                                tasks: tasks,
                                                totalCount: totalCount)
         }
         
-        return WSQuadrantLargeDataItem(quadrants: quadrants)
+        return WSQuadrantTasksDataItem(quadrants: quadrants)
     }
     
     // MARK: - 交互
     /// 点击任务：进入任务编辑，与四象限主页面一致
     override func performAction(with dataItem: WSPluginDataItem) {
-        guard let item = dataItem as? WSQuadrantLargeTaskItem,
+        guard let item = dataItem as? WSQuadrantTaskItem,
               let task = TodoRepository.getTask(with: item.identifier) else {
             return
         }
@@ -122,7 +122,7 @@ class WSQuadrantLargeContentInteractor: WSPluginContentInteractor,
     }
     
     /// 点击完成状态：完成或记录进度，与四象限主页面一致
-    func clickCheckbox(for dataItem: WSQuadrantLargeTaskItem) {
+    func clickCheckbox(for dataItem: WSQuadrantTaskItem) {
         guard let task = TodoRepository.getTask(with: dataItem.identifier) else {
             return
         }

@@ -1,5 +1,5 @@
 //
-//  WSQuadrantLargeDataItem.swift
+//  WSQuadrantTasksDataItem.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/10/31.
@@ -11,7 +11,7 @@ import UIKit
 // MARK: - 任务数据
 
 /// 象限中单个任务的展示数据。作为点击回调的数据条目传给交互器
-struct WSQuadrantLargeTaskItem: WSPluginDataItem {
+struct WSQuadrantTaskItem: WSPluginDataItem {
     
     /// 任务标识
     let identifier: String
@@ -66,13 +66,13 @@ struct WSQuadrantLargeTaskItem: WSPluginDataItem {
 // MARK: - 象限数据
 
 /// 象限及其展示的任务
-struct WSQuadrantLargeQuadrantItem {
+struct WSQuadrantTaskGroup {
     
     /// 象限
     let quadrant: Quadrant
     
     /// 待展示的任务，最多 4 条
-    let tasks: [WSQuadrantLargeTaskItem]
+    let tasks: [WSQuadrantTaskItem]
     
     /// 未完成任务总数
     let totalCount: Int
@@ -85,13 +85,13 @@ struct WSQuadrantLargeQuadrantItem {
 
 // MARK: - 组件数据
 
-/// 四象限·大·任务的组件数据
-class WSQuadrantLargeDataItem: NSObject, WSPluginDataItem {
+/// 四象限任务的组件数据
+class WSQuadrantTasksDataItem: NSObject, WSPluginDataItem {
     
     /// 按象限布局顺序排列的各象限任务
-    let quadrants: [WSQuadrantLargeQuadrantItem]
+    let quadrants: [WSQuadrantTaskGroup]
     
-    init(quadrants: [WSQuadrantLargeQuadrantItem]) {
+    init(quadrants: [WSQuadrantTaskGroup]) {
         self.quadrants = quadrants
         super.init()
     }
