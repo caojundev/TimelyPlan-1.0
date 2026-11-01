@@ -68,6 +68,10 @@ class FocusSystemTimer: NSObject, FocusTimerRepresentable {
         return feature?.timerInfo
     }
     
+    var briefInfo: String? {
+        return timerDescription
+    }
+    
     var timerConfig: FocusTimerConfig? {
         return nil
     }
@@ -131,7 +135,11 @@ class FocusSystemPomodoroTimer: FocusSystemTimer {
     }
     
     override var timerDescription: String? {
-        return self.config.info
+        return config.info
+    }
+    
+    override var briefInfo: String? {
+        return config.briefInfo
     }
     
     override var timerConfig: FocusTimerConfig? {

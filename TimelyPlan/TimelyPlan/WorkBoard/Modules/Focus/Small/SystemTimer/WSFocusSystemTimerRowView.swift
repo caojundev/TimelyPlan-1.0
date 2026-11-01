@@ -80,6 +80,6 @@ class WSFocusSystemTimerRowView: WSIconInfoView {
                iconForeColor: timer.timerColor,
                iconBackColor: timer.timerColor.withAlphaComponent(0.15),
                title: timer.timerType.title,
-               subtitle: timer.timerDescription)
+               subtitle: timer.briefInfo)
     }
 }

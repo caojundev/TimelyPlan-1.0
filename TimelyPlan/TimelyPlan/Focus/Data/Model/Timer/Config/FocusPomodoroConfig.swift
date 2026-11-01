@@ -125,6 +125,15 @@ struct FocusPomodoroConfig: Hashable, Equatable, Codable {
     }
     
     // MARK: - 信息
+    
+    /// 简略信息
+    var briefInfo: String {
+        var infos = [String]()
+        let format = resGetString("%ldm")
+        var focusDurationString = String(format: format, focusDuration.minutes)
+        return "\(pomosCountPerCycle)×\(focusDurationString)"
+    }
+    
     var info: String {
         var infos = [String]()
         let format = resGetString("%ldm")

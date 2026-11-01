@@ -49,8 +49,8 @@ class WSFocusUserTimerDataItem: NSObject {
             subtitleComponents.append(timerType.title)
         }
         
-        if let detail = timer.config.detail {
-            subtitleComponents.append(detail)
+        if let info = timer.config.briefInfo {
+            subtitleComponents.append(info)
         }
         
         let subtitle = subtitleComponents.joined(separator: "•")

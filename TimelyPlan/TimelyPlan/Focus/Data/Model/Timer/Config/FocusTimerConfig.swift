@@ -171,24 +171,24 @@ public class FocusTimerConfig: NSObject, NSCopying, Codable {
     var attributedSummary: ASAttributedString? {
         let timerType = self.timerType ?? .defaultType
         let title = timerType.attributedTitle
-        guard let detail = detail else {
+        guard let detailInfo = detailInfo else {
             return title
         }
         
-        return title + " • \(detail)"
+        return title + " • \(detailInfo)"
     }
     
     var summary: String? {
         let timerType = self.timerType ?? .defaultType
         let title = timerType.title
-        guard let detail = detail else  {
+        guard let detailInfo = detailInfo else  {
             return title
         }
         
-        return title + " • \(detail)"
+        return title + " • \(detailInfo)"
     }
     
-    var detail: String? {
+    var detailInfo: String? {
         let timerType = self.timerType ??  .defaultType
         switch timerType {
         case .pomodoro:
@@ -202,6 +202,17 @@ public class FocusTimerConfig: NSObject, NSCopying, Codable {
         case .stepped:
             let timer = steppedConfig ?? FocusSteppedConfig()
             return timer.info
+        }
+    }
+    
+    var briefInfo: String? {
+        let timerType = self.timerType ??  .defaultType
+        switch timerType {
+        case .pomodoro:
+            let timer = pomodoroConfig ?? FocusPomodoroConfig()
+            return timer.briefInfo
+        default:
+            return detailInfo
         }
     }
     

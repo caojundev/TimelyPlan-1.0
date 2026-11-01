@@ -80,7 +80,7 @@ class WSFocusSystemTimerColumnView: WSColumnIconInfoView {
                iconForeColor: timer.timerColor,
                iconBackColor: timer.timerColor.withAlphaComponent(0.15),
                title: timer.timerType.title,
-               subtitle: timer.timerDescription)
+               subtitle: timer.briefInfo)
         updateStartButtonColor(with: timer.timerColor)
     }
     

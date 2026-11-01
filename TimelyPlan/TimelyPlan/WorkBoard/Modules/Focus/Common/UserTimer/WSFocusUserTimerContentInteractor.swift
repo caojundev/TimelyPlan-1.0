@@ -77,15 +77,15 @@ class WSFocusUserTimerContentInteractor: WSPluginContentInteractor, FocusTimerPr
                                                            FocusTimerStep()])
         
         let examples: [(name: String, colorHex: UInt64, timerType: FocusTimerType, subtitle: String)] = [
-            (resGetString("Deep Work"), 0x4A4DFF, .pomodoro, deepWorkConfig.info),
-            (resGetString("Reading"), 0xFF9F0A, .pomodoro, pomodoroConfig.info),
+            (resGetString("Deep Work"), 0x4A4DFF, .pomodoro, deepWorkConfig.briefInfo),
+            (resGetString("Reading"), 0xFF9F0A, .pomodoro, pomodoroConfig.briefInfo),
             (resGetString("Study"), 0x30D158, .countdown, FocusCountdownConfig(duration: TimeInterval(45 * SECONDS_PER_MINUTE)).info),
             (resGetString("Workout"), 0xFF375F, .countdown, FocusCountdownConfig(duration: TimeInterval(15 * SECONDS_PER_MINUTE)).info),
             (resGetString("Meditation"), 0xAF52DE, .countdown, FocusCountdownConfig(duration: TimeInterval(10 * SECONDS_PER_MINUTE)).info),
             (resGetString("Coffee Break"), 0x64D2FF, .stepped, steppedConfig.info),
             (resGetString("Warm Up"), 0xFFA14E, .stepped, steppedConfig.info),
             (resGetString("Free Focus"), 0x09AFFF, .stopwatch, resGetString("Counting from zero")),
-            (resGetString("Writing"), 0xFFD60A, .pomodoro, pomodoroConfig.info),
+            (resGetString("Writing"), 0xFFD60A, .pomodoro, pomodoroConfig.briefInfo),
             (resGetString("Planning"), 0x5E5CE6, .stepped, steppedConfig.info),
             (resGetString("Review"), 0xBF5AF2, .countdown, FocusCountdownConfig(duration: TimeInterval(20 * SECONDS_PER_MINUTE)).info),
             (resGetString("Coding"), 0x32ADE6, .stopwatch, resGetString("Counting from zero"))
