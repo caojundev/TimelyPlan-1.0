@@ -2668,8 +2668,12 @@
 		E5F1A2303092000100E35C42 /* WSQuadrantTaskConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1303092000100E35C42 /* WSQuadrantTaskConfiguration.swift */; };
 		E5F1A2313092000100E35C42 /* WSQuadrantTaskConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1313092000100E35C42 /* WSQuadrantTaskConfigViewController.swift */; };
 		E5F1A2323092000100E35C42 /* WSQuadrantTaskListContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1323092000100E35C42 /* WSQuadrantTaskListContentInteractor.swift */; };
-		E5F1A2333092000100E35C42 /* WSQuadrantSmallTaskListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1333092000100E35C42 /* WSQuadrantSmallTaskListContentView.swift */; };
+		E5F1A2333092000100E35C42 /* WSQuadrantTaskListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1333092000100E35C42 /* WSQuadrantTaskListContentView.swift */; };
 		E5F1A2343092000100E35C42 /* WSQuadrantSmallTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1343092000100E35C42 /* WSQuadrantSmallTaskListPluginProvider.swift */; };
+		E5F1A2363092000100E35C42 /* WSQuadrantMediumTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1363092000100E35C42 /* WSQuadrantMediumTaskListPluginProvider.swift */; };
+		E5F1A2373092000100E35C42 /* WSQuadrantMediumTaskListContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1373092000100E35C42 /* WSQuadrantMediumTaskListContentInteractor.swift */; };
+		E5F1A2383092000100E35C42 /* WSQuadrantLargeTaskListContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1383092000100E35C42 /* WSQuadrantLargeTaskListContentInteractor.swift */; };
+		E5F1A2393092000100E35C42 /* WSQuadrantLargeTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1393092000100E35C42 /* WSQuadrantLargeTaskListPluginProvider.swift */; };
 		E5F2BAD12D532316007DDCD4 /* xmark_circle_fill_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */; };
 		E5F2BAD22D532316007DDCD4 /* xmark_circle_fill_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */; };
 		E5F9E3BB301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */; };
@@ -5458,8 +5462,12 @@
 		E5F1A1303092000100E35C42 /* WSQuadrantTaskConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantTaskConfiguration.swift; sourceTree = "<group>"; };
 		E5F1A1313092000100E35C42 /* WSQuadrantTaskConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantTaskConfigViewController.swift; sourceTree = "<group>"; };
 		E5F1A1323092000100E35C42 /* WSQuadrantTaskListContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantTaskListContentInteractor.swift; sourceTree = "<group>"; };
-		E5F1A1333092000100E35C42 /* WSQuadrantSmallTaskListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallTaskListContentView.swift; sourceTree = "<group>"; };
+		E5F1A1333092000100E35C42 /* WSQuadrantTaskListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantTaskListContentView.swift; sourceTree = "<group>"; };
 		E5F1A1343092000100E35C42 /* WSQuadrantSmallTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantSmallTaskListPluginProvider.swift; sourceTree = "<group>"; };
+		E5F1A1363092000100E35C42 /* WSQuadrantMediumTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumTaskListPluginProvider.swift; sourceTree = "<group>"; };
+		E5F1A1373092000100E35C42 /* WSQuadrantMediumTaskListContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantMediumTaskListContentInteractor.swift; sourceTree = "<group>"; };
+		E5F1A1383092000100E35C42 /* WSQuadrantLargeTaskListContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantLargeTaskListContentInteractor.swift; sourceTree = "<group>"; };
+		E5F1A1393092000100E35C42 /* WSQuadrantLargeTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantLargeTaskListPluginProvider.swift; sourceTree = "<group>"; };
 		E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@3x.png"; sourceTree = "<group>"; };
 		E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@2x.png"; sourceTree = "<group>"; };
 		E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTodoEventInfoView.swift; sourceTree = "<group>"; };
@@ -6383,6 +6391,7 @@
 		E50F0F013095C49900C7997A /* Large */ = {
 			isa = PBXGroup;
 			children = (
+				E50F0F03309639BF00C7997A /* TaskList */,
 				E5F1A3B13092000100E35C42 /* Tasks */,
 			);
 			path = Large;
@@ -6391,6 +6400,17 @@
 		E50F0F0230962F3700C7997A /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
+				E5F1A1363092000100E35C42 /* WSQuadrantMediumTaskListPluginProvider.swift */,
+				E5F1A1373092000100E35C42 /* WSQuadrantMediumTaskListContentInteractor.swift */,
+			);
+			path = TaskList;
+			sourceTree = "<group>";
+		};
+		E50F0F03309639BF00C7997A /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				E5F1A1393092000100E35C42 /* WSQuadrantLargeTaskListPluginProvider.swift */,
+				E5F1A1383092000100E35C42 /* WSQuadrantLargeTaskListContentInteractor.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -14668,6 +14688,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F1A1063092000100E35C42 /* WSQuadrantCountsContentView.swift */,
+				E5F1A1333092000100E35C42 /* WSQuadrantTaskListContentView.swift */,
 				E5F1A1213092000100E35C42 /* WSQuadrantTaskListView.swift */,
 			);
 			path = Content;
@@ -14739,7 +14760,6 @@
 		E5F1A3C23092000100E35C42 /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
-				E5F1A1333092000100E35C42 /* WSQuadrantSmallTaskListContentView.swift */,
 				E5F1A1343092000100E35C42 /* WSQuadrantSmallTaskListPluginProvider.swift */,
 			);
 			path = TaskList;
@@ -17622,7 +17642,11 @@
 				E5F1A2303092000100E35C42 /* WSQuadrantTaskConfiguration.swift in Sources */,
 				E5F1A2313092000100E35C42 /* WSQuadrantTaskConfigViewController.swift in Sources */,
 				E5F1A2323092000100E35C42 /* WSQuadrantTaskListContentInteractor.swift in Sources */,
-				E5F1A2333092000100E35C42 /* WSQuadrantSmallTaskListContentView.swift in Sources */,
+				E5F1A2333092000100E35C42 /* WSQuadrantTaskListContentView.swift in Sources */,
+				E5F1A2363092000100E35C42 /* WSQuadrantMediumTaskListPluginProvider.swift in Sources */,
+				E5F1A2373092000100E35C42 /* WSQuadrantMediumTaskListContentInteractor.swift in Sources */,
+				E5F1A2383092000100E35C42 /* WSQuadrantLargeTaskListContentInteractor.swift in Sources */,
+				E5F1A2393092000100E35C42 /* WSQuadrantLargeTaskListPluginProvider.swift in Sources */,
 				E5F1A2343092000100E35C42 /* WSQuadrantSmallTaskListPluginProvider.swift in Sources */,
 				E5CBA0713092000100E35B41 /* WSGoalPlanRowView.swift in Sources */,
 				E5CBA0913092000100E35B41 /* WSGoalPlanRowsContentView.swift in Sources */,

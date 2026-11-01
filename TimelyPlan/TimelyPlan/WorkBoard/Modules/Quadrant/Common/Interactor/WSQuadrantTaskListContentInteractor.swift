@@ -21,7 +21,16 @@ class WSQuadrantTaskListContentInteractor: WSQuadrantTasksContentInteractor {
         return configuration.targetQuadrant
     }
     
+    /// 画廊预览使用的象限，默认与展示的象限一致，各尺寸组件可覆写
+    var previewQuadrant: Quadrant {
+        return selectedQuadrant
+    }
+    
     override var targetQuadrants: [Quadrant] {
         return [selectedQuadrant]
+    }
+    
+    override var previewQuadrants: [Quadrant] {
+        return [previewQuadrant]
     }
 }

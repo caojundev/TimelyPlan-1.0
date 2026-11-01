@@ -20,7 +20,7 @@ class WSQuadrantSmallTaskListPluginProvider: WSPluginProvider {
     
     /// 创建该组件内容视图
     func makeContentView() -> WSPluginContentView {
-        return WSQuadrantSmallTaskListContentView()
+        return WSQuadrantTaskListContentView()
     }
     
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {

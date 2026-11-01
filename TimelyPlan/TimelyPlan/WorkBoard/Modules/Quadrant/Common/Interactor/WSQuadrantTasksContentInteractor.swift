@@ -13,14 +13,21 @@ import UIKit
 /// 四象限任务的内容交互器。
 ///
 /// 按象限布局顺序读取各象限的未完成任务，下发条数由 `maximumTaskCount` 控制，
-/// 超出上限时少下发一条，为更多入口预留最后一个位置。任务或象限设置变化后重新取数。
+/// 实际展示条数由列表视图按可用高度决定。任务或象限设置变化后重新取数。
 class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
                                         TodoTaskProcessorDelegate,
                                         SettingAgentObserver {
     
-    /// 每个象限最多展示的任务数
-    static let maximumTaskCount = 4
+    /// 每个象限最多下发的任务数。卡片更高的组件可覆写
+    var maximumTaskCount: Int {
+        return 6
+    }
     
+    /// 任务详情的展示项。为 nil 时不展示详情
+    var option: TodoTaskDetailOption? {
+        return nil
+    }
+
     /// 任务操作
     private let taskController = TodoTaskController()
     
@@ -43,6 +50,8 @@ class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
     // MARK: - 取数
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
         let quadrants = targetQuadrants
+        let maximumTaskCount = self.maximumTaskCount
+        let option = self.option
         var results = [Quadrant: [TodoTask]]()
         let group = DispatchGroup()
         
@@ -59,7 +68,10 @@ class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
         
         group.notify(queue: .main) {
             let items = quadrants.map { quadrant -> WSQuadrantTaskGroup in
-                return Self.makeQuadrantItem(quadrant: quadrant, tasks: results[quadrant] ?? [])
+                return Self.makeQuadrantItem(quadrant: quadrant,
+                                             tasks: results[quadrant] ?? [],
+                                             maximumTaskCount: maximumTaskCount,
+                                             option: option)
             }
             
             completion(WSQuadrantTasksDataItem(quadrants: items))
@@ -68,26 +80,30 @@ class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
     
     /// 按创建时间倒序取前若干条任务，与四象限主页面的排序一致
     private static func makeQuadrantItem(quadrant: Quadrant,
-                                         tasks: [TodoTask]) -> WSQuadrantTaskGroup {
+                                         tasks: [TodoTask],
+                                         maximumTaskCount: Int,
+                                         option: TodoTaskDetailOption?) -> WSQuadrantTaskGroup {
         let sortedTasks = tasks.sorted { lhs, rhs in
             let lhsDate = lhs.creationDate ?? .distantPast
             let rhsDate = rhs.creationDate ?? .distantPast
             return lhsDate > rhsDate
         }
         
-        let visibleTasks = sortedTasks.prefix(visibleTaskCount(for: sortedTasks.count))
-            .map { WSQuadrantTaskItem(task: $0) }
-        return WSQuadrantTaskGroup(quadrant: quadrant,
-                                           tasks: visibleTasks,
-                                           totalCount: sortedTasks.count)
-    }
-    
-    /// 下发的任务数。超出上限时为更多入口留出最后一个位置
-    private static func visibleTaskCount(for totalCount: Int) -> Int {
-        return totalCount > maximumTaskCount ? maximumTaskCount - 1 : totalCount
+        let visibleTasks = sortedTasks.prefix(maximumTaskCount).map {
+            WSQuadrantTaskItem(task: $0, option: option)
+        }
+        return WSQuadrantTaskGroup(
+            quadrant: quadrant,
+            tasks: visibleTasks,
+            totalCount: sortedTasks.count)
     }
     
     // MARK: - 预览数据
+    /// 画廊预览使用的象限，各尺寸组件可覆写
+    var previewQuadrants: [Quadrant] {
+        return targetQuadrants
+    }
+    
     /// 画廊预览数据：固定展示一组示例任务，第一个象限超出上限以展示更多入口
     override func previewDataItem() -> WSPluginDataItem? {
         let titles = [resGetString("Reading"),
@@ -96,11 +112,22 @@ class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
                       resGetString("Planning"),
                       resGetString("Review"),
                       resGetString("Deep Work"),
-                      resGetString("Coding")]
-        let totalCounts = [8, 5, 3, 6]
-        let quadrants = targetQuadrants.enumerated().map { index, quadrant -> WSQuadrantTaskGroup in
+                      resGetString("Coding"),
+                      resGetString("Study"),
+                      resGetString("Meditation"),
+                      resGetString("Coffee Break"),
+                      resGetString("Warm Up"),
+                      resGetString("Free Focus")]
+        let totalCounts = [12, 5, 3, 6]
+        let quadrants = previewQuadrants.enumerated().map { index, quadrant -> WSQuadrantTaskGroup in
             let totalCount = totalCounts[index % totalCounts.count]
-            let tasks = (0..<Self.visibleTaskCount(for: totalCount)).map { taskIndex -> WSQuadrantTaskItem in
+            /// 示例任务名不重复展示
+            let sampleCount = min(totalCount, maximumTaskCount, titles.count)
+            /// 有详情展示项时补充示例详情
+            let detail = option == nil
+                ? nil
+                : Date().monthDayString.attributedString(textColor: .secondaryLabel)
+            let tasks = (0..<sampleCount).map { taskIndex -> WSQuadrantTaskItem in
                 let titleIndex = (index + taskIndex) % titles.count
                 return WSQuadrantTaskItem(identifier: "preview.\(index).\(taskIndex)",
                                                name: titles[titleIndex],
@@ -108,7 +135,7 @@ class WSQuadrantTasksContentInteractor: WSPluginContentInteractor,
                                                checkType: titleIndex % 3 == 0 ? .decrease : .increase,
                                                progress: CGFloat(taskIndex + 1) / 5.0,
                                                isProgressSet: taskIndex % 2 == 0,
-                                               detail: nil)
+                                               detail: detail)
             }
             
             return WSQuadrantTaskGroup(quadrant: quadrant,

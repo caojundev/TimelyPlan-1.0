@@ -12,87 +12,65 @@ import UIKit
 
 /// 四象限任务行视图，各尺寸组件共用。
 ///
-/// 与目标任务详情行展示内容一致：完成状态、名称、日期与进度条；
-/// 未设置进度的任务不展示进度条，行高不足时依次省略详情与进度条。
+/// 复用待办任务的勾选信息视图展示完成状态、名称、详情与进度条；
+/// 未设置进度的任务不展示进度条，行高不足时先省略详情。
 class WSQuadrantTaskRowView: WSRowView {
     
     /// 布局尺寸
     private enum Metrics {
         
-        /// 内容与行边缘的间距。行高较小时由行高直接约束内容
+        /// 内容与行边缘的间距
         static let padding = UIEdgeInsets(left: 4.0, right: 4.0)
         
         /// 行按下高亮的圆角
         static let cornerRadius: CGFloat = 6.0
         
-        /// 完成状态尺寸
+        /// 完成状态尺寸与间距
         static let checkboxSize = CGSize(value: 16.0)
-        
-        /// checkbox 圆角半径
-        static let checkboxCornerRadius = 6.0
-        
-        /// 完成状态与内容的间距
         static let checkboxSpacing: CGFloat = 6.0
         
-        /// 名称字体
-        static let nameFont = UIFont.boldSystemFont(ofSize: 13.0)
+        /// 名称高度
+        static let nameHeight: CGFloat = 18.0
         
-        /// 详情字体
-        static let detailFont = UIFont.systemFont(ofSize: 11.0)
+        /// 详情高度及与名称的间距
+        static let detailHeight: CGFloat = 14.0
+        static let detailTopMargin: CGFloat = 2.0
         
-        /// 名称与详情的间距
-        static let detailTopMargin: CGFloat = 1.0
-        
-        /// 详情与进度条的间距
-        static let progressTopMargin: CGFloat = 2.0
-        
-        /// 进度条高度
+        /// 进度条高度及与上方的间距
         static let progressHeight: CGFloat = 2.0
+        static let progressTopMargin: CGFloat = 2.0
         
         /// 按下时行底色的透明度
         static let highlightedBackgroundColorAlpha: CGFloat = 0.1
     }
     
-    /// 完成状态
-    private lazy var checkbox: TodoTaskCheckbox = {
-        let checkbox = TodoTaskCheckbox()
-        checkbox.padding = .zero
-        checkbox.hitTestEdgeInsets = UIEdgeInsets(horizontal: -4.0, vertical: -4.0)
-        checkbox.addGestureRecognizer(checkboxTapGesture)
-        return checkbox
+    /// 任务勾选信息视图
+    private lazy var infoView: TodoTaskCheckInfoView = {
+        let view = TodoTaskCheckInfoView()
+        /// 名称与详情均只展示一行
+        view.nameLabel.numberOfLines = 1
+        view.nameLabel.lineBreakMode = .byTruncatingTail
+        view.nameLabel.font = .boldSystemFont(ofSize: 13.0)
+        
+        view.detailLabel.numberOfLines = 1
+        view.detailLabel.lineBreakMode = .byTruncatingTail
+        view.detailLabel.font = .systemFont(ofSize: 11.0, weight: .medium)
+        
+        view.nameHeight = Metrics.nameHeight
+        view.detailHeight = Metrics.detailHeight
+        view.detailTopMargin = Metrics.detailTopMargin
+        view.progressHeight = Metrics.progressHeight
+        view.progressTopMargin = Metrics.progressTopMargin
+        view.leftViewSize = Metrics.checkboxSize
+        view.leftViewMargins = UIEdgeInsets(right: Metrics.checkboxSpacing)
+        view.checkbox.hitTestEdgeInsets = UIEdgeInsets(horizontal: -4.0, vertical: -4.0)
+        view.checkbox.addGestureRecognizer(checkboxTapGesture)
+        return view
     }()
     
     /// 完成状态的点击手势
     private lazy var checkboxTapGesture: UITapGestureRecognizer = {
         return UITapGestureRecognizer(target: self, action: #selector(clickCheckbox(_:)))
-    }()
-    
-    /// 任务名称
-    private lazy var nameLabel: TPStrikethroughLabel = {
-        let label = TPStrikethroughLabel()
-        label.font = Metrics.nameFont
-        label.textColor = .label
-        label.numberOfLines = 1
-        label.lineBreakMode = .byTruncatingTail
-        return label
-    }()
-    
-    /// 任务日期
-    private lazy var detailLabel: TPLabel = {
-        let label = TPLabel()
-        label.font = Metrics.detailFont
-        label.textColor = .secondaryLabel
-        label.numberOfLines = 1
-        label.lineBreakMode = .byTruncatingTail
-        return label
-    }()
-    
-    /// 任务进度
-    private lazy var progressView: TPBarProgressView = {
-        let view = TPBarProgressView(frame: .zero, style: .horizontal)
-        view.cornerRadius = .greatestFiniteMagnitude
-        view.isUserInteractionEnabled = false
-        return view
     }()
     
     /// 当前展示的任务
@@ -110,10 +88,7 @@ class WSQuadrantTaskRowView: WSRowView {
         self.padding = Metrics.padding
         self.contentCornerRadius = Metrics.cornerRadius
         
-        addSubview(checkbox)
-        addSubview(nameLabel)
-        addSubview(detailLabel)
-        addSubview(progressView)
+        addSubview(infoView)
         
         /// 点击完成状态时不触发行点击
         gestureRecognizers?.compactMap { $0 as? UITapGestureRecognizer }.forEach {
@@ -134,53 +109,15 @@ class WSQuadrantTaskRowView: WSRowView {
             return
         }
         
-        checkbox.size = Metrics.checkboxSize
-        checkbox.cornerRadius = Metrics.checkboxCornerRadius
-        checkbox.left = contentFrame.minX
-        checkbox.centerY = contentFrame.midY
-        
-        let contentLeft = checkbox.right + Metrics.checkboxSpacing
-        let contentWidth = max(contentFrame.maxX - contentLeft, 0.0)
-        let nameHeight = ceil(Metrics.nameFont.lineHeight)
-        let detailHeight = ceil(Metrics.detailFont.lineHeight)
-        
-        /// 进度条优先于详情：行高不足时先省略详情，保证进度可见
-        var showsProgress = dataItem?.isProgressSet == true
-        var contentHeight = nameHeight
-        if showsProgress {
-            contentHeight += Metrics.progressTopMargin + Metrics.progressHeight
-        }
-        if showsProgress && contentHeight > contentFrame.height {
-            showsProgress = false
-            contentHeight = nameHeight
-        }
-        
+        /// 行高不足时先省略详情，保证进度可见
+        let progressHeight = infoView.isProgressHidden ? 0.0 : Metrics.progressTopMargin + Metrics.progressHeight
+        let contentHeight = Metrics.nameHeight + progressHeight
         let showsDetail = dataItem?.detail != nil
-            && contentHeight + Metrics.detailTopMargin + detailHeight <= contentFrame.height
-        if showsDetail {
-            contentHeight += Metrics.detailTopMargin + detailHeight
-        }
+            && contentHeight + Metrics.detailTopMargin + Metrics.detailHeight <= contentFrame.height
         
-        var top = contentFrame.minY + max((contentFrame.height - contentHeight) / 2.0, 0.0)
-        
-        nameLabel.frame = CGRect(x: contentLeft, y: top, width: contentWidth, height: nameHeight)
-        top += nameHeight
-        
-        detailLabel.isHidden = !showsDetail
-        if showsDetail {
-            top += Metrics.detailTopMargin
-            detailLabel.frame = CGRect(x: contentLeft, y: top, width: contentWidth, height: detailHeight)
-            top += detailHeight
-        }
-        
-        progressView.isHidden = !showsProgress
-        if showsProgress {
-            top += Metrics.progressTopMargin
-            progressView.frame = CGRect(x: contentLeft,
-                                        y: top,
-                                        width: contentWidth,
-                                        height: Metrics.progressHeight)
-        }
+        infoView.attributedDetail = showsDetail ? dataItem?.detail : nil
+        infoView.detailHeight = showsDetail ? Metrics.detailHeight : 0.0
+        infoView.frame = contentFrame
     }
     
     // MARK: - 渲染
@@ -189,29 +126,27 @@ class WSQuadrantTaskRowView: WSRowView {
         self.dataItem = dataItem
         
         guard let dataItem = dataItem else {
-            checkbox.isHidden = true
-            nameLabel.text = nil
-            nameLabel.setStrikethrough(false, animated: false)
-            detailLabel.attributed.text = nil
-            progressView.setProgress(0.0, animated: false)
+            infoView.isHidden = true
+            infoView.name = nil
+            infoView.attributedDetail = nil
             normalBackColor = .clear
             highlightedBackColor = .clear
             setNeedsLayout()
             return
         }
         
-        checkbox.isHidden = false
-        checkbox.mode = checkboxMode(for: dataItem.checkType)
-        checkbox.normalColor = color
-        checkbox.checkedColor = color
-        checkbox.setChecked(dataItem.isCompleted, animated: false)
+        infoView.isHidden = false
+        infoView.name = dataItem.name
+        infoView.checkType = dataItem.checkType
+        infoView.isCompleted = dataItem.isCompleted
+        infoView.setProgress(dataItem.progress, animated: false)
+        infoView.isProgressHidden = !dataItem.isProgressSet
+        infoView.setNeedsLayout()
         
-        nameLabel.text = dataItem.name
-        nameLabel.setStrikethrough(dataItem.isCompleted, animated: false)
-        detailLabel.attributed.text = dataItem.detail
-        
-        progressView.barForeColor = color
-        progressView.setProgress(dataItem.progress, animated: false)
+        /// 完成状态与进度使用象限颜色
+        infoView.checkbox.normalColor = color
+        infoView.checkbox.checkedColor = color
+        infoView.progressView.barForeColor = color
         
         normalBackColor = .clear
         highlightedBackColor = color.withAlphaComponent(Metrics.highlightedBackgroundColorAlpha)
@@ -235,17 +170,5 @@ class WSQuadrantTaskRowView: WSRowView {
         
         TPImpactFeedback.impactWithSoftStyle()
         didClickCheckboxHandler?(dataItem)
-    }
-    
-    /// 完成状态样式与任务本身一致
-    private func checkboxMode(for checkType: TodoTaskCheckType) -> TodoTaskCheckbox.Mode {
-        switch checkType {
-        case .normal:
-            return .normal
-        case .increase:
-            return .plus
-        case .decrease:
-            return .minus
-        }
     }
 }

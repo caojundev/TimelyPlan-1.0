@@ -31,7 +31,7 @@ struct WSQuadrantTaskItem: WSPluginDataItem {
     /// 是否设置了进度
     let isProgressSet: Bool
     
-    /// 详情：任务日期信息
+    /// 详情：由 `TodoTaskDetailProvider` 按展示项生成
     let detail: ASAttributedString?
     
     init(identifier: String,
@@ -50,16 +50,15 @@ struct WSQuadrantTaskItem: WSPluginDataItem {
         self.detail = detail
     }
     
-    /// 由待办任务生成展示数据
-    init(task: TodoTask) {
+    /// 由待办任务生成展示数据。option 为 nil 时不展示详情
+    init(task: TodoTask, option: TodoTaskDetailOption?) {
         self.init(identifier: task.identifier,
                   name: task.name ?? "",
                   isCompleted: task.isCompleted,
                   checkType: task.checkType,
                   progress: task.completionFraction,
                   isProgressSet: task.isProgressSet,
-                  detail: task.schedule?.dateInfo?.attributedTitle(slashFormatted: false,
-                                                                   textColor: .secondaryLabel))
+                  detail: option.flatMap { TodoTaskDetailProvider(task: task, option: $0).attributedInfo() })
     }
 }
 
@@ -71,16 +70,11 @@ struct WSQuadrantTaskGroup {
     /// 象限
     let quadrant: Quadrant
     
-    /// 待展示的任务，最多 4 条
+    /// 待展示的任务，条数由交互器的上限决定
     let tasks: [WSQuadrantTaskItem]
     
     /// 未完成任务总数
     let totalCount: Int
-    
-    /// 未展示的任务数
-    var hiddenCount: Int {
-        return max(totalCount - tasks.count, 0)
-    }
 }
 
 // MARK: - 组件数据
