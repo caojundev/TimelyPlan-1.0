@@ -336,6 +336,8 @@
 		E5168BDE2F5481660000A760 /* bell_add_20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5168BDC2F5481660000A760 /* bell_add_20@2x.png */; };
 		E5185055300CA94B00112DFC /* TPDayPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185054300CA94B00112DFC /* TPDayPageView.swift */; };
 		E5185057300CACD400112DFC /* MyDayTimelinePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5185056300CACD400112DFC /* MyDayTimelinePageView.swift */; };
+		E5A1C0DE31A1B2C3D4E5F602 /* MyDayTimelinePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1C0DE31A1B2C3D4E5F601 /* MyDayTimelinePageViewController.swift */; };
+		E5A1C0DE31A1B2C3D4E5F604 /* MyDaySingleDateTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1C0DE31A1B2C3D4E5F603 /* MyDaySingleDateTimelineViewController.swift */; };
 		E518505B300E1FD400112DFC /* myDay_overlapping_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5185059300E1FD300112DFC /* myDay_overlapping_12@2x.png */; };
 		E518505C300E1FD400112DFC /* myDay_overlapping_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E518505A300E1FD300112DFC /* myDay_overlapping_12@3x.png */; };
 		E518505F300F0BA500112DFC /* TimelineNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518505E300F0BA500112DFC /* TimelineNodeView.swift */; };
@@ -3132,6 +3134,8 @@
 		E5168BDC2F5481660000A760 /* bell_add_20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell_add_20@2x.png"; sourceTree = "<group>"; };
 		E5185054300CA94B00112DFC /* TPDayPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDayPageView.swift; sourceTree = "<group>"; };
 		E5185056300CACD400112DFC /* MyDayTimelinePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelinePageView.swift; sourceTree = "<group>"; };
+		E5A1C0DE31A1B2C3D4E5F601 /* MyDayTimelinePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTimelinePageViewController.swift; sourceTree = "<group>"; };
+		E5A1C0DE31A1B2C3D4E5F603 /* MyDaySingleDateTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDaySingleDateTimelineViewController.swift; sourceTree = "<group>"; };
 		E5185059300E1FD300112DFC /* myDay_overlapping_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myDay_overlapping_12@2x.png"; sourceTree = "<group>"; };
 		E518505A300E1FD300112DFC /* myDay_overlapping_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myDay_overlapping_12@3x.png"; sourceTree = "<group>"; };
 		E518505E300F0BA500112DFC /* TimelineNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineNodeView.swift; sourceTree = "<group>"; };
@@ -6979,6 +6983,8 @@
 			isa = PBXGroup;
 			children = (
 				E51F941730049A8400734910 /* MyDayMainViewController.swift */,
+				E5A1C0DE31A1B2C3D4E5F601 /* MyDayTimelinePageViewController.swift */,
+				E5A1C0DE31A1B2C3D4E5F603 /* MyDaySingleDateTimelineViewController.swift */,
 				E53ABEE63009D8FE00EB8632 /* MyDayPresenter.swift */,
 				E5B3BAB3301254AE00D908B6 /* MyDayEventProcessor.swift */,
 				E53ABED83008D9CE00EB8632 /* Repository */,
@@ -17943,6 +17949,8 @@
 				E51350AB302B5419000E9871 /* TaskMultipleDateInfoEditViewController.swift in Sources */,
 				E55BDECA307DDFA7002A9986 /* GoalSummaryCalculator.swift in Sources */,
 				E51F941830049A8500734910 /* MyDayMainViewController.swift in Sources */,
+				E5A1C0DE31A1B2C3D4E5F602 /* MyDayTimelinePageViewController.swift in Sources */,
+				E5A1C0DE31A1B2C3D4E5F604 /* MyDaySingleDateTimelineViewController.swift in Sources */,
 				E5D7D7DC2D43923800EC877A /* FocusRecord.swift in Sources */,
 				E5007F7B2DC9ADB1006AD311 /* CalendarTimelineLabelIndicator.swift in Sources */,
 				E5CFD2742F58619300A898CB /* HabitTaskStatusProgressView.swift in Sources */,

@@ -95,15 +95,21 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
         return view
     }()
     
-    /// 重叠事项数目
-    private let overlapLabel: UILabel = {
-        let label = UILabel()
-        label.font = Metrics.overlapFont
-        label.textColor = .secondaryLabel
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.7
-        label.isHidden = true
-        return label
+    /// 重叠事项入口
+    private lazy var overlapButton: TPDefaultButton = {
+        let button = TPDefaultButton()
+        button.padding = .zero
+        button.titleConfig.font = Metrics.overlapFont
+        button.titleConfig.textColor = .primary
+        button.titleConfig.textAlignment = .left
+        button.titleConfig.adjustsFontSizeToFitWidth = true
+        button.titleConfig.minimumScaleFactor = 0.7
+        button.hitTestEdgeInsets = UIEdgeInsets(value: -6.0)
+        button.isHidden = true
+        button.didClickHandler = { [weak self] in
+            (self?.interactor as? WSMyDayUpcomingContentInteractor)?.clickOverlapping()
+        }
+        return button
     }()
     
     /// 分钟刷新，用于更新节点进度与切换展示事项
@@ -121,7 +127,7 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
         addSubview(nodeView)
         addSubview(timeLabel)
         addSubview(infoView)
-        addSubview(overlapLabel)
+        addSubview(overlapButton)
     }
     
     required init?(coder: NSCoder) {
@@ -169,7 +175,7 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
         let overlapHeight = ceil(Metrics.overlapFont.lineHeight)
         let timeHeight = ceil(Metrics.timeFont.lineHeight)
         let infoHeight = infoContentHeight(width: contentFrame.width)
-        let overlapBlock = overlapLabel.isHidden ? 0.0 : overlapHeight + Metrics.infoOverlapSpacing
+        let overlapBlock = overlapButton.isHidden ? 0.0 : overlapHeight + Metrics.infoOverlapSpacing
         let blockHeight = timeHeight + Metrics.timeInfoSpacing + infoHeight + overlapBlock
         let blockTop = max(nodeView.bottom + Metrics.nodeTimeSpacing,
                            contentFrame.maxY - blockHeight)
@@ -185,9 +191,9 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
                                 width: contentFrame.width,
                                 height: min(infoHeight, infoMaxHeight))
         
-        overlapLabel.size = CGSize(width: contentFrame.width, height: overlapHeight)
-        overlapLabel.left = contentFrame.minX
-        overlapLabel.bottom = contentFrame.maxY
+        overlapButton.size = CGSize(width: contentFrame.width, height: overlapHeight)
+        overlapButton.left = contentFrame.minX
+        overlapButton.bottom = contentFrame.maxY
     }
     
     /// 信息视图所需的高度：标题一行 + 副标题实际行数
@@ -232,7 +238,7 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
             timeLabel.text = nil
             infoView.title = nil
             infoView.subtitle = nil
-            overlapLabel.isHidden = true
+            overlapButton.isHidden = true
             setNeedsLayout()
             return
         }
@@ -249,9 +255,9 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
         infoView.subtitle = item.subtitle
         
         /// 没有重叠事项时不展示数目
-        overlapLabel.isHidden = display.overlappingCount <= 0
+        overlapButton.isHidden = display.overlappingCount <= 0
         if display.overlappingCount > 0 {
-            overlapLabel.text = String(format: resGetString("Overlapping %ld"), display.overlappingCount)
+            overlapButton.title = String(format: resGetString("Overlapping %ld"), display.overlappingCount)
         }
         
         setNeedsLayout()

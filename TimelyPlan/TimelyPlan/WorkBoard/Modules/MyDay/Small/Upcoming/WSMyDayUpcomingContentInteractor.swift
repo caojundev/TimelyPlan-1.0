@@ -19,9 +19,6 @@ class WSMyDayUpcomingContentInteractor: WSPluginContentInteractor, MyDayEventCha
     /// 我的一天数据仓库。仅仪表盘取数时创建，画廊只渲染预览数据
     private var repository: MyDayRepository?
     
-    /// 点击事项时才需要，避免初始化时提前创建
-    private lazy var eventProcessor = MyDayEventProcessor()
-    
     override init(plugin: WSPlugin, context: WSPluginContext) {
         super.init(plugin: plugin, context: context)
         
@@ -62,14 +59,23 @@ class WSMyDayUpcomingContentInteractor: WSPluginContentInteractor, MyDayEventCha
     }
     
     // MARK: - 主操作
-    /// 点击组件：打开当前展示事项的详情
+    /// 点击组件：弹出当天的时间线
     override func performPrimaryAction() {
-        guard let dataItem = dataItem as? WSMyDayUpcomingDataItem,
-              let display = WSMyDayUpcomingResolver.resolve(items: dataItem.items, at: Date()) else {
-            return
-        }
-        
-        eventProcessor.clickEvent(display.item.event)
+        showTimeline()
+    }
+    
+    // MARK: - 重叠事项
+    /// 点击重叠事项入口：同样弹出当天的时间线
+    func clickOverlapping() {
+        showTimeline()
+    }
+    
+    // MARK: - 弹出
+    /// 弹出当天的时间线
+    private func showTimeline() {
+        let viewController = MyDaySingleDateTimelineViewController(date: Date())
+        let navController = UINavigationController(rootViewController: viewController)
+        navController.show()
     }
     
     // MARK: - 预览数据

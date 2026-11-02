@@ -14,7 +14,15 @@ class MyDayTimelinePageView: TPDayPageView {
     var habitRecordProvider = MyDayHabitRecordProvider()
     
     var eventAddController: EventAddController?
-    
+
+    /// 是否允许左右滑动切换日期
+    var allowsDateSwitchByPaging: Bool = true {
+        didSet {
+            collectionView?.isScrollEnabled = allowsDateSwitchByPaging
+            collectionView?.isPagingEnabled = allowsDateSwitchByPaging
+        }
+    }
+
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return MyDayTimelinePageCell.self
     }
