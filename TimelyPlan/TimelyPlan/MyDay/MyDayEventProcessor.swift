@@ -11,8 +11,6 @@ import EventKit
 
 class MyDayEventProcessor {
     
-    private let repository = MyDayRepository()
-    
     func clickStart(for event: MyDayEvent) {
         guard let timer = event.sourceItem as? FocusTimer else {
             return

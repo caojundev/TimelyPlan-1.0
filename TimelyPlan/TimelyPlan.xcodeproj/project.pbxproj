@@ -2676,6 +2676,18 @@
 		E5F1A2393092000100E35C42 /* WSQuadrantLargeTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F1A1393092000100E35C42 /* WSQuadrantLargeTaskListPluginProvider.swift */; };
 		E5F2BAD12D532316007DDCD4 /* xmark_circle_fill_12@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */; };
 		E5F2BAD22D532316007DDCD4 /* xmark_circle_fill_12@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */; };
+		E5F7E63D3098209800C72E55 /* WSMyDayAllDayEventsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6383098209800C72E55 /* WSMyDayAllDayEventsDataItem.swift */; };
+		E5F7E63E3098209800C72E55 /* WSMyDayAllDayEventsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6393098209800C72E55 /* WSMyDayAllDayEventsContentInteractor.swift */; };
+		E5F7E63F3098209800C72E55 /* WSMyDayBriefAllDayEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E63A3098209800C72E55 /* WSMyDayBriefAllDayEventRowView.swift */; };
+		E5F7E6403098209800C72E55 /* WSMyDaySmallAllDayEventsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E63B3098209800C72E55 /* WSMyDaySmallAllDayEventsContentView.swift */; };
+		E5F7E6413098209800C72E55 /* WSMyDaySmallAllDayEventsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E63C3098209800C72E55 /* WSMyDaySmallAllDayEventsPluginProvider.swift */; };
+		E5F7E6493098209800C72E55 /* WSMyDayAllDayEventRowBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6423098209800C72E55 /* WSMyDayAllDayEventRowBaseView.swift */; };
+		E5F7E64A3098209800C72E55 /* WSMyDayAllDayEventsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6433098209800C72E55 /* WSMyDayAllDayEventsContentView.swift */; };
+		E5F7E64B3098209800C72E55 /* WSMyDayDetailAllDayEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6443098209800C72E55 /* WSMyDayDetailAllDayEventRowView.swift */; };
+		E5F7E64C3098209800C72E55 /* WSMyDayMediumAllDayEventsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6453098209800C72E55 /* WSMyDayMediumAllDayEventsContentView.swift */; };
+		E5F7E64D3098209800C72E55 /* WSMyDayMediumAllDayEventsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6463098209800C72E55 /* WSMyDayMediumAllDayEventsPluginProvider.swift */; };
+		E5F7E64E3098209800C72E55 /* WSMyDayLargeAllDayEventsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6473098209800C72E55 /* WSMyDayLargeAllDayEventsContentView.swift */; };
+		E5F7E64F3098209800C72E55 /* WSMyDayLargeAllDayEventsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6483098209800C72E55 /* WSMyDayLargeAllDayEventsPluginProvider.swift */; };
 		E5F9E3BB301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */; };
 		E5F9E3BE301DD1D500EDC2A5 /* MyDayEventScheduleEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BD301DD1D400EDC2A5 /* MyDayEventScheduleEditor.swift */; };
 		E5F9E3C0301EDE0200EDC2A5 /* MyDayHabitScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BF301EDE0100EDC2A5 /* MyDayHabitScheduleEditViewController.swift */; };
@@ -5470,6 +5482,18 @@
 		E5F1A1393092000100E35C42 /* WSQuadrantLargeTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSQuadrantLargeTaskListPluginProvider.swift; sourceTree = "<group>"; };
 		E5F2BACF2D532316007DDCD4 /* xmark_circle_fill_12@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@3x.png"; sourceTree = "<group>"; };
 		E5F2BAD02D532316007DDCD4 /* xmark_circle_fill_12@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xmark_circle_fill_12@2x.png"; sourceTree = "<group>"; };
+		E5F7E6383098209800C72E55 /* WSMyDayAllDayEventsDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayAllDayEventsDataItem.swift; sourceTree = "<group>"; };
+		E5F7E6393098209800C72E55 /* WSMyDayAllDayEventsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayAllDayEventsContentInteractor.swift; sourceTree = "<group>"; };
+		E5F7E63A3098209800C72E55 /* WSMyDayBriefAllDayEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayBriefAllDayEventRowView.swift; sourceTree = "<group>"; };
+		E5F7E63B3098209800C72E55 /* WSMyDaySmallAllDayEventsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDaySmallAllDayEventsContentView.swift; sourceTree = "<group>"; };
+		E5F7E63C3098209800C72E55 /* WSMyDaySmallAllDayEventsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDaySmallAllDayEventsPluginProvider.swift; sourceTree = "<group>"; };
+		E5F7E6423098209800C72E55 /* WSMyDayAllDayEventRowBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayAllDayEventRowBaseView.swift; sourceTree = "<group>"; };
+		E5F7E6433098209800C72E55 /* WSMyDayAllDayEventsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayAllDayEventsContentView.swift; sourceTree = "<group>"; };
+		E5F7E6443098209800C72E55 /* WSMyDayDetailAllDayEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayDetailAllDayEventRowView.swift; sourceTree = "<group>"; };
+		E5F7E6453098209800C72E55 /* WSMyDayMediumAllDayEventsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayMediumAllDayEventsContentView.swift; sourceTree = "<group>"; };
+		E5F7E6463098209800C72E55 /* WSMyDayMediumAllDayEventsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayMediumAllDayEventsPluginProvider.swift; sourceTree = "<group>"; };
+		E5F7E6473098209800C72E55 /* WSMyDayLargeAllDayEventsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayLargeAllDayEventsContentView.swift; sourceTree = "<group>"; };
+		E5F7E6483098209800C72E55 /* WSMyDayLargeAllDayEventsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayLargeAllDayEventsPluginProvider.swift; sourceTree = "<group>"; };
 		E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTodoEventInfoView.swift; sourceTree = "<group>"; };
 		E5F9E3BD301DD1D400EDC2A5 /* MyDayEventScheduleEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayEventScheduleEditor.swift; sourceTree = "<group>"; };
 		E5F9E3BF301EDE0100EDC2A5 /* MyDayHabitScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayHabitScheduleEditViewController.swift; sourceTree = "<group>"; };
@@ -7095,6 +7119,20 @@
 				E5F0D0A1268A0000D000A029 /* WSHabitSelectedConfigViewController.swift */,
 			);
 			path = Selected;
+			sourceTree = "<group>";
+		};
+		E52628623097711300B87016 /* Todo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Todo;
+			sourceTree = "<group>";
+		};
+		E52628633097711A00B87016 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		E526D3F72F6BA29D005C1DED /* Score */ = {
@@ -10562,10 +10600,13 @@
 		E5A6259E3089B3CD003EB8BC /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E539C86F308CAE6C0077FE8A /* UIComponents */,
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
+				E5F7E6353098208300C72E55 /* MyDay */,
+				E52628633097711A00B87016 /* Calendar */,
+				E52628623097711300B87016 /* Todo */,
 				E5E5380130946DF00096EBAC /* Quadrant */,
 				E5C0AEAA30933D3B00E487FC /* Gantt */,
-				E539C86F308CAE6C0077FE8A /* UIComponents */,
 				E5BBCAD030919CF700E35B41 /* Goal */,
 				E5F002AB308F089100D70600 /* Habit */,
 				E584C7E8308C459A00A38690 /* Focus */,
@@ -14789,6 +14830,113 @@
 			path = filter;
 			sourceTree = "<group>";
 		};
+		E5F7E6353098208300C72E55 /* MyDay */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E6383098305700C72E55 /* Common */,
+				E5F7E63A3098306A00C72E55 /* Large */,
+				E5F7E6393098306100C72E55 /* Medium */,
+				E5F7E6363098208A00C72E55 /* Small */,
+			);
+			path = MyDay;
+			sourceTree = "<group>";
+		};
+		E5F7E6363098208A00C72E55 /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E6373098209100C72E55 /* AllDay */,
+			);
+			path = Small;
+			sourceTree = "<group>";
+		};
+		E5F7E6373098209100C72E55 /* AllDay */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E63A3098209800C72E55 /* WSMyDayBriefAllDayEventRowView.swift */,
+				E5F7E63B3098209800C72E55 /* WSMyDaySmallAllDayEventsContentView.swift */,
+				E5F7E63C3098209800C72E55 /* WSMyDaySmallAllDayEventsPluginProvider.swift */,
+			);
+			path = AllDay;
+			sourceTree = "<group>";
+		};
+		E5F7E6383098305700C72E55 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E6553098209800C72E55 /* Content */,
+				E5F7E6563098209800C72E55 /* Data */,
+				E5F7E6573098209800C72E55 /* Interactor */,
+				E5F7E6583098209800C72E55 /* Row */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E5F7E6393098306100C72E55 /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E63B3098307800C72E55 /* AllDay */,
+			);
+			path = Medium;
+			sourceTree = "<group>";
+		};
+		E5F7E63A3098306A00C72E55 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E63C3098307E00C72E55 /* AllDay */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
+		E5F7E63B3098307800C72E55 /* AllDay */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E6453098209800C72E55 /* WSMyDayMediumAllDayEventsContentView.swift */,
+				E5F7E6463098209800C72E55 /* WSMyDayMediumAllDayEventsPluginProvider.swift */,
+			);
+			path = AllDay;
+			sourceTree = "<group>";
+		};
+		E5F7E63C3098307E00C72E55 /* AllDay */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E6473098209800C72E55 /* WSMyDayLargeAllDayEventsContentView.swift */,
+				E5F7E6483098209800C72E55 /* WSMyDayLargeAllDayEventsPluginProvider.swift */,
+			);
+			path = AllDay;
+			sourceTree = "<group>";
+		};
+		E5F7E6553098209800C72E55 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E6433098209800C72E55 /* WSMyDayAllDayEventsContentView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E5F7E6563098209800C72E55 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E6383098209800C72E55 /* WSMyDayAllDayEventsDataItem.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5F7E6573098209800C72E55 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E6393098209800C72E55 /* WSMyDayAllDayEventsContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E5F7E6583098209800C72E55 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E6423098209800C72E55 /* WSMyDayAllDayEventRowBaseView.swift */,
+				E5F7E6443098209800C72E55 /* WSMyDayDetailAllDayEventRowView.swift */,
+			);
+			path = Row;
+			sourceTree = "<group>";
+		};
 		E5F9E3B9301B8FBE00EDC2A5 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
@@ -17587,6 +17735,18 @@
 				E5F0D0A1268A0000D000A006 /* WSHabitTaskRowView.swift in Sources */,
 				E5F0D0A1268A0000D000A008 /* WSHabitTaskListContentView.swift in Sources */,
 				E5F0D0A1268A0000D000A00A /* WSHabitSmallTasksListPluginProvider.swift in Sources */,
+				E5F7E63D3098209800C72E55 /* WSMyDayAllDayEventsDataItem.swift in Sources */,
+				E5F7E63E3098209800C72E55 /* WSMyDayAllDayEventsContentInteractor.swift in Sources */,
+				E5F7E63F3098209800C72E55 /* WSMyDayBriefAllDayEventRowView.swift in Sources */,
+				E5F7E6403098209800C72E55 /* WSMyDaySmallAllDayEventsContentView.swift in Sources */,
+				E5F7E6413098209800C72E55 /* WSMyDaySmallAllDayEventsPluginProvider.swift in Sources */,
+				E5F7E6493098209800C72E55 /* WSMyDayAllDayEventRowBaseView.swift in Sources */,
+				E5F7E64A3098209800C72E55 /* WSMyDayAllDayEventsContentView.swift in Sources */,
+				E5F7E64B3098209800C72E55 /* WSMyDayDetailAllDayEventRowView.swift in Sources */,
+				E5F7E64C3098209800C72E55 /* WSMyDayMediumAllDayEventsContentView.swift in Sources */,
+				E5F7E64D3098209800C72E55 /* WSMyDayMediumAllDayEventsPluginProvider.swift in Sources */,
+				E5F7E64E3098209800C72E55 /* WSMyDayLargeAllDayEventsContentView.swift in Sources */,
+				E5F7E64F3098209800C72E55 /* WSMyDayLargeAllDayEventsPluginProvider.swift in Sources */,
 				E5F0D0A1268A0000D000A034 /* WSHabitWeekPluginProvider.swift in Sources */,
 				E5F0D0A1268A0000D000A03E /* WSHabitDayDataItem.swift in Sources */,
 				E5F0D0A1268A0000D000A040 /* WSHabitDayProgressView.swift in Sources */,

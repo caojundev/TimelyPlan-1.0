@@ -1,0 +1,147 @@
+//
+//  WSMyDayAllDayEventsContentInteractor.swift
+//  TimelyPlan
+//
+//  Created by caojun on 2026/11/2.
+//
+
+import Foundation
+import UIKit
+
+// MARK: - 内容交互器
+
+/// 我的一天·全天事项的内容交互器，各尺寸共用。
+///
+/// 读取今天的全部事项后只保留全天事项下发给内容视图；
+/// 事项变化时重新取数，跨天刷新由基类的零点监听统一处理。
+class WSMyDayAllDayEventsContentInteractor: WSPluginContentInteractor, MyDayEventChangeDelegate {
+    
+    /// 我的一天数据仓库。仅仪表盘取数时创建，画廊只渲染预览数据
+    private var repository: MyDayRepository?
+    
+    /// 点击事项时才需要，避免初始化时提前创建
+    private lazy var eventProcessor = MyDayEventProcessor()
+    
+    /// 画廊预览数据，按天缓存，避免画廊滚动时反复构造
+    private static var cachedPreviewData: (date: Date, dataItem: WSMyDayAllDayEventsDataItem)?
+    
+    override init(plugin: WSPlugin, context: WSPluginContext) {
+        super.init(plugin: plugin, context: context)
+        
+        /// 画廊不访问数据仓库：`MyDayRepository` 初始化会连带创建各数据源观察者与系统日历，
+        /// 在画廊里纯属浪费，且会阻塞主线程
+        guard context == .dashboard else {
+            return
+        }
+        
+        let repository = MyDayRepository()
+        self.repository = repository
+        /// 观察者由数据仓库弱引用持有，无需手动移除
+        repository.addUpdaterDelegate(self)
+    }
+    
+    // MARK: - MyDayEventChangeDelegate
+    /// 只有与今天有交集的事项变化才影响展示内容
+    func myDayEventsDidChange(in ranges: [DateInterval]) {
+        let todayRange = DateInterval.rangeOfDay(Date())
+        guard ranges.contains(where: { $0.intersects(todayRange) }) else {
+            return
+        }
+        
+        pluginDataDidChange()
+    }
+    
+    // MARK: - 取数
+    override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
+        guard let repository = repository else {
+            completion(nil)
+            return
+        }
+        
+        let date = Date()
+        repository.fetchEvents(in: .rangeOfDay(date)) { events in
+            let allDayEvents = events.allDayEvents
+            guard !allDayEvents.isEmpty else {
+                completion(nil)
+                return
+            }
+            
+            completion(WSMyDayAllDayEventsDataItem(date: date, events: allDayEvents))
+        }
+    }
+    
+    // MARK: - 条目操作
+    /// 点击某一行时，打开该行对应事项的详情
+    override func performAction(with dataItem: WSPluginDataItem) {
+        guard let item = dataItem as? WSMyDayAllDayEventItem else {
+            return
+        }
+        
+        eventProcessor.clickEvent(item.event)
+    }
+    
+    // MARK: - 预览数据
+    /// 画廊预览数据：固定展示若干示例全天事项，不受用户数据影响。
+    /// 预览内容不变，按天缓存，画廊滚动复用单元格时不再重复构造
+    override func previewDataItem() -> WSPluginDataItem? {
+        let date = Date().startOfDay()
+        if let cached = Self.cachedPreviewData, cached.date == date {
+            return cached.dataItem
+        }
+        
+        let dataItem = makePreviewDataItem(on: date)
+        Self.cachedPreviewData = (date, dataItem)
+        return dataItem
+    }
+    
+    /// 构造预览数据。覆盖多种来源，让行视图展示不同类型的图标
+    private func makePreviewDataItem(on date: Date) -> WSMyDayAllDayEventsDataItem {
+        let startDate = date.startOfDay()
+        let endDate = date.endOfDay()
+        let examples: [(title: String, color: UIColor, source: MyDayEventSource, isCompleted: Bool)] = [
+            (resGetString("Holiday"), Color(0xFF9F0A), .calendar, false),
+            (resGetString("Birthday"), Color(0xFF375F), .todo, false),
+            (resGetString("Family Trip"), Color(0x30D158), .goal, false),
+            (resGetString("Trip Departure"), Color(0x09AFFF), .habit, false),
+            (resGetString("Anniversary"), Color(0xAF52DE), .countdown, false),
+            (resGetString("Project Launch"), Color(0xFF6482), .focus, false),
+            (resGetString("Vacation"), Color(0x64D2FF), .calendar, false),
+            (resGetString("Graduation"), Color(0xBF5AF2), .todo, true)
+        ]
+        
+        let events = examples.enumerated().map { index, example -> MyDayEvent in
+            return MyDayEvent(identifier: "preview-\(index)",
+                              source: example.source,
+                              name: example.title,
+                              color: example.color,
+                              startDate: startDate,
+                              endDate: endDate,
+                              isAllDay: true,
+                              isCompleted: example.isCompleted,
+                              sourceItem: previewSourceItem(for: example.source,
+                                                            title: example.title,
+                                                            color: example.color,
+                                                            date: endDate))
+        }
+        
+        return WSMyDayAllDayEventsDataItem(date: date, events: events)
+    }
+    
+    /// 预览用的来源对象。仅倒数日需要真实对象提供表情，其余来源使用占位，
+    /// 由 `WSMyDayAllDayEventItem` 按来源回退到类型图标
+    private func previewSourceItem(for source: MyDayEventSource,
+                                   title: String,
+                                   color: UIColor,
+                                   date: Date) -> Any {
+        guard source == .countdown else {
+            return NSNull()
+        }
+        
+        return CountdownEvent(type: .anniversary,
+                              name: title,
+                              emoji: "💍",
+                              colorHex: color.hexString,
+                              date: CountdownDate(targetDate: date),
+                              timeUnit: .days)
+    }
+}

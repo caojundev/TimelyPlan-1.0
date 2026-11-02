@@ -7,6 +7,16 @@ import Foundation
 /// 用于区分同模块、同尺寸下的多种组件。
 public enum WSPluginType: String, Codable, CaseIterable {
     
+    // MARK: 我的一天
+    /// 我的一天·小·全天事项：逐行展示今天的全天事项。
+    case myDaySmallAllDayEvents
+    
+    /// 我的一天·中·全天事项：以列表展示今天的全天事项。
+    case myDayMediumAllDayEvents
+    
+    /// 我的一天·大·全天事项：以列表展示今天的全天事项。
+    case myDayLargeAllDayEvents
+    
     // MARK: 时间线
     /// 时间线·大·按天甘特图：以甘特时间线按天展示事项排期。
     case timelineLargeDayChart
@@ -199,7 +209,8 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar, .quadrantSmallTaskList,
+        case .myDaySmallAllDayEvents,
+             .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar, .quadrantSmallTaskList,
              .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
              .focusSmallTodayComparison, .focusSmallWeekActivity, .focusSmallMonthHeatMap,
@@ -208,7 +219,8 @@ public extension WSPluginType {
              .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing,
              .goalSmallTaskList:
             return .small
-        case .quadrantMediumCounts, .quadrantMediumDonut, .quadrantMediumStackedBar, .quadrantMediumTaskList,
+        case .myDayMediumAllDayEvents,
+             .quadrantMediumCounts, .quadrantMediumDonut, .quadrantMediumStackedBar, .quadrantMediumTaskList,
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
@@ -216,7 +228,8 @@ public extension WSPluginType {
              .goalMediumPlanGrid, .goalMediumPlanList, .goalMediumPlanRings,
              .goalMediumTaskGrid, .goalMediumTaskList:
             return .medium
-        case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart,
+        case .myDayLargeAllDayEvents,
+             .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart,
              .quadrantLargeTasks, .quadrantLargeTaskList,
              .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
              .focusLargeUserTimerGrid,
@@ -231,6 +244,8 @@ public extension WSPluginType {
     /// 所属模块。用于组件选择器分组，以及同模块三个尺寸之间的归类。
     var module: WSPluginModule {
         switch self {
+        case .myDaySmallAllDayEvents, .myDayMediumAllDayEvents, .myDayLargeAllDayEvents:
+            return .myDay
         case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart:
             return .timeline
         case .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar, .quadrantSmallTaskList,
@@ -319,6 +334,11 @@ enum WSPluginCatalog {
 
     /// 全部组件配置
     static let all: [WSPluginConfiguration] = [
+        // 我的一天
+        .init(WSMyDaySmallAllDayEventsPluginProvider(), title: "All-Day Events", subtitle: "Shows today's all-day events"),
+        .init(WSMyDayMediumAllDayEventsPluginProvider(), title: "All-Day Events", subtitle: "Shows today's all-day events in a list"),
+        .init(WSMyDayLargeAllDayEventsPluginProvider(), title: "All-Day Events", subtitle: "Shows today's all-day events in a list"),
+        
         // 时间线
         .init(WSTimelineLargeDayChartPluginProvider(), title: "Daily Gantt", subtitle: "Shows tasks on a timeline by day"),
         .init(WSTimelineLargeWeekChartPluginProvider(), title: "Weekly Gantt", subtitle: "Shows tasks on a timeline by week"),

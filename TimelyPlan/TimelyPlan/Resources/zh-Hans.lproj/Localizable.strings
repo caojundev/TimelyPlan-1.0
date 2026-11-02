@@ -26,6 +26,10 @@
 "Edit Dashboard" = "编辑面板";
 "No Plugin" = "暂无插件";
 "No Content" = "暂无内容";
+"All-Day Events" = "全天事项";
+"Shows today's all-day events" = "展示今天的全天事项";
+"Shows today's all-day events in a list" = "以列表展示今天的全天事项";
+"More %ld" = "更多%ld个";
 "Selected Countdown" = "自选倒数日";
 "Select Countdown" = "选择倒数日";
 "Shows the selected countdown" = "展示选中的倒数日";
