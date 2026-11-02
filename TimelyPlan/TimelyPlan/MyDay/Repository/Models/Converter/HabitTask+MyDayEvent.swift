@@ -48,7 +48,7 @@ extension HabitTask {
         
         let event = MyDayEvent(identifier: identifier,
                                   source: .habit,
-                                  name: displayTitle,
+                                  name: displayName,
                                   color: color,
                                   startDate: interval.start,
                                   endDate: interval.end,

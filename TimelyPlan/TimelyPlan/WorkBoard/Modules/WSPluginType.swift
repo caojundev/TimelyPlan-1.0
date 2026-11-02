@@ -17,6 +17,9 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 我的一天·大·全天事项：以列表展示今天的全天事项。
     case myDayLargeAllDayEvents
     
+    /// 我的一天·小·临近事项：展示正在进行或今天接下来即将开始的第一个事项。
+    case myDaySmallUpcoming
+    
     // MARK: 时间线
     /// 时间线·大·按天甘特图：以甘特时间线按天展示事项排期。
     case timelineLargeDayChart
@@ -209,7 +212,7 @@ public extension WSPluginType {
     /// 该组件固定的尺寸。
     var size: WSPluginSize {
         switch self {
-        case .myDaySmallAllDayEvents,
+        case .myDaySmallAllDayEvents, .myDaySmallUpcoming,
              .quadrantSmallCounts, .quadrantSmallDonut, .quadrantSmallStackedBar, .quadrantSmallTaskList,
              .countdownSmallSelected, .countdownSmallEvents,
              .focusSmallUserTimer, .focusSmallSystemTimer, .focusSmallTodayActivity,
@@ -244,7 +247,7 @@ public extension WSPluginType {
     /// 所属模块。用于组件选择器分组，以及同模块三个尺寸之间的归类。
     var module: WSPluginModule {
         switch self {
-        case .myDaySmallAllDayEvents, .myDayMediumAllDayEvents, .myDayLargeAllDayEvents:
+        case .myDaySmallAllDayEvents, .myDayMediumAllDayEvents, .myDayLargeAllDayEvents, .myDaySmallUpcoming:
             return .myDay
         case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart:
             return .timeline
@@ -338,6 +341,7 @@ enum WSPluginCatalog {
         .init(WSMyDaySmallAllDayEventsPluginProvider(), title: "All-Day Events", subtitle: "Shows today's all-day events"),
         .init(WSMyDayMediumAllDayEventsPluginProvider(), title: "All-Day Events", subtitle: "Shows today's all-day events in a list"),
         .init(WSMyDayLargeAllDayEventsPluginProvider(), title: "All-Day Events", subtitle: "Shows today's all-day events in a list"),
+        .init(WSMyDaySmallUpcomingPluginProvider(), title: "Upcoming", subtitle: "Shows the ongoing or next event"),
         
         // 时间线
         .init(WSTimelineLargeDayChartPluginProvider(), title: "Daily Gantt", subtitle: "Shows tasks on a timeline by day"),

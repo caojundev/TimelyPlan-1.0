@@ -36,39 +36,8 @@ struct WSMyDayAllDayEventItem: WSPluginDataItem {
         self.title = event.title
         self.color = event.color
         self.isCompleted = event.isCompleted
-        self.sourceIcon = WSMyDayAllDayEventItem.sourceIcon(for: event)
+        self.sourceIcon = event.sourceIcon
         self.event = event
-    }
-    
-    /// 按事项来源取图标，与 `MyDayTimelineView` 中各来源节点的图标保持一致
-    private static func sourceIcon(for event: MyDayEvent) -> TPIcon? {
-        switch event.source {
-        case .calendar:
-            return TPIcon(name: "myDay_calendar_24")
-        case .todo:
-            return TPIcon(name: event.isCompleted ? "todo_circle_completed_24" : "todo_circle_normal_24")
-        case .habit:
-            guard let task = event.sourceItem as? HabitTask else {
-                return TPIcon(name: "task_type_habit_24")
-            }
-            
-            return task.icon
-        case .goal:
-            return TPIcon(name: "goal_24")
-        case .focus:
-            guard let timer = event.sourceItem as? FocusTimer,
-                  let iconName = timer.timerType.iconName else {
-                return TPIcon(name: "focus_24")
-            }
-            
-            return TPIcon(name: iconName)
-        case .countdown:
-            guard let countdownEvent = event.sourceItem as? CountdownEvent else {
-                return nil
-            }
-            
-            return TPIcon(text: countdownEvent.emoji ?? countdownEvent.type.emoji)
-        }
     }
 }
 

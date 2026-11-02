@@ -60,13 +60,8 @@ class WSMyDayAllDayEventsContentInteractor: WSPluginContentInteractor, MyDayEven
         
         let date = Date()
         repository.fetchEvents(in: .rangeOfDay(date)) { events in
-            let allDayEvents = events.allDayEvents
-            guard !allDayEvents.isEmpty else {
-                completion(nil)
-                return
-            }
-            
-            completion(WSMyDayAllDayEventsDataItem(date: date, events: allDayEvents))
+            /// 没有全天事项时同样下发数据条目，由内容视图在头部下方展示空白提示
+            completion(WSMyDayAllDayEventsDataItem(date: date, events: events.allDayEvents))
         }
     }
     

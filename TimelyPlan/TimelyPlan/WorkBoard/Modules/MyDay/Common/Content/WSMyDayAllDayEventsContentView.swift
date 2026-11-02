@@ -20,13 +20,6 @@ class WSMyDayAllDayEventsContentView: WSPluginContentView {
     /// 布局尺寸
     private enum Metrics {
         
-        /// 标题与日期字体
-        static let titleFont = UIFont.boldSystemFont(ofSize: 13.0)
-        static let dateFont = UIFont.boldSystemFont(ofSize: 13.0)
-        
-        /// 标题与日期之间的间距
-        static let headerSpacing: CGFloat = 8.0
-        
         /// 头部与列表的间距
         static let headerListSpacing: CGFloat = 8.0
         
@@ -47,32 +40,17 @@ class WSMyDayAllDayEventsContentView: WSPluginContentView {
     /// 更多入口的左缩进，与行内名称对齐
     var moreLeadingInset: CGFloat = 18.0
     
-    /// 标题
-    private lazy var titleView: TPImageTitleView = {
-        let view = TPImageTitleView()
-        view.padding = .zero
-        view.accessoryPosition = .left
-        view.imageName = "myDay_24"
-        view.imageConfig.size = .size(4)
-        view.imageConfig.margins = UIEdgeInsets(right: 4.0)
-        view.imageConfig.color = .greenPrimary
-        view.imageConfig.shouldRenderImageWithColor = true
-        view.titleConfig.font = Metrics.titleFont
-        view.titleConfig.textAlignment = .left
-        view.titleConfig.textColor = .greenPrimary
-        view.title = resGetString("My Day")
-        return view
-    }()
+    /// 头部：标题与日期
+    private let headerView = WSMyDayHeaderView()
     
-    /// 日期标签
-    private lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        label.font = Metrics.dateFont
-        label.textColor = .secondaryLabel
-        label.textAlignment = .right
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.7
-        return label
+    /// 空白提示：没有全天事项时展示在头部下方
+    private let emptyView: WSPluginDefaultEmptyPlaceholderView = {
+        var configuration = WSPluginEmptyPlaceholderConfiguration()
+        configuration.title = resGetString("No All-Day Events")
+        
+        let view = WSPluginDefaultEmptyPlaceholderView(configuration: configuration)
+        view.isHidden = true
+        return view
     }()
     
     /// 更多入口
@@ -95,8 +73,8 @@ class WSMyDayAllDayEventsContentView: WSPluginContentView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        addSubview(titleView)
-        addSubview(dateLabel)
+        addSubview(headerView)
+        addSubview(emptyView)
         addSubview(moreLabel)
     }
     
@@ -119,21 +97,21 @@ class WSMyDayAllDayEventsContentView: WSPluginContentView {
             return
         }
         
-        /// 标题靠左，日期靠右，两者在顶部一行内居中
-        let headerHeight = max(ceil(Metrics.titleFont.lineHeight), ceil(Metrics.dateFont.lineHeight))
-        let titleSize = titleView.sizeThatFits(CGSize(width: contentFrame.width, height: headerHeight))
-        titleView.size = CGSize(width: min(titleSize.width, contentFrame.width), height: headerHeight)
-        titleView.left = contentFrame.minX
-        titleView.top = contentFrame.minY
+        headerView.frame = CGRect(x: contentFrame.minX,
+                                  y: contentFrame.minY,
+                                  width: contentFrame.width,
+                                  height: WSMyDayHeaderView.preferredHeight)
         
-        let dateLeft = titleView.right + Metrics.headerSpacing
-        dateLabel.size = CGSize(width: max(contentFrame.maxX - dateLeft, 0.0),
-                                height: ceil(Metrics.dateFont.lineHeight))
-        dateLabel.right = contentFrame.maxX
-        dateLabel.centerY = titleView.centerY
-        
-        let listTop = titleView.bottom + Metrics.headerListSpacing
+        let listTop = headerView.bottom + Metrics.headerListSpacing
         let listHeight = max(contentFrame.maxY - listTop, 0.0)
+        
+        /// 没有事项时，头部下方整体展示空白提示
+        emptyView.isHidden = !items.isEmpty
+        emptyView.frame = CGRect(x: contentFrame.minX,
+                                 y: listTop,
+                                 width: contentFrame.width,
+                                 height: listHeight)
+        
         let (visibleCount, hiddenCount) = displayedCounts(listHeight: listHeight)
         let rowHeight = slotHeight(slotCount: visibleCount + (hiddenCount > 0 ? 1 : 0),
                                    listHeight: listHeight)
@@ -217,15 +195,13 @@ class WSMyDayAllDayEventsContentView: WSPluginContentView {
         super.update(with: dataItem)
         
         guard let dataItem = dataItem as? WSMyDayAllDayEventsDataItem else {
-            dateLabel.text = nil
+            headerView.date = nil
             items = []
             setNeedsLayout()
             return
         }
         
-        dateLabel.text = dataItem.date.yearMonthDayWeekdaySymbolString(style: .short,
-                                                                      omitYear: true,
-                                                                      showRelativeDate: true)
+        headerView.date = dataItem.date
         items = dataItem.items
         
         setNeedsLayout()
