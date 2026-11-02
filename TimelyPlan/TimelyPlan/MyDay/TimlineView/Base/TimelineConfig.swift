@@ -55,8 +55,11 @@ struct TimelineConfig {
     static let durationCornerRadius: CGFloat = 4
     
     /// 未来日期节点颜色
-    static let futureNodeBackgroundColor = Color(light: 0xe9e9e9, dark: 0x262626)
-    
+    ///
+    /// 浅色模式同样使用深色：连接线与节点写入 `CALayer` 时不随主题重新解析，
+    /// 若浅色模式取浅灰会造成未开始事项的节点与连接线发白
+    static let futureNodeBackgroundColor = Color(light: 0x262626, dark: 0x262626)
+
     /// 今日节点颜色
     static let todayNodeBackgroundColor = Color(light: 0x262626, dark: 0x262626)
 }

@@ -156,15 +156,7 @@ class TimelineNodeView: UIView {
             return
         }
 
-        let backgroundColor: UIColor
-        if item.startDate.isToday {
-            backgroundColor = TimelineConfig.todayNodeBackgroundColor
-        } else if item.startDate.isFutureDay {
-            backgroundColor = TimelineConfig.futureNodeBackgroundColor
-        } else {
-            backgroundColor = item.nodeColor
-
-        }
+        let backgroundColor = nodeBackgroundColor(for: item)
         
         configureBackgroundColor(backgroundColor)
         
@@ -182,6 +174,17 @@ class TimelineNodeView: UIView {
         executeWithoutAnimation {
             self.topLineLayer.backgroundColor = topLineColor.cgColor
             self.bottomLineLayer.backgroundColor = bottomLineColor.cgColor
+        }
+    }
+    
+    /// 节点底色。默认按日期与事项颜色取值，子类可重写
+    func nodeBackgroundColor(for item: TimelineItem) -> UIColor {
+        if item.startDate.isToday {
+            return TimelineConfig.todayNodeBackgroundColor
+        } else if item.startDate.isFutureDay {
+            return TimelineConfig.futureNodeBackgroundColor
+        } else {
+            return item.nodeColor
         }
     }
     

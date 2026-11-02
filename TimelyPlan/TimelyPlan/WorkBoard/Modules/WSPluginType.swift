@@ -20,6 +20,12 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 我的一天·小·临近事项：展示正在进行或今天接下来即将开始的第一个事项。
     case myDaySmallUpcoming
     
+    /// 我的一天·中·时间线：以时间线展示正在进行或即将开始的事项。
+    case myDayMediumTimeline
+    
+    /// 我的一天·大·时间线：以时间线展示正在进行或即将开始的事项。
+    case myDayLargeTimeline
+    
     // MARK: 时间线
     /// 时间线·大·按天甘特图：以甘特时间线按天展示事项排期。
     case timelineLargeDayChart
@@ -222,7 +228,7 @@ public extension WSPluginType {
              .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing,
              .goalSmallTaskList:
             return .small
-        case .myDayMediumAllDayEvents,
+        case .myDayMediumAllDayEvents, .myDayMediumTimeline,
              .quadrantMediumCounts, .quadrantMediumDonut, .quadrantMediumStackedBar, .quadrantMediumTaskList,
              .countdownMediumEventsList, .countdownMediumEventsGrid, .countdownMediumEventsColumns,
              .focusMediumUserTimerList, .focusMediumUserTimerGrid, .focusMediumSystemTimer,
@@ -231,7 +237,7 @@ public extension WSPluginType {
              .goalMediumPlanGrid, .goalMediumPlanList, .goalMediumPlanRings,
              .goalMediumTaskGrid, .goalMediumTaskList:
             return .medium
-        case .myDayLargeAllDayEvents,
+        case .myDayLargeAllDayEvents, .myDayLargeTimeline,
              .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart,
              .quadrantLargeTasks, .quadrantLargeTaskList,
              .countdownLargeEventsList, .countdownLargeEventsGrid, .focusLargeUserTimerList,
@@ -247,7 +253,8 @@ public extension WSPluginType {
     /// 所属模块。用于组件选择器分组，以及同模块三个尺寸之间的归类。
     var module: WSPluginModule {
         switch self {
-        case .myDaySmallAllDayEvents, .myDayMediumAllDayEvents, .myDayLargeAllDayEvents, .myDaySmallUpcoming:
+        case .myDaySmallAllDayEvents, .myDayMediumAllDayEvents, .myDayLargeAllDayEvents, .myDaySmallUpcoming,
+             .myDayMediumTimeline, .myDayLargeTimeline:
             return .myDay
         case .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart:
             return .timeline
@@ -342,6 +349,8 @@ enum WSPluginCatalog {
         .init(WSMyDayMediumAllDayEventsPluginProvider(), title: "All-Day Events", subtitle: "Shows today's all-day events in a list"),
         .init(WSMyDayLargeAllDayEventsPluginProvider(), title: "All-Day Events", subtitle: "Shows today's all-day events in a list"),
         .init(WSMyDaySmallUpcomingPluginProvider(), title: "Upcoming", subtitle: "Shows the ongoing or next event"),
+        .init(WSMyDayMediumTimelinePluginProvider(), title: "Timeline", subtitle: "Shows the ongoing and upcoming events on a timeline"),
+        .init(WSMyDayLargeTimelinePluginProvider(), title: "Timeline", subtitle: "Shows the ongoing and upcoming events on a timeline"),
         
         // 时间线
         .init(WSTimelineLargeDayChartPluginProvider(), title: "Daily Gantt", subtitle: "Shows tasks on a timeline by day"),

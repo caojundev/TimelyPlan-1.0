@@ -40,8 +40,8 @@ struct WSMyDayUpcomingEventItem: WSPluginDataItem {
     
     init(event: MyDayEvent) {
         self.init(event: event,
-                  title: WSMyDayUpcomingEventItem.title(for: event),
-                  subtitle: WSMyDayUpcomingEventItem.subtitle(for: event))
+                  title: event.displayTitle,
+                  subtitle: event.displaySubtitle)
     }
     
     init(event: MyDayEvent, title: String?, subtitle: TextRepresentable?) {
@@ -53,68 +53,6 @@ struct WSMyDayUpcomingEventItem: WSPluginDataItem {
         self.startDate = event.startDate
         self.endDate = event.endDate
         self.event = event
-    }
-    
-    /// 标题：与 `MyDayTimelineView` 中对应事项单元格的名称一致
-    private static func title(for event: MyDayEvent) -> String? {
-        switch event.source {
-        case .calendar:
-            return event.title
-        case .todo:
-            return (event.sourceItem as? TodoTask)?.displayName
-        case .focus:
-            return (event.sourceItem as? FocusTimer)?.displayName
-        case .habit:
-            return (event.sourceItem as? HabitTask)?.displayName
-        case .goal:
-            return (event.sourceItem as? GoalTask)?.name
-        case .countdown:
-            return event.title ?? (event.sourceItem as? CountdownEvent)?.displayName
-        }
-    }
-    
-    /// 副标题：与 `MyDayTimelineView` 中对应事项单元格的详情一致
-    private static func subtitle(for event: MyDayEvent) -> TextRepresentable? {
-        switch event.source {
-        case .calendar:
-            guard let ekEvent = event.sourceItem as? EKEvent else {
-                return nil
-            }
-            
-            var components: [ASAttributedString] = [ekEvent.calendar.title.attributedString]
-            if ekEvent.hasRecurrenceRules, let image = resGetImage("myDay_repeat_24") {
-                components.append(.string(image: image, imageSize: .size(4), imageColor: .secondaryLabel))
-            }
-            
-            return components.joined(separator: " • ")
-        case .todo:
-            guard let task = event.sourceItem as? TodoTask else {
-                return nil
-            }
-            
-            let option: TodoTaskDetailOption = [.schedule, .step, .progress, .tag, .list, .note]
-            return TodoTaskDetailProvider(task: task, option: option).attributedInfo()
-        case .focus:
-            return (event.sourceItem as? FocusTimer)?.timerDescription
-        case .habit:
-            guard let task = event.sourceItem as? HabitTask else {
-                return nil
-            }
-            
-            return task.goal.targetDescription.attributedString
-        case .goal:
-            guard let task = event.sourceItem as? GoalTask else {
-                return nil
-            }
-            
-            return GoalTaskDetailProvider(task: task, option: .allExceptMyDay).attributedInfo()
-        case .countdown:
-            guard let countdownEvent = event.sourceItem as? CountdownEvent else {
-                return nil
-            }
-            
-            return countdownEvent.myDayDetail(on: event.startDate)
-        }
     }
 }
 

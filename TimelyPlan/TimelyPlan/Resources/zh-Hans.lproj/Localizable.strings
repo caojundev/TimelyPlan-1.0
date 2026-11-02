@@ -30,6 +30,7 @@
 "Shows today's all-day events" = "展示今天的全天事项";
 "Shows today's all-day events in a list" = "以列表展示今天的全天事项";
 "Shows the ongoing or next event" = "展示正在进行或即将开始的事项";
+"Shows the ongoing and upcoming events on a timeline" = "以时间线展示正在进行或即将开始的事项";
 "Overlapping %ld" = "重叠%ld个";
 "No All-Day Events" = "无全天事项";
 "No Upcoming Events" = "无临近事项";
