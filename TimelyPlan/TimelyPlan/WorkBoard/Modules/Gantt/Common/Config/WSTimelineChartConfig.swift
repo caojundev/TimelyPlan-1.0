@@ -11,8 +11,8 @@ import UIKit
 /// 甘特图组件的布局配置
 enum WSTimelineChartConfig {
 
-    /// 顶部刻度距离组件顶部的间距
-    static let headerTopInset: CGFloat = 16.0
+    /// 顶部年月标签的高度
+    static let dateHeight: CGFloat = 24.0
 
     /// 顶部刻度高度（尽量压缩，把空间留给事项）
     static let headerHeight: CGFloat = 50.0

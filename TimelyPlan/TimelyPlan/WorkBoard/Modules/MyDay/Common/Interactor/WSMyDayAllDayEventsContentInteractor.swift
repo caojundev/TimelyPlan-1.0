@@ -86,10 +86,10 @@ class WSMyDayAllDayEventsContentInteractor: WSMyDayEventsContentInteractor {
                               endDate: endDate,
                               isAllDay: true,
                               isCompleted: example.isCompleted,
-                              sourceItem: previewSourceItem(for: example.source,
-                                                            title: example.title,
-                                                            color: example.color,
-                                                            date: endDate))
+                              sourceItem: MyDayEvent.previewSourceItem(for: example.source,
+                                                                       title: example.title,
+                                                                       color: example.color,
+                                                                       date: endDate))
         }
         
         return WSMyDayAllDayEventsDataItem(date: date, events: events)
