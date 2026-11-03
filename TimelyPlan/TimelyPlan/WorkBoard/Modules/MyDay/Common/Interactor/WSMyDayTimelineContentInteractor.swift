@@ -44,28 +44,34 @@ class WSMyDayTimelineContentInteractor: WSMyDayEventsContentInteractor {
     }
     
     // MARK: - 预览数据
-    /// 画廊预览数据：固定展示若干示例事项，覆盖进行中、重叠、实线与虚线连接等场景
+    /// 画廊预览数据：固定展示若干示例事项，覆盖进行中、重叠、实线与虚线连接等场景。
+    /// 事项来源不同，节点图标也随之变化
     override func previewDataItem() -> WSPluginDataItem? {
         let now = Date()
-        let examples: [(title: String, color: UIColor, offset: TimeInterval, duration: TimeInterval)] = [
-            (resGetString("Deep Work"), Color(0x0A84FF), -20 * 60, 60 * 60),
-            (resGetString("Reading"), Color(0x30D158), 20 * 60, 60 * 60),
-            (resGetString("Project Launch"), Color(0xFF9F0A), 140 * 60, 30 * 60),
-            (resGetString("Family Trip"), Color(0xFF6482), 175 * 60, 60 * 60),
-            (resGetString("Graduation"), Color(0xAF52DE), 280 * 60, 30 * 60),
-            (resGetString("Vacation"), Color(0x64D2FF), 315 * 60, 10 * 60)
+        let examples: [(title: String, color: UIColor, source: MyDayEventSource,
+                        offset: TimeInterval, duration: TimeInterval)] = [
+            (resGetString("Deep Work"), Color(0x0A84FF), .calendar, -20 * 60, 60 * 60),
+            (resGetString("Reading"), Color(0x30D158), .todo, 20 * 60, 60 * 60),
+            (resGetString("Project Launch"), Color(0xFF9F0A), .goal, 140 * 60, 30 * 60),
+            (resGetString("Family Trip"), Color(0xFF6482), .habit, 175 * 60, 60 * 60),
+            (resGetString("Graduation"), Color(0xAF52DE), .countdown, 280 * 60, 30 * 60),
+            (resGetString("Vacation"), Color(0x64D2FF), .focus, 315 * 60, 10 * 60)
         ]
         
         let events = examples.enumerated().map { index, example -> MyDayEvent in
+            let startDate = now.addingTimeInterval(example.offset)
             return MyDayEvent(identifier: "preview-\(index)",
-                              source: .calendar,
+                              source: example.source,
                               name: example.title,
                               color: example.color,
-                              startDate: now.addingTimeInterval(example.offset),
+                              startDate: startDate,
                               endDate: now.addingTimeInterval(example.offset + example.duration),
                               isAllDay: false,
                               isCompleted: false,
-                              sourceItem: NSNull())
+                              sourceItem: MyDayEvent.previewSourceItem(for: example.source,
+                                                                       title: example.title,
+                                                                       color: example.color,
+                                                                       date: startDate))
         }
         
         return WSMyDayTimelineDataItem(date: now.startOfDay(), events: events)

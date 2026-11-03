@@ -20,9 +20,6 @@ class WSMyDayTimelineView: UIView {
     /// 布局尺寸
     private enum Metrics {
         
-        /// 更多入口的高
-        static let moreButtonHeight: CGFloat = 22.0
-        
         /// 更多入口的左缩进，与事项内容对齐
         static let moreLeadingInset: CGFloat = 52.0
     }
@@ -70,6 +67,7 @@ class WSMyDayTimelineView: UIView {
     /// 更多入口：事项未展示完时覆盖在底部展示
     private let moreButton: TPDefaultButton = {
         let button = TPDefaultButton()
+        button.cornerRadius = .greatestFiniteMagnitude
         button.padding = UIEdgeInsets(top: 6.0, left: 10.0, bottom: 6.0, right: 10.0)
         button.titleConfig.font = .boldSystemFont(ofSize: 12.0)
         button.titleConfig.textColor = .white
@@ -262,12 +260,7 @@ class WSMyDayTimelineView: UIView {
         
         moreButton.title = String(format: resGetString("More %ld"), overflowCount)
         
-        let maxWidth = max(bounds.width - Metrics.moreLeadingInset, 0.0)
-        let fittingSize = moreButton.sizeThatFits(CGSize(width: maxWidth, height: Metrics.moreButtonHeight))
-        let size = CGSize(width: min(ceil(fittingSize.width), maxWidth), height: Metrics.moreButtonHeight)
-        
-        moreButton.size = size
-        moreButton.cornerRadius = size.height / 2.0
+        moreButton.sizeToFit()
         moreButton.left = Metrics.moreLeadingInset
         moreButton.bottom = bounds.height
         bringSubviewToFront(moreButton)

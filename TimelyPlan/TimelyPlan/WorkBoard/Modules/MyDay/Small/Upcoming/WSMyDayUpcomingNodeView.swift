@@ -49,7 +49,8 @@ class WSMyDayUpcomingNodeView: UIView {
         
         iconView.borderWidth = 0.0
         iconView.foreColor = .white
-        iconView.font = .systemFont(ofSize: 12.0)
+        iconView.cornerRadius = 0.0
+        iconView.font = .boldSystemFont(ofSize: 24.0)
         addSubview(iconView)
     }
     

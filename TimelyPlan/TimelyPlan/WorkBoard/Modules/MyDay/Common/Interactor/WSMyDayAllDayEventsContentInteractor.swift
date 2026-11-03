@@ -94,22 +94,4 @@ class WSMyDayAllDayEventsContentInteractor: WSMyDayEventsContentInteractor {
         
         return WSMyDayAllDayEventsDataItem(date: date, events: events)
     }
-    
-    /// 预览用的来源对象。仅倒数日需要真实对象提供表情，其余来源使用占位，
-    /// 由 `WSMyDayAllDayEventItem` 按来源回退到类型图标
-    private func previewSourceItem(for source: MyDayEventSource,
-                                   title: String,
-                                   color: UIColor,
-                                   date: Date) -> Any {
-        guard source == .countdown else {
-            return NSNull()
-        }
-        
-        return CountdownEvent(type: .anniversary,
-                              name: title,
-                              emoji: "💍",
-                              colorHex: color.hexString,
-                              date: CountdownDate(targetDate: date),
-                              timeUnit: .days)
-    }
 }

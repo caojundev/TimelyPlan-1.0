@@ -25,16 +25,16 @@ struct WSMyDayTimelineLayoutManager {
     static func cellHeight(for item: TimelineItem) -> CGFloat {
         switch item.type {
         case .point:
-            return 62.0
+            return 56.0
         case .short:
-            return 78.0
+            return 64.0
         case .long:
-            return 96.0
+            return 72.0
         }
     }
     
     /// 连接线行高度：按原高度等比缩小，并保证最小高度
     static func connectionHeight(for item: TimelineConnectionItem) -> CGFloat {
-        return max(item.height * 0.5, 12.0)
+        return clampedValue(item.height * 0.4, 12.0, 24.0)
     }
 }

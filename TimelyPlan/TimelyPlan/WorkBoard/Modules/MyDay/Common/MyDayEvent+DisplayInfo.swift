@@ -19,13 +19,13 @@ extension MyDayEvent {
         case .calendar:
             return title
         case .todo:
-            return (sourceItem as? TodoTask)?.displayName
+            return (sourceItem as? TodoTask)?.displayName ?? title
         case .focus:
-            return (sourceItem as? FocusTimer)?.displayName
+            return (sourceItem as? FocusTimer)?.displayName ?? title
         case .habit:
-            return (sourceItem as? HabitTask)?.displayName
+            return (sourceItem as? HabitTask)?.displayName ?? title
         case .goal:
-            return (sourceItem as? GoalTask)?.name
+            return (sourceItem as? GoalTask)?.name ?? title
         case .countdown:
             return title ?? (sourceItem as? CountdownEvent)?.displayName
         }
@@ -73,5 +73,23 @@ extension MyDayEvent {
             
             return countdownEvent.myDayDetail(on: startDate)
         }
+    }
+    
+    /// 预览用的来源对象。仅倒数日需要真实对象提供表情，其余来源使用占位，
+    /// 由 `sourceIcon` 与 `displayTitle` 按来源回退到类型图标与事项名称
+    static func previewSourceItem(for source: MyDayEventSource,
+                                  title: String,
+                                  color: UIColor,
+                                  date: Date) -> Any {
+        guard source == .countdown else {
+            return NSNull()
+        }
+        
+        return CountdownEvent(type: .anniversary,
+                              name: title,
+                              emoji: "💍",
+                              colorHex: color.hexString,
+                              date: CountdownDate(targetDate: date),
+                              timeUnit: .days)
     }
 }

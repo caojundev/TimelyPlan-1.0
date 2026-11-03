@@ -92,7 +92,7 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
                                         numberOfLines: 1,
                                         textColor: .secondaryLabel,
                                         adjustsFontSizeToFitWidth: true,
-                                        minimumScaleFactor: 0.8)
+                                        minimumScaleFactor: 0.9)
         view.subtitleLabel.alpha = 0.8
         view.subtitleTopMargin = Metrics.subtitleTopMargin
         return view
@@ -118,8 +118,11 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
     /// 分钟刷新，用于更新节点进度与切换展示事项
     private let minuteUpdater = TPMinuteUpdater()
     
-    /// 今天的非全天事项
-    private var items: [WSMyDayUpcomingEventItem] = []
+    /// 今天的全部事项
+    private var allEvents: [MyDayEvent] = []
+    
+    /// 当前展示事项的标识，用于判断时间流逝后是否需要整体刷新
+    private var displayedIdentifier: String?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -216,8 +219,25 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
     // MARK: - 时间刷新
     private func startUpdating() {
         minuteUpdater.start { [weak self] in
-            self?.reloadDisplay()
+            self?.refreshForCurrentTime()
         }
+    }
+    
+    /// 时间流逝后的刷新：展示事项变化时整体刷新，否则只更新节点进度
+    private func refreshForCurrentTime() {
+        let display = WSMyDayUpcomingResolver.resolve(events: allEvents, at: Date())
+        guard display?.item.identifier == displayedIdentifier else {
+            reloadDisplay()
+            return
+        }
+        
+        guard let display = display else {
+            return
+        }
+        
+        nodeView.update(color: display.item.color,
+                        progress: display.progress,
+                        icon: display.item.sourceIcon)
     }
     
     // MARK: - 渲染
@@ -226,14 +246,15 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
         
         let upcomingDataItem = dataItem as? WSMyDayUpcomingDataItem
         headerView.date = upcomingDataItem?.date
-        items = upcomingDataItem?.items ?? []
+        allEvents = upcomingDataItem?.events ?? []
         reloadDisplay()
     }
     
     /// 按当前时间刷新展示内容
     private func reloadDisplay() {
-        guard let display = WSMyDayUpcomingResolver.resolve(items: items, at: Date()) else {
+        guard let display = WSMyDayUpcomingResolver.resolve(events: allEvents, at: Date()) else {
             /// 没有进行中或后续事项时，头部下方展示空白提示
+            displayedIdentifier = nil
             emptyView.isHidden = false
             nodeView.isHidden = true
             timeLabel.isHidden = true
@@ -247,6 +268,7 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
         }
         
         let item = display.item
+        displayedIdentifier = item.identifier
         emptyView.isHidden = true
         nodeView.isHidden = false
         timeLabel.isHidden = false

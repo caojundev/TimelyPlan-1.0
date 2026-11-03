@@ -11,8 +11,8 @@ import EventKit
 
 // MARK: - 事项数据
 
-/// 临近事项的展示数据。作为点击回调的数据条目传给交互器
-struct WSMyDayUpcomingEventItem: WSPluginDataItem {
+/// 临近事项的展示数据。
+struct WSMyDayUpcomingEventItem {
     
     /// 事项标识
     let identifier: String
@@ -39,15 +39,9 @@ struct WSMyDayUpcomingEventItem: WSPluginDataItem {
     let event: MyDayEvent
     
     init(event: MyDayEvent) {
-        self.init(event: event,
-                  title: event.displayTitle,
-                  subtitle: event.displaySubtitle)
-    }
-    
-    init(event: MyDayEvent, title: String?, subtitle: TextRepresentable?) {
         self.identifier = event.identifier
-        self.title = title
-        self.subtitle = subtitle
+        self.title = event.displayTitle
+        self.subtitle = event.displaySubtitle
         self.color = event.color
         self.sourceIcon = event.sourceIcon
         self.startDate = event.startDate
@@ -60,25 +54,20 @@ struct WSMyDayUpcomingEventItem: WSPluginDataItem {
 
 /// 我的一天·临近事项的组件数据。
 ///
-/// 保留今天全部非全天事项，展示哪一条由内容视图按当前时间解析，
+/// 保存今天的全部事项，展示哪一条由内容视图按当前时间解析，
 /// 这样时间流逝时无需重新取数即可切换到下一事项。
 class WSMyDayUpcomingDataItem: NSObject, WSPluginDataItem {
     
     /// 日期
     let date: Date
     
-    /// 今天的非全天事项，按开始时间排序
-    let items: [WSMyDayUpcomingEventItem]
+    /// 今天的全部事项，按开始时间排序
+    let events: [MyDayEvent]
     
-    init(date: Date, items: [WSMyDayUpcomingEventItem]) {
+    init(date: Date, events: [MyDayEvent]) {
         self.date = date
-        self.items = items
+        self.events = events
         super.init()
-    }
-    
-    /// 由我的一天事项生成展示数据
-    convenience init(date: Date, events: [MyDayEvent]) {
-        self.init(date: date, items: events.map(WSMyDayUpcomingEventItem.init(event:)))
     }
 }
 
@@ -100,8 +89,9 @@ struct WSMyDayUpcomingDisplay {
 /// 按当前时间解析需要展示的临近事项
 enum WSMyDayUpcomingResolver {
     
-    /// 取正在进行的事项，没有时取今天接下来的第一个事项
-    static func resolve(items: [WSMyDayUpcomingEventItem], at date: Date) -> WSMyDayUpcomingDisplay? {
+    /// 从全部事项中取正在进行的事项，没有时取接下来第一个非全天事项
+    static func resolve(events: [MyDayEvent], at date: Date) -> WSMyDayUpcomingDisplay? {
+        let items = events.filter { !$0.isAllDay }.map(WSMyDayUpcomingEventItem.init(event:))
         let ongoing = items.first { $0.startDate <= date && date <= $0.endDate }
         let upcoming = items.first { $0.startDate > date }
         guard let item = ongoing ?? upcoming else {

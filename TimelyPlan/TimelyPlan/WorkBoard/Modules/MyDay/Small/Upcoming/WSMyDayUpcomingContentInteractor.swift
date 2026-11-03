@@ -56,8 +56,8 @@ class WSMyDayUpcomingContentInteractor: WSPluginContentInteractor, MyDayEventCha
         
         let date = Date()
         repository.fetchEvents(in: .rangeOfDay(date)) { events in
-            /// 没有非全天事项时同样下发数据条目，由内容视图在头部下方展示空白提示
-            completion(WSMyDayUpcomingDataItem(date: date, events: events.filter { !$0.isAllDay }))
+            /// 下发今天的全部事项，由内容视图按当前时间解析需要展示的事项
+            completion(WSMyDayUpcomingDataItem(date: date, events: events))
         }
     }
     
@@ -65,7 +65,7 @@ class WSMyDayUpcomingContentInteractor: WSPluginContentInteractor, MyDayEventCha
     /// 点击组件：打开当前展示事项的详情
     override func performPrimaryAction() {
         guard let dataItem = dataItem as? WSMyDayUpcomingDataItem,
-              let display = WSMyDayUpcomingResolver.resolve(items: dataItem.items, at: Date()) else {
+              let display = WSMyDayUpcomingResolver.resolve(events: dataItem.events, at: Date()) else {
             return
         }
         
@@ -90,7 +90,6 @@ class WSMyDayUpcomingContentInteractor: WSPluginContentInteractor, MyDayEventCha
     /// 画廊预览数据：固定展示一条正在进行的事项与一条重叠事项，不受用户数据影响
     override func previewDataItem() -> WSPluginDataItem? {
         let now = Date()
-        let calendarTitle = resGetString("Calendar")
         let ongoingStart = now.addingTimeInterval(TimeInterval(-45 * SECONDS_PER_MINUTE))
         let ongoingEnd = now.addingTimeInterval(TimeInterval(45 * SECONDS_PER_MINUTE))
         let readingStart = now.addingTimeInterval(TimeInterval(10 * SECONDS_PER_MINUTE))
@@ -115,11 +114,6 @@ class WSMyDayUpcomingContentInteractor: WSPluginContentInteractor, MyDayEventCha
                                       isCompleted: false,
                                       sourceItem: NSNull())
         
-        let items = [
-            WSMyDayUpcomingEventItem(event: ongoingEvent, title: ongoingEvent.title, subtitle: calendarTitle),
-            WSMyDayUpcomingEventItem(event: readingEvent, title: readingEvent.title, subtitle: calendarTitle)
-        ]
-        
-        return WSMyDayUpcomingDataItem(date: Date().startOfDay(), items: items)
+        return WSMyDayUpcomingDataItem(date: Date().startOfDay(), events: [ongoingEvent, readingEvent])
     }
 }
