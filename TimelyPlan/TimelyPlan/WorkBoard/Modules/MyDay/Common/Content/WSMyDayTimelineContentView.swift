@@ -12,8 +12,7 @@ import UIKit
 
 /// 我的一天·时间线的内容视图基类，中、大尺寸共用。
 ///
-/// 顶部为标题与日期，下方为时间线快照；展示条数按可用高度换算，
-/// 允许最后一条跨出可见区域，由外层裁剪。
+/// 只负责头部与时间线的布局；事项数量、更多入口与空白提示均由时间线视图处理。
 class WSMyDayTimelineContentView: WSPluginContentView {
     
     /// 布局尺寸
@@ -29,25 +28,21 @@ class WSMyDayTimelineContentView: WSPluginContentView {
     /// 时间线
     private let timelineView = WSMyDayTimelineView()
     
-    /// 空白提示：没有正在进行或未结束的事项时展示在头部下方
-    private let emptyView: WSPluginDefaultEmptyPlaceholderView = {
-        var configuration = WSPluginEmptyPlaceholderConfiguration()
-        configuration.title = resGetString("No Upcoming Events")
-        
-        let view = WSPluginDefaultEmptyPlaceholderView(configuration: configuration)
-        view.isHidden = true
-        return view
-    }()
-    
-    /// 当前待展示的事项
-    private var events: [MyDayEvent] = []
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(headerView)
         addSubview(timelineView)
-        addSubview(emptyView)
+        
+        /// 点击事项交给交互器打开详情
+        timelineView.didSelectEventHandler = { [weak self] event in
+            self?.interactor?.performAction(with: WSMyDayTimelineEventItem(event: event))
+        }
+        
+        /// 点击更多入口打开当天的时间线
+        timelineView.didSelectMoreHandler = { [weak self] in
+            (self?.interactor as? WSMyDayEventsContentInteractor)?.openTimeline()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -69,21 +64,11 @@ class WSMyDayTimelineContentView: WSPluginContentView {
                                   height: WSMyDayHeaderView.preferredHeight)
         
         let timelineTop = headerView.bottom + Metrics.headerListSpacing
-        let timelineHeight = max(contentFrame.maxY - timelineTop, 0.0)
         
-        emptyView.isHidden = !events.isEmpty
-        emptyView.frame = CGRect(x: contentFrame.minX,
-                                 y: timelineTop,
-                                 width: contentFrame.width,
-                                 height: timelineHeight)
-        
-        timelineView.isHidden = events.isEmpty
-        timelineView.update(with: events)
-        timelineView.maximumItemCount = timelineView.visibleItemCount(forHeight: timelineHeight)
         timelineView.frame = CGRect(x: contentFrame.minX,
                                     y: timelineTop,
                                     width: contentFrame.width,
-                                    height: timelineHeight)
+                                    height: max(contentFrame.maxY - timelineTop, 0.0))
     }
     
     // MARK: - 渲染
@@ -92,7 +77,7 @@ class WSMyDayTimelineContentView: WSPluginContentView {
         
         let timelineDataItem = dataItem as? WSMyDayTimelineDataItem
         headerView.date = timelineDataItem?.date
-        events = timelineDataItem?.events ?? []
+        timelineView.update(with: timelineDataItem?.events ?? [])
         
         setNeedsLayout()
     }

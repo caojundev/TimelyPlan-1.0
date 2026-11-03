@@ -14,35 +14,10 @@ import UIKit
 ///
 /// 读取今天的全部事项后，只保留当前时间正在进行与尚未开始的非全天事项；
 /// 展示条数由内容视图按可用高度决定。
-class WSMyDayTimelineContentInteractor: WSPluginContentInteractor, MyDayEventChangeDelegate {
+class WSMyDayTimelineContentInteractor: WSMyDayEventsContentInteractor {
     
-    /// 我的一天数据仓库。仅仪表盘取数时创建，画廊只渲染预览数据
-    private var repository: MyDayRepository?
-    
-    override init(plugin: WSPlugin, context: WSPluginContext) {
-        super.init(plugin: plugin, context: context)
-        
-        /// 画廊不访问数据仓库，避免连带创建数据源观察者与系统日历
-        guard context == .dashboard else {
-            return
-        }
-        
-        let repository = MyDayRepository()
-        self.repository = repository
-        /// 观察者由数据仓库弱引用持有，无需手动移除
-        repository.addUpdaterDelegate(self)
-    }
-    
-    // MARK: - MyDayEventChangeDelegate
-    /// 只有与今天有交集的事项变化才影响展示内容
-    func myDayEventsDidChange(in ranges: [DateInterval]) {
-        let todayRange = DateInterval.rangeOfDay(Date())
-        guard ranges.contains(where: { $0.intersects(todayRange) }) else {
-            return
-        }
-        
-        pluginDataDidChange()
-    }
+    /// 点击事项时才需要，避免初始化时提前创建
+    private lazy var eventProcessor = MyDayEventProcessor()
     
     // MARK: - 取数
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
@@ -53,11 +28,19 @@ class WSMyDayTimelineContentInteractor: WSPluginContentInteractor, MyDayEventCha
         
         let date = Date()
         repository.fetchEvents(in: .rangeOfDay(date)) { events in
-            /// 正在进行或尚未结束的非全天事项
-            let now = Date()
-            let displayEvents = events.filter { !$0.isAllDay && $0.endDate > now }
-            completion(WSMyDayTimelineDataItem(date: date, events: displayEvents))
+            /// 下发今天的全部事项，由时间线视图按当前时间过滤出正在进行与将要发生的事项
+            completion(WSMyDayTimelineDataItem(date: date, events: events))
         }
+    }
+    
+    // MARK: - 条目操作
+    /// 点击某一行时，打开该行对应事项的详情
+    override func performAction(with dataItem: WSPluginDataItem) {
+        guard let item = dataItem as? WSMyDayTimelineEventItem else {
+            return
+        }
+        
+        eventProcessor.clickEvent(item.event)
     }
     
     // MARK: - 预览数据

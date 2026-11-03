@@ -20,7 +20,10 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
     private enum Metrics {
         
         /// 内容与组件边缘的间距
-        static let padding = UIEdgeInsets(value: 10.0)
+        static let padding = UIEdgeInsets(top: 10.0,
+                                          left: 10.0,
+                                          bottom: 16.0,
+                                          right: 10.0)
         
         /// 头部与节点的间距
         static let headerNodeSpacing: CGFloat = 6.0
@@ -41,7 +44,7 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
         static let titleFont = UIFont.boldSystemFont(ofSize: 15.0)
         
         /// 副标题字体
-        static let subtitleFont = UIFont.systemFont(ofSize: 12.0, weight: .medium)
+        static let subtitleFont = UIFont.systemFont(ofSize: 11.0, weight: .medium)
         
         /// 标题与副标题的间距
         static let subtitleTopMargin: CGFloat = 2.0
@@ -86,7 +89,7 @@ class WSMyDaySmallUpcomingContentView: WSPluginContentView {
                                      adjustsFontSizeToFitWidth: true,
                                      minimumScaleFactor: 0.8)
         view.subtitleConfig = .withFont(Metrics.subtitleFont,
-                                        numberOfLines: 2,
+                                        numberOfLines: 1,
                                         textColor: .secondaryLabel,
                                         adjustsFontSizeToFitWidth: true,
                                         minimumScaleFactor: 0.8)

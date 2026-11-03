@@ -14,42 +14,13 @@ import UIKit
 ///
 /// 读取今天的全部事项后只保留全天事项下发给内容视图；
 /// 事项变化时重新取数，跨天刷新由基类的零点监听统一处理。
-class WSMyDayAllDayEventsContentInteractor: WSPluginContentInteractor, MyDayEventChangeDelegate {
-    
-    /// 我的一天数据仓库。仅仪表盘取数时创建，画廊只渲染预览数据
-    private var repository: MyDayRepository?
+class WSMyDayAllDayEventsContentInteractor: WSMyDayEventsContentInteractor {
     
     /// 点击事项时才需要，避免初始化时提前创建
     private lazy var eventProcessor = MyDayEventProcessor()
     
     /// 画廊预览数据，按天缓存，避免画廊滚动时反复构造
     private static var cachedPreviewData: (date: Date, dataItem: WSMyDayAllDayEventsDataItem)?
-    
-    override init(plugin: WSPlugin, context: WSPluginContext) {
-        super.init(plugin: plugin, context: context)
-        
-        /// 画廊不访问数据仓库：`MyDayRepository` 初始化会连带创建各数据源观察者与系统日历，
-        /// 在画廊里纯属浪费，且会阻塞主线程
-        guard context == .dashboard else {
-            return
-        }
-        
-        let repository = MyDayRepository()
-        self.repository = repository
-        /// 观察者由数据仓库弱引用持有，无需手动移除
-        repository.addUpdaterDelegate(self)
-    }
-    
-    // MARK: - MyDayEventChangeDelegate
-    /// 只有与今天有交集的事项变化才影响展示内容
-    func myDayEventsDidChange(in ranges: [DateInterval]) {
-        let todayRange = DateInterval.rangeOfDay(Date())
-        guard ranges.contains(where: { $0.intersects(todayRange) }) else {
-            return
-        }
-        
-        pluginDataDidChange()
-    }
     
     // MARK: - 取数
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
@@ -69,6 +40,8 @@ class WSMyDayAllDayEventsContentInteractor: WSPluginContentInteractor, MyDayEven
     /// 点击某一行时，打开该行对应事项的详情
     override func performAction(with dataItem: WSPluginDataItem) {
         guard let item = dataItem as? WSMyDayAllDayEventItem else {
+            /// 显示时间线
+            openTimeline()
             return
         }
         

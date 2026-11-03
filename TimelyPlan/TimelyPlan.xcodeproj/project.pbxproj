@@ -2701,8 +2701,13 @@
 		E5F7E6783098209800C72E55 /* WSMyDayMediumTimelinePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66F3098209800C72E55 /* WSMyDayMediumTimelinePluginProvider.swift */; };
 		E5F7E6773098209800C72E55 /* WSMyDayMediumTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66E3098209800C72E55 /* WSMyDayMediumTimelineContentView.swift */; };
 		E5F7E6763098209800C72E55 /* WSMyDayTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66D3098209800C72E55 /* WSMyDayTimelineView.swift */; };
+		E5F7E6823098209800C72E55 /* WSMyDayTimelineEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E67E3098209800C72E55 /* WSMyDayTimelineEventRowView.swift */; };
+		E5F7E6833098209800C72E55 /* WSMyDayTimelineNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E67F3098209800C72E55 /* WSMyDayTimelineNodeView.swift */; };
+		E5F7E6843098209800C72E55 /* WSMyDayTimelineConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6803098209800C72E55 /* WSMyDayTimelineConnectionView.swift */; };
+		E5F7E6853098209800C72E55 /* WSMyDayTimelineLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6813098209800C72E55 /* WSMyDayTimelineLayoutManager.swift */; };
 		E5F7E6753098209800C72E55 /* WSMyDayTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66C3098209800C72E55 /* WSMyDayTimelineContentView.swift */; };
 		E5F7E6743098209800C72E55 /* WSMyDayTimelineContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66B3098209800C72E55 /* WSMyDayTimelineContentInteractor.swift */; };
+		E5F7E67C3098209800C72E55 /* WSMyDayEventsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E67B3098209800C72E55 /* WSMyDayEventsContentInteractor.swift */; };
 		E5F7E6733098209800C72E55 /* WSMyDayTimelineDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66A3098209800C72E55 /* WSMyDayTimelineDataItem.swift */; };
 		E5F7E6723098209800C72E55 /* MyDayEvent+DisplayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6693098209800C72E55 /* MyDayEvent+DisplayInfo.swift */; };
 		E5F7E6663098209800C72E55 /* WSMyDayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6653098209800C72E55 /* WSMyDayHeaderView.swift */; };
@@ -5525,8 +5530,13 @@
 		E5F7E66F3098209800C72E55 /* WSMyDayMediumTimelinePluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayMediumTimelinePluginProvider.swift"; sourceTree = "<group>"; };
 		E5F7E66E3098209800C72E55 /* WSMyDayMediumTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayMediumTimelineContentView.swift"; sourceTree = "<group>"; };
 		E5F7E66D3098209800C72E55 /* WSMyDayTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayTimelineView.swift"; sourceTree = "<group>"; };
+		E5F7E67E3098209800C72E55 /* WSMyDayTimelineEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineEventRowView.swift; sourceTree = "<group>"; };
+		E5F7E67F3098209800C72E55 /* WSMyDayTimelineNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineNodeView.swift; sourceTree = "<group>"; };
+		E5F7E6803098209800C72E55 /* WSMyDayTimelineConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineConnectionView.swift; sourceTree = "<group>"; };
+		E5F7E6813098209800C72E55 /* WSMyDayTimelineLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineLayoutManager.swift; sourceTree = "<group>"; };
 		E5F7E66C3098209800C72E55 /* WSMyDayTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayTimelineContentView.swift"; sourceTree = "<group>"; };
 		E5F7E66B3098209800C72E55 /* WSMyDayTimelineContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayTimelineContentInteractor.swift"; sourceTree = "<group>"; };
+		E5F7E67B3098209800C72E55 /* WSMyDayEventsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayEventsContentInteractor.swift; sourceTree = "<group>"; };
 		E5F7E66A3098209800C72E55 /* WSMyDayTimelineDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayTimelineDataItem.swift"; sourceTree = "<group>"; };
 		E5F7E6693098209800C72E55 /* MyDayEvent+DisplayInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyDayEvent+DisplayInfo.swift"; sourceTree = "<group>"; };
 		E5F7E6653098209800C72E55 /* WSMyDayHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayHeaderView.swift; sourceTree = "<group>"; };
@@ -14982,10 +14992,22 @@
 			isa = PBXGroup;
 			children = (
 				E5F7E6433098209800C72E55 /* WSMyDayAllDayEventsContentView.swift */,
-				E5F7E66D3098209800C72E55 /* WSMyDayTimelineView.swift */,
 				E5F7E66C3098209800C72E55 /* WSMyDayTimelineContentView.swift */,
+				E5F7E67D3098209800C72E55 /* TimelineView */,
 			);
 			path = Content;
+			sourceTree = "<group>";
+		};
+		E5F7E67D3098209800C72E55 /* TimelineView */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E66D3098209800C72E55 /* WSMyDayTimelineView.swift */,
+				E5F7E67E3098209800C72E55 /* WSMyDayTimelineEventRowView.swift */,
+				E5F7E67F3098209800C72E55 /* WSMyDayTimelineNodeView.swift */,
+				E5F7E6803098209800C72E55 /* WSMyDayTimelineConnectionView.swift */,
+				E5F7E6813098209800C72E55 /* WSMyDayTimelineLayoutManager.swift */,
+			);
+			path = TimelineView;
 			sourceTree = "<group>";
 		};
 		E5F7E6563098209800C72E55 /* Data */ = {
@@ -15001,6 +15023,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F7E6393098209800C72E55 /* WSMyDayAllDayEventsContentInteractor.swift */,
+				E5F7E67B3098209800C72E55 /* WSMyDayEventsContentInteractor.swift */,
 				E5F7E66B3098209800C72E55 /* WSMyDayTimelineContentInteractor.swift */,
 			);
 			path = Interactor;
@@ -17836,8 +17859,13 @@
 				E5F7E6783098209800C72E55 /* WSMyDayMediumTimelinePluginProvider.swift in Sources */,
 				E5F7E6773098209800C72E55 /* WSMyDayMediumTimelineContentView.swift in Sources */,
 				E5F7E6763098209800C72E55 /* WSMyDayTimelineView.swift in Sources */,
+				E5F7E6823098209800C72E55 /* WSMyDayTimelineEventRowView.swift in Sources */,
+				E5F7E6833098209800C72E55 /* WSMyDayTimelineNodeView.swift in Sources */,
+				E5F7E6843098209800C72E55 /* WSMyDayTimelineConnectionView.swift in Sources */,
+				E5F7E6853098209800C72E55 /* WSMyDayTimelineLayoutManager.swift in Sources */,
 				E5F7E6753098209800C72E55 /* WSMyDayTimelineContentView.swift in Sources */,
 				E5F7E6743098209800C72E55 /* WSMyDayTimelineContentInteractor.swift in Sources */,
+				E5F7E67C3098209800C72E55 /* WSMyDayEventsContentInteractor.swift in Sources */,
 				E5F7E6733098209800C72E55 /* WSMyDayTimelineDataItem.swift in Sources */,
 				E5F7E6723098209800C72E55 /* MyDayEvent+DisplayInfo.swift in Sources */,
 				E5F7E6663098209800C72E55 /* WSMyDayHeaderView.swift in Sources */,
