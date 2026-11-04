@@ -19,7 +19,7 @@ class WSTodoListMediumGridPluginProvider: WSTodoListRowsPluginProvider {
     }
     
     override func makeContentView() -> WSPluginContentView {
-        return WSTodoListGridContentView(itemCount: itemCount,
-                                         columnCount: WSTodoListItemCount.gridColumnCount)
+        return WSTodoListContentView(itemCount: itemCount,
+                                     layout: .grid(columnCount: WSTodoListItemCount.gridColumnCount))
     }
 }

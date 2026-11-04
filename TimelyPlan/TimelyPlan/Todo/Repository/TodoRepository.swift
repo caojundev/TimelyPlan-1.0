@@ -358,6 +358,11 @@ extension TodoRepository {
         tagManager.fetchTags(completion: completion)
     }
     
+    /// 根据多个标识符异步批量获取标签，一次查询取出全部标签，按传入顺序返回
+    static func fetchTags(of identifiers: [String], completion: @escaping([TodoTag]?) -> Void) {
+        tagManager.fetchTags(of: identifiers, completion: completion)
+    }
+    
     static func getTags() -> [TodoTag] {
         return tagManager.getTags()
     }

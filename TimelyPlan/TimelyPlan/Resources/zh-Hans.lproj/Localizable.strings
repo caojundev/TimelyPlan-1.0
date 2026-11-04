@@ -429,6 +429,11 @@
 
 "Lists" = "列表";
 "Todo Lists" = "待办列表";
+"Tags" = "标签";
+"Todo Tags" = "待办标签";
+"Select Tags" = "选择标签";
+"Shows todo tags in a list" = "以列表展示待办标签";
+"Shows todo tags in a grid" = "以网格展示待办标签";
 "Select Lists" = "选择列表";
 "No List" = "无列表";
 "Shows todo lists in a list" = "以列表展示待办清单";

@@ -225,6 +225,21 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 待办·大·清单网格：以两列网格展示待办清单。
     case todoLargeGrid
     
+    /// 待办·小·标签列表：逐行展示待办标签。
+    case todoTagSmallList
+    
+    /// 待办·中·标签列表：逐行展示待办标签。
+    case todoTagMediumList
+    
+    /// 待办·大·标签列表：逐行展示待办标签。
+    case todoTagLargeList
+    
+    /// 待办·中·标签网格：以两列网格展示待办标签。
+    case todoTagMediumGrid
+    
+    /// 待办·大·标签网格：以两列网格展示待办标签。
+    case todoTagLargeGrid
+    
 }
 
 // MARK: - 固有属性
@@ -243,7 +258,7 @@ public extension WSPluginType {
              .habitSmallMonthReport,
              .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing,
              .goalSmallTaskList,
-             .todoSmallList:
+             .todoSmallList, .todoTagSmallList:
             return .small
         case .myDayMediumAllDayEvents, .myDayMediumTimeline,
              .quadrantMediumCounts, .quadrantMediumDonut, .quadrantMediumStackedBar, .quadrantMediumTaskList,
@@ -253,7 +268,8 @@ public extension WSPluginType {
              .habitMediumWeekReportList, .habitMediumMonthActivityList,
              .goalMediumPlanGrid, .goalMediumPlanList, .goalMediumPlanRings,
              .goalMediumTaskGrid, .goalMediumTaskList,
-             .todoMediumList, .todoMediumGrid:
+             .todoMediumList, .todoMediumGrid,
+             .todoTagMediumList, .todoTagMediumGrid:
             return .medium
         case .myDayLargeAllDayEvents, .myDayLargeTimeline,
              .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart,
@@ -264,7 +280,8 @@ public extension WSPluginType {
              .habitLargeMonthActivityList,
              .goalLargePlanGrid, .goalLargePlanList,
              .goalLargeTaskGrid, .goalLargeTaskList,
-             .todoLargeList, .todoLargeGrid:
+             .todoLargeList, .todoLargeGrid,
+             .todoTagLargeList, .todoTagLargeGrid:
             return .large
         }
     }
@@ -304,7 +321,9 @@ public extension WSPluginType {
              .goalMediumTaskGrid, .goalLargeTaskGrid:
             return .goal
         case .todoSmallList, .todoMediumList, .todoLargeList,
-             .todoMediumGrid, .todoLargeGrid:
+             .todoMediumGrid, .todoLargeGrid,
+             .todoTagSmallList, .todoTagMediumList, .todoTagLargeList,
+             .todoTagMediumGrid, .todoTagLargeGrid:
             return .todo
         }
     }
@@ -451,6 +470,11 @@ enum WSPluginCatalog {
         .init(WSTodoListLargeListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
         .init(WSTodoListMediumGridPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a grid"),
         .init(WSTodoListLargeGridPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a grid"),
+        .init(WSTodoTagSmallListPluginProvider(), title: "Tags", subtitle: "Shows todo tags in a list"),
+        .init(WSTodoTagMediumListPluginProvider(), title: "Tags", subtitle: "Shows todo tags in a list"),
+        .init(WSTodoTagLargeListPluginProvider(), title: "Tags", subtitle: "Shows todo tags in a list"),
+        .init(WSTodoTagMediumGridPluginProvider(), title: "Tags", subtitle: "Shows todo tags in a grid"),
+        .init(WSTodoTagLargeGridPluginProvider(), title: "Tags", subtitle: "Shows todo tags in a grid"),
     ]
 
     /// 按类型取回组件配置

@@ -41,6 +41,22 @@ class TodoTagManager {
         }
     }
     
+    /// 根据多个标识符异步批量获取标签，一次查询取出全部标签，按传入顺序返回
+    func fetchTags(of identifiers: [String], completion: @escaping([TodoTag]?) -> Void) {
+        guard !identifiers.isEmpty else {
+            completion(nil)
+            return
+        }
+        
+        CDTodoTag.fetchTags(for: identifiers) { coreDataTags in
+            let tags = (coreDataTags ?? []).toTags
+            let tagsByIdentifier = Dictionary(tags.map { ($0.identifier, $0) },
+                                              uniquingKeysWith: { first, _ in first })
+            let orderedTags = identifiers.compactMap { tagsByIdentifier[$0] }
+            completion(orderedTags.isEmpty ? nil : orderedTags)
+        }
+    }
+    
     /// 包含特定名称的标签是否已存在
     func isTagExist(with name: String) -> Bool {
         let name = name.whitespacesAndNewlinesTrimmedString

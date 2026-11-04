@@ -55,10 +55,14 @@ class WSTodoListDataItem: NSObject, WSPluginDataItem {
 // MARK: - 行数据条目
 
 /// 待办清单多条目数据。
-class WSTodoListRowsDataItem: NSObject, WSPluginDataItem {
+class WSTodoListRowsDataItem: NSObject, WSPluginDataItem, WSTodoRowsDataProviding {
     
     /// 待展示的清单，按展示顺序排列
     let items: [WSTodoListDataItem]
+    
+    var rowItems: [WSPluginDataItem] {
+        return items
+    }
     
     init(items: [WSTodoListDataItem]) {
         self.items = items

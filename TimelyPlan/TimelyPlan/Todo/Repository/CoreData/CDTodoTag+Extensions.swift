@@ -119,6 +119,20 @@ extension CDTodoTag {
         }
     }
     
+    /// 根据标识符异步批量获取标签，一次查询取出全部标签
+    static func fetchTags(for identifiers: [String], completion: @escaping([CDTodoTag]?) -> Void) {
+        guard !identifiers.isEmpty else {
+            completion(nil)
+            return
+        }
+        
+        let condition: PredicateCondition = (TodoTagKey.identifier, .belongsTo(identifiers))
+        let predicate = NSPredicate.predicate(with: condition)
+        fetchAll(matching: predicate) { results in
+            completion(results as? [CDTodoTag])
+        }
+    }
+    
     static func isTagExist(with name: String) -> Bool {
         let condition: PredicateCondition = (TodoTagKey.name, .equal(name))
         let predicate = NSPredicate.predicate(with: condition)

@@ -7,9 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E5D0C5040000000000000000 /* WSTodoListGridContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C5010000000000000000 /* WSTodoListGridContentView.swift */; };
-		E5D0C5050000000000000000 /* WSTodoListMediumGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C5020000000000000000 /* WSTodoListMediumGridPluginProvider.swift */; };
-		E5D0C5060000000000000000 /* WSTodoListLargeGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C5030000000000000000 /* WSTodoListLargeGridPluginProvider.swift */; };
+		E5D0CA010000000000000000 /* WSTodoRowsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9010000000000000000 /* WSTodoRowsContentView.swift */; };
+		E5D0CA020000000000000000 /* WSTodoListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9020000000000000000 /* WSTodoListContentView.swift */; };
+		E5D0CA030000000000000000 /* WSTodoTagContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9030000000000000000 /* WSTodoTagContentView.swift */; };
+		E5D0C7010000000000000000 /* WSTodoTagRowsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6010000000000000000 /* WSTodoTagRowsPluginProvider.swift */; };
+		E5D0C7020000000000000000 /* WSTodoTagDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6020000000000000000 /* WSTodoTagDataItem.swift */; };
+		E5D0C7030000000000000000 /* WSTodoTagSelectedTagsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6030000000000000000 /* WSTodoTagSelectedTagsConfiguration.swift */; };
+		E5D0C7040000000000000000 /* WSTodoTagRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6040000000000000000 /* WSTodoTagRowView.swift */; };
+		E5D0C7080000000000000000 /* WSTodoTagPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6080000000000000000 /* WSTodoTagPluginContentInteractor.swift */; };
+		E5D0C7090000000000000000 /* WSTodoTagRowsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6090000000000000000 /* WSTodoTagRowsContentInteractor.swift */; };
+		E5D0C70A0000000000000000 /* WSTodoTagMultiSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C60A0000000000000000 /* WSTodoTagMultiSelectionViewController.swift */; };
+		E5D0C70B0000000000000000 /* WSTodoTagSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C60B0000000000000000 /* WSTodoTagSelectedConfigViewController.swift */; };
+		E5D0C70C0000000000000000 /* WSTodoTagDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C60C0000000000000000 /* WSTodoTagDetailPresenter.swift */; };
+		E5D0C70D0000000000000000 /* WSTodoTagSmallListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C60D0000000000000000 /* WSTodoTagSmallListPluginProvider.swift */; };
+		E5D0C70E0000000000000000 /* WSTodoTagMediumListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C60E0000000000000000 /* WSTodoTagMediumListPluginProvider.swift */; };
+		E5D0C70F0000000000000000 /* WSTodoTagMediumGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C60F0000000000000000 /* WSTodoTagMediumGridPluginProvider.swift */; };
+		E5D0C7100000000000000000 /* WSTodoTagLargeListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6100000000000000000 /* WSTodoTagLargeListPluginProvider.swift */; };
+		E5D0C7110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift */; };
 		930B47C98BEE5C4915C191FA /* libPods-TimelyPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */; };
 		E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */; };
 		E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */; };
@@ -2216,8 +2230,6 @@
 		E5CFD2762F58619300A898CB /* HabitTaskStatusProgressValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2722F58619200A898CB /* HabitTaskStatusProgressValueCell.swift */; };
 		E5D0C1120000000000000000 /* WSTodoListRowsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1010000000000000000 /* WSTodoListRowsPluginProvider.swift */; };
 		E5D0C1130000000000000000 /* WSTodoListDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1020000000000000000 /* WSTodoListDataItem.swift */; };
-		E5D0C1140000000000000000 /* WSTodoListRowsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1030000000000000000 /* WSTodoListRowsContentView.swift */; };
-		E5D0C1150000000000000000 /* WSTodoListListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1040000000000000000 /* WSTodoListListContentView.swift */; };
 		E5D0C1160000000000000000 /* WSTodoListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1050000000000000000 /* WSTodoListRowView.swift */; };
 		E5D0C1170000000000000000 /* WSTodoListPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1060000000000000000 /* WSTodoListPluginContentInteractor.swift */; };
 		E5D0C1180000000000000000 /* WSTodoListRowsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1070000000000000000 /* WSTodoListRowsContentInteractor.swift */; };
@@ -2229,6 +2241,8 @@
 		E5D0C4040000000000000000 /* WSTodoListSelectedListsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C4010000000000000000 /* WSTodoListSelectedListsConfiguration.swift */; };
 		E5D0C4050000000000000000 /* WSTodoListMultiSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C4020000000000000000 /* WSTodoListMultiSelectionViewController.swift */; };
 		E5D0C4060000000000000000 /* WSTodoListSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C4030000000000000000 /* WSTodoListSelectedConfigViewController.swift */; };
+		E5D0C5050000000000000000 /* WSTodoListMediumGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C5020000000000000000 /* WSTodoListMediumGridPluginProvider.swift */; };
+		E5D0C5060000000000000000 /* WSTodoListLargeGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C5030000000000000000 /* WSTodoListLargeGridPluginProvider.swift */; };
 		E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */; };
 		E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */; };
 		E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */; };
@@ -2831,9 +2845,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E5D0C5010000000000000000 /* WSTodoListGridContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListGridContentView.swift; sourceTree = "<group>"; };
-		E5D0C5020000000000000000 /* WSTodoListMediumGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListMediumGridPluginProvider.swift; sourceTree = "<group>"; };
-		E5D0C5030000000000000000 /* WSTodoListLargeGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListLargeGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C9010000000000000000 /* WSTodoRowsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoRowsContentView.swift; sourceTree = "<group>"; };
+		E5D0C9020000000000000000 /* WSTodoListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListContentView.swift; sourceTree = "<group>"; };
+		E5D0C9030000000000000000 /* WSTodoTagContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagContentView.swift; sourceTree = "<group>"; };
+		E5D0C6010000000000000000 /* WSTodoTagRowsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagRowsPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C6020000000000000000 /* WSTodoTagDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagDataItem.swift; sourceTree = "<group>"; };
+		E5D0C6030000000000000000 /* WSTodoTagSelectedTagsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagSelectedTagsConfiguration.swift; sourceTree = "<group>"; };
+		E5D0C6040000000000000000 /* WSTodoTagRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagRowView.swift; sourceTree = "<group>"; };
+		E5D0C6080000000000000000 /* WSTodoTagPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagPluginContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0C6090000000000000000 /* WSTodoTagRowsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagRowsContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0C60A0000000000000000 /* WSTodoTagMultiSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagMultiSelectionViewController.swift; sourceTree = "<group>"; };
+		E5D0C60B0000000000000000 /* WSTodoTagSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagSelectedConfigViewController.swift; sourceTree = "<group>"; };
+		E5D0C60C0000000000000000 /* WSTodoTagDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagDetailPresenter.swift; sourceTree = "<group>"; };
+		E5D0C60D0000000000000000 /* WSTodoTagSmallListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagSmallListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C60E0000000000000000 /* WSTodoTagMediumListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagMediumListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C60F0000000000000000 /* WSTodoTagMediumGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagMediumGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C6100000000000000000 /* WSTodoTagLargeListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagLargeListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C6110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagLargeGridPluginProvider.swift; sourceTree = "<group>"; };
 		1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.release.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.release.xcconfig"; sourceTree = "<group>"; };
 		2197CCF3E13F7B7E5DA987DD /* Pods-TimelyPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.debug.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimelyPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5063,8 +5091,6 @@
 		E5CFD2722F58619200A898CB /* HabitTaskStatusProgressValueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitTaskStatusProgressValueCell.swift; sourceTree = "<group>"; };
 		E5D0C1010000000000000000 /* WSTodoListRowsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListRowsPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0C1020000000000000000 /* WSTodoListDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListDataItem.swift; sourceTree = "<group>"; };
-		E5D0C1030000000000000000 /* WSTodoListRowsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListRowsContentView.swift; sourceTree = "<group>"; };
-		E5D0C1040000000000000000 /* WSTodoListListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListListContentView.swift; sourceTree = "<group>"; };
 		E5D0C1050000000000000000 /* WSTodoListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListRowView.swift; sourceTree = "<group>"; };
 		E5D0C1060000000000000000 /* WSTodoListPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListPluginContentInteractor.swift; sourceTree = "<group>"; };
 		E5D0C1070000000000000000 /* WSTodoListRowsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListRowsContentInteractor.swift; sourceTree = "<group>"; };
@@ -5076,6 +5102,8 @@
 		E5D0C4010000000000000000 /* WSTodoListSelectedListsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListSelectedListsConfiguration.swift; sourceTree = "<group>"; };
 		E5D0C4020000000000000000 /* WSTodoListMultiSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListMultiSelectionViewController.swift; sourceTree = "<group>"; };
 		E5D0C4030000000000000000 /* WSTodoListSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListSelectedConfigViewController.swift; sourceTree = "<group>"; };
+		E5D0C5020000000000000000 /* WSTodoListMediumGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListMediumGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C5030000000000000000 /* WSTodoListLargeGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListLargeGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageAutoScroller.swift; sourceTree = "<group>"; };
 		E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDataItem.swift; sourceTree = "<group>"; };
 		E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDayInfo.swift; sourceTree = "<group>"; };
@@ -5690,6 +5718,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E5D0C8010000000000000000 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C6010000000000000000 /* WSTodoTagRowsPluginProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E5D0C8020000000000000000 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C6020000000000000000 /* WSTodoTagDataItem.swift */,
+				E5D0C6030000000000000000 /* WSTodoTagSelectedTagsConfiguration.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5D0C8030000000000000000 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C6040000000000000000 /* WSTodoTagRowView.swift */,
+			);
+			path = Row;
+			sourceTree = "<group>";
+		};
+		E5D0C8040000000000000000 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C9030000000000000000 /* WSTodoTagContentView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E5D0C8050000000000000000 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C6080000000000000000 /* WSTodoTagPluginContentInteractor.swift */,
+				E5D0C6090000000000000000 /* WSTodoTagRowsContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E5D0C8060000000000000000 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C60A0000000000000000 /* WSTodoTagMultiSelectionViewController.swift */,
+				E5D0C60B0000000000000000 /* WSTodoTagSelectedConfigViewController.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		E5D0C8070000000000000000 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C60C0000000000000000 /* WSTodoTagDetailPresenter.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		0D9B190838411A3AD1796043 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -7209,7 +7296,8 @@
 		E52628623097711300B87016 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
-				E52D3D8B309A17C6001BBAF9 /* Common */,
+				E52D3D91309B4441001BBAF9 /* Common */,
+				E52D3D8C309B4227001BBAF9 /* Tag */,
 				E52D3D86309A14DA001BBAF9 /* List */,
 			);
 			path = Todo;
@@ -7471,6 +7559,7 @@
 		E52D3D86309A14DA001BBAF9 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				E52D3D8B309A17C6001BBAF9 /* Common */,
 				E52D3D89309A1527001BBAF9 /* Large */,
 				E52D3D88309A151D001BBAF9 /* Medium */,
 				E52D3D87309A1515001BBAF9 /* Small */,
@@ -7514,6 +7603,65 @@
 				E5D0C2A20000000000000000 /* Content */,
 				E5D0C2A30000000000000000 /* Row */,
 				E5D0C2A50000000000000000 /* Detail */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E52D3D8C309B4227001BBAF9 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				E52D3D8D309B425E001BBAF9 /* Common */,
+				E52D3D90309B427D001BBAF9 /* Small */,
+				E52D3D8F309B426F001BBAF9 /* Medium */,
+				E52D3D8E309B4268001BBAF9 /* Large */,
+			);
+			path = Tag;
+			sourceTree = "<group>";
+		};
+		E52D3D8D309B425E001BBAF9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C8010000000000000000 /* Provider */,
+				E5D0C8020000000000000000 /* Data */,
+				E5D0C8030000000000000000 /* Row */,
+				E5D0C8040000000000000000 /* Content */,
+				E5D0C8050000000000000000 /* Interactor */,
+				E5D0C8060000000000000000 /* Config */,
+				E5D0C8070000000000000000 /* Detail */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E52D3D8E309B4268001BBAF9 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C6100000000000000000 /* WSTodoTagLargeListPluginProvider.swift */,
+				E5D0C6110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
+		E52D3D8F309B426F001BBAF9 /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C60E0000000000000000 /* WSTodoTagMediumListPluginProvider.swift */,
+				E5D0C60F0000000000000000 /* WSTodoTagMediumGridPluginProvider.swift */,
+			);
+			path = Medium;
+			sourceTree = "<group>";
+		};
+		E52D3D90309B427D001BBAF9 /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C60D0000000000000000 /* WSTodoTagSmallListPluginProvider.swift */,
+			);
+			path = Small;
+			sourceTree = "<group>";
+		};
+		E52D3D91309B4441001BBAF9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C9010000000000000000 /* WSTodoRowsContentView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -13477,9 +13625,7 @@
 		E5D0C2A20000000000000000 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0C5010000000000000000 /* WSTodoListGridContentView.swift */,
-				E5D0C1030000000000000000 /* WSTodoListRowsContentView.swift */,
-				E5D0C1040000000000000000 /* WSTodoListListContentView.swift */,
+				E5D0C9020000000000000000 /* WSTodoListContentView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -16501,7 +16647,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5D0C5040000000000000000 /* WSTodoListGridContentView.swift in Sources */,
+				E5D0CA010000000000000000 /* WSTodoRowsContentView.swift in Sources */,
+				E5D0CA020000000000000000 /* WSTodoListContentView.swift in Sources */,
+				E5D0CA030000000000000000 /* WSTodoTagContentView.swift in Sources */,
+				E5D0C7010000000000000000 /* WSTodoTagRowsPluginProvider.swift in Sources */,
+				E5D0C7020000000000000000 /* WSTodoTagDataItem.swift in Sources */,
+				E5D0C7030000000000000000 /* WSTodoTagSelectedTagsConfiguration.swift in Sources */,
+				E5D0C7040000000000000000 /* WSTodoTagRowView.swift in Sources */,
+				E5D0C7080000000000000000 /* WSTodoTagPluginContentInteractor.swift in Sources */,
+				E5D0C7090000000000000000 /* WSTodoTagRowsContentInteractor.swift in Sources */,
+				E5D0C70A0000000000000000 /* WSTodoTagMultiSelectionViewController.swift in Sources */,
+				E5D0C70B0000000000000000 /* WSTodoTagSelectedConfigViewController.swift in Sources */,
+				E5D0C70C0000000000000000 /* WSTodoTagDetailPresenter.swift in Sources */,
+				E5D0C70D0000000000000000 /* WSTodoTagSmallListPluginProvider.swift in Sources */,
+				E5D0C70E0000000000000000 /* WSTodoTagMediumListPluginProvider.swift in Sources */,
+				E5D0C70F0000000000000000 /* WSTodoTagMediumGridPluginProvider.swift in Sources */,
+				E5D0C7100000000000000000 /* WSTodoTagLargeListPluginProvider.swift in Sources */,
+				E5D0C7110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift in Sources */,
 				E5D0C5050000000000000000 /* WSTodoListMediumGridPluginProvider.swift in Sources */,
 				E5D0C5060000000000000000 /* WSTodoListLargeGridPluginProvider.swift in Sources */,
 				E5D0C4040000000000000000 /* WSTodoListSelectedListsConfiguration.swift in Sources */,
@@ -16510,8 +16672,6 @@
 				E5D0C3020000000000000000 /* TodoCountFetcher.swift in Sources */,
 				E5D0C1120000000000000000 /* WSTodoListRowsPluginProvider.swift in Sources */,
 				E5D0C1130000000000000000 /* WSTodoListDataItem.swift in Sources */,
-				E5D0C1140000000000000000 /* WSTodoListRowsContentView.swift in Sources */,
-				E5D0C1150000000000000000 /* WSTodoListListContentView.swift in Sources */,
 				E5D0C1160000000000000000 /* WSTodoListRowView.swift in Sources */,
 				E5D0C1170000000000000000 /* WSTodoListPluginContentInteractor.swift in Sources */,
 				E5D0C1180000000000000000 /* WSTodoListRowsContentInteractor.swift in Sources */,

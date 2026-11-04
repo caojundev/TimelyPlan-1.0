@@ -19,6 +19,6 @@ class WSTodoListLargeListPluginProvider: WSTodoListRowsPluginProvider {
     }
     
     override func makeContentView() -> WSPluginContentView {
-        return WSTodoListListContentView(itemCount: itemCount)
+        return WSTodoListContentView(itemCount: itemCount)
     }
 }
