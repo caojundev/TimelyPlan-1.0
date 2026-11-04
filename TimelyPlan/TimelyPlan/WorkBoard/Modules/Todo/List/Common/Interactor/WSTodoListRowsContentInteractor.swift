@@ -69,23 +69,29 @@ class WSTodoListRowsContentInteractor: WSTodoListPluginContentInteractor {
     override func previewDataItem() -> WSPluginDataItem? {
         let examples: [WSTodoListPreview] = [
             WSTodoListPreview(title: resGetString("Study"),
-                            icon: TPIcon(name: "todo_list_24"),
-                            colorHex: 0x09AFFF),
+                              icon: TPIcon(name: "todo_list_24"),
+                              colorHex: 0x09AFFF),
             WSTodoListPreview(title: resGetString("Reading"),
-                            icon: TPIcon(text: "📚"),
-                            colorHex: 0x26B450),
+                              icon: TPIcon(text: "📚"),
+                              colorHex: 0x26B450),
             WSTodoListPreview(title: resGetString("Workout"),
-                            icon: TPIcon(name: "todo_board_24"),
-                            colorHex: 0xFCB100),
+                              icon: TPIcon(name: "todo_board_24"),
+                              colorHex: 0xFCB100),
             WSTodoListPreview(title: resGetString("Annual Plan"),
-                            icon: TPIcon(name: "todo_list_24"),
-                            colorHex: 0x8C36FF),
+                              icon: TPIcon(name: "todo_list_24"),
+                              colorHex: 0x8C36FF),
             WSTodoListPreview(title: resGetString("Family Trip"),
-                            icon: TPIcon(text: "✈️"),
-                            colorHex: 0xFD2504),
+                              icon: TPIcon(text: "✈️"),
+                              colorHex: 0xFD2504),
             WSTodoListPreview(title: resGetString("Home"),
-                            icon: TPIcon(name: "todo_list_24"),
-                            colorHex: 0x26B450)
+                              icon: TPIcon(name: "todo_list_24"),
+                              colorHex: 0x00A6A6),
+            WSTodoListPreview(title: resGetString("Project Launch"),
+                              icon: TPIcon(name: "todo_board_24"),
+                              colorHex: 0xFA2C56),
+            WSTodoListPreview(title: resGetString("Trip Departure"),
+                              icon: TPIcon(text: "🧳"),
+                              colorHex: 0x8E8E93)
         ]
         
         let items = examples.prefix(maximumItemCount).map { example in

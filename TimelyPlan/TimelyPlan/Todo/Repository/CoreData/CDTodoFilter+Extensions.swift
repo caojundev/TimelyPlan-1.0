@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 struct TodoFilterKey {
+    static var identifier = "identifier"
     static var name = "name"
     static let order = "order"
 }
@@ -37,6 +38,20 @@ extension CDTodoFilter: SortableIdentifiable {
     
     static func fetchFilters(completion: @escaping([CDTodoFilter]?) -> Void) {
         fetchAll(matching: nil, sortBy: TodoFilterKey.order, ascending: true) { results in
+            completion(results as? [CDTodoFilter])
+        }
+    }
+    
+    /// 根据标识符异步批量获取过滤器，一次查询取出全部过滤器
+    static func fetchFilters(for identifiers: [String], completion: @escaping([CDTodoFilter]?) -> Void) {
+        guard !identifiers.isEmpty else {
+            completion(nil)
+            return
+        }
+        
+        let condition: PredicateCondition = (TodoFilterKey.identifier, .belongsTo(identifiers))
+        let predicate = NSPredicate.predicate(with: condition)
+        fetchAll(matching: predicate) { results in
             completion(results as? [CDTodoFilter])
         }
     }

@@ -45,8 +45,12 @@ class WSTodoTagMultiSelectionViewController: TPViewController,
         return view
     }()
     
-    /// 已选标签信息
-    private let infoView = TodoTagSelectInfoView()
+    /// 已选标签信息。按选择顺序展示，与组件内的展示顺序保持一致
+    private lazy var infoView: WSTodoTagSelectInfoView = {
+        let view = WSTodoTagSelectInfoView()
+        view.maximumSelectionCount = maximumSelectionCount
+        return view
+    }()
     
     init(selectedIdentifiers: [String], maximumSelectionCount: Int) {
         self.selectedIdentifiers = selectedIdentifiers
@@ -64,7 +68,7 @@ class WSTodoTagMultiSelectionViewController: TPViewController,
         
         view.backgroundColor = .systemGroupedBackground
         selectView.backgroundColor = .systemGroupedBackground
-        infoView.backgroundColor = .secondarySystemGroupedBackground
+        infoView.backgroundColor = .systemGroupedBackground
         
         view.addSubview(selectView)
         view.addSubview(infoView)
@@ -133,10 +137,11 @@ class WSTodoTagMultiSelectionViewController: TPViewController,
         updateInfoView()
     }
     
-    /// 更新底部已选信息
+    /// 更新底部已选信息，按配置中的选择顺序展示
     private func updateInfoView() {
-        let selectedTags = tags.filter { selectedIdentifiers.contains($0.identifier) }
-        infoView.tags = Set(selectedTags)
+        let tagsByIdentifier = Dictionary(tags.map { ($0.identifier, $0) },
+                                          uniquingKeysWith: { first, _ in first })
+        infoView.tags = selectedIdentifiers.compactMap { tagsByIdentifier[$0] }
         view.setNeedsLayout()
     }
     

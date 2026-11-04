@@ -415,6 +415,11 @@ extension TodoRepository {
         filterManager.fetchFilters(completion: completion)
     }
     
+    /// 根据多个标识符异步批量获取过滤器，一次查询取出全部过滤器，按传入顺序返回
+    static func fetchFilters(of identifiers: [String], completion: @escaping([TodoFilter]?) -> Void) {
+        filterManager.fetchFilters(of: identifiers, completion: completion)
+    }
+    
     static func getFilter(of identifier: String) -> TodoFilter? {
         return filterManager.getFilter(of: identifier)
     }

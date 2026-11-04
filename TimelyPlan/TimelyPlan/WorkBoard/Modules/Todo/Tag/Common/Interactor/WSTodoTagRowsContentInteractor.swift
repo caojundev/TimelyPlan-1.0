@@ -73,7 +73,8 @@ class WSTodoTagRowsContentInteractor: WSTodoTagPluginContentInteractor {
             WSTodoTagPreview(title: resGetString("Annual Plan"), colorIndex: 3),
             WSTodoTagPreview(title: resGetString("Family Trip"), colorIndex: 4),
             WSTodoTagPreview(title: resGetString("Home"), colorIndex: 5),
-            WSTodoTagPreview(title: resGetString("Project Launch"), colorIndex: 6)
+            WSTodoTagPreview(title: resGetString("Project Launch"), colorIndex: 6),
+            WSTodoTagPreview(title: resGetString("Trip Departure"), colorIndex: 7)
         ]
         
         let items = examples.prefix(maximumItemCount).map { example in

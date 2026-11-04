@@ -30,6 +30,22 @@ class TodoFilterManager {
         }
     }
     
+    /// 根据多个标识符异步批量获取过滤器，一次查询取出全部过滤器，按传入顺序返回
+    func fetchFilters(of identifiers: [String], completion: @escaping([TodoFilter]?) -> Void) {
+        guard !identifiers.isEmpty else {
+            completion(nil)
+            return
+        }
+        
+        CDTodoFilter.fetchFilters(for: identifiers) { coreDataFilters in
+            let filters = coreDataFilters?.filters ?? []
+            let filtersByIdentifier = Dictionary(filters.map { ($0.identifier, $0) },
+                                                 uniquingKeysWith: { first, _ in first })
+            let orderedFilters = identifiers.compactMap { filtersByIdentifier[$0] }
+            completion(orderedFilters.isEmpty ? nil : orderedFilters)
+        }
+    }
+    
     // MARK: - Processors
     /// 新建过滤器
     func createFilter(with editingFilter: TodoEditingFilter) {

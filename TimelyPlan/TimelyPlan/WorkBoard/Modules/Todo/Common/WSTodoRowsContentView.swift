@@ -104,10 +104,10 @@ class WSTodoRowsContentView: WSRowListView {
         
         /// 图标边长及其与标题的间距
         static let iconSize: CGFloat = 16.0
-        static let iconSpacing: CGFloat = 6.0
+        static let iconMargins = UIEdgeInsets(left: 8.0, right: 8.0)
         
         /// 标题高度及其与行列表的间距
-        static let titleHeight: CGFloat = 18.0
+        static let titleHeight: CGFloat = 24.0
         static let titleSpacing: CGFloat = 4.0
         
         /// 标题字号
@@ -127,7 +127,7 @@ class WSTodoRowsContentView: WSRowListView {
         view.icon = TPIcon(name: titleConfiguration.iconName)
         view.foreColor = titleConfiguration.color
         view.accessorySize = CGSize(value: Metrics.iconSize)
-        view.accessoryMargins = UIEdgeInsets(right: Metrics.iconSpacing)
+        view.accessoryMargins = Metrics.iconMargins
         view.titleConfig = .withFont(Metrics.titleFont, textColor: titleConfiguration.color)
         view.title = titleConfiguration.title
         return view
