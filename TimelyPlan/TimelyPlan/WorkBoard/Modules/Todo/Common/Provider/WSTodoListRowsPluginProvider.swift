@@ -21,6 +21,15 @@ enum WSTodoListItemCount {
     
     /// 大号列表组件的展示条数
     static let largeList = 6
+    
+    /// 中号网格组件的展示条数
+    static let mediumGrid = 4
+    
+    /// 大号网格组件的展示条数
+    static let largeGrid = 8
+    
+    /// 网格组件的列数
+    static let gridColumnCount = 2
 }
 
 // MARK: - 组件提供者基类

@@ -219,6 +219,12 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 待办·大·清单列表：逐行展示待办清单。
     case todoLargeList
     
+    /// 待办·中·清单网格：以两列网格展示待办清单。
+    case todoMediumGrid
+    
+    /// 待办·大·清单网格：以两列网格展示待办清单。
+    case todoLargeGrid
+    
 }
 
 // MARK: - 固有属性
@@ -247,7 +253,7 @@ public extension WSPluginType {
              .habitMediumWeekReportList, .habitMediumMonthActivityList,
              .goalMediumPlanGrid, .goalMediumPlanList, .goalMediumPlanRings,
              .goalMediumTaskGrid, .goalMediumTaskList,
-             .todoMediumList:
+             .todoMediumList, .todoMediumGrid:
             return .medium
         case .myDayLargeAllDayEvents, .myDayLargeTimeline,
              .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart,
@@ -258,7 +264,7 @@ public extension WSPluginType {
              .habitLargeMonthActivityList,
              .goalLargePlanGrid, .goalLargePlanList,
              .goalLargeTaskGrid, .goalLargeTaskList,
-             .todoLargeList:
+             .todoLargeList, .todoLargeGrid:
             return .large
         }
     }
@@ -297,7 +303,8 @@ public extension WSPluginType {
              .goalSmallTaskList, .goalMediumTaskList, .goalLargeTaskList,
              .goalMediumTaskGrid, .goalLargeTaskGrid:
             return .goal
-        case .todoSmallList, .todoMediumList, .todoLargeList:
+        case .todoSmallList, .todoMediumList, .todoLargeList,
+             .todoMediumGrid, .todoLargeGrid:
             return .todo
         }
     }
@@ -442,6 +449,8 @@ enum WSPluginCatalog {
         .init(WSTodoListSmallListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
         .init(WSTodoListMediumListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
         .init(WSTodoListLargeListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
+        .init(WSTodoListMediumGridPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a grid"),
+        .init(WSTodoListLargeGridPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a grid"),
     ]
 
     /// 按类型取回组件配置

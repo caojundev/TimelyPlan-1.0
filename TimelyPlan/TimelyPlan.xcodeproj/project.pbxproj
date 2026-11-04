@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E5D0C5040000000000000000 /* WSTodoListGridContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C5010000000000000000 /* WSTodoListGridContentView.swift */; };
+		E5D0C5050000000000000000 /* WSTodoListMediumGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C5020000000000000000 /* WSTodoListMediumGridPluginProvider.swift */; };
+		E5D0C5060000000000000000 /* WSTodoListLargeGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C5030000000000000000 /* WSTodoListLargeGridPluginProvider.swift */; };
 		930B47C98BEE5C4915C191FA /* libPods-TimelyPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */; };
 		E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */; };
 		E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */; };
@@ -2828,6 +2831,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E5D0C5010000000000000000 /* WSTodoListGridContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListGridContentView.swift; sourceTree = "<group>"; };
+		E5D0C5020000000000000000 /* WSTodoListMediumGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListMediumGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C5030000000000000000 /* WSTodoListLargeGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListLargeGridPluginProvider.swift; sourceTree = "<group>"; };
 		1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.release.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.release.xcconfig"; sourceTree = "<group>"; };
 		2197CCF3E13F7B7E5DA987DD /* Pods-TimelyPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.debug.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimelyPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -7483,6 +7489,7 @@
 		E52D3D88309A151D001BBAF9 /* Medium */ = {
 			isa = PBXGroup;
 			children = (
+				E5D0C5020000000000000000 /* WSTodoListMediumGridPluginProvider.swift */,
 				E5D0C1100000000000000000 /* WSTodoListMediumListPluginProvider.swift */,
 			);
 			path = Medium;
@@ -7491,6 +7498,7 @@
 		E52D3D89309A1527001BBAF9 /* Large */ = {
 			isa = PBXGroup;
 			children = (
+				E5D0C5030000000000000000 /* WSTodoListLargeGridPluginProvider.swift */,
 				E5D0C1110000000000000000 /* WSTodoListLargeListPluginProvider.swift */,
 			);
 			path = Large;
@@ -13469,6 +13477,7 @@
 		E5D0C2A20000000000000000 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				E5D0C5010000000000000000 /* WSTodoListGridContentView.swift */,
 				E5D0C1030000000000000000 /* WSTodoListRowsContentView.swift */,
 				E5D0C1040000000000000000 /* WSTodoListListContentView.swift */,
 			);
@@ -16492,6 +16501,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5D0C5040000000000000000 /* WSTodoListGridContentView.swift in Sources */,
+				E5D0C5050000000000000000 /* WSTodoListMediumGridPluginProvider.swift in Sources */,
+				E5D0C5060000000000000000 /* WSTodoListLargeGridPluginProvider.swift in Sources */,
 				E5D0C4040000000000000000 /* WSTodoListSelectedListsConfiguration.swift in Sources */,
 				E5D0C4050000000000000000 /* WSTodoListMultiSelectionViewController.swift in Sources */,
 				E5D0C4060000000000000000 /* WSTodoListSelectedConfigViewController.swift in Sources */,

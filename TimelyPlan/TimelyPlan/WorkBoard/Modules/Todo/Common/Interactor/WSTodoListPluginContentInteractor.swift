@@ -23,6 +23,12 @@ class WSTodoListPluginContentInteractor: WSPluginContentInteractor,
         TodoRepository.addUpdater(self, for: .list)
     }
     
+    // MARK: - 交互
+    /// 点击组件主体：与长按菜单的「配置」一致，打开配置界面
+    override func performPrimaryAction() {
+        configActionHandler?()
+    }
+    
     // MARK: - TodoListProcessorDelegate
     /// 远程变更无法比对，保守地重新取数
     func didChangeRemoteTodoList(with results: EntityChangeResults<TodoList>?) {
