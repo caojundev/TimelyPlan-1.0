@@ -101,7 +101,6 @@ class TodoFilterViewModel: TodoBaseListViewModel {
     }
 }
 
-
 extension TodoFilterViewModel: TodoFilterProcessorDelegate {
 
     func didChangeRemoteTodoFilter(with results: EntityChangeResults<TodoFilter>?) {

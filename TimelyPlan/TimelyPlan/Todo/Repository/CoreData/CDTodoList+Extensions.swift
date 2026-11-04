@@ -369,6 +369,20 @@ extension CDTodoList {
         }
     }
     
+    /// 根据标识符异步批量获取清单，一次查询取出全部清单
+    static func fetchLists(for identifiers: [String], completion: @escaping ([CDTodoList]?) -> Void) {
+        guard !identifiers.isEmpty else {
+            completion(nil)
+            return
+        }
+        
+        let condition: PredicateCondition = (TodoListKey.identifier, .belongsTo(identifiers))
+        let predicate = NSPredicate.predicate(with: condition)
+        fetchAll(matching: predicate) { results in
+            completion(results as? [CDTodoList])
+        }
+    }
+    
     /// 获取根列表
     static func fetchTopLists(completion: @escaping([CDTodoList]?) -> Void) {
         fetchAll(matching: topListPredicate, sortTerms: sortTerms) { results in

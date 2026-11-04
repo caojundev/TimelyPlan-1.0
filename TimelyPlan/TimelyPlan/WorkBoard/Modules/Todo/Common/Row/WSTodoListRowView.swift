@@ -12,7 +12,7 @@ import UIKit
 
 /// 待办清单行视图。
 ///
-/// 内容由 `TPIconInfoTextValueView` 承载：左侧展示清单图标，右侧展示清单名称；
+/// 内容由 `TPIconInfoTextValueView` 承载：左侧展示清单图标，右侧展示清单名称与未完成任务数目；
 /// 没有对应清单的行展示骨架。
 class WSTodoListRowView: WSRowView {
     
@@ -134,6 +134,7 @@ class WSTodoListRowView: WSRowView {
         
         guard let dataItem = dataItem else {
             contentView.title = nil
+            contentView.valueConfig = nil
             
             /// 骨架态保留名称一行高度，Skeleton 才能生成文本占位块
             contentView.titleMinimumHeight = ceil(contentView.titleConfig.font.lineHeight)
@@ -149,7 +150,28 @@ class WSTodoListRowView: WSRowView {
         contentView.titleMinimumHeight = 0.0
         contentView.title = dataItem.title
         updateIconConfig()
+        updateValue(for: dataItem)
         setNeedsLayout()
+    }
+    
+    /// 任务数目：优先使用 `TodoCountFetcher` 的缓存，未缓存时取数完成后补上
+    private func updateValue(for dataItem: WSTodoListDataItem) {
+        contentView.valueConfig = nil
+        
+        guard let list = dataItem.list else {
+            return
+        }
+        
+        TodoCountFetcher.shared.fetchCount(for: list) { [weak self] count in
+            /// 回调时行可能已复用为其它清单
+            guard let self = self, self.dataItem?.listIdentifier == dataItem.listIdentifier else {
+                return
+            }
+            
+            let config: TPTextAccessoryConfig? = count > 0 ? .valueText("\(count)") : nil
+            self.contentView.valueConfig = config
+            self.setNeedsLayout()
+        }
     }
     
     // MARK: - 交互

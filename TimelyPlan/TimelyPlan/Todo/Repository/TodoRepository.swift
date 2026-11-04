@@ -105,6 +105,11 @@ extension TodoRepository {
         return userListManager.getUserLists(of: identifiers)
     }
     
+    /// 根据多个标识符异步批量获取清单，一次查询取出全部清单，按传入顺序返回
+    static func fetchUserLists(of identifiers: [String], completion: @escaping ([TodoList]?) -> Void) {
+        userListManager.fetchUserLists(of: identifiers, completion: completion)
+    }
+    
     static func fetchLists(containText text: String, completion: @escaping ([TodoList]?) -> Void) {
         userListManager.fetchLists(containText: text, completion: completion)
     }

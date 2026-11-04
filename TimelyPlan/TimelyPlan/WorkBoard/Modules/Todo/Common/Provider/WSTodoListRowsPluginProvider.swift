@@ -64,4 +64,10 @@ class WSTodoListRowsPluginProvider: WSPluginProvider {
         configuration.title = resGetString("No List")
         return configuration
     }
+    
+    /// 由用户选择要展示的清单，最多可选择与展示条数相同的数目
+    func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)? {
+        return WSTodoListSelectedConfigViewController(plugin: plugin,
+                                                      maximumSelectionCount: itemCount)
+    }
 }

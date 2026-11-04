@@ -21,20 +21,36 @@ class WSTodoListRowsContentInteractor: WSTodoListPluginContentInteractor {
     init(plugin: WSPlugin, context: WSPluginContext, maximumItemCount: Int) {
         self.maximumItemCount = maximumItemCount
         super.init(plugin: plugin, context: context)
+        
+        /// 任务数目变化后行内数值需要刷新
+        TodoCountFetcher.shared.addUpdater(self)
     }
     
     // MARK: - 取数
-    /// 读取顶层清单，取前若干个
+    /// 用户配置的清单标识，按选择顺序排列
+    private var selectedIdentifiers: [String] {
+        return plugin.configuration(as: WSTodoListSelectedListsConfiguration.self)?.listIdentifiers ?? []
+    }
+    
+    /// 读取待展示的清单。未配置时不展示清单
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
-        let lists = Array((TodoRepository.getTopLists() ?? []).prefix(maximumItemCount))
-        guard !lists.isEmpty else {
-            /// 没有可展示的清单时交给空白内容视图
+        let identifiers = Array(selectedIdentifiers.prefix(maximumItemCount))
+        guard !identifiers.isEmpty else {
+            /// 用户未选择清单时交给空白内容视图
             completion(nil)
             return
         }
         
-        let items = lists.map { WSTodoListDataItem(list: $0) }
-        completion(WSTodoListRowsDataItem(items: items))
+        /// 一次查询按配置顺序取回全部清单，已删除的清单会被忽略
+        TodoRepository.fetchUserLists(of: identifiers) { lists in
+            guard let lists = lists, !lists.isEmpty else {
+                completion(nil)
+                return
+            }
+            
+            let items = lists.map { WSTodoListDataItem(list: $0) }
+            completion(WSTodoListRowsDataItem(items: items))
+        }
     }
     
     // MARK: - 交互
@@ -73,13 +89,35 @@ class WSTodoListRowsContentInteractor: WSTodoListPluginContentInteractor {
         ]
         
         let items = examples.prefix(maximumItemCount).map { example in
-            return WSTodoListDataItem(listIdentifier: "preview.\(example.title)",
-                                    title: example.title,
-                                    icon: example.icon,
-                                    color: Color(example.colorHex))
+            return WSTodoListDataItem(previewIdentifier: "preview.\(example.title)",
+                                      title: example.title,
+                                      icon: example.icon,
+                                      color: Color(example.colorHex))
         }
         
         return WSTodoListRowsDataItem(items: items)
+    }
+}
+
+// MARK: - TodoCountFetcherDelegate
+
+extension WSTodoListRowsContentInteractor: TodoCountFetcherDelegate {
+    
+    /// 数目变化后重新取数，行视图随之刷新任务数目
+    func todoCountFetcher(_ fetcher: TodoCountFetcher, didChangeCountsFor identifiers: Set<String>?) {
+        /// 范围未知，或涉及当前展示的清单时才刷新
+        guard let identifiers = identifiers else {
+            pluginDataDidChange()
+            return
+        }
+        
+        let items = (dataItem as? WSTodoListRowsDataItem)?.items ?? []
+        let displayedIdentifiers = Set(items.map { $0.listIdentifier })
+        guard !displayedIdentifiers.isDisjoint(with: identifiers) else {
+            return
+        }
+        
+        pluginDataDidChange()
     }
 }
 

@@ -62,6 +62,22 @@ class TodoUserListManager {
          return lists.isEmpty ? nil : lists
      }
     
+     /// 根据多个标识符异步批量获取清单，一次查询取出全部清单，按传入顺序返回
+     func fetchUserLists(of identifiers: [String], completion: @escaping ([TodoList]?) -> Void) {
+         guard !identifiers.isEmpty else {
+             completion(nil)
+             return
+         }
+        
+         CDTodoList.fetchLists(for: identifiers) { coreDataLists in
+             let lists = (coreDataLists ?? []).toLists
+             let listsByIdentifier = Dictionary(lists.map { ($0.identifier, $0) },
+                                                uniquingKeysWith: { first, _ in first })
+             let orderedLists = identifiers.compactMap { listsByIdentifier[$0] }
+             completion(orderedLists.isEmpty ? nil : orderedLists)
+         }
+     }
+    
     func fetchLists(containText text: String, completion: @escaping ([TodoList]?) -> Void) {
         guard let lists = topLists?.flattenItems() as? [TodoList] else {
             completion(nil)
