@@ -1,5 +1,5 @@
 //
-//  TodoListPluginContentInteractor.swift
+//  WSTodoListPluginContentInteractor.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/3.
@@ -13,7 +13,7 @@ import Foundation
 ///
 /// 统一注册待办清单数据观察者，清单增删改、移动或排序后都重新取数；
 /// 子类只需实现取数与交互。
-class TodoListPluginContentInteractor: WSPluginContentInteractor,
+class WSTodoListPluginContentInteractor: WSPluginContentInteractor,
                                        TodoListProcessorDelegate {
     
     override init(plugin: WSPlugin, context: WSPluginContext) {

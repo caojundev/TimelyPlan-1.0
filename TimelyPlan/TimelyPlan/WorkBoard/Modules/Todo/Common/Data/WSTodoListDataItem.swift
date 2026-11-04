@@ -1,5 +1,5 @@
 //
-//  TodoListDataItem.swift
+//  WSTodoListDataItem.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/3.
@@ -14,7 +14,7 @@ import UIKit
 ///
 /// 展示字段与待办首页的清单一致：图标、名称与颜色。
 /// 只持有清单标识，交互时再据此读取最新的清单，避免持有过期快照。
-class TodoListDataItem: NSObject, WSPluginDataItem {
+class WSTodoListDataItem: NSObject, WSPluginDataItem {
     
     /// 清单唯一标识
     let listIdentifier: String
@@ -49,12 +49,12 @@ class TodoListDataItem: NSObject, WSPluginDataItem {
 // MARK: - 行数据条目
 
 /// 待办清单多条目数据。
-class TodoListRowsDataItem: NSObject, WSPluginDataItem {
+class WSTodoListRowsDataItem: NSObject, WSPluginDataItem {
     
     /// 待展示的清单，按展示顺序排列
-    let items: [TodoListDataItem]
+    let items: [WSTodoListDataItem]
     
-    init(items: [TodoListDataItem]) {
+    init(items: [WSTodoListDataItem]) {
         self.items = items
         super.init()
     }

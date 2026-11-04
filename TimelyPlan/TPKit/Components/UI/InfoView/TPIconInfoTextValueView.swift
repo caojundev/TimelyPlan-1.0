@@ -15,6 +15,7 @@ class TPIconInfoTextValueView: TPInfoTextValueView {
         didSet {
             iconView.icon = iconConfig?.icon
             iconView.foreColor = iconConfig?.foreColor
+            iconView.backColor = iconConfig?.backColor
             leftAccessorySize = iconConfig?.size ?? .zero
             leftAccessoryMargins = iconConfig?.margins ?? .zero
             setNeedsLayout()

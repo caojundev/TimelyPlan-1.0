@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E5D0C1120000000000000000 /* TodoListRowsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1010000000000000000 /* TodoListRowsPluginProvider.swift */; };
-		E5D0C1130000000000000000 /* TodoListDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1020000000000000000 /* TodoListDataItem.swift */; };
-		E5D0C1140000000000000000 /* TodoListRowsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1030000000000000000 /* TodoListRowsContentView.swift */; };
-		E5D0C1150000000000000000 /* TodoListListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1040000000000000000 /* TodoListListContentView.swift */; };
-		E5D0C1160000000000000000 /* TodoListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1050000000000000000 /* TodoListRowView.swift */; };
-		E5D0C1170000000000000000 /* TodoListPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1060000000000000000 /* TodoListPluginContentInteractor.swift */; };
-		E5D0C1180000000000000000 /* TodoListRowsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1070000000000000000 /* TodoListRowsContentInteractor.swift */; };
-		E5D0C1190000000000000000 /* TodoListDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1080000000000000000 /* TodoListDetailPresenter.swift */; };
-		E5D0C1200000000000000000 /* TodoListSmallListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1090000000000000000 /* TodoListSmallListPluginProvider.swift */; };
-		E5D0C1210000000000000000 /* TodoListMediumListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1100000000000000000 /* TodoListMediumListPluginProvider.swift */; };
-		E5D0C1220000000000000000 /* TodoListLargeListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1110000000000000000 /* TodoListLargeListPluginProvider.swift */; };
+		E5D0C1120000000000000000 /* WSTodoListRowsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1010000000000000000 /* WSTodoListRowsPluginProvider.swift */; };
+		E5D0C1130000000000000000 /* WSTodoListDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1020000000000000000 /* WSTodoListDataItem.swift */; };
+		E5D0C1140000000000000000 /* WSTodoListRowsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1030000000000000000 /* WSTodoListRowsContentView.swift */; };
+		E5D0C1150000000000000000 /* WSTodoListListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1040000000000000000 /* WSTodoListListContentView.swift */; };
+		E5D0C1160000000000000000 /* WSTodoListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1050000000000000000 /* WSTodoListRowView.swift */; };
+		E5D0C1170000000000000000 /* WSTodoListPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1060000000000000000 /* WSTodoListPluginContentInteractor.swift */; };
+		E5D0C1180000000000000000 /* WSTodoListRowsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1070000000000000000 /* WSTodoListRowsContentInteractor.swift */; };
+		E5D0C1190000000000000000 /* WSTodoListDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1080000000000000000 /* WSTodoListDetailPresenter.swift */; };
+		E5D0C1200000000000000000 /* WSTodoListSmallListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1090000000000000000 /* WSTodoListSmallListPluginProvider.swift */; };
+		E5D0C1210000000000000000 /* WSTodoListMediumListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1100000000000000000 /* WSTodoListMediumListPluginProvider.swift */; };
+		E5D0C1220000000000000000 /* WSTodoListLargeListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1110000000000000000 /* WSTodoListLargeListPluginProvider.swift */; };
 		930B47C98BEE5C4915C191FA /* libPods-TimelyPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */; };
 		E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */; };
 		E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */; };
@@ -2824,17 +2824,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E5D0C1010000000000000000 /* TodoListRowsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRowsPluginProvider.swift; sourceTree = "<group>"; };
-		E5D0C1020000000000000000 /* TodoListDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListDataItem.swift; sourceTree = "<group>"; };
-		E5D0C1030000000000000000 /* TodoListRowsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRowsContentView.swift; sourceTree = "<group>"; };
-		E5D0C1040000000000000000 /* TodoListListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListListContentView.swift; sourceTree = "<group>"; };
-		E5D0C1050000000000000000 /* TodoListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRowView.swift; sourceTree = "<group>"; };
-		E5D0C1060000000000000000 /* TodoListPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListPluginContentInteractor.swift; sourceTree = "<group>"; };
-		E5D0C1070000000000000000 /* TodoListRowsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRowsContentInteractor.swift; sourceTree = "<group>"; };
-		E5D0C1080000000000000000 /* TodoListDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListDetailPresenter.swift; sourceTree = "<group>"; };
-		E5D0C1090000000000000000 /* TodoListSmallListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListSmallListPluginProvider.swift; sourceTree = "<group>"; };
-		E5D0C1100000000000000000 /* TodoListMediumListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListMediumListPluginProvider.swift; sourceTree = "<group>"; };
-		E5D0C1110000000000000000 /* TodoListLargeListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListLargeListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C1010000000000000000 /* WSTodoListRowsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListRowsPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C1020000000000000000 /* WSTodoListDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListDataItem.swift; sourceTree = "<group>"; };
+		E5D0C1030000000000000000 /* WSTodoListRowsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListRowsContentView.swift; sourceTree = "<group>"; };
+		E5D0C1040000000000000000 /* WSTodoListListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListListContentView.swift; sourceTree = "<group>"; };
+		E5D0C1050000000000000000 /* WSTodoListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListRowView.swift; sourceTree = "<group>"; };
+		E5D0C1060000000000000000 /* WSTodoListPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListPluginContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0C1070000000000000000 /* WSTodoListRowsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListRowsContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0C1080000000000000000 /* WSTodoListDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListDetailPresenter.swift; sourceTree = "<group>"; };
+		E5D0C1090000000000000000 /* WSTodoListSmallListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListSmallListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C1100000000000000000 /* WSTodoListMediumListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListMediumListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C1110000000000000000 /* WSTodoListLargeListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListLargeListPluginProvider.swift; sourceTree = "<group>"; };
 		1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.release.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.release.xcconfig"; sourceTree = "<group>"; };
 		2197CCF3E13F7B7E5DA987DD /* Pods-TimelyPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.debug.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimelyPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5679,7 +5679,7 @@
 		E5D0C2A00000000000000000 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0C1010000000000000000 /* TodoListRowsPluginProvider.swift */,
+				E5D0C1010000000000000000 /* WSTodoListRowsPluginProvider.swift */,
 			);
 			path = Provider;
 			sourceTree = "<group>";
@@ -5687,7 +5687,7 @@
 		E5D0C2A10000000000000000 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0C1020000000000000000 /* TodoListDataItem.swift */,
+				E5D0C1020000000000000000 /* WSTodoListDataItem.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -5695,8 +5695,8 @@
 		E5D0C2A20000000000000000 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0C1030000000000000000 /* TodoListRowsContentView.swift */,
-				E5D0C1040000000000000000 /* TodoListListContentView.swift */,
+				E5D0C1030000000000000000 /* WSTodoListRowsContentView.swift */,
+				E5D0C1040000000000000000 /* WSTodoListListContentView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -5704,7 +5704,7 @@
 		E5D0C2A30000000000000000 /* Row */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0C1050000000000000000 /* TodoListRowView.swift */,
+				E5D0C1050000000000000000 /* WSTodoListRowView.swift */,
 			);
 			path = Row;
 			sourceTree = "<group>";
@@ -5712,8 +5712,8 @@
 		E5D0C2A40000000000000000 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0C1060000000000000000 /* TodoListPluginContentInteractor.swift */,
-				E5D0C1070000000000000000 /* TodoListRowsContentInteractor.swift */,
+				E5D0C1060000000000000000 /* WSTodoListPluginContentInteractor.swift */,
+				E5D0C1070000000000000000 /* WSTodoListRowsContentInteractor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -5721,7 +5721,7 @@
 		E5D0C2A50000000000000000 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0C1080000000000000000 /* TodoListDetailPresenter.swift */,
+				E5D0C1080000000000000000 /* WSTodoListDetailPresenter.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -7516,7 +7516,7 @@
 		E52D3D87309A1515001BBAF9 /* Small */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0C1090000000000000000 /* TodoListSmallListPluginProvider.swift */,
+				E5D0C1090000000000000000 /* WSTodoListSmallListPluginProvider.swift */,
 			);
 			path = Small;
 			sourceTree = "<group>";
@@ -7524,7 +7524,7 @@
 		E52D3D88309A151D001BBAF9 /* Medium */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0C1100000000000000000 /* TodoListMediumListPluginProvider.swift */,
+				E5D0C1100000000000000000 /* WSTodoListMediumListPluginProvider.swift */,
 			);
 			path = Medium;
 			sourceTree = "<group>";
@@ -7532,7 +7532,7 @@
 		E52D3D89309A1527001BBAF9 /* Large */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0C1110000000000000000 /* TodoListLargeListPluginProvider.swift */,
+				E5D0C1110000000000000000 /* WSTodoListLargeListPluginProvider.swift */,
 			);
 			path = Large;
 			sourceTree = "<group>";
@@ -16472,17 +16472,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5D0C1120000000000000000 /* TodoListRowsPluginProvider.swift in Sources */,
-				E5D0C1130000000000000000 /* TodoListDataItem.swift in Sources */,
-				E5D0C1140000000000000000 /* TodoListRowsContentView.swift in Sources */,
-				E5D0C1150000000000000000 /* TodoListListContentView.swift in Sources */,
-				E5D0C1160000000000000000 /* TodoListRowView.swift in Sources */,
-				E5D0C1170000000000000000 /* TodoListPluginContentInteractor.swift in Sources */,
-				E5D0C1180000000000000000 /* TodoListRowsContentInteractor.swift in Sources */,
-				E5D0C1190000000000000000 /* TodoListDetailPresenter.swift in Sources */,
-				E5D0C1200000000000000000 /* TodoListSmallListPluginProvider.swift in Sources */,
-				E5D0C1210000000000000000 /* TodoListMediumListPluginProvider.swift in Sources */,
-				E5D0C1220000000000000000 /* TodoListLargeListPluginProvider.swift in Sources */,
+				E5D0C1120000000000000000 /* WSTodoListRowsPluginProvider.swift in Sources */,
+				E5D0C1130000000000000000 /* WSTodoListDataItem.swift in Sources */,
+				E5D0C1140000000000000000 /* WSTodoListRowsContentView.swift in Sources */,
+				E5D0C1150000000000000000 /* WSTodoListListContentView.swift in Sources */,
+				E5D0C1160000000000000000 /* WSTodoListRowView.swift in Sources */,
+				E5D0C1170000000000000000 /* WSTodoListPluginContentInteractor.swift in Sources */,
+				E5D0C1180000000000000000 /* WSTodoListRowsContentInteractor.swift in Sources */,
+				E5D0C1190000000000000000 /* WSTodoListDetailPresenter.swift in Sources */,
+				E5D0C1200000000000000000 /* WSTodoListSmallListPluginProvider.swift in Sources */,
+				E5D0C1210000000000000000 /* WSTodoListMediumListPluginProvider.swift in Sources */,
+				E5D0C1220000000000000000 /* WSTodoListLargeListPluginProvider.swift in Sources */,
 				E5C0AF513094400000E487FC /* WSTimelineLargeWeekChartPluginProvider.swift in Sources */,
 				E5C0AF543094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift in Sources */,
 				E5C0AF023094400000E487FC /* WSTimelineChartConfig.swift in Sources */,

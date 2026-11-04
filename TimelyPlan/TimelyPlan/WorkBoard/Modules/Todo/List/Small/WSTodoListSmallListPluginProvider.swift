@@ -1,5 +1,5 @@
 //
-//  TodoListSmallListPluginProvider.swift
+//  WSTodoListSmallListPluginProvider.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/3.
@@ -11,14 +11,14 @@ import UIKit
 // MARK: - 组件提供者
 
 /// 待办·小·清单列表。逐行展示待办清单。
-class TodoListSmallListPluginProvider: TodoListRowsPluginProvider {
+class WSTodoListSmallListPluginProvider: WSTodoListRowsPluginProvider {
     
     init() {
         super.init(type: .todoSmallList,
-                   itemCount: TodoListItemCount.smallList)
+                   itemCount: WSTodoListItemCount.smallList)
     }
     
     override func makeContentView() -> WSPluginContentView {
-        return TodoListListContentView(itemCount: itemCount)
+        return WSTodoListListContentView(itemCount: itemCount)
     }
 }

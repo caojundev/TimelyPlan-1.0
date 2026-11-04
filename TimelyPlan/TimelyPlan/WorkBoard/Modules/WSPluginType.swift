@@ -439,9 +439,9 @@ enum WSPluginCatalog {
         .init(WSGoalTaskLargeTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected goal tasks in a grid"),
         
         // 待办
-        .init(TodoListSmallListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
-        .init(TodoListMediumListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
-        .init(TodoListLargeListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
+        .init(WSTodoListSmallListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
+        .init(WSTodoListMediumListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
+        .init(WSTodoListLargeListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
     ]
 
     /// 按类型取回组件配置

@@ -1,5 +1,5 @@
 //
-//  TodoListRowsPluginProvider.swift
+//  WSTodoListRowsPluginProvider.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/3.
@@ -11,7 +11,7 @@ import UIKit
 // MARK: - 展示条数
 
 /// 待办清单组件的展示条数。
-enum TodoListItemCount {
+enum WSTodoListItemCount {
     
     /// 小号列表组件的展示条数
     static let smallList = 3
@@ -28,7 +28,7 @@ enum TodoListItemCount {
 /// 待办清单行组件提供者基类。
 ///
 /// 各尺寸列表组件只需声明「类型 + 展示条数」，取数与交互由基类统一提供。
-class TodoListRowsPluginProvider: WSPluginProvider {
+class WSTodoListRowsPluginProvider: WSPluginProvider {
     
     /// 插件类型
     let type: WSPluginType
@@ -52,7 +52,7 @@ class TodoListRowsPluginProvider: WSPluginProvider {
     }
     
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {
-        return TodoListRowsContentInteractor(plugin: plugin,
+        return WSTodoListRowsContentInteractor(plugin: plugin,
                                              context: context,
                                              maximumItemCount: itemCount)
     }

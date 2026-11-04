@@ -1,5 +1,5 @@
 //
-//  TodoListDetailPresenter.swift
+//  WSTodoListDetailPresenter.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/3.
@@ -14,20 +14,20 @@ import UIKit
 ///
 /// 清单详情原本依附于待办主界面的多栏容器，工作台等独立场景以弹窗展示，
 /// 并把左上角的返回换成关闭。
-enum TodoListDetailPresenter {
+enum WSTodoListDetailPresenter {
     
     static func showDetail(for list: TodoList) {
         guard let configuration = TodoListConfiguration.configuration(for: list) else {
             return
         }
         
-        let viewController = TodoListDetailSheetViewController(configuration: configuration)
+        let viewController = WSTodoListDetailSheetViewController(configuration: configuration)
         viewController.showAsNavigationRoot()
     }
 }
 
 /// 弹窗形态的待办清单详情
-private class TodoListDetailSheetViewController: TodoDetailViewController {
+private class WSTodoListDetailSheetViewController: TodoDetailViewController {
     
     override func leftBarButtonItems() -> [UIBarButtonItem]? {
         return [chevronDownCancelButtonItem]

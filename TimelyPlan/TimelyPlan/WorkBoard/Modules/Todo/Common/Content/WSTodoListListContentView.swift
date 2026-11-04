@@ -1,5 +1,5 @@
 //
-//  TodoListListContentView.swift
+//  WSTodoListListContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/3.
@@ -14,7 +14,7 @@ import UIKit
 ///
 /// 单列纵向排列若干清单行，条数与交互器最多展示的数目保持一致；
 /// 清单不足时，剩余的行展示骨架，与其它组件行的空位保持一致。
-class TodoListListContentView: TodoListRowsContentView {
+class WSTodoListListContentView: WSTodoListRowsContentView {
     
     /// 布局尺寸
     private enum Metrics {
