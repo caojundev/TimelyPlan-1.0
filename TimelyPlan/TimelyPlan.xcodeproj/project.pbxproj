@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E5D0C1120000000000000000 /* TodoListRowsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1010000000000000000 /* TodoListRowsPluginProvider.swift */; };
+		E5D0C1130000000000000000 /* TodoListDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1020000000000000000 /* TodoListDataItem.swift */; };
+		E5D0C1140000000000000000 /* TodoListRowsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1030000000000000000 /* TodoListRowsContentView.swift */; };
+		E5D0C1150000000000000000 /* TodoListListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1040000000000000000 /* TodoListListContentView.swift */; };
+		E5D0C1160000000000000000 /* TodoListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1050000000000000000 /* TodoListRowView.swift */; };
+		E5D0C1170000000000000000 /* TodoListPluginContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1060000000000000000 /* TodoListPluginContentInteractor.swift */; };
+		E5D0C1180000000000000000 /* TodoListRowsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1070000000000000000 /* TodoListRowsContentInteractor.swift */; };
+		E5D0C1190000000000000000 /* TodoListDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1080000000000000000 /* TodoListDetailPresenter.swift */; };
+		E5D0C1200000000000000000 /* TodoListSmallListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1090000000000000000 /* TodoListSmallListPluginProvider.swift */; };
+		E5D0C1210000000000000000 /* TodoListMediumListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1100000000000000000 /* TodoListMediumListPluginProvider.swift */; };
+		E5D0C1220000000000000000 /* TodoListLargeListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C1110000000000000000 /* TodoListLargeListPluginProvider.swift */; };
 		930B47C98BEE5C4915C191FA /* libPods-TimelyPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */; };
 		E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */; };
 		E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */; };
@@ -2696,21 +2707,21 @@
 		E5F7E6613098209800C72E55 /* WSMyDaySmallUpcomingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E65C3098209800C72E55 /* WSMyDaySmallUpcomingContentView.swift */; };
 		E5F7E6623098209800C72E55 /* WSMyDaySmallUpcomingPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E65D3098209800C72E55 /* WSMyDaySmallUpcomingPluginProvider.swift */; };
 		E5F7E6643098209800C72E55 /* MyDayEvent+SourceIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6633098209800C72E55 /* MyDayEvent+SourceIcon.swift */; };
-		E5F7E67A3098209800C72E55 /* WSMyDayLargeTimelinePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6713098209800C72E55 /* WSMyDayLargeTimelinePluginProvider.swift */; };
-		E5F7E6793098209800C72E55 /* WSMyDayLargeTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6703098209800C72E55 /* WSMyDayLargeTimelineContentView.swift */; };
-		E5F7E6783098209800C72E55 /* WSMyDayMediumTimelinePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66F3098209800C72E55 /* WSMyDayMediumTimelinePluginProvider.swift */; };
-		E5F7E6773098209800C72E55 /* WSMyDayMediumTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66E3098209800C72E55 /* WSMyDayMediumTimelineContentView.swift */; };
+		E5F7E6663098209800C72E55 /* WSMyDayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6653098209800C72E55 /* WSMyDayHeaderView.swift */; };
+		E5F7E6723098209800C72E55 /* MyDayEvent+DisplayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6693098209800C72E55 /* MyDayEvent+DisplayInfo.swift */; };
+		E5F7E6733098209800C72E55 /* WSMyDayTimelineDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66A3098209800C72E55 /* WSMyDayTimelineDataItem.swift */; };
+		E5F7E6743098209800C72E55 /* WSMyDayTimelineContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66B3098209800C72E55 /* WSMyDayTimelineContentInteractor.swift */; };
+		E5F7E6753098209800C72E55 /* WSMyDayTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66C3098209800C72E55 /* WSMyDayTimelineContentView.swift */; };
 		E5F7E6763098209800C72E55 /* WSMyDayTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66D3098209800C72E55 /* WSMyDayTimelineView.swift */; };
+		E5F7E6773098209800C72E55 /* WSMyDayMediumTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66E3098209800C72E55 /* WSMyDayMediumTimelineContentView.swift */; };
+		E5F7E6783098209800C72E55 /* WSMyDayMediumTimelinePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66F3098209800C72E55 /* WSMyDayMediumTimelinePluginProvider.swift */; };
+		E5F7E6793098209800C72E55 /* WSMyDayLargeTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6703098209800C72E55 /* WSMyDayLargeTimelineContentView.swift */; };
+		E5F7E67A3098209800C72E55 /* WSMyDayLargeTimelinePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6713098209800C72E55 /* WSMyDayLargeTimelinePluginProvider.swift */; };
+		E5F7E67C3098209800C72E55 /* WSMyDayEventsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E67B3098209800C72E55 /* WSMyDayEventsContentInteractor.swift */; };
 		E5F7E6823098209800C72E55 /* WSMyDayTimelineEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E67E3098209800C72E55 /* WSMyDayTimelineEventRowView.swift */; };
 		E5F7E6833098209800C72E55 /* WSMyDayTimelineNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E67F3098209800C72E55 /* WSMyDayTimelineNodeView.swift */; };
 		E5F7E6843098209800C72E55 /* WSMyDayTimelineConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6803098209800C72E55 /* WSMyDayTimelineConnectionView.swift */; };
 		E5F7E6853098209800C72E55 /* WSMyDayTimelineLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6813098209800C72E55 /* WSMyDayTimelineLayoutManager.swift */; };
-		E5F7E6753098209800C72E55 /* WSMyDayTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66C3098209800C72E55 /* WSMyDayTimelineContentView.swift */; };
-		E5F7E6743098209800C72E55 /* WSMyDayTimelineContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66B3098209800C72E55 /* WSMyDayTimelineContentInteractor.swift */; };
-		E5F7E67C3098209800C72E55 /* WSMyDayEventsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E67B3098209800C72E55 /* WSMyDayEventsContentInteractor.swift */; };
-		E5F7E6733098209800C72E55 /* WSMyDayTimelineDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E66A3098209800C72E55 /* WSMyDayTimelineDataItem.swift */; };
-		E5F7E6723098209800C72E55 /* MyDayEvent+DisplayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6693098209800C72E55 /* MyDayEvent+DisplayInfo.swift */; };
-		E5F7E6663098209800C72E55 /* WSMyDayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F7E6653098209800C72E55 /* WSMyDayHeaderView.swift */; };
 		E5F9E3BB301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */; };
 		E5F9E3BE301DD1D500EDC2A5 /* MyDayEventScheduleEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BD301DD1D400EDC2A5 /* MyDayEventScheduleEditor.swift */; };
 		E5F9E3C0301EDE0200EDC2A5 /* MyDayHabitScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9E3BF301EDE0100EDC2A5 /* MyDayHabitScheduleEditViewController.swift */; };
@@ -2813,6 +2824,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E5D0C1010000000000000000 /* TodoListRowsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRowsPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C1020000000000000000 /* TodoListDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListDataItem.swift; sourceTree = "<group>"; };
+		E5D0C1030000000000000000 /* TodoListRowsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRowsContentView.swift; sourceTree = "<group>"; };
+		E5D0C1040000000000000000 /* TodoListListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListListContentView.swift; sourceTree = "<group>"; };
+		E5D0C1050000000000000000 /* TodoListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRowView.swift; sourceTree = "<group>"; };
+		E5D0C1060000000000000000 /* TodoListPluginContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListPluginContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0C1070000000000000000 /* TodoListRowsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRowsContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0C1080000000000000000 /* TodoListDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListDetailPresenter.swift; sourceTree = "<group>"; };
+		E5D0C1090000000000000000 /* TodoListSmallListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListSmallListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C1100000000000000000 /* TodoListMediumListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListMediumListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0C1110000000000000000 /* TodoListLargeListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListLargeListPluginProvider.swift; sourceTree = "<group>"; };
 		1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.release.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.release.xcconfig"; sourceTree = "<group>"; };
 		2197CCF3E13F7B7E5DA987DD /* Pods-TimelyPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.debug.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimelyPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -5525,21 +5547,21 @@
 		E5F7E65C3098209800C72E55 /* WSMyDaySmallUpcomingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDaySmallUpcomingContentView.swift; sourceTree = "<group>"; };
 		E5F7E65D3098209800C72E55 /* WSMyDaySmallUpcomingPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDaySmallUpcomingPluginProvider.swift; sourceTree = "<group>"; };
 		E5F7E6633098209800C72E55 /* MyDayEvent+SourceIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyDayEvent+SourceIcon.swift"; sourceTree = "<group>"; };
-		E5F7E6713098209800C72E55 /* WSMyDayLargeTimelinePluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayLargeTimelinePluginProvider.swift"; sourceTree = "<group>"; };
-		E5F7E6703098209800C72E55 /* WSMyDayLargeTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayLargeTimelineContentView.swift"; sourceTree = "<group>"; };
-		E5F7E66F3098209800C72E55 /* WSMyDayMediumTimelinePluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayMediumTimelinePluginProvider.swift"; sourceTree = "<group>"; };
-		E5F7E66E3098209800C72E55 /* WSMyDayMediumTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayMediumTimelineContentView.swift"; sourceTree = "<group>"; };
-		E5F7E66D3098209800C72E55 /* WSMyDayTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayTimelineView.swift"; sourceTree = "<group>"; };
+		E5F7E6653098209800C72E55 /* WSMyDayHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayHeaderView.swift; sourceTree = "<group>"; };
+		E5F7E6693098209800C72E55 /* MyDayEvent+DisplayInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyDayEvent+DisplayInfo.swift"; sourceTree = "<group>"; };
+		E5F7E66A3098209800C72E55 /* WSMyDayTimelineDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineDataItem.swift; sourceTree = "<group>"; };
+		E5F7E66B3098209800C72E55 /* WSMyDayTimelineContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineContentInteractor.swift; sourceTree = "<group>"; };
+		E5F7E66C3098209800C72E55 /* WSMyDayTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineContentView.swift; sourceTree = "<group>"; };
+		E5F7E66D3098209800C72E55 /* WSMyDayTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineView.swift; sourceTree = "<group>"; };
+		E5F7E66E3098209800C72E55 /* WSMyDayMediumTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayMediumTimelineContentView.swift; sourceTree = "<group>"; };
+		E5F7E66F3098209800C72E55 /* WSMyDayMediumTimelinePluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayMediumTimelinePluginProvider.swift; sourceTree = "<group>"; };
+		E5F7E6703098209800C72E55 /* WSMyDayLargeTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayLargeTimelineContentView.swift; sourceTree = "<group>"; };
+		E5F7E6713098209800C72E55 /* WSMyDayLargeTimelinePluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayLargeTimelinePluginProvider.swift; sourceTree = "<group>"; };
+		E5F7E67B3098209800C72E55 /* WSMyDayEventsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayEventsContentInteractor.swift; sourceTree = "<group>"; };
 		E5F7E67E3098209800C72E55 /* WSMyDayTimelineEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineEventRowView.swift; sourceTree = "<group>"; };
 		E5F7E67F3098209800C72E55 /* WSMyDayTimelineNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineNodeView.swift; sourceTree = "<group>"; };
 		E5F7E6803098209800C72E55 /* WSMyDayTimelineConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineConnectionView.swift; sourceTree = "<group>"; };
 		E5F7E6813098209800C72E55 /* WSMyDayTimelineLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayTimelineLayoutManager.swift; sourceTree = "<group>"; };
-		E5F7E66C3098209800C72E55 /* WSMyDayTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayTimelineContentView.swift"; sourceTree = "<group>"; };
-		E5F7E66B3098209800C72E55 /* WSMyDayTimelineContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayTimelineContentInteractor.swift"; sourceTree = "<group>"; };
-		E5F7E67B3098209800C72E55 /* WSMyDayEventsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayEventsContentInteractor.swift; sourceTree = "<group>"; };
-		E5F7E66A3098209800C72E55 /* WSMyDayTimelineDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WSMyDayTimelineDataItem.swift"; sourceTree = "<group>"; };
-		E5F7E6693098209800C72E55 /* MyDayEvent+DisplayInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyDayEvent+DisplayInfo.swift"; sourceTree = "<group>"; };
-		E5F7E6653098209800C72E55 /* WSMyDayHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSMyDayHeaderView.swift; sourceTree = "<group>"; };
 		E5F9E3BA301DD13400EDC2A5 /* MyDayTodoEventInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTodoEventInfoView.swift; sourceTree = "<group>"; };
 		E5F9E3BD301DD1D400EDC2A5 /* MyDayEventScheduleEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayEventScheduleEditor.swift; sourceTree = "<group>"; };
 		E5F9E3BF301EDE0100EDC2A5 /* MyDayHabitScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayHabitScheduleEditViewController.swift; sourceTree = "<group>"; };
@@ -5654,6 +5676,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E5D0C2A00000000000000000 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C1010000000000000000 /* TodoListRowsPluginProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E5D0C2A10000000000000000 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C1020000000000000000 /* TodoListDataItem.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5D0C2A20000000000000000 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C1030000000000000000 /* TodoListRowsContentView.swift */,
+				E5D0C1040000000000000000 /* TodoListListContentView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E5D0C2A30000000000000000 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C1050000000000000000 /* TodoListRowView.swift */,
+			);
+			path = Row;
+			sourceTree = "<group>";
+		};
+		E5D0C2A40000000000000000 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C1060000000000000000 /* TodoListPluginContentInteractor.swift */,
+				E5D0C1070000000000000000 /* TodoListRowsContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E5D0C2A50000000000000000 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C1080000000000000000 /* TodoListDetailPresenter.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		0D9B190838411A3AD1796043 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -7172,6 +7244,8 @@
 		E52628623097711300B87016 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				E52D3D8B309A17C6001BBAF9 /* Common */,
+				E52D3D86309A14DA001BBAF9 /* List */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -7427,6 +7501,53 @@
 				E52B62A62F36121000673620 /* focus_main_timeline_24@3x.png */,
 			);
 			path = main;
+			sourceTree = "<group>";
+		};
+		E52D3D86309A14DA001BBAF9 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				E52D3D89309A1527001BBAF9 /* Large */,
+				E52D3D88309A151D001BBAF9 /* Medium */,
+				E52D3D87309A1515001BBAF9 /* Small */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		E52D3D87309A1515001BBAF9 /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C1090000000000000000 /* TodoListSmallListPluginProvider.swift */,
+			);
+			path = Small;
+			sourceTree = "<group>";
+		};
+		E52D3D88309A151D001BBAF9 /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C1100000000000000000 /* TodoListMediumListPluginProvider.swift */,
+			);
+			path = Medium;
+			sourceTree = "<group>";
+		};
+		E52D3D89309A1527001BBAF9 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C1110000000000000000 /* TodoListLargeListPluginProvider.swift */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
+		E52D3D8B309A17C6001BBAF9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0C2A10000000000000000 /* Data */,
+				E5D0C2A40000000000000000 /* Interactor */,
+				E5D0C2A00000000000000000 /* Provider */,
+				E5D0C2A20000000000000000 /* Content */,
+				E5D0C2A30000000000000000 /* Row */,
+				E5D0C2A50000000000000000 /* Detail */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		E52EF61B2FB153E6002CF355 /* PageView */ = {
@@ -10668,9 +10789,9 @@
 			children = (
 				E539C86F308CAE6C0077FE8A /* UIComponents */,
 				E5A6259F3089B3CD003EB8BC /* WSPluginType.swift */,
-				E5F7E6353098208300C72E55 /* MyDay */,
-				E52628633097711A00B87016 /* Calendar */,
 				E52628623097711300B87016 /* Todo */,
+				E52628633097711A00B87016 /* Calendar */,
+				E5F7E6353098208300C72E55 /* MyDay */,
 				E5E5380130946DF00096EBAC /* Quadrant */,
 				E5C0AEAA30933D3B00E487FC /* Gantt */,
 				E5BBCAD030919CF700E35B41 /* Goal */,
@@ -14998,18 +15119,6 @@
 			path = Content;
 			sourceTree = "<group>";
 		};
-		E5F7E67D3098209800C72E55 /* TimelineView */ = {
-			isa = PBXGroup;
-			children = (
-				E5F7E66D3098209800C72E55 /* WSMyDayTimelineView.swift */,
-				E5F7E67E3098209800C72E55 /* WSMyDayTimelineEventRowView.swift */,
-				E5F7E67F3098209800C72E55 /* WSMyDayTimelineNodeView.swift */,
-				E5F7E6803098209800C72E55 /* WSMyDayTimelineConnectionView.swift */,
-				E5F7E6813098209800C72E55 /* WSMyDayTimelineLayoutManager.swift */,
-			);
-			path = TimelineView;
-			sourceTree = "<group>";
-		};
 		E5F7E6563098209800C72E55 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -15036,6 +15145,18 @@
 				E5F7E6443098209800C72E55 /* WSMyDayDetailAllDayEventRowView.swift */,
 			);
 			path = Row;
+			sourceTree = "<group>";
+		};
+		E5F7E67D3098209800C72E55 /* TimelineView */ = {
+			isa = PBXGroup;
+			children = (
+				E5F7E66D3098209800C72E55 /* WSMyDayTimelineView.swift */,
+				E5F7E67E3098209800C72E55 /* WSMyDayTimelineEventRowView.swift */,
+				E5F7E67F3098209800C72E55 /* WSMyDayTimelineNodeView.swift */,
+				E5F7E6803098209800C72E55 /* WSMyDayTimelineConnectionView.swift */,
+				E5F7E6813098209800C72E55 /* WSMyDayTimelineLayoutManager.swift */,
+			);
+			path = TimelineView;
 			sourceTree = "<group>";
 		};
 		E5F9E3B9301B8FBE00EDC2A5 /* Todo */ = {
@@ -16351,6 +16472,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5D0C1120000000000000000 /* TodoListRowsPluginProvider.swift in Sources */,
+				E5D0C1130000000000000000 /* TodoListDataItem.swift in Sources */,
+				E5D0C1140000000000000000 /* TodoListRowsContentView.swift in Sources */,
+				E5D0C1150000000000000000 /* TodoListListContentView.swift in Sources */,
+				E5D0C1160000000000000000 /* TodoListRowView.swift in Sources */,
+				E5D0C1170000000000000000 /* TodoListPluginContentInteractor.swift in Sources */,
+				E5D0C1180000000000000000 /* TodoListRowsContentInteractor.swift in Sources */,
+				E5D0C1190000000000000000 /* TodoListDetailPresenter.swift in Sources */,
+				E5D0C1200000000000000000 /* TodoListSmallListPluginProvider.swift in Sources */,
+				E5D0C1210000000000000000 /* TodoListMediumListPluginProvider.swift in Sources */,
+				E5D0C1220000000000000000 /* TodoListLargeListPluginProvider.swift in Sources */,
 				E5C0AF513094400000E487FC /* WSTimelineLargeWeekChartPluginProvider.swift in Sources */,
 				E5C0AF543094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift in Sources */,
 				E5C0AF023094400000E487FC /* WSTimelineChartConfig.swift in Sources */,

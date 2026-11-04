@@ -428,6 +428,8 @@
 "Filter" = "过滤器";
 
 "Lists" = "列表";
+"No List" = "无列表";
+"Shows todo lists in a list" = "以列表展示待办清单";
 "%ld sublists" = "%ld个子列表";
 "%ld sublist" = "%ld个子列表";
 

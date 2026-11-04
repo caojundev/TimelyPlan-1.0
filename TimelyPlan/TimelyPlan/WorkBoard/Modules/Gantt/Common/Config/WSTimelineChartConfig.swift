@@ -12,7 +12,7 @@ import UIKit
 enum WSTimelineChartConfig {
 
     /// 顶部年月标签的高度
-    static let dateHeight: CGFloat = 24.0
+    static let dateHeight: CGFloat = 36.0
 
     /// 顶部刻度高度（尽量压缩，把空间留给事项）
     static let headerHeight: CGFloat = 50.0

@@ -209,6 +209,16 @@ public enum WSPluginType: String, Codable, CaseIterable {
     /// 目标·大·计划列表：逐行展示进行中的目标计划。
     case goalLargePlanList
     
+    // MARK: 待办
+    /// 待办·小·清单列表：逐行展示待办清单。
+    case todoSmallList
+    
+    /// 待办·中·清单列表：逐行展示待办清单。
+    case todoMediumList
+    
+    /// 待办·大·清单列表：逐行展示待办清单。
+    case todoLargeList
+    
 }
 
 // MARK: - 固有属性
@@ -226,7 +236,8 @@ public extension WSPluginType {
              .habitSmallSelected, .habitSmallTasks, .habitSmallTasksGrid, .habitSmallRecent,
              .habitSmallMonthReport,
              .goalSmallSelected, .goalSmallInbox, .goalSmallPlanList, .goalSmallPlanRing,
-             .goalSmallTaskList:
+             .goalSmallTaskList,
+             .todoSmallList:
             return .small
         case .myDayMediumAllDayEvents, .myDayMediumTimeline,
              .quadrantMediumCounts, .quadrantMediumDonut, .quadrantMediumStackedBar, .quadrantMediumTaskList,
@@ -235,7 +246,8 @@ public extension WSPluginType {
              .habitMediumTasksList, .habitMediumTasksGrid, .habitMediumWeek,
              .habitMediumWeekReportList, .habitMediumMonthActivityList,
              .goalMediumPlanGrid, .goalMediumPlanList, .goalMediumPlanRings,
-             .goalMediumTaskGrid, .goalMediumTaskList:
+             .goalMediumTaskGrid, .goalMediumTaskList,
+             .todoMediumList:
             return .medium
         case .myDayLargeAllDayEvents, .myDayLargeTimeline,
              .timelineLargeDayChart, .timelineLargeWeekChart, .timelineLargeMonthChart,
@@ -245,7 +257,8 @@ public extension WSPluginType {
              .habitLargeTasksList, .habitLargeTasksGrid, .habitLargeWeekReportList,
              .habitLargeMonthActivityList,
              .goalLargePlanGrid, .goalLargePlanList,
-             .goalLargeTaskGrid, .goalLargeTaskList:
+             .goalLargeTaskGrid, .goalLargeTaskList,
+             .todoLargeList:
             return .large
         }
     }
@@ -284,6 +297,8 @@ public extension WSPluginType {
              .goalSmallTaskList, .goalMediumTaskList, .goalLargeTaskList,
              .goalMediumTaskGrid, .goalLargeTaskGrid:
             return .goal
+        case .todoSmallList, .todoMediumList, .todoLargeList:
+            return .todo
         }
     }
 
@@ -422,6 +437,11 @@ enum WSPluginCatalog {
         .init(WSGoalTaskLargeTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected goal tasks in a list"),
         .init(WSGoalTaskMediumTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected goal tasks in a grid"),
         .init(WSGoalTaskLargeTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected goal tasks in a grid"),
+        
+        // 待办
+        .init(TodoListSmallListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
+        .init(TodoListMediumListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
+        .init(TodoListLargeListPluginProvider(), title: "Lists", subtitle: "Shows todo lists in a list"),
     ]
 
     /// 按类型取回组件配置
