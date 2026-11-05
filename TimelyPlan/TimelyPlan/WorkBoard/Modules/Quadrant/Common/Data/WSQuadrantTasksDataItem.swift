@@ -62,6 +62,15 @@ struct WSQuadrantTaskItem: WSPluginDataItem {
     }
 }
 
+// MARK: - 任务标识
+
+extension WSQuadrantTaskItem: WSTodoTaskItemProviding {
+
+    var taskIdentifier: String {
+        return identifier
+    }
+}
+
 // MARK: - 象限数据
 
 /// 象限及其展示的任务

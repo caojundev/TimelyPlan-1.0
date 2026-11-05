@@ -204,6 +204,11 @@ extension TodoRepository {
                                showCompleted: showCompleted,
                                completion: completion)
     }
+
+    /// 根据标识符数组异步批量获取任务，一次查询取出全部任务，按传入顺序返回
+    static func fetchTasks(of identifiers: [String], completion: @escaping([TodoTask]?) -> Void) {
+        taskManager.fetchTasks(of: identifiers, completion: completion)
+    }
     
     static func fetchUncompletedTaskCount(for item: IdentifiableItem, completion: @escaping(Int) -> Void) {
         taskManager.fetchUncompletedTaskCount(for: item, completion: completion)

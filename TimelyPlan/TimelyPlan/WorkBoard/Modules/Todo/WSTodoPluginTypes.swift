@@ -1,6 +1,6 @@
 import Foundation
 
-// 待办组件较多，按清单、标签、过滤器拆成三个模块，各自对应一个 `WSPluginModule`。
+// 待办组件较多，按清单、标签、过滤器、任务拆成四个模块，各自对应一个 `WSPluginModule`。
 
 extension WSPluginType {
 
@@ -112,6 +112,43 @@ extension WSPluginType {
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
             return WSPluginType(rawValue, module: .todoFilter, size: size)
+        }
+    }
+
+    /// 待办任务模块的组件类型。
+    enum TodoTask {
+
+        /// 待办·小·自选任务列表：逐行展示所选待办任务。
+        static let smallTaskList = make("todoTaskSmallTaskList", .small)
+
+        /// 待办·中·自选任务列表：逐行展示所选待办任务。
+        static let mediumTaskList = make("todoTaskMediumTaskList", .medium)
+
+        /// 待办·大·自选任务列表：逐行展示所选待办任务。
+        static let largeTaskList = make("todoTaskLargeTaskList", .large)
+
+        /// 待办·中·自选任务网格：以两列网格展示所选待办任务。
+        static let mediumTaskGrid = make("todoTaskMediumTaskGrid", .medium)
+
+        /// 待办·大·自选任务网格：以两列网格展示所选待办任务。
+        static let largeTaskGrid = make("todoTaskLargeTaskGrid", .large)
+
+        /// 模块内全部类型，顺序即组件选择器的展示顺序
+        static let all: [WSPluginType] = [
+            smallTaskList, mediumTaskList, largeTaskList, mediumTaskGrid, largeTaskGrid,
+        ]
+
+        /// 模块内全部组件配置
+        static let catalog: [WSPluginConfiguration] = [
+            .init(WSTodoTaskSmallTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a list"),
+            .init(WSTodoTaskMediumTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a list"),
+            .init(WSTodoTaskLargeTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a list"),
+            .init(WSTodoTaskMediumTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a grid"),
+            .init(WSTodoTaskLargeTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a grid"),
+        ]
+
+        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
+            return WSPluginType(rawValue, module: .todoTask, size: size)
         }
     }
 }

@@ -452,6 +452,21 @@ extension TodoTaskManager {
             completion(results?.toTasks)
         }
     }
+
+    /// 根据标识符数组异步批量获取任务，按传入顺序返回，包含已完成任务
+    func fetchTasks(of identifiers: [String], completion: @escaping([TodoTask]?) -> Void) {
+        guard !identifiers.isEmpty else {
+            completion(nil)
+            return
+        }
+
+        CDTodoTask.fetchTasks(for: identifiers) { results in
+            let tasks = results?.toTasks ?? []
+            let tasksByIdentifier = Dictionary(tasks.map { ($0.identifier, $0) },
+                                               uniquingKeysWith: { first, _ in first })
+            completion(identifiers.compactMap { tasksByIdentifier[$0] })
+        }
+    }
     
     
     func fetchTasks(tag: TodoTag, showCompleted: Bool = true, completion: @escaping([TodoTask]?) -> Void) {

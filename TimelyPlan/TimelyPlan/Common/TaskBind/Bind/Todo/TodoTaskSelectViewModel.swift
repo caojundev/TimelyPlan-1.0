@@ -31,11 +31,13 @@ class TodoTaskSelectViewModel {
         }
     }
     
-    let showCompleted: Bool = false
+    /// 是否包含已完成任务
+    let showCompleted: Bool
     
     let sort = TodoSort(type: .creationDate, order: .descending)
     
-    init() {
+    init(showCompleted: Bool = false) {
+        self.showCompleted = showCompleted
         self.placeholderProvider.state = self.loadingState
         self.placeholderProvider.emptyTitle = resGetString("No Task")
         TodoRepository.addUpdater(self, for: [.task])
@@ -79,7 +81,7 @@ class TodoTaskSelectViewModel {
             return
         }
         
-        TodoRepository.fetchAllTasks(showCompleted: false, completion: completion)
+        TodoRepository.fetchAllTasks(showCompleted: showCompleted, completion: completion)
     }
 }
 

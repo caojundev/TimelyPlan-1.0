@@ -689,6 +689,21 @@ extension CDTodoTask {
             completion(results as? [CDTodoTask])
         }
     }
+
+    /// 根据标识符数组批量获取任务，一次查询取出全部任务，包含已完成任务
+    static func fetchTasks(for identifiers: [String],
+                           completion: @escaping([CDTodoTask]?) -> Void) {
+        guard !identifiers.isEmpty else {
+            completion(nil)
+            return
+        }
+
+        let condition: PredicateCondition = (TodoTaskKey.identifier, .belongsTo(identifiers))
+        let predicate = NSPredicate.predicate(with: condition)
+        fetchAll(matching: predicate) { results in
+            completion(results as? [CDTodoTask])
+        }
+    }
     
     static func getUserListTasks(in list: TodoList, showCompleted: Bool = true) -> [CDTodoTask]? {
         let predicate = userListActiveTaskPredicate(for: list, showCompleted: showCompleted)

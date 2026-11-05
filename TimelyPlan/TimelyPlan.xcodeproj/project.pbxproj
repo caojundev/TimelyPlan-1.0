@@ -7,15 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E5A7C0DE00000000000000B1 /* WSMyDayPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A1 /* WSMyDayPluginTypes.swift */; };
-		E5A7C0DE00000000000000B2 /* WSTimelinePluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A2 /* WSTimelinePluginTypes.swift */; };
-		E5A7C0DE00000000000000B3 /* WSQuadrantPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A3 /* WSQuadrantPluginTypes.swift */; };
-		E5A7C0DE00000000000000B4 /* WSCountdownPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A4 /* WSCountdownPluginTypes.swift */; };
-		E5A7C0DE00000000000000B5 /* WSFocusPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A5 /* WSFocusPluginTypes.swift */; };
-		E5A7C0DE00000000000000B6 /* WSHabitPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */; };
-		E5A7C0DE00000000000000B7 /* WSGoalPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */; };
-		E5A7C0DE00000000000000B8 /* WSTodoPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */; };
-		E5D0CE0200000000000000C1 /* WSTodoTagSelectInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0CE0100000000000000C1 /* WSTodoTagSelectInfoView.swift */; };
 		930B47C98BEE5C4915C191FA /* libPods-TimelyPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */; };
 		E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */; };
 		E50027672F97C84E00EF052D /* TodoSingleDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027662F97C84E00EF052D /* TodoSingleDateInfoEditor.swift */; };
@@ -1523,6 +1514,14 @@
 		E5A625E03089B3CE003EB8BC /* SkeletonLayoutMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625B03089B3CD003EB8BC /* SkeletonLayoutMonitor.swift */; };
 		E5A625E13089B3CF003EB8BC /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625B13089B3CD003EB8BC /* Skeleton.swift */; };
 		E5A625E23089B3CF003EB8BC /* SkeletonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A625B23089B3CD003EB8BC /* SkeletonBuilder.swift */; };
+		E5A7C0DE00000000000000B1 /* WSMyDayPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A1 /* WSMyDayPluginTypes.swift */; };
+		E5A7C0DE00000000000000B2 /* WSTimelinePluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A2 /* WSTimelinePluginTypes.swift */; };
+		E5A7C0DE00000000000000B3 /* WSQuadrantPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A3 /* WSQuadrantPluginTypes.swift */; };
+		E5A7C0DE00000000000000B4 /* WSCountdownPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A4 /* WSCountdownPluginTypes.swift */; };
+		E5A7C0DE00000000000000B5 /* WSFocusPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A5 /* WSFocusPluginTypes.swift */; };
+		E5A7C0DE00000000000000B6 /* WSHabitPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */; };
+		E5A7C0DE00000000000000B7 /* WSGoalPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */; };
+		E5A7C0DE00000000000000B8 /* WSTodoPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */; };
 		E5B2AB0C2F4C7E6D003F024E /* FocusPauseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B2AB0B2F4C7E6D003F024E /* FocusPauseInfo.swift */; };
 		E5B2BC852F6E356A00DC1721 /* HabitRecordListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B2BC842F6E356A00DC1721 /* HabitRecordListCell.swift */; };
 		E5B2BC882F6E7CCD00DC1721 /* HabitRecordListSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B2BC872F6E7CCD00DC1721 /* HabitRecordListSectionController.swift */; };
@@ -2250,6 +2249,19 @@
 		E5D0C7100000000000000000 /* WSTodoTagLargeListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6100000000000000000 /* WSTodoTagLargeListPluginProvider.swift */; };
 		E5D0C7110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C6110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift */; };
 		E5D0CA010000000000000000 /* WSTodoRowsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9010000000000000000 /* WSTodoRowsContentView.swift */; };
+		E5D0D0000000000000000020 /* WSTodoTaskContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D0000000000000000010 /* WSTodoTaskContentInteractor.swift */; };
+		E5D0D0000000000000000021 /* WSTodoTaskSelectedTasksConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D0000000000000000011 /* WSTodoTaskSelectedTasksConfiguration.swift */; };
+		E5D0D0000000000000000022 /* WSTodoTaskSelectedDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D0000000000000000012 /* WSTodoTaskSelectedDataItem.swift */; };
+		E5D0D0000000000000000023 /* WSTodoTaskSelectedRowsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D0000000000000000013 /* WSTodoTaskSelectedRowsContentView.swift */; };
+		E5D0D0000000000000000024 /* WSTodoTaskSelectedContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D0000000000000000014 /* WSTodoTaskSelectedContentInteractor.swift */; };
+		E5D0D0000000000000000025 /* WSTodoTaskSelectedPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D0000000000000000015 /* WSTodoTaskSelectedPluginProvider.swift */; };
+		E5D0D0000000000000000026 /* WSTodoTaskMultiSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D0000000000000000016 /* WSTodoTaskMultiSelectionViewController.swift */; };
+		E5D0D0000000000000000027 /* WSTodoTaskSelectedConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D0000000000000000017 /* WSTodoTaskSelectedConfigViewController.swift */; };
+		E5D0D0000000000000000028 /* WSTodoTaskSmallTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D0000000000000000018 /* WSTodoTaskSmallTaskListPluginProvider.swift */; };
+		E5D0D0000000000000000029 /* WSTodoTaskMediumTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D0000000000000000019 /* WSTodoTaskMediumTaskListPluginProvider.swift */; };
+		E5D0D000000000000000002A /* WSTodoTaskLargeTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001A /* WSTodoTaskLargeTaskListPluginProvider.swift */; };
+		E5D0D000000000000000002B /* WSTodoTaskMediumTaskGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001B /* WSTodoTaskMediumTaskGridPluginProvider.swift */; };
+		E5D0D000000000000000002C /* WSTodoTaskLargeTaskGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001C /* WSTodoTaskLargeTaskGridPluginProvider.swift */; };
 		E5D0CA020000000000000000 /* WSTodoListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9020000000000000000 /* WSTodoListContentView.swift */; };
 		E5D0CA030000000000000000 /* WSTodoTagContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9030000000000000000 /* WSTodoTagContentView.swift */; };
 		E5D0CD010000000000000000 /* WSTodoFilterRowsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0CC010000000000000000 /* WSTodoFilterRowsPluginProvider.swift */; };
@@ -2267,6 +2279,7 @@
 		E5D0CD0D0000000000000000 /* WSTodoFilterMediumGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0CC0D0000000000000000 /* WSTodoFilterMediumGridPluginProvider.swift */; };
 		E5D0CD0E0000000000000000 /* WSTodoFilterLargeListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0CC0E0000000000000000 /* WSTodoFilterLargeListPluginProvider.swift */; };
 		E5D0CD0F0000000000000000 /* WSTodoFilterLargeGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0CC0F0000000000000000 /* WSTodoFilterLargeGridPluginProvider.swift */; };
+		E5D0CE0200000000000000C1 /* WSTodoTagSelectInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0CE0100000000000000C1 /* WSTodoTagSelectInfoView.swift */; };
 		E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */; };
 		E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */; };
 		E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */; };
@@ -2869,15 +2882,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E5A7C0DE00000000000000A1 /* WSMyDayPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSMyDayPluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C0DE00000000000000A2 /* WSTimelinePluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTimelinePluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C0DE00000000000000A3 /* WSQuadrantPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSQuadrantPluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C0DE00000000000000A4 /* WSCountdownPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownPluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C0DE00000000000000A5 /* WSFocusPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSFocusPluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHabitPluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSGoalPluginTypes.swift; sourceTree = "<group>"; };
-		E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTodoPluginTypes.swift; sourceTree = "<group>"; };
-		E5D0CE0100000000000000C1 /* WSTodoTagSelectInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagSelectInfoView.swift; sourceTree = "<group>"; };
 		1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.release.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.release.xcconfig"; sourceTree = "<group>"; };
 		2197CCF3E13F7B7E5DA987DD /* Pods-TimelyPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.debug.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.debug.xcconfig"; sourceTree = "<group>"; };
 		2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TimelyPlan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4393,6 +4397,14 @@
 		E5A625B03089B3CD003EB8BC /* SkeletonLayoutMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonLayoutMonitor.swift; sourceTree = "<group>"; };
 		E5A625B13089B3CD003EB8BC /* Skeleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 		E5A625B23089B3CD003EB8BC /* SkeletonBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonBuilder.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A1 /* WSMyDayPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSMyDayPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A2 /* WSTimelinePluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTimelinePluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A3 /* WSQuadrantPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSQuadrantPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A4 /* WSCountdownPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A5 /* WSFocusPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSFocusPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHabitPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSGoalPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTodoPluginTypes.swift; sourceTree = "<group>"; };
 		E5B2AB0B2F4C7E6D003F024E /* FocusPauseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusPauseInfo.swift; sourceTree = "<group>"; };
 		E5B2BC842F6E356A00DC1721 /* HabitRecordListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordListCell.swift; sourceTree = "<group>"; };
 		E5B2BC872F6E7CCD00DC1721 /* HabitRecordListSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRecordListSectionController.swift; sourceTree = "<group>"; };
@@ -5135,6 +5147,19 @@
 		E5D0C6100000000000000000 /* WSTodoTagLargeListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagLargeListPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0C6110000000000000000 /* WSTodoTagLargeGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagLargeGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0C9010000000000000000 /* WSTodoRowsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoRowsContentView.swift; sourceTree = "<group>"; };
+		E5D0D0000000000000000010 /* WSTodoTaskContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0D0000000000000000011 /* WSTodoTaskSelectedTasksConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSelectedTasksConfiguration.swift; sourceTree = "<group>"; };
+		E5D0D0000000000000000012 /* WSTodoTaskSelectedDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSelectedDataItem.swift; sourceTree = "<group>"; };
+		E5D0D0000000000000000013 /* WSTodoTaskSelectedRowsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSelectedRowsContentView.swift; sourceTree = "<group>"; };
+		E5D0D0000000000000000014 /* WSTodoTaskSelectedContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSelectedContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0D0000000000000000015 /* WSTodoTaskSelectedPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSelectedPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0D0000000000000000016 /* WSTodoTaskMultiSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskMultiSelectionViewController.swift; sourceTree = "<group>"; };
+		E5D0D0000000000000000017 /* WSTodoTaskSelectedConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSelectedConfigViewController.swift; sourceTree = "<group>"; };
+		E5D0D0000000000000000018 /* WSTodoTaskSmallTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSmallTaskListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0D0000000000000000019 /* WSTodoTaskMediumTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskMediumTaskListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0D000000000000000001A /* WSTodoTaskLargeTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskLargeTaskListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0D000000000000000001B /* WSTodoTaskMediumTaskGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskMediumTaskGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0D000000000000000001C /* WSTodoTaskLargeTaskGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskLargeTaskGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0C9020000000000000000 /* WSTodoListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListContentView.swift; sourceTree = "<group>"; };
 		E5D0C9030000000000000000 /* WSTodoTagContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagContentView.swift; sourceTree = "<group>"; };
 		E5D0CC010000000000000000 /* WSTodoFilterRowsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoFilterRowsPluginProvider.swift; sourceTree = "<group>"; };
@@ -5152,6 +5177,7 @@
 		E5D0CC0D0000000000000000 /* WSTodoFilterMediumGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoFilterMediumGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0CC0E0000000000000000 /* WSTodoFilterLargeListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoFilterLargeListPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0CC0F0000000000000000 /* WSTodoFilterLargeGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoFilterLargeGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0CE0100000000000000C1 /* WSTodoTagSelectInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagSelectInfoView.swift; sourceTree = "<group>"; };
 		E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageAutoScroller.swift; sourceTree = "<group>"; };
 		E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDataItem.swift; sourceTree = "<group>"; };
 		E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDayInfo.swift; sourceTree = "<group>"; };
@@ -7286,6 +7312,7 @@
 			isa = PBXGroup;
 			children = (
 				E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */,
+				E52D3D93309C1C8F001BBAF9 /* Task */,
 				E52D3D91309B4441001BBAF9 /* Common */,
 				E5D0CB010000000000000000 /* Filter */,
 				E52D3D8C309B4227001BBAF9 /* Tag */,
@@ -7653,8 +7680,148 @@
 			isa = PBXGroup;
 			children = (
 				E5D0C9010000000000000000 /* WSTodoRowsContentView.swift */,
+				E5D0D0000000000000000010 /* WSTodoTaskContentInteractor.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		E52D3D93309C1C8F001BBAF9 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				E52D3D94309C1C99001BBAF9 /* Selected */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		E52D3D94309C1C99001BBAF9 /* Selected */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D0000000000000000001 /* Common */,
+				E5D0D0000000000000000007 /* Small */,
+				E5D0D0000000000000000009 /* Medium */,
+				E5D0D000000000000000000C /* Large */,
+			);
+			path = Selected;
+			sourceTree = "<group>";
+		};
+		E5D0D0000000000000000001 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D0000000000000000006 /* Provider */,
+				E5D0D0000000000000000004 /* Data */,
+				E5D0D0000000000000000003 /* Content */,
+				E5D0D0000000000000000005 /* Interactor */,
+				E5D0D0000000000000000002 /* Config */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E5D0D0000000000000000002 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D0000000000000000016 /* WSTodoTaskMultiSelectionViewController.swift */,
+				E5D0D0000000000000000017 /* WSTodoTaskSelectedConfigViewController.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		E5D0D0000000000000000003 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D0000000000000000013 /* WSTodoTaskSelectedRowsContentView.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		E5D0D0000000000000000004 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D0000000000000000011 /* WSTodoTaskSelectedTasksConfiguration.swift */,
+				E5D0D0000000000000000012 /* WSTodoTaskSelectedDataItem.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5D0D0000000000000000005 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D0000000000000000014 /* WSTodoTaskSelectedContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E5D0D0000000000000000006 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D0000000000000000015 /* WSTodoTaskSelectedPluginProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E5D0D0000000000000000007 /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D0000000000000000008 /* TaskList */,
+			);
+			path = Small;
+			sourceTree = "<group>";
+		};
+		E5D0D0000000000000000008 /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D0000000000000000018 /* WSTodoTaskSmallTaskListPluginProvider.swift */,
+			);
+			path = TaskList;
+			sourceTree = "<group>";
+		};
+		E5D0D0000000000000000009 /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D000000000000000000A /* TaskList */,
+				E5D0D000000000000000000B /* TaskGrid */,
+			);
+			path = Medium;
+			sourceTree = "<group>";
+		};
+		E5D0D000000000000000000A /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D0000000000000000019 /* WSTodoTaskMediumTaskListPluginProvider.swift */,
+			);
+			path = TaskList;
+			sourceTree = "<group>";
+		};
+		E5D0D000000000000000000B /* TaskGrid */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D000000000000000001B /* WSTodoTaskMediumTaskGridPluginProvider.swift */,
+			);
+			path = TaskGrid;
+			sourceTree = "<group>";
+		};
+		E5D0D000000000000000000C /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D000000000000000000D /* TaskList */,
+				E5D0D000000000000000000E /* TaskGrid */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
+		E5D0D000000000000000000D /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D000000000000000001A /* WSTodoTaskLargeTaskListPluginProvider.swift */,
+			);
+			path = TaskList;
+			sourceTree = "<group>";
+		};
+		E5D0D000000000000000000E /* TaskGrid */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0D000000000000000001C /* WSTodoTaskLargeTaskGridPluginProvider.swift */,
+			);
+			path = TaskGrid;
 			sourceTree = "<group>";
 		};
 		E52EF61B2FB153E6002CF355 /* PageView */ = {
@@ -16840,6 +17007,19 @@
 				E5D0CD0E0000000000000000 /* WSTodoFilterLargeListPluginProvider.swift in Sources */,
 				E5D0CD0F0000000000000000 /* WSTodoFilterLargeGridPluginProvider.swift in Sources */,
 				E5D0CA010000000000000000 /* WSTodoRowsContentView.swift in Sources */,
+				E5D0D0000000000000000020 /* WSTodoTaskContentInteractor.swift in Sources */,
+				E5D0D0000000000000000021 /* WSTodoTaskSelectedTasksConfiguration.swift in Sources */,
+				E5D0D0000000000000000022 /* WSTodoTaskSelectedDataItem.swift in Sources */,
+				E5D0D0000000000000000023 /* WSTodoTaskSelectedRowsContentView.swift in Sources */,
+				E5D0D0000000000000000024 /* WSTodoTaskSelectedContentInteractor.swift in Sources */,
+				E5D0D0000000000000000025 /* WSTodoTaskSelectedPluginProvider.swift in Sources */,
+				E5D0D0000000000000000026 /* WSTodoTaskMultiSelectionViewController.swift in Sources */,
+				E5D0D0000000000000000027 /* WSTodoTaskSelectedConfigViewController.swift in Sources */,
+				E5D0D0000000000000000028 /* WSTodoTaskSmallTaskListPluginProvider.swift in Sources */,
+				E5D0D0000000000000000029 /* WSTodoTaskMediumTaskListPluginProvider.swift in Sources */,
+				E5D0D000000000000000002A /* WSTodoTaskLargeTaskListPluginProvider.swift in Sources */,
+				E5D0D000000000000000002B /* WSTodoTaskMediumTaskGridPluginProvider.swift in Sources */,
+				E5D0D000000000000000002C /* WSTodoTaskLargeTaskGridPluginProvider.swift in Sources */,
 				E5D0CA020000000000000000 /* WSTodoListContentView.swift in Sources */,
 				E5D0CA030000000000000000 /* WSTodoTagContentView.swift in Sources */,
 				E5D0C7010000000000000000 /* WSTodoTagRowsPluginProvider.swift in Sources */,
