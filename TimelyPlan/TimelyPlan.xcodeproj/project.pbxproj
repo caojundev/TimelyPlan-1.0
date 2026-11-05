@@ -2262,6 +2262,8 @@
 		E5D0D000000000000000002A /* WSTodoTaskLargeTaskListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001A /* WSTodoTaskLargeTaskListPluginProvider.swift */; };
 		E5D0D000000000000000002B /* WSTodoTaskMediumTaskGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001B /* WSTodoTaskMediumTaskGridPluginProvider.swift */; };
 		E5D0D000000000000000002C /* WSTodoTaskLargeTaskGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001C /* WSTodoTaskLargeTaskGridPluginProvider.swift */; };
+		E5D0D000000000000000002D /* WSTodoTaskSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001D /* WSTodoTaskSelectionState.swift */; };
+		E5D0D000000000000000002E /* WSTodoTaskSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001E /* WSTodoTaskSearchResultViewController.swift */; };
 		E5D0CA020000000000000000 /* WSTodoListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9020000000000000000 /* WSTodoListContentView.swift */; };
 		E5D0CA030000000000000000 /* WSTodoTagContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9030000000000000000 /* WSTodoTagContentView.swift */; };
 		E5D0CD010000000000000000 /* WSTodoFilterRowsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0CC010000000000000000 /* WSTodoFilterRowsPluginProvider.swift */; };
@@ -5160,6 +5162,8 @@
 		E5D0D000000000000000001A /* WSTodoTaskLargeTaskListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskLargeTaskListPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0D000000000000000001B /* WSTodoTaskMediumTaskGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskMediumTaskGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0D000000000000000001C /* WSTodoTaskLargeTaskGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskLargeTaskGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0D000000000000000001D /* WSTodoTaskSelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSelectionState.swift; sourceTree = "<group>"; };
+		E5D0D000000000000000001E /* WSTodoTaskSearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSearchResultViewController.swift; sourceTree = "<group>"; };
 		E5D0C9020000000000000000 /* WSTodoListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListContentView.swift; sourceTree = "<group>"; };
 		E5D0C9030000000000000000 /* WSTodoTagContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagContentView.swift; sourceTree = "<group>"; };
 		E5D0CC010000000000000000 /* WSTodoFilterRowsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoFilterRowsPluginProvider.swift; sourceTree = "<group>"; };
@@ -7720,6 +7724,7 @@
 			isa = PBXGroup;
 			children = (
 				E5D0D0000000000000000016 /* WSTodoTaskMultiSelectionViewController.swift */,
+				E5D0D000000000000000001E /* WSTodoTaskSearchResultViewController.swift */,
 				E5D0D0000000000000000017 /* WSTodoTaskSelectedConfigViewController.swift */,
 			);
 			path = Config;
@@ -7738,6 +7743,7 @@
 			children = (
 				E5D0D0000000000000000011 /* WSTodoTaskSelectedTasksConfiguration.swift */,
 				E5D0D0000000000000000012 /* WSTodoTaskSelectedDataItem.swift */,
+				E5D0D000000000000000001D /* WSTodoTaskSelectionState.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -17020,6 +17026,8 @@
 				E5D0D000000000000000002A /* WSTodoTaskLargeTaskListPluginProvider.swift in Sources */,
 				E5D0D000000000000000002B /* WSTodoTaskMediumTaskGridPluginProvider.swift in Sources */,
 				E5D0D000000000000000002C /* WSTodoTaskLargeTaskGridPluginProvider.swift in Sources */,
+				E5D0D000000000000000002D /* WSTodoTaskSelectionState.swift in Sources */,
+				E5D0D000000000000000002E /* WSTodoTaskSearchResultViewController.swift in Sources */,
 				E5D0CA020000000000000000 /* WSTodoListContentView.swift in Sources */,
 				E5D0CA030000000000000000 /* WSTodoTagContentView.swift in Sources */,
 				E5D0C7010000000000000000 /* WSTodoTagRowsPluginProvider.swift in Sources */,

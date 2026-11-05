@@ -12,7 +12,7 @@ import UIKit
 
 /// 待办任务多选列表。
 ///
-/// 复用待办的任务选择视图按清单分组展示全部未完成任务，点击切换选中状态，超出上限的选择会被忽略；
+/// 复用待办的任务选择视图按清单分组展示全部任务，点击切换选中状态，超出上限的选择会被忽略；
 /// 底部展示已选数量与上限，选择顺序即组件内的展示顺序。
 class WSTodoTaskMultiSelectionViewController: TPViewController,
                                              TodoTaskSelectViewDelegate {
@@ -20,11 +20,13 @@ class WSTodoTaskMultiSelectionViewController: TPViewController,
     /// 选择变化回调，按选择顺序返回任务标识
     var didChangeSelection: (([String]) -> Void)?
 
-    /// 已选任务标识，保持选择顺序
-    private(set) var selectedIdentifiers: [String]
+    /// 选择状态，与搜索结果共用
+    let selection: WSTodoTaskSelectionState
 
-    /// 最多可选择的任务数量
-    private let maximumSelectionCount: Int
+    /// 已选任务标识，保持选择顺序
+    var selectedIdentifiers: [String] {
+        return selection.identifiers
+    }
 
     /// 选中数量标签高度
     private let selectionCountLabelHeight: CGFloat = 36.0
@@ -53,9 +55,8 @@ class WSTodoTaskMultiSelectionViewController: TPViewController,
         return view
     }()
 
-    init(selectedIdentifiers: [String], maximumSelectionCount: Int) {
-        self.selectedIdentifiers = selectedIdentifiers
-        self.maximumSelectionCount = max(maximumSelectionCount, 1)
+    init(selection: WSTodoTaskSelectionState) {
+        self.selection = selection
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -106,51 +107,50 @@ class WSTodoTaskMultiSelectionViewController: TPViewController,
         updateSelectionCount()
     }
 
-    /// 已删除或已完成的任务不再保留在选择列表中
+    /// 已删除的任务不再保留在选择列表中
     private func filterSelection() {
         let validIdentifiers = Set((viewModel.tasks ?? []).map { $0.identifier })
         guard !validIdentifiers.isEmpty else {
             return
         }
 
-        let filteredIdentifiers = selectedIdentifiers.filter { validIdentifiers.contains($0) }
-        guard filteredIdentifiers != selectedIdentifiers else {
+        let filteredIdentifiers = selection.identifiers.filter { validIdentifiers.contains($0) }
+        guard filteredIdentifiers != selection.identifiers else {
             return
         }
 
-        selectedIdentifiers = filteredIdentifiers
+        selection.update(filteredIdentifiers)
+        updateSelectionCount()
         didChangeSelection?(filteredIdentifiers)
     }
 
     /// 更新已选数量与上限提示
     private func updateSelectionCount() {
-        let countText = String(format: resGetString("%ld selected"), selectedIdentifiers.count)
-        let maximumText = String(format: resGetString("Up to %ld"), maximumSelectionCount)
+        let countText = String(format: resGetString("%ld selected"), selection.identifiers.count)
+        let maximumText = String(format: resGetString("Up to %ld"), selection.maximumSelectionCount)
         selectionCountLabel.text = "\(countText) · \(maximumText)"
+    }
+
+    // MARK: - 选择
+    /// 同步搜索结果中的选择变化，保持已选数量与勾选状态一致
+    func updateSelectedIdentifiers(_ identifiers: [String]) {
+        selection.update(identifiers)
+        updateSelectionCount()
+        selectView.reloadData()
     }
 
     // MARK: - TodoTaskSelectViewDelegate
     /// 点击任务：切换选中状态
     func todoTaskSelectView(_ view: TodoTaskSelectView, didSelectTask task: TodoTask) {
-        if let index = selectedIdentifiers.firstIndex(of: task.identifier) {
-            selectedIdentifiers.remove(at: index)
-            TPImpactFeedback.impactWithSoftStyle()
-        } else {
-            /// 超出上限时不再加入，给出重一点的反馈
-            guard selectedIdentifiers.count < maximumSelectionCount else {
-                TPImpactFeedback.impactWithRigidStyle()
-                return
-            }
-
-            selectedIdentifiers.append(task.identifier)
-            TPImpactFeedback.impactWithSoftStyle()
+        guard selection.toggle(task.identifier) else {
+            return
         }
 
         updateSelectionCount()
-        didChangeSelection?(selectedIdentifiers)
+        didChangeSelection?(selection.identifiers)
     }
 
     func todoTaskSelectView(_ view: TodoTaskSelectView, isSelectedTask task: TodoTask) -> Bool {
-        return selectedIdentifiers.contains(task.identifier)
+        return selection.contains(task.identifier)
     }
 }

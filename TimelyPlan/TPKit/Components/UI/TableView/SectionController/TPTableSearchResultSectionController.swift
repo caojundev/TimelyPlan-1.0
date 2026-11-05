@@ -119,15 +119,15 @@ class TPTableSearchResultSectionController: TPTableBaseSectionController,
         performSearch(with: searchText)
     }
 
-    func refreshSearchResults() {
+    func refreshSearchResults(completion: (() -> Void)? = nil) {
         guard let searchText = self.searchText, searchText.count > 0 else {
             return
         }
         
-        performSearch(with: searchText)
+        performSearch(with: searchText, completion: completion)
     }
 
-    private func performSearch(with searchText: String) {
+    private func performSearch(with searchText: String, completion: (() -> Void)? = nil) {
         self.searchText = searchText
         self.fetchResults(containText: searchText) { [weak self] results in
             guard let self = self, searchText == self.searchText else {
@@ -139,6 +139,9 @@ class TPTableSearchResultSectionController: TPTableBaseSectionController,
                                                rowAnimation: .fade,
                                                completion: nil)
             self.updateSearchTextForVisibleCells()
+            
+            /// 更新选中状态
+            self.adapter?.updateCheckmarks()
         }
     }
     
