@@ -15,7 +15,7 @@ class WSFocusSmallWeekActivityPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .focusSmallWeekActivity
+        return .Focus.smallWeekActivity
     }
     
     /// 创建该组件内容视图

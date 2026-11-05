@@ -14,7 +14,7 @@ import UIKit
 class WSGoalPlanLargePlanListPluginProvider: WSGoalPlanRowsPluginProvider {
     
     init() {
-        super.init(type: .goalLargePlanList,
+        super.init(type: .Goal.largePlanList,
                    itemCount: WSGoalPlanItemCount.largePlanList)
     }
     

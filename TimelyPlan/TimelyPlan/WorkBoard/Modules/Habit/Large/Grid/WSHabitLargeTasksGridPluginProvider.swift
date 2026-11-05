@@ -20,7 +20,7 @@ class WSHabitLargeTasksGridPluginProvider: WSHabitTasksPluginProvider {
     }
     
     init() {
-        super.init(type: .habitLargeTasksGrid,
+        super.init(type: .Habit.largeTasksGrid,
                    itemCount: WSHabitTaskItemCount.largeGrid)
     }
     

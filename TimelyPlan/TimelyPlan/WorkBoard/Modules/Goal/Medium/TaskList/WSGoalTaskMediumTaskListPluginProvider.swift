@@ -14,7 +14,7 @@ import UIKit
 class WSGoalTaskMediumTaskListPluginProvider: WSGoalTaskRowsPluginProvider {
     
     init() {
-        super.init(type: .goalMediumTaskList,
+        super.init(type: .Goal.mediumTaskList,
                    itemCount: WSGoalTaskItemCount.mediumTaskList)
     }
     

@@ -14,7 +14,7 @@ import UIKit
 class WSTodoTagLargeListPluginProvider: WSTodoTagRowsPluginProvider {
     
     init() {
-        super.init(type: .todoTagLargeList,
+        super.init(type: .TodoTag.largeList,
                    itemCount: WSTodoTagItemCount.largeList)
     }
     

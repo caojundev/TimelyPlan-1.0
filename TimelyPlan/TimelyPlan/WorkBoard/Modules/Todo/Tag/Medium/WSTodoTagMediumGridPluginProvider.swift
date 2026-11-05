@@ -14,7 +14,7 @@ import UIKit
 class WSTodoTagMediumGridPluginProvider: WSTodoTagRowsPluginProvider {
     
     init() {
-        super.init(type: .todoTagMediumGrid,
+        super.init(type: .TodoTag.mediumGrid,
                    itemCount: WSTodoTagItemCount.mediumGrid)
     }
     

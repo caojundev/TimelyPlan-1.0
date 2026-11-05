@@ -14,7 +14,7 @@ import UIKit
 class WSHabitMediumTasksListPluginProvider: WSHabitTasksPluginProvider {
     
     init() {
-        super.init(type: .habitMediumTasksList,
+        super.init(type: .Habit.mediumTasksList,
                    itemCount: WSHabitTaskItemCount.mediumList)
     }
     

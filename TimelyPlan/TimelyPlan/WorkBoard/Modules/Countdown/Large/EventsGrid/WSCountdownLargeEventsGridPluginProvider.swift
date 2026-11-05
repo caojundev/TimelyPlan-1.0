@@ -14,7 +14,7 @@ import UIKit
 class WSCountdownLargeEventsGridPluginProvider: WSCountdownEventsPluginProvider {
     
     init() {
-        super.init(type: .countdownLargeEventsGrid,
+        super.init(type: .Countdown.largeEventsGrid,
                    itemCount: WSCountdownEventsItemCount.largeGrid)
     }
     

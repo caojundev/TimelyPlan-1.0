@@ -14,7 +14,7 @@ import UIKit
 class WSFocusMediumUserTimerListPluginProvider: WSFocusUserTimersPluginProvider {
     
     init() {
-        super.init(type: .focusMediumUserTimerList,
+        super.init(type: .Focus.mediumUserTimerList,
                    itemCount: WSFocusUserTimerItemCount.mediumList)
     }
     

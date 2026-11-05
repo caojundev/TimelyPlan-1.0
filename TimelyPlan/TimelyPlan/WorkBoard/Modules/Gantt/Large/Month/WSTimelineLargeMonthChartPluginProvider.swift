@@ -13,7 +13,7 @@ import UIKit
 /// 时间线·大·按月甘特图。以甘特时间线按月展示事项排期。
 final class WSTimelineLargeMonthChartPluginProvider: WSPluginProvider {
 
-    let type: WSPluginType = .timelineLargeMonthChart
+    let type: WSPluginType = .Timeline.largeMonthChart
 
     func makeContentView() -> WSPluginContentView {
         return WSTimelineChartContentView(scale: .month)

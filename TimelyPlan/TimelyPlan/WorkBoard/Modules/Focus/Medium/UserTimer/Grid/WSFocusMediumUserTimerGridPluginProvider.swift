@@ -20,7 +20,7 @@ class WSFocusMediumUserTimerGridPluginProvider: WSFocusUserTimersPluginProvider 
     }
     
     init() {
-        super.init(type: .focusMediumUserTimerGrid,
+        super.init(type: .Focus.mediumUserTimerGrid,
                    itemCount: WSFocusUserTimerItemCount.mediumGrid)
     }
     

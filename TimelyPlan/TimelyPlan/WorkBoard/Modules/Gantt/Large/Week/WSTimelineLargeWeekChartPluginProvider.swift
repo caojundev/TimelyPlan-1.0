@@ -13,7 +13,7 @@ import UIKit
 /// 时间线·大·按周甘特图。以甘特时间线按周展示事项排期。
 final class WSTimelineLargeWeekChartPluginProvider: WSPluginProvider {
 
-    let type: WSPluginType = .timelineLargeWeekChart
+    let type: WSPluginType = .Timeline.largeWeekChart
 
     func makeContentView() -> WSPluginContentView {
         return WSTimelineChartContentView(scale: .week)

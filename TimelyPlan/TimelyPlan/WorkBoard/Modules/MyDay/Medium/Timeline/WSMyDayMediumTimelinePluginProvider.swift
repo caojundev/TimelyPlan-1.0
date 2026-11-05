@@ -15,7 +15,7 @@ class WSMyDayMediumTimelinePluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .myDayMediumTimeline
+        return .MyDay.mediumTimeline
     }
     
     /// 创建该组件内容视图

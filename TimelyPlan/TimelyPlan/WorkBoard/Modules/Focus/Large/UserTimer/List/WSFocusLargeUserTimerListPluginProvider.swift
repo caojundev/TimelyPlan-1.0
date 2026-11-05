@@ -14,7 +14,7 @@ import UIKit
 class WSFocusLargeUserTimerListPluginProvider: WSFocusUserTimersPluginProvider {
     
     init() {
-        super.init(type: .focusLargeUserTimerList,
+        super.init(type: .Focus.largeUserTimerList,
                    itemCount: WSFocusUserTimerItemCount.largeList)
     }
     

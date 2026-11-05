@@ -15,7 +15,7 @@ class WSGoalPlanSmallPlanRingPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .goalSmallPlanRing
+        return .Goal.smallPlanRing
     }
     
     /// 该组件尺寸

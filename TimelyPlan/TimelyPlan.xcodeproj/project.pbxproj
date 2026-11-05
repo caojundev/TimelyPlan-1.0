@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E5A7C0DE00000000000000B1 /* WSMyDayPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A1 /* WSMyDayPluginTypes.swift */; };
+		E5A7C0DE00000000000000B2 /* WSTimelinePluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A2 /* WSTimelinePluginTypes.swift */; };
+		E5A7C0DE00000000000000B3 /* WSQuadrantPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A3 /* WSQuadrantPluginTypes.swift */; };
+		E5A7C0DE00000000000000B4 /* WSCountdownPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A4 /* WSCountdownPluginTypes.swift */; };
+		E5A7C0DE00000000000000B5 /* WSFocusPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A5 /* WSFocusPluginTypes.swift */; };
+		E5A7C0DE00000000000000B6 /* WSHabitPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */; };
+		E5A7C0DE00000000000000B7 /* WSGoalPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */; };
+		E5A7C0DE00000000000000B8 /* WSTodoPluginTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */; };
 		E5D0CE0200000000000000C1 /* WSTodoTagSelectInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0CE0100000000000000C1 /* WSTodoTagSelectInfoView.swift */; };
 		930B47C98BEE5C4915C191FA /* libPods-TimelyPlan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC313F2C01BB680088A531B /* libPods-TimelyPlan.a */; };
 		E50027652F97BFB700EF052D /* TodoMultiDateInfoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50027642F97BFB700EF052D /* TodoMultiDateInfoEditor.swift */; };
@@ -2861,6 +2869,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E5A7C0DE00000000000000A1 /* WSMyDayPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSMyDayPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A2 /* WSTimelinePluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTimelinePluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A3 /* WSQuadrantPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSQuadrantPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A4 /* WSCountdownPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCountdownPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A5 /* WSFocusPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSFocusPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSHabitPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSGoalPluginTypes.swift; sourceTree = "<group>"; };
+		E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSTodoPluginTypes.swift; sourceTree = "<group>"; };
 		E5D0CE0100000000000000C1 /* WSTodoTagSelectInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagSelectInfoView.swift; sourceTree = "<group>"; };
 		1CF3DAA56FA01A5C25422D4E /* Pods-TimelyPlan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.release.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.release.xcconfig"; sourceTree = "<group>"; };
 		2197CCF3E13F7B7E5DA987DD /* Pods-TimelyPlan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimelyPlan.debug.xcconfig"; path = "Target Support Files/Pods-TimelyPlan/Pods-TimelyPlan.debug.xcconfig"; sourceTree = "<group>"; };
@@ -7269,6 +7285,7 @@
 		E52628623097711300B87016 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7C0DE00000000000000A8 /* WSTodoPluginTypes.swift */,
 				E52D3D91309B4441001BBAF9 /* Common */,
 				E5D0CB010000000000000000 /* Filter */,
 				E52D3D8C309B4227001BBAF9 /* Tag */,
@@ -8081,6 +8098,7 @@
 		E537BC7C308B4B5800C308E3 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7C0DE00000000000000A4 /* WSCountdownPluginTypes.swift */,
 				E537BC84308B4B5800C308E3 /* WSCountdownDataItem.swift */,
 				E537BC98308B4B5800C308E3 /* Common */,
 				E537BC7D308B4B5800C308E3 /* Large */,
@@ -10354,6 +10372,7 @@
 		E584C7E8308C459A00A38690 /* Focus */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7C0DE00000000000000A5 /* WSFocusPluginTypes.swift */,
 				E5F0C100308E4F0000A00013 /* Common */,
 				E5C7435C308DA4F500D396A3 /* Large */,
 				E539C870308CC1830077FE8A /* Medium */,
@@ -13118,6 +13137,7 @@
 		E5BBCAD030919CF700E35B41 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7C0DE00000000000000A7 /* WSGoalPluginTypes.swift */,
 				E5BBCAD330919DD100E35B41 /* Common */,
 				E5BBCADE3091F2CB00E35B41 /* Large */,
 				E5BBCADD3091F29400E35B41 /* Medium */,
@@ -13272,6 +13292,7 @@
 		E5C0AEAA30933D3B00E487FC /* Gantt */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7C0DE00000000000000A2 /* WSTimelinePluginTypes.swift */,
 				E56DC507309395A00051AF33 /* Common */,
 				E5C0AEAB3093404000E487FC /* Large */,
 			);
@@ -14620,6 +14641,7 @@
 		E5E5380130946DF00096EBAC /* Quadrant */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7C0DE00000000000000A3 /* WSQuadrantPluginTypes.swift */,
 				E5E5380230946E250096EBAC /* Common */,
 				E50F0F013095C49900C7997A /* Large */,
 				E5E5380630947D5A0096EBAC /* Medium */,
@@ -15017,6 +15039,7 @@
 		E5F002AB308F089100D70600 /* Habit */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7C0DE00000000000000A6 /* WSHabitPluginTypes.swift */,
 				E5F002AC308F39C300D70600 /* Common */,
 				E5261146308F9086002428BB /* Large */,
 				E5261145308F8AD9002428BB /* Medium */,
@@ -15339,6 +15362,7 @@
 		E5F7E6353098208300C72E55 /* MyDay */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7C0DE00000000000000A1 /* WSMyDayPluginTypes.swift */,
 				E5F7E6383098305700C72E55 /* Common */,
 				E5F7E63A3098306A00C72E55 /* Large */,
 				E5F7E6393098306100C72E55 /* Medium */,
@@ -16791,6 +16815,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5A7C0DE00000000000000B1 /* WSMyDayPluginTypes.swift in Sources */,
+				E5A7C0DE00000000000000B2 /* WSTimelinePluginTypes.swift in Sources */,
+				E5A7C0DE00000000000000B3 /* WSQuadrantPluginTypes.swift in Sources */,
+				E5A7C0DE00000000000000B4 /* WSCountdownPluginTypes.swift in Sources */,
+				E5A7C0DE00000000000000B5 /* WSFocusPluginTypes.swift in Sources */,
+				E5A7C0DE00000000000000B6 /* WSHabitPluginTypes.swift in Sources */,
+				E5A7C0DE00000000000000B7 /* WSGoalPluginTypes.swift in Sources */,
+				E5A7C0DE00000000000000B8 /* WSTodoPluginTypes.swift in Sources */,
 				E5D0CE0200000000000000C1 /* WSTodoTagSelectInfoView.swift in Sources */,
 				E5D0CD010000000000000000 /* WSTodoFilterRowsPluginProvider.swift in Sources */,
 				E5D0CD020000000000000000 /* WSTodoFilterDataItem.swift in Sources */,

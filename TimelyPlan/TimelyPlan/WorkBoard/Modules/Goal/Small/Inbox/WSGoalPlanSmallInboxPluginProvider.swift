@@ -15,7 +15,7 @@ class WSGoalPlanSmallInboxPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .goalSmallInbox
+        return .Goal.smallInbox
     }
     
     /// 该组件尺寸

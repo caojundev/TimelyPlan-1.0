@@ -15,7 +15,7 @@ class WSMyDaySmallAllDayEventsPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .myDaySmallAllDayEvents
+        return .MyDay.smallAllDayEvents
     }
     
     /// 创建该组件内容视图

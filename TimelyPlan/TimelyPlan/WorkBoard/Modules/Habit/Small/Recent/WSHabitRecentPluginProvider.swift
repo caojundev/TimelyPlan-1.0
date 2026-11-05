@@ -14,7 +14,7 @@ import UIKit
 class WSHabitRecentPluginProvider: WSHabitPeriodPluginProvider {
     
     init() {
-        super.init(type: .habitSmallRecent, itemCount: 1)
+        super.init(type: .Habit.smallRecent, itemCount: 1)
     }
     
     override func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {

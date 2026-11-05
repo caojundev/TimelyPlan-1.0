@@ -14,7 +14,7 @@ import UIKit
 class WSTodoListMediumListPluginProvider: WSTodoListRowsPluginProvider {
     
     init() {
-        super.init(type: .todoMediumList,
+        super.init(type: .TodoList.mediumList,
                    itemCount: WSTodoListItemCount.mediumList)
     }
     

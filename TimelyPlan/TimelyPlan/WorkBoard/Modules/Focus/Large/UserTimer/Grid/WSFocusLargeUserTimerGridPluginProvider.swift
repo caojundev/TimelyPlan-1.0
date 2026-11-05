@@ -20,7 +20,7 @@ class WSFocusLargeUserTimerGridPluginProvider: WSFocusUserTimersPluginProvider {
     }
     
     init() {
-        super.init(type: .focusLargeUserTimerGrid,
+        super.init(type: .Focus.largeUserTimerGrid,
                    itemCount: WSFocusUserTimerItemCount.largeGrid)
     }
     

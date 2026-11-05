@@ -14,7 +14,7 @@ import UIKit
 class WSGoalTaskLargeTaskListPluginProvider: WSGoalTaskRowsPluginProvider {
     
     init() {
-        super.init(type: .goalLargeTaskList,
+        super.init(type: .Goal.largeTaskList,
                    itemCount: WSGoalTaskItemCount.largeTaskList)
     }
     

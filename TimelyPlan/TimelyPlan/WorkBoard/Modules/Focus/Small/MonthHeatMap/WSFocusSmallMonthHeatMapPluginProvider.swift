@@ -15,7 +15,7 @@ class WSFocusSmallMonthHeatMapPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .focusSmallMonthHeatMap
+        return .Focus.smallMonthHeatMap
     }
     
     /// 创建该组件内容视图

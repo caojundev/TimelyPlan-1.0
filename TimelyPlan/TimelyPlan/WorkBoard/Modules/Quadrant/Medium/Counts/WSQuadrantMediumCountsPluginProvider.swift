@@ -15,7 +15,7 @@ class WSQuadrantMediumCountsPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .quadrantMediumCounts
+        return .Quadrant.mediumCounts
     }
     
     /// 创建该组件内容视图

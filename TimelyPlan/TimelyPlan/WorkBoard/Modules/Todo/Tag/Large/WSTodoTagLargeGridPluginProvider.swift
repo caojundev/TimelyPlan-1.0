@@ -14,7 +14,7 @@ import UIKit
 class WSTodoTagLargeGridPluginProvider: WSTodoTagRowsPluginProvider {
     
     init() {
-        super.init(type: .todoTagLargeGrid,
+        super.init(type: .TodoTag.largeGrid,
                    itemCount: WSTodoTagItemCount.largeGrid)
     }
     

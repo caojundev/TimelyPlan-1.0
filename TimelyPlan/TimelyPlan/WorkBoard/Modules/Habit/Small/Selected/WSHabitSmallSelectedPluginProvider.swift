@@ -15,7 +15,7 @@ class WSHabitSmallSelectedPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .habitSmallSelected
+        return .Habit.smallSelected
     }
     
     /// 该组件尺寸

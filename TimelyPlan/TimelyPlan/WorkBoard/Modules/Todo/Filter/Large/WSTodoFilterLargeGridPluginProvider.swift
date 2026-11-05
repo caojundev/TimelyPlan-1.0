@@ -14,7 +14,7 @@ import UIKit
 class WSTodoFilterLargeGridPluginProvider: WSTodoFilterRowsPluginProvider {
     
     init() {
-        super.init(type: .todoFilterLargeGrid,
+        super.init(type: .TodoFilter.largeGrid,
                    itemCount: WSTodoFilterItemCount.largeGrid)
     }
     

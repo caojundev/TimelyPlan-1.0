@@ -20,7 +20,7 @@ class WSHabitMediumTasksGridPluginProvider: WSHabitTasksPluginProvider {
     }
     
     init() {
-        super.init(type: .habitMediumTasksGrid,
+        super.init(type: .Habit.mediumTasksGrid,
                    itemCount: WSHabitTaskItemCount.mediumGrid)
     }
     

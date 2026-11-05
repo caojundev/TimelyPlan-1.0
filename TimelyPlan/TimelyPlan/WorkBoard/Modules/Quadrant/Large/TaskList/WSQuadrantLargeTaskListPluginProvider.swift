@@ -15,7 +15,7 @@ class WSQuadrantLargeTaskListPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .quadrantLargeTaskList
+        return .Quadrant.largeTaskList
     }
     
     /// 创建该组件内容视图。大尺寸高度更大，行高与行间距相应增大

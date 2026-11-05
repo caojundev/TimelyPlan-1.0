@@ -14,7 +14,7 @@ import UIKit
 class WSHabitWeekPluginProvider: WSHabitPeriodPluginProvider {
     
     init() {
-        super.init(type: .habitMediumWeek, itemCount: 1)
+        super.init(type: .Habit.mediumWeek, itemCount: 1)
     }
     
     override func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {

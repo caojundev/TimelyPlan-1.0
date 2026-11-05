@@ -15,7 +15,7 @@ class WSFocusSmallTodayActivityPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .focusSmallTodayActivity
+        return .Focus.smallTodayActivity
     }
     
     /// 创建该组件内容视图

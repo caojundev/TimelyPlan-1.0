@@ -15,7 +15,7 @@ class WSQuadrantSmallTaskListPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .quadrantSmallTaskList
+        return .Quadrant.smallTaskList
     }
     
     /// 创建该组件内容视图

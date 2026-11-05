@@ -15,7 +15,7 @@ class WSQuadrantMediumStackedBarPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .quadrantMediumStackedBar
+        return .Quadrant.mediumStackedBar
     }
     
     /// 创建该组件内容视图

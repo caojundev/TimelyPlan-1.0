@@ -14,7 +14,7 @@ import UIKit
 class WSGoalTaskLargeTaskGridPluginProvider: WSGoalTaskRowsPluginProvider {
     
     init() {
-        super.init(type: .goalLargeTaskGrid,
+        super.init(type: .Goal.largeTaskGrid,
                    itemCount: WSGoalTaskItemCount.largeTaskGrid)
     }
     

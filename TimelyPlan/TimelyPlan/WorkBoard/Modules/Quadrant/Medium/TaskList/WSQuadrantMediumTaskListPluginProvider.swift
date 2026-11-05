@@ -15,7 +15,7 @@ class WSQuadrantMediumTaskListPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .quadrantMediumTaskList
+        return .Quadrant.mediumTaskList
     }
     
     /// 创建该组件内容视图

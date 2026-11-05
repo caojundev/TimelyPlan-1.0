@@ -15,7 +15,7 @@ class WSMyDayMediumAllDayEventsPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .myDayMediumAllDayEvents
+        return .MyDay.mediumAllDayEvents
     }
     
     /// 创建该组件内容视图

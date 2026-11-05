@@ -14,7 +14,7 @@ import UIKit
 class WSGoalPlanSmallPlanListPluginProvider: WSGoalPlanRowsPluginProvider {
     
     init() {
-        super.init(type: .goalSmallPlanList,
+        super.init(type: .Goal.smallPlanList,
                    itemCount: WSGoalPlanItemCount.smallPlanList)
     }
     

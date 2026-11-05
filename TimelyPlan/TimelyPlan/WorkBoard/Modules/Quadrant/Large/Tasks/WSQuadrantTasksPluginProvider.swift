@@ -15,7 +15,7 @@ class WSQuadrantTasksPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .quadrantLargeTasks
+        return .Quadrant.largeTasks
     }
     
     /// 创建该组件内容视图

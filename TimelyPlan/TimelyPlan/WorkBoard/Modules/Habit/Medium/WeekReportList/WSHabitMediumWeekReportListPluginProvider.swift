@@ -14,7 +14,7 @@ import UIKit
 class WSHabitMediumWeekReportListPluginProvider: WSHabitTasksPluginProvider {
     
     init() {
-        super.init(type: .habitMediumWeekReportList,
+        super.init(type: .Habit.mediumWeekReportList,
                    itemCount: WSHabitTaskItemCount.mediumList)
     }
     

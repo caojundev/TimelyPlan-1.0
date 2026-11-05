@@ -14,7 +14,7 @@ import UIKit
 class WSHabitSmallTasksListPluginProvider: WSHabitTasksPluginProvider {
     
     init() {
-        super.init(type: .habitSmallTasks,
+        super.init(type: .Habit.smallTasks,
                    itemCount: WSHabitTaskItemCount.small)
     }
     

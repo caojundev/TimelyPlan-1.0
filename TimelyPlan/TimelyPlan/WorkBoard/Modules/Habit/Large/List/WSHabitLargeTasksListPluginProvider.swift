@@ -14,7 +14,7 @@ import UIKit
 class WSHabitLargeTasksListPluginProvider: WSHabitTasksPluginProvider {
     
     init() {
-        super.init(type: .habitLargeTasksList,
+        super.init(type: .Habit.largeTasksList,
                    itemCount: WSHabitTaskItemCount.largeList)
     }
     

@@ -14,7 +14,7 @@ import UIKit
 class WSCountdownMediumEventsGridPluginProvider: WSCountdownEventsPluginProvider {
     
     init() {
-        super.init(type: .countdownMediumEventsGrid,
+        super.init(type: .Countdown.mediumEventsGrid,
                    itemCount: WSCountdownEventsItemCount.mediumGrid)
     }
     

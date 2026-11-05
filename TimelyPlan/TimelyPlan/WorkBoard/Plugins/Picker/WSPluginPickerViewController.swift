@@ -10,14 +10,30 @@ import UIKit
 
 /// 组件选择器。
 ///
-/// 展示插件模块列表，进入模块后通过画廊选中插件，点击「添加插件」或选中组件时通过 `didAddPlugin` 回调。
+/// 按模块组划分 section，组内逐行展示模块；进入模块后通过画廊选中插件，
+/// 点击「添加插件」或选中组件时通过 `didAddPlugin` 回调。
 class WSPluginPickerViewController: TPTableSectionsViewController {
+    
+    enum Constants {
+        
+        /// 模块行高
+        static let moduleRowHeight = 64.0
+        
+        /// 组标题高度
+        static let groupHeaderHeight = 34.0
+        
+        /// 组标题内边距
+        static let groupHeaderPadding = UIEdgeInsets(top: 15.0, left: 10.0, bottom: 0.0, right: 10.0)
+        
+        /// 单模块组的区块间距。组内只有一个模块时，该行本身即是组入口，无需组标题
+        static let sectionSpacing = 10.0
+    }
     
     /// 添加插件回调，参数为画廊中选中的插件
     var didAddPlugin: ((WSPlugin) -> Void)?
     
-    /// 展示的模块列表，默认全部模块
-    var modules: [WSPluginModule] = WSPluginModule.allCases
+    /// 展示的模块组列表，默认全部模块组
+    var groups: [WSPluginModuleGroup] = WSPluginModuleGroup.allCases
     
     // MARK: - 生命周期
     override func viewDidLoad() {
@@ -39,12 +55,36 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
     
     // MARK: - 数据
     private func makeSectionControllers() -> [TPTableBaseSectionController] {
+        return groups.compactMap { group in
+            makeSectionController(for: group)
+        }
+    }
+    
+    /// 一个模块组对应一个 section，组内按模块逐行展示
+    private func makeSectionController(for group: WSPluginModuleGroup) -> TPTableItemSectionController? {
+        let modules = group.availableModules
+        guard modules.count > 0 else {
+            return nil
+        }
+        
         let sectionController = TPTableItemSectionController()
         sectionController.cellItems = modules.compactMap { module in
             makeCellItem(for: module)
         }
+        sectionController.footerItem.height = 0.0
         
-        return [sectionController]
+        /// 组内有多个模块时展示组标题，用于归纳同一业务拆分出的模块
+        if modules.count > 1 {
+            sectionController.headerItem.title = group.displayName
+            sectionController.headerItem.height = Constants.groupHeaderHeight
+            sectionController.headerItem.padding = Constants.groupHeaderPadding
+            sectionController.headerItem.titleConfig.font = .boldSystemFont(ofSize: 13.0)
+            sectionController.headerItem.titleConfig.textColor = resGetColor(.title)
+        } else {
+            sectionController.headerItem.height = Constants.sectionSpacing
+        }
+        
+        return sectionController
     }
     
     /// 模块对应的单元格条目
@@ -57,7 +97,7 @@ class WSPluginPickerViewController: TPTableSectionsViewController {
         let cellItem = TPImageInfoTextValueTableCellItem(accessoryType: .disclosureIndicator)
         cellItem.imageConfig.size = .default
         cellItem.imageConfig.shouldRenderImageWithColor = false
-        cellItem.height = 64.0
+        cellItem.height = Constants.moduleRowHeight
         cellItem.title = module.displayName
         cellItem.imageName = module.iconName
         cellItem.valueConfig = .valueText("\(typesCount)")

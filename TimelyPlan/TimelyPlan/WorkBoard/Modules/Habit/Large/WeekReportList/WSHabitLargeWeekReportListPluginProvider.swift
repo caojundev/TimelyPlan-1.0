@@ -14,7 +14,7 @@ import UIKit
 class WSHabitLargeWeekReportListPluginProvider: WSHabitTasksPluginProvider {
     
     init() {
-        super.init(type: .habitLargeWeekReportList,
+        super.init(type: .Habit.largeWeekReportList,
                    itemCount: WSHabitTaskItemCount.largeList)
     }
     

@@ -14,7 +14,7 @@ import UIKit
 class WSFocusSmallTodayComparisonPluginProvider: WSPluginProvider {
     
     var type: WSPluginType {
-        return .focusSmallTodayComparison
+        return .Focus.smallTodayComparison
     }
     
     func makeContentView() -> WSPluginContentView {

@@ -15,7 +15,7 @@ class WSQuadrantMediumDonutPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .quadrantMediumDonut
+        return .Quadrant.mediumDonut
     }
     
     /// 创建该组件内容视图

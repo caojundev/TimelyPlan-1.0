@@ -14,7 +14,7 @@ import UIKit
 class WSCountdownLargeEventsListPluginProvider: WSCountdownEventsPluginProvider {
     
     init() {
-        super.init(type: .countdownLargeEventsList,
+        super.init(type: .Countdown.largeEventsList,
                    itemCount: WSCountdownEventsItemCount.largeList)
     }
     

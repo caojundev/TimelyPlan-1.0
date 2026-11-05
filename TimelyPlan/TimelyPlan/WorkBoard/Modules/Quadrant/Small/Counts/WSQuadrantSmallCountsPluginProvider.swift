@@ -15,7 +15,7 @@ class WSQuadrantSmallCountsPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .quadrantSmallCounts
+        return .Quadrant.smallCounts
     }
     
     /// 创建该组件内容视图

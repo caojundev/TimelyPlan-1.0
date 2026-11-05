@@ -14,7 +14,7 @@ import UIKit
 class WSHabitLargeMonthActivityListPluginProvider: WSHabitTasksPluginProvider {
     
     init() {
-        super.init(type: .habitLargeMonthActivityList,
+        super.init(type: .Habit.largeMonthActivityList,
                    itemCount: WSHabitTaskItemCount.largeMonthActivityList)
     }
     

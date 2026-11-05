@@ -24,7 +24,7 @@ class WSCountdownSmallSelectedPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .countdownSmallSelected
+        return .Countdown.smallSelected
     }
     
     /// 该组件尺寸

@@ -15,7 +15,7 @@ class WSFocusMediumSystemTimerPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .focusMediumSystemTimer
+        return .Focus.mediumSystemTimer
     }
     
     /// 创建该组件内容视图

@@ -15,7 +15,7 @@ class WSQuadrantSmallDonutPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .quadrantSmallDonut
+        return .Quadrant.smallDonut
     }
     
     /// 创建该组件内容视图

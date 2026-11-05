@@ -15,7 +15,7 @@ class WSMyDayLargeTimelinePluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .myDayLargeTimeline
+        return .MyDay.largeTimeline
     }
     
     /// 创建该组件内容视图

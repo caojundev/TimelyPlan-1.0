@@ -14,7 +14,7 @@ import UIKit
 class WSHabitSmallMonthReportPluginProvider: WSHabitPeriodPluginProvider {
     
     init() {
-        super.init(type: .habitSmallMonthReport, itemCount: 1)
+        super.init(type: .Habit.smallMonthReport, itemCount: 1)
     }
     
     override func makeContentView() -> WSPluginContentView {

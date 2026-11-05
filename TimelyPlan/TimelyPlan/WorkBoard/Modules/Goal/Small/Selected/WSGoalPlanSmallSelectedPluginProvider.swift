@@ -15,7 +15,7 @@ class WSGoalPlanSmallSelectedPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .goalSmallSelected
+        return .Goal.smallSelected
     }
     
     /// 该组件尺寸

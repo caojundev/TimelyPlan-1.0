@@ -20,7 +20,7 @@ class WSHabitSmallTasksGridPluginProvider: WSHabitTasksPluginProvider {
     }
     
     init() {
-        super.init(type: .habitSmallTasksGrid,
+        super.init(type: .Habit.smallTasksGrid,
                    itemCount: WSHabitTaskItemCount.smallGrid)
     }
     

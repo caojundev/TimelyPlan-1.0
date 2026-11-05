@@ -14,7 +14,7 @@ import UIKit
 class WSTodoFilterMediumGridPluginProvider: WSTodoFilterRowsPluginProvider {
     
     init() {
-        super.init(type: .todoFilterMediumGrid,
+        super.init(type: .TodoFilter.mediumGrid,
                    itemCount: WSTodoFilterItemCount.mediumGrid)
     }
     

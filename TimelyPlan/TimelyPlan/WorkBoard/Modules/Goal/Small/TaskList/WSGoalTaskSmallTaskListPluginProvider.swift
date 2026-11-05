@@ -14,7 +14,7 @@ import UIKit
 class WSGoalTaskSmallTaskListPluginProvider: WSGoalTaskRowsPluginProvider {
     
     init() {
-        super.init(type: .goalSmallTaskList,
+        super.init(type: .Goal.smallTaskList,
                    itemCount: WSGoalTaskItemCount.smallTaskList)
     }
     

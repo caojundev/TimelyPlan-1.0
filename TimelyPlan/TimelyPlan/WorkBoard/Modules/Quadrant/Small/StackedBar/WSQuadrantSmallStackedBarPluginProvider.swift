@@ -15,7 +15,7 @@ class WSQuadrantSmallStackedBarPluginProvider: WSPluginProvider {
     
     /// 插件类型
     var type: WSPluginType {
-        return .quadrantSmallStackedBar
+        return .Quadrant.smallStackedBar
     }
     
     /// 创建该组件内容视图

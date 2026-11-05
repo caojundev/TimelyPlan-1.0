@@ -14,7 +14,7 @@ import UIKit
 class WSTodoTagSmallListPluginProvider: WSTodoTagRowsPluginProvider {
     
     init() {
-        super.init(type: .todoTagSmallList,
+        super.init(type: .TodoTag.smallList,
                    itemCount: WSTodoTagItemCount.smallList)
     }
     
