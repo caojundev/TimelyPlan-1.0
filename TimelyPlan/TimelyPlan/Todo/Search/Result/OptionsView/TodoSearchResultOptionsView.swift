@@ -41,8 +41,9 @@ class TodoSearchResultOptionsView: UIView,
 
     private let menuSectionController: TodoSearchOptionsSectionController
     
-    init(frame: CGRect, options:TodoSearchOptions) {
-        self.menuSectionController = TodoSearchOptionsSectionController(options: options)
+    init(frame: CGRect, options: TodoSearchOptions, showsFilter: Bool = true) {
+        self.menuSectionController = TodoSearchOptionsSectionController(options: options,
+                                                                        showsFilter: showsFilter)
         super.init(frame: frame)
         addSubview(collectionView)
         

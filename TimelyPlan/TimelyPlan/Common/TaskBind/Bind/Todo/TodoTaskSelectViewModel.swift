@@ -32,7 +32,7 @@ class TodoTaskSelectViewModel {
     }
     
     /// 是否包含已完成任务
-    let showCompleted: Bool
+    private(set) var showCompleted: Bool
     
     let sort = TodoSort(type: .creationDate, order: .descending)
     
@@ -42,9 +42,20 @@ class TodoTaskSelectViewModel {
         self.placeholderProvider.emptyTitle = resGetString("No Task")
         TodoRepository.addUpdater(self, for: [.task])
     }
- 
+
     func setNeedsRefresh() {
         self.needsRefresh = true
+    }
+
+    /// 更新是否包含已完成任务，变化后重新加载
+    func setShowCompleted(_ showCompleted: Bool) {
+        guard self.showCompleted != showCompleted else {
+            return
+        }
+
+        self.showCompleted = showCompleted
+        self.needsRefresh = true
+        loadGroups()
     }
     
     // MARK: - 加载分组

@@ -2264,6 +2264,7 @@
 		E5D0D000000000000000002C /* WSTodoTaskLargeTaskGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001C /* WSTodoTaskLargeTaskGridPluginProvider.swift */; };
 		E5D0D000000000000000002D /* WSTodoTaskSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001D /* WSTodoTaskSelectionState.swift */; };
 		E5D0D000000000000000002E /* WSTodoTaskSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001E /* WSTodoTaskSearchResultViewController.swift */; };
+		E5D0D000000000000000002F /* WSTodoTaskMoreBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0D000000000000000001F /* WSTodoTaskMoreBarButtonItem.swift */; };
 		E5D0CA020000000000000000 /* WSTodoListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9020000000000000000 /* WSTodoListContentView.swift */; };
 		E5D0CA030000000000000000 /* WSTodoTagContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0C9030000000000000000 /* WSTodoTagContentView.swift */; };
 		E5D0CD010000000000000000 /* WSTodoFilterRowsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0CC010000000000000000 /* WSTodoFilterRowsPluginProvider.swift */; };
@@ -5164,6 +5165,7 @@
 		E5D0D000000000000000001C /* WSTodoTaskLargeTaskGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskLargeTaskGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0D000000000000000001D /* WSTodoTaskSelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSelectionState.swift; sourceTree = "<group>"; };
 		E5D0D000000000000000001E /* WSTodoTaskSearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskSearchResultViewController.swift; sourceTree = "<group>"; };
+		E5D0D000000000000000001F /* WSTodoTaskMoreBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskMoreBarButtonItem.swift; sourceTree = "<group>"; };
 		E5D0C9020000000000000000 /* WSTodoListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListContentView.swift; sourceTree = "<group>"; };
 		E5D0C9030000000000000000 /* WSTodoTagContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTagContentView.swift; sourceTree = "<group>"; };
 		E5D0CC010000000000000000 /* WSTodoFilterRowsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoFilterRowsPluginProvider.swift; sourceTree = "<group>"; };
@@ -7725,6 +7727,7 @@
 			children = (
 				E5D0D0000000000000000016 /* WSTodoTaskMultiSelectionViewController.swift */,
 				E5D0D000000000000000001E /* WSTodoTaskSearchResultViewController.swift */,
+				E5D0D000000000000000001F /* WSTodoTaskMoreBarButtonItem.swift */,
 				E5D0D0000000000000000017 /* WSTodoTaskSelectedConfigViewController.swift */,
 			);
 			path = Config;
@@ -17028,6 +17031,7 @@
 				E5D0D000000000000000002C /* WSTodoTaskLargeTaskGridPluginProvider.swift in Sources */,
 				E5D0D000000000000000002D /* WSTodoTaskSelectionState.swift in Sources */,
 				E5D0D000000000000000002E /* WSTodoTaskSearchResultViewController.swift in Sources */,
+				E5D0D000000000000000002F /* WSTodoTaskMoreBarButtonItem.swift in Sources */,
 				E5D0CA020000000000000000 /* WSTodoListContentView.swift in Sources */,
 				E5D0CA030000000000000000 /* WSTodoTagContentView.swift in Sources */,
 				E5D0C7010000000000000000 /* WSTodoTagRowsPluginProvider.swift in Sources */,

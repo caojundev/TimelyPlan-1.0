@@ -31,8 +31,18 @@ class WSTodoTaskMultiSelectionViewController: TPViewController,
     /// 选中数量标签高度
     private let selectionCountLabelHeight: CGFloat = 36.0
 
-    /// 任务分组与加载状态。已完成任务同样可选，与组件的展示保持一致
-    private let viewModel = TodoTaskSelectViewModel(showCompleted: true)
+    /// 更多菜单按钮
+    private lazy var moreBarButtonItem: WSTodoTaskMoreBarButtonItem = {
+        let item = WSTodoTaskMoreBarButtonItem()
+        item.showCompleted = viewModel.showCompleted
+        item.didSelectType = { [weak self] type in
+            self?.didSelectMoreMenuType(type)
+        }
+        return item
+    }()
+
+    /// 任务分组与加载状态。默认不包含已完成任务，由更多菜单控制
+    private let viewModel = TodoTaskSelectViewModel(showCompleted: false)
 
     /// 选中数量标签
     private lazy var selectionCountLabel: TPLabel = {
@@ -93,8 +103,28 @@ class WSTodoTaskMultiSelectionViewController: TPViewController,
                                            height: selectionCountLabelHeight)
     }
 
+    /// 作为配置界面的内容视图时，把更多菜单放到父级导航栏右侧
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        parent?.navigationItem.rightBarButtonItem = moreBarButtonItem
+    }
+
     override var themeBackgroundColor: UIColor? {
         return .systemGroupedBackground
+    }
+
+    // MARK: - 更多菜单
+    private func didSelectMoreMenuType(_ type: WSTodoTaskMoreMenuType) {
+        switch type {
+        case .showCompleted:
+            updateShowCompleted(!viewModel.showCompleted)
+        }
+    }
+
+    /// 切换是否获取已完成任务。菜单状态不持久化，仅对当前配置界面生效
+    private func updateShowCompleted(_ showCompleted: Bool) {
+        moreBarButtonItem.showCompleted = showCompleted
+        viewModel.setShowCompleted(showCompleted)
     }
 
     // MARK: - 数据
@@ -107,14 +137,15 @@ class WSTodoTaskMultiSelectionViewController: TPViewController,
         updateSelectionCount()
     }
 
-    /// 已删除的任务不再保留在选择列表中
+    /// 已删除的任务不再保留在选择列表中。已完成任务是否展示由菜单控制，不影响已选状态
     private func filterSelection() {
-        let validIdentifiers = Set((viewModel.tasks ?? []).map { $0.identifier })
-        guard !validIdentifiers.isEmpty else {
-            return
-        }
+        let filteredIdentifiers = selection.identifiers.filter { identifier in
+            guard let task = TodoRepository.getTask(with: identifier) else {
+                return false
+            }
 
-        let filteredIdentifiers = selection.identifiers.filter { validIdentifiers.contains($0) }
+            return !task.isRemoved
+        }
         guard filteredIdentifiers != selection.identifiers else {
             return
         }

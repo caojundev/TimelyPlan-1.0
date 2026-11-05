@@ -74,16 +74,20 @@ class TodoSearchOptionsSectionController: TPCollectionItemSectionController {
     
     private(set) var options: TodoSearchOptions
 
-    init(options:TodoSearchOptions) {
+    init(options: TodoSearchOptions, showsFilter: Bool = true) {
         self.options = options
         super.init()
         self.layout.edgeMargins = UIEdgeInsets(horizontal: 18.0, vertical: 0.0)
         self.layout.lineSpacing = 10.0
         self.layout.interitemSpacing = 10.0
-        self.cellItems = [completedCellItem,
-                          stepCellItem,
-                          noteCellItem,
-                          filterCellItem]
+
+        var cellItems: [TPCollectionCellItem] = [completedCellItem,
+                                                 stepCellItem,
+                                                 noteCellItem]
+        if showsFilter {
+            cellItems.append(filterCellItem)
+        }
+        self.cellItems = cellItems
     }
     
     override func didSelectItem(at index: Int) {
