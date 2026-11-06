@@ -2305,6 +2305,13 @@
 		E5D0F8130000000000000001 /* WSTodoTaskMediumNextTrendsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0F8130000000000000000 /* WSTodoTaskMediumNextTrendsContentView.swift */; };
 		E5D0F8140000000000000001 /* WSTodoTaskMediumNextTrendsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0F8140000000000000000 /* WSTodoTaskMediumNextTrendsPluginProvider.swift */; };
 		E5D0F8150000000000000001 /* WSTodoTaskMoreRowListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0F8150000000000000000 /* WSTodoTaskMoreRowListView.swift */; };
+		E5D0FA810000000000000000 /* WSTodoListSmallTasksPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FA010000000000000000 /* WSTodoListSmallTasksPluginProvider.swift */; };
+		E5D0FA820000000000000000 /* WSTodoListSmallTasksContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FA020000000000000000 /* WSTodoListSmallTasksContentView.swift */; };
+		E5D0FA830000000000000000 /* WSTodoListTasksContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FA030000000000000000 /* WSTodoListTasksContentInteractor.swift */; };
+		E5D0FA840000000000000000 /* WSTodoListTasksDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FA040000000000000000 /* WSTodoListTasksDataItem.swift */; };
+		E5D0FA850000000000000000 /* WSTodoListSingleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FA050000000000000000 /* WSTodoListSingleSelectionViewController.swift */; };
+		E5D0FA860000000000000000 /* WSTodoListSingleSelectionConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FA060000000000000000 /* WSTodoListSingleSelectionConfigViewController.swift */; };
+		E5D0FA870000000000000000 /* WSTodoListSelectedListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FA070000000000000000 /* WSTodoListSelectedListConfiguration.swift */; };
 		E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */; };
 		E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */; };
 		E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */; };
@@ -5227,6 +5234,13 @@
 		E5D0F8130000000000000000 /* WSTodoTaskMediumNextTrendsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskMediumNextTrendsContentView.swift; sourceTree = "<group>"; };
 		E5D0F8140000000000000000 /* WSTodoTaskMediumNextTrendsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskMediumNextTrendsPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0F8150000000000000000 /* WSTodoTaskMoreRowListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskMoreRowListView.swift; sourceTree = "<group>"; };
+		E5D0FA010000000000000000 /* WSTodoListSmallTasksPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListSmallTasksPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0FA020000000000000000 /* WSTodoListSmallTasksContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListSmallTasksContentView.swift; sourceTree = "<group>"; };
+		E5D0FA030000000000000000 /* WSTodoListTasksContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListTasksContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0FA040000000000000000 /* WSTodoListTasksDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListTasksDataItem.swift; sourceTree = "<group>"; };
+		E5D0FA050000000000000000 /* WSTodoListSingleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListSingleSelectionViewController.swift; sourceTree = "<group>"; };
+		E5D0FA060000000000000000 /* WSTodoListSingleSelectionConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListSingleSelectionConfigViewController.swift; sourceTree = "<group>"; };
+		E5D0FA070000000000000000 /* WSTodoListSelectedListConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoListSelectedListConfiguration.swift; sourceTree = "<group>"; };
 		E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageAutoScroller.swift; sourceTree = "<group>"; };
 		E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDataItem.swift; sourceTree = "<group>"; };
 		E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDayInfo.swift; sourceTree = "<group>"; };
@@ -7739,6 +7753,7 @@
 		E52D3D93309C1C8F001BBAF9 /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				E5838BA4309DF155008E83CA /* List */,
 				E5838BA0309DAF4C008E83CA /* NextTrends */,
 				E52D3D94309C1C99001BBAF9 /* Selected */,
 				E5D0E0000000000000000001 /* TwoDays */,
@@ -10511,6 +10526,41 @@
 				E5D0F8120000000000000000 /* WSTodoTaskNextTrendsLayout.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		E5838BA4309DF155008E83CA /* List */ = {
+			isa = PBXGroup;
+			children = (
+				E5838BA9309DFFFF008E83CA /* Large */,
+				E5838BA8309DFFF6008E83CA /* Medium */,
+				E5838BA5309DF6CE008E83CA /* Small */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		E5838BA5309DF6CE008E83CA /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0FA010000000000000000 /* WSTodoListSmallTasksPluginProvider.swift */,
+				E5D0FA020000000000000000 /* WSTodoListSmallTasksContentView.swift */,
+				E5D0FA030000000000000000 /* WSTodoListTasksContentInteractor.swift */,
+				E5D0FA040000000000000000 /* WSTodoListTasksDataItem.swift */,
+			);
+			path = Small;
+			sourceTree = "<group>";
+		};
+		E5838BA8309DFFF6008E83CA /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Medium;
+			sourceTree = "<group>";
+		};
+		E5838BA9309DFFFF008E83CA /* Large */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Large;
 			sourceTree = "<group>";
 		};
 		E584C7E8308C459A00A38690 /* Focus */ = {
@@ -13756,6 +13806,7 @@
 			isa = PBXGroup;
 			children = (
 				E5D0C4010000000000000000 /* WSTodoListSelectedListsConfiguration.swift */,
+				E5D0FA070000000000000000 /* WSTodoListSelectedListConfiguration.swift */,
 				E5D0C1020000000000000000 /* WSTodoListDataItem.swift */,
 			);
 			path = Data;
@@ -13799,6 +13850,8 @@
 			children = (
 				E5D0C4020000000000000000 /* WSTodoListMultiSelectionViewController.swift */,
 				E5D0C4030000000000000000 /* WSTodoListSelectedConfigViewController.swift */,
+				E5D0FA050000000000000000 /* WSTodoListSingleSelectionViewController.swift */,
+				E5D0FA060000000000000000 /* WSTodoListSingleSelectionConfigViewController.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -17222,6 +17275,13 @@
 				E5D0C1200000000000000000 /* WSTodoListSmallListPluginProvider.swift in Sources */,
 				E5D0C1210000000000000000 /* WSTodoListMediumListPluginProvider.swift in Sources */,
 				E5D0C1220000000000000000 /* WSTodoListLargeListPluginProvider.swift in Sources */,
+				E5D0FA810000000000000000 /* WSTodoListSmallTasksPluginProvider.swift in Sources */,
+				E5D0FA820000000000000000 /* WSTodoListSmallTasksContentView.swift in Sources */,
+				E5D0FA830000000000000000 /* WSTodoListTasksContentInteractor.swift in Sources */,
+				E5D0FA840000000000000000 /* WSTodoListTasksDataItem.swift in Sources */,
+				E5D0FA850000000000000000 /* WSTodoListSingleSelectionViewController.swift in Sources */,
+				E5D0FA860000000000000000 /* WSTodoListSingleSelectionConfigViewController.swift in Sources */,
+				E5D0FA870000000000000000 /* WSTodoListSelectedListConfiguration.swift in Sources */,
 				E5C0AF513094400000E487FC /* WSTimelineLargeWeekChartPluginProvider.swift in Sources */,
 				E5C0AF543094400000E487FC /* WSTimelineLargeMonthChartPluginProvider.swift in Sources */,
 				E5C0AF023094400000E487FC /* WSTimelineChartConfig.swift in Sources */,
