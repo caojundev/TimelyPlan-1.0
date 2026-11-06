@@ -139,10 +139,13 @@ extension WSPluginType {
         /// 待办·大·今明两天：按今天、明天两列展示任务。
         static let largeTwoDays = make("todoTaskLargeTwoDays", .large)
 
+        /// 待办·小·接下来七天：展示从今天起七天的任务负载分布。
+        static let smallNextTrends = make("todoTaskSmallNextTrends", .small)
+
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
             smallTaskList, mediumTaskList, largeTaskList, mediumTaskGrid, largeTaskGrid,
-            mediumTwoDays, largeTwoDays,
+            mediumTwoDays, largeTwoDays, smallNextTrends,
         ]
 
         /// 模块内全部组件配置
@@ -154,6 +157,7 @@ extension WSPluginType {
             .init(WSTodoTaskLargeTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a grid"),
             .init(WSTodoTaskMediumTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows tasks for today and tomorrow"),
             .init(WSTodoTaskLargeTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows tasks for today and tomorrow"),
+            .init(WSTodoTaskNextTrendsPluginProvider(), title: "Upcoming", subtitle: "Shows the task load of the next 7 days"),
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {

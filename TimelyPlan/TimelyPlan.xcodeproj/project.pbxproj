@@ -2291,10 +2291,15 @@
 		E5D0E0000000000000000023 /* WSTodoTaskTwoDaysContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000013 /* WSTodoTaskTwoDaysContentView.swift */; };
 		E5D0E0000000000000000024 /* WSTodoTaskTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000014 /* WSTodoTaskTwoDaysPluginProvider.swift */; };
 		E5D0E0000000000000000025 /* WSTodoTaskMediumTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000015 /* WSTodoTaskMediumTwoDaysPluginProvider.swift */; };
-		E5D0E2000000000000000002 /* WSTodoTaskLargeTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E2000000000000000001 /* WSTodoTaskLargeTwoDaysPluginProvider.swift */; };
+		E5D0F7010000000000000001 /* WSWeekActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0F7010000000000000000 /* WSWeekActivityView.swift */; };
+		E5D0F7020000000000000001 /* WSTodoTaskNextTrendsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0F7020000000000000000 /* WSTodoTaskNextTrendsDataItem.swift */; };
+		E5D0F7030000000000000001 /* WSTodoTaskNextTrendsContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0F7030000000000000000 /* WSTodoTaskNextTrendsContentInteractor.swift */; };
+		E5D0F7040000000000000001 /* WSTodoTaskNextTrendsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0F7040000000000000000 /* WSTodoTaskNextTrendsContentView.swift */; };
+		E5D0F7050000000000000001 /* WSTodoTaskNextTrendsPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0F7050000000000000000 /* WSTodoTaskNextTrendsPluginProvider.swift */; };
 		E5D0E0000000000000000026 /* WSCountBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000016 /* WSCountBadgeView.swift */; };
 		E5D0E0000000000000000027 /* WSInfoTextCountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000017 /* WSInfoTextCountHeaderView.swift */; };
 		E5D0E0000000000000000028 /* WSIconInfoTextValueContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000018 /* WSIconInfoTextValueContentView.swift */; };
+		E5D0E2000000000000000002 /* WSTodoTaskLargeTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E2000000000000000001 /* WSTodoTaskLargeTwoDaysPluginProvider.swift */; };
 		E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */; };
 		E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */; };
 		E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */; };
@@ -2694,7 +2699,6 @@
 		E5F10002309000000000C002 /* WSFocusSmallWeekActivityContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000C002 /* WSFocusSmallWeekActivityContentView.swift */; };
 		E5F10002309000000000C003 /* WSFocusWeekActivityContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000C003 /* WSFocusWeekActivityContentInteractor.swift */; };
 		E5F10002309000000000C004 /* WSFocusWeekActivityDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000C004 /* WSFocusWeekActivityDataItem.swift */; };
-		E5F10002309000000000C005 /* WSFocusWeekActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000C005 /* WSFocusWeekActivityView.swift */; };
 		E5F10002309000000000D001 /* WSFocusSmallMonthHeatMapPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000D001 /* WSFocusSmallMonthHeatMapPluginProvider.swift */; };
 		E5F10002309000000000D002 /* WSFocusSmallMonthHeatMapContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000D002 /* WSFocusSmallMonthHeatMapContentView.swift */; };
 		E5F10002309000000000D003 /* WSFocusMonthHeatMapContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F10001309000000000D003 /* WSFocusMonthHeatMapContentInteractor.swift */; };
@@ -5204,10 +5208,15 @@
 		E5D0E0000000000000000013 /* WSTodoTaskTwoDaysContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskTwoDaysContentView.swift; sourceTree = "<group>"; };
 		E5D0E0000000000000000014 /* WSTodoTaskTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0E0000000000000000015 /* WSTodoTaskMediumTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskMediumTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
-		E5D0E2000000000000000001 /* WSTodoTaskLargeTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskLargeTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0F7010000000000000000 /* WSWeekActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSWeekActivityView.swift; sourceTree = "<group>"; };
+		E5D0F7020000000000000000 /* WSTodoTaskNextTrendsDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskNextTrendsDataItem.swift; sourceTree = "<group>"; };
+		E5D0F7030000000000000000 /* WSTodoTaskNextTrendsContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskNextTrendsContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0F7040000000000000000 /* WSTodoTaskNextTrendsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskNextTrendsContentView.swift; sourceTree = "<group>"; };
+		E5D0F7050000000000000000 /* WSTodoTaskNextTrendsPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskNextTrendsPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0E0000000000000000016 /* WSCountBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountBadgeView.swift; sourceTree = "<group>"; };
 		E5D0E0000000000000000017 /* WSInfoTextCountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSInfoTextCountHeaderView.swift; sourceTree = "<group>"; };
 		E5D0E0000000000000000018 /* WSIconInfoTextValueContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSIconInfoTextValueContentView.swift; sourceTree = "<group>"; };
+		E5D0E2000000000000000001 /* WSTodoTaskLargeTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskLargeTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
 		E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageAutoScroller.swift; sourceTree = "<group>"; };
 		E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDataItem.swift; sourceTree = "<group>"; };
 		E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDayInfo.swift; sourceTree = "<group>"; };
@@ -5607,7 +5616,6 @@
 		E5F10001309000000000C002 /* WSFocusSmallWeekActivityContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallWeekActivityContentView.swift; sourceTree = "<group>"; };
 		E5F10001309000000000C003 /* WSFocusWeekActivityContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusWeekActivityContentInteractor.swift; sourceTree = "<group>"; };
 		E5F10001309000000000C004 /* WSFocusWeekActivityDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusWeekActivityDataItem.swift; sourceTree = "<group>"; };
-		E5F10001309000000000C005 /* WSFocusWeekActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusWeekActivityView.swift; sourceTree = "<group>"; };
 		E5F10001309000000000D001 /* WSFocusSmallMonthHeatMapPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallMonthHeatMapPluginProvider.swift; sourceTree = "<group>"; };
 		E5F10001309000000000D002 /* WSFocusSmallMonthHeatMapContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusSmallMonthHeatMapContentView.swift; sourceTree = "<group>"; };
 		E5F10001309000000000D003 /* WSFocusMonthHeatMapContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusMonthHeatMapContentInteractor.swift; sourceTree = "<group>"; };
@@ -7720,6 +7728,7 @@
 		E52D3D93309C1C8F001BBAF9 /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				E5838BA0309DAF4C008E83CA /* NextTrends */,
 				E52D3D94309C1C99001BBAF9 /* Selected */,
 				E5D0E0000000000000000001 /* TwoDays */,
 			);
@@ -8362,6 +8371,7 @@
 				E5D0E0000000000000000016 /* WSCountBadgeView.swift */,
 				E5D0E0000000000000000017 /* WSInfoTextCountHeaderView.swift */,
 				E5D0E0000000000000000018 /* WSIconInfoTextValueContentView.swift */,
+				E5D0F7010000000000000000 /* WSWeekActivityView.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -10451,6 +10461,17 @@
 				E58389722F776404003C30A4 /* focus_quickStart_record_24@3x.png */,
 			);
 			path = quickStart;
+			sourceTree = "<group>";
+		};
+		E5838BA0309DAF4C008E83CA /* NextTrends */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0F7020000000000000000 /* WSTodoTaskNextTrendsDataItem.swift */,
+				E5D0F7030000000000000000 /* WSTodoTaskNextTrendsContentInteractor.swift */,
+				E5D0F7040000000000000000 /* WSTodoTaskNextTrendsContentView.swift */,
+				E5D0F7050000000000000000 /* WSTodoTaskNextTrendsPluginProvider.swift */,
+			);
+			path = NextTrends;
 			sourceTree = "<group>";
 		};
 		E584C7E8308C459A00A38690 /* Focus */ = {
@@ -14046,14 +14067,6 @@
 			path = TwoDays;
 			sourceTree = "<group>";
 		};
-		E5D0E2000000000000000003 /* Large */ = {
-			isa = PBXGroup;
-			children = (
-				E5D0E2000000000000000001 /* WSTodoTaskLargeTwoDaysPluginProvider.swift */,
-			);
-			path = Large;
-			sourceTree = "<group>";
-		};
 		E5D0E0000000000000000002 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -14104,6 +14117,14 @@
 				E5D0E0000000000000000015 /* WSTodoTaskMediumTwoDaysPluginProvider.swift */,
 			);
 			path = Medium;
+			sourceTree = "<group>";
+		};
+		E5D0E2000000000000000003 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0E2000000000000000001 /* WSTodoTaskLargeTwoDaysPluginProvider.swift */,
+			);
+			path = Large;
 			sourceTree = "<group>";
 		};
 		E5D3D4DA2DDC689C00E58EFA /* DragDropManager */ = {
@@ -15296,7 +15317,6 @@
 				E5F10001309000000000C002 /* WSFocusSmallWeekActivityContentView.swift */,
 				E5F10001309000000000C003 /* WSFocusWeekActivityContentInteractor.swift */,
 				E5F10001309000000000C004 /* WSFocusWeekActivityDataItem.swift */,
-				E5F10001309000000000C005 /* WSFocusWeekActivityView.swift */,
 			);
 			path = WeekActivity;
 			sourceTree = "<group>";
@@ -18564,7 +18584,6 @@
 				E5F10002309000000000C002 /* WSFocusSmallWeekActivityContentView.swift in Sources */,
 				E5F10002309000000000C003 /* WSFocusWeekActivityContentInteractor.swift in Sources */,
 				E5F10002309000000000C004 /* WSFocusWeekActivityDataItem.swift in Sources */,
-				E5F10002309000000000C005 /* WSFocusWeekActivityView.swift in Sources */,
 				E5F10002309000000000D001 /* WSFocusSmallMonthHeatMapPluginProvider.swift in Sources */,
 				E5F10002309000000000D002 /* WSFocusSmallMonthHeatMapContentView.swift in Sources */,
 				E5F10002309000000000D003 /* WSFocusMonthHeatMapContentInteractor.swift in Sources */,
@@ -18642,6 +18661,11 @@
 				E5D0E0000000000000000023 /* WSTodoTaskTwoDaysContentView.swift in Sources */,
 				E5D0E0000000000000000024 /* WSTodoTaskTwoDaysPluginProvider.swift in Sources */,
 				E5D0E0000000000000000025 /* WSTodoTaskMediumTwoDaysPluginProvider.swift in Sources */,
+				E5D0F7010000000000000001 /* WSWeekActivityView.swift in Sources */,
+				E5D0F7020000000000000001 /* WSTodoTaskNextTrendsDataItem.swift in Sources */,
+				E5D0F7030000000000000001 /* WSTodoTaskNextTrendsContentInteractor.swift in Sources */,
+				E5D0F7040000000000000001 /* WSTodoTaskNextTrendsContentView.swift in Sources */,
+				E5D0F7050000000000000001 /* WSTodoTaskNextTrendsPluginProvider.swift in Sources */,
 				E5D0E2000000000000000002 /* WSTodoTaskLargeTwoDaysPluginProvider.swift in Sources */,
 				E5D0E0000000000000000026 /* WSCountBadgeView.swift in Sources */,
 				E5D0E0000000000000000027 /* WSInfoTextCountHeaderView.swift in Sources */,

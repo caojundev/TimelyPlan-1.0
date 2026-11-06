@@ -34,6 +34,9 @@
 "Times(count)" = "Times";
 "time(count)" = "time";
 "times(count)" = "times";
+"Item(count)" = "item";
+"Items(count)" = "items";
+"%@ busiest" = "Busiest on %@";
 
 "By Day" = "Day";
 "By Week" = "Week";

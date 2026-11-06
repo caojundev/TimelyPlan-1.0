@@ -244,6 +244,10 @@
 "Shows selected todo tasks in a grid" = "以网格展示所选待办任务";
 "Today & Tomorrow" = "今明两天";
 "Shows tasks for today and tomorrow" = "以两列展示今天和明天的任务";
+"Shows the task load of the next 7 days" = "展示接下来七天的任务负载";
+"%@ busiest" = "%@最忙";
+"Item(count)" = "项";
+"Items(count)" = "项";
 "Select Tasks" = "选择任务";
 "No Task Selected" = "未选择任务";
 "No Task" = "无任务";

@@ -51,7 +51,7 @@ class WSFocusSmallWeekActivityContentView: WSPluginContentView {
     private let infoView = TPInfoView()
     
     /// 一周活动视图
-    private let activityView = WSFocusWeekActivityView()
+    private let activityView = WSWeekActivityView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
