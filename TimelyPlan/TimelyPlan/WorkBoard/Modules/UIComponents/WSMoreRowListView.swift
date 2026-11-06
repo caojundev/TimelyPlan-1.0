@@ -13,7 +13,8 @@ import UIKit
 /// 带「更多」入口的通用行列表视图。
 ///
 /// 在 `WSRowListView` 的基础上记录条目总数，当总数超出当前展示条数时，
-/// 最后一行让给「更多 x 个」入口，行高与总高度保持不变；点击入口由外部处理。
+/// 最后一个条目位让给「更多 x 个」入口，行高与总高度保持不变；点击入口由外部处理。
+/// 网格布局下入口只占一个条目位，不会整行让出。
 class WSMoreRowListView: WSRowListView {
 
     // MARK: - 配置
@@ -40,13 +41,13 @@ class WSMoreRowListView: WSRowListView {
         return max(totalItemCount - displayedItemCount, 0)
     }
 
-    /// 实际展示的条目数。有更多入口时最后一行让给入口
+    /// 实际展示的条目数。有更多入口时最后一个条目位让给入口
     private var displayedItemCount: Int {
         guard totalItemCount > numberOfItems else {
             return min(totalItemCount, numberOfItems)
         }
 
-        return max(numberOfItems - max(columnCount, 1), 0)
+        return max(numberOfItems - 1, 0)
     }
 
     /// 是否展示更多入口
@@ -87,7 +88,7 @@ class WSMoreRowListView: WSRowListView {
         layoutMoreEntry()
     }
 
-    /// 布局更多入口。超出展示条数时隐藏最后一行，把入口放在该行的位置
+    /// 布局更多入口。超出展示条数时隐藏最后一个条目位，把入口放在该条目位上
     private func layoutMoreEntry() {
         let showsMore = showsMoreEntry
         if moreButton.isHidden != !showsMore {
@@ -98,11 +99,10 @@ class WSMoreRowListView: WSRowListView {
             return
         }
 
-        /// 最后一行的行视图让给更多入口
-        let columns = max(columnCount, 1)
-        let lastRowStartIndex = max(rowCount - 1, 0) * columns
-        for (index, rowView) in rowViews.enumerated() where index >= lastRowStartIndex {
-            rowView.isHidden = showsMore
+        /// 网格下只让出一个条目位，其余同行条目照常展示
+        let moreIndex = numberOfItems - 1
+        for (index, rowView) in rowViews.enumerated() {
+            rowView.isHidden = showsMore && index == moreIndex
         }
 
         guard showsMore else {
@@ -112,9 +112,12 @@ class WSMoreRowListView: WSRowListView {
         moreButton.title = String(format: resGetString("More %ld"), overflowCount)
         moreButton.sizeToFit()
 
-        let layoutFrame = rowsLayoutFrame
-        let rowFrame = itemLayoutFrame(at: lastRowStartIndex)
-        moreButton.left = layoutFrame.minX
-        moreButton.centerY = rowFrame.midY
+        let itemFrame = itemLayoutFrame(at: moreIndex)
+        if columnCount > 1 {
+            moreButton.center = CGPoint(x: itemFrame.midX, y: itemFrame.midY)
+        } else {
+            moreButton.left = itemFrame.minX
+            moreButton.centerY = itemFrame.midY
+        }
     }
 }

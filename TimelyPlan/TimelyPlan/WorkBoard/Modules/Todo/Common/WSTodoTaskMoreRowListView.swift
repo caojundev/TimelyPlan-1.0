@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - 带更多入口的任务列表
 
-/// 待办任务列表视图，固定展示条数，超出时最后一行让给更多入口。
+/// 待办任务列表视图，固定展示条数，超出时最后一个条目位让给更多入口。
 ///
 /// 只负责任务行与更多入口，不含列头；需要列头的场景由此派生并预留列头高度。
 class WSTodoTaskMoreRowListView: WSMoreRowListView {

@@ -454,6 +454,7 @@
 "Shows todo lists in a grid" = "以网格展示待办清单";
 "List Tasks" = "清单任务";
 "Shows uncompleted tasks of a selected list" = "展示所选清单的未完成任务";
+"Shows uncompleted tasks of a selected list in a grid" = "以网格展示所选清单的未完成任务";
 "Select List" = "选择列表";
 "No List Selected" = "未选择列表";
 "%ld sublists" = "%ld个子列表";
