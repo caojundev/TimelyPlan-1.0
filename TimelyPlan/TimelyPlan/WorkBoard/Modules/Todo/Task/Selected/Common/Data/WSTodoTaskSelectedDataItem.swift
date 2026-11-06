@@ -70,15 +70,15 @@ struct WSTodoTaskSelectedItem: WSPluginDataItem {
                   color: task.priority.color)
     }
 
-    /// 行视图沿用的四象限任务数据，保证各行尺寸组件的外观一致
-    var rowItem: WSQuadrantTaskItem {
-        return WSQuadrantTaskItem(identifier: identifier,
-                                  name: name,
-                                  isCompleted: isCompleted,
-                                  checkType: checkType,
-                                  progress: progress,
-                                  isProgressSet: isProgressSet,
-                                  detail: detail)
+    /// 行视图沿用的任务数据，保证各组件外观一致
+    var rowItem: WSTodoTaskItem {
+        return WSTodoTaskItem(identifier: identifier,
+                              name: name,
+                              isCompleted: isCompleted,
+                              checkType: checkType,
+                              progress: progress,
+                              isProgressSet: isProgressSet,
+                              detail: detail)
     }
 }
 

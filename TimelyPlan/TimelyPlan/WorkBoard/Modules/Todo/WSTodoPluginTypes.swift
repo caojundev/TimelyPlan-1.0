@@ -133,9 +133,12 @@ extension WSPluginType {
         /// 待办·大·自选任务网格：以两列网格展示所选待办任务。
         static let largeTaskGrid = make("todoTaskLargeTaskGrid", .large)
 
+        /// 待办·中·今明两天：按今天、明天两列展示任务。
+        static let mediumTwoDays = make("todoTaskMediumTwoDays", .medium)
+
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
-            smallTaskList, mediumTaskList, largeTaskList, mediumTaskGrid, largeTaskGrid,
+            smallTaskList, mediumTaskList, largeTaskList, mediumTaskGrid, largeTaskGrid, mediumTwoDays,
         ]
 
         /// 模块内全部组件配置
@@ -145,6 +148,7 @@ extension WSPluginType {
             .init(WSTodoTaskLargeTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a list"),
             .init(WSTodoTaskMediumTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a grid"),
             .init(WSTodoTaskLargeTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a grid"),
+            .init(WSTodoTaskMediumTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows tasks for today and tomorrow"),
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {

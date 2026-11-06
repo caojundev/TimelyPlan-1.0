@@ -1,8 +1,8 @@
 //
-//  WSQuadrantTaskRowView.swift
+//  WSTodoTaskRowView.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/10/31.
+//  Created by caojun on 2026/11/5.
 //
 
 import Foundation
@@ -10,11 +10,11 @@ import UIKit
 
 // MARK: - 任务行视图
 
-/// 四象限任务行视图，各尺寸组件共用。
+/// 待办任务行视图，四象限、自选任务等组件共用。
 ///
 /// 复用待办任务的勾选信息视图展示完成状态、名称、详情与进度条；
 /// 未设置进度的任务不展示进度条，行高不足时先省略详情。
-class WSQuadrantTaskRowView: WSRowView {
+class WSTodoTaskRowView: WSRowView {
     
     /// 布局尺寸
     private enum Metrics {
@@ -74,13 +74,13 @@ class WSQuadrantTaskRowView: WSRowView {
     }()
     
     /// 当前展示的任务
-    private(set) var dataItem: WSQuadrantTaskItem?
+    private(set) var dataItem: WSTodoTaskItem?
     
     /// 点击任务回调
-    var didSelectTaskHandler: ((WSQuadrantTaskItem) -> Void)?
+    var didSelectTaskHandler: ((WSTodoTaskItem) -> Void)?
     
     /// 点击完成状态回调
-    var didClickCheckboxHandler: ((WSQuadrantTaskItem) -> Void)?
+    var didClickCheckboxHandler: ((WSTodoTaskItem) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -122,7 +122,7 @@ class WSQuadrantTaskRowView: WSRowView {
     
     // MARK: - 渲染
     /// 更新展示的任务。传 nil 时清空内容
-    func update(with dataItem: WSQuadrantTaskItem?, color: UIColor) {
+    func update(with dataItem: WSTodoTaskItem?, color: UIColor) {
         self.dataItem = dataItem
         
         guard let dataItem = dataItem else {
@@ -143,7 +143,7 @@ class WSQuadrantTaskRowView: WSRowView {
         infoView.isProgressHidden = !dataItem.isProgressSet
         infoView.setNeedsLayout()
         
-        /// 完成状态与进度使用象限颜色
+        /// 完成状态与进度使用任务颜色
         infoView.checkbox.normalColor = color
         infoView.checkbox.checkedColor = color
         infoView.progressView.barForeColor = color

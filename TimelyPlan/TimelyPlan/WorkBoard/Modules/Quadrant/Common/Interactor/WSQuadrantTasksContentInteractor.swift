@@ -85,7 +85,7 @@ class WSQuadrantTasksContentInteractor: WSTodoTaskContentInteractor,
         }
 
         let visibleTasks = sortedTasks.prefix(maximumTaskCount).map {
-            WSQuadrantTaskItem(task: $0, option: option)
+            WSTodoTaskItem(task: $0, option: option)
         }
         return WSQuadrantTaskGroup(
             quadrant: quadrant,
@@ -122,20 +122,20 @@ class WSQuadrantTasksContentInteractor: WSTodoTaskContentInteractor,
             let detail = option == nil
                 ? nil
                 : Date().monthDayString.attributedString(textColor: .secondaryLabel)
-            let tasks = (0..<sampleCount).map { taskIndex -> WSQuadrantTaskItem in
+            let tasks = (0..<sampleCount).map { taskIndex -> WSTodoTaskItem in
                 let titleIndex = (index + taskIndex) % titles.count
-                return WSQuadrantTaskItem(identifier: "preview.\(index).\(taskIndex)",
-                                               name: titles[titleIndex],
-                                               isCompleted: taskIndex == 1,
-                                               checkType: titleIndex % 3 == 0 ? .decrease : .increase,
-                                               progress: CGFloat(taskIndex + 1) / 5.0,
-                                               isProgressSet: taskIndex % 2 == 0,
-                                               detail: detail)
+                return WSTodoTaskItem(identifier: "preview.\(index).\(taskIndex)",
+                                      name: titles[titleIndex],
+                                      isCompleted: taskIndex == 1,
+                                      checkType: titleIndex % 3 == 0 ? .decrease : .increase,
+                                      progress: CGFloat(taskIndex + 1) / 5.0,
+                                      isProgressSet: taskIndex % 2 == 0,
+                                      detail: detail)
             }
 
             return WSQuadrantTaskGroup(quadrant: quadrant,
-                                               tasks: tasks,
-                                               totalCount: totalCount)
+                                       tasks: tasks,
+                                       totalCount: totalCount)
         }
 
         return WSQuadrantTasksDataItem(quadrants: quadrants)

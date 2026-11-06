@@ -242,6 +242,8 @@
 "Shows selected goal tasks in a grid" = "以网格展示所选目标任务";
 "Shows selected todo tasks in a list" = "以列表展示所选待办任务";
 "Shows selected todo tasks in a grid" = "以网格展示所选待办任务";
+"Today & Tomorrow" = "今明两天";
+"Shows tasks for today and tomorrow" = "以两列展示今天和明天的任务";
 "Select Tasks" = "选择任务";
 "No Task Selected" = "未选择任务";
 "No Task" = "无任务";

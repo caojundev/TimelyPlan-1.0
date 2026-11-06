@@ -115,30 +115,40 @@ class WSRowListView: WSPluginContentView {
         }
     }
     
+    /// 行区域的布局区域。默认等于内容区域，子类可为标题、更多入口等预留空间
+    var rowsLayoutFrame: CGRect {
+        return layoutFrame()
+    }
+    
+    /// 指定索引对应的行视图布局区域。子类可用来放置底部入口等
+    func itemLayoutFrame(at index: Int) -> CGRect {
+        let layoutFrame = rowsLayoutFrame
+        let columns = max(columnCount, 1)
+        let rows = max(rowCount, 1)
+        let itemWidth = max((layoutFrame.width - columnSpacing * CGFloat(columns - 1)) / CGFloat(columns), 0.0)
+        let itemHeight = max((layoutFrame.height - rowSpacing * CGFloat(rows - 1)) / CGFloat(rows), 0.0)
+        let column = index % columns
+        let row = index / columns
+        
+        return CGRect(x: layoutFrame.minX + CGFloat(column) * (itemWidth + columnSpacing),
+                      y: layoutFrame.minY + CGFloat(row) * (itemHeight + rowSpacing),
+                      width: itemWidth,
+                      height: itemHeight)
+    }
+    
     /// 按列数等分可用区域，剩余空间均分给行与列
     private func layoutRowViews() {
         guard !rowViews.isEmpty else {
             return
         }
         
-        let layoutFrame = layoutFrame()
+        let layoutFrame = rowsLayoutFrame
         guard layoutFrame.width > 0.0, layoutFrame.height > 0.0 else {
             return
         }
         
-        let columns = max(columnCount, 1)
-        let rows = max(rowCount, 1)
-        
-        let itemWidth = max((layoutFrame.width - columnSpacing * CGFloat(columns - 1)) / CGFloat(columns), 0.0)
-        let itemHeight = max((layoutFrame.height - rowSpacing * CGFloat(rows - 1)) / CGFloat(rows), 0.0)
-        
         for (index, rowView) in rowViews.enumerated() {
-            let column = index % columns
-            let row = index / columns
-            
-            rowView.size = CGSize(width: itemWidth, height: itemHeight)
-            rowView.left = layoutFrame.minX + CGFloat(column) * (itemWidth + columnSpacing)
-            rowView.top = layoutFrame.minY + CGFloat(row) * (itemHeight + rowSpacing)
+            rowView.frame = itemLayoutFrame(at: index)
         }
     }
 }

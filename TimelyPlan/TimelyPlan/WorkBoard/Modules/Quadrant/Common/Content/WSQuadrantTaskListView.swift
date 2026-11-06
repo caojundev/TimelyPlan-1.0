@@ -55,10 +55,10 @@ class WSQuadrantTaskListView: UIView, QuadrantTitleViewDelegate {
     var didSelectMoreHandler: ((Quadrant) -> Void)?
     
     /// 点击任务回调
-    var didSelectTaskHandler: ((WSQuadrantTaskItem) -> Void)?
+    var didSelectTaskHandler: ((WSTodoTaskItem) -> Void)?
     
     /// 点击完成状态回调
-    var didClickCheckboxHandler: ((WSQuadrantTaskItem) -> Void)?
+    var didClickCheckboxHandler: ((WSTodoTaskItem) -> Void)?
     
     /// 当前展示的象限数据
     private(set) var dataItem: WSQuadrantTaskGroup?
@@ -78,7 +78,7 @@ class WSQuadrantTaskListView: UIView, QuadrantTitleViewDelegate {
     }()
     
     /// 任务行视图，按可用高度动态创建
-    private var taskRowViews: [WSQuadrantTaskRowView] = []
+    private var taskRowViews: [WSTodoTaskRowView] = []
     
     /// 更多入口
     private lazy var moreButton: UIButton = {
@@ -151,9 +151,9 @@ class WSQuadrantTaskListView: UIView, QuadrantTitleViewDelegate {
     }
     
     /// 按需创建任务行视图
-    private func rowView(at index: Int) -> WSQuadrantTaskRowView {
+    private func rowView(at index: Int) -> WSTodoTaskRowView {
         while taskRowViews.count <= index {
-            let rowView = WSQuadrantTaskRowView()
+            let rowView = WSTodoTaskRowView()
             rowView.didSelectTaskHandler = { [weak self] dataItem in
                 self?.didSelectTaskHandler?(dataItem)
             }

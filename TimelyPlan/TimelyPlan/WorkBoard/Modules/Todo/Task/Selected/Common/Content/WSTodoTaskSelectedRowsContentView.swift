@@ -91,11 +91,11 @@ class WSTodoTaskSelectedRowsContentView: WSRowListView {
 
     // MARK: - 行视图
     override func makeRowView(at index: Int) -> WSRowView {
-        return WSQuadrantTaskRowView()
+        return WSTodoTaskRowView()
     }
 
     override func didAddRowView(_ rowView: WSRowView, at index: Int) {
-        guard let rowView = rowView as? WSQuadrantTaskRowView else {
+        guard let rowView = rowView as? WSTodoTaskRowView else {
             return
         }
 
@@ -119,7 +119,7 @@ class WSTodoTaskSelectedRowsContentView: WSRowListView {
 
         let items = (dataItem as? WSTodoTaskSelectedRowsDataItem)?.items ?? []
         for (index, rowView) in rowViews.enumerated() {
-            guard let rowView = rowView as? WSQuadrantTaskRowView else {
+            guard let rowView = rowView as? WSTodoTaskRowView else {
                 continue
             }
 
@@ -135,7 +135,7 @@ class WSTodoTaskSelectedRowsContentView: WSRowListView {
     }
 
     /// 行的卡片底色。列表不展示底色，网格展示卡片
-    private func updateCardAppearance(for rowView: WSQuadrantTaskRowView) {
+    private func updateCardAppearance(for rowView: WSTodoTaskRowView) {
         rowView.normalBackColor = layoutConfiguration.backColor ?? .clear
 
         if let backColor = layoutConfiguration.highlightedBackColor {
