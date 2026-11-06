@@ -23,18 +23,23 @@ struct WSTodoTaskNextTrendsDay {
 
 /// 待办接下来七天组件的数据。
 ///
-/// 只保留渲染所需的每天任务数目，柱条高度与最忙的一天由数据自行推导。
+/// 只保留渲染所需的每天任务数目，柱条高度与最忙的一天由数据自行推导；
+/// 另外按时间顺序保留七天的任务，供中尺寸的任务列表展示。
 class WSTodoTaskNextTrendsDataItem: NSObject, WSPluginDataItem {
 
-    /// 第一天日期，即今天
+    /// 第一天日期，即后天
     let startDate: Date
 
     /// 接下来每天的任务负载，按日期顺序排列
     let days: [WSTodoTaskNextTrendsDay]
 
-    init(startDate: Date, days: [WSTodoTaskNextTrendsDay]) {
+    /// 接下来七天的任务，按天与时间顺序排列
+    let items: [WSTodoTaskRowItem]
+
+    init(startDate: Date, days: [WSTodoTaskNextTrendsDay], items: [WSTodoTaskRowItem] = []) {
         self.startDate = startDate
         self.days = days
+        self.items = items
         super.init()
     }
 

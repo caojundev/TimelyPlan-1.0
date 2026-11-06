@@ -62,6 +62,29 @@ struct WSTodoTaskItem: WSPluginDataItem {
     }
 }
 
+// MARK: - 行数据
+
+/// 待办任务行数据。行视图沿用的任务数据与行颜色，各任务列表组件共用
+struct WSTodoTaskRowItem {
+
+    /// 行视图沿用的任务数据
+    let taskItem: WSTodoTaskItem
+
+    /// 行颜色，与待办任务一致取优先级颜色
+    let color: UIColor
+
+    init(taskItem: WSTodoTaskItem, color: UIColor) {
+        self.taskItem = taskItem
+        self.color = color
+    }
+
+    /// 由待办任务生成行数据。option 为 nil 时不展示详情
+    init(task: TodoTask, option: TodoTaskDetailOption? = nil) {
+        self.init(taskItem: WSTodoTaskItem(task: task, option: option),
+                  color: task.priority.color)
+    }
+}
+
 // MARK: - 任务标识
 
 extension WSTodoTaskItem: WSTodoTaskItemProviding {

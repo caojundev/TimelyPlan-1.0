@@ -81,9 +81,9 @@ class WSTodoTaskTwoDaysContentInteractor: WSTodoTaskContentInteractor {
         return (sortedTasks(todayTasks), sortedTasks(tomorrowTasks))
     }
 
-    /// 全部任务转换为单天数据
+    /// 全部任务转换为单天数据，详情展示计划与步骤
     private func makeDay(title: String, tasks: [TodoTask]) -> WSTodoTaskTwoDaysDay {
-        let items = tasks.map { WSTodoTaskTwoDaysItem(task: $0) }
+        let items = tasks.map { WSTodoTaskRowItem(task: $0, option: [.schedule, .step]) }
         return WSTodoTaskTwoDaysDay(title: title, items: items)
     }
 
@@ -126,20 +126,26 @@ class WSTodoTaskTwoDaysContentInteractor: WSTodoTaskContentInteractor {
                               resGetString("Coding"),
                               resGetString("Study"),
                               resGetString("Meditation")]
+        /// 示例详情：展示计划与步骤，与待办任务详情一致
+        let detail: ASAttributedString = Date().monthDayString.attributedString(textColor: .secondaryLabel)
 
-        var todayItems: [WSTodoTaskTwoDaysItem] = []
+        var todayItems: [WSTodoTaskRowItem] = []
         for (index, title) in todayTitles.enumerated() {
-            let taskItem = makePreviewTaskItem(identifier: "preview.today.\(index)", name: title)
-            let item = WSTodoTaskTwoDaysItem(taskItem: taskItem,
-                                             color: priorities[index % priorities.count].color)
+            let taskItem = makePreviewTaskItem(identifier: "preview.today.\(index)",
+                                               name: title,
+                                               detail: detail)
+            let item = WSTodoTaskRowItem(taskItem: taskItem,
+                                         color: priorities[index % priorities.count].color)
             todayItems.append(item)
         }
 
-        var tomorrowItems: [WSTodoTaskTwoDaysItem] = []
+        var tomorrowItems: [WSTodoTaskRowItem] = []
         for (index, title) in tomorrowTitles.enumerated() {
-            let taskItem = makePreviewTaskItem(identifier: "preview.tomorrow.\(index)", name: title)
-            let item = WSTodoTaskTwoDaysItem(taskItem: taskItem,
-                                             color: priorities[index % priorities.count].color)
+            let taskItem = makePreviewTaskItem(identifier: "preview.tomorrow.\(index)",
+                                               name: title,
+                                               detail: detail)
+            let item = WSTodoTaskRowItem(taskItem: taskItem,
+                                         color: priorities[index % priorities.count].color)
             tomorrowItems.append(item)
         }
 
@@ -149,13 +155,15 @@ class WSTodoTaskTwoDaysContentInteractor: WSTodoTaskContentInteractor {
     }
 
     /// 画廊预览用的任务行数据
-    private func makePreviewTaskItem(identifier: String, name: String) -> WSTodoTaskItem {
+    private func makePreviewTaskItem(identifier: String,
+                                     name: String,
+                                     detail: ASAttributedString?) -> WSTodoTaskItem {
         return WSTodoTaskItem(identifier: identifier,
                               name: name,
                               isCompleted: false,
                               checkType: .normal,
                               progress: 0.0,
                               isProgressSet: false,
-                              detail: nil)
+                              detail: detail)
     }
 }

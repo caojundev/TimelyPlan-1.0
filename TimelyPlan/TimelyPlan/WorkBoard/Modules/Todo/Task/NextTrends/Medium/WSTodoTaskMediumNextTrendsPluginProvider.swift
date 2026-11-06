@@ -1,5 +1,5 @@
 //
-//  WSTodoTaskNextTrendsPluginProvider.swift
+//  WSTodoTaskMediumNextTrendsPluginProvider.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/6.
@@ -10,16 +10,16 @@ import UIKit
 
 // MARK: - 组件提供者
 
-/// 待办·小·接下来七天。展示从今天起七天的任务负载分布。
-class WSTodoTaskNextTrendsPluginProvider: WSPluginProvider {
+/// 待办·中·接下来七天。左侧展示七天任务负载，右侧展示接下来要做的任务。
+class WSTodoTaskMediumNextTrendsPluginProvider: WSPluginProvider {
 
     /// 插件类型
     var type: WSPluginType {
-        return .TodoTask.smallNextTrends
+        return .TodoTask.mediumNextTrends
     }
 
     func makeContentView() -> WSPluginContentView {
-        return WSTodoTaskNextTrendsContentView()
+        return WSTodoTaskMediumNextTrendsContentView()
     }
 
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {
