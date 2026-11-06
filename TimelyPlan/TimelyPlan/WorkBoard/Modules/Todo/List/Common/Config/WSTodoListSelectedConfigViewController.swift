@@ -49,7 +49,7 @@ class WSTodoListSelectedConfigViewController: WSPluginConfigViewController {
     }
     
     // MARK: - 选择
-    /// 保存用户选择的清单
+    /// 记录用户选择的清单，点击完成时保存
     private func updateSelectedLists(_ identifiers: [String]) {
         var config = self.config
         config.listIdentifiers = identifiers

@@ -57,7 +57,7 @@ class WSTodoListRowsContentInteractor: WSTodoListPluginContentInteractor {
     /// 点击清单：打开清单详情
     override func performAction(with dataItem: WSPluginDataItem) {
         guard let dataItem = dataItem as? WSTodoListDataItem,
-              let list = TodoRepository.getUserList(of: dataItem.listIdentifier) else {
+              let list = dataItem.list else {
             return
         }
         

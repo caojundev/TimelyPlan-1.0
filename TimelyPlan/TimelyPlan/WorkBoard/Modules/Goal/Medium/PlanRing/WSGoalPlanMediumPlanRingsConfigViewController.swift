@@ -37,7 +37,7 @@ class WSGoalPlanMediumPlanRingsConfigViewController: WSPluginConfigViewControlle
     }
     
     // MARK: - 选择
-    /// 保存用户选择的目标计划
+    /// 记录用户选择的目标计划，点击完成时保存
     private func updateSelectedPlans(_ identifiers: [String]) {
         var config = self.config
         config.planIdentifiers = identifiers

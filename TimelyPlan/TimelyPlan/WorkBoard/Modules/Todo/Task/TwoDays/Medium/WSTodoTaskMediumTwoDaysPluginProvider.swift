@@ -15,6 +15,6 @@ class WSTodoTaskMediumTwoDaysPluginProvider: WSTodoTaskTwoDaysPluginProvider {
 
     init() {
         super.init(type: .TodoTask.mediumTwoDays,
-                   itemCount: WSTodoTaskTwoDaysLayout.maximumRowCount)
+                   itemCount: WSTodoTaskTwoDaysLayout.mediumRowCount)
     }
 }

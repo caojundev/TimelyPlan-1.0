@@ -2291,6 +2291,7 @@
 		E5D0E0000000000000000023 /* WSTodoTaskTwoDaysContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000013 /* WSTodoTaskTwoDaysContentView.swift */; };
 		E5D0E0000000000000000024 /* WSTodoTaskTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000014 /* WSTodoTaskTwoDaysPluginProvider.swift */; };
 		E5D0E0000000000000000025 /* WSTodoTaskMediumTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000015 /* WSTodoTaskMediumTwoDaysPluginProvider.swift */; };
+		E5D0E2000000000000000002 /* WSTodoTaskLargeTwoDaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E2000000000000000001 /* WSTodoTaskLargeTwoDaysPluginProvider.swift */; };
 		E5D0E0000000000000000026 /* WSCountBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000016 /* WSCountBadgeView.swift */; };
 		E5D0E0000000000000000027 /* WSInfoTextCountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000017 /* WSInfoTextCountHeaderView.swift */; };
 		E5D0E0000000000000000028 /* WSIconInfoTextValueContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0E0000000000000000018 /* WSIconInfoTextValueContentView.swift */; };
@@ -5203,6 +5204,7 @@
 		E5D0E0000000000000000013 /* WSTodoTaskTwoDaysContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskTwoDaysContentView.swift; sourceTree = "<group>"; };
 		E5D0E0000000000000000014 /* WSTodoTaskTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0E0000000000000000015 /* WSTodoTaskMediumTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskMediumTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0E2000000000000000001 /* WSTodoTaskLargeTwoDaysPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoTaskLargeTwoDaysPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0E0000000000000000016 /* WSCountBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCountBadgeView.swift; sourceTree = "<group>"; };
 		E5D0E0000000000000000017 /* WSInfoTextCountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSInfoTextCountHeaderView.swift; sourceTree = "<group>"; };
 		E5D0E0000000000000000018 /* WSIconInfoTextValueContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSIconInfoTextValueContentView.swift; sourceTree = "<group>"; };
@@ -14039,8 +14041,17 @@
 			children = (
 				E5D0E0000000000000000002 /* Common */,
 				E5D0E0000000000000000007 /* Medium */,
+				E5D0E2000000000000000003 /* Large */,
 			);
 			path = TwoDays;
+			sourceTree = "<group>";
+		};
+		E5D0E2000000000000000003 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0E2000000000000000001 /* WSTodoTaskLargeTwoDaysPluginProvider.swift */,
+			);
+			path = Large;
 			sourceTree = "<group>";
 		};
 		E5D0E0000000000000000002 /* Common */ = {
@@ -18631,6 +18642,7 @@
 				E5D0E0000000000000000023 /* WSTodoTaskTwoDaysContentView.swift in Sources */,
 				E5D0E0000000000000000024 /* WSTodoTaskTwoDaysPluginProvider.swift in Sources */,
 				E5D0E0000000000000000025 /* WSTodoTaskMediumTwoDaysPluginProvider.swift in Sources */,
+				E5D0E2000000000000000002 /* WSTodoTaskLargeTwoDaysPluginProvider.swift in Sources */,
 				E5D0E0000000000000000026 /* WSCountBadgeView.swift in Sources */,
 				E5D0E0000000000000000027 /* WSInfoTextCountHeaderView.swift in Sources */,
 				E5D0E0000000000000000028 /* WSIconInfoTextValueContentView.swift in Sources */,

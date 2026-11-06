@@ -49,7 +49,7 @@ class WSTodoFilterSelectedConfigViewController: WSPluginConfigViewController {
     }
     
     // MARK: - 选择
-    /// 保存用户选择的过滤器
+    /// 记录用户选择的过滤器，点击完成时保存
     private func updateSelectedFilters(_ identifiers: [String]) {
         var config = self.config
         config.filterIdentifiers = identifiers

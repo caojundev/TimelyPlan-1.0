@@ -13,8 +13,11 @@ import UIKit
 /// 今明两天组件的布局参数
 enum WSTodoTaskTwoDaysLayout {
 
-    /// 每列最多展示的任务数目
-    static let maximumRowCount = 3
+    /// 中尺寸每列最多展示的任务数目
+    static let mediumRowCount = 3
+
+    /// 大尺寸每列最多展示的任务数目
+    static let largeRowCount = 6
 }
 
 // MARK: - 组件提供者基类

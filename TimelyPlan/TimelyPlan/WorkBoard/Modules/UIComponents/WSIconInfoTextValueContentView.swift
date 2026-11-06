@@ -47,7 +47,7 @@ class WSIconInfoTextValueContentView: WSPluginContentView {
     }
 
     /// 图标圆角
-    var iconCornerRadius: CGFloat = 8.0 {
+    var iconCornerRadius: CGFloat = .greatestFiniteMagnitude {
         didSet {
             headerView.iconView.cornerRadius = iconCornerRadius
             setNeedsLayout()

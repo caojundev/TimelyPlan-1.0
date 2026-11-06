@@ -36,7 +36,7 @@ class WSQuadrantTaskConfigViewController: WSPluginConfigViewController {
     }
     
     // MARK: - 选择
-    /// 保存用户选择的象限
+    /// 记录用户选择的象限，点击完成时保存
     private func selectQuadrant(_ quadrant: Quadrant) {
         var config = self.config
         config.quadrant = quadrant

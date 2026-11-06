@@ -17,7 +17,7 @@ protocol WSPluginConfigurable: AnyObject {
     /// 正在配置的组件
     var plugin: WSPlugin { get }
     
-    /// 配置变化回调。由外部在展示前设置，配置界面在用户修改配置后调用
+    /// 配置变化回调。由外部在展示前设置，配置界面在用户点击完成时调用
     var didChangeConfigJSON: ((String?) -> Void)? { get set }
 }
 
@@ -25,7 +25,8 @@ protocol WSPluginConfigurable: AnyObject {
 ///
 /// 提供统一的界面外壳：关闭 / 完成按钮、弹出尺寸与内容容器。
 /// 子类在 `viewDidLoad` 中设置 `contentViewController` 提供配置内容，
-/// 配置变化后调用 `updateConfigJSON(_:)`，由外部负责保存。
+/// 配置变化后调用 `updateConfigJSON(_:)` 记录改动；改动在点击完成时才回调外部保存，
+/// 配置过程中的编辑不会实时反馈到组件。
 class WSPluginConfigViewController: TPContainerViewController, WSPluginConfigurable {
     
     /// 正在配置的组件
@@ -34,8 +35,14 @@ class WSPluginConfigViewController: TPContainerViewController, WSPluginConfigura
     /// 配置变化回调
     var didChangeConfigJSON: ((String?) -> Void)?
     
-    /// 当前配置 JSON 字符串
+    /// 已保存的配置 JSON 字符串
     private(set) var configJSON: String?
+    
+    /// 配置过程中待提交的配置 JSON 字符串
+    private var pendingConfigJSON: String?
+    
+    /// 是否存在待提交的修改
+    private var hasPendingConfigJSON: Bool = false
     
     /// 系统关闭按钮
     private lazy var closeBarButtonItem: UIBarButtonItem = {
@@ -79,14 +86,35 @@ class WSPluginConfigViewController: TPContainerViewController, WSPluginConfigura
     }
     
     // MARK: - 配置
-    /// 更新配置。发生变化时回调外部保存
+    /// 记录配置变化。改动暂存在界面内，点击完成时统一提交
     func updateConfigJSON(_ configJSON: String?) {
+        pendingConfigJSON = configJSON
+        hasPendingConfigJSON = true
+    }
+    
+    /// 提交配置过程中的修改并回调外部保存。不会关闭界面
+    func commitConfiguration() {
+        guard hasPendingConfigJSON else {
+            return
+        }
+        
+        hasPendingConfigJSON = false
+        let configJSON = pendingConfigJSON
+        pendingConfigJSON = nil
+        
         guard self.configJSON != configJSON else {
             return
         }
         
         self.configJSON = configJSON
         didChangeConfigJSON?(configJSON)
+    }
+    
+    // MARK: - 完成
+    override func clickDone() {
+        /// 只有点击完成才保存配置并刷新组件
+        commitConfiguration()
+        super.clickDone()
     }
 }
 
@@ -103,7 +131,7 @@ extension WSPluginConfigViewController {
         return T.model(with: configJSON)
     }
     
-    /// 用配置模型更新配置。变化时回调外部保存
+    /// 用配置模型更新配置。只记录改动，点击完成时才回调外部保存
     ///
     /// 以当前配置为基准做字段级合并，仅覆盖模型认识的字段，
     /// 更高版本写入的字段会原样保留，避免低版本保存时丢失配置

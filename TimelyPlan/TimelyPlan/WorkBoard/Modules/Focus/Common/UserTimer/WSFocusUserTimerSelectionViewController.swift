@@ -11,7 +11,7 @@ import UIKit
 /// 用户计时器组件的配置界面。
 ///
 /// 列表展示全部活动计时器，点击切换选中状态；底部标签展示已选数量与名称。
-/// 配置在用户操作后即时保存，点击完成关闭即可。
+/// 配置在点击完成时保存，配置过程中的编辑不会实时反馈到组件。
 class WSFocusUserTimerSelectionViewController: TPViewController,
                                               TPGroupTableViewDelegate,
                                               WSPluginConfigurable {
@@ -136,7 +136,6 @@ class WSFocusUserTimerSelectionViewController: TPViewController,
             let filteredIdentifiers = self.selectedIdentifiers.filter { validIdentifiers.contains($0) }
             if filteredIdentifiers != self.selectedIdentifiers {
                 self.selectedIdentifiers = filteredIdentifiers
-                self.saveConfiguration()
             }
             
             self.updateSelectionCount()
@@ -191,7 +190,6 @@ class WSFocusUserTimerSelectionViewController: TPViewController,
             selectedIdentifiers.append(timer.identifier)
         }
         
-        saveConfiguration()
         tableView.updateCheckmarks()
         updateSelectionCount()
     }
@@ -208,6 +206,13 @@ class WSFocusUserTimerSelectionViewController: TPViewController,
         let names = selectedIdentifiers.compactMap { timerMap[$0]?.displayName }.joined(separator: ", ")
         let countText = String(format: resGetString("%ld selected"), selectedIdentifiers.count)
         selectionCountLabel.text = names.isEmpty ? countText : "\(countText) \(names)"
+    }
+    
+    // MARK: - 完成
+    override func clickDone() {
+        /// 只有点击完成才保存配置并刷新组件
+        saveConfiguration()
+        super.clickDone()
     }
     
     // MARK: - 配置保存

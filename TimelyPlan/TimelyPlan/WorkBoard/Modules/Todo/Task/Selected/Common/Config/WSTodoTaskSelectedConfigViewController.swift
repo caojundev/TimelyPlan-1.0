@@ -70,7 +70,7 @@ class WSTodoTaskSelectedConfigViewController: WSPluginConfigViewController,
     }
 
     // MARK: - 选择
-    /// 保存用户选择的待办任务
+    /// 记录用户选择的待办任务。只在配置界面内生效，点击完成时才保存
     private func updateSelectedTasks(_ identifiers: [String]) {
         var config = self.config
         config.taskIdentifiers = identifiers

@@ -12,7 +12,7 @@ import UIKit
 ///
 /// 区块列表样式：第一个区块配置事项来源（最近 / 自选），
 /// 选中「自选」后追加事项选择区块，点击进入倒数日事项列表挑选。
-/// 配置在用户操作后即时保存，无需额外的保存动作。
+/// 配置在点击完成时保存，配置过程中的编辑不会实时反馈到组件。
 class WSCountdownEventsConfigViewController: TPTableSectionsViewController, WSPluginConfigurable {
     
     struct Config {
@@ -175,7 +175,6 @@ class WSCountdownEventsConfigViewController: TPTableSectionsViewController, WSPl
         }
         
         configuration.source = source
-        saveConfiguration()
         updateEventSectionController()
         adapter.performUpdate(with: .fade)
     }
@@ -227,7 +226,6 @@ class WSCountdownEventsConfigViewController: TPTableSectionsViewController, WSPl
         }
         
         configuration.eventType = eventType
-        saveConfiguration()
         adapter.reloadCell(forItem: eventTypeCellItem, with: .none)
     }
     
@@ -241,7 +239,6 @@ class WSCountdownEventsConfigViewController: TPTableSectionsViewController, WSPl
             }
             
             self.configuration.eventIdentifiers = identifiers
-            self.saveConfiguration()
             self.adapter.reloadCell(forItem: self.eventCellItem, with: .none)
         }
         
@@ -251,6 +248,13 @@ class WSCountdownEventsConfigViewController: TPTableSectionsViewController, WSPl
     /// 已选事项，按配置顺序排列。已被删除的事项会被忽略
     private var selectedEvents: [CountdownEvent] {
         return CountdownRepository.getEvents(withIdentifiers: configuration.eventIdentifiers)
+    }
+    
+    // MARK: - 完成
+    override func clickDone() {
+        /// 只有点击完成才保存配置并刷新组件
+        saveConfiguration()
+        super.clickDone()
     }
     
     // MARK: - 配置保存

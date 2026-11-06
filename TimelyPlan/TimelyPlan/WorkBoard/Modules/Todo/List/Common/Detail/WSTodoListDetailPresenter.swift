@@ -16,7 +16,7 @@ import UIKit
 /// 并把左上角的返回换成关闭。
 enum WSTodoListDetailPresenter {
     
-    static func showDetail(for list: TodoList) {
+    static func showDetail(for list: Any) {
         guard let configuration = TodoListConfiguration.configuration(for: list) else {
             return
         }

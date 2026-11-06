@@ -73,9 +73,24 @@ class WSRowListView: WSPluginContentView {
         
     }
     
+    // MARK: - 空白视图
+    /// 空白视图，没有行视图时展示
+    private(set) var emptyView: WSPluginEmptyPlaceholderView?
+    
+    /// 创建空白视图，只在行数为 0 时调用一次，子类可重写以自定义空白内容
+    func makeEmptyView() -> WSPluginEmptyPlaceholderView {
+        return WSPluginDefaultEmptyPlaceholderView()
+    }
+    
+    /// 是否展示空白视图
+    var isShowingEmptyView: Bool {
+        return numberOfItems == 0
+    }
+    
     /// 按当前行列数重建行视图并重新布局
     func reloadData() {
         updateRowViewsIfNeeded()
+        updateEmptyViewIfNeeded()
         setNeedsLayout()
     }
     
@@ -83,6 +98,7 @@ class WSRowListView: WSPluginContentView {
     override func update(with dataItem: WSPluginDataItem?) {
         /// 数据可能在首次布局前下发，先补齐行视图再交给子类绑定
         updateRowViewsIfNeeded()
+        updateEmptyViewIfNeeded()
         super.update(with: dataItem)
     }
     
@@ -91,7 +107,9 @@ class WSRowListView: WSPluginContentView {
         super.layoutSubviews()
         
         updateRowViewsIfNeeded()
+        updateEmptyViewIfNeeded()
         layoutRowViews()
+        layoutEmptyView()
     }
     
     /// 按行列数补齐或移除行视图，保留已有的行视图避免重复创建
@@ -113,6 +131,24 @@ class WSRowListView: WSPluginContentView {
             addSubview(rowView)
             didAddRowView(rowView, at: index)
         }
+    }
+    
+    /// 按行列数创建或隐藏空白视图
+    private func updateEmptyViewIfNeeded() {
+        guard isShowingEmptyView else {
+            emptyView?.isHidden = true
+            return
+        }
+        
+        if emptyView == nil {
+            let emptyView = makeEmptyView()
+            /// 与内容视图一致，空白视图也拿到交互器
+            emptyView.interactor = interactor
+            self.emptyView = emptyView
+            addSubview(emptyView)
+        }
+        
+        emptyView?.isHidden = false
     }
     
     /// 行区域的布局区域。默认等于内容区域，子类可为标题、更多入口等预留空间
@@ -150,5 +186,16 @@ class WSRowListView: WSPluginContentView {
         for (index, rowView) in rowViews.enumerated() {
             rowView.frame = itemLayoutFrame(at: index)
         }
+    }
+    
+    /// 空白视图占满行区域，内容边距由空白视图内部处理
+    private func layoutEmptyView() {
+        guard let emptyView = emptyView, !emptyView.isHidden else {
+            return
+        }
+        
+        let layoutFrame = rowsLayoutFrame
+        emptyView.origin = layoutFrame.origin
+        emptyView.size = layoutFrame.size
     }
 }

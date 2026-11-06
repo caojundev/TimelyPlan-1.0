@@ -58,6 +58,8 @@ class WSHabitSelectedConfigViewController: WSPluginConfigViewController,
         self.config = config
         updateConfiguration(config)
         
+        /// 单项选择即确认，提交后关闭界面
+        commitConfiguration()
         if let presentingVC = presentingViewController {
             presentingVC.dismiss(animated: true, completion: nil)
         } else {

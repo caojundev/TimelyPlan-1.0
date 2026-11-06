@@ -49,7 +49,7 @@ class WSTodoTagSelectedConfigViewController: WSPluginConfigViewController {
     }
     
     // MARK: - 选择
-    /// 保存用户选择的标签
+    /// 记录用户选择的标签，点击完成时保存
     private func updateSelectedTags(_ identifiers: [String]) {
         var config = self.config
         config.tagIdentifiers = identifiers

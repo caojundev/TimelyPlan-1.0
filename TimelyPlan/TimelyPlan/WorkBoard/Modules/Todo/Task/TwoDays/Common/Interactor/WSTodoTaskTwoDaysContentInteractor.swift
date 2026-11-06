@@ -12,66 +12,73 @@ import UIKit
 
 /// 待办今明两天组件的内容交互器。
 ///
-/// 分别读取今天、明天的任务并按时间排序，任务点击与完成状态点击沿用待办任务交互器基类。
+/// 一次性读取今天零点到明天结束范围内的任务，再按日期分组并按时间排序；
+/// 任务点击与完成状态点击沿用待办任务交互器基类。
 class WSTodoTaskTwoDaysContentInteractor: WSTodoTaskContentInteractor {
 
+    func selectTodayMore() {
+        WSTodoListDetailPresenter.showDetail(for: TodoSmartList.today)
+    }
+    
+    func selectTomorrowMore() {
+        WSTodoListDetailPresenter.showDetail(for: TodoSmartList.tomorrow)
+    }
+    
     // MARK: - 取数
     override func fetchDataItem(completion: @escaping (WSPluginDataItem?) -> Void) {
         let todayDate = Date()
         let tomorrowDate = todayDate.dateByAddingDays(1) ?? todayDate
-        let group = DispatchGroup()
-        var todayTasks = [TodoTask]()
-        var tomorrowTasks = [TodoTask]()
+        let range = DateInterval.rangeOfDays(firstDate: todayDate, dayCount: 2)
 
-        /// 两天的查询互不依赖，并行查询后统一回调
-        group.enter()
-        fetchTasks(on: todayDate) { tasks in
-            todayTasks = tasks
-            group.leave()
-        }
+        TodoRepository.fetchCalendarEventTasks(in: range, showCompleted: false) { tasks in
+            let groups = Self.groupTasks(tasks ?? [],
+                                         todayDate: todayDate,
+                                         tomorrowDate: tomorrowDate)
 
-        group.enter()
-        fetchTasks(on: tomorrowDate) { tasks in
-            tomorrowTasks = tasks
-            group.leave()
-        }
+            let today = self.makeDay(title: resGetString("Today"), tasks: groups.today)
+            let tomorrow = self.makeDay(title: resGetString("Tomorrow"), tasks: groups.tomorrow)
 
-        group.notify(queue: .main) { [weak self] in
-            guard let self = self else {
-                return
-            }
-
-            let today = self.makeDay(title: resGetString("Today"), tasks: todayTasks)
-            let tomorrow = self.makeDay(title: resGetString("Tomorrow"), tasks: tomorrowTasks)
-
-            guard !today.items.isEmpty || !tomorrow.items.isEmpty else {
-                completion(nil)
-                return
-            }
-
+            /// 没有任务时仍下发空数据，保留头部与两列的基本信息
             completion(WSTodoTaskTwoDaysDataItem(today: today,
                                                  tomorrow: tomorrow))
         }
     }
 
-    /// 读取指定日期的任务，只保留开始或截止在该天的任务
-    private func fetchTasks(on date: Date, completion: @escaping ([TodoTask]) -> Void) {
-        let range = DateInterval.rangeOfDay(date)
-        TodoRepository.fetchCalendarEventTasks(in: range, showCompleted: false) { tasks in
-            let matchedTasks = (tasks ?? []).filter { task in
-                if let startDate = task.startDate, range.contains(startDate) {
-                    return true
+    /// 按任务时间把范围内的任务分为今天、明天两组
+    ///
+    /// 优先按开始时间归属，开始时间不在范围内时按截止时间归属；
+    /// 两天范围外的任务不展示。
+    private static func groupTasks(_ tasks: [TodoTask],
+                                   todayDate: Date,
+                                   tomorrowDate: Date) -> (today: [TodoTask], tomorrow: [TodoTask]) {
+        let todayRange = DateInterval.rangeOfDay(todayDate)
+        let tomorrowRange = DateInterval.rangeOfDay(tomorrowDate)
+        var todayTasks = [TodoTask]()
+        var tomorrowTasks = [TodoTask]()
+
+        for task in tasks {
+            if let startDate = task.startDate {
+                if todayRange.contains(startDate) {
+                    todayTasks.append(task)
+                    continue
                 }
 
-                if let dueDate = task.dueDate, range.contains(dueDate) {
-                    return true
+                if tomorrowRange.contains(startDate) {
+                    tomorrowTasks.append(task)
+                    continue
                 }
-
-                return false
             }
 
-            completion(Self.sortedTasks(matchedTasks))
+            if let dueDate = task.dueDate {
+                if todayRange.contains(dueDate) {
+                    todayTasks.append(task)
+                } else if tomorrowRange.contains(dueDate) {
+                    tomorrowTasks.append(task)
+                }
+            }
         }
+
+        return (sortedTasks(todayTasks), sortedTasks(tomorrowTasks))
     }
 
     /// 全部任务转换为单天数据
@@ -80,19 +87,29 @@ class WSTodoTaskTwoDaysContentInteractor: WSTodoTaskContentInteractor {
         return WSTodoTaskTwoDaysDay(title: title, items: items)
     }
 
-    /// 按计划时间排序，没有时间的任务排在末尾
+    /// 依次按开始日期、截止日期升序排序，两者相同再按优先级从高到低，最后按创建日期倒序兜底；
+    /// 没有日期的任务排在末尾
     private static func sortedTasks(_ tasks: [TodoTask]) -> [TodoTask] {
         return tasks.sorted { lhs, rhs in
-            switch (lhs.startDate, rhs.startDate) {
-            case let (lhsDate?, rhsDate?):
-                return lhsDate < rhsDate
-            case (nil, _?):
-                return false
-            case (_?, nil):
-                return true
-            default:
-                return false
+            let lhsStartDate = lhs.startDate ?? .distantFuture
+            let rhsStartDate = rhs.startDate ?? .distantFuture
+            if lhsStartDate != rhsStartDate {
+                return lhsStartDate < rhsStartDate
             }
+            
+            let lhsDueDate = lhs.dueDate ?? .distantFuture
+            let rhsDueDate = rhs.dueDate ?? .distantFuture
+            if lhsDueDate != rhsDueDate {
+                return lhsDueDate < rhsDueDate
+            }
+            
+            if lhs.priority != rhs.priority {
+                return lhs.priority.rawValue > rhs.priority.rawValue
+            }
+            
+            let lhsCreationDate = lhs.creationDate ?? .distantFuture
+            let rhsCreationDate = rhs.creationDate ?? .distantFuture
+            return lhsCreationDate > rhsCreationDate
         }
     }
 

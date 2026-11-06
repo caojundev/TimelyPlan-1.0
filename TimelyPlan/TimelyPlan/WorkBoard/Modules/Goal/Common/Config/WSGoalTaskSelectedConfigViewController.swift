@@ -49,7 +49,7 @@ class WSGoalTaskSelectedConfigViewController: WSPluginConfigViewController {
     }
     
     // MARK: - 选择
-    /// 保存用户选择的目标任务
+    /// 记录用户选择的目标任务，点击完成时保存
     private func updateSelectedTasks(_ identifiers: [String]) {
         var config = self.config
         config.taskIdentifiers = identifiers

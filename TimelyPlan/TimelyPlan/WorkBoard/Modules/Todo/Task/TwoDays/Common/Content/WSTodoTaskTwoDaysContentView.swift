@@ -46,10 +46,11 @@ class WSTodoTaskTwoDaysContentView: WSIconInfoTextValueContentView {
         addSubview(todayColumnView)
         addSubview(dividerView)
         addSubview(tomorrowColumnView)
-
+        
         let selectHandler: (WSTodoTaskItem) -> Void = { [weak self] dataItem in
             self?.interactor?.performAction(with: dataItem)
         }
+        
         let checkboxHandler: (WSTodoTaskItem) -> Void = { [weak self] dataItem in
             (self?.interactor as? WSTodoTaskContentInteractor)?.clickCheckbox(for: dataItem)
         }
@@ -57,6 +58,14 @@ class WSTodoTaskTwoDaysContentView: WSIconInfoTextValueContentView {
         for columnView in [todayColumnView, tomorrowColumnView] {
             columnView.didSelectTaskHandler = selectHandler
             columnView.didClickCheckboxHandler = checkboxHandler
+        }
+        
+        todayColumnView.didSelectMoreHandler = { [weak self] in
+            (self?.interactor as? WSTodoTaskTwoDaysContentInteractor)?.selectTodayMore()
+        }
+        
+        tomorrowColumnView.didSelectMoreHandler = { [weak self] in
+            (self?.interactor as? WSTodoTaskTwoDaysContentInteractor)?.selectTomorrowMore()
         }
     }
 
