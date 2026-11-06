@@ -1,6 +1,6 @@
 import Foundation
 
-// 待办组件较多，按清单、清单任务、标签、过滤器、任务拆成五个模块，各自对应一个 `WSPluginModule`。
+// 待办组件较多，按清单、清单任务、标签、标签任务、过滤器、任务拆成六个模块，各自对应一个 `WSPluginModule`。
 
 extension WSPluginType {
 
@@ -112,6 +112,43 @@ extension WSPluginType {
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
             return WSPluginType(rawValue, module: .todoTag, size: size)
+        }
+    }
+
+    /// 待办标签任务模块的组件类型。
+    enum TodoTagTask {
+
+        /// 待办·小·自选标签任务列表：逐行展示所选标签的未完成任务。
+        static let smallList = make("todoTagSmallTasksList", .small)
+
+        /// 待办·中·自选标签任务列表：逐行展示所选标签的未完成任务。
+        static let mediumList = make("todoTagMediumTasksList", .medium)
+
+        /// 待办·大·自选标签任务列表：逐行展示所选标签的未完成任务。
+        static let largeList = make("todoTagLargeTasksList", .large)
+
+        /// 待办·中·自选标签任务网格：以两列网格展示所选标签的未完成任务。
+        static let mediumGrid = make("todoTagMediumTasksGrid", .medium)
+
+        /// 待办·大·自选标签任务网格：以两列网格展示所选标签的未完成任务。
+        static let largeGrid = make("todoTagLargeTasksGrid", .large)
+
+        /// 模块内全部类型，顺序即组件选择器的展示顺序
+        static let all: [WSPluginType] = [
+            smallList, mediumList, largeList, mediumGrid, largeGrid,
+        ]
+
+        /// 模块内全部组件配置
+        static let catalog: [WSPluginConfiguration] = [
+            .init(WSTodoTagSmallTasksPluginProvider(), title: "Tag Tasks", subtitle: "Shows uncompleted tasks of a selected tag"),
+            .init(WSTodoTagMediumTasksListPluginProvider(), title: "Tag Tasks", subtitle: "Shows uncompleted tasks of a selected tag"),
+            .init(WSTodoTagLargeTasksListPluginProvider(), title: "Tag Tasks", subtitle: "Shows uncompleted tasks of a selected tag"),
+            .init(WSTodoTagMediumTasksGridPluginProvider(), title: "Tag Tasks", subtitle: "Shows uncompleted tasks of a selected tag in a grid"),
+            .init(WSTodoTagLargeTasksGridPluginProvider(), title: "Tag Tasks", subtitle: "Shows uncompleted tasks of a selected tag in a grid"),
+        ]
+
+        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
+            return WSPluginType(rawValue, module: .todoTagTask, size: size)
         }
     }
 

@@ -1,5 +1,5 @@
 //
-//  WSTodoListTasksRowListView.swift
+//  WSTodoGroupTasksRowListView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/6.
@@ -10,11 +10,11 @@ import UIKit
 
 // MARK: - 带卡片样式的任务行列表
 
-/// 待办自选清单任务的行列表。
+/// 按集合筛选任务的行列表视图。
 ///
 /// 在 `WSTodoTaskMoreRowListView` 的基础上按布局配置设置行的间距与卡片样式；
 /// 行视图刷新会重置底色，因此每次更新数据后重新应用卡片外观。
-class WSTodoListTasksRowListView: WSTodoTaskMoreRowListView {
+class WSTodoGroupTasksRowListView: WSTodoTaskMoreRowListView {
     
     /// 行外观
     struct Appearance {

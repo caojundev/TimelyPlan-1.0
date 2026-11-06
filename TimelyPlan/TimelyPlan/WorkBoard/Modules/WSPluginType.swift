@@ -58,6 +58,7 @@ extension WSPluginType: CaseIterable {
         WSPluginType.TodoList.all,
         WSPluginType.TodoListTask.all,
         WSPluginType.TodoTag.all,
+        WSPluginType.TodoTagTask.all,
         WSPluginType.TodoFilter.all,
         WSPluginType.TodoTask.all,
     ].flatMap { $0 }
@@ -162,6 +163,7 @@ enum WSPluginCatalog {
         WSPluginType.TodoList.catalog,
         WSPluginType.TodoListTask.catalog,
         WSPluginType.TodoTag.catalog,
+        WSPluginType.TodoTagTask.catalog,
         WSPluginType.TodoFilter.catalog,
         WSPluginType.TodoTask.catalog,
     ].flatMap { $0 }

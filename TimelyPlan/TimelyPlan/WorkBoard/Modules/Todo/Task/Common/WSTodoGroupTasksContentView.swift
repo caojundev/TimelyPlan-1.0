@@ -1,5 +1,5 @@
 //
-//  WSTodoListTasksContentView.swift
+//  WSTodoGroupTasksContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/6.
@@ -10,11 +10,11 @@ import UIKit
 
 // MARK: - 内容视图
 
-/// 待办自选清单任务的内容视图，各尺寸列表与网格共用。
+/// 按集合筛选任务的内容视图，各尺寸列表与网格共用。
 ///
-/// 头部展示所选清单的图标、名称与未完成任务数目，下方按布局配置展示未完成任务：
+/// 头部展示集合的图标、名称与任务数目，下方按布局配置展示集合内的任务：
 /// 列表为单列排列，网格为多列卡片排列。
-class WSTodoListTasksContentView: WSIconInfoTextValueContentView {
+class WSTodoGroupTasksContentView: WSIconInfoTextValueContentView {
     
     // MARK: - 配置
     /// 布局配置
@@ -69,18 +69,18 @@ class WSTodoListTasksContentView: WSIconInfoTextValueContentView {
         }
     }
     
-    /// 未完成任务列表
-    private let listView: WSTodoListTasksRowListView
+    /// 任务列表
+    private let listView: WSTodoGroupTasksRowListView
     
     init(layoutConfiguration: LayoutConfiguration) {
         let columnCount = max(layoutConfiguration.columnCount, 1)
         let itemCount = max(layoutConfiguration.itemCount, 1)
         let rowCount = Int(ceil(Double(itemCount) / Double(columnCount)))
-        let appearance = WSTodoListTasksRowListView.Appearance(rowPadding: layoutConfiguration.rowPadding,
-                                                               cornerRadius: layoutConfiguration.cornerRadius,
-                                                               backColor: layoutConfiguration.backColor,
-                                                               highlightedBackColor: layoutConfiguration.highlightedBackColor)
-        self.listView = WSTodoListTasksRowListView(maximumRowCount: rowCount, appearance: appearance)
+        let appearance = WSTodoGroupTasksRowListView.Appearance(rowPadding: layoutConfiguration.rowPadding,
+                                                                cornerRadius: layoutConfiguration.cornerRadius,
+                                                                backColor: layoutConfiguration.backColor,
+                                                                highlightedBackColor: layoutConfiguration.highlightedBackColor)
+        self.listView = WSTodoGroupTasksRowListView(maximumRowCount: rowCount, appearance: appearance)
         
         super.init(frame: .zero)
         
@@ -96,7 +96,7 @@ class WSTodoListTasksContentView: WSIconInfoTextValueContentView {
             (self?.interactor as? WSTodoTaskContentInteractor)?.clickCheckbox(for: dataItem)
         }
         listView.didSelectMoreHandler = { [weak self] in
-            (self?.interactor as? WSTodoListTasksContentInteractor)?.selectMore()
+            (self?.interactor as? WSTodoGroupTasksContentInteractor)?.selectMore()
         }
     }
     
@@ -108,10 +108,10 @@ class WSTodoListTasksContentView: WSIconInfoTextValueContentView {
     override func update(with dataItem: WSPluginDataItem?) {
         super.update(with: dataItem)
         
-        let dataItem = dataItem as? WSTodoListTasksDataItem
-        updateHeader(title: dataItem?.listItem.title,
-                     icon: dataItem?.listItem.icon,
-                     iconBackColor: dataItem?.listItem.color ?? .primary,
+        let dataItem = dataItem as? WSTodoGroupTasksDataItem
+        updateHeader(title: dataItem?.group.title,
+                     icon: dataItem?.group.icon,
+                     iconBackColor: dataItem?.group.color ?? .primary,
                      count: dataItem?.taskCount ?? 0)
         
         /// 没有任务时隐藏列表，避免展示列表内部的空白占位

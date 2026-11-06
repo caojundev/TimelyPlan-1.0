@@ -442,6 +442,10 @@
 "Select Tags" = "选择标签";
 "Shows todo tags in a list" = "以列表展示待办标签";
 "Shows todo tags in a grid" = "以网格展示待办标签";
+"Tag Tasks" = "标签任务";
+"Shows uncompleted tasks of a selected tag" = "展示所选标签的未完成任务";
+"Shows uncompleted tasks of a selected tag in a grid" = "以网格展示所选标签的未完成任务";
+"No Tag Selected" = "未选择标签";
 "Filters" = "过滤器";
 "Todo Filters" = "待办过滤器";
 "Select Filters" = "选择过滤器";
