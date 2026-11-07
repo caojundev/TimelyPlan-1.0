@@ -692,6 +692,12 @@
 "Home Display" = "主页显示";
 "Smart List Display" = "智能列表显示";
 "Auto-Hide Empty Smart List" = "自动隐藏空白智能清单";
+"Smart List Tasks" = "智能清单任务";
+"Shows uncompleted tasks of a selected smart list" = "展示所选智能清单的未完成任务";
+"Shows uncompleted tasks of a selected smart list in a grid" = "以网格展示所选智能清单的未完成任务";
+"Select Smart List" = "选择智能清单";
+"No Smart List" = "无智能清单";
+"No Smart List Selected" = "未选择智能清单";
 
 "Quick Add" = "快速添加";
 "Add Continuously" = "连续添加";

@@ -20,6 +20,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     
     case todoList   /// 待办清单
     case todoUserListTask /// 待办用户清单任务
+    case todoSmartListTask /// 待办智能清单任务
     case todoTag    /// 待办标签
     case todoTagTask /// 待办标签任务
     case todoFilter /// 待办过滤器
@@ -40,6 +41,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .calendar: return resGetString("Calendar")
         case .todoList: return resGetString("Lists")
         case .todoUserListTask: return resGetString("List Tasks")
+        case .todoSmartListTask: return resGetString("Smart List Tasks")
         case .todoTag: return resGetString("Tags")
         case .todoTagTask: return resGetString("Tag Tasks")
         case .todoFilter: return resGetString("Filters")
@@ -57,7 +59,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 模块图标。同一业务拆分出的模块暂沿用原业务图标，独立图标待设计补齐。
     var iconName: String? {
         switch self {
-        case .todoList, .todoUserListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoTask:
+        case .todoList, .todoUserListTask, .todoSmartListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoTask:
             return "sideMenu_todo_40"
         default:
             return "sideMenu_\(rawValue)_40"
@@ -72,7 +74,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 所属模块组。选择器按组划分 section，组内按模块逐行展示。
     var group: WSPluginModuleGroup {
         switch self {
-        case .todoList, .todoUserListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoTask:
+        case .todoList, .todoUserListTask, .todoSmartListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoTask:
             return .todo
         case .myDay, .calendar, .timeline, .quadrants, .goal, .focus, .habit, .countdown:
             return .others
@@ -86,6 +88,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .calendar: return []
         case .todoList: return WSPluginType.TodoList.all
         case .todoUserListTask: return WSPluginType.TodoUserListTask.all
+        case .todoSmartListTask: return WSPluginType.TodoSmartListTask.all
         case .todoTag: return WSPluginType.TodoTag.all
         case .todoTagTask: return WSPluginType.TodoTagTask.all
         case .todoFilter: return WSPluginType.TodoFilter.all

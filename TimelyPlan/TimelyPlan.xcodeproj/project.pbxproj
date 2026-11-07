@@ -2341,6 +2341,16 @@
 		E5D0FE890000000000000000 /* WSTodoFilterMediumTasksGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FE090000000000000000 /* WSTodoFilterMediumTasksGridPluginProvider.swift */; };
 		E5D0FE8A0000000000000000 /* WSTodoFilterLargeTasksListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FE0A0000000000000000 /* WSTodoFilterLargeTasksListPluginProvider.swift */; };
 		E5D0FE8B0000000000000000 /* WSTodoFilterLargeTasksGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FE0B0000000000000000 /* WSTodoFilterLargeTasksGridPluginProvider.swift */; };
+		E5D0FF810000000000000000 /* WSTodoSmartListSelectedSmartListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FF010000000000000000 /* WSTodoSmartListSelectedSmartListConfiguration.swift */; };
+		E5D0FF820000000000000000 /* WSTodoSmartListSingleSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FF020000000000000000 /* WSTodoSmartListSingleSelectionViewController.swift */; };
+		E5D0FF830000000000000000 /* WSTodoSmartListSingleSelectionConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FF030000000000000000 /* WSTodoSmartListSingleSelectionConfigViewController.swift */; };
+		E5D0FF840000000000000000 /* WSTodoSmartListTasksContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FF040000000000000000 /* WSTodoSmartListTasksContentInteractor.swift */; };
+		E5D0FF850000000000000000 /* WSTodoSmartListTasksPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FF050000000000000000 /* WSTodoSmartListTasksPluginProvider.swift */; };
+		E5D0FF860000000000000000 /* WSTodoSmartListSmallTasksPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FF060000000000000000 /* WSTodoSmartListSmallTasksPluginProvider.swift */; };
+		E5D0FF870000000000000000 /* WSTodoSmartListMediumTasksListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FF070000000000000000 /* WSTodoSmartListMediumTasksListPluginProvider.swift */; };
+		E5D0FF880000000000000000 /* WSTodoSmartListMediumTasksGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FF080000000000000000 /* WSTodoSmartListMediumTasksGridPluginProvider.swift */; };
+		E5D0FF890000000000000000 /* WSTodoSmartListLargeTasksListPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FF090000000000000000 /* WSTodoSmartListLargeTasksListPluginProvider.swift */; };
+		E5D0FF8A0000000000000000 /* WSTodoSmartListLargeTasksGridPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0FF0A0000000000000000 /* WSTodoSmartListLargeTasksGridPluginProvider.swift */; };
 		E5D3D4DC2DDC68C700E58EFA /* CalendarPageAutoScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */; };
 		E5D7D7DA2D43923800EC877A /* FocusStatsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */; };
 		E5D7D7DB2D43923800EC877A /* FocusStatsDayInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */; };
@@ -5299,6 +5309,16 @@
 		E5D0FE090000000000000000 /* WSTodoFilterMediumTasksGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoFilterMediumTasksGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0FE0A0000000000000000 /* WSTodoFilterLargeTasksListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoFilterLargeTasksListPluginProvider.swift; sourceTree = "<group>"; };
 		E5D0FE0B0000000000000000 /* WSTodoFilterLargeTasksGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoFilterLargeTasksGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0FF010000000000000000 /* WSTodoSmartListSelectedSmartListConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoSmartListSelectedSmartListConfiguration.swift; sourceTree = "<group>"; };
+		E5D0FF020000000000000000 /* WSTodoSmartListSingleSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoSmartListSingleSelectionViewController.swift; sourceTree = "<group>"; };
+		E5D0FF030000000000000000 /* WSTodoSmartListSingleSelectionConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoSmartListSingleSelectionConfigViewController.swift; sourceTree = "<group>"; };
+		E5D0FF040000000000000000 /* WSTodoSmartListTasksContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoSmartListTasksContentInteractor.swift; sourceTree = "<group>"; };
+		E5D0FF050000000000000000 /* WSTodoSmartListTasksPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoSmartListTasksPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0FF060000000000000000 /* WSTodoSmartListSmallTasksPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoSmartListSmallTasksPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0FF070000000000000000 /* WSTodoSmartListMediumTasksListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoSmartListMediumTasksListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0FF080000000000000000 /* WSTodoSmartListMediumTasksGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoSmartListMediumTasksGridPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0FF090000000000000000 /* WSTodoSmartListLargeTasksListPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoSmartListLargeTasksListPluginProvider.swift; sourceTree = "<group>"; };
+		E5D0FF0A0000000000000000 /* WSTodoSmartListLargeTasksGridPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSTodoSmartListLargeTasksGridPluginProvider.swift; sourceTree = "<group>"; };
 		E5D3D4DB2DDC68C700E58EFA /* CalendarPageAutoScroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPageAutoScroller.swift; sourceTree = "<group>"; };
 		E5D7D7B82D43923800EC877A /* FocusStatsDataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDataItem.swift; sourceTree = "<group>"; };
 		E5D7D7B92D43923800EC877A /* FocusStatsDayInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusStatsDayInfo.swift; sourceTree = "<group>"; };
@@ -7915,8 +7935,8 @@
 		E52D3D93309C1C8F001BBAF9 /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				E5AC723A309ECA90004042F8 /* SmartList */,
 				E5139E8F309E18B10026B60C /* Common */,
+				E5D0FF200000000000000000 /* SmartList */,
 				E5838BA4309DF155008E83CA /* UserList */,
 				E5139EB7309E1CAB0026B60C /* Filter */,
 				E5139E9A309E191C0026B60C /* Tag */,
@@ -11287,13 +11307,6 @@
 			path = Skeleton;
 			sourceTree = "<group>";
 		};
-		E5AC723A309ECA90004042F8 /* SmartList */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SmartList;
-			sourceTree = "<group>";
-		};
 		E5B33D3E2F80B2EF00939C3E /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -14474,6 +14487,87 @@
 			path = Large;
 			sourceTree = "<group>";
 		};
+		E5D0FF200000000000000000 /* SmartList */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0FF210000000000000000 /* Common */,
+				E5D0FF280000000000000000 /* Large */,
+				E5D0FF270000000000000000 /* Medium */,
+				E5D0FF260000000000000000 /* Small */,
+			);
+			path = SmartList;
+			sourceTree = "<group>";
+		};
+		E5D0FF210000000000000000 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0FF220000000000000000 /* Config */,
+				E5D0FF230000000000000000 /* Data */,
+				E5D0FF240000000000000000 /* Interactor */,
+				E5D0FF250000000000000000 /* Provider */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E5D0FF220000000000000000 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0FF020000000000000000 /* WSTodoSmartListSingleSelectionViewController.swift */,
+				E5D0FF030000000000000000 /* WSTodoSmartListSingleSelectionConfigViewController.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		E5D0FF230000000000000000 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0FF010000000000000000 /* WSTodoSmartListSelectedSmartListConfiguration.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E5D0FF240000000000000000 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0FF040000000000000000 /* WSTodoSmartListTasksContentInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		E5D0FF250000000000000000 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0FF050000000000000000 /* WSTodoSmartListTasksPluginProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		E5D0FF260000000000000000 /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0FF060000000000000000 /* WSTodoSmartListSmallTasksPluginProvider.swift */,
+			);
+			path = Small;
+			sourceTree = "<group>";
+		};
+		E5D0FF270000000000000000 /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0FF070000000000000000 /* WSTodoSmartListMediumTasksListPluginProvider.swift */,
+				E5D0FF080000000000000000 /* WSTodoSmartListMediumTasksGridPluginProvider.swift */,
+			);
+			path = Medium;
+			sourceTree = "<group>";
+		};
+		E5D0FF280000000000000000 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E5D0FF090000000000000000 /* WSTodoSmartListLargeTasksListPluginProvider.swift */,
+				E5D0FF0A0000000000000000 /* WSTodoSmartListLargeTasksGridPluginProvider.swift */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
 		E5D3D4DA2DDC689C00E58EFA /* DragDropManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -17486,6 +17580,16 @@
 				E5D0FE890000000000000000 /* WSTodoFilterMediumTasksGridPluginProvider.swift in Sources */,
 				E5D0FE8A0000000000000000 /* WSTodoFilterLargeTasksListPluginProvider.swift in Sources */,
 				E5D0FE8B0000000000000000 /* WSTodoFilterLargeTasksGridPluginProvider.swift in Sources */,
+				E5D0FF810000000000000000 /* WSTodoSmartListSelectedSmartListConfiguration.swift in Sources */,
+				E5D0FF820000000000000000 /* WSTodoSmartListSingleSelectionViewController.swift in Sources */,
+				E5D0FF830000000000000000 /* WSTodoSmartListSingleSelectionConfigViewController.swift in Sources */,
+				E5D0FF840000000000000000 /* WSTodoSmartListTasksContentInteractor.swift in Sources */,
+				E5D0FF850000000000000000 /* WSTodoSmartListTasksPluginProvider.swift in Sources */,
+				E5D0FF860000000000000000 /* WSTodoSmartListSmallTasksPluginProvider.swift in Sources */,
+				E5D0FF870000000000000000 /* WSTodoSmartListMediumTasksListPluginProvider.swift in Sources */,
+				E5D0FF880000000000000000 /* WSTodoSmartListMediumTasksGridPluginProvider.swift in Sources */,
+				E5D0FF890000000000000000 /* WSTodoSmartListLargeTasksListPluginProvider.swift in Sources */,
+				E5D0FF8A0000000000000000 /* WSTodoSmartListLargeTasksGridPluginProvider.swift in Sources */,
 				E5D0CD090000000000000000 /* WSTodoFilterSelectedConfigViewController.swift in Sources */,
 				E5D0CD0A0000000000000000 /* WSTodoFilterDetailPresenter.swift in Sources */,
 				E5D0CD0B0000000000000000 /* WSTodoFilterSmallListPluginProvider.swift in Sources */,
