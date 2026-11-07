@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-/// 日历·小·最近事项的内容交互器。
+/// 日历·最近事项的内容交互器。
 ///
 /// 取最近若干天的事项按天分组后下发给内容视图；事项变化与跨天时重新取数。
 class WSCalendarUpcomingContentInteractor: WSPluginContentInteractor, CalendarEventChangeDelegate {
@@ -89,7 +89,7 @@ class WSCalendarUpcomingContentInteractor: WSPluginContentInteractor, CalendarEv
     }
 
     // MARK: - 预览数据
-    /// 画廊预览数据：固定的三天事项，不受用户数据影响
+    /// 画廊预览数据：固定的两天示例事项，不受用户数据影响
     override func previewDataItem() -> WSPluginDataItem? {
         let today = Date().startOfDay()
         guard let tomorrow = today.dateByAddingDays(1) else {
@@ -103,15 +103,35 @@ class WSCalendarUpcomingContentInteractor: WSPluginContentInteractor, CalendarEv
                              startDate: today.dateByAddingHours(9),
                              endDate: today.dateByAddingHours(10)),
             makePreviewEvent(identifier: "preview-today-2",
+                             name: resGetString("Review"),
+                             color: Color(0xF6BF25),
+                             startDate: today.dateByAddingHours(11),
+                             endDate: today.dateByAddingHours(12)),
+            makePreviewEvent(identifier: "preview-today-3",
                              name: resGetString("Deep Work"),
                              color: Color(0xC274FF),
                              startDate: today.dateByAddingHours(14),
                              endDate: today.dateByAddingHours(16)),
-            makePreviewEvent(identifier: "preview-tomorrow",
+            makePreviewEvent(identifier: "preview-today-4",
+                             name: resGetString("Workout"),
+                             color: Color(0x00CF85),
+                             startDate: today.dateByAddingHours(18),
+                             endDate: today.dateByAddingHours(19)),
+            makePreviewEvent(identifier: "preview-tomorrow-1",
                              name: resGetString("Reading"),
                              color: Color(0x30D158),
                              startDate: tomorrow.dateByAddingHours(10),
                              endDate: tomorrow.dateByAddingHours(11)),
+            makePreviewEvent(identifier: "preview-tomorrow-2",
+                             name: resGetString("Planning"),
+                             color: Color(0xF3501D),
+                             startDate: tomorrow.dateByAddingHours(13),
+                             endDate: tomorrow.dateByAddingHours(14)),
+            makePreviewEvent(identifier: "preview-tomorrow-3",
+                             name: resGetString("Writing"),
+                             color: Color(0xFE887C),
+                             startDate: tomorrow.dateByAddingHours(15),
+                             endDate: tomorrow.dateByAddingHours(16)),
         ]
 
         return WSCalendarDayEventsDataItem(events: events, startingAt: today, dayCount: Metrics.dayCount)
