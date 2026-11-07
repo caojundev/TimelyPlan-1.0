@@ -1,6 +1,6 @@
 import Foundation
 
-// 待办组件较多，按清单、用户清单任务、智能清单任务、标签、标签任务、过滤器、过滤器任务、任务拆成八个模块，各自对应一个 `WSPluginModule`。
+// 待办组件较多，按清单、用户清单任务、智能清单任务、标签、标签任务、过滤器、过滤器任务、自定义任务拆成八个模块，各自对应一个 `WSPluginModule`。
 
 extension WSPluginType {
 
@@ -244,9 +244,22 @@ extension WSPluginType {
         /// 待办·大·自选智能清单任务网格：以两列网格展示所选智能清单的未完成任务。
         static let largeGrid = make("todoSmartListLargeTasksGrid", .large)
 
+        /// 智能清单·中·今明两天：按今天、明天两列展示任务。
+        static let mediumTwoDays = make("todoTaskMediumTwoDays", .medium)
+
+        /// 智能清单·大·今明两天：按今天、明天两列展示任务。
+        static let largeTwoDays = make("todoTaskLargeTwoDays", .large)
+
+        /// 智能清单·小·接下来七天：展示从后天起七天的任务负载分布。
+        static let smallNextTrends = make("todoTaskSmallNextTrends", .small)
+
+        /// 智能清单·中·接下来七天：左侧展示七天任务负载，右侧展示接下来要做的任务。
+        static let mediumNextTrends = make("todoTaskMediumNextTrends", .medium)
+
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
             smallList, mediumList, largeList, mediumGrid, largeGrid,
+            mediumTwoDays, largeTwoDays, smallNextTrends, mediumNextTrends,
         ]
 
         /// 模块内全部组件配置
@@ -256,6 +269,10 @@ extension WSPluginType {
             .init(WSTodoSmartListLargeTasksListPluginProvider(), title: "Smart List Tasks", subtitle: "Shows uncompleted tasks of a selected smart list"),
             .init(WSTodoSmartListMediumTasksGridPluginProvider(), title: "Smart List Tasks", subtitle: "Shows uncompleted tasks of a selected smart list in a grid"),
             .init(WSTodoSmartListLargeTasksGridPluginProvider(), title: "Smart List Tasks", subtitle: "Shows uncompleted tasks of a selected smart list in a grid"),
+            .init(WSTodoTaskMediumTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows tasks for today and tomorrow"),
+            .init(WSTodoTaskLargeTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows tasks for today and tomorrow"),
+            .init(WSTodoTaskSmallNextTrendsPluginProvider(), title: "Upcoming", subtitle: "Shows the task load of the next 7 days"),
+            .init(WSTodoTaskMediumNextTrendsPluginProvider(), title: "Upcoming", subtitle: "Shows the next 7 days task load and upcoming tasks"),
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
@@ -263,8 +280,8 @@ extension WSPluginType {
         }
     }
 
-    /// 待办任务模块的组件类型。
-    enum TodoTask {
+    /// 待办自定义任务模块的组件类型。
+    enum TodoCustomTask {
 
         /// 待办·小·自选任务列表：逐行展示所选待办任务。
         static let smallTaskList = make("todoTaskSmallTaskList", .small)
@@ -281,39 +298,22 @@ extension WSPluginType {
         /// 待办·大·自选任务网格：以两列网格展示所选待办任务。
         static let largeTaskGrid = make("todoTaskLargeTaskGrid", .large)
 
-        /// 待办·中·今明两天：按今天、明天两列展示任务。
-        static let mediumTwoDays = make("todoTaskMediumTwoDays", .medium)
-
-        /// 待办·大·今明两天：按今天、明天两列展示任务。
-        static let largeTwoDays = make("todoTaskLargeTwoDays", .large)
-
-        /// 待办·小·接下来七天：展示从后天起七天的任务负载分布。
-        static let smallNextTrends = make("todoTaskSmallNextTrends", .small)
-
-        /// 待办·中·接下来七天：左侧展示七天任务负载，右侧展示接下来要做的任务。
-        static let mediumNextTrends = make("todoTaskMediumNextTrends", .medium)
-
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
             smallTaskList, mediumTaskList, largeTaskList, mediumTaskGrid, largeTaskGrid,
-            mediumTwoDays, largeTwoDays, smallNextTrends, mediumNextTrends,
         ]
 
         /// 模块内全部组件配置
         static let catalog: [WSPluginConfiguration] = [
-            .init(WSTodoTaskSmallTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a list"),
-            .init(WSTodoTaskMediumTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a list"),
-            .init(WSTodoTaskLargeTaskListPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a list"),
-            .init(WSTodoTaskMediumTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a grid"),
-            .init(WSTodoTaskLargeTaskGridPluginProvider(), title: "Tasks", subtitle: "Shows selected todo tasks in a grid"),
-            .init(WSTodoTaskMediumTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows tasks for today and tomorrow"),
-            .init(WSTodoTaskLargeTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows tasks for today and tomorrow"),
-            .init(WSTodoTaskSmallNextTrendsPluginProvider(), title: "Upcoming", subtitle: "Shows the task load of the next 7 days"),
-            .init(WSTodoTaskMediumNextTrendsPluginProvider(), title: "Upcoming", subtitle: "Shows the next 7 days task load and upcoming tasks"),
+            .init(WSTodoTaskSmallTaskListPluginProvider(), title: "Custom Tasks", subtitle: "Shows selected todo tasks in a list"),
+            .init(WSTodoTaskMediumTaskListPluginProvider(), title: "Custom Tasks", subtitle: "Shows selected todo tasks in a list"),
+            .init(WSTodoTaskLargeTaskListPluginProvider(), title: "Custom Tasks", subtitle: "Shows selected todo tasks in a list"),
+            .init(WSTodoTaskMediumTaskGridPluginProvider(), title: "Custom Tasks", subtitle: "Shows selected todo tasks in a grid"),
+            .init(WSTodoTaskLargeTaskGridPluginProvider(), title: "Custom Tasks", subtitle: "Shows selected todo tasks in a grid"),
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoTask, size: size)
+            return WSPluginType(rawValue, module: .todoCustomTask, size: size)
         }
     }
 }

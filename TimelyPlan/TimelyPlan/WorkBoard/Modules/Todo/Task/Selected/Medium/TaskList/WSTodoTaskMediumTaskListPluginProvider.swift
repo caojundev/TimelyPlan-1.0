@@ -14,7 +14,7 @@ import UIKit
 class WSTodoTaskMediumTaskListPluginProvider: WSTodoTaskSelectedPluginProvider {
 
     init() {
-        super.init(type: .TodoTask.mediumTaskList,
+        super.init(type: .TodoCustomTask.mediumTaskList,
                    itemCount: WSTodoTaskItemCount.mediumList,
                    layoutConfiguration: .list)
     }

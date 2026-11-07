@@ -14,7 +14,7 @@ import UIKit
 class WSTodoTaskLargeTaskListPluginProvider: WSTodoTaskSelectedPluginProvider {
 
     init() {
-        super.init(type: .TodoTask.largeTaskList,
+        super.init(type: .TodoCustomTask.largeTaskList,
                    itemCount: WSTodoTaskItemCount.largeList,
                    layoutConfiguration: .list)
     }

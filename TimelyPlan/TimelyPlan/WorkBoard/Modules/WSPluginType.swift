@@ -62,7 +62,7 @@ extension WSPluginType: CaseIterable {
         WSPluginType.TodoTagTask.all,
         WSPluginType.TodoFilter.all,
         WSPluginType.TodoFilterTask.all,
-        WSPluginType.TodoTask.all,
+        WSPluginType.TodoCustomTask.all,
     ].flatMap { $0 }
 
     /// 标识索引，避免每次按标识反查都遍历数组。
@@ -169,7 +169,7 @@ enum WSPluginCatalog {
         WSPluginType.TodoTagTask.catalog,
         WSPluginType.TodoFilter.catalog,
         WSPluginType.TodoFilterTask.catalog,
-        WSPluginType.TodoTask.catalog,
+        WSPluginType.TodoCustomTask.catalog,
     ].flatMap { $0 }
 
     /// 按类型取回组件配置

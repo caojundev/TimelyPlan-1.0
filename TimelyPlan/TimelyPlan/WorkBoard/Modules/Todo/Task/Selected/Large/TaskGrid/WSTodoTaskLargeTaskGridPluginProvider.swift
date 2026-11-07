@@ -14,7 +14,7 @@ import UIKit
 class WSTodoTaskLargeTaskGridPluginProvider: WSTodoTaskSelectedPluginProvider {
 
     init() {
-        super.init(type: .TodoTask.largeTaskGrid,
+        super.init(type: .TodoCustomTask.largeTaskGrid,
                    itemCount: WSTodoTaskItemCount.largeGrid,
                    option: [.schedule, .step],
                    layoutConfiguration: .grid(columnCount: WSTodoTaskItemCount.gridColumnCount))

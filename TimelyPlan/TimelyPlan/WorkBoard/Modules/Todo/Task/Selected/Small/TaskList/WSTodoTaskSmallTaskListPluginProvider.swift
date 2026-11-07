@@ -14,7 +14,7 @@ import UIKit
 class WSTodoTaskSmallTaskListPluginProvider: WSTodoTaskSelectedPluginProvider {
 
     init() {
-        super.init(type: .TodoTask.smallTaskList,
+        super.init(type: .TodoCustomTask.smallTaskList,
                    itemCount: WSTodoTaskItemCount.smallList,
                    option: [.schedule, .step],
                    layoutConfiguration: .list)

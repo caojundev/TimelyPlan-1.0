@@ -25,7 +25,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     case todoTagTask /// 待办标签任务
     case todoFilter /// 待办过滤器
     case todoFilterTask /// 待办过滤器任务
-    case todoTask   /// 待办任务
+    case todoCustomTask /// 待办自定义任务
     
     case timeline   /// 时间线
     case quadrants  /// 四象限
@@ -46,7 +46,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .todoTagTask: return resGetString("Tag Tasks")
         case .todoFilter: return resGetString("Filters")
         case .todoFilterTask: return resGetString("Filter Tasks")
-        case .todoTask: return resGetString("Tasks")
+        case .todoCustomTask: return resGetString("Custom Tasks")
         case .timeline: return resGetString("Timeline")
         case .quadrants: return resGetString("Quadrants")
         case .goal: return resGetString("Goal")
@@ -59,7 +59,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 模块图标。同一业务拆分出的模块暂沿用原业务图标，独立图标待设计补齐。
     var iconName: String? {
         switch self {
-        case .todoList, .todoUserListTask, .todoSmartListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoTask:
+        case .todoList, .todoUserListTask, .todoSmartListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoCustomTask:
             return "sideMenu_todo_40"
         default:
             return "sideMenu_\(rawValue)_40"
@@ -74,8 +74,10 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 所属模块组。选择器按组划分 section，组内按模块逐行展示。
     var group: WSPluginModuleGroup {
         switch self {
-        case .todoList, .todoUserListTask, .todoSmartListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoTask:
+        case .todoList, .todoTag, .todoFilter:
             return .todo
+        case .todoUserListTask, .todoSmartListTask, .todoTagTask, .todoFilterTask, .todoCustomTask:
+            return .todoTask
         case .myDay, .calendar, .timeline, .quadrants, .goal, .focus, .habit, .countdown:
             return .others
         }
@@ -93,7 +95,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .todoTagTask: return WSPluginType.TodoTagTask.all
         case .todoFilter: return WSPluginType.TodoFilter.all
         case .todoFilterTask: return WSPluginType.TodoFilterTask.all
-        case .todoTask: return WSPluginType.TodoTask.all
+        case .todoCustomTask: return WSPluginType.TodoCustomTask.all
         case .timeline: return WSPluginType.Timeline.all
         case .quadrants: return WSPluginType.Quadrant.all
         case .goal: return WSPluginType.Goal.all
@@ -109,16 +111,18 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
 /// 组件模块组。
 ///
 /// 一个组对应选择器中的一个 section，组内模块逐行展示。
-/// 目前只把组件较多的待办单独成组，其余模块统一归入 `others`；
+/// 待办按「清单/标签/过滤器」与「任务」拆成两个组，其余模块统一归入 `others`；
 /// 后续需要单独成组时，新增 case 并把对应模块的 `group` 指过来即可。
 public enum WSPluginModuleGroup: String, CaseIterable {
-    case todo   /// 待办
-    case others /// 其它
+    case todo     /// 待办
+    case todoTask /// 待办任务
+    case others   /// 其它
 
     /// 组标题
     var title: String {
         switch self {
         case .todo: return resGetString("Todo")
+        case .todoTask: return resGetString("Todo Tasks")
         case .others: return resGetString("Others")
         }
     }

@@ -15,7 +15,7 @@ class WSTodoTaskMediumNextTrendsPluginProvider: WSPluginProvider {
 
     /// 插件类型
     var type: WSPluginType {
-        return .TodoTask.mediumNextTrends
+        return .TodoSmartListTask.mediumNextTrends
     }
 
     func makeContentView() -> WSPluginContentView {

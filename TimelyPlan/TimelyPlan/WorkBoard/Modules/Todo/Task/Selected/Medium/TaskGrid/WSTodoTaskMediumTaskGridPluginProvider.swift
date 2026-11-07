@@ -14,7 +14,7 @@ import UIKit
 class WSTodoTaskMediumTaskGridPluginProvider: WSTodoTaskSelectedPluginProvider {
 
     init() {
-        super.init(type: .TodoTask.mediumTaskGrid,
+        super.init(type: .TodoCustomTask.mediumTaskGrid,
                    itemCount: WSTodoTaskItemCount.mediumGrid,
                    option: [.schedule, .step],
                    layoutConfiguration: .grid(columnCount: WSTodoTaskItemCount.gridColumnCount))

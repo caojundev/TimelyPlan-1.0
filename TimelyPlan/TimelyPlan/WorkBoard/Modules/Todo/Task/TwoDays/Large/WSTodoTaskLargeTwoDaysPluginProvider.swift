@@ -14,7 +14,7 @@ import UIKit
 class WSTodoTaskLargeTwoDaysPluginProvider: WSTodoTaskTwoDaysPluginProvider {
 
     init() {
-        super.init(type: .TodoTask.largeTwoDays,
+        super.init(type: .TodoSmartListTask.largeTwoDays,
                    itemCount: WSTodoTaskTwoDaysLayout.largeRowCount)
     }
 }
