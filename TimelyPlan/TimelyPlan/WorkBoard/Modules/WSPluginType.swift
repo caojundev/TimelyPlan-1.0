@@ -49,6 +49,7 @@ extension WSPluginType: CaseIterable {
     /// 全部组件类型，顺序 = 模块顺序 × 模块内声明顺序。
     public static let allCases: [WSPluginType] = [
         WSPluginType.MyDay.all,
+        WSPluginType.Calendar.all,
         WSPluginType.Timeline.all,
         WSPluginType.Quadrant.all,
         WSPluginType.Countdown.all,
@@ -156,6 +157,7 @@ enum WSPluginCatalog {
     /// 全部组件配置，顺序与 `WSPluginType.allCases` 一致
     static let all: [WSPluginConfiguration] = [
         WSPluginType.MyDay.catalog,
+        WSPluginType.Calendar.catalog,
         WSPluginType.Timeline.catalog,
         WSPluginType.Quadrant.catalog,
         WSPluginType.Countdown.catalog,

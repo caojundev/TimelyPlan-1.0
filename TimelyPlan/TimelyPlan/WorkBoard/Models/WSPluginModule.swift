@@ -87,7 +87,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     var types: [WSPluginType] {
         switch self {
         case .myDay: return WSPluginType.MyDay.all
-        case .calendar: return []
+        case .calendar: return WSPluginType.Calendar.all
         case .todoList: return WSPluginType.TodoList.all
         case .todoUserListTask: return WSPluginType.TodoUserListTask.all
         case .todoSmartListTask: return WSPluginType.TodoSmartListTask.all

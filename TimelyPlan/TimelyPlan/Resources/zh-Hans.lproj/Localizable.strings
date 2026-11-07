@@ -66,6 +66,10 @@
 "Shows this week's focus duration and daily activity" = "展示本周专注时长与每天的活动";
 "Month Heatmap" = "本月热力图";
 "Shows this month's focus heatmap" = "展示本月专注热力图";
+"Classic Date" = "经典日期";
+"Shows today's date with a red month banner" = "以红色月份横幅展示今日日期";
+"Minimal Date" = "极简日期";
+"Shows today's date in a minimal layout" = "以极简排版展示今日日期";
 "Habits" = "习惯";
 "Shows today's habits and progress" = "展示今日习惯与完成进度";
 "Selected Habit" = "自选习惯";
