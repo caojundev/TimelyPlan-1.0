@@ -11,6 +11,13 @@ import UIKit
 class CalendarEventListCell: TPDefaultInfoTableCell {
     
     var date: Date?
+
+    /// 副标题展示项，默认时间与来源都展示
+    var detailOption: CalendarEventDetailOption = .all {
+        didSet {
+            updateSubtitle()
+        }
+    }
     
     var event: CalendarEvent? {
         didSet {
@@ -51,54 +58,18 @@ class CalendarEventListCell: TPDefaultInfoTableCell {
     }
     
     private func updateSubtitle() {
-        guard let event = event, let date = date else {
+        guard let event = event else {
+            eventInfoView.subtitle = nil
             return
         }
 
-        let allDayString = resGetString("All day")
-        var infos = [String]()
-        if event.spansMultipleDays {
-            /// 横跨多天
-            if date.isInSameDayAs(event.startDate) {
-                if event.startDate.isStartOfDay {
-                    infos.append(allDayString)
-                } else {
-                    infos.append(event.startDate.timeString)
-                }
-            } else if date.isInSameDayAs(event.endDate) {
-                if event.endDate.isEndOfDay {
-                    infos.append(allDayString)
-                } else {
-                    let format = resGetString("Until %@")
-                    let endString = String(format: format, event.endDate.timeString)
-                    infos.append(endString)
-                }
-            } else {
-                /// 非开始和结束日，显示全天
-                infos.append(allDayString)
-            }
-  
-            let index = event.getDayIndex(targetDate: date) + 1
-            let spanDays = event.spanDays
-            if index > 0, spanDays > 0 {
-                let indexFormat = resGetString("Day %ld/%ld")
-                let indexString = String(format: indexFormat, index, spanDays)
-                infos.append(indexString)
-            }
+        let provider = CalendarEventDetailProvider(event: event,
+                                                   date: date,
+                                                   option: detailOption)
+        if let info = provider.info() {
+            eventInfoView.subtitle = info
         } else {
-            /// 单日
-            if event.isAllDay {
-                infos.append(allDayString)
-            } else {
-                let timeString = "\(event.startDate.timeString) - \(event.endDate.timeString)"
-                infos.append(timeString)
-            }
+            eventInfoView.subtitle = nil
         }
-
-        if let sourceDescription = event.sourceDescription {
-            infos.append(sourceDescription)
-        }
-        
-        eventInfoView.subtitle = infos.joined(separator: " • ")
     }
 }

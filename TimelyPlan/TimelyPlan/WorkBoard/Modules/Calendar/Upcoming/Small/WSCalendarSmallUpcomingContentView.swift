@@ -39,6 +39,9 @@ class WSCalendarSmallUpcomingContentView: WSCalendarEventListView {
         
         /// 行内容的上下间距。行高受限，收紧后名称与时间才能完整展示
         static let rowContentInsets = UIEdgeInsets(horizontal: 4.0, vertical: 1.0)
+
+        /// 行详情只展示时间，小尺寸不展示来源
+        static let detailOption: CalendarEventDetailOption = .time
     }
 
     /// 当前展示的列表数据
@@ -76,11 +79,15 @@ class WSCalendarSmallUpcomingContentView: WSCalendarEventListView {
     }
 
     override func numberOfRows(in section: Int) -> Int {
-        return rowItems(at: section)?.count ?? 0
+        return events(at: section)?.count ?? 0
     }
 
     override func headerTitle(at section: Int) -> String? {
-        return dayEvents?.days[safe: section]?.title
+        guard let date = dayEvents?.days[safe: section]?.date else {
+            return nil
+        }
+
+        return headerText(for: date)
     }
 
     override func updateHeaderView(_ headerView: UIView, at section: Int) {
@@ -105,11 +112,12 @@ class WSCalendarSmallUpcomingContentView: WSCalendarEventListView {
     }
 
     override func updateRowView(_ rowView: WSRowView, at indexPath: IndexPath) {
-        guard let item = rowItem(at: indexPath) else {
+        guard let rowView = rowView as? WSCalendarEventRowView,
+              let item = rowItem(at: indexPath) else {
             return
         }
 
-        (rowView as? WSCalendarEventRowView)?.update(with: item)
+        rowView.update(with: item)
     }
 
     // MARK: - 渲染
@@ -119,11 +127,32 @@ class WSCalendarSmallUpcomingContentView: WSCalendarEventListView {
     }
 
     // MARK: - 辅助
-    private func rowItems(at section: Int) -> [WSCalendarEventRowItem]? {
-        return dayEvents?.days[safe: section]?.items
+    private func events(at section: Int) -> [CalendarEvent]? {
+        return dayEvents?.days[safe: section]?.events
     }
 
+    /// 行数据在绑定时生成，详情由详情供应工具按展示日期实时计算
     private func rowItem(at indexPath: IndexPath) -> WSCalendarEventRowItem? {
-        return rowItems(at: indexPath.section)?[safe: indexPath.row]
+        guard let day = dayEvents?.days[safe: indexPath.section],
+              let event = day.events[safe: indexPath.row] else {
+            return nil
+        }
+
+        return WSCalendarEventRowItem(event: event,
+                                      date: day.date,
+                                      detailOption: Metrics.detailOption)
+    }
+
+    /// 日期头文案：今天与明天用相对日期，其余展示月日与星期
+    private func headerText(for date: Date) -> String {
+        if date.isToday {
+            return resGetString("Today")
+        }
+
+        if date.isTomorrow {
+            return resGetString("Tomorrow")
+        }
+
+        return date.monthDayShortWeekdaySymbolString
     }
 }

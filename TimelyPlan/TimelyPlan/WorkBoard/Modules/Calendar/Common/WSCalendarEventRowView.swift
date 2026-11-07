@@ -19,8 +19,11 @@ class WSCalendarEventRowItem: NSObject, WSPluginDataItem {
     /// 事项名称
     let title: String
 
-    /// 时间说明，作为副标题展示
-    let timeText: String?
+    /// 展示日期，跨天事项据此截取当天的详情。为空时按事项开始日期计算
+    let date: Date?
+
+    /// 详情展示项
+    let detailOption: CalendarEventDetailOption
 
     /// 事项颜色
     let color: UIColor
@@ -31,35 +34,45 @@ class WSCalendarEventRowItem: NSObject, WSPluginDataItem {
     /// 原始事项，点击时据此打开详情；预览数据为空
     let event: CalendarEvent?
 
-    /// 由日历事项生成展示数据。跨天事项建议传入对应日期的 timeText
-    init(event: CalendarEvent, timeText: String? = nil) {
+    /// 预览数据的详情文案
+    private let previewDetail: String?
+
+    /// 详情文案，读取时由详情供应工具按事项与展示日期实时计算
+    var detail: String? {
+        guard let event = event else {
+            return previewDetail
+        }
+
+        return CalendarEventDetailProvider(event: event, date: date, option: detailOption).info()
+    }
+
+    /// 由日历事项生成展示数据
+    init(event: CalendarEvent,
+         date: Date? = nil,
+         detailOption: CalendarEventDetailOption = .all) {
         self.identifier = event.identifier
         self.title = event.title ?? resGetString("Untitled")
-        self.timeText = timeText ?? WSCalendarEventRowItem.defaultTimeText(for: event)
+        self.date = date
+        self.detailOption = detailOption
         self.color = event.color
         self.isCompleted = event.isCompleted
         self.event = event
+        self.previewDetail = nil
         super.init()
     }
 
     /// 预览数据：不关联真实事项
-    init(identifier: String, title: String, timeText: String?, color: UIColor,
+    init(identifier: String, title: String, detail: String?, color: UIColor,
          isCompleted: Bool = false) {
         self.identifier = identifier
         self.title = title
-        self.timeText = timeText
+        self.date = nil
+        self.detailOption = .all
         self.color = color
         self.isCompleted = isCompleted
         self.event = nil
+        self.previewDetail = detail
         super.init()
-    }
-
-    private static func defaultTimeText(for event: CalendarEvent) -> String {
-        guard event.isAllDay else {
-            return "\(event.startDate.timeString) - \(event.endDate.timeString)"
-        }
-
-        return resGetString("All day")
     }
 }
 
@@ -202,7 +215,7 @@ class WSCalendarEventRowView: WSRowView {
                                              adjustsFontSizeToFitWidth: true,
                                              minimumScaleFactor: 0.8)
         contentView.title = dataItem.title
-        contentView.subtitle = dataItem.timeText
+        contentView.subtitle = dataItem.detail
         setNeedsLayout()
     }
 

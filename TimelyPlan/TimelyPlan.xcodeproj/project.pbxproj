@@ -2168,6 +2168,7 @@
 		E5C41D0000000000000000B7 /* WSCalendarSmallMinimalDatePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D0000000000000000A7 /* WSCalendarSmallMinimalDatePluginProvider.swift */; };
 		E5C41D0000000000000000B8 /* WSCalendarSmallMinimalDateContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D0000000000000000A8 /* WSCalendarSmallMinimalDateContentView.swift */; };
 		E5C41D0000000000000000B9 /* WSCalendarEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D0000000000000000A9 /* WSCalendarEventRowView.swift */; };
+		E5C41D000000000000000D11 /* CalendarEventDetailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000C11 /* CalendarEventDetailProvider.swift */; };
 		E5C41D000000000000000F01 /* WSCalendarDayEventsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000E01 /* WSCalendarDayEventsDataItem.swift */; };
 		E5C41D000000000000000F02 /* WSCalendarSmallUpcomingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000E02 /* WSCalendarSmallUpcomingContentView.swift */; };
 		E5C41D000000000000000F03 /* WSCalendarUpcomingContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000E03 /* WSCalendarUpcomingContentInteractor.swift */; };
@@ -5150,6 +5151,7 @@
 		E5C41D0000000000000000A7 /* WSCalendarSmallMinimalDatePluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallMinimalDatePluginProvider.swift; sourceTree = "<group>"; };
 		E5C41D0000000000000000A8 /* WSCalendarSmallMinimalDateContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallMinimalDateContentView.swift; sourceTree = "<group>"; };
 		E5C41D0000000000000000A9 /* WSCalendarEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarEventRowView.swift; sourceTree = "<group>"; };
+		E5C41D000000000000000C11 /* CalendarEventDetailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventDetailProvider.swift; sourceTree = "<group>"; };
 		E5C41D000000000000000E01 /* WSCalendarDayEventsDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarDayEventsDataItem.swift; sourceTree = "<group>"; };
 		E5C41D000000000000000E02 /* WSCalendarSmallUpcomingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallUpcomingContentView.swift; sourceTree = "<group>"; };
 		E5C41D000000000000000E03 /* WSCalendarUpcomingContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarUpcomingContentInteractor.swift; sourceTree = "<group>"; };
@@ -11353,6 +11355,8 @@
 		E5AC723F309F3FC5004042F8 /* Upcoming */ = {
 			isa = PBXGroup;
 			children = (
+				E5AC7243309F6769004042F8 /* Large */,
+				E5AC7242309F6761004042F8 /* Medium */,
 				E5AC7241309F40C3004042F8 /* Small */,
 			);
 			path = Upcoming;
@@ -11378,6 +11382,20 @@
 				E5C41D000000000000000E03 /* WSCalendarUpcomingContentInteractor.swift */,
 			);
 			path = Small;
+			sourceTree = "<group>";
+		};
+		E5AC7242309F6761004042F8 /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Medium;
+			sourceTree = "<group>";
+		};
+		E5AC7243309F6769004042F8 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Large;
 			sourceTree = "<group>";
 		};
 		E5B33D3E2F80B2EF00939C3E /* Base */ = {
@@ -11521,6 +11539,7 @@
 				E500E3AE2FC8690C00252011 /* CalendarEventListViewController.swift */,
 				E51F940B3000D0C200734910 /* CalendarEventListView.swift */,
 				E5320C462FCC3DAE001DFE98 /* CalendarEventListCell.swift */,
+				E5C41D000000000000000C11 /* CalendarEventDetailProvider.swift */,
 				E5320C4A2FCD122D001DFE98 /* CalendarEventInfoView.swift */,
 				E5320C482FCC667A001DFE98 /* CalendarEventListHeaderView.swift */,
 			);
@@ -18901,6 +18920,7 @@
 				E54A06AC303D3385001FF4A1 /* GanttTimelineView.swift in Sources */,
 				E5BB9EA32D3BF0C80089667A /* HeatMapCell.swift in Sources */,
 				E5320C472FCC3DAF001DFE98 /* CalendarEventListCell.swift in Sources */,
+				E5C41D000000000000000D11 /* CalendarEventDetailProvider.swift in Sources */,
 				E51501AB2D47DBC9008B2333 /* TPTableItemSectionController.swift in Sources */,
 				E5E4070F306FE01600673727 /* AppSideMenuSettingViewController.swift in Sources */,
 				E5892FE3307926E1009BDE81 /* IAPConfiguration.swift in Sources */,
