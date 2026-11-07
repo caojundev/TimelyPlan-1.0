@@ -208,8 +208,7 @@ private class WSTodoSmartListSelectCell: TPImageInfoTextValueTableCell {
         super.setupContentSubviews()
         
         /// 与待办选择列表一致：右侧展示对勾
-        padding = UIEdgeInsets(right: 32.0)
-        contentPadding = UIEdgeInsets(left: 16.0, right: 4.0)
+        contentPadding = UIEdgeInsets(left: 16.0, right: 16.0)
         imageConfig.margins = UIEdgeInsets(right: 8.0)
         imageConfig.shouldRenderImageWithColor = true
         infoView.rightAccessoryView = checkmarkView

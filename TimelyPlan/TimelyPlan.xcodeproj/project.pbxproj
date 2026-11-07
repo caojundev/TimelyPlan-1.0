@@ -10717,10 +10717,11 @@
 		E5838BA4309DF155008E83CA /* UserList */ = {
 			isa = PBXGroup;
 			children = (
+				E5D0FB130000000000000000 /* WSTodoUserListTasksPluginProvider.swift */,
+				E5D0FA030000000000000000 /* WSTodoUserListTasksContentInteractor.swift */,
 				E5838BA9309DFFFF008E83CA /* Large */,
 				E5838BA8309DFFF6008E83CA /* Medium */,
 				E5838BA5309DF6CE008E83CA /* Small */,
-				E5D0FB010000000000000000 /* Common */,
 			);
 			path = UserList;
 			sourceTree = "<group>";
@@ -14408,15 +14409,6 @@
 			path = Large;
 			sourceTree = "<group>";
 		};
-		E5D0FB010000000000000000 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				E5D0FB130000000000000000 /* WSTodoUserListTasksPluginProvider.swift */,
-				E5D0FA030000000000000000 /* WSTodoUserListTasksContentInteractor.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		E5D0FE200000000000000000 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -14490,23 +14482,15 @@
 		E5D0FF200000000000000000 /* SmartList */ = {
 			isa = PBXGroup;
 			children = (
-				E5D0FF210000000000000000 /* Common */,
+				E5D0FF010000000000000000 /* WSTodoSmartListSelectedSmartListConfiguration.swift */,
+				E5D0FF040000000000000000 /* WSTodoSmartListTasksContentInteractor.swift */,
+				E5D0FF050000000000000000 /* WSTodoSmartListTasksPluginProvider.swift */,
+				E5D0FF220000000000000000 /* Config */,
 				E5D0FF280000000000000000 /* Large */,
 				E5D0FF270000000000000000 /* Medium */,
 				E5D0FF260000000000000000 /* Small */,
 			);
 			path = SmartList;
-			sourceTree = "<group>";
-		};
-		E5D0FF210000000000000000 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				E5D0FF220000000000000000 /* Config */,
-				E5D0FF230000000000000000 /* Data */,
-				E5D0FF240000000000000000 /* Interactor */,
-				E5D0FF250000000000000000 /* Provider */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		E5D0FF220000000000000000 /* Config */ = {
@@ -14516,30 +14500,6 @@
 				E5D0FF030000000000000000 /* WSTodoSmartListSingleSelectionConfigViewController.swift */,
 			);
 			path = Config;
-			sourceTree = "<group>";
-		};
-		E5D0FF230000000000000000 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				E5D0FF010000000000000000 /* WSTodoSmartListSelectedSmartListConfiguration.swift */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		E5D0FF240000000000000000 /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				E5D0FF040000000000000000 /* WSTodoSmartListTasksContentInteractor.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		E5D0FF250000000000000000 /* Provider */ = {
-			isa = PBXGroup;
-			children = (
-				E5D0FF050000000000000000 /* WSTodoSmartListTasksPluginProvider.swift */,
-			);
-			path = Provider;
 			sourceTree = "<group>";
 		};
 		E5D0FF260000000000000000 /* Small */ = {
