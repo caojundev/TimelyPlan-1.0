@@ -452,6 +452,11 @@
 "No Filter" = "无过滤器";
 "Shows todo filters in a list" = "以列表展示待办过滤器";
 "Shows todo filters in a grid" = "以网格展示待办过滤器";
+"Filter Tasks" = "过滤器任务";
+"Shows uncompleted tasks of a selected filter" = "展示所选过滤器的未完成任务";
+"Shows uncompleted tasks of a selected filter in a grid" = "以网格展示所选过滤器的未完成任务";
+"Select Filter" = "选择过滤器";
+"No Filter Selected" = "未选择过滤器";
 "Select Lists" = "选择列表";
 "No List" = "无列表";
 "Shows todo lists in a list" = "以列表展示待办清单";

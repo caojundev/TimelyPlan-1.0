@@ -19,10 +19,11 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     case calendar   /// 日历
     
     case todoList   /// 待办清单
-    case todoListTask /// 待办清单任务
+    case todoUserListTask /// 待办用户清单任务
     case todoTag    /// 待办标签
     case todoTagTask /// 待办标签任务
     case todoFilter /// 待办过滤器
+    case todoFilterTask /// 待办过滤器任务
     case todoTask   /// 待办任务
     
     case timeline   /// 时间线
@@ -38,10 +39,11 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .myDay: return resGetString("My Day")
         case .calendar: return resGetString("Calendar")
         case .todoList: return resGetString("Lists")
-        case .todoListTask: return resGetString("List Tasks")
+        case .todoUserListTask: return resGetString("List Tasks")
         case .todoTag: return resGetString("Tags")
         case .todoTagTask: return resGetString("Tag Tasks")
         case .todoFilter: return resGetString("Filters")
+        case .todoFilterTask: return resGetString("Filter Tasks")
         case .todoTask: return resGetString("Tasks")
         case .timeline: return resGetString("Timeline")
         case .quadrants: return resGetString("Quadrants")
@@ -55,7 +57,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 模块图标。同一业务拆分出的模块暂沿用原业务图标，独立图标待设计补齐。
     var iconName: String? {
         switch self {
-        case .todoList, .todoListTask, .todoTag, .todoTagTask, .todoFilter, .todoTask:
+        case .todoList, .todoUserListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoTask:
             return "sideMenu_todo_40"
         default:
             return "sideMenu_\(rawValue)_40"
@@ -70,7 +72,8 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     /// 所属模块组。选择器按组划分 section，组内按模块逐行展示。
     var group: WSPluginModuleGroup {
         switch self {
-        case .todoList, .todoListTask, .todoTag, .todoTagTask, .todoFilter, .todoTask: return .todo
+        case .todoList, .todoUserListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoTask:
+            return .todo
         case .myDay, .calendar, .timeline, .quadrants, .goal, .focus, .habit, .countdown:
             return .others
         }
@@ -82,10 +85,11 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .myDay: return WSPluginType.MyDay.all
         case .calendar: return []
         case .todoList: return WSPluginType.TodoList.all
-        case .todoListTask: return WSPluginType.TodoListTask.all
+        case .todoUserListTask: return WSPluginType.TodoUserListTask.all
         case .todoTag: return WSPluginType.TodoTag.all
         case .todoTagTask: return WSPluginType.TodoTagTask.all
         case .todoFilter: return WSPluginType.TodoFilter.all
+        case .todoFilterTask: return WSPluginType.TodoFilterTask.all
         case .todoTask: return WSPluginType.TodoTask.all
         case .timeline: return WSPluginType.Timeline.all
         case .quadrants: return WSPluginType.Quadrant.all

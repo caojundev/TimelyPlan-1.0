@@ -114,7 +114,7 @@ class WSTodoTagSingleSelectionViewController: TPViewController,
     func selectCollectionView(_ view: TodoTagSelectCollectionView, didSelectTag tag: TodoTag) {
         selectedIdentifier = selectedIdentifier == tag.identifier ? nil : tag.identifier
         TPImpactFeedback.impactWithSoftStyle()
-        view.updateCheckmarks(for: [tag])
+        view.updateCheckmarks()
         didChangeSelection?(selectedIdentifier)
     }
     

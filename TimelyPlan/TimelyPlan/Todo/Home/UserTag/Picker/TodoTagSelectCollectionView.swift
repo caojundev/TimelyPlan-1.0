@@ -113,6 +113,10 @@ class TodoTagSelectCollectionView: TPCollectionWrapperView,
     func updateCheckmarks(for tags: [TodoTag]) {
         adapter.updateCheckmarks(for: tags, animated: true)
     }
+    
+    func updateCheckmarks() {
+        adapter.updateCheckmarks()
+    }
 }
 
 class TodoTagSelectCollectionCell: TPDefaultInfoCollectionCell {

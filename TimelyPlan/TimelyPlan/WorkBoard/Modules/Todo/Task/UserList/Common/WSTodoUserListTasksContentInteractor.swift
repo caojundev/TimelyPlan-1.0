@@ -1,5 +1,5 @@
 //
-//  WSTodoListTasksContentInteractor.swift
+//  WSTodoUserListTasksContentInteractor.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/6.
@@ -9,17 +9,17 @@ import Foundation
 
 // MARK: - 内容交互器
 
-/// 待办自选清单任务组件的内容交互器。
+/// 待办自选用户清单任务组件的内容交互器。
 ///
 /// 读取配置中选中的用户清单及其未完成任务；清单增删改或任务变化时重新取数，
 /// 点击任务与完成状态沿用待办任务交互器基类。
-class WSTodoListTasksContentInteractor: WSTodoGroupTasksContentInteractor,
-                                       TodoListProcessorDelegate {
+class WSTodoUserListTasksContentInteractor: WSTodoGroupTasksContentInteractor,
+                                                TodoListProcessorDelegate {
     
     override init(plugin: WSPlugin,
-         context: WSPluginContext,
-         maximumItemCount: Int,
-         option: TodoTaskDetailOption) {
+                  context: WSPluginContext,
+                  maximumItemCount: Int,
+                  option: TodoTaskDetailOption) {
         super.init(plugin: plugin,
                    context: context,
                    maximumItemCount: maximumItemCount,
@@ -58,7 +58,7 @@ class WSTodoListTasksContentInteractor: WSTodoGroupTasksContentInteractor,
     }
     
     // MARK: - 交互
-    /// 打开所选清单的详情
+    /// 打开所选用户清单的详情
     override func openDetail() {
         guard let identifier = selectedIdentifier,
               let list = TodoRepository.getUserList(of: identifier) else {

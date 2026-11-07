@@ -1,5 +1,5 @@
 //
-//  WSTodoListTasksPluginProvider.swift
+//  WSTodoUserListTasksPluginProvider.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/6.
@@ -10,10 +10,10 @@ import UIKit
 
 // MARK: - 组件提供者基类
 
-/// 待办自选清单任务组件提供者基类。
+/// 待办自选用户清单任务组件提供者基类。
 ///
-/// 各尺寸组件只需声明「类型 + 布局」，清单任务的取数与配置由基类统一提供。
-class WSTodoListTasksPluginProvider: WSTodoGroupTasksPluginProvider {
+/// 各尺寸组件只需声明「类型 + 布局」，用户清单任务的取数与配置由基类统一提供。
+class WSTodoUserListTasksPluginProvider: WSTodoGroupTasksPluginProvider {
     
     init(type: WSPluginType,
          layoutConfiguration: WSTodoGroupTasksContentView.LayoutConfiguration) {
@@ -24,10 +24,10 @@ class WSTodoListTasksPluginProvider: WSTodoGroupTasksPluginProvider {
     
     override func makeContentInteractor(plugin: WSPlugin,
                                        context: WSPluginContext) -> WSPluginContentInteractor {
-        return WSTodoListTasksContentInteractor(plugin: plugin,
-                                                context: context,
-                                                maximumItemCount: layoutConfiguration.itemCount,
-                                                option: [.schedule, .step])
+        return WSTodoUserListTasksContentInteractor(plugin: plugin,
+                                                    context: context,
+                                                    maximumItemCount: layoutConfiguration.itemCount,
+                                                    option: [.schedule, .step])
     }
     
     /// 由用户单选要展示的清单

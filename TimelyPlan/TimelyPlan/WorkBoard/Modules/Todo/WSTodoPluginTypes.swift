@@ -1,6 +1,6 @@
 import Foundation
 
-// 待办组件较多，按清单、清单任务、标签、标签任务、过滤器、任务拆成六个模块，各自对应一个 `WSPluginModule`。
+// 待办组件较多，按清单、用户清单任务、标签、标签任务、过滤器、过滤器任务、任务拆成七个模块，各自对应一个 `WSPluginModule`。
 
 extension WSPluginType {
 
@@ -41,22 +41,22 @@ extension WSPluginType {
         }
     }
 
-    /// 待办清单任务模块的组件类型。
-    enum TodoListTask {
+    /// 待办用户清单任务模块的组件类型。
+    enum TodoUserListTask {
 
-        /// 待办·小·自选清单任务列表：逐行展示所选清单的未完成任务。
+        /// 待办·小·自选用户清单任务列表：逐行展示所选用户清单的未完成任务。
         static let smallList = make("todoSmallTasksList", .small)
 
-        /// 待办·中·自选清单任务列表：逐行展示所选清单的未完成任务。
+        /// 待办·中·自选用户清单任务列表：逐行展示所选用户清单的未完成任务。
         static let mediumList = make("todoMediumTasksList", .medium)
 
-        /// 待办·大·自选清单任务列表：逐行展示所选清单的未完成任务。
+        /// 待办·大·自选用户清单任务列表：逐行展示所选用户清单的未完成任务。
         static let largeList = make("todoLargeTasksList", .large)
 
-        /// 待办·中·自选清单任务网格：以两列网格展示所选清单的未完成任务。
+        /// 待办·中·自选用户清单任务网格：以两列网格展示所选用户清单的未完成任务。
         static let mediumGrid = make("todoMediumTasksGrid", .medium)
 
-        /// 待办·大·自选清单任务网格：以两列网格展示所选清单的未完成任务。
+        /// 待办·大·自选用户清单任务网格：以两列网格展示所选用户清单的未完成任务。
         static let largeGrid = make("todoLargeTasksGrid", .large)
 
         /// 模块内全部类型，顺序即组件选择器的展示顺序
@@ -66,15 +66,15 @@ extension WSPluginType {
 
         /// 模块内全部组件配置
         static let catalog: [WSPluginConfiguration] = [
-            .init(WSTodoListSmallTasksPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list"),
-            .init(WSTodoListMediumTasksListPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list"),
-            .init(WSTodoListLargeTasksListPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list"),
-            .init(WSTodoListMediumTasksGridPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list in a grid"),
-            .init(WSTodoListLargeTasksGridPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list in a grid"),
+            .init(WSTodoUserListSmallTasksPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list"),
+            .init(WSTodoUserListMediumTasksListPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list"),
+            .init(WSTodoUserListLargeTasksListPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list"),
+            .init(WSTodoUserListMediumTasksGridPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list in a grid"),
+            .init(WSTodoUserListLargeTasksGridPluginProvider(), title: "List Tasks", subtitle: "Shows uncompleted tasks of a selected list in a grid"),
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
-            return WSPluginType(rawValue, module: .todoListTask, size: size)
+            return WSPluginType(rawValue, module: .todoUserListTask, size: size)
         }
     }
 
@@ -186,6 +186,43 @@ extension WSPluginType {
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
             return WSPluginType(rawValue, module: .todoFilter, size: size)
+        }
+    }
+
+    /// 待办过滤器任务模块的组件类型。
+    enum TodoFilterTask {
+
+        /// 待办·小·自选过滤器任务列表：逐行展示所选过滤器的未完成任务。
+        static let smallList = make("todoFilterSmallTasksList", .small)
+
+        /// 待办·中·自选过滤器任务列表：逐行展示所选过滤器的未完成任务。
+        static let mediumList = make("todoFilterMediumTasksList", .medium)
+
+        /// 待办·大·自选过滤器任务列表：逐行展示所选过滤器的未完成任务。
+        static let largeList = make("todoFilterLargeTasksList", .large)
+
+        /// 待办·中·自选过滤器任务网格：以两列网格展示所选过滤器的未完成任务。
+        static let mediumGrid = make("todoFilterMediumTasksGrid", .medium)
+
+        /// 待办·大·自选过滤器任务网格：以两列网格展示所选过滤器的未完成任务。
+        static let largeGrid = make("todoFilterLargeTasksGrid", .large)
+
+        /// 模块内全部类型，顺序即组件选择器的展示顺序
+        static let all: [WSPluginType] = [
+            smallList, mediumList, largeList, mediumGrid, largeGrid,
+        ]
+
+        /// 模块内全部组件配置
+        static let catalog: [WSPluginConfiguration] = [
+            .init(WSTodoFilterSmallTasksPluginProvider(), title: "Filter Tasks", subtitle: "Shows uncompleted tasks of a selected filter"),
+            .init(WSTodoFilterMediumTasksListPluginProvider(), title: "Filter Tasks", subtitle: "Shows uncompleted tasks of a selected filter"),
+            .init(WSTodoFilterLargeTasksListPluginProvider(), title: "Filter Tasks", subtitle: "Shows uncompleted tasks of a selected filter"),
+            .init(WSTodoFilterMediumTasksGridPluginProvider(), title: "Filter Tasks", subtitle: "Shows uncompleted tasks of a selected filter in a grid"),
+            .init(WSTodoFilterLargeTasksGridPluginProvider(), title: "Filter Tasks", subtitle: "Shows uncompleted tasks of a selected filter in a grid"),
+        ]
+
+        private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
+            return WSPluginType(rawValue, module: .todoFilterTask, size: size)
         }
     }
 
