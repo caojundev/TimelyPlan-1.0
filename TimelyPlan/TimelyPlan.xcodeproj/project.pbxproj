@@ -2167,6 +2167,11 @@
 		E5C41D0000000000000000B6 /* WSCalendarSmallClassicDateContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D0000000000000000A6 /* WSCalendarSmallClassicDateContentView.swift */; };
 		E5C41D0000000000000000B7 /* WSCalendarSmallMinimalDatePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D0000000000000000A7 /* WSCalendarSmallMinimalDatePluginProvider.swift */; };
 		E5C41D0000000000000000B8 /* WSCalendarSmallMinimalDateContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D0000000000000000A8 /* WSCalendarSmallMinimalDateContentView.swift */; };
+		E5C41D0000000000000000B9 /* WSCalendarEventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D0000000000000000A9 /* WSCalendarEventRowView.swift */; };
+		E5C41D000000000000000F01 /* WSCalendarDayEventsDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000E01 /* WSCalendarDayEventsDataItem.swift */; };
+		E5C41D000000000000000F02 /* WSCalendarSmallUpcomingContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000E02 /* WSCalendarSmallUpcomingContentView.swift */; };
+		E5C41D000000000000000F03 /* WSCalendarUpcomingContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000E03 /* WSCalendarUpcomingContentInteractor.swift */; };
+		E5C41D000000000000000F04 /* WSCalendarSmallUpcomingPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C41D000000000000000E04 /* WSCalendarSmallUpcomingPluginProvider.swift */; };
 		E5C74358308D9BFC00D396A3 /* WSRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C74357308D9BFC00D396A3 /* WSRowView.swift */; };
 		E5C7435B308DA17C00D396A3 /* WSFocusUserTimerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C7435A308DA17C00D396A3 /* WSFocusUserTimerRowView.swift */; };
 		E5C76BA62F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C76BA22F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png */; };
@@ -5144,6 +5149,11 @@
 		E5C41D0000000000000000A6 /* WSCalendarSmallClassicDateContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallClassicDateContentView.swift; sourceTree = "<group>"; };
 		E5C41D0000000000000000A7 /* WSCalendarSmallMinimalDatePluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallMinimalDatePluginProvider.swift; sourceTree = "<group>"; };
 		E5C41D0000000000000000A8 /* WSCalendarSmallMinimalDateContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallMinimalDateContentView.swift; sourceTree = "<group>"; };
+		E5C41D0000000000000000A9 /* WSCalendarEventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarEventRowView.swift; sourceTree = "<group>"; };
+		E5C41D000000000000000E01 /* WSCalendarDayEventsDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarDayEventsDataItem.swift; sourceTree = "<group>"; };
+		E5C41D000000000000000E02 /* WSCalendarSmallUpcomingContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallUpcomingContentView.swift; sourceTree = "<group>"; };
+		E5C41D000000000000000E03 /* WSCalendarUpcomingContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarUpcomingContentInteractor.swift; sourceTree = "<group>"; };
+		E5C41D000000000000000E04 /* WSCalendarSmallUpcomingPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallUpcomingPluginProvider.swift; sourceTree = "<group>"; };
 		E5C74357308D9BFC00D396A3 /* WSRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSRowView.swift; sourceTree = "<group>"; };
 		E5C7435A308DA17C00D396A3 /* WSFocusUserTimerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSFocusUserTimerRowView.swift; sourceTree = "<group>"; };
 		E5C76BA22F74C0DD003FCCE3 /* focus_stats_group_task_24@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "focus_stats_group_task_24@2x.png"; sourceTree = "<group>"; };
@@ -7588,7 +7598,8 @@
 			children = (
 				E5AC723C309F1AED004042F8 /* Common */,
 				E5C41D0000000000000000A1 /* WSCalendarPluginTypes.swift */,
-				E5AC723B309F0C6A004042F8 /* Small */,
+				E5AC723F309F3FC5004042F8 /* Upcoming */,
+				E5AC7240309F4050004042F8 /* Today */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -11329,22 +11340,44 @@
 			path = Skeleton;
 			sourceTree = "<group>";
 		};
-		E5AC723B309F0C6A004042F8 /* Small */ = {
-			isa = PBXGroup;
-			children = (
-				E5C41D0000000000000000C1 /* Common */,
-				E5C41D0000000000000000C2 /* ClassicDate */,
-				E5C41D0000000000000000C3 /* MinimalDate */,
-			);
-			path = Small;
-			sourceTree = "<group>";
-		};
 		E5AC723C309F1AED004042F8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				E5AC723D309F1B02004042F8 /* WSCalendarEventListView.swift */,
+				E5C41D0000000000000000A9 /* WSCalendarEventRowView.swift */,
+				E5C41D000000000000000E01 /* WSCalendarDayEventsDataItem.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		E5AC723F309F3FC5004042F8 /* Upcoming */ = {
+			isa = PBXGroup;
+			children = (
+				E5AC7241309F40C3004042F8 /* Small */,
+			);
+			path = Upcoming;
+			sourceTree = "<group>";
+		};
+		E5AC7240309F4050004042F8 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				E5C41D0000000000000000A2 /* WSCalendarTodayDateDataItem.swift */,
+				E5C41D0000000000000000A3 /* WSCalendarTodayDateContentInteractor.swift */,
+				E5C41D0000000000000000A4 /* WSCalendarSmallDateContentView.swift */,
+				E5C41D0000000000000000C2 /* ClassicDate */,
+				E5C41D0000000000000000C3 /* MinimalDate */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		E5AC7241309F40C3004042F8 /* Small */ = {
+			isa = PBXGroup;
+			children = (
+				E5C41D000000000000000E04 /* WSCalendarSmallUpcomingPluginProvider.swift */,
+				E5C41D000000000000000E02 /* WSCalendarSmallUpcomingContentView.swift */,
+				E5C41D000000000000000E03 /* WSCalendarUpcomingContentInteractor.swift */,
+			);
+			path = Small;
 			sourceTree = "<group>";
 		};
 		E5B33D3E2F80B2EF00939C3E /* Base */ = {
@@ -13810,16 +13843,6 @@
 				E5C18FB82DB4FE1F008FAA13 /* todo_task_change_modified_16@2x.png */,
 			);
 			path = change;
-			sourceTree = "<group>";
-		};
-		E5C41D0000000000000000C1 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				E5C41D0000000000000000A2 /* WSCalendarTodayDateDataItem.swift */,
-				E5C41D0000000000000000A3 /* WSCalendarTodayDateContentInteractor.swift */,
-				E5C41D0000000000000000A4 /* WSCalendarSmallDateContentView.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		E5C41D0000000000000000C2 /* ClassicDate */ = {
@@ -18722,6 +18745,11 @@
 				E55528182FB55D230093DD7E /* CalendarEventAlertEditViewController.swift in Sources */,
 				E5BB9DAA2D3BF0C60089667A /* FlipClockCardView.swift in Sources */,
 				E5AC723E309F1B02004042F8 /* WSCalendarEventListView.swift in Sources */,
+				E5C41D0000000000000000B9 /* WSCalendarEventRowView.swift in Sources */,
+				E5C41D000000000000000F01 /* WSCalendarDayEventsDataItem.swift in Sources */,
+				E5C41D000000000000000F02 /* WSCalendarSmallUpcomingContentView.swift in Sources */,
+				E5C41D000000000000000F03 /* WSCalendarUpcomingContentInteractor.swift in Sources */,
+				E5C41D000000000000000F04 /* WSCalendarSmallUpcomingPluginProvider.swift in Sources */,
 				E5BB9F152D3BF0C90089667A /* GlobalFunctions.swift in Sources */,
 				E5FF12EB2D5DF6D600340DCC /* TPEmojiEditView.swift in Sources */,
 				E5B98CDC2D55076B00E78261 /* TPIconInfoTextValueTableCell.swift in Sources */,
