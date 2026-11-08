@@ -59,7 +59,7 @@ extension CalendarYearEventsProvider {
     func cancelFetchForMonth(year: Int, month: Int) { }
 }
 
-// MARK: - 天事项指示条视图
+// MARK: - 天事项指示视图
 class CalendarEventIndicatorView: UIView {
     
     var firstWeekday: Int = 1 {

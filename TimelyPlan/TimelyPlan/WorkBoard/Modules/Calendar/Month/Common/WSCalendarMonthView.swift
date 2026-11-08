@@ -33,9 +33,6 @@ enum WSCalendarMonthAppearance {
 /// 单月月历的外观。字号按单元格尺寸自适应。
 struct WSCalendarMonthViewAppearance {
 
-    /// 每天最多绘制的事项指示点数量
-    static let maximumEventDotCount = 3
-
     var backgroundColor = WSCalendarMonthAppearance.backColor
     var titleColor = WSCalendarMonthAppearance.titleColor
     var weekdayColor = WSCalendarMonthAppearance.weekdayColor
@@ -44,7 +41,6 @@ struct WSCalendarMonthViewAppearance {
     var adjacentDayColor = WSCalendarMonthAppearance.adjacentDayColor
     var todayBackgroundColor = WSCalendarMonthAppearance.todayBackColor
     var todayTextColor = WSCalendarMonthAppearance.todayTextColor
-    var eventDotBorderColor = WSCalendarMonthAppearance.eventDotBorderColor
 
     /// 字号相对单元格宽度的比例
     var titleFontRatio: CGFloat = 0.60
@@ -60,8 +56,8 @@ struct WSCalendarMonthViewAppearance {
 
 /// 单月月历视图。
 ///
-/// 标题、星期头、日期与事项指示点都在一次 `draw` 中绘制，只有一层 CALayer，
-/// 供小尺寸月历组件与后续的中尺寸双月组件共用。
+/// 只绘制标题、星期头与日期，在一次 `draw` 中完成，只有一层 CALayer；
+/// 事项指示由独立的 `WSCalendarMonthEventIndicatorView` 叠放绘制。
 class WSCalendarMonthView: UIView {
 
     /// 外观
@@ -132,13 +128,6 @@ class WSCalendarMonthView: UIView {
         return Int(ceil(Double(firstColumn + monthStart.numberOfDaysInMonth()) / 7.0))
     }
 
-    /// 每天的事项指示颜色，key 为日
-    var dayEventColors: [Int: [UIColor]] = [:] {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-
     /// 标题文案，默认取月份的短名称
     var titleText: String? {
         didSet {
@@ -184,8 +173,6 @@ class WSCalendarMonthView: UIView {
         let titleFont: UIFont
         let weekdayFont: UIFont
         let dayFont: UIFont
-
-        let eventDotDiameter: CGFloat
 
         var numberOfCells: Int {
             return rowsCount * 7
@@ -362,7 +349,6 @@ class WSCalendarMonthView: UIView {
             }
 
             let isToday = isCurrentMonth && day == todayDay
-            let colors = isCurrentMonth ? (dayEventColors[day] ?? []) : []
 
             let attributes: [NSAttributedString.Key: Any]
             if isToday {
@@ -378,8 +364,8 @@ class WSCalendarMonthView: UIView {
             let dayString = "\(day)"
             let daySize = dayString.size(withAttributes: attributes)
 
-            /// 有事项时日期上移，给底部的指示点让出空间
-            let centerY = cellFrame.midY - (colors.isEmpty ? 0.0 : grid.eventDotDiameter)
+            /// 日期始终垂直居中，同一行的天保持水平对齐
+            let centerY = cellFrame.midY
 
             if isToday {
                 let diameter = min(grid.cellWidth, grid.cellHeight) * 0.78
@@ -394,35 +380,6 @@ class WSCalendarMonthView: UIView {
             let point = CGPoint(x: cellFrame.midX - daySize.width / 2.0,
                                 y: centerY - daySize.height / 2.0)
             dayString.draw(at: point, withAttributes: attributes)
-
-            if !colors.isEmpty {
-                drawEventDots(colors: colors, in: cellFrame, grid: grid, context: context)
-            }
-        }
-    }
-
-    /// 在单元格底部绘制事项指示点，超过上限时只绘制前几个
-    private func drawEventDots(colors: [UIColor], in cellFrame: CGRect, grid: Grid, context: CGContext) {
-        let dotDiameter = grid.eventDotDiameter
-        let dots = Array(colors.prefix(WSCalendarMonthViewAppearance.maximumEventDotCount))
-        let step = dotDiameter * 0.8
-        let totalWidth = dotDiameter + CGFloat(dots.count - 1) * step
-        let top = cellFrame.maxY - dotDiameter
-
-        var left = cellFrame.midX - totalWidth / 2.0
-        for color in dots {
-            let dotRect = CGRect(x: left, y: top, width: dotDiameter, height: dotDiameter)
-            context.setFillColor(color.cgColor)
-            context.fillEllipse(in: dotRect)
-
-            /// 多个圆点时描边，重叠部分也能分辨
-            if dots.count > 1 {
-                context.setStrokeColor(appearance.eventDotBorderColor.cgColor)
-                context.setLineWidth(0.8)
-                context.strokeEllipse(in: dotRect)
-            }
-
-            left += step
         }
     }
 
@@ -465,7 +422,6 @@ class WSCalendarMonthView: UIView {
 
         let dayFontSize = max(min(cellWidth * appearance.dayFontRatio, cellHeight * 0.62), 5.0)
         let dayFont = UIFont.systemFont(ofSize: dayFontSize)
-        let eventDotDiameter = min(cellHeight * 0.16, 3.0)
 
         let grid = Grid(monthStart: monthStart,
                         firstDate: firstDate,
@@ -481,10 +437,18 @@ class WSCalendarMonthView: UIView {
                         weekdayHeight: weekdayHeight,
                         titleFont: titleFont,
                         weekdayFont: weekdayFont,
-                        dayFont: dayFont,
-                        eventDotDiameter: eventDotDiameter)
+                        dayFont: dayFont)
         self.grid = grid
         return grid
+    }
+
+    /// 指定天所在单元格的位置，供事项指示层对齐绘制
+    func frame(forDay day: Int) -> CGRect? {
+        guard let grid = makeGrid(), day >= 1, day <= grid.daysCount else {
+            return nil
+        }
+
+        return grid.frame(at: grid.firstColumn + day - 1)
     }
 
     private func invalidateGrid() {

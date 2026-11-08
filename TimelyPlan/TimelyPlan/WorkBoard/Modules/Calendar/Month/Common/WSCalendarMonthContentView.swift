@@ -44,6 +44,9 @@ class WSCalendarMonthContentView: WSPluginContentView {
     /// 月历视图，顺序与数据条目的月份顺序一致
     private(set) var monthViews: [WSCalendarMonthView] = []
 
+    /// 事项指示层，与月历视图一一对应并同尺寸叠放
+    private(set) var eventIndicatorViews: [WSCalendarMonthEventIndicatorView] = []
+
     init(monthCount: Int) {
         self.monthCount = max(monthCount, 1)
         super.init(frame: .zero)
@@ -64,6 +67,12 @@ class WSCalendarMonthContentView: WSPluginContentView {
             addSubview(monthView)
             return monthView
         }
+
+        eventIndicatorViews = monthViews.map { monthView in
+            let indicatorView = WSCalendarMonthEventIndicatorView(monthView: monthView)
+            addSubview(indicatorView)
+            return indicatorView
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -79,15 +88,23 @@ class WSCalendarMonthContentView: WSPluginContentView {
         for (index, monthView) in monthViews.enumerated() {
             let month = monthDataItem?.months[safe: index]
             monthView.monthDate = month?.monthDate
-            monthView.dayEventColors = month?.dayEventColors ?? [:]
             monthView.today = monthDataItem?.today ?? Date()
             monthView.isHidden = month == nil
+
+            let indicatorView = eventIndicatorViews[safe: index]
+            indicatorView?.dayEventColors = month?.dayEventColors ?? [:]
+            indicatorView?.isHidden = month == nil
         }
 
         /// 多个月份并排时统一行数，左右两侧的日期行高与位置一致
         let rowCount = monthViews.map { $0.requiredRowCount }.max() ?? 0
         for monthView in monthViews {
             monthView.minimumRowCount = rowCount
+        }
+
+        /// 行数变化会改变单元格位置，事项指示层需要按新网格重绘
+        for indicatorView in eventIndicatorViews {
+            indicatorView.setNeedsDisplay()
         }
     }
 
@@ -106,10 +123,18 @@ class WSCalendarMonthContentView: WSPluginContentView {
         let monthWidth = max((frame.width - spacing) / count, 0.0)
 
         var left = frame.minX
-        for monthView in monthViews {
+        for (index, monthView) in monthViews.enumerated() {
             monthView.size = CGSize(width: monthWidth, height: frame.height)
             monthView.left = left
             monthView.top = frame.minY
+
+            /// 事项指示层与月历视图同尺寸叠放
+            if let indicatorView = eventIndicatorViews[safe: index] {
+                indicatorView.size = monthView.size
+                indicatorView.left = monthView.left
+                indicatorView.top = monthView.top
+            }
+
             left = monthView.right + monthSpacing
         }
     }
