@@ -10,9 +10,16 @@ import UIKit
 
 /// 两款日期组件共用的配色
 enum WSCalendarSmallDateAppearance {
-    static let backColor = Color(0x17171A)
-    static let textColor = UIColor.white
+    /// 组件底色：浅色为白卡片，深色为近黑卡片
+    static let backColor = Color(light: 0xFFFFFF, dark: 0x17171A)
+
+    /// 主要文字：与底色形成对比
+    static let textColor = Color(light: 0x17171A, dark: 0xFFFFFF)
+
+    /// 次要文字：浅色与深色共用同一灰度
     static let secondaryTextColor = Color(0x8E8E93)
+
+    /// 强调色：日历红，两种模式一致
     static let accentColor = Color(0xE8362C)
 }
 

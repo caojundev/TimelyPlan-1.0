@@ -72,6 +72,8 @@
 "Shows today's date in a minimal layout" = "以极简排版展示今日日期";
 "Today Count" = "今日日程数";
 "Shows today's date with the number of events" = "展示今日日期与日程数目";
+"Month Calendar" = "月历";
+"Shows this month's calendar with event dots" = "以整月网格展示当月日期与日程";
 "Shows events for today and tomorrow" = "以两列展示今天与明天的事项";
 "Habits" = "习惯";
 "Shows today's habits and progress" = "展示今日习惯与完成进度";

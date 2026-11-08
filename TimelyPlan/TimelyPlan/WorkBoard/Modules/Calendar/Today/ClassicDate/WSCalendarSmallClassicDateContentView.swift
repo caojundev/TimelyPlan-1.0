@@ -20,6 +20,8 @@ class WSCalendarSmallClassicDateContentView: WSCalendarSmallDateContentView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         monthLabel.backgroundColor = WSCalendarSmallDateAppearance.accentColor
+        /// 红色横幅上的文字固定为白色，浅色与深色模式都保持一致
+        monthLabel.textColor = .white
         monthLabel.isOpaque = true
     }
 

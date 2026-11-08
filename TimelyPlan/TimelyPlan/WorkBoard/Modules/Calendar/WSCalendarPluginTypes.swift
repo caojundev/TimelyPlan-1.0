@@ -14,6 +14,9 @@ extension WSPluginType {
         /// 日历·小·今日事项数目：与极简日期一致，左下角展示今日日程数目。
         static let smallCount = make("calendarSmallCount", .small)
 
+        /// 日历·小·月历：整月网格，日期下方用小圆点展示当天事项。
+        static let smallMonth = make("calendarSmallMonth", .small)
+
         /// 日历·小·最近事项：按天分组列出最近的事项，只展示时间。
         static let smallUpcoming = make("calendarSmallUpcoming", .small)
 
@@ -31,7 +34,7 @@ extension WSPluginType {
 
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
-            smallClassicDate, smallMinimalDate, smallCount,
+            smallClassicDate, smallMinimalDate, smallCount, smallMonth,
             smallUpcoming, mediumUpcoming, largeUpcoming,
             mediumTwoDays, largeTwoDays,
         ]
@@ -41,6 +44,7 @@ extension WSPluginType {
             .init(WSCalendarSmallClassicDatePluginProvider(), title: "Classic Date", subtitle: "Shows today's date with a red month banner"),
             .init(WSCalendarSmallMinimalDatePluginProvider(), title: "Minimal Date", subtitle: "Shows today's date in a minimal layout"),
             .init(WSCalendarSmallCountPluginProvider(), title: "Today Count", subtitle: "Shows today's date with the number of events"),
+            .init(WSCalendarSmallMonthPluginProvider(), title: "Month Calendar", subtitle: "Shows this month's calendar with event dots"),
             .init(WSCalendarSmallUpcomingPluginProvider(), title: "Upcoming Events", subtitle: "Lists upcoming events grouped by day"),
             .init(WSCalendarMediumUpcomingPluginProvider(), title: "Upcoming Events", subtitle: "Lists upcoming events grouped by day with their source"),
             .init(WSCalendarLargeUpcomingPluginProvider(), title: "Upcoming Events", subtitle: "Lists upcoming events grouped by day with their source"),
