@@ -76,6 +76,8 @@
 "Shows this month's calendar with event dots" = "以整月网格展示当月日期与日程";
 "Two Months" = "双月历";
 "Shows this month and next month side by side" = "左右展示本月与下月的日期与日程";
+"Month & Events" = "月历与日程";
+"Shows this month's calendar with its events" = "左侧展示本月月历，右侧列出本月日程";
 "Shows events for today and tomorrow" = "以两列展示今天与明天的事项";
 "Habits" = "习惯";
 "Shows today's habits and progress" = "展示今日习惯与完成进度";

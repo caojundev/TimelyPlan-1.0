@@ -61,7 +61,7 @@ class WSCalendarEventListView: WSPluginContentView {
     var moreEntryHeight: CGFloat = 18.0 { didSet { reloadData() } }
 
     /// 「更多」入口的左缩进
-    var moreLeadingInset: CGFloat = 0.0 { didSet { reloadData() } }
+    var moreLeadingInset: CGFloat = 8.0 { didSet { reloadData() } }
 
     // MARK: - 子类数据
     /// 天数

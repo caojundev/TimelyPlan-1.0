@@ -10,7 +10,7 @@ import UIKit
 
 /// 月历组件的内容视图。
 ///
-/// 横向等分排列若干个月历视图：小尺寸展示一个月，中尺寸左右双月复用同一套排布，
+/// 横向等分排列若干个月份展示单元：小尺寸展示一个月，中尺寸左右双月复用同一套排布，
 /// 差异只体现在月份数量、间距与内边距上。
 class WSCalendarMonthContentView: WSPluginContentView {
 
@@ -35,17 +35,14 @@ class WSCalendarMonthContentView: WSPluginContentView {
     /// 是否绘制上月与下月的日期
     var showsAdjacentDays: Bool = true {
         didSet {
-            for monthView in monthViews {
-                monthView.showsAdjacentDays = showsAdjacentDays
+            for monthSection in monthSections {
+                monthSection.showsAdjacentDays = showsAdjacentDays
             }
         }
     }
 
-    /// 月历视图，顺序与数据条目的月份顺序一致
-    private(set) var monthViews: [WSCalendarMonthView] = []
-
-    /// 事项指示层，与月历视图一一对应并同尺寸叠放
-    private(set) var eventIndicatorViews: [WSCalendarMonthEventIndicatorView] = []
+    /// 月份展示单元，顺序与数据条目的月份顺序一致
+    private(set) var monthSections: [WSCalendarMonthSectionView] = []
 
     init(monthCount: Int) {
         self.monthCount = max(monthCount, 1)
@@ -55,23 +52,16 @@ class WSCalendarMonthContentView: WSPluginContentView {
         isOpaque = true
         padding = contentInsets
 
-        monthViews = (0..<self.monthCount).map { _ in
-            let monthView = WSCalendarMonthView()
-            monthView.firstWeekday = CalendarSetting.shared.firstWeekday.rawValue
-            monthView.showsAdjacentDays = showsAdjacentDays
+        monthSections = (0..<self.monthCount).map { _ in
+            let monthSection = WSCalendarMonthSectionView()
+            monthSection.showsAdjacentDays = showsAdjacentDays
             /// 点击某天：打开该天的事项列表
-            monthView.didSelectDate = { [weak self] date in
+            monthSection.didSelectDate = { [weak self] date in
                 (self?.interactor as? WSCalendarEventContentInteractor)?.openEventList(on: date)
             }
 
-            addSubview(monthView)
-            return monthView
-        }
-
-        eventIndicatorViews = monthViews.map { monthView in
-            let indicatorView = WSCalendarMonthEventIndicatorView(monthView: monthView)
-            addSubview(indicatorView)
-            return indicatorView
+            addSubview(monthSection)
+            return monthSection
         }
     }
 
@@ -85,26 +75,18 @@ class WSCalendarMonthContentView: WSPluginContentView {
         super.update(with: dataItem)
 
         let monthDataItem = dataItem as? WSCalendarMonthDataItem
-        for (index, monthView) in monthViews.enumerated() {
+        for (index, monthSection) in monthSections.enumerated() {
             let month = monthDataItem?.months[safe: index]
-            monthView.monthDate = month?.monthDate
-            monthView.today = monthDataItem?.today ?? Date()
-            monthView.isHidden = month == nil
-
-            let indicatorView = eventIndicatorViews[safe: index]
-            indicatorView?.dayEventColors = month?.dayEventColors ?? [:]
-            indicatorView?.isHidden = month == nil
+            monthSection.monthDate = month?.monthDate
+            monthSection.today = monthDataItem?.today ?? Date()
+            monthSection.dayEventColors = month?.dayEventColors ?? [:]
+            monthSection.isHidden = month == nil
         }
 
         /// 多个月份并排时统一行数，左右两侧的日期行高与位置一致
-        let rowCount = monthViews.map { $0.requiredRowCount }.max() ?? 0
-        for monthView in monthViews {
-            monthView.minimumRowCount = rowCount
-        }
-
-        /// 行数变化会改变单元格位置，事项指示层需要按新网格重绘
-        for indicatorView in eventIndicatorViews {
-            indicatorView.setNeedsDisplay()
+        let rowCount = monthSections.map { $0.requiredRowCount }.max() ?? 0
+        for monthSection in monthSections {
+            monthSection.minimumRowCount = rowCount
         }
     }
 
@@ -114,28 +96,20 @@ class WSCalendarMonthContentView: WSPluginContentView {
         super.layoutSubviews()
 
         let frame = layoutFrame()
-        guard frame.width > 0.0, frame.height > 0.0, !monthViews.isEmpty else {
+        guard frame.width > 0.0, frame.height > 0.0, !monthSections.isEmpty else {
             return
         }
 
-        let count = CGFloat(monthViews.count)
+        let count = CGFloat(monthSections.count)
         let spacing = monthSpacing * (count - 1.0)
         let monthWidth = max((frame.width - spacing) / count, 0.0)
 
         var left = frame.minX
-        for (index, monthView) in monthViews.enumerated() {
-            monthView.size = CGSize(width: monthWidth, height: frame.height)
-            monthView.left = left
-            monthView.top = frame.minY
-
-            /// 事项指示层与月历视图同尺寸叠放
-            if let indicatorView = eventIndicatorViews[safe: index] {
-                indicatorView.size = monthView.size
-                indicatorView.left = monthView.left
-                indicatorView.top = monthView.top
-            }
-
-            left = monthView.right + monthSpacing
+        for monthSection in monthSections {
+            monthSection.size = CGSize(width: monthWidth, height: frame.height)
+            monthSection.left = left
+            monthSection.top = frame.minY
+            left = monthSection.right + monthSpacing
         }
     }
 }
