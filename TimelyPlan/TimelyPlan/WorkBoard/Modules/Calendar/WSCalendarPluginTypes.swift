@@ -38,12 +38,29 @@ extension WSPluginType {
         /// 日历·大·今明两天：按今天、明天两列展示事项。
         static let largeTwoDays = make("calendarLargeTwoDays", .large)
 
+        /// 日历·中·事项条（2 天）：展示今天起 2 天的事项条。
+        static let mediumEventBar2Days = make("calendarMediumEventBar2Days", .medium)
+
+        /// 日历·中·事项条（3 天）：展示今天起 3 天的事项条。
+        static let mediumEventBar3Days = make("calendarMediumEventBar3Days", .medium)
+
+        /// 日历·中·事项条（4 天）：展示今天起 4 天的事项条。
+        static let mediumEventBar4Days = make("calendarMediumEventBar4Days", .medium)
+
+        /// 日历·中·事项条（5 天）：展示今天起 5 天的事项条。
+        static let mediumEventBar5Days = make("calendarMediumEventBar5Days", .medium)
+
+        /// 日历·中·事项条（本周）：展示今天所在那一周的事项条。
+        static let mediumEventBarWeek = make("calendarMediumEventBarWeek", .medium)
+
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
             smallClassicDate, smallMinimalDate, smallCount, smallMonth,
             mediumMonth, mediumMonthEventList,
             smallUpcoming, mediumUpcoming, largeUpcoming,
             mediumTwoDays, largeTwoDays,
+            mediumEventBar2Days, mediumEventBar3Days, mediumEventBar4Days, mediumEventBar5Days,
+            mediumEventBarWeek,
         ]
 
         /// 模块内全部组件配置
@@ -59,6 +76,11 @@ extension WSPluginType {
             .init(WSCalendarLargeUpcomingPluginProvider(), title: "Upcoming Events", subtitle: "Lists upcoming events grouped by day with their source"),
             .init(WSCalendarMediumTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows events for today and tomorrow"),
             .init(WSCalendarLargeTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows events for today and tomorrow"),
+            .init(WSCalendarMediumEventBar2DaysPluginProvider(), title: "Next 2 Days", subtitle: "Shows the next 2 days of events as bars"),
+            .init(WSCalendarMediumEventBar3DaysPluginProvider(), title: "Next 3 Days", subtitle: "Shows the next 3 days of events as bars"),
+            .init(WSCalendarMediumEventBar4DaysPluginProvider(), title: "Next 4 Days", subtitle: "Shows the next 4 days of events as bars"),
+            .init(WSCalendarMediumEventBar5DaysPluginProvider(), title: "Next 5 Days", subtitle: "Shows the next 5 days of events as bars"),
+            .init(WSCalendarMediumEventBarWeekPluginProvider(), title: "This Week", subtitle: "Shows this week's events as bars"),
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
