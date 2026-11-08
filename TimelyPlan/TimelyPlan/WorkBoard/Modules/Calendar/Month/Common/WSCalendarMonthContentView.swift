@@ -32,6 +32,15 @@ class WSCalendarMonthContentView: WSPluginContentView {
         }
     }
 
+    /// 是否绘制上月与下月的日期
+    var showsAdjacentDays: Bool = true {
+        didSet {
+            for monthView in monthViews {
+                monthView.showsAdjacentDays = showsAdjacentDays
+            }
+        }
+    }
+
     /// 月历视图，顺序与数据条目的月份顺序一致
     private(set) var monthViews: [WSCalendarMonthView] = []
 
@@ -46,6 +55,7 @@ class WSCalendarMonthContentView: WSPluginContentView {
         monthViews = (0..<self.monthCount).map { _ in
             let monthView = WSCalendarMonthView()
             monthView.firstWeekday = CalendarSetting.shared.firstWeekday.rawValue
+            monthView.showsAdjacentDays = showsAdjacentDays
             /// 点击某天：打开该天的事项列表
             monthView.didSelectDate = { [weak self] date in
                 (self?.interactor as? WSCalendarEventContentInteractor)?.openEventList(on: date)
@@ -72,6 +82,12 @@ class WSCalendarMonthContentView: WSPluginContentView {
             monthView.dayEventColors = month?.dayEventColors ?? [:]
             monthView.today = monthDataItem?.today ?? Date()
             monthView.isHidden = month == nil
+        }
+
+        /// 多个月份并排时统一行数，左右两侧的日期行高与位置一致
+        let rowCount = monthViews.map { $0.requiredRowCount }.max() ?? 0
+        for monthView in monthViews {
+            monthView.minimumRowCount = rowCount
         }
     }
 

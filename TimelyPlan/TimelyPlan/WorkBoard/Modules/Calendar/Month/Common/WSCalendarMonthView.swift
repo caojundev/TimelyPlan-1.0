@@ -99,6 +99,39 @@ class WSCalendarMonthView: UIView {
         }
     }
 
+    /// 是否绘制上月与下月的日期
+    var showsAdjacentDays: Bool = true {
+        didSet {
+            guard showsAdjacentDays != oldValue else {
+                return
+            }
+
+            setNeedsDisplay()
+        }
+    }
+
+    /// 最小行数。多个月份并排时统一行数，日期才能左右对齐；0 表示按当月周数自适应
+    var minimumRowCount: Int = 0 {
+        didSet {
+            guard minimumRowCount != oldValue else {
+                return
+            }
+
+            invalidateGrid()
+        }
+    }
+
+    /// 当月占用的周数
+    var requiredRowCount: Int {
+        guard let monthDate = monthDate else {
+            return 0
+        }
+
+        let monthStart = monthDate.startOfMonth()
+        let firstColumn = (monthStart.weekday - firstWeekday + 7) % 7
+        return Int(ceil(Double(firstColumn + monthStart.numberOfDaysInMonth()) / 7.0))
+    }
+
     /// 每天的事项指示颜色，key 为日
     var dayEventColors: [Int: [UIColor]] = [:] {
         didSet {
@@ -323,6 +356,11 @@ class WSCalendarMonthView: UIView {
                 continue
             }
 
+            /// 相邻月份只绘制当月时跳过，网格位置保留
+            guard isCurrentMonth || showsAdjacentDays else {
+                continue
+            }
+
             let isToday = isCurrentMonth && day == todayDay
             let colors = isCurrentMonth ? (dayEventColors[day] ?? []) : []
 
@@ -413,7 +451,7 @@ class WSCalendarMonthView: UIView {
         let firstColumn = (monthStart.weekday - firstWeekday + 7) % 7
         let previousMonthDaysCount = monthStart.dateByAddingDays(-1)?.numberOfDaysInMonth() ?? 0
         let firstDate = monthStart.dateByAddingDays(-firstColumn) ?? monthStart
-        let rowsCount = Int(ceil(Double(firstColumn + daysCount) / 7.0))
+        let rowsCount = max(minimumRowCount, Int(ceil(Double(firstColumn + daysCount) / 7.0)))
 
         let cellWidth = contentFrame.width / 7.0
         let titleFont = UIFont.systemFont(ofSize: cellWidth * appearance.titleFontRatio, weight: .medium)
