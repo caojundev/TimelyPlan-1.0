@@ -32,7 +32,7 @@ class WSCalendarUpcomingContentView: WSCalendarEventListView {
                 return
             }
 
-            (self.interactor as? WSCalendarUpcomingContentInteractor)?.clickMoreEvents(on: day.date)
+            (self.interactor as? WSCalendarEventContentInteractor)?.openEventList(on: day.date)
         }
     }
 

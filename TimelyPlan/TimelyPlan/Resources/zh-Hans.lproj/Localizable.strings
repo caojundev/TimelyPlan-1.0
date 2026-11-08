@@ -70,6 +70,8 @@
 "Shows today's date with a red month banner" = "以红色月份横幅展示今日日期";
 "Minimal Date" = "极简日期";
 "Shows today's date in a minimal layout" = "以极简排版展示今日日期";
+"Today Count" = "今日日程数";
+"Shows today's date with the number of events" = "展示今日日期与日程数目";
 "Habits" = "习惯";
 "Shows today's habits and progress" = "展示今日习惯与完成进度";
 "Selected Habit" = "自选习惯";
@@ -364,6 +366,7 @@
 "New Event" = "新事项";
 "New Events" = "新事项";
 "No Events" = "无事项";
+"%ld Events" = "有%ld个日程";
 "Default Duration" = "默认时长";
 
 "Calendar Settings" = "日历设置";

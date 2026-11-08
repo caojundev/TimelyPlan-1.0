@@ -61,7 +61,7 @@ class WSCalendarSmallDateContentView: WSPluginContentView {
 
     func fontSizes(for contentSize: CGSize) -> (month: CGFloat, weekday: CGFloat, day: CGFloat) {
         let unit = min(contentSize.width, contentSize.height)
-        return (unit * 0.10, unit * 0.11, unit * 0.50)
+        return (unit * 0.10, unit * 0.11, unit * 0.46)
     }
 
     func layoutDateLabels(in contentFrame: CGRect) {
@@ -75,9 +75,9 @@ class WSCalendarSmallDateContentView: WSPluginContentView {
 
         appliedSize = size
         let sizes = fontSizes(for: size)
-        monthLabel.font = UIFont.systemFont(ofSize: sizes.month, weight: .light)
-        weekdayLabel.font = UIFont.systemFont(ofSize: sizes.weekday, weight: .regular)
-        dayLabel.font = UIFont.systemFont(ofSize: sizes.day, weight: .thin)
+        monthLabel.font = UIFont.systemFont(ofSize: sizes.month, weight: .regular)
+        weekdayLabel.font = UIFont.systemFont(ofSize: sizes.weekday, weight: .medium)
+        dayLabel.font = UIFont.systemFont(ofSize: sizes.day, weight: .semibold)
     }
 
     // MARK: - 渲染

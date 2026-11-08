@@ -11,7 +11,8 @@ import UIKit
 /// 日历·最近事项的内容交互器。
 ///
 /// 取最近若干天的事项按天分组后下发给内容视图；事项变化与跨天时重新取数。
-class WSCalendarUpcomingContentInteractor: WSPluginContentInteractor, CalendarEventChangeDelegate {
+class WSCalendarUpcomingContentInteractor: WSCalendarEventContentInteractor,
+                                          CalendarEventChangeDelegate {
 
     private enum Metrics {
 
@@ -21,12 +22,6 @@ class WSCalendarUpcomingContentInteractor: WSPluginContentInteractor, CalendarEv
 
     /// 日历数据仓库。仅仪表盘取数时创建，画廊只渲染预览数据
     private var repository: CalendarRepository?
-
-    /// 点击事项时才需要，避免初始化时提前创建
-    private lazy var eventProcessor = CalendarEventProcessor()
-
-    /// 事项快速添加管理器。首次添加时按容器视图控制器创建
-    private var quickAddManager: TodoTaskQuickAddManager?
 
     override init(plugin: WSPlugin, context: WSPluginContext) {
         super.init(plugin: plugin, context: context)
@@ -65,27 +60,6 @@ class WSCalendarUpcomingContentInteractor: WSPluginContentInteractor, CalendarEv
                                                    startingAt: date,
                                                    dayCount: Metrics.dayCount))
         }
-    }
-
-    // MARK: - 交互
-    /// 点击组件：打开今天的事项列表
-    override func performPrimaryAction() {
-        showEventList(on: Date())
-    }
-
-    /// 点击事项行：打开对应事项的详情
-    override func performAction(with dataItem: WSPluginDataItem) {
-        guard let item = dataItem as? WSCalendarEventRowItem,
-              let event = item.event else {
-            return
-        }
-
-        eventProcessor.clickEvent(event)
-    }
-
-    /// 点击「更多」：打开被折叠那天的完整事项列表
-    func clickMoreEvents(on date: Date) {
-        showEventList(on: date)
     }
 
     // MARK: - 预览数据
@@ -141,42 +115,6 @@ class WSCalendarUpcomingContentInteractor: WSPluginContentInteractor, CalendarEv
     /// 列表取数的时间范围
     private static func makeListRange() -> DateInterval {
         return .rangeOfDays(firstDate: Date(), dayCount: Metrics.dayCount)
-    }
-
-    /// 打开指定日期的事项列表。列表内点击添加按钮时，关闭列表后继续添加事项
-    private func showEventList(on date: Date) {
-        let options = CalendarEventListOptions(date: date)
-        CalendarPresenter.showEventList(with: options) { [weak self] in
-            self?.addTask(on: date)
-        }
-    }
-
-    // MARK: - 添加事项
-    /// 添加事项：与日历主页的添加按钮一致，按所选日期快速添加一条全天待办
-    private func addTask(on date: Date) {
-        guard let viewController = UIViewController.topPresented else {
-            return
-        }
-        
-        /// 容器视图控制器变化后管理器需要重建
-        if quickAddManager?.containerViewController == nil {
-            let options = TodoQuickAddOptions(showMoreSetting: false,
-                                              forbidContinuousAdd: true)
-            quickAddManager = TodoTaskQuickAddManager(containerViewController: viewController,
-                                                      options: options)
-        }
-
-        quickAddManager?.show(with: Self.makeQuickAddTask(on: date))
-    }
-
-    /// 添加内容与日历主页一致：所选日期为全天，提醒取日历设置中的全天提醒
-    private static func makeQuickAddTask(on date: Date) -> TodoQuickAddTask {
-        let schedule = TaskSchedule(dateInfo: TaskDateInfo(date: date),
-                                    reminder: CalendarSetting.shared.allDayEventReminder,
-                                    repeatRule: nil)
-        let task = TodoQuickAddTask()
-        task.schedule = schedule
-        return task
     }
 
     private func makePreviewEvent(identifier: String,
