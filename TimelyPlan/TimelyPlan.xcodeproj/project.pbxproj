@@ -7660,6 +7660,7 @@
 			children = (
 				E5AC723C309F1AED004042F8 /* Common */,
 				E5C41D0000000000000000A1 /* WSCalendarPluginTypes.swift */,
+				E5AC726430A08297004042F8 /* EventBar */,
 				E5AC726030A05DA9004042F8 /* MonthEventList */,
 				E5AC725D30A01B7F004042F8 /* Month */,
 				E5AC724730A00E48004042F8 /* TwoDays */,
@@ -11596,6 +11597,13 @@
 				E5CD10000000000000000006 /* WSCalendarSingleMonthPluginProvider.swift */,
 			);
 			path = Single;
+			sourceTree = "<group>";
+		};
+		E5AC726430A08297004042F8 /* EventBar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EventBar;
 			sourceTree = "<group>";
 		};
 		E5AC7310309F7000004042F8 /* Common */ = {

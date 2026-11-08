@@ -153,6 +153,11 @@ class CalendarPageView: TPCollectionWrapperView,
         return []
     }
     
+    /// 指定日期所在页面的起始日期，默认按天分页
+    func pageStartDate(for date: Date) -> Date {
+        return date
+    }
+    
     func shouldPerformUpdate() -> Bool {
         return true
     }
@@ -253,12 +258,12 @@ class CalendarPageView: TPCollectionWrapperView,
     
     /// 日期相对当前显示首日的列索引
     func column(of date: Date) -> Int {
-        let days = Date.days(fromDate: visibleDate, toDate: date)
+        let days = Date.days(fromDate: firstVisibleDate, toDate: date)
         return days
     }
     
     func date(of column: Int) -> Date {
-        return visibleDate.dateByAddingDays(column)!
+        return firstVisibleDate.dateByAddingDays(column)!
     }
     
     func dragDropPanBegan() {
@@ -295,8 +300,7 @@ class CalendarPageView: TPCollectionWrapperView,
     }
     
     func adapter(_ adapter: TPCollectionViewAdapter, didDequeCell cell: UICollectionViewCell, at indexPath: IndexPath) {
-        guard let cell = cell as? CalendarPageTimelineCell,
-              let firstDate = adapter.item(at: indexPath) as? Date else {
+        guard let cell = cell as? CalendarPageTimelineCell else {
             return
         }
         
@@ -307,15 +311,19 @@ class CalendarPageView: TPCollectionWrapperView,
         timelineView.showLunar = showLunar
         timelineView.showChineseHolidays = showChineseHolidays
         
-        /// 仅当该页面是当前可见页面时才加载事项，避免预加载非显示页面造成资源浪费
-        if isVisiblePageStartDate(firstDate) {
-            if timelineView.firstDate != firstDate {
-                timelineView.loadEvents(with: firstDate)
-            }
-        }
-        
         let eventsView = timelineView.eventsView
         synchronizer.addSynchronizableView(eventsView)
+    }
+    
+    func adapter(_ adapter: TPCollectionViewAdapter, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        (cell as? TPCollectionCell)?.willDisplay()
+        
+        guard let cell = cell as? CalendarPageTimelineCell,
+              let firstDate = adapter.item(at: indexPath) as? Date else {
+            return
+        }
+        
+        loadEventsIfNeeded(in: cell.timelineView, with: firstDate)
     }
 
     func adapter(_ adapter: TPCollectionViewAdapter, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
@@ -389,19 +397,27 @@ class CalendarPageView: TPCollectionWrapperView,
     
     // MARK: - UIScrollViewDelegate
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let dayWidth = dayWidth
+        let snapWidth = self.snapWidth
+        guard snapWidth > 0 else {
+            return
+        }
+        
         let targetOffsetX = targetContentOffset.pointee.x
-        var targetPage = round(targetOffsetX / dayWidth)
+        var targetPage = round(targetOffsetX / snapWidth)
         if abs(velocity.x) < 2.0 {
             let velocityThreshold: CGFloat = 0.2
-            if velocity.x > velocityThreshold {
-                targetPage += 1
-            } else if velocity.x < -velocityThreshold {
-                targetPage -= 1
+            /// 目标页与当前页一致时才按速度翻页，避免同一次拖动翻动两页
+            let currentPage = round(collectionView.contentOffset.x / snapWidth)
+            if targetPage == currentPage {
+                if velocity.x > velocityThreshold {
+                    targetPage += 1
+                } else if velocity.x < -velocityThreshold {
+                    targetPage -= 1
+                }
             }
         }
         
-        let targetX = targetPage * dayWidth
+        let targetX = targetPage * snapWidth
         targetContentOffset.pointee.x = targetX
         let targetDate = date(at: targetX)
         willEndDragging(withTargetDate: targetDate)
@@ -428,49 +444,50 @@ class CalendarPageView: TPCollectionWrapperView,
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        loadEventsForVisibleCellsIfNeeded()
+        
         let offset = scrollView.contentOffset
         updateAllDay(with: offset)
     }
     
     // MARK: -  Helpers
-    /// 判断页面起始日期对应的页面是否为当前需要显示的页面
-    /// - Parameter firstDate: 页面起始日期（周视图下为周开始日，一页包含 pageDaysCount 天）
-    func isVisiblePageStartDate(_ firstDate: Date) -> Bool {
-        /// 1. 当前可见日期是否落在该页覆盖的日期范围内
-        let days = Date.days(fromDate: firstDate, toDate: visibleDate)
-        if days >= 0 && days < pageDaysCount {
-            return true
-        }
-        
-        /// 2. 拖动过程中，contentOffset 可能停留在两个页面之间，需同时判断当前页与下一页
-        if collectionView.isDragging {
-            let dates = adapter.allItems() as! [Date]
-            let pageWidth = dayWidth * CGFloat(pageDaysCount)
-            guard pageWidth > 0 else {
-                return false
-            }
-            
-            let currentPageIndex = validatedIndex(Int(collectionView.contentOffset.x / pageWidth))
-            if dates[currentPageIndex] == firstDate {
-                return true
-            }
-            
-            let nextPageIndex = validatedIndex(currentPageIndex + 1)
-            if dates[nextPageIndex] == firstDate {
-                return true
-            }
-        }
-        
-        return false
+    /// 可视区域能否完整显示一个页面
+    /// 能完整显示时内容按页面起始日对齐，避免一屏同时显示两个页面
+    private var isPageWidthFitted: Bool {
+        return displayDays >= pageDaysCount
     }
     
-    /// 页面索引边界校验
-    private func validatedIndex(_ index: Int) -> Int {
-        let itemsCount = adapter.allItems().count
-        guard itemsCount > 0 else {
-            return 0
+    /// 可视区域首列对应的日期
+    private var firstVisibleDate: Date {
+        return isPageWidthFitted ? pageStartDate(for: visibleDate) : visibleDate
+    }
+    
+    /// 滚动吸附步长：页面能完整显示时按页吸附，否则按天吸附
+    private var snapWidth: CGFloat {
+        return isPageWidthFitted ? dayWidth * CGFloat(pageDaysCount) : dayWidth
+    }
+    
+    /// 加载页面事项（每个页面只加载一次）
+    /// 页面进入可视区域时才加载，避免预加载非显示页面造成资源浪费；
+    /// 可视区域可能同时包含两个页面（页面起始日与可见日期不一致，或一屏显示天数少于页面天数），
+    /// 因此不能只以 visibleDate 所在页面来判断，否则同屏的另一个页面会显示为空白
+    private func loadEventsIfNeeded(in timelineView: CalendarPageTimelineView, with firstDate: Date) {
+        if timelineView.firstDate != firstDate {
+            timelineView.loadEvents(with: firstDate)
         }
-        return min(itemsCount - 1, max(0, index))
+    }
+    
+    /// 补齐可视区域内尚未加载事项的页面
+    private func loadEventsForVisibleCellsIfNeeded() {
+        for cell in adapter.visibleCells {
+            guard let cell = cell as? CalendarPageTimelineCell,
+                  let indexPath = collectionView.indexPath(for: cell),
+                  let firstDate = adapter.item(at: indexPath) as? Date else {
+                continue
+            }
+            
+            loadEventsIfNeeded(in: cell.timelineView, with: firstDate)
+        }
     }
     
     /// 页面是否在移动中
@@ -508,7 +525,9 @@ class CalendarPageView: TPCollectionWrapperView,
     
     /// 获取指定日期对应的水平偏移
     private func offsetX(for date: Date) -> CGFloat {
-        let days = Date.days(fromDate: firstPageStartDate, toDate: date)
+        /// 页面能完整显示时，按该日期所在页面的起始日对齐
+        let targetDate = isPageWidthFitted ? pageStartDate(for: date) : date
+        let days = Date.days(fromDate: firstPageStartDate, toDate: targetDate)
         return CGFloat(days) * dayWidth
     }
     

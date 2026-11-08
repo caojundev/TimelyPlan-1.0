@@ -16,14 +16,7 @@ import UIKit
 /// 实线 / 虚线 / 重叠连接线的样式与当前时间进度都与时间线一致；
 /// 行视图为组件专用的简化版本，不使用时间列，超出可见范围的最后一项由外层裁剪。
 class WSMyDayTimelineView: UIView {
-    
-    /// 布局尺寸
-    private enum Metrics {
-        
-        /// 更多入口的左缩进，与事项内容对齐
-        static let moreLeadingInset: CGFloat = 52.0
-    }
-    
+
     /// 点击事项回调
     var didSelectEventHandler: ((MyDayEvent) -> Void)?
     
@@ -261,7 +254,7 @@ class WSMyDayTimelineView: UIView {
         moreButton.title = String(format: resGetString("More %ld"), overflowCount)
         
         moreButton.sizeToFit()
-        moreButton.left = Metrics.moreLeadingInset
+        moreButton.right = bounds.width
         moreButton.bottom = bounds.height
         bringSubviewToFront(moreButton)
     }

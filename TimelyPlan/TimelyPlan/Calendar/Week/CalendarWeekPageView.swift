@@ -55,6 +55,11 @@ class CalendarWeekPageView: CalendarPageView {
         return dates
     }
     
+    /// 周视图按周分页，页面起始日为周开始日
+    override func pageStartDate(for date: Date) -> Date {
+        return date.startOfWeek(firstWeekday: firstWeekday)
+    }
+    
     override func adapter(_ adapter: TPCollectionViewAdapter, classForCellAt indexPath: IndexPath) -> AnyClass? {
         return CalendarWeekPageTimelineCell.self
     }
