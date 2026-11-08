@@ -1,5 +1,5 @@
 //
-//  WSCalendarSmallMonthContentView.swift
+//  WSCalendarSingleMonthContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/8.
@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-/// 日历·小·月历：单月网格，日期下方用小圆点展示当天的事项。
-class WSCalendarSmallMonthContentView: WSCalendarMonthContentView {
+/// 日历·单月历（小尺寸）：单月网格，日期下方用小圆点展示当天的事项。
+class WSCalendarSingleMonthContentView: WSCalendarMonthContentView {
 
     /// 布局尺寸
     private enum Metrics {

@@ -1,5 +1,5 @@
 //
-//  WSCalendarMediumMonthContentView.swift
+//  WSCalendarDoubleMonthContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/8.
@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-/// 日历·中·双月历：本月与下月左右排列，每月占据一半宽度。
-class WSCalendarMediumMonthContentView: WSCalendarMonthContentView {
+/// 日历·双月历（中尺寸）：本月与下月左右排列，每月占据一半宽度。
+class WSCalendarDoubleMonthContentView: WSCalendarMonthContentView {
 
     /// 布局尺寸
     private enum Metrics {

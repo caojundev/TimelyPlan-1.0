@@ -2264,10 +2264,10 @@
 		E5CD20000000000000000002 /* WSCalendarMonthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000002 /* WSCalendarMonthContentView.swift */; };
 		E5CD20000000000000000003 /* WSCalendarMonthDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000003 /* WSCalendarMonthDataItem.swift */; };
 		E5CD20000000000000000004 /* WSCalendarMonthContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000004 /* WSCalendarMonthContentInteractor.swift */; };
-		E5CD20000000000000000005 /* WSCalendarSmallMonthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000005 /* WSCalendarSmallMonthContentView.swift */; };
-		E5CD20000000000000000006 /* WSCalendarSmallMonthPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000006 /* WSCalendarSmallMonthPluginProvider.swift */; };
-		E5CD20000000000000000007 /* WSCalendarMediumMonthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000007 /* WSCalendarMediumMonthContentView.swift */; };
-		E5CD20000000000000000008 /* WSCalendarMediumMonthPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000008 /* WSCalendarMediumMonthPluginProvider.swift */; };
+		E5CD20000000000000000005 /* WSCalendarSingleMonthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000005 /* WSCalendarSingleMonthContentView.swift */; };
+		E5CD20000000000000000006 /* WSCalendarSingleMonthPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000006 /* WSCalendarSingleMonthPluginProvider.swift */; };
+		E5CD20000000000000000007 /* WSCalendarDoubleMonthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000007 /* WSCalendarDoubleMonthContentView.swift */; };
+		E5CD20000000000000000008 /* WSCalendarDoubleMonthPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000008 /* WSCalendarDoubleMonthPluginProvider.swift */; };
 		E5CD20000000000000000009 /* WSCalendarMonthEventIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000009 /* WSCalendarMonthEventIndicatorView.swift */; };
 		E5CD20000000000000000010 /* WSCalendarMonthSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000010 /* WSCalendarMonthSectionView.swift */; };
 		E5CD20000000000000000011 /* WSCalendarMonthEventListDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD10000000000000000011 /* WSCalendarMonthEventListDataItem.swift */; };
@@ -5277,10 +5277,10 @@
 		E5CD10000000000000000002 /* WSCalendarMonthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthContentView.swift; sourceTree = "<group>"; };
 		E5CD10000000000000000003 /* WSCalendarMonthDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthDataItem.swift; sourceTree = "<group>"; };
 		E5CD10000000000000000004 /* WSCalendarMonthContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthContentInteractor.swift; sourceTree = "<group>"; };
-		E5CD10000000000000000005 /* WSCalendarSmallMonthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallMonthContentView.swift; sourceTree = "<group>"; };
-		E5CD10000000000000000006 /* WSCalendarSmallMonthPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSmallMonthPluginProvider.swift; sourceTree = "<group>"; };
-		E5CD10000000000000000007 /* WSCalendarMediumMonthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumMonthContentView.swift; sourceTree = "<group>"; };
-		E5CD10000000000000000008 /* WSCalendarMediumMonthPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumMonthPluginProvider.swift; sourceTree = "<group>"; };
+		E5CD10000000000000000005 /* WSCalendarSingleMonthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSingleMonthContentView.swift; sourceTree = "<group>"; };
+		E5CD10000000000000000006 /* WSCalendarSingleMonthPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarSingleMonthPluginProvider.swift; sourceTree = "<group>"; };
+		E5CD10000000000000000007 /* WSCalendarDoubleMonthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarDoubleMonthContentView.swift; sourceTree = "<group>"; };
+		E5CD10000000000000000008 /* WSCalendarDoubleMonthPluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarDoubleMonthPluginProvider.swift; sourceTree = "<group>"; };
 		E5CD10000000000000000009 /* WSCalendarMonthEventIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthEventIndicatorView.swift; sourceTree = "<group>"; };
 		E5CD10000000000000000010 /* WSCalendarMonthSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthSectionView.swift; sourceTree = "<group>"; };
 		E5CD10000000000000000011 /* WSCalendarMonthEventListDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthEventListDataItem.swift; sourceTree = "<group>"; };
@@ -11551,8 +11551,8 @@
 			isa = PBXGroup;
 			children = (
 				E5AC725E30A01B8E004042F8 /* Common */,
-				E5CD30000000000000000002 /* Medium */,
-				E5CD30000000000000000001 /* Small */,
+				E5AC726230A06556004042F8 /* Single */,
+				E5CD30000000000000000001 /* Double */,
 			);
 			path = Month;
 			sourceTree = "<group>";
@@ -11587,6 +11587,15 @@
 				E5CD10000000000000000014 /* WSCalendarMediumMonthEventListPluginProvider.swift */,
 			);
 			path = Medium;
+			sourceTree = "<group>";
+		};
+		E5AC726230A06556004042F8 /* Single */ = {
+			isa = PBXGroup;
+			children = (
+				E5CD10000000000000000005 /* WSCalendarSingleMonthContentView.swift */,
+				E5CD10000000000000000006 /* WSCalendarSingleMonthPluginProvider.swift */,
+			);
+			path = Single;
 			sourceTree = "<group>";
 		};
 		E5AC7310309F7000004042F8 /* Common */ = {
@@ -14261,22 +14270,13 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
-		E5CD30000000000000000001 /* Small */ = {
+		E5CD30000000000000000001 /* Double */ = {
 			isa = PBXGroup;
 			children = (
-				E5CD10000000000000000005 /* WSCalendarSmallMonthContentView.swift */,
-				E5CD10000000000000000006 /* WSCalendarSmallMonthPluginProvider.swift */,
+				E5CD10000000000000000007 /* WSCalendarDoubleMonthContentView.swift */,
+				E5CD10000000000000000008 /* WSCalendarDoubleMonthPluginProvider.swift */,
 			);
-			path = Small;
-			sourceTree = "<group>";
-		};
-		E5CD30000000000000000002 /* Medium */ = {
-			isa = PBXGroup;
-			children = (
-				E5CD10000000000000000007 /* WSCalendarMediumMonthContentView.swift */,
-				E5CD10000000000000000008 /* WSCalendarMediumMonthPluginProvider.swift */,
-			);
-			path = Medium;
+			path = Double;
 			sourceTree = "<group>";
 		};
 		E5CFD2612F585D5200A898CB /* Cell */ = {
@@ -19142,10 +19142,10 @@
 				E5CD20000000000000000012 /* WSCalendarMonthEventListView.swift in Sources */,
 				E5CD20000000000000000013 /* WSCalendarMediumMonthEventListContentView.swift in Sources */,
 				E5CD20000000000000000014 /* WSCalendarMediumMonthEventListPluginProvider.swift in Sources */,
-				E5CD20000000000000000005 /* WSCalendarSmallMonthContentView.swift in Sources */,
-				E5CD20000000000000000006 /* WSCalendarSmallMonthPluginProvider.swift in Sources */,
-				E5CD20000000000000000007 /* WSCalendarMediumMonthContentView.swift in Sources */,
-				E5CD20000000000000000008 /* WSCalendarMediumMonthPluginProvider.swift in Sources */,
+				E5CD20000000000000000005 /* WSCalendarSingleMonthContentView.swift in Sources */,
+				E5CD20000000000000000006 /* WSCalendarSingleMonthPluginProvider.swift in Sources */,
+				E5CD20000000000000000007 /* WSCalendarDoubleMonthContentView.swift in Sources */,
+				E5CD20000000000000000008 /* WSCalendarDoubleMonthPluginProvider.swift in Sources */,
 				E53632A52FACD2270095DFEC /* TodoQuickAddTask+FilterRule.swift in Sources */,
 				E53352BB2FFA94C300546986 /* CalendarQuarterDayView.swift in Sources */,
 				E53480132F605B6300CFBF26 /* HabitTaskFilterButton.swift in Sources */,
