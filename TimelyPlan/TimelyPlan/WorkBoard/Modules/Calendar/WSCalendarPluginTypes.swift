@@ -23,10 +23,17 @@ extension WSPluginType {
         /// 日历·大·最近事项：按天分组列出最近的事项，展示时间与来源。
         static let largeUpcoming = make("calendarLargeUpcoming", .large)
 
+        /// 日历·中·今明两天：按今天、明天两列展示事项。
+        static let mediumTwoDays = make("calendarMediumTwoDays", .medium)
+
+        /// 日历·大·今明两天：按今天、明天两列展示事项。
+        static let largeTwoDays = make("calendarLargeTwoDays", .large)
+
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
             smallClassicDate, smallMinimalDate, smallCount,
             smallUpcoming, mediumUpcoming, largeUpcoming,
+            mediumTwoDays, largeTwoDays,
         ]
 
         /// 模块内全部组件配置
@@ -37,6 +44,8 @@ extension WSPluginType {
             .init(WSCalendarSmallUpcomingPluginProvider(), title: "Upcoming Events", subtitle: "Lists upcoming events grouped by day"),
             .init(WSCalendarMediumUpcomingPluginProvider(), title: "Upcoming Events", subtitle: "Lists upcoming events grouped by day with their source"),
             .init(WSCalendarLargeUpcomingPluginProvider(), title: "Upcoming Events", subtitle: "Lists upcoming events grouped by day with their source"),
+            .init(WSCalendarMediumTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows events for today and tomorrow"),
+            .init(WSCalendarLargeTwoDaysPluginProvider(), title: "Today & Tomorrow", subtitle: "Shows events for today and tomorrow"),
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {
