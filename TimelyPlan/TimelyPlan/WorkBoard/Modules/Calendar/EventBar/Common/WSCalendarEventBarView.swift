@@ -42,12 +42,6 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
 
         /// 日期头高度
         static let headerHeight: CGFloat = 18.0
-
-        /// 日期头字号
-        static let headerFont = UIFont.systemFont(ofSize: 10.0, weight: .medium)
-
-        /// 今天的日期头颜色：日历红
-        static let todayTextColor = Color(0xE8362C)
     }
 
     // MARK: - 显示范围
@@ -74,7 +68,7 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
                 return
             }
 
-            updateDayHeaderViews()
+            updateDayHeader()
             setNeedsLayout()
         }
     }
@@ -112,8 +106,8 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
     /// 事项条，横跨天数在创建时固定，天数变化时重建
     private var stripView: CalendarStripView?
 
-    /// 日期头
-    private var dayHeaderLabels: [UILabel] = []
+    /// 日期头。所有日期一次绘制，避免每天一个标签
+    private let headerView = WSCalendarEventBarHeaderView()
 
     convenience init(startDate: Date = Date(), dayCount: Int = DAYS_PER_WEEK) {
         self.init(frame: .zero)
@@ -122,8 +116,9 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addSubview(headerView)
         setupStripView()
-        updateDayHeaderViews()
+        updateDayHeader()
     }
 
     required init?(coder: NSCoder) {
@@ -183,12 +178,11 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
 
         if needsRebuild {
             setupStripView()
-            updateDayHeaderViews()
         }
 
         stripView?.startDate = startDate
         stripView?.reset()
-        updateDayHeaderTitles()
+        updateDayHeader()
         setNeedsLayout()
     }
 
@@ -222,44 +216,10 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
 
     // MARK: - 日期头
 
-    /// 按显示天数与日期头开关创建 / 复用日期头
-    private func updateDayHeaderViews() {
-        let count = showsDayHeader ? dayCount : 0
-        if dayHeaderLabels.count > count {
-            dayHeaderLabels[count...].forEach { $0.removeFromSuperview() }
-            dayHeaderLabels.removeLast(dayHeaderLabels.count - count)
-        }
-
-        while dayHeaderLabels.count < count {
-            let label = UILabel()
-            label.font = Metrics.headerFont
-            label.textColor = .secondaryLabel
-            label.textAlignment = .center
-            label.adjustsFontSizeToFitWidth = true
-            label.minimumScaleFactor = 0.6
-            addSubview(label)
-            dayHeaderLabels.append(label)
-        }
-
-        updateDayHeaderTitles()
-    }
-
-    private func updateDayHeaderTitles() {
-        guard let startDate = startDate else {
-            dayHeaderLabels.forEach { $0.text = nil }
-            return
-        }
-
-        let today = Date.startOfToday
-        for (index, label) in dayHeaderLabels.enumerated() {
-            guard let date = startDate.dateByAddingDays(index) else {
-                label.text = nil
-                continue
-            }
-
-            label.text = "\(date.shortWeekdaySymbol()) \(Calendar.current.component(.day, from: date))"
-            label.textColor = date.isInSameDayAs(today) ? Metrics.todayTextColor : .secondaryLabel
-        }
+    /// 同步日期头的显隐与日期
+    private func updateDayHeader() {
+        headerView.isHidden = !showsDayHeader
+        headerView.days = days
     }
 
     // MARK: - 布局
@@ -273,11 +233,9 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
         }
 
         let headerHeight = showsDayHeader ? min(max(dayHeaderHeight, 0.0), frame.height) : 0.0
-        let itemWidth = frame.width / CGFloat(dayCount)
-        for (index, label) in dayHeaderLabels.enumerated() {
-            label.size = CGSize(width: itemWidth, height: headerHeight)
-            label.left = frame.minX + CGFloat(index) * itemWidth
-            label.top = frame.minY
+        let headerFrame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: headerHeight)
+        if headerView.frame != headerFrame {
+            headerView.frame = headerFrame
         }
 
         stripView?.origin = CGPoint(x: frame.minX, y: frame.minY + headerHeight)
@@ -302,5 +260,103 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
         }
 
         didSelectMoreHandler(date)
+    }
+}
+
+// MARK: - 日期头
+
+/// 事项条的日期头：所有日期在一次绘制中完成，替代「每天一个标签」，减少图层与子视图。
+///
+/// 只在一层内绘制文字，宽度变化、日期变化与深浅色切换时重绘。
+class WSCalendarEventBarHeaderView: UIView {
+
+    /// 布局尺寸
+    private enum Metrics {
+
+        /// 日期字号
+        static let font = UIFont.systemFont(ofSize: 10.0, weight: .medium)
+
+        /// 列宽放不下时的最小缩放比例
+        static let minimumScale: CGFloat = 0.6
+
+        /// 今天的文字颜色：日历红
+        static let todayTextColor = Color(0xE8362C)
+    }
+
+    /// 显示的日期
+    var days: [Date] = [] {
+        didSet {
+            guard days != oldValue else {
+                return
+            }
+
+            setNeedsDisplay()
+        }
+    }
+
+    /// 文字居中的段落样式
+    private let paragraphStyle: NSParagraphStyle = {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineBreakMode = .byClipping
+        return paragraphStyle
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .clear
+        isOpaque = false
+        isUserInteractionEnabled = false
+        /// 宽度变化后需要按新的列宽重新绘制
+        contentMode = .redraw
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func draw(_ rect: CGRect) {
+        guard !days.isEmpty, bounds.width > 0.0, bounds.height > 0.0 else {
+            return
+        }
+
+        let itemWidth = bounds.width / CGFloat(days.count)
+        guard itemWidth > 0.0 else {
+            return
+        }
+
+        let today = Date.startOfToday
+        for (index, date) in days.enumerated() {
+            let title = "\(date.shortWeekdaySymbol()) \(Calendar.current.component(.day, from: date))"
+            let color: UIColor = date.isInSameDayAs(today) ? Metrics.todayTextColor : .secondaryLabel
+            let font = fittedFont(for: title, maximumWidth: itemWidth)
+            let attributes: [NSAttributedString.Key: Any] = [.font: font,
+                                                             .foregroundColor: color,
+                                                             .paragraphStyle: paragraphStyle]
+            let textHeight = ceil(font.lineHeight)
+            let textRect = CGRect(x: CGFloat(index) * itemWidth,
+                                  y: (bounds.height - textHeight) / 2.0,
+                                  width: itemWidth,
+                                  height: textHeight)
+            (title as NSString).draw(in: textRect, withAttributes: attributes)
+        }
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        /// 深浅色模式下文字颜色不同，需要重绘
+        setNeedsDisplay()
+    }
+
+    /// 列宽放不下时等比缩小字号，避免文字超出所属的列
+    private func fittedFont(for title: String, maximumWidth: CGFloat) -> UIFont {
+        let font = Metrics.font
+        let width = (title as NSString).size(withAttributes: [.font: font]).width
+        guard width > maximumWidth else {
+            return font
+        }
+
+        let scale = max(maximumWidth / width, Metrics.minimumScale)
+        return font.withSize(font.pointSize * scale)
     }
 }

@@ -12,6 +12,6 @@ import UIKit
 class WSCalendarMediumEventBar3DaysPluginProvider: WSCalendarEventBarPluginProvider {
 
     init() {
-        super.init(type: .Calendar.mediumEventBar3Days, range: .days(3))
+        super.init(type: .Calendar.mediumEventBar3Days, dayCount: 3)
     }
 }

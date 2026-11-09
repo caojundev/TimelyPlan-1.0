@@ -12,6 +12,6 @@ import UIKit
 class WSCalendarMediumEventBar2DaysPluginProvider: WSCalendarEventBarPluginProvider {
 
     init() {
-        super.init(type: .Calendar.mediumEventBar2Days, range: .days(2))
+        super.init(type: .Calendar.mediumEventBar2Days, dayCount: 2)
     }
 }

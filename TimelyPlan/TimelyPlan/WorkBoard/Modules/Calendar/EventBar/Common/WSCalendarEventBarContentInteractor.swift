@@ -10,24 +10,19 @@ import UIKit
 
 /// 日历事项条组件的内容交互器。
 ///
-/// 取显示范围内的事项交给内容视图渲染，显示范围由创建时传入；
-/// 事项变化与跨天时重新取数。各组件共用该交互器，只有取数的日期范围不同。
+/// 取最近若干天的事项交给内容视图渲染，天数由创建时传入；
+/// 事项变化与跨天时重新取数。各天数的组件共用该交互器，只有取数的日期范围不同。
 class WSCalendarEventBarContentInteractor: WSCalendarEventContentInteractor,
                                            CalendarEventChangeDelegate {
 
-    /// 显示范围
-    let range: WSCalendarEventBarRange
-
     /// 显示的天数
-    private var dayCount: Int {
-        return range.dayCount
-    }
+    let dayCount: Int
 
     /// 日历数据仓库。仅仪表盘取数时创建，画廊只渲染预览数据
     private var repository: CalendarRepository?
 
-    init(plugin: WSPlugin, context: WSPluginContext, range: WSCalendarEventBarRange) {
-        self.range = range
+    init(plugin: WSPlugin, context: WSPluginContext, dayCount: Int) {
+        self.dayCount = max(1, dayCount)
         super.init(plugin: plugin, context: context)
 
         guard context == .dashboard else {
@@ -43,7 +38,7 @@ class WSCalendarEventBarContentInteractor: WSCalendarEventContentInteractor,
     // MARK: - CalendarEventChangeDelegate
     /// 只有与显示范围有交集的事项变化才影响展示内容
     func calendarEventsDidChange(in ranges: [DateInterval]) {
-        let displayRange = range.interval()
+        let displayRange = Self.makeDisplayRange(dayCount: dayCount)
         guard ranges.contains(where: { $0.intersects(displayRange) }) else {
             return
         }
@@ -59,10 +54,9 @@ class WSCalendarEventBarContentInteractor: WSCalendarEventContentInteractor,
         }
 
         let date = Date()
-        let startDate = range.startDate(for: date)
         let dayCount = self.dayCount
-        repository.fetchEvents(in: range.interval(for: date)) { events in
-            completion(WSCalendarEventBarDataItem(startDate: startDate,
+        repository.fetchEvents(in: Self.makeDisplayRange(dayCount: dayCount)) { events in
+            completion(WSCalendarEventBarDataItem(startDate: date,
                                                   dayCount: dayCount,
                                                   events: events))
         }
@@ -71,7 +65,7 @@ class WSCalendarEventBarContentInteractor: WSCalendarEventContentInteractor,
     // MARK: - 预览数据
     /// 画廊预览数据：每天一条事项、首日再补一条，另有跨两天与跨三天的事项，不受用户数据影响
     override func previewDataItem() -> WSPluginDataItem? {
-        let startDate = range.startDate()
+        let startDate = Date().startOfDay()
         let names = [resGetString("Team Meeting"), resGetString("Deep Work"), resGetString("Review"),
                      resGetString("Workout"), resGetString("Reading"), resGetString("Planning"),
                      resGetString("Design Sync"), resGetString("Study")]
@@ -126,6 +120,11 @@ class WSCalendarEventBarContentInteractor: WSCalendarEventContentInteractor,
     }
 
     // MARK: - 辅助
+    /// 从今天零点开始覆盖显示的天数
+    private static func makeDisplayRange(dayCount: Int) -> DateInterval {
+        return .rangeOfDays(firstDate: Date(), dayCount: dayCount)
+    }
+
     private func makePreviewEvent(identifier: String,
                                   name: String,
                                   color: UIColor,

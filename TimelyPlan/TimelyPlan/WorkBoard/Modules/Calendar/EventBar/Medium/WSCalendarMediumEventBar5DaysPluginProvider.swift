@@ -12,6 +12,6 @@ import UIKit
 class WSCalendarMediumEventBar5DaysPluginProvider: WSCalendarEventBarPluginProvider {
 
     init() {
-        super.init(type: .Calendar.mediumEventBar5Days, range: .days(5))
+        super.init(type: .Calendar.mediumEventBar5Days, dayCount: 5)
     }
 }
