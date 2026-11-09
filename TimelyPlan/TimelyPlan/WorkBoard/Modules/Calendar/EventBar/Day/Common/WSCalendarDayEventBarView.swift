@@ -36,7 +36,7 @@ struct WSCalendarDayEventBarDataItem: WSPluginDataItem {
 /// 显示范围由 `startDate` 与 `dayCount` 决定（如今天开始的若干天、整周）；
 /// 顶部每天一列「周符号 + 天视图（日、阴历、调休）」，下方为事项条，
 /// 外部更新 `events` 即刷新事项条。
-class WSCalendarDayEventBarView: WSPluginContentView, CalendarStripViewDelegate {
+class WSCalendarDayEventBarView: WSPluginContentView, CalendarStripViewDelegate, UIGestureRecognizerDelegate {
 
     /// 布局尺寸
     private enum Metrics {
@@ -135,6 +135,9 @@ class WSCalendarDayEventBarView: WSPluginContentView, CalendarStripViewDelegate 
     /// 点击「更多」
     var didSelectMoreHandler: ((Date) -> Void)?
 
+    /// 点击某一天的区域（日期头或事项条空白处）
+    var didSelectDateHandler: ((Date) -> Void)?
+
     // MARK: - 子视图
 
     /// 事项条，横跨天数在创建时固定，天数变化时重建
@@ -150,6 +153,7 @@ class WSCalendarDayEventBarView: WSPluginContentView, CalendarStripViewDelegate 
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupGesture()
         setupDayColumns()
         setupStripView()
         reloadDayConfigs()
@@ -317,6 +321,58 @@ class WSCalendarDayEventBarView: WSPluginContentView, CalendarStripViewDelegate 
 
         stripView?.origin = CGPoint(x: frame.minX, y: frame.minY + headerHeight)
         stripView?.size = CGSize(width: frame.width, height: max(frame.height - headerHeight, 0.0))
+    }
+
+    // MARK: - 手势
+
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        tapGesture.delegate = self
+        addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+        guard let date = date(at: gesture.location(in: self)) else {
+            return
+        }
+
+        guard let didSelectDateHandler = didSelectDateHandler else {
+            (interactor as? WSCalendarEventContentInteractor)?.openEventList(on: date)
+            return
+        }
+
+        didSelectDateHandler(date)
+    }
+
+    /// 位置对应的日期（按显示天数均分宽度）
+    private func date(at location: CGPoint) -> Date? {
+        guard let startDate = startDate, dayCount > 0 else {
+            return nil
+        }
+
+        let frame = layoutFrame()
+        let itemWidth = frame.width / CGFloat(dayCount)
+        guard itemWidth > 0.0, frame.contains(location) else {
+            return nil
+        }
+
+        let index = min(max(Int((location.x - frame.minX) / itemWidth), 0), dayCount - 1)
+        return startDate.dateByAddingDays(index)
+    }
+
+    /// 事项条上的点击交给事项条自己处理，其余区域按天打开事项列表
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        var hitView = touch.view
+        while let view = hitView, view !== self {
+            if view is CalendarStripEventView {
+                return false
+            }
+
+            hitView = view.superview
+        }
+
+        /// 只接管能落到具体日期的区域，其余交给面板处理
+        return date(at: touch.location(in: self)) != nil
     }
 
     // MARK: - CalendarStripViewDelegate

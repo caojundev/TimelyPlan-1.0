@@ -65,6 +65,9 @@ extension WSPluginType {
         /// 日历·大·周事项条（4 周）：展示本周起 4 周的事项条。
         static let largeWeekEventBar4Weeks = make("calendarLargeWeekEventBar4Weeks", .large)
 
+        /// 日历·大·月事项条（当月）：按当月网格展示 5~6 周的事项条。
+        static let largeMonthEventBar = make("calendarLargeMonthEventBar", .large)
+
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
             smallClassicDate, smallMinimalDate, smallCount, smallMonth,
@@ -74,6 +77,7 @@ extension WSPluginType {
             mediumEventBar2Days, mediumEventBar3Days, mediumEventBar4Days, mediumEventBar5Days,
             mediumEventBar6Days,
             mediumWeekEventBar, largeWeekEventBar2Weeks, largeWeekEventBar3Weeks, largeWeekEventBar4Weeks,
+            largeMonthEventBar,
         ]
 
         /// 模块内全部组件配置
@@ -98,6 +102,7 @@ extension WSPluginType {
             .init(WSCalendarLargeWeekEventBar2WeeksPluginProvider(), title: "Next 2 Weeks", subtitle: "Shows the next 2 weeks of events as bars"),
             .init(WSCalendarLargeWeekEventBar3WeeksPluginProvider(), title: "Next 3 Weeks", subtitle: "Shows the next 3 weeks of events as bars"),
             .init(WSCalendarLargeWeekEventBar4WeeksPluginProvider(), title: "Next 4 Weeks", subtitle: "Shows the next 4 weeks of events as bars"),
+            .init(WSCalendarLargeMonthEventBarPluginProvider(), title: "This Month", subtitle: "Shows this month's events as bars"),
         ]
 
         private static func make(_ rawValue: String, _ size: WSPluginSize) -> WSPluginType {

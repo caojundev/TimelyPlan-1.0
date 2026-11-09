@@ -22,6 +22,17 @@ class WSCalendarWeekEventBarRowView: UIView, CalendarStripViewDelegate {
         }
     }
 
+    /// 事项条至少保留的高度，行高不足时压缩天视图行
+    var minimumStripHeight: CGFloat = 24.0 {
+        didSet {
+            guard minimumStripHeight != oldValue else {
+                return
+            }
+
+            setNeedsLayout()
+        }
+    }
+
     /// 该周的第一天（当天零点）
     private(set) var startDate: Date?
 
@@ -39,6 +50,8 @@ class WSCalendarWeekEventBarRowView: UIView, CalendarStripViewDelegate {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        /// 行高被压缩时裁掉事项条超出的部分，避免压到下一行
+        clipsToBounds = true
         stripView.delegate = self
         addSubview(stripView)
         setupDayViews()
@@ -95,7 +108,7 @@ class WSCalendarWeekEventBarRowView: UIView, CalendarStripViewDelegate {
         }
 
         /// 行高不足时让出事项条的空间，避免日期行占满整行
-        let headerHeight = min(max(self.headerHeight, 0.0), max(height - 24.0, 0.0))
+        let headerHeight = min(max(self.headerHeight, 0.0), max(height - minimumStripHeight, 0.0))
         let itemWidth = width / CGFloat(DAYS_PER_WEEK)
         for (index, dayView) in dayViews.enumerated() {
             dayView.headerHeight = headerHeight

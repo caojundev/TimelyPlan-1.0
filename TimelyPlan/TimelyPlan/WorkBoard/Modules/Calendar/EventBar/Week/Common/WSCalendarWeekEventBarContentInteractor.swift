@@ -35,6 +35,12 @@ class WSCalendarWeekEventBarContentInteractor: WSCalendarEventContentInteractor,
         repository.addUpdaterDelegate(self)
     }
 
+    // MARK: - 交互
+    /// 点击组件主体不处理：内容视图按点击位置打开对应日期的事项列表
+    override func performPrimaryAction() {
+
+    }
+
     // MARK: - CalendarEventChangeDelegate
     /// 只有与显示范围有交集的事项变化才影响展示内容
     func calendarEventsDidChange(in ranges: [DateInterval]) {
