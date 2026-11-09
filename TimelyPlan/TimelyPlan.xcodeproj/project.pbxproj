@@ -2282,6 +2282,7 @@
 		E5CD2200000000000000000B /* WSCalendarMediumDayEventBar4DaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD2200000000000000000A /* WSCalendarMediumDayEventBar4DaysPluginProvider.swift */; };
 		E5CD2200000000000000000D /* WSCalendarMediumDayEventBar5DaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD2200000000000000000C /* WSCalendarMediumDayEventBar5DaysPluginProvider.swift */; };
 		E5CD24000000000000000002 /* WSCalendarMediumDayEventBar6DaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD24000000000000000001 /* WSCalendarMediumDayEventBar6DaysPluginProvider.swift */; };
+		E5CD26000000000000000002 /* WSCalendarDayEventBarColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD26000000000000000001 /* WSCalendarDayEventBarColumnView.swift */; };
 		E5CD25000000000000000003 /* WSCalendarWeekEventBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD25000000000000000002 /* WSCalendarWeekEventBarView.swift */; };
 		E5CD25000000000000000005 /* WSCalendarWeekEventBarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD25000000000000000004 /* WSCalendarWeekEventBarRowView.swift */; };
 		E5CD25000000000000000007 /* WSCalendarWeekEventBarWeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD25000000000000000006 /* WSCalendarWeekEventBarWeekdayView.swift */; };
@@ -5312,6 +5313,7 @@
 		E5CD2200000000000000000A /* WSCalendarMediumDayEventBar4DaysPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumDayEventBar4DaysPluginProvider.swift; sourceTree = "<group>"; };
 		E5CD2200000000000000000C /* WSCalendarMediumDayEventBar5DaysPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumDayEventBar5DaysPluginProvider.swift; sourceTree = "<group>"; };
 		E5CD24000000000000000001 /* WSCalendarMediumDayEventBar6DaysPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumDayEventBar6DaysPluginProvider.swift; sourceTree = "<group>"; };
+		E5CD26000000000000000001 /* WSCalendarDayEventBarColumnView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarDayEventBarColumnView.swift; sourceTree = "<group>"; };
 		E5CD25000000000000000002 /* WSCalendarWeekEventBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarWeekEventBarView.swift; sourceTree = "<group>"; };
 		E5CD25000000000000000004 /* WSCalendarWeekEventBarRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarWeekEventBarRowView.swift; sourceTree = "<group>"; };
 		E5CD25000000000000000006 /* WSCalendarWeekEventBarWeekdayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarWeekEventBarWeekdayView.swift; sourceTree = "<group>"; };
@@ -11646,6 +11648,7 @@
 			isa = PBXGroup;
 			children = (
 				E5CD21000000000000000001 /* WSCalendarDayEventBarView.swift */,
+				E5CD26000000000000000001 /* WSCalendarDayEventBarColumnView.swift */,
 				E5CD22000000000000000001 /* WSCalendarDayEventBarContentInteractor.swift */,
 				E5CD22000000000000000003 /* WSCalendarDayEventBarPluginProvider.swift */,
 			);
@@ -19198,6 +19201,7 @@
 				E5CD2200000000000000000B /* WSCalendarMediumDayEventBar4DaysPluginProvider.swift in Sources */,
 				E5CD2200000000000000000D /* WSCalendarMediumDayEventBar5DaysPluginProvider.swift in Sources */,
 				E5CD24000000000000000002 /* WSCalendarMediumDayEventBar6DaysPluginProvider.swift in Sources */,
+				E5CD26000000000000000002 /* WSCalendarDayEventBarColumnView.swift in Sources */,
 				E5CD25000000000000000003 /* WSCalendarWeekEventBarView.swift in Sources */,
 				E5CD25000000000000000005 /* WSCalendarWeekEventBarRowView.swift in Sources */,
 				E5CD25000000000000000007 /* WSCalendarWeekEventBarWeekdayView.swift in Sources */,
