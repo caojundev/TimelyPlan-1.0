@@ -82,6 +82,9 @@ class WSCalendarMonthEventBarRowView: UIView, CalendarStripViewDelegate {
         isOpaque = false
         /// 宽度变化后需要按新的列宽重绘日期
         contentMode = .redraw
+        /// 月视图每周高度有限，事项条更矮、文字更小
+        stripView.itemHeight = 13.0
+        stripView.itemFont = .systemFont(ofSize: 10.0, weight: .medium)
         stripView.delegate = self
         addSubview(stripView)
     }

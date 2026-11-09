@@ -29,6 +29,36 @@ class CalendarStripView: UIView, UIGestureRecognizerDelegate {
     
     /// 周开始日期
     var startDate: Date?
+
+    /// 每个事项条的高度
+    var itemHeight: CGFloat {
+        get {
+            return layoutManager.itemHeight
+        }
+
+        set {
+            guard layoutManager.itemHeight != newValue else {
+                return
+            }
+
+            layoutManager.itemHeight = newValue
+            /// 条高变化会影响可见行数，需要重新布局并重建事项条
+            layoutManager.setNeedsLayout()
+            setupViews()
+        }
+    }
+
+    /// 事项条名称与「更多」的文字字体
+    var itemFont: UIFont = CalendarStripEventView.Constants.nameLabelFont {
+        didSet {
+            guard itemFont != oldValue else {
+                return
+            }
+
+            eventViews.forEach { $0.nameLabelFont = itemFont }
+            moreTextLayers.forEach { $0.fontSize = itemFont.pointSize }
+        }
+    }
     
     /// 事件子图层
     private var eventViews: [CalendarStripEventView] = []
@@ -148,6 +178,7 @@ class CalendarStripView: UIView, UIGestureRecognizerDelegate {
             }
             
             let eventView = CalendarStripEventView(event: pathInfo.event, path: pathInfo.path)
+            eventView.nameLabelFont = itemFont
             eventView.frame = layoutManager.eventFrame(for: pathInfo.path)
             addSubview(eventView)
             eventViews.append(eventView)
@@ -166,6 +197,7 @@ class CalendarStripView: UIView, UIGestureRecognizerDelegate {
             let remainCount = eventsCount - linesCount + 1
             let title = "+\(remainCount)"
             let textLayer = CalendarStripMoreTextLayer.layer(with: column, string: title)
+            textLayer.fontSize = itemFont.pointSize
             textLayer.frame = layoutManager.moreTextFrame(for: column)
             layer.addSublayer(textLayer)
             moreTextLayers.append(textLayer)

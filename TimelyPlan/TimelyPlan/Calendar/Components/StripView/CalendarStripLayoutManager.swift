@@ -32,7 +32,7 @@ class CalendarStripLayoutManager {
     private var maximumLineSpacing: CGFloat = 2.0
     
     /// 实际使用的行间距
-    private(set) var lineSpacing: CGFloat = 5.0
+    private(set) var lineSpacing: CGFloat = 2.0
     
     /// 布局中使用的总行数
     private(set) var linesCount: Int = 1

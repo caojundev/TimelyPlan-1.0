@@ -26,6 +26,18 @@ class CalendarStripEventView: UIView {
             updateContentFrame()
         }
     }
+
+    /// 名称字体
+    var nameLabelFont: UIFont {
+        get {
+            return nameLabel.font
+        }
+
+        set {
+            nameLabel.font = newValue
+            updateNameLabel()
+        }
+    }
     
     let event: CalendarEvent
     
@@ -87,8 +99,9 @@ class CalendarStripEventView: UIView {
 
     private func updateNameLabel() {
         let title = event.title ?? resGetString("Untitled")
+        let font = nameLabel.font ?? Constants.nameLabelFont
         if event.isCompleted {
-            nameLabel.attributed.text = "\(title, .font(Constants.nameLabelFont), .strikethrough(.single, color: foregroundColor))"
+            nameLabel.attributed.text = "\(title, .font(font), .strikethrough(.single, color: foregroundColor))"
         } else {
             nameLabel.text = title
         }
