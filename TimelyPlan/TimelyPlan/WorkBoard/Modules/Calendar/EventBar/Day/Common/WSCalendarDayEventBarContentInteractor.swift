@@ -1,5 +1,5 @@
 //
-//  WSCalendarEventBarContentInteractor.swift
+//  WSCalendarDayEventBarContentInteractor.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/8.
@@ -12,7 +12,7 @@ import UIKit
 ///
 /// 取最近若干天的事项交给内容视图渲染，天数由创建时传入；
 /// 事项变化与跨天时重新取数。各天数的组件共用该交互器，只有取数的日期范围不同。
-class WSCalendarEventBarContentInteractor: WSCalendarEventContentInteractor,
+class WSCalendarDayEventBarContentInteractor: WSCalendarEventContentInteractor,
                                            CalendarEventChangeDelegate {
 
     /// 显示的天数
@@ -56,7 +56,7 @@ class WSCalendarEventBarContentInteractor: WSCalendarEventContentInteractor,
         let date = Date()
         let dayCount = self.dayCount
         repository.fetchEvents(in: Self.makeDisplayRange(dayCount: dayCount)) { events in
-            completion(WSCalendarEventBarDataItem(startDate: date,
+            completion(WSCalendarDayEventBarDataItem(startDate: date,
                                                   dayCount: dayCount,
                                                   events: events))
         }
@@ -116,7 +116,7 @@ class WSCalendarEventBarContentInteractor: WSCalendarEventContentInteractor,
                                            endDate: spanEndDate.dateByAddingHours(18) ?? spanEndDate))
         }
 
-        return WSCalendarEventBarDataItem(startDate: startDate, dayCount: dayCount, events: events)
+        return WSCalendarDayEventBarDataItem(startDate: startDate, dayCount: dayCount, events: events)
     }
 
     // MARK: - 辅助

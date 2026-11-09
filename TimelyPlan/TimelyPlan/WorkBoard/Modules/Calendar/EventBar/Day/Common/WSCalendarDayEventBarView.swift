@@ -1,5 +1,5 @@
 //
-//  WSCalendarEventBarView.swift
+//  WSCalendarDayEventBarView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/8.
@@ -11,7 +11,7 @@ import UIKit
 // MARK: - 数据条目
 
 /// 事项条组件的数据：显示范围与事项。
-struct WSCalendarEventBarDataItem: WSPluginDataItem {
+struct WSCalendarDayEventBarDataItem: WSPluginDataItem {
 
     /// 显示的第一天
     let startDate: Date
@@ -35,7 +35,7 @@ struct WSCalendarEventBarDataItem: WSPluginDataItem {
 ///
 /// 显示范围由 `startDate` 与 `dayCount` 决定（如今天开始的若干天、整周），
 /// 外部更新 `events` 即刷新事项条；顶部为每列对应的日期头，可关闭。
-class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
+class WSCalendarDayEventBarView: WSPluginContentView, CalendarStripViewDelegate {
 
     /// 布局尺寸
     private enum Metrics {
@@ -107,7 +107,7 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
     private var stripView: CalendarStripView?
 
     /// 日期头。所有日期一次绘制，避免每天一个标签
-    private let headerView = WSCalendarEventBarHeaderView()
+    private let headerView = WSCalendarDayEventBarHeaderView()
 
     convenience init(startDate: Date = Date(), dayCount: Int = DAYS_PER_WEEK) {
         self.init(frame: .zero)
@@ -150,7 +150,7 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
     override func update(with dataItem: WSPluginDataItem?) {
         super.update(with: dataItem)
 
-        guard let dataItem = dataItem as? WSCalendarEventBarDataItem else {
+        guard let dataItem = dataItem as? WSCalendarDayEventBarDataItem else {
             events = nil
             return
         }
@@ -268,7 +268,7 @@ class WSCalendarEventBarView: WSPluginContentView, CalendarStripViewDelegate {
 /// 事项条的日期头：所有日期在一次绘制中完成，替代「每天一个标签」，减少图层与子视图。
 ///
 /// 只在一层内绘制文字，宽度变化、日期变化与深浅色切换时重绘。
-class WSCalendarEventBarHeaderView: UIView {
+class WSCalendarDayEventBarHeaderView: UIView {
 
     /// 布局尺寸
     private enum Metrics {
