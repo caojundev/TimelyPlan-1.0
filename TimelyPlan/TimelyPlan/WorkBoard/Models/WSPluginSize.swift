@@ -6,6 +6,7 @@ public enum WSPluginSize: String, Codable, CaseIterable {
     case small   // 1x1
     case medium  // 2x1
     case large   // 2x2
+    case flexible // 整行宽，高度按宽度动态计算
 }
 
 public extension WSPluginSize {
@@ -16,6 +17,7 @@ public extension WSPluginSize {
         case .small: return resGetString("Small")
         case .medium: return resGetString("Medium")
         case .large: return resGetString("Large")
+        case .flexible: return resGetString("Flexible")
         }
     }
 }

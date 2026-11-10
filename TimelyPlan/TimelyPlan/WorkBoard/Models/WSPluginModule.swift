@@ -33,6 +33,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
     case focus      /// 专注
     case habit      /// 习惯
     case countdown  /// 倒数日
+    case headline   /// 标题
 
     /// 模块标题。同一业务拆分出的模块使用各自的名称，便于在画廊与选择器中区分。
     var title: String {
@@ -53,6 +54,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .focus: return resGetString("Focus")
         case .habit: return resGetString("Habit")
         case .countdown: return resGetString("Countdown")
+        case .headline: return resGetString("Headline")
         }
     }
 
@@ -61,6 +63,9 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         switch self {
         case .todoList, .todoUserListTask, .todoSmartListTask, .todoTag, .todoTagTask, .todoFilter, .todoFilterTask, .todoCustomTask:
             return "sideMenu_todo_40"
+        case .headline:
+            /// 暂无专属图标，暂时复用工作台图标
+            return "sideMenu_workspace_40"
         default:
             return "sideMenu_\(rawValue)_40"
         }
@@ -78,6 +83,8 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
             return .todo
         case .todoUserListTask, .todoSmartListTask, .todoTagTask, .todoFilterTask, .todoCustomTask:
             return .todoTask
+        case .headline:
+            return .text
         case .myDay, .calendar, .timeline, .quadrants, .goal, .focus, .habit, .countdown:
             return .others
         }
@@ -102,6 +109,7 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
         case .focus: return WSPluginType.Focus.all
         case .habit: return WSPluginType.Habit.all
         case .countdown: return WSPluginType.Countdown.all
+        case .headline: return WSPluginType.Headline.all
         }
     }
 }
@@ -111,9 +119,10 @@ public enum WSPluginModule: String, Codable, TPMenuRepresentable {
 /// 组件模块组。
 ///
 /// 一个组对应选择器中的一个 section，组内模块逐行展示。
-/// 待办按「清单/标签/过滤器」与「任务」拆成两个组，其余模块统一归入 `others`；
+/// 待办按「清单/标签/过滤器」与「任务」拆成两个组，文本单独成组，其余模块统一归入 `others`；
 /// 后续需要单独成组时，新增 case 并把对应模块的 `group` 指过来即可。
 public enum WSPluginModuleGroup: String, CaseIterable {
+    case text     /// 文本
     case todo     /// 待办
     case todoTask /// 待办任务
     case others   /// 其它
@@ -121,6 +130,7 @@ public enum WSPluginModuleGroup: String, CaseIterable {
     /// 组标题
     var title: String {
         switch self {
+        case .text: return resGetString("Text")
         case .todo: return resGetString("Todo")
         case .todoTask: return resGetString("Todo Tasks")
         case .others: return resGetString("Others")

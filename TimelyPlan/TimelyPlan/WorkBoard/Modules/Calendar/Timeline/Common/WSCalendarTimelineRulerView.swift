@@ -15,7 +15,7 @@ struct WSCalendarTimelineRulerAppearance {
 
     var backgroundColor = Color(light: 0xFFFFFF, dark: 0x17171A)
     var hourColor = Color(light: 0x565656, dark: 0x9A9A9F)
-    var separatorColor = Color(light: 0x666666, 0.02, dark: 0xaaaaaa, 0.02)
+    var separatorColor = Color(light: 0x565656, 0.4, dark: 0x9A9A9F, 0.4)
     var hourFont = UIFont.systemFont(ofSize: 12.0, weight: .medium)
 }
 

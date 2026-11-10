@@ -68,6 +68,12 @@ protocol WSPluginProvider: AnyObject {
     /// `WSPluginConfigurable` 的视图控制器；返回 nil 表示该组件不支持配置，
     /// 长按菜单中不显示「配置」项。
     func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)?
+
+    /// 创建该组件的高度计算对象。
+    ///
+    /// 仅 `flexible` 尺寸的组件需要实现：布局按容器宽度询问高度，
+    /// 无需等待单元格创建。返回 nil 时组件使用默认高度（等于一个网格单元）。
+    func makeHeightCalculator(plugin: WSPlugin) -> WSPluginHeightCalculating?
 }
 
 extension WSPluginProvider {
@@ -94,6 +100,11 @@ extension WSPluginProvider {
     
     /// 默认不支持配置
     func makeConfigViewController(plugin: WSPlugin) -> (UIViewController & WSPluginConfigurable)? {
+        return nil
+    }
+
+    /// 默认不提供高度计算对象，仅 `flexible` 尺寸组件需要
+    func makeHeightCalculator(plugin: WSPlugin) -> WSPluginHeightCalculating? {
         return nil
     }
 }

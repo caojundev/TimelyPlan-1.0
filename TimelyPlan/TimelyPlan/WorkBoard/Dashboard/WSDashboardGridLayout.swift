@@ -14,6 +14,7 @@ import UIKit
 /// - 小号：1 列 1 行
 /// - 中号：2 列 1 行
 /// - 大号：2 列 2 行
+/// - 自适应：2 列，高度由组件按宽度计算
 ///
 /// 所有组件尺寸都由容器宽度推导，`interitemSpacing` 与 `lineSpacing` 保持固定值，
 /// 不随容器宽度变化；`sectionInset` 则由内容宽度在容器内居中反推得出。
@@ -97,16 +98,73 @@ class WSDashboardGridLayout {
         case .large:
             let length = rowLength(unitLength: unitLength)
             return CGSize(width: length, height: length)
+        case .flexible:
+            /// 缺少插件信息时无法计算高度，按整行宽度与默认高度返回
+            return CGSize(width: rowLength(unitLength: unitLength), height: unitLength)
         }
     }
     
-    /// 指定组件的条目尺寸。尺寸取自注册的组件提供者。
+    /// 指定组件的条目尺寸。尺寸取自注册的组件提供者，
+    /// `flexible` 组件的高度按其宽度与组件提供的高度计算对象得出。
     func itemSize(for plugin: WSPlugin) -> CGSize {
-        return itemSize(for: plugin.type.size)
+        guard plugin.type.size == .flexible else {
+            return itemSize(for: plugin.type.size)
+        }
+        
+        let width = rowLength(unitLength: unitLength)
+        return CGSize(width: width, height: flexibleHeight(for: plugin, width: width))
     }
     
-    /// 占满整行的长度（中号 / 大号的宽度）
+    /// 占满整行的长度（中号 / 大号 / 自适应的宽度）
     private func rowLength(unitLength: CGFloat) -> CGFloat {
         return Self.columnCount * unitLength + interitemSpacing
+    }
+    
+    // MARK: - 自适应高度
+    /// 高度计算对象缓存，key 为插件标识。插件配置变化后重建
+    private struct HeightCalculator {
+        
+        let configJSON: String?
+        
+        let calculator: WSPluginHeightCalculating
+    }
+    
+    private var heightCalculators: [String: HeightCalculator] = [:]
+    
+    /// flexible 组件缺少高度计算对象时的默认高度，等于一个网格单元
+    private var defaultFlexibleHeight: CGFloat {
+        return unitLength
+    }
+    
+    /// flexible 组件的最小高度，取半个网格单元，避免内容过少时组件过矮难以点击
+    private var minimumFlexibleHeight: CGFloat {
+        return unitLength * 0.5
+    }
+    
+    /// flexible 组件在给定宽度下的高度
+    private func flexibleHeight(for plugin: WSPlugin, width: CGFloat) -> CGFloat {
+        guard let calculator = heightCalculator(for: plugin) else {
+            assert(false, "flexible 尺寸组件需要提供高度计算对象：\(plugin.type.rawValue)")
+            return defaultFlexibleHeight
+        }
+        
+        return max(ceil(calculator.height(forWidth: width)), minimumFlexibleHeight)
+    }
+    
+    /// 按插件取回高度计算对象。配置未变化时复用已创建的对象，避免每次布局都重新解析配置
+    private func heightCalculator(for plugin: WSPlugin) -> WSPluginHeightCalculating? {
+        if let cached = heightCalculators[plugin.identifier], cached.configJSON == plugin.configJSON {
+            return cached.calculator
+        }
+        
+        guard let provider = WSPluginRegistry.shared.provider(for: plugin.type),
+              let calculator = provider.makeHeightCalculator(plugin: plugin) else {
+            heightCalculators[plugin.identifier] = nil
+            return nil
+        }
+        
+        heightCalculators[plugin.identifier] = HeightCalculator(configJSON: plugin.configJSON,
+                                                                calculator: calculator)
+        return calculator
     }
 }
