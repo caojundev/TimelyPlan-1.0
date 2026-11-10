@@ -2282,11 +2282,6 @@
 		E5CD2200000000000000000B /* WSCalendarMediumDayEventBar4DaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD2200000000000000000A /* WSCalendarMediumDayEventBar4DaysPluginProvider.swift */; };
 		E5CD2200000000000000000D /* WSCalendarMediumDayEventBar5DaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD2200000000000000000C /* WSCalendarMediumDayEventBar5DaysPluginProvider.swift */; };
 		E5CD24000000000000000002 /* WSCalendarMediumDayEventBar6DaysPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD24000000000000000001 /* WSCalendarMediumDayEventBar6DaysPluginProvider.swift */; };
-		E5CD27000000000000000003 /* WSCalendarMonthGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD27000000000000000002 /* WSCalendarMonthGrid.swift */; };
-		E5CD28000000000000000002 /* WSCalendarMonthEventBarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28000000000000000001 /* WSCalendarMonthEventBarRowView.swift */; };
-		E5CD27000000000000000005 /* WSCalendarMonthEventBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD27000000000000000004 /* WSCalendarMonthEventBarView.swift */; };
-		E5CD27000000000000000007 /* WSCalendarMonthEventBarContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD27000000000000000006 /* WSCalendarMonthEventBarContentInteractor.swift */; };
-		E5CD27000000000000000009 /* WSCalendarLargeMonthEventBarPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD27000000000000000008 /* WSCalendarLargeMonthEventBarPluginProvider.swift */; };
 		E5CD25000000000000000003 /* WSCalendarWeekEventBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD25000000000000000002 /* WSCalendarWeekEventBarView.swift */; };
 		E5CD25000000000000000005 /* WSCalendarWeekEventBarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD25000000000000000004 /* WSCalendarWeekEventBarRowView.swift */; };
 		E5CD25000000000000000007 /* WSCalendarWeekEventBarWeekdayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD25000000000000000006 /* WSCalendarWeekEventBarWeekdayView.swift */; };
@@ -2297,6 +2292,22 @@
 		E5CD25000000000000000011 /* WSCalendarLargeWeekEventBar3WeeksPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD25000000000000000010 /* WSCalendarLargeWeekEventBar3WeeksPluginProvider.swift */; };
 		E5CD25000000000000000013 /* WSCalendarLargeWeekEventBar4WeeksPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD25000000000000000012 /* WSCalendarLargeWeekEventBar4WeeksPluginProvider.swift */; };
 		E5CD26000000000000000002 /* WSCalendarDayEventBarColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD26000000000000000001 /* WSCalendarDayEventBarColumnView.swift */; };
+		E5CD27000000000000000003 /* WSCalendarMonthGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD27000000000000000002 /* WSCalendarMonthGrid.swift */; };
+		E5CD27000000000000000005 /* WSCalendarMonthEventBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD27000000000000000004 /* WSCalendarMonthEventBarView.swift */; };
+		E5CD27000000000000000007 /* WSCalendarMonthEventBarContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD27000000000000000006 /* WSCalendarMonthEventBarContentInteractor.swift */; };
+		E5CD27000000000000000009 /* WSCalendarLargeMonthEventBarPluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD27000000000000000008 /* WSCalendarLargeMonthEventBarPluginProvider.swift */; };
+		E5CD28000000000000000002 /* WSCalendarMonthEventBarRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28000000000000000001 /* WSCalendarMonthEventBarRowView.swift */; };
+		E5CD28100000000000000002 /* WSCalendarTimelineRulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28100000000000000001 /* WSCalendarTimelineRulerView.swift */; };
+		E5CD28100000000000000004 /* WSCalendarTimelineEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28100000000000000003 /* WSCalendarTimelineEventsView.swift */; };
+		E5CD28100000000000000006 /* WSCalendarTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28100000000000000005 /* WSCalendarTimelineView.swift */; };
+		E5CD28100000000000000008 /* WSCalendarTimelineDataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28100000000000000007 /* WSCalendarTimelineDataItem.swift */; };
+		E5CD2810000000000000000A /* WSCalendarMediumTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28100000000000000009 /* WSCalendarMediumTimelineContentView.swift */; };
+		E5CD2810000000000000000C /* WSCalendarMediumTimelinePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD2810000000000000000B /* WSCalendarMediumTimelinePluginProvider.swift */; };
+		E5CD28100000000000000010 /* TPHourUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD2810000000000000000F /* TPHourUpdater.swift */; };
+		E5CD28100000000000000012 /* WSCalendarTimelineContentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28100000000000000011 /* WSCalendarTimelineContentInteractor.swift */; };
+		E5CD28100000000000000014 /* WSCalendarTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28100000000000000013 /* WSCalendarTimelineContentView.swift */; };
+		E5CD28100000000000000016 /* WSCalendarLargeTimelineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28100000000000000015 /* WSCalendarLargeTimelineContentView.swift */; };
+		E5CD28100000000000000018 /* WSCalendarLargeTimelinePluginProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CD28100000000000000017 /* WSCalendarLargeTimelinePluginProvider.swift */; };
 		E5CFD2592F5838E300A898CB /* HabitTaskListGroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2582F5838E300A898CB /* HabitTaskListGroupHeaderView.swift */; };
 		E5CFD25F2F585A4300A898CB /* HabitDatePeriodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD25C2F585A4200A898CB /* HabitDatePeriodsView.swift */; };
 		E5CFD2632F585DAF00A898CB /* HabitHomeWeekDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CFD2622F585DAF00A898CB /* HabitHomeWeekDayCell.swift */; };
@@ -5318,11 +5329,6 @@
 		E5CD2200000000000000000A /* WSCalendarMediumDayEventBar4DaysPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumDayEventBar4DaysPluginProvider.swift; sourceTree = "<group>"; };
 		E5CD2200000000000000000C /* WSCalendarMediumDayEventBar5DaysPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumDayEventBar5DaysPluginProvider.swift; sourceTree = "<group>"; };
 		E5CD24000000000000000001 /* WSCalendarMediumDayEventBar6DaysPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumDayEventBar6DaysPluginProvider.swift; sourceTree = "<group>"; };
-		E5CD27000000000000000002 /* WSCalendarMonthGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthGrid.swift; sourceTree = "<group>"; };
-		E5CD28000000000000000001 /* WSCalendarMonthEventBarRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthEventBarRowView.swift; sourceTree = "<group>"; };
-		E5CD27000000000000000004 /* WSCalendarMonthEventBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthEventBarView.swift; sourceTree = "<group>"; };
-		E5CD27000000000000000006 /* WSCalendarMonthEventBarContentInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthEventBarContentInteractor.swift; sourceTree = "<group>"; };
-		E5CD27000000000000000008 /* WSCalendarLargeMonthEventBarPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarLargeMonthEventBarPluginProvider.swift; sourceTree = "<group>"; };
 		E5CD25000000000000000002 /* WSCalendarWeekEventBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarWeekEventBarView.swift; sourceTree = "<group>"; };
 		E5CD25000000000000000004 /* WSCalendarWeekEventBarRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarWeekEventBarRowView.swift; sourceTree = "<group>"; };
 		E5CD25000000000000000006 /* WSCalendarWeekEventBarWeekdayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarWeekEventBarWeekdayView.swift; sourceTree = "<group>"; };
@@ -5333,6 +5339,22 @@
 		E5CD25000000000000000010 /* WSCalendarLargeWeekEventBar3WeeksPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarLargeWeekEventBar3WeeksPluginProvider.swift; sourceTree = "<group>"; };
 		E5CD25000000000000000012 /* WSCalendarLargeWeekEventBar4WeeksPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarLargeWeekEventBar4WeeksPluginProvider.swift; sourceTree = "<group>"; };
 		E5CD26000000000000000001 /* WSCalendarDayEventBarColumnView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarDayEventBarColumnView.swift; sourceTree = "<group>"; };
+		E5CD27000000000000000002 /* WSCalendarMonthGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthGrid.swift; sourceTree = "<group>"; };
+		E5CD27000000000000000004 /* WSCalendarMonthEventBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthEventBarView.swift; sourceTree = "<group>"; };
+		E5CD27000000000000000006 /* WSCalendarMonthEventBarContentInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthEventBarContentInteractor.swift; sourceTree = "<group>"; };
+		E5CD27000000000000000008 /* WSCalendarLargeMonthEventBarPluginProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarLargeMonthEventBarPluginProvider.swift; sourceTree = "<group>"; };
+		E5CD28000000000000000001 /* WSCalendarMonthEventBarRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSCalendarMonthEventBarRowView.swift; sourceTree = "<group>"; };
+		E5CD28100000000000000001 /* WSCalendarTimelineRulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarTimelineRulerView.swift; sourceTree = "<group>"; };
+		E5CD28100000000000000003 /* WSCalendarTimelineEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarTimelineEventsView.swift; sourceTree = "<group>"; };
+		E5CD28100000000000000005 /* WSCalendarTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarTimelineView.swift; sourceTree = "<group>"; };
+		E5CD28100000000000000007 /* WSCalendarTimelineDataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarTimelineDataItem.swift; sourceTree = "<group>"; };
+		E5CD28100000000000000009 /* WSCalendarMediumTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumTimelineContentView.swift; sourceTree = "<group>"; };
+		E5CD2810000000000000000B /* WSCalendarMediumTimelinePluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarMediumTimelinePluginProvider.swift; sourceTree = "<group>"; };
+		E5CD28100000000000000011 /* WSCalendarTimelineContentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarTimelineContentInteractor.swift; sourceTree = "<group>"; };
+		E5CD28100000000000000013 /* WSCalendarTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarTimelineContentView.swift; sourceTree = "<group>"; };
+		E5CD28100000000000000015 /* WSCalendarLargeTimelineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarLargeTimelineContentView.swift; sourceTree = "<group>"; };
+		E5CD28100000000000000017 /* WSCalendarLargeTimelinePluginProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSCalendarLargeTimelinePluginProvider.swift; sourceTree = "<group>"; };
+		E5CD2810000000000000000F /* TPHourUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPHourUpdater.swift; sourceTree = "<group>"; };
 		E5CFD2582F5838E300A898CB /* HabitTaskListGroupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTaskListGroupHeaderView.swift; sourceTree = "<group>"; };
 		E5CFD25C2F585A4200A898CB /* HabitDatePeriodsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitDatePeriodsView.swift; sourceTree = "<group>"; };
 		E5CFD2622F585DAF00A898CB /* HabitHomeWeekDayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitHomeWeekDayCell.swift; sourceTree = "<group>"; };
@@ -7706,6 +7728,7 @@
 			children = (
 				E5AC723C309F1AED004042F8 /* Common */,
 				E5C41D0000000000000000A1 /* WSCalendarPluginTypes.swift */,
+				E5AC726B30A1FE16004042F8 /* Timeline */,
 				E5AC726430A08297004042F8 /* EventBar */,
 				E5AC726030A05DA9004042F8 /* MonthEventList */,
 				E5AC725D30A01B7F004042F8 /* Month */,
@@ -7901,6 +7924,28 @@
 				E52A4FE62F62C5D7009EC01B /* habit_week_day_notscheduled_42@3x.png */,
 			);
 			path = week;
+			sourceTree = "<group>";
+		};
+		E52AC3E830A2B6A700591D99 /* Large */ = {
+			isa = PBXGroup;
+			children = (
+				E5CD28100000000000000015 /* WSCalendarLargeTimelineContentView.swift */,
+				E5CD28100000000000000017 /* WSCalendarLargeTimelinePluginProvider.swift */,
+			);
+			path = Large;
+			sourceTree = "<group>";
+		};
+		E52AC3E930A2B6F500591D99 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5CD28100000000000000001 /* WSCalendarTimelineRulerView.swift */,
+				E5CD28100000000000000003 /* WSCalendarTimelineEventsView.swift */,
+				E5CD28100000000000000005 /* WSCalendarTimelineView.swift */,
+				E5CD28100000000000000007 /* WSCalendarTimelineDataItem.swift */,
+				E5CD28100000000000000011 /* WSCalendarTimelineContentInteractor.swift */,
+				E5CD28100000000000000013 /* WSCalendarTimelineContentView.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		E52B07B73090CF1800D7376F /* MonthReport */ = {
@@ -11700,15 +11745,23 @@
 			path = Month;
 			sourceTree = "<group>";
 		};
-		E5CD27000000000000000001 /* Common */ = {
+		E5AC726B30A1FE16004042F8 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
-				E5CD27000000000000000002 /* WSCalendarMonthGrid.swift */,
-				E5CD28000000000000000001 /* WSCalendarMonthEventBarRowView.swift */,
-				E5CD27000000000000000004 /* WSCalendarMonthEventBarView.swift */,
-				E5CD27000000000000000006 /* WSCalendarMonthEventBarContentInteractor.swift */,
+				E52AC3E930A2B6F500591D99 /* Common */,
+				E52AC3E830A2B6A700591D99 /* Large */,
+				E5AC726D30A208E5004042F8 /* Medium */,
 			);
-			path = Common;
+			path = Timeline;
+			sourceTree = "<group>";
+		};
+		E5AC726D30A208E5004042F8 /* Medium */ = {
+			isa = PBXGroup;
+			children = (
+				E5CD28100000000000000009 /* WSCalendarMediumTimelineContentView.swift */,
+				E5CD2810000000000000000B /* WSCalendarMediumTimelinePluginProvider.swift */,
+			);
+			path = Medium;
 			sourceTree = "<group>";
 		};
 		E5AC7310309F7000004042F8 /* Common */ = {
@@ -12741,6 +12794,7 @@
 			children = (
 				E54C7C862F5C53E000263B82 /* TPRequestManager.swift */,
 				E5007F7F2DCA0981006AD311 /* TPMinuteUpdater.swift */,
+				E5CD2810000000000000000F /* TPHourUpdater.swift */,
 				E5EC0DE100000000000000A2 /* TPSecondUpdater.swift */,
 				E5BB9D722D3BF0C50089667A /* TPMultipleItemSelection.swift */,
 				E5BB9D712D3BF0C50089667A /* TPWeakProxy.swift */,
@@ -14391,6 +14445,17 @@
 				E5CD25000000000000000006 /* WSCalendarWeekEventBarWeekdayView.swift */,
 				E5CD25000000000000000008 /* WSCalendarWeekEventBarContentInteractor.swift */,
 				E5CD2500000000000000000A /* WSCalendarWeekEventBarPluginProvider.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		E5CD27000000000000000001 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E5CD27000000000000000002 /* WSCalendarMonthGrid.swift */,
+				E5CD28000000000000000001 /* WSCalendarMonthEventBarRowView.swift */,
+				E5CD27000000000000000004 /* WSCalendarMonthEventBarView.swift */,
+				E5CD27000000000000000006 /* WSCalendarMonthEventBarContentInteractor.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -19045,6 +19110,7 @@
 				E54C7C7F2F5BB1EE00263B82 /* HabitPeriodItem.swift in Sources */,
 				E5BB9D862D3BF0C50089667A /* CGSize+Size.swift in Sources */,
 				E5007F802DCA0981006AD311 /* TPMinuteUpdater.swift in Sources */,
+				E5CD28100000000000000010 /* TPHourUpdater.swift in Sources */,
 				E5EC0DE100000000000000A1 /* TPSecondUpdater.swift in Sources */,
 				E5CFD2592F5838E300A898CB /* HabitTaskListGroupHeaderView.swift in Sources */,
 				E5D7D8FC2D43933600EC877A /* FocusRecordEditTimelineSectionController.swift in Sources */,
@@ -19108,6 +19174,16 @@
 				E55528182FB55D230093DD7E /* CalendarEventAlertEditViewController.swift in Sources */,
 				E5BB9DAA2D3BF0C60089667A /* FlipClockCardView.swift in Sources */,
 				E5AC723E309F1B02004042F8 /* WSCalendarEventListView.swift in Sources */,
+				E5CD28100000000000000002 /* WSCalendarTimelineRulerView.swift in Sources */,
+				E5CD28100000000000000008 /* WSCalendarTimelineDataItem.swift in Sources */,
+				E5CD2810000000000000000A /* WSCalendarMediumTimelineContentView.swift in Sources */,
+				E5CD2810000000000000000C /* WSCalendarMediumTimelinePluginProvider.swift in Sources */,
+				E5CD28100000000000000012 /* WSCalendarTimelineContentInteractor.swift in Sources */,
+				E5CD28100000000000000014 /* WSCalendarTimelineContentView.swift in Sources */,
+				E5CD28100000000000000016 /* WSCalendarLargeTimelineContentView.swift in Sources */,
+				E5CD28100000000000000018 /* WSCalendarLargeTimelinePluginProvider.swift in Sources */,
+				E5CD28100000000000000004 /* WSCalendarTimelineEventsView.swift in Sources */,
+				E5CD28100000000000000006 /* WSCalendarTimelineView.swift in Sources */,
 				E5C41D0000000000000000B9 /* WSCalendarEventRowView.swift in Sources */,
 				E5C41D000000000000000F01 /* WSCalendarDayEventsDataItem.swift in Sources */,
 				E5C41D000000000000000F02 /* WSCalendarSmallUpcomingContentView.swift in Sources */,
