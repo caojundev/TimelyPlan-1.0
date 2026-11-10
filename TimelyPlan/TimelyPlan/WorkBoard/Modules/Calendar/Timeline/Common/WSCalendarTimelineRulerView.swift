@@ -68,7 +68,7 @@ class WSCalendarTimelineRulerView: UIView {
     }
 
     /// 时间标签所在列的宽度
-    var hourLabelWidth: CGFloat = 40.0 {
+    var hourLabelWidth: CGFloat = 36.0 {
         didSet {
             guard hourLabelWidth != oldValue else {
                 return
@@ -131,7 +131,7 @@ class WSCalendarTimelineRulerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        padding = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 8.0)
+        padding = UIEdgeInsets(top: 16.0, left: 0.0, bottom: 16.0, right: 4.0)
         contentMode = .redraw
         updateBackground()
     }

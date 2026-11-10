@@ -29,6 +29,9 @@ extension WSPluginType {
         /// 日历·大·时间线：当前整点起 6 个小时的刻度与事项。
         static let largeTimeline = make("calendarLargeTimeline", .large)
 
+        /// 日历·大·两天时间线：左侧今天，右侧明天的固定时间段。
+        static let largeTimelineTwoDays = make("calendarLargeTimelineTwoDays", .large)
+
         /// 日历·小·最近事项：按天分组列出最近的事项，只展示时间。
         static let smallUpcoming = make("calendarSmallUpcoming", .small)
 
@@ -77,7 +80,7 @@ extension WSPluginType {
         /// 模块内全部类型，顺序即组件选择器的展示顺序
         static let all: [WSPluginType] = [
             smallClassicDate, smallMinimalDate, smallCount, smallMonth,
-            mediumMonth, mediumMonthEventList, mediumTimeline, largeTimeline,
+            mediumMonth, mediumMonthEventList, mediumTimeline, largeTimeline, largeTimelineTwoDays,
             smallUpcoming, mediumUpcoming, largeUpcoming,
             mediumTwoDays, largeTwoDays,
             mediumEventBar2Days, mediumEventBar3Days, mediumEventBar4Days, mediumEventBar5Days,
@@ -94,8 +97,9 @@ extension WSPluginType {
             .init(WSCalendarSingleMonthPluginProvider(), title: "Month Calendar", subtitle: "Shows this month's calendar with event dots"),
             .init(WSCalendarDoubleMonthPluginProvider(), title: "Two Months", subtitle: "Shows this month and next month side by side"),
             .init(WSCalendarMediumMonthEventListPluginProvider(), title: "Month & Events", subtitle: "Shows this month's calendar with its events"),
-            .init(WSCalendarMediumTimelinePluginProvider(), title: "Timeline", subtitle: "Shows upcoming events"),
-            .init(WSCalendarLargeTimelinePluginProvider(), title: "Timeline", subtitle: "Shows upcoming events"),
+            .init(WSCalendarMediumTimelineTodayPluginProvider(), title: "Timeline", subtitle: "Shows upcoming events"),
+            .init(WSCalendarLargeTimelineTodayPluginProvider(), title: "Timeline", subtitle: "Shows upcoming events"),
+            .init(WSCalendarLargeTimelineTwoDaysPluginProvider(), title: "2-Day Timeline", subtitle: "Shows upcoming events for today and tomorrow"),
             .init(WSCalendarSmallUpcomingPluginProvider(), title: "Upcoming Events", subtitle: "Lists upcoming events grouped by day"),
             .init(WSCalendarMediumUpcomingPluginProvider(), title: "Upcoming Events", subtitle: "Lists upcoming events grouped by day with their source"),
             .init(WSCalendarLargeUpcomingPluginProvider(), title: "Upcoming Events", subtitle: "Lists upcoming events grouped by day with their source"),

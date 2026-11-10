@@ -1,5 +1,5 @@
 //
-//  WSCalendarMediumTimelineContentView.swift
+//  WSCalendarMediumTimelineTodayContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/9.
@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-/// 日历·中·时间线：左侧日期列，右侧展示当前整点起 4 个小时的刻度与事项。
-class WSCalendarMediumTimelineContentView: WSCalendarTimelineContentView {
+/// 日历·中·今天时间线：左侧日期列，右侧展示当前整点起 4 个小时的刻度与事项。
+class WSCalendarMediumTimelineTodayContentView: WSCalendarTimelineContentView {
 
     /// 布局尺寸
     private enum Metrics {

@@ -1,5 +1,5 @@
 //
-//  WSCalendarLargeTimelineContentView.swift
+//  WSCalendarLargeTimelineTodayContentView.swift
 //  TimelyPlan
 //
 //  Created by caojun on 2026/11/10.
@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-/// 日历·大·时间线：左上角日期信息，下方整块区域展示当前整点起 6 个小时的刻度与事项。
-class WSCalendarLargeTimelineContentView: WSCalendarTimelineContentView {
+/// 日历·大·今天时间线：左上角日期信息，下方整块区域展示当前整点起 6 个小时的刻度与事项。
+class WSCalendarLargeTimelineTodayContentView: WSCalendarTimelineContentView {
 
     /// 布局尺寸
     private enum Metrics {
@@ -83,8 +83,8 @@ class WSCalendarLargeTimelineContentView: WSCalendarTimelineContentView {
         /// 日期信息放在左上角，星期在上、天在下
         let weekdayHeight = ceil(Metrics.weekdayFont.lineHeight)
         let dayHeight = ceil(Metrics.dayFont.lineHeight)
-        
-        let labelFrame = frame.inset(by: UIEdgeInsets(left: 16.0))
+
+        let labelFrame = frame.inset(by: UIEdgeInsets(left: 12.0))
         weekdayLabel.frame = CGRect(x: labelFrame.minX,
                                     y: labelFrame.minY,
                                     width: labelFrame.width,

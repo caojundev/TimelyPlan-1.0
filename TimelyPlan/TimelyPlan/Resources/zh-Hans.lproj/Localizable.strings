@@ -79,6 +79,8 @@
 "Month & Events" = "月历与日程";
 "Shows this month's calendar with its events" = "左侧展示本月月历，右侧列出本月日程";
 "Shows upcoming events" = "显示即将到来的事项";
+"2-Day Timeline" = "两天时间线";
+"Shows upcoming events for today and tomorrow" = "展示今明两天即将到来的事项";
 "Shows events for today and tomorrow" = "以两列展示今天与明天的事项";
 "Habits" = "习惯";
 "Shows today's habits and progress" = "展示今日习惯与完成进度";

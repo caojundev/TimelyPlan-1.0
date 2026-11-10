@@ -1,25 +1,25 @@
 //
-//  WSCalendarLargeTimelinePluginProvider.swift
+//  WSCalendarMediumTimelineTodayPluginProvider.swift
 //  TimelyPlan
 //
-//  Created by caojun on 2026/11/10.
+//  Created by caojun on 2026/11/9.
 //
 
 import Foundation
 import UIKit
 
-/// 日历·大·时间线的组件提供者。展示当前整点起 6 个小时。
-class WSCalendarLargeTimelinePluginProvider: WSPluginProvider {
+/// 日历·中·今天时间线的组件提供者。展示当前整点起 4 个小时。
+class WSCalendarMediumTimelineTodayPluginProvider: WSPluginProvider {
 
     /// 展示的小时数
-    private let hourCount = 6
+    private let hourCount = 4
 
     var type: WSPluginType {
-        return .Calendar.largeTimeline
+        return .Calendar.mediumTimeline
     }
 
     func makeContentView() -> WSPluginContentView {
-        return WSCalendarLargeTimelineContentView()
+        return WSCalendarMediumTimelineTodayContentView()
     }
 
     func makeContentInteractor(plugin: WSPlugin, context: WSPluginContext) -> WSPluginContentInteractor {

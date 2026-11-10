@@ -57,4 +57,12 @@ struct WSCalendarTimelineDataItem: WSPluginDataItem {
         self.endHour = startHour + hourCount
         self.events = events
     }
+
+    /// 指定固定展示范围的初始化
+    init(date: Date, startHour: Int, endHour: Int, events: [CalendarEvent]) {
+        self.date = date.startOfDay()
+        self.startHour = startHour
+        self.endHour = endHour
+        self.events = events
+    }
 }

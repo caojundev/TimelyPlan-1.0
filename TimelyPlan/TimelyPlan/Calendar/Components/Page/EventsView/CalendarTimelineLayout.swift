@@ -31,6 +31,9 @@ final class CalendarTimelineLayout {
 
     let offsetWidth = 4.0
     
+    /// 重叠的阈值高度
+    private let overlapThresholdHeight = 12.0
+
     /// 时间线日期范围
     let dateRange: DateInterval
     
@@ -68,7 +71,6 @@ final class CalendarTimelineLayout {
     }
 
     // MARK: - 私有方法
-    
     // MARK: 事件分组
     /// 将重叠事件位置分组（直接或间接重叠的分为同一组）
     private func groupOverlappingEventPositions(_ positions: [EventPosition]) -> [[EventPosition]] {
@@ -78,7 +80,7 @@ final class CalendarTimelineLayout {
         var uf = UnionFind(count: positions.count)
         for i in 0..<positions.count {
             for j in (i+1)..<positions.count {
-                if positions[i].overlaps(with: positions[j], contentHeight: minEventHeight) {
+                if positions[i].overlaps(with: positions[j], contentHeight: overlapThresholdHeight) {
                     uf.union(i, j)
                 }
             }
